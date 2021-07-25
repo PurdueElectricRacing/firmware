@@ -1,5 +1,7 @@
+#include "apps.h"
 
-void _start (void)
+
+int main (void)
 {
     int i;
 

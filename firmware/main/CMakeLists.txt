@@ -1,9 +1,23 @@
 cmake_minimum_required(VERSION 3.10)
 
+set(TARGET_NAME MainModule)
+add_executable(${TARGET_NAME})
 
-add_executable(main main.c startup_stm32l432xx.s)
+make_cmsis_library(CMSIS_L432 STM32L432xx)
+target_link_libraries(${TARGET_NAME} CMSIS_L432)
 
-target_compile_options(main PRIVATE
+
+# Find all .c sources in project
+file(GLOB_RECURSE glob_sources "*.c")
+target_sources(${TARGET_NAME} PRIVATE ${glob_sources} startup_stm32l432xx.s)
+
+# Find directories for '#include'
+target_include_directories(${TARGET_NAME} 
+    PRIVATE apps
+)
+
+# GCC compile options
+target_compile_options(${TARGET_NAME} PRIVATE
         -mcpu=cortex-m4
         -mthumb
         -mfpu=fpv4-sp-d16
@@ -15,16 +29,12 @@ target_compile_options(main PRIVATE
         -Wall
 )
 
-target_link_options(main PRIVATE 
+# Linker options
+target_link_options(${TARGET_NAME} PRIVATE 
     -T${CMAKE_SOURCE_DIR}/main/STM32L432KCUx_FLASH.ld
     -mcpu=cortex-m4
     -mthumb
     -mfpu=fpv4-sp-d16
     -mfloat-abi=hard
-    --specs=nano.specs
-    -lc
-    -lm
-    -lnosys
+    --specs=nosys.specs
 )
-
-target_link_libraries(main INTERFACE stm32l4_cmsis)

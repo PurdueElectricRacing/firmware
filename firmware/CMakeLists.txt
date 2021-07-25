@@ -8,11 +8,8 @@ set(CMAKE_GENERATOR "Unix Makefiles")
 # Setup project 
 project(PER_FIRMWARE VERSION 1.0 LANGUAGES C ASM)
 
-
-
-
-
-find_library(stm32l4_cmsis "./cmake")
+# Add Modules
+include(cmake/FindCMSIS.cmake)
 
 # Add subdirectiory modules
 add_subdirectory(main)

@@ -4,6 +4,7 @@
 void test_apps()
 {
     apps_Init();
+    assert(apps_IsAPPSFaulted() == true);
 
     apps_Tick(0.0, 0.5);
     assert(apps_IsAPPSFaulted() == false);

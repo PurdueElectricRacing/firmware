@@ -11,5 +11,7 @@ project(PER_FIRMWARE VERSION 1.0 LANGUAGES C ASM)
 # Add Modules
 include(cmake/FindCMSIS.cmake)
 
+
 # Add subdirectiory modules
-add_subdirectory(main)
+add_subdirectory(main_module)
+add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)

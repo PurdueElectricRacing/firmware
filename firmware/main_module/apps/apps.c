@@ -1,5 +1,4 @@
 #include "apps.h"
-#include "math.h"
 
 /// Local Defines
 #define APPS_BRAKE_THRESHOLD                (0.3f)  // EV.5.7.1
@@ -15,18 +14,18 @@ typedef struct
 } apps_state_internal_S;
 
 /// Local Variables
-static apps_state_internal_S apps_state;
-
+static apps_state_internal_S apps_state = {
+    .enabled = true,        // Enable module
+    .apps_faulted = true,   // Start off faulted, this will clear if pedals are okay
+};
 
 /// Function definitions
 
 // Initilize this module
-void apps_Init()
+void apps_Init(void)
 {
-    apps_state.enabled = true;
-    apps_state.apps_faulted = false;
-}
 
+}
 
 // Called at motor torque send rate.
 // Tick APPS state machine
@@ -52,4 +51,10 @@ void apps_Tick(float throttle_pos, float brake_pos)
 bool apps_IsAPPSFaulted()
 {
     return (apps_state.enabled) && (apps_state.apps_faulted);
+}
+
+// Enable the faulted output of this module
+void apps_SetEnabled(bool enabled)
+{
+    apps_state.enabled = enabled;
 }

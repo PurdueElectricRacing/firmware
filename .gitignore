@@ -1,1 +1,3 @@
-/build/*
+
+# Dont upload our build artifacts, easily clean with `git clean -fdx`
+firmware/build/*

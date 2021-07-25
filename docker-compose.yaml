@@ -1,0 +1,9 @@
+services:
+    per:
+        build: .
+        container_name: develop
+        ports:
+            - 3333
+        volumes:
+            - ./firmware:/firmware
+        working_dir: /firmware 

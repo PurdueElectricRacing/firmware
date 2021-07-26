@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.10)
-
 # CMAKE file for building STM32CubeL4 CMSIS module
 
 set(LIB_PATH "${CMAKE_SOURCE_DIR}/common/STM32CubeL4")

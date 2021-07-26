@@ -1,9 +1,10 @@
 services:
-    per:
-        build: .
-        container_name: develop
-        ports:
-            - 3333
+    develop:                        # Main PER docker-compose entry
+        build: .                    # Specify path to Dockerfile 
+        image: my_per:latest
+        container_name: develop     # To identify which container this is 
+        ports:                      # Expose open ports from the container to the host machine
+            - 3333                  # Default openOCD port
         volumes:
-            - ./firmware:/firmware
-        working_dir: /firmware 
+            - ./:/per               # Mount our source directory to /per
+        working_dir: /per           # Switch to our working directroy

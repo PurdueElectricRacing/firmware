@@ -13,7 +13,8 @@ RUN wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-
 ENV PATH $PATH:/usr/gcc-arm-none-eabi-10-2020-q4-major/bin
 
 # Install dev depenincies
-ENV APK_ADD="make cmake gdb-multiarch"
-RUN apt -y install ${APK_ADD}
+ENV APT_ADD="make cmake gdb-multiarch dos2unix"
+RUN apt -y install ${APT_ADD}
 
 COPY .bashrc /etc/bash.bashrc
+CMD [" /bin/bash "]

@@ -14,8 +14,8 @@ set (LIBRARY_OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH})
 include(cmake/FindCMSIS.cmake)
 
 # Add Components
-add_subdirectory(components/MAIN_MODULE)
-add_subdirectory(components/PEDAL)
+add_subdirectory(components/main_module)
+add_subdirectory(components/pedal)
 
 # Eventually use this file for VSCODE code completion
 add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)

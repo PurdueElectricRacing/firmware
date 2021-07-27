@@ -2,7 +2,7 @@
 
 # PER Build runner script, basically just a wrapper for CMake and Make
 
-cd /per                 # Make sure we are in the root directory of our project
-cmake -S . -B build     # Invoke CMake
+cd /per                         # Make sure we are in the root directory of our project
+cmake -S . -B build -G Ninja "${@:1}"    # Invoke CMake
 cd build
-make all                # Make our target
+ninja                           # Make our target

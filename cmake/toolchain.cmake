@@ -15,7 +15,7 @@ set(CMAKE_ASM_COMPILER ${TOOLCHAIN_DIR}/arm-none-eabi-gcc)
 set(CMAKE_SIZE_UTIL    ${TOOLCHAIN_DIR}/arm-none-eabi-size)
 
 
-set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU}")
+set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16")
 set(C_CXX_FLAGS  "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding")
 set(CXX_FLAGS    "-fno-exceptions -fno-rtti -fno-threadsafe-statics")
 

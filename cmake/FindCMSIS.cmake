@@ -4,8 +4,12 @@ set(LIB_PATH "${CMAKE_SOURCE_DIR}/common/STM32CubeL4")
 
 function(make_cmsis_library LIB_NAME STM32_DEV_NAME)
     add_library(${LIB_NAME} STATIC)
+    string(TOLOWER STM32_DEV_NAME STM32_DEV_HEADER_NAME)
+
+    # Compile defs specific to target
     target_compile_definitions(${LIB_NAME}
-        PUBLIC -D${STM32_DEV_NAME}
+        PUBLIC ${STM32_DEV_NAME}
+        PUBLIC CMSIS_device_header="${STM32_DEV_HEADER_NAME}.h"
     )
 
     set(cmsis_includes "${LIB_PATH}/Drivers/CMSIS/Include")

@@ -1,16 +1,19 @@
 #include "stm32l432xx.h"
+#include "stm32l4xx_hal_can.h"
+#include "FreeRTOS.h"
 
 #include "apps.h"
 
+
 int main (void)
 {
-    int i;
     apps_Init();
-
-    while(i++ <= 100)
+    int i = 1;
+    if (i == 2 && 0)
     {
         asm("nop");
-        apps_Tick(1.0, 1.0);
+        HAL_CAN_StateTypeDef type = HAL_CAN_STATE_ERROR;
+        HAL_CAN_WakeUp(NULL);
     }
 
     // Test out link to CMSIS

@@ -16,5 +16,7 @@ ENV PATH $PATH:/usr/gcc-arm-none-eabi-10-2020-q4-major/bin
 ENV APT_ADD="ninja-build cmake dos2unix"
 RUN apt -y install --no-install-recommends ${APT_ADD}
 
+RUN apt -y install --no-install-recommends python3
+
 COPY bash.bashrc /etc/bash.bashrc
 RUN dos2unix /etc/bash.bashrc

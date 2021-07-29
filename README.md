@@ -30,4 +30,4 @@ docker compose run develop
 ```
 per_build
 ``` 
-> This command is a thin wrapper around CMake to build all of the components which will be placed in a newly created `output` folder.
+> This command is a thin wrapper around CMake to build all of the components which will be placed in a newly created `output` folder. Running `per_build --help` will give you more options for building components.

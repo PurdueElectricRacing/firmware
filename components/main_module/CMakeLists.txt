@@ -24,7 +24,7 @@ target_include_directories(${TARGET_NAME} PRIVATE apps hal)
 
 # Linker options
 target_link_options(${TARGET_NAME} PUBLIC 
-    -T${CMAKE_CURRENT_SOURCE_DIR}/STM32L432KCUx_FLASH.ld
+    -T${COMMON_SOURCE_DIR}/linker/STM32L432KCUx_FLASH.ld
 )
 
 postbuild_target(${COMPONENT_NAME})

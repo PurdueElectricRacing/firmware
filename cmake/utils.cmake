@@ -10,7 +10,7 @@ function(postbuild_target COMPONENT_NAME)
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND arm-none-eabi-objdump -xSsDg ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME} > ${COMPONENT_OUTPUT_DIR}/${COMPONENT_NAME}_info.txt
+        COMMAND arm-none-eabi-objdump -xDSs ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME} > ${COMPONENT_OUTPUT_DIR}/${COMPONENT_NAME}_info.txt
         COMMENT "Generating Sections & Disassembly Info..."
     )
 

@@ -10,6 +10,9 @@ project(PER_FIRMWARE VERSION 1.0 LANGUAGES C ASM)
 # Archive to new outut directory
 set(PROJECT_OUTPUT_DIR ${CMAKE_SOURCE_DIR}/output)
 
+# Common Variables
+set(COMMON_SOURCE_DIR ${CMAKE_SOURCE_DIR}/common)
+
 # Add Libraries
 include(cmake/FindCMSIS.cmake)
 include(cmake/FindSTM32HAL.cmake)

@@ -13,8 +13,7 @@ RUN wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-
 ENV PATH $PATH:/usr/gcc-arm-none-eabi-10-2020-q4-major/bin
 
 # Install dev depenincies
-ENV APT_ADD="ninja-build cmake dos2unix"
-RUN apt -y install --no-install-recommends ${APT_ADD}
+RUN apt -y install --no-install-recommends ninja-build cmake dos2unix
 
 RUN apt -y install --no-install-recommends python3
 

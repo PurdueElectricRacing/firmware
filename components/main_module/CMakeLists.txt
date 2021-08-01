@@ -6,9 +6,9 @@ set(TARGET_NAME ${COMPONENT_NAME}.elf)
 add_executable(${TARGET_NAME})
 
 # Add STM32_HAL Library
-target_link_libraries(${TARGET_NAME} STM32_HAL_LIB)
-target_link_libraries(STM32_HAL_LIB CMSIS_L432)
-target_include_directories(STM32_HAL_LIB PUBLIC hal)
+target_link_libraries(${TARGET_NAME} STM32_L4_HAL_LIB)
+target_link_libraries(STM32_L4_HAL_LIB CMSIS_L432)
+target_include_directories(STM32_L4_HAL_LIB PUBLIC hal)
 
 # Add FreeRTOS Library
 target_link_libraries(${TARGET_NAME} FREERTOS_LIB)

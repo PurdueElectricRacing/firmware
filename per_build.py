@@ -89,6 +89,3 @@ if options.target or not options.clean:
     if ninja_build.returncode != 0:
         subprocess.run(f"ninja -C {BUILD_DIR} help", shell=True) 
         print(f"\tERROR: Target `{TARGET}` not found. See above for a valid list of components.")
-
-
-

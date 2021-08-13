@@ -34,17 +34,10 @@ parser.add_option("--release",
     help="build for release (optimized)"
 )
 
-parser.add_option("--no_test", 
+parser.add_option("--no-test", 
     dest="no_test",
     action="store_true", default=False,
     help="don't run unit tests"
-)
-
-parser.add_option("-j", "--jobs", 
-    dest="jobs",
-    type="int",
-    action="store", default=4,
-    help="number of parallel build jobs to run (more is faster)"
 )
 
 parser.add_option("-v", "--verbose", 
@@ -58,34 +51,34 @@ parser.add_option("-v", "--verbose",
 
 BUILD_TYPE = "Release" if options.release else "Debug"
 TARGET = options.target if options.target else "all"
-JOBS = options.jobs
 VERBOSE = "--verbose" if options.verbose else ""
 RUN_TESTS = not options.no_test # TODO: This
 
 
 # Always clean if we specify
 if options.clean:
-    subprocess.run(f"rm -rf {BUILD_DIR} {OUT_DIR}", shell=True)
+    subprocess.run(["cmake", "-E", "rm", "-rf", BUILD_DIR, OUT_DIR])
     print("Build and output directories clean.")
 
 # Build the target if specified or we did not clean
 if options.target or not options.clean:
     CMAKE_OPTIONS = [
-        f"-S {SOURCE_DIR}",
-        f"-B {BUILD_DIR}",
-        "-G Ninja",
+        "-S", SOURCE_DIR,
+        "-B", BUILD_DIR,
+        "-G", "Ninja",
         f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
     ]
 
     NINJA_OPTIONS = [
-        f"{VERBOSE}", 
-        f"-j {JOBS}", 
-        f"-C {BUILD_DIR}",
-        f"{TARGET}",
+        "-C", str(BUILD_DIR),
+        TARGET,
     ]
-    subprocess.run(f"cmake {' '.join(CMAKE_OPTIONS)}", shell=True, check=True)
-    ninja_build = subprocess.run(f"ninja {' '.join(NINJA_OPTIONS)}", shell=True)
+    NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
+
+    subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
+    print(f"Running Build command {' '.join(NINJA_COMMAND)}")
+    ninja_build = subprocess.run(NINJA_COMMAND)
 
     if ninja_build.returncode != 0:
-        subprocess.run(f"ninja -C {BUILD_DIR} help", shell=True) 
+        subprocess.run(["ninja", "-C", BUILD_DIR, "help"]) 
         print(f"\tERROR: Target `{TARGET}` not found. See above for a valid list of components.")

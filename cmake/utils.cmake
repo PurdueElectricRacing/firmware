@@ -1,6 +1,11 @@
 # Helper for generating common CMake targets in the components directroy
 
-function(postbuild_target COMPONENT_NAME)
+function(postbuild_target COMPONENT_NAME TARGET_NAME)
+
+    # Print out memory section usage
+    target_link_options(${TARGET_NAME} PUBLIC
+        -Wl,--print-memory-usage
+    )
 
     # Archive generated image and perform post-processing output
     set(COMPONENT_OUTPUT_DIR ${PROJECT_OUTPUT_DIR}/${COMPONENT_NAME})
@@ -15,8 +20,24 @@ function(postbuild_target COMPONENT_NAME)
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND cmake -E echo 
+        COMMENT "Formatting"
+    )
+
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND arm-none-eabi-size ${TARGET_NAME} 
         COMMENT "Binary Output Size"
     )
 
 endfunction()
+
+MACRO(SUBDIRLIST curdir result)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+      LIST(APPEND dirlist ${child})
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()

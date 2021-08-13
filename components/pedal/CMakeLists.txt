@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.13)
 
 
-set(COMPONENT_NAME Pedals)
+get_filename_component(COMPONENT_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
+STRING(TOLOWER ${COMPONENT_NAME} COMPONENT_NAME)
 set(TARGET_NAME ${COMPONENT_NAME}.elf)
 add_executable(${TARGET_NAME})
 
@@ -15,11 +16,12 @@ file(GLOB_RECURSE glob_sources "*.c")
 target_sources(${TARGET_NAME} PRIVATE ${glob_sources} startup_stm32f407xx.s)
 
 # Find directories for '#include'
-target_include_directories(${TARGET_NAME} PUBLIC pedals hal)
+SUBDIRLIST(${CMAKE_CURRENT_LIST_DIR} include_dirs)
+target_include_directories(${TARGET_NAME} PRIVATE ${include_dirs})
 
 # Linker options
 target_link_options(${TARGET_NAME} PRIVATE 
     -T${COMMON_SOURCE_DIR}/linker/STM32F407VGTx_FLASH.ld
 )
 
-postbuild_target(${COMPONENT_NAME})
+postbuild_target(${COMPONENT_NAME} ${TARGET_NAME})

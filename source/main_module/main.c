@@ -1,13 +1,14 @@
 #include "stm32l432xx.h"
 #include "stm32l4xx_hal_can.h"
-#include "FreeRTOS.h"
 
 #include "apps.h"
+#include "per_rtos.h"
 
 
 int main (void)
 {
     apps_Init();
+    
     int i = 1;
     if (i == 2 && 0)
     {
@@ -18,6 +19,9 @@ int main (void)
 
     // Test out link to CMSIS
     RCC->AHB2RSTR &= !RCC_AHB2RSTR_GPIOARST;
+
+    // Test out link to Common module
+    rtosRunTasks();
 
     return 0;
 }

@@ -15,7 +15,3 @@ function(make_stm32_hal_library LIB_NAME LIB_PATH)
         PUBLIC ${glob_sources}
     )
 endfunction()
-
-# Create multiple libraries with different defines
-make_stm32_hal_library(STM32_L4_HAL_LIB ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/STM32L4xx_HAL_Driver)
-make_stm32_hal_library(STM32_F4_HAL_LIB ${CMAKE_SOURCE_DIR}/common/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver)

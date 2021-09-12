@@ -2,7 +2,6 @@
 
 # Wrapper for command line tools to build, clean, and debug firmware modules
 from optparse import OptionParser
-import os
 import pathlib
 import subprocess
 
@@ -63,8 +62,8 @@ if options.clean:
 # Build the target if specified or we did not clean
 if options.target or not options.clean:
     CMAKE_OPTIONS = [
-        "-S", SOURCE_DIR,
-        "-B", BUILD_DIR,
+        "-S", str(SOURCE_DIR),
+        "-B", str(BUILD_DIR),
         "-G", "Ninja",
         f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
     ]

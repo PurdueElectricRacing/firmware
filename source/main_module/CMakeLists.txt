@@ -11,12 +11,10 @@ target_link_libraries(${TARGET_NAME} STM32_L4_HAL_LIB)
 target_link_libraries(STM32_L4_HAL_LIB CMSIS_L432)
 target_include_directories(STM32_L4_HAL_LIB PUBLIC hal)
 
-# Add FreeRTOS Library
-target_link_libraries(${TARGET_NAME} FREERTOS_LIB)
-target_link_libraries(FREERTOS_LIB CMSIS_L432)
-target_include_directories(FREERTOS_LIB PUBLIC freertos)
+# Add PER RTOS Library
+target_link_libraries(${TARGET_NAME} PER_RTOS)
 
-# Find all .c sources in project
+# Find all .c sources in project, recursive search starting at component root
 file(GLOB_RECURSE glob_sources "*.c")
 target_sources(${TARGET_NAME} PRIVATE ${glob_sources} startup_stm32l432xx.s)
 
@@ -29,4 +27,5 @@ target_link_options(${TARGET_NAME} PUBLIC
     -T${COMMON_SOURCE_DIR}/linker/STM32L432KCUx_FLASH.ld
 )
 
+# Run postbuild actions like including a bootloader in the final image
 postbuild_target(${COMPONENT_NAME} ${TARGET_NAME})

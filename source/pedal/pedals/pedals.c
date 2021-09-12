@@ -1,8 +1,8 @@
 #include "pedals.h"
 #include <string.h>
 
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_adc.h"
+#include "stm32l4xx_hal.h"
+#include "stm32l4xx_hal_adc.h"
 
 /*---------------------------------------------------------------------------*/
 /* Stucture declarations                                                     */

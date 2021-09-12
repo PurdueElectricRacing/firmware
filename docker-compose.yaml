@@ -1,7 +1,7 @@
 services:
     develop:                        # Main PER docker-compose entry
         build: .                    # Specify path to Dockerfile 
-        image: my_per:latest
+        image: stm32_develop:latest
         container_name: develop     # To identify which container this is 
         ports:                      # Expose open ports from the container to the host machine
             - 3333                  # Default openOCD port

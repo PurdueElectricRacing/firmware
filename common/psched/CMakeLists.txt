@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-set(TARGET_NAME PER_RTOS)
+set(TARGET_NAME PSCHED)
 add_library(${TARGET_NAME})
 
 # Find all .c sources in project

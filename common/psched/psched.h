@@ -6,8 +6,8 @@
 // #define F4
 
 // Includes
-#include "stdint.h"
 #if defined(L4)
+
     #include "stm32l4xx.h"
     #include "system_stm32l4xx.h"
 #elif defined(F4)

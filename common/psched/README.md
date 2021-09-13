@@ -10,11 +10,11 @@ It should be relatively easy to implement. It's been tested a tad on an L4. F4 s
 - [X] Basic background loop
 - [X] Loop pausing
 - [X] Timing miss detection
-- [ ] Task deletion (written but untested)
+- [X] Task deletion
+- [X] Watchdog implementation
 - [ ] F4 support (written but untested)
 - [ ] Free running counter rather than interrupt based
 - [ ] Proper task execution time tracking
-- [ ] Watchdog implementation
 
 ## Using PSched
 

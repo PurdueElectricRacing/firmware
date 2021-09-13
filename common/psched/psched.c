@@ -48,6 +48,8 @@ void taskDelete(uint8_t type, uint8_t task)
      {
          fp[i] = fp[i + 1];
      }
+
+     --sched.task_count;
 }
 
 // @funcname: schedInit()
@@ -63,6 +65,7 @@ void schedInit(uint32_t freq)
         to use a different timer.
         DO NOT ATTEMPT TO CONFIGURE THIS TIMER IN CUBE!
         The configuration for this timer is done manually, right here.
+        The watchdog will trigger a reset if all loops take longer than 10 ms to return
 
         Also, functions need to return to work properly. The scheduler works on a timer interrupt.
         If the functions called in the timer interrupt, you're going to have a stack overflow.
@@ -73,19 +76,14 @@ void schedInit(uint32_t freq)
     // Configure timer 7
     // Targeting an interrupt every 1 ms
     RCC->APB1ENR1 |= RCC_APB1ENR1_TIM7EN;
-    TIM7->PSC = (freq / 100000) - 1;
-    TIM7->ARR = 10;
+    TIM7->PSC = (freq / 1000000) - 1;
+    TIM7->ARR = 1000;
     TIM7->CR1 &= ~(TIM_CR1_DIR);
     TIM7->DIER |= TIM_DIER_UIE;
 
     // Default all values
     memsetu((uint8_t*) &sched, 0, sizeof(sched));
     sched.of = freq;
-
-    // Setup watchdog
-    // IWDG->KR |= 0xCCCC;
-    // IWDG->KR |= 0x5555;
-    // IWDG->PR =  0; 
 }
 
 // @funcname: schedLoop()
@@ -101,7 +99,7 @@ static void schedLoop()
         // Prep iteration
         sched.core.task_entry_time = sched.os_ticks;
         sched.run_next = 0;
-
+        IWDG->KR = 0xAAAA;
 
         // Store task times
         sched.core.task_time = sched.os_ticks - sched.core.task_entry_time;
@@ -122,7 +120,7 @@ static void schedLoop()
             ++sched.skips;
         }
 
-        schedBg();
+        schedBg(); 
 
         // Compute time use
         sched.core.bg_time = sched.os_ticks - sched.core.bg_entry_time;
@@ -161,7 +159,15 @@ void schedStart()
 {
     TIM7->CR1 |= TIM_CR1_CEN;
     NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
+    IWDG->KR  =  0xCCCC;
+    IWDG->KR  =  0x5555;
+    IWDG->PR  |= 2;
+    IWDG->RLR =  20;
     sched.running = 1;
+
+    while ((IWDG->SR & 0b111) != 0);
+
+    IWDG->KR = 0xAAAA;
 
     schedLoop();
 }

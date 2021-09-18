@@ -17,6 +17,13 @@ define_property(TARGET PROPERTY CMSIS_PATH
     FULL_DOCS  "Path to CMSIS files"
 )
 
+# Function
+#   make_cmsis_library
+# Paramaters
+# - LIB_NAME; Name of the library output
+# - STM32_FAMILY_NAME; STM Family used to locate correct CMSIS defines
+# - STM32_DEVICE_NAME; Extended device name, reference /common/STM32CubeL4/Drivers/CMSIS/Device/ST/STM32L4xx/Source/gcc for examples
+# - LIB_PATH; Path to CMSIS root folder.
 function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PATH)
     add_library(${LIB_NAME} STATIC)
     string(TOLOWER ${STM32_DEVICE_NAME} STM32_DEVICE_NAME_LOWER)
@@ -51,5 +58,6 @@ function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PAT
 
     target_sources(${LIB_NAME} 
         PUBLIC ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/system_${STM32_FAMILY_NAME}.c
+        PUBLIC ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/gcc/startup_${STM32_DEVICE_NAME_LOWER}.s
     )
 endfunction()

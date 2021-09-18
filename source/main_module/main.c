@@ -20,6 +20,6 @@ int main (void)
     }
 
     // Test out link to Common module
-    
+
     return 0;
 }

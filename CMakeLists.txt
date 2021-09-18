@@ -25,3 +25,4 @@ add_subdirectory(common/psched)
 # Add Components
 add_subdirectory(source/main_module)
 add_subdirectory(source/pedal)
+add_subdirectory(source/bootloader_l4)

@@ -12,7 +12,7 @@ target_link_libraries(STM32_L4_HAL_LIB CMSIS_L432)
 target_include_directories(STM32_L4_HAL_LIB PUBLIC hal)
 
 # Add PER RTOS Library
-target_link_libraries(${TARGET_NAME} PER_RTOS)
+target_link_libraries(${TARGET_NAME} PSCHED)
 
 # Find all .c sources in project, recursive search starting at component root
 file(GLOB_RECURSE glob_sources "*.c")

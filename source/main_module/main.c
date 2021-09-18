@@ -2,7 +2,7 @@
 #include "stm32l4xx_hal_can.h"
 
 #include "apps.h"
-#include "per_rtos.h"
+#include "psched.h"
 
 
 int main (void)
@@ -21,7 +21,6 @@ int main (void)
     RCC->AHB2RSTR &= !RCC_AHB2RSTR_GPIOARST;
 
     // Test out link to Common module
-    rtosRunTasks();
-
+    
     return 0;
 }

@@ -1,4 +1,5 @@
 #include "psched.h"
+#include <stddef.h>
 
 static void schedLoop();
 static void schedBg();

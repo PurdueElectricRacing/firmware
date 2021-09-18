@@ -20,7 +20,7 @@ make_cmsis_library(CMSIS_L432 STM32L4xx STM32L432xx ${CMAKE_SOURCE_DIR}/common/S
 make_stm32_hal_library(STM32_L4_HAL_LIB ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/STM32L4xx_HAL_Driver)
 
 # Add Common modules
-add_subdirectory(common/per_rtos)
+add_subdirectory(common/psched)
 
 # Add Components
 add_subdirectory(source/main_module)

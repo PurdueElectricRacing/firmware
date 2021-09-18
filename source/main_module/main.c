@@ -8,17 +8,16 @@
 int main (void)
 {
     apps_Init();
-    
-    int i = 1;
-    if (i == 2 && 0)
-    {
-        asm("nop");
-        HAL_CAN_StateTypeDef type = HAL_CAN_STATE_ERROR;
-        HAL_CAN_WakeUp(NULL);
-    }
 
     // Test out link to CMSIS
-    RCC->AHB2RSTR &= !RCC_AHB2RSTR_GPIOARST;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM6EN;
+    TIM6->PSC      = (SystemCoreClock / 1000);
+    TIM6->ARR      = 1000;
+
+    while(1)
+    {
+        asm("bkpt");
+    }
 
     // Test out link to Common module
     

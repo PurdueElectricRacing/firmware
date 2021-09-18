@@ -1,0 +1,43 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Main Module",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/main_module/main_module.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/main_module"
+            ],
+            "preLaunchTask": "build"
+        },
+        {
+            "name": "Pedal",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/pedal/pedal.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/pedal"
+            ],
+            "preLaunchTask": "build"
+        }
+    ]
+}

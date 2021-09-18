@@ -3,3 +3,4 @@
 build/*
 output/*
 .vscode/settings.json
+.vscode/.cortex-debug.*

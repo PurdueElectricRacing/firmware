@@ -11,6 +11,17 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Submodule Update",
+            "group": "none",
+            "type": "shell",
+            "command": "git submodule update --init --recursive",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "runOptions": {"runOn": "folderOpen"}
         }
     ]
 }

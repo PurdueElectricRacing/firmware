@@ -1,10 +1,11 @@
 #include "stm32l432xx.h"
-#include "stm32l4xx_hal_can.h"
+#include "common/phal_L4/can/can.h"
+
 
 
 int main (void)
 {
-
+    PHAL_initCAN();
 
     return 0;
 }

@@ -23,6 +23,8 @@ make_stm32_hal_library(STM32_L4_HAL_LIB ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/D
 
 # Add Common modules
 add_subdirectory(common/psched)
+add_subdirectory(common/phal_L4)
+add_subdirectory(common/queue)
 
 # Add Components
 add_subdirectory(source/main_module)

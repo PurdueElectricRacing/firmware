@@ -11,6 +11,9 @@ target_link_libraries(${TARGET_NAME} STM32_L4_HAL_LIB)
 target_link_libraries(STM32_L4_HAL_LIB CMSIS_L432)
 target_include_directories(STM32_L4_HAL_LIB PUBLIC hal)
 
+# PER Libraries
+target_link_libraries(${TARGET_NAME} PHAL_L4)
+
 # Find all .c sources in project, recursive search starting at component root
 file(GLOB_RECURSE glob_sources "*.c")
 target_sources(${TARGET_NAME} PRIVATE ${glob_sources})

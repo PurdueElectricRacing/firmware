@@ -2,7 +2,7 @@
 #include "stm32l4xx_hal_can.h"
 
 #include "apps.h"
-#include "psched.h"
+#include "common/psched/psched.h"
 
 
 int main (void)

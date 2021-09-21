@@ -5,23 +5,21 @@
 #include "common/psched/psched.h"
 #include "common/phal_L4/gpio/gpio.h"
 
-GPIOConfig_t gpio_confg[] = {
-    {.bank=GPIOA, .pin=10, .type=ALT_FUNC, .config={.af_num    = 6         }},
-    {.bank=GPIOB, .pin=11, .type=OUTPUT,   .config={.push_pull = PULL_UP   }},
-    {.bank=GPIOC, .pin=12, .type=INPUT,    .config={.ospeed    = HIGH_SPEED}},
+GPIOInitConfig_t gpio_config[] = {
+    GPIO_INIT_CANRX_PA11,
+    GPIO_INIT_CANTX_PA12,
+    GPIO_INIT_INPUT(GPIOA, 10, GPIO_INPUT_OPEN_DRAIN),
 };
 
 int main (void)
 {
 
-    PHAL_initGPIO(gpio_confg, sizeof(gpio_confg)/sizeof(GPIOConfig_t));
+    PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
 
     while(1)
     {
         asm("bkpt");
     }
-
-    // Test out link to Common module
 
     return 0;
 }

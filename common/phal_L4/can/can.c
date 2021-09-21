@@ -10,12 +10,6 @@
  */
 #include "common/phal_L4/can/can.h"
 
-/**
- * @brief Initilize CAN peripheral to 500k. 
- * 
- * @return true Peripheral sucessfully initalized
- * @return false Peripheral stalled during initilization
- */
 bool PHAL_initCAN()
 {
     uint32_t timeout = 0;
@@ -73,15 +67,6 @@ bool PHAL_deinitCAN()
     return true;
 }
 
-/**
- * @brief Find an empty TX mailbox and transmit a CAN message if one is found.
- * Function will block until sucessful transmission of message until a specified timeout.
- * 
- * @param can CAN peripheral to transmit with
- * @param msgId Message ID
- * @return true Sucessful TX of message.
- * @return false Unable to find empty message or transmit took too long.
- */
 bool PHAL_txCANMessage(CanMsgTypeDef_t* msg)
 {
     uint8_t txMbox = 0;

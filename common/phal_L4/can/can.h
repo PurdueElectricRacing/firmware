@@ -1,5 +1,5 @@
 /**
- * @file hal_can_f4.h
+ * @file can.h
  * @author Adam Busch (busch8@purdue.edu)
  * @brief 
  * @version 0.1
@@ -9,8 +9,8 @@
  * 
  */
 
-#ifndef _PHAL_CAN
-#define _PHAL_CAN
+#ifndef _PHAL_CAN_H
+#define _PHAL_CAN_H
 
 #include "stm32l432xx.h"
 #include <stdbool.h>
@@ -25,11 +25,11 @@ typedef struct
   uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */
   uint32_t DLC; /*!< Specifies the length of the frame that will be transmitted. */
   uint8_t Data[8]; /*!< Contains the data to be transmitted. */
-} CanMsgTypeDef;
+} CanMsgTypeDef_t;
 
 bool PHAL_initCAN();
 bool PHAL_deinitCAN();
 
-bool PHAL_txCANMessage(CAN_TypeDef* can, CanMsgTypeDef* msg);
+bool PHAL_txCANMessage(CanMsgTypeDef_t* msg);
 
-#endif // _PHAL_CAN
+#endif // _PHAL_CAN_H

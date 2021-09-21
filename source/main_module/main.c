@@ -3,16 +3,18 @@
 
 #include "apps.h"
 #include "common/psched/psched.h"
+#include "common/phal_L4/gpio/gpio.h"
 
+GPIOConfig_t gpio_confg[] = {
+    {.bank=GPIOA, .pin=10, .type=ALT_FUNC, .config={.af_num    = 6         }},
+    {.bank=GPIOB, .pin=11, .type=OUTPUT,   .config={.push_pull = PULL_UP   }},
+    {.bank=GPIOC, .pin=12, .type=INPUT,    .config={.ospeed    = HIGH_SPEED}},
+};
 
 int main (void)
 {
-    apps_Init();
 
-    // Test out link to CMSIS
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM6EN;
-    TIM6->PSC      = (SystemCoreClock / 1000);
-    TIM6->ARR      = 1000;
+    PHAL_initGPIO(gpio_confg, sizeof(gpio_confg)/sizeof(GPIOConfig_t));
 
     while(1)
     {
@@ -23,3 +25,4 @@ int main (void)
 
     return 0;
 }
+

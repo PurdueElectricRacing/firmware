@@ -26,7 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include "daq.h"
+#include "daq/daq.h"
 void getData();
 void sendData();
 void errorHandler();

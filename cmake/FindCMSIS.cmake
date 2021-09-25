@@ -27,6 +27,7 @@ define_property(TARGET PROPERTY CMSIS_PATH
 function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PATH)
     add_library(${LIB_NAME} STATIC)
     string(TOLOWER ${STM32_DEVICE_NAME} STM32_DEVICE_NAME_LOWER)
+    string(TOLOWER ${STM32_FAMILY_NAME} STM32_FAMILY_NAME_LOWER)
 
     # Target propreties for getting the specific device paramaters from the CMSIS library
     # use get_target_properties(...) to extract this info
@@ -57,7 +58,7 @@ function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PAT
     )
 
     target_sources(${LIB_NAME} 
-        PUBLIC ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/system_${STM32_FAMILY_NAME}.c
+        PUBLIC ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/system_${STM32_FAMILY_NAME_LOWER}.c
         PUBLIC ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/gcc/startup_${STM32_DEVICE_NAME_LOWER}.s
     )
 endfunction()

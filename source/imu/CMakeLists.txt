@@ -17,7 +17,9 @@ target_sources(${TARGET_NAME} PRIVATE ${glob_sources})
 
 # Find directories for '#include'
 SUBDIRLIST(${CMAKE_CURRENT_LIST_DIR} include_dirs)
-target_include_directories(${TARGET_NAME} PRIVATE ${include_dirs})
+target_include_directories(${TARGET_NAME} PRIVATE ${include_dirs} ${CMAKE_CURRENT_LIST_DIR})
+
+target_link_libraries(${TARGET_NAME} PSCHED)
 
 # Linker options
 target_link_options(${TARGET_NAME} PUBLIC 

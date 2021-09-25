@@ -20,8 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "psched.h"
-#include "psched.c"
+#include "common/psched/psched.h"
 
 
 /* Private includes ----------------------------------------------------------*/

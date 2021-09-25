@@ -30,10 +30,12 @@ typedef struct
 /**
  * @brief Initilize CAN peripheral to 500k. 
  * 
+ * @param test_mode Initilize CAN peripheral for self test mode
+ * 
  * @return true Peripheral sucessfully initalized
  * @return false Peripheral stalled during initilization
  */
-bool PHAL_initCAN();
+bool PHAL_initCAN(bool test_mode);
 
 bool PHAL_deinitCAN();
 

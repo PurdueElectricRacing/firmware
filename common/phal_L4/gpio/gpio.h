@@ -90,7 +90,7 @@ typedef struct {
  * @param ospeed_sel Pin output speed selection
  */
 #define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel) \
-    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.opspeed = ospeed_sel}}
+    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.ospeed = ospeed_sel}}
 
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for alternate function
@@ -129,7 +129,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len);
  * @return true GPIO Input true
  * @return false GPIO Input false
  */
-bool inline PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin);
+inline bool PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin);
 
 /**
  * @brief Write a logic value to an output pin
@@ -138,6 +138,23 @@ bool inline PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin);
  * @param pin GPIO pin number
  * @param value Logical value to write
  */
-void inline PHAL_writeGPIO(GPIO_TypeDef* bank, uint8_t pin, bool value);
+inline void PHAL_writeGPIO(GPIO_TypeDef* bank, uint8_t pin, bool value);
+inline void PHAL_toggleGPIO(GPIO_TypeDef* bank, uint8_t pin);
+
+
+inline bool PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin)
+{
+    return (bank->IDR >> pin) & 0b1;
+}
+
+inline void PHAL_writeGPIO(GPIO_TypeDef* bank, uint8_t pin, bool value)
+{
+    bank->BSRR |= 1 << (pin + (16 * (!value))); // BSRR has "set" as bottom 16 bits and "reset" as top 16 
+}
+
+inline void PHAL_toggleGPIO(GPIO_TypeDef* bank, uint8_t pin)
+{
+    PHAL_writeGPIO(bank, pin, !PHAL_readGPIO(bank, pin));
+}
 
 #endif

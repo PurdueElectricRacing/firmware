@@ -4,6 +4,9 @@
 
 bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
 {
+
+    uint8_t afr_i;
+    
     for (int i = 0; i < config_len; i++)
     {
         // Enable clock
@@ -51,7 +54,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
                 break;
 
             case GPIO_TYPE_AF:
-                uint8_t afr_i = config[i].pin > 7 ? 1 : 0;
+                afr_i = config[i].pin > 7 ? 1 : 0;
                 config[i].bank->AFR[afr_i] &= ~(GPIO_AFRL_AFSEL0_Msk << (GPIO_AFRL_AFSEL1_Pos * (config[i].pin % 8)));
                 config[i].bank->AFR[afr_i] |= (config[i].config.af_num & GPIO_AFRL_AFSEL0_Msk) << (GPIO_AFRL_AFSEL1_Pos * (config[i].pin % 8));
                 break;
@@ -63,14 +66,4 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
                 return false;
         }
     } 
-}
-
-bool inline PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin)
-{
-    return (bank->IDR >> pin) & 0b1;
-}
-
-void inline PHAL_writeGPIO(GPIO_TypeDef* bank, uint8_t pin, bool value)
-{
-    bank->BSRR |= 1 << (pin + (16 * (~value))); // BSRR has "set" as bottom 16 bits and "reset" as top 16 
 }

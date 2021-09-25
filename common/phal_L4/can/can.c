@@ -10,7 +10,7 @@
  */
 #include "common/phal_L4/can/can.h"
 
-bool PHAL_initCAN()
+bool PHAL_initCAN(bool test_mode)
 {
     uint32_t timeout = 0;
 
@@ -35,10 +35,16 @@ bool PHAL_initCAN()
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    CAN1->BTR = 0x001c0063;
+    CAN1->BTR = 0x00050000;
     
     // Keep the bus active
     CAN1->MCR |= CAN_MCR_ABOM;
+
+    // Loopback mode in testing mode
+    if (test_mode)
+    {
+        CAN1->BTR |= CAN_BTR_LBKM;
+    }
     
     // Setup filters for all IDs
     CAN1->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks

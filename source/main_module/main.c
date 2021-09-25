@@ -9,7 +9,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANRX_PA11,
     GPIO_INIT_CANTX_PA12,
     // GPIO_INIT_INPUT(GPIOA, 10, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_OUTPUT(GPIOA, 8, GPIO_OUTPUT_LOW_SPEED)
+    GPIO_INIT_OUTPUT(GPIOA, 8, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOB, 0, GPIO_OUTPUT_LOW_SPEED)
 };
 
 void blinkTask(void);
@@ -41,10 +42,9 @@ void blinkTask(void)
     tx_msg.Data[0] = 0xAB;
     tx_msg.Data[1] = 0xCD;
     
-    if (++counter < 2)
+    if (PHAL_txCANMessage(&tx_msg))
     {
-        PHAL_toggleGPIO(GPIOA, 8);
-        PHAL_txCANMessage(&tx_msg);
+        PHAL_toggleGPIO(GPIOB, 0);
     }
 }
 

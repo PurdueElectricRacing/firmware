@@ -1,0 +1,79 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: TEST_NODE Pedalbox HUB_FL
+
+
+BO_ 2483028044 test_msg: 2 TEST_NODE
+ SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028619 throttle_brake: 4 Pedalbox
+ SG_ raw_brake : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ raw_throttle : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028618 wheel_speeds: 4 HUB_FL
+ SG_ br_speed : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bl_speed : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ fr_speed : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ fl_speed : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214592650 motor_current: 1 HUB_FL
+ SG_ current : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+
+
+
+CM_ BU_ TEST_NODE "";
+CM_ BU_ Pedalbox "";
+CM_ BU_ HUB_FL "";
+CM_ BO_ 2483028044 "test_msg desc";
+CM_ SG_ 2483028044 test_sig "";
+CM_ BO_ 2483028619 "throttle_brake desc";
+CM_ SG_ 2483028619 raw_brake "";
+CM_ SG_ 2483028619 raw_throttle "";
+CM_ BO_ 2483028618 "wheel_speeds desc";
+CM_ SG_ 2483028618 br_speed "";
+CM_ SG_ 2483028618 bl_speed "";
+CM_ SG_ 2483028618 fr_speed "";
+CM_ SG_ 2483028618 fl_speed "";
+CM_ BO_ 2214592650 "current of motor";
+CM_ SG_ 2214592650 current "";
+
+
+
+
+
+
+

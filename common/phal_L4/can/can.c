@@ -97,7 +97,14 @@ bool PHAL_txCANMessage(CanMsgTypeDef_t* msg)
     else   
         return false;   // Unable to find Mailbox
 
-    CAN1->sTxMailBox[txMbox].TIR  = (msg->StdId << CAN_TI0R_STID_Pos);  // ID
+    if (msg->IDE == 0)
+    {
+        CAN1->sTxMailBox[txMbox].TIR  = (msg->StdId << CAN_TI0R_STID_Pos);  // Standard ID
+    }
+    else
+    {
+        CAN1->sTxMailBox[txMbox].TIR  = (msg->ExtId << CAN_TI0R_EXID_Pos) | 4;  // Extended ID
+    }
     CAN1->sTxMailBox[txMbox].TDTR = (msg->DLC << CAN_TDT0R_DLC_Pos);    // Data Length
     CAN1->sTxMailBox[txMbox].TDLR = (uint32_t) *(&msg->Data[0]);        // Data
     CAN1->sTxMailBox[txMbox].TDHR = (uint32_t) *(&msg->Data[4]);        // Data

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Run DAQ automatic code generation
+execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/can_gen.py)
+
 # Setup arm-none-eabi as our compile toolcahin
 set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)
 include(cmake/utils.cmake)
@@ -30,3 +33,4 @@ add_subdirectory(common/queue)
 add_subdirectory(source/main_module)
 add_subdirectory(source/pedal)
 add_subdirectory(source/bootloader_l4)
+add_subdirectory(source/l4_testing)

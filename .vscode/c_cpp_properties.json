@@ -5,7 +5,8 @@
             "compileCommands": "${workspaceRoot}/build/compile_commands.json",
             "intelliSenseMode": "gcc-arm",
             "cStandard": "gnu17",
-            "cppStandard": "gnu++14"
+            "cppStandard": "gnu++14",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

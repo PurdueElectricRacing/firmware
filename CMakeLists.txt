@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Run DAQ automatic code generation
-execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/can_gen.py)
+execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py)
 
 # Setup arm-none-eabi as our compile toolcahin
 set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)

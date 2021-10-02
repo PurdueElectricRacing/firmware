@@ -38,9 +38,9 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_THROTTLE_BRAKE 200
-#define UP_WHEEL_SPEEDS 100
-#define UP_MOTOR_CURRENT 100
+#define UP_THROTTLE_BRAKE 5
+#define UP_WHEEL_SPEEDS 15
+#define UP_MOTOR_CURRENT 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \

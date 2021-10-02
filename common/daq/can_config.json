@@ -10,11 +10,7 @@
                         {   "msg_name":"test_msg",
                             "msg_desc":"test_msg desc",
                             "signals":[
-                                {
-                                    "sig_name": "test_sig",
-                                    "type":"uint16_t",
-                                    "length": 16
-                                }
+                                {"sig_name": "test_sig", "type":"uint16_t", "length": 16}
                             ],
                             "msg_period": 0,
                             "msg_hlp": 5,
@@ -30,20 +26,10 @@
                         {   "msg_name":"throttle_brake",
                             "msg_desc":"throttle_brake desc",
                             "signals":[
-                                {
-                                    "sig_name":"raw_throttle",
-                                    "sig_desc":"raw throttle from sensor",
-                                    "type":"uint16_t",
-                                    "length":16
-                                },
-                                {
-                                    "sig_name":"raw_brake",
-                                    "sig_desc":"raw brake from sensor",
-                                    "type":"uint16_t",
-                                    "length":16
-                                }
+                                {"sig_name":"raw_throttle","type":"uint16_t","length":16},
+                                {"sig_name":"raw_brake", "sig_desc":"raw brake from sensor", "type":"uint16_t", "length":16}
                             ],
-                            "msg_period":200,
+                            "msg_period":5,
                             "msg_hlp":5,
                             "msg_pgn":10
                         }
@@ -58,41 +44,21 @@
                         {   "msg_name": "wheel_speeds",
                             "msg_desc": "wheel_speeds desc",
                             "signals": [
-                                {
-                                    "sig_name": "fl_speed",
-                                    "type": "uint8_t",
-                                    "length": 8
-                                },
-                                {
-                                    "sig_name": "fr_speed",
-                                    "type": "uint8_t",
-                                    "length": 8
-                                },
-                                {
-                                    "sig_name": "bl_speed",
-                                    "type": "uint8_t",
-                                    "length": 8
-                                },
-                                {
-                                    "sig_name": "br_speed",
-                                    "type": "uint8_t",
-                                    "length": 8
-                                }
+                                {"sig_name": "fl_speed", "type": "uint8_t", "length": 8},
+                                {"sig_name": "fr_speed", "type": "uint8_t", "length": 8},
+                                {"sig_name": "bl_speed", "type": "uint8_t", "length": 8},
+                                {"sig_name": "br_speed", "type": "uint8_t", "length": 8}
                             ],
-                            "msg_period": 100,
+                            "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 10
                         },
                         {   "msg_name": "motor_current",
                             "msg_desc": "current of motor",
                             "signals": [
-                                {
-                                    "sig_name": "current",
-                                    "type": "uint8_t",
-                                    "length": 8
-                                }
+                                {"sig_name": "current", "type": "uint8_t", "length": 8}
                             ],
-                            "msg_period": 100,
+                            "msg_period": 5,
                             "msg_hlp": 1,
                             "msg_pgn": 2
                         }

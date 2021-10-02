@@ -62,6 +62,7 @@ void canSendTest()
     CanMsgTypeDef_t msg = {.ExtId=ID_TEST_MSG, .DLC=DLC_TEST_MSG, .IDE=1};
     CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
     data_a->test_msg.test_sig = counter;
+
     PHAL_txCANMessage(&msg);
 
     counter += 2;
@@ -90,11 +91,6 @@ void canReceiveTest()
     {
         PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, false);
     }
-}
-
-void SysTick_Handler(void)
-{
-  //HAL_IncTick();
 }
 
 void canTxUpdate()

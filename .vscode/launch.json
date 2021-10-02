@@ -56,7 +56,8 @@
                 "-d",
                 "${workspaceFolder}/source/l4_testing"
             ],
-            "preLaunchTask": "build"
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
         }
     ]
 }

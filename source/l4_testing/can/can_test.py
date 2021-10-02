@@ -16,14 +16,9 @@ msg2 = can.Message(arbitration_id=0x1400028a,
                   data=[5, 2, 3, 4],
                   is_extended_id=True)
 
-msg3 = can.Message(arbitration_id=0x1400058a,
-                  data=[5, 2, 3, 4],
+msg3 = can.Message(arbitration_id=0x1400008c,
+                  data=[0b00100101],
                   is_extended_id=True)
-try:
-    bus.send(msg)
-    print("Message sent on {}".format(bus.channel_info))
-except can.CanError:
-    print("Message NOT sent")
 
 # bus.send_periodic(msg, 0.2)
 # bus.send_periodic(msg2, 0.1)
@@ -31,7 +26,11 @@ bus.send_periodic(msg3, 0.5)
 
 try:
     while(True):
-        print(bus.recv(3))
+        rx = bus.recv(3)
+        if(rx.is_error_frame):
+            print("Error frame: " + str(rx.error_state_indicator))
+        
+        print(rx)
 
 except KeyboardInterrupt:
     bus.shutdown()

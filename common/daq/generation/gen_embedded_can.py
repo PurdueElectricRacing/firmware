@@ -1,41 +1,9 @@
-import json
-from jsonschema import validate
-from jsonschema.exceptions import ValidationError
+""" gen_embedded_can.py: Generates embedded code for CAN message parsing using structures with bit fields """
+
 import os
 from os import path
-import math
-import dbc_gen
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-def log_error(phrase):
-    print(f"{bcolors.FAIL}ERROR: {phrase}{bcolors.ENDC}")
-
-def log_warning(phrase):
-    print(f"{bcolors.WARNING}WARNING: {phrase}{bcolors.ENDC}")
-
-def log_success(phrase):
-    print(f"{bcolors.OKGREEN}{phrase}{bcolors.ENDC}")
-
-# 
-# CONFIGURATION
-#
-can_json_config_path = './common/daq/can_config.json'
-can_json_schema_path = './common/daq/can_schema.json'
-node_directory = './source'
-node_parse_c_dir = '/can/can_parse.c'
-node_parse_h_dir = '/can/can_parse.h'
-
-dbc_path = './common/daq/per_dbc.dbc'
+import  generator
+import json
 
 #
 # GENERATION STRINGS
@@ -57,86 +25,27 @@ gen_stale_case_stop = "END AUTO STALE CHECKS"
 gen_filter_start = "BEGIN AUTO FILTER"
 gen_filter_stop = "END AUTO FILTER"
 
-def generate_ids():
-    """ Combine hlp, pgn, and ssa for each message and add 'id' key"""
-    global can_config
-    for bus in can_config['busses']:
-        for node in bus['nodes']:
-            ssa = node['node_ssa']
-            for msg in node['tx']:
-                hlp = msg['msg_hlp']
-                pgn = msg['msg_pgn']
 
-                # hlp (3) + pgn (20) + ssa (6) bits
-                id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
-                # print(msg['msg_name'] + " id: "+ hex(id))
-                msg['id'] = id
-
-def generate_dlcs():
-    """ Add up signal lengths and add 'dlc' key to each message """
-    global can_config
-    for bus in can_config['busses']:
-        for node in bus['nodes']:
-            for msg in node['tx']:
-                msg_length = 0
-                for sig in msg['signals']:
-                    msg_length += sig['length']
-                msg['dlc'] =  math.ceil(msg_length / 8.0)
-                # print(msg['msg_name'] + " dlc: "+ str(msg['dlc']))
-                if msg['dlc'] > 8:
-                    log_error("DLC too long for " + msg['msg_name'])
-                    quit()
-
-def check_repeat_defs():
-    """ Checks for repeated message definitions or ids"""
-    global can_config
-
-    message_names = []
-    for bus in can_config['busses']:
-        message_ids = []
-        node_ssas = []
-        node_names = []
-        for node in bus['nodes']:
-            if node['node_name'] in node_names:
-                log_error(f"Found identical node names: {node['node_name']}")
-                quit()
-            else:
-                node_names.append(node['node_name'])
-            if node['node_ssa'] in node_ssas:
-                log_error(f"Found identical node ssas for {node['node_name']} of ssa: {node['node_ssa']}")
-                quit()
-            else:
-                node_ssas.append(node['node_ssa'])
-            for msg in node['tx']:
-                if msg['msg_name'] in message_names:
-                    log_error(f"Found multiple definitions for {msg['msg_name']}")
-                    quit()
-                else:
-                    message_names.append(msg['msg_name'])
-                if msg['id'] in message_ids:
-                    log_error(f"Found identical message ids for {msg['msg_name']} with id {hex(msg['id'])}")
-                    quit()
-                else:
-                    message_ids.append(msg['id'])
-
-def find_node_paths(head_dir, node_names):
+def find_node_paths(node_names, source_dir, c_dir, h_dir):
     """
     searches through the head_dir for the c and h files
     with a "NODE_NAME" definition matching one in node_names
 
-    @param head_dir     directory to search for nodes in
     @param node_names   list of node names to search for
+    @param source_dir   directory to search for nodes in
+    @param c_dir        directory within node of source file
+    @param h_dir        directory within node of header file
 
     @return a dictionary of [h_path, c_path] for each node name
     """
 
     node_paths = {}
 
-    for folder in os.listdir(head_dir):
+    for folder in os.listdir(source_dir):
         # print("Searching for nodes in "+str(folder) + " directory")
 
-        c_path = node_directory+'/'+folder+node_parse_c_dir
-        h_path = node_directory+'/'+folder+node_parse_h_dir
+        c_path = source_dir+'/'+folder+c_dir
+        h_path = source_dir+'/'+folder+h_dir
 
         if path.exists(h_path):
             with open(h_path) as h_file:
@@ -150,11 +59,11 @@ def find_node_paths(head_dir, node_names):
                             if path.exists(c_path):
                                 node_paths[name] = [h_path, c_path]
                             else:
-                                log_warning("C file not found for " + name +" at "+c_path)
+                                generator.log_warning("C file not found for " + name +" at "+c_path)
                         break
 
         else:
-            log_warning("Header not found for "+ folder + " at " + h_path)
+            generator.log_warning("Header not found for "+ folder + " at " + h_path)
     print(f"Node matches found: {list(node_paths.keys())}") 
     return node_paths
 
@@ -168,9 +77,6 @@ def insert_lines(source: list, start, stop, new_lines):
 
     @return          source lines with the modification
     """
-    # inserts lines between start and stop lines within the source
-    # removes anything between start and stop that was there before
-    # returns source with new lines
 
     curr_idx = 0
     start_idx = 0
@@ -184,11 +90,9 @@ def insert_lines(source: list, start, stop, new_lines):
         curr_idx += 1
     
     if stop_idx <= start_idx or stop_idx == 0 or start_idx ==0:
-        log_error("Insert lines failed for start "+start+" and stop "+stop)
-        log_error("Check to make sure the start and stop phrases are correct")
+        generator.log_error("Insert lines failed for start "+start+" and stop "+stop)
+        generator.log_error("Check to make sure the start and stop phrases are correct")
         quit()
-
-    #print("start: "+str(start_idx)+" stop: "+str(stop_idx))
 
     # remove existing lines
     del source[start_idx+1:stop_idx]
@@ -222,7 +126,7 @@ def find_rx_messages(rx_names):
             if rx_found:
                 break
         if not rx_found:
-            log_error("Message def not found for rx " + str(rx))
+            generator.log_error("Message def not found for rx " + str(rx))
             quit()
     
     return msg_defs
@@ -233,15 +137,16 @@ def configure_node(node_config, node_paths):
     @param  node_config     json config for the specific node
     @param  node_paths      paths to [h file, c file] for that node
     """
-    # for a given node, generate code for c and h files
 
-    print("configuring node " + node_config['node_name'])
+    print("Configuring Node " + node_config['node_name'])
 
     # Combine message definitions
     raw_msg_defs = []
     raw_msg_defs += node_config['tx']
     receiving_msg_defs = find_rx_messages(node_config['rx'])
-    raw_msg_defs += receiving_msg_defs
+    for new_msg in receiving_msg_defs:
+        if new_msg not in raw_msg_defs:
+            raw_msg_defs.append(new_msg)
 
     #
     # Configure header file ------------------
@@ -331,7 +236,7 @@ def configure_node(node_config, node_paths):
     filter_bank = 0
     for msg in receiving_msg_defs:
         if(filter_bank > 27):
-            log_error(f"Max filter bank reached for node {node_config['node_name']}")
+            generator.log_error(f"Max filter bank reached for node {node_config['node_name']}")
             quit()
         if not on_mask:
             filter_lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
@@ -347,15 +252,12 @@ def configure_node(node_config, node_paths):
     with open(node_paths[1], "w") as c_file:
         c_file.writelines(c_lines)
 
-    #for line in c_lines:
-    #    print(line[:-1])
-
-def configure_bus(bus):
+def configure_bus(bus, source_dir, c_dir, h_dir):
     """ 
     Generates c code for each node on bus
     @param bus  bus dictionary configuration
     """
-    print('configuring bus ' + bus['bus_name'])
+    print('Configuring Bus ' + bus['bus_name'])
 
     # extract node names from config
     node_names = []
@@ -363,7 +265,7 @@ def configure_bus(bus):
         node_names.append(node['node_name'])
 
     # find file paths for each node
-    node_paths = find_node_paths(node_directory, node_names)
+    node_paths = find_node_paths(node_names, source_dir, c_dir, h_dir)
     matched_keys = node_paths.keys()
 
     # iterate through all matched nodes
@@ -374,36 +276,18 @@ def configure_bus(bus):
                 configure_node(node, node_paths[node_key])
                 break
 
-def gen_can():
+def gen_embedded_can(config, source_dir, c_dir, h_dir):
     """ Generate can parsing code """
 
-    # load CAN json
-    global can_config
-    can_config = json.load(open(can_json_config_path))
-    can_schema = json.load(open(can_json_schema_path))
-
-    # compare with schema
-    try:
-        validate(can_config, can_schema)
-    except ValidationError as e:
-        log_error("Invalid JSON!")
-        print(e)
-        quit()
-
-    generate_ids()
-    generate_dlcs()
-    check_repeat_defs()
-    
-    for bus in can_config['busses']:
-        configure_bus(bus)
-    
-    # JSON -> DBC conversion
-    dbc_gen.gen_dbc(can_config)
-
-
-if __name__ == "__main__":
-    gen_can()
-
-def define_config(config):
     global can_config
     can_config = config
+
+    for bus in can_config['busses']:
+        configure_bus(bus, source_dir, c_dir, h_dir)
+
+    generator.log_success("Embedded Code Generated")
+
+if __name__ == "__main__":
+    gen_config = json.load(open(generator.GENERATOR_CONFIG_JSON_PATH))
+    config = generator.load_message_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
+    gen_embedded_can(config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])

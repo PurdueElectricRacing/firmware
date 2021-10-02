@@ -1,15 +1,10 @@
+""" gen_dbc.py: Converts CAN Message JSON configuration to DBC file """
+
 from cantools import db
-import can_gen
 import json
-from jsonschema import validate
-from jsonschema.exceptions import ValidationError
-import pickle
+import generator
 
-#can_db = cantools.db.Database()
-DBC_PATH = './common/daq/per_dbc.dbc'
-PICKLE_PATH = './common/daq/per_msg_objs.pkl'
-
-def gen_dbc(can_config, dbc_path=DBC_PATH):
+def gen_dbc(can_config, dbc_path):
     """ Converts from json to dbc format """
 
     nodes = []
@@ -58,25 +53,10 @@ def gen_dbc(can_config, dbc_path=DBC_PATH):
     with open(dbc_path,'w',newline='\n') as fout:
         fout.write(can_db.as_dbc_string())
     
-    can_gen.log_success("DBC Generated at " + dbc_path)
+    generator.log_success("DBC Generated at " + dbc_path)
 
-def main():
-    can_config = json.load(open(can_gen.can_json_config_path))
-    can_schema = json.load(open(can_gen.can_json_schema_path))
-    can_gen.define_config(can_config)
-
-    # compare with schema
-    try:
-        validate(can_config, can_schema)
-    except ValidationError as e:
-        can_gen.log_fail("Invalid JSON!")
-        print(e)
-        quit()
-
-    can_gen.generate_ids()
-    can_gen.generate_dlcs()
-
-    gen_dbc(can_config)
 
 if __name__ == "__main__":
-    main()
+    gen_config = json.load(open(generator.GENERATOR_CONFIG_JSON_PATH))
+    config = generator.load_message_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
+    gen_dbc(config, gen_config['dbc_output_path'])

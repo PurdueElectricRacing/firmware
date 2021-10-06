@@ -9,6 +9,7 @@ A mega-repository full of all firmware projects, build tools, and dependencies t
  ```
 ## Getting Started
 1. Initialize the git submodules in this project with the command `git submodule update --init --recursive` to download the source for the various git submodules.
+2. Install the required python packages with the command `pip install -r requirements.txt`.
 
 ### Option A) Local Package Install
 Install these packages:

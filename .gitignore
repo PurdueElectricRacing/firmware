@@ -4,3 +4,8 @@ build/*
 output/*
 .vscode/settings.json
 .vscode/.cortex-debug.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

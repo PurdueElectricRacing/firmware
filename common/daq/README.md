@@ -6,7 +6,7 @@ In order to configure a new CAN node, add can_parse.c and can_parse.h using the 
 
 ## Live JSON Schema Support
 To have live JSON schema support add the following to the settings.json file:
-'''
+```
 {
     "json.schemas": [
     {
@@ -17,16 +17,4 @@ To have live JSON schema support add the following to the settings.json file:
     }
     ]
 }
-'''
-
-## Adding Code Generation as a VSCode Task
-Add the following to tasks.json within the .vscode directory:
-'''
-{
-    "label": "can_gen",
-    "type": "shell",
-    "command": "python ./common/daq/generation/generator.py",
-    "problemMatcher": []
-}
-'''
-
+```

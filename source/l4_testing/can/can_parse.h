@@ -17,7 +17,7 @@
 // Make this match the node name within the can_config.json
 #define NODE_NAME "TEST_NODE"
 
-#define RX_UPDATE_PERIOD 5 // ms
+#define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
@@ -97,6 +97,12 @@ typedef struct {
 
 extern can_data_t can_data;
 
+/* BEGIN AUTO EXTERN CALLBACK */
+/* END AUTO EXTERN CALLBACK */
+
+/* BEGIN AUTO EXTERN RX IRQ */
+/* END AUTO EXTERN RX IRQ */
+
 /**
  * @brief Setup queue and message filtering
  * 
@@ -110,5 +116,12 @@ void initCANParse(q_handle_t* q_rx_can_a);
  *        check for stale messages
  */
 void canRxUpdate();
+
+/**
+ * @brief Process any rx message callbacks from the CAN Rx IRQ
+ * 
+ * @param rx rx data from message just recieved
+ */
+void canProcessRxIRQs(CanMsgTypeDef_t* rx);
 
 #endif

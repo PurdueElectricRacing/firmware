@@ -103,8 +103,8 @@ def output_bus_load(can_config):
                 if msg['msg_period'] != 0:
                     load = (msg['dlc'] * 8 + overhead_per_msg) * bit_time / (msg['msg_period']/1000)
                     total_load += load
-                    print(f"{msg['msg_name']}: {load*100}%")
-        print(f"Total load for bus {bus['bus_name']}: {total_load*100}% (calculated with only periodic messages)")
+                    print(f"{msg['msg_name']}: {round(load*100,3)}%")
+        print(f"Total load for bus {bus['bus_name']}: {round(total_load*100,3)}% (calculated with only periodic messages)")
 
 
 def load_message_config(config_path, schema_path):

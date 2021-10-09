@@ -41,16 +41,16 @@
                 "tx":{
                     "type":"array",
                     "description":"messages transmitted by the node",
-                    "items":{"$ref":"#/$defs/message"}
+                    "items":{"$ref":"#/$defs/tx_message"}
                 },
                 "rx":{
                     "type":"array",
                     "description":"messages received by the node",
-                    "items":{"type":"string"}
+                    "items":{"$ref":"#/$defs/rx_message"}
                 }
             }
         },
-        "message":{
+        "tx_message":{
             "type":"object",
             "required":["msg_name", "msg_desc", "signals", "msg_period", 
                         "msg_hlp", "msg_pgn"],
@@ -95,6 +95,15 @@
                     "minimum":1,
                     "maimum":64
                 }
+            }
+        },
+        "rx_message":{
+            "type":"object",
+            "required":["msg_name"],
+            "properties":{
+                "msg_name":{"type":"string"},
+                "callback":{"type":"boolean"},
+                "irq":{"type":"boolean"}
             }
         }
     }

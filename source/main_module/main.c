@@ -60,8 +60,8 @@ void CAN1_RX0_IRQHandler()
     {
         CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
         rx0_msg.StdId   = CAN1->sFIFOMailBox[0].RIR;
-        *((uint32_t *)(rx0_msg.Data[0])) = CAN1->sFIFOMailBox[0].RDLR;
-        *((uint32_t *)(rx0_msg.Data[4])) = CAN1->sFIFOMailBox[0].RDHR;
+        //*((uint32_t *)(rx0_msg.Data[0])) = CAN1->sFIFOMailBox[0].RDLR;
+        //*((uint32_t *)(rx0_msg.Data[4])) = CAN1->sFIFOMailBox[0].RDHR;
         // Put into a queue
     }
 }

@@ -15,16 +15,24 @@
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
-#define NODE_NAME "TEMPLATE_NODE"
+#define NODE_NAME "TORQUE_VECTOR"
 
 #define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
+#define ID_TORQUE_REQUEST 0x4000049
+#define ID_BITSTREAM_FLASH_STATUS 0x1909
+#define ID_BITSTREAM_DATA 0x1000193f
+#define ID_BITSTREAM_REQUEST 0x1000197f
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
+#define DLC_TORQUE_REQUEST 6
+#define DLC_BITSTREAM_FLASH_STATUS 1
+#define DLC_BITSTREAM_DATA 8
+#define DLC_BITSTREAM_REQUEST 5
 /* END AUTO DLC DEFS */
 
 // Stale Checking
@@ -37,19 +45,52 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
+typedef union { __attribute__((packed))
+    struct {
+        uint64_t front_left: 12;
+        uint64_t front_right: 12;
+        uint64_t rear_left: 12;
+        uint64_t rear_right: 12;
+    }torque_request;
+    struct {
+        uint64_t flash_success: 1;
+        uint64_t flash_timeout_rx: 1;
+    }bitstream_flash_status;
+    struct {
+        uint64_t word_0: 32;
+        uint64_t word_1: 32;
+    }bitstream_data;
+    struct {
+        uint64_t download_request: 1;
+        uint64_t download_size: 32;
+    }bitstream_request;
+    uint8_t raw_data[8];
+} CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
 
 // contains most up to date received
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
+typedef struct {
+    struct {
+        uint32_t word_0;
+        uint32_t word_1;
+    } bitstream_data;
+    struct {
+        uint8_t download_request;
+        uint32_t download_size;
+    } bitstream_request;
+} can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */
+extern void bitstream_data_IRQ(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN RX IRQ */
 
 /**

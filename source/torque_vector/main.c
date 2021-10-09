@@ -1,3 +1,4 @@
+#include "main.h"
 #include "stm32l432xx.h"
 #include "can_parse.h"
 #include "common/psched/psched.h"
@@ -5,15 +6,28 @@
 #include "common/phal_L4/gpio/gpio.h"
 
 GPIOInitConfig_t gpio_config[] = {
-  GPIO_INIT_CANRX_PA11,
-  GPIO_INIT_CANTX_PA12,
+    GPIO_INIT_CANRX_PA11,
+    GPIO_INIT_CANTX_PA12,
+    // QuadSPI Chip Selects
+    GPIO_INIT_OUTPUT(QUADSPI_CS_FLASH_GPIO_Port, QUADSPI_CS_FLASH_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(QUADSPI_CS_FPGA_GPIO_Port, QUADSPI_CS_FPGA_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // QuadSPI Data/CLK
+    GPIO_INIT_AF(QUADSPI_CLK_GPIO_Port, QUADSPI_CLK_Pin, 10),
+    GPIO_INIT_AF(QUADSPI_IO0_GPIO_Port, QUADSPI_IO0_Pin, 10),
+    GPIO_INIT_AF(QUADSPI_IO1_GPIO_Port, QUADSPI_IO1_Pin, 10),
+    GPIO_INIT_AF(QUADSPI_IO2_GPIO_Port, QUADSPI_IO2_Pin, 10),
+    GPIO_INIT_AF(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 10),
+    // I2C Bus
+    GPIO_INIT_AF(I2C_SCL_GPIO_Port, I2C_SCL_Pin, 4),
+    GPIO_INIT_AF(I2C_SDA_GPIO_Port, I2C_SDA_Pin, 4),
+    GPIO_INIT_OUTPUT(I2C_WRITE_CONTROL_GPIO_Port, I2C_WRITE_CONTROL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // Status LEDs
+    GPIO_INIT_OUTPUT(ERROR_LED_GPIO_Port, ERROR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED)
 };
 
 // Function Prototypes
-void canReceiveTest();
-void canSendTest();
-void Error_Handler();
-void SysTick_Handler();
 void canTxUpdate();
 
 q_handle_t q_tx_can;

@@ -48,6 +48,7 @@ DAQ_Status_TypeDef daqInit(I2C_HandleTypeDef *hi2c, CAN_HandleTypeDef *hcan,
 													 DAQ_TypeDef *daq);
 DAQ_Status_TypeDef daqReadData(DAQ_TypeDef *daq);
 DAQ_Status_TypeDef daqSendImuData(DAQ_TypeDef *daq, IMU_Data_TypeDef data_type);
+DAQ_Status_TypeDef yawRateGetter(DAQ_TypeDef *daq); //added an extra typedef 
 
 void initCompleteFlash();
 

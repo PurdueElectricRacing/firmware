@@ -13,6 +13,7 @@
 
 
 #include "daq.h"
+#include <stdio.h>
 
 
 void initCompleteFlash()
@@ -136,7 +137,28 @@ DAQ_Status_TypeDef daqSendImuData(DAQ_TypeDef *daq, IMU_Data_TypeDef data_type)
 	{
 		return CAN_ERROR;
 	}
-
+	
 	return DAQ_OK;
 
+}
+
+int16_t gyro_x;
+int16_t gyro_y;
+int16_t gyro_z;
+int16_t accel_x;
+int16_t accel_y;
+int16_t accel_z;
+
+DAQ_Status_TypeDef yawRateGetter(DAQ_TypeDef *daq)
+{
+	IMU_t * imu = &(daq->imu);
+	ImuSensor * accel = &(imu->accelerometer);
+  	ImuSensor * gyro = &(imu->gyro);
+	gyro_x = gyro->x.high<<8 | gyro->x.low;
+	gyro_y = gyro->y.high<<8 | gyro->y.low;
+	gyro_z = gyro->z.high<<8 | gyro->z.low;
+	accel_x = accel->x.high<<8 | accel->x.low;
+	accel_y = accel->y.high<<8 | accel->y.low;
+	accel_z = accel->z.high<<8 | accel->z.low;
+	return DAQ_OK;
 }

@@ -27,8 +27,11 @@
 /* USER CODE BEGIN Includes */
 
 #include "daq/daq.h"
+#include "lsm6ds33.h"
+
 void getData();
 void sendData();
+void yawRate();
 void errorHandler();
 /* USER CODE END Includes */
 
@@ -148,8 +151,9 @@ int main(void)
 
   initCompleteFlash();
   schedInit(32000000);
-  taskCreate(getData,1000);
+  taskCreate(getData,1);
   taskCreate(sendData,1000);
+  taskCreate(yawRate,1);
   schedStart();
 
 
@@ -406,7 +410,7 @@ void getData(void)
 	{
 		taskDelete(0,0);
 		taskDelete(0,0);
-		schedInit(32000000);
+    taskDelete(0,0);
 		taskCreate(errorHandler, 500);
 		schedStart();
 	}
@@ -420,10 +424,26 @@ void sendData(void)
 		{
 			taskDelete(0,0);
 			taskDelete(0,0);
+      taskDelete(0,0);
 			taskCreate(errorHandler, 500);
 			schedStart();
 		}
 	}
+}
+
+void yawRate(void)
+{
+  if (yawRateGetter(&daq) != DAQ_OK)
+  {
+      taskDelete(0,0);
+			taskDelete(0,0);
+      taskDelete(0,0);
+			taskCreate(errorHandler, 500);
+			schedStart();
+  }
+
+
+
 }
 
 void errorHandler(void)
@@ -432,6 +452,8 @@ void errorHandler(void)
 
 
 }
+
+
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number

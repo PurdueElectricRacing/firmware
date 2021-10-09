@@ -109,7 +109,7 @@ static void schedLoop()
         // Execute tasks
         for (i = 0; i < sched.task_count; i++)
         {
-            if (sched.os_ticks % sched.task_time[i] == 0)
+            if (sched.core.task_entry_time % sched.task_time[i] == 0)
             {
                 (*sched.task_pointer[i])();
             }

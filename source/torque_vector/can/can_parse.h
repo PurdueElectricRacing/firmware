@@ -22,13 +22,17 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_TORQUE_REQUEST 0x4000049
+#define ID_BITSTREAM_FLASH_STATUS 0x1909
 #define ID_BITSTREAM_DATA 0x1000193f
+#define ID_BITSTREAM_REQUEST 0x1000197f
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_TORQUE_REQUEST 6
+#define DLC_BITSTREAM_FLASH_STATUS 1
 #define DLC_BITSTREAM_DATA 8
+#define DLC_BITSTREAM_REQUEST 5
 /* END AUTO DLC DEFS */
 
 // Stale Checking
@@ -49,9 +53,17 @@ typedef union { __attribute__((packed))
         uint64_t rear_right: 12;
     }torque_request;
     struct {
+        uint64_t flash_success: 1;
+        uint64_t flash_timeout_rx: 1;
+    }bitstream_flash_status;
+    struct {
         uint64_t word_0: 32;
         uint64_t word_1: 32;
     }bitstream_data;
+    struct {
+        uint64_t download_request: 1;
+        uint64_t download_size: 32;
+    }bitstream_request;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -64,14 +76,22 @@ typedef struct {
         uint32_t word_0;
         uint32_t word_1;
     } bitstream_data;
+    struct {
+        uint8_t download_request;
+        uint32_t download_size;
+    } bitstream_request;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void bitstream_data_callback(CanParsedData_t* msg_data_a);
+extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
+
+/* BEGIN AUTO EXTERN RX IRQ */
+extern void bitstream_data_IRQ(CanParsedData_t* msg_data_a);
+/* END AUTO EXTERN RX IRQ */
 
 /**
  * @brief Setup queue and message filtering
@@ -86,5 +106,12 @@ void initCANParse(q_handle_t* q_rx_can_a);
  *        check for stale messages
  */
 void canRxUpdate();
+
+/**
+ * @brief Process any rx message callbacks from the CAN Rx IRQ
+ * 
+ * @param rx rx data from message just recieved
+ */
+void canProcessRxIRQs(CanMsgTypeDef_t* rx);
 
 #endif

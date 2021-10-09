@@ -26,6 +26,10 @@ gen_filter_start = "BEGIN AUTO FILTER"
 gen_filter_stop = "END AUTO FILTER"
 gen_callback_start = "BEGIN AUTO EXTERN CALLBACK"
 gen_callback_stop = "END AUTO EXTERN CALLBACK"
+gen_rx_irq_start = "BEGIN AUTO RX IRQ"
+gen_rx_irq_stop = "END AUTO RX IRQ"
+gen_irq_extern_start = "BEGIN AUTO EXTERN RX IRQ"
+gen_irq_extern_stop = "END AUTO EXTERN RX IRQ"
 
 
 def find_node_paths(node_names, source_dir, c_dir, h_dir):
@@ -203,8 +207,13 @@ def configure_node(node_config, node_paths):
 
     # Rx callbacks
     rx_callbacks = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
-    extern_callback_lines = [f"extern void {msg_name}_callback(CanParsedData_t* msg_data_a);\n" for msg_name in rx_callbacks]
+    extern_callback_lines = [f"extern void {msg_name}_CALLBACK(CanParsedData_t* msg_data_a);\n" for msg_name in rx_callbacks]
     h_lines = insert_lines(h_lines, gen_callback_start, gen_callback_stop, extern_callback_lines)
+
+    rx_irq_names = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
+    extern_callback_lines = [f"extern void {msg_name}_IRQ(CanParsedData_t* msg_data_a);\n" for msg_name in rx_irq_names]
+    h_lines = insert_lines(h_lines, gen_irq_extern_start, gen_irq_extern_stop, extern_callback_lines)
+
 
     # Write changes to header file
     with open(node_paths[0], "w") as h_file:
@@ -226,7 +235,7 @@ def configure_node(node_config, node_paths):
             case_lines.append(f"                can_data.{msg['msg_name']}.stale = 0;\n")
             case_lines.append(f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")
         if msg['msg_name'] in rx_callbacks:
-            case_lines.append(f"                {msg['msg_name']}_callback(msg_data_a);\n")
+            case_lines.append(f"                {msg['msg_name']}_CALLBACK(msg_data_a);\n")
         case_lines.append("                break;\n")
     c_lines = insert_lines(c_lines, gen_switch_case_start, gen_switch_case_stop, case_lines)
 
@@ -256,6 +265,15 @@ def configure_node(node_config, node_paths):
             on_mask = False
             filter_bank += 1
     c_lines = insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
+    
+    # Rx IRQ callbacks
+    rx_irq_lines = []
+    for rx_irq in rx_irq_names:
+        rx_irq_lines.append(f"            case ID_{rx_irq.upper()}:\n")
+        rx_irq_lines.append(f"                {rx_irq}_IRQ(msg_data_a);\n")
+        rx_irq_lines.append(f"                break;\n")
+    c_lines = insert_lines(c_lines, gen_rx_irq_start, gen_rx_irq_stop, rx_irq_lines)
+    
 
     # Write changes to source file
     with open(node_paths[1], "w") as c_file:

@@ -3,6 +3,9 @@
 
 #include "can_parse.h"
 
-void bitstream_data_callback(CanParsedData_t* msg_data_a);
+#define BITSTREAM_FLASH_RX_TIMEOUT (50)
+
+void bitstream_init();
+void bitstream_10Hz();
 
 #endif

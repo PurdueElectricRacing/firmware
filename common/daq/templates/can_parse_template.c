@@ -72,3 +72,17 @@ bool initCANFilter()
 
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }
+
+void canProcessRxIRQs(CanMsgTypeDef_t* rx)
+{
+    CanParsedData_t* msg_data_a;
+
+    msg_data_a = (CanParsedData_t *) rx->Data;
+    switch(rx->ExtId)
+    {
+        /* BEGIN AUTO RX IRQ */
+        /* END AUTO RX IRQ */
+        default:
+            __asm__("nop");
+    }
+}

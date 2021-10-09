@@ -83,6 +83,8 @@ void CAN1_RX0_IRQHandler()
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
+        canProcessRxIRQs(&rx);
+
         CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)

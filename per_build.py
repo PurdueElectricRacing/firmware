@@ -5,6 +5,28 @@ from optparse import OptionParser
 import pathlib
 import subprocess
 
+# Logging helper functions
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def log_error(phrase):
+    print(f"{bcolors.FAIL}ERROR: {phrase}{bcolors.ENDC}")
+
+def log_warning(phrase):
+    print(f"{bcolors.WARNING}WARNING: {phrase}{bcolors.ENDC}")
+
+def log_success(phrase):
+    print(f"{bcolors.OKGREEN}{phrase}{bcolors.ENDC}")
+
+
 # Get build directory path
 CWD = pathlib.Path.cwd()
 BUILD_DIR = CWD/"build"
@@ -75,9 +97,11 @@ if options.target or not options.clean:
     NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
 
     subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
-    print(f"Running Build command {' '.join(NINJA_COMMAND)}")
+    log_success(f"Running Build command {' '.join(NINJA_COMMAND)}")
     ninja_build = subprocess.run(NINJA_COMMAND)
 
+
     if ninja_build.returncode != 0:
-        subprocess.run(["ninja", "-C", BUILD_DIR, "help"]) 
-        print(f"\tERROR: Target `{TARGET}` not found. See above for a valid list of components.")
+        log_error("Unable to generate target.")
+    else:
+        log_success("Sucessfully built targets.")

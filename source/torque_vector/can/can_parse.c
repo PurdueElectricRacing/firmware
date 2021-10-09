@@ -40,7 +40,11 @@ void canRxUpdate()
             case ID_BITSTREAM_DATA:
                 can_data.bitstream_data.word_0 = msg_data_a->bitstream_data.word_0;
                 can_data.bitstream_data.word_1 = msg_data_a->bitstream_data.word_1;
-                bitstream_data_callback(msg_data_a);
+                break;
+            case ID_BITSTREAM_REQUEST:
+                can_data.bitstream_request.download_request = msg_data_a->bitstream_request.download_request;
+                can_data.bitstream_request.download_size = msg_data_a->bitstream_request.download_size;
+                bitstream_request_CALLBACK(msg_data_a);
                 break;
             /* END AUTO CASES */
             default:            // ID wasn't recognized
@@ -68,6 +72,7 @@ bool initCANFilter()
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_BITSTREAM_DATA << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_BITSTREAM_REQUEST << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
@@ -78,4 +83,22 @@ bool initCANFilter()
          ;
 
     return timeout != PHAL_CAN_INIT_TIMEOUT;
+}
+
+
+void canProcessRxIRQs(CanMsgTypeDef_t* rx)
+{
+    CanParsedData_t* msg_data_a;
+
+    msg_data_a = (CanParsedData_t *) rx->Data;
+    switch(rx->ExtId)
+    {
+        /* BEGIN AUTO RX IRQ */
+            case ID_BITSTREAM_DATA:
+                bitstream_data_IRQ(msg_data_a);
+                break;
+        /* END AUTO RX IRQ */
+        default:
+            __asm__("nop");
+    }
 }

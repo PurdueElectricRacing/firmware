@@ -87,10 +87,21 @@
                             "msg_period":15,
                             "msg_hlp":1,
                             "msg_pgn":1
+                        },
+                        {   "msg_name":"bitstream_flash_status",
+                            "msg_desc":"Status message for bitstream flashing",
+                            "signals":[
+                                {"sig_name":"flash_success", "sig_desc":"Done flashing bitstream","type":"uint8_t","length":1},
+                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":100
                         }
                     ],
                     "rx":[
-                        {"msg_name": "bitstream_data", "callback": true}
+                        {"msg_name": "bitstream_data",    "callback": false, "irq": true},
+                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
                     ]
                 },
                 {
@@ -100,15 +111,26 @@
                         {   "msg_name":"bitstream_data",
                             "msg_desc":"Bitstream download command",
                             "signals":[
-                                {"sig_name":"word_0", "sig_desc":"torque request. 0-4096","type":"uint32_t","length":32},
-                                {"sig_name":"word_1", "sig_desc":"torque request. 0-4096","type":"uint32_t","length":32}
+                                {"sig_name":"word_0", "sig_desc":"Bitstream data word 0","type":"uint32_t","length":32},
+                                {"sig_name":"word_1", "sig_desc":"Bitstream data word 1","type":"uint32_t","length":32}
                             ],
                             "msg_period":0,
                             "msg_hlp":4,
                             "msg_pgn":100
+                        },
+                        {   "msg_name":"bitstream_request",
+                            "msg_desc":"Bitstream state command",
+                            "signals":[
+                                {"sig_name":"download_request", "sig_desc":"Request to download new bitstream","type":"uint8_t","length":1},
+                                {"sig_name":"download_size", "sig_desc":"size for expected bitstream download (bytes)","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":4,
+                            "msg_pgn":101
                         }
                     ],
-                    "rx":[
+                    "rx":[ 
+                        {"msg_name": "bitstream_flash_status"}
                     ]
                 }
             ]

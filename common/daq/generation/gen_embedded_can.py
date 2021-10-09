@@ -24,6 +24,8 @@ gen_stale_case_start = "BEGIN AUTO STALE CHECKS"
 gen_stale_case_stop = "END AUTO STALE CHECKS"
 gen_filter_start = "BEGIN AUTO FILTER"
 gen_filter_stop = "END AUTO FILTER"
+gen_callback_start = "BEGIN AUTO EXTERN CALLBACK"
+gen_callback_stop = "END AUTO EXTERN CALLBACK"
 
 
 def find_node_paths(node_names, source_dir, c_dir, h_dir):
@@ -143,7 +145,7 @@ def configure_node(node_config, node_paths):
     # Combine message definitions
     raw_msg_defs = []
     raw_msg_defs += node_config['tx']
-    receiving_msg_defs = find_rx_messages(node_config['rx'])
+    receiving_msg_defs = find_rx_messages([rx_config["msg_name"] for rx_config in node_config['rx']])
     for new_msg in receiving_msg_defs:
         if new_msg not in raw_msg_defs:
             raw_msg_defs.append(new_msg)
@@ -199,6 +201,11 @@ def configure_node(node_config, node_paths):
     can_struct_lines.append("} can_data_t;\n")
     h_lines = insert_lines(h_lines, gen_can_struct_start, gen_can_struct_stop, can_struct_lines)
 
+    # Rx callbacks
+    rx_callbacks = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
+    extern_callback_lines = [f"extern void {msg_name}_callback(CanParsedData_t* msg_data_a);\n" for msg_name in rx_callbacks]
+    h_lines = insert_lines(h_lines, gen_callback_start, gen_callback_stop, extern_callback_lines)
+
     # Write changes to header file
     with open(node_paths[0], "w") as h_file:
         h_file.writelines(h_lines)
@@ -218,6 +225,8 @@ def configure_node(node_config, node_paths):
         if msg['msg_period'] > 0:
             case_lines.append(f"                can_data.{msg['msg_name']}.stale = 0;\n")
             case_lines.append(f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")
+        if msg['msg_name'] in rx_callbacks:
+            case_lines.append(f"                {msg['msg_name']}_callback(msg_data_a);\n")
         case_lines.append("                break;\n")
     c_lines = insert_lines(c_lines, gen_switch_case_start, gen_switch_case_stop, case_lines)
 

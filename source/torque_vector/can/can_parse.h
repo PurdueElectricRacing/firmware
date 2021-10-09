@@ -15,32 +15,25 @@
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
-#define NODE_NAME "TEST_NODE"
+#define NODE_NAME "TORQUE_VECTOR"
 
 #define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TEST_MSG 0x1400004c
-#define ID_THROTTLE_BRAKE 0x1400028b
-#define ID_WHEEL_SPEEDS 0x1400028a
-#define ID_MOTOR_CURRENT 0x400008a
+#define ID_TORQUE_REQUEST 0x4000049
+#define ID_BITSTREAM_DATA 0x1000193f
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_TEST_MSG 2
-#define DLC_THROTTLE_BRAKE 4
-#define DLC_WHEEL_SPEEDS 4
-#define DLC_MOTOR_CURRENT 1
+#define DLC_TORQUE_REQUEST 6
+#define DLC_BITSTREAM_DATA 8
 /* END AUTO DLC DEFS */
 
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_THROTTLE_BRAKE 5
-#define UP_WHEEL_SPEEDS 15
-#define UP_MOTOR_CURRENT 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -50,21 +43,15 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t test_sig: 16;
-    }test_msg;
+        uint64_t front_left: 12;
+        uint64_t front_right: 12;
+        uint64_t rear_left: 12;
+        uint64_t rear_right: 12;
+    }torque_request;
     struct {
-        uint64_t raw_throttle: 16;
-        uint64_t raw_brake: 16;
-    }throttle_brake;
-    struct {
-        uint64_t fl_speed: 8;
-        uint64_t fr_speed: 8;
-        uint64_t bl_speed: 8;
-        uint64_t br_speed: 8;
-    }wheel_speeds;
-    struct {
-        uint64_t current: 8;
-    }motor_current;
+        uint64_t word_0: 32;
+        uint64_t word_1: 32;
+    }bitstream_data;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -74,30 +61,16 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t raw_throttle;
-        uint16_t raw_brake;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_brake;
-    struct {
-        uint8_t fl_speed;
-        uint8_t fr_speed;
-        uint8_t bl_speed;
-        uint8_t br_speed;
-        uint8_t stale;
-        uint32_t last_rx;
-    } wheel_speeds;
-    struct {
-        uint8_t current;
-        uint8_t stale;
-        uint32_t last_rx;
-    } motor_current;
+        uint32_t word_0;
+        uint32_t word_1;
+    } bitstream_data;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void bitstream_data_callback(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /**

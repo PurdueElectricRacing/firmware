@@ -46,6 +46,9 @@
 
 extern can_data_t can_data;
 
+/* BEGIN AUTO EXTERN CALLBACK */
+/* END AUTO EXTERN CALLBACK */
+
 /**
  * @brief Setup queue and message filtering
  * 

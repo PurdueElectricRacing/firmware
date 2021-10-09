@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: TEST_NODE Pedalbox HUB_FL
+BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER
 
 
 BO_ 2483028044 test_msg: 2 TEST_NODE
@@ -52,12 +52,24 @@ BO_ 2483028618 wheel_speeds: 4 HUB_FL
 BO_ 2214592650 motor_current: 1 HUB_FL
  SG_ current : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214592585 torque_request: 6 TORQUE_VECTOR
+ SG_ rear_right : 36|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left : 24|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_right : 12|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left : 0|12@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415925567 bitstream_data: 8 TESTER
+ SG_ word_1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ word_0 : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+
 
 
 
 CM_ BU_ TEST_NODE "";
 CM_ BU_ Pedalbox "";
 CM_ BU_ HUB_FL "";
+CM_ BU_ TORQUE_VECTOR "";
+CM_ BU_ TESTER "";
 CM_ BO_ 2483028044 "test_msg desc";
 CM_ SG_ 2483028044 test_sig "";
 CM_ BO_ 2483028619 "throttle_brake desc";
@@ -70,6 +82,14 @@ CM_ SG_ 2483028618 fr_speed "";
 CM_ SG_ 2483028618 fl_speed "";
 CM_ BO_ 2214592650 "current of motor";
 CM_ SG_ 2214592650 current "";
+CM_ BO_ 2214592585 "Torque request for all motors.";
+CM_ SG_ 2214592585 rear_right "";
+CM_ SG_ 2214592585 rear_left "";
+CM_ SG_ 2214592585 front_right "";
+CM_ SG_ 2214592585 front_left "";
+CM_ BO_ 2415925567 "Bitstream download command";
+CM_ SG_ 2415925567 word_1 "";
+CM_ SG_ 2415925567 word_0 "";
 
 
 

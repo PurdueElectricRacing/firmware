@@ -1,9 +1,12 @@
-#include "main.h"
 #include "stm32l432xx.h"
 #include "can_parse.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
+#include "common/phal_L4/quadspi/quadspi.h"
 #include "common/phal_L4/gpio/gpio.h"
+
+#include "main.h"
+#include "bitstream.h"
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANRX_PA11,
@@ -41,14 +44,21 @@ int main (void)
     // HAL Library Setup
     PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
     PHAL_initCAN(false);
+    PHAL_qspiInit();
+
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     initCANParse(&q_rx_can);
+
+    // Initilize modules
+    bitstreamInit();
 
     // Schedule Tasks
     schedInit(SystemCoreClock);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);
+    taskCreate(bitstream10Hz, 100);
+    taskCreate(bitstream100Hz, 10);
     schedStart();
     
     return 0;

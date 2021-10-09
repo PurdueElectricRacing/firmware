@@ -63,8 +63,14 @@ BO_ 2147490057 bitstream_flash_status: 1 TORQUE_VECTOR
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415925567 bitstream_data: 8 TESTER
- SG_ word_1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
- SG_ word_0 : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d5 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d4 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d3 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d2 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d0 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415925631 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
@@ -99,8 +105,14 @@ CM_ BO_ 2147490057 "Status message for bitstream flashing";
 CM_ SG_ 2147490057 flash_timeout_rx "";
 CM_ SG_ 2147490057 flash_success "";
 CM_ BO_ 2415925567 "Bitstream download command";
-CM_ SG_ 2415925567 word_1 "";
-CM_ SG_ 2415925567 word_0 "";
+CM_ SG_ 2415925567 d7 "";
+CM_ SG_ 2415925567 d6 "";
+CM_ SG_ 2415925567 d5 "";
+CM_ SG_ 2415925567 d4 "";
+CM_ SG_ 2415925567 d3 "";
+CM_ SG_ 2415925567 d2 "";
+CM_ SG_ 2415925567 d1 "";
+CM_ SG_ 2415925567 d0 "";
 CM_ BO_ 2415925631 "Bitstream state command";
 CM_ SG_ 2415925631 download_size "";
 CM_ SG_ 2415925631 download_request "";

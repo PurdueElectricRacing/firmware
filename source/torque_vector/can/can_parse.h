@@ -57,8 +57,14 @@ typedef union { __attribute__((packed))
         uint64_t flash_timeout_rx: 1;
     }bitstream_flash_status;
     struct {
-        uint64_t word_0: 32;
-        uint64_t word_1: 32;
+        uint64_t d0: 8;
+        uint64_t d1: 8;
+        uint64_t d2: 8;
+        uint64_t d3: 8;
+        uint64_t d4: 8;
+        uint64_t d5: 8;
+        uint64_t d6: 8;
+        uint64_t d7: 8;
     }bitstream_data;
     struct {
         uint64_t download_request: 1;
@@ -73,8 +79,14 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint32_t word_0;
-        uint32_t word_1;
+        uint8_t d0;
+        uint8_t d1;
+        uint8_t d2;
+        uint8_t d3;
+        uint8_t d4;
+        uint8_t d5;
+        uint8_t d6;
+        uint8_t d7;
     } bitstream_data;
     struct {
         uint8_t download_request;

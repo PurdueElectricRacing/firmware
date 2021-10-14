@@ -1,0 +1,20 @@
+{
+    "$schema":"./daq_schema.json",
+    "busses":[
+        {
+            "bus_name":"Main",
+            "daq_ssa":50,
+            "daq_rx_pgn":1048575,
+            "nodes":[
+                {
+                    "node_name":"TEST_NODE",
+                    "daq_enable":true,
+                    "variables":[
+                        {"var_name":"test_var", "read_only":true, "bit_length":8},
+                        {"var_name":"test_var2", "read_only":false, "bit_length":12}
+                    ]
+                }
+            ]
+        }
+    ]
+}

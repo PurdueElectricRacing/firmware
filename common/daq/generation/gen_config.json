@@ -2,8 +2,12 @@
     "info": "Configuration for Code Generation",
     "can_json_config_path": "./common/daq/can_config.json",
     "can_json_schema_path": "./common/daq/can_schema.json",
+    "daq_json_config_path": "./common/daq/daq_config.json",
+    "daq_json_schema_path": "./common/daq/daq_schema.json",
     "source_directory": "./source",
     "node_parse_c_dir": "/can/can_parse.c",
     "node_parse_h_dir": "/can/can_parse.h",
+    "node_daq_c_dir": "/daq/daq.c",
+    "node_daq_h_dir": "/daq/daq.h",
     "dbc_output_path": "./common/daq/per_dbc.dbc"
 }

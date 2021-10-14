@@ -2,9 +2,12 @@
 
 import math
 import json
+import os
+from os import path
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 import gen_embedded_can
+import gen_embedded_daq
 import gen_dbc
 
 # Generator configuration relative to project directory
@@ -91,6 +94,83 @@ def check_repeat_defs(can_config):
                 else:
                     message_ids.append(msg['id'])
 
+def insert_lines(source: list, start, stop, new_lines):
+    """ 
+    Insert lines between start and stop lines, writes over pre-existing data
+    @param source    source lines to edit
+    @param start     phrase contained in line to begin generation after
+    @param stop      phrase contained in line after generation section
+    @param new_lines list of lines to place between start and stop
+
+    @return          source lines with the modification
+    """
+
+    curr_idx = 0
+    start_idx = 0
+    stop_idx = 0
+    for line in source:
+        if start in line:
+            start_idx = curr_idx
+        elif stop in line:
+            stop_idx = curr_idx
+            break
+        curr_idx += 1
+    
+    if stop_idx <= start_idx or stop_idx == 0 or start_idx ==0:
+        log_error("Insert lines failed for start "+start+" and stop "+stop)
+        log_error("Check to make sure the start and stop phrases are correct")
+        quit()
+
+    # remove existing lines
+    del source[start_idx+1:stop_idx]
+    
+    # add new lines
+    for idx, nl in enumerate(new_lines):
+        source.insert(start_idx + 1 + idx, nl)
+
+    return source
+
+def find_node_paths(node_names, source_dir, c_dir, h_dir):
+    """
+    searches through the head_dir for the c and h files
+    with a "NODE_NAME" definition matching one in node_names
+
+    @param node_names   list of node names to search for
+    @param source_dir   directory to search for nodes in
+    @param c_dir        directory within node of source file
+    @param h_dir        directory within node of header file
+
+    @return a dictionary of [h_path, c_path] for each node name
+    """
+
+    node_paths = {}
+
+    for folder in os.listdir(source_dir):
+        # print("Searching for nodes in "+str(folder) + " directory")
+
+        c_path = source_dir+'/'+folder+c_dir
+        h_path = source_dir+'/'+folder+h_dir
+
+        if path.exists(h_path):
+            with open(h_path) as h_file:
+                for line in h_file.readlines():
+                    if "NODE_NAME" in line:
+                        a = line.index("\"")
+                        b = line.index("\"", a+1)
+                        name = line[a+1:b]
+                        if name in node_names:
+                            # print("Match found for " + name)
+                            if path.exists(c_path):
+                                node_paths[name] = [h_path, c_path]
+                            else:
+                                log_warning("C file not found for " + name +" at "+c_path)
+                        break
+
+        else:
+            log_warning("Header not found for "+ folder + " at " + h_path)
+    print(f"Node matches found: {list(node_paths.keys())}") 
+    return node_paths
+
 def output_bus_load(can_config):
     """ calculates bus load based on message periods and sizes """
     overhead_per_msg = 64 + 18 # frame + possible stuffing
@@ -106,34 +186,42 @@ def output_bus_load(can_config):
                     print(f"{msg['msg_name']}: {round(load*100,3)}%")
         print(f"Total load for bus {bus['bus_name']}: {round(total_load*100,3)}% (calculated with only periodic messages)")
 
-
-def load_message_config(config_path, schema_path):
-    """ loads message definitions from json and validates with schema """
+def load_json_config(config_path, schema_path):
+    """ loads config from json and validates with schema """
     config = json.load(open(config_path))
-    can_schema = json.load(open(schema_path))
+    schema = json.load(open(schema_path))
 
     # compare with schema
     try:
-        validate(config, can_schema)
+        validate(config, schema)
     except ValidationError as e:
         log_error("Invalid JSON!")
         print(e)
         quit()
-
-    generate_ids(config)
-    generate_dlcs(config)
-    check_repeat_defs(config)
 
     return config
 
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
-    config = load_message_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
+    can_config = load_json_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
+    daq_config = load_json_config(gen_config['daq_json_config_path'], gen_config['daq_json_schema_path'])
 
-    gen_embedded_can.gen_embedded_can(config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
-    gen_dbc.gen_dbc(config, gen_config['dbc_output_path'])
-    output_bus_load(config)
+    # TODO: error checking for daq config
+    print(daq_config)
+
+    gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)
+
+    # perform error checking for CAN config
+    generate_ids(can_config)
+    generate_dlcs(can_config)
+    check_repeat_defs(can_config)
+
+    gen_embedded_can.gen_embedded_can(can_config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
+    gen_embedded_daq.gen_embedded_daq(daq_config, gen_config['source_directory'], gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
+    gen_dbc.gen_dbc(can_config, gen_config['dbc_output_path'])
+
+    output_bus_load(can_config)
 
 
 if __name__ == "__main__":

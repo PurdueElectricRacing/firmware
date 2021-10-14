@@ -103,7 +103,8 @@
             "properties":{
                 "msg_name":{"type":"string"},
                 "callback":{"type":"boolean"},
-                "irq":{"type":"boolean"}
+                "irq":{"type":"boolean"},
+                "arg_type":{"type":"string", "enum":["msg_data", "header"]}
             }
         }
     }

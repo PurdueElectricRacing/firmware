@@ -1,5 +1,6 @@
 #include "stm32l432xx.h"
 #include "can_parse.h"
+#include "daq.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
@@ -23,6 +24,7 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 // Function Prototypes
+void myCounterTest();
 void canReceiveTest();
 void canSendTest();
 void Error_Handler();
@@ -31,6 +33,9 @@ void canTxUpdate();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
+
+uint8_t my_counter = 0;
+uint16_t my_counter2 = 0xABC;
 
 int main (void)
 {
@@ -44,16 +49,33 @@ int main (void)
 
     initCANParse(&q_rx_can);
 
+    // setup daq
+    link_read_a(DAQ_ID_TEST_VAR, &my_counter);
+    link_read_a(DAQ_ID_TEST_VAR2, &my_counter2);
+    link_write_a(DAQ_ID_TEST_VAR2, &my_counter2);
+
     // Schedule Tasks
     schedInit(SystemCoreClock);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);
-    taskCreate(canSendTest, 5);
-    taskCreate(canReceiveTest, 5);
+    //taskCreate(canSendTest, 500);
+    //taskCreate(canReceiveTest, 500);
+    taskCreate(myCounterTest, 50);
     schedStart();
     
     return 0;
 }
+
+
+void myCounterTest()
+{
+    my_counter += 1;
+    if (my_counter >= 0xFF)
+    {
+        my_counter = 0;
+    }
+}
+
 
 uint16_t counter = 1;
 
@@ -126,6 +148,7 @@ void CAN1_RX0_IRQHandler()
 
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
+        // TODO: try using memcpy instead... ?
         rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
         rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
         rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;

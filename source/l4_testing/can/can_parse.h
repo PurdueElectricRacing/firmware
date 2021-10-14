@@ -22,17 +22,21 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_TEST_MSG 0x1400004c
+#define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffcc
 #define ID_THROTTLE_BRAKE 0x1400028b
 #define ID_WHEEL_SPEEDS 0x1400028a
 #define ID_MOTOR_CURRENT 0x400008a
+#define ID_DAQ_COMMAND_TEST_NODE 0x14000332
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_TEST_MSG 2
+#define DLC_DAQ_RESPONSE_TEST_NODE 8
 #define DLC_THROTTLE_BRAKE 4
 #define DLC_WHEEL_SPEEDS 4
 #define DLC_MOTOR_CURRENT 1
+#define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
 
 // Stale Checking
@@ -53,6 +57,9 @@ typedef union { __attribute__((packed))
         uint64_t test_sig: 16;
     }test_msg;
     struct {
+        uint64_t daq_response: 64;
+    }daq_response_TEST_NODE;
+    struct {
         uint64_t raw_throttle: 16;
         uint64_t raw_brake: 16;
     }throttle_brake;
@@ -65,6 +72,9 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t current: 8;
     }motor_current;
+    struct {
+        uint64_t daq_command: 64;
+    }daq_command_TEST_NODE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -92,12 +102,16 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } motor_current;
+    struct {
+        uint64_t daq_command;
+    } daq_command_TEST_NODE;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

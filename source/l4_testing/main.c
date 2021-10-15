@@ -3,6 +3,7 @@
 #include "daq.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
+#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/gpio/gpio.h"
 
 #define BUTTON_1_Pin 5
@@ -17,6 +18,8 @@
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
+  GPIO_INIT_I2C3_SCL_PA7,
+  GPIO_INIT_I2C3_SDA_PB4,
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -35,7 +38,7 @@ q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
 uint8_t my_counter = 0;
-uint16_t my_counter2 = 0xABC;
+uint16_t my_counter2 = 0x55;
 
 int main (void)
 {
@@ -45,6 +48,7 @@ int main (void)
     // HAL Library Setup
     PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
     PHAL_initCAN(false);
+    PHAL_initI2C();
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     initCANParse(&q_rx_can);
@@ -53,6 +57,16 @@ int main (void)
     link_read_a(DAQ_ID_TEST_VAR, &my_counter);
     link_read_a(DAQ_ID_TEST_VAR2, &my_counter2);
     link_write_a(DAQ_ID_TEST_VAR2, &my_counter2);
+
+    // set cursor
+    PHAL_I2C_gen_start(0x50 << 1, 2, PHAL_I2C_MODE_TX);
+    PHAL_I2C_send_byte(0x00); // high
+    PHAL_I2C_send_byte(0x00); // low
+    PHAL_I2C_gen_stop();
+    // read address
+    PHAL_I2C_gen_start((0x50 << 1) | 0x1, 1, PHAL_I2C_MODE_RX);
+    PHAL_I2C_read_byte(&my_counter2);
+    PHAL_I2C_gen_stop();
 
     // Schedule Tasks
     schedInit(SystemCoreClock);

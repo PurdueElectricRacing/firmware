@@ -31,7 +31,7 @@ while True:
 message = can.Message(arbitration_id=test_var_command_msg.frame_id, 
                       data=[0x05, 0xEF, 0x0D], is_extended_id=True)
 
-bus.send(message)
+#bus.send(message)
 
 message = can.Message(arbitration_id=test_var_command_msg.frame_id, 
                       data=[0x04], is_extended_id=True)

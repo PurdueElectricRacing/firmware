@@ -1,0 +1,139 @@
+{
+    "$schema":"./can_schema.json",
+    "busses":[
+        {
+            "bus_name":"Main",
+            "nodes":[
+                {
+                    "node_name": "TEST_NODE",
+                    "node_ssa":12,
+                    "tx":[
+                        {   "msg_name":"test_msg",
+                            "msg_desc":"test_msg desc",
+                            "signals":[
+                                {"sig_name": "test_sig", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 1
+                        }
+                    ],
+                    "rx":[
+                        {"msg_name":"throttle_brake"}, 
+                        {"msg_name":"wheel_speeds"}, 
+                        {"msg_name":"motor_current"}
+                    ]
+                },
+                {
+                    "node_name":"Pedalbox",
+                    "node_ssa":11,
+                    "tx":[
+                        {   "msg_name":"throttle_brake",
+                            "msg_desc":"throttle_brake desc",
+                            "signals":[
+                                {"sig_name":"raw_throttle","type":"uint16_t","length":16},
+                                {"sig_name":"raw_brake", "sig_desc":"raw brake from sensor", "type":"uint16_t", "length":16}
+                            ],
+                            "msg_period":5,
+                            "msg_hlp":5,
+                            "msg_pgn":10
+                        }
+                    ],
+                    "rx":[
+                    ]
+                },
+                {
+                    "node_name": "HUB_FL",
+                    "node_ssa": 10,
+                    "tx": [
+                        {   "msg_name": "wheel_speeds",
+                            "msg_desc": "wheel_speeds desc",
+                            "signals": [
+                                {"sig_name": "fl_speed", "type": "uint8_t", "length": 8},
+                                {"sig_name": "fr_speed", "type": "uint8_t", "length": 8},
+                                {"sig_name": "bl_speed", "type": "uint8_t", "length": 8},
+                                {"sig_name": "br_speed", "type": "uint8_t", "length": 8}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 10
+                        },
+                        {   "msg_name": "motor_current",
+                            "msg_desc": "current of motor",
+                            "signals": [
+                                {"sig_name": "current", "type": "uint8_t", "length": 8}
+                            ],
+                            "msg_period": 5,
+                            "msg_hlp": 1,
+                            "msg_pgn": 2
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name":"throttle_brake"}
+                    ]
+                },
+                {
+                    "node_name":"TORQUE_VECTOR",
+                    "node_ssa":9,
+                    "tx":[
+                        {   "msg_name":"torque_request",
+                            "msg_desc":"Torque request for all motors.",
+                            "signals":[
+                                {"sig_name":"front_left", "sig_desc":"torque request. 0-4096","type":"uint16_t","length":12},
+                                {"sig_name":"front_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
+                                {"sig_name":"rear_left", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
+                                {"sig_name":"rear_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":1
+                        },
+                        {   "msg_name":"bitstream_flash_status",
+                            "msg_desc":"Status message for bitstream flashing",
+                            "signals":[
+                                {"sig_name":"flash_success", "sig_desc":"Done flashing bitstream","type":"uint8_t","length":1},
+                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":100
+                        }
+                    ],
+                    "rx":[
+                        {"msg_name": "bitstream_data",    "callback": false, "irq": true},
+                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
+                    ]
+                },
+                {
+                    "node_name":"TESTER",
+                    "node_ssa":63,
+                    "tx":[
+                        {   "msg_name":"bitstream_data",
+                            "msg_desc":"Bitstream download command",
+                            "signals":[
+                                {"sig_name":"word_0", "sig_desc":"Bitstream data word 0","type":"uint32_t","length":32},
+                                {"sig_name":"word_1", "sig_desc":"Bitstream data word 1","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":4,
+                            "msg_pgn":100
+                        },
+                        {   "msg_name":"bitstream_request",
+                            "msg_desc":"Bitstream state command",
+                            "signals":[
+                                {"sig_name":"download_request", "sig_desc":"Request to download new bitstream","type":"uint8_t","length":1},
+                                {"sig_name":"download_size", "sig_desc":"size for expected bitstream download (bytes)","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":4,
+                            "msg_pgn":101
+                        }
+                    ],
+                    "rx":[ 
+                        {"msg_name": "bitstream_flash_status"}
+                    ]
+                }
+            ]
+        }
+    ]
+}

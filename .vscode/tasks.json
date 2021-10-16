@@ -22,6 +22,12 @@
                 "panel": "new"
             },
             "runOptions": {"runOn": "folderOpen"}
+        },
+        { 
+            "label": "can_gen",
+            "type": "shell",
+            "command": "python ./common/daq/generation/generator.py",
+            "problemMatcher": []
         }
     ]
 }

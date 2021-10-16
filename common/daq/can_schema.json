@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required":["busses"],
+    "properties": {
+        "busses":{
+            "type":"array",
+            "items":{"$ref":"#/$defs/bus"}
+        }
+    },
+    "$defs":{
+        "bus":{
+            "type":"object",
+            "required":["bus_name", "nodes"],
+            "properties":{
+                "bus_name":{
+                    "type":"string",
+                    "description":"The name of the bus"
+                },
+                "nodes":{
+                    "type":"array",
+                    "description":"The nodes (MCUs) on the bus",
+                    "items":{"$ref":"#/$defs/node"}
+                }
+            }
+        },
+        "node":{
+            "type":"object",
+            "required":["node_name", "node_ssa","tx", "rx"],
+            "properties":{
+                "node_name":{
+                    "type":"string",
+                    "description":"name of the node (MCU)"
+                },
+                "node_ssa":{
+                    "type":"integer",
+                    "description":"subsystem address, lower = higher priority, 0-63",
+                    "minimum": 0,
+                    "maximum": 63
+                },
+                "tx":{
+                    "type":"array",
+                    "description":"messages transmitted by the node",
+                    "items":{"$ref":"#/$defs/tx_message"}
+                },
+                "rx":{
+                    "type":"array",
+                    "description":"messages received by the node",
+                    "items":{"$ref":"#/$defs/rx_message"}
+                }
+            }
+        },
+        "tx_message":{
+            "type":"object",
+            "required":["msg_name", "msg_desc", "signals", "msg_period", 
+                        "msg_hlp", "msg_pgn"],
+            "properties":{
+                "msg_name":{"type":"string"},
+                "msg_desc":{"type":"string"},
+                "signals":{
+                    "type":"array",
+                    "description":"variables within message",
+                    "items":{"$ref":"#/$defs/signal"}
+                },
+                "msg_period":{
+                    "type":"integer",
+                    "description":"ms, leave 0 to disable stale checking"
+                },
+                "msg_hlp":{
+                    "type":"integer",
+                    "description":"message high level priority value 0-5, 0 being highest\n0 - System Critical Faults\n1 - System Critical Data\n2 - Non-critical Faults\n3 - High Priority Data\n4 - Low Priority Data\n5 - Data Acquisition Data",
+                    "minimum":0,
+                    "maximum":5
+                },
+                "msg_pgn":{
+                    "type":"integer",
+                    "description":"parameter group number 0-1,048,575\nDescribes the data the message contains, not an indication of where data is coming and going.",
+                    "minimum":0,
+                    "maximum":1048576
+                }
+            }
+        },
+        "signal":{
+            "type":"object",
+            "required":["sig_name","type","length"],
+            "properties":{
+                "sig_name":{"type":"string"},
+                "type":{
+                    "type":"string",
+                    "enum":["uint8_t", "uint16_t", "uint32_t", "uint64_t"]
+                },
+                "length":{
+                    "type":"integer",
+                    "description":"length in bits",
+                    "minimum":1,
+                    "maimum":64
+                }
+            }
+        },
+        "rx_message":{
+            "type":"object",
+            "required":["msg_name"],
+            "properties":{
+                "msg_name":{"type":"string"},
+                "callback":{"type":"boolean"},
+                "irq":{"type":"boolean"}
+            }
+        }
+    }
+
+}
+    

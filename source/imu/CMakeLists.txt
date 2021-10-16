@@ -21,6 +21,8 @@ target_include_directories(${TARGET_NAME} PRIVATE ${include_dirs} ${CMAKE_CURREN
 
 target_link_libraries(${TARGET_NAME} PSCHED)
 
+target_link_libraries(${TARGET_NAME} PHAL_L4)
+
 # Linker options
 target_link_options(${TARGET_NAME} PUBLIC 
     -T${COMMON_SOURCE_DIR}/linker/STM32L432KCUx_FLASH.ld

@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER
+BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER IMU
 
 
 BO_ 2483028044 test_msg: 2 TEST_NODE
@@ -70,6 +70,16 @@ BO_ 2415925631 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214592636 accel_data: 6 IMU
+ SG_ accel_z : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ accel_y : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ accel_x : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214592572 gyro_data: 6 IMU
+ SG_ gyro_z : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ gyro_y : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ gyro_x : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 
 
 
@@ -78,6 +88,7 @@ CM_ BU_ Pedalbox "";
 CM_ BU_ HUB_FL "";
 CM_ BU_ TORQUE_VECTOR "";
 CM_ BU_ TESTER "";
+CM_ BU_ IMU "";
 CM_ BO_ 2483028044 "test_msg desc";
 CM_ SG_ 2483028044 test_sig "";
 CM_ BO_ 2483028619 "throttle_brake desc";
@@ -104,6 +115,14 @@ CM_ SG_ 2415925567 word_0 "";
 CM_ BO_ 2415925631 "Bitstream state command";
 CM_ SG_ 2415925631 download_size "";
 CM_ SG_ 2415925631 download_request "";
+CM_ BO_ 2214592636 "accelerometer data";
+CM_ SG_ 2214592636 accel_z "";
+CM_ SG_ 2214592636 accel_y "";
+CM_ SG_ 2214592636 accel_x "";
+CM_ BO_ 2214592572 "gyroscope data";
+CM_ SG_ 2214592572 gyro_z "";
+CM_ SG_ 2214592572 gyro_y "";
+CM_ SG_ 2214592572 gyro_x "";
 
 
 

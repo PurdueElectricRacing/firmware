@@ -132,6 +132,37 @@
                     "rx":[ 
                         {"msg_name": "bitstream_flash_status"}
                     ]
+                },
+                {
+                    "node_name": "IMU",
+                    "node_ssa":60,
+                    "tx":[
+                        {   "msg_name":"accel_data",
+                            "msg_desc":"accelerometer data",
+                            "signals":[
+                                {"sig_name": "accel_x", "type":"uint16_t", "length": 16},
+                                {"sig_name": "accel_y", "type":"uint16_t", "length": 16},
+                                {"sig_name": "accel_z", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 1
+                        },
+                        {
+                            "msg_name":"gyro_data",
+                            "msg_desc":"gyroscope data",
+                            "signals":[
+                                {"sig_name": "gyro_x", "type":"int16_t", "length": 16},
+                                {"sig_name": "gyro_y", "type":"int16_t", "length": 16},
+                                {"sig_name": "gyro_z", "type":"int16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 0  
+                        }
+                    ],
+                    "rx":[
+                    ]   
                 }
             ]
         }

@@ -13,8 +13,8 @@
 
 
 #include "daq.h"
-#include <stdio.h>
-
+#include "can_parse.h"
+#include "common/phal_L4/can/can.h"
 
 void initCompleteFlash()
 {
@@ -70,84 +70,45 @@ DAQ_Status_TypeDef daqReadData(DAQ_TypeDef *daq)
 
 	return DAQ_OK;
 }
-
-
-DAQ_Status_TypeDef daqSendImuData(DAQ_TypeDef *daq, IMU_Data_TypeDef data_type)
-{
-
-  IMU_t * imu = &(daq->imu);
-  ImuSensor * accel = &(imu->accelerometer);
-  ImuSensor * gyro = &(imu->gyro);
-
-	uint32_t mailbox;
-
-	uint8_t data[8];
-	data[6] = 0;
-	data[7] = 0;
-
-	CAN_TxHeaderTypeDef header;
-	header.StdId = IMU_ADDR;
-	header.IDE= CAN_ID_STD;
-	header.RTR = CAN_RTR_DATA;
-	header.DLC = 8;
-	header.TransmitGlobalTime = DISABLE;
-
-
-	data[0] = data_type;
-
-	//determine which data values to get based on the data type
-	switch (data_type) {
-		case (ACCEL):
-				if (!accel->broke)
-				{
-					data[1] = accel->x.low;
-					data[2] = accel->x.high;
-					data[3] = accel->y.low;
-					data[4] = accel->y.high;
-					data[5] = accel->z.low;
-					data[6] = accel->z.high;
-					break;
-				}
-				else
-				{
-					return ACCEL_ERROR;
-				}
-		case (GYRO):
-				if (!gyro->broke)
-				{
-					data[1] = gyro->x.low;
-					data[2] = gyro->x.high;
-					data[3] = gyro->y.low;
-					data[4] = gyro->y.high;
-					data[5] = gyro->z.low;
-					data[6] = gyro->z.high;
-					break;
-				}
-				else
-				{
-					return GYRO_ERROR;
-				}
-		default:
-		  return GENERIC_ERROR;
-	}
-
-	while (HAL_CAN_GetTxMailboxesFreeLevel(daq->hcan) == 0); // while mailboxes not free
-
-	if (HAL_CAN_AddTxMessage(daq->hcan, &header, data, &mailbox) != HAL_OK)
-	{
-		return CAN_ERROR;
-	}
-	
-	return DAQ_OK;
-
-}
-
 int16_t gyro_x;
 int16_t gyro_y;
 int16_t gyro_z;
 int16_t accel_x;
 int16_t accel_y;
 int16_t accel_z;
+
+DAQ_Status_TypeDef daqSendImuData(DAQ_TypeDef *daq, IMU_Data_TypeDef data_type)
+{
+	IMU_t * imu = &(daq->imu);
+  	ImuSensor * accel = &(imu->accelerometer);
+  	ImuSensor * gyro = &(imu->gyro);
+
+	gyro_x = gyro->x.high<<8 | gyro->x.low;
+	gyro_y = gyro->y.high<<8 | gyro->y.low;
+	gyro_z = gyro->z.high<<8 | gyro->z.low;
+	accel_x = accel->x.high<<8 | accel->x.low;
+	accel_y = accel->y.high<<8 | accel->y.low;
+	accel_z = accel->z.high<<8 | accel->z.low;
+
+	CanMsgTypeDef_t msg1 = {.ExtId=ID_ACCEL_DATA, .DLC=DLC_ACCEL_DATA, .IDE=1};
+	CanParsedData_t* data_a = (CanParsedData_t *) &msg1.Data;
+	data_a->accel_data.accel_x = accel_x;
+	data_a->accel_data.accel_y = accel_y;
+	data_a->accel_data.accel_z = accel_z;
+	PHAL_txCANMessage(&msg1);
+
+	CanMsgTypeDef_t msg2 = {.ExtId=ID_GYRO_DATA, .DLC=DLC_GYRO_DATA, .IDE=1};
+	CanParsedData_t* data_b = (CanParsedData_t *) &msg2.Data;
+	data_b->gyro_data.gyro_x = gyro_x;
+	data_b->gyro_data.gyro_y = gyro_y;
+	data_b->gyro_data.gyro_z = gyro_z;
+	PHAL_txCANMessage(&msg2);
+	
+	return DAQ_OK;
+
+}
+
+
 
 DAQ_Status_TypeDef yawRateGetter(DAQ_TypeDef *daq)
 {

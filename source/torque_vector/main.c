@@ -3,6 +3,9 @@
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/rcc/rcc.h"
+
+uint32_t SystemCoreClock;
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -21,6 +24,16 @@ q_handle_t q_rx_can;
 
 int main (void)
 {
+
+    PHAL_configurePLLVCO(PLL_SRC_HSI16, 160000000);
+
+    PHAL_configurePLLSystemClock(80000000);
+
+    asm("bkpt");
+    
+    while(1)
+        ; // PLLClockRateHz
+
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 

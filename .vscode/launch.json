@@ -58,6 +58,27 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
+        },
+        {
+            "name": "Torque Vectoring",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/torque_vector/torque_vector.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "serverpath": "C:\\Program Files\\openocd-0.11.0\\bin\\openocd.exe",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/torque_vector"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
         }
     ]
 }

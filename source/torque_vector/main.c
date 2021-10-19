@@ -1,57 +1,74 @@
 #include "stm32l432xx.h"
+#include "system_stm32l4xx.h"
 #include "can_parse.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
 
-uint32_t SystemCoreClock;
-
+/* PER HAL Initilization Structures */
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .system_clock_target_hz     =80000000,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =160000000,
+    .ahb_clock_target_hz        =80000000,
+    .apb1_clock_target_hz       =80000000 / 16,
+    .apb2_clock_target_hz       =80000000 / 16,
+};
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
+  GPIO_INIT_OUTPUT(GPIOB, 3, GPIO_OUTPUT_HIGH_SPEED)
 };
 
-// Function Prototypes
+/* Locals for Clock Rates */
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
+
+/* Function Prototypes */
 void canReceiveTest();
 void canSendTest();
 void Error_Handler();
 void SysTick_Handler();
 void canTxUpdate();
+void blinkTask();
+void PHAL_FaltHandler();
+extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
+
+
 int main (void)
 {
+    if (0 != PHAL_configureClockRates(&clock_config))
+        PHAL_FaltHandler();
 
-    PHAL_configurePLLVCO(PLL_SRC_HSI16, 160000000);
+    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+        PHAL_FaltHandler();
 
-    PHAL_configurePLLSystemClock(80000000);
-
-    asm("bkpt");
-    
-    while(1)
-        ; // PLLClockRateHz
-
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-
-    // HAL Library Setup
-    PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
-    PHAL_initCAN(false);
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-
-    initCANParse(&q_rx_can);
-
-    // Schedule Tasks
-    schedInit(SystemCoreClock);
-    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    taskCreate(canTxUpdate, 5);
+    schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
+    taskCreate((func_ptr_t) &blinkTask, 100); // TODO: Some sort of bug where the rate is off by factor of 10
     schedStart();
-    
+
     return 0;
 }
+
+void blinkTask()
+{
+    PHAL_toggleGPIO(GPIOB, 3);
+}
+
+void PHAL_FaltHandler()
+{
+    asm("bkpt");
+    HardFault_Handler();
+}
+
 
 // *** Compulsory CAN Tx/Rx callbacks ***
 void canTxUpdate()

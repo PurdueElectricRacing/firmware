@@ -9,4 +9,6 @@ void bitstreamInit();
 void bitstream10Hz();
 void bitstream100Hz();
 
+extern q_handle_t q_tx_can;
+
 #endif

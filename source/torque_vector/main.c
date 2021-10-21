@@ -1,13 +1,17 @@
+/* System Includes */
 #include "stm32l432xx.h"
 #include "can_parse.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/quadspi/quadspi.h"
 #include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/rcc/rcc.h"
 
+/* Module Includes */
 #include "main.h"
 #include "bitstream.h"
 
+/* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANRX_PA11,
     GPIO_INIT_CANTX_PA12,
@@ -30,6 +34,16 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED)
 };
 
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .system_clock_target_hz     =80000000,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =160000000,
+    .ahb_clock_target_hz        =80000000,
+    .apb1_clock_target_hz       =80000000 / 16,
+    .apb2_clock_target_hz       =80000000 / 16,
+};
+
 // Function Prototypes
 void canTxUpdate();
 
@@ -38,22 +52,30 @@ q_handle_t q_rx_can;
 
 int main (void)
 {
+
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+
+    /* HAL Initilization */
+    if (0 != PHAL_configureClockRates(&clock_config))
+        PHAL_FaltHandler();
 
     // HAL Library Setup
     PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
     PHAL_initCAN(false);
     PHAL_qspiInit();
-
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
+    /* Data Struct init */
+    qConstruct(&q_tx_can, sizeof(CanParsedData_t));
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+
+    /* Module init */
+    bitstream_init();
+    schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
-    // Initilize modules
-    bitstreamInit();
-
-    // Schedule Tasks
+    /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);

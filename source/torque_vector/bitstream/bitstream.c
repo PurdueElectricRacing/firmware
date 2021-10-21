@@ -8,6 +8,7 @@ typedef enum {
 
 #define BITSTEAM_BUFFER_SIZE (QUADSPI_FIFO_SIZE_BYTES)
 
+
 BITSTREAM_STATE_t current_state;                   // Lock/Unlock the access to FPGA bitstream SPI flash
 uint16_t download_timeout_counter;                 // Timeout for recieving new bitstream data
 uint32_t expected_bitstream_size;                  // Expected size for new bitstream data
@@ -30,10 +31,14 @@ void bitstream10Hz()
         download_timeout_counter--;
         if (download_timeout_counter <= 0)
         {
+            /* Timeout on rx of bitstream data */
             download_timeout_counter = 0;
             current_state = BITSTREAM_LOCKED;
-            // Timeout on download
-            // TODO Send bitstream_flash_status signal
+            CanMsgTypeDef_t msg = {.ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};
+            CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
+            data_a->bitstream_flash_status.flash_timeout_rx = 1;
+
+            qSendToBack(&q_tx_can, &msg);
         }
     }
 }
@@ -95,7 +100,7 @@ void bitstream_data_IRQ(CanParsedData_t* msg_data_a)
 void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a)
 {
     // Check if it is safe to download a new bitstream and change states if so
-    if (msg_data_a->bitstream_request.download_request && 
+    if (1 == msg_data_a->bitstream_request.download_request && 
         BITSTREAM_LOCKED == current_state
         // && car.state == pre_ready_to_drive
         )

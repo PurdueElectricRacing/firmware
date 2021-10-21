@@ -1,11 +1,13 @@
 /* System Includes */
 #include "stm32l432xx.h"
+#include "system_stm32l4xx.h"
 #include "can_parse.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/quadspi/quadspi.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
+
 
 /* Module Includes */
 #include "main.h"
@@ -44,15 +46,30 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz       =80000000 / 16,
 };
 
-// Function Prototypes
+/* Locals for Clock Rates */
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
+
+/* Function Prototypes */
+void canReceiveTest();
+void canSendTest();
+void Error_Handler();
+void SysTick_Handler();
 void canTxUpdate();
+void blinkTask();
+void PHAL_FaltHandler();
+extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
+
+
 int main (void)
 {
-
+    /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
@@ -60,18 +77,19 @@ int main (void)
     if (0 != PHAL_configureClockRates(&clock_config))
         PHAL_FaltHandler();
 
-    // HAL Library Setup
-    PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
-    PHAL_initCAN(false);
-    PHAL_qspiInit();
+    if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+        PHAL_FaltHandler();
+        
+    if (1 != PHAL_initCAN(false))
+        PHAL_FaltHandler();
+
+    if (1 != PHAL_qspiInit())
+        PHAL_FaltHandler();
+    
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanParsedData_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-
     /* Module init */
-    bitstream_init();
+    bitstreamInit();
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
@@ -82,9 +100,21 @@ int main (void)
     taskCreate(bitstream10Hz, 100);
     taskCreate(bitstream100Hz, 10);
     schedStart();
-    
+
     return 0;
 }
+
+void blinkTask()
+{
+    PHAL_toggleGPIO(GPIOB, 3);
+}
+
+void PHAL_FaltHandler()
+{
+    asm("bkpt");
+    HardFault_Handler();
+}
+
 
 // *** Compulsory CAN Tx/Rx callbacks ***
 void canTxUpdate()

@@ -88,6 +88,11 @@ void bitstream_data_IRQ(CanParsedData_t* msg_data_a)
         else
         {
             // OVERRUN ERROR, CAN Message RX before buffer swap.
+            CanMsgTypeDef_t msg = {.ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};
+            CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
+            data_a->bitstream_flash_status.flash_timeout_rx = 1;
+
+            qSendToBack(&q_tx_can, &msg);
         }
     }
 }

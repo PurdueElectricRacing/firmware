@@ -87,7 +87,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     uint8_t pll_input_divisor = 1;
     uint8_t pll_output_multiplier = 8;
     bool valid_rate = false;
-    for (; pll_input_divisor <= 8 && (!valid_rate); pll_input_divisor ++)
+    for (; pll_input_divisor <= 8; pll_input_divisor ++)
     {
         // VCO input clock is only allowed between 4MHz and 16MHz
         uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;
@@ -175,19 +175,43 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
 bool PHAL_configureAHBClock(uint32_t ahb_clock_target_hz)
 {
     uint32_t desired_psc = SystemCoreClock / ahb_clock_target_hz;
-    uint32_t pow_2 = 31U - __builtin_clz(desired_psc); // Fast Log2 approx
-    if(desired_psc == 0)
-        return false; // Cant have a lower source than target
-    if(pow_2 != __builtin_ctz(desired_psc))
-        return false; // Prescaler must be a power of 2
-    if(desired_psc > 512)
-        return false; // Maximum PSC value of 512
-    
-    // 2^4 is not considered, ST RM0394 pg. 198
-    pow_2 = pow_2 >= 6 ? pow_2 - 1 : pow_2; 
+    uint32_t sys_clk_div;
+    switch(desired_psc) // ST RM0394 pg. 198
+    {
+        case 1:
+            sys_clk_div = RCC_CFGR_HPRE_DIV1;
+            break;
+        case 2:
+            sys_clk_div = RCC_CFGR_HPRE_DIV2;
+            break;
+        case 4:
+            sys_clk_div = RCC_CFGR_HPRE_DIV4;
+            break;
+        case 8:
+            sys_clk_div = RCC_CFGR_HPRE_DIV8;
+            break;
+        case 16:
+            sys_clk_div = RCC_CFGR_HPRE_DIV16;
+            break;
+        case 64:
+            sys_clk_div = RCC_CFGR_HPRE_DIV64;
+            break;
+        case 128:
+            sys_clk_div = RCC_CFGR_HPRE_DIV128;
+            break;
+        case 256:
+            sys_clk_div = RCC_CFGR_HPRE_DIV256;
+            break;
+        case 512:
+            sys_clk_div = RCC_CFGR_HPRE_DIV512;
+            break;
+        default:
+            return false; // Invalid prescalar value
+    }
+
     uint32_t rcc_cfgr_temp = RCC->CFGR;
     rcc_cfgr_temp &= !RCC_CFGR_HPRE_Msk;
-    rcc_cfgr_temp |= (0b1000 | (pow_2 - 1)) << RCC_CFGR_HPRE_Pos;
+    rcc_cfgr_temp |= (sys_clk_div  << RCC_CFGR_HPRE_Pos) & RCC_CFGR_HPRE_Msk;
 
     RCC->CFGR = rcc_cfgr_temp;
 
@@ -198,17 +222,31 @@ bool PHAL_configureAHBClock(uint32_t ahb_clock_target_hz)
 bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz)
 {
     uint32_t desired_psc = AHBClockRateHz / apb1_clock_target_hz;
-    uint32_t pow_2 = 31U - __builtin_clz(desired_psc); // Fast Log2 approx
-    if(desired_psc == 0)
-        return false; // Cant have a lower source than target
-    if(pow_2 != __builtin_ctz(desired_psc))
-        return false; // Prescaler must be a power of 2
-    if(desired_psc > 16)
-        return false; // Maximum PSC value of 512
+    uint32_t ahb_clk_div;
+    switch(desired_psc) // ST RM0394 pg. 198
+    {
+        case 1:
+            ahb_clk_div = RCC_CFGR_PPRE1_DIV1;
+            break;
+        case 2:
+            ahb_clk_div = RCC_CFGR_PPRE1_DIV2;
+            break;
+        case 4:
+            ahb_clk_div = RCC_CFGR_PPRE1_DIV4;
+            break;
+        case 8:
+            ahb_clk_div = RCC_CFGR_PPRE1_DIV8;
+            break;
+        case 16:
+            ahb_clk_div = RCC_CFGR_PPRE1_DIV16;
+            break;
+        default:
+            return false; // Invalid prescalar value
+    }
     
     uint32_t rcc_cfgr_temp = RCC->CFGR;
     rcc_cfgr_temp &= !RCC_CFGR_PPRE1_Msk;
-    rcc_cfgr_temp |= (0b100 | (pow_2 - 1)) << RCC_CFGR_PPRE1_Pos;
+    rcc_cfgr_temp |= (ahb_clk_div << RCC_CFGR_PPRE1_Pos) & RCC_CFGR_PPRE1_Msk;
 
     RCC->CFGR = rcc_cfgr_temp;
 
@@ -219,20 +257,34 @@ bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz)
 bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz)
 {
     uint32_t desired_psc = AHBClockRateHz / apb2_clock_target_hz;
-    uint32_t pow_2 = 31U - __builtin_clz(desired_psc); // Fast Log2 approx
-    if(desired_psc == 0)
-        return false; // Cant have a lower source than target
-    if(pow_2 != __builtin_ctz(desired_psc))
-        return false; // Prescaler must be a power of 2
-    if(desired_psc > 16)
-        return false; // Maximum PSC value of 512
+    uint32_t ahb_clk_div;
+    switch(desired_psc) // ST RM0394 pg. 198
+    {
+        case 1:
+            ahb_clk_div = RCC_CFGR_PPRE2_DIV1;
+            break;
+        case 2:
+            ahb_clk_div = RCC_CFGR_PPRE2_DIV2;
+            break;
+        case 4:
+            ahb_clk_div = RCC_CFGR_PPRE2_DIV4;
+            break;
+        case 8:
+            ahb_clk_div = RCC_CFGR_PPRE2_DIV8;
+            break;
+        case 16:
+            ahb_clk_div = RCC_CFGR_PPRE2_DIV16;
+            break;
+        default:
+            return false; // Invalid prescalar value
+    }
     
     uint32_t rcc_cfgr_temp = RCC->CFGR;
     rcc_cfgr_temp &= !RCC_CFGR_PPRE2_Msk;
-    rcc_cfgr_temp |= (0b100 | (pow_2 - 1)) << RCC_CFGR_PPRE2_Pos;
+    rcc_cfgr_temp |= (ahb_clk_div << RCC_CFGR_PPRE2_Pos) & RCC_CFGR_PPRE2_Msk;
 
     RCC->CFGR = rcc_cfgr_temp;
 
-    APB2ClockRateHz = apb2_clock_target_hz;
+    APB1ClockRateHz = apb2_clock_target_hz;
     return true;
 }

@@ -38,8 +38,14 @@ void canRxUpdate()
         {
             /* BEGIN AUTO CASES */
             case ID_BITSTREAM_DATA:
-                can_data.bitstream_data.word_0 = msg_data_a->bitstream_data.word_0;
-                can_data.bitstream_data.word_1 = msg_data_a->bitstream_data.word_1;
+                can_data.bitstream_data.d0 = msg_data_a->bitstream_data.d0;
+                can_data.bitstream_data.d1 = msg_data_a->bitstream_data.d1;
+                can_data.bitstream_data.d2 = msg_data_a->bitstream_data.d2;
+                can_data.bitstream_data.d3 = msg_data_a->bitstream_data.d3;
+                can_data.bitstream_data.d4 = msg_data_a->bitstream_data.d4;
+                can_data.bitstream_data.d5 = msg_data_a->bitstream_data.d5;
+                can_data.bitstream_data.d6 = msg_data_a->bitstream_data.d6;
+                can_data.bitstream_data.d7 = msg_data_a->bitstream_data.d7;
                 break;
             case ID_BITSTREAM_REQUEST:
                 can_data.bitstream_request.download_request = msg_data_a->bitstream_request.download_request;

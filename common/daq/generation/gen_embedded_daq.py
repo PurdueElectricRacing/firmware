@@ -5,12 +5,12 @@ import generator
 #
 # GENERATION STRINGS
 #
-gen_auto_var_ct_start = "BEGIN AUTO VAR COUNT"
-gen_auto_var_ct_stop = "END AUTO VAR COUNT"
-gen_auto_var_ids_start = "BEGIN AUTO VAR IDs"
-gen_auto_var_ids_stop = "END AUTO VAR IDs"
+gen_auto_var_ct_start   = "BEGIN AUTO VAR COUNT"
+gen_auto_var_ct_stop    = "END AUTO VAR COUNT"
+gen_auto_var_ids_start  = "BEGIN AUTO VAR IDs"
+gen_auto_var_ids_stop   = "END AUTO VAR IDs"
 gen_auto_var_defs_start = "BEGIN AUTO VAR DEFS"
-gen_auto_var_defs_stop = "END AUTO VAR DEFS"
+gen_auto_var_defs_stop  = "END AUTO VAR DEFS"
 
 def generate_daq_can_msgs(daq_config, can_config):
     """ generates message definitions for daq commands and responses """
@@ -106,7 +106,14 @@ def configure_node(node_config, node_paths):
 
     # define variable definitions
     var_defs = ["daq_variable_t tracked_vars[NUM_VARS] = {\n"]
-    var_defs += [f"    {{.is_read_only={int(var['read_only'])}, .bit_length={var['bit_length']}}},\n" for var in node_config['variables']]
+    for var in node_config['variables']:
+        line = f"    {{.is_read_only={int(var['read_only'])}, .bit_length={var['bit_length']}, "
+        if "eeprom" in var:
+            line += f".eeprom_enabled=1, .eeprom_label=\"{var['eeprom']['label']}\", .eeprom_version={var['eeprom']['version']}"
+        else:
+            line += f".eeprom_enabled=0"
+        line += "},\n"
+        var_defs.append(line)
     var_defs.append("};\n")
     generator.insert_lines(c_lines, gen_auto_var_defs_start, gen_auto_var_defs_stop, var_defs)
 

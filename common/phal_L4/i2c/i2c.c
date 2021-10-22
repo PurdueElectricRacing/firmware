@@ -36,25 +36,23 @@ bool PHAL_I2C_gen_start(uint8_t address, uint8_t length, uint8_t mode)
 {
     uint32_t timeout = 0;
     // Wait until not busy
-    while((I2C3->ISR & I2C_ISR_BUSY) && ++timeout < PHAL_I2C_TX_TIMEOUT)
-    ;
-    if (timeout == PHAL_I2C_TX_TIMEOUT)
-        return false;
+    while((I2C3->ISR & I2C_ISR_BUSY) && ++timeout < PHAL_I2C_TX_TIMEOUT);
+    if (timeout == PHAL_I2C_TX_TIMEOUT) return false;
     timeout = 0;
 
     // Configure for start write
-    I2C3->CR2 &= 0xF0000000;
-    if (mode == PHAL_I2C_MODE_RX)
+    I2C3->CR2 &= 0xF0000000;         // clear register
+    if (mode == PHAL_I2C_MODE_RX) 
     {
-        I2C3->CR2 |= I2C_CR2_RD_WRN;
+        I2C3->CR2 |= I2C_CR2_RD_WRN; // configure for reading
     }
     I2C3->CR2 |= I2C_CR2_START | ((uint32_t) address) | I2C_CR2_AUTOEND |
                  (((uint32_t) length) << I2C_CR2_NBYTES_Pos);
-    
+
     return true;
 }
 
-bool PHAL_I2C_send_byte(uint8_t data)
+bool PHAL_I2C_write(uint8_t data)
 {
 
     uint32_t timeout = 0;
@@ -62,37 +60,39 @@ bool PHAL_I2C_send_byte(uint8_t data)
     while(!(I2C3->ISR & I2C_ISR_TXIS) && ++timeout < PHAL_I2C_TX_TIMEOUT)
     {
         // check NACK
-        if (I2C3->ISR & I2C_ISR_NACKF)
-        {
-            return false;
-        }
+        if (I2C3->ISR & I2C_ISR_NACKF) return false;
     }
-    if (timeout == PHAL_I2C_TX_TIMEOUT)
-        return false;
+    if (timeout == PHAL_I2C_TX_TIMEOUT) return false;
     timeout = 0;
 
-    // write data to TXDR
-    I2C3->TXDR = data;
+    I2C3->TXDR = data; // write data
 
     return true;
 }
 
-bool PHAL_I2C_read_byte(uint8_t* data_a)
+bool PHAL_I2C_write_multi(uint8_t* data, uint8_t size)
+{
+    for(uint8_t i = 0; i < size; i++)
+    {
+        if (!PHAL_I2C_write(data[i])) return false;
+    }
+    return true;
+}
+
+bool PHAL_I2C_read(uint8_t* data_a)
 {
     uint32_t timeout = 0;
     // wait for RXNE flag
     while(!(I2C3->ISR & I2C_ISR_RXNE) && ++timeout < PHAL_I2C_RX_TIMEOUT)
     {
-        // check NACK
-        if (I2C3->ISR & I2C_ISR_NACKF)
-        {
-            return false;
-        }
+        if (I2C3->ISR & I2C_ISR_NACKF) return false; // check NACK
+
         // check stopf
         if (I2C3->ISR & I2C_ISR_STOPF)
         {
             if (I2C3->ISR & I2C_ISR_RXNE)
             {
+                timeout += 1;
                 break;
             }
         }
@@ -107,14 +107,20 @@ bool PHAL_I2C_read_byte(uint8_t* data_a)
     return true;
 }
 
+bool PHAL_I2C_read_multi(uint8_t* data_a, uint8_t size)
+{
+    for (uint8_t i = 0; i < size; i++)
+    {
+        if(!PHAL_I2C_read(&(data_a[i]))) return false;
+    }
+    return true;
+}
+
 bool PHAL_I2C_gen_stop()
 {
     uint32_t timeout = 0;
 
     // check TC flag
-
-    // request stop
-    //I2C3->CR2 |= I2C_CR2_STOP;
 
     // wait for STOPF flag
     while(!(I2C3->ISR & I2C_ISR_STOPF) && ++timeout < PHAL_I2C_TX_TIMEOUT)
@@ -137,56 +143,3 @@ bool PHAL_I2C_gen_stop()
 
     return true;
 }
-
-// bool PHAL_txI2CMessage(uint8_t address, uint8_t* data_a, uint8_t length)
-// {
-//     //TODO: support for > 255
-    
-    
-//     for(uint8_t i = 0; i < length; i++)
-//     {
-        
-//     }
-
-//     // unnecessary to check TC flag in auto end mode
-//     // wait for STOPF flag
-//     while(!(I2C3->ISR & I2C_ISR_STOPF) && ++timeout < PHAL_I2C_TX_TIMEOUT)
-//     ;
-//     if (timeout == PHAL_I2C_TX_TIMEOUT)
-//         return false;
-//     timeout = 0;
-//     // clear STOPF flag
-//     I2C3->ISR &= ~I2C_ISR_STOPF;
-//     // clear CR2
-//     I2C3->CR2 &= 0xF0000000;
-
-//     return true;
-// }
-
-// bool PHAL_rxI2CMessage(uint8_t address, uint8_t* data_a, uint8_t length)
-// {
-//     // TODO: support > 255
-//     uint32_t timeout = 0;
-//     // Wait until not busy
-//     while((I2C3->ISR & I2C_ISR_BUSY) && ++timeout < PHAL_I2C_RX_TIMEOUT)
-//     ;
-//     if (timeout == PHAL_I2C_RX_TIMEOUT)
-//         return false;
-//     timeout = 0;
-
-//     // Configure for start read with auto end
-//     I2C3->CR2 &= 0xF0000000;
-//     I2C3->CR2 |= I2C_CR2_AUTOEND | I2C_CR2_START | I2C_CR2_RD_WRN | ((uint32_t) address) | 
-//                  (((uint32_t) length) << I2C_CR2_NBYTES_Pos);
-    
-//     for(uint8_t i = 0; i < length; i++)
-//     {
-        
-//     }
-
-    
-//     // clear CR2
-//     I2C3->CR2 &= 0xF0000000;
-
-//     return true;
-// }

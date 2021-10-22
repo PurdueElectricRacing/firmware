@@ -40,7 +40,8 @@ def gen_dbc(can_config, dbc_path):
                                         signals=msg_signals,
                                         comment=msg['msg_desc'],
                                         is_extended_frame=True,
-                                        senders=[node['node_name']])
+                                        senders=[node['node_name']],
+                                        bus_name=bus['bus_name'])
 
     can_db = db.load_file(dbc_path)
     can_db.nodes.clear()

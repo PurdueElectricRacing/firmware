@@ -76,7 +76,7 @@
                     "type":"integer",
                     "description":"parameter group number 0-1,048,575\nDescribes the data the message contains, not an indication of where data is coming and going.",
                     "minimum":0,
-                    "maximum":1048576
+                    "maximum":1048575
                 }
             }
         },

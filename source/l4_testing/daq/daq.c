@@ -10,44 +10,77 @@
  */
 #include "daq.h"
 
+// used for creating a tx can frame
 typedef struct
 {
     union {
-    uint8_t data[8];
-    uint64_t raw_data; // remember little endian
+        uint8_t data[8];
+        uint64_t raw_data; // remember little endian
     };
     uint8_t curr_bit;
 } daq_tx_frame_writer_t;
 
+// used for reading a rx can frame
 typedef struct
 {
     uint64_t* raw_data_a;
     uint8_t curr_bit;
 } daq_rx_frame_reader_t;
 
+// represents an eeprom save command
+typedef struct
+{
+    uint8_t var_id;
+    uint64_t data;
+} e_save_request_t;
+
+// ring buffer of eeprom save commands
+typedef struct
+{
+    uint64_t data_buffer; // used for saving and loading data from eeprom
+    e_save_request_t cmd_buffer[DAQ_SAVE_QUEUE_SIZE];
+    uint8_t read_idx;
+    uint8_t write_idx;
+    uint8_t queue_current;
+    uint8_t data_buff_lock; // prevents load during save process
+} daq_eeprom_status_t;
+
+daq_eeprom_status_t daq_e_stat = {.read_idx=0, .write_idx=0, .data_buff_lock=0, .queue_current=0};
+
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=1, .bit_length=8, .eeprom_enabled=0},
     {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="tv2", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=1, .eeprom_enabled=0},
-    {.is_read_only=0, .bit_length=1, .eeprom_enabled=0},
-    {.is_read_only=0, .bit_length=1, .eeprom_enabled=0},
+    {.is_read_only=0, .bit_length=1, .eeprom_enabled=1, .eeprom_label="red", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=1, .eeprom_enabled=1, .eeprom_label="grn", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=1, .eeprom_enabled=1, .eeprom_label="blu", .eeprom_version=0},
 };
 // END AUTO VAR DEFS
 
-uint64_t eeprom_data_buffer = 0; // used for saving and loading data from eeprom
-                                 // useful because it allows for the linked read and write
-                                 // functions or addresses to be used
-
 // function prototypes
 bool readVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg);
-bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg);
-bool saveVar(uint8_t var_id);
-bool loadVar(uint8_t var_id);
+bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg, daq_tx_frame_writer_t* tx_msg);
+bool saveVarRequest(uint8_t var_id, daq_tx_frame_writer_t* tx_msg);
+bool loadVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg);
+bool appendDataToFrame(daq_tx_frame_writer_t* tx_msg, uint64_t data, uint8_t bit_length);
+void flushDaqFrame(daq_tx_frame_writer_t* tx_msg);
 void sendDaqFrame(daq_tx_frame_writer_t tx_frame);
+void daqeQueuePop();
+void daqeQueuePush();
 
 bool daqInit()
 {
+    // check all variables have been linked
+    for(int i = 0; i < NUM_VARS; i++)
+    {
+        if (tracked_vars[i].read_var_a == NULL ||
+            (!tracked_vars[i].is_read_only &&
+             tracked_vars[i].write_var_a == NULL))
+        {
+            return true;
+        }
+    }
+
     // setup eeprom
     if(EEPROM_ENABLED)
     {
@@ -56,22 +89,44 @@ bool daqInit()
         {
             if (tracked_vars[i].eeprom_enabled)
             {
-                if (!eepromLinkStruct(&eeprom_data_buffer, (tracked_vars[i].bit_length + 7) / 8,
+                if (!eepromLinkStruct(&daq_e_stat.data_buffer, (tracked_vars[i].bit_length + 7) / 8,
                                  tracked_vars[i].eeprom_label, tracked_vars[i].eeprom_version, 0))
                 {
                     // structure recognized, okay to load var
-                    loadVar(i);
+                    // pull data from eeprom into eeprom data buffer
+                    if(eepromLoadStruct(tracked_vars[i].eeprom_label)) return true;
+                    // constrain to bit length
+                    daq_e_stat.data_buffer &= ~(0xFFFFFFFFFFFFFFFF << (tracked_vars[i].bit_length));
+                    // place data
+                    if (tracked_vars[i].has_write_func)
+                    {
+                        tracked_vars[i].write_func_a(&daq_e_stat.data_buffer);
+                    }
+                    else
+                    {
+                        memcpy(tracked_vars[i].write_var_a, &daq_e_stat.data_buffer, 
+                            (tracked_vars[i].bit_length + 7) / 8);
+                    }
                 }
                 else
                 {
-                    // first time setting up var, put default into memory
-                    saveVar(i);
+                    // first time setting up var, put default into memory (blocking i2c command)
+                    if (tracked_vars[i].has_read_func)
+                    {
+                        tracked_vars[i].read_func_a(&daq_e_stat.cmd_buffer[daq_e_stat.write_idx].data);
+                    }
+                    else
+                    {
+                        memcpy(&daq_e_stat.cmd_buffer[daq_e_stat.write_idx].data, tracked_vars[i].read_var_a, (tracked_vars[i].bit_length + 7) / 8);
+                    }
+                    eepromSaveStructBlocking(tracked_vars[i].eeprom_label);
                 }
             }
         }
         eepromCleanHeaders();
     }
-    
+
+    return false;
 }
 
 // read variable
@@ -80,12 +135,14 @@ bool readVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg)
 {
     if (tracked_vars[var_id].bit_length + DAQ_CMD_LENGTH + DAQ_ID_LENGTH > 64 - tx_msg->curr_bit)
     {
-        return true; // not enough space
+        // var too large
+        appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_READ_ERROR,
+                        DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
+        return true;
     }
     // add var id
-    tx_msg->raw_data |= ((uint64_t) var_id << tx_msg->curr_bit) << DAQ_CMD_LENGTH;
-    tx_msg->curr_bit += DAQ_CMD_LENGTH + DAQ_ID_LENGTH;
-    // TODO: add error flag?
+    appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_READ, 
+                      DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
 
     // get data
     uint64_t temp_storage = 0;
@@ -98,23 +155,22 @@ bool readVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg)
         memcpy(&temp_storage, tracked_vars[var_id].read_var_a, (tracked_vars[var_id].bit_length + 7) / 8);
     }
 
-    // place data
-    tx_msg->raw_data |= (temp_storage << tx_msg->curr_bit);
-    tx_msg->curr_bit += tracked_vars[var_id].bit_length;
+    // place data, based on error checking, should be within the same frame
+    appendDataToFrame(tx_msg, temp_storage, tracked_vars[var_id].bit_length);
 
     return false;
 }
 
-// TODO: be careful with bit shifts more than 32 (ensure thing being shifted is a uint64)
-
 // write variable
 // returns true if error
-bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg)
+bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg, daq_tx_frame_writer_t* tx_msg)
 {
     if (tracked_vars[var_id].is_read_only)
     {
-        return true; // can't write to read only variable
-        // TODO: add error flag?
+        // can't write to read only variable
+        appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_WRITE_ERROR,
+                        DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
+        return true; 
     }
 
     rx_msg->curr_bit += DAQ_ID_LENGTH;
@@ -139,66 +195,87 @@ bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg)
 }
 
 // save to eeprom
-bool saveVar(uint8_t var_id)
+// returns true if error
+bool saveVarRequest(uint8_t var_id, daq_tx_frame_writer_t* tx_msg)
 {
-    if(!EEPROM_ENABLED || !tracked_vars[var_id].eeprom_enabled) return true;
+    if(!EEPROM_ENABLED || !tracked_vars[var_id].eeprom_enabled || daq_e_stat.queue_current >= DAQ_SAVE_QUEUE_SIZE)
+    {
+        appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_SAVE_ERROR,
+                        DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
+        return true;
+    }
 
-    // load data into eeprom buffer
-    eeprom_data_buffer = 0;
+    daq_e_stat.cmd_buffer[daq_e_stat.write_idx].var_id = var_id;
+
+    // load data into save command
     if (tracked_vars[var_id].has_read_func)
     {
-       tracked_vars[var_id].read_func_a(&eeprom_data_buffer);
+       tracked_vars[var_id].read_func_a(&daq_e_stat.cmd_buffer[daq_e_stat.write_idx].data);
     }
     else
     {
-        memcpy(&eeprom_data_buffer, tracked_vars[var_id].read_var_a, (tracked_vars[var_id].bit_length + 7) / 8);
+        memcpy(&daq_e_stat.cmd_buffer[daq_e_stat.write_idx].data, tracked_vars[var_id].read_var_a, (tracked_vars[var_id].bit_length + 7) / 8);
     }
 
-    // move data from eeprom buffer into eeprom
-    if(eepromSaveStruct(tracked_vars[var_id].eeprom_label)) return true;
+    daqeQueuePush();
 
     return false;
 }
 
 // load from eeprom
-bool loadVar(uint8_t var_id)
+// returns true if error
+bool loadVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg)
 {
-    if(!EEPROM_ENABLED || !tracked_vars[var_id].eeprom_enabled || tracked_vars[var_id].is_read_only) return true;
+    if(!EEPROM_ENABLED || !tracked_vars[var_id].eeprom_enabled || tracked_vars[var_id].is_read_only ||
+       daq_e_stat.queue_current > 0 || daq_e_stat.data_buff_lock)
+    {
+        appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_LOAD_ERROR,
+                        DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
+        return true;
+    }
+
+    daq_e_stat.data_buff_lock = 1;
 
     // pull data from eeprom into eeprom data buffer
-    if(eepromLoadStruct(tracked_vars[var_id].eeprom_label)) return true;
+    if(eepromLoadStruct(tracked_vars[var_id].eeprom_label)){
+        appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_LOAD_ERROR,
+                        DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
+        daq_e_stat.data_buff_lock = 0;
+        return true;
+    } 
 
     // constrain to bit length
-    eeprom_data_buffer &= ~(0xFFFFFFFFFFFFFFFF << (tracked_vars[var_id].bit_length));
+    daq_e_stat.data_buffer &= ~(0xFFFFFFFFFFFFFFFF << (tracked_vars[var_id].bit_length));
 
     // place data
     if (tracked_vars[var_id].has_write_func)
     {
-        tracked_vars[var_id].write_func_a(&eeprom_data_buffer);
+        tracked_vars[var_id].write_func_a(&daq_e_stat.data_buffer);
     }
     else
     {
-        memcpy(tracked_vars[var_id].write_var_a, &eeprom_data_buffer, 
+        memcpy(tracked_vars[var_id].write_var_a, &daq_e_stat.data_buffer, 
                (tracked_vars[var_id].bit_length + 7) / 8);
     }
+
+    daq_e_stat.data_buff_lock = 0;
 
     return false;
 }
 
-// send tx frame
-void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
-{
-    CanMsgTypeDef_t msg = {.IDE=1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
-    memcpy(msg.Data, tx_frame.data, msg.DLC);
-    PHAL_txCANMessage(&msg);
-}
+// add to publish list
+// returns true if error
+
+// stop publish
+// returns true if error
+
 
 /**
  * process daq request
  * 3 bit command type: read, write, load, save, start pub, stop pub
  * followed by 5 bit var id
  * write is followed by variable data, length pre-specified for each var id
- * publish is followed by publish rate (in Hz), 0 = stop publish 
+ * publish is followed by publish rate (in Hz)
  */
 void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
 {
@@ -214,50 +291,19 @@ void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
         switch(command)
         {
             case DAQ_CMD_READ:
-                if (readVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &tx_writer))
-                {
-                    // frame full, send and get a new one
-                    sendDaqFrame(tx_writer);
-                    tx_writer.curr_bit = 0;
-                    tx_writer.raw_data = 0;
-                    if (readVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &tx_writer))
-                    {
-                        // TODO: error handling (var too large for one frame)
-                        while (true) {
-                            __asm__("nop");
-                        }
-                    }
-                }
+                readVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &tx_writer);
                 rx_reader.curr_bit += DAQ_ID_LENGTH;
                 break;
             case DAQ_CMD_WRITE:
-                if (writeVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &rx_reader))
-                {
-                    // TODO: error handling (write to read only var)
-                    while (true) {
-                        __asm__("nop");
-                    }
-                }
+                writeVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &rx_reader, &tx_writer);
                 // writeVar increments the curr_bit internally
                 break;
             case DAQ_CMD_LOAD:
-                if (loadVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK))
-                {
-                    // TODO: error handling (eeprom load error)
-                    while (true) {
-                        __asm__("nop");
-                    }
-                }
+                loadVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &tx_writer);
                 rx_reader.curr_bit += DAQ_ID_LENGTH;
                 break;
             case DAQ_CMD_SAVE:
-                if (saveVar((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK))
-                {
-                    // TODO: error handling (eeprom load error)
-                    while (true) {
-                        __asm__("nop");
-                    }
-                }
+                saveVarRequest((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK, &tx_writer);
                 rx_reader.curr_bit += DAQ_ID_LENGTH;
                 break;
             case DAQ_CMD_PUB_START:
@@ -270,33 +316,123 @@ void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
                 __asm__("nop"); // Do nothing so we can place a breakpoint
         }
     }
-    if (tx_writer.curr_bit > 0)
+    flushDaqFrame(&tx_writer);
+}
+
+// publish task, LIMIT TO 5ms minimum period (eeprom save constraint)
+void daqPeriodic()
+{
+    daq_tx_frame_writer_t tx_msg = {.data={0}, .curr_bit=0};
+
+    // save command handling
+    if (daq_e_stat.queue_current > 0)
     {
-        sendDaqFrame(tx_writer);
+        // queue contains command, process
+        if (!e_wr_stat.has_write_started && !daq_e_stat.data_buff_lock)
+        {
+            // write has not started: acquire lock, load eeprom buffer
+            daq_e_stat.data_buff_lock = 1;
+            daq_e_stat.data_buffer = daq_e_stat.cmd_buffer[daq_e_stat.read_idx].data;
+        }
+        eepromSaveStructPeriodic(tracked_vars[daq_e_stat.cmd_buffer[daq_e_stat.read_idx].var_id].eeprom_label);
+        if (e_wr_stat.is_write_complete)
+        {
+            // respond with save complete message
+            appendDataToFrame(&tx_msg, (daq_e_stat.cmd_buffer[daq_e_stat.read_idx].var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_SAVE,
+                            DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
+            // done with lock, pop off buff
+            daq_e_stat.data_buff_lock = 0;
+            daqeQueuePop();
+        }
+    }
+
+    // publish
+
+
+    flushDaqFrame(&tx_msg);
+}
+
+// add data to a tx frame
+// returns true if errror (i.e. bit_length too long for one frame)
+bool appendDataToFrame(daq_tx_frame_writer_t* tx_msg, uint64_t data, uint8_t bit_length)
+{
+    // data too long?
+    if (bit_length > 64)
+    {
+        return true;
+    }
+    // is there enough room?
+    if(bit_length > 64 - tx_msg->curr_bit)
+    {
+        flushDaqFrame(tx_msg);
+    }
+
+    tx_msg->raw_data |= ((data & ~(0xFFFFFFFFFFFFFFFF << bit_length)) << tx_msg->curr_bit);
+    tx_msg->curr_bit += bit_length;
+
+    return false;
+}
+
+// flush tx writer if not empty
+void flushDaqFrame(daq_tx_frame_writer_t* tx_msg)
+{
+    if(tx_msg->curr_bit == 0)
+    {
+        return;
+    }
+
+    sendDaqFrame(*tx_msg);
+    tx_msg->curr_bit = 0;
+    tx_msg->curr_bit = 0;
+    tx_msg->raw_data = 0;
+}
+
+// send tx frame
+void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
+{
+    CanMsgTypeDef_t msg = {.IDE=1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
+    memcpy(msg.Data, tx_frame.data, msg.DLC);
+    PHAL_txCANMessage(&msg);
+}
+
+// call after read op
+void daqeQueuePop()
+{
+    daq_e_stat.read_idx += 1;
+    if (daq_e_stat.read_idx >= DAQ_SAVE_QUEUE_SIZE)
+    {
+        daq_e_stat.read_idx = 0;
+    }
+    daq_e_stat.queue_current--;
+}
+
+// call after write op
+void daqeQueuePush()
+{
+    if (daq_e_stat.queue_current < DAQ_SAVE_QUEUE_SIZE)
+    {
+        daq_e_stat.write_idx += 1;
+        if (daq_e_stat.write_idx >= DAQ_SAVE_QUEUE_SIZE)
+        {
+            daq_e_stat.write_idx = 0;
+        }
+        daq_e_stat.queue_current++;
     }
 }
 
-
-
-// add to publish list
-
-// stop publish
-
-// publish task
-
-void link_read_a(uint8_t id, void* addr)
+void linkReada(uint8_t id, void* addr)
 {
     tracked_vars[id].read_var_a = addr;
     tracked_vars[id].has_read_func = 0;
 }
 
-void link_read_func(uint8_t id, read_func_ptr_t read_func)
+void linkReadFunc(uint8_t id, read_func_ptr_t read_func)
 {
     tracked_vars[id].read_func_a = read_func;
     tracked_vars[id].has_read_func = 1;
 }
 
-void link_write_a(uint8_t id, void* addr)
+void linkWritea(uint8_t id, void* addr)
 {
     if (!tracked_vars[id].is_read_only)
     {
@@ -305,7 +441,7 @@ void link_write_a(uint8_t id, void* addr)
     }
 }
 
-void link_write_func(uint8_t id, write_func_ptr_t write_func)
+void linkWriteFunc(uint8_t id, write_func_ptr_t write_func)
 {
     if (!tracked_vars[id].is_read_only)
     {

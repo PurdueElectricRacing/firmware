@@ -28,7 +28,7 @@ def generate_daq_can_msgs(daq_config, can_config):
                 break
         if not config_found:
             generator.log_error(f"CAN config for bus {daq_bus['bus_name']} not found")
-            quit()
+            quit(1)
         
         # create daq node
         daq_node = {"node_name":"DAQ",
@@ -56,7 +56,7 @@ def generate_daq_can_msgs(daq_config, can_config):
                     break
             if ssa == -1:
                 generator.log_error(f"CAN node name not found: {daq_node_config['node_name']}")
-                quit()
+                quit(1)
 
             # configure daq node tx message defs
             command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name']}",
@@ -121,7 +121,6 @@ def configure_node(node_config, node_paths):
     with open(node_paths[1], "w") as c_file:
         c_file.writelines(c_lines)
 
-# TODO: implement daq enable boolean
 def configure_bus(bus, source_dir, c_dir, h_dir):
     """ Generates daq code for nodes on a bus """
 

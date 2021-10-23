@@ -1,20 +1,17 @@
+/* System Includes */
 #include "stm32l432xx.h"
-#include "can_parse.h"
-#include "daq.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/i2c/i2c.h"
+#include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/eeprom/eeprom.h"
 
-#define BUTTON_1_Pin 5
-#define BUTTON_1_GPIO_Port GPIOB
-#define LED_GREEN_Pin 0
-#define LED_GREEN_GPIO_Port GPIOB
-#define LED_RED_Pin 1
-#define LED_RED_GPIO_Port GPIOB
-#define LED_BLUE_Pin 7
-#define LED_BLUE_GPIO_Port GPIOB
+/* Module Includes */
+#include "main.h"
+#include "can_parse.h"
+#include "daq.h"
+
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -27,7 +24,23 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN)
 };
 
-// Function Prototypes
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .system_clock_target_hz     =80000000,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =160000000,
+    .ahb_clock_target_hz        =80000000,
+    .apb1_clock_target_hz       =80000000 / 16,
+    .apb2_clock_target_hz       =80000000 / 16,
+};
+
+/* Locals for Clock Rates */
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
+
+/* Function Prototypes */
 void myCounterTest();
 void canReceiveTest();
 void canSendTest();
@@ -40,86 +53,84 @@ void setBlue(uint8_t* on);
 void readRed(uint8_t* on);
 void readGreen(uint8_t* on);
 void readBlue(uint8_t* on);
+void ledBlink();
+extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
 uint8_t my_counter = 0;
-uint16_t my_counter2 = 85;
+uint16_t my_counter2 = 85; // Warning: daq variables with eeprom capability may
+                           // initialize to something else
 
 int main (void)
 {
+    /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
-    // HAL Library Setup
-    PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
-    PHAL_initCAN(false);
-    PHAL_initI2C();
+    /* HAL Initilization */
+    if(0 != PHAL_configureClockRates(&clock_config))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initCAN(false))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initI2C())
+    {
+        HardFault_Handler();
+    }
+
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
+    // signify start of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
+    /* Module init */
     initCANParse(&q_rx_can);
 
-    // setup daq
-    link_read_a(DAQ_ID_TEST_VAR, &my_counter);
-    link_read_a(DAQ_ID_TEST_VAR2, &my_counter2);
-    link_write_a(DAQ_ID_TEST_VAR2, &my_counter2);
-    link_read_func(DAQ_ID_RED_ON, readRed);
-    link_read_func(DAQ_ID_GREEN_ON, readGreen);
-    link_read_func(DAQ_ID_BLUE_ON, readBlue);
-    link_write_func(DAQ_ID_RED_ON, setRed);
-    link_write_func(DAQ_ID_GREEN_ON, setGreen);
-    link_write_func(DAQ_ID_BLUE_ON, setBlue);
-    daqInit();
+    linkReada(DAQ_ID_TEST_VAR, &my_counter);
+    linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
+    linkWritea(DAQ_ID_TEST_VAR2, &my_counter2);
+    linkReadFunc(DAQ_ID_RED_ON, (read_func_ptr_t) readRed);
+    linkReadFunc(DAQ_ID_GREEN_ON, (read_func_ptr_t) readGreen);
+    linkReadFunc(DAQ_ID_BLUE_ON, (read_func_ptr_t) readBlue);
+    linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
+    linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
+    linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
+    if(daqInit())
+    {
+        HardFault_Handler();
+    }
 
-    // while(1)
-    // {
-    //     PHAL_I2C_gen_start(0x50 << 1, 2, PHAL_I2C_MODE_TX);
-    //     PHAL_I2C_write(0b10101010); // high
-    //     PHAL_I2C_write(0b10101010); 
-    //     PHAL_I2C_gen_stop();
-    // }
-
-    // set cursor
-    // PHAL_I2C_gen_start(0x50 << 1, 3, PHAL_I2C_MODE_TX);
-    // PHAL_I2C_write(0x00); // high
-    // PHAL_I2C_write(0x00); // low
-    // PHAL_I2C_write(3); // data
-    // PHAL_I2C_gen_stop();
-    // read address
-    // PHAL_I2C_gen_start((0x50 << 1) | 0x1, 1, PHAL_I2C_MODE_RX);
-    // PHAL_I2C_read(&my_counter2);
-    // PHAL_I2C_gen_stop();
-
-    // eeprom setup
-    // eepromInitialize(4000, 0x50);
-    // eepromLinkStruct(&red, sizeof(red), "red", 0, 0);
-    // eepromLinkStruct(&grn, sizeof(grn), "grn", 0, 0);
-    // eepromLinkStruct(&blu, sizeof(blu), "blu", 0, 0);
-    // eepromCleanHeaders();
-
-    // eepromLoadStruct("red");
-    // eepromLoadStruct("grn");
-    // eepromLoadStruct("blu");
-
-    // Schedule Tasks
-    schedInit(SystemCoreClock);
+    /* Task Creation */
+    schedInit(APB1ClockRateHz);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     //taskCreate(canSendTest, 500);
     //taskCreate(canReceiveTest, 500);
     taskCreate(myCounterTest, 50);
+    //taskCreate(ledBlink, 500);
 
+    // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
 
     schedStart();
-
     
     return 0;
 }
 
+void ledBlink()
+{
+    PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+}
 
 void myCounterTest()
 {
@@ -236,6 +247,7 @@ void CAN1_RX0_IRQHandler()
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
+
         CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
@@ -243,30 +255,6 @@ void CAN1_RX0_IRQHandler()
 }
 
 void HardFault_Handler()
-{
-    PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, 1);
-    while(1)
-    {
-        __asm__("nop");
-    }
-}
-void MemManage_Handler()
-{
-    PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, 1);
-    while(1)
-    {
-        __asm__("nop");
-    }
-}
-void BusFault_Handler()
-{
-    PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, 1);
-    while(1)
-    {
-        __asm__("nop");
-    }
-}
-void UsageFault_Handler()
 {
     PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, 1);
     while(1)

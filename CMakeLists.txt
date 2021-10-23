@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Run DAQ automatic code generation
-execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py)
+execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py 
+                RESULT_VARIABLE ret)
+if(ret EQUAL "1")
+    message(FATAL_ERROR "Code Generation Failed")
+endif()
 
 # Setup arm-none-eabi as our compile toolcahin
 set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)
@@ -35,4 +39,4 @@ add_subdirectory(source/main_module)
 add_subdirectory(source/pedal)
 add_subdirectory(source/bootloader_l4)
 add_subdirectory(source/l4_testing)
-add_subdirectory(source/torque_vector)
+#add_subdirectory(source/torque_vector)

@@ -21,7 +21,7 @@ bool PHAL_initI2C()
 
     // Confiure timing
     I2C3->TIMINGR &= 0x0F000000;
-    I2C3->TIMINGR |= 0x30408CFF;
+    I2C3->TIMINGR |= 0x00101319; // Generating using CubeMx
 
     //OA1
     I2C3->OAR1 |= I2C_OAR1_OA1EN;
@@ -32,7 +32,7 @@ bool PHAL_initI2C()
     return true;
 }
 
-bool PHAL_I2C_gen_start(uint8_t address, uint8_t length, uint8_t mode)
+bool PHAL_I2C_gen_start(uint8_t address, uint8_t length, I2CDirection_t mode)
 {
     uint32_t timeout = 0;
     // Wait until not busy
@@ -119,8 +119,6 @@ bool PHAL_I2C_read_multi(uint8_t* data_a, uint8_t size)
 bool PHAL_I2C_gen_stop()
 {
     uint32_t timeout = 0;
-
-    // check TC flag
 
     // wait for STOPF flag
     while(!(I2C3->ISR & I2C_ISR_STOPF) && ++timeout < PHAL_I2C_TX_TIMEOUT)

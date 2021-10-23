@@ -1,4 +1,52 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#"
-
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required":["busses"],
+    "properties": {
+        "busses":{
+            "type":"array",
+            "items":{"$ref":"#/$defs/bus"}
+        }
+    },
+    "$defs":{
+        "bus":{
+            "type":"object",
+            "required":["bus_name","daq_ssa","daq_rx_pgn","nodes"],
+            "properties":{
+                "bus_name":{"type":"string", "description":"The name of the bus"},
+                "daq_ssa":{"type":"integer","minimum":0,"maximum":63,
+                           "description":"subsystem address, lower = higher priority, 0-63"},
+                "daq_rx_pgn":{"type":"integer", "minimum":0, "maximum":1048575,
+                              "description":"parameter group number 0-1048575\n"},
+                "nodes":{"type":"array", "items":{"$ref":"#/$defs/node"}}
+            }
+        },
+        "node":{
+            "type":"object",
+            "required":["node_name", "variables"],
+            "properties":{
+                "node_name":{"type":"string", "description":"The name of the node"},
+                "variables":{"type":"array", "items":{"$ref":"#/$defs/variable"}}
+            }
+        },
+        "variable":{
+            "type":"object",
+            "required":["var_name", "read_only", "bit_length"],
+            "properties":{
+                "var_name":{"type":"string", "description":"Name of the variable"},
+                "read_only":{"type":"boolean", "description":"Sets if the variable is read only"},
+                "bit_length":{"type":"integer", "minimum":1, "maximum":56},
+                "eeprom":{
+                    "type":"object",
+                    "required":["label", "version"],
+                    "properties":{
+                        "label":{"type":"string", "minLength":3, "maxLength":3,
+                                "description":"3 character eeprom identifier label"},
+                        "version":{"type":"integer", "minimum":0, "maximum":127,
+                                "description":"Version number for this variable\nMAKE SURE TO CHANGE THE VERSION IF THE VARIABLE TYPE IS MODIFIED"}
+                    }
+                }
+            }
+        }
+    }
 }

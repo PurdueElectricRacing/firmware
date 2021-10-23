@@ -15,36 +15,51 @@
 #include "common/phal_L4/can/can.h"
 #include "common/eeprom/eeprom.h"
 #include "can_parse.h"
-// TODO: add templates
-// TODO: define schema
-// Make this match the node name within the daq_config.json
-#define NODE_NAME "TEST_NODE"
 
 typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
+
+// TODO: add templates
+// Make this match the node name within the daq_config.json
+#define NODE_NAME "TEST_NODE"
 
 // BEGIN AUTO VAR COUNT
 #define NUM_VARS 5
 // END AUTO VAR COUNT
 
+#define DAQ_UPDATE_PERIOD 15 // ms
+
 #define EEPROM_ENABLED 1
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50
+#define DAQ_SAVE_QUEUE_SIZE 8
 
 #define DAQ_CMD_LENGTH    3 // bits
 #define DAQ_CMD_MASK      0b111
 
-#define DAQ_CMD_READ      0
-#define DAQ_CMD_WRITE     1
-#define DAQ_CMD_LOAD      2 
-#define DAQ_CMD_SAVE      3 
-#define DAQ_CMD_PUB_START 4 
-#define DAQ_CMD_PUB_STOP  5
+typedef enum
+{
+    DAQ_CMD_READ      = 0,
+    DAQ_CMD_WRITE     = 1,
+    DAQ_CMD_LOAD      = 2,
+    DAQ_CMD_SAVE      = 3, 
+    DAQ_CMD_PUB_START = 4, 
+    DAQ_CMD_PUB_STOP  = 5
+} Daq_Cmd_t;
+
+typedef enum
+{
+    DAQ_RPLY_READ = 0,
+    DAQ_RPLY_SAVE = 1,
+    DAQ_RPLY_READ_ERROR = 2,
+    DAQ_RPLY_WRITE_ERROR = 3,
+    DAQ_RPLY_SAVE_ERROR = 4,
+    DAQ_RPLY_LOAD_ERROR = 5,
+} Daq_Rply_t;
 
 #define DAQ_ID_LENGTH     5 // bits
 #define DAQ_ID_MASK       0b11111
 
-// TODO: auto id
 // BEGIN AUTO VAR IDs
 #define DAQ_ID_TEST_VAR 0
 #define DAQ_ID_TEST_VAR2 1
@@ -55,7 +70,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 
 typedef struct
 {
-    // read: either function returning var or pointer
+    // read: either function or pointer
     union {
         void* read_var_a;
         read_func_ptr_t read_func_a;
@@ -65,30 +80,75 @@ typedef struct
         void* write_var_a;
         write_func_ptr_t write_func_a;
     };
-
+    // flags
     struct {
         uint8_t is_read_only:   1;
         uint8_t has_read_func:  1;
         uint8_t has_write_func: 1;
         uint8_t eeprom_enabled: 1;
     };
-
     uint8_t bit_length;
+    // eeprom configuration
     char eeprom_label[NAME_SIZE];
     uint8_t eeprom_version;
-
 } daq_variable_t;
 
 extern daq_variable_t tracked_vars[NUM_VARS];
 
-
-// TODO: document
+/**
+ * @brief Call after linking read and write functions / addresses
+ *        If the eeprom is enabled, configures the eeprom to contain
+ *        the variables and loads default values if applicable
+ * 
+ * @return Returns false if the operation was successful
+ */
 bool daqInit();
-void link_read_a(uint8_t id, void* addr);
-void link_read_func(uint8_t id, read_func_ptr_t read_func);
-void link_write_a(uint8_t id, void* addr);
-void link_write_func(uint8_t id, write_func_ptr_t write_func);
 
+/**
+ * @brief Call periodically at DAQ_UPDATE_PERIOD
+ *        Processes pending eeprom save commands 
+ *        and publishes live variables
+ */
+void daqPeriodic();
+
+/**
+ * @brief      Links an address to read a variable at
+ * 
+ * @param id   Variable id
+ * @param addr Address to read the variable at
+ */
+void linkReada(uint8_t id, void* addr);
+
+/**
+ * @brief           Links a function to read a variable
+ * 
+ * @param id        Variable id
+ * @param read_func Read function of type read_func_ptr_t
+ */
+void linkReadFunc(uint8_t id, read_func_ptr_t read_func);
+
+/**
+ * @brief      Links an address to write to a variable
+ * 
+ * @param id   Variable id
+ * @param addr Address to write to the variable
+ */
+void linkWritea(uint8_t id, void* addr);
+
+/**
+ * @brief            Links a function to write to a variable
+ * 
+ * @param id         Variable id 
+ * @param write_func Write function of type write_func_ptr_t 
+ */
+void linkWriteFunc(uint8_t id, write_func_ptr_t write_func);
+
+/**
+ * @brief              Callback for receiving a daq message,
+ *                     automatically called by can_parse.c
+ * 
+ * @param msg_header_a Rx CAN message
+ */
 extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 
 #endif

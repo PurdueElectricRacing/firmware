@@ -55,7 +55,7 @@ def find_rx_messages(rx_names):
                 break
         if not rx_found:
             generator.log_error("Message def not found for rx " + str(rx))
-            quit()
+            quit(1)
     
     return msg_defs
 
@@ -182,7 +182,7 @@ def configure_node(node_config, node_paths):
     for msg in receiving_msg_defs:
         if(filter_bank > 27):
             generator.log_error(f"Max filter bank reached for node {node_config['node_name']}")
-            quit()
+            quit(1)
         if not on_mask:
             filter_lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
             filter_lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")

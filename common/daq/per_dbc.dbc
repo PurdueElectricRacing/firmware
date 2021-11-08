@@ -39,6 +39,18 @@ BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER DAQ
 BO_ 2483028044 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2483028108 test_msg2: 2 TEST_NODE
+ SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028172 test_msg3: 2 TEST_NODE
+ SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028236 test_msg4: 2 TEST_NODE
+ SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028300 test_msg5: 2 TEST_NODE
+ SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136780 daq_response_TEST_NODE: 8 TEST_NODE
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -93,6 +105,14 @@ CM_ BU_ TESTER "";
 CM_ BU_ DAQ "";
 CM_ BO_ 2483028044 "test_msg desc";
 CM_ SG_ 2483028044 test_sig "";
+CM_ BO_ 2483028108 "test_msg2 desc";
+CM_ SG_ 2483028108 test_sig2 "";
+CM_ BO_ 2483028172 "test_msg2 desc";
+CM_ SG_ 2483028172 test_sig3 "";
+CM_ BO_ 2483028236 "test_msg4 desc";
+CM_ SG_ 2483028236 test_sig4 "";
+CM_ BO_ 2483028300 "test_msg5 desc";
+CM_ SG_ 2483028300 test_sig5 "";
 CM_ BO_ 2550136780 "daq response from node TEST_NODE";
 CM_ SG_ 2550136780 daq_response "";
 CM_ BO_ 2483028619 "throttle_brake desc";

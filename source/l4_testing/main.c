@@ -6,6 +6,7 @@
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/eeprom/eeprom.h"
+#include <math.h>
 
 /* Module Includes */
 #include "main.h"
@@ -30,7 +31,7 @@ ClockRateConfig_t clock_config = {
     .pll_src                    =PLL_SRC_HSI16,
     .vco_output_rate_target_hz  =160000000,
     .ahb_clock_target_hz        =80000000,
-    .apb1_clock_target_hz       =80000000 / 16,
+    .apb1_clock_target_hz       =80000000,// / 16,
     .apb2_clock_target_hz       =80000000 / 16,
 };
 
@@ -112,12 +113,12 @@ int main (void)
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    taskCreate(canTxUpdate, 5);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    //taskCreate(canSendTest, 500);
+    taskCreate(canSendTest, 15);
     //taskCreate(canReceiveTest, 500);
     taskCreate(myCounterTest, 50);
     //taskCreate(ledBlink, 500);
+    taskCreateBackground(canTxUpdate);
 
     // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
@@ -167,20 +168,42 @@ void readBlue(uint8_t* on)
 }
 
 uint16_t counter = 1;
+uint16_t counter2 = 1;
 
 void canSendTest()
 {
     CanMsgTypeDef_t msg = {.ExtId=ID_TEST_MSG, .DLC=DLC_TEST_MSG, .IDE=1};
     CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
-    data_a->test_msg.test_sig = counter;
+    data_a->test_msg.test_sig = (uint16_t) (500 * sin(((double) counter)/100) + 501);
 
-    PHAL_txCANMessage(&msg);
+    qSendToBack(&q_tx_can, &msg);
 
-    counter += 2;
-    if (counter >= 0xFFF)
+    CanMsgTypeDef_t msg2 = {.ExtId=ID_TEST_MSG2, .DLC=DLC_TEST_MSG2, .IDE=1};
+    CanParsedData_t* data2_a = (CanParsedData_t *) &msg2.Data;
+    data2_a->test_msg2.test_sig2 = counter2;
+
+    qSendToBack(&q_tx_can, &msg2);
+    counter += 1;
+    counter2 += 2;
+    if (counter2 >= 0xFFF)
     {
-        counter = 1;
+        counter2 = 1;
     }
+
+    CanMsgTypeDef_t msg3 = {.ExtId=ID_TEST_MSG3, .DLC=DLC_TEST_MSG3, .IDE=1};
+    CanParsedData_t* data3_a = (CanParsedData_t *) &msg3.Data;
+    data3_a->test_msg3.test_sig3 = counter2;
+    qSendToBack(&q_tx_can, &msg3);
+
+    CanMsgTypeDef_t msg4 = {.ExtId=ID_TEST_MSG4, .DLC=DLC_TEST_MSG4, .IDE=1};
+    CanParsedData_t* data4_a = (CanParsedData_t *) &msg4.Data;
+    data4_a->test_msg4.test_sig4 = (uint16_t) counter2;
+    qSendToBack(&q_tx_can, &msg4);
+
+    CanMsgTypeDef_t msg5 = {.ExtId=ID_TEST_MSG5, .DLC=DLC_TEST_MSG5, .IDE=1};
+    CanParsedData_t* data5_a = (CanParsedData_t *) &msg5.Data;
+    data5_a->test_msg5.test_sig5 = 0xFFF - counter2;
+    qSendToBack(&q_tx_can, &msg5);
 }
 
 void canReceiveTest()

@@ -22,6 +22,10 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_TEST_MSG 0x1400004c
+#define ID_TEST_MSG2 0x1400008c
+#define ID_TEST_MSG3 0x140000cc
+#define ID_TEST_MSG4 0x1400010c
+#define ID_TEST_MSG5 0x1400014c
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffcc
 #define ID_THROTTLE_BRAKE 0x1400028b
 #define ID_WHEEL_SPEEDS 0x1400028a
@@ -32,6 +36,10 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_TEST_MSG 2
+#define DLC_TEST_MSG2 2
+#define DLC_TEST_MSG3 2
+#define DLC_TEST_MSG4 2
+#define DLC_TEST_MSG5 2
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
 #define DLC_THROTTLE_BRAKE 4
 #define DLC_WHEEL_SPEEDS 4
@@ -56,6 +64,18 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t test_sig: 16;
     }test_msg;
+    struct {
+        uint64_t test_sig2: 16;
+    }test_msg2;
+    struct {
+        uint64_t test_sig3: 16;
+    }test_msg3;
+    struct {
+        uint64_t test_sig4: 16;
+    }test_msg4;
+    struct {
+        uint64_t test_sig5: 16;
+    }test_msg5;
     struct {
         uint64_t daq_response: 64;
     }daq_response_TEST_NODE;

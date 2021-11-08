@@ -50,6 +50,7 @@ extern sched_t sched;
 
 // Prototypes
 void taskCreate(func_ptr_t func, uint16_t task_time);
+void taskCreateBackground(func_ptr_t func);
 void taskDelete(uint8_t type, uint8_t task);
 void schedInit(uint32_t freq);
 void schedStart();

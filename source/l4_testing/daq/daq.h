@@ -49,12 +49,13 @@ typedef enum
 
 typedef enum
 {
-    DAQ_RPLY_READ = 0,
-    DAQ_RPLY_SAVE = 1,
-    DAQ_RPLY_READ_ERROR = 2,
+    DAQ_RPLY_READ        = 0,
+    DAQ_RPLY_SAVE        = 1,
+    DAQ_RPLY_READ_ERROR  = 2,
     DAQ_RPLY_WRITE_ERROR = 3,
-    DAQ_RPLY_SAVE_ERROR = 4,
-    DAQ_RPLY_LOAD_ERROR = 5,
+    DAQ_RPLY_SAVE_ERROR  = 4,
+    DAQ_RPLY_LOAD_ERROR  = 5,
+    DAQ_RPLY_PUB         = 6
 } Daq_Rply_t;
 
 #define DAQ_ID_LENGTH     5 // bits
@@ -91,6 +92,8 @@ typedef struct
     // eeprom configuration
     char eeprom_label[NAME_SIZE];
     uint8_t eeprom_version;
+    // publishing
+    uint8_t pub_period; // in terms of 15ms (i.e. 1 == 15ms period)
 } daq_variable_t;
 
 extern daq_variable_t tracked_vars[NUM_VARS];

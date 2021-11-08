@@ -16,6 +16,42 @@
                             "msg_period": 0,
                             "msg_hlp": 5,
                             "msg_pgn": 1
+                        },
+                        {   "msg_name":"test_msg2",
+                            "msg_desc":"test_msg2 desc",
+                            "signals":[
+                                {"sig_name": "test_sig2", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 2 
+                        },
+                        {   "msg_name":"test_msg3",
+                            "msg_desc":"test_msg2 desc",
+                            "signals":[
+                                {"sig_name": "test_sig3", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 3
+                        },
+                        {   "msg_name":"test_msg4",
+                            "msg_desc":"test_msg4 desc",
+                            "signals":[
+                                {"sig_name": "test_sig4", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 4 
+                        },
+                        {   "msg_name":"test_msg5",
+                            "msg_desc":"test_msg5 desc",
+                            "signals":[
+                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 5 
                         }
                     ],
                     "rx":[

@@ -20,10 +20,9 @@ typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
 
 // Make this match the node name within the daq_config.json
-#define NODE_NAME "TEST_NODE"
+#define NODE_NAME ""
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 5
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
@@ -61,11 +60,6 @@ typedef enum
 #define DAQ_ID_MASK       0b11111
 
 // BEGIN AUTO VAR IDs
-#define DAQ_ID_TEST_VAR 0
-#define DAQ_ID_TEST_VAR2 1
-#define DAQ_ID_RED_ON 2
-#define DAQ_ID_GREEN_ON 3
-#define DAQ_ID_BLUE_ON 4
 // END AUTO VAR IDs
 
 typedef struct

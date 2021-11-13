@@ -4,7 +4,7 @@ import os
 from os import path
 import  generator
 import json
-
+from collections import defaultdict
 #
 # GENERATION STRINGS
 #
@@ -137,6 +137,7 @@ def find_rx_messages(rx_names):
     
     return msg_defs
 
+
 def configure_node(node_config, node_paths):
     """ 
     Generates code for c and h files within a node
@@ -145,7 +146,7 @@ def configure_node(node_config, node_paths):
     """
 
     print("Configuring Node " + node_config['node_name'])
-
+    
     # Combine message definitions
     raw_msg_defs = []
     raw_msg_defs += node_config['tx']
@@ -303,18 +304,53 @@ def configure_bus(bus, source_dir, c_dir, h_dir):
                 configure_node(node, node_paths[node_key])
                 break
 
+
+
 def gen_embedded_can(config, source_dir, c_dir, h_dir):
     """ Generate can parsing code """
-
     global can_config
     can_config = config
-
+    combine_bus_nodes(can_config)
+    print('hi')
     for bus in can_config['busses']:
         configure_bus(bus, source_dir, c_dir, h_dir)
 
     generator.log_success("Embedded Code Generated")
 
+
+
+def combine_bus_nodes(can_config):
+
+    main_dict = {}
+    battery_dict = {}
+    for i in can_config['busses']:
+        if i['bus_name'] == 'Main':
+            d1 = i
+        elif i['bus_name'] == 'Battery':
+            d2 = i
+    combined_node_dict = {}
+    ctr = 0
+    for i in d2['nodes']:
+        for j in d1['nodes']:
+            if i['node_name'] == j['node_name']:
+                combined_node_dict['node_name'] = i['node_name']
+                combined_node_dict['node_ssa'] = i['node_ssa']
+                combined_node_dict['tx'] = j['tx'].append(i['tx'])
+                combined_node_dict['rx'] = j['rx'].append(i['rx'])
+                d1['nodes'].remove(d1['nodes'][ctr])
+                d1['nodes'].append(combined_node_dict)
+            ctr+=1
+    print(combined_node_dict)
+    can_config.clear()
+    can_config["$schema"] = "./can_schema.json"
+    can_config['busses'] = [d1]
+    print(can_config)
+
+    
+    
+
 if __name__ == "__main__":
     gen_config = json.load(open(generator.GENERATOR_CONFIG_JSON_PATH))
     config = generator.load_message_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
     gen_embedded_can(config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
+

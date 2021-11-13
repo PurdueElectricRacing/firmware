@@ -158,13 +158,79 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 1,
-                            "msg_pgn": 0  
+                            "msg_pgn": 0 
                         }
                     ],
                     "rx":[
                     ]   
+                },
+                {
+                    "node_name": "Precharge",
+                    "node_ssa":59,
+                    "tx":[
+                        {
+                            "msg_name":"bms_module_volts_summary",
+                            "msg_desc":"Summary of voltage data from bms modules",
+                            "signals": [
+                                {"sig_name": "module_min_volts", "type":"uint16_t", "length": 16},
+                                {"sig_name": "module_max_volts", "type":"uint16_t", "length": 16},
+                                {"sig_name": "module_avg_volts", "type":"uint16_t", "length": 16},
+                                {"sig_name": "pack_voltage", "type":"uint16_t", "length": 16}
+                                
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 1 
+                        },
+                        {
+                            "msg_name": "bms_module_temps_summary",
+                            "msg_desc": "Summary of temperature data from bms modules",
+                            "signals": [
+                                {"sig_name": "module_min_temps", "type":"uint16_t", "length": 10},
+                                {"sig_name": "module_max_temps", "type":"uint16_t", "length": 10},
+                                {"sig_name": "module_avg_temps", "type":"uint16_t", "length": 10}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 0 
+                        }
+                    ],
+                    "rx":[
+                    ]   
+
+
+
+                }
+            ]
+        } ,
+        {
+            "bus_name":"Battery",
+            "nodes":[
+                {
+                    "node_name": "Precharge",
+                    "node_ssa": 58,
+                    "tx": [
+                    ],
+                    "rx": [
+                        {"msg_name": "module1_voltage"},
+                        {"msg_name": "module2_voltage"},
+                        {"msg_name": "module3_voltage"},
+                        {"msg_name": "module4_voltage"},
+                        {"msg_name": "module5_voltage"},
+                        {"msg_name": "module1_temperature"},
+                        {"msg_name": "module2_temperature"},
+                        {"msg_name": "module3_temperature"},
+                        {"msg_name": "module4_temperature"},
+                        {"msg_name": "module5_temperature"}
+                    ]
                 }
             ]
         }
-    ]
+    
+    
+]
+
+
 }
+
+

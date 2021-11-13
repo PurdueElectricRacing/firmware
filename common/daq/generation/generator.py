@@ -131,6 +131,7 @@ def generate_all():
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
     config = load_message_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
 
+
     gen_embedded_can.gen_embedded_can(config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
     gen_dbc.gen_dbc(config, gen_config['dbc_output_path'])
     output_bus_load(config)

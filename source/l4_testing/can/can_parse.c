@@ -56,6 +56,10 @@ void canRxUpdate()
                 can_data.motor_current.stale = 0;
                 can_data.motor_current.last_rx = curr_tick;
                 break;
+            case ID_DAQ_COMMAND_TEST_NODE:
+                can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
+                daq_command_TEST_NODE_CALLBACK(&msg_header);
+                break;
             /* END AUTO CASES */
             default:            // ID wasn't recognized
                 __asm__("nop"); // Do nothing so we can place a breakpoint
@@ -94,6 +98,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[0].FR2 = (ID_WHEEL_SPEEDS << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_MOTOR_CURRENT << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

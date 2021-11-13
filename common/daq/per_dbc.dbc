@@ -33,11 +33,26 @@ NS_ :
 
 BS_:
 
-BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER
+BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER DAQ
 
 
 BO_ 2483028044 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028108 test_msg2: 2 TEST_NODE
+ SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028172 test_msg3: 2 TEST_NODE
+ SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028236 test_msg4: 2 TEST_NODE
+ SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028300 test_msg5: 2 TEST_NODE
+ SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136780 daq_response_TEST_NODE: 8 TEST_NODE
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028619 throttle_brake: 4 Pedalbox
  SG_ raw_brake : 16|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -63,12 +78,21 @@ BO_ 2147490057 bitstream_flash_status: 1 TORQUE_VECTOR
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415925567 bitstream_data: 8 TESTER
- SG_ word_1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
- SG_ word_0 : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d5 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d4 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d3 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d2 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d0 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415925631 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028786 daq_command_TEST_NODE: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 
 
@@ -78,8 +102,19 @@ CM_ BU_ Pedalbox "";
 CM_ BU_ HUB_FL "";
 CM_ BU_ TORQUE_VECTOR "";
 CM_ BU_ TESTER "";
+CM_ BU_ DAQ "";
 CM_ BO_ 2483028044 "test_msg desc";
 CM_ SG_ 2483028044 test_sig "";
+CM_ BO_ 2483028108 "test_msg2 desc";
+CM_ SG_ 2483028108 test_sig2 "";
+CM_ BO_ 2483028172 "test_msg2 desc";
+CM_ SG_ 2483028172 test_sig3 "";
+CM_ BO_ 2483028236 "test_msg4 desc";
+CM_ SG_ 2483028236 test_sig4 "";
+CM_ BO_ 2483028300 "test_msg5 desc";
+CM_ SG_ 2483028300 test_sig5 "";
+CM_ BO_ 2550136780 "daq response from node TEST_NODE";
+CM_ SG_ 2550136780 daq_response "";
 CM_ BO_ 2483028619 "throttle_brake desc";
 CM_ SG_ 2483028619 raw_brake "";
 CM_ SG_ 2483028619 raw_throttle "";
@@ -99,11 +134,19 @@ CM_ BO_ 2147490057 "Status message for bitstream flashing";
 CM_ SG_ 2147490057 flash_timeout_rx "";
 CM_ SG_ 2147490057 flash_success "";
 CM_ BO_ 2415925567 "Bitstream download command";
-CM_ SG_ 2415925567 word_1 "";
-CM_ SG_ 2415925567 word_0 "";
+CM_ SG_ 2415925567 d7 "";
+CM_ SG_ 2415925567 d6 "";
+CM_ SG_ 2415925567 d5 "";
+CM_ SG_ 2415925567 d4 "";
+CM_ SG_ 2415925567 d3 "";
+CM_ SG_ 2415925567 d2 "";
+CM_ SG_ 2415925567 d1 "";
+CM_ SG_ 2415925567 d0 "";
 CM_ BO_ 2415925631 "Bitstream state command";
 CM_ SG_ 2415925631 download_size "";
 CM_ SG_ 2415925631 download_request "";
+CM_ BO_ 2483028786 "daq command for node TEST_NODE";
+CM_ SG_ 2483028786 daq_command "";
 
 
 

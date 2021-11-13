@@ -58,7 +58,7 @@ typedef struct {
     GPIO_TypeDef*       bank; /* GPIO Bank for configuration */
     uint8_t             pin;  /* Pin Number for configruation */
     GPIOPinType_t       type; /* Output type of pin */
-    union 
+    struct 
     {
         //INPUT ONLY FIELDS
         GPIOInputPull_t     pull;  /* Push/Pull selection */
@@ -98,17 +98,22 @@ typedef struct {
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
  * @param pin_num Pin number from GPIO bank to configure
  * @param alt_func_num Alternate function selection
+ * @param ospeed_sel Pin output speed selection
+ * @param otype_sel Pin output type selection
+ * @param input_pull_sel Input pullup/pulldown/high-z selection
  */
-#define GPIO_INIT_AF(gpio_bank, pin_num, alt_func_num) \
-    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_AF, .config={.af_num = alt_func_num}}
+#define GPIO_INIT_AF(gpio_bank, pin_num, alt_func_num, ospeed_sel, otype_sel, input_pull_sel) \
+    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_AF, .config={.af_num = alt_func_num, .ospeed=ospeed_sel, .otype=otype_sel, .pull=input_pull_sel}}
 
 /*
     Useful defines for GPIO Init struct with commonly used peripheral/pin mappings.
     If you find yourself adding the same pin mappings to multiple devices, add a macro below
     to cut down on duplication.
 */
-#define GPIO_INIT_CANRX_PA11 GPIO_INIT_AF(GPIOA, 11, 9)
-#define GPIO_INIT_CANTX_PA12 GPIO_INIT_AF(GPIOA, 12, 9)
+#define GPIO_INIT_CANRX_PA11 GPIO_INIT_AF(GPIOA, 11, 9, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_CANTX_PA12 GPIO_INIT_AF(GPIOA, 12, 9, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_I2C3_SCL_PA7 GPIO_INIT_AF(GPIOA, 7, 4, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_UP)
+#define GPIO_INIT_I2C3_SDA_PB4 GPIO_INIT_AF(GPIOB, 4, 4, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_UP)
 
 /**
  * @brief Initilize the GPIO perpheral given a list of configuration fields for all of the GPIO pins.

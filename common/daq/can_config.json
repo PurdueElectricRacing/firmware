@@ -16,6 +16,42 @@
                             "msg_period": 0,
                             "msg_hlp": 5,
                             "msg_pgn": 1
+                        },
+                        {   "msg_name":"test_msg2",
+                            "msg_desc":"test_msg2 desc",
+                            "signals":[
+                                {"sig_name": "test_sig2", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 2 
+                        },
+                        {   "msg_name":"test_msg3",
+                            "msg_desc":"test_msg2 desc",
+                            "signals":[
+                                {"sig_name": "test_sig3", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 3
+                        },
+                        {   "msg_name":"test_msg4",
+                            "msg_desc":"test_msg4 desc",
+                            "signals":[
+                                {"sig_name": "test_sig4", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 4 
+                        },
+                        {   "msg_name":"test_msg5",
+                            "msg_desc":"test_msg5 desc",
+                            "signals":[
+                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 5,
+                            "msg_pgn": 5 
                         }
                     ],
                     "rx":[
@@ -111,8 +147,14 @@
                         {   "msg_name":"bitstream_data",
                             "msg_desc":"Bitstream download command",
                             "signals":[
-                                {"sig_name":"word_0", "sig_desc":"Bitstream data word 0","type":"uint32_t","length":32},
-                                {"sig_name":"word_1", "sig_desc":"Bitstream data word 1","type":"uint32_t","length":32}
+                                {"sig_name":"d0", "sig_desc":"Bitstream data word 0","type":"uint8_t","length":8},
+                                {"sig_name":"d1", "sig_desc":"Bitstream data word 1","type":"uint8_t","length":8},
+                                {"sig_name":"d2", "sig_desc":"Bitstream data word 2","type":"uint8_t","length":8},
+                                {"sig_name":"d3", "sig_desc":"Bitstream data word 3","type":"uint8_t","length":8},
+                                {"sig_name":"d4", "sig_desc":"Bitstream data word 4","type":"uint8_t","length":8},
+                                {"sig_name":"d5", "sig_desc":"Bitstream data word 5","type":"uint8_t","length":8},
+                                {"sig_name":"d6", "sig_desc":"Bitstream data word 6","type":"uint8_t","length":8},
+                                {"sig_name":"d7", "sig_desc":"Bitstream data word 7","type":"uint8_t","length":8}
                             ],
                             "msg_period":0,
                             "msg_hlp":4,

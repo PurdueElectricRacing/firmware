@@ -5,7 +5,10 @@
 
 #define BITSTREAM_FLASH_RX_TIMEOUT (50)
 
-void bitstream_init();
-void bitstream_10Hz();
+void bitstreamInit();
+void bitstream10Hz();
+void bitstream100Hz();
+
+extern q_handle_t q_tx_can;
 
 #endif

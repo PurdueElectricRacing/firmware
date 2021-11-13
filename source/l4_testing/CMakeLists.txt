@@ -17,6 +17,8 @@ target_link_libraries(${TARGET_NAME} PSCHED)
 target_link_libraries(${TARGET_NAME} QUEUE)
 # add PHAL PER library
 target_link_libraries(${TARGET_NAME} PHAL_L4)
+# add EEPROM PER library
+target_link_libraries(${TARGET_NAME} EEPROM)
 
 # Find all .c sources in project, recursive search starting at component root
 file(GLOB_RECURSE glob_sources "*.c")

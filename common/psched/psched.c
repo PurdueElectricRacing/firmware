@@ -19,6 +19,16 @@ void taskCreate(func_ptr_t func, uint16_t task_time)
     sched.task_pointer[sched.task_count++] = func;
 }
 
+// @funcname: taskCreateBackground()
+//
+// @brief: Adds background task to scheduler
+//
+// @param: func: Pointer to function to run
+void taskCreateBackground(func_ptr_t func)
+{
+    sched.bg_pointer[sched.bg_count++] = func;
+}
+
 // @funcname: taskDelete()
 //
 // @brief: Removes task from scheduler
@@ -148,7 +158,7 @@ static void schedBg()
         // Execute background tasks
         for (i = 0; i < sched.bg_count; i++)
         {
-            (*sched.task_pointer[i])();
+            (*sched.bg_pointer[i])();
         }
     }
 }
@@ -160,7 +170,7 @@ void schedStart()
 {
     TIM7->CR1 |= TIM_CR1_CEN;
     NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
-    IWDG->KR  =  0xCCCC;
+    IWDG->KR  =  0xCCCC;     
     IWDG->KR  =  0x5555;
     IWDG->PR  |= 2;
     IWDG->RLR =  20;

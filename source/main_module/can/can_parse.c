@@ -45,9 +45,9 @@ void canRxUpdate()
                 can_data.raw_throttle_brake.stale = 0;
                 can_data.raw_throttle_brake.last_rx = curr_tick;
                 break;
-            case ID_DAQ_COMMAND_TEST_NODE:
-                can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
-                daq_command_TEST_NODE_CALLBACK(&msg_header);
+            case ID_START_BUTTON:
+                can_data.start_button.start = msg_data_a->start_button.start;
+                start_button_CALLBACK(msg_data_a);
                 break;
             default:
                 __asm__("nop");
@@ -78,7 +78,7 @@ bool initCANFilter()
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_RAW_THROTTLE_BRAKE << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_START_BUTTON << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

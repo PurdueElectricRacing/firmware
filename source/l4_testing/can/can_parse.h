@@ -21,16 +21,14 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TEST_MSG 0x1400004c
-#define ID_TEST_MSG2 0x1400008c
-#define ID_TEST_MSG3 0x140000cc
-#define ID_TEST_MSG4 0x1400010c
-#define ID_TEST_MSG5 0x1400014c
-#define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffcc
-#define ID_THROTTLE_BRAKE 0x1400028b
-#define ID_WHEEL_SPEEDS 0x1400028a
-#define ID_MOTOR_CURRENT 0x400008a
-#define ID_DAQ_COMMAND_TEST_NODE 0x14000332
+#define ID_TEST_MSG 0x1400007f
+#define ID_TEST_MSG2 0x140000bf
+#define ID_TEST_MSG3 0x140000ff
+#define ID_TEST_MSG4 0x1400013f
+#define ID_TEST_MSG5 0x1400017f
+#define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
+#define ID_RAW_THROTTLE_BRAKE 0x14000285
+#define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -41,9 +39,7 @@
 #define DLC_TEST_MSG4 2
 #define DLC_TEST_MSG5 2
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
-#define DLC_THROTTLE_BRAKE 4
-#define DLC_WHEEL_SPEEDS 4
-#define DLC_MOTOR_CURRENT 1
+#define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
 
@@ -90,9 +86,7 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_THROTTLE_BRAKE 5
-#define UP_WHEEL_SPEEDS 15
-#define UP_MOTOR_CURRENT 5
+#define UP_RAW_THROTTLE_BRAKE 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -120,18 +114,11 @@ typedef union { __attribute__((packed))
         uint64_t daq_response: 64;
     } daq_response_TEST_NODE;
     struct {
-        uint64_t raw_throttle: 16;
-        uint64_t raw_brake: 16;
-    } throttle_brake;
-    struct {
-        uint64_t fl_speed: 8;
-        uint64_t fr_speed: 8;
-        uint64_t bl_speed: 8;
-        uint64_t br_speed: 8;
-    } wheel_speeds;
-    struct {
-        uint64_t current: 8;
-    } motor_current;
+        uint64_t throttle0: 16;
+        uint64_t throttle1: 16;
+        uint64_t brake0: 16;
+        uint64_t brake1: 16;
+    } raw_throttle_brake;
     struct {
         uint64_t daq_command: 64;
     } daq_command_TEST_NODE;
@@ -144,24 +131,13 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t raw_throttle;
-        uint16_t raw_brake;
+        uint16_t throttle0;
+        uint16_t throttle1;
+        uint16_t brake0;
+        uint16_t brake1;
         uint8_t stale;
         uint32_t last_rx;
-    } throttle_brake;
-    struct {
-        uint8_t fl_speed;
-        uint8_t fr_speed;
-        uint8_t bl_speed;
-        uint8_t br_speed;
-        uint8_t stale;
-        uint32_t last_rx;
-    } wheel_speeds;
-    struct {
-        uint8_t current;
-        uint8_t stale;
-        uint32_t last_rx;
-    } motor_current;
+    } raw_throttle_brake;
     struct {
         uint64_t daq_command;
     } daq_command_TEST_NODE;

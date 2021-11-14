@@ -36,7 +36,6 @@ add_subdirectory(common/eeprom)
 
 # Add Components
 add_subdirectory(source/main_module)
-add_subdirectory(source/pedal)
 add_subdirectory(source/bootloader_l4)
 add_subdirectory(source/l4_testing)
 #add_subdirectory(source/torque_vector)

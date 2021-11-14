@@ -33,51 +33,61 @@ NS_ :
 
 BS_:
 
-BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER Precharge DAQ Precharge
+BU_: Main_Module Torque_Vector Front_Driveline Rear_Driveline Precharge Dashboard TESTER TEST_NODE DAQ Precharge
 
 
-BO_ 2483028044 test_msg: 2 TEST_NODE
- SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214592576 driver_request: 4 Main_Module
+ SG_ regen : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ accel : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028108 test_msg2: 2 TEST_NODE
- SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598912 main_status: 3 Main_Module
+ SG_ precharge_state : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ apps_state : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028172 test_msg3: 2 TEST_NODE
- SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028236 test_msg4: 2 TEST_NODE
- SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028300 test_msg5: 2 TEST_NODE
- SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2550136780 daq_response_TEST_NODE: 8 TEST_NODE
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028619 throttle_brake: 4 Pedalbox
- SG_ raw_brake : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ raw_throttle : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028618 wheel_speeds: 4 HUB_FL
- SG_ br_speed : 24|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ bl_speed : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ fr_speed : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ fl_speed : 0|8@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2214592650 motor_current: 1 HUB_FL
- SG_ current : 0|8@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2214592585 torque_request: 6 TORQUE_VECTOR
+BO_ 2214592577 torque_request: 6 Torque_Vector
  SG_ rear_right : 36|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_left : 24|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ front_right : 12|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|12@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147490057 bitstream_flash_status: 1 TORQUE_VECTOR
+BO_ 2147490049 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415925567 bitstream_data: 8 TESTER
+BO_ 2214592514 front_wheel_data: 8 Front_Driveline
+ SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810882 front_motor_currents: 4 Front_Driveline
+ SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214592515 rear_wheel_data: 8 Rear_Driveline
+ SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810883 rear_motor_currents: 4 Rear_Driveline
+ SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734148 test_precharge_msg: 1 Precharge
+ SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028613 raw_throttle_brake: 8 Dashboard
+ SG_ brake1 : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ brake0 : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ throttle1 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ throttle0 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214592517 start_button: 1 Dashboard
+ SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415925566 bitstream_data: 8 TESTER
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d5 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -87,14 +97,29 @@ BO_ 2415925567 bitstream_data: 8 TESTER
  SG_ d1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d0 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415925631 bitstream_request: 5 TESTER
+BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281734202 test_precharge_msg: 1 Precharge
- SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483028095 test_msg: 2 TEST_NODE
+ SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028786 daq_command_TEST_NODE: 8 DAQ
+BO_ 2483028159 test_msg2: 2 TEST_NODE
+ SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028223 test_msg3: 2 TEST_NODE
+ SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028287 test_msg4: 2 TEST_NODE
+ SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028351 test_msg5: 2 TEST_NODE
+ SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136831 daq_response_TEST_NODE: 8 TEST_NODE
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483032050 daq_command_TEST_NODE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214624554 test_bat_msg: 1 Precharge
@@ -103,60 +128,82 @@ BO_ 2214624554 test_bat_msg: 1 Precharge
 
 
 
-CM_ BU_ TEST_NODE "";
-CM_ BU_ Pedalbox "";
-CM_ BU_ HUB_FL "";
-CM_ BU_ TORQUE_VECTOR "";
-CM_ BU_ TESTER "";
+CM_ BU_ Main_Module "";
+CM_ BU_ Torque_Vector "";
+CM_ BU_ Front_Driveline "";
+CM_ BU_ Rear_Driveline "";
 CM_ BU_ Precharge "";
+CM_ BU_ Dashboard "";
+CM_ BU_ TESTER "";
+CM_ BU_ TEST_NODE "";
 CM_ BU_ DAQ "";
 CM_ BU_ Precharge "";
-CM_ BO_ 2483028044 "test_msg desc";
-CM_ SG_ 2483028044 test_sig "";
-CM_ BO_ 2483028108 "test_msg2 desc";
-CM_ SG_ 2483028108 test_sig2 "";
-CM_ BO_ 2483028172 "test_msg2 desc";
-CM_ SG_ 2483028172 test_sig3 "";
-CM_ BO_ 2483028236 "test_msg4 desc";
-CM_ SG_ 2483028236 test_sig4 "";
-CM_ BO_ 2483028300 "test_msg5 desc";
-CM_ SG_ 2483028300 test_sig5 "";
-CM_ BO_ 2550136780 "daq response from node TEST_NODE";
-CM_ SG_ 2550136780 daq_response "";
-CM_ BO_ 2483028619 "throttle_brake desc";
-CM_ SG_ 2483028619 raw_brake "";
-CM_ SG_ 2483028619 raw_throttle "";
-CM_ BO_ 2483028618 "wheel_speeds desc";
-CM_ SG_ 2483028618 br_speed "";
-CM_ SG_ 2483028618 bl_speed "";
-CM_ SG_ 2483028618 fr_speed "";
-CM_ SG_ 2483028618 fl_speed "";
-CM_ BO_ 2214592650 "current of motor";
-CM_ SG_ 2214592650 current "";
-CM_ BO_ 2214592585 "Torque request for all motors.";
-CM_ SG_ 2214592585 rear_right "";
-CM_ SG_ 2214592585 rear_left "";
-CM_ SG_ 2214592585 front_right "";
-CM_ SG_ 2214592585 front_left "";
-CM_ BO_ 2147490057 "Status message for bitstream flashing";
-CM_ SG_ 2147490057 flash_timeout_rx "";
-CM_ SG_ 2147490057 flash_success "";
-CM_ BO_ 2415925567 "Bitstream download command";
-CM_ SG_ 2415925567 d7 "";
-CM_ SG_ 2415925567 d6 "";
-CM_ SG_ 2415925567 d5 "";
-CM_ SG_ 2415925567 d4 "";
-CM_ SG_ 2415925567 d3 "";
-CM_ SG_ 2415925567 d2 "";
-CM_ SG_ 2415925567 d1 "";
-CM_ SG_ 2415925567 d0 "";
-CM_ BO_ 2415925631 "Bitstream state command";
-CM_ SG_ 2415925631 download_size "";
-CM_ SG_ 2415925631 download_request "";
-CM_ BO_ 2281734202 "test precharge desc";
-CM_ SG_ 2281734202 test_precharge_sig "";
-CM_ BO_ 2483028786 "daq command for node TEST_NODE";
-CM_ SG_ 2483028786 daq_command "";
+CM_ BO_ 2214592576 "Driver throttle/regeneration request";
+CM_ SG_ 2214592576 regen "";
+CM_ SG_ 2214592576 accel "";
+CM_ BO_ 2214598912 "Status message for main module";
+CM_ SG_ 2214598912 precharge_state "";
+CM_ SG_ 2214598912 apps_state "";
+CM_ SG_ 2214598912 car_state "";
+CM_ BO_ 2214592577 "Torque request for all motors.";
+CM_ SG_ 2214592577 rear_right "";
+CM_ SG_ 2214592577 rear_left "";
+CM_ SG_ 2214592577 front_right "";
+CM_ SG_ 2214592577 front_left "";
+CM_ BO_ 2147490049 "Status message for bitstream flashing";
+CM_ SG_ 2147490049 flash_timeout_rx "";
+CM_ SG_ 2147490049 flash_success "";
+CM_ BO_ 2214592514 "Wheel data for the rear tires";
+CM_ SG_ 2214592514 right_normal "";
+CM_ SG_ 2214592514 left_normal "";
+CM_ SG_ 2214592514 right_speed "";
+CM_ SG_ 2214592514 left_speed "";
+CM_ BO_ 2348810882 "DC Current of the motor controllers";
+CM_ SG_ 2348810882 right "";
+CM_ SG_ 2348810882 left "";
+CM_ BO_ 2214592515 "Wheel data for the rear tires";
+CM_ SG_ 2214592515 right_normal "";
+CM_ SG_ 2214592515 left_normal "";
+CM_ SG_ 2214592515 right_speed "";
+CM_ SG_ 2214592515 left_speed "";
+CM_ BO_ 2348810883 "DC Current of the motor controllers";
+CM_ SG_ 2348810883 right "";
+CM_ SG_ 2348810883 left "";
+CM_ BO_ 2281734148 "test precharge desc";
+CM_ SG_ 2281734148 test_precharge_sig "";
+CM_ BO_ 2483028613 "throttle_brake desc";
+CM_ SG_ 2483028613 brake1 "";
+CM_ SG_ 2483028613 brake0 "";
+CM_ SG_ 2483028613 throttle1 "";
+CM_ SG_ 2483028613 throttle0 "";
+CM_ BO_ 2214592517 "Car start button pressed";
+CM_ SG_ 2214592517 start "";
+CM_ BO_ 2415925566 "Bitstream download command";
+CM_ SG_ 2415925566 d7 "";
+CM_ SG_ 2415925566 d6 "";
+CM_ SG_ 2415925566 d5 "";
+CM_ SG_ 2415925566 d4 "";
+CM_ SG_ 2415925566 d3 "";
+CM_ SG_ 2415925566 d2 "";
+CM_ SG_ 2415925566 d1 "";
+CM_ SG_ 2415925566 d0 "";
+CM_ BO_ 2415925630 "Bitstream state command";
+CM_ SG_ 2415925630 download_size "";
+CM_ SG_ 2415925630 download_request "";
+CM_ BO_ 2483028095 "test_msg desc";
+CM_ SG_ 2483028095 test_sig "";
+CM_ BO_ 2483028159 "test_msg2 desc";
+CM_ SG_ 2483028159 test_sig2 "";
+CM_ BO_ 2483028223 "test_msg2 desc";
+CM_ SG_ 2483028223 test_sig3 "";
+CM_ BO_ 2483028287 "test_msg4 desc";
+CM_ SG_ 2483028287 test_sig4 "";
+CM_ BO_ 2483028351 "test_msg5 desc";
+CM_ SG_ 2483028351 test_sig5 "";
+CM_ BO_ 2550136831 "daq response from node TEST_NODE";
+CM_ SG_ 2550136831 daq_response "";
+CM_ BO_ 2483032050 "daq command for node TEST_NODE";
+CM_ SG_ 2483032050 daq_command "";
 CM_ BO_ 2214624554 "test_bat_desc";
 CM_ SG_ 2214624554 test_bat_sig "";
 

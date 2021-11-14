@@ -34,13 +34,8 @@ void canRxUpdate()
     if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
-        switch(msg_header.ExtId)
-        {
-            /* BEGIN AUTO CASES */
-            /* END AUTO CASES */
-            default:            // ID wasn't recognized
-                __asm__("nop"); // Do nothing so we can place a breakpoint
-        }
+        /* BEGIN AUTO CASES */
+        /* END AUTO CASES */
     }
 
     /* BEGIN AUTO STALE CHECKS */
@@ -72,6 +67,7 @@ bool initCANFilter()
 
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }
+
 
 void canProcessRxIRQs(CanMsgTypeDef_t* rx)
 {

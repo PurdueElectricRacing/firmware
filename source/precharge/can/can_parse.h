@@ -15,42 +15,36 @@
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
-#define NODE_NAME "TORQUE_VECTOR"
+#define NODE_NAME "Precharge"
 
 #define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TORQUE_REQUEST 0x4000049
-#define ID_BITSTREAM_FLASH_STATUS 0x1909
-#define ID_BITSTREAM_DATA 0x1000193f
-#define ID_BITSTREAM_REQUEST 0x1000197f
+#define ID_TEST_BAT_MSG 0x4007d2a
+#define ID_TEST_PRECHARGE_MSG 0x800803a
+#define ID_TEST_MSG 0x1400004c
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_TORQUE_REQUEST 6
-#define DLC_BITSTREAM_FLASH_STATUS 1
-#define DLC_BITSTREAM_DATA 8
-#define DLC_BITSTREAM_REQUEST 5
+#define DLC_TEST_BAT_MSG 1
+#define DLC_TEST_PRECHARGE_MSG 1
+#define DLC_TEST_MSG 2
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_TORQUE_REQUEST(queue, front_left_, front_right_, rear_left_, rear_right_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUE_REQUEST, .DLC=DLC_TORQUE_REQUEST, .IDE=1};\
+#define SEND_TEST_BAT_MSG(queue, test_bat_sig_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_BAT_MSG, .DLC=DLC_TEST_BAT_MSG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->torque_request.front_left = front_left_;\
-        data_a->torque_request.front_right = front_right_;\
-        data_a->torque_request.rear_left = rear_left_;\
-        data_a->torque_request.rear_right = rear_right_;\
+        data_a->test_bat_msg.test_bat_sig = test_bat_sig_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_BITSTREAM_FLASH_STATUS(queue, flash_success_, flash_timeout_rx_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};\
+#define SEND_TEST_PRECHARGE_MSG(queue, test_precharge_sig_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_PRECHARGE_MSG, .DLC=DLC_TEST_PRECHARGE_MSG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bitstream_flash_status.flash_success = flash_success_;\
-        data_a->bitstream_flash_status.flash_timeout_rx = flash_timeout_rx_;\
+        data_a->test_precharge_msg.test_precharge_sig = test_precharge_sig_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -58,6 +52,7 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
+#define UP_TEST_MSG 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -67,29 +62,14 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t front_left: 12;
-        uint64_t front_right: 12;
-        uint64_t rear_left: 12;
-        uint64_t rear_right: 12;
-    } torque_request;
+        uint64_t test_bat_sig: 8;
+    } test_bat_msg;
     struct {
-        uint64_t flash_success: 1;
-        uint64_t flash_timeout_rx: 1;
-    } bitstream_flash_status;
+        uint64_t test_precharge_sig: 8;
+    } test_precharge_msg;
     struct {
-        uint64_t d0: 8;
-        uint64_t d1: 8;
-        uint64_t d2: 8;
-        uint64_t d3: 8;
-        uint64_t d4: 8;
-        uint64_t d5: 8;
-        uint64_t d6: 8;
-        uint64_t d7: 8;
-    } bitstream_data;
-    struct {
-        uint64_t download_request: 1;
-        uint64_t download_size: 32;
-    } bitstream_request;
+        uint64_t test_sig: 16;
+    } test_msg;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -99,30 +79,19 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint8_t d0;
-        uint8_t d1;
-        uint8_t d2;
-        uint8_t d3;
-        uint8_t d4;
-        uint8_t d5;
-        uint8_t d6;
-        uint8_t d7;
-    } bitstream_data;
-    struct {
-        uint8_t download_request;
-        uint32_t download_size;
-    } bitstream_request;
+        uint16_t test_sig;
+        uint8_t stale;
+        uint32_t last_rx;
+    } test_msg;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */
-extern void bitstream_data_IRQ(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN RX IRQ */
 
 /**

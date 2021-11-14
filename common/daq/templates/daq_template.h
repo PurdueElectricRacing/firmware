@@ -20,14 +20,14 @@ typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
 
 // Make this match the node name within the daq_config.json
-#define NODE_NAME ""
+#define NODE_NAME "TEMPLATE_NODE"
 
 // BEGIN AUTO VAR COUNT
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
-#define EEPROM_ENABLED 1
+#define EEPROM_ENABLED 0
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50
 #define DAQ_SAVE_QUEUE_SIZE 8
@@ -96,9 +96,11 @@ extern daq_variable_t tracked_vars[NUM_VARS];
  *        If the eeprom is enabled, configures the eeprom to contain
  *        the variables and loads default values if applicable
  * 
+ * @param tx_a Address of the tx CAN buffer to send responses to
+ * 
  * @return Returns false if the operation was successful
  */
-bool daqInit();
+bool daqInit(q_handle_t* tx_a);
 
 /**
  * @brief Call periodically at DAQ_UPDATE_PERIOD

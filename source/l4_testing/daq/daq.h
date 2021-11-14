@@ -102,9 +102,11 @@ extern daq_variable_t tracked_vars[NUM_VARS];
  *        If the eeprom is enabled, configures the eeprom to contain
  *        the variables and loads default values if applicable
  * 
+ * @param tx_a Address of the tx CAN buffer to send responses to
+ * 
  * @return Returns false if the operation was successful
  */
-bool daqInit();
+bool daqInit(q_handle_t* tx_a);
 
 /**
  * @brief Call periodically at DAQ_UPDATE_PERIOD

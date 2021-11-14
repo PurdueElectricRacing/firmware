@@ -32,6 +32,10 @@
                     "type":"string",
                     "description":"name of the node (MCU)"
                 },
+                "can_peripheral":{
+                    "type":"string",
+                    "enum": ["CAN1", "CAN2"]
+                },
                 "node_ssa":{
                     "type":"integer",
                     "description":"subsystem address, lower = higher priority, 0-63",

@@ -47,6 +47,46 @@
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
 
+// Message sending macros
+/* BEGIN AUTO SEND MACROS */
+#define SEND_TEST_MSG(queue, test_sig_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG, .DLC=DLC_TEST_MSG, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->test_msg.test_sig = test_sig_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_TEST_MSG2(queue, test_sig2_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG2, .DLC=DLC_TEST_MSG2, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->test_msg2.test_sig2 = test_sig2_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_TEST_MSG3(queue, test_sig3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG3, .DLC=DLC_TEST_MSG3, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->test_msg3.test_sig3 = test_sig3_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_TEST_MSG4(queue, test_sig4_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG4, .DLC=DLC_TEST_MSG4, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->test_msg4.test_sig4 = test_sig4_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_TEST_MSG5(queue, test_sig5_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG5, .DLC=DLC_TEST_MSG5, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->test_msg5.test_sig5 = test_sig5_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->daq_response_TEST_NODE.daq_response = daq_response_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+/* END AUTO SEND MACROS */
+
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
@@ -63,38 +103,38 @@
 typedef union { __attribute__((packed))
     struct {
         uint64_t test_sig: 16;
-    }test_msg;
+    } test_msg;
     struct {
         uint64_t test_sig2: 16;
-    }test_msg2;
+    } test_msg2;
     struct {
         uint64_t test_sig3: 16;
-    }test_msg3;
+    } test_msg3;
     struct {
         uint64_t test_sig4: 16;
-    }test_msg4;
+    } test_msg4;
     struct {
         uint64_t test_sig5: 16;
-    }test_msg5;
+    } test_msg5;
     struct {
         uint64_t daq_response: 64;
-    }daq_response_TEST_NODE;
+    } daq_response_TEST_NODE;
     struct {
         uint64_t raw_throttle: 16;
         uint64_t raw_brake: 16;
-    }throttle_brake;
+    } throttle_brake;
     struct {
         uint64_t fl_speed: 8;
         uint64_t fr_speed: 8;
         uint64_t bl_speed: 8;
         uint64_t br_speed: 8;
-    }wheel_speeds;
+    } wheel_speeds;
     struct {
         uint64_t current: 8;
-    }motor_current;
+    } motor_current;
     struct {
         uint64_t daq_command: 64;
-    }daq_command_TEST_NODE;
+    } daq_command_TEST_NODE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */

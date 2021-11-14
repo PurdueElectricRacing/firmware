@@ -12,7 +12,11 @@
 #ifndef _PHAL_CAN_H
 #define _PHAL_CAN_H
 
+#ifdef STM32L45
+#include "stm32l451xx.h"
+#else
 #include "stm32l432xx.h"
+#endif
 #include <stdbool.h>
 
 #define PHAL_CAN_TX_TIMEOUT   (1000U)
@@ -20,6 +24,7 @@
 
 typedef struct
 {
+  CAN_TypeDef* Bus; /*!< Specifies the bus. */
   uint16_t StdId; /*!< Specifies the standard identifier. */
   uint32_t ExtId; /*!< Specifies the extended identifier. */
   uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */
@@ -35,9 +40,9 @@ typedef struct
  * @return true Peripheral sucessfully initalized
  * @return false Peripheral stalled during initilization
  */
-bool PHAL_initCAN(bool test_mode);
+bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode);
 
-bool PHAL_deinitCAN();
+bool PHAL_deinitCAN(CAN_TypeDef* bus);
 
 /**
  * @brief Find an empty TX mailbox and transmit a CAN message if one is found.

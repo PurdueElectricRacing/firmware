@@ -70,8 +70,11 @@ void sendDaqFrame(daq_tx_frame_writer_t tx_frame);
 void daqeQueuePop();
 void daqeQueuePush();
 
-bool daqInit()
+q_handle_t* q_tx_can_a;
+
+bool daqInit(q_handle_t* tx_a)
 {
+    q_tx_can_a = tx_a;
     // check all variables have been linked
     for(uint8_t i = 0; i < NUM_VARS; i++)
     {
@@ -446,9 +449,9 @@ void flushDaqFrame(daq_tx_frame_writer_t* tx_msg)
 // send tx frame
 void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
 {
-    CanMsgTypeDef_t msg = {.IDE=1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
+    CanMsgTypeDef_t msg = {.Bus=CAN1, .IDE=1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
     memcpy(msg.Data, tx_frame.data, msg.DLC);
-    PHAL_txCANMessage(&msg);
+    qSendToBack(q_tx_can_a, &msg);
 }
 
 // call after read op

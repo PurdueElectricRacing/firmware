@@ -73,7 +73,7 @@ def check_repeat_defs(can_config):
         node_names = []
         for node in bus['nodes']:
             if node['node_name'] in node_names:
-                log_error(f"Found identical node names: {node['node_name']}")
+                log_error(f"Found identical node names within a bus: {node['node_name']}")
                 quit(1)
             else:
                 node_names.append(node['node_name'])
@@ -115,6 +115,30 @@ def check_repeat_daq_variables(daq_config):
                         quit(1)
                     else:
                         eeprom_lbls.append(var['eeprom']['label'])
+
+def label_junction_nodes(can_config):
+    """ Finds junction nodes, ensures can peripherals defined, and adds is_junction """
+    node_names = []
+    for bus in can_config['busses']:
+        for node in bus['nodes']:
+            if node['node_name'] in node_names:
+                # junction found (assumes check repeat defs already ran and passed)
+                print(f"Junction node found: {node['node_name']}")
+                node['is_junction'] = True
+                # check peripheral
+                if 'can_peripheral' not in node:
+                    log_error(f"ERROR: can peripheral not defined for junction node {node['node_name']}")
+                    quit(1)
+                # label the matching nodes on the other busses as a junction
+                for bus2 in can_config['busses']:
+                    for node2 in bus2['nodes']:
+                        if node2['node_name'] == node['node_name']:
+                            node2['is_junction'] = True
+                            # check peripheral
+                            if 'can_peripheral' not in node2:
+                                log_error(f"ERROR: can peripheral not defined for junction node {node2['node_name']}")
+                                quit(1)
+            node_names.append(node['node_name'])
 
 def insert_lines(source: list, start, stop, new_lines):
     """ 
@@ -236,6 +260,7 @@ def generate_all():
     generate_ids(can_config)
     generate_dlcs(can_config)
     check_repeat_defs(can_config)
+    label_junction_nodes(can_config)
 
     gen_embedded_can.gen_embedded_can(can_config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
     gen_embedded_daq.gen_embedded_daq(daq_config, gen_config['source_directory'], gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])

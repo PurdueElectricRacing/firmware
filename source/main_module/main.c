@@ -18,7 +18,7 @@ int main (void)
 {
     PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
 
-    PHAL_initCAN(true);
+    PHAL_initCAN(CAN1, true);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     schedInit(SystemCoreClock);

@@ -5,7 +5,7 @@
 
 int main (void)
 {
-    PHAL_initCAN(false);
+    PHAL_initCAN(CAN1, false);
 
     return 0;
 }

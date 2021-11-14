@@ -27,6 +27,10 @@
 /* BEGIN AUTO DLC DEFS */
 /* END AUTO DLC DEFS */
 
+// Message sending macros
+/* BEGIN AUTO SEND MACROS */
+/* END AUTO SEND MACROS */
+
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/

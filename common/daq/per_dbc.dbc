@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER DAQ
+BU_: TEST_NODE Pedalbox HUB_FL TORQUE_VECTOR TESTER Precharge DAQ Precharge
 
 
 BO_ 2483028044 test_msg: 2 TEST_NODE
@@ -91,8 +91,14 @@ BO_ 2415925631 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2281734202 test_precharge_msg: 1 Precharge
+ SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2483028786 daq_command_TEST_NODE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624554 test_bat_msg: 1 Precharge
+ SG_ test_bat_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 
 
@@ -102,7 +108,9 @@ CM_ BU_ Pedalbox "";
 CM_ BU_ HUB_FL "";
 CM_ BU_ TORQUE_VECTOR "";
 CM_ BU_ TESTER "";
+CM_ BU_ Precharge "";
 CM_ BU_ DAQ "";
+CM_ BU_ Precharge "";
 CM_ BO_ 2483028044 "test_msg desc";
 CM_ SG_ 2483028044 test_sig "";
 CM_ BO_ 2483028108 "test_msg2 desc";
@@ -145,8 +153,12 @@ CM_ SG_ 2415925567 d0 "";
 CM_ BO_ 2415925631 "Bitstream state command";
 CM_ SG_ 2415925631 download_size "";
 CM_ SG_ 2415925631 download_request "";
+CM_ BO_ 2281734202 "test precharge desc";
+CM_ SG_ 2281734202 test_precharge_sig "";
 CM_ BO_ 2483028786 "daq command for node TEST_NODE";
 CM_ SG_ 2483028786 daq_command "";
+CM_ BO_ 2214624554 "test_bat_desc";
+CM_ SG_ 2214624554 test_bat_sig "";
 
 
 

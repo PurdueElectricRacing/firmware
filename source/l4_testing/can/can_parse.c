@@ -34,9 +34,9 @@ void canRxUpdate()
     if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
+        /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            /* BEGIN AUTO CASES */
             case ID_THROTTLE_BRAKE:
                 can_data.throttle_brake.raw_throttle = msg_data_a->throttle_brake.raw_throttle;
                 can_data.throttle_brake.raw_brake = msg_data_a->throttle_brake.raw_brake;
@@ -60,10 +60,10 @@ void canRxUpdate()
                 can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
                 daq_command_TEST_NODE_CALLBACK(&msg_header);
                 break;
-            /* END AUTO CASES */
-            default:            // ID wasn't recognized
-                __asm__("nop"); // Do nothing so we can place a breakpoint
+            default:
+                __asm__("nop");
         }
+        /* END AUTO CASES */
     }
 
     /* BEGIN AUTO STALE CHECKS */

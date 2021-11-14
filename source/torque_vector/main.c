@@ -80,7 +80,7 @@ int main (void)
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         PHAL_FaltHandler();
         
-    if (1 != PHAL_initCAN(false))
+    if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaltHandler();
 
     if (1 != PHAL_qspiInit())

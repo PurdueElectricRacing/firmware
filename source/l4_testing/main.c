@@ -79,7 +79,7 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initCAN(false))
+    if(!PHAL_initCAN(CAN1, false))
     {
         HardFault_Handler();
     }
@@ -105,7 +105,7 @@ int main (void)
     linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
     linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
     linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    if(daqInit())
+    if(daqInit(&q_tx_can))
     {
         HardFault_Handler();
     }
@@ -172,17 +172,9 @@ uint16_t counter2 = 1;
 
 void canSendTest()
 {
-    CanMsgTypeDef_t msg = {.ExtId=ID_TEST_MSG, .DLC=DLC_TEST_MSG, .IDE=1};
-    CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
-    data_a->test_msg.test_sig = (uint16_t) (500 * sin(((double) counter)/100) + 501);
+    SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
+    SEND_TEST_MSG2(q_tx_can, counter2);
 
-    qSendToBack(&q_tx_can, &msg);
-
-    CanMsgTypeDef_t msg2 = {.ExtId=ID_TEST_MSG2, .DLC=DLC_TEST_MSG2, .IDE=1};
-    CanParsedData_t* data2_a = (CanParsedData_t *) &msg2.Data;
-    data2_a->test_msg2.test_sig2 = counter2;
-
-    qSendToBack(&q_tx_can, &msg2);
     counter += 1;
     counter2 += 2;
     if (counter2 >= 0xFFF)
@@ -190,20 +182,9 @@ void canSendTest()
         counter2 = 1;
     }
 
-    CanMsgTypeDef_t msg3 = {.ExtId=ID_TEST_MSG3, .DLC=DLC_TEST_MSG3, .IDE=1};
-    CanParsedData_t* data3_a = (CanParsedData_t *) &msg3.Data;
-    data3_a->test_msg3.test_sig3 = counter2;
-    qSendToBack(&q_tx_can, &msg3);
-
-    CanMsgTypeDef_t msg4 = {.ExtId=ID_TEST_MSG4, .DLC=DLC_TEST_MSG4, .IDE=1};
-    CanParsedData_t* data4_a = (CanParsedData_t *) &msg4.Data;
-    data4_a->test_msg4.test_sig4 = (uint16_t) counter2;
-    qSendToBack(&q_tx_can, &msg4);
-
-    CanMsgTypeDef_t msg5 = {.ExtId=ID_TEST_MSG5, .DLC=DLC_TEST_MSG5, .IDE=1};
-    CanParsedData_t* data5_a = (CanParsedData_t *) &msg5.Data;
-    data5_a->test_msg5.test_sig5 = 0xFFF - counter2;
-    qSendToBack(&q_tx_can, &msg5);
+    SEND_TEST_MSG3(q_tx_can, counter2);
+    SEND_TEST_MSG4(q_tx_can, counter2);
+    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
 }
 
 void canReceiveTest()
@@ -247,6 +228,7 @@ void CAN1_RX0_IRQHandler()
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
         CanMsgTypeDef_t rx;
+        rx.Bus = CAN1;
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
@@ -260,7 +242,6 @@ void CAN1_RX0_IRQHandler()
 
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
-        // TODO: try using memcpy instead... ?
         rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
         rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
         rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
@@ -269,7 +250,6 @@ void CAN1_RX0_IRQHandler()
         rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
-
 
         CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
 

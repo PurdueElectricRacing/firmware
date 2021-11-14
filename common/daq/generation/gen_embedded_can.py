@@ -9,6 +9,8 @@ gen_id_start = "BEGIN AUTO ID DEFS"
 gen_id_stop = "END AUTO ID DEFS"
 gen_dlc_start = "BEGIN AUTO DLC DEFS"
 gen_dlc_stop = "END AUTO DLC DEFS"
+gen_send_macro_start = "BEGIN AUTO SEND MACROS"
+gen_send_macro_stop = "END AUTO SEND MACROS"
 gen_up_start = "BEGIN AUTO UP DEFS"
 gen_up_stop = "END AUTO UP DEFS"
 gen_raw_struct_start = "BEGIN AUTO MESSAGE STRUCTURE"
@@ -28,8 +30,7 @@ gen_rx_irq_stop = "END AUTO RX IRQ"
 gen_irq_extern_start = "BEGIN AUTO EXTERN RX IRQ"
 gen_irq_extern_stop = "END AUTO EXTERN RX IRQ"
 
-
-
+DEFAULT_PERIPHERAL = "CAN1"
 
 def find_rx_messages(rx_names):
     """
@@ -59,6 +60,58 @@ def find_rx_messages(rx_names):
     
     return msg_defs
 
+def gen_send_macro(lines, msg_config, peripheral):
+    """ generates a send macro to add a message to the tx queue """
+    cap = msg_config['msg_name'].upper()
+    sig_args = ", ".join([sig['sig_name']+'_' for sig in msg_config['signals']])
+    lines.append(f"#define SEND_{cap}(queue, {sig_args}) do {{\\\n")
+    lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .ExtId=ID_{cap}, .DLC=DLC_{cap}, .IDE=1}};\\\n")
+    lines.append(f"        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
+    for sig in msg_config['signals']:
+        lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {sig['sig_name']}_;\\\n")
+    lines.append(f"        qSendToBack(&queue, &msg);\\\n")
+    lines.append(f"    }} while(0)\n")
+
+def gen_filter_lines(lines, rx_msg_configs, peripheral):
+    """ generates hardware filters for a set of message definitions for a specific peripheral """
+    on_mask = False
+    filter_bank = 0
+    for msg in rx_msg_configs:
+        if(filter_bank > 27):
+            generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
+            quit(1)
+        if not on_mask:
+            lines.append(f"    {peripheral}->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
+            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            on_mask = True
+        else:
+            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            on_mask = False
+            filter_bank += 1
+
+def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
+    """ generates switch case for receiving messages """
+    lines.append(ind+"        switch(msg_header.ExtId)\n")
+    lines.append(ind+"        {\n")
+    for msg in rx_msg_configs:
+        lines.append(ind+f"            case ID_{msg['msg_name'].upper()}:\n")
+        for sig in msg['signals']:
+            lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = msg_data_a->{msg['msg_name']}.{sig['sig_name']};\n")
+        if msg['msg_period'] > 0:
+            lines.append(ind+f"                can_data.{msg['msg_name']}.stale = 0;\n")
+            lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")
+        callback = [rx_config for rx_config in rx_callbacks if rx_config['msg_name'] == msg['msg_name']]
+        if callback:
+            if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
+                lines.append(ind+f"                {msg['msg_name']}_CALLBACK(&msg_header);\n")
+            else:
+                lines.append(ind+f"                {msg['msg_name']}_CALLBACK(msg_data_a);\n")
+        lines.append(ind+"                break;\n")
+    lines.append(ind+"            default:\n")
+    lines.append(ind+"                __asm__(\"nop\");\n")
+    lines.append(ind+"        }\n")
+
+
 def configure_node(node_config, node_paths):
     """ 
     Generates code for c and h files within a node
@@ -68,10 +121,31 @@ def configure_node(node_config, node_paths):
 
     print("Configuring Node " + node_config['node_name'])
 
+    # Junction node?
+    is_junc = False
+    junc_config = None
+    if 'is_junction' in node_config and node_config['is_junction']:
+        is_junc = True
+        print(f"Treating {node_config['node_name']} as junction")
+        global can_config
+        for bus in can_config['busses']:
+            for node in bus['nodes']:
+                if node['node_name'] == node_config['node_name'] and node['can_peripheral'] != node_config['can_peripheral']:
+                    junc_config = node
+                    break
+            if junc_config: break
+
     # Combine message definitions
     raw_msg_defs = []
     raw_msg_defs += node_config['tx']
-    receiving_msg_defs = find_rx_messages([rx_config["msg_name"] for rx_config in node_config['rx']])
+    if is_junc: raw_msg_defs += junc_config['tx']
+    receiving_msg_defs = []
+    node_specific_rx_msg_defs = find_rx_messages([rx_config["msg_name"] for rx_config in node_config['rx']])
+    receiving_msg_defs += node_specific_rx_msg_defs
+    junc_rx_msg_defs = []
+    if is_junc: 
+        junc_rx_msg_defs += find_rx_messages([rx_config['msg_name'] for rx_config in junc_config['rx']])
+        receiving_msg_defs += junc_rx_msg_defs
     for new_msg in receiving_msg_defs:
         if new_msg not in raw_msg_defs:
             raw_msg_defs.append(new_msg)
@@ -91,6 +165,18 @@ def configure_node(node_config, node_paths):
     h_lines = generator.insert_lines(h_lines, gen_id_start, gen_id_stop, id_lines)
     h_lines = generator.insert_lines(h_lines, gen_dlc_start, gen_dlc_stop, dlc_lines)
 
+    # Send Macros, requires knowledge of CAN peripheral
+    macro_lines = []
+    periph = DEFAULT_PERIPHERAL
+    if 'can_periperal' in node_config: periph = node_config['can_peripheral']
+    for msg in node_config['tx']:
+        gen_send_macro(macro_lines, msg, periph)
+    if is_junc:
+        periph = junc_config['can_peripheral']
+        for msg in junc_config['tx']:
+            gen_send_macro(macro_lines, msg, periph)
+    h_lines = generator.insert_lines(h_lines, gen_send_macro_start, gen_send_macro_stop, macro_lines)
+
     # Message update periods
     up_lines = []
     for msg in receiving_msg_defs:
@@ -105,7 +191,7 @@ def configure_node(node_config, node_paths):
         raw_struct_lines.append("    struct {\n")
         for sig in msg['signals']:
             raw_struct_lines.append(f"        uint64_t {sig['sig_name']}: {sig['length']};\n")
-        raw_struct_lines.append(f"    }}{msg['msg_name']};\n") 
+        raw_struct_lines.append(f"    }} {msg['msg_name']};\n") 
     raw_struct_lines.append("    uint8_t raw_data[8];\n")
     raw_struct_lines.append("} CanParsedData_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_raw_struct_start, gen_raw_struct_stop, raw_struct_lines)
@@ -129,11 +215,13 @@ def configure_node(node_config, node_paths):
 
     # Rx callbacks
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
+    if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
     extern_callback_lines = [f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n" for rx_config in rx_callbacks if ("arg_type" in rx_config and rx_config["arg_type"]=="header")]
     extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data")]
     h_lines = generator.insert_lines(h_lines, gen_callback_start, gen_callback_stop, extern_callback_lines)
 
     rx_irq_names = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
+    if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
     extern_callback_lines = [f"extern void {msg_name}_IRQ(CanParsedData_t* msg_data_a);\n" for msg_name in rx_irq_names]
     h_lines = generator.insert_lines(h_lines, gen_irq_extern_start, gen_irq_extern_stop, extern_callback_lines)
 
@@ -150,20 +238,22 @@ def configure_node(node_config, node_paths):
 
     # Rx switch case
     case_lines = []
-    for msg in receiving_msg_defs:
-        case_lines.append(f"            case ID_{msg['msg_name'].upper()}:\n")
-        for sig in msg['signals']:
-            case_lines.append(f"                can_data.{msg['msg_name']}.{sig['sig_name']} = msg_data_a->{msg['msg_name']}.{sig['sig_name']};\n")
-        if msg['msg_period'] > 0:
-            case_lines.append(f"                can_data.{msg['msg_name']}.stale = 0;\n")
-            case_lines.append(f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")
-        callback = [rx_config for rx_config in rx_callbacks if rx_config['msg_name'] == msg['msg_name']]
-        if callback:
-            if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
-                case_lines.append(f"                {msg['msg_name']}_CALLBACK(&msg_header);\n")
-            else:
-                case_lines.append(f"                {msg['msg_name']}_CALLBACK(msg_data_a);\n")
-        case_lines.append("                break;\n")
+    periph = DEFAULT_PERIPHERAL
+    if 'can_periperal' in node_config: periph = node_config['can_peripheral']
+    ind = ""
+    if is_junc:
+        ind = "    "
+        # add if statement for distinguishing between peripherals
+        case_lines.append(f"        if (msg_header->Bus == {periph})\n")
+        case_lines.append(f"        {{\n")
+    gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
+    if is_junc:
+        periph = junc_config['can_peripheral']
+        case_lines.append("        }\n")
+        case_lines.append(f"        else if (msg_header->Bus == {periph})\n")
+        case_lines.append("        {\n")
+        gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
+        case_lines.append("        }\n")
     c_lines = generator.insert_lines(c_lines, gen_switch_case_start, gen_switch_case_stop, case_lines)
 
     # Stale checking
@@ -177,20 +267,10 @@ def configure_node(node_config, node_paths):
 
     # Hardware filtering
     filter_lines = []
-    on_mask = False
-    filter_bank = 0
-    for msg in receiving_msg_defs:
-        if(filter_bank > 27):
-            generator.log_error(f"Max filter bank reached for node {node_config['node_name']}")
-            quit(1)
-        if not on_mask:
-            filter_lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            filter_lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
-            on_mask = True
-        else:
-            filter_lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
-            on_mask = False
-            filter_bank += 1
+    periph = DEFAULT_PERIPHERAL
+    if "can_peripheral" in node_config: periph = node_config['can_peripheral']
+    gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
+    if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
     c_lines = generator.insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
     
     # Rx IRQ callbacks
@@ -201,7 +281,6 @@ def configure_node(node_config, node_paths):
         rx_irq_lines.append(f"                break;\n")
     c_lines = generator.insert_lines(c_lines, gen_rx_irq_start, gen_rx_irq_stop, rx_irq_lines)
     
-
     # Write changes to source file
     with open(node_paths[1], "w") as c_file:
         c_file.writelines(c_lines)
@@ -213,19 +292,21 @@ def configure_bus(bus, source_dir, c_dir, h_dir):
     """
     print('Configuring Bus ' + bus['bus_name'])
 
-    # extract node names from config
+    # extract node names from config, don't configure junction nodes yet
     node_names = [node['node_name'] for node in bus['nodes']]
 
     # find file paths for each node
     node_paths = generator.find_node_paths(node_names, source_dir, c_dir, h_dir)
     matched_keys = node_paths.keys()
 
+    configured_nodes = []
     # iterate through all matched nodes
     for node_key in matched_keys:
-        # find the config for the node and configure it
+        # find the config for the node and configure it if not already configured
         for node in bus['nodes']:
-            if node_key == node['node_name']:
+            if node_key == node['node_name'] and node['node_name'] not in configured_nodes:
                 configure_node(node, node_paths[node_key])
+                configured_nodes.append(node['node_name'])
                 break
 
 def gen_embedded_can(config, source_dir, c_dir, h_dir):

@@ -11,9 +11,9 @@
 #define QUADSPI_CLK_Pin       (3)
 // QuadSPI I/O Ports
 #define QUADSPI_IO0_GPIO_Port (GPIOB)
-#define QUADSPI_IO0_Pin       (2)
+#define QUADSPI_IO0_Pin       (1)
 #define QUADSPI_IO1_GPIO_Port (GPIOB)
-#define QUADSPI_IO1_Pin       (1)
+#define QUADSPI_IO1_Pin       (0)
 #define QUADSPI_IO2_GPIO_Port (GPIOA)
 #define QUADSPI_IO2_Pin       (7)
 #define QUADSPI_IO3_GPIO_Port (GPIOA)

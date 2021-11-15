@@ -62,6 +62,7 @@ bool PHAL_qspiInit();
  */
 bool PHAL_qspiConfigure(QUADSPI_Config_t* config);
 
-bool PHAL_qspiTrasnfer(uint8_t instruction, uint32_t address, uint8_t* data, uint32_t length);
+bool PHAL_qspiTrasnfer(uint8_t instruction, uint32_t address, uint8_t* tx_data, uint32_t tx_length);
+bool PHAL_qspiRead(uint8_t instruction, uint32_t address, uint8_t* rx_data, uint32_t rx_length);
 
 #endif

@@ -74,5 +74,22 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
             default:
                 return false;
         }
-    } 
+    }
+
+    return true;
+}
+
+bool PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin)
+{
+    return (bank->IDR >> pin) & 0b1;
+}
+
+void PHAL_writeGPIO(GPIO_TypeDef* bank, uint8_t pin, bool value)
+{
+    bank->BSRR |= 1 << (pin + (16 * (!value))); // BSRR has "set" as bottom 16 bits and "reset" as top 16 
+}
+
+void PHAL_toggleGPIO(GPIO_TypeDef* bank, uint8_t pin)
+{
+    PHAL_writeGPIO(bank, pin, !PHAL_readGPIO(bank, pin));
 }

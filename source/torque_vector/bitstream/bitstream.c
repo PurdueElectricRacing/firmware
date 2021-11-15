@@ -1,5 +1,7 @@
+#include "main.h"
 #include "bitstream.h"
 #include "common/phal_L4/quadspi/quadspi.h"
+#include "common/phal_L4/gpio/gpio.h"
 
 typedef enum {
     BITSTREAM_LOCKED   = 0x0,
@@ -21,10 +23,45 @@ void bitstreamInit()
     current_state = BITSTREAM_LOCKED;
     download_timeout_counter = 0;
     bitstream_active_buffer  = 0;
+
+    QUADSPI_Config_t mx25l3233F_spiflash_config = {
+        .mode=QUADSPI_INDIRECT_READ_MODE,
+
+        .instruction_lines=QUADSPI_SKIP_SECTION,
+        .single_instruction=true,
+
+        .address_lines=QUADSPI_SINGLE_LINE,
+        .address_size=QUADSPI_24_BIT,
+
+        .alternate_lines=QUADSPI_SKIP_SECTION, // Do not use alternate bytes section
+        .alternate_size=QUADSPI_8_BIT,
+
+        .data_lines=QUADSPI_SINGLE_LINE,
+
+        .dummy_cycles=0,
+        .fifo_threshold=0
+    };
+
+    PHAL_qspiConfigure(&mx25l3233F_spiflash_config);
+    QUADSPI->CR  &= ~(QUADSPI_CR_PRESCALER_Msk);
+    QUADSPI->CR  |= (10 << QUADSPI_CR_PRESCALER_Pos) & QUADSPI_CR_PRESCALER_Msk;
+    QUADSPI->DCR |= (25 << QUADSPI_DCR_FSIZE_Pos);
 }
 
+uint32_t delay = 0;
+volatile uint8_t data[8] = {0};
 void bitstream10Hz()
 {
+    
+    if (delay++ == 10)
+    {
+        PHAL_writeGPIO(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 1);
+        QUADSPI->CR |= QUADSPI_CR_SSHIFT;
+        
+        PHAL_qspiRead(0x00, 0x9F, data, 8);
+        asm("bkpt");
+    }
+
     // Download timeout counter decrement
     if (BITSTREAM_UNLOCKED == current_state)
     {
@@ -40,6 +77,10 @@ void bitstream10Hz()
 
             qSendToBack(&q_tx_can, &msg);
         }
+    }
+    else
+    {
+        // Read SPIFlash status register
     }
 }
 

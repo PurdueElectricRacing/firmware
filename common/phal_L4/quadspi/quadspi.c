@@ -46,26 +46,14 @@ bool PHAL_qspiConfigure(QUADSPI_Config_t* config)
     QUADSPI->CR &= ~(QUADSPI_CR_FTHRES_Msk);
     QUADSPI->CR |=  ((config->fifo_threshold - 1) << QUADSPI_CR_FTHRES_Pos) &QUADSPI_CR_FTHRES_Msk;
 
-    uint32_t temp_ccr = QUADSPI->CCR;
     // Function mode
-    temp_ccr &= ~QUADSPI_CCR_FMODE_Msk;
-    temp_ccr |= (config->mode << QUADSPI_CCR_FMODE_Pos) & QUADSPI_CCR_FMODE_Msk;
+    PHAL_qspiSetFunctionMode(config->mode);
+    PHAL_qspiSetDataWidth(config->data_lines);
+    PHAL_qspiSetAddressWidth(config->address_lines);
+    PHAL_qspiSetAddressSize(config->address_size);
+    PHAL_qspiSetInstructionWidth(config->instruction_lines);
 
-    // Instruction transfer width
-    temp_ccr &= ~QUADSPI_CCR_IMODE_Msk;
-    temp_ccr |= (config->instruction_lines << QUADSPI_CCR_IMODE_Pos) & QUADSPI_CCR_IMODE_Msk;
-
-    // Data transfer width
-    temp_ccr &= ~QUADSPI_CCR_DMODE_Msk;
-    temp_ccr |= (config->data_lines << QUADSPI_CCR_DMODE_Pos) & QUADSPI_CCR_DMODE_Msk;
-
-    // Address transfer width
-    temp_ccr &= ~QUADSPI_CCR_ADMODE_Msk;
-    temp_ccr |= (config->address_lines << QUADSPI_CCR_ADMODE_Pos) & QUADSPI_CCR_ADMODE_Msk;
-
-    // Address transfer size
-    temp_ccr &= ~QUADSPI_CCR_ADSIZE_Msk;
-    temp_ccr |= (config->address_size << QUADSPI_CCR_ADSIZE_Pos) & QUADSPI_CCR_ADSIZE_Msk;
+    uint32_t temp_ccr = QUADSPI->CCR;
 
     // Transfer dummy cycles
     temp_ccr &= ~QUADSPI_CCR_DCYC_Msk;
@@ -78,6 +66,46 @@ bool PHAL_qspiConfigure(QUADSPI_Config_t* config)
     QUADSPI->CCR = temp_ccr;
 
     return true;
+}
+
+void PHAL_qspiSetFunctionMode(QUADSPI_FunctionMode_t new_mode)
+{
+    uint32_t temp_ccr = QUADSPI->CCR;
+    temp_ccr &= ~QUADSPI_CCR_FMODE_Msk;
+    temp_ccr |= (new_mode << QUADSPI_CCR_FMODE_Pos) & QUADSPI_CCR_FMODE_Msk;
+    QUADSPI->CCR = temp_ccr;
+}
+
+void PHAL_qspiSetDataWidth(QUADSPI_LineWidth_t new_width)
+{
+    uint32_t temp_ccr = QUADSPI->CCR;
+    temp_ccr &= ~QUADSPI_CCR_DMODE_Msk;
+    temp_ccr |= (new_width << QUADSPI_CCR_DMODE_Pos) & QUADSPI_CCR_DMODE_Msk;
+    QUADSPI->CCR = temp_ccr;
+}
+
+void PHAL_qspiSetInstructionWidth(QUADSPI_LineWidth_t new_width)
+{
+    uint32_t temp_ccr = QUADSPI->CCR;
+    temp_ccr &= ~QUADSPI_CCR_IMODE_Msk;
+    temp_ccr |= (new_width << QUADSPI_CCR_IMODE_Pos) & QUADSPI_CCR_IMODE_Msk;
+    QUADSPI->CCR = temp_ccr;
+}
+
+void PHAL_qspiSetAddressWidth(QUADSPI_LineWidth_t new_width)
+{
+    uint32_t temp_ccr = QUADSPI->CCR;
+    temp_ccr &= ~QUADSPI_CCR_ADSIZE_Msk;
+    temp_ccr |= (new_width << QUADSPI_CCR_ADSIZE_Pos) & QUADSPI_CCR_ADSIZE_Msk;
+    QUADSPI->CCR = temp_ccr;
+}
+
+void PHAL_qspiSetAddressSize(QUADSPI_FieldSize_t new_size)
+{
+    uint32_t temp_ccr = QUADSPI->CCR;
+    temp_ccr &= ~QUADSPI_CCR_ADSIZE_Msk;
+    temp_ccr |= (new_size << QUADSPI_CCR_ADSIZE_Pos) & QUADSPI_CCR_ADSIZE_Msk;
+    QUADSPI->CCR = temp_ccr;
 }
 
 bool PHAL_qspiSend(uint8_t instruction, uint32_t address, uint8_t* tx_data, uint32_t tx_length)
@@ -135,13 +163,14 @@ bool PHAL_qspiRead(uint8_t instruction, uint32_t address, uint8_t* rx_data, uint
     {
         
         // *** Populate up FIFO ***
-        rx_length = QUADSPI->DLR + 1U;
+        // rx_length = QUADSPI->DLR + 1U;
         while(rx_length > 0U)
         {
 
             while(0 == (QUADSPI->SR & QUADSPI_SR_FTF) && 0 == (QUADSPI->SR & QUADSPI_SR_TCF))
                 ;
 
+            // Only access lower 8 bits of DR to decrement FIFO occupancy by 1.
             __IO uint32_t *data_reg = &QUADSPI->DR;
             uint8_t data;
             asm ("ldrb %[dst], [%[addr], #0]" 

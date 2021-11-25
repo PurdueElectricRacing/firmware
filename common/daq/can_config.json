@@ -70,7 +70,7 @@
                     ]
                 },
                 {
-                    "node_name": "Front_Driveline",
+                    "node_name": "Driveline",
                     "node_ssa":2,
                     "tx": [
                         {   "msg_name": "front_wheel_data",
@@ -85,25 +85,6 @@
                             "msg_hlp": 1,
                             "msg_pgn": 0
                         },
-                        {   "msg_name": "front_motor_currents",
-                            "msg_desc": "DC Current of the motor controllers",
-                            "signals": [
-                                {"sig_name": "left", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right", "type": "uint16_t", "length": 16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 10
-                        }
-                    ],
-                    "rx": [
-                        {"msg_name":"torque_request"}
-                    ]
-                },
-                {
-                    "node_name": "Rear_Driveline",
-                    "node_ssa":3,
-                    "tx": [
                         {   "msg_name": "rear_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
@@ -114,7 +95,17 @@
                             ],
                             "msg_period": 10,
                             "msg_hlp": 1,
-                            "msg_pgn": 0
+                            "msg_pgn": 1
+                        },
+                        {   "msg_name": "front_motor_currents",
+                            "msg_desc": "DC Current of the motor controllers",
+                            "signals": [
+                                {"sig_name": "left", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 10
                         },
                         {   "msg_name": "rear_motor_currents",
                             "msg_desc": "DC Current of the motor controllers",
@@ -124,7 +115,7 @@
                             ],
                             "msg_period": 0,
                             "msg_hlp": 3,
-                            "msg_pgn": 10
+                            "msg_pgn": 11
                         }
                     ],
                     "rx": [

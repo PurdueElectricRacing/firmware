@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Front_Driveline Rear_Driveline Precharge Dashboard TESTER TEST_NODE DAQ Precharge
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER TEST_NODE DAQ Precharge
 
 
 BO_ 2214592576 driver_request: 4 Main_Module
@@ -55,23 +55,23 @@ BO_ 2147490049 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214592514 front_wheel_data: 8 Front_Driveline
+BO_ 2214592514 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2348810882 front_motor_currents: 4 Front_Driveline
+BO_ 2214592578 rear_wheel_data: 8 Driveline
+ SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810882 front_motor_currents: 4 Driveline
  SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214592515 rear_wheel_data: 8 Rear_Driveline
- SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2348810883 rear_motor_currents: 4 Rear_Driveline
+BO_ 2348810946 rear_motor_currents: 4 Driveline
  SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -130,8 +130,7 @@ BO_ 2214624554 test_bat_msg: 1 Precharge
 
 CM_ BU_ Main_Module "";
 CM_ BU_ Torque_Vector "";
-CM_ BU_ Front_Driveline "";
-CM_ BU_ Rear_Driveline "";
+CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
 CM_ BU_ TESTER "";
@@ -158,17 +157,17 @@ CM_ SG_ 2214592514 right_normal "";
 CM_ SG_ 2214592514 left_normal "";
 CM_ SG_ 2214592514 right_speed "";
 CM_ SG_ 2214592514 left_speed "";
+CM_ BO_ 2214592578 "Wheel data for the rear tires";
+CM_ SG_ 2214592578 right_normal "";
+CM_ SG_ 2214592578 left_normal "";
+CM_ SG_ 2214592578 right_speed "";
+CM_ SG_ 2214592578 left_speed "";
 CM_ BO_ 2348810882 "DC Current of the motor controllers";
 CM_ SG_ 2348810882 right "";
 CM_ SG_ 2348810882 left "";
-CM_ BO_ 2214592515 "Wheel data for the rear tires";
-CM_ SG_ 2214592515 right_normal "";
-CM_ SG_ 2214592515 left_normal "";
-CM_ SG_ 2214592515 right_speed "";
-CM_ SG_ 2214592515 left_speed "";
-CM_ BO_ 2348810883 "DC Current of the motor controllers";
-CM_ SG_ 2348810883 right "";
-CM_ SG_ 2348810883 left "";
+CM_ BO_ 2348810946 "DC Current of the motor controllers";
+CM_ SG_ 2348810946 right "";
+CM_ SG_ 2348810946 left "";
 CM_ BO_ 2281734148 "test precharge desc";
 CM_ SG_ 2281734148 test_precharge_sig "";
 CM_ BO_ 2483028613 "throttle_brake desc";

@@ -54,7 +54,7 @@ def gen_dbc(can_config, dbc_path):
     with open(dbc_path,'w',newline='\n') as fout:
         fout.write(can_db.as_dbc_string())
     
-    generator.log_success("DBC Generated at " + dbc_path)
+    generator.log_success("DBC Generated at " + str(dbc_path))
 
 
 if __name__ == "__main__":

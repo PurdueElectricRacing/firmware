@@ -35,7 +35,7 @@ void canRxUpdate()
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         /* BEGIN AUTO CASES */
-        if (msg_header->Bus == CAN1)
+        if (msg_header.Bus == CAN1)
         {
             switch(msg_header.ExtId)
             {
@@ -43,7 +43,7 @@ void canRxUpdate()
                     __asm__("nop");
             }
         }
-        else if (msg_header->Bus == CAN1)
+        else if (msg_header.Bus == CAN1)
         {
             switch(msg_header.ExtId)
             {

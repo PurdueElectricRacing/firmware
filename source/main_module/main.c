@@ -1,6 +1,5 @@
 #include "stm32l432xx.h"
 
-#include "apps.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/can/can.h"

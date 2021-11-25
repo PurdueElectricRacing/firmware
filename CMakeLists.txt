@@ -26,7 +26,7 @@ include(cmake/FindSTM32HAL.cmake)
 
 # See cmake/FindCMSIS.cmake and cmake/FindSTM32HAL.cmake for constructing additional libraries
 make_cmsis_library(CMSIS_L432 STM32L4xx STM32L432xx ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/CMSIS)
-make_stm32_hal_library(STM32_L4_HAL_LIB ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/STM32L4xx_HAL_Driver)
+# make_stm32_hal_library(STM32_L4_HAL_LIB ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/STM32L4xx_HAL_Driver)
 
 # Add Common modules
 add_subdirectory(common/psched)
@@ -34,8 +34,14 @@ add_subdirectory(common/phal_L4)
 add_subdirectory(common/queue)
 add_subdirectory(common/eeprom)
 
+# Macro for defining hte common build process across all firmware components
+include(cmake/common_component.cmake)
+
 # Add Components
 add_subdirectory(source/main_module)
 add_subdirectory(source/bootloader_l4)
 add_subdirectory(source/l4_testing)
-#add_subdirectory(source/torque_vector)
+add_subdirectory(source/torque_vector)
+add_subdirectory(source/precharge)
+add_subdirectory(source/driveline)
+add_subdirectory(source/dashboard)

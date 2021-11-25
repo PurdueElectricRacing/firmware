@@ -9,9 +9,8 @@
 MACRO(MAKE_COMMON_COMPONENT component_name component_dir common_libs)
 
     # Setup Component name based on directory
-    set(_TARGET_NAME ${component_name})
+    set(_TARGET_NAME ${component_name}.elf)
     add_executable(${_TARGET_NAME})
-    set_target_properties(${_TARGET_NAME} PROPERTIES OUTPUT_NAME ${_TARGET_NAME}.elf)
 
     # Add CMSIS Library
     target_link_libraries(${_TARGET_NAME} CMSIS_L432)

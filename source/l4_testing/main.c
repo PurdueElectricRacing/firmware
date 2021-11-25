@@ -189,22 +189,13 @@ void canSendTest()
 
 void canReceiveTest()
 {
-    if (!can_data.throttle_brake.stale && can_data.throttle_brake.raw_throttle == 6853)
+    if (!can_data.raw_throttle_brake.stale && can_data.raw_throttle_brake.throttle0 == 6853)
     {
         PHAL_writeGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin, true);
     } 
     else
     {
         PHAL_writeGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin, false);
-    }
-
-    if (!can_data.wheel_speeds.stale && can_data.wheel_speeds.fl_speed == 5)
-    {
-        PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, true);
-    }
-    else
-    {
-        PHAL_writeGPIO(LED_RED_GPIO_Port, LED_RED_Pin, false);
     }
 }
 

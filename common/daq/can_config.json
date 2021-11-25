@@ -5,8 +5,211 @@
             "bus_name":"Main",
             "nodes":[
                 {
+                    "node_name":"Main_Module",
+                    "node_ssa":0,
+                    "tx":[
+                        {   "msg_name":"driver_request",
+                            "msg_desc":"Driver throttle/regeneration request",
+                            "signals":[
+                                {"sig_name":"accel", "sig_desc":"accel request. 0-4096","type":"uint16_t","length":16},
+                                {"sig_name":"regen", "sig_desc":"regen request. 0-4096", "type":"uint16_t", "length":16}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":1
+                        },
+                        {   "msg_name":"main_status",
+                            "msg_desc":"Status message for main module",
+                            "signals":[
+                                {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8},
+                                {"sig_name":"apps_state", "sig_desc":"Accelerator plausibility state","type":"uint8_t","length":8},
+                                {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":25,
+                            "msg_hlp":1,
+                            "msg_pgn":100
+                        }
+                    ],
+                    "rx":[
+                        {"msg_name": "raw_throttle_brake"},
+                        {"msg_name": "start_button", "callback": true}
+                    ]
+                },
+                {
+                    "node_name":"Torque_Vector",
+                    "node_ssa":1,
+                    "tx":[
+                        {   "msg_name":"torque_request",
+                            "msg_desc":"Torque request for all motors.",
+                            "signals":[
+                                {"sig_name":"front_left", "sig_desc":"torque request. 0-4096","type":"uint16_t","length":12},
+                                {"sig_name":"front_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
+                                {"sig_name":"rear_left", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
+                                {"sig_name":"rear_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":1
+                        },
+                        {   "msg_name":"bitstream_flash_status",
+                            "msg_desc":"Status message for bitstream flashing",
+                            "signals":[
+                                {"sig_name":"flash_success", "sig_desc":"Done flashing bitstream","type":"uint8_t","length":1},
+                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":100
+                        }
+                    ],
+                    "rx":[
+                        {"msg_name": "front_wheel_data"},
+                        {"msg_name": "rear_wheel_data"},
+                        {"msg_name": "bitstream_data",    "callback": false, "irq": true},
+                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
+                    ]
+                },
+                {
+                    "node_name": "Driveline",
+                    "node_ssa":2,
+                    "tx": [
+                        {   "msg_name": "front_wheel_data",
+                            "msg_desc": "Wheel data for the rear tires",
+                            "signals": [
+                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 1,
+                            "msg_pgn": 0
+                        },
+                        {   "msg_name": "rear_wheel_data",
+                            "msg_desc": "Wheel data for the rear tires",
+                            "signals": [
+                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 1,
+                            "msg_pgn": 1
+                        },
+                        {   "msg_name": "front_motor_currents",
+                            "msg_desc": "DC Current of the motor controllers",
+                            "signals": [
+                                {"sig_name": "left", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 10
+                        },
+                        {   "msg_name": "rear_motor_currents",
+                            "msg_desc": "DC Current of the motor controllers",
+                            "signals": [
+                                {"sig_name": "left", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 11
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name":"torque_request"}
+                    ]
+                },
+                {
+                    "node_name": "Precharge",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 4,
+                    "tx": [
+                        {
+                            "msg_name": "test_precharge_msg",
+                            "msg_desc": "test precharge desc",
+                            "signals": [
+                                {"sig_name": "test_precharge_sig", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 2,
+                            "msg_pgn": 512
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name": "test_msg"}
+                    ]
+                },
+                {
+                    "node_name":"Dashboard",
+                    "node_ssa":5,
+                    "tx":[
+                        {   "msg_name":"raw_throttle_brake",
+                            "msg_desc":"throttle_brake desc",
+                            "signals":[
+                                {"sig_name":"throttle0","type":"uint16_t","length":16},
+                                {"sig_name":"throttle1","type":"uint16_t","length":16},
+                                {"sig_name":"brake0", "type":"uint16_t", "length":16},
+                                {"sig_name":"brake1", "type":"uint16_t", "length":16}
+                            ],
+                            "msg_period":5,
+                            "msg_hlp":5,
+                            "msg_pgn":10
+                        },
+                        {   "msg_name":"start_button",
+                            "msg_desc":"Car start button pressed",
+                            "signals":[
+                                {"sig_name":"start","type":"uint16_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":0
+                        }
+                    ],
+                    "rx":[
+                        {"msg_name": "main_status"}
+                    ]
+                },
+                {
+                    "node_name":"TESTER",
+                    "node_ssa":62,
+                    "tx":[
+                        {   "msg_name":"bitstream_data",
+                            "msg_desc":"Bitstream download command",
+                            "signals":[
+                                {"sig_name":"d0", "sig_desc":"Bitstream data word 0","type":"uint8_t","length":8},
+                                {"sig_name":"d1", "sig_desc":"Bitstream data word 1","type":"uint8_t","length":8},
+                                {"sig_name":"d2", "sig_desc":"Bitstream data word 2","type":"uint8_t","length":8},
+                                {"sig_name":"d3", "sig_desc":"Bitstream data word 3","type":"uint8_t","length":8},
+                                {"sig_name":"d4", "sig_desc":"Bitstream data word 4","type":"uint8_t","length":8},
+                                {"sig_name":"d5", "sig_desc":"Bitstream data word 5","type":"uint8_t","length":8},
+                                {"sig_name":"d6", "sig_desc":"Bitstream data word 6","type":"uint8_t","length":8},
+                                {"sig_name":"d7", "sig_desc":"Bitstream data word 7","type":"uint8_t","length":8}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":4,
+                            "msg_pgn":100
+                        },
+                        {   "msg_name":"bitstream_request",
+                            "msg_desc":"Bitstream state command",
+                            "signals":[
+                                {"sig_name":"download_request", "sig_desc":"Request to download new bitstream","type":"uint8_t","length":1},
+                                {"sig_name":"download_size", "sig_desc":"size for expected bitstream download (bytes)","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":4,
+                            "msg_pgn":101
+                        }
+                    ],
+                    "rx":[ 
+                        {"msg_name": "bitstream_flash_status"}
+                    ]
+                },
+                {
                     "node_name": "TEST_NODE",
-                    "node_ssa":12,
+                    "node_ssa":63,
                     "tx":[
                         {   "msg_name":"test_msg",
                             "msg_desc":"test_msg desc",
@@ -55,144 +258,7 @@
                         }
                     ],
                     "rx":[
-                        {"msg_name":"throttle_brake"}, 
-                        {"msg_name":"wheel_speeds"}, 
-                        {"msg_name":"motor_current"}
-                    ]
-                },
-                {
-                    "node_name":"Pedalbox",
-                    "node_ssa":11,
-                    "tx":[
-                        {   "msg_name":"throttle_brake",
-                            "msg_desc":"throttle_brake desc",
-                            "signals":[
-                                {"sig_name":"raw_throttle","type":"uint16_t","length":16},
-                                {"sig_name":"raw_brake", "sig_desc":"raw brake from sensor", "type":"uint16_t", "length":16}
-                            ],
-                            "msg_period":5,
-                            "msg_hlp":5,
-                            "msg_pgn":10
-                        }
-                    ],
-                    "rx":[
-                    ]
-                },
-                {
-                    "node_name": "HUB_FL",
-                    "node_ssa": 10,
-                    "tx": [
-                        {   "msg_name": "wheel_speeds",
-                            "msg_desc": "wheel_speeds desc",
-                            "signals": [
-                                {"sig_name": "fl_speed", "type": "uint8_t", "length": 8},
-                                {"sig_name": "fr_speed", "type": "uint8_t", "length": 8},
-                                {"sig_name": "bl_speed", "type": "uint8_t", "length": 8},
-                                {"sig_name": "br_speed", "type": "uint8_t", "length": 8}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 5,
-                            "msg_pgn": 10
-                        },
-                        {   "msg_name": "motor_current",
-                            "msg_desc": "current of motor",
-                            "signals": [
-                                {"sig_name": "current", "type": "uint8_t", "length": 8}
-                            ],
-                            "msg_period": 5,
-                            "msg_hlp": 1,
-                            "msg_pgn": 2
-                        }
-                    ],
-                    "rx": [
-                        {"msg_name":"throttle_brake"}
-                    ]
-                },
-                {
-                    "node_name":"TORQUE_VECTOR",
-                    "node_ssa":9,
-                    "tx":[
-                        {   "msg_name":"torque_request",
-                            "msg_desc":"Torque request for all motors.",
-                            "signals":[
-                                {"sig_name":"front_left", "sig_desc":"torque request. 0-4096","type":"uint16_t","length":12},
-                                {"sig_name":"front_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
-                                {"sig_name":"rear_left", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
-                                {"sig_name":"rear_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12}
-                            ],
-                            "msg_period":15,
-                            "msg_hlp":1,
-                            "msg_pgn":1
-                        },
-                        {   "msg_name":"bitstream_flash_status",
-                            "msg_desc":"Status message for bitstream flashing",
-                            "signals":[
-                                {"sig_name":"flash_success", "sig_desc":"Done flashing bitstream","type":"uint8_t","length":1},
-                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":0,
-                            "msg_pgn":100
-                        }
-                    ],
-                    "rx":[
-                        {"msg_name": "bitstream_data",    "callback": false, "irq": true},
-                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
-                    ]
-                },
-                {
-                    "node_name":"TESTER",
-                    "node_ssa":63,
-                    "tx":[
-                        {   "msg_name":"bitstream_data",
-                            "msg_desc":"Bitstream download command",
-                            "signals":[
-                                {"sig_name":"d0", "sig_desc":"Bitstream data word 0","type":"uint8_t","length":8},
-                                {"sig_name":"d1", "sig_desc":"Bitstream data word 1","type":"uint8_t","length":8},
-                                {"sig_name":"d2", "sig_desc":"Bitstream data word 2","type":"uint8_t","length":8},
-                                {"sig_name":"d3", "sig_desc":"Bitstream data word 3","type":"uint8_t","length":8},
-                                {"sig_name":"d4", "sig_desc":"Bitstream data word 4","type":"uint8_t","length":8},
-                                {"sig_name":"d5", "sig_desc":"Bitstream data word 5","type":"uint8_t","length":8},
-                                {"sig_name":"d6", "sig_desc":"Bitstream data word 6","type":"uint8_t","length":8},
-                                {"sig_name":"d7", "sig_desc":"Bitstream data word 7","type":"uint8_t","length":8}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":4,
-                            "msg_pgn":100
-                        },
-                        {   "msg_name":"bitstream_request",
-                            "msg_desc":"Bitstream state command",
-                            "signals":[
-                                {"sig_name":"download_request", "sig_desc":"Request to download new bitstream","type":"uint8_t","length":1},
-                                {"sig_name":"download_size", "sig_desc":"size for expected bitstream download (bytes)","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":4,
-                            "msg_pgn":101
-                        }
-                    ],
-                    "rx":[ 
-                        {"msg_name": "bitstream_flash_status"}
-                    ]
-                },
-                {
-                    "node_name": "Precharge",
-                    "can_peripheral": "CAN1",
-                    "node_ssa": 58,
-                    "tx": [
-                        {
-                            "msg_name": "test_precharge_msg",
-                            "msg_desc": "test precharge desc",
-                            "signals": [
-                                {"sig_name": "test_precharge_sig", "type":"uint8_t", "length": 8}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 2,
-                            "msg_pgn": 512
-                        }
-                    ],
-                    "rx": [
-                        {"msg_name": "test_msg"}
+                        {"msg_name":"raw_throttle_brake"}
                     ]
                 }
             ]

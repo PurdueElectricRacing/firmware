@@ -9,9 +9,10 @@ from jsonschema.exceptions import ValidationError
 import gen_embedded_can
 import gen_embedded_daq
 import gen_dbc
+from pathlib import Path
 
 # Generator configuration relative to project directory
-GENERATOR_CONFIG_JSON_PATH = './common/daq/generation/gen_config.json'
+GENERATOR_CONFIG_JSON_PATH = os.path.join(os.path.dirname(__file__), 'gen_config.json')
 
 # Logging helper functions
 class bcolors:
@@ -190,12 +191,11 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
     """
 
     node_paths = {}
-
     for folder in os.listdir(source_dir):
-        # print("Searching for nodes in "+str(folder) + " directory")
+        #print("Searching for nodes in "+str(source_dir/ folder/c_dir) + " directory")
 
-        c_path = source_dir+'/'+folder+c_dir
-        h_path = source_dir+'/'+folder+h_dir
+        c_path = source_dir/ folder /c_dir
+        h_path = source_dir/folder/h_dir
 
         if path.exists(h_path):
             with open(h_path) as h_file:
@@ -213,7 +213,7 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
                         break
 
         else:
-            log_warning("Header not found for "+ folder + " at " + h_path)
+            log_warning("Header not found for "+ str(folder) + " at " + str(h_path))
     print(f"Node matches found: {list(node_paths.keys())}") 
     return node_paths
 
@@ -250,8 +250,19 @@ def load_json_config(config_path, schema_path):
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
-    can_config = load_json_config(gen_config['can_json_config_path'], gen_config['can_json_schema_path'])
-    daq_config = load_json_config(gen_config['daq_json_config_path'], gen_config['daq_json_schema_path'])
+    relative_dir = Path(os.path.dirname(__file__))
+
+    can_config_path = Path(os.path.abspath(relative_dir / gen_config['can_json_config_path']))
+    can_schema_path = Path(os.path.abspath(relative_dir / gen_config['can_json_schema_path']))
+    daq_config_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_config_path']))
+    daq_schema_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_schema_path']))
+
+    firmware_source_dir = Path(os.path.abspath(relative_dir / gen_config['source_directory']))
+
+    print(firmware_source_dir)
+
+    can_config = load_json_config(can_config_path, can_schema_path)
+    daq_config = load_json_config(daq_config_path, daq_schema_path)
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)
@@ -262,9 +273,9 @@ def generate_all():
     check_repeat_defs(can_config)
     label_junction_nodes(can_config)
 
-    gen_embedded_can.gen_embedded_can(can_config, gen_config['source_directory'], gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
-    gen_embedded_daq.gen_embedded_daq(daq_config, gen_config['source_directory'], gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
-    gen_dbc.gen_dbc(can_config, gen_config['dbc_output_path'])
+    gen_embedded_can.gen_embedded_can(can_config, firmware_source_dir, gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
+    gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
+    gen_dbc.gen_dbc(can_config, relative_dir / gen_config['dbc_output_path'])
 
     output_bus_load(can_config)
 

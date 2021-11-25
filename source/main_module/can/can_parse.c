@@ -35,10 +35,30 @@ void canRxUpdate()
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         /* BEGIN AUTO CASES */
+        switch(msg_header.ExtId)
+        {
+            case ID_RAW_THROTTLE_BRAKE:
+                can_data.raw_throttle_brake.throttle0 = msg_data_a->raw_throttle_brake.throttle0;
+                can_data.raw_throttle_brake.throttle1 = msg_data_a->raw_throttle_brake.throttle1;
+                can_data.raw_throttle_brake.brake0 = msg_data_a->raw_throttle_brake.brake0;
+                can_data.raw_throttle_brake.brake1 = msg_data_a->raw_throttle_brake.brake1;
+                can_data.raw_throttle_brake.stale = 0;
+                can_data.raw_throttle_brake.last_rx = curr_tick;
+                break;
+            case ID_START_BUTTON:
+                can_data.start_button.start = msg_data_a->start_button.start;
+                start_button_CALLBACK(msg_data_a);
+                break;
+            default:
+                __asm__("nop");
+        }
         /* END AUTO CASES */
     }
 
     /* BEGIN AUTO STALE CHECKS */
+    CHECK_STALE(can_data.raw_throttle_brake.stale,
+                curr_tick, can_data.raw_throttle_brake.last_rx,
+                UP_RAW_THROTTLE_BRAKE);
     /* END AUTO STALE CHECKS */
 }
 
@@ -56,6 +76,9 @@ bool initCANFilter()
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
+    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->sFilterRegister[0].FR1 = (ID_RAW_THROTTLE_BRAKE << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_START_BUTTON << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

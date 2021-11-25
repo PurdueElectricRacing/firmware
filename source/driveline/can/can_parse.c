@@ -35,10 +35,26 @@ void canRxUpdate()
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         /* BEGIN AUTO CASES */
+        switch(msg_header.ExtId)
+        {
+            case ID_TORQUE_REQUEST:
+                can_data.torque_request.front_left = msg_data_a->torque_request.front_left;
+                can_data.torque_request.front_right = msg_data_a->torque_request.front_right;
+                can_data.torque_request.rear_left = msg_data_a->torque_request.rear_left;
+                can_data.torque_request.rear_right = msg_data_a->torque_request.rear_right;
+                can_data.torque_request.stale = 0;
+                can_data.torque_request.last_rx = curr_tick;
+                break;
+            default:
+                __asm__("nop");
+        }
         /* END AUTO CASES */
     }
 
     /* BEGIN AUTO STALE CHECKS */
+    CHECK_STALE(can_data.torque_request.stale,
+                curr_tick, can_data.torque_request.last_rx,
+                UP_TORQUE_REQUEST);
     /* END AUTO STALE CHECKS */
 }
 
@@ -56,6 +72,8 @@ bool initCANFilter()
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
+    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->sFilterRegister[0].FR1 = (ID_TORQUE_REQUEST << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

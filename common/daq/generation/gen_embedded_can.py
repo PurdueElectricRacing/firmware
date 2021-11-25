@@ -244,13 +244,13 @@ def configure_node(node_config, node_paths):
     if is_junc:
         ind = "    "
         # add if statement for distinguishing between peripherals
-        case_lines.append(f"        if (msg_header->Bus == {periph})\n")
+        case_lines.append(f"        if (msg_header.Bus == {periph})\n")
         case_lines.append(f"        {{\n")
     gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
     if is_junc:
         periph = junc_config['can_peripheral']
         case_lines.append("        }\n")
-        case_lines.append(f"        else if (msg_header->Bus == {periph})\n")
+        case_lines.append(f"        else if (msg_header.Bus == {periph})\n")
         case_lines.append("        {\n")
         gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
         case_lines.append("        }\n")

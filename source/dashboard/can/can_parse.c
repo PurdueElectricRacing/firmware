@@ -35,10 +35,25 @@ void canRxUpdate()
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         /* BEGIN AUTO CASES */
+        switch(msg_header.ExtId)
+        {
+            case ID_MAIN_STATUS:
+                can_data.main_status.car_state = msg_data_a->main_status.car_state;
+                can_data.main_status.apps_state = msg_data_a->main_status.apps_state;
+                can_data.main_status.precharge_state = msg_data_a->main_status.precharge_state;
+                can_data.main_status.stale = 0;
+                can_data.main_status.last_rx = curr_tick;
+                break;
+            default:
+                __asm__("nop");
+        }
         /* END AUTO CASES */
     }
 
     /* BEGIN AUTO STALE CHECKS */
+    CHECK_STALE(can_data.main_status.stale,
+                curr_tick, can_data.main_status.last_rx,
+                UP_MAIN_STATUS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -56,6 +71,8 @@ bool initCANFilter()
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
+    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->sFilterRegister[0].FR1 = (ID_MAIN_STATUS << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

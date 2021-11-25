@@ -37,24 +37,13 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_THROTTLE_BRAKE:
-                can_data.throttle_brake.raw_throttle = msg_data_a->throttle_brake.raw_throttle;
-                can_data.throttle_brake.raw_brake = msg_data_a->throttle_brake.raw_brake;
-                can_data.throttle_brake.stale = 0;
-                can_data.throttle_brake.last_rx = curr_tick;
-                break;
-            case ID_WHEEL_SPEEDS:
-                can_data.wheel_speeds.fl_speed = msg_data_a->wheel_speeds.fl_speed;
-                can_data.wheel_speeds.fr_speed = msg_data_a->wheel_speeds.fr_speed;
-                can_data.wheel_speeds.bl_speed = msg_data_a->wheel_speeds.bl_speed;
-                can_data.wheel_speeds.br_speed = msg_data_a->wheel_speeds.br_speed;
-                can_data.wheel_speeds.stale = 0;
-                can_data.wheel_speeds.last_rx = curr_tick;
-                break;
-            case ID_MOTOR_CURRENT:
-                can_data.motor_current.current = msg_data_a->motor_current.current;
-                can_data.motor_current.stale = 0;
-                can_data.motor_current.last_rx = curr_tick;
+            case ID_RAW_THROTTLE_BRAKE:
+                can_data.raw_throttle_brake.throttle0 = msg_data_a->raw_throttle_brake.throttle0;
+                can_data.raw_throttle_brake.throttle1 = msg_data_a->raw_throttle_brake.throttle1;
+                can_data.raw_throttle_brake.brake0 = msg_data_a->raw_throttle_brake.brake0;
+                can_data.raw_throttle_brake.brake1 = msg_data_a->raw_throttle_brake.brake1;
+                can_data.raw_throttle_brake.stale = 0;
+                can_data.raw_throttle_brake.last_rx = curr_tick;
                 break;
             case ID_DAQ_COMMAND_TEST_NODE:
                 can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
@@ -67,15 +56,9 @@ void canRxUpdate()
     }
 
     /* BEGIN AUTO STALE CHECKS */
-    CHECK_STALE(can_data.throttle_brake.stale,
-                curr_tick, can_data.throttle_brake.last_rx,
-                UP_THROTTLE_BRAKE);
-    CHECK_STALE(can_data.wheel_speeds.stale,
-                curr_tick, can_data.wheel_speeds.last_rx,
-                UP_WHEEL_SPEEDS);
-    CHECK_STALE(can_data.motor_current.stale,
-                curr_tick, can_data.motor_current.last_rx,
-                UP_MOTOR_CURRENT);
+    CHECK_STALE(can_data.raw_throttle_brake.stale,
+                curr_tick, can_data.raw_throttle_brake.last_rx,
+                UP_RAW_THROTTLE_BRAKE);
     /* END AUTO STALE CHECKS */
 }
 
@@ -94,11 +77,8 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_THROTTLE_BRAKE << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_WHEEL_SPEEDS << 3) | 4;
-    CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_MOTOR_CURRENT << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_RAW_THROTTLE_BRAKE << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

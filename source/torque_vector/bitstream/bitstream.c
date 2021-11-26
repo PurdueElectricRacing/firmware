@@ -49,7 +49,7 @@ void bitstreamInit()
 }
 
 uint32_t delay = 0;
-volatile uint8_t data[8] = {0};
+uint8_t data[8] = {0};
 void bitstream10Hz()
 {
     
@@ -99,7 +99,7 @@ void bitstream100Hz()
                 bitstream_active_buffer = (uint8_t*) &bitstream_buffer[0];
 
             // Begin transfer
-            PHAL_qspiTrasnfer(0x00, 0x00, bitstream_active_buffer, QUADSPI_FIFO_SIZE_BYTES);
+            PHAL_qspiWrite(0x00, 0x00, bitstream_active_buffer, QUADSPI_FIFO_SIZE_BYTES);
         }
     }
 }

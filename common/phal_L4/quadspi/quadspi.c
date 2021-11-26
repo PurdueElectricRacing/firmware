@@ -108,7 +108,7 @@ void PHAL_qspiSetAddressSize(QUADSPI_FieldSize_t new_size)
     QUADSPI->CCR = temp_ccr;
 }
 
-bool PHAL_qspiSend(uint8_t instruction, uint32_t address, uint8_t* tx_data, uint32_t tx_length)
+bool PHAL_qspiWrite(uint8_t instruction, uint32_t address, uint8_t* tx_data, uint32_t tx_length)
 {
     qspiWaitFree();
     QUADSPI->CR &= ~(QUADSPI_CR_DMAEN_Msk | QUADSPI_CR_EN);

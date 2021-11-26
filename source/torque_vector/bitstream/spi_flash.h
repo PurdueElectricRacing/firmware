@@ -15,7 +15,7 @@
  * @return true Flag matches
  * @return false Flag does not match
  */
-bool spiFlashCheckSR(uint32_t status_register_mask, uint32_t status_register_flags);
+bool spiFlashCheckSR(uint8_t status_register_mask, uint8_t status_register_flags);
 
 /**
  * @brief Enable writing/erasing to spi flash

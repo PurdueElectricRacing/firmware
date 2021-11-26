@@ -1,6 +1,5 @@
 
 # Create an executiable with the following features:
-#   Linked to the CMSIS L4 libraries
 #   All .c files are added from the root and child directories of "component_dir"
 #   All .h files in root and child directories of "component_dir" are included without prefix
 #       - a file like "apps/apps.h" can be included like #include "apps.h"
@@ -11,9 +10,6 @@ MACRO(MAKE_COMMON_COMPONENT component_name component_dir common_libs)
     # Setup Component name based on directory
     set(_TARGET_NAME ${component_name}.elf)
     add_executable(${_TARGET_NAME})
-
-    # Add CMSIS Library
-    target_link_libraries(${_TARGET_NAME} CMSIS_L432)
 
     # Add Common libraries
     foreach (_LIB_NAME IN ITEMS ${common_libs})

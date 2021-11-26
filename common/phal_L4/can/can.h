@@ -12,11 +12,14 @@
 #ifndef _PHAL_CAN_H
 #define _PHAL_CAN_H
 
-#ifdef STM32L45
-#include "stm32l451xx.h"
-#else
+#ifdef STM32L496xx
+#include "stm32l496xx.h"
+#elif STM32L432xx
 #include "stm32l432xx.h"
+#else
+#error "Please define a STM32 arch"
 #endif
+
 #include <stdbool.h>
 
 #define PHAL_CAN_TX_TIMEOUT   (1000U)

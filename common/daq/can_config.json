@@ -65,7 +65,7 @@
                     "rx":[
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
-                        {"msg_name": "bitstream_data",    "callback": false, "irq": true},
+                        {"msg_name": "bitstream_data",    "callback": true, "irq": false},
                         {"msg_name": "bitstream_request", "callback": true, "irq": false}
                     ]
                 },

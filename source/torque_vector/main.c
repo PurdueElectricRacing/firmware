@@ -71,9 +71,25 @@ extern void HardFault_Handler();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
+int init = 0;
 void heartbeat_task()
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
+
+    if (!init)
+    {
+        init = 1;
+        CanParsedData_t msg_data_a;
+        msg_data_a.bitstream_request.download_request = 1;
+        msg_data_a.bitstream_request.download_size = 1241903;
+        bitstream_request_CALLBACK(&msg_data_a);
+    }
+    // else if (init ++ < 8) {
+    //     CanParsedData_t msg_data_b;
+    //     msg_data_b.bitstream_data.d0 = 0xA;
+    //     bitstream_data_IRQ(&msg_data_b);
+    // }
+    
 }
 
 void atask()
@@ -111,9 +127,12 @@ int main (void)
     PHAL_writeGPIO(FPGA_CFG_RST_GPIO_Port, FPGA_CFG_RST_Pin, 0);
     PHAL_writeGPIO(QUADSPI_CS_FPGA_GPIO_Port, QUADSPI_CS_FPGA_Pin, 1);
     PHAL_writeGPIO(QUADSPI_CS_FLASH_GPIO_Port, QUADSPI_CS_FLASH_Pin, 1);
+    PHAL_writeGPIO(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 1);
 
     /* Module init */
-    bitstreamInit();
+    if (!bitstreamInit())
+        PHAL_FaultHandler();
+
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     // initCANParse(&q_rx_can);
 
@@ -121,7 +140,7 @@ int main (void)
     // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     // taskCreate(canTxUpdate, 5);
     taskCreate(bitstream10Hz, 100);
-    // taskCreate(bitstream100Hz, 10);
+    taskCreate(bitstream100Hz, 10);
     taskCreate(heartbeat_task, 1000);
     // taskCreate(atask, 300);
     // taskCreate(btask, 400);

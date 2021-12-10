@@ -3,9 +3,9 @@
 
 #include "can_parse.h"
 
-#define BITSTREAM_FLASH_RX_TIMEOUT (50)
+#define BITSTREAM_FLASH_RX_TIMEOUT (5000)
 
-void bitstreamInit();
+bool bitstreamInit();
 void bitstream10Hz();
 void bitstream100Hz();
 

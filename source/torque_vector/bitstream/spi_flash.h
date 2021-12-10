@@ -16,6 +16,7 @@
  * @return false Flag does not match
  */
 bool spiFlashCheckSR(uint8_t status_register_mask, uint8_t status_register_flags);
+uint8_t spiFlashReadSR();
 
 /**
  * @brief Enable writing/erasing to spi flash
@@ -31,5 +32,13 @@ void spiFlashWriteEnable();
  * @return uint32_t 
  */
 uint32_t spiFlashEraseBlock64k(uint32_t block_n);
+
+bool spiFlashProgramBytes(uint32_t address, uint32_t length, uint8_t* data);
+bool spiFlashReadBytes(uint32_t address, uint32_t length, uint8_t* data);
+void spiFlashChipErase();
+bool spiFlashSectorErase(uint32_t sector);
+
+
+uint32_t spiFlashReadID();
 
 #endif

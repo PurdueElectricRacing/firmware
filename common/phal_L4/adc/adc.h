@@ -10,7 +10,8 @@
 #define _PHAL_ADC_H
 
 #ifdef STM32L496xx
-#include "stm32l496xx.h"
+//#include "stm32l496xx.h"
+#error "STM32L496xx is currently not supported for adc"
 #elif STM32L432xx
 #include "stm32l432xx.h"
 #else

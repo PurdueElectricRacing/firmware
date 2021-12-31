@@ -131,12 +131,12 @@ int main (void)
 
     // /* Task Creation */
     schedInit(APB1ClockRateHz);
+    taskCreate(ledBlink, 500);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
     // //taskCreate(canReceiveTest, 500);
     // taskCreate(myCounterTest, 50);
-    taskCreate(ledBlink, 250);
     taskCreateBackground(canTxUpdate);
 
     // // signify end of initialization
@@ -149,7 +149,7 @@ int main (void)
 
 void ledBlink()
 {
-    PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+    //PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
     if (PHAL_readADC(ADC1) > 2048) 
     {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);

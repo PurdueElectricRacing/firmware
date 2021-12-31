@@ -84,19 +84,26 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
             adc->SQR1 &= ~(ADC_SQR1_SQ1_Msk << ((channels[i].rank - 1) * 6));
             adc->SQR1 |= ((channels[i].channel << 6) & ADC_SQR1_SQ1_Msk) << ((channels[i].rank - 1) * 6);
         }
-        // TODO: more than 4 channels
+        else if (channels[i].rank < 10)
+        {
+            adc->SQR2 &= ~(ADC_SQR2_SQ5_Msk << ((channels[i].rank - 5) * 6));
+            adc->SQR2 |= (channels[i].channel & ADC_SQR2_SQ5_Msk) << (ADC_SQR2_SQ5_Msk << ((channels[i].rank - 5) * 6));
+        }
+        else if (channels[i].rank < 15)
+        {
+            adc->SQR3 &= ~(ADC_SQR3_SQ10_Msk << ((channels[i].rank - 10) * 6));
+            adc->SQR3 |= (channels[i].channel & ADC_SQR3_SQ10_Msk) << (ADC_SQR3_SQ10_Msk << ((channels[i].rank - 10) * 6));
+        }
+        else if (channels[i].rank < 17)
+        {
+            adc->SQR4 &= ~(ADC_SQR4_SQ15_Msk << ((channels[i].rank - 15) * 6));
+            adc->SQR4 |= (channels[i].channel & ADC_SQR4_SQ15_Msk) << (ADC_SQR4_SQ15_Msk << ((channels[i].rank - 15) * 6));
+        }
     }
 
-    // Enable
-    /*
-    * clear ADRDY in ADC_ISR by writing 1
-    * set ADEN = 1
-    * wait until ADRDY=1 using ADRDYIE=1 interrupt
-    * clear ADRDY bit in ADC_ISR by writing 1 (optional)
-    */
-    //for(int j = 0; j<10000;j++);
     // clear ADRDY bit
     adc->ISR |= ADC_ISR_ADRDY;
+    // Enable
     adc->CR &= ~(PHAL_ADC_CR_BITS_RS);
     adc->CR |= ADC_CR_ADEN;
     uint32_t timeout = 0;

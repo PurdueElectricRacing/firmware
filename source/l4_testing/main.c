@@ -5,6 +5,7 @@
 #include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/adc/adc.h"
 #include "common/eeprom/eeprom.h"
 #include <math.h>
 
@@ -12,7 +13,6 @@
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
-
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -22,7 +22,20 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN)
+  GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
+  GPIO_INIT_ANALOG(POT_GPIO_Port, POT_Pin)
+};
+
+ADCInitConfig_t adc_config = {
+    .clock_prescaler = ADC_CLK_PRESC_6,
+    .resolution=ADC_RES_12_BIT,
+    .data_align=ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode=true,
+    .overrun=true
+};
+
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel=POT_ADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
 };
 
 ClockRateConfig_t clock_config = {
@@ -56,6 +69,7 @@ void readGreen(uint8_t* on);
 void readBlue(uint8_t* on);
 void ledBlink();
 extern void HardFault_Handler();
+void init_ADC();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -87,6 +101,11 @@ int main (void)
     {
         HardFault_Handler();
     }
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startADC(ADC1);
 
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
@@ -110,17 +129,17 @@ int main (void)
         HardFault_Handler();
     }
 
-    /* Task Creation */
+    // /* Task Creation */
     schedInit(APB1ClockRateHz);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(canSendTest, 15);
-    //taskCreate(canReceiveTest, 500);
-    taskCreate(myCounterTest, 50);
-    //taskCreate(ledBlink, 500);
+    taskCreate(canSendTest, 50);
+    // //taskCreate(canReceiveTest, 500);
+    // taskCreate(myCounterTest, 50);
+    taskCreate(ledBlink, 250);
     taskCreateBackground(canTxUpdate);
 
-    // signify end of initialization
+    // // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
 
     schedStart();
@@ -131,6 +150,14 @@ int main (void)
 void ledBlink()
 {
     PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+    if (PHAL_readADC(ADC1) > 2048) 
+    {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
+    }
+    else
+    {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
+    }
 }
 
 void myCounterTest()
@@ -169,11 +196,16 @@ void readBlue(uint8_t* on)
 
 uint16_t counter = 1;
 uint16_t counter2 = 1;
+uint16_t adc_reading = 0;
 
 void canSendTest()
 {
+    adc_reading = PHAL_readADC(ADC1);
     SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
     SEND_TEST_MSG2(q_tx_can, counter2);
+    SEND_TEST_MSG3(q_tx_can, counter2);
+    SEND_TEST_MSG4(q_tx_can, counter2);
+    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
 
     counter += 1;
     counter2 += 2;
@@ -182,9 +214,6 @@ void canSendTest()
         counter2 = 1;
     }
 
-    SEND_TEST_MSG3(q_tx_can, counter2);
-    SEND_TEST_MSG4(q_tx_can, counter2);
-    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
 }
 
 void canReceiveTest()

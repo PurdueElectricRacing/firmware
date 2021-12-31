@@ -51,14 +51,14 @@ typedef enum {
 } ADCDataAlign_t;
 
 typedef struct {
-    ADCClkPrescaler_t clock_prescaler;
-    ADCResolution_t resolution;
+    ADCClkPrescaler_t clock_prescaler; // required to have high enough prescaler to operate within ADC maximum freq
+    ADCResolution_t resolution; // bit resolution of readings
     ADCDataAlign_t data_align;
     //uint32_t ext_trig_conv;
     //uint32_t ext_trig_conv_edge;
     bool cont_conv_mode;
     //bool discont_conv_mode;
-    bool overrun;
+    bool overrun; // set true if data register can be overwritten before being read
     //uint32_t nbr_of_disc_conv;
 } ADCInitConfig_t;
 
@@ -74,17 +74,43 @@ typedef enum {
 } ADCChannelSampleCycles_t;
 
 typedef struct {
-    uint32_t channel;
-    uint32_t rank;
-    ADCChannelSampleCycles_t sampling_time;
+    uint32_t channel; // not the GPIO channel, use the ADC channel (ie. PA0 = channel 5)
+    uint32_t rank; // order at which the channels will be polled, starting at 1
+    ADCChannelSampleCycles_t sampling_time; // 2_5 works, set higher for large imedances
     //uint32_t single_diff;
     //uint32_t offset_num;
     //uint32_t offset;
 } ADCChannelConfig_t;
 
+/**
+ * @brief Initializes the ADC, requires GPIO config prior
+ * 
+ * @param adc ADC handle
+ * @param config ADC initial config settings
+ * @param channels List of channel configurations
+ * @param num_channels Number of channels in the channel configuration list
+**/
 bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels);
+
+/**
+ * @brief Starts the ADC conversions, requires PHAL_initADC to be called prior
+ * 
+ * @param adc ADC handle
+**/
 bool PHAL_startADC(ADC_TypeDef* adc);
+/**
+ * @brief Stops the ADC conversions, requires PHAL_initADC to be called prior
+ * 
+ * @param adc ADC handle
+**/
 bool PHAL_stopADC(ADC_TypeDef* adc);
+
+/**
+ * @brief Reads the ADC data register
+ * 
+ * @param adc ADC handle
+ * @return contents of the data register
+**/
 uint16_t PHAL_readADC(ADC_TypeDef* adc);
 
 

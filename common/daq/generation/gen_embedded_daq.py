@@ -1,16 +1,21 @@
 """ gen_embedded_daq.py: Adds can msg defs for daq protocol and generates the required embedded code """
 
 import generator
+import gen_embedded_can
 
 #
 # GENERATION STRINGS
 #
-gen_auto_var_ct_start   = "BEGIN AUTO VAR COUNT"
-gen_auto_var_ct_stop    = "END AUTO VAR COUNT"
-gen_auto_var_ids_start  = "BEGIN AUTO VAR IDs"
-gen_auto_var_ids_stop   = "END AUTO VAR IDs"
-gen_auto_var_defs_start = "BEGIN AUTO VAR DEFS"
-gen_auto_var_defs_stop  = "END AUTO VAR DEFS"
+gen_auto_var_ct_start       = "BEGIN AUTO VAR COUNT"
+gen_auto_var_ct_stop        = "END AUTO VAR COUNT"
+gen_auto_var_ids_start      = "BEGIN AUTO VAR IDs"
+gen_auto_var_ids_stop       = "END AUTO VAR IDs"
+gen_auto_var_defs_start     = "BEGIN AUTO VAR DEFS"
+gen_auto_var_defs_stop      = "END AUTO VAR DEFS"
+gen_auto_callback_def_start = "BEGIN AUTO CALLBACK DEF"
+gen_auto_callback_def_stop  = "END AUTO CALLBACK DEF"
+gen_auto_daq_send_start     = "BEGIN AUTO DAQ SEND DEF"
+gen_auto_daq_send_stop      = "END AUTO DAQ SEND DEF"
 
 def generate_daq_can_msgs(daq_config, can_config):
     """ generates message definitions for daq commands and responses """
@@ -48,11 +53,17 @@ def generate_daq_can_msgs(daq_config, can_config):
                                            "callback":True, "irq":False, "arg_type":"header"})
                     
                     # configure node tx message
-                    response_msg = {"msg_name":f"daq_response_{daq_node_config['node_name']}",
+                    rsp_msg = {"msg_name":f"daq_response_{daq_node_config['node_name']}",
                                     "msg_desc":f"daq response from node {daq_node_config['node_name']}",
                                     "signals":[{"sig_name":"daq_response","type":"uint64_t","length":64}],
                                     "msg_period":0, "msg_hlp":5, "msg_pgn":daq_bus['daq_rx_pgn']}
-                    can_node['tx'].append(response_msg)
+                    can_node['tx'].append(rsp_msg)
+
+                    # add to daq config
+                    periph = gen_embedded_can.DEFAULT_PERIPHERAL
+                    if 'can_periperal' in can_node: periph = can_node['can_peripheral']
+                    daq_node_config['daq_rsp_msg_periph'] = periph
+
                     break
             if ssa == -1:
                 generator.log_error(f"CAN node name not found: {daq_node_config['node_name']}")
@@ -116,6 +127,16 @@ def configure_node(node_config, node_paths):
         var_defs.append(line)
     var_defs.append("};\n")
     generator.insert_lines(c_lines, gen_auto_var_defs_start, gen_auto_var_defs_stop, var_defs)
+
+    # callback def
+    callback_def = [f"void daq_command_{node_config['node_name'].upper()}_CALLBACK(CanMsgTypeDef_t* msg_header_a)\n"]
+    generator.insert_lines(c_lines, gen_auto_callback_def_start, gen_auto_callback_def_stop, callback_def)
+
+    # define msg send
+    msg_send = []
+    msg_send.append(f"                           .Bus={node_config['daq_rsp_msg_periph']},\n")
+    msg_send.append(f"                           .ExtId=ID_DAQ_RESPONSE_{node_config['node_name'].upper()},\n")
+    generator.insert_lines(c_lines, gen_auto_daq_send_start, gen_auto_daq_send_stop, msg_send)
 
     # Write changes to source file
     with open(node_paths[1], "w") as c_file:

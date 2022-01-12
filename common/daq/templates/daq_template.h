@@ -13,8 +13,8 @@
 
 #include <string.h>
 #include "common/phal_L4/can/can.h"
-#include "common/eeprom/eeprom.h"
 #include "can_parse.h"
+#include "common/eeprom/eeprom.h"
 
 typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
@@ -23,11 +23,13 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define NODE_NAME "TEMPLATE_NODE"
 
 // BEGIN AUTO VAR COUNT
+#define NUM_VARS 0
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
 #define EEPROM_ENABLED 0
+
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50
 #define DAQ_SAVE_QUEUE_SIZE 8

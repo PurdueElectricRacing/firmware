@@ -2,10 +2,12 @@
 #include "stm32l432xx.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
-#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
+#if EEPROM_ENABLED
+#include "common/phal_L4/i2c/i2c.h"
 #include "common/eeprom/eeprom.h"
+#endif
 #include <math.h>
 
 /* Module Includes */
@@ -17,8 +19,10 @@
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
+#if EEPROM_ENABLED
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
+#endif
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -83,10 +87,12 @@ int main (void)
     {
         HardFault_Handler();
     }
+#if EEPROM_ENABLED
     if(!PHAL_initI2C())
     {
         HardFault_Handler();
     }
+#endif
 
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
@@ -114,9 +120,9 @@ int main (void)
     schedInit(APB1ClockRateHz);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(canSendTest, 15);
+    taskCreate(canSendTest, 5);
     //taskCreate(canReceiveTest, 500);
-    taskCreate(myCounterTest, 50);
+    //taskCreate(myCounterTest, 50);
     //taskCreate(ledBlink, 500);
     taskCreateBackground(canTxUpdate);
 
@@ -172,8 +178,19 @@ uint16_t counter2 = 1;
 
 void canSendTest()
 {
+#if EEPROM_ENABLED
     SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
     SEND_TEST_MSG2(q_tx_can, counter2);
+    SEND_TEST_MSG3(q_tx_can, counter2);
+    SEND_TEST_MSG4(q_tx_can, counter2);
+    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
+#else
+    SEND_TEST_MSG_2(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
+    SEND_TEST_MSG2_2(q_tx_can, counter2);
+    SEND_TEST_MSG3_2(q_tx_can, counter2);
+    SEND_TEST_MSG4_2(q_tx_can, counter2);
+    SEND_TEST_MSG5_2(q_tx_can, 0xFFF - counter2);
+#endif
 
     counter += 1;
     counter2 += 2;
@@ -182,21 +199,6 @@ void canSendTest()
         counter2 = 1;
     }
 
-    SEND_TEST_MSG3(q_tx_can, counter2);
-    SEND_TEST_MSG4(q_tx_can, counter2);
-    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
-}
-
-void canReceiveTest()
-{
-    if (!can_data.raw_throttle_brake.stale && can_data.raw_throttle_brake.throttle0 == 6853)
-    {
-        PHAL_writeGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin, true);
-    } 
-    else
-    {
-        PHAL_writeGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin, false);
-    }
 }
 
 void canTxUpdate()

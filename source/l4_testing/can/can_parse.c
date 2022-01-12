@@ -37,17 +37,9 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_RAW_THROTTLE_BRAKE:
-                can_data.raw_throttle_brake.throttle0 = msg_data_a->raw_throttle_brake.throttle0;
-                can_data.raw_throttle_brake.throttle1 = msg_data_a->raw_throttle_brake.throttle1;
-                can_data.raw_throttle_brake.brake0 = msg_data_a->raw_throttle_brake.brake0;
-                can_data.raw_throttle_brake.brake1 = msg_data_a->raw_throttle_brake.brake1;
-                can_data.raw_throttle_brake.stale = 0;
-                can_data.raw_throttle_brake.last_rx = curr_tick;
-                break;
-            case ID_DAQ_COMMAND_TEST_NODE:
-                can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
-                daq_command_TEST_NODE_CALLBACK(&msg_header);
+            case ID_DAQ_COMMAND_TEST_NODE_2:
+                can_data.daq_command_TEST_NODE_2.daq_command = msg_data_a->daq_command_TEST_NODE_2.daq_command;
+                daq_command_TEST_NODE_2_CALLBACK(&msg_header);
                 break;
             default:
                 __asm__("nop");
@@ -56,9 +48,6 @@ void canRxUpdate()
     }
 
     /* BEGIN AUTO STALE CHECKS */
-    CHECK_STALE(can_data.raw_throttle_brake.stale,
-                curr_tick, can_data.raw_throttle_brake.last_rx,
-                UP_RAW_THROTTLE_BRAKE);
     /* END AUTO STALE CHECKS */
 }
 
@@ -77,8 +66,7 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_RAW_THROTTLE_BRAKE << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_DAQ_COMMAND_TEST_NODE_2 << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

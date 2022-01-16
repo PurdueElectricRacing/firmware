@@ -13,6 +13,8 @@
     #include "system_stm32f4xx.h"
 #endif
 
+#define toMicros(time) ((uint32_t) time * 1000)
+
 // Structs, Enums, Types
 enum {
     TASK,

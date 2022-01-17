@@ -2,8 +2,10 @@
 #define _PSCHED_H_
 
 // Uncomment depending on MCU type
-#define L4
-// #define F4
+#if !defined(L4) || !defined(F4)
+    #define L4
+    // #define F4
+#endif
 
 // Includes
 #if defined(L4)

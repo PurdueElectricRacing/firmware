@@ -17,4 +17,18 @@
 
 #include "stdbool.h"
 
+// Structs, Enums, Types
+typedef struct {
+    uint16_t task_time;                 // Time spent in a task
+    uint16_t bg_time;                   // Time spent in bg loop
+    uint32_t task_entry_time;           // Tick time of task entry
+    uint32_t bg_entry_time;             // Tick time of background entry
+    float    cpu_use;                   // % use of task time
+} cpu_t;
+
+typedef struct {
+    uint8_t skips;                      // Number of loop misses. Execution time was skipped. Should always be 0
+    cpu_t   core;
+} profile_t;
+
 #endif

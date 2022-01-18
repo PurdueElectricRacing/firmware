@@ -25,34 +25,23 @@ enum {
 
 typedef void (*func_ptr_t)(void);
 
-typedef struct {
-    uint16_t    task_time;              // Time spent in a task
-    uint16_t    bg_time;                // Time spent in bg loop
-    uint32_t    task_entry_time;        // Tick time of task entry
-    uint32_t    bg_entry_time;          // Tick time of background entry
-    float       cpu_use;                // % use of task time
-} cpu_t;
-
 typedef struct
 {
-    uint8_t     skips;                  // Number of loop misses. Execution time was skipped. Should always be 0
-    uint8_t     run_next;               // Triggers background to run next iteration
     uint8_t     task_count;             // Number of tasks
     uint8_t     bg_count;               // Number of background tasks
     uint8_t     running;                // Marks scheduler as running
-    uint32_t    os_ticks;               // Current OS tick count
+    uint8_t     fg_running;             // Marks foreground task as running
     uint32_t    of;                     // MCU operating frequency
 
-    uint32_t    task_time[15];          // Timings of registered tasks
-    task_info_t task_pointer[15];       // 
-    task_info_t bg_pointer[15];         // Function pointers to background tasks
-
-    cpu_t    core;
+    uint32_t     task_time[15];         // Timings of registered tasks
+    task_info_t* task_pointer[15];      // Function pointers to foreground tasks
+    task_info_t* bg_pointer[15];        // Function pointers to background tasks
 } sched_t;
 
 extern sched_t sched;
 
 // Prototypes
-void schedule(void);
+void scheduleFg(void);
+void scheduleBg(void);
 
 #endif

@@ -9,8 +9,7 @@ static void enable_irq();
 // @brief: Initializes the RTOS
 //
 // @param: freq: Frequency of MCU in Hz
-void pschedInit(uint32_t freq)
-{
+void pschedInit(uint32_t freq) {
     /*
         Note: This system uses timer 2 and the watchdog peripheral
         If you want/need to use this timer, it is on you to edit the configuration
@@ -40,8 +39,7 @@ void pschedInit(uint32_t freq)
 // @funcname: pschedStart()
 //
 // @brief: Starts tasks. Will never return
-void pschedStart()
-{
+void pschedStart() {
     TIM2->CR1 |= TIM_CR1_CEN;
     NVIC->ISER[0] |= 1 << TIM2_IRQn;
     IWDG->KR  =  0xCCCC;     
@@ -54,14 +52,25 @@ void pschedStart()
     IWDG->KR = 0xAAAA;
 }
 
+void taskYield() {
+    disable_irq();
+    TIM2->CR1 &= ~TIM_CR1_CEN;
+    sched_bg();
+    TIM2->CR1 |= TIM_CR1_CEN;
+    enable_irq();
+}
+
 // @funcname: TIM2_IRQHandler()
 //
 // @brief: Timer 2 IRQ. Handles scheduling of next
 //         task, as well as context switching
-void TIM2_IRQHandler()
-{
+void TIM2_IRQHandler() {
 	TIM2->SR &= ~TIM_SR_UIF;
+    disable_irq();
+    TIM2->CR1 &= ~TIM_CR1_CEN;
 
+    TIM2->CR1 |= TIM_CR1_CEN;
+    enable_irq();
 }
 
 static void disable_irq() {

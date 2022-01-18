@@ -32,7 +32,7 @@ typedef struct {
     bool is_running;
     heap_t* stack_loc;
     heap_t* reg_loc;
-} task_info_t;
+} tcb_t;
 
 heap_t psched_heap[HEAP_SIZE];
 

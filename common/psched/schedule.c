@@ -2,8 +2,12 @@
 
 static void cswitch(task_info_t* from, task_info_t* to);
 
-void schedule() {
-    disable_irq();
+void scheduleFg() {
+    
+}
+
+void scheduleBg() {
+
 }
 
 static void cswitch(task_info_t* from, task_info_t* to) {

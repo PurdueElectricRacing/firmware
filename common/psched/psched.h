@@ -2,8 +2,10 @@
 #define _PSCHED_H_
 
 // Uncomment depending on MCU type
-#define L4
-// #define F4
+#if !defined(L4) || !defined(F4)
+    #define L4
+    // #define F4
+#endif
 
 // Includes
 #if defined(L4)
@@ -12,6 +14,8 @@
 #elif defined(F4)
     #include "system_stm32f4xx.h"
 #endif
+
+#define toMicros(time) ((uint32_t) time * 1000)
 
 // Structs, Enums, Types
 enum {

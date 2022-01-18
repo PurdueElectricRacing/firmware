@@ -163,6 +163,28 @@ static void schedBg()
     }
 }
 
+// @funcname: waitMicros()
+//
+// @brief: Waits for set time in microseconds,
+//         but never for more than 100μs at a time
+//
+// @param: time: time to wait in μs
+void waitMicros(uint8_t time)
+{
+    if (time > 100) time = 100;
+
+    uint16_t entry_time = TIM2->CNT; // ARR is 1k, so no cast issues
+    int16_t  exit_time = (int16_t) entry_time - time;
+
+    if (exit_time < 0)
+    {
+        exit_time += 1000;
+        while (TIM2->CNT < entry_time);
+    }
+
+    while (TIM2->CNT > exit_time);
+}
+
 // @funcname: schedStart()
 //
 // @brief: Starts tasks. Will never return

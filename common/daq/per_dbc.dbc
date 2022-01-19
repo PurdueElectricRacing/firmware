@@ -52,8 +52,13 @@ BO_ 2214592577 torque_request: 6 Torque_Vector
  SG_ front_left : 0|12@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2147490049 bitstream_flash_status: 1 Torque_Vector
- SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ flash_timeout_overrun : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ flash_timeout_rx : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ flash_success : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ flash_erase : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810241 bitstream_heartbeat: 1 Torque_Vector
+ SG_ alive : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592514 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -172,8 +177,12 @@ CM_ SG_ 2214592577 rear_left "";
 CM_ SG_ 2214592577 front_right "";
 CM_ SG_ 2214592577 front_left "";
 CM_ BO_ 2147490049 "Status message for bitstream flashing";
+CM_ SG_ 2147490049 flash_timeout_overrun "";
 CM_ SG_ 2147490049 flash_timeout_rx "";
 CM_ SG_ 2147490049 flash_success "";
+CM_ SG_ 2147490049 flash_erase "";
+CM_ BO_ 2348810241 "Bitstream alive message";
+CM_ SG_ 2348810241 alive "";
 CM_ BO_ 2214592514 "Wheel data for the rear tires";
 CM_ SG_ 2214592514 right_normal "";
 CM_ SG_ 2214592514 left_normal "";

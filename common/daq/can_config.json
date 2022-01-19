@@ -54,12 +54,23 @@
                         {   "msg_name":"bitstream_flash_status",
                             "msg_desc":"Status message for bitstream flashing",
                             "signals":[
+                                {"sig_name":"flash_erase", "sig_desc":"Done erasing bitstream","type":"uint8_t","length":1},
                                 {"sig_name":"flash_success", "sig_desc":"Done flashing bitstream","type":"uint8_t","length":1},
-                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1}
+                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1},
+                                {"sig_name":"flash_timeout_overrun", "sig_desc":"Overrun flash fifo","type":"uint8_t","length":1}
                             ],
                             "msg_period":0,
                             "msg_hlp":0,
                             "msg_pgn":100
+                        },
+                        {   "msg_name":"bitstream_heartbeat",
+                            "msg_desc":"Bitstream alive message",
+                            "signals":[
+                                {"sig_name":"alive", "sig_desc":"module is alive","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":1000,
+                            "msg_hlp":3,
+                            "msg_pgn":0
                         }
                     ],
                     "rx":[

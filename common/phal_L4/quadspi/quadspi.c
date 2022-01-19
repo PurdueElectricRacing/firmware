@@ -204,6 +204,10 @@ bool PHAL_qspiRead(uint8_t instruction, uint32_t address, uint8_t* rx_data, uint
             rx_length--;
         }
     }
+    else
+    {
+        qspiWaitFree();
+    }
         
     QUADSPI->CR &= ~(QUADSPI_CR_EN);
     return true;

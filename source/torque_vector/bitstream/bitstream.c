@@ -9,7 +9,7 @@ typedef enum {
     BITSTREAM_UNLOCKED = 0x1,
 } BITSTREAM_STATE_t;
 
-#define BITSTEAM_BUFFER_SIZE (QUADSPI_FIFO_SIZE_BYTES)
+#define BITSTEAM_BUFFER_SIZE (8)
 
 
 BITSTREAM_STATE_t current_state;                   // Lock/Unlock the access to FPGA bitstream SPI flash
@@ -61,22 +61,20 @@ uint32_t delay = 0;
 uint8_t data[8] = {0};
 void bitstream10Hz()
 {
-    PHAL_writeGPIO(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 1);
-
     // Download timeout counter decrement
     if (BITSTREAM_UNLOCKED == current_state)
     {
-        download_timeout_counter -= 1;
-        if (download_timeout_counter <= 0)
+        
+        if (download_timeout_counter <= 1)
         {
             /* Timeout on rx of bitstream data */
             download_timeout_counter = 0;
             current_state = BITSTREAM_LOCKED;
-            CanMsgTypeDef_t msg = {.ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};
-            CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
-            data_a->bitstream_flash_status.flash_timeout_rx = 1;
-
-            qSendToBack(&q_tx_can, &msg);
+            SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 0, 1, 0);
+        }
+        else
+        {
+            download_timeout_counter -= 1;
         }
     }
     else
@@ -105,13 +103,10 @@ void bitstream100Hz()
             spiFlashProgramBytes(current_bitstream_data_addr, data_size, data_buff);
             current_bitstream_data_addr += data_size;
 
-            if(current_bitstream_data_addr == expected_bitstream_size)
+            if(current_bitstream_data_addr >= expected_bitstream_size)
             {
                 current_state = BITSTREAM_LOCKED;
-                CanMsgTypeDef_t msg = {.ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};
-                CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
-                data_a->bitstream_flash_status.flash_success = 1;
-                qSendToBack(&q_tx_can, &msg);               
+                SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 1, 0, 0);               
             }
         }
     }
@@ -122,31 +117,47 @@ void bitstream100Hz()
  * 
  * @param msg_data_a New RX data from CAN
  */
+int num_data = 0;
 void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
 {
     if (BITSTREAM_UNLOCKED == current_state)
     {
-        if (BITSTEAM_BUFFER_SIZE > bitstream_buffer_index+8)
+        download_timeout_counter = BITSTREAM_FLASH_RX_TIMEOUT;
+        num_data += 1;
+        if (BITSTEAM_BUFFER_SIZE +1 > bitstream_buffer_index+8)
         {
             // Write to temp buffer, other task will handle transfer out of buffer to QSPI
-            download_timeout_counter = BITSTREAM_FLASH_RX_TIMEOUT;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d0;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d1;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d2;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d3;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d4;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d5;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d6;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d7;
+            
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d0;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d1;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d2;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d3;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d4;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d5;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d6;
+            // bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d7;
+
+            spiFlashProgramBytes(current_bitstream_data_addr, 8, msg_data_a->raw_data);
+
+            // Swap buffers
+            bitstream_buffer_index = 0;
+            current_bitstream_data_addr += 8;
+            if (bitstream_active_buffer == bitstream_buffer[0])
+                bitstream_active_buffer =  bitstream_buffer[1];
+            else
+                bitstream_active_buffer = bitstream_buffer[0];
+            
+            if(current_bitstream_data_addr == expected_bitstream_size)
+            {
+                current_state = BITSTREAM_LOCKED;
+                SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 1, 0, 0);               
+            }            
         }
         else
         {
             // OVERRUN ERROR, CAN Message RX before buffer swap.
-            CanMsgTypeDef_t msg = {.ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};
-            CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;
-            data_a->bitstream_flash_status.flash_timeout_rx = 1;
-
-            qSendToBack(&q_tx_can, &msg);
+           SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 0, 0, 1);
+           current_state = BITSTREAM_LOCKED;
         }
     }
 }
@@ -171,12 +182,14 @@ void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a)
         current_bitstream_data_addr = 0;
 
         PHAL_writeGPIO(FPGA_CFG_RST_GPIO_Port, FPGA_CFG_RST_Pin, 0);
-        PHAL_writeGPIO(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 1);
+        PHAL_writeGPIO(QUADSPI_CS_FPGA_GPIO_Port, QUADSPI_CS_FPGA_Pin, 1);
+        PHAL_writeGPIO(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 1);        
 
         for (int i = 0; i < 304; i++)
         {
             if (!spiFlashSectorErase(i))
                 i--;
         }
+        SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 1, 0, 0, 0);
     }
 }

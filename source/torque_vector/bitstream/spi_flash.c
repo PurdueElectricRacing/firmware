@@ -16,8 +16,8 @@ void _spi_flash_send_cmd(uint8_t cmd)
     PHAL_qspiSetAddressWidth(QUADSPI_SKIP_SECTION);
     PHAL_qspiSetDataWidth(QUADSPI_SKIP_SECTION);
 
-    uint8_t dummy[1];
-    PHAL_qspiWrite(cmd, 0x0, dummy, 0);
+    uint8_t spi_sr[1] = {0};
+    PHAL_qspiRead(cmd, 0x0, spi_sr, 0);
 }
 
 bool spiFlashCheckSR(uint8_t status_register_mask, uint8_t status_register_flags)
@@ -39,8 +39,8 @@ uint8_t spiFlashReadSR()
 
 uint32_t spiFlashReadID()
 {
-    PHAL_qspiSetAddressWidth(QUADSPI_SKIP_SECTION);
     PHAL_qspiSetInstructionWidth(QUADSPI_SINGLE_LINE);
+    PHAL_qspiSetAddressWidth(QUADSPI_SKIP_SECTION);
     PHAL_qspiSetDataWidth(QUADSPI_SINGLE_LINE);
     
     uint8_t data[4] = {0};
@@ -64,11 +64,14 @@ bool spiFlashSectorErase(uint32_t sector)
     uint8_t sr = spiFlashReadSR();
     if (!spiFlashCheckSR(0b1, 0b0) || sr == 0xff)
         return false; // Write in progress
-    spiFlashWriteEnable();
+    
     int i = 0;
     for (; i < 10; i ++)
+    {
+        spiFlashWriteEnable();
         if (spiFlashCheckSR(0b11, 0b10))
             break;
+    }
     if (i == 10) return false;
 
     PHAL_qspiSetInstructionWidth(QUADSPI_SINGLE_LINE);
@@ -82,12 +85,15 @@ bool spiFlashSectorErase(uint32_t sector)
 
 bool spiFlashProgramBytes(uint32_t address, uint32_t length, uint8_t* data)
 {
-    if (address / 256 != (address+length) / 256) // Data must be contained in the same 256byte page
+    if ((address) & (~0xFF) != (address+length) & (~0xFF) ) // Data must be contained in the same 256byte page
         return false;
-    uint8_t sr = spiFlashReadSR();
-    if (!spiFlashCheckSR(0b1, 0b0) || sr == 0xff)
+
+    if (!spiFlashCheckSR(0b1, 0b0))
         return false; // Write in progress
+
     spiFlashWriteEnable();
+    if (spiFlashCheckSR(0b11, 0b10))
+            return false; // WE no able to latch
 
     PHAL_qspiSetInstructionWidth(QUADSPI_SINGLE_LINE);
     PHAL_qspiSetAddressWidth(QUADSPI_QUAD_LINE);

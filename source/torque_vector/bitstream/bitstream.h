@@ -3,7 +3,7 @@
 
 #include "can_parse.h"
 
-#define BITSTREAM_FLASH_RX_TIMEOUT (5000)
+#define BITSTREAM_FLASH_RX_TIMEOUT (50)
 
 bool bitstreamInit();
 void bitstream10Hz();

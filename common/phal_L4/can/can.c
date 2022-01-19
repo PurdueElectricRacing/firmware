@@ -45,7 +45,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    bus->BTR = 0x00050000;
+    bus->BTR = 0x001c0001;
     
     // Keep the bus active
     bus->MCR |= CAN_MCR_ABOM;

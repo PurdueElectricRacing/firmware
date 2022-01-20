@@ -20,12 +20,8 @@ jobs:
       - run:
           name: "Generate & Build"
           command: |
-            mkdir -p $CIRCLE_WORKING_DIRECTORY/build
-            pwd
-            ls
             cmake -S $CIRCLE_WORKING_DIRECTORY -B $CIRCLE_WORKING_DIRECTORY/build -G Ninja -DCMAKE_BUILD_TYPE=Debug
-            ls
-            ninja -C $CIRCLE_WORKING_DIRECTORY/build all
+            ninja -C /root/project/build all
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

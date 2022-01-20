@@ -5,5 +5,5 @@
 	path = common/STM32CubeF4
 	url = https://github.com/STMicroelectronics/STM32CubeF4.git
 [submodule "common/EEPROM"]
-	path = common/EEPROM
+	path = common/eeprom
 	url = https://github.com/PurdueElectricRacing/EEPROM.git

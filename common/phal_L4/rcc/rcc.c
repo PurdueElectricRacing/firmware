@@ -38,7 +38,7 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
     }
     ret_code |= (!PHAL_configureAHBClock(config->ahb_clock_target_hz))     << 0;
     ret_code |= (!PHAL_configureAPB1Clock(config->apb1_clock_target_hz))   << 1;
-    ret_code |= (!PHAL_configureAPB1Clock(config->apb2_clock_target_hz))   << 2;
+    ret_code |= (!PHAL_configureAPB2Clock(config->apb2_clock_target_hz))   << 2;
 
     return ret_code;
 }

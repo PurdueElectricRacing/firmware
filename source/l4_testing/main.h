@@ -11,4 +11,13 @@
 #define LED_BLUE_Pin (7)
 #define LED_BLUE_GPIO_Port (GPIOB)
 
+// TIM Pins
+#define TIM1_GPIO_Port (GPIOA)
+#define TIM1_Pin (8)
+#define TIM1_AF (1)
+
+#define TIM16_GPIO_Port (GPIOA)
+#define TIM16_Pin (6)
+#define TIM16_AF (14)
+
 #endif

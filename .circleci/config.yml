@@ -23,9 +23,11 @@ jobs:
             cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=Debug
             ninja -C ./build all
       - store_artifacts:
-          path: ./output
+          path: ./output/*.elf
+          destination: binary
       - store_artifacts:
           path: ./common/daq/per_dbc.dbc
+          destination: dbc
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

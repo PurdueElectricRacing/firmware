@@ -3,8 +3,6 @@ services:
         build: .                    # Specify path to Dockerfile 
         image: stm32_develop:latest
         container_name: develop     # To identify which container this is 
-        ports:                      # Expose open ports from the container to the host machine
-            - 3333                  # Default openOCD port
         volumes:
             - ./:/per               # Mount our source directory to /per
         working_dir: /per           # Switch to our working directroy

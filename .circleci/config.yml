@@ -22,7 +22,7 @@ jobs:
           command: |
             cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=Debug
             ninja -C ./build all
-      -run:
+      - run:
           name: "Prepare Artifacts"
           command: |
             mkdir artifacts

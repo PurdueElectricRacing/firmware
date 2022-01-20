@@ -17,6 +17,8 @@ jobs:
       - run: 
           name: "Update git submodules"
           command: "git submodule update --init --recursive"
+      
+      - run: "mkdir $CIRCLE_WORKING_DIRECTORY/build"
       - run:
           name: "Generate CMAKE"
           command: "cmake -S $CIRCLE_WORKING_DIRECTORY -B $CIRCLE_WORKING_DIRECTORY/build -G Ninja -DCMAKE_BUILD_TYPE=Debug"

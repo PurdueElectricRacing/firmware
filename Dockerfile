@@ -16,3 +16,5 @@ ENV PATH $PATH:/usr/gcc-arm-none-eabi-10-2020-q4-major/bin
 RUN apt -y install --no-install-recommends ninja-build cmake
 
 RUN apt -y install --no-install-recommends python3
+
+RUN apt -y install --no-install-recommends git

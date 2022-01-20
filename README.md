@@ -1,4 +1,7 @@
 # PER Component Firmware Projects
+[![CircleCI](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master.svg?style=svg)](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master)
+
+
 A mega-repository full of all firmware projects, build tools, and dependencies to create firmware modules for the car.
 
 ## Directory Structure

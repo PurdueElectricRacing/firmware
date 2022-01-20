@@ -21,7 +21,10 @@ jobs:
           name: "Generate & Build"
           command: |
             mkdir -p $CIRCLE_WORKING_DIRECTORY/build
+            pwd
+            ls
             cmake -S $CIRCLE_WORKING_DIRECTORY -B $CIRCLE_WORKING_DIRECTORY/build -G Ninja -DCMAKE_BUILD_TYPE=Debug
+            ls
             ninja -C $CIRCLE_WORKING_DIRECTORY/build all
 
 # Invoke jobs via workflows

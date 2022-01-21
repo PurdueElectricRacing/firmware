@@ -229,7 +229,7 @@ def configure_node(node_config, node_paths):
 
     rx_irq_names = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
     if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
-    extern_callback_lines = [f"extern void {msg_name}_IRQ(CanParsedData_t* msg_data_a);\n" for msg_name in rx_irq_names]
+    extern_callback_lines = [f"extern bool {msg_name}_IRQ(CanParsedData_t* msg_data_a);\n" for msg_name in rx_irq_names]
     h_lines = generator.insert_lines(h_lines, gen_irq_extern_start, gen_irq_extern_stop, extern_callback_lines)
 
 
@@ -284,8 +284,7 @@ def configure_node(node_config, node_paths):
     rx_irq_lines = []
     for rx_irq in rx_irq_names:
         rx_irq_lines.append(f"            case ID_{rx_irq.upper()}:\n")
-        rx_irq_lines.append(f"                {rx_irq}_IRQ(msg_data_a);\n")
-        rx_irq_lines.append(f"                break;\n")
+        rx_irq_lines.append(f"                return {rx_irq}_IRQ(msg_data_a);\n")
     c_lines = generator.insert_lines(c_lines, gen_rx_irq_start, gen_rx_irq_stop, rx_irq_lines)
     
     # Write changes to source file

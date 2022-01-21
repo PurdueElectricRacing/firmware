@@ -87,7 +87,7 @@ bool initCANFilter()
 }
 
 
-void canProcessRxIRQs(CanMsgTypeDef_t* rx)
+bool canProcessRxIRQs(CanMsgTypeDef_t* rx)
 {
     CanParsedData_t* msg_data_a;
 
@@ -99,4 +99,5 @@ void canProcessRxIRQs(CanMsgTypeDef_t* rx)
         default:
             __asm__("nop");
     }
+    return false;
 }

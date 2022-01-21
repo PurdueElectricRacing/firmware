@@ -45,8 +45,6 @@ GPIOInitConfig_t gpio_config[] = {
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_HSI,
     .system_clock_target_hz     =TargetCoreClockrateHz,
-    // .pll_src                    =PLL_SRC_HSI16,
-    // .vco_output_rate_target_hz  =160000000,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
     .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
@@ -71,12 +69,7 @@ extern void HardFault_Handler();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-int init = 0;
-void heartbeat_task()
-{
-    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-    SEND_BITSTREAM_HEARTBEAT(q_tx_can, 1);    
-}
+
 
 int main (void)
 {
@@ -126,12 +119,17 @@ void blinkTask()
     PHAL_toggleGPIO(GPIOB, 3);
 }
 
+void heartbeat_task()
+{
+    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
+    SEND_BITSTREAM_HEARTBEAT(q_tx_can, 1);    
+}
+
 void PHAL_FaultHandler()
 {
     asm("bkpt");
     HardFault_Handler();
 }
-
 
 // *** Compulsory CAN Tx/Rx callbacks ***
 void canTxUpdate()
@@ -177,8 +175,14 @@ void CAN1_RX0_IRQHandler()
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
         CAN1->RF0R     |= (CAN_RF0R_RFOM0);
-        canProcessRxIRQs(&rx);
-        qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
+
+        if (!canProcessRxIRQs(&rx))
+        {
+            // Only process CAN frames if the IRQ did not consume the message
+            if (qSendToBack(&q_rx_can, &rx) == FAILURE_G)
+                asm("bkpt"); // Queue Overrun
+        }
+        
     }
 }
 

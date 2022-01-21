@@ -74,7 +74,8 @@ void canRxUpdate();
  * @brief Process any rx message callbacks from the CAN Rx IRQ
  * 
  * @param rx rx data from message just recieved
+ * @return If CAN frame was consumed by the IRQ and should not be added to the RX queue
  */
-void canProcessRxIRQs(CanMsgTypeDef_t* rx);
+bool canProcessRxIRQs(CanMsgTypeDef_t* rx);
 
 #endif

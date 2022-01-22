@@ -19,7 +19,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     {
         RCC->APB1ENR1 |= RCC_APB1ENR1_CAN1EN;
     }
-    #ifdef STM32L45
+    #ifdef STM32L496xx
     if (bus == CAN2)
     {
         RCC->APB1ENR1 |= RCC_APB1ENR1_CAN2EN;
@@ -45,7 +45,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    bus->BTR = 0x00050000;
+    bus->BTR = 0x001c0001;
     
     // Keep the bus active
     bus->MCR |= CAN_MCR_ABOM;
@@ -83,7 +83,7 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus)
     {
         RCC->APB1RSTR1 |= RCC_APB1RSTR1_CAN1RST;
     }
-    #ifdef STM32L45
+    #ifdef STM32L496xx
     else if(bus == CAN2)
     {
         RCC->APB1RSTR1 |= RCC_APB1RSTR1_CAN2RST;
@@ -152,7 +152,7 @@ void  __attribute__((weak)) CAN1_RX1_IRQHandler()
     // Implement for RX Mailbox 1 Handler
 }
 
-#ifdef STM32L45
+#ifdef STM32L496xx
 void  __attribute__((weak)) CAN2_RX0_IRQHandler()
 {
     // Implement for RX Mailbox 0 Handler

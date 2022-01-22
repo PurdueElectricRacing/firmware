@@ -21,24 +21,24 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TEST_BAT_MSG 0x4007d2a
+#define ID_BALANCE_REQUEST 0x4007d2a
 #define ID_TEST_PRECHARGE_MSG 0x8008004
-#define ID_TEST_MSG 0x1400007f
+#define ID_SOC1 0x4007d2b
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_TEST_BAT_MSG 1
+#define DLC_BALANCE_REQUEST 2
 #define DLC_TEST_PRECHARGE_MSG 1
-#define DLC_TEST_MSG 2
+#define DLC_SOC1 2
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_TEST_BAT_MSG(queue, test_bat_sig_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_BAT_MSG, .DLC=DLC_TEST_BAT_MSG, .IDE=1};\
+#define SEND_BALANCE_REQUEST(queue, volts_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_BALANCE_REQUEST, .DLC=DLC_BALANCE_REQUEST, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_bat_msg.test_bat_sig = test_bat_sig_;\
+        data_a->balance_request.volts = volts_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_TEST_PRECHARGE_MSG(queue, test_precharge_sig_) do {\
@@ -52,7 +52,6 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_TEST_MSG 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -62,14 +61,14 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t test_bat_sig: 8;
-    } test_bat_msg;
+        uint64_t volts: 16;
+    } balance_request;
     struct {
         uint64_t test_precharge_sig: 8;
     } test_precharge_msg;
     struct {
-        uint64_t test_sig: 16;
-    } test_msg;
+        uint64_t soc: 16;
+    } soc1;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -79,10 +78,8 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t test_sig;
-        uint8_t stale;
-        uint32_t last_rx;
-    } test_msg;
+        uint16_t soc;
+    } soc1;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

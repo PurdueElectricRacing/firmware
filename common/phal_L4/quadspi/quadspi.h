@@ -1,7 +1,7 @@
 #ifndef _PHAL_QUADSPI_H
 #define _PHAL_QUADSPI_H
 
-#include "stm32l432xx.h"
+#include "stm32l4xx.h"
 #include <stdbool.h>
 
 #define QUADSPI_FIFO_SIZE_BYTES (16)

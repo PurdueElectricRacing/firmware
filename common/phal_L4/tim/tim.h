@@ -1,6 +1,6 @@
 /**
  * @file tim.h
- * @author Luke Oxleu (lcoxley@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
  * @brief 
  * @version 0.1
  * @date 2022-01-13
@@ -27,10 +27,10 @@ typedef enum {
 } TimerTriggerSelection_t;
 
 typedef enum {
-    CC1 = 0b00,
-    CC2 = 0b01,
-    CC3 = 0b10,
-    CC4 = 0b11
+    CC1 = 1,
+    CC2 = 2,
+    CC3 = 3,
+    CC4 = 4
 } TimerCCRegister_t;
 
 typedef enum {
@@ -61,5 +61,12 @@ bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelectio
  * @return                  Returns true if successful
  */
 bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputMode_t input_source, bool is_falling);
+
+/**
+ * @brief       Starts the timer counter
+ * 
+ * @param timer The timer to start
+ */
+void PHAL_startTIM(TIM_TypeDef* timer);
 
 #endif // _PHAL_TIM_H

@@ -59,6 +59,9 @@ bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelectio
 
     // configure prescaler
     timer->PSC = prescaler - 1;
+    
+    // Update interrupt only on overflow
+    timer->CR1 |= TIM_CR1_URS;
 
     // Select the trigger input TI1FP1
     timer->SMCR |= (trigger_select << TIM_SMCR_TS_Pos) & TIM_SMCR_TS;
@@ -73,7 +76,7 @@ bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelectio
     // interrupt request through CC1IE in TIM_DIER
 }
 
-bool PHAL_startTIM(TIM_TypeDef* timer)
+void PHAL_startTIM(TIM_TypeDef* timer)
 {
     timer->CR1 |= TIM_CR1_CEN;
 }
@@ -114,6 +117,12 @@ bool PHAL_initPWMOut(TIM_TypeDef* timer)
 {
     if (!enableTIMClk(timer)) return false;
 
+    // uint16_t frequency = 100; // Hz
+    // uint16_t counter_period = 16;//(16000 / 1) - 1;//666 - 1;
+    // uint8_t duty = 50;
+    // uint16_t counter_freq = counter_period * frequency;
+    // uint16_t prescaler = 3952000 / counter_freq; //(SystemCoreClock / 20 / counter_freq) - 1;
+
     // counter mode: CR1 DIR and CR1 CMS (not available for 16)
     // clock division: CR1 CKD (leave at 0)
     // auto reload preload CR1 ARPE 
@@ -144,12 +153,12 @@ bool PHAL_initPWMOut(TIM_TypeDef* timer)
 
     // -- start --
     // enable cap compare chnl CCx_ENABLE TIM_CCxChannelCmd
-    TIM16->CCER |= TIM_CCER_CC1E;
+    //TIM16->CCER |= TIM_CCER_CC1E;
     // main output _HAL_TIM_MOE_ENABLE
     //BDTR set MOE
     TIM16->BDTR |= TIM_BDTR_MOE;
     // _HAL_TIM_ENABLE
-    TIM16->CR1 |= TIM_CR1_CEN;
+    //TIM16->CR1 |= TIM_CR1_CEN;
 
     return true;
 }

@@ -16,6 +16,10 @@
 #define TIM1_Pin (8)
 #define TIM1_AF (1)
 
+#define TIM2_GPIO_Port (GPIOA)
+#define TIM2_Pin (0)
+#define TIM2_AF (1)
+
 #define TIM16_GPIO_Port (GPIOA)
 #define TIM16_Pin (6)
 #define TIM16_AF (14)

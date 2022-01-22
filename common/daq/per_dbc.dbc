@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER Precharge TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214592576 driver_request: 4 Main_Module
@@ -101,8 +101,11 @@ BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624554 test_bat_msg: 1 Precharge
- SG_ test_bat_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214624554 balance_request: 2 Precharge
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624555 soc1: 2 BMS1
+ SG_ soc : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028095 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -156,6 +159,7 @@ CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
 CM_ BU_ TESTER "";
 CM_ BU_ Precharge "";
+CM_ BU_ BMS1 "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
@@ -211,8 +215,10 @@ CM_ SG_ 2415925566 d0 "";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "";
 CM_ SG_ 2415925630 download_request "";
-CM_ BO_ 2214624554 "test_bat_desc";
-CM_ SG_ 2214624554 test_bat_sig "";
+CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
+CM_ SG_ 2214624554 volts "";
+CM_ BO_ 2214624555 "Estimated soc";
+CM_ SG_ 2214624555 soc "";
 CM_ BO_ 2483028095 "test_msg desc";
 CM_ SG_ 2483028095 test_sig "";
 CM_ BO_ 2483028159 "test_msg2 desc";

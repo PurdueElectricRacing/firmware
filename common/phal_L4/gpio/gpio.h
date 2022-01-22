@@ -11,7 +11,7 @@
 #ifndef _PHAL_GPIO_H_
 #define _PHAL_GPIO_H_
 
-#include "stm32l432xx.h"
+#include "stm32l4xx.h"
 #include <stdbool.h>
 
 /**

@@ -168,7 +168,7 @@ def configure_node(node_config, node_paths):
     # Send Macros, requires knowledge of CAN peripheral
     macro_lines = []
     periph = DEFAULT_PERIPHERAL
-    if 'can_periperal' in node_config: periph = node_config['can_peripheral']
+    if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     for msg in node_config['tx']:
         gen_send_macro(macro_lines, msg, periph)
     if is_junc:
@@ -239,7 +239,7 @@ def configure_node(node_config, node_paths):
     # Rx switch case
     case_lines = []
     periph = DEFAULT_PERIPHERAL
-    if 'can_periperal' in node_config: periph = node_config['can_peripheral']
+    if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     ind = ""
     if is_junc:
         ind = "    "

@@ -1,18 +1,17 @@
 #ifndef _PSCHED_H_
 #define _PSCHED_H_
 
-// Uncomment depending on MCU type
-#if !defined(L4) || !defined(F4)
-    #define L4
-    // #define F4
-#endif
-
 // Includes
-#if defined(L4)
+#if defined(STM32L432xx)
     #include "stm32l4xx.h"
     #include "system_stm32l4xx.h"
-#elif defined(F4)
+#elif defined(STM32L496xx)
+    #include "stm32l4xx.h"
+    #include "system_stm32l4xx.h"
+#elif defined(STM32F4)
     #include "system_stm32f4xx.h"
+#else
+    #error "Please define a MCU arch"
 #endif
 
 #define toMicros(time) ((uint32_t) time * 1000)

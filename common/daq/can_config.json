@@ -138,9 +138,7 @@
                             "msg_pgn": 512
                         }
                     ],
-                    "rx": [
-                        {"msg_name": "test_msg"}
-                    ]
+                    "rx": []
                 },
                 {
                     "node_name":"Dashboard",
@@ -218,17 +216,39 @@
                     "node_ssa": 42,
                     "tx": [
                         {
-                            "msg_name": "test_bat_msg",
-                            "msg_desc": "test_bat_desc",
+                            "msg_name": "balance_request",
+                            "msg_desc": "Request BMSs to discharge their cells to the desired voltage",
                             "signals": [
-                                {"sig_name": "test_bat_sig", "type": "uint8_t", "length": 8}
+                                {"sig_name": "volts", "type": "uint16_t", "length": 16}
                             ],
-                            "msg_period": 15,
+                            "msg_period": 0,
                             "msg_hlp": 1,
                             "msg_pgn": 500
                         }
                     ],
-                    "rx": []
+                    "rx": [
+                        {"msg_name": "soc1"}
+                    ]
+                },
+                {
+                    "node_name": "BMS1",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 43,
+                    "tx": [
+                        {
+                            "msg_name": "soc1",
+                            "msg_desc": "Estimated soc",
+                            "signals": [
+                                {"sig_name": "soc", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 1,
+                            "msg_pgn": 500
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name": "test_msg"}
+                    ]
                 }
             ]
         },

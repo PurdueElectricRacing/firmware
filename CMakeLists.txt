@@ -33,7 +33,7 @@ make_cmsis_library(CMSIS_L496 STM32L4xx STM32L496xx ${CMAKE_SOURCE_DIR}/common/S
 add_subdirectory(common/psched)
 add_subdirectory(common/phal_L4)
 add_subdirectory(common/queue)
-add_subdirectory(common/EEPROM)
+add_subdirectory(common/eeprom)
 
 # Macro for defining hte common build process across all firmware components
 include(cmake/common_component.cmake)

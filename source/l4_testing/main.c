@@ -2,11 +2,13 @@
 #include "stm32l432xx.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
-#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
+#if EEPROM_ENABLED
+#include "common/phal_L4/i2c/i2c.h"
 #include "common/eeprom/eeprom.h"
+#endif
 #include <math.h>
 
 /* Module Includes */
@@ -17,8 +19,10 @@
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
+#if EEPROM_ENABLED
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
+#endif
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -97,15 +101,18 @@ int main (void)
     {
         HardFault_Handler();
     }
+#if EEPROM_ENABLED
     if(!PHAL_initI2C())
     {
         HardFault_Handler();
     }
+#endif
     if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
     {
         HardFault_Handler();
     }
     PHAL_startADC(ADC1);
+
 
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
@@ -137,6 +144,7 @@ int main (void)
     taskCreate(canSendTest, 50);
     // //taskCreate(canReceiveTest, 500);
     // taskCreate(myCounterTest, 50);
+    //taskCreate(ledBlink, 500);
     taskCreateBackground(canTxUpdate);
 
     // // signify end of initialization
@@ -201,11 +209,19 @@ uint16_t adc_reading = 0;
 void canSendTest()
 {
     adc_reading = PHAL_readADC(ADC1);
+#if EEPROM_ENABLED
     SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
     SEND_TEST_MSG2(q_tx_can, counter2);
     SEND_TEST_MSG3(q_tx_can, counter2);
     SEND_TEST_MSG4(q_tx_can, counter2);
     SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
+#else
+    SEND_TEST_MSG_2(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
+    SEND_TEST_MSG2_2(q_tx_can, counter2);
+    SEND_TEST_MSG3_2(q_tx_can, counter2);
+    SEND_TEST_MSG4_2(q_tx_can, counter2);
+    SEND_TEST_MSG5_2(q_tx_can, 0xFFF - counter2);
+#endif
 
     counter += 1;
     counter2 += 2;
@@ -213,7 +229,6 @@ void canSendTest()
     {
         counter2 = 1;
     }
-
 }
 
 void canReceiveTest()

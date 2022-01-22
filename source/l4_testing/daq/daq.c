@@ -50,10 +50,10 @@ daq_eeprom_status_t daq_e_stat = {.read_idx=0, .write_idx=0, .data_buff_lock=0, 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=1, .bit_length=8, .eeprom_enabled=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="tv2", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=1, .eeprom_enabled=1, .eeprom_label="red", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=1, .eeprom_enabled=1, .eeprom_label="grn", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=1, .eeprom_enabled=1, .eeprom_label="blu", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=0},
+    {.is_read_only=0, .bit_length=1, .eeprom_enabled=0},
+    {.is_read_only=0, .bit_length=1, .eeprom_enabled=0},
+    {.is_read_only=0, .bit_length=1, .eeprom_enabled=0},
 };
 // END AUTO VAR DEFS
 
@@ -300,7 +300,9 @@ bool pubVarStop(uint8_t var_id)
  * write is followed by variable data, length pre-specified for each var id
  * publish is followed by publish rate (in Hz)
  */
-void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
+// BEGIN AUTO CALLBACK DEF
+void daq_command_TEST_NODE_2_CALLBACK(CanMsgTypeDef_t* msg_header_a)
+// END AUTO CALLBACK DEF
 {
 
     daq_tx_frame_writer_t tx_writer = {.data={0}, .curr_bit=0};
@@ -449,7 +451,12 @@ void flushDaqFrame(daq_tx_frame_writer_t* tx_msg)
 // send tx frame
 void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
 {
-    CanMsgTypeDef_t msg = {.Bus=CAN1, .IDE=1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
+    CanMsgTypeDef_t msg = {.IDE=1, 
+    // BEGIN AUTO DAQ SEND DEF
+                           .Bus=CAN1,
+                           .ExtId=ID_DAQ_RESPONSE_TEST_NODE_2,
+    // END AUTO DAQ SEND DEF
+                           .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
     memcpy(msg.Data, tx_frame.data, msg.DLC);
     qSendToBack(q_tx_can_a, &msg);
 }

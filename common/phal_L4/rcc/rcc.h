@@ -14,10 +14,10 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-#include "stm32l432xx.h"
+#include "stm32l4xx.h"
 
 
-#define HSE_CLOCK_RATE_HZ_INVALID (1)
+#define HSE_CLOCK_RATE_HZ_INVALID (1) /* High Speed External oscilator value */
 #ifndef HSE_CLOCK_RATE_HZ
 #define HSE_CLOCK_RATE_HZ HSE_CLOCK_RATE_HZ_INVALID /* Define this in order to configure clocks to use the HSE clock */
 #endif  // HSE_CLOCK_RATE_HZ
@@ -80,6 +80,15 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
  * @return false 
  */
 bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz);
+
+/**
+ * @brief Configure HSI CLK as the System Clock.
+ * SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED
+ * 
+ * @return true Successfully configured HSI clock as system clock
+ * @return false 
+ */
+bool PHAL_configureHSISystemClock();
 
 /**
  * @brief Configure AHB Clock rate by modifying the AHB prescaler value.

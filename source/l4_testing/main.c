@@ -83,14 +83,14 @@ int main (void)
     {
         HardFault_Handler();
     }
-    //if(!PHAL_initCAN(CAN1, false))
-    //{
-    //    HardFault_Handler();
-    // }
-    // if(!PHAL_initI2C())
-    // {
-    //     HardFault_Handler();
-    // }
+    if(!PHAL_initCAN(CAN1, false))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initI2C())
+    {
+        HardFault_Handler();
+    }
     if(!PHAL_initPWMIn(TIM1, TIM_PRESC, TI1FP1))
     {
         HardFault_Handler();
@@ -109,47 +109,44 @@ int main (void)
     }
     // enable interrupts
     TIM1->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
-    TIM2->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
+    TIM2->DIER |= TIM_DIER_CC1IE;
     NVIC_EnableIRQ(TIM1_CC_IRQn);
     NVIC_EnableIRQ(TIM2_IRQn);
-    //NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
     PHAL_startTIM(TIM1);
-    // TODO: check overflow never 0 (-1)
-
+    PHAL_startTIM(TIM2);
 
     // signify start of initialization
-    //PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
+    PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
     /* Module init */
-    //initCANParse(&q_rx_can);
+    initCANParse(&q_rx_can);
 
-    // linkReada(DAQ_ID_TEST_VAR, &my_counter);
-    // linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
-    // linkWritea(DAQ_ID_TEST_VAR2, &my_counter2);
-    // linkReadFunc(DAQ_ID_RED_ON, (read_func_ptr_t) readRed);
-    // linkReadFunc(DAQ_ID_GREEN_ON, (read_func_ptr_t) readGreen);
-    // linkReadFunc(DAQ_ID_BLUE_ON, (read_func_ptr_t) readBlue);
-    // linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
-    // linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
-    // linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    // if(daqInit(&q_tx_can))
-    // {
-    //     HardFault_Handler();
-    // }
+    linkReada(DAQ_ID_TEST_VAR, &my_counter);
+    linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
+    linkWritea(DAQ_ID_TEST_VAR2, &my_counter2);
+    linkReadFunc(DAQ_ID_RED_ON, (read_func_ptr_t) readRed);
+    linkReadFunc(DAQ_ID_GREEN_ON, (read_func_ptr_t) readGreen);
+    linkReadFunc(DAQ_ID_BLUE_ON, (read_func_ptr_t) readBlue);
+    linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
+    linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
+    linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
+    if(daqInit(&q_tx_can))
+    {
+        HardFault_Handler();
+    }
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // taskCreate(canSendTest, 15);
-    //taskCreate(canReceiveTest, 500);
+    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(canSendTest, 15);
+    taskCreate(wheelSpeedsPeriodic, 15);
     taskCreate(myCounterTest, 50);
     taskCreate(ledBlink, 500);
-    taskCreate(wheelSpeedsPeriodic, 15);
-    //taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canTxUpdate);
 
     // signify end of initialization
-    //PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
+    PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
     schedStart();
     
     return 0;

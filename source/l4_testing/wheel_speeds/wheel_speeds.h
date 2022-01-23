@@ -34,8 +34,11 @@ typedef struct {
 
 extern WheelSpeeds_t wheel_speeds;
 
-//#define DUTY_TO_PULSE(duty, period) ((uint16_t) (duty * (period + 1) / 100))
 
+/**
+ * @brief Converts timer data to wheel speeds
+ * 
+ */
 void wheelSpeedsPeriodic();
 
 

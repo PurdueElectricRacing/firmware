@@ -138,9 +138,7 @@
                             "msg_pgn": 512
                         }
                     ],
-                    "rx": [
-                        {"msg_name": "test_msg"}
-                    ]
+                    "rx": []
                 },
                 {
                     "node_name":"Dashboard",
@@ -206,7 +204,57 @@
                     "rx":[ 
                         {"msg_name": "bitstream_flash_status"}
                     ]
+                }
+            ]
+        },
+        {
+            "bus_name": "Battery",
+            "nodes": [
+                {
+                    "node_name": "Precharge",
+                    "can_peripheral": "CAN2",
+                    "node_ssa": 42,
+                    "tx": [
+                        {
+                            "msg_name": "balance_request",
+                            "msg_desc": "Request BMSs to discharge their cells to the desired voltage",
+                            "signals": [
+                                {"sig_name": "volts", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 1,
+                            "msg_pgn": 500
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name": "soc1"}
+                    ]
                 },
+                {
+                    "node_name": "BMS1",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 43,
+                    "tx": [
+                        {
+                            "msg_name": "soc1",
+                            "msg_desc": "Estimated soc",
+                            "signals": [
+                                {"sig_name": "soc", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 1,
+                            "msg_pgn": 500
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name": "test_msg"}
+                    ]
+                }
+            ]
+        },
+        {
+            "bus_name": "Test",
+            "nodes": [
                 {
                     "node_name": "TEST_NODE",
                     "node_ssa":63,
@@ -258,31 +306,60 @@
                         }
                     ],
                     "rx":[
-                        {"msg_name":"raw_throttle_brake"}
                     ]
-                }
-            ]
-        },
-        {
-            "bus_name": "Battery",
-            "nodes": [
+                },
                 {
-                    "node_name": "Precharge",
-                    "can_peripheral": "CAN2",
-                    "node_ssa": 42,
-                    "tx": [
-                        {
-                            "msg_name": "test_bat_msg",
-                            "msg_desc": "test_bat_desc",
-                            "signals": [
-                                {"sig_name": "test_bat_sig", "type": "uint8_t", "length": 8}
+                    "node_name": "TEST_NODE_2",
+                    "node_ssa":61,
+                    "tx":[
+                        {   "msg_name":"test_msg_2",
+                            "msg_desc":"test_msg desc",
+                            "signals":[
+                                {"sig_name": "test_sig", "type":"uint16_t", "length": 16}
                             ],
                             "msg_period": 15,
-                            "msg_hlp": 1,
-                            "msg_pgn": 500
+                            "msg_hlp": 5,
+                            "msg_pgn": 1
+                        },
+                        {   "msg_name":"test_msg2_2",
+                            "msg_desc":"test_msg2 desc",
+                            "signals":[
+                                {"sig_name": "test_sig2", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 2 
+                        },
+                        {   "msg_name":"test_msg3_2",
+                            "msg_desc":"test_msg2 desc",
+                            "signals":[
+                                {"sig_name": "test_sig3", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 3
+                        },
+                        {   "msg_name":"test_msg4_2",
+                            "msg_desc":"test_msg4 desc",
+                            "signals":[
+                                {"sig_name": "test_sig4", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 4 
+                        },
+                        {   "msg_name":"test_msg5_2",
+                            "msg_desc":"test_msg5 desc",
+                            "signals":[
+                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 5 
                         }
                     ],
-                    "rx": []
+                    "rx":[
+                    ]
                 }
             ]
         }

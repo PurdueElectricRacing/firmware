@@ -71,7 +71,7 @@ void taskDelete(uint8_t type, uint8_t task)
 void schedInit(uint32_t freq)
 {
     /*
-        Note: This system uses timer 7 and the watchdog peripheral
+        Note: This system uses timer 2 and the watchdog peripheral
         If you want/need to use this timer, it is on you to edit the configuration
         to use a different timer.
         DO NOT ATTEMPT TO CONFIGURE THIS TIMER IN CUBE!
@@ -84,13 +84,13 @@ void schedInit(uint32_t freq)
         Frequencies are given in OS ticks.
     */
 
-    // Configure timer 7
+    // Configure timer 2
     // Targeting an interrupt every 1 ms
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM7EN;
-    TIM7->PSC = (freq / 1000000) - 1;
-    TIM7->ARR = 1000;
-    TIM7->CR1 &= ~(TIM_CR1_DIR);
-    TIM7->DIER |= TIM_DIER_UIE;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
+    TIM2->PSC = (freq / 1000000) - 1;
+    TIM2->ARR = 1000;
+    TIM2->CR1 &= ~(TIM_CR1_DIR);
+    TIM2->DIER |= TIM_DIER_UIE;
 
     // Default all values
     memsetu((uint8_t*) &sched, 0, sizeof(sched));
@@ -163,13 +163,35 @@ static void schedBg()
     }
 }
 
+// @funcname: waitMicros()
+//
+// @brief: Waits for set time in microseconds,
+//         but never for more than 100μs at a time
+//
+// @param: time: time to wait in μs
+void waitMicros(uint8_t time)
+{
+    if (time > 100) time = 100;
+
+    uint16_t entry_time = TIM2->CNT; // ARR is 1k, so no cast issues
+    int16_t  exit_time = (int16_t) entry_time - time;
+
+    if (exit_time < 0)
+    {
+        exit_time += 1000;
+        while (TIM2->CNT < entry_time);
+    }
+
+    while (TIM2->CNT > exit_time);
+}
+
 // @funcname: schedStart()
 //
 // @brief: Starts tasks. Will never return
 void schedStart()
 {
-    TIM7->CR1 |= TIM_CR1_CEN;
-    NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
+    TIM2->CR1 |= TIM_CR1_CEN;
+    NVIC->ISER[0] |= 1 << TIM2_IRQn;
     IWDG->KR  =  0xCCCC;     
     IWDG->KR  =  0x5555;
     IWDG->PR  |= 2;
@@ -189,8 +211,8 @@ void schedStart()
 //         Does not need re-initialization after calling
 void schedPause()
 {
-    TIM7->CR1 &= ~TIM_CR1_CEN;
-    NVIC->ISER[1] &= ~(1 << (TIM7_IRQn - 32));
+    TIM2->CR1 &= ~TIM_CR1_CEN;
+    NVIC->ISER[0] &= ~(1 << TIM2_IRQn);
     sched.running = 0;
     sched.run_next = 1;
 }
@@ -216,9 +238,9 @@ static void memsetu(uint8_t* ptr, uint8_t val, size_t size)
 // @funcname: TIM7_IRQHandler()
 //
 // @brief: Timer 7 IRQ. Increments OS ticks and unblocks loop
-void TIM7_IRQHandler()
+void TIM2_IRQHandler()
 {
-	TIM7->SR &= ~TIM_SR_UIF;
+	TIM2->SR &= ~TIM_SR_UIF;
 
     if (++sched.os_ticks == 30000)
     {

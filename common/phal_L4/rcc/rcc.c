@@ -32,13 +32,20 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
             ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 6;
             break;
         case SYSTEM_CLOCK_SRC_HSE: // TODO: Implement
+            return 0xFF;
         case SYSTEM_CLOCK_SRC_HSI: // TODO: Implement
+            ret_code |= (!PHAL_configureHSISystemClock()) << 4;
+            config->system_clock_target_hz = 16000000;
+            break;
         default: 
             return 0xFF;
     }
+
     ret_code |= (!PHAL_configureAHBClock(config->ahb_clock_target_hz))     << 0;
     ret_code |= (!PHAL_configureAPB1Clock(config->apb1_clock_target_hz))   << 1;
     ret_code |= (!PHAL_configureAPB2Clock(config->apb2_clock_target_hz))   << 2;
+    if (ret_code == 0)
+        return 0;
 
     return ret_code;
 }
@@ -147,10 +154,16 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
     RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLR_Msk;
     RCC->PLLCFGR |= (((pll_r_divisor / 2) - 1) << RCC_PLLCFGR_PLLR_Pos) & RCC_PLLCFGR_PLLR_Msk;
 
+    // Voltge Scaling
+    __DSB();
+    PWR->CR1 |= (PWR_CR1_VOS_0 << PWR_CR1_VOS_Pos) & PWR_CR1_VOS_Msk;
+    while (PWR->SR2 & PWR_SR2_VOSF)
+        ; // Wait for flag to clear
+    __DSB();
 
     // Flash latency adjustment, see ST RM0395 Table 9
     uint32_t flash_acr_temp = FLASH->ACR;
-    flash_acr_temp &= !FLASH_ACR_LATENCY_Msk;
+    flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
     if(system_clock_target_hz >= 80000000)
         flash_acr_temp |= FLASH_ACR_LATENCY_4WS << FLASH_ACR_LATENCY_Pos;
     else if (system_clock_target_hz >= 64000000)
@@ -164,9 +177,40 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
 
     FLASH->ACR = flash_acr_temp;
 
+    __DSB();
     RCC->CFGR |= RCC_CFGR_SW_PLL;
     while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))
         ; // Wait for PLL to be the new system clock
+    __DSB();
+
+    SystemCoreClockUpdate();
+    return true;
+}
+
+bool PHAL_configureHSISystemClock()
+{
+    // Enable and wait for HSI to enable
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY))
+        ;
+
+    __DSB();
+    PWR->CR1 |= (PWR_CR1_VOS_0 << PWR_CR1_VOS_Pos) & PWR_CR1_VOS_Msk;
+    while (PWR->SR2 & PWR_SR2_VOSF)
+        ; // Wait for flag to clear
+    __DSB();
+
+    // Flash latency adjustment, see ST RM0395 Table 9
+    uint32_t flash_acr_temp = FLASH->ACR;
+    flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
+    flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
+    FLASH->ACR = flash_acr_temp;
+
+    __DSB();
+    RCC->CFGR |= RCC_CFGR_SW_HSI;
+    while((RCC->CFGR & RCC_CFGR_SWS_HSI) != RCC_CFGR_SWS_HSI)
+        ; // Wait for HSI to be the new system clock
+    __DSB();
 
     SystemCoreClockUpdate();
     return true;
@@ -210,8 +254,8 @@ bool PHAL_configureAHBClock(uint32_t ahb_clock_target_hz)
     }
 
     uint32_t rcc_cfgr_temp = RCC->CFGR;
-    rcc_cfgr_temp &= !RCC_CFGR_HPRE_Msk;
-    rcc_cfgr_temp |= (sys_clk_div  << RCC_CFGR_HPRE_Pos) & RCC_CFGR_HPRE_Msk;
+    rcc_cfgr_temp &= ~(RCC_CFGR_HPRE_Msk);
+    rcc_cfgr_temp |= (sys_clk_div);
 
     RCC->CFGR = rcc_cfgr_temp;
 
@@ -245,8 +289,8 @@ bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz)
     }
     
     uint32_t rcc_cfgr_temp = RCC->CFGR;
-    rcc_cfgr_temp &= !RCC_CFGR_PPRE1_Msk;
-    rcc_cfgr_temp |= (ahb_clk_div << RCC_CFGR_PPRE1_Pos) & RCC_CFGR_PPRE1_Msk;
+    rcc_cfgr_temp &= ~(RCC_CFGR_PPRE1_Msk);
+    rcc_cfgr_temp |= (ahb_clk_div);
 
     RCC->CFGR = rcc_cfgr_temp;
 
@@ -280,11 +324,11 @@ bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz)
     }
     
     uint32_t rcc_cfgr_temp = RCC->CFGR;
-    rcc_cfgr_temp &= !RCC_CFGR_PPRE2_Msk;
-    rcc_cfgr_temp |= (ahb_clk_div << RCC_CFGR_PPRE2_Pos) & RCC_CFGR_PPRE2_Msk;
+    rcc_cfgr_temp &= ~(RCC_CFGR_PPRE2_Msk);
+    rcc_cfgr_temp |= ahb_clk_div;
 
     RCC->CFGR = rcc_cfgr_temp;
 
-    APB1ClockRateHz = apb2_clock_target_hz;
+    APB2ClockRateHz = apb2_clock_target_hz;
     return true;
 }

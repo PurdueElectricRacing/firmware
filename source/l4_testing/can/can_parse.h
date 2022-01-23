@@ -15,70 +15,69 @@
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
-#define NODE_NAME "TEST_NODE"
+
+#define NODE_NAME "TEST_NODE_2"
 
 #define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TEST_MSG 0x1400007f
-#define ID_TEST_MSG2 0x140000bf
-#define ID_TEST_MSG3 0x140000ff
-#define ID_TEST_MSG4 0x1400013f
-#define ID_TEST_MSG5 0x1400017f
-#define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
-#define ID_RAW_THROTTLE_BRAKE 0x14000285
-#define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
+#define ID_TEST_MSG_2 0x1400007d
+#define ID_TEST_MSG2_2 0x140000bd
+#define ID_TEST_MSG3_2 0x140000fd
+#define ID_TEST_MSG4_2 0x1400013d
+#define ID_TEST_MSG5_2 0x1400017d
+#define ID_DAQ_RESPONSE_TEST_NODE_2 0x17fffffd
+#define ID_DAQ_COMMAND_TEST_NODE_2 0x14000f72
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_TEST_MSG 2
-#define DLC_TEST_MSG2 2
-#define DLC_TEST_MSG3 2
-#define DLC_TEST_MSG4 2
-#define DLC_TEST_MSG5 2
-#define DLC_DAQ_RESPONSE_TEST_NODE 8
-#define DLC_RAW_THROTTLE_BRAKE 8
-#define DLC_DAQ_COMMAND_TEST_NODE 8
+#define DLC_TEST_MSG_2 2
+#define DLC_TEST_MSG2_2 2
+#define DLC_TEST_MSG3_2 2
+#define DLC_TEST_MSG4_2 2
+#define DLC_TEST_MSG5_2 2
+#define DLC_DAQ_RESPONSE_TEST_NODE_2 8
+#define DLC_DAQ_COMMAND_TEST_NODE_2 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_TEST_MSG(queue, test_sig_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG, .DLC=DLC_TEST_MSG, .IDE=1};\
+#define SEND_TEST_MSG_2(queue, test_sig_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG_2, .DLC=DLC_TEST_MSG_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_msg.test_sig = test_sig_;\
+        data_a->test_msg_2.test_sig = test_sig_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_TEST_MSG2(queue, test_sig2_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG2, .DLC=DLC_TEST_MSG2, .IDE=1};\
+#define SEND_TEST_MSG2_2(queue, test_sig2_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG2_2, .DLC=DLC_TEST_MSG2_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_msg2.test_sig2 = test_sig2_;\
+        data_a->test_msg2_2.test_sig2 = test_sig2_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_TEST_MSG3(queue, test_sig3_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG3, .DLC=DLC_TEST_MSG3, .IDE=1};\
+#define SEND_TEST_MSG3_2(queue, test_sig3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG3_2, .DLC=DLC_TEST_MSG3_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_msg3.test_sig3 = test_sig3_;\
+        data_a->test_msg3_2.test_sig3 = test_sig3_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_TEST_MSG4(queue, test_sig4_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG4, .DLC=DLC_TEST_MSG4, .IDE=1};\
+#define SEND_TEST_MSG4_2(queue, test_sig4_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG4_2, .DLC=DLC_TEST_MSG4_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_msg4.test_sig4 = test_sig4_;\
+        data_a->test_msg4_2.test_sig4 = test_sig4_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_TEST_MSG5(queue, test_sig5_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG5, .DLC=DLC_TEST_MSG5, .IDE=1};\
+#define SEND_TEST_MSG5_2(queue, test_sig5_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG5_2, .DLC=DLC_TEST_MSG5_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_msg5.test_sig5 = test_sig5_;\
+        data_a->test_msg5_2.test_sig5 = test_sig5_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
+#define SEND_DAQ_RESPONSE_TEST_NODE_2(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE_2, .DLC=DLC_DAQ_RESPONSE_TEST_NODE_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_TEST_NODE.daq_response = daq_response_;\
+        data_a->daq_response_TEST_NODE_2.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -86,7 +85,6 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_RAW_THROTTLE_BRAKE 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -97,31 +95,25 @@
 typedef union { __attribute__((packed))
     struct {
         uint64_t test_sig: 16;
-    } test_msg;
+    } test_msg_2;
     struct {
         uint64_t test_sig2: 16;
-    } test_msg2;
+    } test_msg2_2;
     struct {
         uint64_t test_sig3: 16;
-    } test_msg3;
+    } test_msg3_2;
     struct {
         uint64_t test_sig4: 16;
-    } test_msg4;
+    } test_msg4_2;
     struct {
         uint64_t test_sig5: 16;
-    } test_msg5;
+    } test_msg5_2;
     struct {
         uint64_t daq_response: 64;
-    } daq_response_TEST_NODE;
-    struct {
-        uint64_t throttle0: 16;
-        uint64_t throttle1: 16;
-        uint64_t brake0: 16;
-        uint64_t brake1: 16;
-    } raw_throttle_brake;
+    } daq_response_TEST_NODE_2;
     struct {
         uint64_t daq_command: 64;
-    } daq_command_TEST_NODE;
+    } daq_command_TEST_NODE_2;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -131,23 +123,15 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t throttle0;
-        uint16_t throttle1;
-        uint16_t brake0;
-        uint16_t brake1;
-        uint8_t stale;
-        uint32_t last_rx;
-    } raw_throttle_brake;
-    struct {
         uint64_t daq_command;
-    } daq_command_TEST_NODE;
+    } daq_command_TEST_NODE_2;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_TEST_NODE_2_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

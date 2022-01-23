@@ -13,14 +13,14 @@
 
 #include <string.h>
 #include "common/phal_L4/can/can.h"
-#include "common/eeprom/eeprom.h"
 #include "can_parse.h"
+#include "common/eeprom/eeprom.h"
 
 typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
 
 // Make this match the node name within the daq_config.json
-#define NODE_NAME "TEST_NODE"
+#define NODE_NAME "TEST_NODE_2"
 
 // BEGIN AUTO VAR COUNT
 #define NUM_VARS 5
@@ -28,7 +28,8 @@ typedef void (*write_func_ptr_t)(void* arg);
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
-#define EEPROM_ENABLED 1
+#define EEPROM_ENABLED 0
+
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50
 #define DAQ_SAVE_QUEUE_SIZE 8

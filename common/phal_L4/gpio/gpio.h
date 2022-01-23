@@ -11,7 +11,7 @@
 #ifndef _PHAL_GPIO_H_
 #define _PHAL_GPIO_H_
 
-#include "stm32l432xx.h"
+#include "stm32l4xx.h"
 #include <stdbool.h>
 
 /**
@@ -93,6 +93,15 @@ typedef struct {
     {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.ospeed = ospeed_sel}}
 
 /**
+ * @brief Create GPIO Init struct to intilize a GPIO pin for analog
+ * 
+ * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
+ * @param pin_num Pin number from GPIO bank to configure
+ */
+#define GPIO_INIT_ANALOG(gpio_bank, pin_num) \
+    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_ANALOG}
+
+/**
  * @brief Create GPIO Init struct to intilize a GPIO pin for alternate function
  * 
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
@@ -110,8 +119,10 @@ typedef struct {
     If you find yourself adding the same pin mappings to multiple devices, add a macro below
     to cut down on duplication.
 */
-#define GPIO_INIT_CANRX_PA11 GPIO_INIT_AF(GPIOA, 11, 9, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_CANTX_PA12 GPIO_INIT_AF(GPIOA, 12, 9, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_CANRX_PA11   GPIO_INIT_AF(GPIOA, 11, 9, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_CANTX_PA12   GPIO_INIT_AF(GPIOA, 12, 9, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_CAN2RX_PB12  GPIO_INIT_AF(GPIOB, 12,10, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_CAN2TX_PB13  GPIO_INIT_AF(GPIOB, 13,10, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_I2C3_SCL_PA7 GPIO_INIT_AF(GPIOA, 7, 4, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_UP)
 #define GPIO_INIT_I2C3_SDA_PB4 GPIO_INIT_AF(GPIOB, 4, 4, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_UP)
 

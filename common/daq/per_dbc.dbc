@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER TEST_NODE DAQ Precharge
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214592576 driver_request: 4 Main_Module
@@ -101,6 +101,12 @@ BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214624554 balance_request: 2 Precharge
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624555 soc1: 2 BMS1
+ SG_ soc : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2483028095 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -119,11 +125,29 @@ BO_ 2483028351 test_msg5: 2 TEST_NODE
 BO_ 2550136831 daq_response_TEST_NODE: 8 TEST_NODE
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2483028093 test_msg_2: 2 TEST_NODE_2
+ SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028157 test_msg2_2: 2 TEST_NODE_2
+ SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028221 test_msg3_2: 2 TEST_NODE_2
+ SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028285 test_msg4_2: 2 TEST_NODE_2
+ SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028349 test_msg5_2: 2 TEST_NODE_2
+ SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136829 daq_response_TEST_NODE_2: 8 TEST_NODE_2
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2483032050 daq_command_TEST_NODE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624554 test_bat_msg: 1 Precharge
- SG_ test_bat_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483031922 daq_command_TEST_NODE_2: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 
 
@@ -134,9 +158,11 @@ CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
 CM_ BU_ TESTER "";
-CM_ BU_ TEST_NODE "";
-CM_ BU_ DAQ "";
 CM_ BU_ Precharge "";
+CM_ BU_ BMS1 "";
+CM_ BU_ TEST_NODE "";
+CM_ BU_ TEST_NODE_2 "";
+CM_ BU_ DAQ "";
 CM_ BO_ 2214592576 "Driver throttle/regeneration request";
 CM_ SG_ 2214592576 regen "";
 CM_ SG_ 2214592576 accel "";
@@ -189,6 +215,10 @@ CM_ SG_ 2415925566 d0 "";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "";
 CM_ SG_ 2415925630 download_request "";
+CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
+CM_ SG_ 2214624554 volts "";
+CM_ BO_ 2214624555 "Estimated soc";
+CM_ SG_ 2214624555 soc "";
 CM_ BO_ 2483028095 "test_msg desc";
 CM_ SG_ 2483028095 test_sig "";
 CM_ BO_ 2483028159 "test_msg2 desc";
@@ -201,10 +231,22 @@ CM_ BO_ 2483028351 "test_msg5 desc";
 CM_ SG_ 2483028351 test_sig5 "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
+CM_ BO_ 2483028093 "test_msg desc";
+CM_ SG_ 2483028093 test_sig "";
+CM_ BO_ 2483028157 "test_msg2 desc";
+CM_ SG_ 2483028157 test_sig2 "";
+CM_ BO_ 2483028221 "test_msg2 desc";
+CM_ SG_ 2483028221 test_sig3 "";
+CM_ BO_ 2483028285 "test_msg4 desc";
+CM_ SG_ 2483028285 test_sig4 "";
+CM_ BO_ 2483028349 "test_msg5 desc";
+CM_ SG_ 2483028349 test_sig5 "";
+CM_ BO_ 2550136829 "daq response from node TEST_NODE_2";
+CM_ SG_ 2550136829 daq_response "";
 CM_ BO_ 2483032050 "daq command for node TEST_NODE";
 CM_ SG_ 2483032050 daq_command "";
-CM_ BO_ 2214624554 "test_bat_desc";
-CM_ SG_ 2214624554 test_bat_sig "";
+CM_ BO_ 2483031922 "daq command for node TEST_NODE_2";
+CM_ SG_ 2483031922 daq_command "";
 
 
 

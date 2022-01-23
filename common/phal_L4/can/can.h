@@ -12,13 +12,7 @@
 #ifndef _PHAL_CAN_H
 #define _PHAL_CAN_H
 
-#ifdef STM32L496xx
-#include "stm32l496xx.h"
-#elif STM32L432xx
-#include "stm32l432xx.h"
-#else
-#error "Please define a STM32 arch"
-#endif
+#include "stm32l4xx.h"
 
 #include <stdbool.h>
 

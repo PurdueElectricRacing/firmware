@@ -110,9 +110,17 @@ void PHAL_usartRxBl(const usart_handle_t* handle, uint16_t* data, uint32_t len) 
 }
 
 bool PHAL_usartTxInt(const usart_handle_t* handle, const uint16_t* data, uint32_t len) {
-
+    return false;
 }
 
 bool PHAL_usartRxint(const usart_handle_t* handle, uint16_t* data, uint32_t len) {
-    
+    return false;
+}
+
+bool PHAL_usartTxDMA(const usart_handle_t* handle, const uint16_t* data, uint32_t len) {
+    return false;
+}
+
+bool PHAL_usartRxDMA(const usart_handle_t* handle, uint16_t* data, uint32_t len) {
+    return false;
 }

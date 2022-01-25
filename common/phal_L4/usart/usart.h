@@ -108,6 +108,12 @@ typedef struct {
 } usart_handle_t;
 
 // Function Prototypes
-
+bool PHAL_initUSART(const usart_handle_t* handle, const uint32_t fck);
+void PHAL_usartTxBl(const usart_handle_t* handle, const uint16_t* data, uint32_t len);
+void PHAL_usartRxBl(const usart_handle_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_usartTxInt(const usart_handle_t* handle, const uint16_t* data, uint32_t len);
+bool PHAL_usartRxint(const usart_handle_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_usartTxDMA(const usart_handle_t* handle, const uint16_t* data, uint32_t len);
+bool PHAL_usartRxDMA(const usart_handle_t* handle, uint16_t* data, uint32_t len);
 
 #endif

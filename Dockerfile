@@ -16,9 +16,11 @@ ENV PATH $PATH:/usr/gcc-arm-none-eabi-10-2020-q4-major/bin
 RUN apt -y install --no-install-recommends ninja-build cmake
 RUN apt -y install --no-install-recommends git ssh
 
-# Setup python enviornment
-RUN apt -y install --no-install-recommends python3 python3-pip
-RUN apt -y install  python3-can
-RUN pip3 install --upgrade pip
+# Setup python virtual enviornment
+# This is required because some packages (python-can) don't get installed properly when running as root
+RUN apt -y install --no-install-recommends python3 python3.8-venv
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY ./requirements.txt /usr/requirements.txt
-RUN pip3 install --requirement /usr/requirements.txt
+RUN python3 -m pip install --requirement /usr/requirements.txt

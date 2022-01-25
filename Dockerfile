@@ -14,7 +14,11 @@ ENV PATH $PATH:/usr/gcc-arm-none-eabi-10-2020-q4-major/bin
 
 # Install dev depenincies
 RUN apt -y install --no-install-recommends ninja-build cmake
+RUN apt -y install --no-install-recommends git ssh
 
-RUN apt -y install --no-install-recommends python3
-
-RUN apt -y install --no-install-recommends git
+# Setup python enviornment
+RUN apt -y install --no-install-recommends python3 python3-pip
+RUN apt -y install  python3-can
+RUN pip3 install --upgrade pip
+COPY ./requirements.txt /usr/requirements.txt
+RUN pip3 install --requirement /usr/requirements.txt

@@ -16,25 +16,23 @@
 #include "common/phal_L4/tim/tim.h"
 #include "stm32l4xx.h"
 
-#define TIM_PRESC 32
-
-#define CLK 3952000.0
+#define TIM_PRESC 8
 
 typedef struct {
-  // left: TIM1  PA8 
-  // right: TIM2 PA15
   struct {
-    float freq_hz;
+    uint16_t freq_hz;
   } left;
   struct {
-    float freq_hz;
+    uint16_t freq_hz;
   } right;
-
 } WheelSpeeds_t;
 
 extern WheelSpeeds_t wheel_speeds;
 
-
+/** 
+ *  @brief Configures interrupts and enables timers 
+ */ 
+void wheelSpeedsInit();
 /**
  * @brief Converts timer data to wheel speeds
  * 

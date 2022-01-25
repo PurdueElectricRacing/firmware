@@ -24,19 +24,18 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
   //GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
-  //GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   //GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   //GPIO_INIT_AF(TIM16_GPIO_Port, TIM16_Pin, TIM16_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP)
 };
 
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .system_clock_target_hz     =80000000,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =160000000,
-    .ahb_clock_target_hz        =80000000,
-    .apb1_clock_target_hz       =80000000,
-    .apb2_clock_target_hz       =80000000 / 16,
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -91,7 +90,6 @@ int main (void)
     {
         HardFault_Handler();
     }
-    /*
     if(!PHAL_initPWMIn(TIM1, TIM_PRESC, TI1FP1))
     {
         HardFault_Handler();
@@ -100,6 +98,7 @@ int main (void)
     {
         HardFault_Handler();
     }
+    /*
     if(!PHAL_initPWMIn(TIM2, TIM_PRESC, TI1FP1))
     {
         HardFault_Handler();
@@ -108,18 +107,6 @@ int main (void)
     {
         HardFault_Handler();
     }*/
-    // enable interrupts
-    /*
-    TIM1->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
-    NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 1);
-    NVIC_SetPriority(TIM1_CC_IRQn, 2);
-    NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
-    NVIC_EnableIRQ(TIM1_CC_IRQn);
-    PHAL_startTIM(TIM1);
-    */
-    //TIM2->DIER |= TIM_DIER_CC1IE;
-    //NVIC_EnableIRQ(TIM2_IRQn);
-    //PHAL_startTIM(TIM2);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     // signify start of initialization
@@ -127,8 +114,8 @@ int main (void)
 
     /* Module init */
     initCANParse(&q_rx_can);
+    wheelSpeedsInit();
 
-    /*
     linkReada(DAQ_ID_TEST_VAR, &my_counter);
     linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
     linkWritea(DAQ_ID_TEST_VAR2, &my_counter2);
@@ -141,15 +128,16 @@ int main (void)
     if(daqInit(&q_tx_can))
     {
         HardFault_Handler();
-    }*/
+    }
 
     /* Task Creation */
-    schedInit(APB1ClockRateHz);
+    //schedInit(APB1ClockRateHz * 2);
+    schedInit(SystemCoreClock);
     taskCreate(ledBlink, 500);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
-    //taskCreate(wheelSpeedsPeriodic, 15);
+    taskCreate(wheelSpeedsPeriodic, 15);
     //taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
 

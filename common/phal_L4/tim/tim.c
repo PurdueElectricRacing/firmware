@@ -113,56 +113,42 @@ bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputM
     return true;
 }
 
-bool PHAL_initPWMOut(TIM_TypeDef* timer)
+bool PHAL_initPWMOut(TIM_TypeDef* timer, uint16_t counter_period, uint16_t ccmr1, uint16_t prescaler)
 {
     if (!enableTIMClk(timer)) return false;
 
-    // uint16_t frequency = 100; // Hz
-    // uint16_t counter_period = 16;//(16000 / 1) - 1;//666 - 1;
-    // uint8_t duty = 50;
-    // uint16_t counter_freq = counter_period * frequency;
-    // uint16_t prescaler = 3952000 / counter_freq; //(SystemCoreClock / 20 / counter_freq) - 1;
-
-    // counter mode: CR1 DIR and CR1 CMS (not available for 16)
-    // clock division: CR1 CKD (leave at 0)
     // auto reload preload CR1 ARPE 
-    TIM16->CR1 |= TIM_CR1_ARPE; // buffered
+    timer->CR1 |= TIM_CR1_ARPE; // buffered
     // auto reload value ARR (period)
-    //TIM16->ARR = counter_period - 1;
+    timer->ARR = counter_period - 1;
     // prescaler PSC (prescaler)
-    //TIM16->PSC = prescaler - 1;//(uint16_t) (SystemCoreClock/16000 - 1); // 16 kHz counter clock
-    // repetition counter RCR (repetition counter) (leave to 0)
+    timer->PSC = prescaler - 1;
     // reload for prescaler and rep counter
-    TIM16->EGR = TIM_EGR_UG;
+    timer->EGR = TIM_EGR_UG;
 
     // -- channel config --
     // disable chnl 1 bit clear CCER CC1E
-    TIM16->CCER &= ~(TIM_CCER_CC1E);
+    timer->CCER &= ~(TIM_CCER_CC1E);
     // set to output  CC1s in CCMR1
-    TIM16->CCMR1 &= ~(TIM_CCMR1_CC1S);
+    timer->CCMR1 &= ~(TIM_CCMR1_CC1S);
     // select OCMode OC1M in CCMR1 (pwm mode)
-    TIM16->CCMR1 &= ~(TIM_CCMR1_OC1M);
-    TIM16->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
+    timer->CCMR1 &= ~(TIM_CCMR1_OC1M);
+    timer->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
     // select output polarity CCER CC1P and CCER CC1N or something
-    //TIM16->CCER &= ~(TIM_CCER_CC1P)
+    timer->CCER &= ~(TIM_CCER_CC1P);
     // set CCR1 to Pulse
-    //TIM16->CCR1 = DUTY_TO_PULSE(duty, counter_period);
+    timer->CCR1 = ccmr1;
     // Preload enable bit CCMR1 TIM_CCMR1_OC1PE
-    TIM16->CCMR1 |= TIM_CCMR1_OC1PE;
+    timer->CCMR1 |= TIM_CCMR1_OC1PE;
     // CCMR1 (OCFastMode) (leave disabled OC1FE)
 
-    // -- start --
     // enable cap compare chnl CCx_ENABLE TIM_CCxChannelCmd
-    //TIM16->CCER |= TIM_CCER_CC1E;
-    // main output _HAL_TIM_MOE_ENABLE
+    timer->CCER |= TIM_CCER_CC1E;
     //BDTR set MOE
-    TIM16->BDTR |= TIM_BDTR_MOE;
-    // _HAL_TIM_ENABLE
-    //TIM16->CR1 |= TIM_CR1_CEN;
+    timer->BDTR |= TIM_BDTR_MOE;
 
     return true;
 }
-
 
 void  __attribute__((weak)) TIM1_UP_TIM16_IRQHandler()
 {

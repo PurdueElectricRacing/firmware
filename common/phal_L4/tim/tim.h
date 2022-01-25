@@ -52,7 +52,7 @@ typedef enum {
 bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelection_t trigger_select);
 
 /**
- * @brief 
+ * @brief                   Initializes a timer channel based on configured parameters.
  * 
  * @param timer             The timer to be used
  * @param chnl              The capture compare register to setup 
@@ -68,5 +68,18 @@ bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputM
  * @param timer The timer to start
  */
 void PHAL_startTIM(TIM_TypeDef* timer);
+
+/**
+ * @brief                Allows for output of a PWM signal, consult reference manual
+ *                       for calculating ARR and CCMR1 to configure frequency and period 
+ *                       as well as pay attention to PWM resolution.
+ * 
+ * @param timer          The timer to be used
+ * @param counter_period ARR value that configures period
+ * @param ccmr1          CCMR1 that configures duty cycle 
+ * @param prescaler      Prescaler for input clock 
+ * @return               Returns true if successful
+ */
+bool PHAL_initPWMOut(TIM_TypeDef* timer, uint16_t counter_period, uint16_t ccmr1, uint16_t prescaler);
 
 #endif // _PHAL_TIM_H

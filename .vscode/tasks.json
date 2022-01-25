@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "python per_build.py",
+            "command": "python3 per_build.py",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -17,11 +17,6 @@
             "group": "none",
             "type": "shell",
             "command": "git submodule update --init --recursive",
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "runOptions": {"runOn": "folderOpen"}
         },
         { 
             "label": "can_gen",

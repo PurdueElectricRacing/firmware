@@ -16,7 +16,17 @@
 #include "common/phal_L4/tim/tim.h"
 #include "stm32l4xx.h"
 
-#define TIM_PRESC 8
+/**
+ * For a clock of 16 MHz, an estimate for
+ * resolution can be performed using
+ * 32 teeth and wheel diam of 1.5 ft at
+ * 55 mph. The model requires a minimum
+ * resolution of 0.02 km/hr. A prescaler
+ * of 8 achieves this resolution, meaning
+ * the timer should be clocked at 
+ * a minimum of 2 MHz.
+ */
+#define TIM_CLOCK_FREQ 2000000
 
 typedef struct {
   struct {

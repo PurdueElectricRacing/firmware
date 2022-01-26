@@ -85,14 +85,14 @@ void PHAL_startTIM(TIM_TypeDef* timer)
 bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputMode_t input_source, bool is_falling)
 {
     // Input selection
-    if (chnl < 3)
+    if (chnl <= CC2)
     {
-        timer->CCMR1 &= ~((input_source & TIM_CCMR1_CC1S) << (chnl - 1)*TIM_CCMR1_CC2S_Pos);
+        timer->CCMR1 &= ~(TIM_CCMR1_CC1S << (chnl - 1)*TIM_CCMR1_CC2S_Pos);
         timer->CCMR1 |= (input_source & TIM_CCMR1_CC1S) << (chnl - 1)*TIM_CCMR1_CC2S_Pos;
     }
-    else if (chnl < 5)
+    else if (chnl <= CC4)
     {
-        timer->CCMR2 &= ~((input_source & TIM_CCMR2_CC3S) << (chnl - 3)*TIM_CCMR2_CC4S_Pos);
+        timer->CCMR2 &= ~(TIM_CCMR2_CC3S << (chnl - 3)*TIM_CCMR2_CC4S_Pos);
         timer->CCMR2 |= (input_source & TIM_CCMR2_CC3S) << (chnl - 3)*TIM_CCMR2_CC4S_Pos;
     }
     else 

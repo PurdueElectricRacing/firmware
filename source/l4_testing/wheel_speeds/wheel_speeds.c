@@ -14,16 +14,15 @@
 
 WheelSpeeds_t wheel_speeds;
 
-uint32_t left_ccr_msb = 0;
-uint32_t left_ccr_lsb = 0;
-uint32_t right_ccr = 0;
-
 extern q_handle_t q_tx_can;
-extern uint32_t APB2ClockRateHz;
+
+volatile uint32_t left_ccr = 0;
+volatile uint32_t right_ccr = 0;
 
 void wheelSpeedsInit()
 {
     // enable interrupts
+
     // TIM1 (left)
     TIM1->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
     NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 1);
@@ -40,12 +39,14 @@ void wheelSpeedsInit()
 
 void wheelSpeedsPeriodic()
 {
-    wheel_speeds.left.freq_hz = APB2ClockRateHz / TIM_PRESC / ((left_ccr_msb << 16) | left_ccr_lsb);
-    wheel_speeds.right.freq_hz = APB2ClockRateHz / TIM_PRESC / right_ccr;
+    // TODO: convert to wheel speed instead of frequency
+    // ensure that the conversion does not loose significant figures
+    wheel_speeds.left.freq_hz = TIM_CLOCK_FREQ / left_ccr;
+    wheel_speeds.right.freq_hz = TIM_CLOCK_FREQ / right_ccr;
     SEND_WHEEL_SPEEDS(q_tx_can, (uint16_t) wheel_speeds.left.freq_hz, (uint16_t) wheel_speeds.right.freq_hz);
 }
 
-uint16_t left_ccr_msb_counter = 0;
+uint32_t left_ccr_msb_counter = 0;
 void TIM1_UP_TIM16_IRQHandler()
 {
     if (TIM1->SR & TIM_SR_UIF)
@@ -57,8 +58,7 @@ void TIM1_UP_TIM16_IRQHandler()
 
 void TIM1_CC_IRQHandler()
 {
-    left_ccr_lsb = TIM1->CCR1;
-    left_ccr_msb = left_ccr_msb_counter;
+    left_ccr = (left_ccr_msb_counter << 16) | TIM1->CCR1;
     left_ccr_msb_counter = 0;
     TIM1->SR = ~(TIM_SR_CC1IF);
 }

@@ -90,7 +90,7 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initPWMIn(TIM1, TIM_PRESC, TI1FP1))
+    if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
     {
         HardFault_Handler();
     }
@@ -99,7 +99,7 @@ int main (void)
         HardFault_Handler();
     }
     /*
-    if(!PHAL_initPWMIn(TIM2, TIM_PRESC, TI1FP1))
+    if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
     {
         HardFault_Handler();
     }

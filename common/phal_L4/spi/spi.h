@@ -18,13 +18,15 @@
  * @brief Configuration entry for SPI initilization
  */
 typedef struct {
-    SPI_TypeDef* bus;
-    
-} SPIInitConfig_t;
+    SPI_TypeDef* handle;
+    uint32_t baud;
+    uint8_t data_len; /* Number of bits per transaction */
+    bool nss_hw; /* Save Select controlled by HW */
+} SPI_Handle_t;
 
-bool PHAL_initSPI();
+bool PHAL_SPI_init(const SPI_Handle_t* handle);
 
-
+bool PHAL_SPI_read();
 
 
 #endif /* _PHAL_SPI_H */

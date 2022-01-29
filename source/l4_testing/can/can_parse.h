@@ -28,6 +28,7 @@
 #define ID_TEST_MSG4 0x1400013f
 #define ID_TEST_MSG5 0x1400017f
 #define ID_WHEEL_SPEEDS 0xc0001ff
+#define ID_ADC_VALUES 0xc003fbf
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
 /* END AUTO ID DEFS */
@@ -40,6 +41,7 @@
 #define DLC_TEST_MSG4 2
 #define DLC_TEST_MSG5 2
 #define DLC_WHEEL_SPEEDS 4
+#define DLC_ADC_VALUES 5
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
@@ -83,6 +85,14 @@
         data_a->wheel_speeds.right_speed = right_speed_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_ADC_VALUES(queue, pot1_, pot2_, pot3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ADC_VALUES, .DLC=DLC_ADC_VALUES, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->adc_values.pot1 = pot1_;\
+        data_a->adc_values.pot2 = pot2_;\
+        data_a->adc_values.pot3 = pot3_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -121,6 +131,11 @@ typedef union { __attribute__((packed))
         uint64_t left_speed: 16;
         uint64_t right_speed: 16;
     } wheel_speeds;
+    struct {
+        uint64_t pot1: 12;
+        uint64_t pot2: 12;
+        uint64_t pot3: 12;
+    } adc_values;
     struct {
         uint64_t daq_response: 64;
     } daq_response_TEST_NODE;

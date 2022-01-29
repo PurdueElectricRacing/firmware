@@ -46,6 +46,12 @@ typedef enum {
 } ADCClkPrescaler_t;
 
 typedef enum {
+    ADC_DMA_OFF      = 0b00,
+    ADC_DMA_ONE_SHOT = 0b01,
+    ADC_DMA_CIRCULAR = 0b11
+} ADCDMAMode_t;
+
+typedef enum {
     ADC_DATA_ALIGN_RIGHT = 0b0,
     ADC_DATA_ALIGN_LEFT = 0b1
 } ADCDataAlign_t;
@@ -60,6 +66,7 @@ typedef struct {
     //bool discont_conv_mode;
     bool overrun; // set true if data register can be overwritten before being read
     //uint32_t nbr_of_disc_conv;
+    ADCDMAMode_t dma_mode;
 } ADCInitConfig_t;
 
 typedef enum {

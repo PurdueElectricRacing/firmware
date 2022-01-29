@@ -2,27 +2,28 @@
 #include "stm32l432xx.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
+#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
 #if EEPROM_ENABLED
 #include "common/phal_L4/i2c/i2c.h"
-#include "common/eeprom/eeprom.h"
 #endif
+#include "common/phal_L4/tim/tim.h"
+#include "common/eeprom/eeprom.h"
 #include <math.h>
 
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
+#include "wheel_speeds.h"
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
-#if EEPROM_ENABLED
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
-#endif
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -40,16 +41,19 @@ ADCInitConfig_t adc_config = {
 
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel=POT_ADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
+  //GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
+  GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  //GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  //GPIO_INIT_AF(TIM16_GPIO_Port, TIM16_Pin, TIM16_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP)
 };
 
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .system_clock_target_hz     =80000000,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =160000000,
-    .ahb_clock_target_hz        =80000000,
-    .apb1_clock_target_hz       =80000000,// / 16,
-    .apb2_clock_target_hz       =80000000 / 16,
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -114,6 +118,23 @@ int main (void)
     PHAL_startADC(ADC1);
 
 
+    if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
+    {
+        HardFault_Handler();
+    }
+    /*
+    if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
+    {
+        HardFault_Handler();
+    }*/
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     // signify start of initialization
@@ -121,6 +142,7 @@ int main (void)
 
     /* Module init */
     initCANParse(&q_rx_can);
+    wheelSpeedsInit();
 
     linkReada(DAQ_ID_TEST_VAR, &my_counter);
     linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
@@ -136,20 +158,19 @@ int main (void)
         HardFault_Handler();
     }
 
-    // /* Task Creation */
-    schedInit(APB1ClockRateHz);
+    /* Task Creation */
+    //schedInit(APB1ClockRateHz * 2);
+    schedInit(SystemCoreClock);
     taskCreate(ledBlink, 500);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
-    // //taskCreate(canReceiveTest, 500);
-    // taskCreate(myCounterTest, 50);
-    //taskCreate(ledBlink, 500);
+    taskCreate(wheelSpeedsPeriodic, 15);
+    //taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
 
     // // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
-
     schedStart();
     
     return 0;
@@ -208,20 +229,8 @@ uint16_t adc_reading = 0;
 
 void canSendTest()
 {
-    adc_reading = PHAL_readADC(ADC1);
-#if EEPROM_ENABLED
     SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
     SEND_TEST_MSG2(q_tx_can, counter2);
-    SEND_TEST_MSG3(q_tx_can, counter2);
-    SEND_TEST_MSG4(q_tx_can, counter2);
-    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
-#else
-    SEND_TEST_MSG_2(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
-    SEND_TEST_MSG2_2(q_tx_can, counter2);
-    SEND_TEST_MSG3_2(q_tx_can, counter2);
-    SEND_TEST_MSG4_2(q_tx_can, counter2);
-    SEND_TEST_MSG5_2(q_tx_can, 0xFFF - counter2);
-#endif
 
     counter += 1;
     counter2 += 2;
@@ -229,11 +238,10 @@ void canSendTest()
     {
         counter2 = 1;
     }
-}
 
-void canReceiveTest()
-{
-
+    SEND_TEST_MSG3(q_tx_can, counter2);
+    SEND_TEST_MSG4(q_tx_can, counter2);
+    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
 }
 
 void canTxUpdate()

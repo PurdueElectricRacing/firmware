@@ -78,6 +78,8 @@ int main (void)
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);
     taskCreate(heartbeat_task, 1000);
+
+    /* No Way Home */
     schedStart();
 
     return 0;

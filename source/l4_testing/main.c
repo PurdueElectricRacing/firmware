@@ -50,24 +50,7 @@ ADCChannelConfig_t adc_channel_config[] = {
 
 static uint16_t adc_conversions[3];
 
-dma_init_t adc_dma_config = {.periph_addr=(uint32_t) &(ADC1->DR), 
-                             .mem_addr=(uint32_t) adc_conversions,
-                             .tx_size=3,
-                             .increment=true,
-                             .circular=true,
-                             .dir=0b0,
-                             .mem_inc=true,
-                             .periph_inc=false,
-                             .mem_to_mem=false,
-                             .priority=0b01,
-                             .mem_size=0b01,
-                             .periph_size=0b01,
-                             .tx_isr_en=false,
-                             .dma_chan_request=0b0000,
-                             .channel_idx=1,
-                             .periph=DMA1,
-                             .channel=DMA1_Channel1,
-                             .request=DMA1_CSELR};
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 3, 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -205,10 +188,10 @@ int main (void)
 
 void adcConvert()
 {
-    // PHAL_startTxfer(&adc_dma_config);
-    // PHAL_startADC(ADC1);
-    // //SEND_ADC_VALUES(q_tx_can, );
     uint16_t pot1 = adc_conversions[0];
+    SEND_ADC_VALUES(q_tx_can, adc_conversions[0], 
+                              adc_conversions[1], 
+                              adc_conversions[2]);
 }
 
 void ledBlink()

@@ -2,10 +2,12 @@
 #include "stm32l432xx.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
-#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/tim/tim.h"
+#include "common/phal_L4/dma/dma.h"
 #include "common/eeprom/eeprom.h"
 #include <math.h>
 
@@ -23,11 +25,32 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
-  //GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
+  GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
   GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   //GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
-  //GPIO_INIT_AF(TIM16_GPIO_Port, TIM16_Pin, TIM16_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP)
+  GPIO_INIT_ANALOG(POT_GPIO_Port, POT_Pin),
+  GPIO_INIT_ANALOG(POT2_GPIO_Port, POT2_Pin),
+  GPIO_INIT_ANALOG(POT3_GPIO_Port, POT3_Pin)
 };
+
+ADCInitConfig_t adc_config = {
+    .clock_prescaler = ADC_CLK_PRESC_6,
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .overrun         = true,
+    .dma_mode        = ADC_DMA_CIRCULAR
+};
+
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel=POT_ADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=POT2_ADC_Channel, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=POT3_ADC_Channel, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
+};
+
+static uint16_t adc_conversions[3];
+
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 3, 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -47,6 +70,7 @@ extern uint32_t PLLClockRateHz;
 /* Function Prototypes */
 void myCounterTest();
 void canReceiveTest();
+void adcConvert();
 void canSendTest();
 void Error_Handler();
 void SysTick_Handler();
@@ -59,6 +83,7 @@ void readGreen(uint8_t* on);
 void readBlue(uint8_t* on);
 void ledBlink();
 extern void HardFault_Handler();
+void init_ADC();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -86,10 +111,22 @@ int main (void)
     {
         HardFault_Handler();
     }
+#if EEPROM_ENABLED
     if(!PHAL_initI2C())
     {
         HardFault_Handler();
     }
+#endif
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
     if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
     {
         HardFault_Handler();
@@ -134,6 +171,7 @@ int main (void)
     //schedInit(APB1ClockRateHz * 2);
     schedInit(SystemCoreClock);
     taskCreate(ledBlink, 500);
+    taskCreate(adcConvert, 50);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
@@ -146,6 +184,14 @@ int main (void)
     schedStart();
     
     return 0;
+}
+
+void adcConvert()
+{
+    uint16_t pot1 = adc_conversions[0];
+    SEND_ADC_VALUES(q_tx_can, adc_conversions[0], 
+                              adc_conversions[1], 
+                              adc_conversions[2]);
 }
 
 void ledBlink()
@@ -189,6 +235,7 @@ void readBlue(uint8_t* on)
 
 uint16_t counter = 1;
 uint16_t counter2 = 1;
+uint16_t adc_reading = 0;
 
 void canSendTest()
 {

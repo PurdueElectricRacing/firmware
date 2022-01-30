@@ -7,6 +7,12 @@
 #define POT_Pin (0)
 #define POT_GPIO_Port (GPIOA)
 #define POT_ADC_Channel (5)
+#define POT2_Pin (1)
+#define POT2_GPIO_Port (GPIOA)
+#define POT2_ADC_Channel (6)
+#define POT3_Pin (3)
+#define POT3_GPIO_Port (GPIOA)
+#define POT3_ADC_Channel (8)
 
 // Status LEDs
 #define LED_GREEN_Pin (0)

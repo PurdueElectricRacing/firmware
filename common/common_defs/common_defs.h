@@ -17,6 +17,11 @@
 #define MAX(x, y) ((x) < (y) ? (y) : (x))
 #define CLAMP(x, min, max)  MAX((min), MIN((x), (max)))
 
+// Base-2 logarithm that rounds down
+#define LOG2_DOWN(x) (63U - __builtin_clzl((x)))
+// Base-2 logarithm that rounds up
+#define LOG2_UP(x) (LOG2_DOWN((x) - 1) + 1)
+
 /* Unit Conversions */
 
 /* Constants */

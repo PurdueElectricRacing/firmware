@@ -9,9 +9,12 @@
  * 
  */
 #include "common/phal_L4/spi/spi.h"
+#include "common/phal_L4/rcc/rcc.h"
 #include "common_defs.h"
 
-bool PHAL_SPI_init(const SPI_Handle_t* handle)
+extern uint32_t APB2ClockRateHz;
+
+bool PHAL_SPI_init(const SPI_InitConfig_t* cfg)
 {
     // Enable RCC Clock
     RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
@@ -21,15 +24,39 @@ bool PHAL_SPI_init(const SPI_Handle_t* handle)
     SPI1->CR1 &= ~(SPI_CR1_CPOL | SPI_CR1_CPHA);
     SPI1->CR2 |= SPI_CR2_NSSP | SPI_CR2_SSOE;
 
+    // Data Size
     SPI1->CR2 &= ~(SPI_CR2_DS_Msk);
-    SPI1->CR2 |= CLAMP(handle->data_len, 4, 12) - 4;
+    SPI1->CR2 |= CLAMP(cfg->data_len, 4, 12) - 4;
+
+    // Data Rate
+    // Divisor is a power of 2, find the closest power of 2 limited to log2(256)
+    uint32_t f_div = LOG2_DOWN(APB2ClockRateHz / cfg->data_rate);
+    f_div = CLAMP(f_div, 0, 0b111);
+    SPI1->CR1 &= ~SPI_CR1_BR_Msk;
+    SPI1->CR1 |= f_div << SPI_CR1_BR_Pos;
+
+    // NSS control
+    if (cfg->nss_sw)
+        SPI1->CR1 |= SPI_CR1_SSM;
+    
+    // Enable DMA
+    SPI1->CR2 |= SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN;
     
     // Enable SPI peripheral
     SPI1->CR1 |= SPI_CR1_SPE;
-
 }
 
-bool PHAL_SPI_read()
+bool PHAL_SPI_transmit(const uint32_t* data, const uint32_t length)
 {
+    for(uint32_t i = 0; i < length; i++)
+    {
+        while ((SPI1->SR & SPI_SR_TXE) == 0)
+		    ;
+        SPI1->DR = data[i];
+    }
+}
 
+bool PHAL_SPI_recieve(const uint32_t* data, const uint32_t length)
+{
+    
 }

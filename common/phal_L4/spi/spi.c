@@ -10,9 +10,13 @@
  */
 #include "common/phal_L4/spi/spi.h"
 #include "common/phal_L4/rcc/rcc.h"
+#include "common/phal_L4/dma/dma.h"
+#include "common/phal_L4/gpio/gpio.h"
 #include "common_defs.h"
+#include <stddef.h>
 
 extern uint32_t APB2ClockRateHz;
+static SPI_InitConfig_t* active_transfer = NULL;
 
 bool PHAL_SPI_init(const SPI_InitConfig_t* cfg)
 {
@@ -26,7 +30,7 @@ bool PHAL_SPI_init(const SPI_InitConfig_t* cfg)
 
     // Data Size
     SPI1->CR2 &= ~(SPI_CR2_DS_Msk);
-    SPI1->CR2 |= CLAMP(cfg->data_len, 4, 12) - 4;
+    SPI1->CR2 |= (CLAMP(cfg->data_len, 4, 16) - 1) << SPI_CR2_DS_Pos;
 
     // Data Rate
     // Divisor is a power of 2, find the closest power of 2 limited to log2(256)
@@ -38,25 +42,81 @@ bool PHAL_SPI_init(const SPI_InitConfig_t* cfg)
     // NSS control
     if (cfg->nss_sw)
         SPI1->CR1 |= SPI_CR1_SSM;
-    
-    // Enable DMA
-    SPI1->CR2 |= SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN;
-    
-    // Enable SPI peripheral
+
+    // Setup DMA channels
+    if (!PHAL_initDMA(cfg->rx_dma_cfg))
+        return false;
+
+
+    if (!PHAL_initDMA(cfg->tx_dma_cfg))
+        return false;
+}
+
+bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uint32_t data_len, const uint8_t* in_data)
+{
+    /*
+    Each DMA channel is enabled if a data buffer is provided.
+
+    Only the Tx DMA channel has transfer complete interrupts enabled, as the same data length is used for both channels
+    */
+
+    if (spi->_busy)
+        return false;
+
+    spi->_busy = true;
+    active_transfer = spi;
+
+    SPI1->CR2 |= SPI_CR2_TXDMAEN;
+    PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
+    PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) out_data);
+
+    SPI1->CR2 |= SPI_CR2_RXDMAEN;
+    PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
+    PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) in_data);
+
+    // Enable the DMA IRQ
+    NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+
+    PHAL_startTxfer(active_transfer->rx_dma_cfg);
+    PHAL_startTxfer(active_transfer->tx_dma_cfg);
+
+    // Start transaction
+    if(active_transfer->nss_sw)
+        PHAL_writeGPIO(active_transfer->nss_gpio_bank, active_transfer->nss_gpio_pin, 0);
     SPI1->CR1 |= SPI_CR1_SPE;
+
+    return true;
 }
 
-bool PHAL_SPI_transmit(const uint32_t* data, const uint32_t length)
+bool PHAL_SPI_busy()
 {
-    for(uint32_t i = 0; i < length; i++)
-    {
-        while ((SPI1->SR & SPI_SR_TXE) == 0)
-		    ;
-        SPI1->DR = data[i];
-    }
+    if (active_transfer)
+        return active_transfer->_busy;
+    return false;
 }
 
-bool PHAL_SPI_recieve(const uint32_t* data, const uint32_t length)
+
+/**
+ * @brief SPI1 Tx DMA Transfer Complete interrupt
+ * 
+ */
+void DMA1_Channel3_IRQHandler()
 {
-    
+    bool is_tc_interrupt = DMA1->ISR & DMA_ISR_TCIF3;
+    // Ack interrupt
+    DMA1->IFCR |= DMA_IFCR_CTCIF3_Msk;
+
+    if (active_transfer->nss_sw)
+        PHAL_writeGPIO(active_transfer->nss_gpio_bank, active_transfer->nss_gpio_pin, 1);
+
+    // Disable DMA channels
+    PHAL_stopTxfer(active_transfer->rx_dma_cfg);
+    PHAL_stopTxfer(active_transfer->tx_dma_cfg);
+
+    // Disable SPI peripheral and DMA requests
+    SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
+    SPI1->CR1 &= ~SPI_CR1_SPE;
+
+    active_transfer->_busy = false;
+    active_transfer = NULL;
 }

@@ -32,16 +32,16 @@ bool PHAL_initDMA(dma_init_t* init) {
     }
 
     // Channel configuration set
-    init->channel->CCR &= ~(1U);
-    init->channel->CCR &= ~(0x7f);
+    init->channel->CCR &= ~(DMA_CCR_EN_Msk); 
+    init->channel->CCR &= ~(0x3FFF);
 
     init->channel->CCR |= (init->mem_to_mem << 14) | (init->priority << 12) | (init->mem_size << 10);
     init->channel->CCR |= (init->periph_size << 8) | (init->mem_inc << 7) | (init->periph_inc << 6);
     init->channel->CCR |= (init->circular << 5) | (init->dir << 4) | (1U << 3) | (init->tx_isr_en << 1);
 
     // Channel memory configuration set
-    init->channel->CNDTR &= ~(0xff);
-    init->channel->CNDTR |= init->tx_size;
+    PHAL_DMA_setTxferLength(init, init->tx_size);
+
 
     init->channel->CPAR = init->periph_addr;
     init->channel->CMAR = init->mem_addr;
@@ -66,4 +66,15 @@ void PHAL_reEnable(dma_init_t* init) {
     init->periph->IFCR |= (0xf << (init->channel_idx - 1) * 4);
 
     init->channel->CCR |= 1U;
+}
+
+void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address)
+{
+    init->channel->CMAR = init->mem_addr;
+}
+
+void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length)
+{
+    init->channel->CNDTR &= ~(DMA_CNDTR_NDT_Msk);
+    init->channel->CNDTR |= length;
 }

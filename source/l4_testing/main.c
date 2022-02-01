@@ -239,7 +239,7 @@ uint16_t adc_reading = 0;
 
 void canSendTest()
 {
-    SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
+    SEND_TEST_MSG(q_tx_can, (int16_t) (500 * sin(((double) counter)/100)));
     SEND_TEST_MSG2(q_tx_can, counter2);
 
     counter += 1;

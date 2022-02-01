@@ -17,20 +17,25 @@ def gen_dbc(can_config, dbc_path):
                 curr_sig_pos = 0
                 msg_signals = []
                 for sig in msg['signals']:
+
+                    # signed signals cannot have bits less than the required size
+                    # unsigned can be whatever 
+                    # floats mUsT be 32
+
                     msg_signals.append(db.Signal(name=sig['sig_name'],
                                           start=curr_sig_pos,
                                           length=sig['length'],
                                           byte_order="little_endian",
-                                          is_signed=False,
+                                          is_signed=not ('uint' in sig['type']),
                                           initial=None,
-                                          scale=1,
-                                          offset=0,
-                                          minimum=None,
-                                          maximum=None,
-                                          unit="",
-                                          comment="",
+                                          scale=1 if 'scale' not in sig else sig['scale'],
+                                          offset=0 if 'offset' not in sig else sig['offset'],
+                                          minimum=None if 'minimum' not in sig else sig['minimum'],
+                                          maximum=None if 'maximum' not in sig else sig['maximum'],
+                                          unit="" if 'unit' not in sig else sig['unit'],
+                                          comment="" if 'sig_desc' not in sig else sig['sig_desc'],
                                           is_multiplexer=False,
-                                          is_float=False,
+                                          is_float=('float' in sig['type']),
                                           decimal=None))
                     curr_sig_pos += sig['length']
 

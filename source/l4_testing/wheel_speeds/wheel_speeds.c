@@ -39,11 +39,9 @@ void wheelSpeedsInit()
 
 void wheelSpeedsPeriodic()
 {
-    // TODO: convert to wheel speed instead of frequency
-    // ensure that the conversion does not loose significant figures
-    wheel_speeds.left.freq_hz = TIM_CLOCK_FREQ / left_ccr;
-    wheel_speeds.right.freq_hz = TIM_CLOCK_FREQ / right_ccr;
-    SEND_WHEEL_SPEEDS(q_tx_can, (uint16_t) wheel_speeds.left.freq_hz, (uint16_t) wheel_speeds.right.freq_hz);
+    wheel_speeds.left.freq_hz = FREQ_TO_KPH * TIM_CLOCK_FREQ / (float) left_ccr;
+    wheel_speeds.right.freq_hz = FREQ_TO_KPH * TIM_CLOCK_FREQ / (float) right_ccr;
+    SEND_WHEEL_SPEEDS(q_tx_can, wheel_speeds.left.freq_hz, wheel_speeds.right.freq_hz);
 }
 
 uint32_t left_ccr_msb_counter = 0;

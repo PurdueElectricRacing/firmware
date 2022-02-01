@@ -68,7 +68,10 @@ def gen_send_macro(lines, msg_config, peripheral):
     lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .ExtId=ID_{cap}, .DLC=DLC_{cap}, .IDE=1}};\\\n")
     lines.append(f"        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
     for sig in msg_config['signals']:
-        lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {sig['sig_name']}_;\\\n")
+        # if float, cannot simply cast to uint32, have to use union
+        convert_str = f"FLOAT_TO_UINT32({sig['sig_name']}_)" if 'float' in sig['type'] else f"{sig['sig_name']}_"
+        # conversion not necessary for signed integers (source: testing)
+        lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {convert_str};\\\n")
     lines.append(f"        qSendToBack(&queue, &msg);\\\n")
     lines.append(f"    }} while(0)\n")
 
@@ -96,7 +99,11 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     for msg in rx_msg_configs:
         lines.append(ind+f"            case ID_{msg['msg_name'].upper()}:\n")
         for sig in msg['signals']:
-            lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = msg_data_a->{msg['msg_name']}.{sig['sig_name']};\n")
+            var_str = f"msg_data_a->{msg['msg_name']}.{sig['sig_name']}"
+            # converting from uint storage to either signed int or float
+            convert_str = f"({sig['type']}) {var_str}" if ('int' in sig['type'] and 'u' not in sig['type']) else var_str
+            convert_str = f"UINT32_TO_FLOAT({var_str})" if 'float' in sig['type'] else convert_str
+            lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = {convert_str};\n")
         if msg['msg_period'] > 0:
             lines.append(ind+f"                can_data.{msg['msg_name']}.stale = 0;\n")
             lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")

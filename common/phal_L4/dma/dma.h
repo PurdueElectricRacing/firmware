@@ -65,4 +65,18 @@ void PHAL_stopTxfer(dma_init_t* init);
  */
 void PHAL_reEnable(dma_init_t* init);
 
+/*
+ * @brief Set memory address for DMA transfer. In Mem to Mem this acts as the source address
+ * 
+ * @param init -> Address of initialization structure
+ */
+void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address);
+
+/*
+ * @brief Set transfer length for DMA transaction
+ * 
+ * @param init -> Address of initialization structure
+ */
+void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length);
+
 #endif

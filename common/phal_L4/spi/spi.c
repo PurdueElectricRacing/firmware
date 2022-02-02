@@ -46,7 +46,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
     if (cfg->tx_dma_cfg && !PHAL_initDMA(cfg->tx_dma_cfg))
         return false;
 
-    PHAL_writeGPIO(cfg->nss_gpio_bank, cfg->nss_gpio_pin, 1);
+    PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
     
     cfg->_busy = false;
 }
@@ -65,7 +65,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     active_transfer = spi;
     
     if(spi->nss_sw)
-        PHAL_writeGPIO(spi->nss_gpio_bank, spi->nss_gpio_pin, 0);
+        PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
 
     spi->_busy = true;
     
@@ -124,7 +124,7 @@ void DMA1_Channel2_IRQHandler()
     if (is_tc_interrupt)
     {
         if (active_transfer->nss_sw)
-            PHAL_writeGPIO(active_transfer->nss_gpio_bank, active_transfer->nss_gpio_pin, 1);
+            PHAL_writeGPIO(active_transfer->nss_gpio_port, active_transfer->nss_gpio_pin, 1);
 
         // Disable DMA channels
         PHAL_stopTxfer(active_transfer->rx_dma_cfg);
@@ -138,4 +138,35 @@ void DMA1_Channel2_IRQHandler()
         active_transfer = NULL;
     }
     
+}
+
+uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy)
+{
+    uint8_t tx_cmd[3] = {(1 << 7), 0, 0};
+    uint8_t rx_dat[3] = {0};
+    tx_cmd[0] |= (address & 0x7F);
+
+    while (PHAL_SPI_busy())
+        ;
+    PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 3 : 2, rx_dat);
+    while(PHAL_SPI_busy())
+        ;
+
+    return skipDummy ? rx_dat[2] : rx_dat[1];
+}
+
+uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t* spi, uint8_t address, uint8_t writeDat)
+{
+    uint8_t tx_cmd[3] = {0};
+    uint8_t rx_dat[3] = {0};
+    tx_cmd[0] |= (address & 0x7F);
+    tx_cmd[1] |= (writeDat);
+
+    while (PHAL_SPI_busy())
+        ;
+    PHAL_SPI_transfer(spi, tx_cmd, 2, rx_dat);
+    while(PHAL_SPI_busy())
+        ;
+
+    return rx_dat[1];
 }

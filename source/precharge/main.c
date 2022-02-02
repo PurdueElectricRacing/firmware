@@ -11,6 +11,7 @@
 
 /* Module Includes */
 #include "main.h"
+#include "bmi088.h"
 
 
 /* PER HAL Initilization Structures */
@@ -70,10 +71,20 @@ SPI_InitConfig_t spi_config = {
     .data_rate = TargetCoreClockrateHz / 32,
     .data_len  = 8,
     .nss_sw = true,
-    .nss_gpio_bank = SPI_CS_GYRO_GPIO_Port,
+    .nss_gpio_port = SPI_CS_GYRO_GPIO_Port,
     .nss_gpio_pin = SPI_CS_GYRO_Pin,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config
+};
+
+BMI088_Handle_t bmi_config = {
+    .acel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
+    .acel_csb_pin = SPI_CS_ACEL_Pin,
+    .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
+    .gyro_csb_pin = SPI_CS_GYRO_Pin,
+    .gyro_datarate = GYRO_DR_1000Hz_116Hz,
+    .gyro_range = GYRO_RANGE_250,
+    .spi = &spi_config
 };
 
 int main (void)
@@ -95,50 +106,29 @@ int main (void)
     if (1 != PHAL_initCAN(CAN2, false))
         PHAL_FaultHandler();
 
-    spi_config.data_rate = APB2ClockRateHz / 64;
+    spi_config.data_rate = APB2ClockRateHz / 16;
     if (!PHAL_SPI_init(&spi_config))
         PHAL_FaultHandler();
 
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-
-    for(int i = 0; i < 10000; i++)
-        ;
     
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
 
-    while(1)
-    {
-        
-
-        for(int i = 0; i < 10000; i++)
-            ;
-
-        // Do a Self Test
-        spi_tx_buff[0] = (0 << 7) | (0x3C);
-        spi_tx_buff[1] = 0x1;
-        PHAL_SPI_transfer(&spi_config, spi_tx_buff, 2, spi_rx_buff);
-        while(PHAL_SPI_busy())
-            ;
-
-        for(int i = 0; i < 10000; i++)
-            ;
-
-        spi_tx_buff[0] = (1 << 7) | (0x3C);
-        spi_tx_buff[1] = 0x0;
-        PHAL_SPI_transfer(&spi_config, spi_tx_buff, 2, spi_rx_buff);
-        while(PHAL_SPI_busy())
-            ;
-        
-
-        asm("bkpt");
-    }
-    
-
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
+    
+    if (!BMI088_init(&bmi_config))
+        PHAL_FaultHandler();
+    
+    uint16_t x, y, z;
+    while(1)
+    {
+        BMI088_readGyro(&bmi_config, &x, &y, &z);
+    }
+    
 
     /* Task Creation */
     schedInit(SystemCoreClock);

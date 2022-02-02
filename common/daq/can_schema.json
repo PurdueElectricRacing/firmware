@@ -86,19 +86,28 @@
         },
         "signal":{
             "type":"object",
-            "required":["sig_name","type","length"],
+            "required":["sig_name","type"],
             "properties":{
                 "sig_name":{"type":"string"},
+                "sig_desc":{"type":"string"},
                 "type":{
                     "type":"string",
-                    "enum":["uint8_t", "uint16_t", "uint32_t", "uint64_t"]
+                    "enum":["uint8_t", "uint16_t", "uint32_t", "uint64_t", 
+                            "int8_t", "int16_t", "int32_t", "int64_t",
+                            "float"],
+                    "description":"can only change length of uints, float defaults to 32 bits"
                 },
                 "length":{
                     "type":"integer",
-                    "description":"length in bits",
+                    "description":"length in bits, only valid if unisgned data type",
                     "minimum":1,
                     "maimum":64
-                }
+                },
+                "scale":{"type":"integer", "description":"scale factor to apply, default of 1\nDecoding results in (x * scale)+offset"},
+                "offset":{"type":"integer", "description": "offset to apply, default of 0\nDecoding results in (x * scale)+offset"},
+                "maximum":{"type":"integer", "description": "maximum value of signal, defaults to none"},
+                "minimum":{"type":"integer", "description": "minimum value of signal, defaults to none"},
+                "unit":{"type":"string", "description":"unit of the signal, defaults to none"}
             }
         },
         "rx_message":{

@@ -262,7 +262,7 @@
                         {   "msg_name":"test_msg",
                             "msg_desc":"test_msg desc",
                             "signals":[
-                                {"sig_name": "test_sig", "type":"uint16_t", "length": 16}
+                                {"sig_name": "test_sig", "type":"int16_t"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
@@ -308,8 +308,8 @@
                             "msg_name":"wheel_speeds",
                             "msg_desc": "wheel speeds",
                             "signals":[
-                                {"sig_name": "left_speed", "type":"uint16_t", "length": 16},
-                                {"sig_name": "right_speed", "type":"uint16_t", "length": 16}
+                                {"sig_name": "left_speed", "type":"float", "unit":"kph"},
+                                {"sig_name": "right_speed", "type":"float", "unit":"kph"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 3,
@@ -329,6 +329,7 @@
                         }
                     ],
                     "rx":[
+                        {"msg_name": "test_msg5_2"}
                     ]
                 },
                 {
@@ -374,7 +375,9 @@
                         {   "msg_name":"test_msg5_2",
                             "msg_desc":"test_msg5 desc",
                             "signals":[
-                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16}
+                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16},
+                                {"sig_name": "test_sig5_2", "type": "int16_t"},
+                                {"sig_name": "test_sig5_3", "type": "float"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,

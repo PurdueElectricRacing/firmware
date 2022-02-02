@@ -28,12 +28,18 @@
  */
 #define TIM_CLOCK_FREQ 2000000
 
+#define WHEEL_DIAM_M 0.4572
+#define WHEEL_CIRCUMF_M (3.14159 * WHEEL_DIAM_M)
+#define SENSOR_TEETH 32
+#define MPS_TO_KPH 3.6
+#define FREQ_TO_KPH (MPS_TO_KPH * WHEEL_CIRCUMF_M / SENSOR_TEETH)
+
 typedef struct {
   struct {
-    uint16_t freq_hz;
+    float freq_hz;
   } left;
   struct {
-    uint16_t freq_hz;
+    float freq_hz;
   } right;
 } WheelSpeeds_t;
 

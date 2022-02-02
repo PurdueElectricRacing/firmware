@@ -46,7 +46,7 @@ bool PHAL_initDMA(dma_init_t* init) {
     init->channel->CPAR = init->periph_addr;
     init->channel->CMAR = init->mem_addr;
 
-    init->request->CSELR &= ~(0xf) << ((init->channel_idx - 1) * 4);
+    init->request->CSELR &= ~((0xf) << ((init->channel_idx - 1) * 4));
     init->request->CSELR |= (init->dma_chan_request<< ((init->channel_idx - 1) * 4));
 
     return true;

@@ -68,3 +68,20 @@ The "Run and Debug" window will allow for you to upload code to any firmware com
 Each pull request into the master branch will be automatically built using [CircleCI](https://app.circleci.com/pipelines/github/PurdueElectricRacing/firmware?filter=all). This build needs to pass in order for the pull request to be merged. It is important to keep the build system and docker image up to date. Future work can be put in to add software unit tests and have those block merges as well!
 
 This is an attempt at making sure that all code is able to build when pushed to the master branch.
+
+In order to update the docker image being used by CircleCI to build the firmware components you must make the necessacary changes to the Dockerfile so the firmware is able to build completley. The docker image is hosted by DockerHub, you will need to create an account there before you can push a new image.
+After the changes have been made to the Dockerfile, build the docker image with a tag by running
+```
+docker image build . -t <docker hub username>/per_firmware:latest
+```
+
+You can then push that to docker hub with
+```
+docker push <docker hub username>/per_firmware:latest
+```
+
+Make sure that image tag is being referenced in the `.circleci/config.yaml`:
+```
+    docker:
+      - image: <docker hub username>/per_firmware:latest
+```

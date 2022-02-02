@@ -122,6 +122,15 @@ BO_ 2483028287 test_msg4: 2 TEST_NODE
 BO_ 2483028351 test_msg5: 2 TEST_NODE
  SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2348810751 wheel_speeds: 4 TEST_NODE
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348826559 adc_values: 5 TEST_NODE
+ SG_ pot3 : 24|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pot2 : 12|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pot1 : 0|12@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136831 daq_response_TEST_NODE: 8 TEST_NODE
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -229,6 +238,13 @@ CM_ BO_ 2483028287 "test_msg4 desc";
 CM_ SG_ 2483028287 test_sig4 "";
 CM_ BO_ 2483028351 "test_msg5 desc";
 CM_ SG_ 2483028351 test_sig5 "";
+CM_ BO_ 2348810751 "wheel speeds";
+CM_ SG_ 2348810751 right_speed "";
+CM_ SG_ 2348810751 left_speed "";
+CM_ BO_ 2348826559 "adc potentiometer readings";
+CM_ SG_ 2348826559 pot3 "";
+CM_ SG_ 2348826559 pot2 "";
+CM_ SG_ 2348826559 pot1 "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";

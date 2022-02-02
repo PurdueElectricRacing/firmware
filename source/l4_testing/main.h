@@ -7,6 +7,12 @@
 #define POT_Pin (0)
 #define POT_GPIO_Port (GPIOA)
 #define POT_ADC_Channel (5)
+#define POT2_Pin (1)
+#define POT2_GPIO_Port (GPIOA)
+#define POT2_ADC_Channel (6)
+#define POT3_Pin (3)
+#define POT3_GPIO_Port (GPIOA)
+#define POT3_ADC_Channel (8)
 
 // Status LEDs
 #define LED_GREEN_Pin (0)
@@ -15,5 +21,18 @@
 #define LED_RED_GPIO_Port (GPIOB)
 #define LED_BLUE_Pin (7)
 #define LED_BLUE_GPIO_Port (GPIOB)
+
+// TIM Pins
+#define TIM1_GPIO_Port (GPIOA)
+#define TIM1_Pin (8)
+#define TIM1_AF (1)
+
+#define TIM2_GPIO_Port (GPIOA)
+#define TIM2_Pin (0)
+#define TIM2_AF (1)
+
+#define TIM16_GPIO_Port (GPIOA)
+#define TIM16_Pin (6)
+#define TIM16_AF (14)
 
 #endif

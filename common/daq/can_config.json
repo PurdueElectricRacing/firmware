@@ -303,6 +303,29 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 5 
+                        },
+                        {
+                            "msg_name":"wheel_speeds",
+                            "msg_desc": "wheel speeds",
+                            "signals":[
+                                {"sig_name": "left_speed", "type":"uint16_t", "length": 16},
+                                {"sig_name": "right_speed", "type":"uint16_t", "length": 16}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 3,
+                            "msg_pgn": 7 
+                        },
+                        {
+                            "msg_name":"adc_values",
+                            "msg_desc": "adc potentiometer readings",
+                            "signals":[
+                                {"sig_name": "pot1", "type":"uint16_t", "length": 12},
+                                {"sig_name": "pot2", "type":"uint16_t", "length": 12},
+                                {"sig_name": "pot3", "type":"uint16_t", "length": 12}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 3,
+                            "msg_pgn": 254 
                         }
                     ],
                     "rx":[

@@ -46,6 +46,12 @@ typedef enum {
 } ADCClkPrescaler_t;
 
 typedef enum {
+    ADC_DMA_OFF      = 0b00,
+    ADC_DMA_ONE_SHOT = 0b01,
+    ADC_DMA_CIRCULAR = 0b11
+} ADCDMAMode_t;
+
+typedef enum {
     ADC_DATA_ALIGN_RIGHT = 0b0,
     ADC_DATA_ALIGN_LEFT = 0b1
 } ADCDataAlign_t;
@@ -60,6 +66,7 @@ typedef struct {
     //bool discont_conv_mode;
     bool overrun; // set true if data register can be overwritten before being read
     //uint32_t nbr_of_disc_conv;
+    ADCDMAMode_t dma_mode;
 } ADCInitConfig_t;
 
 typedef enum {
@@ -81,6 +88,14 @@ typedef struct {
     //uint32_t offset_num;
     //uint32_t offset;
 } ADCChannelConfig_t;
+
+#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)        \
+    {.periph_addr=(uint32_t) &(ADC1->DR), .mem_addr=mem_addr_,      \
+     .tx_size=tx_size_, .increment=true, .circular=true,            \
+     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false, \
+     .priority=priority_, .mem_size=0b01, .periph_size=0b01,        \
+     .tx_isr_en=false, .dma_chan_request=0b0000, .channel_idx=3,    \
+     .periph=DMA2, .channel=DMA2_Channel3, .request=DMA2_CSELR}
 
 /**
  * @brief Initializes the ADC, requires GPIO config prior

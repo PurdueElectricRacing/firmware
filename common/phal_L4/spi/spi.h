@@ -68,7 +68,7 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,        \
      .tx_isr_en=true, .dma_chan_request=0b0001, .channel_idx=2,    \
      .periph=DMA1, .channel=DMA1_Channel2, .request=DMA1_CSELR}
-    
+
 #define SPI1_TXDMA_CONT_CONFIG(tx_addr_, priority_)        \
     {.periph_addr=(uint32_t) &(SPI1->DR), .mem_addr=(uint32_t) (tx_addr_),      \
      .tx_size=1, .increment=false, .circular=false,            \
@@ -76,6 +76,5 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,        \
      .tx_isr_en=false, .dma_chan_request=0b0001, .channel_idx=3,    \
      .periph=DMA1, .channel=DMA1_Channel3, .request=DMA1_CSELR}
-
 
 #endif /* _PHAL_SPI_H */

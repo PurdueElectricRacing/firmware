@@ -21,17 +21,12 @@ static inline void BMI088_selectAcel(BMI088_Handle_t* bmi);
 
 bool BMI088_init(BMI088_Handle_t* bmi)
 {
-
     BMI088_selectGyro(bmi);
     if (PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_CHIP_ID_ADDR, false) != BMI088_GYRO_CHIP_ID)
         return false;
     
-    if (!PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_BANDWIDTH_ADDR, bmi->gyro_datarate))
-        return false;
-    
-    if (!PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range))
-        return false;
-
+    PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_BANDWIDTH_ADDR, bmi->gyro_datarate);
+    PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
 
     // Perform self tests for sensor
     BMI088_gyroSelfTestStart(bmi);
@@ -50,7 +45,8 @@ bool BMI088_gyroSelfTestStart(BMI088_Handle_t* bmi)
 bool BMI088_gyroSelfTestComplete(BMI088_Handle_t* bmi)
 {
     BMI088_selectGyro(bmi);
-    return PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, false) & 0b00010 == 0b00010;
+    uint8_t self_test_res = PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, false);
+    return (self_test_res & 0b10) == 0b10;
 }
 
 bool BMI088_gyroSelfTestPass(BMI088_Handle_t* bmi)
@@ -60,7 +56,7 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t* bmi)
     if (test_result & 0b10)
     {
         // Self test completed
-        return test_result & 0b10100 == 0b10100;
+        return (test_result & 0b10100) == 0b10000;
     }
     // Self test was not yet run
     return false;
@@ -72,14 +68,14 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
     while (PHAL_SPI_busy())
         ;
     
-    spi_tx_buff[0] = BMI088_GYRO_RATE_X_LSB_ADDR;
-    PHAL_SPI_transfer(bmi->spi, spi_tx_buff, 6, spi_rx_buff);
+    spi_tx_buff[0] = (1 << 7) | BMI088_GYRO_RATE_X_LSB_ADDR;
+    PHAL_SPI_transfer(bmi->spi, spi_tx_buff, 7, spi_rx_buff);
     while (PHAL_SPI_busy())
         ;
     int16_t raw_x, raw_y, raw_z;
-    raw_x =  (((int16_t) spi_rx_buff[1]) << 8) | spi_rx_buff[0];
-    raw_y =  (((int16_t) spi_rx_buff[3]) << 8) | spi_rx_buff[2];
-    raw_z =  (((int16_t) spi_rx_buff[5]) << 8) | spi_rx_buff[4];
+    raw_x =  (((int16_t) spi_rx_buff[2]) << 8) | spi_rx_buff[1];
+    raw_y =  (((int16_t) spi_rx_buff[4]) << 8) | spi_rx_buff[3];
+    raw_z =  (((int16_t) spi_rx_buff[6]) << 8) | spi_rx_buff[5];
 
     // Convert raw values into physical values based on range
     // Decimal is fixed in the first place

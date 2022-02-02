@@ -68,7 +68,7 @@ dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
 SPI_InitConfig_t spi_config = {
-    .data_rate = TargetCoreClockrateHz / 32,
+    .data_rate = TargetCoreClockrateHz / 64,
     .data_len  = 8,
     .nss_sw = true,
     .nss_gpio_port = SPI_CS_GYRO_GPIO_Port,
@@ -87,6 +87,7 @@ BMI088_Handle_t bmi_config = {
     .spi = &spi_config
 };
 
+int16_t x, y, z;
 int main (void)
 {
     /* Data Struct init */
@@ -123,10 +124,12 @@ int main (void)
     if (!BMI088_init(&bmi_config))
         PHAL_FaultHandler();
     
-    uint16_t x, y, z;
+    
     while(1)
     {
         BMI088_readGyro(&bmi_config, &x, &y, &z);
+        // if (x != 0 || y != 0 | z != 0)
+            // asm("bkpt");
     }
     
 

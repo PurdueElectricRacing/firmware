@@ -71,18 +71,18 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     
     SPI1->CR2 |= SPI_CR2_TXDMAEN;
     PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
-    PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) out_data);
+    PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) out_data);
 
     SPI1->CR2 |= SPI_CR2_RXDMAEN;
     PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
     PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) in_data);
 
     PHAL_startTxfer(spi->rx_dma_cfg);
-    
+
     // Enable the DMA IRQ
     NVIC_EnableIRQ(DMA1_Channel2_IRQn);
     NVIC_EnableIRQ(DMA1_Channel3_IRQn);
-    
+
     // Start transaction
     SPI1->CR1 |= SPI_CR1_SPE;
 
@@ -102,12 +102,18 @@ bool PHAL_SPI_busy()
 
 void DMA1_Channel3_IRQHandler()
 {
-    bool is_tc_interrupt = DMA1->ISR & DMA_ISR_TCIF3;
-    // Ack interrupt
-    DMA1->IFCR |= DMA_IFCR_CTCIF3_Msk;
-    if (is_tc_interrupt) 
+    if (DMA1->ISR & DMA_ISR_TEIF3)
     {
-        
+        DMA1->IFCR |= DMA_IFCR_CTEIF3;
+    }
+    if (DMA1->ISR & DMA_ISR_TCIF3) 
+    {
+        DMA1->IFCR |= DMA_IFCR_CTCIF3;
+        // PHAL_stopTxfer(active_transfer->tx_dma_cfg);
+    }
+    if (DMA1->ISR & DMA_ISR_GIF3)
+    {
+        DMA1->IFCR |= DMA_IFCR_CGIF3;
     }
 }
 
@@ -129,21 +135,22 @@ void DMA1_Channel2_IRQHandler()
         // Disable DMA channels
         PHAL_stopTxfer(active_transfer->rx_dma_cfg);
         PHAL_stopTxfer(active_transfer->tx_dma_cfg);
-        
+
+
         // Disable SPI peripheral and DMA requests
-        SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
         SPI1->CR1 &= ~SPI_CR1_SPE;
+        SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
         active_transfer->_busy = false;
         active_transfer = NULL;
     }
-    
+
 }
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy)
 {
-    uint8_t tx_cmd[3] = {(1 << 7), 0, 0};
-    uint8_t rx_dat[3] = {0};
+    static uint8_t tx_cmd[3] = {(1 << 7), 0, 0};
+    static uint8_t rx_dat[3] = {0};
     tx_cmd[0] |= (address & 0x7F);
 
     while (PHAL_SPI_busy())

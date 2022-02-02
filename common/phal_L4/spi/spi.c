@@ -109,7 +109,6 @@ void DMA1_Channel3_IRQHandler()
     if (DMA1->ISR & DMA_ISR_TCIF3) 
     {
         DMA1->IFCR |= DMA_IFCR_CTCIF3;
-        // PHAL_stopTxfer(active_transfer->tx_dma_cfg);
     }
     if (DMA1->ISR & DMA_ISR_GIF3)
     {
@@ -135,7 +134,6 @@ void DMA1_Channel2_IRQHandler()
         // Disable DMA channels
         PHAL_stopTxfer(active_transfer->rx_dma_cfg);
         PHAL_stopTxfer(active_transfer->tx_dma_cfg);
-
 
         // Disable SPI peripheral and DMA requests
         SPI1->CR1 &= ~SPI_CR1_SPE;

@@ -35,9 +35,34 @@ typedef struct {
     volatile bool _busy;
 } SPI_InitConfig_t;
 
+/**
+ * @brief Initilize SPI peripheral with the configuired structure
+ * 
+ * @param handle SPI handle to configure.
+ * @return true 
+ * @return false 
+ */
 bool PHAL_SPI_init(SPI_InitConfig_t* handle);
 
+/**
+ * @brief Transfer  data_len bytes from out_data to SPI device and place MISO data in in_data
+ * This function just starts the DMA transfer, 
+ * 
+ * @param spi SPI handle
+ * @param out_data Address of data buffer to put on MOSI line
+ * @param data_len Number of SPI packets to send
+ * @param in_data Address of data buffer to put data coming in MISO line
+ * @return true Able to start DMA transaction
+ * @return false Unable to start DMA transaction
+ */
 bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uint32_t data_len, const uint8_t* in_data);
+
+/**
+ * @brief Check for current SPI transaction to complete
+ * 
+ * @return true 
+ * @return false 
+ */
 bool PHAL_SPI_busy();
 
 /**

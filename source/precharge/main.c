@@ -111,6 +111,8 @@ int main (void)
     if (!PHAL_SPI_init(&spi_config))
         PHAL_FaultHandler();
 
+    
+
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     
@@ -120,16 +122,12 @@ int main (void)
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
-    
+
     if (!BMI088_init(&bmi_config))
         PHAL_FaultHandler();
-    
-    
     while(1)
     {
         BMI088_readGyro(&bmi_config, &x, &y, &z);
-        // if (x != 0 || y != 0 | z != 0)
-            // asm("bkpt");
     }
     
 
@@ -140,7 +138,7 @@ int main (void)
     taskCreate(heartbeat_task, 1000);
 
     /* No Way Home */
-    // schedStart();
+    schedStart();
 
     return 0;
 }

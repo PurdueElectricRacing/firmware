@@ -48,7 +48,8 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
 
     PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
     
-    cfg->_busy = false;
+    cfg->_busy  = false;
+    cfg->_error = false;
 }
 
 bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uint32_t data_len, const uint8_t* in_data)
@@ -59,7 +60,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     Only the Tx DMA channel has transfer complete interrupts enabled, as the same data length is used for both channels
     */
 
-    if (active_transfer || spi->_busy)
+    if (PHAL_SPI_busy())
         return false;
     
     active_transfer = spi;
@@ -105,6 +106,8 @@ void DMA1_Channel3_IRQHandler()
     if (DMA1->ISR & DMA_ISR_TEIF3)
     {
         DMA1->IFCR |= DMA_IFCR_CTEIF3;
+        if (active_transfer)
+            active_transfer->_error = true;
     }
     if (DMA1->ISR & DMA_ISR_TCIF3) 
     {
@@ -122,11 +125,13 @@ void DMA1_Channel3_IRQHandler()
  */
 void DMA1_Channel2_IRQHandler()
 {
-    bool is_tc_interrupt = DMA1->ISR & DMA_ISR_TCIF2;
-    // Ack interrupt
-    DMA1->IFCR |= DMA_IFCR_CTCIF2_Msk;
-
-    if (is_tc_interrupt)
+    if (DMA1->ISR & DMA_ISR_TEIF2)
+    {
+        DMA1->IFCR |= DMA_IFCR_CTEIF2;
+        if (active_transfer)
+            active_transfer->_error = true;
+    }
+    if (DMA1->ISR & DMA_ISR_TCIF2) 
     {
         if (active_transfer->nss_sw)
             PHAL_writeGPIO(active_transfer->nss_gpio_port, active_transfer->nss_gpio_pin, 1);
@@ -139,10 +144,14 @@ void DMA1_Channel2_IRQHandler()
         SPI1->CR1 &= ~SPI_CR1_SPE;
         SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
-        active_transfer->_busy = false;
+        active_transfer->_busy  = false;
+        active_transfer->_error = false;
         active_transfer = NULL;
     }
-
+    if (DMA1->ISR & DMA_ISR_GIF2)
+    {
+        DMA1->IFCR |= DMA_IFCR_CGIF2;
+    }
 }
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy)

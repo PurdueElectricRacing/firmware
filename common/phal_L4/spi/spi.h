@@ -32,7 +32,8 @@ typedef struct {
     dma_init_t* rx_dma_cfg;    /* DMA initilization for RX transfer */
     dma_init_t* tx_dma_cfg;    /* DMA initilization for TX transfer */
     
-    volatile bool _busy;
+    volatile bool _busy;        /* SPI Peripheral currently in a transaction */
+    volatile bool _error;       /* SPI Peripheral current transaction error */
 } SPI_InitConfig_t;
 
 /**

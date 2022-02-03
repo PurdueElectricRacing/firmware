@@ -70,7 +70,7 @@ void PHAL_reEnable(dma_init_t* init) {
 
 void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address)
 {
-    init->channel->CMAR = init->mem_addr;
+    init->channel->CMAR = address;
 }
 
 void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length)

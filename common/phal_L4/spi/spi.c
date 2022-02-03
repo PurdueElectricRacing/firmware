@@ -46,9 +46,10 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
     if (cfg->tx_dma_cfg && !PHAL_initDMA(cfg->tx_dma_cfg))
         return false;
 
-    PHAL_writeGPIO(cfg->nss_gpio_bank, cfg->nss_gpio_pin, 1);
+    PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
     
-    cfg->_busy = false;
+    cfg->_busy  = false;
+    cfg->_error = false;
 }
 
 bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uint32_t data_len, const uint8_t* in_data)
@@ -59,30 +60,30 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     Only the Tx DMA channel has transfer complete interrupts enabled, as the same data length is used for both channels
     */
 
-    if (active_transfer || spi->_busy)
+    if (PHAL_SPI_busy())
         return false;
     
     active_transfer = spi;
     
     if(spi->nss_sw)
-        PHAL_writeGPIO(spi->nss_gpio_bank, spi->nss_gpio_pin, 0);
+        PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
 
     spi->_busy = true;
     
     SPI1->CR2 |= SPI_CR2_TXDMAEN;
     PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
-    PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) out_data);
+    PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) out_data);
 
     SPI1->CR2 |= SPI_CR2_RXDMAEN;
     PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
     PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) in_data);
 
     PHAL_startTxfer(spi->rx_dma_cfg);
-    
+
     // Enable the DMA IRQ
     NVIC_EnableIRQ(DMA1_Channel2_IRQn);
     NVIC_EnableIRQ(DMA1_Channel3_IRQn);
-    
+
     // Start transaction
     SPI1->CR1 |= SPI_CR1_SPE;
 
@@ -102,12 +103,19 @@ bool PHAL_SPI_busy()
 
 void DMA1_Channel3_IRQHandler()
 {
-    bool is_tc_interrupt = DMA1->ISR & DMA_ISR_TCIF3;
-    // Ack interrupt
-    DMA1->IFCR |= DMA_IFCR_CTCIF3_Msk;
-    if (is_tc_interrupt) 
+    if (DMA1->ISR & DMA_ISR_TEIF3)
     {
-        
+        DMA1->IFCR |= DMA_IFCR_CTEIF3;
+        if (active_transfer)
+            active_transfer->_error = true;
+    }
+    if (DMA1->ISR & DMA_ISR_TCIF3) 
+    {
+        DMA1->IFCR |= DMA_IFCR_CTCIF3;
+    }
+    if (DMA1->ISR & DMA_ISR_GIF3)
+    {
+        DMA1->IFCR |= DMA_IFCR_CGIF3;
     }
 }
 
@@ -117,25 +125,62 @@ void DMA1_Channel3_IRQHandler()
  */
 void DMA1_Channel2_IRQHandler()
 {
-    bool is_tc_interrupt = DMA1->ISR & DMA_ISR_TCIF2;
-    // Ack interrupt
-    DMA1->IFCR |= DMA_IFCR_CTCIF2_Msk;
-
-    if (is_tc_interrupt)
+    if (DMA1->ISR & DMA_ISR_TEIF2)
+    {
+        DMA1->IFCR |= DMA_IFCR_CTEIF2;
+        if (active_transfer)
+            active_transfer->_error = true;
+    }
+    if (DMA1->ISR & DMA_ISR_TCIF2) 
     {
         if (active_transfer->nss_sw)
-            PHAL_writeGPIO(active_transfer->nss_gpio_bank, active_transfer->nss_gpio_pin, 1);
+            PHAL_writeGPIO(active_transfer->nss_gpio_port, active_transfer->nss_gpio_pin, 1);
 
         // Disable DMA channels
         PHAL_stopTxfer(active_transfer->rx_dma_cfg);
         PHAL_stopTxfer(active_transfer->tx_dma_cfg);
-        
-        // Disable SPI peripheral and DMA requests
-        SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
-        SPI1->CR1 &= ~SPI_CR1_SPE;
 
-        active_transfer->_busy = false;
+        // Disable SPI peripheral and DMA requests
+        SPI1->CR1 &= ~SPI_CR1_SPE;
+        SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
+
+        active_transfer->_busy  = false;
+        active_transfer->_error = false;
         active_transfer = NULL;
     }
-    
+    if (DMA1->ISR & DMA_ISR_GIF2)
+    {
+        DMA1->IFCR |= DMA_IFCR_CGIF2;
+    }
+}
+
+uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy)
+{
+    static uint8_t tx_cmd[3] = {(1 << 7), 0, 0};
+    static uint8_t rx_dat[3] = {0};
+    tx_cmd[0] |= (address & 0x7F);
+
+    while (PHAL_SPI_busy())
+        ;
+    PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 3 : 2, rx_dat);
+    while(PHAL_SPI_busy())
+        ;
+
+    return skipDummy ? rx_dat[2] : rx_dat[1];
+}
+
+uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t* spi, uint8_t address, uint8_t writeDat)
+{
+    uint8_t tx_cmd[3] = {0};
+    uint8_t rx_dat[3] = {0};
+    tx_cmd[0] |= (address & 0x7F);
+    tx_cmd[1] |= (writeDat);
+
+    while (PHAL_SPI_busy())
+        ;
+    PHAL_SPI_transfer(spi, tx_cmd, 2, rx_dat);
+    while(PHAL_SPI_busy())
+        ;
+
+    return rx_dat[1];
 }

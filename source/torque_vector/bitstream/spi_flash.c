@@ -100,7 +100,7 @@ bool spiFlashProgramBytes(uint32_t address, uint32_t length, uint8_t* data)
     PHAL_qspiSetAddressSize(QUADSPI_24_BIT);
     PHAL_qspiSetDataWidth(QUADSPI_QUAD_LINE);
 
-    return PHAL_qspiWrite(SPI_FLASH_4PP_CMD, address, data, length);
+    return PHAL_qspiWrite_DMA(SPI_FLASH_4PP_CMD, address, data, length);
 }
 
 bool spiFlashReadBytes(uint32_t address, uint32_t length, uint8_t* data)

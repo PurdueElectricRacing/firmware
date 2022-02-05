@@ -1,5 +1,10 @@
 #include "quadspi.h"
 
+
+dma_init_t qspi_dma_config = QUADSPI_DMA1_CONFIG(0x00, 1, 0b1);
+
+QUADSPI_Config_t* active_transaction = 0;
+
 static inline void qspiWaitFree()
 {
     // Wait for QUADSPI to not be busy
@@ -31,7 +36,7 @@ bool PHAL_qspiInit()
     };
 
     // Default QUADSPI configuration
-    // PHAL_qspiConfigure(&default_config);
+    PHAL_qspiConfigure(&default_config);
 
     return true;
 }
@@ -47,11 +52,8 @@ bool PHAL_qspiConfigure(QUADSPI_Config_t* config)
     QUADSPI->CR |= ((config->fifo_threshold - 1) << QUADSPI_CR_FTHRES_Pos) & QUADSPI_CR_FTHRES_Msk;
     QUADSPI->CR |= QUADSPI_CR_SSHIFT;
 
-    // Nuber of address bytes
     PHAL_qspiSetAddressSize(config->address_size);
-    // Function mode
     PHAL_qspiSetFunctionMode(config->mode);
-    // Number of data lines used
     PHAL_qspiSetDataWidth(config->data_lines);
     PHAL_qspiSetAddressWidth(config->address_lines);
     PHAL_qspiSetInstructionWidth(config->instruction_lines);
@@ -65,36 +67,6 @@ bool PHAL_qspiConfigure(QUADSPI_Config_t* config)
     QUADSPI->CCR |= (config->single_instruction << QUADSPI_CCR_SIOO_Pos) & QUADSPI_CCR_SIOO_Msk;
 
     return true;
-}
-
-void PHAL_qspiSetFunctionMode(QUADSPI_FunctionMode_t new_mode)
-{
-    QUADSPI->CCR &= ~QUADSPI_CCR_FMODE_Msk;
-    QUADSPI->CCR |= (new_mode << QUADSPI_CCR_FMODE_Pos) & QUADSPI_CCR_FMODE_Msk;
-}
-
-void PHAL_qspiSetDataWidth(QUADSPI_LineWidth_t new_width)
-{
-    QUADSPI->CCR &= ~QUADSPI_CCR_DMODE_Msk;
-    QUADSPI->CCR |= (new_width << QUADSPI_CCR_DMODE_Pos) & QUADSPI_CCR_DMODE_Msk;
-}
-
-void PHAL_qspiSetInstructionWidth(QUADSPI_LineWidth_t new_width)
-{
-    QUADSPI->CCR &= ~QUADSPI_CCR_IMODE_Msk;
-    QUADSPI->CCR |= (new_width << QUADSPI_CCR_IMODE_Pos) & QUADSPI_CCR_IMODE_Msk;
-}
-
-void PHAL_qspiSetAddressWidth(QUADSPI_LineWidth_t new_width)
-{
-    QUADSPI->CCR &= ~QUADSPI_CCR_ADMODE_Msk;
-    QUADSPI->CCR |= (new_width << QUADSPI_CCR_ADMODE_Pos) & QUADSPI_CCR_ADMODE_Msk;
-}
-
-void PHAL_qspiSetAddressSize(QUADSPI_FieldSize_t new_size)
-{
-    QUADSPI->CCR &= ~QUADSPI_CCR_ADSIZE_Msk;
-    QUADSPI->CCR |= ((new_size) << QUADSPI_CCR_ADSIZE_Pos) & QUADSPI_CCR_ADSIZE_Msk;
 }
 
 bool PHAL_qspiWrite(uint8_t instruction, uint32_t address, uint8_t* tx_data, uint32_t tx_length)
@@ -213,9 +185,88 @@ bool PHAL_qspiRead(uint8_t instruction, uint32_t address, uint8_t* rx_data, uint
     return true;
 }
 
-bool PHAL_qspiTrasnfer_DMA(uint8_t instruction, uint32_t address, uint8_t* data, uint32_t length)
+bool PHAL_qspiWrite_DMA(uint8_t instruction, uint32_t address, uint8_t* tx_data, uint16_t length)
 {
     // DMA transfer enabled on FIFO Threshold flag
+    qspiWaitFree();
+    PHAL_qspiSetFunctionMode(QUADSPI_INDIRECT_WRITE_MODE);
+    QUADSPI->CR &= ~(QUADSPI_CR_EN);
     QUADSPI->CR |= QUADSPI_CR_DMAEN;
+    QUADSPI->FCR &= ~(QUADSPI_FCR_CTCF);
+
+    // Set instruction
+    QUADSPI->CCR &= ~QUADSPI_CCR_INSTRUCTION_Msk;
+    QUADSPI->CCR |= (instruction << QUADSPI_CCR_INSTRUCTION_Pos) & QUADSPI_CCR_INSTRUCTION_Msk;
+
+    // Set Address
+    QUADSPI->AR = address;
+
+    // Transfer length
+    QUADSPI->DLR = length;
+
+    // Setup DMA
+    qspi_dma_config.mem_addr = (uint32_t*) tx_data;
+    qspi_dma_config.tx_size  = length;
+    qspi_dma_config.dir      = 0b1;
+    PHAL_initDMA(&qspi_dma_config);
+    PHAL_startTxfer(&qspi_dma_config);
+
+    // *** Begin Transfer ***
+    QUADSPI->CR |= QUADSPI_CR_EN;
+
+    // Once QUADSPI is enabled, the transaction begins when there is a write 
+    //    to either the instruction or address registers
+
+    // Start transaction based on if an address is used or a command
+    if (QUADSPI->CCR & QUADSPI_CCR_ADMODE_Msk) 
+        QUADSPI->AR = address;
+    else // Only a command is being issued
+        QUADSPI->CCR |= (instruction << QUADSPI_CCR_INSTRUCTION_Pos) & QUADSPI_CCR_INSTRUCTION_Msk;
+
+
     return true;
+}
+
+/**
+ * @brief DMA Transfer complete interupt
+ * Disable the QSPI peripheral and cleanup the previous transaction
+ */
+void DMA1_Channel5_IRQHandler()
+{
+    if(QUADSPI->SR & QUADSPI_SR_TCF)
+    {
+        QUADSPI->FCR |= QUADSPI_FCR_CTCF;
+        QUADSPI->CR &= ~(QUADSPI_CR_EN | QUADSPI_CR_DMAEN);
+        PHAL_stopTxfer(&qspi_dma_config);
+    }
+}
+
+void PHAL_qspiSetFunctionMode(QUADSPI_FunctionMode_t new_mode)
+{
+    QUADSPI->CCR &= ~QUADSPI_CCR_FMODE_Msk;
+    QUADSPI->CCR |= (new_mode << QUADSPI_CCR_FMODE_Pos) & QUADSPI_CCR_FMODE_Msk;
+}
+
+void PHAL_qspiSetDataWidth(QUADSPI_LineWidth_t new_width)
+{
+    QUADSPI->CCR &= ~QUADSPI_CCR_DMODE_Msk;
+    QUADSPI->CCR |= (new_width << QUADSPI_CCR_DMODE_Pos) & QUADSPI_CCR_DMODE_Msk;
+}
+
+void PHAL_qspiSetInstructionWidth(QUADSPI_LineWidth_t new_width)
+{
+    QUADSPI->CCR &= ~QUADSPI_CCR_IMODE_Msk;
+    QUADSPI->CCR |= (new_width << QUADSPI_CCR_IMODE_Pos) & QUADSPI_CCR_IMODE_Msk;
+}
+
+void PHAL_qspiSetAddressWidth(QUADSPI_LineWidth_t new_width)
+{
+    QUADSPI->CCR &= ~QUADSPI_CCR_ADMODE_Msk;
+    QUADSPI->CCR |= (new_width << QUADSPI_CCR_ADMODE_Pos) & QUADSPI_CCR_ADMODE_Msk;
+}
+
+void PHAL_qspiSetAddressSize(QUADSPI_FieldSize_t new_size)
+{
+    QUADSPI->CCR &= ~QUADSPI_CCR_ADSIZE_Msk;
+    QUADSPI->CCR |= ((new_size) << QUADSPI_CCR_ADSIZE_Pos) & QUADSPI_CCR_ADSIZE_Msk;
 }

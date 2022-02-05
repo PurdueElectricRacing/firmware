@@ -90,7 +90,6 @@ int main (void)
 
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         PHAL_FaultHandler();
-        
 
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaultHandler();

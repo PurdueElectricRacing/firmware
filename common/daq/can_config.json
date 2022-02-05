@@ -63,6 +63,15 @@
                             "msg_hlp":0,
                             "msg_pgn":100
                         },
+                        {   "msg_name":"bitstream_flash_progress",
+                            "msg_desc":"Bitstream flash progress message",
+                            "signals":[
+                                {"sig_name":"page", "sig_desc":"Current page that is being programmed","type":"uint16_t","length":16}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":101
+                        },
                         {   "msg_name":"bitstream_heartbeat",
                             "msg_desc":"Bitstream alive message",
                             "signals":[

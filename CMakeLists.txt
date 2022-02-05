@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Run DAQ automatic code generation
-execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py 
+execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py 
                 RESULT_VARIABLE ret)
 if(ret EQUAL "1")
     message(FATAL_ERROR "Code Generation Failed")
@@ -34,6 +34,7 @@ add_subdirectory(common/psched)
 add_subdirectory(common/phal_L4)
 add_subdirectory(common/queue)
 add_subdirectory(common/eeprom)
+add_subdirectory(common/common_defs)
 
 # Macro for defining hte common build process across all firmware components
 include(cmake/common_component.cmake)

@@ -149,9 +149,7 @@
                             "msg_pgn": 512
                         }
                     ],
-                    "rx": [
-                        {"msg_name": "test_msg"}
-                    ]
+                    "rx": []
                 },
                 {
                     "node_name":"Dashboard",
@@ -229,17 +227,39 @@
                     "node_ssa": 42,
                     "tx": [
                         {
-                            "msg_name": "test_bat_msg",
-                            "msg_desc": "test_bat_desc",
+                            "msg_name": "balance_request",
+                            "msg_desc": "Request BMSs to discharge their cells to the desired voltage",
                             "signals": [
-                                {"sig_name": "test_bat_sig", "type": "uint8_t", "length": 8}
+                                {"sig_name": "volts", "type": "uint16_t", "length": 16}
                             ],
-                            "msg_period": 15,
+                            "msg_period": 0,
                             "msg_hlp": 1,
                             "msg_pgn": 500
                         }
                     ],
-                    "rx": []
+                    "rx": [
+                        {"msg_name": "soc1"}
+                    ]
+                },
+                {
+                    "node_name": "BMS1",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 43,
+                    "tx": [
+                        {
+                            "msg_name": "soc1",
+                            "msg_desc": "Estimated soc",
+                            "signals": [
+                                {"sig_name": "soc", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period": 0,
+                            "msg_hlp": 1,
+                            "msg_pgn": 500
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name": "test_msg"}
+                    ]
                 }
             ]
         },
@@ -253,7 +273,7 @@
                         {   "msg_name":"test_msg",
                             "msg_desc":"test_msg desc",
                             "signals":[
-                                {"sig_name": "test_sig", "type":"uint16_t", "length": 16}
+                                {"sig_name": "test_sig", "type":"int16_t"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
@@ -294,9 +314,33 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 5 
+                        },
+                        {
+                            "msg_name":"wheel_speeds",
+                            "msg_desc": "wheel speeds",
+                            "signals":[
+                                {"sig_name": "left_speed", "type":"float", "unit":"kph"},
+                                {"sig_name": "right_speed", "type":"float", "unit":"kph"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 3,
+                            "msg_pgn": 7 
+                        },
+                        {
+                            "msg_name":"adc_values",
+                            "msg_desc": "adc potentiometer readings",
+                            "signals":[
+                                {"sig_name": "pot1", "type":"uint16_t", "length": 12},
+                                {"sig_name": "pot2", "type":"uint16_t", "length": 12},
+                                {"sig_name": "pot3", "type":"uint16_t", "length": 12}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 3,
+                            "msg_pgn": 254 
                         }
                     ],
                     "rx":[
+                        {"msg_name": "test_msg5_2"}
                     ]
                 },
                 {
@@ -342,7 +386,9 @@
                         {   "msg_name":"test_msg5_2",
                             "msg_desc":"test_msg5 desc",
                             "signals":[
-                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16}
+                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16},
+                                {"sig_name": "test_sig5_2", "type": "int16_t"},
+                                {"sig_name": "test_sig5_3", "type": "float"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,

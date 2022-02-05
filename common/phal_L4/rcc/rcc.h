@@ -14,7 +14,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-#include "stm32l432xx.h"
+#include "stm32l4xx.h"
 
 
 #define HSE_CLOCK_RATE_HZ_INVALID (1) /* High Speed External oscilator value */

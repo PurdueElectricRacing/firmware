@@ -20,7 +20,7 @@ typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
 
 // Make this match the node name within the daq_config.json
-#define NODE_NAME "TEST_NODE_2"
+#define NODE_NAME "TEST_NODE"
 
 // BEGIN AUTO VAR COUNT
 #define NUM_VARS 5
@@ -28,7 +28,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
-#define EEPROM_ENABLED 0
+#define EEPROM_ENABLED 1
 
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50

@@ -14,13 +14,10 @@ function(postbuild_target COMPONENT_NAME TARGET_NAME)
         COMMENT "Archive target"
     )
 
-    find_program(HAS_OBJDUMP arm-none-eabi-objdump)
-    if (HAS_HAS_OBJDUMP)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND arm-none-eabi-objdump -xDSs ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME} > ${COMPONENT_OUTPUT_DIR}/${COMPONENT_NAME}_info.txt
         COMMENT "Generating Sections & Disassembly Info..."
     )
-    endif()
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND cmake -E echo 

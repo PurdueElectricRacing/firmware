@@ -1,7 +1,22 @@
+.
+!source/*
+!common/*
+!cmake/*
+!CMakeLists.txt
+!docker-compose.yaml
+!Dockerfile
+!LICENSE
+!per_build.py
+!README.md
+!requirements.txt
 
-# Dont upload our build artifacts, easily clean with `git clean -fdx`
-build/*
-output/*
+# Keep these empty directories
+!/build
+/build/*
+!/output
+/output/*
+
+# Allow per-user settings and debug states
 .vscode/settings.json
 .vscode/.cortex-debug.*
 
@@ -9,3 +24,6 @@ output/*
 __pycache__/
 *.py[cod]
 *$py.class
+
+# MaxOS
+.DS_Store

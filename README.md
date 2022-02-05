@@ -30,6 +30,9 @@ Install these packages:
 6. [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
    - [Alternate open-source drivers for all platforms](https://github.com/stlink-org/stlink)
 
+### Notes for MacOS Install
+1. Adding a program to your path: `sudo vim /etc/paths`
+
 ## Option B) Docker Install
 You can also use docker to install all of the packages inside a development container. This has a minor drawback of not being able to fully complete the VSCode IntelliSense database with your source files for auto completion and code navigation.
 

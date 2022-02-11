@@ -205,7 +205,7 @@ bool PHAL_qspiWrite_DMA(uint8_t instruction, uint32_t address, uint8_t* tx_data,
     QUADSPI->DLR = length;
 
     // Setup DMA
-    qspi_dma_config.mem_addr = (uint32_t*) tx_data;
+    qspi_dma_config.mem_addr = (uint32_t) tx_data;
     qspi_dma_config.tx_size  = length;
     qspi_dma_config.dir      = 0b1;
     PHAL_initDMA(&qspi_dma_config);

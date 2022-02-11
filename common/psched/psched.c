@@ -110,7 +110,7 @@ static void schedLoop()
         // Prep iteration
         sched.core.task_entry_time = sched.os_ticks;
         sched.run_next = 0;
-        // IWDG->KR = 0xAAAA;
+        IWDG->KR = 0xAAAA;
 
         // Store task times
         sched.core.task_time = sched.os_ticks - sched.core.task_entry_time;
@@ -192,15 +192,15 @@ void schedStart()
 {
     TIM2->CR1 |= TIM_CR1_CEN;
     NVIC->ISER[0] |= 1 << TIM2_IRQn;
-    IWDG->KR  =  0xCCCC;     
-    IWDG->KR  =  0x5555;
-    IWDG->PR  |= 2;
-    IWDG->RLR =  20;
+    // IWDG->KR  =  0xCCCC;     
+    // IWDG->KR  =  0x5555;
+    // IWDG->PR  |= 2;
+    // IWDG->RLR =  20;
     sched.running = 1;
 
     // while ((IWDG->SR & 0b111) != 0);
 
-    // IWDG->KR = 0xAAAA;
+    IWDG->KR = 0xAAAA;
 
     schedLoop();
 }

@@ -9,15 +9,16 @@ typedef enum {
     BITSTREAM_UNLOCKED = 0x1,
 } BITSTREAM_STATE_t;
 
-#define BITSTEAM_BUFFER_SIZE (8)
-
+extern void canTxUpdate();
 
 BITSTREAM_STATE_t current_state;                   // Lock/Unlock the access to FPGA bitstream SPI flash
-uint16_t download_timeout_counter;                 // Timeout for recieving new bitstream data
+volatile uint16_t download_timeout_counter;        // Timeout for recieving new bitstream data
+/* Download progress indicators */
 uint32_t expected_bitstream_size;                  // Expected size for new bitstream data
 uint32_t current_bitstream_data_addr;              // Current address for writing to bitstream
+/* Data buffer for DMA transactions */
 uint8_t  bitstream_buffer[2][256] = {0};           // Buffer for holding bitstream data
-uint8_t  bitstream_buffer_index;                   // Index for filling bitstream data
+uint32_t bitstream_buffer_index;                   // Index for filling bitstream data
 uint8_t* bitstream_active_buffer;                  // Current active buffer
 
 bool bitstreamInit()
@@ -57,8 +58,6 @@ bool bitstreamInit()
     return true;
 }
 
-uint32_t delay = 0;
-uint8_t data[8] = {0};
 void bitstream10Hz()
 {
     // Download timeout counter decrement
@@ -74,40 +73,7 @@ void bitstream10Hz()
         }
         else
         {
-            download_timeout_counter -= 1;
-        }
-    }
-    else
-    {
-        
-    }
-}
-
-void bitstream100Hz()
-{
-    if (BITSTREAM_UNLOCKED == current_state)
-    {
-        if (BITSTEAM_BUFFER_SIZE == bitstream_buffer_index)
-        {
-            uint32_t data_size = bitstream_buffer_index;
-            uint8_t* data_buff = bitstream_active_buffer;
-
-            // Swap buffers
-            bitstream_buffer_index = 0;
-            if (bitstream_active_buffer == bitstream_buffer[0])
-                bitstream_active_buffer =  bitstream_buffer[1];
-            else
-                bitstream_active_buffer = bitstream_buffer[0];
-
-            // Begin transfer
-            spiFlashProgramBytes(current_bitstream_data_addr, data_size, data_buff);
-            current_bitstream_data_addr += data_size;
-
-            if(current_bitstream_data_addr >= expected_bitstream_size)
-            {
-                current_state = BITSTREAM_LOCKED;
-                SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 1, 0, 0);               
-            }
+            download_timeout_counter--;
         }
     }
 }
@@ -124,45 +90,37 @@ void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
     {
         download_timeout_counter = BITSTREAM_FLASH_RX_TIMEOUT;
         num_data += 1;
-        if (BITSTEAM_BUFFER_SIZE +1 > bitstream_buffer_index+8)
+        
+        // Write to temp buffer, other task will handle transfer out of buffer to QSPI
+        
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d0;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d1;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d2;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d3;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d4;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d5;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d6;
+        bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d7;
+
+        if (bitstream_buffer_index >= 255 || current_bitstream_data_addr + bitstream_buffer_index >= expected_bitstream_size)
         {
-            // Write to temp buffer, other task will handle transfer out of buffer to QSPI
+            //spiFlashProgramBytes(current_bitstream_data_addr, 256, bitstream_active_buffer);
+            // Swap buffers
+            current_bitstream_data_addr += bitstream_buffer_index;
+            bitstream_buffer_index = 0;
+            if (bitstream_active_buffer == bitstream_buffer[0])
+                bitstream_active_buffer =  bitstream_buffer[1];
+            else
+                bitstream_active_buffer = bitstream_buffer[0];
             
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d0;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d1;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d2;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d3;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d4;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d5;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d6;
-            bitstream_active_buffer[bitstream_buffer_index++] = (uint8_t) msg_data_a->bitstream_data.d7;
-
-            if (bitstream_buffer_index == 256)
+            if(current_bitstream_data_addr >= expected_bitstream_size)
             {
-                spiFlashProgramBytes(current_bitstream_data_addr, 256, msg_data_a->raw_data);
-                SEND_BITSTREAM_FLASH_PROGRESS(q_tx_can, current_bitstream_data_addr & ~(0xFF));
+                current_state = BITSTREAM_LOCKED;
+                SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 1, 0, 0);               
+            } 
+        }
 
-                // Swap buffers
-                bitstream_buffer_index = 0;
-                current_bitstream_data_addr += 256;
-                if (bitstream_active_buffer == bitstream_buffer[0])
-                    bitstream_active_buffer =  bitstream_buffer[1];
-                else
-                    bitstream_active_buffer = bitstream_buffer[0];
-                
-                if(current_bitstream_data_addr == expected_bitstream_size)
-                {
-                    current_state = BITSTREAM_LOCKED;
-                    SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 1, 0, 0);               
-                } 
-            }           
-        }
-        else
-        {
-            // OVERRUN ERROR, CAN Message RX before buffer swap.
-           SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 0, 0, 0, 1);
-           current_state = BITSTREAM_LOCKED;
-        }
+        SEND_BITSTREAM_FLASH_PROGRESS(q_tx_can, current_bitstream_data_addr >> 8, bitstream_buffer_index + current_bitstream_data_addr);
     }
 }
 
@@ -176,25 +134,26 @@ void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a)
     // Check if it is safe to download a new bitstream and change states if so
     if (1 == msg_data_a->bitstream_request.download_request && 
         BITSTREAM_LOCKED == current_state
-        // TODO: && car.state == pre_ready_to_drive
-        )
+       )
     {
         current_state = BITSTREAM_UNLOCKED;
         download_timeout_counter = BITSTREAM_FLASH_RX_TIMEOUT;
         expected_bitstream_size = msg_data_a->bitstream_request.download_size;
         bitstream_buffer_index = 0;
         current_bitstream_data_addr = 0;
+        bitstream_active_buffer = bitstream_buffer[0];
 
         PHAL_writeGPIO(FPGA_CFG_RST_GPIO_Port, FPGA_CFG_RST_Pin, 0);
         PHAL_writeGPIO(QUADSPI_CS_FPGA_GPIO_Port, QUADSPI_CS_FPGA_Pin, 1);
         PHAL_writeGPIO(QUADSPI_IO3_GPIO_Port, QUADSPI_IO3_Pin, 1);        
 
-        for (int i = 0; i < 304; i++)
-        {
-            if (!spiFlashSectorErase(i))
-                if (i > 0)
-                    i--;
-        }
+        // for (int i = 0; i < 304; i++)
+        // {
+        //     if (!spiFlashSectorErase(i))
+        //         if (i > 0)
+        //             i--;
+        // }
         SEND_BITSTREAM_FLASH_STATUS(q_tx_can, 1, 0, 0, 0);
+        SEND_BITSTREAM_FLASH_PROGRESS(q_tx_can, 0, 0);
     }
 }

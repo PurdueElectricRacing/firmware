@@ -57,7 +57,8 @@ BO_ 2147490049 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_success : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_erase : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147490113 bitstream_flash_progress: 2 Torque_Vector
+BO_ 2147490113 bitstream_flash_progress: 6 Torque_Vector
+ SG_ addr : 16|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ page : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2348810241 bitstream_heartbeat: 1 Torque_Vector
@@ -200,6 +201,7 @@ CM_ SG_ 2147490049 flash_timeout_rx "Timeout from CAN rx";
 CM_ SG_ 2147490049 flash_success "Done flashing bitstream";
 CM_ SG_ 2147490049 flash_erase "Done erasing bitstream";
 CM_ BO_ 2147490113 "Bitstream flash progress message";
+CM_ SG_ 2147490113 addr "Current address being programmed";
 CM_ SG_ 2147490113 page "Current page that is being programmed";
 CM_ BO_ 2348810241 "Bitstream alive message";
 CM_ SG_ 2348810241 alive "module is alive";

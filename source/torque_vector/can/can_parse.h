@@ -35,7 +35,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_TORQUE_REQUEST 6
 #define DLC_BITSTREAM_FLASH_STATUS 1
-#define DLC_BITSTREAM_FLASH_PROGRESS 2
+#define DLC_BITSTREAM_FLASH_PROGRESS 6
 #define DLC_BITSTREAM_HEARTBEAT 1
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
@@ -63,10 +63,11 @@
         data_a->bitstream_flash_status.flash_timeout_overrun = flash_timeout_overrun_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_BITSTREAM_FLASH_PROGRESS(queue, page_) do {\
+#define SEND_BITSTREAM_FLASH_PROGRESS(queue, page_, addr_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BITSTREAM_FLASH_PROGRESS, .DLC=DLC_BITSTREAM_FLASH_PROGRESS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->bitstream_flash_progress.page = page_;\
+        data_a->bitstream_flash_progress.addr = addr_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_BITSTREAM_HEARTBEAT(queue, alive_) do {\
@@ -104,6 +105,7 @@ typedef union { __attribute__((packed))
     } bitstream_flash_status;
     struct {
         uint64_t page: 16;
+        uint64_t addr: 32;
     } bitstream_flash_progress;
     struct {
         uint64_t alive: 1;

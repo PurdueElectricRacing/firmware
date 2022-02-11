@@ -41,7 +41,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(FPGA_CFG_RST_GPIO_Port, FPGA_CFG_RST_Pin, GPIO_OUTPUT_LOW_SPEED)
 };
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz HSI_CLOCK_RATE_HZ
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_HSI,
     .system_clock_target_hz     =TargetCoreClockrateHz,
@@ -62,13 +62,12 @@ void canSendTest();
 void Error_Handler();
 void SysTick_Handler();
 void canTxUpdate();
-void blinkTask();
+void heartbeat_task();
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
-
 
 
 int main (void)
@@ -91,6 +90,7 @@ int main (void)
         PHAL_FaultHandler();
     
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    NVIC_SetPriority(CAN1_RX0_IRQn, 1);
 
     PHAL_writeGPIO(FPGA_CFG_RST_GPIO_Port, FPGA_CFG_RST_Pin, 0);
     PHAL_writeGPIO(QUADSPI_CS_FLASH_GPIO_Port, QUADSPI_CS_FLASH_Pin, 1);
@@ -98,16 +98,22 @@ int main (void)
 
     /* Module init */
     if (!bitstreamInit())
-        PHAL_FaultHandler();
+        ;
+        // PHAL_FaultHandler();
 
     schedInit(APB1ClockRateHz); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
+    while (1)
+    {
+        canRxUpdate();
+        canTxUpdate();
+    }
+
     /* Task Creation */
     taskCreate(canRxUpdate, 1);
-    taskCreate(canTxUpdate, 15);
+    taskCreate(canTxUpdate, 1);
     taskCreate(bitstream10Hz, 100);
-    // taskCreate(bitstream100Hz, 1);
     taskCreate(heartbeat_task, 1000);
     schedStart();
 
@@ -135,7 +141,7 @@ void PHAL_FaultHandler()
 void canTxUpdate()
 {
     CanMsgTypeDef_t tx_msg;
-    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+    while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
         PHAL_txCANMessage(&tx_msg);
     }

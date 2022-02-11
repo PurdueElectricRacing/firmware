@@ -31,7 +31,7 @@ void canRxUpdate()
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
-    if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
+    while (qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         /* BEGIN AUTO CASES */

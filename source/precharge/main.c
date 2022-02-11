@@ -123,12 +123,12 @@ int main (void)
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
-    if (!BMI088_init(&bmi_config))
-        PHAL_FaultHandler();
-    while(1)
-    {
-        BMI088_readGyro(&bmi_config, &x, &y, &z);
-    }
+    // if (!BMI088_init(&bmi_config))
+    //     PHAL_FaultHandler();
+    // while(1)
+    // {
+    //     BMI088_readGyro(&bmi_config, &x, &y, &z);
+    // }
     
 
     /* Task Creation */

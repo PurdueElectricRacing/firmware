@@ -66,7 +66,8 @@
                         {   "msg_name":"bitstream_flash_progress",
                             "msg_desc":"Bitstream flash progress message",
                             "signals":[
-                                {"sig_name":"page", "sig_desc":"Current page that is being programmed","type":"uint16_t","length":16}
+                                {"sig_name":"page", "sig_desc":"Current page that is being programmed","type":"uint16_t","length":16},
+                                {"sig_name":"addr", "sig_desc":"Current address being programmed","type":"uint32_t","length":32}
                             ],
                             "msg_period":0,
                             "msg_hlp":0,

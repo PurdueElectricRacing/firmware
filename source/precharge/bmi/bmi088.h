@@ -26,13 +26,33 @@
 #define BMI088_GYRO_BANDWIDTH_ADDR  (0x10U) /* Gyro data bandwidth address */
 #define BMI088_GYRO_SELFTEST_ADDR   (0x3CU) /* Gyro self test address */
 
+#define BMI088_ACC_CONFIG_ADDR      (0x40)
+#define BMI088_ACC_RANGE_ADDR       (0x41)
+#define BMI088_ACC_PWR_CTRL_ADDR    (0x7D)
+
+
+#define BMI088_ACC_PWR_CTRL_NORMAL  (0x04)
+
+typedef enum {
+    ACEL_OS_NORMAL  = 0x00,
+    ACEL_OS_2       = 0x01,
+    ACEL_OS_4       = 0x02,
+} BMI088_AcelOversample_t;
+
+typedef enum {
+    ACEL_RANGE_3G  = 0x00,
+    ACEL_RANGE_6G  = 0x01,
+    ACEL_RANGE_12G = 0x02,
+    ACEL_RANGE_24G = 0x03,
+} BMI088_AcelRate_t;
+
 typedef enum {
     GYRO_RANGE_2000 = 0x00,
     GYRO_RANGE_1000 = 0x01,
-    GYRO_RANGE_500 = 0x02,
-    GYRO_RANGE_250 = 0x03,
-    GYRO_RANGE_125 = 0x04,
-} BMI088_GyroRage_t;
+    GYRO_RANGE_500  = 0x02,
+    GYRO_RANGE_250  = 0x03,
+    GYRO_RANGE_125  = 0x04,
+} BMI088_GyroRate_t;
 
 typedef enum {
     GYRO_DR_2000Hz_532Hz = 0x00,
@@ -51,8 +71,9 @@ typedef struct {
     uint32_t            acel_csb_pin;
     GPIO_TypeDef*       gyro_csb_gpio_port;
     uint32_t            gyro_csb_pin;
-    BMI088_GyroRage_t   gyro_range;
+    BMI088_GyroRate_t   gyro_range;
     BMI088_GyroDrBw_t   gyro_datarate;
+    bool                gyro_dynamic_range;
 } BMI088_Handle_t;
 
 /**

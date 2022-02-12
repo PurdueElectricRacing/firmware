@@ -11,6 +11,7 @@
 
 #include "bmi088.h"
 #include "common/phal_L4/spi/spi.h"
+#include "common_defs.h"
 
 static uint8_t spi_rx_buff[16] = {0}; 
 static uint8_t spi_tx_buff[16] = {0};
@@ -77,6 +78,10 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
     raw_y =  (((int16_t) spi_rx_buff[4]) << 8) | spi_rx_buff[3];
     raw_z =  (((int16_t) spi_rx_buff[6]) << 8) | spi_rx_buff[5];
 
+    int16_t max_raw = MAX(MAX(raw_x, raw_y), raw_z);
+    bool range_up   = bmi->gyro_dynamic_range && (ABS(max_raw) >= 10000); // int16_t range is -32,768 to +32,767 
+    bool range_down = bmi->gyro_dynamic_range && (ABS(max_raw) <=  1000);
+
     // Convert raw values into physical values based on range
     // Decimal is fixed in the first place
     float scale = 0.0;
@@ -93,15 +98,28 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
             break;
         case (GYRO_RANGE_250):
             scale = (131.072 / 10);
+
+            if (range_down)
+            {
+                bmi->gyro_range = GYRO_RANGE_125;
+                PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
+            }
             break;
         case (GYRO_RANGE_125):
             scale = (262.144 / 10);
+
+            if (range_up)
+            {
+                bmi->gyro_range = GYRO_RANGE_250;
+                PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
+            }
             break;
     }
 
     *x = (int16_t) (raw_x / scale);
     *y = (int16_t) (raw_y / scale);
     *z = (int16_t) (raw_z / scale);
+
     return true;
 }
 

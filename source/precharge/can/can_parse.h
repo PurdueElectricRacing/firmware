@@ -21,24 +21,34 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_BALANCE_REQUEST 0x4007d2a
+#define ID_IMU_INFO 0x4007d2a
+#define ID_GYRO_DATA 0x40002aa
 #define ID_TEST_PRECHARGE_MSG 0x8008004
 #define ID_SOC1 0x4007d2b
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_BALANCE_REQUEST 2
+#define DLC_IMU_INFO 2
+#define DLC_GYRO_DATA 6
 #define DLC_TEST_PRECHARGE_MSG 1
 #define DLC_SOC1 2
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_BALANCE_REQUEST(queue, volts_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_BALANCE_REQUEST, .DLC=DLC_BALANCE_REQUEST, .IDE=1};\
+#define SEND_IMU_INFO(queue, gyro_scale_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_IMU_INFO, .DLC=DLC_IMU_INFO, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->balance_request.volts = volts_;\
+        data_a->imu_info.gyro_scale = gyro_scale_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_GYRO_DATA(queue, gyro_x_, gyro_y_, gyro_z_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_GYRO_DATA, .DLC=DLC_GYRO_DATA, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->gyro_data.gyro_x = gyro_x_;\
+        data_a->gyro_data.gyro_y = gyro_y_;\
+        data_a->gyro_data.gyro_z = gyro_z_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_TEST_PRECHARGE_MSG(queue, test_precharge_sig_) do {\
@@ -61,8 +71,13 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t volts: 16;
-    } balance_request;
+        uint64_t gyro_scale: 16;
+    } imu_info;
+    struct {
+        uint64_t gyro_x: 16;
+        uint64_t gyro_y: 16;
+        uint64_t gyro_z: 16;
+    } gyro_data;
     struct {
         uint64_t test_precharge_sig: 8;
     } test_precharge_msg;

@@ -21,7 +21,7 @@
 
 typedef struct
 {
-  CAN_TypeDef* Bus; /*!< Specifies the bus. */
+  volatile CAN_TypeDef* volatile Bus; /*!< Specifies the bus. */
   uint16_t StdId; /*!< Specifies the standard identifier. */
   uint32_t ExtId; /*!< Specifies the extended identifier. */
   uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */

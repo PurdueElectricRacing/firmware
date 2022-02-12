@@ -63,6 +63,7 @@ void heartbeat_task();
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
 void canTxUpdate();
+void get_gyro_task();
 
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -82,9 +83,10 @@ BMI088_Handle_t bmi_config = {
     .acel_csb_pin = SPI_CS_ACEL_Pin,
     .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
     .gyro_csb_pin = SPI_CS_GYRO_Pin,
-    .gyro_datarate = GYRO_DR_1000Hz_116Hz,
+    .gyro_datarate = GYRO_DR_100Hz_32Hz,
     .gyro_range = GYRO_RANGE_250,
-    .spi = &spi_config
+    .spi = &spi_config,
+    .gyro_dynamic_range = true
 };
 
 int16_t x, y, z;
@@ -125,16 +127,13 @@ int main (void)
 
     if (!BMI088_init(&bmi_config))
         PHAL_FaultHandler();
-    while(1)
-    {
-        BMI088_readGyro(&bmi_config, &x, &y, &z);
-    }
     
 
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);
+    taskCreate(get_gyro_task, 10);
     taskCreate(heartbeat_task, 1000);
 
     /* No Way Home */
@@ -152,7 +151,14 @@ void PHAL_FaultHandler()
 void heartbeat_task()
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-    SEND_BALANCE_REQUEST(q_tx_can, 100);
+}
+
+void get_gyro_task()
+{
+    SEND_IMU_INFO(q_tx_can, bmi_config.gyro_range);
+    BMI088_readGyro(&bmi_config, &x, &y, &z);
+    SEND_GYRO_DATA(q_tx_can, x, y, z);
+    
 }
 
 // *** Compulsory CAN Tx/Rx callbacks ***
@@ -161,7 +167,8 @@ void canTxUpdate()
     CanMsgTypeDef_t tx_msg;
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
-        PHAL_txCANMessage(&tx_msg);
+        if (PHAL_txCANMessage(&tx_msg) == false)
+            asm("bkpt");
     }
 }
 

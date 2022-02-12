@@ -90,11 +90,12 @@ bool initCANFilter()
     CAN2->sFilterRegister[0].FR1 = (ID_SOC1 << 3) | 4;
     /* END AUTO FILTER */
 
-    CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
+    CAN1->FMR &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
 
     // Enter back into NORMAL mode
     CAN1->MCR &= ~CAN_MCR_INRQ;
 #ifdef CAN2
+    CAN2->FMR &= ~CAN_FMR_FINIT;
     CAN2->MCR &= ~CAN_MCR_INRQ;
 #endif /* CAN2 */
     while((CAN1->MSR & CAN_MSR_INAK)

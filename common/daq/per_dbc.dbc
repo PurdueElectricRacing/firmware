@@ -101,8 +101,13 @@ BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624554 balance_request: 2 Precharge
- SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214624554 imu_info: 2 Precharge
+ SG_ gyro_scale : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214593194 gyro_data: 6 Precharge
+ SG_ gyro_z : 32|16@1- (0.1,0) [0|0] "deg/s" Vector__XXX
+ SG_ gyro_y : 16|16@1- (0.1,0) [0|0] "deg/s" Vector__XXX
+ SG_ gyro_x : 0|16@1- (0.1,0) [0|0] "deg/s" Vector__XXX
 
 BO_ 2214624555 soc1: 2 BMS1
  SG_ soc : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -226,8 +231,12 @@ CM_ SG_ 2415925566 d0 "Bitstream data word 0";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
 CM_ SG_ 2415925630 download_request "Request to download new bitstream";
-CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
-CM_ SG_ 2214624554 volts "";
+CM_ BO_ 2214624554 "Current configuration and status of the imu";
+CM_ SG_ 2214624554 gyro_scale "";
+CM_ BO_ 2214593194 "Gyroscope angle rates";
+CM_ SG_ 2214593194 gyro_z "";
+CM_ SG_ 2214593194 gyro_y "";
+CM_ SG_ 2214593194 gyro_x "";
 CM_ BO_ 2214624555 "Estimated soc";
 CM_ SG_ 2214624555 soc "";
 CM_ BO_ 2483028095 "test_msg desc";

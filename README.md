@@ -44,6 +44,9 @@ Deprecating this section as it does not currently work for debugging.
 If someone wants to figure out how to get the gdb server to connect through Docker/WSL & make file paths work nicely...
 this would be a easy way to get people setup as they only need Docker, STLink Drivers and openocd. 
 
+### Notes for MacOS Install
+1. Adding a program to your path: `sudo vim /etc/paths`
+
 ## Option B) Docker Install
 You can also use docker to install all of the packages inside a development container. This has a minor drawback of not being able to fully complete the VSCode IntelliSense database with your source files for auto completion and code navigation.
 

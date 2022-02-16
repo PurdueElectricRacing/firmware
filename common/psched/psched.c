@@ -1,9 +1,10 @@
 #include "psched.h"
 #include <stddef.h>
 
-static void schedLoop();
-static void schedBg();
+static void schedLoop(void);
+static void schedBg(void);
 static void memsetu(uint8_t* ptr, uint8_t val, size_t size);
+static void calcStats(void);
 
 sched_t sched;
 
@@ -29,6 +30,18 @@ void taskCreateBackground(func_ptr_t func)
     sched.bg_pointer[sched.bg_count++] = func;
 }
 
+// @funcname: setLoggingLevel()
+//
+// @brief: Sets level of CAN logging for task timing
+//
+// @param: level: 0 for no logging, 1 for critical errors only, 2 for everything
+void setLogging(uint8_t level, func_ptr_t handler)
+{
+    sched.llevel = level;
+    sched.exception_handler = handler;
+    sched.handler_set = 1;
+}
+
 // @funcname: taskDelete()
 //
 // @brief: Removes task from scheduler
@@ -41,7 +54,7 @@ void taskDelete(uint8_t type, uint8_t task)
     uint8_t i;
     func_ptr_t* fp;
 
-     if (type == TASK)
+     if (type == TASK_FG)
      {
          fp = sched.task_pointer;
         
@@ -76,7 +89,7 @@ void schedInit(uint32_t freq)
         to use a different timer.
         DO NOT ATTEMPT TO CONFIGURE THIS TIMER IN CUBE!
         The configuration for this timer is done manually, right here.
-        The watchdog will trigger a reset if all loops take longer than 10 ms to return
+        The watchdog will trigger a reset if all loops take longer than 3 ms to return
 
         Also, functions need to return to work properly. The scheduler works on a timer interrupt.
         If the functions called in the timer interrupt, you're going to have a stack overflow.
@@ -100,30 +113,37 @@ void schedInit(uint32_t freq)
 // @funcname: schedLoop()
 //
 // @brief: Main loop that'll run each task
-static void schedLoop()
+static void schedLoop(void)
 {
     // Locals
     uint8_t i;
 
-    while (1 && sched.running == 1)
+    while (sched.running == 1)
     {
         // Prep iteration
-        sched.core.task_entry_time = sched.os_ticks;
         sched.run_next = 0;
         IWDG->KR = 0xAAAA;
 
-        // Store task times
-        sched.core.task_time = sched.os_ticks - sched.core.task_entry_time;
-        sched.core.bg_entry_time = sched.os_ticks;
+        // Store fg entry
+        sched.core.fg_stats.entry_time_cnt = TIM2->CNT;
+        sched.core.fg_stats.entry_time_ticks = sched.os_ticks;
 
-        // Execute tasks
+        // Execute tasks (fg entry point)
         for (i = 0; i < sched.task_count; i++)
         {
             if (sched.os_ticks % sched.task_time[i] == 0)
             {
+                sched.fg_task_stats[i].entry_time_cnt = TIM2->CNT;
+                sched.fg_task_stats[i].entry_time_ticks = sched.os_ticks;
                 (*sched.task_pointer[i])();
+                sched.fg_task_stats[i].exit_time_cnt = TIM2->CNT;
+                sched.fg_task_stats[i].exit_time_ticks = sched.os_ticks;
             }
         }
+
+        // Store fg exit
+        sched.core.fg_stats.exit_time_cnt = TIM2->CNT;
+        sched.core.fg_stats.exit_time_ticks = sched.os_ticks;
 
         // Check if we missed timing requirements
         if (sched.run_next == 1)
@@ -131,18 +151,26 @@ static void schedLoop()
             ++sched.skips;
         }
 
-        schedBg(); 
+        // Store bg entry
+        sched.core.bg_stats.entry_time_cnt = TIM2->CNT;
+        sched.core.bg_stats.entry_time_ticks = sched.os_ticks;
 
-        // Compute time use
-        sched.core.bg_time = sched.os_ticks - sched.core.bg_entry_time;
-        sched.core.cpu_use = (float) sched.core.task_time / (sched.core.task_time + sched.core.bg_time);
+        // Bg entry point
+        schedBg();
+
+        // Store bg exit
+        sched.core.bg_stats.entry_time_cnt = TIM2->CNT;
+        sched.core.bg_stats.entry_time_ticks = sched.os_ticks;
+
+        // Calculate task runtimes
+        calcStats();
     }
 }
 
 // @funcname: schedBg()
 //
 // @brief: Background loop running when nothing else is
-static void schedBg()
+static void schedBg(void)
 {
     // Locals
     uint8_t i;
@@ -188,7 +216,7 @@ void waitMicros(uint8_t time)
 // @funcname: schedStart()
 //
 // @brief: Starts tasks. Will never return
-void schedStart()
+void schedStart(void)
 {
     TIM2->CR1 |= TIM_CR1_CEN;
     NVIC->ISER[0] |= 1 << TIM2_IRQn;
@@ -209,7 +237,7 @@ void schedStart()
 //
 // @brief: Stops scheduling and allows schedStart() to return
 //         Does not need re-initialization after calling
-void schedPause()
+void schedPause(void)
 {
     TIM2->CR1 &= ~TIM_CR1_CEN;
     NVIC->ISER[0] &= ~(1 << TIM2_IRQn);
@@ -235,10 +263,64 @@ static void memsetu(uint8_t* ptr, uint8_t val, size_t size)
     }
 }
 
+// @funcname: statsHelper
+//
+// @brief: Runs actual calculation
+static void statsHelper(time_stats_t* stats)
+{
+    uint16_t ttime;
+
+    if (stats->entry_time_ticks != stats->exit_time_ticks)
+    {
+        stats->cpu_use = 100;
+    }
+    else
+    {
+        ttime = stats->exit_time_cnt - stats->entry_time_cnt;
+
+        if (ttime < 0)
+        {
+            ttime += 1000;
+        }
+
+        stats->cpu_use = ((float) ttime) / 10;
+    }
+
+    if (!sched.handler_set)
+    {
+        return;
+    }
+
+    if (stats->cpu_use > CPU_HIGH && sched.llevel)
+    {
+        sched.exception_handler();
+    }
+    else if (stats->cpu_use > CPU_MID && sched.llevel == 2)
+    {
+        sched.exception_handler();
+    }
+}
+
+// @funcname: calcStats
+//
+// @brief: Calculates percent runtime of each task
+static void calcStats(void)
+{
+    uint8_t i;
+
+    statsHelper(&sched.core.fg_stats);
+    statsHelper(&sched.core.bg_stats);
+
+    for (i = 0; i < MAX_TASK; i++)
+    {
+        statsHelper(&sched.fg_task_stats[i]);
+    }
+}
+
 // @funcname: TIM7_IRQHandler()
 //
 // @brief: Timer 7 IRQ. Increments OS ticks and unblocks loop
-void TIM2_IRQHandler()
+void TIM2_IRQHandler(void)
 {
 	TIM2->SR &= ~TIM_SR_UIF;
 

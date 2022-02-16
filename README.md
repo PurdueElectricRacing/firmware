@@ -25,7 +25,7 @@ Before you can compile software for PER car, here are some steps you need to tak
    - [Windows](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07win32/gcc-arm-none-eabi-10.3-2021.07-win32.exe)
    - [Mac](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-mac-10.14.6-sha1.pkg)
    - Linux - Find it yourself
-4. Install [OpenOCD](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/)
+4. Install [OpenOCD](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
    - Instillation Instructions [here](https://xpack.github.io/openocd/install/)
 5. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
    - On some Mac OS versions, CMake will install as a GUI only, follow the `Tools > Install Command Line Tools` tip inside CMake to fix this

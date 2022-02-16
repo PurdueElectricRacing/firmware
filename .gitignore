@@ -1,11 +1,34 @@
+# Automatically ignore everything, explicitly allow directories
+*
+!.circleci/*
+!source/*
+!common/*
+!cmake/*
+!CMakeLists.txt
+!.gitmodules
+!docker-compose.yaml
+!Dockerfile
+!LICENSE
+!per_build.py
+!README.md
+!requirements.txt
 
-# Dont upload our build artifacts, easily clean with `git clean -fdx`
-build/*
-output/*
-.vscode/settings.json
-.vscode/.cortex-debug.*
+# Keep these empty directories
+!/build
+/build/*
+!/output
+/output/*
+
+# Allow per-user settings and debug states
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/c_cpp_properties.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# MaxOS
+.DS_Store

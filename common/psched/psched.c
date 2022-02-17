@@ -268,7 +268,7 @@ static void memsetu(uint8_t* ptr, uint8_t val, size_t size)
 // @brief: Runs actual calculation
 static void statsHelper(time_stats_t* stats)
 {
-    uint16_t ttime;
+    int16_t ttime;
 
     if (stats->entry_time_ticks != stats->exit_time_ticks)
     {

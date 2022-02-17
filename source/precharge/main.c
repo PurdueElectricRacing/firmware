@@ -79,8 +79,8 @@ SPI_InitConfig_t spi_config = {
 };
 
 BMI088_Handle_t bmi_config = {
-    .acel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
-    .acel_csb_pin = SPI_CS_ACEL_Pin,
+    .acc_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
+    .acc_csb_pin = SPI_CS_ACEL_Pin,
     .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
     .gyro_csb_pin = SPI_CS_GYRO_Pin,
     .gyro_datarate = GYRO_DR_100Hz_32Hz,

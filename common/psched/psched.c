@@ -105,12 +105,12 @@ static void schedLoop()
     // Locals
     uint8_t i;
 
-    while (1 && sched.running == 1)
+    while (sched.running == 1)
     {
         // Prep iteration
         sched.core.task_entry_time = sched.os_ticks;
         sched.run_next = 0;
-        IWDG->KR = 0xAAAA;
+        // IWDG->KR = 0xAAAA;
 
         // Store task times
         sched.core.task_time = sched.os_ticks - sched.core.task_entry_time;
@@ -119,7 +119,7 @@ static void schedLoop()
         // Execute tasks
         for (i = 0; i < sched.task_count; i++)
         {
-            if (sched.os_ticks % sched.task_time[i] == 0)
+            if (sched.core.task_entry_time % sched.task_time[i] == 0)
             {
                 (*sched.task_pointer[i])();
             }
@@ -198,9 +198,9 @@ void schedStart()
     IWDG->RLR =  20;
     sched.running = 1;
 
-    while ((IWDG->SR & 0b111) != 0);
+    // while ((IWDG->SR & 0b111) != 0);
 
-    IWDG->KR = 0xAAAA;
+    // IWDG->KR = 0xAAAA;
 
     schedLoop();
 }

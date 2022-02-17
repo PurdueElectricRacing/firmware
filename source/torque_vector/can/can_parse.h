@@ -15,22 +15,30 @@
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
-#define NODE_NAME "TORQUE_VECTOR"
+#define NODE_NAME "Torque_Vector"
 
 #define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TORQUE_REQUEST 0x4000049
-#define ID_BITSTREAM_FLASH_STATUS 0x1909
-#define ID_BITSTREAM_DATA 0x1000193f
-#define ID_BITSTREAM_REQUEST 0x1000197f
+#define ID_TORQUE_REQUEST 0x4000041
+#define ID_BITSTREAM_FLASH_STATUS 0x1901
+#define ID_BITSTREAM_FLASH_PROGRESS 0x1941
+#define ID_BITSTREAM_HEARTBEAT 0xc000001
+#define ID_FRONT_WHEEL_DATA 0x4000002
+#define ID_REAR_WHEEL_DATA 0x4000042
+#define ID_BITSTREAM_DATA 0x1000193e
+#define ID_BITSTREAM_REQUEST 0x1000197e
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_TORQUE_REQUEST 6
 #define DLC_BITSTREAM_FLASH_STATUS 1
+#define DLC_BITSTREAM_FLASH_PROGRESS 2
+#define DLC_BITSTREAM_HEARTBEAT 1
+#define DLC_FRONT_WHEEL_DATA 8
+#define DLC_REAR_WHEEL_DATA 8
 #define DLC_BITSTREAM_DATA 8
 #define DLC_BITSTREAM_REQUEST 5
 /* END AUTO DLC DEFS */
@@ -46,11 +54,25 @@
         data_a->torque_request.rear_right = rear_right_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_BITSTREAM_FLASH_STATUS(queue, flash_success_, flash_timeout_rx_) do {\
+#define SEND_BITSTREAM_FLASH_STATUS(queue, flash_erase_, flash_success_, flash_timeout_rx_, flash_timeout_overrun_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->bitstream_flash_status.flash_erase = flash_erase_;\
         data_a->bitstream_flash_status.flash_success = flash_success_;\
         data_a->bitstream_flash_status.flash_timeout_rx = flash_timeout_rx_;\
+        data_a->bitstream_flash_status.flash_timeout_overrun = flash_timeout_overrun_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_BITSTREAM_FLASH_PROGRESS(queue, page_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BITSTREAM_FLASH_PROGRESS, .DLC=DLC_BITSTREAM_FLASH_PROGRESS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->bitstream_flash_progress.page = page_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_BITSTREAM_HEARTBEAT(queue, alive_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BITSTREAM_HEARTBEAT, .DLC=DLC_BITSTREAM_HEARTBEAT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->bitstream_heartbeat.alive = alive_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -58,6 +80,8 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
+#define UP_FRONT_WHEEL_DATA 10
+#define UP_REAR_WHEEL_DATA 10
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -73,9 +97,29 @@ typedef union { __attribute__((packed))
         uint64_t rear_right: 12;
     } torque_request;
     struct {
+        uint64_t flash_erase: 1;
         uint64_t flash_success: 1;
         uint64_t flash_timeout_rx: 1;
+        uint64_t flash_timeout_overrun: 1;
     } bitstream_flash_status;
+    struct {
+        uint64_t page: 16;
+    } bitstream_flash_progress;
+    struct {
+        uint64_t alive: 1;
+    } bitstream_heartbeat;
+    struct {
+        uint64_t left_speed: 16;
+        uint64_t right_speed: 16;
+        uint64_t left_normal: 16;
+        uint64_t right_normal: 16;
+    } front_wheel_data;
+    struct {
+        uint64_t left_speed: 16;
+        uint64_t right_speed: 16;
+        uint64_t left_normal: 16;
+        uint64_t right_normal: 16;
+    } rear_wheel_data;
     struct {
         uint64_t d0: 8;
         uint64_t d1: 8;
@@ -99,6 +143,22 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_wheel_data;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_wheel_data;
+    struct {
         uint8_t d0;
         uint8_t d1;
         uint8_t d2;
@@ -118,11 +178,11 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */
-extern void bitstream_data_IRQ(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN RX IRQ */
 
 /**

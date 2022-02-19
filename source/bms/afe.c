@@ -1,6 +1,7 @@
 #include "afe.h"
 
 // Static function prototypes
+static void packBalance(uint8_t* data);
 static void afeStartComm(void);
 static void afeEndComm(void);
 static uint16_t calculatePEC(uint8_t* data, uint8_t len);
@@ -69,6 +70,7 @@ void setBalance(void)
 void afeTask(void)
 {
     uint8_t       i, x;
+    uint8_t       cmd[LTC6811_REG_SIZE];
     uint8_t       data[8];
     uint8_t       data_ow[8];
     uint16_t      valid_PEC;
@@ -81,17 +83,25 @@ void afeTask(void)
 
     switch (current_state)
     {
+        // Turn off balancing so we can get a good ADC conversion
         case BAL_OFF:
         {
+            broadcastWrite(CLRSCTRL, 0, NULL);
+            next_state = SETTLE;
 
             break;
         }
         
+        // Let the voltage settle after disabling balancing
         case SETTLE:
         {
+            if (time == 9) {
+                next_state = MEAS;
+            }
             break;
         }
 
+        // Take all cell measurements
         case MEAS:
         {
             broadcastPoll(ADCVSC(2, DISCHARGE_NOT_PERMITTED));
@@ -111,22 +121,28 @@ void afeTask(void)
             break;
         }
 
+        // Enable balancing for cells that need it
         case BAL:
         {
+            packBalance(cmd);
+            broadcastWrite(CLRSCTRL, 0, NULL);
+            broadcastWrite(WRSCTRL, LTC6811_REG_SIZE, cmd);
+            broadcastWrite(STSCTRL, 0, NULL);
+            next_state = DIAG;
+
             break;
         }
 
-        case WAIT:
-        {
-            break;
-        }
-
+        // Run diagnostics to check for AFE errors
         case DIAG:
         {
+            next_state = HALT;
+            
             break;
         }
 
-        case STOP:
+        // Halt this loop until the 100ms mark
+        case HALT:
         {
             if (time == 99) {
                 time = -1;
@@ -136,6 +152,7 @@ void afeTask(void)
             break;
         }
 
+        // Somehow, some way, we got lost. Rectify this
         default:
         {
             next_state = BAL_OFF;
@@ -268,6 +285,26 @@ int broadcastRead(uint16_t command, uint16_t size, uint8_t* data)
 	}
 
 	return 0;
+}
+
+// @funcname: packBalance
+//
+// @brief: Converts balance flags to S-pin pulsing
+//         commands
+//
+// @param: data: address of packed data
+static void packBalance(uint8_t* data)
+{
+    uint8_t i;
+
+    for (i = 0; i < CELL_MAX; i++)
+    {
+        // Only enable if the balance flag is set and we haven't masked the cell
+        if ((bms.cells.balance_flags & (1 << i)) && !(bms.cells.balance_mask & (1 << i)))
+        {
+            data[i / 2] |= S_MAX << ((i % 2) * 4);
+        }
+    }
 }
 
 // @funcname: afeStartComm

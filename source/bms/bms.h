@@ -15,8 +15,8 @@
 #include "afe.h"
 
 // Generic Defines
-#define CELL_MAX    24
-#define TEMP_MAX    CELL_MAX / 2
+#define CELL_MAX    12
+#define TEMP_MAX    20
 
 #define BMS_ACCUM
 // #define BMS_LV

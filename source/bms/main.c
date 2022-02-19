@@ -99,12 +99,12 @@ int main(void) {
     // Signify start of init
     PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 1);
     initBMS(&spi_config);
-
     /* End of Preflight Inspection */
+    
     // Task Creation
     schedInit(SystemCoreClock);
     taskCreate(bmsStatus, 500);
-    taskCreate(afeTask, 100);
+    taskCreate(afeTask, 1);
     taskCreate(checkConn, 1000);
     schedStart();
 
@@ -119,6 +119,6 @@ int main(void) {
 }
 
 void HardFault_Handler(void) {
-    // Sit and wait for the watchdog to pull us out
+    // Sit and wait for the watchdog to pull us out. Gives you some time to think about what you did...
     while (1);
 }

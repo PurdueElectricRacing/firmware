@@ -43,8 +43,8 @@
 #define RDCVD               0x000A  /** Read the Cell Voltage Register D (CBDR) */
 
 // Timings
-#define TYP_T_WAKE          200 /**< [us] */
-#define MAX_T_WAKE          400 /**< [us] */
+#define TYP_T_WAKE          200     /**< [us] */
+#define MAX_T_WAKE          400     /**< [us] */
 
 #define MIN_T_SLEEP         1800000 /**< [us] */
 #define TYP_T_SLEEP         2000000 /**< [us] */
@@ -54,7 +54,7 @@
 #define TYP_T_REFUP         3500    /**< [us] */
 #define MAX_T_REFUP         4400    /**< [us] */
 
-#define MAX_T_READY         10  /**< [us] */
+#define MAX_T_READY         10      /**< [us] */
 
 #define MIN_T_IDLE          4300    /**< [us] */
 #define TYP_T_IDLE          5500    /**< [us] */
@@ -62,10 +62,10 @@
 
 #define T_CONV_CELL_ALL_7K                  2300    /**< [us] */
 #define T_CONV_CELL_ONE_7K                  405     /**< [us] */
-#define T_CONV_GPIO_ALL_PLUS_REFERENCE_7K   2300  /** [us] */
-#define T_CONV_GPIO_ONE_7K                  405 /** [us] */
-#define T_CONV_STATUS_ALL_7K                1600   /** [us] */
-#define T_CONV_STATUS_ONE_7K                405    /** [us] */
+#define T_CONV_GPIO_ALL_PLUS_REFERENCE_7K   2300    /** [us] */
+#define T_CONV_GPIO_ONE_7K                  405     /** [us] */
+#define T_CONV_STATUS_ALL_7K                1600    /** [us] */
+#define T_CONV_STATUS_ONE_7K                405     /** [us] */
 
 // Commands
 #define WRCFGA      0x0001  /** Write to Configuration Register (CFGR) */
@@ -84,14 +84,14 @@
 #define RDPWM       0x0022  /** Read the PWM Register Group (PWMR) */
 #define STSCTRL     0x0019  /** Start S Control pulsing and poll status */
 #define CLRSCTRL    0x0018  /** Clear S Control register */
-#define CLRCELL     0x0711 /** Clear Cell Voltage Register Groups */
-#define CLRAUX      0x0712 /** Clear Auxiliary Register Groups */
-#define CLRSTAT     0x0713 /** Clear Status Register Groups */
-#define PLADC       0x0714 /** Poll ADC Conversion Status */
-#define DIAGN       0x0715 /** Diagnose MUX and Poll Status */
-#define WRCOMM      0x0721 /** Write COMM Register Group */
-#define RDCOMM      0x0722 /** Read COMM Register Group */
-#define STCOMM      0x0723 /** Start I2C /SPI Communication */
+#define CLRCELL     0x0711  /** Clear Cell Voltage Register Groups */
+#define CLRAUX      0x0712  /** Clear Auxiliary Register Groups */
+#define CLRSTAT     0x0713  /** Clear Status Register Groups */
+#define PLADC       0x0714  /** Poll ADC Conversion Status */
+#define DIAGN       0x0715  /** Diagnose MUX and Poll Status */
+#define WRCOMM      0x0721  /** Write COMM Register Group */
+#define RDCOMM      0x0722  /** Read COMM Register Group */
+#define STCOMM      0x0723  /** Start I2C /SPI Communication */
 
 // Macros
 #define ADCV(MD,DCP,CH)         (0x260 | (MD<<7) | (DCP<<4) | (CH))
@@ -126,14 +126,18 @@ enum {
 	DISCHARGE_PERMITTED
 };
 
+enum {
+    S_MIN = 0b0000,
+    S_MAX = 0b1111
+};
+
 typedef enum {
     BAL_OFF,
     SETTLE,
     MEAS,
     BAL,
-    WAIT,
     DIAG,
-    STOP
+    HALT
 } afe_state_t;
 
 // Prototypes

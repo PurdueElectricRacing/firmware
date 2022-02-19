@@ -49,6 +49,14 @@ void checkConn(void)
 void setBalance(void)
 {
     uint8_t i;
+    float   avg_SOC = 0;
+
+    for (i = 0; i < bms.cell_count; i++)
+    {
+        avg_SOC += bms.cells.est_SOC[i];
+    }
+
+    avg_SOC /= bms.cell_count;
 
     for (i = 0; i < bms.cell_count; i++)
     {
@@ -60,6 +68,11 @@ void setBalance(void)
             bms.error |= 0x4;
         } else {
             bms.cells.balance_mask &= ~(1U << i);
+
+            if (bms.cells.est_SOC[i] > (avg_SOC + 2))
+            {
+                bms.cells.balance_flags |= (1U << i);
+            }
         }
     }
 }
@@ -137,7 +150,7 @@ void afeTask(void)
         case DIAG:
         {
             next_state = HALT;
-            
+
             break;
         }
 

@@ -33,9 +33,20 @@ void initBMS(SPI_InitConfig_t* hspi)
 {
     memsetu((uint8_t*) &bms, 0, sizeof(bms));
     bms.spi = hspi;
-    while (!afeInit()) {
+
+#ifdef BMS_ACCUM
+    bms.cell_count = 10;
+#endif
+#ifdef BMS_LV
+    bms.cell_count = 8;
+#endif
+
+    checkConn();
+
+    while ((bms.error & 0x1)) {
         PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 1);
         PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, 0);
+        checkConn();
     }
 }
 

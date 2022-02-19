@@ -24,6 +24,8 @@
 // Voltage Flags
 #define LTC6811_MAX_PCKV 	50.4 // Max Pack voltage cutoff
 #define LTC6811_MIN_PCKV 	30   // Min pack voltage cutoff
+#define CELL_MAX_V          4.2
+#define CELL_MIN_V          2.7
 
 // ADCV
 #define	NORMAL_MODE			0x2
@@ -124,10 +126,20 @@ enum {
 	DISCHARGE_PERMITTED
 };
 
+typedef enum {
+    BAL_OFF,
+    SETTLE,
+    MEAS,
+    BAL,
+    WAIT,
+    DIAG,
+    STOP
+} afe_state_t;
+
 // Prototypes
-int afeInit();
-void afeTask();
-void afeWakeup();
+void checkConn(void);
+void afeTask(void);
+void afeWakeup(void);
 void broadcastPoll(uint16_t command);
 void broadcastWrite(uint16_t command, uint16_t size, uint8_t* data);
 int broadcastRead(uint16_t command, uint16_t size, uint8_t* data);

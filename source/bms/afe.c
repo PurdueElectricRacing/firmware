@@ -1,12 +1,15 @@
 #include "afe.h"
 
 // Static function prototypes
-static void afeStartComm();
-static void afeEndComm();
+static void afeStartComm(void);
+static void afeEndComm(void);
 static uint16_t calculatePEC(uint8_t* data, uint8_t len);
 int verifyPEC(uint8_t* data, uint16_t len, uint16_t PEC);
 
-int afeInit()
+// @funcname: afeInit
+//
+// @brief: Sets up AFE for use
+void checkConn(void)
 {
     uint16_t voltage_low = VUV(1);
 	uint16_t voltage_high = VOV(4.2);
@@ -25,42 +28,128 @@ int afeInit()
     {
 		if (register_check[i] != cmd[i])
         {
-            bms.error = 1;
-			return 0;
+            bms.afe_con = 0;
+            bms.error |= 0x1;
+
+            return;
         }
     }
 
     bms.afe_con = 1;
-    bms.error = 0;
+    bms.error &= ~0x1;
 
 	broadcastPoll(DIAGN);
-
-	return 1;
 }
 
-void afeTask()
+// @funcname: setBalance
+//
+// @brief: Determines which cells need to balance
+//         and marks them as such
+void setBalance(void)
 {
-    uint8_t  i, x;
-    uint8_t  data[8];
-    uint16_t valid_PEC;
+    uint8_t i;
 
-    broadcastPoll(ADCVSC(2, DISCHARGE_NOT_PERMITTED));
-
-    for (i = 0; i < 1; i++)
+    for (i = 0; i < bms.cell_count; i++)
     {
-        valid_PEC = broadcastRead(readCmd[i], LTC6811_REG_SIZE, data);
-
-        x = i * 3;
-        bms.cells.chan_volts_raw[x++] = byte_combine(data[1], data[0]);
-        bms.cells.chan_volts_raw[x++] = byte_combine(data[3], data[2]);
-        bms.cells.chan_volts_raw[x] = byte_combine(data[5], data[4]);
+        if (bms.cells.chan_volts_raw[i] > (uint32_t) (CELL_MAX_V * 10000)) {
+            bms.cells.balance_flags |= (1U << i);
+            bms.error |= 0x2;
+        } else if (bms.cells.chan_volts_raw[i] < (uint32_t) (CELL_MIN_V * 10000)) {
+            bms.cells.balance_mask |= (1U << i);
+            bms.error |= 0x4;
+        } else {
+            bms.cells.balance_mask &= ~(1U << i);
+        }
     }
+}
+
+// @funcname: afeTask
+//
+// @brief: Main AFE task
+void afeTask(void)
+{
+    uint8_t       i, x;
+    uint8_t       data[8];
+    uint8_t       data_ow[8];
+    uint16_t      valid_PEC;
+    static int8_t time;
+
+    afe_state_t        next_state;
+    static afe_state_t current_state;
+
+    next_state = current_state;
+
+    switch (current_state)
+    {
+        case BAL_OFF:
+        {
+
+            break;
+        }
+        
+        case SETTLE:
+        {
+            break;
+        }
+
+        case MEAS:
+        {
+            broadcastPoll(ADCVSC(2, DISCHARGE_NOT_PERMITTED));
+
+            for (i = 0; i < 1; i++)
+            {
+                valid_PEC = broadcastRead(readCmd[i], LTC6811_REG_SIZE, data);
+
+                x = i * 3;
+                bms.cells.chan_volts_raw[x++] = byte_combine(data[1], data[0]);
+                bms.cells.chan_volts_raw[x++] = byte_combine(data[3], data[2]);
+                bms.cells.chan_volts_raw[x] = byte_combine(data[5], data[4]);
+            }
+
+            next_state = BAL;
+
+            break;
+        }
+
+        case BAL:
+        {
+            break;
+        }
+
+        case WAIT:
+        {
+            break;
+        }
+
+        case DIAG:
+        {
+            break;
+        }
+
+        case STOP:
+        {
+            if (time == 99) {
+                time = -1;
+                next_state = BAL_OFF;
+            }
+
+            break;
+        }
+
+        default:
+        {
+            next_state = BAL_OFF;
+        }
+    }
+
+    current_state = next_state;
+    ++time;
 }
 
 // @funcname: afeWakeup
 //
 // @brief: Wakes up AFE
-void afeWakeup()
+void afeWakeup(void)
 {
     afeStartComm();
     afeEndComm();
@@ -184,7 +273,7 @@ int broadcastRead(uint16_t command, uint16_t size, uint8_t* data)
 // @funcname: afeStartComm
 //
 // @brief: Pulls CSB low to start comms
-static void afeStartComm()
+static void afeStartComm(void)
 {
     PHAL_writeGPIO(CSB_AFE_GPIO_Port, CSB_AFE_Pin, 0);
 }
@@ -192,7 +281,7 @@ static void afeStartComm()
 // @funcname: afeEndComm
 //
 // @brief: Pulls CSB high to stop comms
-static void afeEndComm()
+static void afeEndComm(void)
 {
     PHAL_writeGPIO(CSB_AFE_GPIO_Port, CSB_AFE_Pin, 1);
 }

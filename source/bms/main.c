@@ -105,6 +105,7 @@ int main(void) {
     schedInit(SystemCoreClock);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 100);
+    taskCreate(checkConn, 1000);
     schedStart();
 
     // Fire up the scheduler, and don't look back

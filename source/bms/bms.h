@@ -18,6 +18,9 @@
 #define CELL_MAX    24
 #define TEMP_MAX    CELL_MAX / 2
 
+#define BMS_ACCUM
+// #define BMS_LV
+
 // Structures
 typedef struct {
     // Cells are indexed from bottom of stack to top of stack
@@ -39,10 +42,22 @@ typedef struct {
 } cells_t;
 
 typedef struct {
+    /*
+     * Error flags:
+     *
+     * [0] -> AFE connection error
+     * [1] -> Cell overvoltage
+     * [2] -> Cell undervoltage
+     * [3] -> Temp connection error
+     * [4] -> Cell temp critical
+     * 
+     */
+
     uint32_t error;                         // Error flags
     uint8_t  afe_con;                       // AFE connection flag
+    uint8_t  cell_count;                    // Number of cells
     cells_t  cells;                         // Cell information
-    
+
     SPI_InitConfig_t* spi;                  // SPI handle
 } bms_t;
 

@@ -50,6 +50,34 @@ void initBMS(SPI_InitConfig_t* hspi)
     }
 }
 
+// @funcname: checkSleep
+//
+// @brief: Checks if we want to sleep, and ensures that all
+//         tasks are in a solid state for sleep
+void checkSleep(void)
+{
+    // Wait for tasks to spool down (handled on a case by case basis)
+    if (bms.no_sleep)
+    {
+        return;
+    }
+
+    // Handle WWDG
+    IWDG->KR  = 0x5555;
+    IWDG->PR  = 7;
+    IWDG->RLR = 0x7ff;
+
+    while ((IWDG->SR & 0b111) != 0);
+    IWDG->KR  = 0xAAAA;
+
+    // Put everything to sleep (AFE autosleeps after 2s)
+
+    // Finalize sleep parameters
+
+    // Night night
+    schedPause();
+}
+
 // @funcname: memsetu
 //
 // @brief: Simple memset routine

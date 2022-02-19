@@ -27,6 +27,9 @@
 #define CELL_MAX_V          4.2
 #define CELL_MIN_V          2.7
 
+// Balance limits
+#define SOC_DRIFT_LIM       2.0f
+
 // ADCV
 #define	NORMAL_MODE			0x2
 #define REG_A				0x4

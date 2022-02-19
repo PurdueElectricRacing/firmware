@@ -10,4 +10,8 @@
 #error "Please define a STM32 arch"
 #endif
 
+#include "common/phal_L4/i2c/i2c.h"
+#include "common_defs.h"
+#include "bms.h"
+
 #endif

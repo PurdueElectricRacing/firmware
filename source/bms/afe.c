@@ -45,7 +45,8 @@ void checkConn(void)
 // @funcname: setBalance
 //
 // @brief: Determines which cells need to balance
-//         and marks them as such
+//         and marks them as such. Also marks cells
+//         with too high/low a voltage with an error
 void setBalance(void)
 {
     uint8_t i;
@@ -69,7 +70,7 @@ void setBalance(void)
         } else {
             bms.cells.balance_mask &= ~(1U << i);
 
-            if (bms.cells.est_SOC[i] > (avg_SOC + 2))
+            if (bms.cells.est_SOC[i] > (avg_SOC + SOC_DRIFT_LIM))
             {
                 bms.cells.balance_flags |= (1U << i);
             }
@@ -99,6 +100,7 @@ void afeTask(void)
         // Turn off balancing so we can get a good ADC conversion
         case BAL_OFF:
         {
+            bms.no_sleep |= 1U;
             broadcastWrite(CLRSCTRL, 0, NULL);
             next_state = SETTLE;
 
@@ -157,7 +159,15 @@ void afeTask(void)
         // Halt this loop until the 100ms mark
         case HALT:
         {
-            if (time == 99) {
+            bms.no_sleep &= ~(1U);
+
+            if (bms.sleep_req)
+            {
+                return;
+            }
+
+            if (time == 99)
+            {
                 time = -1;
                 next_state = BAL_OFF;
             }
@@ -312,7 +322,7 @@ static void packBalance(uint8_t* data)
 
     for (i = 0; i < CELL_MAX; i++)
     {
-        // Only enable if the balance flag is set and we haven't masked the cell
+        // Only enable cell balancing if the balance flag is set and we haven't masked the cell
         if ((bms.cells.balance_flags & (1 << i)) && !(bms.cells.balance_mask & (1 << i)))
         {
             data[i / 2] |= S_MAX << ((i % 2) * 4);

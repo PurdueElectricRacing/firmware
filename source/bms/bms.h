@@ -10,6 +10,7 @@
 #error "Please define a STM32 arch"
 #endif
 
+#include "common/psched/psched.h"
 #include "common_defs.h"
 #include "main.h"
 #include "afe.h"
@@ -42,18 +43,25 @@ typedef struct {
 } cells_t;
 
 typedef struct {
-    /*
-     * Error flags:
-     *
-     * [0] -> AFE connection error
-     * [1] -> Cell overvoltage
-     * [2] -> Cell undervoltage
-     * [3] -> Temp connection error
-     * [4] -> Cell temp critical
-     * 
-     */
-
+    // Error flags:
+    // 
+    // [0] -> AFE connection error
+    // [1] -> Cell overvoltage
+    // [2] -> Cell undervoltage
+    // [3] -> Temp connection error
+    // [4] -> Cell temp critical
     uint32_t error;                         // Error flags
+
+    // Sleep flags:
+    //
+    // [0] -> AFE not ready to sleep
+    // [1] -> Temps not ready to sleep
+    // [2] -> Comms not ready to sleep
+    //
+    // Note: BMS cannot sleep with an error
+    uint8_t  no_sleep;                      // Flags for each portion letting us sleep
+    uint8_t  sleep_req;                     // Marks a request for sleep entry
+
     uint8_t  afe_con;                       // AFE connection flag
     uint8_t  cell_count;                    // Number of cells
     cells_t  cells;                         // Cell information

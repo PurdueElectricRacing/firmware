@@ -48,6 +48,36 @@ void initBMS(SPI_InitConfig_t* hspi)
         PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, 0);
         checkConn();
     }
+
+    bms.temp_master = checkTempMaster();
+}
+
+// @funcname: setPLim
+//
+// @brief: Determine the master power limit to use
+void setPLim(void)
+{
+    uint16_t lim_temp = bms.p_lim.soc_max;
+
+    if (bms.p_lim.temp_max < lim_temp)
+    {
+        lim_temp = bms.p_lim.temp_max;
+    }
+
+    if (bms.p_lim.v_max < lim_temp)
+    {
+        lim_temp = bms.p_lim.v_max;
+    }
+
+    bms.master_p_lim = lim_temp;
+}
+
+// @funcname: calcMisc
+//
+// @brief: Run miscellaneous, pack level calcs
+void calcMisc(void)
+{
+    bms.power_out = bms.current_out * bms.voltage_out;
 }
 
 // @funcname: checkSleep

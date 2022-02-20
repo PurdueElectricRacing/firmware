@@ -100,11 +100,13 @@ int main(void) {
     PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 1);
     initBMS(&spi_config);
     /* End of Preflight Inspection */
-    
+
     // Task Creation
     schedInit(SystemCoreClock);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
+    taskCreate(calcMisc, 15);
+    taskCreate(setPLim, 15);
     taskCreate(checkConn, 1000);
     schedStart();
 

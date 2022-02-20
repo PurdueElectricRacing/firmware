@@ -14,10 +14,12 @@
 #include "common_defs.h"
 #include "main.h"
 #include "afe.h"
+#include "temp.h"
 
 // Generic Defines
 #define CELL_MAX    12
 #define TEMP_MAX    20
+#define TEMP_MAX_C  600
 
 #define BMS_ACCUM
 // #define BMS_LV
@@ -26,7 +28,6 @@
 typedef struct {
     // Cells are indexed from bottom of stack to top of stack
     uint16_t chan_volts_raw[CELL_MAX];      // Raw 14 bit ADC value for each cell's voltage
-    float    chan_volts_conv[CELL_MAX];     // Converted voltage values
     uint16_t mod_volts_raw;                 // Raw 14 bit ADC value for module
     float    mod_volts_conv;                // Converted voltage value
     float    est_cap[CELL_MAX];             // Current estimated cell capacity in W*hr
@@ -39,8 +40,15 @@ typedef struct {
     uint32_t balance_flags;                 // Cell overcharge flag
     uint32_t balance_mask;                  // Cell balancing flag masks
 
-    uint16_t chan_temps[TEMP_MAX];          // Converted temperature values
+    uint16_t chan_temps_raw[TEMP_MAX];      // Raw temperature values
+    uint16_t chan_temps_conv[TEMP_MAX];     // Converted temperature values
 } cells_t;
+
+typedef struct {
+    uint16_t soc_max;
+    uint16_t temp_max;
+    uint16_t v_max;
+} p_lim_t;
 
 typedef struct {
     // Error flags:
@@ -50,6 +58,7 @@ typedef struct {
     // [2] -> Cell undervoltage
     // [3] -> Temp connection error
     // [4] -> Cell temp critical
+    // [5] -> Cell temp derivative critical
     uint32_t error;                         // Error flags
 
     // Sleep flags:
@@ -64,7 +73,14 @@ typedef struct {
 
     uint8_t  afe_con;                       // AFE connection flag
     uint8_t  cell_count;                    // Number of cells
+    uint8_t  temp_count;                    // Number of thermistors on a board
+    uint8_t  temp_master;                   // Marks this PCB as a thermistor driver
+    uint16_t master_p_lim;                  // Final power limit sent out
+    uint16_t current_out;                   // Current output to MC (x100)
+    uint16_t voltage_out;                   // Voltage output to MC (x100)
+    uint32_t power_out;                     // Power output to MC (x10000)
     cells_t  cells;                         // Cell information
+    p_lim_t  p_lim;                         // Power limits
 
     SPI_InitConfig_t* spi;                  // SPI handle
 } bms_t;
@@ -74,5 +90,8 @@ extern bms_t bms;                           // Global BMS structure
 // Prototypes
 void bmsStatus(void);
 void initBMS(SPI_InitConfig_t* hspi);
+void setPLim(void);
+void calcMisc(void);
+void checkSleep(void);
 
 #endif

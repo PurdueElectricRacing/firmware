@@ -156,13 +156,15 @@ void afeTask(void)
             break;
         }
 
-        // Halt this loop until the 100ms mark
+        // Halt this loop until the 100ms mark (or pause for sleep)
         case HALT:
         {
             bms.no_sleep &= ~(1U);
 
             if (bms.sleep_req)
             {
+                broadcastWrite(CLRSCTRL, 0, NULL);
+
                 return;
             }
 
@@ -179,6 +181,7 @@ void afeTask(void)
         default:
         {
             next_state = BAL_OFF;
+            time = -1;
         }
     }
 

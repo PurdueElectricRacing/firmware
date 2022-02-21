@@ -45,6 +45,14 @@ typedef struct {
 } cells_t;
 
 typedef struct {
+    uint16_t charge_curr;                   // Charge current in A * 10
+    uint16_t charge_volts;                  // Charge voltage in V * 10
+    uint16_t charge_power;                  // Charge power in W
+    uint8_t  charge_mode;                   // 0: voltage and current, 1: voltage and power
+    uint8_t  charging;                      // Marks if charging has started
+} charge_t;
+
+typedef struct {
     uint16_t soc_max;
     uint16_t temp_max;
     uint16_t v_max;
@@ -72,6 +80,7 @@ typedef struct {
     uint8_t  sleep_req;                     // Marks a request for sleep entry
 
     uint8_t  afe_con;                       // AFE connection flag
+    uint8_t  bms_charge;                    // Charge flag
     uint8_t  cell_count;                    // Number of cells
     uint8_t  temp_count;                    // Number of thermistors on a board
     uint8_t  temp_master;                   // Marks this PCB as a thermistor driver

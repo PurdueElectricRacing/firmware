@@ -11,21 +11,29 @@
 
 #include "common/phal_L4/usart/usart.h"
 
-tx_mode_t mode;
-bool      comp;
+static void usart_isr_handle(USART_TypeDef* instance, uint8_t instance_idx);
+static void usart_unmask_irq(USART_TypeDef* instance);
+static void usart_mask_irq(USART_TypeDef* instance);
 
-bool PHAL_initUSART(const usart_handle_t* handle, const uint32_t fck)
+uint16_t* tx_addr[3];
+uint16_t* rx_addr[3];
+uint8_t   tx_len[3];
+uint8_t   rx_len[3];
+
+usart_debug_t u_debug;
+
+bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck)
 {
-    // Locals
+     // Locals
     uint16_t div;
 
     // Disable peripheral until properly configured
-    handle->instance->CR1 &= ~USART_CR1_UE;
+    instance->CR1 &= ~USART_CR1_UE;
 
     // Enable peripheral clock in RCC
-    switch ((ptr_int) handle->instance) {
+    switch ((ptr_int) instance) {
         case USART1_BASE:
-            RCC->AHB2ENR |= RCC_APB2ENR_USART1EN;
+            RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
             break;
 
         case USART2_BASE:
@@ -46,81 +54,231 @@ bool PHAL_initUSART(const usart_handle_t* handle, const uint32_t fck)
     // Apply prescalar
     switch (handle->ovsample) {
         case OV_16:
-            handle->instance->BRR = div;
+            instance->BRR = div;
             break;
 
         case OV_8:
-            handle->instance->BRR = ((div & 0b111) >> 1) | (div & 0xfff0);
+            instance->BRR = ((div & 0b111) >> 1) | (div & 0xfff0);
             break;
     }
 
     // Set CR1 parameters
-    handle->instance->CR1 =  0U;
-    handle->instance->CR1 |= (handle->word_length & 2) << USART_CR1_M1_Pos;
-    handle->instance->CR1 |= (handle->word_length & 1) << USART_CR1_M0_Pos;
-    handle->instance->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
-    handle->instance->CR1 |= handle->parity << USART_CR1_PS_Pos;
-    handle->instance->CR1 |= handle->mode << USART_CR1_RE_Pos;
+    instance->CR1 =  0U;
+    instance->CR1 |= (handle->word_length & 2) << USART_CR1_M1_Pos;
+    instance->CR1 |= (handle->word_length & 1) << USART_CR1_M0_Pos;
+    instance->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
+    instance->CR1 |= handle->parity << USART_CR1_PS_Pos;
+    instance->CR1 |= handle->mode << USART_CR1_RE_Pos;
+    instance->CR1 |= USART_CR1_RXNEIE | USART_CR1_TCIE;
 
     // Set CR2 parameters
-    handle->instance->CR2 =  0U;
-    handle->instance->CR2 |= handle->adv_feature.ab_mode << USART_CR2_ABRMODE_Pos;
-    handle->instance->CR2 |= handle->adv_feature.auto_baud << USART_CR2_ABREN_Pos;
-    handle->instance->CR2 |= handle->adv_feature.msb_first << USART_CR2_MSBFIRST_Pos;
-    handle->instance->CR2 |= handle->adv_feature.data_inv << USART_CR2_DATAINV_Pos;
-    handle->instance->CR2 |= handle->adv_feature.tx_inv << USART_CR2_TXINV_Pos;
-    handle->instance->CR2 |= handle->adv_feature.rx_inv << USART_CR2_RXINV_Pos;
-    handle->instance->CR2 |= handle->adv_feature.tx_rx_swp << USART_CR2_SWAP_Pos;
-    handle->instance->CR2 |= handle->stop_bits << USART_CR2_STOP_Pos;
+    instance->CR2 =  0U;
+    instance->CR2 |= handle->adv_feature.ab_mode << USART_CR2_ABRMODE_Pos;
+    instance->CR2 |= handle->adv_feature.auto_baud << USART_CR2_ABREN_Pos;
+    instance->CR2 |= handle->adv_feature.msb_first << USART_CR2_MSBFIRST_Pos;
+    instance->CR2 |= handle->adv_feature.data_inv << USART_CR2_DATAINV_Pos;
+    instance->CR2 |= handle->adv_feature.tx_inv << USART_CR2_TXINV_Pos;
+    instance->CR2 |= handle->adv_feature.rx_inv << USART_CR2_RXINV_Pos;
+    instance->CR2 |= handle->adv_feature.tx_rx_swp << USART_CR2_SWAP_Pos;
+    instance->CR2 |= handle->stop_bits << USART_CR2_STOP_Pos;
 
     // Set CR3 parameters
-    handle->instance->CR3 =  0U;
-    handle->instance->CR3 |= handle->adv_feature.dma_on_rx_err << USART_CR3_DDRE_Pos;
-    handle->instance->CR3 |= handle->adv_feature.overrun << USART_CR3_OVRDIS_Pos;
-    handle->instance->CR3 |= handle->obsample << USART_CR3_ONEBIT_Pos;
+    instance->CR3 =  0U;
+    instance->CR3 |= handle->adv_feature.dma_on_rx_err << USART_CR3_DDRE_Pos;
+    instance->CR3 |= handle->adv_feature.overrun << USART_CR3_OVRDIS_Pos;
+    instance->CR3 |= handle->obsample << USART_CR3_ONEBIT_Pos;
+    instance->CR2 |= USART_CR3_EIE;
 
     // Enable peripheral for use
-    handle->instance->CR1 |= USART_CR1_UE;
+    instance->CR1 |= USART_CR1_UE;
+
+    return true;
 }
 
-void PHAL_usartTxBl(const usart_handle_t* handle, const uint16_t* data, uint32_t len) {
+void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len) {
     uint8_t i;
-    mode = BLOCKING;
-    comp = false;
     
-    for (i = 0; i < len; i++) {
-        while (!(handle->instance->ISR & USART_ISR_TXE));
+    usart_mask_irq(instance);
 
-        handle->instance->TDR = data[i] & 0x01ff;
+    for (i = 0; i < len; i++) {
+        while (!(instance->ISR & USART_ISR_TXE));
+
+        instance->TDR = data[i] & 0x01ff;
     }
 
-    while (!(handle->instance->ISR & USART_ISR_TC));
+    while (!(instance->ISR & USART_ISR_TC));
 }
 
-void PHAL_usartRxBl(const usart_handle_t* handle, uint16_t* data, uint32_t len) {
+void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
     uint8_t i;
-    mode = BLOCKING;
-    comp = false;
+
+    usart_mask_irq(instance);
 
     for (i = 0; i < len; i++) {
-        while (!(handle->instance->ISR & USART_ISR_RXNE));
+        while (!(instance->ISR & USART_ISR_RXNE));
 
-        data[i] = handle->instance->TDR & 0x01ff;
+        data[i] = instance->RDR & 0x01ff;
     }
 }
 
-bool PHAL_usartTxInt(const usart_handle_t* handle, const uint16_t* data, uint32_t len) {
+bool PHAL_usartTxInt(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
+    uint8_t instance_idx;
+    
+    usart_unmask_irq(instance);
+
+    switch ((ptr_int) instance)
+    {
+        case USART1_BASE:
+            instance_idx = 0;
+            break;
+
+        case USART2_BASE:
+            instance_idx = 1;
+            break;
+
+        case LPUART1_BASE:
+            instance_idx = 2;
+            break;
+
+        default:
+            return false;
+    }
+
+    while (!(instance->ISR & USART_ISR_TXE));
+    instance->TDR = data[0] & 0x01ff;
+
+    tx_addr[instance_idx] = data;
+    tx_len[instance_idx] = len - 1;
+
+    return true;
+}
+
+bool PHAL_usartRxInt(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
+    uint8_t instance_idx;
+    
+    usart_unmask_irq(instance);
+
+    switch ((ptr_int) instance)
+    {
+        case USART1_BASE:
+            instance_idx = 0;
+            break;
+
+        case USART2_BASE:
+            instance_idx = 1;
+            break;
+
+        case LPUART1_BASE:
+            instance_idx = 2;
+            break;
+
+        default:
+            return false;
+    }
+
+    rx_addr[instance_idx] = data;
+    rx_len[instance_idx] = len;
+
+    return true;
+}
+
+bool PHAL_usartTxDma(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
     return false;
 }
 
-bool PHAL_usartRxint(const usart_handle_t* handle, uint16_t* data, uint32_t len) {
+bool PHAL_usartRxDma(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
     return false;
 }
 
-bool PHAL_usartTxDMA(const usart_handle_t* handle, const uint16_t* data, uint32_t len) {
-    return false;
+void USART1_IRQHandler(void) {
+    usart_isr_handle(USART1, 0);
 }
 
-bool PHAL_usartRxDMA(const usart_handle_t* handle, uint16_t* data, uint32_t len) {
-    return false;
+void USART2_IRQHandler(void) {
+    usart_isr_handle(USART2, 1);
+}
+
+void LPUART1_IRQHandler(void) {
+    usart_isr_handle(LPUART1, 2);
+}
+
+static void usart_isr_handle(USART_TypeDef* instance, uint8_t instance_idx) {
+    static uint8_t bytes_tx[3];
+    static uint8_t bytes_rx[3];
+
+    if (instance->ISR & (USART_ISR_ORE | USART_ISR_FE | USART_ISR_PE)) {
+        ++u_debug.err_occ;
+    }
+    
+    if (instance->ISR & USART_ISR_TXE) {
+        if (tx_len[instance_idx] > 0) {
+            ++bytes_tx[instance_idx];
+        } else {
+            ++u_debug.err_occ;
+
+            return;
+        }
+
+        instance->TDR = *(tx_addr[instance_idx] + bytes_tx[instance_idx]) & 0x01ff;
+
+        ++u_debug.bytes_tx;
+
+        if (--tx_len[instance_idx] == 0) {
+            bytes_tx[instance_idx] = 0;
+        }
+    }
+
+    if (instance->ISR & USART_ISR_RXNE) {
+        if (rx_len[instance_idx] > 0) {
+            ++bytes_rx[instance_idx];
+        } else {
+            ++u_debug.err_occ;
+
+            return;
+        }
+
+        *(rx_addr[instance_idx] + bytes_rx[instance_idx]) = instance->RDR & 0x01ff;
+
+        ++u_debug.bytes_rx;
+        
+        if (--rx_len[instance_idx] == 0) {
+            bytes_rx[instance_idx] = 0;
+        }
+    }
+
+    instance->ICR &= 0x121bdf;
+}
+
+static void usart_unmask_irq(USART_TypeDef* instance) {
+    switch ((ptr_int) instance)
+    {
+        case USART1_BASE:
+            NVIC->ISER[1] |= 1U << (USART1_IRQn - 32);
+            break;
+
+        case USART2_BASE:
+            NVIC->ISER[1] |= 1U << (USART2_IRQn - 32);
+            break;
+
+        case LPUART1_BASE:
+            NVIC->ISER[2] |= 1U << (LPUART1_IRQn - 64);
+            break;
+    }
+}
+
+static void usart_mask_irq(USART_TypeDef* instance) {
+    switch ((ptr_int) instance)
+    {
+        case USART1_BASE:
+            NVIC->ISER[1] &= ~(1U << (USART1_IRQn - 32));
+            break;
+
+        case USART2_BASE:
+            NVIC->ISER[1] &= ~(1U << (USART2_IRQn - 32));
+            break;
+
+        case LPUART1_BASE:
+            NVIC->ISER[2] &= ~(1U << (LPUART1_IRQn - 64));
+            break;
+    }
 }

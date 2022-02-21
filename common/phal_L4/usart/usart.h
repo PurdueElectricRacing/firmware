@@ -14,6 +14,7 @@
 
 // Includes
 #include "stm32l4xx.h"
+#include "common/phal_L4/dma/dma.h"
 #include <stdbool.h>
 
 // Generic Defines
@@ -79,7 +80,7 @@ typedef enum {
 } tx_mode_t;
 
 typedef struct {
-    bool      auto_baud;
+    bool      auto_baud;            
     ab_mode_t ab_mode;
     bool      tx_inv;
     bool      rx_inv;
@@ -93,27 +94,55 @@ typedef struct {
 // Structures
 typedef struct {
     // Required parameters
-    USART_TypeDef* instance;        // Address of instance
     uint32_t       baud_rate;       // Baud rate for communication
-    word_length_t  word_length;     // Word length for tx/rx
-    stop_bits_t    stop_bits;       // Number of stop bits to use
-    parity_t       parity;          // Parity of communication
-    mode_t         mode;            // TODO: Find this in the reference
-    hw_flow_ctl_t  hw_flow_ctl;     // TODO: Find this in the reference
-    ovsample_t     ovsample;        // TODO: Find this in the reference
-    obsample_t     obsample;        // TODO: Find this in the reference
+    word_length_t  word_length;     // Word length for tx/rx (8 default)
+    stop_bits_t    stop_bits;       // Number of stop bits to use (1 default)
+    parity_t       parity;          // Parity of communication (none default)
+    mode_t         mode;            // TX/RX mode (TX & RX default)
+    hw_flow_ctl_t  hw_flow_ctl;     // Special hardware modes (none default)
+    ovsample_t     ovsample;        // 8x or 16x oversample (16x default)
+    obsample_t     obsample;        // One bit sampling enable (off default)
 
     // Advanced features
-    adv_feature_t  adv_feature;     // TODO: Find this in the reference
-} usart_handle_t;
+    adv_feature_t  adv_feature;     // "Advanced" feature set (only use if necessary)
+
+    // DMA configurations
+    dma_init_t*    tx_dma_cfg;      // TX configuration
+    dma_init_t*    rx_dma_cfg;      // RX configuration
+
+    volatile bool  _busy;           // Transaction busy
+    volatile bool  _error;          // Transaction error
+} usart_init_t;
+
+typedef struct {
+    uint32_t err_occ;
+    uint32_t bytes_tx;
+    uint32_t bytes_rx;
+} usart_debug_t;
 
 // Function Prototypes
-bool PHAL_initUSART(const usart_handle_t* handle, const uint32_t fck);
-void PHAL_usartTxBl(const usart_handle_t* handle, const uint16_t* data, uint32_t len);
-void PHAL_usartRxBl(const usart_handle_t* handle, uint16_t* data, uint32_t len);
-bool PHAL_usartTxInt(const usart_handle_t* handle, const uint16_t* data, uint32_t len);
-bool PHAL_usartRxint(const usart_handle_t* handle, uint16_t* data, uint32_t len);
-bool PHAL_usartTxDMA(const usart_handle_t* handle, const uint16_t* data, uint32_t len);
-bool PHAL_usartRxDMA(const usart_handle_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck);
+void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len);
+void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+bool PHAL_usartTxInt(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+bool PHAL_usartRxInt(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+bool PHAL_usartTxDma(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+bool PHAL_usartRxDma(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+
+#define USART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
+    {.periph_addr=(uint32_t) &(USART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
+     .tx_size=1, .increment=false, .circular=false,                             \
+     .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
+     .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
+     .tx_isr_en=false, .dma_chan_request=0b0001, .channel_idx=3,                \
+     .periph=DMA1, .channel=DMA1_Channel5, .request=DMA1_CSELR}
+
+#define USART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
+    {.periph_addr=(uint32_t) &(USART1->RDR), .mem_addr=(uint32_t) (rx_addr_),   \
+     .tx_size=1, .increment=false, .circular=false,                             \
+     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
+     .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
+     .tx_isr_en=true, .dma_chan_request=0b0001, .channel_idx=2,                 \
+     .periph=DMA1, .channel=DMA1_Channel4, .request=DMA1_CSELR}
 
 #endif

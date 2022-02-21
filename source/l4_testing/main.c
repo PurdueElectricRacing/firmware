@@ -5,6 +5,7 @@
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/usart/usart.h"
 #if EEPROM_ENABLED
 #include "common/phal_L4/i2c/i2c.h"
 #include "common/eeprom/eeprom.h"
@@ -19,6 +20,8 @@
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
+  GPIO_INIT_USART1TX_PB6,
+  GPIO_INIT_USART1RX_PB7,
 #if EEPROM_ENABLED
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
@@ -42,6 +45,28 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=POT_ADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
 };
 
+usart_init_t huart1 = {
+    .baud_rate = 9600,
+    .word_length = WORD_8,
+    .stop_bits = SB_ONE,
+    .parity = PT_NONE,
+    .mode = MODE_TX_RX,
+    .hw_flow_ctl = HW_DISABLE,
+    .ovsample = OV_16,
+    .obsample = OB_DISABLE,
+    .adv_feature = {
+                        .auto_baud = false,
+                        .ab_mode = AB_START,
+                        .tx_inv = false,
+                        .rx_inv = false,
+                        .data_inv = false,
+                        .tx_rx_swp = false,
+                        .overrun = false,
+                        .dma_on_rx_err = false,
+                        .msb_first = false,
+                   },
+};
+
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
     .system_clock_target_hz     =80000000,
@@ -60,6 +85,7 @@ extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
 void myCounterTest();
+void usartTXTest();
 void canReceiveTest();
 void canSendTest();
 void Error_Handler();
@@ -97,7 +123,11 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initCAN(CAN1, false))
+    // if(!PHAL_initCAN(CAN1, false))
+    // {
+    //     HardFault_Handler();
+    // }
+    if(!PHAL_initUSART(USART1, &huart1, APB2ClockRateHz))
     {
         HardFault_Handler();
     }
@@ -139,6 +169,7 @@ int main (void)
     // /* Task Creation */
     schedInit(APB1ClockRateHz);
     taskCreate(ledBlink, 500);
+    taskCreate(usartTXTest, 1000);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
@@ -166,6 +197,19 @@ void ledBlink()
     {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
     }
+}
+
+void usartTXTest()
+{
+    uint8_t i;
+    uint16_t data[10];
+
+    for (i = 0; i < 10; i++) {
+        data[i] = 'a' + i;
+    }
+
+    PHAL_usartTxBl(USART1, data, 10);
+    PHAL_usartTxInt(USART1, data, 10);
 }
 
 void myCounterTest()

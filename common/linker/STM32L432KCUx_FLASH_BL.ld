@@ -38,6 +38,8 @@ _estack = 0x2000c000;    /* end of RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
 
+_eboot_flash = 0x08002000; /* End of the bootloader flash, this is where the application begins*/
+
 /* Specify the memory areas */
 MEMORY
 {
@@ -55,33 +57,7 @@ SECTIONS
     . = ALIGN(8);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(8);
-  } >FLASH
-
-  /* The program code and other data goes into FLASH */
-  .text :
-  {
-    . = ALIGN(8);
-    *(.text)           /* .text sections (code) */
-    *(.text*)          /* .text* sections (code) */
-    *(.glue_7)         /* glue arm to thumb code */
-    *(.glue_7t)        /* glue thumb to arm code */
-    *(.eh_frame)
-
-    KEEP (*(.init))
-    KEEP (*(.fini))
-
-    . = ALIGN(8);
-    _etext = .;        /* define a global symbols at end of code */
-  } >FLASH
-
-  /* Constant data goes into FLASH */
-  .rodata :
-  {
-    . = ALIGN(8);
-    *(.rodata)         /* .rodata sections (constants, strings, etc.) */
-    *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
-    . = ALIGN(8);
-  } >FLASH
+  } >RAM AT> FLASH
 
   .ARM.extab   : 
   { 
@@ -135,7 +111,26 @@ SECTIONS
     _sdata = .;        /* create a global symbol at data start */
     *(.data)           /* .data sections */
     *(.data*)          /* .data* sections */
-    *(.code_in_ram)    /* Bootloader code that needs to execute in RAM */
+
+    /*
+      This is the major change to the linker file for the bootloader
+      This will place all of the bootloaer code into RAM.
+      This allows for the FLASH to be unised and only used to write the new firmware data. 
+    */
+    
+    *(.text)           /* .text sections (code) */
+    *(.text*)          /* .text* sections (code) */
+
+    *(.rodata)         /* .rodata sections (constants, strings, etc.) */
+    *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
+
+    *(.glue_7)         /* glue arm to thumb code */
+    *(.glue_7t)        /* glue thumb to arm code */
+    *(.eh_frame)
+
+    KEEP (*(.init))
+    KEEP (*(.fini))
+
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH

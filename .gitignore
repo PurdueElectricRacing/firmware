@@ -1,24 +1,16 @@
-.
-!source/*
-!common/*
-!cmake/*
-!CMakeLists.txt
-!docker-compose.yaml
-!Dockerfile
-!LICENSE
-!per_build.py
-!README.md
-!requirements.txt
-
 # Keep these empty directories
 !/build
-/build/*
+/build/**
 !/output
-/output/*
+/output/**
 
 # Allow per-user settings and debug states
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/c_cpp_properties.json
+.vscode/.cortex-debug*
 .vscode/settings.json
-.vscode/.cortex-debug.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -26,4 +18,4 @@ __pycache__/
 *$py.class
 
 # MaxOS
-.DS_Store
+*.DS_Store

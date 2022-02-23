@@ -6,7 +6,7 @@
             "nodes":[
                 {
                     "node_name":"Main_Module",
-                    "node_ssa":0,
+                    "node_ssa":1,
                     "tx":[
                         {   "msg_name":"driver_request",
                             "msg_desc":"Driver throttle/regeneration request",
@@ -37,7 +37,7 @@
                 },
                 {
                     "node_name":"Torque_Vector",
-                    "node_ssa":1,
+                    "node_ssa":2,
                     "tx":[
                         {   "msg_name":"torque_request",
                             "msg_desc":"Torque request for all motors.",
@@ -71,7 +71,7 @@
                 },
                 {
                     "node_name": "Driveline",
-                    "node_ssa":2,
+                    "node_ssa":3,
                     "tx": [
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
@@ -171,6 +171,18 @@
                     ]
                 },
                 {
+                    "node_name": "bootloader",
+                    "node_ssa": 0,
+                    "can_peripheral": "CAN1",
+                    "tx": [
+                        
+                    ],
+                    "rx": [
+                        {"msg_name": "mainmodule_bl_cmd"},
+                        {"msg_name": "dashboard_bl_cmd"}
+                    ]
+                },
+                {
                     "node_name":"TESTER",
                     "node_ssa":62,
                     "tx":[
@@ -199,6 +211,28 @@
                             "msg_period":0,
                             "msg_hlp":4,
                             "msg_pgn":101
+                        },
+                        {
+                            "msg_name": "mainmodule_bl_cmd",
+                            "msg_desc": "Bootloader command for main module",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 8}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":10000
+                        },
+                        {
+                            "msg_name": "dashboard_bl_cmd",
+                            "msg_desc": "Bootloader command for main module",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 8}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":10001
                         }
                     ],
                     "rx":[ 

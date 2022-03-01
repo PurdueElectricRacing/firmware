@@ -178,8 +178,8 @@
                         
                     ],
                     "rx": [
-                        {"msg_name": "mainmodule_bl_cmd"},
-                        {"msg_name": "dashboard_bl_cmd"}
+                        {"msg_name": "mainmodule_bl_cmd", "irq": true},
+                        {"msg_name": "dashboard_bl_cmd" , "irq": true}
                     ]
                 },
                 {
@@ -217,7 +217,7 @@
                             "msg_desc": "Bootloader command for main module",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 8}
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
                             ],
                             "msg_period":0,
                             "msg_hlp":0,
@@ -228,7 +228,7 @@
                             "msg_desc": "Bootloader command for main module",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 8}
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
                             ],
                             "msg_period":0,
                             "msg_hlp":0,

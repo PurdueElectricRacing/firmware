@@ -28,7 +28,7 @@ static void flashLock()
     FLASH->CR |= FLASH_CR_LOCK;
 }
 
-void flashWriteU32(uint32_t address, uint32_t value)
+void PHAL_flashWriteU32(uint32_t address, uint32_t value)
 {
     flashUnlock();
     // Set program size to 32bit

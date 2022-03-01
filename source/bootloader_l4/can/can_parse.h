@@ -27,8 +27,8 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_MAINMODULE_BL_CMD 2
-#define DLC_DASHBOARD_BL_CMD 2
+#define DLC_MAINMODULE_BL_CMD 5
+#define DLC_DASHBOARD_BL_CMD 5
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -48,11 +48,11 @@
 typedef union { __attribute__((packed))
     struct {
         uint64_t cmd: 8;
-        uint64_t data: 8;
+        uint64_t data: 32;
     } mainmodule_bl_cmd;
     struct {
         uint64_t cmd: 8;
-        uint64_t data: 8;
+        uint64_t data: 32;
     } dashboard_bl_cmd;
     uint8_t raw_data[8];
 } CanParsedData_t;
@@ -64,11 +64,11 @@ typedef union { __attribute__((packed))
 typedef struct {
     struct {
         uint8_t cmd;
-        uint8_t data;
+        uint32_t data;
     } mainmodule_bl_cmd;
     struct {
         uint8_t cmd;
-        uint8_t data;
+        uint32_t data;
     } dashboard_bl_cmd;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
@@ -79,6 +79,8 @@ extern can_data_t can_data;
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */
+extern void mainmodule_bl_cmd_IRQ(CanParsedData_t* msg_data_a);
+extern void dashboard_bl_cmd_IRQ(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN RX IRQ */
 
 /**

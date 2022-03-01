@@ -101,12 +101,12 @@ BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148123710 mainmodule_bl_cmd: 2 TESTER
- SG_ data : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2148123710 mainmodule_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148123774 dashboard_bl_cmd: 2 TESTER
- SG_ data : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2148123774 dashboard_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214624554 balance_request: 2 Precharge

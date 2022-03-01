@@ -38,7 +38,7 @@ _estack = 0x2000c000;    /* end of RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
 
-_eboot_flash = 0x08002000; /* End of the bootloader flash, this is where the application begins*/
+PROVIDE(_eboot_flash = 0x08002000); /* End of the bootloader flash, this is where the application begins*/
 
 /* Specify the memory areas */
 MEMORY
@@ -55,9 +55,29 @@ SECTIONS
   .isr_vector :
   {
     . = ALIGN(8);
+    PROVIDE (__isr_vector_start = .);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(8);
   } >RAM AT> FLASH
+
+  /* The program code and other data goes into FLASH */
+  .text :
+  {
+    . = ALIGN(8);
+
+    /*
+      These two functions are needed at startup and cannot be placed in RAM.
+      They will copy the contents of FLASH into RAM which allows for our other
+      functions to execute in RAM.
+
+      The first function we run in RAM is main()
+    */
+    *(.text.Reset_Handler)
+    *(.text.SystemInit)
+
+    . = ALIGN(8);
+    _etext = .;        /* define a global symbols at end of code */
+  } >FLASH
 
   .ARM.extab   : 
   { 
@@ -133,6 +153,14 @@ SECTIONS
 
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */
+  } >RAM AT> FLASH
+
+/* Section for data that is not initilized on startup */
+  .no_init_data :
+  {
+    . = ALIGN(8);
+    KEEP(*(.no_init_data)) /* Startup code */
+    . = ALIGN(8);
   } >RAM AT> FLASH
 
   _sisram2 = LOADADDR(.sram2);

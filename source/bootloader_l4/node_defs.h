@@ -9,45 +9,52 @@
  * 
  */
 
-#ifndef _BOOTLOADER_CAN_H
-#define _BOOTLOADER_CAN_H
-
-#if !APP_ID || APP_ID == 1 || APP_ID == 0
-    #warning "Please define which device this bootloader will be running on. Defaulting to MAIN_MODULE"
-    #define COMPILED_APP_ID APP_MAIN_MODULE
-#else 
-    #define COMPILED_APP_ID APP_ID
-#endif
-
-#define BOOTLOADER_CAN_ADDR_BASE (0xB00B00)
-#define BOOTLOADER_CAN_ADDR (BOOTLOADER_CAN_ADDR_BASE | ((COMPILED_APP_ID) & 0xFF))
+#ifndef _NODE_DEFS_H
+#define _NODE_DEFS_H
 
 /**
- * @brief ApplicationID_t
- *    Each registered bootloader application ID lives here.
- * 
+ * Each registered bootloader application ID lives here.
  * DO NOT change any existing IDs
  */
-typedef enum
-{
-    APP_MAIN_MODULE  = 0x01,
-    APP_DASHBOARD    = 0x02,
-    APP_TORQUEVECTOR = 0x03,
-    APP_PRECHARGE    = 0x04,
-    APP_DRIVELINE_F  = 0x05,
-    APP_DRIVELINE_R  = 0x06,
-    APP_BMS_A        = 0x07,
-    APP_BMS_B        = 0x08,
-    APP_BMS_C        = 0x09,
-    APP_BMS_D        = 0x0A,
-    APP_BMS_E        = 0x0B,
-    APP_BMS_F        = 0x0C,
-    APP_BMS_G        = 0x0D,
-    APP_BMS_H        = 0x0E,
-    APP_BMS_I        = 0x0F,
-    APP_BMS_J        = 0x10,
-    APP_INVALID
-} ApplicationID_t;
 
+#define    APP_MAINMODULE   0x01
+#define    APP_DASHBOARD    0x02
+#define    APP_TORQUEVECTOR 0x03
+#define    APP_PRECHARGE    0x04
+#define    APP_DRIVELINE_F  0x05
+#define    APP_DRIVELINE_R  0x06
+#define    APP_BMS_A        0x07
+#define    APP_BMS_B        0x08
+#define    APP_BMS_C        0x09
+#define    APP_BMS_D        0x0A
+#define    APP_BMS_E        0x0B
+#define    APP_BMS_F        0x0C
+#define    APP_BMS_G        0x0D
+#define    APP_BMS_H        0x0E
+#define    APP_BMS_I        0x0F
+#define    APP_BMS_J        0x10
 
+#if !defined(APP_ID)
+    #warning "Please define which device this bootloader will be running on. Defaulting to APP_MAINMODULE"
 #endif
+
+
+/**
+ *  Per-board deifintion of the CAN and LED status pins
+ */
+#if (APP_ID == APP_TORQUEVECTOR) ||\
+    (APP_ID == APP_DRIVELINE_F)  ||\
+    (APP_ID == APP_DRIVELINE_R)  ||\
+    (APP_ID == APP_MAINMODULE)
+
+    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PA11
+    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PA12
+#endif/* COMPILED_APPP_ID */
+
+
+
+#ifndef CAN_RX_GPIO_CONFIG
+    #error "Please provide a board configuration for the compiled application ID"
+#endif /* CAN_RX_GPIO_CONFIG */
+
+#endif /* _NODE_DEFS_H */

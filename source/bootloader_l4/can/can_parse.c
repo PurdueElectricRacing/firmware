@@ -9,6 +9,7 @@
  * 
  */
 #include "can_parse.h"
+#include "node_defs.h"
 
 // prototypes
 bool initCANFilter();
@@ -34,6 +35,29 @@ void canRxUpdate()
     if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
+
+        uint32_t app_can_id = 0;
+        switch(APP_ID)
+        {
+            case APP_MAINMODULE:
+            {
+                app_can_id = ID_MAINMODULE_BL_CMD;
+                break;
+            }
+            case APP_DASHBOARD:
+            {
+                app_can_id = ID_DASHBOARD_BL_CMD;
+                break;
+            }
+
+            default:
+                app_can_id = 0;
+                break;
+        }
+
+        if (app_can_id != msg_header.ExtId)
+            return; // Wrong bootlaoder command
+
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
@@ -111,6 +135,12 @@ void canProcessRxIRQs(CanMsgTypeDef_t* rx)
     switch(rx->ExtId)
     {
         /* BEGIN AUTO RX IRQ */
+            case ID_MAINMODULE_BL_CMD:
+                mainmodule_bl_cmd_IRQ(msg_data_a);
+                break;
+            case ID_DASHBOARD_BL_CMD:
+                dashboard_bl_cmd_IRQ(msg_data_a);
+                break;
         /* END AUTO RX IRQ */
         default:
             __asm__("nop");

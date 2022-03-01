@@ -36,27 +36,22 @@ void canRxUpdate()
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
 
-        uint32_t app_can_id = 0;
-        switch(APP_ID)
+        switch(msg_header.ExtId)
         {
-            case APP_MAINMODULE:
+            case ID_MAINMODULE_BL_CMD:
             {
-                app_can_id = ID_MAINMODULE_BL_CMD;
+                if (APP_ID != APP_MAINMODULE) return;
                 break;
             }
-            case APP_DASHBOARD:
+            case ID_DASHBOARD_BL_CMD:
             {
-                app_can_id = ID_DASHBOARD_BL_CMD;
+                if (APP_ID != APP_DASHBOARD) return;
                 break;
             }
 
             default:
-                app_can_id = 0;
                 break;
         }
-
-        if (app_can_id != msg_header.ExtId)
-            return; // Wrong bootlaoder command
 
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
@@ -64,10 +59,12 @@ void canRxUpdate()
             case ID_MAINMODULE_BL_CMD:
                 can_data.mainmodule_bl_cmd.cmd = msg_data_a->mainmodule_bl_cmd.cmd;
                 can_data.mainmodule_bl_cmd.data = msg_data_a->mainmodule_bl_cmd.data;
+                mainmodule_bl_cmd_CALLBACK(msg_data_a);
                 break;
             case ID_DASHBOARD_BL_CMD:
                 can_data.dashboard_bl_cmd.cmd = msg_data_a->dashboard_bl_cmd.cmd;
                 can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
+                dashboard_bl_cmd_CALLBACK(msg_data_a);
                 break;
             default:
                 __asm__("nop");
@@ -135,12 +132,6 @@ void canProcessRxIRQs(CanMsgTypeDef_t* rx)
     switch(rx->ExtId)
     {
         /* BEGIN AUTO RX IRQ */
-            case ID_MAINMODULE_BL_CMD:
-                mainmodule_bl_cmd_IRQ(msg_data_a);
-                break;
-            case ID_DASHBOARD_BL_CMD:
-                dashboard_bl_cmd_IRQ(msg_data_a);
-                break;
         /* END AUTO RX IRQ */
         default:
             __asm__("nop");

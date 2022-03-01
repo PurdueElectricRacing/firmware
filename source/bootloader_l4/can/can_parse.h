@@ -21,18 +21,36 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
+#define ID_MAINMODULE_BL_RESP 0x40
+#define ID_DASHBOARD_BL_RESP 0x80
 #define ID_MAINMODULE_BL_CMD 0x9c43e
 #define ID_DASHBOARD_BL_CMD 0x9c47e
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
+#define DLC_MAINMODULE_BL_RESP 5
+#define DLC_DASHBOARD_BL_RESP 5
 #define DLC_MAINMODULE_BL_CMD 5
 #define DLC_DASHBOARD_BL_CMD 5
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
+#define SEND_MAINMODULE_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAINMODULE_BL_RESP, .DLC=DLC_MAINMODULE_BL_RESP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->mainmodule_bl_resp.cmd = cmd_;\
+        data_a->mainmodule_bl_resp.data = data_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_DASHBOARD_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_BL_RESP, .DLC=DLC_DASHBOARD_BL_RESP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dashboard_bl_resp.cmd = cmd_;\
+        data_a->dashboard_bl_resp.data = data_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -46,6 +64,14 @@
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } mainmodule_bl_resp;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } dashboard_bl_resp;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -76,11 +102,11 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void mainmodule_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */
-extern void mainmodule_bl_cmd_IRQ(CanParsedData_t* msg_data_a);
-extern void dashboard_bl_cmd_IRQ(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN RX IRQ */
 
 /**

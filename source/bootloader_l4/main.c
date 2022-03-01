@@ -35,22 +35,25 @@ extern uint32_t PLLClockRateHz;
 /* Function Prototypes */
 extern void HardFault_Handler();
 void jump_to_application(void);
-void check_boot_reason(void);
+bool check_boot_health(void);
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-extern uint32_t* __isr_vector_start;
-extern char _eboot_flash;      /* End of the bootlaoder flash region, same as the application start address (isr_vector) */
+extern char __isr_vector_start; /* VA of the vector table for the bootloader */
+extern char _eboot_flash;      /* End of the bootlaoder flash region, same as the application start address */
 
-static volatile uint32_t ms_ticks = 0;
-bool bootloader_timeout           = false;
+/* Bootlaoder timing control */
+static volatile uint32_t timeout_ticks = 0;
+static volatile bool bootloader_timeout = false;
 
-__attribute__((section("no_init_data"))) uint32_t reset_count;
+__attribute__((section("no_init_data"))) uint32_t reset_count; /* Reset counter that does not get reset in Reset_Handler during warm boot*/
 
 int main (void)
 {  
-    check_boot_reason();
+    // Our vector table has been copied to RAM
+    // This will make sure that the interrupts are fetched from RAM and not Flash
+    SCB->VTOR = (uint32_t)&__isr_vector_start;
 
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
@@ -65,42 +68,73 @@ int main (void)
         
     if (1 != PHAL_initCAN(CAN1, false))
         HardFault_Handler();
-    
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     /* Module init */
     initCANParse(&q_rx_can);
-    BL_init((uint32_t) &_eboot_flash);
+    BL_init((uint32_t *) &_eboot_flash, &timeout_ticks);
 
-    /* Timeout timer */
-    SysTick_Config(SystemCoreClock / 1000);
+    // Only enable application launch timeout if the device has not
+    // boot looped more than allowed.
+    bool allow_application_launch = check_boot_health();
+
+    SysTick_Config(SystemCoreClock / 100);
     NVIC_EnableIRQ(SysTick_IRQn);
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    while(!bootloader_timeout)
-        ;
+    CanMsgTypeDef_t tx_msg;
+    BL_sendStatusMessage(BLSTAT_BOOT, reset_count);
+    /*
+        Main bootloader loop.
+        Will run until the systick timer times out or the bootloader process completes
+    */
+    while(!bootloader_timeout || !allow_application_launch)
+    {
+        /* Process CAN signals */
+        while (q_rx_can.item_count > 0)
+            canRxUpdate();
+        while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+            PHAL_txCANMessage(&tx_msg);
 
-    if (*(&_eboot_flash) != 0xFF)
+
+        /* Check if firmware download is complete */
+        if (BL_flashComplete())
+        {
+            allow_application_launch = true;
+            bootloader_timeout = true;
+        }
+    }
+
+    // Check the first word of the application, it should contain the MSP
+    // an address can not start with 0xFF for the MSP
+    if (*((uint8_t *) &_eboot_flash) != 0xFF)
     {
         reset_count = 0;
-        NVIC_SystemReset();
+        BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
         jump_to_application();
     }
     else
     {
+        BL_sendStatusMessage(BLSTAT_INVAID_APP, reset_count);
         NVIC_SystemReset();
     }
 }
 
 void SysTick_Handler(void)
 {
-    ms_ticks++;
-    if (ms_ticks == 5000)
+    if (timeout_ticks % 10000 == 0)
+    {
+        BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
+    }
+
+    if (timeout_ticks == 50000)
     {
         bootloader_timeout = true;
     }
+
+    timeout_ticks++;
 }
 
-void check_boot_reason(void)
+bool check_boot_health(void)
 {
     uint32_t reset_cause = RCC->CSR;
     RCC->CSR |= RCC_CSR_RMVF;
@@ -118,12 +152,13 @@ void check_boot_reason(void)
        reset_count++; 
     }
     
-    if (reset_count >= 10)
+    if (reset_count >= 3)
     {
         // Reached the maximum number of resets
-        asm("bkpt");
-        // Send a FATAL CAN message
+        return false;
     }
+
+    return true;
 }
 
 void jump_to_application(void)
@@ -132,7 +167,7 @@ void jump_to_application(void)
     // Getting an interrupt after we set VTOR would be bad.
     __disable_irq();
 
-    uint32_t* app_code_start = (uint32_t*) _eboot_flash;
+    uint32_t* app_code_start = (uint32_t *) &_eboot_flash;
     // Set Vector Offset Table from the application
     SCB->VTOR = app_code_start[0];
 
@@ -141,17 +176,4 @@ void jump_to_application(void)
 
     // Actually jump to application
     ((void (*)(void))app_code_start[1])();
-}
-
-
-void mainmodule_bl_cmd_IRQ(CanParsedData_t* msg_data_a)
-{
-    if(APP_ID != APP_MAINMODULE) return;
-    BL_processCommand((BLCmd_t) msg_data_a->mainmodule_bl_cmd.cmd, msg_data_a->mainmodule_bl_cmd.data);
-}
-
-void bootloader_bl_cmd_IRQ(CanParsedData_t* msg_data_a)
-{
-    if(APP_ID != APP_DASHBOARD) return;
-    BL_processCommand((BLCmd_t) msg_data_a->dashboard_bl_cmd.cmd, msg_data_a->dashboard_bl_cmd.data);
 }

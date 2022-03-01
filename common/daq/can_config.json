@@ -175,11 +175,31 @@
                     "node_ssa": 0,
                     "can_peripheral": "CAN1",
                     "tx": [
+                        {   "msg_name":"mainmodule_bl_resp",
+                            "msg_desc":"Main Module Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":1
+                        },
+                        {   "msg_name":"dashboard_bl_resp",
+                            "msg_desc":"Dashboard Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
+                        }
                         
                     ],
                     "rx": [
-                        {"msg_name": "mainmodule_bl_cmd", "irq": true},
-                        {"msg_name": "dashboard_bl_cmd" , "irq": true}
+                        {"msg_name": "mainmodule_bl_cmd", "callback": true},
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true}
                     ]
                 },
                 {

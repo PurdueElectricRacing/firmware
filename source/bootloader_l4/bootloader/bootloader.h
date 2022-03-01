@@ -20,12 +20,14 @@ typedef enum
     BLCMD_FW_DATA    ,
 } BLCmd_t;
 
+void BL_init(uint32_t app_flash_start);
+
 /**
  * @brief Process an incoming bootlaoder command
  * 
  * @param cmd 
  * @param data 
  */
-void process_bl_cmd(BLCmd_t cmd, uint64_t data);
+void BL_processCommand(BLCmd_t cmd, uint64_t data);
 
 #endif

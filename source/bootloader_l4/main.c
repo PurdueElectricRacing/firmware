@@ -9,7 +9,7 @@
 
 /* Module Includes */
 #include "node_defs.h"
-#include "process.h"
+#include "bootloader.h"
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -70,7 +70,7 @@ int main (void)
 
     /* Module init */
     initCANParse(&q_rx_can);
-    initBLProcess((uint32_t) &_eboot_flash);
+    BL_init((uint32_t) &_eboot_flash);
 
     /* Timeout timer */
     SysTick_Config(SystemCoreClock / 1000);
@@ -147,11 +147,11 @@ void jump_to_application(void)
 void mainmodule_bl_cmd_IRQ(CanParsedData_t* msg_data_a)
 {
     if(APP_ID != APP_MAINMODULE) return;
-    process_bl_cmd((BLCmd_t) msg_data_a->mainmodule_bl_cmd.cmd, msg_data_a->mainmodule_bl_cmd.data);
+    BL_processCommand((BLCmd_t) msg_data_a->mainmodule_bl_cmd.cmd, msg_data_a->mainmodule_bl_cmd.data);
 }
 
 void bootloader_bl_cmd_IRQ(CanParsedData_t* msg_data_a)
 {
     if(APP_ID != APP_DASHBOARD) return;
-    process_bl_cmd((BLCmd_t) msg_data_a->dashboard_bl_cmd.cmd, msg_data_a->dashboard_bl_cmd.data);
+    BL_processCommand((BLCmd_t) msg_data_a->dashboard_bl_cmd.cmd, msg_data_a->dashboard_bl_cmd.data);
 }

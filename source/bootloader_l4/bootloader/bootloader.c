@@ -9,21 +9,21 @@
  * 
  */
 
-#include "process.h"
+#include "bootloader.h"
 #include "common/phal_L4/flash/flash.h"
 
 uint32_t app_flash_start_address;   /* Store the start address of the Application, never changes */
 uint32_t app_flash_current_address; /* Current address we are writing to */
 uint32_t app_flash_end_address;     /* Expected end address to stop writing */
 
-void initBLProcess(uint32_t app_flash_start)
+void BL_init(uint32_t app_flash_start)
 {
     app_flash_start_address     = app_flash_start;
     app_flash_end_address       = app_flash_start;
     app_flash_current_address   = app_flash_start;
 }
 
-void process_bl_cmd(BLCmd_t cmd, uint64_t data)
+void BL_processCommand(BLCmd_t cmd, uint64_t data)
 {
     switch (cmd)
     {

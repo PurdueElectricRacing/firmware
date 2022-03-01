@@ -16,6 +16,7 @@
 #include "can_parse.h"
 #include "daq.h"
 #include "wheel_speeds.h"
+#include "faults.h"
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -91,6 +92,8 @@ q_handle_t q_rx_can;
 uint8_t my_counter = 0;
 uint16_t my_counter2 = 85; // Warning: daq variables with eeprom capability may
                            // initialize to something else
+
+uint64_t faults = 0;
 
 int main (void)
 {

@@ -1,0 +1,16 @@
+{
+"busses":[
+{
+    "bus_name":"Test",
+    "nodes":[
+        {
+            "node_name":"TEST_NODE",
+            "faults":[
+                {"name":"test_fault", "class":"critical", "msg":"!!!test_fault!!!"},
+                {"name":"test_fault2", "class":"warning", "msg":"test_fault2"}
+            ]
+        }
+    ]
+}
+]
+}

@@ -324,7 +324,7 @@
                                 {"sig_name": "pot3", "type":"uint16_t", "length": 12}
                             ],
                             "msg_period": 15,
-                            "msg_id_override": "0x00001234"
+                            "msg_id_override": "0x00007C"
                         }
                     ],
                     "rx":[

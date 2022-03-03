@@ -3,7 +3,6 @@
 
 // TODO: car.c
 // Check for torque cmd timeout
-// Check torque cmd doesn't exceed request
 
 volatile Car_t car;
 extern q_handle_t q_tx_can;
@@ -30,7 +29,19 @@ void carPeriodic()
     // Reset once APPS < 5% pedal travel, w/ or w/o brakes
 
 
-    if (can_data.)
+    if (/* TODO: BRK*/0 > BRAKE_PRESSED_THRESHOLD)
+    {
+        if (!car.brake_light)
+        {
+            PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, true);
+            car.brake_light = true;
+        }
+    }
+    else if (car.brake_light)
+    {
+        PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
+        car.brake_light = false;
+    }
 
 
     /* State Dependent Operations */

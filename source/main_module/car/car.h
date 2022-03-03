@@ -11,8 +11,10 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 
+#include "common/daq/faults.h"
 #include <stdbool.h>
 #include "main.h"
+
 #include "can_parse.h"
 
 #define BRAKE_PRESSED_THRESHOLD 0.30f
@@ -31,6 +33,7 @@ typedef enum
 typedef struct
 {
     CartState_t state;
+    bool brake_light;
 } Car_t;
 
 volatile extern Car_t car;

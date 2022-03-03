@@ -252,6 +252,7 @@ void canSendTest()
     SEND_TEST_MSG3(q_tx_can, counter2);
     SEND_TEST_MSG4(q_tx_can, counter2);
     SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
+    SEND_CAR_STATE(q_tx_can, CAR_STATE_FLIPPED);
 }
 
 void canTxUpdate()

@@ -325,10 +325,20 @@
                             ],
                             "msg_period": 15,
                             "msg_id_override": "0x00001234"
+                        },
+                        {
+                            "msg_name":"car_state",
+                            "msg_desc": "state of the car",
+                            "signals":[
+                                {"sig_name":"car_state", "type":"uint8_t", "length": 8, "choices":["ready2go","flipped","flying","lightspeed"]}
+                            ],
+                            "msg_period":0,
+                            "msg_id_override": "0xBEEF420"
                         }
                     ],
                     "rx":[
-                        {"msg_name": "test_msg5_2"}
+                        {"msg_name": "test_msg5_2"},
+                        {"msg_name": "car_state2"}
                     ]
                 },
                 {
@@ -381,6 +391,15 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 5 
+                        },
+                        {
+                            "msg_name":"car_state2",
+                            "msg_desc": "state of the car",
+                            "signals":[
+                                {"sig_name":"car_state2", "type":"uint8_t", "length": 8, "choices":["ready2go","flipped","flying","lightspeed"]}
+                            ],
+                            "msg_period":0,
+                            "msg_id_override": "0xBEEF421"
                         }
                     ],
                     "rx":[

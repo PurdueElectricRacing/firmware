@@ -255,7 +255,7 @@ void schedPause(void)
 static void memsetu(uint8_t* ptr, uint8_t val, size_t size)
 {
     // Locals
-    uint8_t i;
+    size_t i;
 
     for (i = 0; i < size; i++)
     {

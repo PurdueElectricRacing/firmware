@@ -44,6 +44,9 @@ void canRxUpdate()
                 can_data.test_msg5_2.stale = 0;
                 can_data.test_msg5_2.last_rx = curr_tick;
                 break;
+            case ID_CAR_STATE2:
+                can_data.car_state2.car_state2 = msg_data_a->car_state2.car_state2;
+                break;
             case ID_DAQ_COMMAND_TEST_NODE:
                 can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
                 daq_command_TEST_NODE_CALLBACK(&msg_header);
@@ -77,7 +80,9 @@ bool initCANFilter()
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_TEST_MSG5_2 << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_CAR_STATE2 << 3) | 4;
+    CAN1->FA1R |= (1 << 1);    // configure bank 1
+    CAN1->sFilterRegister[1].FR1 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

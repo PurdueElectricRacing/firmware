@@ -39,6 +39,9 @@
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
                     (curr - last) * RX_UPDATE_PERIOD > period * STALE_THRESH) stale = 1
 
+/* BEGIN AUTO CAN ENUMERATIONS */
+/* END AUTO CAN ENUMERATIONS */
+
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
 /* END AUTO MESSAGE STRUCTURE */

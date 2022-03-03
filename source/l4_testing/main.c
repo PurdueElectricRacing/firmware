@@ -16,7 +16,6 @@
 #include "can_parse.h"
 #include "daq.h"
 #include "wheel_speeds.h"
-#include "faults.h"
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,

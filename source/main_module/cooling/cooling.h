@@ -13,6 +13,7 @@
 #define _COOLING_H_
 
 #include "stm32l496xx.h"
+#include "can_parse.h"
 #include <stdbool.h>
 
 #define BAT_PUMP_ON_TEMP_C  35

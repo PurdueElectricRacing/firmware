@@ -23,8 +23,8 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_FRONT_WHEEL_DATA 0x4000002
 #define ID_REAR_WHEEL_DATA 0x4000042
-#define ID_FRONT_MOTOR_CURRENTS 0xc000282
-#define ID_REAR_MOTOR_CURRENTS 0xc0002c2
+#define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
+#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
 #define ID_TORQUE_REQUEST 0x4000041
 /* END AUTO ID DEFS */
 
@@ -32,8 +32,8 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
-#define DLC_FRONT_MOTOR_CURRENTS 4
-#define DLC_REAR_MOTOR_CURRENTS 4
+#define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 #define DLC_TORQUE_REQUEST 6
 /* END AUTO DLC DEFS */
 
@@ -57,18 +57,22 @@
         data_a->rear_wheel_data.right_normal = right_normal_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_FRONT_MOTOR_CURRENTS(queue, left_, right_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_MOTOR_CURRENTS, .DLC=DLC_FRONT_MOTOR_CURRENTS, .IDE=1};\
+#define SEND_FRONT_MOTOR_CURRENTS_TEMPS(queue, left_current_, right_current_, left_temp_, right_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_MOTOR_CURRENTS_TEMPS, .DLC=DLC_FRONT_MOTOR_CURRENTS_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->front_motor_currents.left = left_;\
-        data_a->front_motor_currents.right = right_;\
+        data_a->front_motor_currents_temps.left_current = left_current_;\
+        data_a->front_motor_currents_temps.right_current = right_current_;\
+        data_a->front_motor_currents_temps.left_temp = left_temp_;\
+        data_a->front_motor_currents_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_MOTOR_CURRENTS(queue, left_, right_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_CURRENTS, .DLC=DLC_REAR_MOTOR_CURRENTS, .IDE=1};\
+#define SEND_REAR_MOTOR_CURRENTS_TEMPS(queue, left_, right_, left_temp_, right_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_CURRENTS_TEMPS, .DLC=DLC_REAR_MOTOR_CURRENTS_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_motor_currents.left = left_;\
-        data_a->rear_motor_currents.right = right_;\
+        data_a->rear_motor_currents_temps.left = left_;\
+        data_a->rear_motor_currents_temps.right = right_;\
+        data_a->rear_motor_currents_temps.left_temp = left_temp_;\
+        data_a->rear_motor_currents_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -98,13 +102,17 @@ typedef union { __attribute__((packed))
         uint64_t right_normal: 16;
     } rear_wheel_data;
     struct {
-        uint64_t left: 16;
-        uint64_t right: 16;
-    } front_motor_currents;
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } front_motor_currents_temps;
     struct {
         uint64_t left: 16;
         uint64_t right: 16;
-    } rear_motor_currents;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } rear_motor_currents_temps;
     struct {
         uint64_t front_left: 12;
         uint64_t front_right: 12;

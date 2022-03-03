@@ -43,7 +43,6 @@ void carPeriodic()
         car.brake_light = false;
     }
 
-
     /* State Dependent Operations */
 
     // EV.10.4 - Activation sequence
@@ -68,16 +67,15 @@ void carPeriodic()
     {
         // EV.10.5 - Ready to drive sound
         // 1-3 seconds, unique from other sounds
-        if (!PHAL_readGPIO(BUZZER_GPIO_Port, BUZZER_GPIO_Pin))
+        if (!PHAL_readGPIO(BUZZER_GPIO_Port, BUZZER_Pin))
         {
-            PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_GPIO_Pin, true);
+            PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, true);
             buzzer_start_tick = sched.os_ticks;
         }
         // stop buzzer
-        else if ((sched.os_ticks - buzzer_start_tick) >
-                 (SystemCoreClock * BUZZER_DURATION_MS / 1000)
+        else if (sched.os_ticks - buzzer_start_tick > BUZZER_DURATION_MS)
         {
-            PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_GPIO_Pin, false);
+            PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, false);
             car.state = CAR_STATE_READY2DRIVE;
         }
     }
@@ -87,14 +85,4 @@ void carPeriodic()
 
     }
 
-
-}
-
-
-
-
-
-void startBuzzer(uint16_t time_ms)
-{
-    // TODO: save timer stop time, convert ms -> os ticks
 }

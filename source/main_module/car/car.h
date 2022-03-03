@@ -11,8 +11,9 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 
-#include "common/daq/faults.h"
 #include <stdbool.h>
+#include "common/phal_L4/gpio/gpio.h"
+#include "common/psched/psched.h"
 #include "main.h"
 
 #include "can_parse.h"
@@ -32,7 +33,7 @@ typedef enum
 
 typedef struct
 {
-    CartState_t state;
+    CarState_t state;
     bool brake_light;
 } Car_t;
 

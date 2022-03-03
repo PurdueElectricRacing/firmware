@@ -25,6 +25,7 @@ MACRO(MAKE_COMMON_COMPONENT component_name component_dir common_libs)
     # Find directories for '#include'
     SUBDIRLIST(${component_dir} include_dirs)
     target_include_directories(${_TARGET_NAME} PUBLIC ${include_dirs})
+    target_include_directories(${_TARGET_NAME} PUBLIC ${component_dir})
 
     # Linker options
     target_link_options(${_TARGET_NAME} PUBLIC 

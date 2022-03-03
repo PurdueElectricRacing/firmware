@@ -11,6 +11,7 @@
 // Flow rate PWM
 // Fan ctrl
 
+
 // Battery
 // therm in
 // therm out
@@ -34,6 +35,8 @@ bool initCooling()
 
 void coolingPeriodic()
 {
-
-
+// can_data.front_motor_currents_temps.left_temp
+// can_data.front_motor_currents_temps.right_temp
+// can_data.rear_motor_currents_temps.left_temp
+// can_data.rear_motor_currents_temps.right_temp
 }

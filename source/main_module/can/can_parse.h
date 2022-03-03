@@ -25,6 +25,8 @@
 #define ID_MAIN_STATUS 0x4001900
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
+#define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
+#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -33,6 +35,8 @@
 #define DLC_MAIN_STATUS 3
 #define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_START_BUTTON 1
+#define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -84,6 +88,18 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t start: 1;
     } start_button;
+    struct {
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } front_motor_currents_temps;
+    struct {
+        uint64_t left: 16;
+        uint64_t right: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } rear_motor_currents_temps;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -103,6 +119,18 @@ typedef struct {
     struct {
         uint16_t start;
     } start_button;
+    struct {
+        uint16_t left_current;
+        uint16_t right_current;
+        uint8_t left_temp;
+        uint8_t right_temp;
+    } front_motor_currents_temps;
+    struct {
+        uint16_t left;
+        uint16_t right;
+        uint8_t left_temp;
+        uint8_t right_temp;
+    } rear_motor_currents_temps;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

@@ -32,7 +32,9 @@
                     ],
                     "rx":[
                         {"msg_name": "raw_throttle_brake"},
-                        {"msg_name": "start_button", "callback": true}
+                        {"msg_name": "start_button", "callback": true},
+                        {"msg_name": "front_motor_currents_temps"},
+                        {"msg_name": "rear_motor_currents_temps"}
                     ]
                 },
                 {
@@ -97,21 +99,25 @@
                             "msg_hlp": 1,
                             "msg_pgn": 1
                         },
-                        {   "msg_name": "front_motor_currents",
-                            "msg_desc": "DC Current of the motor controllers",
+                        {   "msg_name": "front_motor_currents_temps",
+                            "msg_desc": "DC Current and Temperature of the motor controllers",
                             "signals": [
-                                {"sig_name": "left", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right", "type": "uint16_t", "length": 16}
+                                {"sig_name": "left_current", "type": "uint16_t", "length": 16},
+                                {"sig_name": "right_current", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_temp", "type":"uint8_t", "length":8},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8}
                             ],
                             "msg_period": 0,
                             "msg_hlp": 3,
                             "msg_pgn": 10
                         },
-                        {   "msg_name": "rear_motor_currents",
-                            "msg_desc": "DC Current of the motor controllers",
+                        {   "msg_name": "rear_motor_currents_temps",
+                            "msg_desc": "DC Current and Temperature of the motor controllers",
                             "signals": [
                                 {"sig_name": "left", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right", "type": "uint16_t", "length": 16}
+                                {"sig_name": "right", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_temp", "type":"uint8_t", "length":8},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8}
                             ],
                             "msg_period": 0,
                             "msg_hlp": 3,

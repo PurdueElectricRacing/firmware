@@ -67,11 +67,15 @@ BO_ 2214592578 rear_wheel_data: 8 Driveline
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2348810882 front_motor_currents: 4 Driveline
- SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2348810882 front_motor_currents_temps: 6 Driveline
+ SG_ right_temp : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_temp : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_current : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_current : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2348810946 rear_motor_currents: 4 Driveline
+BO_ 2348810946 rear_motor_currents_temps: 6 Driveline
+ SG_ right_temp : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ left_temp : 32|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -199,10 +203,14 @@ CM_ SG_ 2214592578 right_normal "";
 CM_ SG_ 2214592578 left_normal "";
 CM_ SG_ 2214592578 right_speed "";
 CM_ SG_ 2214592578 left_speed "";
-CM_ BO_ 2348810882 "DC Current of the motor controllers";
-CM_ SG_ 2348810882 right "";
-CM_ SG_ 2348810882 left "";
-CM_ BO_ 2348810946 "DC Current of the motor controllers";
+CM_ BO_ 2348810882 "DC Current and Temperature of the motor controllers";
+CM_ SG_ 2348810882 right_temp "";
+CM_ SG_ 2348810882 left_temp "";
+CM_ SG_ 2348810882 right_current "";
+CM_ SG_ 2348810882 left_current "";
+CM_ BO_ 2348810946 "DC Current and Temperature of the motor controllers";
+CM_ SG_ 2348810946 right_temp "";
+CM_ SG_ 2348810946 left_temp "";
 CM_ SG_ 2348810946 right "";
 CM_ SG_ 2348810946 left "";
 CM_ BO_ 2281734148 "test precharge desc";

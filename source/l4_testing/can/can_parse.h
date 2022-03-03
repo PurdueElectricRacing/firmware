@@ -12,13 +12,12 @@
 #define _CAN_PARSE_H_
 
 #include "common/queue/queue.h"
+#include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
 
 #define NODE_NAME "TEST_NODE"
-
-#define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
@@ -29,6 +28,7 @@
 #define ID_TEST_MSG5 0x1400017f
 #define ID_WHEEL_SPEEDS 0xc0001ff
 #define ID_ADC_VALUES 0x1234
+#define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE 0xbeef420
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
 #define ID_TEST_MSG5_2 0x1400017d
@@ -48,6 +48,7 @@
 #define DLC_CAR_STATE 1
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
 #define DLC_TEST_MSG5_2 8
+#define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
@@ -123,12 +124,13 @@ typedef union {
 
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
-/* BEGIN AUTO UP DEFS (Update Period)*/
+/* BEGIN AUTO UP DEFS (Update Period) in milliseconds*/
 #define UP_TEST_MSG5_2 15
+#define UP_TEST_STALE 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
-                    (curr - last) * RX_UPDATE_PERIOD > period * STALE_THRESH) stale = 1
+                    (curr - last) > period * STALE_THRESH) stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
@@ -186,6 +188,9 @@ typedef union { __attribute__((packed))
         uint64_t test_sig5_3: 32;
     } test_msg5_2;
     struct {
+        uint64_t data: 8;
+    } test_stale;
+    struct {
         uint64_t car_state2: 8;
     } car_state2;
     struct {
@@ -206,6 +211,11 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } test_msg5_2;
+    struct {
+        uint8_t data;
+        uint8_t stale;
+        uint32_t last_rx;
+    } test_stale;
     struct {
         car_state2_t car_state2;
     } car_state2;

@@ -95,10 +95,10 @@ int main (void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    taskCreate(canTxUpdate, 5);
     taskCreate(bitstream10Hz, 100);
     taskCreate(bitstream100Hz, 10);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
     schedStart();
 
     return 0;

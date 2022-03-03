@@ -338,6 +338,7 @@
                     ],
                     "rx":[
                         {"msg_name": "test_msg5_2"},
+                        {"msg_name": "test_stale"},
                         {"msg_name": "car_state2"}
                     ]
                 },
@@ -391,6 +392,15 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 5 
+                        },
+                        {
+                            "msg_name":"test_stale",
+                            "msg_desc":"used to test stale",
+                            "signals":[
+                                {"sig_name":"data", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period":1000,
+                            "msg_id_override": "0x2222"
                         },
                         {
                             "msg_name":"car_state2",

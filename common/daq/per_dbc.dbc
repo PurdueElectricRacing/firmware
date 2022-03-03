@@ -154,6 +154,8 @@ BO_ 2483028349 test_msg5_2: 8 TEST_NODE_2
  SG_ test_sig5_2 : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2147492386 test_stale: 1 TEST_NODE_2
+ SG_ data : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 BO_ 2347693089 car_state2: 1 TEST_NODE_2
  SG_ car_state2 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -269,6 +271,8 @@ CM_ BO_ 2483028349 "test_msg5 desc";
 CM_ SG_ 2483028349 test_sig5_3 "";
 CM_ SG_ 2483028349 test_sig5_2 "";
 CM_ SG_ 2483028349 test_sig5 "";
+CM_ BO_ 2147492386 "used to test stale";
+CM_ SG_ 2147492386 data "";
 CM_ BO_ 2347693089 "state of the car";
 CM_ SG_ 2347693089 car_state2 "";
 CM_ BO_ 2550136829 "daq response from node TEST_NODE_2";

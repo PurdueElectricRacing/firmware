@@ -172,12 +172,12 @@ int main (void)
     schedInit(SystemCoreClock);
     taskCreate(ledBlink, 500);
     taskCreate(adcConvert, 50);
-    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
     taskCreate(wheelSpeedsPeriodic, 15);
     //taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
@@ -196,7 +196,15 @@ void adcConvert()
 
 void ledBlink()
 {
-    PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+    if (can_data.test_stale.stale)
+    {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
+    }
+    else
+    {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
+    }
+    //PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
 }
 
 void myCounterTest()

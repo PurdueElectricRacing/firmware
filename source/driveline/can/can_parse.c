@@ -22,12 +22,8 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
@@ -43,7 +39,7 @@ void canRxUpdate()
                 can_data.torque_request.rear_left = msg_data_a->torque_request.rear_left;
                 can_data.torque_request.rear_right = msg_data_a->torque_request.rear_right;
                 can_data.torque_request.stale = 0;
-                can_data.torque_request.last_rx = curr_tick;
+                can_data.torque_request.last_rx = sched.os_ticks;
                 break;
             default:
                 __asm__("nop");
@@ -53,7 +49,7 @@ void canRxUpdate()
 
     /* BEGIN AUTO STALE CHECKS */
     CHECK_STALE(can_data.torque_request.stale,
-                curr_tick, can_data.torque_request.last_rx,
+                sched.os_ticks, can_data.torque_request.last_rx,
                 UP_TORQUE_REQUEST);
     /* END AUTO STALE CHECKS */
 }

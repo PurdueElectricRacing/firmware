@@ -133,9 +133,10 @@ int main (void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    taskCreate(canTxUpdate, 5);
     taskCreate(heartbeat_task, 1000);
+
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     /* No Way Home */
     schedStart();

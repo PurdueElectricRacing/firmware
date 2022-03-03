@@ -106,7 +106,7 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
             lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = {convert_str};\n")
         if msg['msg_period'] > 0:
             lines.append(ind+f"                can_data.{msg['msg_name']}.stale = 0;\n")
-            lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")
+            lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = sched.os_ticks;\n")
         callback = [rx_config for rx_config in rx_callbacks if rx_config['msg_name'] == msg['msg_name']]
         if callback:
             if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
@@ -268,7 +268,7 @@ def configure_node(node_config, node_paths):
     for msg in receiving_msg_defs:
         if msg['msg_period'] > 0:
             stale_lines.append(f"    CHECK_STALE(can_data.{msg['msg_name']}.stale,\n")
-            stale_lines.append(f"                curr_tick, can_data.{msg['msg_name']}.last_rx,\n")
+            stale_lines.append(f"                sched.os_ticks, can_data.{msg['msg_name']}.last_rx,\n")
             stale_lines.append(f"                UP_{msg['msg_name'].upper()});\n")
     c_lines = generator.insert_lines(c_lines, gen_stale_case_start, gen_stale_case_stop, stale_lines)
 

@@ -29,6 +29,8 @@ gen_rx_irq_start = "BEGIN AUTO RX IRQ"
 gen_rx_irq_stop = "END AUTO RX IRQ"
 gen_irq_extern_start = "BEGIN AUTO EXTERN RX IRQ"
 gen_irq_extern_stop = "END AUTO EXTERN RX IRQ"
+gen_can_enums_start = "BEGIN AUTO CAN ENUMERATIONS"
+gen_can_enums_stop = "END AUTO CAN ENUMERATIONS"
 
 DEFAULT_PERIPHERAL = "CAN1"
 
@@ -209,7 +211,9 @@ def configure_node(node_config, node_paths):
     for msg in receiving_msg_defs:
         can_struct_lines.append("    struct {\n")
         for sig in msg['signals']:
-            can_struct_lines.append(f"        {sig['type']} {sig['sig_name']};\n")
+            dtype = sig['type']
+            if 'choices' in sig: dtype = f"{sig['sig_name']}_t"
+            can_struct_lines.append(f"        {dtype} {sig['sig_name']};\n")
         
         # stale checking variables
         if msg['msg_period'] > 0:
@@ -219,6 +223,18 @@ def configure_node(node_config, node_paths):
         can_struct_lines.append(f"    }} {msg['msg_name']};\n")
     can_struct_lines.append("} can_data_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_can_struct_start, gen_can_struct_stop, can_struct_lines)
+
+    # Enumerations from choices
+    can_enum_lines = []
+    for msg in raw_msg_defs:
+        for sig in msg['signals']:
+            if 'choices' in sig:
+                can_enum_lines.append("typedef enum {\n")
+                for choice in sig['choices']:
+                    can_enum_lines.append(f"    {sig['sig_name'].upper()}_{choice.upper()},\n")
+                can_enum_lines.append(f"}} {sig['sig_name']}_t;\n")
+                can_enum_lines.append(f"\n")
+    h_lines = generator.insert_lines(h_lines, gen_can_enums_start, gen_can_enums_stop, can_enum_lines)
 
     # Rx callbacks
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]

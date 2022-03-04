@@ -1,10 +1,17 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Run faults automatic code generation
+execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/faults/generation/generator.py 
+                RESULT_VARIABLE ret)
+if(ret EQUAL "1")
+    message(FATAL_ERROR "Fault Generation Failed")
+endif()
+
 # Run DAQ automatic code generation
 execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py 
                 RESULT_VARIABLE ret)
 if(ret EQUAL "1")
-    message(FATAL_ERROR "Code Generation Failed")
+    message(FATAL_ERROR "DAQ Generation Failed")
 endif()
 
 # Setup arm-none-eabi as our compile toolcahin

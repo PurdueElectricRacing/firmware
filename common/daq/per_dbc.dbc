@@ -108,7 +108,7 @@ BO_ 2214624555 soc1: 2 BMS1
  SG_ soc : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028095 test_msg: 2 TEST_NODE
- SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_sig : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028159 test_msg2: 2 TEST_NODE
  SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -121,6 +121,15 @@ BO_ 2483028287 test_msg4: 2 TEST_NODE
 
 BO_ 2483028351 test_msg5: 2 TEST_NODE
  SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810751 wheel_speeds: 8 TEST_NODE
+ SG_ right_speed : 32|32@1- (1,0) [0|0] "kph" Vector__XXX
+ SG_ left_speed : 0|32@1- (1,0) [0|0] "kph" Vector__XXX
+
+BO_ 2348826559 adc_values: 5 TEST_NODE
+ SG_ pot3 : 24|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pot2 : 12|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pot1 : 0|12@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136831 daq_response_TEST_NODE: 8 TEST_NODE
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -137,7 +146,9 @@ BO_ 2483028221 test_msg3_2: 2 TEST_NODE_2
 BO_ 2483028285 test_msg4_2: 2 TEST_NODE_2
  SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028349 test_msg5_2: 2 TEST_NODE_2
+BO_ 2483028349 test_msg5_2: 8 TEST_NODE_2
+ SG_ test_sig5_3 : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ test_sig5_2 : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136829 daq_response_TEST_NODE_2: 8 TEST_NODE_2
@@ -164,20 +175,20 @@ CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
 CM_ BO_ 2214592576 "Driver throttle/regeneration request";
-CM_ SG_ 2214592576 regen "";
-CM_ SG_ 2214592576 accel "";
+CM_ SG_ 2214592576 regen "regen request. 0-4096";
+CM_ SG_ 2214592576 accel "accel request. 0-4096";
 CM_ BO_ 2214598912 "Status message for main module";
-CM_ SG_ 2214598912 precharge_state "";
-CM_ SG_ 2214598912 apps_state "";
-CM_ SG_ 2214598912 car_state "";
+CM_ SG_ 2214598912 precharge_state "Precharge complete state";
+CM_ SG_ 2214598912 apps_state "Accelerator plausibility state";
+CM_ SG_ 2214598912 car_state "Main car state";
 CM_ BO_ 2214592577 "Torque request for all motors.";
-CM_ SG_ 2214592577 rear_right "";
-CM_ SG_ 2214592577 rear_left "";
-CM_ SG_ 2214592577 front_right "";
-CM_ SG_ 2214592577 front_left "";
+CM_ SG_ 2214592577 rear_right "torque request. 0-4096";
+CM_ SG_ 2214592577 rear_left "torque request. 0-4096";
+CM_ SG_ 2214592577 front_right "torque request. 0-4096";
+CM_ SG_ 2214592577 front_left "torque request. 0-4096";
 CM_ BO_ 2147490049 "Status message for bitstream flashing";
-CM_ SG_ 2147490049 flash_timeout_rx "";
-CM_ SG_ 2147490049 flash_success "";
+CM_ SG_ 2147490049 flash_timeout_rx "Timeout from CAN rx";
+CM_ SG_ 2147490049 flash_success "Done flashing bitstream";
 CM_ BO_ 2214592514 "Wheel data for the rear tires";
 CM_ SG_ 2214592514 right_normal "";
 CM_ SG_ 2214592514 left_normal "";
@@ -204,17 +215,17 @@ CM_ SG_ 2483028613 throttle0 "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";
 CM_ BO_ 2415925566 "Bitstream download command";
-CM_ SG_ 2415925566 d7 "";
-CM_ SG_ 2415925566 d6 "";
-CM_ SG_ 2415925566 d5 "";
-CM_ SG_ 2415925566 d4 "";
-CM_ SG_ 2415925566 d3 "";
-CM_ SG_ 2415925566 d2 "";
-CM_ SG_ 2415925566 d1 "";
-CM_ SG_ 2415925566 d0 "";
+CM_ SG_ 2415925566 d7 "Bitstream data word 7";
+CM_ SG_ 2415925566 d6 "Bitstream data word 6";
+CM_ SG_ 2415925566 d5 "Bitstream data word 5";
+CM_ SG_ 2415925566 d4 "Bitstream data word 4";
+CM_ SG_ 2415925566 d3 "Bitstream data word 3";
+CM_ SG_ 2415925566 d2 "Bitstream data word 2";
+CM_ SG_ 2415925566 d1 "Bitstream data word 1";
+CM_ SG_ 2415925566 d0 "Bitstream data word 0";
 CM_ BO_ 2415925630 "Bitstream state command";
-CM_ SG_ 2415925630 download_size "";
-CM_ SG_ 2415925630 download_request "";
+CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
+CM_ SG_ 2415925630 download_request "Request to download new bitstream";
 CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
 CM_ SG_ 2214624554 volts "";
 CM_ BO_ 2214624555 "Estimated soc";
@@ -229,6 +240,13 @@ CM_ BO_ 2483028287 "test_msg4 desc";
 CM_ SG_ 2483028287 test_sig4 "";
 CM_ BO_ 2483028351 "test_msg5 desc";
 CM_ SG_ 2483028351 test_sig5 "";
+CM_ BO_ 2348810751 "wheel speeds";
+CM_ SG_ 2348810751 right_speed "";
+CM_ SG_ 2348810751 left_speed "";
+CM_ BO_ 2348826559 "adc potentiometer readings";
+CM_ SG_ 2348826559 pot3 "";
+CM_ SG_ 2348826559 pot2 "";
+CM_ SG_ 2348826559 pot1 "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";
@@ -240,6 +258,8 @@ CM_ SG_ 2483028221 test_sig3 "";
 CM_ BO_ 2483028285 "test_msg4 desc";
 CM_ SG_ 2483028285 test_sig4 "";
 CM_ BO_ 2483028349 "test_msg5 desc";
+CM_ SG_ 2483028349 test_sig5_3 "";
+CM_ SG_ 2483028349 test_sig5_2 "";
 CM_ SG_ 2483028349 test_sig5 "";
 CM_ BO_ 2550136829 "daq response from node TEST_NODE_2";
 CM_ SG_ 2550136829 daq_response "";
@@ -251,6 +271,8 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 
-
+SIG_VALTYPE_ 2348810751 left_speed : 1;
+SIG_VALTYPE_ 2348810751 right_speed : 1;
+SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;
 
 

@@ -13,6 +13,7 @@ MACRO(MAKE_PHAL_LIBRARY lib_name lib_link)
     target_include_directories(${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
 
     target_link_libraries(${TARGET_NAME} ${lib_link})
+    target_link_libraries(${TARGET_NAME} common_defs)
 ENDMACRO(MAKE_PHAL_LIBRARY)
 
 MAKE_PHAL_LIBRARY(PHAL_L432 CMSIS_L432)

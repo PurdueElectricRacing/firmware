@@ -16,6 +16,8 @@ MACRO(MAKE_COMMON_COMPONENT component_name component_dir common_libs)
         target_link_libraries(${_TARGET_NAME} ${_LIB_NAME})
     endforeach(_LIB_NAME)
 
+    target_link_libraries(${_TARGET_NAME} common_defs) # everyone gets common defs
+
     # Find all .c sources in project, recursive search starting at component root
     file(GLOB_RECURSE glob_sources ${component_dir}/*.c)
     target_sources(${_TARGET_NAME} PUBLIC ${glob_sources})

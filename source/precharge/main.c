@@ -7,19 +7,38 @@
 #include "common/phal_L4/quadspi/quadspi.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
+#include "common/phal_L4/spi/spi.h"
 
 /* Module Includes */
 #include "main.h"
+#include "bmi088.h"
 
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
+    // CAN
     GPIO_INIT_CANRX_PA11,
     GPIO_INIT_CANTX_PA12,
     GPIO_INIT_CAN2RX_PB12,
     GPIO_INIT_CAN2TX_PB13,
 
-    GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED)
+    // SPI
+    GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, GPIO_OUTPUT_HIGH_SPEED),
+    GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
+
+    // Status and HV Monitoring
+    GPIO_INIT_OUTPUT(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(IMD_HS_PWM_GPIO_Port, IMD_HS_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(IMD_LS_PWM_GPIO_Port, IMD_LS_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin, GPIO_INPUT_OPEN_DRAIN),
+
+    // LEDs
+    GPIO_INIT_OUTPUT(ERROR_LED_GPIO_Port, ERROR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
 };
 
 #define TargetCoreClockrateHz 16000000
@@ -45,11 +64,35 @@ void PHAL_FaultHandler();
 extern void HardFault_Handler();
 void canTxUpdate();
 
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
+
+SPI_InitConfig_t spi_config = {
+    .data_rate = TargetCoreClockrateHz / 64,
+    .data_len  = 8,
+    .nss_sw = true,
+    .nss_gpio_port = SPI_CS_GYRO_GPIO_Port,
+    .nss_gpio_pin = SPI_CS_GYRO_Pin,
+    .rx_dma_cfg = &spi_rx_dma_config,
+    .tx_dma_cfg = &spi_tx_dma_config
+};
+
+BMI088_Handle_t bmi_config = {
+    .acel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
+    .acel_csb_pin = SPI_CS_ACEL_Pin,
+    .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
+    .gyro_csb_pin = SPI_CS_GYRO_Pin,
+    .gyro_datarate = GYRO_DR_1000Hz_116Hz,
+    .gyro_range = GYRO_RANGE_250,
+    .spi = &spi_config
+};
+
+int16_t x, y, z;
 int main (void)
 {
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));  
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config))
@@ -61,10 +104,17 @@ int main (void)
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaultHandler();
 
-    RCC->APB1ENR1 |= RCC_APB1ENR1_CAN2EN;
     if (1 != PHAL_initCAN(CAN2, false))
         PHAL_FaultHandler();
-        
+
+    spi_config.data_rate = APB2ClockRateHz / 16;
+    if (!PHAL_SPI_init(&spi_config))
+        PHAL_FaultHandler();
+
+    
+
+    PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
+    PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
@@ -73,11 +123,21 @@ int main (void)
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
+    if (!BMI088_init(&bmi_config))
+        PHAL_FaultHandler();
+    while(1)
+    {
+        BMI088_readGyro(&bmi_config, &x, &y, &z);
+    }
+    
+
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(canTxUpdate, 5);
     taskCreate(heartbeat_task, 1000);
+
+    /* No Way Home */
     schedStart();
 
     return 0;

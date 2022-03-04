@@ -93,6 +93,15 @@ typedef struct {
     {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.ospeed = ospeed_sel}}
 
 /**
+ * @brief Create GPIO Init struct to intilize a GPIO pin for analog
+ * 
+ * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
+ * @param pin_num Pin number from GPIO bank to configure
+ */
+#define GPIO_INIT_ANALOG(gpio_bank, pin_num) \
+    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_ANALOG}
+
+/**
  * @brief Create GPIO Init struct to intilize a GPIO pin for alternate function
  * 
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin

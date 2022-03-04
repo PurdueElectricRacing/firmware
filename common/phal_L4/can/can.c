@@ -19,14 +19,16 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     {
         RCC->APB1ENR1 |= RCC_APB1ENR1_CAN1EN;
     }
-    #ifdef STM32L496xx
-    if (bus == CAN2)
+    #ifdef CAN2
+    else if (bus == CAN2)
     {
         RCC->APB1ENR1 |= RCC_APB1ENR1_CAN2EN;
     } 
-    #endif
-
-    asm("nop"); // Ensure that clock is enabled
+    #endif /* CAN2 */
+    else
+    {
+        return false;
+    }
 
     // Leave SLEEP state
     bus->MCR &= ~CAN_MCR_SLEEP; 
@@ -83,12 +85,13 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus)
     {
         RCC->APB1RSTR1 |= RCC_APB1RSTR1_CAN1RST;
     }
-    #ifdef STM32L496xx
+    #ifdef CAN2
     else if(bus == CAN2)
     {
         RCC->APB1RSTR1 |= RCC_APB1RSTR1_CAN2RST;
     }
-    #endif
+    #endif /* CAN2 */
+    else return false;
     return true;
 }
 

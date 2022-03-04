@@ -104,6 +104,9 @@ void init_ADC();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
+dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+
 uint8_t my_counter = 0;
 uint16_t my_counter2 = 85; // Warning: daq variables with eeprom capability may
                            // initialize to something else
@@ -113,6 +116,9 @@ int main (void)
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+
+    huart1.tx_dma_cfg = &usart_tx_dma_config;
+    huart1.rx_dma_cfg = &usart_rx_dma_config;
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -170,9 +176,9 @@ int main (void)
     schedInit(APB1ClockRateHz);
     taskCreate(ledBlink, 500);
     taskCreate(usartTXTest, 1000);
-    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(canSendTest, 50);
+    // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    // taskCreate(canSendTest, 50);
     // //taskCreate(canReceiveTest, 500);
     // taskCreate(myCounterTest, 50);
     //taskCreate(ledBlink, 500);
@@ -202,14 +208,23 @@ void ledBlink()
 void usartTXTest()
 {
     uint8_t i;
-    uint16_t data[10];
+    uint8_t data[10];
+
+    static uint8_t select;
 
     for (i = 0; i < 10; i++) {
         data[i] = 'a' + i;
     }
 
-    PHAL_usartTxBl(USART1, data, 10);
-    PHAL_usartTxInt(USART1, data, 10);
+    if (select) {
+        PHAL_usartTxBl(USART1, (uint16_t *) data, 10);
+    } else {
+        PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data, 5);
+    }
+
+    // PHAL_usartRxDma(USART1, &huart1, (uint16_t*) data, 10);
+
+    select = !select;
 }
 
 void myCounterTest()

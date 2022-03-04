@@ -110,39 +110,67 @@ typedef struct {
     dma_init_t*    tx_dma_cfg;      // TX configuration
     dma_init_t*    rx_dma_cfg;      // RX configuration
 
-    volatile bool  _busy;           // Transaction busy
-    volatile bool  _error;          // Transaction error
+    uint8_t        _tx_busy;        // Waiting on a transmission to finish
+    uint8_t        _rx_busy;        // Waiting on a reception to finish
 } usart_init_t;
 
-typedef struct {
-    uint32_t err_occ;
-    uint32_t bytes_tx;
-    uint32_t bytes_rx;
-} usart_debug_t;
+// Global vars
+uint8_t tx_irqn[3] = {DMA1_Channel4_IRQn, DMA1_Channel6_IRQn, DMA2_Channel6_IRQn};
+uint8_t rx_irqn[3] = {DMA1_Channel5_IRQn, DMA1_Channel7_IRQn, DMA2_Channel7_IRQn};
 
 // Function Prototypes
 bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck);
 void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len);
 void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len);
-bool PHAL_usartTxInt(USART_TypeDef* instance, uint16_t* data, uint32_t len);
-bool PHAL_usartRxInt(USART_TypeDef* instance, uint16_t* data, uint32_t len);
-bool PHAL_usartTxDma(USART_TypeDef* instance, uint16_t* data, uint32_t len);
-bool PHAL_usartRxDma(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len);
 
 #define USART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(USART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0001, .channel_idx=3,                \
-     .periph=DMA1, .channel=DMA1_Channel5, .request=DMA1_CSELR}
+     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=4,                \
+     .periph=DMA1, .channel=DMA1_Channel4, .request=DMA1_CSELR}
 
 #define USART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(USART1->RDR), .mem_addr=(uint32_t) (rx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=true, .dma_chan_request=0b0001, .channel_idx=2,                 \
-     .periph=DMA1, .channel=DMA1_Channel4, .request=DMA1_CSELR}
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=5,                 \
+     .periph=DMA1, .channel=DMA1_Channel5, .request=DMA1_CSELR}
+
+#define USART2_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
+    {.periph_addr=(uint32_t) &(USART2->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
+     .tx_size=1, .increment=false, .circular=false,                             \
+     .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
+     .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
+     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=6,                \
+     .periph=DMA1, .channel=DMA1_Channel6, .request=DMA1_CSELR}
+
+#define USART2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
+    {.periph_addr=(uint32_t) &(USART2->RDR), .mem_addr=(uint32_t) (rx_addr_),   \
+     .tx_size=1, .increment=false, .circular=false,                             \
+     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
+     .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                 \
+     .periph=DMA1, .channel=DMA1_CHannel7, .request=DMA1_CSELR}
+
+#define LPUART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
+    {.periph_addr=(uint32_t) &(LPUART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
+     .tx_size=1, .increment=false, .circular=false,                             \
+     .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
+     .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
+     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=6,                \
+     .periph=DMA2, .channel=DMA2_Channel6, .request=DMA1_CSELR}
+
+#define LPUART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
+    {.periph_addr=(uint32_t) &(LPUART1->RDR), .mem_addr=(uint32_t) (rx_addr_),   \
+     .tx_size=1, .increment=false, .circular=false,                             \
+     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
+     .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                 \
+     .periph=DMA2, .channel=DMA2_Channel7, .request=DMA1_CSELR}
 
 #endif

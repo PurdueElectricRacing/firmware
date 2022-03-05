@@ -14,18 +14,32 @@
 static fault_core_t core;
 
 // Static function prototypes
-static void checkCallback(size_t idx);
 
-void faultInit(err_callback callback) {
-    core.__callback_set = (callback == NULL) ? false : true;
-    core.callback = callback;
+void heartTask(void) {
+    // TODO: Send heartbeat CAN frame here
 }
 
 void faultBg(void) {
+    size_t i;
+    size_t crit_count;
+    size_t warn_count;
 
+    for (i = 0; i < F_COUNT; i++) {
+        if (core.faults[i].active) {
+            if (f_crit[i]) {
+                ++crit_count;
+            } else {
+                ++warn_count;
+            }
+        }
+    }
+
+    core.master_caution = warn_count ? true : false;
+    core.master_error = crit_count ? true : false;
 }
 
 void faultUpdate(size_t idx, bool set) {
+    size_t time_trigger;
     int8_t delta = set ? 1 : -1;
 
     if (core.faults[idx].active) {
@@ -33,6 +47,7 @@ void faultUpdate(size_t idx, bool set) {
     }
 
     if (f_wind[idx]) {
+        core.faults[idx].time_curr = CLAMP((int32_t) core.faults[idx].time_curr + delta, 0, (int32_t) core.faults[idx].time_curr + 1);
         core.faults[idx].time_curr += delta;
     } else {
         if (!set) {
@@ -43,7 +58,12 @@ void faultUpdate(size_t idx, bool set) {
         }
     }
 
-    checkCallback(idx);
+    time_trigger = core.faults[idx].active ? f_ul_time[idx] : f_l_time[idx];
+
+    if (core.faults[idx].time_curr >= time_trigger) {
+        core.faults[idx].active = !core.faults[idx].active;
+        core.faults[idx].time_curr = 0;
+    }
 }
 
 void faultForce(size_t idx, bool set) {
@@ -72,8 +92,4 @@ __weak void __recover(void* mem_addr) {
     }
 
     NVIC_SystemReset();
-}
-
-static void checkCallback(size_t idx) {
-
 }

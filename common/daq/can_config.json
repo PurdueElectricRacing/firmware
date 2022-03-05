@@ -28,11 +28,27 @@
                             "msg_period":25,
                             "msg_hlp":1,
                             "msg_pgn":100
+                        },
+                        {
+                            "msg_name":"main_faults",
+                            "msg_desc":"Main fault update",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
                         }
                     ],
                     "rx":[
                         {"msg_name": "raw_throttle_brake"},
-                        {"msg_name": "start_button", "callback": true}
+                        {"msg_name": "start_button", "callback": true},
+                        {"msg_name": "tv_faults", "callback": true},
+                        {"msg_name": "driveline_faults", "callback": true},
+                        {"msg_name": "precharge_faults", "callback": true},
+                        {"msg_name": "dashboard_faults", "callback": true},
+                        {"msg_name": "bms_faults_swp", "callback": true}
                     ]
                 },
                 {
@@ -60,6 +76,17 @@
                             "msg_period":0,
                             "msg_hlp":0,
                             "msg_pgn":100
+                        },
+                        {
+                            "msg_name":"tv_faults",
+                            "msg_desc":"Torque vectoring fault update",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
                         }
                     ],
                     "rx":[
@@ -116,6 +143,17 @@
                             "msg_period": 0,
                             "msg_hlp": 3,
                             "msg_pgn": 11
+                        },
+                        {
+                            "msg_name":"driveline_faults",
+                            "msg_desc":"Driveline fault update",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
                         }
                     ],
                     "rx": [
@@ -136,6 +174,28 @@
                             "msg_period": 15,
                             "msg_hlp": 2,
                             "msg_pgn": 512
+                        },
+                        {
+                            "msg_name":"precharge_faults",
+                            "msg_desc":"Precharge fault update",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
+                        },
+                        {
+                            "msg_name":"bms_faults_swp",
+                            "msg_desc":"BMS fault update (bus swap)",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
                         }
                     ],
                     "rx": []
@@ -164,6 +224,17 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":0
+                        },
+                        {
+                            "msg_name":"dashboard_faults",
+                            "msg_desc":"Dashboard fault update",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
                         }
                     ],
                     "rx":[
@@ -227,7 +298,8 @@
                         }
                     ],
                     "rx": [
-                        {"msg_name": "soc1"}
+                        {"msg_name": "soc1"},
+                        {"msg_name": "bms_faults", "callback": true}
                     ]
                 },
                 {
@@ -244,6 +316,17 @@
                             "msg_period": 0,
                             "msg_hlp": 1,
                             "msg_pgn": 500
+                        },
+                        {
+                            "msg_name":"bms_faults",
+                            "msg_desc":"BMS fault update",
+                            "signals":[
+                                {"sig_name":"idx","sig_desc":"Fault index","type":"uint8_t","length":8},
+                                {"sig_name":"set","sig_desc":"Fault setpoint","type":"uint8_t","length":1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":0,
+                            "msg_pgn":2
                         }
                     ],
                     "rx": [

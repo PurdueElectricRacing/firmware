@@ -5,8 +5,8 @@
 // Suspension POTAMPL
 #define POT_AMPL_GPIO_Port (GPIOA)
 #define POT_AMPL_Pin (0) //left 
-#define POT_AMPL_GPIO_Port (GPIOA)
-#define POT_AMPL_Pin (1) //right
+#define POT_AMPR_GPIO_Port (GPIOA)
+#define POT_AMPR_Pin (1) //right
 
 // USART_R_TX + USTART_R_RX
 #define USART_R_TX_GPIO_Port (GPIOA)
@@ -20,7 +20,8 @@
 
 // WSpeedL
 #define WSPEEDL_GPIO_Port (GPIOA)
-#define WSPEEDL_GPin (8)
+#define WSPEEDL_Pin (8)
+#define WHEELSPEEDL_AF (1)
 
 //USART_L_TX + USART_L_RX
 #define USART_L_TX_GPIO_Port (GPIOA)
@@ -43,15 +44,16 @@
 // WSpeedR
 #define WSPEEDR_GPIO_Port (GPIOA)
 #define WSPEEDR_Pin (15)
+#define WHEELSPEEDR_AF (1)
 
 // ERR_LED + CONN_LED
 #define ERR_LED_GPIO_Port (GPIOB)
 #define ERR_LED_Pin (3)
 #define CONN_LED_GPIO_Port (GPIOB)
-#define CONN_LED_Pin (4)
+#define CONN_LED_Pin (3)
 
 // HEARTBEAT
-#define HEARBEAT_GPIO_Port (GPIOB)
+#define HEARTBEAT_GPIO_Port (GPIOB)
 #define HEARTBEAT_Pin (5)
 
 // SCL + SDA 

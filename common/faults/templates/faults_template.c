@@ -21,7 +21,7 @@ void faultInit(err_callback callback) {
     core.callback = callback;
 }
 
-void faultsBg(void) {
+void faultBg(void) {
 
 }
 
@@ -42,6 +42,8 @@ void faultUpdate(size_t idx, bool set) {
             core.faults[idx].time_curr += delta;
         }
     }
+
+    checkCallback(idx);
 }
 
 void faultForce(size_t idx, bool set) {

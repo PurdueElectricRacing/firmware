@@ -12,6 +12,9 @@
 typedef void (*err_callback)(void);
 
 // Defines
+// #define F_MASTER
+#define F_SLAVE
+
 #define F_COUNT             0
 #define F_TEST_L_TIME       10
 #define F_TEST_UL_TIME      5
@@ -34,7 +37,7 @@ typedef struct {
 
 // Prototypes
 void faultInit(err_callback callback);
-void faultsBg(void);
+void faultBg(void);
 bool faultCheck(size_t idx);
 void __assert(bool truth);
 __weak void __recover(void* mem_addr);

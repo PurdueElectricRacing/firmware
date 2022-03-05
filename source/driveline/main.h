@@ -3,10 +3,10 @@
 
 //STM32L432KCU6
 // Suspension POTAMPL
-#define POT_AMPL_GPIO_Port (GPIOA)
-#define POT_AMPL_Pin (0) //left 
-#define POT_AMPL_GPIO_Port (GPIOA)
-#define POT_AMPL_Pin (1) //right
+#define POT_AMPL_LEFT_GPIO_Port (GPIOA)
+#define POT_AMPL_LEFT_Pin (0) //left 
+#define POT_AMPL_RIGHT_GPIO_Port (GPIOA)
+#define POT_AMPL_RIGHT_Pin (1) //right
 
 // USART_R_TX + USTART_R_RX
 #define USART_R_TX_GPIO_Port (GPIOA)

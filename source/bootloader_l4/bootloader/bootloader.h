@@ -18,9 +18,9 @@
 
 typedef enum
 {
-    BLCMD_INFO,
-    BLCMD_ADD_ADDRESS,
-    BLCMD_FW_DATA
+    BLCMD_INFO = 0x1,
+    BLCMD_ADD_ADDRESS = 0x2,
+    BLCMD_FW_DATA = 0x3
 } BLCmd_t;
 
 typedef enum

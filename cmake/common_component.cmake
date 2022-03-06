@@ -28,7 +28,7 @@ MACRO(MAKE_COMMON_COMPONENT component_name component_dir common_libs)
 
     # Linker options
     target_link_options(${_TARGET_NAME} PUBLIC 
-        -T${COMMON_SOURCE_DIR}/linker/STM32L432KCUx_FLASH.ld
+        -T${COMMON_SOURCE_DIR}/linker/STM32L432KCUx_FLASH_APP.ld
     )
 
     # Run postbuild actions like including a bootloader in the final image

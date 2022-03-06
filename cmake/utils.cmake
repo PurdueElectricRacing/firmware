@@ -20,6 +20,11 @@ function(postbuild_target COMPONENT_NAME TARGET_NAME)
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND arm-none-eabi-objcopy -S -O ihex ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${COMPONENT_NAME}.hex
+        COMMENT "Generateing HEX file"
+    )
+
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND cmake -E echo 
         COMMENT "Formatting"
     )

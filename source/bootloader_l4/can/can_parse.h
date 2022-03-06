@@ -21,10 +21,10 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_MAINMODULE_BL_RESP 0x40
-#define ID_DASHBOARD_BL_RESP 0x80
-#define ID_MAINMODULE_BL_CMD 0x9c43e
-#define ID_DASHBOARD_BL_CMD 0x9c47e
+#define ID_MAINMODULE_BL_RESP 0x404e23c
+#define ID_DASHBOARD_BL_RESP 0x404e27c
+#define ID_MAINMODULE_BL_CMD 0x409c43e
+#define ID_DASHBOARD_BL_CMD 0x409c47e
 /* END AUTO ID DEFS */
 
 // Message DLC definitions

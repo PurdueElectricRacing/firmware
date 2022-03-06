@@ -87,11 +87,11 @@ BO_ 2483028613 raw_throttle_brake: 8 Dashboard
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147483712 mainmodule_bl_resp: 5 bootloader
+BO_ 2214912572 mainmodule_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147483776 dashboard_bl_resp: 5 bootloader
+BO_ 2214912636 dashboard_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -109,11 +109,11 @@ BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148123710 mainmodule_bl_cmd: 5 TESTER
+BO_ 2215232574 mainmodule_bl_cmd: 5 TESTER
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148123774 dashboard_bl_cmd: 5 TESTER
+BO_ 2215232638 dashboard_bl_cmd: 5 TESTER
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -231,12 +231,12 @@ CM_ SG_ 2483028613 throttle1 "";
 CM_ SG_ 2483028613 throttle0 "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";
-CM_ BO_ 2147483712 "Main Module Bootloader response";
-CM_ SG_ 2147483712 data "";
-CM_ SG_ 2147483712 cmd "";
-CM_ BO_ 2147483776 "Dashboard Bootloader response";
-CM_ SG_ 2147483776 data "";
-CM_ SG_ 2147483776 cmd "";
+CM_ BO_ 2214912572 "Main Module Bootloader response";
+CM_ SG_ 2214912572 data "";
+CM_ SG_ 2214912572 cmd "";
+CM_ BO_ 2214912636 "Dashboard Bootloader response";
+CM_ SG_ 2214912636 data "";
+CM_ SG_ 2214912636 cmd "";
 CM_ BO_ 2415925566 "Bitstream download command";
 CM_ SG_ 2415925566 d7 "Bitstream data word 7";
 CM_ SG_ 2415925566 d6 "Bitstream data word 6";
@@ -249,12 +249,12 @@ CM_ SG_ 2415925566 d0 "Bitstream data word 0";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
 CM_ SG_ 2415925630 download_request "Request to download new bitstream";
-CM_ BO_ 2148123710 "Bootloader command for main module";
-CM_ SG_ 2148123710 data "Bootloader data";
-CM_ SG_ 2148123710 cmd "Bootloader Command type";
-CM_ BO_ 2148123774 "Bootloader command for main module";
-CM_ SG_ 2148123774 data "Bootloader data";
-CM_ SG_ 2148123774 cmd "Bootloader Command type";
+CM_ BO_ 2215232574 "Bootloader command for main module";
+CM_ SG_ 2215232574 data "Bootloader data";
+CM_ SG_ 2215232574 cmd "Bootloader Command type";
+CM_ BO_ 2215232638 "Bootloader command for main module";
+CM_ SG_ 2215232638 data "Bootloader data";
+CM_ SG_ 2215232638 cmd "Bootloader Command type";
 CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
 CM_ SG_ 2214624554 volts "";
 CM_ BO_ 2214624555 "Estimated soc";

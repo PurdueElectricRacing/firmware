@@ -53,7 +53,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                 PHAL_flashWriteU32(app_flash_current_address, data);
                 app_flash_current_address ++;
                 *timeout_ticks = 0;
-                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) app_flash_current_address);
+                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
             }
             break;
         }

@@ -75,7 +75,7 @@ int main (void)
 
     // Only enable application launch timeout if the device has not
     // boot looped more than allowed.
-    bool allow_application_launch = check_boot_health();
+    bool allow_application_launch = check_boot_health() & false;
 
     SysTick_Config(SystemCoreClock / 100);
     NVIC_EnableIRQ(SysTick_IRQn);

@@ -172,7 +172,7 @@
                 },
                 {
                     "node_name": "bootloader",
-                    "node_ssa": 0,
+                    "node_ssa": 60,
                     "can_peripheral": "CAN1",
                     "tx": [
                         {   "msg_name":"mainmodule_bl_resp",
@@ -182,8 +182,8 @@
                                 {"sig_name":"data","type":"uint32_t","length":32}
                             ],
                             "msg_period":0,
-                            "msg_hlp":0,
-                            "msg_pgn":1
+                            "msg_hlp":1,
+                            "msg_pgn":5000
                         },
                         {   "msg_name":"dashboard_bl_resp",
                             "msg_desc":"Dashboard Bootloader response",
@@ -192,8 +192,8 @@
                                 {"sig_name":"data","type":"uint32_t","length":32}
                             ],
                             "msg_period":0,
-                            "msg_hlp":0,
-                            "msg_pgn":2
+                            "msg_hlp":1,
+                            "msg_pgn":5001
                         }
                         
                     ],
@@ -240,7 +240,7 @@
                                 {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
                             ],
                             "msg_period":0,
-                            "msg_hlp":0,
+                            "msg_hlp":1,
                             "msg_pgn":10000
                         },
                         {
@@ -251,7 +251,7 @@
                                 {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
                             ],
                             "msg_period":0,
-                            "msg_hlp":0,
+                            "msg_hlp":1,
                             "msg_pgn":10001
                         }
                     ],

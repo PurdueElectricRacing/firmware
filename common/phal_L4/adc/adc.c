@@ -36,6 +36,10 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
         return false;
     }
 
+    // Calibrate
+    adc->CR |= ADC_CR_ADCAL;
+    while(adc->CR & ADC_CR_ADCAL);
+
     // Set clock mode
     ADC1_COMMON->CCR &= ~(ADC_CCR_CKMODE);
 
@@ -62,6 +66,14 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     // Regular channel sequence length
     adc->SQR1 &= ~(ADC_SQR1_L);
     adc->SQR1 |= ((num_channels - 1) << ADC_SQR1_L_Pos) & ADC_SQR1_L_Msk;
+
+    // DMA configuration
+    if (config->dma_mode != ADC_DMA_OFF)
+    {
+        adc->CFGR |= (ADC_CFGR_DMAEN) | 
+                     (((config->dma_mode == ADC_DMA_CIRCULAR) << ADC_CFGR_DMACFG_Pos) & ADC_CFGR_DMACFG);
+    }
+    else adc->CFGR &= ~(ADC_CFGR_DMAEN);
 
     // Channel configuration
     for (int i = 0; i < num_channels; i++)
@@ -108,7 +120,7 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     adc->CR |= ADC_CR_ADEN;
     uint32_t timeout = 0;
     while(!(adc->ISR & ADC_ISR_ADRDY) && ++timeout < PHAL_ADC_INIT_TIMEOUT)
-        ;
+    ;
     if (timeout == PHAL_ADC_INIT_TIMEOUT)
         return false;
 #endif

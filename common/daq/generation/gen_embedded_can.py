@@ -29,6 +29,8 @@ gen_rx_irq_start = "BEGIN AUTO RX IRQ"
 gen_rx_irq_stop = "END AUTO RX IRQ"
 gen_irq_extern_start = "BEGIN AUTO EXTERN RX IRQ"
 gen_irq_extern_stop = "END AUTO EXTERN RX IRQ"
+gen_can_enums_start = "BEGIN AUTO CAN ENUMERATIONS"
+gen_can_enums_stop = "END AUTO CAN ENUMERATIONS"
 
 DEFAULT_PERIPHERAL = "CAN1"
 
@@ -68,7 +70,10 @@ def gen_send_macro(lines, msg_config, peripheral):
     lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .ExtId=ID_{cap}, .DLC=DLC_{cap}, .IDE=1}};\\\n")
     lines.append(f"        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
     for sig in msg_config['signals']:
-        lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {sig['sig_name']}_;\\\n")
+        # if float, cannot simply cast to uint32, have to use union
+        convert_str = f"FLOAT_TO_UINT32({sig['sig_name']}_)" if 'float' in sig['type'] else f"{sig['sig_name']}_"
+        # conversion not necessary for signed integers (source: testing)
+        lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {convert_str};\\\n")
     lines.append(f"        qSendToBack(&queue, &msg);\\\n")
     lines.append(f"    }} while(0)\n")
 
@@ -96,10 +101,14 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     for msg in rx_msg_configs:
         lines.append(ind+f"            case ID_{msg['msg_name'].upper()}:\n")
         for sig in msg['signals']:
-            lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = msg_data_a->{msg['msg_name']}.{sig['sig_name']};\n")
+            var_str = f"msg_data_a->{msg['msg_name']}.{sig['sig_name']}"
+            # converting from uint storage to either signed int or float
+            convert_str = f"({sig['type']}) {var_str}" if ('int' in sig['type'] and 'u' not in sig['type']) else var_str
+            convert_str = f"UINT32_TO_FLOAT({var_str})" if 'float' in sig['type'] else convert_str
+            lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = {convert_str};\n")
         if msg['msg_period'] > 0:
             lines.append(ind+f"                can_data.{msg['msg_name']}.stale = 0;\n")
-            lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = curr_tick;\n")
+            lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = sched.os_ticks;\n")
         callback = [rx_config for rx_config in rx_callbacks if rx_config['msg_name'] == msg['msg_name']]
         if callback:
             if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
@@ -202,7 +211,9 @@ def configure_node(node_config, node_paths):
     for msg in receiving_msg_defs:
         can_struct_lines.append("    struct {\n")
         for sig in msg['signals']:
-            can_struct_lines.append(f"        {sig['type']} {sig['sig_name']};\n")
+            dtype = sig['type']
+            if 'choices' in sig: dtype = f"{sig['sig_name']}_t"
+            can_struct_lines.append(f"        {dtype} {sig['sig_name']};\n")
         
         # stale checking variables
         if msg['msg_period'] > 0:
@@ -212,6 +223,18 @@ def configure_node(node_config, node_paths):
         can_struct_lines.append(f"    }} {msg['msg_name']};\n")
     can_struct_lines.append("} can_data_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_can_struct_start, gen_can_struct_stop, can_struct_lines)
+
+    # Enumerations from choices
+    can_enum_lines = []
+    for msg in raw_msg_defs:
+        for sig in msg['signals']:
+            if 'choices' in sig:
+                can_enum_lines.append("typedef enum {\n")
+                for choice in sig['choices']:
+                    can_enum_lines.append(f"    {sig['sig_name'].upper()}_{choice.upper()},\n")
+                can_enum_lines.append(f"}} {sig['sig_name']}_t;\n")
+                can_enum_lines.append(f"\n")
+    h_lines = generator.insert_lines(h_lines, gen_can_enums_start, gen_can_enums_stop, can_enum_lines)
 
     # Rx callbacks
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
@@ -261,7 +284,7 @@ def configure_node(node_config, node_paths):
     for msg in receiving_msg_defs:
         if msg['msg_period'] > 0:
             stale_lines.append(f"    CHECK_STALE(can_data.{msg['msg_name']}.stale,\n")
-            stale_lines.append(f"                curr_tick, can_data.{msg['msg_name']}.last_rx,\n")
+            stale_lines.append(f"                sched.os_ticks, can_data.{msg['msg_name']}.last_rx,\n")
             stale_lines.append(f"                UP_{msg['msg_name'].upper()});\n")
     c_lines = generator.insert_lines(c_lines, gen_stale_case_start, gen_stale_case_stop, stale_lines)
 

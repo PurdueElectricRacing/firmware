@@ -262,7 +262,7 @@
                         {   "msg_name":"test_msg",
                             "msg_desc":"test_msg desc",
                             "signals":[
-                                {"sig_name": "test_sig", "type":"uint16_t", "length": 16}
+                                {"sig_name": "test_sig", "type":"int16_t"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
@@ -303,9 +303,43 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 5 
+                        },
+                        {
+                            "msg_name":"wheel_speeds",
+                            "msg_desc": "wheel speeds",
+                            "signals":[
+                                {"sig_name": "left_speed", "type":"float", "unit":"kph"},
+                                {"sig_name": "right_speed", "type":"float", "unit":"kph"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 3,
+                            "msg_pgn": 7 
+                        },
+                        {
+                            "msg_name":"adc_values",
+                            "msg_desc": "adc potentiometer readings",
+                            "signals":[
+                                {"sig_name": "pot1", "type":"uint16_t", "length": 12},
+                                {"sig_name": "pot2", "type":"uint16_t", "length": 12},
+                                {"sig_name": "pot3", "type":"uint16_t", "length": 12}
+                            ],
+                            "msg_period": 15,
+                            "msg_id_override": "0x00001234"
+                        },
+                        {
+                            "msg_name":"car_state",
+                            "msg_desc": "state of the car",
+                            "signals":[
+                                {"sig_name":"car_state", "type":"uint8_t", "length": 8, "choices":["ready2go","flipped","flying","lightspeed"]}
+                            ],
+                            "msg_period":0,
+                            "msg_id_override": "0xBEEF420"
                         }
                     ],
                     "rx":[
+                        {"msg_name": "test_msg5_2"},
+                        {"msg_name": "test_stale"},
+                        {"msg_name": "car_state2"}
                     ]
                 },
                 {
@@ -351,11 +385,31 @@
                         {   "msg_name":"test_msg5_2",
                             "msg_desc":"test_msg5 desc",
                             "signals":[
-                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16}
+                                {"sig_name": "test_sig5", "type":"uint16_t", "length": 16},
+                                {"sig_name": "test_sig5_2", "type": "int16_t"},
+                                {"sig_name": "test_sig5_3", "type": "float"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 5 
+                        },
+                        {
+                            "msg_name":"test_stale",
+                            "msg_desc":"used to test stale",
+                            "signals":[
+                                {"sig_name":"data", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period":1000,
+                            "msg_id_override": "0x2222"
+                        },
+                        {
+                            "msg_name":"car_state2",
+                            "msg_desc": "state of the car",
+                            "signals":[
+                                {"sig_name":"car_state2", "type":"uint8_t", "length": 8, "choices":["ready2go","flipped","flying","lightspeed"]}
+                            ],
+                            "msg_period":0,
+                            "msg_id_override": "0xBEEF421"
                         }
                     ],
                     "rx":[

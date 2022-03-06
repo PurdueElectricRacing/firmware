@@ -96,12 +96,22 @@ if options.target or not options.clean:
     ]
     NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
 
-    subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
-    log_success(f"Running Build command {' '.join(NINJA_COMMAND)}")
-    ninja_build = subprocess.run(NINJA_COMMAND)
+    try:
+        subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
+    except subprocess.CalledProcessError as e:
+        log_error("Unable to configure CMake, see the CMake output above.")
+        exit()
 
+    log_success("Sucessfully generated build files.")
+    print(f"Running Build command {' '.join(NINJA_COMMAND)}")
+
+    try:
+        ninja_build = subprocess.run(NINJA_COMMAND)
+    except subprocess.CalledProcessError as e:
+        log_error("Unable to configure compile sources, see the Ninja output above.")
+        exit()
 
     if ninja_build.returncode != 0:
-        log_error("Unable to generate target.")
+        log_error("Unable to generate targets.")
     else:
         log_success("Sucessfully built targets.")

@@ -10,12 +10,15 @@
 #include "common/phal_L4/i2c/i2c.h"
 #include "common/eeprom/eeprom.h"
 #endif
+#include "common/phal_L4/tim/tim.h"
+#include "common/phal_L4/dma/dma.h"
 #include <math.h>
 
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
+#include "wheel_speeds.h"
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -30,23 +33,30 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
-  GPIO_INIT_ANALOG(POT_GPIO_Port, POT_Pin)
+  GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  //GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  GPIO_INIT_ANALOG(POT_GPIO_Port, POT_Pin),
+  GPIO_INIT_ANALOG(POT2_GPIO_Port, POT2_Pin),
+  GPIO_INIT_ANALOG(POT3_GPIO_Port, POT3_Pin)
 };
 
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_6,
-    .resolution=ADC_RES_12_BIT,
-    .data_align=ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode=true,
-    .overrun=true
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .overrun         = true,
+    .dma_mode        = ADC_DMA_CIRCULAR
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=POT_ADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
+    {.channel=POT_ADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=POT2_ADC_Channel, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=POT3_ADC_Channel, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
 };
 
 usart_init_t huart1 = {
-    .baud_rate = 9600,
+    .baud_rate = 19200,
     .word_length = WORD_8,
     .stop_bits = SB_ONE,
     .parity = PT_NONE,
@@ -67,14 +77,17 @@ usart_init_t huart1 = {
                    },
 };
 
+static uint16_t adc_conversions[3];
+
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 3, 0b01);
+
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .system_clock_target_hz     =80000000,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =160000000,
-    .ahb_clock_target_hz        =80000000,
-    .apb1_clock_target_hz       =80000000,// / 16,
-    .apb2_clock_target_hz       =80000000 / 16,
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -87,6 +100,7 @@ extern uint32_t PLLClockRateHz;
 void myCounterTest();
 void usartTXTest();
 void canReceiveTest();
+void adcConvert();
 void canSendTest();
 void Error_Handler();
 void SysTick_Handler();
@@ -103,6 +117,7 @@ void init_ADC();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
+uint8_t rx_buf[26];
 
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
@@ -129,10 +144,10 @@ int main (void)
     {
         HardFault_Handler();
     }
-    // if(!PHAL_initCAN(CAN1, false))
-    // {
-    //     HardFault_Handler();
-    // }
+    if(!PHAL_initCAN(CAN1, false))
+    {
+        HardFault_Handler();
+    }
     if(!PHAL_initUSART(USART1, &huart1, APB2ClockRateHz))
     {
         HardFault_Handler();
@@ -147,16 +162,37 @@ int main (void)
     {
         HardFault_Handler();
     }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
-
-
+    if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
+    {
+        HardFault_Handler();
+    }
+    /*
+    if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
+    {
+        HardFault_Handler();
+    }*/
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     // signify start of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
-    /* Module init */
+    // /* Module init */
     initCANParse(&q_rx_can);
+    wheelSpeedsInit();
 
     linkReada(DAQ_ID_TEST_VAR, &my_counter);
     linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
@@ -172,30 +208,37 @@ int main (void)
         HardFault_Handler();
     }
 
-    // /* Task Creation */
+    /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(ledBlink, 500);
     taskCreate(usartTXTest, 1000);
-    // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // taskCreate(canSendTest, 50);
-    // //taskCreate(canReceiveTest, 500);
+    taskCreate(ledBlink, 500);
+    taskCreate(adcConvert, 50);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(canSendTest, 50);
+    // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(myCounterTest, 50);
-    //taskCreate(ledBlink, 500);
     taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
-    // // signify end of initialization
+    // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
-
+    PHAL_usartRxDma(USART1, &huart1, (uint16_t*) rx_buf, 2);
     schedStart();
     
     return 0;
 }
 
+void adcConvert()
+{
+    uint16_t pot1 = adc_conversions[0];
+    SEND_ADC_VALUES(q_tx_can, adc_conversions[0], 
+                              adc_conversions[1], 
+                              adc_conversions[2]);
+}
+
 void ledBlink()
 {
-    //PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
-    if (PHAL_readADC(ADC1) > 2048) 
+    if (can_data.test_stale.stale)
     {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
     }
@@ -203,26 +246,24 @@ void ledBlink()
     {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
     }
+    //PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
 }
+
+uint8_t data_buf[26];
 
 void usartTXTest()
 {
-    uint8_t i;
-    uint8_t data[10];
+    uint8_t i = 0;
+    for (; i < 26; i++) data_buf[i] = 'a' + i;
 
     static uint8_t select;
-
-    for (i = 0; i < 10; i++) {
-        data[i] = 'a' + i;
-    }
 
     // if (select) {
     //     PHAL_usartTxBl(USART1, (uint16_t *) data, 10);
     // } else {
-    PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data, 5);
+    PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data_buf, i);
     //}
 
-    // PHAL_usartRxDma(USART1, &huart1, (uint16_t*) data, 10);
 
     select = !select;
 }
@@ -267,20 +308,8 @@ uint16_t adc_reading = 0;
 
 void canSendTest()
 {
-    adc_reading = PHAL_readADC(ADC1);
-#if EEPROM_ENABLED
-    SEND_TEST_MSG(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
+    SEND_TEST_MSG(q_tx_can, (int16_t) (500 * sin(((double) counter)/100)));
     SEND_TEST_MSG2(q_tx_can, counter2);
-    SEND_TEST_MSG3(q_tx_can, counter2);
-    SEND_TEST_MSG4(q_tx_can, counter2);
-    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
-#else
-    SEND_TEST_MSG_2(q_tx_can, (uint16_t) (500 * sin(((double) counter)/100) + 501));
-    SEND_TEST_MSG2_2(q_tx_can, counter2);
-    SEND_TEST_MSG3_2(q_tx_can, counter2);
-    SEND_TEST_MSG4_2(q_tx_can, counter2);
-    SEND_TEST_MSG5_2(q_tx_can, 0xFFF - counter2);
-#endif
 
     counter += 1;
     counter2 += 2;
@@ -288,11 +317,11 @@ void canSendTest()
     {
         counter2 = 1;
     }
-}
 
-void canReceiveTest()
-{
-
+    SEND_TEST_MSG3(q_tx_can, counter2);
+    SEND_TEST_MSG4(q_tx_can, counter2);
+    SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
+    SEND_CAR_STATE(q_tx_can, CAR_STATE_FLIPPED);
 }
 
 void canTxUpdate()

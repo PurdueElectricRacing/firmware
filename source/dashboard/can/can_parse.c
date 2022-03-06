@@ -22,12 +22,8 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
@@ -42,7 +38,7 @@ void canRxUpdate()
                 can_data.main_status.apps_state = msg_data_a->main_status.apps_state;
                 can_data.main_status.precharge_state = msg_data_a->main_status.precharge_state;
                 can_data.main_status.stale = 0;
-                can_data.main_status.last_rx = curr_tick;
+                can_data.main_status.last_rx = sched.os_ticks;
                 break;
             default:
                 __asm__("nop");
@@ -52,7 +48,7 @@ void canRxUpdate()
 
     /* BEGIN AUTO STALE CHECKS */
     CHECK_STALE(can_data.main_status.stale,
-                curr_tick, can_data.main_status.last_rx,
+                sched.os_ticks, can_data.main_status.last_rx,
                 UP_MAIN_STATUS);
     /* END AUTO STALE CHECKS */
 }

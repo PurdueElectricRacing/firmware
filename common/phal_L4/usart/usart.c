@@ -135,35 +135,40 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
 
     instance->ICR |= USART_ICR_TCCF;
     PHAL_startTxfer(handle->tx_dma_cfg);
+    handle->_tx_busy = 1;
 
     return true;
 }
 
 bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len) {
+    if (!handle->rx_dma_cfg) return false;
     PHAL_stopTxfer(handle->rx_dma_cfg);
 
     instance->CR3 |= USART_CR3_DMAR;
     PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
-
-    NVIC_EnableIRQ(DMA1_Channel5_IRQn);
+    uint8_t irq = (handle->rx_dma_cfg->periph == DMA1) ? (DMA1_Channel1_IRQn + handle->rx_dma_cfg->channel_idx - 1) : 
+                                                         (DMA2_Channel1_IRQn + handle->rx_dma_cfg->channel_idx - 1);
+    NVIC_EnableIRQ(irq);
     PHAL_startTxfer(handle->rx_dma_cfg);
+    handle->_rx_busy = 1;
 
     return true;
 }
 
-void DMA1_Channel2_IRQHandler()
+void DMA1_Channel5_IRQHandler()
 {
-    if (DMA1->ISR & DMA_ISR_TEIF2)
+    if (DMA1->ISR & DMA_ISR_TEIF5)
     {
-        DMA1->IFCR |= DMA_IFCR_CTEIF2;
+        DMA1->IFCR |= DMA_IFCR_CTEIF5;
     }
-    if (DMA1->ISR & DMA_ISR_TCIF2) 
+    if (DMA1->ISR & DMA_ISR_TCIF5) 
     {
+        DMA1->IFCR |= DMA_IFCR_CTCIF5;
     }
-    if (DMA1->ISR & DMA_ISR_GIF2)
+    if (DMA1->ISR & DMA_ISR_GIF5)
     {
-        DMA1->IFCR |= DMA_IFCR_CGIF2;
+        DMA1->IFCR |= DMA_IFCR_CGIF5;
     }
 }
 

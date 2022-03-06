@@ -35,29 +35,58 @@ def log_warning(phrase):
 def log_success(phrase):
     print(f"{bcolors.OKGREEN}{phrase}{bcolors.ENDC}")
 
+data_type_length = {'uint8_t':8, 'uint16_t':16, 'uint32_t':32, 'uint64_t':64,
+                    'int8_t':8, 'int16_t':16, 'int32_t':32, 'int64_t':64,
+                    'float':32}
+
+def gen_bit_length(sig):
+    """ Calculates and updates bit length for signal based on data type and length """
+    bit_length = data_type_length[sig['type']]
+    if('length' in sig):
+        if ('uint' in sig['type']):
+            if (sig['length'] > bit_length):
+                log_error(f"Signal {sig['sig_name']} length too large for defined data type")
+                quit(1)
+            else:
+                bit_length = sig['length']
+        else:
+            log_error(f"Don't define length for types other than unsigned integers, signal: {sig['sig_name']}")
+            quit(1)
+    sig['length'] = bit_length
+    return bit_length
+
 def generate_ids(can_config):
     """ Combine hlp, pgn, and ssa for each message and add 'id' key"""
     for bus in can_config['busses']:
         for node in bus['nodes']:
             ssa = node['node_ssa']
             for msg in node['tx']:
-                hlp = msg['msg_hlp']
-                pgn = msg['msg_pgn']
-
-                # hlp (3) + pgn (20) + ssa (6) bits
-                id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
+                id = 0
+                if 'msg_id_override' in msg:
+                    id = int(msg['msg_id_override'], 0)
+                elif 'msg_hlp' in msg and 'msg_pgn' in msg:
+                    hlp = msg['msg_hlp']
+                    pgn = msg['msg_pgn']
+                    # hlp (3) + pgn (20) + ssa (6) bits
+                    id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
+                else:
+                    log_error(f"Message {msg['msg_name']} needs either msg_hlp and msg_pgn defined or msg_id_override")
+                    quit(1)
+                if id < 0 or id > 0x1FFFFFFF:
+                    log_error(f"Message {msg['msg_name']}'s can id is too large: {hex(id)}, max is 0x1FFFFFFF")
+                    quit(1)
                 # print(msg['msg_name'] + " id: "+ hex(id))
                 msg['id'] = id
     return can_config
 
 def generate_dlcs(can_config):
-    """ Add up signal lengths and add 'dlc' key to each message """
+    """ Add up / generate signal lengths and add 'dlc' key to each message """
     for bus in can_config['busses']:
         for node in bus['nodes']:
             for msg in node['tx']:
                 msg_length = 0
                 for sig in msg['signals']:
-                    msg_length += sig['length']
+                    msg_length += gen_bit_length(sig)
                 msg['dlc'] =  math.ceil(msg_length / 8.0)
                 # print(msg['msg_name'] + " dlc: "+ str(msg['dlc']))
                 if msg['dlc'] > 8:

@@ -22,12 +22,8 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
@@ -63,29 +59,46 @@ void canRxUpdate()
 
 bool initCANFilter()
 {
-
-    CAN2->MCR |= CAN_MCR_INRQ;                // Enter back into INIT state (required for changing scale)
+    CAN1->MCR |= CAN_MCR_INRQ;                // Enter back into INIT state (required for changing scale)
+#ifdef CAN2
+    CAN2->MCR |= CAN_MCR_INRQ; 
+#endif /* CAN2 */                
     uint32_t timeout = 0;
-    while(!(CAN2->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-         ;
+    while( !(CAN1->MSR & CAN_MSR_INAK)
+#ifdef CAN2
+           && !(CAN2->MSR & CAN_MSR_INAK)
+#endif /* CAN2 */
+           && ++timeout < PHAL_CAN_INIT_TIMEOUT)
+        ;
     if (timeout == PHAL_CAN_INIT_TIMEOUT)
          return false;
 
+    CAN1->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
+    CAN1->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
+    CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
+#ifdef CAN2
     CAN2->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
     CAN2->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
     CAN2->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
-
+#endif /* CAN2 */
     /* BEGIN AUTO FILTER */
     CAN2->FA1R |= (1 << 0);    // configure bank 0
     CAN2->sFilterRegister[0].FR1 = (ID_SOC1 << 3) | 4;
     /* END AUTO FILTER */
 
-    CAN2->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
+    CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
 
     // Enter back into NORMAL mode
+    CAN1->MCR &= ~CAN_MCR_INRQ;
+#ifdef CAN2
     CAN2->MCR &= ~CAN_MCR_INRQ;
-    while((CAN2->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-         ;
+#endif /* CAN2 */
+    while((CAN1->MSR & CAN_MSR_INAK)
+#ifdef CAN2 
+            && (CAN2->MSR & CAN_MSR_INAK)
+#endif/* CAN2 */
+            && ++timeout < PHAL_CAN_INIT_TIMEOUT)
+        ;
 
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }

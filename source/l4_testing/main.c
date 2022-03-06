@@ -20,8 +20,8 @@
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
-  GPIO_INIT_USART1TX_PB6,
-  GPIO_INIT_USART1RX_PB7,
+  GPIO_INIT_USART1TX_PA9,
+  GPIO_INIT_USART1RX_PA10,
 #if EEPROM_ENABLED
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
@@ -173,7 +173,7 @@ int main (void)
     }
 
     // /* Task Creation */
-    schedInit(APB1ClockRateHz);
+    schedInit(SystemCoreClock);
     taskCreate(ledBlink, 500);
     taskCreate(usartTXTest, 1000);
     // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
@@ -216,11 +216,11 @@ void usartTXTest()
         data[i] = 'a' + i;
     }
 
-    if (select) {
-        PHAL_usartTxBl(USART1, (uint16_t *) data, 10);
-    } else {
-        PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data, 5);
-    }
+    // if (select) {
+    //     PHAL_usartTxBl(USART1, (uint16_t *) data, 10);
+    // } else {
+    PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data, 5);
+    //}
 
     // PHAL_usartRxDma(USART1, &huart1, (uint16_t*) data, 10);
 

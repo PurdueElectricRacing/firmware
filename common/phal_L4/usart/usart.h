@@ -115,8 +115,8 @@ typedef struct {
 } usart_init_t;
 
 // Global vars
-uint8_t tx_irqn[3] = {DMA1_Channel4_IRQn, DMA1_Channel6_IRQn, DMA2_Channel6_IRQn};
-uint8_t rx_irqn[3] = {DMA1_Channel5_IRQn, DMA1_Channel7_IRQn, DMA2_Channel7_IRQn};
+// uint8_t tx_irqn[3] = {DMA1_Channel4_IRQn, DMA1_Channel6_IRQn, DMA2_Channel6_IRQn};
+// uint8_t rx_irqn[3] = {DMA1_Channel5_IRQn, DMA1_Channel7_IRQn, DMA2_Channel7_IRQn};
 
 // Function Prototypes
 bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck);

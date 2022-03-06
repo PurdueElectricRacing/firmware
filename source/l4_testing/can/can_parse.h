@@ -12,13 +12,12 @@
 #define _CAN_PARSE_H_
 
 #include "common/queue/queue.h"
+#include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 
 // Make this match the node name within the can_config.json
 
 #define NODE_NAME "TEST_NODE"
-
-#define RX_UPDATE_PERIOD 15 // ms
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
@@ -28,9 +27,12 @@
 #define ID_TEST_MSG4 0x1400013f
 #define ID_TEST_MSG5 0x1400017f
 #define ID_WHEEL_SPEEDS 0xc0001ff
-#define ID_ADC_VALUES 0xc003fbf
+#define ID_ADC_VALUES 0x1234
+#define ID_TEST_STALE 0x2222
+#define ID_CAR_STATE 0xbeef420
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
 #define ID_TEST_MSG5_2 0x1400017d
+#define ID_CAR_STATE2 0xbeef421
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
 /* END AUTO ID DEFS */
 
@@ -43,8 +45,11 @@
 #define DLC_TEST_MSG5 2
 #define DLC_WHEEL_SPEEDS 8
 #define DLC_ADC_VALUES 5
+#define DLC_CAR_STATE 1
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
 #define DLC_TEST_MSG5_2 8
+#define DLC_TEST_STALE 1
+#define DLC_CAR_STATE2 1
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
 
@@ -103,6 +108,12 @@ typedef union {
         data_a->adc_values.pot3 = pot3_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_CAR_STATE(queue, car_state_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CAR_STATE, .DLC=DLC_CAR_STATE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->car_state.car_state = car_state_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -113,12 +124,30 @@ typedef union {
 
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
-/* BEGIN AUTO UP DEFS (Update Period)*/
+/* BEGIN AUTO UP DEFS (Update Period) in milliseconds*/
 #define UP_TEST_MSG5_2 15
+#define UP_TEST_STALE 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
-                    (curr - last) * RX_UPDATE_PERIOD > period * STALE_THRESH) stale = 1
+                    (curr - last) > period * STALE_THRESH) stale = 1
+
+/* BEGIN AUTO CAN ENUMERATIONS */
+typedef enum {
+    CAR_STATE_READY2GO,
+    CAR_STATE_FLIPPED,
+    CAR_STATE_FLYING,
+    CAR_STATE_LIGHTSPEED,
+} car_state_t;
+
+typedef enum {
+    CAR_STATE2_READY2GO,
+    CAR_STATE2_FLIPPED,
+    CAR_STATE2_FLYING,
+    CAR_STATE2_LIGHTSPEED,
+} car_state2_t;
+
+/* END AUTO CAN ENUMERATIONS */
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
@@ -148,6 +177,9 @@ typedef union { __attribute__((packed))
         uint64_t pot3: 12;
     } adc_values;
     struct {
+        uint64_t car_state: 8;
+    } car_state;
+    struct {
         uint64_t daq_response: 64;
     } daq_response_TEST_NODE;
     struct {
@@ -155,6 +187,12 @@ typedef union { __attribute__((packed))
         uint64_t test_sig5_2: 16;
         uint64_t test_sig5_3: 32;
     } test_msg5_2;
+    struct {
+        uint64_t data: 8;
+    } test_stale;
+    struct {
+        uint64_t car_state2: 8;
+    } car_state2;
     struct {
         uint64_t daq_command: 64;
     } daq_command_TEST_NODE;
@@ -173,6 +211,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } test_msg5_2;
+    struct {
+        uint8_t data;
+        uint8_t stale;
+        uint32_t last_rx;
+    } test_stale;
+    struct {
+        car_state2_t car_state2;
+    } car_state2;
     struct {
         uint64_t daq_command;
     } daq_command_TEST_NODE;

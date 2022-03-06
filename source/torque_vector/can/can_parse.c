@@ -22,12 +22,8 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 

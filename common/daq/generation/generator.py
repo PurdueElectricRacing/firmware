@@ -61,11 +61,20 @@ def generate_ids(can_config):
         for node in bus['nodes']:
             ssa = node['node_ssa']
             for msg in node['tx']:
-                hlp = msg['msg_hlp']
-                pgn = msg['msg_pgn']
-
-                # hlp (3) + pgn (20) + ssa (6) bits
-                id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
+                id = 0
+                if 'msg_id_override' in msg:
+                    id = int(msg['msg_id_override'], 0)
+                elif 'msg_hlp' in msg and 'msg_pgn' in msg:
+                    hlp = msg['msg_hlp']
+                    pgn = msg['msg_pgn']
+                    # hlp (3) + pgn (20) + ssa (6) bits
+                    id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
+                else:
+                    log_error(f"Message {msg['msg_name']} needs either msg_hlp and msg_pgn defined or msg_id_override")
+                    quit(1)
+                if id < 0 or id > 0x1FFFFFFF:
+                    log_error(f"Message {msg['msg_name']}'s can id is too large: {hex(id)}, max is 0x1FFFFFFF")
+                    quit(1)
                 # print(msg['msg_name'] + " id: "+ hex(id))
                 msg['id'] = id
     return can_config

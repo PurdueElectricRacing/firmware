@@ -110,8 +110,8 @@ typedef struct {
     dma_init_t*    tx_dma_cfg;      // TX configuration
     dma_init_t*    rx_dma_cfg;      // RX configuration
 
-    uint8_t        _tx_busy;        // Waiting on a transmission to finish
-    uint8_t        _rx_busy;        // Waiting on a reception to finish
+    // uint8_t        _tx_busy;        // Waiting on a transmission to finish
+    // uint8_t        _rx_busy;        // Waiting on a reception to finish
 } usart_init_t;
 
 // Global vars
@@ -122,15 +122,35 @@ typedef struct {
 bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck);
 void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len);
 void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+
+/**
+ * @brief           Starts a tx using dma, use PHAL_usartTxDmaComplete
+ *                  to ensure the previous transmission is complete
+ * @param instance  The USART typedef (i.e. USART1)
+ * @param handle    The handle for the usart configuration
+ * @param data      The address of the data to send, ensure a cast to (uint16_t *), even if 8 bits
+ * @param len       Number of units of data, depending on the configured word length
+ */
 bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len);
+
+/**
+ * @brief           Starts an rx using dma of a specific length
+ *                  Use PHAL_usartRxDmaComplete to check if the entire msg has been received
+ * @param instance  The USART typedef (i.e. USART1)
+ * @param handle    The handle for the usart configuration
+ * @param data      The address to put the received data, ensure a cast to (uint16_t *), even if 8 bits
+ * @param len       Number of units of data, depending on the configured word length
+ */
 bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_usartTxDmaComplete(usart_init_t* handle);
+bool PHAL_usartRxDmaComplete(usart_init_t* handle);
 
 #define USART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(USART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=4,                \
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=4,                \
      .periph=DMA1, .channel=DMA1_Channel4, .request=DMA1_CSELR}
 
 #define USART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
@@ -146,7 +166,7 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=6,                \
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=6,                \
      .periph=DMA1, .channel=DMA1_Channel6, .request=DMA1_CSELR}
 
 #define USART2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
@@ -162,7 +182,7 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=6,                \
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=6,                \
      .periph=DMA2, .channel=DMA2_Channel6, .request=DMA1_CSELR}
 
 #define LPUART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \

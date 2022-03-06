@@ -56,7 +56,7 @@ ADCChannelConfig_t adc_channel_config[] = {
 };
 
 usart_init_t huart1 = {
-    .baud_rate = 19200,
+    .baud_rate = 9600,
     .word_length = WORD_8,
     .stop_bits = SB_ONE,
     .parity = PT_NONE,
@@ -117,7 +117,6 @@ void init_ADC();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
-uint8_t rx_buf[26];
 
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
@@ -208,21 +207,21 @@ int main (void)
         HardFault_Handler();
     }
 
+    
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(usartTXTest, 1000);
-    taskCreate(ledBlink, 500);
+    //taskCreate(ledBlink, 500);
     taskCreate(adcConvert, 50);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
-    // taskCreate(wheelSpeedsPeriodic, 15);
+    taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
     // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
-    PHAL_usartRxDma(USART1, &huart1, (uint16_t*) rx_buf, 2);
     schedStart();
     
     return 0;
@@ -246,26 +245,16 @@ void ledBlink()
     {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
     }
-    //PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+    PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
 }
 
 uint8_t data_buf[26];
-
 void usartTXTest()
 {
     uint8_t i = 0;
     for (; i < 26; i++) data_buf[i] = 'a' + i;
 
-    static uint8_t select;
-
-    // if (select) {
-    //     PHAL_usartTxBl(USART1, (uint16_t *) data, 10);
-    // } else {
     PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data_buf, i);
-    //}
-
-
-    select = !select;
 }
 
 void myCounterTest()

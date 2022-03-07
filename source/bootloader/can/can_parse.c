@@ -9,7 +9,6 @@
  * 
  */
 #include "can_parse.h"
-#include "node_defs.h"
 
 // prototypes
 bool initCANFilter();
@@ -23,36 +22,14 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
     if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
-
-        switch(msg_header.ExtId)
-        {
-            case ID_MAINMODULE_BL_CMD:
-            {
-                if (APP_ID != APP_MAINMODULE) return;
-                break;
-            }
-            case ID_DASHBOARD_BL_CMD:
-            {
-                if (APP_ID != APP_DASHBOARD) return;
-                break;
-            }
-
-            default:
-                break;
-        }
-
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {

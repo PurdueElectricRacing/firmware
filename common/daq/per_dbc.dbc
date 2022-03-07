@@ -172,6 +172,7 @@ BO_ 2483028349 test_msg5_2: 8 TEST_NODE_2
 
 BO_ 2147492386 test_stale: 1 TEST_NODE_2
  SG_ data : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2347693089 car_state2: 1 TEST_NODE_2
  SG_ car_state2 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 

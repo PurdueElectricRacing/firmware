@@ -8,7 +8,11 @@ function(postbuild_target COMPONENT_NAME TARGET_NAME)
     )
 
     # Archive generated image and perform post-processing output
-    set(COMPONENT_OUTPUT_DIR ${PROJECT_OUTPUT_DIR}/${COMPONENT_NAME})
+    get_target_property(COMPONENT_OUTPUT_DIR ${TARGET_NAME} OUTPUT_DIR)
+    if (NOT COMPONENT_OUTPUT_DIR)
+        set(COMPONENT_OUTPUT_DIR ${PROJECT_OUTPUT_DIR}/${COMPONENT_NAME})
+    endif()
+    
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME}
         COMMENT "Archive target"

@@ -85,10 +85,9 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_TEST_MSG5_2 << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_TEST_STALE << 3) | 4;
-
     CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_CAR_STATE2 << 3) | 4;
+    CAN1->sFilterRegister[1].FR1 = (ID_CAR_STATE2 << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

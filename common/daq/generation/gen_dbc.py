@@ -39,7 +39,6 @@ def gen_dbc(can_config, dbc_path):
                                           is_float=('float' in sig['type']),
                                           decimal=None))
                     curr_sig_pos += sig['length']
-                print(msg['id'])
                 messages[msg['msg_name']] = db.Message(frame_id=msg['id'],
                                         name=msg['msg_name'],
                                         length=msg['dlc'],

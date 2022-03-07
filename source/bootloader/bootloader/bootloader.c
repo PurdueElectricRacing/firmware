@@ -81,7 +81,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
 {
     switch(APP_ID)
     {
-        case APP_MAINMODULE: 
+        case APP_MAIN_MODULE: 
             SEND_MAINMODULE_BL_RESP(q_tx_can, cmd, data);
             break;
 
@@ -95,7 +95,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
 
 void mainmodule_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a)
 {
-    if(APP_ID != APP_MAINMODULE) return;
+    if(APP_ID != APP_MAIN_MODULE) return;
     BL_processCommand((BLCmd_t) msg_data_a->mainmodule_bl_cmd.cmd, msg_data_a->mainmodule_bl_cmd.data);
 }
 

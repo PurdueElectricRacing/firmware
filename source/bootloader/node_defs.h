@@ -17,9 +17,9 @@
  * DO NOT change any existing IDs
  */
 
-#define    APP_MAINMODULE   0x01
+#define    APP_MAIN_MODULE   0x01
 #define    APP_DASHBOARD    0x02
-#define    APP_TORQUEVECTOR 0x03
+#define    APP_TORQUE_VECTOR 0x03
 #define    APP_PRECHARGE    0x04
 #define    APP_DRIVELINE_F  0x05
 #define    APP_DRIVELINE_R  0x06
@@ -42,10 +42,13 @@
 /**
  *  Per-board deifintion of the CAN and LED status pins
  */
-#if (APP_ID == APP_TORQUEVECTOR) ||\
+#if (APP_ID == APP_TORQUE_VECTOR) ||\
     (APP_ID == APP_DRIVELINE_F)  ||\
     (APP_ID == APP_DRIVELINE_R)  ||\
-    (APP_ID == APP_MAINMODULE)
+    (APP_ID == APP_MAIN_MODULE)   ||\
+    (APP_ID == APP_DASHBOARD)    ||\
+    (APP_ID == APP_PRECHARGE)    ||\
+    ((APP_ID >= APP_BMS_A)  && (APP_ID <= APP_BMS_J))
 
     #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PA11
     #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PA12

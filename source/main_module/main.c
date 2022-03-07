@@ -1,4 +1,4 @@
-#include "stm32l432xx.h"
+#include "stm32l496xx.h"
 
 #include "common/psched/psched.h"
 #include "common/phal_L4/gpio/gpio.h"

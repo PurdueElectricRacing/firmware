@@ -1,7 +1,8 @@
 # Helper for generating common CMake targets in the components directroy
 
-function(postbuild_target COMPONENT_NAME TARGET_NAME)
+function(postbuild_target TARGET_NAME)
 
+    get_target_property(COMPONENT_NAME ${TARGET_NAME} COMPONENT_NAME)
     # Print out memory section usage
     target_link_options(${TARGET_NAME} PUBLIC
         -Wl,--print-memory-usage

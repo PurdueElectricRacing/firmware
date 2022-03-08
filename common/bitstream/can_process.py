@@ -32,13 +32,15 @@ class CANRxThread(threading.Thread):
             msg = self.bus.recv()
             try:
                 can_rx = self.db.decode_message(msg.arbitration_id, msg.data)
-                with self.rx_lock:
-                    for sig_name in can_rx:
-                        if not self.rx_messages[msg.arbitration_id]:
-                            self.rx_messages[msg.arbitration_id] = {}
-                        self.rx_messages[msg.arbitration_id][sig_name] = can_rx[sig_name]
             except KeyError:
                 print(f"Unknown message: {msg}")
+                return
+
+            with self.rx_lock:
+                for sig_name in can_rx:
+                    if not msg.arbitration_id in self.rx_messages:
+                        self.rx_messages[msg.arbitration_id] = {}
+                    self.rx_messages[msg.arbitration_id][sig_name] = can_rx[sig_name]
 
 
 class CANTxThread(threading.Thread):

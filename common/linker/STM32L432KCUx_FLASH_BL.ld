@@ -58,7 +58,7 @@ SECTIONS
     PROVIDE (__isr_vector_start = .);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(8);
-  } >RAM AT> FLASH
+  } >FLASH
 
   /* The program code and other data goes into FLASH */
   .text :
@@ -129,9 +129,6 @@ SECTIONS
   {
     . = ALIGN(8);
     _sdata = .;        /* create a global symbol at data start */
-    *(.data)           /* .data sections */
-    *(.data*)          /* .data* sections */
-
     /*
       This is the major change to the linker file for the bootloader
       This will place all of the bootloaer code into RAM.
@@ -150,6 +147,9 @@ SECTIONS
 
     KEEP (*(.init))
     KEEP (*(.fini))
+
+    *(.data)           /* .data sections */
+    *(.data*)          /* .data* sections */
 
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */

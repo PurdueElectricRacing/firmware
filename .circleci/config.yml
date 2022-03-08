@@ -27,7 +27,7 @@ jobs:
           name: "Prepare Artifacts"
           command: |
             mkdir artifacts
-            cp "./output"/*/*.elf artifacts
+            cp "./output"/**.elf artifacts
             cp ./common/daq/per_dbc.dbc artifacts
       - store_artifacts:
           path: artifacts

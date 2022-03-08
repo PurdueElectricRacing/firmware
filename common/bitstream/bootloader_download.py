@@ -50,22 +50,30 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
     while(not bl.get_rx_msg() or bl.get_rx_msg()[0] != 2):
         pass
     can_tx.send(bl.firmware_size_msg(total_words))
+    while(bl.get_rx_msg()[0] != 3):
+        pass
+
+    print()
 
     print(f"Sending {fname}...")
     print(f"Total File Size: {total_bytes} Bytes")
 
+    num_msg = 0
     for address in range(segments[0][0], segments[0][1], 4):
-        sleep_ns(1000000)
         bin_arr = ih.tobinarray(start=address, size=4)
         data = sum([x << (24 - (i*8)) for i, x in enumerate(bin_arr)])
         can_tx.send(bl.firmware_data_msg(data))
+        num_msg  = num_msg + 1
+        while(bl.get_rx_msg()[1] != address):
+            print(f"{bl.get_rx_msg()[0]}|{bl.get_rx_msg()[1]} != {address}")
+
 
 if __name__ == "__main__":
     can_rx.start()
     can_tx.start()
 
 
-    bl = BootloaderCommand("mainmodule", db, can_rx)
+    bl = BootloaderCommand("torquevector", db, can_rx)
 
     update_firmware(bl, "torque_vector.hex")
     

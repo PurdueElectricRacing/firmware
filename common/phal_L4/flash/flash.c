@@ -31,13 +31,23 @@ static void flashLock()
 void PHAL_flashWriteU32(uint32_t* address, uint32_t value)
 {
     flashUnlock();
-    // Set program size to 32bit
-    // FLASH->CR &= ~(FLASH_CR_PSIZE_Msk);
-    // FLASH->CR |= FLASH_CR_PSIZE_1;
-
     FLASH->CR |= FLASH_CR_PG;
     *(__IO uint32_t*)address = value;
     asm("nop");
     asm("nop");
     flashLock();
+}
+
+void PHAL_flashErasePage(uint8_t page)
+{
+    flashUnlock();
+    FLASH->SR & FLASH_SR_PGSERR;
+    FLASH->CR |= FLASH_CR_PER;
+    FLASH->CR |= (page) << FLASH_CR_PNB_Pos;
+    FLASH->CR |= FLASH_CR_STRT;
+
+    while ((FLASH->SR & FLASH_SR_BSY))
+        asm("nop");
+    flashLock();
+
 }

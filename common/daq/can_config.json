@@ -194,12 +194,23 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":5001
+                        },
+                        {   "msg_name":"torquevector_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5002
                         }
                         
                     ],
                     "rx": [
                         {"msg_name": "mainmodule_bl_cmd", "callback": true},
-                        {"msg_name": "dashboard_bl_cmd" , "callback": true}
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true},
+                        {"msg_name": "torquevector_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -245,7 +256,7 @@
                         },
                         {
                             "msg_name": "dashboard_bl_cmd",
-                            "msg_desc": "Bootloader command for main module",
+                            "msg_desc": "Bootloader command for dashboard",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
                                 {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
@@ -253,6 +264,17 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10001
+                        },
+                        {
+                            "msg_name": "torquevector_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10002
                         }
                     ],
                     "rx":[ 

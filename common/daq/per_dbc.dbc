@@ -95,6 +95,10 @@ BO_ 2214912636 dashboard_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214912700 torquevector_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2415925566 bitstream_data: 8 TESTER
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -114,6 +118,10 @@ BO_ 2215232574 mainmodule_bl_cmd: 5 TESTER
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2215232638 dashboard_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232702 torquevector_bl_cmd: 5 TESTER
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -246,6 +254,9 @@ CM_ SG_ 2214912572 cmd "";
 CM_ BO_ 2214912636 "Dashboard Bootloader response";
 CM_ SG_ 2214912636 data "";
 CM_ SG_ 2214912636 cmd "";
+CM_ BO_ 2214912700 "Torque Vector Bootloader response";
+CM_ SG_ 2214912700 data "";
+CM_ SG_ 2214912700 cmd "";
 CM_ BO_ 2415925566 "Bitstream download command";
 CM_ SG_ 2415925566 d7 "Bitstream data word 7";
 CM_ SG_ 2415925566 d6 "Bitstream data word 6";
@@ -261,9 +272,12 @@ CM_ SG_ 2415925630 download_request "Request to download new bitstream";
 CM_ BO_ 2215232574 "Bootloader command for main module";
 CM_ SG_ 2215232574 data "Bootloader data";
 CM_ SG_ 2215232574 cmd "Bootloader Command type";
-CM_ BO_ 2215232638 "Bootloader command for main module";
+CM_ BO_ 2215232638 "Bootloader command for dashboard";
 CM_ SG_ 2215232638 data "Bootloader data";
 CM_ SG_ 2215232638 cmd "Bootloader Command type";
+CM_ BO_ 2215232702 "Bootloader command for torque vector";
+CM_ SG_ 2215232702 data "Bootloader data";
+CM_ SG_ 2215232702 cmd "Bootloader Command type";
 CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
 CM_ SG_ 2214624554 volts "";
 CM_ BO_ 2214624555 "Estimated soc";

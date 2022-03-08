@@ -22,16 +22,20 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_MAINMODULE_BL_RESP 0x404e23c
 #define ID_DASHBOARD_BL_RESP 0x404e27c
+#define ID_TORQUEVECTOR_BL_RESP 0x404e2bc
 #define ID_MAINMODULE_BL_CMD 0x409c43e
 #define ID_DASHBOARD_BL_CMD 0x409c47e
+#define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAINMODULE_BL_RESP 5
 #define DLC_DASHBOARD_BL_RESP 5
+#define DLC_TORQUEVECTOR_BL_RESP 5
 #define DLC_MAINMODULE_BL_CMD 5
 #define DLC_DASHBOARD_BL_CMD 5
+#define DLC_TORQUEVECTOR_BL_CMD 5
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -48,6 +52,13 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->dashboard_bl_resp.cmd = cmd_;\
         data_a->dashboard_bl_resp.data = data_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_TORQUEVECTOR_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUEVECTOR_BL_RESP, .DLC=DLC_TORQUEVECTOR_BL_RESP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->torquevector_bl_resp.cmd = cmd_;\
+        data_a->torquevector_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -77,11 +88,19 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
+    } torquevector_bl_resp;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
     } mainmodule_bl_cmd;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } dashboard_bl_cmd;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } torquevector_bl_cmd;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -98,6 +117,10 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } torquevector_bl_cmd;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -106,6 +129,7 @@ extern can_data_t can_data;
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void mainmodule_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

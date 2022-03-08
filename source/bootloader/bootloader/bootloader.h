@@ -61,5 +61,7 @@ bool BL_flashComplete(void);
  */
 void BL_sendStatusMessage(uint8_t cmd, uint32_t data);
 
+bool BL_flashStarted(void);
+
 
 #endif

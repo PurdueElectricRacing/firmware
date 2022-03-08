@@ -122,7 +122,7 @@
         {
             "name": "Bootloader",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bootloader_l4/bootloader_l4.elf",
+            "executable": "./output/bootloaders/bootloader_torque_vector/bootloader_torque_vector.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -134,9 +134,9 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/bootloader_l4"
+                "${workspaceFolder}/source/bootloader"
             ],
-            "preLaunchTask": "build",
+            // "preLaunchTask": "build",
             "runToEntryPoint": "Reset_Handler",
         },
     ]

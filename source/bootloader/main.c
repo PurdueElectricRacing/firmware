@@ -46,14 +46,16 @@ extern char _eboot_flash;      /* End of the bootlaoder flash region, same as th
 /* Bootlaoder timing control */
 static volatile uint32_t timeout_ticks = 0;
 static volatile bool bootloader_timeout = false;
+static volatile bool wait_flag = false;
 
-__attribute__((section("no_init_data"))) uint32_t reset_count; /* Reset counter that does not get reset in Reset_Handler during warm boot*/
+__attribute__((section(".no_init_data"))) uint32_t reset_count; /* Reset counter that does not get reset in Reset_Handler during warm boot*/
 
 int main (void)
 {  
-    // Our vector table has been copied to RAM
     // This will make sure that the interrupts are fetched from RAM and not Flash
-    SCB->VTOR = (uint32_t)&__isr_vector_start;
+    // IVT is not copied by default, 
+    // memcpy((void*)0x20000000,(void const*)0x08000000,0x1FF);
+    // SCB->VTOR = (uint32_t)&__isr_vector_start;
 
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
@@ -77,7 +79,7 @@ int main (void)
     // boot looped more than allowed.
     bool allow_application_launch = check_boot_health() & false;
 
-    SysTick_Config(SystemCoreClock / 100);
+    SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
@@ -90,6 +92,11 @@ int main (void)
     while(!bootloader_timeout || !allow_application_launch)
     {
         /* Process CAN signals */
+        if (wait_flag && !BL_flashStarted())
+        {
+            BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
+            wait_flag = false;
+        }
         while (q_rx_can.item_count > 0)
             canRxUpdate();
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
@@ -104,29 +111,41 @@ int main (void)
         }
     }
 
+    NVIC_DisableIRQ(SysTick_IRQn);
+    NVIC_DisableIRQ(CAN1_RX0_IRQn);
+
     // Check the first word of the application, it should contain the MSP
     // an address can not start with 0xFF for the MSP
     if (*((uint8_t *) &_eboot_flash) != 0xFF)
     {
         reset_count = 0;
         BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
+        while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+            PHAL_txCANMessage(&tx_msg);
+        asm("bkpt");
         jump_to_application();
     }
     else
     {
         BL_sendStatusMessage(BLSTAT_INVAID_APP, reset_count);
+        while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+            PHAL_txCANMessage(&tx_msg);
+        asm("bkpt");
         NVIC_SystemReset();
     }
+
+    while(1)
+        asm("bkpt");
 }
 
 void SysTick_Handler(void)
 {
-    if (timeout_ticks % 10000 == 0)
+    if (timeout_ticks % 1000 == 0)
     {
-        BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
+        wait_flag = true;
     }
 
-    if (timeout_ticks == 50000)
+    if (timeout_ticks == 5000)
     {
         bootloader_timeout = true;
     }
@@ -163,6 +182,13 @@ bool check_boot_health(void)
 
 void jump_to_application(void)
 {
+    // Reset all of our used peripherals
+    RCC->APB1RSTR1  |= RCC_APB1RSTR1_CAN1RST;
+    RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOARST;
+    RCC->APB1RSTR1  &= ~(RCC_APB1RSTR1_CAN1RST);
+    RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOARST);
+    SysTick->CTRL = 0;
+
     // Make sure the interrupts are disabled before we start attempting to jump to the app
     // Getting an interrupt after we set VTOR would be bad.
     __disable_irq();
@@ -174,6 +200,48 @@ void jump_to_application(void)
     // Main stack pointer is saved as the first entry in the .isr_entry
     __set_MSP(app_code_start[0]);
 
+    __enable_irq();
+
     // Actually jump to application
     ((void (*)(void))app_code_start[1])();
+}
+
+void CAN1_RX0_IRQHandler()
+{
+    if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+
+    if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
+        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+
+    if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
+    {
+        CanMsgTypeDef_t rx;
+        rx.Bus = CAN1;
+
+        // Get either StdId or ExtId
+        if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+        { 
+          rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+        }
+        else
+        {
+          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+        }
+
+        rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
+
+        rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
+        rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
+        rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
+        rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
+        rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
+        rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
+        rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
+        rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+
+        CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
+
+        qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
+    }
 }

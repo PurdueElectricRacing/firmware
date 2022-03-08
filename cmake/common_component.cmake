@@ -1,38 +1,48 @@
 
 # Create an executiable with the following features:
-#   All .c files are added from the root and child directories of "component_dir"
-#   All .h files in root and child directories of "component_dir" are included without prefix
-#       - a file like "apps/apps.h" can be included like #include "apps.h"
-#   All CMAKE libraries specified in "common_libs" are linked
-#   Linked using the default L4 linker file
-MACRO(COMMON_FIRMWARE_COMPONENT target_name)
+# The provided target must have the required properties outlined in the root CMakeLists.txt directory
+# The resulting binary will have the following:
+#   All .c files are added from the root and child directories of "_COMPONENT_DIR"
+#   All .h files in root and child directories of "_COMPONENT_DIR" are included without prefix
+#       - a file like "/source/dashboard/apps/apps.h" can be included like #include "apps.h"
+#   All CMAKE libraries specified in "COMMON_LIBS" are linked, defaults to L432 common libs
+#   Linked using the "LINKER_SCRIPT" file, defaults to L432
+MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
 
     # Setup Component name based on directory
-    get_target_property(_COMPONENT_NAME ${target_name} COMPONENT_NAME)
-    get_target_property(_COMPONENT_DIR  ${target_name} COMPONENT_DIR)
-    get_target_property(_LINKER_SCRIPT  ${target_name} LINKER_SCRIPT)
-    get_target_property(_COMMON_LIBS    ${target_name} COMMON_LIBS)
+    get_target_property(_COMPONENT_NAME ${TARGET_NAME} COMPONENT_NAME)
+    get_target_property(_COMPONENT_DIR  ${TARGET_NAME} COMPONENT_DIR)
+    get_target_property(_LINKER_SCRIPT  ${TARGET_NAME} LINKER_SCRIPT)
+    get_target_property(_COMMON_LIBS    ${TARGET_NAME} COMMON_LIBS)
+
+    # Default values for target props.
+    if (NOT _LINKER_SCRIPT)
+        set(_LINKER_SCRIPT "STM32L432KCUx_FLASH_BL.ld")
+    endif()
+    if (NOT _COMMON_LIBS)
+        set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;")
+    endif()
 
     # Add Common libraries
     foreach (_LIB_NAME IN ITEMS ${_COMMON_LIBS})
-        target_link_libraries(${target_name} ${_LIB_NAME})
+        target_link_libraries(${TARGET_NAME} ${_LIB_NAME})
     endforeach(_LIB_NAME)
 
-    target_link_libraries(${target_name} common_defs) # everyone gets common defs
+    target_link_libraries(${TARGET_NAME} common_defs) # everyone gets common defs
 
     # Find all .c sources in project, recursive search starting at component root
     file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)
-    target_sources(${target_name} PUBLIC ${glob_sources})
+    target_sources(${TARGET_NAME} PUBLIC ${glob_sources})
 
     # Find directories for '#include'
     SUBDIRLIST(${_COMPONENT_DIR} include_dirs)
-    target_include_directories(${target_name} PUBLIC ${include_dirs} ${_COMPONENT_DIR})
+    target_include_directories(${TARGET_NAME} PUBLIC ${include_dirs} ${_COMPONENT_DIR})
 
     # Linker options
-    target_link_options(${target_name} PUBLIC 
+    target_link_options(${TARGET_NAME} PUBLIC 
         -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}
     )
 
     # Run postbuild actions like including a bootloader in the final image
-    postbuild_target(${_COMPONENT_NAME} ${target_name})
+    postbuild_target(${TARGET_NAME})
 ENDMACRO()

@@ -27,6 +27,7 @@ void BL_init(uint32_t* app_flash_start, volatile uint32_t* timeout_ticks_ptr)
     timeout_ticks = timeout_ticks_ptr;
 }
 
+static uint32_t num_msg = 0;
 void BL_processCommand(BLCmd_t cmd, uint32_t data)
 {
     switch (cmd)
@@ -37,6 +38,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             app_flash_end_address += data; // Number of words
             *timeout_ticks = 0;
             BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) app_flash_current_address);
+            num_msg = 0;
             break;
         }
         case BLCMD_ADD_ADDRESS:
@@ -51,9 +53,14 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             if(app_flash_current_address >= app_flash_start_address)
             {
                 PHAL_flashWriteU32(app_flash_current_address, data);
-                app_flash_current_address ++;
                 *timeout_ticks = 0;
+                num_msg++;
                 BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
+                app_flash_current_address ++;
+            }
+            else
+            {
+                asm("bkpt");
             }
             break;
         }
@@ -66,6 +73,11 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
 
     if (BL_flashComplete())
         BL_sendStatusMessage(BLSTAT_DONE, 0);
+}
+
+bool BL_flashStarted(void)
+{
+    return (app_flash_end_address != app_flash_start_address);
 }
 
 bool BL_flashComplete(void)
@@ -88,8 +100,12 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
         case APP_DASHBOARD:
             SEND_DASHBOARD_BL_RESP(q_tx_can, cmd, data);
             break;
-        default:
+
+        case APP_TORQUE_VECTOR:
+            SEND_TORQUEVECTOR_BL_RESP(q_tx_can, cmd, data);
             break;
+        default:
+            asm("bkpt");
     }
 }
 
@@ -103,4 +119,10 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a)
 {
     if(APP_ID != APP_DASHBOARD) return;
     BL_processCommand((BLCmd_t) msg_data_a->dashboard_bl_cmd.cmd, msg_data_a->dashboard_bl_cmd.data);
+}
+
+void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a)
+{
+    if(APP_ID != APP_TORQUE_VECTOR) return;
+    BL_processCommand((BLCmd_t) msg_data_a->torquevector_bl_cmd.cmd, msg_data_a->torquevector_bl_cmd.data);
 }

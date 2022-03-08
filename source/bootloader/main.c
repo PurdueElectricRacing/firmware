@@ -193,17 +193,17 @@ void jump_to_application(void)
     // Getting an interrupt after we set VTOR would be bad.
     __disable_irq();
 
-    uint32_t* app_code_start = (uint32_t *) &_eboot_flash;
+    void* app_code_start = (void *) &_eboot_flash;
     // Set Vector Offset Table from the application
-    SCB->VTOR = app_code_start[0];
-
-    // Main stack pointer is saved as the first entry in the .isr_entry
-    __set_MSP(app_code_start[0]);
+    SCB->VTOR = (uint32_t)  app_code_start;
 
     __enable_irq();
+    // Main stack pointer is saved as the first entry in the .isr_entry
+    __set_MSP((uint32_t) app_code_start);
 
     // Actually jump to application
-    ((void (*)(void))app_code_start[1])();
+    uint32_t app_reset_handler_address = *(__IO uint32_t*) (app_code_start + 4);
+    ((void(*)(void)) app_reset_handler_address)();
 }
 
 void CAN1_RX0_IRQHandler()

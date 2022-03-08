@@ -18,6 +18,9 @@
 #define FLASH_KEY_1 0x45670123
 #define FLASH_KEY_2 0xCDEF89AB
 
-void PHAL_flashWriteU32(uint32_t* address, uint32_t value);
+// void PHAL_flashWriteU32(uint32_t* address, uint32_t value);
+void PHAL_flashWriteU64(uint32_t address, uint64_t data);
+void PHAL_flashErasePage(uint8_t page);
+
 
 #endif

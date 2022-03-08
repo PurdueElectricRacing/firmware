@@ -30,6 +30,8 @@ void BL_init(uint32_t* app_flash_start, volatile uint32_t* timeout_ticks_ptr)
 static uint32_t num_msg = 0;
 void BL_processCommand(BLCmd_t cmd, uint32_t data)
 {
+    static uint64_t data_buffer;
+    bool program_buffer = false;
     switch (cmd)
     {
         case BLCMD_INFO:
@@ -37,8 +39,12 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             app_flash_current_address = app_flash_start_address;
             app_flash_end_address += data; // Number of words
             *timeout_ticks = 0;
+            PHAL_flashErasePage(1);
+            PHAL_flashErasePage(2);
+            PHAL_flashErasePage(3);
             BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) app_flash_current_address);
             num_msg = 0;
+            program_buffer = false;
             break;
         }
         case BLCMD_ADD_ADDRESS:
@@ -52,7 +58,16 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         {
             if(app_flash_current_address >= app_flash_start_address)
             {
-                PHAL_flashWriteU32(app_flash_current_address, data);
+                if (((uint32_t) app_flash_current_address & 0b111) == 0)
+                {
+                    // Address is 2-word aligned, do the actual programming now
+                    PHAL_flashWriteU64((uint32_t) app_flash_current_address, (((uint64_t) data) << 32) | data_buffer);
+                    data_buffer = 0;
+                }
+                else 
+                {
+                    data_buffer = data;
+                }
                 *timeout_ticks = 0;
                 num_msg++;
                 BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
@@ -72,7 +87,15 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
     }
 
     if (BL_flashComplete())
+    {
+        if (data_buffer != 0 )
+        {
+            // We did not land on an 8-byte aligned address, program the last piece of data
+            PHAL_flashWriteU64((uint32_t) app_flash_current_address & (~0b100), data_buffer);
+        }
         BL_sendStatusMessage(BLSTAT_DONE, 0);
+    
+    }
 }
 
 bool BL_flashStarted(void)

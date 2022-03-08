@@ -126,10 +126,13 @@ BO_ 2348810751 wheel_speeds: 8 TEST_NODE
  SG_ right_speed : 32|32@1- (1,0) [0|0] "kph" Vector__XXX
  SG_ left_speed : 0|32@1- (1,0) [0|0] "kph" Vector__XXX
 
-BO_ 2147484882 adc_values: 5 TEST_NODE
+BO_ 2147488308 adc_values: 5 TEST_NODE
  SG_ pot3 : 24|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ pot2 : 12|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ pot1 : 0|12@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2347693088 car_state: 1 TEST_NODE
+ SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136831 daq_response_TEST_NODE: 8 TEST_NODE
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -150,6 +153,12 @@ BO_ 2483028349 test_msg5_2: 8 TEST_NODE_2
  SG_ test_sig5_3 : 32|32@1- (1,0) [0|0] "" Vector__XXX
  SG_ test_sig5_2 : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147492386 test_stale: 1 TEST_NODE_2
+ SG_ data : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2347693089 car_state2: 1 TEST_NODE_2
+ SG_ car_state2 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136829 daq_response_TEST_NODE_2: 8 TEST_NODE_2
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -243,10 +252,12 @@ CM_ SG_ 2483028351 test_sig5 "";
 CM_ BO_ 2348810751 "wheel speeds";
 CM_ SG_ 2348810751 right_speed "";
 CM_ SG_ 2348810751 left_speed "";
-CM_ BO_ 2147484882 "adc potentiometer readings";
-CM_ SG_ 2147484882 pot3 "";
-CM_ SG_ 2147484882 pot2 "";
-CM_ SG_ 2147484882 pot1 "";
+CM_ BO_ 2147488308 "adc potentiometer readings";
+CM_ SG_ 2147488308 pot3 "";
+CM_ SG_ 2147488308 pot2 "";
+CM_ SG_ 2147488308 pot1 "";
+CM_ BO_ 2347693088 "state of the car";
+CM_ SG_ 2347693088 car_state "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";
@@ -261,6 +272,10 @@ CM_ BO_ 2483028349 "test_msg5 desc";
 CM_ SG_ 2483028349 test_sig5_3 "";
 CM_ SG_ 2483028349 test_sig5_2 "";
 CM_ SG_ 2483028349 test_sig5 "";
+CM_ BO_ 2147492386 "used to test stale";
+CM_ SG_ 2147492386 data "";
+CM_ BO_ 2347693089 "state of the car";
+CM_ SG_ 2347693089 car_state2 "";
 CM_ BO_ 2550136829 "daq response from node TEST_NODE_2";
 CM_ SG_ 2550136829 daq_response "";
 CM_ BO_ 2483032050 "daq command for node TEST_NODE";
@@ -270,7 +285,8 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 
-
+VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;
 SIG_VALTYPE_ 2348810751 right_speed : 1;
 SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;

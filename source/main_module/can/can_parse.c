@@ -22,12 +22,8 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
@@ -43,7 +39,7 @@ void canRxUpdate()
                 can_data.raw_throttle_brake.brake0 = msg_data_a->raw_throttle_brake.brake0;
                 can_data.raw_throttle_brake.brake1 = msg_data_a->raw_throttle_brake.brake1;
                 can_data.raw_throttle_brake.stale = 0;
-                can_data.raw_throttle_brake.last_rx = curr_tick;
+                can_data.raw_throttle_brake.last_rx = sched.os_ticks;
                 break;
             case ID_START_BUTTON:
                 can_data.start_button.start = msg_data_a->start_button.start;
@@ -57,7 +53,7 @@ void canRxUpdate()
 
     /* BEGIN AUTO STALE CHECKS */
     CHECK_STALE(can_data.raw_throttle_brake.stale,
-                curr_tick, can_data.raw_throttle_brake.last_rx,
+                sched.os_ticks, can_data.raw_throttle_brake.last_rx,
                 UP_RAW_THROTTLE_BRAKE);
     /* END AUTO STALE CHECKS */
 }

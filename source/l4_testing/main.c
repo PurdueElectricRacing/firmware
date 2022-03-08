@@ -5,10 +5,13 @@
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/usart/usart.h"
+#if EEPROM_ENABLED
 #include "common/phal_L4/i2c/i2c.h"
+#include "common/eeprom/eeprom.h"
+#endif
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
-#include "common/eeprom/eeprom.h"
 #include <math.h>
 
 /* Module Includes */
@@ -20,8 +23,12 @@
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
+  GPIO_INIT_USART1TX_PA9,
+  GPIO_INIT_USART1RX_PA10,
+#if EEPROM_ENABLED
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
+#endif
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -48,6 +55,28 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=POT3_ADC_Channel, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_2_5}
 };
 
+usart_init_t huart1 = {
+    .baud_rate = 9600,
+    .word_length = WORD_8,
+    .stop_bits = SB_ONE,
+    .parity = PT_NONE,
+    .mode = MODE_TX_RX,
+    .hw_flow_ctl = HW_DISABLE,
+    .ovsample = OV_16,
+    .obsample = OB_DISABLE,
+    .adv_feature = {
+                        .auto_baud = false,
+                        .ab_mode = AB_START,
+                        .tx_inv = false,
+                        .rx_inv = false,
+                        .data_inv = false,
+                        .tx_rx_swp = false,
+                        .overrun = false,
+                        .dma_on_rx_err = false,
+                        .msb_first = false,
+                   },
+};
+
 static uint16_t adc_conversions[3];
 
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 3, 0b01);
@@ -69,6 +98,7 @@ extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
 void myCounterTest();
+void usartTXTest();
 void canReceiveTest();
 void adcConvert();
 void canSendTest();
@@ -88,6 +118,9 @@ void init_ADC();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
+dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+
 uint8_t my_counter = 0;
 uint16_t my_counter2 = 85; // Warning: daq variables with eeprom capability may
                            // initialize to something else
@@ -97,6 +130,9 @@ int main (void)
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+
+    huart1.tx_dma_cfg = &usart_tx_dma_config;
+    huart1.rx_dma_cfg = &usart_rx_dma_config;
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -108,6 +144,10 @@ int main (void)
         HardFault_Handler();
     }
     if(!PHAL_initCAN(CAN1, false))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initUSART(USART1, &huart1, APB2ClockRateHz))
     {
         HardFault_Handler();
     }
@@ -149,7 +189,7 @@ int main (void)
     // signify start of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
-    /* Module init */
+    // /* Module init */
     initCANParse(&q_rx_can);
     wheelSpeedsInit();
 
@@ -167,17 +207,18 @@ int main (void)
         HardFault_Handler();
     }
 
+    
     /* Task Creation */
-    //schedInit(APB1ClockRateHz * 2);
     schedInit(SystemCoreClock);
-    taskCreate(ledBlink, 500);
+    taskCreate(usartTXTest, 1000);
+    //taskCreate(ledBlink, 500);
     taskCreate(adcConvert, 50);
-    taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
     taskCreate(wheelSpeedsPeriodic, 15);
-    //taskCreate(myCounterTest, 50);
+    // taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
@@ -196,7 +237,24 @@ void adcConvert()
 
 void ledBlink()
 {
+    if (can_data.test_stale.stale)
+    {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
+    }
+    else
+    {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
+    }
     PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+}
+
+uint8_t data_buf[26];
+void usartTXTest()
+{
+    uint8_t i = 0;
+    for (; i < 26; i++) data_buf[i] = 'a' + i;
+
+    PHAL_usartTxDma(USART1, &huart1, (uint16_t *) data_buf, i);
 }
 
 void myCounterTest()
@@ -252,6 +310,7 @@ void canSendTest()
     SEND_TEST_MSG3(q_tx_can, counter2);
     SEND_TEST_MSG4(q_tx_can, counter2);
     SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
+    SEND_CAR_STATE(q_tx_can, CAR_STATE_FLIPPED);
 }
 
 void canTxUpdate()

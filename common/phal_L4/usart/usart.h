@@ -175,7 +175,7 @@ bool PHAL_usartRxDmaComplete(usart_init_t* handle);
      .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
      .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                 \
-     .periph=DMA1, .channel=DMA1_CHannel7, .request=DMA1_CSELR}
+     .periph=DMA1, .channel=DMA1_Channel7, .request=DMA1_CSELR}
 
 #define LPUART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(LPUART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \

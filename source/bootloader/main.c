@@ -56,6 +56,27 @@ int main (void)
     // IVT is not copied by default, 
     // memcpy((void*)0x20000000,(void const*)0x08000000,0x1FF);
     // SCB->VTOR = (uint32_t)&__isr_vector_start;
+    // asm("bkpt");
+    // while ((FLASH->SR & FLASH_SR_BSY))
+    //     asm("nop");
+
+    // FLASH->KEYR = 0x45670123;
+    // FLASH->KEYR = 0xCDEF89AB;
+
+    // FLASH->CR |= FLASH_CR_PER | ((1) << FLASH_CR_PNB_Pos);
+    // FLASH->CR |= FLASH_CR_STRT;
+
+    // while ((FLASH->SR & FLASH_SR_BSY))
+    //     asm("nop");
+    // FLASH->CR &= ~(FLASH_CR_PER | FLASH_CR_PNB_Msk);
+
+    // FLASH->CR |= FLASH_CR_PG;
+
+    // *(__IO uint32_t*)(0x08008000)    = (uint32_t) 0xBEEF;
+    // *(__IO uint32_t*)(0x08008000+4U) = (uint32_t) 0xCAFE;
+    // FLASH->CR &= ~FLASH_CR_PG;
+
+    // __DSB();
 
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
@@ -193,17 +214,19 @@ void jump_to_application(void)
     // Getting an interrupt after we set VTOR would be bad.
     __disable_irq();
 
-    void* app_code_start = (void *) &_eboot_flash;
+    uint32_t* app_code_start = (void *) &_eboot_flash;
     // Set Vector Offset Table from the application
-    SCB->VTOR = (uint32_t)  app_code_start;
+    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
+
+    
+    // Main stack pointer is saved as the first entry in the .isr_entry
+    __set_MSP(*(uint32_t*) (((void *) &_eboot_flash)));
 
     __enable_irq();
-    // Main stack pointer is saved as the first entry in the .isr_entry
-    __set_MSP((uint32_t) app_code_start);
-
     // Actually jump to application
-    uint32_t app_reset_handler_address = *(__IO uint32_t*) (app_code_start + 4);
+    uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
     ((void(*)(void)) app_reset_handler_address)();
+    asm("bkpt");
 }
 
 void CAN1_RX0_IRQHandler()

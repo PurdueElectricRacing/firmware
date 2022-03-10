@@ -27,6 +27,7 @@ void BL_init(uint32_t* app_flash_start, volatile uint32_t* timeout_ticks_ptr)
     timeout_ticks = timeout_ticks_ptr;
 }
 
+static bool bl_unlock = false;
 static uint32_t num_msg = 0;
 void BL_processCommand(BLCmd_t cmd, uint32_t data)
 {
@@ -39,12 +40,16 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             app_flash_current_address = app_flash_start_address;
             app_flash_end_address += data; // Number of words
             *timeout_ticks = 0;
-            PHAL_flashErasePage(1);
-            PHAL_flashErasePage(2);
-            PHAL_flashErasePage(3);
+            uint8_t total_pages = (data / 0x2000);
+            if (total_pages < 3) total_pages = 3;
+            
+            for(int i = 0; i < total_pages; i++)
+                PHAL_flashErasePage(4+i);
+
             BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) app_flash_current_address);
             num_msg = 0;
             program_buffer = false;
+            bl_unlock = true;
             break;
         }
         case BLCMD_ADD_ADDRESS:
@@ -56,12 +61,12 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         }
         case BLCMD_FW_DATA:
         {
-            if(app_flash_current_address >= app_flash_start_address)
+            if(app_flash_current_address >= app_flash_start_address && bl_unlock)
             {
-                if (((uint32_t) app_flash_current_address & 0b111) == 0)
+                if (((uint32_t) app_flash_current_address & 0b111) != 0)
                 {
                     // Address is 2-word aligned, do the actual programming now
-                    PHAL_flashWriteU64((uint32_t) app_flash_current_address, (((uint64_t) data) << 32) | data_buffer);
+                    PHAL_flashWriteU64((uint32_t) app_flash_current_address & (~0b111), (((uint64_t) data) << 32) | data_buffer);
                     data_buffer = 0;
                 }
                 else 

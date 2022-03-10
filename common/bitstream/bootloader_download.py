@@ -61,7 +61,7 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
     num_msg = 0
     for address in range(segments[0][0], segments[0][1], 4):
         bin_arr = ih.tobinarray(start=address, size=4)
-        data = sum([x << (24 - (i*8)) for i, x in enumerate(bin_arr)])
+        data = sum([x << ((i*8)) for i, x in enumerate(bin_arr)])
         can_tx.send(bl.firmware_data_msg(data))
         num_msg  = num_msg + 1
         while(bl.get_rx_msg()[1] != address):

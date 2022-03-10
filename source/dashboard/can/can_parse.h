@@ -22,31 +22,39 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
+#define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_STATUS 0x4001900
+#define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
+#define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_STATUS 3
+#define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_RAW_THROTTLE_BRAKE(queue, throttle0_, throttle1_, brake0_, brake1_) do {\
+#define SEND_RAW_THROTTLE_BRAKE(queue, throttle_, brake_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_THROTTLE_BRAKE, .DLC=DLC_RAW_THROTTLE_BRAKE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->raw_throttle_brake.throttle0 = throttle0_;\
-        data_a->raw_throttle_brake.throttle1 = throttle1_;\
-        data_a->raw_throttle_brake.brake0 = brake0_;\
-        data_a->raw_throttle_brake.brake1 = brake1_;\
+        data_a->raw_throttle_brake.throttle = throttle_;\
+        data_a->raw_throttle_brake.brake = brake_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_START_BUTTON(queue, start_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_START_BUTTON, .DLC=DLC_START_BUTTON, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->start_button.start = start_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_DAQ_RESPONSE_DASHBOARD(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_DASHBOARD, .DLC=DLC_DAQ_RESPONSE_DASHBOARD, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->daq_response_Dashboard.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -67,19 +75,23 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t throttle0: 16;
-        uint64_t throttle1: 16;
-        uint64_t brake0: 16;
-        uint64_t brake1: 16;
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
     } raw_throttle_brake;
     struct {
         uint64_t start: 1;
     } start_button;
     struct {
+        uint64_t daq_response: 64;
+    } daq_response_Dashboard;
+    struct {
         uint64_t car_state: 8;
         uint64_t apps_state: 8;
         uint64_t precharge_state: 1;
     } main_status;
+    struct {
+        uint64_t daq_command: 64;
+    } daq_command_Dashboard;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -95,12 +107,16 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } main_status;
+    struct {
+        uint64_t daq_command;
+    } daq_command_Dashboard;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void daq_command_Dashboard_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

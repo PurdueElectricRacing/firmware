@@ -69,4 +69,4 @@
 #define WC_GPIO_Port (GPIOA)
 #define WC_Pin (8)
 
-#endif _MAIN_H_
+#endif

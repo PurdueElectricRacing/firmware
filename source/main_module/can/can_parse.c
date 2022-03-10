@@ -34,10 +34,8 @@ void canRxUpdate()
         switch(msg_header.ExtId)
         {
             case ID_RAW_THROTTLE_BRAKE:
-                can_data.raw_throttle_brake.throttle0 = msg_data_a->raw_throttle_brake.throttle0;
-                can_data.raw_throttle_brake.throttle1 = msg_data_a->raw_throttle_brake.throttle1;
-                can_data.raw_throttle_brake.brake0 = msg_data_a->raw_throttle_brake.brake0;
-                can_data.raw_throttle_brake.brake1 = msg_data_a->raw_throttle_brake.brake1;
+                can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
+                can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
                 can_data.raw_throttle_brake.stale = 0;
                 can_data.raw_throttle_brake.last_rx = sched.os_ticks;
                 break;

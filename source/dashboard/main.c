@@ -4,14 +4,16 @@
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/i2c/i2c.h"
 #include "common/phal_L4/usart/usart.h"
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
 
 /* Module Includes */
 #include "main.h"
-#include "apps.h"
+#include "pedals.h"
 #include "can_parse.h"
+#include "daq.h"
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -59,8 +61,7 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=BRK_2_ADC_CHNL, .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
     {.channel=BRK_3_ADC_CHNL, .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
 };
-static uint16_t adc_conversions[5];
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 5, 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
 
 /* USART Confiugration */
 dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
@@ -106,6 +107,7 @@ extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
 void canTxUpdate();
+void linkDAQVars();
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
@@ -136,7 +138,7 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initI2C())
+    if(!PHAL_initI2C(I2C1))
     {
         HardFault_Handler();
     }
@@ -155,13 +157,20 @@ int main (void)
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
 
     /* Module Initialization */
-    // initCANParse(&q_rx_can);
+    initCANParse(&q_rx_can);
+    linkDAQVars();
+    if (daqInit(&q_tx_can, I2C3))
+    {
+        HardFault_Handler();
+    }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    // taskCreateBackground(canTxUpdate);
-    // taskCreateBackground(canRxUpdate);
+    taskCreate(pedalsPeriodic, 15);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     // Signify end of initialization
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
@@ -170,11 +179,25 @@ int main (void)
     return 0;
 }
 
-void sendPedalValues()
+void linkDAQVars()
 {
-
+    linkReada(DAQ_ID_T1MAX,  &pedal_calibration.t1max);
+    linkWritea(DAQ_ID_T1MAX, &pedal_calibration.t1max);
+    linkReada(DAQ_ID_T1MIN,  &pedal_calibration.t1min);
+    linkWritea(DAQ_ID_T1MIN, &pedal_calibration.t1min);
+    linkReada(DAQ_ID_T2MAX,  &pedal_calibration.t2max);
+    linkWritea(DAQ_ID_T2MAX, &pedal_calibration.t2max);
+    linkReada(DAQ_ID_T2MIN,  &pedal_calibration.t2min);
+    linkWritea(DAQ_ID_T2MIN, &pedal_calibration.t2min);
+    linkReada(DAQ_ID_B1MAX,  &pedal_calibration.b1max);
+    linkWritea(DAQ_ID_B1MAX, &pedal_calibration.b1max);
+    linkReada(DAQ_ID_B1MIN,  &pedal_calibration.b1min);
+    linkWritea(DAQ_ID_B1MIN, &pedal_calibration.b1min);
+    linkReada(DAQ_ID_B2MAX,  &pedal_calibration.b2max);
+    linkWritea(DAQ_ID_B2MAX, &pedal_calibration.b2max);
+    linkReada(DAQ_ID_B2MIN,  &pedal_calibration.b2min);
+    linkWritea(DAQ_ID_B2MIN, &pedal_calibration.b2min);
 }
-
 
 void canTxUpdate()
 {
@@ -182,6 +205,45 @@ void canTxUpdate()
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
         PHAL_txCANMessage(&tx_msg);
+    }
+}
+
+void CAN1_RX0_IRQHandler()
+{
+    if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+
+    if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
+        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+
+    if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
+    {
+        CanMsgTypeDef_t rx;
+        rx.Bus = CAN1;
+
+        // Get either StdId or ExtId
+        if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+        { 
+          rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+        }
+        else
+        {
+          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+        }
+
+        rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
+
+        rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
+        rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
+        rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
+        rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
+        rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
+        rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
+        rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
+        rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+
+        CAN1->RF0R |= (CAN_RF0R_RFOM0); 
+        qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
 }
 

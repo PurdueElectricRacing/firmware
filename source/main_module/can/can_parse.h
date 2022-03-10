@@ -30,7 +30,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_DRIVER_REQUEST 4
 #define DLC_MAIN_STATUS 3
-#define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 /* END AUTO DLC DEFS */
 
@@ -78,10 +78,8 @@ typedef union { __attribute__((packed))
         uint64_t precharge_state: 1;
     } main_status;
     struct {
-        uint64_t throttle0: 16;
-        uint64_t throttle1: 16;
-        uint64_t brake0: 16;
-        uint64_t brake1: 16;
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
     } raw_throttle_brake;
     struct {
         uint64_t start: 1;
@@ -95,10 +93,8 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t throttle0;
-        uint16_t throttle1;
-        uint16_t brake0;
-        uint16_t brake1;
+        uint16_t throttle;
+        uint16_t brake;
         uint8_t stale;
         uint32_t last_rx;
     } raw_throttle_brake;

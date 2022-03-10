@@ -8,6 +8,7 @@
 #define __NEXTION_H__
 
 #include "stm32l432xx.h"
+#include <string.h>
 
   // TODO: get max len from uart
 #define NXT_STR_SIZE 30

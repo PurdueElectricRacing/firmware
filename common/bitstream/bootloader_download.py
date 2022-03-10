@@ -49,6 +49,7 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
 
     while(not bl.get_rx_msg() or bl.get_rx_msg()[0] != 2):
         pass
+    print("Found ")
     can_tx.send(bl.firmware_size_msg(total_words))
     while(bl.get_rx_msg()[0] != 3):
         pass

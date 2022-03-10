@@ -95,6 +95,7 @@ int main (void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
+    taskCreate(blinkTask, 1000);
     taskCreate(bitstream10Hz, 100);
     taskCreate(bitstream100Hz, 10);
     taskCreateBackground(canTxUpdate);

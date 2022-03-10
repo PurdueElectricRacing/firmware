@@ -98,7 +98,7 @@ int main (void)
 
     // Only enable application launch timeout if the device has not
     // boot looped more than allowed.
-    bool allow_application_launch = check_boot_health() & false;
+    bool allow_application_launch = check_boot_health();
 
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
@@ -143,7 +143,6 @@ int main (void)
         BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
-        asm("bkpt");
         jump_to_application();
     }
     else
@@ -151,7 +150,6 @@ int main (void)
         BL_sendStatusMessage(BLSTAT_INVAID_APP, reset_count);
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
-        asm("bkpt");
         NVIC_SystemReset();
     }
 
@@ -161,12 +159,12 @@ int main (void)
 
 void SysTick_Handler(void)
 {
-    if (timeout_ticks % 1000 == 0)
+    if (timeout_ticks % 100 == 0)
     {
         wait_flag = true;
     }
 
-    if (timeout_ticks == 5000)
+    if (timeout_ticks == 1000)
     {
         bootloader_timeout = true;
     }
@@ -218,7 +216,6 @@ void jump_to_application(void)
     // Set Vector Offset Table from the application
     SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
 
-    
     // Main stack pointer is saved as the first entry in the .isr_entry
     __set_MSP(*(uint32_t*) (((void *) &_eboot_flash)));
 

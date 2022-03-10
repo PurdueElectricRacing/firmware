@@ -40,6 +40,27 @@
             "preLaunchTask": "build"
         },
         {
+            "name": "Driveline",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/driveline_front/driveline_front.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/driveline"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+
+        {
             "name": "l4_testing",
             "cwd": "${workspaceRoot}",
             "executable": "./output/l4_testing/l4_testing.elf",

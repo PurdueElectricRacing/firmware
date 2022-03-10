@@ -32,7 +32,7 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANTX_PA12,
   GPIO_INIT_I2C3_SCL_PA7,
   GPIO_INIT_I2C3_SDA_PB4,
-//   GPIO_INIT_USART1TX_PA9,
+//   GPIO_INIT_USART1TX_ PA9,
 //   GPIO_INIT_USART1RX_PA10,
   GPIO_INIT_AF(GPIOA, 9, 7, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP),
   GPIO_INIT_AF(GPIOA, 10, 7, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP),
@@ -101,6 +101,7 @@ void canTxUpdate(void);
 void run_user_commands_one(void);
 void run_user_commands_two(void);
 void runMC_old(void);
+void mc_test(void);
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -131,12 +132,14 @@ int main (void)
 
     /* Task Creation */
     schedInit(APB2ClockRateHz);
-    taskCreate(runMC_old, 1);
+    taskCreate(mc_test, 15);
+
+    // taskCreate(runMC_old, 15);
     // taskCreate(runMC, 1);
     // taskCreate(canTxUpdate, 5);
     // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
     // taskCreate(run_user_commands_one, 1);
-    // taskCreate(run_user_commands_two, 1);
+     //taskCreate(run_user_commands_two, 1);
 
 
      schedStart();
@@ -144,6 +147,69 @@ int main (void)
 
     return 0;
 } /* int main() */
+
+void mc_test(void) {
+    static int state_curr;
+    static int count;
+    int state;
+
+    state = state_curr;
+
+    switch (state_curr)
+    {
+        uint16_t data[10];
+
+        case 0:
+        {
+            data[0] = 's';
+            PHAL_usartTxBl(USART1, data, 1);
+            data[0] = 'f';
+            PHAL_usartTxBl(USART1, data, 1);
+
+            state = 1;
+
+            break;
+        }
+
+        case 1:
+        {
+            data[0] = '1';
+            PHAL_usartTxBl(USART1, data, 1);
+
+            state = 2;
+
+            break;
+        }
+
+        case 2:
+        {
+            if (count++ * 15 > 5000) {
+                count = 0;
+
+                state = 3;
+            }
+            
+            break;
+        }
+
+        case 3:
+        {
+            data[0] = '0';
+            PHAL_usartTxBl(USART1, data, 1);
+
+            state = 4;
+
+            break;
+        }
+
+        case 4:
+        {
+            return;
+        }
+    }
+
+    state_curr = state;
+}
 
 void runMC_old(void) {
     static uint16_t time;
@@ -153,8 +219,10 @@ void runMC_old(void) {
         case (0):
         {
             mc_serial_init(handle);
-            PHAL_writeGPIO(GPIOB, LED_GREEN_Pin, true);
-            mc_forward(20.0, handle);
+            // uint16_t init = '1';
+            // PHAL_usartTxBl(handle, &init, 1);
+            mc_forward(10.0, handle);
+            
             break;
         }
         case (1000):
@@ -167,13 +235,8 @@ void runMC_old(void) {
         
     }
 
-    // Reads data from the motor controller every second **!(time % 15)**
-    if (time % 1000 == 0) {
-    //    read_motor_controller(handle);
-    }
-
-    if (++time == 1001) { 
-        time = 1000;
+    if (++time == 10001) { 
+        time = 0;
     }
 } /* runMC() */
 
@@ -375,10 +438,6 @@ void mc_forward(float power, USART_TypeDef *usart){
     uint16_t init = 'f';
     uint16_t increase = 'g';
     uint16_t decrease = 'l';
-
-    if (input_power == current_power) {
-        return;
-    }
 
     //puts the mc in forward mode
     PHAL_usartTxBl(usart, &init, 1);

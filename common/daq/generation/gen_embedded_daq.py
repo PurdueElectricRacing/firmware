@@ -49,12 +49,12 @@ def generate_daq_can_msgs(daq_config, can_config):
                     print(f"match for can node {daq_node['node_name']} found")
                     ssa = can_node['node_ssa']
                     # configure daq rx message
-                    can_node['rx'].append({"msg_name":f"daq_command_{daq_node_config['node_name']}",
+                    can_node['rx'].append({"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}",
                                            "callback":True, "irq":False, "arg_type":"header"})
                     
                     # configure node tx message
-                    rsp_msg = {"msg_name":f"daq_response_{daq_node_config['node_name']}",
-                                    "msg_desc":f"daq response from node {daq_node_config['node_name']}",
+                    rsp_msg = {"msg_name":f"daq_response_{daq_node_config['node_name'].upper()}",
+                                    "msg_desc":f"daq response from node {daq_node_config['node_name'].upper()}",
                                     "signals":[{"sig_name":"daq_response","type":"uint64_t","length":64}],
                                     "msg_period":0, "msg_hlp":5, "msg_pgn":daq_bus['daq_rx_pgn']}
                     can_node['tx'].append(rsp_msg)
@@ -70,8 +70,8 @@ def generate_daq_can_msgs(daq_config, can_config):
                 quit(1)
 
             # configure daq node tx message defs
-            command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name']}",
-                           "msg_desc":f"daq command for node {daq_node_config['node_name']}",
+            command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}",
+                           "msg_desc":f"daq command for node {daq_node_config['node_name'].upper()}",
                            "signals":[{"sig_name":"daq_command","type":"uint64_t","length":64}],
                            "msg_period":0, "msg_hlp":5, "msg_pgn":ssa}
             daq_node['tx'].append(command_msg)

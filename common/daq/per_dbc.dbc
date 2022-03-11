@@ -85,7 +85,7 @@ BO_ 2483028613 raw_throttle_brake: 3 Dashboard
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2550136773 daq_response_Dashboard: 8 Dashboard
+BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415925566 bitstream_data: 8 TESTER
@@ -102,7 +102,7 @@ BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028338 daq_command_Dashboard: 8 DAQ
+BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214624554 balance_request: 2 Precharge
@@ -226,7 +226,7 @@ CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";
-CM_ BO_ 2550136773 "daq response from node Dashboard";
+CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 2415925566 "Bitstream download command";
 CM_ SG_ 2415925566 d7 "Bitstream data word 7";
@@ -240,7 +240,7 @@ CM_ SG_ 2415925566 d0 "Bitstream data word 0";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
 CM_ SG_ 2415925630 download_request "Request to download new bitstream";
-CM_ BO_ 2483028338 "daq command for node Dashboard";
+CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
 CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
 CM_ SG_ 2214624554 volts "";

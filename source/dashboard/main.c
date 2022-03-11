@@ -47,7 +47,7 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .clock_prescaler = ADC_CLK_PRESC_6,
+    .clock_prescaler = ADC_CLK_PRESC_128, //6
     .resolution      = ADC_RES_12_BIT,
     .data_align      = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode  = true,
@@ -55,11 +55,11 @@ ADCInitConfig_t adc_config = {
     .dma_mode        = ADC_DMA_CIRCULAR
 };
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=BRK_1_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=BRK_2_ADC_CHNL, .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=BRK_3_ADC_CHNL, .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=BRK_1_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=BRK_2_ADC_CHNL, .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=BRK_3_ADC_CHNL, .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
 
@@ -159,7 +159,7 @@ int main (void)
     /* Module Initialization */
     initCANParse(&q_rx_can);
     linkDAQVars();
-    if (daqInit(&q_tx_can, I2C3))
+    if (daqInit(&q_tx_can, I2C1))
     {
         HardFault_Handler();
     }
@@ -168,7 +168,7 @@ int main (void)
     schedInit(SystemCoreClock);
 
     taskCreate(pedalsPeriodic, 15);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 

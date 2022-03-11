@@ -8,8 +8,8 @@
 
 void set_flag(char* obj_name, uint8_t enable)
 {
-  if (enable) set_value(obj_name, FLAG_ENABLED_PIC);
-  else set_value(obj_name, FLAG_DISABLED_PIC);
+  if (enable) set_value(obj_name, NXT_VALUE, FLAG_ENABLED_PIC);
+  else set_value(obj_name, NXT_VALUE, FLAG_DISABLED_PIC);
 }
 
 void set_float(char* obj_name, char* param, float num, uint8_t precision)

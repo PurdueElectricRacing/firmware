@@ -61,10 +61,12 @@ void joystick_update()
     // update selection if changed
     if (new_selection != b_idx) 
     {
-        set_pic(pages[p_idx].buttons[b_idx].name, 
-                pages[p_idx].buttons[b_idx].norm_id);
-        set_pic(pages[p_idx].buttons[new_selection].name, 
-                pages[p_idx].buttons[new_selection].high_id);
+        set_value(pages[p_idx].buttons[b_idx].name, 
+                  NXT_PICTURE,
+                  pages[p_idx].buttons[b_idx].norm_id);
+        set_value(pages[p_idx].buttons[new_selection].name, 
+                  NXT_PICTURE,
+                  pages[p_idx].buttons[new_selection].high_id);
         b_idx = new_selection;
         // dont unintentionally select something
         btn_state = 0;
@@ -80,12 +82,12 @@ void action_update()
     switch (p_idx)
     {
         case P_MAIN: // main
-            switch(s_idx)
+            switch(b_idx)
             {
-                case A_DIAG_BUTTON:
+                case B_DIAG_BUTTON:
                     change_page(P_INFO);
                     break;
-                case A_SETTINGS:
+                case B_SETTINGS:
                     change_page(P_SETTINGS);
                     break;
             }
@@ -114,7 +116,7 @@ void value_update()
                 else curr = *((uint16_t *) a.val_addr);
                 if (curr != a.last_val) 
                 {
-                    set_value(a.name, curr);
+                    set_value(a.name, NXT_VALUE, curr);
                     a.last_val = curr;
                 }
                 break;

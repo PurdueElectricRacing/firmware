@@ -35,6 +35,7 @@ void pedalsPeriodic(void)
     }
     else
     {
+        // TODO: unlatch
         pedals.bse_wiring_fail_detected = false;
     }
 
@@ -96,8 +97,10 @@ void pedalsPeriodic(void)
 
     if (pedals.apps_faulted || pedals.bse_faulted || pedals.apps_brake_faulted)
     {
-        t1 = 0;
+        // TODO: revert t1 = 0;
     }
 
+    // TODO: back to t1
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, t1, b1);
+
 }

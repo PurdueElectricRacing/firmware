@@ -28,7 +28,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
-#define EEPROM_ENABLED 1
+#define EEPROM_ENABLED 0
 
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50
@@ -158,6 +158,6 @@ void linkWriteFunc(uint8_t id, write_func_ptr_t write_func);
  * 
  * @param msg_header_a Rx CAN message
  */
-extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_Dashboard_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 
 #endif

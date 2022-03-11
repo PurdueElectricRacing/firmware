@@ -41,8 +41,8 @@ void canRxUpdate()
                 can_data.main_status.last_rx = sched.os_ticks;
                 break;
             case ID_DAQ_COMMAND_DASHBOARD:
-                can_data.daq_command_Dashboard.daq_command = msg_data_a->daq_command_Dashboard.daq_command;
-                daq_command_Dashboard_CALLBACK(&msg_header);
+                can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
+                daq_command_DASHBOARD_CALLBACK(&msg_header);
                 break;
             default:
                 __asm__("nop");

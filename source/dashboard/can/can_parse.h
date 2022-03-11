@@ -54,7 +54,7 @@
 #define SEND_DAQ_RESPONSE_DASHBOARD(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_DASHBOARD, .DLC=DLC_DAQ_RESPONSE_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_Dashboard.daq_response = daq_response_;\
+        data_a->daq_response_DASHBOARD.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -83,7 +83,7 @@ typedef union { __attribute__((packed))
     } start_button;
     struct {
         uint64_t daq_response: 64;
-    } daq_response_Dashboard;
+    } daq_response_DASHBOARD;
     struct {
         uint64_t car_state: 8;
         uint64_t apps_state: 8;
@@ -91,7 +91,7 @@ typedef union { __attribute__((packed))
     } main_status;
     struct {
         uint64_t daq_command: 64;
-    } daq_command_Dashboard;
+    } daq_command_DASHBOARD;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -109,14 +109,14 @@ typedef struct {
     } main_status;
     struct {
         uint64_t daq_command;
-    } daq_command_Dashboard;
+    } daq_command_DASHBOARD;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_Dashboard_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

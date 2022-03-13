@@ -6,6 +6,8 @@
 
 #include "nextion.h"
 
+extern q_handle_t q_tx_usart;
+
 void set_flag(char* obj_name, uint8_t enable)
 {
   if (enable) set_value(obj_name, NXT_VALUE, FLAG_ENABLED_PIC);
@@ -21,7 +23,7 @@ void set_float(char* obj_name, char* param, float num, uint8_t precision)
   strcat(ptr, param);
   sprintf(&result[strlen(result)], "\"%.*f\"", precision, num);
   strcat(ptr, NXT_CMD_TERM);
-  lcd_send(ptr);
+  qSendToBack(&q_tx_usart, (uint16_t *) ptr);
 }
 
 void set_value(char* obj_name, char* param, uint16_t val)
@@ -41,7 +43,7 @@ void set_value(char* obj_name, char* param, uint16_t val)
   strcat(ptr, param);
   strcat(ptr, str_buff);
   strcat(ptr, NXT_CMD_TERM);
-  lcd_send(ptr);
+  qSendToBack(&q_tx_usart, (uint16_t *) ptr);
 }
 
 void set_text(char* obj_name, char* param, char* text)
@@ -51,11 +53,11 @@ void set_text(char* obj_name, char* param, char* text)
 	result[0] = '\0';
   strcat(ptr, obj_name);
   strcat(ptr, param);
-  strcat(ptr, '\"');
+  strcat(ptr, "\"");
   strcat(ptr, text);
-  strcat(ptr, '\"');
+  strcat(ptr, "\"");
   strcat(ptr, NXT_CMD_TERM);
-  lcd_send(ptr);
+  qSendToBack(&q_tx_usart, (uint16_t *) ptr);
 }
 
 void set_page(char* page_name) {
@@ -65,11 +67,5 @@ void set_page(char* page_name) {
   strcat(ptr, "page ");
   strcat(ptr, page_name);
   strcat(ptr, NXT_CMD_TERM);
-  lcd_send(ptr);
-}
-
-void lcd_send(char* msg)
-{
-  // TODO: some sort of DMA usart (possibly buffered) tx
-  return;
+  qSendToBack(&q_tx_usart, (uint16_t *) ptr);
 }

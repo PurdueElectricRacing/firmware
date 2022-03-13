@@ -20,11 +20,7 @@
                         {"var_name":"b1max", "read_only": false, "bit_length": 12,
                             "eeprom":{"label":"b1x", "version": 0}},
                         {"var_name":"b1min", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"b1n", "version": 0}},
-                        {"var_name":"b2max", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"b2x", "version": 0}},
-                        {"var_name":"b2min", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"b2n", "version": 0}}
+                            "eeprom":{"label":"b1n", "version": 0}}
                     ]
                 }
             ]

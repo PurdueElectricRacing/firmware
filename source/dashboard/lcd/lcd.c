@@ -1,5 +1,6 @@
 #include "lcd.h"
 
+extern SPI_InitConfig_t hspi1;
 typedef enum {
     J_UP,
     J_RIGHT,
@@ -43,6 +44,8 @@ page_t pages[P_TOTAL] = {
 
 uint8_t p_idx = 0;
 uint8_t b_idx = 0; 
+uint8_t wheel_read_cmd[] = {WHEEL_SPI_ADDR & WHEEL_SPI_READ, WHEEL_GPIO_REG};
+uint8_t wheel_raw_btns = 0;
 
 void joystick_update()
 {
@@ -50,6 +53,15 @@ void joystick_update()
     // posibly have timeout for the highlight
     // may have to read from queue if interrupt based
     // joystick would be on interrupt
+
+    // Update the joystick position and button state
+    j_dir = J_CENTER;
+    if      (wheel_raw_btns & (0b1 << BTN_UP_EXP_Pin))    j_dir = J_UP;
+    else if (wheel_raw_btns & (0b1 << BTN_DOWN_EXP_Pin))  j_dir = J_DOWN;
+    else if (wheel_raw_btns & (0b1 << BTN_RIGHT_EXP_Pin)) j_dir = J_RIGHT;
+    else if (wheel_raw_btns & (0b1 << BTN_LEFT_EXP_Pin))  j_dir = J_LEFT;
+    btn_state = wheel_raw_btns & (0b1 << BTN_AUX1_EXP_Pin);
+    PHAL_SPI_transfer(&hspi1, wheel_read_cmd, sizeof(wheel_read_cmd), &wheel_raw_btns);
 
     if (j_dir == J_CENTER || !pages[p_idx].buttons) return;
 

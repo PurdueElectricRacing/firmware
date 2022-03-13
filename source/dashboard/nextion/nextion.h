@@ -9,6 +9,8 @@
 
 #include "stm32l432xx.h"
 #include <string.h>
+#include <stdio.h>
+#include "common/queue/queue.h"
 
   // TODO: get max len from uart
 #define NXT_STR_SIZE 30
@@ -87,6 +89,5 @@ void set_float(char* obj_name, char* param, float num, uint8_t precision);
 void set_value(char* obj_name, char* param, uint16_t val);
 void set_text(char* obj_name, char* param, char* text);
 void set_page(char* page_name);
-void lcd_send(char* msg);
 
 #endif

@@ -47,13 +47,17 @@
 #define BRK_3_ADC_CHNL (9)
 
 /* Wheel */
-#define BTN_UP_EXP_Pin    0
-#define BTN_DOWN_EXP_Pin  1
-#define BTN_RIGHT_EXP_Pin 2
-#define BTN_LEFT_EXP_PIN  3
-#define BTN_AUX1_EXP_Pin  4
-#define BTN_AUX2_EXP_Pin  5
-#define BTN_AUX3_EXP_Pin  6
+#define WHEEL_SPI_READ    (0x01)
+#define WHEEL_SPI_WRITE   (0x00)
+#define WHEEL_SPI_ADDR    (0x40)
+#define WHEEL_GPIO_REG    (0x09)
+#define BTN_UP_EXP_Pin    (0)
+#define BTN_DOWN_EXP_Pin  (1)
+#define BTN_RIGHT_EXP_Pin (2)
+#define BTN_LEFT_EXP_Pin  (3)
+#define BTN_AUX1_EXP_Pin  (4)
+#define BTN_AUX2_EXP_Pin  (5)
+#define BTN_AUX3_EXP_Pin  (6)
 
 /* SPI */
 #define SCK_GPIO_Port (GPIOB)

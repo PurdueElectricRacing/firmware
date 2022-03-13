@@ -1,8 +1,10 @@
 #ifndef __LCD_H__
 #define __LCD_H__
 
+#include "common/phal_L4/spi/spi.h"
 #include "nextion.h"
 #include "can_parse.h"
+#include "main.h"
 
 #define BTN_NORM_ID 4
 #define BTN_HIGH_ID BTN_NORM_ID

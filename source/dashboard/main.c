@@ -5,6 +5,7 @@
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
 #include "common/phal_L4/i2c/i2c.h"
+#include "common/phal_L4/spi/spi.h"
 #include "common/phal_L4/usart/usart.h"
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
@@ -14,6 +15,7 @@
 #include "pedals.h"
 #include "can_parse.h"
 #include "daq.h"
+#include "nextion.h"
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -37,7 +39,7 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
   GPIO_INIT_ANALOG(BRK_3_GPIO_Port, BRK_3_Pin),
   // Status LEDs
-  GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+  // GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -90,6 +92,19 @@ usart_init_t huart2 = {
     .rx_dma_cfg = &usart_rx_dma_config
 };
 
+/* SPI Configuration */
+dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 3);
+dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 4);
+SPI_InitConfig_t hspi1 = {
+    .data_rate = 400000,
+    .data_len  = 8,
+    .nss_sw = true,
+    .nss_gpio_port = CSB_WHL_GPIO_Port,
+    .nss_gpio_pin  = CSB_WHL_Pin,
+    .rx_dma_cfg = &spi_rx_dma_cfg,
+    .tx_dma_cfg = &spi_tx_dma_cfg,
+};
+
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_HSI,
@@ -106,12 +121,16 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
+void heartBeatLED();
 void canTxUpdate();
+void usartTxUpdate();
 void linkDAQVars();
+void checkStartBtn();
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
+q_handle_t q_tx_usart;
 
 int main (void)
 {
@@ -119,6 +138,7 @@ int main (void)
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -135,6 +155,10 @@ int main (void)
     }
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     if(!PHAL_initUSART(USART2, &huart2, APB2ClockRateHz))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_SPI_init(&hspi1))
     {
         HardFault_Handler();
     }
@@ -167,16 +191,38 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
 
+    taskCreate(heartBeatLED, 500);
+    taskCreate(checkStartBtn, 100);
     taskCreate(pedalsPeriodic, 15);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+    taskCreateBackground(usartTxUpdate);
 
     // Signify end of initialization
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
     schedStart();
     
     return 0;
+}
+
+void heartBeatLED()
+{
+    PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
+}
+
+bool start_prev = false;
+void checkStartBtn()
+{
+    if (PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin))
+    {
+        if (!start_prev) SEND_START_BUTTON(q_tx_can, 1);
+        start_prev = true;
+    }
+    else
+    {
+        start_prev = false;
+    }
 }
 
 void linkDAQVars()
@@ -193,10 +239,15 @@ void linkDAQVars()
     linkWritea(DAQ_ID_B1MAX, &pedal_calibration.b1max);
     linkReada(DAQ_ID_B1MIN,  &pedal_calibration.b1min);
     linkWritea(DAQ_ID_B1MIN, &pedal_calibration.b1min);
-    linkReada(DAQ_ID_B2MAX,  &pedal_calibration.b2max);
-    linkWritea(DAQ_ID_B2MAX, &pedal_calibration.b2max);
-    linkReada(DAQ_ID_B2MIN,  &pedal_calibration.b2min);
-    linkWritea(DAQ_ID_B2MIN, &pedal_calibration.b2min);
+}
+
+void usartTxUpdate()
+{
+    char cmd[NXT_STR_SIZE];
+    if (qReceive(&q_tx_usart, cmd) == SUCCESS_G)
+    {
+        PHAL_usartTxDma(USART2, &huart2, (uint16_t *) cmd, strlen(cmd));
+    }
 }
 
 void canTxUpdate()
@@ -249,7 +300,7 @@ void CAN1_RX0_IRQHandler()
 
 void HardFault_Handler()
 {
-    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+    // PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
     while(1)
     {
         __asm__("nop");

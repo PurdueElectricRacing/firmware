@@ -23,12 +23,12 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define NODE_NAME "Dashboard"
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 8
+#define NUM_VARS 6
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
-#define EEPROM_ENABLED 0
+#define EEPROM_ENABLED 1
 
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50
@@ -68,8 +68,6 @@ typedef enum
 #define DAQ_ID_T2MIN 3
 #define DAQ_ID_B1MAX 4
 #define DAQ_ID_B1MIN 5
-#define DAQ_ID_B2MAX 6
-#define DAQ_ID_B2MIN 7
 // END AUTO VAR IDs
 
 typedef struct

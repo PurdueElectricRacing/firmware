@@ -67,8 +67,6 @@ typedef struct {
     uint16_t t2min;
     uint16_t b1max;
     uint16_t b1min;
-    uint16_t b2max;
-    uint16_t b2min;
 } pedal_calibration_t;
 
 extern pedal_calibration_t pedal_calibration;

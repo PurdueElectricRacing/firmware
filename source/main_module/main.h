@@ -27,8 +27,8 @@
 #define DT_THERM_2_Pin (0)
 #define DT_PUMP_CTRL_GPIO_Port (GPIOE)
 #define DT_PUMP_CTRL_Pin (13)
-#define DT_PUMP_FLOW_ADJ_GPIO_Port (GPIOA)
-#define DT_PUMP_FLOW_ADJ_Pin (4)
+#define DT_PUMP_FLOW_ADJ_GPIO_Port (GPIOA) // N/A for current pump
+#define DT_PUMP_FLOW_ADJ_Pin (4)           // N/A for current pump
 #define DT_FLOW_RATE_PWM_GPIO_Port (GPIOC)
 #define DT_FLOW_RATE_PWM_Pin (1)
 #define DT_RAD_FAN_CTRL_GPIO_Port (GPIOE)

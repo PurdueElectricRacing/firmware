@@ -43,7 +43,6 @@ void canRxUpdate()
                 break;
             case ID_START_BUTTON:
                 can_data.start_button.start = msg_data_a->start_button.start;
-                start_button_CALLBACK(msg_data_a);
                 break;
             case ID_FRONT_MOTOR_CURRENTS_TEMPS:
                 can_data.front_motor_currents_temps.left_current = msg_data_a->front_motor_currents_temps.left_current;

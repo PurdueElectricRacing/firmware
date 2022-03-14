@@ -8,7 +8,6 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 import gen_embedded_can
 import gen_embedded_daq
-import gen_faults
 import gen_dbc
 from pathlib import Path
 
@@ -287,9 +286,6 @@ def generate_all():
     can_schema_path = Path(os.path.abspath(relative_dir / gen_config['can_json_schema_path']))
     daq_config_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_config_path']))
     daq_schema_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_schema_path']))
-    fault_config_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_config_path']))
-    fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
-    fault_header_path = Path(os.path.abspath(relative_dir / gen_config['fault_header_path']))
 
     firmware_source_dir = Path(os.path.abspath(relative_dir / gen_config['source_directory']))
 
@@ -297,7 +293,6 @@ def generate_all():
 
     can_config = load_json_config(can_config_path, can_schema_path)
     daq_config = load_json_config(daq_config_path, daq_schema_path)
-    fault_config = load_json_config(fault_config_path, fault_schema_path)
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)
@@ -311,7 +306,6 @@ def generate_all():
     gen_embedded_can.gen_embedded_can(can_config, firmware_source_dir, gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
     gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
     gen_dbc.gen_dbc(can_config, relative_dir / gen_config['dbc_output_path'])
-    gen_faults.gen_faults(fault_config, fault_header_path)
 
     output_bus_load(can_config)
 

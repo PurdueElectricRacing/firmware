@@ -32,7 +32,7 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
+  //GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
   GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   //GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   GPIO_INIT_ANALOG(POT_GPIO_Port, POT_Pin),
@@ -101,6 +101,7 @@ void myCounterTest();
 void usartTXTest();
 void canReceiveTest();
 void adcConvert();
+void coolingPeriodic();
 void canSendTest();
 void Error_Handler();
 void SysTick_Handler();
@@ -191,7 +192,7 @@ int main (void)
     // signify start of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
-    // /* Module init */
+    /* Module init */
     initCANParse(&q_rx_can);
     wheelSpeedsInit();
 
@@ -209,7 +210,6 @@ int main (void)
         HardFault_Handler();
     }
 
-    
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(usartTXTest, 1000);
@@ -218,7 +218,7 @@ int main (void)
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
     taskCreate(wheelSpeedsPeriodic, 15);
-    // taskCreate(myCounterTest, 50);
+    taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 

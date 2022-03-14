@@ -8,6 +8,7 @@
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
+#include "cooling.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // CAN
@@ -35,6 +36,7 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
+void canTxUpdate();
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
@@ -62,11 +64,15 @@ int main (void)
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     /* Module Initialization */
+    initCooling();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    //taskCreate((func_ptr_t) &blinkTask, 100);
+    taskCreate(coolingPeriodic, 500);
+
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     schedStart();
 

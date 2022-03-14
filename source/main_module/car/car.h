@@ -21,20 +21,11 @@
 #define BRAKE_PRESSED_THRESHOLD 0.30f
 #define BUZZER_DURATION_MS 2000 // EV.10.5: 1-3s
 
-typedef enum
-{
-    CAR_STATE_INIT = 0,
-    CAR_STATE_PREREADY2DRIVE,
-    CAR_STATE_READY2DRIVE,
-    CAR_STATE_ERROR,
-    CAR_STATE_RESET,
-    CAR_STATE_RECOVER
-} CarState_t;
-
 typedef struct
 {
-    CarState_t state;
+    car_state_t state;
     bool brake_light;
+    uint16_t max_cell_temp; // TODO: create function for each cell temp received to update this with the max
 } Car_t;
 
 volatile extern Car_t car;

@@ -67,6 +67,15 @@
                     (curr - last) > period * STALE_THRESH) stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
+typedef enum {
+    CAR_STATE_INIT,
+    CAR_STATE_PREREADY2DRIVE,
+    CAR_STATE_READY2DRIVE,
+    CAR_STATE_ERROR,
+    CAR_STATE_RESET,
+    CAR_STATE_RECOVER,
+} car_state_t;
+
 /* END AUTO CAN ENUMERATIONS */
 
 // Message Raw Structures
@@ -119,7 +128,7 @@ typedef struct {
         uint32_t last_rx;
     } raw_throttle_brake;
     struct {
-        uint16_t start;
+        uint8_t start;
     } start_button;
     struct {
         uint16_t left_current;
@@ -139,7 +148,6 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void start_button_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

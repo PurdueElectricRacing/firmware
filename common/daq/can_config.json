@@ -21,7 +21,8 @@
                         {   "msg_name":"main_status",
                             "msg_desc":"Status message for main module",
                             "signals":[
-                                {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8},
+                                {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8, 
+                                 "choices": ["init", "preready2drive", "ready2drive", "error", "reset", "recover"]},
                                 {"sig_name":"apps_state", "sig_desc":"Accelerator plausibility state","type":"uint8_t","length":8},
                                 {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
                             ],
@@ -32,7 +33,7 @@
                     ],
                     "rx":[
                         {"msg_name": "raw_throttle_brake"},
-                        {"msg_name": "start_button", "callback": true},
+                        {"msg_name": "start_button", "callback": false},
                         {"msg_name": "front_motor_currents_temps"},
                         {"msg_name": "rear_motor_currents_temps"}
                     ]
@@ -104,8 +105,8 @@
                             "signals": [
                                 {"sig_name": "left_current", "type": "uint16_t", "length": 16},
                                 {"sig_name": "right_current", "type": "uint16_t", "length": 16},
-                                {"sig_name": "left_temp", "type":"uint8_t", "length":8},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8}
+                                {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],
                             "msg_period": 0,
                             "msg_hlp": 3,
@@ -116,8 +117,8 @@
                             "signals": [
                                 {"sig_name": "left", "type": "uint16_t", "length": 16},
                                 {"sig_name": "right", "type": "uint16_t", "length": 16},
-                                {"sig_name": "left_temp", "type":"uint8_t", "length":8},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8}
+                                {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],
                             "msg_period": 0,
                             "msg_hlp": 3,
@@ -165,7 +166,7 @@
                         {   "msg_name":"start_button",
                             "msg_desc":"Car start button pressed",
                             "signals":[
-                                {"sig_name":"start","type":"uint16_t","length":1}
+                                {"sig_name":"start","type":"uint8_t","length":1}
                             ],
                             "msg_period":0,
                             "msg_hlp":1,

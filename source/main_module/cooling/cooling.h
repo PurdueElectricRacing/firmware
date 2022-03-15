@@ -19,6 +19,7 @@
 #include <stdbool.h>
 #include "can_parse.h"
 #include "main.h"
+#include "car.h"
 
 /* DRIVETRAIN COOLANT SYSTEM */
 #define DT_PUMP_ON_TEMP_C   (30)

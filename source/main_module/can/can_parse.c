@@ -34,10 +34,8 @@ void canRxUpdate()
         switch(msg_header.ExtId)
         {
             case ID_RAW_THROTTLE_BRAKE:
-                can_data.raw_throttle_brake.throttle0 = msg_data_a->raw_throttle_brake.throttle0;
-                can_data.raw_throttle_brake.throttle1 = msg_data_a->raw_throttle_brake.throttle1;
-                can_data.raw_throttle_brake.brake0 = msg_data_a->raw_throttle_brake.brake0;
-                can_data.raw_throttle_brake.brake1 = msg_data_a->raw_throttle_brake.brake1;
+                can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
+                can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
                 can_data.raw_throttle_brake.stale = 0;
                 can_data.raw_throttle_brake.last_rx = sched.os_ticks;
                 break;
@@ -55,6 +53,10 @@ void canRxUpdate()
                 can_data.rear_motor_currents_temps.right = msg_data_a->rear_motor_currents_temps.right;
                 can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
+                break;
+            case ID_DAQ_COMMAND_MAIN_MODULE:
+                can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
+                daq_command_MAIN_MODULE_CALLBACK(&msg_header);
                 break;
             default:
                 __asm__("nop");
@@ -89,6 +91,8 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_FRONT_MOTOR_CURRENTS_TEMPS << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_REAR_MOTOR_CURRENTS_TEMPS << 3) | 4;
+    CAN1->FA1R |= (1 << 2);    // configure bank 2
+    CAN1->sFilterRegister[2].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

@@ -22,7 +22,7 @@
                             "msg_desc":"Status message for main module",
                             "signals":[
                                 {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8, 
-                                 "choices": ["init", "preready2drive", "ready2drive", "error", "reset", "recover"]},
+                                 "choices": ["init", "precharging", "buzzing", "ready2drive", "error", "reset", "recover"]},
                                 {"sig_name":"apps_state", "sig_desc":"Accelerator plausibility state","type":"uint8_t","length":8},
                                 {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
                             ],
@@ -154,10 +154,8 @@
                         {   "msg_name":"raw_throttle_brake",
                             "msg_desc":"throttle_brake desc",
                             "signals":[
-                                {"sig_name":"throttle0","type":"uint16_t","length":16},
-                                {"sig_name":"throttle1","type":"uint16_t","length":16},
-                                {"sig_name":"brake0", "type":"uint16_t", "length":16},
-                                {"sig_name":"brake1", "type":"uint16_t", "length":16}
+                                {"sig_name":"throttle","type":"uint16_t","length":12},
+                                {"sig_name":"brake", "type":"uint16_t", "length":12}
                             ],
                             "msg_period":5,
                             "msg_hlp":5,

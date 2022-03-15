@@ -40,6 +40,10 @@ void canRxUpdate()
                 can_data.main_status.stale = 0;
                 can_data.main_status.last_rx = sched.os_ticks;
                 break;
+            case ID_DAQ_COMMAND_DASHBOARD:
+                can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
+                daq_command_DASHBOARD_CALLBACK(&msg_header);
+                break;
             default:
                 __asm__("nop");
         }
@@ -69,6 +73,7 @@ bool initCANFilter()
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_MAIN_STATUS << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

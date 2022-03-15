@@ -49,6 +49,12 @@ daq_eeprom_status_t daq_e_stat = {.read_idx=0, .write_idx=0, .data_buff_lock=0, 
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t1x", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t1n", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2x", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2n", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b1x", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b1n", .eeprom_version=0},
 };
 // END AUTO VAR DEFS
 
@@ -297,7 +303,7 @@ bool pubVarStop(uint8_t var_id)
  * publish is followed by publish rate (in Hz)
  */
 // BEGIN AUTO CALLBACK DEF
-void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
+void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a)
 // END AUTO CALLBACK DEF
 {
 
@@ -450,7 +456,7 @@ void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
     CanMsgTypeDef_t msg = {.IDE=1, 
     // BEGIN AUTO DAQ SEND DEF
                            .Bus=CAN1,
-                           .ExtId=ID_DAQ_RESPONSE_MAIN_MODULE,
+                           .ExtId=ID_DAQ_RESPONSE_DASHBOARD,
     // END AUTO DAQ SEND DEF
                            .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
     memcpy(msg.Data, tx_frame.data, msg.DLC);

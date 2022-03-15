@@ -153,6 +153,7 @@ def label_junction_nodes(can_config):
     for bus in can_config['busses']:
         for node in bus['nodes']:
             if node['node_name'] in node_names:
+                if ('DAQ' == node['node_name']): continue
                 # junction found (assumes check repeat defs already ran and passed)
                 print(f"Junction node found: {node['node_name']}")
                 node['is_junction'] = True

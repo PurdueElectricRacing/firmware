@@ -18,7 +18,8 @@
 
 #include "can_parse.h"
 
-#define BRAKE_PRESSED_THRESHOLD 0.30f
+#define BRAKE_LIGHT_ON_THRESHOLD 500
+#define BRAKE_PRESSED_THRESHOLD  2000
 #define BUZZER_DURATION_MS 2000 // EV.10.5: 1-3s
 
 typedef struct __attribute__((packed))

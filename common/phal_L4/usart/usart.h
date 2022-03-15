@@ -47,7 +47,7 @@ typedef enum {
     MODE_TX_RX = 0b11,
     MODE_TX    = 0b10,
     MODE_RX    = 0b01
-} mode_t;
+} usart_mode_t;
 
 typedef enum {
     HW_DISABLE,
@@ -98,7 +98,7 @@ typedef struct {
     word_length_t  word_length;     // Word length for tx/rx (8 default)
     stop_bits_t    stop_bits;       // Number of stop bits to use (1 default)
     parity_t       parity;          // Parity of communication (none default)
-    mode_t         mode;            // TX/RX mode (TX & RX default)
+    usart_mode_t         mode;            // TX/RX mode (TX & RX default)
     hw_flow_ctl_t  hw_flow_ctl;     // Special hardware modes (none default)
     ovsample_t     ovsample;        // 8x or 16x oversample (16x default)
     obsample_t     obsample;        // One bit sampling enable (off default)
@@ -175,7 +175,7 @@ bool PHAL_usartRxDmaComplete(usart_init_t* handle);
      .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
      .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                 \
-     .periph=DMA1, .channel=DMA1_CHannel7, .request=DMA1_CSELR}
+     .periph=DMA1, .channel=DMA1_Channel7, .request=DMA1_CSELR}
 
 #define LPUART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(LPUART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \

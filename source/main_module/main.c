@@ -64,12 +64,12 @@ ADCInitConfig_t adc_config = {
     .dma_mode        = ADC_DMA_CIRCULAR
 };
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=DT_THERM_1_ADC_CHNL,    .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=DT_THERM_2_ADC_CHNL,    .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=BAT_THERM_OUT_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=BAT_THERM_IN_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
-    {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=DT_THERM_1_ADC_CHNL,    .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=DT_THERM_2_ADC_CHNL,    .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BAT_THERM_OUT_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BAT_THERM_IN_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 

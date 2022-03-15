@@ -12,7 +12,7 @@ volatile ADCReadings_t adc_readings;
 bool carInit()
 {
     car.state = CAR_STATE_INIT;
-
+    PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 0);
 }
 
 void carHeartbeat()
@@ -26,12 +26,7 @@ void carPeriodic()
 
     /* State Independent Operations */
 
-    // EV.5.7 - APPS plausibility check
-    // Shutdown motor pwr if brakes on & APPS > 25% pedal travel
-    // Reset once APPS < 5% pedal travel, w/ or w/o brakes
-
-
-    if (/* TODO: BRK*/0 > BRAKE_PRESSED_THRESHOLD)
+    if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {
         if (!car.brake_light)
         {
@@ -45,6 +40,7 @@ void carPeriodic()
         car.brake_light = false;
     }
 
+
     /* State Dependent Operations */
 
     // EV.10.4 - Activation sequence
@@ -55,17 +51,29 @@ void carPeriodic()
     //                   - brake pedal pressed and held
     //                   - start button press
 
-
-    if (car.state == CAR_STATE_INIT)
-    {
-        PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
-        // TODO: check for preready2drive
-    }
-    else if (car.state == CAR_STATE_ERROR)
+    if (car.state == CAR_STATE_ERROR)
     {
         PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, false); // open SDC
     }
-    else if (car.state == CAR_STATE_PREREADY2DRIVE)
+    else if (car.state == CAR_STATE_INIT)
+    {
+        if (can_data.start_button.start)
+        {
+            can_data.start_button.start = 0; // debounce
+            if (can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
+            {
+                // TODO: & no critical faults on other systems
+                PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
+                // TODO: command precharge
+                car.state = CAR_STATE_PRECHARGING;
+            }
+        }
+    }
+    else if (car.state == CAR_STATE_PRECHARGING)
+    {
+        // TODO: wait for precharge done?
+    }
+    else if (car.state == CAR_STATE_BUZZING)
     {
         // EV.10.5 - Ready to drive sound
         // 1-3 seconds, unique from other sounds
@@ -84,6 +92,7 @@ void carPeriodic()
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
         // TODO: check raw torque cmd timeout
+        // TODO: check for faults from other systems
 
     }
 

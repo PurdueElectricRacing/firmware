@@ -4,21 +4,74 @@
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/i2c/i2c.h"
+#include "common/phal_L4/dma/dma.h"
 
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
+// #include "daq.h"
 #include "cooling.h"
+#include "car.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // CAN
     GPIO_INIT_CANRX_PD1,
     GPIO_INIT_CANTX_PD0,
     GPIO_INIT_OUTPUT(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
-    // TODO: the rest of the ports
-    // GPIO_INIT_INPUT(GPIOA, 10, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_OUTPUT(GPIOA, 8, GPIO_OUTPUT_LOW_SPEED)
+    // Status Indicators
+    GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(UNDERGLOW_GPIO_Port, UNDERGLOW_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // Drivetrain
+    GPIO_INIT_ANALOG(DT_THERM_1_GPIO_Port, DT_THERM_1_Pin),
+    GPIO_INIT_ANALOG(DT_THERM_2_GPIO_Port, DT_THERM_2_Pin),
+    GPIO_INIT_OUTPUT(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // GPIO_INIT_OUTPUT(DT_PUMP_FLOW_ADJ_GPIO_Port, DT_PUMP_FLOW_ADJ_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(DT_FLOW_RATE_PWM_GPIO_Port, DT_FLOW_RATE_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // Battery (HV)
+    GPIO_INIT_ANALOG(BAT_THERM_OUT_GPIO_Port, BAT_THERM_OUT_Pin),
+    GPIO_INIT_ANALOG(BAT_THERM_IN_GPIO_Port, BAT_THERM_IN_Pin),
+    GPIO_INIT_OUTPUT(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // GPIO_INIT_OUTPUT(BAT_PUMP_FLOW_ADJ_GPIO_Port, BAT_PUMP_FLOW_ADJ_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(BAT_FLOW_RATE_PWM_GPIO_Port, BAT_FLOW_RATE_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_ANALOG(I_SENSE_C1_GPIO_Port, I_SENSE_C1_Pin),
+    // LV Battery
+    GPIO_INIT_INPUT(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_ANALOG(LV_I_SENSE_GPIO_Port, LV_I_SENSE_Pin),
+    // I2C
+    GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_I2C1_SCL_PB6,
+    GPIO_INIT_I2C1_SDA_PB7,
+    GPIO_INIT_I2C4_SCL_PB10,
+    GPIO_INIT_I2C4_SDA_PB11,
 };
+
+/* ADC Configuration */
+ADCInitConfig_t adc_config = {
+    .clock_prescaler = ADC_CLK_PRESC_6,
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .overrun         = true,
+    .dma_mode        = ADC_DMA_CIRCULAR
+};
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel=DT_THERM_1_ADC_CHNL,    .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=DT_THERM_2_ADC_CHNL,    .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=BAT_THERM_OUT_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=BAT_THERM_IN_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+    {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_2_5},
+};
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -36,6 +89,7 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
+void heartBeatLED();
 void canTxUpdate();
 extern void HardFault_Handler();
 
@@ -62,21 +116,50 @@ int main (void)
         HardFault_Handler();
     }
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    if(!PHAL_initI2C(I2C))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initI2C(DBG_I2C))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
 
     /* Module Initialization */
     initCooling();
+    // if(daqInit(&q_tx_can, I2C))
+    // {
+    //     HardFault_Handler();
+    // }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
     taskCreate(coolingPeriodic, 500);
-
+    taskCreate(heartBeatLED, 500);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    // TODO: connection LED
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
     schedStart();
 
     return 0;
+}
+
+void heartBeatLED()
+{
+    PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
 }
 
 void canTxUpdate()

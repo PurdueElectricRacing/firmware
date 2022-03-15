@@ -21,11 +21,26 @@
 #define BRAKE_PRESSED_THRESHOLD 0.30f
 #define BUZZER_DURATION_MS 2000 // EV.10.5: 1-3s
 
+typedef struct __attribute__((packed))
+{
+    // Do not modify this struct unless
+    // you modify the ADC DMA config
+    // in main.h to match
+    uint16_t dt_therm_1;
+    uint16_t dt_therm_2;
+    uint16_t bat_therm_out;
+    uint16_t bat_therm_in;
+    uint16_t i_sense_c1;
+    uint16_t lv_i_sense;
+} ADCReadings_t;
+
+volatile extern ADCReadings_t adc_readings;
+
 typedef struct
 {
     car_state_t state;
     bool brake_light;
-    uint16_t max_cell_temp; // TODO: create function for each cell temp received to update this with the max
+    uint16_t max_cell_temp;
 } Car_t;
 
 volatile extern Car_t car;

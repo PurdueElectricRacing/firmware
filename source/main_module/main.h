@@ -23,8 +23,10 @@
 // Drivetrain
 #define DT_THERM_1_GPIO_Port (GPIOA)
 #define DT_THERM_1_Pin (1)
+#define DT_THERM_1_ADC_CHNL (6)
 #define DT_THERM_2_GPIO_Port (GPIOA)
 #define DT_THERM_2_Pin (0)
+#define DT_THERM_2_ADC_CHNL (5)
 #define DT_PUMP_CTRL_GPIO_Port (GPIOE)
 #define DT_PUMP_CTRL_Pin (13)
 #define DT_PUMP_FLOW_ADJ_GPIO_Port (GPIOA) // N/A for current pump
@@ -37,8 +39,10 @@
 // Battery (HV)
 #define BAT_THERM_OUT_GPIO_Port (GPIOA)
 #define BAT_THERM_OUT_Pin (2)
+#define BAT_THERM_OUT_ADC_CHNL (7)
 #define BAT_THERM_IN_GPIO_Port (GPIOA)
 #define BAT_THERM_IN_Pin (3)
+#define BAT_THERM_IN_ADC_CHNL (8)
 #define BAT_PUMP_CTRL_GPIO_Port (GPIOE)
 #define BAT_PUMP_CTRL_Pin (15)
 #define BAT_PUMP_FLOW_ADJ_GPIO_Port (GPIOC)
@@ -50,35 +54,19 @@
 
 #define I_SENSE_C1_GPIO_Port (GPIOC)
 #define I_SENSE_C1_Pin (0)
+#define I_SENSE_C1_ADC_CHNL (1)
 
 // LV Bat
 #define LIPO_BAT_STAT_GPIO_Port (GPIOA)
 #define LIPO_BAT_STAT_Pin (15)
 #define LV_I_SENSE_GPIO_Port (GPIOB)
 #define LV_I_SENSE_Pin (0)
+#define LV_I_SENSE_ADC_CHNL (15)
 
-// TODO: what are these
-#define SWDIO_GPIO_Port (GPIOA)
-#define SWDIO_Pin (13)
-#define SWCLK_GPIO_Port (GPIOA)
-#define SWCKL_Pin (14)
-
-// TODO: need these?
+// I2C
+#define I2C (I2C1)
 #define WC_GPIO_Port (GPIOB)
 #define WC_Pin (5)
-#define SCL_GPIO_Port (GPIOB)
-#define SCL_Pin (6)
-#define SDA_GPIO_Port (GPIOB)
-#define SDA_Pin (7)
-
-#define DBG_SCL_GPIO_Port (GPIOB)
-#define DBG_SCL_Pin (10)
-#define DBG_SDA_GPIO_Port (GPIOB)
-#define DBG_SDA_Pin (11)
-
-#define VCAN_TX_GPIO_Port (GPIOD)
-#define VCAN_TX_Pin (0)
-#define VCAN_RX_GPIO_Port (GPIOD)
-#define VCAN_RX_Pin (1)
+#define DBG_I2C (I2C4)
 
 #endif

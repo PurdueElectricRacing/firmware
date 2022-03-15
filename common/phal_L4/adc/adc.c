@@ -10,7 +10,6 @@
 
 bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels)
 {
-#ifdef STM32L432xx
     // Use system clock as source
     RCC->CCIPR   |= RCC_CCIPR_ADCSEL;
     // Enable clock
@@ -123,7 +122,6 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     ;
     if (timeout == PHAL_ADC_INIT_TIMEOUT)
         return false;
-#endif
     return true;
 }
 

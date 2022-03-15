@@ -7,6 +7,7 @@
 volatile Car_t car;
 extern q_handle_t q_tx_can;
 uint32_t buzzer_start_tick = 0;
+volatile ADCReadings_t adc_readings;
 
 bool carInit()
 {
@@ -16,7 +17,8 @@ bool carInit()
 
 void carHeartbeat()
 {
-
+    // TODO: precharge state
+    SEND_MAIN_STATUS(q_tx_can, car.state, 0, 0);
 }
 
 void carPeriodic()

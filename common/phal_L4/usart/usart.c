@@ -135,15 +135,17 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
 
     instance->ICR |= USART_ICR_TCCF;
     PHAL_startTxfer(handle->tx_dma_cfg);
-
+    handle->_tx_busy = 1;
     return true;
 }
 
 bool PHAL_usartTxDmaComplete(usart_init_t* handle)
 {
+    if (!(handle->_tx_busy)) return true;
     if (handle->tx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1)))
     {
         handle->tx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1));
+        handle->_tx_busy = 0;
         return true;
     }
     return false;
@@ -157,15 +159,16 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
     //NVIC_EnableIRQ(irq);
     PHAL_startTxfer(handle->rx_dma_cfg);
-
+    handle->_rx_busy = 1;
     return true;
 }
 
 bool PHAL_usartRxDmaComplete(usart_init_t* handle)
 {
-    if (handle->rx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1)))
+    if (!handle->_rx_busy || handle->rx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1)))
     {
         handle->rx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1));
+        handle->_rx_busy = 0;
         return true;
     }
     return false;

@@ -21,19 +21,18 @@
 #define ASCII_OFFSET 		48
 #define NXT_CMD_TERM "\xFF\xFF\xFF"
 
-#define RED					63488
-#define YELLOW				65504
-#define GREEN				4065
+#define RED    63488
+#define YELLOW 65504
+#define GREEN  4065
 
-
-#define FLAG_ENABLED_PIC 1
+#define FLAG_ENABLED_PIC  1
 #define FLAG_DISABLED_PIC 1
 
 #define NXT_BACKGROUND_COLOR ".bco="
-#define NXT_FONT_COLOR ".pco="
-#define NXT_VALUE ".val="
-#define NXT_TEXT ".txt="
-#define NXT_PICTURE ".pic="
+#define NXT_FONT_COLOR       ".pco="
+#define NXT_VALUE            ".val="
+#define NXT_TEXT             ".txt="
+#define NXT_PICTURE          ".pic="
 
 typedef struct
 {
@@ -55,7 +54,6 @@ typedef enum {
     A_FLAG,
 } attribute_type_t;
 
-
 typedef struct
 {
     char* name;
@@ -67,8 +65,8 @@ typedef struct
             void *val_addr;
             uint8_t val_size;
             uint16_t last_val;
-            uint16_t low_thresh; // changes to low color
-            uint16_t low_color;  // when <
+            uint16_t low_thresh;  // changes to low color
+            uint16_t low_color;   // when <
             uint16_t high_thresh; // changes to high color
             uint16_t high_color;  // when >
         };

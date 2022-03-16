@@ -13,38 +13,38 @@
 #define _MAIN_H_
 
 /* Status LEDs */
-#define ERR_LED_GPIO_Port (GPIOB)
-#define ERR_LED_Pin (6)
+#define ERR_LED_GPIO_Port   (GPIOB)
+#define ERR_LED_Pin         (6)
 #define HEART_LED_GPIO_Port (GPIOB)
-#define HEART_LED_Pin (7)
+#define HEART_LED_Pin       (7)
 #define PRCHG_LED_GPIO_Port (GPIOA)
-#define PRCHG_LED_Pin (7)
-#define IMD_LED_GPIO_Port (GPIOB)
-#define IMD_LED_Pin (0)
-#define BMS_LED_GPIO_Port (GPIOB)
-#define BMS_LED_Pin (1)
+#define PRCHG_LED_Pin       (7)
+#define IMD_LED_GPIO_Port   (GPIOB)
+#define IMD_LED_Pin         (0)
+#define BMS_LED_GPIO_Port   (GPIOB)
+#define BMS_LED_Pin         (1)
 
 #define START_BTN_GPIO_Port (GPIOC)
-#define START_BTN_Pin (15)
+#define START_BTN_Pin       (15)
 
 /* Throttle */
 #define THTL_1_GPIO_Port (GPIOA)
-#define THTL_1_Pin (6)
-#define THTL_1_ADC_CHNL (11)
+#define THTL_1_Pin       (6)
+#define THTL_1_ADC_CHNL  (11)
 #define THTL_2_GPIO_Port (GPIOA)
-#define THTL_2_Pin (5)
-#define THTL_2_ADC_CHNL (10)
+#define THTL_2_Pin       (5)
+#define THTL_2_ADC_CHNL  (10)
 
 /* Brake */
 #define BRK_1_GPIO_Port (GPIOA)
-#define BRK_1_Pin (0)
-#define BRK_1_ADC_CHNL (5)
+#define BRK_1_Pin       (0)
+#define BRK_1_ADC_CHNL  (5)
 #define BRK_2_GPIO_Port (GPIOA)
-#define BRK_2_Pin (1)
-#define BRK_2_ADC_CHNL (6)
+#define BRK_2_Pin       (1)
+#define BRK_2_ADC_CHNL  (6)
 #define BRK_3_GPIO_Port (GPIOA)
-#define BRK_3_Pin (4)
-#define BRK_3_ADC_CHNL (9)
+#define BRK_3_Pin       (4)
+#define BRK_3_ADC_CHNL  (9)
 
 /* Wheel */
 #define WHEEL_SPI_READ    (0x01)
@@ -60,17 +60,17 @@
 #define BTN_AUX3_EXP_Pin  (6)
 
 /* SPI */
-#define SCK_GPIO_Port (GPIOB)
-#define SCK_Pin (3)
-#define MISO_GPIO_Port (GPIOB)
-#define MISO_Pin (4)
-#define MOSI_GPIO_Port (GPIOB)
-#define MOSI_Pin (5)
+#define SCK_GPIO_Port     (GPIOB)
+#define SCK_Pin           (3)
+#define MISO_GPIO_Port    (GPIOB)
+#define MISO_Pin          (4)
+#define MOSI_GPIO_Port    (GPIOB)
+#define MOSI_Pin          (5)
 #define CSB_WHL_GPIO_Port (GPIOA)
-#define CSB_WHL_Pin (15)
+#define CSB_WHL_Pin       (15)
 
 /* EEPROM */
 #define WC_GPIO_Port (GPIOA)
-#define WC_Pin (8)
+#define WC_Pin       (8)
 
 #endif

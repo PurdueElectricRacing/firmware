@@ -3,11 +3,12 @@
 
 #include "common/phal_L4/spi/spi.h"
 #include "nextion.h"
+#include "pedals.h"
 #include "can_parse.h"
 #include "main.h"
 
 #define BTN_NORM_ID 4
-#define BTN_HIGH_ID BTN_NORM_ID
+#define BTN_HIGH_ID 11
 
 typedef enum
 {
@@ -37,9 +38,7 @@ typedef enum
     A_MAIN_TOTAL
 } main_attributes_t;
 
-void joystick_update();
-void action_update();
-void value_update();
-void change_page(uint8_t new_page);
+void joystickUpdatePeriodic();
+void changePage(uint8_t new_page);
 
 #endif

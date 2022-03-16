@@ -123,7 +123,6 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
-void usartTxTest(); // TODO: remove test code
 void heartBeatLED();
 void canTxUpdate();
 void usartTxUpdate();

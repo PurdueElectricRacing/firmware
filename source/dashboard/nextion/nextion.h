@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include "common/queue/queue.h"
 
-  // TODO: get max len from uart
 #define NXT_STR_SIZE 30
 #define SET_VALUE_EXTRA 	13
 #define SET_BCO_EXTRA 		13

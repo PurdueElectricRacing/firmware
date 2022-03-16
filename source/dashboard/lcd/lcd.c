@@ -8,10 +8,10 @@ button_t main_buttons[] = {
     {.name="diagButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
      .dirs={B_SETTINGS, B_LAPS_BUTTON, B_SETTINGS, B_TC_BUTTON}},
     {.name="lapsButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_SETTINGS, B_START_BUTTON, B_SETTINGS, B_TC_BUTTON}},
+     .dirs={B_SETTINGS, B_START_BUTTON, B_SETTINGS, B_DIAG_BUTTON}},
     {.name="startButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
     .dirs={B_SETTINGS, B_TC_BUTTON, B_SETTINGS, B_LAPS_BUTTON}}, 
-    {.name="settings", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
+    {.name="settingsButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
      .dirs={B_START_BUTTON, B_SETTINGS, B_TC_BUTTON, B_SETTINGS}}
 };
 
@@ -25,16 +25,28 @@ attribute_t main_attributes[] =   {
         {.name="statusLabel", .type=A_LABEL},
 };
 
+button_t info_buttons[] = {
+    {.name="back", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
+     .dirs={B_BACK_BUTTON, B_BACK_BUTTON, B_BACK_BUTTON, B_BACK_BUTTON}},
+};
+button_t settings_buttons[] = {
+    {.name="back", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
+     .dirs={B_BACK_BUTTON_S, B_BACK_BUTTON_S, B_BACK_BUTTON_S, B_BACK_BUTTON_S}},
+};
+
 page_t pages[P_TOTAL] = {
     {.name="splash", .attributes=0, .num_attributes=0},
     {.name="main", .attributes=main_attributes, .num_attributes=A_MAIN_TOTAL,
                    .buttons=main_buttons, .num_buttons=B_MAIN_TOTAL},
-    {.name="settings", .attributes=0, .num_attributes=0},
-    {.name="info", .attributes=0, .num_attributes=0}
+    {.name="settings", .attributes=0, .num_attributes=0,
+                   .buttons=settings_buttons, .num_buttons=B_SETTINGS_TOTAL},
+    {.name="info", .attributes=0, .num_attributes=0,
+                   .buttons=info_buttons, .num_buttons=B_INFO_TOTAL}
 };
 
 uint8_t p_idx = P_MAIN;
 uint8_t b_idx = 0; 
+uint32_t b_change_time = 0;
 
 /* Joystick Management */
 typedef enum {
@@ -62,12 +74,12 @@ typedef struct __attribute__((packed))
 WheelBtns_t wheel_new_btns = {0};
 WheelBtns_t wheel_old_btns = {0};
 
+/* Function Prototypes */
 static void actionUpdatePeriodic();
 
 void joystickUpdatePeriodic()
 {
     // Manage button selection with joystick
-    // TODO: highlight timeout
 
     // Update the joystick position and button state
     // Joystick direction only changes on rising edge
@@ -109,6 +121,19 @@ void joystickUpdatePeriodic()
             b_idx = new_selection;
             // dont unintentionally select something
             btn_state = 0;
+            // update change time
+            b_change_time = sched.os_ticks;
+        }
+    }
+    else
+    {
+        if (b_change_time != 0 && sched.os_ticks - b_change_time > BTN_SELECT_TIMEOUT_MS)
+        {
+            // unselect button
+            set_value(pages[p_idx].buttons[b_idx].name,
+                      NXT_PICTURE,
+                      pages[p_idx].buttons[b_idx].norm_id);
+            b_change_time = 0;
         }
     }
     actionUpdatePeriodic();
@@ -129,6 +154,22 @@ void actionUpdatePeriodic()
                     break;
                 case B_SETTINGS:
                     changePage(P_SETTINGS);
+                    break;
+            }
+            break;
+        case P_INFO:
+            switch(b_idx)
+            {
+                case B_BACK_BUTTON:
+                    changePage(P_MAIN);
+                    break;
+            }
+            break;
+        case P_SETTINGS:
+            switch(b_idx)
+            {
+                case B_BACK_BUTTON_S:
+                    changePage(P_MAIN);
                     break;
             }
             break;

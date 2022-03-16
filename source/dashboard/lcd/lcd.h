@@ -9,6 +9,7 @@
 
 #define BTN_NORM_ID 4
 #define BTN_HIGH_ID 11
+#define BTN_SELECT_TIMEOUT_MS 5000
 
 typedef enum
 {
@@ -37,6 +38,18 @@ typedef enum
     A_STATUS_LABEL,
     A_MAIN_TOTAL
 } main_attributes_t;
+
+typedef enum
+{
+    B_BACK_BUTTON,
+    B_INFO_TOTAL
+} info_buttons_t;
+
+typedef enum
+{
+    B_BACK_BUTTON_S,
+    B_SETTINGS_TOTAL
+} settings_buttons_t;
 
 void joystickUpdatePeriodic();
 void changePage(uint8_t new_page);

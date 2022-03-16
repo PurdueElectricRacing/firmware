@@ -152,7 +152,7 @@ int main (void)
         HardFault_Handler();
     }
 #if EEPROM_ENABLED
-    if(!PHAL_initI2C())
+    if(!PHAL_initI2C(I2C3))
     {
         HardFault_Handler();
     }
@@ -202,7 +202,7 @@ int main (void)
     linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
     linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
     linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    if(daqInit(&q_tx_can))
+    if(daqInit(&q_tx_can, I2C3))
     {
         HardFault_Handler();
     }
@@ -211,7 +211,7 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(usartTXTest, 1000);
-    //taskCreate(ledBlink, 500);
+    taskCreate(ledBlink, 500);
     taskCreate(adcConvert, 50);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);

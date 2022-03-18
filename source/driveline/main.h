@@ -101,8 +101,6 @@ float CELL_MAX_V = 4.2; //May be increased to 4.25 in the future
 float CELL_MIN_V = 2.5;
 
 //Motor Controller reading results
-bool proper_voltage; //Should be >0 when the voltage is in the correct range(200 - 336), or <0 if otherwise
-float phase_current;
 bool is_over_powered;
 int controller_temp;
 int mot_temp;

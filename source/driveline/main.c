@@ -22,10 +22,15 @@
 #endif
 
 uint16_t data[78] = {'\0'};
+uint16_t data_right[78] = {'\0'};
 char translated[78] = {'a'}; 
+char translated_right[78] = {'a'};
 motor_data_t processed_data;
+motor_data_t processed_data_right;
 int prev_mot_temp = 0;
+int prev_mot_temp_right = 0;
 int prev_con_temp = 0;
+int prev_con_temp_right = 0;
 
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
@@ -96,11 +101,9 @@ void mc_reverse(float, USART_TypeDef*);
 void mc_brake(float, USART_TypeDef*);
 void mc_stop(USART_TypeDef*);
 void runMC(void);
-void read_motor_controller(USART_TypeDef*);
+void read_motor_controller();
 void canTxUpdate(void);
-void run_user_commands_one(void);
-void run_user_commands_two(void);
-void runMC_old(void);
+void run_user_commands(void);
 void mc_test(void);
 
 q_handle_t q_tx_can;
@@ -138,8 +141,7 @@ int main (void)
     // taskCreate(runMC, 1);
     // taskCreate(canTxUpdate, 5);
     // taskCreate(canRxUpdate, RX_UPDATE_PERIOD);
-    // taskCreate(run_user_commands_one, 1);
-     //taskCreate(run_user_commands_two, 1);
+    // taskCreate(run_user_commands, 1);
 
 
      schedStart();
@@ -211,7 +213,7 @@ void mc_test(void) {
     state_curr = state;
 }
 
-void runMC_old(void) {
+void runMC(void) {
     static uint16_t time;
 
     
@@ -240,86 +242,18 @@ void runMC_old(void) {
     }
 } /* runMC() */
 
-/*
- *  Runs state machine that processes the timing and execution of commands
- *  to the motor controller.
- */
-
-void runMC(void) {
-    static uint16_t time;
-    static uint16_t num_pulses;
-    static uint16_t goal_power;
-    
-    switch (time) {
-        case (0):
-        {
-            mc_serial_init;
-            goal_power = 10;
-            break;
-        }
-        case (1000):
-        {
-            // PHAL_writeGPIO(GPIOB, LED_GREEN_Pin, false);
-            mc_stop(handle);
-
-            break;
-        }
-        default:
-        {
-            if ((goal_power < 3) && (goal_power != 0)) {
-                mc_forward(goal_power, handle);
-                goal_power = 0;
-            }
-            else if (goal_power % 2 == 0) {
-                mc_forward(2.0, handle);
-                goal_power -= 2;
-            }
-            else if (((goal_power - 1) % 2 == 0)) {
-                mc_forward(3.0, handle);
-                goal_power -= 3;
-            }
-            // num_pulses++;
-            // mc_serial_init(handle);
-            // PHAL_writeGPIO(GPIOB, LED_GREEN_Pin, true);
-            // mc_forward(15.0, handle);
-            // //mc_brake(30.0);
-          //mc_analog_init;
-          //How to recieve the data messages 
-          //can_data.torque_request.front_left
-            // if (num_pulses < 4) {
-            //     // uint16_t init[] = {'f', '1'};
-            //     // uint16_t increase[] = {'1'};
-            //     // PHAL_usartTxBl(handle, init, 2); 
-            //     // PHAL_usartTxBl(handle, increase, 1); 
-            //     mc_forward(50.0, handle);
-
-            // }
-            
-
-            break;
-        }
-        
-    }
-
-    // Reads data from the motor controller every second **!(time % 15)**
-    if (time % 1000 == 0) {
-    //    read_motor_controller(handle);
-    }
-
-    if (++time == 1001) { 
-        time = 1000;
-    }
-} /* runMC() */
-
-void run_user_commands_one(void) {
+void run_user_commands(void) {
     static uint16_t time;
     static uint16_t current_power;
     uint16_t goal_power = 0;
+    uint16_t goal_power_right = 0;
     if (FTR_DRIVELINE_FRONT) {
         goal_power = can_data.torque_request.front_left;
+        goal_power_right = can_data.torque_request.front_right;
     }
     else {
         goal_power = can_data.torque_request.rear_left;
+        goal_power_right = can_data.torque_request.rear_right;
     }
     if (goal_power < 0) {
         current_power = goal_power;
@@ -347,23 +281,7 @@ void run_user_commands_one(void) {
     else if (goal_power == 0) {
         mc_stop(handle);
     }
-    if (++time == 1001) {
-        read_motor_controller(handle);
-        time = 0;
-    }
-}
-
-void run_user_commands_two() {
-    static uint16_t time;
-    static uint16_t current_power;
-    uint16_t goal_power = 0;
-    if (FTR_DRIVELINE_FRONT) {
-        goal_power = can_data.torque_request.front_left;
-    }
-    else {
-        goal_power = can_data.torque_request.rear_left;
-    }
-    if (goal_power < 0) {
+    if (goal_power_right < 0) {
         current_power = goal_power;
         current_power *= -1;
         if (current_power % 2 == 0) {
@@ -375,7 +293,7 @@ void run_user_commands_two() {
             current_power == 0;
         }
     }
-    else if (goal_power > 0) {
+    else if (goal_power_right > 0) {
         current_power = goal_power;
         current_power *= -1;
         if (current_power % 2 == 0) {
@@ -386,14 +304,15 @@ void run_user_commands_two() {
             mc_brake(current_power, handle_two);
             current_power == 0;
         }    }
-    else if (goal_power == 0) {
+    else if (goal_power_right == 0) {
         mc_stop(handle_two);
     }
     if (++time == 1001) {
-        read_motor_controller(handle_two);
+        read_motor_controller();
         time = 0;
     }
 }
+
 
 void HardFault_Handler()
 {
@@ -539,33 +458,67 @@ void mc_brake(float power, USART_TypeDef *usart) {
  *  Reads the data being sent from the motor controller
  */
 
-void read_motor_controller(USART_TypeDef *usart) { //Index 26 is U, 37 is the values for I
+void read_motor_controller() { //Index 26 is U, 37 is the values for I
     for (int i = 0; i < 76; i++) {
         data[i] = '\0';
+        data_right[i] = '\0';
         translated[i] = 'a';
+        translated_right[i] = 'a';
     }
-    PHAL_usartRxBl(usart, data, 77);
+    PHAL_usartRxBl(handle, data, 77);
+    PHAL_usartRxBl(handle_two, data_right, 77);
     for (int i = 0; i < 76; i++) {
         translated[i] = data[i];
+        translated_right[i] = data[i];
     }
     for (int i = 0; i < 76; i++) {
         if (data[i] == 32) {
             data[i] = '0';
         }
+        if (data_right[i] == 32) {
+            data_right[i] = '0';
+        }
     }
     float voltage = ((data[30] - '0')* 100) + ((data[31] - '0')* 10) + (data[32] - '0') + ((data[34] - '0') / 10);
+
+    bool proper_voltage = false; //Should be >0 when the voltage is in the correct range(200 - 336), or <0 if otherwise
+    bool proper_voltage_right = false;
+    bool is_over_powered = false;
+    bool is_over_powered_right = false;
+
     if ((voltage < (CELL_MAX_V * 80)) && (voltage > (CELL_MIN_V * 80))) {
         proper_voltage = true;
     }
     else {
         proper_voltage = false;
     }
-    phase_current = ((data[39] - '0') * 100) + ((data[40] - '0') * 10) + (data[41] - '0') + ((data[43] - '0') / 10);
+
+    float voltage_right = ((data_right[30] - '0') * 100) + ((data_right[31] - '0')* 10) + (data_right[32] - '0') + ((data_right[34] - '0') / 10);
+
+    if ((voltage_right < (CELL_MAX_V * 80)) && (voltage_right > (CELL_MIN_V * 80))) {
+        proper_voltage_right = true;
+    }
+    else {
+        proper_voltage_right = false;
+    }
+
+
+    float phase_current = ((data[39] - '0') * 100) + ((data[40] - '0') * 10) + (data[41] - '0') + ((data[43] - '0') / 10);
     if ((voltage * phase_current) > 60000) {
         is_over_powered = false;
     }
-    controller_temp = ((data[61] - '0') * 100) + ((data[62] - '0') * 10) + (data[63] - '0');
-    mot_temp = ((data[71] - '0')* 100) + ((data[72] - '0') * 10) + (data[73] - '0');
+
+    float phase_current_right = ((data_right[39] - '0') * 100) + ((data_right[40] - '0') * 10) + (data_right[41] - '0') + ((data_right[43] - '0') / 10);
+    if ((voltage_right * phase_current_right) > 60000) {
+        is_over_powered_right = false;
+    }
+
+    float controller_temp = ((data[61] - '0') * 100) + ((data[62] - '0') * 10) + (data[63] - '0');
+    float controller_temp_right = ((data_right[61] - '0') * 100) + ((data_right[62] - '0') * 10) + (data_right[63] - '0');
+
+    float mot_temp = ((data[71] - '0')* 100) + ((data[72] - '0') * 10) + (data[73] - '0');
+    float mot_temp_right = ((data_right[71] - '0')* 100) + ((data_right[72] - '0') * 10) + (data_right[73] - '0');
+
 
     int con_slope;
     int mot_slope;
@@ -577,20 +530,39 @@ void read_motor_controller(USART_TypeDef *usart) { //Index 26 is U, 37 is the va
         mot_slope = mot_temp - prev_mot_temp;
     }
 
+    int con_slope_right;
+    int mot_slope_right;
+    if (!(prev_con_temp_right == 0)) {
+        con_slope_right = controller_temp_right - prev_con_temp_right;
+
+    }
+    if (!(prev_mot_temp_right == 0)) {
+        mot_slope_right = mot_temp_right - prev_mot_temp_right;
+    }
+
     processed_data.is_over_powered = is_over_powered;
     processed_data.proper_voltage = proper_voltage;
     processed_data.motor_temp = mot_temp;
     processed_data.controller_temp = controller_temp;
     processed_data.phase_current = phase_current;
+
+    processed_data_right.is_over_powered = is_over_powered_right;
+    processed_data_right.proper_voltage = proper_voltage_right;
+    processed_data_right.motor_temp = mot_temp_right;
+    processed_data_right.controller_temp = controller_temp_right;
+    processed_data_right.phase_current = phase_current_right;
     
     prev_mot_temp = mot_temp;
+    prev_mot_temp_right = mot_temp_right;
+
+    prev_con_temp = controller_temp;
+    prev_con_temp = controller_temp_right;
 
     if (FTR_DRIVELINE_FRONT) {
-
+        SEND_FRONT_MOTOR_CURRENTS_TEMPS(q_tx_can, phase_current, phase_current_right, mot_temp, mot_temp_right);
     } 
     else {
-
-
+        SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can, phase_current, phase_current_right, mot_temp, mot_temp_right);
     }
 
     

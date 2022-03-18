@@ -17,8 +17,8 @@ bool initCooling()
     // enable syscfg clock
     RCC->AHB2ENR |= RCC_APB2ENR_SYSCFGEN;
     // set exti gpio source through syscfg (0b0010 means GPIOC)
-    SYSCFG->EXTICR[0] |= (0b0010 << (DT_FLOW_RATE_PWM_Pin & 0b11) * 4) |
-                      (0b0010 << (BAT_FLOW_RATE_PWM_Pin & 0b11) * 4);
+    SYSCFG->EXTICR[0] |= (0b0010 << (DT_FLOW_RATE_PWM_Pin  & 0b11) * 4) |
+                         (0b0010 << (BAT_FLOW_RATE_PWM_Pin & 0b11) * 4);
     // unmask the interrupt
     EXTI->IMR1 |= (0b1 << DT_FLOW_RATE_PWM_Pin) | 
                   (0b1 << BAT_FLOW_RATE_PWM_Pin);
@@ -42,23 +42,27 @@ void coolingPeriodic()
 {
 
     /* FLOW CALCULATIONS */
+    // Calculate time delta
     uint32_t flow_dt_ms = sched.os_ticks - last_flow_meas_time_ms;
     last_flow_meas_time_ms = sched.os_ticks;
-
+    // Store and reset sensor tick counters
     uint16_t dt_flow_ct = raw_dt_flow_ct;
     raw_dt_flow_ct = 0;
     uint16_t bat_flow_ct = raw_bat_flow_ct;
     raw_bat_flow_ct = 0;
+
+    // Convert ticks and time delta to liters per minute
     cooling.dt_liters_p_min =  (uint8_t) ((((uint32_t) dt_flow_ct)  * 1000 * 60) / 
                                           (flow_dt_ms * PULSES_P_LITER));
     cooling.bat_liters_p_min = (uint8_t) ((((uint32_t) bat_flow_ct) * 1000 * 60) / 
                                           (flow_dt_ms * PULSES_P_LITER));
 
+
     /* DT COOLANT SYSTEM */
 
     // Find max motor temperature (CELSIUS)
     uint8_t max_motor_temp = MAX(can_data.front_motor_currents_temps.left_temp,
-                           can_data.front_motor_currents_temps.right_temp);
+                                 can_data.front_motor_currents_temps.right_temp);
     max_motor_temp = MAX(max_motor_temp, can_data.rear_motor_currents_temps.left_temp);
     max_motor_temp = MAX(max_motor_temp, can_data.rear_motor_currents_temps.right_temp);
 
@@ -130,7 +134,6 @@ void coolingPeriodic()
         // TODO: act on bat flow error
         // TODO: clear bat flow error
     }
-
 }
 
 

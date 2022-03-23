@@ -24,6 +24,7 @@
 #define ID_START_BUTTON 0x4000005
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_STATUS 0x4001900
+#define ID_FRONT_WHEEL_DATA 0x4000002
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -33,6 +34,7 @@
 #define DLC_START_BUTTON 1
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_STATUS 3
+#define DLC_FRONT_WHEEL_DATA 8
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -63,6 +65,7 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_STATUS 25
+#define UP_FRONT_WHEEL_DATA 10
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -90,6 +93,12 @@ typedef union { __attribute__((packed))
         uint64_t precharge_state: 1;
     } main_status;
     struct {
+        uint64_t left_speed: 16;
+        uint64_t right_speed: 16;
+        uint64_t left_normal: 16;
+        uint64_t right_normal: 16;
+    } front_wheel_data;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -107,6 +116,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } main_status;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_wheel_data;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;

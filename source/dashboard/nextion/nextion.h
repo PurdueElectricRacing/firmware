@@ -33,12 +33,6 @@
 #define NXT_TEXT             ".txt="
 #define NXT_PICTURE          ".pic="
 
-typedef struct
-{
-    char* name;
-    // thresholding 
-} label_t;
-
 typedef struct 
 {
     char* name;
@@ -46,37 +40,9 @@ typedef struct
     uint8_t norm_id;
     uint8_t high_id;
 } button_t;
-
-typedef enum {
-    A_LABEL,
-    A_VALUE,
-    A_FLAG,
-} attribute_type_t;
-
 typedef struct
 {
     char* name;
-    attribute_type_t type;
-
-    // Type specific settings
-    union{
-        struct { // A_VALUE
-            void *val_addr;
-            uint8_t val_size;
-            uint16_t last_val;
-            uint16_t low_thresh;  // changes to low color
-            uint16_t low_color;   // when <
-            uint16_t high_thresh; // changes to high color
-            uint16_t high_color;  // when >
-        };
-    };
-} attribute_t;
-
-typedef struct
-{
-    char* name;
-    uint8_t num_attributes;
-    attribute_t *attributes;
     uint8_t num_buttons;
     button_t *buttons;
 } page_t;

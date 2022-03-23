@@ -3,45 +3,19 @@
 extern SPI_InitConfig_t hspi1;
 
 button_t main_buttons[] = {
-    {.name="tcButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_SETTINGS, B_DIAG_BUTTON, B_SETTINGS, B_START_BUTTON}},
-    {.name="diagButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_SETTINGS, B_LAPS_BUTTON, B_SETTINGS, B_TC_BUTTON}},
-    {.name="lapsButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_SETTINGS, B_START_BUTTON, B_SETTINGS, B_DIAG_BUTTON}},
-    {.name="startButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-    .dirs={B_SETTINGS, B_TC_BUTTON, B_SETTINGS, B_LAPS_BUTTON}}, 
-    {.name="settingsButton", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_START_BUTTON, B_SETTINGS, B_TC_BUTTON, B_SETTINGS}}
-};
-
-attribute_t main_attributes[] =   {
-        {.name="speed", .type=A_VALUE,
-                        .val_addr=&can_data.main_status.car_state, 
-                        .val_size=sizeof(can_data.main_status.car_state)},
-        {.name="voltage", .type=A_VALUE,
-                          .val_addr=&can_data.main_status.car_state, 
-                          .val_size=sizeof(can_data.main_status.car_state)},
-        {.name="statusLabel", .type=A_LABEL},
+    {.name="mButton", .norm_id=B_M_BUTTON_NORM_PIC, .high_id=B_M_BUTTON_HIGH_PIC,
+     .dirs={B_M_BUTTON, B_M_BUTTON, B_M_BUTTON, B_M_BUTTON}},
 };
 
 button_t info_buttons[] = {
-    {.name="back", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_BACK_BUTTON, B_BACK_BUTTON, B_BACK_BUTTON, B_BACK_BUTTON}},
-};
-button_t settings_buttons[] = {
-    {.name="back", .norm_id=BTN_NORM_ID, .high_id=BTN_HIGH_ID,
-     .dirs={B_BACK_BUTTON_S, B_BACK_BUTTON_S, B_BACK_BUTTON_S, B_BACK_BUTTON_S}},
+    {.name="bButton", .norm_id=B_BUTTON_NORM_PIC, .high_id=B_BUTTON_HIGH_PIC,
+     .dirs={B_B_BUTTON, B_B_BUTTON, B_B_BUTTON, B_B_BUTTON}},
 };
 
 page_t pages[P_TOTAL] = {
-    {.name="splash", .attributes=0, .num_attributes=0},
-    {.name="main", .attributes=main_attributes, .num_attributes=A_MAIN_TOTAL,
-                   .buttons=main_buttons, .num_buttons=B_MAIN_TOTAL},
-    {.name="settings", .attributes=0, .num_attributes=0,
-                   .buttons=settings_buttons, .num_buttons=B_SETTINGS_TOTAL},
-    {.name="info", .attributes=0, .num_attributes=0,
-                   .buttons=info_buttons, .num_buttons=B_INFO_TOTAL}
+    {.name="splash"},
+    {.name="main", .buttons=main_buttons, .num_buttons=B_MAIN_TOTAL},
+    {.name="info", .buttons=info_buttons, .num_buttons=B_INFO_TOTAL}
 };
 
 uint8_t p_idx = P_MAIN;
@@ -114,16 +88,16 @@ void joystickUpdatePeriodic()
             set_value(pages[p_idx].buttons[b_idx].name, 
                     NXT_PICTURE,
                     pages[p_idx].buttons[b_idx].norm_id);
-            // highlight the new button
-            set_value(pages[p_idx].buttons[new_selection].name, 
-                    NXT_PICTURE,
-                    pages[p_idx].buttons[new_selection].high_id);
-            b_idx = new_selection;
-            // dont unintentionally select something
-            btn_state = 0;
-            // update change time
-            b_change_time = sched.os_ticks;
         }
+        // highlight the new button
+        set_value(pages[p_idx].buttons[new_selection].name, 
+                NXT_PICTURE,
+                pages[p_idx].buttons[new_selection].high_id);
+        b_idx = new_selection;
+        // dont unintentionally select something
+        btn_state = 0;
+        // update change time
+        b_change_time = sched.os_ticks;
     }
     else
     {
@@ -149,32 +123,20 @@ void actionUpdatePeriodic()
         case P_MAIN: // main
             switch(b_idx)
             {
-                case B_DIAG_BUTTON:
+                case B_M_BUTTON:
                     changePage(P_INFO);
-                    break;
-                case B_SETTINGS:
-                    changePage(P_SETTINGS);
                     break;
             }
             break;
         case P_INFO:
             switch(b_idx)
             {
-                case B_BACK_BUTTON:
-                    changePage(P_MAIN);
-                    break;
-            }
-            break;
-        case P_SETTINGS:
-            switch(b_idx)
-            {
-                case B_BACK_BUTTON_S:
+                case B_B_BUTTON:
                     changePage(P_MAIN);
                     break;
             }
             break;
     }
-
     // debounce
     btn_state = 0;
 }
@@ -186,23 +148,37 @@ void valueUpdatePeriodic()
     // Based on the current page, update all values
     // many will be from the can_data struct
     // possible to check if values are stale
-    for (uint8_t i = 0; i < pages[p_idx].num_attributes; i++)
+    switch (p_idx)
     {
-        attribute_t a = pages[p_idx].attributes[i];
-        uint16_t curr;
-        switch (a.type)
-        {
-            case A_VALUE:
-                if (a.val_size == 1) curr = *((uint8_t *) a.val_addr);
-                else curr = *((uint16_t *) a.val_addr);
-                if (curr != a.last_val) 
-                {
-                    set_value(a.name, NXT_VALUE, curr);
-                    a.last_val = curr;
-                }
-                break;
-        }
+        case P_MAIN:
+            /* SPEED */
+            float speed = can_data.front_wheel_data.left_speed + 
+                          ((float) (can_data.front_wheel_data.right_speed - 
+                          can_data.front_wheel_data.left_speed)) / 2;
+            // TODO: convert speed to MPH
+            set_float(A_SPEED, NXT_TEXT, speed, 1);
+
+            /* VOLTAGE */
+            // TODO: get voltage
+            set_float(A_VOLTAGE, NXT_TEXT, 0.00, 2);
+
+            /* BATTERY */
+            // TODO: get soc
+            set_value(A_BATTERY, NXT_VALUE, 0);
+
+            /* POWER */
+            // TODO: get main status
+            set_value(A_POWER, NXT_PICTURE, POWER_OFF_PIC);
+
+            /* TV STATUS */
+            // TODO: get tv stat
+            set_value(A_TV_STATUS, NXT_PICTURE, TV_STAT_OFF_PIC);
+
+            break;
+        case P_INFO:
+            break;
     }
+    
 }
 
 void changePage(uint8_t new_page)

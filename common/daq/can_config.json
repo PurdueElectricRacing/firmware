@@ -165,7 +165,8 @@
                         }
                     ],
                     "rx":[
-                        {"msg_name": "main_status"}
+                        {"msg_name": "main_status"},
+                        {"msg_name": "front_wheel_data"}
                     ]
                 },
                 {

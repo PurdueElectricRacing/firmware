@@ -15,6 +15,7 @@
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
+//#include "daq.h"
 #include "pedals.h"
 #include "lcd.h"
 #include "nextion.h"
@@ -198,9 +199,9 @@ int main (void)
     taskCreate(heartBeatLED, 500);
     taskCreate(checkStartBtn, 100);
     taskCreate(pedalsPeriodic, 15);
-    taskCreate(joystickUpdatePeriodic, 100);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    //taskCreate(usartTxUpdate, 100);
+    taskCreate(joystickUpdatePeriodic, 60);
+    taskCreate(valueUpdatePeriodic, 60);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
@@ -313,4 +314,10 @@ void HardFault_Handler()
     {
         __asm__("nop");
     }
+}
+
+// EEPROM error function
+void errorFound(eeprom_error_t error)
+{
+    HardFault_Handler();
 }

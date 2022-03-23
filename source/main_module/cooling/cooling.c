@@ -136,6 +136,11 @@ void coolingPeriodic()
     }
 }
 
+float rawThermtoCelcius(uint16_t t)
+{
+    float resistance = THERM_R1 * t / (MAX_THERM - t);
+    return THERM_A * log(resistance) + THERM_B;
+}
 
 /* Interrupt handlers for counting sensor ticks */
 

@@ -11,7 +11,7 @@
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
-// #include "daq.h"
+#include "daq.h"
 #include "cooling.h"
 #include "car.h"
 

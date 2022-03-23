@@ -17,6 +17,7 @@
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/psched/psched.h"
 #include <stdbool.h>
+#include <math.h>
 #include "can_parse.h"
 #include "main.h"
 #include "car.h"
@@ -41,6 +42,13 @@
 
 // Part 828 on Adafruit
 #define PULSES_P_LITER (450)
+
+// Thermistor specifications
+#define THERM_R1  10000 // Top resistor in voltage divider
+#define MAX_THERM 4096  // 12-bit adc precision
+// Temp (Celcius) = a * ln(resistance) + b
+#define THERM_A -25.16
+#define THERM_B 260.93
 
 typedef struct
 {
@@ -77,4 +85,11 @@ bool initCooling();
  */
 void coolingPeriodic();
 
+/**
+ * @brief   Converts from a raw thermistor reading to celcius
+ *          Based on digikey sensor GE-2102
+ * @param t Raw thermistor measurement
+ * @return  Degrees Celcius
+ */
+float rawThermtoCelcius(uint16_t t)
 #endif

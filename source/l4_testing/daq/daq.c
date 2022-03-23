@@ -72,7 +72,7 @@ void daqeQueuePush();
 
 q_handle_t* q_tx_can_a;
 
-bool daqInit(q_handle_t* tx_a)
+bool daqInit(q_handle_t* tx_a, I2C_TypeDef *i2c)
 {
     q_tx_can_a = tx_a;
     // check all variables have been linked
@@ -89,7 +89,8 @@ bool daqInit(q_handle_t* tx_a)
     // setup eeprom
     if (EEPROM_ENABLED)
     {
-        eepromInitialize(EEPROM_SIZE, EEPROM_ADDR);
+        if (!i2c) return true;
+        eepromInitialize(EEPROM_SIZE, EEPROM_ADDR, i2c);
         for(uint8_t i = 0; i < NUM_VARS; i++)
         {
             if (tracked_vars[i].eeprom_enabled)

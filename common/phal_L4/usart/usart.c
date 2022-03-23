@@ -135,8 +135,20 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
 
     instance->ICR |= USART_ICR_TCCF;
     PHAL_startTxfer(handle->tx_dma_cfg);
-
+    handle->_tx_busy = 1;
     return true;
+}
+
+bool PHAL_usartTxDmaComplete(usart_init_t* handle)
+{
+    if (!(handle->_tx_busy)) return true;
+    if (handle->tx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1)))
+    {
+        handle->tx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1));
+        handle->_tx_busy = 0;
+        return true;
+    }
+    return false;
 }
 
 bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len) {
@@ -145,25 +157,36 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     instance->CR3 |= USART_CR3_DMAR;
     PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
-
-    NVIC_EnableIRQ(DMA1_Channel5_IRQn);
+    //NVIC_EnableIRQ(irq);
     PHAL_startTxfer(handle->rx_dma_cfg);
-
+    handle->_rx_busy = 1;
     return true;
 }
 
-void DMA1_Channel2_IRQHandler()
+bool PHAL_usartRxDmaComplete(usart_init_t* handle)
 {
-    if (DMA1->ISR & DMA_ISR_TEIF2)
+    if (!handle->_rx_busy || handle->rx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1)))
     {
-        DMA1->IFCR |= DMA_IFCR_CTEIF2;
+        handle->rx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1));
+        handle->_rx_busy = 0;
+        return true;
     }
-    if (DMA1->ISR & DMA_ISR_TCIF2) 
+    return false;
+}
+
+void DMA1_Channel5_IRQHandler()
+{
+    if (DMA1->ISR & DMA_ISR_TEIF5)
     {
+        DMA1->IFCR |= DMA_IFCR_CTEIF5;
     }
-    if (DMA1->ISR & DMA_ISR_GIF2)
+    if (DMA1->ISR & DMA_ISR_TCIF5) 
     {
-        DMA1->IFCR |= DMA_IFCR_CGIF2;
+        DMA1->IFCR |= DMA_IFCR_CTCIF5;
+    }
+    if (DMA1->ISR & DMA_ISR_GIF5)
+    {
+        DMA1->IFCR |= DMA_IFCR_CGIF5;
     }
 }
 

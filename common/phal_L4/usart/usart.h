@@ -47,7 +47,7 @@ typedef enum {
     MODE_TX_RX = 0b11,
     MODE_TX    = 0b10,
     MODE_RX    = 0b01
-} mode_t;
+} usart_mode_t;
 
 typedef enum {
     HW_DISABLE,
@@ -98,7 +98,7 @@ typedef struct {
     word_length_t  word_length;     // Word length for tx/rx (8 default)
     stop_bits_t    stop_bits;       // Number of stop bits to use (1 default)
     parity_t       parity;          // Parity of communication (none default)
-    mode_t         mode;            // TX/RX mode (TX & RX default)
+    usart_mode_t         mode;            // TX/RX mode (TX & RX default)
     hw_flow_ctl_t  hw_flow_ctl;     // Special hardware modes (none default)
     ovsample_t     ovsample;        // 8x or 16x oversample (16x default)
     obsample_t     obsample;        // One bit sampling enable (off default)
@@ -112,6 +112,7 @@ typedef struct {
 
     uint8_t        _tx_busy;        // Waiting on a transmission to finish
     uint8_t        _rx_busy;        // Waiting on a reception to finish
+                                    // The 2 above clear on calling ...xDMAComplete
 } usart_init_t;
 
 // Global vars
@@ -122,15 +123,35 @@ typedef struct {
 bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck);
 void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len);
 void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len);
+
+/**
+ * @brief           Starts a tx using dma, use PHAL_usartTxDmaComplete
+ *                  to ensure the previous transmission is complete
+ * @param instance  The USART typedef (i.e. USART1)
+ * @param handle    The handle for the usart configuration
+ * @param data      The address of the data to send, ensure a cast to (uint16_t *), even if 8 bits
+ * @param len       Number of units of data, depending on the configured word length
+ */
 bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len);
+
+/**
+ * @brief           Starts an rx using dma of a specific length
+ *                  Use PHAL_usartRxDmaComplete to check if the entire msg has been received
+ * @param instance  The USART typedef (i.e. USART1)
+ * @param handle    The handle for the usart configuration
+ * @param data      The address to put the received data, ensure a cast to (uint16_t *), even if 8 bits
+ * @param len       Number of units of data, depending on the configured word length
+ */
 bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_usartTxDmaComplete(usart_init_t* handle);
+bool PHAL_usartRxDmaComplete(usart_init_t* handle);
 
 #define USART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(USART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=4,                \
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=4,                \
      .periph=DMA1, .channel=DMA1_Channel4, .request=DMA1_CSELR}
 
 #define USART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
@@ -146,31 +167,31 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=6,                \
-     .periph=DMA1, .channel=DMA1_Channel6, .request=DMA1_CSELR}
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                \
+     .periph=DMA1, .channel=DMA1_Channel7, .request=DMA1_CSELR}
 
 #define USART2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(USART2->RDR), .mem_addr=(uint32_t) (rx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                 \
-     .periph=DMA1, .channel=DMA1_CHannel7, .request=DMA1_CSELR}
+     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=6,                 \
+     .periph=DMA1, .channel=DMA1_Channel6, .request=DMA1_CSELR}
 
 #define LPUART1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(LPUART1->TDR), .mem_addr=(uint32_t) (tx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b1, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=false, .dma_chan_request=0b0010, .channel_idx=6,                \
-     .periph=DMA2, .channel=DMA2_Channel6, .request=DMA1_CSELR}
+     .tx_isr_en=true, .dma_chan_request=0b0100, .channel_idx=6,                \
+     .periph=DMA2, .channel=DMA2_Channel6, .request=DMA2_CSELR}
 
 #define LPUART1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                           \
     {.periph_addr=(uint32_t) &(LPUART1->RDR), .mem_addr=(uint32_t) (rx_addr_),   \
      .tx_size=1, .increment=false, .circular=false,                             \
      .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false,             \
      .priority=(priority_), .mem_size=0b00, .periph_size=0b00,                  \
-     .tx_isr_en=true, .dma_chan_request=0b0010, .channel_idx=7,                 \
-     .periph=DMA2, .channel=DMA2_Channel7, .request=DMA1_CSELR}
+     .tx_isr_en=true, .dma_chan_request=0b0100, .channel_idx=7,                 \
+     .periph=DMA2, .channel=DMA2_Channel7, .request=DMA2_CSELR}
 
 #endif

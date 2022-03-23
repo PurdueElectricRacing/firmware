@@ -91,5 +91,5 @@ void coolingPeriodic();
  * @param t Raw thermistor measurement
  * @return  Degrees Celcius
  */
-float rawThermtoCelcius(uint16_t t)
+float rawThermtoCelcius(uint16_t t);
 #endif

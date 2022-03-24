@@ -16,10 +16,6 @@
 #define USART_R_RX_GPIO_Port(GPIOA)
 #define USART_R_RX_pin (3)
 
-// WC
-#define WC_GPIO_Port (GPIOA)
-#define WC_Pin (7)
-
 // WSpeedL
 #define WSPEEDL_GPIO_Port (GPIOA)
 #define WSPEEDL_GPin (8)
@@ -29,6 +25,7 @@
 #define USART_L_TX_Pin (9)
 #define USART_L_RX_GPIO_Port (GPIOA)
 #define USART_L_RX_Pin (10)
+#define USART_L (USART2)
 
 // CAN_RX + CAN_TX
 #define CAN_RX_GPIO_Port (GPIOA)
@@ -56,24 +53,13 @@
 #define HEARBEAT_GPIO_Port (GPIOB)
 #define HEARTBEAT_Pin (5)
 
-// SCL + SDA 
+// EEPROM
+#define WC_GPIO_Port (GPIOA)
+#define WC_Pin (7)
 #define SCL_GPIO_Port (GPIOB)
 #define SCL_Pin (6)
 #define SDA_GPIO_Port (GPIOB)
 #define SDA_Pin (7)
-
-// Inputs
-#define BUTTON_1_Pin (8)
-#define BUTTON_1_GPIO_Port (GPIOA)
-#define POT_Pin (0)
-#define POT_GPIO_Port (GPIOA)
-#define POT_ADC_Channel (5)
-#define POT2_Pin (1)
-#define POT2_GPIO_Port (GPIOA)
-#define POT2_ADC_Channel (6)
-#define POT3_Pin (3)
-#define POT3_GPIO_Port (GPIOA)
-#define POT3_ADC_Channel (8)
 
 // Status LEDs
 #define LED_GREEN_Pin (3)
@@ -115,8 +101,6 @@ typedef struct motor_data {
     int motor_temp_slope;
     int con_temp_slope;
 } motor_data_t;
-
-
 
 #endif
 

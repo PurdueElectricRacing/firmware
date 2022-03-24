@@ -264,6 +264,8 @@ CM_ BO_ 2147488308 "adc potentiometer readings";
 CM_ SG_ 2147488308 pot3 "";
 CM_ SG_ 2147488308 pot2 "";
 CM_ SG_ 2147488308 pot1 "";
+CM_ BO_ 2347693088 "state of the car";
+CM_ SG_ 2347693088 car_state "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";

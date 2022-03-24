@@ -28,7 +28,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 
-#define EEPROM_ENABLED 0
+#define EEPROM_ENABLED 1
 
 #define EEPROM_SIZE    4000 // bytes
 #define EEPROM_ADDR    0x50

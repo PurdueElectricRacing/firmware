@@ -1,9 +1,5 @@
 #include "car.h"
 
-
-// TODO: car.c
-// Check for torque cmd timeout
-
 volatile Car_t car;
 extern q_handle_t q_tx_can;
 uint32_t buzzer_start_tick = 0;
@@ -93,7 +89,13 @@ void carPeriodic()
     {
         // TODO: check raw torque cmd timeout
         // TODO: check for faults from other systems
-
     }
 
+}
+
+void calcLVCurrent()
+{
+    uint32_t raw = adc_readings.lv_i_sense;
+    car.lv_current_mA = (uint16_t) (raw * 1000 * 1000 * LV_ADC_V_IN_V / 
+                        (LV_MAX_ADC_RAW * LV_GAIN * LV_R_SENSE_mOHM));
 }

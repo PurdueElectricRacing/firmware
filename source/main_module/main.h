@@ -19,6 +19,7 @@
 #define ERR_LED_Pin         (9)
 #define CONN_LED_GPIO_Port  (GPIOE)
 #define CONN_LED_Pin        (10)
+#define CONN_LED_MS_THRESH  (500)
 #define HEARTBEAT_GPIO_Port (GPIOE)
 #define HEARTBEAT_Pin       (11)
 #define BRK_LIGHT_GPIO_Port (GPIOA)

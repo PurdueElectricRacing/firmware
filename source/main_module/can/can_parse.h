@@ -162,6 +162,7 @@ typedef struct {
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
+extern volatile uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);

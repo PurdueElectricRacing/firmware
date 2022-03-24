@@ -22,6 +22,12 @@
 #define BRAKE_PRESSED_THRESHOLD  2000
 #define BUZZER_DURATION_MS 2000 // EV.10.5: 1-3s
 
+/* LV I_SENSE CALC */
+#define LV_GAIN         25
+#define LV_R_SENSE_mOHM 4 
+#define LV_MAX_ADC_RAW  4096
+#define LV_ADC_V_IN_V   5
+
 typedef struct __attribute__((packed))
 {
     // Do not modify this struct unless
@@ -42,8 +48,19 @@ typedef struct
     car_state_t state;
     bool brake_light;
     uint16_t max_cell_temp;
+    uint16_t lv_current_mA;
 } Car_t;
 
 volatile extern Car_t car;
+
+bool carInit();
+void carHeartbeat();
+void carPeriodic();
+
+/**
+ * @brief Converts raw lv adc value
+ * to the current in mA
+ */
+void calcLVCurrent();
 
 #endif

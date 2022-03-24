@@ -1,8 +1,6 @@
 #include "cooling.h"
 
 // TODO: over temp checks
-// TODO: read dt flow thermistors
-// TODO: read bat flow thermistors
 
 Cooling_t cooling;
 volatile uint16_t raw_dt_flow_ct;
@@ -11,7 +9,7 @@ uint32_t last_flow_meas_time_ms;
 uint32_t dt_pump_start_time_ms;
 uint32_t bat_pump_start_time_ms;
 
-bool initCooling()
+bool coolingInit()
 {
     /* Configure GPIO Interrupts */
     // enable syscfg clock
@@ -40,8 +38,15 @@ bool initCooling()
 
 void coolingPeriodic()
 {
+    /* WATER TEMP CALCULATIONS */
+
+    cooling.dt_therm_1_C    = rawThermtoCelcius(adc_readings.dt_therm_1);
+    cooling.dt_therm_2_C    = rawThermtoCelcius(adc_readings.dt_therm_2);
+    cooling.bat_therm_in_C  = rawThermtoCelcius(adc_readings.bat_therm_in);
+    cooling.bat_therm_out_C = rawThermtoCelcius(adc_readings.bat_therm_out);
 
     /* FLOW CALCULATIONS */
+
     // Calculate time delta
     uint32_t flow_dt_ms = sched.os_ticks - last_flow_meas_time_ms;
     last_flow_meas_time_ms = sched.os_ticks;
@@ -138,8 +143,9 @@ void coolingPeriodic()
 
 float rawThermtoCelcius(uint16_t t)
 {
-    float resistance = THERM_R1 * t / (MAX_THERM - t);
-    return THERM_A * log(resistance) + THERM_B;
+    float resistance;
+    resistance = (t == MAX_THERM) ? FLT_MAX : THERM_R1 * t / (MAX_THERM - t);
+    return (resistance > 0) ? THERM_A * log(resistance) + THERM_B : 0;
 }
 
 /* Interrupt handlers for counting sensor ticks */

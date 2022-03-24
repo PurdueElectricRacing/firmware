@@ -18,6 +18,7 @@
 #include "common/psched/psched.h"
 #include <stdbool.h>
 #include <math.h>
+#include <float.h>
 #include "can_parse.h"
 #include "main.h"
 #include "car.h"
@@ -54,6 +55,10 @@ typedef struct
 {
     uint8_t dt_liters_p_min;
     uint8_t bat_liters_p_min;
+    float dt_therm_1_C;
+    float dt_therm_2_C;
+    float bat_therm_out_C;
+    float bat_therm_in_C;
     struct 
     {
         uint8_t dt_pump: 1;       // DT pump turned on
@@ -67,6 +72,7 @@ typedef struct
         uint8_t bat_rose: 1;      // BAT pump has been on for
                                   // the startup time
     };
+
 } Cooling_t;
 
 extern Cooling_t cooling;
@@ -77,7 +83,8 @@ extern Cooling_t cooling;
  * @return true  Success
  * @return false Fail
  */
-bool initCooling();
+bool coolingInit();
+
 /**
  * @brief Calculates flow rates, determines
  *        if fans and pumps should be turned

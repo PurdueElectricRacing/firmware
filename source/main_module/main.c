@@ -42,9 +42,12 @@ GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_OUTPUT(BAT_PUMP_FLOW_ADJ_GPIO_Port, BAT_PUMP_FLOW_ADJ_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(BAT_FLOW_RATE_PWM_GPIO_Port, BAT_FLOW_RATE_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_OUTPUT(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // TODO: conversion for I_SENSE_C1
     GPIO_INIT_ANALOG(I_SENSE_C1_GPIO_Port, I_SENSE_C1_Pin),
-    // LV Battery
+    // Battery (LV)
+    // TODO: use lipo bat stat
     GPIO_INIT_INPUT(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    // TODO: use lv current
     GPIO_INIT_ANALOG(LV_I_SENSE_GPIO_Port, LV_I_SENSE_Pin),
     // I2C
     GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -71,7 +74,8 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
     {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, 
+            sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -124,7 +128,8 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+                     sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
     {
         HardFault_Handler();
     }
@@ -136,19 +141,21 @@ int main (void)
     PHAL_startADC(ADC1);
 
     /* Module Initialization */
-    initCooling();
-    // if(daqInit(&q_tx_can, I2C))
-    // {
-    //     HardFault_Handler();
-    // }
+    carInit();
+    coolingInit();
+    if(daqInit(&q_tx_can, I2C))
+    {
+        HardFault_Handler();
+    }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
     taskCreate(coolingPeriodic, 500);
     taskCreate(heartBeatLED, 500);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // TODO: connection LED
+    taskCreate(carHeartbeat, 100);
+    taskCreate(carPeriodic, 15);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
@@ -160,6 +167,9 @@ int main (void)
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 }
 
 void canTxUpdate()

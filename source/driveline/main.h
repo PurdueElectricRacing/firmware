@@ -4,11 +4,12 @@
 #include <stdbool.h>
 
 //STM32L432KCU6
+
 // Suspension POTAMPL
-#define POT_AMPL_GPIO_Port (GPIOA)
-#define POT_AMPL_Pin (0) //left 
-#define POT_AMPR_GPIO_Port (GPIOA)
-#define POT_AMPR_Pin (1) //right
+#define POT_AMPL_LEFT_GPIO_Port (GPIOA)
+#define POT_AMPL_LEFT_Pin (0) //left 
+#define POT_AMPL_RIGHT_GPIO_Port (GPIOA)
+#define POT_AMPL_RIGHT_Pin (1) //right
 
 // USART_R_TX + USTART_R_RX
 #define USART_R_TX_GPIO_Port (GPIOA)
@@ -62,27 +63,6 @@
 #define SCL_Pin (6)
 #define SDA_GPIO_Port (GPIOB)
 #define SDA_Pin (7)
-
-// Status LEDs
-#define LED_GREEN_Pin (3)
-#define LED_GREEN_GPIO_Port (GPIOB)
-#define LED_RED_Pin (1)
-#define LED_RED_GPIO_Port (GPIOB)
-#define LED_BLUE_Pin (7)
-#define LED_BLUE_GPIO_Port (GPIOB)
-
-// TIM Pins
-#define TIM1_GPIO_Port (GPIOA)
-#define TIM1_Pin (8)
-#define TIM1_AF (1)
-
-#define TIM2_GPIO_Port (GPIOA)
-#define TIM2_Pin (0)
-#define TIM2_AF (1)
-
-#define TIM16_GPIO_Port (GPIOA)
-#define TIM16_Pin (6)
-#define TIM16_AF (14)
 
 // Motor Controller Constants:
 float CELL_MAX_V = 4.2; //May be increased to 4.25 in the future

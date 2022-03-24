@@ -1,5 +1,11 @@
 /* System Includes */
 #include "stm32l432xx.h"
+#include "common/psched/psched.h"
+#include "common/phal_L4/rcc/rcc.h"
+#include "common/phal_L4/gpio/gpio.h"
+#include <math.h>
+#include "system_stm32l4xx.h"
+#include "can_parse.h"
 #include "common/phal_L4/can/can.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
@@ -18,13 +24,9 @@
 #include "main.h"
 #include "can_parse.h"
 #include "wheel_speeds.h"
+#include "shockpot.h"
 // #include "common_defs.h"
 
-#if (FTR_DRIVELINE_REAR) && (FTR_DRIVELINE_FRONT)
-#error "Can not specify both front and rear driveline for the same binary!"
-#elif (!FTR_DRIVELINE_REAR) && (!FTR_DRIVELINE_FRONT)
-#error "You must define either FTR_DRIVELINE_REAR or FTR_DRIVELINE_FRONT"
-#endif
 
 uint16_t data[78] = {'\0'};
 uint16_t data_right[78] = {'\0'};
@@ -49,6 +51,8 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_AF(WSPEEDR_GPIO_Port, WSPEEDR_Pin, WHEELSPEEDR_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   GPIO_INIT_AF(WSPEEDL_GPIO_Port, WSPEEDL_Pin, WHEELSPEEDL_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  GPIO_INIT_ANALOG(POT_AMPL_LEFT_GPIO_Port, POT_AMPL_LEFT_Pin),
+  GPIO_INIT_ANALOG(POT_AMPL_RIGHT_GPIO_Port, POT_AMPL_RIGHT_Pin)
 };
 
 usart_init_t huart1 = {
@@ -71,6 +75,24 @@ usart_init_t huart1 = {
 
 USART_TypeDef *handle = USART1;
 USART_TypeDef *handle_two = USART2;
+
+ADCInitConfig_t adc_config = {
+    .clock_prescaler = ADC_CLK_PRESC_6,
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .overrun         = true,
+    .dma_mode        = ADC_DMA_CIRCULAR
+};
+
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel=LeftPotADC_Channel, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=RightPotADC_Channel, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+};
+
+uint16_t adc_conversions[2];
+
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 2, 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -114,7 +136,6 @@ int main(void)
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
     {
@@ -145,6 +166,16 @@ int main(void)
     {
         HardFault_Handler();
     }
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
 
     // Signify start of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
@@ -156,6 +187,8 @@ int main(void)
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(mc_test, 15);
+    // TODO: shock is very fast, but contains a bunch of floating point arithmetic
+    taskCreate(shockpot1000Hz, 1);
 
     // taskCreate(runMC_old, 15);
     // taskCreate(runMC, 1);
@@ -255,7 +288,7 @@ void runMC(void) {
         }
         case (1000):
         {
-            PHAL_writeGPIO(GPIOB, LED_GREEN_Pin, false);
+            //PHAL_writeGPIO(GPIOB, LED_GREEN_Pin, false);
             mc_stop(handle);
 
             break;

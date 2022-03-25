@@ -6,6 +6,8 @@
 extern q_handle_t q_tx_can;
 
 static int shockPots [2][N_REAR] = {0};         // 0 - left, 1 - right
+// TODO: convert to using the data struct
+volatile raw_shock_pots_t raw_shock_pots;
 int start = 0;
 
 float n_rear_left;

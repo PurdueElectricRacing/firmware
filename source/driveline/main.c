@@ -74,8 +74,8 @@ usart_init_t huart_l = {
     .rx_dma_cfg = &usart_l_rx_dma_config
 };
 // Right Motor Controller
-dma_init_t usart_r_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 3);
-dma_init_t usart_r_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 4);
+dma_init_t usart_r_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_r_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_r = {
     .baud_rate   = 115000,
     .word_length = WORD_8,
@@ -242,15 +242,17 @@ int main(void)
 void commandTorquePeriodic()
 {
     // TODO: make torque request signed
-    // TODO: use torque request
     // TODO: fault checks or whatevs
     #if (FTR_DRIVELINE_FRONT)
-    float pow_left = can_data.torque_request.front_left;
-    float pow_right = can_data.torque_request.front_right;
+    float pow_left = (float) can_data.torque_request.front_left;
+    float pow_right = (float) can_data.torque_request.front_right;
     #elif (FTR_DRIVELINE_REAR)
-    float pow_left = can_data.torque_request.rear_left;
-    float pow_right = can_data.torque_request.rear_right;
+    float pow_left = (float) can_data.torque_request.rear_left;
+    float pow_right = (float) can_data.torque_request.rear_right;
     #endif
+    pow_left  = pow_left  * 100.0 / 4096.0;
+    pow_right = pow_right * 100.0 / 4096.0;
+
     mc_set_power(pow_left, &motor_left);
     mc_set_power(pow_right, &motor_right);
 }
@@ -274,6 +276,9 @@ void parseDataPeriodic()
     c_rx_usart_r.read = c_rx_usart_r.free;
     c_rx_usart_r.free = tmp;
     mc_parse(c_rx_usart_r.read, &motor_right);
+
+    // Wait until actual data has been pulled from motor controller
+    if (!motor_left.data_valid || !motor_right.data_valid) return;
 
     // TODO: rpm -> ? currently rpm won't fit in uint16_t based on max rpm
     // TODO: shock pots change from raw
@@ -464,6 +469,7 @@ void usartTxUpdate()
 
 void usartRxUpdate()
 {
+    // TODO: handle half received DMA messages
     char *tmp;
     // LEFT
     if (PHAL_usartRxDmaComplete(&huart_l))

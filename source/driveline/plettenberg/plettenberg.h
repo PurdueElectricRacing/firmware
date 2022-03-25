@@ -40,6 +40,7 @@ typedef struct
     int motor_temp_slope;
     int con_temp_slope;
     uint32_t rpm;
+    bool data_valid;
 } motor_t;
 
 /**

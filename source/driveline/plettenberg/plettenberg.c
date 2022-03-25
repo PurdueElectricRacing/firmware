@@ -3,7 +3,8 @@
 void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
     *m = (motor_t) {
         .is_inverted = is_inverted,
-        .tx_queue = tx_queue
+        .tx_queue    = tx_queue,
+        .data_valid  = false
     };
 
     char cmd[MC_MAX_TX_LENGTH];
@@ -22,7 +23,7 @@ void mc_set_power(float power, motor_t *m)
         power *= -1;
         mode = MC_BREAK;
     }
-    uint16_t pow_x10 = MIN((((uint16_t) power) * 10), 1000);
+    uint16_t pow_x10 = MIN(((uint16_t) (power * 10)), 1000);
 
     char cmd[MC_MAX_TX_LENGTH];
     uint8_t idx = 0;
@@ -40,7 +41,7 @@ void mc_set_power(float power, motor_t *m)
     uint8_t absolute_ones   = (pow_x10 / 10) % 10;
     uint8_t absolute_tenths = pow_x10 % 10;
 
-    if (incremen_ones + incremen_tenths < 1 + absolute_ones + absolute_tenths)
+    if (delta < 100 && incremen_ones + incremen_tenths < 1 + absolute_ones + absolute_tenths)
     {
         /* Incremental Command Mode */
         // ones
@@ -58,7 +59,7 @@ void mc_set_power(float power, motor_t *m)
         // ones
         for (absolute_ones += idx; idx < absolute_ones; idx++) cmd[idx] = MC_INCREASE_ONE;
         // tenths
-        for (absolute_tenths += idx; idx < absolute_ones; idx++) cmd[idx] = MC_INCREASE_TENTH;
+        for (absolute_tenths += idx; idx < absolute_tenths; idx++) cmd[idx] = MC_INCREASE_TENTH;
     }
     // termination
     cmd[idx++] = '\0';
@@ -75,7 +76,7 @@ void mc_stop(motor_t *m){
  */
 void mc_parse(char* data, motor_t *m) {
     if (data[0] != 'S') return;
-    
+    m->data_valid = true; 
     // replaces spaces with '0'
     for (int i = 0; i < MC_MAX_RX_LENGTH; i++) if (data[i] == ' ') data[i] = '0';    
     

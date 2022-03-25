@@ -39,7 +39,7 @@ typedef struct
     //These are integers, and the period of time per measurement is 1 second
     int motor_temp_slope;
     int con_temp_slope;
-    uint32_t rpm
+    uint32_t rpm;
 } motor_t;
 
 /**
@@ -59,6 +59,6 @@ void mc_stop(motor_t *m);
 /**
  * @brief Reads the data being sent from the motor controller
  */
-void parse_motor_controller(char* data, motor_t *m);
+void mc_parse(char* data, motor_t *m);
 
 #endif

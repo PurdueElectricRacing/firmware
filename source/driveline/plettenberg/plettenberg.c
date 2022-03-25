@@ -1,8 +1,10 @@
 #include "plettenberg.h"
 
 void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
-    m->is_inverted = is_inverted;
-    m->tx_queue = tx_queue;
+    *m = (motor_t) {
+        .is_inverted = is_inverted,
+        .tx_queue = tx_queue
+    };
 
     char cmd[MC_MAX_TX_LENGTH];
     cmd[0] = MC_SERIAL_MODE;
@@ -71,7 +73,8 @@ void mc_stop(motor_t *m){
 /*
  *  Reads the data being sent from the motor controller
  */
-void parse_motor_controller(char* data, motor_t *m) {
+void mc_parse(char* data, motor_t *m) {
+    if (data[0] != 'S') return;
     
     // replaces spaces with '0'
     for (int i = 0; i < MC_MAX_RX_LENGTH; i++) if (data[i] == ' ') data[i] = '0';    

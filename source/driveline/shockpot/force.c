@@ -160,49 +160,68 @@ float damp_force (float v, const float force_reb [VEL_SIZE], const float force_c
     to achieve the best performance
 
     Input: sequence of the last N measurements of ADC.
-    Return: suspension unit force
+    Return: estimated speed of the shockpot
 
     front wheel: coming up...
 */
 
-float f(int* x, float error, float resolution, float zero, float delta, float k, int n, const float force_reb [VEL_SIZE], const float force_comp [VEL_SIZE], int start) {     // implements adaptive windowing as described in (1)
+// float pot_speed(int* x, float error, float resolution, float delta, int n, int start) {     // implements adaptive windowing as described in (1)
 
-    float b = 0;
-    float b_old = 0;
-    float disp = x[0];                          // current displacement                    
+//     float b = 0;
+//     float b_old = 0;                 
 
-    for (int i = 5; i < n; i++) {               // initialize the loop over the window size
-        float s1 = 0;                           // variables for summation
-        float s2 = 0;
-        for (int j = 0; j<=i; j++) {
-            s1 += x[(start + j) % n];
-            s2 += j * x[(start + j) % n];
-        }
-        b = (i * s1 - 2 * s2) / (i + 1) / (i + 2) / i * 6;                  // implementing the formula from the paper.
-        for (int j = 1; j<=i; j++) {
-            if (fabs(x[(start + j) % n] - (x[start] - j * b)) > error) {
-                return -k * (disp * resolution + zero) + damp_force(resolution * b_old / delta, force_reb, force_comp);        // returing the spring force + damping force
-            }
-        }
-        b_old = b;
+//     for (int i = 5; i < n; i++) {               // initialize the loop over the window size
+//         float s1 = 0;                           // variables for summation
+//         float s2 = 0;
+//         for (int j = 0; j<=i; j++) {
+//             s1 += x[(start + j) % n];
+//             s2 += j * x[(start + j) % n];
+//         }
+//         b = (i * s1 - 2 * s2) / (i + 1) / (i + 2) / i * 6;                  // implementing the formula from the paper.
+//         for (int j = 1; j<=i; j++) {
+//             if (fabs(x[(start + j) % n] - (x[start] - j * b)) > error) {
+//                 return resolution * b_old / delta;      // returing the spring force + damping force
+//             }
+//         }
+//         b_old = b;
+//     }
+//     return resolution * b_old / delta; 
+// }
+
+float pot_speed(int* x, float resolution, float delta_T, int n, int start) {     // second order polynomial fitting
+
+    float b = 0;             
+    float s0 = 0;
+    float s1 = 0;
+    float s2 = 0;
+
+    for (int i = 0; i < n; i++) {
+        s0 += x[(start + i) % n];
+        s1 += i * x[(start + i) % n];
+        s2 += i * x[(start + i) % n];
     }
-    return -k * (disp * resolution + zero) - damp_force(resolution * b_old / delta, force_reb, force_comp);
+    b = a0 * s0 - a1 * s1 + a2 * s2;   
+    return resolution * b / delta_T;
 }
 
-float f_rear(int* x, int start) {
-    return f(x, ERROR_REAR, RESOLUTION_REAR, ZERO_REAR, DELTA_REAR, K_REAR, N_REAR, FORCE_REB_REAR, FORCE_COMP_REAR, start);
-}
+// float f(int* x, float pot_speed, float resolution, float zero, float damp_force, float k, int start) { 
+//     return -k * (x[start] * resolution + zero) + damp_force;
+// }
 
-float f_front(int* x, int start) {
-    return f(x, ERROR_FRONT, RESOLUTION_FRONT, ZERO_FRONT, DELTA_FRONT, K_FRONT, N_FRONT, FORCE_REB_FRONT, FORCE_COMP_FRONT, start);
-}
+// float f_rear(int* x, int start) {
+//     return f(x, ERROR_REAR, RESOLUTION_REAR, ZERO_REAR, DELTA_REAR, K_REAR, N_REAR, FORCE_REB_REAR, FORCE_COMP_REAR, start);
+// }
 
-void n_rear(int* xl, int* xr, float* n_l, float* n_r, int start) {
-    *n_l=(f_rear(xl, start) * D_D_REAR + ( GAMMA_REAR * (D_A_REAR / D_D_REAR) * (xr[start] - xl[start])) / (S_REAR * S_REAR) * D_A_REAR) / (D_W_REAR * COS_A_REAR);
-    *n_r=(f_rear(xr, start) * D_D_REAR + ( GAMMA_REAR * (D_A_REAR / D_D_REAR) * (xl[start] - xr[start])) / (S_REAR * S_REAR) * D_A_REAR) / (D_W_REAR * COS_A_REAR);
-}
+// float f_front(int* x, int start) {
+//     return f(x, ERROR_FRONT, RESOLUTION_FRONT, ZERO_FRONT, DELTA_FRONT, K_FRONT, N_FRONT, FORCE_REB_FRONT, FORCE_COMP_FRONT, start);
+// }
 
-void n_front(int* xl, int* xr, float* n_l, float* n_r, int start) {
-    *n_l=(f_front(xl, start) * D_D_FRONT + ( GAMMA_FRONT * (D_A_FRONT / D_D_FRONT) * (xr[start] - xl[start])) / (S_FRONT * S_FRONT) * D_A_FRONT) / (D_W_FRONT * COS_A_FRONT);
-    *n_r=(f_front(xr, start) * D_D_FRONT + ( GAMMA_FRONT * (D_A_FRONT / D_D_FRONT) * (xl[start] - xr[start])) / (S_FRONT * S_FRONT) * D_A_FRONT) / (D_W_FRONT * COS_A_FRONT);
-}
+// void n_rear(int* xl, int* xr, float* n_l, float* n_r, int start) {
+//     *n_l=(f_rear(xl, start) * D_D_REAR + ( GAMMA_REAR * (D_A_REAR / D_D_REAR) * (xr[start] - xl[start])) / (S_REAR * S_REAR) * D_A_REAR) / (D_W_REAR * COS_A_REAR);
+//     *n_r=(f_rear(xr, start) * D_D_REAR + ( GAMMA_REAR * (D_A_REAR / D_D_REAR) * (xl[start] - xr[start])) / (S_REAR * S_REAR) * D_A_REAR) / (D_W_REAR * COS_A_REAR);
+// }
+
+// void n_front(int* xl, int* xr, float* n_l, float* n_r, int start) {
+//     *n_l=(f_front(xl, start) * D_D_FRONT + ( GAMMA_FRONT * (D_A_FRONT / D_D_FRONT) * (xr[start] - xl[start])) / (S_FRONT * S_FRONT) * D_A_FRONT) / (D_W_FRONT * COS_A_FRONT);
+//     *n_r=(f_front(xr, start) * D_D_FRONT + ( GAMMA_FRONT * (D_A_FRONT / D_D_FRONT) * (xl[start] - xr[start])) / (S_FRONT * S_FRONT) * D_A_FRONT) / (D_W_FRONT * COS_A_FRONT);
+// }

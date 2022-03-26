@@ -1,6 +1,7 @@
 #include "stm32l496xx.h"
 
 #include "common/psched/psched.h"
+#include "common/queue/queue.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
@@ -151,13 +152,13 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    taskCreate(coolingPeriodic, 500);
+    // taskCreate(coolingPeriodic, 500);
     taskCreate(heartBeatLED, 500);
-    taskCreate(carHeartbeat, 100);
-    taskCreate(carPeriodic, 15);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    // taskCreate(carHeartbeat, 100);
+    // taskCreate(carPeriodic, 15);
+    //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    // taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(canRxUpdate);
 
     schedStart();
 

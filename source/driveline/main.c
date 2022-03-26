@@ -133,6 +133,7 @@ void parseDataPeriodic();
 void canTxUpdate();
 void usartTxUpdate();
 void usartRxUpdate();
+void ledBlink();
 extern void HardFault_Handler();
 
 char usart_rx_buffs[6][MC_MAX_RX_LENGTH] = {'\0'};
@@ -218,6 +219,7 @@ int main(void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
+    taskCreate(ledBlink, 500);
     taskCreate(commandTorquePeriodic, 15);
     taskCreate(parseDataPeriodic, 15);
     // TODO: shock is very fast, but contains a bunch of floating point arithmetic
@@ -231,6 +233,7 @@ int main(void)
     // signify end of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     schedStart();
+    // TODO: connection LED based on can
     
     return 0;
 }

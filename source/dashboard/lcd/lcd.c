@@ -148,36 +148,36 @@ void valueUpdatePeriodic()
     // Based on the current page, update all values
     // many will be from the can_data struct
     // possible to check if values are stale
-    switch (p_idx)
-    {
-        case P_MAIN:
-            /* SPEED */
-            float speed = can_data.front_wheel_data.left_speed + 
-                          ((float) (can_data.front_wheel_data.right_speed - 
-                          can_data.front_wheel_data.left_speed)) / 2;
-            // TODO: convert speed to MPH
-            set_float(A_SPEED, NXT_TEXT, speed, 1);
+    // switch (p_idx)
+    // {
+    //     case P_MAIN:
+    //         /* SPEED */
+    //         float speed = can_data.front_wheel_data.left_speed + 
+    //                       ((float) (can_data.front_wheel_data.right_speed - 
+    //                       can_data.front_wheel_data.left_speed)) / 2;
+    //         // TODO: convert speed to MPH
+    //         set_float(A_SPEED, NXT_TEXT, speed, 1);
 
-            /* VOLTAGE */
-            // TODO: get voltage
-            set_float(A_VOLTAGE, NXT_TEXT, 0.00, 2);
+    //         /* VOLTAGE */
+    //         // TODO: get voltage
+    //         set_float(A_VOLTAGE, NXT_TEXT, 0.00, 2);
 
-            /* BATTERY */
-            // TODO: get soc
-            set_value(A_BATTERY, NXT_VALUE, 0);
+    //         /* BATTERY */
+    //         // TODO: get soc
+    //         set_value(A_BATTERY, NXT_VALUE, 0);
 
-            /* POWER */
-            // TODO: get main status
-            set_value(A_POWER, NXT_PICTURE, POWER_OFF_PIC);
+    //         /* POWER */
+    //         // TODO: get main status
+    //         set_value(A_POWER, NXT_PICTURE, POWER_OFF_PIC);
 
-            /* TV STATUS */
-            // TODO: get tv stat
-            set_value(A_TV_STATUS, NXT_PICTURE, TV_STAT_OFF_PIC);
+    //         /* TV STATUS */
+    //         // TODO: get tv stat
+    //         set_value(A_TV_STATUS, NXT_PICTURE, TV_STAT_OFF_PIC);
 
-            break;
-        case P_INFO:
-            break;
-    }
+    //         break;
+    //     case P_INFO:
+    //         break;
+    // }
     
 }
 

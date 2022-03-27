@@ -49,12 +49,12 @@ daq_eeprom_status_t daq_e_stat = {.read_idx=0, .write_idx=0, .data_buff_lock=0, 
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t1x", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t1n", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2x", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2n", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b1x", .eeprom_version=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b1n", .eeprom_version=0},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t1x", .eeprom_version=1},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t1n", .eeprom_version=1},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2x", .eeprom_version=1},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2n", .eeprom_version=1},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b1x", .eeprom_version=1},
+    {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b1n", .eeprom_version=1},
 };
 // END AUTO VAR DEFS
 

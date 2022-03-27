@@ -38,15 +38,15 @@ void pedalsPeriodic(void)
     }
 
     // Scale values based on min and max
-    t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
-    t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
-    b1 = CLAMP(b1, pedal_calibration.b1min, pedal_calibration.b1max);
-    t1 = (uint16_t) ((((uint32_t) (t1 - pedal_calibration.t1min)) * MAX_PEDAL_MEAS) / 
-                     (pedal_calibration.t1max - pedal_calibration.t1min));
-    t2 = (uint16_t) ((((uint32_t) (t2 - pedal_calibration.t2min)) * MAX_PEDAL_MEAS) / 
-                     (pedal_calibration.t2max - pedal_calibration.t2min));
-    b1 = (uint16_t) ((((uint32_t) (b1 - pedal_calibration.b1min)) * MAX_PEDAL_MEAS) / 
-                     (pedal_calibration.b1max - pedal_calibration.b1min));
+    // t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
+    // t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
+    // b1 = CLAMP(b1, pedal_calibration.b1min, pedal_calibration.b1max);
+    // t1 = (uint16_t) ((((uint32_t) (t1 - pedal_calibration.t1min)) * MAX_PEDAL_MEAS) / 
+    //                  (pedal_calibration.t1max - pedal_calibration.t1min));
+    // t2 = (uint16_t) ((((uint32_t) (t2 - pedal_calibration.t2min)) * MAX_PEDAL_MEAS) / 
+    //                  (pedal_calibration.t2max - pedal_calibration.t2min));
+    // b1 = (uint16_t) ((((uint32_t) (b1 - pedal_calibration.b1min)) * MAX_PEDAL_MEAS) / 
+    //                  (pedal_calibration.b1max - pedal_calibration.b1min));
 
     // APPS implaus check: wiring fail or 10% APPS deviation T.4.2.4 (after scaling)
     if (apps_wiring_fail || ((t2>t1)?(t2-t1):(t1-t2)) >= APPS_IMPLAUS_MAX_DIFF)
@@ -92,7 +92,7 @@ void pedalsPeriodic(void)
 
     if (pedals.apps_faulted || pedals.bse_faulted || pedals.apps_brake_faulted)
     {
-        t1 = 0;
+        // t1 = 0; TODO: revert
     }
 
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, t1, b1);

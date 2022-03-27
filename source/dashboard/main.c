@@ -30,10 +30,10 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_I2C1_SDA_PA10,
   GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
   // SPI
-  GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_OUTPUT(CSB_WHL_GPIO_Port, CSB_WHL_Pin, GPIO_OUTPUT_LOW_SPEED),
+//   GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+//   GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+//   GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+//   GPIO_INIT_OUTPUT(CSB_WHL_GPIO_Port, CSB_WHL_Pin, GPIO_OUTPUT_LOW_SPEED),
   // Throttle
   GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
   GPIO_INIT_ANALOG(THTL_2_GPIO_Port, THTL_2_Pin),
@@ -60,11 +60,11 @@ ADCInitConfig_t adc_config = {
     .dma_mode        = ADC_DMA_CIRCULAR
 };
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_12_5},
-    {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_12_5},
-    {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_12_5},
-    {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_12_5},
-    {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_12_5},
+    {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
 
@@ -186,11 +186,11 @@ int main (void)
 
     /* Module Initialization */
     initCANParse(&q_rx_can);
-    linkDAQVars();
-    if (daqInit(&q_tx_can, I2C1))
-    {
-        HardFault_Handler();
-    }
+    // linkDAQVars();
+    // if (daqInit(&q_tx_can, I2C1))
+    // {
+    //     HardFault_Handler();
+    // }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
@@ -199,13 +199,12 @@ int main (void)
     taskCreate(heartBeatLED, 500);
     taskCreate(checkStartBtn, 100);
     taskCreate(pedalsPeriodic, 15);
-    taskCreate(joystickUpdatePeriodic, 60);
-    taskCreate(valueUpdatePeriodic, 60);
+    // taskCreate(joystickUpdatePeriodic, 60);
+    // taskCreate(valueUpdatePeriodic, 60);
     // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-    taskCreateBackground(usartTxUpdate);
-
+    // taskCreateBackground(usartTxUpdate);
 
     // Signify end of initialization
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);

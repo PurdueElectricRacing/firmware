@@ -53,15 +53,16 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_INIT)
     {
+        PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
         if (can_data.start_button.start)
         {
             can_data.start_button.start = 0; // debounce
             if (can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
             {
                 // TODO: & no critical faults on other systems
-                PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
-                // TODO: command precharge
-                car.state = CAR_STATE_PRECHARGING;
+                // TODO: revert
+                // car.state = CAR_STATE_PRECHARGING;
+                car.state = CAR_STATE_BUZZING;
             }
         }
     }
@@ -83,6 +84,11 @@ void carPeriodic()
         {
             PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, false);
             car.state = CAR_STATE_READY2DRIVE;
+            // TODO: temp test
+            PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, 1);
+            PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, 1);
+            PHAL_writeGPIO(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, 1);
+            PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, 1);
         }
     }
     else if (car.state == CAR_STATE_READY2DRIVE)

@@ -15,7 +15,6 @@
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/psched/psched.h"
 #include "main.h"
-
 #include "can_parse.h"
 
 #define BRAKE_LIGHT_ON_THRESHOLD 500

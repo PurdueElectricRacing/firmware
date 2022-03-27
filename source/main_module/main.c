@@ -95,7 +95,7 @@ extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
 void heartBeatLED();
-void canTxUpdate();
+void canTxUpdate(void);
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
@@ -144,21 +144,22 @@ int main (void)
     /* Module Initialization */
     carInit();
     coolingInit();
-    if(daqInit(&q_tx_can, I2C))
-    {
-        HardFault_Handler();
-    }
+    initCANParse(&q_rx_can);
+    // if(daqInit(&q_tx_can, I2C))
+    // {
+    //     HardFault_Handler();
+    // }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
     // taskCreate(coolingPeriodic, 500);
     taskCreate(heartBeatLED, 500);
-    // taskCreate(carHeartbeat, 100);
-    // taskCreate(carPeriodic, 15);
+    taskCreate(carHeartbeat, 100);
+    taskCreate(carPeriodic, 15);
     //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // taskCreateBackground(canTxUpdate);
-    // taskCreateBackground(canRxUpdate);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     schedStart();
 
@@ -173,7 +174,7 @@ void heartBeatLED()
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 }
 
-void canTxUpdate()
+void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one

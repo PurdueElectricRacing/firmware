@@ -31,7 +31,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define EEPROM_ENABLED 0
 
 #define EEPROM_SIZE    4000 // bytes
-#define EEPROM_ADDR    0x50
+#define EEPROM_ADDR    0x50 // before shifting for R/W
 #define DAQ_SAVE_QUEUE_SIZE 8
 
 #define DAQ_CMD_LENGTH    3 // bits

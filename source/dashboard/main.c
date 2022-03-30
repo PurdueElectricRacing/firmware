@@ -186,6 +186,7 @@ int main (void)
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    PHAL_writeGPIO(WC_GPIO_Port, WC_Pin, 0);
 
     /* Module Initialization */
     initCANParse(&q_rx_can);

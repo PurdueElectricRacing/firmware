@@ -66,8 +66,8 @@ typedef enum
 #define DAQ_ID_T1MIN 1
 #define DAQ_ID_T2MAX 2
 #define DAQ_ID_T2MIN 3
-#define DAQ_ID_B1MAX 4
-#define DAQ_ID_B1MIN 5
+#define DAQ_ID_B3MAX 4
+#define DAQ_ID_B3MIN 5
 // END AUTO VAR IDs
 
 typedef struct

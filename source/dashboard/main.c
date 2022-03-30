@@ -15,7 +15,7 @@
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
-//#include "daq.h"
+#include "daq.h"
 #include "pedals.h"
 #include "lcd.h"
 #include "nextion.h"
@@ -44,10 +44,10 @@ GPIOInitConfig_t gpio_config[] = {
   // Status LEDs
   GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_OUTPUT(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_OUTPUT(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_OUTPUT(BMS_LED_GPIO_Port, BMS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_DOWN),
+  GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+  GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+  GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_GPIO_Port, BMS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+  GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
 };
 
 /* ADC Configuration */
@@ -183,14 +183,17 @@ int main (void)
 
     // Signify start of initialization
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
+    PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
 
     /* Module Initialization */
     initCANParse(&q_rx_can);
-    // linkDAQVars();
-    // if (daqInit(&q_tx_can, I2C1))
-    // {
-    //     HardFault_Handler();
-    // }
+    linkDAQVars();
+    if (daqInit(&q_tx_can, I2C1))
+    {
+        HardFault_Handler();
+    }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
@@ -201,7 +204,7 @@ int main (void)
     taskCreate(pedalsPeriodic, 15);
     // taskCreate(joystickUpdatePeriodic, 60);
     // taskCreate(valueUpdatePeriodic, 60);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     // taskCreateBackground(usartTxUpdate);
@@ -219,16 +222,24 @@ void heartBeatLED()
 }
 
 bool start_prev = false;
+uint8_t start_ct = 0;
 void checkStartBtn()
 {
-    if (PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin))
+    // Button is inverted
+    if (!PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin))
     {
-        if (!start_prev) SEND_START_BUTTON(q_tx_can, 1);
-        start_prev = true;
+        if (!start_prev) start_ct++;
+        if (start_ct > 3)
+        {
+            SEND_START_BUTTON(q_tx_can, 1);
+            start_prev = true;
+            start_ct = 0;
+        }
     }
     else
     {
         start_prev = false;
+        start_ct = 0;
     }
 }
 
@@ -242,10 +253,10 @@ void linkDAQVars()
     linkWritea(DAQ_ID_T2MAX, &pedal_calibration.t2max);
     linkReada(DAQ_ID_T2MIN,  &pedal_calibration.t2min);
     linkWritea(DAQ_ID_T2MIN, &pedal_calibration.t2min);
-    linkReada(DAQ_ID_B1MAX,  &pedal_calibration.b1max);
-    linkWritea(DAQ_ID_B1MAX, &pedal_calibration.b1max);
-    linkReada(DAQ_ID_B1MIN,  &pedal_calibration.b1min);
-    linkWritea(DAQ_ID_B1MIN, &pedal_calibration.b1min);
+    linkReada(DAQ_ID_B3MAX,  &pedal_calibration.b3max);
+    linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
+    linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
+    linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
 }
 
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};
@@ -258,12 +269,15 @@ void usartTxUpdate()
     }
 }
 
+uint8_t can_tx_errors = 0;
 void canTxUpdate()
 {
     CanMsgTypeDef_t tx_msg;
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
         PHAL_txCANMessage(&tx_msg);
+        // if (!PHAL_txCANMessage(&tx_msg)) can_tx_errors++;
+        // if (can_tx_errors > 200) HardFault_Handler();
     }
 }
 
@@ -308,10 +322,14 @@ void CAN1_RX0_IRQHandler()
 
 void HardFault_Handler()
 {
+    schedPause();
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+    PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
+    uint16_t ct = 0;
     while(1)
     {
-        __asm__("nop");
+        for (ct = 0; ct < 0xFFF9; ct++) PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
+        IWDG->KR = 0xAAAA;
     }
 }
 

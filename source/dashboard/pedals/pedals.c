@@ -4,7 +4,7 @@ pedals_t pedals = {0};
 volatile raw_pedals_t raw_pedals = {0};
 pedal_calibration_t pedal_calibration = {.t1max=0xFFF,.t1min=0, // WARNING: DAQ VARIABLE
                                          .t2max=0xFFF,.t2min=0, // IF EEPROM ENABLED,
-                                         .b1max=0xFFF,.b1min=0};// VALUE WILL CHANGE
+                                         .b3max=0xFFF,.b3min=0};// VALUE WILL CHANGE
 
 extern q_handle_t q_tx_can;
 
@@ -15,6 +15,7 @@ void pedalsPeriodic(void)
     uint16_t t2 = raw_pedals.t2;
     uint16_t b1 = raw_pedals.b1;
     uint16_t b2 = raw_pedals.b2;
+    uint16_t b3 = raw_pedals.b3;
 
     bool apps_wiring_fail = false;
 
@@ -26,7 +27,7 @@ void pedalsPeriodic(void)
     }
 
     // Check for BSE wiring failure T.4.3.4
-    if (b1 <= BSE_IMPLAUS_MIN || b1 >= BSE_IMPLAUS_MAX)
+    if (b3 <= BSE_IMPLAUS_MIN || b3 >= BSE_IMPLAUS_MAX)
     {
         if (!pedals.bse_wiring_fail_detected) pedals.bse_wiring_fail_start_time = sched.os_ticks;
         pedals.bse_wiring_fail_detected = true;
@@ -40,13 +41,13 @@ void pedalsPeriodic(void)
     // Scale values based on min and max
     // t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
     // t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
-    // b1 = CLAMP(b1, pedal_calibration.b1min, pedal_calibration.b1max);
+    // b3 = CLAMP(b3, pedal_calibration.b3min, pedal_calibration.b3max);
     // t1 = (uint16_t) ((((uint32_t) (t1 - pedal_calibration.t1min)) * MAX_PEDAL_MEAS) / 
     //                  (pedal_calibration.t1max - pedal_calibration.t1min));
     // t2 = (uint16_t) ((((uint32_t) (t2 - pedal_calibration.t2min)) * MAX_PEDAL_MEAS) / 
     //                  (pedal_calibration.t2max - pedal_calibration.t2min));
-    // b1 = (uint16_t) ((((uint32_t) (b1 - pedal_calibration.b1min)) * MAX_PEDAL_MEAS) / 
-    //                  (pedal_calibration.b1max - pedal_calibration.b1min));
+    // b3 = (uint16_t) ((((uint32_t) (b3 - pedal_calibration.b3min)) * MAX_PEDAL_MEAS) / 
+    //                  (pedal_calibration.b3max - pedal_calibration.b3min));
 
     // APPS implaus check: wiring fail or 10% APPS deviation T.4.2.4 (after scaling)
     if (apps_wiring_fail || ((t2>t1)?(t2-t1):(t1-t2)) >= APPS_IMPLAUS_MAX_DIFF)
@@ -79,7 +80,7 @@ void pedalsPeriodic(void)
     // APPS Brake Plaus Check EV.5.7
     if (!pedals.apps_brake_faulted)
     {
-        if (b1 >= APPS_BRAKE_THRESHOLD && 
+        if (b3 >= APPS_BRAKE_THRESHOLD && 
             t1 >= APPS_THROTTLE_FAULT_THRESHOLD)
         {
             pedals.apps_brake_faulted = true;
@@ -95,5 +96,5 @@ void pedalsPeriodic(void)
         // t1 = 0; TODO: revert
     }
 
-    SEND_RAW_THROTTLE_BRAKE(q_tx_can, t1, b1);
+    SEND_RAW_THROTTLE_BRAKE(q_tx_can, t1, b3);
 }

@@ -72,6 +72,15 @@
                     (curr - last) > period * STALE_THRESH) stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
+typedef enum {
+    CAR_STATE_INIT,
+    CAR_STATE_PREREADY2DRIVE,
+    CAR_STATE_READY2DRIVE,
+    CAR_STATE_ERROR,
+    CAR_STATE_RESET,
+    CAR_STATE_RECOVER,
+} car_state_t;
+
 /* END AUTO CAN ENUMERATIONS */
 
 // Message Raw Structures
@@ -110,7 +119,7 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint8_t car_state;
+        car_state_t car_state;
         uint8_t apps_state;
         uint8_t precharge_state;
         uint8_t stale;

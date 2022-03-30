@@ -147,10 +147,8 @@
                         {   "msg_name":"raw_throttle_brake",
                             "msg_desc":"throttle_brake desc",
                             "signals":[
-                                {"sig_name":"throttle0","type":"uint16_t","length":16},
-                                {"sig_name":"throttle1","type":"uint16_t","length":16},
-                                {"sig_name":"brake0", "type":"uint16_t", "length":16},
-                                {"sig_name":"brake1", "type":"uint16_t", "length":16}
+                                {"sig_name":"throttle","type":"uint16_t","length":12},
+                                {"sig_name":"brake", "type":"uint16_t", "length":12}
                             ],
                             "msg_period":5,
                             "msg_hlp":5,
@@ -167,7 +165,8 @@
                         }
                     ],
                     "rx":[
-                        {"msg_name": "main_status"}
+                        {"msg_name": "main_status"},
+                        {"msg_name": "front_wheel_data"}
                     ]
                 },
                 {

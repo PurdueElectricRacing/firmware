@@ -10,6 +10,7 @@
 #define HEARTBEAT_Pin       (5)
 #define CONN_LED_GPIO_Port  (GPIOB)
 #define CONN_LED_Pin        (3)
+#define CONN_LED_MS_THRESH  (500)
 
 /* Shock Pots */
 #define POT_AMP_LEFT_GPIO_Port  (GPIOA)

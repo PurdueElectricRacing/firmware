@@ -451,6 +451,9 @@ void run_user_commands(void) {
 void ledBlink()
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 }
 
 uint8_t usart_cmd[MC_MAX_TX_LENGTH] = {'\0'};

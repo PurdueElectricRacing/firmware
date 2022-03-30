@@ -35,7 +35,7 @@
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 #define DLC_TORQUE_REQUEST 6
 /* END AUTO DLC DEFS */
-
+extern uint32_t last_can_rx_time_ms;
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
 #define SEND_FRONT_WHEEL_DATA(queue, left_speed_, right_speed_, left_normal_, right_normal_) do {\

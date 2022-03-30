@@ -10,6 +10,7 @@
 #include "common/phal_L4/dma/dma.h"
 #include "common/psched/psched.h"
 #include "common/eeprom/eeprom.h"
+#include "common/common_defs/common_defs.h"
 #include <math.h>
 #include <stdbool.h>
 
@@ -233,7 +234,6 @@ int main(void)
     // signify end of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     schedStart();
-    // TODO: connection LED based on can
     
     return 0;
 }
@@ -244,18 +244,23 @@ int main(void)
  */
 void commandTorquePeriodic()
 {
-    // TODO: make torque request signed
     // TODO: fault checks or whatevs
     #if (FTR_DRIVELINE_FRONT)
-    float pow_left = (float) can_data.torque_request.front_left;
-    float pow_right = (float) can_data.torque_request.front_right;
+    float pow_left  = (float) CLAMP(can_data.torque_request_main.front_left, -4095, 4095);
+    float pow_right = (float) CLAMP(can_data.torque_request_main.front_right, -4095, 4095);
     #elif (FTR_DRIVELINE_REAR)
-    float pow_left = (float) can_data.torque_request.rear_left;
-    float pow_right = (float) can_data.torque_request.rear_right;
+    float pow_left  = (float) CLAMP(can_data.torque_request_main.rear_left, -4095, 4095);
+    float pow_right = (float) CLAMP(can_data.torque_request_main.rear_right, -4095, 4095);
     #endif
     pow_left  = pow_left  * 100.0 / 4096.0;
     pow_right = pow_right * 100.0 / 4096.0;
 
+    // Only drive if ready
+    if (can_data.main_status.car_state != CAR_STATE_READY2DRIVE) 
+    {
+        pow_left = 0.0;
+        pow_right = 0.0;
+    }
     mc_set_power(pow_left, &motor_left);
     mc_set_power(pow_right, &motor_right);
 }

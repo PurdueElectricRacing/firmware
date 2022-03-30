@@ -220,6 +220,9 @@ int main (void)
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
+    if (can_data.main_status.car_state = CAR_STATE_READY2DRIVE)
+        PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+    else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
 }
 
 bool start_prev = false;

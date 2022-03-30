@@ -35,13 +35,20 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_TORQUE_REQUEST:
-                can_data.torque_request.front_left = msg_data_a->torque_request.front_left;
-                can_data.torque_request.front_right = msg_data_a->torque_request.front_right;
-                can_data.torque_request.rear_left = msg_data_a->torque_request.rear_left;
-                can_data.torque_request.rear_right = msg_data_a->torque_request.rear_right;
-                can_data.torque_request.stale = 0;
-                can_data.torque_request.last_rx = sched.os_ticks;
+            case ID_TORQUE_REQUEST_MAIN:
+                can_data.torque_request_main.front_left = (int16_t) msg_data_a->torque_request_main.front_left;
+                can_data.torque_request_main.front_right = (int16_t) msg_data_a->torque_request_main.front_right;
+                can_data.torque_request_main.rear_left = (int16_t) msg_data_a->torque_request_main.rear_left;
+                can_data.torque_request_main.rear_right = (int16_t) msg_data_a->torque_request_main.rear_right;
+                can_data.torque_request_main.stale = 0;
+                can_data.torque_request_main.last_rx = sched.os_ticks;
+                break;
+            case ID_MAIN_STATUS:
+                can_data.main_status.car_state = msg_data_a->main_status.car_state;
+                can_data.main_status.apps_state = msg_data_a->main_status.apps_state;
+                can_data.main_status.precharge_state = msg_data_a->main_status.precharge_state;
+                can_data.main_status.stale = 0;
+                can_data.main_status.last_rx = sched.os_ticks;
                 break;
             default:
                 __asm__("nop");
@@ -50,9 +57,12 @@ void canRxUpdate()
     }
 
     /* BEGIN AUTO STALE CHECKS */
-    CHECK_STALE(can_data.torque_request.stale,
-                sched.os_ticks, can_data.torque_request.last_rx,
-                UP_TORQUE_REQUEST);
+    CHECK_STALE(can_data.torque_request_main.stale,
+                sched.os_ticks, can_data.torque_request_main.last_rx,
+                UP_TORQUE_REQUEST_MAIN);
+    CHECK_STALE(can_data.main_status.stale,
+                sched.os_ticks, can_data.main_status.last_rx,
+                UP_MAIN_STATUS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -71,7 +81,8 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_TORQUE_REQUEST << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_MAIN_STATUS << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

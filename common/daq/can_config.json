@@ -8,16 +8,6 @@
                     "node_name":"Main_Module",
                     "node_ssa":0,
                     "tx":[
-                        {   "msg_name":"driver_request",
-                            "msg_desc":"Driver throttle/regeneration request",
-                            "signals":[
-                                {"sig_name":"accel", "sig_desc":"accel request. 0-4096","type":"uint16_t","length":16},
-                                {"sig_name":"regen", "sig_desc":"regen request. 0-4096", "type":"uint16_t", "length":16}
-                            ],
-                            "msg_period":15,
-                            "msg_hlp":1,
-                            "msg_pgn":1
-                        },
                         {   "msg_name":"main_status",
                             "msg_desc":"Status message for main module",
                             "signals":[
@@ -29,6 +19,18 @@
                             "msg_period":25,
                             "msg_hlp":1,
                             "msg_pgn":100
+                        },
+                        {   "msg_name":"torque_request_main",
+                            "msg_desc":"Torque request for all motors, temporarily from main.",
+                            "signals":[
+                                {"sig_name":"front_left", "sig_desc":"torque request. -4095-4095","type":"int16_t"},
+                                {"sig_name":"front_right", "sig_desc":"torque request. -4095-4095", "type":"int16_t"},
+                                {"sig_name":"rear_left", "sig_desc":"torque request. -4095-4095", "type":"int16_t"},
+                                {"sig_name":"rear_right", "sig_desc":"torque request. -4095-4095", "type":"int16_t"}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":1
                         }
                     ],
                     "rx":[
@@ -126,7 +128,8 @@
                         }
                     ],
                     "rx": [
-                        {"msg_name":"torque_request"}
+                        {"msg_name":"torque_request_main"},
+                        {"msg_name":"main_status"}
                     ]
                 },
                 {

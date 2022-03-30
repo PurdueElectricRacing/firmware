@@ -24,7 +24,8 @@
 #define ID_REAR_WHEEL_DATA 0x4000042
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
-#define ID_TORQUE_REQUEST 0x4000041
+#define ID_TORQUE_REQUEST_MAIN 0x4000040
+#define ID_MAIN_STATUS 0x4001900
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -33,7 +34,8 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
-#define DLC_TORQUE_REQUEST 6
+#define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_MAIN_STATUS 3
 /* END AUTO DLC DEFS */
 extern uint32_t last_can_rx_time_ms;
 // Message sending macros
@@ -79,13 +81,24 @@ extern uint32_t last_can_rx_time_ms;
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_TORQUE_REQUEST 15
+#define UP_TORQUE_REQUEST_MAIN 15
+#define UP_MAIN_STATUS 25
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
                     (curr - last) > period * STALE_THRESH) stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
+typedef enum {
+    CAR_STATE_INIT,
+    CAR_STATE_PRECHARGING,
+    CAR_STATE_BUZZING,
+    CAR_STATE_READY2DRIVE,
+    CAR_STATE_ERROR,
+    CAR_STATE_RESET,
+    CAR_STATE_RECOVER,
+} car_state_t;
+
 /* END AUTO CAN ENUMERATIONS */
 
 // Message Raw Structures
@@ -116,11 +129,16 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;
     struct {
-        uint64_t front_left: 12;
-        uint64_t front_right: 12;
-        uint64_t rear_left: 12;
-        uint64_t rear_right: 12;
-    } torque_request;
+        uint64_t front_left: 16;
+        uint64_t front_right: 16;
+        uint64_t rear_left: 16;
+        uint64_t rear_right: 16;
+    } torque_request_main;
+    struct {
+        uint64_t car_state: 8;
+        uint64_t apps_state: 8;
+        uint64_t precharge_state: 1;
+    } main_status;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -130,13 +148,20 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t front_left;
-        uint16_t front_right;
-        uint16_t rear_left;
-        uint16_t rear_right;
+        int16_t front_left;
+        int16_t front_right;
+        int16_t rear_left;
+        int16_t rear_right;
         uint8_t stale;
         uint32_t last_rx;
-    } torque_request;
+    } torque_request_main;
+    struct {
+        car_state_t car_state;
+        uint8_t apps_state;
+        uint8_t precharge_state;
+        uint8_t stale;
+        uint32_t last_rx;
+    } main_status;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

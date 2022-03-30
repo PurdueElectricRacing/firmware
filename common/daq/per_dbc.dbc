@@ -36,14 +36,16 @@ BS_:
 BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
-BO_ 2214592576 driver_request: 4 Main_Module
- SG_ regen : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ accel : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2214598912 main_status: 3 Main_Module
  SG_ precharge_state : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_state : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214592576 torque_request_main: 8 Main_Module
+ SG_ rear_right : 48|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left : 32|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136768 daq_response_MAIN_MODULE: 8 Main_Module
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -198,13 +200,15 @@ CM_ BU_ BMS1 "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
-CM_ BO_ 2214592576 "Driver throttle/regeneration request";
-CM_ SG_ 2214592576 regen "regen request. 0-4096";
-CM_ SG_ 2214592576 accel "accel request. 0-4096";
 CM_ BO_ 2214598912 "Status message for main module";
 CM_ SG_ 2214598912 precharge_state "Precharge complete state";
 CM_ SG_ 2214598912 apps_state "Accelerator plausibility state";
 CM_ SG_ 2214598912 car_state "Main car state";
+CM_ BO_ 2214592576 "Torque request for all motors, temporarily from main.";
+CM_ SG_ 2214592576 rear_right "torque request. -4095-4095";
+CM_ SG_ 2214592576 rear_left "torque request. -4095-4095";
+CM_ SG_ 2214592576 front_right "torque request. -4095-4095";
+CM_ SG_ 2214592576 front_left "torque request. -4095-4095";
 CM_ BO_ 2550136768 "daq response from node MAIN_MODULE";
 CM_ SG_ 2550136768 daq_response "";
 CM_ BO_ 2214592577 "Torque request for all motors.";

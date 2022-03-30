@@ -45,6 +45,9 @@ BO_ 2214598912 main_status: 3 Main_Module
  SG_ apps_state : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2550136768 daq_response_MAIN_MODULE: 8 Main_Module
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2214592577 torque_request: 6 Torque_Vector
  SG_ rear_right : 36|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_left : 24|12@1+ (1,0) [0|0] "" Vector__XXX
@@ -105,6 +108,9 @@ BO_ 2415925566 bitstream_data: 8 TESTER
 BO_ 2415925630 bitstream_request: 5 TESTER
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028018 daq_command_MAIN_MODULE: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -199,6 +205,8 @@ CM_ BO_ 2214598912 "Status message for main module";
 CM_ SG_ 2214598912 precharge_state "Precharge complete state";
 CM_ SG_ 2214598912 apps_state "Accelerator plausibility state";
 CM_ SG_ 2214598912 car_state "Main car state";
+CM_ BO_ 2550136768 "daq response from node MAIN_MODULE";
+CM_ SG_ 2550136768 daq_response "";
 CM_ BO_ 2214592577 "Torque request for all motors.";
 CM_ SG_ 2214592577 rear_right "torque request. 0-4096";
 CM_ SG_ 2214592577 rear_left "torque request. 0-4096";
@@ -248,6 +256,8 @@ CM_ SG_ 2415925566 d0 "Bitstream data word 0";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
 CM_ SG_ 2415925630 download_request "Request to download new bitstream";
+CM_ BO_ 2483028018 "daq command for node MAIN_MODULE";
+CM_ SG_ 2483028018 daq_command "";
 CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
 CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
@@ -300,7 +310,7 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 
-VAL_ 2214598912 car_state 0 "init" 1 "preready2drive" 2 "ready2drive" 3 "error" 4 "reset" 5 "recover" ;
+VAL_ 2214598912 car_state 0 "init" 1 "precharging" 2 "buzzing" 3 "ready2drive" 4 "error" 5 "reset" 6 "recover" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

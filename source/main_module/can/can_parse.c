@@ -15,6 +15,7 @@ bool initCANFilter();
 
 can_data_t can_data;
 q_handle_t* q_rx_can_a;
+volatile uint32_t last_can_rx_time_ms = 0;
 
 void initCANParse(q_handle_t* rx_a)
 {
@@ -30,6 +31,7 @@ void canRxUpdate()
     if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
+        last_can_rx_time_ms = sched.os_ticks;
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
@@ -53,6 +55,10 @@ void canRxUpdate()
                 can_data.rear_motor_currents_temps.right = msg_data_a->rear_motor_currents_temps.right;
                 can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
+                break;
+            case ID_DAQ_COMMAND_MAIN_MODULE:
+                can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
+                daq_command_MAIN_MODULE_CALLBACK(&msg_header);
                 break;
             default:
                 __asm__("nop");
@@ -87,6 +93,8 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_FRONT_MOTOR_CURRENTS_TEMPS << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_REAR_MOTOR_CURRENTS_TEMPS << 3) | 4;
+    CAN1->FA1R |= (1 << 2);    // configure bank 2
+    CAN1->sFilterRegister[2].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

@@ -22,20 +22,24 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_DRIVER_REQUEST 0x4000040
 #define ID_MAIN_STATUS 0x4001900
+#define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc0
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
+#define ID_DAQ_COMMAND_MAIN_MODULE 0x14000032
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_DRIVER_REQUEST 4
 #define DLC_MAIN_STATUS 3
+#define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
+#define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -55,6 +59,12 @@
         data_a->main_status.precharge_state = precharge_state_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_DAQ_RESPONSE_MAIN_MODULE(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_MAIN_MODULE, .DLC=DLC_DAQ_RESPONSE_MAIN_MODULE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->daq_response_MAIN_MODULE.daq_response = daq_response_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -69,7 +79,8 @@
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
     CAR_STATE_INIT,
-    CAR_STATE_PREREADY2DRIVE,
+    CAR_STATE_PRECHARGING,
+    CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
     CAR_STATE_RESET,
@@ -91,6 +102,9 @@ typedef union { __attribute__((packed))
         uint64_t precharge_state: 1;
     } main_status;
     struct {
+        uint64_t daq_response: 64;
+    } daq_response_MAIN_MODULE;
+    struct {
         uint64_t throttle: 12;
         uint64_t brake: 12;
     } raw_throttle_brake;
@@ -109,6 +123,9 @@ typedef union { __attribute__((packed))
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;
+    struct {
+        uint64_t daq_command: 64;
+    } daq_command_MAIN_MODULE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -138,12 +155,17 @@ typedef struct {
         uint8_t left_temp;
         uint8_t right_temp;
     } rear_motor_currents_temps;
+    struct {
+        uint64_t daq_command;
+    } daq_command_MAIN_MODULE;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
+extern volatile uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

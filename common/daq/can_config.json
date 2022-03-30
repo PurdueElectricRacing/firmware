@@ -22,7 +22,7 @@
                             "msg_desc":"Status message for main module",
                             "signals":[
                                 {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8, 
-                                 "choices": ["init", "preready2drive", "ready2drive", "error", "reset", "recover"]},
+                                 "choices": ["init", "precharging", "buzzing", "ready2drive", "error", "reset", "recover"]},
                                 {"sig_name":"apps_state", "sig_desc":"Accelerator plausibility state","type":"uint8_t","length":8},
                                 {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
                             ],

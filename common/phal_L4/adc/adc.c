@@ -10,7 +10,6 @@
 
 bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels)
 {
-#ifdef STM32L432xx
     // Use system clock as source
     RCC->CCIPR   |= RCC_CCIPR_ADCSEL;
     // Enable clock
@@ -40,12 +39,20 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     adc->CR |= ADC_CR_ADCAL;
     while(adc->CR & ADC_CR_ADCAL);
 
+    #ifdef STM32L432xx
+    #define ADC_COMMON ADC1_COMMON
+    #elif STM32L496xx
+    #define ADC_COMMON ADC123_COMMON
+    #else
+    #error "STM32 Arch not currently supported for ADC"
+    #endif
+
     // Set clock mode
-    ADC1_COMMON->CCR &= ~(ADC_CCR_CKMODE);
+    ADC_COMMON->CCR &= ~(ADC_CCR_CKMODE);
 
     // Set clock prescaler
-    ADC1_COMMON->CCR &= ~(ADC_CCR_PRESC);
-    ADC1_COMMON->CCR |= (config->clock_prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
+    ADC_COMMON->CCR &= ~(ADC_CCR_PRESC);
+    ADC_COMMON->CCR |= (config->clock_prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
 
     // Set cont/discont conv modes
     adc->CFGR &= ~(ADC_CFGR_CONT);
@@ -123,7 +130,6 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     ;
     if (timeout == PHAL_ADC_INIT_TIMEOUT)
         return false;
-#endif
     return true;
 }
 

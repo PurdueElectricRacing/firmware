@@ -7,6 +7,11 @@
             "daq_rx_pgn":1048575,
             "nodes":[
                 {
+                    "node_name":"Main_Module",
+                    "variables": [
+                    ]
+                },
+                {
                     "node_name":"Dashboard",
                     "variables": [
                         {"var_name":"t1max", "read_only": false, "bit_length": 12,

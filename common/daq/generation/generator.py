@@ -38,6 +38,7 @@ def log_success(phrase):
 data_type_length = {'uint8_t':8, 'uint16_t':16, 'uint32_t':32, 'uint64_t':64,
                     'int8_t':8, 'int16_t':16, 'int32_t':32, 'int64_t':64,
                     'float':32}
+data_lengths = [8, 16, 32, 64]
 
 def gen_bit_length(sig):
     """ Calculates and updates bit length for signal based on data type and length """

@@ -25,9 +25,12 @@
 #define R_INF_3977              0.016106        // r_inf = R0 * exp(-Beta/t0) beta = 3977
 #define KELVIN_2_CELSIUS        273.15          // Conversion constant
 #define DT_CRIT                 50              // Max cell temp increase (in C) per 15ms (hope to spot battery fires)
+#define TEMP_ID1                0x42            // Nice
+#define TEMP_ID2                0x69            // Also nice
 
 // Prototypes
-int checkTempMaster(void);
+int checkTempMaster(uint8_t addr);
+void tempTask(void);
 void procTemps(void);
 
 #endif

@@ -17,12 +17,21 @@
 #include "temp.h"
 
 // Generic Defines
-#define CELL_MAX    12
-#define TEMP_MAX    20
-#define TEMP_MAX_C  600
+#define CELL_MAX                12
+#define TEMP_MAX                20
+#define TEMP_MAX_C              600
+#define MIN_CHG_CURR            (-1)
+#define CELL_CHARGE_IMPLAUS     0.003f
 
-#define BMS_ACCUM
-// #define BMS_LV
+// #define BMS_ACCUM
+#define BMS_LV
+
+// Enumerations
+typedef enum {
+    MODE_IDLE,
+    MODE_DISCHARGE,
+    MODE_CHARGE
+} bms_mode_t;
 
 // Structures
 typedef struct {
@@ -67,7 +76,7 @@ typedef struct {
     // [3] -> Temp connection error
     // [4] -> Cell temp critical
     // [5] -> Cell temp derivative critical
-    uint32_t error;                         // Error flags
+    uint32_t   error;                       // Error flags
 
     // Sleep flags:
     //
@@ -76,20 +85,23 @@ typedef struct {
     // [2] -> Comms not ready to sleep
     //
     // Note: BMS cannot sleep with an error
-    uint8_t  no_sleep;                      // Flags for each portion letting us sleep
-    uint8_t  sleep_req;                     // Marks a request for sleep entry
+    uint8_t    no_sleep;                    // Flags for each portion letting us sleep
+    uint8_t    sleep_req;                   // Marks a request for sleep entry
 
-    uint8_t  afe_con;                       // AFE connection flag
-    uint8_t  bms_charge;                    // Charge flag
-    uint8_t  cell_count;                    // Number of cells
-    uint8_t  temp_count;                    // Number of thermistors on a board
-    uint8_t  temp_master;                   // Marks this PCB as a thermistor driver
-    uint16_t master_p_lim;                  // Final power limit sent out
-    uint16_t current_out;                   // Current output to MC (x100)
-    uint16_t voltage_out;                   // Voltage output to MC (x100)
-    uint32_t power_out;                     // Power output to MC (x10000)
-    cells_t  cells;                         // Cell information
-    p_lim_t  p_lim;                         // Power limits
+    uint8_t    afe_con;                     // AFE connection flag
+    uint8_t    veh_con;                     // Vehicle connection flag
+    uint8_t    bms_charge;                  // Charge flag
+    uint8_t    cell_count;                  // Number of cells
+    uint8_t    curr_sense_conn;             // Current sensor on CAN bus
+    uint8_t    temp_count;                  // Number of thermistors on a board
+    uint8_t    temp_master;                 // Marks this PCB as a thermistor driver
+    uint16_t   master_p_lim;                // Final power limit sent out
+    int16_t    current_out;                 // Current output to MC (x100)
+    uint16_t   voltage_out;                 // Voltage output to MC (x100)
+    int32_t    power_out;                   // Power output to MC (x10000)
+    cells_t    cells;                       // Cell information
+    p_lim_t    p_lim;                       // Power limits
+    bms_mode_t op_mode;                     // Operating mode
 
     SPI_InitConfig_t* spi;                  // SPI handle
 } bms_t;
@@ -101,6 +113,7 @@ void bmsStatus(void);
 void initBMS(SPI_InitConfig_t* hspi);
 void setPLim(void);
 void calcMisc(void);
+void checkLVStatus(void);
 void checkSleep(void);
 
 #endif

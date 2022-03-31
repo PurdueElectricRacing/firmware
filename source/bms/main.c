@@ -14,6 +14,11 @@
 /* Module Includes */
 #include "main.h"
 #include "bms.h"
+#include "can/can_parse.h"
+
+/* Pseudo-local prototypes */
+void preflightChecks(void);
+void preflightAnimation(void);
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_CONN_GPIO_Port, LED_CONN_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -34,7 +39,7 @@ dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
 SPI_InitConfig_t spi_config = {
-    .data_rate = 112500,
+    .data_rate = 125000,
     .data_len = 8,
     .nss_sw = false,
     .nss_gpio_port = CSB_AFE_GPIO_Port,
@@ -65,59 +70,103 @@ q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
 int main(void) {
-    // Data Structure Init
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-
-    /* Start of Preflight Inspection */
     // HAL Init
     if(0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
     }
+
     if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
     {
         HardFault_Handler();
     }
-    if(!PHAL_initCAN(CAN1, false))
-    {
-        HardFault_Handler();
-    }
-    if (!PHAL_SPI_init(&spi_config))
-    {
-        HardFault_Handler();
-    }
-#if EEPROM_ENABLED
-    if(!PHAL_initI2C())
-    {
-        HardFault_Handler();
-    }
-#endif
-
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-
-    // Signify start of init
-    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 1);
-    initBMS(&spi_config);
-    /* End of Preflight Inspection */
 
     // Task Creation
     schedInit(SystemCoreClock);
+    configureAnim(preflightAnimation, preflightChecks, 250, 3000);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
-    taskCreate(calcMisc, 15);
-    taskCreate(setPLim, 15);
+    // if (checkTempMaster(TEMP_ID1) && checkTempMaster(TEMP_ID2))
+    // {
+    //     taskCreate(tempTask, 15);
+    // }
+    taskCreate(calcMisc, 100);
+    taskCreate(setPLim, 100);
     taskCreate(checkConn, 1000);
-    schedStart();
-
-    // Fire up the scheduler, and don't look back
-    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 0);
+    taskCreate(checkLVStatus, 3000);
     schedStart();
 
     // If the scheduler returns somehow, some way, wait for watchdog reset
     HardFault_Handler();
 
     return 0;
+}
+
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            // Data Structure Init
+            qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+            qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+
+            break;
+
+        case 1:
+            if (!PHAL_SPI_init(&spi_config))
+            {
+                HardFault_Handler();
+            }
+
+            break;
+
+        case 2:
+            #if EEPROM_ENABLED
+                if(!PHAL_initI2C())
+                {
+                    HardFault_Handler();
+                }
+            #endif
+
+            break;
+
+        case 3:
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            initBMS(&spi_config);
+
+            break;
+            
+        default:
+            registerPreflightComplete(1);
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time;
+
+    PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, 0);
+    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 0);
+    PHAL_writeGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin, 0);
+
+    switch (time++ % 3)
+    {
+        case 0:
+            PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, 1);
+
+            break;
+
+        case 1:
+            PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, 1);
+
+            break;
+
+        case 2:
+            PHAL_writeGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin, 1);
+
+            break;
+    }
 }
 
 void HardFault_Handler(void) {

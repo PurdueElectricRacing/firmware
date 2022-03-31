@@ -1,8 +1,9 @@
 #include "psched.h"
 #include <stddef.h>
 
-static void schedLoop();
-static void schedBg();
+static void checkPreflightSwap(void);
+static void schedLoop(void);
+static void schedBg(void);
 static void memsetu(uint8_t* ptr, uint8_t val, size_t size);
 
 sched_t sched;
@@ -63,6 +64,35 @@ void taskDelete(uint8_t type, uint8_t task)
      --sched.task_count;
 }
 
+// @funcname: configureAnim()
+//
+// @brief: Sets preflight animation functions,
+//         and durations
+//
+// @param: anim: Address of animation function
+//               to be scheduled every anim_time ms
+// @param: preflight: Address of preflight checks
+// @param: anim_time: Animation scheduling time in ms
+// @param: anim_min_time: Minimum animation duration in ms
+void configureAnim(func_ptr_t anim, func_ptr_t preflight, uint16_t anim_time, uint16_t anim_min_time)
+{
+    sched.preflight_required = 1;
+    sched.anim_time = anim_time;
+    sched.anim_min_time = anim_min_time;
+
+    sched.anim = anim;
+    sched.preflight = preflight;
+}
+
+// @funcname: registerPreflightComplete()
+//
+// @brief: Signals to PSched that all preflight
+//         checks are complete
+void registerPreflightComplete(uint8_t status)
+{
+    sched.preflight_complete = status;
+}
+
 // @funcname: schedInit()
 //
 // @brief: Initializes the scheduler
@@ -97,6 +127,24 @@ void schedInit(uint32_t freq)
     sched.of = freq;
 }
 
+// @funcname: checkPreflightSwap()
+//
+// @brief: Checks if we're clear of preflight,
+//         and if we're able to swap to primary task pool
+static void checkPreflightSwap()
+{
+    int32_t new_time;
+
+    if (!sched.anim_min_time)
+    {
+        sched.anim_complete = 1;
+    }
+    else
+    {
+        --sched.anim_min_time;
+    }
+}
+
 // @funcname: schedLoop()
 //
 // @brief: Main loop that'll run each task
@@ -105,7 +153,7 @@ static void schedLoop()
     // Locals
     uint8_t i;
 
-    while (1 && sched.running == 1)
+    while (sched.running == 1)
     {
         // Prep iteration
         sched.core.task_entry_time = sched.os_ticks;
@@ -117,11 +165,24 @@ static void schedLoop()
         sched.core.bg_entry_time = sched.os_ticks;
 
         // Execute tasks
-        for (i = 0; i < sched.task_count; i++)
+        if (sched.preflight_required && (!sched.anim_complete || !sched.preflight_complete))
         {
-            if (sched.os_ticks % sched.task_time[i] == 0)
+            if (sched.os_ticks % sched.anim_time == 0)
             {
-                (*sched.task_pointer[i])();
+                sched.anim();
+            }
+
+            sched.preflight();
+            checkPreflightSwap();
+        }
+        else
+        {
+            for (i = 0; i < sched.task_count; i++)
+            {
+                if (sched.os_ticks % sched.task_time[i] == 0)
+                {
+                    (*sched.task_pointer[i])();
+                }
             }
         }
 
@@ -190,13 +251,13 @@ void waitMicros(uint8_t time)
 // @brief: Starts tasks. Will never return
 void schedStart()
 {
-    TIM2->CR1 |= TIM_CR1_CEN;
+    TIM2->CR1     |= TIM_CR1_CEN;
     NVIC->ISER[0] |= 1 << TIM2_IRQn;
-    IWDG->KR  =  0xCCCC;     
-    IWDG->KR  =  0x5555;
-    IWDG->PR  |= 2;
-    IWDG->RLR =  20;
-    sched.running = 1;
+    IWDG->KR      =  0xCCCC;     
+    IWDG->KR      =  0x5555;
+    IWDG->PR      |= 2;
+    IWDG->RLR     =  20;
+    sched.running =  1;
 
     while ((IWDG->SR & 0b111) != 0);
 
@@ -209,6 +270,10 @@ void schedStart()
 //
 // @brief: Stops scheduling and allows schedStart() to return
 //         Does not need re-initialization after calling
+//
+//  @note: This pause must be *temporary*. If you do not reset
+//         the watchdog every 3ms, or restart the scheduler
+//         within 3ms, your MCU will reset
 void schedPause()
 {
     TIM2->CR1 &= ~TIM_CR1_CEN;

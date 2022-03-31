@@ -88,6 +88,7 @@ void afeTask(void)
     uint8_t       data[8];
     uint8_t       data_ow[8];
     uint16_t      valid_PEC;
+    uint32_t      mod_volts_conv = 0;
     static int8_t time;
 
     afe_state_t        next_state;
@@ -121,7 +122,7 @@ void afeTask(void)
         {
             broadcastPoll(ADCVSC(2, DISCHARGE_NOT_PERMITTED));
 
-            for (i = 0; i < 1; i++)
+            for (i = 0; i < 4; i++)
             {
                 valid_PEC = broadcastRead(readCmd[i], LTC6811_REG_SIZE, data);
 
@@ -139,10 +140,11 @@ void afeTask(void)
         // Enable balancing for cells that need it
         case BAL:
         {
-            packBalance(cmd);
-            broadcastWrite(CLRSCTRL, 0, NULL);
-            broadcastWrite(WRSCTRL, LTC6811_REG_SIZE, cmd);
-            broadcastWrite(STSCTRL, 0, NULL);
+            setBalance();
+            broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
+            cmd[3] = bms.cells.balance_flags & 0xff;
+            cmd[4] = (cmd[4] & ~0xf) | ((bms.cells.balance_flags >> 8) & 0xf);
+            broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
             next_state = DIAG;
 
             break;
@@ -151,6 +153,7 @@ void afeTask(void)
         // Run diagnostics to check for AFE errors
         case DIAG:
         {
+
             next_state = HALT;
 
             break;
@@ -161,15 +164,21 @@ void afeTask(void)
         {
             bms.no_sleep &= ~(1U);
 
-            if (bms.sleep_req)
-            {
-                broadcastWrite(CLRSCTRL, 0, NULL);
-
-                return;
-            }
-
             if (time == 99)
             {
+                if (bms.sleep_req)
+                {
+                    broadcastWrite(CLRSCTRL, 0, NULL);
+
+                    return;
+                }
+
+                for (i = 0; i < bms.cell_count; i++)
+                {
+                    mod_volts_conv += bms.cells.chan_volts_raw[i];
+                }
+
+                bms.cells.mod_volts_conv = (float) mod_volts_conv / 10000;
                 time = -1;
                 next_state = BAL_OFF;
             }
@@ -205,11 +214,9 @@ void afeWakeup(void)
 // @param: command: 16 bit command to send to AFE
 void broadcastPoll(uint16_t command)
 {
-    uint8_t message[4];
-	uint16_t PEC;
-
-    uint8_t spi_rx_buff[4] = {0}; 
-    uint8_t spi_tx_buff[4] = {0};
+    uint16_t PEC;
+    uint8_t  message[4];
+    uint8_t  spi_rx_buff[4] = {0};
 
 	message[0] = command >> 8;
 	message[1] = command;
@@ -220,7 +227,7 @@ void broadcastPoll(uint16_t command)
 
 	afeStartComm();
 
-    PHAL_SPI_transfer(bms.spi, spi_tx_buff, 4, spi_rx_buff);
+    PHAL_SPI_transfer(bms.spi, message, 4, spi_rx_buff);
     while (PHAL_SPI_busy());
 
 	afeEndComm();
@@ -236,10 +243,8 @@ void broadcastPoll(uint16_t command)
 void broadcastWrite(uint16_t command, uint16_t size, uint8_t* data)
 {
     uint16_t PEC;
-	uint8_t message[4 + 6 + 2];
-
-    uint8_t spi_rx_buff[12] = {0}; 
-    uint8_t spi_tx_buff[12] = {0};
+	uint8_t  message[4 + 6 + 2];
+    uint8_t  spi_rx_buff[12] = {0}; 
 
 	message[0] = command >> 8;
 	message[1] = command;
@@ -255,7 +260,7 @@ void broadcastWrite(uint16_t command, uint16_t size, uint8_t* data)
 
 	afeStartComm();
 
-    PHAL_SPI_transfer(bms.spi, spi_tx_buff, 12, spi_rx_buff);
+    PHAL_SPI_transfer(bms.spi, message, 12, spi_rx_buff);
     while (PHAL_SPI_busy());
 
 	afeEndComm();
@@ -323,7 +328,7 @@ static void packBalance(uint8_t* data)
 {
     uint8_t i;
 
-    for (i = 0; i < CELL_MAX; i++)
+    for (i = 0; i < 12; i++)
     {
         // Only enable cell balancing if the balance flag is set and we haven't masked the cell
         if ((bms.cells.balance_flags & (1 << i)) && !(bms.cells.balance_mask & (1 << i)))

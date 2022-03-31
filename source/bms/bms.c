@@ -7,7 +7,7 @@ bms_t bms;
 
 // @funcname: bmsStatus
 //
-// @brief: Posts BMS status
+// @brief: Posts BMS status and tracks mode
 void bmsStatus()
 {
     static uint8_t flag;
@@ -24,6 +24,19 @@ void bmsStatus()
     PHAL_toggleGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin);
     PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, flag);
     PHAL_writeGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin, bms.afe_con);
+
+    if (bms.veh_con == 1)
+    {
+        bms.op_mode = MODE_DISCHARGE;
+    }
+    else if (bms.power_out < MIN_CHG_CURR)
+    {
+        bms.op_mode = MODE_CHARGE;
+    }
+    else
+    {
+        bms.op_mode = MODE_IDLE;
+    }
 }
 
 // @funcname: initBMS
@@ -33,12 +46,17 @@ void initBMS(SPI_InitConfig_t* hspi)
 {
     memsetu((uint8_t*) &bms, 0, sizeof(bms));
     bms.spi = hspi;
+    bms.temp_master = 0;
 
 #ifdef BMS_ACCUM
     bms.cell_count = 10;
+    bms.temp_count = 20;
+    bms.curr_sense_conn = 1;
 #endif
 #ifdef BMS_LV
     bms.cell_count = 8;
+    bms.temp_count = 0;
+    bms.curr_sense_conn = 0;
 #endif
 
     checkConn();
@@ -49,7 +67,8 @@ void initBMS(SPI_InitConfig_t* hspi)
         checkConn();
     }
 
-    bms.temp_master = checkTempMaster();
+    // TODO: Fix timeout
+    // bms.temp_master = checkTempMaster(TEMP_ID1);
 }
 
 // @funcname: setPLim
@@ -78,6 +97,31 @@ void setPLim(void)
 void calcMisc(void)
 {
     bms.power_out = bms.current_out * bms.voltage_out;
+}
+
+void checkLVStatus(void)
+{
+    static float mod_volts_last;
+
+    if (bms.curr_sense_conn)
+    {
+        return;
+    }
+
+    if (bms.cells.mod_volts_conv > (mod_volts_last + CELL_CHARGE_IMPLAUS))
+    {
+        bms.current_out = -10;
+    }
+    else if (bms.cells.mod_volts_conv < (mod_volts_last - CELL_CHARGE_IMPLAUS))
+    {
+        bms.current_out = 10;
+    }
+    else
+    {
+        bms.current_out = 0;
+    }
+
+    mod_volts_last = bms.cells.mod_volts_conv;
 }
 
 // @funcname: checkSleep

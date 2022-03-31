@@ -125,6 +125,7 @@ extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
 void heartBeatLED();
+void heartBeatMsg();
 void canTxUpdate();
 void usartTxUpdate();
 void linkDAQVars();
@@ -201,6 +202,7 @@ int main (void)
 
     // TODO: prchg, IMD, BMS leds
     taskCreate(heartBeatLED, 500);
+    taskCreate(heartBeatMsg, 100);
     taskCreate(checkStartBtn, 100);
     taskCreate(pedalsPeriodic, 15);
     // taskCreate(joystickUpdatePeriodic, 60);
@@ -220,9 +222,16 @@ int main (void)
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-    if (can_data.main_status.car_state = CAR_STATE_READY2DRIVE)
+    if (can_data.main_status.car_state == CAR_STATE_READY2DRIVE)
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
     else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+}
+
+void heartBeatMsg()
+{
+    SEND_DASHBOARD_STATUS(q_tx_can, pedals.apps_faulted,
+                                    pedals.bse_faulted, 
+                                    pedals.apps_brake_faulted);
 }
 
 bool start_prev = false;
@@ -235,9 +244,12 @@ void checkStartBtn()
         if (!start_prev) start_ct++;
         if (start_ct > 3)
         {
-            SEND_START_BUTTON(q_tx_can, 1);
-            start_prev = true;
-            start_ct = 0;
+            if (can_data.main_status.car_state == CAR_STATE_READY2DRIVE || raw_pedals.b2 > BREAK_PRESSURE_THRESHOLD)
+            {
+                SEND_START_BUTTON(q_tx_can, 1);
+                start_prev = true;
+                start_ct = 0;
+            }
         }
     }
     else
@@ -261,6 +273,8 @@ void linkDAQVars()
     linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
     linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
     linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
+    linkReada(DAQ_ID_B1, &raw_pedals.b1);
+    linkReada(DAQ_ID_B2, &raw_pedals.b2);
 }
 
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};

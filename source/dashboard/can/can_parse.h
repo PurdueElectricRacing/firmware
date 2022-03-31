@@ -22,6 +22,7 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
+#define ID_DASHBOARD_STATUS 0x4001905
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_STATUS 0x4001900
 #define ID_FRONT_WHEEL_DATA 0x4000002
@@ -32,6 +33,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
+#define DLC_DASHBOARD_STATUS 1
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_STATUS 3
 #define DLC_FRONT_WHEEL_DATA 8
@@ -53,6 +55,14 @@
         data_a->start_button.start = start_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_DASHBOARD_STATUS(queue, apps_faulted_, bse_faulted_, apps_brake_faulted_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_STATUS, .DLC=DLC_DASHBOARD_STATUS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dashboard_status.apps_faulted = apps_faulted_;\
+        data_a->dashboard_status.bse_faulted = bse_faulted_;\
+        data_a->dashboard_status.apps_brake_faulted = apps_brake_faulted_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_DAQ_RESPONSE_DASHBOARD(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_DASHBOARD, .DLC=DLC_DAQ_RESPONSE_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -64,7 +74,7 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_MAIN_STATUS 25
+#define UP_MAIN_STATUS 100
 #define UP_FRONT_WHEEL_DATA 10
 /* END AUTO UP DEFS */
 
@@ -94,6 +104,11 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t start: 1;
     } start_button;
+    struct {
+        uint64_t apps_faulted: 1;
+        uint64_t bse_faulted: 1;
+        uint64_t apps_brake_faulted: 1;
+    } dashboard_status;
     struct {
         uint64_t daq_response: 64;
     } daq_response_DASHBOARD;

@@ -4,6 +4,7 @@
 #include "common/phal_L4/usart/usart.h"
 #include "common/common_defs/common_defs.h"
 #include "common/queue/queue.h"
+#include "string.h"
 #include "stm32l432xx.h"
 
 #define MC_MAX_TX_LENGTH 25
@@ -19,6 +20,18 @@
 #define MC_DECREASE_ONE   '-'
 #define MC_INCREASE_TENTH 'g'
 #define MC_DECREASE_TENTH 'l'
+
+#define MC_ENTER_ADJUST_MODE 'a'
+#define MC_EXIT_ADJUST_MODE  'e'
+#define MC_WRITE_PARAMS      "wp"
+
+#define MC_PAR_CURRENT_LIMIT "cl"
+#define MC_PAR_MOT_TMP_LIMIT "mt"
+#define MC_PAR_CTL_TMP_LIMIT "ct"
+
+#define MC_CURRENT_LIMIT (100)
+#define MC_MOT_TMP_LIMIT (100)
+#define MC_CTL_TMP_LIMIT (80)
 
 // Motor Controller Constants:
 #define CELL_MAX_V 4.2 //May be increased to 4.25 in the future
@@ -51,6 +64,7 @@ void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue);
  * @brief Positive power commands motor to move
  *        Negative power commands motor to break
  */
+void mc_set_param(uint8_t value, char *param, motor_t *m);
 void mc_set_power(float power, motor_t *m);
 /**
  * @brief If the motor is currently spinning, this function

@@ -19,7 +19,7 @@
 /* Module Includes */
 #include "can_parse.h"
 
-#define MAX_PEDAL_MEAS (4096)
+#define MAX_PEDAL_MEAS (4095)
 
 #define APPS_IMPLAUS_MAX_DIFF (410)  // T.4.2.4  (10% of 0x0FFF)
 #define APPS_IMPLAUS_TIME_MS  (100)  // T.4.2.5
@@ -29,9 +29,11 @@
 #define BSE_IMPLAUS_MIN (205)  // ( 5% of 0x0FFF)
 #define BSE_IMPLAUS_MAX (3891) // (95% of 0x0FFF)
 
-#define APPS_BRAKE_THRESHOLD               (614)  // EV.5.7.1 (15% of 0x0FFF)
+#define APPS_BRAKE_THRESHOLD               (307)  // EV.5.7.1 (7.5% of 0x0FFF)
 #define APPS_THROTTLE_FAULT_THRESHOLD      (1024) // EV.5.7.1 (25% of 0x0FFF)
 #define APPS_THROTTLE_CLEARFAULT_THRESHOLD (205)  // EV.5.7.2 ( 5% of 0x0FFF)
+
+#define BREAK_PRESSURE_THRESHOLD (425)
 
 typedef struct
 {
@@ -65,6 +67,10 @@ typedef struct {
     uint16_t t1min;
     uint16_t t2max;
     uint16_t t2min;
+    uint16_t b1max;
+    uint16_t b1min;
+    uint16_t b2max;
+    uint16_t b2min;
     uint16_t b3max;
     uint16_t b3min;
 } pedal_calibration_t;

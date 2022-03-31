@@ -20,6 +20,8 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
+#define ID_FRONT_DRIVELINE_HB 0x4001902
+#define ID_REAR_DRIVELINE_HB 0x4001942
 #define ID_FRONT_WHEEL_DATA 0x4000002
 #define ID_REAR_WHEEL_DATA 0x4000042
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
@@ -30,6 +32,8 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
+#define DLC_FRONT_DRIVELINE_HB 1
+#define DLC_REAR_DRIVELINE_HB 1
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
@@ -40,6 +44,18 @@
 extern uint32_t last_can_rx_time_ms;
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
+#define SEND_FRONT_DRIVELINE_HB(queue, driveline_state_front_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_DRIVELINE_HB, .DLC=DLC_FRONT_DRIVELINE_HB, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->front_driveline_hb.driveline_state_front = driveline_state_front_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_REAR_DRIVELINE_HB(queue, driveline_state_rear_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_DRIVELINE_HB, .DLC=DLC_REAR_DRIVELINE_HB, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->rear_driveline_hb.driveline_state_rear = driveline_state_rear_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_FRONT_WHEEL_DATA(queue, left_speed_, right_speed_, left_normal_, right_normal_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_WHEEL_DATA, .DLC=DLC_FRONT_WHEEL_DATA, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -82,13 +98,23 @@ extern uint32_t last_can_rx_time_ms;
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_TORQUE_REQUEST_MAIN 15
-#define UP_MAIN_STATUS 25
+#define UP_MAIN_STATUS 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
                     (curr - last) > period * STALE_THRESH) stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
+typedef enum {
+    DRIVELINE_STATE_FRONT_OKAY,
+    DRIVELINE_STATE_FRONT_ERROR,
+} driveline_state_front_t;
+
+typedef enum {
+    DRIVELINE_STATE_REAR_OKAY,
+    DRIVELINE_STATE_REAR_ERROR,
+} driveline_state_rear_t;
+
 typedef enum {
     CAR_STATE_INIT,
     CAR_STATE_PRECHARGING,
@@ -104,6 +130,12 @@ typedef enum {
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
+    struct {
+        uint64_t driveline_state_front: 8;
+    } front_driveline_hb;
+    struct {
+        uint64_t driveline_state_rear: 8;
+    } rear_driveline_hb;
     struct {
         uint64_t left_speed: 16;
         uint64_t right_speed: 16;

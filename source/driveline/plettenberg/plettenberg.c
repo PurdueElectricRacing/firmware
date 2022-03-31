@@ -14,6 +14,21 @@ void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
     return;
 } /* mc_serial_init() */
 
+void mc_set_param(uint8_t value, char *param, motor_t *m)
+{
+    char cmd[MC_MAX_TX_LENGTH];
+    uint8_t idx = 0;
+    cmd[idx++] = MC_ENTER_ADJUST_MODE;
+    cmd[idx++] = param[0];
+    cmd[idx++] = param[1];
+    cmd[idx++] = (value / 100) + '0';
+    cmd[idx++] = ((value / 10) % 10) + '0';
+    cmd[idx++] = (value % 10) + '0';
+    cmd[idx++] = MC_EXIT_ADJUST_MODE;
+    cmd[idx++] = '\0';
+    qSendToBack(m->tx_queue, cmd);
+}
+
 void mc_set_power(float power, motor_t *m)
 {
     // determine mode and clamp power from 0% - 100%

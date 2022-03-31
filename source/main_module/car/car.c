@@ -9,6 +9,7 @@ bool carInit()
 {
     car.state = CAR_STATE_INIT;
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 0);
+    PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, 0);
 }
 
 void carHeartbeat()
@@ -57,13 +58,10 @@ void carPeriodic()
         if (can_data.start_button.start)
         {
             can_data.start_button.start = 0; // debounce
-            if (can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
-            {
-                // TODO: & no critical faults on other systems
-                // TODO: revert
-                // car.state = CAR_STATE_PRECHARGING;
-                car.state = CAR_STATE_BUZZING;
-            }
+            // TODO: & no critical faults on other systems
+            // TODO: revert
+            // car.state = CAR_STATE_PRECHARGING;
+            car.state = CAR_STATE_BUZZING;
         }
     }
     else if (car.state == CAR_STATE_PRECHARGING)
@@ -95,6 +93,22 @@ void carPeriodic()
     {
         // TODO: check raw torque cmd timeout
         // TODO: check for faults from other systems
+        uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
+        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
+        if (can_data.start_button.start)
+        {
+            car.state = CAR_STATE_INIT;
+            can_data.start_button.start = 0; // debounce
+        }
+
+        // TODO: add in
+        // if (can_data.raw_throttle_brake.stale ||
+        //     can_data.front_driveline_hb.stale ||
+        //     can_data.rear_driveline_hb.stale)
+        // {
+        //     car.state = CAR_STATE_ERROR;
+        // }
+
     }
 
 }

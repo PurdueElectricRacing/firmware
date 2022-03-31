@@ -56,6 +56,23 @@ void canRxUpdate()
                 can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
                 break;
+            case ID_FRONT_DRIVELINE_HB:
+                can_data.front_driveline_hb.driveline_state_front = msg_data_a->front_driveline_hb.driveline_state_front;
+                can_data.front_driveline_hb.stale = 0;
+                can_data.front_driveline_hb.last_rx = sched.os_ticks;
+                break;
+            case ID_REAR_DRIVELINE_HB:
+                can_data.rear_driveline_hb.driveline_state_rear = msg_data_a->rear_driveline_hb.driveline_state_rear;
+                can_data.rear_driveline_hb.stale = 0;
+                can_data.rear_driveline_hb.last_rx = sched.os_ticks;
+                break;
+            case ID_DASHBOARD_STATUS:
+                can_data.dashboard_status.apps_faulted = msg_data_a->dashboard_status.apps_faulted;
+                can_data.dashboard_status.bse_faulted = msg_data_a->dashboard_status.bse_faulted;
+                can_data.dashboard_status.apps_brake_faulted = msg_data_a->dashboard_status.apps_brake_faulted;
+                can_data.dashboard_status.stale = 0;
+                can_data.dashboard_status.last_rx = sched.os_ticks;
+                break;
             case ID_DAQ_COMMAND_MAIN_MODULE:
                 can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
                 daq_command_MAIN_MODULE_CALLBACK(&msg_header);
@@ -70,6 +87,15 @@ void canRxUpdate()
     CHECK_STALE(can_data.raw_throttle_brake.stale,
                 sched.os_ticks, can_data.raw_throttle_brake.last_rx,
                 UP_RAW_THROTTLE_BRAKE);
+    CHECK_STALE(can_data.front_driveline_hb.stale,
+                sched.os_ticks, can_data.front_driveline_hb.last_rx,
+                UP_FRONT_DRIVELINE_HB);
+    CHECK_STALE(can_data.rear_driveline_hb.stale,
+                sched.os_ticks, can_data.rear_driveline_hb.last_rx,
+                UP_REAR_DRIVELINE_HB);
+    CHECK_STALE(can_data.dashboard_status.stale,
+                sched.os_ticks, can_data.dashboard_status.last_rx,
+                UP_DASHBOARD_STATUS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -94,7 +120,11 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR1 = (ID_FRONT_MOTOR_CURRENTS_TEMPS << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_REAR_MOTOR_CURRENTS_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_FRONT_DRIVELINE_HB << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_REAR_DRIVELINE_HB << 3) | 4;
+    CAN1->FA1R |= (1 << 3);    // configure bank 3
+    CAN1->sFilterRegister[3].FR1 = (ID_DASHBOARD_STATUS << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

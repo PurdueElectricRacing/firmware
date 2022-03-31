@@ -55,6 +55,8 @@ daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="t2n", .eeprom_version=2},
     {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b3x", .eeprom_version=2},
     {.is_read_only=0, .bit_length=12, .eeprom_enabled=1, .eeprom_label="b3n", .eeprom_version=2},
+    {.is_read_only=1, .bit_length=12, .eeprom_enabled=0},
+    {.is_read_only=1, .bit_length=12, .eeprom_enabled=0},
 };
 // END AUTO VAR DEFS
 

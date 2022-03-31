@@ -25,7 +25,9 @@
                         {"var_name":"b3max", "read_only": false, "bit_length": 12,
                             "eeprom":{"label":"b3x", "version": 2}},
                         {"var_name":"b3min", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"b3n", "version": 2}}
+                            "eeprom":{"label":"b3n", "version": 2}},
+                        {"var_name":"b1", "read_only": true, "bit_length": 12},
+                        {"var_name":"b2", "read_only": true, "bit_length": 12}
                     ]
                 }
             ]

@@ -16,7 +16,7 @@
                                 {"sig_name":"apps_state", "sig_desc":"Accelerator plausibility state","type":"uint8_t","length":8},
                                 {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
                             ],
-                            "msg_period":25,
+                            "msg_period":100,
                             "msg_hlp":1,
                             "msg_pgn":100
                         },
@@ -37,7 +37,10 @@
                         {"msg_name": "raw_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
                         {"msg_name": "front_motor_currents_temps"},
-                        {"msg_name": "rear_motor_currents_temps"}
+                        {"msg_name": "rear_motor_currents_temps"},
+                        {"msg_name": "front_driveline_hb"},
+                        {"msg_name": "rear_driveline_hb"},
+                        {"msg_name": "dashboard_status"}
                     ]
                 },
                 {
@@ -78,6 +81,28 @@
                     "node_name": "Driveline",
                     "node_ssa":2,
                     "tx": [
+                        {
+                            "msg_name": "front_driveline_hb",
+                            "msg_desc": "front drivline heart beat",
+                            "signals": [
+                                {"sig_name": "driveline_state_front", "type":"uint8_t",
+                                 "choices": ["okay", "error"]}
+                            ],
+                            "msg_period": 100,
+                            "msg_hlp": 1,
+                            "msg_pgn": 100
+                        },
+                        {
+                            "msg_name": "rear_driveline_hb",
+                            "msg_desc": "rear drivline heart beat",
+                            "signals": [
+                                {"sig_name": "driveline_state_rear", "type":"uint8_t",
+                                 "choices": ["okay", "error"]}
+                            ],
+                            "msg_hlp": 1,
+                            "msg_period": 100,
+                            "msg_pgn": 101
+                        },
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
@@ -172,6 +197,18 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":0
+                        },
+                        {
+                            "msg_name":"dashboard_status",
+                            "msg_desc":"periodic dashboard heartbeat",
+                            "signals":[
+                                {"sig_name": "apps_faulted", "type":"uint8_t","length":1},
+                                {"sig_name": "bse_faulted", "type":"uint8_t","length":1},
+                                {"sig_name": "apps_brake_faulted", "type":"uint8_t","length":1}
+                            ],
+                            "msg_period":100,
+                            "msg_hlp":1,
+                            "msg_pgn":100
                         }
                     ],
                     "rx":[

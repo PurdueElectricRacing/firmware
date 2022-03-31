@@ -27,6 +27,9 @@
 #define ID_START_BUTTON 0x4000005
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
+#define ID_FRONT_DRIVELINE_HB 0x4001902
+#define ID_REAR_DRIVELINE_HB 0x4001942
+#define ID_DASHBOARD_STATUS 0x4001905
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000032
 /* END AUTO ID DEFS */
 
@@ -39,6 +42,9 @@
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
+#define DLC_FRONT_DRIVELINE_HB 1
+#define DLC_REAR_DRIVELINE_HB 1
+#define DLC_DASHBOARD_STATUS 1
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
@@ -73,6 +79,9 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_RAW_THROTTLE_BRAKE 5
+#define UP_FRONT_DRIVELINE_HB 100
+#define UP_REAR_DRIVELINE_HB 100
+#define UP_DASHBOARD_STATUS 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -88,6 +97,16 @@ typedef enum {
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
 } car_state_t;
+
+typedef enum {
+    DRIVELINE_STATE_FRONT_OKAY,
+    DRIVELINE_STATE_FRONT_ERROR,
+} driveline_state_front_t;
+
+typedef enum {
+    DRIVELINE_STATE_REAR_OKAY,
+    DRIVELINE_STATE_REAR_ERROR,
+} driveline_state_rear_t;
 
 /* END AUTO CAN ENUMERATIONS */
 
@@ -128,6 +147,17 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;
     struct {
+        uint64_t driveline_state_front: 8;
+    } front_driveline_hb;
+    struct {
+        uint64_t driveline_state_rear: 8;
+    } rear_driveline_hb;
+    struct {
+        uint64_t apps_faulted: 1;
+        uint64_t bse_faulted: 1;
+        uint64_t apps_brake_faulted: 1;
+    } dashboard_status;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_MAIN_MODULE;
     uint8_t raw_data[8];
@@ -159,6 +189,23 @@ typedef struct {
         uint8_t left_temp;
         uint8_t right_temp;
     } rear_motor_currents_temps;
+    struct {
+        driveline_state_front_t driveline_state_front;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_driveline_hb;
+    struct {
+        driveline_state_rear_t driveline_state_rear;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_driveline_hb;
+    struct {
+        uint8_t apps_faulted;
+        uint8_t bse_faulted;
+        uint8_t apps_brake_faulted;
+        uint8_t stale;
+        uint32_t last_rx;
+    } dashboard_status;
     struct {
         uint64_t daq_command;
     } daq_command_MAIN_MODULE;

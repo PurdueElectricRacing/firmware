@@ -135,6 +135,7 @@ void canTxUpdate();
 void usartTxUpdate();
 void usartRxUpdate();
 void ledBlink();
+void heartBeat();
 extern void HardFault_Handler();
 
 char usart_rx_buffs[6][MC_MAX_RX_LENGTH] = {'\0'};
@@ -150,7 +151,7 @@ q_handle_t q_rx_can;
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
 motor_t motor_left, motor_right;
-
+// wp
 int main(void)
 {
     /* Data Struct init */
@@ -215,12 +216,25 @@ int main(void)
     /* Module init */
     initCANParse(&q_rx_can);
     // wheelSpeedsInit();
+
+    // Motor Controllers
+    // Left
     mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
+    mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, &motor_left);
+    mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, &motor_left);
+    mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, &motor_left);
+    // Right
     mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
+    mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, &motor_right);
+    mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, &motor_right);
+    mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, &motor_right);
+    // Empty buffer
+    while (q_tx_usart_l.item_count > 0 || q_tx_usart_r.item_count > 0) usartTxUpdate();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(ledBlink, 500);
+    taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
     taskCreate(parseDataPeriodic, 15);
     // TODO: shock is very fast, but contains a bunch of floating point arithmetic
@@ -238,6 +252,14 @@ int main(void)
     return 0;
 }
 
+void heartBeat()
+{
+    #if (FTR_DRIVELINE_FRONT)
+    SEND_FRONT_DRIVELINE_HB(q_tx_can, DRIVELINE_STATE_FRONT_OKAY);
+    #elif (FTR_DRIVELINE_REAR)
+    SEND_REAR_DRIVELINE_HB(q_tx_can, DRIVELINE_STATE_REAR_OKAY);
+    #endif
+}
 /**
  * @brief Receives torque command from can message
  *        Relays this to the motor controllers
@@ -256,7 +278,9 @@ void commandTorquePeriodic()
     pow_right = pow_right * 100.0 / 4096.0;
 
     // Only drive if ready
-    if (can_data.main_status.car_state != CAR_STATE_READY2DRIVE) 
+    if (can_data.main_status.car_state != CAR_STATE_READY2DRIVE || 
+        can_data.main_status.stale                              ||
+        can_data.torque_request_main.stale) 
     {
         pow_left = 0.0;
         pow_right = 0.0;
@@ -316,142 +340,6 @@ void parseDataPeriodic()
     }
 
 }
-
-/*
-void mc_test(void) {
-    static int state_curr;
-    static int count;
-    int state;
-
-    state = state_curr;
-
-    switch (state_curr)
-    {
-        uint16_t data[10];
-
-        case 0:
-        {
-            data[0] = 's';
-            PHAL_usartTxBl(USART1, data, 1);
-            data[0] = 'f';
-            PHAL_usartTxBl(USART1, data, 1);
-
-            state = 1;
-
-            break;
-        }
-
-        case 1:
-        {
-            data[0] = '1';
-            PHAL_usartTxBl(USART1, data, 1);
-
-            state = 2;
-
-            break;
-        }
-
-        case 2:
-        {
-            if (count++ * 15 > 5000) {
-                count = 0;
-
-                state = 3;
-            }
-            
-            break;
-        }
-
-        case 3:
-        {
-            data[0] = '0';
-            PHAL_usartTxBl(USART1, data, 1);
-
-            state = 4;
-
-            break;
-        }
-
-        case 4:
-        {
-            return;
-        }
-    }
-
-    state_curr = state;
-}
-
-void run_user_commands(void) {
-    static uint16_t time;
-    static uint16_t current_power;
-    uint16_t goal_power = 0;
-    uint16_t goal_power_right = 0;
-    if (FTR_DRIVELINE_FRONT) {
-        goal_power = can_data.torque_request.front_left;
-        goal_power_right = can_data.torque_request.front_right;
-    }
-    else {
-        goal_power = can_data.torque_request.rear_left;
-        goal_power_right = can_data.torque_request.rear_right;
-    }
-    if (goal_power < 0) {
-        current_power = goal_power;
-        current_power *= -1;
-        if (current_power % 2 == 0) {
-             mc_brake(2.0, handle);
-             current_power -= 2;
-        }
-        else {
-            mc_brake(current_power, handle);
-            current_power == 0;
-        }
-    }
-    else if (goal_power > 0) {
-        current_power = goal_power;
-        current_power *= -1;
-        if (current_power % 2 == 0) {
-             mc_brake(2.0, handle);
-             current_power -= 2;
-        }
-        else {
-            mc_brake(current_power, handle);
-            current_power == 0;
-        }    }
-    else if (goal_power == 0) {
-        mc_stop(handle);
-    }
-    if (goal_power_right < 0) {
-        current_power = goal_power;
-        current_power *= -1;
-        if (current_power % 2 == 0) {
-             mc_brake(2.0, handle_two);
-             current_power -= 2;
-        }
-        else {
-            mc_brake(current_power, handle_two);
-            current_power == 0;
-        }
-    }
-    else if (goal_power_right > 0) {
-        current_power = goal_power;
-        current_power *= -1;
-        if (current_power % 2 == 0) {
-             mc_brake(2.0, handle_two);
-             current_power -= 2;
-        }
-        else {
-            mc_brake(current_power, handle_two);
-            current_power == 0;
-        }    }
-    else if (goal_power_right == 0) {
-        mc_stop(handle_two);
-    }
-    if (++time == 1001) {
-        read_motor_controller();
-        time = 0;
-    }
-}
-*/
 
 void ledBlink()
 {

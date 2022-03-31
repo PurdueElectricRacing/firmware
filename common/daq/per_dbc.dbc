@@ -60,6 +60,12 @@ BO_ 2147490049 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214598914 front_driveline_hb: 1 Driveline
+ SG_ driveline_state_front : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214598978 rear_driveline_hb: 1 Driveline
+ SG_ driveline_state_rear : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2214592514 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -93,6 +99,11 @@ BO_ 2483028613 raw_throttle_brake: 3 Dashboard
 
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214598917 dashboard_status: 1 Dashboard
+ SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -219,6 +230,10 @@ CM_ SG_ 2214592577 front_left "torque request. 0-4096";
 CM_ BO_ 2147490049 "Status message for bitstream flashing";
 CM_ SG_ 2147490049 flash_timeout_rx "Timeout from CAN rx";
 CM_ SG_ 2147490049 flash_success "Done flashing bitstream";
+CM_ BO_ 2214598914 "front drivline heart beat";
+CM_ SG_ 2214598914 driveline_state_front "";
+CM_ BO_ 2214598978 "rear drivline heart beat";
+CM_ SG_ 2214598978 driveline_state_rear "";
 CM_ BO_ 2214592514 "Wheel data for the rear tires";
 CM_ SG_ 2214592514 right_normal "";
 CM_ SG_ 2214592514 left_normal "";
@@ -246,6 +261,10 @@ CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";
+CM_ BO_ 2214598917 "periodic dashboard heartbeat";
+CM_ SG_ 2214598917 apps_brake_faulted "";
+CM_ SG_ 2214598917 bse_faulted "";
+CM_ SG_ 2214598917 apps_faulted "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 2415925566 "Bitstream download command";
@@ -315,6 +334,8 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 VAL_ 2214598912 car_state 0 "init" 1 "precharging" 2 "buzzing" 3 "ready2drive" 4 "error" 5 "reset" 6 "recover" ;
+VAL_ 2214598914 driveline_state_front 0 "okay" 1 "error" ;
+VAL_ 2214598978 driveline_state_rear 0 "okay" 1 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

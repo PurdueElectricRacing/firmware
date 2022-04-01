@@ -7,6 +7,14 @@ if(ret EQUAL "1")
     message(FATAL_ERROR "Code Generation Failed")
 endif()
 
+# Check for bootloader generation
+if (NOT BOOTLOADER_BUILD)
+    set(BOOTLOADER_BUILD 0)
+    message(STATUS "Not building applications for bootloaders.")
+else()
+    message(STATUS "Building applications and bootloaders!")
+endif()
+
 # Setup arm-none-eabi as our compile toolcahin
 set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)
 

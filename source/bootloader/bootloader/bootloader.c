@@ -117,26 +117,38 @@ bool BL_flashComplete(void)
     Component specific callbacks 
 */
 
+// Quickly setup case statments for send function based on Node ID
+#define NODE_CASE_BL_RESPONSE(app_id, resp_func) \
+case app_id:\
+            resp_func(q_tx_can, cmd, data);\
+            break;\
+
 void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
 {
     switch(APP_ID)
     {
-        case APP_MAINMODULE: 
-            SEND_MAINMODULE_BL_RESP(q_tx_can, cmd, data);
-            break;
-
-        case APP_DASHBOARD:
-            SEND_DASHBOARD_BL_RESP(q_tx_can, cmd, data);
-            break;
-
-        case APP_TORQUEVECTOR:
-            SEND_TORQUEVECTOR_BL_RESP(q_tx_can, cmd, data);
-            break;
+        NODE_CASE_BL_RESPONSE(APP_MAINMODULE,       SEND_MAINMODULE_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_DASHBOARD,        SEND_DASHBOARD_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_TORQUEVECTOR,     SEND_TORQUEVECTOR_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_DRIVELINE_F,      SEND_DRIVELINE_F_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_DRIVELINE_R,      SEND_DRIVELINE_R_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_PRECHARGE,        SEND_PRECHARGE_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_A,            SEND_BMS_A_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_B,            SEND_BMS_B_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_C,            SEND_BMS_C_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_D,            SEND_BMS_D_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_E,            SEND_BMS_E_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_F,            SEND_BMS_F_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_G,            SEND_BMS_G_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_H,            SEND_BMS_H_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_I,            SEND_BMS_I_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_BMS_J,            SEND_BMS_J_BL_RESP)
         default:
             asm("bkpt");
     }
 }
 
+// Quickly setup the CAN callbacks based on Node ID
 #define NODE_BL_CMD_CALLBACK(callback_name, can_msg_name, node_id) \
 void callback_name(CanParsedData_t* msg_data_a) {\
     if(APP_ID != node_id) return; \

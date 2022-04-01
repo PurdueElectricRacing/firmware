@@ -128,7 +128,7 @@ SECTIONS
     . = ALIGN(8);
     KEEP(*(.bootlaoder_shared_memory)) /* Shared memory between application and bootlaoder */
     . = ALIGN(8);
-  } > RAM AT> FLASH
+  } > RAM
 
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);

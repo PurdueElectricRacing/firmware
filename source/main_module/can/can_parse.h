@@ -25,6 +25,8 @@
 #define ID_MAIN_STATUS 0x4001900
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
+#define ID_PACK_INFO_LV 0x8007dc6
+#define ID_CELL_INFO_LV 0x8007e46
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -33,6 +35,8 @@
 #define DLC_MAIN_STATUS 3
 #define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_START_BUTTON 1
+#define DLC_PACK_INFO_LV 6
+#define DLC_CELL_INFO_LV 6
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -84,6 +88,16 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t start: 1;
     } start_button;
+    struct {
+        uint64_t volts: 16;
+        uint64_t error: 16;
+        uint64_t bal_flags: 16;
+    } pack_info_lv;
+    struct {
+        uint64_t delta: 16;
+        uint64_t ov: 16;
+        uint64_t uv: 16;
+    } cell_info_lv;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -103,6 +117,16 @@ typedef struct {
     struct {
         uint16_t start;
     } start_button;
+    struct {
+        uint16_t volts;
+        uint16_t error;
+        uint16_t bal_flags;
+    } pack_info_lv;
+    struct {
+        uint16_t delta;
+        uint16_t ov;
+        uint16_t uv;
+    } cell_info_lv;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

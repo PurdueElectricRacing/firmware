@@ -37,10 +37,12 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_TEST_MSG:
-                can_data.test_msg.test_sig = (int16_t) msg_data_a->test_msg.test_sig;
-                can_data.test_msg.stale = 0;
-                can_data.test_msg.last_rx = curr_tick;
+            case ID_HEAT_REQ:
+                can_data.heat_req.toggle = msg_data_a->heat_req.toggle;
+                can_data.heat_req.time = msg_data_a->heat_req.time;
+                break;
+            case ID_PACK_CURR:
+                can_data.pack_curr.current = (int16_t) msg_data_a->pack_curr.current;
                 break;
             default:
                 __asm__("nop");
@@ -49,9 +51,6 @@ void canRxUpdate()
     }
 
     /* BEGIN AUTO STALE CHECKS */
-    CHECK_STALE(can_data.test_msg.stale,
-                curr_tick, can_data.test_msg.last_rx,
-                UP_TEST_MSG);
     /* END AUTO STALE CHECKS */
 }
 
@@ -81,7 +80,8 @@ bool initCANFilter()
 #endif /* CAN2 */
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_TEST_MSG << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_HEAT_REQ << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_PACK_CURR << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

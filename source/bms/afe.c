@@ -49,8 +49,10 @@ void checkConn(void)
 //         with too high/low a voltage with an error
 void setBalance(void)
 {
-    uint8_t i;
+    uint8_t i, ov, uv;
     float   avg_SOC = 0;
+
+    ov = uv = 0;
 
     for (i = 0; i < bms.cell_count; i++)
     {
@@ -63,9 +65,11 @@ void setBalance(void)
     {
         if (bms.cells.chan_volts_raw[i] > (uint32_t) (CELL_MAX_V * 10000)) {
             bms.cells.balance_flags |= (1U << i);
+            ++ov;
             bms.error |= 0x2;
         } else if (bms.cells.chan_volts_raw[i] < (uint32_t) (CELL_MIN_V * 10000)) {
             bms.cells.balance_mask |= (1U << i);
+            ++uv;
             bms.error |= 0x4;
         } else {
             bms.cells.balance_mask &= ~(1U << i);
@@ -75,6 +79,18 @@ void setBalance(void)
                 bms.cells.balance_flags |= (1U << i);
             }
         }
+    }
+
+    if (ov) {
+        bms.error |= 0x2;
+    } else {
+        bms.error &= ~0x2;
+    }
+
+    if (uv) {
+        bms.error |= 0x4;
+    } else {
+        bms.error &= ~0x4;
     }
 }
 

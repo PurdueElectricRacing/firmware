@@ -307,7 +307,7 @@ void TIM2_IRQHandler()
 {
 	TIM2->SR &= ~TIM_SR_UIF;
 
-    if (++sched.os_ticks == 30000)
+    if (++sched.os_ticks == 30001)
     {
         sched.os_ticks = 0;
     }

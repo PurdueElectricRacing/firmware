@@ -67,6 +67,10 @@ void carPeriodic()
     else if (car.state == CAR_STATE_PRECHARGING)
     {
         // TODO: wait for precharge done?
+        // if (PHAL_readGPIO(precharge_port, precharge_pin))
+        // {
+        //     car.state = CAR_STATE_BUZZING;
+        // }
     }
     else if (car.state == CAR_STATE_BUZZING)
     {

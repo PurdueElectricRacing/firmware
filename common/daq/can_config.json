@@ -86,9 +86,9 @@
                             "msg_desc": "front drivline heart beat",
                             "signals": [
                                 {"sig_name": "front_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]},
+                                 "choices": ["disconnected", "connected", "error"]},
                                 {"sig_name": "front_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]}
+                                 "choices": ["disconnected", "connected", "error"]}
                             ],
                             "msg_period": 100,
                             "msg_hlp": 1,
@@ -99,9 +99,9 @@
                             "msg_desc": "rear drivline heart beat",
                             "signals": [
                                 {"sig_name": "back_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]},
+                                 "choices": ["disconnected", "connected", "error"]},
                                 {"sig_name": "back_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]}
+                                 "choices": ["disconnected", "connected", "error"]}
                             ],
                             "msg_hlp": 1,
                             "msg_period": 100,

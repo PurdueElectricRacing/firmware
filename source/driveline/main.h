@@ -24,8 +24,8 @@
 #define USART_L (USART2)
 #define USART_R (USART1)
 
-#define M_INVERT_FRONT_RIGHT 0
-#define M_INVERT_FRONT_LEFT  0
+#define M_INVERT_FRONT_RIGHT 1
+#define M_INVERT_FRONT_LEFT  1
 #define M_INVERT_REAR_RIGHT  1
 #define M_INVERT_REAR_LEFT   1
 

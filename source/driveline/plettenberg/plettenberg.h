@@ -3,12 +3,15 @@
 
 #include "common/phal_L4/usart/usart.h"
 #include "common/common_defs/common_defs.h"
+#include "common/psched/psched.h"
 #include "common/queue/queue.h"
 #include "string.h"
 #include "stm32l432xx.h"
 
 #define MC_MAX_TX_LENGTH 25
 #define MC_MAX_RX_LENGTH 77
+
+#define MC_RX_TIMEOUT_MS 2000
 
 #define MC_SERIAL_MODE    's'
 #define MC_ANALOG_MODE    'p'
@@ -40,7 +43,6 @@
 typedef enum
 {
     MC_DISCONNECTED,
-    MC_SETTING_PARAMS,
     MC_CONNECTED,
     MC_ERROR    
 } motor_state_t;
@@ -61,28 +63,24 @@ typedef struct
     int motor_temp_slope;
     int con_temp_slope;
     uint32_t rpm;
-    bool data_valid;
+    uint32_t last_rx_time;
     motor_state_t motor_state;
 } motor_t;
 
 /**
  * @brief Initializes the motor in serial mode
  */
-void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue);
+void mc_init(volatile motor_t *m, bool is_inverted, q_handle_t *tx_queue);
 /**
  * @brief Positive power commands motor to move
  *        Negative power commands motor to break
  */
-void mc_set_param(uint8_t value, char *param, motor_t *m);
-void mc_set_power(float power, motor_t *m);
-/**
- * @brief If the motor is currently spinning, this function
- *  sends the command to stop the motor.
- */
-void mc_stop(motor_t *m);
+void mc_set_param(uint8_t value, char *param, volatile motor_t *m);
+void mc_set_power(float power, volatile motor_t *m);
 /**
  * @brief Reads the data being sent from the motor controller
+ * @return returns false if the data was not succesfully parsed
  */
-void mc_parse(char* data, motor_t *m);
+bool mc_parse(char* data, volatile motor_t *m);
 
 #endif

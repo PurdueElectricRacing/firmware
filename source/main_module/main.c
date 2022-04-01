@@ -1,48 +1,184 @@
 #include "stm32l496xx.h"
 
 #include "common/psched/psched.h"
-#include "common/phal_L4/gpio/gpio.h"
+#include "common/queue/queue.h"
 #include "common/phal_L4/can/can.h"
+#include "common/phal_L4/rcc/rcc.h"
+#include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/i2c/i2c.h"
+#include "common/phal_L4/dma/dma.h"
+
+/* Module Includes */
+#include "main.h"
+#include "can_parse.h"
+#include "daq.h"
+#include "cooling.h"
+#include "car.h"
 
 GPIOInitConfig_t gpio_config[] = {
-    GPIO_INIT_CANRX_PA11,
-    GPIO_INIT_CANTX_PA12,
-    // GPIO_INIT_INPUT(GPIOA, 10, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_OUTPUT(GPIOA, 8, GPIO_OUTPUT_LOW_SPEED)
+    // CAN
+    GPIO_INIT_CANRX_PD1,
+    GPIO_INIT_CANTX_PD0,
+    GPIO_INIT_OUTPUT(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // Status Indicators
+    GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(UNDERGLOW_GPIO_Port, UNDERGLOW_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // Drivetrain
+    GPIO_INIT_ANALOG(DT_THERM_1_GPIO_Port, DT_THERM_1_Pin),
+    GPIO_INIT_ANALOG(DT_THERM_2_GPIO_Port, DT_THERM_2_Pin),
+    GPIO_INIT_OUTPUT(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // GPIO_INIT_OUTPUT(DT_PUMP_FLOW_ADJ_GPIO_Port, DT_PUMP_FLOW_ADJ_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(DT_FLOW_RATE_PWM_GPIO_Port, DT_FLOW_RATE_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // Battery (HV)
+    GPIO_INIT_ANALOG(BAT_THERM_OUT_GPIO_Port, BAT_THERM_OUT_Pin),
+    GPIO_INIT_ANALOG(BAT_THERM_IN_GPIO_Port, BAT_THERM_IN_Pin),
+    GPIO_INIT_OUTPUT(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // GPIO_INIT_OUTPUT(BAT_PUMP_FLOW_ADJ_GPIO_Port, BAT_PUMP_FLOW_ADJ_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(BAT_FLOW_RATE_PWM_GPIO_Port, BAT_FLOW_RATE_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    // TODO: conversion for I_SENSE_C1
+    GPIO_INIT_ANALOG(I_SENSE_C1_GPIO_Port, I_SENSE_C1_Pin),
+    // Battery (LV)
+    // TODO: use lipo bat stat
+    GPIO_INIT_INPUT(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    // TODO: use lv current
+    GPIO_INIT_ANALOG(LV_I_SENSE_GPIO_Port, LV_I_SENSE_Pin),
+    // I2C
+    GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_I2C1_SCL_PB6,
+    GPIO_INIT_I2C1_SDA_PB7,
+    GPIO_INIT_I2C4_SCL_PB10,
+    GPIO_INIT_I2C4_SDA_PB11,
 };
 
-void blinkTask(void);
+/* ADC Configuration */
+ADCInitConfig_t adc_config = {
+    .clock_prescaler = ADC_CLK_PRESC_6,
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .overrun         = true,
+    .dma_mode        = ADC_DMA_CIRCULAR
+};
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel=DT_THERM_1_ADC_CHNL,    .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=DT_THERM_2_ADC_CHNL,    .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BAT_THERM_OUT_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=BAT_THERM_IN_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+};
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, 
+            sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
+
+#define TargetCoreClockrateHz 16000000
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / (1)),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+};
+
+/* Locals for Clock Rates */
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
+
+/* Function Prototypes */
+void heartBeatLED();
+void canTxUpdate(void);
+extern void HardFault_Handler();
+
+q_handle_t q_tx_can;
+q_handle_t q_rx_can;
 
 int main (void)
 {
-    PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t));
+    /* Data Struct Initialization */
+    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
-    PHAL_initCAN(CAN1, true);
+    /* HAL Initialization */
+    if(0 != PHAL_configureClockRates(&clock_config))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initCAN(CAN1, false))
+    {
+        HardFault_Handler();
+    }
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    if(!PHAL_initI2C(I2C))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initI2C(DBG_I2C))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+                     sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
 
+    /* Module Initialization */
+    carInit();
+    coolingInit();
+    initCANParse(&q_rx_can);
+    // if(daqInit(&q_tx_can, I2C))
+    // {
+    //     HardFault_Handler();
+    // }
+
+    /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate((func_ptr_t) &blinkTask, 100);
+
+    // taskCreate(coolingPeriodic, 500);
+    taskCreate(heartBeatLED, 500);
+    taskCreate(carHeartbeat, 100);
+    taskCreate(carPeriodic, 15);
+    //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
 
     schedStart();
-
 
     return 0;
 }
 
-CanMsgTypeDef_t tx_msg, rx0_msg, rx1_msg;
-uint8_t counter = 0;
-
-void blinkTask(void)
+void heartBeatLED()
 {
-    tx_msg.StdId   = 0x123;
-    tx_msg.IDE     = 0;
-    tx_msg.DLC     = 2;
-    tx_msg.Data[0] = 0xAB;
-    tx_msg.Data[1] = 0xCD;
-    
-    if (++counter < 2)
+    PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+}
+
+void canTxUpdate(void)
+{
+    CanMsgTypeDef_t tx_msg;
+    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
-        PHAL_toggleGPIO(GPIOA, 8);
         PHAL_txCANMessage(&tx_msg);
     }
 }
@@ -57,10 +193,41 @@ void CAN1_RX0_IRQHandler()
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
-        CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
-        rx0_msg.StdId   = CAN1->sFIFOMailBox[0].RIR;
-        //*((uint32_t *)(rx0_msg.Data[0])) = CAN1->sFIFOMailBox[0].RDLR;
-        //*((uint32_t *)(rx0_msg.Data[4])) = CAN1->sFIFOMailBox[0].RDHR;
-        // Put into a queue
+        CanMsgTypeDef_t rx;
+        rx.Bus = CAN1;
+
+        // Get either StdId or ExtId
+        if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+        { 
+          rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+        }
+        else
+        {
+          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+        }
+
+        rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
+
+        rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0)  & 0xFF;
+        rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8)  & 0xFF;
+        rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
+        rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
+        rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0)  & 0xFF;
+        rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
+        rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
+        rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+
+        CAN1->RF0R |= (CAN_RF0R_RFOM0); 
+
+        qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
+    }
+}
+
+void HardFault_Handler()
+{
+    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+    while(1)
+    {
+        __asm__("nop");
     }
 }

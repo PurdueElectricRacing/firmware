@@ -38,6 +38,7 @@ def log_success(phrase):
 data_type_length = {'uint8_t':8, 'uint16_t':16, 'uint32_t':32, 'uint64_t':64,
                     'int8_t':8, 'int16_t':16, 'int32_t':32, 'int64_t':64,
                     'float':32}
+data_lengths = [8, 16, 32, 64]
 
 def gen_bit_length(sig):
     """ Calculates and updates bit length for signal based on data type and length """
@@ -152,6 +153,7 @@ def label_junction_nodes(can_config):
     for bus in can_config['busses']:
         for node in bus['nodes']:
             if node['node_name'] in node_names:
+                if ('DAQ' == node['node_name']): continue
                 # junction found (assumes check repeat defs already ran and passed)
                 print(f"Junction node found: {node['node_name']}")
                 node['is_junction'] = True

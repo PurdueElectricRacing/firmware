@@ -1,7 +1,7 @@
 /**
  * @file common_defs.h
  * @author Adam Busch (busch8@purdue.edu)
- * @brief Common defs for the entire firmware reposity. Dont let this get too out of control please.
+ * @brief Common defs for the entire firmware repository. Dont let this get too out of control please.
  * @version 0.1
  * @date 2022-01-26
  * 

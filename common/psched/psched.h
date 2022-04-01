@@ -14,6 +14,12 @@
     #error "Please define a MCU arch"
 #endif
 
+#ifndef PSCHED_USE_TIM7
+#define P_TIM TIM2
+#else
+#define P_TIM TIM7
+#endif
+
 #define MAX_TASK        15
 #define CPU_HIGH        90
 #define CPU_MID         75

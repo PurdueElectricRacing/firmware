@@ -5,6 +5,7 @@
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
+#include "common/bootloader/bootloader_common.h"
 
 
 /* Module Includes */
@@ -46,38 +47,10 @@ extern char _eboot_flash;      /* End of the bootlaoder flash region, same as th
 /* Bootlaoder timing control */
 static volatile uint32_t timeout_ticks = 0;
 static volatile bool bootloader_timeout = false;
-static volatile bool wait_flag = false;
-
-__attribute__((section(".no_init_data"))) uint32_t reset_count; /* Reset counter that does not get reset in Reset_Handler during warm boot*/
+static volatile bool send_status_flag = false;
 
 int main (void)
-{  
-    // This will make sure that the interrupts are fetched from RAM and not Flash
-    // IVT is not copied by default, 
-    // memcpy((void*)0x20000000,(void const*)0x08000000,0x1FF);
-    // SCB->VTOR = (uint32_t)&__isr_vector_start;
-    // asm("bkpt");
-    // while ((FLASH->SR & FLASH_SR_BSY))
-    //     asm("nop");
-
-    // FLASH->KEYR = 0x45670123;
-    // FLASH->KEYR = 0xCDEF89AB;
-
-    // FLASH->CR |= FLASH_CR_PER | ((1) << FLASH_CR_PNB_Pos);
-    // FLASH->CR |= FLASH_CR_STRT;
-
-    // while ((FLASH->SR & FLASH_SR_BSY))
-    //     asm("nop");
-    // FLASH->CR &= ~(FLASH_CR_PER | FLASH_CR_PNB_Msk);
-
-    // FLASH->CR |= FLASH_CR_PG;
-
-    // *(__IO uint32_t*)(0x08008000)    = (uint32_t) 0xBEEF;
-    // *(__IO uint32_t*)(0x08008000+4U) = (uint32_t) 0xCAFE;
-    // FLASH->CR &= ~FLASH_CR_PG;
-
-    // __DSB();
-
+{
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
@@ -105,7 +78,8 @@ int main (void)
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     CanMsgTypeDef_t tx_msg;
-    BL_sendStatusMessage(BLSTAT_BOOT, reset_count);
+    BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_count);
+
     /*
         Main bootloader loop.
         Will run until the systick timer times out or the bootloader process completes
@@ -113,18 +87,22 @@ int main (void)
     while(!bootloader_timeout || !allow_application_launch)
     {
         /* Process CAN signals */
-        if (wait_flag && !BL_flashStarted())
+        if (send_status_flag && !BL_flashStarted())
         {
+            send_status_flag = false;
             BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
-            wait_flag = false;
         }
+
         while (q_rx_can.item_count > 0)
             canRxUpdate();
+
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
 
 
-        /* Check if firmware download is complete */
+        /* 
+            Check if firmware download is complete
+        */
         if (BL_flashComplete())
         {
             allow_application_launch = true;
@@ -139,7 +117,7 @@ int main (void)
     // an address can not start with 0xFF for the MSP
     if (*((uint8_t *) &_eboot_flash) != 0xFF)
     {
-        reset_count = 0;
+        bootloader_shared_memory.reset_count = 0;
         BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
@@ -147,7 +125,8 @@ int main (void)
     }
     else
     {
-        BL_sendStatusMessage(BLSTAT_INVAID_APP, reset_count);
+        BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
+        bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
         NVIC_SystemReset();
@@ -159,14 +138,42 @@ int main (void)
 
 void SysTick_Handler(void)
 {
-    if (timeout_ticks % 100 == 0)
-    {
-        wait_flag = true;
-    }
 
-    if (timeout_ticks == 1000)
+    switch(bootloader_shared_memory.reset_reason)
     {
-        bootloader_timeout = true;
+        case(RESET_REASON_UNKNOWN):
+        case(RESET_REASON_DOWNLOAD_FW):
+        {
+            // Unknown reset cause or we were asked to download new firmware.
+            // Will infinetly wait in bootloader mode
+            if (timeout_ticks % 100 == 0)
+            {
+                send_status_flag = true;
+            }
+            break;
+        }
+        case (RESET_REASON_WATCHDOG):
+        case (RESET_REASON_BAD_FIRMWARE):
+        {
+            // Watchdog reset or a bad firmware boot, 
+            // stay in bootlaoder for 3 seconds before attempting to boot again
+            if (timeout_ticks % 100 == 0)
+            {
+                send_status_flag = true;
+            }
+            if (timeout_ticks % 3000 == 0)
+            {
+                bootloader_timeout = true;
+            }
+            break;
+        }
+        case(RESET_REASON_POR):
+        {
+            // Cold boot, immeditely try an application boot
+            bootloader_timeout = true;
+            break;
+        }
+        
     }
 
     timeout_ticks++;
@@ -174,25 +181,39 @@ void SysTick_Handler(void)
 
 bool check_boot_health(void)
 {
+    
+    if(bootloader_shared_memory.magic_word != BOOTLOADER_SHARED_MEMORY_MAGIC)
+    {
+        bootloader_shared_memory.magic_word     = BOOTLOADER_SHARED_MEMORY_MAGIC;
+        bootloader_shared_memory.reset_count    = 0;
+        bootloader_shared_memory.reset_reason   = RESET_REASON_UNKNOWN;
+    }
+
     uint32_t reset_cause = RCC->CSR;
     RCC->CSR |= RCC_CSR_RMVF;
 
-    if ((reset_cause & RCC_CSR_BORRSTF) == RCC_CSR_BORRSTF || reset_count > 0xFF)
+    if ((reset_cause & RCC_CSR_BORRSTF) == RCC_CSR_BORRSTF)
     {
         // Power-on-reset, update reset count to initial value
         // reset_count could have been garbage otherwise
-        reset_count = 0;
+        bootloader_shared_memory.reset_reason = RESET_REASON_POR;
+        bootloader_shared_memory.reset_count  = 0;
     }
 
     if ((reset_cause & RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF || (reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
     {
-       // Software reset, watchdog reset 
-       reset_count++; 
+        // Software reset, watchdog reset
+
+        // Only increment the reset count if we reset from watchdog or a bad firmware download
+        if (bootloader_shared_memory.reset_reason != RESET_REASON_DOWNLOAD_FW)
+            bootloader_shared_memory.reset_count++;
+        
     }
     
-    if (reset_count >= 3)
+    if (bootloader_shared_memory.reset_count >= 3)
     {
         // Reached the maximum number of resets
+        // Do not allow normal operation
         return false;
     }
 

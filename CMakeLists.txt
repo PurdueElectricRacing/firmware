@@ -31,6 +31,7 @@ make_cmsis_library(CMSIS_L496 STM32L4xx STM32L496xx ${CMAKE_SOURCE_DIR}/common/S
 # Add Common modules
 add_subdirectory(common/psched)
 add_subdirectory(common/phal_L4)
+add_subdirectory(common/bootloader)
 add_subdirectory(common/queue)
 add_subdirectory(common/eeprom)
 add_subdirectory(common/common_defs)

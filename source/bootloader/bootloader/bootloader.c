@@ -121,7 +121,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
 {
     switch(APP_ID)
     {
-        case APP_MAIN_MODULE: 
+        case APP_MAINMODULE: 
             SEND_MAINMODULE_BL_RESP(q_tx_can, cmd, data);
             break;
 
@@ -129,7 +129,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
             SEND_DASHBOARD_BL_RESP(q_tx_can, cmd, data);
             break;
 
-        case APP_TORQUE_VECTOR:
+        case APP_TORQUEVECTOR:
             SEND_TORQUEVECTOR_BL_RESP(q_tx_can, cmd, data);
             break;
         default:
@@ -137,20 +137,25 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
     }
 }
 
-void mainmodule_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a)
-{
-    if(APP_ID != APP_MAIN_MODULE) return;
-    BL_processCommand((BLCmd_t) msg_data_a->mainmodule_bl_cmd.cmd, msg_data_a->mainmodule_bl_cmd.data);
-}
+#define NODE_BL_CMD_CALLBACK(callback_name, can_msg_name, node_id) \
+void callback_name(CanParsedData_t* msg_data_a) {\
+    if(APP_ID != node_id) return; \
+    BL_processCommand((BLCmd_t) msg_data_a->can_msg_name.cmd, msg_data_a->can_msg_name.data); \
+} \
 
-void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a)
-{
-    if(APP_ID != APP_DASHBOARD) return;
-    BL_processCommand((BLCmd_t) msg_data_a->dashboard_bl_cmd.cmd, msg_data_a->dashboard_bl_cmd.data);
-}
-
-void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a)
-{
-    if(APP_ID != APP_TORQUE_VECTOR) return;
-    BL_processCommand((BLCmd_t) msg_data_a->torquevector_bl_cmd.cmd, msg_data_a->torquevector_bl_cmd.data);
-}
+NODE_BL_CMD_CALLBACK(mainmodule_bl_cmd_CALLBACK,    mainmodule_bl_cmd,      APP_MAINMODULE)
+NODE_BL_CMD_CALLBACK(dashboard_bl_cmd_CALLBACK,     dashboard_bl_cmd,       APP_DASHBOARD)
+NODE_BL_CMD_CALLBACK(torquevector_bl_cmd_CALLBACK,  torquevector_bl_cmd,    APP_TORQUEVECTOR)
+NODE_BL_CMD_CALLBACK(driveline_f_bl_cmd_CALLBACK,   driveline_f_bl_cmd,     APP_DRIVELINE_F)
+NODE_BL_CMD_CALLBACK(driveline_r_bl_cmd_CALLBACK,   driveline_r_bl_cmd,     APP_DRIVELINE_R)
+NODE_BL_CMD_CALLBACK(precharge_bl_cmd_CALLBACK,     precharge_bl_cmd,       APP_PRECHARGE)
+NODE_BL_CMD_CALLBACK(bms_a_bl_cmd_CALLBACK,         bms_a_bl_cmd,           APP_BMS_A)
+NODE_BL_CMD_CALLBACK(bms_b_bl_cmd_CALLBACK,         bms_b_bl_cmd,           APP_BMS_B)
+NODE_BL_CMD_CALLBACK(bms_c_bl_cmd_CALLBACK,         bms_c_bl_cmd,           APP_BMS_C)
+NODE_BL_CMD_CALLBACK(bms_d_bl_cmd_CALLBACK,         bms_d_bl_cmd,           APP_BMS_D)
+NODE_BL_CMD_CALLBACK(bms_e_bl_cmd_CALLBACK,         bms_e_bl_cmd,           APP_BMS_E)
+NODE_BL_CMD_CALLBACK(bms_f_bl_cmd_CALLBACK,         bms_f_bl_cmd,           APP_BMS_F)
+NODE_BL_CMD_CALLBACK(bms_g_bl_cmd_CALLBACK,         bms_g_bl_cmd,           APP_BMS_G)
+NODE_BL_CMD_CALLBACK(bms_h_bl_cmd_CALLBACK,         bms_h_bl_cmd,           APP_BMS_H)
+NODE_BL_CMD_CALLBACK(bms_i_bl_cmd_CALLBACK,         bms_i_bl_cmd,           APP_BMS_I)
+NODE_BL_CMD_CALLBACK(bms_j_bl_cmd_CALLBACK,         bms_j_bl_cmd,           APP_BMS_J)

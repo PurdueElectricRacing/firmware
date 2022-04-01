@@ -121,6 +121,15 @@ SECTIONS
 	. = ALIGN(8);
   } >FLASH
 
+  /* Shared memory is located at the top of RAM */
+  . = ORIGIN(RAM);
+  .bootlaoder_shared_memory :
+  {
+    . = ALIGN(8);
+    KEEP(*(.bootlaoder_shared_memory)) /* Shared memory between application and bootlaoder */
+    . = ALIGN(8);
+  } > RAM AT> FLASH
+
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);
 
@@ -153,14 +162,6 @@ SECTIONS
 
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */
-  } >RAM AT> FLASH
-
-/* Section for data that is not initilized on startup */
-  .no_init_data :
-  {
-    . = ALIGN(8);
-    KEEP(*(.no_init_data)) /* Startup code */
-    . = ALIGN(8);
   } >RAM AT> FLASH
 
   _sisram2 = LOADADDR(.sram2);

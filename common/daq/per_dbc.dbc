@@ -99,6 +99,58 @@ BO_ 2214912700 torquevector_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214912764 driveline_f_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912828 driveline_r_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912892 precharge_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912956 bms_a_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913020 bms_b_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913084 bms_c_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913148 bms_d_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913212 bms_e_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913276 bms_f_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913340 bms_g_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913404 bms_h_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913468 bms_i_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913532 bms_j_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2415925566 bitstream_data: 8 TESTER
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -122,6 +174,58 @@ BO_ 2215232638 dashboard_bl_cmd: 5 TESTER
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2215232702 torquevector_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232766 driveline_f_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232830 driveline_r_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232894 precharge_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232958 bms_a_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233022 bms_b_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233086 bms_c_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233150 bms_d_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233214 bms_e_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233278 bms_f_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233342 bms_g_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233406 bms_h_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233470 bms_i_bl_cmd: 5 TESTER
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233534 bms_j_bl_cmd: 5 TESTER
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -257,6 +361,45 @@ CM_ SG_ 2214912636 cmd "";
 CM_ BO_ 2214912700 "Torque Vector Bootloader response";
 CM_ SG_ 2214912700 data "";
 CM_ SG_ 2214912700 cmd "";
+CM_ BO_ 2214912764 "Torque Vector Bootloader response";
+CM_ SG_ 2214912764 data "";
+CM_ SG_ 2214912764 cmd "";
+CM_ BO_ 2214912828 "Torque Vector Bootloader response";
+CM_ SG_ 2214912828 data "";
+CM_ SG_ 2214912828 cmd "";
+CM_ BO_ 2214912892 "Torque Vector Bootloader response";
+CM_ SG_ 2214912892 data "";
+CM_ SG_ 2214912892 cmd "";
+CM_ BO_ 2214912956 "Torque Vector Bootloader response";
+CM_ SG_ 2214912956 data "";
+CM_ SG_ 2214912956 cmd "";
+CM_ BO_ 2214913020 "Torque Vector Bootloader response";
+CM_ SG_ 2214913020 data "";
+CM_ SG_ 2214913020 cmd "";
+CM_ BO_ 2214913084 "Torque Vector Bootloader response";
+CM_ SG_ 2214913084 data "";
+CM_ SG_ 2214913084 cmd "";
+CM_ BO_ 2214913148 "Torque Vector Bootloader response";
+CM_ SG_ 2214913148 data "";
+CM_ SG_ 2214913148 cmd "";
+CM_ BO_ 2214913212 "Torque Vector Bootloader response";
+CM_ SG_ 2214913212 data "";
+CM_ SG_ 2214913212 cmd "";
+CM_ BO_ 2214913276 "Torque Vector Bootloader response";
+CM_ SG_ 2214913276 data "";
+CM_ SG_ 2214913276 cmd "";
+CM_ BO_ 2214913340 "Torque Vector Bootloader response";
+CM_ SG_ 2214913340 data "";
+CM_ SG_ 2214913340 cmd "";
+CM_ BO_ 2214913404 "Torque Vector Bootloader response";
+CM_ SG_ 2214913404 data "";
+CM_ SG_ 2214913404 cmd "";
+CM_ BO_ 2214913468 "Torque Vector Bootloader response";
+CM_ SG_ 2214913468 data "";
+CM_ SG_ 2214913468 cmd "";
+CM_ BO_ 2214913532 "Torque Vector Bootloader response";
+CM_ SG_ 2214913532 data "";
+CM_ SG_ 2214913532 cmd "";
 CM_ BO_ 2415925566 "Bitstream download command";
 CM_ SG_ 2415925566 d7 "Bitstream data word 7";
 CM_ SG_ 2415925566 d6 "Bitstream data word 6";
@@ -278,6 +421,45 @@ CM_ SG_ 2215232638 cmd "Bootloader Command type";
 CM_ BO_ 2215232702 "Bootloader command for torque vector";
 CM_ SG_ 2215232702 data "Bootloader data";
 CM_ SG_ 2215232702 cmd "Bootloader Command type";
+CM_ BO_ 2215232766 "Bootloader command for torque vector";
+CM_ SG_ 2215232766 data "Bootloader data";
+CM_ SG_ 2215232766 cmd "Bootloader Command type";
+CM_ BO_ 2215232830 "Bootloader command for torque vector";
+CM_ SG_ 2215232830 data "Bootloader data";
+CM_ SG_ 2215232830 cmd "Bootloader Command type";
+CM_ BO_ 2215232894 "Bootloader command for torque vector";
+CM_ SG_ 2215232894 data "Bootloader data";
+CM_ SG_ 2215232894 cmd "Bootloader Command type";
+CM_ BO_ 2215232958 "Bootloader command for torque vector";
+CM_ SG_ 2215232958 data "Bootloader data";
+CM_ SG_ 2215232958 cmd "Bootloader Command type";
+CM_ BO_ 2215233022 "Bootloader command for torque vector";
+CM_ SG_ 2215233022 data "Bootloader data";
+CM_ SG_ 2215233022 cmd "Bootloader Command type";
+CM_ BO_ 2215233086 "Bootloader command for torque vector";
+CM_ SG_ 2215233086 data "Bootloader data";
+CM_ SG_ 2215233086 cmd "Bootloader Command type";
+CM_ BO_ 2215233150 "Bootloader command for torque vector";
+CM_ SG_ 2215233150 data "Bootloader data";
+CM_ SG_ 2215233150 cmd "Bootloader Command type";
+CM_ BO_ 2215233214 "Bootloader command for torque vector";
+CM_ SG_ 2215233214 data "Bootloader data";
+CM_ SG_ 2215233214 cmd "Bootloader Command type";
+CM_ BO_ 2215233278 "Bootloader command for torque vector";
+CM_ SG_ 2215233278 data "Bootloader data";
+CM_ SG_ 2215233278 cmd "Bootloader Command type";
+CM_ BO_ 2215233342 "Bootloader command for torque vector";
+CM_ SG_ 2215233342 data "Bootloader data";
+CM_ SG_ 2215233342 cmd "Bootloader Command type";
+CM_ BO_ 2215233406 "Bootloader command for torque vector";
+CM_ SG_ 2215233406 data "Bootloader data";
+CM_ SG_ 2215233406 cmd "Bootloader Command type";
+CM_ BO_ 2215233470 "Bootloader command for torque vector";
+CM_ SG_ 2215233470 data "Bootloader data";
+CM_ SG_ 2215233470 cmd "Bootloader Command type";
+CM_ BO_ 2215233534 "Bootloader command for torque vector";
+CM_ SG_ 2215233534 data "Bootloader data";
+CM_ SG_ 2215233534 cmd "Bootloader Command type";
 CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
 CM_ SG_ 2214624554 volts "";
 CM_ BO_ 2214624555 "Estimated soc";

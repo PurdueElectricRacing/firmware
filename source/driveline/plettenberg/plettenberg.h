@@ -37,6 +37,14 @@
 #define CELL_MAX_V 4.2 //May be increased to 4.25 in the future
 #define CELL_MIN_V 2.5
 
+typedef enum
+{
+    MC_DISCONNECTED,
+    MC_SETTING_PARAMS,
+    MC_CONNECTED,
+    MC_ERROR    
+} motor_state_t;
+
 typedef struct 
 {
     bool is_inverted;
@@ -54,6 +62,7 @@ typedef struct
     int con_temp_slope;
     uint32_t rpm;
     bool data_valid;
+    motor_state_t motor_state;
 } motor_t;
 
 /**

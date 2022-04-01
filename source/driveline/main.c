@@ -220,16 +220,8 @@ int main(void)
     // Motor Controllers
     // Left
     mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
-    mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, &motor_left);
-    mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, &motor_left);
-    mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, &motor_left);
     // Right
     mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
-    mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, &motor_right);
-    mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, &motor_right);
-    mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, &motor_right);
-    // Empty buffer
-    while (q_tx_usart_l.item_count > 0 || q_tx_usart_r.item_count > 0) usartTxUpdate();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
@@ -237,9 +229,11 @@ int main(void)
     taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
     taskCreate(parseDataPeriodic, 15);
+
     // TODO: shock is very fast, but contains a bunch of floating point arithmetic
     //taskCreate(shockpot1000Hz, 1);
     //taskCreate(wheelSpeedsPeriodic(), 15);
+
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
@@ -255,9 +249,9 @@ int main(void)
 void heartBeat()
 {
     #if (FTR_DRIVELINE_FRONT)
-    SEND_FRONT_DRIVELINE_HB(q_tx_can, DRIVELINE_STATE_FRONT_OKAY);
+    //SEND_FRONT_DRIVELINE_HB(q_tx_can, motor_left.);
     #elif (FTR_DRIVELINE_REAR)
-    SEND_REAR_DRIVELINE_HB(q_tx_can, DRIVELINE_STATE_REAR_OKAY);
+    //SEND_REAR_DRIVELINE_HB(q_tx_can, DRIVELINE_STATE_REAR_OKAY);
     #endif
 }
 /**
@@ -285,8 +279,15 @@ void commandTorquePeriodic()
         pow_left = 0.0;
         pow_right = 0.0;
     }
-    mc_set_power(pow_left, &motor_left);
-    mc_set_power(pow_right, &motor_right);
+    // TODO: remove
+    // pow_left = 0.1;
+    // pow_right = 0.1;
+    if (motor_left.motor_state == MC_CONNECTED &&
+        motor_right.motor_state == MC_CONNECTED)
+    {
+        mc_set_power(pow_left, &motor_left);
+        mc_set_power(pow_right, &motor_right);
+    }
 }
 
 /**
@@ -366,6 +367,8 @@ void usartTxUpdate()
     }
 }
 
+uint8_t l_times = 0;
+uint8_t r_times = 0;
 void usartRxUpdate()
 {
     // TODO: handle half received DMA messages
@@ -373,24 +376,44 @@ void usartRxUpdate()
     // LEFT
     if (PHAL_usartRxDmaComplete(&huart_l))
     {
-        // swap free and write
-        tmp = c_rx_usart_l.write;
-        c_rx_usart_l.write = c_rx_usart_l.free;
-        c_rx_usart_l.free = tmp;
-        PHAL_usartRxDma(USART_L, &huart_l, 
-                        (uint16_t *) c_rx_usart_l.write, 
-                        MC_MAX_RX_LENGTH);
+        if (l_times < 20)
+        {
+            l_times++;
+            PHAL_usartRxDma(USART_L, &huart_l, 
+                            (uint16_t *) c_rx_usart_l.write, 
+                            MC_MAX_RX_LENGTH);
+        }
+        else
+        {
+            // swap free and write
+            tmp = c_rx_usart_l.write;
+            c_rx_usart_l.write = c_rx_usart_l.free;
+            c_rx_usart_l.free = tmp;
+            PHAL_usartRxDma(USART_L, &huart_l, 
+                            (uint16_t *) c_rx_usart_l.write, 
+                            MC_MAX_RX_LENGTH);
+        }
     }
     // RIGHT
     if (PHAL_usartRxDmaComplete(&huart_r))
     {
-        // swap free and write
-        tmp = c_rx_usart_r.write;
-        c_rx_usart_r.write = c_rx_usart_r.free;
-        c_rx_usart_r.free = tmp;
-        PHAL_usartRxDma(USART_R, &huart_r, 
-                        (uint16_t *) c_rx_usart_r.write, 
-                        MC_MAX_RX_LENGTH);
+        if (r_times < 20)
+        {
+            r_times++;
+            PHAL_usartRxDma(USART_R, &huart_r, 
+                            (uint16_t *) c_rx_usart_r.write, 
+                            MC_MAX_RX_LENGTH);
+        }
+        else
+        {
+            // swap free and write
+            tmp = c_rx_usart_r.write;
+            c_rx_usart_r.write = c_rx_usart_r.free;
+            c_rx_usart_r.free = tmp;
+            PHAL_usartRxDma(USART_R, &huart_r, 
+                            (uint16_t *) c_rx_usart_r.write, 
+                            MC_MAX_RX_LENGTH);
+        }
     }
 }
 

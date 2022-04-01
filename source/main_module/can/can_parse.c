@@ -57,12 +57,14 @@ void canRxUpdate()
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
                 break;
             case ID_FRONT_DRIVELINE_HB:
-                can_data.front_driveline_hb.driveline_state_front = msg_data_a->front_driveline_hb.driveline_state_front;
+                can_data.front_driveline_hb.front_left_motor = msg_data_a->front_driveline_hb.front_left_motor;
+                can_data.front_driveline_hb.front_right_motor = msg_data_a->front_driveline_hb.front_right_motor;
                 can_data.front_driveline_hb.stale = 0;
                 can_data.front_driveline_hb.last_rx = sched.os_ticks;
                 break;
             case ID_REAR_DRIVELINE_HB:
-                can_data.rear_driveline_hb.driveline_state_rear = msg_data_a->rear_driveline_hb.driveline_state_rear;
+                can_data.rear_driveline_hb.back_left_motor = msg_data_a->rear_driveline_hb.back_left_motor;
+                can_data.rear_driveline_hb.back_right_motor = msg_data_a->rear_driveline_hb.back_right_motor;
                 can_data.rear_driveline_hb.stale = 0;
                 can_data.rear_driveline_hb.last_rx = sched.os_ticks;
                 break;

@@ -32,8 +32,8 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_FRONT_DRIVELINE_HB 1
-#define DLC_REAR_DRIVELINE_HB 1
+#define DLC_FRONT_DRIVELINE_HB 2
+#define DLC_REAR_DRIVELINE_HB 2
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
@@ -44,16 +44,18 @@
 extern uint32_t last_can_rx_time_ms;
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_FRONT_DRIVELINE_HB(queue, driveline_state_front_) do {\
+#define SEND_FRONT_DRIVELINE_HB(queue, front_left_motor_, front_right_motor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_DRIVELINE_HB, .DLC=DLC_FRONT_DRIVELINE_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->front_driveline_hb.driveline_state_front = driveline_state_front_;\
+        data_a->front_driveline_hb.front_left_motor = front_left_motor_;\
+        data_a->front_driveline_hb.front_right_motor = front_right_motor_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_DRIVELINE_HB(queue, driveline_state_rear_) do {\
+#define SEND_REAR_DRIVELINE_HB(queue, back_left_motor_, back_right_motor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_DRIVELINE_HB, .DLC=DLC_REAR_DRIVELINE_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_driveline_hb.driveline_state_rear = driveline_state_rear_;\
+        data_a->rear_driveline_hb.back_left_motor = back_left_motor_;\
+        data_a->rear_driveline_hb.back_right_motor = back_right_motor_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FRONT_WHEEL_DATA(queue, left_speed_, right_speed_, left_normal_, right_normal_) do {\
@@ -106,14 +108,32 @@ extern uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
-    DRIVELINE_STATE_FRONT_OKAY,
-    DRIVELINE_STATE_FRONT_ERROR,
-} driveline_state_front_t;
+    FRONT_LEFT_MOTOR_DISCONNECTED,
+    FRONT_LEFT_MOTOR_SETTING_PARAMS,
+    FRONT_LEFT_MOTOR_CONNECTED,
+    FRONT_LEFT_MOTOR_ERROR,
+} front_left_motor_t;
 
 typedef enum {
-    DRIVELINE_STATE_REAR_OKAY,
-    DRIVELINE_STATE_REAR_ERROR,
-} driveline_state_rear_t;
+    FRONT_RIGHT_MOTOR_DISCONNECTED,
+    FRONT_RIGHT_MOTOR_SETTING_PARAMS,
+    FRONT_RIGHT_MOTOR_CONNECTED,
+    FRONT_RIGHT_MOTOR_ERROR,
+} front_right_motor_t;
+
+typedef enum {
+    BACK_LEFT_MOTOR_DISCONNECTED,
+    BACK_LEFT_MOTOR_SETTING_PARAMS,
+    BACK_LEFT_MOTOR_CONNECTED,
+    BACK_LEFT_MOTOR_ERROR,
+} back_left_motor_t;
+
+typedef enum {
+    BACK_RIGHT_MOTOR_DISCONNECTED,
+    BACK_RIGHT_MOTOR_SETTING_PARAMS,
+    BACK_RIGHT_MOTOR_CONNECTED,
+    BACK_RIGHT_MOTOR_ERROR,
+} back_right_motor_t;
 
 typedef enum {
     CAR_STATE_INIT,
@@ -131,10 +151,12 @@ typedef enum {
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t driveline_state_front: 8;
+        uint64_t front_left_motor: 8;
+        uint64_t front_right_motor: 8;
     } front_driveline_hb;
     struct {
-        uint64_t driveline_state_rear: 8;
+        uint64_t back_left_motor: 8;
+        uint64_t back_right_motor: 8;
     } rear_driveline_hb;
     struct {
         uint64_t left_speed: 16;

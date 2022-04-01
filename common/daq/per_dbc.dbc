@@ -60,11 +60,13 @@ BO_ 2147490049 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598914 front_driveline_hb: 1 Driveline
- SG_ driveline_state_front : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598914 front_driveline_hb: 2 Driveline
+ SG_ front_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598978 rear_driveline_hb: 1 Driveline
- SG_ driveline_state_rear : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598978 rear_driveline_hb: 2 Driveline
+ SG_ back_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ back_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592514 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -231,9 +233,11 @@ CM_ BO_ 2147490049 "Status message for bitstream flashing";
 CM_ SG_ 2147490049 flash_timeout_rx "Timeout from CAN rx";
 CM_ SG_ 2147490049 flash_success "Done flashing bitstream";
 CM_ BO_ 2214598914 "front drivline heart beat";
-CM_ SG_ 2214598914 driveline_state_front "";
+CM_ SG_ 2214598914 front_right_motor "";
+CM_ SG_ 2214598914 front_left_motor "";
 CM_ BO_ 2214598978 "rear drivline heart beat";
-CM_ SG_ 2214598978 driveline_state_rear "";
+CM_ SG_ 2214598978 back_right_motor "";
+CM_ SG_ 2214598978 back_left_motor "";
 CM_ BO_ 2214592514 "Wheel data for the rear tires";
 CM_ SG_ 2214592514 right_normal "";
 CM_ SG_ 2214592514 left_normal "";
@@ -334,8 +338,10 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 VAL_ 2214598912 car_state 0 "init" 1 "precharging" 2 "buzzing" 3 "ready2drive" 4 "error" 5 "reset" 6 "recover" ;
-VAL_ 2214598914 driveline_state_front 0 "okay" 1 "error" ;
-VAL_ 2214598978 driveline_state_rear 0 "okay" 1 "error" ;
+VAL_ 2214598914 front_right_motor 0 "disconnected" 1 "setting_params" 2 "connected" 3 "error" ;
+VAL_ 2214598914 front_left_motor 0 "disconnected" 1 "setting_params" 2 "connected" 3 "error" ;
+VAL_ 2214598978 back_right_motor 0 "disconnected" 1 "setting_params" 2 "connected" 3 "error" ;
+VAL_ 2214598978 back_left_motor 0 "disconnected" 1 "setting_params" 2 "connected" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

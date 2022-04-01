@@ -42,8 +42,8 @@
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
-#define DLC_FRONT_DRIVELINE_HB 1
-#define DLC_REAR_DRIVELINE_HB 1
+#define DLC_FRONT_DRIVELINE_HB 2
+#define DLC_REAR_DRIVELINE_HB 2
 #define DLC_DASHBOARD_STATUS 1
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
@@ -99,14 +99,32 @@ typedef enum {
 } car_state_t;
 
 typedef enum {
-    DRIVELINE_STATE_FRONT_OKAY,
-    DRIVELINE_STATE_FRONT_ERROR,
-} driveline_state_front_t;
+    FRONT_LEFT_MOTOR_DISCONNECTED,
+    FRONT_LEFT_MOTOR_SETTING_PARAMS,
+    FRONT_LEFT_MOTOR_CONNECTED,
+    FRONT_LEFT_MOTOR_ERROR,
+} front_left_motor_t;
 
 typedef enum {
-    DRIVELINE_STATE_REAR_OKAY,
-    DRIVELINE_STATE_REAR_ERROR,
-} driveline_state_rear_t;
+    FRONT_RIGHT_MOTOR_DISCONNECTED,
+    FRONT_RIGHT_MOTOR_SETTING_PARAMS,
+    FRONT_RIGHT_MOTOR_CONNECTED,
+    FRONT_RIGHT_MOTOR_ERROR,
+} front_right_motor_t;
+
+typedef enum {
+    BACK_LEFT_MOTOR_DISCONNECTED,
+    BACK_LEFT_MOTOR_SETTING_PARAMS,
+    BACK_LEFT_MOTOR_CONNECTED,
+    BACK_LEFT_MOTOR_ERROR,
+} back_left_motor_t;
+
+typedef enum {
+    BACK_RIGHT_MOTOR_DISCONNECTED,
+    BACK_RIGHT_MOTOR_SETTING_PARAMS,
+    BACK_RIGHT_MOTOR_CONNECTED,
+    BACK_RIGHT_MOTOR_ERROR,
+} back_right_motor_t;
 
 /* END AUTO CAN ENUMERATIONS */
 
@@ -147,10 +165,12 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;
     struct {
-        uint64_t driveline_state_front: 8;
+        uint64_t front_left_motor: 8;
+        uint64_t front_right_motor: 8;
     } front_driveline_hb;
     struct {
-        uint64_t driveline_state_rear: 8;
+        uint64_t back_left_motor: 8;
+        uint64_t back_right_motor: 8;
     } rear_driveline_hb;
     struct {
         uint64_t apps_faulted: 1;
@@ -190,12 +210,14 @@ typedef struct {
         uint8_t right_temp;
     } rear_motor_currents_temps;
     struct {
-        driveline_state_front_t driveline_state_front;
+        front_left_motor_t front_left_motor;
+        front_right_motor_t front_right_motor;
         uint8_t stale;
         uint32_t last_rx;
     } front_driveline_hb;
     struct {
-        driveline_state_rear_t driveline_state_rear;
+        back_left_motor_t back_left_motor;
+        back_right_motor_t back_right_motor;
         uint8_t stale;
         uint32_t last_rx;
     } rear_driveline_hb;

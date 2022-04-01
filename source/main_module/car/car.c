@@ -102,12 +102,12 @@ void carPeriodic()
         }
 
         // TODO: add in
-        // if (can_data.raw_throttle_brake.stale ||
+        if (can_data.raw_throttle_brake.stale)// ||
         //     can_data.front_driveline_hb.stale ||
         //     can_data.rear_driveline_hb.stale)
-        // {
-        //     car.state = CAR_STATE_ERROR;
-        // }
+        {
+            car.state = CAR_STATE_ERROR;
+        }
 
     }
 

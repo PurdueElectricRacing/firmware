@@ -8,11 +8,13 @@ if(ret EQUAL "1")
 endif()
 
 # Check for bootloader generation
+option(BOOTLOADER_BUILD "Build the bootlaoder components" OFF)
 if (NOT BOOTLOADER_BUILD)
-    set(BOOTLOADER_BUILD 0)
     message(STATUS "Not building applications for bootloaders.")
 else()
-    message(STATUS "Building applications and bootloaders!")
+    message(STATUS
+    "Building applications and bootloaders! " 
+    "Your application will NOT work if you are NOT using the bootloader download tool.") # You have been warned
 endif()
 
 # Setup arm-none-eabi as our compile toolcahin

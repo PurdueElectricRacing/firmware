@@ -78,10 +78,6 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                 BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
                 app_flash_current_address ++;
             }
-            else
-            {
-                asm("bkpt");
-            }
             break;
         }
         default:

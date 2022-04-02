@@ -26,6 +26,8 @@
 #define LTC6811_MIN_PCKV 	30   // Min pack voltage cutoff
 #define CELL_MAX_V          4.2
 #define CELL_MIN_V          2.7
+#define CELL_0_OFFSET       3000
+#define TEMP_CONV           (1.0 / 75.0)
 
 // Balance limits
 #define SOC_DRIFT_LIM       2.0f

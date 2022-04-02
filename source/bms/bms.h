@@ -99,6 +99,9 @@ typedef struct {
     int16_t    current_out;                 // Current output to MC (x100)
     uint16_t   voltage_out;                 // Voltage output to MC (x100)
     int32_t    power_out;                   // Power output to MC (x10000)
+    float      die_temp;                    // Internal die temperature in deg C
+    float      afe_vdd;                     // AFE VDD voltage in V
+    float      afe_ref;                     // AFE ref voltage in V
     cells_t    cells;                       // Cell information
     p_lim_t    p_lim;                       // Power limits
     bms_mode_t op_mode;                     // Operating mode

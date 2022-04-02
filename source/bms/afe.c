@@ -104,7 +104,7 @@ void afeTask(void)
     uint8_t       data[8];
     uint8_t       data_ow[8];
     uint16_t      valid_PEC;
-    uint32_t      mod_volts_conv = 0;
+    uint32_t      od_volts_conv = 0;
     static int8_t time;
 
     afe_state_t        next_state;
@@ -146,6 +146,11 @@ void afeTask(void)
                 bms.cells.chan_volts_raw[x++] = byte_combine(data[1], data[0]);
                 bms.cells.chan_volts_raw[x++] = byte_combine(data[3], data[2]);
                 bms.cells.chan_volts_raw[x] = byte_combine(data[5], data[4]);
+
+                if (i == 0)
+                {
+                    bms.cells.chan_volts_raw[x - 2] += CELL_0_OFFSET;
+                }
             }
 
             next_state = BAL;
@@ -169,6 +174,17 @@ void afeTask(void)
         // Run diagnostics to check for AFE errors
         case DIAG:
         {
+            broadcastPoll(ADSTAT(2, DISCHARGE_NOT_PERMITTED));
+            broadcastPoll(ADAX(2, DISCHARGE_NOT_PERMITTED));
+            broadcastRead(RDSTATA, LTC6811_REG_SIZE, data);
+
+            bms.cells.mod_volts_conv = ((float) (byte_combine(data[1], data[0]) + CELL_0_OFFSET)) * 20 / 10000;
+            bms.die_temp = (float) byte_combine(data[3], data[2]) * TEMP_CONV - KELVIN_2_CELSIUS;
+            bms.afe_vdd = (float) byte_combine(data[5], data[4]) / 10000;
+
+            broadcastRead(RDAUXB, LTC6811_REG_SIZE, data);
+
+            bms.afe_ref = (float) byte_combine(data[5], data[4]) / 10000;
 
             next_state = HALT;
 

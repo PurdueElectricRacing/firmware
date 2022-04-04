@@ -152,7 +152,7 @@ void PHAL_FaultHandler()
 void heartbeat_task()
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-    SEND_BALANCE_REQUEST(q_tx_can, 100);
+    // SEND_BALANCE_REQUEST(q_tx_can, 100);
 }
 
 // *** Compulsory CAN Tx/Rx callbacks ***

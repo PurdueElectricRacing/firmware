@@ -22,6 +22,18 @@
 // Base-2 logarithm that rounds up
 #define LOG2_UP(x) (LOG2_DOWN((x) - 1) + 1)
 
+#define ROUNDDOWN(a, n)						    \
+({								                \
+	uint32_t __a = (uint32_t) (a);		        \
+	(typeof(a)) (__a - __a % (n));				\
+})
+// Round up to the nearest multiple of n
+#define ROUNDUP(a, n)						                \
+({								                            \
+	uint32_t __n = (uint32_t) (n);				            \
+	(typeof(a)) (ROUNDDOWN((uint32_t) (a) + __n - 1, __n));	\
+})
+
 /* Unit Conversions */
 
 /* Constants */

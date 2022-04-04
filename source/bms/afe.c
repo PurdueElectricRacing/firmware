@@ -104,7 +104,7 @@ void afeTask(void)
     uint8_t       data[8];
     uint8_t       data_ow[8];
     uint16_t      valid_PEC;
-    uint32_t      od_volts_conv = 0;
+    uint32_t      mod_volts_conv = 0;
     static int8_t time;
 
     afe_state_t        next_state;

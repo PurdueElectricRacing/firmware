@@ -8,6 +8,7 @@
 #include "common/phal_L4/spi/spi.h"
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
+#include "common/phal_L4/eeprom/eeprom.h"
 #include "common/queue/queue.h"
 #include <math.h>
 
@@ -70,20 +71,35 @@ q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
 int main(void) {
+    int ret;
+
+    error_ff = 0;
+
     // HAL Init
-    if(0 != PHAL_configureClockRates(&clock_config))
+    if (PHAL_configureClockRates(&clock_config) != 0)
     {
         HardFault_Handler();
     }
 
-    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
     {
         HardFault_Handler();
+    }
+                
+    if (!PHAL_initI2C())
+    {
+        HardFault_Handler();
+    }
+
+    ret = initMem(WC_GPIO_Port, WC_Pin, 0, 0);
+
+    if (ret < 0) {
+        error_ff |= 1U << 6;
     }
 
     // Task Creation
     schedInit(SystemCoreClock);
-    configureAnim(preflightAnimation, preflightChecks, 250, 3000);
+    configureAnim(preflightAnimation, preflightChecks, 250, 750);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
     // if (checkTempMaster(TEMP_ID1) && checkTempMaster(TEMP_ID2))
@@ -94,6 +110,7 @@ int main(void) {
     taskCreate(setPLim, 100);
     taskCreate(checkConn, 1000);
     taskCreate(checkLVStatus, 3000);
+    // taskCreateBackground(canTxUpdate);
     schedStart();
 
     // If the scheduler returns somehow, some way, wait for watchdog reset
@@ -123,16 +140,16 @@ void preflightChecks(void) {
             break;
 
         case 2:
-            #if EEPROM_ENABLED
-                if(!PHAL_initI2C())
-                {
-                    HardFault_Handler();
-                }
-            #endif
 
             break;
 
         case 3:
+            // if(!PHAL_initCAN(CAN1, false))
+            // {
+            //     HardFault_Handler();
+            // }
+
+        case 4:
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             initBMS(&spi_config);
 

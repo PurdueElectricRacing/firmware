@@ -3,7 +3,8 @@
 // Static function prototypes
 static void memsetu(uint8_t* ptr, uint8_t val, uint32_t size);
 
-bms_t bms;
+bms_t   bms;
+uint8_t error_ff;
 
 // @funcname: bmsStatus
 //
@@ -11,6 +12,7 @@ bms_t bms;
 void bmsStatus()
 {
     static uint8_t flag;
+    uint8_t i;
 
     if (bms.error != 0)
     {
@@ -37,6 +39,9 @@ void bmsStatus()
     {
         bms.op_mode = MODE_IDLE;
     }
+
+    i = 0;
+    // SEND_VOLTS_CELLS_LV(q_tx_can, i, bms.cells.chan_volts_raw[i * 3], bms.cells.chan_volts_raw[i * 3 + 1], bms.cells.chan_volts_raw[i * 3 + 2]);
 }
 
 // @funcname: initBMS
@@ -150,6 +155,21 @@ void checkSleep(void)
 
     // Night night
     schedPause();
+}
+
+void canTxUpdate()
+{
+    CanMsgTypeDef_t tx_msg;
+    uint8_t ret;
+
+    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+    {
+        ret = PHAL_txCANMessage(&tx_msg);
+
+        if (ret) {
+            ++ret;
+        }
+    }
 }
 
 // @funcname: memsetu

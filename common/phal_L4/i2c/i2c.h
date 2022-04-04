@@ -14,8 +14,8 @@
 #include "stm32l4xx.h"
 #include <stdbool.h>
 
-#define PHAL_I2C_TX_TIMEOUT (0xFFFFFFFF)//(1000U)
-#define PHAL_I2C_RX_TIMEOUT (0xFFFFFFFF)//(1000U)
+#define PHAL_I2C_TX_TIMEOUT (0x000000FF)//(1000U)
+#define PHAL_I2C_RX_TIMEOUT (0x000000FF)//(1000U)
 
 typedef enum{
     PHAL_I2C_MODE_TX = 0,

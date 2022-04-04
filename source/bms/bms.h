@@ -15,6 +15,7 @@
 #include "main.h"
 #include "afe.h"
 #include "temp.h"
+#include "can/can_parse.h"
 
 // Generic Defines
 #define CELL_MAX                12
@@ -76,6 +77,8 @@ typedef struct {
     // [3] -> Temp connection error
     // [4] -> Cell temp critical
     // [5] -> Cell temp derivative critical
+    // [6] -> EEPROM not initialized
+    // TODO: Move these to enums like I should have from the start
     uint32_t   error;                       // Error flags
 
     // Sleep flags:
@@ -109,7 +112,10 @@ typedef struct {
     SPI_InitConfig_t* spi;                  // SPI handle
 } bms_t;
 
-extern bms_t bms;                           // Global BMS structure
+extern bms_t      bms;                      // Global BMS structure
+extern uint8_t    error_ff;                 // Error fast-forward across memset
+extern q_handle_t q_tx_can;                 // TX CAN queue
+extern q_handle_t q_rx_can;                 // RX CAN queue
 
 // Prototypes
 void bmsStatus(void);
@@ -118,5 +124,6 @@ void setPLim(void);
 void calcMisc(void);
 void checkLVStatus(void);
 void checkSleep(void);
+void canTxUpdate(void);
 
 #endif

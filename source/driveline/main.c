@@ -53,8 +53,8 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* USART Configuration */
 // Left Motor Controller
-dma_init_t usart_l_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_l_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_l_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_l_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_l = {
     .baud_rate   = 115000,
     .word_length = WORD_8,
@@ -75,8 +75,8 @@ usart_init_t huart_l = {
     .rx_dma_cfg = &usart_l_rx_dma_config
 };
 // Right Motor Controller
-dma_init_t usart_r_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_r_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_r_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_r_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_r = {
     .baud_rate   = 115000,
     .word_length = WORD_8,
@@ -224,11 +224,19 @@ int main(void)
     // Left
     mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
     USART_L->CR1 |= USART_CR1_IDLEIE; // enable idle interrupt
-    NVIC_EnableIRQ(USART2_IRQn);
+    // USART_L->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE); // disable other interrupts
+    // NVIC_EnableIRQ(USART2_IRQn);
+    PHAL_usartRxDma(USART_L, &huart_l, 
+                    (uint16_t *) c_rx_usart_l.write, 
+                    MC_MAX_RX_LENGTH);
     // Right
     mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
     USART_R->CR1 |= USART_CR1_IDLEIE; // enable idle interrupt
-    NVIC_EnableIRQ(USART1_IRQn);
+    // USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE); // disable other interrupts
+    // NVIC_EnableIRQ(USART1_IRQn);
+    PHAL_usartRxDma(USART_R, &huart_r, 
+                    (uint16_t *) c_rx_usart_r.write, 
+                    MC_MAX_RX_LENGTH);
 
     /* Task Creation */
     schedInit(SystemCoreClock);
@@ -244,10 +252,11 @@ int main(void)
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
-    // taskCreateBackground(usartRxUpdate);
+    taskCreateBackground(usartRxUpdate);
 
     // signify end of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+
     schedStart();
     
     return 0;
@@ -269,7 +278,6 @@ void heartBeat()
  */
 void commandTorquePeriodic()
 {
-    // TODO: fault checks or whatevs
     #if (FTR_DRIVELINE_FRONT)
     float pow_left  = (float) CLAMP(can_data.torque_request_main.front_left, -4095, 4095);
     float pow_right = (float) CLAMP(can_data.torque_request_main.front_right, -4095, 4095);
@@ -281,8 +289,8 @@ void commandTorquePeriodic()
     pow_right = pow_right * 100.0 / 4096.0;
 
     // Only drive if ready
-    if (can_data.main_status.car_state != CAR_STATE_READY2DRIVE || 
-        can_data.main_status.stale                              ||
+    if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
+        can_data.main_hb.stale                              ||
         can_data.torque_request_main.stale) 
     {
         pow_left = 0.0;
@@ -303,7 +311,6 @@ void commandTorquePeriodic()
  * @brief Parses motor controller and sensor
  *        info into can messages
  */
-uint8_t data_ct = 0;
 void parseDataPeriodic()
 {
     /* Update Motor Controller Data Structures */
@@ -348,8 +355,6 @@ void parseDataPeriodic()
                          raw_shock_pots.pot_left, raw_shock_pots.pot_right);
 #endif
 
-    if (data_ct++ % 8 == 0)
-    {
 #if (FTR_DRIVELINE_REAR)
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can, 
                                    (uint16_t) motor_left.phase_current, 
@@ -363,8 +368,6 @@ void parseDataPeriodic()
                                    (uint8_t)  motor_left.motor_temp, 
                                    (uint8_t)  motor_right.motor_temp);
 #endif
-    }
-
 }
 
 void ledBlink()
@@ -393,50 +396,20 @@ void usartTxUpdate()
 
 // uint8_t l_times = 0;
 // uint8_t r_times = 0;
-// void usartRxUpdate()
-// {
-//     // TODO: handle half received DMA messages
-//     // LEFT
-    
-//     // RIGHT
-//     if (PHAL_usartRxDmaComplete(&huart_r))
-//     {
-//         if (r_times < 20)
-//         {
-//             r_times++;
-//             PHAL_usartRxDma(USART_R, &huart_r, 
-//                             (uint16_t *) c_rx_usart_r.write, 
-//                             MC_MAX_RX_LENGTH);
-//         }
-//         else
-//         {
-//             // swap free and write
-//             tmp = c_rx_usart_r.write;
-//             c_rx_usart_r.write = c_rx_usart_r.free;
-//             c_rx_usart_r.free = tmp;
-//             PHAL_usartRxDma(USART_R, &huart_r, 
-//                             (uint16_t *) c_rx_usart_r.write, 
-//                             MC_MAX_RX_LENGTH);
-//         }
-//     }
-// }
-
-// TODO: may have to request initial rx
-void USART1_IRQHandler()
+void usartRxUpdate()
 {
     char *tmp;
-    // check idle flag
     if (USART_R->ISR & USART_ISR_IDLE)
     {
         // clear idle flag
-        USART_R->ICR |= USART_ICR_IDLECF;
+        USART_R->ICR = USART_ICR_IDLECF;
         if (PHAL_usartRxDmaComplete(&huart_r))
         {
             // if dma done receiving switch free and write
             tmp = c_rx_usart_r.write;
             c_rx_usart_r.write = c_rx_usart_r.free;
             c_rx_usart_r.free = tmp;
-            c_rx_usart_l.free_has_data = false;
+            c_rx_usart_r.free_has_data = true;
             motor_right.last_rx_time = sched.os_ticks;
         }
         // restart reception
@@ -444,16 +417,11 @@ void USART1_IRQHandler()
                         (uint16_t *) c_rx_usart_r.write, 
                         MC_MAX_RX_LENGTH);
     }
-}
-
-void USART2_IRQHandler()
-{
-    char *tmp;
     // check idle flag
     if (USART_L->ISR & USART_ISR_IDLE)
     {
         // clear idle flag
-        USART_L->ICR |= USART_ICR_IDLECF;
+        USART_L->ICR = USART_ICR_IDLECF;
         if (PHAL_usartRxDmaComplete(&huart_l))
         {
             // if dma done receiving switch free and write

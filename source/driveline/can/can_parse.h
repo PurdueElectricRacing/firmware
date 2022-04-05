@@ -27,7 +27,7 @@
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000282
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
 #define ID_TORQUE_REQUEST_MAIN 0x4000040
-#define ID_MAIN_STATUS 0x4001900
+#define ID_MAIN_HB 0x4001900
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -39,7 +39,7 @@
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 #define DLC_TORQUE_REQUEST_MAIN 8
-#define DLC_MAIN_STATUS 3
+#define DLC_MAIN_HB 2
 /* END AUTO DLC DEFS */
 extern uint32_t last_can_rx_time_ms;
 // Message sending macros
@@ -51,11 +51,11 @@ extern uint32_t last_can_rx_time_ms;
         data_a->front_driveline_hb.front_right_motor = front_right_motor_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_DRIVELINE_HB(queue, back_left_motor_, back_right_motor_) do {\
+#define SEND_REAR_DRIVELINE_HB(queue, rear_left_motor_, rear_right_motor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_DRIVELINE_HB, .DLC=DLC_REAR_DRIVELINE_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_driveline_hb.back_left_motor = back_left_motor_;\
-        data_a->rear_driveline_hb.back_right_motor = back_right_motor_;\
+        data_a->rear_driveline_hb.rear_left_motor = rear_left_motor_;\
+        data_a->rear_driveline_hb.rear_right_motor = rear_right_motor_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FRONT_WHEEL_DATA(queue, left_speed_, right_speed_, left_normal_, right_normal_) do {\
@@ -100,7 +100,7 @@ extern uint32_t last_can_rx_time_ms;
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_TORQUE_REQUEST_MAIN 15
-#define UP_MAIN_STATUS 100
+#define UP_MAIN_HB 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -120,23 +120,23 @@ typedef enum {
 } front_right_motor_t;
 
 typedef enum {
-    BACK_LEFT_MOTOR_DISCONNECTED,
-    BACK_LEFT_MOTOR_CONNECTED,
-    BACK_LEFT_MOTOR_ERROR,
-} back_left_motor_t;
+    REAR_LEFT_MOTOR_DISCONNECTED,
+    REAR_LEFT_MOTOR_CONNECTED,
+    REAR_LEFT_MOTOR_ERROR,
+} rear_left_motor_t;
 
 typedef enum {
-    BACK_RIGHT_MOTOR_DISCONNECTED,
-    BACK_RIGHT_MOTOR_CONNECTED,
-    BACK_RIGHT_MOTOR_ERROR,
-} back_right_motor_t;
+    REAR_RIGHT_MOTOR_DISCONNECTED,
+    REAR_RIGHT_MOTOR_CONNECTED,
+    REAR_RIGHT_MOTOR_ERROR,
+} rear_right_motor_t;
 
 typedef enum {
     CAR_STATE_INIT,
-    CAR_STATE_PRECHARGING,
     CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
+    CAR_STATE_FATAL,
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
 } car_state_t;
@@ -151,8 +151,8 @@ typedef union { __attribute__((packed))
         uint64_t front_right_motor: 8;
     } front_driveline_hb;
     struct {
-        uint64_t back_left_motor: 8;
-        uint64_t back_right_motor: 8;
+        uint64_t rear_left_motor: 8;
+        uint64_t rear_right_motor: 8;
     } rear_driveline_hb;
     struct {
         uint64_t left_speed: 16;
@@ -186,9 +186,8 @@ typedef union { __attribute__((packed))
     } torque_request_main;
     struct {
         uint64_t car_state: 8;
-        uint64_t apps_state: 8;
         uint64_t precharge_state: 1;
-    } main_status;
+    } main_hb;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -207,11 +206,10 @@ typedef struct {
     } torque_request_main;
     struct {
         car_state_t car_state;
-        uint8_t apps_state;
         uint8_t precharge_state;
         uint8_t stale;
         uint32_t last_rx;
-    } main_status;
+    } main_hb;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

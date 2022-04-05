@@ -23,7 +23,7 @@ void mc_set_power(float power, volatile motor_t *m)
     if (power < 0)
     {
         power *= -1;
-        mode = MC_BREAK;
+        mode = MC_BRAKE;
     }
     uint16_t pow_x10 = MIN(((uint16_t) (power * 10)), 1000);
 
@@ -92,17 +92,18 @@ void mc_set_startup_params(volatile motor_t *m)
     uint8_t i = 0;
     cmd[i++] = MC_SERIAL_MODE;
     cmd[i++] = 'a';
-    cmd[i++] = 'w';
-    cmd[i++] = 'p';
+    // cmd[i++] = 'w';
+    // cmd[i++] = 'p';
     cmd[i++] = 'o';
     cmd[i++] = 't';
     cmd[i++] = '0';
-    cmd[i++] = '1';
     cmd[i++] = '0';
+    cmd[i++] = '7';
     cmd[i++] = 'e';
     cmd[i++] = '\0';
     qSendToBack(m->tx_queue, cmd);
     // configuration
+    // TODO: set tmp and curr limits higher, we will do the checking
     // mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, m);
     // mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, m);
     // mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, m);

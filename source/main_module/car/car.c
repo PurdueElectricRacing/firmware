@@ -5,6 +5,9 @@ extern q_handle_t q_tx_can;
 uint32_t buzzer_start_tick = 0;
 volatile ADCReadings_t adc_readings;
 
+bool checkErrorFaults();
+bool checkFatalFaults();
+
 bool carInit()
 {
     car.state = CAR_STATE_INIT;
@@ -14,8 +17,8 @@ bool carInit()
 
 void carHeartbeat()
 {
-    // TODO: precharge state
-    SEND_MAIN_STATUS(q_tx_can, car.state, 0, 0);
+    SEND_MAIN_HB(q_tx_can, car.state, 
+                 !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin));
 }
 
 void carPeriodic()
@@ -37,6 +40,10 @@ void carPeriodic()
         car.brake_light = false;
     }
 
+    if (checkFatalFaults())
+    {
+        car.state = CAR_STATE_FATAL;
+    }
 
     /* State Dependent Operations */
 
@@ -48,9 +55,16 @@ void carPeriodic()
     //                   - brake pedal pressed and held
     //                   - start button press
 
-    if (car.state == CAR_STATE_ERROR)
+    if (car.state == CAR_STATE_FATAL)
     {
+        // SDC critical error has occured, open sdc
         PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, false); // open SDC
+    }
+    else if (car.state == CAR_STATE_ERROR)
+    {
+        // Error has occured, leave HV on but do not drive
+        PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
+        if (!checkErrorFaults()) car.state = CAR_STATE_INIT;
     }
     else if (car.state == CAR_STATE_INIT)
     {
@@ -58,19 +72,8 @@ void carPeriodic()
         if (can_data.start_button.start)
         {
             can_data.start_button.start = 0; // debounce
-            // TODO: & no critical faults on other systems
-            // TODO: revert
-            // car.state = CAR_STATE_PRECHARGING;
-            car.state = CAR_STATE_BUZZING;
+            if (!checkErrorFaults()) car.state = CAR_STATE_BUZZING;
         }
-    }
-    else if (car.state == CAR_STATE_PRECHARGING)
-    {
-        // TODO: wait for precharge done?
-        // if (PHAL_readGPIO(precharge_port, precharge_pin))
-        // {
-        //     car.state = CAR_STATE_BUZZING;
-        // }
     }
     else if (car.state == CAR_STATE_BUZZING)
     {
@@ -86,35 +89,100 @@ void carPeriodic()
         {
             PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, false);
             car.state = CAR_STATE_READY2DRIVE;
-            // TODO: temp test
-            PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, 1);
-            PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, 1);
-            PHAL_writeGPIO(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, 1);
-            PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, 1);
         }
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
-        // TODO: check raw torque cmd timeout
-        // TODO: check for faults from other systems
-        uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
-        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
+
         if (can_data.start_button.start)
         {
             car.state = CAR_STATE_INIT;
             can_data.start_button.start = 0; // debounce
         }
 
-        // TODO: add in
-        if (can_data.raw_throttle_brake.stale)// ||
-        //     can_data.front_driveline_hb.stale ||
-        //     can_data.rear_driveline_hb.stale)
+        if (checkErrorFaults()) 
         {
             car.state = CAR_STATE_ERROR;
         }
-
+        else
+        {
+            // only send command if no error faults
+            uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
+            SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
+        }
     }
 
+}
+
+/**
+ * @brief  Checks faults that should prevent
+ *         the car from driving, but are okay
+ *         to leave the sdc closed
+ * 
+ * @return true  Faults exist
+ * @return false No faults have existed for set time
+ */
+uint32_t last_error_time = 0;
+bool error_rose = 0;
+bool checkErrorFaults()
+{
+    uint8_t is_error = 0;
+    /* Heart Beat Stale */ 
+    is_error += can_data.dashboard_hb.stale;
+    is_error += can_data.front_driveline_hb.stale;
+    is_error += can_data.rear_driveline_hb.stale;
+    //TODO: is_error += can_data.precharge_hb.stale;
+
+    /* Precharge */
+    is_error += PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+
+    /* Dashboard */
+    is_error += can_data.raw_throttle_brake.stale;
+
+    /* Driveline */
+    // Front
+    is_error += can_data.front_driveline_hb.front_left_motor  != 
+                FRONT_LEFT_MOTOR_CONNECTED;
+    is_error += can_data.front_driveline_hb.front_right_motor != 
+                FRONT_RIGHT_MOTOR_CONNECTED;
+    // Rear
+    is_error += can_data.rear_driveline_hb.rear_left_motor    != 
+                REAR_LEFT_MOTOR_CONNECTED;
+    is_error += can_data.rear_driveline_hb.rear_right_motor   != 
+                REAR_RIGHT_MOTOR_CONNECTED;
+
+    /* Temperature */
+    is_error += cooling.dt_temp_error;
+    is_error += cooling.bat_temp_error;
+
+    if (is_error && !error_rose) 
+    {
+        error_rose = 1;
+        last_error_time = sched.os_ticks;
+    }
+
+    if (!is_error && error_rose &&
+        sched.os_ticks - last_error_time > ERROR_FALL_MS)
+    {
+        error_rose = false;
+    }
+
+    return is_error || error_rose;
+}
+
+/**
+ * @brief  Checks faults that should open the SDC
+ * @return true  Faults exist
+ * @return false No faults have existed for set time
+ */
+bool checkFatalFaults()
+{
+    uint8_t is_error = 0;
+
+    is_error += cooling.bat_flow_error;
+    is_error += cooling.dt_flow_error;
+
+    return is_error;
 }
 
 void calcLVCurrent()

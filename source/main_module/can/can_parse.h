@@ -20,7 +20,7 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_MAIN_STATUS 0x4001900
+#define ID_MAIN_HB 0x4001900
 #define ID_TORQUE_REQUEST_MAIN 0x4000040
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc0
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
@@ -29,13 +29,13 @@
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c2
 #define ID_FRONT_DRIVELINE_HB 0x4001902
 #define ID_REAR_DRIVELINE_HB 0x4001942
-#define ID_DASHBOARD_STATUS 0x4001905
+#define ID_DASHBOARD_HB 0x4001905
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000032
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_MAIN_STATUS 3
+#define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
@@ -44,18 +44,17 @@
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 #define DLC_FRONT_DRIVELINE_HB 2
 #define DLC_REAR_DRIVELINE_HB 2
-#define DLC_DASHBOARD_STATUS 1
+#define DLC_DASHBOARD_HB 1
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_MAIN_STATUS(queue, car_state_, apps_state_, precharge_state_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_STATUS, .DLC=DLC_MAIN_STATUS, .IDE=1};\
+#define SEND_MAIN_HB(queue, car_state_, precharge_state_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_HB, .DLC=DLC_MAIN_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->main_status.car_state = car_state_;\
-        data_a->main_status.apps_state = apps_state_;\
-        data_a->main_status.precharge_state = precharge_state_;\
+        data_a->main_hb.car_state = car_state_;\
+        data_a->main_hb.precharge_state = precharge_state_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_TORQUE_REQUEST_MAIN(queue, front_left_, front_right_, rear_left_, rear_right_) do {\
@@ -78,10 +77,12 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_RAW_THROTTLE_BRAKE 5
+#define UP_RAW_THROTTLE_BRAKE 15
+#define UP_FRONT_MOTOR_CURRENTS_TEMPS 500
+#define UP_REAR_MOTOR_CURRENTS_TEMPS 500
 #define UP_FRONT_DRIVELINE_HB 100
 #define UP_REAR_DRIVELINE_HB 100
-#define UP_DASHBOARD_STATUS 100
+#define UP_DASHBOARD_HB 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -90,10 +91,10 @@
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
     CAR_STATE_INIT,
-    CAR_STATE_PRECHARGING,
     CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
+    CAR_STATE_FATAL,
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
 } car_state_t;
@@ -111,16 +112,16 @@ typedef enum {
 } front_right_motor_t;
 
 typedef enum {
-    BACK_LEFT_MOTOR_DISCONNECTED,
-    BACK_LEFT_MOTOR_CONNECTED,
-    BACK_LEFT_MOTOR_ERROR,
-} back_left_motor_t;
+    REAR_LEFT_MOTOR_DISCONNECTED,
+    REAR_LEFT_MOTOR_CONNECTED,
+    REAR_LEFT_MOTOR_ERROR,
+} rear_left_motor_t;
 
 typedef enum {
-    BACK_RIGHT_MOTOR_DISCONNECTED,
-    BACK_RIGHT_MOTOR_CONNECTED,
-    BACK_RIGHT_MOTOR_ERROR,
-} back_right_motor_t;
+    REAR_RIGHT_MOTOR_DISCONNECTED,
+    REAR_RIGHT_MOTOR_CONNECTED,
+    REAR_RIGHT_MOTOR_ERROR,
+} rear_right_motor_t;
 
 /* END AUTO CAN ENUMERATIONS */
 
@@ -129,9 +130,8 @@ typedef enum {
 typedef union { __attribute__((packed))
     struct {
         uint64_t car_state: 8;
-        uint64_t apps_state: 8;
         uint64_t precharge_state: 1;
-    } main_status;
+    } main_hb;
     struct {
         uint64_t front_left: 16;
         uint64_t front_right: 16;
@@ -165,14 +165,14 @@ typedef union { __attribute__((packed))
         uint64_t front_right_motor: 8;
     } front_driveline_hb;
     struct {
-        uint64_t back_left_motor: 8;
-        uint64_t back_right_motor: 8;
+        uint64_t rear_left_motor: 8;
+        uint64_t rear_right_motor: 8;
     } rear_driveline_hb;
     struct {
         uint64_t apps_faulted: 1;
         uint64_t bse_faulted: 1;
         uint64_t apps_brake_faulted: 1;
-    } dashboard_status;
+    } dashboard_hb;
     struct {
         uint64_t daq_command: 64;
     } daq_command_MAIN_MODULE;
@@ -198,12 +198,16 @@ typedef struct {
         uint16_t right_current;
         uint8_t left_temp;
         uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
     } front_motor_currents_temps;
     struct {
         uint16_t left;
         uint16_t right;
         uint8_t left_temp;
         uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
     } rear_motor_currents_temps;
     struct {
         front_left_motor_t front_left_motor;
@@ -212,8 +216,8 @@ typedef struct {
         uint32_t last_rx;
     } front_driveline_hb;
     struct {
-        back_left_motor_t back_left_motor;
-        back_right_motor_t back_right_motor;
+        rear_left_motor_t rear_left_motor;
+        rear_right_motor_t rear_right_motor;
         uint8_t stale;
         uint32_t last_rx;
     } rear_driveline_hb;
@@ -223,7 +227,7 @@ typedef struct {
         uint8_t apps_brake_faulted;
         uint8_t stale;
         uint32_t last_rx;
-    } dashboard_status;
+    } dashboard_hb;
     struct {
         uint64_t daq_command;
     } daq_command_MAIN_MODULE;

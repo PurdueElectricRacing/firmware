@@ -21,8 +21,8 @@
 #define POT_AMP_RIGHT_ADC_CHNL  (6)
 
 /* Motor Controllers */
-#define USART_L (USART2)
-#define USART_R (USART1)
+#define USART_L (USART1)
+#define USART_R (USART2)
 
 #define M_INVERT_FRONT_RIGHT 1
 #define M_INVERT_FRONT_LEFT  1

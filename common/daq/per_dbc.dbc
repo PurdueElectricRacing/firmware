@@ -36,9 +36,8 @@ BS_:
 BU_: Main_Module Torque_Vector Driveline Precharge Dashboard TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
-BO_ 2214598912 main_status: 3 Main_Module
- SG_ precharge_state : 16|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ apps_state : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598912 main_hb: 2 Main_Module
+ SG_ precharge_state : 8|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592576 torque_request_main: 8 Main_Module
@@ -65,8 +64,8 @@ BO_ 2214598914 front_driveline_hb: 2 Driveline
  SG_ front_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214598978 rear_driveline_hb: 2 Driveline
- SG_ back_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ back_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592514 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -102,7 +101,7 @@ BO_ 2483028613 raw_throttle_brake: 3 Dashboard
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598917 dashboard_status: 1 Dashboard
+BO_ 2214598917 dashboard_hb: 1 Dashboard
  SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -213,9 +212,8 @@ CM_ BU_ BMS1 "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
-CM_ BO_ 2214598912 "Status message for main module";
+CM_ BO_ 2214598912 "Heart beat message for main module";
 CM_ SG_ 2214598912 precharge_state "Precharge complete state";
-CM_ SG_ 2214598912 apps_state "Accelerator plausibility state";
 CM_ SG_ 2214598912 car_state "Main car state";
 CM_ BO_ 2214592576 "Torque request for all motors, temporarily from main.";
 CM_ SG_ 2214592576 rear_right "torque request. -4095-4095";
@@ -236,8 +234,8 @@ CM_ BO_ 2214598914 "front drivline heart beat";
 CM_ SG_ 2214598914 front_right_motor "";
 CM_ SG_ 2214598914 front_left_motor "";
 CM_ BO_ 2214598978 "rear drivline heart beat";
-CM_ SG_ 2214598978 back_right_motor "";
-CM_ SG_ 2214598978 back_left_motor "";
+CM_ SG_ 2214598978 rear_right_motor "";
+CM_ SG_ 2214598978 rear_left_motor "";
 CM_ BO_ 2214592514 "Wheel data for the rear tires";
 CM_ SG_ 2214592514 right_normal "";
 CM_ SG_ 2214592514 left_normal "";
@@ -337,11 +335,11 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 
-VAL_ 2214598912 car_state 0 "init" 1 "precharging" 2 "buzzing" 3 "ready2drive" 4 "error" 5 "reset" 6 "recover" ;
+VAL_ 2214598912 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
 VAL_ 2214598914 front_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
 VAL_ 2214598914 front_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598978 back_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598978 back_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
+VAL_ 2214598978 rear_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
+VAL_ 2214598978 rear_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

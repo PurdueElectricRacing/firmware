@@ -11,13 +11,13 @@
 #define MC_MAX_TX_LENGTH 25
 #define MC_MAX_RX_LENGTH 77
 
-#define MC_RX_TIMEOUT_MS 2000
+#define MC_RX_TIMEOUT_MS 100
 
 #define MC_SERIAL_MODE    's'
 #define MC_ANALOG_MODE    'p'
 #define MC_FORWARD        'f'
 #define MC_REVERSE        'r'
-#define MC_BREAK          'b'
+#define MC_BRAKE          'b'
 #define MC_MAX_POWER      'm'
 #define MC_INCREASE_ONE   '+'
 #define MC_DECREASE_ONE   '-'

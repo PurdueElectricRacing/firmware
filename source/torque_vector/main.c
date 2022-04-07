@@ -84,8 +84,8 @@ int main (void)
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaltHandler();
 
-    // if (1 != PHAL_qspiInit())
-    //     PHAL_FaltHandler();
+    if (1 != PHAL_qspiInit())
+        PHAL_FaltHandler();
     
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
@@ -95,12 +95,11 @@ int main (void)
     initCANParse(&q_rx_can);
 
     PHAL_writeGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, 1);
-    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
     /* Task Creation */
     taskCreate(blinkTask, 500);
-    // taskCreate(bitstream10Hz, 100);
-    // taskCreate(bitstream100Hz, 10);
+    taskCreate(bitstream10Hz, 100);
+    taskCreate(bitstream100Hz, 10);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     schedStart();
@@ -111,7 +110,6 @@ int main (void)
 void blinkTask()
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-    SEND_TORQUE_REQUEST(q_tx_can, 0,1,2,3);
 }
 
 void PHAL_FaltHandler()
@@ -120,14 +118,12 @@ void PHAL_FaltHandler()
     HardFault_Handler();
 }
 
+// *** Compulsory CAN Tx/Rx callbacks ***
 void bootloader_request_reset_CALLBACK(CanParsedData_t* data)
 {
-    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     Bootloader_ResetForFirmwareDownload();
 }
 
-
-// *** Compulsory CAN Tx/Rx callbacks ***
 void canTxUpdate()
 {
     CanMsgTypeDef_t tx_msg;

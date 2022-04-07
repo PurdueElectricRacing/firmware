@@ -112,8 +112,6 @@ int main (void)
     if (!PHAL_SPI_init(&spi_config))
         PHAL_FaultHandler();
 
-    
-
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     
@@ -155,7 +153,6 @@ void PHAL_FaultHandler()
 void heartbeat_task()
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-    SEND_BALANCE_REQUEST(q_tx_can, 100);
 }
 
 void imd_monitor()

@@ -13,13 +13,16 @@
 #define _BOOTLOADER_COMMON_H_
 
 #include "inttypes.h"
+#include "stm32l4xx.h"
+
 
 #define BOOTLOADER_SHARED_MEMORY_MAGIC (0xABCDBEEF)
 
 typedef enum {
     RESET_REASON_UNKNOWN,
     RESET_REASON_DOWNLOAD_FW,
-    RESET_REASON_WATCHDOG,
+    RESET_REASON_APP_WATCHDOG,
+    RESET_REASON_BL_WATCHDOG,
     RESET_REASON_POR,
     RESET_REASON_BAD_FIRMWARE
 } ResetReason_t;
@@ -28,12 +31,16 @@ typedef struct {
     uint32_t        magic_word;
     uint32_t        reset_count;
     ResetReason_t   reset_reason;
+    uint32_t        application_start_addr;
 } BootlaoderSharedMemory_t;
 
-__attribute__((section(".bootlaoder_shared_memory"))) 
-BootlaoderSharedMemory_t bootloader_shared_memory = {
-    0
-};
+extern BootlaoderSharedMemory_t bootloader_shared_memory;
+
+__attribute__((always_inline)) inline void Bootloader_ConfirmApplicationLaunch()
+{
+    bootloader_shared_memory.reset_reason   = RESET_REASON_UNKNOWN;
+    bootloader_shared_memory.reset_count    = 0;
+}
 
 int Bootloader_ResetForFirmwareDownload();
 int Bootloader_ResetForWatchdog();

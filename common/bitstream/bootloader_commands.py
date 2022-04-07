@@ -36,6 +36,7 @@ class BootloaderCommand():
 
         self.TX_MSG = can_db.get_message_by_name(f"{application_name}_bl_cmd")
         self.RX_MSG = can_db.get_message_by_name(f"{application_name}_bl_resp")
+        self.RESET_MSG = can_db.get_message_by_name("bootloader_request_reset")
         self.can_rx = can_rx
         self.current_addr = self.ADDRESS_START
 
@@ -65,3 +66,6 @@ class BootloaderCommand():
         if not cmd or not data:
             return None
         else: return (cmd, data)
+    
+    def reset_node_msg(self, name) -> None:
+        return can.Message(arbitration_id=self.RESET_MSG.frame_id, data=bytes([0,0,0,0,0,0,0,0]))

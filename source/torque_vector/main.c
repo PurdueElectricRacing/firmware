@@ -7,6 +7,7 @@
 #include "common/phal_L4/quadspi/quadspi.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
+#include "common/bootloader/bootloader_common.h"
 
 
 /* Module Includes */
@@ -36,14 +37,13 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED)
 };
 
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .system_clock_target_hz     =80000000,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =160000000,
-    .ahb_clock_target_hz        =80000000,
-    .apb1_clock_target_hz       =80000000 / 16,
-    .apb2_clock_target_hz       =80000000 / 16,
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -65,10 +65,11 @@ extern void HardFault_Handler();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-
-
 int main (void)
 {
+    // Main stack pointer is saved as the first entry in the .isr_entry
+    Bootloader_ConfirmApplicationLaunch();
+
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
@@ -83,21 +84,23 @@ int main (void)
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaltHandler();
 
-    if (1 != PHAL_qspiInit())
-        PHAL_FaltHandler();
+    // if (1 != PHAL_qspiInit())
+    //     PHAL_FaltHandler();
     
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     /* Module init */
-    bitstreamInit();
-    schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
+    // bitstreamInit();
+    schedInit(SystemCoreClock); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
+    PHAL_writeGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, 1);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+
     /* Task Creation */
-    schedInit(SystemCoreClock);
-    taskCreate(blinkTask, 1000);
-    taskCreate(bitstream10Hz, 100);
-    taskCreate(bitstream100Hz, 10);
+    taskCreate(blinkTask, 500);
+    // taskCreate(bitstream10Hz, 100);
+    // taskCreate(bitstream100Hz, 10);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     schedStart();
@@ -107,13 +110,20 @@ int main (void)
 
 void blinkTask()
 {
-    PHAL_toggleGPIO(GPIOB, 3);
+    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
+    SEND_TORQUE_REQUEST(q_tx_can, 0,1,2,3);
 }
 
 void PHAL_FaltHandler()
 {
     asm("bkpt");
     HardFault_Handler();
+}
+
+void bootloader_request_reset_CALLBACK(CanParsedData_t* data)
+{
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    Bootloader_ResetForFirmwareDownload();
 }
 
 

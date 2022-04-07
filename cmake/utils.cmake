@@ -24,12 +24,10 @@ function(postbuild_target TARGET_NAME)
         COMMENT "Generating Sections & Disassembly Info..."
     )
 
-if (BOOTLOADER_BUILD)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND arm-none-eabi-objcopy -S -O ihex ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${COMPONENT_NAME}.hex
         COMMENT "Generateing HEX file"
     )
-endif()
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND cmake -E echo 

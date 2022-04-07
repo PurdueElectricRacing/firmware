@@ -12,9 +12,9 @@
 #include "bootloader.h"
 #include "common/phal_L4/flash/flash.h"
 
-static uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
-static uint32_t* app_flash_current_address; /* Current address we are writing to */
-static uint32_t* app_flash_end_address;     /* Expected end address to stop writing */
+uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
+uint32_t* app_flash_current_address; /* Current address we are writing to */
+uint32_t* app_flash_end_address;     /* Expected end address to stop writing */
 static volatile uint32_t* timeout_ticks;
 
 extern q_handle_t q_tx_can;
@@ -32,7 +32,6 @@ static uint32_t num_msg = 0;
 void BL_processCommand(BLCmd_t cmd, uint32_t data)
 {
     static uint64_t data_buffer;
-    bool program_buffer = false;
     switch (cmd)
     {
         case BLCMD_INFO:
@@ -40,15 +39,14 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             app_flash_current_address = app_flash_start_address;
             app_flash_end_address += data; // Number of words
             *timeout_ticks = 0;
-            uint8_t total_pages = (data / 0x2000);
+            uint8_t total_pages = (data / 0x2000) + 1;
             if (total_pages < 3) total_pages = 3;
             
             for(int i = 0; i < total_pages; i++)
                 PHAL_flashErasePage(4+i);
 
-            BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) app_flash_current_address);
+            BL_sendStatusMessage(BLSTAT_METDATA_RX, (uint32_t) data);
             num_msg = 0;
-            program_buffer = false;
             bl_unlock = true;
             break;
         }
@@ -75,8 +73,9 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                 }
                 *timeout_ticks = 0;
                 num_msg++;
-                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
+                // BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
                 app_flash_current_address ++;
+
             }
             break;
         }
@@ -101,12 +100,22 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
 
 bool BL_flashStarted(void)
 {
-    return (app_flash_end_address != app_flash_start_address);
+    return bl_unlock;
 }
 
 bool BL_flashComplete(void)
 {
-    return (app_flash_end_address != app_flash_start_address) && (app_flash_current_address >= app_flash_end_address);
+    return (num_msg > 10) &&(num_msg == app_flash_end_address - app_flash_start_address);
+}
+
+bool BL_flashGotMetadata(void)
+{
+    return bl_unlock && num_msg == 0;
+}
+
+uint32_t* BL_getCurrentFlashAddress(void)
+{
+    return app_flash_current_address;
 }
 
 /*

@@ -74,7 +74,8 @@
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
                         {"msg_name": "bitstream_data",    "callback": false, "irq": true},
-                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
+                        {"msg_name": "bitstream_request", "callback": true, "irq": false},
+                        {"msg_name": "bootloader_request_reset", "callback": true, "irq": false}
                     ]
                 },
                 {
@@ -410,6 +411,15 @@
                     "node_name":"TESTER",
                     "node_ssa":62,
                     "tx":[
+                        {   "msg_name":"bootloader_request_reset",
+                            "msg_desc":"Request message for resetting a node for bootloader download",
+                            "signals":[
+                                {"sig_name":"node", "sig_desc":"Target node to reset","type":"uint8_t"}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":2,
+                            "msg_pgn":10000
+                        },
                         {   "msg_name":"bitstream_data",
                             "msg_desc":"Bitstream download command",
                             "signals":[

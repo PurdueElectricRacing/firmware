@@ -58,9 +58,12 @@ void PHAL_flashWriteU64(uint32_t Address, uint64_t Data)
 
 void PHAL_flashErasePage(uint8_t page)
 {
+    if (((page) << FLASH_CR_PNB_Pos) & FLASH_CR_PNB_Msk != (page) << FLASH_CR_PNB_Pos)
+        return; // Invalid Page
+
     flashUnlock();
     FLASH->CR |= FLASH_CR_PER;
-    FLASH->CR |= (page) << FLASH_CR_PNB_Pos;
+    FLASH->CR |= ((page) << FLASH_CR_PNB_Pos) & FLASH_CR_PNB_Msk;
     FLASH->CR |= FLASH_CR_STRT;
 
     while ((FLASH->SR & FLASH_SR_BSY))

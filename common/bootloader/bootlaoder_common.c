@@ -12,7 +12,10 @@
 #include "bootloader_common.h"
 #include "stm32l4xx.h"
 
-extern BootlaoderSharedMemory_t bootloader_shared_memory;
+__attribute__((section(".bootlaoder_shared_memory"))) 
+BootlaoderSharedMemory_t bootloader_shared_memory = {
+    0
+};
 
 int Bootloader_ResetForFirmwareDownload()
 {
@@ -25,7 +28,7 @@ int Bootloader_ResetForFirmwareDownload()
 int Bootloader_ResetForWatchdog()
 {
     bootloader_shared_memory.magic_word     = BOOTLOADER_SHARED_MEMORY_MAGIC;
-    bootloader_shared_memory.reset_reason   = RESET_REASON_WATCHDOG;
+    bootloader_shared_memory.reset_reason   = RESET_REASON_APP_WATCHDOG;
     bootloader_shared_memory.reset_count    = 0;
     NVIC_SystemReset();
 }

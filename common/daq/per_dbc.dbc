@@ -174,6 +174,9 @@ BO_ 2214913532 bms_j_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2282341438 bootloader_request_reset: 1 TESTER
+ SG_ node : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2415925566 bitstream_data: 8 TESTER
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -448,6 +451,8 @@ CM_ SG_ 2214913468 cmd "";
 CM_ BO_ 2214913532 "Torque Vector Bootloader response";
 CM_ SG_ 2214913532 data "";
 CM_ SG_ 2214913532 cmd "";
+CM_ BO_ 2282341438 "Request message for resetting a node for bootloader download";
+CM_ SG_ 2282341438 node "Target node to reset";
 CM_ BO_ 2415925566 "Bitstream download command";
 CM_ SG_ 2415925566 d7 "Bitstream data word 7";
 CM_ SG_ 2415925566 d6 "Bitstream data word 6";

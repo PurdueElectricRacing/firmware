@@ -15,7 +15,8 @@
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     CAN_RX_GPIO_CONFIG,
-    CAN_TX_GPIO_CONFIG
+    CAN_TX_GPIO_CONFIG,
+    GPIO_INIT_OUTPUT(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
 };
 
 #define TargetCoreClockrateHz 16000000
@@ -87,26 +88,31 @@ int main (void)
     while(!bootloader_timeout || !allow_application_launch)
     {
         /* Process CAN signals */
-        if (send_status_flag && !BL_flashStarted())
+        if (send_status_flag)
         {
             send_status_flag = false;
-            BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
+            if(!BL_flashStarted())
+                BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
         }
 
         while (q_rx_can.item_count > 0)
             canRxUpdate();
 
+        if (BL_flashStarted())
+            BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
+
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
 
-
         /* 
             Check if firmware download is complete
+                Attempt to launch the app if so
         */
         if (BL_flashComplete())
         {
             allow_application_launch = true;
             bootloader_timeout = true;
+            break;
         }
     }
 
@@ -115,35 +121,26 @@ int main (void)
 
     // Check the first word of the application, it should contain the MSP
     // an address can not start with 0xFF for the MSP
-    if (*((uint8_t *) &_eboot_flash) != 0xFF)
-    {
-        bootloader_shared_memory.reset_count = 0;
-        BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
-        while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
-            PHAL_txCANMessage(&tx_msg);
-        jump_to_application();
-    }
-    else
-    {
-        BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
-        bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
-        while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
-            PHAL_txCANMessage(&tx_msg);
-        NVIC_SystemReset();
-    }
+    BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
+    while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+        PHAL_txCANMessage(&tx_msg);
+    jump_to_application();
 
-    while(1)
-        asm("bkpt");
+    BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
+    bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
+    while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+        PHAL_txCANMessage(&tx_msg);
+    NVIC_SystemReset();
 }
 
 void SysTick_Handler(void)
 {
-
-    switch(bootloader_shared_memory.reset_reason)
+    timeout_ticks++;
+    switch (bootloader_shared_memory.reset_reason)
     {
-        case(RESET_REASON_UNKNOWN):
-        case(RESET_REASON_DOWNLOAD_FW):
-        {
+        case RESET_REASON_DOWNLOAD_FW:
+        case RESET_REASON_BAD_FIRMWARE:
+        case RESET_REASON_BL_WATCHDOG:
             // Unknown reset cause or we were asked to download new firmware.
             // Will infinetly wait in bootloader mode
             if (timeout_ticks % 100 == 0)
@@ -151,10 +148,8 @@ void SysTick_Handler(void)
                 send_status_flag = true;
             }
             break;
-        }
-        case (RESET_REASON_WATCHDOG):
-        case (RESET_REASON_BAD_FIRMWARE):
-        {
+        case RESET_REASON_UNKNOWN:
+        case RESET_REASON_APP_WATCHDOG:
             // Watchdog reset or a bad firmware boot, 
             // stay in bootlaoder for 3 seconds before attempting to boot again
             if (timeout_ticks % 100 == 0)
@@ -166,17 +161,19 @@ void SysTick_Handler(void)
                 bootloader_timeout = true;
             }
             break;
-        }
-        case(RESET_REASON_POR):
-        {
-            // Cold boot, immeditely try an application boot
-            bootloader_timeout = true;
+        case RESET_REASON_POR:
+            if (timeout_ticks % 100 == 0)
+            {
+                send_status_flag = true;
+                bootloader_timeout = true;
+            }
             break;
-        }
-        
+        default:
+            break;  
     }
 
-    timeout_ticks++;
+    if (timeout_ticks % 50 == 0)
+        PHAL_toggleGPIO(STATUS_LED_GPIO_Port, STATUS_LED_Pin);
 }
 
 bool check_boot_health(void)
@@ -186,7 +183,7 @@ bool check_boot_health(void)
     {
         bootloader_shared_memory.magic_word     = BOOTLOADER_SHARED_MEMORY_MAGIC;
         bootloader_shared_memory.reset_count    = 0;
-        bootloader_shared_memory.reset_reason   = RESET_REASON_UNKNOWN;
+        bootloader_shared_memory.reset_reason   = RESET_REASON_POR;
     }
 
     uint32_t reset_cause = RCC->CSR;
@@ -200,14 +197,32 @@ bool check_boot_health(void)
         bootloader_shared_memory.reset_count  = 0;
     }
 
-    if ((reset_cause & RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF || (reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
+    if ((reset_cause & RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF)
     {
-        // Software reset, watchdog reset
+        // Software reset
+        // Only increment the reset count if didn't mean to download firmware,
+        //  assumption that other resets are erronous
+        if (bootloader_shared_memory.reset_reason == RESET_REASON_DOWNLOAD_FW)
+        {
+            // We wanted to reset for a new firmware download
+            bootloader_shared_memory.reset_count  = 0;
+            asm("bkpt");
+        }
+        else if (bootloader_shared_memory.reset_reason == RESET_REASON_BL_WATCHDOG)
+        {
+            // Reset from software watchdog
+        } 
+        else 
+        {
+            bootloader_shared_memory.reset_reason = RESET_REASON_UNKNOWN;
+        }
+    }
 
-        // Only increment the reset count if we reset from watchdog or a bad firmware download
-        if (bootloader_shared_memory.reset_reason != RESET_REASON_DOWNLOAD_FW)
-            bootloader_shared_memory.reset_count++;
-        
+    if ((reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
+    {
+        // Application Watchdog reset
+        bootloader_shared_memory.reset_count++;
+        bootloader_shared_memory.reset_reason = RESET_REASON_APP_WATCHDOG;
     }
     
     if (bootloader_shared_memory.reset_count >= 3)
@@ -233,18 +248,12 @@ void jump_to_application(void)
     // Getting an interrupt after we set VTOR would be bad.
     __disable_irq();
 
-    uint32_t* app_code_start = (void *) &_eboot_flash;
-    // Set Vector Offset Table from the application
-    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
-
-    // Main stack pointer is saved as the first entry in the .isr_entry
-    __set_MSP(*(uint32_t*) (((void *) &_eboot_flash)));
-
-    __enable_irq();
     // Actually jump to application
+    __set_MSP((uint32_t) (uint32_t*) (((void *) &_eboot_flash)));
+    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
     uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
+    __enable_irq();
     ((void(*)(void)) app_reset_handler_address)();
-    asm("bkpt");
 }
 
 void CAN1_RX0_IRQHandler()

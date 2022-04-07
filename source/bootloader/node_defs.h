@@ -52,8 +52,10 @@
 
     #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PA11
     #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PA12
-#endif/* COMPILED_APPP_ID */
 
+    #define STATUS_LED_GPIO_Port GPIOB
+    #define STATUS_LED_Pin       5
+#endif
 
 
 #ifndef CAN_RX_GPIO_CONFIG

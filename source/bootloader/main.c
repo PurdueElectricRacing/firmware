@@ -206,7 +206,6 @@ bool check_boot_health(void)
         {
             // We wanted to reset for a new firmware download
             bootloader_shared_memory.reset_count  = 0;
-            asm("bkpt");
         }
         else if (bootloader_shared_memory.reset_reason == RESET_REASON_BL_WATCHDOG)
         {

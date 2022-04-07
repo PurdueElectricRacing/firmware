@@ -343,13 +343,7 @@ void HardFault_Handler()
 {
     schedPause();
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
-    PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
-    uint16_t ct = 0;
-    while(1)
-    {
-        for (ct = 0; ct < 0xFFF9; ct++) PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-        IWDG->KR = 0xAAAA;
-    }
+    while(1) IWDG->KR = 0xAAAA;
 }
 
 // EEPROM error function

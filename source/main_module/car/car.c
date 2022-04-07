@@ -5,8 +5,8 @@ extern q_handle_t q_tx_can;
 uint32_t buzzer_start_tick = 0;
 volatile ADCReadings_t adc_readings;
 
-bool checkErrorFaults();
-bool checkFatalFaults();
+static bool checkErrorFaults();
+static bool checkFatalFaults();
 
 bool carInit()
 {
@@ -18,12 +18,15 @@ bool carInit()
 void carHeartbeat()
 {
     SEND_MAIN_HB(q_tx_can, car.state, 
-                 !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin));
+                 PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin));
 }
 
+/**
+ * @brief Main task cor the car containing a finite state machine
+ *        to determine when the car should be driveable
+ */
 void carPeriodic()
 {
-
     /* State Independent Operations */
 
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
@@ -40,6 +43,13 @@ void carPeriodic()
         car.brake_light = false;
     }
 
+
+    if (checkErrorFaults())
+    {
+        car.state = CAR_STATE_ERROR;
+    }
+    // A fatal fault has higher prority
+    // than an error fault
     if (checkFatalFaults())
     {
         car.state = CAR_STATE_FATAL;
@@ -64,6 +74,7 @@ void carPeriodic()
     {
         // Error has occured, leave HV on but do not drive
         PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
+        // Recover once error gone
         if (!checkErrorFaults()) car.state = CAR_STATE_INIT;
     }
     else if (car.state == CAR_STATE_INIT)
@@ -72,7 +83,7 @@ void carPeriodic()
         if (can_data.start_button.start)
         {
             can_data.start_button.start = 0; // debounce
-            if (!checkErrorFaults()) car.state = CAR_STATE_BUZZING;
+            car.state = CAR_STATE_BUZZING;
         }
     }
     else if (car.state == CAR_STATE_BUZZING)
@@ -93,25 +104,17 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
-
+        // Check if requesting to exit ready2drive
         if (can_data.start_button.start)
         {
-            car.state = CAR_STATE_INIT;
             can_data.start_button.start = 0; // debounce
+            car.state = CAR_STATE_INIT;
         }
 
-        if (checkErrorFaults()) 
-        {
-            car.state = CAR_STATE_ERROR;
-        }
-        else
-        {
-            // only send command if no error faults
-            uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
-            SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
-        }
+        // Send torque command to all 4 motors
+        uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
+        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
     }
-
 }
 
 /**
@@ -134,7 +137,7 @@ bool checkErrorFaults()
     //TODO: is_error += can_data.precharge_hb.stale;
 
     /* Precharge */
-    is_error += PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+    is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
     /* Dashboard */
     is_error += can_data.raw_throttle_brake.stale;
@@ -157,7 +160,7 @@ bool checkErrorFaults()
 
     if (is_error && !error_rose) 
     {
-        error_rose = 1;
+        error_rose = true;
         last_error_time = sched.os_ticks;
     }
 
@@ -185,6 +188,11 @@ bool checkFatalFaults()
     return is_error;
 }
 
+/**
+ * @brief Calculates the low voltage system current
+ *        draw based on the output of a current
+ *        sense amplifier
+ */
 void calcLVCurrent()
 {
     uint32_t raw = adc_readings.lv_i_sense;

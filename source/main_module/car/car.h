@@ -19,8 +19,7 @@
 #include "cooling.h"
 
 #define BRAKE_LIGHT_ON_THRESHOLD 500
-#define BRAKE_PRESSED_THRESHOLD  2000
-#define BUZZER_DURATION_MS 2000 // EV.10.5: 1-3s
+#define BUZZER_DURATION_MS 2500 // EV.10.5: 1-3s
 
 #define ERROR_FALL_MS (5000)
 

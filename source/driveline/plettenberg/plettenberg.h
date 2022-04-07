@@ -11,7 +11,7 @@
 #define MC_MAX_TX_LENGTH 25
 #define MC_MAX_RX_LENGTH 77
 
-#define MC_RX_TIMEOUT_MS 100
+#define MC_RX_TIMEOUT_MS 2500//100
 
 #define MC_SERIAL_MODE    's'
 #define MC_ANALOG_MODE    'p'
@@ -31,6 +31,7 @@
 #define MC_PAR_CURRENT_LIMIT "cl"
 #define MC_PAR_MOT_TMP_LIMIT "mt"
 #define MC_PAR_CTL_TMP_LIMIT "ct"
+#define MC_PAR_UPDATE_PERIOD "ot"
 
 #define MC_CURRENT_LIMIT (100)
 #define MC_MOT_TMP_LIMIT (100)
@@ -39,6 +40,14 @@
 // Motor Controller Constants:
 #define CELL_MAX_V 4.2 //May be increased to 4.25 in the future
 #define CELL_MIN_V 2.5
+
+typedef struct {
+    char *read;
+    char *write;
+    char *free;
+    bool free_has_data;
+    uint32_t last_rx_time;
+} motor_rx_buf_t;
 
 typedef enum
 {
@@ -52,6 +61,8 @@ typedef struct
     bool is_inverted;
     uint16_t curr_power_x10;
     q_handle_t *tx_queue;
+    motor_rx_buf_t *rx_queue;
+    motor_state_t motor_state;
     /* Values Read */
     float voltage;
     bool proper_voltage;
@@ -63,24 +74,23 @@ typedef struct
     int motor_temp_slope;
     int con_temp_slope;
     uint32_t rpm;
-    uint32_t last_rx_time;
-    motor_state_t motor_state;
 } motor_t;
 
 /**
  * @brief Initializes the motor in serial mode
  */
-void mc_init(volatile motor_t *m, bool is_inverted, q_handle_t *tx_queue);
+void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue, 
+             volatile motor_rx_buf_t *rx_queue);
 /**
  * @brief Positive power commands motor to move
  *        Negative power commands motor to break
  */
-void mc_set_param(uint8_t value, char *param, volatile motor_t *m);
-void mc_set_power(float power, volatile motor_t *m);
+void mc_set_param(uint8_t value, char *param, motor_t *m);
+void mc_set_power(float power, motor_t *m);
 /**
  * @brief Reads the data being sent from the motor controller
  * @return returns false if the data was not succesfully parsed
  */
-bool mc_parse(char* data, volatile motor_t *m);
+bool mc_parse(motor_t *m);
 
 #endif

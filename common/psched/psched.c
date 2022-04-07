@@ -340,10 +340,11 @@ void TIM7_IRQHandler(void)
 {
 	P_TIM->SR &= ~TIM_SR_UIF;
 
-    if (++sched.os_ticks == 30000)
-    {
-        sched.os_ticks = 0;
-    }
+    // if (++sched.os_ticks == 30000)
+    // {
+    //     sched.os_ticks = 0;
+    // }
+    ++sched.os_ticks;
 
     sched.run_next = 1;
 }

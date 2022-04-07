@@ -133,7 +133,7 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t) data);
 
-    instance->ICR |= USART_ICR_TCCF;
+    instance->ICR = USART_ICR_TCCF;
     PHAL_startTxfer(handle->tx_dma_cfg);
     handle->_tx_busy = 1;
     return true;

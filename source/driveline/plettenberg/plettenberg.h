@@ -8,10 +8,14 @@
 #include "string.h"
 #include "stm32l432xx.h"
 
-#define MC_MAX_TX_LENGTH 25
-#define MC_MAX_RX_LENGTH 77
+#define MC_MAX_TX_LENGTH 1500
+#define MC_MAX_RX_LENGTH (77 + MC_MAX_TX_LENGTH)
 
-#define MC_RX_TIMEOUT_MS 2500//100
+#define MC_PREAMBLE_TIME 4000
+#define MC_TIMEOUT_CONSTRAINT_TIME (1000 + MC_PREAMBLE_TIME)
+
+#define MC_RX_LARGE_TIMEOUT_MS 1500
+#define MC_RX_SMALL_TIMEOUT_MS 30
 
 #define MC_SERIAL_MODE    's'
 #define MC_ANALOG_MODE    'p'
@@ -42,16 +46,16 @@
 #define CELL_MIN_V 2.5
 
 typedef struct {
-    char *read;
-    char *write;
-    char *free;
-    bool free_has_data;
+    uint32_t timeout;
     uint32_t last_rx_time;
+    uint32_t init_time;
+    char rx_buf[MC_MAX_RX_LENGTH];
 } motor_rx_buf_t;
 
 typedef enum
 {
     MC_DISCONNECTED,
+    MC_INITIALIZING,
     MC_CONNECTED,
     MC_ERROR    
 } motor_state_t;

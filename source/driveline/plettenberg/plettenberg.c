@@ -10,13 +10,16 @@ void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue,
         .rx_queue    = rx_queue,
         .motor_state = MC_DISCONNECTED
     };
+    rx_queue->last_rx_time = 15000;
+    rx_queue->timeout = MC_RX_LARGE_TIMEOUT_MS;
+
     return;
 }
 
 void mc_set_power(float power, motor_t *m)
 {
-    if (m->motor_state != MC_CONNECTED) return;
     // determine mode and clamp power from 0% - 100%
+    if (m->motor_state != MC_CONNECTED) return;
     char mode = (m->is_inverted) ? MC_REVERSE : MC_FORWARD;
     if (power < 0)
     {
@@ -108,18 +111,38 @@ void mc_set_startup_params(motor_t *m)
  */
 bool mc_parse(motor_t *m) {
     // Check rx timeout
-    if (m->motor_state == MC_CONNECTED &&
-        sched.os_ticks - m->rx_queue->last_rx_time > MC_RX_TIMEOUT_MS)
+    bool timed_out = (sched.os_ticks - m->rx_queue->last_rx_time > m->rx_queue->timeout);
+    if (timed_out)
+    {
         m->motor_state = MC_DISCONNECTED;
+        m->rx_queue->timeout = MC_RX_LARGE_TIMEOUT_MS;
+    }
+    else if (m->motor_state == MC_DISCONNECTED)
+    {
+        m->rx_queue->init_time = sched.os_ticks;
+        m->motor_state = MC_INITIALIZING;
+    }
+    else if (m->motor_state == MC_INITIALIZING &&
+            sched.os_ticks - m->rx_queue->init_time > MC_PREAMBLE_TIME)
+    {
+        mc_set_startup_params(m);
+        m->motor_state = MC_CONNECTED;
+    }
 
+    if (m->motor_state == MC_CONNECTED && 
+        m->rx_queue->timeout == MC_RX_LARGE_TIMEOUT_MS &&
+        sched.os_ticks - m->rx_queue->init_time > MC_TIMEOUT_CONSTRAINT_TIME)
+        m->rx_queue->timeout = MC_RX_SMALL_TIMEOUT_MS;
+
+    return false;
     // Check if actual data
-    if (!m->rx_queue->free_has_data) return false;
+    // if (!m->rx_queue->free_has_data) return false;
 
     // Swap the free and read buffers
-    m->rx_queue->free_has_data = false;
-    char *data = m->rx_queue->free;
-    m->rx_queue->free = m->rx_queue->read;
-    m->rx_queue->read = data;
+    // m->rx_queue->free_has_data = false;
+    char *data = m->rx_queue->rx_buf;
+    // m->rx_queue->free = m->rx_queue->read;
+    // m->rx_queue->read = data;
 
     /* Determine connection status */
     if (data[0] == 'T' || data[0] == 't')

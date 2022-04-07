@@ -336,10 +336,10 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 VAL_ 2214598912 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
-VAL_ 2214598914 front_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598914 front_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598978 rear_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598978 rear_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
+VAL_ 2214598914 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598914 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598978 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
+VAL_ 2214598978 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

@@ -138,9 +138,7 @@ void ledBlink();
 void heartBeat();
 extern void HardFault_Handler();
 
-char usart_rx_buffs[6][MC_MAX_RX_LENGTH] = {'\0'};
-
-volatile motor_rx_buf_t c_rx_usart_l, c_rx_usart_r;
+volatile motor_rx_buf_t b_rx_usart_l, b_rx_usart_r;
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 q_handle_t q_tx_usart_l;
@@ -154,15 +152,6 @@ int main(void)
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_tx_usart_l, MC_MAX_TX_LENGTH);
     qConstruct(&q_tx_usart_r, MC_MAX_TX_LENGTH);
-
-    c_rx_usart_l = (motor_rx_buf_t) {.read =usart_rx_buffs[0], 
-                                     .write=usart_rx_buffs[1], 
-                                     .free =usart_rx_buffs[2],
-                                     .free_has_data=false};
-    c_rx_usart_r = (motor_rx_buf_t) {.read =usart_rx_buffs[3], 
-                                     .write=usart_rx_buffs[4], 
-                                     .free =usart_rx_buffs[5],
-                                     .free_has_data=false};
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -216,20 +205,20 @@ int main(void)
 
     // Motor Controllers
     // Left
-    mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l, &c_rx_usart_l);
+    mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l, &b_rx_usart_l);
     USART_L->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
     NVIC_EnableIRQ(USART1_IRQn);
     // initial rx request
     PHAL_usartRxDma(USART_L, &huart_l, 
-                    (uint16_t *) c_rx_usart_l.write, 
+                    (uint16_t *) b_rx_usart_l.rx_buf, 
                     MC_MAX_RX_LENGTH);
     // Right
-    mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r, &c_rx_usart_r);
+    mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r, &b_rx_usart_r);
     USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
     NVIC_EnableIRQ(USART2_IRQn);
     // initial rx request
     PHAL_usartRxDma(USART_R, &huart_r, 
-                    (uint16_t *) c_rx_usart_r.write, 
+                    (uint16_t *) b_rx_usart_r.rx_buf, 
                     MC_MAX_RX_LENGTH);
 
     /* Task Creation */
@@ -292,11 +281,6 @@ void commandTorquePeriodic()
         pow_left = 0.0;
         pow_right = 0.0;
     }
-    // TODO: remove
-    tmp_pow += 0.03;
-    if (tmp_pow > 3.0) tmp_pow = 0;
-    pow_left = 10.0;//tmp_pow;
-    pow_right = 0.0;
     mc_set_power(pow_left,  &motor_left);
     mc_set_power(pow_right, &motor_right);
 }
@@ -316,6 +300,8 @@ void parseDataPeriodic()
     // if (valid_data_ct != 2) return;
     if (motor_right.motor_state != MC_CONNECTED ||
         motor_left.motor_state  != MC_CONNECTED) return;
+    
+    return;
 
     // TODO: rpm -> ? currently rpm won't fit in uint16_t based on max rpm
     // TODO: shock pots change from raw
@@ -323,7 +309,7 @@ void parseDataPeriodic()
     SEND_REAR_WHEEL_DATA(q_tx_can, motor_left.rpm, motor_right.rpm,
                          raw_shock_pots.pot_left, raw_shock_pots.pot_right);
 #elif (FTR_DRIVELINE_FRONT)
-    SEND_REAR_WHEEL_DATA(q_tx_can, motor_left.rpm, motor_right.rpm,
+    SEND_FRONT_WHEEL_DATA(q_tx_can, motor_left.rpm, motor_right.rpm,
                          raw_shock_pots.pot_left, raw_shock_pots.pot_right);
 #endif
 
@@ -334,7 +320,7 @@ void parseDataPeriodic()
                                    (uint8_t)  motor_left.motor_temp, 
                                    (uint8_t)  motor_right.motor_temp);
 #elif (FTR_DRIVELINE_FRONT)
-    SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can, 
+    SEND_FRONT_MOTOR_CURRENTS_TEMPS(q_tx_can, 
                                    (uint16_t) motor_left.phase_current, 
                                    (uint16_t) motor_right.phase_current,
                                    (uint8_t)  motor_left.motor_temp, 
@@ -351,60 +337,63 @@ void ledBlink()
 }
 
 /* USART Message Handling */
-uint8_t usart_cmd[MC_MAX_TX_LENGTH] = {'\0'};
+uint8_t tmp_left[MC_MAX_TX_LENGTH] = {'\0'};
+uint8_t tmp_right[MC_MAX_TX_LENGTH] = {'\0'};
 void usartTxUpdate()
 {
     if (PHAL_usartTxDmaComplete(&huart_l) && 
-        qReceive(&q_tx_usart_l, usart_cmd) == SUCCESS_G)
+        qReceive(&q_tx_usart_l, tmp_left) == SUCCESS_G)
     {
-        PHAL_usartTxDma(USART_L, &huart_l, (uint16_t *) usart_cmd, strlen(usart_cmd));
+        PHAL_usartTxDma(USART_L, &huart_l, (uint16_t *) tmp_left, strlen(tmp_left));
     }
-    // RIGHT
     if (PHAL_usartTxDmaComplete(&huart_r) && 
-        qReceive(&q_tx_usart_r, usart_cmd) == SUCCESS_G)
+        qReceive(&q_tx_usart_r, tmp_right) == SUCCESS_G)
     {
-        PHAL_usartTxDma(USART_R, &huart_r, (uint16_t *) usart_cmd, strlen(usart_cmd));
+        PHAL_usartTxDma(USART_R, &huart_r, (uint16_t *) tmp_right, strlen(tmp_right));
     }
 }
 
+// USART 2 Tx (Right)
+// void DMA1_Channel7_IRQHandler()
+// {
+
+// }
+
 void USART1_IRQHandler(void) {
     if (USART1->ISR & USART_ISR_IDLE) {
-        char *tmp;
-        // if (PHAL_usartRxDmaComplete(&huart_l))
-        // {
-            // if dma done receiving switch free and write
-            tmp = c_rx_usart_l.write;
-            c_rx_usart_l.write = c_rx_usart_l.free;
-            c_rx_usart_l.free = tmp;
-            c_rx_usart_l.free_has_data = true;
-        // }
-        c_rx_usart_l.last_rx_time = sched.os_ticks;
+        //     tmp = c_rx_usart_l.write;
+        //     c_rx_usart_l.write = c_rx_usart_l.free;
+        //     c_rx_usart_l.free = tmp;
+        //     c_rx_usart_l.free_has_data = true;
+        // // }
+        b_rx_usart_l.last_rx_time = sched.os_ticks;
         // restart reception
         PHAL_usartRxDma(USART_L, &huart_l, 
-                        (uint16_t *) c_rx_usart_l.write, 
+                        (uint16_t *) b_rx_usart_l.rx_buf, 
                         MC_MAX_RX_LENGTH);
+        USART1->ICR = USART_ICR_IDLECF;
     }
-    USART1->ICR = 0x123BFF;
+    //USART1->ICR = 0x123BFF;
 }
 
 void USART2_IRQHandler(void) {
     if (USART2->ISR & USART_ISR_IDLE) {
         char *tmp;
-        // if (PHAL_usartRxDmaComplete(&huart_r))
-        // {
-            // if dma done receiving switch free and write
-            tmp = c_rx_usart_r.write;
-            c_rx_usart_r.write = c_rx_usart_r.free;
-            c_rx_usart_r.free = tmp;
-            c_rx_usart_r.free_has_data = true;
-        // }
-        c_rx_usart_r.last_rx_time = sched.os_ticks;
+//         // if (PHAL_usartRxDmaComplete(&huart_r))
+//         // {
+//             // if dma done receiving switch free and write
+//             tmp = c_rx_usart_r.write;
+//             c_rx_usart_r.write = c_rx_usart_r.free;
+//             c_rx_usart_r.free = tmp;
+//             c_rx_usart_r.free_has_data = true;
+//         // }
+        b_rx_usart_r.last_rx_time = sched.os_ticks;
         // restart reception
         PHAL_usartRxDma(USART_R, &huart_r, 
-                        (uint16_t *) c_rx_usart_r.write, 
+                        (uint16_t *) b_rx_usart_r.rx_buf, 
                         MC_MAX_RX_LENGTH);
+        USART2->ICR = USART_ICR_IDLECF;
     }
-    USART2->ICR = 0x123BFF;
 }
 
 /* CAN Message Handling */

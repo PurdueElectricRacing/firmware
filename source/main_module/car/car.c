@@ -25,6 +25,8 @@ void carHeartbeat()
  * @brief Main task cor the car containing a finite state machine
  *        to determine when the car should be driveable
  */
+uint32_t last_time = 0;
+uint8_t curr = 0;
 void carPeriodic()
 {
     /* State Independent Operations */
@@ -113,7 +115,27 @@ void carPeriodic()
 
         // Send torque command to all 4 motors
         uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
-        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
+        if (sched.os_ticks - last_time > 2000){ 
+            curr ++;
+            last_time = sched.os_ticks;
+        }
+        curr %= 4;
+        switch(curr)
+        {
+            case 0:
+            SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, 0, 0, 0);//t_req, t_req, t_req);
+            break;
+            case 1:
+            SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, t_req, 0, 0);//t_req, t_req, t_req);
+            break;
+            case 2:
+            SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, t_req, 0);//t_req, t_req, t_req);
+            break;
+            case 3:
+            SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, t_req);//t_req, t_req, t_req);
+            break;
+        }
+
     }
 }
 

@@ -23,6 +23,8 @@ jobs:
           command: |
             cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=Debug
             ninja -C ./build all
+            cmake -S . -B ./build -G Ninja -DBOOTLOADER_BUILD=ON -DCMAKE_BUILD_TYPE=Debug
+            ninja -C ./build all
       - run:
           name: "Prepare Artifacts"
           command: |
@@ -30,8 +32,10 @@ jobs:
             mkdir $ARTIFACT_NAME
             cp "./output"/*/*.elf $ARTIFACT_NAME
             cp "./output"/*/*.hex $ARTIFACT_NAME
-            # cp "./output"/*/*/*.elf $ARTIFACT_NAME
-            # cp "./output"/*/*/*.hex $ARTIFACT_NAME
+            cp "./output"/*/BL_*.elf $ARTIFACT_NAME
+            cp "./output"/*/BL_*.hex $ARTIFACT_NAME
+            cp "./output"/*/*/BL_*.elf $ARTIFACT_NAME
+            cp "./output"/*/*/BL_*.hex $ARTIFACT_NAME
             cp ./common/daq/per_dbc.dbc $ARTIFACT_NAME
             mkdir artifacts
             tar -czf ./artifacts/${ARTIFACT_NAME}.tar.gz $ARTIFACT_NAME

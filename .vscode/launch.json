@@ -103,6 +103,26 @@
             "runToEntryPoint": "main"
         },
         {
+            "name": "BMS (12 Cell)",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bms/bms.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bms"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {
             "name": "Torque Vectoring",
             "cwd": "${workspaceRoot}",
             "executable": "./output/torque_vector/torque_vector.elf",

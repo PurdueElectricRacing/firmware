@@ -36,7 +36,7 @@ void tempTask(void)
     uint8_t buff[TEMP_MAX * 2];
 
     // Get values from device 1
-    PHAL_I2C_gen_start(I2C1, TEMP_ID1, bms.temp_count, PHAL_I2C_MODE_RX);
+    PHAL_I2C_gen_start(I2C1, TEMP_ID1 << 1, bms.temp_count, PHAL_I2C_MODE_RX);
     PHAL_I2C_read_multi(I2C1, buff, bms.temp_count);
     PHAL_I2C_gen_stop(I2C1);
 
@@ -46,7 +46,7 @@ void tempTask(void)
     }
 
     // Get values from device 2
-    PHAL_I2C_gen_start(I2C1, TEMP_ID2, bms.temp_count, PHAL_I2C_MODE_RX);
+    PHAL_I2C_gen_start(I2C1, TEMP_ID2 << 1, bms.temp_count, PHAL_I2C_MODE_RX);
     PHAL_I2C_read_multi(I2C1, buff, bms.temp_count);
     PHAL_I2C_gen_stop(I2C1);
 

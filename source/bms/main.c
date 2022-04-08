@@ -106,6 +106,7 @@ int main(void) {
     configureAnim(preflightAnimation, preflightChecks, 250, 750);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
+    taskCreate(tempTask, 15);
     // if (checkTempMaster(TEMP_ID1) && checkTempMaster(TEMP_ID2))
     // {
     //     taskCreate(tempTask, 15);

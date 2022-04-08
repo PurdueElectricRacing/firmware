@@ -52,6 +52,7 @@ void initBMS(SPI_InitConfig_t* hspi)
     memsetu((uint8_t*) &bms, 0, sizeof(bms));
     bms.spi = hspi;
     bms.temp_master = 0;
+    bms.error |= error_ff;
 
 #ifdef BMS_ACCUM
     bms.cell_count = 10;
@@ -164,11 +165,7 @@ void canTxUpdate()
 
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
-        ret = PHAL_txCANMessage(&tx_msg);
-
-        if (ret) {
-            ++ret;
-        }
+        PHAL_txCANMessage(&tx_msg);
     }
 }
 

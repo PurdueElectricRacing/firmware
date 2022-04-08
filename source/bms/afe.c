@@ -49,20 +49,28 @@ void checkConn(void)
 //         with too high/low a voltage with an error
 void setBalance(void)
 {
-    uint8_t i, ov, uv;
-    float   avg_SOC = 0;
+    uint8_t  i, ov, uv;
+    uint16_t min_volts;
+    uint16_t balance_set;
+    float    avg_SOC = 0;
 
     ov = uv = 0;
+    min_volts = 0xffff;
 
     for (i = 0; i < bms.cell_count; i++)
     {
         avg_SOC += bms.cells.est_SOC[i];
+        min_volts = (bms.cells.chan_volts_raw[i] < min_volts) ? bms.cells.chan_volts_raw[i] : min_volts;
     }
 
     avg_SOC /= bms.cell_count;
 
     for (i = 0; i < bms.cell_count; i++)
     {
+        if ((bms.cells.chan_volts_raw[i] - MAX_DELTA) > min_volts) {
+            bms.cells.balance_flags |= (1U << i);
+        }
+        
         if (bms.cells.chan_volts_raw[i] > (uint32_t) (CELL_MAX_V * 10000)) {
             bms.cells.balance_flags |= (1U << i);
             ++ov;
@@ -78,6 +86,16 @@ void setBalance(void)
             {
                 bms.cells.balance_flags |= (1U << i);
             }
+        }
+    }
+
+    balance_set = bms.cells.balance_flags & ~(bms.cells.balance_mask);
+
+    for (i = 0; i < bms.cell_count; i++) {
+        if (balance_set & (1U << i)) {
+            bms.cells.balance_current[i] = (((float) bms.cells.chan_volts_raw[i]) / BAL_RES / 10000) * BAL_DUTY;
+        } else {
+            bms.cells.balance_current[i] = 0;
         }
     }
 
@@ -104,6 +122,7 @@ void afeTask(void)
     uint8_t       data[8];
     uint8_t       data_ow[8];
     uint16_t      valid_PEC;
+    uint16_t      balance_control;
     uint32_t      mod_volts_conv = 0;
     static int8_t time;
 
@@ -118,7 +137,10 @@ void afeTask(void)
         case BAL_OFF:
         {
             bms.no_sleep |= 1U;
-            broadcastWrite(CLRSCTRL, 0, NULL);
+            broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
+            cmd[3] = 0x00;
+            cmd[4] = cmd[4] & ~0xf;
+            broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
             next_state = SETTLE;
 
             break;
@@ -130,6 +152,7 @@ void afeTask(void)
             if (time == 9) {
                 next_state = MEAS;
             }
+
             break;
         }
 
@@ -146,11 +169,6 @@ void afeTask(void)
                 bms.cells.chan_volts_raw[x++] = byte_combine(data[1], data[0]);
                 bms.cells.chan_volts_raw[x++] = byte_combine(data[3], data[2]);
                 bms.cells.chan_volts_raw[x] = byte_combine(data[5], data[4]);
-
-                if (i == 0)
-                {
-                    bms.cells.chan_volts_raw[x - 2] += CELL_0_OFFSET;
-                }
             }
 
             next_state = BAL;
@@ -162,9 +180,11 @@ void afeTask(void)
         case BAL:
         {
             setBalance();
+            balance_control = bms.cells.balance_flags & ~bms.cells.balance_mask;
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
-            cmd[3] = bms.cells.balance_flags & 0xff;
-            cmd[4] = (cmd[4] & ~0xf) | ((bms.cells.balance_flags >> 8) & 0xf);
+            cmd[3] = balance_control & 0xff;
+            cmd[4] &= ~0xf;
+            cmd[4] = (balance_control >> 8) & 0xf;
             broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
             next_state = DIAG;
 
@@ -177,15 +197,11 @@ void afeTask(void)
             broadcastPoll(ADSTAT(2, DISCHARGE_NOT_PERMITTED));
             broadcastPoll(ADAX(2, DISCHARGE_NOT_PERMITTED));
             broadcastRead(RDSTATA, LTC6811_REG_SIZE, data);
-
             bms.cells.mod_volts_conv = ((float) (byte_combine(data[1], data[0]) + CELL_0_OFFSET)) * 20 / 10000;
             bms.die_temp = (float) byte_combine(data[3], data[2]) * TEMP_CONV - KELVIN_2_CELSIUS;
             bms.afe_vdd = (float) byte_combine(data[5], data[4]) / 10000;
-
             broadcastRead(RDAUXB, LTC6811_REG_SIZE, data);
-
             bms.afe_ref = (float) byte_combine(data[5], data[4]) / 10000;
-
             next_state = HALT;
 
             break;

@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard bootloader TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_status: 3 Main_Module
@@ -174,6 +174,38 @@ BO_ 2214913532 bms_j_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2281733446 soc_cells_lv: 7 BMS_LV
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624646 volts_cells_lv: 7 BMS_LV
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733574 pack_info_lv: 6 BMS_LV
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624774 temps_cells_lv: 7 BMS_LV
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733702 cell_info_lv: 6 BMS_LV
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624902 power_lim_lv: 4 BMS_LV
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2282341438 bootloader_request_reset: 1 TESTER
  SG_ node : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -261,11 +293,44 @@ BO_ 2483028082 daq_command_MAIN_MODULE: 8 DAQ
 BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624554 balance_request: 2 Precharge
+BO_ 2281733418 heat_req: 3 Precharge
+ SG_ time : 1|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ toggle : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624618 pack_curr: 2 Precharge
+ SG_ current : 0|16@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733483 soc_cells: 7 BMS1
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624683 volts_cells: 7 BMS1
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733611 pack_info: 6 BMS1
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624555 soc1: 2 BMS1
- SG_ soc : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214624811 temps_cells: 7 BMS1
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733739 cell_info: 6 BMS1
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214624939 power_lim: 4 BMS1
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028095 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1- (1,0) [0|0] "" Vector__XXX
@@ -338,6 +403,7 @@ CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
 CM_ BU_ bootloader "";
+CM_ BU_ BMS_LV "";
 CM_ BU_ TESTER "";
 CM_ BU_ DAQ "";
 CM_ BU_ Precharge "";
@@ -451,6 +517,32 @@ CM_ SG_ 2214913468 cmd "";
 CM_ BO_ 2214913532 "Torque Vector Bootloader response";
 CM_ SG_ 2214913532 data "";
 CM_ SG_ 2214913532 cmd "";
+CM_ BO_ 2281733446 "Estimated soc";
+CM_ SG_ 2281733446 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281733446 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281733446 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281733446 idx "Index of each set";
+CM_ BO_ 2214624646 "Measured cell voltages";
+CM_ SG_ 2214624646 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214624646 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214624646 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214624646 idx "Index of each set";
+CM_ BO_ 2281733574 "Pack information";
+CM_ SG_ 2281733574 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281733574 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281733574 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214624774 "Measured cell temperatures";
+CM_ SG_ 2214624774 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214624774 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214624774 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214624774 idx "Index of each set";
+CM_ BO_ 2281733702 "Cell information";
+CM_ SG_ 2281733702 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281733702 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281733702 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214624902 "Power limits";
+CM_ SG_ 2214624902 chg_lim "Charge limit in W";
+CM_ SG_ 2214624902 disch_lim "Discharge limit in W";
 CM_ BO_ 2282341438 "Request message for resetting a node for bootloader download";
 CM_ SG_ 2282341438 node "Target node to reset";
 CM_ BO_ 2415925566 "Bitstream download command";
@@ -517,10 +609,37 @@ CM_ BO_ 2483028082 "daq command for node MAIN_MODULE";
 CM_ SG_ 2483028082 daq_command "";
 CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
-CM_ BO_ 2214624554 "Request BMSs to discharge their cells to the desired voltage";
-CM_ SG_ 2214624554 volts "";
-CM_ BO_ 2214624555 "Estimated soc";
-CM_ SG_ 2214624555 soc "";
+CM_ BO_ 2281733418 "Starts BMS pre-heat for set time";
+CM_ SG_ 2281733418 time "Set runtime in ms";
+CM_ SG_ 2281733418 toggle "1 for start, 0 for stop";
+CM_ BO_ 2214624618 "Pack current";
+CM_ SG_ 2214624618 current "Pack current";
+CM_ BO_ 2281733483 "Estimated soc";
+CM_ SG_ 2281733483 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281733483 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281733483 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281733483 idx "Index of each set";
+CM_ BO_ 2214624683 "Measured cell voltages";
+CM_ SG_ 2214624683 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214624683 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214624683 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214624683 idx "Index of each set";
+CM_ BO_ 2281733611 "Pack information";
+CM_ SG_ 2281733611 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281733611 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281733611 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214624811 "Measured cell temperatures";
+CM_ SG_ 2214624811 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214624811 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214624811 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214624811 idx "Index of each set";
+CM_ BO_ 2281733739 "Cell information";
+CM_ SG_ 2281733739 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281733739 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281733739 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214624939 "Power limits";
+CM_ SG_ 2214624939 chg_lim "Charge limit in W";
+CM_ SG_ 2214624939 disch_lim "Discharge limit in W";
 CM_ BO_ 2483028095 "test_msg desc";
 CM_ SG_ 2483028095 test_sig "";
 CM_ BO_ 2483028159 "test_msg2 desc";

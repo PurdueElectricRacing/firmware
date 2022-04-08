@@ -8,7 +8,7 @@ A mega-repository full of all firmware projects, build tools, and dependencies t
 
   - `/cmake` - CMake helper files for compiling common modules
   - `/common` - Common firmware modules shared across the codebase
-  - `/source` - Firmware comonents for descrete MCUs
+  - `/source` - Firmware source code for specific MCUs on the car
   - `/output` - Generated output files from compiling
   - `/build` - CMake work directory (if CMake gives you errors, some can be solved by deleting this directory and trying again)
    - `/.circleci` - Automated cloud build process configuration
@@ -25,8 +25,9 @@ Before you can compile software for PER car, here are some steps you need to tak
    - [Windows](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07win32/gcc-arm-none-eabi-10.3-2021.07-win32.exe)
    - [Mac](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-mac-10.14.6-sha1.pkg)
    - Linux - Find it yourself
-4. Install [OpenOCD](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
-   - Installation Instructions [here](https://xpack.github.io/openocd/install/)
+4. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
+   - It is extremely important that you install this version of openocd or else you might run into issues with debugging, especially on MacOS
+   - Installation Instructions [here](https://xpack.github.io/openocd/install/). Again, use v0.11.0-3 as linked above. 
 5. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
    - On some Mac OS versions, CMake will install as a GUI only, follow the `Tools > Install Command Line Tools` tip inside CMake to fix this
 6. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake
@@ -36,9 +37,9 @@ Before you can compile software for PER car, here are some steps you need to tak
    - [Alternate open-source drivers for all platforms](https://github.com/stlink-org/stlink)
 ## Setup VSCode
 1. Create a `/.vscode/settings.json` file
-2. Configure two cortex-debug extension settings (make sure to install the recommended VSCode extensions first) 
+2. Configure two cortex-debug extension settings (make sure to install the recommended VSCode extensions first)
    - "cortex-debug.openocdPath": "<path to openocd executable\>"
-   - "cortex-debug.gdbPath": "<path to arm-none-eabi executable\>"
+   - "cortex-debug.gdbPath": "<path to arm-none-eabi-gdb executable\>"
 <!---
 Deprecating this section as it does not currently work for debugging.
 If someone wants to figure out how to get the gdb server to connect through Docker/WSL & make file paths work nicely...
@@ -67,7 +68,7 @@ docker compose run develop
 ## Building Firmware Components
 
 ### CMake Extension
-VSCode has a recommended CMake extension. This extension is configured throught the bottom ribbon of VSCode where you can select the `GCC for arm-none-eabi` toolchain and specific build targets.
+VSCode has a recommended CMake extension. This extension is configured throught the bottom ribbon of VSCode where you can select the `GCC for arm-none-eabi` toolchain and specific build targets. The CMake tab has buttons for building specifc firmware components and libraries.
 
 ### Python build script
 
@@ -82,7 +83,7 @@ In order to begin flashing, executing, or debugging your code, you need to conne
 The "Run and Debug" window will allow for you to upload code to any firmware component which has a configuration in the `.vscode/launch.json` file.
 
 ## Build Bootloader Components
-Because there are many bootloader components to build and they only need to be re-built every now and again, building the bootloaders is disabled by default. In order to enable building the bootloaders, you need to edit the CMake cache to set the "BOOTLOADER_BUILD" option to "ON". This can be done inside VSCode using the "Edit CMake Cahce (UI)" command. This needs to be disabled if you want to debug just your application code, as the applications will be built using the bootloader linker script.
+Because there are many bootloader components to build and they only need to be re-built every now and again, building the bootloaders is disabled by default. In order to enable building the bootloaders, you need to edit the CMake cache to set the "BOOTLOADER_BUILD" option to "ON". This can be done inside VSCode using the "Edit CMake Cahce (UI)" command. This needs to be disabled if you want to debug just your application code, as the applications will be built using the bootloader linker script. Notice that a new filename is used for the bootloader .hex and .elf files with the prefix "BL_".
 
 ## CircleCI Integration
 Each pull request into the master branch will be automatically built using [CircleCI](https://app.circleci.com/pipelines/github/PurdueElectricRacing/firmware?filter=all). This build needs to pass in order for the pull request to be merged. It is important to keep the build system and docker image up to date. Future work can be put in to add software unit tests and have those block merges as well!

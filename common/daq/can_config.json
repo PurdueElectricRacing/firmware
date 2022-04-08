@@ -6,7 +6,7 @@
             "nodes":[
                 {
                     "node_name":"Main_Module",
-                    "node_ssa":0,
+                    "node_ssa":1,
                     "tx":[
                         {   "msg_name":"main_status",
                             "msg_desc":"Status message for main module",
@@ -45,7 +45,7 @@
                 },
                 {
                     "node_name":"Torque_Vector",
-                    "node_ssa":1,
+                    "node_ssa":2,
                     "tx":[
                         {   "msg_name":"torque_request",
                             "msg_desc":"Torque request for all motors.",
@@ -74,12 +74,13 @@
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
                         {"msg_name": "bitstream_data",    "callback": false, "irq": true},
-                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
+                        {"msg_name": "bitstream_request", "callback": true, "irq": false},
+                        {"msg_name": "bootloader_request_reset", "callback": true, "irq": false}
                     ]
                 },
                 {
                     "node_name": "Driveline",
-                    "node_ssa":2,
+                    "node_ssa":3,
                     "tx": [
                         {
                             "msg_name": "front_driveline_hb",
@@ -221,9 +222,204 @@
                     ]
                 },
                 {
+                    "node_name": "bootloader",
+                    "node_ssa": 60,
+                    "can_peripheral": "CAN1",
+                    "tx": [
+                        {   "msg_name":"mainmodule_bl_resp",
+                            "msg_desc":"Main Module Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5000
+                        },
+                        {   "msg_name":"dashboard_bl_resp",
+                            "msg_desc":"Dashboard Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5001
+                        },
+                        {   "msg_name":"torquevector_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5002
+                        },
+                        {   "msg_name":"driveline_f_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5003
+                        },
+                        {   "msg_name":"driveline_r_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5004
+                        },
+                        {   "msg_name":"precharge_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5005
+                        },
+                        {   "msg_name":"bms_a_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5006
+                        },
+                        {   "msg_name":"bms_b_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5007
+                        },
+                        {   "msg_name":"bms_c_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5008
+                        },
+                        {   "msg_name":"bms_d_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5009
+                        },
+                        {   "msg_name":"bms_e_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5010
+                        },
+                        {   "msg_name":"bms_f_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5011
+                        },
+                        {   "msg_name":"bms_g_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5012
+                        },
+                        {   "msg_name":"bms_h_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5013
+                        },
+                        {   "msg_name":"bms_i_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5014
+                        },
+                        {   "msg_name":"bms_j_bl_resp",
+                            "msg_desc":"Torque Vector Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5015
+                        }
+                        
+                    ],
+                    "rx": [
+                        {"msg_name": "mainmodule_bl_cmd", "callback": true},
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true},
+                        {"msg_name": "torquevector_bl_cmd" , "callback": true},
+                        {"msg_name": "driveline_f_bl_cmd" , "callback": true},
+                        {"msg_name": "driveline_r_bl_cmd" , "callback": true},
+                        {"msg_name": "precharge_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_a_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_b_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_c_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_d_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_e_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_f_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_g_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_h_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_i_bl_cmd" , "callback": true},
+                        {"msg_name": "bms_j_bl_cmd" , "callback": true}
+                    ]
+                },
+                {
                     "node_name":"TESTER",
                     "node_ssa":62,
                     "tx":[
+                        {   "msg_name":"bootloader_request_reset",
+                            "msg_desc":"Request message for resetting a node for bootloader download",
+                            "signals":[
+                                {"sig_name":"node", "sig_desc":"Target node to reset","type":"uint8_t"}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":2,
+                            "msg_pgn":10000
+                        },
                         {   "msg_name":"bitstream_data",
                             "msg_desc":"Bitstream download command",
                             "signals":[
@@ -249,6 +445,182 @@
                             "msg_period":0,
                             "msg_hlp":4,
                             "msg_pgn":101
+                        },
+                        {
+                            "msg_name": "mainmodule_bl_cmd",
+                            "msg_desc": "Bootloader command for main module",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10000
+                        },
+                        {
+                            "msg_name": "dashboard_bl_cmd",
+                            "msg_desc": "Bootloader command for dashboard",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10001
+                        },
+                        {
+                            "msg_name": "torquevector_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10002
+                        },
+                        {
+                            "msg_name": "driveline_f_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10003
+                        },
+                        {
+                            "msg_name": "driveline_r_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10004
+                        },
+                        {
+                            "msg_name": "precharge_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10005
+                        },
+                        {
+                            "msg_name": "bms_a_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10006
+                        },
+                        {
+                            "msg_name": "bms_b_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10007
+                        },
+                        {
+                            "msg_name": "bms_c_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10008
+                        },
+                        {
+                            "msg_name": "bms_d_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10009
+                        },
+                        {
+                            "msg_name": "bms_e_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10010
+                        },
+                        {
+                            "msg_name": "bms_f_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10011
+                        },
+                        {
+                            "msg_name": "bms_g_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10012
+                        },
+                        {
+                            "msg_name": "bms_h_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10013
+                        },
+                        {
+                            "msg_name": "bms_i_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10014
+                        },
+                        {
+                            "msg_name": "bms_j_bl_cmd",
+                            "msg_desc": "Bootloader command for torque vector",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10015
                         }
                     ],
                     "rx":[ 

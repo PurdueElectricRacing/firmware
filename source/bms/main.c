@@ -91,11 +91,15 @@ int main(void) {
         HardFault_Handler();
     }
 
-    ret = initMem(WC_GPIO_Port, WC_Pin, 0, 0);
+    // char name[NAME_LEN] = {'c', 'e', 'l', 'l'};
 
-    if (ret < 0) {
-        error_ff |= 1U << 6;
-    }
+    // mapMem((uint8_t*) &bms.cells, sizeof(cells_t), name, true);
+
+    // ret = initMem(WC_GPIO_Port, WC_Pin, 1, 1);
+
+    // if (ret < 0) {
+    //     error_ff |= 1U << 6;
+    // }
 
     // Task Creation
     schedInit(SystemCoreClock);
@@ -110,6 +114,8 @@ int main(void) {
     taskCreate(setPLim, 100);
     taskCreate(checkConn, 1000);
     taskCreate(checkLVStatus, 3000);
+    // taskCreate(memFg, MEM_FG_TIME);
+    // taskCreateBackground(memBg);
     // taskCreateBackground(canTxUpdate);
     schedStart();
 

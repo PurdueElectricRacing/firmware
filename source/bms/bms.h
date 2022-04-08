@@ -23,6 +23,9 @@
 #define TEMP_MAX_C              600
 #define MIN_CHG_CURR            (-1)
 #define CELL_CHARGE_IMPLAUS     0.003f
+#define MAX_DELTA               1000U
+#define BAL_DUTY                0.82f
+#define BAL_RES                 30.0f
 
 // #define BMS_ACCUM
 #define BMS_LV
@@ -39,7 +42,6 @@ typedef struct {
     // Cells are indexed from bottom of stack to top of stack
     uint16_t chan_volts_raw[CELL_MAX];      // Raw 14 bit ADC value for each cell's voltage
     uint16_t mod_volts_raw;                 // Raw 14 bit ADC value for module
-    float    mod_volts_conv;                // Converted voltage value
     float    est_cap[CELL_MAX];             // Current estimated cell capacity in W*hr
     float    est_cap_max[CELL_MAX];         // Current estimated maximum cell capacity in W*hr
     float    est_SOC[CELL_MAX];             // Current estimated cell state of charge in %

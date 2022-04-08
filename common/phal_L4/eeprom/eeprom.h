@@ -25,7 +25,7 @@
 #define ID_ADDR         0xb0
 #define MODE_W          0U
 #define MODE_R          1U
-#define MEM_FG_TIME     6U
+#define MEM_FG_TIME     10U
 
 #define E_SUCCESS       0
 #define E_NO_MEM        1
@@ -82,7 +82,7 @@ __attribute__((__packed__)) struct phys_mem {
     bool            init;                               // Memory initialized
     uint16_t        version;                            // Version number -> X.X.X
     char            filename[MAX_PAGES * NAME_LEN];     // 4 character page-name
-    uint8_t         pg_bound[MAX_PAGES];                // Page bound offset
+    uint16_t        pg_bound[MAX_PAGES];                // Page bound offset
     uint16_t        mem_size[MAX_PAGES];                // Size of file in bytes (actual)
     bool            bcmp[MAX_PAGES];                    // Backwards compatibility enabled
 };
@@ -91,7 +91,6 @@ struct eeprom {
     struct phys_mem phys;                               // Physical
     bool            init_physical;                      // Memory on chip initialized
     bool            zero_req;                           // Request chip reset
-    bool            init_req;                           // Request mem init
     uint32_t        pg_loaded[2];                       // Page loaded
     uint32_t        req_flush[2];                       // Page requires flushing
     uint8_t*        pg_addr[MAX_PAGES];                 // Page address

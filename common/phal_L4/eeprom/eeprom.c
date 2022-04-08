@@ -50,7 +50,6 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, uint16_t version, 
     if (!mem.phys.init) {
         // It isn't, and we want it to be, so set to default values
         if (force_init) {
-            mem.init_req = true;
             mem.phys.init = true;
             mem.phys.version = 1;
             mem.init_physical = true;
@@ -89,19 +88,18 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, uint16_t version, 
 
 // @funcname: checkVersion
 //
-// @brief: Checks
+// @brief: Checks version to ensure app code is new enough
 //
 // @param: dest: Pointer to location to set
 // @param: len: Length to set
 // @param: value: Value to set each memory address to
-//
 // @param: Difference between current and chip versions
 //         if app code is newer, -E_V_MISMATCH if app
 //         code is old. -E_NO_INIT if memory hasn't
 //         been initialized yet
 int checkVersion(uint16_t version) {
     // Check if we're even initialized
-    if (!mem.init_physical) {
+    if (!mem.phys.init) {
         return -E_NO_INIT;
     }
 
@@ -109,7 +107,7 @@ int checkVersion(uint16_t version) {
     if (mem.phys.version < version) {
         return -E_V_MISMATCH;
     } else {
-        return version - mem.phys.version;
+        return mem.phys.version - version;
     }
 }
 
@@ -123,7 +121,9 @@ int checkVersion(uint16_t version) {
 // @param: bcmp: Backwards compatibility enabled. Disable for temp storage
 int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
     int     i;
-    uint8_t null_name[NAME_LEN] = {0};
+    uint8_t null_name[NAME_LEN];
+
+    ee_memset(null_name, NAME_LEN, 0U);
 
     // Check if we already found this memory on EEPROM
     i = fnameSearch(fname);
@@ -137,7 +137,7 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
 
     // Check for the first free location
     for (i = 0; i < MAX_PAGES; i++) {
-        if (ee_memcheck(null_name, &mem.phys.filename[i], NAME_LEN) == 0) {
+        if (ee_memcheck(null_name, &mem.phys.filename[i * NAME_LEN], NAME_LEN) == 0) {
             break;
         }
     }
@@ -148,10 +148,10 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
     }
 
     // Copy over new metadata
-    ee_memcpy(&mem.phys.filename[i * NAME_LEN], fname, NAME_LEN);
+    ee_memcpy(fname, &mem.phys.filename[i * NAME_LEN], NAME_LEN);
     mem.phys.mem_size[i] = len;
     mem.phys.bcmp[i] = bcmp;
-    mem.phys.pg_bound[i] = (i == 0) ? MACRO_PG_SIZE : mem.phys.pg_bound[i - 1] + mem.phys.mem_size[i - 1];
+    mem.phys.pg_bound[i] = (i == 0) ? MACRO_PG_SIZE : ROUNDUP(mem.phys.pg_bound[i - 1] + mem.phys.mem_size[i - 1], MICRO_PG_SIZE);
     mem.pg_addr[i] = addr;
     mem.pg_size[i] = len;
 
@@ -172,19 +172,11 @@ void memBg(void) {
     uint16_t len, end;
 
     static uint8_t  search;
-    static uint16_t addr;
+    static uint32_t addr;
 
     // Check if we're waiting on foreground to execute a write
     if (mem.write_pending) {
         return;
-    }
-
-    // Check if we need to initialize metadata to default values
-    if (mem.init_req) {
-        mem.write_pending = true;
-        mem.source_loc = (uint8_t*) &mem.phys;
-        mem.dest_loc = 0;
-        mem.init_req = false;
     }
 
     // Check if we want to zero out the EEPROM
@@ -192,6 +184,7 @@ void memBg(void) {
         mem.write_pending = true;
         mem.source_loc = mem_zero;
         mem.dest_loc = addr;
+        mem.update_len = MICRO_PG_SIZE;
         addr += MICRO_PG_SIZE;
 
         if (addr >= CHIP_SIZE) {
@@ -199,6 +192,8 @@ void memBg(void) {
             addr = 0;
             search = 0;
         }
+
+        return;
     }
 
     // Check if we want a search of metadata. Else, search known locations
@@ -226,37 +221,38 @@ void memBg(void) {
             addr = 0;
             ++search;
         }
-    } else {
-        ee_memset(page, NAME_LEN, 0);
-
-        if (addr == 0) {
-            addr = mem.phys.pg_bound[search - 1];
-        }
-
-        end = ROUNDUP(mem.pg_size[search - 1], MICRO_PG_SIZE);
-        len = MICRO_PG_SIZE - (end % MICRO_PG_SIZE);
-        ret = readMem(addr, page, len);
-
-        if (ret < 0) {
-            return;
-        }
-
-        ret = ee_memcheck(page, (uint8_t*) (&mem.phys + addr), len);
-
-        if (ret < 0) {
-            mem.write_pending = true;
-            mem.dest_loc = addr;
-            mem.source_loc = (uint8_t*) (mem.pg_addr[search - 1] + addr);
-            mem.update_len = len;
-        }
-
-        addr += MICRO_PG_SIZE;
-
-        if (addr - mem.phys.pg_bound[search - 1] >= mem.pg_size[search - 1]) {
-            addr = 0;
-            ++search;
-        }
     }
+    // } else {
+    //     ee_memset(page, NAME_LEN, 0);
+
+    //     if (addr == 0) {
+    //         addr = mem.phys.pg_bound[search - 1];
+    //     }
+
+    //     end = ROUNDUP(mem.phys.pg_bound[search - 1] + mem.pg_size[search - 1], MICRO_PG_SIZE);
+    //     len = MICRO_PG_SIZE - (end % MICRO_PG_SIZE);
+    //     ret = readMem(addr, page, len);
+
+    //     if (ret < 0) {
+    //         return;
+    //     }
+
+    //     ret = ee_memcheck(page, (uint8_t*) (&mem.phys + addr - mem.phys.pg_bound[search - 1]), len);
+
+    //     if (ret < 0) {
+    //         mem.write_pending = true;
+    //         mem.dest_loc = addr;
+    //         mem.source_loc = (uint8_t*) (mem.pg_addr[search - 1] + addr - mem.phys.pg_bound[search - 1]);
+    //         mem.update_len = len;
+    //     }
+
+    //     addr += MICRO_PG_SIZE;
+
+    //     if (addr - mem.phys.pg_bound[search - 1] >= mem.pg_size[search - 1]) {
+    //         addr = 0;
+    //         ++search;
+    //     }
+    // }
 }
 
 // @funcname: memFg
@@ -271,7 +267,7 @@ void memFg(void) {
 
     // TODO: Signal to app code if an error occurs
     writePage(mem.dest_loc, mem.source_loc, mem.update_len);
-    mem.write_pending = true;
+    mem.write_pending = false;
 }
 
 // @funcname: readMem
@@ -300,11 +296,11 @@ static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len) {
         }
 
         // Check if micro page would overflow during memcpy
-        size = (i == end) ? MICRO_PG_SIZE - (len % MICRO_PG_SIZE) : MICRO_PG_SIZE;
+        size = (i + 32 == end) ? MICRO_PG_SIZE - (len % MICRO_PG_SIZE) : MICRO_PG_SIZE;
         ee_memcpy(page, (uint8_t*) (loc_addr + i), size);
     }
 
-    return -E_SUCCESS;
+    return E_SUCCESS;
 }
 
 // @funcname: writePage
@@ -352,7 +348,6 @@ static int readPage(uint16_t addr, uint8_t* page) {
     ret += !PHAL_I2C_gen_start(MEM_ADDR | MODE_W, 2, PHAL_I2C_MODE_TX);
     ret += !PHAL_I2C_write(addr >> 8);
     ret += !PHAL_I2C_write(addr & 0xff);
-    ret += !PHAL_I2C_gen_stop();
     ret += !PHAL_I2C_gen_start(MEM_ADDR | MODE_R, MICRO_PG_SIZE, PHAL_I2C_MODE_RX);
     ret += !PHAL_I2C_read_multi(page, MICRO_PG_SIZE);
     ret += !PHAL_I2C_gen_stop();
@@ -363,18 +358,8 @@ static int readPage(uint16_t addr, uint8_t* page) {
 // @funcname: memClear
 //
 // @brief: Clears all addresses to 0 on chip
-//
-// @note: DO NOT USE! DEPRECATED! SET mem.zero_req
-//        TO TRUE AND LET FG/BG HANDLE CLEAR!
 static void memClear() {
-    size_t  i;
-    uint8_t zero[MICRO_PG_SIZE];
-
-    ee_memset(zero, MICRO_PG_SIZE, 0);
-
-    for (i = 0; i < CHIP_SIZE; i += MICRO_PG_SIZE) {
-        writePage(i, zero, MICRO_PG_SIZE);
-    }
+    mem.zero_req = true;
 }
 
 // @funcname: memTest
@@ -422,7 +407,7 @@ static int fnameSearch(char* name) {
 
     // Search for index of name
     for (i = 0; i < S_FNAME / NAME_LEN; i++) {
-        if (ee_memcheck(&mem.phys.filename[i], name, NAME_LEN) == 0) {
+        if (ee_memcheck(&mem.phys.filename[i * NAME_LEN], name, NAME_LEN) == 0) {
             return i;
         }
     }
@@ -443,7 +428,7 @@ static int ee_memcheck(uint8_t* src, uint8_t* dest, size_t len) {
     size_t i;
 
     for (i = 0; i < len; i++) {
-        if (src[i] = dest[i]) {
+        if (src[i] != dest[i]) {
             return -E_M_MISMATCH;
         }
     }

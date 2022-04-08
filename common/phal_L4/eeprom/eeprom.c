@@ -325,11 +325,11 @@ static int writePage(uint16_t addr, uint8_t* page, uint8_t size) {
     PHAL_writeGPIO(mem.wc_gpio_port, mem.wc_gpio_pin, 0);
 
     // Complete write
-    ret += !PHAL_I2C_gen_start(MEM_ADDR | MODE_W, size + 2, PHAL_I2C_MODE_TX);
-    ret += !PHAL_I2C_write(addr >> 8);
-    ret += !PHAL_I2C_write(addr & 0xff);
-    ret += !PHAL_I2C_write_multi(page, size);
-    ret += !PHAL_I2C_gen_stop();
+    ret += !PHAL_I2C_gen_start(I2C1, MEM_ADDR | MODE_W, size + 2, PHAL_I2C_MODE_TX);
+    ret += !PHAL_I2C_write(I2C1, addr >> 8);
+    ret += !PHAL_I2C_write(I2C1, addr & 0xff);
+    ret += !PHAL_I2C_write_multi(I2C1, page, size);
+    ret += !PHAL_I2C_gen_stop(I2C1);
 
     // Stop mem writes
     PHAL_writeGPIO(mem.wc_gpio_port, mem.wc_gpio_pin, 1);
@@ -349,13 +349,13 @@ static int readPage(uint16_t addr, uint8_t* page) {
     uint8_t ret;
 
     // Complete read
-    ret += !PHAL_I2C_gen_start(MEM_ADDR | MODE_W, 2, PHAL_I2C_MODE_TX);
-    ret += !PHAL_I2C_write(addr >> 8);
-    ret += !PHAL_I2C_write(addr & 0xff);
-    ret += !PHAL_I2C_gen_stop();
-    ret += !PHAL_I2C_gen_start(MEM_ADDR | MODE_R, MICRO_PG_SIZE, PHAL_I2C_MODE_RX);
-    ret += !PHAL_I2C_read_multi(page, MICRO_PG_SIZE);
-    ret += !PHAL_I2C_gen_stop();
+    ret += !PHAL_I2C_gen_start(I2C1, MEM_ADDR | MODE_W, 2, PHAL_I2C_MODE_TX);
+    ret += !PHAL_I2C_write(I2C1, addr >> 8);
+    ret += !PHAL_I2C_write(I2C1, addr & 0xff);
+    ret += !PHAL_I2C_gen_stop(I2C1);
+    ret += !PHAL_I2C_gen_start(I2C1, MEM_ADDR | MODE_R, MICRO_PG_SIZE, PHAL_I2C_MODE_RX);
+    ret += !PHAL_I2C_read_multi(I2C1, page, MICRO_PG_SIZE);
+    ret += !PHAL_I2C_gen_stop(I2C1);
 
     return ret ? -E_I2C : E_SUCCESS;
 }

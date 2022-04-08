@@ -5,14 +5,14 @@ int checkTempMaster(uint8_t addr)
     uint8_t buff;
 
     // Write cfg
-    PHAL_I2C_gen_start(addr, 1, PHAL_I2C_MODE_TX);
-    PHAL_I2C_write(addr);
-    PHAL_I2C_gen_stop();
+    PHAL_I2C_gen_start(I2C1, addr, 1, PHAL_I2C_MODE_TX);
+    PHAL_I2C_write(I2C1, addr);
+    PHAL_I2C_gen_stop(I2C1);
 
     // Read cfg
-    PHAL_I2C_gen_start(addr, 1, PHAL_I2C_MODE_TX);
-    PHAL_I2C_read(&buff);
-    PHAL_I2C_gen_stop();
+    PHAL_I2C_gen_start(I2C1, addr, 1, PHAL_I2C_MODE_TX);
+    PHAL_I2C_read(I2C1, &buff);
+    PHAL_I2C_gen_stop(I2C1);
 
     // If read data is bad, we're not master
     if (buff != addr)
@@ -21,9 +21,9 @@ int checkTempMaster(uint8_t addr)
     }
 
     // Reset to pull temps next read
-    PHAL_I2C_gen_start(addr, 1, PHAL_I2C_MODE_TX);
-    PHAL_I2C_write(0);
-    PHAL_I2C_gen_stop();
+    PHAL_I2C_gen_start(I2C1, addr, 1, PHAL_I2C_MODE_TX);
+    PHAL_I2C_write(I2C1, 0);
+    PHAL_I2C_gen_stop(I2C1);
 
     bms.temp_master = 1;
 
@@ -36,9 +36,9 @@ void tempTask(void)
     uint8_t buff[TEMP_MAX * 2];
 
     // Get values from device 1
-    PHAL_I2C_gen_start(TEMP_ID1, bms.temp_count, PHAL_I2C_MODE_RX);
-    PHAL_I2C_read_multi(buff, bms.temp_count);
-    PHAL_I2C_gen_stop();
+    PHAL_I2C_gen_start(I2C1, TEMP_ID1, bms.temp_count, PHAL_I2C_MODE_RX);
+    PHAL_I2C_read_multi(I2C1, buff, bms.temp_count);
+    PHAL_I2C_gen_stop(I2C1);
 
     for (i = 0; i < bms.temp_count; i++)
     {
@@ -46,9 +46,9 @@ void tempTask(void)
     }
 
     // Get values from device 2
-    PHAL_I2C_gen_start(TEMP_ID2, bms.temp_count, PHAL_I2C_MODE_RX);
-    PHAL_I2C_read_multi(buff, bms.temp_count);
-    PHAL_I2C_gen_stop();
+    PHAL_I2C_gen_start(I2C1, TEMP_ID2, bms.temp_count, PHAL_I2C_MODE_RX);
+    PHAL_I2C_read_multi(I2C1, buff, bms.temp_count);
+    PHAL_I2C_gen_stop(I2C1);
 
     for (i = 0; i < bms.temp_count; i++)
     {

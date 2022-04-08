@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+    
         {
             "name": "Main Module",
             "cwd": "${workspaceRoot}",
@@ -18,8 +19,30 @@
                 "-d",
                 "${workspaceFolder}/source/main_module"
             ],
-            "preLaunchTask": "build"
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
         },
+        {
+            "name": "Driveline",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/driveline/driveline.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/driveline"
+            ],
+            "preLaunchTask": "build", 
+            "runToEntryPoint": "main"
+        },
+        
         {
             "name": "Pedal",
             "cwd": "${workspaceRoot}",
@@ -38,6 +61,26 @@
                 "${workspaceFolder}/source/pedal"
             ],
             "preLaunchTask": "build"
+        },
+        {
+            "name": "Dashboard",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/dashboard/dashboard.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/dashboard"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
         },
         {
             "name": "l4_testing",
@@ -66,7 +109,6 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "serverpath": "C:\\Program Files\\openocd-0.11.0\\bin\\openocd.exe",
             "device:": "STM32L432KC",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
             "configFiles": [
@@ -107,7 +149,6 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "serverpath": "C:\\Program Files\\openocd-0.11.0\\bin\\openocd.exe",
             "device:": "STM32L496VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x6.svd",
             "configFiles": [
@@ -119,6 +160,86 @@
                 "${workspaceFolder}/source/precharge"
             ],
             "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "Driveline Front",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/driveline_front/driveline_front.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/driveline"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "Driveline Rear",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/driveline_rear/driveline_rear.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/driveline"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "Bootloader - TV",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bootloaders/bootloader_torquevector/bootloader_torquevector.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bootlaoder"
+            ],
+            // "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "Bootloader - Main",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bootloaders/bootloader_mainmodule/bootloader_mainmodule.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L496VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x6.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bootlaoder"
+            ],
+            // "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
     ]

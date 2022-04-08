@@ -22,7 +22,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
                 break;
 
             case (uint32_t) GPIOC:
-                RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+                RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
                 break;
 
             case (uint32_t) GPIOH:
@@ -30,6 +30,9 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
                 break;
             
 #ifdef STM32L496xx
+            case (uint32_t) GPIOD:
+                RCC->AHB2ENR |= RCC_AHB2ENR_GPIODEN;
+                break;
             case (uint32_t) GPIOE:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOEEN;
                 break;

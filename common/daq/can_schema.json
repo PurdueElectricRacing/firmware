@@ -56,8 +56,7 @@
         },
         "tx_message":{
             "type":"object",
-            "required":["msg_name", "msg_desc", "signals", "msg_period", 
-                        "msg_hlp", "msg_pgn"],
+            "required":["msg_name", "msg_desc", "signals", "msg_period"],
             "properties":{
                 "msg_name":{"type":"string"},
                 "msg_desc":{"type":"string"},
@@ -81,6 +80,10 @@
                     "description":"parameter group number 0-1,048,575\nDescribes the data the message contains, not an indication of where data is coming and going.",
                     "minimum":0,
                     "maximum":1048575
+                },
+                "msg_id_override":{
+                    "type":"string",
+                    "description":"sets the message to a specific id, ignoring the node's ssa\nTo use hex do \"0x########\""
                 }
             }
         },
@@ -107,7 +110,8 @@
                 "offset":{"type":"integer", "description": "offset to apply, default of 0\nDecoding results in (x * scale)+offset"},
                 "maximum":{"type":"integer", "description": "maximum value of signal, defaults to none"},
                 "minimum":{"type":"integer", "description": "minimum value of signal, defaults to none"},
-                "unit":{"type":"string", "description":"unit of the signal, defaults to none"}
+                "unit":{"type":"string", "description":"unit of the signal, defaults to none"},
+                "choices":{"type":"array", "description":"enumeration values", "items":{"type":"string"}}
             }
         },
         "rx_message":{

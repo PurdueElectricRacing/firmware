@@ -9,15 +9,7 @@
 #ifndef _PHAL_ADC_H
 #define _PHAL_ADC_H
 
-#ifdef STM32L496xx
-#include "stm32l496xx.h"
-//#error "STM32L496xx is currently not supported for adc"
-#elif STM32L432xx
-#include "stm32l432xx.h"
-#else
-#error "Please define a STM32 arch"
-#endif
-
+#include "stm32l4xx.h"
 #include <stdbool.h>
 
 #define PHAL_ADC_INIT_TIMEOUT 1000000

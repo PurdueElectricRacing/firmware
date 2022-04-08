@@ -86,7 +86,7 @@ int main(void) {
         HardFault_Handler();
     }
                 
-    if (!PHAL_initI2C())
+    if (!PHAL_initI2C(I2C1))
     {
         HardFault_Handler();
     }

@@ -15,10 +15,10 @@ else()
     set(TOOLCHAIN_DIR "")
 endif()
 
-set(CMAKE_C_COMPILER   ${TOOLCHAIN_DIR}arm-none-eabi-gcc)
-set(CMAKE_CXX_COMPILER ${TOOLCHAIN_DIR}arm-none-eabi-g++)
-set(CMAKE_ASM_COMPILER ${TOOLCHAIN_DIR}arm-none-eabi-gcc)
-set(CMAKE_SIZE_UTIL    ${TOOLCHAIN_DIR}arm-none-eabi-size)
+find_program(CMAKE_C_COMPILER   arm-none-eabi-gcc REQUIRED)
+find_program(CMAKE_ASM_COMPILER arm-none-eabi-gcc REQUIRED)
+find_program(CMAKE_CXX_COMPILER arm-none-eabi-g++)
+find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size)
 
 
 set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16")

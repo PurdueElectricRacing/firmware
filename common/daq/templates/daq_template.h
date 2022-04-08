@@ -99,10 +99,11 @@ extern daq_variable_t tracked_vars[NUM_VARS];
  *        the variables and loads default values if applicable
  * 
  * @param tx_a Address of the tx CAN buffer to send responses to
+ * @param i2c  I2C Peripheral for eeprom, leave NULL if eeprom disabled
  * 
  * @return Returns false if the operation was successful
  */
-bool daqInit(q_handle_t* tx_a);
+bool daqInit(q_handle_t* tx_a, I2C_TypeDef *i2c);
 
 /**
  * @brief Call periodically at DAQ_UPDATE_PERIOD

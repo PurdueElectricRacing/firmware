@@ -114,11 +114,11 @@ void checkLVStatus(void)
         return;
     }
 
-    if (bms.cells.mod_volts_conv > (mod_volts_last + CELL_CHARGE_IMPLAUS))
+    if (bms.cells.mod_volts_raw > (mod_volts_last + CELL_CHARGE_IMPLAUS))
     {
         bms.current_out = -10;
     }
-    else if (bms.cells.mod_volts_conv < (mod_volts_last - CELL_CHARGE_IMPLAUS))
+    else if (bms.cells.mod_volts_raw < (mod_volts_last - CELL_CHARGE_IMPLAUS))
     {
         bms.current_out = 10;
     }
@@ -127,7 +127,7 @@ void checkLVStatus(void)
         bms.current_out = 0;
     }
 
-    mod_volts_last = bms.cells.mod_volts_conv;
+    mod_volts_last = bms.cells.mod_volts_raw;
 }
 
 // @funcname: checkSleep

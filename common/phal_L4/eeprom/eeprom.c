@@ -1,4 +1,4 @@
-#include "common/phal_l4/eeprom/eeprom.h"
+#include "common/phal_L4/eeprom/eeprom.h"
 
 // EEPROM struct
 struct eeprom mem;

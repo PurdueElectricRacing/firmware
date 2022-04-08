@@ -1,5 +1,5 @@
-#ifndef _EEPROM_H_
-#define _EEPROM_H_
+#ifndef _PHAL_EEPROM_H_
+#define _PHAL_EEPROM_H_
 
 #ifdef STM32L496xx
 #include "stm32l496xx.h"

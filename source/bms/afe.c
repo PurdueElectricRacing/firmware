@@ -197,7 +197,7 @@ void afeTask(void)
             broadcastPoll(ADSTAT(2, DISCHARGE_NOT_PERMITTED));
             broadcastPoll(ADAX(2, DISCHARGE_NOT_PERMITTED));
             broadcastRead(RDSTATA, LTC6811_REG_SIZE, data);
-            bms.cells.mod_volts_conv = ((float) (byte_combine(data[1], data[0]) + CELL_0_OFFSET)) * 20 / 10000;
+            bms.cells.mod_volts_raw = ((float) (byte_combine(data[1], data[0]) + CELL_0_OFFSET)) * 20 / 10000;
             bms.die_temp = (float) byte_combine(data[3], data[2]) * TEMP_CONV - KELVIN_2_CELSIUS;
             bms.afe_vdd = (float) byte_combine(data[5], data[4]) / 10000;
             broadcastRead(RDAUXB, LTC6811_REG_SIZE, data);
@@ -226,7 +226,7 @@ void afeTask(void)
                     mod_volts_conv += bms.cells.chan_volts_raw[i];
                 }
 
-                bms.cells.mod_volts_conv = (float) mod_volts_conv / 10000;
+                bms.cells.mod_volts_raw = (float) mod_volts_conv / 10000;
                 time = -1;
                 next_state = BAL_OFF;
             }

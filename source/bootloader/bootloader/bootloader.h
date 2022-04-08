@@ -36,7 +36,7 @@ typedef enum
     BLSTAT_UNKOWN_CMD = 8,  /* Incorrect CAN command message format */
 } BLStatus_t;
 
-void BL_init(uint32_t* app_flash_start, volatile uint32_t* timeout_ticks_ptr);
+void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr);
 
 /**
  * @brief Process an incoming bootlaoder command

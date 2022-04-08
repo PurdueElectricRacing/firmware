@@ -1,6 +1,16 @@
 /* System Includes */
+
+#include "inttypes.h"
+
+#ifdef STM32L432xx
 #include "stm32l432xx.h"
-#include "system_stm32l4xx.h"
+#endif
+
+#ifdef STM32L496xx
+#include "stm32l496xx.h"
+#endif
+// #include "system_stm32l4xx.h"
+
 #include "can_parse.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
@@ -46,7 +56,7 @@ extern char __isr_vector_start; /* VA of the vector table for the bootloader */
 extern char _eboot_flash;      /* End of the bootlaoder flash region, same as the application start address */
 
 /* Bootlaoder timing control */
-static volatile uint32_t timeout_ticks = 0;
+static volatile uint32_t bootloader_ms = 0;
 static volatile bool bootloader_timeout = false;
 static volatile bool send_status_flag = false;
 
@@ -68,7 +78,7 @@ int main (void)
 
     /* Module init */
     initCANParse(&q_rx_can);
-    BL_init((uint32_t *) &_eboot_flash, &timeout_ticks);
+    BL_init((uint32_t *) &_eboot_flash, &bootloader_ms);
 
     // Only enable application launch timeout if the device has not
     // boot looped more than allowed.
@@ -92,7 +102,7 @@ int main (void)
         {
             send_status_flag = false;
             if(!BL_flashStarted())
-                BL_sendStatusMessage(BLSTAT_WAIT, timeout_ticks);
+                BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
         }
 
         while (q_rx_can.item_count > 0)
@@ -135,34 +145,34 @@ int main (void)
 
 void SysTick_Handler(void)
 {
-    timeout_ticks++;
+    bootloader_ms++;
     switch (bootloader_shared_memory.reset_reason)
     {
         case RESET_REASON_DOWNLOAD_FW:
         case RESET_REASON_BAD_FIRMWARE:
-        case RESET_REASON_BL_WATCHDOG:
+        case RESET_REASON_INVALID:
             // Unknown reset cause or we were asked to download new firmware.
             // Will infinetly wait in bootloader mode
-            if (timeout_ticks % 100 == 0)
+            if (bootloader_ms % 100 == 0)
             {
                 send_status_flag = true;
             }
             break;
-        case RESET_REASON_UNKNOWN:
+        case RESET_REASON_BUTTON:
         case RESET_REASON_APP_WATCHDOG:
             // Watchdog reset or a bad firmware boot, 
             // stay in bootlaoder for 3 seconds before attempting to boot again
-            if (timeout_ticks % 100 == 0)
+            if (bootloader_ms % 100 == 0)
             {
                 send_status_flag = true;
             }
-            if (timeout_ticks % 3000 == 0)
+            if (bootloader_ms % 3000 == 0)
             {
                 bootloader_timeout = true;
             }
             break;
         case RESET_REASON_POR:
-            if (timeout_ticks % 100 == 0)
+            if (bootloader_ms % 2000 == 0)
             {
                 send_status_flag = true;
                 bootloader_timeout = true;
@@ -172,13 +182,13 @@ void SysTick_Handler(void)
             break;  
     }
 
-    if (timeout_ticks % 50 == 0)
+    if (bootloader_ms % 50 == 0)
         PHAL_toggleGPIO(STATUS_LED_GPIO_Port, STATUS_LED_Pin);
 }
 
 bool check_boot_health(void)
 {
-    
+    // Initilize the shared memory block if it was corrupted or a POR
     if(bootloader_shared_memory.magic_word != BOOTLOADER_SHARED_MEMORY_MAGIC)
     {
         bootloader_shared_memory.magic_word     = BOOTLOADER_SHARED_MEMORY_MAGIC;
@@ -196,32 +206,47 @@ bool check_boot_health(void)
         bootloader_shared_memory.reset_reason = RESET_REASON_POR;
         bootloader_shared_memory.reset_count  = 0;
     }
-
-    if ((reset_cause & RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF)
+    else if ((reset_cause & RCC_CSR_LPWRRSTF) == RCC_CSR_LPWRRSTF)
+    {
+        // Power-on-reset, update reset count to initial value
+        // reset_count could have been garbage otherwise
+        bootloader_shared_memory.reset_reason = RESET_REASON_POR;
+        bootloader_shared_memory.reset_count  = 0;
+    }
+    else if ((reset_cause & RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF)
     {
         // Software reset
-        // Only increment the reset count if didn't mean to download firmware,
-        //  assumption that other resets are erronous
+        // In this case, we are assuming that the software left a reason for this reboot.
         if (bootloader_shared_memory.reset_reason == RESET_REASON_DOWNLOAD_FW)
         {
             // We wanted to reset for a new firmware download
             bootloader_shared_memory.reset_count  = 0;
         }
-        else if (bootloader_shared_memory.reset_reason == RESET_REASON_BL_WATCHDOG)
+        else if (bootloader_shared_memory.reset_reason == RESET_REASON_APP_WATCHDOG)
         {
-            // Reset from software watchdog
-        } 
-        else 
+            // Reset from software watchdog (not necessicarly IWDG, just some form of bad software reboot)
+            bootloader_shared_memory.reset_count ++;
+        }
+        else
         {
-            bootloader_shared_memory.reset_reason = RESET_REASON_UNKNOWN;
+            // Debug reset event
+            bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
         }
     }
-
-    if ((reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
+    else if ((reset_cause & RCC_CSR_PINRSTF) == RCC_CSR_PINRSTF)
     {
-        // Application Watchdog reset
+        bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
+        bootloader_shared_memory.reset_count  = 0;
+    } 
+    else if ((reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
+    {
+        // Application Watchdog reset from hardware watchdog
         bootloader_shared_memory.reset_count++;
         bootloader_shared_memory.reset_reason = RESET_REASON_APP_WATCHDOG;
+    }
+    else
+    {
+        bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
     }
     
     if (bootloader_shared_memory.reset_count >= 3)

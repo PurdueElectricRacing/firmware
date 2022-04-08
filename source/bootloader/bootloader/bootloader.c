@@ -15,16 +15,16 @@
 uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
 uint32_t* app_flash_current_address; /* Current address we are writing to */
 uint32_t* app_flash_end_address;     /* Expected end address to stop writing */
-static volatile uint32_t* timeout_ticks;
+static volatile uint32_t* bootloader_ms;
 
 extern q_handle_t q_tx_can;
 
-void BL_init(uint32_t* app_flash_start, volatile uint32_t* timeout_ticks_ptr)
+void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr)
 {
     app_flash_start_address     = app_flash_start;
     app_flash_end_address       = app_flash_start;
     app_flash_current_address   = app_flash_start;
-    timeout_ticks = timeout_ticks_ptr;
+    bootloader_ms = bootloader_ms_ptr;
 }
 
 static bool bl_unlock = false;
@@ -38,7 +38,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         {
             app_flash_current_address = app_flash_start_address;
             app_flash_end_address += data; // Number of words
-            *timeout_ticks = 0;
+            *bootloader_ms = 0;
             uint8_t total_pages = (data / 0x2000) + 1;
             if (total_pages < 3) total_pages = 3;
             
@@ -53,7 +53,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         case BLCMD_ADD_ADDRESS:
         {
             app_flash_current_address +=  data; // Number of words
-            *timeout_ticks = 0;
+            *bootloader_ms = 0;
             BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) app_flash_current_address);
             break;
         }
@@ -71,7 +71,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                 {
                     data_buffer = data;
                 }
-                *timeout_ticks = 0;
+                *bootloader_ms = 0;
                 num_msg++;
                 // BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  app_flash_current_address);
                 app_flash_current_address ++;

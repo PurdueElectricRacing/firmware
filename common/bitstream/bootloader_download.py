@@ -50,7 +50,9 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
     print("Waiting for node to enter bootloader mode")
     while(not bl.get_rx_msg() or bl.get_rx_msg()[0] != 2):
         pass
-    
+
+    time.sleep(0.1)
+
     print("Sending over firmware image metadata...")
     can_tx.send(bl.firmware_size_msg(total_words))
     while(not bl.get_rx_msg() or bl.get_rx_msg()[0] != 3):
@@ -87,7 +89,7 @@ if __name__ == "__main__":
 
     can_rx.start()
     can_tx.start()
-    bl = BootloaderCommand("torquevector", db, can_rx)
+    bl = BootloaderCommand("mainmodule", db, can_rx)
 
     can_tx.send(bl.reset_node_msg(""))
 

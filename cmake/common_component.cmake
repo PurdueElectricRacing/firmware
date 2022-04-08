@@ -63,12 +63,12 @@ MACRO(COMMON_BOOTLOADER_COMPONENT TARGET_NAME)
     get_target_property(_COMMON_LIBS    ${TARGET_NAME} COMMON_LIBS)
 
     # Default values for target props.
-    if (NOT _LINKER_SCRIPT)
-        set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
-    endif()
-    if (NOT _COMMON_LIBS)
-        set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;")
-    endif()
+    # if (NOT _LINKER_SCRIPT)
+    #     set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
+    # endif()
+    # if (NOT _COMMON_LIBS)
+    #     set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;")
+    # endif()
 
     # Add Common libraries
     foreach (_LIB_NAME IN ITEMS ${_COMMON_LIBS})

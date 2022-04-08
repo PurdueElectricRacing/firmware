@@ -45,7 +45,6 @@
 #if (APP_ID == APP_TORQUEVECTOR) ||\
     (APP_ID == APP_DRIVELINE_F)  ||\
     (APP_ID == APP_DRIVELINE_R)  ||\
-    (APP_ID == APP_MAINMODULE)   ||\
     (APP_ID == APP_DASHBOARD)    ||\
     (APP_ID == APP_PRECHARGE)    ||\
     ((APP_ID >= APP_BMS_A)  && (APP_ID <= APP_BMS_J))
@@ -56,6 +55,15 @@
     #define STATUS_LED_GPIO_Port GPIOB
     #define STATUS_LED_Pin       5
 #endif
+
+#if (APP_ID == APP_MAINMODULE)
+    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PD1
+    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PD0
+
+    #define STATUS_LED_GPIO_Port  (GPIOE)
+    #define STATUS_LED_Pin        (10)
+#endif
+
 
 
 #ifndef CAN_RX_GPIO_CONFIG

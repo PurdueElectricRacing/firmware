@@ -132,7 +132,7 @@ bool initCANFilter()
     uint32_t timeout = 0;
     while( !(CAN1->MSR & CAN_MSR_INAK)
 #ifdef CAN2
-           !(CAN2->MSR & CAN_MSR_INAK)
+        &&   !(CAN2->MSR & CAN_MSR_INAK)
 #endif /* CAN2 */
            && ++timeout < PHAL_CAN_INIT_TIMEOUT)
         ;
@@ -183,7 +183,7 @@ bool initCANFilter()
 #endif /* CAN2 */
     while((CAN1->MSR & CAN_MSR_INAK)
 #ifdef CAN2 
-          (CAN2->MSR & CAN_MSR_INAK)
+        &&  (CAN2->MSR & CAN_MSR_INAK)
 #endif /* CAN2 */
         && ++timeout < PHAL_CAN_INIT_TIMEOUT)
         ;

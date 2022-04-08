@@ -48,7 +48,7 @@ def gen_dbc(can_config, dbc_path):
                                         senders=[node['node_name']],
                                         bus_name=bus['bus_name'])
 
-    can_db = db.load_file(dbc_path)
+    can_db = db.Database()
     can_db.nodes.clear()
     can_db.nodes.extend(nodes)
     can_db.messages.clear()

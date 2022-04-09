@@ -14,17 +14,10 @@ void bmsStatus()
     static uint8_t flag;
     uint8_t i;
 
-    if (bms.error != 0)
-    {
-        flag = !flag;
-    }
-    else
-    {
-        flag = 0;
-    }
+    flag = !flag;
 
-    PHAL_toggleGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin);
-    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, flag);
+    PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, flag);
+    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, bms.error ? flag : 0);
     PHAL_writeGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin, bms.afe_con);
 
     if (bms.veh_con == 1)
@@ -39,9 +32,6 @@ void bmsStatus()
     {
         bms.op_mode = MODE_IDLE;
     }
-
-    i = 0;
-    // SEND_VOLTS_CELLS_LV(q_tx_can, i, bms.cells.chan_volts_raw[i * 3], bms.cells.chan_volts_raw[i * 3 + 1], bms.cells.chan_volts_raw[i * 3 + 2]);
 }
 
 // @funcname: initBMS
@@ -72,9 +62,44 @@ void initBMS(SPI_InitConfig_t* hspi)
         PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, 0);
         checkConn();
     }
+}
 
-    // TODO: Fix timeout
-    // bms.temp_master = checkTempMaster(TEMP_ID1);
+// @funcname: txCAN
+//
+// @brief: Send BMS data out
+void txCAN(void)
+{
+    uint8_t i;
+    static uint8_t state;
+
+    switch (state)
+    {
+        case 0:
+        {
+            SEND_PACK_INFO(q_tx_can, bms.cells.mod_volts_raw, bms.error, bms.cells.balance_flags & ~bms.cells.balance_mask);
+            SEND_CELL_INFO(q_tx_can, 0, bms.error & (1U << 1), bms.error & (1U << 2));
+        }
+
+        default:
+        {
+            for (i = 0; i < bms.cell_count; i++)
+            {
+                SEND_VOLTS_CELLS(q_tx_can, i, bms.cells.chan_volts_raw[i * 3], bms.cells.chan_volts_raw[i * 3 + 1], bms.cells.chan_volts_raw[i * 3 + 2]);
+            }
+
+            for (i = 0; i < bms.cell_count; i++)
+            {
+                SEND_TEMPS_CELLS(q_tx_can, i, bms.cells.chan_temps_conv[i * 3], bms.cells.chan_temps_conv[i * 3 + 1], bms.cells.chan_temps_conv[i * 3 + 2]);
+            }
+
+            SEND_POWER_LIM(q_tx_can, bms.p_lim.temp_max, 0);
+        }
+    }
+
+    if (++state == 10)
+    {
+        state = 0;
+    }
 }
 
 // @funcname: setPLim
@@ -158,6 +183,9 @@ void checkSleep(void)
     schedPause();
 }
 
+// @funcname: canTxUpdate
+//
+// @brief: Send frames in queue
 void canTxUpdate()
 {
     CanMsgTypeDef_t tx_msg;

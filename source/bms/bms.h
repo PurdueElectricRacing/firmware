@@ -122,6 +122,7 @@ extern q_handle_t q_rx_can;                 // RX CAN queue
 // Prototypes
 void bmsStatus(void);
 void initBMS(SPI_InitConfig_t* hspi);
+void txCAN(void);
 void setPLim(void);
 void calcMisc(void);
 void checkLVStatus(void);

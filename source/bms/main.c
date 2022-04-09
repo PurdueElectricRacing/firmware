@@ -20,7 +20,6 @@
 /* Pseudo-local prototypes */
 void preflightChecks(void);
 void preflightAnimation(void);
-void blink(void);
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_CONN_GPIO_Port, LED_CONN_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -86,45 +85,32 @@ int main(void) {
     {
         HardFault_Handler();
     }
-                
-    // if (!PHAL_initI2C(I2C1))
-    // {
-    //     HardFault_Handler();
-    // }
-
-    // char name[NAME_LEN] = {'c', 'e', 'l', 'l'};
-
-    // mapMem((uint8_t*) &bms.cells, sizeof(cells_t), name, true);
-
-    // ret = initMem(WC_GPIO_Port, WC_Pin, 1, 1);
-
-    // if (ret < 0) {
-    //     error_ff |= 1U << 6;
-    // }
 
     // Task Creation
     schedInit(SystemCoreClock);
+    
     configureAnim(preflightAnimation, preflightChecks, 250, 750);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
+    #ifdef BMS_ACCUM
     taskCreate(tempTask, 100);
+    #endif
     taskCreate(calcMisc, 100);
     taskCreate(setPLim, 100);
     taskCreate(checkConn, 1000);
+    #ifdef BMS_LV
     taskCreate(checkLVStatus, 3000);
-    // taskCreate(memFg, MEM_FG_TIME);
-    // taskCreateBackground(memBg);
-    // taskCreateBackground(canTxUpdate);
+    #endif
+    #ifdef BMS_ACCUM
+    taskCreateBackground(canTxUpdate);
+    #endif
+
     schedStart();
 
     // If the scheduler returns somehow, some way, wait for watchdog reset
     HardFault_Handler();
 
     return 0;
-}
-
-void blink(void) {
-    PHAL_toggleGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin);
 }
 
 void preflightChecks(void) {
@@ -148,14 +134,22 @@ void preflightChecks(void) {
             break;
 
         case 2:
+            if (!PHAL_initI2C(I2C1))
+            {
+                HardFault_Handler();
+            }
 
             break;
 
         case 3:
-            // if(!PHAL_initCAN(CAN1, false))
-            // {
-            //     HardFault_Handler();
-            // }
+            #ifdef BMS_ACCUM
+            if(!PHAL_initCAN(CAN1, false))
+            {
+                HardFault_Handler();
+            }
+            #endif
+
+            break;
 
         case 4:
             NVIC_EnableIRQ(CAN1_RX0_IRQn);

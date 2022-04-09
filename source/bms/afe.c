@@ -138,8 +138,8 @@ void afeTask(void)
         {
             bms.no_sleep |= 1U;
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
-            cmd[3] = 0x00;
-            cmd[4] = cmd[4] & ~0xf;
+            cmd[4] = 0x00;
+            cmd[5] = cmd[4] & ~0xf;
             broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
             next_state = SETTLE;
 
@@ -149,7 +149,7 @@ void afeTask(void)
         // Let the voltage settle after disabling balancing
         case SETTLE:
         {
-            if (time == 9) {
+            if (time == 5) {
                 next_state = MEAS;
             }
 

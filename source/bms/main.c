@@ -20,6 +20,7 @@
 /* Pseudo-local prototypes */
 void preflightChecks(void);
 void preflightAnimation(void);
+void blink(void);
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_CONN_GPIO_Port, LED_CONN_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -86,10 +87,10 @@ int main(void) {
         HardFault_Handler();
     }
                 
-    if (!PHAL_initI2C(I2C1))
-    {
-        HardFault_Handler();
-    }
+    // if (!PHAL_initI2C(I2C1))
+    // {
+    //     HardFault_Handler();
+    // }
 
     // char name[NAME_LEN] = {'c', 'e', 'l', 'l'};
 
@@ -106,11 +107,7 @@ int main(void) {
     configureAnim(preflightAnimation, preflightChecks, 250, 750);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
-    taskCreate(tempTask, 15);
-    // if (checkTempMaster(TEMP_ID1) && checkTempMaster(TEMP_ID2))
-    // {
-    //     taskCreate(tempTask, 15);
-    // }
+    taskCreate(tempTask, 100);
     taskCreate(calcMisc, 100);
     taskCreate(setPLim, 100);
     taskCreate(checkConn, 1000);
@@ -124,6 +121,10 @@ int main(void) {
     HardFault_Handler();
 
     return 0;
+}
+
+void blink(void) {
+    PHAL_toggleGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin);
 }
 
 void preflightChecks(void) {

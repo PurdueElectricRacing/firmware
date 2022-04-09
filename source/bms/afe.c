@@ -182,9 +182,11 @@ void afeTask(void)
             setBalance();
             balance_control = bms.cells.balance_flags & ~bms.cells.balance_mask;
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
-            cmd[3] = balance_control & 0xff;
-            cmd[4] &= ~0xf;
-            cmd[4] = (balance_control >> 8) & 0xf;
+            
+            cmd[4] = balance_control & 0xff;
+            cmd[5] &= ~0xf;
+            cmd[5] = (balance_control >> 8) & 0xf;
+
             broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
             next_state = DIAG;
 
@@ -197,10 +199,13 @@ void afeTask(void)
             broadcastPoll(ADSTAT(2, DISCHARGE_NOT_PERMITTED));
             broadcastPoll(ADAX(2, DISCHARGE_NOT_PERMITTED));
             broadcastRead(RDSTATA, LTC6811_REG_SIZE, data);
+
             bms.cells.mod_volts_raw = ((float) (byte_combine(data[1], data[0]) + CELL_0_OFFSET)) * 20 / 10000;
             bms.die_temp = (float) byte_combine(data[3], data[2]) * TEMP_CONV - KELVIN_2_CELSIUS;
             bms.afe_vdd = (float) byte_combine(data[5], data[4]) / 10000;
+
             broadcastRead(RDAUXB, LTC6811_REG_SIZE, data);
+
             bms.afe_ref = (float) byte_combine(data[5], data[4]) / 10000;
             next_state = HALT;
 

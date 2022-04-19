@@ -141,6 +141,8 @@ typedef enum {
     BAL_OFF,
     SETTLE,
     MEAS,
+    WAIT,
+    READ,
     BAL,
     DIAG,
     OW_PU0,

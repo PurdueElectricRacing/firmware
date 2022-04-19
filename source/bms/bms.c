@@ -71,10 +71,6 @@ void bmsStatus()
     {
         bms.op_mode = MODE_DISCHARGE;
     }
-    else if (bms.power_out < MIN_CHG_CURR)
-    {
-        bms.op_mode = MODE_CHARGE;
-    }
     else
     {
         bms.op_mode = MODE_IDLE;

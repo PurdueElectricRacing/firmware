@@ -69,8 +69,10 @@ void setBalance(void)
     {
         req_b = req_m = 0;
 
-        if ((bms.cells.chan_volts_raw[i] - MAX_DELTA) > min_volts) {
-            req_b = 1;
+        if (bms.op_mode == MODE_CHARGE) {
+            if ((bms.cells.chan_volts_raw[i] - MAX_DELTA) > min_volts) {
+                req_b = 1;
+            }
         }
         
         if (bms.cells.chan_volts_raw[i] > (uint32_t) (CELL_MAX_V * 10000)) {
@@ -161,7 +163,12 @@ void afeTask(void)
         case SETTLE:
         {
             if (time == 5) {
-                next_state = MEAS;
+                // Skip if OW just ran
+                if (loop_count != 1) {
+                    next_state = MEAS;
+                } else {
+                    next_state = BAL;
+                }
             }
 
             break;
@@ -172,6 +179,23 @@ void afeTask(void)
         {
             broadcastPoll(ADCVSC(2, DISCHARGE_NOT_PERMITTED));
 
+            next_state = WAIT;
+
+            break;
+        }
+
+        // Wait for ADCVSC to finish (tested and required!)
+        case WAIT:
+        {
+            if (time == 8) {
+                next_state = READ;
+            }
+
+            break;
+        }
+
+        case READ:
+        {
             for (i = 0; i < 4; i++)
             {
                 valid_PEC = broadcastRead(readCmd[i], LTC6811_REG_SIZE, data);
@@ -194,9 +218,9 @@ void afeTask(void)
             balance_control = bms.cells.balance_flags & ~bms.cells.balance_mask;
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
             
-            cmd[4] = 0x00 & 0xff;
+            cmd[4] = balance_control & 0xff;
             cmd[5] &= ~0xf;
-            cmd[5] = (0x00 >> 8) & 0xf;
+            cmd[5] = (balance_control >> 8) & 0xf;
 
             broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
             next_state = (loop_count == 0) ? OW_PU0 : DIAG;
@@ -267,6 +291,7 @@ void afeTask(void)
         case OW_CALC:
         {
             x = 0;
+            broadcastPoll(CLRCELL);
 
             if (bms.cells.pd[0] == 0) {
                 x++;

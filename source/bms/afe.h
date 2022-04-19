@@ -28,6 +28,7 @@
 #define CELL_MIN_V          2.7
 #define CELL_0_OFFSET       3000
 #define TEMP_CONV           (1.0 / 75.0)
+#define OW_THRESH           4000
 
 // Balance limits
 #define SOC_DRIFT_LIM       2.0f
@@ -142,6 +143,11 @@ typedef enum {
     MEAS,
     BAL,
     DIAG,
+    OW_PU0,
+    OW_PU1,
+    OW_PD0,
+    OW_PD1,
+    OW_CALC,
     HALT
 } afe_state_t;
 

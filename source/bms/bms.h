@@ -23,7 +23,7 @@
 #define TEMP_MAX_C              600
 #define MIN_CHG_CURR            (-1)
 #define CELL_CHARGE_IMPLAUS     0.003f
-#define MAX_DELTA               1000U
+#define MAX_DELTA               100U
 #define BAL_DUTY                0.82f
 #define BAL_RES                 30.0f
 
@@ -37,10 +37,25 @@ typedef enum {
     MODE_CHARGE
 } bms_mode_t;
 
+typedef enum {
+    E_AFE_CONN,
+    E_OV,
+    E_UV,
+    E_OW,
+    E_TEMP_CONN,
+    E_TEMP,
+    E_TEMP_DT,
+    E_EEPROM,
+    // Must come last!
+    E_CNT
+} bms_error_t;
+
 // Structures
 typedef struct {
     // Cells are indexed from bottom of stack to top of stack
     uint16_t chan_volts_raw[CELL_MAX];      // Raw 14 bit ADC value for each cell's voltage
+    uint16_t pu[CELL_MAX];                  // Raw 14 bit ADC value during pull-up section of OW
+    uint16_t pd[CELL_MAX];                  // Raw 14 bit ADC value during pull-down section of OW
     uint16_t mod_volts_raw;                 // Raw 14 bit ADC value for module
     float    est_cap[CELL_MAX];             // Current estimated cell capacity in W*hr
     float    est_cap_max[CELL_MAX];         // Current estimated maximum cell capacity in W*hr
@@ -71,17 +86,20 @@ typedef struct {
 } p_lim_t;
 
 typedef struct {
-    // Error flags:
+    // Error flags (blinking light codes):
     // 
-    // [0] -> AFE connection error
-    // [1] -> Cell overvoltage
-    // [2] -> Cell undervoltage
-    // [3] -> Temp connection error
-    // [4] -> Cell temp critical
-    // [5] -> Cell temp derivative critical
-    // [6] -> EEPROM not initialized
-    // TODO: Move these to enums like I should have from the start
+    // 1 -> AFE connection error
+    // 2 -> Cell overvoltage
+    // 3 -> Cell undervoltage
+    // 4 -> Cell open-wire
+    // 5 -> Temp connection error
+    // 6 -> Cell temp critical
+    // 7 -> Cell temp derivative critical
+    // 8 -> EEPROM not initialized
     uint32_t   error;                       // Error flags
+    uint16_t   ow;                          // Open wire flag
+    uint16_t   ov;                          // Over-voltage flag
+    uint16_t   uv;                          // Under-voltage flag
 
     // Sleep flags:
     //

@@ -30,14 +30,14 @@ void checkConn(void)
 		if (register_check[i] != cmd[i])
         {
             bms.afe_con = 0;
-            bms.error |= 0x1;
+            bms.error |= 1U << E_AFE_CONN;
 
             return;
         }
     }
 
     bms.afe_con = 1;
-    bms.error &= ~0x1;
+    bms.error &= ~(1U << E_AFE_CONN);
 
 	broadcastPoll(DIAGN);
 }
@@ -49,7 +49,7 @@ void checkConn(void)
 //         with too high/low a voltage with an error
 void setBalance(void)
 {
-    uint8_t  i, ov, uv;
+    uint8_t  i, ov, uv, req_b, req_m;
     uint16_t min_volts;
     uint16_t balance_set;
     float    avg_SOC = 0;
@@ -67,25 +67,35 @@ void setBalance(void)
 
     for (i = 0; i < bms.cell_count; i++)
     {
+        req_b = req_m = 0;
+
         if ((bms.cells.chan_volts_raw[i] - MAX_DELTA) > min_volts) {
-            bms.cells.balance_flags |= (1U << i);
+            req_b = 1;
         }
         
         if (bms.cells.chan_volts_raw[i] > (uint32_t) (CELL_MAX_V * 10000)) {
-            bms.cells.balance_flags |= (1U << i);
+            req_b = 1;
             ++ov;
-            bms.error |= 0x2;
+            bms.uv |= 1U << i;
         } else if (bms.cells.chan_volts_raw[i] < (uint32_t) (CELL_MIN_V * 10000)) {
-            bms.cells.balance_mask |= (1U << i);
+            req_m = 1;
             ++uv;
-            bms.error |= 0x4;
+            bms.ov |= 1U << i;
+        } else {
+            bms.uv &= ~(1U << i);
+            bms.ov &= ~(1U << i);
+        }
+
+        if (req_b) {
+            bms.cells.balance_flags |= 1U << i;
+        } else {
+            bms.cells.balance_flags &= ~(1U << i);
+        }
+
+        if (req_m) {
+            bms.cells.balance_mask |= 1U << i;
         } else {
             bms.cells.balance_mask &= ~(1U << i);
-
-            if (bms.cells.est_SOC[i] > (avg_SOC + SOC_DRIFT_LIM))
-            {
-                bms.cells.balance_flags |= (1U << i);
-            }
         }
     }
 
@@ -100,15 +110,15 @@ void setBalance(void)
     }
 
     if (ov) {
-        bms.error |= 0x2;
+        bms.error |= 1U << E_OV;
     } else {
-        bms.error &= ~0x2;
+        bms.error &= ~(1U << E_OV);
     }
 
     if (uv) {
-        bms.error |= 0x4;
+        bms.error |= 1U << E_UV;
     } else {
-        bms.error &= ~0x4;
+        bms.error &= ~(1U << E_UV);
     }
 }
 
@@ -117,14 +127,15 @@ void setBalance(void)
 // @brief: Main AFE task
 void afeTask(void)
 {
-    uint8_t       i, x;
-    uint8_t       cmd[LTC6811_REG_SIZE];
-    uint8_t       data[8];
-    uint8_t       data_ow[8];
-    uint16_t      valid_PEC;
-    uint16_t      balance_control;
-    uint32_t      mod_volts_conv = 0;
-    static int8_t time;
+    uint8_t        i, x;
+    uint8_t        cmd[LTC6811_REG_SIZE];
+    uint8_t        data[8];
+    uint8_t        data_ow[8];
+    uint16_t       valid_PEC;
+    uint16_t       balance_control;
+    uint32_t       mod_volts_conv = 0;
+    static int8_t  time;
+    static uint8_t loop_count;
 
     afe_state_t        next_state;
     static afe_state_t current_state;
@@ -146,7 +157,7 @@ void afeTask(void)
             break;
         }
         
-        // Let the voltage settle after disabling balancing
+        // Let the voltage settle after disabling balancing (tested and required!)
         case SETTLE:
         {
             if (time == 5) {
@@ -183,11 +194,111 @@ void afeTask(void)
             balance_control = bms.cells.balance_flags & ~bms.cells.balance_mask;
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
             
-            cmd[4] = balance_control & 0xff;
+            cmd[4] = 0x00 & 0xff;
             cmd[5] &= ~0xf;
-            cmd[5] = (balance_control >> 8) & 0xf;
+            cmd[5] = (0x00 >> 8) & 0xf;
 
             broadcastWrite(WRCFGA, LTC6811_REG_SIZE, cmd);
+            next_state = (loop_count == 0) ? OW_PU0 : DIAG;
+            loop_count = (loop_count == 9) ? 0 : loop_count + 1;
+
+            break;
+        }
+
+        // Run ADOW with pull-ups
+        case OW_PU0:
+        {
+            broadcastPoll(ADOW(3, 1, DISCHARGE_NOT_PERMITTED, ALL_CELLS));
+            next_state = OW_PU1;
+
+            break;
+        }
+
+        // Run ADOW with pull-ups (again), and read cell voltages
+        case OW_PU1:
+        {
+            broadcastPoll(ADOW(3, 1, DISCHARGE_NOT_PERMITTED, ALL_CELLS));
+
+            for (i = 0; i < 4; i++)
+            {
+                valid_PEC = broadcastRead(readCmd[i], LTC6811_REG_SIZE, data);
+
+                x = i * 3;
+                bms.cells.pu[x++] = byte_combine(data[1], data[0]);
+                bms.cells.pu[x++] = byte_combine(data[3], data[2]);
+                bms.cells.pu[x] = byte_combine(data[5], data[4]);
+            }
+
+            next_state = OW_PD0;
+
+            break;
+        }
+
+        // Run ADOWN with pull-downs
+        case OW_PD0:
+        {
+            broadcastPoll(ADOW(3, 0, DISCHARGE_NOT_PERMITTED, ALL_CELLS));
+            next_state = OW_PD1;
+
+            break;
+        }
+
+        // Run ADOW with pull-downs (again), and read cell voltages
+        case OW_PD1:
+        {
+            broadcastPoll(ADOW(3, 0, DISCHARGE_NOT_PERMITTED, ALL_CELLS));
+
+            for (i = 0; i < 4; i++)
+            {
+                valid_PEC = broadcastRead(readCmd[i], LTC6811_REG_SIZE, data);
+
+                x = i * 3;
+                bms.cells.pd[x++] = byte_combine(data[1], data[0]);
+                bms.cells.pd[x++] = byte_combine(data[3], data[2]);
+                bms.cells.pd[x] = byte_combine(data[5], data[4]);
+            }
+
+            next_state = OW_CALC;
+
+            break;
+        }
+
+        // Determine if we have an open wire
+        case OW_CALC:
+        {
+            x = 0;
+
+            if (bms.cells.pd[0] == 0) {
+                x++;
+                bms.ow |= 1U;
+            } else {
+                bms.ow &= ~1U;
+            }
+
+            if (bms.cells.pu[11] == 0 && bms.cell_count == 12) {
+                x++;
+                bms.ow |= 1U << 12;
+            } else {
+                bms.ow &= ~(1U << 12);
+            }
+
+            for (i = 1; i < bms.cell_count; i++)
+            {
+                // Note: This is backwards compared to datasheet due to unsigned
+                if (bms.cells.pd[i] - bms.cells.pu[i] > OW_THRESH) {
+                    x++;
+                    bms.ow |= 1U << (i - 1);
+                } else {
+                    bms.ow &= ~(1U << (i - 1));
+                }
+            }
+
+            if (x) {
+                bms.error |= 1U << E_OW;
+            } else {
+                bms.error &= ~(1U << E_OW);
+            }
+
             next_state = DIAG;
 
             break;

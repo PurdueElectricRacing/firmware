@@ -1,6 +1,7 @@
 #include "bms.h"
 
 // Static function prototypes
+static uint8_t searchNextError(void);
 static void memsetu(uint8_t* ptr, uint8_t val, uint32_t size);
 
 bms_t   bms;
@@ -11,13 +12,59 @@ uint8_t error_ff;
 // @brief: Posts BMS status and tracks mode
 void bmsStatus()
 {
-    static uint8_t flag;
     uint8_t i;
+    uint8_t e_flag;
+    uint8_t current_ec;
+    static uint8_t ec_ticks_rem;
+    static uint8_t flag;
+    static uint8_t ec_state;
 
     flag = !flag;
+    e_flag = 0;
+    
+    // Setup the error light to blink error codes (rolling through all)
+    switch (ec_state) {
+        case 0:
+        {
+            current_ec = searchNextError();
+            
+            if (current_ec) {
+                e_flag = 1;
+                ec_state = 1;
+                ec_ticks_rem = current_ec * 2 - (flag ? 1 : 0);
+            }
+
+            break;
+        }
+
+        case 1:
+        {
+            e_flag = 1;
+
+            if (--ec_ticks_rem == 0) {
+                ec_ticks_rem = 4;
+                ec_state = 2;
+            }
+
+            break;
+        }
+
+        case 2:
+        {
+            if (--ec_ticks_rem == 0) {
+                if (current_ec == E_CNT - 1) {
+                    current_ec = -1;
+                }
+
+                ec_state = 0;
+            }
+
+            break;
+        }
+    }
 
     PHAL_writeGPIO(LED_HEART_GPIO_Port, LED_HEART_Pin, flag);
-    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, bms.error ? flag : 0);
+    PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, e_flag ? flag : 0);
     PHAL_writeGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin, bms.afe_con);
 
     if (bms.veh_con == 1)
@@ -186,7 +233,7 @@ void checkSleep(void)
 // @funcname: canTxUpdate
 //
 // @brief: Send frames in queue
-void canTxUpdate()
+void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
     uint8_t ret;
@@ -195,6 +242,43 @@ void canTxUpdate()
     {
         PHAL_txCANMessage(&tx_msg);
     }
+}
+
+// @funcname: searchNextError
+//
+// @brief: Determines next error code to display
+//
+// @return: Next error code + 1
+static uint8_t searchNextError(void)
+{
+    uint8_t i, ec_low, entry_ec, cnt;
+    static uint8_t current_ec;
+
+    ec_low = E_CNT;
+    entry_ec = current_ec;
+    cnt = 0;
+
+    for (i = 1; i <= E_CNT; i++) {
+        if (bms.error & (1U << (i - 1))) {
+            ++cnt;
+
+            if (i < current_ec && ec_low == E_CNT) {
+                ec_low = i;
+            } else if (i > current_ec) {
+                current_ec = i;
+
+                return current_ec;
+            }
+        }
+    }
+
+    if (ec_low < current_ec) {
+        current_ec = ec_low;
+    } else if (entry_ec == current_ec && ec_low != E_CNT) {
+        current_ec = ec_low;
+    }
+
+    return cnt ? current_ec : 0;
 }
 
 // @funcname: memsetu

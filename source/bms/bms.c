@@ -125,12 +125,12 @@ void txCAN(void)
 
         default:
         {
-            for (i = 0; i < bms.cell_count; i++)
+            for (i = 0; i < 4; i++)
             {
                 SEND_VOLTS_CELLS(q_tx_can, i, bms.cells.chan_volts_raw[i * 3], bms.cells.chan_volts_raw[i * 3 + 1], bms.cells.chan_volts_raw[i * 3 + 2]);
             }
 
-            for (i = 0; i < bms.cell_count; i++)
+            for (i = 0; i < 4; i++)
             {
                 SEND_TEMPS_CELLS(q_tx_can, i, bms.cells.chan_temps_conv[i * 3], bms.cells.chan_temps_conv[i * 3 + 1], bms.cells.chan_temps_conv[i * 3 + 2]);
             }
@@ -232,11 +232,18 @@ void checkSleep(void)
 void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
-    uint8_t ret;
+    static uint8_t ret;
 
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
-        PHAL_txCANMessage(&tx_msg);
+        ret += PHAL_txCANMessage(&tx_msg);
+
+        if (ret) {
+            bms.error |= (1U << E_CAN_TX);
+        } else {
+            --ret;
+            bms.error &= ~(1U << E_CAN_TX);
+        }
     }
 }
 

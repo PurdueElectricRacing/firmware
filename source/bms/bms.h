@@ -27,8 +27,8 @@
 #define BAL_DUTY                0.82f
 #define BAL_RES                 30.0f
 
-// #define BMS_ACCUM
-#define BMS_LV
+#define BMS_ACCUM
+// #define BMS_LV
 
 // Enumerations
 typedef enum {
@@ -46,6 +46,8 @@ typedef enum {
     E_TEMP,
     E_TEMP_DT,
     E_EEPROM,
+    E_I2C_CONN,
+    E_CAN_TX,
     // Must come last!
     E_CNT
 } bms_error_t;
@@ -88,14 +90,16 @@ typedef struct {
 typedef struct {
     // Error flags (blinking light codes):
     // 
-    // 1 -> AFE connection error
-    // 2 -> Cell overvoltage
-    // 3 -> Cell undervoltage
-    // 4 -> Cell open-wire
-    // 5 -> Temp connection error
-    // 6 -> Cell temp critical
-    // 7 -> Cell temp derivative critical
-    // 8 -> EEPROM not initialized
+    // 1  -> AFE connection error
+    // 2  -> Cell overvoltage
+    // 3  -> Cell undervoltage
+    // 4  -> Cell open-wire
+    // 5  -> Temp connection error
+    // 6  -> Cell temp critical
+    // 7  -> Cell temp derivative critical
+    // 8  -> EEPROM not initialized
+    // 9  -> I2C communication/connection error
+    // 10 -> CAN TX error
     uint32_t   error;                       // Error flags
     uint16_t   ow;                          // Open wire flag
     uint16_t   ov;                          // Over-voltage flag

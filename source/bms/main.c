@@ -86,6 +86,8 @@ int main(void) {
         HardFault_Handler();
     }
 
+    initCANParse(&q_rx_can);
+
     // Task Creation
     schedInit(SystemCoreClock);
     
@@ -93,6 +95,7 @@ int main(void) {
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
     #ifdef BMS_ACCUM
+    taskCreate(txCAN, 100);
     taskCreate(tempTask, 100);
     #endif
     taskCreate(calcMisc, 100);
@@ -103,6 +106,7 @@ int main(void) {
     #endif
     #ifdef BMS_ACCUM
     taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
     #endif
 
     schedStart();

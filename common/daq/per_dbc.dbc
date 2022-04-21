@@ -70,26 +70,26 @@ BO_ 2214598978 rear_driveline_hb: 2 Driveline
 BO_ 2214592514 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
 BO_ 2214592578 rear_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
 BO_ 2348810882 front_motor_currents_temps: 6 Driveline
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right_current : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_current : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
+ SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
 BO_ 2348810946 rear_motor_currents_temps: 6 Driveline
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
+ SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
 BO_ 2281734148 test_precharge_msg: 1 Precharge
  SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -254,8 +254,8 @@ CM_ SG_ 2348810882 left_current "";
 CM_ BO_ 2348810946 "DC Current and Temperature of the motor controllers";
 CM_ SG_ 2348810946 right_temp "";
 CM_ SG_ 2348810946 left_temp "";
-CM_ SG_ 2348810946 right "";
-CM_ SG_ 2348810946 left "";
+CM_ SG_ 2348810946 right_current "";
+CM_ SG_ 2348810946 left_current "";
 CM_ BO_ 2281734148 "test precharge desc";
 CM_ SG_ 2281734148 test_precharge_sig "";
 CM_ BO_ 2483028613 "throttle_brake desc";

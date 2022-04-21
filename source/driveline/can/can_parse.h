@@ -85,11 +85,11 @@ extern uint32_t last_can_rx_time_ms;
         data_a->front_motor_currents_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_MOTOR_CURRENTS_TEMPS(queue, left_, right_, left_temp_, right_temp_) do {\
+#define SEND_REAR_MOTOR_CURRENTS_TEMPS(queue, left_current_, right_current_, left_temp_, right_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_CURRENTS_TEMPS, .DLC=DLC_REAR_MOTOR_CURRENTS_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_motor_currents_temps.left = left_;\
-        data_a->rear_motor_currents_temps.right = right_;\
+        data_a->rear_motor_currents_temps.left_current = left_current_;\
+        data_a->rear_motor_currents_temps.right_current = right_current_;\
         data_a->rear_motor_currents_temps.left_temp = left_temp_;\
         data_a->rear_motor_currents_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
@@ -177,8 +177,8 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } front_motor_currents_temps;
     struct {
-        uint64_t left: 16;
-        uint64_t right: 16;
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;

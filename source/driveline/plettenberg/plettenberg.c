@@ -1,25 +1,27 @@
 #include "plettenberg.h"
 
 static void mc_set_startup_params(motor_t *m);
+static void mc_set_param(uint8_t value, char *param, motor_t *m);
+static int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_addr);
 
-void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue, 
-             volatile motor_rx_buf_t *rx_queue){
+void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
     *m = (motor_t) {
         .is_inverted = is_inverted,
         .tx_queue    = tx_queue,
-        .rx_queue    = rx_queue,
-        .motor_state = MC_DISCONNECTED
+        .data_valid  = false,
+        .motor_state = MC_DISCONNECTED,
+        .last_rx_time = 15000,
+        .rx_timeout = MC_RX_LARGE_TIMEOUT_MS
     };
-    rx_queue->last_rx_time = 15000;
-    rx_queue->timeout = MC_RX_LARGE_TIMEOUT_MS;
 
     return;
 }
 
 void mc_set_power(float power, motor_t *m)
 {
-    // determine mode and clamp power from 0% - 100%
+    // don't even try if disconnected
     if (m->motor_state != MC_CONNECTED) return;
+    // determine mode and clamp power from 0% - 100%
     char mode = (m->is_inverted) ? MC_REVERSE : MC_FORWARD;
     if (power < 0)
     {
@@ -94,105 +96,134 @@ void mc_set_startup_params(motor_t *m)
     char cmd[MC_MAX_TX_LENGTH];
     uint8_t i = 0;
     cmd[i++] = MC_SERIAL_MODE;
-    // cmd[i++] = '\r';
-    // cmd[i++] = '\n';
     cmd[i++] = '\0';
     qSendToBack(m->tx_queue, cmd);
-    // configuration
-    // mc_set_param(200, MC_PAR_UPDATE_PERIOD, m);
     // TODO: set tmp and curr limits higher, we will do the checking
-    // mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, m);
-    // mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, m);
-    // mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, m);
 }
 
-/*
- *  Reads the data being sent from the motor controller
- */
-bool mc_parse(motor_t *m) {
+int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_addr)
+{
+    // start searching for search term at start, if value found return the index
+    // the next location to look at, if not return -1
+    // keeps adding as long as it sees leading spaces, multiplies by 10 if decimal point found
+    uint8_t search_length = strlen(search_term);
+    bool match = true;
+    uint8_t curr = 0xFF;
+
+    for (uint8_t i = start; i < MC_MAX_RX_LENGTH + start; ++i) 
+    {
+        if (rx_buf[i % MC_MAX_RX_LENGTH] == search_term[0])
+        {
+            // possible match, check entire term matches
+            for (uint8_t j = 0; j < search_length; ++j)
+            {
+                if (rx_buf[(i + j) % MC_MAX_RX_LENGTH] != search_term[j])
+                {
+                    // not a match, continue searching
+                    match = false;
+                    break;
+                }
+            }
+            if (match)
+            {
+                curr = i % MC_MAX_RX_LENGTH;
+                break;
+            }
+        }
+    }
+    if (!match) return -1;
+    // destroy match to prevent re-reading same data
+    // rx_buf[curr] = '\0';
+    curr = (curr + search_length) % MC_MAX_RX_LENGTH;
+
+    uint32_t val = 0;
+
+    /* Extract value */
+    for (uint8_t i = curr; i < MC_MAX_RX_LENGTH + curr; ++i)
+    {
+        char c = rx_buf[i % MC_MAX_RX_LENGTH];
+        if ((c == ' ' && val == 0) || c == '.') continue;
+        else if (c >= '0' && c <= '9')
+        {
+            val = (val * 10) + (c - '0');
+        }
+        else
+        {
+            curr = i % MC_MAX_RX_LENGTH;
+            break;
+        }
+    }
+
+    *val_addr = val;
+    return curr;
+}
+
+static char tmp_rx_buf[MC_MAX_RX_LENGTH] = {'\0'};
+bool mc_periodic(motor_t *m) {
     // Check rx timeout
-    bool timed_out = (sched.os_ticks - m->rx_queue->last_rx_time > m->rx_queue->timeout);
+    bool timed_out = (sched.os_ticks - m->last_rx_time > m->rx_timeout);
+
+    /* Update connection status */
     if (timed_out)
     {
         m->motor_state = MC_DISCONNECTED;
-        m->rx_queue->timeout = MC_RX_LARGE_TIMEOUT_MS;
+        m->rx_timeout = MC_RX_LARGE_TIMEOUT_MS;
+        m->data_valid = false;
     }
     else if (m->motor_state == MC_DISCONNECTED)
     {
-        m->rx_queue->init_time = sched.os_ticks;
+        m->boot_start_time = sched.os_ticks;
         m->motor_state = MC_INITIALIZING;
     }
     else if (m->motor_state == MC_INITIALIZING &&
-            sched.os_ticks - m->rx_queue->init_time > MC_PREAMBLE_TIME)
+            sched.os_ticks - m->boot_start_time > MC_BOOT_TIME)
     {
         mc_set_startup_params(m);
         m->motor_state = MC_CONNECTED;
     }
 
-    if (m->motor_state == MC_CONNECTED && 
-        m->rx_queue->timeout == MC_RX_LARGE_TIMEOUT_MS &&
-        sched.os_ticks - m->rx_queue->init_time > MC_TIMEOUT_CONSTRAINT_TIME)
-        m->rx_queue->timeout = MC_RX_SMALL_TIMEOUT_MS;
-
-    return false;
-    // Check if actual data
-    // if (!m->rx_queue->free_has_data) return false;
-
-    // Swap the free and read buffers
-    // m->rx_queue->free_has_data = false;
-    char *data = m->rx_queue->rx_buf;
-    // m->rx_queue->free = m->rx_queue->read;
-    // m->rx_queue->read = data;
-
-    /* Determine connection status */
-    if (data[0] == 'T' || data[0] == 't')
+    // Switch from large to small timeout after timeout constraint time
+    if (m->motor_state == MC_CONNECTED          && 
+        m->rx_timeout == MC_RX_LARGE_TIMEOUT_MS &&
+        sched.os_ticks - m->boot_start_time > MC_TIMEOUT_CONSTRAINT_TIME)
     {
-        // not in serial, set params
-        mc_set_startup_params(m);
-        return false;
-    }
-    else if (data[0] == 'S')
-    {
-        m->motor_state = MC_CONNECTED;
-    }
-    else
-    {
-        __asm__("nop"); // invalid data
-        return false;
+        m->rx_timeout = MC_RX_SMALL_TIMEOUT_MS;
     }
 
-    // replaces spaces with '0'
-    for (int i = 0; i < MC_MAX_RX_LENGTH; i++) if (data[i] == ' ') data[i] = '0';    
-    
     // 0        9        18       27       36       45         56        66
     // S=3.649V,a=0.000V,PWM= 787,U= 34.9V,I=  3.7A,RPM=  1482,con= 28°C,mot= 26°C
-    if (data[27] != 'U') return false;
-    m->voltage = ((data[29] - '0')* 100) + ((data[30] - '0')* 10) + (data[31] - '0') + ((data[33] - '0') / 10.0);
-    //Should be >0 when the voltage is in the correct range(200 - 336), or <0 if otherwise
-    m->proper_voltage = (m->voltage < (CELL_MAX_V * 80)) && (m->voltage > (CELL_MIN_V * 80));
-    bool is_over_powered = false;
+    int16_t curr = 0;
+    uint32_t val_buf = 0;
 
-    if (data[36] != 'I') return false;
-    m->phase_current = ((data[38] - '0') * 100) + ((data[39] - '0') * 10) + (data[40] - '0') + ((data[42] - '0') / 10.0);
-    m->is_over_powered = (m->voltage * m->phase_current) > 60000; 
+    // freeze state of dma buffer
+    for (uint8_t i = 0; i < MC_MAX_RX_LENGTH; ++i) tmp_rx_buf[i] = m->rx_buf[i];
 
-    if (data[45] != 'R') return false;
-    m->rpm = (data[49] - '0') * 100000 + (data[50] - '0') * 10000 + (data[51] - '0') * 1000 + 
-             (data[52] - '0') * 100    + (data[53] - '0') * 10    + (data[54] - '0');
+    /* Voltage */
+    curr = mc_parse(tmp_rx_buf, curr, "U=", &val_buf);
+    if (curr < 0) return false;
+    m->voltage_x10 = (uint16_t) val_buf;
 
-    if (data[56] != 'c') return false;
-    float new_controller_temp = ((data[60] - '0') * 100) + ((data[61] - '0') * 10) + (data[62] - '0');
-    if (!(m->controller_temp == 0)) {
-        m->con_temp_slope = new_controller_temp - m->controller_temp;
-    }
-    m->controller_temp = new_controller_temp;
+    /* Current */
+    curr = mc_parse(tmp_rx_buf, curr, "I=", &val_buf);
+    if (curr < 0) return false;
+    m->current_x10 = (uint16_t) val_buf;
 
-    if (data[66] != 'm') return false;
-    float new_motor_temp = ((data[70] - '0')* 100) + ((data[71] - '0') * 10) + (data[72] - '0');
-    if (!(m->motor_temp == 0)) {
-        m->motor_temp_slope = new_motor_temp - m->motor_temp;
-    }
-    m->motor_temp = new_motor_temp;
+    /* RPM */
+    curr = mc_parse(tmp_rx_buf, curr, "RPM=", &val_buf);
+    if (curr < 0) return false;
+    m->rpm = val_buf;
+
+    /* Controller temp */
+    curr = mc_parse(tmp_rx_buf, curr, "con=", &val_buf);
+    if (curr < 0) return false;
+    m->controller_temp = (uint8_t) val_buf;
+
+    /* Motor temp */
+    curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
+    if (curr < 0) return false;
+    m->controller_temp = (uint8_t) val_buf;
+
+    m->data_valid = true;
 
     return true;
 }

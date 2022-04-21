@@ -109,8 +109,8 @@
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
-                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit": "kphx100"},
+                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
                                 {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
                                 {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
                             ],
@@ -121,8 +121,8 @@
                         {   "msg_name": "rear_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
-                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
+                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
                                 {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
                                 {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
                             ],
@@ -133,8 +133,8 @@
                         {   "msg_name": "front_motor_currents_temps",
                             "msg_desc": "DC Current and Temperature of the motor controllers",
                             "signals": [
-                                {"sig_name": "left_current", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_current", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
+                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
                                 {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],
@@ -145,8 +145,8 @@
                         {   "msg_name": "rear_motor_currents_temps",
                             "msg_desc": "DC Current and Temperature of the motor controllers",
                             "signals": [
-                                {"sig_name": "left", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
+                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
                                 {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],

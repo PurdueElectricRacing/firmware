@@ -35,12 +35,8 @@
 #define FREQ_TO_KPH (MPS_TO_KPH * WHEEL_CIRCUMF_M / SENSOR_TEETH)
 
 typedef struct {
-  struct {
-    float freq_hz;
-  } left;
-  struct {
-    float freq_hz;
-  } right;
+  float left_kph;
+  float right_kph;
 } WheelSpeeds_t;
 
 extern WheelSpeeds_t wheel_speeds;

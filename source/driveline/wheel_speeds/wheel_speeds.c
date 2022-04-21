@@ -44,9 +44,9 @@ void wheelSpeedsPeriodic()
     uint32_t ccr_store = left_ccr;
 
     if (ccr_store != 0)
-        wheel_speeds.left.freq_hz = FREQ_TO_KPH * (TIM_CLOCK_FREQ / (float) (ccr_store));
+        wheel_speeds.left_kph = FREQ_TO_KPH * (TIM_CLOCK_FREQ / (float) (ccr_store));
     else
-        wheel_speeds.left.freq_hz = 0;
+        wheel_speeds.left_kph = 0;
 
     // ccr_store = right_ccr;
     // if(ccr_store == 0)

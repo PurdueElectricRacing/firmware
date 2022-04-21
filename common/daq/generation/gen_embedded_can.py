@@ -81,16 +81,27 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
     """ generates hardware filters for a set of message definitions for a specific peripheral """
     on_mask = False
     filter_bank = 0
+    filter_bank_max = 27
+
+    if peripheral == "CAN1":
+        filter_bank = 0
+        filter_bank_max = 14
+    elif peripheral == "CAN2":
+        filter_bank = 14
+        filter_bank_max = 27
+    else:
+        print(f"Unknown CAN peripheral {peripheral}")
+
     for msg in rx_msg_configs:
-        if(filter_bank > 27):
+        if(filter_bank > filter_bank_max):
             generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
             quit(1)
         if not on_mask:
-            lines.append(f"    {peripheral}->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
             on_mask = True
         else:
-            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
             on_mask = False
             filter_bank += 1
 

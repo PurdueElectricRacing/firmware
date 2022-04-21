@@ -169,6 +169,7 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void volts_cells_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

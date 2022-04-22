@@ -28,7 +28,11 @@
 #define BAL_RES                 30.0f
 
 #define BMS_ACCUM
-// #define BMS_LV
+#ifndef BMS_ACCUM
+#define BMS_LV
+#endif
+
+#define NO_BALANCE
 
 // Enumerations
 typedef enum {

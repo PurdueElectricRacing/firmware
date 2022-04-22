@@ -32,39 +32,50 @@ int checkTempMaster(uint8_t addr)
 
 void tempTask(void)
 {
-    uint8_t i;
-    uint8_t ret = 0;
-    uint8_t buff[TEMP_MAX * 2];
+    uint8_t  i;
+    uint8_t  ret = 0;
+    uint8_t  buff[TEMP_MAX];
+    uint16_t addr;
+    static uint8_t side;
 
-    for (i = 0; i < TEMP_MAX * 2; i++) {
+    // Clear buffer for debug
+    for (i = 0; i < TEMP_MAX; i++) {
         buff[i] = 0;
     }
 
-    // Get values from device 1
-    ret += PHAL_I2C_gen_start(I2C1, TEMP_ID1 << 1, bms.temp_count / 2, PHAL_I2C_MODE_RX);
-    ret += PHAL_I2C_read_multi(I2C1, buff, bms.temp_count / 2);
-    ret += PHAL_I2C_gen_stop(I2C1);
-
-    for (i = 0; i < bms.temp_count / 2; i++)
-    {
-        bms.cells.chan_temps_raw[i] = (buff[i * 2] << 8) | buff[(i * 2) + 1];
+    // Set addr based on side
+    if (!side) {
+        addr = TEMP_ID1;
+    } else {
+        addr = TEMP_ID2;
     }
 
-    // Get values from device 2
-    ret += PHAL_I2C_gen_start(I2C1, TEMP_ID2 << 1, bms.temp_count / 2, PHAL_I2C_MODE_RX);
-    ret += PHAL_I2C_read_multi(I2C1, buff, bms.temp_count / 2);
-    ret += PHAL_I2C_gen_stop(I2C1);
+    // Get values from set device
+    ret += PHAL_I2C_gen_start(I2C1, addr << 1, bms.temp_count, PHAL_I2C_MODE_RX);
 
-    for (i = 0; i < bms.temp_count / 2; i++)
-    {
-        bms.cells.chan_temps_raw[i + (bms.temp_count / 2)] = (buff[i * 2] << 8) | buff[(i * 2) + 1];
+    if (ret) {
+        ret = PHAL_I2C_read_multi(I2C1, &buff[side ? bms.temp_count : 0], bms.temp_count);
+
+        if (ret){
+            PHAL_I2C_gen_stop(I2C1);
+        }
     }
 
-    // if (ret != 6) {
-    //     bms.error |= 1U << E_I2C_CONN;
-    // } else {
-    //     bms.error &= ~(1U << E_I2C_CONN);
-    // }
+    // Store raw values
+    for (i = (side ? bms.temp_count / 2 : 0); i < (side ? bms.temp_count : bms.temp_count / 2); i++)
+    {
+        bms.cells.chan_temps_raw[i] = (((uint16_t) buff[i * 2 + 1]) << 8) | (uint16_t) buff[(i * 2)];
+    }
+
+    // Invert side for next run
+    side = !side;
+
+    // Check if we had a transmission error
+    if (ret != 3) {
+        bms.error |= 1U << E_I2C_CONN;
+    } else {
+        bms.error &= ~(1U << E_I2C_CONN);
+    }
 }
 
 void procTemps(void)

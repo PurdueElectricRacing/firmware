@@ -5,6 +5,7 @@
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/i2c/i2c.h"
+#include "common/phal_L4/i2c_alt/i2c_alt.h"
 #include "common/phal_L4/spi/spi.h"
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
@@ -96,7 +97,7 @@ int main(void) {
     taskCreate(afeTask, 1);
     #ifdef BMS_ACCUM
     taskCreate(txCAN, 100);
-    taskCreate(tempTask, 100);
+    taskCreate(tempTask, 500);
     #endif
     taskCreate(calcMisc, 100);
     taskCreate(setPLim, 100);

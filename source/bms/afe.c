@@ -216,6 +216,9 @@ void afeTask(void)
         {
             setBalance();
             balance_control = bms.cells.balance_flags & ~bms.cells.balance_mask;
+            #ifdef NO_BALANCE
+            balance_control = 0x0000;
+            #endif
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
             
             cmd[4] = balance_control & 0xff;

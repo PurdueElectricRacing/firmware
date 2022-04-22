@@ -196,4 +196,6 @@ void canRxUpdate();
  */
 void canProcessRxIRQs(CanMsgTypeDef_t* rx);
 
+extern volatile uint32_t last_can_rx_time_ms;
+
 #endif

@@ -151,8 +151,12 @@ void PHAL_FaultHandler()
     HardFault_Handler();
 }
 
+#define CONN_LED_MS_THRESH  (500)
 void heartbeat_task()
 {
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 }
 

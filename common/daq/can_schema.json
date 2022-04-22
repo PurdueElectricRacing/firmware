@@ -51,7 +51,12 @@
                     "type":"array",
                     "description":"messages received by the node",
                     "items":{"$ref":"#/$defs/rx_message"}
+                },
+                "accept_all_messages":{
+                    "type":"boolean",
+                    "description":"Do not generate CAN RX filters and accept all messages. Only those messages configured in the RX field will be populated in the can_data structure."
                 }
+
             }
         },
         "tx_message":{

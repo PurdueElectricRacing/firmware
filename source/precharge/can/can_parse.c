@@ -37,38 +37,38 @@ void canRxUpdate()
         {
             switch(msg_header.ExtId)
             {
-                case ID_SOC_CELLS:
-                    can_data.soc_cells.idx = msg_data_a->soc_cells.idx;
-                    can_data.soc_cells.soc1 = msg_data_a->soc_cells.soc1;
-                    can_data.soc_cells.soc2 = msg_data_a->soc_cells.soc2;
-                    can_data.soc_cells.soc3 = msg_data_a->soc_cells.soc3;
+                case ID_SOC_CELLS_1:
+                    can_data.soc_cells_1.idx = msg_data_a->soc_cells_1.idx;
+                    can_data.soc_cells_1.soc1 = msg_data_a->soc_cells_1.soc1;
+                    can_data.soc_cells_1.soc2 = msg_data_a->soc_cells_1.soc2;
+                    can_data.soc_cells_1.soc3 = msg_data_a->soc_cells_1.soc3;
                     break;
-                case ID_VOLTS_CELLS:
-                    can_data.volts_cells.idx = msg_data_a->volts_cells.idx;
-                    can_data.volts_cells.v1 = msg_data_a->volts_cells.v1;
-                    can_data.volts_cells.v2 = msg_data_a->volts_cells.v2;
-                    can_data.volts_cells.v3 = msg_data_a->volts_cells.v3;
-                    volts_cells_CALLBACK(msg_data_a);
+                case ID_VOLTS_CELLS_1:
+                    can_data.volts_cells_1.idx = msg_data_a->volts_cells_1.idx;
+                    can_data.volts_cells_1.v1 = msg_data_a->volts_cells_1.v1;
+                    can_data.volts_cells_1.v2 = msg_data_a->volts_cells_1.v2;
+                    can_data.volts_cells_1.v3 = msg_data_a->volts_cells_1.v3;
+                    volts_cells_1_CALLBACK(msg_data_a);
                     break;
-                case ID_PACK_INFO:
-                    can_data.pack_info.volts = msg_data_a->pack_info.volts;
-                    can_data.pack_info.error = msg_data_a->pack_info.error;
-                    can_data.pack_info.bal_flags = msg_data_a->pack_info.bal_flags;
+                case ID_PACK_INFO_1:
+                    can_data.pack_info_1.volts = msg_data_a->pack_info_1.volts;
+                    can_data.pack_info_1.error = msg_data_a->pack_info_1.error;
+                    can_data.pack_info_1.bal_flags = msg_data_a->pack_info_1.bal_flags;
                     break;
-                case ID_TEMPS_CELLS:
-                    can_data.temps_cells.idx = msg_data_a->temps_cells.idx;
-                    can_data.temps_cells.t1 = msg_data_a->temps_cells.t1;
-                    can_data.temps_cells.t2 = msg_data_a->temps_cells.t2;
-                    can_data.temps_cells.t3 = msg_data_a->temps_cells.t3;
+                case ID_TEMPS_CELLS_1:
+                    can_data.temps_cells_1.idx = msg_data_a->temps_cells_1.idx;
+                    can_data.temps_cells_1.t1 = msg_data_a->temps_cells_1.t1;
+                    can_data.temps_cells_1.t2 = msg_data_a->temps_cells_1.t2;
+                    can_data.temps_cells_1.t3 = msg_data_a->temps_cells_1.t3;
                     break;
-                case ID_CELL_INFO:
-                    can_data.cell_info.delta = msg_data_a->cell_info.delta;
-                    can_data.cell_info.ov = msg_data_a->cell_info.ov;
-                    can_data.cell_info.uv = msg_data_a->cell_info.uv;
+                case ID_CELL_INFO_1:
+                    can_data.cell_info_1.delta = msg_data_a->cell_info_1.delta;
+                    can_data.cell_info_1.ov = msg_data_a->cell_info_1.ov;
+                    can_data.cell_info_1.uv = msg_data_a->cell_info_1.uv;
                     break;
-                case ID_POWER_LIM:
-                    can_data.power_lim.disch_lim = msg_data_a->power_lim.disch_lim;
-                    can_data.power_lim.chg_lim = msg_data_a->power_lim.chg_lim;
+                case ID_POWER_LIM_1:
+                    can_data.power_lim_1.disch_lim = msg_data_a->power_lim_1.disch_lim;
+                    can_data.power_lim_1.chg_lim = msg_data_a->power_lim_1.chg_lim;
                     break;
                 default:
                     __asm__("nop");
@@ -112,14 +112,14 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 14);    // configure bank 14
-    CAN1->sFilterRegister[14].FR1 = (ID_SOC_CELLS << 3) | 4;
-    CAN1->sFilterRegister[14].FR2 = (ID_VOLTS_CELLS << 3) | 4;
+    CAN1->sFilterRegister[14].FR1 = (ID_SOC_CELLS_1 << 3) | 4;
+    CAN1->sFilterRegister[14].FR2 = (ID_VOLTS_CELLS_1 << 3) | 4;
     CAN1->FA1R |= (1 << 15);    // configure bank 15
-    CAN1->sFilterRegister[15].FR1 = (ID_PACK_INFO << 3) | 4;
-    CAN1->sFilterRegister[15].FR2 = (ID_TEMPS_CELLS << 3) | 4;
+    CAN1->sFilterRegister[15].FR1 = (ID_PACK_INFO_1 << 3) | 4;
+    CAN1->sFilterRegister[15].FR2 = (ID_TEMPS_CELLS_1 << 3) | 4;
     CAN1->FA1R |= (1 << 16);    // configure bank 16
-    CAN1->sFilterRegister[16].FR1 = (ID_CELL_INFO << 3) | 4;
-    CAN1->sFilterRegister[16].FR2 = (ID_POWER_LIM << 3) | 4;
+    CAN1->sFilterRegister[16].FR1 = (ID_CELL_INFO_1 << 3) | 4;
+    CAN1->sFilterRegister[16].FR2 = (ID_POWER_LIM_1 << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)

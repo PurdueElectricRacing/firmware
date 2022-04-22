@@ -661,7 +661,7 @@
                     ],
                     "rx": [
                         {"msg_name": "soc_cells"},
-                        {"msg_name": "volts_cells"},
+                        {"msg_name": "volts_cells", "callback": true},
                         {"msg_name": "pack_info"},
                         {"msg_name": "temps_cells"},
                         {"msg_name": "cell_info"},

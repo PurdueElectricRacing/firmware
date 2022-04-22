@@ -12,6 +12,7 @@
 /* Module Includes */
 #include "main.h"
 #include "bmi088.h"
+#include "bms.h"
 
 
 /* PER HAL Initilization Structures */
@@ -192,6 +193,7 @@ void CAN1_RX0_IRQHandler()
           rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
         }
 
+        rx.Bus = CAN1;
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
         rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
@@ -220,6 +222,7 @@ void CAN2_RX0_IRQHandler()
     if (CAN2->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
         CanMsgTypeDef_t rx;
+        rx.Bus = CAN2;
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN2->sFIFOMailBox[0].RIR)

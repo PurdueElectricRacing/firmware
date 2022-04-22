@@ -46,6 +46,7 @@ void canRxUpdate()
                     can_data.volts_cells.v1 = msg_data_a->volts_cells.v1;
                     can_data.volts_cells.v2 = msg_data_a->volts_cells.v2;
                     can_data.volts_cells.v3 = msg_data_a->volts_cells.v3;
+                    volts_cells_CALLBACK(msg_data_a);
                     break;
                 case ID_PACK_INFO:
                     can_data.pack_info.volts = msg_data_a->pack_info.volts;
@@ -93,7 +94,8 @@ bool initCANFilter()
     CAN2->MCR |= CAN_MCR_INRQ; 
 #endif /* CAN2 */                
     uint32_t timeout = 0;
-    while( !(CAN1->MSR & CAN_MSR_INAK)
+    while( 
+        !(CAN1->MSR & CAN_MSR_INAK)
 #ifdef CAN2
            && !(CAN2->MSR & CAN_MSR_INAK)
 #endif /* CAN2 */
@@ -105,31 +107,28 @@ bool initCANFilter()
     CAN1->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
     CAN1->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
-#ifdef CAN2
-    CAN2->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
-    CAN2->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
-    CAN2->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
-#endif /* CAN2 */
+
     /* BEGIN AUTO FILTER */
-    CAN2->FA1R |= (1 << 0);    // configure bank 0
-    CAN2->sFilterRegister[0].FR1 = (ID_SOC_CELLS << 3) | 4;
-    CAN2->sFilterRegister[0].FR2 = (ID_VOLTS_CELLS << 3) | 4;
-    CAN2->FA1R |= (1 << 1);    // configure bank 1
-    CAN2->sFilterRegister[1].FR1 = (ID_PACK_INFO << 3) | 4;
-    CAN2->sFilterRegister[1].FR2 = (ID_TEMPS_CELLS << 3) | 4;
-    CAN2->FA1R |= (1 << 2);    // configure bank 2
-    CAN2->sFilterRegister[2].FR1 = (ID_CELL_INFO << 3) | 4;
-    CAN2->sFilterRegister[2].FR2 = (ID_POWER_LIM << 3) | 4;
+    CAN1->FA1R |= (1 << 14);    // configure bank 14
+    CAN1->sFilterRegister[14].FR1 = (ID_SOC_CELLS << 3) | 4;
+    CAN1->sFilterRegister[14].FR2 = (ID_VOLTS_CELLS << 3) | 4;
+    CAN1->FA1R |= (1 << 15);    // configure bank 15
+    CAN1->sFilterRegister[15].FR1 = (ID_PACK_INFO << 3) | 4;
+    CAN1->sFilterRegister[15].FR2 = (ID_TEMPS_CELLS << 3) | 4;
+    CAN1->FA1R |= (1 << 16);    // configure bank 16
+    CAN1->sFilterRegister[16].FR1 = (ID_CELL_INFO << 3) | 4;
+    CAN1->sFilterRegister[16].FR2 = (ID_POWER_LIM << 3) | 4;
     /* END AUTO FILTER */
 
-    CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
-
-    // Enter back into NORMAL mode
-    CAN1->MCR &= ~CAN_MCR_INRQ;
+    CAN1->FMR  &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)
+    CAN1->MCR &= ~CAN_MCR_INRQ;         // Enter back into NORMAL mode
 #ifdef CAN2
-    CAN2->MCR &= ~CAN_MCR_INRQ;
+    CAN2->FMR  &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)
+    CAN2->MCR &= ~CAN_MCR_INRQ;         // Enter back into NORMAL mode
 #endif /* CAN2 */
-    while((CAN1->MSR & CAN_MSR_INAK)
+
+    while(
+        (CAN1->MSR & CAN_MSR_INAK)
 #ifdef CAN2 
             && (CAN2->MSR & CAN_MSR_INAK)
 #endif/* CAN2 */

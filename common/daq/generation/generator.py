@@ -38,6 +38,7 @@ def log_success(phrase):
 data_type_length = {'uint8_t':8, 'uint16_t':16, 'uint32_t':32, 'uint64_t':64,
                     'int8_t':8, 'int16_t':16, 'int32_t':32, 'int64_t':64,
                     'float':32}
+data_lengths = [8, 16, 32, 64]
 
 def gen_bit_length(sig):
     """ Calculates and updates bit length for signal based on data type and length """
@@ -61,11 +62,20 @@ def generate_ids(can_config):
         for node in bus['nodes']:
             ssa = node['node_ssa']
             for msg in node['tx']:
-                hlp = msg['msg_hlp']
-                pgn = msg['msg_pgn']
-
-                # hlp (3) + pgn (20) + ssa (6) bits
-                id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
+                id = 0
+                if 'msg_id_override' in msg:
+                    id = int(msg['msg_id_override'], 0)
+                elif 'msg_hlp' in msg and 'msg_pgn' in msg:
+                    hlp = msg['msg_hlp']
+                    pgn = msg['msg_pgn']
+                    # hlp (3) + pgn (20) + ssa (6) bits
+                    id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
+                else:
+                    log_error(f"Message {msg['msg_name']} needs either msg_hlp and msg_pgn defined or msg_id_override")
+                    quit(1)
+                if id < 0 or id > 0x1FFFFFFF:
+                    log_error(f"Message {msg['msg_name']}'s can id is too large: {hex(id)}, max is 0x1FFFFFFF")
+                    quit(1)
                 # print(msg['msg_name'] + " id: "+ hex(id))
                 msg['id'] = id
     return can_config
@@ -143,6 +153,7 @@ def label_junction_nodes(can_config):
     for bus in can_config['busses']:
         for node in bus['nodes']:
             if node['node_name'] in node_names:
+                if ('DAQ' == node['node_name']): continue
                 # junction found (assumes check repeat defs already ran and passed)
                 print(f"Junction node found: {node['node_name']}")
                 node['is_junction'] = True

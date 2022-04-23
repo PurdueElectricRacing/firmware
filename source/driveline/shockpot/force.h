@@ -2,9 +2,9 @@
 #define __FORCE__
 
 //Coefficients for second-oreder polynomial fit
-#define A0          57/220
-#define A1          437/2640
-#define A2          3/176
+#define A2          1./35360.
+#define A1          437/8663200.
+#define A0          297/22100
 
 #define MAX_V        250         // maximum velocity for which we're able to return damping force value, mm/sec
 #define VEL_SIZE     26          // size of the velocity storage
@@ -17,7 +17,7 @@ struct Geometry {
     const float ob;
     const float oc;
     const float od;
-    float cd;           // Dampre length, updatable
+    float cd;           // Damper length, updatable
 
     float d_d;
     float d_w;
@@ -76,16 +76,16 @@ void force_rear(float* n_l, float* n_r, int* x_l, int* x_r, int start);
 void force_front(float* n_l, float* n_r, int* x_l, int* x_r, int start);
 
 
-#define N_SAMPLE    10
+#define N_SAMPLE    50
 #define DELTA_T     0.001
 
 #define DELTA_REAR   1       // sampling rate of the microcontoller, s
 #define ERROR_REAR   100       // error for the windowing algorithm, needs to be tuned.
-#define N_REAR       10          // number of measurements passed, maximum depth of the algorithm
+#define N_REAR       50          // number of measurements passed, maximum depth of the algorithm
 
 #define DELTA_FRONT   1       // sampling rate of the microcontoller, s
 #define ERROR_FRONT   0.001       // error for the windowing algorithm, needs to be tuned.
-#define N_FRONT       10          // number of measurements passed, maximum depth of the algorithm
+#define N_FRONT       50          // number of measurements passed, maximum depth of the algorithm
 
 #define GAMMA_FRONT   2004.75     // torsion coefficient, m*N/rad
 #define S_FRONT       5           // ARB leverage, m
@@ -103,8 +103,8 @@ void force_front(float* n_l, float* n_r, int* x_l, int* x_r, int start);
 // ignore it, just calculations
 // 1235 - 1 V - 0 deisplacement 2477 - 2V 1 inch
 
-#define RESOLUTION_FRONT  0.0001  // convert ADC value to real numbers, resolution of the ADC, 
-#define ZERO_FRONT        0.001   // actual displacement when ADC shows 0
+#define RESOLUTION_FRONT  1  // convert ADC value to real numbers, resolution of the ADC, 
+#define ZERO_FRONT        0   // actual displacement when ADC shows 0
 
 
 #endif

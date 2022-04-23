@@ -20,9 +20,10 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_TEST_PRECHARGE_MSG 0x8008004
 #define ID_HEAT_REQ 0x8007d2a
 #define ID_PACK_CURR 0x4007d6a
+#define ID_BATTERY_INFO 0x8008004
+#define ID_CELL_INFO 0x8008044
 #define ID_SOC_CELLS_1 0x8007d6b
 #define ID_VOLTS_CELLS_1 0x4007dab
 #define ID_PACK_INFO_1 0x8007deb
@@ -75,9 +76,10 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_TEST_PRECHARGE_MSG 1
 #define DLC_HEAT_REQ 3
 #define DLC_PACK_CURR 2
+#define DLC_BATTERY_INFO 4
+#define DLC_CELL_INFO 7
 #define DLC_SOC_CELLS_1 7
 #define DLC_VOLTS_CELLS_1 7
 #define DLC_PACK_INFO_1 6
@@ -130,12 +132,6 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_TEST_PRECHARGE_MSG(queue, test_precharge_sig_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_PRECHARGE_MSG, .DLC=DLC_TEST_PRECHARGE_MSG, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_precharge_msg.test_precharge_sig = test_precharge_sig_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
 #define SEND_HEAT_REQ(queue, toggle_, time_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_HEAT_REQ, .DLC=DLC_HEAT_REQ, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -147,6 +143,22 @@
         CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_PACK_CURR, .DLC=DLC_PACK_CURR, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pack_curr.current = current_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_BATTERY_INFO(queue, voltage_, error_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BATTERY_INFO, .DLC=DLC_BATTERY_INFO, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->battery_info.voltage = voltage_;\
+        data_a->battery_info.error = error_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_CELL_INFO(queue, idx_, v1_, v2_, v3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CELL_INFO, .DLC=DLC_CELL_INFO, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->cell_info.idx = idx_;\
+        data_a->cell_info.v1 = v1_;\
+        data_a->cell_info.v2 = v2_;\
+        data_a->cell_info.v3 = v3_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -166,15 +178,22 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { __attribute__((packed))
     struct {
-        uint64_t test_precharge_sig: 8;
-    } test_precharge_msg;
-    struct {
         uint64_t toggle: 1;
         uint64_t time: 16;
     } heat_req;
     struct {
         uint64_t current: 16;
     } pack_curr;
+    struct {
+        uint64_t voltage: 16;
+        uint64_t error: 16;
+    } battery_info;
+    struct {
+        uint64_t idx: 8;
+        uint64_t v1: 16;
+        uint64_t v2: 16;
+        uint64_t v3: 16;
+    } cell_info;
     struct {
         uint64_t idx: 8;
         uint64_t soc1: 16;

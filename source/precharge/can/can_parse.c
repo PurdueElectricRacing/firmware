@@ -70,6 +70,237 @@ void canRxUpdate()
                     can_data.power_lim_1.disch_lim = msg_data_a->power_lim_1.disch_lim;
                     can_data.power_lim_1.chg_lim = msg_data_a->power_lim_1.chg_lim;
                     break;
+                case ID_SOC_CELLS_2:
+                    can_data.soc_cells_2.idx = msg_data_a->soc_cells_2.idx;
+                    can_data.soc_cells_2.soc1 = msg_data_a->soc_cells_2.soc1;
+                    can_data.soc_cells_2.soc2 = msg_data_a->soc_cells_2.soc2;
+                    can_data.soc_cells_2.soc3 = msg_data_a->soc_cells_2.soc3;
+                    break;
+                case ID_VOLTS_CELLS_2:
+                    can_data.volts_cells_2.idx = msg_data_a->volts_cells_2.idx;
+                    can_data.volts_cells_2.v1 = msg_data_a->volts_cells_2.v1;
+                    can_data.volts_cells_2.v2 = msg_data_a->volts_cells_2.v2;
+                    can_data.volts_cells_2.v3 = msg_data_a->volts_cells_2.v3;
+                    volts_cells_2_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_2:
+                    can_data.pack_info_2.volts = msg_data_a->pack_info_2.volts;
+                    can_data.pack_info_2.error = msg_data_a->pack_info_2.error;
+                    can_data.pack_info_2.bal_flags = msg_data_a->pack_info_2.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_2:
+                    can_data.temps_cells_2.idx = msg_data_a->temps_cells_2.idx;
+                    can_data.temps_cells_2.t1 = msg_data_a->temps_cells_2.t1;
+                    can_data.temps_cells_2.t2 = msg_data_a->temps_cells_2.t2;
+                    can_data.temps_cells_2.t3 = msg_data_a->temps_cells_2.t3;
+                    break;
+                case ID_CELL_INFO_2:
+                    can_data.cell_info_2.delta = msg_data_a->cell_info_2.delta;
+                    can_data.cell_info_2.ov = msg_data_a->cell_info_2.ov;
+                    can_data.cell_info_2.uv = msg_data_a->cell_info_2.uv;
+                    break;
+                case ID_POWER_LIM_2:
+                    can_data.power_lim_2.disch_lim = msg_data_a->power_lim_2.disch_lim;
+                    can_data.power_lim_2.chg_lim = msg_data_a->power_lim_2.chg_lim;
+                    break;
+                case ID_SOC_CELLS_3:
+                    can_data.soc_cells_3.idx = msg_data_a->soc_cells_3.idx;
+                    can_data.soc_cells_3.soc1 = msg_data_a->soc_cells_3.soc1;
+                    can_data.soc_cells_3.soc2 = msg_data_a->soc_cells_3.soc2;
+                    can_data.soc_cells_3.soc3 = msg_data_a->soc_cells_3.soc3;
+                    break;
+                case ID_VOLTS_CELLS_3:
+                    can_data.volts_cells_3.idx = msg_data_a->volts_cells_3.idx;
+                    can_data.volts_cells_3.v1 = msg_data_a->volts_cells_3.v1;
+                    can_data.volts_cells_3.v2 = msg_data_a->volts_cells_3.v2;
+                    can_data.volts_cells_3.v3 = msg_data_a->volts_cells_3.v3;
+                    volts_cells_3_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_3:
+                    can_data.pack_info_3.volts = msg_data_a->pack_info_3.volts;
+                    can_data.pack_info_3.error = msg_data_a->pack_info_3.error;
+                    can_data.pack_info_3.bal_flags = msg_data_a->pack_info_3.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_3:
+                    can_data.temps_cells_3.idx = msg_data_a->temps_cells_3.idx;
+                    can_data.temps_cells_3.t1 = msg_data_a->temps_cells_3.t1;
+                    can_data.temps_cells_3.t2 = msg_data_a->temps_cells_3.t2;
+                    can_data.temps_cells_3.t3 = msg_data_a->temps_cells_3.t3;
+                    break;
+                case ID_CELL_INFO_3:
+                    can_data.cell_info_3.delta = msg_data_a->cell_info_3.delta;
+                    can_data.cell_info_3.ov = msg_data_a->cell_info_3.ov;
+                    can_data.cell_info_3.uv = msg_data_a->cell_info_3.uv;
+                    break;
+                case ID_POWER_LIM_3:
+                    can_data.power_lim_3.disch_lim = msg_data_a->power_lim_3.disch_lim;
+                    can_data.power_lim_3.chg_lim = msg_data_a->power_lim_3.chg_lim;
+                    break;
+                case ID_SOC_CELLS_4:
+                    can_data.soc_cells_4.idx = msg_data_a->soc_cells_4.idx;
+                    can_data.soc_cells_4.soc1 = msg_data_a->soc_cells_4.soc1;
+                    can_data.soc_cells_4.soc2 = msg_data_a->soc_cells_4.soc2;
+                    can_data.soc_cells_4.soc3 = msg_data_a->soc_cells_4.soc3;
+                    break;
+                case ID_VOLTS_CELLS_4:
+                    can_data.volts_cells_4.idx = msg_data_a->volts_cells_4.idx;
+                    can_data.volts_cells_4.v1 = msg_data_a->volts_cells_4.v1;
+                    can_data.volts_cells_4.v2 = msg_data_a->volts_cells_4.v2;
+                    can_data.volts_cells_4.v3 = msg_data_a->volts_cells_4.v3;
+                    volts_cells_4_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_4:
+                    can_data.pack_info_4.volts = msg_data_a->pack_info_4.volts;
+                    can_data.pack_info_4.error = msg_data_a->pack_info_4.error;
+                    can_data.pack_info_4.bal_flags = msg_data_a->pack_info_4.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_4:
+                    can_data.temps_cells_4.idx = msg_data_a->temps_cells_4.idx;
+                    can_data.temps_cells_4.t1 = msg_data_a->temps_cells_4.t1;
+                    can_data.temps_cells_4.t2 = msg_data_a->temps_cells_4.t2;
+                    can_data.temps_cells_4.t3 = msg_data_a->temps_cells_4.t3;
+                    break;
+                case ID_CELL_INFO_4:
+                    can_data.cell_info_4.delta = msg_data_a->cell_info_4.delta;
+                    can_data.cell_info_4.ov = msg_data_a->cell_info_4.ov;
+                    can_data.cell_info_4.uv = msg_data_a->cell_info_4.uv;
+                    break;
+                case ID_POWER_LIM_4:
+                    can_data.power_lim_4.disch_lim = msg_data_a->power_lim_4.disch_lim;
+                    can_data.power_lim_4.chg_lim = msg_data_a->power_lim_4.chg_lim;
+                    break;
+                case ID_SOC_CELLS_5:
+                    can_data.soc_cells_5.idx = msg_data_a->soc_cells_5.idx;
+                    can_data.soc_cells_5.soc1 = msg_data_a->soc_cells_5.soc1;
+                    can_data.soc_cells_5.soc2 = msg_data_a->soc_cells_5.soc2;
+                    can_data.soc_cells_5.soc3 = msg_data_a->soc_cells_5.soc3;
+                    break;
+                case ID_VOLTS_CELLS_5:
+                    can_data.volts_cells_5.idx = msg_data_a->volts_cells_5.idx;
+                    can_data.volts_cells_5.v1 = msg_data_a->volts_cells_5.v1;
+                    can_data.volts_cells_5.v2 = msg_data_a->volts_cells_5.v2;
+                    can_data.volts_cells_5.v3 = msg_data_a->volts_cells_5.v3;
+                    volts_cells_5_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_5:
+                    can_data.pack_info_5.volts = msg_data_a->pack_info_5.volts;
+                    can_data.pack_info_5.error = msg_data_a->pack_info_5.error;
+                    can_data.pack_info_5.bal_flags = msg_data_a->pack_info_5.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_5:
+                    can_data.temps_cells_5.idx = msg_data_a->temps_cells_5.idx;
+                    can_data.temps_cells_5.t1 = msg_data_a->temps_cells_5.t1;
+                    can_data.temps_cells_5.t2 = msg_data_a->temps_cells_5.t2;
+                    can_data.temps_cells_5.t3 = msg_data_a->temps_cells_5.t3;
+                    break;
+                case ID_CELL_INFO_5:
+                    can_data.cell_info_5.delta = msg_data_a->cell_info_5.delta;
+                    can_data.cell_info_5.ov = msg_data_a->cell_info_5.ov;
+                    can_data.cell_info_5.uv = msg_data_a->cell_info_5.uv;
+                    break;
+                case ID_POWER_LIM_5:
+                    can_data.power_lim_5.disch_lim = msg_data_a->power_lim_5.disch_lim;
+                    can_data.power_lim_5.chg_lim = msg_data_a->power_lim_5.chg_lim;
+                    break;
+                case ID_SOC_CELLS_6:
+                    can_data.soc_cells_6.idx = msg_data_a->soc_cells_6.idx;
+                    can_data.soc_cells_6.soc1 = msg_data_a->soc_cells_6.soc1;
+                    can_data.soc_cells_6.soc2 = msg_data_a->soc_cells_6.soc2;
+                    can_data.soc_cells_6.soc3 = msg_data_a->soc_cells_6.soc3;
+                    break;
+                case ID_VOLTS_CELLS_6:
+                    can_data.volts_cells_6.idx = msg_data_a->volts_cells_6.idx;
+                    can_data.volts_cells_6.v1 = msg_data_a->volts_cells_6.v1;
+                    can_data.volts_cells_6.v2 = msg_data_a->volts_cells_6.v2;
+                    can_data.volts_cells_6.v3 = msg_data_a->volts_cells_6.v3;
+                    volts_cells_6_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_6:
+                    can_data.pack_info_6.volts = msg_data_a->pack_info_6.volts;
+                    can_data.pack_info_6.error = msg_data_a->pack_info_6.error;
+                    can_data.pack_info_6.bal_flags = msg_data_a->pack_info_6.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_6:
+                    can_data.temps_cells_6.idx = msg_data_a->temps_cells_6.idx;
+                    can_data.temps_cells_6.t1 = msg_data_a->temps_cells_6.t1;
+                    can_data.temps_cells_6.t2 = msg_data_a->temps_cells_6.t2;
+                    can_data.temps_cells_6.t3 = msg_data_a->temps_cells_6.t3;
+                    break;
+                case ID_CELL_INFO_6:
+                    can_data.cell_info_6.delta = msg_data_a->cell_info_6.delta;
+                    can_data.cell_info_6.ov = msg_data_a->cell_info_6.ov;
+                    can_data.cell_info_6.uv = msg_data_a->cell_info_6.uv;
+                    break;
+                case ID_POWER_LIM_6:
+                    can_data.power_lim_6.disch_lim = msg_data_a->power_lim_6.disch_lim;
+                    can_data.power_lim_6.chg_lim = msg_data_a->power_lim_6.chg_lim;
+                    break;
+                case ID_SOC_CELLS_7:
+                    can_data.soc_cells_7.idx = msg_data_a->soc_cells_7.idx;
+                    can_data.soc_cells_7.soc1 = msg_data_a->soc_cells_7.soc1;
+                    can_data.soc_cells_7.soc2 = msg_data_a->soc_cells_7.soc2;
+                    can_data.soc_cells_7.soc3 = msg_data_a->soc_cells_7.soc3;
+                    break;
+                case ID_VOLTS_CELLS_7:
+                    can_data.volts_cells_7.idx = msg_data_a->volts_cells_7.idx;
+                    can_data.volts_cells_7.v1 = msg_data_a->volts_cells_7.v1;
+                    can_data.volts_cells_7.v2 = msg_data_a->volts_cells_7.v2;
+                    can_data.volts_cells_7.v3 = msg_data_a->volts_cells_7.v3;
+                    volts_cells_7_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_7:
+                    can_data.pack_info_7.volts = msg_data_a->pack_info_7.volts;
+                    can_data.pack_info_7.error = msg_data_a->pack_info_7.error;
+                    can_data.pack_info_7.bal_flags = msg_data_a->pack_info_7.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_7:
+                    can_data.temps_cells_7.idx = msg_data_a->temps_cells_7.idx;
+                    can_data.temps_cells_7.t1 = msg_data_a->temps_cells_7.t1;
+                    can_data.temps_cells_7.t2 = msg_data_a->temps_cells_7.t2;
+                    can_data.temps_cells_7.t3 = msg_data_a->temps_cells_7.t3;
+                    break;
+                case ID_CELL_INFO_7:
+                    can_data.cell_info_7.delta = msg_data_a->cell_info_7.delta;
+                    can_data.cell_info_7.ov = msg_data_a->cell_info_7.ov;
+                    can_data.cell_info_7.uv = msg_data_a->cell_info_7.uv;
+                    break;
+                case ID_POWER_LIM_7:
+                    can_data.power_lim_7.disch_lim = msg_data_a->power_lim_7.disch_lim;
+                    can_data.power_lim_7.chg_lim = msg_data_a->power_lim_7.chg_lim;
+                    break;
+                case ID_SOC_CELLS_8:
+                    can_data.soc_cells_8.idx = msg_data_a->soc_cells_8.idx;
+                    can_data.soc_cells_8.soc1 = msg_data_a->soc_cells_8.soc1;
+                    can_data.soc_cells_8.soc2 = msg_data_a->soc_cells_8.soc2;
+                    can_data.soc_cells_8.soc3 = msg_data_a->soc_cells_8.soc3;
+                    break;
+                case ID_VOLTS_CELLS_8:
+                    can_data.volts_cells_8.idx = msg_data_a->volts_cells_8.idx;
+                    can_data.volts_cells_8.v1 = msg_data_a->volts_cells_8.v1;
+                    can_data.volts_cells_8.v2 = msg_data_a->volts_cells_8.v2;
+                    can_data.volts_cells_8.v3 = msg_data_a->volts_cells_8.v3;
+                    volts_cells_8_CALLBACK(msg_data_a);
+                    break;
+                case ID_PACK_INFO_8:
+                    can_data.pack_info_8.volts = msg_data_a->pack_info_8.volts;
+                    can_data.pack_info_8.error = msg_data_a->pack_info_8.error;
+                    can_data.pack_info_8.bal_flags = msg_data_a->pack_info_8.bal_flags;
+                    break;
+                case ID_TEMPS_CELLS_8:
+                    can_data.temps_cells_8.idx = msg_data_a->temps_cells_8.idx;
+                    can_data.temps_cells_8.t1 = msg_data_a->temps_cells_8.t1;
+                    can_data.temps_cells_8.t2 = msg_data_a->temps_cells_8.t2;
+                    can_data.temps_cells_8.t3 = msg_data_a->temps_cells_8.t3;
+                    break;
+                case ID_CELL_INFO_8:
+                    can_data.cell_info_8.delta = msg_data_a->cell_info_8.delta;
+                    can_data.cell_info_8.ov = msg_data_a->cell_info_8.ov;
+                    can_data.cell_info_8.uv = msg_data_a->cell_info_8.uv;
+                    break;
+                case ID_POWER_LIM_8:
+                    can_data.power_lim_8.disch_lim = msg_data_a->power_lim_8.disch_lim;
+                    can_data.power_lim_8.chg_lim = msg_data_a->power_lim_8.chg_lim;
+                    break;
                 default:
                     __asm__("nop");
             }

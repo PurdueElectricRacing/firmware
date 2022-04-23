@@ -134,7 +134,8 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(heartbeat_task, 500);
-    taskCreate(imd_monitor, 20);
+    taskCreate(imd_monitor, 50);
+    taskCreate(txBatteryStatus, 50);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);

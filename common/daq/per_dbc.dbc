@@ -92,8 +92,15 @@ BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
  SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281734148 test_precharge_msg: 1 Precharge
- SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2281734148 battery_info: 4 Precharge
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ voltage : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734212 cell_info: 7 Precharge
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028613 raw_throttle_brake: 3 Dashboard
  SG_ brake : 12|12@1+ (1,0) [0|0] "" Vector__XXX
@@ -647,8 +654,14 @@ CM_ SG_ 2348810947 right_temp "";
 CM_ SG_ 2348810947 left_temp "";
 CM_ SG_ 2348810947 right "";
 CM_ SG_ 2348810947 left "";
-CM_ BO_ 2281734148 "test precharge desc";
-CM_ SG_ 2281734148 test_precharge_sig "";
+CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
+CM_ SG_ 2281734148 error "";
+CM_ SG_ 2281734148 voltage "";
+CM_ BO_ 2281734212 "Information about specific cell voltages";
+CM_ SG_ 2281734212 v3 "Cell idx in V * 10000";
+CM_ SG_ 2281734212 v2 "Cell idx in V * 10000";
+CM_ SG_ 2281734212 v1 "Cell idx in V * 10000";
+CM_ SG_ 2281734212 idx "Cell starting index";
 CM_ BO_ 2483028613 "throttle_brake desc";
 CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle "";

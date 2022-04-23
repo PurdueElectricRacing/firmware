@@ -117,7 +117,7 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/bms"
+                "${workspaceFolder}/source/bmses/bms_a/bms_a.elf"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"

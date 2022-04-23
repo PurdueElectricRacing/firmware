@@ -3,6 +3,19 @@
 
 #include "can_parse.h"
 
-void volts_cells_CALLBACK(CanParsedData_t* msg_data_a);
+#define NUM_CELLS 80
+
+/**
+ * @brief updateBMSError: Update and check a latched error flag for all BMS remote boards
+ * 
+ * @return uint16_t : Current error flags present
+ */
+uint16_t updateBMSErrorFlags();
+
+/**
+ * @brief txBatteryStatus: Send CAN messages combined from the BMS modules
+ * 
+ */
+void txBatteryStatus();
 
 #endif // _BMS_H_

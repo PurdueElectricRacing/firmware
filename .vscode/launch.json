@@ -202,5 +202,45 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
+        {
+            "name": "Bootloader - TV",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bootloaders/bootloader_torquevector/bootloader_torquevector.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bootlaoder"
+            ],
+            // "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "Bootloader - Main",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bootloaders/bootloader_mainmodule/bootloader_mainmodule.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L496VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x6.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bootlaoder"
+            ],
+            // "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
     ]
 }

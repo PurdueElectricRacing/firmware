@@ -43,7 +43,7 @@ function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PAT
     target_compile_definitions(${LIB_NAME}
         PUBLIC ${STM32_FAMILY_NAME}
         PUBLIC ${STM32_DEVICE_NAME}
-        PUBLIC CMSIS_device_header=${STM32_DEVICE_NAME_LOWER}.h
+        # PRIVATE CMSIS_device_header=${STM32_DEVICE_NAME_LOWER}.h
     )
 
     # Include CMSIS generic, CMSIS Core, and device specific CMSIS wrapper

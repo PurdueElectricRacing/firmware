@@ -83,6 +83,7 @@ void TIM1_CC_IRQHandler()
     TIM1->SR = ~(TIM_SR_CC1IF);
 }
 
+/*
 void  TIM2_IRQHandler()
 {
     // CCxIF can be cleared by software by reading the captured data stored in the TIMx_CCRx register
@@ -97,4 +98,4 @@ void  TIM2_IRQHandler()
         TIM2->SR = ~(TIM_SR_CC1IF);
     }
     // TIM2->SR = ~(TIM_SR_CC1IF | TIM_SR_UIF);
-}
+}*/

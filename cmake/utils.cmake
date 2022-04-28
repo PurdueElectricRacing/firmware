@@ -1,22 +1,38 @@
 # Helper for generating common CMake targets in the components directroy
 
-function(postbuild_target COMPONENT_NAME TARGET_NAME)
+function(postbuild_target TARGET_NAME)
 
+    get_target_property(COMPONENT_NAME ${TARGET_NAME} COMPONENT_NAME)
     # Print out memory section usage
-    target_link_options(${TARGET_NAME} PUBLIC
-        -Wl,--print-memory-usage
-    )
+    # target_link_options(${TARGET_NAME} PUBLIC
+    #     -Wl,--print-memory-usage
+    # )
+
+    if(BOOTLOADER_BUILD)
+      set(OUTPUT_FILE_NAME BL_${COMPONENT_NAME})
+    else()
+      set(OUTPUT_FILE_NAME ${COMPONENT_NAME})
+    endif()
 
     # Archive generated image and perform post-processing output
-    set(COMPONENT_OUTPUT_DIR ${PROJECT_OUTPUT_DIR}/${COMPONENT_NAME})
+    get_target_property(COMPONENT_OUTPUT_DIR ${TARGET_NAME} OUTPUT_DIR)
+    if (NOT COMPONENT_OUTPUT_DIR)
+        set(COMPONENT_OUTPUT_DIR ${PROJECT_OUTPUT_DIR}/${COMPONENT_NAME})
+    endif()
+
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME}
+        COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.elf
         COMMENT "Archive target"
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND arm-none-eabi-objdump -xDSs ${COMPONENT_OUTPUT_DIR}/${TARGET_NAME} > ${COMPONENT_OUTPUT_DIR}/${COMPONENT_NAME}_info.txt
+        COMMAND arm-none-eabi-objdump -xDSs ${TARGET_NAME} > ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}_info.txt
         COMMENT "Generating Sections & Disassembly Info..."
+    )
+
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND arm-none-eabi-objcopy -S -O ihex ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.hex
+        COMMENT "Generateing HEX file"
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
@@ -24,10 +40,10 @@ function(postbuild_target COMPONENT_NAME TARGET_NAME)
         COMMENT "Formatting"
     )
 
-    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND arm-none-eabi-size ${TARGET_NAME} 
-        COMMENT "Binary Output Size"
-    )
+    # add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+    #     COMMAND arm-none-eabi-size ${TARGET_NAME} 
+    #     COMMENT "Binary Output Size"
+    # )
 
 endfunction()
 

@@ -19,3 +19,6 @@ __pycache__/
 
 # MaxOS
 *.DS_Store
+
+# DBC files, merging these is basically useless
+*.dbc

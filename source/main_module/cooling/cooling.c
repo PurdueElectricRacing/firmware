@@ -90,8 +90,9 @@ void coolingPeriodic()
     }
 
     // Determine if system should be on
-    if (!cooling.dt_pump && !cooling.dt_flow_error && 
-       (max_motor_temp > DT_PUMP_ON_TEMP_C || cooling.dt_temp_error))
+    if (!cooling.dt_pump && (!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) && 
+       (max_motor_temp > DT_PUMP_ON_TEMP_C || cooling.dt_temp_error || 
+       (DT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
     {
         setDtCooling(true);
     }
@@ -127,8 +128,9 @@ void coolingPeriodic()
     }
 
     // Determine if system should be on
-    if (!cooling.bat_pump && !cooling.bat_flow_error && 
-       (max_motor_temp > BAT_PUMP_ON_TEMP_C || cooling.bat_temp_error))
+    if (!cooling.bat_pump && (!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) && 
+       (max_motor_temp > BAT_PUMP_ON_TEMP_C || cooling.bat_temp_error || 
+       (BAT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
     {
         setBatCooling(true);
     }

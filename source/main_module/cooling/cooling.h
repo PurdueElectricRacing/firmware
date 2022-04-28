@@ -28,6 +28,11 @@
 // temp exceeds, stop drive don't open sdc
 // room temp based
 
+#define DT_ALWAYS_COOL  1
+#define BAT_ALWAYS_COOL 1
+#define DT_FLOW_CHECK_OVERRIDE  1
+#define BAT_FLOW_CHECK_OVERRIDE 1
+
 /* DRIVETRAIN COOLANT SYSTEM */
 #define DT_PUMP_ON_TEMP_C   (27)
 #define DT_PUMP_OFF_TEMP_C  (26)

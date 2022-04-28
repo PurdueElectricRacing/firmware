@@ -145,7 +145,7 @@ int main (void)
 
     /* Module Initialization */
     carInit();
-    // TODO: revert coolingInit();
+    coolingInit();
     initCANParse(&q_rx_can);
     linkDAQVars();
     if(daqInit(&q_tx_can, I2C))
@@ -156,7 +156,7 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    // TODO: revert taskCreate(coolingPeriodic, 15);
+    // taskCreate(coolingPeriodic, 15);
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);

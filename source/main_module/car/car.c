@@ -7,6 +7,7 @@ volatile ADCReadings_t adc_readings;
 
 static bool checkErrorFaults();
 static bool checkFatalFaults();
+static void brakeLightUpdate(uint16_t raw_brake);
 
 bool carInit()
 {
@@ -31,6 +32,8 @@ void carPeriodic()
 {
     /* State Independent Operations */
 
+    brakeLightUpdate(can_data.raw_throttle_brake.brake);
+    /*
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {
         if (!car.brake_light)
@@ -43,7 +46,7 @@ void carPeriodic()
     {
         PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
         car.brake_light = false;
-    }
+    }*/
 
 
     if (checkErrorFaults())
@@ -177,8 +180,8 @@ bool checkErrorFaults()
                 REAR_RIGHT_MOTOR_CONNECTED;
 
     /* Temperature */
-    is_error += cooling.dt_temp_error;
-    is_error += cooling.bat_temp_error;
+    if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;
+    if (!BAT_ALWAYS_COOL) is_error += cooling.bat_temp_error;
 
     if (is_error && !error_rose) 
     {
@@ -204,8 +207,8 @@ bool checkFatalFaults()
 {
     uint8_t is_error = 0;
 
-    is_error += cooling.bat_flow_error;
-    is_error += cooling.dt_flow_error;
+    if (!DT_FLOW_CHECK_OVERRIDE)  is_error += cooling.dt_flow_error;
+    if (!BAT_FLOW_CHECK_OVERRIDE) is_error += cooling.bat_flow_error;
 
     return is_error;
 }
@@ -220,4 +223,35 @@ void calcLVCurrent()
     uint32_t raw = adc_readings.lv_i_sense;
     car.lv_current_mA = (uint16_t) (raw * 1000 * 1000 * LV_ADC_V_IN_V / 
                         (LV_MAX_ADC_RAW * LV_GAIN * LV_R_SENSE_mOHM));
+}
+
+static void brakeLightUpdate(uint16_t raw_brake)
+{
+    if (!car.brake_light)
+    {
+        if (raw_brake >= BRAKE_LIGHT_ON_THRESHOLD)
+        {
+            car.brake_light = 1;
+            car.brake_blink_ct = 0;
+            car.brake_start_time = sched.os_ticks;
+            PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, true);
+        }
+    }
+    else
+    {
+        if (raw_brake < BRAKE_LIGHT_OFF_THRESHOLD)
+        {
+            car.brake_light = 0;
+            PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
+        }
+        else if (car.brake_blink_ct != BRAKE_BLINK_CT)
+        {
+            if (sched.os_ticks - car.brake_start_time > BRAKE_BLINK_PERIOD / 2)
+            {
+                PHAL_toggleGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin);
+                if (PHAL_readGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin)) ++car.brake_blink_ct;
+                car.brake_start_time = sched.os_ticks;
+            }
+        }
+    }
 }

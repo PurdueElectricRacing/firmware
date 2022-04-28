@@ -16,16 +16,24 @@
 #include "common/psched/psched.h"
 #include "main.h"
 #include "can_parse.h"
+#include "cooling.h"
 
-#define BRAKE_LIGHT_ON_THRESHOLD 500
-#define BRAKE_PRESSED_THRESHOLD  2000
-#define BUZZER_DURATION_MS 2000 // EV.10.5: 1-3s
+#define BUZZER_DURATION_MS 2500 // EV.10.5: 1-3s
+
+#define ERROR_FALL_MS (5000)
 
 /* LV I_SENSE CALC */
 #define LV_GAIN         25
 #define LV_R_SENSE_mOHM 4 
 #define LV_MAX_ADC_RAW  4096
 #define LV_ADC_V_IN_V   5
+
+/* BRAKE LIGHT CONFIG */
+#define BRAKE_LIGHT_ON_THRESHOLD 500
+#define BRAKE_LIGHT_OFF_THRESHOLD 300
+#define BRAKE_BLINK_CT 3
+#define BRAKE_BLINK_PERIOD 250
+
 
 typedef struct __attribute__((packed))
 {
@@ -46,6 +54,8 @@ typedef struct
 {
     car_state_t state;
     bool brake_light;
+    uint8_t brake_blink_ct;
+    uint32_t brake_start_time;
     uint16_t max_cell_temp;
     uint16_t lv_current_mA;
 } Car_t;

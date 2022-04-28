@@ -5,9 +5,17 @@ volatile raw_pedals_t raw_pedals = {0};
 
 pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=450, // WARNING: DAQ VARIABLE
                                          .t2max=1550,.t2min=450, // IF EEPROM ENABLED,
-                                         .b1max=1400,.b1min=400, // VALUE WILL CHANGE
-                                         .b2max=1400,.b2min=400,
-                                         .b3max=2000,.b3min=0};
+                                         .b1max=1780,.b1min=550, // VALUE WILL CHANGE
+                                         .b2max=1360,.b2min=420,// 1400, 400
+                                         .b3max=124,.b3min=0};// 910, 812 3312 3436 
+
+uint16_t b3_buff[8] = {0};
+uint8_t b3_idx = 0;
+
+uint16_t b3_offset = 0;
+uint32_t b3_start_cal_time = 0;
+uint8_t  b3_cal_complete = 0;
+
 extern q_handle_t q_tx_can;
 
 void pedalsPeriodic(void)
@@ -17,7 +25,28 @@ void pedalsPeriodic(void)
     uint16_t t2 = raw_pedals.t2;
     uint16_t b1 = raw_pedals.b1;
     uint16_t b2 = raw_pedals.b2;
-    uint16_t b3 = raw_pedals.b3;
+    uint16_t b3_raw = raw_pedals.b3;
+
+    b3_buff[b3_idx++] = b3_raw;
+    b3_idx %= 8;
+    uint32_t b3_sum = 0;
+    for (uint8_t i = 0; i < 8; i++) b3_sum += b3_buff[i];
+    uint16_t b3 = MAX_PEDAL_MEAS - (b3_sum / 8);
+
+    // Calibrate minimum brake pot value after 2 seconds
+    if (!b3_cal_complete)
+    {
+        if (b3_start_cal_time == 0) b3_start_cal_time = sched.os_ticks;
+        else if (sched.os_ticks - b3_start_cal_time > 2000)
+        {
+            b3_cal_complete = 1;
+            b3_offset = b3 + 10;
+        }
+        return;
+    }
+    // subtract offset, prevent wrap around (uint)
+    uint16_t diff = b3 - b3_offset;
+    b3 = diff > b3 ? 0 : diff;
 
     bool apps_wiring_fail = false;
 
@@ -45,6 +74,8 @@ void pedalsPeriodic(void)
     // Scale values based on min and max
     t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
     t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
+    b1 = CLAMP(b1, pedal_calibration.b1min, pedal_calibration.b1max);
+    b2 = CLAMP(b2, pedal_calibration.b2min, pedal_calibration.b2max);
     b3 = CLAMP(b3, pedal_calibration.b3min, pedal_calibration.b3max);
     t1 = (uint16_t) ((((uint32_t) (t1 - pedal_calibration.t1min)) * MAX_PEDAL_MEAS) / 
                      (pedal_calibration.t1max - pedal_calibration.t1min));
@@ -59,13 +90,14 @@ void pedalsPeriodic(void)
     // Invert
     t1 = MAX_PEDAL_MEAS - t1;
     t2 = MAX_PEDAL_MEAS - t2;
-    b3 = MAX_PEDAL_MEAS - b3;
-    // Mask
-    t1 &= 0xFFC;
-    t2 &= 0xFFC;
-    b1 &= 0xFFC;
-    b2 &= 0xFFC;
-    b3 &= 0xFFC;
+
+        // Mask
+    t1 &= 0xFFFC;
+    t2 &= 0xFFFC;
+    b1 &= 0xFFFC;
+    b2 &= 0xFFFC;
+    b3 &= 0xFFFC;
+
 
     // APPS implaus check: wiring fail or 10% APPS deviation T.4.2.4 (after scaling)
     if (apps_wiring_fail || ((t2>t1)?(t2-t1):(t1-t2)) >= APPS_IMPLAUS_MAX_DIFF)
@@ -113,6 +145,5 @@ void pedalsPeriodic(void)
     {
         t1 = 0;
     }
-
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, t1, b3);
 }

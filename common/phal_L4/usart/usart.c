@@ -62,7 +62,7 @@ bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_
     instance->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
     instance->CR1 |= handle->parity << USART_CR1_PS_Pos;
     instance->CR1 |= handle->mode << USART_CR1_RE_Pos;
-    instance->CR1 |= USART_CR1_RXNEIE | USART_CR1_TCIE;
+    instance->CR1 |= USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_IDLEIE;
 
     // Set CR2 parameters
     instance->CR2 =  0U;
@@ -133,7 +133,7 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t) data);
 
-    instance->ICR |= USART_ICR_TCCF;
+    instance->ICR = USART_ICR_TCCF;
     PHAL_startTxfer(handle->tx_dma_cfg);
     handle->_tx_busy = 1;
     return true;
@@ -158,7 +158,8 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
     //NVIC_EnableIRQ(irq);
-    PHAL_startTxfer(handle->rx_dma_cfg);
+    PHAL_reEnable(handle->rx_dma_cfg);
+    //PHAL_startTxfer(handle->rx_dma_cfg);
     handle->_rx_busy = 1;
     return true;
 }

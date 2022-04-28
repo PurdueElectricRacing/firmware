@@ -200,7 +200,6 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    // TODO: prchg, IMD, BMS leds
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatMsg, 100);
     taskCreate(checkStartBtn, 100);
@@ -222,14 +221,16 @@ int main (void)
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-    if (can_data.main_status.car_state == CAR_STATE_READY2DRIVE)
+    if (can_data.main_hb.precharge_state)
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
     else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    // TODO IMD LED
+    // TODO BMS LED
 }
 
 void heartBeatMsg()
 {
-    SEND_DASHBOARD_STATUS(q_tx_can, pedals.apps_faulted,
+    SEND_DASHBOARD_HB(q_tx_can, pedals.apps_faulted,
                                     pedals.bse_faulted, 
                                     pedals.apps_brake_faulted);
 }
@@ -244,7 +245,7 @@ void checkStartBtn()
         if (!start_prev) start_ct++;
         if (start_ct > 3)
         {
-            if (can_data.main_status.car_state == CAR_STATE_READY2DRIVE || raw_pedals.b2 > BREAK_PRESSURE_THRESHOLD)
+            if (can_data.main_hb.car_state == CAR_STATE_READY2DRIVE || raw_pedals.b2 > BRAKE_PRESSURE_THRESHOLD)
             {
                 SEND_START_BUTTON(q_tx_can, 1);
                 start_prev = true;
@@ -342,13 +343,7 @@ void HardFault_Handler()
 {
     schedPause();
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
-    PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
-    uint16_t ct = 0;
-    while(1)
-    {
-        for (ct = 0; ct < 0xFFF9; ct++) PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-        IWDG->KR = 0xAAAA;
-    }
+    while(1) IWDG->KR = 0xAAAA;
 }
 
 // EEPROM error function

@@ -8,12 +8,11 @@
                     "node_name":"Main_Module",
                     "node_ssa":1,
                     "tx":[
-                        {   "msg_name":"main_status",
-                            "msg_desc":"Status message for main module",
+                        {   "msg_name":"main_hb",
+                            "msg_desc":"Heart beat message for main module",
                             "signals":[
                                 {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8, 
-                                 "choices": ["init", "precharging", "buzzing", "ready2drive", "error", "reset", "recover"]},
-                                {"sig_name":"apps_state", "sig_desc":"Accelerator plausibility state","type":"uint8_t","length":8},
+                                 "choices": ["init", "buzzing", "ready2drive", "error", "fatal", "reset", "recover"]},
                                 {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
                             ],
                             "msg_period":100,
@@ -40,7 +39,7 @@
                         {"msg_name": "rear_motor_currents_temps"},
                         {"msg_name": "front_driveline_hb"},
                         {"msg_name": "rear_driveline_hb"},
-                        {"msg_name": "dashboard_status"}
+                        {"msg_name": "dashboard_hb"}
                     ]
                 },
                 {
@@ -87,9 +86,9 @@
                             "msg_desc": "front drivline heart beat",
                             "signals": [
                                 {"sig_name": "front_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]},
+                                 "choices": ["disconnected", "initializing", "connected", "error"]},
                                 {"sig_name": "front_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]}
+                                 "choices": ["disconnected", "initializing", "connected", "error"]}
                             ],
                             "msg_period": 100,
                             "msg_hlp": 1,
@@ -99,10 +98,10 @@
                             "msg_name": "rear_driveline_hb",
                             "msg_desc": "rear drivline heart beat",
                             "signals": [
-                                {"sig_name": "back_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]},
-                                {"sig_name": "back_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "setting_params", "connected", "error"]}
+                                {"sig_name": "rear_left_motor", "type":"uint8_t",
+                                 "choices": ["disconnected", "initializing", "connected", "error"]},
+                                {"sig_name": "rear_right_motor", "type":"uint8_t",
+                                 "choices": ["disconnected", "initializaing", "connected", "error"]}
                             ],
                             "msg_hlp": 1,
                             "msg_period": 100,
@@ -111,8 +110,8 @@
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
-                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit": "kphx100"},
+                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
                                 {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
                                 {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
                             ],
@@ -123,8 +122,8 @@
                         {   "msg_name": "rear_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
-                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
+                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
                                 {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
                                 {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
                             ],
@@ -135,31 +134,31 @@
                         {   "msg_name": "front_motor_currents_temps",
                             "msg_desc": "DC Current and Temperature of the motor controllers",
                             "signals": [
-                                {"sig_name": "left_current", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_current", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
+                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
                                 {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],
-                            "msg_period": 0,
+                            "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 10
                         },
                         {   "msg_name": "rear_motor_currents_temps",
                             "msg_desc": "DC Current and Temperature of the motor controllers",
                             "signals": [
-                                {"sig_name": "left", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right", "type": "uint16_t", "length": 16},
+                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
+                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
                                 {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],
-                            "msg_period": 0,
+                            "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 11
                         }
                     ],
                     "rx": [
                         {"msg_name":"torque_request_main"},
-                        {"msg_name":"main_status"}
+                        {"msg_name":"main_hb"}
                     ]
                 },
                 {
@@ -190,7 +189,7 @@
                                 {"sig_name":"throttle","type":"uint16_t","length":12},
                                 {"sig_name":"brake", "type":"uint16_t", "length":12}
                             ],
-                            "msg_period":5,
+                            "msg_period":15,
                             "msg_hlp":5,
                             "msg_pgn":10
                         },
@@ -204,7 +203,7 @@
                             "msg_pgn":0
                         },
                         {
-                            "msg_name":"dashboard_status",
+                            "msg_name":"dashboard_hb",
                             "msg_desc":"periodic dashboard heartbeat",
                             "signals":[
                                 {"sig_name": "apps_faulted", "type":"uint8_t","length":1},
@@ -217,7 +216,7 @@
                         }
                     ],
                     "rx":[
-                        {"msg_name": "main_status"},
+                        {"msg_name": "main_hb"},
                         {"msg_name": "front_wheel_data"}
                     ]
                 },

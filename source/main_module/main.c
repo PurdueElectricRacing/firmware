@@ -29,6 +29,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(UNDERGLOW_GPIO_Port, UNDERGLOW_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
     // Drivetrain
     GPIO_INIT_ANALOG(DT_THERM_1_GPIO_Port, DT_THERM_1_Pin),
     GPIO_INIT_ANALOG(DT_THERM_2_GPIO_Port, DT_THERM_2_Pin),
@@ -95,6 +96,7 @@ extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
 void heartBeatLED();
+void linkDAQVars();
 void canTxUpdate(void);
 extern void HardFault_Handler();
 
@@ -145,19 +147,20 @@ int main (void)
     carInit();
     coolingInit();
     initCANParse(&q_rx_can);
-    // if(daqInit(&q_tx_can, I2C))
-    // {
-    //     HardFault_Handler();
-    // }
+    linkDAQVars();
+    if(daqInit(&q_tx_can, I2C))
+    {
+        HardFault_Handler();
+    }
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    // taskCreate(coolingPeriodic, 500);
+    // taskCreate(coolingPeriodic, 15);
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
-    //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
@@ -172,6 +175,16 @@ void heartBeatLED()
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+}
+
+void linkDAQVars()
+{
+    linkReada(DAQ_ID_DT_LITERS_P_MIN, &cooling.dt_liters_p_min);
+    linkReada(DAQ_ID_DT_FLOW_ERROR, &cooling.dt_flow_error);
+    linkReada(DAQ_ID_DT_TEMP_ERROR, &cooling.dt_temp_error);
+    linkReada(DAQ_ID_BAT_LITERS_P_MIN, &cooling.bat_liters_p_min);
+    linkReada(DAQ_ID_BAT_FLOW_ERROR, &cooling.bat_flow_error);
+    linkReada(DAQ_ID_BAT_TEMP_ERROR, &cooling.bat_temp_error);
 }
 
 void canTxUpdate(void)
@@ -230,6 +243,7 @@ void CAN1_RX0_IRQHandler()
 
 void HardFault_Handler()
 {
+    // TODO: make error led stay on (watch dog is gonna just reset the micro)
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
     while(1)
     {

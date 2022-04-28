@@ -276,6 +276,7 @@ void commandTorquePeriodic()
         pow_left  = 0.0;
         pow_right = 0.0;
     }
+    pow_left = 2.5;
     mc_set_power(pow_left,  &motor_left);
     mc_set_power(pow_right, &motor_right);
 }
@@ -289,7 +290,7 @@ void parseDataPeriodic()
 {
     /* Update Motor Controller Data Structures */
     mc_periodic(&motor_left);
-    mc_periodic(&motor_right);
+    // mc_periodic(&motor_right);
 
     if (!motor_right.data_valid ||
         !motor_left.data_valid) return;

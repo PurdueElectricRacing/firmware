@@ -221,7 +221,7 @@ bool mc_periodic(motor_t *m) {
     /* Motor temp */
     curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
     if (curr < 0) return false;
-    m->controller_temp = (uint8_t) val_buf;
+    m->motor_temp = (uint8_t) val_buf;
 
     m->data_valid = true;
 

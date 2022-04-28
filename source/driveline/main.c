@@ -229,6 +229,7 @@ int main(void)
     taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
     taskCreate(parseDataPeriodic, 15);
+    taskCreate(shockpot1000Hz, 1);
 
     // TODO: shock is very fast, but contains a bunch of floating point arithmetic
     //taskCreate(shockpot1000Hz, 1);

@@ -13,7 +13,7 @@
 struct Geometry {
     //Shock pot positions
     // Length
-    const float oa;
+    const    float oa;
     const float ob;
     const float oc;
     const float od;

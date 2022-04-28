@@ -63,6 +63,7 @@ void heartbeat_task();
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
 void canTxUpdate();
+void imd_monitor();
 
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -111,8 +112,6 @@ int main (void)
     if (!PHAL_SPI_init(&spi_config))
         PHAL_FaultHandler();
 
-    
-
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     
@@ -123,17 +122,18 @@ int main (void)
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
 
-    if (!BMI088_init(&bmi_config))
-        PHAL_FaultHandler();
-    while(1)
-    {
-        BMI088_readGyro(&bmi_config, &x, &y, &z);
-    }
+    // if (!BMI088_init(&bmi_config))
+    //     PHAL_FaultHandler();
+    // while(1)
+    // {
+    //     BMI088_readGyro(&bmi_config, &x, &y, &z);
+    // }
     
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(heartbeat_task, 1000);
+    taskCreate(heartbeat_task, 500);
+    taskCreate(imd_monitor, 20);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -153,7 +153,11 @@ void PHAL_FaultHandler()
 void heartbeat_task()
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-    SEND_BALANCE_REQUEST(q_tx_can, 100);
+}
+
+void imd_monitor()
+{
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin));
 }
 
 // *** Compulsory CAN Tx/Rx callbacks ***

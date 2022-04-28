@@ -21,7 +21,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
 
     // Setup for Master, positive polarity
     SPI1->CR1 |= SPI_CR1_MSTR | SPI_CR1_SPE | SPI_CR1_SSM | SPI_CR1_SSI;
-    SPI1->CR1 &= ~(SPI_CR1_CPOL | SPI_CR1_CPHA);
+    SPI1->CR1 &= ~(SPI_CR1_CPOL);
     SPI1->CR2 &= ~(SPI_CR2_NSSP | SPI_CR2_SSOE);
 
     // Data Size

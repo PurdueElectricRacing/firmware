@@ -39,7 +39,6 @@ def gen_dbc(can_config, dbc_path):
                                           is_float=('float' in sig['type']),
                                           decimal=None))
                     curr_sig_pos += sig['length']
-
                 messages[msg['msg_name']] = db.Message(frame_id=msg['id'],
                                         name=msg['msg_name'],
                                         length=msg['dlc'],
@@ -49,7 +48,7 @@ def gen_dbc(can_config, dbc_path):
                                         senders=[node['node_name']],
                                         bus_name=bus['bus_name'])
 
-    can_db = db.load_file(dbc_path)
+    can_db = db.Database()
     can_db.nodes.clear()
     can_db.nodes.extend(nodes)
     can_db.messages.clear()

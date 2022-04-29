@@ -263,8 +263,8 @@ void commandTorquePeriodic()
     float pow_left  = (float) CLAMP(can_data.torque_request_main.rear_left, -4095, 4095);
     float pow_right = (float) CLAMP(can_data.torque_request_main.rear_right, -4095, 4095);
     #endif
-    pow_left  = pow_left  * 100.0 / 4096.0;
-    pow_right = pow_right * 100.0 / 4096.0;
+    pow_left  = pow_left  * 100.0 / 4095.0;
+    pow_right = pow_right * 100.0 / 4095.0;
 
     // Only drive if ready
     if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
@@ -276,7 +276,7 @@ void commandTorquePeriodic()
         pow_left  = 0.0;
         pow_right = 0.0;
     }
-    pow_left = 2.5;
+    // pow_left = 2.5;
     mc_set_power(pow_left,  &motor_left);
     mc_set_power(pow_right, &motor_right);
 }
@@ -290,7 +290,7 @@ void parseDataPeriodic()
 {
     /* Update Motor Controller Data Structures */
     mc_periodic(&motor_left);
-    // mc_periodic(&motor_right);
+    mc_periodic(&motor_right);
 
     if (!motor_right.data_valid ||
         !motor_left.data_valid) return;

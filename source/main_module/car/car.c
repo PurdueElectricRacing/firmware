@@ -32,8 +32,7 @@ void carPeriodic()
 {
     /* State Independent Operations */
 
-    brakeLightUpdate(can_data.raw_throttle_brake.brake);
-    /*
+    // brakeLightUpdate(can_data.raw_throttle_brake.brake);
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {
         if (!car.brake_light)
@@ -46,7 +45,7 @@ void carPeriodic()
     {
         PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
         car.brake_light = false;
-    }*/
+    }
 
 
     if (checkErrorFaults())
@@ -117,7 +116,10 @@ void carPeriodic()
         }
 
         // Send torque command to all 4 motors
-        uint16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
+        int16_t t_req = can_data.raw_throttle_brake.throttle - can_data.raw_throttle_brake.brake;
+        t_req = t_req > 820 ? 820 : t_req;
+        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
+        /*
         if (sched.os_ticks - last_time > 2000){ 
             curr ++;
             last_time = sched.os_ticks;
@@ -137,7 +139,7 @@ void carPeriodic()
             case 3:
             SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, t_req);//t_req, t_req, t_req);
             break;
-        }
+        }*/
 
     }
 }

@@ -36,7 +36,7 @@ BS_:
 BU_: Main_Module Torque_Vector Driveline Precharge Dashboard bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
-BO_ 2214598912 main_hb: 2 Main_Module
+BO_ 2214598913 main_hb: 2 Main_Module
  SG_ precharge_state : 8|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -63,7 +63,7 @@ BO_ 2214598915 front_driveline_hb: 2 Driveline
  SG_ front_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ front_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598978 rear_driveline_hb: 2 Driveline
+BO_ 2214598979 rear_driveline_hb: 2 Driveline
  SG_ rear_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -410,50 +410,50 @@ CM_ BU_ BMS1 "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
-CM_ BO_ 2214598912 "Heart beat message for main module";
-CM_ SG_ 2214598912 precharge_state "Precharge complete state";
-CM_ SG_ 2214598912 car_state "Main car state";
-CM_ BO_ 2214592576 "Torque request for all motors, temporarily from main.";
-CM_ SG_ 2214592576 rear_right "torque request. -4095-4095";
-CM_ SG_ 2214592576 rear_left "torque request. -4095-4095";
-CM_ SG_ 2214592576 front_right "torque request. -4095-4095";
-CM_ SG_ 2214592576 front_left "torque request. -4095-4095";
-CM_ BO_ 2550136768 "daq response from node MAIN_MODULE";
-CM_ SG_ 2550136768 daq_response "";
-CM_ BO_ 2214592577 "Torque request for all motors.";
-CM_ SG_ 2214592577 rear_right "torque request. 0-4096";
-CM_ SG_ 2214592577 rear_left "torque request. 0-4096";
-CM_ SG_ 2214592577 front_right "torque request. 0-4096";
-CM_ SG_ 2214592577 front_left "torque request. 0-4096";
-CM_ BO_ 2147490049 "Status message for bitstream flashing";
-CM_ SG_ 2147490049 flash_timeout_rx "Timeout from CAN rx";
-CM_ SG_ 2147490049 flash_success "Done flashing bitstream";
-CM_ BO_ 2214598914 "front drivline heart beat";
-CM_ SG_ 2214598914 front_right_motor "";
-CM_ SG_ 2214598914 front_left_motor "";
-CM_ BO_ 2214598978 "rear drivline heart beat";
-CM_ SG_ 2214598978 rear_right_motor "";
-CM_ SG_ 2214598978 rear_left_motor "";
-CM_ BO_ 2214592514 "Wheel data for the rear tires";
-CM_ SG_ 2214592514 right_normal "";
-CM_ SG_ 2214592514 left_normal "";
-CM_ SG_ 2214592514 right_speed "";
-CM_ SG_ 2214592514 left_speed "";
-CM_ BO_ 2214592578 "Wheel data for the rear tires";
-CM_ SG_ 2214592578 right_normal "";
-CM_ SG_ 2214592578 left_normal "";
-CM_ SG_ 2214592578 right_speed "";
-CM_ SG_ 2214592578 left_speed "";
-CM_ BO_ 2348810882 "DC Current and Temperature of the motor controllers";
-CM_ SG_ 2348810882 right_temp "";
-CM_ SG_ 2348810882 left_temp "";
-CM_ SG_ 2348810882 right_current "";
-CM_ SG_ 2348810882 left_current "";
-CM_ BO_ 2348810946 "DC Current and Temperature of the motor controllers";
-CM_ SG_ 2348810946 right_temp "";
-CM_ SG_ 2348810946 left_temp "";
-CM_ SG_ 2348810946 right_current "";
-CM_ SG_ 2348810946 left_current "";
+CM_ BO_ 2214598913 "Heart beat message for main module";
+CM_ SG_ 2214598913 precharge_state "Precharge complete state";
+CM_ SG_ 2214598913 car_state "Main car state";
+CM_ BO_ 2214592577 "Torque request for all motors, temporarily from main.";
+CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
+CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
+CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
+CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
+CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
+CM_ SG_ 2550136769 daq_response "";
+CM_ BO_ 2214592578 "Torque request for all motors.";
+CM_ SG_ 2214592578 rear_right "torque request. 0-4096";
+CM_ SG_ 2214592578 rear_left "torque request. 0-4096";
+CM_ SG_ 2214592578 front_right "torque request. 0-4096";
+CM_ SG_ 2214592578 front_left "torque request. 0-4096";
+CM_ BO_ 2147490050 "Status message for bitstream flashing";
+CM_ SG_ 2147490050 flash_timeout_rx "Timeout from CAN rx";
+CM_ SG_ 2147490050 flash_success "Done flashing bitstream";
+CM_ BO_ 2214598915 "front drivline heart beat";
+CM_ SG_ 2214598915 front_right_motor "";
+CM_ SG_ 2214598915 front_left_motor "";
+CM_ BO_ 2214598979 "rear drivline heart beat";
+CM_ SG_ 2214598979 rear_right_motor "";
+CM_ SG_ 2214598979 rear_left_motor "";
+CM_ BO_ 2214592515 "Wheel data for the rear tires";
+CM_ SG_ 2214592515 right_normal "";
+CM_ SG_ 2214592515 left_normal "";
+CM_ SG_ 2214592515 right_speed "";
+CM_ SG_ 2214592515 left_speed "";
+CM_ BO_ 2214592579 "Wheel data for the rear tires";
+CM_ SG_ 2214592579 right_normal "";
+CM_ SG_ 2214592579 left_normal "";
+CM_ SG_ 2214592579 right_speed "";
+CM_ SG_ 2214592579 left_speed "";
+CM_ BO_ 2348810883 "DC Current and Temperature of the motor controllers";
+CM_ SG_ 2348810883 right_temp "";
+CM_ SG_ 2348810883 left_temp "";
+CM_ SG_ 2348810883 right_current "";
+CM_ SG_ 2348810883 left_current "";
+CM_ BO_ 2348810947 "DC Current and Temperature of the motor controllers";
+CM_ SG_ 2348810947 right_temp "";
+CM_ SG_ 2348810947 left_temp "";
+CM_ SG_ 2348810947 right_current "";
+CM_ SG_ 2348810947 left_current "";
 CM_ BO_ 2281734148 "test precharge desc";
 CM_ SG_ 2281734148 test_precharge_sig "";
 CM_ BO_ 2483028613 "throttle_brake desc";
@@ -684,11 +684,11 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 
-VAL_ 2214598912 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
-VAL_ 2214598914 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
-VAL_ 2214598914 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
-VAL_ 2214598978 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
-VAL_ 2214598978 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598913 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
+VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598979 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
+VAL_ 2214598979 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

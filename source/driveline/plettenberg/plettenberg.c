@@ -37,31 +37,31 @@ void mc_set_power(float power, motor_t *m)
     cmd[idx++] = mode;
 
     // determine which is the shorter command: increment or absolute
-    int16_t delta = pow_x10 - m->curr_power_x10;
-    bool is_decrement = delta < 0;
-    if (is_decrement) delta *= -1;
+    // int16_t delta = pow_x10 - m->curr_power_x10;
+    // bool is_decrement = delta < 0;
+    // if (is_decrement) delta *= -1;
 
-    uint8_t incremen_ones   = (delta / 10) % 10;
-    uint8_t incremen_tenths = delta % 10;
+    // uint8_t incremen_ones   = (delta / 10) % 10;
+    // uint8_t incremen_tenths = delta % 10;
     uint8_t absolute_ones   = (pow_x10 / 10) % 10;
     uint8_t absolute_tenths = pow_x10 % 10;
 
     if (pow_x10 <= 1) cmd[idx - 1] = '0';
-    else if (delta < 100 && incremen_ones + incremen_tenths < 1 + absolute_ones + absolute_tenths)
-    {
-        /* Incremental Command Mode */
-        // ones
-        char c = is_decrement ? MC_DECREASE_ONE : MC_INCREASE_ONE;
-        for (incremen_ones += idx; idx < incremen_ones; idx++) cmd[idx] = c;
-        // tenths
-        c = is_decrement ? MC_DECREASE_TENTH : MC_INCREASE_TENTH;
-        for (incremen_tenths += idx; idx < incremen_tenths; idx++) cmd[idx] = c;
-    }
+    // else if (delta < 100 && incremen_ones + incremen_tenths < 1 + absolute_ones + absolute_tenths)
+    // {
+    //     /* Incremental Command Mode */
+    //     // ones
+    //     char c = is_decrement ? MC_DECREASE_ONE : MC_INCREASE_ONE;
+    //     for (incremen_ones += idx; idx < incremen_ones; idx++) cmd[idx] = c;
+    //     // tenths
+    //     c = is_decrement ? MC_DECREASE_TENTH : MC_INCREASE_TENTH;
+    //     for (incremen_tenths += idx; idx < incremen_tenths; idx++) cmd[idx] = c;
+    // }
     else
     {
         /* Absolute Command Mode */
-        // tens
-        cmd[idx++] = (pow_x10 == 1000) ? MC_MAX_POWER : (pow_x10 / 100) + '0';
+        // tens (only if 10% or greater)
+        if (pow_x10 >= 100) cmd[idx++] = (pow_x10 == 1000) ? MC_MAX_POWER : (pow_x10 / 100) + '0';
         // ones
         for (absolute_ones += idx; idx < absolute_ones; idx++) cmd[idx] = MC_INCREASE_ONE;
         // tenths
@@ -221,7 +221,7 @@ bool mc_periodic(motor_t *m) {
     /* Motor temp */
     curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
     if (curr < 0) return false;
-    m->controller_temp = (uint8_t) val_buf;
+    m->motor_temp = (uint8_t) val_buf;
 
     m->data_valid = true;
 

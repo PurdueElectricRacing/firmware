@@ -90,14 +90,22 @@ void coolingPeriodic()
     }
 
     // Determine if system should be on
-    if (!cooling.dt_pump && (!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) && 
-       (max_motor_temp > DT_PUMP_ON_TEMP_C || cooling.dt_temp_error || 
-       (DT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
+    // if (!cooling.dt_pump && (!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) && 
+    //    (max_motor_temp > DT_PUMP_ON_TEMP_C || (cooling.dt_temp_error && !DT_ALWAYS_COOL) || 
+    //    (DT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
+    // {
+    //     setDtCooling(true);
+    // }
+    // // Determine if system should be off
+    // else if (cooling.dt_pump && (max_motor_temp < DT_PUMP_OFF_TEMP_C || cooling.dt_flow_error))
+    // {
+    //     setDtCooling(false);
+    // }
+    if (!cooling.dt_pump && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin && DT_ALWAYS_COOL))
     {
         setDtCooling(true);
     }
-    // Determine if system should be off
-    else if (cooling.dt_pump && (max_motor_temp < DT_PUMP_OFF_TEMP_C || cooling.dt_flow_error))
+    else if (cooling.dt_pump && (!PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin) || !DT_ALWAYS_COOL))
     {
         setDtCooling(false);
     }
@@ -128,17 +136,18 @@ void coolingPeriodic()
     }
 
     // Determine if system should be on
-    if (!cooling.bat_pump && (!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) && 
-       (max_motor_temp > BAT_PUMP_ON_TEMP_C || cooling.bat_temp_error || 
-       (BAT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
-    {
-        setBatCooling(true);
-    }
-    // Determine if system should be off
-    else if (cooling.bat_pump && (max_motor_temp < BAT_PUMP_OFF_TEMP_C || cooling.bat_flow_error))
-    {
-        setBatCooling(false);
-    }
+    // if (!cooling.bat_pump && (!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) && 
+    //    (max_bat_temp > BAT_PUMP_ON_TEMP_C || (cooling.bat_temp_error && !BAT_ALWAYS_COOL) || 
+    //    (BAT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
+    // {
+    //     setBatCooling(true);
+    // }
+    // // Determine if system should be off
+    // else if (cooling.bat_pump && (max_motor_temp < BAT_PUMP_OFF_TEMP_C || cooling.bat_flow_error))
+    // {
+    //     setBatCooling(false);
+    // }
+    setBatCooling(false);
 }
 
 void setDtCooling(uint8_t on)

@@ -156,7 +156,7 @@ int main (void)
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    // taskCreate(coolingPeriodic, 15);
+    taskCreate(coolingPeriodic, 15);
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);

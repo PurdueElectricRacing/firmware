@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
     
         {
             "name": "Main Module",
@@ -105,7 +106,7 @@
         {
             "name": "BMS (12 Cell)",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bms/bms.elf",
+            "executable": "./output/bmses/bms_a/bms_a.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",

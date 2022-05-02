@@ -44,6 +44,8 @@ typedef struct
     bool     bse_wiring_fail_detected;
     uint32_t bse_wiring_fail_start_time;
     bool     apps_brake_faulted;        // throttle and brake pressed together
+    uint16_t throttle;
+    uint16_t brake;
 } pedals_t;
 
 extern pedals_t pedals;

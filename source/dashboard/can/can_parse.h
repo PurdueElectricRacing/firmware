@@ -26,6 +26,18 @@
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
 #define ID_FRONT_WHEEL_DATA 0x4000003
+#define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
+#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
+#define ID_FRONT_DRIVELINE_HB 0x4001903
+#define ID_REAR_DRIVELINE_HB 0x4001943
+#define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_SOC_CELLS 0x8007d6b
+#define ID_VOLTS_CELLS 0x4007dab
+#define ID_PACK_INFO 0x8007deb
+#define ID_TEMPS_CELLS 0x4007e2b
+#define ID_CELL_INFO 0x8007e6b
+#define ID_POWER_LIM 0x4007eab
+#define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -37,6 +49,18 @@
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
 #define DLC_FRONT_WHEEL_DATA 8
+#define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
+#define DLC_FRONT_DRIVELINE_HB 2
+#define DLC_REAR_DRIVELINE_HB 2
+#define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_SOC_CELLS 7
+#define DLC_VOLTS_CELLS 7
+#define DLC_PACK_INFO 6
+#define DLC_TEMPS_CELLS 7
+#define DLC_CELL_INFO 6
+#define DLC_POWER_LIM 4
+#define DLC_REAR_WHEEL_DATA 8
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -76,6 +100,12 @@
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 100
 #define UP_FRONT_WHEEL_DATA 10
+#define UP_FRONT_MOTOR_CURRENTS_TEMPS 500
+#define UP_REAR_MOTOR_CURRENTS_TEMPS 500
+#define UP_FRONT_DRIVELINE_HB 100
+#define UP_REAR_DRIVELINE_HB 100
+#define UP_TORQUE_REQUEST_MAIN 15
+#define UP_REAR_WHEEL_DATA 10
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -91,6 +121,34 @@ typedef enum {
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
 } car_state_t;
+
+typedef enum {
+    FRONT_LEFT_MOTOR_DISCONNECTED,
+    FRONT_LEFT_MOTOR_INITIALIZING,
+    FRONT_LEFT_MOTOR_CONNECTED,
+    FRONT_LEFT_MOTOR_ERROR,
+} front_left_motor_t;
+
+typedef enum {
+    FRONT_RIGHT_MOTOR_DISCONNECTED,
+    FRONT_RIGHT_MOTOR_INITIALIZING,
+    FRONT_RIGHT_MOTOR_CONNECTED,
+    FRONT_RIGHT_MOTOR_ERROR,
+} front_right_motor_t;
+
+typedef enum {
+    REAR_LEFT_MOTOR_DISCONNECTED,
+    REAR_LEFT_MOTOR_INITIALIZING,
+    REAR_LEFT_MOTOR_CONNECTED,
+    REAR_LEFT_MOTOR_ERROR,
+} rear_left_motor_t;
+
+typedef enum {
+    REAR_RIGHT_MOTOR_DISCONNECTED,
+    REAR_RIGHT_MOTOR_INITIALIZAING,
+    REAR_RIGHT_MOTOR_CONNECTED,
+    REAR_RIGHT_MOTOR_ERROR,
+} rear_right_motor_t;
 
 /* END AUTO CAN ENUMERATIONS */
 
@@ -123,6 +181,70 @@ typedef union { __attribute__((packed))
         uint64_t right_normal: 16;
     } front_wheel_data;
     struct {
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } front_motor_currents_temps;
+    struct {
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } rear_motor_currents_temps;
+    struct {
+        uint64_t front_left_motor: 8;
+        uint64_t front_right_motor: 8;
+    } front_driveline_hb;
+    struct {
+        uint64_t rear_left_motor: 8;
+        uint64_t rear_right_motor: 8;
+    } rear_driveline_hb;
+    struct {
+        uint64_t front_left: 16;
+        uint64_t front_right: 16;
+        uint64_t rear_left: 16;
+        uint64_t rear_right: 16;
+    } torque_request_main;
+    struct {
+        uint64_t idx: 8;
+        uint64_t soc1: 16;
+        uint64_t soc2: 16;
+        uint64_t soc3: 16;
+    } soc_cells;
+    struct {
+        uint64_t idx: 8;
+        uint64_t v1: 16;
+        uint64_t v2: 16;
+        uint64_t v3: 16;
+    } volts_cells;
+    struct {
+        uint64_t volts: 16;
+        uint64_t error: 16;
+        uint64_t bal_flags: 16;
+    } pack_info;
+    struct {
+        uint64_t idx: 8;
+        uint64_t t1: 16;
+        uint64_t t2: 16;
+        uint64_t t3: 16;
+    } temps_cells;
+    struct {
+        uint64_t delta: 16;
+        uint64_t ov: 16;
+        uint64_t uv: 16;
+    } cell_info;
+    struct {
+        uint64_t disch_lim: 16;
+        uint64_t chg_lim: 16;
+    } power_lim;
+    struct {
+        uint64_t left_speed: 16;
+        uint64_t right_speed: 16;
+        uint64_t left_normal: 16;
+        uint64_t right_normal: 16;
+    } rear_wheel_data;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -147,6 +269,82 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } front_wheel_data;
+    struct {
+        uint16_t left_current;
+        uint16_t right_current;
+        uint8_t left_temp;
+        uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_motor_currents_temps;
+    struct {
+        uint16_t left_current;
+        uint16_t right_current;
+        uint8_t left_temp;
+        uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_motor_currents_temps;
+    struct {
+        front_left_motor_t front_left_motor;
+        front_right_motor_t front_right_motor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_driveline_hb;
+    struct {
+        rear_left_motor_t rear_left_motor;
+        rear_right_motor_t rear_right_motor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_driveline_hb;
+    struct {
+        int16_t front_left;
+        int16_t front_right;
+        int16_t rear_left;
+        int16_t rear_right;
+        uint8_t stale;
+        uint32_t last_rx;
+    } torque_request_main;
+    struct {
+        uint8_t idx;
+        uint16_t soc1;
+        uint16_t soc2;
+        uint16_t soc3;
+    } soc_cells;
+    struct {
+        uint8_t idx;
+        uint16_t v1;
+        uint16_t v2;
+        uint16_t v3;
+    } volts_cells;
+    struct {
+        uint16_t volts;
+        uint16_t error;
+        uint16_t bal_flags;
+    } pack_info;
+    struct {
+        uint8_t idx;
+        uint16_t t1;
+        uint16_t t2;
+        uint16_t t3;
+    } temps_cells;
+    struct {
+        uint16_t delta;
+        uint16_t ov;
+        uint16_t uv;
+    } cell_info;
+    struct {
+        uint16_t disch_lim;
+        uint16_t chg_lim;
+    } power_lim;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_wheel_data;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;

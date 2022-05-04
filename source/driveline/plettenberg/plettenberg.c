@@ -8,10 +8,11 @@ void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
     *m = (motor_t) {
         .is_inverted = is_inverted,
         .tx_queue    = tx_queue,
-        .data_valid  = false,
+        .data_stale  = true,
+        .last_parse_time = 0xFFFF0000,
         .motor_state = MC_DISCONNECTED,
         .init_state = 0,
-        .last_rx_time = 15000,
+        .last_rx_time = 0xFFFF0000,
         .rx_timeout = MC_RX_LARGE_TIMEOUT_MS
     };
 
@@ -192,13 +193,13 @@ bool mc_periodic(motor_t *m) {
     {
         m->motor_state = MC_DISCONNECTED;
         m->rx_timeout = MC_RX_LARGE_TIMEOUT_MS;
-        m->data_valid = false;
-        m->motor_state = 0;
     }
     else if (m->motor_state == MC_DISCONNECTED)
     {
         m->boot_start_time = sched.os_ticks;
         m->motor_state = MC_INITIALIZING;
+        m->rx_timeout = MC_RX_LARGE_TIMEOUT_MS;
+        m->init_state = 0;
     }
     else if (m->motor_state == MC_INITIALIZING &&
             sched.os_ticks - m->boot_start_time > MC_BOOT_TIME)
@@ -217,6 +218,8 @@ bool mc_periodic(motor_t *m) {
         m->rx_timeout = MC_RX_SMALL_TIMEOUT_MS;
     }
 
+    //
+
     // 0        9        18       27       36       45         56        66
     // S=3.649V,a=0.000V,PWM= 787,U= 34.9V,I=  3.7A,RPM=  1482,con= 28°C,mot= 26°C
     int16_t curr = 0;
@@ -227,30 +230,27 @@ bool mc_periodic(motor_t *m) {
 
     /* Voltage */
     curr = mc_parse(tmp_rx_buf, curr, "U=", &val_buf);
-    if (curr < 0) return false;
-    m->voltage_x10 = (uint16_t) val_buf;
+    if (curr >= 0) m->voltage_x10 = (uint16_t) val_buf;
 
     /* Current */
-    curr = mc_parse(tmp_rx_buf, curr, "I=", &val_buf);
-    if (curr < 0) return false;
-    m->current_x10 = (uint16_t) val_buf;
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "I=", &val_buf);
+    if (curr >= 0) m->current_x10 = (uint16_t) val_buf;
 
     /* RPM */
-    curr = mc_parse(tmp_rx_buf, curr, "RPM=", &val_buf);
-    if (curr < 0) return false;
-    m->rpm = val_buf;
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "RPM=", &val_buf);
+    if (curr >= 0) m->rpm = val_buf;
 
     /* Controller temp */
-    curr = mc_parse(tmp_rx_buf, curr, "con=", &val_buf);
-    if (curr < 0) return false;
-    m->controller_temp = (uint8_t) val_buf;
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "con=", &val_buf);
+    if (curr >= 0) m->controller_temp = (uint8_t) val_buf;
 
     /* Motor temp */
-    curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
-    if (curr < 0) return false;
-    m->motor_temp = (uint8_t) val_buf;
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
+    if (curr >= 0) m->motor_temp = (uint8_t) val_buf;
 
-    m->data_valid = true;
+    // Update parse time
+    if (curr >= 0) m->last_parse_time = sched.os_ticks;
+    m->data_stale = (sched.os_ticks - m->last_parse_time > MC_PARSE_TIMEOUT);
 
-    return true;
+    return curr >= 0;
 }

@@ -20,6 +20,7 @@
 
 #define MC_RX_LARGE_TIMEOUT_MS 1500
 #define MC_RX_SMALL_TIMEOUT_MS 30
+#define MC_PARSE_TIMEOUT       1500
 
 #define MC_SERIAL_MODE    's'
 #define MC_ANALOG_MODE    'p'
@@ -70,12 +71,13 @@ typedef struct
     volatile uint32_t last_rx_time;         // Time of the last rx message received
     volatile char rx_buf[MC_MAX_RX_LENGTH]; // DMA rx circular buffer
     /* Parsed Values */
-    bool  data_valid;                       // True if the following values are up to date and legit
+    bool     data_stale;                    // True if data has not been parsed for MC_PARSE_TIMEOUT
+    uint32_t last_parse_time;               // Last time data was succesfully parsed
     uint16_t voltage_x10;                      
     uint16_t current_x10;
     uint32_t rpm;
-    uint8_t controller_temp;
-    uint8_t motor_temp;
+    uint8_t  controller_temp;
+    uint8_t  motor_temp;
 } motor_t;
 
 /**

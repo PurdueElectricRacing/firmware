@@ -34,6 +34,12 @@ void carPeriodic()
 
     /* State Independent Operations */
 
+    // if (GPIOC->IDR & (1U << 1)) {
+    //     asm("nop");
+    // } else {
+    //     asm("nop");
+    // }
+
     // brakeLightUpdate(can_data.raw_throttle_brake.brake);
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {

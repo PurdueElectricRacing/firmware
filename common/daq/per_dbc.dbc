@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard Steering bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -108,6 +108,12 @@ BO_ 2214598917 dashboard_hb: 1 Dashboard
 
 BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 688 LWS_Standard: 5 Steering
+ SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LWS_SPEED : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LWS_ANGLE : 0|16@1- (1,0) [0|0] "°x10" Vector__XXX
 
 BO_ 2214912572 mainmodule_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
@@ -401,6 +407,7 @@ CM_ BU_ Torque_Vector "";
 CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
+CM_ BU_ Steering "";
 CM_ BU_ bootloader "";
 CM_ BU_ BMS_LV "";
 CM_ BU_ TESTER "";
@@ -467,6 +474,11 @@ CM_ SG_ 2214598917 bse_faulted "";
 CM_ SG_ 2214598917 apps_faulted "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
+CM_ BO_ 688 "Standard steering angle and speed";
+CM_ SG_ 688 Reserved_2 "";
+CM_ SG_ 688 Reserved_1 "";
+CM_ SG_ 688 LWS_SPEED "";
+CM_ SG_ 688 LWS_ANGLE "";
 CM_ BO_ 2214912572 "Main Module Bootloader response";
 CM_ SG_ 2214912572 data "";
 CM_ SG_ 2214912572 cmd "";

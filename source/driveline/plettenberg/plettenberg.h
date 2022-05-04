@@ -59,6 +59,7 @@ typedef enum
 typedef struct 
 {
     motor_state_t motor_state;
+    uint8_t init_state;
     bool is_inverted;                       // Send 'f' versus 'r' for positive torque command
     uint16_t curr_power_x10;                // Last torque command percent output sent x10
     /* Tx */

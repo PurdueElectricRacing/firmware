@@ -221,6 +221,29 @@
                     ]
                 },
                 {
+                    "node_name": "Steering",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 42,
+                    "tx": [
+                        {
+                            "msg_name": "LWS_Standard",
+                            "msg_desc": "Standard steering angle and speed",
+                            "signals": [
+                                {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"°x10"},
+                                {"sig_name": "LWS_SPEED", "type":"uint8_t", "length": 8},
+                                {"sig_name": "Reserved_1", "type":"uint8_t", "length": 8},
+                                {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 2,
+                            "msg_pgn": 512,
+                            "msg_id_override": "0x2B0",
+                            "is_normal":true
+                        }
+                    ],
+                    "rx": []
+                },
+                {
                     "node_name": "bootloader",
                     "node_ssa": 60,
                     "can_peripheral": "CAN1",

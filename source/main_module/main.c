@@ -145,24 +145,28 @@ int main (void)
 
     /* Module Initialization */
     carInit();
-    coolingInit();
+    // coolingInit();
     initCANParse(&q_rx_can);
     linkDAQVars();
-    if(daqInit(&q_tx_can, I2C))
-    {
-        HardFault_Handler();
-    }
+    // i4
 
     /* Task Creation */
     schedInit(SystemCoreClock);
 
-    taskCreate(coolingPeriodic, 15);
+    // taskCreate(coolingPeriodic, 15);
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+
+
+    // SEND_MAIN_HB(q_tx_can, car.state, 
+    //              PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin));
+    // canTxUpdate();
+    // while (1 == 1);
+    // __asm__("bkpt");
 
     schedStart();
 

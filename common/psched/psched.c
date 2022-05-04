@@ -384,7 +384,9 @@ static void memsetu(uint8_t* ptr, uint8_t val, size_t size)
 // @brief: Timer 7 IRQ. Increments OS ticks and unblocks loop
 void TIM7_IRQHandler()
 {
+
 	TIM7->SR &= ~TIM_SR_UIF;
     ++sched.os_ticks;
+
     sched.run_next = 1;
 }

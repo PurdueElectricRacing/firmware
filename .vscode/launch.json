@@ -106,7 +106,7 @@
         {
             "name": "BMS (12 Cell)",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bmses/bms_a/bms_a.elf",
+            "executable": "./output/bmses/bms_b/bms_b.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -118,9 +118,9 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/bmses/bms_a/bms_a.elf"
+                "${workspaceFolder}/source/bms"
             ],
-            "preLaunchTask": "build",
+            // "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {

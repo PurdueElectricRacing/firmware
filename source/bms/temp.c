@@ -32,39 +32,11 @@ int checkTempMaster(uint8_t addr)
 
 void tempTask(void)
 {
-    uint8_t i;
-    uint8_t ret = 0;
-    uint8_t buff[TEMP_MAX * 2];
-
-    for (i = 0; i < TEMP_MAX * 2; i++) {
-        buff[i] = 0;
+    if (!PHAL_readGPIO(GPIOB, 6) || !PHAL_readGPIO(GPIOB, 7)) {
+        bms.error |= 1U << E_TEMP;
+    } else {
+        bms.error &= ~(1U << E_TEMP);
     }
-
-    // Get values from device 1
-    ret += PHAL_I2C_gen_start(I2C1, TEMP_ID1 << 1, bms.temp_count / 2, PHAL_I2C_MODE_RX);
-    ret += PHAL_I2C_read_multi(I2C1, buff, bms.temp_count / 2);
-    ret += PHAL_I2C_gen_stop(I2C1);
-
-    for (i = 0; i < bms.temp_count / 2; i++)
-    {
-        bms.cells.chan_temps_raw[i] = (buff[i * 2] << 8) | buff[(i * 2) + 1];
-    }
-
-    // Get values from device 2
-    ret += PHAL_I2C_gen_start(I2C1, TEMP_ID2 << 1, bms.temp_count / 2, PHAL_I2C_MODE_RX);
-    ret += PHAL_I2C_read_multi(I2C1, buff, bms.temp_count / 2);
-    ret += PHAL_I2C_gen_stop(I2C1);
-
-    for (i = 0; i < bms.temp_count / 2; i++)
-    {
-        bms.cells.chan_temps_raw[i + (bms.temp_count / 2)] = (buff[i * 2] << 8) | buff[(i * 2) + 1];
-    }
-
-    // if (ret != 6) {
-    //     bms.error |= 1U << E_I2C_CONN;
-    // } else {
-    //     bms.error &= ~(1U << E_I2C_CONN);
-    // }
 }
 
 void procTemps(void)

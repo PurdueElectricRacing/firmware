@@ -27,7 +27,6 @@ void txBatteryStatus()
     static uint8_t state = 0;
 
     uint16_t pack_voltage = 0;
-    bool done_with_cells = false;
     uint8_t idx;
     uint16_t v1 = 0, v2 = 0, v3 = 0;
 
@@ -47,17 +46,13 @@ void txBatteryStatus()
         v1 = cell_volts[idx + 0];
         if (idx + 1 < NUM_CELLS)
             v2 = cell_volts[idx + 1];
-        else
-            done_with_cells = true;
         
-        if (idx + 1 < NUM_CELLS)
+        if (idx + 2 < NUM_CELLS)
             v3 = cell_volts[idx + 2];
-        else
-            done_with_cells = true;
 
         SEND_CELL_INFO(q_tx_can, idx, v1, v2, v3);
         state ++;
-        if (done_with_cells)
+        if (idx + 2 >= NUM_CELLS)
             state = 0;
         break;
     }

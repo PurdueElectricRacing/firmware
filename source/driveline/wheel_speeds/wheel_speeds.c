@@ -17,7 +17,9 @@ WheelSpeeds_t wheel_speeds;
 extern q_handle_t q_tx_can;
 
 volatile uint32_t left_ccr = 0;
+volatile uint32_t left_update_time = 0;
 volatile uint32_t right_ccr = 0;
+volatile uint32_t right_update_time = 0;
 
 void wheelSpeedsInit()
 {
@@ -34,19 +36,37 @@ void wheelSpeedsInit()
 
     // TIM2 (right)
     TIM2->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
-    // NVIC_EnableIRQ(TIM2_IRQn);
+    NVIC_EnableIRQ(TIM2_IRQn);
     PHAL_startTIM(TIM2);
 }
 
 void wheelSpeedsPeriodic()
 {
 
-    uint32_t ccr_store = left_ccr;
+    uint32_t ccr_store;
+    float speed_store;
 
-    if (ccr_store != 0)
-        wheel_speeds.left_kph = FREQ_TO_KPH * (TIM_CLOCK_FREQ / (float) (ccr_store));
+    ccr_store = left_ccr;
+    if (ccr_store != 0 && (sched.os_ticks - left_update_time) < SPEED_TIMEOUT_MS)
+    {
+        speed_store = FREQ_TO_KPH * (TIM_CLOCK_FREQ / (float) (ccr_store));
+        wheel_speeds.left_kph_x100 = (uint16_t) (speed_store * 100);
+    }
     else
-        wheel_speeds.left_kph = 0;
+    {
+        wheel_speeds.left_kph_x100 = 0;
+    }
+
+    ccr_store = right_ccr;
+    if (ccr_store != 0 && (sched.os_ticks - right_update_time) < SPEED_TIMEOUT_MS)
+    {
+        speed_store = FREQ_TO_KPH * (TIM_CLOCK_FREQ / (float) (ccr_store));
+        wheel_speeds.right_kph_x100 = (uint16_t) (speed_store * 100);
+    }
+    else
+    {
+        wheel_speeds.right_kph_x100 = 0;
+    }
 
     // ccr_store = right_ccr;
     // if(ccr_store == 0)
@@ -80,10 +100,10 @@ void TIM1_CC_IRQHandler()
 {
     left_ccr = (left_ccr_msb_counter << 16) | TIM1->CCR1;
     left_ccr_msb_counter = 0;
+    left_update_time = sched.os_ticks;
     TIM1->SR = ~(TIM_SR_CC1IF);
 }
 
-/*
 void  TIM2_IRQHandler()
 {
     // CCxIF can be cleared by software by reading the captured data stored in the TIMx_CCRx register
@@ -95,7 +115,7 @@ void  TIM2_IRQHandler()
     else if (TIM2->SR & TIM_SR_CC1IF)
     {
         right_ccr = TIM2->CCR1;
+        right_update_time = sched.os_ticks;
         TIM2->SR = ~(TIM_SR_CC1IF);
     }
-    // TIM2->SR = ~(TIM_SR_CC1IF | TIM_SR_UIF);
-}*/
+}

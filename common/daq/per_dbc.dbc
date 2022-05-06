@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard Steering bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard Steering Acceleration bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -112,8 +112,29 @@ BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
 BO_ 688 LWS_Standard: 5 Steering
  SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ LWS_SPEED : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ LWS_ANGLE : 0|16@1- (1,0) [0|0] "°x10" Vector__XXX
+ SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "°/s" Vector__XXX
+ SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "°" Vector__XXX
+
+BO_ 372 Y_Accel: 8 Acceleration
+ SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_2 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Y_Acc : 32|16@1+ (0.0001274,-4.1746432) [0|0] "g" Vector__XXX
+ SG_ Reserved_1 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Yaw_Rate : 0|16@1+ (0.005,-163.84) [0|0] "°/s" Vector__XXX
+
+BO_ 376 X_Accel: 8 Acceleration
+ SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_2 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ X_Acc : 32|16@1+ (0.0001274,-4.1746432) [0|0] "g" Vector__XXX
+ SG_ Reserved_1 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Roll_Rate : 0|16@1+ (0.005,-163.84) [0|0] "°/s" Vector__XXX
+
+BO_ 380 Z_Accel: 8 Acceleration
+ SG_ Reserved_4 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_3 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Z_Acc : 32|16@1+ (0.0001274,-4.1746432) [0|0] "g" Vector__XXX
+ SG_ Reserved_2 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214912572 mainmodule_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
@@ -408,6 +429,7 @@ CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
+CM_ BU_ Acceleration "";
 CM_ BU_ bootloader "";
 CM_ BU_ BMS_LV "";
 CM_ BU_ TESTER "";
@@ -479,6 +501,24 @@ CM_ SG_ 688 Reserved_2 "";
 CM_ SG_ 688 Reserved_1 "";
 CM_ SG_ 688 LWS_SPEED "";
 CM_ SG_ 688 LWS_ANGLE "";
+CM_ BO_ 372 "Y Acceleration Update";
+CM_ SG_ 372 Reserved_3 "";
+CM_ SG_ 372 Reserved_2 "";
+CM_ SG_ 372 Y_Acc "";
+CM_ SG_ 372 Reserved_1 "";
+CM_ SG_ 372 Yaw_Rate "";
+CM_ BO_ 376 "X Acceleration Update";
+CM_ SG_ 376 Reserved_3 "";
+CM_ SG_ 376 Reserved_2 "";
+CM_ SG_ 376 X_Acc "";
+CM_ SG_ 376 Reserved_1 "";
+CM_ SG_ 376 Roll_Rate "";
+CM_ BO_ 380 "Z Acceleration Update";
+CM_ SG_ 380 Reserved_4 "";
+CM_ SG_ 380 Reserved_3 "";
+CM_ SG_ 380 Z_Acc "";
+CM_ SG_ 380 Reserved_2 "";
+CM_ SG_ 380 Reserved_1 "";
 CM_ BO_ 2214912572 "Main Module Bootloader response";
 CM_ SG_ 2214912572 data "";
 CM_ SG_ 2214912572 cmd "";

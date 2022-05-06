@@ -229,15 +229,63 @@
                             "msg_name": "LWS_Standard",
                             "msg_desc": "Standard steering angle and speed",
                             "signals": [
-                                {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"°x10"},
-                                {"sig_name": "LWS_SPEED", "type":"uint8_t", "length": 8},
+                                {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"°", "scale":0.1},
+                                {"sig_name": "LWS_SPEED", "type":"uint8_t", "unit":"°/s", "scale":4, "length": 8},
                                 {"sig_name": "Reserved_1", "type":"uint8_t", "length": 8},
                                 {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8}
                             ],
                             "msg_period": 10,
-                            "msg_hlp": 2,
-                            "msg_pgn": 512,
                             "msg_id_override": "0x2B0",
+                            "is_normal":true
+                        }
+                    ],
+                    "rx": []
+                },
+                {
+                    "node_name": "Acceleration",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 43,
+                    "tx": [
+                        {
+                            "msg_name": "Y_Accel",
+                            "msg_desc": "Y Acceleration Update",
+                            "signals": [
+                                {"sig_name": "Yaw_Rate", "type":"uint16_t", "length":16, "unit":"°/s", "scale":0.005, "offset": -163.84},
+                                {"sig_name": "Reserved_1", "type":"uint16_t", "length": 16},
+                                {"sig_name": "Y_Acc", "type":"uint16_t", "length":16, "unit":"g", "scale":0.0001274, "offset": -4.1746432},
+                                {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8},
+                                {"sig_name": "Reserved_3", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period": 67,
+                            "msg_id_override": "0x174",
+                            "is_normal":true
+                        },
+                        {
+                            "msg_name": "X_Accel",
+                            "msg_desc": "X Acceleration Update",
+                            "signals": [
+                                {"sig_name": "Roll_Rate", "type":"uint16_t", "length":16, "unit":"°/s", "scale":0.005, "offset": -163.84},
+                                {"sig_name": "Reserved_1", "type":"uint16_t", "length": 16},
+                                {"sig_name": "X_Acc", "type":"uint16_t", "length":16, "unit":"g", "scale":0.0001274, "offset": -4.1746432},
+                                {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8},
+                                {"sig_name": "Reserved_3", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period": 67,
+                            "msg_id_override": "0x178",
+                            "is_normal":true
+                        },
+                        {
+                            "msg_name": "Z_Accel",
+                            "msg_desc": "Z Acceleration Update",
+                            "signals": [
+                                {"sig_name": "Reserved_1", "type":"uint16_t", "length": 16},
+                                {"sig_name": "Reserved_2", "type":"uint16_t", "length": 16},
+                                {"sig_name": "Z_Acc", "type":"uint16_t", "length":16, "unit":"g", "scale":0.0001274, "offset": -4.1746432},
+                                {"sig_name": "Reserved_3", "type":"uint8_t", "length": 8},
+                                {"sig_name": "Reserved_4", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period": 67,
+                            "msg_id_override": "0x17C",
                             "is_normal":true
                         }
                     ],

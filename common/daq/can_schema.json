@@ -106,10 +106,10 @@
                     "minimum":1,
                     "maimum":64
                 },
-                "scale":{"type":"integer", "description":"scale factor to apply, default of 1\nDecoding results in (x * scale)+offset"},
-                "offset":{"type":"integer", "description": "offset to apply, default of 0\nDecoding results in (x * scale)+offset"},
-                "maximum":{"type":"integer", "description": "maximum value of signal, defaults to none"},
-                "minimum":{"type":"integer", "description": "minimum value of signal, defaults to none"},
+                "scale":{"type":"number", "description":"scale factor to apply, default of 1\nDecoding results in (x * scale)+offset"},
+                "offset":{"type":"number", "description": "offset to apply, default of 0\nDecoding results in (x * scale)+offset"},
+                "maximum":{"type":"number", "description": "maximum value of signal, defaults to none"},
+                "minimum":{"type":"number", "description": "minimum value of signal, defaults to none"},
                 "unit":{"type":"string", "description":"unit of the signal, defaults to none"},
                 "choices":{"type":"array", "description":"enumeration values", "items":{"type":"string"}}
             }

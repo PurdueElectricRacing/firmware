@@ -132,13 +132,14 @@ int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_a
     // the next location to look at, if not return -1
     // keeps adding as long as it sees leading spaces, multiplies by 10 if decimal point found
     uint8_t search_length = strlen(search_term);
-    bool match = true;
+    bool match = false;
     uint8_t curr = 0xFF;
 
     for (uint8_t i = start; i < MC_MAX_RX_LENGTH + start; ++i) 
     {
         if (rx_buf[i % MC_MAX_RX_LENGTH] == search_term[0])
         {
+            match = true;
             // possible match, check entire term matches
             for (uint8_t j = 0; j < search_length; ++j)
             {

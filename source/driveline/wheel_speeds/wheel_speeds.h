@@ -13,6 +13,7 @@
 #define _WHEEL_SPEEDS_H
 
 #include <stdbool.h>
+#include "common/psched/psched.h"
 #include "common/phal_L4/tim/tim.h"
 #include "stm32l4xx.h"
 
@@ -34,9 +35,11 @@
 #define MPS_TO_KPH 3.6
 #define FREQ_TO_KPH (MPS_TO_KPH * WHEEL_CIRCUMF_M / SENSOR_TEETH)
 
+#define SPEED_TIMEOUT_MS 300 // Set to 0 at speeds under 1 kph
+
 typedef struct {
-  float left_kph;
-  float right_kph;
+  uint16_t left_kph_x100;
+  uint16_t right_kph_x100;
 } WheelSpeeds_t;
 
 extern WheelSpeeds_t wheel_speeds;

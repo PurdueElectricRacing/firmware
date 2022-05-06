@@ -22,8 +22,11 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_HEAT_REQ 0x8007d2a
 #define ID_PACK_CURR 0x4007d6a
+#define ID_BALANCE_REQUEST 0xc00002a
 #define ID_BATTERY_INFO 0x8008004
 #define ID_CELL_INFO 0x8008044
+#define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
+#define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
 #define ID_SOC_CELLS_1 0x8007d6b
 #define ID_VOLTS_CELLS_1 0x4007dab
 #define ID_PACK_INFO_1 0x8007deb
@@ -72,14 +75,19 @@
 #define ID_TEMPS_CELLS_8 0x40088ab
 #define ID_CELL_INFO_8 0x80088eb
 #define ID_POWER_LIM_8 0x400892b
+#define ID_ELCON_CHARGER_STATUS 0x18ff50e5
+#define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_HEAT_REQ 3
 #define DLC_PACK_CURR 2
+#define DLC_BALANCE_REQUEST 2
 #define DLC_BATTERY_INFO 4
 #define DLC_CELL_INFO 7
+#define DLC_ELCON_CHARGER_COMMAND 5
+#define DLC_DAQ_RESPONSE_PRECHARGE 8
 #define DLC_SOC_CELLS_1 7
 #define DLC_VOLTS_CELLS_1 7
 #define DLC_PACK_INFO_1 6
@@ -128,6 +136,8 @@
 #define DLC_TEMPS_CELLS_8 7
 #define DLC_CELL_INFO_8 6
 #define DLC_POWER_LIM_8 4
+#define DLC_ELCON_CHARGER_STATUS 5
+#define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -143,6 +153,12 @@
         CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_PACK_CURR, .DLC=DLC_PACK_CURR, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pack_curr.current = current_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_BALANCE_REQUEST(queue, voltage_target_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_BALANCE_REQUEST, .DLC=DLC_BALANCE_REQUEST, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->balance_request.voltage_target = voltage_target_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_BATTERY_INFO(queue, voltage_, error_) do {\
@@ -161,11 +177,26 @@
         data_a->cell_info.v3 = v3_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_ELCON_CHARGER_COMMAND(queue, voltage_limit_, current_limit_, charge_disable_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ELCON_CHARGER_COMMAND, .DLC=DLC_ELCON_CHARGER_COMMAND, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->elcon_charger_command.voltage_limit = voltage_limit_;\
+        data_a->elcon_charger_command.current_limit = current_limit_;\
+        data_a->elcon_charger_command.charge_disable = charge_disable_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_DAQ_RESPONSE_PRECHARGE(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PRECHARGE, .DLC=DLC_DAQ_RESPONSE_PRECHARGE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->daq_response_PRECHARGE.daq_response = daq_response_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
+#define UP_ELCON_CHARGER_STATUS 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -185,6 +216,9 @@ typedef union { __attribute__((packed))
         uint64_t current: 16;
     } pack_curr;
     struct {
+        uint64_t voltage_target: 16;
+    } balance_request;
+    struct {
         uint64_t voltage: 16;
         uint64_t error: 16;
     } battery_info;
@@ -194,6 +228,14 @@ typedef union { __attribute__((packed))
         uint64_t v2: 16;
         uint64_t v3: 16;
     } cell_info;
+    struct {
+        uint64_t voltage_limit: 16;
+        uint64_t current_limit: 16;
+        uint64_t charge_disable: 1;
+    } elcon_charger_command;
+    struct {
+        uint64_t daq_response: 64;
+    } daq_response_PRECHARGE;
     struct {
         uint64_t idx: 8;
         uint64_t soc1: 16;
@@ -450,6 +492,18 @@ typedef union { __attribute__((packed))
         uint64_t disch_lim: 16;
         uint64_t chg_lim: 16;
     } power_lim_8;
+    struct {
+        uint64_t charge_voltage: 16;
+        uint64_t charge_current: 16;
+        uint64_t hw_fail: 1;
+        uint64_t temp_fail: 1;
+        uint64_t input_v_fail: 1;
+        uint64_t startup_fail: 1;
+        uint64_t communication_fail: 1;
+    } elcon_charger_status;
+    struct {
+        uint64_t daq_command: 64;
+    } daq_command_PRECHARGE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -714,12 +768,27 @@ typedef struct {
         uint16_t disch_lim;
         uint16_t chg_lim;
     } power_lim_8;
+    struct {
+        uint16_t charge_voltage;
+        uint16_t charge_current;
+        uint8_t hw_fail;
+        uint8_t temp_fail;
+        uint8_t input_v_fail;
+        uint8_t startup_fail;
+        uint8_t communication_fail;
+        uint8_t stale;
+        uint32_t last_rx;
+    } elcon_charger_status;
+    struct {
+        uint64_t daq_command;
+    } daq_command_PRECHARGE;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void daq_command_PRECHARGE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void volts_cells_1_CALLBACK(CanParsedData_t* msg_data_a);
 extern void volts_cells_2_CALLBACK(CanParsedData_t* msg_data_a);
 extern void volts_cells_3_CALLBACK(CanParsedData_t* msg_data_a);

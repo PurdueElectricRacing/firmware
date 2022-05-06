@@ -309,6 +309,21 @@ void canRxUpdate()
         {
             switch(msg_header.ExtId)
             {
+                case ID_ELCON_CHARGER_STATUS:
+                    can_data.elcon_charger_status.charge_voltage = msg_data_a->elcon_charger_status.charge_voltage;
+                    can_data.elcon_charger_status.charge_current = msg_data_a->elcon_charger_status.charge_current;
+                    can_data.elcon_charger_status.hw_fail = msg_data_a->elcon_charger_status.hw_fail;
+                    can_data.elcon_charger_status.temp_fail = msg_data_a->elcon_charger_status.temp_fail;
+                    can_data.elcon_charger_status.input_v_fail = msg_data_a->elcon_charger_status.input_v_fail;
+                    can_data.elcon_charger_status.startup_fail = msg_data_a->elcon_charger_status.startup_fail;
+                    can_data.elcon_charger_status.communication_fail = msg_data_a->elcon_charger_status.communication_fail;
+                    can_data.elcon_charger_status.stale = 0;
+                    can_data.elcon_charger_status.last_rx = sched.os_ticks;
+                    break;
+                case ID_DAQ_COMMAND_PRECHARGE:
+                    can_data.daq_command_PRECHARGE.daq_command = msg_data_a->daq_command_PRECHARGE.daq_command;
+                    daq_command_PRECHARGE_CALLBACK(&msg_header);
+                    break;
                 default:
                     __asm__("nop");
             }
@@ -317,6 +332,9 @@ void canRxUpdate()
     }
 
     /* BEGIN AUTO STALE CHECKS */
+    CHECK_STALE(can_data.elcon_charger_status.stale,
+                sched.os_ticks, can_data.elcon_charger_status.last_rx,
+                UP_ELCON_CHARGER_STATUS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -337,20 +355,16 @@ bool initCANFilter()
     if (timeout == PHAL_CAN_INIT_TIMEOUT)
          return false;
 
-    CAN1->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
-    CAN1->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
-    CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
+    // Allow all messages from both busses
+    CAN1->FM1R |= 0x00000000;                 // Set banks 0-27 to mask mode
+    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->sFilterRegister[0].FR1 = 0;
+    CAN1->sFilterRegister[0].FR2 = 0;
+    CAN1->FA1R |= (1 << 16);    // configure bank 16 for CAN2
+    CAN1->sFilterRegister[16].FR1 = 0;
+    CAN1->sFilterRegister[16].FR2 = 0;
 
     /* BEGIN AUTO FILTER */
-    CAN1->FA1R |= (1 << 14);    // configure bank 14
-    CAN1->sFilterRegister[14].FR1 = (ID_SOC_CELLS_1 << 3) | 4;
-    CAN1->sFilterRegister[14].FR2 = (ID_VOLTS_CELLS_1 << 3) | 4;
-    CAN1->FA1R |= (1 << 15);    // configure bank 15
-    CAN1->sFilterRegister[15].FR1 = (ID_PACK_INFO_1 << 3) | 4;
-    CAN1->sFilterRegister[15].FR2 = (ID_TEMPS_CELLS_1 << 3) | 4;
-    CAN1->FA1R |= (1 << 16);    // configure bank 16
-    CAN1->sFilterRegister[16].FR1 = (ID_CELL_INFO_1 << 3) | 4;
-    CAN1->sFilterRegister[16].FR2 = (ID_POWER_LIM_1 << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)

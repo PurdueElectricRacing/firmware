@@ -190,9 +190,22 @@
                             "msg_period": 15,
                             "msg_hlp": 2,
                             "msg_pgn": 513
+                        },
+                        {
+                            "msg_name": "elcon_charger_command",
+                            "msg_desc": "Charge voltage and current request to ELCON charger",
+                            "signals": [
+                                {"sig_name": "voltage_limit", "sig_desc": "Charge voltage", "unit":"V", "scale": 0.1, "type": "uint16_t", "length": 16},
+                                {"sig_name": "current_limit", "sig_desc": "Charge current", "unit":"A", "scale": 0.1, "type": "uint16_t", "length": 16},
+                                {"sig_name": "charge_disable","sig_desc": "Disable charging", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_id_override": "0x1806E5F4",
+                            "msg_period": 1000
                         }
                     ],
-                    "rx": [],
+                    "rx": [
+                        {"msg_name": "elcon_charger_status"}
+                    ],
                     "accept_all_messages": true
                 },
                 {
@@ -641,6 +654,29 @@
                     "rx":[ 
                         {"msg_name": "bitstream_flash_status"}
                     ]
+                },
+                {
+                    "node_name":"Charger",
+                    "node_ssa":30,
+                    "tx":[
+                        {   "msg_name":"elcon_charger_status",
+                            "msg_desc":"Realtime charger status",
+                            "signals":[
+                                {"sig_name":"charge_voltage","unit":"V", "scale": 0.1, "type":"uint16_t","length":16},
+                                {"sig_name":"charge_current", "unit":"A", "scale": 0.1, "type":"uint16_t","length":16},
+                                {"sig_name":"hw_fail", "sig_desc": "Hardware failure","type":"uint8_t","length":1},
+                                {"sig_name":"temp_fail", "sig_desc": "Temperature failure","type":"uint8_t","length":1},
+                                {"sig_name":"input_v_fail", "sig_desc": "Input voltage failure","type":"uint8_t","length":1},
+                                {"sig_name":"startup_fail", "sig_desc": "Startup voltage detection failure","type":"uint8_t","length":1},
+                                {"sig_name":"communication_fail", "sig_desc": " 5s timeout from communication failure","type":"uint8_t","length":1}
+                            ],
+                            "msg_id_override": "0x18FF50E5",
+                            "msg_period": 1000
+                        }
+                    ],
+                    "rx":[
+                        
+                    ]
                 }
             ]
         },
@@ -672,6 +708,16 @@
                             "msg_period": 0,
                             "msg_hlp": 1,
                             "msg_pgn": 501
+                        },
+                        {
+                            "msg_name": "balance_request",
+                            "msg_desc": "Global cell balance request setpoint",
+                            "signals": [
+                                {"sig_name": "voltage_target", "sig_desc": "Global balance target", "scale": 0.0001, "type": "int16_t"}
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 3,
+                            "msg_pgn": 0
                         }
                     ],
                     "accept_all_messages": true,

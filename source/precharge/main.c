@@ -13,6 +13,7 @@
 #include "main.h"
 #include "bmi088.h"
 #include "bms.h"
+#include "daq.h"
 
 
 /* PER HAL Initilization Structures */
@@ -122,20 +123,24 @@ int main (void)
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
+    BMS_init();
 
-    // if (!BMI088_init(&bmi_config))
-    //     PHAL_FaultHandler();
-    // while(1)
-    // {
-    //     BMI088_readGyro(&bmi_config, &x, &y, &z);
-    // }
+    if (daqInit(&q_tx_can, 0))
+    {
+        HardFault_Handler();
+    }
+
+    if (!BMI088_init(&bmi_config))
+        PHAL_FaultHandler();
     
 
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(heartbeat_task, 500);
     taskCreate(imd_monitor, 50);
-    taskCreate(txBatteryStatus, 50);
+    taskCreate(BMS_txBatteryStatus, 50);
+    taskCreate(BMS_chargePeriodic, 50);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -159,6 +164,8 @@ void heartbeat_task()
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
+
+    // BMI088_readGyro(&bmi_config, &x, &y, &z);
 }
 
 void imd_monitor()

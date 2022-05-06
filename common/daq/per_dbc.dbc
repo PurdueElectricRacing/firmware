@@ -92,8 +92,10 @@ BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
  SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281734148 battery_info: 4 Precharge
- SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2281734148 battery_info: 8 Precharge
+ SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ lowest : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ voltage : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281734212 cell_info: 7 Precharge
@@ -106,6 +108,17 @@ BO_ 2550588916 elcon_charger_command: 5 Precharge
  SG_ charge_disable : 32|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+
+BO_ 2281734276 pack_charge_status: 3 Precharge
+ SG_ balance_enable : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ power : 0|16@1+ (0.1,0) [0|0] "W" Vector__XXX
+
+BO_ 2214625284 imu_data: 8 Precharge
+ SG_ yaw_rate : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ az : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ay : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ax : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -680,6 +693,8 @@ CM_ SG_ 2348810947 right "";
 CM_ SG_ 2348810947 left "";
 CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
 CM_ SG_ 2281734148 error "";
+CM_ SG_ 2281734148 lowest "";
+CM_ SG_ 2281734148 delta "";
 CM_ SG_ 2281734148 voltage "";
 CM_ BO_ 2281734212 "Information about specific cell voltages";
 CM_ SG_ 2281734212 v3 "Cell idx in V * 10000";
@@ -690,6 +705,15 @@ CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
 CM_ SG_ 2550588916 charge_disable "Disable charging";
 CM_ SG_ 2550588916 current_limit "Charge current";
 CM_ SG_ 2550588916 voltage_limit "Charge voltage";
+CM_ BO_ 2281734276 "Charge voltage and current request to ELCON charger";
+CM_ SG_ 2281734276 balance_enable "Cell balance enabled";
+CM_ SG_ 2281734276 charge_enable "Charge mode enable";
+CM_ SG_ 2281734276 power "Instantaneous charge power";
+CM_ BO_ 2214625284 "Information about battery voltage and other stuff";
+CM_ SG_ 2214625284 yaw_rate "";
+CM_ SG_ 2214625284 az "";
+CM_ SG_ 2214625284 ay "";
+CM_ SG_ 2214625284 ax "";
 CM_ BO_ 2550136772 "daq response from node PRECHARGE";
 CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483028613 "throttle_brake desc";

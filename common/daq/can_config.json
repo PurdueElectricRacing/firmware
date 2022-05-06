@@ -172,7 +172,9 @@
                             "msg_desc": "Information about battery voltage and other stuff",
                             "signals": [
                                 {"sig_name": "voltage", "type":"uint16_t"},
-                                {"sig_name": "error", "type":"uint16_t"}
+                                {"sig_name": "delta",   "type":"uint16_t"},
+                                {"sig_name": "lowest",  "type":"uint16_t"},
+                                {"sig_name": "error",   "type":"uint16_t"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 2,
@@ -201,6 +203,31 @@
                             ],
                             "msg_id_override": "0x1806E5F4",
                             "msg_period": 1000
+                        },
+                        {
+                            "msg_name": "pack_charge_status",
+                            "msg_desc": "Charge voltage and current request to ELCON charger",
+                            "signals": [
+                                {"sig_name": "power", "sig_desc": "Instantaneous charge power", "unit":"W", "scale": 0.1, "type": "uint16_t", "length": 16},
+                                {"sig_name": "charge_enable", "sig_desc": "Charge mode enable", "type": "uint8_t", "length": 1},
+                                {"sig_name": "balance_enable","sig_desc": "Cell balance enabled", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period": 50,
+                            "msg_hlp": 2,
+                            "msg_pgn": 514
+                        },
+                        {
+                            "msg_name": "imu_data",
+                            "msg_desc": "Yaw rate and acceleration",
+                            "signals": [
+                                {"sig_name": "ax", "type":"uint16_t"},
+                                {"sig_name": "ay", "type":"uint16_t"},
+                                {"sig_name": "az", "type":"uint16_t"},
+                                {"sig_name": "yaw_rate", "type":"uint16_t"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 512
                         }
                     ],
                     "rx": [
@@ -671,7 +698,7 @@
                                 {"sig_name":"communication_fail", "sig_desc": " 5s timeout from communication failure","type":"uint8_t","length":1}
                             ],
                             "msg_id_override": "0x18FF50E5",
-                            "msg_period": 1000
+                            "msg_period": 2000
                         }
                     ],
                     "rx":[

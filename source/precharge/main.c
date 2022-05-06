@@ -61,11 +61,14 @@ extern uint32_t PLLClockRateHz;
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-void heartbeat_task();
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
 void canTxUpdate();
-void imd_monitor();
+
+void heartbeatTask();
+void monitorIMD();
+void sendIMUData();
+
 
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -126,20 +129,18 @@ int main (void)
     BMS_init();
 
     if (daqInit(&q_tx_can, 0))
-    {
-        HardFault_Handler();
-    }
+        PHAL_FaultHandler();
 
     if (!BMI088_init(&bmi_config))
         PHAL_FaultHandler();
-    
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(heartbeat_task, 500);
-    taskCreate(imd_monitor, 50);
+    taskCreate(heartbeatTask, 500);
+    taskCreate(monitorIMD, 50);
     taskCreate(BMS_txBatteryStatus, 50);
     taskCreate(BMS_chargePeriodic, 50);
+    taskCreate(sendIMUData, 10);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     taskCreateBackground(canTxUpdate);
@@ -158,19 +159,24 @@ void PHAL_FaultHandler()
 }
 
 #define CONN_LED_MS_THRESH  (500)
-void heartbeat_task()
+void heartbeatTask()
 {
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-
-    // BMI088_readGyro(&bmi_config, &x, &y, &z);
 }
 
-void imd_monitor()
+void monitorIMD()
 {
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin));
+}
+
+void sendIMUData()
+{
+    int16_t gx, gy, gz;
+    BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
+    SEND_IMU_DATA(q_tx_can, 0, 0, 0, gz);
 }
 
 // *** Compulsory CAN Tx/Rx callbacks ***

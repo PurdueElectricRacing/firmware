@@ -15,6 +15,8 @@ bool charge_mode_enable = false; // Enable charge algo
 uint16_t charge_voltage_limit = 0;
 uint16_t charge_current_limit = 0;
 
+static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pack_voltage);
+
 void BMS_init()
 {
     linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &charge_mode_enable);
@@ -44,16 +46,16 @@ void BMS_txBatteryStatus()
     static uint8_t state = 0;
 
     uint16_t pack_voltage = 0;
+    uint16_t delta = 0;
+    uint16_t lowest = 0;
     uint8_t idx;
     uint16_t v1 = 0, v2 = 0, v3 = 0;
 
     switch (state)
     {
     case 0:
-        for(int i = 0; i < NUM_CELLS; i++)
-            pack_voltage += cell_volts[i];
-
-        SEND_BATTERY_INFO(q_tx_can, pack_voltage, BMS_updateErrorFlags());
+        findGlobalImbalance(&lowest, &delta, &pack_voltage);
+        SEND_BATTERY_INFO(q_tx_can, pack_voltage, delta, lowest, BMS_updateErrorFlags());
         state ++;
         break;
     
@@ -75,12 +77,14 @@ void BMS_txBatteryStatus()
     }
 }
 
-static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta)
+static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pack_voltage)
 {
     *lowest = cell_volts[0];
     *delta = 0;
+    *pack_voltage = 0;
     for (uint16_t* cell = cell_volts; cell <= cell_volts+NUM_CELLS; cell++)
     {
+        *pack_voltage += * cell;
         if (*lowest > *cell)
             *lowest = *cell;
         // Lowest should be lower than whatever cell is, safe subrtaction
@@ -90,27 +94,33 @@ static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta)
 }
 
 /**
- * @brief 
+ * @brief BMS_chargePeriodic
  * 
- * 1. Global balance to lowest cell
+ * 1. Global balance to lowest cell to CHARGE_DELTA_MAXIMUM_V
  * 2. Wait for global balance
+ * 3. Start charging
+ * 4. If delta is greater than CHARGE_DELTA_MAXIMUM_V * 1.2 (hysteresis) stop charging and go to 1.
+ * 5. If charge current is low and delta is less than BALANCE_DELTA_MINIMUM_V, finish charging
  */
-
 void BMS_chargePeriodic()
 {
-    bool charge_power_enable = false; // Allow power from elcon
-    static bool cells_balanced_for_charge = false;
-    uint16_t charge_voltage_req = charge_voltage_limit;
-    uint16_t charge_current_req = charge_current_limit;
 
-    // Ensure that we only charge if we do not have a latched error
-    charge_mode_enable &= (BMS_updateErrorFlags() == 0);
+    bool charge_power_enable = false;                   // Allow power from elcon
+    bool balance_req         = false;                   // Sending balance request to the modules
+    static bool cells_balanced_for_charge = false;      // Cells are ready to charge
+    uint16_t charge_voltage_req = charge_voltage_limit; // Voltage limit request to send to charger
+    uint16_t charge_current_req = charge_current_limit; // Current limit request
+
+    // Ensure that we only charge if:
+    // 1. we do not have a BMS error
+    // 2. Elcon charger is connected.
+    charge_mode_enable &= (BMS_updateErrorFlags() == 0) && !can_data.elcon_charger_status.stale;
     
     if(charge_mode_enable)
     {
         // Check that all of the cells are globally balanced
-        uint16_t lowest, delta;
-        findGlobalImbalance(&lowest, &delta);
+        uint16_t lowest, delta, pack_voltage;
+        findGlobalImbalance(&lowest, &delta, &pack_voltage);
 
         // Request balance to battery modules if delta is large enough        
         if (cells_balanced_for_charge)
@@ -124,12 +134,19 @@ void BMS_chargePeriodic()
             // Start pushing power, cells are close enough to charge
             cells_balanced_for_charge = true;
         }
+        else
+        {
+            cells_balanced_for_charge = false;
+        }
 
-        if (can_data.elcon_charger_status.charge_current < 5) // 500mA global
+        if (can_data.elcon_charger_status.charge_current < 5) // 500mA pack charge current, super low
         {
             // Basiacally done charging, try balancing to the mV level
             if (delta > BALANCE_DELTA_MINIMUM_V * 10000)
+            {
                 SEND_BALANCE_REQUEST(q_tx_can, lowest);
+                balance_req = true;
+            }
             else
             {
                 // Done charging!
@@ -140,14 +157,12 @@ void BMS_chargePeriodic()
         // Only allow power if global delta is less than the configured maximum
         charge_power_enable = cells_balanced_for_charge;
     }
-    else
-    {
-        cells_balanced_for_charge = false;
-    }
 
-    // Variable sanity check
-    charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Hard limit, dont overcharge!
+    charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Hard limit, don't overcharge!
     SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !charge_power_enable);
+    
+    float power = (can_data.elcon_charger_status.charge_current / 10.0f) * (can_data.elcon_charger_status.charge_voltage / 10.0f);
+    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req);
 }
 
 

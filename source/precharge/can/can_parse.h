@@ -27,7 +27,8 @@
 #define ID_CELL_INFO 0x8008044
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
 #define ID_PACK_CHARGE_STATUS 0x8008084
-#define ID_IMU_DATA 0x4008004
+#define ID_GYRO_DATA 0x4008004
+#define ID_ACCEL_DATA 0x4008044
 #define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
 #define ID_SOC_CELLS_1 0x8007d6b
 #define ID_VOLTS_CELLS_1 0x4007dab
@@ -90,7 +91,8 @@
 #define DLC_CELL_INFO 7
 #define DLC_ELCON_CHARGER_COMMAND 5
 #define DLC_PACK_CHARGE_STATUS 3
-#define DLC_IMU_DATA 8
+#define DLC_GYRO_DATA 6
+#define DLC_ACCEL_DATA 6
 #define DLC_DAQ_RESPONSE_PRECHARGE 8
 #define DLC_SOC_CELLS_1 7
 #define DLC_VOLTS_CELLS_1 7
@@ -199,13 +201,20 @@
         data_a->pack_charge_status.balance_enable = balance_enable_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_IMU_DATA(queue, ax_, ay_, az_, yaw_rate_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_IMU_DATA, .DLC=DLC_IMU_DATA, .IDE=1};\
+#define SEND_GYRO_DATA(queue, gx_, gy_, gz_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GYRO_DATA, .DLC=DLC_GYRO_DATA, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->imu_data.ax = ax_;\
-        data_a->imu_data.ay = ay_;\
-        data_a->imu_data.az = az_;\
-        data_a->imu_data.yaw_rate = yaw_rate_;\
+        data_a->gyro_data.gx = gx_;\
+        data_a->gyro_data.gy = gy_;\
+        data_a->gyro_data.gz = gz_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_ACCEL_DATA(queue, ax_, ay_, az_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ACCEL_DATA, .DLC=DLC_ACCEL_DATA, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->accel_data.ax = ax_;\
+        data_a->accel_data.ay = ay_;\
+        data_a->accel_data.az = az_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_DAQ_RESPONSE_PRECHARGE(queue, daq_response_) do {\
@@ -264,11 +273,15 @@ typedef union { __attribute__((packed))
         uint64_t balance_enable: 1;
     } pack_charge_status;
     struct {
+        uint64_t gx: 16;
+        uint64_t gy: 16;
+        uint64_t gz: 16;
+    } gyro_data;
+    struct {
         uint64_t ax: 16;
         uint64_t ay: 16;
         uint64_t az: 16;
-        uint64_t yaw_rate: 16;
-    } imu_data;
+    } accel_data;
     struct {
         uint64_t daq_response: 64;
     } daq_response_PRECHARGE;

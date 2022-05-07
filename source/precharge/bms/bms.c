@@ -170,8 +170,8 @@ void BMS_chargePeriodic()
 void fname (CanParsedData_t* msg_data_a) { \
     uint16_t idx = msg_data_a->msg_name.idx; \
     cell_volts[cell_offset + (idx * 3 + 0)] = msg_data_a->msg_name.v1; \
-    if (idx < 2) {\
         cell_volts[cell_offset + (idx * 3 + 1)] = msg_data_a->msg_name.v2; \
+    if (idx < 3) {\
         cell_volts[cell_offset + (idx * 3 + 2)] = msg_data_a->msg_name.v3; \
     }\
 }\

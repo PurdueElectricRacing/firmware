@@ -112,7 +112,6 @@ void initBMS(SPI_InitConfig_t* hspi)
 // @brief: Send BMS data out
 void txCAN(void)
 {
-    uint8_t i;
     static uint8_t state;
     uint8_t msg_idx = 0;
 
@@ -133,15 +132,19 @@ void txCAN(void)
         }
         default:
         {
-            msg_idx = state - 1;
-            SEND_VOLTS_CELLS(q_tx_can, i, bms.cells.chan_volts_raw[msg_idx * 3], bms.cells.chan_volts_raw[msg_idx * 3 + 1], bms.cells.chan_volts_raw[msg_idx * 3 + 2]);
+            msg_idx = state - 2;
+            SEND_VOLTS_CELLS(q_tx_can, msg_idx, bms.cells.chan_volts_raw[msg_idx * 3], bms.cells.chan_volts_raw[msg_idx * 3 + 1], bms.cells.chan_volts_raw[msg_idx * 3 + 2]);
             break;
         }
     }
 
-    if (++state == 5)
+    if (state == 5)
     {
         state = 0;
+    } 
+    else
+    {
+        ++state;
     }
 }
 

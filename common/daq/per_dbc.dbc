@@ -94,14 +94,14 @@ BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
 
 BO_ 2281734148 battery_info: 8 Precharge
  SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ lowest : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ delta : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ voltage : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ lowest : 32|16@1+ (0.001,0) [0|0] "" Vector__XXX
+ SG_ delta : 16|16@1+ (0.001,0) [0|0] "" Vector__XXX
+ SG_ voltage : 0|16@1+ (0.001,0) [0|0] "" Vector__XXX
 
 BO_ 2281734212 cell_info: 7 Precharge
- SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v3 : 40|16@1+ (0.0001,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (0.0001,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (0.0001,0) [0|0] "" Vector__XXX
  SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550588916 elcon_charger_command: 5 Precharge

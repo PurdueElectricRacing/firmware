@@ -18,6 +18,17 @@
  * DO NOT change any existing IDs
  */
 
+#define BMS_A 0x10
+#define BMS_B 0x20
+#define BMS_C 0x30
+#define BMS_D 0x40
+#define BMS_E 0x50
+#define BMS_F 0x60
+#define BMS_G 0x70
+#define BMS_H 0x80
+#define BMS_I 0x90
+#define BMS_J 0xA0
+
 #ifndef BMS_NODE_NAME
     #warning "No BMS node name set, this binary will probably not work inside of the battery!"
     #define BMS_NODE_NAME

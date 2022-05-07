@@ -360,9 +360,14 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = 0;
     CAN1->sFilterRegister[0].FR2 = 0;
-    CAN1->FA1R |= (1 << 16);    // configure bank 16 for CAN2
-    CAN1->sFilterRegister[16].FR1 = 0;
-    CAN1->sFilterRegister[16].FR2 = 0;
+    
+    CAN1->FA1R |= (1 << 17);    // configure bank 16 for CAN2
+    CAN1->sFilterRegister[17].FR1 = 0;
+    CAN1->sFilterRegister[17].FR2 = 0;
+
+    CAN2->FA1R |= (1 << 20);    // configure bank 16 for CAN2
+    CAN2->sFilterRegister[20].FR1 = 0;
+    CAN2->sFilterRegister[20].FR2 = 0;
 
     /* BEGIN AUTO FILTER */
     /* END AUTO FILTER */

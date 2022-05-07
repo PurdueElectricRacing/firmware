@@ -106,7 +106,7 @@
         {
             "name": "BMS (12 Cell)",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bmses/bms_d/bms_d.elf",
+            "executable": "./output/bmses/bms_c/bms_c.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",

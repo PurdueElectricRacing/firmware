@@ -97,8 +97,15 @@ int main(void) {
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
     #ifdef BMS_ACCUM
+
     taskCreate(txCAN, 100);
+    #if ((BMS_NODE_NAME == BMS_A) || \
+         (BMS_NODE_NAME == BMS_C) || \
+         (BMS_NODE_NAME == BMS_E) || \
+         (BMS_NODE_NAME == BMS_G))
     taskCreate(tempTask, 100);
+    #endif
+    
     #endif
     taskCreate(calcMisc, 100);
     taskCreate(setPLim, 100);
@@ -140,10 +147,10 @@ void preflightChecks(void) {
             break;
 
         case 2:
-            if (!PHAL_initI2C(I2C1))
-            {
-                HardFault_Handler();
-            }
+            // if (!PHAL_initI2C(I2C1))
+            // {
+            //     HardFault_Handler();
+            // }
 
             break;
 

@@ -14,7 +14,6 @@
 #include "bmi088.h"
 #include "bms.h"
 #include "daq.h"
-#include "FusionAhrs.h"
 
 
 /* PER HAL Initilization Structures */
@@ -100,11 +99,9 @@ BMI088_Handle_t bmi_config = {
     .spi = &spi_config
 };
 
-FusionAhrs ahrs;
 int main (void)
 {
 
-    FusionAhrsInitialise(&ahrs);
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));  
@@ -240,12 +237,7 @@ void sendIMUData()
     int16_t ax, ay, az, gx, gy, gz;
     BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
     BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-
-    // const FusionVector gyroscope = {(float)gx, (float)gy, (float)gz}; // replace this with actual gyroscope data in degrees/s
-    // const FusionVector accelerometer = {ax * 0.001f, ay* 0.001f, az * 0.001f}; // replace this with actual accelerometer data in g
-    // FusionAhrsUpdateNoMagnetometer(&ahrs, gyroscope, accelerometer, 0.01f);
-    // const FusionEuler euler = FusionQuaternionToEuler(FusionAhrsGetQuaternion(&ahrs));
-    // SEND_GYRO_DATA(q_tx_can, euler.angle.roll, euler.angle.pitch, euler.angle.yaw);
+    
     SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
     SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
 

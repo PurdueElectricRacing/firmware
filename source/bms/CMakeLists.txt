@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 
-set(BMS_NAMES bms_a bms_b bms_c bms_d bms_e bms_f bms_g bms_h bms_i bms_j)
+set(BMS_NAMES bms_a bms_b bms_c bms_d bms_e bms_f bms_g bms_h)
 
 foreach(BMS_NAME IN ITEMS ${BMS_NAMES})
 

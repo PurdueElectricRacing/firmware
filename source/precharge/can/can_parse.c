@@ -340,53 +340,47 @@ void canRxUpdate()
 
 bool initCANFilter()
 {
-    CAN1->MCR |= CAN_MCR_INRQ;                // Enter back into INIT state (required for changing scale)
-#ifdef CAN2
-    CAN2->MCR |= CAN_MCR_INRQ; 
-#endif /* CAN2 */                
+    CAN1->MCR |= CAN_MCR_INRQ;                // Enter back into INIT state (required for changing scale)             
     uint32_t timeout = 0;
-    while( 
-        !(CAN1->MSR & CAN_MSR_INAK)
-#ifdef CAN2
-           && !(CAN2->MSR & CAN_MSR_INAK)
-#endif /* CAN2 */
-           && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
+    while( !(CAN1->MSR & CAN_MSR_INAK)
+           && ++timeout < PHAL_CAN_INIT_TIMEOUT);
     if (timeout == PHAL_CAN_INIT_TIMEOUT)
          return false;
 
+    CAN1->FMR |= CAN_FMR_FINIT;              // Enter init mode for filter banks
+
+    /** 
+     * Configure the CAN2 start bank.
+     *  There are 28 total filter banks that are shared between CAN1 and CAN2.
+     *  The CAN2SB field indicates where the split between CAN1 and 2 is.
+     *  A value of 14 means that 0...13 are for CAN1 and 14...27 are for CAN2.
+     * 
+     * Make sure that all CAN filter configuration is done with the CAN1 peripheral.
+     * CAN2 does not have access to modify/view the filters. 
+     */ 
+    CAN1->FMR &= ~CAN_FMR_CAN2SB;
+    CAN1->FMR |= (26 << CAN_FMR_CAN2SB_Pos); // Set 0..25 for CAN1 and 26,27 for CAN2
+
+    CAN1->FM1R = 0x00000000;                 // Set banks 0-27 to mask mode
+
     // Allow all messages from both busses
-    CAN1->FM1R |= 0x00000000;                 // Set banks 0-27 to mask mode
-    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->FA1R |= (1 << 0);    // configure bank 0 for CAN1 rx all
     CAN1->sFilterRegister[0].FR1 = 0;
     CAN1->sFilterRegister[0].FR2 = 0;
     
-    CAN1->FA1R |= (1 << 17);    // configure bank 16 for CAN2
-    CAN1->sFilterRegister[17].FR1 = 0;
-    CAN1->sFilterRegister[17].FR2 = 0;
-
-    CAN2->FA1R |= (1 << 20);    // configure bank 16 for CAN2
-    CAN2->sFilterRegister[20].FR1 = 0;
-    CAN2->sFilterRegister[20].FR2 = 0;
+    CAN1->FA1R |= (1 << 27);    // Activate bank 27 for CAN2 rx all
+    CAN1->FM1R &= ~(1 << 27);   // Ensure that filter 27 is in mask mode
+    CAN1->sFilterRegister[27].FR1 = 0;
+    CAN1->sFilterRegister[27].FR2 = 0;
 
     /* BEGIN AUTO FILTER */
     /* END AUTO FILTER */
 
-    CAN1->FMR  &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)
+    CAN1->FMR &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)
     CAN1->MCR &= ~CAN_MCR_INRQ;         // Enter back into NORMAL mode
-#ifdef CAN2
-    CAN2->FMR  &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)
-    CAN2->MCR &= ~CAN_MCR_INRQ;         // Enter back into NORMAL mode
-#endif /* CAN2 */
 
-    while(
-        (CAN1->MSR & CAN_MSR_INAK)
-#ifdef CAN2 
-            && (CAN2->MSR & CAN_MSR_INAK)
-#endif/* CAN2 */
-            && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
-
+    while((CAN1->MSR & CAN_MSR_INAK)
+            && ++timeout < PHAL_CAN_INIT_TIMEOUT);
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }
 

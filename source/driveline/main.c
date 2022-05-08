@@ -129,6 +129,8 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
+void preflightAnimation(void);
+void preflightChecks(void);
 void commandTorquePeriodic();
 void parseDataPeriodic();
 void canTxUpdate();
@@ -161,76 +163,10 @@ int main(void)
     {
         HardFault_Handler();
     }
-    huart_l.rx_dma_cfg->circular = true;
-    if(!PHAL_initUSART(USART_L, &huart_l, APB1ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    huart_r.rx_dma_cfg->circular = true;
-    if(!PHAL_initUSART(USART_R, &huart_r, APB2ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initCAN(CAN1, false))
-    {
-        HardFault_Handler();
-    }
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
-    {
-        HardFault_Handler();
-    }
-    // TODO: configure TIM2
-    if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
-       sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initDMA(&adc_dma_config))
-    {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
-
-    // Signify start of initialization
-    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-
-    /* Module init */
-    initCANParse(&q_rx_can);
-    wheelSpeedsInit();
-
-    // Left MC
-    mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
-    USART_L->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
-    NVIC_EnableIRQ(USART1_IRQn);
-    // initial rx request
-    PHAL_usartRxDma(USART_L, &huart_l, 
-                    (uint16_t *) motor_left.rx_buf, 
-                    MC_MAX_RX_LENGTH);
-    // Right MC
-    mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
-    USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
-    NVIC_EnableIRQ(USART2_IRQn);
-    // initial rx request
-    PHAL_usartRxDma(USART_R, &huart_r, 
-                    (uint16_t *) motor_right.rx_buf, 
-                    MC_MAX_RX_LENGTH);
-
+    
     /* Task Creation */
     schedInit(SystemCoreClock);
+    configureAnim(preflightAnimation, preflightChecks, 50, 750);
     taskCreate(ledUpdate, 500);
     taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
@@ -246,6 +182,110 @@ int main(void)
     schedStart();
     
     return 0;
+}
+
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            huart_l.rx_dma_cfg->circular = true;
+            if(!PHAL_initUSART(USART_L, &huart_l, APB1ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            huart_r.rx_dma_cfg->circular = true;
+            if(!PHAL_initUSART(USART_R, &huart_r, APB2ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 1:
+            if(!PHAL_initCAN(CAN1, false))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            break;
+        case 2:
+            if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 3:
+            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+            sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initDMA(&adc_dma_config))
+            {
+                HardFault_Handler();
+            }
+            PHAL_startTxfer(&adc_dma_config);
+            PHAL_startADC(ADC1);
+            break;
+       case 4:
+            /* Module init */
+            initCANParse(&q_rx_can);
+            wheelSpeedsInit();
+            break;
+        case 5:
+            // Left MC
+            mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
+            USART_L->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
+            NVIC_EnableIRQ(USART1_IRQn);
+            // initial rx request
+            PHAL_usartRxDma(USART_L, &huart_l, 
+                            (uint16_t *) motor_left.rx_buf, 
+                            MC_MAX_RX_LENGTH);
+            break;
+        case 6:
+            // Right MC
+            mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
+            USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
+            NVIC_EnableIRQ(USART2_IRQn);
+            // initial rx request
+            PHAL_usartRxDma(USART_R, &huart_r, 
+                            (uint16_t *) motor_right.rx_buf, 
+                            MC_MAX_RX_LENGTH);
+            break;
+        default:
+            registerPreflightComplete(1);
+            state = 255; // prevent wrap around
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time;
+
+    PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
+    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+
+    switch (time++ % 2)
+    {
+        case 0:
+            PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
+            break;
+        case 1:
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            break;
+    }
 }
 
 void heartBeat()

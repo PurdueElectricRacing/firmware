@@ -95,6 +95,8 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
+void preflightAnimation(void);
+void preflightChecks(void);
 void heartBeatLED();
 void linkDAQVars();
 void canTxUpdate(void);
@@ -118,40 +120,10 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initCAN(CAN1, false))
-    {
-        HardFault_Handler();
-    }
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    if(!PHAL_initI2C(I2C))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initI2C(DBG_I2C))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
-                     sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initDMA(&adc_dma_config))
-    {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
-
-    /* Module Initialization */
-    carInit();
-    // coolingInit();
-    initCANParse(&q_rx_can);
-    linkDAQVars();
-    // i4
 
     /* Task Creation */
     schedInit(SystemCoreClock);
+    configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
     // taskCreate(coolingPeriodic, 15);
     taskCreate(heartBeatLED, 500);
@@ -161,18 +133,84 @@ int main (void)
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
-
-    // SEND_MAIN_HB(q_tx_can, car.state, 
-    //              PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin));
-    // canTxUpdate();
-    // while (1 == 1);
-    // __asm__("bkpt");
-
     schedStart();
 
     return 0;
 }
 
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            if(!PHAL_initCAN(CAN1, false))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+           break;
+        case 1:
+            if(!PHAL_initI2C(I2C))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initI2C(DBG_I2C))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 2:
+            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+                            sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initDMA(&adc_dma_config))
+            {
+                HardFault_Handler();
+            }
+            PHAL_startTxfer(&adc_dma_config);
+            PHAL_startADC(ADC1);
+           break;
+        case 3:
+           /* Module Initialization */
+           carInit();
+           // coolingInit();
+           break;
+       case 4:
+           initCANParse(&q_rx_can);
+           linkDAQVars();
+           break;
+        default:
+            registerPreflightComplete(1);
+            state = 255; // prevent wrap around
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time;
+
+    PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
+    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+
+    switch (time++ % 6)
+    {
+        case 0:
+        case 5:
+            PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
+            break;
+        case 1:
+        case 4:
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            break;
+        case 2:
+        case 3:
+            PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+            break;
+    }
+}
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);

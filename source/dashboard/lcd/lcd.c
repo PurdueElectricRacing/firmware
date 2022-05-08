@@ -26,8 +26,8 @@ page_t pages[P_TOTAL] = {
    {.name="critical"}
 };
  
-uint8_t p_idx_prev = P_STARTUP;
-uint8_t p_idx = P_STARTUP;
+uint8_t p_idx_prev = P_RACE;
+uint8_t p_idx = P_RACE;
 uint8_t p_idx_perr = P_RACE;
 uint32_t car_stat_color = GREEN;
 char *err_msg = "CAR_OK\0";
@@ -38,6 +38,11 @@ uint32_t b_selected_time = 0;
 uint32_t avg_soc = 0;
 uint16_t gas_to_send = 0;
 bool precharge_complete = false;
+int prev_time = 0;
+int curr_lap_time = 0;
+int delta = 0;
+int delta_old = 0;
+uint32_t orig_time = 0;
  
 /* Joystick Management */
 typedef enum {
@@ -59,15 +64,18 @@ uint8_t btn_state = 0; // activate only on falling edge
 button_state_t b_state = B_LOW;
  
 uint8_t wheel_read_cmd[] = {WHEEL_SPI_ADDR | WHEEL_SPI_READ, WHEEL_GPIO_REG, 0x00};
-typedef struct __attribute__((packed))
+typedef union __attribute__((packed))
 {
-   uint8_t up    :1;
-   uint8_t down  :1;
-   uint8_t left  :1;
-   uint8_t right :1;
-   uint8_t aux1  :1;
-   uint8_t aux2  :1;
-   uint8_t aux3  :1;
+    struct {
+        uint8_t aux1  :1;
+        uint8_t up    :1;
+        uint8_t down  :1;
+        uint8_t left  :1;
+        uint8_t right :1;
+        uint8_t aux2  :1;
+        uint8_t aux3  :1;
+    };
+    uint8_t raw_data;
 } WheelBtns_t;
 WheelBtns_t wheel_new_btns = {0};
 WheelBtns_t wheel_old_btns = {0};
@@ -138,12 +146,81 @@ void joystickUpdatePeriodic()
 }
  
  void check_buttons() {
-    PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, &wheel_new_btns);
-
-    if (wheel_new_btns.aux2 && !wheel_old_btns.aux2) {
-        b_selected_time = sched.os_ticks;
+     static bool pressed_once;
+     bool page_changed = false;
+     static uint32_t b_selected;
+     static uint32_t num_iterations;
+    // if (!wheel_new_btns.aux3 && !wheel_old_btns.aux3) {
+    //     switch(p_idx) {
+    //         case P_RACE:
+    //             set_page("extra_info\0");
+    //             p_idx = P_EXTRA_INFO;
+    //             p_idx_perr = P_EXTRA_INFO;
+    //             page_changed = true;
+    //             break;
+    //         case P_EXTRA_INFO:
+    //             set_page("race\0");
+    //             p_idx = P_RACE;
+    //             p_idx_perr = P_RACE;
+    //             page_changed = true;
+    //             break;
+    //     }
+        
+    // }
+    if ((!wheel_new_btns.aux3 && wheel_old_btns.aux3) && (num_iterations == 0)) {
+        b_selected = sched.os_ticks;
+        pressed_once = true;
     }
+    else if ((!wheel_new_btns.aux3 && wheel_old_btns.aux3) && (num_iterations != 0)) {
+            switch(p_idx) {
+                case P_RACE:
+                    set_page("extra_info\0");
+                    p_idx = P_EXTRA_INFO;
+                    p_idx_perr = P_EXTRA_INFO;
+                    page_changed = true;
+                    break;
+                case P_EXTRA_INFO:
+                    set_page("race\0");
+                    p_idx = P_RACE;
+                    p_idx = P_RACE;
+                    page_changed = true;
+                    break;
+        }
+    }
+    else if ((wheel_new_btns.aux3 && wheel_new_btns.aux3) && pressed_once) {
+        num_iterations++; 
+    }
+    
+
+    if (num_iterations == 4 || page_changed) {
+        if (!page_changed) {
+            b_selected_time = b_selected;
+            b_selected = 0;
+            if (prev_time != 0 && curr_lap_time != 0) {
+                curr_lap_time = b_selected_time - orig_time;
+                delta_old = delta;
+                delta = curr_lap_time - prev_time;
+                prev_time =  curr_lap_time;
+            }
+            else if (prev_time == 0 && curr_lap_time != 0) {
+                prev_time = curr_lap_time;
+                curr_lap_time = 0;
+            }
+
+        }
+        num_iterations = 0;
+        pressed_once = false;
+        page_changed = false;
+    }
+    
     wheel_old_btns = wheel_new_btns;
+    uint8_t new_data[3];
+    bool b = PHAL_SPI_busy();
+    bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
+    while (PHAL_SPI_busy());
+
+    wheel_new_btns.raw_data = new_data[2];
+
  }
 void actionUpdatePeriodic()
 {
@@ -216,10 +293,9 @@ void valueUpdatePeriodic()
 }
  
 void update_time() {
-   static uint32_t orig_time;
-   uint32_t curr_time = sched.os_ticks;
+   static uint32_t wait_state;
    uint32_t time_to_send = 0;
- 
+   uint32_t curr_time = sched.os_ticks; 
    if (b_selected_time > 0) {
        orig_time = b_selected_time;
    }
@@ -229,6 +305,7 @@ void update_time() {
        }
    }
    time_to_send = curr_time - orig_time;
+    curr_lap_time = time_to_send;
    uint16_t milliseconds = time_to_send % 1000;
    time_to_send /= 1000;
    uint8_t minutes = time_to_send / 60;
@@ -255,10 +332,26 @@ void update_time() {
        }
    }
    // TODO: Add functionality with other pages, and persistance through error pages
-   if (p_idx == P_RACE)
-       set_text("t3\0", NXT_TEXT, parsed);
-   else if (p_idx == P_EXTRA_INFO)
-       set_text("t1\0", NXT_TEXT, parsed);
+   if (b_selected_time > 0) {
+       switch(wait_state) {
+           case 0:
+                wait_state++;
+           case 10:
+                b_selected_time = 0;
+                wait_state = 0;                
+                return;
+            default:
+                wait_state++;
+                return;
+       }
+   }
+   else {
+       if (p_idx == P_RACE)
+            set_text("t3\0", NXT_TEXT, parsed);
+        else if (p_idx == P_EXTRA_INFO)
+            set_text("t1\0", NXT_TEXT, parsed);
+   }
+
  
  
 }
@@ -454,6 +547,35 @@ void update_race_page(void) {
    char speed[3];
    sprintf(speed, "%d", ((can_data.front_wheel_data.right_speed + can_data.front_wheel_data.left_speed + can_data.rear_wheel_data.right_speed + can_data.rear_wheel_data.left_speed) / 4));
    set_text("t0\0", NXT_TEXT, speed);
+
+
+//     char parsed_data[5];
+//     if (completed_time == 0 || prev_time == 0) {
+//         parsed_data = {'0', '.', '0', '0', '\0'};
+//     }
+//    set_text("t1\0", NXT_TEXT, parsed_data);
+
+    if (delta == 0) {
+        set_text("t1\0", NXT_TEXT, "0.00\0");
+    }
+    else if ((delta != 0)) {
+        char parsed_data[10];
+        if (delta >= 10000 || delta <= -10000 ) {
+            float delta_interpreted = delta/1000.0;
+            sprintf(parsed_data, "%2.1f", delta_interpreted);
+            set_text("t1\0", NXT_TEXT, parsed_data);
+            //if (delta_interpreted == 3.3) 
+            //    __asm__("bkpt");
+            }
+        else {
+            float delta_interpreted = delta/1000.0;
+            sprintf(parsed_data, "%1.3f", delta_interpreted);
+            set_text("t1\0", NXT_TEXT, parsed_data);
+            //if (delta_interpreted == 3.3) 
+            //    __asm__("bkpt");
+
+        }
+    }
  
 }
 

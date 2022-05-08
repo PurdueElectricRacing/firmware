@@ -73,4 +73,7 @@
 #define WC_GPIO_Port (GPIOA)
 #define WC_Pin       (8)
 
+int do_stuff(void);
+
+
 #endif

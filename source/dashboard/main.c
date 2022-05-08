@@ -20,6 +20,7 @@
 #include "lcd.h"
 #include "nextion.h"
  
+
 GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_CANRX_PA11,
  GPIO_INIT_CANTX_PA12,
@@ -30,9 +31,9 @@ GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_I2C1_SDA_PA10,
  GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
  // SPI
-  GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+  GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
+  GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
+  GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
   GPIO_INIT_OUTPUT(CSB_WHL_GPIO_Port, CSB_WHL_Pin, GPIO_OUTPUT_LOW_SPEED),
  // Throttle
  GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
@@ -101,7 +102,7 @@ dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
 SPI_InitConfig_t hspi1 = {
    .data_rate     = 160000,
    .data_len      = 8,
-   .nss_sw        = false,
+   .nss_sw        = true,
    .nss_gpio_port = CSB_WHL_GPIO_Port,
    .nss_gpio_pin  = CSB_WHL_Pin,
    .rx_dma_cfg    = &spi_rx_dma_cfg,
@@ -200,7 +201,7 @@ int main (void)
  
    // char *race_page = "extra_info\0";
    // // PHAL_usartTxDma(USART2, &huart2, (uint16_t *) race_page, strlen(race_page));
-   set_page("startup\0");
+   set_page("race\0");
    // char *new_text = "CAR_FUCKED\n";
    // set_text("t11\0", NXT_TEXT, new_text);
    // set_value("car_state", "=", 64528);
@@ -211,9 +212,9 @@ int main (void)
  
  
    taskCreate(heartBeatLED, 500);
-   taskCreate(heartBeatMsg, 100);
-   taskCreate(checkStartBtn, 100);
-   taskCreate(pedalsPeriodic, 15);
+   //taskCreate(heartBeatMsg, 100);
+   //taskCreate(checkStartBtn, 100);
+   //taskCreate(pedalsPeriodic, 15);
    //********* UNCOMMENT END
  
  
@@ -222,7 +223,7 @@ int main (void)
  
    //*******UNCOMMENT
  
-   taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+   //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
    taskCreateBackground(canTxUpdate);
    taskCreateBackground(canRxUpdate);
  
@@ -231,7 +232,7 @@ int main (void)
 //    taskCreate(update_page, 500);
  
  
-   taskCreate(update_time, 113);
+   taskCreate(update_time, 213);
  
    taskCreate(update_err_pages, 500);
  
@@ -239,7 +240,7 @@ int main (void)
    
    taskCreate(update_race_colors, 1000);
 
-   taskCreate(check_precharge, 100);
+//    taskCreate(check_precharge, 100);
 
    taskCreate(check_buttons, 100);
 
@@ -396,3 +397,94 @@ void errorFound(eeprom_error_t error)
    HardFault_Handler();
 }
 
+// GPIOInitConfig_t gpio_config[] = {
+//  // SPI
+// //   GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+// //   GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+// //   GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+// // GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+// //   GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+// //   GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+//   GPIO_INIT_OUTPUT(CSB_WHL_GPIO_Port, CSB_WHL_Pin, GPIO_OUTPUT_LOW_SPEED),
+//   GPIO_INIT_OUTPUT(SCK_GPIO_Port, SCK_Pin, GPIO_OUTPUT_LOW_SPEED),
+//     GPIO_INIT_OUTPUT(MOSI_GPIO_Port, MOSI_Pin, GPIO_OUTPUT_LOW_SPEED),
+//   GPIO_INIT_OUTPUT(MISO_GPIO_Port, MISO_Pin, GPIO_OUTPUT_LOW_SPEED)
+// };
+
+// dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
+// dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
+// SPI_InitConfig_t hspi1 = {
+//    .data_rate     = 160000,
+//    .data_len      = 8,
+//    .nss_sw        = false,
+//    .nss_gpio_port = CSB_WHL_GPIO_Port,
+//    .nss_gpio_pin  = CSB_WHL_Pin,
+//    .rx_dma_cfg    = &spi_rx_dma_cfg,
+//    .tx_dma_cfg    = &spi_tx_dma_cfg,
+// };
+
+// /* ADC Configuration */
+// ADCInitConfig_t adc_config = {
+//    .clock_prescaler = ADC_CLK_PRESC_6,
+//    .resolution      = ADC_RES_12_BIT,
+//    .data_align      = ADC_DATA_ALIGN_RIGHT,
+//    .cont_conv_mode  = true,
+//    .overrun         = true,
+//    .dma_mode        = ADC_DMA_CIRCULAR
+// };
+// ADCChannelConfig_t adc_channel_config[] = {
+//    {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+// };
+// dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
+ 
+
+// #define TargetCoreClockrateHz 16000000
+
+// ClockRateConfig_t clock_config = {
+//    .system_source          = SYSTEM_CLOCK_SRC_HSI,
+//    .system_clock_target_hz = TargetCoreClockrateHz,
+//    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+//    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+//    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+// };
+
+// extern void HardFault_Handler();
+
+
+// int main(void) {
+
+//        if(0 != PHAL_configureClockRates(&clock_config))
+//    {
+//        HardFault_Handler();
+//    }
+//     if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+//    {
+//        HardFault_Handler();
+//    }
+// //    if(!PHAL_SPI_init(&hspi1))
+// //    {
+// //        HardFault_Handler();
+// //    }
+// //       if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+// //    {
+// //        HardFault_Handler();
+// //    }
+// //    if(!PHAL_initDMA(&adc_dma_config))
+// //    {
+// //        HardFault_Handler();
+// //    }
+// //        PHAL_startADC(ADC1);
+//     PHAL_writeGPIO(MISO_GPIO_Port, MISO_Pin, 1);
+
+//     return 0;
+// }
+
+// int do_stuff() {
+//     int i = 0;
+//     i++;
+//     return i;
+// }

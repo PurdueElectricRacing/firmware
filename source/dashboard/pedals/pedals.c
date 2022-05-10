@@ -7,7 +7,7 @@ pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=450, // WARNING: DAQ
                                          .t2max=1550,.t2min=450, // IF EEPROM ENABLED,
                                          .b1max=1780,.b1min=550, // VALUE WILL CHANGE
                                          .b2max=1360,.b2min=420,// 1400, 400
-                                         .b3max=100,.b3min=0};// 910, 812 3312 3436 
+                                         .b3max=100,.b3min=0};
 
 uint16_t b3_buff[8] = {0};
 uint8_t b3_idx = 0;

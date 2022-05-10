@@ -43,7 +43,7 @@ GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
  GPIO_INIT_ANALOG(BRK_3_GPIO_Port, BRK_3_Pin),
  // Status LEDs
- GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
  GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
  GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
  GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -125,6 +125,8 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
  
 /* Function Prototypes */
+void preflightChecks(void);
+void preflightAnimation(void);
 void heartBeatLED();
 void heartBeatMsg();
 void canTxUpdate();
@@ -141,136 +143,165 @@ q_handle_t q_tx_usart;
 int main (void)
 {
  
-   /* Data Struct init */
-   qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-   qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-   qConstruct(&q_tx_usart, NXT_STR_SIZE);
- 
-   /* HAL Initilization */
-   if(0 != PHAL_configureClockRates(&clock_config))
-   {
-       HardFault_Handler();
-   }
-   if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
-   {
-       HardFault_Handler();
-   }
-   if(!PHAL_initCAN(CAN1, false))
-   {
-       HardFault_Handler();
-   }
-   NVIC_EnableIRQ(CAN1_RX0_IRQn);
-   if(!PHAL_initUSART(USART2, &huart2, APB1ClockRateHz))
-   {
-       HardFault_Handler();
-   }
-   // TODO: revert spi
-   if(!PHAL_SPI_init(&hspi1))
-   {
-       HardFault_Handler();
-   }
-   // if(!PHAL_initI2C(I2C1))
-   // {
-   //     HardFault_Handler();
-   // }
-   if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-   {
-       HardFault_Handler();
-   }
-   if(!PHAL_initDMA(&adc_dma_config))
-   {
-       HardFault_Handler();
-   }
-   PHAL_startTxfer(&adc_dma_config);
-   PHAL_startADC(ADC1);
- 
-   // Signify start of initialization
-   PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
-   PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-   PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-   PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-   PHAL_writeGPIO(WC_GPIO_Port, WC_Pin, 0);
- 
-   /* Module Initialization */
-   initCANParse(&q_rx_can);
-   linkDAQVars();
-   if (daqInit(&q_tx_can, I2C1))
-   {
-       HardFault_Handler();
-   }
- 
-   // char *race_page = "extra_info\0";
-   // // PHAL_usartTxDma(USART2, &huart2, (uint16_t *) race_page, strlen(race_page));
-   set_page("race\0");
-   // char *new_text = "CAR_FUCKED\n";
-   // set_text("t11\0", NXT_TEXT, new_text);
-   // set_value("car_state", "=", 64528);
- 
- 
-   /* Task Creation */
-   schedInit(SystemCoreClock);
- 
- 
-   taskCreate(heartBeatLED, 500);
-   //taskCreate(heartBeatMsg, 100);
-   //taskCreate(checkStartBtn, 100);
-   //taskCreate(pedalsPeriodic, 15);
-   //********* UNCOMMENT END
- 
- 
-   // taskCreate(joystickUpdatePeriodic, 60);
-   // taskCreate(valueUpdatePeriodic, 60);
- 
-   //*******UNCOMMENT
- 
-   //taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-   taskCreateBackground(canTxUpdate);
-   taskCreateBackground(canRxUpdate);
- 
-   //*********UNCOMMENT
- 
-//    taskCreate(update_page, 500);
- 
- 
-   taskCreate(update_time, 213);
- 
-   taskCreate(update_err_pages, 500);
- 
-   taskCreate(update_race_page, 200);
-   
-   taskCreate(update_race_colors, 1000);
+    /* Data Struct init */
+    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
-//    taskCreate(check_precharge, 100);
+    /* HAL Initilization */
+    if(0 != PHAL_configureClockRates(&clock_config))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    {
+        HardFault_Handler();
+    }
 
-   taskCreate(check_buttons, 100);
+    /* Task Creation */
+    schedInit(SystemCoreClock);
+    configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-   taskCreate(check_error, 1000);
-  
- 
-   taskCreateBackground(usartTxUpdate);
- 
-   // Signify end of initialization
-   PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
- 
-   schedStart();
- 
- 
-   // while (1) {
-   //     usartTxUpdate();
-   // }
-  
-   return 0;
+    taskCreate(heartBeatLED, 500);
+    taskCreate(heartBeatMsg, 100);
+    taskCreate(checkStartBtn, 100);
+    taskCreate(pedalsPeriodic, 15);
+    //********* UNCOMMENT END
+
+
+    // taskCreate(joystickUpdatePeriodic, 60);
+    // taskCreate(valueUpdatePeriodic, 60);
+
+    //*******UNCOMMENT
+
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
+
+    //*********UNCOMMENT
+
+    // taskCreate(update_page, 500);
+
+    taskCreate(update_time, 213);
+    taskCreate(update_err_pages, 500);
+    taskCreate(update_race_page, 200);
+    taskCreate(update_race_colors, 1000);
+
+    //taskCreate(check_precharge, 100);
+
+    taskCreate(check_buttons, 100);
+    taskCreate(check_error, 1000);
+
+    taskCreateBackground(usartTxUpdate);
+
+    schedStart();
+
+    return 0;
 }
  
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            if(!PHAL_initCAN(CAN1, false))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+           break;
+        case 1:
+            if(!PHAL_initUSART(USART2, &huart2, APB1ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 2:
+            if(!PHAL_SPI_init(&hspi1))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 3:
+            // if(!PHAL_initI2C(I2C1))
+            // {
+            //     HardFault_Handler();
+            // }
+            break;
+       case 4:
+            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initDMA(&adc_dma_config))
+            {
+                HardFault_Handler();
+            }
+            PHAL_startTxfer(&adc_dma_config);
+            PHAL_startADC(ADC1);
+            break;
+        case 5:
+            /* Module Initialization */
+            initCANParse(&q_rx_can);
+            linkDAQVars();
+            if (daqInit(&q_tx_can, I2C1))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 6:
+            // char *race_page = "extra_info\0";
+            // // PHAL_usartTxDma(USART2, &huart2, (uint16_t *) race_page, strlen(race_page));
+            set_page("race\0");
+            // char *new_text = "CAR_FUCKED\n";
+            // set_text("t11\0", NXT_TEXT, new_text);
+            // set_value("car_state", "=", 64528);
+            break;
+        default:
+            registerPreflightComplete(1);
+            state = 255; // prevent wrap around
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time;
+
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+
+    switch (time++ % 6)
+    {
+        case 0:
+        case 5:
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
+            break;
+        case 1:
+        case 4:
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
+            break;
+        case 2:
+        case 3:
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+            break;
+    }
+}
  
 void heartBeatLED()
 {
-   PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-   if (can_data.main_hb.precharge_state)
-       PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-   else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-   // TODO IMD LED
-   // TODO BMS LED
+    PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
+    if (can_data.main_hb.precharge_state)
+        PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+    else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    // TODO IMD LED
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    // TODO BMS LED
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 }
  
 void heartBeatMsg()
@@ -319,8 +350,8 @@ void linkDAQVars()
    linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
    linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
    linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
-   linkReada(DAQ_ID_B1, &raw_pedals.b1);
-   linkReada(DAQ_ID_B2, &raw_pedals.b2);
+   linkReada(DAQ_ID_B1,     &raw_pedals.b1);
+   linkReada(DAQ_ID_B2,     &raw_pedals.b2);
 }
  
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};
@@ -333,15 +364,12 @@ void usartTxUpdate()
    }
 }
  
-uint8_t can_tx_errors = 0;
 void canTxUpdate()
 {
    CanMsgTypeDef_t tx_msg;
    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
    {
        PHAL_txCANMessage(&tx_msg);
-       // if (!PHAL_txCANMessage(&tx_msg)) can_tx_errors++;
-       // if (can_tx_errors > 200) HardFault_Handler();
    }
 }
  
@@ -387,7 +415,6 @@ void CAN1_RX0_IRQHandler()
 void HardFault_Handler()
 {
    schedPause();
-   PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
    while(1) IWDG->KR = 0xAAAA;
 }
  

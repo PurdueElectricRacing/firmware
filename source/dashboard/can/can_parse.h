@@ -63,7 +63,7 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
-
+extern uint32_t last_can_rx_time_ms;
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
 #define SEND_RAW_THROTTLE_BRAKE(queue, throttle_, brake_) do {\

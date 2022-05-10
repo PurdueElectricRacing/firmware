@@ -160,7 +160,7 @@ int main (void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    configureAnim(preflightAnimation, preflightChecks, 60, 750);
+    configureAnim(preflightAnimation, preflightChecks, 120, 750);
 
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatMsg, 100);
@@ -271,18 +271,11 @@ void preflightAnimation(void) {
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
 
-    switch (time++ % 6)
+    switch (time++ % 2)
     {
         case 0:
-        case 5:
             PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
-            break;
-        case 1:
-        case 4:
             PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
-            break;
-        case 2:
-        case 3:
             PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
             break;
     }
@@ -321,7 +314,7 @@ void checkStartBtn()
        if (!start_prev) start_ct++;
        if (start_ct > 3)
        {
-           if (1 || can_data.main_hb.car_state == CAR_STATE_READY2DRIVE) //|| raw_pedals.b2 > BRAKE_PRESSURE_THRESHOLD*/)
+           if (can_data.main_hb.car_state == CAR_STATE_READY2DRIVE || raw_pedals.b2 > BRAKE_PRESSURE_THRESHOLD)
            {
                SEND_START_BUTTON(q_tx_can, 1);
                start_prev = true;

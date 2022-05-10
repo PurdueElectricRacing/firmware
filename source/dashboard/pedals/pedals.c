@@ -6,7 +6,7 @@ volatile raw_pedals_t raw_pedals = {0};
 pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=450, // WARNING: DAQ VARIABLE
                                          .t2max=1550,.t2min=450, // IF EEPROM ENABLED,
                                          .b1max=1780,.b1min=550, // VALUE WILL CHANGE
-                                         .b2max=1360,.b2min=420,// 1400, 400
+                                         .b2max=1340,.b2min=400,// 1400, 400
                                          .b3max=100,.b3min=0};
 
 uint16_t b3_buff[8] = {0};
@@ -70,8 +70,7 @@ void pedalsPeriodic(void)
         pedals.bse_wiring_fail_detected = false;
         pedals.bse_faulted = false;
     }
-    pedals.bse_wiring_fail_detected = false;
-        pedals.bse_faulted = false;
+
     // Scale values based on min and max
     t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
     t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);

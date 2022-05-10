@@ -40,7 +40,7 @@
 
 // TODO: calibrate flow rates
 // Flow checks
-#define DT_MAX_FLOW_L_M (26)
+#define DT_MAX_FLOW_L_M (26) // average of 3.7
 #define DT_MIN_FLOW_L_M (DT_MAX_FLOW_L_M / 3)
 #define DT_FLOW_STARTUP_TIME_S (5)
 
@@ -64,14 +64,18 @@
 #define THERM_A (-25.16)
 #define THERM_B (260.93)
 
+#define AVG_WINDOW_SIZE 10
+
 typedef struct
 {
-    uint8_t dt_liters_p_min;
-    uint8_t bat_liters_p_min;
-    float dt_therm_1_C;
-    float dt_therm_2_C;
-    float bat_therm_out_C;
-    float bat_therm_in_C;
+    uint8_t  dt_liters_p_min_x10;
+    uint8_t  bat_liters_p_min_x10;
+    float    dt_therm_1_C;
+    float    dt_therm_2_C;
+    float    bat_therm_out_C;
+    float    bat_therm_in_C;
+    uint32_t dt_delta_t;
+    uint32_t bat_delta_t;
 
     uint8_t dt_pump;       // DT pump turned on
     uint8_t dt_fan;        // DT fan turned on

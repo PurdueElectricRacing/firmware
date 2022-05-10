@@ -9,8 +9,8 @@
                 {
                     "node_name":"Main_Module",
                     "variables": [
-                        {"var_name":"dt_liters_p_min", "read_only": true, "bit_length": 8},
-                        {"var_name":"bat_liters_p_min", "read_only": true, "bit_length": 8},
+                        {"var_name":"dt_liters_p_min_x10", "read_only": true, "bit_length": 8},
+                        {"var_name":"bat_liters_p_min_x10", "read_only": true, "bit_length": 8},
                         {"var_name":"dt_flow_error", "read_only": true, "bit_length": 1},
                         {"var_name":"dt_temp_error", "read_only": true, "bit_length": 1},
                         {"var_name":"bat_flow_error", "read_only": true, "bit_length": 1},

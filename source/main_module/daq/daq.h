@@ -62,8 +62,8 @@ typedef enum
 #define DAQ_ID_MASK       0b11111
 
 // BEGIN AUTO VAR IDs
-#define DAQ_ID_DT_LITERS_P_MIN 0
-#define DAQ_ID_BAT_LITERS_P_MIN 1
+#define DAQ_ID_DT_LITERS_P_MIN_X10 0
+#define DAQ_ID_BAT_LITERS_P_MIN_X10 1
 #define DAQ_ID_DT_FLOW_ERROR 2
 #define DAQ_ID_DT_TEMP_ERROR 3
 #define DAQ_ID_BAT_FLOW_ERROR 4

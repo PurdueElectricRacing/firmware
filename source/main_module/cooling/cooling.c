@@ -9,6 +9,7 @@ uint32_t bat_pump_start_time_ms;
 
 static void setDtCooling(uint8_t on);
 static void setBatCooling(uint8_t on);
+uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr);
 
 bool coolingInit()
 {
@@ -35,6 +36,19 @@ bool coolingInit()
     return true;
 }
 
+uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr) {
+    uint8_t i;
+    float   average = 0;
+
+    old[curr] = new;    
+
+    for (i = 0; i < AVG_WINDOW_SIZE; i++) {
+        average += (float) old[i];
+    }
+
+    return (uint8_t) (average / AVG_WINDOW_SIZE);
+}
+
 void coolingPeriodic()
 {
     /* WATER TEMP CALCULATIONS */
@@ -45,22 +59,18 @@ void coolingPeriodic()
     // cooling.bat_therm_out_C = rawThermtoCelcius(adc_readings.bat_therm_out);
 
     /* FLOW CALCULATIONS */
-    // Calculate time delta
-    uint32_t flow_dt_ms = sched.os_ticks - last_flow_meas_time_ms;
-    last_flow_meas_time_ms = sched.os_ticks;
-    // Store and reset sensor tick counters
-    uint16_t dt_flow_ct = raw_dt_flow_ct;
-    raw_dt_flow_ct = 0;
-    uint16_t bat_flow_ct = raw_bat_flow_ct;
-    raw_bat_flow_ct = 0;
-
     // Convert ticks and time delta to liters per minute
-    cooling.dt_liters_p_min =  (uint8_t) ((((uint32_t) dt_flow_ct)  * 1000 * 60) / 
-                                          (flow_dt_ms * PULSES_P_LITER));
-    cooling.bat_liters_p_min = (uint8_t) ((((uint32_t) bat_flow_ct) * 1000 * 60) / 
-                                          (flow_dt_ms * PULSES_P_LITER));
-
+    cooling.dt_liters_p_min_x10 = ((1000 / (float) (cooling.dt_delta_t * 7.5))) * 10;
+    cooling.bat_liters_p_min_x10 = ((1000 / (float) (cooling.bat_delta_t * 7.5))) * 10;
     
+    static uint8_t dt_old[AVG_WINDOW_SIZE];
+    static uint8_t bat_old[AVG_WINDOW_SIZE];
+    static uint8_t curr;
+    cooling.dt_liters_p_min_x10 = lowpass(cooling.dt_liters_p_min_x10, dt_old, curr);
+    cooling.bat_liters_p_min_x10 = lowpass(cooling.bat_liters_p_min_x10, bat_old, curr);
+    ++curr;
+    curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
+
     /* DT COOLANT SYSTEM */
     bool next_coolant_state = cooling.dt_pump;
 
@@ -79,7 +89,7 @@ void coolingPeriodic()
         ((sched.os_ticks - dt_pump_start_time_ms) / 1000) > DT_FLOW_STARTUP_TIME_S)
         cooling.dt_rose = 1;
     if (cooling.dt_pump && cooling.dt_rose && 
-        cooling.dt_liters_p_min < DT_MIN_FLOW_L_M)
+        cooling.dt_liters_p_min_x10 < DT_MIN_FLOW_L_M * 10)
     {
         cooling.dt_flow_error = 1;
     }
@@ -90,26 +100,20 @@ void coolingPeriodic()
     }
 
     // Determine if system should be on
-    // if (!cooling.dt_pump && (!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) && 
-    //    (max_motor_temp > DT_PUMP_ON_TEMP_C || (cooling.dt_temp_error && !DT_ALWAYS_COOL) || 
-    //    (DT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
-    // {
-    //     setDtCooling(true);
-    // }
-    // // Determine if system should be off
-    // else if (cooling.dt_pump && (max_motor_temp < DT_PUMP_OFF_TEMP_C || cooling.dt_flow_error))
-    // {
-    //     setDtCooling(false);
-    // }
-    if (!cooling.dt_pump && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin && DT_ALWAYS_COOL))
+    if ((!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) && 
+    (max_motor_temp > DT_PUMP_ON_TEMP_C || ((PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin)) &&
+    cooling.dt_temp_error || DT_ALWAYS_COOL)))
     {
-        setDtCooling(true);
+        if (!cooling.dt_pump)
+        {
+            setDtCooling(true);
+        }
     }
-    else if (cooling.dt_pump && (!PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin) || !DT_ALWAYS_COOL))
+    // Determine if system should be off
+    else if (cooling.dt_pump)
     {
         setDtCooling(false);
     }
-
 
     /* BAT COOLANT SYSTEM */
     next_coolant_state = cooling.bat_fan;
@@ -125,7 +129,7 @@ void coolingPeriodic()
         ((sched.os_ticks - bat_pump_start_time_ms) / 1000) > BAT_FLOW_STARTUP_TIME_S)
         cooling.bat_rose = 1;
     if (cooling.bat_pump && cooling.bat_rose && 
-        cooling.bat_liters_p_min < BAT_MIN_FLOW_L_M)
+        cooling.bat_liters_p_min_x10 < BAT_MIN_FLOW_L_M * 10)
     {
         cooling.bat_flow_error = 1;
     }
@@ -136,18 +140,21 @@ void coolingPeriodic()
     }
 
     // Determine if system should be on
-    // if (!cooling.bat_pump && (!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) && 
-    //    (max_bat_temp > BAT_PUMP_ON_TEMP_C || (cooling.bat_temp_error && !BAT_ALWAYS_COOL) || 
-    //    (BAT_ALWAYS_COOL && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))))
-    // {
-    //     setBatCooling(true);
-    // }
-    // // Determine if system should be off
-    // else if (cooling.bat_pump && (max_motor_temp < BAT_PUMP_OFF_TEMP_C || cooling.bat_flow_error))
-    // {
-    //     setBatCooling(false);
-    // }
-    setBatCooling(false);
+    if ((!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) && 
+    (max_bat_temp > BAT_PUMP_ON_TEMP_C || ((PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin)) &&
+    cooling.bat_temp_error || BAT_ALWAYS_COOL)))
+    {
+        if (!cooling.bat_pump)
+        {
+            setBatCooling(true);
+        }
+    }
+    // Determine if system should be off
+    else if (cooling.bat_pump)
+    {
+        setBatCooling(false);
+    }    
+
 }
 
 void setDtCooling(uint8_t on)
@@ -182,10 +189,14 @@ float rawThermtoCelcius(uint16_t t)
 
 void EXTI1_IRQHandler()
 {
+    static uint32_t last_flow_meas_time_ms;
+
     // check pin responsible
     if (EXTI->PR1 & (0b1 << DT_FLOW_RATE_PWM_Pin))
     {
-        raw_dt_flow_ct++;
+        cooling.dt_delta_t = sched.os_ticks - last_flow_meas_time_ms;
+        last_flow_meas_time_ms = sched.os_ticks;
+
         // clear flag
         EXTI->PR1 = (0b1 << DT_FLOW_RATE_PWM_Pin);
     }
@@ -193,10 +204,14 @@ void EXTI1_IRQHandler()
 
 void EXTI2_IRQHandler()
 {
+    static uint32_t last_flow_meas_time_ms;
+
     // check pin responsible
     if (EXTI->PR1 & (0b1 << BAT_FLOW_RATE_PWM_Pin))
     {
-        raw_bat_flow_ct++;
+        cooling.bat_delta_t = sched.os_ticks - last_flow_meas_time_ms;
+        last_flow_meas_time_ms = sched.os_ticks;
+
         // clear flag
         EXTI->PR1 = (0b1 << BAT_FLOW_RATE_PWM_Pin);
     }

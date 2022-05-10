@@ -125,7 +125,7 @@ int main (void)
     schedInit(SystemCoreClock);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-    // taskCreate(coolingPeriodic, 15);
+    taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
@@ -176,11 +176,12 @@ void preflightChecks(void) {
         case 3:
            /* Module Initialization */
            carInit();
-           // coolingInit();
+           coolingInit();
            break;
        case 4:
            initCANParse(&q_rx_can);
            linkDAQVars();
+           daqInit(&q_tx_can, I2C);
            break;
         default:
             registerPreflightComplete(1);
@@ -221,10 +222,10 @@ void heartBeatLED()
 
 void linkDAQVars()
 {
-    linkReada(DAQ_ID_DT_LITERS_P_MIN, &cooling.dt_liters_p_min);
+    linkReada(DAQ_ID_DT_LITERS_P_MIN_X10, &cooling.dt_liters_p_min_x10);
     linkReada(DAQ_ID_DT_FLOW_ERROR, &cooling.dt_flow_error);
     linkReada(DAQ_ID_DT_TEMP_ERROR, &cooling.dt_temp_error);
-    linkReada(DAQ_ID_BAT_LITERS_P_MIN, &cooling.bat_liters_p_min);
+    linkReada(DAQ_ID_BAT_LITERS_P_MIN_X10, &cooling.bat_liters_p_min_x10);
     linkReada(DAQ_ID_BAT_FLOW_ERROR, &cooling.bat_flow_error);
     linkReada(DAQ_ID_BAT_TEMP_ERROR, &cooling.bat_temp_error);
 }

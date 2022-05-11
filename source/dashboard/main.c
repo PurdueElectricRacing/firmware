@@ -273,8 +273,8 @@ void linkDAQVars()
     linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
     linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
     linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
-    linkReada(DAQ_ID_B1, &raw_pedals.b1);
-    linkReada(DAQ_ID_B2, &raw_pedals.b2);
+    linkReada(DAQ_ID_B1, (void*) &raw_pedals.b1);
+    linkReada(DAQ_ID_B2, (void*) &raw_pedals.b2);
 }
 
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};

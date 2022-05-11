@@ -3,8 +3,8 @@
 // Static prototypes
 static void I2C_IRQHandler(I2C_TypeDef* instance);
 static int  gen_start(I2C_TypeDef* instance, uint8_t addr, uint8_t len, bool read);
-static void i2c_unmask_irq(USART_TypeDef* instance);
-static void i2c_mask_irq(USART_TypeDef* instance);
+static void i2c_unmask_irq(I2C_TypeDef* instance);
+static void i2c_mask_irq(I2C_TypeDef* instance);
 
 i2c_handle_t* core;
 
@@ -255,7 +255,7 @@ static int gen_start(I2C_TypeDef* instance, uint8_t addr, uint8_t len, bool read
     return 0;
 }
 
-static void i2c_unmask_irq(USART_TypeDef* instance) {
+static void i2c_unmask_irq(I2C_TypeDef* instance) {
     switch ((ptr_int) instance)
     {
         case I2C1_BASE:
@@ -272,7 +272,7 @@ static void i2c_unmask_irq(USART_TypeDef* instance) {
     }
 }
 
-static void i2c_mask_irq(USART_TypeDef* instance) {
+static void i2c_mask_irq(I2C_TypeDef* instance) {
     switch ((ptr_int) instance)
     {
         case I2C1_BASE:

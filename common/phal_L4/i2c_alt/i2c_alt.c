@@ -1,4 +1,4 @@
-#include "common/phal_l4/i2c_alt/i2c_alt.h"
+#include "common/phal_L4/i2c_alt/i2c_alt.h"
 
 // Static prototypes
 static void I2C_IRQHandler(I2C_TypeDef* instance);

@@ -16,6 +16,7 @@
 #include "afe.h"
 #include "temp.h"
 #include "can/can_parse.h"
+#include "node_defs.h"
 
 // Generic Defines
 #define CELL_MAX                12

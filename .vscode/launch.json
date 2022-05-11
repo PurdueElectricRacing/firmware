@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
     
         {
             "name": "Main Module",
@@ -105,7 +106,7 @@
         {
             "name": "BMS (12 Cell)",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bms/bms.elf",
+            "executable": "./output/bmses/bms_c/bms_c.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -119,7 +120,7 @@
                 "-d",
                 "${workspaceFolder}/source/bms"
             ],
-            "preLaunchTask": "build",
+            // "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {
@@ -179,7 +180,7 @@
                 "-d",
                 "${workspaceFolder}/source/precharge"
             ],
-            "preLaunchTask": "build",
+            // "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {

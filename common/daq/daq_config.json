@@ -29,6 +29,14 @@
                         {"var_name":"b1", "read_only": true, "bit_length": 12},
                         {"var_name":"b2", "read_only": true, "bit_length": 12}
                     ]
+                },
+                {
+                    "node_name":"Precharge",
+                    "variables": [
+                        {"var_name":"charge_mode_enable", "read_only": false, "bit_length": 1},
+                        {"var_name":"charge_voltage_limit", "read_only": false, "bit_length": 16},
+                        {"var_name":"charge_current_limit", "read_only": false, "bit_length": 16}
+                    ]
                 }
             ]
         },

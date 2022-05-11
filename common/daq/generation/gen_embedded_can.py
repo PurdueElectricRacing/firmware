@@ -301,10 +301,12 @@ def configure_node(node_config, node_paths):
 
     # Hardware filtering
     filter_lines = []
-    periph = DEFAULT_PERIPHERAL
-    if "can_peripheral" in node_config: periph = node_config['can_peripheral']
-    gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
-    if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
+    if not ("accept_all_messages" in node_config and node_config["accept_all_messages"]):
+        periph = DEFAULT_PERIPHERAL
+        if "can_peripheral" in node_config: periph = node_config['can_peripheral']    
+        gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
+        if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
+
     c_lines = generator.insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
     
     # Rx IRQ callbacks

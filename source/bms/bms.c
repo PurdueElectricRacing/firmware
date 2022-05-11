@@ -112,8 +112,9 @@ void initBMS(SPI_InitConfig_t* hspi)
 // @brief: Send BMS data out
 void txCAN(void)
 {
-    uint8_t i;
     static uint8_t state;
+    uint8_t msg_idx = 0;
+
 
     switch (state)
     {
@@ -121,27 +122,29 @@ void txCAN(void)
         {
             SEND_PACK_INFO(q_tx_can, bms.cells.mod_volts_raw, bms.error, bms.cells.balance_flags & ~bms.cells.balance_mask);
             SEND_CELL_INFO(q_tx_can, 0, bms.error & (1U << 1), bms.error & (1U << 2));
+            break;
         }
 
+        case 1:
+        {
+            SEND_POWER_LIM(q_tx_can, bms.p_lim.temp_max, 0);
+            break;
+        }
         default:
         {
-            for (i = 0; i < 4; i++)
-            {
-                SEND_VOLTS_CELLS(q_tx_can, i, bms.cells.chan_volts_raw[i * 3], bms.cells.chan_volts_raw[i * 3 + 1], bms.cells.chan_volts_raw[i * 3 + 2]);
-            }
-
-            for (i = 0; i < 4; i++)
-            {
-                SEND_TEMPS_CELLS(q_tx_can, i, bms.cells.chan_temps_conv[i * 3], bms.cells.chan_temps_conv[i * 3 + 1], bms.cells.chan_temps_conv[i * 3 + 2]);
-            }
-
-            SEND_POWER_LIM(q_tx_can, bms.p_lim.temp_max, 0);
+            msg_idx = state - 2;
+            SEND_VOLTS_CELLS(q_tx_can, msg_idx, bms.cells.chan_volts_raw[msg_idx * 3], bms.cells.chan_volts_raw[msg_idx * 3 + 1], bms.cells.chan_volts_raw[msg_idx * 3 + 2]);
+            break;
         }
     }
 
-    if (++state == 10)
+    if (state == 5)
     {
         state = 0;
+    } 
+    else
+    {
+        ++state;
     }
 }
 

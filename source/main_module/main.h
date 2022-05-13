@@ -34,8 +34,8 @@
 #define SDC_CTRL_Pin       (10)
 
 // TODO: get pin
-#define PRCHG_STAT_GPIO_Port (GPIOE)
-#define PRCHG_STAT_Pin       (0)
+#define PRCHG_STAT_GPIO_Port (GPIOC)
+#define PRCHG_STAT_Pin       (13)
 
 // Drivetrain
 #define DT_THERM_1_GPIO_Port       (GPIOA)

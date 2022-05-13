@@ -78,13 +78,13 @@ typedef struct
     uint32_t bat_delta_t;
 
     uint8_t dt_pump;       // DT pump turned on
-    uint8_t dt_fan;        // DT fan turned on
+    uint8_t dt_fan_power;        // DT fan turned on
     uint8_t dt_temp_error; // DT either over temp or not receiving
     uint8_t dt_flow_error; // DT flow is too low
     uint8_t dt_rose;       // DT pump has been on for 
                            // the startup time
     uint8_t bat_pump;      // BAT pump turned on
-    uint8_t bat_fan;       // BAT fan turned on
+    uint8_t bat_fan_power;       // BAT fan turned on
     uint8_t bat_temp_error;// BAT either over temp or not receiving temps
     uint8_t bat_flow_error;// BAT flow is too low
     uint8_t bat_rose;      // BAT pump has been on for
@@ -114,4 +114,6 @@ void coolingPeriodic();
  * @return  Degrees Celcius
  */
 float rawThermtoCelcius(uint16_t t);
+
+void setFanPWM(void);
 #endif

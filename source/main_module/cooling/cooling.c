@@ -72,7 +72,6 @@ void coolingPeriodic()
     curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
 
     /* DT COOLANT SYSTEM */
-    bool next_coolant_state = cooling.dt_pump;
 
     // Find max motor temperature (CELSIUS)
     uint8_t max_motor_temp = MAX(can_data.front_motor_currents_temps.left_temp,
@@ -117,7 +116,6 @@ void coolingPeriodic()
     }
 
     /* BAT COOLANT SYSTEM */
-    next_coolant_state = cooling.bat_fan;
 
     // TODO: replace with CAN frame
     uint8_t max_bat_temp = 0;
@@ -159,14 +157,35 @@ void coolingPeriodic()
 
 }
 
+void setFanPWM(void) {
+    uint8_t set_dt = 0;
+    uint8_t set_bat = 0;
+    static uint16_t time_curr;
+
+    if (time_curr < cooling.dt_fan_power) {
+        set_dt = 1;
+    }
+
+    if (time_curr < cooling.bat_fan_power) {
+        set_bat = 1;
+    }
+
+    if (++time_curr == 10) {
+        time_curr = 0;
+    }
+
+    PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, set_dt);
+    PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, set_bat);
+}
+
 void setDtCooling(uint8_t on)
 {
     if (!cooling.dt_pump && on) dt_pump_start_time_ms = sched.os_ticks;
     if (!on) cooling.dt_rose = 0;
     cooling.dt_pump = on;
     PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, on);
-    cooling.dt_fan = on;
-    PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, on);
+    cooling.dt_fan_power = on ? 4 : 0;
+    // PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, on);
 }
 
 void setBatCooling(uint8_t on)
@@ -175,8 +194,8 @@ void setBatCooling(uint8_t on)
     if (!on) cooling.bat_rose = 0;
     cooling.bat_pump = on;
     PHAL_writeGPIO(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, on);
-    cooling.bat_fan = on;
-    PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, on);
+    cooling.bat_fan_power = on ? 4 : 0;
+    // PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, on);
 }
 
 float rawThermtoCelcius(uint16_t t)

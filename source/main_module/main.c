@@ -129,6 +129,7 @@ int main (void)
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
+    taskCreate(setFanPWM, 1);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);

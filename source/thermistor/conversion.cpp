@@ -46,7 +46,7 @@ float temp (int adc_meas) {
     } else if (r_rel > 0.6748 && r_rel <= 0.3603) {
         return temp_calc(A_HIGH, B_HIGH, B_HIGH, B_HIGH, r_rel);
     } else {
-        return 0 // We're fucked
+        return 0; // We're fucked
     }
 }
 

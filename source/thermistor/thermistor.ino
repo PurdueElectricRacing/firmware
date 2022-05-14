@@ -2,10 +2,10 @@
 #include <math.h>
 
 // ADC MUX Pins
-#define ADC_MUX_ADDR_0_PIN (0)
-#define ADC_MUX_ADDR_1_PIN (1)
-#define ADC_MUX_ADDR_2_PIN (2)
-#define ADC_MUX_ADDR_3_PIN (3)
+#define ADC_MUX_ADDR_0_PIN (22)
+#define ADC_MUX_ADDR_1_PIN (24)
+#define ADC_MUX_ADDR_2_PIN (26)
+#define ADC_MUX_ADDR_3_PIN (28)
 
 #define ADC_MUX_SIG_0_PIN (A0)
 #define ADC_MUX_SIG_1_PIN (A1)
@@ -15,7 +15,13 @@
 #define CAN_MESSAGE_ID_BASE (0xBE0)
 
 // Hardware constants
-#define R_REF   10000.
+
+// Pull-up resistor values
+#define R_REF_0   9600.
+#define R_REF_1   10000.
+#define R_REF_2   10000.
+#define R_REF_3   10000.
+
 #define ADC_REF 5
 #define VCC     5.
 #define ADC_RES 1024.
@@ -29,11 +35,18 @@
 #define B_LOW   0.000256173
 #define C_LOW   2.13941e-06
 #define D_LOW   -7.25325e-08
+// Medium temperatures
+#define A_MEDIUM   0.003353045
+#define B_MEDIUM   0.000254200
+#define C_MEDIUM   1.14261e-06
+#define D_MEDIUM   -6.93803e-08
 // High temperatures
-#define A_HIGH   0.003353045
-#define B_HIGH   0.000254200
-#define C_HIGH   1.14261e-06
-#define D_HIGH   -6.93803e-08
+#define A_HIGH   0.003353609
+#define B_HIGH   0.000253768
+#define C_HIGH   8.53411e-07
+#define D_HIGH   -8.79629e-08
+
+
 
 float temp_calc (float a, float b, float c, float d, float r_rel) {
 
@@ -46,18 +59,20 @@ float temp_calc (float a, float b, float c, float d, float r_rel) {
 
 }
 
-float temp (int adc_meas) {
+float temp (int adc_meas, float r_ref) {
 
     float v_out = (adc_meas + 0.5) * ADC_REF / ADC_RES;
 
-    float r_rel = v_out * R_REF / (VCC - v_out) / R25;
+    float r_rel = v_out * r_ref / (VCC - v_out) / R25;
 
-    if (r_rel > 0.3603 && r_rel <= 3.265) {
-        return temp_calc(A_LOW, B_LOW, B_LOW, B_LOW, r_rel);
-    } else if (r_rel > 0.6748 && r_rel <= 0.3603) {
-        return temp_calc(A_HIGH, B_HIGH, B_HIGH, B_HIGH, r_rel);
+    if (r_rel > 0.3599 && r_rel <= 3.277) {
+        return temp_calc(A_LOW, B_LOW, B_LOW, B_LOW, r_rel) - 273.15;
+    } else if (r_rel > 0.06816 && r_rel <= 0.3599) {
+        return temp_calc(A_MEDIUM, B_MEDIUM, B_MEDIUM, B_MEDIUM, r_rel) - 273.15;
+    } else if (r_rel <= 0.06816) {
+        return temp_calc(A_HIGH, B_HIGH, B_HIGH, B_HIGH, r_rel) - 273.15;
     } else {
-        return 0; // We're fucked
+        return -1; // We're not happy (in a good sense)
     }
 }
 
@@ -108,10 +123,10 @@ void loop()
   delay(10);
 	uint16_t temp3_raw = analogRead(ADC_MUX_SIG_3_PIN);
 
- uint16_t temp0_real = temp(temp0_raw) - 273.15;
- uint16_t temp1_real = temp(temp1_raw) - 273.15;
-  uint16_t temp2_real = temp(temp2_raw) - 273.15;
-  uint16_t temp3_real = temp(temp3_raw) - 273.15;
+ float temp0_real = temp(temp0_raw, R_REF_0);
+ float temp1_real = temp(temp1_raw, R_REF_1);
+ float temp2_real = temp(temp2_raw, R_REF_2);
+ float temp3_real = temp(temp3_raw, R_REF_3);
 
 	// CAN message construction
 	uint16_t msg_id = CAN_MESSAGE_ID_BASE + mux_index;

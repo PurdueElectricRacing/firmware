@@ -1,4 +1,5 @@
 #include <CAN.h>
+#include <math.h>
 
 // ADC MUX Pins
 #define ADC_MUX_ADDR_0_PIN (0)
@@ -13,6 +14,52 @@
 
 #define CAN_MESSAGE_ID_BASE (0xBE0)
 
+// Hardware constants
+#define R_REF   10000.
+#define ADC_REF 5
+#define VCC     5.
+#define ADC_RES 1024.
+#define R25     10000.
+
+// Parameters of the thermocouple:
+// R_rel = R_t/R_25
+// 1/T = A + B * ln(R_rel) + C * ln(R_rel) ^ 2 + D * ln(R_rel) ^ 3
+// Low temperatures:
+#define A_LOW   0.003354016
+#define B_LOW   0.000256173
+#define C_LOW   2.13941e-06
+#define D_LOW   -7.25325e-08
+// High temperatures
+#define A_HIGH   0.003353045
+#define B_HIGH   0.000254200
+#define C_HIGH   1.14261e-06
+#define D_HIGH   -6.93803e-08
+
+float temp_calc (float a, float b, float c, float d, float r_rel) {
+
+    float sum = a +
+                b * log(r_rel) +
+                c * log(r_rel) * log(r_rel) +
+                d * log(r_rel) * log(r_rel) * log(r_rel);
+    
+    return 1 / sum;
+
+}
+
+float temp (int adc_meas) {
+
+    float v_out = (adc_meas + 0.5) * ADC_REF / ADC_RES;
+
+    float r_rel = v_out * R_REF / (VCC - v_out) / R25;
+
+    if (r_rel > 0.3603 && r_rel <= 3.265) {
+        return temp_calc(A_LOW, B_LOW, B_LOW, B_LOW, r_rel);
+    } else if (r_rel > 0.6748 && r_rel <= 0.3603) {
+        return temp_calc(A_HIGH, B_HIGH, B_HIGH, B_HIGH, r_rel);
+    } else {
+        return 0; // We're fucked
+    }
+}
 
 void setup()
 {
@@ -53,38 +100,48 @@ void loop()
 	delay(250);
 
 	// Analog sample
-	uint16_t temp0 = analogRead(ADC_MUX_SIG_0_PIN);
-	uint16_t temp1 = analogRead(ADC_MUX_SIG_1_PIN);
-	uint16_t temp2 = analogRead(ADC_MUX_SIG_2_PIN);
-	uint16_t temp3 = analogRead(ADC_MUX_SIG_3_PIN);
+	uint16_t temp0_raw = analogRead(ADC_MUX_SIG_0_PIN);
+ delay(10);
+	uint16_t temp1_raw = analogRead(ADC_MUX_SIG_1_PIN);
+  delay(10);
+	uint16_t temp2_raw = analogRead(ADC_MUX_SIG_2_PIN);
+  delay(10);
+	uint16_t temp3_raw = analogRead(ADC_MUX_SIG_3_PIN);
+
+ uint16_t temp0_real = temp(temp0_raw) - 273.15;
+ uint16_t temp1_real = temp(temp1_raw) - 273.15;
+  uint16_t temp2_real = temp(temp2_raw) - 273.15;
+  uint16_t temp3_real = temp(temp3_raw) - 273.15;
 
 	// CAN message construction
 	uint16_t msg_id = CAN_MESSAGE_ID_BASE + mux_index;
 
-  if(temp0 < 0 || temp0 > 1000){
+  if(temp0_raw < 0 || temp0_raw > 1000){
       Serial.print("--- mux_index = ");
       Serial.print(mux_index);
       Serial.print(", temp0 (raw) = ");
-      Serial.print(temp0);
+      Serial.print(temp0_raw);
       Serial.print("--- \n");
     } else {
       Serial.print("mux_index = ");
       Serial.print(mux_index);
-      Serial.print(", temp0 (raw) = ");
-      Serial.print(temp0);
-      Serial.print("\n");     
+      Serial.print(", temp0_raw = ");
+      Serial.print(temp0_raw);
+	  Serial.print(" real temp = ");
+	  Serial.print(temp0_real);
+	  Serial.print("\n");    
     }
-   
-	CAN.beginExtendedPacket(msg_id);
-	CAN.write((temp0 >> 8) & 0xFF);
-	CAN.write((temp0) & 0xFF);
-	CAN.write((temp1 >> 8) & 0xFF);
-	CAN.write((temp1) & 0xFF);
-	CAN.write((temp2 >> 8) & 0xFF);
-	CAN.write((temp2) & 0xFF);
-	CAN.write((temp3 >> 8) & 0xFF);
-	CAN.write((temp3) & 0xFF);
-	CAN.endPacket();
+//   
+//	CAN.beginExtendedPacket(msg_id);
+//	CAN.write((temp0 >> 8) & 0xFF);
+//	CAN.write((temp0) & 0xFF);
+//	CAN.write((temp1 >> 8) & 0xFF);
+//	CAN.write((temp1) & 0xFF);
+//	CAN.write((temp2 >> 8) & 0xFF);
+//	CAN.write((temp2) & 0xFF);
+//	CAN.write((temp3 >> 8) & 0xFF);
+//	CAN.write((temp3) & 0xFF);
+//	CAN.endPacket();
 
   if(mux_index == 15){
     mux_index = 0;

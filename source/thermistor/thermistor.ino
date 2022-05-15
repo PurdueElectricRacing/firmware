@@ -13,6 +13,7 @@
 #define ADC_MUX_SIG_3_PIN (A3)
 
 #define CAN_MESSAGE_ID_BASE (0xBE0)
+#define MCP2515_CS_PIN (9)
 
 // Hardware constants
 
@@ -46,6 +47,7 @@
 #define C_HIGH   8.53411e-07
 #define D_HIGH   -8.79629e-08
 
+void(* reboot) (void) = 0;
 
 
 float temp_calc (float a, float b, float c, float d, float r_rel) {
@@ -95,9 +97,10 @@ void setup()
 
 	Serial.println("PER Thermistors... sadly written for Arduino\n");
 
+	CAN.setPins(MCP2515_CS_PIN, MCP2515_DEFAULT_INT_PIN);
 	if (!CAN.begin(500E3)) {
 		Serial.println("Error with CAN initilization!");
-		//while (1);
+		reboot();
 	}
 }
 
@@ -146,17 +149,17 @@ void loop()
 	  Serial.print(temp0_real);
 	  Serial.print("\n");    
     }
-//   
-//	CAN.beginExtendedPacket(msg_id);
-//	CAN.write((temp0 >> 8) & 0xFF);
-//	CAN.write((temp0) & 0xFF);
-//	CAN.write((temp1 >> 8) & 0xFF);
-//	CAN.write((temp1) & 0xFF);
-//	CAN.write((temp2 >> 8) & 0xFF);
-//	CAN.write((temp2) & 0xFF);
-//	CAN.write((temp3 >> 8) & 0xFF);
-//	CAN.write((temp3) & 0xFF);
-//	CAN.endPacket();
+  
+	CAN.beginExtendedPacket(msg_id);
+	CAN.write((temp0 >> 8) & 0xFF);
+	CAN.write((temp0) & 0xFF);
+	CAN.write((temp1 >> 8) & 0xFF);
+	CAN.write((temp1) & 0xFF);
+	CAN.write((temp2 >> 8) & 0xFF);
+	CAN.write((temp2) & 0xFF);
+	CAN.write((temp3 >> 8) & 0xFF);
+	CAN.write((temp3) & 0xFF);
+	CAN.endPacket();
 
   if(mux_index == 15){
     mux_index = 0;

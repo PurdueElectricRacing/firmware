@@ -14,6 +14,7 @@ extern q_handle_t q_tx_can;
 bool charge_mode_enable = false; // Enable charge algo
 uint16_t charge_voltage_limit = 0;
 uint16_t charge_current_limit = 0;
+uint8_t  bms_temp_err = 0;
 
 static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pack_voltage);
 
@@ -36,6 +37,8 @@ uint16_t BMS_updateErrorFlags()
                | can_data.pack_info_3.error | can_data.pack_info_4.error
                | can_data.pack_info_5.error | can_data.pack_info_6.error
                | can_data.pack_info_7.error | can_data.pack_info_8.error;
+
+    bms_error_flags |= bms_temp_err;
 
     return bms_error_flags;
 }
@@ -114,7 +117,7 @@ void BMS_chargePeriodic()
     // Ensure that we only charge if:
     // 1. we do not have a BMS error
     // 2. Elcon charger is connected.
-    charge_mode_enable &= (BMS_updateErrorFlags() == 0) && !can_data.elcon_charger_status.stale;
+    // charge_mode_enable &= !can_data.elcon_charger_status.stale;
     
     if(charge_mode_enable)
     {
@@ -158,11 +161,21 @@ void BMS_chargePeriodic()
         charge_power_enable = cells_balanced_for_charge;
     }
 
+    charge_power_enable = (charge_voltage_req > 0 && charge_current_req > 0) ? 1 : 0;
+
     charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Hard limit, don't overcharge!
+    charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
+    charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
     SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !charge_power_enable);
+
+    uint16_t charge_current = can_data.elcon_charger_status.charge_current;
+    uint16_t charge_voltage = can_data.elcon_charger_status.charge_voltage;
+    charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
+    charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
+
     
-    float power = (can_data.elcon_charger_status.charge_current / 10.0f) * (can_data.elcon_charger_status.charge_voltage / 10.0f);
-    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req);
+    float power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
+    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req, charge_voltage, charge_current);
 }
 
 
@@ -184,3 +197,35 @@ MAKE_VOLTS_CELLS_CALLBACK(volts_cells_5_CALLBACK, volts_cells_5, 40)
 MAKE_VOLTS_CELLS_CALLBACK(volts_cells_6_CALLBACK, volts_cells_6, 50)
 MAKE_VOLTS_CELLS_CALLBACK(volts_cells_7_CALLBACK, volts_cells_7, 60)
 MAKE_VOLTS_CELLS_CALLBACK(volts_cells_8_CALLBACK, volts_cells_8, 70)
+
+uint16_t* temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0, &can_data.module_temp_1.mod_temp_0,
+                              &can_data.module_temp_2.mod_temp_0, &can_data.module_temp_3.mod_temp_0,
+                              &can_data.module_temp_4.mod_temp_0, &can_data.module_temp_5.mod_temp_0,
+                              &can_data.module_temp_6.mod_temp_0, &can_data.module_temp_7.mod_temp_0,
+                              &can_data.module_temp_8.mod_temp_0, &can_data.module_temp_9.mod_temp_0,
+                              &can_data.module_temp_10.mod_temp_0, &can_data.module_temp_11.mod_temp_0,
+                              &can_data.module_temp_12.mod_temp_0, &can_data.module_temp_13.mod_temp_0,
+                              &can_data.module_temp_14.mod_temp_0, &can_data.module_temp_15.mod_temp_0};
+
+// check temp periodically
+void tempPeriodic (){
+    uint16_t max_temp = 0;
+    uint8_t  i, j;
+    uint16_t* curr_address = &can_data.module_temp_0.mod_temp_0;
+    
+    for (i = 0; i < 16; i++) {
+        for (j = 0; j < 4; j++) {
+            if (*(temp_pointer[i] + j) > max_temp) {
+                max_temp = *(temp_pointer[i] + j);
+            }
+        }
+    }
+
+    SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
+
+    if (max_temp > MAX_TEMP) {
+        bms_temp_err = 1;
+    } else {
+        bms_temp_err = 0;
+    }
+}

@@ -208,9 +208,11 @@
                             "msg_name": "pack_charge_status",
                             "msg_desc": "Charge voltage and current request to ELCON charger",
                             "signals": [
-                                {"sig_name": "power", "sig_desc": "Instantaneous charge power", "unit":"W", "scale": 0.1, "type": "uint16_t", "length": 16},
+                                {"sig_name": "power", "sig_desc": "Instantaneous charge power", "unit":"W", "type": "uint16_t", "length": 16},
                                 {"sig_name": "charge_enable", "sig_desc": "Charge mode enable", "type": "uint8_t", "length": 1},
-                                {"sig_name": "balance_enable","sig_desc": "Cell balance enabled", "type": "uint8_t", "length": 1}
+                                {"sig_name": "balance_enable","sig_desc": "Cell balance enabled", "type": "uint8_t", "length": 1},
+                                {"sig_name": "voltage", "sig_desc": "Instantaneous charge voltage", "unit":"V", "scale": 0.1, "type": "uint16_t", "length": 16},
+                                {"sig_name": "current", "sig_desc": "Instantaneous charge current", "unit":"A", "scale": 0.1, "type": "uint16_t", "length": 16}
                             ],
                             "msg_period": 50,
                             "msg_hlp": 2,
@@ -239,7 +241,16 @@
                             "msg_period": 15,
                             "msg_hlp": 1,
                             "msg_pgn": 513
-                        }
+                        },
+                        {   "msg_name":"max_cell_temp",
+                            "msg_desc":"maximum cell temperature for the whole pack",
+                            "signals":[
+                                {"sig_name":"max_temp","type":"uint16_t","length":16, "scale": 0.1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5016
+                        }                       
                     ],
                     "rx": [
                         {"msg_name": "elcon_charger_status"}
@@ -452,7 +463,6 @@
                             "msg_hlp":1,
                             "msg_pgn":5015
                         }
-                        
                     ],
                     "rx": [
                         {"msg_name": "mainmodule_bl_cmd", "callback": true},
@@ -814,7 +824,24 @@
                         {"msg_name": "pack_info_8"},
                         {"msg_name": "temps_cells_8"},
                         {"msg_name": "cell_info_8"},
-                        {"msg_name": "power_lim_8"}
+                        {"msg_name": "power_lim_8"},
+
+                        {"msg_name": "module_temp_0"},
+                        {"msg_name": "module_temp_1"},
+                        {"msg_name": "module_temp_2"},
+                        {"msg_name": "module_temp_3"},
+                        {"msg_name": "module_temp_4"},
+                        {"msg_name": "module_temp_5"},
+                        {"msg_name": "module_temp_6"},
+                        {"msg_name": "module_temp_7"},
+                        {"msg_name": "module_temp_8"},
+                        {"msg_name": "module_temp_9"},
+                        {"msg_name": "module_temp_10"},
+                        {"msg_name": "module_temp_11"},
+                        {"msg_name": "module_temp_12"},
+                        {"msg_name": "module_temp_13"},
+                        {"msg_name": "module_temp_14"},
+                        {"msg_name": "module_temp_15"}
                     ]
                 },
                 {
@@ -1413,6 +1440,209 @@
                             "msg_period": 0,
                             "msg_hlp": 1,
                             "msg_pgn": 548
+                        }
+                    ],
+                    "rx": [
+                        {"msg_name": "heat_req"},
+                        {"msg_name": "pack_curr"}
+                    ]
+                },
+                {
+                    "node_name": "ARDUINO",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 44,
+                    "tx": [
+                        {
+                            "msg_name": "module_temp_0",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE0"
+                        },
+                        {
+                            "msg_name": "module_temp_1",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE1"
+                        },
+                        {
+                            "msg_name": "module_temp_2",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE2"
+                        },
+                        {
+                            "msg_name": "module_temp_3",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE3"
+                        },
+                        {
+                            "msg_name": "module_temp_4",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE4"
+                        },
+                        {
+                            "msg_name": "module_temp_5",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE5"
+                        },
+                        {
+                            "msg_name": "module_temp_6",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE6"
+                        },
+                        {
+                            "msg_name": "module_temp_7",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE7"
+                        },
+                        {
+                            "msg_name": "module_temp_8",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE8"
+                        },
+                        {
+                            "msg_name": "module_temp_9",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BE9"
+                        },
+                        {
+                            "msg_name": "module_temp_10",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BEA"
+                        },
+                        {
+                            "msg_name": "module_temp_11",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BEB"
+                        },
+                        {
+                            "msg_name": "module_temp_12",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BEC"
+                        },
+                        {
+                            "msg_name": "module_temp_13",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BED"
+                        },
+                        {
+                            "msg_name": "module_temp_14",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BEE"
+                        },
+                        {
+                            "msg_name": "module_temp_15",
+                            "msg_desc": "Cell temps from each module",
+                            "signals": [
+                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
+                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x00000BEF"
                         }
                     ],
                     "rx": [

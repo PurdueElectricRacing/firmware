@@ -29,6 +29,7 @@
 #define ID_PACK_CHARGE_STATUS 0x8008084
 #define ID_GYRO_DATA 0x4008004
 #define ID_ACCEL_DATA 0x4008044
+#define ID_MAX_CELL_TEMP 0x404e604
 #define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
 #define ID_SOC_CELLS_1 0x8007d6b
 #define ID_VOLTS_CELLS_1 0x4007dab
@@ -78,6 +79,22 @@
 #define ID_TEMPS_CELLS_8 0x40088ab
 #define ID_CELL_INFO_8 0x80088eb
 #define ID_POWER_LIM_8 0x400892b
+#define ID_MODULE_TEMP_0 0xbe0
+#define ID_MODULE_TEMP_1 0xbe1
+#define ID_MODULE_TEMP_2 0xbe2
+#define ID_MODULE_TEMP_3 0xbe3
+#define ID_MODULE_TEMP_4 0xbe4
+#define ID_MODULE_TEMP_5 0xbe5
+#define ID_MODULE_TEMP_6 0xbe6
+#define ID_MODULE_TEMP_7 0xbe7
+#define ID_MODULE_TEMP_8 0xbe8
+#define ID_MODULE_TEMP_9 0xbe9
+#define ID_MODULE_TEMP_10 0xbea
+#define ID_MODULE_TEMP_11 0xbeb
+#define ID_MODULE_TEMP_12 0xbec
+#define ID_MODULE_TEMP_13 0xbed
+#define ID_MODULE_TEMP_14 0xbee
+#define ID_MODULE_TEMP_15 0xbef
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
 #define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
@@ -90,9 +107,10 @@
 #define DLC_BATTERY_INFO 8
 #define DLC_CELL_INFO 7
 #define DLC_ELCON_CHARGER_COMMAND 5
-#define DLC_PACK_CHARGE_STATUS 3
+#define DLC_PACK_CHARGE_STATUS 7
 #define DLC_GYRO_DATA 6
 #define DLC_ACCEL_DATA 6
+#define DLC_MAX_CELL_TEMP 2
 #define DLC_DAQ_RESPONSE_PRECHARGE 8
 #define DLC_SOC_CELLS_1 7
 #define DLC_VOLTS_CELLS_1 7
@@ -142,6 +160,22 @@
 #define DLC_TEMPS_CELLS_8 7
 #define DLC_CELL_INFO_8 6
 #define DLC_POWER_LIM_8 4
+#define DLC_MODULE_TEMP_0 8
+#define DLC_MODULE_TEMP_1 8
+#define DLC_MODULE_TEMP_2 8
+#define DLC_MODULE_TEMP_3 8
+#define DLC_MODULE_TEMP_4 8
+#define DLC_MODULE_TEMP_5 8
+#define DLC_MODULE_TEMP_6 8
+#define DLC_MODULE_TEMP_7 8
+#define DLC_MODULE_TEMP_8 8
+#define DLC_MODULE_TEMP_9 8
+#define DLC_MODULE_TEMP_10 8
+#define DLC_MODULE_TEMP_11 8
+#define DLC_MODULE_TEMP_12 8
+#define DLC_MODULE_TEMP_13 8
+#define DLC_MODULE_TEMP_14 8
+#define DLC_MODULE_TEMP_15 8
 #define DLC_ELCON_CHARGER_STATUS 5
 #define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
@@ -193,12 +227,14 @@
         data_a->elcon_charger_command.charge_disable = charge_disable_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, balance_enable_) do {\
+#define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, balance_enable_, voltage_, current_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PACK_CHARGE_STATUS, .DLC=DLC_PACK_CHARGE_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pack_charge_status.power = power_;\
         data_a->pack_charge_status.charge_enable = charge_enable_;\
         data_a->pack_charge_status.balance_enable = balance_enable_;\
+        data_a->pack_charge_status.voltage = voltage_;\
+        data_a->pack_charge_status.current = current_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_GYRO_DATA(queue, gx_, gy_, gz_) do {\
@@ -215,6 +251,12 @@
         data_a->accel_data.ax = ax_;\
         data_a->accel_data.ay = ay_;\
         data_a->accel_data.az = az_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_MAX_CELL_TEMP(queue, max_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAX_CELL_TEMP, .DLC=DLC_MAX_CELL_TEMP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->max_cell_temp.max_temp = max_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_DAQ_RESPONSE_PRECHARGE(queue, daq_response_) do {\
@@ -271,6 +313,8 @@ typedef union { __attribute__((packed))
         uint64_t power: 16;
         uint64_t charge_enable: 1;
         uint64_t balance_enable: 1;
+        uint64_t voltage: 16;
+        uint64_t current: 16;
     } pack_charge_status;
     struct {
         uint64_t gx: 16;
@@ -282,6 +326,9 @@ typedef union { __attribute__((packed))
         uint64_t ay: 16;
         uint64_t az: 16;
     } accel_data;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
     struct {
         uint64_t daq_response: 64;
     } daq_response_PRECHARGE;
@@ -541,6 +588,102 @@ typedef union { __attribute__((packed))
         uint64_t disch_lim: 16;
         uint64_t chg_lim: 16;
     } power_lim_8;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_0;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_1;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_2;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_3;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_4;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_5;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_6;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_7;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_8;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_9;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_10;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_11;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_12;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_13;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_14;
+    struct {
+        uint64_t mod_temp_0: 16;
+        uint64_t mod_temp_1: 16;
+        uint64_t mod_temp_2: 16;
+        uint64_t mod_temp_3: 16;
+    } module_temp_15;
     struct {
         uint64_t charge_voltage: 16;
         uint64_t charge_current: 16;
@@ -817,6 +960,102 @@ typedef struct {
         uint16_t disch_lim;
         uint16_t chg_lim;
     } power_lim_8;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_0;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_1;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_2;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_3;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_4;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_5;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_6;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_7;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_8;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_9;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_10;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_11;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_12;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_13;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_14;
+    struct {
+        uint16_t mod_temp_0;
+        uint16_t mod_temp_1;
+        uint16_t mod_temp_2;
+        uint16_t mod_temp_3;
+    } module_temp_15;
     struct {
         uint16_t charge_voltage;
         uint16_t charge_current;

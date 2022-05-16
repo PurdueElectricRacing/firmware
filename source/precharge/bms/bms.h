@@ -6,19 +6,20 @@
 #define NUM_CELLS 80
 #define BALANCE_DELTA_MINIMUM_V (0.01)  // Minimum delta that balance will be enabled
 #define CHARGE_DELTA_MAXIMUM_V (1)      // Maximum delta that charge will be enabled
-
+#define MAX_TEMP (300)
 /**
  * @brief Initilize BMS structures
  * 
  */
 void BMS_init();
 
+void tempPeriodic();
 /**
  * @brief updateBMSError: Update and check a latched error flag for all BMS remote boards
  * 
  * @return uint16_t : Current error flags present
  */
-uint16_t BMS_updateBMSErrorFlags();
+uint16_t BMS_updateErrorFlags();
 
 /**
  * @brief txBatteryStatus: Send CAN messages combined from the BMS modules

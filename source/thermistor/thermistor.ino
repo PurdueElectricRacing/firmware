@@ -5,10 +5,12 @@
 #define ADC_MUX_ADDR_1_PIN (25)
 #define ADC_MUX_ADDR_2_PIN (27)
 #define ADC_MUX_ADDR_3_PIN (29)
+
 #define ADC_MUX_SIG_0_PIN (A12)
 #define ADC_MUX_SIG_1_PIN (A10)
 #define ADC_MUX_SIG_2_PIN (A11)
 #define ADC_MUX_SIG_3_PIN (A9)
+
 #define CAN_MESSAGE_ID_BASE (0xBE0)
 #define MCP2515_CS_PIN (9)
 // Hardware constants
@@ -17,6 +19,7 @@
 #define R_REF_1   10000.
 #define R_REF_2   10000.
 #define R_REF_3   10000.
+
 #define ADC_REF 5.
 #define VCC     5.
 #define ADC_RES 1024.
@@ -65,6 +68,7 @@ float temp (int adc_meas, float r_ref) {
 }
 void setup()
 {
+<<<<<<< HEAD
   pinMode(ADC_MUX_ADDR_0_PIN, OUTPUT);
   pinMode(ADC_MUX_ADDR_1_PIN, OUTPUT);
   pinMode(ADC_MUX_ADDR_2_PIN, OUTPUT);
@@ -124,7 +128,7 @@ void loop()
   CAN.write((temp2 >> 8) & 0xFF);
   CAN.write(temp3 & 0xFF);
   CAN.write((temp3 >> 8) & 0xFF);
-  CAN.endPacket();
+	CAN.endPacket();
 
   if(mux_index == 15){
     mux_index = 0;

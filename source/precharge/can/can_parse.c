@@ -301,6 +301,102 @@ void canRxUpdate()
                     can_data.power_lim_8.disch_lim = msg_data_a->power_lim_8.disch_lim;
                     can_data.power_lim_8.chg_lim = msg_data_a->power_lim_8.chg_lim;
                     break;
+                case ID_MODULE_TEMP_0:
+                    can_data.module_temp_0.mod_temp_0 = msg_data_a->module_temp_0.mod_temp_0;
+                    can_data.module_temp_0.mod_temp_1 = msg_data_a->module_temp_0.mod_temp_1;
+                    can_data.module_temp_0.mod_temp_2 = msg_data_a->module_temp_0.mod_temp_2;
+                    can_data.module_temp_0.mod_temp_3 = msg_data_a->module_temp_0.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_1:
+                    can_data.module_temp_1.mod_temp_0 = msg_data_a->module_temp_1.mod_temp_0;
+                    can_data.module_temp_1.mod_temp_1 = msg_data_a->module_temp_1.mod_temp_1;
+                    can_data.module_temp_1.mod_temp_2 = msg_data_a->module_temp_1.mod_temp_2;
+                    can_data.module_temp_1.mod_temp_3 = msg_data_a->module_temp_1.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_2:
+                    can_data.module_temp_2.mod_temp_0 = msg_data_a->module_temp_2.mod_temp_0;
+                    can_data.module_temp_2.mod_temp_1 = msg_data_a->module_temp_2.mod_temp_1;
+                    can_data.module_temp_2.mod_temp_2 = msg_data_a->module_temp_2.mod_temp_2;
+                    can_data.module_temp_2.mod_temp_3 = msg_data_a->module_temp_2.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_3:
+                    can_data.module_temp_3.mod_temp_0 = msg_data_a->module_temp_3.mod_temp_0;
+                    can_data.module_temp_3.mod_temp_1 = msg_data_a->module_temp_3.mod_temp_1;
+                    can_data.module_temp_3.mod_temp_2 = msg_data_a->module_temp_3.mod_temp_2;
+                    can_data.module_temp_3.mod_temp_3 = msg_data_a->module_temp_3.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_4:
+                    can_data.module_temp_4.mod_temp_0 = msg_data_a->module_temp_4.mod_temp_0;
+                    can_data.module_temp_4.mod_temp_1 = msg_data_a->module_temp_4.mod_temp_1;
+                    can_data.module_temp_4.mod_temp_2 = msg_data_a->module_temp_4.mod_temp_2;
+                    can_data.module_temp_4.mod_temp_3 = msg_data_a->module_temp_4.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_5:
+                    can_data.module_temp_5.mod_temp_0 = msg_data_a->module_temp_5.mod_temp_0;
+                    can_data.module_temp_5.mod_temp_1 = msg_data_a->module_temp_5.mod_temp_1;
+                    can_data.module_temp_5.mod_temp_2 = msg_data_a->module_temp_5.mod_temp_2;
+                    can_data.module_temp_5.mod_temp_3 = msg_data_a->module_temp_5.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_6:
+                    can_data.module_temp_6.mod_temp_0 = msg_data_a->module_temp_6.mod_temp_0;
+                    can_data.module_temp_6.mod_temp_1 = msg_data_a->module_temp_6.mod_temp_1;
+                    can_data.module_temp_6.mod_temp_2 = msg_data_a->module_temp_6.mod_temp_2;
+                    can_data.module_temp_6.mod_temp_3 = msg_data_a->module_temp_6.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_7:
+                    can_data.module_temp_7.mod_temp_0 = msg_data_a->module_temp_7.mod_temp_0;
+                    can_data.module_temp_7.mod_temp_1 = msg_data_a->module_temp_7.mod_temp_1;
+                    can_data.module_temp_7.mod_temp_2 = msg_data_a->module_temp_7.mod_temp_2;
+                    can_data.module_temp_7.mod_temp_3 = msg_data_a->module_temp_7.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_8:
+                    can_data.module_temp_8.mod_temp_0 = msg_data_a->module_temp_8.mod_temp_0;
+                    can_data.module_temp_8.mod_temp_1 = msg_data_a->module_temp_8.mod_temp_1;
+                    can_data.module_temp_8.mod_temp_2 = msg_data_a->module_temp_8.mod_temp_2;
+                    can_data.module_temp_8.mod_temp_3 = msg_data_a->module_temp_8.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_9:
+                    can_data.module_temp_9.mod_temp_0 = msg_data_a->module_temp_9.mod_temp_0;
+                    can_data.module_temp_9.mod_temp_1 = msg_data_a->module_temp_9.mod_temp_1;
+                    can_data.module_temp_9.mod_temp_2 = msg_data_a->module_temp_9.mod_temp_2;
+                    can_data.module_temp_9.mod_temp_3 = msg_data_a->module_temp_9.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_10:
+                    can_data.module_temp_10.mod_temp_0 = msg_data_a->module_temp_10.mod_temp_0;
+                    can_data.module_temp_10.mod_temp_1 = msg_data_a->module_temp_10.mod_temp_1;
+                    can_data.module_temp_10.mod_temp_2 = msg_data_a->module_temp_10.mod_temp_2;
+                    can_data.module_temp_10.mod_temp_3 = msg_data_a->module_temp_10.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_11:
+                    can_data.module_temp_11.mod_temp_0 = msg_data_a->module_temp_11.mod_temp_0;
+                    can_data.module_temp_11.mod_temp_1 = msg_data_a->module_temp_11.mod_temp_1;
+                    can_data.module_temp_11.mod_temp_2 = msg_data_a->module_temp_11.mod_temp_2;
+                    can_data.module_temp_11.mod_temp_3 = msg_data_a->module_temp_11.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_12:
+                    can_data.module_temp_12.mod_temp_0 = msg_data_a->module_temp_12.mod_temp_0;
+                    can_data.module_temp_12.mod_temp_1 = msg_data_a->module_temp_12.mod_temp_1;
+                    can_data.module_temp_12.mod_temp_2 = msg_data_a->module_temp_12.mod_temp_2;
+                    can_data.module_temp_12.mod_temp_3 = msg_data_a->module_temp_12.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_13:
+                    can_data.module_temp_13.mod_temp_0 = msg_data_a->module_temp_13.mod_temp_0;
+                    can_data.module_temp_13.mod_temp_1 = msg_data_a->module_temp_13.mod_temp_1;
+                    can_data.module_temp_13.mod_temp_2 = msg_data_a->module_temp_13.mod_temp_2;
+                    can_data.module_temp_13.mod_temp_3 = msg_data_a->module_temp_13.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_14:
+                    can_data.module_temp_14.mod_temp_0 = msg_data_a->module_temp_14.mod_temp_0;
+                    can_data.module_temp_14.mod_temp_1 = msg_data_a->module_temp_14.mod_temp_1;
+                    can_data.module_temp_14.mod_temp_2 = msg_data_a->module_temp_14.mod_temp_2;
+                    can_data.module_temp_14.mod_temp_3 = msg_data_a->module_temp_14.mod_temp_3;
+                    break;
+                case ID_MODULE_TEMP_15:
+                    can_data.module_temp_15.mod_temp_0 = msg_data_a->module_temp_15.mod_temp_0;
+                    can_data.module_temp_15.mod_temp_1 = msg_data_a->module_temp_15.mod_temp_1;
+                    can_data.module_temp_15.mod_temp_2 = msg_data_a->module_temp_15.mod_temp_2;
+                    can_data.module_temp_15.mod_temp_3 = msg_data_a->module_temp_15.mod_temp_3;
+                    break;
                 default:
                     __asm__("nop");
             }

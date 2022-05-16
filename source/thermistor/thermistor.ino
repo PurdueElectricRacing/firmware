@@ -2,15 +2,15 @@
 #include <math.h>
 
 // ADC MUX Pins
-#define ADC_MUX_ADDR_0_PIN (22)
-#define ADC_MUX_ADDR_1_PIN (24)
-#define ADC_MUX_ADDR_2_PIN (26)
-#define ADC_MUX_ADDR_3_PIN (28)
+#define ADC_MUX_ADDR_0_PIN (23)
+#define ADC_MUX_ADDR_1_PIN (25)
+#define ADC_MUX_ADDR_2_PIN (27)
+#define ADC_MUX_ADDR_3_PIN (29)
 
-#define ADC_MUX_SIG_0_PIN (A0)
-#define ADC_MUX_SIG_1_PIN (A1)
-#define ADC_MUX_SIG_2_PIN (A2)
-#define ADC_MUX_SIG_3_PIN (A3)
+#define ADC_MUX_SIG_0_PIN (A12)
+#define ADC_MUX_SIG_1_PIN (A10)
+#define ADC_MUX_SIG_2_PIN (A11)
+#define ADC_MUX_SIG_3_PIN (A9)
 
 #define CAN_MESSAGE_ID_BASE (0xBE0)
 #define MCP2515_CS_PIN (9)
@@ -23,7 +23,7 @@
 #define R_REF_2   10000.
 #define R_REF_3   10000.
 
-#define ADC_REF 5
+#define ADC_REF 5.
 #define VCC     5.
 #define ADC_RES 1024.
 #define R25     10000.
@@ -80,18 +80,11 @@ float temp (int adc_meas, float r_ref) {
 
 void setup()
 {
-  //analogReference(EXTERNAL);
-  
 	pinMode(ADC_MUX_ADDR_0_PIN, OUTPUT);
 	pinMode(ADC_MUX_ADDR_1_PIN, OUTPUT);
 	pinMode(ADC_MUX_ADDR_2_PIN, OUTPUT);
 	pinMode(ADC_MUX_ADDR_3_PIN, OUTPUT);
 	
-//	pinMode(ADC_MUX_SIG_0_PIN);
-//	pinMode(ADC_MUX_SIG_1_PIN);
-//	pinMode(ADC_MUX_SIG_2_PIN);
-//	pinMode(ADC_MUX_SIG_3_PIN);
-
 	Serial.begin(9600);
 	while (!Serial);
 
@@ -143,22 +136,27 @@ void loop()
     } else {
       Serial.print("mux_index = ");
       Serial.print(mux_index);
-      Serial.print(", temp0_raw = ");
-      Serial.print(temp0_raw);
+      Serial.print(", temp3z_raw = ");
+      Serial.print(temp3_raw);
 	  Serial.print(" real temp = ");
-	  Serial.print(temp0_real);
+	  Serial.print(temp3_real);
 	  Serial.print("\n");    
     }
+
+  uint16_t temp0 = (uint16_t) (temp0_real * 10);
+  uint16_t temp1 = (uint16_t) (temp1_real * 10);
+  uint16_t temp2 = (uint16_t) (temp2_real * 10);
+  uint16_t temp3 = (uint16_t) (temp3_real * 10);
   
 	CAN.beginExtendedPacket(msg_id);
-	CAN.write((temp0 >> 8) & 0xFF);
-	CAN.write((temp0) & 0xFF);
-	CAN.write((temp1 >> 8) & 0xFF);
-	CAN.write((temp1) & 0xFF);
-	CAN.write((temp2 >> 8) & 0xFF);
-	CAN.write((temp2) & 0xFF);
-	CAN.write((temp3 >> 8) & 0xFF);
-	CAN.write((temp3) & 0xFF);
+  CAN.write(temp0 & 0xFF);
+  CAN.write((temp0 >> 8) & 0xFF);
+  CAN.write(temp1 & 0xFF);
+  CAN.write((temp1 >> 8) & 0xFF);
+  CAN.write(temp2 & 0xFF);
+  CAN.write((temp2 >> 8) & 0xFF);
+  CAN.write(temp3 & 0xFF);
+  CAN.write((temp3 >> 8) & 0xFF);
 	CAN.endPacket();
 
   if(mux_index == 15){

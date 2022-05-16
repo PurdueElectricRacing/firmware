@@ -180,7 +180,7 @@
                 "-d",
                 "${workspaceFolder}/source/precharge"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {

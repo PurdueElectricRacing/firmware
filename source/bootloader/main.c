@@ -58,8 +58,10 @@ extern char _eboot_flash;      /* End of the bootlaoder flash region, same as th
 
 /* Bootlaoder timing control */
 static volatile uint32_t bootloader_ms = 0;
+static volatile uint32_t bootloader_ms_2 = 0;
 static volatile bool bootloader_timeout = false;
 static volatile bool send_status_flag = false;
+static bool send_flash_address = false;
 
 int main (void)
 {
@@ -89,6 +91,7 @@ int main (void)
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    NVIC_SetPriority(SysTick_IRQn, 29);
 
     CanMsgTypeDef_t tx_msg;
     BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_count);
@@ -110,8 +113,11 @@ int main (void)
         while (q_rx_can.item_count > 0)
             canRxUpdate();
 
-        if (BL_flashStarted())
+        if (BL_flashStarted() && send_flash_address)
+        {
+            send_flash_address = false;
             BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
+        }
 
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
@@ -128,6 +134,7 @@ int main (void)
         }
     }
 
+    asm("bkpt");
     NVIC_DisableIRQ(SysTick_IRQn);
     NVIC_DisableIRQ(CAN1_RX0_IRQn);
 
@@ -148,6 +155,11 @@ int main (void)
 void SysTick_Handler(void)
 {
     bootloader_ms++;
+
+    bootloader_ms_2 ++;
+    if (bootloader_ms_2 % 100 == 0)
+        send_flash_address = true;
+    
     switch (bootloader_shared_memory.reset_reason)
     {
         case RESET_REASON_DOWNLOAD_FW:
@@ -282,8 +294,10 @@ void jump_to_application(void)
     ((void(*)(void)) app_reset_handler_address)();
 }
 
+static uint32_t can_irq_hits = 0;
 void CAN1_RX0_IRQHandler()
 {
+    can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
         CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
 

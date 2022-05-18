@@ -68,7 +68,7 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
         num_msg  = num_msg + 1
         bin_arr = ih.tobinarray(start=address, size=4)
         data = sum([x << ((i*8)) for i, x in enumerate(bin_arr)])
-        time.sleep(0.01)
+        sleep_ns(1000)
         can_tx.send(bl.firmware_data_msg(data))
         
 
@@ -78,6 +78,8 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
             if rx_msg:
                 print(f"{rx_msg[0]}|{rx_msg[1]} != {address + 4} msg # {num_msg}")
             if time.time() > timeout:
+                # can_tx.send(bl.firmware_data_msg(data))
+                # timeout = time.time() + 0.01
                 print("Timeout!")
                 return
             rx_msg = bl.get_rx_msg()

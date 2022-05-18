@@ -60,6 +60,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         case BLCMD_FW_DATA:
         {
             // asm("bkpt");
+            num_msg++;
             if(app_flash_current_address >= app_flash_start_address && bl_unlock)
             {
                 if (((uint32_t) app_flash_current_address & 0b111) != 0)
@@ -73,7 +74,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                     data_buffer = data;
                 }
                 *bootloader_ms = 0;
-                num_msg++;
+                
                 app_flash_current_address ++;
 
             }

@@ -45,7 +45,8 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
-extern void HardFault_Handler();
+void HardFault_Handler();
+extern void Default_Handler();
 void jump_to_application(void);
 bool check_boot_health(void);
 
@@ -65,6 +66,7 @@ int main (void)
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    bootloader_ms = 0;
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config))
@@ -166,13 +168,13 @@ void SysTick_Handler(void)
             {
                 send_status_flag = true;
             }
-            if (bootloader_ms % 3000 == 0)
+            if (bootloader_ms >= 3000)
             {
                 bootloader_timeout = true;
             }
             break;
         case RESET_REASON_POR:
-            if (bootloader_ms % 2000 == 0)
+            if (bootloader_ms >= 2000)
             {
                 send_status_flag = true;
                 bootloader_timeout = true;
@@ -274,7 +276,7 @@ void jump_to_application(void)
 
     // Actually jump to application
     __set_MSP((uint32_t) (uint32_t*) (((void *) &_eboot_flash)));
-    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
+    // SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
     uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
     __enable_irq();
     ((void(*)(void)) app_reset_handler_address)();
@@ -318,4 +320,11 @@ void CAN1_RX0_IRQHandler()
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void HardFault_Handler()
+{
+    NVIC_SystemReset();
+    while(1)
+        ;
 }

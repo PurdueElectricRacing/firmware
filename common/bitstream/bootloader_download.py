@@ -14,9 +14,10 @@ import usb
 from intelhex import IntelHex
 from can_process import CANRxThread, CANTxThread
 from bootloader_commands import BootloaderCommand
-
+import os
+dbc_path = Path(__file__).parent.parent.joinpath(Path("daq/per_dbc.dbc"))
 # Setup CAN bus and DBC
-db = cantools.database.load_file(Path("../daq/per_dbc.dbc"))
+db = cantools.database.load_file(dbc_path)
 dev = usb.core.find(idVendor=0x1D50, idProduct=0x606F)
 bus = None
 if dev:
@@ -57,7 +58,7 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
     can_tx.send(bl.firmware_size_msg(total_words))
     while(not bl.get_rx_msg() or bl.get_rx_msg()[0] != 3):
         pass
-
+    time.sleep(0.1)
 
     print(f"Sending {fname}...")
     print(f"Total File Size: {total_bytes} Bytes")
@@ -67,17 +68,18 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
         num_msg  = num_msg + 1
         bin_arr = ih.tobinarray(start=address, size=4)
         data = sum([x << ((i*8)) for i, x in enumerate(bin_arr)])
+        time.sleep(0.01)
         can_tx.send(bl.firmware_data_msg(data))
+        
 
-        timeout = time.time() + 0.2
+        timeout = time.time() + 1
         rx_msg = bl.get_rx_msg()
         while(not rx_msg or rx_msg[1] != address + 4):
             if rx_msg:
                 print(f"{rx_msg[0]}|{rx_msg[1]} != {address + 4} msg # {num_msg}")
             if time.time() > timeout:
-                can_tx.send(bl.firmware_data_msg(data))
-                timeout = time.time() + 0.2
                 print("Timeout!")
+                return
             rx_msg = bl.get_rx_msg()
 
 
@@ -89,10 +91,12 @@ if __name__ == "__main__":
 
     can_rx.start()
     can_tx.start()
-    bl = BootloaderCommand("mainmodule", db, can_rx)
+    bl = BootloaderCommand("torquevector", db, can_rx)
+    
 
     can_tx.send(bl.reset_node_msg(""))
 
     fname = sys.argv[1]
+    print(Path(fname))
     update_firmware(bl, fname)
     print("Done updating module")

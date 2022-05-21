@@ -4,6 +4,7 @@ volatile Car_t car;
 extern q_handle_t q_tx_can;
 uint32_t buzzer_start_tick = 0;
 volatile ADCReadings_t adc_readings;
+uint8_t prchg_set;
 
 static bool checkErrorFaults();
 static bool checkFatalFaults();
@@ -14,12 +15,12 @@ bool carInit()
     car.state = CAR_STATE_INIT;
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 0);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, 0);
+    prchg_set = 0;
 }
 
 void carHeartbeat()
 {
-    SEND_MAIN_HB(q_tx_can, car.state, 
-                 PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin));
+    SEND_MAIN_HB(q_tx_can, car.state, prchg_set);
 }
 
 /**
@@ -138,7 +139,7 @@ void carPeriodic()
 
         // t_temp = (t_temp > 469) ? 0 : t_temp + 1;
 
-        SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, t_req, 0);
+        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req / 2, t_req / 2, 0, 0);
         // if (curr) SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 410);
         // else SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 0);
         /*
@@ -174,33 +175,51 @@ bool error_rose = 0;
 bool checkErrorFaults()
 {
     uint8_t is_error = 0;
+    uint8_t prchg_stat;
+    static uint16_t prchg_time;
+
     /* Heart Beat Stale */ 
     // is_error += can_data.dashboard_hb.stale;
     // is_error += can_data.front_driveline_hb.stale;
     // is_error += can_data.rear_driveline_hb.stale;
     //TODO: is_error += can_data.precharge_hb.stale;
 
+    prchg_stat = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+
+    if (!prchg_stat) {
+        ++prchg_time;
+    } else {
+        prchg_set = 1;
+        prchg_time = 0;
+    }
+
+    if (prchg_time > (500 / 15)) {
+        --prchg_time;
+        ++is_error;
+        prchg_set = 0;
+    }
+
     /* Precharge */
-    is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+    // is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
     /* Dashboard */
     // is_error += can_data.raw_throttle_brake.stale;
 
     /* Driveline */
     // Front
-    // is_error += can_data.front_driveline_hb.front_left_motor  != 
-    //             FRONT_LEFT_MOTOR_CONNECTED;
-    // is_error += can_data.front_driveline_hb.front_right_motor != 
-    //             FRONT_RIGHT_MOTOR_CONNECTED;
+    is_error += can_data.front_driveline_hb.front_left_motor  != 
+                FRONT_LEFT_MOTOR_CONNECTED;
+    is_error += can_data.front_driveline_hb.front_right_motor != 
+                FRONT_RIGHT_MOTOR_CONNECTED;
     // Rear
-    // is_error += can_data.rear_driveline_hb.rear_left_motor    != 
-    //             REAR_LEFT_MOTOR_CONNECTED;
-    // is_error += can_data.rear_driveline_hb.rear_right_motor   != 
-    //             REAR_RIGHT_MOTOR_CONNECTED;
+    is_error += can_data.rear_driveline_hb.rear_left_motor    != 
+                REAR_LEFT_MOTOR_CONNECTED;
+    is_error += can_data.rear_driveline_hb.rear_right_motor   != 
+                REAR_RIGHT_MOTOR_CONNECTED;
 
     /* Temperature */
-    if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;
-    if (!BAT_ALWAYS_COOL) is_error += cooling.bat_temp_error;
+    // if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;
+    // if (!BAT_ALWAYS_COOL) is_error += cooling.bat_temp_error;
 
     if (is_error && !error_rose) 
     {
@@ -214,7 +233,7 @@ bool checkErrorFaults()
         error_rose = false;
     }
 
-    return is_error || error_rose;
+    return is_error;
 }
 
 /**

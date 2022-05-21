@@ -5,6 +5,9 @@
 #include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
+
+#include "source/driveline/can/can_parse.h"
+
 #include "string.h"
 #include "stm32l432xx.h"
 
@@ -32,6 +35,7 @@
 #define MC_DECREASE_ONE   '-'
 #define MC_INCREASE_TENTH 'g'
 #define MC_DECREASE_TENTH 'l'
+#define MC_SET_TIMEOUT    't'
 
 #define MC_ENTER_ADJUST_MODE 'a'
 #define MC_EXIT_ADJUST_MODE  'e'
@@ -57,27 +61,40 @@ typedef enum
     MC_ERROR         // :(
 } motor_state_t;
 
+typedef enum {
+    MC_INIT_START,
+    MC_INIT_WAITING,
+    MC_INIT_FAILED,
+    MC_INIT_COMPLETE
+} motor_init_t;
+
 typedef struct 
 {
-    motor_state_t motor_state;
-    uint8_t init_state;
-    bool is_inverted;                       // Send 'f' versus 'r' for positive torque command
-    uint16_t curr_power_x10;                // Last torque command percent output sent x10
-    /* Tx */
-    q_handle_t *tx_queue;                   // FIFO for tx commands to be sent via DMA
-    /* Rx */
-    uint32_t rx_timeout;                    // Dynamically set timeout to determine connection status
-    uint32_t boot_start_time;               // Time of the first rx message received
-    volatile uint32_t last_rx_time;         // Time of the last rx message received
-    volatile char rx_buf[MC_MAX_RX_LENGTH]; // DMA rx circular buffer
-    /* Parsed Values */
-    bool     data_stale;                    // True if data has not been parsed for MC_PARSE_TIMEOUT
-    uint32_t last_parse_time;               // Last time data was succesfully parsed
-    uint16_t voltage_x10;                      
-    uint16_t current_x10;
-    uint32_t rpm;
-    uint8_t  controller_temp;
-    uint8_t  motor_temp;
+    // Motor status
+    uint16_t      init_time;                        // Current init timing
+    uint32_t      last_parse_time;                  // Last time data was succesfully parsed
+    motor_state_t motor_state;                      // Current motor state
+    motor_init_t  init_state;                       // Motor initialization state
+
+    // Motor configuration
+    bool          is_inverted;                      // Send 'f' versus 'r' for positive torque command
+    uint32_t      rx_timeout;                       // Dynamically set timeout to determine connection status
+
+    // Motor outputs
+    uint16_t      voltage_x10;                      
+    uint16_t      current_x10;
+    uint16_t      curr_power_x10;                   // Last torque command percent output sent x10
+    uint32_t      rpm;
+    uint8_t       controller_temp;
+    uint8_t       motor_temp;
+
+    // Communications
+    q_handle_t   *tx_queue;                         // FIFO for tx commands to be sent via DMA
+    uint32_t      boot_start_time;                  // Time of the first rx message received
+    bool          data_stale;                       // True if data has not been parsed for MC_PARSE_TIMEOUT
+
+    volatile uint32_t last_rx_time;                 // Time of the last rx message received
+    volatile char     rx_buf[MC_MAX_RX_LENGTH];     // DMA rx circular buffer
 } motor_t;
 
 /**

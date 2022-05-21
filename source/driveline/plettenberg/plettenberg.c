@@ -1,7 +1,7 @@
 #include "plettenberg.h"
 
-static bool mc_set_startup_params(motor_t *m);
 static void mc_set_param(uint8_t value, char *param, motor_t *m);
+static void mcInitialize(motor_t* m);
 static int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_addr);
 
 void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
@@ -70,60 +70,148 @@ void mc_set_param(uint8_t value, char *param, motor_t *m)
     cmd[idx++] = (value % 10) + '0';
     cmd[idx++] = 'w';
     cmd[idx++] = 'p';
-    //cmd[idx++] = MC_EXIT_ADJUST_MODE;
     cmd[idx++] = '\0';
     qSendToBack(m->tx_queue, cmd);
 }
 
-bool mc_set_startup_params(motor_t *m)
-{
-    // serial mode
-    char cmd[MC_MAX_TX_LENGTH];
-    uint8_t i = 0;
-    switch(m->init_state)
-    {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-            cmd[i++] = MC_SERIAL_MODE;
+// Communicates initialization state through motor_state_t
+static void mcInitialize(motor_t* m) {
+    char     cmd[2];
+    char     tmp_rx_buf[MC_MAX_RX_LENGTH];
+    int8_t   search_idx;
+    uint8_t  i;
+    uint32_t throwaway;
+
+    motor_init_t next_state;
+
+    next_state = m->init_state;
+
+    switch (m->init_state) {
+        case MC_INIT_START:
+        {
+            m->init_time = 0;
+            next_state = MC_INIT_WAITING;
+
+            // Try to put the motor controller into serial mode
+            cmd[0] = MC_SERIAL_MODE;
+            cmd[1] = '\0';
+
+            qSendToBack(m->tx_queue, cmd);
+        }
+
+        case MC_INIT_WAITING:
+        {
+            for (i = 0; i < MC_MAX_RX_LENGTH; ++i) {
+                tmp_rx_buf[i] = m->rx_buf[i];
+            }
+            search_idx = mc_parse(tmp_rx_buf, 0, "S=", &throwaway);
+
+            if (search_idx > 0) {
+                next_state = MC_INIT_COMPLETE;
+                cmd[0] = MC_SET_TIMEOUT;
+                cmd[1] = '\0';
+
+                qSendToBack(m->tx_queue, cmd);
+
+                return;
+            }
+
+            if (m->init_time == (1250 / 15)) {
+                next_state = MC_INIT_FAILED;
+            }
+
+            ++m->init_time;
+
             break;
-        case 6:
-            cmd[i++] = 't';
+        }
+
+        case MC_INIT_FAILED:
+        {
+            // State exists merely for the breakpoint
+            next_state = MC_INIT_START;
+
             break;
-        // case 2:
-        //     cmd[i++] = 'a';
-        //     break;
-        // case 3:
-        //     cmd[i++] = 's'; // reset params to default
-        //     cmd[i++] = 'd';
-        //     break;
-        // case 4:
-        //     cmd[i++] = 'w';
-        //     cmd[i++] = 'p';
-        //     break;
-        // case 5:
-        //     cmd[i++] = MC_SERIAL_MODE;
-        //     break;
-        // case 6:
-        //     cmd[i++] = 't';
-        //     break;
-        case 11:
-            m->init_state = 0;
-            return true;
-            break;
+        }
+
+        case MC_INIT_COMPLETE:
+        {
+            // Again, exists for the breakpoint
+            asm("nop");
+        }
     }
-    cmd[i++] = '\0';
-    qSendToBack(m->tx_queue, cmd);
-    ++m->init_state;
-    return false;
-    // TODO: set tmp and curr limits higher, we will do the checking
+
+    m->init_state = next_state;
+}
+
+// Returns false if the motor is not good to spin
+bool mc_periodic(motor_t* m) {
+    char     tmp_rx_buf[MC_MAX_RX_LENGTH];
+    int16_t  curr;
+    uint8_t  i;
+    uint32_t val_buf;
+    
+    // Can't be initialized if precharge isn't complete
+    if (can_data.main_hb.precharge_state == 0) {
+        m->motor_state = MC_DISCONNECTED;
+        m->init_state = MC_INIT_START;
+
+        return false;
+    }
+
+    // Check if we're in the middle of initialization
+    if (m->motor_state == MC_INITIALIZING) {
+        if (m->init_state == MC_INIT_COMPLETE) {
+            m->motor_state = MC_CONNECTED;
+        } else {
+            mcInitialize(m);
+
+            return false;
+        }
+    }
+
+    // Check if we're disconnected and run initialization
+    if (m->motor_state == MC_DISCONNECTED) {
+        m->motor_state = MC_INITIALIZING;
+        m->init_state = MC_INIT_START;
+
+        mcInitialize(m);
+
+        return false;
+    }
+
+    // 0        9        18       27       36       45         56        66
+    // S=3.649V,a=0.000V,PWM= 787,U= 34.9V,I=  3.7A,RPM=  1482,con= 28°C,mot= 26°C
+
+    // Copy buffer so it doesn't change underneath us
+    for (i = 0; i < MC_MAX_RX_LENGTH; ++i) {
+        tmp_rx_buf[i] = m->rx_buf[i];
+    }
+
+    // Parse voltage
+    curr = mc_parse(tmp_rx_buf, curr, "U=", &val_buf);
+    if (curr >= 0) m->voltage_x10 = (uint16_t) val_buf;
+
+    // Parse current
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "I=", &val_buf);
+    if (curr >= 0) m->current_x10 = (uint16_t) val_buf;
+
+    // Parse RPM
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "RPM=", &val_buf);
+    if (curr >= 0) m->rpm = val_buf;
+
+    // Parse controller temp
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "con=", &val_buf);
+    if (curr >= 0) m->controller_temp = (uint8_t) val_buf;
+
+    // Parse motor temp
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
+    if (curr >= 0) m->motor_temp = (uint8_t) val_buf;
+
+    // Update parse time
+    if (curr >= 0) m->last_parse_time = sched.os_ticks;
+    m->data_stale = (sched.os_ticks - m->last_parse_time > MC_PARSE_TIMEOUT);
+
+    return true;
 }
 
 int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_addr)
@@ -182,76 +270,4 @@ int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_a
 
     *val_addr = val;
     return curr;
-}
-
-static char tmp_rx_buf[MC_MAX_RX_LENGTH] = {'\0'};
-bool mc_periodic(motor_t *m) {
-    // Check rx timeout
-    bool timed_out = (sched.os_ticks - m->last_rx_time > m->rx_timeout);
-
-    /* Update connection status */
-    if (timed_out)
-    {
-        m->motor_state = MC_DISCONNECTED;
-        m->rx_timeout = MC_RX_LARGE_TIMEOUT_MS;
-    }
-    else if (m->motor_state == MC_DISCONNECTED)
-    {
-        m->boot_start_time = sched.os_ticks;
-        m->motor_state = MC_INITIALIZING;
-        m->rx_timeout = MC_RX_LARGE_TIMEOUT_MS;
-        m->init_state = 0;
-    }
-    else if (m->motor_state == MC_INITIALIZING &&
-            sched.os_ticks - m->boot_start_time > MC_BOOT_TIME)
-    {
-        if (mc_set_startup_params(m))
-        {
-            m->motor_state = MC_CONNECTED;
-        }
-    }
-
-    // Switch from large to small timeout after timeout constraint time
-    if (m->motor_state == MC_CONNECTED          && 
-        m->rx_timeout == MC_RX_LARGE_TIMEOUT_MS &&
-        sched.os_ticks - m->boot_start_time > MC_TIMEOUT_CONSTRAINT_TIME)
-    {
-        m->rx_timeout = MC_RX_SMALL_TIMEOUT_MS;
-    }
-
-    //
-
-    // 0        9        18       27       36       45         56        66
-    // S=3.649V,a=0.000V,PWM= 787,U= 34.9V,I=  3.7A,RPM=  1482,con= 28°C,mot= 26°C
-    int16_t curr = 0;
-    uint32_t val_buf = 0;
-
-    // freeze state of dma buffer
-    for (uint8_t i = 0; i < MC_MAX_RX_LENGTH; ++i) tmp_rx_buf[i] = m->rx_buf[i];
-
-    /* Voltage */
-    curr = mc_parse(tmp_rx_buf, curr, "U=", &val_buf);
-    if (curr >= 0) m->voltage_x10 = (uint16_t) val_buf;
-
-    /* Current */
-    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "I=", &val_buf);
-    if (curr >= 0) m->current_x10 = (uint16_t) val_buf;
-
-    /* RPM */
-    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "RPM=", &val_buf);
-    if (curr >= 0) m->rpm = val_buf;
-
-    /* Controller temp */
-    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "con=", &val_buf);
-    if (curr >= 0) m->controller_temp = (uint8_t) val_buf;
-
-    /* Motor temp */
-    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
-    if (curr >= 0) m->motor_temp = (uint8_t) val_buf;
-
-    // Update parse time
-    if (curr >= 0) m->last_parse_time = sched.os_ticks;
-    m->data_stale = (sched.os_ticks - m->last_parse_time > MC_PARSE_TIMEOUT);
-
-    return curr >= 0;
 }

@@ -293,9 +293,13 @@ void heartBeat()
     #if (FTR_DRIVELINE_FRONT)
     SEND_FRONT_DRIVELINE_HB(q_tx_can, motor_left.motor_state,
                                       motor_right.motor_state);
+    SEND_FRONT_MOTOR_INIT(q_tx_can, motor_left.init_state, motor_right.init_state);
+
     #elif (FTR_DRIVELINE_REAR)
     SEND_REAR_DRIVELINE_HB(q_tx_can, motor_left.motor_state,
                                       motor_right.motor_state);
+    SEND_FRONT_MOTOR_INIT(q_tx_can, motor_right.init_state, motor_right.init_state);
+
     #endif
 }
 /**

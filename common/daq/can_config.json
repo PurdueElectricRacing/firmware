@@ -154,6 +154,28 @@
                             "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 11
+                        },
+                        {
+                            "msg_name": "front_motor_init",
+                            "msg_desc": "Front motor controller initialization status",
+                            "signals": [
+                                {"sig_name": "front_left_init", "type":"uint8_t", "choices": ["starting", "waiting", "failed", "connected"]},
+                                {"sig_name": "front_right_init", "type":"uint8_t", "choices": ["starting", "waiting", "failed", "connected"]}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 12
+                        },
+                        {
+                            "msg_name": "rear_motor_init",
+                            "msg_desc": "Front motor controller initialization status",
+                            "signals": [
+                                {"sig_name": "rear_left_init", "type":"uint8_t", "choices": ["starting", "waiting", "failed", "connected"]},
+                                {"sig_name": "rear_right_init", "type":"uint8_t", "choices": ["starting", "waiting", "failed", "connected"]}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 13
                         }
                     ],
                     "rx": [

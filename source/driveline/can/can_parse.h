@@ -26,6 +26,8 @@
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
+#define ID_FRONT_MOTOR_INIT 0x14000303
+#define ID_REAR_MOTOR_INIT 0x14000343
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
 /* END AUTO ID DEFS */
@@ -38,6 +40,8 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
+#define DLC_FRONT_MOTOR_INIT 2
+#define DLC_REAR_MOTOR_INIT 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
 /* END AUTO DLC DEFS */
@@ -94,6 +98,20 @@ extern uint32_t last_can_rx_time_ms;
         data_a->rear_motor_currents_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_FRONT_MOTOR_INIT(queue, front_left_init_, front_right_init_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_MOTOR_INIT, .DLC=DLC_FRONT_MOTOR_INIT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->front_motor_init.front_left_init = front_left_init_;\
+        data_a->front_motor_init.front_right_init = front_right_init_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_REAR_MOTOR_INIT(queue, rear_left_init_, rear_right_init_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_INIT, .DLC=DLC_REAR_MOTOR_INIT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->rear_motor_init.rear_left_init = rear_left_init_;\
+        data_a->rear_motor_init.rear_right_init = rear_right_init_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -134,6 +152,34 @@ typedef enum {
     REAR_RIGHT_MOTOR_CONNECTED,
     REAR_RIGHT_MOTOR_ERROR,
 } rear_right_motor_t;
+
+typedef enum {
+    FRONT_LEFT_INIT_STARTING,
+    FRONT_LEFT_INIT_WAITING,
+    FRONT_LEFT_INIT_FAILED,
+    FRONT_LEFT_INIT_CONNECTED,
+} front_left_init_t;
+
+typedef enum {
+    FRONT_RIGHT_INIT_STARTING,
+    FRONT_RIGHT_INIT_WAITING,
+    FRONT_RIGHT_INIT_FAILED,
+    FRONT_RIGHT_INIT_CONNECTED,
+} front_right_init_t;
+
+typedef enum {
+    REAR_LEFT_INIT_STARTING,
+    REAR_LEFT_INIT_WAITING,
+    REAR_LEFT_INIT_FAILED,
+    REAR_LEFT_INIT_CONNECTED,
+} rear_left_init_t;
+
+typedef enum {
+    REAR_RIGHT_INIT_STARTING,
+    REAR_RIGHT_INIT_WAITING,
+    REAR_RIGHT_INIT_FAILED,
+    REAR_RIGHT_INIT_CONNECTED,
+} rear_right_init_t;
 
 typedef enum {
     CAR_STATE_INIT,
@@ -182,6 +228,14 @@ typedef union { __attribute__((packed))
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;
+    struct {
+        uint64_t front_left_init: 8;
+        uint64_t front_right_init: 8;
+    } front_motor_init;
+    struct {
+        uint64_t rear_left_init: 8;
+        uint64_t rear_right_init: 8;
+    } rear_motor_init;
     struct {
         uint64_t front_left: 16;
         uint64_t front_right: 16;

@@ -156,6 +156,7 @@ typedef enum {
 typedef enum {
     FRONT_LEFT_INIT_STARTING,
     FRONT_LEFT_INIT_WAITING,
+    FRONT_LEFT_INIT_DELAYING,
     FRONT_LEFT_INIT_FAILED,
     FRONT_LEFT_INIT_CONNECTED,
 } front_left_init_t;
@@ -163,6 +164,7 @@ typedef enum {
 typedef enum {
     FRONT_RIGHT_INIT_STARTING,
     FRONT_RIGHT_INIT_WAITING,
+    FRONT_RIGHT_INIT_DELAYING,
     FRONT_RIGHT_INIT_FAILED,
     FRONT_RIGHT_INIT_CONNECTED,
 } front_right_init_t;
@@ -170,6 +172,7 @@ typedef enum {
 typedef enum {
     REAR_LEFT_INIT_STARTING,
     REAR_LEFT_INIT_WAITING,
+    REAR_LEFT_INIT_DELAYING,
     REAR_LEFT_INIT_FAILED,
     REAR_LEFT_INIT_CONNECTED,
 } rear_left_init_t;
@@ -177,6 +180,7 @@ typedef enum {
 typedef enum {
     REAR_RIGHT_INIT_STARTING,
     REAR_RIGHT_INIT_WAITING,
+    REAR_RIGHT_INIT_DELAYING,
     REAR_RIGHT_INIT_FAILED,
     REAR_RIGHT_INIT_CONNECTED,
 } rear_right_init_t;

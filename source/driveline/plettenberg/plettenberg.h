@@ -64,6 +64,7 @@ typedef enum
 typedef enum {
     MC_INIT_START,
     MC_INIT_WAITING,
+    MC_INIT_DELAY,
     MC_INIT_FAILED,
     MC_INIT_COMPLETE
 } motor_init_t;

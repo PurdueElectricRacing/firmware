@@ -107,10 +107,10 @@ static void mcInitialize(motor_t* m) {
             search_idx = mc_parse(tmp_rx_buf, 0, "S=", &throwaway);
 
             if (search_idx > 0) {
-                cmd[0] = MC_SET_TIMEOUT;
-                cmd[1] = '\0';
+                // cmd[0] = MC_SET_TIMEOUT;
+                // cmd[1] = '\0';
 
-                qSendToBack(m->tx_queue, cmd);
+                // qSendToBack(m->tx_queue, cmd);
 
                 m->init_state = MC_INIT_DELAY;
                 m->init_time = 0;
@@ -131,6 +131,7 @@ static void mcInitialize(motor_t* m) {
         {
             if (m->init_time == (500 / 15)) {
                 next_state = MC_INIT_COMPLETE;
+                asm("nop");
             }
 
             ++m->init_time;

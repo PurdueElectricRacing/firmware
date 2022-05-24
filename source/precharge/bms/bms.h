@@ -13,6 +13,8 @@
  */
 void BMS_init();
 
+uint8_t BMS_findBadCell();
+
 void tempPeriodic();
 /**
  * @brief updateBMSError: Update and check a latched error flag for all BMS remote boards

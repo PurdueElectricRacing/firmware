@@ -73,7 +73,7 @@ uint8_t BMS_findBadCell() {
     // Calculate average without masked cells
     for (i = 0; i < NUM_CELLS; i++) {
         if (!(cell_mask[i / 32] & (1U << (i % 32)))) {
-            average += cell_volts[i];
+            average += cell_volts[i] / 10000;
             ++cell_added;
         }
     }

@@ -250,7 +250,20 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":5016
-                        }                       
+                        },
+                        {
+                            "msg_name": "mod_cell_temp_avg",
+                            "msg_desc": "Average cell temperature for each module",
+                            "signals":[
+                                {"sig_name": "temp_A", "type": "uint16_t", "length": 16, "scale": 0.1},
+                                {"sig_name": "temp_B", "type": "uint16_t", "length": 16, "scale": 0.1},
+                                {"sig_name": "temp_C", "type": "uint16_t", "length": 16, "scale": 0.1},
+                                {"sig_name": "temp_D", "type": "uint16_t", "length": 16, "scale": 0.1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":5,
+                            "msg_pgn":514
+                        }                      
                     ],
                     "rx": [
                         {"msg_name": "elcon_charger_status"}

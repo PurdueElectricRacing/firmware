@@ -30,6 +30,7 @@
 #define ID_GYRO_DATA 0x4008004
 #define ID_ACCEL_DATA 0x4008044
 #define ID_MAX_CELL_TEMP 0x404e604
+#define ID_MOD_CELL_TEMP_AVG 0x14008084
 #define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
 #define ID_SOC_CELLS_1 0x8007d6b
 #define ID_VOLTS_CELLS_1 0x4007dab
@@ -111,6 +112,7 @@
 #define DLC_GYRO_DATA 6
 #define DLC_ACCEL_DATA 6
 #define DLC_MAX_CELL_TEMP 2
+#define DLC_MOD_CELL_TEMP_AVG 8
 #define DLC_DAQ_RESPONSE_PRECHARGE 8
 #define DLC_SOC_CELLS_1 7
 #define DLC_VOLTS_CELLS_1 7
@@ -259,6 +261,15 @@
         data_a->max_cell_temp.max_temp = max_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_MOD_CELL_TEMP_AVG(queue, temp_A_, temp_B_, temp_C_, temp_D_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_AVG, .DLC=DLC_MOD_CELL_TEMP_AVG, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->mod_cell_temp_avg.temp_A = temp_A_;\
+        data_a->mod_cell_temp_avg.temp_B = temp_B_;\
+        data_a->mod_cell_temp_avg.temp_C = temp_C_;\
+        data_a->mod_cell_temp_avg.temp_D = temp_D_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_DAQ_RESPONSE_PRECHARGE(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PRECHARGE, .DLC=DLC_DAQ_RESPONSE_PRECHARGE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -329,6 +340,12 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
+    struct {
+        uint64_t temp_A: 16;
+        uint64_t temp_B: 16;
+        uint64_t temp_C: 16;
+        uint64_t temp_D: 16;
+    } mod_cell_temp_avg;
     struct {
         uint64_t daq_response: 64;
     } daq_response_PRECHARGE;

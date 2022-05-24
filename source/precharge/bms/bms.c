@@ -73,7 +73,7 @@ uint8_t BMS_findBadCell() {
     // Calculate average without masked cells
     for (i = 0; i < NUM_CELLS; i++) {
         if (!(cell_mask[i / 32] & (1U << (i % 32)))) {
-            average += cell_volts[i] / 10000;
+            average += (float) cell_volts[i] / 10000.0;
             ++cell_added;
         }
     }
@@ -280,9 +280,11 @@ void tempPeriodic (){
     uint16_t max_temp = 0;
     uint8_t  i, j;
     uint16_t* curr_address = &can_data.module_temp_0.mod_temp_0;
+    float    avg_temp[4] = {0};
     
     for (i = 0; i < 16; i++) {
         for (j = 0; j < 4; j++) {
+            avg_temp[j] += ((float) *(temp_pointer[i] + j)) / 10;
             if (*(temp_pointer[i] + j) > max_temp) {
                 max_temp = *(temp_pointer[i] + j);
             }
@@ -290,6 +292,7 @@ void tempPeriodic (){
     }
 
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10), (uint16_t) (avg_temp[1] * 10), (uint16_t) (avg_temp[2] * 10), (uint16_t) (avg_temp[3] * 10));
 
     if (max_temp > MAX_TEMP) {
         bms_temp_err = 1;

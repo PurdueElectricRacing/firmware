@@ -129,6 +129,12 @@ BO_ 2214625348 accel_data: 6 Precharge
 BO_ 2214913540 max_cell_temp: 2 Precharge
  SG_ max_temp : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
 
+BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
+ SG_ temp_D : 48|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -827,6 +833,11 @@ CM_ SG_ 2214625348 ay "";
 CM_ SG_ 2214625348 ax "";
 CM_ BO_ 2214913540 "maximum cell temperature for the whole pack";
 CM_ SG_ 2214913540 max_temp "";
+CM_ BO_ 2483060868 "Average cell temperature for each module";
+CM_ SG_ 2483060868 temp_D "";
+CM_ SG_ 2483060868 temp_C "";
+CM_ SG_ 2483060868 temp_B "";
+CM_ SG_ 2483060868 temp_A "";
 CM_ BO_ 2550136772 "daq response from node PRECHARGE";
 CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483028613 "throttle_brake desc";

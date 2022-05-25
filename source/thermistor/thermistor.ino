@@ -68,7 +68,6 @@ float temp (int adc_meas, float r_ref) {
 }
 void setup()
 {
-<<<<<<< HEAD
   pinMode(ADC_MUX_ADDR_0_PIN, OUTPUT);
   pinMode(ADC_MUX_ADDR_1_PIN, OUTPUT);
   pinMode(ADC_MUX_ADDR_2_PIN, OUTPUT);

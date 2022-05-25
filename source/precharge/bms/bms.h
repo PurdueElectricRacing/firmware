@@ -7,6 +7,7 @@
 #define BALANCE_DELTA_MINIMUM_V (0.01)  // Minimum delta that balance will be enabled
 #define CHARGE_DELTA_MAXIMUM_V (1)      // Maximum delta that charge will be enabled
 #define MAX_TEMP (300)
+
 /**
  * @brief Initilize BMS structures
  * 

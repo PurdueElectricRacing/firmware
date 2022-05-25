@@ -175,7 +175,6 @@ static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pac
  */
 void BMS_chargePeriodic()
 {
-
     bool charge_power_enable = false;                   // Allow power from elcon
     bool balance_req         = false;                   // Sending balance request to the modules
     static bool cells_balanced_for_charge = false;      // Cells are ready to charge

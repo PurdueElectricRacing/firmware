@@ -838,7 +838,6 @@
                         {"msg_name": "temps_cells_8"},
                         {"msg_name": "cell_info_8"},
                         {"msg_name": "power_lim_8"},
-
                         {"msg_name": "module_temp_0"},
                         {"msg_name": "module_temp_1"},
                         {"msg_name": "module_temp_2"},

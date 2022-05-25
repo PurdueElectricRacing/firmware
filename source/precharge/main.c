@@ -66,7 +66,7 @@ extern void HardFault_Handler();
 
 void canTxUpdate();
 void heartbeatTask();
-void monitorIMD();
+void monitorStatus();
 void sendIMUData();
 void imuConfigureAccel();
 
@@ -138,11 +138,12 @@ int main (void)
     schedInit(SystemCoreClock);
     configureAnim(preflightAnimation, preflightChecks, 75, 750);
     taskCreate(heartbeatTask, 500);
-    taskCreate(monitorIMD, 50);
+    taskCreate(monitorStatus, 50);
     taskCreate(BMS_txBatteryStatus, 50);
     taskCreate(BMS_chargePeriodic, 50);
     taskCreate(sendIMUData, 10);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(tempPeriodic, 500);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -226,9 +227,12 @@ void heartbeatTask()
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 }
 
-void monitorIMD()
+void monitorStatus()
 {
-    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin));
+    uint16_t err;
+    err = BMS_findBadCell();
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err ? 0 : 1);
 }
 
 void sendIMUData()

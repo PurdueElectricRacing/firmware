@@ -247,18 +247,6 @@ void sendIMUData()
 
 }
 
-void sendIMUData()
-{
-    static bool send_gyro = true;
-    int16_t ax, ay, az, gx, gy, gz;
-    BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
-    BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-    
-    SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
-    SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
-
-}
-
 // *** Compulsory CAN Tx/Rx callbacks ***
 void canTxUpdate()
 {

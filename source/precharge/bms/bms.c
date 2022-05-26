@@ -291,7 +291,7 @@ void tempPeriodic (){
     }
 
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10), (uint16_t) (avg_temp[1] * 10), (uint16_t) (avg_temp[2] * 10), (uint16_t) (avg_temp[3] * 10));
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
 
     if (max_temp > MAX_TEMP) {
         bms_temp_err = 1;

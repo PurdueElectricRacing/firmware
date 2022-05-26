@@ -67,6 +67,10 @@ void bmsStatus()
     PHAL_writeGPIO(LED_ERR_GPIO_Port, LED_ERR_Pin, e_flag ? flag : 0);
     PHAL_writeGPIO(LED_CONN_GPIO_Port, LED_CONN_Pin, bms.afe_con);
 
+    #ifdef BMS_LV
+    PHAL_writeGPIO(LV_ERR_GPIO_Port, LV_ERR_Pin, bms.error ? 1 : 0);
+    #endif
+
     if (bms.veh_con == 1)
     {
         bms.op_mode = MODE_DISCHARGE;

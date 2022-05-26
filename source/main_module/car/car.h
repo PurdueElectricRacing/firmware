@@ -34,6 +34,8 @@
 #define BRAKE_BLINK_CT 3
 #define BRAKE_BLINK_PERIOD 250
 
+// Uncomment if running on power supply
+#define LV_PRESENT
 
 typedef struct __attribute__((packed))
 {

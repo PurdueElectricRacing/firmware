@@ -248,6 +248,10 @@ bool checkFatalFaults()
     if (!DT_FLOW_CHECK_OVERRIDE)  is_error += cooling.dt_flow_error;
     if (!BAT_FLOW_CHECK_OVERRIDE) is_error += cooling.bat_flow_error;
 
+    #ifdef LV_PRESENT
+    is_error += !PHAL_readGPIO(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin);
+    #endif
+
     return is_error;
 }
 

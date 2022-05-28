@@ -12,6 +12,7 @@
 #define _CAR_H_
 
 #include <stdbool.h>
+#include <math.h>
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/psched/psched.h"
 #include "main.h"
@@ -36,6 +37,11 @@
 
 // Uncomment if running on power supply
 #define LV_PRESENT
+/* EDIFF */
+#define V_WIDTH         10.0f
+#define V_LENGTH        10.0f
+#define RACK_SCALING    1.0f
+#define DEG_TO_RAD      0.0174533f
 
 typedef struct __attribute__((packed))
 {

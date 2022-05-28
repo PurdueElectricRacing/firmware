@@ -22,6 +22,7 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_MAIN_HB 0x4001901
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_VELOCITY_REQUEST_MAIN 0x14000041
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
@@ -30,6 +31,7 @@
 #define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_REAR_DRIVELINE_HB 0x4001943
 #define ID_DASHBOARD_HB 0x4001905
+#define ID_LWS_STANDARD 0x2b0
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
 /* END AUTO ID DEFS */
 
@@ -37,6 +39,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_VELOCITY_REQUEST_MAIN 8
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
@@ -45,6 +48,7 @@
 #define DLC_FRONT_DRIVELINE_HB 2
 #define DLC_REAR_DRIVELINE_HB 2
 #define DLC_DASHBOARD_HB 1
+#define DLC_LWS_STANDARD 5
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
@@ -66,6 +70,15 @@
         data_a->torque_request_main.rear_right = rear_right_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_VELOCITY_REQUEST_MAIN(queue, front_left_, front_right_, rear_left_, rear_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VELOCITY_REQUEST_MAIN, .DLC=DLC_VELOCITY_REQUEST_MAIN, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->velocity_request_main.front_left = front_left_;\
+        data_a->velocity_request_main.front_right = front_right_;\
+        data_a->velocity_request_main.rear_left = rear_left_;\
+        data_a->velocity_request_main.rear_right = rear_right_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_DAQ_RESPONSE_MAIN_MODULE(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_MAIN_MODULE, .DLC=DLC_DAQ_RESPONSE_MAIN_MODULE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -83,6 +96,7 @@
 #define UP_FRONT_DRIVELINE_HB 100
 #define UP_REAR_DRIVELINE_HB 100
 #define UP_DASHBOARD_HB 100
+#define UP_LWS_STANDARD 10
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -143,6 +157,12 @@ typedef union { __attribute__((packed))
         uint64_t rear_right: 16;
     } torque_request_main;
     struct {
+        uint64_t front_left: 16;
+        uint64_t front_right: 16;
+        uint64_t rear_left: 16;
+        uint64_t rear_right: 16;
+    } velocity_request_main;
+    struct {
         uint64_t daq_response: 64;
     } daq_response_MAIN_MODULE;
     struct {
@@ -177,6 +197,12 @@ typedef union { __attribute__((packed))
         uint64_t bse_faulted: 1;
         uint64_t apps_brake_faulted: 1;
     } dashboard_hb;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Reserved_1: 8;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
     struct {
         uint64_t daq_command: 64;
     } daq_command_MAIN_MODULE;
@@ -232,6 +258,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } dashboard_hb;
+    struct {
+        int16_t LWS_ANGLE;
+        uint8_t LWS_SPEED;
+        uint8_t Reserved_1;
+        uint8_t Reserved_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } LWS_Standard;
     struct {
         uint64_t daq_command;
     } daq_command_MAIN_MODULE;

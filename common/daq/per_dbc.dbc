@@ -46,6 +46,12 @@ BO_ 2214592577 torque_request_main: 8 Main_Module
  SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
+BO_ 2483028033 velocity_request_main: 8 Main_Module
+ SG_ rear_right : 48|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left : 32|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136769 daq_response_MAIN_MODULE: 8 Main_Module
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -90,6 +96,14 @@ BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
  SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
+
+BO_ 2483028739 front_motor_init: 2 Driveline
+ SG_ front_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028803 rear_motor_init: 2 Driveline
+ SG_ rear_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281734148 test_precharge_msg: 1 Precharge
  SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -447,6 +461,11 @@ CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
+CM_ BO_ 2483028033 "Test of E-Diff to see velocity outputs given wheel input";
+CM_ SG_ 2483028033 rear_right "velocity request * 10";
+CM_ SG_ 2483028033 rear_left "velocity request * 10";
+CM_ SG_ 2483028033 front_right "velocity request * 10";
+CM_ SG_ 2483028033 front_left "velocity request * 10";
 CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
 CM_ SG_ 2550136769 daq_response "";
 CM_ BO_ 2214592578 "Torque request for all motors.";
@@ -483,6 +502,12 @@ CM_ SG_ 2348810947 right_temp "";
 CM_ SG_ 2348810947 left_temp "";
 CM_ SG_ 2348810947 right_current "";
 CM_ SG_ 2348810947 left_current "";
+CM_ BO_ 2483028739 "Front motor controller initialization status";
+CM_ SG_ 2483028739 front_right_init "";
+CM_ SG_ 2483028739 front_left_init "";
+CM_ BO_ 2483028803 "Front motor controller initialization status";
+CM_ SG_ 2483028803 rear_right_init "";
+CM_ SG_ 2483028803 rear_left_init "";
 CM_ BO_ 2281734148 "test precharge desc";
 CM_ SG_ 2281734148 test_precharge_sig "";
 CM_ BO_ 2483028613 "throttle_brake desc";
@@ -741,6 +766,10 @@ VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected
 VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
 VAL_ 2214598979 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
 VAL_ 2214598979 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2483028739 front_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028739 front_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028803 rear_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028803 rear_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

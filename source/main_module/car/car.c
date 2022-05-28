@@ -127,38 +127,20 @@ void carPeriodic()
         // Send torque command to all 4 motors
         int16_t t_req = can_data.raw_throttle_brake.throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0);
         t_req = t_req > 820 ? 820 : t_req;
-        // if (t_req > 0) {
-        //     asm("bkpt");
-        // }
         // SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
-        if (sched.os_ticks - last_time > 2000){ 
-            //curr++;
-            curr = !curr;
-            last_time = sched.os_ticks;
-        }
 
-        // t_temp = (t_temp > 469) ? 0 : t_temp + 1;
+        // SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, t_req, 0);
 
-        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req / 2, t_req / 2, 0, 0);
-        // if (curr) SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 410);
-        // else SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 0);
-        /*
-        switch(curr)
-        {
-            case 0:
-            SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, 0, 0, 0);//t_req, t_req, t_req);
-            break;
-            case 1:
-            SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, t_req, 0, 0);//t_req, t_req, t_req);
-            break;
-            case 2:
-            SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, t_req, 0);//t_req, t_req, t_req);
-            break;
-            case 3:
-            SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, t_req);//t_req, t_req, t_req);
-            break;
-        }*/
+        int16_t v_lf, v_rf, v_lr, v_rr;
+        float veh_vel = t_req / 10;
+        float turn_radius = V_WIDTH / tan(((-can_data.LWS_Standard.LWS_ANGLE / 10.0) * RACK_SCALING) * DEG_TO_RAD);
+        float tan_delta = tan(2 * turn_radius * M_PI / veh_vel);
+        v_lf = 10 * (veh_vel * (1 - tan_delta * (V_WIDTH / V_LENGTH)));
+        v_rf = 10 * (veh_vel * (1 + tan_delta * (V_WIDTH / V_LENGTH)));
+        v_lr = 10 * (veh_vel - ((veh_vel * V_WIDTH / 2) / (V_LENGTH / tan_delta)));
+        v_rr = 10 * (veh_vel + ((veh_vel * V_WIDTH / 2) / (V_LENGTH / tan_delta)));
 
+        SEND_VELOCITY_REQUEST_MAIN(q_tx_can, v_lf, v_rf, v_lr, v_rr);
     }
 }
 

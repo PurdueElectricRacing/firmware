@@ -30,6 +30,19 @@
                             "msg_period":15,
                             "msg_hlp":1,
                             "msg_pgn":1
+                        },
+                        {
+                            "msg_name": "velocity_request_main",
+                            "msg_desc": "Test of E-Diff to see velocity outputs given wheel input",
+                            "signals": [
+                                {"sig_name": "front_left", "sig_desc": "velocity request * 10", "type": "int16_t"},
+                                {"sig_name": "front_right", "sig_desc": "velocity request * 10", "type": "int16_t"},
+                                {"sig_name": "rear_left", "sig_desc": "velocity request * 10", "type": "int16_t"},
+                                {"sig_name": "rear_right", "sig_desc": "velocity request * 10", "type": "int16_t"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 5,
+                            "msg_pgn": 1
                         }
                     ],
                     "rx":[
@@ -39,7 +52,8 @@
                         {"msg_name": "rear_motor_currents_temps"},
                         {"msg_name": "front_driveline_hb"},
                         {"msg_name": "rear_driveline_hb"},
-                        {"msg_name": "dashboard_hb"}
+                        {"msg_name": "dashboard_hb"},
+                        {"msg_name": "LWS_Standard"}
                     ]
                 },
                 {

@@ -79,6 +79,14 @@ void canRxUpdate()
                 can_data.dashboard_hb.stale = 0;
                 can_data.dashboard_hb.last_rx = sched.os_ticks;
                 break;
+            case ID_LWS_STANDARD:
+                can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+                can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+                can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+                can_data.LWS_Standard.stale = 0;
+                can_data.LWS_Standard.last_rx = sched.os_ticks;
+                break;
             case ID_DAQ_COMMAND_MAIN_MODULE:
                 can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
                 daq_command_MAIN_MODULE_CALLBACK(&msg_header);
@@ -108,6 +116,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.dashboard_hb.stale,
                 sched.os_ticks, can_data.dashboard_hb.last_rx,
                 UP_DASHBOARD_HB);
+    CHECK_STALE(can_data.LWS_Standard.stale,
+                sched.os_ticks, can_data.LWS_Standard.last_rx,
+                UP_LWS_STANDARD);
     /* END AUTO STALE CHECKS */
 }
 
@@ -136,7 +147,9 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR2 = (ID_REAR_DRIVELINE_HB << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
     CAN1->sFilterRegister[3].FR1 = (ID_DASHBOARD_HB << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->FA1R |= (1 << 4);    // configure bank 4
+    CAN1->sFilterRegister[4].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

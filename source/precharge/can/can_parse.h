@@ -22,7 +22,7 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_HEAT_REQ 0x8007d2a
 #define ID_PACK_CURR 0x4007d6a
-#define ID_TEST_PRECHARGE_MSG 0x8008004
+#define ID_MAX_CELL_TEMP 0x404e604
 #define ID_SOC_CELLS 0x8007d6b
 #define ID_VOLTS_CELLS 0x4007dab
 #define ID_PACK_INFO 0x8007deb
@@ -35,7 +35,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_HEAT_REQ 3
 #define DLC_PACK_CURR 2
-#define DLC_TEST_PRECHARGE_MSG 1
+#define DLC_MAX_CELL_TEMP 2
 #define DLC_SOC_CELLS 7
 #define DLC_VOLTS_CELLS 7
 #define DLC_PACK_INFO 6
@@ -59,10 +59,10 @@
         data_a->pack_curr.current = current_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_TEST_PRECHARGE_MSG(queue, test_precharge_sig_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_PRECHARGE_MSG, .DLC=DLC_TEST_PRECHARGE_MSG, .IDE=1};\
+#define SEND_MAX_CELL_TEMP(queue, max_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAX_CELL_TEMP, .DLC=DLC_MAX_CELL_TEMP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->test_precharge_msg.test_precharge_sig = test_precharge_sig_;\
+        data_a->max_cell_temp.max_temp = max_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -89,8 +89,8 @@ typedef union { __attribute__((packed))
         uint64_t current: 16;
     } pack_curr;
     struct {
-        uint64_t test_precharge_sig: 8;
-    } test_precharge_msg;
+        uint64_t max_temp: 16;
+    } max_cell_temp;
     struct {
         uint64_t idx: 8;
         uint64_t soc1: 16;

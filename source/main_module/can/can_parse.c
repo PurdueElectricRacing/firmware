@@ -79,6 +79,9 @@ void canRxUpdate()
                 can_data.dashboard_hb.stale = 0;
                 can_data.dashboard_hb.last_rx = sched.os_ticks;
                 break;
+            case ID_MAX_CELL_TEMP:
+                can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
+                break;
             case ID_DAQ_COMMAND_MAIN_MODULE:
                 can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
                 daq_command_MAIN_MODULE_CALLBACK(&msg_header);
@@ -136,7 +139,9 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR2 = (ID_REAR_DRIVELINE_HB << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
     CAN1->sFilterRegister[3].FR1 = (ID_DASHBOARD_HB << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->FA1R |= (1 << 4);    // configure bank 4
+    CAN1->sFilterRegister[4].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

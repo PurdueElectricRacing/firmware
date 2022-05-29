@@ -39,7 +39,8 @@
                         {"msg_name": "rear_motor_currents_temps"},
                         {"msg_name": "front_driveline_hb"},
                         {"msg_name": "rear_driveline_hb"},
-                        {"msg_name": "dashboard_hb"}
+                        {"msg_name": "dashboard_hb"},
+                        {"msg_name": "max_cell_temp"}
                     ]
                 },
                 {
@@ -188,15 +189,14 @@
                     "can_peripheral": "CAN1",
                     "node_ssa": 4,
                     "tx": [
-                        {
-                            "msg_name": "test_precharge_msg",
-                            "msg_desc": "test precharge desc",
-                            "signals": [
-                                {"sig_name": "test_precharge_sig", "type":"uint8_t", "length": 8}
+                        {   "msg_name":"max_cell_temp",
+                            "msg_desc":"maximum cell temperature for the whole pack",
+                            "signals":[
+                                {"sig_name":"max_temp","type":"uint16_t","length":16, "scale": 0.1}
                             ],
-                            "msg_period": 15,
-                            "msg_hlp": 2,
-                            "msg_pgn": 512
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5016
                         }
                     ],
                     "rx": []

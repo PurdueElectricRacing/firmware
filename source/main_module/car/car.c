@@ -126,7 +126,7 @@ void carPeriodic()
 
         // Send torque command to all 4 motors
         int16_t t_req = can_data.raw_throttle_brake.throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0);
-        t_req = t_req > 820 ? 820 : t_req;
+        t_req = t_req < 100 ? 0 : t_req;
         // if (t_req > 0) {
         //     asm("bkpt");
         // }
@@ -139,7 +139,7 @@ void carPeriodic()
 
         // t_temp = (t_temp > 469) ? 0 : t_temp + 1;
 
-        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req / 2, t_req / 2, 0, 0);
+        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
         // if (curr) SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 410);
         // else SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 0);
         /*
@@ -207,10 +207,10 @@ bool checkErrorFaults()
 
     /* Driveline */
     // Front
-    is_error += can_data.front_driveline_hb.front_left_motor  != 
-                FRONT_LEFT_MOTOR_CONNECTED;
-    is_error += can_data.front_driveline_hb.front_right_motor != 
-                FRONT_RIGHT_MOTOR_CONNECTED;
+    // is_error += can_data.front_driveline_hb.front_left_motor  != 
+    //             FRONT_LEFT_MOTOR_CONNECTED;
+    // is_error += can_data.front_driveline_hb.front_right_motor != 
+    //             FRONT_RIGHT_MOTOR_CONNECTED;
     // Rear
     is_error += can_data.rear_driveline_hb.rear_left_motor    != 
                 REAR_LEFT_MOTOR_CONNECTED;
@@ -248,9 +248,9 @@ bool checkFatalFaults()
     if (!DT_FLOW_CHECK_OVERRIDE)  is_error += cooling.dt_flow_error;
     if (!BAT_FLOW_CHECK_OVERRIDE) is_error += cooling.bat_flow_error;
 
-    #ifdef LV_PRESENT
-    is_error += !PHAL_readGPIO(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin);
-    #endif
+    // is_error += !PHAL_readGPIO(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin);
+
+    is_error += (can_data.max_cell_temp.max_temp > 500) ? 1 : 0;
 
     return is_error;
 }

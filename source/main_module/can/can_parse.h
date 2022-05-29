@@ -30,6 +30,7 @@
 #define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_REAR_DRIVELINE_HB 0x4001943
 #define ID_DASHBOARD_HB 0x4001905
+#define ID_MAX_CELL_TEMP 0x404e604
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
 /* END AUTO ID DEFS */
 
@@ -45,6 +46,7 @@
 #define DLC_FRONT_DRIVELINE_HB 2
 #define DLC_REAR_DRIVELINE_HB 2
 #define DLC_DASHBOARD_HB 1
+#define DLC_MAX_CELL_TEMP 2
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
@@ -178,6 +180,9 @@ typedef union { __attribute__((packed))
         uint64_t apps_brake_faulted: 1;
     } dashboard_hb;
     struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_MAIN_MODULE;
     uint8_t raw_data[8];
@@ -232,6 +237,9 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } dashboard_hb;
+    struct {
+        uint16_t max_temp;
+    } max_cell_temp;
     struct {
         uint64_t daq_command;
     } daq_command_MAIN_MODULE;

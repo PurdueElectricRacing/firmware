@@ -91,8 +91,16 @@ BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
  SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
  SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
-BO_ 2281734148 test_precharge_msg: 1 Precharge
- SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483028739 front_motor_init: 2 Driveline
+ SG_ front_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028803 rear_motor_init: 2 Driveline
+ SG_ rear_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214913540 max_cell_temp: 2 Precharge
+ SG_ max_temp : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028613 raw_throttle_brake: 3 Dashboard
  SG_ brake : 12|12@1+ (1,0) [0|0] "" Vector__XXX
@@ -483,8 +491,14 @@ CM_ SG_ 2348810947 right_temp "";
 CM_ SG_ 2348810947 left_temp "";
 CM_ SG_ 2348810947 right_current "";
 CM_ SG_ 2348810947 left_current "";
-CM_ BO_ 2281734148 "test precharge desc";
-CM_ SG_ 2281734148 test_precharge_sig "";
+CM_ BO_ 2483028739 "Front motor controller initialization status";
+CM_ SG_ 2483028739 front_right_init "";
+CM_ SG_ 2483028739 front_left_init "";
+CM_ BO_ 2483028803 "Front motor controller initialization status";
+CM_ SG_ 2483028803 rear_right_init "";
+CM_ SG_ 2483028803 rear_left_init "";
+CM_ BO_ 2214913540 "maximum cell temperature for the whole pack";
+CM_ SG_ 2214913540 max_temp "";
 CM_ BO_ 2483028613 "throttle_brake desc";
 CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle "";
@@ -741,6 +755,10 @@ VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected
 VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
 VAL_ 2214598979 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
 VAL_ 2214598979 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2483028739 front_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028739 front_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028803 rear_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028803 rear_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

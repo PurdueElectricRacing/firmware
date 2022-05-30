@@ -393,22 +393,26 @@ void eDiff(int16_t t_req, torqueRequest_t* torque_r)
         
         //  TODO (not critical): include lookup table for torque fallout in high rpm
 
-        // limit regen torque (temporary)
-        if(delta_torque < (- 0.25 * 4095))
-        {
-            delta_torque = 0.25 * 4095;
-        }
-
         // torque output
         if(error_wheel_speed_diff >= 0)
         {
             torque_r->torque_left = t_req;
             torque_r->torque_right = t_req - delta_torque;
+            // limit regen torque (temporary)
+            if(torque_r->torque_right < (- 0.25 * 4095))
+            {
+                torque_r->torque_right = (- 0.25 * 4095);
+            }
         }
         else
         {
             torque_r->torque_left = t_req - delta_torque;
             torque_r->torque_right = t_req;
+            // limit regen torque (temporary)
+            if(torque_r->torque_left < (- 0.25 * 4095))
+            {
+                torque_r->torque_left = (- 0.25 * 4095);
+            }
         }
 
         return;

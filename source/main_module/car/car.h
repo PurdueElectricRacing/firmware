@@ -69,8 +69,8 @@ volatile extern ADCReadings_t adc_readings;
 
 typedef struct
 {
-    uint16_t torque_left;
-    uint16_t torque_right;
+    int16_t torque_left;
+    int16_t torque_right;
 } torqueRequest_t;
 
 typedef struct

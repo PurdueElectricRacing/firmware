@@ -33,12 +33,11 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_MAIN_STATUS:
-                can_data.main_status.car_state = msg_data_a->main_status.car_state;
-                can_data.main_status.apps_state = msg_data_a->main_status.apps_state;
-                can_data.main_status.precharge_state = msg_data_a->main_status.precharge_state;
-                can_data.main_status.stale = 0;
-                can_data.main_status.last_rx = sched.os_ticks;
+            case ID_MAIN_HB:
+                can_data.main_hb.car_state = msg_data_a->main_hb.car_state;
+                can_data.main_hb.precharge_state = msg_data_a->main_hb.precharge_state;
+                can_data.main_hb.stale = 0;
+                can_data.main_hb.last_rx = sched.os_ticks;
                 break;
             case ID_FRONT_WHEEL_DATA:
                 can_data.front_wheel_data.left_speed = msg_data_a->front_wheel_data.left_speed;
@@ -59,9 +58,9 @@ void canRxUpdate()
     }
 
     /* BEGIN AUTO STALE CHECKS */
-    CHECK_STALE(can_data.main_status.stale,
-                sched.os_ticks, can_data.main_status.last_rx,
-                UP_MAIN_STATUS);
+    CHECK_STALE(can_data.main_hb.stale,
+                sched.os_ticks, can_data.main_hb.last_rx,
+                UP_MAIN_HB);
     CHECK_STALE(can_data.front_wheel_data.stale,
                 sched.os_ticks, can_data.front_wheel_data.last_rx,
                 UP_FRONT_WHEEL_DATA);
@@ -83,7 +82,7 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_MAIN_STATUS << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_MAIN_HB << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_FRONT_WHEEL_DATA << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;

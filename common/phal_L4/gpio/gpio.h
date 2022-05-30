@@ -90,7 +90,7 @@ typedef struct {
  * @param ospeed_sel Pin output speed selection
  */
 #define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel) \
-    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.ospeed = ospeed_sel}}
+    {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.ospeed = ospeed_sel, .otype=GPIO_OUTPUT_PUSH_PULL}}
 
 #define GPIO_INIT_OUTPUT_OPEN_DRAIN(gpio_bank, pin_num, ospeed_sel) \
     {.bank=gpio_bank, .pin=pin_num, .type=GPIO_TYPE_OUTPUT, .config={.ospeed = ospeed_sel, .otype=GPIO_OUTPUT_OPEN_DRAIN}}

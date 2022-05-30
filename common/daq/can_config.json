@@ -40,7 +40,10 @@
                         {"msg_name": "front_driveline_hb"},
                         {"msg_name": "rear_driveline_hb"},
                         {"msg_name": "dashboard_hb"},
-                        {"msg_name": "max_cell_temp"}
+                        {"msg_name": "max_cell_temp"},
+                        {"msg_name": "front_wheel_data"},
+                        {"msg_name": "rear_wheel_data"},
+                        {"msg_name": "LWS_Standard"}
                     ]
                 },
                 {

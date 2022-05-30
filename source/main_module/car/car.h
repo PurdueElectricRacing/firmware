@@ -34,6 +34,24 @@
 #define BRAKE_BLINK_CT 3
 #define BRAKE_BLINK_PERIOD 250
 
+/* STEERING ANGLE CALCULATION CONFIG */
+#define STEERING_S1 (0.00007)
+#define STEERING_S2 (-0.0038)
+#define STEERING_S3 (0.6535)
+#define STEERING_S4 (0.1061)
+#define STEERING_INCH2MM (25.4)
+#define STEERING_SLOPE (0.00962)
+#define STEERING_DEG2RAD (0.01745329)
+
+/* CAR PARAMETER */
+#define STEERING_W 1.269
+#define STEERING_L 1.574
+
+/* TUNING PARAMETER */
+#define STEERING_K 1.3      // increase k makes the car more oversteer
+#define STEERING_P 10.0
+#define MOTOR_TORQUE_LIMIT 25.0 // N * m (not used)
+
 typedef struct __attribute__((packed))
 {
     // Do not modify this struct unless
@@ -48,6 +66,12 @@ typedef struct __attribute__((packed))
 } ADCReadings_t;
 
 volatile extern ADCReadings_t adc_readings;
+
+typedef struct
+{
+    uint16_t torque_left;
+    uint16_t torque_right;
+} torqueRequest_t;
 
 typedef struct
 {
@@ -70,5 +94,7 @@ void carPeriodic();
  * to the current in mA
  */
 void calcLVCurrent();
+
+void eDiff(int16_t t_req, torqueRequest_t* torque_r);
 
 #endif

@@ -10,6 +10,16 @@ static bool checkErrorFaults();
 static bool checkFatalFaults();
 static void brakeLightUpdate(uint16_t raw_brake);
 
+inline float pow_diy(float base, uint8_t power)
+{
+    float output = base;
+    for(uint8_t i = 0; i < (power - 1); i++)
+    {
+        output *= base;
+    }
+    return output;
+}
+
 bool carInit()
 {
     car.state = CAR_STATE_INIT;
@@ -31,6 +41,8 @@ uint32_t last_time = 0;
 uint8_t curr = 0;
 void carPeriodic()
 {
+
+    torqueRequest_t torque_r;
     static uint16_t t_temp;
 
     /* State Independent Operations */
@@ -124,12 +136,17 @@ void carPeriodic()
             car.state = CAR_STATE_INIT;
         }
 
-        // Send torque command to all 4 motors
-        int16_t t_req = can_data.raw_throttle_brake.throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0);
-        t_req = t_req < 100 ? 0 : t_req;
-        // if (t_req > 0) {
-        //     asm("bkpt");
-        // }
+        // Send torque command to all 2 motors
+
+        // ?? how about set the deadzone on can_data.raw_throttle_brake.throttle 
+
+        // int16_t t_req = can_data.raw_throttle_brake.throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0);
+        // t_req = t_req < 100 ? 0 : ((t_req - 100) / (4095 - 100) * 4095);
+
+        uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
+        
+        int16_t t_req = adjusted_throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0); 
+
         // SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
         if (sched.os_ticks - last_time > 2000){ 
             //curr++;
@@ -139,7 +156,21 @@ void carPeriodic()
 
         // t_temp = (t_temp > 469) ? 0 : t_temp + 1;
 
-        SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
+        // E-diff
+        eDiff(t_req, &torque_r);
+
+        // check torque request (FSAE rule)
+        if(torque_r.torque_left > t_req)
+        {
+            torque_r.torque_left = t_req;
+        }
+        if(torque_r.torque_right > t_req)
+        {
+            torque_r.torque_right = t_req;
+        }
+
+        SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, torque_r.torque_left, torque_r.torque_right);
+
         // if (curr) SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 410);
         // else SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 0);
         /*
@@ -295,5 +326,91 @@ static void brakeLightUpdate(uint16_t raw_brake)
                 car.brake_start_time = sched.os_ticks;
             }
         }
+    }
+}
+
+/*
+* E-diff @ May 29, based on Demetrius's May 25 E-diff simulink model
+*/
+
+void eDiff(int16_t t_req, torqueRequest_t* torque_r)
+{
+    float steering_wheel_angle;
+
+    float wheel_speed_left;
+    float wheel_speed_right;
+    float vehicle_speed;
+
+    float rack_disp;
+    float left_steer_angle;
+    float right_steer_angle;
+    float avg_steer_angle;
+
+    float desired_wheel_speed_left;
+    float desired_wheel_speed_right;
+    float desired_wheel_speed_diff;
+
+    float actual_wheel_speed_diff;
+    float error_wheel_speed_diff;
+
+    float delta_torque;
+
+    if (t_req < 0) // when regen breaking
+    {
+        torque_r->torque_left = t_req;
+        torque_r->torque_right = t_req;
+
+        return;
+    } 
+    else // when positive torque request
+    {
+        wheel_speed_left = can_data.rear_wheel_data.left_speed / 100.0;
+        wheel_speed_right = can_data.rear_wheel_data.right_speed / 100.0;
+
+        // not the best vehicle speed calculation, should probably include IMU data also
+        vehicle_speed = (wheel_speed_left + wheel_speed_right) / 2.0;
+
+        steering_wheel_angle = can_data.LWS_Standard.LWS_ANGLE / 10.0;
+        rack_disp = STEERING_SLOPE * STEERING_INCH2MM * steering_wheel_angle;
+
+        left_steer_angle = - ((STEERING_S1 * pow_diy(-rack_disp, 3)) + (STEERING_S2 * pow_diy(-rack_disp, 2)) + (STEERING_S3 * (-rack_disp)) + STEERING_S4);
+        right_steer_angle = ((STEERING_S1 * pow_diy(rack_disp, 3)) + (STEERING_S2 * pow_diy(rack_disp, 2)) + (STEERING_S3 * rack_disp) + STEERING_S4);
+        avg_steer_angle = ((left_steer_angle + right_steer_angle) / 2) * STEERING_DEG2RAD;
+
+        // E-diff equations
+        desired_wheel_speed_left = vehicle_speed + vehicle_speed * STEERING_W * tan(avg_steer_angle) / (2 * STEERING_L);
+        desired_wheel_speed_right = vehicle_speed - vehicle_speed * STEERING_W * tan(avg_steer_angle) / (2 * STEERING_L);
+
+        // pre-PID
+        desired_wheel_speed_diff = (desired_wheel_speed_left - desired_wheel_speed_right) * STEERING_K;
+
+        actual_wheel_speed_diff = wheel_speed_left - wheel_speed_right;
+
+        error_wheel_speed_diff = desired_wheel_speed_diff - actual_wheel_speed_diff;
+
+        // actual PID
+        delta_torque = fabs(STEERING_P * error_wheel_speed_diff);  // just P for now
+        
+        //  TODO (not critical): include lookup table for torque fallout in high rpm
+
+        // limit regen torque (temporary)
+        if(delta_torque < (- 0.25 * 4095))
+        {
+            delta_torque = 0.25 * 4095;
+        }
+
+        // torque output
+        if(error_wheel_speed_diff >= 0)
+        {
+            torque_r->torque_left = t_req;
+            torque_r->torque_right = t_req - delta_torque;
+        }
+        else
+        {
+            torque_r->torque_left = t_req - delta_torque;
+            torque_r->torque_right = t_req;
+        }
+
+        return;
     }
 }

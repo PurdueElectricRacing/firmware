@@ -31,6 +31,9 @@
 #define ID_REAR_DRIVELINE_HB 0x4001943
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_MAX_CELL_TEMP 0x404e604
+#define ID_FRONT_WHEEL_DATA 0x4000003
+#define ID_REAR_WHEEL_DATA 0x4000043
+#define ID_LWS_STANDARD 0x2b0
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
 /* END AUTO ID DEFS */
 
@@ -47,6 +50,9 @@
 #define DLC_REAR_DRIVELINE_HB 2
 #define DLC_DASHBOARD_HB 1
 #define DLC_MAX_CELL_TEMP 2
+#define DLC_FRONT_WHEEL_DATA 8
+#define DLC_REAR_WHEEL_DATA 8
+#define DLC_LWS_STANDARD 5
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
@@ -85,6 +91,9 @@
 #define UP_FRONT_DRIVELINE_HB 100
 #define UP_REAR_DRIVELINE_HB 100
 #define UP_DASHBOARD_HB 100
+#define UP_FRONT_WHEEL_DATA 10
+#define UP_REAR_WHEEL_DATA 10
+#define UP_LWS_STANDARD 10
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -183,6 +192,24 @@ typedef union { __attribute__((packed))
         uint64_t max_temp: 16;
     } max_cell_temp;
     struct {
+        uint64_t left_speed: 16;
+        uint64_t right_speed: 16;
+        uint64_t left_normal: 16;
+        uint64_t right_normal: 16;
+    } front_wheel_data;
+    struct {
+        uint64_t left_speed: 16;
+        uint64_t right_speed: 16;
+        uint64_t left_normal: 16;
+        uint64_t right_normal: 16;
+    } rear_wheel_data;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Reserved_1: 8;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_MAIN_MODULE;
     uint8_t raw_data[8];
@@ -240,6 +267,30 @@ typedef struct {
     struct {
         uint16_t max_temp;
     } max_cell_temp;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_wheel_data;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_wheel_data;
+    struct {
+        int16_t LWS_ANGLE;
+        uint8_t LWS_SPEED;
+        uint8_t Reserved_1;
+        uint8_t Reserved_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } LWS_Standard;
     struct {
         uint64_t daq_command;
     } daq_command_MAIN_MODULE;

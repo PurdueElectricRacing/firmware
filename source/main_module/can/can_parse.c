@@ -82,6 +82,30 @@ void canRxUpdate()
             case ID_MAX_CELL_TEMP:
                 can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
                 break;
+            case ID_FRONT_WHEEL_DATA:
+                can_data.front_wheel_data.left_speed = msg_data_a->front_wheel_data.left_speed;
+                can_data.front_wheel_data.right_speed = msg_data_a->front_wheel_data.right_speed;
+                can_data.front_wheel_data.left_normal = msg_data_a->front_wheel_data.left_normal;
+                can_data.front_wheel_data.right_normal = msg_data_a->front_wheel_data.right_normal;
+                can_data.front_wheel_data.stale = 0;
+                can_data.front_wheel_data.last_rx = sched.os_ticks;
+                break;
+            case ID_REAR_WHEEL_DATA:
+                can_data.rear_wheel_data.left_speed = msg_data_a->rear_wheel_data.left_speed;
+                can_data.rear_wheel_data.right_speed = msg_data_a->rear_wheel_data.right_speed;
+                can_data.rear_wheel_data.left_normal = msg_data_a->rear_wheel_data.left_normal;
+                can_data.rear_wheel_data.right_normal = msg_data_a->rear_wheel_data.right_normal;
+                can_data.rear_wheel_data.stale = 0;
+                can_data.rear_wheel_data.last_rx = sched.os_ticks;
+                break;
+            case ID_LWS_STANDARD:
+                can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+                can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+                can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+                can_data.LWS_Standard.stale = 0;
+                can_data.LWS_Standard.last_rx = sched.os_ticks;
+                break;
             case ID_DAQ_COMMAND_MAIN_MODULE:
                 can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
                 daq_command_MAIN_MODULE_CALLBACK(&msg_header);
@@ -111,6 +135,15 @@ void canRxUpdate()
     CHECK_STALE(can_data.dashboard_hb.stale,
                 sched.os_ticks, can_data.dashboard_hb.last_rx,
                 UP_DASHBOARD_HB);
+    CHECK_STALE(can_data.front_wheel_data.stale,
+                sched.os_ticks, can_data.front_wheel_data.last_rx,
+                UP_FRONT_WHEEL_DATA);
+    CHECK_STALE(can_data.rear_wheel_data.stale,
+                sched.os_ticks, can_data.rear_wheel_data.last_rx,
+                UP_REAR_WHEEL_DATA);
+    CHECK_STALE(can_data.LWS_Standard.stale,
+                sched.os_ticks, can_data.LWS_Standard.last_rx,
+                UP_LWS_STANDARD);
     /* END AUTO STALE CHECKS */
 }
 
@@ -141,7 +174,11 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR1 = (ID_DASHBOARD_HB << 3) | 4;
     CAN1->sFilterRegister[3].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_FRONT_WHEEL_DATA << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_REAR_WHEEL_DATA << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

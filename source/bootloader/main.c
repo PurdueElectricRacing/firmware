@@ -91,7 +91,6 @@ int main (void)
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    NVIC_SetPriority(SysTick_IRQn, 29);
 
     CanMsgTypeDef_t tx_msg;
     BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_count);
@@ -102,21 +101,30 @@ int main (void)
     */
     while(!bootloader_timeout || !allow_application_launch)
     {
-        /* Process CAN signals */
-        if (send_status_flag)
-        {
-            send_status_flag = false;
-            if(!BL_flashStarted())
-                BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
-        }
 
         while (q_rx_can.item_count > 0)
             canRxUpdate();
 
-        if (BL_flashStarted() && send_flash_address)
+        if (BL_flashStarted())
         {
-            send_flash_address = false;
-            BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
+            if (send_status_flag)
+            {
+                send_status_flag = false;
+                BL_sendStatusMessage(BLSTAT_RETRY_DATA, (uint32_t)  BL_getCurrentFlashAddress());
+            }
+            else if (send_flash_address)
+            {
+                send_flash_address = false;
+                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
+            } 
+        } 
+        else
+        {
+            if (send_status_flag)
+            {
+                send_status_flag = false;
+                BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
+            }
         }
 
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
@@ -156,8 +164,8 @@ void SysTick_Handler(void)
 {
     bootloader_ms++;
 
-    bootloader_ms_2 ++;
-    if (bootloader_ms_2 % 100 == 0)
+    bootloader_ms_2++;
+    if (bootloader_ms_2 % 10 == 0)
         send_flash_address = true;
     
     switch (bootloader_shared_memory.reset_reason)

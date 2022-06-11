@@ -40,8 +40,6 @@ class BootloaderCommand():
         self.can_rx = can_rx
         self.current_addr = self.ADDRESS_START
 
-        print(self.TX_MSG.frame_id)
-
     def firmware_size_msg(self, fw_size) -> can.Message:
         data = self.TX_MSG.encode({"cmd": self.TX_CMD["BLCMD_INFO"], "data": fw_size})
         return can.Message(arbitration_id=self.TX_MSG.frame_id, data=data)

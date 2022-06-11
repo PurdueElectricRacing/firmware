@@ -34,6 +34,7 @@ typedef enum
     BLSTAT_JUMP_TO_APP = 6, /* About to jump to application */
     BLSTAT_INVAID_APP = 7,  /* Did not attempt to boot because the starting address was invalid */
     BLSTAT_UNKOWN_CMD = 8,  /* Incorrect CAN command message format */
+    BLSTAT_RETRY_DATA = 9
 } BLStatus_t;
 
 void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr);
@@ -64,7 +65,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data);
 
 bool BL_flashStarted(void);
 bool BL_flashGotMetadata(void);
-uint32_t* BL_getCurrentFlashAddress(void);
+volatile uint32_t* BL_getCurrentFlashAddress(void);
 
 
 #endif

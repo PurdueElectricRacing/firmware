@@ -12,9 +12,9 @@
 #include "bootloader.h"
 #include "common/phal_L4/flash/flash.h"
 
-uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
-uint32_t* app_flash_current_address; /* Current address we are writing to */
-uint32_t* app_flash_end_address;     /* Expected end address to stop writing */
+static volatile uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
+static volatile uint32_t* app_flash_current_address; /* Current address we are writing to */
+static volatile uint32_t* app_flash_end_address;     /* Expected end address to stop writing */
 static volatile uint32_t* bootloader_ms;
 
 extern q_handle_t q_tx_can;
@@ -27,6 +27,7 @@ void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr)
     bootloader_ms = bootloader_ms_ptr;
 }
 
+#define DEBUG
 static bool bl_unlock = false;
 static uint32_t num_msg = 0;
 void BL_processCommand(BLCmd_t cmd, uint32_t data)
@@ -42,8 +43,10 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             uint8_t total_pages = (data / 0x2000) + 1;
             if (total_pages < 3) total_pages = 3;
             
+            #ifndef DEBUG
             for(int i = 0; i < total_pages; i++)
-                PHAL_flashErasePage(4+i);
+                 PHAL_flashErasePage(4+i);
+            #endif
 
             BL_sendStatusMessage(BLSTAT_METDATA_RX, (uint32_t) data);
             num_msg = 0;
@@ -59,14 +62,15 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         }
         case BLCMD_FW_DATA:
         {
-            // asm("bkpt");
             num_msg++;
             if(app_flash_current_address >= app_flash_start_address && bl_unlock)
             {
                 if (((uint32_t) app_flash_current_address & 0b111) != 0)
                 {
                     // Address is 2-word aligned, do the actual programming now
+                    #ifndef DEBUG
                     PHAL_flashWriteU64((uint32_t) app_flash_current_address & (~0b111), (((uint64_t) data) << 32) | data_buffer);
+                    #endif
                     data_buffer = 0;
                 }
                 else 
@@ -74,9 +78,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                     data_buffer = data;
                 }
                 *bootloader_ms = 0;
-                
-                app_flash_current_address ++;
-
+                app_flash_current_address++;
             }
             break;
         }
@@ -92,7 +94,9 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
         if (data_buffer != 0 )
         {
             // We did not land on an 8-byte aligned address, program the last piece of data
+            #ifndef DEBUG
             PHAL_flashWriteU64((uint32_t) app_flash_current_address & (~0b100), data_buffer);
+            #endif
         }
         BL_sendStatusMessage(BLSTAT_DONE, 0);
     
@@ -106,7 +110,7 @@ bool BL_flashStarted(void)
 
 bool BL_flashComplete(void)
 {
-    return (num_msg > 10) &&(num_msg == app_flash_end_address - app_flash_start_address);
+    return (num_msg > 10) && (num_msg == app_flash_end_address - app_flash_start_address);
 }
 
 bool BL_flashGotMetadata(void)
@@ -114,7 +118,7 @@ bool BL_flashGotMetadata(void)
     return bl_unlock && num_msg == 0;
 }
 
-uint32_t* BL_getCurrentFlashAddress(void)
+volatile uint32_t* BL_getCurrentFlashAddress(void)
 {
     return app_flash_current_address;
 }

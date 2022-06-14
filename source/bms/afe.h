@@ -13,6 +13,8 @@
 #include "common/phal_L4/spi/spi.h"
 #include "common_defs.h"
 #include "bms.h"
+#include "can/can_parse.h"
+#include "node_defs.h"
 #include "string.h"
 
 // Generic Defines

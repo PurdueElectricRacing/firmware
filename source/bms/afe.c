@@ -53,6 +53,7 @@ void setBalance(void)
     uint16_t min_volts;
     uint16_t balance_set;
     float    avg_SOC = 0;
+    float    i_hate_myself;
 
     ov = uv = 0;
     min_volts = 0xffff;
@@ -64,6 +65,10 @@ void setBalance(void)
     }
 
     avg_SOC /= bms.cell_count;
+
+    #if BMS_NODE_NAME == BMS_C
+    bms.cells.chan_volts_raw[5] = bms.cells.chan_volts_raw[6] = (uint16_t) ((bms.cells.chan_volts_raw[5] + bms.cells.chan_volts_raw[6]) / 2.0);
+    #endif
 
     for (i = 0; i < bms.cell_count; i++)
     {

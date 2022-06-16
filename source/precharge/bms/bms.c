@@ -17,6 +17,8 @@ bool charge_mode_enable = false; // Enable charge algo
 uint16_t charge_voltage_limit = 0;
 uint16_t charge_current_limit = 0;
 uint8_t  bms_temp_err = 0;
+uint16_t uv_limit = 25000;
+uint16_t ov_limit = 42000;
 
 static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pack_voltage);
 
@@ -28,73 +30,35 @@ void BMS_init()
     linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &charge_voltage_limit);
     linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &charge_current_limit);
     linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &charge_current_limit);
+    linkReada(DAQ_ID_UV_LIMIT, &uv_limit);
+    linkWritea(DAQ_ID_UV_LIMIT, &uv_limit);
+    linkReada(DAQ_ID_OV_LIMIT, &ov_limit);
+    linkWritea(DAQ_ID_OV_LIMIT, &ov_limit);
 }
 
-static uint8_t BMS_updateCellMask() {
+uint8_t BMS_updateMask() {
     uint8_t i;
+    uint8_t err = 0;
+    
+    static uint8_t  mask_err;
+    static uint8_t  mask_set;
+    static uint32_t mask[3];
 
-    static uint8_t  set;
-    static uint16_t time;
+    // mask[0] |= (1U << 10) | (1U << 20) | (1U << 25) | (1U << 26) | (1U << 30);
+    // mask[1] |= (1U << (50 - 32)) | (1U << (60 - 32));
+    // mask[2] |= (1U << (69 - 64)) | (1U < (70 - 64)) | (1U << (76 - 64)) | (1U << (77 - 64)) | (1U << (79 - 64));
 
-    // If mask is set, don't touch it
-    if (set) {
-        return false;
-    }
-
-    // Set mask if we've run for over a second
-    if (time++ > (1000 / 50)) {
-        set = true;
-
-        for (i = 0; i < NUM_CELLS; i++) {
-            if (cell_volts[i] < 25000 || cell_volts[i] > 42000) {
-                cell_mask[i / 32] |= 1U << (i % 32);
-            }
-        }
-    }
-
-    return true;
-}
-
-uint8_t BMS_findBadCell() {
-    uint8_t i;
-    uint8_t ret;
-    uint8_t cell_added = 0;
-    uint8_t error = 0;
-    float   average = 0;
-
-    // Update cell mask
-    ret = BMS_updateCellMask();
-
-    // If mask not set, don't have good error status yet
-    if (!ret) {
-        return true;
-    }
-
-    // Calculate average without masked cells
     for (i = 0; i < NUM_CELLS; i++) {
-        if (!(cell_mask[i / 32] & (1U << (i % 32)))) {
-            average += (float) cell_volts[i] / 10000.0;
-            ++cell_added;
-        }
-    }
-
-    // Set average
-    average = average / cell_added;
-
-    // Move voltages over to converted
-    for (i = 0; i < NUM_CELLS; i++) {
-        if (!(cell_mask[i / 32] & (1U << (i % 32)))) {
-            cell_volts_conv[i] = cell_volts[i];
-
-            if (cell_volts_conv[i] < 25000 || cell_volts_conv[i] > 42000) {
-                ++error;
+        if (!(mask[i / 32] & (1U << (i % 32)))) {
+            if ((cell_volts[i] > ov_limit) || (cell_volts[i] < uv_limit)) {
+                ++err;
             }
         } else {
-            cell_volts_conv[i] = (uint16_t) (average * 10000);
+            cell_volts[i] = cell_volts[i - 1] + 6;
         }
     }
 
-    return error ? 1 : 0;
+    return err | bms_temp_err;
 }
 
 uint16_t BMS_updateErrorFlags()
@@ -122,6 +86,8 @@ void BMS_txBatteryStatus()
     uint8_t idx;
     uint16_t v1 = 0, v2 = 0, v3 = 0;
 
+    BMS_updateMask();
+
     switch (state)
     {
     case 0:
@@ -133,12 +99,12 @@ void BMS_txBatteryStatus()
     default:
         idx = (state - 1) * 3;
 
-        v1 = cell_volts_conv[idx + 0];
+        v1 = cell_volts[idx + 0];
         if (idx + 1 < NUM_CELLS)
-            v2 = cell_volts_conv[idx + 1];
+            v2 = cell_volts[idx + 1];
         
         if (idx + 2 < NUM_CELLS)
-            v3 = cell_volts_conv[idx + 2];
+            v3 = cell_volts[idx + 2];
 
         SEND_CELL_INFO(q_tx_can, idx, v1, v2, v3);
         state ++;
@@ -150,10 +116,10 @@ void BMS_txBatteryStatus()
 
 static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pack_voltage)
 {
-    *lowest = cell_volts_conv[0];
+    *lowest = cell_volts[0];
     *delta = 0;
     *pack_voltage = 0;
-    for (uint16_t* cell = cell_volts_conv; cell <= cell_volts_conv + NUM_CELLS; cell++)
+    for (uint16_t* cell = cell_volts; cell <= cell_volts + NUM_CELLS; cell++)
     {
         *pack_voltage += * cell;
         if (*lowest > *cell)

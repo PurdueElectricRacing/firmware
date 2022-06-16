@@ -23,7 +23,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define NODE_NAME "Precharge"
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 3
+#define NUM_VARS 5
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
@@ -65,6 +65,8 @@ typedef enum
 #define DAQ_ID_CHARGE_MODE_ENABLE 0
 #define DAQ_ID_CHARGE_VOLTAGE_LIMIT 1
 #define DAQ_ID_CHARGE_CURRENT_LIMIT 2
+#define DAQ_ID_UV_LIMIT 3
+#define DAQ_ID_OV_LIMIT 4
 // END AUTO VAR IDs
 
 typedef struct

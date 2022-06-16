@@ -14,7 +14,7 @@
  */
 void BMS_init();
 
-uint8_t BMS_findBadCell();
+uint8_t BMS_updateMask();
 
 void tempPeriodic();
 /**

@@ -156,17 +156,17 @@ void DMA1_Channel2_IRQHandler()
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy)
 {
-    static uint8_t tx_cmd[3] = {(1 << 7), 0, 0};
-    static uint8_t rx_dat[3] = {0};
+    static uint8_t tx_cmd[4] = {(1 << 7), 0, 0};
+    static uint8_t rx_dat[4] = {0};
     tx_cmd[0] |= (address & 0x7F);
 
     while (PHAL_SPI_busy())
         ;
-    PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 3 : 2, rx_dat);
+    PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 2 : 3, rx_dat);
     while(PHAL_SPI_busy())
         ;
 
-    return skipDummy ? rx_dat[2] : rx_dat[1];
+    return skipDummy ? rx_dat[1] : rx_dat[2];
 }
 
 uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t* spi, uint8_t address, uint8_t writeDat)

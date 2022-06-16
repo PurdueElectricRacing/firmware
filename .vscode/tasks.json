@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "python per_build.py",
+            "command": "python3 per_build.py",
             "group": {
                 "kind": "build",
                 "isDefault": true

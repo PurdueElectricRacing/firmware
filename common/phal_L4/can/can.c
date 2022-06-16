@@ -32,13 +32,14 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
 
     // Leave SLEEP state
     bus->MCR &= ~CAN_MCR_SLEEP; 
+    // Enter INIT state
+    bus->MCR |= CAN_MCR_INRQ;
     while((bus->MSR & CAN_MSR_SLAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
         ;
     if (timeout == PHAL_CAN_INIT_TIMEOUT)
         return false;
     timeout = 0;
 
-    // Enter INIT state
     bus->MCR |= CAN_MCR_INRQ;
     while(!(bus->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
         ;

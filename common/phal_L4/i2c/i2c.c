@@ -22,7 +22,7 @@ bool PHAL_initI2C(I2C_TypeDef *i2c)
 
     // Confiure timing
     i2c->TIMINGR &= 0x0F000000;
-    i2c->TIMINGR |= 0x00101319; // Generating using CubeMx
+    i2c->TIMINGR |= 0x00103131; // Generating using CubeMx
 
     //OA1
     i2c->OAR1 |= I2C_OAR1_OA1EN;
@@ -47,8 +47,8 @@ bool PHAL_I2C_gen_start(I2C_TypeDef *i2c, uint8_t address, uint8_t length, I2CDi
     {
         i2c->CR2 |= I2C_CR2_RD_WRN; // configure for reading
     }
-    i2c->CR2 |= I2C_CR2_START | ((uint32_t) address) | I2C_CR2_AUTOEND |
-                 (((uint32_t) length) << I2C_CR2_NBYTES_Pos);
+    i2c->CR2 |= ((uint32_t) address) | I2C_CR2_AUTOEND | (((uint32_t) length) << I2C_CR2_NBYTES_Pos);
+    i2c->CR2 |= I2C_CR2_START;
 
     return true;
 }
@@ -97,9 +97,8 @@ bool PHAL_I2C_read(I2C_TypeDef *i2c, uint8_t* data_a)
                 break;
             }
         }
-    } 
-    if (timeout == PHAL_I2C_RX_TIMEOUT)
-        return false;
+    }
+
     timeout = 0;
 
     // read data from RXDR

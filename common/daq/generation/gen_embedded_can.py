@@ -81,16 +81,27 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
     """ generates hardware filters for a set of message definitions for a specific peripheral """
     on_mask = False
     filter_bank = 0
+    filter_bank_max = 27
+
+    if peripheral == "CAN1":
+        filter_bank = 0
+        filter_bank_max = 14
+    elif peripheral == "CAN2":
+        filter_bank = 14
+        filter_bank_max = 27
+    else:
+        print(f"Unknown CAN peripheral {peripheral}")
+
     for msg in rx_msg_configs:
-        if(filter_bank > 27):
+        if(filter_bank > filter_bank_max):
             generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
             quit(1)
         if not on_mask:
-            lines.append(f"    {peripheral}->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
             on_mask = True
         else:
-            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
             on_mask = False
             filter_bank += 1
 
@@ -290,10 +301,12 @@ def configure_node(node_config, node_paths):
 
     # Hardware filtering
     filter_lines = []
-    periph = DEFAULT_PERIPHERAL
-    if "can_peripheral" in node_config: periph = node_config['can_peripheral']
-    gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
-    if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
+    if not ("accept_all_messages" in node_config and node_config["accept_all_messages"]):
+        periph = DEFAULT_PERIPHERAL
+        if "can_peripheral" in node_config: periph = node_config['can_peripheral']    
+        gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
+        if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
+
     c_lines = generator.insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
     
     # Rx IRQ callbacks

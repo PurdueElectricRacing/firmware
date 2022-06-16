@@ -185,7 +185,7 @@ void canTxUpdate(void)
 
 void bootloader_request_reset_CALLBACK(CanParsedData_t* data)
 {
-    Bootloader_ResetForFirmwareDownload();
+    // Bootloader_ResetForFirmwareDownload();
 }
 
 void CAN1_RX0_IRQHandler()

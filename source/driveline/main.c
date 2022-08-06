@@ -171,7 +171,7 @@ int main(void)
     taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
     taskCreate(parseDataPeriodic, 15);
-    // taskCreate(shockpot1000Hz, 5);
+    // TODO: taskCreate(shockpot1000Hz, 5);
     taskCreate(wheelSpeedsPeriodic, 15);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);

@@ -47,13 +47,7 @@ void carPeriodic()
 
     /* State Independent Operations */
 
-    // if (GPIOC->IDR & (1U << 1)) {
-    //     asm("nop");
-    // } else {
-    //     asm("nop");
-    // }
-
-    // brakeLightUpdate(can_data.raw_throttle_brake.brake);
+    // TODO: brakeLightUpdate(can_data.raw_throttle_brake.brake);
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {
         if (!car.brake_light)
@@ -171,6 +165,9 @@ void carPeriodic()
 
         SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, torque_r.torque_left, torque_r.torque_right);
 
+        /************ Around the World *************/
+        // Meant for testing with vehicle off the ground
+        // Periodically cycles each wheel in a circular pattern
         // if (curr) SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 410);
         // else SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 0);
         /*
@@ -212,8 +209,8 @@ bool checkErrorFaults()
     /* Heart Beat Stale */ 
     // is_error += can_data.dashboard_hb.stale;
     // is_error += can_data.front_driveline_hb.stale;
-    // is_error += can_data.rear_driveline_hb.stale;
-    //TODO: is_error += can_data.precharge_hb.stale;
+    // TODO: is_error += can_data.rear_driveline_hb.stale;
+    // TODO: is_error += can_data.precharge_hb.stale;
 
     prchg_stat = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
@@ -231,10 +228,10 @@ bool checkErrorFaults()
     }
 
     /* Precharge */
-    // is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+    // TODO: is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
     /* Dashboard */
-    // is_error += can_data.raw_throttle_brake.stale;
+    // TODO: is_error += can_data.raw_throttle_brake.stale;
 
     /* Driveline */
     // Front
@@ -242,6 +239,7 @@ bool checkErrorFaults()
     //             FRONT_LEFT_MOTOR_CONNECTED;
     // is_error += can_data.front_driveline_hb.front_right_motor != 
     //             FRONT_RIGHT_MOTOR_CONNECTED;
+
     // Rear
     is_error += can_data.rear_driveline_hb.rear_left_motor    != 
                 REAR_LEFT_MOTOR_CONNECTED;
@@ -249,8 +247,8 @@ bool checkErrorFaults()
                 REAR_RIGHT_MOTOR_CONNECTED;
 
     /* Temperature */
-    // if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;
-    // if (!BAT_ALWAYS_COOL) is_error += cooling.bat_temp_error;
+    // TODO: if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;
+    // TODO: if (!BAT_ALWAYS_COOL) is_error += cooling.bat_temp_error;
 
     if (is_error && !error_rose) 
     {
@@ -279,7 +277,7 @@ bool checkFatalFaults()
     if (!DT_FLOW_CHECK_OVERRIDE)  is_error += cooling.dt_flow_error;
     if (!BAT_FLOW_CHECK_OVERRIDE) is_error += cooling.bat_flow_error;
 
-    // is_error += !PHAL_readGPIO(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin);
+    // TODO: is_error += !PHAL_readGPIO(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin);
 
     is_error += (can_data.max_cell_temp.max_temp > 500) ? 1 : 0;
 

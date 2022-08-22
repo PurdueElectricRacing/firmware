@@ -51,7 +51,12 @@
                     "type":"array",
                     "description":"messages received by the node",
                     "items":{"$ref":"#/$defs/rx_message"}
+                },
+                "accept_all_messages":{
+                    "type":"boolean",
+                    "description":"Do not generate CAN RX filters and accept all messages. Only those messages configured in the RX field will be populated in the can_data structure."
                 }
+
             }
         },
         "tx_message":{
@@ -106,7 +111,7 @@
                     "minimum":1,
                     "maimum":64
                 },
-                "scale":{"type":"integer", "description":"scale factor to apply, default of 1\nDecoding results in (x * scale)+offset"},
+                "scale":{"type":"number", "description":"scale factor to apply, default of 1\nDecoding results in (x * scale)+offset"},
                 "offset":{"type":"integer", "description": "offset to apply, default of 0\nDecoding results in (x * scale)+offset"},
                 "maximum":{"type":"integer", "description": "maximum value of signal, defaults to none"},
                 "minimum":{"type":"integer", "description": "minimum value of signal, defaults to none"},

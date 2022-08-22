@@ -32,27 +32,10 @@ int checkTempMaster(uint8_t addr)
 
 void tempTask(void)
 {
-    uint8_t i;
-    uint8_t buff[TEMP_MAX * 2];
-
-    // Get values from device 1
-    PHAL_I2C_gen_start(I2C1, TEMP_ID1, bms.temp_count, PHAL_I2C_MODE_RX);
-    PHAL_I2C_read_multi(I2C1, buff, bms.temp_count);
-    PHAL_I2C_gen_stop(I2C1);
-
-    for (i = 0; i < bms.temp_count; i++)
-    {
-        bms.cells.chan_temps_raw[i] = (buff[i * 2] << 8) | buff[(i * 2) + 1];
-    }
-
-    // Get values from device 2
-    PHAL_I2C_gen_start(I2C1, TEMP_ID2, bms.temp_count, PHAL_I2C_MODE_RX);
-    PHAL_I2C_read_multi(I2C1, buff, bms.temp_count);
-    PHAL_I2C_gen_stop(I2C1);
-
-    for (i = 0; i < bms.temp_count; i++)
-    {
-        bms.cells.chan_temps_raw[i] = (buff[i * 2] << 8) | buff[(i * 2) + 1];
+    if (!PHAL_readGPIO(GPIOB, 6) || !PHAL_readGPIO(GPIOB, 7)) {
+        bms.error |= 1U << E_TEMP;
+    } else {
+        bms.error &= ~(1U << E_TEMP);
     }
 }
 

@@ -10,7 +10,6 @@
 
 uint16_t cell_volts[NUM_CELLS] = {0};
 uint16_t cell_volts_conv[NUM_CELLS] = {0};
-uint32_t cell_mask[3] = {0};
 extern q_handle_t q_tx_can;
 
 bool charge_mode_enable = false; // Enable charge algo
@@ -34,31 +33,6 @@ void BMS_init()
     linkWritea(DAQ_ID_UV_LIMIT, &uv_limit);
     linkReada(DAQ_ID_OV_LIMIT, &ov_limit);
     linkWritea(DAQ_ID_OV_LIMIT, &ov_limit);
-}
-
-uint8_t BMS_updateMask() {
-    uint8_t i;
-    uint8_t err = 0;
-    
-    static uint8_t  mask_err;
-    static uint8_t  mask_set;
-    static uint32_t mask[3];
-
-    // mask[0] |= (1U << 10) | (1U << 20) | (1U << 25) | (1U << 26) | (1U << 30);
-    // mask[1] |= (1U << (50 - 32)) | (1U << (60 - 32));
-    // mask[2] |= (1U << (69 - 64)) | (1U < (70 - 64)) | (1U << (76 - 64)) | (1U << (77 - 64)) | (1U << (79 - 64));
-
-    for (i = 0; i < NUM_CELLS; i++) {
-        if (!(mask[i / 32] & (1U << (i % 32)))) {
-            if ((cell_volts[i] > ov_limit) || (cell_volts[i] < uv_limit)) {
-                ++err;
-            }
-        } else {
-            cell_volts[i] = cell_volts[i - 1] + 6;
-        }
-    }
-
-    return err | bms_temp_err;
 }
 
 uint16_t BMS_updateErrorFlags()
@@ -85,8 +59,6 @@ void BMS_txBatteryStatus()
     uint16_t lowest = 0;
     uint8_t idx;
     uint16_t v1 = 0, v2 = 0, v3 = 0;
-
-    BMS_updateMask();
 
     switch (state)
     {

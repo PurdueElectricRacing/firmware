@@ -145,7 +145,7 @@ void txCAN(void)
     if (state == 5)
     {
         state = 0;
-    } 
+    }   
     else
     {
         ++state;

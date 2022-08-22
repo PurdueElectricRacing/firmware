@@ -53,7 +53,6 @@ void setBalance(void)
     uint16_t min_volts;
     uint16_t balance_set;
     float    avg_SOC = 0;
-    float    i_hate_myself;
 
     ov = uv = 0;
     min_volts = 0xffff;

@@ -65,10 +65,6 @@ void setBalance(void)
 
     avg_SOC /= bms.cell_count;
 
-    #if BMS_NODE_NAME == BMS_C
-    bms.cells.chan_volts_raw[5] = bms.cells.chan_volts_raw[6] = (uint16_t) ((bms.cells.chan_volts_raw[5] + bms.cells.chan_volts_raw[6]) / 2.0);
-    #endif
-
     for (i = 0; i < bms.cell_count; i++)
     {
         req_b = req_m = 0;

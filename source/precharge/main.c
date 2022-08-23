@@ -12,6 +12,8 @@
 /* Module Includes */
 #include "main.h"
 #include "bmi088.h"
+#include "bms.h"
+#include "daq.h"
 
 
 /* PER HAL Initilization Structures */
@@ -59,11 +61,17 @@ extern uint32_t PLLClockRateHz;
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-void heartbeat_task();
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
+
 void canTxUpdate();
-void imd_monitor();
+void heartbeatTask();
+void monitorStatus();
+void sendIMUData();
+void imuConfigureAccel();
+
+void preflightChecks();
+void preflightAnimation();
 
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -79,18 +87,21 @@ SPI_InitConfig_t spi_config = {
 };
 
 BMI088_Handle_t bmi_config = {
-    .acel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
-    .acel_csb_pin = SPI_CS_ACEL_Pin,
+    .accel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
+    .accel_csb_pin = SPI_CS_ACEL_Pin,
+    .accel_range = ACCEL_RANGE_3G,
+    .accel_odr = ACCEL_ODR_50Hz,
+    .accel_bwp = ACCEL_OS_NORMAL,
     .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
     .gyro_csb_pin = SPI_CS_GYRO_Pin,
-    .gyro_datarate = GYRO_DR_1000Hz_116Hz,
+    .gyro_datarate = GYRO_DR_100Hz_32Hz,
     .gyro_range = GYRO_RANGE_250,
     .spi = &spi_config
 };
 
-int16_t x, y, z;
 int main (void)
 {
+
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));  
@@ -112,7 +123,7 @@ int main (void)
     if (!PHAL_SPI_init(&spi_config))
         PHAL_FaultHandler();
 
-    PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
+    PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 0);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -121,19 +132,18 @@ int main (void)
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
-
-    // if (!BMI088_init(&bmi_config))
-    //     PHAL_FaultHandler();
-    // while(1)
-    // {
-    //     BMI088_readGyro(&bmi_config, &x, &y, &z);
-    // }
-    
+    BMS_init();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(heartbeat_task, 500);
-    taskCreate(imd_monitor, 20);
+    configureAnim(preflightAnimation, preflightChecks, 75, 750);
+    taskCreate(heartbeatTask, 500);
+    taskCreate(monitorStatus, 50);
+    taskCreate(BMS_txBatteryStatus, 50);
+    taskCreate(BMS_chargePeriodic, 50);
+    taskCreate(sendIMUData, 10);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(tempPeriodic, 500);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -144,20 +154,97 @@ int main (void)
     return 0;
 }
 
-void PHAL_FaultHandler()
+// *** Startup configuration ***
+void preflightChecks(void) 
 {
-    asm("bkpt");
-    HardFault_Handler();
+    static uint16_t state;
+
+    switch (state++)
+    {
+        case 0 :
+            if (daqInit(&q_tx_can, 0))
+                PHAL_FaultHandler();
+            break;
+
+        case 1:
+            if (!BMI088_init(&bmi_config))
+                PHAL_FaultHandler();
+            break;
+
+        case 100:
+            // Put accel into SPI mode
+            PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
+            break;
+            
+        case 250:
+            BMI088_powerOnAccel(&bmi_config);
+            break;
+
+        case 500:
+            if (!BMI088_initAccel(&bmi_config))
+                PHAL_FaultHandler();
+            break;
+
+        case 750:
+            registerPreflightComplete(1);
+            break;
+        
+        default:
+            break;
+    }
 }
 
-void heartbeat_task()
+void preflightAnimation(void)
 {
+    static uint32_t time = 0;
+
+    PHAL_writeGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, 0);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
+
+    switch (time++ % 3)
+    {
+        case 0:
+            PHAL_writeGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, 1);
+            break;
+
+        case 1:
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            break;
+
+        case 2:
+            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
+            break;
+    }
+}
+
+// *** Misc. tasks ***
+void heartbeatTask()
+{
+    if ((sched.os_ticks - last_can_rx_time_ms) >= 500)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 }
 
-void imd_monitor()
+void monitorStatus()
 {
-    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin));
+    uint16_t err = 0;
+
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err ? 0 : 1);
+}
+
+void sendIMUData()
+{
+    static bool send_gyro = true;
+    int16_t ax, ay, az, gx, gy, gz;
+    BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
+    BMI088_readAccel(&bmi_config, &ax, &ay, &az);
+    
+    SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
+    SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
+
 }
 
 // *** Compulsory CAN Tx/Rx callbacks ***
@@ -192,6 +279,7 @@ void CAN1_RX0_IRQHandler()
           rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
         }
 
+        rx.Bus = CAN1;
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
         rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
@@ -220,6 +308,7 @@ void CAN2_RX0_IRQHandler()
     if (CAN2->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
         CanMsgTypeDef_t rx;
+        rx.Bus = CAN2;
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN2->sFIFOMailBox[0].RIR)
@@ -246,4 +335,10 @@ void CAN2_RX0_IRQHandler()
         canProcessRxIRQs(&rx);
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void PHAL_FaultHandler()
+{
+    asm("bkpt");
+    HardFault_Handler();
 }

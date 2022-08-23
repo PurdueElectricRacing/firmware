@@ -12,5 +12,7 @@
 #define CSB_AFE_GPIO_Port (GPIOB)
 #define WC_Pin (8)
 #define WC_GPIO_Port (GPIOA)
+#define LV_ERR_Pin (11)
+#define LV_ERR_GPIO_Port (GPIOA)
 
 #endif

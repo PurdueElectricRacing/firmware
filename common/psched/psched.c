@@ -304,10 +304,13 @@ static void schedBg()
             return;
         }
 
-        // Execute background tasks
-        for (i = 0; i < sched.bg_count; i++)
+        if (!(sched.preflight_required && (!sched.anim_complete || !sched.preflight_complete)))
         {
-            (*sched.bg_pointer[i])();
+            // Execute background tasks
+            for (i = 0; i < sched.bg_count; i++)
+            {
+                (*sched.bg_pointer[i])();
+            }
         }
     }
 }

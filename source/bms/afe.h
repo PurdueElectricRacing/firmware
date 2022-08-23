@@ -13,6 +13,8 @@
 #include "common/phal_L4/spi/spi.h"
 #include "common_defs.h"
 #include "bms.h"
+#include "can/can_parse.h"
+#include "node_defs.h"
 #include "string.h"
 
 // Generic Defines
@@ -28,6 +30,7 @@
 #define CELL_MIN_V          2.7
 #define CELL_0_OFFSET       3000
 #define TEMP_CONV           (1.0 / 75.0)
+#define OW_THRESH           4000
 
 // Balance limits
 #define SOC_DRIFT_LIM       2.0f
@@ -140,8 +143,15 @@ typedef enum {
     BAL_OFF,
     SETTLE,
     MEAS,
+    WAIT,
+    READ,
     BAL,
     DIAG,
+    OW_PU0,
+    OW_PU1,
+    OW_PD0,
+    OW_PD1,
+    OW_CALC,
     HALT
 } afe_state_t;
 

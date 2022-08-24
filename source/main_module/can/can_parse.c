@@ -49,12 +49,16 @@ void canRxUpdate()
                 can_data.front_motor_currents_temps.right_current = msg_data_a->front_motor_currents_temps.right_current;
                 can_data.front_motor_currents_temps.left_temp = msg_data_a->front_motor_currents_temps.left_temp;
                 can_data.front_motor_currents_temps.right_temp = msg_data_a->front_motor_currents_temps.right_temp;
+                can_data.front_motor_currents_temps.stale = 0;
+                can_data.front_motor_currents_temps.last_rx = sched.os_ticks;
                 break;
             case ID_REAR_MOTOR_CURRENTS_TEMPS:
-                can_data.rear_motor_currents_temps.left = msg_data_a->rear_motor_currents_temps.left;
-                can_data.rear_motor_currents_temps.right = msg_data_a->rear_motor_currents_temps.right;
+                can_data.rear_motor_currents_temps.left_current = msg_data_a->rear_motor_currents_temps.left_current;
+                can_data.rear_motor_currents_temps.right_current = msg_data_a->rear_motor_currents_temps.right_current;
                 can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
+                can_data.rear_motor_currents_temps.stale = 0;
+                can_data.rear_motor_currents_temps.last_rx = sched.os_ticks;
                 break;
             case ID_FRONT_DRIVELINE_HB:
                 can_data.front_driveline_hb.front_left_motor = msg_data_a->front_driveline_hb.front_left_motor;
@@ -63,17 +67,44 @@ void canRxUpdate()
                 can_data.front_driveline_hb.last_rx = sched.os_ticks;
                 break;
             case ID_REAR_DRIVELINE_HB:
-                can_data.rear_driveline_hb.back_left_motor = msg_data_a->rear_driveline_hb.back_left_motor;
-                can_data.rear_driveline_hb.back_right_motor = msg_data_a->rear_driveline_hb.back_right_motor;
+                can_data.rear_driveline_hb.rear_left_motor = msg_data_a->rear_driveline_hb.rear_left_motor;
+                can_data.rear_driveline_hb.rear_right_motor = msg_data_a->rear_driveline_hb.rear_right_motor;
                 can_data.rear_driveline_hb.stale = 0;
                 can_data.rear_driveline_hb.last_rx = sched.os_ticks;
                 break;
-            case ID_DASHBOARD_STATUS:
-                can_data.dashboard_status.apps_faulted = msg_data_a->dashboard_status.apps_faulted;
-                can_data.dashboard_status.bse_faulted = msg_data_a->dashboard_status.bse_faulted;
-                can_data.dashboard_status.apps_brake_faulted = msg_data_a->dashboard_status.apps_brake_faulted;
-                can_data.dashboard_status.stale = 0;
-                can_data.dashboard_status.last_rx = sched.os_ticks;
+            case ID_DASHBOARD_HB:
+                can_data.dashboard_hb.apps_faulted = msg_data_a->dashboard_hb.apps_faulted;
+                can_data.dashboard_hb.bse_faulted = msg_data_a->dashboard_hb.bse_faulted;
+                can_data.dashboard_hb.apps_brake_faulted = msg_data_a->dashboard_hb.apps_brake_faulted;
+                can_data.dashboard_hb.stale = 0;
+                can_data.dashboard_hb.last_rx = sched.os_ticks;
+                break;
+            case ID_MAX_CELL_TEMP:
+                can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
+                break;
+            case ID_FRONT_WHEEL_DATA:
+                can_data.front_wheel_data.left_speed = msg_data_a->front_wheel_data.left_speed;
+                can_data.front_wheel_data.right_speed = msg_data_a->front_wheel_data.right_speed;
+                can_data.front_wheel_data.left_normal = msg_data_a->front_wheel_data.left_normal;
+                can_data.front_wheel_data.right_normal = msg_data_a->front_wheel_data.right_normal;
+                can_data.front_wheel_data.stale = 0;
+                can_data.front_wheel_data.last_rx = sched.os_ticks;
+                break;
+            case ID_REAR_WHEEL_DATA:
+                can_data.rear_wheel_data.left_speed = msg_data_a->rear_wheel_data.left_speed;
+                can_data.rear_wheel_data.right_speed = msg_data_a->rear_wheel_data.right_speed;
+                can_data.rear_wheel_data.left_normal = msg_data_a->rear_wheel_data.left_normal;
+                can_data.rear_wheel_data.right_normal = msg_data_a->rear_wheel_data.right_normal;
+                can_data.rear_wheel_data.stale = 0;
+                can_data.rear_wheel_data.last_rx = sched.os_ticks;
+                break;
+            case ID_LWS_STANDARD:
+                can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+                can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+                can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+                can_data.LWS_Standard.stale = 0;
+                can_data.LWS_Standard.last_rx = sched.os_ticks;
                 break;
             case ID_DAQ_COMMAND_MAIN_MODULE:
                 can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
@@ -89,15 +120,30 @@ void canRxUpdate()
     CHECK_STALE(can_data.raw_throttle_brake.stale,
                 sched.os_ticks, can_data.raw_throttle_brake.last_rx,
                 UP_RAW_THROTTLE_BRAKE);
+    CHECK_STALE(can_data.front_motor_currents_temps.stale,
+                sched.os_ticks, can_data.front_motor_currents_temps.last_rx,
+                UP_FRONT_MOTOR_CURRENTS_TEMPS);
+    CHECK_STALE(can_data.rear_motor_currents_temps.stale,
+                sched.os_ticks, can_data.rear_motor_currents_temps.last_rx,
+                UP_REAR_MOTOR_CURRENTS_TEMPS);
     CHECK_STALE(can_data.front_driveline_hb.stale,
                 sched.os_ticks, can_data.front_driveline_hb.last_rx,
                 UP_FRONT_DRIVELINE_HB);
     CHECK_STALE(can_data.rear_driveline_hb.stale,
                 sched.os_ticks, can_data.rear_driveline_hb.last_rx,
                 UP_REAR_DRIVELINE_HB);
-    CHECK_STALE(can_data.dashboard_status.stale,
-                sched.os_ticks, can_data.dashboard_status.last_rx,
-                UP_DASHBOARD_STATUS);
+    CHECK_STALE(can_data.dashboard_hb.stale,
+                sched.os_ticks, can_data.dashboard_hb.last_rx,
+                UP_DASHBOARD_HB);
+    CHECK_STALE(can_data.front_wheel_data.stale,
+                sched.os_ticks, can_data.front_wheel_data.last_rx,
+                UP_FRONT_WHEEL_DATA);
+    CHECK_STALE(can_data.rear_wheel_data.stale,
+                sched.os_ticks, can_data.rear_wheel_data.last_rx,
+                UP_REAR_WHEEL_DATA);
+    CHECK_STALE(can_data.LWS_Standard.stale,
+                sched.os_ticks, can_data.LWS_Standard.last_rx,
+                UP_LWS_STANDARD);
     /* END AUTO STALE CHECKS */
 }
 
@@ -125,8 +171,14 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR1 = (ID_FRONT_DRIVELINE_HB << 3) | 4;
     CAN1->sFilterRegister[2].FR2 = (ID_REAR_DRIVELINE_HB << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_DASHBOARD_STATUS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_DASHBOARD_HB << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->FA1R |= (1 << 4);    // configure bank 4
+    CAN1->sFilterRegister[4].FR1 = (ID_FRONT_WHEEL_DATA << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_REAR_WHEEL_DATA << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

@@ -23,7 +23,7 @@
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
-//#include "wheel_speeds.h"
+#include "wheel_speeds.h"
 #include "shockpot.h"
 #include "plettenberg.h"
 
@@ -39,8 +39,8 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_USART2TX_PA2,
   GPIO_INIT_USART2RX_PA3,
   // Wheel Speed
-//   GPIO_INIT_AF(WSPEEDR_GPIO_Port, WSPEEDR_Pin, WHEELSPEEDR_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
-//   GPIO_INIT_AF(WSPEEDL_GPIO_Port, WSPEEDL_Pin, WHEELSPEEDL_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  GPIO_INIT_AF(WSPEEDR_GPIO_Port, WSPEEDR_Pin, WHEELSPEEDR_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  GPIO_INIT_AF(WSPEEDL_GPIO_Port, WSPEEDL_Pin, WHEELSPEEDL_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
   // EEPROM
   GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_I2C1_SCL_PB6,
@@ -53,10 +53,10 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* USART Configuration */
 // Left Motor Controller
-dma_init_t usart_l_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_l_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_l_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_l_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_l = {
-    .baud_rate   = 115000,
+    .baud_rate   = 115200,
     .word_length = WORD_8,
     .hw_flow_ctl = HW_DISABLE,
     .mode        = MODE_TX_RX,
@@ -75,10 +75,10 @@ usart_init_t huart_l = {
     .rx_dma_cfg = &usart_l_rx_dma_config
 };
 // Right Motor Controller
-dma_init_t usart_r_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_r_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_r_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_r_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_r = {
-    .baud_rate   = 115000,
+    .baud_rate   = 115200,
     .word_length = WORD_8,
     .hw_flow_ctl = HW_DISABLE,
     .mode        = MODE_TX_RX,
@@ -129,30 +129,23 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
+void preflightAnimation(void);
+void preflightChecks(void);
 void commandTorquePeriodic();
 void parseDataPeriodic();
 void canTxUpdate();
 void usartTxUpdate();
 void usartRxUpdate();
-void ledBlink();
+void ledUpdate();
 void heartBeat();
 extern void HardFault_Handler();
 
-char usart_rx_buffs[6][MC_MAX_RX_LENGTH] = {'\0'};
-typedef struct {
-    char *read;
-    char *write;
-    char *free;
-    bool free_has_data;
-} usart_rx_circ_buf_t;
-
-usart_rx_circ_buf_t c_rx_usart_l, c_rx_usart_r;
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
-volatile motor_t motor_left, motor_right;
-// wp
+motor_t motor_left, motor_right;
+
 int main(void)
 {
     /* Data Struct init */
@@ -160,15 +153,6 @@ int main(void)
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_tx_usart_l, MC_MAX_TX_LENGTH);
     qConstruct(&q_tx_usart_r, MC_MAX_TX_LENGTH);
-
-    c_rx_usart_l = (usart_rx_circ_buf_t) {.read =usart_rx_buffs[0], 
-                                          .write=usart_rx_buffs[1], 
-                                          .free =usart_rx_buffs[2],
-                                          .free_has_data=false};
-    c_rx_usart_r = (usart_rx_circ_buf_t) {.read =usart_rx_buffs[3], 
-                                          .write=usart_rx_buffs[4], 
-                                          .free =usart_rx_buffs[5],
-                                          .free_has_data=false};
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -179,72 +163,19 @@ int main(void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initUSART(USART_L, &huart_l, APB1ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initUSART(USART_R, &huart_r, APB2ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initCAN(CAN1, false))
-    {
-        HardFault_Handler();
-    }
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    // if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
-    // {
-    //     HardFault_Handler();
-    // }
-    // TODO: configure TIM2
-    // if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
-    // {
-    //     HardFault_Handler();
-    // }
-    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
-       sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initDMA(&adc_dma_config))
-    {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
-
-    // Signify start of initialization
-    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-
-    /* Module init */
-    initCANParse(&q_rx_can);
-    // wheelSpeedsInit();
-
-    // Motor Controllers
-    // Left
-    mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
-    USART_L->CR1 |= USART_CR1_IDLEIE; // enable idle interrupt
-    NVIC_EnableIRQ(USART2_IRQn);
-    // Right
-    mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
-    USART_R->CR1 |= USART_CR1_IDLEIE; // enable idle interrupt
-    NVIC_EnableIRQ(USART1_IRQn);
-
+    
     /* Task Creation */
     schedInit(SystemCoreClock);
-    taskCreate(ledBlink, 500);
+    configureAnim(preflightAnimation, preflightChecks, 50, 750);
+    taskCreate(ledUpdate, 500);
     taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
     taskCreate(parseDataPeriodic, 15);
-
-    // TODO: shock is very fast, but contains a bunch of floating point arithmetic
-    //taskCreate(shockpot1000Hz, 1);
-    //taskCreate(wheelSpeedsPeriodic(), 15);
-
+    // TODO: taskCreate(shockpot1000Hz, 5);
+    taskCreate(wheelSpeedsPeriodic, 15);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
-    // taskCreateBackground(usartRxUpdate);
 
     // signify end of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
@@ -253,14 +184,122 @@ int main(void)
     return 0;
 }
 
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            huart_l.rx_dma_cfg->circular = true;
+            if(!PHAL_initUSART(USART_L, &huart_l, APB1ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            huart_r.rx_dma_cfg->circular = true;
+            if(!PHAL_initUSART(USART_R, &huart_r, APB2ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 1:
+            if(!PHAL_initCAN(CAN1, false))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            break;
+        case 2:
+            if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 3:
+            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+            sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            {
+                HardFault_Handler();
+            }
+            if(!PHAL_initDMA(&adc_dma_config))
+            {
+                HardFault_Handler();
+            }
+            PHAL_startTxfer(&adc_dma_config);
+            PHAL_startADC(ADC1);
+            break;
+       case 4:
+            /* Module init */
+            initCANParse(&q_rx_can);
+            wheelSpeedsInit();
+            break;
+        case 5:
+            // Left MC
+            mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
+            USART_L->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
+            NVIC_EnableIRQ(USART1_IRQn);
+            // initial rx request
+            PHAL_usartRxDma(USART_L, &huart_l, 
+                            (uint16_t *) motor_left.rx_buf, 
+                            MC_MAX_RX_LENGTH);
+            break;
+        case 6:
+            // Right MC
+            mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
+            USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
+            NVIC_EnableIRQ(USART2_IRQn);
+            // initial rx request
+            PHAL_usartRxDma(USART_R, &huart_r, 
+                            (uint16_t *) motor_right.rx_buf, 
+                            MC_MAX_RX_LENGTH);
+            break;
+        default:
+            registerPreflightComplete(1);
+            state = 255; // prevent wrap around
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time;
+
+    PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
+    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+
+    switch (time++ % 2)
+    {
+        case 0:
+            PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
+            break;
+        case 1:
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            break;
+    }
+}
+
 void heartBeat()
 {
     #if (FTR_DRIVELINE_FRONT)
     SEND_FRONT_DRIVELINE_HB(q_tx_can, motor_left.motor_state,
                                       motor_right.motor_state);
+    SEND_FRONT_MOTOR_INIT(q_tx_can, motor_left.init_state, motor_right.init_state);
+
     #elif (FTR_DRIVELINE_REAR)
     SEND_REAR_DRIVELINE_HB(q_tx_can, motor_left.motor_state,
                                       motor_right.motor_state);
+    SEND_REAR_MOTOR_INIT(q_tx_can, motor_right.init_state, motor_right.init_state);
+
     #endif
 }
 /**
@@ -269,7 +308,6 @@ void heartBeat()
  */
 void commandTorquePeriodic()
 {
-    // TODO: fault checks or whatevs
     #if (FTR_DRIVELINE_FRONT)
     float pow_left  = (float) CLAMP(can_data.torque_request_main.front_left, -4095, 4095);
     float pow_right = (float) CLAMP(can_data.torque_request_main.front_right, -4095, 4095);
@@ -277,97 +315,64 @@ void commandTorquePeriodic()
     float pow_left  = (float) CLAMP(can_data.torque_request_main.rear_left, -4095, 4095);
     float pow_right = (float) CLAMP(can_data.torque_request_main.rear_right, -4095, 4095);
     #endif
-    pow_left  = pow_left  * 100.0 / 4096.0;
-    pow_right = pow_right * 100.0 / 4096.0;
+    pow_left  = pow_left  * 100.0 / 4095.0;
+    pow_right = pow_right * 100.0 / 4095.0;
 
     // Only drive if ready
-    if (can_data.main_status.car_state != CAR_STATE_READY2DRIVE || 
-        can_data.main_status.stale                              ||
-        can_data.torque_request_main.stale) 
+    if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
+        can_data.main_hb.stale                              ||
+        can_data.torque_request_main.stale                  ||
+        motor_left.motor_state  != MC_CONNECTED             ||
+        motor_right.motor_state != MC_CONNECTED) 
     {
-        pow_left = 0.0;
+        pow_left  = 0.0;
         pow_right = 0.0;
     }
-    // TODO: remove
-    // pow_left = 0.1;
-    // pow_right = 0.1;
-    if (motor_left.motor_state == MC_CONNECTED &&
-        motor_right.motor_state == MC_CONNECTED)
-    {
-        mc_set_power(pow_left, &motor_left);
-        mc_set_power(pow_right, &motor_right);
-    }
+    mc_set_power(pow_left,  &motor_left);
+    mc_set_power(pow_right, &motor_right);
 }
 
 /**
  * @brief Parses motor controller and sensor
- *        info into can messages
+ *        info into can messages, updates
+ *        motor controller connection status
  */
-uint8_t data_ct = 0;
 void parseDataPeriodic()
 {
     /* Update Motor Controller Data Structures */
-    char *tmp;
-    uint8_t valid_data_ct = 0;
-    // LEFT
-    if ((sched.os_ticks - motor_left.last_rx_time) > MC_RX_TIMEOUT_MS && 
-        motor_left.motor_state == MC_CONNECTED) 
-        motor_left.motor_state = MC_DISCONNECTED;
-    // only parse if new data
-    if (c_rx_usart_l.free_has_data)
-    {
-        c_rx_usart_l.free_has_data = false;
-        tmp = c_rx_usart_l.read;
-        c_rx_usart_l.read = c_rx_usart_l.free;
-        c_rx_usart_l.free = tmp;
-        valid_data_ct += mc_parse(c_rx_usart_l.read, &motor_left);
-    }
+    mc_periodic(&motor_left);
+    mc_periodic(&motor_right);
 
-    // RIGHT
-    if ((sched.os_ticks - motor_right.last_rx_time) > MC_RX_TIMEOUT_MS && 
-        motor_right.motor_state == MC_CONNECTED) 
-        motor_right.motor_state = MC_DISCONNECTED;
-    if (c_rx_usart_r.free_has_data)
-    {
-        c_rx_usart_r.free_has_data = false;
-        tmp = c_rx_usart_r.read;
-        c_rx_usart_r.read = c_rx_usart_r.free;
-        c_rx_usart_r.free = tmp;
-        valid_data_ct += mc_parse(c_rx_usart_r.read, &motor_right);
-    }
+    // Only send once both controllers have updated data
+    // if (motor_right.data_stale ||
+    //     motor_left.data_stale) return;
 
-    if (valid_data_ct != 2) return;
-
-    // TODO: rpm -> ? currently rpm won't fit in uint16_t based on max rpm
     // TODO: shock pots change from raw
+    // TODO: use motor rpm to verify wheel speed sensors?
 #if (FTR_DRIVELINE_REAR)
-    SEND_REAR_WHEEL_DATA(q_tx_can, motor_left.rpm, motor_right.rpm,
+    SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
                          raw_shock_pots.pot_left, raw_shock_pots.pot_right);
 #elif (FTR_DRIVELINE_FRONT)
-    SEND_REAR_WHEEL_DATA(q_tx_can, motor_left.rpm, motor_right.rpm,
+    SEND_FRONT_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
                          raw_shock_pots.pot_left, raw_shock_pots.pot_right);
 #endif
 
-    if (data_ct++ % 8 == 0)
-    {
 #if (FTR_DRIVELINE_REAR)
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can, 
-                                   (uint16_t) motor_left.phase_current, 
-                                   (uint16_t) motor_right.phase_current,
+                                   (uint16_t) motor_left.current_x10, 
+                                   (uint16_t) motor_right.current_x10,
                                    (uint8_t)  motor_left.motor_temp, 
                                    (uint8_t)  motor_right.motor_temp);
 #elif (FTR_DRIVELINE_FRONT)
-    SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can, 
-                                   (uint16_t) motor_left.phase_current, 
-                                   (uint16_t) motor_right.phase_current,
+    SEND_FRONT_MOTOR_CURRENTS_TEMPS(q_tx_can, 
+                                   (uint16_t) motor_left.current_x10, 
+                                   (uint16_t) motor_right.current_x10,
                                    (uint8_t)  motor_left.motor_temp, 
                                    (uint8_t)  motor_right.motor_temp);
 #endif
-    }
-
 }
 
-void ledBlink()
+void ledUpdate()
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
@@ -375,101 +380,39 @@ void ledBlink()
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 }
 
-uint8_t usart_cmd[MC_MAX_TX_LENGTH] = {'\0'};
+/* USART Message Handling */
+uint8_t tmp_left[MC_MAX_TX_LENGTH] = {'\0'};
+uint8_t tmp_right[MC_MAX_TX_LENGTH] = {'\0'};
 void usartTxUpdate()
 {
     if (PHAL_usartTxDmaComplete(&huart_l) && 
-        qReceive(&q_tx_usart_l, usart_cmd) == SUCCESS_G)
+        qReceive(&q_tx_usart_l, tmp_left) == SUCCESS_G)
     {
-        PHAL_usartTxDma(USART_L, &huart_l, (uint16_t *) usart_cmd, strlen(usart_cmd));
+        PHAL_usartTxDma(USART_L, &huart_l, (uint16_t *) tmp_left, strlen(tmp_left));
     }
-    // RIGHT
     if (PHAL_usartTxDmaComplete(&huart_r) && 
-        qReceive(&q_tx_usart_r, usart_cmd) == SUCCESS_G)
+        qReceive(&q_tx_usart_r, tmp_right) == SUCCESS_G)
     {
-        PHAL_usartTxDma(USART_R, &huart_r, (uint16_t *) usart_cmd, strlen(usart_cmd));
+        PHAL_usartTxDma(USART_R, &huart_r, (uint16_t *) tmp_right, strlen(tmp_right));
     }
 }
 
-// uint8_t l_times = 0;
-// uint8_t r_times = 0;
-// void usartRxUpdate()
-// {
-//     // TODO: handle half received DMA messages
-//     // LEFT
-    
-//     // RIGHT
-//     if (PHAL_usartRxDmaComplete(&huart_r))
-//     {
-//         if (r_times < 20)
-//         {
-//             r_times++;
-//             PHAL_usartRxDma(USART_R, &huart_r, 
-//                             (uint16_t *) c_rx_usart_r.write, 
-//                             MC_MAX_RX_LENGTH);
-//         }
-//         else
-//         {
-//             // swap free and write
-//             tmp = c_rx_usart_r.write;
-//             c_rx_usart_r.write = c_rx_usart_r.free;
-//             c_rx_usart_r.free = tmp;
-//             PHAL_usartRxDma(USART_R, &huart_r, 
-//                             (uint16_t *) c_rx_usart_r.write, 
-//                             MC_MAX_RX_LENGTH);
-//         }
-//     }
-// }
-
-// TODO: may have to request initial rx
-void USART1_IRQHandler()
-{
-    char *tmp;
-    // check idle flag
-    if (USART_R->ISR & USART_ISR_IDLE)
-    {
-        // clear idle flag
-        USART_R->ICR |= USART_ICR_IDLECF;
-        if (PHAL_usartRxDmaComplete(&huart_r))
-        {
-            // if dma done receiving switch free and write
-            tmp = c_rx_usart_r.write;
-            c_rx_usart_r.write = c_rx_usart_r.free;
-            c_rx_usart_r.free = tmp;
-            c_rx_usart_l.free_has_data = false;
-            motor_right.last_rx_time = sched.os_ticks;
-        }
-        // restart reception
-        PHAL_usartRxDma(USART_R, &huart_r, 
-                        (uint16_t *) c_rx_usart_r.write, 
-                        MC_MAX_RX_LENGTH);
+void USART1_IRQHandler(void) {
+    if (USART_L->ISR & USART_ISR_IDLE) {
+        motor_left.last_rx_time = sched.os_ticks;
+        USART_L->ICR = USART_ICR_IDLECF;
     }
 }
 
-void USART2_IRQHandler()
-{
-    char *tmp;
-    // check idle flag
-    if (USART_L->ISR & USART_ISR_IDLE)
-    {
-        // clear idle flag
-        USART_L->ICR |= USART_ICR_IDLECF;
-        if (PHAL_usartRxDmaComplete(&huart_l))
-        {
-            // if dma done receiving switch free and write
-            tmp = c_rx_usart_l.write;
-            c_rx_usart_l.write = c_rx_usart_l.free;
-            c_rx_usart_l.free = tmp;
-            c_rx_usart_l.free_has_data = true;
-            motor_left.last_rx_time = sched.os_ticks;
-        }
-        // restart reception
-        PHAL_usartRxDma(USART_L, &huart_l, 
-                        (uint16_t *) c_rx_usart_l.write, 
-                        MC_MAX_RX_LENGTH);
+void USART2_IRQHandler(void) {
+    if (USART_R->ISR & USART_ISR_IDLE) {
+        char *tmp;
+        motor_right.last_rx_time = sched.os_ticks;
+        USART_R->ICR = USART_ICR_IDLECF;
     }
 }
 
+/* CAN Message Handling */
 void canTxUpdate()
 {
     CanMsgTypeDef_t tx_msg;

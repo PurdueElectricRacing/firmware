@@ -33,12 +33,11 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard bootloader BMS_LV TESTER DAQ Precharge BMS1 TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge Dashboard Steering Acceleration bootloader BMS_LV TESTER Charger DAQ Precharge BMS ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
-BO_ 2214598913 main_status: 3 Main_Module
- SG_ precharge_state : 16|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ apps_state : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598913 main_hb: 2 Main_Module
+ SG_ precharge_state : 8|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592577 torque_request_main: 8 Main_Module
@@ -65,35 +64,86 @@ BO_ 2214598915 front_driveline_hb: 2 Driveline
  SG_ front_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214598979 rear_driveline_hb: 2 Driveline
- SG_ back_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ back_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592515 front_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
 BO_ 2214592579 rear_wheel_data: 8 Driveline
  SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ right_speed : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_speed : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
+ SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
 BO_ 2348810883 front_motor_currents_temps: 6 Driveline
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right_current : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_current : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
+ SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
 BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
+ SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
-BO_ 2281734148 test_precharge_msg: 1 Precharge
- SG_ test_precharge_sig : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483028739 front_motor_init: 2 Driveline
+ SG_ front_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028803 rear_motor_init: 2 Driveline
+ SG_ rear_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734148 battery_info: 8 Precharge
+ SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ lowest : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ voltage : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734212 cell_info: 7 Precharge
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550588916 elcon_charger_command: 5 Precharge
+ SG_ charge_disable : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+
+BO_ 2281734276 pack_charge_status: 7 Precharge
+ SG_ current : 34|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage : 18|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ balance_enable : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
+
+BO_ 2214625284 gyro_data: 6 Precharge
+ SG_ gz : 32|16@1- (1,0) [0|0] "deg/s" Vector__XXX
+ SG_ gy : 16|16@1- (1,0) [0|0] "deg/s" Vector__XXX
+ SG_ gx : 0|16@1- (1,0) [0|0] "deg/s" Vector__XXX
+
+BO_ 2214625348 accel_data: 6 Precharge
+ SG_ az : 32|16@1- (1,0) [0|0] "g" Vector__XXX
+ SG_ ay : 16|16@1- (1,0) [0|0] "g" Vector__XXX
+ SG_ ax : 0|16@1- (1,0) [0|0] "g" Vector__XXX
+
+BO_ 2214913540 max_cell_temp: 2 Precharge
+ SG_ max_temp : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
+ SG_ temp_D : 48|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028613 raw_throttle_brake: 3 Dashboard
  SG_ brake : 12|12@1+ (1,0) [0|0] "" Vector__XXX
@@ -102,13 +152,40 @@ BO_ 2483028613 raw_throttle_brake: 3 Dashboard
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598917 dashboard_status: 1 Dashboard
+BO_ 2214598917 dashboard_hb: 1 Dashboard
  SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 688 LWS_Standard: 5 Steering
+ SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "°/s" Vector__XXX
+ SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "°" Vector__XXX
+
+BO_ 372 Y_Accel: 8 Acceleration
+ SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_2 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Y_Acc : 32|16@1+ (0.0001274,-4.1746432) [0|0] "g" Vector__XXX
+ SG_ Reserved_1 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Yaw_Rate : 0|16@1+ (0.005,-163.84) [0|0] "°/s" Vector__XXX
+
+BO_ 376 X_Accel: 8 Acceleration
+ SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_2 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ X_Acc : 32|16@1+ (0.0001274,-4.1746432) [0|0] "g" Vector__XXX
+ SG_ Reserved_1 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Roll_Rate : 0|16@1+ (0.005,-163.84) [0|0] "°/s" Vector__XXX
+
+BO_ 380 Z_Accel: 8 Acceleration
+ SG_ Reserved_4 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_3 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Z_Acc : 32|16@1+ (0.0001274,-4.1746432) [0|0] "g" Vector__XXX
+ SG_ Reserved_2 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214912572 mainmodule_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
@@ -287,10 +364,22 @@ BO_ 2215233534 bms_j_bl_cmd: 5 TESTER
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2566869221 elcon_charger_status: 5 Charger
+ SG_ communication_fail : 36|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ startup_fail : 35|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ input_v_fail : 34|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp_fail : 33|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ hw_fail : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charge_current : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ charge_voltage : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+
 BO_ 2483028082 daq_command_MAIN_MODULE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028274 daq_command_PRECHARGE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281733418 heat_req: 3 Precharge
@@ -300,37 +389,360 @@ BO_ 2281733418 heat_req: 3 Precharge
 BO_ 2214624618 pack_curr: 2 Precharge
  SG_ current : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281733483 soc_cells: 7 BMS1
+BO_ 2348810282 balance_request: 2 Precharge
+ SG_ voltage_target : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
+
+BO_ 2281733483 soc_cells_1: 7 BMS
  SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624683 volts_cells: 7 BMS1
+BO_ 2214624683 volts_cells_1: 7 BMS
  SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281733611 pack_info: 6 BMS1
+BO_ 2281733611 pack_info_1: 6 BMS
  SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624811 temps_cells: 7 BMS1
+BO_ 2214624811 temps_cells_1: 7 BMS
  SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281733739 cell_info: 6 BMS1
+BO_ 2281733739 cell_info_1: 6 BMS
  SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624939 power_lim: 4 BMS1
+BO_ 2214624939 power_lim_1: 4 BMS
  SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733867 soc_cells_2: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625067 volts_cells_2: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281733995 pack_info_2: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625195 temps_cells_2: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734123 cell_info_2: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625323 power_lim_2: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734251 soc_cells_3: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625451 volts_cells_3: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734379 pack_info_3: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625579 temps_cells_3: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734507 cell_info_3: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625707 power_lim_3: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734635 soc_cells_4: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625835 volts_cells_4: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734763 pack_info_4: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214625963 temps_cells_4: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281734891 cell_info_4: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626091 power_lim_4: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735019 soc_cells_5: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626219 volts_cells_5: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735147 pack_info_5: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626347 temps_cells_5: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735275 cell_info_5: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626475 power_lim_5: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735403 soc_cells_6: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626603 volts_cells_6: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735531 pack_info_6: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626731 temps_cells_6: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735659 cell_info_6: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626859 power_lim_6: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735787 soc_cells_7: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214626987 volts_cells_7: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281735915 pack_info_7: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214627115 temps_cells_7: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281736043 cell_info_7: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214627243 power_lim_7: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281736171 soc_cells_8: 7 BMS
+ SG_ soc3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ soc1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214627371 volts_cells_8: 7 BMS
+ SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281736299 pack_info_8: 6 BMS
+ SG_ bal_flags : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ error : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214627499 temps_cells_8: 7 BMS
+ SG_ t3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ t1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2281736427 cell_info_8: 6 BMS
+ SG_ uv : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ ov : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ delta : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214627627 power_lim_8: 4 BMS
+ SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147486688 module_temp_0: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486689 module_temp_1: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486690 module_temp_2: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486691 module_temp_3: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486692 module_temp_4: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486693 module_temp_5: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486694 module_temp_6: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486695 module_temp_7: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486696 module_temp_8: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486697 module_temp_9: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486698 module_temp_10: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486699 module_temp_11: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486700 module_temp_12: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486701 module_temp_13: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486702 module_temp_14: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+
+BO_ 2147486703 module_temp_15: 8 ARDUINO
+ SG_ mod_temp_3 : 48|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_2 : 32|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
+ SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
 
 BO_ 2483028095 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1- (1,0) [0|0] "" Vector__XXX
@@ -402,18 +814,21 @@ CM_ BU_ Torque_Vector "";
 CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ Dashboard "";
+CM_ BU_ Steering "";
+CM_ BU_ Acceleration "";
 CM_ BU_ bootloader "";
 CM_ BU_ BMS_LV "";
 CM_ BU_ TESTER "";
+CM_ BU_ Charger "";
 CM_ BU_ DAQ "";
 CM_ BU_ Precharge "";
-CM_ BU_ BMS1 "";
+CM_ BU_ BMS "";
+CM_ BU_ ARDUINO "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
-CM_ BO_ 2214598913 "Status message for main module";
+CM_ BO_ 2214598913 "Heart beat message for main module";
 CM_ SG_ 2214598913 precharge_state "Precharge complete state";
-CM_ SG_ 2214598913 apps_state "Accelerator plausibility state";
 CM_ SG_ 2214598913 car_state "Main car state";
 CM_ BO_ 2214592577 "Torque request for all motors, temporarily from main.";
 CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
@@ -434,8 +849,8 @@ CM_ BO_ 2214598915 "front drivline heart beat";
 CM_ SG_ 2214598915 front_right_motor "";
 CM_ SG_ 2214598915 front_left_motor "";
 CM_ BO_ 2214598979 "rear drivline heart beat";
-CM_ SG_ 2214598979 back_right_motor "";
-CM_ SG_ 2214598979 back_left_motor "";
+CM_ SG_ 2214598979 rear_right_motor "";
+CM_ SG_ 2214598979 rear_left_motor "";
 CM_ BO_ 2214592515 "Wheel data for the rear tires";
 CM_ SG_ 2214592515 right_normal "";
 CM_ SG_ 2214592515 left_normal "";
@@ -454,10 +869,51 @@ CM_ SG_ 2348810883 left_current "";
 CM_ BO_ 2348810947 "DC Current and Temperature of the motor controllers";
 CM_ SG_ 2348810947 right_temp "";
 CM_ SG_ 2348810947 left_temp "";
-CM_ SG_ 2348810947 right "";
-CM_ SG_ 2348810947 left "";
-CM_ BO_ 2281734148 "test precharge desc";
-CM_ SG_ 2281734148 test_precharge_sig "";
+CM_ SG_ 2348810947 right_current "";
+CM_ SG_ 2348810947 left_current "";
+CM_ BO_ 2483028739 "Front motor controller initialization status";
+CM_ SG_ 2483028739 front_right_init "";
+CM_ SG_ 2483028739 front_left_init "";
+CM_ BO_ 2483028803 "Front motor controller initialization status";
+CM_ SG_ 2483028803 rear_right_init "";
+CM_ SG_ 2483028803 rear_left_init "";
+CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
+CM_ SG_ 2281734148 error "";
+CM_ SG_ 2281734148 lowest "";
+CM_ SG_ 2281734148 delta "";
+CM_ SG_ 2281734148 voltage "";
+CM_ BO_ 2281734212 "Information about specific cell voltages";
+CM_ SG_ 2281734212 v3 "Cell idx in V * 10000";
+CM_ SG_ 2281734212 v2 "Cell idx in V * 10000";
+CM_ SG_ 2281734212 v1 "Cell idx in V * 10000";
+CM_ SG_ 2281734212 idx "Cell starting index";
+CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
+CM_ SG_ 2550588916 charge_disable "Disable charging";
+CM_ SG_ 2550588916 current_limit "Charge current";
+CM_ SG_ 2550588916 voltage_limit "Charge voltage";
+CM_ BO_ 2281734276 "Charge voltage and current request to ELCON charger";
+CM_ SG_ 2281734276 current "Instantaneous charge current";
+CM_ SG_ 2281734276 voltage "Instantaneous charge voltage";
+CM_ SG_ 2281734276 balance_enable "Cell balance enabled";
+CM_ SG_ 2281734276 charge_enable "Charge mode enable";
+CM_ SG_ 2281734276 power "Instantaneous charge power";
+CM_ BO_ 2214625284 "Angular rate data";
+CM_ SG_ 2214625284 gz "";
+CM_ SG_ 2214625284 gy "";
+CM_ SG_ 2214625284 gx "";
+CM_ BO_ 2214625348 "Acceleration rate data";
+CM_ SG_ 2214625348 az "";
+CM_ SG_ 2214625348 ay "";
+CM_ SG_ 2214625348 ax "";
+CM_ BO_ 2214913540 "maximum cell temperature for the whole pack";
+CM_ SG_ 2214913540 max_temp "";
+CM_ BO_ 2483060868 "Average cell temperature for each module";
+CM_ SG_ 2483060868 temp_D "";
+CM_ SG_ 2483060868 temp_C "";
+CM_ SG_ 2483060868 temp_B "";
+CM_ SG_ 2483060868 temp_A "";
+CM_ BO_ 2550136772 "daq response from node PRECHARGE";
+CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483028613 "throttle_brake desc";
 CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle "";
@@ -469,6 +925,29 @@ CM_ SG_ 2214598917 bse_faulted "";
 CM_ SG_ 2214598917 apps_faulted "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
+CM_ BO_ 688 "Standard steering angle and speed";
+CM_ SG_ 688 Reserved_2 "";
+CM_ SG_ 688 Reserved_1 "";
+CM_ SG_ 688 LWS_SPEED "";
+CM_ SG_ 688 LWS_ANGLE "";
+CM_ BO_ 372 "Y Acceleration Update";
+CM_ SG_ 372 Reserved_3 "";
+CM_ SG_ 372 Reserved_2 "";
+CM_ SG_ 372 Y_Acc "";
+CM_ SG_ 372 Reserved_1 "";
+CM_ SG_ 372 Yaw_Rate "";
+CM_ BO_ 376 "X Acceleration Update";
+CM_ SG_ 376 Reserved_3 "";
+CM_ SG_ 376 Reserved_2 "";
+CM_ SG_ 376 X_Acc "";
+CM_ SG_ 376 Reserved_1 "";
+CM_ SG_ 376 Roll_Rate "";
+CM_ BO_ 380 "Z Acceleration Update";
+CM_ SG_ 380 Reserved_4 "";
+CM_ SG_ 380 Reserved_3 "";
+CM_ SG_ 380 Z_Acc "";
+CM_ SG_ 380 Reserved_2 "";
+CM_ SG_ 380 Reserved_1 "";
 CM_ BO_ 2214912572 "Main Module Bootloader response";
 CM_ SG_ 2214912572 data "";
 CM_ SG_ 2214912572 cmd "";
@@ -605,15 +1084,27 @@ CM_ SG_ 2215233470 cmd "Bootloader Command type";
 CM_ BO_ 2215233534 "Bootloader command for torque vector";
 CM_ SG_ 2215233534 data "Bootloader data";
 CM_ SG_ 2215233534 cmd "Bootloader Command type";
+CM_ BO_ 2566869221 "Realtime charger status";
+CM_ SG_ 2566869221 communication_fail " 5s timeout from communication failure";
+CM_ SG_ 2566869221 startup_fail "Startup voltage detection failure";
+CM_ SG_ 2566869221 input_v_fail "Input voltage failure";
+CM_ SG_ 2566869221 temp_fail "Temperature failure";
+CM_ SG_ 2566869221 hw_fail "Hardware failure";
+CM_ SG_ 2566869221 charge_current "";
+CM_ SG_ 2566869221 charge_voltage "";
 CM_ BO_ 2483028082 "daq command for node MAIN_MODULE";
 CM_ SG_ 2483028082 daq_command "";
 CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
+CM_ BO_ 2483028274 "daq command for node PRECHARGE";
+CM_ SG_ 2483028274 daq_command "";
 CM_ BO_ 2281733418 "Starts BMS pre-heat for set time";
 CM_ SG_ 2281733418 time "Set runtime in ms";
 CM_ SG_ 2281733418 toggle "1 for start, 0 for stop";
 CM_ BO_ 2214624618 "Pack current";
 CM_ SG_ 2214624618 current "Pack current";
+CM_ BO_ 2348810282 "Global cell balance request setpoint";
+CM_ SG_ 2348810282 voltage_target "Global balance target";
 CM_ BO_ 2281733483 "Estimated soc";
 CM_ SG_ 2281733483 soc3 "Cell 2 in % * 100";
 CM_ SG_ 2281733483 soc2 "Cell 1 in % * 100";
@@ -640,6 +1131,268 @@ CM_ SG_ 2281733739 delta "Max cell delta in V * 10000";
 CM_ BO_ 2214624939 "Power limits";
 CM_ SG_ 2214624939 chg_lim "Charge limit in W";
 CM_ SG_ 2214624939 disch_lim "Discharge limit in W";
+CM_ BO_ 2281733867 "Estimated soc";
+CM_ SG_ 2281733867 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281733867 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281733867 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281733867 idx "Index of each set";
+CM_ BO_ 2214625067 "Measured cell voltages";
+CM_ SG_ 2214625067 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214625067 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214625067 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214625067 idx "Index of each set";
+CM_ BO_ 2281733995 "Pack information";
+CM_ SG_ 2281733995 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281733995 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281733995 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214625195 "Measured cell temperatures";
+CM_ SG_ 2214625195 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214625195 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214625195 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214625195 idx "Index of each set";
+CM_ BO_ 2281734123 "Cell information";
+CM_ SG_ 2281734123 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281734123 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281734123 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214625323 "Power limits";
+CM_ SG_ 2214625323 chg_lim "Charge limit in W";
+CM_ SG_ 2214625323 disch_lim "Discharge limit in W";
+CM_ BO_ 2281734251 "Estimated soc";
+CM_ SG_ 2281734251 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281734251 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281734251 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281734251 idx "Index of each set";
+CM_ BO_ 2214625451 "Measured cell voltages";
+CM_ SG_ 2214625451 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214625451 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214625451 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214625451 idx "Index of each set";
+CM_ BO_ 2281734379 "Pack information";
+CM_ SG_ 2281734379 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281734379 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281734379 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214625579 "Measured cell temperatures";
+CM_ SG_ 2214625579 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214625579 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214625579 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214625579 idx "Index of each set";
+CM_ BO_ 2281734507 "Cell information";
+CM_ SG_ 2281734507 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281734507 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281734507 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214625707 "Power limits";
+CM_ SG_ 2214625707 chg_lim "Charge limit in W";
+CM_ SG_ 2214625707 disch_lim "Discharge limit in W";
+CM_ BO_ 2281734635 "Estimated soc";
+CM_ SG_ 2281734635 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281734635 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281734635 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281734635 idx "Index of each set";
+CM_ BO_ 2214625835 "Measured cell voltages";
+CM_ SG_ 2214625835 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214625835 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214625835 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214625835 idx "Index of each set";
+CM_ BO_ 2281734763 "Pack information";
+CM_ SG_ 2281734763 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281734763 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281734763 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214625963 "Measured cell temperatures";
+CM_ SG_ 2214625963 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214625963 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214625963 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214625963 idx "Index of each set";
+CM_ BO_ 2281734891 "Cell information";
+CM_ SG_ 2281734891 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281734891 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281734891 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214626091 "Power limits";
+CM_ SG_ 2214626091 chg_lim "Charge limit in W";
+CM_ SG_ 2214626091 disch_lim "Discharge limit in W";
+CM_ BO_ 2281735019 "Estimated soc";
+CM_ SG_ 2281735019 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281735019 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281735019 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281735019 idx "Index of each set";
+CM_ BO_ 2214626219 "Measured cell voltages";
+CM_ SG_ 2214626219 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214626219 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214626219 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214626219 idx "Index of each set";
+CM_ BO_ 2281735147 "Pack information";
+CM_ SG_ 2281735147 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281735147 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281735147 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214626347 "Measured cell temperatures";
+CM_ SG_ 2214626347 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214626347 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214626347 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214626347 idx "Index of each set";
+CM_ BO_ 2281735275 "Cell information";
+CM_ SG_ 2281735275 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281735275 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281735275 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214626475 "Power limits";
+CM_ SG_ 2214626475 chg_lim "Charge limit in W";
+CM_ SG_ 2214626475 disch_lim "Discharge limit in W";
+CM_ BO_ 2281735403 "Estimated soc";
+CM_ SG_ 2281735403 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281735403 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281735403 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281735403 idx "Index of each set";
+CM_ BO_ 2214626603 "Measured cell voltages";
+CM_ SG_ 2214626603 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214626603 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214626603 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214626603 idx "Index of each set";
+CM_ BO_ 2281735531 "Pack information";
+CM_ SG_ 2281735531 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281735531 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281735531 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214626731 "Measured cell temperatures";
+CM_ SG_ 2214626731 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214626731 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214626731 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214626731 idx "Index of each set";
+CM_ BO_ 2281735659 "Cell information";
+CM_ SG_ 2281735659 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281735659 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281735659 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214626859 "Power limits";
+CM_ SG_ 2214626859 chg_lim "Charge limit in W";
+CM_ SG_ 2214626859 disch_lim "Discharge limit in W";
+CM_ BO_ 2281735787 "Estimated soc";
+CM_ SG_ 2281735787 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281735787 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281735787 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281735787 idx "Index of each set";
+CM_ BO_ 2214626987 "Measured cell voltages";
+CM_ SG_ 2214626987 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214626987 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214626987 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214626987 idx "Index of each set";
+CM_ BO_ 2281735915 "Pack information";
+CM_ SG_ 2281735915 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281735915 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281735915 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214627115 "Measured cell temperatures";
+CM_ SG_ 2214627115 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214627115 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214627115 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214627115 idx "Index of each set";
+CM_ BO_ 2281736043 "Cell information";
+CM_ SG_ 2281736043 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281736043 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281736043 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214627243 "Power limits";
+CM_ SG_ 2214627243 chg_lim "Charge limit in W";
+CM_ SG_ 2214627243 disch_lim "Discharge limit in W";
+CM_ BO_ 2281736171 "Estimated soc";
+CM_ SG_ 2281736171 soc3 "Cell 2 in % * 100";
+CM_ SG_ 2281736171 soc2 "Cell 1 in % * 100";
+CM_ SG_ 2281736171 soc1 "Cell 0 in % * 100";
+CM_ SG_ 2281736171 idx "Index of each set";
+CM_ BO_ 2214627371 "Measured cell voltages";
+CM_ SG_ 2214627371 v3 "Cell 2 in V * 10000";
+CM_ SG_ 2214627371 v2 "Cell 1 in V * 10000";
+CM_ SG_ 2214627371 v1 "Cell 0 in V * 10000";
+CM_ SG_ 2214627371 idx "Index of each set";
+CM_ BO_ 2281736299 "Pack information";
+CM_ SG_ 2281736299 bal_flags "Balance flags. 1 for on";
+CM_ SG_ 2281736299 error "Error flags (non-zero is fault)";
+CM_ SG_ 2281736299 volts "Pack voltage in V * 10000";
+CM_ BO_ 2214627499 "Measured cell temperatures";
+CM_ SG_ 2214627499 t3 "Cell 2 in deg C * 10000";
+CM_ SG_ 2214627499 t2 "Cell 1 in deg C * 10000";
+CM_ SG_ 2214627499 t1 "Cell 0 in deg C * 10000";
+CM_ SG_ 2214627499 idx "Index of each set";
+CM_ BO_ 2281736427 "Cell information";
+CM_ SG_ 2281736427 uv "Under-voltage flags. 1 for fault";
+CM_ SG_ 2281736427 ov "Over-voltage flags. 1 for fault";
+CM_ SG_ 2281736427 delta "Max cell delta in V * 10000";
+CM_ BO_ 2214627627 "Power limits";
+CM_ SG_ 2214627627 chg_lim "Charge limit in W";
+CM_ SG_ 2214627627 disch_lim "Discharge limit in W";
+CM_ BO_ 2147486688 "Cell temps from each module";
+CM_ SG_ 2147486688 mod_temp_3 "";
+CM_ SG_ 2147486688 mod_temp_2 "";
+CM_ SG_ 2147486688 mod_temp_1 "";
+CM_ SG_ 2147486688 mod_temp_0 "";
+CM_ BO_ 2147486689 "Cell temps from each module";
+CM_ SG_ 2147486689 mod_temp_3 "";
+CM_ SG_ 2147486689 mod_temp_2 "";
+CM_ SG_ 2147486689 mod_temp_1 "";
+CM_ SG_ 2147486689 mod_temp_0 "";
+CM_ BO_ 2147486690 "Cell temps from each module";
+CM_ SG_ 2147486690 mod_temp_3 "";
+CM_ SG_ 2147486690 mod_temp_2 "";
+CM_ SG_ 2147486690 mod_temp_1 "";
+CM_ SG_ 2147486690 mod_temp_0 "";
+CM_ BO_ 2147486691 "Cell temps from each module";
+CM_ SG_ 2147486691 mod_temp_3 "";
+CM_ SG_ 2147486691 mod_temp_2 "";
+CM_ SG_ 2147486691 mod_temp_1 "";
+CM_ SG_ 2147486691 mod_temp_0 "";
+CM_ BO_ 2147486692 "Cell temps from each module";
+CM_ SG_ 2147486692 mod_temp_3 "";
+CM_ SG_ 2147486692 mod_temp_2 "";
+CM_ SG_ 2147486692 mod_temp_1 "";
+CM_ SG_ 2147486692 mod_temp_0 "";
+CM_ BO_ 2147486693 "Cell temps from each module";
+CM_ SG_ 2147486693 mod_temp_3 "";
+CM_ SG_ 2147486693 mod_temp_2 "";
+CM_ SG_ 2147486693 mod_temp_1 "";
+CM_ SG_ 2147486693 mod_temp_0 "";
+CM_ BO_ 2147486694 "Cell temps from each module";
+CM_ SG_ 2147486694 mod_temp_3 "";
+CM_ SG_ 2147486694 mod_temp_2 "";
+CM_ SG_ 2147486694 mod_temp_1 "";
+CM_ SG_ 2147486694 mod_temp_0 "";
+CM_ BO_ 2147486695 "Cell temps from each module";
+CM_ SG_ 2147486695 mod_temp_3 "";
+CM_ SG_ 2147486695 mod_temp_2 "";
+CM_ SG_ 2147486695 mod_temp_1 "";
+CM_ SG_ 2147486695 mod_temp_0 "";
+CM_ BO_ 2147486696 "Cell temps from each module";
+CM_ SG_ 2147486696 mod_temp_3 "";
+CM_ SG_ 2147486696 mod_temp_2 "";
+CM_ SG_ 2147486696 mod_temp_1 "";
+CM_ SG_ 2147486696 mod_temp_0 "";
+CM_ BO_ 2147486697 "Cell temps from each module";
+CM_ SG_ 2147486697 mod_temp_3 "";
+CM_ SG_ 2147486697 mod_temp_2 "";
+CM_ SG_ 2147486697 mod_temp_1 "";
+CM_ SG_ 2147486697 mod_temp_0 "";
+CM_ BO_ 2147486698 "Cell temps from each module";
+CM_ SG_ 2147486698 mod_temp_3 "";
+CM_ SG_ 2147486698 mod_temp_2 "";
+CM_ SG_ 2147486698 mod_temp_1 "";
+CM_ SG_ 2147486698 mod_temp_0 "";
+CM_ BO_ 2147486699 "Cell temps from each module";
+CM_ SG_ 2147486699 mod_temp_3 "";
+CM_ SG_ 2147486699 mod_temp_2 "";
+CM_ SG_ 2147486699 mod_temp_1 "";
+CM_ SG_ 2147486699 mod_temp_0 "";
+CM_ BO_ 2147486700 "Cell temps from each module";
+CM_ SG_ 2147486700 mod_temp_3 "";
+CM_ SG_ 2147486700 mod_temp_2 "";
+CM_ SG_ 2147486700 mod_temp_1 "";
+CM_ SG_ 2147486700 mod_temp_0 "";
+CM_ BO_ 2147486701 "Cell temps from each module";
+CM_ SG_ 2147486701 mod_temp_3 "";
+CM_ SG_ 2147486701 mod_temp_2 "";
+CM_ SG_ 2147486701 mod_temp_1 "";
+CM_ SG_ 2147486701 mod_temp_0 "";
+CM_ BO_ 2147486702 "Cell temps from each module";
+CM_ SG_ 2147486702 mod_temp_3 "";
+CM_ SG_ 2147486702 mod_temp_2 "";
+CM_ SG_ 2147486702 mod_temp_1 "";
+CM_ SG_ 2147486702 mod_temp_0 "";
+CM_ BO_ 2147486703 "Cell temps from each module";
+CM_ SG_ 2147486703 mod_temp_3 "";
+CM_ SG_ 2147486703 mod_temp_2 "";
+CM_ SG_ 2147486703 mod_temp_1 "";
+CM_ SG_ 2147486703 mod_temp_0 "";
 CM_ BO_ 2483028095 "test_msg desc";
 CM_ SG_ 2483028095 test_sig "";
 CM_ BO_ 2483028159 "test_msg2 desc";
@@ -686,8 +1439,19 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 
-VAL_ 2214598912 car_state 0 "init" 1 "precharging" 2 "buzzing" 3 "ready2drive" 4 "error" 5 "reset" 6 "recover" ;
-VAL_ 2214598914 front_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598914 front_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598978 back_right_motor 0 "disconnected" 1 "connected" 2 "error" ;
-VAL_ 2214598978 back_left_motor 0 "disconnected" 1 "connected" 2 "error" ;
+VAL_ 2214598913 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
+VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2214598979 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
+VAL_ 2214598979 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
+VAL_ 2483028739 front_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028739 front_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028803 rear_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2483028803 rear_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+SIG_VALTYPE_ 2348810751 left_speed : 1;
+SIG_VALTYPE_ 2348810751 right_speed : 1;
+SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;
+
+

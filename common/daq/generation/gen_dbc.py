@@ -44,7 +44,7 @@ def gen_dbc(can_config, dbc_path):
                                         length=msg['dlc'],
                                         signals=msg_signals,
                                         comment=msg['msg_desc'],
-                                        is_extended_frame=True,
+                                        is_extended_frame=True if 'is_normal' not in msg else not msg['is_normal'],
                                         senders=[node['node_name']],
                                         bus_name=bus['bus_name'])
 

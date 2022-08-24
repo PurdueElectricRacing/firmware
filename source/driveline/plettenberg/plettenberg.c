@@ -1,29 +1,34 @@
 #include "plettenberg.h"
 
+static void mc_set_param(uint8_t value, char *param, motor_t *m);
+static void mcInitialize(motor_t* m);
+static int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_addr);
 
-void mc_set_startup_params(volatile motor_t *m);
-
-void mc_init(volatile motor_t *m, bool is_inverted, q_handle_t *tx_queue){
+void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
     *m = (motor_t) {
         .is_inverted = is_inverted,
         .tx_queue    = tx_queue,
-        .last_rx_time = 0,
-        .motor_state = MC_DISCONNECTED
+        .data_stale  = true,
+        .last_parse_time = 0xFFFF0000,
+        .motor_state = MC_DISCONNECTED,
+        .init_state = 0,
+        .last_rx_time = 0xFFFF0000,
+        .rx_timeout = MC_RX_LARGE_TIMEOUT_MS
     };
 
     return;
-} /* mc_serial_init() */
+}
 
-
-
-void mc_set_power(float power, volatile motor_t *m)
+void mc_set_power(float power, motor_t *m)
 {
+    // don't even try if disconnected
+    if (m->motor_state != MC_CONNECTED) return;
     // determine mode and clamp power from 0% - 100%
     char mode = (m->is_inverted) ? MC_REVERSE : MC_FORWARD;
     if (power < 0)
     {
         power *= -1;
-        mode = MC_BREAK;
+        mode = MC_BRAKE;
     }
     uint16_t pow_x10 = MIN(((uint16_t) (power * 10)), 1000);
 
@@ -33,31 +38,15 @@ void mc_set_power(float power, volatile motor_t *m)
     // mode
     cmd[idx++] = mode;
 
-    // determine which is the shorter command: increment or absolute
-    int16_t delta = pow_x10 - m->curr_power_x10;
-    bool is_decrement = delta < 0;
-    if (is_decrement) delta *= -1;
-
-    uint8_t incremen_ones   = (delta / 10) % 10;
-    uint8_t incremen_tenths = delta % 10;
     uint8_t absolute_ones   = (pow_x10 / 10) % 10;
     uint8_t absolute_tenths = pow_x10 % 10;
 
-    if (delta < 100 && incremen_ones + incremen_tenths < 1 + absolute_ones + absolute_tenths)
-    {
-        /* Incremental Command Mode */
-        // ones
-        char c = is_decrement ? MC_DECREASE_ONE : MC_INCREASE_ONE;
-        for (incremen_ones += idx; idx < incremen_ones; idx++) cmd[idx] = c;
-        // tenths
-        c = is_decrement ? MC_DECREASE_TENTH : MC_INCREASE_TENTH;
-        for (incremen_tenths += idx; idx < incremen_tenths; idx++) cmd[idx] = c;
-    }
+    if (pow_x10 <= 1) cmd[idx - 1] = '0';
     else
     {
         /* Absolute Command Mode */
-        // tens
-        cmd[idx++] = (pow_x10 == 1000) ? MC_MAX_POWER : (pow_x10 / 100) + '0';
+        // tens (only if 10% or greater)
+        if (pow_x10 >= 100) cmd[idx++] = (pow_x10 == 1000) ? MC_MAX_POWER : (pow_x10 / 100) + '0';
         // ones
         for (absolute_ones += idx; idx < absolute_ones; idx++) cmd[idx] = MC_INCREASE_ONE;
         // tenths
@@ -69,7 +58,7 @@ void mc_set_power(float power, volatile motor_t *m)
     m->curr_power_x10 = pow_x10;
 }
 
-void mc_set_param(uint8_t value, char *param, volatile motor_t *m)
+void mc_set_param(uint8_t value, char *param, motor_t *m)
 {
     char cmd[MC_MAX_TX_LENGTH];
     uint8_t idx = 0;
@@ -79,81 +68,220 @@ void mc_set_param(uint8_t value, char *param, volatile motor_t *m)
     cmd[idx++] = (value / 100) + '0';
     cmd[idx++] = ((value / 10) % 10) + '0';
     cmd[idx++] = (value % 10) + '0';
-    cmd[idx++] = MC_EXIT_ADJUST_MODE;
+    cmd[idx++] = 'w';
+    cmd[idx++] = 'p';
     cmd[idx++] = '\0';
     qSendToBack(m->tx_queue, cmd);
 }
 
-// awpot010
-void mc_set_startup_params(volatile motor_t *m)
-{
-    // serial mode
-    char cmd[MC_MAX_TX_LENGTH];
-    uint8_t i = 0;
-    cmd[i++] = MC_SERIAL_MODE;
-    cmd[i++] = 'a';
-    cmd[i++] = 'w';
-    cmd[i++] = 'p';
-    cmd[i++] = 'o';
-    cmd[i++] = 't';
-    cmd[i++] = '0';
-    cmd[i++] = '1';
-    cmd[i++] = '0';
-    cmd[i++] = 'e';
-    cmd[i++] = '\0';
-    qSendToBack(m->tx_queue, cmd);
-    // configuration
-    // mc_set_param(MC_CURRENT_LIMIT, MC_PAR_CURRENT_LIMIT, m);
-    // mc_set_param(MC_MOT_TMP_LIMIT, MC_PAR_MOT_TMP_LIMIT, m);
-    // mc_set_param(MC_CTL_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT, m);
+// Communicates initialization state through motor_state_t
+static void mcInitialize(motor_t* m) {
+    char     cmd[2];
+    char     tmp_rx_buf[MC_MAX_RX_LENGTH];
+    int8_t   search_idx;
+    uint8_t  i;
+    uint32_t throwaway;
+
+    motor_init_t next_state;
+
+    next_state = m->init_state;
+
+    switch (m->init_state) {
+        case MC_INIT_START:
+        {
+            m->init_time = 0;
+            next_state = MC_INIT_WAITING;
+
+            // Try to put the motor controller into serial mode
+            cmd[0] = MC_SERIAL_MODE;
+            cmd[1] = '\0';
+
+            qSendToBack(m->tx_queue, cmd);
+        }
+
+        case MC_INIT_WAITING:
+        {
+            for (i = 0; i < MC_MAX_RX_LENGTH; ++i) {
+                tmp_rx_buf[i] = m->rx_buf[i];
+            }
+            search_idx = mc_parse(tmp_rx_buf, 0, "S=", &throwaway);
+
+            if (search_idx > 0) {
+                // cmd[0] = MC_SET_TIMEOUT;
+                // cmd[1] = '\0';
+
+                // qSendToBack(m->tx_queue, cmd);
+
+                m->init_state = MC_INIT_DELAY;
+                m->init_time = 0;
+
+                return;
+            }
+
+            if (m->init_time == (1250 / 15)) {
+                next_state = MC_INIT_FAILED;
+            }
+
+            ++m->init_time;
+
+            break;
+        }
+
+        case MC_INIT_DELAY:
+        {
+            if (m->init_time == (500 / 15)) {
+                next_state = MC_INIT_COMPLETE;
+                asm("nop");
+            }
+
+            ++m->init_time;
+
+            break;
+        }
+
+        case MC_INIT_FAILED:
+        {
+            // State exists merely for the breakpoint
+            next_state = MC_INIT_START;
+
+            break;
+        }
+
+        case MC_INIT_COMPLETE:
+        {
+            // Again, exists for the breakpoint
+            asm("nop");
+        }
+    }
+
+    m->init_state = next_state;
 }
 
-/*
- *  Reads the data being sent from the motor controller
- */
-bool mc_parse(char* data, volatile motor_t *m) {
-
-    if (data[0] == 'T' || data[0] == 't')
-    {
-        // not in serial, set params
-        mc_set_startup_params(m);
-        m->motor_state = MC_CONNECTED;
-        return false;
-    }
-    else if (data[0] != 'S')
-    {
-        __asm__("nop"); // invalid data
-        return false;
-    }
-
-    if (m->motor_state == MC_DISCONNECTED) return false;
-
-    // replaces spaces with '0'
-    for (int i = 0; i < MC_MAX_RX_LENGTH; i++) if (data[i] == ' ') data[i] = '0';    
+// Returns false if the motor is not good to spin
+bool mc_periodic(motor_t* m) {
+    char     tmp_rx_buf[MC_MAX_RX_LENGTH];
+    int16_t  curr;
+    uint8_t  i;
+    uint32_t val_buf;
     
-    // S=3.649V,a=0.000V,PWM= 787,U= 34.9V,I= 3.7A,RPM= 1482,con= 28°C,mot= 26°C
-    m->voltage = ((data[30] - '0')* 100) + ((data[31] - '0')* 10) + (data[32] - '0') + ((data[34] - '0') / 10);
-    //Should be >0 when the voltage is in the correct range(200 - 336), or <0 if otherwise
-    m->proper_voltage = (m->voltage < (CELL_MAX_V * 80)) && (m->voltage > (CELL_MIN_V * 80));
-    bool is_over_powered = false;
+    // Can't be initialized if precharge isn't complete
+    if (can_data.main_hb.precharge_state == 0) {
+        m->motor_state = MC_DISCONNECTED;
+        m->init_state = MC_INIT_START;
 
-    m->phase_current = ((data[39] - '0') * 100) + ((data[40] - '0') * 10) + (data[41] - '0') + ((data[43] - '0') / 10);
-    m->is_over_powered = (m->voltage * m->phase_current) > 60000; 
-
-    float new_controller_temp = ((data[61] - '0') * 100) + ((data[62] - '0') * 10) + (data[63] - '0');
-    if (!(m->controller_temp == 0)) {
-        m->con_temp_slope = new_controller_temp - m->controller_temp;
+        return false;
     }
-    m->controller_temp = new_controller_temp;
 
-    float new_motor_temp = ((data[71] - '0')* 100) + ((data[72] - '0') * 10) + (data[73] - '0');
-    if (!(m->motor_temp == 0)) {
-        m->motor_temp_slope = new_motor_temp - m->motor_temp;
+    // Check if we're in the middle of initialization
+    if (m->motor_state == MC_INITIALIZING) {
+        if (m->init_state == MC_INIT_COMPLETE) {
+            m->motor_state = MC_CONNECTED;
+        } else {
+            mcInitialize(m);
+
+            return false;
+        }
     }
-    m->motor_temp = new_motor_temp;
 
-    m->rpm = (data[50] - '0') * 100000 + (data[51] - '0') * 10000 + (data[52] - '0') * 1000 + 
-             (data[53] - '0') * 100    + (data[54] - '0') * 10    + (data[55] - '0');
+    // Check if we're disconnected and run initialization
+    if (m->motor_state == MC_DISCONNECTED) {
+        m->motor_state = MC_INITIALIZING;
+        m->init_state = MC_INIT_START;
+
+        mcInitialize(m);
+
+        return false;
+    }
+
+    // 0        9        18       27       36       45         56        66
+    // S=3.649V,a=0.000V,PWM= 787,U= 34.9V,I=  3.7A,RPM=  1482,con= 28°C,mot= 26°C
+
+    // Copy buffer so it doesn't change underneath us
+    for (i = 0; i < MC_MAX_RX_LENGTH; ++i) {
+        tmp_rx_buf[i] = m->rx_buf[i];
+    }
+
+    // Parse voltage
+    curr = mc_parse(tmp_rx_buf, curr, "U=", &val_buf);
+    if (curr >= 0) m->voltage_x10 = (uint16_t) val_buf;
+
+    // Parse current
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "I=", &val_buf);
+    if (curr >= 0) m->current_x10 = (uint16_t) val_buf;
+
+    // Parse RPM
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "RPM=", &val_buf);
+    if (curr >= 0) m->rpm = val_buf;
+
+    // Parse controller temp
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "con=", &val_buf);
+    if (curr >= 0) m->controller_temp = (uint8_t) val_buf;
+
+    // Parse motor temp
+    if (curr >= 0) curr = mc_parse(tmp_rx_buf, curr, "mot=", &val_buf);
+    if (curr >= 0) m->motor_temp = (uint8_t) val_buf;
+
+    // Update parse time
+    if (curr >= 0) m->last_parse_time = sched.os_ticks;
+    m->data_stale = (sched.os_ticks - m->last_parse_time > MC_PARSE_TIMEOUT);
 
     return true;
-} /* read_motor_controller() */
+}
+
+int16_t mc_parse(char *rx_buf, uint8_t start, char *search_term, uint32_t *val_addr)
+{
+    // start searching for search term at start, if value found return the index
+    // the next location to look at, if not return -1
+    // keeps adding as long as it sees leading spaces, multiplies by 10 if decimal point found
+    uint8_t search_length = strlen(search_term);
+    bool match = false;
+    uint8_t curr = 0xFF;
+
+    for (uint8_t i = start; i < MC_MAX_RX_LENGTH + start; ++i) 
+    {
+        if (rx_buf[i % MC_MAX_RX_LENGTH] == search_term[0])
+        {
+            match = true;
+            // possible match, check entire term matches
+            for (uint8_t j = 0; j < search_length; ++j)
+            {
+                if (rx_buf[(i + j) % MC_MAX_RX_LENGTH] != search_term[j])
+                {
+                    // not a match, continue searching
+                    match = false;
+                    break;
+                }
+            }
+            if (match)
+            {
+                curr = i % MC_MAX_RX_LENGTH;
+                break;
+            }
+        }
+    }
+    if (!match) return -1;
+    // destroy match to prevent re-reading same data
+    // rx_buf[curr] = '\0';
+    curr = (curr + search_length) % MC_MAX_RX_LENGTH;
+
+    uint32_t val = 0;
+
+    /* Extract value */
+    for (uint8_t i = curr; i < MC_MAX_RX_LENGTH + curr; ++i)
+    {
+        char c = rx_buf[i % MC_MAX_RX_LENGTH];
+        if ((c == ' ' && val == 0) || c == '.') continue;
+        else if (c >= '0' && c <= '9')
+        {
+            val = (val * 10) + (c - '0');
+        }
+        else
+        {
+            curr = i % MC_MAX_RX_LENGTH;
+            break;
+        }
+    }
+
+    *val_addr = val;
+    return curr;
+}

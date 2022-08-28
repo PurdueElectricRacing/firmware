@@ -11,7 +11,7 @@
                         {   "msg_name":"main_hb",
                             "msg_desc":"Heart beat message for main module",
                             "signals":[
-                                {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8, 
+                                {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8,
                                  "choices": ["init", "buzzing", "ready2drive", "error", "fatal", "reset", "recover"]},
                                 {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
                             ],
@@ -288,12 +288,56 @@
                             "msg_period":0,
                             "msg_hlp":5,
                             "msg_pgn":514
-                        }                      
+                        }
                     ],
                     "rx": [
                         {"msg_name": "elcon_charger_status"}
                     ],
                     "accept_all_messages": true
+                },
+                {
+                    "node_name": "OrionBMS",
+                    "node_ssa": 54,
+                    "tx":[],
+                    "rx":[
+                        {
+                            "msg_name":"pack_limits",
+                            "msg_desc":"pack_limits desc",
+                            "signals":[
+                                {"sig_name":"relay_state","type":"uint8_t","length":2},
+                                {"sig_name":"pack_dcl", "type":"uint8_t", "length":2},
+                                {"sig_name":"pack_ccl","type":"uint8_t","length":2},
+                                {"sig_name":"pack_soc", "type":"uint8_t", "length":2}
+                            ],
+                            "msg_period": 16,
+                            "msg_hlp": 5,
+                            "msg_pgn": 1
+                        },
+                        {
+                            "msg_name":"pack_power",
+                            "msg_desc":"pack_power desc",
+                            "signals":[
+                                {"sig_name":"pack_current","type":"uint8_t","length":2},
+                                {"sig_name":"pack_voltage", "type":"uint8_t", "length":2}
+                            ],
+                            "msg_period": 16,
+                            "msg_hlp": 5,
+                            "msg_pgn": 2
+                        },
+                        {
+                            "msg_name":"pack_error",
+                            "msg_desc":"pack_error desc",
+                            "signals":[
+                                {"sig_name":"dtc1","type":"uint8_t","length":2},
+                                {"sig_name":"dtc2", "type":"uint8_t", "length":2}
+                            ],
+                            "msg_period": 496,
+                            "msg_hlp": 5,
+                            "msg_pgn": 3
+                        }
+
+                    ]
+
                 },
                 {
                     "node_name":"Dashboard",
@@ -890,7 +934,7 @@
                             "msg_pgn":10015
                         }
                     ],
-                    "rx":[ 
+                    "rx":[
                         {"msg_name": "bitstream_flash_status"}
                     ]
                 },
@@ -914,7 +958,7 @@
                         }
                     ],
                     "rx":[
-                        
+
                     ]
                 }
             ]
@@ -1002,7 +1046,7 @@
                         {"msg_name": "temps_cells_6"},
                         {"msg_name": "cell_info_6"},
                         {"msg_name": "power_lim_6"},
-                        
+
                         {"msg_name": "soc_cells_7"},
                         {"msg_name": "volts_cells_7", "callback": true},
                         {"msg_name": "pack_info_7"},
@@ -1865,7 +1909,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
-                            "msg_pgn": 2 
+                            "msg_pgn": 2
                         },
                         {   "msg_name":"test_msg3",
                             "msg_desc":"test_msg2 desc",
@@ -1883,7 +1927,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
-                            "msg_pgn": 4 
+                            "msg_pgn": 4
                         },
                         {   "msg_name":"test_msg5",
                             "msg_desc":"test_msg5 desc",
@@ -1892,7 +1936,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
-                            "msg_pgn": 5 
+                            "msg_pgn": 5
                         },
                         {
                             "msg_name":"wheel_speeds",
@@ -1903,7 +1947,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 3,
-                            "msg_pgn": 7 
+                            "msg_pgn": 7
                         },
                         {
                             "msg_name":"adc_values",
@@ -1952,7 +1996,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
-                            "msg_pgn": 2 
+                            "msg_pgn": 2
                         },
                         {   "msg_name":"test_msg3_2",
                             "msg_desc":"test_msg2 desc",
@@ -1970,7 +2014,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
-                            "msg_pgn": 4 
+                            "msg_pgn": 4
                         },
                         {   "msg_name":"test_msg5_2",
                             "msg_desc":"test_msg5 desc",
@@ -1981,7 +2025,7 @@
                             ],
                             "msg_period": 15,
                             "msg_hlp": 5,
-                            "msg_pgn": 5 
+                            "msg_pgn": 5
                         },
                         {
                             "msg_name":"test_stale",

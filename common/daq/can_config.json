@@ -297,7 +297,7 @@
                 },
                 {
                     "node_name": "OrionBMS",
-                    "node_ssa": 54,
+                    "node_ssa": 55,
                     "tx":[],
                     "rx":[
                         {

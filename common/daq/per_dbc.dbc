@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge Dashboard Steering Acceleration bootloader BMS_LV TESTER Charger DAQ Precharge BMS ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Dashboard Steering Acceleration bootloader BMS_LV TESTER Charger DAQ Precharge BMS ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -813,6 +813,7 @@ CM_ BU_ Main_Module "";
 CM_ BU_ Torque_Vector "";
 CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
+CM_ BU_ OrionBMS "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
 CM_ BU_ Acceleration "";

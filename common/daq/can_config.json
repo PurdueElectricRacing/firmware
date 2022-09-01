@@ -304,41 +304,33 @@
                             "msg_name":"pack_limits",
                             "msg_desc":"pack_limits desc",
                             "signals":[
-                                {"sig_name":"relay_state","type":"uint8_t","length":2},
-                                {"sig_name":"pack_dcl", "type":"uint8_t", "length":2},
-                                {"sig_name":"pack_ccl","type":"uint8_t","length":2},
-                                {"sig_name":"pack_soc", "type":"uint8_t", "length":2}
-                            ],
-                            "msg_period": 16,
-                            "msg_hlp": 5,
-                            "msg_pgn": 1
+                                {"msg_name": "relay_state", "callback": true},
+                                {"msg_name": "pack_dcl" , "callback": true},
+                                {"msg_name": "pack_ccl", "callback": true},
+                                {"msg_name": "pack_soc" , "callback": true}
+                            ]
                         },
                         {
                             "msg_name":"pack_power",
                             "msg_desc":"pack_power desc",
                             "signals":[
-                                {"sig_name":"pack_current","type":"uint8_t","length":2},
-                                {"sig_name":"pack_voltage", "type":"uint8_t", "length":2}
-                            ],
-                            "msg_period": 16,
-                            "msg_hlp": 5,
-                            "msg_pgn": 2
+                                {"msg_name": "pack_current", "callback": true},
+                                {"msg_name": "pack_voltage" , "callback": true}
+                            ]
                         },
                         {
                             "msg_name":"pack_error",
                             "msg_desc":"pack_error desc",
                             "signals":[
-                                {"sig_name":"dtc1","type":"uint8_t","length":2},
-                                {"sig_name":"dtc2", "type":"uint8_t", "length":2}
-                            ],
-                            "msg_period": 496,
-                            "msg_hlp": 5,
-                            "msg_pgn": 3
+                                {"msg_name": "dtc1", "callback": true},
+                                {"msg_name": "dtc2" , "callback": true}
+                            ]
                         }
 
                     ]
 
                 },
+
                 {
                     "node_name":"Dashboard",
                     "node_ssa":5,

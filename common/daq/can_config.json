@@ -291,46 +291,55 @@
                         }
                     ],
                     "rx": [
-                        {"msg_name": "elcon_charger_status"}
+                        {"msg_name": "elcon_charger_status"},
+                        {"msg_name": "orion_info"},
+                        {"msg_name": "orion_currents_volts"},
+                        {"msg_name": "orion_errors"}
+
                     ],
                     "accept_all_messages": true
                 },
                 {
-                    "node_name": "OrionBMS",
-                    "node_ssa": 56,
-                    "tx":[],
-                    "rx":[
-                        {
-                            "msg_name":"pack_limits",
-                            "msg_desc":"pack_limits desc",
+                    "node_name":"OrionBMS",
+                    "node_ssa":56,
+                    "tx":[
+                        {   "msg_name":"orion_info",
+                            "msg_desc":"Pack Charge, State, Current/voltage limits",
                             "signals":[
-                                {"msg_name": "relay_state", "callback": true},
-                                {"msg_name": "pack_dcl" , "callback": true},
-                                {"msg_name": "pack_ccl", "callback": true},
-                                {"msg_name": "pack_soc" , "callback": true}
-                            ]
+                                {"sig_name":"relay_state","type":"uint16_t","length":16},
+                                {"sig_name":"pack_dcl", "type":"uint16_t", "length":16},
+                                {"sig_name":"pack_ccl", "type":"uint16_t", "length":16},
+                                {"sig_name":"pack_soc", "type":"uint8_t", "length":8}
+                            ],
+                            "msg_period":16,
+                            "msg_hlp":5,
+                            "msg_pgn":23
+                        },
+                        {   "msg_name":"orion_currents_volts",
+                            "msg_desc":"Pack current + voltage",
+                            "signals":[
+                                {"sig_name":"pack_current","type":"uint16_t","length":16},
+                                {"sig_name":"pack_voltage", "type":"uint16_t", "length":16}
+                            ],
+                            "msg_period":16,
+                            "msg_hlp":5,
+                            "msg_pgn":24
                         },
                         {
-                            "msg_name":"pack_power",
-                            "msg_desc":"pack_power desc",
+                            "msg_name":"orion_errors",
+                            "msg_desc":"Pack DTC Flags",
                             "signals":[
-                                {"msg_name": "pack_current", "callback": true},
-                                {"msg_name": "pack_voltage" , "callback": true}
-                            ]
-                        },
-                        {
-                            "msg_name":"pack_error",
-                            "msg_desc":"pack_error desc",
-                            "signals":[
-                                {"msg_name": "dtc1", "callback": true},
-                                {"msg_name": "dtc2" , "callback": true}
-                            ]
+                                {"sig_name": "dtc_flags_1", "type":"uint16_t","length":16},
+                                {"sig_name": "dtc_flags_2", "type":"uint16_t","length":16}
+                            ],
+                            "msg_period":496,
+                            "msg_hlp":3,
+                            "msg_pgn":25
                         }
-
+                    ],
+                    "rx":[
                     ]
-
                 },
-
                 {
                     "node_name":"Dashboard",
                     "node_ssa":5,

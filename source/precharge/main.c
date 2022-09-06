@@ -240,7 +240,7 @@ void heartbeatTask()
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 }
 
-//Not sure whether to change this, **Ask about it later**
+//Original monitorStatus() function
 // void monitorStatus()
 // {
 //     uint16_t err = 0;
@@ -255,19 +255,17 @@ void monitorStatus()
 
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
     switch(err) {
-        case 1:
-            PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
-            break;
         case 0:
+            PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
+            break;
+        case 1:
             if (check_errors()) {
-                err = 1;
                 PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
             }
             else {
                 PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
             }
             break;
-
     }
 
 }

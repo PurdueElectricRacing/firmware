@@ -14,6 +14,7 @@
 #include "bmi088.h"
 #include "bms.h"
 #include "daq.h"
+#include "orion.h"
 
 
 /* PER HAL Initilization Structures */
@@ -69,6 +70,7 @@ void heartbeatTask();
 void monitorStatus();
 void sendIMUData();
 void imuConfigureAccel();
+void monitor_orion();
 
 void preflightChecks();
 void preflightAnimation();
@@ -104,7 +106,7 @@ int main (void)
 
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));  
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config))
@@ -125,24 +127,35 @@ int main (void)
 
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 0);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-    
+
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
 
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
-    BMS_init();
+    // Commented this line out because it is initializing old BMS, which is of no use to us
+    //BMS_init();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
+    //Preflight animation + checks - not relavant to BMS
     configureAnim(preflightAnimation, preflightChecks, 75, 750);
+    //Just heartbeat
     taskCreate(heartbeatTask, 500);
+    //Monitors status of IMD, and then reflects this onto BMS. This is where I added Orion's error checks.
     taskCreate(monitorStatus, 50);
-    taskCreate(BMS_txBatteryStatus, 50);
-    taskCreate(BMS_chargePeriodic, 50);
+    /*
+        These are MiniBMS functions; Not sure whether to modify these or not, but I think they can just be completely removed.
+        However, I am not sure about other functions that rely on data from here.
+     */
+    // taskCreate(BMS_txBatteryStatus, 50);
+    // taskCreate(BMS_chargePeriodic, 50);
+    //Pertains to G sensors; No correllation to BMS
     taskCreate(sendIMUData, 10);
+    //Just daq messages
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    //Not sure about this, since we are using new Thermistors and nothing is being sent from Orion
     taskCreate(tempPeriodic, 500);
 
     taskCreateBackground(canTxUpdate);
@@ -155,7 +168,7 @@ int main (void)
 }
 
 // *** Startup configuration ***
-void preflightChecks(void) 
+void preflightChecks(void)
 {
     static uint16_t state;
 
@@ -175,7 +188,7 @@ void preflightChecks(void)
             // Put accel into SPI mode
             PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
             break;
-            
+
         case 250:
             BMI088_powerOnAccel(&bmi_config);
             break;
@@ -188,7 +201,7 @@ void preflightChecks(void)
         case 750:
             registerPreflightComplete(1);
             break;
-        
+
         default:
             break;
     }
@@ -227,21 +240,46 @@ void heartbeatTask()
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 }
 
+//Not sure whether to change this, **Ask about it later**
+// void monitorStatus()
+// {
+//     uint16_t err = 0;
+
+//     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
+//     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err ? 0 : 1);
+
+// }
 void monitorStatus()
 {
     uint16_t err = 0;
 
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
-    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err ? 0 : 1);
+    switch(err) {
+        case 1:
+            PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
+            break;
+        case 0:
+            if (check_errors()) {
+                err = 1;
+                PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
+            }
+            else {
+                PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
+            }
+            break;
+
+    }
+
 }
 
+// Not changing this, as - from my understanding - doesn't pertain to BMS code.
 void sendIMUData()
 {
     static bool send_gyro = true;
     int16_t ax, ay, az, gx, gy, gz;
     BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
     BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-    
+
     SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
     SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
 
@@ -260,10 +298,10 @@ void canTxUpdate()
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -271,7 +309,7 @@ void CAN1_RX0_IRQHandler()
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
@@ -300,10 +338,10 @@ void CAN1_RX0_IRQHandler()
 void CAN2_RX0_IRQHandler()
 {
     if (CAN2->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN2->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN2->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN2->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN2->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN2->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN2->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -312,7 +350,7 @@ void CAN2_RX0_IRQHandler()
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN2->sFIFOMailBox[0].RIR)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN2->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else

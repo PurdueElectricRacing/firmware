@@ -416,6 +416,26 @@ void canRxUpdate()
                     can_data.elcon_charger_status.stale = 0;
                     can_data.elcon_charger_status.last_rx = sched.os_ticks;
                     break;
+                case ID_ORION_INFO:
+                    can_data.orion_info.relay_state = msg_data_a->orion_info.relay_state;
+                    can_data.orion_info.pack_dcl = msg_data_a->orion_info.pack_dcl;
+                    can_data.orion_info.pack_ccl = msg_data_a->orion_info.pack_ccl;
+                    can_data.orion_info.pack_soc = msg_data_a->orion_info.pack_soc;
+                    can_data.orion_info.stale = 0;
+                    can_data.orion_info.last_rx = sched.os_ticks;
+                    break;
+                case ID_ORION_CURRENTS_VOLTS:
+                    can_data.orion_currents_volts.pack_current = msg_data_a->orion_currents_volts.pack_current;
+                    can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
+                    can_data.orion_currents_volts.stale = 0;
+                    can_data.orion_currents_volts.last_rx = sched.os_ticks;
+                    break;
+                case ID_ORION_ERRORS:
+                    can_data.orion_errors.dtc_flags_1 = msg_data_a->orion_errors.dtc_flags_1;
+                    can_data.orion_errors.dtc_flags_2 = msg_data_a->orion_errors.dtc_flags_2;
+                    can_data.orion_errors.stale = 0;
+                    can_data.orion_errors.last_rx = sched.os_ticks;
+                    break;
                 case ID_DAQ_COMMAND_PRECHARGE:
                     can_data.daq_command_PRECHARGE.daq_command = msg_data_a->daq_command_PRECHARGE.daq_command;
                     daq_command_PRECHARGE_CALLBACK(&msg_header);
@@ -431,6 +451,15 @@ void canRxUpdate()
     CHECK_STALE(can_data.elcon_charger_status.stale,
                 sched.os_ticks, can_data.elcon_charger_status.last_rx,
                 UP_ELCON_CHARGER_STATUS);
+    CHECK_STALE(can_data.orion_info.stale,
+                sched.os_ticks, can_data.orion_info.last_rx,
+                UP_ORION_INFO);
+    CHECK_STALE(can_data.orion_currents_volts.stale,
+                sched.os_ticks, can_data.orion_currents_volts.last_rx,
+                UP_ORION_CURRENTS_VOLTS);
+    CHECK_STALE(can_data.orion_errors.stale,
+                sched.os_ticks, can_data.orion_errors.last_rx,
+                UP_ORION_ERRORS);
     /* END AUTO STALE CHECKS */
 }
 

@@ -97,6 +97,9 @@
 #define ID_MODULE_TEMP_14 0xbee
 #define ID_MODULE_TEMP_15 0xbef
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
+#define ID_ORION_INFO 0x140005f8
+#define ID_ORION_CURRENTS_VOLTS 0x14000638
+#define ID_ORION_ERRORS 0xc000678
 #define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
 
@@ -179,6 +182,9 @@
 #define DLC_MODULE_TEMP_14 8
 #define DLC_MODULE_TEMP_15 8
 #define DLC_ELCON_CHARGER_STATUS 5
+#define DLC_ORION_INFO 7
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_ORION_ERRORS 4
 #define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
@@ -282,6 +288,9 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_ELCON_CHARGER_STATUS 2000
+#define UP_ORION_INFO 16
+#define UP_ORION_CURRENTS_VOLTS 16
+#define UP_ORION_ERRORS 496
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -711,6 +720,20 @@ typedef union { __attribute__((packed))
         uint64_t communication_fail: 1;
     } elcon_charger_status;
     struct {
+        uint64_t relay_state: 16;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t dtc_flags_1: 16;
+        uint64_t dtc_flags_2: 16;
+    } orion_errors;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_PRECHARGE;
     uint8_t raw_data[8];
@@ -1084,6 +1107,26 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } elcon_charger_status;
+    struct {
+        uint16_t relay_state;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_info;
+    struct {
+        uint16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        uint16_t dtc_flags_1;
+        uint16_t dtc_flags_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_errors;
     struct {
         uint64_t daq_command;
     } daq_command_PRECHARGE;

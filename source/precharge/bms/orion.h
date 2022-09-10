@@ -5,6 +5,11 @@
 
 #include <stdbool.h>
 
-bool check_errors();
+#define MAX_TEMP (300)
+
+bool orionErrors();
+void checkTempsPeriodic();
+void orion_chargePeriodic();
+void orionInit();
 
 #endif

@@ -70,8 +70,6 @@ void heartbeatTask();
 void monitorStatus();
 void sendIMUData();
 void imuConfigureAccel();
-void monitor_orion();
-
 void preflightChecks();
 void preflightAnimation();
 
@@ -254,19 +252,14 @@ void monitorStatus()
     uint16_t err = 0;
 
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
-    switch(err) {
-        case 0:
-            PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
-            break;
-        case 1:
-            if (check_errors()) {
-                PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
-            }
-            else {
-                PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
-            }
-            break;
+    if (orionErrors() && err != 0) {
+        err = 1;
     }
+    else {
+        err = 0;
+    }
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err);
+
 
 }
 

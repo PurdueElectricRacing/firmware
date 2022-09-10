@@ -4,8 +4,8 @@
 #include "common_defs.h"
 
 /**
- * Code for Precharge to combine the BMS remote's data into a pack level model.  
- * 
+ * Code for Precharge to combine the BMS remote's data into a pack level model.
+ *
  */
 
 uint16_t cell_volts[NUM_CELLS] = {0};
@@ -38,8 +38,8 @@ void BMS_init()
 uint16_t BMS_updateErrorFlags()
 {
     static uint16_t bms_error_flags = 0;
-    bms_error_flags |= 
-                 can_data.pack_info_1.error | can_data.pack_info_2.error 
+    bms_error_flags |=
+                 can_data.pack_info_1.error | can_data.pack_info_2.error
                | can_data.pack_info_3.error | can_data.pack_info_4.error
                | can_data.pack_info_5.error | can_data.pack_info_6.error
                | can_data.pack_info_7.error | can_data.pack_info_8.error;
@@ -67,14 +67,14 @@ void BMS_txBatteryStatus()
         SEND_BATTERY_INFO(q_tx_can, pack_voltage, delta, lowest, BMS_updateErrorFlags());
         state ++;
         break;
-    
+
     default:
         idx = (state - 1) * 3;
 
         v1 = cell_volts[idx + 0];
         if (idx + 1 < NUM_CELLS)
             v2 = cell_volts[idx + 1];
-        
+
         if (idx + 2 < NUM_CELLS)
             v3 = cell_volts[idx + 2];
 
@@ -85,6 +85,8 @@ void BMS_txBatteryStatus()
         break;
     }
 }
+
+
 
 static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pack_voltage)
 {
@@ -104,7 +106,7 @@ static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pac
 
 /**
  * @brief BMS_chargePeriodic
- * 
+ *
  * 1. Global balance to lowest cell to CHARGE_DELTA_MAXIMUM_V
  * 2. Wait for global balance
  * 3. Start charging
@@ -123,18 +125,18 @@ void BMS_chargePeriodic()
     // 1. we do not have a BMS error
     // 2. Elcon charger is connected.
     // charge_mode_enable &= !can_data.elcon_charger_status.stale;
-    
+
     if(charge_mode_enable)
     {
         // Check that all of the cells are globally balanced
         uint16_t lowest, delta, pack_voltage;
         findGlobalImbalance(&lowest, &delta, &pack_voltage);
 
-        // Request balance to battery modules if delta is large enough        
+        // Request balance to battery modules if delta is large enough
         if (cells_balanced_for_charge)
         {
             // Hysteresis for if delta gets too large during charge
-            if (delta > CHARGE_DELTA_MAXIMUM_V * 15000) 
+            if (delta > CHARGE_DELTA_MAXIMUM_V * 15000)
                 cells_balanced_for_charge = false;
         }
         else if (delta < CHARGE_DELTA_MAXIMUM_V * 10000)
@@ -178,7 +180,7 @@ void BMS_chargePeriodic()
     charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
     charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
 
-    
+
     float power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
     SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req, charge_voltage, charge_current);
 }
@@ -218,7 +220,7 @@ void tempPeriodic (){
     uint8_t  i, j;
     uint16_t* curr_address = &can_data.module_temp_0.mod_temp_0;
     float    avg_temp[4] = {0};
-    
+
     for (i = 0; i < 16; i++) {
         for (j = 0; j < 4; j++) {
             avg_temp[j] += ((float) *(temp_pointer[i] + j)) / 10;

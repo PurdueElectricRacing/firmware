@@ -97,9 +97,9 @@
 #define ID_MODULE_TEMP_14 0xbee
 #define ID_MODULE_TEMP_15 0xbef
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
-#define ID_ORION_INFO 0x140005f8
-#define ID_ORION_CURRENTS_VOLTS 0x14000638
-#define ID_ORION_ERRORS 0xc000678
+#define ID_ORION_INFO 0x140006b8
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_ORION_ERRORS 0xc000738
 #define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
 
@@ -184,7 +184,7 @@
 #define DLC_ELCON_CHARGER_STATUS 5
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_ORION_ERRORS 4
+#define DLC_ORION_ERRORS 6
 #define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
@@ -720,7 +720,22 @@ typedef union { __attribute__((packed))
         uint64_t communication_fail: 1;
     } elcon_charger_status;
     struct {
-        uint64_t relay_state: 16;
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
         uint64_t pack_dcl: 16;
         uint64_t pack_ccl: 16;
         uint64_t pack_soc: 8;
@@ -730,8 +745,38 @@ typedef union { __attribute__((packed))
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t dtc_flags_1: 16;
-        uint64_t dtc_flags_2: 16;
+        uint64_t discharge_limit_enforce: 1;
+        uint64_t charger_safety_relay: 1;
+        uint64_t internal_hardware: 1;
+        uint64_t heatsink_thermistor: 1;
+        uint64_t software: 1;
+        uint64_t max_cellv_high: 1;
+        uint64_t min_cellv_low: 1;
+        uint64_t pack_overheat: 1;
+        uint64_t reserved0: 1;
+        uint64_t reserved1: 1;
+        uint64_t reserved2: 1;
+        uint64_t reserved3: 1;
+        uint64_t reserved4: 1;
+        uint64_t reserved5: 1;
+        uint64_t reserved6: 1;
+        uint64_t reserved7: 1;
+        uint64_t internal_comms: 1;
+        uint64_t cell_balancing_foff: 1;
+        uint64_t weak_cell: 1;
+        uint64_t low_cellv: 1;
+        uint64_t open_wire: 1;
+        uint64_t current_sensor: 1;
+        uint64_t max_cellv_o5v: 1;
+        uint64_t cell_asic: 1;
+        uint64_t weak_pack: 1;
+        uint64_t fan_monitor: 1;
+        uint64_t thermistor: 1;
+        uint64_t external_comms: 1;
+        uint64_t redundant_psu: 1;
+        uint64_t hv_isolation: 1;
+        uint64_t input_psu: 1;
+        uint64_t charge_limit_enforce: 16;
     } orion_errors;
     struct {
         uint64_t daq_command: 64;
@@ -1108,7 +1153,22 @@ typedef struct {
         uint32_t last_rx;
     } elcon_charger_status;
     struct {
-        uint16_t relay_state;
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
         uint16_t pack_dcl;
         uint16_t pack_ccl;
         uint8_t pack_soc;
@@ -1122,8 +1182,38 @@ typedef struct {
         uint32_t last_rx;
     } orion_currents_volts;
     struct {
-        uint16_t dtc_flags_1;
-        uint16_t dtc_flags_2;
+        uint16_t discharge_limit_enforce;
+        uint16_t charger_safety_relay;
+        uint16_t internal_hardware;
+        uint16_t heatsink_thermistor;
+        uint16_t software;
+        uint16_t max_cellv_high;
+        uint16_t min_cellv_low;
+        uint16_t pack_overheat;
+        uint16_t reserved0;
+        uint16_t reserved1;
+        uint16_t reserved2;
+        uint16_t reserved3;
+        uint16_t reserved4;
+        uint16_t reserved5;
+        uint16_t reserved6;
+        uint16_t reserved7;
+        uint16_t internal_comms;
+        uint16_t cell_balancing_foff;
+        uint16_t weak_cell;
+        uint16_t low_cellv;
+        uint16_t open_wire;
+        uint16_t current_sensor;
+        uint16_t max_cellv_o5v;
+        uint16_t cell_asic;
+        uint16_t weak_pack;
+        uint16_t fan_monitor;
+        uint16_t thermistor;
+        uint16_t external_comms;
+        uint16_t redundant_psu;
+        uint16_t hv_isolation;
+        uint16_t input_psu;
+        uint16_t charge_limit_enforce;
         uint8_t stale;
         uint32_t last_rx;
     } orion_errors;

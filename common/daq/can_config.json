@@ -306,35 +306,80 @@
                         {   "msg_name":"orion_info",
                             "msg_desc":"Pack Charge, State, Current/voltage limits",
                             "signals":[
-                                {"sig_name":"relay_state","type":"uint16_t","length":16},
-                                {"sig_name":"pack_dcl", "type":"uint16_t", "length":16},
-                                {"sig_name":"pack_ccl", "type":"uint16_t", "length":16},
-                                {"sig_name":"pack_soc", "type":"uint8_t", "length":8}
+                                {"sig_name":"discharge_enable","type":"uint8_t","length":1},
+                                {"sig_name":"charge_enable","type":"uint8_t","length":1},
+                                {"sig_name":"charger_safety","type":"uint8_t","length":1},
+                                {"sig_name":"dtc_status","type":"uint8_t","length":1},
+                                {"sig_name":"multi_input","type":"uint8_t","length":1},
+                                {"sig_name":"always_on","type":"uint8_t","length":1},
+                                {"sig_name":"is_ready","type":"uint8_t","length":1},
+                                {"sig_name":"is_charging","type":"uint8_t","length":1},
+                                {"sig_name":"multi_input_2","type":"uint8_t","length":1},
+                                {"sig_name":"multi_input_3","type":"uint8_t","length":1},
+                                {"sig_name":"reserved","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_2","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_3","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_4","type":"uint8_t","length":1},
+                                {"sig_name":"multi_enable","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_1","type":"uint8_t","length":1},
+                                {"sig_name":"pack_dcl", "type":"uint16_t", "length":16, "unit": "A", "scale": 0.1},
+                                {"sig_name":"pack_ccl", "type":"uint16_t", "length":16, "unit": "A", "scale": 0.1},
+                                {"sig_name":"pack_soc", "type":"uint8_t", "length":8, "unit": "%", "scale": 0.5}
                             ],
                             "msg_period":16,
                             "msg_hlp":5,
-                            "msg_pgn":23
+                            "msg_pgn":26
                         },
                         {   "msg_name":"orion_currents_volts",
                             "msg_desc":"Pack current + voltage",
                             "signals":[
-                                {"sig_name":"pack_current","type":"uint16_t","length":16},
-                                {"sig_name":"pack_voltage", "type":"uint16_t", "length":16}
+                                {"sig_name":"pack_current","type":"uint16_t","length":16, "unit": "A", "scale": 0.1},
+                                {"sig_name":"pack_voltage", "type":"uint16_t", "length":16, "unit": "V", "scale": 0.1}
                             ],
                             "msg_period":16,
                             "msg_hlp":5,
-                            "msg_pgn":24
+                            "msg_pgn":27
                         },
                         {
                             "msg_name":"orion_errors",
                             "msg_desc":"Pack DTC Flags",
                             "signals":[
-                                {"sig_name": "dtc_flags_1", "type":"uint16_t","length":16},
-                                {"sig_name": "dtc_flags_2", "type":"uint16_t","length":16}
+                                {"sig_name": "discharge_limit_enforce", "type":"uint16_t","length":1},
+                                {"sig_name": "charger_safety_relay", "type":"uint16_t","length":1},
+                                {"sig_name": "internal_hardware", "type":"uint16_t","length":1},
+                                {"sig_name": "heatsink_thermistor", "type":"uint16_t","length":1},
+                                {"sig_name": "software", "type":"uint16_t","length":1},
+                                {"sig_name": "max_cellv_high", "type":"uint16_t","length":1},
+                                {"sig_name": "min_cellv_low", "type":"uint16_t","length":1},
+                                {"sig_name": "pack_overheat", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved0", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved1", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved2", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved3", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved4", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved5", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved6", "type":"uint16_t","length":1},
+                                {"sig_name": "reserved7", "type":"uint16_t","length":1},
+                                {"sig_name": "internal_comms", "type":"uint16_t","length":1},
+                                {"sig_name": "cell_balancing_foff", "type":"uint16_t","length":1},
+                                {"sig_name": "weak_cell", "type":"uint16_t","length":1},
+                                {"sig_name": "low_cellv", "type":"uint16_t","length":1},
+                                {"sig_name": "open_wire", "type":"uint16_t","length":1},
+                                {"sig_name": "current_sensor", "type":"uint16_t","length":1},
+                                {"sig_name": "max_cellv_o5v", "type":"uint16_t","length":1},
+                                {"sig_name": "cell_asic", "type":"uint16_t","length":1},
+                                {"sig_name": "weak_pack", "type":"uint16_t","length":1},
+                                {"sig_name": "fan_monitor", "type":"uint16_t","length":1},
+                                {"sig_name": "thermistor", "type":"uint16_t","length":1},
+                                {"sig_name": "external_comms", "type":"uint16_t","length":1},
+                                {"sig_name": "redundant_psu", "type":"uint16_t","length":1},
+                                {"sig_name": "hv_isolation", "type":"uint16_t","length":1},
+                                {"sig_name": "input_psu", "type":"uint16_t","length":1},
+                                {"sig_name": "charge_limit_enforce", "type":"uint16_t","length":16}
                             ],
                             "msg_period":496,
                             "msg_hlp":3,
-                            "msg_pgn":25
+                            "msg_pgn":28
                         }
                     ],
                     "rx":[

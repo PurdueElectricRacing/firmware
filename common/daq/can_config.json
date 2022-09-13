@@ -375,7 +375,7 @@
                                 {"sig_name": "redundant_psu", "type":"uint16_t","length":1},
                                 {"sig_name": "hv_isolation", "type":"uint16_t","length":1},
                                 {"sig_name": "input_psu", "type":"uint16_t","length":1},
-                                {"sig_name": "charge_limit_enforce", "type":"uint16_t","length":16}
+                                {"sig_name": "charge_limit_enforce", "type":"uint16_t","length":1}
                             ],
                             "msg_period":496,
                             "msg_hlp":3,

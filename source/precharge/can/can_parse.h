@@ -184,7 +184,7 @@
 #define DLC_ELCON_CHARGER_STATUS 5
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_ORION_ERRORS 6
+#define DLC_ORION_ERRORS 4
 #define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
@@ -776,7 +776,7 @@ typedef union { __attribute__((packed))
         uint64_t redundant_psu: 1;
         uint64_t hv_isolation: 1;
         uint64_t input_psu: 1;
-        uint64_t charge_limit_enforce: 16;
+        uint64_t charge_limit_enforce: 1;
     } orion_errors;
     struct {
         uint64_t daq_command: 64;

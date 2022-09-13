@@ -133,28 +133,36 @@ int main (void)
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
     // Commented this line out because it is initializing old BMS, which is of no use to us
-    //BMS_init();
+    orionInit();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
     //Preflight animation + checks - not relavant to BMS
     configureAnim(preflightAnimation, preflightChecks, 75, 750);
     //Just heartbeat
+
     taskCreate(heartbeatTask, 500);
+
     //Monitors status of IMD, and then reflects this onto BMS. This is where I added Orion's error checks.
+
     taskCreate(monitorStatus, 50);
+
     /*
         These are MiniBMS functions; Not sure whether to modify these or not, but I think they can just be completely removed.
         However, I am not sure about other functions that rely on data from here.
      */
     // taskCreate(BMS_txBatteryStatus, 50);
-    // taskCreate(BMS_chargePeriodic, 50);
+    taskCreate(orion_chargePeriodic, 50);
     //Pertains to G sensors; No correllation to BMS
+
     taskCreate(sendIMUData, 10);
+
     //Just daq messages
+
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+
     //Not sure about this, since we are using new Thermistors and nothing is being sent from Orion
-    taskCreate(tempPeriodic, 500);
+    taskCreate(orionCheckTempsPeriodic, 500);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -249,16 +257,19 @@ void heartbeatTask()
 // }
 void monitorStatus()
 {
+
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
     uint16_t err = 0;
 
-    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
     if (orionErrors() && err != 0) {
         err = 1;
     }
     else {
         err = 0;
     }
-    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err);
+    // PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
+    // PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !err);
+
 
 
 }

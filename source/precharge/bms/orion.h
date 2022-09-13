@@ -8,7 +8,7 @@
 #define MAX_TEMP (300)
 
 bool orionErrors();
-void checkTempsPeriodic();
+void orionCheckTempsPeriodic();
 void orion_chargePeriodic();
 void orionInit();
 

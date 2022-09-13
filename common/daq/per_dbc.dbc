@@ -145,19 +145,64 @@ BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
 BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483029496 orion_info: 7 OrionBMS
- SG_ pack_soc : 48|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ pack_ccl : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ pack_dcl : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ relay_state : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483029688 orion_info: 7 OrionBMS
+ SG_ pack_soc : 48|8@1+ (0.5,0) [0|0] "%" Vector__XXX
+ SG_ pack_ccl : 32|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ pack_dcl : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ multi_output_1 : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_enable : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_output_4 : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_output_3 : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_output_2 : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_input_3 : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_input_2 : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ is_charging : 7|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ is_ready : 6|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ always_on : 5|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_input : 4|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dtc_status : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charger_safety : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charge_enable : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ discharge_enable : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483029560 orion_currents_volts: 4 OrionBMS
- SG_ pack_voltage : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ pack_current : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483029752 orion_currents_volts: 4 OrionBMS
+ SG_ pack_voltage : 16|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ pack_current : 0|16@1+ (0.1,0) [0|0] "A" Vector__XXX
 
-BO_ 2348811896 orion_errors: 4 OrionBMS
- SG_ dtc_flags_2 : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ dtc_flags_1 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2348812088 orion_errors: 4 OrionBMS
+ SG_ charge_limit_enforce : 31|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ input_psu : 30|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ hv_isolation : 29|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ redundant_psu : 28|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ external_comms : 27|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ thermistor : 26|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ fan_monitor : 25|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ weak_pack : 24|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cell_asic : 23|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ max_cellv_o5v : 22|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ current_sensor : 21|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ open_wire : 20|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ low_cellv : 19|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ weak_cell : 18|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cell_balancing_foff : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ internal_comms : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved7 : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved6 : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved5 : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved4 : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved3 : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved2 : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved1 : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved0 : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pack_overheat : 7|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ min_cellv_low : 6|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ max_cellv_high : 5|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ software : 4|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ heatsink_thermistor : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ internal_hardware : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028613 raw_throttle_brake: 3 Dashboard
  SG_ brake : 12|12@1+ (1,0) [0|0] "" Vector__XXX
@@ -929,17 +974,62 @@ CM_ SG_ 2483060868 temp_B "";
 CM_ SG_ 2483060868 temp_A "";
 CM_ BO_ 2550136772 "daq response from node PRECHARGE";
 CM_ SG_ 2550136772 daq_response "";
-CM_ BO_ 2483029496 "Pack Charge, State, Current/voltage limits";
-CM_ SG_ 2483029496 pack_soc "";
-CM_ SG_ 2483029496 pack_ccl "";
-CM_ SG_ 2483029496 pack_dcl "";
-CM_ SG_ 2483029496 relay_state "";
-CM_ BO_ 2483029560 "Pack current + voltage";
-CM_ SG_ 2483029560 pack_voltage "";
-CM_ SG_ 2483029560 pack_current "";
-CM_ BO_ 2348811896 "Pack DTC Flags";
-CM_ SG_ 2348811896 dtc_flags_2 "";
-CM_ SG_ 2348811896 dtc_flags_1 "";
+CM_ BO_ 2483029688 "Pack Charge, State, Current/voltage limits";
+CM_ SG_ 2483029688 pack_soc "";
+CM_ SG_ 2483029688 pack_ccl "";
+CM_ SG_ 2483029688 pack_dcl "";
+CM_ SG_ 2483029688 multi_output_1 "";
+CM_ SG_ 2483029688 multi_enable "";
+CM_ SG_ 2483029688 multi_output_4 "";
+CM_ SG_ 2483029688 multi_output_3 "";
+CM_ SG_ 2483029688 multi_output_2 "";
+CM_ SG_ 2483029688 reserved "";
+CM_ SG_ 2483029688 multi_input_3 "";
+CM_ SG_ 2483029688 multi_input_2 "";
+CM_ SG_ 2483029688 is_charging "";
+CM_ SG_ 2483029688 is_ready "";
+CM_ SG_ 2483029688 always_on "";
+CM_ SG_ 2483029688 multi_input "";
+CM_ SG_ 2483029688 dtc_status "";
+CM_ SG_ 2483029688 charger_safety "";
+CM_ SG_ 2483029688 charge_enable "";
+CM_ SG_ 2483029688 discharge_enable "";
+CM_ BO_ 2483029752 "Pack current + voltage";
+CM_ SG_ 2483029752 pack_voltage "";
+CM_ SG_ 2483029752 pack_current "";
+CM_ BO_ 2348812088 "Pack DTC Flags";
+CM_ SG_ 2348812088 charge_limit_enforce "";
+CM_ SG_ 2348812088 input_psu "";
+CM_ SG_ 2348812088 hv_isolation "";
+CM_ SG_ 2348812088 redundant_psu "";
+CM_ SG_ 2348812088 external_comms "";
+CM_ SG_ 2348812088 thermistor "";
+CM_ SG_ 2348812088 fan_monitor "";
+CM_ SG_ 2348812088 weak_pack "";
+CM_ SG_ 2348812088 cell_asic "";
+CM_ SG_ 2348812088 max_cellv_o5v "";
+CM_ SG_ 2348812088 current_sensor "";
+CM_ SG_ 2348812088 open_wire "";
+CM_ SG_ 2348812088 low_cellv "";
+CM_ SG_ 2348812088 weak_cell "";
+CM_ SG_ 2348812088 cell_balancing_foff "";
+CM_ SG_ 2348812088 internal_comms "";
+CM_ SG_ 2348812088 reserved7 "";
+CM_ SG_ 2348812088 reserved6 "";
+CM_ SG_ 2348812088 reserved5 "";
+CM_ SG_ 2348812088 reserved4 "";
+CM_ SG_ 2348812088 reserved3 "";
+CM_ SG_ 2348812088 reserved2 "";
+CM_ SG_ 2348812088 reserved1 "";
+CM_ SG_ 2348812088 reserved0 "";
+CM_ SG_ 2348812088 pack_overheat "";
+CM_ SG_ 2348812088 min_cellv_low "";
+CM_ SG_ 2348812088 max_cellv_high "";
+CM_ SG_ 2348812088 software "";
+CM_ SG_ 2348812088 heatsink_thermistor "";
+CM_ SG_ 2348812088 internal_hardware "";
+CM_ SG_ 2348812088 charger_safety_relay "";
+CM_ SG_ 2348812088 discharge_limit_enforce "";
 CM_ BO_ 2483028613 "throttle_brake desc";
 CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle "";

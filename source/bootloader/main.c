@@ -45,7 +45,8 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 /* Function Prototypes */
-extern void HardFault_Handler();
+void HardFault_Handler();
+extern void Default_Handler();
 void jump_to_application(void);
 bool check_boot_health(void);
 
@@ -57,14 +58,17 @@ extern char _eboot_flash;      /* End of the bootlaoder flash region, same as th
 
 /* Bootlaoder timing control */
 static volatile uint32_t bootloader_ms = 0;
+static volatile uint32_t bootloader_ms_2 = 0;
 static volatile bool bootloader_timeout = false;
 static volatile bool send_status_flag = false;
+static bool send_flash_address = false;
 
 int main (void)
 {
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    bootloader_ms = 0;
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config))
@@ -97,19 +101,31 @@ int main (void)
     */
     while(!bootloader_timeout || !allow_application_launch)
     {
-        /* Process CAN signals */
-        if (send_status_flag)
-        {
-            send_status_flag = false;
-            if(!BL_flashStarted())
-                BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
-        }
 
         while (q_rx_can.item_count > 0)
             canRxUpdate();
 
         if (BL_flashStarted())
-            BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
+        {
+            if (send_status_flag)
+            {
+                send_status_flag = false;
+                BL_sendStatusMessage(BLSTAT_RETRY_DATA, (uint32_t)  BL_getCurrentFlashAddress());
+            }
+            else if (send_flash_address)
+            {
+                send_flash_address = false;
+                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
+            } 
+        } 
+        else
+        {
+            if (send_status_flag)
+            {
+                send_status_flag = false;
+                BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
+            }
+        }
 
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
             PHAL_txCANMessage(&tx_msg);
@@ -126,6 +142,7 @@ int main (void)
         }
     }
 
+    asm("bkpt");
     NVIC_DisableIRQ(SysTick_IRQn);
     NVIC_DisableIRQ(CAN1_RX0_IRQn);
 
@@ -146,6 +163,11 @@ int main (void)
 void SysTick_Handler(void)
 {
     bootloader_ms++;
+
+    bootloader_ms_2++;
+    if (bootloader_ms_2 % 10 == 0)
+        send_flash_address = true;
+    
     switch (bootloader_shared_memory.reset_reason)
     {
         case RESET_REASON_DOWNLOAD_FW:
@@ -166,13 +188,13 @@ void SysTick_Handler(void)
             {
                 send_status_flag = true;
             }
-            if (bootloader_ms % 3000 == 0)
+            if (bootloader_ms >= 3000)
             {
                 bootloader_timeout = true;
             }
             break;
         case RESET_REASON_POR:
-            if (bootloader_ms % 2000 == 0)
+            if (bootloader_ms >= 2000)
             {
                 send_status_flag = true;
                 bootloader_timeout = true;
@@ -274,14 +296,16 @@ void jump_to_application(void)
 
     // Actually jump to application
     __set_MSP((uint32_t) (uint32_t*) (((void *) &_eboot_flash)));
-    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
+    // SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
     uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
     __enable_irq();
     ((void(*)(void)) app_reset_handler_address)();
 }
 
+static uint32_t can_irq_hits = 0;
 void CAN1_RX0_IRQHandler()
 {
+    can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
         CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
 
@@ -318,4 +342,11 @@ void CAN1_RX0_IRQHandler()
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void HardFault_Handler()
+{
+    NVIC_SystemReset();
+    while(1)
+        ;
 }

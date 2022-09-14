@@ -38,8 +38,8 @@ class CANRxThread(threading.Thread):
                             self.rx_messages[msg.arbitration_id] = {}
                         self.rx_messages[msg.arbitration_id][sig_name] = can_rx[sig_name]
             
-            except KeyError:
-                print(f"Unknown message with ID {msg.arbitration_id} and Data {msg.data}")
+            except Exception:
+                # print(f"Unknown message with ID {msg.arbitration_id} and Data {msg.data}")
                 continue
 
             

@@ -226,7 +226,7 @@
         {
             "name": "Bootloader - TV",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bootloaders/bootloader_torquevector/bootloader_torquevector.elf",
+            "executable": "./output/bootloaders/bootloader_torquevector/BL_bootloader_torquevector.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -238,10 +238,10 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/bootlaoder"
+                "${workspaceFolder}/source/bootloader"
             ],
             // "preLaunchTask": "build",
-            "runToEntryPoint": "main"
+            "runToEntryPoint": "Reset_Handler"
         },
         {
             "name": "Bootloader - Main",

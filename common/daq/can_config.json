@@ -231,11 +231,10 @@
                         },
                         {
                             "msg_name": "pack_charge_status",
-                            "msg_desc": "Charge voltage and current request to ELCON charger",
+                            "msg_desc": "Send charge information",
                             "signals": [
                                 {"sig_name": "power", "sig_desc": "Instantaneous charge power", "unit":"W", "type": "uint16_t", "length": 16},
                                 {"sig_name": "charge_enable", "sig_desc": "Charge mode enable", "type": "uint8_t", "length": 1},
-                                {"sig_name": "balance_enable","sig_desc": "Cell balance enabled", "type": "uint8_t", "length": 1},
                                 {"sig_name": "voltage", "sig_desc": "Instantaneous charge voltage", "unit":"V", "scale": 0.1, "type": "uint16_t", "length": 16},
                                 {"sig_name": "current", "sig_desc": "Instantaneous charge current", "unit":"A", "scale": 0.1, "type": "uint16_t", "length": 16}
                             ],

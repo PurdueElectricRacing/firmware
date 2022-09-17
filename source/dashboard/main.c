@@ -96,17 +96,19 @@ usart_init_t huart2 = {
 };
 
 /* SPI Configuration */
-dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 3);
-dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 4);
+/* SPI Configuration */
+dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
 SPI_InitConfig_t hspi1 = {
-    .data_rate     = 400000,
-    .data_len      = 8,
-    .nss_sw        = true,
-    .nss_gpio_port = CSB_WHL_GPIO_Port,
-    .nss_gpio_pin  = CSB_WHL_Pin,
-    .rx_dma_cfg    = &spi_rx_dma_cfg,
-    .tx_dma_cfg    = &spi_tx_dma_cfg,
+  .data_rate     = 160000,
+  .data_len      = 8,
+  .nss_sw        = true,
+  .nss_gpio_port = CSB_WHL_GPIO_Port,
+  .nss_gpio_pin  = CSB_WHL_Pin,
+  .rx_dma_cfg    = &spi_rx_dma_cfg,
+  .tx_dma_cfg    = &spi_tx_dma_cfg,
 };
+
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -162,6 +164,9 @@ int main (void)
     {
         HardFault_Handler();
     }
+    if (!PHAL_SPI_init(&hspi1)) {
+        HardFault_Handler();
+    }
     // TODO: revert spi
     // if(!PHAL_SPI_init(&hspi1))
     // {
@@ -198,6 +203,7 @@ int main (void)
     }
 
     /* Task Creation */
+    set_page("race\0");
     schedInit(SystemCoreClock);
 
     taskCreate(heartBeatLED, 500);
@@ -210,11 +216,20 @@ int main (void)
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     // taskCreateBackground(usartTxUpdate);
+    taskCreate(update_time, 213);
+   taskCreate(update_err_pages, 500);
+   taskCreate(update_race_page, 200);
+   taskCreate(update_race_colors, 1000);
+
+   //taskCreate(check_precharge, 100);
+
+   taskCreate(check_buttons, 100);
+   taskCreate(check_error, 1000);
 
     // Signify end of initialization
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
     schedStart();
-    
+
     return 0;
 }
 
@@ -231,7 +246,7 @@ void heartBeatLED()
 void heartBeatMsg()
 {
     SEND_DASHBOARD_HB(q_tx_can, pedals.apps_faulted,
-                                    pedals.bse_faulted, 
+                                    pedals.bse_faulted,
                                     pedals.apps_brake_faulted);
 }
 
@@ -281,7 +296,7 @@ void linkDAQVars()
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};
 void usartTxUpdate()
 {
-    if (PHAL_usartTxDmaComplete(&huart2) && 
+    if (PHAL_usartTxDmaComplete(&huart2) &&
         qReceive(&q_tx_usart, cmd) == SUCCESS_G)
     {
         PHAL_usartTxDma(USART2, &huart2, (uint16_t *) cmd, strlen(cmd));
@@ -303,10 +318,10 @@ void canTxUpdate()
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -315,7 +330,7 @@ void CAN1_RX0_IRQHandler()
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
@@ -334,7 +349,7 @@ void CAN1_RX0_IRQHandler()
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
-        CAN1->RF0R |= (CAN_RF0R_RFOM0); 
+        CAN1->RF0R |= (CAN_RF0R_RFOM0);
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
 }

@@ -103,7 +103,8 @@ void loop()
   float temp2_real = temp(temp2_raw, R_REF_2);
   float temp3_real = temp(temp3_raw, R_REF_3);
 
-
+  Serial.print(mux_index);
+  Serial.print(",");
   Serial.print(temp0_real);
   Serial.print(",");
   Serial.print(temp1_real);

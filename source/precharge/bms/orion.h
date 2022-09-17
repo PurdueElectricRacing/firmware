@@ -5,7 +5,7 @@
 
 #include <stdbool.h>
 
-#define MAX_TEMP (300)
+#define MAX_TEMP (59)
 
 bool orionErrors();
 void orionCheckTempsPeriodic();

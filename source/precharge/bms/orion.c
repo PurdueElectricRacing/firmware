@@ -9,29 +9,26 @@
 extern q_handle_t q_tx_can;
 
 bool charge_request_user = false; // Enable charge algo
-uint16_t orion_charge_current_limit = 0;
-uint16_t orion_charge_voltage_limit = 0;
-uint8_t  orion_bms_temp_err = 0;
-uint16_t orion_uv_limit = 25000;
-uint16_t orion_ov_limit = 42000;
+uint16_t user_charge_current_request = 0;
+uint16_t user_charge_voltage_request = 0;
+uint8_t  orion_bms_temp_err = 1;
+
 
 void orionInit()
 {
     linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
     linkWritea(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
-    linkReada(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &orion_charge_voltage_limit);
-    linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &orion_charge_voltage_limit);
-    linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &orion_charge_current_limit);
-    linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &orion_charge_current_limit);
-    linkReada(DAQ_ID_UV_LIMIT, &orion_uv_limit);
-    linkWritea(DAQ_ID_UV_LIMIT, &orion_uv_limit);
-    linkReada(DAQ_ID_OV_LIMIT, &orion_ov_limit);
-    linkWritea(DAQ_ID_OV_LIMIT, &orion_ov_limit);
+    linkReada(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
+    linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
+    linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
+    linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
 }
 
 //Now also accounts for temp errors
 bool orionErrors() {
-    return (((can_data.orion_info.dtc_status == 1) /*|| bms_temp_err*/) ? 0 : 1);
+    return (can_data.orion_info.dtc_status || 
+            can_data.orion_info.stale ||
+            orion_bms_temp_err);
 }
 
 /*
@@ -39,50 +36,46 @@ bool orionErrors() {
     1. findGlobalImbalance - Everything cell balancing related is controlled by Orion - we don't get any control?
     *This funciton is also covered by DTC flags, so no longer needed*
     2. Cell balancing stuff from bms - Orion handles the balancing
-    3.
-
-
 */
 
 void orion_chargePeriodic() {
-    bool charge_power_enable = can_data.orion_info.charger_safety;
-    bool elcon_charge_enable = false;                 // Allow power from elcon
-    bool balance_req         = false;                   // Sending balance request to the modules
-    static bool cells_balanced_for_charge = false;      // Cells are ready to charge
-    uint16_t charge_voltage_req = 0; // Voltage limit request to send to charger
-    uint16_t charge_current_req = 0; // Current limit request
-    orion_charge_current_limit = can_data.orion_info.pack_ccl;
-    uint16_t charge_current = 0;
-    uint16_t charge_voltage = 0;
-    float power = 0;
+    bool orion_charger_safety = false;     
+    bool elcon_charge_enable  = false; // Allow power from elcon
+    bool balance_req          = false; // Sending balance request to the modules
+    uint16_t charge_voltage_req = 0;   // Voltage limit request to send to charger
+    uint16_t charge_current_req = 0;   // Current limit request
+    user_charge_current_request = can_data.orion_info.pack_ccl;
+    uint16_t charge_current;
+    uint16_t charge_voltage;
+    float power = 0.0;
 
+    orion_charger_safety = can_data.orion_info.charger_safety && 
+                           can_data.orion_info.stale;
 
     //According to the Orion Wiring manual, this signal apparently pulls down to ground when on.
     //As such, do I invert the signal, or should it be as is? For now, I am leaving as is.
     charge_request_user &= !can_data.elcon_charger_status.stale;
-    if (charge_request_user && charge_power_enable) {
-            if (charge_current_req > orion_charge_current_limit) {
-                charge_current_req = orion_charge_current_limit;
-                elcon_charge_enable = true;
-            }
-            elcon_charge_enable &= !orionErrors();
+    if (charge_request_user && orion_charger_safety && !orionErrors()) {
+            elcon_charge_enable = true;
 
-            charge_voltage_req = orion_charge_voltage_limit;
-            charge_current_req = orion_charge_current_limit;
-            charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Taken from BMS Code, controls voltage and current limits
+            charge_current_req = MIN(user_charge_current_request, user_charge_current_request);
+
+            charge_voltage_req = MIN(user_charge_voltage_request, 42 * 80); // Hard limit, don't overcharge!
+
+            // Swap endianess
             charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
             charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
-
-            charge_current = can_data.elcon_charger_status.charge_current;
-            charge_voltage = can_data.elcon_charger_status.charge_voltage;
-            charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
-            charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
-
-
-            power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
     }
+
     SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !elcon_charge_enable);
-    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, charge_voltage, charge_current);
+
+    // Parse current values from elcon charger status
+    charge_current = can_data.elcon_charger_status.charge_current;
+    charge_voltage = can_data.elcon_charger_status.charge_voltage;
+    charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
+    charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
+    power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
+    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), elcon_charge_enable, charge_voltage, charge_current);
 }
 
 /*
@@ -117,9 +110,5 @@ void orionCheckTempsPeriodic (){
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
     SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
 
-    if (max_temp > MAX_TEMP) {
-        orion_bms_temp_err = 1;
-    } else {
-        orion_bms_temp_err = 0;
-    }
+    orion_bms_temp_err = max_temp >= MAX_TEMP;
 }

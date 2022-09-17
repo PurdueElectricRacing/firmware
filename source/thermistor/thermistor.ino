@@ -110,7 +110,7 @@ void loop()
   Serial.print(",");
   Serial.print(temp2_real);
   Serial.print(",");
-  Serial.println(temp0_real);
+  Serial.println(temp3_real);
 
   // CAN message construction   
   uint16_t temp0 = (uint16_t) (temp0_real * 10);

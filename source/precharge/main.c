@@ -257,21 +257,10 @@ void heartbeatTask()
 // }
 void monitorStatus()
 {
+    uint8_t err = orionErrors();
 
-    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 0);
-    uint16_t err = 0;
-
-    if (orionErrors() && err != 0) {
-        err = 1;
-    }
-    else {
-        err = 0;
-    }
-    // PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
-    // PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !err);
-
-
-
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, err | !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin));
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !err);
 }
 
 // Not changing this, as - from my understanding - doesn't pertain to BMS code.

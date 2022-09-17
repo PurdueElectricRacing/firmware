@@ -235,12 +235,11 @@
         data_a->elcon_charger_command.charge_disable = charge_disable_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, balance_enable_, voltage_, current_) do {\
+#define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, voltage_, current_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PACK_CHARGE_STATUS, .DLC=DLC_PACK_CHARGE_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pack_charge_status.power = power_;\
         data_a->pack_charge_status.charge_enable = charge_enable_;\
-        data_a->pack_charge_status.balance_enable = balance_enable_;\
         data_a->pack_charge_status.voltage = voltage_;\
         data_a->pack_charge_status.current = current_;\
         qSendToBack(&queue, &msg);\
@@ -332,7 +331,6 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t power: 16;
         uint64_t charge_enable: 1;
-        uint64_t balance_enable: 1;
         uint64_t voltage: 16;
         uint64_t current: 16;
     } pack_charge_status;

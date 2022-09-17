@@ -8,7 +8,7 @@
 
 extern q_handle_t q_tx_can;
 
-bool orion_charge_mode_enable = false; // Enable charge algo
+bool charge_request_user = false; // Enable charge algo
 uint16_t orion_charge_current_limit = 0;
 uint16_t orion_charge_voltage_limit = 0;
 uint8_t  orion_bms_temp_err = 0;
@@ -17,8 +17,8 @@ uint16_t orion_ov_limit = 42000;
 
 void orionInit()
 {
-    linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &orion_charge_mode_enable);
-    linkWritea(DAQ_ID_CHARGE_MODE_ENABLE, &orion_charge_mode_enable);
+    linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
+    linkWritea(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
     linkReada(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &orion_charge_voltage_limit);
     linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &orion_charge_voltage_limit);
     linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &orion_charge_current_limit);
@@ -45,40 +45,44 @@ bool orionErrors() {
 */
 
 void orion_chargePeriodic() {
-    bool charge_power_enable = can_data.orion_info.charger_safety;                   // Allow power from elcon
+    bool charge_power_enable = can_data.orion_info.charger_safety;
+    bool elcon_charge_enable = false;                 // Allow power from elcon
     bool balance_req         = false;                   // Sending balance request to the modules
     static bool cells_balanced_for_charge = false;      // Cells are ready to charge
-    uint16_t charge_voltage_req = orion_charge_voltage_limit; // Voltage limit request to send to charger
-    uint16_t charge_current_req = orion_charge_current_limit; // Current limit request
+    uint16_t charge_voltage_req = 0; // Voltage limit request to send to charger
+    uint16_t charge_current_req = 0; // Current limit request
     orion_charge_current_limit = can_data.orion_info.pack_ccl;
+    uint16_t charge_current = 0;
+    uint16_t charge_voltage = 0;
+    float power = 0;
 
 
     //According to the Orion Wiring manual, this signal apparently pulls down to ground when on.
     //As such, do I invert the signal, or should it be as is? For now, I am leaving as is.
+    charge_request_user &= !can_data.elcon_charger_status.stale;
+    if (charge_request_user && charge_power_enable) {
+            if (charge_current_req > orion_charge_current_limit) {
+                charge_current_req = orion_charge_current_limit;
+                elcon_charge_enable = true;
+            }
+            elcon_charge_enable &= !orionErrors();
 
-    if (charge_power_enable) {
-        if (orionErrors()) {
-            charge_power_enable = false;
-        }
-        if (charge_current_req > orion_charge_current_limit) {
-            charge_power_enable = false;
-        }
+            charge_voltage_req = orion_charge_voltage_limit;
+            charge_current_req = orion_charge_current_limit;
+            charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Taken from BMS Code, controls voltage and current limits
+            charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
+            charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
 
-        charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Taken from BMS Code, controls voltage and current limits
-        charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
-        charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
-        SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !charge_power_enable);
-
-        uint16_t charge_current = can_data.elcon_charger_status.charge_current;
-        uint16_t charge_voltage = can_data.elcon_charger_status.charge_voltage;
-        charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
-        charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
+            charge_current = can_data.elcon_charger_status.charge_current;
+            charge_voltage = can_data.elcon_charger_status.charge_voltage;
+            charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
+            charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
 
 
-        float power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
-        SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req, charge_voltage, charge_current);
-
+            power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
     }
+    SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !elcon_charge_enable);
+    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, charge_voltage, charge_current);
 }
 
 /*

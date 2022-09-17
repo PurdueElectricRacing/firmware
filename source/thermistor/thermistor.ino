@@ -6,10 +6,10 @@
 #define ADC_MUX_ADDR_2_PIN (27)
 #define ADC_MUX_ADDR_3_PIN (29)
 
-#define ADC_MUX_SIG_0_PIN (A12)
-#define ADC_MUX_SIG_1_PIN (A10)
-#define ADC_MUX_SIG_2_PIN (A11)
-#define ADC_MUX_SIG_3_PIN (A9)
+#define ADC_MUX_SIG_0_PIN (A10)
+#define ADC_MUX_SIG_1_PIN (A12)
+#define ADC_MUX_SIG_2_PIN (A9)
+#define ADC_MUX_SIG_3_PIN (A11)
 
 #define CAN_MESSAGE_ID_BASE (0xBE0)
 #define MCP2515_CS_PIN (9)

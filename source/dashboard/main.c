@@ -72,27 +72,27 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(
 dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart2 = {
-    .baud_rate   = 9600,
-    .word_length = WORD_8,
-    .stop_bits   = SB_ONE,
-    .parity      = PT_NONE,
-    .mode        = MODE_TX_RX,
-    .hw_flow_ctl = HW_DISABLE,
-    .ovsample    = OV_16,
-    .obsample    = OB_DISABLE,
-    .adv_feature = {
-                    .auto_baud = false,
-                    .ab_mode = AB_START,
-                    .tx_inv = false,
-                    .rx_inv = false,
-                    .data_inv = false,
-                    .tx_rx_swp = false,
-                    .overrun = false,
-                    .dma_on_rx_err = false,
-                    .msb_first = false,
-                   },
-    .tx_dma_cfg = &usart_tx_dma_config,
-    .rx_dma_cfg = &usart_rx_dma_config
+   .baud_rate   = 9600,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .mode        = MODE_TX_RX,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .adv_feature = {
+                   .auto_baud = false,
+                   .ab_mode = AB_START,
+                   .tx_inv = false,
+                   .rx_inv = false,
+                   .data_inv = false,
+                   .tx_rx_swp = false,
+                   .overrun = false,
+                   .dma_on_rx_err = false,
+                   .msb_first = false,
+                  },
+   .tx_dma_cfg = &usart_tx_dma_config,
+   .rx_dma_cfg = &usart_rx_dma_config
 };
 
 /* SPI Configuration */

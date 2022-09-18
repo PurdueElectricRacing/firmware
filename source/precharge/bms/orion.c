@@ -26,8 +26,8 @@ void orionInit()
 
 //Now also accounts for temp errors
 bool orionErrors() {
-    return (can_data.orion_info.dtc_status || 
-            can_data.orion_info.stale ||
+    return (can_data.orion_info.dtc_status ||
+            /* TODO: can_data.orion_info.stale || */
             orion_bms_temp_err);
 }
 
@@ -39,32 +39,37 @@ bool orionErrors() {
 */
 
 void orion_chargePeriodic() {
-    bool orion_charger_safety = false;     
+    bool orion_charger_status = false;
     bool elcon_charge_enable  = false; // Allow power from elcon
     bool balance_req          = false; // Sending balance request to the modules
     uint16_t charge_voltage_req = 0;   // Voltage limit request to send to charger
     uint16_t charge_current_req = 0;   // Current limit request
-    user_charge_current_request = can_data.orion_info.pack_ccl;
+    uint16_t orion_max_charge_current = can_data.orion_info.pack_ccl;
     uint16_t charge_current;
     uint16_t charge_voltage;
     float power = 0.0;
 
-    orion_charger_safety = can_data.orion_info.charger_safety && 
-                           can_data.orion_info.stale;
+    orion_charger_status = can_data.orion_info.is_charging /* TODO: &&
+                           !can_data.orion_info.stale */;
 
     //According to the Orion Wiring manual, this signal apparently pulls down to ground when on.
     //As such, do I invert the signal, or should it be as is? For now, I am leaving as is.
-    charge_request_user &= !can_data.elcon_charger_status.stale;
-    if (charge_request_user && orion_charger_safety && !orionErrors()) {
+    /* TODO: charge_request_user &= !can_data.elcon_charger_status.stale; */
+    if (charge_request_user && orion_charger_status && !orionErrors()) {
             elcon_charge_enable = true;
 
-            charge_current_req = MIN(user_charge_current_request, user_charge_current_request);
+            charge_current_req = MIN(orion_max_charge_current, user_charge_current_request);
 
             charge_voltage_req = MIN(user_charge_voltage_request, 42 * 80); // Hard limit, don't overcharge!
+            charge_voltage_req *=  10;
+            charge_current_req *= 10;
 
             // Swap endianess
             charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
             charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
+    }
+    if (!elcon_charge_enable) {
+        asm("nop");
     }
 
     SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !elcon_charge_enable);

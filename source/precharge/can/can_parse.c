@@ -440,7 +440,7 @@ void canRxUpdate()
                     can_data.orion_info.last_rx = sched.os_ticks;
                     break;
                 case ID_ORION_CURRENTS_VOLTS:
-                    can_data.orion_currents_volts.pack_current = msg_data_a->orion_currents_volts.pack_current;
+                    can_data.orion_currents_volts.pack_current = (int16_t) msg_data_a->orion_currents_volts.pack_current;
                     can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
                     can_data.orion_currents_volts.stale = 0;
                     can_data.orion_currents_volts.last_rx = sched.os_ticks;

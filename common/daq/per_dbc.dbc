@@ -117,9 +117,8 @@ BO_ 2550588916 elcon_charger_command: 5 Precharge
  SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
 
 BO_ 2281734276 pack_charge_status: 7 Precharge
- SG_ current : 34|16@1+ (0.1,0) [0|0] "A" Vector__XXX
- SG_ voltage : 18|16@1+ (0.1,0) [0|0] "V" Vector__XXX
- SG_ balance_enable : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
  SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
 
@@ -147,8 +146,8 @@ BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
 
 BO_ 2483029688 orion_info: 7 OrionBMS
  SG_ pack_soc : 48|8@1+ (0.5,0) [0|0] "%" Vector__XXX
- SG_ pack_ccl : 32|16@1+ (0.1,0) [0|0] "A" Vector__XXX
- SG_ pack_dcl : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ pack_ccl : 32|16@1+ (1,0) [0|0] "A" Vector__XXX
+ SG_ pack_dcl : 16|16@1+ (1,0) [0|0] "A" Vector__XXX
  SG_ multi_output_1 : 15|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ multi_enable : 14|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ multi_output_4 : 13|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -168,7 +167,7 @@ BO_ 2483029688 orion_info: 7 OrionBMS
 
 BO_ 2483029752 orion_currents_volts: 4 OrionBMS
  SG_ pack_voltage : 16|16@1+ (0.1,0) [0|0] "V" Vector__XXX
- SG_ pack_current : 0|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ pack_current : 0|16@1- (0.1,0) [0|0] "A" Vector__XXX
 
 BO_ 2348812088 orion_errors: 4 OrionBMS
  SG_ charge_limit_enforce : 31|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -951,10 +950,9 @@ CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
 CM_ SG_ 2550588916 charge_disable "Disable charging";
 CM_ SG_ 2550588916 current_limit "Charge current";
 CM_ SG_ 2550588916 voltage_limit "Charge voltage";
-CM_ BO_ 2281734276 "Charge voltage and current request to ELCON charger";
+CM_ BO_ 2281734276 "Send charge information";
 CM_ SG_ 2281734276 current "Instantaneous charge current";
 CM_ SG_ 2281734276 voltage "Instantaneous charge voltage";
-CM_ SG_ 2281734276 balance_enable "Cell balance enabled";
 CM_ SG_ 2281734276 charge_enable "Charge mode enable";
 CM_ SG_ 2281734276 power "Instantaneous charge power";
 CM_ BO_ 2214625284 "Angular rate data";
@@ -974,7 +972,7 @@ CM_ SG_ 2483060868 temp_B "";
 CM_ SG_ 2483060868 temp_A "";
 CM_ BO_ 2550136772 "daq response from node PRECHARGE";
 CM_ SG_ 2550136772 daq_response "";
-CM_ BO_ 2483029688 "Pack Charge, State, Current/voltage limits";
+CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
 CM_ SG_ 2483029688 pack_soc "";
 CM_ SG_ 2483029688 pack_ccl "";
 CM_ SG_ 2483029688 pack_dcl "";

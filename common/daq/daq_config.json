@@ -41,7 +41,7 @@
                     "variables": [
                         {"var_name":"charge_mode_enable", "read_only": false, "bit_length": 1},
                         {"var_name":"charge_voltage_limit", "read_only": false, "bit_length": 16},
-                        {"var_name":"charge_current_limit", "read_only": false, "bit_length": 16},
+                        {"var_name":"charge_current_limit", "read_only": false, "bit_length": 16}
                     ]
                 }
             ]

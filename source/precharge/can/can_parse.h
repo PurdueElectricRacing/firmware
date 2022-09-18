@@ -287,9 +287,9 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_ELCON_CHARGER_STATUS 2000
-#define UP_ORION_INFO 16
-#define UP_ORION_CURRENTS_VOLTS 16
-#define UP_ORION_ERRORS 496
+#define UP_ORION_INFO 32
+#define UP_ORION_CURRENTS_VOLTS 32
+#define UP_ORION_ERRORS 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -1174,7 +1174,7 @@ typedef struct {
         uint32_t last_rx;
     } orion_info;
     struct {
-        uint16_t pack_current;
+        int16_t pack_current;
         uint16_t pack_voltage;
         uint8_t stale;
         uint32_t last_rx;

@@ -1,3 +1,4 @@
+
 #include "bms.h"
 #include "can_parse.h"
 #include "daq.h"
@@ -29,10 +30,10 @@ void BMS_init()
     linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &charge_voltage_limit);
     linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &charge_current_limit);
     linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &charge_current_limit);
-    linkReada(DAQ_ID_UV_LIMIT, &uv_limit);
-    linkWritea(DAQ_ID_UV_LIMIT, &uv_limit);
-    linkReada(DAQ_ID_OV_LIMIT, &ov_limit);
-    linkWritea(DAQ_ID_OV_LIMIT, &ov_limit);
+    // linkReada(DAQ_ID_UV_LIMIT, &uv_limit);
+    // linkWritea(DAQ_ID_UV_LIMIT, &uv_limit);
+    // linkReada(DAQ_ID_OV_LIMIT, &ov_limit);
+    // linkWritea(DAQ_ID_OV_LIMIT, &ov_limit);
 }
 
 uint16_t BMS_updateErrorFlags()
@@ -234,9 +235,9 @@ void tempPeriodic (){
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
     SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
 
-    if (max_temp > MAX_TEMP) {
-        bms_temp_err = 1;
-    } else {
-        bms_temp_err = 0;
-    }
+    // if (max_temp > MAX_TEMP) {
+    //     bms_temp_err = 1;
+    // } else {
+    //     bms_temp_err = 0;
+    // }
 }

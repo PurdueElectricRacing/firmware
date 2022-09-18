@@ -303,7 +303,7 @@
                     "node_ssa":56,
                     "tx":[
                         {   "msg_name":"orion_info",
-                            "msg_desc":"Pack Charge, State, Current/voltage limits",
+                            "msg_desc":"charge, State, Current/voltage limits",
                             "signals":[
                                 {"sig_name":"discharge_enable","type":"uint8_t","length":1},
                                 {"sig_name":"charge_enable","type":"uint8_t","length":1},
@@ -321,21 +321,21 @@
                                 {"sig_name":"multi_output_4","type":"uint8_t","length":1},
                                 {"sig_name":"multi_enable","type":"uint8_t","length":1},
                                 {"sig_name":"multi_output_1","type":"uint8_t","length":1},
-                                {"sig_name":"pack_dcl", "type":"uint16_t", "length":16, "unit": "A", "scale": 0.1},
-                                {"sig_name":"pack_ccl", "type":"uint16_t", "length":16, "unit": "A", "scale": 0.1},
+                                {"sig_name":"pack_dcl", "type":"uint16_t", "length":16, "unit": "A", "scale": 1},
+                                {"sig_name":"pack_ccl", "type":"uint16_t", "length":16, "unit": "A", "scale": 1},
                                 {"sig_name":"pack_soc", "type":"uint8_t", "length":8, "unit": "%", "scale": 0.5}
                             ],
-                            "msg_period":16,
+                            "msg_period":32,
                             "msg_hlp":5,
                             "msg_pgn":26
                         },
                         {   "msg_name":"orion_currents_volts",
                             "msg_desc":"Pack current + voltage",
                             "signals":[
-                                {"sig_name":"pack_current","type":"uint16_t","length":16, "unit": "A", "scale": 0.1},
+                                {"sig_name":"pack_current","type":"int16_t", "unit": "A", "scale": 0.1},
                                 {"sig_name":"pack_voltage", "type":"uint16_t", "length":16, "unit": "V", "scale": 0.1}
                             ],
-                            "msg_period":16,
+                            "msg_period":32,
                             "msg_hlp":5,
                             "msg_pgn":27
                         },
@@ -376,7 +376,7 @@
                                 {"sig_name": "input_psu", "type":"uint16_t","length":1},
                                 {"sig_name": "charge_limit_enforce", "type":"uint16_t","length":1}
                             ],
-                            "msg_period":496,
+                            "msg_period":1000,
                             "msg_hlp":3,
                             "msg_pgn":28
                         }

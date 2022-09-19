@@ -4,6 +4,8 @@
 #include "daq.h"
 #include "common_defs.h"
 
+#ifdef CUSTOM_BMS
+
 /**
  * Code for Precharge to combine the BMS remote's data into a pack level model.
  *
@@ -114,7 +116,6 @@ static void findGlobalImbalance(uint16_t* lowest, uint16_t* delta, uint16_t* pac
  * 4. If delta is greater than CHARGE_DELTA_MAXIMUM_V * 1.2 (hysteresis) stop charging and go to 1.
  * 5. If charge current is low and delta is less than BALANCE_DELTA_MINIMUM_V, finish charging
  */
-/*
 void BMS_chargePeriodic()
 {
     bool charge_power_enable = false;                   // Allow power from elcon
@@ -185,7 +186,7 @@ void BMS_chargePeriodic()
 
     float power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
     SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req, charge_voltage, charge_current);
-}*/
+}
 
 
 #define MAKE_VOLTS_CELLS_CALLBACK(fname, msg_name, cell_offset) \
@@ -235,9 +236,11 @@ void tempPeriodic (){
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
     SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
 
-    // if (max_temp > MAX_TEMP) {
-    //     bms_temp_err = 1;
-    // } else {
-    //     bms_temp_err = 0;
-    // }
+    if (max_temp > MAX_TEMP) {
+        bms_temp_err = 1;
+    } else {
+        bms_temp_err = 0;
+    }
 }
+
+#endif

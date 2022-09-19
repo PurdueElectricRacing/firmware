@@ -12,7 +12,6 @@
 /* Module Includes */
 #include "main.h"
 #include "bmi088.h"
-#include "bms.h"
 #include "daq.h"
 #include "orion.h"
 
@@ -99,9 +98,9 @@ BMI088_Handle_t bmi_config = {
     .spi = &spi_config
 };
 
+
 int main (void)
 {
-
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
@@ -132,7 +131,6 @@ int main (void)
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
     initCANParse(&q_rx_can);
-    // Commented this line out because it is initializing old BMS, which is of no use to us
     orionInit();
 
     /* Task Creation */
@@ -142,27 +140,11 @@ int main (void)
     //Just heartbeat
 
     taskCreate(heartbeatTask, 500);
-
-    //Monitors status of IMD, and then reflects this onto BMS. This is where I added Orion's error checks.
-
-    taskCreate(monitorStatus, 50);
-
-    /*
-        These are MiniBMS functions; Not sure whether to modify these or not, but I think they can just be completely removed.
-        However, I am not sure about other functions that rely on data from here.
-     */
-    // taskCreate(BMS_txBatteryStatus, 50);
-    taskCreate(orion_chargePeriodic, 50);
-    //Pertains to G sensors; No correllation to BMS
-
-    taskCreate(sendIMUData, 10);
-
-    //Just daq messages
-
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-
-    //Not sure about this, since we are using new Thermistors and nothing is being sent from Orion
     taskCreate(orionCheckTempsPeriodic, 500);
+    taskCreate(monitorStatus, 50);
+    taskCreate(orionChargePeriodic, 50);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(sendIMUData, 10);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -172,6 +154,7 @@ int main (void)
 
     return 0;
 }
+
 
 // *** Startup configuration ***
 void preflightChecks(void)
@@ -213,6 +196,7 @@ void preflightChecks(void)
     }
 }
 
+
 void preflightAnimation(void)
 {
     static uint32_t time = 0;
@@ -244,43 +228,31 @@ void heartbeatTask()
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
+
+    // TODO: send heartbeat message containing error code (BMS, IMD, TEMP, ETC)
 }
 
-//Original monitorStatus() function
-// void monitorStatus()
-// {
-//     uint16_t err = 0;
 
-//     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin) | err);
-//     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, err ? 0 : 1);
-
-// }
 void monitorStatus()
 {
-    uint8_t err = orionErrors();
-    if (err) {
-        asm (
-            "nop"
-        );
-    }
+    uint8_t bms_err, imd_err; 
+    bms_err = orionErrors();
+    imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
-    // PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, err | !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin));
-    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !err);
-    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, err);
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
 }
 
-// Not changing this, as - from my understanding - doesn't pertain to BMS code.
+
 void sendIMUData()
 {
-    static bool send_gyro = true;
     int16_t ax, ay, az, gx, gy, gz;
     BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
     BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-
     SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
     SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
-
 }
+
 
 // *** Compulsory CAN Tx/Rx callbacks ***
 void canTxUpdate()
@@ -291,6 +263,7 @@ void canTxUpdate()
         PHAL_txCANMessage(&tx_msg);
     }
 }
+
 
 void CAN1_RX0_IRQHandler()
 {
@@ -332,6 +305,7 @@ void CAN1_RX0_IRQHandler()
     }
 }
 
+
 void CAN2_RX0_IRQHandler()
 {
     if (CAN2->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
@@ -371,6 +345,7 @@ void CAN2_RX0_IRQHandler()
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
 }
+
 
 void PHAL_FaultHandler()
 {

@@ -24,7 +24,7 @@ void orionInit()
     linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
 }
 
-//Now also accounts for temp errors
+
 bool orionErrors() {
     return (can_data.orion_info.dtc_status ||
             /* TODO: can_data.orion_info.stale || */
@@ -37,30 +37,25 @@ bool orionErrors() {
     *This funciton is also covered by DTC flags, so no longer needed*
     2. Cell balancing stuff from bms - Orion handles the balancing
 */
-
-void orion_chargePeriodic() {
-    bool orion_charger_status = false;
+void orionChargePeriodic() {
+    bool orion_charger_status;
     bool elcon_charge_enable  = false; // Allow power from elcon
-    bool balance_req          = false; // Sending balance request to the modules
     uint16_t charge_voltage_req = 0;   // Voltage limit request to send to charger
-    uint16_t charge_current_req = 0;   // Current limit request
-    uint16_t orion_max_charge_current = can_data.orion_info.pack_ccl;
-    uint16_t charge_current;
-    uint16_t charge_voltage;
-    float power = 0.0;
+    uint16_t charge_current_req = 0;   // Current limit request to send to charger
+    uint16_t charge_current;           // Current charge current from charger
+    uint16_t charge_voltage;           // Current pack voltage from charger
+    float power;
 
     orion_charger_status = can_data.orion_info.is_charging /* TODO: &&
                            !can_data.orion_info.stale */;
 
-    //According to the Orion Wiring manual, this signal apparently pulls down to ground when on.
-    //As such, do I invert the signal, or should it be as is? For now, I am leaving as is.
     /* TODO: charge_request_user &= !can_data.elcon_charger_status.stale; */
     if (charge_request_user && orion_charger_status && !orionErrors()) {
             elcon_charge_enable = true;
 
-            charge_current_req = MIN(orion_max_charge_current, user_charge_current_request);
+            charge_current_req = MIN(can_data.orion_info.pack_ccl, user_charge_current_request);
 
-            charge_voltage_req = MIN(user_charge_voltage_request, 42 * 80); // Hard limit, don't overcharge!
+            charge_voltage_req = MIN(charge_voltage_req, MAX_VOLT); // Hard limit, don't overcharge
             charge_voltage_req *=  10;
             charge_current_req *= 10;
 
@@ -68,25 +63,20 @@ void orion_chargePeriodic() {
             charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
             charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
     }
-    if (!elcon_charge_enable) {
-        asm("nop");
-    }
+    if (!elcon_charge_enable) asm("nop"); // for bkpt
 
     SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !elcon_charge_enable);
 
     // Parse current values from elcon charger status
     charge_current = can_data.elcon_charger_status.charge_current;
     charge_voltage = can_data.elcon_charger_status.charge_voltage;
+    // Swap endianess
     charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
     charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
     power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
     SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), elcon_charge_enable, charge_voltage, charge_current);
 }
 
-/*
-    This function is exactly the same as the one in bms.c. I have moved it to orion.c to make my life easier
-    and to keep things in one place. I believe this is ok bc we use the same arduino setup from before.
-*/
 
 uint16_t* orion_temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0, &can_data.module_temp_1.mod_temp_0,
                               &can_data.module_temp_2.mod_temp_0, &can_data.module_temp_3.mod_temp_0,
@@ -100,7 +90,7 @@ uint16_t* orion_temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0, &can_dat
 void orionCheckTempsPeriodic (){
     uint16_t max_temp = 0;
     uint8_t  i, j;
-    uint16_t* curr_address = &can_data.module_temp_0.mod_temp_0;
+    uint16_t *curr_address = &can_data.module_temp_0.mod_temp_0;
     float    avg_temp[4] = {0};
 
     for (i = 0; i < 16; i++) {
@@ -113,7 +103,10 @@ void orionCheckTempsPeriodic (){
     }
 
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), 
+                                     (uint16_t) (avg_temp[1] * 10 / 16), 
+                                     (uint16_t) (avg_temp[2] * 10 / 16), 
+                                     (uint16_t) (avg_temp[3] * 10 / 16));
 
     orion_bms_temp_err = max_temp >= MAX_TEMP;
 }

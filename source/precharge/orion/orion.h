@@ -6,10 +6,11 @@
 #include <stdbool.h>
 
 #define MAX_TEMP (300)
+#define MAX_VOLT (336) // 4.2 * 80
 
 bool orionErrors();
 void orionCheckTempsPeriodic();
-void orion_chargePeriodic();
+void orionChargePeriodic();
 void orionInit();
 
 #endif

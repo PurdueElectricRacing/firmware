@@ -1,7 +1,7 @@
 // original author: Matthew Flanagan
 // matthewdavidflanagan@outlook.com
 
-// converted by: Luke Oxley 
+// converted by: Luke Oxley
 // lcoxley@purdue.edu
 
 #ifndef __NEXTION_H__
@@ -23,6 +23,7 @@
 #define RED    63488
 #define YELLOW 65504
 #define GREEN  4065
+#define WHITE 65535
 
 #define FLAG_ENABLED_PIC  1
 #define FLAG_DISABLED_PIC 1
@@ -33,7 +34,7 @@
 #define NXT_TEXT             ".txt="
 #define NXT_PICTURE          ".pic="
 
-typedef struct 
+typedef struct
 {
     char* name;
     uint8_t dirs[4]; // up right down left (CW)

@@ -4,17 +4,18 @@
  * @brief  Software to measure pedal state and control the LCD display
  * @version 0.1
  * @date 2022-03-07
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
 /* Status LEDs */
-#define ERR_LED_GPIO_Port   (GPIOB)
-#define ERR_LED_Pin         (6)
+#define CONN_LED_GPIO_Port   (GPIOB)
+#define CONN_LED_Pin         (6)
+#define CONN_LED_MS_THRESH  (500)
 #define HEART_LED_GPIO_Port (GPIOB)
 #define HEART_LED_Pin       (7)
 #define PRCHG_LED_GPIO_Port (GPIOA)
@@ -72,5 +73,8 @@
 /* EEPROM */
 #define WC_GPIO_Port (GPIOA)
 #define WC_Pin       (8)
+
+int do_stuff(void);
+
 
 #endif

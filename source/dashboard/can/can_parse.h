@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
@@ -25,7 +25,8 @@
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
-#define ID_FRONT_WHEEL_DATA 0x4000003
+#define ID_REAR_WHEEL_DATA 0x4000043
+#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -36,7 +37,8 @@
 #define DLC_DASHBOARD_HB 1
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
-#define DLC_FRONT_WHEEL_DATA 8
+#define DLC_REAR_WHEEL_DATA 8
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -75,7 +77,8 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 100
-#define UP_FRONT_WHEEL_DATA 10
+#define UP_REAR_WHEEL_DATA 10
+#define UP_REAR_MOTOR_CURRENTS_TEMPS 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -121,7 +124,13 @@ typedef union { __attribute__((packed))
         uint64_t right_speed: 16;
         uint64_t left_normal: 16;
         uint64_t right_normal: 16;
-    } front_wheel_data;
+    } rear_wheel_data;
+    struct {
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } rear_motor_currents_temps;
     struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
@@ -146,7 +155,15 @@ typedef struct {
         uint16_t right_normal;
         uint8_t stale;
         uint32_t last_rx;
-    } front_wheel_data;
+    } rear_wheel_data;
+    struct {
+        uint16_t left_current;
+        uint16_t right_current;
+        uint8_t left_temp;
+        uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_motor_currents_temps;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;
@@ -164,7 +181,7 @@ extern void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 
 /**
  * @brief Setup queue and message filtering
- * 
+ *
  * @param q_rx_can RX buffer of CAN messages
  */
 void initCANParse(q_handle_t* q_rx_can_a);
@@ -178,9 +195,11 @@ void canRxUpdate();
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ
- * 
+ *
  * @param rx rx data from message just recieved
  */
 void canProcessRxIRQs(CanMsgTypeDef_t* rx);
+
+extern volatile uint32_t last_can_rx_time_ms;
 
 #endif

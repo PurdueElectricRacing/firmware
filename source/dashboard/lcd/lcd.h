@@ -6,9 +6,9 @@
 #include "can_parse.h"
 #include "main.h"
 #define BTN_SELECT_TIMEOUT_MS 5000
+#define MAX_BUTTON_HIST 8
 #define YELLOW_ERR 65515
 #define RED_ERR 64528
-#define GREEN 1376
 typedef enum
 {
   P_STARTUP,
@@ -52,10 +52,10 @@ void valueUpdatePeriodic();
 void update_time(void);
 void update_page(void);
 void update_err_pages(void);
-void update_race_page(void);
-void update_extra_info_page(void);
+void update_info_pages(void);
 void check_precharge(void);
 void update_race_colors(void);
 void check_buttons(void);
 void check_error(void);
+static char* int_to_char(int, char*, int);
 #endif

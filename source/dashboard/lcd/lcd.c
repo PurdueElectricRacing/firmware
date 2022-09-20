@@ -1,7 +1,9 @@
 #include "lcd.h"
 #include "common/psched/psched.h"
 #include "pedals.h"
+#include "common_defs.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdbool.h>
 extern SPI_InitConfig_t hspi1;
 button_t lap_time[] = {
@@ -20,6 +22,7 @@ page_t pages[P_TOTAL] = {
   {.name="warning"},
   {.name="critical"}
 };
+static char* _float_to_char(float, char*, int);
 uint8_t p_idx_prev = P_RACE;
 uint8_t p_idx = P_RACE;
 uint8_t p_idx_perr = P_RACE;
@@ -37,6 +40,9 @@ int curr_lap_time = 0;
 int delta = 0;
 int delta_old = 0;
 uint32_t orig_time = 0;
+static bool buttonHist[MAX_BUTTON_HIST] = {0};
+static uint8_t readIndex = 0;
+static uint8_t writeIndex = 0;
 /* Joystick Management */
 typedef enum {
   J_UP,
@@ -135,28 +141,14 @@ void check_buttons() {
     bool page_changed = false;
     static uint32_t b_selected;
     static uint32_t num_iterations;
-   // if (!wheel_new_btns.aux3 && !wheel_old_btns.aux3) {
-   //     switch(p_idx) {
-   //         case P_RACE:
-   //             set_page("extra_info\0");
-   //             p_idx = P_EXTRA_INFO;
-   //             p_idx_perr = P_EXTRA_INFO;
-   //             page_changed = true;
-   //             break;
-   //         case P_EXTRA_INFO:
-   //             set_page("race\0");
-   //             p_idx = P_RACE;
-   //             p_idx_perr = P_RACE;
-   //             page_changed = true;
-   //             break;
-   //     }
-
-   // }
+    //Has the button actually been pressed? And is this the first time?
    if ((!wheel_new_btns.aux3 && wheel_old_btns.aux3) && (num_iterations == 0)) {
-       b_selected = sched.os_ticks;
+       b_selected = sched.os_ticks; //The button was selected at this time, and record that the button was pressed
        pressed_once = true;
    }
+   // The button was pressed another time within the window to switch pages
    else if ((!wheel_new_btns.aux3 && wheel_old_btns.aux3) && (num_iterations != 0)) {
+        //Change to the other page, and record that a page was changed
            switch(p_idx) {
                case P_RACE:
                    set_page("extra_info\0");
@@ -172,27 +164,32 @@ void check_buttons() {
                    break;
        }
    }
-   else if ((wheel_new_btns.aux3 && wheel_new_btns.aux3) && pressed_once) {
+   //If the button was not pressed during this iteration of the function, record it.
+   else if ((wheel_new_btns.aux3 && wheel_old_btns.aux3) && pressed_once) {
        num_iterations++;
    }
 
-
-   if (num_iterations == 4 || page_changed) {
+    //Has the function ran 4 times without another button press, or has the page changed?
+   if (num_iterations >= 7 || page_changed) {
+    //The page has not changed, so set delta and current lap timings accordingly
        if (!page_changed) {
            b_selected_time = b_selected;
            b_selected = 0;
+           //Not the first lap
            if (prev_time != 0 && curr_lap_time != 0) {
                curr_lap_time = b_selected_time - orig_time;
                delta_old = delta;
                delta = curr_lap_time - prev_time;
                prev_time =  curr_lap_time;
            }
+           //The first lap; No other info to compare it with
            else if (prev_time == 0 && curr_lap_time != 0) {
                prev_time = curr_lap_time;
                curr_lap_time = 0;
            }
 
        }
+       //Reset to standard settings to complete loop again
        num_iterations = 0;
        pressed_once = false;
        page_changed = false;
@@ -436,127 +433,94 @@ void update_err_pages() {
   set_value("j0\0", NXT_VALUE, value);
   set_text("t1\0", NXT_TEXT, err_msg);
 }
-void update_race_page(void) {
-  if (p_idx != P_RACE) {
-      return;
+void update_info_pages(void) {
+    char two_int_char[3] = {"\0"};
+    char three_int_char[4] = {"\0"};
+  switch(p_idx) {
+    case P_RACE:
+
+        if (strcmp(err_msg, prev_err_msg) != 0) {
+            set_text("t11\0", NXT_TEXT, err_msg);
+            prev_err_msg = err_msg;
+        }
+        int_to_char(MAX(can_data.rear_motor_currents_temps.right_temp, can_data.rear_motor_currents_temps.left_temp), three_int_char, 3);
+        set_text("t14\0", NXT_TEXT, three_int_char);
+
+        /* **Controller Temps when I get them ** */
+        // three_int_char = {"\0"};
+        // int_to_char()
+        int_to_char(((can_data.rear_wheel_data.left_speed +
+                                    can_data.rear_wheel_data.right_speed) / 100), two_int_char, 2);
+        set_text("t0\0", NXT_TEXT, two_int_char);
+
+
+
+        if (delta == 0) {
+            set_text("t1\0", NXT_TEXT, "0.00\0");
+        }
+        else if ((delta != 0)) {
+            char parsed_data[6] = {'\0'};
+                float delta_interpreted = delta/1000.0;
+                _float_to_char(delta_interpreted, parsed_data, 5);
+                set_text("t1\0", NXT_TEXT, parsed_data);
+                (delta_interpreted > 0) ? set_value("t1\0", NXT_FONT_COLOR, RED) : set_value("t1\0", NXT_FONT_COLOR, GREEN);
+
+        }
+        break;
+    case P_EXTRA_INFO:
+        if (delta == 0) {
+            set_text("t2\0", NXT_TEXT, "0.00\0");
+        }
+        else if ((delta != 0)) {
+            char parsed_data[6] = {'\0'};
+            float delta_interpreted = delta/1000.0;
+            _float_to_char(delta_interpreted, parsed_data, 5);
+            set_text("t2\0", NXT_TEXT, parsed_data);
+            (delta_interpreted > 0) ? set_value("t2\0", NXT_FONT_COLOR, RED) : set_value("t2\0", NXT_FONT_COLOR, GREEN);
+
+        }
+        int_to_char(can_data.rear_motor_currents_temps.left_temp, three_int_char, 3);
+        set_text("t5\0", NXT_TEXT, three_int_char);
+        int_to_char(can_data.rear_motor_currents_temps.right_temp, three_int_char, 3);
+        set_text("t6\0", NXT_TEXT, three_int_char);
+        //Insert the Controller Temps here
+        int_to_char(((can_data.rear_wheel_data.left_speed +
+                                    can_data.rear_wheel_data.right_speed) / 100), two_int_char, 2);
+        set_text("t3\0", NXT_TEXT, two_int_char);
+        break;
   }
-  //This is an enum found in can_parse.h
-  // if (strcmp(can_data.front_driveline_hb.front_left_motor, "disconnected") == 0) {
-  //     err_msg = "Front Driveline Disconnected\0";
-  //     p_idx = P_CRITICAL;
-  // }
-  // else if (strcmp(can_data.front_driveline_hb.front_left_motor, "error") == 0) {
-  //     err_msg = "Front Driveline Error\0";
-  //     p_idx = P_CRITICAL;
-  // }
-  // if (strcmp(can_data.rear_driveline_hb.back_left_motor, "disconnected") == 0) {
-  //     err_msg = "Rear Driveline Disconnected\0";
-  //     p_idx = P_CRITICAL;
-  // }
-  // else if (strcmp(can_data.rear_driveline_hb.back_left_motor, "error") == 0) {
-  //     err_msg = "Rear Driveline Error\0";
-  //     p_idx = P_CRITICAL;
-  // }
-  if (strcmp(err_msg, prev_err_msg) != 0) {
-      set_text("t11\0", NXT_TEXT, err_msg);
-      prev_err_msg = err_msg;
-  }
-//   uint8_t front_left_temp = can_data.front_motor_currents_temps.left_temp;
-//   uint8_t front_right_temp = can_data.front_motor_currents_temps.right_temp;
-//   uint8_t rear_left_temp = can_data.rear_motor_currents_temps.left_temp;
-//   uint8_t rear_right_temp = can_data.rear_motor_currents_temps.right_temp;
-//   char average = ((front_left_temp + front_right_temp + rear_left_temp + rear_right_temp) / 4) + '0';
-//   set_text("t14\0", NXT_TEXT, &average);
-//   float front_left_gas = can_data.torque_request_main.front_left;
-//   float front_right_gas = can_data.torque_request_main.front_right;
-//   float rear_left_gas = can_data.torque_request_main.rear_left;
-//   float rear_right_gas = can_data.torque_request_main.rear_right;
-//   int raw_gas = pedals.throttle;
-//   int raw_brake = pedals.brake * -1;
-//   float avg_gas = raw_gas + raw_brake;
-//    gas_to_send = ((front_left_gas + front_right_gas + rear_left_gas + rear_right_gas) / 4) / 4095 * 100;
-//    gas_to_send = rear_left_gas /4095.0 * 400;
-
-//    // gas_to_send = ((can_data.torque_request_main.front_left
-//    //                 + can_data.torque_request_main.front_right
-//    //                 + can_data.torque_request_main.rear_left
-//    //                 + can_data.torque_request_main.rear_right) / 4.0) / 4095.0 * 100;
-//   if (gas_to_send < 0) {
-//       set_value("j1\0", NXT_VALUE, (100 + gas_to_send));
-//       set_value("j2\0", NXT_VALUE, 0);
-//   }
-//   else {
-//       set_value("j1\0", NXT_VALUE, 100);
-//       set_value("j2\0", NXT_VALUE, gas_to_send);
-//   }
-//    avg_soc = (can_data.soc_cells.soc1 + can_data.soc_cells.soc2 + can_data.soc_cells.soc3) / 3;
-//   char soc[4];
-//   sprintf(soc, "%d", avg_soc);
-//   set_text("t6\0", NXT_TEXT, soc);
-//   char temp[4];
-//   sprintf(temp, "%d", ((can_data.temps_cells.t1 + can_data.temps_cells.t2 + can_data.temps_cells.t3) /3));
-//   set_text("t8\0", NXT_TEXT, soc);
-//   char volt[4];
-//   sprintf(volt, "%d", ((can_data.volts_cells.v1 + can_data.volts_cells.v2 + can_data.volts_cells.v3) /3));
-//   set_text("t10\0", NXT_TEXT, volt);
-//    set_value("j0\0", NXT_VALUE, avg_soc);
-
-//   char speed[3];
-//   sprintf(speed, "%d", ((can_data.front_wheel_data.right_speed + can_data.front_wheel_data.left_speed + can_data.rear_wheel_data.right_speed + can_data.rear_wheel_data.left_speed) / 4));
-//   set_text("t0\0", NXT_TEXT, speed);
-
-
-//     char parsed_data[5];
-//     if (completed_time == 0 || prev_time == 0) {
-//         parsed_data = {'0', '.', '0', '0', '\0'};
-//     }
-//    set_text("t1\0", NXT_TEXT, parsed_data);
-
-   if (delta == 0) {
-       set_text("t1\0", NXT_TEXT, "0.00\0");
-   }
-   else if ((delta != 0)) {
-       char parsed_data[10];
-       if (delta >= 10000 || delta <= -10000 ) {
-           float delta_interpreted = delta/1000.0;
-           sprintf(parsed_data, "%2.1f", delta_interpreted);
-           set_text("t1\0", NXT_TEXT, parsed_data);
-           //if (delta_interpreted == 3.3)
-           //    __asm__("bkpt");
-           }
-       else {
-           float delta_interpreted = delta/1000.0;
-           sprintf(parsed_data, "%1.3f", delta_interpreted);
-           set_text("t1\0", NXT_TEXT, parsed_data);
-           //if (delta_interpreted == 3.3)
-           //    __asm__("bkpt");
-
-       }
-   }
 }
 
 void update_race_colors() {
-   if (p_idx != P_RACE) {
-       return;
-   }
-   if (avg_soc > 69) {
-       set_value("j0\0", NXT_FONT_COLOR, 1376);
-   }
-   else if (avg_soc > 39) {
-       set_value("j0\0", NXT_FONT_COLOR, 59011);
-   }
-   else if (avg_soc > 14) {
-       set_value("j0\0", NXT_FONT_COLOR, 60323);
-   }
-   else {
-       set_value("j0\0", NXT_FONT_COLOR, 47104);
-   }
+    switch(p_idx) {
+        case P_RACE:
+            if (can_data.rear_motor_currents_temps.left_temp < 40 && can_data.rear_motor_currents_temps.right_temp < 40) {
+                set_value("t14\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if ((can_data.rear_motor_currents_temps.left_temp > 39 && can_data.rear_motor_currents_temps.left_temp < 70) || (can_data.rear_motor_currents_temps.right_temp > 39 && can_data.rear_motor_currents_temps.right_temp < 70)) {
+                set_value("t14\0", NXT_FONT_COLOR, YELLOW);
+            }
+            else {
+                set_value("t14\0", NXT_FONT_COLOR, RED);
+            }
+            break;
+        case P_EXTRA_INFO:
+            if (can_data.rear_motor_currents_temps.left_temp < 60){
+                set_value("t5\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (can_data.rear_motor_currents_temps.left_temp > 39 && can_data.rear_motor_currents_temps.left_temp < 70)
+                set_value("t5\0", NXT_FONT_COLOR, YELLOW);
+            else 
+                set_value("t5\0", NXT_FONT_COLOR, RED);
+            if (can_data.rear_motor_currents_temps.right_temp < 60) {
+                set_value("t6\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (can_data.rear_motor_currents_temps.right_temp > 39 && can_data.rear_motor_currents_temps.right_temp < 70)
+                set_value("t6\0", NXT_FONT_COLOR, YELLOW);
+            else
+                set_value("t6\0", NXT_FONT_COLOR, RED);
 
-   (gas_to_send < 0) ? set_value("j1\0", NXT_BACKGROUND_COLOR, 65535) : set_value("j1\0", NXT_BACKGROUND_COLOR, 47104);
-
-   if (strcmp(err_msg, prev_err_msg) != 0) {
-      set_value("t11\0", NXT_BACKGROUND_COLOR, car_stat_color);
-  }
+    }
 }
 
 void check_precharge() {
@@ -596,4 +560,39 @@ void changePage(uint8_t new_page)
   set_page(pages[new_page].name);
   p_idx = new_page;
   b_idx = 0;
+}
+
+static char * _float_to_char(float x, char *p, int buff_size) {
+    const int CHAR_BUFF_SIZE = buff_size;
+    char *s = p + CHAR_BUFF_SIZE; // go to end of buffer
+    uint16_t decimals;  // variable to store the decimals
+    int units;  // variable to store the units (part to left of decimal place)
+    if (x < 0) { // take care of negative numbers
+        decimals = (int)(x * -100) % 100; // make 1000 for 3 decimals etc.
+        units = (int)(-1 * x);
+    } else { // positive numbers
+        decimals = (int)(x * 100) % 100;
+        units = (int)x;
+    }
+
+    *--s = (decimals % 10) + '0';
+    decimals /= 10; // repeat for as many decimal places as you need
+    *--s = (decimals % 10) + '0';
+    *--s = '.';
+
+
+    *--s = (units % 10) + '0';
+    if (x < 0) *--s = '-';
+    else *--s = '+'; // unary minus sign for negative numbers
+    return s;
+}
+static char* int_to_char(int x, char *str, int buffer) {
+    char *s = str + buffer - 1;
+    if(x == 0)
+       return *str = '0';
+    while (x > 0) {
+        *s-- = (x % 10) + '0';
+        x /=10;
+    }
+    return s;
 }

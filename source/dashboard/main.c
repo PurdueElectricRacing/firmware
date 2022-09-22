@@ -181,7 +181,7 @@ int main (void)
 
     // taskCreate(update_page, 500);
 
-    taskCreate(update_time, 213);
+    taskCreate(update_time, 50);
     taskCreate(update_err_pages, 500);
     taskCreate(update_info_pages, 200);
     taskCreate(update_race_colors, 1000);

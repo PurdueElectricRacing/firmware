@@ -43,6 +43,7 @@ uint32_t orig_time = 0;
 static bool buttonHist[MAX_BUTTON_HIST] = {0};
 static uint8_t readIndex = 0;
 static uint8_t writeIndex = 0;
+static uint8_t time_wait = 0;
 /* Joystick Management */
 typedef enum {
   J_UP,
@@ -318,10 +319,14 @@ void update_time() {
       }
   }
   else {
+    if (time_wait++ == 4) {
       if (p_idx == P_RACE)
            set_text("t3\0", NXT_TEXT, parsed);
        else if (p_idx == P_EXTRA_INFO)
            set_text("t1\0", NXT_TEXT, parsed);
+        time_wait = 0;
+    }
+
   }
 
 }
@@ -449,9 +454,21 @@ void update_info_pages(void) {
         /* **Controller Temps when I get them ** */
         // three_int_char = {"\0"};
         // int_to_char()
+        int_to_char((can_data.orion_info.pack_soc / 2), two_int_char, 2);
+        set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);
+        set_text("t6\0", NXT_TEXT, two_int_char);
+        int_to_char((can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
+        set_text("t10\0", NXT_TEXT, three_int_char);
+        int_to_char(((int)can_data.max_cell_temp.max_temp), two_int_char, 2);
+        set_text("t8\0", NXT_TEXT, two_int_char);
+
         int_to_char(((can_data.rear_wheel_data.left_speed +
                                     can_data.rear_wheel_data.right_speed) / 100), two_int_char, 2);
         set_text("t0\0", NXT_TEXT, two_int_char);
+        set_text("t19\0", NXT_TEXT, "01\0");
+
+
+
 
 
 
@@ -487,12 +504,23 @@ void update_info_pages(void) {
         int_to_char(((can_data.rear_wheel_data.left_speed +
                                     can_data.rear_wheel_data.right_speed) / 100), two_int_char, 2);
         set_text("t3\0", NXT_TEXT, two_int_char);
+                set_text("t15\0", NXT_TEXT, "01\0");
+        set_text("t16\0", NXT_TEXT, "01\0");
+        int_to_char(can_data.orion_info.pack_dcl, three_int_char, 3);
+        set_text("t17\0", NXT_TEXT, three_int_char);
+        char four_int_char[5] = {"\0"};
+        int_to_char(can_data.orion_currents_volts.pack_current, four_int_char, 4);
+        set_text("t13\0", NXT_TEXT, four_int_char);
+        int_to_char((can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
+        set_text("t12\0", NXT_TEXT, three_int_char);
+        set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);
         break;
   }
 }
 
 void update_race_colors() {
     switch(p_idx) {
+        uint16_t temp = can_data.max_cell_temp.max_temp;
         case P_RACE:
             if (can_data.rear_motor_currents_temps.left_temp < 40 && can_data.rear_motor_currents_temps.right_temp < 40) {
                 set_value("t14\0", NXT_FONT_COLOR, GREEN);
@@ -503,6 +531,30 @@ void update_race_colors() {
             else {
                 set_value("t14\0", NXT_FONT_COLOR, RED);
             }
+
+            if ((can_data.orion_info.pack_soc / 2) > 49) {
+                set_value("j0\0", NXT_FONT_COLOR, GREEN);
+                set_value("t6\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (((can_data.orion_info.pack_soc / 2) < 50) && ((can_data.orion_info.pack_soc / 2) > 30)) {
+                set_value("j0\0", NXT_FONT_COLOR, YELLOW);
+                set_value("t6\0", NXT_FONT_COLOR, YELLOW);
+
+            }
+            else {
+                set_value("j0\0", NXT_FONT_COLOR, RED);
+                set_value("t6\0", NXT_FONT_COLOR, RED);
+            }
+
+            if (temp < 36) {
+                set_value("t8\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (temp > 35 && temp < 50) {
+                set_value("t8\0", NXT_FONT_COLOR, YELLOW);
+            }
+            else {
+                set_value("t8\0", NXT_FONT_COLOR, RED);
+            }
             break;
         case P_EXTRA_INFO:
             if (can_data.rear_motor_currents_temps.left_temp < 60){
@@ -510,7 +562,7 @@ void update_race_colors() {
             }
             else if (can_data.rear_motor_currents_temps.left_temp > 39 && can_data.rear_motor_currents_temps.left_temp < 70)
                 set_value("t5\0", NXT_FONT_COLOR, YELLOW);
-            else 
+            else
                 set_value("t5\0", NXT_FONT_COLOR, RED);
             if (can_data.rear_motor_currents_temps.right_temp < 60) {
                 set_value("t6\0", NXT_FONT_COLOR, GREEN);
@@ -519,6 +571,18 @@ void update_race_colors() {
                 set_value("t6\0", NXT_FONT_COLOR, YELLOW);
             else
                 set_value("t6\0", NXT_FONT_COLOR, RED);
+
+            if ((can_data.orion_info.pack_soc / 2)  > 49) {
+                set_value("j0\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (((can_data.orion_info.pack_soc / 2)  < 50) && ((can_data.orion_info.pack_soc / 2)  > 30)) {
+                set_value("j0\0", NXT_FONT_COLOR, YELLOW);
+            }
+            else {
+                set_value("j0\0", NXT_FONT_COLOR, RED);
+            }
+
+            break;
 
     }
 }
@@ -587,6 +651,17 @@ static char * _float_to_char(float x, char *p, int buff_size) {
     return s;
 }
 static char* int_to_char(int x, char *str, int buffer) {
+    if (x < 1) {
+        char *s = str + buffer - 1;
+        if(x == 0)
+        return *str = '0';
+        while (x > 0) {
+            *s-- = (x % 10) + '0';
+            x /=10;
+        }
+        *s='-';
+    return s;
+    }
     char *s = str + buffer - 1;
     if(x == 0)
        return *str = '0';

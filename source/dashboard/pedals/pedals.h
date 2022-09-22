@@ -4,9 +4,9 @@
  * @brief  Read, check, and send pedal measurements
  * @version 0.1
  * @date 2022-03-09
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _PEDALS_H_
@@ -21,12 +21,11 @@
 
 #define MAX_PEDAL_MEAS (4095)
 
-#define APPS_IMPLAUS_MAX_DIFF (410)  // T.4.2.4  (10% of 0x0FFF)
+#define APPS_IMPLAUS_MAX_DIFF (3000) //(410)  // T.4.2.4  (10% of 0x0FFF)
 #define APPS_IMPLAUS_TIME_MS  (100)  // T.4.2.5
-#define APPS_IMPLAUS_MIN      (205)  // T.4.2.10 ( 5% of 0x0FFF)
+#define APPS_IMPLAUS_MIN      (50)   // Lowering for now, if below min, throttle = 0 anyway //(205)  // T.4.2.10 ( 5% of 0x0FFF)
 #define APPS_IMPLAUS_MAX      (3891) // T.4.2.10 (95% of 0x0FFF)
-
-#define BSE_IMPLAUS_MIN (205)  // ( 5% of 0x0FFF)
+#define BSE_IMPLAUS_MIN (50) // lowering for now //(205)  // ( 5% of 0x0FFF)
 #define BSE_IMPLAUS_MAX (3891) // (95% of 0x0FFF)
 
 #define APPS_BRAKE_THRESHOLD               (307)  // EV.5.7.1 (7.5% of 0x0FFF)
@@ -48,10 +47,10 @@ typedef struct
 
 extern pedals_t pedals;
 
-typedef struct __attribute__((packed)) 
+typedef struct __attribute__((packed))
 {
     // Do not modify this struct unless
-    // you modify the ADC DMA config 
+    // you modify the ADC DMA config
     // in main.h to match
     uint16_t t1;
     uint16_t t2;

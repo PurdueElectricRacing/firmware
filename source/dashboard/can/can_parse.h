@@ -27,6 +27,10 @@
 #define ID_MAIN_HB 0x4001901
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
+#define ID_ORION_INFO 0x140006b8
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_MAX_CELL_TEMP 0x404e604
+#define ID_ORION_ERRORS 0xc000738
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -39,6 +43,10 @@
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
+#define DLC_ORION_INFO 7
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_ORION_ERRORS 4
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -79,6 +87,9 @@
 #define UP_MAIN_HB 100
 #define UP_REAR_WHEEL_DATA 10
 #define UP_REAR_MOTOR_CURRENTS_TEMPS 500
+#define UP_ORION_INFO 32
+#define UP_ORION_CURRENTS_VOLTS 32
+#define UP_ORION_ERRORS 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -132,6 +143,68 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } rear_motor_currents_temps;
     struct {
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t discharge_limit_enforce: 1;
+        uint64_t charger_safety_relay: 1;
+        uint64_t internal_hardware: 1;
+        uint64_t heatsink_thermistor: 1;
+        uint64_t software: 1;
+        uint64_t max_cellv_high: 1;
+        uint64_t min_cellv_low: 1;
+        uint64_t pack_overheat: 1;
+        uint64_t reserved0: 1;
+        uint64_t reserved1: 1;
+        uint64_t reserved2: 1;
+        uint64_t reserved3: 1;
+        uint64_t reserved4: 1;
+        uint64_t reserved5: 1;
+        uint64_t reserved6: 1;
+        uint64_t reserved7: 1;
+        uint64_t internal_comms: 1;
+        uint64_t cell_balancing_foff: 1;
+        uint64_t weak_cell: 1;
+        uint64_t low_cellv: 1;
+        uint64_t open_wire: 1;
+        uint64_t current_sensor: 1;
+        uint64_t max_cellv_o5v: 1;
+        uint64_t cell_asic: 1;
+        uint64_t weak_pack: 1;
+        uint64_t fan_monitor: 1;
+        uint64_t thermistor: 1;
+        uint64_t external_comms: 1;
+        uint64_t redundant_psu: 1;
+        uint64_t hv_isolation: 1;
+        uint64_t input_psu: 1;
+        uint64_t charge_limit_enforce: 1;
+    } orion_errors;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -164,6 +237,74 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_currents_temps;
+    struct {
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_info;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        uint16_t max_temp;
+    } max_cell_temp;
+    struct {
+        uint16_t discharge_limit_enforce;
+        uint16_t charger_safety_relay;
+        uint16_t internal_hardware;
+        uint16_t heatsink_thermistor;
+        uint16_t software;
+        uint16_t max_cellv_high;
+        uint16_t min_cellv_low;
+        uint16_t pack_overheat;
+        uint16_t reserved0;
+        uint16_t reserved1;
+        uint16_t reserved2;
+        uint16_t reserved3;
+        uint16_t reserved4;
+        uint16_t reserved5;
+        uint16_t reserved6;
+        uint16_t reserved7;
+        uint16_t internal_comms;
+        uint16_t cell_balancing_foff;
+        uint16_t weak_cell;
+        uint16_t low_cellv;
+        uint16_t open_wire;
+        uint16_t current_sensor;
+        uint16_t max_cellv_o5v;
+        uint16_t cell_asic;
+        uint16_t weak_pack;
+        uint16_t fan_monitor;
+        uint16_t thermistor;
+        uint16_t external_comms;
+        uint16_t redundant_psu;
+        uint16_t hv_isolation;
+        uint16_t input_psu;
+        uint16_t charge_limit_enforce;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_errors;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;

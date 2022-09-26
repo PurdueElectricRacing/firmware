@@ -88,8 +88,8 @@ void pedalsPeriodic(void)
     b3 = (uint16_t) ((((uint32_t) (b3 - pedal_calibration.b3min)) * MAX_PEDAL_MEAS) /
                      (pedal_calibration.b3max - pedal_calibration.b3min));
     // Invert
-    t1 = MAX_PEDAL_MEAS - t1;
-    t2 = MAX_PEDAL_MEAS - t2;
+    // t1 = MAX_PEDAL_MEAS - t1;
+    // t2 = MAX_PEDAL_MEAS - t2;
 
         // Mask
     t1 &= 0xFFFC;

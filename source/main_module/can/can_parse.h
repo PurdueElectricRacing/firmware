@@ -44,10 +44,10 @@
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
-#define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
-#define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
-#define DLC_FRONT_DRIVELINE_HB 2
-#define DLC_REAR_DRIVELINE_HB 2
+#define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
+#define DLC_FRONT_DRIVELINE_HB 6
+#define DLC_REAR_DRIVELINE_HB 6
 #define DLC_DASHBOARD_HB 1
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_FRONT_WHEEL_DATA 8
@@ -112,31 +112,95 @@ typedef enum {
 
 typedef enum {
     FRONT_LEFT_MOTOR_DISCONNECTED,
-    FRONT_LEFT_MOTOR_INITIALIZING,
     FRONT_LEFT_MOTOR_CONNECTED,
+    FRONT_LEFT_MOTOR_CONFIG,
     FRONT_LEFT_MOTOR_ERROR,
 } front_left_motor_t;
 
 typedef enum {
+    FRONT_LEFT_MOTOR_LINK_DISCONNECTED,
+    FRONT_LEFT_MOTOR_LINK_ATTEMPTING,
+    FRONT_LEFT_MOTOR_LINK_VERIFYING,
+    FRONT_LEFT_MOTOR_LINK_DELAY,
+    FRONT_LEFT_MOTOR_LINK_CONNECTED,
+    FRONT_LEFT_MOTOR_LINK_FAIL,
+} front_left_motor_link_t;
+
+typedef enum {
+    FRONT_LEFT_LAST_LINK_ERROR_NONE,
+    FRONT_LEFT_LAST_LINK_ERROR_NOT_SERIAL,
+    FRONT_LEFT_LAST_LINK_ERROR_CMD_TIMEOUT,
+    FRONT_LEFT_LAST_LINK_ERROR_GEN_TIMEOUT,
+} front_left_last_link_error_t;
+
+typedef enum {
     FRONT_RIGHT_MOTOR_DISCONNECTED,
-    FRONT_RIGHT_MOTOR_INITIALIZING,
     FRONT_RIGHT_MOTOR_CONNECTED,
+    FRONT_RIGHT_MOTOR_CONFIG,
     FRONT_RIGHT_MOTOR_ERROR,
 } front_right_motor_t;
 
 typedef enum {
+    FRONT_RIGHT_MOTOR_LINK_DISCONNECTED,
+    FRONT_RIGHT_MOTOR_LINK_ATTEMPTING,
+    FRONT_RIGHT_MOTOR_LINK_VERIFYING,
+    FRONT_RIGHT_MOTOR_LINK_DELAY,
+    FRONT_RIGHT_MOTOR_LINK_CONNECTED,
+    FRONT_RIGHT_MOTOR_LINK_FAIL,
+} front_right_motor_link_t;
+
+typedef enum {
+    FRONT_RIGHT_LAST_LINK_ERROR_NONE,
+    FRONT_RIGHT_LAST_LINK_ERROR_NOT_SERIAL,
+    FRONT_RIGHT_LAST_LINK_ERROR_CMD_TIMEOUT,
+    FRONT_RIGHT_LAST_LINK_ERROR_GEN_TIMEOUT,
+} front_right_last_link_error_t;
+
+typedef enum {
     REAR_LEFT_MOTOR_DISCONNECTED,
-    REAR_LEFT_MOTOR_INITIALIZING,
     REAR_LEFT_MOTOR_CONNECTED,
+    REAR_LEFT_MOTOR_CONFIG,
     REAR_LEFT_MOTOR_ERROR,
 } rear_left_motor_t;
 
 typedef enum {
+    REAR_LEFT_MOTOR_LINK_DISCONNECTED,
+    REAR_LEFT_MOTOR_LINK_ATTEMPTING,
+    REAR_LEFT_MOTOR_LINK_VERIFYING,
+    REAR_LEFT_MOTOR_LINK_DELAY,
+    REAR_LEFT_MOTOR_LINK_CONNECTED,
+    REAR_LEFT_MOTOR_LINK_FAIL,
+} rear_left_motor_link_t;
+
+typedef enum {
+    REAR_LEFT_LAST_LINK_ERROR_NONE,
+    REAR_LEFT_LAST_LINK_ERROR_NOT_SERIAL,
+    REAR_LEFT_LAST_LINK_ERROR_CMD_TIMEOUT,
+    REAR_LEFT_LAST_LINK_ERROR_GEN_TIMEOUT,
+} rear_left_last_link_error_t;
+
+typedef enum {
     REAR_RIGHT_MOTOR_DISCONNECTED,
-    REAR_RIGHT_MOTOR_INITIALIZAING,
     REAR_RIGHT_MOTOR_CONNECTED,
+    REAR_RIGHT_MOTOR_CONFIG,
     REAR_RIGHT_MOTOR_ERROR,
 } rear_right_motor_t;
+
+typedef enum {
+    REAR_RIGHT_MOTOR_LINK_DISCONNECTED,
+    REAR_RIGHT_MOTOR_LINK_ATTEMPTING,
+    REAR_RIGHT_MOTOR_LINK_VERIFYING,
+    REAR_RIGHT_MOTOR_LINK_DELAY,
+    REAR_RIGHT_MOTOR_LINK_CONNECTED,
+    REAR_RIGHT_MOTOR_LINK_FAIL,
+} rear_right_motor_link_t;
+
+typedef enum {
+    REAR_RIGHT_LAST_LINK_ERROR_NONE,
+    REAR_RIGHT_LAST_LINK_ERROR_NOT_SERIAL,
+    REAR_RIGHT_LAST_LINK_ERROR_CMD_TIMEOUT,
+    REAR_RIGHT_LAST_LINK_ERROR_GEN_TIMEOUT,
+} rear_right_last_link_error_t;
 
 /* END AUTO CAN ENUMERATIONS */
 
@@ -168,20 +232,30 @@ typedef union { __attribute__((packed))
         uint64_t right_current: 16;
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
+        uint64_t right_voltage: 16;
     } front_motor_currents_temps;
     struct {
         uint64_t left_current: 16;
         uint64_t right_current: 16;
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
+        uint64_t right_voltage: 16;
     } rear_motor_currents_temps;
     struct {
         uint64_t front_left_motor: 8;
+        uint64_t front_left_motor_link: 8;
+        uint64_t front_left_last_link_error: 8;
         uint64_t front_right_motor: 8;
+        uint64_t front_right_motor_link: 8;
+        uint64_t front_right_last_link_error: 8;
     } front_driveline_hb;
     struct {
         uint64_t rear_left_motor: 8;
+        uint64_t rear_left_motor_link: 8;
+        uint64_t rear_left_last_link_error: 8;
         uint64_t rear_right_motor: 8;
+        uint64_t rear_right_motor_link: 8;
+        uint64_t rear_right_last_link_error: 8;
     } rear_driveline_hb;
     struct {
         uint64_t apps_faulted: 1;
@@ -234,6 +308,7 @@ typedef struct {
         uint16_t right_current;
         uint8_t left_temp;
         uint8_t right_temp;
+        uint16_t right_voltage;
         uint8_t stale;
         uint32_t last_rx;
     } front_motor_currents_temps;
@@ -242,18 +317,27 @@ typedef struct {
         uint16_t right_current;
         uint8_t left_temp;
         uint8_t right_temp;
+        uint16_t right_voltage;
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_currents_temps;
     struct {
         front_left_motor_t front_left_motor;
+        front_left_motor_link_t front_left_motor_link;
+        front_left_last_link_error_t front_left_last_link_error;
         front_right_motor_t front_right_motor;
+        front_right_motor_link_t front_right_motor_link;
+        front_right_last_link_error_t front_right_last_link_error;
         uint8_t stale;
         uint32_t last_rx;
     } front_driveline_hb;
     struct {
         rear_left_motor_t rear_left_motor;
+        rear_left_motor_link_t rear_left_motor_link;
+        rear_left_last_link_error_t rear_left_last_link_error;
         rear_right_motor_t rear_right_motor;
+        rear_right_motor_link_t rear_right_motor_link;
+        rear_right_last_link_error_t rear_right_last_link_error;
         uint8_t stale;
         uint32_t last_rx;
     } rear_driveline_hb;

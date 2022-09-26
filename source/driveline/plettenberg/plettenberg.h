@@ -5,77 +5,70 @@
 #include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
-
 #include "source/driveline/can/can_parse.h"
-
-#include "string.h"
 #include "stm32l432xx.h"
+#include "string.h"
 
 #define MC_MAX_TX_LENGTH (25)
 #define MC_MAX_RX_LENGTH (77 + MC_MAX_TX_LENGTH)
 
-// Waits this long before updating to connected after an rx
-#define MC_BOOT_TIME               (4000)
-// Since first rx waits this long until the timeout is switched
-// from the large timeout to small timeout (should be receiving
-// echos of torque commands every 15ms)
-#define MC_TIMEOUT_CONSTRAINT_TIME (1000 + MC_BOOT_TIME)
+// Connection times
+#define MC_LOOP_DT (15) // Periodic update rate of motor controller task
 
-#define MC_RX_LARGE_TIMEOUT_MS 1500
-#define MC_RX_SMALL_TIMEOUT_MS 30
-#define MC_PARSE_TIMEOUT       1500
+#define MC_RX_LARGE_TIMEOUT_MS 1500 // TODO use timeout to detect disconnect
+#define MC_RX_SMALL_TIMEOUT_MS 30   // TODO use timeout to detect disconnect
+#define MC_PARSE_TIMEOUT       1500 // TODO: shorten based on 'ot' requested
 
-#define MC_SERIAL_MODE    's'
-#define MC_ANALOG_MODE    'p'
-#define MC_FORWARD        'f'
-#define MC_REVERSE        'r'
-#define MC_BRAKE          'b'
-#define MC_MAX_POWER      'm'
-#define MC_INCREASE_ONE   '+'
-#define MC_DECREASE_ONE   '-'
-#define MC_INCREASE_TENTH 'g'
-#define MC_DECREASE_TENTH 'l'
-#define MC_SET_TIMEOUT    't'
-
-#define MC_ENTER_ADJUST_MODE 'a'
-#define MC_EXIT_ADJUST_MODE  'e'
-#define MC_WRITE_PARAMS      "wp"
-
-#define MC_PAR_CURRENT_LIMIT "cl"
-#define MC_PAR_MOT_TMP_LIMIT "mt"
-#define MC_PAR_CTL_TMP_LIMIT "ct"
-#define MC_PAR_UPDATE_PERIOD "ot"
-
-#define MC_CURRENT_LIMIT (100)
-#define MC_MOT_TMP_LIMIT (100)
-#define MC_CTL_TMP_LIMIT (80)
-
-#define CELL_MAX_V 4.2 //May be increased to 4.25 in the future
-#define CELL_MIN_V 2.5
+// Controller settings
+#define MC_RPM_LIMIT     (11)  // rpm x 1000
+#define MC_CURRENT_LIMIT (70)  // Amps
+#define MC_MAX_VOLTAGE   (340) // Volts
+#define MC_MOT_TMP_LIMIT (95)  // Celsius
+#define MC_CTL_TMP_LIMIT (70)  // Celsius
+#define MC_POLE_PAIR_CT  (15)  // number of pole pairs (poles / 2)
+#define MC_UPDATE_PERIOD (15)  // ms TODO: faster
 
 typedef enum
 {
-    MC_DISCONNECTED, // RX line is silent
-    MC_INITIALIZING, // Signs of life, waiting for boot to complete
+    MC_LINK_DISCONNECTED,   // Waits until there are signs of life
+    MC_LINK_ATTEMPT,        // Signs of life, attempts serial mode
+    MC_LINK_VERIFYING,      // Searches for verification of serial mode
+    MC_LINK_DELAY,          // Waits before connected
+    MC_LINK_CONNECTED,      // In serial mode, thankfully
+    MC_LINK_FAILED          // Failed to connect, retrying
+} motor_link_state_t;
+
+typedef enum
+{
+    MC_LINK_ERROR_NONE,
+    MC_LINK_ERROR_NOT_SERIAL,
+    MC_LINK_ERROR_CMD_TIMEOUT,
+    MC_LINK_ERROR_GEN_TIMEOUT
+} motor_link_error_t;
+
+typedef enum
+{
+    MC_CONFIG_START
+} motor_config_state_t;
+typedef enum
+{
+    MC_DISCONNECTED, // Have not established connection yet
     MC_CONNECTED,    // Receiving messages as expected
+    MC_CONFIG,       // Adjusting parameters in analog mode
     MC_ERROR         // :(
 } motor_state_t;
-
-typedef enum {
-    MC_INIT_START,
-    MC_INIT_WAITING,
-    MC_INIT_DELAY,
-    MC_INIT_FAILED,
-    MC_INIT_COMPLETE
-} motor_init_t;
 
 typedef struct 
 {
     // Motor status
     uint16_t      init_time;                        // Current init timing
+    uint32_t      last_serial_time;                 // Last time verification of serial mode found
     uint32_t      last_parse_time;                  // Last time data was succesfully parsed
+    motor_link_state_t link_state;                  // Current state of the USART connection
+    uint8_t       config_step;                      // Step in sending config params via mcUpdateConfig
     motor_state_t motor_state;                      // Current motor state
-    motor_init_t  init_state;                       // Motor initialization state
+    bool config_sent;                               // Config params have been sent
+    motor_link_error_t last_link_error;             // Last link error
 
     // Motor configuration
     bool          is_inverted;                      // Send 'f' versus 'r' for positive torque command
@@ -91,27 +84,17 @@ typedef struct
 
     // Communications
     q_handle_t   *tx_queue;                         // FIFO for tx commands to be sent via DMA
-    uint32_t      boot_start_time;                  // Time of the first rx message received
     bool          data_stale;                       // True if data has not been parsed for MC_PARSE_TIMEOUT
 
     volatile uint32_t last_rx_time;                 // Time of the last rx message received
+    volatile uint8_t  last_rx_loc;                  // Index of the last byte of the last byte received
+    volatile uint32_t last_msg_time;                // Time of the last rx message that was large
+    volatile uint8_t  last_msg_loc;                 // Index of the first byte of the last command received
     volatile char     rx_buf[MC_MAX_RX_LENGTH];     // DMA rx circular buffer
 } motor_t;
 
-/**
- * @brief Initializes the motor in serial mode
- */
-void mc_init(motor_t *m, bool is_inverted, q_handle_t *tx_queue);
-/**
- * @brief Positive power commands motor to move
- *        Negative power commands motor to regen
- */
-void mc_set_power(float power, motor_t *m);
-/**
- * @brief  Reads the data being sent from the motor controller
- *         and determines the connection status
- * @return false if the data was not succesfully parsed
- */
-bool mc_periodic(motor_t *m);
+void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue);
+void mcSetPower(float power, motor_t *m);
+void mcPeriodic(motor_t *m);
 
 #endif

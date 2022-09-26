@@ -54,6 +54,7 @@ void canRxUpdate()
                 can_data.rear_motor_currents_temps.right_current = msg_data_a->rear_motor_currents_temps.right_current;
                 can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
+                can_data.rear_motor_currents_temps.right_voltage = msg_data_a->rear_motor_currents_temps.right_voltage;
                 can_data.rear_motor_currents_temps.stale = 0;
                 can_data.rear_motor_currents_temps.last_rx = sched.os_ticks;
                 break;
@@ -85,9 +86,6 @@ void canRxUpdate()
                 can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
                 can_data.orion_currents_volts.stale = 0;
                 can_data.orion_currents_volts.last_rx = sched.os_ticks;
-                break;
-            case ID_MAX_CELL_TEMP:
-                can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
                 break;
             case ID_ORION_ERRORS:
                 can_data.orion_errors.discharge_limit_enforce = msg_data_a->orion_errors.discharge_limit_enforce;
@@ -125,6 +123,15 @@ void canRxUpdate()
                 can_data.orion_errors.stale = 0;
                 can_data.orion_errors.last_rx = sched.os_ticks;
                 break;
+            case ID_MAX_CELL_TEMP:
+                can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
+                break;
+            case ID_REAR_CONTROLLER_TEMPS:
+                can_data.rear_controller_temps.left_temp = msg_data_a->rear_controller_temps.left_temp;
+                can_data.rear_controller_temps.right_temp = msg_data_a->rear_controller_temps.right_temp;
+                can_data.rear_controller_temps.stale = 0;
+                can_data.rear_controller_temps.last_rx = sched.os_ticks;
+                break;
             case ID_DAQ_COMMAND_DASHBOARD:
                 can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
                 daq_command_DASHBOARD_CALLBACK(&msg_header);
@@ -154,6 +161,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.orion_errors.stale,
                 sched.os_ticks, can_data.orion_errors.last_rx,
                 UP_ORION_ERRORS);
+    CHECK_STALE(can_data.rear_controller_temps.stale,
+                sched.os_ticks, can_data.rear_controller_temps.last_rx,
+                UP_REAR_CONTROLLER_TEMPS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -179,10 +189,12 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR2 = (ID_ORION_INFO << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
     CAN1->sFilterRegister[2].FR1 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_ORION_ERRORS << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_ORION_ERRORS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_REAR_CONTROLLER_TEMPS << 3) | 4;
+    CAN1->FA1R |= (1 << 4);    // configure bank 4
+    CAN1->sFilterRegister[4].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

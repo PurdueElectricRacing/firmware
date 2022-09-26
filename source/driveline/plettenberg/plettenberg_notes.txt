@@ -1,0 +1,45 @@
+Motor controller startup
+
+1) header 
+2) 1 Hz status - analog mode 
+
+To connect:
+1) Precharge enable
+2) Look for "S="
+3) If no S, send S, goto 2
+4) Configure params, exit with e, not wp
+	When in adjust mode don't check for timeout - well, could, as long as writing quick enough
+5) 
+
+Checking for continued connection:
+Must receive message within timeout
+Must receive "S=" within 1.5 seconds
+
+
+Add factory reset function
+Possible to find verification of reset?
+
+
+Determine motor state periodically
+
+MC_DISCONNECTED
+    check for last rx time -> initializing
+MC_INITIALIZING
+    wait until you receive S= or A=
+
+MC_ANALOG
+    attempt to enter serial
+    must wait until S=
+    similar to the old moot_init_t
+
+periodically send S if init or analog
+have boolean for if parameters set yet 
+    clear on initializing and disconnected
+
+enter serial, adjust if necessary
+
+Goals of library:
+Quickly connect once motor controller detected
+Write setup parameters (only possibly from serial mode)
+Ensure serial mode
+Quickly detect motor controller connection loss

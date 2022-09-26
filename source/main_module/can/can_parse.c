@@ -49,6 +49,7 @@ void canRxUpdate()
                 can_data.front_motor_currents_temps.right_current = msg_data_a->front_motor_currents_temps.right_current;
                 can_data.front_motor_currents_temps.left_temp = msg_data_a->front_motor_currents_temps.left_temp;
                 can_data.front_motor_currents_temps.right_temp = msg_data_a->front_motor_currents_temps.right_temp;
+                can_data.front_motor_currents_temps.right_voltage = msg_data_a->front_motor_currents_temps.right_voltage;
                 can_data.front_motor_currents_temps.stale = 0;
                 can_data.front_motor_currents_temps.last_rx = sched.os_ticks;
                 break;
@@ -57,18 +58,27 @@ void canRxUpdate()
                 can_data.rear_motor_currents_temps.right_current = msg_data_a->rear_motor_currents_temps.right_current;
                 can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
                 can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
+                can_data.rear_motor_currents_temps.right_voltage = msg_data_a->rear_motor_currents_temps.right_voltage;
                 can_data.rear_motor_currents_temps.stale = 0;
                 can_data.rear_motor_currents_temps.last_rx = sched.os_ticks;
                 break;
             case ID_FRONT_DRIVELINE_HB:
                 can_data.front_driveline_hb.front_left_motor = msg_data_a->front_driveline_hb.front_left_motor;
+                can_data.front_driveline_hb.front_left_motor_link = msg_data_a->front_driveline_hb.front_left_motor_link;
+                can_data.front_driveline_hb.front_left_last_link_error = msg_data_a->front_driveline_hb.front_left_last_link_error;
                 can_data.front_driveline_hb.front_right_motor = msg_data_a->front_driveline_hb.front_right_motor;
+                can_data.front_driveline_hb.front_right_motor_link = msg_data_a->front_driveline_hb.front_right_motor_link;
+                can_data.front_driveline_hb.front_right_last_link_error = msg_data_a->front_driveline_hb.front_right_last_link_error;
                 can_data.front_driveline_hb.stale = 0;
                 can_data.front_driveline_hb.last_rx = sched.os_ticks;
                 break;
             case ID_REAR_DRIVELINE_HB:
                 can_data.rear_driveline_hb.rear_left_motor = msg_data_a->rear_driveline_hb.rear_left_motor;
+                can_data.rear_driveline_hb.rear_left_motor_link = msg_data_a->rear_driveline_hb.rear_left_motor_link;
+                can_data.rear_driveline_hb.rear_left_last_link_error = msg_data_a->rear_driveline_hb.rear_left_last_link_error;
                 can_data.rear_driveline_hb.rear_right_motor = msg_data_a->rear_driveline_hb.rear_right_motor;
+                can_data.rear_driveline_hb.rear_right_motor_link = msg_data_a->rear_driveline_hb.rear_right_motor_link;
+                can_data.rear_driveline_hb.rear_right_last_link_error = msg_data_a->rear_driveline_hb.rear_right_last_link_error;
                 can_data.rear_driveline_hb.stale = 0;
                 can_data.rear_driveline_hb.last_rx = sched.os_ticks;
                 break;

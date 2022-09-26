@@ -59,12 +59,20 @@ BO_ 2147490050 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598915 front_driveline_hb: 2 Driveline
- SG_ front_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598915 front_driveline_hb: 6 Driveline
+ SG_ front_right_last_link_error : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_right_motor_link : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_right_motor : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left_last_link_error : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ front_left_motor_link : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ front_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598979 rear_driveline_hb: 2 Driveline
- SG_ rear_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214598979 rear_driveline_hb: 6 Driveline
+ SG_ rear_right_last_link_error : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_right_motor_link : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_right_motor : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_last_link_error : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_motor_link : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592515 front_wheel_data: 8 Driveline
@@ -79,25 +87,26 @@ BO_ 2214592579 rear_wheel_data: 8 Driveline
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
-BO_ 2348810883 front_motor_currents_temps: 6 Driveline
+BO_ 2348810883 front_motor_currents_temps: 8 Driveline
+ SG_ right_voltage : 48|16@1+ (1,0) [0|0] "Voltx10" Vector__XXX
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
  SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
-BO_ 2348810947 rear_motor_currents_temps: 6 Driveline
+BO_ 2348810947 rear_motor_currents_temps: 8 Driveline
+ SG_ right_voltage : 48|16@1+ (1,0) [0|0] "Voltx10" Vector__XXX
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ right_current : 16|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
  SG_ left_current : 0|16@1+ (1,0) [0|0] "Ampx10" Vector__XXX
 
-BO_ 2483028739 front_motor_init: 2 Driveline
- SG_ front_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ front_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2348811011 rear_controller_temps: 2 Driveline
+ SG_ right_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
+ SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
 
-BO_ 2483028803 rear_motor_init: 2 Driveline
- SG_ rear_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ rear_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2550136771 daq_response_DRIVELINE: 8 Driveline
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281734148 battery_info: 8 Precharge
  SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -440,6 +449,9 @@ BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
 BO_ 2483028274 daq_command_PRECHARGE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2483028210 daq_command_DRIVELINE: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2281733418 heat_req: 3 Precharge
  SG_ time : 1|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ toggle : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -648,10 +660,18 @@ CM_ BO_ 2147490050 "Status message for bitstream flashing";
 CM_ SG_ 2147490050 flash_timeout_rx "Timeout from CAN rx";
 CM_ SG_ 2147490050 flash_success "Done flashing bitstream";
 CM_ BO_ 2214598915 "front drivline heart beat";
+CM_ SG_ 2214598915 front_right_last_link_error "";
+CM_ SG_ 2214598915 front_right_motor_link "";
 CM_ SG_ 2214598915 front_right_motor "";
+CM_ SG_ 2214598915 front_left_last_link_error "";
+CM_ SG_ 2214598915 front_left_motor_link "";
 CM_ SG_ 2214598915 front_left_motor "";
 CM_ BO_ 2214598979 "rear drivline heart beat";
+CM_ SG_ 2214598979 rear_right_last_link_error "";
+CM_ SG_ 2214598979 rear_right_motor_link "";
 CM_ SG_ 2214598979 rear_right_motor "";
+CM_ SG_ 2214598979 rear_left_last_link_error "";
+CM_ SG_ 2214598979 rear_left_motor_link "";
 CM_ SG_ 2214598979 rear_left_motor "";
 CM_ BO_ 2214592515 "Wheel data for the rear tires";
 CM_ SG_ 2214592515 right_normal "";
@@ -663,22 +683,23 @@ CM_ SG_ 2214592579 right_normal "";
 CM_ SG_ 2214592579 left_normal "";
 CM_ SG_ 2214592579 right_speed "";
 CM_ SG_ 2214592579 left_speed "";
-CM_ BO_ 2348810883 "DC Current and Temperature of the motor controllers";
+CM_ BO_ 2348810883 "DC Current and Temperature of the motors";
+CM_ SG_ 2348810883 right_voltage "";
 CM_ SG_ 2348810883 right_temp "";
 CM_ SG_ 2348810883 left_temp "";
 CM_ SG_ 2348810883 right_current "";
 CM_ SG_ 2348810883 left_current "";
-CM_ BO_ 2348810947 "DC Current and Temperature of the motor controllers";
+CM_ BO_ 2348810947 "DC Current and Temperature of the motors";
+CM_ SG_ 2348810947 right_voltage "";
 CM_ SG_ 2348810947 right_temp "";
 CM_ SG_ 2348810947 left_temp "";
 CM_ SG_ 2348810947 right_current "";
 CM_ SG_ 2348810947 left_current "";
-CM_ BO_ 2483028739 "Front motor controller initialization status";
-CM_ SG_ 2483028739 front_right_init "";
-CM_ SG_ 2483028739 front_left_init "";
-CM_ BO_ 2483028803 "Front motor controller initialization status";
-CM_ SG_ 2483028803 rear_right_init "";
-CM_ SG_ 2483028803 rear_left_init "";
+CM_ BO_ 2348811011 "Temperature of motor controllers";
+CM_ SG_ 2348811011 right_temp "";
+CM_ SG_ 2348811011 left_temp "";
+CM_ BO_ 2550136771 "daq response from node DRIVELINE";
+CM_ SG_ 2550136771 daq_response "";
 CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
 CM_ SG_ 2281734148 error "";
 CM_ SG_ 2281734148 lowest "";
@@ -955,6 +976,8 @@ CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
 CM_ BO_ 2483028274 "daq command for node PRECHARGE";
 CM_ SG_ 2483028274 daq_command "";
+CM_ BO_ 2483028210 "daq command for node DRIVELINE";
+CM_ SG_ 2483028210 daq_command "";
 CM_ BO_ 2281733418 "Starts BMS pre-heat for set time";
 CM_ SG_ 2281733418 time "Set runtime in ms";
 CM_ SG_ 2281733418 toggle "1 for start, 0 for stop";
@@ -1089,14 +1112,18 @@ CM_ SG_ 2483031922 daq_command "";
 
 
 VAL_ 2214598913 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
-VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
-VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
-VAL_ 2214598979 rear_right_motor 0 "disconnected" 1 "initializaing" 2 "connected" 3 "error" ;
-VAL_ 2214598979 rear_left_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;
-VAL_ 2483028739 front_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
-VAL_ 2483028739 front_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
-VAL_ 2483028803 rear_right_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
-VAL_ 2483028803 rear_left_init 0 "starting" 1 "waiting" 2 "delaying" 3 "failed" 4 "connected" ;
+VAL_ 2214598915 front_right_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
+VAL_ 2214598915 front_right_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
+VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
+VAL_ 2214598915 front_left_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
+VAL_ 2214598915 front_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
+VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
+VAL_ 2214598979 rear_right_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
+VAL_ 2214598979 rear_right_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
+VAL_ 2214598979 rear_right_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
+VAL_ 2214598979 rear_left_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
+VAL_ 2214598979 rear_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
+VAL_ 2214598979 rear_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 SIG_VALTYPE_ 2348810751 left_speed : 1;

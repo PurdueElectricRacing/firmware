@@ -14,7 +14,9 @@
                         {"var_name":"dt_flow_error", "read_only": true, "bit_length": 1},
                         {"var_name":"dt_temp_error", "read_only": true, "bit_length": 1},
                         {"var_name":"bat_flow_error", "read_only": true, "bit_length": 1},
-                        {"var_name":"bat_temp_error", "read_only": true, "bit_length": 1}
+                        {"var_name":"bat_temp_error", "read_only": true, "bit_length": 1},
+                        {"var_name":"mot_left_req", "read_only": false, "bit_length": 12},
+                        {"var_name":"mot_right_req", "read_only": false, "bit_length": 12}
                     ]
                 },
                 {
@@ -32,8 +34,11 @@
                             "eeprom":{"label":"b3x", "version": 2}},
                         {"var_name":"b3min", "read_only": false, "bit_length": 12,
                             "eeprom":{"label":"b3n", "version": 2}},
+                        {"var_name":"t1", "read_only": true, "bit_length": 12},
+                        {"var_name":"t2", "read_only": true, "bit_length": 12},
                         {"var_name":"b1", "read_only": true, "bit_length": 12},
-                        {"var_name":"b2", "read_only": true, "bit_length": 12}
+                        {"var_name":"b2", "read_only": true, "bit_length": 12},
+                        {"var_name":"b3", "read_only": true, "bit_length": 12}
                     ]
                 },
                 {
@@ -42,6 +47,13 @@
                         {"var_name":"charge_mode_enable", "read_only": false, "bit_length": 1},
                         {"var_name":"charge_voltage_limit", "read_only": false, "bit_length": 16},
                         {"var_name":"charge_current_limit", "read_only": false, "bit_length": 16}
+                    ]
+                },
+                {
+                    "node_name":"Driveline",
+                    "variables": [
+                        {"var_name":"mot_left_req", "read_only": false, "bit_length": 12},
+                        {"var_name":"mot_right_req", "read_only": false, "bit_length": 12}
                     ]
                 }
             ]

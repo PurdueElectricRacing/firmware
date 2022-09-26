@@ -189,7 +189,7 @@ int main (void)
     //taskCreate(check_precharge, 100);
 
     taskCreate(check_buttons, 25);
-    taskCreate(check_error, 1000);
+    // taskCreate(check_error, 1000);
 
     taskCreateBackground(usartTxUpdate);
 
@@ -344,6 +344,9 @@ void linkDAQVars()
    linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
    linkReada(DAQ_ID_B1,     &raw_pedals.b1);
    linkReada(DAQ_ID_B2,     &raw_pedals.b2);
+   linkReada(DAQ_ID_T1,     &raw_pedals.t1);
+   linkReada(DAQ_ID_T2,     &raw_pedals.t2);
+   linkReada(DAQ_ID_B3,     &raw_pedals.b3);
 }
 
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};

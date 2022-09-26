@@ -444,6 +444,7 @@ void update_info_pages(void) {
   switch(p_idx) {
     case P_RACE:
 
+
         if (strcmp(err_msg, prev_err_msg) != 0) {
             set_text("t11\0", NXT_TEXT, err_msg);
             prev_err_msg = err_msg;
@@ -457,21 +458,20 @@ void update_info_pages(void) {
         int_to_char((can_data.orion_info.pack_soc / 2), two_int_char, 2);
         set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);
         set_text("t6\0", NXT_TEXT, two_int_char);
+        memset(two_int_char, 3, '\0');
         int_to_char((can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
         set_text("t10\0", NXT_TEXT, three_int_char);
-        int_to_char(((int)can_data.max_cell_temp.max_temp), two_int_char, 2);
+        memset(three_int_char, 4, '\0');
+        int_to_char(can_data.max_cell_temp.max_temp / 10, two_int_char, 2);
         set_text("t8\0", NXT_TEXT, two_int_char);
-
+        memset(two_int_char, 3, '\0');
         int_to_char(((can_data.rear_wheel_data.left_speed +
-                                    can_data.rear_wheel_data.right_speed) / 100), two_int_char, 2);
+                                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
         set_text("t0\0", NXT_TEXT, two_int_char);
-        set_text("t19\0", NXT_TEXT, "01\0");
-
-
-
-
-
-
+        memset(two_int_char, 3, '\0');
+        int_to_char((can_data.rear_controller_temps.left_temp + can_data.rear_controller_temps.right_temp) / 2, two_int_char, 2);
+        set_text("t19\0", NXT_TEXT, two_int_char);
+        memset(two_int_char, 3, '\0');
         if (delta == 0) {
             set_text("t1\0", NXT_TEXT, "0.00\0");
         }
@@ -498,19 +498,27 @@ void update_info_pages(void) {
         }
         int_to_char(can_data.rear_motor_currents_temps.left_temp, three_int_char, 3);
         set_text("t5\0", NXT_TEXT, three_int_char);
+        memset(three_int_char, 4, '\0');
         int_to_char(can_data.rear_motor_currents_temps.right_temp, three_int_char, 3);
         set_text("t6\0", NXT_TEXT, three_int_char);
+        memset(three_int_char, 4, '\0');
         //Insert the Controller Temps here
         int_to_char(((can_data.rear_wheel_data.left_speed +
-                                    can_data.rear_wheel_data.right_speed) / 100), two_int_char, 2);
+                                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
         set_text("t3\0", NXT_TEXT, two_int_char);
-                set_text("t15\0", NXT_TEXT, "01\0");
-        set_text("t16\0", NXT_TEXT, "01\0");
+        memset(two_int_char, 3, '\0');
+        int_to_char(can_data.rear_controller_temps.left_temp, two_int_char, 2);
+        set_text("t15\0", NXT_TEXT, two_int_char);
+        memset(two_int_char, 3, '\0');
+        int_to_char(can_data.rear_controller_temps.right_temp, two_int_char, 2);
+        set_text("t16\0", NXT_TEXT, two_int_char);
+        memset(two_int_char, 3, '\0');
         int_to_char(can_data.orion_info.pack_dcl, three_int_char, 3);
         set_text("t17\0", NXT_TEXT, three_int_char);
-        char four_int_char[5] = {"\0"};
-        int_to_char(can_data.orion_currents_volts.pack_current, four_int_char, 4);
-        set_text("t13\0", NXT_TEXT, four_int_char);
+        memset(two_int_char, 3, '\0');
+        int_to_char(can_data.orion_currents_volts.pack_current, two_int_char, 2);
+        set_text("t13\0", NXT_TEXT, two_int_char);
+        memset(two_int_char, 3, '\0');
         int_to_char((can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
         set_text("t12\0", NXT_TEXT, three_int_char);
         set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);

@@ -21,6 +21,7 @@
 #endif
 
 /* Module Includes */
+#include "daq.h"
 #include "main.h"
 #include "can_parse.h"
 #include "wheel_speeds.h"
@@ -136,7 +137,9 @@ void parseDataPeriodic();
 void canTxUpdate();
 void usartTxUpdate();
 void usartRxUpdate();
+void usartIdleIRQ(motor_t *m, usart_init_t *huart);
 void ledUpdate();
+void linkDAQVars();
 void heartBeat();
 extern void HardFault_Handler();
 
@@ -145,6 +148,9 @@ q_handle_t q_rx_can;
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
 motor_t motor_left, motor_right;
+// TODO: REMOVE WHEN NOT TESTING
+uint16_t mot_left_req;
+uint16_t mot_right_req;
 
 int main(void)
 {
@@ -170,12 +176,13 @@ int main(void)
     taskCreate(ledUpdate, 500);
     taskCreate(heartBeat, 100);
     taskCreate(commandTorquePeriodic, 15);
-    taskCreate(parseDataPeriodic, 15);
+    taskCreate(parseDataPeriodic, MC_LOOP_DT);
     // TODO: taskCreate(shockpot1000Hz, 5);
     taskCreate(wheelSpeedsPeriodic, 15);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     // signify end of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
@@ -242,11 +249,13 @@ void preflightChecks(void) {
        case 4:
             /* Module init */
             initCANParse(&q_rx_can);
+            linkDAQVars();
+            daqInit(&q_tx_can, I2C);
             wheelSpeedsInit();
             break;
         case 5:
             // Left MC
-            mc_init(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
+            mcInit(&motor_left,  M_INVERT_LEFT,  &q_tx_usart_l);
             USART_L->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
             NVIC_EnableIRQ(USART1_IRQn);
             // initial rx request
@@ -255,8 +264,7 @@ void preflightChecks(void) {
                             MC_MAX_RX_LENGTH);
             break;
         case 6:
-            // Right MC
-            mc_init(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
+            mcInit(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
             USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
             NVIC_EnableIRQ(USART2_IRQn);
             // initial rx request
@@ -288,20 +296,35 @@ void preflightAnimation(void) {
     }
 }
 
+void linkDAQVars(void) 
+{
+    linkReada(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
+    linkReada(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
+    linkWritea(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
+    linkWritea(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
+}
+
+
 void heartBeat()
 {
     #if (FTR_DRIVELINE_FRONT)
     SEND_FRONT_DRIVELINE_HB(q_tx_can, motor_left.motor_state,
-                                      motor_right.motor_state);
-    SEND_FRONT_MOTOR_INIT(q_tx_can, motor_left.init_state, motor_right.init_state);
-
+                                      motor_left.link_state,
+                                      motor_left.last_link_error,
+                                      motor_right.motor_state,
+                                      motor_right.link_state,
+                                      motor_right.last_link_error);
     #elif (FTR_DRIVELINE_REAR)
     SEND_REAR_DRIVELINE_HB(q_tx_can, motor_left.motor_state,
-                                      motor_right.motor_state);
-    SEND_REAR_MOTOR_INIT(q_tx_can, motor_right.init_state, motor_right.init_state);
-
+                                     motor_left.link_state,
+                                     motor_left.last_link_error,
+                                     motor_right.motor_state,
+                                     motor_right.link_state,
+                                     motor_right.last_link_error);
     #endif
 }
+
+
 /**
  * @brief Receives torque command from can message
  *        Relays this to the motor controllers
@@ -315,8 +338,14 @@ void commandTorquePeriodic()
     float pow_left  = (float) CLAMP(can_data.torque_request_main.rear_left, -4095, 4095);
     float pow_right = (float) CLAMP(can_data.torque_request_main.rear_right, -4095, 4095);
     #endif
+    // pow_left = (float) mot_left_req;
+    // pow_right = (float) mot_right_req;
     pow_left  = pow_left  * 100.0 / 4095.0;
     pow_right = pow_right * 100.0 / 4095.0;
+
+    // NO regen for now!!!
+    if (pow_left < 0) pow_left = 0.0;
+    if (pow_right < 0) pow_left = 0.0;
 
     // Only drive if ready
     if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
@@ -328,8 +357,11 @@ void commandTorquePeriodic()
         pow_left  = 0.0;
         pow_right = 0.0;
     }
-    mc_set_power(pow_left,  &motor_left);
-    mc_set_power(pow_right, &motor_right);
+    // Continuously send, despite connection state
+    // Ensures that if we lost connection we continue
+    // to send 0 to stop motor
+    mcSetPower(pow_left,  &motor_left);
+    mcSetPower(pow_right, &motor_right);
 }
 
 /**
@@ -340,8 +372,8 @@ void commandTorquePeriodic()
 void parseDataPeriodic()
 {
     /* Update Motor Controller Data Structures */
-    mc_periodic(&motor_left);
-    mc_periodic(&motor_right);
+    mcPeriodic(&motor_left);
+    mcPeriodic(&motor_right);
 
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
@@ -362,13 +394,18 @@ void parseDataPeriodic()
                                    (uint16_t) motor_left.current_x10, 
                                    (uint16_t) motor_right.current_x10,
                                    (uint8_t)  motor_left.motor_temp, 
-                                   (uint8_t)  motor_right.motor_temp);
+                                   (uint8_t)  motor_right.motor_temp,
+                                   (uint16_t)  motor_right.voltage_x10);
+    SEND_REAR_CONTROLLER_TEMPS(q_tx_can,
+                               (uint8_t) motor_left.controller_temp,
+                               (uint8_t) motor_right.controller_temp);
 #elif (FTR_DRIVELINE_FRONT)
     SEND_FRONT_MOTOR_CURRENTS_TEMPS(q_tx_can, 
                                    (uint16_t) motor_left.current_x10, 
                                    (uint16_t) motor_right.current_x10,
                                    (uint8_t)  motor_left.motor_temp, 
-                                   (uint8_t)  motor_right.motor_temp);
+                                   (uint8_t)  motor_right.motor_temp,
+                                   (uint16_t)  motor_right.voltage_x10);
 #endif
 }
 
@@ -399,17 +436,31 @@ void usartTxUpdate()
 
 void USART1_IRQHandler(void) {
     if (USART_L->ISR & USART_ISR_IDLE) {
-        motor_left.last_rx_time = sched.os_ticks;
+        usartIdleIRQ(&motor_left, &huart_l);
         USART_L->ICR = USART_ICR_IDLECF;
     }
 }
 
 void USART2_IRQHandler(void) {
     if (USART_R->ISR & USART_ISR_IDLE) {
-        char *tmp;
-        motor_right.last_rx_time = sched.os_ticks;
+        usartIdleIRQ(&motor_right, &huart_r);
         USART_R->ICR = USART_ICR_IDLECF;
     }
+}
+
+void usartIdleIRQ(motor_t *m, usart_init_t *huart)
+{
+    uint16_t new_loc = 0;
+    m->last_rx_time = sched.os_ticks;
+    new_loc = MC_MAX_RX_LENGTH - huart->rx_dma_cfg->channel->CNDTR; // extract last location from DMA
+    if (new_loc == MC_MAX_RX_LENGTH) new_loc = 0;                   // should never happen
+    else if (new_loc < m->last_rx_loc) new_loc += MC_MAX_RX_LENGTH; // wrap around
+    if (new_loc - m->last_rx_loc > MC_MAX_TX_LENGTH)                // status msg vs just an echo
+    {
+        m->last_msg_time = sched.os_ticks;
+        m->last_msg_loc = (m->last_rx_loc + 1) % MC_MAX_RX_LENGTH;
+    }
+    m->last_rx_loc = new_loc % MC_MAX_RX_LENGTH;
 }
 
 /* CAN Message Handling */

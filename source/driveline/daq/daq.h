@@ -20,10 +20,10 @@ typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
 
 // Make this match the node name within the daq_config.json
-#define NODE_NAME "Main_Module"
+#define NODE_NAME "Driveline"
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 8
+#define NUM_VARS 2
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
@@ -62,14 +62,8 @@ typedef enum
 #define DAQ_ID_MASK       0b11111
 
 // BEGIN AUTO VAR IDs
-#define DAQ_ID_DT_LITERS_P_MIN_X10 0
-#define DAQ_ID_BAT_LITERS_P_MIN_X10 1
-#define DAQ_ID_DT_FLOW_ERROR 2
-#define DAQ_ID_DT_TEMP_ERROR 3
-#define DAQ_ID_BAT_FLOW_ERROR 4
-#define DAQ_ID_BAT_TEMP_ERROR 5
-#define DAQ_ID_MOT_LEFT_REQ 6
-#define DAQ_ID_MOT_RIGHT_REQ 7
+#define DAQ_ID_MOT_LEFT_REQ 0
+#define DAQ_ID_MOT_RIGHT_REQ 1
 // END AUTO VAR IDs
 
 typedef struct

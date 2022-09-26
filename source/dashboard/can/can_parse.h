@@ -29,8 +29,9 @@
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_MAX_CELL_TEMP 0x404e604
 #define ID_ORION_ERRORS 0xc000738
+#define ID_MAX_CELL_TEMP 0x404e604
+#define ID_REAR_CONTROLLER_TEMPS 0xc000303
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -42,11 +43,12 @@
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_DATA 8
-#define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_MAX_CELL_TEMP 2
 #define DLC_ORION_ERRORS 4
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -90,6 +92,7 @@
 #define UP_ORION_INFO 32
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_ORION_ERRORS 1000
+#define UP_REAR_CONTROLLER_TEMPS 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -141,6 +144,7 @@ typedef union { __attribute__((packed))
         uint64_t right_current: 16;
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
+        uint64_t right_voltage: 16;
     } rear_motor_currents_temps;
     struct {
         uint64_t discharge_enable: 1;
@@ -167,9 +171,6 @@ typedef union { __attribute__((packed))
         uint64_t pack_current: 16;
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
-    struct {
-        uint64_t max_temp: 16;
-    } max_cell_temp;
     struct {
         uint64_t discharge_limit_enforce: 1;
         uint64_t charger_safety_relay: 1;
@@ -205,6 +206,13 @@ typedef union { __attribute__((packed))
         uint64_t charge_limit_enforce: 1;
     } orion_errors;
     struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } rear_controller_temps;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -234,6 +242,7 @@ typedef struct {
         uint16_t right_current;
         uint8_t left_temp;
         uint8_t right_temp;
+        uint16_t right_voltage;
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_currents_temps;
@@ -266,9 +275,6 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } orion_currents_volts;
-    struct {
-        uint16_t max_temp;
-    } max_cell_temp;
     struct {
         uint16_t discharge_limit_enforce;
         uint16_t charger_safety_relay;
@@ -305,6 +311,15 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } orion_errors;
+    struct {
+        uint16_t max_temp;
+    } max_cell_temp;
+    struct {
+        uint8_t left_temp;
+        uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_controller_temps;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;

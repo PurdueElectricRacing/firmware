@@ -90,9 +90,17 @@
                             "msg_desc": "front drivline heart beat",
                             "signals": [
                                 {"sig_name": "front_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "initializing", "connected", "error"]},
+                                 "choices": ["disconnected", "connected", "config", "error"]},
+                                {"sig_name": "front_left_motor_link", "type":"uint8_t",
+                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
+                                {"sig_name": "front_left_last_link_error", "type":"uint8_t",
+                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]},
                                 {"sig_name": "front_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "initializing", "connected", "error"]}
+                                 "choices": ["disconnected", "connected", "config", "error"]},
+                                {"sig_name": "front_right_motor_link", "type":"uint8_t",
+                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
+                                {"sig_name": "front_right_last_link_error", "type":"uint8_t",
+                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]}
                             ],
                             "msg_period": 100,
                             "msg_hlp": 1,
@@ -103,9 +111,17 @@
                             "msg_desc": "rear drivline heart beat",
                             "signals": [
                                 {"sig_name": "rear_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "initializing", "connected", "error"]},
+                                 "choices": ["disconnected", "connected", "config", "error"]},
+                                {"sig_name": "rear_left_motor_link", "type":"uint8_t",
+                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
+                                {"sig_name": "rear_left_last_link_error", "type":"uint8_t",
+                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]},
                                 {"sig_name": "rear_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "initializaing", "connected", "error"]}
+                                 "choices": ["disconnected", "connected", "config", "error"]},
+                                {"sig_name": "rear_right_motor_link", "type":"uint8_t",
+                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
+                                {"sig_name": "rear_right_last_link_error", "type":"uint8_t",
+                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]}
                             ],
                             "msg_hlp": 1,
                             "msg_period": 100,
@@ -136,50 +152,41 @@
                             "msg_pgn": 1
                         },
                         {   "msg_name": "front_motor_currents_temps",
-                            "msg_desc": "DC Current and Temperature of the motor controllers",
+                            "msg_desc": "DC Current and Temperature of the motors",
                             "signals": [
                                 {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_voltage", "type":"uint16_t", "length": 16, "unit": "Voltx10"}
                             ],
                             "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 10
                         },
                         {   "msg_name": "rear_motor_currents_temps",
-                            "msg_desc": "DC Current and Temperature of the motor controllers",
+                            "msg_desc": "DC Current and Temperature of the motors",
                             "signals": [
                                 {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
                                 {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"}
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_voltage", "type":"uint16_t", "length": 16, "unit": "Voltx10"}
                             ],
                             "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 11
                         },
                         {
-                            "msg_name": "front_motor_init",
-                            "msg_desc": "Front motor controller initialization status",
+                            "msg_name": "rear_controller_temps",
+                            "msg_desc": "Temperature of motor controllers",
                             "signals": [
-                                {"sig_name": "front_left_init", "type":"uint8_t", "choices": ["starting", "waiting", "delaying", "failed", "connected"]},
-                                {"sig_name": "front_right_init", "type":"uint8_t", "choices": ["starting", "waiting", "delaying", "failed", "connected"]}
+                                {"sig_name": "left_temp", "type":"uint8_t", "length": 8, "unit": "C"},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length": 8, "unit": "C"}
                             ],
-                            "msg_period": 15,
-                            "msg_hlp": 5,
+                            "msg_period": 500,
+                            "msg_hlp": 3,
                             "msg_pgn": 12
-                        },
-                        {
-                            "msg_name": "rear_motor_init",
-                            "msg_desc": "Front motor controller initialization status",
-                            "signals": [
-                                {"sig_name": "rear_left_init", "type":"uint8_t", "choices": ["starting", "waiting", "delaying", "failed", "connected"]},
-                                {"sig_name": "rear_right_init", "type":"uint8_t", "choices": ["starting", "waiting", "delaying", "failed", "connected"]}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 5,
-                            "msg_pgn": 13
                         }
                     ],
                     "rx": [
@@ -422,7 +429,13 @@
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
-                        {"msg_name": "front_wheel_data"}
+                        {"msg_name": "rear_wheel_data"},
+                        {"msg_name": "rear_motor_currents_temps"},
+                        {"msg_name": "orion_info"},
+                        {"msg_name": "orion_currents_volts"},
+                        {"msg_name": "orion_errors"},
+                        {"msg_name": "max_cell_temp"},
+                        {"msg_name": "rear_controller_temps"}
                     ]
                 },
                 {

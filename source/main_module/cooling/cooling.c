@@ -228,6 +228,8 @@ double ln() {
 
 }
 
+// https://stackoverflow.com/questions/9800636/calculating-natural-logarithm-and-exponent-by-core-c-for-embedded-system
+
 static double native_log_computation(const double n) {
     // Basic logarithm computation.
     static const double euler = 2.7182818284590452354 ;

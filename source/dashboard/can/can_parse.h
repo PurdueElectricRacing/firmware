@@ -32,6 +32,7 @@
 #define ID_ORION_ERRORS 0xc000738
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_REAR_CONTROLLER_TEMPS 0xc000303
+#define ID_PRECHARGE_HB 0x4001944
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -49,6 +50,7 @@
 #define DLC_ORION_ERRORS 4
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_REAR_CONTROLLER_TEMPS 2
+#define DLC_PRECHARGE_HB 2
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -93,6 +95,7 @@
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_ORION_ERRORS 1000
 #define UP_REAR_CONTROLLER_TEMPS 500
+#define UP_PRECHARGE_HB 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -213,6 +216,10 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } rear_controller_temps;
     struct {
+        uint64_t IMD: 8;
+        uint64_t BMS: 8;
+    } precharge_hb;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -320,6 +327,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } rear_controller_temps;
+    struct {
+        uint8_t IMD;
+        uint8_t BMS;
+        uint8_t stale;
+        uint32_t last_rx;
+    } precharge_hb;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;

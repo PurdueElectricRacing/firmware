@@ -23,6 +23,7 @@
 #define ID_HEAT_REQ 0x8007d2a
 #define ID_PACK_CURR 0x4007d6a
 #define ID_BALANCE_REQUEST 0xc00002a
+#define ID_PRECHARGE_HB 0x4001944
 #define ID_BATTERY_INFO 0x8008004
 #define ID_CELL_INFO 0x8008044
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
@@ -60,6 +61,7 @@
 #define DLC_HEAT_REQ 3
 #define DLC_PACK_CURR 2
 #define DLC_BALANCE_REQUEST 2
+#define DLC_PRECHARGE_HB 2
 #define DLC_BATTERY_INFO 8
 #define DLC_CELL_INFO 7
 #define DLC_ELCON_CHARGER_COMMAND 5
@@ -111,6 +113,13 @@
         CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_BALANCE_REQUEST, .DLC=DLC_BALANCE_REQUEST, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->balance_request.voltage_target = voltage_target_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_PRECHARGE_HB(queue, IMD_, BMS_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PRECHARGE_HB, .DLC=DLC_PRECHARGE_HB, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->precharge_hb.IMD = IMD_;\
+        data_a->precharge_hb.BMS = BMS_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_BATTERY_INFO(queue, voltage_, delta_, lowest_, error_) do {\
@@ -215,6 +224,10 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t voltage_target: 16;
     } balance_request;
+    struct {
+        uint64_t IMD: 8;
+        uint64_t BMS: 8;
+    } precharge_hb;
     struct {
         uint64_t voltage: 16;
         uint64_t delta: 16;

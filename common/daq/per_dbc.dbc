@@ -46,6 +46,10 @@ BO_ 2214592577 torque_request_main: 8 Main_Module
  SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214594689 flowrate_temps: 2 Main_Module
+ SG_ battery_line_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ flowrate_battery : 0|8@1+ (0.1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136769 daq_response_MAIN_MODULE: 8 Main_Module
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -107,6 +111,10 @@ BO_ 2348811011 rear_controller_temps: 2 Driveline
 
 BO_ 2550136771 daq_response_DRIVELINE: 8 Driveline
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214598980 precharge_hb: 2 Precharge
+ SG_ BMS : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ IMD : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281734148 battery_info: 8 Precharge
  SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -649,6 +657,9 @@ CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
+CM_ BO_ 2214594689 "Flowrate and Water temp";
+CM_ SG_ 2214594689 battery_line_temp "Temp in battery line";
+CM_ SG_ 2214594689 flowrate_battery "Flow rate for battery";
 CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
 CM_ SG_ 2550136769 daq_response "";
 CM_ BO_ 2214592578 "Torque request for all motors.";
@@ -700,6 +711,9 @@ CM_ SG_ 2348811011 right_temp "";
 CM_ SG_ 2348811011 left_temp "";
 CM_ BO_ 2550136771 "daq response from node DRIVELINE";
 CM_ SG_ 2550136771 daq_response "";
+CM_ BO_ 2214598980 "heart beat for precharge";
+CM_ SG_ 2214598980 BMS "";
+CM_ SG_ 2214598980 IMD "";
 CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
 CM_ SG_ 2281734148 error "";
 CM_ SG_ 2281734148 lowest "";

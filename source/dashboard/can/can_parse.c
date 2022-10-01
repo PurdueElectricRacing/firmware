@@ -132,6 +132,12 @@ void canRxUpdate()
                 can_data.rear_controller_temps.stale = 0;
                 can_data.rear_controller_temps.last_rx = sched.os_ticks;
                 break;
+            case ID_PRECHARGE_HB:
+                can_data.precharge_hb.IMD = msg_data_a->precharge_hb.IMD;
+                can_data.precharge_hb.BMS = msg_data_a->precharge_hb.BMS;
+                can_data.precharge_hb.stale = 0;
+                can_data.precharge_hb.last_rx = sched.os_ticks;
+                break;
             case ID_DAQ_COMMAND_DASHBOARD:
                 can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
                 daq_command_DASHBOARD_CALLBACK(&msg_header);
@@ -164,6 +170,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.rear_controller_temps.stale,
                 sched.os_ticks, can_data.rear_controller_temps.last_rx,
                 UP_REAR_CONTROLLER_TEMPS);
+    CHECK_STALE(can_data.precharge_hb.stale,
+                sched.os_ticks, can_data.precharge_hb.last_rx,
+                UP_PRECHARGE_HB);
     /* END AUTO STALE CHECKS */
 }
 
@@ -194,7 +203,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->sFilterRegister[3].FR2 = (ID_REAR_CONTROLLER_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_PRECHARGE_HB << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

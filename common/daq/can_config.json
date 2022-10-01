@@ -30,6 +30,17 @@
                             "msg_period":15,
                             "msg_hlp":1,
                             "msg_pgn":1
+                        },
+                        {
+                            "msg_name": "flowrate_temps",
+                            "msg_desc": "Flowrate and Water temp",
+                            "signals": [
+                                {"sig_name": "flowrate_battery", "sig_desc": "Flow rate for battery", "type": "uint8_t", "scale": 0.1},
+                                {"sig_name": "battery_line_temp", "sig_desc": "Temp in battery line", "type": "uint8_t", "scale": 1}
+                            ],
+                            "msg_period":200,
+                            "msg_hlp":1,
+                            "msg_pgn":34
                         }
                     ],
                     "rx":[
@@ -199,6 +210,17 @@
                     "can_peripheral": "CAN1",
                     "node_ssa": 4,
                     "tx": [
+                        {
+                            "msg_name": "precharge_hb",
+                            "msg_desc": "heart beat for precharge",
+                            "signals": [
+                                {"sig_name": "IMD", "type":"uint8_t"},
+                                {"sig_name": "BMS", "type":"uint8_t"}
+                            ],
+                            "msg_hlp": 1,
+                            "msg_period": 100,
+                            "msg_pgn": 101
+                        },
                         {
                             "msg_name": "battery_info",
                             "msg_desc": "Information about battery voltage and other stuff",
@@ -435,7 +457,8 @@
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "orion_errors"},
                         {"msg_name": "max_cell_temp"},
-                        {"msg_name": "rear_controller_temps"}
+                        {"msg_name": "rear_controller_temps"},
+                        {"msg_name": "precharge_hb"}
                     ]
                 },
                 {

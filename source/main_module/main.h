@@ -1,13 +1,13 @@
 /**
  * @file main.h
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief  Software for controlling SDC based on 
+ * @brief  Software for controlling SDC based on
  *         faults and cooling based on temperatures
  * @version 0.1
  * @date 2022-03-16
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #ifndef _MAIN_H_
 #define _MAIN_H_
@@ -49,7 +49,7 @@
 #define DT_PUMP_FLOW_ADJ_GPIO_Port (GPIOA) // N/A for current pump
 #define DT_PUMP_FLOW_ADJ_Pin       (4)     // N/A for current pump
 #define DT_FLOW_RATE_PWM_GPIO_Port (GPIOC)
-#define DT_FLOW_RATE_PWM_Pin       (1)
+#define DT_FLOW_RATE_PWM_Pin       (6)
 #define DT_RAD_FAN_CTRL_GPIO_Port  (GPIOE)
 #define DT_RAD_FAN_CTRL_Pin        (14)
 
@@ -65,7 +65,7 @@
 #define BAT_PUMP_FLOW_ADJ_GPIO_Port (GPIOC)
 #define BAT_PUMP_FLOW_ADJ_Pin       (3)
 #define BAT_FLOW_RATE_PWM_GPIO_Port (GPIOC)
-#define BAT_FLOW_RATE_PWM_Pin       (2)
+#define BAT_FLOW_RATE_PWM_Pin       (7)
 #define BAT_RAD_FAN_CTRL_GPIO_Port  (GPIOC)
 #define BAT_RAD_FAN_CTRL_Pin        (4)
 

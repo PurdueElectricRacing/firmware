@@ -10,11 +10,11 @@
 #include "common/phal_L4/dma/dma.h"
 
 /* Module Includes */
-#include "main.h"
-#include "can_parse.h"
-#include "daq.h"
-#include "cooling.h"
 #include "car.h"
+#include "can_parse.h"
+#include "cooling.h"
+#include "daq.h"
+#include "main.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // CAN
@@ -229,6 +229,10 @@ void linkDAQVars()
     linkReada(DAQ_ID_BAT_LITERS_P_MIN_X10, &cooling.bat_liters_p_min_x10);
     linkReada(DAQ_ID_BAT_FLOW_ERROR, &cooling.bat_flow_error);
     linkReada(DAQ_ID_BAT_TEMP_ERROR, &cooling.bat_temp_error);
+    linkReada(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
+    linkWritea(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
+    linkReada(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
+    linkWritea(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
 }
 
 void canTxUpdate(void)

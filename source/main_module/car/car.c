@@ -1,5 +1,7 @@
 #include "car.h"
 
+uint16_t mot_left_req;  // 0 - 4095 value
+uint16_t mot_right_req; // 0 - 4095 value
 volatile Car_t car;
 extern q_handle_t q_tx_can;
 uint32_t buzzer_start_tick = 0;
@@ -26,6 +28,7 @@ bool carInit()
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 0);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, 0);
     prchg_set = 0;
+    mot_left_req = mot_right_req = 0;
 }
 
 void carHeartbeat()
@@ -66,12 +69,14 @@ void carPeriodic()
     if (checkErrorFaults())
     {
         car.state = CAR_STATE_ERROR;
+        PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, false); // in case during buzzing
     }
     // A fatal fault has higher prority
     // than an error fault
     if (checkFatalFaults())
     {
         car.state = CAR_STATE_FATAL;
+        PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, false); // in case during buzzing
     }
 
     /* State Dependent Operations */
@@ -136,22 +141,21 @@ void carPeriodic()
 
         // int16_t t_req = can_data.raw_throttle_brake.throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0);
         // t_req = t_req < 100 ? 0 : ((t_req - 100) / (4095 - 100) * 4095);
-
         uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
         
-        int16_t t_req = adjusted_throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0); 
+        //int16_t t_req = adjusted_throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0); 
+        int16_t t_req = adjusted_throttle; // removing regen brake TODO: revert if regen
 
         // SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
-        if (sched.os_ticks - last_time > 2000){ 
-            //curr++;
-            curr = !curr;
-            last_time = sched.os_ticks;
-        }
+        
 
         // t_temp = (t_temp > 469) ? 0 : t_temp + 1;
 
         // E-diff
-        eDiff(t_req, &torque_r);
+        //eDiff(t_req, &torque_r);
+        // TODO: fix steering for ediff
+        torque_r.torque_left = t_req;
+        torque_r.torque_right = t_req;
 
         // check torque request (FSAE rule)
         if(torque_r.torque_left > t_req)
@@ -164,6 +168,9 @@ void carPeriodic()
         }
 
         SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, torque_r.torque_left, torque_r.torque_right);
+        // bypased for daq testing TODO: remove
+        // if (mot_left_req > 4095 || mot_right_req > 4095) mot_left_req = mot_right_req = 0;
+        // SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, (int16_t) mot_left_req, (int16_t) mot_right_req);
 
         /************ Around the World *************/
         // Meant for testing with vehicle off the ground
@@ -171,6 +178,11 @@ void carPeriodic()
         // if (curr) SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 410);
         // else SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, 0, 0);
         /*
+        if (sched.os_ticks - last_time > 2000){ 
+            //curr++;
+            curr = !curr;
+            last_time = sched.os_ticks;
+        }
         switch(curr)
         {
             case 0:
@@ -228,7 +240,7 @@ bool checkErrorFaults()
     }
 
     /* Precharge */
-    // TODO: is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+    // is_error += !PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
     /* Dashboard */
     // TODO: is_error += can_data.raw_throttle_brake.stale;
@@ -241,10 +253,13 @@ bool checkErrorFaults()
     //             FRONT_RIGHT_MOTOR_CONNECTED;
 
     // Rear
+    // TODO: revert
+    /*
     is_error += can_data.rear_driveline_hb.rear_left_motor    != 
                 REAR_LEFT_MOTOR_CONNECTED;
     is_error += can_data.rear_driveline_hb.rear_right_motor   != 
                 REAR_RIGHT_MOTOR_CONNECTED;
+                */
 
     /* Temperature */
     // TODO: if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;

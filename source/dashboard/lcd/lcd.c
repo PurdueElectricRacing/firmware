@@ -465,8 +465,14 @@ void update_info_pages(void) {
         int_to_char(can_data.max_cell_temp.max_temp / 10, two_int_char, 2);
         set_text("t8\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
+         //Left Wheelspeed broke off on the first testing day, so I am relying on
+        //Right Wheelspeed instead of an average of both
+        // int_to_char(((can_data.rear_wheel_data.left_speed +
+        //                             can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
         int_to_char(((can_data.rear_wheel_data.left_speed +
-                                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
+                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
+
+        //******************************
         set_text("t0\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
         int_to_char((can_data.rear_controller_temps.left_temp + can_data.rear_controller_temps.right_temp) / 2, two_int_char, 2);
@@ -502,9 +508,14 @@ void update_info_pages(void) {
         int_to_char(can_data.rear_motor_currents_temps.right_temp, three_int_char, 3);
         set_text("t6\0", NXT_TEXT, three_int_char);
         memset(three_int_char, 4, '\0');
-        //Insert the Controller Temps here
+        //Left Wheelspeed broke off on the first testing day, so I am relying on
+        //Right Wheelspeed instead of an average of both
+        // int_to_char(((can_data.rear_wheel_data.left_speed +
+        //                             can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
         int_to_char(((can_data.rear_wheel_data.left_speed +
-                                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
+                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
+
+        //******************************
         set_text("t3\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
         int_to_char(can_data.rear_controller_temps.left_temp, two_int_char, 2);
@@ -563,6 +574,16 @@ void update_race_colors() {
             else {
                 set_value("t8\0", NXT_FONT_COLOR, RED);
             }
+
+            if (can_data.rear_controller_temps.left_temp < 40 && can_data.rear_controller_temps.right_temp < 40) {
+                set_value("t19\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if ((can_data.rear_controller_temps.left_temp > 39 && can_data.rear_controller_temps.left_temp < 70) || (can_data.rear_controller_temps.right_temp > 39 && can_data.rear_controller_temps.right_temp < 70)) {
+                set_value("t19\0", NXT_FONT_COLOR, YELLOW);
+            }
+            else {
+                set_value("t19\0", NXT_FONT_COLOR, RED);
+            }
             break;
         case P_EXTRA_INFO:
             if (can_data.rear_motor_currents_temps.left_temp < 60){
@@ -589,6 +610,21 @@ void update_race_colors() {
             else {
                 set_value("j0\0", NXT_FONT_COLOR, RED);
             }
+
+            if (can_data.rear_controller_temps.left_temp < 60){
+                set_value("t5\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (can_data.rear_controller_temps.left_temp > 39 && can_data.rear_controller_temps.left_temp < 70)
+                set_value("t5\0", NXT_FONT_COLOR, YELLOW);
+            else
+                set_value("t5\0", NXT_FONT_COLOR, RED);
+            if (can_data.rear_controller_temps.right_temp < 60) {
+                set_value("t6\0", NXT_FONT_COLOR, GREEN);
+            }
+            else if (can_data.rear_controller_temps.right_temp > 39 && can_data.rear_controller_temps.right_temp < 70)
+                set_value("t6\0", NXT_FONT_COLOR, YELLOW);
+            else
+                set_value("t6\0", NXT_FONT_COLOR, RED);
 
             break;
 

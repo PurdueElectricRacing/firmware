@@ -287,10 +287,11 @@ void heartBeatLED()
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
     else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     // TODO IMD LED
-    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    // PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, can_data.precharge_hb.IMD);
     // TODO BMS LED
-    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-
+    // PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);

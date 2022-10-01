@@ -55,7 +55,7 @@ void orionChargePeriodic() {
 
             charge_current_req = MIN(can_data.orion_info.pack_ccl, user_charge_current_request);
 
-            charge_voltage_req = MIN(charge_voltage_req, MAX_VOLT); // Hard limit, don't overcharge
+            charge_voltage_req = MIN(user_charge_voltage_request, MAX_VOLT); // Hard limit, don't overcharge
             charge_voltage_req *=  10;
             charge_current_req *= 10;
 

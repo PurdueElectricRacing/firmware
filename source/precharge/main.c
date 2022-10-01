@@ -230,18 +230,20 @@ void heartbeatTask()
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 
     // TODO: send heartbeat message containing error code (BMS, IMD, TEMP, ETC)
+    SEND_PRECHARGE_HB(q_tx_can, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin), orionErrors());
 }
 
 
 void monitorStatus()
 {
-    uint8_t bms_err, imd_err; 
+    uint8_t bms_err, imd_err;
     bms_err = orionErrors();
     imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
 }
+
 
 
 void sendIMUData()

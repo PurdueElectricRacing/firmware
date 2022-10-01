@@ -272,15 +272,14 @@ void CAN1_RX0_IRQHandler()
         rx.Bus = CAN1;
 
         // Get either StdId or ExtId
-        if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+        rx.IDE = CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR;
+        if (rx.IDE)
         { 
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
-          rx.IDE = 1;
         }
         else
         {
-          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-          rx.IDE = 0;
+          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_STID_Pos;
         }
 
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;

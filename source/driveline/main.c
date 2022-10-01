@@ -349,8 +349,8 @@ void commandTorquePeriodic()
 
     // Only drive if ready
     if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
-        can_data.main_hb.stale                              ||
-        can_data.torque_request_main.stale                  ||
+        // TODO: fix stale checks can_data.main_hb.stale                              ||
+        // can_data.torque_request_main.stale                  ||
         motor_left.motor_state  != MC_CONNECTED             ||
         motor_right.motor_state != MC_CONNECTED) 
     {

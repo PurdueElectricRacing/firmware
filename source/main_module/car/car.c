@@ -49,6 +49,7 @@ void carPeriodic()
     static uint16_t t_temp;
 
     /* State Independent Operations */
+    //if (can_data.raw_throttle_brake.throttle > 0) asm("bkpt");
 
     // TODO: brakeLightUpdate(can_data.raw_throttle_brake.brake);
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
@@ -144,7 +145,7 @@ void carPeriodic()
         uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
         
         //int16_t t_req = adjusted_throttle - ((can_data.raw_throttle_brake.brake > 409) ? can_data.raw_throttle_brake.brake : 0); 
-        int16_t t_req = (int16_t) adjusted_throttle; // removing regen brake TODO: revert if regen
+        int16_t t_req = adjusted_throttle; // removing regen brake TODO: revert if regen
 
         // SEND_TORQUE_REQUEST_MAIN(q_tx_can, t_req, t_req, t_req, t_req);
         
@@ -152,7 +153,8 @@ void carPeriodic()
         // t_temp = (t_temp > 469) ? 0 : t_temp + 1;
 
         // E-diff
-        // eDiff(t_req, &torque_r);
+        //eDiff(t_req, &torque_r);
+        // TODO: fix steering for ediff
         torque_r.torque_left = t_req;
         torque_r.torque_right = t_req;
 
@@ -167,8 +169,8 @@ void carPeriodic()
         }
 
         // No regen :(
-        if (torque_r.torque_left < 0) torque_r.torque_left = 0;
-        if (torque_r.torque_right < 0) torque_r.torque_right = 0;
+        // if (torque_r.torque_left < 0) torque_r.torque_left = 0;
+        // if (torque_r.torque_right < 0) torque_r.torque_right = 0;
 
         SEND_TORQUE_REQUEST_MAIN(q_tx_can, 0, 0, torque_r.torque_left, torque_r.torque_right);
         // bypased for daq testing TODO: remove

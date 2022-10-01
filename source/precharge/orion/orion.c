@@ -11,7 +11,7 @@ extern q_handle_t q_tx_can;
 bool charge_request_user = false; // Enable charge algo
 uint16_t user_charge_current_request = 0;
 uint16_t user_charge_voltage_request = 0;
-uint8_t  orion_bms_temp_err = 1;
+uint8_t  orion_bms_temp_err = 0;
 
 
 void orionInit()

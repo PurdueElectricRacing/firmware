@@ -112,6 +112,9 @@ int main (void)
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         PHAL_FaultHandler();
 
+    // set high during init
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
+
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaultHandler();
 

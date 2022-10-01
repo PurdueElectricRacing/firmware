@@ -44,6 +44,9 @@ void canRxUpdate()
             can_data.LWS_Standard.stale = 0;
             can_data.LWS_Standard.last_rx = sched.os_ticks;
         }
+        else
+        
+        {
 
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
@@ -140,6 +143,7 @@ void canRxUpdate()
                 __asm__("nop");
         }
         /* END AUTO CASES */
+        }
     }
 
     /* BEGIN AUTO STALE CHECKS */

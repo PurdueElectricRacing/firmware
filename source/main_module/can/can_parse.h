@@ -23,6 +23,7 @@
 #define ID_MAIN_HB 0x4001901
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_FLOWRATE_TEMPS 0x4000881
+#define ID_LWS_CONFIG 0x7c0
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
@@ -43,6 +44,7 @@
 #define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_FLOWRATE_TEMPS 2
+#define DLC_LWS_CONFIG 2
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
@@ -81,6 +83,14 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->flowrate_temps.flowrate_battery = flowrate_battery_;\
         data_a->flowrate_temps.battery_line_temp = battery_line_temp_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_LWS_CONFIG(queue, CCW_, Reserved_1_, Reserved_2_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->LWS_Config.CCW = CCW_;\
+        data_a->LWS_Config.Reserved_1 = Reserved_1_;\
+        data_a->LWS_Config.Reserved_2 = Reserved_2_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_DAQ_RESPONSE_MAIN_MODULE(queue, daq_response_) do {\
@@ -231,6 +241,11 @@ typedef union { __attribute__((packed))
         uint64_t battery_line_temp: 8;
     } flowrate_temps;
     struct {
+        uint64_t CCW: 3;
+        uint64_t Reserved_1: 5;
+        uint64_t Reserved_2: 8;
+    } LWS_Config;
+    struct {
         uint64_t daq_response: 64;
     } daq_response_MAIN_MODULE;
     struct {
@@ -293,7 +308,10 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t LWS_ANGLE: 16;
         uint64_t LWS_SPEED: 8;
-        uint64_t Reserved_1: 8;
+        uint64_t Ok: 1;
+        uint64_t Cal: 1;
+        uint64_t Trim: 1;
+        uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
     } LWS_Standard;
     struct {
@@ -383,6 +401,9 @@ typedef struct {
     struct {
         int16_t LWS_ANGLE;
         uint8_t LWS_SPEED;
+        uint8_t Ok;
+        uint8_t Cal;
+        uint8_t Trim;
         uint8_t Reserved_1;
         uint8_t Reserved_2;
         uint8_t stale;

@@ -41,6 +41,18 @@
                             "msg_period":200,
                             "msg_hlp":1,
                             "msg_pgn":34
+                        },
+                        {
+                            "msg_name": "LWS_Config",
+                            "msg_desc": "Steering sensor configuration",
+                            "signals": [
+                                {"sig_name": "CCW", "type": "uint8_t", "length": 3},
+                                {"sig_name": "Reserved_1", "type":"uint8_t", "length": 5},
+                                {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8}
+                            ],
+                            "msg_period": 0,
+                            "msg_id_override": "0x7C0",
+                            "is_normal":true
                         }
                     ],
                     "rx":[
@@ -472,7 +484,10 @@
                             "signals": [
                                 {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"°", "scale":0.1},
                                 {"sig_name": "LWS_SPEED", "type":"uint8_t", "unit":"°/s", "scale":4, "length": 8},
-                                {"sig_name": "Reserved_1", "type":"uint8_t", "length": 8},
+                                {"sig_name": "Ok", "type": "uint8_t", "length": 1},
+                                {"sig_name": "Cal", "type": "uint8_t", "length": 1},
+                                {"sig_name": "Trim", "type": "uint8_t", "length": 1},
+                                {"sig_name": "Reserved_1", "type":"uint8_t", "length": 5},
                                 {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8}
                             ],
                             "msg_period": 10,

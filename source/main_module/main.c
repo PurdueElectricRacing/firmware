@@ -134,6 +134,15 @@ int main (void)
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
+    /*
+    CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=0};\
+    CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+    data_a->LWS_Config.CCW = 0x3; // 0x5 - reset cal 0x3 - calibrate
+    data_a->LWS_Config.Reserved_1 = 0;
+    data_a->LWS_Config.Reserved_2 = 0;
+    qSendToBack(&q_tx_can, &msg);\
+    */
+
     schedStart();
 
     return 0;
@@ -266,10 +275,12 @@ void CAN1_RX0_IRQHandler()
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
         { 
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+          rx.IDE = 1;
         }
         else
         {
           rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+          rx.IDE = 0;
         }
 
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;

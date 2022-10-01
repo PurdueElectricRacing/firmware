@@ -32,6 +32,19 @@ void canRxUpdate()
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         last_can_rx_time_ms = sched.os_ticks;
+        if (msg_header.IDE == 0 && msg_header.StdId == ID_LWS_STANDARD)
+        {
+            can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+            can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+            can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
+            can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
+            can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
+            can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+            can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+            can_data.LWS_Standard.stale = 0;
+            can_data.LWS_Standard.last_rx = sched.os_ticks;
+        }
+
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
@@ -111,6 +124,9 @@ void canRxUpdate()
             case ID_LWS_STANDARD:
                 can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
                 can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
+                can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
+                can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
                 can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
                 can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
                 can_data.LWS_Standard.stale = 0;
@@ -190,6 +206,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[5].FR1 = (ID_LWS_STANDARD << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
+    CAN1->FA1R |= (1 << 6);    // configure bank 6
+    CAN1->sFilterRegister[6].FR1 = (ID_LWS_STANDARD << 21);
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
 

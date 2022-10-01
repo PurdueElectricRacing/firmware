@@ -50,6 +50,11 @@ BO_ 2214594689 flowrate_temps: 2 Main_Module
  SG_ battery_line_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flowrate_battery : 0|8@1+ (0.1,0) [0|0] "" Vector__XXX
 
+BO_ 1984 LWS_Config: 2 Main_Module
+ SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136769 daq_response_MAIN_MODULE: 8 Main_Module
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -237,7 +242,10 @@ BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
 
 BO_ 688 LWS_Standard: 5 Steering
  SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ Reserved_1 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 27|5@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Trim : 26|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Cal : 25|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ok : 24|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "°/s" Vector__XXX
  SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "°" Vector__XXX
 
@@ -660,6 +668,10 @@ CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
 CM_ BO_ 2214594689 "Flowrate and Water temp";
 CM_ SG_ 2214594689 battery_line_temp "Temp in battery line";
 CM_ SG_ 2214594689 flowrate_battery "Flow rate for battery";
+CM_ BO_ 1984 "Steering sensor configuration";
+CM_ SG_ 1984 Reserved_2 "";
+CM_ SG_ 1984 Reserved_1 "";
+CM_ SG_ 1984 CCW "";
 CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
 CM_ SG_ 2550136769 daq_response "";
 CM_ BO_ 2214592578 "Torque request for all motors.";
@@ -820,6 +832,9 @@ CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 688 "Standard steering angle and speed";
 CM_ SG_ 688 Reserved_2 "";
 CM_ SG_ 688 Reserved_1 "";
+CM_ SG_ 688 Trim "";
+CM_ SG_ 688 Cal "";
+CM_ SG_ 688 Ok "";
 CM_ SG_ 688 LWS_SPEED "";
 CM_ SG_ 688 LWS_ANGLE "";
 CM_ BO_ 372 "Y Acceleration Update";

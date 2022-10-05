@@ -330,6 +330,14 @@ void update_time() {
   }
 
 }
+void updateBarsFast() {
+    if (p_idx != P_RACE) {
+        return;
+    }
+    set_value("j2\0", NXT_VALUE, (int)((can_data.torque_request_main.rear_right / 4095.0) * 100));
+    set_value("j1\0", NXT_VALUE, (100 - (int)((can_data.torque_request_main.rear_left / 4095.0) * 100)));
+
+}
 void check_error() {
     if ((p_idx == P_INFO) || (p_idx == P_WARNING) || (p_idx == P_CRITICAL)) {
        return;
@@ -465,14 +473,11 @@ void update_info_pages(void) {
         int_to_char(can_data.max_cell_temp.max_temp / 10, two_int_char, 2);
         set_text("t8\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
-         //Left Wheelspeed broke off on the first testing day, so I am relying on
-        //Right Wheelspeed instead of an average of both
+
         // int_to_char(((can_data.rear_wheel_data.left_speed +
         //                             can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
-        int_to_char(((can_data.rear_wheel_data.left_speed +
-                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
-
-        //******************************
+        int_to_char((int) (((can_data.rear_wheel_data.left_speed +
+                                    can_data.rear_wheel_data.right_speed) / 200) * 0.609), two_int_char, 2);
         set_text("t0\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
         int_to_char((can_data.rear_controller_temps.left_temp + can_data.rear_controller_temps.right_temp) / 2, two_int_char, 2);
@@ -508,14 +513,9 @@ void update_info_pages(void) {
         int_to_char(can_data.rear_motor_currents_temps.right_temp, three_int_char, 3);
         set_text("t6\0", NXT_TEXT, three_int_char);
         memset(three_int_char, 4, '\0');
-        //Left Wheelspeed broke off on the first testing day, so I am relying on
-        //Right Wheelspeed instead of an average of both
-        // int_to_char(((can_data.rear_wheel_data.left_speed +
-        //                             can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
-        int_to_char(((can_data.rear_wheel_data.left_speed +
-                    can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
 
-        //******************************
+        int_to_char((int) (((can_data.rear_wheel_data.left_speed +
+                                    can_data.rear_wheel_data.right_speed) / 200) * 0.609), two_int_char, 2);
         set_text("t3\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
         int_to_char(can_data.rear_controller_temps.left_temp, two_int_char, 2);
@@ -533,6 +533,9 @@ void update_info_pages(void) {
         int_to_char((can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
         set_text("t12\0", NXT_TEXT, three_int_char);
         set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);
+        memset(three_int_char, 4, '\0');
+        int_to_char(can_data.orion_currents_volts.pack_current / 10, three_int_char, 3);
+        set_text("t18\0", NXT_TEXT, three_int_char);
         break;
   }
 }
@@ -584,6 +587,7 @@ void update_race_colors() {
             else {
                 set_value("t19\0", NXT_FONT_COLOR, RED);
             }
+            set_value("j1\0", NXT_BACKGROUND_COLOR, GREEN);
             break;
         case P_EXTRA_INFO:
             if (can_data.rear_motor_currents_temps.left_temp < 60){

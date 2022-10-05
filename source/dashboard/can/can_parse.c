@@ -138,6 +138,14 @@ void canRxUpdate()
                 can_data.precharge_hb.stale = 0;
                 can_data.precharge_hb.last_rx = sched.os_ticks;
                 break;
+            case ID_TORQUE_REQUEST_MAIN:
+                can_data.torque_request_main.front_left = (int16_t) msg_data_a->torque_request_main.front_left;
+                can_data.torque_request_main.front_right = (int16_t) msg_data_a->torque_request_main.front_right;
+                can_data.torque_request_main.rear_left = (int16_t) msg_data_a->torque_request_main.rear_left;
+                can_data.torque_request_main.rear_right = (int16_t) msg_data_a->torque_request_main.rear_right;
+                can_data.torque_request_main.stale = 0;
+                can_data.torque_request_main.last_rx = sched.os_ticks;
+                break;
             case ID_DAQ_COMMAND_DASHBOARD:
                 can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
                 daq_command_DASHBOARD_CALLBACK(&msg_header);
@@ -173,6 +181,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.precharge_hb.stale,
                 sched.os_ticks, can_data.precharge_hb.last_rx,
                 UP_PRECHARGE_HB);
+    CHECK_STALE(can_data.torque_request_main.stale,
+                sched.os_ticks, can_data.torque_request_main.last_rx,
+                UP_TORQUE_REQUEST_MAIN);
     /* END AUTO STALE CHECKS */
 }
 
@@ -204,7 +215,9 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_REAR_CONTROLLER_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_PRECHARGE_HB << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

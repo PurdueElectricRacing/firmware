@@ -26,7 +26,21 @@ void orionInit()
 
 
 bool orionErrors() {
-    return (can_data.orion_info.dtc_status ||
+    static uint8_t counter;
+    bool bms_err = false;
+    if (can_data.orion_info.dtc_status)
+    {
+        counter++;
+    }
+    else {
+        counter = 0;
+    }
+    if (counter == 4)
+    {
+        counter--;
+        bms_err = true;
+    }
+    return (bms_err ||
             /* TODO: can_data.orion_info.stale || */
             orion_bms_temp_err);
 }
@@ -102,11 +116,25 @@ void orionCheckTempsPeriodic (){
         }
     }
 
+
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), 
-                                     (uint16_t) (avg_temp[1] * 10 / 16), 
-                                     (uint16_t) (avg_temp[2] * 10 / 16), 
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16),
+                                     (uint16_t) (avg_temp[1] * 10 / 16),
+                                     (uint16_t) (avg_temp[2] * 10 / 16),
                                      (uint16_t) (avg_temp[3] * 10 / 16));
 
-    orion_bms_temp_err = max_temp >= MAX_TEMP;
+
+    static uint8_t counter;
+
+    counter = (max_temp >= MAX_TEMP) ? counter+1 : 0;
+
+    if (counter == 10)
+    {
+        counter--;
+        orion_bms_temp_err = 1;
+    }
+    else orion_bms_temp_err = 0;
+
+
+    // orion_bms_temp_err = max_temp >= MAX_TEMP;
 }

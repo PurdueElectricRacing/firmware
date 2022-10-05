@@ -185,6 +185,7 @@ int main (void)
     taskCreate(update_err_pages, 500);
     taskCreate(update_info_pages, 200);
     taskCreate(update_race_colors, 1000);
+    taskCreate(updateBarsFast, 75);
 
     //taskCreate(check_precharge, 100);
 
@@ -288,7 +289,7 @@ void heartBeatLED()
     else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     // TODO IMD LED
     // PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, can_data.precharge_hb.IMD);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !can_data.precharge_hb.IMD);
     // TODO BMS LED
     // PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);

@@ -147,7 +147,7 @@ int main (void)
     taskCreate(monitorStatus, 50);
     taskCreate(orionChargePeriodic, 50);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(sendIMUData, 10);
+    // taskCreate(sendIMUData, 10);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -171,10 +171,10 @@ void preflightChecks(void)
                 PHAL_FaultHandler();
             break;
 
-        case 1:
-            if (!BMI088_init(&bmi_config))
-                PHAL_FaultHandler();
-            break;
+        // case 1:
+        //     if (!BMI088_init(&bmi_config))
+        //         PHAL_FaultHandler();
+        //     break;
 
         case 100:
             // Put accel into SPI mode
@@ -244,19 +244,20 @@ void monitorStatus()
     imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
+
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
 }
 
 
 
-void sendIMUData()
-{
-    int16_t ax, ay, az, gx, gy, gz;
-    BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
-    BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-    SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
-    SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
-}
+// void sendIMUData()
+// {
+//     int16_t ax, ay, az, gx, gy, gz;
+//     BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
+//     BMI088_readAccel(&bmi_config, &ax, &ay, &az);
+//     SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
+//     SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
+// }
 
 
 // *** Compulsory CAN Tx/Rx callbacks ***

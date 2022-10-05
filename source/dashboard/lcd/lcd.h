@@ -56,6 +56,7 @@ void update_info_pages(void);
 void check_precharge(void);
 void update_race_colors(void);
 void check_buttons(void);
+void updateBarsFast();
 void check_error(void);
 static char* int_to_char(int, char*, int);
 

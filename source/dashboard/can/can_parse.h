@@ -33,6 +33,7 @@
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_REAR_CONTROLLER_TEMPS 0xc000303
 #define ID_PRECHARGE_HB 0x4001944
+#define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -51,6 +52,7 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_PRECHARGE_HB 2
+#define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -96,6 +98,7 @@
 #define UP_ORION_ERRORS 1000
 #define UP_REAR_CONTROLLER_TEMPS 500
 #define UP_PRECHARGE_HB 100
+#define UP_TORQUE_REQUEST_MAIN 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -220,6 +223,12 @@ typedef union { __attribute__((packed))
         uint64_t BMS: 8;
     } precharge_hb;
     struct {
+        uint64_t front_left: 16;
+        uint64_t front_right: 16;
+        uint64_t rear_left: 16;
+        uint64_t rear_right: 16;
+    } torque_request_main;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -333,6 +342,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } precharge_hb;
+    struct {
+        int16_t front_left;
+        int16_t front_right;
+        int16_t rear_left;
+        int16_t rear_right;
+        uint8_t stale;
+        uint32_t last_rx;
+    } torque_request_main;
     struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;

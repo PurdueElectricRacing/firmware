@@ -138,10 +138,7 @@ int main (void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    //Preflight animation + checks - not relavant to BMS
     configureAnim(preflightAnimation, preflightChecks, 75, 750);
-    //Just heartbeat
-
     taskCreate(heartbeatTask, 500);
     taskCreate(orionCheckTempsPeriodic, 500);
     taskCreate(monitorStatus, 50);
@@ -171,10 +168,10 @@ void preflightChecks(void)
                 PHAL_FaultHandler();
             break;
 
-        // case 1:
-        //     if (!BMI088_init(&bmi_config))
-        //         PHAL_FaultHandler();
-        //     break;
+        case 1:
+            if (!BMI088_init(&bmi_config))
+                PHAL_FaultHandler();
+            break;
 
         case 100:
             // Put accel into SPI mode

@@ -253,8 +253,8 @@ bool initCANFilter()
     if (timeout == PHAL_CAN_INIT_TIMEOUT)
          return false;
 
-    CAN1->FMR |= CAN_FMR_FINIT;              // Enter init mode for filter banks
 
+    CAN1->FMR |= CAN_FMR_FINIT;              // Enter init mode for filter banks
     /** 
      * Configure the CAN2 start bank.
      *  There are 28 total filter banks that are shared between CAN1 and CAN2.
@@ -265,25 +265,47 @@ bool initCANFilter()
      * CAN2 does not have access to modify/view the filters. 
      */ 
     CAN1->FMR &= ~CAN_FMR_CAN2SB;
-    CAN1->FMR |= (26 << CAN_FMR_CAN2SB_Pos); // Set 0..25 for CAN1 and 26,27 for CAN2
-
-    CAN1->FM1R = 0x00000000;                 // Set banks 0-27 to mask mode
-
-    // Allow all messages from both busses
-    CAN1->FA1R |= (1 << 0);    // configure bank 0 for CAN1 rx all
-    CAN1->sFilterRegister[0].FR1 = 0;
-    CAN1->sFilterRegister[0].FR2 = 0;
-    
-    CAN1->FA1R |= (1 << 27);    // Activate bank 27 for CAN2 rx all
-    CAN1->FM1R &= ~(1 << 27);   // Ensure that filter 27 is in mask mode
-    CAN1->sFilterRegister[27].FR1 = 0;
-    CAN1->sFilterRegister[27].FR2 = 0;
+    CAN1->FMR |= (14 << CAN_FMR_CAN2SB_Pos); // Set 0..13 for CAN1 and 14..27 for CAN2
+    CAN1->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
+    CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
+    CAN1->FA1R |= (1 << 14);    // configure bank 14
+    CAN1->sFilterRegister[14].FR1 = (ID_MODULE_TEMP_0 << 3) | 4;
+    CAN1->sFilterRegister[14].FR2 = (ID_MODULE_TEMP_1 << 3) | 4;
+    CAN1->FA1R |= (1 << 15);    // configure bank 15
+    CAN1->sFilterRegister[15].FR1 = (ID_MODULE_TEMP_2 << 3) | 4;
+    CAN1->sFilterRegister[15].FR2 = (ID_MODULE_TEMP_3 << 3) | 4;
+    CAN1->FA1R |= (1 << 16);    // configure bank 16
+    CAN1->sFilterRegister[16].FR1 = (ID_MODULE_TEMP_4 << 3) | 4;
+    CAN1->sFilterRegister[16].FR2 = (ID_MODULE_TEMP_5 << 3) | 4;
+    CAN1->FA1R |= (1 << 17);    // configure bank 17
+    CAN1->sFilterRegister[17].FR1 = (ID_MODULE_TEMP_6 << 3) | 4;
+    CAN1->sFilterRegister[17].FR2 = (ID_MODULE_TEMP_7 << 3) | 4;
+    CAN1->FA1R |= (1 << 18);    // configure bank 18
+    CAN1->sFilterRegister[18].FR1 = (ID_MODULE_TEMP_8 << 3) | 4;
+    CAN1->sFilterRegister[18].FR2 = (ID_MODULE_TEMP_9 << 3) | 4;
+    CAN1->FA1R |= (1 << 19);    // configure bank 19
+    CAN1->sFilterRegister[19].FR1 = (ID_MODULE_TEMP_10 << 3) | 4;
+    CAN1->sFilterRegister[19].FR2 = (ID_MODULE_TEMP_11 << 3) | 4;
+    CAN1->FA1R |= (1 << 20);    // configure bank 20
+    CAN1->sFilterRegister[20].FR1 = (ID_MODULE_TEMP_12 << 3) | 4;
+    CAN1->sFilterRegister[20].FR2 = (ID_MODULE_TEMP_13 << 3) | 4;
+    CAN1->FA1R |= (1 << 21);    // configure bank 21
+    CAN1->sFilterRegister[21].FR1 = (ID_MODULE_TEMP_14 << 3) | 4;
+    CAN1->sFilterRegister[21].FR2 = (ID_MODULE_TEMP_15 << 3) | 4;
+    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->sFilterRegister[0].FR1 = (ID_ELCON_CHARGER_STATUS << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_ORION_INFO << 3) | 4;
+    CAN1->FA1R |= (1 << 1);    // configure bank 1
+    CAN1->sFilterRegister[1].FR1 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_ORION_ERRORS << 3) | 4;
+    CAN1->FA1R |= (1 << 2);    // configure bank 2
+    CAN1->sFilterRegister[2].FR1 = (ID_DAQ_COMMAND_PRECHARGE << 3) | 4;
     /* END AUTO FILTER */
-
+    
     CAN1->FMR &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)
-    CAN1->MCR &= ~CAN_MCR_INRQ;         // Enter back into NORMAL mode
+    CAN1->MCR &= ~CAN_MCR_INRQ;        // Enter back into NORMAL mode
 
     while((CAN1->MSR & CAN_MSR_INAK)
             && ++timeout < PHAL_CAN_INIT_TIMEOUT);

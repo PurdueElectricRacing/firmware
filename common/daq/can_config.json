@@ -155,8 +155,8 @@
                             "signals": [
                                 {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit": "kphx100"},
                                 {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
-                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
+                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"},
+                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"}
                             ],
                             "msg_period": 10,
                             "msg_hlp": 1,
@@ -167,8 +167,8 @@
                             "signals": [
                                 {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
                                 {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
-                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16},
-                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16}
+                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"},
+                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"}
                             ],
                             "msg_period": 10,
                             "msg_hlp": 1,
@@ -234,32 +234,6 @@
                             "msg_pgn": 101
                         },
                         {
-                            "msg_name": "battery_info",
-                            "msg_desc": "Information about battery voltage and other stuff",
-                            "signals": [
-                                {"sig_name": "voltage", "type":"uint16_t"},
-                                {"sig_name": "delta",   "type":"uint16_t"},
-                                {"sig_name": "lowest",  "type":"uint16_t"},
-                                {"sig_name": "error",   "type":"uint16_t"}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 2,
-                            "msg_pgn": 512
-                        },
-                        {
-                            "msg_name": "cell_info",
-                            "msg_desc": "Information about specific cell voltages",
-                            "signals": [
-                                {"sig_name": "idx", "sig_desc": "Cell starting index", "type": "uint8_t", "length":8},
-                                {"sig_name": "v1", "sig_desc": "Cell idx in V * 10000", "type": "uint16_t", "length":16},
-                                {"sig_name": "v2", "sig_desc": "Cell idx in V * 10000", "type": "uint16_t", "length":16},
-                                {"sig_name": "v3", "sig_desc": "Cell idx in V * 10000", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 2,
-                            "msg_pgn": 513
-                        },
-                        {
                             "msg_name": "elcon_charger_command",
                             "msg_desc": "Charge voltage and current request to ELCON charger",
                             "signals": [
@@ -316,8 +290,7 @@
                             "msg_hlp":1,
                             "msg_pgn":5016
                         },
-                        {
-                            "msg_name": "mod_cell_temp_avg",
+                        {   "msg_name": "mod_cell_temp_avg",
                             "msg_desc": "Average cell temperature for each module",
                             "signals":[
                                 {"sig_name": "temp_A", "type": "uint16_t", "length": 16, "scale": 0.1},
@@ -328,6 +301,19 @@
                             "msg_period":0,
                             "msg_hlp":5,
                             "msg_pgn":514
+                        },
+                        {   "msg_name": "raw_cell_temp",
+                            "msg_desc": "Raw cell temperature for each module of thermistor at index",
+                            "signals":[
+                                {"sig_name": "index",  "type": "uint8_t",  "length": 8},
+                                {"sig_name": "temp_A", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
+                                {"sig_name": "temp_B", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
+                                {"sig_name": "temp_C", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
+                                {"sig_name": "temp_D", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":5,
+                            "msg_pgn":515
                         }
                     ],
                     "rx": [
@@ -337,7 +323,7 @@
                         {"msg_name": "orion_errors"}
 
                     ],
-                    "accept_all_messages": true
+                    "accept_all_messages": false
                 },
                 {
                     "node_name":"OrionBMS",
@@ -384,38 +370,38 @@
                             "msg_name":"orion_errors",
                             "msg_desc":"Pack DTC Flags",
                             "signals":[
-                                {"sig_name": "discharge_limit_enforce", "type":"uint16_t","length":1},
-                                {"sig_name": "charger_safety_relay", "type":"uint16_t","length":1},
-                                {"sig_name": "internal_hardware", "type":"uint16_t","length":1},
-                                {"sig_name": "heatsink_thermistor", "type":"uint16_t","length":1},
-                                {"sig_name": "software", "type":"uint16_t","length":1},
-                                {"sig_name": "max_cellv_high", "type":"uint16_t","length":1},
-                                {"sig_name": "min_cellv_low", "type":"uint16_t","length":1},
-                                {"sig_name": "pack_overheat", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved0", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved1", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved2", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved3", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved4", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved5", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved6", "type":"uint16_t","length":1},
-                                {"sig_name": "reserved7", "type":"uint16_t","length":1},
-                                {"sig_name": "internal_comms", "type":"uint16_t","length":1},
-                                {"sig_name": "cell_balancing_foff", "type":"uint16_t","length":1},
-                                {"sig_name": "weak_cell", "type":"uint16_t","length":1},
-                                {"sig_name": "low_cellv", "type":"uint16_t","length":1},
-                                {"sig_name": "open_wire", "type":"uint16_t","length":1},
-                                {"sig_name": "current_sensor", "type":"uint16_t","length":1},
-                                {"sig_name": "max_cellv_o5v", "type":"uint16_t","length":1},
-                                {"sig_name": "cell_asic", "type":"uint16_t","length":1},
-                                {"sig_name": "weak_pack", "type":"uint16_t","length":1},
-                                {"sig_name": "fan_monitor", "type":"uint16_t","length":1},
-                                {"sig_name": "thermistor", "type":"uint16_t","length":1},
-                                {"sig_name": "external_comms", "type":"uint16_t","length":1},
-                                {"sig_name": "redundant_psu", "type":"uint16_t","length":1},
-                                {"sig_name": "hv_isolation", "type":"uint16_t","length":1},
-                                {"sig_name": "input_psu", "type":"uint16_t","length":1},
-                                {"sig_name": "charge_limit_enforce", "type":"uint16_t","length":1}
+                                {"sig_name": "discharge_limit_enforce", "type":"uint8_t","length":1},
+                                {"sig_name": "charger_safety_relay", "type":"uint8_t","length":1},
+                                {"sig_name": "internal_hardware", "type":"uint8_t","length":1},
+                                {"sig_name": "heatsink_thermistor", "type":"uint8_t","length":1},
+                                {"sig_name": "software", "type":"uint8_t","length":1},
+                                {"sig_name": "max_cellv_high", "type":"uint8_t","length":1},
+                                {"sig_name": "min_cellv_low", "type":"uint8_t","length":1},
+                                {"sig_name": "pack_overheat", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved0", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved1", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved2", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved3", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved4", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved5", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved6", "type":"uint8_t","length":1},
+                                {"sig_name": "reserved7", "type":"uint8_t","length":1},
+                                {"sig_name": "internal_comms", "type":"uint8_t","length":1},
+                                {"sig_name": "cell_balancing_foff", "type":"uint8_t","length":1},
+                                {"sig_name": "weak_cell", "type":"uint8_t","length":1},
+                                {"sig_name": "low_cellv", "type":"uint8_t","length":1},
+                                {"sig_name": "open_wire", "type":"uint8_t","length":1},
+                                {"sig_name": "current_sensor", "type":"uint8_t","length":1},
+                                {"sig_name": "max_cellv_o5v", "type":"uint8_t","length":1},
+                                {"sig_name": "cell_asic", "type":"uint8_t","length":1},
+                                {"sig_name": "weak_pack", "type":"uint8_t","length":1},
+                                {"sig_name": "fan_monitor", "type":"uint8_t","length":1},
+                                {"sig_name": "thermistor", "type":"uint8_t","length":1},
+                                {"sig_name": "external_comms", "type":"uint8_t","length":1},
+                                {"sig_name": "redundant_psu", "type":"uint8_t","length":1},
+                                {"sig_name": "hv_isolation", "type":"uint8_t","length":1},
+                                {"sig_name": "input_psu", "type":"uint8_t","length":1},
+                                {"sig_name": "charge_limit_enforce", "type":"uint8_t","length":1}
                             ],
                             "msg_period":1000,
                             "msg_hlp":3,
@@ -1100,7 +1086,7 @@
                             "msg_pgn": 0
                         }
                     ],
-                    "accept_all_messages": true,
+                    "accept_all_messages": false,
                     "rx": [
                         {"msg_name": "module_temp_0"},
                         {"msg_name": "module_temp_1"},

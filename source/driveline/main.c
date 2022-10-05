@@ -148,9 +148,6 @@ q_handle_t q_rx_can;
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
 motor_t motor_left, motor_right;
-// TODO: REMOVE WHEN NOT TESTING
-uint16_t mot_left_req;
-uint16_t mot_right_req;
 
 int main(void)
 {
@@ -182,7 +179,6 @@ int main(void)
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     // signify end of initialization
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
@@ -249,8 +245,6 @@ void preflightChecks(void) {
        case 4:
             /* Module init */
             initCANParse(&q_rx_can);
-            linkDAQVars();
-            daqInit(&q_tx_can, I2C);
             wheelSpeedsInit();
             break;
         case 5:
@@ -264,6 +258,7 @@ void preflightChecks(void) {
                             MC_MAX_RX_LENGTH);
             break;
         case 6:
+            // Right MC
             mcInit(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
             USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
             NVIC_EnableIRQ(USART2_IRQn);
@@ -295,15 +290,6 @@ void preflightAnimation(void) {
             break;
     }
 }
-
-void linkDAQVars(void) 
-{
-    linkReada(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
-    linkReada(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
-    linkWritea(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
-    linkWritea(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
-}
-
 
 void heartBeat()
 {
@@ -338,19 +324,17 @@ void commandTorquePeriodic()
     float pow_left  = (float) CLAMP(can_data.torque_request_main.rear_left, -4095, 4095);
     float pow_right = (float) CLAMP(can_data.torque_request_main.rear_right, -4095, 4095);
     #endif
-    // pow_left = (float) mot_left_req;
-    // pow_right = (float) mot_right_req;
     pow_left  = pow_left  * 100.0 / 4095.0;
     pow_right = pow_right * 100.0 / 4095.0;
 
-    // NO regen for now!!!
-    if (pow_left < 0) pow_left = 0.0;
-    if (pow_right < 0) pow_left = 0.0;
+    // Prevent regenerative braking, functionality not yet implemented
+    if (pow_left < 0)  pow_left  = 0.0;
+    if (pow_right < 0) pow_right = 0.0;
 
     // Only drive if ready
     if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
-        // TODO: fix stale checks can_data.main_hb.stale                              ||
-        // can_data.torque_request_main.stale                  ||
+        // TODO: fix stale checks can_data.main_hb.stale    ||
+        // can_data.torque_request_main.stale               ||
         motor_left.motor_state  != MC_CONNECTED             ||
         motor_right.motor_state != MC_CONNECTED) 
     {
@@ -371,6 +355,8 @@ void commandTorquePeriodic()
  */
 void parseDataPeriodic()
 {
+    uint16_t shock_l, shock_r;
+
     /* Update Motor Controller Data Structures */
     mcPeriodic(&motor_left);
     mcPeriodic(&motor_right);
@@ -379,14 +365,20 @@ void parseDataPeriodic()
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;
 
-    // TODO: shock pots change from raw
-    // TODO: use motor rpm to verify wheel speed sensors?
+    // Extract raw shocks from DMA buffer
+    shock_l = raw_shock_pots.pot_left;
+    shock_r = raw_shock_pots.pot_right;
+    // Scale from raw 12bit adc to mm * 10 of linear pot travel
+    shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
+    shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
+
+
 #if (FTR_DRIVELINE_REAR)
     SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
-                         raw_shock_pots.pot_left, raw_shock_pots.pot_right);
+                         shock_l, shock_r);
 #elif (FTR_DRIVELINE_FRONT)
     SEND_FRONT_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
-                         raw_shock_pots.pot_left, raw_shock_pots.pot_right);
+                         shock_l, shock_r);
 #endif
 
 #if (FTR_DRIVELINE_REAR)

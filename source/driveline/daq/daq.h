@@ -23,7 +23,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define NODE_NAME "Driveline"
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 2
+#define NUM_VARS 0
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
@@ -62,8 +62,6 @@ typedef enum
 #define DAQ_ID_MASK       0b11111
 
 // BEGIN AUTO VAR IDs
-#define DAQ_ID_MOT_LEFT_REQ 0
-#define DAQ_ID_MOT_RIGHT_REQ 1
 // END AUTO VAR IDs
 
 typedef struct

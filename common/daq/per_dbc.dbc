@@ -85,14 +85,14 @@ BO_ 2214598979 rear_driveline_hb: 6 Driveline
  SG_ rear_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592515 front_wheel_data: 8 Driveline
- SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_normal : 48|16@1+ (0.1,0) [0|0] "mm" Vector__XXX
+ SG_ left_normal : 32|16@1+ (0.1,0) [0|0] "mm" Vector__XXX
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
 BO_ 2214592579 rear_wheel_data: 8 Driveline
- SG_ right_normal : 48|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ left_normal : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ right_normal : 48|16@1+ (0.1,0) [0|0] "mm" Vector__XXX
+ SG_ left_normal : 32|16@1+ (0.1,0) [0|0] "mm" Vector__XXX
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
@@ -120,18 +120,6 @@ BO_ 2550136771 daq_response_DRIVELINE: 8 Driveline
 BO_ 2214598980 precharge_hb: 2 Precharge
  SG_ BMS : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ IMD : 0|8@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2281734148 battery_info: 8 Precharge
- SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ lowest : 32|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ delta : 16|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ voltage : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2281734212 cell_info: 7 Precharge
- SG_ v3 : 40|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ v2 : 24|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ v1 : 8|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ idx : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550588916 elcon_charger_command: 5 Precharge
  SG_ charge_disable : 32|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -162,6 +150,13 @@ BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
  SG_ temp_C : 32|16@1+ (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_B : 16|16@1+ (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483060932 raw_cell_temp: 7 Precharge
+ SG_ temp_D : 44|12@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_C : 32|12@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_B : 20|12@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_A : 8|12@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -697,13 +692,13 @@ CM_ SG_ 2214598979 rear_left_last_link_error "";
 CM_ SG_ 2214598979 rear_left_motor_link "";
 CM_ SG_ 2214598979 rear_left_motor "";
 CM_ BO_ 2214592515 "Wheel data for the rear tires";
-CM_ SG_ 2214592515 right_normal "";
-CM_ SG_ 2214592515 left_normal "";
+CM_ SG_ 2214592515 right_normal "Linear potentiometer distance between mounting points";
+CM_ SG_ 2214592515 left_normal "Linear potentiometer distance between mounting points";
 CM_ SG_ 2214592515 right_speed "";
 CM_ SG_ 2214592515 left_speed "";
 CM_ BO_ 2214592579 "Wheel data for the rear tires";
-CM_ SG_ 2214592579 right_normal "";
-CM_ SG_ 2214592579 left_normal "";
+CM_ SG_ 2214592579 right_normal "Linear potentiometer distance between mounting points";
+CM_ SG_ 2214592579 left_normal "Linear potentiometer distance between mounting points";
 CM_ SG_ 2214592579 right_speed "";
 CM_ SG_ 2214592579 left_speed "";
 CM_ BO_ 2348810883 "DC Current and Temperature of the motors";
@@ -726,16 +721,6 @@ CM_ SG_ 2550136771 daq_response "";
 CM_ BO_ 2214598980 "heart beat for precharge";
 CM_ SG_ 2214598980 BMS "";
 CM_ SG_ 2214598980 IMD "";
-CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
-CM_ SG_ 2281734148 error "";
-CM_ SG_ 2281734148 lowest "";
-CM_ SG_ 2281734148 delta "";
-CM_ SG_ 2281734148 voltage "";
-CM_ BO_ 2281734212 "Information about specific cell voltages";
-CM_ SG_ 2281734212 v3 "Cell idx in V * 10000";
-CM_ SG_ 2281734212 v2 "Cell idx in V * 10000";
-CM_ SG_ 2281734212 v1 "Cell idx in V * 10000";
-CM_ SG_ 2281734212 idx "Cell starting index";
 CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
 CM_ SG_ 2550588916 charge_disable "Disable charging";
 CM_ SG_ 2550588916 current_limit "Charge current";
@@ -760,6 +745,12 @@ CM_ SG_ 2483060868 temp_D "";
 CM_ SG_ 2483060868 temp_C "";
 CM_ SG_ 2483060868 temp_B "";
 CM_ SG_ 2483060868 temp_A "";
+CM_ BO_ 2483060932 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483060932 temp_D "";
+CM_ SG_ 2483060932 temp_C "";
+CM_ SG_ 2483060932 temp_B "";
+CM_ SG_ 2483060932 temp_A "";
+CM_ SG_ 2483060932 index "";
 CM_ BO_ 2550136772 "daq response from node PRECHARGE";
 CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483029688 "charge, State, Current/voltage limits";

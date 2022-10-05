@@ -52,8 +52,6 @@
                 {
                     "node_name":"Driveline",
                     "variables": [
-                        {"var_name":"mot_left_req", "read_only": false, "bit_length": 12},
-                        {"var_name":"mot_right_req", "read_only": false, "bit_length": 12}
                     ]
                 }
             ]

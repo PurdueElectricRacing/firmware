@@ -49,8 +49,6 @@ daq_eeprom_status_t daq_e_stat = {.read_idx=0, .write_idx=0, .data_buff_lock=0, 
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=0},
-    {.is_read_only=0, .bit_length=12, .eeprom_enabled=0},
 };
 // END AUTO VAR DEFS
 

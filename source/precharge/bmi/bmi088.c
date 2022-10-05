@@ -10,6 +10,7 @@
  */
 
 #include "bmi088.h"
+#include "bsxlite_interface.h"
 #include "common/phal_L4/spi/spi.h"
 #include "common_defs.h"
 
@@ -92,7 +93,7 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t* bmi)
     return false;
 }
 
-bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
+bool BMI088_readGyro(BMI088_Handle_t* bmi, vector_3d_t* v)
 {
     static uint8_t spi_rx_buff[16] = {0}; 
     static uint8_t spi_tx_buff[16] = {0};
@@ -120,13 +121,13 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
     switch(bmi->gyro_range)
     {
         case (GYRO_RANGE_2000):
-            scale = (16.384 / 10);
+            scale = (16.384 / DEG_TO_RAD);
             break;
         case (GYRO_RANGE_1000):
-            scale = (32.768 / 10);
+            scale = (32.768 / DEG_TO_RAD);
             break;
         case (GYRO_RANGE_500):
-            scale = (65.536 / 10);
+            scale = (65.536 / DEG_TO_RAD);
             if (range_down)
             {
                 bmi->gyro_range = GYRO_RANGE_250;
@@ -134,7 +135,7 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
             }
             break;
         case (GYRO_RANGE_250):
-            scale = (131.072 / 10);
+            scale = (131.072 / DEG_TO_RAD);
 
             if (range_up)
             {
@@ -149,7 +150,7 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
             }
             break;
         case (GYRO_RANGE_125):
-            scale = (262.144 / 10);
+            scale = (262.144 / DEG_TO_RAD);
 
             if (range_up)
             {
@@ -157,16 +158,18 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z)
                 PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
             }
             break;
+        default:
+            scale = 1.0; // prevent div by zero
     }
 
-    *x = (int16_t) (raw_x / scale);
-    *y = (int16_t) (raw_y / scale);
-    *z = (int16_t) (raw_z / scale);
+    v->x = raw_x / scale;
+    v->y = raw_y / scale;
+    v->z = raw_z / scale;
 
     return true;
 }
 
-bool BMI088_readAccel(BMI088_Handle_t* bmi, int16_t* ax, int16_t* ay, int16_t* az)
+bool BMI088_readAccel(BMI088_Handle_t* bmi, vector_3d_t* v)
 {
     static uint8_t spi_rx_buff[16] = {0}; 
     static uint8_t spi_tx_buff[16] = {0};
@@ -186,9 +189,9 @@ bool BMI088_readAccel(BMI088_Handle_t* bmi, int16_t* ax, int16_t* ay, int16_t* a
 
     // Conversion taken from datasheet pg 22.
 
-    *ax = (int16_t) ((float) (raw_ax << (bmi->accel_range+1)) / 32768.0f * 1000.0f  * 1.5f);
-    *ay = (int16_t) ((float) (raw_ay << (bmi->accel_range+1)) / 32768.0f * 1000.0f  * 1.5f);
-    *az = (int16_t) ((float) (raw_az << (bmi->accel_range+1)) / 32768.0f * 1000.0f  * 1.5f);
+    v->x = (float) (raw_ax << (bmi->accel_range+1)) / 32768.0f * G_TO_M_S * 1.5f;
+    v->y = (float) (raw_ay << (bmi->accel_range+1)) / 32768.0f * G_TO_M_S * 1.5f;
+    v->z = (float) (raw_az << (bmi->accel_range+1)) / 32768.0f * G_TO_M_S * 1.5f;
 
     return true;
 }

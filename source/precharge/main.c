@@ -14,6 +14,7 @@
 #include "bmi088.h"
 #include "daq.h"
 #include "orion.h"
+#include "bsxlite_interface.h"
 
 
 /* PER HAL Initilization Structures */
@@ -229,7 +230,6 @@ void heartbeatTask()
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 
-    // TODO: send heartbeat message containing error code (BMS, IMD, TEMP, ETC)
     SEND_PRECHARGE_HB(q_tx_can, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin), orionErrors());
 }
 

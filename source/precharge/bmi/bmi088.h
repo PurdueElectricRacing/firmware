@@ -147,22 +147,22 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t* bmi);
 /**
  * @brief Blocking function to read the most recent Data Sample from the gyro
  * 
- * @param x Acceleration around the X axis (pitch acceleration) in 0.1 deg/s
- * @param y Acceletation around the Y axis (roll acceleration) in 0.1 deg/s
- * @param z Acceleration around the Z axis (yaw acceleration) in 0.1 deg/s
+ * @param v.x Acceleration around the X axis (pitch acceleration) in rad/s
+ * @param v.y Acceletation around the Y axis (roll acceleration) in rad/s
+ * @param v.z Acceleration around the Z axis (yaw acceleration) in rad/s
  * @return true Successful data Tx/Rx
  * @return false Unsuccessful data Tx/Rx
  */
-bool BMI088_readGyro(BMI088_Handle_t* bmi, int16_t* x, int16_t* y, int16_t* z);
+bool BMI088_readGyro(BMI088_Handle_t* bmi, vector_3d_t* v);
 
 /**
  * @brief Blocking function to read the acceleration values form the device.
  * 
  * @param bmi 
- * @param ax Returned acceleration over x axis
- * @param ay Returned acceleration over y axis
- * @param az Returned acceleration over z axis
+ * @param v.x Returned acceleration over x axis (m/s^2)
+ * @param v.y Returned acceleration over y axis (m/s^2) 
+ * @param v.z Returned acceleration over z axis (m/s^2)
  * @return true 
  * @return false 
  */
-bool BMI088_readAccel(BMI088_Handle_t* bmi, int16_t* ax, int16_t* ay, int16_t* az);
+bool BMI088_readAccel(BMI088_Handle_t* bmi, vector_3d_t* v);

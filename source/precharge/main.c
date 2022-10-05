@@ -14,6 +14,7 @@
 #include "bmi088.h"
 #include "daq.h"
 #include "orion.h"
+#include "bsxlite_interface.h"
 
 
 /* PER HAL Initilization Structures */

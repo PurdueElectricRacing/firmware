@@ -9,10 +9,14 @@
  * 
  */
 
+#ifndef _BMI_H_
+#define _BMI_H_
+
 #include "stm32l496xx.h"
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>
+#include "bsxlite_interface.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/spi/spi.h"
 
@@ -166,3 +170,5 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, vector_3d_t* v);
  * @return false 
  */
 bool BMI088_readAccel(BMI088_Handle_t* bmi, vector_3d_t* v);
+
+#endif

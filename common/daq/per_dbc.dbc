@@ -142,6 +142,11 @@ BO_ 2214625348 accel_data: 6 Precharge
  SG_ ay : 16|16@1- (1,0) [0|0] "g" Vector__XXX
  SG_ ax : 0|16@1- (1,0) [0|0] "g" Vector__XXX
 
+BO_ 2214625540 angle_data: 6 Precharge
+ SG_ yaw : 32|16@1- (0.1,0) [0|0] "deg" Vector__XXX
+ SG_ roll : 16|16@1- (0.1,0) [0|0] "deg" Vector__XXX
+ SG_ pitch : 0|16@1- (0.1,0) [0|0] "deg" Vector__XXX
+
 BO_ 2214913540 max_cell_temp: 2 Precharge
  SG_ max_temp : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
 
@@ -738,6 +743,10 @@ CM_ BO_ 2214625348 "Acceleration rate data";
 CM_ SG_ 2214625348 az "";
 CM_ SG_ 2214625348 ay "";
 CM_ SG_ 2214625348 ax "";
+CM_ BO_ 2214625540 "Angle data from bsxlite software";
+CM_ SG_ 2214625540 yaw "";
+CM_ SG_ 2214625540 roll "";
+CM_ SG_ 2214625540 pitch "";
 CM_ BO_ 2214913540 "maximum cell temperature for the whole pack";
 CM_ SG_ 2214913540 max_temp "";
 CM_ BO_ 2483060868 "Average cell temperature for each module";

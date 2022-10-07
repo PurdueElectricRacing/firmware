@@ -28,6 +28,7 @@
 #define ID_PACK_CHARGE_STATUS 0x8008084
 #define ID_GYRO_DATA 0x4008004
 #define ID_ACCEL_DATA 0x4008044
+#define ID_ANGLE_DATA 0x4008104
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_MOD_CELL_TEMP_AVG 0x14008084
 #define ID_RAW_CELL_TEMP 0x140080c4
@@ -65,6 +66,7 @@
 #define DLC_PACK_CHARGE_STATUS 7
 #define DLC_GYRO_DATA 6
 #define DLC_ACCEL_DATA 6
+#define DLC_ANGLE_DATA 6
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_MOD_CELL_TEMP_AVG 8
 #define DLC_RAW_CELL_TEMP 7
@@ -153,6 +155,14 @@
         data_a->accel_data.az = az_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_ANGLE_DATA(queue, pitch_, roll_, yaw_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ANGLE_DATA, .DLC=DLC_ANGLE_DATA, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->angle_data.pitch = pitch_;\
+        data_a->angle_data.roll = roll_;\
+        data_a->angle_data.yaw = yaw_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_MAX_CELL_TEMP(queue, max_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAX_CELL_TEMP, .DLC=DLC_MAX_CELL_TEMP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -239,6 +249,11 @@ typedef union { __attribute__((packed))
         uint64_t ay: 16;
         uint64_t az: 16;
     } accel_data;
+    struct {
+        uint64_t pitch: 16;
+        uint64_t roll: 16;
+        uint64_t yaw: 16;
+    } angle_data;
     struct {
         uint64_t max_temp: 16;
     } max_cell_temp;

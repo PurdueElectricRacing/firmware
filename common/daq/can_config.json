@@ -281,6 +281,18 @@
                             "msg_hlp": 1,
                             "msg_pgn": 513
                         },
+                        {
+                            "msg_name": "angle_data",
+                            "msg_desc": "Angle data from bsxlite software",
+                            "signals": [
+                                {"sig_name": "pitch", "type":"int16_t", "scale": 0.1, "unit": "deg"},
+                                {"sig_name": "roll", "type":"int16_t", "scale": 0.1, "unit": "deg"},
+                                {"sig_name": "yaw", "type":"int16_t", "scale": 0.1, "unit": "deg"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 516
+                        },
                         {   "msg_name":"max_cell_temp",
                             "msg_desc":"maximum cell temperature for the whole pack",
                             "signals":[

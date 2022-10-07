@@ -13,6 +13,7 @@
 #include "main.h"
 #include "bmi088.h"
 #include "daq.h"
+#include "imu.h"
 #include "orion.h"
 #include "bsxlite_interface.h"
 
@@ -99,6 +100,10 @@ BMI088_Handle_t bmi_config = {
     .spi = &spi_config
 };
 
+IMU_Handle_t imu_h = {
+    .bmi = &bmi_config,
+};
+
 
 int main (void)
 {
@@ -144,8 +149,8 @@ int main (void)
     taskCreate(orionCheckTempsPeriodic, 500);
     taskCreate(monitorStatus, 50);
     taskCreate(orionChargePeriodic, 50);
+    taskCreate(sendIMUData, 10);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // taskCreate(sendIMUData, 10);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -186,13 +191,14 @@ void preflightChecks(void)
         case 500:
             if (!BMI088_initAccel(&bmi_config))
                 PHAL_FaultHandler();
-            break;
-
-        case 750:
-            registerPreflightComplete(1);
-            break;
-
         default:
+            if (state > 750)
+            {
+                if (!imu_init(&imu_h))
+                    PHAL_FaultHandler();
+                registerPreflightComplete(1);
+                state = 751;
+            }
             break;
     }
 }
@@ -247,14 +253,10 @@ void monitorStatus()
 
 
 
-// void sendIMUData()
-// {
-//     int16_t ax, ay, az, gx, gy, gz;
-//     BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
-//     BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-//     SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
-//     SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
-// }
+void sendIMUData()
+{
+    imu_periodic(&imu_h);
+}
 
 
 // *** Compulsory CAN Tx/Rx callbacks ***

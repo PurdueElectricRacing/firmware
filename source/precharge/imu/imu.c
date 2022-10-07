@@ -11,6 +11,8 @@
 
 #include "imu.h"
 
+extern q_handle_t q_tx_can;
+
 /**
  * @brief Initializes the bsxlite library
  * 
@@ -19,7 +21,7 @@
  */
 bool imu_init(IMU_Handle_t* imu_h)
 {
-    if (!imu_h->bmi || imu_h->bmi->accel_ready)
+    if (!imu_h->bmi || !imu_h->bmi->accel_ready)
         return false;
 
     bsxlite_get_version(&imu_h->version);
@@ -31,16 +33,17 @@ bool imu_init(IMU_Handle_t* imu_h)
 }
 
 
-void imu_periodic_update(IMU_Handle_t* imu_h)
+int32_t t_us = 0;
+void imu_periodic(IMU_Handle_t* imu_h)
 {
-    int32_t t_us;
     vector_3d_t accel_in, gyro_in;
+    int16_t h, p, r, y;
 
-    BMI088_readGyro(&imu_h->bmi, &gyro_in);
-    BMI088_readAccel(&imu_h->bmi, &accel_in);
+    BMI088_readGyro(imu_h->bmi, &gyro_in);
+    BMI088_readAccel(imu_h->bmi, &accel_in);
     // Only take a portion of the ms counter to prevent
     // overflow when converting to us
-    t_us = ((int32_t) (sched.os_ticks & 0x1FFFFFF)) * 1000;
+    //t_us = ((int32_t) (sched.os_ticks & 0x1FFFFFF)) * 1000;
     imu_h->last_result = bsxlite_do_step(&imu_h->inst,
                                          t_us,
                                          &accel_in,
@@ -49,11 +52,13 @@ void imu_periodic_update(IMU_Handle_t* imu_h)
     if (imu_h->last_result != BSXLITE_OK)
         return;
 
-    imu_h->output.orientation.
-    SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
-    SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
-}
+    p = (int16_t) (imu_h->output.orientation.pitch   * 10.0f / DEG_TO_RAD);
+    r = (int16_t) (imu_h->output.orientation.roll    * 10.0f / DEG_TO_RAD);
+    y = (int16_t) (imu_h->output.orientation.yaw     * 10.0f / DEG_TO_RAD);
 
-void imu_periodic_orientation(IMU_Handle_t* imu_h)
-{
+    SEND_ANGLE_DATA(q_tx_can, p, r, y);
+    SEND_ACCEL_DATA(q_tx_can, accel_in.x, accel_in.y, accel_in.z);
+    SEND_GYRO_DATA(q_tx_can, gyro_in.x, gyro_in.y, gyro_in.z);
+
+    t_us += 10000;
 }

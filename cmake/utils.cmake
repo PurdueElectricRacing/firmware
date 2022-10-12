@@ -40,10 +40,10 @@ function(postbuild_target TARGET_NAME)
         COMMENT "Formatting"
     )
 
-    # add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-    #     COMMAND arm-none-eabi-size ${TARGET_NAME} 
-    #     COMMENT "Binary Output Size"
-    # )
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND arm-none-eabi-size ${TARGET_NAME} 
+        COMMENT "Binary Output Size"
+    )
 
 endfunction()
 

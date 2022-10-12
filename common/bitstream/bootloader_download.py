@@ -1,5 +1,6 @@
 from math import floor, ceil
 import re
+from tabnanny import check
 import time
 from pathlib import Path
 from pprint import pprint
@@ -37,7 +38,22 @@ def sleep_ns(ns):
     while(time.time_ns() < exit):
         pass
 
+
+# CRC-32b calculation
+CRC_POLY = 0x04C11DB7
+def crc_update(data, prev):
+    crc = prev ^ data
+    idx = 0
+    while (idx < 32):
+        if (crc & 0x80000000): crc = ((crc << 1) ^ CRC_POLY) & 0xFFFFFFFF
+        else: crc = (crc << 1) & 0xFFFFFFFF
+        idx += 1
+    return crc
+
+
 def update_firmware(bl: BootloaderCommand, fname) -> None:
+    start = time.time()
+
     ih = IntelHex()
     ih.fromfile(fname, format="hex")
     segments = ih.segments()
@@ -50,19 +66,23 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
     total_words = ceil(total_bytes / 4)
     print("Waiting for node to enter bootloader mode")
 
+    # Request reset
+    msg = bl.firmware_rst_msg()
+    bus.send(msg)
+    
     can_rx = None
-    while can_rx == None or can_rx['cmd'] != 2:
+    while can_rx == None or can_rx['cmd'] != bl.RX_CMD['BLSTAT_WAIT']:
         msg = bus.recv()
         if msg.arbitration_id == rx_msg_def.frame_id:
             can_rx = db.decode_message(msg.arbitration_id, msg.data)
 
     print("Sending over firmware image metadata...")
     msg = bl.firmware_size_msg(total_words)
-    print(msg)
 
     bus.send(msg)
+
     can_rx = None
-    while not can_rx or can_rx['cmd'] != 3:
+    while not can_rx or can_rx['cmd'] != bl.RX_CMD['BLSTAT_METDATA_RX']:
         msg = bus.recv()
         if msg.arbitration_id == rx_msg_def.frame_id:
             can_rx = db.decode_message(msg.arbitration_id, msg.data)
@@ -74,44 +94,53 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
     print(f"Total File Size: {total_bytes} Bytes")
 
     num_msg = 0
+    crc = 0xFFFFFFFF
     for address in range(segments[0][0], segments[0][1], 4):
         num_msg  = num_msg + 1
         bin_arr = ih.tobinarray(start=address, size=4)
+
         data = sum([x << ((i*8)) for i, x in enumerate(bin_arr)])
+        crc = crc_update(data, crc)
 
         can_tx = bl.firmware_data_msg(data)
         bus.send(can_tx)
 
         can_rx = None
-        while not can_rx or can_rx['data'] != address + 4:
+        while not can_rx or can_rx['data'] != address + 4 or can_rx['cmd'] != bl.RX_CMD['BLSTAT_PROGRESS']:
             msg = bus.recv()
             if msg.arbitration_id == rx_msg_def.frame_id:
                 can_rx = db.decode_message(msg.arbitration_id, msg.data)   
-                if (can_rx['cmd'] == 9):
-                    # bus.send(can_tx)
-                    print("Timeout message...")
-                else:
+                if can_rx['cmd'] != bl.RX_CMD['BLSTAT_PROGRESS']:
+                    print(f"Received invalid command: {can_rx['cmd']}")
+                elif can_rx['data'] != address + 4:
                     print(f"{can_rx['cmd']}|{can_rx['data']} != {address + 4} msg # {num_msg}")
-
+                else:
+                    # print(f"{can_rx['cmd']}|Sent address {can_rx['data']} msg # {num_msg}")
+                    pass
                 if can_rx['data'] > address + 4:
                     print("Node data overrun!")
                     return
 
-            # bus.send(can_tx, timeout=0.1)
-        
+    # Send CRC
+    print("Sending CRC checksum")
+    # print("%08x" % (crc & 0xFFFFFFFF))
+    can_tx = bl.firmware_crc_msg(crc & 0xFFFFFFFF)
+    bus.send(can_tx)
 
+    # Receive firmware download success / fail
+    can_rx = None
+    while not can_rx or can_rx['cmd'] == bl.RX_CMD['BLSTAT_UNKNOWN_CMD']:
+        msg = bus.recv()
+        if msg.arbitration_id == rx_msg_def.frame_id:
+            can_rx = db.decode_message(msg.arbitration_id, msg.data)   
 
-        # timeout = time.time() + 1
-        
-        # while(not rx_msg or ):
-        #     if rx_msg:
-        #         print(f"{rx_msg[0]}|{rx_msg[1]} != {address + 4} msg # {num_msg}")
-        #     if time.time() > timeout:
-        #         # can_tx.send(bl.firmware_data_msg(data))
-        #         # timeout = time.time() + 0.01
-        #         print("Timeout!")
-        #         return
-        #     rx_msg = bl.get_rx_msg()
+    if (can_rx['cmd'] == bl.RX_CMD['BLSTAT_DONE']):
+        print("Firmware download successful, CRC matched!")
+    else:
+        print("ERROR: Firmware download failed!!")
+    
+    print(f"Total time: {time.time() - start}")
+
 
 rx_msg_def = None
 if __name__ == "__main__":
@@ -120,8 +149,8 @@ if __name__ == "__main__":
         print("Please provide a path to a firmware image")
         exit()
 
-    bl = BootloaderCommand("torquevector", db, None)
-    rx_msg_def = db.get_message_by_name("torquevector_bl_resp")
+    bl = BootloaderCommand("l4_testing", db, None)
+    rx_msg_def = db.get_message_by_name("l4_testing_bl_resp")
     # bus.set_filters([{"can_id": 0x0404E2BC, "can_mask": 0xFFFFFFFF},
     #                  {"can_id": 0x0409C4BE, "can_mask": 0xFFFFFFFF}])
     # while(1):

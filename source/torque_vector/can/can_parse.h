@@ -26,7 +26,6 @@
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_BITSTREAM_DATA 0x1000193e
 #define ID_BITSTREAM_REQUEST 0x1000197e
-#define ID_BOOTLOADER_REQUEST_RESET 0x809c43e
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -37,7 +36,6 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_BITSTREAM_DATA 8
 #define DLC_BITSTREAM_REQUEST 5
-#define DLC_BOOTLOADER_REQUEST_RESET 1
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -112,9 +110,6 @@ typedef union { __attribute__((packed))
         uint64_t download_request: 1;
         uint64_t download_size: 32;
     } bitstream_request;
-    struct {
-        uint64_t node: 8;
-    } bootloader_request_reset;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -153,9 +148,6 @@ typedef struct {
         uint8_t download_request;
         uint32_t download_size;
     } bitstream_request;
-    struct {
-        uint8_t node;
-    } bootloader_request_reset;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -163,7 +155,6 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bootloader_request_reset_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

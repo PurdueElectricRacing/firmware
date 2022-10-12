@@ -2,6 +2,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
     
         {
             "name": "Main Module",
@@ -246,7 +247,7 @@
         {
             "name": "Bootloader - Main",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/bootloaders/bootloader_mainmodule/bootloader_mainmodule.elf",
+            "executable": "./output/bootloaders/bootloader_main_module/bootloader_main_module.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -262,6 +263,26 @@
             ],
             // "preLaunchTask": "build",
             "runToEntryPoint": "main"
+        },
+        {
+            "name": "Bootloader - L4_Testing",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bootloaders/bootloader_l4_testing/BL_bootloader_l4_testing.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L432KC",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bootlaoder"
+            ],
+            // "preLaunchTask": "build",
+            "runToEntryPoint": "Reset_Handler"
         },
     ]
 }

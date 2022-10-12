@@ -33,10 +33,10 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_MAINMODULE_BL_CMD:
-                can_data.mainmodule_bl_cmd.cmd = msg_data_a->mainmodule_bl_cmd.cmd;
-                can_data.mainmodule_bl_cmd.data = msg_data_a->mainmodule_bl_cmd.data;
-                mainmodule_bl_cmd_CALLBACK(msg_data_a);
+            case ID_MAIN_MODULE_BL_CMD:
+                can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
+                can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
+                main_module_bl_cmd_CALLBACK(msg_data_a);
                 break;
             case ID_DASHBOARD_BL_CMD:
                 can_data.dashboard_bl_cmd.cmd = msg_data_a->dashboard_bl_cmd.cmd;
@@ -113,6 +113,11 @@ void canRxUpdate()
                 can_data.bms_j_bl_cmd.data = msg_data_a->bms_j_bl_cmd.data;
                 bms_j_bl_cmd_CALLBACK(msg_data_a);
                 break;
+            case ID_L4_TESTING_BL_CMD:
+                can_data.l4_testing_bl_cmd.cmd = msg_data_a->l4_testing_bl_cmd.cmd;
+                can_data.l4_testing_bl_cmd.data = msg_data_a->l4_testing_bl_cmd.data;
+                l4_testing_bl_cmd_CALLBACK(msg_data_a);
+                break;
             default:
                 __asm__("nop");
         }
@@ -149,7 +154,7 @@ bool initCANFilter()
 #endif /* CAN2 */
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_MAINMODULE_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_DASHBOARD_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_TORQUEVECTOR_BL_CMD << 3) | 4;
@@ -172,6 +177,8 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 7);    // configure bank 7
     CAN1->sFilterRegister[7].FR1 = (ID_BMS_I_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[7].FR2 = (ID_BMS_J_BL_CMD << 3) | 4;
+    CAN1->FA1R |= (1 << 8);    // configure bank 8
+    CAN1->sFilterRegister[8].FR1 = (ID_L4_TESTING_BL_CMD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

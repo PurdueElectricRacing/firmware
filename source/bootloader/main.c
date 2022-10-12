@@ -93,7 +93,7 @@ int main (void)
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     CanMsgTypeDef_t tx_msg;
-    BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_count);
+    BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_reason);
 
     /*
         Main bootloader loop.
@@ -105,20 +105,7 @@ int main (void)
         while (q_rx_can.item_count > 0)
             canRxUpdate();
 
-        if (BL_flashStarted())
-        {
-            if (send_status_flag)
-            {
-                send_status_flag = false;
-                BL_sendStatusMessage(BLSTAT_RETRY_DATA, (uint32_t)  BL_getCurrentFlashAddress());
-            }
-            else if (send_flash_address)
-            {
-                send_flash_address = false;
-                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
-            } 
-        } 
-        else
+        if (!BL_flashStarted())
         {
             if (send_status_flag)
             {
@@ -142,7 +129,6 @@ int main (void)
         }
     }
 
-    asm("bkpt");
     NVIC_DisableIRQ(SysTick_IRQn);
     NVIC_DisableIRQ(CAN1_RX0_IRQn);
 
@@ -151,8 +137,10 @@ int main (void)
     BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
     while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
         PHAL_txCANMessage(&tx_msg);
+
     jump_to_application();
 
+    // Only sent if first double-word is NULL (no app exists)
     BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
     bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
     while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
@@ -164,16 +152,11 @@ void SysTick_Handler(void)
 {
     bootloader_ms++;
 
-    bootloader_ms_2++;
-    if (bootloader_ms_2 % 10 == 0)
-        send_flash_address = true;
-    
     switch (bootloader_shared_memory.reset_reason)
     {
-        case RESET_REASON_DOWNLOAD_FW:
         case RESET_REASON_BAD_FIRMWARE:
         case RESET_REASON_INVALID:
-            // Unknown reset cause or we were asked to download new firmware.
+            // Unknown reset cause or bad firmware
             // Will infinetly wait in bootloader mode
             if (bootloader_ms % 100 == 0)
             {
@@ -181,6 +164,7 @@ void SysTick_Handler(void)
             }
             break;
         case RESET_REASON_BUTTON:
+        case RESET_REASON_DOWNLOAD_FW:
         case RESET_REASON_APP_WATCHDOG:
             // Watchdog reset or a bad firmware boot, 
             // stay in bootlaoder for 3 seconds before attempting to boot again
@@ -188,15 +172,19 @@ void SysTick_Handler(void)
             {
                 send_status_flag = true;
             }
-            if (bootloader_ms >= 3000)
+            if (bootloader_ms >= 3000 && !BL_flashStarted())
             {
                 bootloader_timeout = true;
             }
             break;
         case RESET_REASON_POR:
-            if (bootloader_ms >= 2000)
+            if (bootloader_ms % 100 == 0)
             {
                 send_status_flag = true;
+            }
+            // Allow some time in case bootloader request present
+            if (bootloader_ms >= 500 && !BL_flashStarted())
+            {
                 bootloader_timeout = true;
             }
             break;
@@ -221,14 +209,7 @@ bool check_boot_health(void)
     uint32_t reset_cause = RCC->CSR;
     RCC->CSR |= RCC_CSR_RMVF;
 
-    if ((reset_cause & RCC_CSR_BORRSTF) == RCC_CSR_BORRSTF)
-    {
-        // Power-on-reset, update reset count to initial value
-        // reset_count could have been garbage otherwise
-        bootloader_shared_memory.reset_reason = RESET_REASON_POR;
-        bootloader_shared_memory.reset_count  = 0;
-    }
-    else if ((reset_cause & RCC_CSR_LPWRRSTF) == RCC_CSR_LPWRRSTF)
+    if (reset_cause & (RCC_CSR_BORRSTF | RCC_CSR_LPWRRSTF))
     {
         // Power-on-reset, update reset count to initial value
         // reset_count could have been garbage otherwise
@@ -242,12 +223,17 @@ bool check_boot_health(void)
         if (bootloader_shared_memory.reset_reason == RESET_REASON_DOWNLOAD_FW)
         {
             // We wanted to reset for a new firmware download
-            bootloader_shared_memory.reset_count  = 0;
+            bootloader_shared_memory.reset_count = 0;
         }
         else if (bootloader_shared_memory.reset_reason == RESET_REASON_APP_WATCHDOG)
         {
             // Reset from software watchdog (not necessicarly IWDG, just some form of bad software reboot)
-            bootloader_shared_memory.reset_count ++;
+            bootloader_shared_memory.reset_count++;
+        }
+        else if (bootloader_shared_memory.reset_reason == RESET_REASON_BAD_FIRMWARE)
+        {
+            // Reset from invalid app
+            bootloader_shared_memory.reset_count++;
         }
         else
         {
@@ -255,17 +241,17 @@ bool check_boot_health(void)
             bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
         }
     }
-    else if ((reset_cause & RCC_CSR_PINRSTF) == RCC_CSR_PINRSTF)
-    {
-        bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
-        bootloader_shared_memory.reset_count  = 0;
-    } 
     else if ((reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
     {
         // Application Watchdog reset from hardware watchdog
         bootloader_shared_memory.reset_count++;
         bootloader_shared_memory.reset_reason = RESET_REASON_APP_WATCHDOG;
     }
+    else if ((reset_cause & RCC_CSR_PINRSTF) == RCC_CSR_PINRSTF)
+    {
+        bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
+        bootloader_shared_memory.reset_count  = 0;
+    } 
     else
     {
         bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
@@ -283,23 +269,30 @@ bool check_boot_health(void)
 
 void jump_to_application(void)
 {
+    uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
+    uint32_t msp = (uint32_t) *((uint32_t*) (((void *) &_eboot_flash)));
+    // Confirm app exists
+    if (app_reset_handler_address == 0xFFFFFFFF || 
+        msp == 0xFFFFFFFF) return;
+
     // Reset all of our used peripherals
     RCC->APB1RSTR1  |= RCC_APB1RSTR1_CAN1RST;
-    RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOARST;
+    RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOBRST;       // Must change based on status led port
+    RCC->AHB1RSTR   |= RCC_AHB1RSTR_CRCRST;
     RCC->APB1RSTR1  &= ~(RCC_APB1RSTR1_CAN1RST);
-    RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOARST);
+    RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOBRST);
     SysTick->CTRL = 0;
+    SysTick->LOAD = 0;
+    SysTick->VAL  = 0;
 
     // Make sure the interrupts are disabled before we start attempting to jump to the app
     // Getting an interrupt after we set VTOR would be bad.
-    __disable_irq();
-
     // Actually jump to application
-    __set_MSP((uint32_t) (uint32_t*) (((void *) &_eboot_flash)));
-    // SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
-    uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
+    __disable_irq();
+    __set_MSP(msp);
+    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
     __enable_irq();
-    ((void(*)(void)) app_reset_handler_address)();
+   ((void(*)(void)) app_reset_handler_address)();
 }
 
 static uint32_t can_irq_hits = 0;

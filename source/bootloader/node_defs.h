@@ -1,5 +1,5 @@
 /**
- * @file bootloader_can.h
+ * @file node_defs.h
  * @author Adam Busch (busch8@purdue.edu)
  * @brief Common definitions for setting up CAN communication within the bootloader
  * @version 0.1
@@ -17,7 +17,7 @@
  * DO NOT change any existing IDs
  */
 
-#define    APP_MAINMODULE   0x01
+#define    APP_MAIN_MODULE   0x01
 #define    APP_DASHBOARD    0x02
 #define    APP_TORQUEVECTOR 0x03
 #define    APP_PRECHARGE    0x04
@@ -33,9 +33,10 @@
 #define    APP_BMS_H        0x0E
 #define    APP_BMS_I        0x0F
 #define    APP_BMS_J        0x10
+#define    APP_L4_TESTING   0x11
 
 #if !defined(APP_ID)
-    #warning "Please define which device this bootloader will be running on. Defaulting to APP_MAINMODULE"
+    #warning "Please define which device this bootloader will be running on. Defaulting to APP_MAIN_MODULE"
 #endif
 
 
@@ -47,7 +48,8 @@
     (APP_ID == APP_DRIVELINE_R)  ||\
     (APP_ID == APP_DASHBOARD)    ||\
     (APP_ID == APP_PRECHARGE)    ||\
-    ((APP_ID >= APP_BMS_A)  && (APP_ID <= APP_BMS_J))
+    ((APP_ID >= APP_BMS_A)  && (APP_ID <= APP_BMS_J)) ||\
+    (APP_ID == APP_L4_TESTING)
 
     #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PA11
     #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PA12
@@ -56,7 +58,7 @@
     #define STATUS_LED_Pin       5
 #endif
 
-#if (APP_ID == APP_MAINMODULE)
+#if (APP_ID == APP_MAIN_MODULE)
     #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PD1
     #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PD0
 

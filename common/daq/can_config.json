@@ -77,8 +77,7 @@
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
                         {"msg_name": "bitstream_data",    "callback": false, "irq": true},
-                        {"msg_name": "bitstream_request", "callback": true, "irq": false},
-                        {"msg_name": "bootloader_request_reset", "callback": true, "irq": false}
+                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
                     ]
                 },
                 {
@@ -341,7 +340,7 @@
                     "node_ssa": 60,
                     "can_peripheral": "CAN1",
                     "tx": [
-                        {   "msg_name":"mainmodule_bl_resp",
+                        {   "msg_name":"main_module_bl_resp",
                             "msg_desc":"Main Module Bootloader response",
                             "signals":[
                                 {"sig_name":"cmd","type":"uint8_t","length":8},
@@ -500,11 +499,20 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":5015
+                        },
+                        {   "msg_name":"l4_testing_bl_resp",
+                            "msg_desc":"L4 Test Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":5016
                         }
-                        
                     ],
                     "rx": [
-                        {"msg_name": "mainmodule_bl_cmd", "callback": true},
+                        {"msg_name": "main_module_bl_cmd", "callback": true},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "torquevector_bl_cmd" , "callback": true},
                         {"msg_name": "driveline_f_bl_cmd" , "callback": true},
@@ -519,7 +527,8 @@
                         {"msg_name": "bms_g_bl_cmd" , "callback": true},
                         {"msg_name": "bms_h_bl_cmd" , "callback": true},
                         {"msg_name": "bms_i_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_j_bl_cmd" , "callback": true}
+                        {"msg_name": "bms_j_bl_cmd" , "callback": true},
+                        {"msg_name": "l4_testing_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -676,18 +685,9 @@
                     "rx": []
                 },
                 {
-                    "node_name":"TESTER",
+                    "node_name":"BITSTREAM",
                     "node_ssa":62,
                     "tx":[
-                        {   "msg_name":"bootloader_request_reset",
-                            "msg_desc":"Request message for resetting a node for bootloader download",
-                            "signals":[
-                                {"sig_name":"node", "sig_desc":"Target node to reset","type":"uint8_t"}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":2,
-                            "msg_pgn":10000
-                        },
                         {   "msg_name":"bitstream_data",
                             "msg_desc":"Bitstream download command",
                             "signals":[
@@ -715,7 +715,7 @@
                             "msg_pgn":101
                         },
                         {
-                            "msg_name": "mainmodule_bl_cmd",
+                            "msg_name": "main_module_bl_cmd",
                             "msg_desc": "Bootloader command for main module",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
@@ -889,6 +889,17 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10015
+                        },
+                        {
+                            "msg_name": "l4_testing_bl_cmd",
+                            "msg_desc": "Bootloader command for l4 testing",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10016
                         }
                     ],
                     "rx":[ 
@@ -1930,7 +1941,8 @@
                     "rx":[
                         {"msg_name": "test_msg5_2"},
                         {"msg_name": "test_stale"},
-                        {"msg_name": "car_state2"}
+                        {"msg_name": "car_state2"},
+                        {"msg_name": "l4_testing_bl_cmd", "callback": true}
                     ]
                 },
                 {
@@ -2004,6 +2016,7 @@
                         }
                     ],
                     "rx":[
+                        {"msg_name": "l4_testing_bl_cmd", "callback": true}
                     ]
                 }
             ]

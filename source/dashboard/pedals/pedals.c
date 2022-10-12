@@ -6,7 +6,7 @@ volatile raw_pedals_t raw_pedals = {0};
 pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=300, // WARNING: DAQ VARIABLE
                                          .t2max=1550,.t2min=300, // IF EEPROM ENABLED,
                                          .b1max=1000,.b1min=700, // VALUE WILL CHANGE
-                                         .b2max=900,.b2min=680, // 1400, 400
+                                         .b2max=820,.b2min=690, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};

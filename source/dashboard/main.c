@@ -189,7 +189,7 @@ int main (void)
 
     //taskCreate(check_precharge, 100);
 
-    taskCreate(check_buttons, 25);
+    taskCreate(check_buttons, 100);
     // taskCreate(check_error, 1000);
 
     taskCreateBackground(usartTxUpdate);

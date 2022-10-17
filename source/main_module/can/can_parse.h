@@ -43,7 +43,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
-#define DLC_FLOWRATE_TEMPS 2
+#define DLC_FLOWRATE_TEMPS 6
 #define DLC_LWS_CONFIG 2
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
@@ -78,11 +78,14 @@
         data_a->torque_request_main.rear_right = rear_right_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_FLOWRATE_TEMPS(queue, flowrate_battery_, battery_line_temp_) do {\
+#define SEND_FLOWRATE_TEMPS(queue, flowrate_battery_, battery_line_temp_, battery_line_temp_two_, aux_analog_one_, aux_analog_two_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FLOWRATE_TEMPS, .DLC=DLC_FLOWRATE_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->flowrate_temps.flowrate_battery = flowrate_battery_;\
         data_a->flowrate_temps.battery_line_temp = battery_line_temp_;\
+        data_a->flowrate_temps.battery_line_temp_two = battery_line_temp_two_;\
+        data_a->flowrate_temps.aux_analog_one = aux_analog_one_;\
+        data_a->flowrate_temps.aux_analog_two = aux_analog_two_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_LWS_CONFIG(queue, CCW_, Reserved_1_, Reserved_2_) do {\
@@ -239,6 +242,9 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t flowrate_battery: 8;
         uint64_t battery_line_temp: 8;
+        uint64_t battery_line_temp_two: 8;
+        uint64_t aux_analog_one: 12;
+        uint64_t aux_analog_two: 12;
     } flowrate_temps;
     struct {
         uint64_t CCW: 3;

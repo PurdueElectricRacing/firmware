@@ -46,7 +46,10 @@ BO_ 2214592577 torque_request_main: 8 Main_Module
  SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214594689 flowrate_temps: 2 Main_Module
+BO_ 2214594689 flowrate_temps: 6 Main_Module
+ SG_ aux_analog_two : 36|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ aux_analog_one : 24|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ battery_line_temp_two : 16|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ battery_line_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flowrate_battery : 0|8@1+ (0.1,0) [0|0] "" Vector__XXX
 
@@ -133,14 +136,14 @@ BO_ 2281734276 pack_charge_status: 7 Precharge
  SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
 
 BO_ 2214625284 gyro_data: 6 Precharge
- SG_ gz : 32|16@1- (1,0) [0|0] "deg/s" Vector__XXX
- SG_ gy : 16|16@1- (1,0) [0|0] "deg/s" Vector__XXX
- SG_ gx : 0|16@1- (1,0) [0|0] "deg/s" Vector__XXX
+ SG_ gz : 32|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
+ SG_ gy : 16|16@1- (0.01,0) [0|0] "rad/s*100" Vector__XXX
+ SG_ gx : 0|16@1- (0.01,0) [0|0] "rad/s*100" Vector__XXX
 
 BO_ 2214625348 accel_data: 6 Precharge
- SG_ az : 32|16@1- (1,0) [0|0] "g" Vector__XXX
- SG_ ay : 16|16@1- (1,0) [0|0] "g" Vector__XXX
- SG_ ax : 0|16@1- (1,0) [0|0] "g" Vector__XXX
+ SG_ az : 32|16@1- (0.01,0) [0|0] "m/s^2*100" Vector__XXX
+ SG_ ay : 16|16@1- (0.01,0) [0|0] "m/s^2*100" Vector__XXX
+ SG_ ax : 0|16@1- (0.01,0) [0|0] "m/s^2*100" Vector__XXX
 
 BO_ 2214625540 angle_data: 6 Precharge
  SG_ yaw : 32|16@1- (0.1,0) [0|0] "deg" Vector__XXX
@@ -666,6 +669,9 @@ CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
 CM_ BO_ 2214594689 "Flowrate and Water temp";
+CM_ SG_ 2214594689 aux_analog_two "Auxilary analog two";
+CM_ SG_ 2214594689 aux_analog_one "Auxilary analog one";
+CM_ SG_ 2214594689 battery_line_temp_two "Temp in battery line two";
 CM_ SG_ 2214594689 battery_line_temp "Temp in battery line";
 CM_ SG_ 2214594689 flowrate_battery "Flow rate for battery";
 CM_ BO_ 1984 "Steering sensor configuration";

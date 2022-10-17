@@ -81,7 +81,8 @@ void coolingPeriodic()
     curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
 
     //Send CAN messages with flowrates
-    SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C);
+    SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
+                        adc_readings.dt_therm_1, adc_readings.dt_therm_2);
     /* DT COOLANT SYSTEM */
 
     // Find max motor temperature (CELSIUS)

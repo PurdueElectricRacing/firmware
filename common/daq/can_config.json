@@ -36,7 +36,10 @@
                             "msg_desc": "Flowrate and Water temp",
                             "signals": [
                                 {"sig_name": "flowrate_battery", "sig_desc": "Flow rate for battery", "type": "uint8_t", "scale": 0.1},
-                                {"sig_name": "battery_line_temp", "sig_desc": "Temp in battery line", "type": "uint8_t", "scale": 1}
+                                {"sig_name": "battery_line_temp", "sig_desc": "Temp in battery line", "type": "uint8_t", "scale": 1},
+                                {"sig_name": "battery_line_temp_two", "sig_desc": "Temp in battery line two", "type": "uint8_t", "scale": 1},
+                                {"sig_name": "aux_analog_one", "sig_desc": "Auxilary analog one", "type": "uint16_t", "length": 12, "scale": 1},
+                                {"sig_name": "aux_analog_two", "sig_desc": "Auxilary analog two", "type": "uint16_t", "length": 12, "scale": 1}
                             ],
                             "msg_period":200,
                             "msg_hlp":1,
@@ -261,9 +264,9 @@
                             "msg_name": "gyro_data",
                             "msg_desc": "Angular rate data",
                             "signals": [
-                                {"sig_name": "gx", "type":"int16_t", "unit": "deg/s"},
-                                {"sig_name": "gy", "type":"int16_t", "unit": "deg/s"},
-                                {"sig_name": "gz", "type":"int16_t", "unit": "deg/s"}
+                                {"sig_name": "gx", "type":"int16_t", "unit": "rad/s*100"},
+                                {"sig_name": "gy", "type":"int16_t", "unit": "rad/s*100"},
+                                {"sig_name": "gz", "type":"int16_t", "unit": "rad/s*100"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 1,
@@ -273,9 +276,9 @@
                             "msg_name": "accel_data",
                             "msg_desc": "Acceleration rate data",
                             "signals": [
-                                {"sig_name": "ax", "type":"int16_t", "scale": 1, "unit": "g"},
-                                {"sig_name": "ay", "type":"int16_t", "scale": 1, "unit": "g"},
-                                {"sig_name": "az", "type":"int16_t", "scale": 1, "unit": "g"}
+                                {"sig_name": "ax", "type":"int16_t", "unit": "m/s^2*100"},
+                                {"sig_name": "ay", "type":"int16_t", "unit": "m/s^2*100"},
+                                {"sig_name": "az", "type":"int16_t", "unit": "m/s^2*100"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 1,
@@ -285,9 +288,9 @@
                             "msg_name": "angle_data",
                             "msg_desc": "Angle data from bsxlite software",
                             "signals": [
-                                {"sig_name": "pitch", "type":"int16_t", "scale": 0.1, "unit": "deg"},
-                                {"sig_name": "roll", "type":"int16_t", "scale": 0.1, "unit": "deg"},
-                                {"sig_name": "yaw", "type":"int16_t", "scale": 0.1, "unit": "deg"}
+                                {"sig_name": "pitch", "type":"int16_t", "unit": "degx10"},
+                                {"sig_name": "roll", "type":"int16_t", "unit": "degx10"},
+                                {"sig_name": "yaw", "type":"int16_t", "unit": "degx10"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 1,

@@ -57,8 +57,8 @@ void imu_periodic(IMU_Handle_t* imu_h)
     y = (int16_t) (imu_h->output.orientation.yaw     * 10.0f / DEG_TO_RAD);
 
     SEND_ANGLE_DATA(q_tx_can, p, r, y);
-    SEND_ACCEL_DATA(q_tx_can, accel_in.x, accel_in.y, accel_in.z);
-    SEND_GYRO_DATA(q_tx_can, gyro_in.x, gyro_in.y, gyro_in.z);
+    SEND_ACCEL_DATA(q_tx_can, (int16_t) (accel_in.x * 100), (int16_t) (accel_in.y * 100), (int16_t) (accel_in.z * 100));
+    SEND_GYRO_DATA(q_tx_can, (int16_t) (gyro_in.x * 100), (int16_t) (gyro_in.y * 100), (int16_t) (gyro_in.z * 100));
 
     t_us += 10000;
 }

@@ -104,22 +104,23 @@ def update_firmware(bl: BootloaderCommand, fname) -> None:
 
         can_tx = bl.firmware_data_msg(data)
         bus.send(can_tx)
+        sleep_ns(500000)
 
-        can_rx = None
-        while not can_rx or can_rx['data'] != address + 4 or can_rx['cmd'] != bl.RX_CMD['BLSTAT_PROGRESS']:
-            msg = bus.recv()
-            if msg.arbitration_id == rx_msg_def.frame_id:
-                can_rx = db.decode_message(msg.arbitration_id, msg.data)   
-                if can_rx['cmd'] != bl.RX_CMD['BLSTAT_PROGRESS']:
-                    print(f"Received invalid command: {can_rx['cmd']}")
-                elif can_rx['data'] != address + 4:
-                    print(f"{can_rx['cmd']}|{can_rx['data']} != {address + 4} msg # {num_msg}")
-                else:
-                    # print(f"{can_rx['cmd']}|Sent address {can_rx['data']} msg # {num_msg}")
-                    pass
-                if can_rx['data'] > address + 4:
-                    print("Node data overrun!")
-                    return
+        # can_rx = None
+        # while not can_rx or can_rx['data'] != address + 4 or can_rx['cmd'] != bl.RX_CMD['BLSTAT_PROGRESS']:
+        #     msg = bus.recv()
+        #     if msg.arbitration_id == rx_msg_def.frame_id:
+        #         can_rx = db.decode_message(msg.arbitration_id, msg.data)   
+        #         if can_rx['cmd'] != bl.RX_CMD['BLSTAT_PROGRESS']:
+        #             print(f"Received invalid command: {can_rx['cmd']}")
+        #         elif can_rx['data'] != address + 4:
+        #             print(f"{can_rx['cmd']}|{can_rx['data']} != {address + 4} msg # {num_msg}")
+        #         else:
+        #             # print(f"{can_rx['cmd']}|Sent address {can_rx['data']} msg # {num_msg}")
+        #             pass
+        #         if can_rx['data'] > address + 4:
+        #             print("Node data overrun!")
+        #             return
 
     # Send CRC
     print("Sending CRC checksum")
@@ -149,8 +150,8 @@ if __name__ == "__main__":
         print("Please provide a path to a firmware image")
         exit()
 
-    bl = BootloaderCommand("l4_testing", db, None)
-    rx_msg_def = db.get_message_by_name("l4_testing_bl_resp")
+    bl = BootloaderCommand("main_module", db, None)
+    rx_msg_def = db.get_message_by_name("main_module_bl_resp")
     # bus.set_filters([{"can_id": 0x0404E2BC, "can_mask": 0xFFFFFFFF},
     #                  {"can_id": 0x0409C4BE, "can_mask": 0xFFFFFFFF}])
     # while(1):

@@ -30,6 +30,8 @@
 #define ID_REAR_MOTOR_INIT 0x14000343
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
+#define ID_DRIVELINE_F_BL_CMD 0x409c4fe
+#define ID_DRIVELINE_R_BL_CMD 0x409c53e
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -44,6 +46,8 @@
 #define DLC_REAR_MOTOR_INIT 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
+#define DLC_DRIVELINE_F_BL_CMD 5
+#define DLC_DRIVELINE_R_BL_CMD 5
 /* END AUTO DLC DEFS */
 extern uint32_t last_can_rx_time_ms;
 // Message sending macros
@@ -250,6 +254,14 @@ typedef union { __attribute__((packed))
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
     } main_hb;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } driveline_f_bl_cmd;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } driveline_r_bl_cmd;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -272,12 +284,22 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } main_hb;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } driveline_f_bl_cmd;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } driveline_r_bl_cmd;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void driveline_f_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void driveline_r_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

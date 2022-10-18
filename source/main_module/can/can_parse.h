@@ -34,6 +34,7 @@
 #define ID_FRONT_WHEEL_DATA 0x4000003
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_LWS_STANDARD 0x2b0
+#define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
 /* END AUTO ID DEFS */
 
@@ -53,6 +54,7 @@
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_LWS_STANDARD 5
+#define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
@@ -210,6 +212,10 @@ typedef union { __attribute__((packed))
         uint64_t Reserved_2: 8;
     } LWS_Standard;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } main_module_bl_cmd;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_MAIN_MODULE;
     uint8_t raw_data[8];
@@ -292,6 +298,10 @@ typedef struct {
         uint32_t last_rx;
     } LWS_Standard;
     struct {
+        uint8_t cmd;
+        uint32_t data;
+    } main_module_bl_cmd;
+    struct {
         uint64_t daq_command;
     } daq_command_MAIN_MODULE;
 } can_data_t;
@@ -302,6 +312,7 @@ extern volatile uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

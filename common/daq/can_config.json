@@ -43,7 +43,8 @@
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
-                        {"msg_name": "LWS_Standard"}
+                        {"msg_name": "LWS_Standard"},
+                        {"msg_name": "main_module_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -183,7 +184,9 @@
                     ],
                     "rx": [
                         {"msg_name":"torque_request_main"},
-                        {"msg_name":"main_hb"}
+                        {"msg_name":"main_hb"},
+                        {"msg_name": "driveline_f_bl_cmd" , "callback": true},
+                        {"msg_name": "driveline_r_bl_cmd" , "callback": true}
                     ]
                 },
                 {

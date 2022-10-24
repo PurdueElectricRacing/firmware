@@ -44,6 +44,7 @@ static bool buttonHist[MAX_BUTTON_HIST] = {0};
 static uint8_t readIndex = 0;
 static uint8_t writeIndex = 0;
 static uint8_t time_wait = 0;
+uint8_t new_data[3];
 /* Joystick Management */
 typedef enum {
   J_UP,
@@ -144,7 +145,8 @@ void check_buttons() {
     static uint32_t num_iterations;
     //Has the button actually been pressed? And is this the first time?
    if ((!wheel_new_btns.aux3 && wheel_old_btns.aux3) && (num_iterations == 0)) {
-       b_selected = sched.os_ticks; //The button was selected at this time, and record that the button was pressed
+
+    b_selected = sched.os_ticks; //The button was selected at this time, and record that the button was pressed
        pressed_once = true;
    }
    // The button was pressed another time within the window to switch pages
@@ -197,13 +199,17 @@ void check_buttons() {
    }
 
    wheel_old_btns = wheel_new_btns;
-   uint8_t new_data[3];
-   bool b = PHAL_SPI_busy();
-   bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
-   while (PHAL_SPI_busy());
-
+    bool b = PHAL_SPI_busy();
+    bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
+    while (PHAL_SPI_busy());
    wheel_new_btns.raw_data = new_data[2];
 
+}
+
+void cycleSPI() {
+    bool b = PHAL_SPI_busy();
+    bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
+    while (PHAL_SPI_busy());
 }
 void actionUpdatePeriodic()
 {
@@ -477,7 +483,7 @@ void update_info_pages(void) {
         // int_to_char(((can_data.rear_wheel_data.left_speed +
         //                             can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
         int_to_char((int) (((can_data.rear_wheel_data.left_speed +
-                                    can_data.rear_wheel_data.right_speed) / 200) * 0.609), two_int_char, 2);
+                                    can_data.rear_wheel_data.right_speed) / 200.0) * 0.6213711922), two_int_char, 2);
         set_text("t0\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
         int_to_char((can_data.rear_controller_temps.left_temp + can_data.rear_controller_temps.right_temp) / 2, two_int_char, 2);
@@ -515,7 +521,7 @@ void update_info_pages(void) {
         memset(three_int_char, 4, '\0');
 
         int_to_char((int) (((can_data.rear_wheel_data.left_speed +
-                                    can_data.rear_wheel_data.right_speed) / 200) * 0.609), two_int_char, 2);
+                                    can_data.rear_wheel_data.right_speed) / 200.0) * 0.6213711922), two_int_char, 2);
         set_text("t3\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
         int_to_char(can_data.rear_controller_temps.left_temp, two_int_char, 2);
@@ -524,17 +530,20 @@ void update_info_pages(void) {
         int_to_char(can_data.rear_controller_temps.right_temp, two_int_char, 2);
         set_text("t16\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
-        int_to_char(can_data.orion_info.pack_dcl, three_int_char, 3);
-        set_text("t17\0", NXT_TEXT, three_int_char);
+        int_to_char((int)can_data.orion_info.pack_dcl, two_int_char, 2);
+        set_text("t17\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
-        int_to_char(can_data.orion_currents_volts.pack_current, two_int_char, 2);
+        int_to_char((int)can_data.orion_info.pack_ccl, two_int_char, 2);
+        set_text("t17\0", NXT_TEXT, two_int_char);
+        memset(two_int_char, 3, '\0');
+        int_to_char((int)can_data.orion_currents_volts.pack_current, two_int_char, 2);
         set_text("t13\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
-        int_to_char((can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
+        int_to_char((int)(can_data.orion_currents_volts.pack_voltage / 10), three_int_char, 3);
         set_text("t12\0", NXT_TEXT, three_int_char);
         set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);
         memset(three_int_char, 4, '\0');
-        int_to_char(can_data.orion_currents_volts.pack_current / 10, three_int_char, 3);
+        int_to_char((int)(can_data.orion_currents_volts.pack_current / 10), three_int_char, 3);
         set_text("t18\0", NXT_TEXT, three_int_char);
         break;
   }

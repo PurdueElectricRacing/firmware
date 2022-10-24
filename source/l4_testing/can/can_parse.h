@@ -33,6 +33,7 @@
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
+#define ID_L4_TESTING_BL_CMD 0x409c83e
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
 /* END AUTO ID DEFS */
 
@@ -50,6 +51,7 @@
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
+#define DLC_L4_TESTING_BL_CMD 5
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
 
@@ -194,6 +196,10 @@ typedef union { __attribute__((packed))
         uint64_t car_state2: 8;
     } car_state2;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } l4_testing_bl_cmd;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_TEST_NODE;
     uint8_t raw_data[8];
@@ -220,6 +226,10 @@ typedef struct {
         car_state2_t car_state2;
     } car_state2;
     struct {
+        uint8_t cmd;
+        uint32_t data;
+    } l4_testing_bl_cmd;
+    struct {
         uint64_t daq_command;
     } daq_command_TEST_NODE;
 } can_data_t;
@@ -229,6 +239,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */
@@ -246,7 +257,7 @@ void initCANParse(q_handle_t* q_rx_can_a);
  *        update can_data struct,
  *        check for stale messages
  */
-void canRxUpdate();
+void canRxUpdate(void);
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ

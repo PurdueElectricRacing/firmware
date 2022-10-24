@@ -30,6 +30,8 @@
 #define ID_DAQ_RESPONSE_DRIVELINE 0x17ffffc3
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
+#define ID_DRIVELINE_FRONT_BL_CMD 0x409c4fe
+#define ID_DRIVELINE_REAR_BL_CMD 0x409c53e
 #define ID_DAQ_COMMAND_DRIVELINE 0x140000f2
 /* END AUTO ID DEFS */
 
@@ -45,6 +47,8 @@
 #define DLC_DAQ_RESPONSE_DRIVELINE 8
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
+#define DLC_DRIVELINE_FRONT_BL_CMD 5
+#define DLC_DRIVELINE_REAR_BL_CMD 5
 #define DLC_DAQ_COMMAND_DRIVELINE 8
 /* END AUTO DLC DEFS */
 extern uint32_t last_can_rx_time_ms;
@@ -303,6 +307,14 @@ typedef union { __attribute__((packed))
         uint64_t precharge_state: 1;
     } main_hb;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } driveline_front_bl_cmd;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } driveline_rear_bl_cmd;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DRIVELINE;
     uint8_t raw_data[8];
@@ -328,6 +340,14 @@ typedef struct {
         uint32_t last_rx;
     } main_hb;
     struct {
+        uint8_t cmd;
+        uint32_t data;
+    } driveline_front_bl_cmd;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } driveline_rear_bl_cmd;
+    struct {
         uint64_t daq_command;
     } daq_command_DRIVELINE;
 } can_data_t;
@@ -337,6 +357,8 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_DRIVELINE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void driveline_front_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

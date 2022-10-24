@@ -1,5 +1,6 @@
 #include "stm32l496xx.h"
 
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
 #include "common/phal_L4/can/can.h"
@@ -253,11 +254,6 @@ void canTxUpdate(void)
     }
 }
 
-void bootloader_request_reset_CALLBACK(CanParsedData_t* data)
-{
-    // Bootloader_ResetForFirmwareDownload();
-}
-
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
@@ -297,6 +293,12 @@ void CAN1_RX0_IRQHandler()
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 void HardFault_Handler()

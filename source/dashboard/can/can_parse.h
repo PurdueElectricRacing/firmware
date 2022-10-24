@@ -34,6 +34,7 @@
 #define ID_REAR_CONTROLLER_TEMPS 0xc000303
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
@@ -53,6 +54,7 @@
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_PRECHARGE_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_DASHBOARD_BL_CMD 5
 #define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
@@ -229,6 +231,10 @@ typedef union { __attribute__((packed))
         uint64_t rear_right: 16;
     } torque_request_main;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } dashboard_bl_cmd;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_DASHBOARD;
     uint8_t raw_data[8];
@@ -351,6 +357,10 @@ typedef struct {
         uint32_t last_rx;
     } torque_request_main;
     struct {
+        uint8_t cmd;
+        uint32_t data;
+    } dashboard_bl_cmd;
+    struct {
         uint64_t daq_command;
     } daq_command_DASHBOARD;
 } can_data_t;
@@ -360,6 +370,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

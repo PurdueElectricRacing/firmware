@@ -146,6 +146,11 @@ void canRxUpdate()
                 can_data.torque_request_main.stale = 0;
                 can_data.torque_request_main.last_rx = sched.os_ticks;
                 break;
+            case ID_DASHBOARD_BL_CMD:
+                can_data.dashboard_bl_cmd.cmd = msg_data_a->dashboard_bl_cmd.cmd;
+                can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
+                dashboard_bl_cmd_CALLBACK(msg_data_a);
+                break;
             case ID_DAQ_COMMAND_DASHBOARD:
                 can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
                 daq_command_DASHBOARD_CALLBACK(&msg_header);
@@ -217,7 +222,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[4].FR1 = (ID_PRECHARGE_HB << 3) | 4;
     CAN1->sFilterRegister[4].FR2 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

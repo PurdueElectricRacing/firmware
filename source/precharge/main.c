@@ -2,6 +2,7 @@
 #include "stm32l496xx.h"
 #include "system_stm32l4xx.h"
 #include "can_parse.h"
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/quadspi/quadspi.h"
@@ -351,6 +352,11 @@ void CAN2_RX0_IRQHandler()
     }
 }
 
+void precharge_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.precharge_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
+}
 
 void PHAL_FaultHandler()
 {

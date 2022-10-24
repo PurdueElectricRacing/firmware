@@ -11,6 +11,7 @@
 #include "common/psched/psched.h"
 #include "common/eeprom/eeprom.h"
 #include "common/common_defs/common_defs.h"
+#include "common/bootloader/bootloader_common.h"
 #include <math.h>
 #include <stdbool.h>
 
@@ -503,6 +504,18 @@ void CAN1_RX0_IRQHandler()
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void driveline_front_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.driveline_front_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
+}
+
+void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.driveline_rear_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 void HardFault_Handler()

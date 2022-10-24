@@ -53,6 +53,7 @@
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
+#define ID_PRECHARGE_BL_CMD 0x409c57e
 #define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
 
@@ -91,6 +92,7 @@
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_ORION_ERRORS 4
+#define DLC_PRECHARGE_BL_CMD 5
 #define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
@@ -438,6 +440,10 @@ typedef union { __attribute__((packed))
         uint64_t charge_limit_enforce: 1;
     } orion_errors;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } precharge_bl_cmd;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_PRECHARGE;
     uint8_t raw_data[8];
@@ -621,6 +627,10 @@ typedef struct {
         uint32_t last_rx;
     } orion_errors;
     struct {
+        uint8_t cmd;
+        uint32_t data;
+    } precharge_bl_cmd;
+    struct {
         uint64_t daq_command;
     } daq_command_PRECHARGE;
 } can_data_t;
@@ -630,6 +640,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_PRECHARGE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

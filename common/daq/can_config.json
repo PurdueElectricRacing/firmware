@@ -185,8 +185,8 @@
                     "rx": [
                         {"msg_name":"torque_request_main"},
                         {"msg_name":"main_hb"},
-                        {"msg_name": "driveline_f_bl_cmd" , "callback": true},
-                        {"msg_name": "driveline_r_bl_cmd" , "callback": true}
+                        {"msg_name": "driveline_front_bl_cmd" , "callback": true},
+                        {"msg_name": "driveline_rear_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -293,7 +293,8 @@
                         }                      
                     ],
                     "rx": [
-                        {"msg_name": "elcon_charger_status"}
+                        {"msg_name": "elcon_charger_status"},
+                        {"msg_name": "precharge_bl_cmd" , "callback": true}
                     ],
                     "accept_all_messages": true
                 },
@@ -335,7 +336,8 @@
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
-                        {"msg_name": "front_wheel_data"}
+                        {"msg_name": "front_wheel_data"},
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -373,7 +375,7 @@
                             "msg_hlp":1,
                             "msg_pgn":5002
                         },
-                        {   "msg_name":"driveline_f_bl_resp",
+                        {   "msg_name":"driveline_front_bl_resp",
                             "msg_desc":"Torque Vector Bootloader response",
                             "signals":[
                                 {"sig_name":"cmd","type":"uint8_t","length":8},
@@ -383,7 +385,7 @@
                             "msg_hlp":1,
                             "msg_pgn":5003
                         },
-                        {   "msg_name":"driveline_r_bl_resp",
+                        {   "msg_name":"driveline_rear_bl_resp",
                             "msg_desc":"Torque Vector Bootloader response",
                             "signals":[
                                 {"sig_name":"cmd","type":"uint8_t","length":8},
@@ -515,11 +517,12 @@
                         }
                     ],
                     "rx": [
+                        {"msg_name": "bitstream_data", "callback": true},
                         {"msg_name": "main_module_bl_cmd", "callback": true},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "torquevector_bl_cmd" , "callback": true},
-                        {"msg_name": "driveline_f_bl_cmd" , "callback": true},
-                        {"msg_name": "driveline_r_bl_cmd" , "callback": true},
+                        {"msg_name": "driveline_front_bl_cmd" , "callback": true},
+                        {"msg_name": "driveline_rear_bl_cmd" , "callback": true},
                         {"msg_name": "precharge_bl_cmd" , "callback": true},
                         {"msg_name": "bms_a_bl_cmd" , "callback": true},
                         {"msg_name": "bms_b_bl_cmd" , "callback": true},
@@ -704,7 +707,7 @@
                                 {"sig_name":"d7", "sig_desc":"Bitstream data word 7","type":"uint8_t","length":8}
                             ],
                             "msg_period":0,
-                            "msg_hlp":4,
+                            "msg_hlp":1,
                             "msg_pgn":100
                         },
                         {   "msg_name":"bitstream_request",
@@ -751,7 +754,7 @@
                             "msg_pgn":10002
                         },
                         {
-                            "msg_name": "driveline_f_bl_cmd",
+                            "msg_name": "driveline_front_bl_cmd",
                             "msg_desc": "Bootloader command for torque vector",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
@@ -762,7 +765,7 @@
                             "msg_pgn":10003
                         },
                         {
-                            "msg_name": "driveline_r_bl_cmd",
+                            "msg_name": "driveline_rear_bl_cmd",
                             "msg_desc": "Bootloader command for torque vector",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},

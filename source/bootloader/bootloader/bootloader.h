@@ -31,6 +31,14 @@ typedef enum
     BLSTAT_UNKNOWN_CMD = 8,  /* Incorrect CAN command message format */
 } BLStatus_t;
 
+typedef enum
+{
+    BLERROR_CRC_FAIL = 0,
+    BLERROR_LOCKED = 1,
+    BLERROR_LOW_ADDR = 2,
+    BLERROR_ADDR_BOUND = 3
+} BLError_t;
+
 void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr);
 
 /**
@@ -58,6 +66,7 @@ bool BL_flashComplete(void);
 void BL_sendStatusMessage(uint8_t cmd, uint32_t data);
 
 bool BL_flashStarted(void);
+void BL_timeout(void);
 volatile uint32_t* BL_getCurrentFlashAddress(void);
 
 

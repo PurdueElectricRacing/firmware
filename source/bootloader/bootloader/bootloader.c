@@ -11,6 +11,7 @@
 
 #include "bootloader.h"
 #include "common/phal_L4/flash/flash.h"
+#include "common/phal_L4/gpio/gpio.h"
 
 static volatile uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
 static volatile uint32_t* app_flash_current_address; /* Current address we are writing to */
@@ -43,7 +44,6 @@ static uint32_t second_word = 0;
 
 void BL_processCommand(BLCmd_t cmd, uint32_t data)
 {
-    static uint64_t data_buffer;
     switch (cmd)
     {
         case BLCMD_START:
@@ -66,51 +66,12 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             CRC->CR |= CRC_CR_RESET; // Reset CRC
             break;
         }
-        case BLCMD_FW_DATA:
-        {
-            num_msg++;
-            if(app_flash_current_address >= app_flash_start_address && bl_unlock)
-            {
-                if (app_flash_current_address == app_flash_start_address) 
-                    CRC->DR = first_word = data;
-                else if (app_flash_current_address == app_flash_start_address + 1)
-                {
-                    CRC->DR = second_word = data;
-                }
-                else if (((uint32_t) app_flash_current_address & 0b111) != 0)
-                {
-                    // Address is 2-word aligned, do the actual programming now
-                    #ifndef DEBUG
-                    PHAL_flashWriteU64((uint32_t) app_flash_current_address & (~0b111), (((uint64_t) data) << 32) | data_buffer);
-                    #endif
-                    CRC->DR = *(app_flash_current_address - 1);
-                    CRC->DR = *app_flash_current_address;
-                    data_buffer = 0;
-                }
-                else 
-                    data_buffer = data;
-                *bootloader_ms = 0;
-                app_flash_current_address++;
-                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t)  BL_getCurrentFlashAddress());
-            }
-            else BL_sendStatusMessage(BLSTAT_INVALID, BLCMD_FW_DATA);
-            break;
-        }
         case BLCMD_CRC:
         {
             if (bl_unlock && app_flash_current_address == app_flash_end_address)
             {
-                if (data_buffer != 0 )
-                {
-                    // We did not land on an 8-byte aligned address, program the last piece of data
-                    #ifndef DEBUG
-                    PHAL_flashWriteU64((uint32_t) app_flash_current_address & (~0b100), data_buffer);
-                    #endif
-                    CRC->DR = *((uint32_t *)((uint32_t) app_flash_current_address & (~0b100)));
-                    data_buffer = 0;
-                }
                 if (CRC->DR != data)
-                    BL_sendStatusMessage(BLSTAT_INVALID, BLCMD_CRC);
+                    BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_CRC_FAIL);
                 else
                 {
                     // Firmware download successful
@@ -121,16 +82,18 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
                     flash_complete = true;
                 }
             }
+            else if (!bl_unlock)
+                BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_LOCKED);
             else 
-                BL_sendStatusMessage(BLSTAT_INVALID, BLCMD_CRC);
+                BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_LOW_ADDR);
             break;
         }
         case BLCMD_RST:
-            // Not currently in app, do nothing
+            // Bootloader_ResetForFirmwareDownload();
             break;
         default:
         {
-            BL_sendStatusMessage(BLSTAT_UNKNOWN_CMD, 0);
+            BL_sendStatusMessage(BLSTAT_UNKNOWN_CMD, cmd);
             break;
         }
     }
@@ -151,6 +114,55 @@ volatile uint32_t* BL_getCurrentFlashAddress(void)
     return app_flash_current_address;
 }
 
+void BL_timeout(void)
+{
+    bl_unlock = false;
+    num_msg = 0;
+    flash_complete = false;
+}
+
+void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
+{
+
+    #if (APP_ID == APP_L4_TESTING)
+    PHAL_writeGPIO(GPIOB, 7, 1);
+    #endif
+    uint64_t data;    
+    if (bl_unlock)
+    {
+        if(app_flash_current_address >= app_flash_start_address &&
+           app_flash_current_address < app_flash_end_address)
+        { 
+            num_msg++;
+            data = *((uint64_t *) msg_data_a->raw_data);
+
+            // Skip the first two words
+            if (app_flash_current_address == app_flash_start_address) 
+            {
+                CRC->DR = first_word = *((uint32_t *) msg_data_a->raw_data);
+                CRC->DR = second_word = *((uint32_t *) msg_data_a->raw_data + 1);
+            }
+            else
+            {
+                // Address is 2-word aligned, do the actual programming now
+                #ifndef DEBUG
+                PHAL_flashWriteU64((uint32_t) app_flash_current_address, data);
+                #endif
+                CRC->DR = *(app_flash_current_address);
+                CRC->DR = *(app_flash_current_address + 1);
+            }
+            *bootloader_ms = 0; // Reset timeout counter, message received!
+            app_flash_current_address += 2; // wrote 64 bits
+        }
+        else
+            BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_ADDR_BOUND);
+    }
+
+    #if (APP_ID == APP_L4_TESTING)
+    PHAL_writeGPIO(GPIOB, 7, 0);
+    #endif
+}
+
 /*
     Component specific callbacks 
 */
@@ -165,11 +177,11 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
 {
     switch(APP_ID)
     {
-        NODE_CASE_BL_RESPONSE(APP_MAIN_MODULE,       SEND_MAIN_MODULE_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_MAIN_MODULE,      SEND_MAIN_MODULE_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_DASHBOARD,        SEND_DASHBOARD_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_TORQUEVECTOR,     SEND_TORQUEVECTOR_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_DRIVELINE_F,      SEND_DRIVELINE_F_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_DRIVELINE_R,      SEND_DRIVELINE_R_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_DRIVELINE_FRONT,  SEND_DRIVELINE_FRONT_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_DRIVELINE_REAR,   SEND_DRIVELINE_REAR_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_PRECHARGE,        SEND_PRECHARGE_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_BMS_A,            SEND_BMS_A_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_BMS_B,            SEND_BMS_B_BL_RESP)
@@ -194,20 +206,20 @@ void callback_name(CanParsedData_t* msg_data_a) {\
     BL_processCommand((BLCmd_t) msg_data_a->can_msg_name.cmd, msg_data_a->can_msg_name.data); \
 } \
 
-NODE_BL_CMD_CALLBACK(main_module_bl_cmd_CALLBACK,   main_module_bl_cmd,     APP_MAIN_MODULE)
-NODE_BL_CMD_CALLBACK(dashboard_bl_cmd_CALLBACK,     dashboard_bl_cmd,       APP_DASHBOARD)
-NODE_BL_CMD_CALLBACK(torquevector_bl_cmd_CALLBACK,  torquevector_bl_cmd,    APP_TORQUEVECTOR)
-NODE_BL_CMD_CALLBACK(driveline_f_bl_cmd_CALLBACK,   driveline_f_bl_cmd,     APP_DRIVELINE_F)
-NODE_BL_CMD_CALLBACK(driveline_r_bl_cmd_CALLBACK,   driveline_r_bl_cmd,     APP_DRIVELINE_R)
-NODE_BL_CMD_CALLBACK(precharge_bl_cmd_CALLBACK,     precharge_bl_cmd,       APP_PRECHARGE)
-NODE_BL_CMD_CALLBACK(bms_a_bl_cmd_CALLBACK,         bms_a_bl_cmd,           APP_BMS_A)
-NODE_BL_CMD_CALLBACK(bms_b_bl_cmd_CALLBACK,         bms_b_bl_cmd,           APP_BMS_B)
-NODE_BL_CMD_CALLBACK(bms_c_bl_cmd_CALLBACK,         bms_c_bl_cmd,           APP_BMS_C)
-NODE_BL_CMD_CALLBACK(bms_d_bl_cmd_CALLBACK,         bms_d_bl_cmd,           APP_BMS_D)
-NODE_BL_CMD_CALLBACK(bms_e_bl_cmd_CALLBACK,         bms_e_bl_cmd,           APP_BMS_E)
-NODE_BL_CMD_CALLBACK(bms_f_bl_cmd_CALLBACK,         bms_f_bl_cmd,           APP_BMS_F)
-NODE_BL_CMD_CALLBACK(bms_g_bl_cmd_CALLBACK,         bms_g_bl_cmd,           APP_BMS_G)
-NODE_BL_CMD_CALLBACK(bms_h_bl_cmd_CALLBACK,         bms_h_bl_cmd,           APP_BMS_H)
-NODE_BL_CMD_CALLBACK(bms_i_bl_cmd_CALLBACK,         bms_i_bl_cmd,           APP_BMS_I)
-NODE_BL_CMD_CALLBACK(bms_j_bl_cmd_CALLBACK,         bms_j_bl_cmd,           APP_BMS_J)
-NODE_BL_CMD_CALLBACK(l4_testing_bl_cmd_CALLBACK,    l4_testing_bl_cmd,      APP_L4_TESTING)
+NODE_BL_CMD_CALLBACK(main_module_bl_cmd_CALLBACK,     main_module_bl_cmd,     APP_MAIN_MODULE)
+NODE_BL_CMD_CALLBACK(dashboard_bl_cmd_CALLBACK,       dashboard_bl_cmd,       APP_DASHBOARD)
+NODE_BL_CMD_CALLBACK(torquevector_bl_cmd_CALLBACK,    torquevector_bl_cmd,    APP_TORQUEVECTOR)
+NODE_BL_CMD_CALLBACK(driveline_front_bl_cmd_CALLBACK, driveline_front_bl_cmd, APP_DRIVELINE_FRONT)
+NODE_BL_CMD_CALLBACK(driveline_rear_bl_cmd_CALLBACK,  driveline_rear_bl_cmd,  APP_DRIVELINE_REAR)
+NODE_BL_CMD_CALLBACK(precharge_bl_cmd_CALLBACK,       precharge_bl_cmd,       APP_PRECHARGE)
+NODE_BL_CMD_CALLBACK(bms_a_bl_cmd_CALLBACK,           bms_a_bl_cmd,           APP_BMS_A)
+NODE_BL_CMD_CALLBACK(bms_b_bl_cmd_CALLBACK,           bms_b_bl_cmd,           APP_BMS_B)
+NODE_BL_CMD_CALLBACK(bms_c_bl_cmd_CALLBACK,           bms_c_bl_cmd,           APP_BMS_C)
+NODE_BL_CMD_CALLBACK(bms_d_bl_cmd_CALLBACK,           bms_d_bl_cmd,           APP_BMS_D)
+NODE_BL_CMD_CALLBACK(bms_e_bl_cmd_CALLBACK,           bms_e_bl_cmd,           APP_BMS_E)
+NODE_BL_CMD_CALLBACK(bms_f_bl_cmd_CALLBACK,           bms_f_bl_cmd,           APP_BMS_F)
+NODE_BL_CMD_CALLBACK(bms_g_bl_cmd_CALLBACK,           bms_g_bl_cmd,           APP_BMS_G)
+NODE_BL_CMD_CALLBACK(bms_h_bl_cmd_CALLBACK,           bms_h_bl_cmd,           APP_BMS_H)
+NODE_BL_CMD_CALLBACK(bms_i_bl_cmd_CALLBACK,           bms_i_bl_cmd,           APP_BMS_I)
+NODE_BL_CMD_CALLBACK(bms_j_bl_cmd_CALLBACK,           bms_j_bl_cmd,           APP_BMS_J)
+NODE_BL_CMD_CALLBACK(l4_testing_bl_cmd_CALLBACK,      l4_testing_bl_cmd,      APP_L4_TESTING)

@@ -241,11 +241,6 @@ void canTxUpdate(void)
     }
 }
 
-void bootloader_request_reset_CALLBACK(CanParsedData_t* data)
-{
-    // Bootloader_ResetForFirmwareDownload();
-}
-
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun

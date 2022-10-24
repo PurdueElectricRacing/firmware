@@ -23,8 +23,8 @@
 #define ID_MAIN_MODULE_BL_RESP 0x404e23c
 #define ID_DASHBOARD_BL_RESP 0x404e27c
 #define ID_TORQUEVECTOR_BL_RESP 0x404e2bc
-#define ID_DRIVELINE_F_BL_RESP 0x404e2fc
-#define ID_DRIVELINE_R_BL_RESP 0x404e33c
+#define ID_DRIVELINE_FRONT_BL_RESP 0x404e2fc
+#define ID_DRIVELINE_REAR_BL_RESP 0x404e33c
 #define ID_PRECHARGE_BL_RESP 0x404e37c
 #define ID_BMS_A_BL_RESP 0x404e3bc
 #define ID_BMS_B_BL_RESP 0x404e3fc
@@ -37,11 +37,12 @@
 #define ID_BMS_I_BL_RESP 0x404e5bc
 #define ID_BMS_J_BL_RESP 0x404e5fc
 #define ID_L4_TESTING_BL_RESP 0x404e63c
+#define ID_BITSTREAM_DATA 0x400193e
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
-#define ID_DRIVELINE_F_BL_CMD 0x409c4fe
-#define ID_DRIVELINE_R_BL_CMD 0x409c53e
+#define ID_DRIVELINE_FRONT_BL_CMD 0x409c4fe
+#define ID_DRIVELINE_REAR_BL_CMD 0x409c53e
 #define ID_PRECHARGE_BL_CMD 0x409c57e
 #define ID_BMS_A_BL_CMD 0x409c5be
 #define ID_BMS_B_BL_CMD 0x409c5fe
@@ -61,8 +62,8 @@
 #define DLC_MAIN_MODULE_BL_RESP 5
 #define DLC_DASHBOARD_BL_RESP 5
 #define DLC_TORQUEVECTOR_BL_RESP 5
-#define DLC_DRIVELINE_F_BL_RESP 5
-#define DLC_DRIVELINE_R_BL_RESP 5
+#define DLC_DRIVELINE_FRONT_BL_RESP 5
+#define DLC_DRIVELINE_REAR_BL_RESP 5
 #define DLC_PRECHARGE_BL_RESP 5
 #define DLC_BMS_A_BL_RESP 5
 #define DLC_BMS_B_BL_RESP 5
@@ -75,11 +76,12 @@
 #define DLC_BMS_I_BL_RESP 5
 #define DLC_BMS_J_BL_RESP 5
 #define DLC_L4_TESTING_BL_RESP 5
+#define DLC_BITSTREAM_DATA 8
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_TORQUEVECTOR_BL_CMD 5
-#define DLC_DRIVELINE_F_BL_CMD 5
-#define DLC_DRIVELINE_R_BL_CMD 5
+#define DLC_DRIVELINE_FRONT_BL_CMD 5
+#define DLC_DRIVELINE_REAR_BL_CMD 5
 #define DLC_PRECHARGE_BL_CMD 5
 #define DLC_BMS_A_BL_CMD 5
 #define DLC_BMS_B_BL_CMD 5
@@ -117,18 +119,18 @@
         data_a->torquevector_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DRIVELINE_F_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVELINE_F_BL_RESP, .DLC=DLC_DRIVELINE_F_BL_RESP, .IDE=1};\
+#define SEND_DRIVELINE_FRONT_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVELINE_FRONT_BL_RESP, .DLC=DLC_DRIVELINE_FRONT_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->driveline_f_bl_resp.cmd = cmd_;\
-        data_a->driveline_f_bl_resp.data = data_;\
+        data_a->driveline_front_bl_resp.cmd = cmd_;\
+        data_a->driveline_front_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DRIVELINE_R_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVELINE_R_BL_RESP, .DLC=DLC_DRIVELINE_R_BL_RESP, .IDE=1};\
+#define SEND_DRIVELINE_REAR_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVELINE_REAR_BL_RESP, .DLC=DLC_DRIVELINE_REAR_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->driveline_r_bl_resp.cmd = cmd_;\
-        data_a->driveline_r_bl_resp.data = data_;\
+        data_a->driveline_rear_bl_resp.cmd = cmd_;\
+        data_a->driveline_rear_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_PRECHARGE_BL_RESP(queue, cmd_, data_) do {\
@@ -246,11 +248,11 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_f_bl_resp;
+    } driveline_front_bl_resp;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_r_bl_resp;
+    } driveline_rear_bl_resp;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -300,6 +302,16 @@ typedef union { __attribute__((packed))
         uint64_t data: 32;
     } l4_testing_bl_resp;
     struct {
+        uint64_t d0: 8;
+        uint64_t d1: 8;
+        uint64_t d2: 8;
+        uint64_t d3: 8;
+        uint64_t d4: 8;
+        uint64_t d5: 8;
+        uint64_t d6: 8;
+        uint64_t d7: 8;
+    } bitstream_data;
+    struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } main_module_bl_cmd;
@@ -314,11 +326,11 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_f_bl_cmd;
+    } driveline_front_bl_cmd;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_r_bl_cmd;
+    } driveline_rear_bl_cmd;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -376,6 +388,16 @@ typedef union { __attribute__((packed))
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
+        uint8_t d0;
+        uint8_t d1;
+        uint8_t d2;
+        uint8_t d3;
+        uint8_t d4;
+        uint8_t d5;
+        uint8_t d6;
+        uint8_t d7;
+    } bitstream_data;
+    struct {
         uint8_t cmd;
         uint32_t data;
     } main_module_bl_cmd;
@@ -390,11 +412,11 @@ typedef struct {
     struct {
         uint8_t cmd;
         uint32_t data;
-    } driveline_f_bl_cmd;
+    } driveline_front_bl_cmd;
     struct {
         uint8_t cmd;
         uint32_t data;
-    } driveline_r_bl_cmd;
+    } driveline_rear_bl_cmd;
     struct {
         uint8_t cmd;
         uint32_t data;
@@ -449,11 +471,12 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a);
 extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void driveline_f_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void driveline_r_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void driveline_front_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bms_a_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bms_b_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);

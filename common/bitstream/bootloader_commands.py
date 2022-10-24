@@ -9,8 +9,8 @@ class BootloaderCommand():
         "dashboard",
         "torquevector",
         "precharge",
-        "drivelinef",
-        "driveliner",
+        "driveline_front",
+        "driveline_rear",
         "bmsa",
         "bmsb",
         "bmsc",
@@ -43,24 +43,32 @@ class BootloaderCommand():
         "BLSTAT_UNKNOWN_CMD": 8  # Incorrect CAN command message format
     }
 
+    BL_ERROR = {
+        0 : "BLERROR_CRC_FAIL",
+        1 : "BLERROR_LOCKED",
+        2 : "BLERROR_LOW_ADDR",
+        3 : "BLERROR_ADDR_BOUND"
+    }
+
     ADDRESS_START = 0x08002000
     
-    def __init__(self, application_name, can_db, can_rx) -> None:
-        assert(application_name in self.APP_IDs)
+    def __init__(self, application_name, can_db) -> None:
+        if (application_name not in self.APP_IDs):
+            print(f"App name \"{application_name}\" not recoginzed")
+            print(f"Possible apps: {self.APP_IDs}")
+            return None
 
         self.TX_MSG = can_db.get_message_by_name(f"{application_name}_bl_cmd")
         self.RX_MSG = can_db.get_message_by_name(f"{application_name}_bl_resp")
-        self.can_rx = can_rx
-        self.current_addr = self.ADDRESS_START
+        self.DATA_MSG = can_db.get_message_by_name(f"bitstream_data")
 
     def firmware_size_msg(self, fw_size) -> can.Message:
         data = self.TX_MSG.encode({"cmd": self.TX_CMD["BLCMD_START"], "data": fw_size})
         return can.Message(arbitration_id=self.TX_MSG.frame_id, data=data)
 
-    def firmware_data_msg(self, word) -> can.Message:
-        data = self.TX_MSG.encode({"cmd": self.TX_CMD["BLCMD_FW_DATA"], "data": word})
-        self.current_addr = self.current_addr + 1; 
-        return can.Message(arbitration_id=self.TX_MSG.frame_id, data=data)
+    def firmware_data_msg(self, double_word) -> can.Message:
+        data = double_word.to_bytes(8, 'little')
+        return can.Message(arbitration_id=self.DATA_MSG.frame_id, data=data)
 
     def firmware_crc_msg(self, crc) -> can.Message:
         data = self.TX_MSG.encode({"cmd": self.TX_CMD["BLCMD_CRC"], "data": crc})
@@ -69,10 +77,6 @@ class BootloaderCommand():
     def firmware_rst_msg(self) -> can.Message:
         data = self.TX_MSG.encode({"cmd": self.TX_CMD["BLCMD_RST"], "data": 0})
         return can.Message(arbitration_id=self.TX_MSG.frame_id, data=data)
-
-    def get_rx_msg(self) -> Tuple:
-        cmd = self.can_rx.get_signal(self.RX_MSG.frame_id, "cmd")
-        data = self.can_rx.get_signal(self.RX_MSG.frame_id, "data")
-        if not cmd or not data:
-            return None
-        else: return (cmd, data)
+    
+    def decode_msg(self, msg: can.Message):
+        return self.RX_MSG.decode(msg.data)

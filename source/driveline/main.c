@@ -463,15 +463,15 @@ void CAN1_RX0_IRQHandler()
     }
 }
 
-void driveline_f_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+void driveline_front_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
-    if (can_data.driveline_f_bl_cmd.cmd == BLCMD_RST)
+    if (can_data.driveline_front_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 
-void driveline_r_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
-    if (can_data.driveline_r_bl_cmd.cmd == BLCMD_RST)
+    if (can_data.driveline_rear_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 

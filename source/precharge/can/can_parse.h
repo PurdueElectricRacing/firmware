@@ -97,6 +97,7 @@
 #define ID_MODULE_TEMP_14 0xbee
 #define ID_MODULE_TEMP_15 0xbef
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
+#define ID_PRECHARGE_BL_CMD 0x409c57e
 #define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
 
@@ -179,6 +180,7 @@
 #define DLC_MODULE_TEMP_14 8
 #define DLC_MODULE_TEMP_15 8
 #define DLC_ELCON_CHARGER_STATUS 5
+#define DLC_PRECHARGE_BL_CMD 5
 #define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
@@ -711,6 +713,10 @@ typedef union { __attribute__((packed))
         uint64_t communication_fail: 1;
     } elcon_charger_status;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } precharge_bl_cmd;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_PRECHARGE;
     uint8_t raw_data[8];
@@ -1085,6 +1091,10 @@ typedef struct {
         uint32_t last_rx;
     } elcon_charger_status;
     struct {
+        uint8_t cmd;
+        uint32_t data;
+    } precharge_bl_cmd;
+    struct {
         uint64_t daq_command;
     } daq_command_PRECHARGE;
 } can_data_t;
@@ -1102,6 +1112,7 @@ extern void volts_cells_5_CALLBACK(CanParsedData_t* msg_data_a);
 extern void volts_cells_6_CALLBACK(CanParsedData_t* msg_data_a);
 extern void volts_cells_7_CALLBACK(CanParsedData_t* msg_data_a);
 extern void volts_cells_8_CALLBACK(CanParsedData_t* msg_data_a);
+extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

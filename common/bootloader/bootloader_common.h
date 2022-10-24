@@ -21,7 +21,6 @@
 typedef enum
 {
     BLCMD_START = 0x1,      /* Request to start firmware download */
-    BLCMD_FW_DATA = 0x2,    /* Firmware data message */
     BLCMD_CRC = 0x3,        /* Final CRC-32b check of firmware */
     BLCMD_RST = 0x5         /* Request for reset */
 } BLCmd_t;

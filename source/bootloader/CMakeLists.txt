@@ -5,7 +5,7 @@ get_filename_component(COMPONENT_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 STRING(TOLOWER ${COMPONENT_NAME} COMPONENT_NAME)
 
 
-set(L432_BOOTLOADER_NAMES dashboard driveline_f driveline_r bms_a bms_b bms_c bms_d bms_e bms_f bms_g bms_h bms_i bms_j torquevector l4_testing)
+set(L432_BOOTLOADER_NAMES dashboard driveline_front driveline_rear bms_a bms_b bms_c bms_d bms_e bms_f bms_g bms_h bms_i bms_j torquevector l4_testing)
 set(L496_BOOTLOADER_NAMES precharge main_module)
 if (BOOTLOADER_BUILD)
     foreach(BL_NAME IN ITEMS ${L432_BOOTLOADER_NAMES})

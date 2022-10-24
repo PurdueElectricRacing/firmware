@@ -27,7 +27,13 @@ GPIOInitConfig_t gpio_config[] = {
     CAN_RX_GPIO_CONFIG,
     CAN_TX_GPIO_CONFIG,
     GPIO_INIT_OUTPUT(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    #if (APP_ID == APP_L4_TESTING)
+    GPIO_INIT_OUTPUT(GPIOB, 7, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOB, 6, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOB, 1, GPIO_OUTPUT_LOW_SPEED),
+    #endif
 };
+    /* TODO: remove ^ */
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -55,6 +61,7 @@ q_handle_t q_rx_can;
 
 extern char __isr_vector_start; /* VA of the vector table for the bootloader */
 extern char _eboot_flash;      /* End of the bootlaoder flash region, same as the application start address */
+extern char _estack;      /* The start location of the stack */
 
 /* Bootlaoder timing control */
 static volatile uint32_t bootloader_ms = 0;
@@ -101,21 +108,33 @@ int main (void)
     */
     while(!bootloader_timeout || !allow_application_launch)
     {
-
         while (q_rx_can.item_count > 0)
             canRxUpdate();
 
-        if (!BL_flashStarted())
+        if (send_status_flag)
         {
-            if (send_status_flag)
-            {
-                send_status_flag = false;
+            send_status_flag = false;
+
+            if (!BL_flashStarted())
                 BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
-            }
+            else
+                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) BL_getCurrentFlashAddress());
         }
 
         while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
-            PHAL_txCANMessage(&tx_msg);
+        {
+            #if (APP_ID == APP_L4_TESTING)
+            PHAL_writeGPIO(GPIOB, 1, 1);
+            #endif
+            if(!PHAL_txCANMessage(&tx_msg))
+            {
+                qSendToBack(&q_tx_can, &tx_msg); // retry later
+                break;
+            }
+        }
+        #if (APP_ID == APP_L4_TESTING)
+        PHAL_writeGPIO(GPIOB, 1, 0);
+        #endif
 
         /* 
             Check if firmware download is complete
@@ -127,6 +146,7 @@ int main (void)
             bootloader_timeout = true;
             break;
         }
+
     }
 
     NVIC_DisableIRQ(SysTick_IRQn);
@@ -150,6 +170,8 @@ int main (void)
 
 void SysTick_Handler(void)
 {
+    static uint16_t tick;
+    tick++;
     bootloader_ms++;
 
     switch (bootloader_shared_memory.reset_reason)
@@ -158,9 +180,14 @@ void SysTick_Handler(void)
         case RESET_REASON_INVALID:
             // Unknown reset cause or bad firmware
             // Will infinetly wait in bootloader mode
-            if (bootloader_ms % 100 == 0)
+            if (tick % 100 == 0)
             {
                 send_status_flag = true;
+            }
+            if (BL_flashStarted() && bootloader_ms >= 3000)
+            {
+               BL_timeout(); 
+               bootloader_ms = 0;
             }
             break;
         case RESET_REASON_BUTTON:
@@ -168,22 +195,22 @@ void SysTick_Handler(void)
         case RESET_REASON_APP_WATCHDOG:
             // Watchdog reset or a bad firmware boot, 
             // stay in bootlaoder for 3 seconds before attempting to boot again
-            if (bootloader_ms % 100 == 0)
+            if (tick % 100 == 0)
             {
                 send_status_flag = true;
             }
-            if (bootloader_ms >= 3000 && !BL_flashStarted())
+            if (bootloader_ms >= 3000)
             {
                 bootloader_timeout = true;
             }
             break;
         case RESET_REASON_POR:
-            if (bootloader_ms % 100 == 0)
+            if (tick % 100 == 0)
             {
                 send_status_flag = true;
             }
             // Allow some time in case bootloader request present
-            if (bootloader_ms >= 500 && !BL_flashStarted())
+            if (bootloader_ms >= 500)
             {
                 bootloader_timeout = true;
             }
@@ -192,7 +219,8 @@ void SysTick_Handler(void)
             break;  
     }
 
-    if (bootloader_ms % 50 == 0)
+    if ((BL_flashStarted() && tick % 50 == 0) ||
+        !BL_flashStarted() && tick % 250 == 0)
         PHAL_toggleGPIO(STATUS_LED_GPIO_Port, STATUS_LED_Pin);
 }
 
@@ -271,9 +299,11 @@ void jump_to_application(void)
 {
     uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
     uint32_t msp = (uint32_t) *((uint32_t*) (((void *) &_eboot_flash)));
+    uint32_t estack = (uint32_t) ((uint32_t*) (((void *) &_estack)));
     // Confirm app exists
     if (app_reset_handler_address == 0xFFFFFFFF || 
-        msp == 0xFFFFFFFF) return;
+        app_reset_handler_address < 0x8002000 || app_reset_handler_address > 0x807FFFF ||
+        msp != estack) return;
 
     // Reset all of our used peripherals
     RCC->APB1RSTR1  |= RCC_APB1RSTR1_CAN1RST;
@@ -281,6 +311,7 @@ void jump_to_application(void)
     RCC->AHB1RSTR   |= RCC_AHB1RSTR_CRCRST;
     RCC->APB1RSTR1  &= ~(RCC_APB1RSTR1_CAN1RST);
     RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOBRST);
+    RCC->AHB1RSTR   &= ~(RCC_AHB1RSTR_CRCRST);
     SysTick->CTRL = 0;
     SysTick->LOAD = 0;
     SysTick->VAL  = 0;
@@ -298,6 +329,9 @@ void jump_to_application(void)
 static uint32_t can_irq_hits = 0;
 void CAN1_RX0_IRQHandler()
 {
+    #if (APP_ID == APP_L4_TESTING)
+    PHAL_toggleGPIO(GPIOB, 6);
+    #endif
     can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
         CAN1->RF0R &= !(CAN_RF0R_FOVR0); 

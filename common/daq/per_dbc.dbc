@@ -172,11 +172,11 @@ BO_ 2214912700 torquevector_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214912764 driveline_f_bl_resp: 5 bootloader
+BO_ 2214912764 driveline_front_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214912828 driveline_r_bl_resp: 5 bootloader
+BO_ 2214912828 driveline_rear_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -287,7 +287,7 @@ BO_ 2214624902 power_lim_lv: 4 BMS_LV
  SG_ chg_lim : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ disch_lim : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415925566 bitstream_data: 8 BITSTREAM
+BO_ 2214598974 bitstream_data: 8 BITSTREAM
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d5 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -313,11 +313,11 @@ BO_ 2215232702 torquevector_bl_cmd: 5 BITSTREAM
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2215232766 driveline_f_bl_cmd: 5 BITSTREAM
+BO_ 2215232766 driveline_front_bl_cmd: 5 BITSTREAM
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2215232830 driveline_r_bl_cmd: 5 BITSTREAM
+BO_ 2215232830 driveline_rear_bl_cmd: 5 BITSTREAM
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -1030,15 +1030,15 @@ CM_ SG_ 2281733702 delta "Max cell delta in V * 10000";
 CM_ BO_ 2214624902 "Power limits";
 CM_ SG_ 2214624902 chg_lim "Charge limit in W";
 CM_ SG_ 2214624902 disch_lim "Discharge limit in W";
-CM_ BO_ 2415925566 "Bitstream download command";
-CM_ SG_ 2415925566 d7 "Bitstream data word 7";
-CM_ SG_ 2415925566 d6 "Bitstream data word 6";
-CM_ SG_ 2415925566 d5 "Bitstream data word 5";
-CM_ SG_ 2415925566 d4 "Bitstream data word 4";
-CM_ SG_ 2415925566 d3 "Bitstream data word 3";
-CM_ SG_ 2415925566 d2 "Bitstream data word 2";
-CM_ SG_ 2415925566 d1 "Bitstream data word 1";
-CM_ SG_ 2415925566 d0 "Bitstream data word 0";
+CM_ BO_ 2214598974 "Bitstream download command";
+CM_ SG_ 2214598974 d7 "Bitstream data word 7";
+CM_ SG_ 2214598974 d6 "Bitstream data word 6";
+CM_ SG_ 2214598974 d5 "Bitstream data word 5";
+CM_ SG_ 2214598974 d4 "Bitstream data word 4";
+CM_ SG_ 2214598974 d3 "Bitstream data word 3";
+CM_ SG_ 2214598974 d2 "Bitstream data word 2";
+CM_ SG_ 2214598974 d1 "Bitstream data word 1";
+CM_ SG_ 2214598974 d0 "Bitstream data word 0";
 CM_ BO_ 2415925630 "Bitstream state command";
 CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
 CM_ SG_ 2415925630 download_request "Request to download new bitstream";

@@ -47,6 +47,11 @@ void canRxUpdate()
                 can_data.front_wheel_data.stale = 0;
                 can_data.front_wheel_data.last_rx = sched.os_ticks;
                 break;
+            case ID_DASHBOARD_BL_CMD:
+                can_data.dashboard_bl_cmd.cmd = msg_data_a->dashboard_bl_cmd.cmd;
+                can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
+                dashboard_bl_cmd_CALLBACK(msg_data_a);
+                break;
             case ID_DAQ_COMMAND_DASHBOARD:
                 can_data.daq_command_DASHBOARD.daq_command = msg_data_a->daq_command_DASHBOARD.daq_command;
                 daq_command_DASHBOARD_CALLBACK(&msg_header);
@@ -85,7 +90,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[0].FR1 = (ID_MAIN_HB << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_FRONT_WHEEL_DATA << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[1].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

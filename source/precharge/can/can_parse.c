@@ -416,6 +416,11 @@ void canRxUpdate()
                     can_data.elcon_charger_status.stale = 0;
                     can_data.elcon_charger_status.last_rx = sched.os_ticks;
                     break;
+                case ID_PRECHARGE_BL_CMD:
+                    can_data.precharge_bl_cmd.cmd = msg_data_a->precharge_bl_cmd.cmd;
+                    can_data.precharge_bl_cmd.data = msg_data_a->precharge_bl_cmd.data;
+                    precharge_bl_cmd_CALLBACK(msg_data_a);
+                    break;
                 case ID_DAQ_COMMAND_PRECHARGE:
                     can_data.daq_command_PRECHARGE.daq_command = msg_data_a->daq_command_PRECHARGE.daq_command;
                     daq_command_PRECHARGE_CALLBACK(&msg_header);

@@ -80,13 +80,16 @@ ADCChannelConfig_t adc_channel_config[] = {
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, 
             sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .pll_src                    =PLL_SRC_MSI,
+    .msi_output_rate_target_hz  =16000000,
+    .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / (1)),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (4)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (4)),
 };
 
 /* Locals for Clock Rates */
@@ -123,7 +126,7 @@ int main (void)
     }
 
     /* Task Creation */
-    schedInit(SystemCoreClock);
+    schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
     taskCreate(coolingPeriodic, 100);

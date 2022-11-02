@@ -21,6 +21,8 @@ uint32_t APB2ClockRateHz;
 uint32_t AHBClockRateHz;
 uint32_t PLLClockRateHz;
 
+static uint32_t MSIClockRateHz;
+
 
 uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
 {
@@ -28,6 +30,8 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
     switch(config->system_source)
     {
         case SYSTEM_CLOCK_SRC_PLL:
+            if (config->pll_src == PLL_SRC_MSI) 
+                ret_code |= !PHAL_configureMSIClock(config->msi_output_rate_target_hz);
             ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << 7;
             ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 6;
             break;
@@ -77,7 +81,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
         
         case PLL_SRC_MSI:
             RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_MSI;
-            pll_input_f_hz = 0; //TODO: Implement!
+            pll_input_f_hz = MSIClockRateHz;
             break;
 
         case PLL_SRC_HSE:
@@ -330,5 +334,33 @@ bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz)
     RCC->CFGR = rcc_cfgr_temp;
 
     APB2ClockRateHz = apb2_clock_target_hz;
+    return true;
+}
+
+bool PHAL_configureMSIClock(uint32_t target_hz)
+{
+    uint32_t range;
+    // range only modifiable if off or
+    // if MSI ready
+    if (!(RCC->CR & RCC_CR_MSION) || RCC->CR & RCC_CR_MSIRDY)
+    {
+        switch(target_hz)
+        {
+            // TODO: implement
+            case 16000000:
+                range = RCC_CR_MSIRANGE_8;
+                break;
+            default:
+                return false;
+        }
+        RCC->CR |= RCC_CR_MSIRGSEL;
+        RCC->CR &= ~RCC_CR_MSIRANGE_Msk;
+        RCC->CR |= range;
+        MSIClockRateHz = target_hz;
+    }
+    else
+        return false;
+
+    SystemCoreClockUpdate();
     return true;
 }

@@ -47,6 +47,7 @@ typedef struct {
     /* Only used for system_source == PLL */
     PLLSrc_t pll_src;                   /* Input source for PLL VCO */
     uint32_t vco_output_rate_target_hz; /* VCO output target rate */
+    uint32_t msi_output_rate_target_hz; /* Use if pll_src == MSI */
 } ClockRateConfig_t;
 
 
@@ -116,5 +117,14 @@ bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz);
  * @return false 
  */
 bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz);
+
+/**
+ * @brief Configure MSI Clock rate
+ * 
+ * @param target_hz
+ * @return true Successfully configured MSI clock rate to @param target_hz
+ * @return false 
+ */
+bool PHAL_configureMSIClock(uint32_t target_hz);
 
 #endif // _PHAL_PLL_H_

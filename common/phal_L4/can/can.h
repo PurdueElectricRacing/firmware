@@ -19,6 +19,11 @@
 #define PHAL_CAN_TX_TIMEOUT   (1000U)
 #define PHAL_CAN_INIT_TIMEOUT (1000U)
 
+// Bit timing recovered from http://www.bittiming.can-wiki.info/
+#define PHAL_CAN_16MHz_500k (0x001c0001)
+#define PHAL_CAN_20MHz_500k (0x00050004)
+#define PHAL_CAN_80MHz_500k (0x001c0009)
+
 typedef struct
 {
   CAN_TypeDef* Bus; /*!< Specifies the bus. */

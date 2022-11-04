@@ -33,19 +33,16 @@ uint8_t b_idx = 0;
 uint32_t b_change_time = 0;
 uint32_t b_selected_time = 0;
 uint32_t avg_soc = 0;
-uint16_t gas_to_send = 0;
 bool precharge_complete = false;
 int prev_time = 0;
 int curr_lap_time = 0;
 int delta = 0;
 int delta_old = 0;
 uint32_t orig_time = 0;
-static bool buttonHist[MAX_BUTTON_HIST] = {0};
-static uint8_t readIndex = 0;
-static uint8_t writeIndex = 0;
 static uint8_t time_wait = 0;
 uint8_t new_data[3];
 /* Joystick Management */
+//Not In use anymore - Joystick functionality removed
 typedef enum {
   J_UP,
   J_RIGHT,
@@ -63,6 +60,8 @@ uint8_t btn_state = 0; // activate only on falling edge
 
 button_state_t b_state = B_LOW;
 uint8_t wheel_read_cmd[] = {WHEEL_SPI_ADDR | WHEEL_SPI_READ, WHEEL_GPIO_REG, 0x00};
+
+//Data struct for SPI button + joystick reception
 typedef union __attribute__((packed))
 {
    struct {
@@ -76,6 +75,7 @@ typedef union __attribute__((packed))
    };
    uint8_t raw_data;
 } WheelBtns_t;
+//Wheel button SPI defs
 WheelBtns_t wheel_new_btns = {0};
 WheelBtns_t wheel_old_btns = {0};
 /* Function Prototypes */
@@ -197,7 +197,7 @@ void check_buttons() {
        pressed_once = false;
        page_changed = false;
    }
-
+    //Update info, cycle SPI and get new data for next iteration
    wheel_old_btns = wheel_new_btns;
     bool b = PHAL_SPI_busy();
     bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
@@ -206,11 +206,8 @@ void check_buttons() {
 
 }
 
-void cycleSPI() {
-    bool b = PHAL_SPI_busy();
-    bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
-    while (PHAL_SPI_busy());
-}
+
+//Deprecated; Used to control Joystick, but not tested
 void actionUpdatePeriodic()
 {
   // Based on current selection, run the action associated to the element
@@ -238,7 +235,7 @@ void actionUpdatePeriodic()
 //     btn_state = 0;
 }
 
-
+//Previous Screen update function - Deprecated
 void valueUpdatePeriodic()
 {
   // Ran periodically at a refresh rate
@@ -271,26 +268,35 @@ void valueUpdatePeriodic()
   //         break;
   // }
  }
+
+ //Function to update lap timer on screen
 void update_time() {
   static uint32_t wait_state;
   uint32_t time_to_send = 0;
   uint32_t curr_time = sched.os_ticks;
+
+  //Has button been pressed; If pressed, set the time it was pressed at
   if (b_selected_time > 0) {
       orig_time = b_selected_time;
   }
+  //Set the original time properly
   else {
       if (orig_time == 0) {
           orig_time = curr_time;
       }
   }
+  //Calculate time since last button press to send to screen
   time_to_send = curr_time - orig_time;
    curr_lap_time = time_to_send;
+   //Calculate milliseconds, seconds, and minutes of the time, from only milliseconds
   uint16_t milliseconds = time_to_send % 1000;
   time_to_send /= 1000;
   uint8_t minutes = time_to_send / 60;
+  //Prevent overflow
   if (minutes > 99)
       minutes = 99;
   uint8_t seconds = time_to_send % 60;
+  //Parse each component into a string
   char parsed[8] = "";
   for (int i = 7; i > -1; i--) {
       if ((i == 5) || (i == 2)) {
@@ -310,7 +316,7 @@ void update_time() {
           minutes /= 10;
       }
   }
-  // TODO: Add functionality with other pages, and persistance through error pages
+  //Delay timer to make it readable to user
   if (b_selected_time > 0) {
       switch(wait_state) {
           case 0:
@@ -324,6 +330,7 @@ void update_time() {
                return;
       }
   }
+  //Send to screen (Created in this manner to fine tune how fast I want to update it without adding stress to micro)
   else {
     if (time_wait++ == 4) {
       if (p_idx == P_RACE)
@@ -336,6 +343,7 @@ void update_time() {
   }
 
 }
+//Function to update progress bars on error pages
 void updateBarsFast() {
     if (p_idx != P_RACE) {
         return;
@@ -344,18 +352,21 @@ void updateBarsFast() {
     set_value("j1\0", NXT_VALUE, (100 - (int)((can_data.torque_request_main.rear_left / 4095.0) * 100)));
 
 }
+//Check whether an error was found and to update error pages accordingly
 void check_error() {
     if ((p_idx == P_INFO) || (p_idx == P_WARNING) || (p_idx == P_CRITICAL)) {
        return;
     }
     if (can_data.main_hb.car_state == CAR_STATE_ERROR && can_data.main_hb.precharge_state != 0) {
         err_msg = "Car State Error\0";
+        //Keep all values updated for other functions
        p_idx_perr = p_idx;
        p_idx = P_CRITICAL;
        car_stat_color = RED_ERR;
        update_err_pages();
    }
    else if (can_data.main_hb.car_state == CAR_STATE_FATAL) {
+        //Keep all values updated for other functions
        p_idx_perr = p_idx;
         err_msg = "Car State Fatal\0";
        p_idx = P_CRITICAL;
@@ -363,6 +374,7 @@ void check_error() {
        update_err_pages();
    }
    else if (can_data.main_hb.car_state == CAR_STATE_RECOVER) {
+        //Keep all values updated for other functions
         err_msg = "Car State Recover\0";
        p_idx_perr = p_idx;
        p_idx = P_WARNING;
@@ -370,6 +382,7 @@ void check_error() {
        update_err_pages();
    }
    else if (can_data.main_hb.car_state == CAR_STATE_RESET) {
+        //Keep all values updated for other functions
         err_msg = "Car State Reset\0";
        p_idx_perr = p_idx;
        p_idx = P_INFO;
@@ -377,36 +390,8 @@ void check_error() {
        update_err_pages();
    }
 }
-void update_page() {
-  if (p_idx == p_idx_prev)
-      return;
-  switch (p_idx) {
-      case P_STARTUP:
-          p_idx_prev = P_STARTUP;
-          set_page("startup\0");
-          return;
-      case P_RACE:
-          p_idx_prev = P_RACE;
-          set_page("race\0");
-          return;
-      case P_EXTRA_INFO:
-          p_idx_prev = P_EXTRA_INFO;
-          set_page("extra_info\0");
-          return;
-      case P_INFO:
-          p_idx_prev = P_INFO;
-          set_page("info\0");
-          return;
-      case P_WARNING:
-          p_idx_prev = P_WARNING;
-          set_page("warning\0");
-          return;
-      case P_CRITICAL:
-          p_idx_prev = P_CRITICAL;
-          set_page("critical\0");
-          return;
-  }
-}
+
+//Function to add text to error pages, keep them in sync
 void update_err_pages() {
   static uint8_t value;
   if ((p_idx != P_WARNING) && (p_idx != P_INFO) && (p_idx != P_CRITICAL)) {
@@ -414,6 +399,7 @@ void update_err_pages() {
   }
   if (value == 100) {
       switch (p_idx) {
+        //Set the status bar on the race page
           case P_WARNING:
               car_stat_color = YELLOW_ERR;
               break;
@@ -423,6 +409,7 @@ void update_err_pages() {
       }
       p_idx = p_idx_perr;
       switch (p_idx_perr) {
+        //Switch to the page user was on before the error
           case P_STARTUP:
                set_page("startup\0");
                break;
@@ -436,6 +423,7 @@ void update_err_pages() {
       return;
   }
   if (value == 0) {
+    //Select the proper error page for the situation
       switch(p_idx) {
           case P_INFO:
                set_page("info\0");
@@ -452,23 +440,23 @@ void update_err_pages() {
   set_value("j0\0", NXT_VALUE, value);
   set_text("t1\0", NXT_TEXT, err_msg);
 }
+
+//Function to update the race + extra info page with relavant information
 void update_info_pages(void) {
     char two_int_char[3] = {"\0"};
     char three_int_char[4] = {"\0"};
   switch(p_idx) {
+    //Switch statement to see which page to update
     case P_RACE:
-
-
+        //Set the error bar to the previous message, if there was one
         if (strcmp(err_msg, prev_err_msg) != 0) {
             set_text("t11\0", NXT_TEXT, err_msg);
             prev_err_msg = err_msg;
         }
+        // Convert various can messages from integers to strings, then send them to the screen; Make sure char array is empty before next use (memset)
         int_to_char(MAX(can_data.rear_motor_currents_temps.right_temp, can_data.rear_motor_currents_temps.left_temp), three_int_char, 3);
         set_text("t14\0", NXT_TEXT, three_int_char);
 
-        /* **Controller Temps when I get them ** */
-        // three_int_char = {"\0"};
-        // int_to_char()
         int_to_char((can_data.orion_info.pack_soc / 2), two_int_char, 2);
         set_value("j0\0", NXT_VALUE, can_data.orion_info.pack_soc / 2);
         set_text("t6\0", NXT_TEXT, two_int_char);
@@ -480,8 +468,6 @@ void update_info_pages(void) {
         set_text("t8\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
 
-        // int_to_char(((can_data.rear_wheel_data.left_speed +
-        //                             can_data.rear_wheel_data.right_speed) / 200), two_int_char, 2);
         int_to_char((int) (((can_data.rear_wheel_data.left_speed +
                                     can_data.rear_wheel_data.right_speed) / 200.0) * 0.6213711922), two_int_char, 2);
         set_text("t0\0", NXT_TEXT, two_int_char);
@@ -489,6 +475,7 @@ void update_info_pages(void) {
         int_to_char((can_data.rear_controller_temps.left_temp + can_data.rear_controller_temps.right_temp) / 2, two_int_char, 2);
         set_text("t19\0", NXT_TEXT, two_int_char);
         memset(two_int_char, 3, '\0');
+        //Set the delta section on the screen, based on previous times
         if (delta == 0) {
             set_text("t1\0", NXT_TEXT, "0.00\0");
         }
@@ -502,6 +489,7 @@ void update_info_pages(void) {
         }
         break;
     case P_EXTRA_INFO:
+        //Set delta, according to previous information
         if (delta == 0) {
             set_text("t2\0", NXT_TEXT, "0.00\0");
         }
@@ -513,6 +501,7 @@ void update_info_pages(void) {
             (delta_interpreted > 0) ? set_value("t2\0", NXT_FONT_COLOR, RED) : set_value("t2\0", NXT_FONT_COLOR, GREEN);
 
         }
+        // Convert various can messages from integers to strings, then send them to the screen; Make sure char array is empty before next use (memset)
         int_to_char(can_data.rear_motor_currents_temps.left_temp, three_int_char, 3);
         set_text("t5\0", NXT_TEXT, three_int_char);
         memset(three_int_char, 4, '\0');
@@ -548,11 +537,13 @@ void update_info_pages(void) {
         break;
   }
 }
-
+//Function to update the colors on the pages (not needed to happen as frequently)
 void update_race_colors() {
     switch(p_idx) {
         uint16_t temp = can_data.max_cell_temp.max_temp;
         case P_RACE:
+            //Depending on value, set color (Green = good, yellow = watch closely, red = car failing imminently)
+            //Max temp between left + right motors
             if (can_data.rear_motor_currents_temps.left_temp < 40 && can_data.rear_motor_currents_temps.right_temp < 40) {
                 set_value("t14\0", NXT_FONT_COLOR, GREEN);
             }
@@ -562,7 +553,7 @@ void update_race_colors() {
             else {
                 set_value("t14\0", NXT_FONT_COLOR, RED);
             }
-
+            //Pack SOC
             if ((can_data.orion_info.pack_soc / 2) > 49) {
                 set_value("j0\0", NXT_FONT_COLOR, GREEN);
                 set_value("t6\0", NXT_FONT_COLOR, GREEN);
@@ -576,7 +567,7 @@ void update_race_colors() {
                 set_value("j0\0", NXT_FONT_COLOR, RED);
                 set_value("t6\0", NXT_FONT_COLOR, RED);
             }
-
+            //Max cell temp in battery
             if (temp < 36) {
                 set_value("t8\0", NXT_FONT_COLOR, GREEN);
             }
@@ -586,7 +577,7 @@ void update_race_colors() {
             else {
                 set_value("t8\0", NXT_FONT_COLOR, RED);
             }
-
+            //Max temp between each controller
             if (can_data.rear_controller_temps.left_temp < 40 && can_data.rear_controller_temps.right_temp < 40) {
                 set_value("t19\0", NXT_FONT_COLOR, GREEN);
             }
@@ -599,6 +590,8 @@ void update_race_colors() {
             set_value("j1\0", NXT_BACKGROUND_COLOR, GREEN);
             break;
         case P_EXTRA_INFO:
+            //Depending on value, set color (Green = good, yellow = watch closely, red = car failing imminently)
+            //Left motor temps
             if (can_data.rear_motor_currents_temps.left_temp < 60){
                 set_value("t5\0", NXT_FONT_COLOR, GREEN);
             }
@@ -609,11 +602,12 @@ void update_race_colors() {
             if (can_data.rear_motor_currents_temps.right_temp < 60) {
                 set_value("t6\0", NXT_FONT_COLOR, GREEN);
             }
+            //Right motor temps
             else if (can_data.rear_motor_currents_temps.right_temp > 39 && can_data.rear_motor_currents_temps.right_temp < 70)
                 set_value("t6\0", NXT_FONT_COLOR, YELLOW);
             else
                 set_value("t6\0", NXT_FONT_COLOR, RED);
-
+            //Pack SOC
             if ((can_data.orion_info.pack_soc / 2)  > 49) {
                 set_value("j0\0", NXT_FONT_COLOR, GREEN);
             }
@@ -623,7 +617,7 @@ void update_race_colors() {
             else {
                 set_value("j0\0", NXT_FONT_COLOR, RED);
             }
-
+            //Left controller temps
             if (can_data.rear_controller_temps.left_temp < 60){
                 set_value("t5\0", NXT_FONT_COLOR, GREEN);
             }
@@ -631,6 +625,7 @@ void update_race_colors() {
                 set_value("t5\0", NXT_FONT_COLOR, YELLOW);
             else
                 set_value("t5\0", NXT_FONT_COLOR, RED);
+            //Right controller temps
             if (can_data.rear_controller_temps.right_temp < 60) {
                 set_value("t6\0", NXT_FONT_COLOR, GREEN);
             }
@@ -643,8 +638,9 @@ void update_race_colors() {
 
     }
 }
-
+//Controls the startup page
 void check_precharge() {
+    //Make sure we are on the correct page, and go back to startup page if precharge is incomplete
    if (p_idx != P_STARTUP) {
        if ((can_data.main_hb.precharge_state == 0) && (precharge_complete)) {
            precharge_complete = false;
@@ -653,14 +649,16 @@ void check_precharge() {
        }
        return;
    }
-   // set_value("g0\0", "txt_maxl\0", 1000);
-
+   //Set character limit to proper length
+   set_value("g0\0", "txt_maxl\0", 1000);
+    //Update page if precharge is complete
    if (can_data.main_hb.precharge_state) {
        precharge_complete = true;
-       // set_text("g0\0", NXT_TEXT, "Precharge Complete! Press the start button to continue: \0");
+       set_text("g0\0", NXT_TEXT, "Precharge Complete! Press the start button to continue: \0");
        set_value("power\0", "=\0", 1);
 
    }
+   //Went from precharged back to HV off state
    else if ((can_data.main_hb.precharge_state == 0) && (precharge_complete)) {
        precharge_complete = false;
        set_text("g0\0", NXT_TEXT, "HV OFF");
@@ -669,12 +667,14 @@ void check_precharge() {
        set_value("power\0", "=\0", 0);
 
    }
-
+    //If car is succesfully active, go to race page
    if (can_data.main_hb.car_state == CAR_STATE_READY2DRIVE) {
        p_idx = P_RACE;
        set_page("race\0");
    }
 }
+
+//Function to change page easily
 void changePage(uint8_t new_page)
 {
   if (new_page == p_idx) return;
@@ -683,6 +683,7 @@ void changePage(uint8_t new_page)
   b_idx = 0;
 }
 
+//Function to do (basic) 2 decimal float to char conversion, as that is all I need - gets unnecesarily complicated if I do it the actual way
 static char * _float_to_char(float x, char *p, int buff_size) {
     const int CHAR_BUFF_SIZE = buff_size;
     char *s = p + CHAR_BUFF_SIZE; // go to end of buffer
@@ -707,11 +708,17 @@ static char * _float_to_char(float x, char *p, int buff_size) {
     else *--s = '+'; // unary minus sign for negative numbers
     return s;
 }
+
+//Convert an integer to a char array to be sent to screen
 static char* int_to_char(int x, char *str, int buffer) {
+    //If the integer is 0 or negative
     if (x < 1) {
+        //Go to end of array
         char *s = str + buffer - 1;
+        //If x is just 0
         if(x == 0)
-        return *str = '0';
+            return *str = '0';
+        //Iterate over the integer, add it to array, then append a '-'
         while (x > 0) {
             *s-- = (x % 10) + '0';
             x /=10;
@@ -719,6 +726,7 @@ static char* int_to_char(int x, char *str, int buffer) {
         *s='-';
     return s;
     }
+    //Iterate over teh integer, adding it to the array
     char *s = str + buffer - 1;
     if(x == 0)
        return *str = '0';

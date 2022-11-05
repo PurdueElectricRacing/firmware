@@ -3,7 +3,7 @@
 pedals_t pedals = {0};
 volatile raw_pedals_t raw_pedals = {0};
 
-pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=300, // WARNING: DAQ VARIABLE
+pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=300, // WARNING: DAQ VARIABLE orig: 300
                                          .t2max=1550,.t2min=300, // IF EEPROM ENABLED,
                                          .b1max=1000,.b1min=700, // VALUE WILL CHANGE
                                          .b2max=820,.b2min=690, // 1400, 400
@@ -51,7 +51,7 @@ void pedalsPeriodic(void)
     bool apps_wiring_fail = false;
 
     // Check for APPS wiring failure T.4.2.10
-    if (t1 <= APPS_IMPLAUS_MIN || t1 >= APPS_IMPLAUS_MAX ||
+    if ( /* t1 <= APPS_IMPLAUS_MIN || t1 >= APPS_IMPLAUS_MAX || */
         t2 <= APPS_IMPLAUS_MIN || t2 >= APPS_IMPLAUS_MAX)
     {
         apps_wiring_fail = true;
@@ -100,7 +100,8 @@ void pedalsPeriodic(void)
 
 
     // APPS implaus check: wiring fail or 10% APPS deviation T.4.2.4 (after scaling)
-    if (apps_wiring_fail || ((t2>t1)?(t2-t1):(t1-t2)) >= APPS_IMPLAUS_MAX_DIFF)
+    //UNCOMMENT once both throttles work
+    if (apps_wiring_fail /* ||  ((t2>t1)?(t2-t1):(t1-t2)) >= APPS_IMPLAUS_MAX_DIFF */)
     {
         if (!pedals.apps_implaus_detected) pedals.apps_implaus_start_time = sched.os_ticks;
         pedals.apps_implaus_detected = true;
@@ -131,19 +132,19 @@ void pedalsPeriodic(void)
     if (!pedals.apps_brake_faulted)
     {
         if (b2 >= APPS_BRAKE_THRESHOLD &&
-            t1 >= APPS_THROTTLE_FAULT_THRESHOLD)
+            t2 >= APPS_THROTTLE_FAULT_THRESHOLD)
         {
             pedals.apps_brake_faulted = true;
         }
     }
-    else if (t1 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
+    else if (t2 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
     {
         pedals.apps_brake_faulted = false;
     }
 
     if (pedals.apps_faulted || pedals.bse_faulted || pedals.apps_brake_faulted)
     {
-        t1 = 0;
+        t2 = 0;
     }
-    SEND_RAW_THROTTLE_BRAKE(q_tx_can, t1, b3);
+    SEND_RAW_THROTTLE_BRAKE(q_tx_can, t2, b3);
 }

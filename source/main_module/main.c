@@ -77,14 +77,13 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
     {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings, 
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 
 #define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .pll_src                    =PLL_SRC_MSI,
-    .msi_output_rate_target_hz  =16000000,
+    .pll_src                    =PLL_SRC_HSI16,
     .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
@@ -175,7 +174,7 @@ void preflightChecks(void) {
             }
             break;
         case 2:
-            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
                             sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
             {
                 HardFault_Handler();
@@ -260,10 +259,10 @@ void canTxUpdate(void)
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -273,7 +272,7 @@ void CAN1_RX0_IRQHandler()
         // Get either StdId or ExtId
         rx.IDE = CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR;
         if (rx.IDE)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
@@ -292,7 +291,7 @@ void CAN1_RX0_IRQHandler()
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
-        CAN1->RF0R |= (CAN_RF0R_RFOM0); 
+        CAN1->RF0R |= (CAN_RF0R_RFOM0);
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }

@@ -16,12 +16,14 @@
 // #define ID_BATT_FLOW_FAULT 0x00000004
 // #define ID_DRIVE_FLOW_FAULT 0x00000005
 
+fault_owner_t owner;
+
 //Begin auto array declarations
-fault_message_t fault_status[TOTAL]
+// fault_message_t fault_status[TOTAL]
 //End auto array declarations
 
 //Begin auto fault message struct defs
-fault_message_t bms_fault = {false}
+// fault_message_t bms_fault = {false}
 //End auto fault message struct defs
 bool fault_lib_enable;
 
@@ -37,6 +39,7 @@ void killFaultLibrary() {
     fault_lib_enable = false;
 }
 
-void initFaultLibrary() {
+void initFaultLibrary(fault_owner_t mcu) {
     fault_lib_enable = true;
+    owner = mcu;
 }

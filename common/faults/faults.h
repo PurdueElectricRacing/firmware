@@ -11,6 +11,8 @@
 #ifndef _FAULTS_H_
 #define _FAULTS_H_
 
+#include <stdbool.h>
+
 //TODO: Make defs actually auto
 //Begin Total Defs
 #define TOTAL_MCU_NUM 6
@@ -97,7 +99,7 @@ typedef enum {
 //Designed these two parts; fault message sends fault values through CAN w/o unneeded extra load of the attributes; Kept synced thru fault ID
 typedef struct {
     bool latched : 1;
-    int f_ID;
+    int f_ID : 31;
 } fault_message_t;
 typedef struct {
     fault_priority_t priority;
@@ -105,6 +107,7 @@ typedef struct {
     int f_ID;
     int f_max;
     int f_min;
+    fault_message_t *message;
     char* screen_MSG;
 } fault_attributes_t;
 
@@ -113,7 +116,7 @@ typedef struct {
 
 //Function defs
 extern bool linkCarStateSDC();
-extern void initFaultLibrary();
+extern void initFaultLibrary(fault_owner_t);
 extern bool setFault(fault_message_t*, int);
 extern void killFaultLibrary();
 

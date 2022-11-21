@@ -15,7 +15,7 @@
 #define POT3_ADC_Channel (8)
 
 // Status LEDs
-#define LED_GREEN_Pin (0)
+#define LED_GREEN_Pin (3)
 #define LED_GREEN_GPIO_Port (GPIOB)
 #define LED_RED_Pin (1)
 #define LED_RED_GPIO_Port (GPIOB)

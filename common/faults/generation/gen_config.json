@@ -1,0 +1,5 @@
+{
+    "info": "Configuration for Code Generation in the Fault library",
+    "fault_json_config_path": "../fault_config.json",
+    "fault_json_schema_path": "../fault_schema.json"
+}

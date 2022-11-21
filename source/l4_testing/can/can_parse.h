@@ -29,7 +29,10 @@
 #define ID_WHEEL_SPEEDS 0xc0001ff
 #define ID_ADC_VALUES 0x1234
 #define ID_CAR_STATE 0xbeef420
+#define ID_FAULT_SYNC_TEST 0xc001eff
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
+#define ID_FAULT_SYNC_DRIVELINE 0xc001e83
+#define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
@@ -46,7 +49,10 @@
 #define DLC_WHEEL_SPEEDS 8
 #define DLC_ADC_VALUES 5
 #define DLC_CAR_STATE 1
+#define DLC_FAULT_SYNC_TEST 3
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
+#define DLC_FAULT_SYNC_DRIVELINE 3
+#define DLC_FRONT_DRIVELINE_HB 2
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
@@ -114,6 +120,13 @@ typedef union {
         data_a->car_state.car_state = car_state_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_FAULT_SYNC_TEST(queue, idx_, latched_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_TEST, .DLC=DLC_FAULT_SYNC_TEST, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->fault_sync_test.idx = idx_;\
+        data_a->fault_sync_test.latched = latched_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -125,6 +138,7 @@ typedef union {
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period) in milliseconds*/
+#define UP_FRONT_DRIVELINE_HB 100
 #define UP_TEST_MSG5_2 15
 #define UP_TEST_STALE 1000
 /* END AUTO UP DEFS */
@@ -139,6 +153,20 @@ typedef enum {
     CAR_STATE_FLYING,
     CAR_STATE_LIGHTSPEED,
 } car_state_t;
+
+typedef enum {
+    FRONT_LEFT_MOTOR_DISCONNECTED,
+    FRONT_LEFT_MOTOR_INITIALIZING,
+    FRONT_LEFT_MOTOR_CONNECTED,
+    FRONT_LEFT_MOTOR_ERROR,
+} front_left_motor_t;
+
+typedef enum {
+    FRONT_RIGHT_MOTOR_DISCONNECTED,
+    FRONT_RIGHT_MOTOR_INITIALIZING,
+    FRONT_RIGHT_MOTOR_CONNECTED,
+    FRONT_RIGHT_MOTOR_ERROR,
+} front_right_motor_t;
 
 typedef enum {
     CAR_STATE2_READY2GO,
@@ -180,8 +208,20 @@ typedef union { __attribute__((packed))
         uint64_t car_state: 8;
     } car_state;
     struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_test;
+    struct {
         uint64_t daq_response: 64;
     } daq_response_TEST_NODE;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_driveline;
+    struct {
+        uint64_t front_left_motor: 8;
+        uint64_t front_right_motor: 8;
+    } front_driveline_hb;
     struct {
         uint64_t test_sig5: 16;
         uint64_t test_sig5_2: 16;
@@ -204,6 +244,16 @@ typedef union { __attribute__((packed))
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_driveline;
+    struct {
+        front_left_motor_t front_left_motor;
+        front_right_motor_t front_right_motor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_driveline_hb;
     struct {
         uint16_t test_sig5;
         int16_t test_sig5_2;
@@ -229,6 +279,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

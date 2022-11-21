@@ -30,6 +30,17 @@
                             "msg_period":15,
                             "msg_hlp":1,
                             "msg_pgn":1
+                        },
+                        {
+                            "msg_name": "fault_sync_main_module",
+                            "msg_desc": "Syncing Fault example",
+                            "signals": [
+                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
+                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 121
                         }
                     ],
                     "rx":[
@@ -71,6 +82,17 @@
                             "msg_period":0,
                             "msg_hlp":0,
                             "msg_pgn":100
+                        },
+                        {
+                            "msg_name": "fault_sync_tv",
+                            "msg_desc": "Syncing Fault example",
+                            "signals": [
+                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
+                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 122
                         }
                     ],
                     "rx":[
@@ -180,9 +202,21 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 13
+                        },
+                        {
+                            "msg_name": "fault_sync_driveline",
+                            "msg_desc": "Syncing Fault example",
+                            "signals": [
+                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
+                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 122
                         }
                     ],
                     "rx": [
+                        {"msg_name": "fault_sync_test", "callback": true},
                         {"msg_name":"torque_request_main"},
                         {"msg_name":"main_hb"}
                     ]
@@ -287,6 +321,17 @@
                             "msg_period":0,
                             "msg_hlp":5,
                             "msg_pgn":514
+                        },
+                        {
+                            "msg_name": "fault_sync_precharge",
+                            "msg_desc": "Syncing Fault example",
+                            "signals": [
+                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
+                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 122
                         }
                     ],
                     "rx": [
@@ -1355,9 +1400,22 @@
                             ],
                             "msg_period":0,
                             "msg_id_override": "0xBEEF420"
+                        },
+                        {
+                            "msg_name": "fault_sync_test",
+                            "msg_desc": "Syncing Fault example",
+                            "signals": [
+                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
+                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp": 3,
+                            "msg_pgn": 123
                         }
                     ],
                     "rx":[
+                        {"msg_name": "fault_sync_driveline", "callback": true},
+                        {"msg_name": "front_driveline_hb"},
                         {"msg_name": "test_msg5_2"},
                         {"msg_name": "test_stale"},
                         {"msg_name": "car_state2"}

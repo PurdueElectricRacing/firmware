@@ -28,6 +28,8 @@
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
 #define ID_FRONT_MOTOR_INIT 0x14000303
 #define ID_REAR_MOTOR_INIT 0x14000343
+#define ID_FAULT_SYNC_DRIVELINE 0xc001e83
+#define ID_FAULT_SYNC_TEST 0xc001eff
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
 /* END AUTO ID DEFS */
@@ -42,6 +44,8 @@
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 6
 #define DLC_FRONT_MOTOR_INIT 2
 #define DLC_REAR_MOTOR_INIT 2
+#define DLC_FAULT_SYNC_DRIVELINE 3
+#define DLC_FAULT_SYNC_TEST 3
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
 /* END AUTO DLC DEFS */
@@ -110,6 +114,13 @@ extern uint32_t last_can_rx_time_ms;
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_motor_init.rear_left_init = rear_left_init_;\
         data_a->rear_motor_init.rear_right_init = rear_right_init_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_FAULT_SYNC_DRIVELINE(queue, idx_, latched_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_DRIVELINE, .DLC=DLC_FAULT_SYNC_DRIVELINE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->fault_sync_driveline.idx = idx_;\
+        data_a->fault_sync_driveline.latched = latched_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -241,6 +252,14 @@ typedef union { __attribute__((packed))
         uint64_t rear_right_init: 8;
     } rear_motor_init;
     struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_driveline;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_test;
+    struct {
         uint64_t front_left: 16;
         uint64_t front_right: 16;
         uint64_t rear_left: 16;
@@ -258,6 +277,10 @@ typedef union { __attribute__((packed))
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_test;
     struct {
         int16_t front_left;
         int16_t front_right;
@@ -278,6 +301,7 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void fault_sync_test_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

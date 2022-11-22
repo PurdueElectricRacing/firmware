@@ -1,3 +1,144 @@
 {
-    "$schema":"./fault_schema.json"
+    "$schema":"./fault_schema.json",
+    "modules": [
+        {
+            "node_name": "main_module",
+            "faults": [
+                {
+                    "fault_name": "batt_flow",
+                    "max": 63,
+                    "min": 46,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "battery pump flow brokey"
+                },
+                {
+                    "fault_name": "drive_flow",
+                    "max": 63,
+                    "min": 46,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "battery pump flow brokey"
+                },
+                {
+                    "fault_name": "main_comm",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "critical",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "main not talking"
+                },
+                {
+                    "fault_name": "lv_dead",
+                    "max": 3200,
+                    "min": 2000,
+                    "priority": "critical",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "LV dead, shut car off ASAP"
+                }
+            ]
+        },
+        {
+            "node_name": "driveline_rear",
+            "faults": [
+                {
+                    "fault_name": "mot_rear_ot",
+                    "max": 100,
+                    "min": 10,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Rear motors overheating"
+                }
+            ]
+        },
+        {
+            "node_name": "driveline_front",
+            "faults": [
+                {
+                    "fault_name": "mot_front_ot",
+                    "max": 100,
+                    "min": 10,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Front motors overheating"
+                },
+                {
+                    "fault_name": "wlspd_l",
+                    "max": 4096,
+                    "min": 0,
+                    "priority": "info",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "wheelspeeed L broken"
+                },
+                {
+                    "fault_name": "wlspd_r",
+                    "max": 4096,
+                    "min": 0,
+                    "priority": "info",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "wheelspeeed R broken"
+                },
+                {
+                    "fault_name": "driveline_comm",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "critical",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Driveline offline"
+                }
+            ]
+        },
+        {
+            "node_name": "dashboard",
+            "faults": [
+                {
+                    "fault_name": "bms",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "critical",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "BMS fault"
+                }
+            ]
+        },
+        {
+            "node_name": "precharge",
+            "faults": [
+                {
+                    "fault_name": "batt_ot",
+                    "max": 50,
+                    "min": 10,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Battery overheating"
+                }
+
+            ]
+        },
+        {
+            "node_name": "tv",
+            "faults": [
+                {
+                    "fault_name": "tv_offline",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "info",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "TV offline"
+                }
+            ]
+        }
+    ]
 }

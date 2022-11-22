@@ -20,7 +20,7 @@
 
 
 //TODO: Make defs actually aut
-//Begin Total Defs
+//BEGIN AUTO TOTAL DEFS
 #define TOTAL_MCU_NUM 6
 #define TOTAL_NUM_FAULTS 12
 #define TOTAL_MAIN_MODULE_FAULTS 2
@@ -30,12 +30,12 @@
 #define TOTAL_PRECHARGE_FAULTS 2
 #define TOTAL_TV_FAULTS 1
 #define MAX_MSG_SIZE 100
-//End Total Defs
+//END AUTO TOTAL DEFS
 
 //TODO: Make defs actually auto
 //TODO: Create Hex scheme for defs (use CAN as example)
-//Begin auto ID defs
-#define ID_BMS_FAULT 0x1000
+//BEGIN AUTO ID DEFS
+#define ID_BMS_FAULT 0x3000
 #define ID_BATT_OT_FAULT 0x4001
 #define ID_MOT_REAR_OT_FAULT 0x1002
 #define ID_MOT_FRONT_OT_FAULT 0x2003
@@ -47,14 +47,14 @@
 #define ID_MAIN_COMM_FAULT 0x0009
 #define ID_LV_DEAD_FAULT 0x000a
 #define TV_FAIL_FAULT 0x500b
-//End auto ID defs
+//END AUTO ID DEFS
 #define GET_IDX(id) (id & 0x0FFF)
 #define GET_OWNER(id) ((id & 0xF000) >> 12)
 
 //INFO: Doesn't affect driving state (Car can still safely drive)
 //ERROR: Car exits ready2drive, but LV + HV systems still active
 //CRITICAL: The Car SDC is activated
-//Begin auto priority defs
+//BEGIN AUTO PRIORITY DEFS
 #define BMS_PRIORITY 2
 #define BATT_OT_PRIORITY 1
 #define MOT_REAR_OT_PRIORITY 1
@@ -67,7 +67,13 @@
 #define MAIN_COMM_PRIORITY 2
 #define LV_DEAD_PRIORITY 2
 #define TV_FAIL_PRIORITY 0
-//End auto priority defs
+//END AUTO PRIORITY DEFS
+
+//BEGIN AUTO MAX DEFS
+//END AUTO MAX DEFS
+
+//BEGIN AUTO MIN DEFS
+//END AUTO MIN DEFS
 
 //Begin auto max/min defs
 #define BMS_MAX 1
@@ -96,6 +102,12 @@
 #define TV_FAIL_MIN 0
 //End auto max/min defs
 
+//BEGIN AUTO LATCH DEFS
+//END AUTO LATCH DEFS
+
+//BEGIN AUTO UNLATCH DEFS
+//END AUTO UNLATCH DEFS
+
 //Begin auto l/ul defs
 #define BMS_L_TIME 10
 #define BMS_UL_TIME 10
@@ -123,7 +135,7 @@
 #define TV_FAIL_UL_TIME 10
 //End auto l/ul defs
 
-//Begin auto screenmsg defs
+//BEGIN AUTO SCREENMSG DEFS
 #define BMS_MSG "BMS fault\0"
 #define BATT_OT_MSG "Battery overheating\0"
 #define MOT_REAR_OT_MSG "Rear motors overheating\0"
@@ -136,17 +148,17 @@
 #define MAIN_COMM_MSG "Main Module not responding\0"
 #define LV_DEAD_MSG "LV voltage too low, turn off ASAP\0"
 #define TV_FAIL_MSG "TV offline\0"
-//End auto screenmsg defs
+//END AUTO SCREENMSG DEFS
 
 
 //TODO: Make defs actually auto
-//Begin auto ENUM Defs
+
 typedef enum {
     INFO = 0,
     WARNING = 1,
     CRITICAL = 2
 } fault_priority_t;
-
+//BEGIN AUTO ENUM DEFS
 typedef enum {
     MAIN_MODULE = 0,
     DRIVELINE_REAR = 1,
@@ -155,6 +167,7 @@ typedef enum {
     PRECHARGE = 4,
     TV = 5
 } fault_owner_t;
+//END AUTO ENUM DEFS
 
 
 

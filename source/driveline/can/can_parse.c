@@ -35,10 +35,30 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_FAULT_SYNC_TEST:
-                can_data.fault_sync_test.idx = msg_data_a->fault_sync_test.idx;
-                can_data.fault_sync_test.latched = msg_data_a->fault_sync_test.latched;
-                fault_sync_test_CALLBACK(msg_data_a);
+            case ID_FAULT_SYNC_DASHBOARD:
+                can_data.fault_sync_dashboard.idx = msg_data_a->fault_sync_dashboard.idx;
+                can_data.fault_sync_dashboard.latched = msg_data_a->fault_sync_dashboard.latched;
+                fault_sync_dashboard_CALLBACK(msg_data_a);
+                break;
+            case ID_FAULT_SYNC_TORQUE_VECTOR:
+                can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
+                can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
+                fault_sync_torque_vector_CALLBACK(msg_data_a);
+                break;
+            case ID_FAULT_SYNC_MAIN_MODULE:
+                can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
+                can_data.fault_sync_main_module.latched = msg_data_a->fault_sync_main_module.latched;
+                fault_sync_main_module_CALLBACK(msg_data_a);
+                break;
+            case ID_FAULT_SYNC_PRECHARGE:
+                can_data.fault_sync_precharge.idx = msg_data_a->fault_sync_precharge.idx;
+                can_data.fault_sync_precharge.latched = msg_data_a->fault_sync_precharge.latched;
+                fault_sync_precharge_CALLBACK(msg_data_a);
+                break;
+            case ID_FAULT_SYNC_L4_TESTING:
+                can_data.fault_sync_l4_testing.idx = msg_data_a->fault_sync_l4_testing.idx;
+                can_data.fault_sync_l4_testing.latched = msg_data_a->fault_sync_l4_testing.latched;
+                fault_sync_l4_testing_CALLBACK(msg_data_a);
                 break;
             case ID_TORQUE_REQUEST_MAIN:
                 can_data.torque_request_main.front_left = (int16_t) msg_data_a->torque_request_main.front_left;
@@ -85,10 +105,16 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_FAULT_SYNC_TEST << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_MAIN_HB << 3) | 4;
+    CAN1->sFilterRegister[1].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
+    CAN1->FA1R |= (1 << 2);    // configure bank 2
+    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_L4_TESTING << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
+    CAN1->FA1R |= (1 << 3);    // configure bank 3
+    CAN1->sFilterRegister[3].FR1 = (ID_MAIN_HB << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

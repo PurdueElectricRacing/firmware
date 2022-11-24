@@ -17,6 +17,10 @@
                     "type":"string",
                     "description":"name of the node (MCU)"
                 },
+                "can_name": {
+                    "type": "string",
+                    "description": "If this node has a different in name in CAN (ex. driveline instead of driveline_front/rear), use this"
+                },
                 "faults": {
                     "type":"array",
                     "description":"messages transmitted by the node",

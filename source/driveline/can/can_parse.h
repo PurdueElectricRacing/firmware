@@ -29,7 +29,11 @@
 #define ID_FRONT_MOTOR_INIT 0x14000303
 #define ID_REAR_MOTOR_INIT 0x14000343
 #define ID_FAULT_SYNC_DRIVELINE 0xc001e83
-#define ID_FAULT_SYNC_TEST 0xc001eff
+#define ID_FAULT_SYNC_DASHBOARD 0xc001e45
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0xc001e82
+#define ID_FAULT_SYNC_MAIN_MODULE 0xc001e41
+#define ID_FAULT_SYNC_PRECHARGE 0xc001e84
+#define ID_FAULT_SYNC_L4_TESTING 0xc001eff
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
 /* END AUTO ID DEFS */
@@ -45,7 +49,11 @@
 #define DLC_FRONT_MOTOR_INIT 2
 #define DLC_REAR_MOTOR_INIT 2
 #define DLC_FAULT_SYNC_DRIVELINE 3
-#define DLC_FAULT_SYNC_TEST 3
+#define DLC_FAULT_SYNC_DASHBOARD 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_FAULT_SYNC_MAIN_MODULE 3
+#define DLC_FAULT_SYNC_PRECHARGE 3
+#define DLC_FAULT_SYNC_L4_TESTING 3
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
 /* END AUTO DLC DEFS */
@@ -258,7 +266,23 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_test;
+    } fault_sync_dashboard;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_torque_vector;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_main_module;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_precharge;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_l4_testing;
     struct {
         uint64_t front_left: 16;
         uint64_t front_right: 16;
@@ -280,7 +304,23 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_test;
+    } fault_sync_dashboard;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_main_module;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_precharge;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_l4_testing;
     struct {
         int16_t front_left;
         int16_t front_right;
@@ -301,7 +341,11 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void fault_sync_test_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_l4_testing_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

@@ -3,6 +3,7 @@ import sys
 import math
 import json
 import os
+import gen_faults
 from os import path
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
@@ -32,6 +33,9 @@ def log_warning(phrase):
 def log_success(phrase):
     print(f"{bcolors.OKGREEN}{phrase}{bcolors.ENDC}")
 
+def log_heading(phrase):
+    print(f"{bcolors.BOLD}{bcolors.UNDERLINE}{phrase}{bcolors.ENDC}")
+
 priority_dict = {'info':0, 'warning':1, 'critical':2}
 
 def load_json_config(config_path, schema_path):
@@ -48,27 +52,180 @@ def load_json_config(config_path, schema_path):
         quit(1)
 
     return config
-# arg = -1
-# try:
-#     arg = sys.argv[1]
-# except:
-#     print("This has failed")
-# print(f"Attempting to generate code for {arg}")
+def insert_lines(source: list, start, stop, new_lines):
+    """
+    Insert lines between start and stop lines, writes over pre-existing data
+    @param source    source lines to edit
+    @param start     phrase contained in line to begin generation after
+    @param stop      phrase contained in line after generation section
+    @param new_lines list of lines to place between start and stop
+
+    @return          source lines with the modification
+    """
+
+    curr_idx = 0
+    start_idx = 0
+    stop_idx = 0
+    for line in source:
+        if start in line:
+            start_idx = curr_idx
+        elif stop in line:
+            stop_idx = curr_idx
+            break
+        curr_idx += 1
+
+    if stop_idx <= start_idx or stop_idx == 0 or start_idx ==0:
+        log_error("Insert lines failed for start "+start+" and stop "+stop)
+        log_error("Check to make sure the start and stop phrases are correct")
+        quit(1)
+
+    # remove existing lines
+    del source[start_idx+1:stop_idx]
+
+    # add new lines
+    for idx, nl in enumerate(new_lines):
+        source.insert(start_idx + 1 + idx, nl)
+
+    return source
+
+def check_args(fault_config):
+    arg = 0
+    try:
+        arg = sys.argv[1]
+        arg = arg.lower()
+    except:
+        log_error("Please include a target in your command\n ex: python3 common/faults/generation/generator.py dashboard.")
+        quit(1)
+    matchFound = 0
+    for node in fault_config['modules']:
+        if arg == node['node_name']:
+            matchFound += 1
+    if matchFound < 1:
+        log_error(f"\"{arg}\" is not contained in fault_config.json. Please include a valid name!")
+        quit(1)
+    elif matchFound > 1:
+        log_error(f"\"{arg}\" is the name of multiple nodes in fault_config.json. Modify and run again")
+        quit(1)
+    return arg
+
+def check_message_len(fault_config):
+    if len(fault_config['modules']) > 16:
+        log_error(f"Max number of nodes is 16. There are {len(fault_config['modules'])} nodes currently defined in fault_config.json. \nReduce the number of nodes you have defined")
+        quit(1)
+    else:
+        print(f"Total number of nodes: {len(fault_config['modules'])}")
+    length = 0
+    for node in fault_config['modules']:
+        length += len(node['faults'])
+        for fault in node['faults']:
+            if len(fault['lcd_message']) >= 75:
+                log_error(f"The message for fault \"{fault['fault_name']}\" in \"{node['node_name']}\"is too long. Max limit is 75 characters")
+                quit(1)
+    if length >= 4090:
+        log_error(f"Max number of faults is 4090. There are {length} faults currently defined in fault_config.json. \nReduce the number of faults you have defined")
+        quit(1)
+    else:
+        print(f"Total number of faults: {length}")
+    return True
+
+def check_names(fault_config):
+    node_names = []
+    fault_names = []
+    for node in fault_config['modules']:
+        if node['node_name'] in node_names:
+            log_error(f"Found multiple nodes with the name \"{node['node_name']}\". Duplicate names are not allowed")
+            quit(1)
+        else:
+            node_names.append(node['node_name'])
+        for fault in node['faults']:
+            if fault['fault_name'] in fault_names:
+                log_error(f"Found multiple faults with the name \"{fault['fault_name']}\". The duplicate was found in \"{node['node_name']}\" \n Duplicate names are not allowed")
+                quit(1)
+            else:
+                fault_names.append(fault['fault_name'])
+
+
+def create_ids(fault_config):
+    num = 0
+    idx = 0
+    for node in fault_config['modules']:
+        for fault in node['faults']:
+            #id : Owner (MCU) = 4 bits, Index in fault array = 12 bits
+            id = ((num << 12) | (idx & 0x0fff))
+            # print(hex(id))
+            fault['id'] =  id
+            idx += 1
+        num += 1
+
+def process_priorities(fault_config):
+    for node in fault_config['modules']:
+        for fault in node['faults']:
+            if fault['priority'] == "info":
+                fault['pri_interp'] = 0
+            elif fault['priority'] == "warning":
+                fault['pri_interp'] = 1
+            else:
+                fault['pri_interp'] = 2
+
+def process_nodes(fault_config):
+    id = 0
+    for node in fault_config['modules']:
+        node['name_interp'] = id
+        id += 1
+    for node in fault_config['modules']:
+        try:
+            node['can_name']
+        except KeyError:
+            node['can_name'] = node['node_name']
+        except:
+            log_error("An error occured in configuring CAN names for faults")
+            quit(1)
+
+
+
+
 def generate_all():
+
+
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
     relative_dir = Path(os.path.dirname(__file__))
 
     fault_config_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_config_path']))
     fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
+    fault_c_path = Path(os.path.abspath(relative_dir / gen_config['fault_c_file']))
+    fault_h_path = Path(os.path.abspath(relative_dir / gen_config['fault_h_file']))
 
-    firmware_common_dir = Path(os.path.abspath(relative_dir / gen_config['common_directory']))
-
-    print(firmware_common_dir)
+    log_heading("Defined Paths:")
 
     print(fault_config_path)
     print(fault_schema_path)
+    print(fault_c_path)
+    print(fault_h_path)
+
+    log_heading("Checking validity of fault configuration:")
 
     fault_config = load_json_config(fault_config_path, fault_schema_path)
+
+    arg = check_args(fault_config)
+    check_message_len(fault_config)
+    check_names(fault_config)
+
+    log_success("Fault configuration is valid!")
+
+    log_heading(f"Generating code for {arg}:")
+
+    create_ids(fault_config)
+    process_priorities(fault_config)
+    process_nodes(fault_config)
+
+    gen_faults.gen_faults(fault_config, fault_c_path, fault_h_path, arg)
+    log_success(f"Fault Code for {arg} Successfully Generated!")
+
+
+
+
+
+
 
 if __name__ == "__main__":
     generate_all()

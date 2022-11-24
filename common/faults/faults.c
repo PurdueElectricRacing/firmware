@@ -10,7 +10,7 @@
  */
 #include "faults.h"
 //BEGIN AUTO INCLUDES
-#include "source/l4_testing/can/can_parse.h"
+#include "source/driveline/can/can_parse.h"
 //END AUTO INCLUDES
 // #include "source/l4_testing/can/can_parse.h"
 
@@ -84,7 +84,7 @@ fault_attributes_t getFault(int id) {
 void txFaults() {
         fault_message_t *message = &messageArray[GET_IDX(curridx++)];
         //BEGIN AUTO TX COMMAND
-		SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
+		SEND_FAULT_SYNC_DRIVELINE(*q_tx, message->f_ID, message->latched);
         //END AUTO TX COMMAND
      if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].f_ID) != currentMCU)) {
         curridx = ownedidx;
@@ -94,7 +94,7 @@ void txFaults() {
 void txFaultSpecific(int id) {
     fault_message_t *message = &messageArray[GET_IDX(id)];
 //BEGIN AUTO TX COMMAND SPECIFIC
-		SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
+		SEND_FAULT_SYNC_DRIVELINE(*q_tx, message->f_ID, message->latched);
 //END AUTO TX COMMAND SPECIFIC
 }
 
@@ -339,8 +339,45 @@ void fault_sync_torque_vector_CALLBACK(CanParsedData_t *msg_header_a) {
 
 
 void fault_sync_l4_testing_CALLBACK(CanParsedData_t *msg_header_a) {
-	return;
+	fault_message_t recievedMessage = {msg_header_a->fault_sync_l4_testing.latched, msg_header_a->fault_sync_l4_testing.idx};
+	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
+	switch (recievedMessage.latched) {
+		case true:
+			if (!currMessage->latched) {                
+				currMessage->latched = recievedMessage.latched;
+				switch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {                
+					case INFO:
+						infoCount++;
+						break;
+					case WARNING:                
+						warnCount++;
+						break;
+					case CRITICAL:
+						critCount++;
+						break;
+				}
+			}                
+			break;
+		case false:
+			if (currMessage->latched) {
+				currMessage->latched = recievedMessage.latched;                
+				switch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {
+					case INFO:
+						infoCount--;
+						break;                
+					case WARNING:
+						warnCount--;
+						break;
+					case CRITICAL:
+						critCount--;
+						break;                
+				}
+			}
+			break;
+		}
 }
+
+
 //END AUTO RECIEVE FUNCTIONS
 
 void updateFaults() {
@@ -428,6 +465,7 @@ void forceFault(int id, bool state) {
     faultArray[idx].tempLatch = state;
     faultArray[idx].forceActive = true;
     messageArray[idx].latched = state;
+	txFaultSpecific(id);
 
 }
 

@@ -24,7 +24,6 @@
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_FLOWRATE_TEMPS 0x4000881
 #define ID_LWS_CONFIG 0x7c0
-#define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
@@ -37,7 +36,6 @@
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -46,7 +44,6 @@
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_FLOWRATE_TEMPS 6
 #define DLC_LWS_CONFIG 2
-#define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
@@ -59,7 +56,6 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
-#define DLC_DAQ_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -96,12 +92,6 @@
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_DAQ_RESPONSE_MAIN_MODULE(queue, daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_MAIN_MODULE, .DLC=DLC_DAQ_RESPONSE_MAIN_MODULE, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_MAIN_MODULE.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -254,9 +244,6 @@ typedef union { __attribute__((packed))
         uint64_t Reserved_2: 8;
     } LWS_Config;
     struct {
-        uint64_t daq_response: 64;
-    } daq_response_MAIN_MODULE;
-    struct {
         uint64_t throttle: 12;
         uint64_t brake: 12;
     } raw_throttle_brake;
@@ -326,9 +313,6 @@ typedef union { __attribute__((packed))
         uint64_t cmd: 8;
         uint64_t data: 32;
     } main_module_bl_cmd;
-    struct {
-        uint64_t daq_command: 64;
-    } daq_command_MAIN_MODULE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -425,9 +409,6 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } main_module_bl_cmd;
-    struct {
-        uint64_t daq_command;
-    } daq_command_MAIN_MODULE;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -435,7 +416,6 @@ extern can_data_t can_data;
 extern volatile uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 

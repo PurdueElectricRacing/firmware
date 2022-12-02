@@ -22,7 +22,7 @@
 #endif
 
 /* Module Includes */
-#include "daq.h"
+// #include "daq.h"
 #include "main.h"
 #include "can_parse.h"
 #include "wheel_speeds.h"

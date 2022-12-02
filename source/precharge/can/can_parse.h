@@ -32,7 +32,6 @@
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_MOD_CELL_TEMP_AVG 0x14008084
 #define ID_RAW_CELL_TEMP 0x140080c4
-#define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
 #define ID_MODULE_TEMP_0 0xbe0
 #define ID_MODULE_TEMP_1 0xbe1
 #define ID_MODULE_TEMP_2 0xbe2
@@ -54,7 +53,6 @@
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
 #define ID_PRECHARGE_BL_CMD 0x409c57e
-#define ID_DAQ_COMMAND_PRECHARGE 0x14000132
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -71,7 +69,6 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_MOD_CELL_TEMP_AVG 8
 #define DLC_RAW_CELL_TEMP 7
-#define DLC_DAQ_RESPONSE_PRECHARGE 8
 #define DLC_MODULE_TEMP_0 8
 #define DLC_MODULE_TEMP_1 8
 #define DLC_MODULE_TEMP_2 8
@@ -93,7 +90,6 @@
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_ORION_ERRORS 4
 #define DLC_PRECHARGE_BL_CMD 5
-#define DLC_DAQ_COMMAND_PRECHARGE 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -190,12 +186,6 @@
         data_a->raw_cell_temp.temp_D = temp_D_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_PRECHARGE(queue, daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PRECHARGE, .DLC=DLC_DAQ_RESPONSE_PRECHARGE, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_PRECHARGE.daq_response = daq_response_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -272,9 +262,6 @@ typedef union { __attribute__((packed))
         uint64_t temp_C: 12;
         uint64_t temp_D: 12;
     } raw_cell_temp;
-    struct {
-        uint64_t daq_response: 64;
-    } daq_response_PRECHARGE;
     struct {
         uint64_t mod_temp_0: 16;
         uint64_t mod_temp_1: 16;
@@ -443,9 +430,6 @@ typedef union { __attribute__((packed))
         uint64_t cmd: 8;
         uint64_t data: 32;
     } precharge_bl_cmd;
-    struct {
-        uint64_t daq_command: 64;
-    } daq_command_PRECHARGE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -630,16 +614,12 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } precharge_bl_cmd;
-    struct {
-        uint64_t daq_command;
-    } daq_command_PRECHARGE;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_PRECHARGE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 

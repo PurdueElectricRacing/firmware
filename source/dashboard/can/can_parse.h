@@ -23,7 +23,6 @@
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
-#define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
@@ -35,7 +34,6 @@
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_DASHBOARD_BL_CMD 0x409c47e
-#define ID_DAQ_COMMAND_DASHBOARD 0x14000172
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -43,7 +41,6 @@
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
-#define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
@@ -55,7 +52,6 @@
 #define DLC_PRECHARGE_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_DASHBOARD_BL_CMD 5
-#define DLC_DAQ_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -79,12 +75,6 @@
         data_a->dashboard_hb.apps_faulted = apps_faulted_;\
         data_a->dashboard_hb.bse_faulted = bse_faulted_;\
         data_a->dashboard_hb.apps_brake_faulted = apps_brake_faulted_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_DAQ_RESPONSE_DASHBOARD(queue, daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_DASHBOARD, .DLC=DLC_DAQ_RESPONSE_DASHBOARD, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_DASHBOARD.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -134,9 +124,6 @@ typedef union { __attribute__((packed))
         uint64_t bse_faulted: 1;
         uint64_t apps_brake_faulted: 1;
     } dashboard_hb;
-    struct {
-        uint64_t daq_response: 64;
-    } daq_response_DASHBOARD;
     struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
@@ -234,9 +221,6 @@ typedef union { __attribute__((packed))
         uint64_t cmd: 8;
         uint64_t data: 32;
     } dashboard_bl_cmd;
-    struct {
-        uint64_t daq_command: 64;
-    } daq_command_DASHBOARD;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -360,16 +344,12 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
-    struct {
-        uint64_t daq_command;
-    } daq_command_DASHBOARD;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 

@@ -448,10 +448,12 @@ void flushDaqFrame(daq_tx_frame_writer_t* tx_msg)
 void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
 {
     CanMsgTypeDef_t msg = {.IDE=1, 
+    /*
     // BEGIN AUTO DAQ SEND DEF
                            .Bus=CAN1,
                            .ExtId=ID_DAQ_RESPONSE_DRIVELINE,
     // END AUTO DAQ SEND DEF
+    */
                            .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
     memcpy(msg.Data, tx_frame.data, msg.DLC);
     qSendToBack(q_tx_can_a, &msg);

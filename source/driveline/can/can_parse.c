@@ -59,10 +59,6 @@ void canRxUpdate()
                 can_data.driveline_rear_bl_cmd.data = msg_data_a->driveline_rear_bl_cmd.data;
                 driveline_rear_bl_cmd_CALLBACK(msg_data_a);
                 break;
-            case ID_DAQ_COMMAND_DRIVELINE:
-                can_data.daq_command_DRIVELINE.daq_command = msg_data_a->daq_command_DRIVELINE.daq_command;
-                daq_command_DRIVELINE_CALLBACK(&msg_header);
-                break;
             default:
                 __asm__("nop");
         }
@@ -99,8 +95,6 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_DRIVELINE_FRONT_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_DRIVELINE_REAR_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_DAQ_COMMAND_DRIVELINE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

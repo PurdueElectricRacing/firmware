@@ -222,10 +222,6 @@ void canRxUpdate()
                     can_data.precharge_bl_cmd.data = msg_data_a->precharge_bl_cmd.data;
                     precharge_bl_cmd_CALLBACK(msg_data_a);
                     break;
-                case ID_DAQ_COMMAND_PRECHARGE:
-                    can_data.daq_command_PRECHARGE.daq_command = msg_data_a->daq_command_PRECHARGE.daq_command;
-                    daq_command_PRECHARGE_CALLBACK(&msg_header);
-                    break;
                 default:
                     __asm__("nop");
             }
@@ -307,7 +303,6 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR2 = (ID_ORION_ERRORS << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
     CAN1->sFilterRegister[2].FR1 = (ID_PRECHARGE_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_DAQ_COMMAND_PRECHARGE << 3) | 4;
     /* END AUTO FILTER */
     
     CAN1->FMR &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)

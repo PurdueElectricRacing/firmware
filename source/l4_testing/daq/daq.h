@@ -13,8 +13,8 @@
 
 #include <string.h>
 #include "common/phal_L4/can/can.h"
+#include "common/phal_L4/eeprom_spi/eeprom_spi.h"
 #include "can_parse.h"
-#include "common/eeprom/eeprom.h"
 
 typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
@@ -23,16 +23,10 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define NODE_NAME "TEST_NODE"
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 5
+#define NUM_VARS 10
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
-
-#define EEPROM_ENABLED 0
-
-#define EEPROM_SIZE    4000 // bytes
-#define EEPROM_ADDR    0x50
-#define DAQ_SAVE_QUEUE_SIZE 8
 
 #define DAQ_CMD_LENGTH    3 // bits
 #define DAQ_CMD_MASK      0b111
@@ -64,14 +58,18 @@ typedef enum
 // BEGIN AUTO VAR IDs
 #define DAQ_ID_TEST_VAR 0
 #define DAQ_ID_TEST_VAR2 1
-#define DAQ_ID_RED_ON 2
-#define DAQ_ID_GREEN_ON 3
-#define DAQ_ID_BLUE_ON 4
+#define DAQ_ID_CHARGE_ENABLE 2
+#define DAQ_ID_BLUE_ON 3
+#define DAQ_ID_RED_ON 4
+#define DAQ_ID_GREEN_ON 5
+#define DAQ_ID_ODOMETER 6
+#define DAQ_ID_CHARGE_CURRENT 7
+#define DAQ_ID_CHARGE_VOLTAGE 8
+#define DAQ_ID_TRIM 9
 // END AUTO VAR IDs
 
 typedef struct
 {
-    // read: either function or pointer
     union {
         void* read_var_a;
         read_func_ptr_t read_func_a;
@@ -86,17 +84,28 @@ typedef struct
         uint8_t is_read_only:   1;
         uint8_t has_read_func:  1;
         uint8_t has_write_func: 1;
-        uint8_t eeprom_enabled: 1;
     };
     uint8_t bit_length;
-    // eeprom configuration
-    char eeprom_label[NAME_SIZE];
-    uint8_t eeprom_version;
     // publishing
     uint8_t pub_period; // in terms of 15ms (i.e. 1 == 15ms period)
 } daq_variable_t;
 
 extern daq_variable_t tracked_vars[NUM_VARS];
+
+// BEGIN AUTO FILE STRUCTS
+typedef struct { __attribute__((packed))
+    uint8_t   blue_on;
+    uint8_t   red_on;
+    uint8_t   green_on;
+    float   odometer;
+    float   charge_current;
+    float   charge_voltage;
+    int16_t   trim;
+} config_t;
+
+extern config_t config;
+
+// END AUTO FILE STRUCTS
 
 /**
  * @brief Call after linking read and write functions / addresses
@@ -104,11 +113,10 @@ extern daq_variable_t tracked_vars[NUM_VARS];
  *        the variables and loads default values if applicable
  * 
  * @param tx_a Address of the tx CAN buffer to send responses to
- * @param i2c  I2C Peripheral for eeprom, leave NULL if eeprom disabled
  * 
  * @return Returns false if the operation was successful
  */
-bool daqInit(q_handle_t* tx_a, I2C_TypeDef *i2c);
+bool daqInit(q_handle_t* tx_a);
 
 /**
  * @brief Call periodically at DAQ_UPDATE_PERIOD
@@ -116,38 +124,6 @@ bool daqInit(q_handle_t* tx_a, I2C_TypeDef *i2c);
  *        and publishes live variables
  */
 void daqPeriodic();
-
-/**
- * @brief      Links an address to read a variable at
- * 
- * @param id   Variable id
- * @param addr Address to read the variable at
- */
-void linkReada(uint8_t id, void* addr);
-
-/**
- * @brief           Links a function to read a variable
- * 
- * @param id        Variable id
- * @param read_func Read function of type read_func_ptr_t
- */
-void linkReadFunc(uint8_t id, read_func_ptr_t read_func);
-
-/**
- * @brief      Links an address to write to a variable
- * 
- * @param id   Variable id
- * @param addr Address to write to the variable
- */
-void linkWritea(uint8_t id, void* addr);
-
-/**
- * @brief            Links a function to write to a variable
- * 
- * @param id         Variable id 
- * @param write_func Write function of type write_func_ptr_t 
- */
-void linkWriteFunc(uint8_t id, write_func_ptr_t write_func);
 
 /**
  * @brief              Callback for receiving a daq message,

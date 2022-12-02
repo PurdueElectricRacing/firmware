@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -57,9 +57,6 @@ BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2550136769 daq_response_MAIN_MODULE: 8 Main_Module
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214592578 torque_request: 6 Torque_Vector
  SG_ rear_right : 36|12@1+ (1,0) [0|0] "" Vector__XXX
@@ -117,9 +114,6 @@ BO_ 2348811011 rear_controller_temps: 2 Driveline
  SG_ right_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
 
-BO_ 2550136771 daq_response_DRIVELINE: 8 Driveline
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2214598980 precharge_hb: 2 Precharge
  SG_ BMS : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ IMD : 0|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -165,9 +159,6 @@ BO_ 2483060932 raw_cell_temp: 7 Precharge
  SG_ temp_B : 20|12@1+ (0.1,0) [0|0] "C" Vector__XXX
  SG_ temp_A : 8|12@1+ (0.1,0) [0|0] "C" Vector__XXX
  SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483029688 orion_info: 7 OrionBMS
  SG_ pack_soc : 48|8@1+ (0.5,0) [0|0] "%" Vector__XXX
@@ -239,9 +230,6 @@ BO_ 2214598917 dashboard_hb: 1 Dashboard
  SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 688 LWS_Standard: 5 Steering
  SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -464,18 +452,6 @@ BO_ 2566869221 elcon_charger_status: 5 Charger
  SG_ charge_current : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ charge_voltage : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
 
-BO_ 2483028082 daq_command_MAIN_MODULE: 8 DAQ
- SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
- SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028274 daq_command_PRECHARGE: 8 DAQ
- SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483028210 daq_command_DRIVELINE: 8 DAQ
- SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2281733418 heat_req: 3 Precharge
  SG_ time : 1|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ toggle : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -582,6 +558,25 @@ BO_ 2147486703 module_temp_15: 8 ARDUINO
  SG_ mod_temp_1 : 16|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
  SG_ mod_temp_0 : 0|16@1+ (0.1,0) [0|0] "Cx10" Vector__XXX
 
+BO_ 2566869221 elcon_charger_status2: 5 TEST_NODE
+ SG_ communication_fail : 36|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ startup_fail : 35|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ input_v_fail : 34|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ temp_fail : 33|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ hw_fail : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charge_current : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ charge_voltage : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+
+BO_ 2483029759 orion_currents_volts2: 4 TEST_NODE
+ SG_ pack_voltage : 16|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ pack_current : 0|16@1- (0.1,0) [0|0] "A" Vector__XXX
+
+BO_ 2281734335 pack_charge_status2: 7 TEST_NODE
+ SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
+
 BO_ 2483028095 test_msg: 2 TEST_NODE
  SG_ test_sig : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
@@ -635,13 +630,7 @@ BO_ 2147492386 test_stale: 1 TEST_NODE_2
 BO_ 2347693089 car_state2: 1 TEST_NODE_2
  SG_ car_state2 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2550136829 daq_response_TEST_NODE_2: 8 TEST_NODE_2
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2483032050 daq_command_TEST_NODE: 8 DAQ
- SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2483031922 daq_command_TEST_NODE_2: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 
@@ -659,7 +648,6 @@ CM_ BU_ bootloader "";
 CM_ BU_ BMS_LV "";
 CM_ BU_ BITSTREAM "";
 CM_ BU_ Charger "";
-CM_ BU_ DAQ "";
 CM_ BU_ Precharge "";
 CM_ BU_ ARDUINO "";
 CM_ BU_ TEST_NODE "";
@@ -683,8 +671,6 @@ CM_ BO_ 1984 "Steering sensor configuration";
 CM_ SG_ 1984 Reserved_2 "";
 CM_ SG_ 1984 Reserved_1 "";
 CM_ SG_ 1984 CCW "";
-CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
-CM_ SG_ 2550136769 daq_response "";
 CM_ BO_ 2214592578 "Torque request for all motors.";
 CM_ SG_ 2214592578 rear_right "torque request. 0-4096";
 CM_ SG_ 2214592578 rear_left "torque request. 0-4096";
@@ -732,8 +718,6 @@ CM_ SG_ 2348810947 left_current "";
 CM_ BO_ 2348811011 "Temperature of motor controllers";
 CM_ SG_ 2348811011 right_temp "";
 CM_ SG_ 2348811011 left_temp "";
-CM_ BO_ 2550136771 "daq response from node DRIVELINE";
-CM_ SG_ 2550136771 daq_response "";
 CM_ BO_ 2214598980 "heart beat for precharge";
 CM_ SG_ 2214598980 BMS "";
 CM_ SG_ 2214598980 IMD "";
@@ -771,8 +755,6 @@ CM_ SG_ 2483060932 temp_C "";
 CM_ SG_ 2483060932 temp_B "";
 CM_ SG_ 2483060932 temp_A "";
 CM_ SG_ 2483060932 index "";
-CM_ BO_ 2550136772 "daq response from node PRECHARGE";
-CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
 CM_ SG_ 2483029688 pack_soc "";
 CM_ SG_ 2483029688 pack_ccl "";
@@ -838,8 +820,6 @@ CM_ BO_ 2214598917 "periodic dashboard heartbeat";
 CM_ SG_ 2214598917 apps_brake_faulted "";
 CM_ SG_ 2214598917 bse_faulted "";
 CM_ SG_ 2214598917 apps_faulted "";
-CM_ BO_ 2550136773 "daq response from node DASHBOARD";
-CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 688 "Standard steering angle and speed";
 CM_ SG_ 688 Reserved_2 "";
 CM_ SG_ 688 Reserved_1 "";
@@ -1014,14 +994,6 @@ CM_ SG_ 2566869221 temp_fail "Temperature failure";
 CM_ SG_ 2566869221 hw_fail "Hardware failure";
 CM_ SG_ 2566869221 charge_current "";
 CM_ SG_ 2566869221 charge_voltage "";
-CM_ BO_ 2483028082 "daq command for node MAIN_MODULE";
-CM_ SG_ 2483028082 daq_command "";
-CM_ BO_ 2483028338 "daq command for node DASHBOARD";
-CM_ SG_ 2483028338 daq_command "";
-CM_ BO_ 2483028274 "daq command for node PRECHARGE";
-CM_ SG_ 2483028274 daq_command "";
-CM_ BO_ 2483028210 "daq command for node DRIVELINE";
-CM_ SG_ 2483028210 daq_command "";
 CM_ BO_ 2281733418 "Starts BMS pre-heat for set time";
 CM_ SG_ 2281733418 time "Set runtime in ms";
 CM_ SG_ 2281733418 toggle "1 for start, 0 for stop";
@@ -1109,6 +1081,22 @@ CM_ SG_ 2147486703 mod_temp_3 "";
 CM_ SG_ 2147486703 mod_temp_2 "";
 CM_ SG_ 2147486703 mod_temp_1 "";
 CM_ SG_ 2147486703 mod_temp_0 "";
+CM_ BO_ 2566869221 "Realtime charger status";
+CM_ SG_ 2566869221 communication_fail " 5s timeout from communication failure";
+CM_ SG_ 2566869221 startup_fail "Startup voltage detection failure";
+CM_ SG_ 2566869221 input_v_fail "Input voltage failure";
+CM_ SG_ 2566869221 temp_fail "Temperature failure";
+CM_ SG_ 2566869221 hw_fail "Hardware failure";
+CM_ SG_ 2566869221 charge_current "";
+CM_ SG_ 2566869221 charge_voltage "";
+CM_ BO_ 2483029759 "Pack current + voltage";
+CM_ SG_ 2483029759 pack_voltage "";
+CM_ SG_ 2483029759 pack_current "";
+CM_ BO_ 2281734335 "Send charge information";
+CM_ SG_ 2281734335 current "Instantaneous charge current";
+CM_ SG_ 2281734335 voltage "Instantaneous charge voltage";
+CM_ SG_ 2281734335 charge_enable "Charge mode enable";
+CM_ SG_ 2281734335 power "Instantaneous charge power";
 CM_ BO_ 2483028095 "test_msg desc";
 CM_ SG_ 2483028095 test_sig "";
 CM_ BO_ 2483028159 "test_msg2 desc";
@@ -1146,12 +1134,8 @@ CM_ BO_ 2147492386 "used to test stale";
 CM_ SG_ 2147492386 data "";
 CM_ BO_ 2347693089 "state of the car";
 CM_ SG_ 2347693089 car_state2 "";
-CM_ BO_ 2550136829 "daq response from node TEST_NODE_2";
-CM_ SG_ 2550136829 daq_response "";
 CM_ BO_ 2483032050 "daq command for node TEST_NODE";
 CM_ SG_ 2483032050 daq_command "";
-CM_ BO_ 2483031922 "daq command for node TEST_NODE_2";
-CM_ SG_ 2483031922 daq_command "";
 
 
 

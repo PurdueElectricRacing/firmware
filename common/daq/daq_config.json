@@ -1,6 +1,6 @@
 {
     "$schema":"./daq_schema.json",
-    "busses":[
+    "temp":[
         {
             "bus_name":"Main",
             "daq_ssa":50,
@@ -55,7 +55,9 @@
                     ]
                 }
             ]
-        },
+        }
+    ],
+    "busses":[
         {
             "bus_name":"Test",
             "daq_ssa":50,
@@ -63,26 +65,26 @@
             "nodes":[
                 {
                     "node_name":"TEST_NODE",
+                    "includes":"extern uint16_t my_counter;\nextern uint16_t my_counter2;extern uint8_t charge_enable;",
                     "variables":[
-                        {"var_name":"test_var", "read_only":true, "bit_length":8},
-                        {"var_name":"test_var2", "read_only":false, "bit_length":12,
-                            "eeprom":{"label":"tv2", "version":0}},
-                        {"var_name":"red_on", "read_only":false, "bit_length":1,
-                            "eeprom":{"label":"red", "version":0}},
-                        {"var_name":"green_on", "read_only":false, "bit_length":1,
-                            "eeprom":{"label":"grn", "version":0}},
-                        {"var_name":"blue_on", "read_only":false, "bit_length":1,
-                            "eeprom":{"label":"blu", "version":0}}
-                    ]
-                },
-                {
-                    "node_name":"TEST_NODE_2",
-                    "variables":[
-                        {"var_name":"test_var", "read_only":true, "bit_length":8},
-                        {"var_name":"test_var2", "read_only":false, "bit_length":12},
-                        {"var_name":"red_on", "read_only":false, "bit_length":1},
-                        {"var_name":"green_on", "read_only":false, "bit_length":1},
-                        {"var_name":"blue_on", "read_only":false, "bit_length":1}
+                        {"var_name":"test_var", "access_phrase": "my_counter", "read_only":true, "type":"uint8_t", "length":8},
+                        {"var_name":"test_var2", "access_phrase": "my_counter2", "read_only":false, "type":"uint16_t", "length":12},
+                        {"var_name":"charge_enable", "access_phrase": "charge_enable", "read_only":false, "type":"uint8_t", "length":1}
+                    ],
+                    "files":[
+                        {
+                            "name":"config",
+                            "eeprom_lbl":"conf",
+                            "contents":[
+                                {"var_name":"blue_on",        "type":"uint8_t", "default":0},
+                                {"var_name":"red_on",         "type":"uint8_t", "default":0},
+                                {"var_name":"green_on",       "type":"uint8_t", "default":0},
+                                {"var_name":"odometer",       "type":"float",   "default":0},
+                                {"var_name":"charge_current", "type":"float",   "default":0},
+                                {"var_name":"charge_voltage", "type":"float",   "default":0, "unit":"V", "var_desc": "Voltage to request from the charger"},
+                                {"var_name":"trim", "type":"int16_t",   "default":-12}
+                            ]
+                        }
                     ]
                 }
             ]

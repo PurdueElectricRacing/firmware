@@ -140,10 +140,6 @@ void canRxUpdate()
                 can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
                 main_module_bl_cmd_CALLBACK(msg_data_a);
                 break;
-            case ID_DAQ_COMMAND_MAIN_MODULE:
-                can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
-                daq_command_MAIN_MODULE_CALLBACK(&msg_header);
-                break;
             default:
                 __asm__("nop");
         }
@@ -214,8 +210,6 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_LWS_STANDARD << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_LWS_STANDARD << 21);

@@ -107,7 +107,7 @@
                 },
                 "length":{
                     "type":"integer",
-                    "description":"length in bits, only valid if unisgned data type",
+                    "description":"length in bits, only valid if unsigned data type",
                     "minimum":1,
                     "maimum":64
                 },

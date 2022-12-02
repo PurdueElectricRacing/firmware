@@ -27,12 +27,10 @@
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
 #define ID_REAR_CONTROLLER_TEMPS 0xc000303
-#define ID_DAQ_RESPONSE_DRIVELINE 0x17ffffc3
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
 #define ID_DRIVELINE_FRONT_BL_CMD 0x409c4fe
 #define ID_DRIVELINE_REAR_BL_CMD 0x409c53e
-#define ID_DAQ_COMMAND_DRIVELINE 0x140000f2
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -44,12 +42,10 @@
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
 #define DLC_REAR_CONTROLLER_TEMPS 2
-#define DLC_DAQ_RESPONSE_DRIVELINE 8
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
 #define DLC_DRIVELINE_FRONT_BL_CMD 5
 #define DLC_DRIVELINE_REAR_BL_CMD 5
-#define DLC_DAQ_COMMAND_DRIVELINE 8
 /* END AUTO DLC DEFS */
 extern uint32_t last_can_rx_time_ms;
 // Message sending macros
@@ -119,12 +115,6 @@ extern uint32_t last_can_rx_time_ms;
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_controller_temps.left_temp = left_temp_;\
         data_a->rear_controller_temps.right_temp = right_temp_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_DAQ_RESPONSE_DRIVELINE(queue, daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_DRIVELINE, .DLC=DLC_DAQ_RESPONSE_DRIVELINE, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_DRIVELINE.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -294,9 +284,6 @@ typedef union { __attribute__((packed))
         uint64_t right_temp: 8;
     } rear_controller_temps;
     struct {
-        uint64_t daq_response: 64;
-    } daq_response_DRIVELINE;
-    struct {
         uint64_t front_left: 16;
         uint64_t front_right: 16;
         uint64_t rear_left: 16;
@@ -314,9 +301,6 @@ typedef union { __attribute__((packed))
         uint64_t cmd: 8;
         uint64_t data: 32;
     } driveline_rear_bl_cmd;
-    struct {
-        uint64_t daq_command: 64;
-    } daq_command_DRIVELINE;
     uint8_t raw_data[8];
 } CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -347,16 +331,12 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } driveline_rear_bl_cmd;
-    struct {
-        uint64_t daq_command;
-    } daq_command_DRIVELINE;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_DRIVELINE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void driveline_front_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */

@@ -42,15 +42,15 @@
 #define BMM150_MAG_RATE_Z_ADDR                (0x52) /* Magnetometer Z axis repetitions control registers */
 
 typedef enum {
-    ACCEL_ODR_12_5Hz  = 0x05,
-    ACCEL_ODR_25Hz    = 0x06,
-    ACCEL_ODR_50Hz    = 0x07,
-    ACCEL_ODR_100Hz   = 0x08,
-    ACCEL_ODR_200Hz   = 0x09,
-    ACCEL_ODR_400Hz   = 0x0A,
-    ACCEL_ODR_800Hz   = 0x0B,
-    ACCEL_ODR_1600Hz  = 0x0C,
-} BMI088_AccelODR_t;
+    MAG_ODR_10  = 000b,
+    MAG_ODR_2   = 001b,
+    MAG_ODR_6   = 010b,
+    MAG_ODR_8   = 011b,
+    MAG_ODR_15  = 100b,
+    MAG_ODR_20  = 101b,
+    MAG_ODR_25  = 110b,
+    MAG_ODR_30  = 111b,
+} BMM150_MAGODR_t;
 
 typedef enum {
     ACCEL_OS_NORMAL  = 0x0A,

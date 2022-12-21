@@ -8,9 +8,10 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
-#ifndef _BMI_H_
+ 
 #define _BMI_H_
+#define _BMI_H_
+
 
 #include "stm32l496xx.h"
 #include <stdint.h>
@@ -85,6 +86,19 @@ typedef enum {
     GYRO_DR_100Hz_32Hz = 0x07,
 } BMI088_GyroDrBw_t;
 
+
+typedef enum {
+    BMM150_DATA_RATE_10HZ = 0x00,
+    BMM150_DATA_RATE_02HZ = 0x01,
+    BMM150_DATA_RATE_06HZ = 0x02,
+    BMM150_DATA_RATE_08HZ = 0x03,
+    BMM150_DATA_RATE_15HZ = 0x04,
+    BMM150_DATA_RATE_20HZ = 0x05,
+    BMM150_DATA_RATE_25HZ = 0x06,
+    BMM150_DATA_RATE_30HZ = 0x07,
+    
+} BMI088_GyroDrBw_t;
+
 typedef struct {
     SPI_InitConfig_t*   spi;
     GPIO_TypeDef*       accel_csb_gpio_port;
@@ -99,6 +113,16 @@ typedef struct {
     bool                gyro_dynamic_range;
     bool                accel_ready;
 } BMI088_Handle_t;
+
+typedef struct {
+    SPI_InitConfig_t*   spi;
+    GPIO_TypeDef*       mag_csb_gpio_port;
+    uint32_t            mag_csb_pin;
+    BMI088_AccelRange_t   mag_range;
+    BMI088_AccelBWP_t     mag_bwp;
+    BMI088_AccelODR_t     mag_odr;
+    bool                mag_ready;
+} BMM150_Handle_t;
 
 /**
  * @brief 

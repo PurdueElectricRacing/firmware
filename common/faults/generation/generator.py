@@ -88,25 +88,25 @@ def insert_lines(source: list, start, stop, new_lines):
 
     return source
 
-def check_args(fault_config):
-    arg = 0
-    try:
-        arg = sys.argv[1]
-        arg = arg.lower()
-    except:
-        log_error("Please include a target in your command\n ex: python3 common/faults/generation/generator.py dashboard.")
-        quit(1)
-    matchFound = 0
-    for node in fault_config['modules']:
-        if arg == node['node_name']:
-            matchFound += 1
-    if matchFound < 1:
-        log_error(f"\"{arg}\" is not contained in fault_config.json. Please include a valid name!")
-        quit(1)
-    elif matchFound > 1:
-        log_error(f"\"{arg}\" is the name of multiple nodes in fault_config.json. Modify and run again")
-        quit(1)
-    return arg
+# def check_args(fault_config):
+#     arg = 0
+#     try:
+#         arg = sys.argv[1]
+#         arg = arg.lower()
+#     except:
+#         log_error("Please include a target in your command\n ex: python3 common/faults/generation/generator.py dashboard.")
+#         quit(1)
+#     matchFound = 0
+#     for node in fault_config['modules']:
+#         if arg == node['node_name']:
+#             matchFound += 1
+#     if matchFound < 1:
+#         log_error(f"\"{arg}\" is not contained in fault_config.json. Please include a valid name!")
+#         quit(1)
+#     elif matchFound > 1:
+#         log_error(f"\"{arg}\" is the name of multiple nodes in fault_config.json. Modify and run again")
+#         quit(1)
+#     return arg
 
 def check_message_len(fault_config):
     if len(fault_config['modules']) > 16:
@@ -206,20 +206,20 @@ def generate_all():
 
     fault_config = load_json_config(fault_config_path, fault_schema_path)
 
-    arg = check_args(fault_config)
+    # arg = check_args(fault_config)
     check_message_len(fault_config)
     check_names(fault_config)
 
     log_success("Fault configuration is valid!")
 
-    log_heading(f"Generating code for {arg}:")
+    log_heading(f"Generating fault code:")
 
     create_ids(fault_config)
     process_priorities(fault_config)
     process_nodes(fault_config)
 
-    gen_faults.gen_faults(fault_config, fault_c_path, fault_h_path, arg)
-    log_success(f"Fault Code for {arg} Successfully Generated!")
+    gen_faults.gen_faults(fault_config, fault_c_path, fault_h_path)
+    log_success(f"Fault Code Successfully Generated!")
 
 
 

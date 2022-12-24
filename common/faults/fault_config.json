@@ -43,21 +43,6 @@
             ]
         },
         {
-            "node_name": "driveline_rear",
-            "can_name": "driveline",
-            "faults": [
-                {
-                    "fault_name": "mot_rear_ot",
-                    "max": 100,
-                    "min": 10,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "Rear motors overheating"
-                }
-            ]
-        },
-        {
             "node_name": "driveline_front",
             "can_name": "driveline",
             "faults": [

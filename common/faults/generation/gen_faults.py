@@ -217,61 +217,68 @@ def gen_fault_info_arrays(fault_config):
     return array
 
 
-def gen_includes(fault_config, target):
+def gen_includes(fault_config):
     print("Generating Includes")
     gen_arr = []
+    idx = 0
     for node in fault_config['modules']:
-        if node['node_name'] == target:
-            gen_arr.append(f"#include \"source/{node['can_name'].lower()}/can/can_parse.h\"\n")
+        # if node['node_name'] == target:
+            # gen_arr.append(f"#include \"source/{node['can_name'].lower()}/can/can_parse.h\"\n")
+        gen_arr.append(f"#if FAULT_NODE_NAME == {idx}\n\t#include \"source/{node['can_name'].lower()}/can/can_parse.h\"\n#endif\n")
+        idx += 1
     return gen_arr
 
-def gen_tx_msg(fault_config, target):
+def gen_tx_msg(fault_config):
     print("Generating CAN TX Commands")
     tx = []
+    idx = 0
+    tx.append("\t\tswitch(FAULT_NODE_NAME) {\n")
     for node in fault_config['modules']:
-        if node['node_name'] == target:
-            tx.append(f"\t\tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n")
+        # tx.append(f"\t\t\tcase {node['node_name'].upper()}:\n \
+        #     \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n \
+        #     \tbreak;\n")
+        tx.append(f"\t\t\t#if FAULT_NODE_NAME == {idx}\n \
+            \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n \
+            #endif\n")
+        idx += 1
+        # if node['node_name'] == target:
+        #     tx.append(f"\t\tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n")
+    tx.append("\t\t}\n")
     return tx
 
-def gen_rx_msg(fault_config, target):
+def gen_rx_msg(fault_config):
     print("Generating Fault Functions")
-    multiple_defs = False
-    can_names = []
-    for node in fault_config['modules']:
-        if node['can_name'] in can_names:
-            multiple_defs = True
-        else:
-            can_names.append(node['can_name'])
     rx = []
     for node in fault_config['modules']:
         msg = f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n"
-        if node['node_name'] != target:
-            if msg in rx:
-                generator.log_warning("Multiple fault nodes refer to the same CAN Node")
-                continue
-            rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
-            rx.append(f"\tfault_message_t recievedMessage = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
-            rx.append("\tfault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];\n")
-            rx.append("\tswitch (recievedMessage.latched) {\n\t\tcase true:\n\t\t\tif (!currMessage->latched) {\
-                \n\t\t\t\tcurrMessage->latched = recievedMessage.latched;\n\t\t\t\tswitch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {\
-                \n\t\t\t\t\tcase INFO:\n\t\t\t\t\t\tinfoCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase WARNING:\
-                \n\t\t\t\t\t\twarnCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase CRITICAL:\n\t\t\t\t\t\tcritCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\
-                \n\t\t\tbreak;\n\t\tcase false:\n\t\t\tif (currMessage->latched) {\n\t\t\t\tcurrMessage->latched = recievedMessage.latched;\
-                \n\t\t\t\tswitch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {\n\t\t\t\t\tcase INFO:\n\t\t\t\t\t\tinfoCount--;\n\t\t\t\t\t\tbreak;\
-                \n\t\t\t\t\tcase WARNING:\n\t\t\t\t\t\twarnCount--;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase CRITICAL:\n\t\t\t\t\t\tcritCount--;\n\t\t\t\t\t\tbreak;\
-                \n\t\t\t\t}\n\t\t\t}\n\t\t\tbreak;\n\t\t}\n}\n\n\n")
-        else:
-            if msg in rx:
-                generator.log_warning("Multiple fault nodes refer to the same CAN Node")
-                continue
-            rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
-            rx.append("\treturn;\n}\n")
+        # if node['node_name'] != target:
+        if msg in rx:
+            generator.log_warning("Multiple fault nodes refer to the same CAN Node")
+            continue
+        rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
+        rx.append(f"\tfault_message_t recievedMessage = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
+        rx.append("\tfault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];\n\thandleCallbacks(recievedMessage, currMessage);\n")
+    #     rx.append("\tswitch (recievedMessage.latched) {\n\t\tcase true:\n\t\t\tif (!currMessage->latched) {\
+    #         \n\t\t\t\tcurrMessage->latched = recievedMessage.latched;\n\t\t\t\tswitch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {\
+    #         \n\t\t\t\t\tcase INFO:\n\t\t\t\t\t\tinfoCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase WARNING:\
+    #         \n\t\t\t\t\t\twarnCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase CRITICAL:\n\t\t\t\t\t\tcritCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\
+    #         \n\t\t\tbreak;\n\t\tcase false:\n\t\t\tif (currMessage->latched) {\n\t\t\t\tcurrMessage->latched = recievedMessage.latched;\
+    #         \n\t\t\t\tswitch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {\n\t\t\t\t\tcase INFO:\n\t\t\t\t\t\tinfoCount--;\n\t\t\t\t\t\tbreak;\
+    #         \n\t\t\t\t\tcase WARNING:\n\t\t\t\t\t\twarnCount--;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase CRITICAL:\n\t\t\t\t\t\tcritCount--;\n\t\t\t\t\t\tbreak;\
+    #         \n\t\t\t\t}\n\t\t\t}\n\t\t\tbreak;\n\t\t}\n}\n\n\n")
+        rx.append("}\n")
+        # else:
+        #     if msg in rx:
+        #         generator.log_warning("Multiple fault nodes refer to the same CAN Node")
+        #         continue
+        #     rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
+        #     rx.append("\treturn;\n}\n")
     return rx
 
 
 
 
-def gen_faults(config, c, h, target):
+def gen_faults(config, c, h):
     #
     # Configure header file ------------------
     #
@@ -300,10 +307,10 @@ def gen_faults(config, c, h, target):
         c_lines = c_file.readlines()
 
     c_lines = generator.insert_lines(c_lines, gen_info_array_start, gen_info_array_stop, gen_fault_info_arrays(config))
-    c_lines = generator.insert_lines(c_lines, gen_includes_start, gen_includes_end, gen_includes(config, target))
-    c_lines = generator.insert_lines(c_lines, gen_tx_start, gen_tx_end, gen_tx_msg(config, target))
-    c_lines = generator.insert_lines(c_lines, gen_tx_specific_start, gen_tx_specific_end, gen_tx_msg(config, target))
-    c_lines = generator.insert_lines(c_lines, gen_recieve_start, gen_recieve_end, gen_rx_msg(config, target))
+    c_lines = generator.insert_lines(c_lines, gen_includes_start, gen_includes_end, gen_includes(config))
+    c_lines = generator.insert_lines(c_lines, gen_tx_start, gen_tx_end, gen_tx_msg(config))
+    c_lines = generator.insert_lines(c_lines, gen_tx_specific_start, gen_tx_specific_end, gen_tx_msg(config))
+    c_lines = generator.insert_lines(c_lines, gen_recieve_start, gen_recieve_end, gen_rx_msg(config))
 
     # Write changes to c file
     with open(c, "w") as c_file:

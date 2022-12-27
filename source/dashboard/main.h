@@ -17,20 +17,27 @@
 #define FAULT_NODE_NAME NODE_DASHBOARD
 
 /* Status LEDs */
-#define CONN_LED_GPIO_Port   (GPIOB)
+#define CONN_LED_GPIO_Port   (GPIOE)
 #define CONN_LED_Pin         (6)
 #define CONN_LED_MS_THRESH  (500)
-#define HEART_LED_GPIO_Port (GPIOB)
+#define HEART_LED_GPIO_Port (GPIOE)
 #define HEART_LED_Pin       (7)
-#define PRCHG_LED_GPIO_Port (GPIOA)
-#define PRCHG_LED_Pin       (7)
-#define IMD_LED_GPIO_Port   (GPIOB)
-#define IMD_LED_Pin         (0)
-#define BMS_LED_GPIO_Port   (GPIOB)
-#define BMS_LED_Pin         (1)
+#define ERROR_LED_GPIO_Port (GPIOE)
+#define ERROR_LED_Pin       (5)
+#define PRCHG_LED_GPIO_Port (GPIOE)
+#define PRCHG_LED_Pin       (1)
+#define IMD_LED_GPIO_Port   (GPIOE)
+#define IMD_LED_Pin         (3)
+#define BMS_LED_GPIO_Port   (GPIOE)
+#define BMS_LED_Pin         (2)
 
-#define START_BTN_GPIO_Port (GPIOC)
-#define START_BTN_Pin       (15)
+#define START_BTN_GPIO_Port (GPIOE)
+#define START_BTN_Pin       (0)
+
+#define BRK_STAT_TAP_GPIO_Port (GPIOB)
+#define BRK_STAT_TAP_Pin       (9)
+#define BRK_FAIL_TAP_GPIO_Port (GPIOB)
+#define BRK_FAIL_TAP_Pin       (10)
 
 /* Throttle */
 #define THTL_1_GPIO_Port (GPIOA)

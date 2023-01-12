@@ -1,6 +1,10 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "common/faults/fault_nodes.h"
+
+#define FAULT_NODE_NAME NODE_PRECHARGE
+
 // SPI Accel
 #define SPI_SCLK_GPIO_Port (GPIOA)
 #define SPI_SCLK_Pin (5)

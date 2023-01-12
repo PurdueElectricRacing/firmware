@@ -194,6 +194,7 @@ def generate_all():
     fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
     fault_c_path = Path(os.path.abspath(relative_dir / gen_config['fault_c_file']))
     fault_h_path = Path(os.path.abspath(relative_dir / gen_config['fault_h_file']))
+    node_path = Path(os.path.abspath(relative_dir / gen_config['node_file']))
 
     log_heading("Defined Paths:")
 
@@ -201,6 +202,7 @@ def generate_all():
     print(fault_schema_path)
     print(fault_c_path)
     print(fault_h_path)
+    print(node_path)
 
     log_heading("Checking validity of fault configuration:")
 
@@ -218,7 +220,7 @@ def generate_all():
     process_priorities(fault_config)
     process_nodes(fault_config)
 
-    gen_faults.gen_faults(fault_config, fault_c_path, fault_h_path)
+    gen_faults.gen_faults(fault_config, fault_c_path, fault_h_path, node_path)
     log_success(f"Fault Code Successfully Generated!")
 
 

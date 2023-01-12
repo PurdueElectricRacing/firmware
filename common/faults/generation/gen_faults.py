@@ -9,6 +9,8 @@ gen_id_start = "BEGIN AUTO ID DEFS"
 gen_id_stop = "END AUTO ID DEFS"
 gen_totals_start = "BEGIN AUTO TOTAL DEFS"
 gen_totals_stop = "END AUTO TOTAL DEFS"
+gen_nodes_start = "BEGIN AUTO NODE DEFS"
+gen_nodes_stop = "END AUTO NODE DEFS"
 gen_priority_start = "BEGIN AUTO PRIORITY DEFS"
 gen_priority_stop = "END AUTO PRIORITY DEFS"
 gen_max_start = "BEGIN AUTO MAX DEFS"
@@ -53,6 +55,17 @@ def gen_totals(fault_config):
     total_array.append(f"#define TOTAL_MCU_NUM {total_mcus}\n")
     total_array.append(f"#define TOTAL_NUM_FAULTS {total_faults}\n")
     return total_array
+
+def gen_nodes(fault_config) :
+    print("Generating nodes")
+    node_array = []
+    node_num = 0
+    for node in fault_config['modules']:
+        node_array.append(f"#define NODE_{node['node_name'].upper()} {node_num}\n")
+        node_num += 1
+    return node_array
+
+
 
 def gen_ids(fault_config):
     print("Generating IDs")
@@ -232,7 +245,7 @@ def gen_tx_msg(fault_config):
     print("Generating CAN TX Commands")
     tx = []
     idx = 0
-    tx.append("\t\tswitch(FAULT_NODE_NAME) {\n")
+    # tx.append("\t\tswitch(FAULT_NODE_NAME) {\n")
     for node in fault_config['modules']:
         # tx.append(f"\t\t\tcase {node['node_name'].upper()}:\n \
         #     \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n \
@@ -243,7 +256,7 @@ def gen_tx_msg(fault_config):
         idx += 1
         # if node['node_name'] == target:
         #     tx.append(f"\t\tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n")
-    tx.append("\t\t}\n")
+    # tx.append("\t\t}\n")
     return tx
 
 def gen_rx_msg(fault_config):
@@ -278,7 +291,7 @@ def gen_rx_msg(fault_config):
 
 
 
-def gen_faults(config, c, h):
+def gen_faults(config, c, h, nodes):
     #
     # Configure header file ------------------
     #
@@ -315,3 +328,12 @@ def gen_faults(config, c, h):
     # Write changes to c file
     with open(c, "w") as c_file:
         c_file.writelines(c_lines)
+
+
+    with open(nodes, "r") as node_file:
+        node_lines = node_file.readlines()
+
+    node_lines = generator.insert_lines(node_lines, gen_nodes_start, gen_nodes_stop, gen_nodes(config))
+
+    with open(nodes, "w") as node_file:
+        node_file.writelines(node_lines)

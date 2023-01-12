@@ -30,16 +30,6 @@
 #define TOTAL_NUM_FAULTS 15
 //END AUTO TOTAL DEFS
 
-//BEGIN AUTO NODE DEFS
-#define NODE_MAIN_MODULE 0
-#define NODE_DRIVELINE_REAR 1
-#define NODE_DRIVELINE_FRONT 2
-#define NODE_DASHBOARD 3
-#define NODE_PRECHARGE 4
-#define NODE_TV 5
-#define NODE_TEST 6
-//END AUTO NODE DEFS
-
 //BEGIN AUTO ID DEFS
 #define ID_BATT_FLOW_FAULT 0x0
 #define ID_DRIVE_FLOW_FAULT 0x1
@@ -61,6 +51,7 @@
 //Macro defs for accessing aspects of id
 #define GET_IDX(id) (id & 0x0FFF)
 #define GET_OWNER(id) ((id & 0xF000) >> 12)
+
 
 //INFO: Doesn't affect driving state (Car can still safely drive)
 //ERROR: Car exits ready2drive, but LV + HV systems still active
@@ -204,6 +195,7 @@ typedef struct {
     bool tempLatch;
     bool forceActive;
     fault_priority_t priority;
+    uint8_t bounces;
     uint16_t time_since_latch;
     uint16_t last_rx_time;
     int f_ID;

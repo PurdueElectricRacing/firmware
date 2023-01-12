@@ -20,6 +20,9 @@
 #include "daq.h"
 #include "wheel_speeds.h"
 
+#include "common/faults/faults.h"
+
+
 GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
@@ -210,10 +213,16 @@ int main (void)
         HardFault_Handler();
     }
 
+    initFaultLibrary(TEST, &q_tx_can, &q_rx_can);
+
     /* Task Creation */
     schedInit(SystemCoreClock);
     taskCreate(usartTXTest, 1000);
     taskCreate(ledBlink, 500);
+    //Fault Stuff
+    taskCreate(updateFaults, 5);
+    taskCreate(txFaults, 100);
+    //Fault Stuff
     taskCreate(adcConvert, 50);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
@@ -225,29 +234,37 @@ int main (void)
     // signify end of initialization
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
     schedStart();
-    
+
     return 0;
 }
 
 void adcConvert()
 {
     uint16_t pot1 = adc_conversions[0];
-    SEND_ADC_VALUES(q_tx_can, adc_conversions[0], 
-                              adc_conversions[1], 
+    SEND_ADC_VALUES(q_tx_can, adc_conversions[0],
+                              adc_conversions[1],
                               adc_conversions[2]);
 }
 
 void ledBlink()
 {
-    if (can_data.test_stale.stale)
-    {
-        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
+    // if (can_data.test_stale.stale)
+    // {
+    //     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
+    // }
+    // else
+    // {
+    //     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
+    // }
+    // PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+    if (isLatched()) {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, 3, 1);
+        forceFault(ID_TEST_FAULT_4_FAULT, 0);
     }
-    else
-    {
-        PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
+    else {
+        PHAL_writeGPIO(LED_GREEN_GPIO_Port, 3, 0);
+        forceFault(ID_TEST_FAULT_4_FAULT, 1);
     }
-    PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
 }
 
 uint8_t data_buf[26];
@@ -327,10 +344,10 @@ void canTxUpdate()
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -339,7 +356,7 @@ void CAN1_RX0_IRQHandler()
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
@@ -358,7 +375,7 @@ void CAN1_RX0_IRQHandler()
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
-        CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
+        CAN1->RF0R     |= (CAN_RF0R_RFOM0);
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }

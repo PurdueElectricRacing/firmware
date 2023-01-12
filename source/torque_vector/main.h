@@ -1,6 +1,10 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "common/faults/fault_nodes.h"
+
+#define FAULT_NODE_NAME NODE_TV
+
 // QuadSPI CS
 #define QUADSPI_CS_FLASH_GPIO_Port (GPIOA)
 #define QUADSPI_CS_FLASH_Pin       (2)

@@ -4,14 +4,14 @@ cmake_minimum_required(VERSION 3.13)
 execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py
                 RESULT_VARIABLE ret)
 if(ret EQUAL "1")
-    message(FATAL_ERROR "Code Generation Failed")
+    message(FATAL_ERROR "CAN Generation Failed")
 endif()
 
 # Run automatic code generation for Fault Library
 execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/faults/generation/generator.py
                 RESULT_VARIABLE ret)
 if(ret EQUAL "1")
-    message(FATAL_ERROR "Code Generation Failed")
+    message(FATAL_ERROR "Fault Generation Failed")
 endif()
 
 # Check for bootloader generation

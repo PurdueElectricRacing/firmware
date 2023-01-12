@@ -15,6 +15,8 @@
 #include "daq.h"
 #include "orion.h"
 
+#include "common/faults/faults.h"
+
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -235,7 +237,7 @@ void heartbeatTask()
 
 void monitorStatus()
 {
-    uint8_t bms_err, imd_err; 
+    uint8_t bms_err, imd_err;
     bms_err = orionErrors();
     imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 

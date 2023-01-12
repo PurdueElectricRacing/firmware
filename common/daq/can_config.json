@@ -1057,6 +1057,17 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10015
+                        },
+                        {
+                            "msg_name": "set_fault",
+                            "msg_desc": "Set a fault",
+                            "signals": [
+                                {"sig_name": "idx",  "sig_desc": "Bootloader Command type", "type": "uint16_t", "length": 16},
+                                {"sig_name": "latchted", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":5,
+                            "msg_pgn":12345
                         }
                     ],
                     "rx":[

@@ -4,13 +4,17 @@
  * @brief  Software to measure pedal state and control the LCD display
  * @version 0.1
  * @date 2022-03-07
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _MAIN_H_
 #define _MAIN_H_
+
+#include "common/faults/fault_nodes.h"
+
+#define FAULT_NODE_NAME NODE_DASHBOARD
 
 /* Status LEDs */
 #define ERR_LED_GPIO_Port   (GPIOB)

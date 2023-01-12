@@ -46,6 +46,10 @@ BO_ 2214592577 torque_request_main: 8 Main_Module
  SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
+BO_ 2348817985 fault_sync_main_module: 3 Main_Module
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136769 daq_response_MAIN_MODULE: 8 Main_Module
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -58,6 +62,10 @@ BO_ 2214592578 torque_request: 6 Torque_Vector
 BO_ 2147490050 bitstream_flash_status: 1 Torque_Vector
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348818050 fault_sync_torque_vector: 3 Torque_Vector
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214598915 front_driveline_hb: 2 Driveline
  SG_ front_right_motor : 8|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -98,6 +106,10 @@ BO_ 2483028739 front_motor_init: 2 Driveline
 BO_ 2483028803 rear_motor_init: 2 Driveline
  SG_ rear_right_init : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_left_init : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348818051 fault_sync_driveline: 3 Driveline
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281734148 battery_info: 8 Precharge
  SG_ error : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -140,6 +152,10 @@ BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
  SG_ temp_C : 32|16@1+ (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_B : 16|16@1+ (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2348818052 fault_sync_precharge: 3 Precharge
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -214,6 +230,10 @@ BO_ 2214598917 dashboard_hb: 1 Dashboard
  SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348817989 fault_sync_dashboard: 3 Dashboard
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
@@ -422,6 +442,10 @@ BO_ 2215233534 bms_j_bl_cmd: 5 TESTER
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2483818110 set_fault: 3 TESTER
+ SG_ latchted : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2566869221 elcon_charger_status: 5 Charger
  SG_ communication_fail : 36|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ startup_fail : 35|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -573,6 +597,10 @@ BO_ 2147488308 adc_values: 5 TEST_NODE
 BO_ 2347693088 car_state: 1 TEST_NODE
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2348818175 fault_sync_l4_testing: 3 TEST_NODE
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2550136831 daq_response_TEST_NODE: 8 TEST_NODE
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -637,6 +665,9 @@ CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
+CM_ BO_ 2348817985 "Syncing Fault example";
+CM_ SG_ 2348817985 latched "";
+CM_ SG_ 2348817985 idx "";
 CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
 CM_ SG_ 2550136769 daq_response "";
 CM_ BO_ 2214592578 "Torque request for all motors.";
@@ -647,6 +678,9 @@ CM_ SG_ 2214592578 front_left "torque request. 0-4096";
 CM_ BO_ 2147490050 "Status message for bitstream flashing";
 CM_ SG_ 2147490050 flash_timeout_rx "Timeout from CAN rx";
 CM_ SG_ 2147490050 flash_success "Done flashing bitstream";
+CM_ BO_ 2348818050 "Syncing Fault example";
+CM_ SG_ 2348818050 latched "";
+CM_ SG_ 2348818050 idx "";
 CM_ BO_ 2214598915 "front drivline heart beat";
 CM_ SG_ 2214598915 front_right_motor "";
 CM_ SG_ 2214598915 front_left_motor "";
@@ -679,6 +713,9 @@ CM_ SG_ 2483028739 front_left_init "";
 CM_ BO_ 2483028803 "Front motor controller initialization status";
 CM_ SG_ 2483028803 rear_right_init "";
 CM_ SG_ 2483028803 rear_left_init "";
+CM_ BO_ 2348818051 "Syncing Fault example";
+CM_ SG_ 2348818051 latched "";
+CM_ SG_ 2348818051 idx "";
 CM_ BO_ 2281734148 "Information about battery voltage and other stuff";
 CM_ SG_ 2281734148 error "";
 CM_ SG_ 2281734148 lowest "";
@@ -713,6 +750,9 @@ CM_ SG_ 2483060868 temp_D "";
 CM_ SG_ 2483060868 temp_C "";
 CM_ SG_ 2483060868 temp_B "";
 CM_ SG_ 2483060868 temp_A "";
+CM_ BO_ 2348818052 "Syncing Fault example";
+CM_ SG_ 2348818052 latched "";
+CM_ SG_ 2348818052 idx "";
 CM_ BO_ 2550136772 "daq response from node PRECHARGE";
 CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
@@ -780,6 +820,9 @@ CM_ BO_ 2214598917 "periodic dashboard heartbeat";
 CM_ SG_ 2214598917 apps_brake_faulted "";
 CM_ SG_ 2214598917 bse_faulted "";
 CM_ SG_ 2214598917 apps_faulted "";
+CM_ BO_ 2348817989 "Syncing Fault example";
+CM_ SG_ 2348817989 latched "";
+CM_ SG_ 2348817989 idx "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 688 "Standard steering angle and speed";
@@ -941,6 +984,9 @@ CM_ SG_ 2215233470 cmd "Bootloader Command type";
 CM_ BO_ 2215233534 "Bootloader command for torque vector";
 CM_ SG_ 2215233534 data "Bootloader data";
 CM_ SG_ 2215233534 cmd "Bootloader Command type";
+CM_ BO_ 2483818110 "Set a fault";
+CM_ SG_ 2483818110 latchted "Bootloader data";
+CM_ SG_ 2483818110 idx "Bootloader Command type";
 CM_ BO_ 2566869221 "Realtime charger status";
 CM_ SG_ 2566869221 communication_fail " 5s timeout from communication failure";
 CM_ SG_ 2566869221 startup_fail "Startup voltage detection failure";
@@ -1061,6 +1107,9 @@ CM_ SG_ 2147488308 pot2 "";
 CM_ SG_ 2147488308 pot1 "";
 CM_ BO_ 2347693088 "state of the car";
 CM_ SG_ 2347693088 car_state "";
+CM_ BO_ 2348818175 "Syncing Fault example";
+CM_ SG_ 2348818175 latched "";
+CM_ SG_ 2348818175 idx "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";
@@ -1085,8 +1134,8 @@ CM_ BO_ 2483032050 "daq command for node TEST_NODE";
 CM_ SG_ 2483032050 daq_command "";
 CM_ BO_ 2483031922 "daq command for node TEST_NODE_2";
 CM_ SG_ 2483031922 daq_command "";
-
-
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
 
 VAL_ 2214598913 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
 VAL_ 2214598915 front_right_motor 0 "disconnected" 1 "initializing" 2 "connected" 3 "error" ;

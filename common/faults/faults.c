@@ -9,12 +9,9 @@
  *
  */
 #include "faults.h"
-#include "source/dashboard/main.h"
 // #include "source/l4_testing/can/can_parse.h"
 
-#ifndef FAULT_NODE_NAME
-	#error "You must have a FAULT_NODE_NAME defined in your main.h"
-#endif
+
 
 //BEGIN AUTO INCLUDES
 #if FAULT_NODE_NAME == 0
@@ -105,9 +102,9 @@ fault_attributes_t getFault(int id) {
 
 
 void txFaults() {
-        fault_message_t *message = &messageArray[GET_IDX(curridx++)];
+        // fault_message_t *message = &messageArray[GET_IDX(curridx++)];
+        fault_message_t *message = &messageArray[curridx++];
         //BEGIN AUTO TX COMMAND
-		switch(FAULT_NODE_NAME) {
 			#if FAULT_NODE_NAME == 0
              	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, message->f_ID, message->latched);
              #endif
@@ -126,7 +123,6 @@ void txFaults() {
 			#if FAULT_NODE_NAME == 5
              	SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
              #endif
-		}
         //END AUTO TX COMMAND
      if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].f_ID) != currentMCU)) {
         curridx = ownedidx;
@@ -136,7 +132,6 @@ void txFaults() {
 void txFaultSpecific(int id) {
     fault_message_t *message = &messageArray[GET_IDX(id)];
 //BEGIN AUTO TX COMMAND SPECIFIC
-		switch(FAULT_NODE_NAME) {
 			#if FAULT_NODE_NAME == 0
              	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, message->f_ID, message->latched);
              #endif
@@ -155,7 +150,6 @@ void txFaultSpecific(int id) {
 			#if FAULT_NODE_NAME == 5
              	SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
              #endif
-		}
 //END AUTO TX COMMAND SPECIFIC
 }
 
@@ -369,7 +363,7 @@ void initFaultLibrary(fault_owner_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
     for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
         fault_message_t tempMsg = {false, idArray[i]};
         messageArray[i] = tempMsg;
-        fault_attributes_t tempAttribute = {false, false, priorityArray[i], 0, 0, idArray[i], maxArray[i], minArray[i],
+        fault_attributes_t tempAttribute = {false, false, priorityArray[i], 0, 0, 0, idArray[i], maxArray[i], minArray[i],
                         &messageArray[i], msgArray[i]};
         faultArray[i] = tempAttribute;
         if (GET_OWNER(idArray[i]) == mcu && !foundStartIdx) {

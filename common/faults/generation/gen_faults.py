@@ -41,13 +41,21 @@ gen_recieve_start = "BEGIN AUTO RECIEVE FUNCTIONS"
 gen_recieve_end = "END AUTO RECIEVE FUNCTIONS"
 
 def gen_totals(fault_config):
+    """
+    Generate C definitions for the total numbers
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Total Values")
     total_faults = 0
     total_mcus = 0
     total_array = []
+    #Total nodes
     for node in fault_config['modules']:
         total_mcus += 1
         current_total = 0
+        #Total faults in each node
         for fault in node['faults']:
             current_total += 1
             total_faults += 1
@@ -57,17 +65,27 @@ def gen_totals(fault_config):
     return total_array
 
 def gen_nodes(fault_config) :
+    """
+    Generate C definitions for the each node, and thier value (fault_owner enum)
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating nodes")
     node_array = []
-    node_num = 0
-    for node in fault_config['modules']:
-        node_array.append(f"#define NODE_{node['node_name'].upper()} {node_num}\n")
-        node_num += 1
+    for idx, node in enumerate(fault_config['modules']):
+        node_array.append(f"#define NODE_{node['node_name'].upper()} {idx}\n")
     return node_array
 
 
 
 def gen_ids(fault_config):
+    """
+    Generate C definitions for each fault representing thier ID
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating IDs")
     id_lines = []
     for node in fault_config['modules']:
@@ -76,6 +94,12 @@ def gen_ids(fault_config):
     return id_lines
 
 def gen_priorities(fault_config):
+    """
+    Generate C definitions each fault and thier priorities
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Priorities")
     pri_lines = []
     for node in fault_config['modules']:
@@ -84,6 +108,12 @@ def gen_priorities(fault_config):
     return pri_lines
 
 def gen_max(fault_config):
+    """
+    Generate C definitions for the each fault and thier max value
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Max Values")
     max_lines = []
     for node in fault_config['modules']:
@@ -92,6 +122,12 @@ def gen_max(fault_config):
     return max_lines
 
 def gen_min(fault_config):
+    """
+    Generate C definitions for each fault and thier min values
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Min Values")
     min_lines = []
     for node in fault_config['modules']:
@@ -100,6 +136,12 @@ def gen_min(fault_config):
     return min_lines
 
 def gen_latch(fault_config):
+    """
+    Generate C definitions for each fault and thier latch states
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Latch Times")
     latch_lines = []
     for node in fault_config['modules']:
@@ -108,6 +150,12 @@ def gen_latch(fault_config):
     return latch_lines
 
 def gen_unlatch(fault_config):
+    """
+    Generate C definitions each fault and thier unlatch time
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Unlatch Times")
     latch_lines = []
     for node in fault_config['modules']:
@@ -116,6 +164,12 @@ def gen_unlatch(fault_config):
     return latch_lines
 
 def gen_screenmsg(fault_config):
+    """
+    Generate C definitions for each fault and thier LCD message
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Messages")
     msg = []
     for node in fault_config['modules']:
@@ -124,6 +178,12 @@ def gen_screenmsg(fault_config):
     return msg
 
 def gen_node_enum(fault_config):
+    """
+    Generate C enum assigning integer values to each node (based on earlier definitions)
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating ENUMs")
     enum = []
     enum.append("typedef enum {\n")
@@ -133,10 +193,17 @@ def gen_node_enum(fault_config):
     return enum
 
 def gen_fault_info_arrays(fault_config):
+    """
+    Generate C definitions combining each macro into an array that will be added to the file
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Populating Arrays")
     array = []
     array.append("int idArray[TOTAL_NUM_FAULTS] = {")
     i = 0
+    #Add each id value into the array, splitting when lines are too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -150,6 +217,7 @@ def gen_fault_info_arrays(fault_config):
                 i += 1
     array.append("};\nint maxArray[TOTAL_NUM_FAULTS] = {")
     i = 0
+    #Add each Max value to an array, splitting when lines are too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -163,6 +231,7 @@ def gen_fault_info_arrays(fault_config):
                 i += 1
     array.append("};\nint minArray[TOTAL_NUM_FAULTS] = {")
     i = 0
+    #Add each Min falue to minArray, splitting when lines are too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -176,6 +245,7 @@ def gen_fault_info_arrays(fault_config):
                 i += 1
     array.append("};\nfault_priority_t priorityArray[TOTAL_NUM_FAULTS] = {")
     i = 0
+    #Add each priority value to the array, splitting when lines are too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -189,6 +259,7 @@ def gen_fault_info_arrays(fault_config):
                 i += 1
     array.append("};\nchar msgArray[TOTAL_NUM_FAULTS][MAX_MSG_SIZE] = {")
     i = 0
+    #Add each Message to an array, splitting when the line gets too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -202,6 +273,7 @@ def gen_fault_info_arrays(fault_config):
                 i += 1
     array.append("};\nint faultLatchTime[TOTAL_NUM_FAULTS] = {")
     i = 0
+    #Add each latch value to an array, splitting when the line gets too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -215,6 +287,7 @@ def gen_fault_info_arrays(fault_config):
                 i += 1
     array.append("};\nint faultULatchTime[TOTAL_NUM_FAULTS] = {")
     i = 0
+    #Add each unlatch value to an array, splitting when the line gets too long
     for node in fault_config['modules']:
         for fault in node['faults']:
             if i == 5:
@@ -231,61 +304,56 @@ def gen_fault_info_arrays(fault_config):
 
 
 def gen_includes(fault_config):
+    """
+    Generate C preprocessor logic for including can parse data
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Includes")
     gen_arr = []
     idx = 0
     for node in fault_config['modules']:
-        # if node['node_name'] == target:
-            # gen_arr.append(f"#include \"source/{node['can_name'].lower()}/can/can_parse.h\"\n")
         gen_arr.append(f"#if FAULT_NODE_NAME == {idx}\n\t#include \"source/{node['can_name'].lower()}/can/can_parse.h\"\n#endif\n")
         idx += 1
     return gen_arr
 
 def gen_tx_msg(fault_config):
+    """
+    Generate C preprocessor logic to add all possible tx commands
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating CAN TX Commands")
     tx = []
     idx = 0
-    # tx.append("\t\tswitch(FAULT_NODE_NAME) {\n")
     for node in fault_config['modules']:
-        # tx.append(f"\t\t\tcase {node['node_name'].upper()}:\n \
-        #     \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n \
-        #     \tbreak;\n")
         tx.append(f"\t\t\t#if FAULT_NODE_NAME == {idx}\n \
             \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n \
             #endif\n")
         idx += 1
-        # if node['node_name'] == target:
-        #     tx.append(f"\t\tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n")
-    # tx.append("\t\t}\n")
     return tx
 
 def gen_rx_msg(fault_config):
+    """
+    Generate C functions to handle CAN callbacks when recieving fault data
+    @param fault_config    Fault JSON dictionary
+
+    @return          Array of macros to add to file
+    """
     print("Generating Fault Functions")
     rx = []
     for node in fault_config['modules']:
         msg = f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n"
-        # if node['node_name'] != target:
         if msg in rx:
             generator.log_warning("Multiple fault nodes refer to the same CAN Node")
             continue
+        #Generate the function logic
         rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
         rx.append(f"\tfault_message_t recievedMessage = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
         rx.append("\tfault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];\n\thandleCallbacks(recievedMessage, currMessage);\n")
-    #     rx.append("\tswitch (recievedMessage.latched) {\n\t\tcase true:\n\t\t\tif (!currMessage->latched) {\
-    #         \n\t\t\t\tcurrMessage->latched = recievedMessage.latched;\n\t\t\t\tswitch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {\
-    #         \n\t\t\t\t\tcase INFO:\n\t\t\t\t\t\tinfoCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase WARNING:\
-    #         \n\t\t\t\t\t\twarnCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase CRITICAL:\n\t\t\t\t\t\tcritCount++;\n\t\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\
-    #         \n\t\t\tbreak;\n\t\tcase false:\n\t\t\tif (currMessage->latched) {\n\t\t\t\tcurrMessage->latched = recievedMessage.latched;\
-    #         \n\t\t\t\tswitch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {\n\t\t\t\t\tcase INFO:\n\t\t\t\t\t\tinfoCount--;\n\t\t\t\t\t\tbreak;\
-    #         \n\t\t\t\t\tcase WARNING:\n\t\t\t\t\t\twarnCount--;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\tcase CRITICAL:\n\t\t\t\t\t\tcritCount--;\n\t\t\t\t\t\tbreak;\
-    #         \n\t\t\t\t}\n\t\t\t}\n\t\t\tbreak;\n\t\t}\n}\n\n\n")
         rx.append("}\n")
-        # else:
-        #     if msg in rx:
-        #         generator.log_warning("Multiple fault nodes refer to the same CAN Node")
-        #         continue
-        #     rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
-        #     rx.append("\treturn;\n}\n")
     return rx
 
 

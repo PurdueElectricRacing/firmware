@@ -38,6 +38,7 @@ def log_heading(phrase):
 
 priority_dict = {'info':0, 'warning':1, 'critical':2}
 
+
 def load_json_config(config_path, schema_path):
     """ loads config from json and validates with schema """
     config = json.load(open(config_path))
@@ -52,6 +53,8 @@ def load_json_config(config_path, schema_path):
         quit(1)
 
     return config
+
+
 def insert_lines(source: list, start, stop, new_lines):
     """
     Insert lines between start and stop lines, writes over pre-existing data
@@ -88,39 +91,29 @@ def insert_lines(source: list, start, stop, new_lines):
 
     return source
 
-# def check_args(fault_config):
-#     arg = 0
-#     try:
-#         arg = sys.argv[1]
-#         arg = arg.lower()
-#     except:
-#         log_error("Please include a target in your command\n ex: python3 common/faults/generation/generator.py dashboard.")
-#         quit(1)
-#     matchFound = 0
-#     for node in fault_config['modules']:
-#         if arg == node['node_name']:
-#             matchFound += 1
-#     if matchFound < 1:
-#         log_error(f"\"{arg}\" is not contained in fault_config.json. Please include a valid name!")
-#         quit(1)
-#     elif matchFound > 1:
-#         log_error(f"\"{arg}\" is the name of multiple nodes in fault_config.json. Modify and run again")
-#         quit(1)
-#     return arg
-
 def check_message_len(fault_config):
+    """
+    Make sure no fault message exceeds the maximum message length
+    @param fault_config    Fault JSON dictionary
+
+    @return          bool based on validity of fault JSON nodes+messages
+    """
+
+    #There are too many nodes (Only 4 bits allowed)
     if len(fault_config['modules']) > 16:
         log_error(f"Max number of nodes is 16. There are {len(fault_config['modules'])} nodes currently defined in fault_config.json. \nReduce the number of nodes you have defined")
         quit(1)
     else:
         print(f"Total number of nodes: {len(fault_config['modules'])}")
     length = 0
+    #Check message length
     for node in fault_config['modules']:
         length += len(node['faults'])
         for fault in node['faults']:
             if len(fault['lcd_message']) >= 75:
                 log_error(f"The message for fault \"{fault['fault_name']}\" in \"{node['node_name']}\"is too long. Max limit is 75 characters")
                 quit(1)
+    #Make sure total number of messages isn't too large
     if length >= 4090:
         log_error(f"Max number of faults is 4090. There are {length} faults currently defined in fault_config.json. \nReduce the number of faults you have defined")
         quit(1)
@@ -129,14 +122,22 @@ def check_message_len(fault_config):
     return True
 
 def check_names(fault_config):
+    """
+    Make sure fault/node names are valid
+    @param fault_config    Fault JSON dictionary
+
+    @return          bool based on validity of fault JSON names
+    """
     node_names = []
     fault_names = []
     for node in fault_config['modules']:
+        #Validity of node names
         if node['node_name'] in node_names:
             log_error(f"Found multiple nodes with the name \"{node['node_name']}\". Duplicate names are not allowed")
             quit(1)
         else:
             node_names.append(node['node_name'])
+        #Validity of fault names
         for fault in node['faults']:
             if fault['fault_name'] in fault_names:
                 log_error(f"Found multiple faults with the name \"{fault['fault_name']}\". The duplicate was found in \"{node['node_name']}\" \n Duplicate names are not allowed")
@@ -146,18 +147,29 @@ def check_names(fault_config):
 
 
 def create_ids(fault_config):
+    """
+    Ad an 'id' parameter to the JSON
+    @param fault_config    Fault JSON dictionary
+
+    @return          none
+    """
     num = 0
     idx = 0
     for node in fault_config['modules']:
         for fault in node['faults']:
             #id : Owner (MCU) = 4 bits, Index in fault array = 12 bits
             id = ((num << 12) | (idx & 0x0fff))
-            # print(hex(id))
             fault['id'] =  id
             idx += 1
         num += 1
 
 def process_priorities(fault_config):
+    """
+    Add interpreted 'priority' value to fault dictionary
+    @param fault_config    Fault JSON dictionary
+
+    @return          none
+    """
     for node in fault_config['modules']:
         for fault in node['faults']:
             if fault['priority'] == "info":
@@ -168,6 +180,12 @@ def process_priorities(fault_config):
                 fault['pri_interp'] = 2
 
 def process_nodes(fault_config):
+    """
+    Replace node names with the corresponding name in can, named 'can_name'
+    @param fault_config    Fault JSON dictionary
+
+    @return          none
+    """
     id = 0
     for node in fault_config['modules']:
         node['name_interp'] = id

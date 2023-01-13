@@ -296,7 +296,45 @@ void updateFaults() {
             }
         }
         else {
-            fault->time_since_latch = 0;
+            //Account for potential noise during the latching process
+            if (fault->time_since_latch > 0 && fault->bounces < 3) {
+                fault->time_since_latch++;
+                fault->bounces++;
+                fault->message->latched = 1;
+                fault->tempLatch = 1;
+                currCount++;
+                switch(fault->priority) {
+                    case INFO:
+                        infoCount++;
+                        break;
+                    case WARNING:
+                        warnCount++;
+                        break;
+                    case CRITICAL:
+                        critCount++;
+                        break;
+                }
+            }
+            else if (fault->time_since_latch > 0 && fault->bounces > 3) {
+                fault->time_since_latch++;
+                fault->message->latched = 1;
+                fault->tempLatch = 1;
+                currCount++;
+                switch(fault->priority) {
+                    case INFO:
+                        infoCount++;
+                        break;
+                    case WARNING:
+                        warnCount++;
+                        break;
+                    case CRITICAL:
+                        critCount++;
+                        break;
+                }
+            }
+            else {
+                fault->time_since_latch = 0;
+            }
         }
         idx++;
     } while ((idx < TOTAL_NUM_FAULTS) && (GET_OWNER(faultArray[idx].f_ID) == currentMCU));

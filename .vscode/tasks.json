@@ -23,6 +23,12 @@
             "type": "shell",
             "command": "python3 ./common/daq/generation/generator.py",
             "problemMatcher": []
+        },
+        {
+            "label": "faults_gen",
+            "type": "shell",
+            "command": "python3 ./common/faults/generation/generator.py",
+            "problemMatcher": []
         }
     ]
 }

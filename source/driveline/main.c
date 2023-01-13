@@ -391,12 +391,12 @@ void ledUpdate()
     // else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
     if (i++ == 6) {
-        forceFault(ID_WLSPD_L_FAULT, true);
+        setFault(ID_WLSPD_L_FAULT, 6000);
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     }
 
     if (i == 13) {
-        forceFault(ID_WLSPD_L_FAULT, false);
+        setFault(ID_WLSPD_L_FAULT, 2000);
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
         i = 0;
     }

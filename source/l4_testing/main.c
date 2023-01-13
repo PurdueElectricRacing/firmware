@@ -257,7 +257,7 @@ void ledBlink()
     //     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
     // }
     // PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
-    if (isLatched()) {
+    if (otherMCUsLatched()) {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, 3, 1);
         forceFault(ID_TEST_FAULT_4_FAULT, 0);
     }

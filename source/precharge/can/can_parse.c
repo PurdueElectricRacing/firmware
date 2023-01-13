@@ -166,6 +166,15 @@ void canRxUpdate()
                     can_data.fault_sync_l4_testing.latched = msg_data_a->fault_sync_l4_testing.latched;
                     fault_sync_l4_testing_CALLBACK(msg_data_a);
                     break;
+                case ID_SET_FAULT:
+                    can_data.set_fault.id = msg_data_a->set_fault.id;
+                    can_data.set_fault.value = msg_data_a->set_fault.value;
+                    set_fault_CALLBACK(msg_data_a);
+                    break;
+                case ID_RETURN_FAULT_CONTROL:
+                    can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
+                    return_fault_control_CALLBACK(msg_data_a);
+                    break;
                 case ID_ELCON_CHARGER_STATUS:
                     can_data.elcon_charger_status.charge_voltage = msg_data_a->elcon_charger_status.charge_voltage;
                     can_data.elcon_charger_status.charge_current = msg_data_a->elcon_charger_status.charge_current;

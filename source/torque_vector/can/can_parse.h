@@ -28,6 +28,8 @@
 #define ID_FAULT_SYNC_DRIVELINE 0xc001e83
 #define ID_FAULT_SYNC_MAIN_MODULE 0xc001e41
 #define ID_FAULT_SYNC_PRECHARGE 0xc001e84
+#define ID_SET_FAULT 0x809c83e
+#define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_FRONT_WHEEL_DATA 0x4000003
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_BITSTREAM_DATA 0x1000193e
@@ -45,6 +47,8 @@
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
+#define DLC_SET_FAULT 3
+#define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_BITSTREAM_DATA 8
@@ -130,6 +134,13 @@ typedef union { __attribute__((packed))
         uint64_t latched: 1;
     } fault_sync_precharge;
     struct {
+        uint64_t id: 16;
+        uint64_t value: 1;
+    } set_fault;
+    struct {
+        uint64_t id: 16;
+    } return_fault_control;
+    struct {
         uint64_t left_speed: 16;
         uint64_t right_speed: 16;
         uint64_t left_normal: 16;
@@ -187,6 +198,13 @@ typedef struct {
         uint8_t latched;
     } fault_sync_precharge;
     struct {
+        uint16_t id;
+        uint8_t value;
+    } set_fault;
+    struct {
+        uint16_t id;
+    } return_fault_control;
+    struct {
         uint16_t left_speed;
         uint16_t right_speed;
         uint16_t left_normal;
@@ -230,6 +248,8 @@ extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
+extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
+extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bootloader_request_reset_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */

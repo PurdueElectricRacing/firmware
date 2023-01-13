@@ -36,6 +36,8 @@
 #define ID_FAULT_SYNC_DRIVELINE 0xc001e83
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0xc001e82
 #define ID_FAULT_SYNC_PRECHARGE 0xc001e84
+#define ID_SET_FAULT 0x809c83e
+#define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
@@ -60,6 +62,8 @@
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
+#define DLC_SET_FAULT 3
+#define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_FRONT_DRIVELINE_HB 2
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
@@ -243,6 +247,13 @@ typedef union { __attribute__((packed))
         uint64_t latched: 1;
     } fault_sync_precharge;
     struct {
+        uint64_t id: 16;
+        uint64_t value: 1;
+    } set_fault;
+    struct {
+        uint64_t id: 16;
+    } return_fault_control;
+    struct {
         uint64_t front_left_motor: 8;
         uint64_t front_right_motor: 8;
     } front_driveline_hb;
@@ -289,6 +300,13 @@ typedef struct {
         uint8_t latched;
     } fault_sync_precharge;
     struct {
+        uint16_t id;
+        uint8_t value;
+    } set_fault;
+    struct {
+        uint16_t id;
+    } return_fault_control;
+    struct {
         front_left_motor_t front_left_motor;
         front_right_motor_t front_right_motor;
         uint8_t stale;
@@ -324,6 +342,8 @@ extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
+extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
+extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

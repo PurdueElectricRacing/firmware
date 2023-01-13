@@ -9,8 +9,6 @@
  *
  */
 #include "faults.h"
-// #include "source/l4_testing/can/can_parse.h"
-
 
 
 //BEGIN AUTO INCLUDES
@@ -60,9 +58,12 @@ int faultULatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_UNLATCH_TIME, DRIVE_FLOW_UNL
 
 fault_owner_t currentMCU;
 
+//Global arrays with all faults,
 fault_attributes_t faultArray[TOTAL_NUM_FAULTS];
 fault_message_t messageArray[TOTAL_NUM_FAULTS];
 
+
+//Variables containing the number of latched faults
 uint16_t critCount;
 uint16_t warnCount;
 uint16_t infoCount;
@@ -71,38 +72,43 @@ uint16_t currCount;
 q_handle_t *q_tx;
 q_handle_t *q_rx;
 
+
+//Variables containing the index/limits of owned faults (heartbeat)
 uint16_t ownedidx;
 uint16_t curridx;
 
-
 bool fault_lib_enable;
-//MAX exclusive, MIN inclusive
+
+/*
+    Function  to set a fault through MCU.
+    Inputs: Fault ID, current value of item connected to fault;
+*/
 bool setFault(int id, int valueToCompare) {
     if (!fault_lib_enable)
     {
         return false;
     }
+
+    //Fault is not owned by current node
     if (GET_OWNER(id) != currentMCU) {
         return false;
     }
 
     fault_attributes_t *array = &faultArray[GET_IDX(id)];
+
+    //The fault is being forced to be a certain value, stop running
     if (array->forceActive)
     {
         return messageArray[GET_IDX(id)].latched;
     }
+    //Templatch = result of comparison of limits + current value
     array->tempLatch = ((valueToCompare > array->f_max) || (valueToCompare <= array->f_min)) ? true : false;
-    return faultArray[GET_IDX(id)].tempLatch; /*array->tempLatch*/
-}
-
-fault_attributes_t getFault(int id) {
-    return faultArray[GET_IDX(id)];
+    return faultArray[GET_IDX(id)].tempLatch;
 }
 
 
-
+//Heartbeat; Send faults periodically (100ms)
 void txFaults() {
-        // fault_message_t *message = &messageArray[GET_IDX(curridx++)];
         fault_message_t *message = &messageArray[curridx++];
         //BEGIN AUTO TX COMMAND
 			#if FAULT_NODE_NAME == 0
@@ -124,11 +130,13 @@ void txFaults() {
              	SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
              #endif
         //END AUTO TX COMMAND
+    //Move to the next fault in the owned array
      if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].f_ID) != currentMCU)) {
         curridx = ownedidx;
      }
 }
 
+//Function to send faults at a specific time
 void txFaultSpecific(int id) {
     fault_message_t *message = &messageArray[GET_IDX(id)];
 //BEGIN AUTO TX COMMAND SPECIFIC
@@ -153,48 +161,10 @@ void txFaultSpecific(int id) {
 //END AUTO TX COMMAND SPECIFIC
 }
 
-// void fault_sync_driveline_CALLBACK(CanParsedData_t *msg_header_a) {
-//     fault_message_t recievedMessage = {msg_header_a->fault_sync_driveline.latched, msg_header_a->fault_sync_driveline.idx};
-//     fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-//     switch (recievedMessage.latched) {
-//         case true:
-//             if (!currMessage->latched) {
-//                 currMessage->latched = recievedMessage.latched;
-//                 switch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {
-//                     case INFO:
-//                         infoCount++;
-//                         break;
-//                     case WARNING:
-//                         warnCount++;
-//                         break;
-//                     case CRITICAL:
-//                         critCount++;
-//                         break;
-//                 }
-//             }
-//             break;
-//         case false:
-//             if (currMessage->latched) {
-//                 currMessage->latched = recievedMessage.latched;
-//                 switch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {
-//                     case INFO:
-//                         infoCount--;
-//                         break;
-//                     case WARNING:
-//                         warnCount--;
-//                         break;
-//                     case CRITICAL:
-//                         critCount--;
-//                         break;
-//                 }
-//             }
-//             break;
-//     }
-// }
-
-
+//Function to update fault array from recieved messages
 void handleCallbacks(fault_message_t recievedMessage, fault_message_t *currMessage) {
 	switch (recievedMessage.latched) {
+        //If current Message = 0, and recieved message = 1 (fault is latching)
 		case true:
 			if (!currMessage->latched) {
 				currMessage->latched = recievedMessage.latched;
@@ -211,6 +181,7 @@ void handleCallbacks(fault_message_t recievedMessage, fault_message_t *currMessa
 				}
 			}
 			break;
+        //If current Message = 1, and recieved message = 0 (fault is unlatching)
 		case false:
 			if (currMessage->latched) {
 				currMessage->latched = recievedMessage.latched;
@@ -263,12 +234,30 @@ void fault_sync_l4_testing_CALLBACK(CanParsedData_t *msg_header_a) {
 }
 //END AUTO RECIEVE FUNCTIONS
 
+//Force faults from daq
+void set_fault_CALLBACK(CanParsedData_t *msg_header_a) {
+    if (GET_OWNER(msg_header_a->set_fault.id) == currentMCU) {
+        forceFault(msg_header_a->set_fault.id, msg_header_a->set_fault.value);
+    }
+}
+
+//Return control back to this mcu from daq
+void return_fault_control_CALLBACK(CanParsedData_t *msg_header_a) {
+    if (GET_OWNER(msg_header_a->set_fault.id) == currentMCU) {
+        unForce(msg_header_a->set_fault.id);
+    }
+}
+
+
+//Updates faults owned by current mcu
 void updateFaults() {
     uint16_t idx = ownedidx;
     fault_attributes_t *fault;
     do {
         fault = &faultArray[idx];
+        //Fault is showing up as latched
         if (((fault->tempLatch) && !(fault->message->latched))) {
+            //Has latching period ended
             fault->message->latched = (fault->time_since_latch++ >= faultLatchTime[idx]) ? true : false;
             if (fault->message->latched) {
                 currCount++;
@@ -286,7 +275,9 @@ void updateFaults() {
                 txFaultSpecific(idx);
             }
         }
+        //Fault is showing up as unlatched
         else if (!(fault->tempLatch) && (fault->message->latched)) {
+            //Make sure unlatch period has elapsed
             fault->message->latched = (fault->time_since_latch++ >= faultULatchTime[idx]) ? false : true;
             if (!(fault->message->latched)) {
                 currCount--;
@@ -315,36 +306,86 @@ void killFaultLibrary() {
     fault_lib_enable = false;
 }
 
+//Does the current board have latched faults
 bool currMCULatched() {
     return (currCount == 0) ? false : true;
 }
 
+//Are there any info level faults latched
 bool infoLatched() {
     return (infoCount == 0) ? false : true;
 }
 
+//Are there any warning level faults latched
 bool warningLatched() {
     return (warnCount == 0) ? false : true;
 }
 
+//Are there any critical level faults latched
 bool criticalLatched() {
     return (critCount == 0) ? false : true;
 }
 
+//Are faults latched on other mcus
+bool otherMCUsLatched() {
+    return (infoCount + warnCount + critCount - currCount == 0) ? false : true;
+}
+
+//Is any fault latched
 bool isLatched() {
     return (infoCount + warnCount + critCount == 0) ? false : true;
 }
 
+//Check if any fault is latched
 bool checkFault(int id) {
     return message[GET_IDX(id)].latched;
 }
 
+//Unforce a fault
 void unForce(int id) {
     faultArray[GET_IDX(id)].forceActive = false;
 }
 
+//Gets the coresponding fault from ID
+fault_attributes_t getFault(int id) {
+    return faultArray[GET_IDX(id)];
+}
+
+
+//Force a fault to be a certain state
 void forceFault(int id, bool state) {
     uint16_t idx = GET_IDX(id);
+    //If it is forced to be latched and wasn't already
+    if (state & !messageArray[idx].latched) {
+        currCount++;
+        switch(faultArray[idx].priority) {
+            case INFO:
+                infoCount++;
+                break;
+            case WARNING:
+                warnCount++;
+                break;
+            case CRITICAL:
+                critCount++;
+                break;
+        }
+    }
+    //If it is forced to be unlatched and was latched before
+    else if (!state & messageArray[idx].latched) {
+       currCount--;
+        switch(faultArray[idx].priority) {
+            case INFO:
+                infoCount--;
+                break;
+            case WARNING:
+                warnCount--;
+                break;
+            case CRITICAL:
+                critCount--;
+                break;
+        }
+    }
+    //Update the array and send through CAN
     faultArray[idx].tempLatch = state;
     faultArray[idx].forceActive = true;
     messageArray[idx].latched = state;
@@ -352,6 +393,8 @@ void forceFault(int id, bool state) {
 
 }
 
+
+//Initialize the FL with starting values
 void initFaultLibrary(fault_owner_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
     fault_lib_enable = true;
     bool foundStartIdx = false;
@@ -360,6 +403,7 @@ void initFaultLibrary(fault_owner_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
     currentMCU = mcu;
     uint16_t num_owned_faults = 0;
     uint16_t num_recieved_faults = 0;
+    //Populate the arrays with starting values
     for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
         fault_message_t tempMsg = {false, idArray[i]};
         messageArray[i] = tempMsg;

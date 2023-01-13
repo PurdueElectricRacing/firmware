@@ -49,6 +49,8 @@
                         {"msg_name": "fault_sync_driveline", "callback": true},
                         {"msg_name": "fault_sync_torque_vector", "callback": true},
                         {"msg_name": "fault_sync_precharge", "callback": true},
+                        {"msg_name": "set_fault", "callback": true},
+                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "raw_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
                         {"msg_name": "front_motor_currents_temps"},
@@ -106,6 +108,8 @@
                         {"msg_name": "fault_sync_driveline", "callback": true},
                         {"msg_name": "fault_sync_main_module", "callback": true},
                         {"msg_name": "fault_sync_precharge", "callback": true},
+                        {"msg_name": "set_fault", "callback": true},
+                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
                         {"msg_name": "bitstream_data",    "callback": false, "irq": true},
@@ -231,6 +235,8 @@
                         {"msg_name": "fault_sync_main_module", "callback": true},
                         {"msg_name": "fault_sync_precharge", "callback": true},
                         {"msg_name": "fault_sync_l4_testing", "callback": true},
+                        {"msg_name": "set_fault", "callback": true},
+                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name":"torque_request_main"},
                         {"msg_name":"main_hb"}
                     ]
@@ -354,6 +360,8 @@
                         {"msg_name": "fault_sync_main_module", "callback": true},
                         {"msg_name": "fault_sync_driveline", "callback": true},
                         {"msg_name": "fault_sync_l4_testing", "callback": true},
+                        {"msg_name": "set_fault", "callback": true},
+                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "elcon_charger_status"},
                         {"msg_name": "orion_info"},
                         {"msg_name": "orion_currents_volts"},
@@ -501,6 +509,8 @@
                         {"msg_name": "fault_sync_main_module", "callback": true},
                         {"msg_name": "fault_sync_precharge", "callback": true},
                         {"msg_name": "fault_sync_l4_testing", "callback": true},
+                        {"msg_name": "set_fault", "callback": true},
+                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "main_hb"},
                         {"msg_name": "front_wheel_data"}
                     ]
@@ -1062,12 +1072,22 @@
                             "msg_name": "set_fault",
                             "msg_desc": "Set a fault",
                             "signals": [
-                                {"sig_name": "idx",  "sig_desc": "Bootloader Command type", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latchted", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 1}
+                                {"sig_name": "id",  "sig_desc": "Bootloader Command type", "type": "uint16_t", "length": 16},
+                                {"sig_name": "value", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 1}
                             ],
                             "msg_period":0,
-                            "msg_hlp":5,
-                            "msg_pgn":12345
+                            "msg_hlp":2,
+                            "msg_pgn":10016
+                        },
+                        {
+                            "msg_name": "return_fault_control",
+                            "msg_desc": "Return control of fault back to the MCU",
+                            "signals": [
+                                {"sig_name": "id",  "sig_desc": "Fault ID", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":2,
+                            "msg_pgn":10017
                         }
                     ],
                     "rx":[
@@ -1465,6 +1485,8 @@
                         {"msg_name": "fault_sync_driveline", "callback": true},
                         {"msg_name": "fault_sync_torque_vector", "callback": true},
                         {"msg_name": "fault_sync_precharge", "callback": true},
+                        {"msg_name": "set_fault", "callback": true},
+                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "front_driveline_hb"},
                         {"msg_name": "test_msg5_2"},
                         {"msg_name": "test_stale"},

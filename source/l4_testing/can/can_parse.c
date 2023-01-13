@@ -58,6 +58,15 @@ void canRxUpdate()
                 can_data.fault_sync_precharge.latched = msg_data_a->fault_sync_precharge.latched;
                 fault_sync_precharge_CALLBACK(msg_data_a);
                 break;
+            case ID_SET_FAULT:
+                can_data.set_fault.id = msg_data_a->set_fault.id;
+                can_data.set_fault.value = msg_data_a->set_fault.value;
+                set_fault_CALLBACK(msg_data_a);
+                break;
+            case ID_RETURN_FAULT_CONTROL:
+                can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
+                return_fault_control_CALLBACK(msg_data_a);
+                break;
             case ID_FRONT_DRIVELINE_HB:
                 can_data.front_driveline_hb.front_left_motor = msg_data_a->front_driveline_hb.front_left_motor;
                 can_data.front_driveline_hb.front_right_motor = msg_data_a->front_driveline_hb.front_right_motor;
@@ -124,13 +133,16 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
     CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_FRONT_DRIVELINE_HB << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_TEST_MSG5_2 << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_TEST_STALE << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_FRONT_DRIVELINE_HB << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_CAR_STATE2 << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_TEST_MSG5_2 << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_TEST_STALE << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_CAR_STATE2 << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

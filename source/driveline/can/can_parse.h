@@ -34,6 +34,8 @@
 #define ID_FAULT_SYNC_MAIN_MODULE 0xc001e41
 #define ID_FAULT_SYNC_PRECHARGE 0xc001e84
 #define ID_FAULT_SYNC_L4_TESTING 0xc001eff
+#define ID_SET_FAULT 0x809c83e
+#define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
 /* END AUTO ID DEFS */
@@ -54,6 +56,8 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
 #define DLC_FAULT_SYNC_L4_TESTING 3
+#define DLC_SET_FAULT 3
+#define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
 /* END AUTO DLC DEFS */
@@ -284,6 +288,13 @@ typedef union { __attribute__((packed))
         uint64_t latched: 1;
     } fault_sync_l4_testing;
     struct {
+        uint64_t id: 16;
+        uint64_t value: 1;
+    } set_fault;
+    struct {
+        uint64_t id: 16;
+    } return_fault_control;
+    struct {
         uint64_t front_left: 16;
         uint64_t front_right: 16;
         uint64_t rear_left: 16;
@@ -322,6 +333,13 @@ typedef struct {
         uint8_t latched;
     } fault_sync_l4_testing;
     struct {
+        uint16_t id;
+        uint8_t value;
+    } set_fault;
+    struct {
+        uint16_t id;
+    } return_fault_control;
+    struct {
         int16_t front_left;
         int16_t front_right;
         int16_t rear_left;
@@ -346,6 +364,8 @@ extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_l4_testing_CALLBACK(CanParsedData_t* msg_data_a);
+extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
+extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

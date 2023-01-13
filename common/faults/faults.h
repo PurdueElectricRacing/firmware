@@ -186,11 +186,13 @@ typedef enum {
 
 
 
-//Designed these two parts; fault message sends fault values through CAN w/o unneeded extra load of the attributes; Kept synced thru fault ID
+//Contains info about fault state
 typedef struct {
     bool latched;
     int f_ID;
 } fault_message_t;
+
+//Contains info about the fault as a whole
 typedef struct {
     bool tempLatch;
     bool forceActive;
@@ -227,6 +229,7 @@ extern bool currMCULatched();
 extern bool infoLatched();
 extern bool warningLatched();
 extern bool criticalLatched();
+extern bool otherMCUsLatched();
 extern bool isLatched();
 extern bool checkFault();
 extern fault_attributes_t getFault(int id);

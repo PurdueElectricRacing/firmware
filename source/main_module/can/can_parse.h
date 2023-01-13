@@ -29,6 +29,8 @@
 #define ID_FAULT_SYNC_DRIVELINE 0xc001e83
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0xc001e82
 #define ID_FAULT_SYNC_PRECHARGE 0xc001e84
+#define ID_SET_FAULT 0x809c83e
+#define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_START_BUTTON 0x4000005
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
@@ -54,6 +56,8 @@
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
+#define DLC_SET_FAULT 3
+#define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_RAW_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 6
@@ -200,6 +204,13 @@ typedef union { __attribute__((packed))
         uint64_t latched: 1;
     } fault_sync_precharge;
     struct {
+        uint64_t id: 16;
+        uint64_t value: 1;
+    } set_fault;
+    struct {
+        uint64_t id: 16;
+    } return_fault_control;
+    struct {
         uint64_t throttle: 12;
         uint64_t brake: 12;
     } raw_throttle_brake;
@@ -283,6 +294,13 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_precharge;
+    struct {
+        uint16_t id;
+        uint8_t value;
+    } set_fault;
+    struct {
+        uint16_t id;
+    } return_fault_control;
     struct {
         uint16_t throttle;
         uint16_t brake;
@@ -370,6 +388,8 @@ extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
+extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
+extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

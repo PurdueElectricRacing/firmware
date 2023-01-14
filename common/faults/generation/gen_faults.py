@@ -184,77 +184,78 @@ def gen_fault_info_arrays(fault_config):
     """
     print("Populating Arrays")
     array = []
-    array.append("int idArray[TOTAL_NUM_FAULTS] = {")
-    i = 0
-    #Add each id value into the array, splitting when lines are too long
-    for node in fault_config['modules']:
-        for fault in node['faults']:
-            if i == 5:
-                array.append(f" ID_{fault['fault_name'].upper()}_FAULT,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\tID_{fault['fault_name'].upper()}_FAULT,")
-                i = 0
-            else:
-                array.append(f" ID_{fault['fault_name'].upper()}_FAULT,")
-                i += 1
-    array.append("};\nint maxArray[TOTAL_NUM_FAULTS] = {")
-    i = 0
-    #Add each Max value to an array, splitting when lines are too long
-    for node in fault_config['modules']:
-        for fault in node['faults']:
-            if i == 5:
-                array.append(f" {fault['fault_name'].upper()}_MAX,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\t{fault['fault_name'].upper()}_MAX,")
-                i = 0
-            else:
-                array.append(f" {fault['fault_name'].upper()}_MAX,")
-                i += 1
-    array.append("};\nint minArray[TOTAL_NUM_FAULTS] = {")
-    i = 0
-    #Add each Min falue to minArray, splitting when lines are too long
-    for node in fault_config['modules']:
-        for fault in node['faults']:
-            if i == 5:
-                array.append(f" {fault['fault_name'].upper()}_MIN,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\t{fault['fault_name'].upper()}_MIN,")
-                i = 0
-            else:
-                array.append(f" {fault['fault_name'].upper()}_MIN,")
-                i += 1
-    array.append("};\nfault_priority_t priorityArray[TOTAL_NUM_FAULTS] = {")
-    i = 0
-    #Add each priority value to the array, splitting when lines are too long
-    for node in fault_config['modules']:
-        for fault in node['faults']:
-            if i == 5:
-                array.append(f" {fault['fault_name'].upper()}_PRIORITY,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\t{fault['fault_name'].upper()}_PRIORITY,")
-                i = 0
-            else:
-                array.append(f" {fault['fault_name'].upper()}_PRIORITY,")
-                i += 1
-    array.append("};\nchar msgArray[TOTAL_NUM_FAULTS][MAX_MSG_SIZE] = {")
-    i = 0
-    #Add each Message to an array, splitting when the line gets too long
-    for node in fault_config['modules']:
-        for fault in node['faults']:
-            if i == 5:
-                array.append(f" {fault['fault_name'].upper()}_MSG,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\t{fault['fault_name'].upper()}_MSG,")
-                i = 0
-            else:
-                array.append(f" {fault['fault_name'].upper()}_MSG,")
-                i += 1
-    array.append("};\nint faultLatchTime[TOTAL_NUM_FAULTS] = {")
+    # array.append("int idArray[TOTAL_NUM_FAULTS] = {")
+    # i = 0
+    # #Add each id value into the array, splitting when lines are too long
+    # for node in fault_config['modules']:
+    #     for fault in node['faults']:
+    #         if i == 5:
+    #             array.append(f" ID_{fault['fault_name'].upper()}_FAULT,\n")
+    #             i += 1
+    #         elif i == 6:
+    #             array.append(f"\t\t\tID_{fault['fault_name'].upper()}_FAULT,")
+    #             i = 0
+    #         else:
+    #             array.append(f" ID_{fault['fault_name'].upper()}_FAULT,")
+    #             i += 1
+    # array.append("};\nint maxArray[TOTAL_NUM_FAULTS] = {")
+    # i = 0
+    # #Add each Max value to an array, splitting when lines are too long
+    # for node in fault_config['modules']:
+    #     for fault in node['faults']:
+    #         if i == 5:
+    #             array.append(f" {fault['fault_name'].upper()}_MAX,\n")
+    #             i += 1
+    #         elif i == 6:
+    #             array.append(f"\t\t\t{fault['fault_name'].upper()}_MAX,")
+    #             i = 0
+    #         else:
+    #             array.append(f" {fault['fault_name'].upper()}_MAX,")
+    #             i += 1
+    # array.append("};\nint minArray[TOTAL_NUM_FAULTS] = {")
+    # i = 0
+    # #Add each Min falue to minArray, splitting when lines are too long
+    # for node in fault_config['modules']:
+    #     for fault in node['faults']:
+    #         if i == 5:
+    #             array.append(f" {fault['fault_name'].upper()}_MIN,\n")
+    #             i += 1
+    #         elif i == 6:
+    #             array.append(f"\t\t\t{fault['fault_name'].upper()}_MIN,")
+    #             i = 0
+    #         else:
+    #             array.append(f" {fault['fault_name'].upper()}_MIN,")
+    #             i += 1
+    # array.append("};\nfault_priority_t priorityArray[TOTAL_NUM_FAULTS] = {")
+    # i = 0
+    # #Add each priority value to the array, splitting when lines are too long
+    # for node in fault_config['modules']:
+    #     for fault in node['faults']:
+    #         if i == 5:
+    #             array.append(f" {fault['fault_name'].upper()}_PRIORITY,\n")
+    #             i += 1
+    #         elif i == 6:
+    #             array.append(f"\t\t\t{fault['fault_name'].upper()}_PRIORITY,")
+    #             i = 0
+    #         else:
+    #             array.append(f" {fault['fault_name'].upper()}_PRIORITY,")
+    #             i += 1
+    # array.append("};\nchar msgArray[TOTAL_NUM_FAULTS][MAX_MSG_SIZE] = {")
+    # i = 0
+    # #Add each Message to an array, splitting when the line gets too long
+    # for node in fault_config['modules']:
+    #     for fault in node['faults']:
+    #         if i == 5:
+    #             array.append(f" {fault['fault_name'].upper()}_MSG,\n")
+    #             i += 1
+    #         elif i == 6:
+    #             array.append(f"\t\t\t{fault['fault_name'].upper()}_MSG,")
+    #             i = 0
+    #         else:
+    #             array.append(f" {fault['fault_name'].upper()}_MSG,")
+    #             i += 1
+    # array.append("};\nuint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {")
+    array.append("uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {")
     i = 0
     #Add each latch value to an array, splitting when the line gets too long
     for node in fault_config['modules']:
@@ -268,7 +269,7 @@ def gen_fault_info_arrays(fault_config):
             else:
                 array.append(f" {fault['fault_name'].upper()}_LATCH_TIME,")
                 i += 1
-    array.append("};\nint faultULatchTime[TOTAL_NUM_FAULTS] = {")
+    array.append("};\nuint16_t faultULatchTime[TOTAL_NUM_FAULTS] = {")
     i = 0
     #Add each unlatch value to an array, splitting when the line gets too long
     for node in fault_config['modules']:
@@ -282,7 +283,19 @@ def gen_fault_info_arrays(fault_config):
             else:
                 array.append(f" {fault['fault_name'].upper()}_UNLATCH_TIME,")
                 i += 1
+    array.append("};\n//Global arrays with all faults\nfault_status_t statusArray[TOTAL_NUM_FAULTS] = {\n")
+    for node in fault_config['modules']:
+        for fault in node['faults']:
+                array.append(f"\t(fault_status_t){{false, ID_{fault['fault_name'].upper()}_FAULT}},\n")
+    array.append("};\nfault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {\n")
+    idx = 0
+    for node in fault_config['modules']:
+        for fault in node['faults']:
+            array.append(f"\t(fault_attributes_t){{false, false, {fault['fault_name'].upper()}_PRIORITY, 0, 0, 0, {fault['fault_name'].upper()}_MAX, \
+{fault['fault_name'].upper()}_MIN, &statusArray[{idx}], {fault['fault_name'].upper()}_MSG}}, \n")
+            idx += 1
     array.append("};\n")
+
     return array
 
 

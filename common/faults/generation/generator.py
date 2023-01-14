@@ -174,7 +174,7 @@ def process_priorities(fault_config):
         for fault in node['faults']:
             if fault['priority'] == "warning":
                 fault['pri_interp'] = 0
-            elif fault['priority'] == "critical":
+            elif fault['priority'] == "error":
                 fault['pri_interp'] = 1
             else:
                 fault['pri_interp'] = 2

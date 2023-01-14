@@ -32,41 +32,57 @@
 //END AUTO INCLUDES
 
 //BEGIN AUTO FAULT INFO ARRAY DEFS
-int idArray[TOTAL_NUM_FAULTS] = { ID_BATT_FLOW_FAULT, ID_DRIVE_FLOW_FAULT, ID_MAIN_COMM_FAULT, ID_LV_DEAD_FAULT, ID_MOT_FRONT_OT_FAULT, ID_WLSPD_L_FAULT,
-			ID_WLSPD_R_FAULT, ID_DRIVELINE_COMM_FAULT, ID_BMS_FAULT, ID_BATT_OT_FAULT, ID_TV_OFFLINE_FAULT, ID_TEST_FAULT_1_FAULT, ID_TEST_FAULT_2_FAULT,
-			ID_TEST_FAULT_3_FAULT, ID_TEST_FAULT_4_FAULT,};
-int maxArray[TOTAL_NUM_FAULTS] = { BATT_FLOW_MAX, DRIVE_FLOW_MAX, MAIN_COMM_MAX, LV_DEAD_MAX, MOT_FRONT_OT_MAX, WLSPD_L_MAX,
-			WLSPD_R_MAX, DRIVELINE_COMM_MAX, BMS_MAX, BATT_OT_MAX, TV_OFFLINE_MAX, TEST_FAULT_1_MAX, TEST_FAULT_2_MAX,
-			TEST_FAULT_3_MAX, TEST_FAULT_4_MAX,};
-int minArray[TOTAL_NUM_FAULTS] = { BATT_FLOW_MIN, DRIVE_FLOW_MIN, MAIN_COMM_MIN, LV_DEAD_MIN, MOT_FRONT_OT_MIN, WLSPD_L_MIN,
-			WLSPD_R_MIN, DRIVELINE_COMM_MIN, BMS_MIN, BATT_OT_MIN, TV_OFFLINE_MIN, TEST_FAULT_1_MIN, TEST_FAULT_2_MIN,
-			TEST_FAULT_3_MIN, TEST_FAULT_4_MIN,};
-fault_priority_t priorityArray[TOTAL_NUM_FAULTS] = { BATT_FLOW_PRIORITY, DRIVE_FLOW_PRIORITY, MAIN_COMM_PRIORITY, LV_DEAD_PRIORITY, MOT_FRONT_OT_PRIORITY, WLSPD_L_PRIORITY,
-			WLSPD_R_PRIORITY, DRIVELINE_COMM_PRIORITY, BMS_PRIORITY, BATT_OT_PRIORITY, TV_OFFLINE_PRIORITY, TEST_FAULT_1_PRIORITY, TEST_FAULT_2_PRIORITY,
-			TEST_FAULT_3_PRIORITY, TEST_FAULT_4_PRIORITY,};
-char msgArray[TOTAL_NUM_FAULTS][MAX_MSG_SIZE] = { BATT_FLOW_MSG, DRIVE_FLOW_MSG, MAIN_COMM_MSG, LV_DEAD_MSG, MOT_FRONT_OT_MSG, WLSPD_L_MSG,
-			WLSPD_R_MSG, DRIVELINE_COMM_MSG, BMS_MSG, BATT_OT_MSG, TV_OFFLINE_MSG, TEST_FAULT_1_MSG, TEST_FAULT_2_MSG,
-			TEST_FAULT_3_MSG, TEST_FAULT_4_MSG,};
-int faultLatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_LATCH_TIME, DRIVE_FLOW_LATCH_TIME, MAIN_COMM_LATCH_TIME, LV_DEAD_LATCH_TIME, MOT_FRONT_OT_LATCH_TIME, WLSPD_L_LATCH_TIME,
+uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_LATCH_TIME, DRIVE_FLOW_LATCH_TIME, MAIN_COMM_LATCH_TIME, LV_DEAD_LATCH_TIME, MOT_FRONT_OT_LATCH_TIME, WLSPD_L_LATCH_TIME,
 			WLSPD_R_LATCH_TIME, DRIVELINE_COMM_LATCH_TIME, BMS_LATCH_TIME, BATT_OT_LATCH_TIME, TV_OFFLINE_LATCH_TIME, TEST_FAULT_1_LATCH_TIME, TEST_FAULT_2_LATCH_TIME,
 			TEST_FAULT_3_LATCH_TIME, TEST_FAULT_4_LATCH_TIME,};
-int faultULatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_UNLATCH_TIME, DRIVE_FLOW_UNLATCH_TIME, MAIN_COMM_UNLATCH_TIME, LV_DEAD_UNLATCH_TIME, MOT_FRONT_OT_UNLATCH_TIME, WLSPD_L_UNLATCH_TIME,
+uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_UNLATCH_TIME, DRIVE_FLOW_UNLATCH_TIME, MAIN_COMM_UNLATCH_TIME, LV_DEAD_UNLATCH_TIME, MOT_FRONT_OT_UNLATCH_TIME, WLSPD_L_UNLATCH_TIME,
 			WLSPD_R_UNLATCH_TIME, DRIVELINE_COMM_UNLATCH_TIME, BMS_UNLATCH_TIME, BATT_OT_UNLATCH_TIME, TV_OFFLINE_UNLATCH_TIME, TEST_FAULT_1_UNLATCH_TIME, TEST_FAULT_2_UNLATCH_TIME,
 			TEST_FAULT_3_UNLATCH_TIME, TEST_FAULT_4_UNLATCH_TIME,};
+//Global arrays with all faults
+fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
+	(fault_status_t){false, ID_BATT_FLOW_FAULT},
+	(fault_status_t){false, ID_DRIVE_FLOW_FAULT},
+	(fault_status_t){false, ID_MAIN_COMM_FAULT},
+	(fault_status_t){false, ID_LV_DEAD_FAULT},
+	(fault_status_t){false, ID_MOT_FRONT_OT_FAULT},
+	(fault_status_t){false, ID_WLSPD_L_FAULT},
+	(fault_status_t){false, ID_WLSPD_R_FAULT},
+	(fault_status_t){false, ID_DRIVELINE_COMM_FAULT},
+	(fault_status_t){false, ID_BMS_FAULT},
+	(fault_status_t){false, ID_BATT_OT_FAULT},
+	(fault_status_t){false, ID_TV_OFFLINE_FAULT},
+	(fault_status_t){false, ID_TEST_FAULT_1_FAULT},
+	(fault_status_t){false, ID_TEST_FAULT_2_FAULT},
+	(fault_status_t){false, ID_TEST_FAULT_3_FAULT},
+	(fault_status_t){false, ID_TEST_FAULT_4_FAULT},
+};
+fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {
+	(fault_attributes_t){false, false, BATT_FLOW_PRIORITY, 0, 0, 0, BATT_FLOW_MAX, BATT_FLOW_MIN, &statusArray[0], BATT_FLOW_MSG}, 
+	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[1], DRIVE_FLOW_MSG}, 
+	(fault_attributes_t){false, false, MAIN_COMM_PRIORITY, 0, 0, 0, MAIN_COMM_MAX, MAIN_COMM_MIN, &statusArray[2], MAIN_COMM_MSG}, 
+	(fault_attributes_t){false, false, LV_DEAD_PRIORITY, 0, 0, 0, LV_DEAD_MAX, LV_DEAD_MIN, &statusArray[3], LV_DEAD_MSG}, 
+	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[4], MOT_FRONT_OT_MSG}, 
+	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG}, 
+	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG}, 
+	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG}, 
+	(fault_attributes_t){false, false, BMS_PRIORITY, 0, 0, 0, BMS_MAX, BMS_MIN, &statusArray[8], BMS_MSG}, 
+	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[9], BATT_OT_MSG}, 
+	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[10], TV_OFFLINE_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[11], TEST_FAULT_1_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[12], TEST_FAULT_2_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[13], TEST_FAULT_3_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[14], TEST_FAULT_4_MSG}, 
+};
 //END AUTO FAULT INFO ARRAY DEFS
 
 
 //Corresponds to fault_defs.h
 uint8_t currentMCU;
 
-//Global arrays with all faults,
-fault_attributes_t faultArray[TOTAL_NUM_FAULTS];
-fault_status_t statusArray[TOTAL_NUM_FAULTS];
-
 
 //Variables containing the number of latched faults
 uint16_t fatalCount;
-uint16_t critCount;
+uint16_t errorCount;
 uint16_t warnCount;
 uint16_t currCount;
 
@@ -173,13 +189,13 @@ void handleCallbacks(fault_status_t recievedStatus) {
         if (!currStatus->latched) {
             currStatus->latched = recievedStatus.latched;
             switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
-                case WARNING:
+                case FAULT_WARNING:
                     warnCount++;
                     break;
-                case CRITICAL:
-                    critCount++;
+                case FAULT_ERROR:
+                    errorCount++;
                     break;
-                case FATAL:
+                case FAULT_FATAL:
                     fatalCount++;
                     break;
             }
@@ -190,13 +206,13 @@ void handleCallbacks(fault_status_t recievedStatus) {
         if (currStatus->latched) {
             currStatus->latched = recievedStatus.latched;
             switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
-                case WARNING:
+                case FAULT_WARNING:
                     warnCount--;
                     break;
-                case CRITICAL:
-                    critCount--;
+                case FAULT_ERROR:
+                    errorCount--;
                     break;
-                case FATAL:
+                case FAULT_FATAL:
                     fatalCount--;
                     break;
             }
@@ -263,13 +279,13 @@ void updateFaults() {
                 fault->time_since_latch = 0;
                 currCount++;
                 switch(fault->priority) {
-                    case WARNING:
+                    case FAULT_WARNING:
                         warnCount++;
                         break;
-                    case CRITICAL:
-                        critCount++;
+                    case FAULT_ERROR:
+                        errorCount++;
                         break;
-                    case FATAL:
+                    case FAULT_FATAL:
                         fatalCount++;
                         break;
                 }
@@ -284,13 +300,13 @@ void updateFaults() {
                 fault->time_since_latch = 0;
                 currCount--;
                 switch(fault->priority) {
-                    case WARNING:
+                    case FAULT_WARNING:
                         warnCount--;
                         break;
-                    case CRITICAL:
-                        critCount--;
+                    case FAULT_ERROR:
+                        errorCount--;
                         break;
-                    case FATAL:
+                    case FAULT_FATAL:
                         fatalCount--;
                         break;
                 }
@@ -299,23 +315,44 @@ void updateFaults() {
         }
         else {
             //Account for potential noise during the latching process
-            if (fault->time_since_latch > 0 && fault->bounces <= 3) {
+            if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4)&& fault->tempLatch == 1) {
                 fault->time_since_latch++;
                 fault->bounces++;
             }
-            else if (fault->time_since_latch > 0 && fault->bounces > 3) {
+            else if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 0) {
+                fault->time_since_latch++;
+                fault->bounces++;
+            }
+            else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 1) {
                 fault->time_since_latch = 0;
                 fault->status->latched = 1;
                 fault->tempLatch = 1;
                 currCount++;
                 switch(fault->priority) {
-                    case WARNING:
+                    case FAULT_WARNING:
                         warnCount++;
                         break;
-                    case CRITICAL:
-                        critCount++;
+                    case FAULT_ERROR:
+                        errorCount++;
                         break;
-                    case FATAL:
+                    case FAULT_FATAL:
+                        fatalCount++;
+                        break;
+                }
+            }
+            else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
+                fault->time_since_latch = 0;
+                fault->status->latched = 1;
+                fault->tempLatch = 1;
+                currCount++;
+                switch(fault->priority) {
+                    case FAULT_WARNING:
+                        warnCount++;
+                        break;
+                    case FAULT_ERROR:
+                        errorCount++;
+                        break;
+                    case FAULT_FATAL:
                         fatalCount++;
                         break;
                 }
@@ -343,8 +380,8 @@ bool warningLatched() {
 }
 
 //Are there any warning level faults latched
-bool criticalLatched() {
-    return (critCount == 0) ? false : true;
+bool errorLatched() {
+    return (errorCount == 0) ? false : true;
 }
 
 //Are there any critical level faults latched
@@ -354,12 +391,12 @@ bool fatalLatched() {
 
 //Are faults latched on other mcus
 bool otherMCUsLatched() {
-    return (warnCount + critCount + fatalCount - currCount == 0) ? false : true;
+    return (warnCount + errorCount + fatalCount - currCount == 0) ? false : true;
 }
 
 //Is any fault latched
 bool isLatched() {
-    return (warnCount + critCount + fatalCount == 0) ? false : true;
+    return (warnCount + errorCount + fatalCount == 0) ? false : true;
 }
 
 //Check if any fault is latched
@@ -372,10 +409,6 @@ void unForce(int id) {
     faultArray[GET_IDX(id)].forceActive = false;
 }
 
-//Gets the coresponding fault from ID
-fault_attributes_t getFault(int id) {
-    return faultArray[GET_IDX(id)];
-}
 
 
 //Force a fault to be a certain state
@@ -385,13 +418,13 @@ void forceFault(int id, bool state) {
     if (state & !statusArray[idx].latched) {
         currCount++;
         switch(faultArray[idx].priority) {
-            case WARNING:
+            case FAULT_WARNING:
                 warnCount++;
                 break;
-            case CRITICAL:
-                critCount++;
+            case FAULT_ERROR:
+                errorCount++;
                 break;
-            case FATAL:
+            case FAULT_FATAL:
                 fatalCount++;
                 break;
         }
@@ -400,13 +433,13 @@ void forceFault(int id, bool state) {
     else if (!state & statusArray[idx].latched) {
        currCount--;
         switch(faultArray[idx].priority) {
-            case WARNING:
+            case FAULT_WARNING:
                 warnCount--;
                 break;
-            case CRITICAL:
-                critCount--;
+            case FAULT_ERROR:
+                errorCount--;
                 break;
-            case FATAL:
+            case FAULT_FATAL:
                 fatalCount--;
                 break;
         }
@@ -429,14 +462,9 @@ void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
     currentMCU = mcu;
     uint16_t num_owned_faults = 0;
     uint16_t num_recieved_faults = 0;
-    //Populate the arrays with starting values
+    //Find the beginning of current mcu's faults, if a fault exists
     for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
-        fault_status_t tempStatus = {false, idArray[i]};
-        statusArray[i] = tempStatus;
-        fault_attributes_t tempAttribute = {false, false, priorityArray[i], 0, 0, 0, maxArray[i], minArray[i],
-                        &statusArray[i], msgArray[i]};
-        faultArray[i] = tempAttribute;
-        if (GET_OWNER(idArray[i]) == mcu && !foundStartIdx) {
+        if (GET_OWNER(faultArray[i].status->f_ID) == mcu && !foundStartIdx) {
             foundStartIdx = true;
             ownedidx = i;
         }
@@ -446,7 +474,7 @@ void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
     }
     curridx = ownedidx;
     warnCount = 0;
-    critCount = 0;
+    errorCount = 0;
     fatalCount = 0;
     currCount = 0;
 }

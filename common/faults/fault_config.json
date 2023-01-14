@@ -8,7 +8,7 @@
                     "fault_name": "batt_flow",
                     "max": 63,
                     "min": 46,
-                    "priority": "critical",
+                    "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "battery pump flow brokey"
@@ -17,7 +17,7 @@
                     "fault_name": "drive_flow",
                     "max": 63,
                     "min": 46,
-                    "priority": "critical",
+                    "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "battery pump flow brokey"
@@ -50,7 +50,7 @@
                     "fault_name": "mot_front_ot",
                     "max": 100,
                     "min": 10,
-                    "priority": "critical",
+                    "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Front motors overheating"
@@ -105,7 +105,7 @@
                     "fault_name": "batt_ot",
                     "max": 50,
                     "min": 10,
-                    "priority": "critical",
+                    "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Battery overheating"
@@ -145,7 +145,7 @@
                     "fault_name": "test_fault_2",
                     "max": 1,
                     "min": 0,
-                    "priority": "critical",
+                    "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Test fault 2"

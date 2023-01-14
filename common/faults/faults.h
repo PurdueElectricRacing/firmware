@@ -167,9 +167,9 @@
 
 
 typedef enum {
-    WARNING = 0,
-    CRITICAL = 1,
-    FATAL = 2
+    FAULT_WARNING = 0,
+    FAULT_ERROR = 1,
+    FAULT_FATAL = 2
 } fault_priority_t;
 
 
@@ -213,7 +213,7 @@ void killFaultLibrary();
 void handleCallbacks(fault_status_t);
 bool currMCULatched();
 bool warningLatched();
-bool criticalLatched();
+bool errorLatched();
 bool fatalLatched();
 bool otherMCUsLatched();
 bool isLatched();

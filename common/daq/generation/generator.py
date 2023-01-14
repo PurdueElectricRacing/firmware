@@ -125,6 +125,32 @@ def check_repeat_defs(can_config):
                 else:
                     message_ids.append(msg['id'])
 
+def generateFLmessages(can_config, fault_config):
+    """Generates messages in can config dictionaries for the fault library"""
+    namearr = []
+    for node in fault_config['modules']:
+        try:
+            namearr.append((str)(node['can_name']).lower())
+        except KeyError:
+            node['can_name'] = node['node_name']
+            namearr.append((str)(node['can_name']).lower())
+        except:
+            log_error("An error occured in configuring CAN names for faults")
+            quit(1)
+    i = 0
+    for bus in can_config['busses']:
+        for node in bus['nodes']:
+            if (str)(node['node_name']).lower() in namearr:
+                namearr.remove((str)(node['node_name']).lower())
+                node['tx'].append({'msg_name': 'fault_sync_' + (str)(node['node_name']).lower(), 'msg_desc': 'Fault status message', 'signals': [{'sig_name': 'idx', 'type': 'uint16_t', 'length': 16}, {'sig_name': 'latched', 'type': 'uint8_t', 'length': 1}], 'msg_period': 0, 'msg_hlp': 0, 'msg_pgn': (9000 + i)})
+                for f_node in fault_config['modules']:
+                    if (str)(f_node['can_name']).lower() != (str)(node['node_name']).lower():
+                        node['rx'].append({'msg_name': 'fault_sync_' + (str)(f_node['can_name']).lower(), 'callback': True})
+                node['rx'].append({"msg_name": "set_fault", "callback": True})
+                node['rx'].append({"msg_name": "return_fault_control", "callback": True})
+                i += 1
+
+
 def check_repeat_daq_variables(daq_config):
     """ Checks for repeated variable names or eeprom labels on a per node basis """
     for bus in daq_config['busses']:
@@ -173,7 +199,7 @@ def label_junction_nodes(can_config):
             node_names.append(node['node_name'])
 
 def insert_lines(source: list, start, stop, new_lines):
-    """ 
+    """
     Insert lines between start and stop lines, writes over pre-existing data
     @param source    source lines to edit
     @param start     phrase contained in line to begin generation after
@@ -193,7 +219,7 @@ def insert_lines(source: list, start, stop, new_lines):
             stop_idx = curr_idx
             break
         curr_idx += 1
-    
+
     if stop_idx <= start_idx or stop_idx == 0 or start_idx ==0:
         log_error("Insert lines failed for start "+start+" and stop "+stop)
         log_error("Check to make sure the start and stop phrases are correct")
@@ -201,7 +227,7 @@ def insert_lines(source: list, start, stop, new_lines):
 
     # remove existing lines
     del source[start_idx+1:stop_idx]
-    
+
     # add new lines
     for idx, nl in enumerate(new_lines):
         source.insert(start_idx + 1 + idx, nl)
@@ -245,7 +271,7 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
 
         else:
             log_warning("Header not found for "+ str(folder) + " at " + str(h_path))
-    print(f"Node matches found: {list(node_paths.keys())}") 
+    print(f"Node matches found: {list(node_paths.keys())}")
     return node_paths
 
 def output_bus_load(can_config):
@@ -278,6 +304,20 @@ def load_json_config(config_path, schema_path):
 
     return config
 
+def check_json_config(config, schema_path):
+    """ loads config from json and validates with existing can config dictionary"""
+    schema = json.load(open(schema_path))
+
+    # compare with schema
+    try:
+        validate(config, schema)
+    except ValidationError as e:
+        log_error("Invalid JSON after adding fault messages!")
+        print(e)
+        quit(1)
+
+    return config
+
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
@@ -287,6 +327,8 @@ def generate_all():
     can_schema_path = Path(os.path.abspath(relative_dir / gen_config['can_json_schema_path']))
     daq_config_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_config_path']))
     daq_schema_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_schema_path']))
+    fault_config_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_config_path']))
+    fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
 
     firmware_source_dir = Path(os.path.abspath(relative_dir / gen_config['source_directory']))
 
@@ -294,6 +336,11 @@ def generate_all():
 
     can_config = load_json_config(can_config_path, can_schema_path)
     daq_config = load_json_config(daq_config_path, daq_schema_path)
+    fault_config = load_json_config(fault_config_path, fault_schema_path)
+
+    generateFLmessages(can_config, fault_config)
+
+    check_json_config(can_config, can_schema_path)
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)

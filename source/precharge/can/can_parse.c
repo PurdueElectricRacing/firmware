@@ -141,40 +141,6 @@ void canRxUpdate()
         {
             switch(msg_header.ExtId)
             {
-                case ID_FAULT_SYNC_DASHBOARD:
-                    can_data.fault_sync_dashboard.idx = msg_data_a->fault_sync_dashboard.idx;
-                    can_data.fault_sync_dashboard.latched = msg_data_a->fault_sync_dashboard.latched;
-                    fault_sync_dashboard_CALLBACK(msg_data_a);
-                    break;
-                case ID_FAULT_SYNC_TORQUE_VECTOR:
-                    can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
-                    can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
-                    fault_sync_torque_vector_CALLBACK(msg_data_a);
-                    break;
-                case ID_FAULT_SYNC_MAIN_MODULE:
-                    can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
-                    can_data.fault_sync_main_module.latched = msg_data_a->fault_sync_main_module.latched;
-                    fault_sync_main_module_CALLBACK(msg_data_a);
-                    break;
-                case ID_FAULT_SYNC_DRIVELINE:
-                    can_data.fault_sync_driveline.idx = msg_data_a->fault_sync_driveline.idx;
-                    can_data.fault_sync_driveline.latched = msg_data_a->fault_sync_driveline.latched;
-                    fault_sync_driveline_CALLBACK(msg_data_a);
-                    break;
-                case ID_FAULT_SYNC_L4_TESTING:
-                    can_data.fault_sync_l4_testing.idx = msg_data_a->fault_sync_l4_testing.idx;
-                    can_data.fault_sync_l4_testing.latched = msg_data_a->fault_sync_l4_testing.latched;
-                    fault_sync_l4_testing_CALLBACK(msg_data_a);
-                    break;
-                case ID_SET_FAULT:
-                    can_data.set_fault.id = msg_data_a->set_fault.id;
-                    can_data.set_fault.value = msg_data_a->set_fault.value;
-                    set_fault_CALLBACK(msg_data_a);
-                    break;
-                case ID_RETURN_FAULT_CONTROL:
-                    can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
-                    return_fault_control_CALLBACK(msg_data_a);
-                    break;
                 case ID_ELCON_CHARGER_STATUS:
                     can_data.elcon_charger_status.charge_voltage = msg_data_a->elcon_charger_status.charge_voltage;
                     can_data.elcon_charger_status.charge_current = msg_data_a->elcon_charger_status.charge_current;
@@ -250,6 +216,40 @@ void canRxUpdate()
                     can_data.orion_errors.charge_limit_enforce = msg_data_a->orion_errors.charge_limit_enforce;
                     can_data.orion_errors.stale = 0;
                     can_data.orion_errors.last_rx = sched.os_ticks;
+                    break;
+                case ID_FAULT_SYNC_MAIN_MODULE:
+                    can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
+                    can_data.fault_sync_main_module.latched = msg_data_a->fault_sync_main_module.latched;
+                    fault_sync_main_module_CALLBACK(msg_data_a);
+                    break;
+                case ID_FAULT_SYNC_DRIVELINE:
+                    can_data.fault_sync_driveline.idx = msg_data_a->fault_sync_driveline.idx;
+                    can_data.fault_sync_driveline.latched = msg_data_a->fault_sync_driveline.latched;
+                    fault_sync_driveline_CALLBACK(msg_data_a);
+                    break;
+                case ID_FAULT_SYNC_DASHBOARD:
+                    can_data.fault_sync_dashboard.idx = msg_data_a->fault_sync_dashboard.idx;
+                    can_data.fault_sync_dashboard.latched = msg_data_a->fault_sync_dashboard.latched;
+                    fault_sync_dashboard_CALLBACK(msg_data_a);
+                    break;
+                case ID_FAULT_SYNC_TORQUE_VECTOR:
+                    can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
+                    can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
+                    fault_sync_torque_vector_CALLBACK(msg_data_a);
+                    break;
+                case ID_FAULT_SYNC_TEST_NODE:
+                    can_data.fault_sync_test_node.idx = msg_data_a->fault_sync_test_node.idx;
+                    can_data.fault_sync_test_node.latched = msg_data_a->fault_sync_test_node.latched;
+                    fault_sync_test_node_CALLBACK(msg_data_a);
+                    break;
+                case ID_SET_FAULT:
+                    can_data.set_fault.id = msg_data_a->set_fault.id;
+                    can_data.set_fault.value = msg_data_a->set_fault.value;
+                    set_fault_CALLBACK(msg_data_a);
+                    break;
+                case ID_RETURN_FAULT_CONTROL:
+                    can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
+                    return_fault_control_CALLBACK(msg_data_a);
                     break;
                 case ID_DAQ_COMMAND_PRECHARGE:
                     can_data.daq_command_PRECHARGE.daq_command = msg_data_a->daq_command_PRECHARGE.daq_command;

@@ -4,6 +4,8 @@
     "can_json_schema_path": "../can_schema.json",
     "daq_json_config_path": "../daq_config.json",
     "daq_json_schema_path": "../daq_schema.json",
+    "fault_json_config_path": "../../faults/fault_config.json",
+    "fault_json_schema_path": "../../faults/fault_schema.json",
     "source_directory": "../../../source",
     "node_parse_c_dir": "can/can_parse.c",
     "node_parse_h_dir": "can/can_parse.h",

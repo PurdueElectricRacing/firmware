@@ -130,7 +130,7 @@
         },
         {
             "node_name": "test",
-            "can_name": "l4_testing",
+            "can_name": "test_node",
             "faults": [
                 {
                     "fault_name": "test_fault_1",

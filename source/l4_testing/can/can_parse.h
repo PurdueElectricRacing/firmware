@@ -29,19 +29,19 @@
 #define ID_WHEEL_SPEEDS 0xc0001ff
 #define ID_ADC_VALUES 0x1234
 #define ID_CAR_STATE 0xbeef420
-#define ID_FAULT_SYNC_L4_TESTING 0xc001eff
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
-#define ID_FAULT_SYNC_MAIN_MODULE 0xc001e41
-#define ID_FAULT_SYNC_DASHBOARD 0xc001e45
-#define ID_FAULT_SYNC_DRIVELINE 0xc001e83
-#define ID_FAULT_SYNC_TORQUE_VECTOR 0xc001e82
-#define ID_FAULT_SYNC_PRECHARGE 0xc001e84
-#define ID_SET_FAULT 0x809c83e
-#define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
+#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
+#define ID_FAULT_SYNC_DRIVELINE 0x8ca83
+#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
+#define ID_FAULT_SYNC_PRECHARGE 0x8cac4
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42
+#define ID_SET_FAULT 0x809c83e
+#define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
 /* END AUTO ID DEFS */
 
@@ -55,19 +55,19 @@
 #define DLC_WHEEL_SPEEDS 8
 #define DLC_ADC_VALUES 5
 #define DLC_CAR_STATE 1
-#define DLC_FAULT_SYNC_L4_TESTING 3
+#define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
-#define DLC_FAULT_SYNC_MAIN_MODULE 3
-#define DLC_FAULT_SYNC_DASHBOARD 3
-#define DLC_FAULT_SYNC_DRIVELINE 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
-#define DLC_FAULT_SYNC_PRECHARGE 3
-#define DLC_SET_FAULT 3
-#define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_FRONT_DRIVELINE_HB 2
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
+#define DLC_FAULT_SYNC_MAIN_MODULE 3
+#define DLC_FAULT_SYNC_DRIVELINE 3
+#define DLC_FAULT_SYNC_DASHBOARD 3
+#define DLC_FAULT_SYNC_PRECHARGE 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_SET_FAULT 3
+#define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_DAQ_COMMAND_TEST_NODE 8
 /* END AUTO DLC DEFS */
 
@@ -132,11 +132,11 @@ typedef union {
         data_a->car_state.car_state = car_state_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_FAULT_SYNC_L4_TESTING(queue, idx_, latched_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_L4_TESTING, .DLC=DLC_FAULT_SYNC_L4_TESTING, .IDE=1};\
+#define SEND_FAULT_SYNC_TEST_NODE(queue, idx_, latched_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_TEST_NODE, .DLC=DLC_FAULT_SYNC_TEST_NODE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->fault_sync_l4_testing.idx = idx_;\
-        data_a->fault_sync_l4_testing.latched = latched_;\
+        data_a->fault_sync_test_node.idx = idx_;\
+        data_a->fault_sync_test_node.latched = latched_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
@@ -222,37 +222,10 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_l4_testing;
+    } fault_sync_test_node;
     struct {
         uint64_t daq_response: 64;
     } daq_response_TEST_NODE;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_main_module;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_dashboard;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_driveline;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_torque_vector;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_precharge;
-    struct {
-        uint64_t id: 16;
-        uint64_t value: 1;
-    } set_fault;
-    struct {
-        uint64_t id: 16;
-    } return_fault_control;
     struct {
         uint64_t front_left_motor: 8;
         uint64_t front_right_motor: 8;
@@ -269,6 +242,33 @@ typedef union { __attribute__((packed))
         uint64_t car_state2: 8;
     } car_state2;
     struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_main_module;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_driveline;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_dashboard;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_precharge;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_torque_vector;
+    struct {
+        uint64_t id: 16;
+        uint64_t value: 1;
+    } set_fault;
+    struct {
+        uint64_t id: 16;
+    } return_fault_control;
+    struct {
         uint64_t daq_command: 64;
     } daq_command_TEST_NODE;
     uint8_t raw_data[8];
@@ -279,33 +279,6 @@ typedef union { __attribute__((packed))
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_main_module;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_dashboard;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_driveline;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_torque_vector;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_precharge;
-    struct {
-        uint16_t id;
-        uint8_t value;
-    } set_fault;
-    struct {
-        uint16_t id;
-    } return_fault_control;
     struct {
         front_left_motor_t front_left_motor;
         front_right_motor_t front_right_motor;
@@ -328,6 +301,33 @@ typedef struct {
         car_state2_t car_state2;
     } car_state2;
     struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_main_module;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_driveline;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_dashboard;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_precharge;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
+    struct {
+        uint16_t id;
+        uint8_t value;
+    } set_fault;
+    struct {
+        uint16_t id;
+    } return_fault_control;
+    struct {
         uint64_t daq_command;
     } daq_command_TEST_NODE;
 } can_data_t;
@@ -338,10 +338,10 @@ extern can_data_t can_data;
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
+extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
 extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
 extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
 /* END AUTO EXTERN CALLBACK */

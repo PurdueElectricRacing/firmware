@@ -30,27 +30,9 @@
                             "msg_period":15,
                             "msg_hlp":1,
                             "msg_pgn":1
-                        },
-                        {
-                            "msg_name": "fault_sync_main_module",
-                            "msg_desc": "Syncing Fault example",
-                            "signals": [
-                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 121
                         }
                     ],
                     "rx":[
-                        {"msg_name": "fault_sync_l4_testing", "callback": true},
-                        {"msg_name": "fault_sync_dashboard", "callback": true},
-                        {"msg_name": "fault_sync_driveline", "callback": true},
-                        {"msg_name": "fault_sync_torque_vector", "callback": true},
-                        {"msg_name": "fault_sync_precharge", "callback": true},
-                        {"msg_name": "set_fault", "callback": true},
-                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "raw_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
                         {"msg_name": "front_motor_currents_temps"},
@@ -89,27 +71,9 @@
                             "msg_period":0,
                             "msg_hlp":0,
                             "msg_pgn":100
-                        },
-                        {
-                            "msg_name": "fault_sync_torque_vector",
-                            "msg_desc": "Syncing Fault example",
-                            "signals": [
-                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 122
                         }
                     ],
                     "rx":[
-                        {"msg_name": "fault_sync_l4_testing", "callback": true},
-                        {"msg_name": "fault_sync_dashboard", "callback": true},
-                        {"msg_name": "fault_sync_driveline", "callback": true},
-                        {"msg_name": "fault_sync_main_module", "callback": true},
-                        {"msg_name": "fault_sync_precharge", "callback": true},
-                        {"msg_name": "set_fault", "callback": true},
-                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "front_wheel_data"},
                         {"msg_name": "rear_wheel_data"},
                         {"msg_name": "bitstream_data",    "callback": false, "irq": true},
@@ -216,27 +180,9 @@
                             "msg_period": 15,
                             "msg_hlp": 5,
                             "msg_pgn": 13
-                        },
-                        {
-                            "msg_name": "fault_sync_driveline",
-                            "msg_desc": "Syncing Fault example",
-                            "signals": [
-                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 122
                         }
                     ],
                     "rx": [
-                        {"msg_name": "fault_sync_dashboard", "callback": true},
-                        {"msg_name": "fault_sync_torque_vector", "callback": true},
-                        {"msg_name": "fault_sync_main_module", "callback": true},
-                        {"msg_name": "fault_sync_precharge", "callback": true},
-                        {"msg_name": "fault_sync_l4_testing", "callback": true},
-                        {"msg_name": "set_fault", "callback": true},
-                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name":"torque_request_main"},
                         {"msg_name":"main_hb"}
                     ]
@@ -341,27 +287,9 @@
                             "msg_period":0,
                             "msg_hlp":5,
                             "msg_pgn":514
-                        },
-                        {
-                            "msg_name": "fault_sync_precharge",
-                            "msg_desc": "Syncing Fault example",
-                            "signals": [
-                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 122
                         }
                     ],
                     "rx": [
-                        {"msg_name": "fault_sync_dashboard", "callback": true},
-                        {"msg_name": "fault_sync_torque_vector", "callback": true},
-                        {"msg_name": "fault_sync_main_module", "callback": true},
-                        {"msg_name": "fault_sync_driveline", "callback": true},
-                        {"msg_name": "fault_sync_l4_testing", "callback": true},
-                        {"msg_name": "set_fault", "callback": true},
-                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "elcon_charger_status"},
                         {"msg_name": "orion_info"},
                         {"msg_name": "orion_currents_volts"},
@@ -490,27 +418,9 @@
                             "msg_period":100,
                             "msg_hlp":1,
                             "msg_pgn":100
-                        },
-                        {
-                            "msg_name": "fault_sync_dashboard",
-                            "msg_desc": "Syncing Fault example",
-                            "signals": [
-                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 121
                         }
                     ],
                     "rx":[
-                        {"msg_name": "fault_sync_driveline", "callback": true},
-                        {"msg_name": "fault_sync_torque_vector", "callback": true},
-                        {"msg_name": "fault_sync_main_module", "callback": true},
-                        {"msg_name": "fault_sync_precharge", "callback": true},
-                        {"msg_name": "fault_sync_l4_testing", "callback": true},
-                        {"msg_name": "set_fault", "callback": true},
-                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "main_hb"},
                         {"msg_name": "front_wheel_data"}
                     ]
@@ -1466,27 +1376,9 @@
                             ],
                             "msg_period":0,
                             "msg_id_override": "0xBEEF420"
-                        },
-                        {
-                            "msg_name": "fault_sync_l4_testing",
-                            "msg_desc": "Syncing Fault example",
-                            "signals": [
-                                {"sig_name": "idx", "type": "uint16_t", "length": 16},
-                                {"sig_name": "latched", "type": "uint8_t", "length": 1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp": 3,
-                            "msg_pgn": 123
                         }
                     ],
                     "rx":[
-                        {"msg_name": "fault_sync_main_module", "callback": true},
-                        {"msg_name": "fault_sync_dashboard", "callback": true},
-                        {"msg_name": "fault_sync_driveline", "callback": true},
-                        {"msg_name": "fault_sync_torque_vector", "callback": true},
-                        {"msg_name": "fault_sync_precharge", "callback": true},
-                        {"msg_name": "set_fault", "callback": true},
-                        {"msg_name": "return_fault_control", "callback": true},
                         {"msg_name": "front_driveline_hb"},
                         {"msg_name": "test_msg5_2"},
                         {"msg_name": "test_stale"},

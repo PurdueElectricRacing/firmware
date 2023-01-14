@@ -27,7 +27,7 @@
 	#include "source/torque_vector/can/can_parse.h"
 #endif
 #if FAULT_NODE_NAME == 5
-	#include "source/l4_testing/can/can_parse.h"
+	#include "source/test_node/can/can_parse.h"
 #endif
 //END AUTO INCLUDES
 
@@ -147,7 +147,7 @@ void txFaults() {
              	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 5
-             	SEND_FAULT_SYNC_L4_TESTING(*q_tx, status->f_ID, status->latched);
+             	SEND_FAULT_SYNC_TEST_NODE(*q_tx, status->f_ID, status->latched);
              #endif
         //END AUTO TX COMMAND
     //Move to the next fault in the owned array
@@ -176,7 +176,7 @@ void txFaultSpecific(int id) {
              	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 5
-             	SEND_FAULT_SYNC_L4_TESTING(*q_tx, status->f_ID, status->latched);
+             	SEND_FAULT_SYNC_TEST_NODE(*q_tx, status->f_ID, status->latched);
              #endif
 //END AUTO TX COMMAND SPECIFIC
 }
@@ -241,8 +241,8 @@ void fault_sync_torque_vector_CALLBACK(CanParsedData_t *msg_header_a) {
 	fault_status_t recievedStatus = {msg_header_a->fault_sync_torque_vector.latched, msg_header_a->fault_sync_torque_vector.idx};
 	handleCallbacks(recievedStatus);
 }
-void fault_sync_l4_testing_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_l4_testing.latched, msg_header_a->fault_sync_l4_testing.idx};
+void fault_sync_test_node_CALLBACK(CanParsedData_t *msg_header_a) {
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_test_node.latched, msg_header_a->fault_sync_test_node.idx};
 	handleCallbacks(recievedStatus);
 }
 //END AUTO RECIEVE FUNCTIONS

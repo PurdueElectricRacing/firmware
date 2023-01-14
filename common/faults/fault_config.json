@@ -8,7 +8,7 @@
                     "fault_name": "batt_flow",
                     "max": 63,
                     "min": 46,
-                    "priority": "warning",
+                    "priority": "critical",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "battery pump flow brokey"
@@ -17,7 +17,7 @@
                     "fault_name": "drive_flow",
                     "max": 63,
                     "min": 46,
-                    "priority": "warning",
+                    "priority": "critical",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "battery pump flow brokey"
@@ -26,7 +26,7 @@
                     "fault_name": "main_comm",
                     "max": 1,
                     "min": 0,
-                    "priority": "critical",
+                    "priority": "fatal",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "main not talking"
@@ -35,7 +35,7 @@
                     "fault_name": "lv_dead",
                     "max": 3200,
                     "min": 2000,
-                    "priority": "critical",
+                    "priority": "fatal",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "LV dead, shut car off ASAP"
@@ -50,7 +50,7 @@
                     "fault_name": "mot_front_ot",
                     "max": 100,
                     "min": 10,
-                    "priority": "warning",
+                    "priority": "critical",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Front motors overheating"
@@ -59,7 +59,7 @@
                     "fault_name": "wlspd_l",
                     "max": 4096,
                     "min": 0,
-                    "priority": "info",
+                    "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "wheelspeeed L broken"
@@ -68,7 +68,7 @@
                     "fault_name": "wlspd_r",
                     "max": 4096,
                     "min": 0,
-                    "priority": "info",
+                    "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "wheelspeeed R broken"
@@ -77,7 +77,7 @@
                     "fault_name": "driveline_comm",
                     "max": 1,
                     "min": 0,
-                    "priority": "critical",
+                    "priority": "fatal",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Driveline offline"
@@ -91,7 +91,7 @@
                     "fault_name": "bms",
                     "max": 1,
                     "min": 0,
-                    "priority": "critical",
+                    "priority": "fatal",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "BMS fault"
@@ -105,7 +105,7 @@
                     "fault_name": "batt_ot",
                     "max": 50,
                     "min": 10,
-                    "priority": "warning",
+                    "priority": "critical",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Battery overheating"
@@ -121,7 +121,7 @@
                     "fault_name": "tv_offline",
                     "max": 1,
                     "min": 0,
-                    "priority": "info",
+                    "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "TV offline"
@@ -136,7 +136,7 @@
                     "fault_name": "test_fault_1",
                     "max": 1,
                     "min": 0,
-                    "priority": "info",
+                    "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Test fault 1"
@@ -145,7 +145,7 @@
                     "fault_name": "test_fault_2",
                     "max": 1,
                     "min": 0,
-                    "priority": "warning",
+                    "priority": "critical",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Test fault 2"
@@ -154,7 +154,7 @@
                     "fault_name": "test_fault_3",
                     "max": 1,
                     "min": 0,
-                    "priority": "critical",
+                    "priority": "fatal",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Test fault 3"
@@ -163,7 +163,7 @@
                     "fault_name": "test_fault_4",
                     "max": 123,
                     "min": 5,
-                    "priority": "info",
+                    "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "Test fault 4"

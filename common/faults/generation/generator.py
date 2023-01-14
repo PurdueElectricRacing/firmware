@@ -36,7 +36,7 @@ def log_success(phrase):
 def log_heading(phrase):
     print(f"{bcolors.BOLD}{bcolors.UNDERLINE}{phrase}{bcolors.ENDC}")
 
-priority_dict = {'info':0, 'warning':1, 'critical':2}
+priority_dict = {'warning':0, 'error':1, 'fatal':2}
 
 
 def load_json_config(config_path, schema_path):
@@ -172,9 +172,9 @@ def process_priorities(fault_config):
     """
     for node in fault_config['modules']:
         for fault in node['faults']:
-            if fault['priority'] == "info":
+            if fault['priority'] == "warning":
                 fault['pri_interp'] = 0
-            elif fault['priority'] == "warning":
+            elif fault['priority'] == "critical":
                 fault['pri_interp'] = 1
             else:
                 fault['pri_interp'] = 2

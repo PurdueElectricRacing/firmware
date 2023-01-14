@@ -53,9 +53,9 @@
 #define GET_OWNER(id) ((id & 0xF000) >> 12)
 
 
-//INFO: Doesn't affect driving state (Car can still safely drive)
-//ERROR: Car exits ready2drive, but LV + HV systems still active
-//CRITICAL: The Car SDC is activated
+//WARNING: Doesn't affect driving state (Car can still safely drive)
+//CRITICAL: Car exits ready2drive, but LV + HV systems still active
+//FATAL: The Car SDC is activated
 //BEGIN AUTO PRIORITY DEFS
 #define BATT_FLOW_PRIORITY 1
 #define DRIVE_FLOW_PRIORITY 1
@@ -164,24 +164,12 @@
 #define TEST_FAULT_4_MSG "Test fault 4\0" 
 //END AUTO SCREENMSG DEFS
 
-//asdf
 
-
-//BEGIN AUTO ENUM DEFS
-typedef enum {
-	MAIN_MODULE = 0,
-	DRIVELINE_FRONT = 1,
-	DASHBOARD = 2,
-	PRECHARGE = 3,
-	TV = 4,
-	TEST = 5,
-} fault_owner_t;
-//END AUTO ENUM DEFS
 
 typedef enum {
-    INFO = 0,
-    WARNING = 1,
-    CRITICAL = 2
+    WARNING = 0,
+    CRITICAL = 1,
+    FATAL = 2
 } fault_priority_t;
 
 
@@ -190,7 +178,7 @@ typedef enum {
 typedef struct {
     bool latched;
     int f_ID;
-} fault_message_t;
+} fault_status_t;
 
 //Contains info about the fault as a whole
 typedef struct {
@@ -200,10 +188,9 @@ typedef struct {
     uint8_t bounces;
     uint16_t time_since_latch;
     uint16_t last_rx_time;
-    int f_ID;
     int f_max;
     int f_min;
-    fault_message_t *message;
+    fault_status_t *status;
     char* screen_MSG;
 } fault_attributes_t;
 
@@ -211,27 +198,25 @@ typedef struct {
 
 
 //Vars
-extern fault_message_t message[TOTAL_NUM_FAULTS];
+extern fault_status_t message[TOTAL_NUM_FAULTS];
 extern fault_attributes_t attributes[TOTAL_NUM_FAULTS];
 
 //Function defs
-extern void initFaultLibrary(fault_owner_t, q_handle_t*, q_handle_t*);
-extern bool setFault(int, int);
-extern void forceFault(int, bool);
-extern void unForce(int);
-extern void txFaultSpecific(int);
-extern void txFaults();
-extern void rxFaults();
-extern void updateFaults();
-extern void recieveFaultsPeriodic();
-extern void killFaultLibrary();
-extern bool currMCULatched();
-extern bool infoLatched();
-extern bool warningLatched();
-extern bool criticalLatched();
-extern bool otherMCUsLatched();
-extern bool isLatched();
-extern bool checkFault();
-extern fault_attributes_t getFault(int id);
+void initFaultLibrary(uint8_t, q_handle_t*, q_handle_t*);
+bool setFault(int, int);
+void forceFault(int, bool);
+void unForce(int);
+void txFaultSpecific(int);
+void txFaults();
+void updateFaults();
+void killFaultLibrary();
+void handleCallbacks(fault_status_t);
+bool currMCULatched();
+bool warningLatched();
+bool criticalLatched();
+bool fatalLatched();
+bool otherMCUsLatched();
+bool isLatched();
+fault_attributes_t getFault(int id);
 
 #endif

@@ -213,7 +213,7 @@ int main (void)
         HardFault_Handler();
     }
 
-    initFaultLibrary(TEST, &q_tx_can, &q_rx_can);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
 
     /* Task Creation */
     schedInit(SystemCoreClock);

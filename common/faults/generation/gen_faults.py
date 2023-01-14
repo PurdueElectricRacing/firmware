@@ -23,8 +23,6 @@ gen_unlatch_start = "BEGIN AUTO UNLATCH DEFS"
 gen_unlatch_stop = "END AUTO UNLATCH DEFS"
 gen_screenmsg_start = "BEGIN AUTO SCREENMSG DEFS"
 gen_screenmsg_stop = "END AUTO SCREENMSG DEFS"
-gen_enum_start = "BEGIN AUTO ENUM DEFS"
-gen_enum_stop = "END AUTO ENUM DEFS"
 
 #
 # GENERATION STRINGS FOR C FILE
@@ -177,21 +175,6 @@ def gen_screenmsg(fault_config):
             msg.append(f"#define {fault['fault_name'].upper()}_MSG \"{fault['lcd_message']}\\0\" \n")
     return msg
 
-def gen_node_enum(fault_config):
-    """
-    Generate C enum assigning integer values to each node (based on earlier definitions)
-    @param fault_config    Fault JSON dictionary
-
-    @return          Array of macros to add to file
-    """
-    print("Generating ENUMs")
-    enum = []
-    enum.append("typedef enum {\n")
-    for node in fault_config['modules']:
-        enum.append(f"\t{node['node_name'].upper()} = {node['name_interp']},\n")
-    enum.append("} fault_owner_t;\n")
-    return enum
-
 def gen_fault_info_arrays(fault_config):
     """
     Generate C definitions combining each macro into an array that will be added to the file
@@ -330,7 +313,7 @@ def gen_tx_msg(fault_config):
     idx = 0
     for node in fault_config['modules']:
         tx.append(f"\t\t\t#if FAULT_NODE_NAME == {idx}\n \
-            \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, message->f_ID, message->latched);\n \
+            \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, status->f_ID, status->latched);\n \
             #endif\n")
         idx += 1
     return tx
@@ -351,8 +334,8 @@ def gen_rx_msg(fault_config):
             continue
         #Generate the function logic
         rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
-        rx.append(f"\tfault_message_t recievedMessage = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
-        rx.append("\tfault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];\n\thandleCallbacks(recievedMessage, currMessage);\n")
+        rx.append(f"\tfault_status_t recievedStatus = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
+        rx.append("\thandleCallbacks(recievedStatus);\n")
         rx.append("}\n")
     return rx
 
@@ -374,7 +357,6 @@ def gen_faults(config, c, h, nodes):
     h_lines = generator.insert_lines(h_lines, gen_latch_start, gen_latch_stop, gen_latch(config))
     h_lines = generator.insert_lines(h_lines, gen_unlatch_start, gen_unlatch_stop, gen_unlatch(config))
     h_lines = generator.insert_lines(h_lines, gen_screenmsg_start, gen_screenmsg_stop, gen_screenmsg(config))
-    h_lines = generator.insert_lines(h_lines, gen_enum_start, gen_enum_stop, gen_node_enum(config))
 
 
     # Write changes to header file

@@ -10,7 +10,6 @@
  */
 #include "faults.h"
 
-
 //BEGIN AUTO INCLUDES
 #if FAULT_NODE_NAME == 0
 	#include "source/main_module/can/can_parse.h"
@@ -56,17 +55,19 @@ int faultULatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_UNLATCH_TIME, DRIVE_FLOW_UNL
 			TEST_FAULT_3_UNLATCH_TIME, TEST_FAULT_4_UNLATCH_TIME,};
 //END AUTO FAULT INFO ARRAY DEFS
 
-fault_owner_t currentMCU;
+
+//Corresponds to fault_defs.h
+uint8_t currentMCU;
 
 //Global arrays with all faults,
 fault_attributes_t faultArray[TOTAL_NUM_FAULTS];
-fault_message_t messageArray[TOTAL_NUM_FAULTS];
+fault_status_t statusArray[TOTAL_NUM_FAULTS];
 
 
 //Variables containing the number of latched faults
+uint16_t fatalCount;
 uint16_t critCount;
 uint16_t warnCount;
-uint16_t infoCount;
 uint16_t currCount;
 
 q_handle_t *q_tx;
@@ -77,14 +78,14 @@ q_handle_t *q_rx;
 uint16_t ownedidx;
 uint16_t curridx;
 
-bool fault_lib_enable;
+bool fault_lib_disable;
 
 /*
     Function  to set a fault through MCU.
     Inputs: Fault ID, current value of item connected to fault;
 */
 bool setFault(int id, int valueToCompare) {
-    if (!fault_lib_enable)
+    if (fault_lib_disable)
     {
         return false;
     }
@@ -94,143 +95,139 @@ bool setFault(int id, int valueToCompare) {
         return false;
     }
 
-    fault_attributes_t *array = &faultArray[GET_IDX(id)];
+    fault_attributes_t *fault = &faultArray[GET_IDX(id)];
 
     //The fault is being forced to be a certain value, stop running
-    if (array->forceActive)
+    if (fault->forceActive)
     {
-        return messageArray[GET_IDX(id)].latched;
+        return statusArray[GET_IDX(id)].latched;
     }
     //Templatch = result of comparison of limits + current value
-    array->tempLatch = ((valueToCompare > array->f_max) || (valueToCompare <= array->f_min)) ? true : false;
+    fault->tempLatch = ((valueToCompare > fault->f_max) || (valueToCompare <= fault->f_min)) ? true : false;
     return faultArray[GET_IDX(id)].tempLatch;
 }
 
 
 //Heartbeat; Send faults periodically (100ms)
 void txFaults() {
-        fault_message_t *message = &messageArray[curridx++];
+    if (ownedidx < 0 || fault_lib_disable) {
+        return;
+    }
+        fault_status_t *status = &statusArray[curridx++];
         //BEGIN AUTO TX COMMAND
 			#if FAULT_NODE_NAME == 0
-             	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 1
-             	SEND_FAULT_SYNC_DRIVELINE(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_DRIVELINE(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 2
-             	SEND_FAULT_SYNC_DASHBOARD(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_DASHBOARD(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 3
-             	SEND_FAULT_SYNC_PRECHARGE(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_PRECHARGE(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 4
-             	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 5
-             	SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_L4_TESTING(*q_tx, status->f_ID, status->latched);
              #endif
         //END AUTO TX COMMAND
     //Move to the next fault in the owned array
-     if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].f_ID) != currentMCU)) {
+     if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].status->f_ID) != currentMCU)) {
         curridx = ownedidx;
      }
 }
 
 //Function to send faults at a specific time
 void txFaultSpecific(int id) {
-    fault_message_t *message = &messageArray[GET_IDX(id)];
+    fault_status_t *status = &statusArray[GET_IDX(id)];
 //BEGIN AUTO TX COMMAND SPECIFIC
 			#if FAULT_NODE_NAME == 0
-             	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 1
-             	SEND_FAULT_SYNC_DRIVELINE(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_DRIVELINE(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 2
-             	SEND_FAULT_SYNC_DASHBOARD(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_DASHBOARD(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 3
-             	SEND_FAULT_SYNC_PRECHARGE(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_PRECHARGE(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 4
-             	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, status->f_ID, status->latched);
              #endif
 			#if FAULT_NODE_NAME == 5
-             	SEND_FAULT_SYNC_L4_TESTING(*q_tx, message->f_ID, message->latched);
+             	SEND_FAULT_SYNC_L4_TESTING(*q_tx, status->f_ID, status->latched);
              #endif
 //END AUTO TX COMMAND SPECIFIC
 }
 
 //Function to update fault array from recieved messages
-void handleCallbacks(fault_message_t recievedMessage, fault_message_t *currMessage) {
-	switch (recievedMessage.latched) {
+void handleCallbacks(fault_status_t recievedStatus) {
+    fault_status_t *currStatus = &statusArray[GET_IDX(recievedStatus.f_ID)];
+	if (recievedStatus.latched) {
         //If current Message = 0, and recieved message = 1 (fault is latching)
-		case true:
-			if (!currMessage->latched) {
-				currMessage->latched = recievedMessage.latched;
-				switch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {
-					case INFO:
-						infoCount++;
-						break;
-					case WARNING:
-						warnCount++;
-						break;
-					case CRITICAL:
-						critCount++;
-						break;
-				}
-			}
-			break;
-        //If current Message = 1, and recieved message = 0 (fault is unlatching)
-		case false:
-			if (currMessage->latched) {
-				currMessage->latched = recievedMessage.latched;
-				switch(faultArray[GET_IDX(recievedMessage.f_ID)].priority) {
-					case INFO:
-						infoCount--;
-						break;
-					case WARNING:
-						warnCount--;
-						break;
-					case CRITICAL:
-						critCount--;
-						break;
-				}
-			}
-			break;
-		}
+        if (!currStatus->latched) {
+            currStatus->latched = recievedStatus.latched;
+            switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
+                case WARNING:
+                    warnCount++;
+                    break;
+                case CRITICAL:
+                    critCount++;
+                    break;
+                case FATAL:
+                    fatalCount++;
+                    break;
+            }
+        }
+    }
+    //If current Message = 1, and recieved message = 0 (fault is unlatching)
+    else {
+        if (currStatus->latched) {
+            currStatus->latched = recievedStatus.latched;
+            switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
+                case WARNING:
+                    warnCount--;
+                    break;
+                case CRITICAL:
+                    critCount--;
+                    break;
+                case FATAL:
+                    fatalCount--;
+                    break;
+            }
+        }
+    }
 }
 
 //BEGIN AUTO RECIEVE FUNCTIONS
 void fault_sync_main_module_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_message_t recievedMessage = {msg_header_a->fault_sync_main_module.latched, msg_header_a->fault_sync_main_module.idx};
-	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-	handleCallbacks(recievedMessage, currMessage);
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_main_module.latched, msg_header_a->fault_sync_main_module.idx};
+	handleCallbacks(recievedStatus);
 }
 void fault_sync_driveline_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_message_t recievedMessage = {msg_header_a->fault_sync_driveline.latched, msg_header_a->fault_sync_driveline.idx};
-	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-	handleCallbacks(recievedMessage, currMessage);
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_driveline.latched, msg_header_a->fault_sync_driveline.idx};
+	handleCallbacks(recievedStatus);
 }
 void fault_sync_dashboard_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_message_t recievedMessage = {msg_header_a->fault_sync_dashboard.latched, msg_header_a->fault_sync_dashboard.idx};
-	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-	handleCallbacks(recievedMessage, currMessage);
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_dashboard.latched, msg_header_a->fault_sync_dashboard.idx};
+	handleCallbacks(recievedStatus);
 }
 void fault_sync_precharge_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_message_t recievedMessage = {msg_header_a->fault_sync_precharge.latched, msg_header_a->fault_sync_precharge.idx};
-	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-	handleCallbacks(recievedMessage, currMessage);
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_precharge.latched, msg_header_a->fault_sync_precharge.idx};
+	handleCallbacks(recievedStatus);
 }
 void fault_sync_torque_vector_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_message_t recievedMessage = {msg_header_a->fault_sync_torque_vector.latched, msg_header_a->fault_sync_torque_vector.idx};
-	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-	handleCallbacks(recievedMessage, currMessage);
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_torque_vector.latched, msg_header_a->fault_sync_torque_vector.idx};
+	handleCallbacks(recievedStatus);
 }
 void fault_sync_l4_testing_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_message_t recievedMessage = {msg_header_a->fault_sync_l4_testing.latched, msg_header_a->fault_sync_l4_testing.idx};
-	fault_message_t *currMessage = &messageArray[GET_IDX(recievedMessage.f_ID)];
-	handleCallbacks(recievedMessage, currMessage);
+	fault_status_t recievedStatus = {msg_header_a->fault_sync_l4_testing.latched, msg_header_a->fault_sync_l4_testing.idx};
+	handleCallbacks(recievedStatus);
 }
 //END AUTO RECIEVE FUNCTIONS
 
@@ -251,45 +248,50 @@ void return_fault_control_CALLBACK(CanParsedData_t *msg_header_a) {
 
 //Updates faults owned by current mcu
 void updateFaults() {
+    if (ownedidx < 0 || fault_lib_disable) {
+        return;
+    }
     uint16_t idx = ownedidx;
     fault_attributes_t *fault;
     do {
         fault = &faultArray[idx];
         //Fault is showing up as latched
-        if (((fault->tempLatch) && !(fault->message->latched))) {
+        if (((fault->tempLatch) && !(fault->status->latched))) {
             //Has latching period ended
-            fault->message->latched = (fault->time_since_latch++ >= faultLatchTime[idx]) ? true : false;
-            if (fault->message->latched) {
+            fault->status->latched = (++fault->time_since_latch >= faultLatchTime[idx]) ? true : false;
+            if (fault->status->latched) {
+                fault->time_since_latch = 0;
                 currCount++;
                 switch(fault->priority) {
-                    case INFO:
-                        infoCount++;
-                        break;
                     case WARNING:
                         warnCount++;
                         break;
                     case CRITICAL:
                         critCount++;
                         break;
+                    case FATAL:
+                        fatalCount++;
+                        break;
                 }
                 txFaultSpecific(idx);
             }
         }
         //Fault is showing up as unlatched
-        else if (!(fault->tempLatch) && (fault->message->latched)) {
+        else if (!(fault->tempLatch) && (fault->status->latched)) {
             //Make sure unlatch period has elapsed
-            fault->message->latched = (fault->time_since_latch++ >= faultULatchTime[idx]) ? false : true;
-            if (!(fault->message->latched)) {
+            fault->status->latched = (++fault->time_since_latch >= faultULatchTime[idx]) ? false : true;
+            if (!(fault->status->latched)) {
+                fault->time_since_latch = 0;
                 currCount--;
                 switch(fault->priority) {
-                    case INFO:
-                        infoCount--;
-                        break;
                     case WARNING:
                         warnCount--;
                         break;
                     case CRITICAL:
                         critCount--;
+                        break;
+                    case FATAL:
+                        fatalCount--;
                         break;
                 }
                 txFaultSpecific(idx);
@@ -297,38 +299,24 @@ void updateFaults() {
         }
         else {
             //Account for potential noise during the latching process
-            if (fault->time_since_latch > 0 && fault->bounces < 3) {
+            if (fault->time_since_latch > 0 && fault->bounces <= 3) {
                 fault->time_since_latch++;
                 fault->bounces++;
-                fault->message->latched = 1;
-                fault->tempLatch = 1;
-                currCount++;
-                switch(fault->priority) {
-                    case INFO:
-                        infoCount++;
-                        break;
-                    case WARNING:
-                        warnCount++;
-                        break;
-                    case CRITICAL:
-                        critCount++;
-                        break;
-                }
             }
             else if (fault->time_since_latch > 0 && fault->bounces > 3) {
-                fault->time_since_latch++;
-                fault->message->latched = 1;
+                fault->time_since_latch = 0;
+                fault->status->latched = 1;
                 fault->tempLatch = 1;
                 currCount++;
                 switch(fault->priority) {
-                    case INFO:
-                        infoCount++;
-                        break;
                     case WARNING:
                         warnCount++;
                         break;
                     case CRITICAL:
                         critCount++;
+                        break;
+                    case FATAL:
+                        fatalCount++;
                         break;
                 }
             }
@@ -337,11 +325,11 @@ void updateFaults() {
             }
         }
         idx++;
-    } while ((idx < TOTAL_NUM_FAULTS) && (GET_OWNER(faultArray[idx].f_ID) == currentMCU));
+    } while ((idx < TOTAL_NUM_FAULTS) && (GET_OWNER(faultArray[idx].status->f_ID) == currentMCU));
 }
 
 void killFaultLibrary() {
-    fault_lib_enable = false;
+    fault_lib_disable = true;
 }
 
 //Does the current board have latched faults
@@ -350,28 +338,28 @@ bool currMCULatched() {
 }
 
 //Are there any info level faults latched
-bool infoLatched() {
-    return (infoCount == 0) ? false : true;
-}
-
-//Are there any warning level faults latched
 bool warningLatched() {
     return (warnCount == 0) ? false : true;
 }
 
-//Are there any critical level faults latched
+//Are there any warning level faults latched
 bool criticalLatched() {
     return (critCount == 0) ? false : true;
 }
 
+//Are there any critical level faults latched
+bool fatalLatched() {
+    return (fatalCount == 0) ? false : true;
+}
+
 //Are faults latched on other mcus
 bool otherMCUsLatched() {
-    return (infoCount + warnCount + critCount - currCount == 0) ? false : true;
+    return (warnCount + critCount + fatalCount - currCount == 0) ? false : true;
 }
 
 //Is any fault latched
 bool isLatched() {
-    return (infoCount + warnCount + critCount == 0) ? false : true;
+    return (warnCount + critCount + fatalCount == 0) ? false : true;
 }
 
 //Check if any fault is latched
@@ -394,47 +382,47 @@ fault_attributes_t getFault(int id) {
 void forceFault(int id, bool state) {
     uint16_t idx = GET_IDX(id);
     //If it is forced to be latched and wasn't already
-    if (state & !messageArray[idx].latched) {
+    if (state & !statusArray[idx].latched) {
         currCount++;
         switch(faultArray[idx].priority) {
-            case INFO:
-                infoCount++;
-                break;
             case WARNING:
                 warnCount++;
                 break;
             case CRITICAL:
                 critCount++;
                 break;
+            case FATAL:
+                fatalCount++;
+                break;
         }
     }
     //If it is forced to be unlatched and was latched before
-    else if (!state & messageArray[idx].latched) {
+    else if (!state & statusArray[idx].latched) {
        currCount--;
         switch(faultArray[idx].priority) {
-            case INFO:
-                infoCount--;
-                break;
             case WARNING:
                 warnCount--;
                 break;
             case CRITICAL:
                 critCount--;
                 break;
+            case FATAL:
+                fatalCount--;
+                break;
         }
     }
     //Update the array and send through CAN
     faultArray[idx].tempLatch = state;
     faultArray[idx].forceActive = true;
-    messageArray[idx].latched = state;
+    statusArray[idx].latched = state;
 	txFaultSpecific(id);
 
 }
 
 
 //Initialize the FL with starting values
-void initFaultLibrary(fault_owner_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
-    fault_lib_enable = true;
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
+    fault_lib_disable = false;
     bool foundStartIdx = false;
     q_tx = txQ;
     q_rx = rxQ;
@@ -443,19 +431,22 @@ void initFaultLibrary(fault_owner_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
     uint16_t num_recieved_faults = 0;
     //Populate the arrays with starting values
     for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
-        fault_message_t tempMsg = {false, idArray[i]};
-        messageArray[i] = tempMsg;
-        fault_attributes_t tempAttribute = {false, false, priorityArray[i], 0, 0, 0, idArray[i], maxArray[i], minArray[i],
-                        &messageArray[i], msgArray[i]};
+        fault_status_t tempStatus = {false, idArray[i]};
+        statusArray[i] = tempStatus;
+        fault_attributes_t tempAttribute = {false, false, priorityArray[i], 0, 0, 0, maxArray[i], minArray[i],
+                        &statusArray[i], msgArray[i]};
         faultArray[i] = tempAttribute;
         if (GET_OWNER(idArray[i]) == mcu && !foundStartIdx) {
             foundStartIdx = true;
             ownedidx = i;
         }
     }
+    if (!foundStartIdx) {
+        ownedidx = -1;
+    }
     curridx = ownedidx;
     warnCount = 0;
-    infoCount = 0;
     critCount = 0;
+    fatalCount = 0;
     currCount = 0;
 }

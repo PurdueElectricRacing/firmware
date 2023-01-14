@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "python per_build.py",
+            "command": "python3 per_build.py",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -18,10 +18,16 @@
             "type": "shell",
             "command": "git submodule update --init --recursive",
         },
-        { 
+        {
             "label": "can_gen",
             "type": "shell",
-            "command": "python ./common/daq/generation/generator.py",
+            "command": "python3 ./common/daq/generation/generator.py",
+            "problemMatcher": []
+        },
+        {
+            "label": "faults_gen",
+            "type": "shell",
+            "command": "python3 ./common/faults/generation/generator.py",
             "problemMatcher": []
         }
     ]

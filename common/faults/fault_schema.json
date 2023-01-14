@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required": ["modules"],
+    "properties": {
+        "modules": {
+            "type": "array",
+            "items":{"$ref":"#/$defs/node"}
+        }
+    },
+    "$defs": {
+        "node": {
+            "type": "object",
+            "required": ["node_name", "faults"],
+            "properties": {
+                "node_name":{
+                    "type":"string",
+                    "description":"name of the node (MCU)"
+                },
+                "can_name": {
+                    "type": "string",
+                    "description": "If this node has a different in name in CAN (ex. driveline instead of driveline_front/rear), use this"
+                },
+                "faults": {
+                    "type":"array",
+                    "description":"messages transmitted by the node",
+                    "items":{"$ref":"#/$defs/fault_config"}
+                }
+            }
+        },
+        "fault_config": {
+            "type": "object",
+            "required": ["fault_name", "max", "min", "priority", "time_to_latch", "time_to_unlatch", "lcd_message"],
+            "properties": {
+                "fault_name":  {
+                    "type": "string",
+                    "description": "name of the fault (Keep it short)"
+                },
+                "max": {
+                    "type": "integer",
+                    "description": "Max value of the fault (Max is exclusive)"
+                },
+                "min": {
+                    "type": "integer",
+                    "description": "Min value of the fault (Min is inclusive)"
+                },
+                "priority": {
+                    "type": "string",
+                    "enum": ["warning", "error", "fatal"],
+                    "description": "Priority of fault, info = no effect, warning = readyToDrive, critical = SDC"
+                },
+                "time_to_latch": {
+                    "type": "integer",
+                    "description": "Time fault must be set to officially enable the fault"
+                },
+                "time_to_unlatch": {
+                    "type": "integer",
+                    "description": "Time fault must be unset to offically disable a fault"
+                },
+                "lcd_message": {
+                    "type": "string",
+                    "description": "Message to display on LCD"
+                }
+            }
+        }
+    }
+}

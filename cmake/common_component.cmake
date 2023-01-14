@@ -20,7 +20,7 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
         set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
     endif()
     if (NOT _COMMON_LIBS)
-        set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;")
+        set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;FAULTS")
     endif()
 
     # Add Common libraries
@@ -40,11 +40,11 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
 
     # Linker options
 if(BOOTLOADER_BUILD)
-    target_link_options(${TARGET_NAME} PUBLIC 
+    target_link_options(${TARGET_NAME} PUBLIC
         -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}_APP.ld
     )
 else()
-    target_link_options(${TARGET_NAME} PUBLIC 
+    target_link_options(${TARGET_NAME} PUBLIC
         -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}.ld
     )
 endif()
@@ -86,7 +86,7 @@ MACRO(COMMON_BOOTLOADER_COMPONENT TARGET_NAME)
     target_include_directories(${TARGET_NAME} PUBLIC ${include_dirs} ${_COMPONENT_DIR})
 
     # Linker options
-    target_link_options(${TARGET_NAME} PUBLIC 
+    target_link_options(${TARGET_NAME} PUBLIC
         -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}_BL.ld
     )
 

@@ -1,6 +1,10 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "common/faults/fault_nodes.h"
+
+#define FAULT_NODE_NAME NODE_TEST
+
 // Inputs
 #define BUTTON_1_Pin (8)
 #define BUTTON_1_GPIO_Port (GPIOA)
@@ -15,7 +19,7 @@
 #define POT3_ADC_Channel (8)
 
 // Status LEDs
-#define LED_GREEN_Pin (0)
+#define LED_GREEN_Pin (3)
 #define LED_GREEN_GPIO_Port (GPIOB)
 #define LED_RED_Pin (1)
 #define LED_RED_GPIO_Port (GPIOB)

@@ -1,0 +1,175 @@
+{
+    "$schema":"./fault_schema.json",
+    "modules": [
+        {
+            "node_name": "main_module",
+            "faults": [
+                {
+                    "fault_name": "batt_flow",
+                    "max": 63,
+                    "min": 46,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "battery pump flow brokey"
+                },
+                {
+                    "fault_name": "drive_flow",
+                    "max": 63,
+                    "min": 46,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "battery pump flow brokey"
+                },
+                {
+                    "fault_name": "main_comm",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "main not talking"
+                },
+                {
+                    "fault_name": "lv_dead",
+                    "max": 3200,
+                    "min": 2000,
+                    "priority": "fatal",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "LV dead, shut car off ASAP"
+                }
+            ]
+        },
+        {
+            "node_name": "driveline_front",
+            "can_name": "driveline",
+            "faults": [
+                {
+                    "fault_name": "mot_front_ot",
+                    "max": 100,
+                    "min": 10,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Front motors overheating"
+                },
+                {
+                    "fault_name": "wlspd_l",
+                    "max": 4096,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 20,
+                    "time_to_unlatch": 20,
+                    "lcd_message": "wheelspeeed L broken"
+                },
+                {
+                    "fault_name": "wlspd_r",
+                    "max": 4096,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "wheelspeeed R broken"
+                },
+                {
+                    "fault_name": "driveline_comm",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Driveline offline"
+                }
+            ]
+        },
+        {
+            "node_name": "dashboard",
+            "faults": [
+                {
+                    "fault_name": "bms",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "BMS fault"
+                }
+            ]
+        },
+        {
+            "node_name": "precharge",
+            "faults": [
+                {
+                    "fault_name": "batt_ot",
+                    "max": 50,
+                    "min": 10,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Battery overheating"
+                }
+
+            ]
+        },
+        {
+            "node_name": "tv",
+            "can_name": "torque_vector",
+            "faults": [
+                {
+                    "fault_name": "tv_offline",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "TV offline"
+                }
+            ]
+        },
+        {
+            "node_name": "test",
+            "can_name": "test_node",
+            "faults": [
+                {
+                    "fault_name": "test_fault_1",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Test fault 1"
+                },
+                {
+                    "fault_name": "test_fault_2",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Test fault 2"
+                },
+                {
+                    "fault_name": "test_fault_3",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Test fault 3"
+                },
+                {
+                    "fault_name": "test_fault_4",
+                    "max": 123,
+                    "min": 5,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Test fault 4"
+                }
+            ]
+
+        }
+    ]
+}

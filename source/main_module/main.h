@@ -1,18 +1,22 @@
 /**
  * @file main.h
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief  Software for controlling SDC based on 
+ * @brief  Software for controlling SDC based on
  *         faults and cooling based on temperatures
  * @version 0.1
  * @date 2022-03-16
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
 //STM32L496VGT6
+
+#include "common/faults/fault_nodes.h"
+
+#define FAULT_NODE_NAME NODE_MAIN_MODULE
 
 // Status Indicators
 #define ERR_LED_GPIO_Port   (GPIOE)

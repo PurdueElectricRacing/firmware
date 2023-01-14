@@ -3,6 +3,10 @@
 
 //STM32L432KCU6
 
+#include "common/faults/fault_nodes.h"
+
+#define FAULT_NODE_NAME NODE_DRIVELINE_FRONT
+
 /* Status LEDs */
 #define ERR_LED_GPIO_Port   (GPIOB)
 #define ERR_LED_Pin         (3)
@@ -53,4 +57,3 @@
 #define I2C          (I2C1)
 
 #endif
-

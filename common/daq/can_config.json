@@ -977,6 +977,27 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10015
+                        },
+                        {
+                            "msg_name": "set_fault",
+                            "msg_desc": "Set a fault",
+                            "signals": [
+                                {"sig_name": "id",  "sig_desc": "Bootloader Command type", "type": "uint16_t", "length": 16},
+                                {"sig_name": "value", "sig_desc": "Bootloader data", "type": "uint8_t", "length": 1}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":2,
+                            "msg_pgn":10016
+                        },
+                        {
+                            "msg_name": "return_fault_control",
+                            "msg_desc": "Return control of fault back to the MCU",
+                            "signals": [
+                                {"sig_name": "id",  "sig_desc": "Fault ID", "type": "uint16_t", "length": 16}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":2,
+                            "msg_pgn":10017
                         }
                     ],
                     "rx":[
@@ -1358,6 +1379,7 @@
                         }
                     ],
                     "rx":[
+                        {"msg_name": "front_driveline_hb"},
                         {"msg_name": "test_msg5_2"},
                         {"msg_name": "test_stale"},
                         {"msg_name": "car_state2"}

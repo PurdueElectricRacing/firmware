@@ -1,10 +1,17 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Run DAQ automatic code generation
-execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py 
+execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py
                 RESULT_VARIABLE ret)
 if(ret EQUAL "1")
-    message(FATAL_ERROR "Code Generation Failed")
+    message(FATAL_ERROR "CAN Generation Failed")
+endif()
+
+# Run automatic code generation for Fault Library
+execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/faults/generation/generator.py
+                RESULT_VARIABLE ret)
+if(ret EQUAL "1")
+    message(FATAL_ERROR "Fault Generation Failed")
 endif()
 
 # Check for bootloader generation
@@ -13,14 +20,14 @@ if (NOT BOOTLOADER_BUILD)
     message(STATUS "Not building applications for bootloaders.")
 else()
     message(STATUS
-    "Building applications and bootloaders! " 
+    "Building applications and bootloaders! "
     "Your application will NOT work if you are NOT using the bootloader download tool.") # You have been warned
 endif()
 
 # Setup arm-none-eabi as our compile toolcahin
 set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)
 
-# Setup project 
+# Setup project
 project(PER_FIRMWARE VERSION 1.0 LANGUAGES C ASM)
 
 # Archive to new outut directory
@@ -45,10 +52,11 @@ add_subdirectory(common/bootloader)
 add_subdirectory(common/queue)
 add_subdirectory(common/eeprom)
 add_subdirectory(common/common_defs)
+add_subdirectory(common/faults)
 
 # Properties that are set for each firmware component
 # Used to generate the .elf and other files for each project
-define_property(TARGET PROPERTY COMPONENT_NAME 
+define_property(TARGET PROPERTY COMPONENT_NAME
     BRIEF_DOCS "Friendly name of the firmware component with no file extensions"
     FULL_DOCS "USed in file formatting and other message outputs")
 define_property(TARGET PROPERTY COMPONENT_DIR

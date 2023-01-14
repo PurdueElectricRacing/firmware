@@ -14,6 +14,8 @@
 #include "main.h"
 #include "bitstream.h"
 
+#include "common/faults/faults.h"
+
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANRX_PA11,
@@ -80,13 +82,13 @@ int main (void)
 
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         PHAL_FaltHandler();
-        
+
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaltHandler();
 
     if (1 != PHAL_qspiInit())
         PHAL_FaltHandler();
-    
+
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     /* Module init */
@@ -136,10 +138,10 @@ void canTxUpdate()
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -147,7 +149,7 @@ void CAN1_RX0_IRQHandler()
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
@@ -168,7 +170,7 @@ void CAN1_RX0_IRQHandler()
 
         canProcessRxIRQs(&rx);
 
-        CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
+        CAN1->RF0R     |= (CAN_RF0R_RFOM0);
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }

@@ -57,21 +57,21 @@ fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
 	(fault_status_t){false, ID_TEST_FAULT_4_FAULT},
 };
 fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {
-	(fault_attributes_t){false, false, BATT_FLOW_PRIORITY, 0, 0, 0, BATT_FLOW_MAX, BATT_FLOW_MIN, &statusArray[0], BATT_FLOW_MSG}, 
-	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[1], DRIVE_FLOW_MSG}, 
-	(fault_attributes_t){false, false, MAIN_COMM_PRIORITY, 0, 0, 0, MAIN_COMM_MAX, MAIN_COMM_MIN, &statusArray[2], MAIN_COMM_MSG}, 
-	(fault_attributes_t){false, false, LV_DEAD_PRIORITY, 0, 0, 0, LV_DEAD_MAX, LV_DEAD_MIN, &statusArray[3], LV_DEAD_MSG}, 
-	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[4], MOT_FRONT_OT_MSG}, 
-	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG}, 
-	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG}, 
-	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG}, 
-	(fault_attributes_t){false, false, BMS_PRIORITY, 0, 0, 0, BMS_MAX, BMS_MIN, &statusArray[8], BMS_MSG}, 
-	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[9], BATT_OT_MSG}, 
-	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[10], TV_OFFLINE_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[11], TEST_FAULT_1_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[12], TEST_FAULT_2_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[13], TEST_FAULT_3_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[14], TEST_FAULT_4_MSG}, 
+	(fault_attributes_t){false, false, BATT_FLOW_PRIORITY, 0, 0, BATT_FLOW_MAX, BATT_FLOW_MIN, &statusArray[0], BATT_FLOW_MSG}, 
+	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[1], DRIVE_FLOW_MSG}, 
+	(fault_attributes_t){false, false, MAIN_COMM_PRIORITY, 0, 0, MAIN_COMM_MAX, MAIN_COMM_MIN, &statusArray[2], MAIN_COMM_MSG}, 
+	(fault_attributes_t){false, false, LV_DEAD_PRIORITY, 0, 0, LV_DEAD_MAX, LV_DEAD_MIN, &statusArray[3], LV_DEAD_MSG}, 
+	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[4], MOT_FRONT_OT_MSG}, 
+	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG}, 
+	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG}, 
+	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG}, 
+	(fault_attributes_t){false, false, BMS_PRIORITY, 0, 0, BMS_MAX, BMS_MIN, &statusArray[8], BMS_MSG}, 
+	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[9], BATT_OT_MSG}, 
+	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[10], TV_OFFLINE_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[11], TEST_FAULT_1_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[12], TEST_FAULT_2_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[13], TEST_FAULT_3_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[14], TEST_FAULT_4_MSG}, 
 };
 //END AUTO FAULT INFO ARRAY DEFS
 
@@ -323,7 +323,7 @@ void updateFaults() {
                 fault->time_since_latch++;
                 fault->bounces++;
             }
-            else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 1) {
+            else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 1) {
                 fault->time_since_latch = 0;
                 fault->status->latched = 1;
                 fault->tempLatch = 1;

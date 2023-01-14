@@ -60,8 +60,8 @@
                     "max": 4096,
                     "min": 0,
                     "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_latch": 20,
+                    "time_to_unlatch": 20,
                     "lcd_message": "wheelspeeed L broken"
                 },
                 {

@@ -220,7 +220,7 @@ def gen_fault_info_arrays(fault_config):
     idx = 0
     for node in fault_config['modules']:
         for fault in node['faults']:
-            array.append(f"\t(fault_attributes_t){{false, false, {fault['fault_name'].upper()}_PRIORITY, 0, 0, 0, {fault['fault_name'].upper()}_MAX, \
+            array.append(f"\t(fault_attributes_t){{false, false, {fault['fault_name'].upper()}_PRIORITY, 0, 0, {fault['fault_name'].upper()}_MAX, \
 {fault['fault_name'].upper()}_MIN, &statusArray[{idx}], {fault['fault_name'].upper()}_MSG}}, \n")
             idx += 1
     array.append("};\n")

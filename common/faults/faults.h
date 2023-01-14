@@ -116,7 +116,7 @@
 #define MAIN_COMM_LATCH_TIME 10
 #define LV_DEAD_LATCH_TIME 10
 #define MOT_FRONT_OT_LATCH_TIME 10
-#define WLSPD_L_LATCH_TIME 10
+#define WLSPD_L_LATCH_TIME 20
 #define WLSPD_R_LATCH_TIME 10
 #define DRIVELINE_COMM_LATCH_TIME 10
 #define BMS_LATCH_TIME 10
@@ -134,7 +134,7 @@
 #define MAIN_COMM_UNLATCH_TIME 10
 #define LV_DEAD_UNLATCH_TIME 10
 #define MOT_FRONT_OT_UNLATCH_TIME 10
-#define WLSPD_L_UNLATCH_TIME 10
+#define WLSPD_L_UNLATCH_TIME 20
 #define WLSPD_R_UNLATCH_TIME 10
 #define DRIVELINE_COMM_UNLATCH_TIME 10
 #define BMS_UNLATCH_TIME 10
@@ -187,7 +187,6 @@ typedef struct {
     fault_priority_t priority;
     uint8_t bounces;
     uint16_t time_since_latch;
-    uint16_t last_rx_time;
     int f_max;
     int f_min;
     fault_status_t *status;

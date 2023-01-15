@@ -17,19 +17,19 @@ uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr);
 bool coolingInit()
 {
     /* Configure GPIO Interrupts */
-    // enable syscfg clock
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-    // set exti gpio source through syscfg (0b0010 means GPIOC)
-    SYSCFG->EXTICR[1] |= (((uint16_t)0b0010) << (DT_FLOW_RATE_PWM_Pin  - 4) * 4) |
-                         (((uint16_t)0b0010) << (BAT_FLOW_RATE_PWM_Pin - 4) * 4);
-    // unmask the interrupt
-    EXTI->IMR1 |= /*(0b1 << DT_FLOW_RATE_PWM_Pin) | */
-                  (0b1 << BAT_FLOW_RATE_PWM_Pin);
-    // set trigger to rising edge
-    EXTI->RTSR1 |= (0b1 << DT_FLOW_RATE_PWM_Pin) |
-                   (0b1 << BAT_FLOW_RATE_PWM_Pin);
-    // enable the interrupt handlers
-    NVIC_EnableIRQ(EXTI9_5_IRQn);
+    // // enable syscfg clock
+    // RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+    // // set exti gpio source through syscfg (0b0010 means GPIOC)
+    // SYSCFG->EXTICR[1] |= (((uint16_t)0b0010) << (DT_FLOW_RATE_PWM_Pin  - 4) * 4) |
+    //                      (((uint16_t)0b0010) << (BAT_FLOW_RATE_PWM_Pin - 4) * 4);
+    // // unmask the interrupt
+    // EXTI->IMR1 |= /*(0b1 << DT_FLOW_RATE_PWM_Pin) | */
+    //               (0b1 << BAT_FLOW_RATE_PWM_Pin);
+    // // set trigger to rising edge
+    // EXTI->RTSR1 |= (0b1 << DT_FLOW_RATE_PWM_Pin) |
+    //                (0b1 << BAT_FLOW_RATE_PWM_Pin);
+    // // enable the interrupt handlers
+    // NVIC_EnableIRQ(EXTI9_5_IRQn);
 
 
     // Default pin configurations
@@ -190,8 +190,8 @@ void setFanPWM(void) {
         time_curr = 0;
     }
 
-    PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, set_dt);
-    PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, set_bat);
+    // PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, set_dt);
+    // PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, set_bat);
 }
 
 void setDtCooling(uint8_t on)
@@ -206,12 +206,14 @@ void setDtCooling(uint8_t on)
 
 void setBatCooling(uint8_t on)
 {
+    /*
     if (!cooling.bat_pump && on) bat_pump_start_time_ms = sched.os_ticks;
     if (!on) cooling.bat_rose = 0;
     cooling.bat_pump = on;
     PHAL_writeGPIO(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, on);
     cooling.bat_fan_power = on ? 4 : 0;
     // PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, on);
+    */
 }
 
 float rawThermtoCelcius(uint16_t t)
@@ -239,33 +241,4 @@ static double native_log_computation(const double n) {
             d += 2, c *= f;
     } else b = (n == 0) / 0.;
     return n < 1 ? -(a + b) : a + b;
-}
-
-
-/* Interrupt handlers for counting sensor ticks */
-
-void EXTI9_5_IRQHandler()
-{
-
-    static uint32_t last_flow_meas_time_ms;
-    static uint32_t last_flow_meas_time_ms_other;
-
-    if (EXTI->PR1 & (0b1 << BAT_FLOW_RATE_PWM_Pin))
-    {
-        cooling.bat_delta_t = sched.os_ticks - last_flow_meas_time_ms;
-        last_flow_meas_time_ms = sched.os_ticks;
-
-        // clear flag
-        EXTI->PR1 = (0b1 << BAT_FLOW_RATE_PWM_Pin);
-    }
-
-    // check pin responsible
-    // if (EXTI->PR1 & (0b1 << DT_FLOW_RATE_PWM_Pin))
-    // {
-    //     cooling.dt_delta_t = sched.os_ticks - last_flow_meas_time_ms_other;
-    //     last_flow_meas_time_ms_other = sched.os_ticks;
-
-    //     // clear flag
-    //     EXTI->PR1 = (0b1 << DT_FLOW_RATE_PWM_Pin);
-    // }
 }

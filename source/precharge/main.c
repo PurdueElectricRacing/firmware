@@ -2,6 +2,7 @@
 #include "stm32l496xx.h"
 #include "system_stm32l4xx.h"
 #include "can_parse.h"
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/quadspi/quadspi.h"
@@ -13,7 +14,9 @@
 #include "main.h"
 #include "bmi088.h"
 #include "daq.h"
+#include "imu.h"
 #include "orion.h"
+#include "bsxlite_interface.h"
 
 #include "common/faults/faults.h"
 
@@ -100,6 +103,10 @@ BMI088_Handle_t bmi_config = {
     .spi = &spi_config
 };
 
+IMU_Handle_t imu_h = {
+    .bmi = &bmi_config,
+};
+
 
 int main (void)
 {
@@ -113,6 +120,9 @@ int main (void)
 
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         PHAL_FaultHandler();
+
+    // set high during init
+    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
 
     if (1 != PHAL_initCAN(CAN1, false))
         PHAL_FaultHandler();
@@ -137,16 +147,13 @@ int main (void)
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    //Preflight animation + checks - not relavant to BMS
     configureAnim(preflightAnimation, preflightChecks, 75, 750);
-    //Just heartbeat
-
     taskCreate(heartbeatTask, 500);
     taskCreate(orionCheckTempsPeriodic, 500);
     taskCreate(monitorStatus, 50);
     taskCreate(orionChargePeriodic, 50);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(sendIMUData, 10);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -187,13 +194,14 @@ void preflightChecks(void)
         case 500:
             if (!BMI088_initAccel(&bmi_config))
                 PHAL_FaultHandler();
-            break;
-
-        case 750:
-            registerPreflightComplete(1);
-            break;
-
         default:
+            if (state > 750)
+            {
+                if (!imu_init(&imu_h))
+                    PHAL_FaultHandler();
+                registerPreflightComplete(1);
+                state = 751;
+            }
             break;
     }
 }
@@ -231,7 +239,7 @@ void heartbeatTask()
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 
-    // TODO: send heartbeat message containing error code (BMS, IMD, TEMP, ETC)
+    SEND_PRECHARGE_HB(q_tx_can, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin), orionErrors());
 }
 
 
@@ -242,17 +250,15 @@ void monitorStatus()
     imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
+
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
 }
 
 
+
 void sendIMUData()
 {
-    int16_t ax, ay, az, gx, gy, gz;
-    BMI088_readGyro(&bmi_config, &gx, &gy, &gz);
-    BMI088_readAccel(&bmi_config, &ax, &ay, &az);
-    SEND_ACCEL_DATA(q_tx_can, ax, ay, az);
-    SEND_GYRO_DATA(q_tx_can, gx, gy, gz);
+    imu_periodic(&imu_h);
 }
 
 
@@ -348,6 +354,11 @@ void CAN2_RX0_IRQHandler()
     }
 }
 
+void precharge_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.precharge_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
+}
 
 void PHAL_FaultHandler()
 {

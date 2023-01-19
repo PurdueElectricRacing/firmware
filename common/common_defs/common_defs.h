@@ -35,8 +35,11 @@
 	(typeof(a)) (ROUNDDOWN((uint32_t) (a) + __n - 1, __n));	\
 })
 
-/* Unit Conversions */
-
 /* Constants */
+#define PI (3.14159f)
+
+/* Unit Conversions */
+#define DEG_TO_RAD (PI / 180.0f)
+#define G_TO_M_S (9.80665f)
 
 #endif /* COMMON_DEFS_H_ */

@@ -1,5 +1,6 @@
 #include "stm32l496xx.h"
 
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
 #include "common/phal_L4/can/can.h"
@@ -10,11 +11,11 @@
 #include "common/phal_L4/dma/dma.h"
 
 /* Module Includes */
-#include "main.h"
-#include "can_parse.h"
-#include "daq.h"
-#include "cooling.h"
 #include "car.h"
+#include "can_parse.h"
+#include "cooling.h"
+#include "daq.h"
+#include "main.h"
 
 #include "common/faults/faults.h"
 
@@ -81,13 +82,15 @@ ADCChannelConfig_t adc_channel_config[] = {
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / (1)),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (4)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (4)),
 };
 
 /* Locals for Clock Rates */
@@ -124,7 +127,7 @@ int main (void)
     }
 
     /* Task Creation */
-    schedInit(SystemCoreClock);
+    schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
     taskCreate(coolingPeriodic, 100);
@@ -135,6 +138,15 @@ int main (void)
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+
+    /*
+    CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=0};\
+    CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+    data_a->LWS_Config.CCW = 0x3; // 0x5 - reset cal 0x3 - calibrate
+    data_a->LWS_Config.Reserved_1 = 0;
+    data_a->LWS_Config.Reserved_2 = 0;
+    qSendToBack(&q_tx_can, &msg);\
+    */
 
     schedStart();
 
@@ -231,6 +243,10 @@ void linkDAQVars()
     linkReada(DAQ_ID_BAT_LITERS_P_MIN_X10, &cooling.bat_liters_p_min_x10);
     linkReada(DAQ_ID_BAT_FLOW_ERROR, &cooling.bat_flow_error);
     linkReada(DAQ_ID_BAT_TEMP_ERROR, &cooling.bat_temp_error);
+    linkReada(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
+    linkWritea(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
+    linkReada(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
+    linkWritea(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
 }
 
 void canTxUpdate(void)
@@ -242,17 +258,14 @@ void canTxUpdate(void)
     }
 }
 
-void bootloader_request_reset_CALLBACK(CanParsedData_t* data)
-{
-    // Bootloader_ResetForFirmwareDownload();
-}
-
 void CAN1_RX0_IRQHandler()
 {
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
         CAN1->RF0R &= !(CAN_RF0R_FOVR0);
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
         CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
@@ -261,13 +274,14 @@ void CAN1_RX0_IRQHandler()
         rx.Bus = CAN1;
 
         // Get either StdId or ExtId
-        if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+        rx.IDE = CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR;
+        if (rx.IDE)
         {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
         {
-          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_STID_Pos;
         }
 
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
@@ -282,9 +296,16 @@ void CAN1_RX0_IRQHandler()
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
         CAN1->RF0R |= (CAN_RF0R_RFOM0);
+        CAN1->RF0R |= (CAN_RF0R_RFOM0);
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 void HardFault_Handler()

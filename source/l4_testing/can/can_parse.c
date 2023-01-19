@@ -22,7 +22,7 @@ void initCANParse(q_handle_t* rx_a)
     initCANFilter();
 }
 
-void canRxUpdate()
+void canRxUpdate(void)
 {
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
@@ -35,7 +35,11 @@ void canRxUpdate()
         {
             case ID_FRONT_DRIVELINE_HB:
                 can_data.front_driveline_hb.front_left_motor = msg_data_a->front_driveline_hb.front_left_motor;
+                can_data.front_driveline_hb.front_left_motor_link = msg_data_a->front_driveline_hb.front_left_motor_link;
+                can_data.front_driveline_hb.front_left_last_link_error = msg_data_a->front_driveline_hb.front_left_last_link_error;
                 can_data.front_driveline_hb.front_right_motor = msg_data_a->front_driveline_hb.front_right_motor;
+                can_data.front_driveline_hb.front_right_motor_link = msg_data_a->front_driveline_hb.front_right_motor_link;
+                can_data.front_driveline_hb.front_right_last_link_error = msg_data_a->front_driveline_hb.front_right_last_link_error;
                 can_data.front_driveline_hb.stale = 0;
                 can_data.front_driveline_hb.last_rx = sched.os_ticks;
                 break;
@@ -53,6 +57,11 @@ void canRxUpdate()
                 break;
             case ID_CAR_STATE2:
                 can_data.car_state2.car_state2 = msg_data_a->car_state2.car_state2;
+                break;
+            case ID_L4_TESTING_BL_CMD:
+                can_data.l4_testing_bl_cmd.cmd = msg_data_a->l4_testing_bl_cmd.cmd;
+                can_data.l4_testing_bl_cmd.data = msg_data_a->l4_testing_bl_cmd.data;
+                l4_testing_bl_cmd_CALLBACK(msg_data_a);
                 break;
             case ID_FAULT_SYNC_MAIN_MODULE:
                 can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
@@ -132,17 +141,19 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR1 = (ID_TEST_STALE << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_CAR_STATE2 << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_L4_TESTING_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->FA1R |= (1 << 6);    // configure bank 6
+    CAN1->sFilterRegister[6].FR1 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

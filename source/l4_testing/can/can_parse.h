@@ -35,6 +35,7 @@
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
+#define ID_L4_TESTING_BL_CMD 0x409c83e
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
@@ -57,10 +58,11 @@
 #define DLC_CAR_STATE 1
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
-#define DLC_FRONT_DRIVELINE_HB 2
+#define DLC_FRONT_DRIVELINE_HB 6
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
+#define DLC_L4_TESTING_BL_CMD 5
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -168,17 +170,49 @@ typedef enum {
 
 typedef enum {
     FRONT_LEFT_MOTOR_DISCONNECTED,
-    FRONT_LEFT_MOTOR_INITIALIZING,
     FRONT_LEFT_MOTOR_CONNECTED,
+    FRONT_LEFT_MOTOR_CONFIG,
     FRONT_LEFT_MOTOR_ERROR,
 } front_left_motor_t;
 
 typedef enum {
+    FRONT_LEFT_MOTOR_LINK_DISCONNECTED,
+    FRONT_LEFT_MOTOR_LINK_ATTEMPTING,
+    FRONT_LEFT_MOTOR_LINK_VERIFYING,
+    FRONT_LEFT_MOTOR_LINK_DELAY,
+    FRONT_LEFT_MOTOR_LINK_CONNECTED,
+    FRONT_LEFT_MOTOR_LINK_FAIL,
+} front_left_motor_link_t;
+
+typedef enum {
+    FRONT_LEFT_LAST_LINK_ERROR_NONE,
+    FRONT_LEFT_LAST_LINK_ERROR_NOT_SERIAL,
+    FRONT_LEFT_LAST_LINK_ERROR_CMD_TIMEOUT,
+    FRONT_LEFT_LAST_LINK_ERROR_GEN_TIMEOUT,
+} front_left_last_link_error_t;
+
+typedef enum {
     FRONT_RIGHT_MOTOR_DISCONNECTED,
-    FRONT_RIGHT_MOTOR_INITIALIZING,
     FRONT_RIGHT_MOTOR_CONNECTED,
+    FRONT_RIGHT_MOTOR_CONFIG,
     FRONT_RIGHT_MOTOR_ERROR,
 } front_right_motor_t;
+
+typedef enum {
+    FRONT_RIGHT_MOTOR_LINK_DISCONNECTED,
+    FRONT_RIGHT_MOTOR_LINK_ATTEMPTING,
+    FRONT_RIGHT_MOTOR_LINK_VERIFYING,
+    FRONT_RIGHT_MOTOR_LINK_DELAY,
+    FRONT_RIGHT_MOTOR_LINK_CONNECTED,
+    FRONT_RIGHT_MOTOR_LINK_FAIL,
+} front_right_motor_link_t;
+
+typedef enum {
+    FRONT_RIGHT_LAST_LINK_ERROR_NONE,
+    FRONT_RIGHT_LAST_LINK_ERROR_NOT_SERIAL,
+    FRONT_RIGHT_LAST_LINK_ERROR_CMD_TIMEOUT,
+    FRONT_RIGHT_LAST_LINK_ERROR_GEN_TIMEOUT,
+} front_right_last_link_error_t;
 
 typedef enum {
     CAR_STATE2_READY2GO,
@@ -228,7 +262,11 @@ typedef union { __attribute__((packed))
     } daq_response_TEST_NODE;
     struct {
         uint64_t front_left_motor: 8;
+        uint64_t front_left_motor_link: 8;
+        uint64_t front_left_last_link_error: 8;
         uint64_t front_right_motor: 8;
+        uint64_t front_right_motor_link: 8;
+        uint64_t front_right_last_link_error: 8;
     } front_driveline_hb;
     struct {
         uint64_t test_sig5: 16;
@@ -241,6 +279,10 @@ typedef union { __attribute__((packed))
     struct {
         uint64_t car_state2: 8;
     } car_state2;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } l4_testing_bl_cmd;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -281,7 +323,11 @@ typedef union { __attribute__((packed))
 typedef struct {
     struct {
         front_left_motor_t front_left_motor;
+        front_left_motor_link_t front_left_motor_link;
+        front_left_last_link_error_t front_left_last_link_error;
         front_right_motor_t front_right_motor;
+        front_right_motor_link_t front_right_motor_link;
+        front_right_last_link_error_t front_right_last_link_error;
         uint8_t stale;
         uint32_t last_rx;
     } front_driveline_hb;
@@ -300,6 +346,10 @@ typedef struct {
     struct {
         car_state2_t car_state2;
     } car_state2;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } l4_testing_bl_cmd;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -337,6 +387,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
@@ -361,7 +412,7 @@ void initCANParse(q_handle_t* q_rx_can_a);
  *        update can_data struct,
  *        check for stale messages
  */
-void canRxUpdate();
+void canRxUpdate(void);
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ

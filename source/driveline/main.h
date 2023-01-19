@@ -24,6 +24,9 @@
 #define POT_AMP_RIGHT_Pin       (1)
 #define POT_AMP_RIGHT_ADC_CHNL  (6)
 
+#define POT_VOLT_MAX_DIST_MM (154) // distance at adc = 4095 (in mm)
+#define POT_VOLT_MIN_DIST_MM (203) // distance at adc = 0    (in mm)
+
 /* Motor Controllers */
 #define USART_L (USART1)
 #define USART_R (USART2)

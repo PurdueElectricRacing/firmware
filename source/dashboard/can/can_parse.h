@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
@@ -26,7 +26,16 @@
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
-#define ID_FRONT_WHEEL_DATA 0x4000003
+#define ID_REAR_WHEEL_DATA 0x4000043
+#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
+#define ID_ORION_INFO 0x140006b8
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_ORION_ERRORS 0xc000738
+#define ID_MAX_CELL_TEMP 0x404e604
+#define ID_REAR_CONTROLLER_TEMPS 0xc000303
+#define ID_PRECHARGE_HB 0x4001944
+#define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
@@ -45,7 +54,16 @@
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
-#define DLC_FRONT_WHEEL_DATA 8
+#define DLC_REAR_WHEEL_DATA 8
+#define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
+#define DLC_ORION_INFO 7
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_ORION_ERRORS 4
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_REAR_CONTROLLER_TEMPS 2
+#define DLC_PRECHARGE_HB 2
+#define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_DASHBOARD_BL_CMD 5
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -98,7 +116,14 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 100
-#define UP_FRONT_WHEEL_DATA 10
+#define UP_REAR_WHEEL_DATA 10
+#define UP_REAR_MOTOR_CURRENTS_TEMPS 500
+#define UP_ORION_INFO 32
+#define UP_ORION_CURRENTS_VOLTS 32
+#define UP_ORION_ERRORS 1000
+#define UP_REAR_CONTROLLER_TEMPS 500
+#define UP_PRECHARGE_HB 100
+#define UP_TORQUE_REQUEST_MAIN 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -148,7 +173,94 @@ typedef union { __attribute__((packed))
         uint64_t right_speed: 16;
         uint64_t left_normal: 16;
         uint64_t right_normal: 16;
-    } front_wheel_data;
+    } rear_wheel_data;
+    struct {
+        uint64_t left_current: 16;
+        uint64_t right_current: 16;
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+        uint64_t right_voltage: 16;
+    } rear_motor_currents_temps;
+    struct {
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t discharge_limit_enforce: 1;
+        uint64_t charger_safety_relay: 1;
+        uint64_t internal_hardware: 1;
+        uint64_t heatsink_thermistor: 1;
+        uint64_t software: 1;
+        uint64_t max_cellv_high: 1;
+        uint64_t min_cellv_low: 1;
+        uint64_t pack_overheat: 1;
+        uint64_t reserved0: 1;
+        uint64_t reserved1: 1;
+        uint64_t reserved2: 1;
+        uint64_t reserved3: 1;
+        uint64_t reserved4: 1;
+        uint64_t reserved5: 1;
+        uint64_t reserved6: 1;
+        uint64_t reserved7: 1;
+        uint64_t internal_comms: 1;
+        uint64_t cell_balancing_foff: 1;
+        uint64_t weak_cell: 1;
+        uint64_t low_cellv: 1;
+        uint64_t open_wire: 1;
+        uint64_t current_sensor: 1;
+        uint64_t max_cellv_o5v: 1;
+        uint64_t cell_asic: 1;
+        uint64_t weak_pack: 1;
+        uint64_t fan_monitor: 1;
+        uint64_t thermistor: 1;
+        uint64_t external_comms: 1;
+        uint64_t redundant_psu: 1;
+        uint64_t hv_isolation: 1;
+        uint64_t input_psu: 1;
+        uint64_t charge_limit_enforce: 1;
+    } orion_errors;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t left_temp: 8;
+        uint64_t right_temp: 8;
+    } rear_controller_temps;
+    struct {
+        uint64_t IMD: 8;
+        uint64_t BMS: 8;
+    } precharge_hb;
+    struct {
+        uint64_t front_left: 16;
+        uint64_t front_right: 16;
+        uint64_t rear_left: 16;
+        uint64_t rear_right: 16;
+    } torque_request_main;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } dashboard_bl_cmd;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -200,7 +312,108 @@ typedef struct {
         uint16_t right_normal;
         uint8_t stale;
         uint32_t last_rx;
-    } front_wheel_data;
+    } rear_wheel_data;
+    struct {
+        uint16_t left_current;
+        uint16_t right_current;
+        uint8_t left_temp;
+        uint8_t right_temp;
+        uint16_t right_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_motor_currents_temps;
+    struct {
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_info;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        uint8_t discharge_limit_enforce;
+        uint8_t charger_safety_relay;
+        uint8_t internal_hardware;
+        uint8_t heatsink_thermistor;
+        uint8_t software;
+        uint8_t max_cellv_high;
+        uint8_t min_cellv_low;
+        uint8_t pack_overheat;
+        uint8_t reserved0;
+        uint8_t reserved1;
+        uint8_t reserved2;
+        uint8_t reserved3;
+        uint8_t reserved4;
+        uint8_t reserved5;
+        uint8_t reserved6;
+        uint8_t reserved7;
+        uint8_t internal_comms;
+        uint8_t cell_balancing_foff;
+        uint8_t weak_cell;
+        uint8_t low_cellv;
+        uint8_t open_wire;
+        uint8_t current_sensor;
+        uint8_t max_cellv_o5v;
+        uint8_t cell_asic;
+        uint8_t weak_pack;
+        uint8_t fan_monitor;
+        uint8_t thermistor;
+        uint8_t external_comms;
+        uint8_t redundant_psu;
+        uint8_t hv_isolation;
+        uint8_t input_psu;
+        uint8_t charge_limit_enforce;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_errors;
+    struct {
+        uint16_t max_temp;
+    } max_cell_temp;
+    struct {
+        uint8_t left_temp;
+        uint8_t right_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_controller_temps;
+    struct {
+        uint8_t IMD;
+        uint8_t BMS;
+        uint8_t stale;
+        uint32_t last_rx;
+    } precharge_hb;
+    struct {
+        int16_t front_left;
+        int16_t front_right;
+        int16_t rear_left;
+        int16_t rear_right;
+        uint8_t stale;
+        uint32_t last_rx;
+    } torque_request_main;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } dashboard_bl_cmd;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -238,6 +451,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
@@ -252,7 +466,7 @@ extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
 
 /**
  * @brief Setup queue and message filtering
- * 
+ *
  * @param q_rx_can RX buffer of CAN messages
  */
 void initCANParse(q_handle_t* q_rx_can_a);
@@ -266,9 +480,11 @@ void canRxUpdate();
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ
- * 
+ *
  * @param rx rx data from message just recieved
  */
 void canProcessRxIRQs(CanMsgTypeDef_t* rx);
+
+extern volatile uint32_t last_can_rx_time_ms;
 
 #endif

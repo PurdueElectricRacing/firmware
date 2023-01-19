@@ -11,7 +11,7 @@ extern q_handle_t q_tx_can;
 bool charge_request_user = false; // Enable charge algo
 uint16_t user_charge_current_request = 0;
 uint16_t user_charge_voltage_request = 0;
-uint8_t  orion_bms_temp_err = 1;
+uint8_t  orion_bms_temp_err = 0;
 
 
 void orionInit()
@@ -26,7 +26,18 @@ void orionInit()
 
 
 bool orionErrors() {
-    return (can_data.orion_info.dtc_status ||
+    static uint8_t counter;
+    bool bms_err = false;
+
+    // Require dtc to be held high 4x before signaling error
+    counter = can_data.orion_info.dtc_status ? counter + 1 : 0;
+    if (counter == 4)
+    {
+        counter--;
+        bms_err = true;
+    }
+
+    return (bms_err ||
             /* TODO: can_data.orion_info.stale || */
             orion_bms_temp_err);
 }
@@ -55,7 +66,7 @@ void orionChargePeriodic() {
 
             charge_current_req = MIN(can_data.orion_info.pack_ccl, user_charge_current_request);
 
-            charge_voltage_req = MIN(charge_voltage_req, MAX_VOLT); // Hard limit, don't overcharge
+            charge_voltage_req = MIN(user_charge_voltage_request, MAX_VOLT); // Hard limit, don't overcharge
             charge_voltage_req *=  10;
             charge_current_req *= 10;
 
@@ -78,14 +89,14 @@ void orionChargePeriodic() {
 }
 
 
-uint16_t* orion_temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0, &can_data.module_temp_1.mod_temp_0,
-                              &can_data.module_temp_2.mod_temp_0, &can_data.module_temp_3.mod_temp_0,
-                              &can_data.module_temp_4.mod_temp_0, &can_data.module_temp_5.mod_temp_0,
-                              &can_data.module_temp_6.mod_temp_0, &can_data.module_temp_7.mod_temp_0,
-                              &can_data.module_temp_8.mod_temp_0, &can_data.module_temp_9.mod_temp_0,
-                              &can_data.module_temp_10.mod_temp_0, &can_data.module_temp_11.mod_temp_0,
-                              &can_data.module_temp_12.mod_temp_0, &can_data.module_temp_13.mod_temp_0,
-                              &can_data.module_temp_14.mod_temp_0, &can_data.module_temp_15.mod_temp_0};
+uint16_t* orion_temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0,  &can_data.module_temp_1.mod_temp_0,
+                                    &can_data.module_temp_2.mod_temp_0,  &can_data.module_temp_3.mod_temp_0,
+                                    &can_data.module_temp_4.mod_temp_0,  &can_data.module_temp_5.mod_temp_0,
+                                    &can_data.module_temp_6.mod_temp_0,  &can_data.module_temp_7.mod_temp_0,
+                                    &can_data.module_temp_8.mod_temp_0,  &can_data.module_temp_9.mod_temp_0,
+                                    &can_data.module_temp_10.mod_temp_0, &can_data.module_temp_11.mod_temp_0,
+                                    &can_data.module_temp_12.mod_temp_0, &can_data.module_temp_13.mod_temp_0,
+                                    &can_data.module_temp_14.mod_temp_0, &can_data.module_temp_15.mod_temp_0};
 
 void orionCheckTempsPeriodic (){
     uint16_t max_temp = 0;
@@ -93,6 +104,7 @@ void orionCheckTempsPeriodic (){
     uint16_t *curr_address = &can_data.module_temp_0.mod_temp_0;
     float    avg_temp[4] = {0};
 
+    // Calculate average temperature per module and overall max
     for (i = 0; i < 16; i++) {
         for (j = 0; j < 4; j++) {
             avg_temp[j] += ((float) *(orion_temp_pointer[i] + j)) / 10;
@@ -103,10 +115,29 @@ void orionCheckTempsPeriodic (){
     }
 
     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), 
-                                     (uint16_t) (avg_temp[1] * 10 / 16), 
-                                     (uint16_t) (avg_temp[2] * 10 / 16), 
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16),
+                                     (uint16_t) (avg_temp[1] * 10 / 16),
+                                     (uint16_t) (avg_temp[2] * 10 / 16),
                                      (uint16_t) (avg_temp[3] * 10 / 16));
 
-    orion_bms_temp_err = max_temp >= MAX_TEMP;
+    // Send raw temperatures for heat map generation
+    static uint8_t idx;
+    SEND_RAW_CELL_TEMP(q_tx_can, idx,
+                                 *(orion_temp_pointer[idx] + 0),
+                                 *(orion_temp_pointer[idx] + 1),
+                                 *(orion_temp_pointer[idx] + 2),
+                                 *(orion_temp_pointer[idx] + 3));
+    idx = (idx == 15) ? 0 : idx + 1;
+
+    // Require over-temp 10 times before signaling error (filter out noise)
+    static uint8_t counter;
+    counter = (max_temp >= MAX_TEMP) ? counter + 1 : 0;
+
+    if (counter == 10)
+    {
+        counter--;
+        orion_bms_temp_err = 1;
+    }
+    else orion_bms_temp_err = 0;
+
 }

@@ -131,6 +131,7 @@ void schedInit(uint32_t freq)
 
     // Configure timer 2
     // Targeting an interrupt every 1 ms
+    if (RCC->CFGR & RCC_CFGR_PPRE1_2) freq *= 2; // RM0394 pg 188 (timer clock doubles if apb1 prescaler != 0)
     RCC->APB1ENR1 |= RCC_APB1ENR1_TIM7EN;
     TIM7->PSC = (freq / 1000000) - 1;
     TIM7->ARR = ARR_SET;

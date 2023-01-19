@@ -10,6 +10,8 @@
  */
 #include "common/phal_L4/can/can.h"
 
+extern uint32_t APB1ClockRateHz;
+
 bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
 {
     uint32_t timeout = 0;
@@ -48,7 +50,22 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    bus->BTR = 0x001c0001;
+    switch (APB1ClockRateHz)
+    {
+        case 16000000:
+            bus->BTR = PHAL_CAN_16MHz_500k;
+            break;
+        case 20000000:
+            bus->BTR = PHAL_CAN_20MHz_500k;
+            break;
+        case 80000000:
+            bus->BTR = PHAL_CAN_80MHz_500k;
+            break;
+        default:
+            return false;
+    }
+    if (APB1ClockRateHz == 16000000)
+    
     
     // Keep the bus active
     bus->MCR |= CAN_MCR_ABOM;

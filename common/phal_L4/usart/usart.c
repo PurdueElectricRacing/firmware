@@ -31,7 +31,6 @@ bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_
 
         case USART2_BASE:
             RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
-            break;
 
         case LPUART1_BASE:
             RCC->APB1ENR2 |= RCC_APB1ENR2_LPUART1EN;

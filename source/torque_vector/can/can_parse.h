@@ -25,9 +25,8 @@
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42
 #define ID_FRONT_WHEEL_DATA 0x4000003
 #define ID_REAR_WHEEL_DATA 0x4000043
-#define ID_BITSTREAM_DATA 0x1000193e
+#define ID_BITSTREAM_DATA 0x400193e
 #define ID_BITSTREAM_REQUEST 0x1000197e
-#define ID_BOOTLOADER_REQUEST_RESET 0x809c43e
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
@@ -46,7 +45,6 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_BITSTREAM_DATA 8
 #define DLC_BITSTREAM_REQUEST 5
-#define DLC_BOOTLOADER_REQUEST_RESET 1
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -140,9 +138,6 @@ typedef union { __attribute__((packed))
         uint64_t download_size: 32;
     } bitstream_request;
     struct {
-        uint64_t node: 8;
-    } bootloader_request_reset;
-    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_main_module;
@@ -208,9 +203,6 @@ typedef struct {
         uint32_t download_size;
     } bitstream_request;
     struct {
-        uint8_t node;
-    } bootloader_request_reset;
-    struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_main_module;
@@ -244,7 +236,6 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bootloader_request_reset_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
 extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);

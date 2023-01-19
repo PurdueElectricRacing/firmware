@@ -23,7 +23,7 @@ typedef void (*write_func_ptr_t)(void* arg);
 #define NODE_NAME "Main_Module"
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 6
+#define NUM_VARS 8
 // END AUTO VAR COUNT
 
 #define DAQ_UPDATE_PERIOD 15 // ms
@@ -68,6 +68,8 @@ typedef enum
 #define DAQ_ID_DT_TEMP_ERROR 3
 #define DAQ_ID_BAT_FLOW_ERROR 4
 #define DAQ_ID_BAT_TEMP_ERROR 5
+#define DAQ_ID_MOT_LEFT_REQ 6
+#define DAQ_ID_MOT_RIGHT_REQ 7
 // END AUTO VAR IDs
 
 typedef struct

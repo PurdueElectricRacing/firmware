@@ -4,24 +4,24 @@
  * @brief  Drivetrain and Battery Temperature Control
  * @version 0.1
  * @date 2022-03-01
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _COOLING_H_
 #define _COOLING_H_
 
-#include "stm32l496xx.h"
+#include "can_parse.h"
+#include "car.h"
 #include "common/common_defs/common_defs.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/psched/psched.h"
-#include <stdbool.h>
-#include <math.h>
 #include <float.h>
-#include "can_parse.h"
 #include "main.h"
-#include "car.h"
+#include <math.h>
+#include <stdbool.h>
+#include "stm32l496xx.h"
 
 //45 C  (off fail state) bat
 //90 C  (drivetrain)
@@ -59,7 +59,7 @@
 
 // Thermistor specifications
 #define THERM_R1  10000 // Top resistor in voltage divider
-#define MAX_THERM 4096  // 12-bit adc precision
+#define MAX_THERM 4095  // 12-bit adc precision
 // Temp (Celcius) = a * ln(resistance) + b
 #define THERM_A (-25.16)
 #define THERM_B (260.93)
@@ -81,7 +81,7 @@ typedef struct
     uint8_t dt_fan_power;        // DT fan turned on
     uint8_t dt_temp_error; // DT either over temp or not receiving
     uint8_t dt_flow_error; // DT flow is too low
-    uint8_t dt_rose;       // DT pump has been on for 
+    uint8_t dt_rose;       // DT pump has been on for
                            // the startup time
     uint8_t bat_pump;      // BAT pump turned on
     uint8_t bat_fan_power;       // BAT fan turned on
@@ -116,4 +116,5 @@ void coolingPeriodic();
 float rawThermtoCelcius(uint16_t t);
 
 void setFanPWM(void);
+static double native_log_computation(const double);
 #endif

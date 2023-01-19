@@ -11,12 +11,12 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 
-#include <stdbool.h>
+#include "can_parse.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/psched/psched.h"
-#include "main.h"
-#include "can_parse.h"
 #include "cooling.h"
+#include "main.h"
+#include <stdbool.h>
 
 #define BUZZER_DURATION_MS 2500 // EV.10.5: 1-3s
 
@@ -82,6 +82,11 @@ typedef struct
     uint16_t max_cell_temp;
     uint16_t lv_current_mA;
 } Car_t;
+
+// DAQ testing variables
+extern uint16_t mot_left_req;  // 0 - 4095 value
+extern uint16_t mot_right_req; // 0 - 4095 value
+extern uint8_t prchg_set;
 
 volatile extern Car_t car;
 

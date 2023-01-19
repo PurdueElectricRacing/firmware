@@ -10,12 +10,22 @@ gen_auto_var_ct_start       = "BEGIN AUTO VAR COUNT"
 gen_auto_var_ct_stop        = "END AUTO VAR COUNT"
 gen_auto_var_ids_start      = "BEGIN AUTO VAR IDs"
 gen_auto_var_ids_stop       = "END AUTO VAR IDs"
+
+gen_auto_file_structs_start = "BEGIN AUTO FILE STRUCTS"
+gen_auto_file_structs_stop  = "END AUTO FILE STRUCTS"
+
+gen_auto_file_defaults_start = "BEGIN AUTO FILE DEFAULTS"
+gen_auto_file_defaults_stop  = "END AUTO FILE DEFAULTS"
+
+gen_auto_init_start = "BEGIN AUTO INIT"
+gen_auto_init_stop  = "END AUTO INIT"
+
+gen_auto_var_includes_start = "BEGIN AUTO VAR INCLUDES"
+gen_auto_var_includes_stop  = "END AUTO VAR INCLUDES"
 gen_auto_var_defs_start     = "BEGIN AUTO VAR DEFS"
 gen_auto_var_defs_stop      = "END AUTO VAR DEFS"
 gen_auto_callback_def_start = "BEGIN AUTO CALLBACK DEF"
 gen_auto_callback_def_stop  = "END AUTO CALLBACK DEF"
-gen_auto_daq_send_start     = "BEGIN AUTO DAQ SEND DEF"
-gen_auto_daq_send_stop      = "END AUTO DAQ SEND DEF"
 
 def generate_daq_can_msgs(daq_config, can_config):
     """ generates message definitions for daq commands and responses """
@@ -99,11 +109,29 @@ def configure_node(node_config, node_paths):
 
     # define NUM_VARS
     num_vars = len(node_config['variables'])
+    if 'files' in node_config:
+        for file in node_config['files']:
+            num_vars += len(file['contents'])
     generator.insert_lines(h_lines, gen_auto_var_ct_start, gen_auto_var_ct_stop, [f"#define NUM_VARS {num_vars}\n"])
 
     # define variable IDs
     var_id_lines = [f"#define DAQ_ID_{var['var_name'].upper()} {idx}\n" for idx, var in enumerate(node_config['variables'])]
+    if 'files' in node_config:
+        for file in node_config['files']:
+            offset = len(var_id_lines)
+            var_id_lines += [f"#define DAQ_ID_{var['var_name'].upper()} {idx + offset}\n" for idx, var in enumerate(file['contents'])]
     generator.insert_lines(h_lines, gen_auto_var_ids_start, gen_auto_var_ids_stop, var_id_lines)
+
+    # generate file structures
+    file_struct_lines = []
+    if 'files' in node_config:
+        for file in node_config['files']:
+            file_struct_lines.append("typedef struct { \n")
+            for file_var in file['contents']:
+                file_struct_lines.append(f"    {file_var['type']}   {file_var['var_name']};\n")
+            file_struct_lines.append(f"}} __attribute__((packed)) {file['name']}_t;\n\n")
+            file_struct_lines.append(f"extern {file['name']}_t {file['name']};\n\n")
+    generator.insert_lines(h_lines, gen_auto_file_structs_start, gen_auto_file_structs_stop, file_struct_lines)
 
     # Write changes to header file
     with open(node_paths[0], "w") as h_file:
@@ -115,16 +143,87 @@ def configure_node(node_config, node_paths):
     with open(node_paths[1], "r") as c_file:
         c_lines = c_file.readlines()
 
+    # define variable includes
+    var_includes = node_config['includes'] + '\n'
+    generator.insert_lines(c_lines, gen_auto_var_includes_start, gen_auto_var_includes_stop, var_includes)
+
+    # define file defaults
+    file_struct_lines = []
+    if 'files' in node_config:
+        for file in node_config['files']:
+            file_struct_lines.append(f"{file['name']}_t {file['name']} = {{\n")
+            for file_var in file['contents']:
+                file_struct_lines.append(f"    .{file_var['var_name']} = {file_var['default']},\n")
+            file_struct_lines.append(f"}};\n")
+    generator.insert_lines(c_lines, gen_auto_file_defaults_start, gen_auto_file_defaults_stop, file_struct_lines)
+
+    # define file mappings
+    init_lines = []
+    init_lines.append(f"    daqInitBase(tx_a, NUM_VARS, {node_config['daq_rsp_msg_periph']}, ID_DAQ_RESPONSE_{node_config['node_name'].upper()}, tracked_vars);\n")
+    if 'files' in node_config:
+        for file in node_config['files']:
+            init_lines.append(f"    mapMem((uint8_t *) &{file['name']}, sizeof({file['name']}), \"{file['eeprom_lbl']}\", 1);\n")
+    generator.insert_lines(c_lines, gen_auto_init_start, gen_auto_init_stop, init_lines)
+
+
     # define variable definitions
     var_defs = ["daq_variable_t tracked_vars[NUM_VARS] = {\n"]
     for var in node_config['variables']:
-        line = f"    {{.is_read_only={int(var['read_only'])}, .bit_length={var['bit_length']}, "
-        if "eeprom" in var:
-            line += f".eeprom_enabled=1, .eeprom_label=\"{var['eeprom']['label']}\", .eeprom_version={var['eeprom']['version']}"
+
+        # calculate bit length
+        bit_length = generator.data_type_length[var['type']]
+        if ('length' in var):
+            if ('uint' in var['type']):
+                if (var['length'] > bit_length):
+                    generator.log_error(f"Variable {var['var_name']} length too large for defined data type")
+                    quit(1)
+                else:
+                    bit_length = var['length']
+            else:
+                generator.log_error(f"Don't define length for types other than unsigned integers, variable: {var['var_name']}")
+                quit(1)
+        var['length'] = bit_length
+
+        line = f"    {{.is_read_only={int(var['read_only'])}, .bit_length={var['length']}, "
+
+        if ('has_read_func' in var and var['has_read_func']):
+            if ('access_phrase_write' not in var and not var['read_only']):
+                generator.log_error(f"If access phrase is a read function, and not read only, must define access_phrase_write: {var['var_name']}")
+                quit(1)
+            line += f".has_read_func=1, .read_fnc_a={var['access_phrase']}, "
         else:
-            line += f".eeprom_enabled=0"
+            line += f".read_var_a=&{var['access_phrase']}, "
+        if (not var['read_only']):
+            if ('access_phrase_write' in var):
+                if ('has_write_func' in var and var['has_write_func']):
+                    line += f".has_write_func=1, .write_fnc_a={var['access_phrase_write']}, "
+                else:
+                    line += f".write_var_a=&{var['access_phrase_write']}, "
+            else:
+                line += f".write_var_a=&{var['access_phrase']}, "
+        else:
+            line += f".write_var_a=NULL, "
+            
         line += "},\n"
         var_defs.append(line)
+
+    # file variables are similar, but slighlty different
+    if 'files' in node_config:
+        for file in node_config['files']:
+            for var in file['contents']:
+                # calculate bit length
+                bit_length = generator.data_type_length[var['type']]
+                if ('length' in var):
+                    generator.log_error(f"Variable {var['var_name']} custom length not supported for file variable")
+                    quit(1)
+                var['length'] = bit_length
+
+                line = f"    {{.is_read_only=0, .bit_length={var['length']}, "
+                line += f".read_var_a=&({file['name']}.{var['var_name']}), "
+                line += f".write_var_a=&({file['name']}.{var['var_name']}), "
+                line += "},\n"
+                var_defs.append(line)
+
     var_defs.append("};\n")
     generator.insert_lines(c_lines, gen_auto_var_defs_start, gen_auto_var_defs_stop, var_defs)
 
@@ -132,15 +231,10 @@ def configure_node(node_config, node_paths):
     callback_def = [f"void daq_command_{node_config['node_name'].upper()}_CALLBACK(CanMsgTypeDef_t* msg_header_a)\n"]
     generator.insert_lines(c_lines, gen_auto_callback_def_start, gen_auto_callback_def_stop, callback_def)
 
-    # define msg send
-    msg_send = []
-    msg_send.append(f"                           .Bus={node_config['daq_rsp_msg_periph']},\n")
-    msg_send.append(f"                           .ExtId=ID_DAQ_RESPONSE_{node_config['node_name'].upper()},\n")
-    generator.insert_lines(c_lines, gen_auto_daq_send_start, gen_auto_daq_send_stop, msg_send)
-
     # Write changes to source file
     with open(node_paths[1], "w") as c_file:
         c_file.writelines(c_lines)
+
 
 def configure_bus(bus, source_dir, c_dir, h_dir):
     """ Generates daq code for nodes on a bus """

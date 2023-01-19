@@ -1,3 +1,4 @@
+#if FALSE
 #include "common/phal_L4/eeprom/eeprom.h"
 
 // EEPROM struct
@@ -466,3 +467,4 @@ static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len) {
         dest[i] = src[i];
     }
 }
+#endif

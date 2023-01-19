@@ -96,7 +96,7 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { __attribute__((packed))
+typedef union { 
     struct {
         uint64_t front_left: 12;
         uint64_t front_right: 12;
@@ -165,7 +165,7 @@ typedef union { __attribute__((packed))
         uint64_t id: 16;
     } return_fault_control;
     uint8_t raw_data[8];
-} CanParsedData_t;
+} __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
 
 // contains most up to date received

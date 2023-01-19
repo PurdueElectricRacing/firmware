@@ -232,7 +232,7 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { __attribute__((packed))
+typedef union { 
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -380,7 +380,7 @@ typedef union { __attribute__((packed))
         uint64_t data: 32;
     } l4_testing_bl_cmd;
     uint8_t raw_data[8];
-} CanParsedData_t;
+} __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
 
 // contains most up to date received

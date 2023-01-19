@@ -14,8 +14,12 @@
 extern uint32_t APB2ClockRateHz;
 static volatile SPI_InitConfig_t* active_transfer = NULL;
 
+static uint16_t trash_can; // Used as an address for DMA to dump data into
+static uint16_t zero;      // Used as a constant zero during transmissions
+
 bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
 {
+    zero = 0;
     // Enable RCC Clock
     RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
 
@@ -71,10 +75,20 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     spi->_busy = true;
     
     SPI1->CR2 |= SPI_CR2_TXDMAEN;
+    if (!out_data)
+    {
+        out_data = &zero;
+        spi->tx_dma_cfg->channel->CCR &= ~DMA_CCR_MINC;
+    }
     PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
     PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) out_data);
 
     SPI1->CR2 |= SPI_CR2_RXDMAEN;
+    if (!in_data)
+    {
+        in_data = &trash_can;
+        spi->rx_dma_cfg->channel->CCR &= ~DMA_CCR_MINC;
+    }
     PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
     PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) in_data);
 
@@ -95,8 +109,10 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
 
 bool PHAL_SPI_busy()
 {
-    if (active_transfer)
-        return active_transfer->_busy;
+    // Latch in case active_transfer cleared during interrupt
+    SPI_InitConfig_t *act = active_transfer;
+    if (act)
+        return act->_busy;
     return false;
 }
 
@@ -139,6 +155,12 @@ void DMA1_Channel2_IRQHandler()
         // Disable DMA channels
         PHAL_stopTxfer(active_transfer->rx_dma_cfg);
         PHAL_stopTxfer(active_transfer->tx_dma_cfg);
+
+        // Revert to mem_inc if trash_can used
+        if (active_transfer->rx_dma_cfg->mem_inc)
+            active_transfer->rx_dma_cfg->channel->CCR |= DMA_CCR_MINC;
+        if (active_transfer->tx_dma_cfg->mem_inc)
+            active_transfer->tx_dma_cfg->channel->CCR |= DMA_CCR_MINC;
 
         // Disable SPI peripheral and DMA requests
         SPI1->CR1 &= ~SPI_CR1_SPE;

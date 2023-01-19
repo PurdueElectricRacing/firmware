@@ -42,4 +42,14 @@
 #define TIM16_Pin (6)
 #define TIM16_AF (14)
 
+// SPI
+#define SPI_SCLK_GPIO_Port (GPIOA)
+#define SPI_SCLK_Pin (5)
+#define SPI_MISO_GPIO_Port (GPIOA)
+#define SPI_MISO_Pin (6)
+#define SPI_MOSI_GPIO_Port (GPIOA)
+#define SPI_MOSI_Pin (7)
+#define SPI_CS_EEPROM_GPIO_Port (GPIOA)
+#define SPI_CS_EEPROM_Pin (4)
+
 #endif

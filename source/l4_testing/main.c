@@ -7,12 +7,9 @@
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/adc/adc.h"
 #include "common/phal_L4/usart/usart.h"
-#if EEPROM_ENABLED
-#include "common/phal_L4/i2c/i2c.h"
-#include "common/eeprom/eeprom.h"
-#endif
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
+#include "common/phal_L4/eeprom_spi/eeprom_spi.h"
 #include <math.h>
 
 /* Module Includes */
@@ -33,7 +30,7 @@ GPIOInitConfig_t gpio_config[] = {
 //   GPIO_INIT_I2C3_SCL_PA7,
 //   GPIO_INIT_I2C3_SDA_PB4,
 // #endif
-//   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
+  GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
 //   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
 //   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED1_GPIO_Port, LED1_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -43,6 +40,11 @@ GPIOInitConfig_t gpio_config[] = {
 //   GPIO_INIT_ANALOG(POT_GPIO_Port, POT_Pin),
 //   GPIO_INIT_ANALOG(POT2_GPIO_Port, POT2_Pin),
 //   GPIO_INIT_ANALOG(POT3_GPIO_Port, POT3_Pin)
+    // SPI
+    GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(SPI_CS_EEPROM_GPIO_Port, SPI_CS_EEPROM_Pin, GPIO_OUTPUT_HIGH_SPEED),
 };
 
 ADCInitConfig_t adc_config = {
@@ -82,8 +84,20 @@ usart_init_t huart1 = {
                    },
 };
 
-static uint16_t adc_conversions[3];
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
+SPI_InitConfig_t spi_config = {
+    .data_len  = 8,
+    .nss_sw = false,
+    .nss_gpio_port = SPI_CS_EEPROM_GPIO_Port,
+    .nss_gpio_pin = SPI_CS_EEPROM_Pin,
+    .rx_dma_cfg = &spi_rx_dma_config,
+    .tx_dma_cfg = &spi_tx_dma_config
+};
+
+static uint16_t adc_conversions[3];
+uint8_t charge_enable;
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 3, 0b01);
 
 #define TargetCoreClockrateHz 80000000
@@ -134,6 +148,7 @@ dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 uint8_t my_counter = 0;
 uint16_t my_counter2 = 85; // Warning: daq variables with eeprom capability may
                            // initialize to something else
+uint8_t green_on = 0;
 
 uint64_t faults = 0;
 
@@ -204,6 +219,20 @@ int main (void)
     }*/
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
+    spi_config.data_rate = APB2ClockRateHz / 4; // 5 MHz
+    if (!PHAL_SPI_init(&spi_config))
+        HardFault_Handler();
+    initMem(GPIOA, 3, &spi_config, 1, 1);
+    // uint8_t  page[MICRO_PG_SIZE] = {0};
+    // page[0] = 1;
+    // page[1] = 2;
+    // page[2] = 4;
+    // writePage(0, page, 3);
+    // while (1)
+    // {
+    //     readPage(0, page);
+    // }
+
     // signify start of initialization
     // PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
@@ -211,16 +240,16 @@ int main (void)
     initCANParse(&q_rx_can);
     // wheelSpeedsInit();
 
-    linkReada(DAQ_ID_TEST_VAR, &my_counter);
-    linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
-    linkWritea(DAQ_ID_TEST_VAR2, &my_counter2);
-    linkReadFunc(DAQ_ID_RED_ON, (read_func_ptr_t) readRed);
-    linkReadFunc(DAQ_ID_GREEN_ON, (read_func_ptr_t) readGreen);
-    linkReadFunc(DAQ_ID_BLUE_ON, (read_func_ptr_t) readBlue);
-    linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
-    linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
-    linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    if(daqInit(&q_tx_can, I2C3))
+    // linkReada(DAQ_ID_TEST_VAR, &my_counter);
+    // linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
+    // linkWritea(DAQ_ID_TEST_VAR2, &my_counter2);
+    // linkReadFunc(DAQ_ID_RED_ON, (read_func_ptr_t) readRed);
+    // linkReadFunc(DAQ_ID_GREEN_ON, (read_func_ptr_t) readGreen);
+    // linkReadFunc(DAQ_ID_BLUE_ON, (read_func_ptr_t) readBlue);
+    // linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
+    // linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
+    // linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
+    if(daqInit(&q_tx_can))
     {
         PHAL_writeGPIO(LED1_GPIO_Port, LED1_Pin, 1);
         HardFault_Handler();
@@ -239,10 +268,12 @@ int main (void)
     // taskCreate(adcConvert, 50);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(canSendTest, 50);
+    taskCreate(memFg, MEM_FG_TIME);
     // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(myCounterTest, 50);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+    taskCreateBackground(memBg);
 
 
     // signify end of initialization
@@ -344,6 +375,8 @@ void canSendTest()
     // SEND_TEST_MSG4(q_tx_can, counter2);
     // SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
     // SEND_CAR_STATE(q_tx_can, CAR_STATE_FLIPPED);
+    //PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, green_on);
+    PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, config.green_on);
 }
 
 void canTxUpdate()

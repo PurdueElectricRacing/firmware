@@ -206,14 +206,14 @@ def configure_node(node_config, node_paths):
 
     # Define CanParsedData_t
     raw_struct_lines = []
-    raw_struct_lines.append("typedef union { __attribute__((packed))\n")
+    raw_struct_lines.append("typedef union { \n")
     for msg in raw_msg_defs:
         raw_struct_lines.append("    struct {\n")
         for sig in msg['signals']:
             raw_struct_lines.append(f"        uint64_t {sig['sig_name']}: {sig['length']};\n")
         raw_struct_lines.append(f"    }} {msg['msg_name']};\n") 
     raw_struct_lines.append("    uint8_t raw_data[8];\n")
-    raw_struct_lines.append("} CanParsedData_t;\n")
+    raw_struct_lines.append("} __attribute__((packed)) CanParsedData_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_raw_struct_start, gen_raw_struct_stop, raw_struct_lines)
 
     # Define can_data_t

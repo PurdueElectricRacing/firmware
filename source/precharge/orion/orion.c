@@ -3,12 +3,12 @@
 #include <stdbool.h>
 #include "can_parse.h"
 #include "common_defs.h"
-#include "daq.h"
+// #include "daq.h"
 
 
 extern q_handle_t q_tx_can;
 
-bool charge_request_user = false; // Enable charge algo
+uint8_t charge_request_user = false; // Enable charge algo
 uint16_t user_charge_current_request = 0;
 uint16_t user_charge_voltage_request = 0;
 uint8_t  orion_bms_temp_err = 0;
@@ -16,12 +16,12 @@ uint8_t  orion_bms_temp_err = 0;
 
 void orionInit()
 {
-    linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
-    linkWritea(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
-    linkReada(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
-    linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
-    linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
-    linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
+    // linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
+    // linkWritea(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
+    // linkReada(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
+    // linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
+    // linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
+    // linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
 }
 
 

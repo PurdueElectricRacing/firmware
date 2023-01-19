@@ -8,6 +8,10 @@
 #define MAX_TEMP (550)
 #define MAX_VOLT (336) // 4.2 * 80
 
+extern uint8_t charge_request_user;
+extern uint16_t user_charge_current_request;
+extern uint16_t user_charge_voltage_request;
+
 bool orionErrors();
 void orionCheckTempsPeriodic();
 void orionChargePeriodic();

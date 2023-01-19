@@ -175,7 +175,7 @@ int main (void)
 
     //*******UNCOMMENT
 
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
@@ -247,10 +247,10 @@ void preflightChecks(void) {
             /* Module Initialization */
             initCANParse(&q_rx_can);
             linkDAQVars();
-            if (daqInit(&q_tx_can, I2C1))
-            {
-                HardFault_Handler();
-            }
+            // if (daqInit(&q_tx_can, I2C1))
+            // {
+            //     HardFault_Handler();
+            // }
             break;
         case 6:
             // char *race_page = "extra_info\0";
@@ -334,23 +334,23 @@ void checkStartBtn()
 
 void linkDAQVars()
 {
-   linkReada(DAQ_ID_T1MAX,  &pedal_calibration.t1max);
-   linkWritea(DAQ_ID_T1MAX, &pedal_calibration.t1max);
-   linkReada(DAQ_ID_T1MIN,  &pedal_calibration.t1min);
-   linkWritea(DAQ_ID_T1MIN, &pedal_calibration.t1min);
-   linkReada(DAQ_ID_T2MAX,  &pedal_calibration.t2max);
-   linkWritea(DAQ_ID_T2MAX, &pedal_calibration.t2max);
-   linkReada(DAQ_ID_T2MIN,  &pedal_calibration.t2min);
-   linkWritea(DAQ_ID_T2MIN, &pedal_calibration.t2min);
-   linkReada(DAQ_ID_B3MAX,  &pedal_calibration.b3max);
-   linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
-   linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
-   linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
-   linkReada(DAQ_ID_B1,     &raw_pedals.b1);
-   linkReada(DAQ_ID_B2,     &raw_pedals.b2);
-   linkReada(DAQ_ID_T1,     &raw_pedals.t1);
-   linkReada(DAQ_ID_T2,     &raw_pedals.t2);
-   linkReada(DAQ_ID_B3,     &raw_pedals.b3);
+//    linkReada(DAQ_ID_T1MAX,  &pedal_calibration.t1max);
+//    linkWritea(DAQ_ID_T1MAX, &pedal_calibration.t1max);
+//    linkReada(DAQ_ID_T1MIN,  &pedal_calibration.t1min);
+//    linkWritea(DAQ_ID_T1MIN, &pedal_calibration.t1min);
+//    linkReada(DAQ_ID_T2MAX,  &pedal_calibration.t2max);
+//    linkWritea(DAQ_ID_T2MAX, &pedal_calibration.t2max);
+//    linkReada(DAQ_ID_T2MIN,  &pedal_calibration.t2min);
+//    linkWritea(DAQ_ID_T2MIN, &pedal_calibration.t2min);
+//    linkReada(DAQ_ID_B3MAX,  &pedal_calibration.b3max);
+//    linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
+//    linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
+//    linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
+//    linkReada(DAQ_ID_B1,     &raw_pedals.b1);
+//    linkReada(DAQ_ID_B2,     &raw_pedals.b2);
+//    linkReada(DAQ_ID_T1,     &raw_pedals.t1);
+//    linkReada(DAQ_ID_T2,     &raw_pedals.t2);
+//    linkReada(DAQ_ID_B3,     &raw_pedals.b3);
 }
 
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};
@@ -421,10 +421,4 @@ void HardFault_Handler()
 {
    schedPause();
    while(1) IWDG->KR = 0xAAAA;
-}
-
-// EEPROM error function
-void errorFound(eeprom_error_t error)
-{
-   HardFault_Handler();
 }

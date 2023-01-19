@@ -8,51 +8,45 @@
             "nodes":[
                 {
                     "node_name":"Main_Module",
+                    "includes":"#include \"cooling.h\"",
                     "variables": [
-                        {"var_name":"dt_liters_p_min_x10", "read_only": true, "bit_length": 8},
-                        {"var_name":"bat_liters_p_min_x10", "read_only": true, "bit_length": 8},
-                        {"var_name":"dt_flow_error", "read_only": true, "bit_length": 1},
-                        {"var_name":"dt_temp_error", "read_only": true, "bit_length": 1},
-                        {"var_name":"bat_flow_error", "read_only": true, "bit_length": 1},
-                        {"var_name":"bat_temp_error", "read_only": true, "bit_length": 1},
-                        {"var_name":"mot_left_req", "read_only": false, "bit_length": 12},
-                        {"var_name":"mot_right_req", "read_only": false, "bit_length": 12}
-                    ]
+                        {"var_name":"dt_liters_p_min_x10", "access_phrase":"cooling.dt_liters_p_min_x10", "read_only": true, "type":"uint8_t", "length": 8},
+                        {"var_name":"bat_liters_p_min_x10", "access_phrase":"cooling.bat_liters_p_min_x10", "read_only": true, "type":"uint8_t", "length": 8},
+                        {"var_name":"dt_flow_error", "access_phrase":"cooling.dt_flow_error", "read_only": true, "type":"uint8_t", "length": 1},
+                        {"var_name":"dt_temp_error", "access_phrase":"cooling.dt_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
+                        {"var_name":"bat_flow_error", "access_phrase":"cooling.bat_flow_error", "read_only": true, "type":"uint8_t", "length": 1},
+                        {"var_name":"bat_temp_error", "access_phrase":"cooling.bat_temp_error", "read_only": true, "type":"uint8_t", "length": 1}
+                    ],
+                    "files":[]
                 },
                 {
                     "node_name":"Dashboard",
+                    "includes":"#include \"pedals.h\"",
                     "variables": [
-                        {"var_name":"t1max", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"t1x", "version": 2}},
-                        {"var_name":"t1min", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"t1n", "version": 2}},
-                        {"var_name":"t2max", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"t2x", "version": 2}},
-                        {"var_name":"t2min", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"t2n", "version": 2}},
-                        {"var_name":"b3max", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"b3x", "version": 2}},
-                        {"var_name":"b3min", "read_only": false, "bit_length": 12,
-                            "eeprom":{"label":"b3n", "version": 2}},
-                        {"var_name":"t1", "read_only": true, "bit_length": 12},
-                        {"var_name":"t2", "read_only": true, "bit_length": 12},
-                        {"var_name":"b1", "read_only": true, "bit_length": 12},
-                        {"var_name":"b2", "read_only": true, "bit_length": 12},
-                        {"var_name":"b3", "read_only": true, "bit_length": 12}
-                    ]
+                        {"var_name":"t1", "access_phrase":"raw_pedals.t1", "read_only": true, "type":"uint16_t", "length": 12},
+                        {"var_name":"t2", "access_phrase":"raw_pedals.t2", "read_only": true, "type":"uint16_t", "length": 12},
+                        {"var_name":"b1", "access_phrase":"raw_pedals.b1", "read_only": true, "type":"uint16_t", "length": 12},
+                        {"var_name":"b2", "access_phrase":"raw_pedals.b2", "read_only": true, "type":"uint16_t", "length": 12},
+                        {"var_name":"b3", "access_phrase":"raw_pedals.b3", "read_only": true, "type":"uint16_t", "length": 12}
+                    ],
+                    "files":[]
                 },
                 {
                     "node_name":"Precharge",
+                    "includes":"#include \"orion.h\"",
                     "variables": [
-                        {"var_name":"charge_mode_enable", "read_only": false, "bit_length": 1},
-                        {"var_name":"charge_voltage_limit", "read_only": false, "bit_length": 16},
-                        {"var_name":"charge_current_limit", "read_only": false, "bit_length": 16}
-                    ]
+                        {"var_name":"charge_request_user", "access_phrase":"charge_request_user", "read_only": false, "type":"uint8_t", "length": 1},
+                        {"var_name":"user_charge_current_request", "access_phrase":"user_charge_current_request", "read_only": false, "type":"uint16_t", "length": 16},
+                        {"var_name":"user_charge_voltage_request", "access_phrase":"user_charge_voltage_request", "read_only": false, "type":"uint16_t", "length": 16}
+                    ],
+                    "files":[]
                 },
                 {
                     "node_name":"Driveline",
+                    "includes":"",
                     "variables": [
-                    ]
+                    ],
+                    "files":[]
                 }
             ]
         },
@@ -63,26 +57,26 @@
             "nodes":[
                 {
                     "node_name":"TEST_NODE",
+                    "includes":"extern uint16_t my_counter;\nextern uint16_t my_counter2;extern uint8_t charge_enable;",
                     "variables":[
-                        {"var_name":"test_var", "read_only":true, "bit_length":8},
-                        {"var_name":"test_var2", "read_only":false, "bit_length":12,
-                            "eeprom":{"label":"tv2", "version":0}},
-                        {"var_name":"red_on", "read_only":false, "bit_length":1,
-                            "eeprom":{"label":"red", "version":0}},
-                        {"var_name":"green_on", "read_only":false, "bit_length":1,
-                            "eeprom":{"label":"grn", "version":0}},
-                        {"var_name":"blue_on", "read_only":false, "bit_length":1,
-                            "eeprom":{"label":"blu", "version":0}}
-                    ]
-                },
-                {
-                    "node_name":"TEST_NODE_2",
-                    "variables":[
-                        {"var_name":"test_var", "read_only":true, "bit_length":8},
-                        {"var_name":"test_var2", "read_only":false, "bit_length":12},
-                        {"var_name":"red_on", "read_only":false, "bit_length":1},
-                        {"var_name":"green_on", "read_only":false, "bit_length":1},
-                        {"var_name":"blue_on", "read_only":false, "bit_length":1}
+                        {"var_name":"test_var", "access_phrase": "my_counter", "read_only":true, "type":"uint8_t", "length":8},
+                        {"var_name":"test_var2", "access_phrase": "my_counter2", "read_only":false, "type":"uint16_t", "length":12},
+                        {"var_name":"charge_enable", "access_phrase": "charge_enable", "read_only":false, "type":"uint8_t", "length":1}
+                    ],
+                    "files":[
+                        {
+                            "name":"config",
+                            "eeprom_lbl":"conf",
+                            "contents":[
+                                {"var_name":"blue_on",        "type":"uint8_t", "default":0},
+                                {"var_name":"red_on",         "type":"uint8_t", "default":0},
+                                {"var_name":"green_on",       "type":"uint8_t", "default":0},
+                                {"var_name":"odometer",       "type":"float",   "default":0},
+                                {"var_name":"charge_current", "type":"float",   "default":0},
+                                {"var_name":"charge_voltage", "type":"float",   "default":0, "unit":"V", "var_desc": "Voltage to request from the charger"},
+                                {"var_name":"trim", "type":"int16_t",   "default":-12}
+                            ]
+                        }
                     ]
                 }
             ]

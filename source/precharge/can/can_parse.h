@@ -238,7 +238,7 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { __attribute__((packed))
+typedef union { 
     struct {
         uint64_t toggle: 1;
         uint64_t time: 16;
@@ -501,7 +501,7 @@ typedef union { __attribute__((packed))
         uint64_t daq_command: 64;
     } daq_command_PRECHARGE;
     uint8_t raw_data[8];
-} CanParsedData_t;
+} __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
 
 // contains most up to date received

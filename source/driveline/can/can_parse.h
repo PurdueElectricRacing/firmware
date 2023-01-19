@@ -269,7 +269,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { __attribute__((packed))
+typedef union { 
     struct {
         uint64_t front_left_motor: 8;
         uint64_t front_left_motor_link: 8;
@@ -372,7 +372,7 @@ typedef union { __attribute__((packed))
         uint64_t daq_command: 64;
     } daq_command_DRIVELINE;
     uint8_t raw_data[8];
-} CanParsedData_t;
+} __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
 
 // contains most up to date received

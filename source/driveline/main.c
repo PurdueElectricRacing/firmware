@@ -9,7 +9,6 @@
 #include "common/phal_L4/tim/tim.h"
 #include "common/phal_L4/dma/dma.h"
 #include "common/psched/psched.h"
-#include "common/eeprom/eeprom.h"
 #include "common/common_defs/common_defs.h"
 #include "common/bootloader/bootloader_common.h"
 #include <math.h>
@@ -23,7 +22,7 @@
 #endif
 
 /* Module Includes */
-#include "daq.h"
+// #include "daq.h"
 #include "main.h"
 #include "can_parse.h"
 #include "wheel_speeds.h"

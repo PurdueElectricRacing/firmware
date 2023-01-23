@@ -59,7 +59,7 @@ joystick_dir_t j_dir = J_CENTER;
 uint8_t btn_state = 0; // activate only on falling edge
 
 button_state_t b_state = B_LOW;
-uint8_t wheel_read_cmd[] = {WHEEL_SPI_ADDR | WHEEL_SPI_READ, WHEEL_GPIO_REG, 0x00};
+uint8_t wheel_read_cmd[] = {};// TODO: rewrite {WHEEL_SPI_ADDR | WHEEL_SPI_READ, WHEEL_GPIO_REG, 0x00};
 
 //Data struct for SPI button + joystick reception
 typedef union __attribute__((packed))

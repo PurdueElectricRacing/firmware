@@ -21,7 +21,6 @@
 #include "nextion.h"
 
 #include "common/faults/faults.h"
-#include "common/modules/wheel_speeds/wheel_speeds.h"
 
 GPIOInitConfig_t gpio_config[] = {
  // Status Indicators
@@ -100,11 +99,11 @@ ADCInitConfig_t adc_config = {
    .dma_mode        = ADC_DMA_CIRCULAR
 };
 ADCChannelConfig_t adc_channel_config[] = {
-   {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+//    {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
 
@@ -136,17 +135,18 @@ usart_init_t huart2 = {
 };
 
 /* SPI Configuration */
-dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
-SPI_InitConfig_t hspi1 = {
-   .data_rate     = 160000,
-   .data_len      = 8,
-   .nss_sw        = true,
-   .nss_gpio_port = CSB_WHL_GPIO_Port,
-   .nss_gpio_pin  = CSB_WHL_Pin,
-   .rx_dma_cfg    = &spi_rx_dma_cfg,
-   .tx_dma_cfg    = &spi_tx_dma_cfg,
-};
+// TODO:
+// dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
+// dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
+// SPI_InitConfig_t hspi1 = {
+//    .data_rate     = 160000,
+//    .data_len      = 8,
+//    .nss_sw        = true,
+//    .nss_gpio_port = CSB_WHL_GPIO_Port,
+//    .nss_gpio_pin  = CSB_WHL_Pin,
+//    .rx_dma_cfg    = &spi_rx_dma_cfg,
+//    .tx_dma_cfg    = &spi_tx_dma_cfg,
+// };
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {

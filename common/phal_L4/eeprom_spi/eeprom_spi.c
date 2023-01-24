@@ -30,7 +30,7 @@ static void ee_request_flush_physical();
 //
 // @brief: Initializes chip metadata. Attemps to read
 //         and load all metadata from last run. If memory
-//         isn't initialized, force_init can be set to 
+//         isn't initialized, force_init can be set to
 //         set a default version of 1 and mark the chip
 //         as officially in use
 //
@@ -217,7 +217,7 @@ typedef enum {
     BG_ZERO  = 1,
     BG_FLUSH_META = 2,
     BG_LOAD  = 3,
-    BG_FLUSH = 4 
+    BG_FLUSH = 4
 } BG_State;
 
 static uint8_t  curr_page;
@@ -381,9 +381,9 @@ static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len) {
 
     // Read page by page
     for (i = phys_addr; i < end; i += MICRO_PG_SIZE) {
-        while(PHAL_SPI_busy()); // Block
+        while(PHAL_SPI_busy(mem.spi)); // Block
         ret = readPage(i, page);
-        while(PHAL_SPI_busy()); // Block
+        while(PHAL_SPI_busy(mem.spi)); // Block
 
         if (ret < 0) {
             return ret;
@@ -416,13 +416,13 @@ int writePage(uint16_t addr, uint8_t* page, uint8_t size) {
     static uint8_t tx_command[3];
     static uint8_t rx_buff[3];
 
-    if (PHAL_SPI_busy()) return -E_SPI;
+    if (PHAL_SPI_busy(mem.spi)) return -E_SPI;
 
     // Must send a E_WREN before each write command (NSS must go low and back high to latch)
     tx_command[0] = E_WREN;
     mem.spi->nss_sw = true; // SPI library can deal with this
     ret = !PHAL_SPI_transfer(mem.spi, tx_command, 1, NULL);
-    while(PHAL_SPI_busy());
+    while(PHAL_SPI_busy(mem.spi));
 
     tx_command[0] = E_WRITE;
     tx_command[1] = addr >> 8;
@@ -432,7 +432,7 @@ int writePage(uint16_t addr, uint8_t* page, uint8_t size) {
     mem.spi->nss_sw = false; // Take control for sending address
     PHAL_writeGPIO(mem.spi->nss_gpio_port, mem.spi->nss_gpio_pin, 0); // start transfer
     ret |= !PHAL_SPI_transfer(mem.spi, tx_command, 3, NULL);
-    while(PHAL_SPI_busy());
+    while(PHAL_SPI_busy(mem.spi));
     mem.spi->nss_sw = true; // Give back control (DMA interrupt will set NSS back high in the interrupt)
     ret |= !PHAL_SPI_transfer(mem.spi, page, size, NULL);
 
@@ -456,13 +456,13 @@ int readPage(uint16_t addr, uint8_t* page) {
     tx_command[1] = addr >> 8;
     tx_command[2] = addr & 0xFF;
 
-    if(PHAL_SPI_busy()) return -E_SPI;
+    if(PHAL_SPI_busy(mem.spi)) return -E_SPI;
 
     // Complete read
     mem.spi->nss_sw = false; // Take control for sending address
     PHAL_writeGPIO(mem.spi->nss_gpio_port, mem.spi->nss_gpio_pin, 0); // Start transfer
     ret = !PHAL_SPI_transfer(mem.spi, tx_command, 3, NULL);
-    while(PHAL_SPI_busy());
+    while(PHAL_SPI_busy(mem.spi));
     mem.spi->nss_sw = true; // Give back control (DMA interrupt will set NSS back high in the interrupt)
     ret |= !PHAL_SPI_transfer(mem.spi, NULL, MICRO_PG_SIZE, page);
 

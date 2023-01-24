@@ -36,7 +36,7 @@ bool coolingInit()
 
 
     //Init Timer
-    int arrValue = 10;
+    int arrValue = 100;
 
     TIM4 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
 
@@ -56,11 +56,7 @@ bool coolingInit()
     TIM4 -> CCR2 = 0;
 
     //Enable counter as long as ccrs are 0
-    if ((TIM4 -> CCR1 == 0) && (TIM4 -> CCR2 == 0))
-    {
-        TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
-    }
-
+    TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
 
     // Default pin configurations
     setDtCooling(0);
@@ -69,14 +65,14 @@ bool coolingInit()
     return true;
 }
 
-void setFanPWM (uint8_t dutyCycle)
+void setBATFan (uint8_t dutyCycle)
 {
-    TIM4 -> CCR1 = dutyCycle / 10; //Setting duty cycle for channel 1
+    TIM4 -> CCR1 = dutyCycle; //Setting duty cycle for channel 1
 }
 
-void setDT_PWM (uint8_t dutyCycle)
+void setDTFan (uint8_t dutyCycle)
 {
-    TIM4 -> CCR2= dutyCycle / 10; //Setting duty cycle for channel 1
+    TIM4 -> CCR2 = dutyCycle; //Setting duty cycle for channel 1
 }
 
 uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr) {

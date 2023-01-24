@@ -13,6 +13,7 @@
 
 
 extern uint32_t APB2ClockRateHz;
+extern uint32_t APB1ClockRateHz;
 static volatile SPI_InitConfig_t* active_transfer = NULL;
 
 static uint16_t trash_can; // Used as an address for DMA to dump data into
@@ -54,7 +55,12 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
 
     // Data Rate
     // Divisor is a power of 2, find the closest power of 2 limited to log2(256)
-    uint32_t f_div = LOG2_DOWN(APB2ClockRateHz / cfg->data_rate) - 1;
+    uint32_t f_div = 0;
+    if (cfg->periph == SPI1)
+        f_div = LOG2_DOWN(APB2ClockRateHz / cfg->data_rate) - 1;
+    //Both SPI1 and SPI2 are on APB1
+    else
+        f_div = LOG2_DOWN(APB1ClockRateHz / cfg->data_rate) - 1;
     f_div = CLAMP(f_div, 0, 0b111);
     cfg->periph->CR1 &= ~SPI_CR1_BR_Msk;
     cfg->periph->CR1 |= f_div << SPI_CR1_BR_Pos;

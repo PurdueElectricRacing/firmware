@@ -5,13 +5,12 @@
  * @version 0.1
  * @date 2022-01-22
  *
- *
  * @copyright Copyright (c) 2021
+ *
  *
  *
  */
 #include "common/phal_L4/spi/spi.h"
-
 
 
 
@@ -47,19 +46,13 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
     cfg->periph->CR1 |= SPI_CR1_MSTR | SPI_CR1_SPE | SPI_CR1_SSM | SPI_CR1_SSI;
     cfg->periph->CR1 &= ~(SPI_CR1_CPOL);
     cfg->periph->CR2 &= ~(SPI_CR2_NSSP | SPI_CR2_SSOE);
-    cfg->periph->CR1 |= SPI_CR1_MSTR | SPI_CR1_SPE | SPI_CR1_SSM | SPI_CR1_SSI;
-    cfg->periph->CR1 &= ~(SPI_CR1_CPOL);
-    cfg->periph->CR2 &= ~(SPI_CR2_NSSP | SPI_CR2_SSOE);
 
     // Data Size
     cfg->periph->CR2 &= ~(SPI_CR2_DS_Msk);
     cfg->periph->CR2 |= (CLAMP(cfg->data_len, 4, 16) - 1) << SPI_CR2_DS_Pos;
-    cfg->periph->CR2 &= ~(SPI_CR2_DS_Msk);
-    cfg->periph->CR2 |= (CLAMP(cfg->data_len, 4, 16) - 1) << SPI_CR2_DS_Pos;
 
     // RX Fifo full on 8 bits
-    cfg->periph->CR2 |= SPI_CR2_FRXTH;
-    cfg->periph->CR2 |= SPI_CR2_FRXTH;
+    SPI1->CR2 |= SPI_CR2_FRXTH;
     // SPI1->CR1 |= SPI_CR1_LSBFIRST;
 
     // Data Rate
@@ -74,9 +67,6 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
     cfg->periph->CR1 &= ~SPI_CR1_BR_Msk;
     cfg->periph->CR1 |= f_div << SPI_CR1_BR_Pos;
 
-    cfg->periph->CR1 &= ~SPI_CR1_BR_Msk;
-    cfg->periph->CR1 |= f_div << SPI_CR1_BR_Pos;
-
 
     // Setup DMA channels
     if (cfg->rx_dma_cfg && !PHAL_initDMA(cfg->rx_dma_cfg))
@@ -86,7 +76,6 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
         return false;
 
     PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
-
 
     cfg->_busy  = false;
     cfg->_error = false;
@@ -103,18 +92,14 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     if (PHAL_SPI_busy(spi))
         return false;
 
-
     active_transfer = spi;
-
 
     if(spi->nss_sw)
         PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
 
     spi->_busy = true;
 
-    spi->periph->CR2 |= SPI_CR2_TXDMAEN;
-
-    spi->periph->CR2 |= SPI_CR2_TXDMAEN;
+    SPI1->CR2 |= SPI_CR2_TXDMAEN;
     if (!out_data)
     {
         out_data = &zero;
@@ -123,7 +108,6 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
     PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) out_data);
 
-    spi->periph->CR2 |= SPI_CR2_RXDMAEN;
     spi->periph->CR2 |= SPI_CR2_RXDMAEN;
     if (!in_data)
     {
@@ -153,7 +137,6 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
 
     // Start transaction
     spi->periph->CR1 |= SPI_CR1_SPE;
-    spi->periph->CR1 |= SPI_CR1_SPE;
 
     // STM32 HAL Libraries start TX Dma transaction last
     PHAL_startTxfer(spi->tx_dma_cfg);
@@ -180,7 +163,6 @@ void DMA1_Channel3_IRQHandler()
         if (active_transfer)
             active_transfer->_error = true;
     }
-    if (DMA1->ISR & DMA_ISR_TCIF3)
     if (DMA1->ISR & DMA_ISR_TCIF3)
     {
         DMA1->IFCR |= DMA_IFCR_CTCIF3;
@@ -231,7 +213,6 @@ void DMA2_Channel2_IRQHandler()
 
 /**
  * @brief SPI1 Rx DMA Transfer Complete interrupt
- *
  *
  */
 void DMA1_Channel2_IRQHandler()

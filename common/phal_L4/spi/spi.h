@@ -2,13 +2,10 @@
  * @file spi.h
  * @author Adam Busch (busch8@purdue.edu)
  * @brief
- * @brief
  * @version 0.1
  * @date 2022-01-22
  *
- *
  * @copyright Copyright (c) 2021
- *
  *
  */
 #ifndef _PHAL_SPI_H
@@ -44,10 +41,7 @@ typedef struct {
 /**
  * @brief Initilize SPI peripheral with the configuired structure
  *
- *
  * @param handle SPI handle to configure.
- * @return true
- * @return false
  * @return true
  * @return false
  */
@@ -68,7 +62,6 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
 
 /**
  * @brief Check for current SPI transaction to complete
- * @param cfg Spi config
  *
  * @return true
  * @return false

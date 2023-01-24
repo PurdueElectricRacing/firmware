@@ -5,7 +5,9 @@
  * @version 0.1
  * @date 2021-09-20
  *
+ *
  * @copyright Copyright (c) 2021
+ *
  *
  */
 #ifndef _PHAL_GPIO_H_
@@ -59,13 +61,16 @@ typedef struct {
     uint8_t             pin;  /* Pin Number for configruation */
     GPIOPinType_t       type; /* Output type of pin */
     struct
+    struct
     {
         //INPUT ONLY FIELDS
         GPIOInputPull_t     pull;  /* Push/Pull selection */
 
+
         // OUTPUT ONLY FIELDS
         GPIOOutputSpeed_t   ospeed; /* Output speed (slew rate) */
         GPIOOutputPull_t    otype;  /* Output push/pull */
+
 
         // AF ONLY FIELDS
         uint8_t             af_num; /* Anternate function type */
@@ -74,6 +79,7 @@ typedef struct {
 
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for input
+ *
  *
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
  * @param pin_num Pin number from GPIO bank to configure
@@ -84,6 +90,7 @@ typedef struct {
 
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for output
+ *
  *
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
  * @param pin_num Pin number from GPIO bank to configure
@@ -97,6 +104,7 @@ typedef struct {
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for analog
  *
+ *
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
  * @param pin_num Pin number from GPIO bank to configure
  */
@@ -105,6 +113,7 @@ typedef struct {
 
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for alternate function
+ *
  *
  * @param gpio_bank GPIO_TypeDef* reference to the GPIO bank for the pin
  * @param pin_num Pin number from GPIO bank to configure
@@ -151,13 +160,11 @@ typedef struct {
 #define GPIO_INIT_SPI2_SCK_PB10 GPIO_INIT_AF(GPIOB, 10, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN)
 #define GPIO_INIT_SPI2_MISO_PC2 GPIO_INIT_AF(GPIOC, 2, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_SPI2_MOSI_PC3 GPIO_INIT_AF(GPIOC, 3, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN)
-#define GPIO_INIT_SPI1_SCK_PE13  GPIO_INIT_AF(GPIOE, 13,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN)
-#define GPIO_INIT_SPI1_MISO_PE14 GPIO_INIT_AF(GPIOE, 14,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_SPI1_MOSI_PE15 GPIO_INIT_AF(GPIOE, 15,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN)
 
 /**
  * @brief Initilize the GPIO perpheral given a list of configuration fields for all of the GPIO pins.
  *        Will also enable the GPIO RCC clock
+ *
  *
  * @param config A list of GPIOs to config
  * @param config_len Number of GPIOs in the config list
@@ -169,6 +176,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len);
 /**
  * @brief Read the state of the input register for the specific GPIO pin
  *
+ *
  * @param bank GPIO Bank of the pin
  * @param pin GPIO pin number
  * @return true GPIO Input true
@@ -178,6 +186,7 @@ inline bool PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin);
 
 /**
  * @brief Write a logic value to an output pin
+ *
  *
  * @param bank GPIO Bank of the pin
  * @param pin GPIO pin number
@@ -194,6 +203,7 @@ inline bool PHAL_readGPIO(GPIO_TypeDef* bank, uint8_t pin)
 
 inline void PHAL_writeGPIO(GPIO_TypeDef* bank, uint8_t pin, bool value)
 {
+    bank->BSRR |= 1 << (pin + (16 * (!value))); // BSRR has "set" as bottom 16 bits and "reset" as top 16
     bank->BSRR |= 1 << (pin + (16 * (!value))); // BSRR has "set" as bottom 16 bits and "reset" as top 16
 }
 

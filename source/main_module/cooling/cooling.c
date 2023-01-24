@@ -1,5 +1,7 @@
 #include "cooling.h"
 
+#define PWM_FREQUENCY 25000  //PWM frequency to be 25kHz
+
 Cooling_t cooling = {0};
 volatile uint16_t raw_dt_flow_ct;
 volatile uint16_t raw_bat_flow_ct;
@@ -8,6 +10,7 @@ uint32_t dt_pump_start_time_ms;
 uint32_t bat_pump_start_time_ms;
 
 extern q_handle_t q_tx_can;
+extern uint32_t APB1ClockRateHz;
 
 
 static void setDtCooling(uint8_t on);
@@ -32,11 +35,35 @@ bool coolingInit()
     // NVIC_EnableIRQ(EXTI9_5_IRQn);
 
 
+    //Init Timer
+    int arrValue = 10;
+
+    TIM4 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
+
+    RCC -> APB1ENR1 |= RCC_APB1ENR1_TIM4EN; //0b100;
+    TIM4 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
+    TIM4 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
+
+    //Set Channels 1 and 2 to 110 (Mode 1 up counter) -> (active while CNT <= CCR)
+    TIM4 -> CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1; 
+    TIM4 -> CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+
+    //Enable Channels 1 and 2 outputs 
+    TIM4 -> CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
+
+
     // Default pin configurations
     setDtCooling(0);
     setBatCooling(0);
 
     return true;
+}
+
+void setTimerPWM (uint8_t dutyCycleChannel1, uint8_t dutyCycleChannel2)
+{
+    TIM4 -> CCR1 = dutyCycleChannel1; //Setting duty cycle for channel 1
+    TIM4 -> CCR1 = dutyCycleChannel2; //Setting Duty Cycle for channel 2
+    TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
 }
 
 uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr) {

@@ -1,12 +1,12 @@
 /**
  * @file usart.c
  * @author Dawson Moore (moore800@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2021-12-17
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include "common/phal_L4/usart/usart.h"
@@ -101,7 +101,7 @@ bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_
 
 void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len) {
     uint8_t i;
-    
+
     instance->CR3 &= ~USART_CR3_DMAT;
 
     for (i = 0; i < len; i++) {
@@ -127,7 +127,7 @@ void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
 
 bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* data, uint32_t len) {
     PHAL_stopTxfer(handle->tx_dma_cfg);
-    
+
     instance->CR3 |= USART_CR3_DMAT;
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t) data);
@@ -173,22 +173,41 @@ bool PHAL_usartRxDmaComplete(usart_init_t* handle)
     }
     return false;
 }
+#ifndef SPI2
+    void DMA1_Channel5_IRQHandler()
+    {
+        if (DMA1->ISR & DMA_ISR_TEIF5)
+        {
+            DMA1->IFCR |= DMA_IFCR_CTEIF5;
+        }
+        if (DMA1->ISR & DMA_ISR_TCIF5)
+        {
+            DMA1->IFCR |= DMA_IFCR_CTCIF5;
+        }
+        if (DMA1->ISR & DMA_ISR_GIF5)
+        {
+            DMA1->IFCR |= DMA_IFCR_CGIF5;
+        }
+    }
+#endif
+#ifdef SPI2
+    void DMA2_Channel7_IRQHandler()
+    {
+        if (DMA2->ISR & DMA_ISR_TEIF5)
+        {
+            DMA2->IFCR |= DMA_IFCR_CTEIF5;
+        }
+        if (DMA2->ISR & DMA_ISR_TCIF5)
+        {
+            DMA2->IFCR |= DMA_IFCR_CTCIF5;
+        }
+        if (DMA2->ISR & DMA_ISR_GIF5)
+        {
+            DMA2->IFCR |= DMA_IFCR_CGIF5;
+        }
+    }
+#endif
 
-void DMA1_Channel5_IRQHandler()
-{
-    if (DMA1->ISR & DMA_ISR_TEIF5)
-    {
-        DMA1->IFCR |= DMA_IFCR_CTEIF5;
-    }
-    if (DMA1->ISR & DMA_ISR_TCIF5) 
-    {
-        DMA1->IFCR |= DMA_IFCR_CTCIF5;
-    }
-    if (DMA1->ISR & DMA_ISR_GIF5)
-    {
-        DMA1->IFCR |= DMA_IFCR_CGIF5;
-    }
-}
 
 // Masking and unmasking ISRs. Useful for interrupt based functionality.
 // Likely don't need it since we use DMA, but could come in handy sometime

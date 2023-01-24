@@ -8,6 +8,7 @@
 #include "common/phal_L4/quadspi/quadspi.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
+#include "common/phal_L4/usart/usart.h"
 #include "common/phal_L4/spi/spi.h"
 
 /* Module Includes */
@@ -17,6 +18,7 @@
 #include "imu.h"
 #include "orion.h"
 #include "bsxlite_interface.h"
+#include "tmu.h"
 
 #include "common/faults/faults.h"
 
@@ -33,8 +35,12 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_SPI2_SCK_PB10,
+    GPIO_INIT_SPI2_MOSI_PC3,
+    GPIO_INIT_SPI2_MISO_PC2,
     GPIO_INIT_OUTPUT(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
+    GPIO_INIT_OUTPUT(SPI_CS_TMU_GPIO_Port, SPI_CS_TMU_GPIO_Pin, GPIO_OUTPUT_HIGH_SPEED),
 
     // Status and HV Monitoring
     GPIO_INIT_OUTPUT(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -87,7 +93,21 @@ SPI_InitConfig_t spi_config = {
     .nss_gpio_port = SPI_CS_GYRO_GPIO_Port,
     .nss_gpio_pin = SPI_CS_GYRO_Pin,
     .rx_dma_cfg = &spi_rx_dma_config,
-    .tx_dma_cfg = &spi_tx_dma_config
+    .tx_dma_cfg = &spi_tx_dma_config,
+    .periph = SPI1
+};
+
+dma_init_t spi2_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi2_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
+SPI_InitConfig_t spi2_config = {
+    .data_rate = TargetCoreClockrateHz / 64,
+    .data_len  = 8,
+    .nss_sw = true,
+    .nss_gpio_port = SPI_CS_TMU_GPIO_Port,
+    .nss_gpio_pin = SPI_CS_TMU_GPIO_Pin,
+    .rx_dma_cfg = &spi2_rx_dma_config,
+    .tx_dma_cfg = &spi2_tx_dma_config,
+    .periph = SPI2
 };
 
 BMI088_Handle_t bmi_config = {
@@ -103,6 +123,14 @@ BMI088_Handle_t bmi_config = {
     .spi = &spi_config
 };
 
+tmu_handle_t tmu = {
+    .spi = &spi2_config,
+    .tmu_1 = 0,
+    .tmu_2 = 0,
+    .tmu_3 = 0,
+    .tmu_4 = 0
+};
+
 IMU_Handle_t imu_h = {
     .bmi = &bmi_config,
 };
@@ -111,8 +139,8 @@ IMU_Handle_t imu_h = {
 int main (void)
 {
     /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    // qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    // qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config))
@@ -122,41 +150,45 @@ int main (void)
         PHAL_FaultHandler();
 
     // set high during init
-    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
+    // PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
 
-    if (1 != PHAL_initCAN(CAN1, false))
-        PHAL_FaultHandler();
+    // if (1 != PHAL_initCAN(CAN1, false))
+    //     PHAL_FaultHandler();
 
-    if (1 != PHAL_initCAN(CAN2, false))
-        PHAL_FaultHandler();
+    // if (1 != PHAL_initCAN(CAN2, false))
+    //     PHAL_FaultHandler();
 
     spi_config.data_rate = APB2ClockRateHz / 16;
+    spi2_config.data_rate = APB2ClockRateHz / 16;
     if (!PHAL_SPI_init(&spi_config))
         PHAL_FaultHandler();
+    if (!PHAL_SPI_init(&spi2_config))
+        PHAL_FaultHandler();
+    initTMU(&tmu);
 
-    PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 0);
-    PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
+    // PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 0);
+    // PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
 
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    NVIC_EnableIRQ(CAN2_RX0_IRQn);
+    // NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    // NVIC_EnableIRQ(CAN2_RX0_IRQn);
 
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
-    initCANParse(&q_rx_can);
-    orionInit();
+    // initCANParse(&q_rx_can);
+    // orionInit();
 
     /* Task Creation */
     schedInit(SystemCoreClock);
-    configureAnim(preflightAnimation, preflightChecks, 75, 750);
-    taskCreate(heartbeatTask, 500);
-    taskCreate(orionCheckTempsPeriodic, 500);
+    // configureAnim(preflightAnimation, preflightChecks, 75, 750);
+    // taskCreate(heartbeatTask, 500);
+    // taskCreate(orionCheckTempsPeriodic, 500);
     taskCreate(monitorStatus, 50);
-    taskCreate(orionChargePeriodic, 50);
-    taskCreate(sendIMUData, 10);
+    // taskCreate(orionChargePeriodic, 50);
+    // taskCreate(sendIMUData, 10);
     // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    // taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(canRxUpdate);
 
     /* No Way Home */
     schedStart();
@@ -245,13 +277,14 @@ void heartbeatTask()
 
 void monitorStatus()
 {
-    uint8_t bms_err, imd_err;
-    bms_err = orionErrors();
-    imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
+    // uint8_t bms_err, imd_err;
+    // bms_err = orionErrors();
+    // imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
-    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
+    // PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
-    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
+    // PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
+    readTemps(&tmu);
 }
 
 

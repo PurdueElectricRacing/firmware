@@ -8,6 +8,9 @@
 #define TMU_FILTERED_DATA_CMD (0x5U)
 #define TMU_PRODID_ADDR (0x0U)
 
+#define TMU_ADDR_SIZE 0xFFFU
+#define TMU_VREF 1.8F
+
 typedef struct {
     SPI_InitConfig_t *spi;
     float tmu_1;
@@ -17,7 +20,7 @@ typedef struct {
 } tmu_handle_t;
 
 void readTemps(tmu_handle_t *tmu);
-void initTMU(tmu_handle_t *tmu);
+bool initTMU(tmu_handle_t *tmu);
 
 
 #endif

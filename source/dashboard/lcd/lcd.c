@@ -199,9 +199,9 @@ void check_buttons() {
    }
     //Update info, cycle SPI and get new data for next iteration
    wheel_old_btns = wheel_new_btns;
-    bool b = PHAL_SPI_busy();
+    bool b = PHAL_SPI_busy(&hspi1);
     bool c = PHAL_SPI_transfer(&hspi1, wheel_read_cmd, 3, new_data);
-    while (PHAL_SPI_busy());
+    while (PHAL_SPI_busy(&hspi1));
    wheel_new_btns.raw_data = new_data[2];
 
 }

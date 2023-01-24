@@ -34,7 +34,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg)
         RCC->APB1ENR1 |= RCC_APB1ENR1_SPI3EN;
     }
     else {
-        RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+        return false;
     }
 
 
@@ -81,7 +81,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     Only the Tx DMA channel has transfer complete interrupts enabled, as the same data length is used for both channels
     */
 
-    if (PHAL_SPI_busy())
+    if (PHAL_SPI_busy(spi))
         return false;
 
     active_transfer = spi;
@@ -126,11 +126,6 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
         NVIC_EnableIRQ(DMA2_Channel1_IRQn);
         NVIC_EnableIRQ(DMA2_Channel2_IRQn);
     }
-    //Defaults to SPI1
-    else {
-        NVIC_EnableIRQ(DMA1_Channel2_IRQn);
-        NVIC_EnableIRQ(DMA1_Channel3_IRQn);
-    }
 
     // Start transaction
     spi->periph->CR1 |= SPI_CR1_SPE;
@@ -141,12 +136,13 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     return true;
 }
 
-bool PHAL_SPI_busy()
+bool PHAL_SPI_busy(SPI_InitConfig_t* cfg)
 {
     // Latch in case active_transfer cleared during interrupt
     SPI_InitConfig_t *act = active_transfer;
-    if (act)
+    if (act && cfg->periph == act->periph)
         return act->_busy;
+
     return false;
 }
 
@@ -171,19 +167,19 @@ void DMA1_Channel3_IRQHandler()
 
 void DMA2_Channel2_IRQHandler()
 {
-    if (DMA2->ISR & DMA_ISR_TEIF3)
+    if (DMA2->ISR & DMA_ISR_TEIF2)
     {
-        DMA2->IFCR |= DMA_IFCR_CTEIF3;
+        DMA2->IFCR |= DMA_IFCR_CTEIF2;
         if (active_transfer)
             active_transfer->_error = true;
     }
-    if (DMA2->ISR & DMA_ISR_TCIF3)
+    if (DMA2->ISR & DMA_ISR_TCIF2)
     {
-        DMA2->IFCR |= DMA_IFCR_CTCIF3;
+        DMA2->IFCR |= DMA_IFCR_CTCIF2;
     }
-    if (DMA2->ISR & DMA_ISR_GIF3)
+    if (DMA2->ISR & DMA_ISR_GIF2)
     {
-        DMA2->IFCR |= DMA_IFCR_CGIF3;
+        DMA2->IFCR |= DMA_IFCR_CGIF2;
     }
 }
 
@@ -249,13 +245,13 @@ void DMA1_Channel2_IRQHandler()
 }
 void DMA2_Channel1_IRQHandler()
 {
-    if (DMA2->ISR & DMA_ISR_TEIF2)
+    if (DMA2->ISR & DMA_ISR_TEIF1)
     {
-        DMA2->IFCR |= DMA_IFCR_CTEIF2;
+        DMA2->IFCR |= DMA_IFCR_CTEIF1;
         if (active_transfer)
             active_transfer->_error = true;
     }
-    if (DMA2->ISR & DMA_ISR_TCIF2)
+    if (DMA2->ISR & DMA_ISR_TCIF1)
     {
         if (active_transfer->nss_sw)
             PHAL_writeGPIO(active_transfer->nss_gpio_port, active_transfer->nss_gpio_pin, 1);
@@ -278,9 +274,9 @@ void DMA2_Channel1_IRQHandler()
         active_transfer->_error = false;
         active_transfer = NULL;
     }
-    if (DMA2->ISR & DMA_ISR_GIF2)
+    if (DMA2->ISR & DMA_ISR_GIF1)
     {
-        DMA2->IFCR |= DMA_IFCR_CGIF2;
+        DMA2->IFCR |= DMA_IFCR_CGIF1;
     }
 }
 /**
@@ -332,10 +328,10 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy
     static uint8_t rx_dat[4] = {0};
     tx_cmd[0] |= (address & 0x7F);
 
-    while (PHAL_SPI_busy())
+    while (PHAL_SPI_busy(spi))
         ;
     PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 2 : 3, rx_dat);
-    while(PHAL_SPI_busy())
+    while(PHAL_SPI_busy(spi))
         ;
 
     return skipDummy ? rx_dat[1] : rx_dat[2];
@@ -348,10 +344,10 @@ uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t* spi, uint8_t address, uint8_t write
     tx_cmd[0] |= (address & 0x7F);
     tx_cmd[1] |= (writeDat);
 
-    while (PHAL_SPI_busy())
+    while (PHAL_SPI_busy(spi))
         ;
     PHAL_SPI_transfer(spi, tx_cmd, 2, rx_dat);
-    while(PHAL_SPI_busy())
+    while(PHAL_SPI_busy(spi))
         ;
 
     return rx_dat[1];

@@ -16,6 +16,8 @@
 #define SPI_CS_ACEL_Pin (8)
 #define SPI_CS_GYRO_GPIO_Port (GPIOA)
 #define SPI_CS_GYRO_Pin (9)
+#define SPI_CS_TMU_GPIO_Port (GPIOD)
+#define SPI_CS_TMU_GPIO_Pin (15)
 
 // Current Sense
 #define I_SENSE_CH1_GPIO_Port (GPIOA) // ADC12_IN5

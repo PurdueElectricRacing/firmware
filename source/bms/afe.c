@@ -14,9 +14,9 @@ void checkConn(void)
 {
     uint16_t voltage_low = VUV(1);
 	uint16_t voltage_high = VOV(4.2);
-	uint8_t cmd[LTC6811_REG_SIZE] = {0b00000101, voltage_low & 0xFF, 
-                                     (((voltage_high & 0xF) << 4) & 0xF0) | 
-                                     (((voltage_low >> 8) & 0xF) & 0x0F), 
+	uint8_t cmd[LTC6811_REG_SIZE] = {0b00000101, voltage_low & 0xFF,
+                                     (((voltage_high & 0xF) << 4) & 0xF0) |
+                                     (((voltage_low >> 8) & 0xF) & 0x0F),
                                      (voltage_high >> 4) & 0xFF, 0, 0};
 	uint8_t register_check[LTC6811_REG_SIZE] = {0};
 
@@ -74,7 +74,7 @@ void setBalance(void)
                 req_b = 1;
             }
         }
-        
+
         if (bms.cells.chan_volts_raw[i] > (uint32_t) (CELL_MAX_V * 10000)) {
             req_b = 1;
             ++ov;
@@ -158,7 +158,7 @@ void afeTask(void)
 
             break;
         }
-        
+
         // Let the voltage settle after disabling balancing (tested and required!)
         case SETTLE:
         {
@@ -220,7 +220,7 @@ void afeTask(void)
             balance_control = 0x0000;
             #endif
             broadcastRead(RDCFGA, LTC6811_REG_SIZE, cmd);
-            
+
             cmd[4] = balance_control & 0xff;
             cmd[5] &= ~0xf;
             cmd[5] = (balance_control >> 8) & 0xf;
@@ -420,7 +420,7 @@ void broadcastPoll(uint16_t command)
 	afeStartComm();
 
     PHAL_SPI_transfer(bms.spi, message, 4, spi_rx_buff);
-    while (PHAL_SPI_busy());
+    while (PHAL_SPI_busy(bms.spi));
 
 	afeEndComm();
 }
@@ -436,7 +436,7 @@ void broadcastWrite(uint16_t command, uint16_t size, uint8_t* data)
 {
     uint16_t PEC;
 	uint8_t  message[4 + 6 + 2];
-    uint8_t  spi_rx_buff[12] = {0}; 
+    uint8_t  spi_rx_buff[12] = {0};
 
 	message[0] = command >> 8;
 	message[1] = command;
@@ -453,7 +453,7 @@ void broadcastWrite(uint16_t command, uint16_t size, uint8_t* data)
 	afeStartComm();
 
     PHAL_SPI_transfer(bms.spi, message, 12, spi_rx_buff);
-    while (PHAL_SPI_busy());
+    while (PHAL_SPI_busy(bms.spi));
 
 	afeEndComm();
 
@@ -475,7 +475,7 @@ int broadcastRead(uint16_t command, uint16_t size, uint8_t* data)
 	uint16_t PEC;
 	uint16_t command_PEC;
 
-    static uint8_t spi_rx_buff[16] = {0}; 
+    static uint8_t spi_rx_buff[16] = {0};
     static uint8_t spi_tx_buff[16] = {0};
 
 	command_message[0] = command >> 8;
@@ -488,15 +488,15 @@ int broadcastRead(uint16_t command, uint16_t size, uint8_t* data)
 
 	// Send command
 	PHAL_SPI_transfer(bms.spi, command_message, 4, spi_rx_buff);
-    while (PHAL_SPI_busy());
+    while (PHAL_SPI_busy(bms.spi));
 
     // Receive data
 	PHAL_SPI_transfer(bms.spi, spi_tx_buff, size, data);
-    while (PHAL_SPI_busy());
+    while (PHAL_SPI_busy(bms.spi));
 
 	// Receive PEC
 	PHAL_SPI_transfer(bms.spi, spi_tx_buff, 4, spi_rx_buff);
-    while (PHAL_SPI_busy());
+    while (PHAL_SPI_busy(bms.spi));
 
 	afeEndComm();
 

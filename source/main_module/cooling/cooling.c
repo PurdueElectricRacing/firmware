@@ -115,6 +115,32 @@ bool coolingInit()
     // TIMx_DIER register.
     TIM16 -> DIER |= TIM_DIER_CC1IE; //
 
+    TIM16 -> CR1 |= TIM_CR1_CEN;
+
+
+    //DT Fan Tachometer 
+    ///////////////////
+
+    ///repeat the steps above but for TIM17
+    TIM17 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
+    TIM17 -> CCER &= ~TIM_CCER_CC1E; //Turning off capture / compare
+
+    RCC -> APB2ENR |= RCC_APB2ENR_TIM17EN;
+    TIM17 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
+    TIM17 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
+
+    TIM17 -> CCMR1 &= ~TIM_CCMR1_CC1S;
+    TIM17 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
+
+    TIM17 -> CCER |= TIM_CCER_CC1P | TIM_CCER_CC1NP; //setting edge detection to both rising and falling
+
+    TIM17 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting cmr1 to capture at every transition
+
+    TIM17 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
+
+    TIM17 -> DIER |= TIM_DIER_CC1IE; //selecting Capture compare interrupt flag
+
+    TIM17 -> CR1 |= TIM_CR1_CEN; //enabling counter
 
     return true;
 }
@@ -133,7 +159,21 @@ void TIM16_IRQHandler()
         //Reset the bit
         TIM16 -> SR &= ~TIM_SR_CC1IF;
     }
+}
 
+int volatile ccrDTFanTachometer = 0;
+void TIM17_IRQHandler()
+{
+    //Check if flag was set
+    if (TIM17 -> SR & TIM_SR_CC1IF)
+    {
+        //read the value of the counter to know the pulse width
+        //at the moment of the transition
+        ccrDTFanTachometer = TIM17 -> CCR1;
+
+        //Reset the bit
+        TIM17 -> SR &= ~TIM_SR_CC1IF;
+    }
 }
 
 void setBATFan (uint8_t dutyCycle)

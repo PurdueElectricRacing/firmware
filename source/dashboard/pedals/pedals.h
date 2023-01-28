@@ -15,6 +15,7 @@
 /* System Includes */
 #include "common/psched/psched.h"
 #include "common/common_defs/common_defs.h"
+#include "common/faults/faults.h"
 
 /* Module Includes */
 #include "can_parse.h"

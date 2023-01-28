@@ -88,13 +88,67 @@
             "node_name": "dashboard",
             "faults": [
                 {
-                    "fault_name": "bms",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "fatal",
+                    "fault_name": "APPS_wiring_t1",
+                    "max": 3891,
+                    "min": 51,
+                    "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "BMS fault"
+                    "lcd_message": "APPS Wiring Fail T1"
+                },
+                {
+                    "fault_name": "APPS_wiring_t2",
+                    "max": 3891,
+                    "min": 51,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "APPS Wiring Fail T2"
+                },
+                {
+                    "fault_name": "BSE_wiring_b1",
+                    "max": 3891,
+                    "min": 51,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "BSE Wiring Fail B1"
+                },
+                {
+                    "fault_name": "BSE_wiring_b2",
+                    "max": 3891,
+                    "min": 51,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "BSE Wiring Fail B2"
+                },
+                {
+                    "fault_name": "BSE_wiring_b3",
+                    "max": 3891,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "BSE Wiring Fail B3"
+                },
+                {
+                    "fault_name": "Implaus_detected",
+                    "max": 3000,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "APPS Implaus Detected"
+                },
+                {
+                    "fault_name": "APPS_brake",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "APPS Brake Fault"
                 }
             ]
         },

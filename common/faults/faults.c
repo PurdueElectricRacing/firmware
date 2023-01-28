@@ -33,11 +33,13 @@
 
 //BEGIN AUTO FAULT INFO ARRAY DEFS
 uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_LATCH_TIME, DRIVE_FLOW_LATCH_TIME, MAIN_COMM_LATCH_TIME, LV_DEAD_LATCH_TIME, MOT_FRONT_OT_LATCH_TIME, WLSPD_L_LATCH_TIME,
-			WLSPD_R_LATCH_TIME, DRIVELINE_COMM_LATCH_TIME, BMS_LATCH_TIME, BATT_OT_LATCH_TIME, TV_OFFLINE_LATCH_TIME, TEST_FAULT_1_LATCH_TIME, TEST_FAULT_2_LATCH_TIME,
-			TEST_FAULT_3_LATCH_TIME, TEST_FAULT_4_LATCH_TIME,};
+			WLSPD_R_LATCH_TIME, DRIVELINE_COMM_LATCH_TIME, APPS_WIRING_T1_LATCH_TIME, APPS_WIRING_T2_LATCH_TIME, BSE_WIRING_B1_LATCH_TIME, BSE_WIRING_B2_LATCH_TIME, BSE_WIRING_B3_LATCH_TIME,
+			IMPLAUS_DETECTED_LATCH_TIME, APPS_BRAKE_LATCH_TIME, BATT_OT_LATCH_TIME, TV_OFFLINE_LATCH_TIME, TEST_FAULT_1_LATCH_TIME, TEST_FAULT_2_LATCH_TIME, TEST_FAULT_3_LATCH_TIME,
+			TEST_FAULT_4_LATCH_TIME,};
 uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_UNLATCH_TIME, DRIVE_FLOW_UNLATCH_TIME, MAIN_COMM_UNLATCH_TIME, LV_DEAD_UNLATCH_TIME, MOT_FRONT_OT_UNLATCH_TIME, WLSPD_L_UNLATCH_TIME,
-			WLSPD_R_UNLATCH_TIME, DRIVELINE_COMM_UNLATCH_TIME, BMS_UNLATCH_TIME, BATT_OT_UNLATCH_TIME, TV_OFFLINE_UNLATCH_TIME, TEST_FAULT_1_UNLATCH_TIME, TEST_FAULT_2_UNLATCH_TIME,
-			TEST_FAULT_3_UNLATCH_TIME, TEST_FAULT_4_UNLATCH_TIME,};
+			WLSPD_R_UNLATCH_TIME, DRIVELINE_COMM_UNLATCH_TIME, APPS_WIRING_T1_UNLATCH_TIME, APPS_WIRING_T2_UNLATCH_TIME, BSE_WIRING_B1_UNLATCH_TIME, BSE_WIRING_B2_UNLATCH_TIME, BSE_WIRING_B3_UNLATCH_TIME,
+			IMPLAUS_DETECTED_UNLATCH_TIME, APPS_BRAKE_UNLATCH_TIME, BATT_OT_UNLATCH_TIME, TV_OFFLINE_UNLATCH_TIME, TEST_FAULT_1_UNLATCH_TIME, TEST_FAULT_2_UNLATCH_TIME, TEST_FAULT_3_UNLATCH_TIME,
+			TEST_FAULT_4_UNLATCH_TIME,};
 //Global arrays with all faults
 fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
 	(fault_status_t){false, ID_BATT_FLOW_FAULT},
@@ -48,7 +50,13 @@ fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
 	(fault_status_t){false, ID_WLSPD_L_FAULT},
 	(fault_status_t){false, ID_WLSPD_R_FAULT},
 	(fault_status_t){false, ID_DRIVELINE_COMM_FAULT},
-	(fault_status_t){false, ID_BMS_FAULT},
+	(fault_status_t){false, ID_APPS_WIRING_T1_FAULT},
+	(fault_status_t){false, ID_APPS_WIRING_T2_FAULT},
+	(fault_status_t){false, ID_BSE_WIRING_B1_FAULT},
+	(fault_status_t){false, ID_BSE_WIRING_B2_FAULT},
+	(fault_status_t){false, ID_BSE_WIRING_B3_FAULT},
+	(fault_status_t){false, ID_IMPLAUS_DETECTED_FAULT},
+	(fault_status_t){false, ID_APPS_BRAKE_FAULT},
 	(fault_status_t){false, ID_BATT_OT_FAULT},
 	(fault_status_t){false, ID_TV_OFFLINE_FAULT},
 	(fault_status_t){false, ID_TEST_FAULT_1_FAULT},
@@ -65,13 +73,19 @@ fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {
 	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG}, 
 	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG}, 
 	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG}, 
-	(fault_attributes_t){false, false, BMS_PRIORITY, 0, 0, BMS_MAX, BMS_MIN, &statusArray[8], BMS_MSG}, 
-	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[9], BATT_OT_MSG}, 
-	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[10], TV_OFFLINE_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[11], TEST_FAULT_1_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[12], TEST_FAULT_2_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[13], TEST_FAULT_3_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[14], TEST_FAULT_4_MSG}, 
+	(fault_attributes_t){false, false, APPS_WIRING_T1_PRIORITY, 0, 0, APPS_WIRING_T1_MAX, APPS_WIRING_T1_MIN, &statusArray[8], APPS_WIRING_T1_MSG}, 
+	(fault_attributes_t){false, false, APPS_WIRING_T2_PRIORITY, 0, 0, APPS_WIRING_T2_MAX, APPS_WIRING_T2_MIN, &statusArray[9], APPS_WIRING_T2_MSG}, 
+	(fault_attributes_t){false, false, BSE_WIRING_B1_PRIORITY, 0, 0, BSE_WIRING_B1_MAX, BSE_WIRING_B1_MIN, &statusArray[10], BSE_WIRING_B1_MSG}, 
+	(fault_attributes_t){false, false, BSE_WIRING_B2_PRIORITY, 0, 0, BSE_WIRING_B2_MAX, BSE_WIRING_B2_MIN, &statusArray[11], BSE_WIRING_B2_MSG}, 
+	(fault_attributes_t){false, false, BSE_WIRING_B3_PRIORITY, 0, 0, BSE_WIRING_B3_MAX, BSE_WIRING_B3_MIN, &statusArray[12], BSE_WIRING_B3_MSG}, 
+	(fault_attributes_t){false, false, IMPLAUS_DETECTED_PRIORITY, 0, 0, IMPLAUS_DETECTED_MAX, IMPLAUS_DETECTED_MIN, &statusArray[13], IMPLAUS_DETECTED_MSG}, 
+	(fault_attributes_t){false, false, APPS_BRAKE_PRIORITY, 0, 0, APPS_BRAKE_MAX, APPS_BRAKE_MIN, &statusArray[14], APPS_BRAKE_MSG}, 
+	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[15], BATT_OT_MSG}, 
+	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[16], TV_OFFLINE_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[17], TEST_FAULT_1_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[18], TEST_FAULT_2_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[19], TEST_FAULT_3_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[20], TEST_FAULT_4_MSG}, 
 };
 //END AUTO FAULT INFO ARRAY DEFS
 
@@ -119,7 +133,7 @@ bool setFault(int id, int valueToCompare) {
         return statusArray[GET_IDX(id)].latched;
     }
     //Templatch = result of comparison of limits + current value
-    fault->tempLatch = ((valueToCompare > fault->f_max) || (valueToCompare <= fault->f_min)) ? true : false;
+    fault->tempLatch = ((valueToCompare >= fault->f_max) || (valueToCompare < fault->f_min)) ? true : false;
     return faultArray[GET_IDX(id)].tempLatch;
 }
 

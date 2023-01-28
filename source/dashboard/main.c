@@ -68,7 +68,7 @@ GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
  // Drivetrain
  GPIO_INIT_ANALOG(DT_GB_THERM_L_GPIO_Port, DT_GB_THERM_L_Pin),
- GPIO_INIT_ANALOG(DT_GB_THERM_R_GPIO_Port, DT_GB_THERM_R_Pin), 
+ GPIO_INIT_ANALOG(DT_GB_THERM_R_GPIO_Port, DT_GB_THERM_R_Pin),
  // LCD
  GPIO_INIT_USART1TX_PA9,
  GPIO_INIT_USART1RX_PA10,
@@ -198,11 +198,13 @@ int main (void)
         HardFault_Handler();
     }
 
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+
     /* Task Creation */
     schedInit(SystemCoreClock);
     // configureAnim(preflightAnimation, preflightChecks, 120, 750);
 
-    taskCreate(heartBeatLED, 500);
+    // taskCreate(heartBeatLED, 500);
     taskCreate(brakeStatMonitor, 15);
     // taskCreate(heartBeatMsg, 100);
     // taskCreate(checkStartBtn, 100);
@@ -234,10 +236,14 @@ int main (void)
     // taskCreate(check_buttons, 100);
     // taskCreate(check_error, 1000);
 
+    //Fault Library Enable
+    // taskCreate(heartBeatTask, 100);
+    // taskCreate(updateFaults, 5);
+
     // taskCreateBackground(usartTxUpdate);
 
     schedStart();
-    
+
     return 0;
 }
 

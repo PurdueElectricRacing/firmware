@@ -206,7 +206,7 @@ bool setFault(int, int);
 void forceFault(int, bool);
 void unForce(int);
 void txFaultSpecific(int);
-void txFaults();
+void heartBeatTask();
 void updateFaults();
 void killFaultLibrary();
 void handleCallbacks(fault_status_t);

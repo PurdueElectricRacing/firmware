@@ -125,7 +125,7 @@ bool setFault(int id, int valueToCompare) {
 
 
 //Heartbeat; Send faults periodically (100ms)
-void txFaults() {
+void heartBeatTask() {
     if (ownedidx < 0 || fault_lib_disable) {
         return;
     }

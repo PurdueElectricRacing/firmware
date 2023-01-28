@@ -48,7 +48,7 @@ void pedalsPeriodic(void)
     uint16_t diff = b3 - b3_offset;
     b3 = diff > b3 ? 0 : diff;
 
-    bool apps_wiring_fail = false;
+    // bool apps_wiring_fail = false;
 
     // Check for APPS wiring failure T.4.2.10; Also handles part of implaus check
     // if ( /* t1 <= APPS_IMPLAUS_MIN || t1 >= APPS_IMPLAUS_MAX || */

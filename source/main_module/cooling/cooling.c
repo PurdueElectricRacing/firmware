@@ -132,9 +132,11 @@ bool coolingInit()
     TIM17 -> CCMR1 &= ~TIM_CCMR1_CC1S;
     TIM17 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
 
+
     TIM17 -> CCER |= TIM_CCER_CC1P | TIM_CCER_CC1NP; //setting edge detection to both rising and falling
 
     TIM17 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting cmr1 to capture at every transition
+
 
     TIM17 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
 
@@ -188,7 +190,7 @@ void setDTFan (uint8_t dutyCycle)
 
 uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr) {
     uint8_t i;
-    float   average = 0;
+    float average = 0;
 
     old[curr] = new;
 

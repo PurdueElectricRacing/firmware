@@ -6,7 +6,11 @@
             "intelliSenseMode": "gcc-arm",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
-            "configurationProvider": "ms-vscode.cmake-tools"
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/common/STM32CubeL4/Drivers/CMSIS/Device/ST/STM32L4xx/Include"
+            ]
         }
     ],
     "version": 4

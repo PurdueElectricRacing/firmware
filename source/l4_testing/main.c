@@ -1,4 +1,4 @@
-/* System Includes */
+// System Includes
 #include "stm32l432xx.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
@@ -15,25 +15,26 @@
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
-#include "daq.h"
+// #include "daq.h"
 #include "wheel_speeds.h"
+#include "cooling.h"
 
 #include "common/faults/faults.h"
 
 
 GPIOInitConfig_t gpio_config[] = {
-  GPIO_INIT_CANRX_PA11,
-  GPIO_INIT_CANTX_PA12,
+//   GPIO_INIT_CANRX_PA11,
+//   GPIO_INIT_CANTX_PA12,
 //   GPIO_INIT_USART1TX_PA9,
 //   GPIO_INIT_USART1RX_PA10,
 // #if EEPROM_ENABLED
 //   GPIO_INIT_I2C3_SCL_PA7,
 //   GPIO_INIT_I2C3_SDA_PB4,
 // #endif
-  GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
+//   GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED),
 //   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
 //   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_OUTPUT(LED1_GPIO_Port, LED1_Pin, GPIO_OUTPUT_LOW_SPEED),
+//   GPIO_INIT_OUTPUT(LED1_GPIO_Port, LED1_Pin, GPIO_OUTPUT_LOW_SPEED),
 //   GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
 //   GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
 //   GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
@@ -41,10 +42,11 @@ GPIOInitConfig_t gpio_config[] = {
 //   GPIO_INIT_ANALOG(POT2_GPIO_Port, POT2_Pin),
 //   GPIO_INIT_ANALOG(POT3_GPIO_Port, POT3_Pin)
     // SPI
-    GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_OUTPUT(SPI_CS_EEPROM_GPIO_Port, SPI_CS_EEPROM_Pin, GPIO_OUTPUT_HIGH_SPEED),
+    // GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    // GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    // GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    // GPIO_INIT_OUTPUT(SPI_CS_EEPROM_GPIO_Port, SPI_CS_EEPROM_Pin, GPIO_OUTPUT_HIGH_SPEED),
+    GPIO_INIT_AF(BAT_FAN_CTRL_GPIO_Port, BAT_FAN_CTRL_Pin, 2, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
 };
 
 ADCInitConfig_t adc_config = {
@@ -157,12 +159,12 @@ int main (void)
     // Main stack pointer is saved as the first entry in the .isr_entry
     Bootloader_ConfirmApplicationLaunch();
     /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    // qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    // qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
 
-    huart1.tx_dma_cfg = &usart_tx_dma_config;
-    huart1.rx_dma_cfg = &usart_rx_dma_config;
+    // huart1.tx_dma_cfg = &usart_tx_dma_config;
+    // huart1.rx_dma_cfg = &usart_rx_dma_config;
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -174,12 +176,12 @@ int main (void)
         HardFault_Handler();
     }
 
-    volatile uint16_t var = 0;
+    // volatile uint16_t var = 0;
 
-    if(!PHAL_initCAN(CAN1, false))
-    {
-        HardFault_Handler();
-    }
+    // if(!PHAL_initCAN(CAN1, false))
+    // {
+    //     HardFault_Handler();
+    // }
 //     if(!PHAL_initUSART(USART1, &huart1, APB2ClockRateHz))
 //     {
 //         HardFault_Handler();
@@ -217,12 +219,12 @@ int main (void)
     {
         HardFault_Handler();
     }*/
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    // NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    spi_config.data_rate = APB2ClockRateHz / 4; // 5 MHz
-    if (!PHAL_SPI_init(&spi_config))
-        HardFault_Handler();
-    initMem(GPIOA, 3, &spi_config, 1, 1);
+    // spi_config.data_rate = APB2ClockRateHz / 4; // 5 MHz
+    // if (!PHAL_SPI_init(&spi_config))
+    //     HardFault_Handler();
+    // initMem(GPIOA, 3, &spi_config, 1, 1);
     // uint8_t  page[MICRO_PG_SIZE] = {0};
     // page[0] = 1;
     // page[1] = 2;
@@ -237,7 +239,7 @@ int main (void)
     // PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
     /* Module init */
-    initCANParse(&q_rx_can);
+    // initCANParse(&q_rx_can);
     // wheelSpeedsInit();
 
     // linkReada(DAQ_ID_TEST_VAR, &my_counter);
@@ -249,31 +251,35 @@ int main (void)
     // linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
     // linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
     // linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    if(daqInit(&q_tx_can))
-    {
-        PHAL_writeGPIO(LED1_GPIO_Port, LED1_Pin, 1);
-        HardFault_Handler();
-    }
+    // if(daqInit(&q_tx_can))
+    // {
+    //     PHAL_writeGPIO(LED1_GPIO_Port, LED1_Pin, 1);
+    //     HardFault_Handler();
+    // }
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+    // initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
+
+    coolingInit();
+    setBATFan(50);
+    setDTFan(50);
     // taskCreate(usartTXTest, 1000);
-    taskCreate(ledBlink, 500);
-    //Fault Stuff
-    taskCreate(updateFaults, 5);
-    taskCreate(txFaults, 100);
+    // taskCreate(ledBlink, 500);
+    // //Fault Stuff
+    // taskCreate(updateFaults, 5);
+    // taskCreate(txFaults, 100);
     //Fault Stuff
     // taskCreate(adcConvert, 50);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(canSendTest, 50);
-    taskCreate(memFg, MEM_FG_TIME);
-    // taskCreate(wheelSpeedsPeriodic, 15);
-    // taskCreate(myCounterTest, 50);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
-    taskCreateBackground(memBg);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    // taskCreate(canSendTest, 50);
+    // taskCreate(memFg, MEM_FG_TIME);
+    // // taskCreate(wheelSpeedsPeriodic, 15);
+    // // taskCreate(myCounterTest, 50);
+    // taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(canRxUpdate);
+    // taskCreateBackground(memBg);
 
 
     // signify end of initialization
@@ -376,7 +382,7 @@ void canSendTest()
     // SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
     // SEND_CAR_STATE(q_tx_can, CAR_STATE_FLIPPED);
     //PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, green_on);
-    PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, config.green_on);
+    //PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, config.green_on);
 }
 
 void canTxUpdate()

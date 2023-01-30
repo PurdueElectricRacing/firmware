@@ -52,4 +52,15 @@
 #define SPI_CS_EEPROM_GPIO_Port (GPIOA)
 #define SPI_CS_EEPROM_Pin (4)
 
+//Cooling
+#define BAT_FAN_CTRL_TIM            (TIM1)
+#define BAT_FAN_CTRL_TIM_CH         (1)
+#define BAT_FAN_CTRL_GPIO_Port      (GPIOA)
+#define BAT_FAN_CTRL_Pin            (8)
+
+#define DT_FAN_CTRL_TIM            (TIM1)
+#define DT_FAN_CTRL_TIM_CH         (1)
+#define DT_FAN_CTRL_GPIO_Port      (GPIOA)
+#define DT_FAN_CTRL_Pin            (9)
+
 #endif

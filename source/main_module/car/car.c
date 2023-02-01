@@ -12,16 +12,6 @@ static bool checkErrorFaults();
 static bool checkFatalFaults();
 static void brakeLightUpdate(uint16_t raw_brake);
 
-inline float pow_diy(float base, uint8_t power)
-{
-    float output = base;
-    for(uint8_t i = 0; i < (power - 1); i++)
-    {
-        output *= base;
-    }
-    return output;
-}
-
 bool carInit()
 {
     car.state = CAR_STATE_INIT;
@@ -37,7 +27,7 @@ void carHeartbeat()
 }
 
 /**
- * @brief Main task cor the car containing a finite state machine
+ * @brief Main task for the car containing a finite state machine
  *        to determine when the car should be driveable
  */
 uint32_t last_time = 0;
@@ -46,12 +36,15 @@ void carPeriodic()
 {
 
     torqueRequest_t torque_r;
-    static uint16_t t_temp;
 
     /* State Independent Operations */
-    //if (can_data.raw_throttle_brake.throttle > 0) asm("bkpt");
 
-    // TODO: brakeLightUpdate(can_data.raw_throttle_brake.brake);
+    /**
+     * Brake Light Control
+     * The on threshold is larger than the off threshold to
+     * behave similar to a shmitt trigger, preventing blinking
+     * during a transition
+     */
     if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {
         if (!car.brake_light)
@@ -60,12 +53,14 @@ void carPeriodic()
             car.brake_light = true;
         }
     }
-    else if (car.brake_light)
+    else if (car.brake_light < BRAKE_LIGHT_OFF_THRESHOLD)
     {
-        PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
-        car.brake_light = false;
+        if (car.brake_light)
+        {
+            PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
+            car.brake_light = false;
+        }
     }
-
 
     if (checkErrorFaults())
     {
@@ -105,6 +100,9 @@ void carPeriodic()
     else if (car.state == CAR_STATE_INIT)
     {
         PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, true); // close SDC
+        // TODO: stale checking on start button
+        // TODO: move brake pressed check from dashboard to here
+        // TODO: make the brake signal sent based on the transudcers
         if (can_data.start_button.start)
         {
             can_data.start_button.start = 0; // debounce
@@ -309,130 +307,9 @@ bool checkFatalFaults()
  *        draw based on the output of a current
  *        sense amplifier
  */
-void calcLVCurrent()
-{
-    uint32_t raw = adc_readings.lv_i_sense;
-    car.lv_current_mA = (uint16_t) (raw * 1000 * 1000 * LV_ADC_V_IN_V / 
-                        (LV_MAX_ADC_RAW * LV_GAIN * LV_R_SENSE_mOHM));
-}
-
-static void brakeLightUpdate(uint16_t raw_brake)
-{
-    if (!car.brake_light)
-    {
-        if (raw_brake >= BRAKE_LIGHT_ON_THRESHOLD)
-        {
-            car.brake_light = 1;
-            car.brake_blink_ct = 0;
-            car.brake_start_time = sched.os_ticks;
-            PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, true);
-        }
-    }
-    else
-    {
-        if (raw_brake < BRAKE_LIGHT_OFF_THRESHOLD)
-        {
-            car.brake_light = 0;
-            PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, false);
-        }
-        else if (car.brake_blink_ct != BRAKE_BLINK_CT)
-        {
-            if (sched.os_ticks - car.brake_start_time > BRAKE_BLINK_PERIOD / 2)
-            {
-                PHAL_toggleGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin);
-                if (PHAL_readGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin)) ++car.brake_blink_ct;
-                car.brake_start_time = sched.os_ticks;
-            }
-        }
-    }
-}
-
-/*
-* E-diff @ May 29, based on Demetrius's May 25 E-diff simulink model
-*/
-
-void eDiff(int16_t t_req, torqueRequest_t* torque_r)
-{
-    float steering_wheel_angle;
-
-    float wheel_speed_left;
-    float wheel_speed_right;
-    float vehicle_speed;
-
-    float rack_disp;
-    float left_steer_angle;
-    float right_steer_angle;
-    float avg_steer_angle;
-
-    float desired_wheel_speed_left;
-    float desired_wheel_speed_right;
-    float desired_wheel_speed_diff;
-
-    float actual_wheel_speed_diff;
-    float error_wheel_speed_diff;
-
-    float delta_torque;
-
-    if (t_req < 0) // when regen breaking
-    {
-        torque_r->torque_left = t_req;
-        torque_r->torque_right = t_req;
-
-        return;
-    } 
-    else // when positive torque request
-    {
-        wheel_speed_left = can_data.rear_wheel_data.left_speed / 100.0;
-        wheel_speed_right = can_data.rear_wheel_data.right_speed / 100.0;
-
-        // not the best vehicle speed calculation, should probably include IMU data also
-        vehicle_speed = (wheel_speed_left + wheel_speed_right) / 2.0;
-
-        steering_wheel_angle = can_data.LWS_Standard.LWS_ANGLE / 10.0;
-        rack_disp = STEERING_SLOPE * STEERING_INCH2MM * steering_wheel_angle;
-
-        left_steer_angle = - ((STEERING_S1 * pow_diy(-rack_disp, 3)) + (STEERING_S2 * pow_diy(-rack_disp, 2)) + (STEERING_S3 * (-rack_disp)) + STEERING_S4);
-        right_steer_angle = ((STEERING_S1 * pow_diy(rack_disp, 3)) + (STEERING_S2 * pow_diy(rack_disp, 2)) + (STEERING_S3 * rack_disp) + STEERING_S4);
-        avg_steer_angle = ((left_steer_angle + right_steer_angle) / 2) * STEERING_DEG2RAD;
-
-        // E-diff equations
-        desired_wheel_speed_left = vehicle_speed + vehicle_speed * STEERING_W * tan(avg_steer_angle) / (2 * STEERING_L);
-        desired_wheel_speed_right = vehicle_speed - vehicle_speed * STEERING_W * tan(avg_steer_angle) / (2 * STEERING_L);
-
-        // pre-PID
-        desired_wheel_speed_diff = (desired_wheel_speed_left - desired_wheel_speed_right) * STEERING_K;
-
-        actual_wheel_speed_diff = wheel_speed_left - wheel_speed_right;
-
-        error_wheel_speed_diff = desired_wheel_speed_diff - actual_wheel_speed_diff;
-
-        // actual PID
-        delta_torque = fabs(STEERING_P * error_wheel_speed_diff);  // just P for now
-        
-        //  TODO (not critical): include lookup table for torque fallout in high rpm
-
-        // torque output
-        if(error_wheel_speed_diff >= 0)
-        {
-            torque_r->torque_left = t_req;
-            torque_r->torque_right = t_req - delta_torque;
-            // limit regen torque (temporary)
-            if(torque_r->torque_right < (- 0.25 * 4095))
-            {
-                torque_r->torque_right = (- 0.25 * 4095);
-            }
-        }
-        else
-        {
-            torque_r->torque_left = t_req - delta_torque;
-            torque_r->torque_right = t_req;
-            // limit regen torque (temporary)
-            if(torque_r->torque_left < (- 0.25 * 4095))
-            {
-                torque_r->torque_left = (- 0.25 * 4095);
-            }
-        }
-
-        return;
-    }
-}
+// void calcLVCurrent()
+// {
+//     uint32_t raw = adc_readings.lv_i_sense;
+//     car.lv_current_mA = (uint16_t) (raw * 1000 * 1000 * LV_ADC_V_IN_V / 
+//                         (LV_MAX_ADC_RAW * LV_GAIN * LV_R_SENSE_mOHM));
+// }

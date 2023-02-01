@@ -1,23 +1,23 @@
+/* System Includes */
 #include "stm32l496xx.h"
-
 #include "common/bootloader/bootloader_common.h"
+#include "common/faults/faults.h"
+#include "common/phal_L4/adc/adc.h"
+#include "common/phal_L4/can/can.h"
+#include "common/phal_L4/eeprom_spi/eeprom_spi.h"
+#include "common/phal_L4/dma/dma.h"
+#include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_L4/i2c/i2c.h"
+#include "common/phal_L4/rcc/rcc.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
-#include "common/phal_L4/can/can.h"
-#include "common/phal_L4/rcc/rcc.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/adc/adc.h"
-#include "common/phal_L4/i2c/i2c.h"
-#include "common/phal_L4/dma/dma.h"
 
 /* Module Includes */
 #include "car.h"
 #include "can_parse.h"
 #include "cooling.h"
-// #include "daq.h"
+#include "daq.h"
 #include "main.h"
-
-#include "common/faults/faults.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -101,17 +101,42 @@ ADCInitConfig_t adc_config = {
     .overrun         = true,
     .dma_mode        = ADC_DMA_CIRCULAR
 };
+// TODO: consider splitting into ADC1 and ADC2
 ADCChannelConfig_t adc_channel_config[] = {
-    // {.channel=DT_THERM_1_ADC_CHNL,    .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=DT_THERM_2_ADC_CHNL,    .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=BAT_THERM_OUT_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=BAT_THERM_IN_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=I_SENSE_C1_ADC_CHNL,    .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=LV_I_SENSE_ADC_CHNL,    .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=V_MC_SENSE_ADC_CHNL,     .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=DT_GB_THERM_L_ADC_CHNL,  .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // TODO: DT_GB_THERM_R is not on an ADC channel
+    {.channel=DT_THERM_1_ADC_CHNL,     .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // TODO: BAT_THERM_OUT is not on an ADC channel
+    {.channel=BAT_THERM_IN_ADC_CHNL,   .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_12V_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
 
+/* SPI Configuration */
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
+
+SPI_InitConfig_t spi_config = {
+    .data_len  = 8,
+    .nss_sw = false,
+    .nss_gpio_port = EEPROM_NSS_GPIO_Port,
+    .nss_gpio_pin = EEPROM_NSS_Pin,
+    .rx_dma_cfg = &spi_rx_dma_config,
+    .tx_dma_cfg = &spi_tx_dma_config,
+    .periph = SPI1
+};
+
+/* Clock Configuration */
 #define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
@@ -119,8 +144,8 @@ ClockRateConfig_t clock_config = {
     .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (4)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (4)),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
 };
 
 /* Locals for Clock Rates */
@@ -133,14 +158,13 @@ extern uint32_t PLLClockRateHz;
 void preflightAnimation(void);
 void preflightChecks(void);
 void heartBeatLED();
-void linkDAQVars();
 void canTxUpdate(void);
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-int main (void)
+int main(void)
 {
     /* Data Struct Initialization */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
@@ -165,10 +189,14 @@ int main (void)
     // taskCreate(carHeartbeat, 100);
     // taskCreate(carPeriodic, 15);
     // taskCreate(setFanPWM, 1);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // taskCreateBackground(canTxUpdate);
-    // taskCreateBackground(canRxUpdate);
+    taskCreate(updateFaults, 5);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(memFg, MEM_FG_TIME);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(memBg);
 
+    // TODO: move to ("cal wheel speed function")
     /*
     CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=0};\
     CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -178,7 +206,7 @@ int main (void)
     qSendToBack(&q_tx_can, &msg);\
     */
 
-    // schedStart();
+    schedStart();
 
     return 0;
 }
@@ -194,6 +222,11 @@ void preflightChecks(void) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            spi_config.data_rate = APB2ClockRateHz / 16; // 5 MHz
+            if (!PHAL_SPI_init(&spi_config))
+                HardFault_Handler();
+            if (initMem(EEPROM_nWP_GPIO_Port, EEPROM_nWP_Pin, &spi_config, 1, 1) != E_SUCCESS)
+                HardFault_Handler();
            break;
         case 2:
             if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
@@ -215,8 +248,9 @@ void preflightChecks(void) {
            break;
        case 4:
            initCANParse(&q_rx_can);
-           linkDAQVars();
-        //    daqInit(&q_tx_can, I2C);
+           if(daqInit(&q_tx_can))
+               HardFault_Handler();
+           initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
            break;
         default:
             registerPreflightComplete(1);
@@ -247,26 +281,13 @@ void preflightAnimation(void) {
             break;
     }
 }
-void heartBeatLED()
+
+void heartBeatLED(void)
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-}
-
-void linkDAQVars()
-{
-    // linkReada(DAQ_ID_DT_LITERS_P_MIN_X10, &cooling.dt_liters_p_min_x10);
-    // linkReada(DAQ_ID_DT_FLOW_ERROR, &cooling.dt_flow_error);
-    // linkReada(DAQ_ID_DT_TEMP_ERROR, &cooling.dt_temp_error);
-    // linkReada(DAQ_ID_BAT_LITERS_P_MIN_X10, &cooling.bat_liters_p_min_x10);
-    // linkReada(DAQ_ID_BAT_FLOW_ERROR, &cooling.bat_flow_error);
-    // linkReada(DAQ_ID_BAT_TEMP_ERROR, &cooling.bat_temp_error);
-    // linkReada(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
-    // linkWritea(DAQ_ID_MOT_LEFT_REQ, &mot_left_req);
-    // linkReada(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
-    // linkWritea(DAQ_ID_MOT_RIGHT_REQ, &mot_right_req);
 }
 
 void canTxUpdate(void)

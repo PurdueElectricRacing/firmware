@@ -57,9 +57,9 @@ void coolingPeriodic()
     /* WATER TEMP CALCULATIONS */
 
     cooling.dt_therm_1_C    = rawThermtoCelcius(adc_readings.dt_therm_1);
-    cooling.dt_therm_2_C    = rawThermtoCelcius(adc_readings.dt_therm_2);
+    // cooling.dt_therm_2_C    = rawThermtoCelcius(adc_readings.dt_therm_2);
     cooling.bat_therm_in_C  = rawThermtoCelcius(adc_readings.bat_therm_in);
-    cooling.bat_therm_out_C = rawThermtoCelcius(adc_readings.bat_therm_out);
+    // cooling.bat_therm_out_C = rawThermtoCelcius(adc_readings.bat_therm_out);
 
     /* FLOW CALCULATIONS */
     // Convert ticks and time delta to liters per minute
@@ -81,8 +81,8 @@ void coolingPeriodic()
     curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
 
     //Send CAN messages with flowrates
-    SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
-                        adc_readings.dt_therm_1, adc_readings.dt_therm_2);
+    // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
+    //                     adc_readings.dt_therm_1, adc_readings.dt_therm_2);
     /* DT COOLANT SYSTEM */
 
     // Find max motor temperature (CELSIUS)

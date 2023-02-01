@@ -69,8 +69,10 @@
 
 #define V_MC_SENSE_GPIO_Port        (GPIOC)
 #define V_MC_SENSE_Pin              (4)
+#define V_MC_SENSE_ADC_CHNL         (13)
 #define V_BAT_SENSE_GPIO_Port       (GPIOC)
 #define V_BAT_SENSE_Pin             (5)
+#define V_BAT_SENSE_ADC_CHNL        (14)
 
 #define BMS_STAT_GPIO_Port          (GPIOC)
 #define BMS_STAT_Pin                (11)
@@ -132,17 +134,21 @@
 // Shock Pots
 #define SHOCK_POT_L_GPIO_Port       (GPIOA)
 #define SHOCK_POT_L_Pin             (5)
+#define SHOCK_POT_L_ADC_CHNL        (10)
 #define SHOCK_POT_R_GPIO_Port       (GPIOA)
 #define SHOCK_POT_R_Pin             (2)
+#define SHOCK_POT_R_ADC_CHNL        (7)
 
 // Drivetrain
 #define DT_GB_THERM_L_GPIO_Port     (GPIOA)
 #define DT_GB_THERM_L_Pin           (4)
+#define DT_GB_THERM_L_ADC_CHNL      (9)
 #define DT_GB_THERM_R_GPIO_Port     (GPIOA)
 #define DT_GB_THERM_R_Pin           (11)
 
 #define DT_THERM_1_GPIO_Port        (GPIOC)
 #define DT_THERM_1_Pin              (0)
+#define DT_THERM_1_ADC_CHNL         (1)
 #define DT_PUMP_CTRL_GPIO_Port      (GPIOB)
 #define DT_PUMP_CTRL_Pin            (10)
 
@@ -166,6 +172,7 @@
 #define BAT_THERM_OUT_Pin           (11)
 #define BAT_THERM_IN_GPIO_Port      (GPIOA)
 #define BAT_THERM_IN_Pin            (3)
+#define BAT_THERM_IN_ADC_CHNL       (8)
 #define BAT_PUMP_CTRL_1_GPIO_Port   (GPIOB)
 #define BAT_PUMP_CTRL_1_Pin         (14)
 #define BAT_PUMP_CTRL_2_GPIO_Port   (GPIOB)
@@ -189,19 +196,25 @@
 // LV Status
 #define LV_24V_V_SENSE_GPIO_Port    (GPIOA)
 #define LV_24V_V_SENSE_Pin          (6)
+#define LV_24V_V_SENSE_ADC_CHNL     (11)
 #define LV_24V_I_SENSE_GPIO_Port    (GPIOC)
 #define LV_24V_I_SENSE_Pin          (1)
+#define LV_24V_I_SENSE_ADC_CHNL     (2)
 
 #define LV_12V_V_SENSE_GPIO_Port    (GPIOA)
 #define LV_12V_V_SENSE_Pin          (7)
+#define LV_12V_V_SENSE_ADC_CHNL     (12)
 
 #define LV_5V_V_SENSE_GPIO_Port     (GPIOB)
 #define LV_5V_V_SENSE_Pin           (0)
+#define LV_5V_V_SENSE_ADC_CHNL      (15)
 #define LV_5V_I_SENSE_GPIO_Port     (GPIOC)
 #define LV_5V_I_SENSE_Pin           (2)
+#define LV_5V_I_SENSE_ADC_CHNL      (3)
 
 #define LV_3V3_V_SENSE_GPIO_Port    (GPIOB)
 #define LV_3V3_V_SENSE_Pin          (1)
+#define LV_3V3_V_SENSE_ADC_CHNL     (16)
 #define LV_3V3_PG_GPIO_Port         (GPIOB)
 #define LV_3V3_PG_Pin               (8)
 

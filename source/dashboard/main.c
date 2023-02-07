@@ -19,6 +19,7 @@
 #include "pedals.h"
 #include "lcd.h"
 #include "nextion.h"
+#include "hdd.h"
 
 #include "common/faults/faults.h"
 
@@ -157,6 +158,13 @@ ClockRateConfig_t clock_config = {
    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
+hdd_value_t hdd = {
+   .curr_addr = 0,
+   .mux_1_val = 0,
+   .mux_2_val = 0
+};
+
+
 /* Locals for Clock Rates */
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
@@ -174,6 +182,9 @@ void usartTxUpdate();
 void linkDAQVars();
 void checkStartBtn();
 extern void HardFault_Handler();
+void pollHDD();
+void toggleLights();
+
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -200,12 +211,20 @@ int main (void)
 
     initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
 
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+
+
     /* Task Creation */
     schedInit(SystemCoreClock);
     // configureAnim(preflightAnimation, preflightChecks, 120, 750);
 
-    // taskCreate(heartBeatLED, 500);
-    taskCreate(brakeStatMonitor, 15);
+    // // taskCreate(heartBeatLED, 500);
+    // taskCreate(brakeStatMonitor, 15);
+    taskCreate(pollHDD, 1000);
+    taskCreate(toggleLights, 500);
     // taskCreate(heartBeatMsg, 100);
     // taskCreate(checkStartBtn, 100);
     // taskCreate(pedalsPeriodic, 15);
@@ -235,7 +254,6 @@ int main (void)
 
     // taskCreate(check_buttons, 100);
     // taskCreate(check_error, 1000);
-
     //Fault Library Enable
     // taskCreate(heartBeatTask, 100);
     // taskCreate(updateFaults, 5);
@@ -328,6 +346,49 @@ void preflightAnimation(void) {
             break;
     }
 }
+
+static uint8_t lights;
+void toggleLights() {
+    switch (lights++){
+        case 0:
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+            break;
+        case 2:
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
+            lights = 0;
+            break;
+    }
+
+}
+
+void pollHDD() {
+   for (uint8_t i = 0; i < 24; i++) {
+       //BMUX0 == LSB, BMUX4 == LSB
+       PHAL_writeGPIO(B_MUX_0_GPIO_Port, B_MUX_0_Pin, (bool)(i & 0x01));
+       PHAL_writeGPIO(B_MUX_1_GPIO_Port, B_MUX_1_Pin, (bool)(i & 0x02));
+       PHAL_writeGPIO(B_MUX_2_GPIO_Port, B_MUX_2_Pin, (bool)(i & 0x04));
+       PHAL_writeGPIO(B_MUX_3_GPIO_Port, B_MUX_3_Pin, (bool)(i & 0x08));
+       PHAL_writeGPIO(B_MUX_4_GPIO_Port, B_MUX_4_Pin, (bool)(i & 0x10));
+       for (uint8_t j = 0; j < 100; j++) {
+        __asm__("nop");
+       }
+       if (i <= 11) {
+           hdd.mux_1_arr[i] = PHAL_readGPIO(B_MUX_DATA_GPIO_Port, B_MUX_DATA_Pin);
+       }
+       else {
+           hdd.mux_2_arr[i - 12] = PHAL_readGPIO(B_MUX_DATA_GPIO_Port, B_MUX_DATA_Pin);
+       }
+   }
+
+
+}
+
 
 void heartBeatLED()
 {

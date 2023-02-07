@@ -1231,8 +1231,8 @@ CM_ BO_ 2347693089 "state of the car";
 CM_ SG_ 2347693089 car_state2 "";
 CM_ BO_ 2483032050 "daq command for node TEST_NODE";
 CM_ SG_ 2483032050 daq_command "";
-BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
-BA_DEF_DEF_  "GenMsgCycleTime" 0;
+
+
 
 VAL_ 2214598913 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
 VAL_ 2214598915 front_right_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;

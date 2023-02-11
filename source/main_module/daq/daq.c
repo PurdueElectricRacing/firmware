@@ -15,6 +15,7 @@
 
 // BEGIN AUTO VAR INCLUDES
 #include "cooling.h"
+#include"main.h"
 // END AUTO VAR INCLUDES
 
 // BEGIN AUTO VAR DEFS
@@ -25,6 +26,7 @@ daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=1, .bit_length=1, .read_var_a=&cooling.dt_temp_error, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&cooling.bat_flow_error, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&cooling.bat_temp_error, .write_var_a=NULL, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&power_on, .write_var_a=&power_on, },
 };
 // END AUTO VAR DEFS
 

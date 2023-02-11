@@ -302,14 +302,3 @@ bool checkFatalFaults()
     return is_error;
 }
 
-/**
- * @brief Calculates the low voltage system current
- *        draw based on the output of a current
- *        sense amplifier
- */
-// void calcLVCurrent()
-// {
-//     uint32_t raw = adc_readings.lv_i_sense;
-//     car.lv_current_mA = (uint16_t) (raw * 1000 * 1000 * LV_ADC_V_IN_V / 
-//                         (LV_MAX_ADC_RAW * LV_GAIN * LV_R_SENSE_mOHM));
-// }

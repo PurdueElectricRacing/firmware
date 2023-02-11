@@ -8,14 +8,15 @@
             "nodes":[
                 {
                     "node_name":"Main_Module",
-                    "includes":"#include \"cooling.h\"",
+                    "includes":"#include \"cooling.h\"\n#include\"main.h\"",
                     "variables": [
                         {"var_name":"dt_liters_p_min_x10", "access_phrase":"cooling.dt_liters_p_min_x10", "read_only": true, "type":"uint8_t", "length": 8},
                         {"var_name":"bat_liters_p_min_x10", "access_phrase":"cooling.bat_liters_p_min_x10", "read_only": true, "type":"uint8_t", "length": 8},
                         {"var_name":"dt_flow_error", "access_phrase":"cooling.dt_flow_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"dt_temp_error", "access_phrase":"cooling.dt_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"bat_flow_error", "access_phrase":"cooling.bat_flow_error", "read_only": true, "type":"uint8_t", "length": 1},
-                        {"var_name":"bat_temp_error", "access_phrase":"cooling.bat_temp_error", "read_only": true, "type":"uint8_t", "length": 1}
+                        {"var_name":"bat_temp_error", "access_phrase":"cooling.bat_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
+                        {"var_name":"power_on", "access_phrase":"power_on", "read_only": false, "type":"uint8_t", "length": 1}
                     ],
                     "files":[]
                 },

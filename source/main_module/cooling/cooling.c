@@ -56,9 +56,9 @@ void coolingPeriodic()
 {
     /* WATER TEMP CALCULATIONS */
 
-    cooling.dt_therm_1_C    = rawThermtoCelcius(adc_readings.dt_therm_1);
+    // cooling.dt_therm_1_C    = rawThermtoCelcius(adc_readings.dt_therm_1);
     // cooling.dt_therm_2_C    = rawThermtoCelcius(adc_readings.dt_therm_2);
-    cooling.bat_therm_in_C  = rawThermtoCelcius(adc_readings.bat_therm_in);
+    // cooling.bat_therm_in_C  = rawThermtoCelcius(adc_readings.bat_therm_in);
     // cooling.bat_therm_out_C = rawThermtoCelcius(adc_readings.bat_therm_out);
 
     /* FLOW CALCULATIONS */

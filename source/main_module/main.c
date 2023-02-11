@@ -18,6 +18,7 @@
 #include "cooling.h"
 #include "daq.h"
 #include "main.h"
+#include "power_monitor.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -94,7 +95,7 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .clock_prescaler = ADC_CLK_PRESC_6,
+    .clock_prescaler = ADC_CLK_PRESC_16,
     .resolution      = ADC_RES_12_BIT,
     .data_align      = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode  = true,
@@ -103,24 +104,24 @@ ADCInitConfig_t adc_config = {
 };
 // TODO: consider splitting into ADC1 and ADC2
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=V_MC_SENSE_ADC_CHNL,     .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=DT_GB_THERM_L_ADC_CHNL,  .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=V_MC_SENSE_ADC_CHNL,     .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=DT_GB_THERM_L_ADC_CHNL,  .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
     // TODO: DT_GB_THERM_R is not on an ADC channel
-    {.channel=DT_THERM_1_ADC_CHNL,     .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=DT_THERM_1_ADC_CHNL,     .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
     // TODO: BAT_THERM_OUT is not on an ADC channel
-    {.channel=BAT_THERM_IN_ADC_CHNL,   .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_12V_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    // {.channel=BAT_THERM_IN_ADC_CHNL,   .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_12V_V_SENSE_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
-            sizeof(adc_readings) / sizeof(adc_readings.dt_therm_1), 0b01);
+            sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
 
 /* SPI Configuration */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
@@ -164,8 +165,9 @@ extern void HardFault_Handler();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-int main(void)
-{
+uint8_t power_on;
+
+int main(void){
     /* Data Struct Initialization */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
@@ -182,14 +184,15 @@ int main(void)
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    // configureAnim(preflightAnimation, preflightChecks, 60, 750);
+    configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
     // taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
-    // taskCreate(carHeartbeat, 100);
+    taskCreate(carHeartbeat, 100);
     // taskCreate(carPeriodic, 15);
     // taskCreate(setFanPWM, 1);
-    taskCreate(updateFaults, 5);
+    taskCreate(updatePowerMonitor, 100);
+    // taskCreate(updateFaults, 5);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(memFg, MEM_FG_TIME);
     taskCreateBackground(canTxUpdate);
@@ -228,7 +231,7 @@ void preflightChecks(void) {
             if (initMem(EEPROM_nWP_GPIO_Port, EEPROM_nWP_Pin, &spi_config, 1, 1) != E_SUCCESS)
                 HardFault_Handler();
            break;
-        case 2:
+        case 1:
             if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
                             sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
             {
@@ -238,15 +241,16 @@ void preflightChecks(void) {
             {
                 HardFault_Handler();
             }
+            initPowerMonitor();
             PHAL_startTxfer(&adc_dma_config);
             PHAL_startADC(ADC1);
            break;
-        case 3:
+        case 2:
            /* Module Initialization */
            carInit();
            coolingInit();
            break;
-       case 4:
+       case 3:
            initCANParse(&q_rx_can);
            if(daqInit(&q_tx_can))
                HardFault_Handler();
@@ -288,6 +292,17 @@ void heartBeatLED(void)
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+    // PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, power_on);
+
+    static t;
+    if (t == 20) {
+        PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, 0);
+    }
+    else if (t == 22){
+        PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, 1);
+        t = 0;
+    }
+    ++t;
 }
 
 void canTxUpdate(void)

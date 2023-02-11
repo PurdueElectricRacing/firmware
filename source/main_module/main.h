@@ -12,6 +12,8 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+
+extern uint8_t power_on;
 //STM32L496VGT6
 
 #include "common/faults/fault_nodes.h"

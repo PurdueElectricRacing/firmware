@@ -77,7 +77,7 @@
                 "-d",
                 "${workspaceFolder}/source/bms"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {   "name": "Torque Vectoring",

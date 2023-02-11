@@ -1,4 +1,5 @@
 #include "cooling.h"
+#include "stm32l432xx.h"
 
 #define PWM_FREQUENCY 25000  //PWM frequency to be 25kHz
 
@@ -11,6 +12,7 @@ uint32_t bat_pump_start_time_ms;
 
 extern q_handle_t q_tx_can;
 extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
 
 
 static void setDtCooling(uint8_t on);
@@ -19,47 +21,61 @@ uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr);
 
 bool coolingInit()
 {
-    /* Configure GPIO Interrupts */
-    // // enable syscfg clock
-    // RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-    // // set exti gpio source through syscfg (0b0010 means GPIOC)
-    // SYSCFG->EXTICR[1] |= (((uint16_t)0b0010) << (DT_FLOW_RATE_PWM_Pin  - 4) * 4) |
-    //                      (((uint16_t)0b0010) << (BAT_FLOW_RATE_PWM_Pin - 4) * 4);
-    // // unmask the interrupt
-    // EXTI->IMR1 |= /*(0b1 << DT_FLOW_RATE_PWM_Pin) | */
-    //               (0b1 << BAT_FLOW_RATE_PWM_Pin);
-    // // set trigger to rising edge
-    // EXTI->RTSR1 |= (0b1 << DT_FLOW_RATE_PWM_Pin) |
-    //                (0b1 << BAT_FLOW_RATE_PWM_Pin);
-    // // enable the interrupt handlers
-    // NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+    // // TODO: Enable GPIO A
+    // RCC -> AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+
+    // // TODO: Configure the PA8-9 to be the outputs of TIM1 Ch 1-2
+    // // TODO: First we clear their MODER bits
+    // GPIOA -> MODER &= 0xFFF0FFFF;
+
+    // // TODO: Then we set them to AF mode
+    // GPIOA -> MODER |= 0x000A0000;
+
+
+    // // TODO: Set PA8-9 to use AF1 since this corresponds to the TIM1 Ch1 -2
+    // // AFR[1] -> AFRH
+    // GPIOA -> AFR[1] &= 0xFFFFFF00; //clearing pins 8 and 9
+    // GPIOA -> AFR[1] |= 0xFFFFFF11; //setting AF1 for those pins
 
 
     //Init Timer
     int arrValue = 100;
 
-    //FOR L4 TESTING PURPOSES WE WILL USE TIM1 connected to GPIOA Pin 8 and GPIOA Pin 9 for channels 1 and 2 respectively
+    //FOR L4 TESTING PURPOSES WE WILL USE TIM1 connected to GPIOA Pin 8 (D9) and GPIOA Pin 9 (D1) for channels 1 and 2 respectively
+    //BAT_FAN_CTRL_Pin -> GPIOA Pin 8 (D9)
+    //DT_FAN_CTRL_Pin - > GPIOA Pin 9 (D1) 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     TIM1 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
 
     RCC -> APB2ENR |= RCC_APB2ENR_TIM1EN; 
-    TIM1 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
+    TIM1 -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
     TIM1 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
 
+    //Enabling the MOE bit of the dead-time register
+    TIM1 -> BDTR |= TIM_BDTR_MOE;
+
     //Set Channels 1 and 2 to 110 (Mode 1 up counter) -> (active while CNT <= CCR)
+    TIM1 -> CCMR1 &= ~(TIM_CCMR1_OC1M_0);
+    TIM1 -> CCMR1 &= ~(TIM_CCMR1_OC2M_0);
     TIM1 -> CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1; 
     TIM1 -> CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+
+    //Setting the preload register
+    TIM1 -> CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC2PE;
+
+    // TIM1 -> CR1 |= TIM_CR1_ARPE;
 
     //Enable Channels 1 and 2 outputs 
     TIM1 -> CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
 
+    //Enable counter as long as ccrs are 0
+    TIM1 -> CR1 |= TIM_CR1_CEN; // turning on counter
+
     //Setting pwm to 0
     TIM1 -> CCR1 = 0;
     TIM1 -> CCR2 = 0;
-
-    //Enable counter as long as ccrs are 0
-    TIM1 -> CR1 |= TIM_CR1_CEN; // turning on counter
 
     // Default pin configurations
     setDtCooling(0);
@@ -71,7 +87,7 @@ bool coolingInit()
 
     //BAT Fan Tachometer: PE0 - TIM16_CH1
 
-    //init timer
+//     //init timer
 //     TIM16 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
 //     TIM16 -> CCER &= ~TIM_CCER_CC1E; //Turning off capture / compare
 

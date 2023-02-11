@@ -3,6 +3,7 @@
     "configurations": [
 
 
+
     
         {   "name": "Main Module",
             "cwd": "${workspaceRoot}",
@@ -59,7 +60,8 @@
                 "${workspaceFolder}/source/l4_testing"
             ],
             "preLaunchTask": "build",
-            "runToEntryPoint": "main"
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "raw"
         },
         {   "name": "BMS (12 Cell)",
             "cwd": "${workspaceRoot}",

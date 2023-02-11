@@ -46,7 +46,8 @@ GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     // GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
     // GPIO_INIT_OUTPUT(SPI_CS_EEPROM_GPIO_Port, SPI_CS_EEPROM_Pin, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_AF(BAT_FAN_CTRL_GPIO_Port, BAT_FAN_CTRL_Pin, 2, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
+    GPIO_INIT_AF(BAT_FAN_CTRL_GPIO_Port, BAT_FAN_CTRL_Pin, 1, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(DT_FAN_CTRL_GPIO_Port, DT_FAN_CTRL_Pin, 1, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN)
 };
 
 ADCInitConfig_t adc_config = {
@@ -171,7 +172,7 @@ int main (void)
     {
         HardFault_Handler();
     }
-    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
     {
         HardFault_Handler();
     }
@@ -260,11 +261,12 @@ int main (void)
     // initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
 
     /* Task Creation */
-    schedInit(APB1ClockRateHz);
+    schedInit(APB2ClockRateHz);
 
     coolingInit();
-    setBATFan(50);
-    setDTFan(50);
+    setBATFan(40);
+    setDTFan(40);
+
     // taskCreate(usartTXTest, 1000);
     // taskCreate(ledBlink, 500);
     // //Fault Stuff

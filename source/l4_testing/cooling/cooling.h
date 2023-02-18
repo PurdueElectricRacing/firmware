@@ -21,6 +21,7 @@
 #include "main.h"
 #include <math.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "stm32l4xx.h"
 
 //45 C  (off fail state) bat

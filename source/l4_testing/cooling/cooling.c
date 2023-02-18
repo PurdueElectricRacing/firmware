@@ -97,31 +97,27 @@ bool coolingInit()
     TIM2 -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
     TIM2 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
 
+    TIM2 -> CCR1 = 0; //initializing CCR to 0
+    ccrBatFanTachometer = 0;
+
     TIM2 -> CCMR1 &= ~TIM_CCMR1_CC1S;
     TIM2 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
 
     TIM2 -> CCMR1 &= ~TIM_CCMR1_IC1F;
     TIM2 -> CCMR1 |= TIM_CCMR1_IC1F_0 | TIM_CCMR1_IC1F_1; //setting transition stability
-    // TIM2 -> CCR1 = 25;
+
     TIM2 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting ccmr1 to capture at every transition
 
     TIM2 -> CCER |= TIM_CCER_CC1P; //Trigger at Rising edges
 
-
-
     TIM2 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
 
-    TIM2 -> DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE; //
+    TIM2 -> DIER |= TIM_DIER_CC1IE; //
 
     NVIC_EnableIRQ(TIM2_IRQn);
 
-    // TIM2 -> CCR1 = 0;
 
     TIM2 -> CR1 |= TIM_CR1_CEN;
-
-    // TIM2 -> EGR |= TIM_EGR_UG; 
-
-
 
 		/*Read captured value*/
 
@@ -167,19 +163,19 @@ bool coolingInit()
 //     TIM2->EGR |= TIM_EGR_UG; 
 // }
 
-void  TIM2_IRQHandler() //(wondering which one I should use?)
+void  TIM2_IRQHandler()
 {
-    if (TIM2->SR & TIM_SR_UIF)
+  
+    if (TIM2->SR & TIM_SR_CC1IF)
     {
-        ccrBatFanTachometer = 0;
-        TIM2 -> SR = ~TIM_SR_UIF;
-    }
-    else if (TIM2->SR & TIM_SR_CC1IF)
-    {
-        TIM2->SR = ~(TIM_SR_CC1IF);
-        ccrBatFanTachometer = TIM2->CCR1;
+        TIM2->SR &= ~(TIM_SR_CC1IF); //clear flag
+
+        ccrBatFanTachometer = (TIM2->CCR1) - ccrBatFanTachometer;
+
+        ccrBatFanTachometer = abs(ccrBatFanTachometer);
+
         // Enable the next update event
-        // TIM2->EGR |= TIM_EGR_UG; 
+        TIM2->EGR |= TIM_EGR_UG; 
     }
 }
 

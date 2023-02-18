@@ -69,14 +69,14 @@ GPIOInitConfig_t gpio_config[] = {
     // Drivetrain
     GPIO_INIT_ANALOG(DT_GB_THERM_L_GPIO_Port, DT_GB_THERM_L_Pin),
     GPIO_INIT_ANALOG(DT_GB_THERM_R_GPIO_Port, DT_GB_THERM_R_Pin),
-    GPIO_INIT_ANALOG(DT_THERM_1_GPIO_Port, DT_THERM_1_Pin),
+    // GPIO_INIT_OUTPUT(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_AF(DT_FLOW_RATE_GPIO_Port, DT_FLOW_RATE_Pin, 1, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(DT_FAN_CTRL_GPIO_Port, DT_FAN_CTRL_Pin, 2, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_AF(DT_FAN_TACK_GPIO_Port, DT_FAN_TACK_Pin, 14, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
     // HV Battery
-    GPIO_INIT_ANALOG(BAT_THERM_OUT_GPIO_Port, BAT_THERM_OUT_Pin),
-    GPIO_INIT_ANALOG(BAT_THERM_IN_GPIO_Port, BAT_THERM_IN_Pin),
+    // GPIO_INIT_ANALOG(BAT_THERM_OUT_GPIO_Port, BAT_THERM_OUT_Pin),
+    // GPIO_INIT_ANALOG(BAT_THERM_IN_GPIO_Port, BAT_THERM_IN_Pin),
     GPIO_INIT_OUTPUT(BAT_PUMP_CTRL_1_GPIO_Port, BAT_PUMP_CTRL_1_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(BAT_PUMP_CTRL_2_GPIO_Port, BAT_PUMP_CTRL_2_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_AF(BAT_FLOW_RATE_GPIO_Port, BAT_FLOW_RATE_Pin, 3, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
@@ -91,6 +91,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
     GPIO_INIT_INPUT(LV_3V3_PG_GPIO_Port, LV_3V3_PG_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(LV_BAT_STAT_GPIO_Port, LV_BAT_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    // Thermistor Analog Multiplexer
+    GPIO_INIT_OUTPUT(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_ANALOG(THERM_MUX_D_GPIO_Port, THERM_MUX_D_Pin)
 };
 
 /* ADC Configuration */
@@ -102,23 +106,20 @@ ADCInitConfig_t adc_config = {
     .overrun         = true,
     .dma_mode        = ADC_DMA_CIRCULAR
 };
-// TODO: consider splitting into ADC1 and ADC2
+
+/* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 ADCChannelConfig_t adc_channel_config[] = {
-    // {.channel=V_MC_SENSE_ADC_CHNL,     .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // {.channel=DT_GB_THERM_L_ADC_CHNL,  .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // TODO: DT_GB_THERM_R is not on an ADC channel
-    // {.channel=DT_THERM_1_ADC_CHNL,     .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    // TODO: BAT_THERM_OUT is not on an ADC channel
-    // {.channel=BAT_THERM_IN_ADC_CHNL,   .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_12V_V_SENSE_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=V_MC_SENSE_ADC_CHNL,     .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_12V_V_SENSE_ADC_CHNL, .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=THERM_MUX_D_ADC_CHNL,    .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_640_5}
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
@@ -165,12 +166,13 @@ extern void HardFault_Handler();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-uint8_t power_on;
+uint8_t can_tx_fails; // number of CAN messages that failed to transmit
 
 int main(void){
     /* Data Struct Initialization */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    can_tx_fails = 0;
 
     /* HAL Initialization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -186,28 +188,18 @@ int main(void){
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-    // taskCreate(coolingPeriodic, 100);
+    taskCreate(coolingPeriodic, 200);
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     // taskCreate(carPeriodic, 15);
     // taskCreate(setFanPWM, 1);
-    taskCreate(updatePowerMonitor, 100);
+    taskCreate(updatePowerMonitor, 1000);
     // taskCreate(updateFaults, 5);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(memFg, MEM_FG_TIME);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(memBg);
-
-    // TODO: move to ("cal wheel speed function")
-    /*
-    CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=0};\
-    CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-    data_a->LWS_Config.CCW = 0x3; // 0x5 - reset cal 0x3 - calibrate
-    data_a->LWS_Config.Reserved_1 = 0;
-    data_a->LWS_Config.Reserved_2 = 0;
-    qSendToBack(&q_tx_can, &msg);\
-    */
 
     schedStart();
 
@@ -288,21 +280,17 @@ void preflightAnimation(void) {
 
 void heartBeatLED(void)
 {
+    static uint8_t trig;
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-    // PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, power_on);
 
-    static t;
-    if (t == 20) {
-        PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, 0);
-    }
-    else if (t == 22){
-        PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, 1);
-        t = 0;
-    }
-    ++t;
+    // Send every other time (1000 ms)
+    if (trig) SEND_MCU_STATUS(q_tx_can, sched.skips, (uint8_t) sched.fg_time.cpu_use,
+                                           (uint8_t) sched.bg_time.cpu_use,
+                                           sched.error, can_tx_fails);
+    trig = !trig;
 }
 
 void canTxUpdate(void)
@@ -310,7 +298,7 @@ void canTxUpdate(void)
     CanMsgTypeDef_t tx_msg;
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
-        PHAL_txCANMessage(&tx_msg);
+        if (!PHAL_txCANMessage(&tx_msg)) ++can_tx_fails;
     }
 }
 
@@ -366,7 +354,6 @@ void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 
 void HardFault_Handler()
 {
-    // TODO: make error led stay on (watch dog is gonna just reset the micro)
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
     while(1)
     {

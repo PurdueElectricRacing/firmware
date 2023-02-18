@@ -70,8 +70,8 @@ typedef struct
 {
     uint8_t  dt_liters_p_min_x10;
     uint8_t  bat_liters_p_min_x10;
-    float    dt_therm_1_C;
-    float    dt_therm_2_C;
+    float    dt_therm_out_C;
+    float    dt_therm_in_C;
     float    bat_therm_out_C;
     float    bat_therm_in_C;
     uint32_t dt_delta_t;

@@ -14,8 +14,6 @@
 
 #include <stdint.h>
 
-
-// TODO: move to main.h
 /* VOLTAGE SENSE */
 /* R1 is top, R2 is bottom in voltage divider */
 #define LV_24V_R1  47000 // Ohms
@@ -45,6 +43,7 @@ typedef struct
     uint16_t lv_5_v_sense_mV;
     uint16_t lv_5_i_sense_mA;
     uint16_t lv_3v3_v_sense_mV;
+    uint8_t     lv_3v3_power_good;
 } PowerMonitor_t;
 
 extern PowerMonitor_t power_monitor;

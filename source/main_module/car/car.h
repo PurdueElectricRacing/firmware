@@ -56,19 +56,17 @@ typedef struct
     // Do not modify this struct unless
     // you modify the ADC DMA config
     // in main.h to match
-    // uint16_t v_mc;
-    // uint16_t v_bat;
-    // uint16_t shock_l;
-    // uint16_t shock_r;
-    // uint16_t dt_therm_gb;
-    // uint16_t dt_therm_1;
-    // uint16_t bat_therm_in;
+    uint16_t v_mc;
+    uint16_t v_bat;
+    uint16_t shock_l;
+    uint16_t shock_r;
     uint16_t lv_24_v_sense;
     uint16_t lv_24_i_sense;
     uint16_t lv_12_v_sense;
     uint16_t lv_5_v_sense;
     uint16_t lv_5_i_sense;
     uint16_t lv_3v3_v_sense;
+    uint16_t therm_mux_d;
 }__attribute__((packed)) ADCReadings_t;
 
 volatile extern ADCReadings_t adc_readings;
@@ -99,6 +97,7 @@ volatile extern Car_t car;
 bool carInit();
 void carHeartbeat();
 void carPeriodic();
+uint8_t calibrateSteeringAngle(void);
 
 /**
  * @brief Converts raw lv adc value

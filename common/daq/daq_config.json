@@ -16,7 +16,7 @@
                         {"var_name":"dt_temp_error", "access_phrase":"cooling.dt_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"bat_flow_error", "access_phrase":"cooling.bat_flow_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"bat_temp_error", "access_phrase":"cooling.bat_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
-                        {"var_name":"power_on", "access_phrase":"power_on", "read_only": false, "type":"uint8_t", "length": 1}
+                        {"var_name":"cal_steer_angle", "access_phrase": "calibrateSteeringAngle", "has_read_func":true, "read_only":true, "type":"uint8_t", "length": 1}
                     ],
                     "files":[]
                 },

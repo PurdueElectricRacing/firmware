@@ -150,13 +150,13 @@ void schedStart()
 {
     TIM7->CR1     |= TIM_CR1_CEN;
     NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
-    // IWDG->KR      =  0xCCCC;     
-    // IWDG->KR      =  0x5555;
-    // IWDG->PR      |= 2;
-    // IWDG->RLR     =  20;
+    IWDG->KR      =  0xCCCC;     
+    IWDG->KR      =  0x5555;
+    IWDG->PR      |= 2;
+    IWDG->RLR     =  20;
     sched.running =  1;
 
-    // while ((IWDG->SR & 0b111) != 0);
+    while ((IWDG->SR & 0b111) != 0);
 
     IWDG->KR = 0xAAAA;
 

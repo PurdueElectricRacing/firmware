@@ -302,3 +302,19 @@ bool checkFatalFaults()
     return is_error;
 }
 
+/**
+ * @brief Resets the steering angle sensor calibration
+ *        Call once after assembly with wheel centered
+ *        Device: Bosch F02U.V02.894-01 
+ * @return success
+ */
+uint8_t calibrateSteeringAngle(void)
+{
+    // To zero the sensor after assembly:
+    // Reset calibration with CCW = 5h
+    // Start a new calibration with CCW = 3h
+    // The sensor can then be used immediately
+    SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
+    SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
+    return true;
+}

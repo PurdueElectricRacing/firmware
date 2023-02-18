@@ -1,6 +1,6 @@
 #include "cooling.h"
 
-Cooling_t cooling = {0};
+Cooling_t cooling;
 volatile uint16_t raw_dt_flow_ct;
 volatile uint16_t raw_bat_flow_ct;
 uint32_t last_flow_meas_time_ms;
@@ -16,6 +16,7 @@ uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr);
 
 bool coolingInit()
 {
+    cooling = (Cooling_t) {0};
     /* Configure GPIO Interrupts */
     // // enable syscfg clock
     // RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
@@ -30,7 +31,6 @@ bool coolingInit()
     //                (0b1 << BAT_FLOW_RATE_PWM_Pin);
     // // enable the interrupt handlers
     // NVIC_EnableIRQ(EXTI9_5_IRQn);
-
 
     // Default pin configurations
     setDtCooling(0);
@@ -55,12 +55,38 @@ uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr) {
 void coolingPeriodic()
 {
     /* WATER TEMP CALCULATIONS */
+    static uint8_t curr_therm;
+    float temp;
 
-    // cooling.dt_therm_1_C    = rawThermtoCelcius(adc_readings.dt_therm_1);
-    // cooling.dt_therm_2_C    = rawThermtoCelcius(adc_readings.dt_therm_2);
-    // cooling.bat_therm_in_C  = rawThermtoCelcius(adc_readings.bat_therm_in);
-    // cooling.bat_therm_out_C = rawThermtoCelcius(adc_readings.bat_therm_out);
+    // TODO: test signed temps
 
+    // Since ADC readings happen ~2ms, the next measurement should be ready
+    temp = rawThermtoCelcius(adc_readings.therm_mux_d);
+    switch(curr_therm)
+    {
+        case THERM_MUX_BAT_IN:
+            cooling.bat_therm_in_C  = temp;
+            break;
+        case THERM_MUX_BAT_OUT:
+            cooling.bat_therm_out_C = temp;
+            break;
+        case THERM_MUX_DT_IN:
+            cooling.dt_therm_in_C = temp;
+            break;
+        case THERM_MUX_DT_OUT:
+            cooling.dt_therm_out_C = temp;
+            break;
+    }
+    curr_therm = (curr_therm + 1) & 0x03;
+    PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, curr_therm & 0x01);
+    PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, curr_therm & 0x02);
+
+    SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C,
+                                  cooling.dt_therm_in_C,  cooling.dt_therm_out_C,
+                                  cooling.bat_liters_p_min_x10, cooling.dt_liters_p_min_x10,
+                                  0, 0);
+
+    return;
     /* FLOW CALCULATIONS */
     // Convert ticks and time delta to liters per minute
     if (cooling.dt_delta_t == 0)
@@ -218,13 +244,13 @@ void setBatCooling(uint8_t on)
 
 float rawThermtoCelcius(uint16_t t)
 {
-    float resistance;
+    float f;
     if (t == MAX_THERM)
         return -290;
-    float s = t * 3.3 / MAX_THERM;
-    resistance = THERM_R1 * s / (5 - s);
+    f = t * 3.3f / MAX_THERM; // Signal voltage
+    f = THERM_R1 * f / (5 - f); // Resistance
     // resistance = (t == MAX_THERM) ? FLT_MAX : THERM_R1 * (float) t / (MAX_THERM - t);
-    return (resistance > 0) ? THERM_A * native_log_computation(resistance) + THERM_B : 0;
+    return (f >= 0) ? THERM_A * native_log_computation(f) + THERM_B : 0;
 }
 
 // https://stackoverflow.com/questions/9800636/calculating-natural-logarithm-and-exponent-by-core-c-for-embedded-system

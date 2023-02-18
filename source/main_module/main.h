@@ -13,7 +13,6 @@
 #define _MAIN_H_
 
 
-extern uint8_t power_on;
 //STM32L496VGT6
 
 #include "common/faults/fault_nodes.h"
@@ -148,9 +147,9 @@ extern uint8_t power_on;
 #define DT_GB_THERM_R_GPIO_Port     (GPIOA)
 #define DT_GB_THERM_R_Pin           (11)
 
-#define DT_THERM_1_GPIO_Port        (GPIOC)
-#define DT_THERM_1_Pin              (0)
-#define DT_THERM_1_ADC_CHNL         (1)
+// #define DT_THERM_1_GPIO_Port        (GPIOC)
+// #define DT_THERM_1_Pin              (0)
+// #define DT_THERM_1_ADC_CHNL         (1)
 #define DT_PUMP_CTRL_GPIO_Port      (GPIOB)
 #define DT_PUMP_CTRL_Pin            (10)
 
@@ -170,11 +169,11 @@ extern uint8_t power_on;
 #define DT_FAN_TACK_Pin             (1)
 
 // HV Battery
-#define BAT_THERM_OUT_GPIO_Port     (GPIOD)
-#define BAT_THERM_OUT_Pin           (11)
-#define BAT_THERM_IN_GPIO_Port      (GPIOA)
-#define BAT_THERM_IN_Pin            (3)
-#define BAT_THERM_IN_ADC_CHNL       (8)
+// #define BAT_THERM_OUT_GPIO_Port     (GPIOD)
+// #define BAT_THERM_OUT_Pin           (11)
+// #define BAT_THERM_IN_GPIO_Port      (GPIOA)
+// #define BAT_THERM_IN_Pin            (3)
+// #define BAT_THERM_IN_ADC_CHNL       (8)
 #define BAT_PUMP_CTRL_1_GPIO_Port   (GPIOB)
 #define BAT_PUMP_CTRL_1_Pin         (14)
 #define BAT_PUMP_CTRL_2_GPIO_Port   (GPIOB)
@@ -222,5 +221,19 @@ extern uint8_t power_on;
 
 #define LV_BAT_STAT_GPIO_Port       (GPIOB)
 #define LV_BAT_STAT_Pin             (4)
+
+// Thermistor Analog Multiplexer
+#define THERM_MUX_S0_GPIO_Port      (GPIOC)
+#define THERM_MUX_S0_Pin            (0)
+#define THERM_MUX_S1_GPIO_Port      (GPIOD)
+#define THERM_MUX_S1_Pin            (11)
+#define THERM_MUX_D_GPIO_Port       (GPIOA)
+#define THERM_MUX_D_Pin             (3)
+#define THERM_MUX_D_ADC_CHNL        (8)
+
+#define THERM_MUX_BAT_IN            (0)
+#define THERM_MUX_BAT_OUT           (1)
+#define THERM_MUX_DT_IN             (2)
+#define THERM_MUX_DT_OUT            (3)
 
 #endif

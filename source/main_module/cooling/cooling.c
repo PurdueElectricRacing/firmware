@@ -44,9 +44,19 @@ bool coolingInit()
     TIM4 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
     TIM4 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
 
+    //Enabling the MOE bit of the dead-time register
+    TIM4 -> BDTR |= TIM_BDTR_MOE;
+
     //Set Channels 1 and 2 to 110 (Mode 1 up counter) -> (active while CNT <= CCR)
+    TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC1M_0);
+    TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC2M_0);
     TIM4 -> CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1; 
     TIM4 -> CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+
+    //Setting the preload register
+    TIM4 -> CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC2PE;
+
+    // TIM1 -> CR1 |= TIM_CR1_ARPE;
 
     //Enable Channels 1 and 2 outputs 
     TIM4 -> CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
@@ -69,114 +79,114 @@ bool coolingInit()
     //BAT Fan Tachometer: PE0 - TIM16_CH1
 
     //init timer
-    TIM16 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
-    TIM16 -> CCER &= ~TIM_CCER_CC1E; //Turning off capture / compare
+//     TIM16 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
+//     TIM16 -> CCER &= ~TIM_CCER_CC1E; //Turning off capture / compare
 
-    RCC -> APB2ENR |= RCC_APB2ENR_TIM16EN; //0b100;
-    TIM16 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
-    TIM16 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
+//     RCC -> APB2ENR |= RCC_APB2ENR_TIM16EN; //0b100;
+//     TIM16 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
+//     TIM16 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
 
-//     Select the active input: TIMx_CCR1 must be linked to the TI1 input, so write the CC1S
-    // bits to 01 in the TIMx_CCMR1 register. As soon as CC1S becomes different from 00,
-    // the channel is configured in input and the TIMx_CCR1 register becomes read-only.Page 1103
-    TIM16 -> CCMR1 &= ~TIM_CCMR1_CC1S;
-    TIM16 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
+// //     Select the active input: TIMx_CCR1 must be linked to the TI1 input, so write the CC1S
+//     // bits to 01 in the TIMx_CCMR1 register. As soon as CC1S becomes different from 00,
+//     // the channel is configured in input and the TIMx_CCR1 register becomes read-only.Page 1103
+//     TIM16 -> CCMR1 &= ~TIM_CCMR1_CC1S;
+//     TIM16 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
 
 
-    // 2. Program the appropriate input filter duration in relation with the signal connected to the
-    // timer (when the input is one of the TIx (ICxF bits in the TIMx_CCMRx register). Let’s
-    // imagine that, when toggling, the input signal is not stable during at least 5 internal clock
-    // cycles. We must program a filter duration longer than these 5 clock cycles. We can
-    // validate a transition on TI1 when 8 consecutive samples with the new level have been
-    // detected (sampled at fDTS frequency). Then write IC1F bits to 0011 in the
-    // TIMx_CCMR1 register
-    TIM16 -> CCMR1 &= ~TIM_CCMR1_IC1F;
-    TIM16 -> CCMR1 |= TIM_CCMR1_IC1F_0 | TIM_CCMR1_IC1F_1; //setting transition stability
+//     // 2. Program the appropriate input filter duration in relation with the signal connected to the
+//     // timer (when the input is one of the TIx (ICxF bits in the TIMx_CCMRx register). Let’s
+//     // imagine that, when toggling, the input signal is not stable during at least 5 internal clock
+//     // cycles. We must program a filter duration longer than these 5 clock cycles. We can
+//     // validate a transition on TI1 when 8 consecutive samples with the new level have been
+//     // detected (sampled at fDTS frequency). Then write IC1F bits to 0011 in the
+//     // TIMx_CCMR1 register
+//     TIM16 -> CCMR1 &= ~TIM_CCMR1_IC1F;
+//     TIM16 -> CCMR1 |= TIM_CCMR1_IC1F_0 | TIM_CCMR1_IC1F_1; //setting transition stability
 
-    //3. Select the edge of the active transition on the TI1 channel 
-    //CC1NP=1, CC1P=1: non-inverted/both edges/ The circuit is sensitive to both TIxFP1 rising
-    // and falling edges (capture or trigger operations in reset, external clock
-    // or trigger mode), TIxFP1is not inverted (trigger operation in gated
-    // mode). This configuration must not be used in encoder mode.
+//     //3. Select the edge of the active transition on the TI1 channel 
+//     //CC1NP=1, CC1P=1: non-inverted/both edges/ The circuit is sensitive to both TIxFP1 rising
+//     // and falling edges (capture or trigger operations in reset, external clock
+//     // or trigger mode), TIxFP1is not inverted (trigger operation in gated
+//     // mode). This configuration must not be used in encoder mode.
 
-    TIM16 -> CCER |= TIM_CCER_CC1P | TIM_CCER_CC1NP; //setting edge detection to both rising and falling
+//     TIM16 -> CCER |= TIM_CCER_CC1P | TIM_CCER_CC1NP; //setting edge detection to both rising and falling
 
-    // 4. Program the input prescaler. In our example, we wish the capture to be performed at
-    // each valid transition, so the prescaler is disabled (write IC1PS bits to ‘00’ in the
-    // TIMx_CCMR1 register).
-    TIM16 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting cmr1 to capture at every transition
+//     // 4. Program the input prescaler. In our example, we wish the capture to be performed at
+//     // each valid transition, so the prescaler is disabled (write IC1PS bits to ‘00’ in the
+//     // TIMx_CCMR1 register).
+//     TIM16 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting cmr1 to capture at every transition
 
-    // 5. Enable capture from the counter into the capture register by setting the CC1E bit in the
-    // TIMx_CCER register.
-    TIM16 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
+//     // 5. Enable capture from the counter into the capture register by setting the CC1E bit in the
+//     // TIMx_CCER register.
+//     TIM16 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
 
-    // 6. If needed, enable the related interrupt request by setting the CC1IE bit in the
-    // TIMx_DIER register, and/or the DMA request by setting the CC1DE bit in the
-    // TIMx_DIER register.
-    TIM16 -> DIER |= TIM_DIER_CC1IE; //
+//     // 6. If needed, enable the related interrupt request by setting the CC1IE bit in the
+//     // TIMx_DIER register, and/or the DMA request by setting the CC1DE bit in the
+//     // TIMx_DIER register.
+//     TIM16 -> DIER |= TIM_DIER_CC1IE; //
 
-    TIM16 -> CR1 |= TIM_CR1_CEN;
+//     TIM16 -> CR1 |= TIM_CR1_CEN;
 
 
     //DT Fan Tachometer 
     ///////////////////
 
-    ///repeat the steps above but for TIM17
-    TIM17 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
-    TIM17 -> CCER &= ~TIM_CCER_CC1E; //Turning off capture / compare
+    // ///repeat the steps above but for TIM17
+    // TIM17 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
+    // TIM17 -> CCER &= ~TIM_CCER_CC1E; //Turning off capture / compare
 
-    RCC -> APB2ENR |= RCC_APB2ENR_TIM17EN;
-    TIM17 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
-    TIM17 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
+    // RCC -> APB2ENR |= RCC_APB2ENR_TIM17EN;
+    // TIM17 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * arrValue)) - 1; 
+    // TIM17 -> ARR = arrValue - 1; //setting it to 99 so it's easier to use it with Duty Cycle
 
-    TIM17 -> CCMR1 &= ~TIM_CCMR1_CC1S;
-    TIM17 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
-
-
-    TIM17 -> CCER |= TIM_CCER_CC1P | TIM_CCER_CC1NP; //setting edge detection to both rising and falling
-
-    TIM17 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting cmr1 to capture at every transition
+    // TIM17 -> CCMR1 &= ~TIM_CCMR1_CC1S;
+    // TIM17 -> CCMR1 |= TIM_CCMR1_CC1S_0; //setting as input
 
 
-    TIM17 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
+    // TIM17 -> CCER |= TIM_CCER_CC1P | TIM_CCER_CC1NP; //setting edge detection to both rising and falling
 
-    TIM17 -> DIER |= TIM_DIER_CC1IE; //selecting Capture compare interrupt flag
+    // TIM17 -> CCMR1 &= ~TIM_CCMR1_IC1PSC; //setting cmr1 to capture at every transition
 
-    TIM17 -> CR1 |= TIM_CR1_CEN; //enabling counter
+
+    // TIM17 -> CCER |= TIM_CCER_CC1E; //enabling capture/compare channel
+
+    // TIM17 -> DIER |= TIM_DIER_CC1IE; //selecting Capture compare interrupt flag
+
+    // TIM17 -> CR1 |= TIM_CR1_CEN; //enabling counter
 
     return true;
 }
 
 //void  TIM16_CC_IRQHandler() (wondering which one I should use?)
-int volatile ccrBatFanTachometer = 0;
-void TIM16_IRQHandler()
-{
-    //Check if flag was set
-    if (TIM16 -> SR & TIM_SR_CC1IF)
-    {
-        //read the value of the counter to know the pulse width
-        //at the moment of the transition
-        ccrBatFanTachometer = TIM16 -> CCR1;
+// int volatile ccrBatFanTachometer = 0;
+// void TIM16_IRQHandler()
+// {
+//     //Check if flag was set
+//     if (TIM16 -> SR & TIM_SR_CC1IF)
+//     {
+//         //read the value of the counter to know the pulse width
+//         //at the moment of the transition
+//         ccrBatFanTachometer = TIM16 -> CCR1;
 
-        //Reset the bit
-        TIM16 -> SR &= ~TIM_SR_CC1IF;
-    }
-}
+//         //Reset the bit
+//         TIM16 -> SR &= ~TIM_SR_CC1IF;
+//     }
+// }
 
-int volatile ccrDTFanTachometer = 0;
-void TIM17_IRQHandler()
-{
-    //Check if flag was set
-    if (TIM17 -> SR & TIM_SR_CC1IF)
-    {
-        //read the value of the counter to know the pulse width
-        //at the moment of the transition
-        ccrDTFanTachometer = TIM17 -> CCR1;
+// int volatile ccrDTFanTachometer = 0;
+// void TIM17_IRQHandler()
+// {
+//     //Check if flag was set
+//     if (TIM17 -> SR & TIM_SR_CC1IF)
+//     {
+//         //read the value of the counter to know the pulse width
+//         //at the moment of the transition
+//         ccrDTFanTachometer = TIM17 -> CCR1;
 
-        //Reset the bit
-        TIM17 -> SR &= ~TIM_SR_CC1IF;
-    }
-}
+//         //Reset the bit
+//         TIM17 -> SR &= ~TIM_SR_CC1IF;
+//     }
+// }
 
 void setBATFan (uint8_t dutyCycle)
 {

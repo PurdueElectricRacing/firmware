@@ -102,6 +102,18 @@ extern Cooling_t cooling;
 bool coolingInit();
 
 /**
+ * @brief  Sets PWM for BAT Fan       
+ * @return void
+ */
+void setBATFan (uint8_t dutyCycle);
+
+/**
+ * @brief  Sets PWM for FDT Fan       
+ * @return void
+ */
+void setDTFan (uint8_t dutyCycle);
+
+/**
  * @brief Determines
  *        if fans and pumps should be turned
  *        on and checks for faults

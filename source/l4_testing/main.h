@@ -63,4 +63,11 @@
 #define DT_FAN_CTRL_GPIO_Port      (GPIOA)
 #define DT_FAN_CTRL_Pin            (9)
 
+
+#define BAT_FAN_TACHOMETER                (TIM2)
+#define BAT_FAN_TACHOMETER_CH             (1)
+#define BAT_FAN_TACHOMETER_GPIO_Port      (GPIOA)
+#define BAT_FAN_TACHOMETER_Pin            (0)
+
+
 #endif

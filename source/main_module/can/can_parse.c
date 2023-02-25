@@ -53,7 +53,10 @@ void canRxUpdate()
         {
             case ID_RAW_THROTTLE_BRAKE:
                 can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
+                can_data.raw_throttle_brake.throttle_right = msg_data_a->raw_throttle_brake.throttle_right;
                 can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
+                can_data.raw_throttle_brake.brake_right = msg_data_a->raw_throttle_brake.brake_right;
+                can_data.raw_throttle_brake.brake_pot = msg_data_a->raw_throttle_brake.brake_pot;
                 can_data.raw_throttle_brake.stale = 0;
                 can_data.raw_throttle_brake.last_rx = sched.os_ticks;
                 break;

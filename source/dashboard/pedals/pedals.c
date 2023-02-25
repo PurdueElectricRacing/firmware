@@ -166,5 +166,6 @@ void pedalsPeriodic(void)
     // {
     //     t2 = 0;
     // }
-    SEND_RAW_THROTTLE_BRAKE(q_tx_can, t2, b3);
-}
+    SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_pedals.t1,
+                            raw_pedals.t2, raw_pedals.b1,
+                            raw_pedals.b2, raw_pedals.b3);}

@@ -48,7 +48,7 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_RAW_THROTTLE_BRAKE 3
+#define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -76,11 +76,14 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_RAW_THROTTLE_BRAKE(queue, throttle_, brake_) do {\
+#define SEND_RAW_THROTTLE_BRAKE(queue, throttle_, throttle_right_, brake_, brake_right_, brake_pot_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_THROTTLE_BRAKE, .DLC=DLC_RAW_THROTTLE_BRAKE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->raw_throttle_brake.throttle = throttle_;\
+        data_a->raw_throttle_brake.throttle_right = throttle_right_;\
         data_a->raw_throttle_brake.brake = brake_;\
+        data_a->raw_throttle_brake.brake_right = brake_right_;\
+        data_a->raw_throttle_brake.brake_pot = brake_pot_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_START_BUTTON(queue, start_) do {\
@@ -147,7 +150,10 @@ typedef enum {
 typedef union { 
     struct {
         uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
         uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
     } raw_throttle_brake;
     struct {
         uint64_t start: 1;

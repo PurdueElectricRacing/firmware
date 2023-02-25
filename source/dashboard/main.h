@@ -54,7 +54,7 @@
 #define SPI1_MISO_Pin               (14)
 #define SPI1_MOSI_GPIO_Port         (GPIOE)
 #define SPI1_MOSI_Pin               (15)
- 
+
 #define EEPROM_nWP_GPIO_Port        (GPIOE)
 #define EEPROM_nWP_Pin              (11)
 #define EEPROM_NSS_GPIO_Port        (GPIOE)
@@ -63,16 +63,22 @@
 // Throttle
 #define THTL_1_GPIO_Port            (GPIOA)
 #define THTL_1_Pin                  (4)
+#define THTL_1_ADC_CHNL             (9)
 #define THTL_2_GPIO_Port            (GPIOA)
 #define THTL_2_Pin                  (5)
+#define THTL_2_ADC_CHNL             (10)
+
 
 // Brake
 #define BRK_1_GPIO_Port             (GPIOA)
 #define BRK_1_Pin                   (2)
+#define BRK_1_ADC_CHNL              (7)
 #define BRK_2_GPIO_Port             (GPIOA)
 #define BRK_2_Pin                   (3)
+#define BRK_2_ADC_CHNL              (8)
 #define BRK_3_GPIO_Port             (GPIOA)
 #define BRK_3_Pin                   (6)
+#define BRK_3_ADC_CHNL              (11)
 
 // Motor Controllers
 #define MC_L_UART                   (USART3)
@@ -135,7 +141,7 @@
 #define LCD_UART_RX_GPIO_Port       (GPIOA)
 #define LCD_UART_RX_Pin             (10)
 
-// HDD      
+// HDD
 #define B_OK_GPIO_Port              (GPIOB)
 #define B_OK_Pin                    (12)
 #define B_DOWN_GPIO_Port            (GPIOB)

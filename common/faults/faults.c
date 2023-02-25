@@ -95,10 +95,14 @@ uint32_t can_dlc;
 bool fault_lib_disable;
 
 
-/*
-    Function  to set a fault through MCU.
-    Inputs: Fault ID, current value of item connected to fault;
-*/
+/**
+ * @brief Checks wheither fault should be latched or unlatched, updates
+ *
+ * @param id ID of fault to update
+ * @param valueToCompare Current falue of fault. If conditions provided in JSON config are exceeded, fault will latch
+ *
+ * @return Whether function was successful
+ */
 bool setFault(int id, int valueToCompare) {
     //Fault Library disabled or the fault isn't owned by current MCU
     if (fault_lib_disable || GET_OWNER(id) != currentMCU)
@@ -119,8 +123,11 @@ bool setFault(int id, int valueToCompare) {
 }
 
 
-//Heartbeat; Send faults periodically (100ms)
-void heartBeatTask() {
+/**
+ * @brief Heartbeat messages for the various MCUs. Sends fault information, and should be scheduled
+ *
+ *
+ */void heartBeatTask() {
     if (ownedidx < 0 || fault_lib_disable) {
         return;
     }
@@ -201,7 +208,10 @@ void return_fault_control(uint16_t id) {
 }
 
 
-//Updates faults owned by current mcu
+/**
+ * @brief Updates faults owned by current mcu
+ *
+ */
 void updateFaults() {
     if (ownedidx < 0 || fault_lib_disable) {
         return;
@@ -304,41 +314,75 @@ void updateFaults() {
     } while ((idx < TOTAL_NUM_FAULTS) && (GET_OWNER(faultArray[idx].status->f_ID) == currentMCU));
 }
 
+/**
+ * @brief Disables Fault Library
+ *
+ */
 void killFaultLibrary() {
     fault_lib_disable = true;
 }
 
-//Does the current board have latched faults
+/**
+ * @brief Checks if current mcu has faults
+ *
+ * @return Whether any faults on current mcu have latched
+ */
 bool currMCULatched() {
     return (currCount == 0) ? false : true;
 }
 
-//Are there any info level faults latched
+/**
+ * @brief Checks if any warning level faults have latched
+ *
+ * @return Whether any warning level faults have latched
+ */
 bool warningLatched() {
     return (warnCount == 0) ? false : true;
 }
 
-//Are there any warning level faults latched
+/**
+ * @brief Checks if any error level faults have latched
+ *
+ * @return Whether any error level faults have latched
+ */
 bool errorLatched() {
     return (errorCount == 0) ? false : true;
 }
 
-//Are there any critical level faults latched
+/**
+ * @brief Checks if any fatal level faults have latched
+ *
+ * @return Whether any fatal level faults have latched
+ */
 bool fatalLatched() {
     return (fatalCount == 0) ? false : true;
 }
 
-//Are faults latched on other mcus
+/**
+ * @brief Checks if the other MCUs have faults latched
+ *
+ * @return Whether other MCUs have latched
+ */
 bool otherMCUsLatched() {
     return (warnCount + errorCount + fatalCount - currCount == 0) ? false : true;
 }
 
-//Is any fault latched
+/**
+ * @brief Checks if any faults have latched, regardless of mcu
+ *
+ * @return Whether any fault has latched
+ */
 bool isLatched() {
     return (warnCount + errorCount + fatalCount == 0) ? false : true;
 }
 
-//Check if any fault is latched
+/**
+ * @brief Checks a specific fault for its status
+ *
+ * @param id The id of the fault to check
+ *
+ * @return Whether requested fault is latched
+ */
 bool checkFault(int id) {
     return message[GET_IDX(id)].latched;
 }
@@ -392,7 +436,15 @@ void forceFault(int id, bool state) {
 }
 
 
-//Initialize the FL with starting values
+/**
+ * @brief SPI1 Rx DMA Transfer Complete interrupt
+ *
+ * @param mcu Current MCU
+ * @param qxQ Pointer to CAN TX queue
+ * @param rxQ Pointer to CAN RX queue
+ * @param ext CAN ext ID from module's can_parse.h, usually of format ID_FAULT_SYNC{mcu}
+ * @param dlc CAN dlc from module's can_parse.h, usually of format DLC_FAULT_SYNC{mcu}
+ */
 void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext, uint32_t dlc) {
     fault_lib_disable = false;
     bool foundStartIdx = false;

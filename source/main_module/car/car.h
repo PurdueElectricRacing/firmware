@@ -97,7 +97,7 @@ volatile extern Car_t car;
 bool carInit();
 void carHeartbeat();
 void carPeriodic();
-uint8_t calibrateSteeringAngle(void);
+void calibrateSteeringAngle(uint8_t *ret);
 
 /**
  * @brief Converts raw lv adc value

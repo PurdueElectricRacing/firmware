@@ -47,7 +47,7 @@
                 "priority": {
                     "type": "string",
                     "enum": ["warning", "error", "fatal"],
-                    "description": "Priority of fault, info = no effect, warning = readyToDrive, critical = SDC"
+                    "description": "Priority of fault, warning = no effect, error = readyToDrive, fatal = SDC"
                 },
                 "time_to_latch": {
                     "type": "integer",

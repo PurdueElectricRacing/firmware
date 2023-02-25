@@ -62,7 +62,7 @@
 #define DLC_MCU_STATUS 5
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
-#define DLC_RAW_THROTTLE_BRAKE 3
+#define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
@@ -342,7 +342,10 @@ typedef union {
     } daq_response_MAIN_MODULE;
     struct {
         uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
         uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
     } raw_throttle_brake;
     struct {
         uint64_t start: 1;
@@ -450,7 +453,10 @@ typedef union {
 typedef struct {
     struct {
         uint16_t throttle;
+        uint16_t throttle_right;
         uint16_t brake;
+        uint16_t brake_right;
+        uint16_t brake_pot;
         uint8_t stale;
         uint32_t last_rx;
     } raw_throttle_brake;

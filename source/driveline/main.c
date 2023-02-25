@@ -179,7 +179,7 @@ int main(void)
     configureAnim(preflightAnimation, preflightChecks, 50, 750);
     taskCreate(ledUpdate, 500);
     //FL Stuff
-    taskCreate(txFaults, 100);
+    taskCreate(heartBeatTask, 100);
     taskCreate(updateFaults, 5);
     //FL Stuff
     taskCreate(heartBeat, 100);
@@ -396,7 +396,7 @@ void parseDataPeriodic()
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) motor_left.current_x10,
                                    (uint16_t) motor_right.current_x10,
-                                   (uint8_t)  motor_left.motor_temp, 
+                                   (uint8_t)  motor_left.motor_temp,
                                    (uint8_t)  motor_right.motor_temp,
                                    (uint16_t)  motor_right.voltage_x10);
     SEND_REAR_CONTROLLER_TEMPS(q_tx_can,
@@ -406,7 +406,7 @@ void parseDataPeriodic()
     SEND_FRONT_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) motor_left.current_x10,
                                    (uint16_t) motor_right.current_x10,
-                                   (uint8_t)  motor_left.motor_temp, 
+                                   (uint8_t)  motor_left.motor_temp,
                                    (uint8_t)  motor_right.motor_temp,
                                    (uint16_t)  motor_right.voltage_x10);
 #endif

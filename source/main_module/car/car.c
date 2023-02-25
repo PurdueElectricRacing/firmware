@@ -308,7 +308,7 @@ bool checkFatalFaults()
  *        Device: Bosch F02U.V02.894-01 
  * @return success
  */
-uint8_t calibrateSteeringAngle(void)
+void calibrateSteeringAngle(uint8_t *ret)
 {
     // To zero the sensor after assembly:
     // Reset calibration with CCW = 5h
@@ -316,5 +316,5 @@ uint8_t calibrateSteeringAngle(void)
     // The sensor can then be used immediately
     SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
     SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
-    return true;
+    *ret = 1;
 }

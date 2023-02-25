@@ -29,7 +29,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32L432KC",
+            "device:": "STM32L496VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
             "configFiles": [
                 "interface/stlink.cfg",

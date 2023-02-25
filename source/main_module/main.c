@@ -21,6 +21,10 @@
 #include "power_monitor.h"
 
 GPIOInitConfig_t gpio_config[] = {
+    // CAN
+    GPIO_INIT_CANRX_PD0,
+    GPIO_INIT_CANTX_PD1,
+    GPIO_INIT_OUTPUT(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     // Status Indicators
     GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),

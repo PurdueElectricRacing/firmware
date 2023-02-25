@@ -265,9 +265,12 @@ BO_ 2348812088 orion_errors: 4 OrionBMS
  SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028613 raw_throttle_brake: 3 Dashboard
- SG_ brake : 12|12@1+ (1,0) [0|0] "" Vector__XXX
- SG_ throttle : 0|12@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483028613 raw_throttle_brake: 8 Dashboard
+ SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ brake_right : 36|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ brake : 24|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ throttle_right : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
 
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -929,8 +932,11 @@ CM_ SG_ 2348812088 heatsink_thermistor "";
 CM_ SG_ 2348812088 internal_hardware "";
 CM_ SG_ 2348812088 charger_safety_relay "";
 CM_ SG_ 2348812088 discharge_limit_enforce "";
-CM_ BO_ 2483028613 "throttle_brake desc";
+CM_ BO_ 2483028613 "Throttle and brake values";
+CM_ SG_ 2483028613 brake_pot "";
+CM_ SG_ 2483028613 brake_right "";
 CM_ SG_ 2483028613 brake "";
+CM_ SG_ 2483028613 throttle_right "";
 CM_ SG_ 2483028613 throttle "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";

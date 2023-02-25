@@ -475,10 +475,13 @@
                     "node_ssa":5,
                     "tx":[
                         {   "msg_name":"raw_throttle_brake",
-                            "msg_desc":"throttle_brake desc",
+                            "msg_desc":"Throttle and brake values",
                             "signals":[
-                                {"sig_name":"throttle","type":"uint16_t","length":12},
-                                {"sig_name":"brake", "type":"uint16_t", "length":12}
+                                {"sig_name":"throttle","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"throttle_right","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake_right", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake_pot", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
                             ],
                             "msg_period":15,
                             "msg_hlp":5,

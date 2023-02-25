@@ -222,6 +222,8 @@ int main (void)
     configureAnim(preflightAnimation, preflightChecks, 120, 750);
 
     taskCreate(heartBeatLED, 500);
+    // taskCreate(heartBeatTask, 100);
+    // taskCreate(updateFaults, 5);
     // taskCreate(pollHDD, 1000);
     taskCreate(toggleLights, 500);
     // taskCreate(heartBeatMsg, 100);

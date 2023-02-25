@@ -9,27 +9,7 @@
  *
  */
 #include "faults.h"
-
-//BEGIN AUTO INCLUDES
-#if FAULT_NODE_NAME == 0
-	#include "source/main_module/can/can_parse.h"
-#endif
-#if FAULT_NODE_NAME == 1
-	#include "source/driveline/can/can_parse.h"
-#endif
-#if FAULT_NODE_NAME == 2
-	#include "source/dashboard/can/can_parse.h"
-#endif
-#if FAULT_NODE_NAME == 3
-	#include "source/precharge/can/can_parse.h"
-#endif
-#if FAULT_NODE_NAME == 4
-	#include "source/torque_vector/can/can_parse.h"
-#endif
-#if FAULT_NODE_NAME == 5
-	#include "source/test_node/can/can_parse.h"
-#endif
-//END AUTO INCLUDES
+#include "common/phal_L4/can/can.h"
 
 //BEGIN AUTO FAULT INFO ARRAY DEFS
 uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_LATCH_TIME, DRIVE_FLOW_LATCH_TIME, MAIN_COMM_LATCH_TIME, LV_DEAD_LATCH_TIME, MOT_FRONT_OT_LATCH_TIME, WLSPD_L_LATCH_TIME,
@@ -108,20 +88,21 @@ q_handle_t *q_rx;
 uint16_t ownedidx;
 uint16_t curridx;
 
+//Variables to send CAN frames
+uint32_t can_ext;
+uint32_t can_dlc;
+
 bool fault_lib_disable;
+
 
 /*
     Function  to set a fault through MCU.
     Inputs: Fault ID, current value of item connected to fault;
 */
 bool setFault(int id, int valueToCompare) {
-    if (fault_lib_disable)
+    //Fault Library disabled or the fault isn't owned by current MCU
+    if (fault_lib_disable || GET_OWNER(id) != currentMCU)
     {
-        return false;
-    }
-
-    //Fault is not owned by current node
-    if (GET_OWNER(id) != currentMCU) {
         return false;
     }
 
@@ -144,26 +125,11 @@ void heartBeatTask() {
         return;
     }
         fault_status_t *status = &statusArray[curridx++];
-        //BEGIN AUTO TX COMMAND
-			#if FAULT_NODE_NAME == 0
-             	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 1
-             	SEND_FAULT_SYNC_DRIVELINE(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 2
-             	SEND_FAULT_SYNC_DASHBOARD(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 3
-             	SEND_FAULT_SYNC_PRECHARGE(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 4
-             	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 5
-             	SEND_FAULT_SYNC_TEST_NODE(*q_tx, status->f_ID, status->latched);
-             #endif
-        //END AUTO TX COMMAND
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=can_dlc, .IDE=1};
+        fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
+        data_a->fault_sync.idx = status->f_ID;
+        data_a->fault_sync.latched = status->latched;
+        qSendToBack(q_tx, &msg);
     //Move to the next fault in the owned array
      if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].status->f_ID) != currentMCU)) {
         curridx = ownedidx;
@@ -173,30 +139,16 @@ void heartBeatTask() {
 //Function to send faults at a specific time
 void txFaultSpecific(int id) {
     fault_status_t *status = &statusArray[GET_IDX(id)];
-//BEGIN AUTO TX COMMAND SPECIFIC
-			#if FAULT_NODE_NAME == 0
-             	SEND_FAULT_SYNC_MAIN_MODULE(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 1
-             	SEND_FAULT_SYNC_DRIVELINE(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 2
-             	SEND_FAULT_SYNC_DASHBOARD(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 3
-             	SEND_FAULT_SYNC_PRECHARGE(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 4
-             	SEND_FAULT_SYNC_TORQUE_VECTOR(*q_tx, status->f_ID, status->latched);
-             #endif
-			#if FAULT_NODE_NAME == 5
-             	SEND_FAULT_SYNC_TEST_NODE(*q_tx, status->f_ID, status->latched);
-             #endif
-//END AUTO TX COMMAND SPECIFIC
+    CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=can_dlc, .IDE=1};
+    fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
+    data_a->fault_sync.idx = status->f_ID;
+    data_a->fault_sync.latched = status->latched;
+    qSendToBack(q_tx, &msg);
 }
 
 //Function to update fault array from recieved messages
-void handleCallbacks(fault_status_t recievedStatus) {
+void handleCallbacks(/*fault_status_t recievedStatus*/uint16_t id, bool latched) {
+    fault_status_t recievedStatus = (fault_status_t){latched, id};
     fault_status_t *currStatus = &statusArray[GET_IDX(recievedStatus.f_ID)];
 	if (recievedStatus.latched) {
         //If current Message = 0, and recieved message = 1 (fault is latching)
@@ -234,44 +186,17 @@ void handleCallbacks(fault_status_t recievedStatus) {
     }
 }
 
-//BEGIN AUTO RECIEVE FUNCTIONS
-void fault_sync_main_module_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_main_module.latched, msg_header_a->fault_sync_main_module.idx};
-	handleCallbacks(recievedStatus);
-}
-void fault_sync_driveline_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_driveline.latched, msg_header_a->fault_sync_driveline.idx};
-	handleCallbacks(recievedStatus);
-}
-void fault_sync_dashboard_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_dashboard.latched, msg_header_a->fault_sync_dashboard.idx};
-	handleCallbacks(recievedStatus);
-}
-void fault_sync_precharge_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_precharge.latched, msg_header_a->fault_sync_precharge.idx};
-	handleCallbacks(recievedStatus);
-}
-void fault_sync_torque_vector_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_torque_vector.latched, msg_header_a->fault_sync_torque_vector.idx};
-	handleCallbacks(recievedStatus);
-}
-void fault_sync_test_node_CALLBACK(CanParsedData_t *msg_header_a) {
-	fault_status_t recievedStatus = {msg_header_a->fault_sync_test_node.latched, msg_header_a->fault_sync_test_node.idx};
-	handleCallbacks(recievedStatus);
-}
-//END AUTO RECIEVE FUNCTIONS
-
 //Force faults from daq
-void set_fault_CALLBACK(CanParsedData_t *msg_header_a) {
-    if (GET_OWNER(msg_header_a->set_fault.id) == currentMCU) {
-        forceFault(msg_header_a->set_fault.id, msg_header_a->set_fault.value);
+void set_fault_daq(uint16_t id, bool value) {
+    if (GET_OWNER(id) == currentMCU) {
+        forceFault(id, value);
     }
 }
 
 //Return control back to this mcu from daq
-void return_fault_control_CALLBACK(CanParsedData_t *msg_header_a) {
-    if (GET_OWNER(msg_header_a->set_fault.id) == currentMCU) {
-        unForce(msg_header_a->set_fault.id);
+void return_fault_control(uint16_t id) {
+    if (GET_OWNER(id) == currentMCU) {
+        unForce(id);
     }
 }
 
@@ -468,9 +393,11 @@ void forceFault(int id, bool state) {
 
 
 //Initialize the FL with starting values
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ) {
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext, uint32_t dlc) {
     fault_lib_disable = false;
     bool foundStartIdx = false;
+    can_ext = ext;
+    can_dlc = dlc;
     q_tx = txQ;
     q_rx = rxQ;
     currentMCU = mcu;

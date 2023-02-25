@@ -67,36 +67,36 @@ void canRxUpdate()
             case ID_FAULT_SYNC_MAIN_MODULE:
                 can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
                 can_data.fault_sync_main_module.latched = msg_data_a->fault_sync_main_module.latched;
-                fault_sync_main_module_CALLBACK(msg_data_a);
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_DRIVELINE:
                 can_data.fault_sync_driveline.idx = msg_data_a->fault_sync_driveline.idx;
                 can_data.fault_sync_driveline.latched = msg_data_a->fault_sync_driveline.latched;
-                fault_sync_driveline_CALLBACK(msg_data_a);
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_DASHBOARD:
                 can_data.fault_sync_dashboard.idx = msg_data_a->fault_sync_dashboard.idx;
                 can_data.fault_sync_dashboard.latched = msg_data_a->fault_sync_dashboard.latched;
-                fault_sync_dashboard_CALLBACK(msg_data_a);
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_PRECHARGE:
                 can_data.fault_sync_precharge.idx = msg_data_a->fault_sync_precharge.idx;
                 can_data.fault_sync_precharge.latched = msg_data_a->fault_sync_precharge.latched;
-                fault_sync_precharge_CALLBACK(msg_data_a);
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_TEST_NODE:
                 can_data.fault_sync_test_node.idx = msg_data_a->fault_sync_test_node.idx;
                 can_data.fault_sync_test_node.latched = msg_data_a->fault_sync_test_node.latched;
-                fault_sync_test_node_CALLBACK(msg_data_a);
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_SET_FAULT:
                 can_data.set_fault.id = msg_data_a->set_fault.id;
                 can_data.set_fault.value = msg_data_a->set_fault.value;
-                set_fault_CALLBACK(msg_data_a);
+				set_fault_daq(msg_data_a->set_fault.id, msg_data_a->set_fault.value);
                 break;
             case ID_RETURN_FAULT_CONTROL:
                 can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
-                return_fault_control_CALLBACK(msg_data_a);
+				return_fault_control(msg_data_a->return_fault_control.id);
                 break;
             default:
                 __asm__("nop");

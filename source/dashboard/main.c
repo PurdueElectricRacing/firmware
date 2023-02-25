@@ -209,9 +209,7 @@ int main (void)
         HardFault_Handler();
     }
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
-
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can, ID_FAULT_SYNC_DASHBOARD, DLC_FAULT_SYNC_DASHBOARD);
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
@@ -222,8 +220,8 @@ int main (void)
     configureAnim(preflightAnimation, preflightChecks, 120, 750);
 
     taskCreate(heartBeatLED, 500);
-    // taskCreate(heartBeatTask, 100);
-    // taskCreate(updateFaults, 5);
+    taskCreate(heartBeatTask, 100);
+    taskCreate(updateFaults, 1);
     // taskCreate(pollHDD, 1000);
     taskCreate(toggleLights, 500);
     // taskCreate(heartBeatMsg, 100);

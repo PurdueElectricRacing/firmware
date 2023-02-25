@@ -20,6 +20,7 @@
 #include "main.h"
 #include "power_monitor.h"
 
+
 GPIOInitConfig_t gpio_config[] = {
     // CAN
     GPIO_INIT_CANRX_PD0,
@@ -165,6 +166,7 @@ void preflightAnimation(void);
 void preflightChecks(void);
 void heartBeatLED();
 void canTxUpdate(void);
+void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 
 q_handle_t q_tx_can;
@@ -187,6 +189,7 @@ int main(void){
     {
         HardFault_Handler();
     }
+
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -250,7 +253,7 @@ void preflightChecks(void) {
            initCANParse(&q_rx_can);
            if(daqInit(&q_tx_can))
                HardFault_Handler();
-           initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+           initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can, ID_FAULT_SYNC_MAIN_MODULE, DLC_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);

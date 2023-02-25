@@ -440,13 +440,10 @@ extern can_data_t can_data;
 extern void daq_command_DRIVELINE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void driveline_front_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_test_node_CALLBACK(CanParsedData_t* msg_data_a);
-extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
-extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
+extern void handleCallbacks(uint16_t id, bool latched);
+extern void set_fault_daq(uint16_t id, bool value);
+extern void return_fault_control(uint16_t id);
+extern void send_fault(uint16_t id, bool latched);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

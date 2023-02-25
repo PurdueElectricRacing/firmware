@@ -489,6 +489,10 @@ extern void bms_h_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bms_i_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void bms_j_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void handleCallbacks(uint16_t id, bool latched);
+extern void set_fault_daq(uint16_t id, bool value);
+extern void return_fault_control(uint16_t id);
+extern void send_fault(uint16_t id, bool latched);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

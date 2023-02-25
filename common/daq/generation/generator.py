@@ -145,9 +145,9 @@ def generateFLmessages(can_config, fault_config):
                 node['tx'].append({'msg_name': 'fault_sync_' + (str)(node['node_name']).lower(), 'msg_desc': 'Fault status message', 'signals': [{'sig_name': 'idx', 'type': 'uint16_t', 'length': 16}, {'sig_name': 'latched', 'type': 'uint8_t', 'length': 1}], 'msg_period': 0, 'msg_hlp': 0, 'msg_pgn': (9000 + i)})
                 for f_node in fault_config['modules']:
                     if (str)(f_node['can_name']).lower() != (str)(node['node_name']).lower():
-                        node['rx'].append({'msg_name': 'fault_sync_' + (str)(f_node['can_name']).lower(), 'callback': True})
-                node['rx'].append({"msg_name": "set_fault", "callback": True})
-                node['rx'].append({"msg_name": "return_fault_control", "callback": True})
+                        node['rx'].append({'msg_name': 'fault_sync_' + (str)(f_node['can_name']).lower(), 'callback': True, 'fault': True})
+                node['rx'].append({"msg_name": "set_fault", "callback": True, 'fault': True, 'fault_set': True})
+                node['rx'].append({"msg_name": "return_fault_control", "callback": True, 'fault': True, 'fault_return': True})
                 i += 1
 
 

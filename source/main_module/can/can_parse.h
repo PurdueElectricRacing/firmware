@@ -24,6 +24,9 @@
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_FLOWRATE_TEMPS 0x4000881
 #define ID_LWS_CONFIG 0x7c0
+#define ID_VOLTAGE_RAILS 0x10001901
+#define ID_CURRENT_MEAS 0x10001941
+#define ID_MCU_STATUS 0x10001981
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
@@ -52,11 +55,14 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
-#define DLC_FLOWRATE_TEMPS 6
+#define DLC_FLOWRATE_TEMPS 8
 #define DLC_LWS_CONFIG 2
+#define DLC_VOLTAGE_RAILS 8
+#define DLC_CURRENT_MEAS 5
+#define DLC_MCU_STATUS 5
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
-#define DLC_RAW_THROTTLE_BRAKE 3
+#define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_START_BUTTON 1
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
@@ -96,14 +102,17 @@
         data_a->torque_request_main.rear_right = rear_right_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_FLOWRATE_TEMPS(queue, flowrate_battery_, battery_line_temp_, battery_line_temp_two_, aux_analog_one_, aux_analog_two_) do {\
+#define SEND_FLOWRATE_TEMPS(queue, battery_in_temp_, battery_out_temp_, drivetrain_in_temp_, drivetrain_out_temp_, battery_flowrate_, drivetrain_flowrate_, battery_fan_speed_, drivetrain_fan_speed_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FLOWRATE_TEMPS, .DLC=DLC_FLOWRATE_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->flowrate_temps.flowrate_battery = flowrate_battery_;\
-        data_a->flowrate_temps.battery_line_temp = battery_line_temp_;\
-        data_a->flowrate_temps.battery_line_temp_two = battery_line_temp_two_;\
-        data_a->flowrate_temps.aux_analog_one = aux_analog_one_;\
-        data_a->flowrate_temps.aux_analog_two = aux_analog_two_;\
+        data_a->flowrate_temps.battery_in_temp = battery_in_temp_;\
+        data_a->flowrate_temps.battery_out_temp = battery_out_temp_;\
+        data_a->flowrate_temps.drivetrain_in_temp = drivetrain_in_temp_;\
+        data_a->flowrate_temps.drivetrain_out_temp = drivetrain_out_temp_;\
+        data_a->flowrate_temps.battery_flowrate = battery_flowrate_;\
+        data_a->flowrate_temps.drivetrain_flowrate = drivetrain_flowrate_;\
+        data_a->flowrate_temps.battery_fan_speed = battery_fan_speed_;\
+        data_a->flowrate_temps.drivetrain_fan_speed = drivetrain_fan_speed_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_LWS_CONFIG(queue, CCW_, Reserved_1_, Reserved_2_) do {\
@@ -112,6 +121,33 @@
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_VOLTAGE_RAILS(queue, LV24_, LV12_, LV5_, LV3V3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VOLTAGE_RAILS, .DLC=DLC_VOLTAGE_RAILS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->voltage_rails.LV24 = LV24_;\
+        data_a->voltage_rails.LV12 = LV12_;\
+        data_a->voltage_rails.LV5 = LV5_;\
+        data_a->voltage_rails.LV3V3 = LV3V3_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, LV3V3_PG_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CURRENT_MEAS, .DLC=DLC_CURRENT_MEAS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->current_meas.LV24_I = LV24_I_;\
+        data_a->current_meas.LV5_I = LV5_I_;\
+        data_a->current_meas.LV3V3_PG = LV3V3_PG_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_MCU_STATUS(queue, sched_skips_, foreground_use_, background_use_, sched_error_, can_tx_fails_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MCU_STATUS, .DLC=DLC_MCU_STATUS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->mcu_status.sched_skips = sched_skips_;\
+        data_a->mcu_status.foreground_use = foreground_use_;\
+        data_a->mcu_status.background_use = background_use_;\
+        data_a->mcu_status.sched_error = sched_error_;\
+        data_a->mcu_status.can_tx_fails = can_tx_fails_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(queue, idx_, latched_) do {\
@@ -140,7 +176,7 @@
 #define UP_DASHBOARD_HB 100
 #define UP_FRONT_WHEEL_DATA 10
 #define UP_REAR_WHEEL_DATA 10
-#define UP_LWS_STANDARD 10
+#define UP_LWS_STANDARD 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -265,17 +301,38 @@ typedef union {
         uint64_t rear_right: 16;
     } torque_request_main;
     struct {
-        uint64_t flowrate_battery: 8;
-        uint64_t battery_line_temp: 8;
-        uint64_t battery_line_temp_two: 8;
-        uint64_t aux_analog_one: 12;
-        uint64_t aux_analog_two: 12;
+        uint64_t battery_in_temp: 8;
+        uint64_t battery_out_temp: 8;
+        uint64_t drivetrain_in_temp: 8;
+        uint64_t drivetrain_out_temp: 8;
+        uint64_t battery_flowrate: 8;
+        uint64_t drivetrain_flowrate: 8;
+        uint64_t battery_fan_speed: 8;
+        uint64_t drivetrain_fan_speed: 8;
     } flowrate_temps;
     struct {
         uint64_t CCW: 3;
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
     } LWS_Config;
+    struct {
+        uint64_t LV24: 16;
+        uint64_t LV12: 16;
+        uint64_t LV5: 16;
+        uint64_t LV3V3: 16;
+    } voltage_rails;
+    struct {
+        uint64_t LV24_I: 16;
+        uint64_t LV5_I: 16;
+        uint64_t LV3V3_PG: 1;
+    } current_meas;
+    struct {
+        uint64_t sched_skips: 8;
+        uint64_t foreground_use: 8;
+        uint64_t background_use: 8;
+        uint64_t sched_error: 8;
+        uint64_t can_tx_fails: 8;
+    } mcu_status;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -285,7 +342,10 @@ typedef union {
     } daq_response_MAIN_MODULE;
     struct {
         uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
         uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
     } raw_throttle_brake;
     struct {
         uint64_t start: 1;
@@ -393,7 +453,10 @@ typedef union {
 typedef struct {
     struct {
         uint16_t throttle;
+        uint16_t throttle_right;
         uint16_t brake;
+        uint16_t brake_right;
+        uint16_t brake_pot;
         uint8_t stale;
         uint32_t last_rx;
     } raw_throttle_brake;

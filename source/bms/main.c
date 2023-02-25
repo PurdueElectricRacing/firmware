@@ -53,7 +53,8 @@ SPI_InitConfig_t spi_config = {
     .nss_gpio_port = CSB_AFE_GPIO_Port,
     .nss_gpio_pin = CSB_AFE_Pin,
     .rx_dma_cfg = &spi_rx_dma_config,
-    .tx_dma_cfg = &spi_tx_dma_config
+    .tx_dma_cfg = &spi_tx_dma_config,
+    .periph = SPI1
 };
 
 #define TargetCoreClockrateHz 16000000

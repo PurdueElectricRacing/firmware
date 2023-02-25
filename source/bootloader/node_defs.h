@@ -54,19 +54,19 @@
 #endif
 
 #if (APP_ID == APP_MAIN_MODULE)
-    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PD1
-    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PD0
+    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PD0
+    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PD1
 
     #define STATUS_LED_GPIO_Port  (GPIOE)
     #define STATUS_LED_Pin        (10)
 #endif
 
 #if (APP_ID == APP_DASHBOARD)
-    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PA11
-    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PA12
+    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PD0
+    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PD1
 
-    #define STATUS_LED_GPIO_Port GPIOA // Precharge LED
-    #define STATUS_LED_Pin       7
+    #define STATUS_LED_GPIO_Port (GPIOE) // Precharge LED
+    #define STATUS_LED_Pin       (1)
 #endif
 
 #if (APP_ID == APP_DRIVELINE_FRONT)  ||\

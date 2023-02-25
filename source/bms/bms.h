@@ -28,7 +28,7 @@
 #define BAL_DUTY                0.82f
 #define BAL_RES                 30.0f
 
-#define BMS_ACCUM
+//#define BMS_ACCUM
 #ifndef BMS_ACCUM
 #define BMS_LV
 #endif

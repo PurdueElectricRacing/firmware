@@ -1,5 +1,5 @@
 /* System Includes */
-#include "stm32l432xx.h"
+#include "stm32l496xx.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/usart/usart.h"
@@ -19,23 +19,30 @@
 #include "pedals.h"
 #include "lcd.h"
 #include "nextion.h"
+#include "hdd.h"
 
 #include "common/faults/faults.h"
 
 GPIOInitConfig_t gpio_config[] = {
- GPIO_INIT_CANRX_PA11,
- GPIO_INIT_CANTX_PA12,
- GPIO_INIT_USART2TX_PA2,
- GPIO_INIT_USART2RX_PA3,
- // EEPROM
- GPIO_INIT_I2C1_SCL_PA9,
- GPIO_INIT_I2C1_SDA_PA10,
- GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
- // SPI
-  GPIO_INIT_AF(SCK_GPIO_Port, SCK_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_AF(MISO_GPIO_Port, MISO_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_AF(MOSI_GPIO_Port, MOSI_Pin, 5, GPIO_OUTPUT_LOW_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-  GPIO_INIT_OUTPUT(CSB_WHL_GPIO_Port, CSB_WHL_Pin, GPIO_OUTPUT_LOW_SPEED),
+ // Status Indicators
+ GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(ERROR_LED_GPIO_Port, ERROR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_GPIO_Port, BMS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
+ GPIO_INIT_INPUT(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_INPUT(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
+ // CAN
+ GPIO_INIT_CANRX_PD0,
+ GPIO_INIT_CANTX_PD1,
+ // SPI Peripherals
+ GPIO_INIT_SPI1_SCK_PE13,
+ GPIO_INIT_SPI1_MISO_PE14,
+ GPIO_INIT_SPI1_MOSI_PE15,
+ GPIO_INIT_OUTPUT(EEPROM_nWP_GPIO_Port, EEPROM_nWP_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(EEPROM_NSS_GPIO_Port, EEPROM_NSS_Pin, GPIO_OUTPUT_LOW_SPEED),
  // Throttle
  GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
  GPIO_INIT_ANALOG(THTL_2_GPIO_Port, THTL_2_Pin),
@@ -43,13 +50,44 @@ GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_ANALOG(BRK_1_GPIO_Port, BRK_1_Pin),
  GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
  GPIO_INIT_ANALOG(BRK_3_GPIO_Port, BRK_3_Pin),
- // Status LEDs
- GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
- GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
- GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
- GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
- GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_GPIO_Port, BMS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
- GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
+ // Motor Controllers
+ GPIO_INIT_USART3TX_PC10,
+ GPIO_INIT_USART3RX_PC11,
+ GPIO_INIT_USART2TX_PD5,
+ GPIO_INIT_USART2RX_PD6,
+ // Wheel Speed
+ GPIO_INIT_AF(MOTOR_L_WS_A_GPIO_Port, MOTOR_L_WS_A_Pin, 2, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+ GPIO_INIT_AF(MOTOR_L_WS_B_GPIO_Port, MOTOR_L_WS_B_Pin, 2, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+ GPIO_INIT_AF(MOTOR_L_WS_Z_GPIO_Port, MOTOR_L_WS_Z_Pin, 1, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+ GPIO_INIT_INPUT(MOTOR_L_WS_ERROR_GPIO_Port, MOTOR_L_WS_ERROR_Pin, GPIO_INPUT_PULL_UP),
+ GPIO_INIT_AF(MOTOR_R_WS_A_GPIO_Port, MOTOR_R_WS_A_Pin, 1, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+ GPIO_INIT_AF(MOTOR_R_WS_B_GPIO_Port, MOTOR_R_WS_B_Pin, 1, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+ GPIO_INIT_AF(MOTOR_R_WS_Z_GPIO_Port, MOTOR_R_WS_Z_Pin, 3, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+ GPIO_INIT_INPUT(MOTOR_R_WS_ERROR_GPIO_Port, MOTOR_R_WS_ERROR_Pin, GPIO_INPUT_PULL_UP),
+ // Shock Pots
+ GPIO_INIT_ANALOG(SHOCK_POT_L_GPIO_Port, SHOCK_POT_L_Pin),
+ GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
+ // Drivetrain
+ GPIO_INIT_ANALOG(DT_GB_THERM_L_GPIO_Port, DT_GB_THERM_L_Pin),
+ GPIO_INIT_ANALOG(DT_GB_THERM_R_GPIO_Port, DT_GB_THERM_R_Pin),
+ // LCD
+ GPIO_INIT_USART1TX_PA9,
+ GPIO_INIT_USART1RX_PA10,
+ // HDD
+ GPIO_INIT_INPUT(B_OK_GPIO_Port, B_OK_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_INPUT(B_LEFT_GPIO_Port, B_LEFT_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_OUTPUT(B_MUX_0_GPIO_Port, B_MUX_0_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(B_MUX_1_GPIO_Port, B_MUX_1_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(B_MUX_2_GPIO_Port, B_MUX_2_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(B_MUX_3_GPIO_Port, B_MUX_3_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_OUTPUT(B_MUX_4_GPIO_Port, B_MUX_4_Pin, GPIO_OUTPUT_LOW_SPEED),
+ GPIO_INIT_INPUT(B_MUX_DATA_GPIO_Port, B_MUX_DATA_Pin, GPIO_INPUT_OPEN_DRAIN),
+ // LV Status
+ GPIO_INIT_ANALOG(LV_5V_V_SENSE_GPIO_Port, LV_5V_V_SENSE_Pin),
+ GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
 };
 
 /* ADC Configuration */
@@ -61,12 +99,13 @@ ADCInitConfig_t adc_config = {
    .overrun         = true,
    .dma_mode        = ADC_DMA_CIRCULAR
 };
+// TODO: check prescaler for udpate rate
 ADCChannelConfig_t adc_channel_config[] = {
-   {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
-   {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_6_5},
+   {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=BRK_1_ADC_CHNL,  .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
 
@@ -98,17 +137,18 @@ usart_init_t huart2 = {
 };
 
 /* SPI Configuration */
-dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
-SPI_InitConfig_t hspi1 = {
-   .data_rate     = 160000,
-   .data_len      = 8,
-   .nss_sw        = true,
-   .nss_gpio_port = CSB_WHL_GPIO_Port,
-   .nss_gpio_pin  = CSB_WHL_Pin,
-   .rx_dma_cfg    = &spi_rx_dma_cfg,
-   .tx_dma_cfg    = &spi_tx_dma_cfg,
-};
+// TODO:
+// dma_init_t spi_rx_dma_cfg = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
+// dma_init_t spi_tx_dma_cfg = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
+// SPI_InitConfig_t hspi1 = {
+//    .data_rate     = 160000,
+//    .data_len      = 8,
+//    .nss_sw        = true,
+//    .nss_gpio_port = CSB_WHL_GPIO_Port,
+//    .nss_gpio_pin  = CSB_WHL_Pin,
+//    .rx_dma_cfg    = &spi_rx_dma_cfg,
+//    .tx_dma_cfg    = &spi_tx_dma_cfg,
+// };
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -117,6 +157,12 @@ ClockRateConfig_t clock_config = {
    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+};
+
+hdd_value_t hdd = {
+   .curr_addr = 0,
+   .mux_1_val = 0,
+   .mux_2_val = 0
 };
 
 /* Locals for Clock Rates */
@@ -130,11 +176,15 @@ void preflightChecks(void);
 void preflightAnimation(void);
 void heartBeatLED();
 void heartBeatMsg();
+void brakeStatMonitor();
 void canTxUpdate();
 void usartTxUpdate();
 void linkDAQVars();
 void checkStartBtn();
 extern void HardFault_Handler();
+void pollHDD();
+void toggleLights();
+
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -159,13 +209,25 @@ int main (void)
         HardFault_Handler();
     }
 
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+
+
     /* Task Creation */
-    schedInit(SystemCoreClock);
+    schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 120, 750);
 
     taskCreate(heartBeatLED, 500);
-    taskCreate(heartBeatMsg, 100);
-    taskCreate(checkStartBtn, 100);
+    // taskCreate(heartBeatTask, 100);
+    // taskCreate(updateFaults, 5);
+    // taskCreate(pollHDD, 1000);
+    taskCreate(toggleLights, 500);
+    // taskCreate(heartBeatMsg, 100);
+    // taskCreate(checkStartBtn, 100);
     taskCreate(pedalsPeriodic, 15);
     //********* UNCOMMENT END
 
@@ -183,21 +245,24 @@ int main (void)
 
     // taskCreate(update_page, 500);
 
-    taskCreate(update_time, 50);
-    taskCreate(update_err_pages, 500);
-    taskCreate(update_info_pages, 200);
-    taskCreate(update_race_colors, 1000);
-    taskCreate(updateBarsFast, 75);
+    // taskCreate(update_time, 50);
+    // taskCreate(update_err_pages, 500);
+    // taskCreate(update_info_pages, 200);
+    // taskCreate(update_race_colors, 1000);
+    // taskCreate(updateBarsFast, 75);
 
     //taskCreate(check_precharge, 100);
 
-    taskCreate(check_buttons, 100);
+    // taskCreate(check_buttons, 100);
     // taskCreate(check_error, 1000);
+    //Fault Library Enable
+    // taskCreate(heartBeatTask, 100);
+    // taskCreate(updateFaults, 5);
 
-    taskCreateBackground(usartTxUpdate);
+    // taskCreateBackground(usartTxUpdate);
 
     schedStart();
-    
+
     return 0;
 }
 
@@ -214,16 +279,16 @@ void preflightChecks(void) {
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
            break;
         case 1:
-            if(!PHAL_initUSART(USART2, &huart2, APB1ClockRateHz))
-            {
-                HardFault_Handler();
-            }
+            // if(!PHAL_initUSART(USART2, &huart2, APB1ClockRateHz))
+            // {
+            //     HardFault_Handler();
+            // }
             break;
         case 2:
-            if(!PHAL_SPI_init(&hspi1))
-            {
-                HardFault_Handler();
-            }
+            // if(!PHAL_SPI_init(&hspi1))
+            // {
+            //     HardFault_Handler();
+            // }
             break;
         case 3:
             // if(!PHAL_initI2C(I2C1))
@@ -246,7 +311,6 @@ void preflightChecks(void) {
         case 5:
             /* Module Initialization */
             initCANParse(&q_rx_can);
-            linkDAQVars();
             // if (daqInit(&q_tx_can, I2C1))
             // {
             //     HardFault_Handler();
@@ -255,7 +319,7 @@ void preflightChecks(void) {
         case 6:
             // char *race_page = "extra_info\0";
             // // PHAL_usartTxDma(USART2, &huart2, (uint16_t *) race_page, strlen(race_page));
-            set_page("race\0");
+            // set_page("race\0");
             // char *new_text = "CAR_FUCKED\n";
             // set_text("t11\0", NXT_TEXT, new_text);
             // set_value("car_state", "=", 64528);
@@ -283,18 +347,61 @@ void preflightAnimation(void) {
     }
 }
 
+static uint8_t lights;
+void toggleLights() {
+    switch (lights++){
+        case 0:
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+            break;
+        case 2:
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
+            lights = 0;
+            break;
+    }
+
+}
+
+void pollHDD() {
+   for (uint8_t i = 0; i < 24; i++) {
+       //BMUX0 == LSB, BMUX4 == LSB
+       PHAL_writeGPIO(B_MUX_0_GPIO_Port, B_MUX_0_Pin, (bool)(i & 0x01));
+       PHAL_writeGPIO(B_MUX_1_GPIO_Port, B_MUX_1_Pin, (bool)(i & 0x02));
+       PHAL_writeGPIO(B_MUX_2_GPIO_Port, B_MUX_2_Pin, (bool)(i & 0x04));
+       PHAL_writeGPIO(B_MUX_3_GPIO_Port, B_MUX_3_Pin, (bool)(i & 0x08));
+       PHAL_writeGPIO(B_MUX_4_GPIO_Port, B_MUX_4_Pin, (bool)(i & 0x10));
+       for (uint8_t j = 0; j < 100; j++) {
+        __asm__("nop");
+       }
+       if (i <= 11) {
+           hdd.mux_1_arr[i] = PHAL_readGPIO(B_MUX_DATA_GPIO_Port, B_MUX_DATA_Pin);
+       }
+       else {
+           hdd.mux_2_arr[i - 12] = PHAL_readGPIO(B_MUX_DATA_GPIO_Port, B_MUX_DATA_Pin);
+       }
+   }
+
+
+}
+
+
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-    if (can_data.main_hb.precharge_state)
-        PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-    else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    // if (can_data.main_hb.precharge_state)
+    //     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+    // else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     // TODO IMD LED
     // PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !can_data.precharge_hb.IMD);
+    // PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !can_data.precharge_hb.IMD);
     // TODO BMS LED
     // PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);
+    // PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
@@ -332,27 +439,6 @@ void checkStartBtn()
    }
 }
 
-void linkDAQVars()
-{
-//    linkReada(DAQ_ID_T1MAX,  &pedal_calibration.t1max);
-//    linkWritea(DAQ_ID_T1MAX, &pedal_calibration.t1max);
-//    linkReada(DAQ_ID_T1MIN,  &pedal_calibration.t1min);
-//    linkWritea(DAQ_ID_T1MIN, &pedal_calibration.t1min);
-//    linkReada(DAQ_ID_T2MAX,  &pedal_calibration.t2max);
-//    linkWritea(DAQ_ID_T2MAX, &pedal_calibration.t2max);
-//    linkReada(DAQ_ID_T2MIN,  &pedal_calibration.t2min);
-//    linkWritea(DAQ_ID_T2MIN, &pedal_calibration.t2min);
-//    linkReada(DAQ_ID_B3MAX,  &pedal_calibration.b3max);
-//    linkWritea(DAQ_ID_B3MAX, &pedal_calibration.b3max);
-//    linkReada(DAQ_ID_B3MIN,  &pedal_calibration.b3min);
-//    linkWritea(DAQ_ID_B3MIN, &pedal_calibration.b3min);
-//    linkReada(DAQ_ID_B1,     &raw_pedals.b1);
-//    linkReada(DAQ_ID_B2,     &raw_pedals.b2);
-//    linkReada(DAQ_ID_T1,     &raw_pedals.t1);
-//    linkReada(DAQ_ID_T2,     &raw_pedals.t2);
-//    linkReada(DAQ_ID_B3,     &raw_pedals.b3);
-}
-
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};
 void usartTxUpdate()
 {
@@ -374,26 +460,26 @@ void canTxUpdate()
 
 void CAN1_RX0_IRQHandler()
 {
-    if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
+   if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
+       CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
-    if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0);
+   if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
+       CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
    if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
    {
        CanMsgTypeDef_t rx;
        rx.Bus = CAN1;
 
-        // Get either StdId or ExtId
-        if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-        {
-          rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
-        }
-        else
-        {
-          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-        }
+       // Get either StdId or ExtId
+       if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+       {
+         rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+       }
+       else
+       {
+         rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+       }
 
        rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
@@ -406,9 +492,9 @@ void CAN1_RX0_IRQHandler()
        rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
        rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
-        CAN1->RF0R |= (CAN_RF0R_RFOM0);
-        qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
-    }
+       CAN1->RF0R |= (CAN_RF0R_RFOM0);
+       qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
+   }
 }
 
 void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

@@ -20,4 +20,5 @@ foreach(BMS_NAME IN ITEMS ${BMS_NAMES})
         OUTPUT_DIR     ${PROJECT_OUTPUT_DIR}/bmses/${BMS_NAME}
     )
     COMMON_FIRMWARE_COMPONENT(${TARGET_NAME})
+    MESSAGE(STATUS, "bms building")
 endforeach()

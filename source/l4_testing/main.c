@@ -263,7 +263,7 @@ int main (void)
     taskCreate(ledBlink, 500);
     //Fault Stuff
     taskCreate(updateFaults, 5);
-    taskCreate(txFaults, 100);
+    taskCreate(heartBeatTask, 100);
     //Fault Stuff
     // taskCreate(adcConvert, 50);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);

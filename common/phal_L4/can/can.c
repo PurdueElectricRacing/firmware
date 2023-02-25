@@ -64,9 +64,6 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
         default:
             return false;
     }
-    if (APB1ClockRateHz == 16000000)
-    
-    
     // Keep the bus active
     bus->MCR |= CAN_MCR_ABOM;
 

@@ -33,13 +33,16 @@
                         },
                         {
                             "msg_name": "flowrate_temps",
-                            "msg_desc": "Flowrate and Water temp",
+                            "msg_desc": "Flowrate and Water temp of cooling loops",
                             "signals": [
-                                {"sig_name": "flowrate_battery", "sig_desc": "Flow rate for battery", "type": "uint8_t", "scale": 0.1},
-                                {"sig_name": "battery_line_temp", "sig_desc": "Temp in battery line", "type": "uint8_t", "scale": 1},
-                                {"sig_name": "battery_line_temp_two", "sig_desc": "Temp in battery line two", "type": "uint8_t", "scale": 1},
-                                {"sig_name": "aux_analog_one", "sig_desc": "Auxilary analog one", "type": "uint16_t", "length": 12, "scale": 1},
-                                {"sig_name": "aux_analog_two", "sig_desc": "Auxilary analog two", "type": "uint16_t", "length": 12, "scale": 1}
+                                {"sig_name": "battery_in_temp", "sig_desc":"In flow temperature of battery coolant loop", "type":"int8_t", "unit":"C"},
+                                {"sig_name": "battery_out_temp", "sig_desc":"Out flow temperature of battery coolant loop", "type":"int8_t", "unit":"C"},
+                                {"sig_name": "drivetrain_in_temp", "sig_desc":"In flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"},
+                                {"sig_name": "drivetrain_out_temp", "sig_desc":"Out flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"},
+                                {"sig_name": "battery_flowrate", "sig_desc": "Flow rate for battery coolant loop", "type": "uint8_t", "scale": 0.1, "unit":"LPM"},
+                                {"sig_name": "drivetrain_flowrate", "sig_desc": "Flow rate for drivetrain coolant loop", "type": "uint8_t", "scale": 0.1, "unit":"LPM"},
+                                {"sig_name": "battery_fan_speed", "sig_desc": "Speed of battery fan", "type": "uint8_t", "scale":100, "unit":"RPM"},
+                                {"sig_name": "drivetrain_fan_speed", "sig_desc": "Speed of drivetrain fan", "type": "uint8_t", "scale":100, "unit":"RPM"}
                             ],
                             "msg_period":200,
                             "msg_hlp":1,
@@ -56,6 +59,45 @@
                             "msg_period": 0,
                             "msg_id_override": "0x7C0",
                             "is_normal":true
+                        },
+                        {
+                            "msg_name": "voltage_rails",
+                            "msg_desc": "Local main LV voltage rail measurements",
+                            "signals": [
+                                {"sig_name":"LV24", "type": "uint16_t", "unit":"mV"},
+                                {"sig_name":"LV12", "type": "uint16_t", "unit":"mV"},
+                                {"sig_name":"LV5", "type": "uint16_t", "unit":"mV"},
+                                {"sig_name":"LV3V3", "type": "uint16_t", "unit":"mV"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 100
+                        },
+                        {
+                            "msg_name": "current_meas",
+                            "msg_desc": "Local main LV current measurements",
+                            "signals": [
+                                {"sig_name":"LV24_I", "type": "uint16_t", "unit":"mA"},
+                                {"sig_name":"LV5_I", "type": "uint16_t", "unit":"mA"},
+                                {"sig_name":"LV3V3_PG", "type": "uint8_t", "length":1, "sig_desc": "Power good status pin on the 3V3 LDO"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 101
+                        },
+                        {
+                            "msg_name": "mcu_status",
+                            "msg_desc": "performance metrics of MCU",
+                            "signals": [
+                                {"sig_name":"sched_skips", "type":"uint8_t", "sig_desc": "Number of loop misses (execution time was skipped)"},
+                                {"sig_name":"foreground_use", "type":"uint8_t", "units":"%", "sig_desc":"Percent of the 1ms loop time used by foreground tasks"},
+                                {"sig_name":"background_use", "type":"uint8_t", "units":"%", "sig_desc":"Percent of the 1ms loop time used by background tasks"},
+                                {"sig_name":"sched_error", "type":"uint8_t", "sig_desc":"PSCHED Error Flags (bit #)\n 0 - N/A\n1 - no free task\n2 - FG Miss\n3 - BG Miss\n4 - Individual FG Miss"},
+                                {"sig_name":"can_tx_fails", "type":"uint8_t", "sig_desc":"Number of CAN transmit failures"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4, 
+                            "msg_pgn": 102
                         }
                     ],
                     "rx":[
@@ -433,10 +475,13 @@
                     "node_ssa":5,
                     "tx":[
                         {   "msg_name":"raw_throttle_brake",
-                            "msg_desc":"throttle_brake desc",
+                            "msg_desc":"Throttle and brake values",
                             "signals":[
-                                {"sig_name":"throttle","type":"uint16_t","length":12},
-                                {"sig_name":"brake", "type":"uint16_t", "length":12}
+                                {"sig_name":"throttle","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"throttle_right","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake_right", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake_pot", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
                             ],
                             "msg_period":15,
                             "msg_hlp":5,
@@ -487,15 +532,15 @@
                             "msg_name": "LWS_Standard",
                             "msg_desc": "Standard steering angle and speed",
                             "signals": [
-                                {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"°", "scale":0.1},
-                                {"sig_name": "LWS_SPEED", "type":"uint8_t", "unit":"°/s", "scale":4, "length": 8},
+                                {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"deg", "scale":0.1},
+                                {"sig_name": "LWS_SPEED", "type":"uint8_t", "unit":"deg/s", "scale":4, "length": 8},
                                 {"sig_name": "Ok", "type": "uint8_t", "length": 1},
                                 {"sig_name": "Cal", "type": "uint8_t", "length": 1},
                                 {"sig_name": "Trim", "type": "uint8_t", "length": 1},
                                 {"sig_name": "Reserved_1", "type":"uint8_t", "length": 5},
                                 {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8}
                             ],
-                            "msg_period": 10,
+                            "msg_period": 15,
                             "msg_id_override": "0x2B0",
                             "is_normal":true
                         }

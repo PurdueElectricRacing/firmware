@@ -46,17 +46,38 @@ BO_ 2214592577 torque_request_main: 8 Main_Module
  SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214594689 flowrate_temps: 6 Main_Module
- SG_ aux_analog_two : 36|12@1+ (1,0) [0|0] "" Vector__XXX
- SG_ aux_analog_one : 24|12@1+ (1,0) [0|0] "" Vector__XXX
- SG_ battery_line_temp_two : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ battery_line_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ flowrate_battery : 0|8@1+ (0.1,0) [0|0] "" Vector__XXX
+BO_ 2214594689 flowrate_temps: 8 Main_Module
+ SG_ drivetrain_fan_speed : 56|8@1+ (100,0) [0|0] "RPM" Vector__XXX
+ SG_ battery_fan_speed : 48|8@1+ (100,0) [0|0] "RPM" Vector__XXX
+ SG_ drivetrain_flowrate : 40|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+ SG_ battery_flowrate : 32|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+ SG_ drivetrain_out_temp : 24|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ drivetrain_in_temp : 16|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ battery_out_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ battery_in_temp : 0|8@1- (1,0) [0|0] "C" Vector__XXX
 
 BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415925505 voltage_rails: 8 Main_Module
+ SG_ LV3V3 : 48|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ LV5 : 32|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ LV12 : 16|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ LV24 : 0|16@1+ (1,0) [0|0] "mV" Vector__XXX
+
+BO_ 2415925569 current_meas: 5 Main_Module
+ SG_ LV3V3_PG : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LV5_I : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ LV24_I : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
+
+BO_ 2415925633 mcu_status: 5 Main_Module
+ SG_ can_tx_fails : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ sched_error : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ background_use : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ foreground_use : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ sched_skips : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -244,9 +265,12 @@ BO_ 2348812088 orion_errors: 4 OrionBMS
  SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028613 raw_throttle_brake: 3 Dashboard
- SG_ brake : 12|12@1+ (1,0) [0|0] "" Vector__XXX
- SG_ throttle : 0|12@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2483028613 raw_throttle_brake: 8 Dashboard
+ SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ brake_right : 36|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ brake : 24|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ throttle_right : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
 
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -269,8 +293,8 @@ BO_ 688 LWS_Standard: 5 Steering
  SG_ Trim : 26|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Cal : 25|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Ok : 24|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "°/s" Vector__XXX
- SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "°" Vector__XXX
+ SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "deg/s" Vector__XXX
+ SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "deg" Vector__XXX
 
 BO_ 372 Y_Accel: 8 Acceleration
  SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -717,16 +741,39 @@ CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
-CM_ BO_ 2214594689 "Flowrate and Water temp";
-CM_ SG_ 2214594689 aux_analog_two "Auxilary analog two";
-CM_ SG_ 2214594689 aux_analog_one "Auxilary analog one";
-CM_ SG_ 2214594689 battery_line_temp_two "Temp in battery line two";
-CM_ SG_ 2214594689 battery_line_temp "Temp in battery line";
-CM_ SG_ 2214594689 flowrate_battery "Flow rate for battery";
+CM_ BO_ 2214594689 "Flowrate and Water temp of cooling loops";
+CM_ SG_ 2214594689 drivetrain_fan_speed "Speed of drivetrain fan";
+CM_ SG_ 2214594689 battery_fan_speed "Speed of battery fan";
+CM_ SG_ 2214594689 drivetrain_flowrate "Flow rate for drivetrain coolant loop";
+CM_ SG_ 2214594689 battery_flowrate "Flow rate for battery coolant loop";
+CM_ SG_ 2214594689 drivetrain_out_temp "Out flow temperature of drivetrain coolant loop";
+CM_ SG_ 2214594689 drivetrain_in_temp "In flow temperature of drivetrain coolant loop";
+CM_ SG_ 2214594689 battery_out_temp "Out flow temperature of battery coolant loop";
+CM_ SG_ 2214594689 battery_in_temp "In flow temperature of battery coolant loop";
 CM_ BO_ 1984 "Steering sensor configuration";
 CM_ SG_ 1984 Reserved_2 "";
 CM_ SG_ 1984 Reserved_1 "";
 CM_ SG_ 1984 CCW "";
+CM_ BO_ 2415925505 "Local main LV voltage rail measurements";
+CM_ SG_ 2415925505 LV3V3 "";
+CM_ SG_ 2415925505 LV5 "";
+CM_ SG_ 2415925505 LV12 "";
+CM_ SG_ 2415925505 LV24 "";
+CM_ BO_ 2415925569 "Local main LV current measurements";
+CM_ SG_ 2415925569 LV3V3_PG "Power good status pin on the 3V3 LDO";
+CM_ SG_ 2415925569 LV5_I "";
+CM_ SG_ 2415925569 LV24_I "";
+CM_ BO_ 2415925633 "performance metrics of MCU";
+CM_ SG_ 2415925633 can_tx_fails "Number of CAN transmit failures";
+CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
+ 0 - N/A
+1 - no free task
+2 - FG Miss
+3 - BG Miss
+4 - Individual FG Miss";
+CM_ SG_ 2415925633 background_use "Percent of the 1ms loop time used by background tasks";
+CM_ SG_ 2415925633 foreground_use "Percent of the 1ms loop time used by foreground tasks";
+CM_ SG_ 2415925633 sched_skips "Number of loop misses (execution time was skipped)";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";
@@ -885,8 +932,11 @@ CM_ SG_ 2348812088 heatsink_thermistor "";
 CM_ SG_ 2348812088 internal_hardware "";
 CM_ SG_ 2348812088 charger_safety_relay "";
 CM_ SG_ 2348812088 discharge_limit_enforce "";
-CM_ BO_ 2483028613 "throttle_brake desc";
+CM_ BO_ 2483028613 "Throttle and brake values";
+CM_ SG_ 2483028613 brake_pot "";
+CM_ SG_ 2483028613 brake_right "";
 CM_ SG_ 2483028613 brake "";
+CM_ SG_ 2483028613 throttle_right "";
 CM_ SG_ 2483028613 throttle "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";
@@ -1231,8 +1281,8 @@ CM_ BO_ 2347693089 "state of the car";
 CM_ SG_ 2347693089 car_state2 "";
 CM_ BO_ 2483032050 "daq command for node TEST_NODE";
 CM_ SG_ 2483032050 daq_command "";
-BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
-BA_DEF_DEF_  "GenMsgCycleTime" 0;
+
+
 
 VAL_ 2214598913 car_state 0 "init" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" ;
 VAL_ 2214598915 front_right_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;

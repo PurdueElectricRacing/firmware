@@ -304,20 +304,6 @@ def load_json_config(config_path, schema_path):
 
     return config
 
-def check_json_config(config, schema_path):
-    """ loads config from json and validates with existing can config dictionary"""
-    schema = json.load(open(schema_path))
-
-    # compare with schema
-    try:
-        validate(config, schema)
-    except ValidationError as e:
-        log_error("Invalid JSON after adding fault messages!")
-        print(e)
-        quit(1)
-
-    return config
-
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
@@ -339,8 +325,6 @@ def generate_all():
     fault_config = load_json_config(fault_config_path, fault_schema_path)
 
     generateFLmessages(can_config, fault_config)
-
-    check_json_config(can_config, can_schema_path)
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)

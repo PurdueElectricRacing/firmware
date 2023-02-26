@@ -126,9 +126,6 @@
                 "msg_name":{"type":"string"},
                 "callback":{"type":"boolean"},
                 "irq":{"type":"boolean"},
-                "fault":{"type":"boolean"},
-                "fault_set":{"type":"boolean"},
-                "fault_return":{"type":"boolean"},
                 "arg_type":{"type":"string", "enum":["msg_data", "header"]}
             }
         }

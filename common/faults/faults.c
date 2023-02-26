@@ -88,9 +88,8 @@ q_handle_t *q_rx;
 uint16_t ownedidx;
 uint16_t curridx;
 
-//Variables to send CAN frames
+//CAN msg ID
 uint32_t can_ext;
-uint32_t can_dlc;
 
 bool fault_lib_disable;
 
@@ -127,12 +126,14 @@ bool setFault(int id, int valueToCompare) {
  * @brief Heartbeat messages for the various MCUs. Sends fault information, and should be scheduled
  *
  *
- */void heartBeatTask() {
+ * @return none
+ */
+void heartBeatTask() {
     if (ownedidx < 0 || fault_lib_disable) {
         return;
     }
         fault_status_t *status = &statusArray[curridx++];
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=can_dlc, .IDE=1};
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=3, .IDE=1};
         fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
         data_a->fault_sync.idx = status->f_ID;
         data_a->fault_sync.latched = status->latched;
@@ -143,10 +144,16 @@ bool setFault(int id, int valueToCompare) {
      }
 }
 
-//Function to send faults at a specific time
+/**
+ * @brief Sends specified fault over CAN
+ *
+ * @param id ID of fault to send
+ *
+ * @return none
+ */
 void txFaultSpecific(int id) {
     fault_status_t *status = &statusArray[GET_IDX(id)];
-    CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=can_dlc, .IDE=1};
+    CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=3, .IDE=1};
     fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
     data_a->fault_sync.idx = status->f_ID;
     data_a->fault_sync.latched = status->latched;
@@ -154,7 +161,15 @@ void txFaultSpecific(int id) {
 }
 
 //Function to update fault array from recieved messages
-void handleCallbacks(/*fault_status_t recievedStatus*/uint16_t id, bool latched) {
+/**
+ * @brief Function to update fault array from recieved fault status messages
+ *
+ * @param id ID of recieved fault
+ * @param latched Fault state
+ *
+ * @return none
+ */
+void handleCallbacks(uint16_t id, bool latched) {
     fault_status_t recievedStatus = (fault_status_t){latched, id};
     fault_status_t *currStatus = &statusArray[GET_IDX(recievedStatus.f_ID)];
 	if (recievedStatus.latched) {
@@ -193,14 +208,27 @@ void handleCallbacks(/*fault_status_t recievedStatus*/uint16_t id, bool latched)
     }
 }
 
-//Force faults from daq
+/**
+ * @brief Implement Force fault requests from DAQ
+ *
+ * @param id ID of fault to force
+ * @param value State to set fault to
+ *
+ * @return none
+ */
 void set_fault_daq(uint16_t id, bool value) {
     if (GET_OWNER(id) == currentMCU) {
         forceFault(id, value);
     }
 }
 
-//Return control back to this mcu from daq
+/**
+ * @brief Return control back to this mcu from daq
+ *
+ * @param id ID of fault to return
+ *
+ * @return none
+ */
 void return_fault_control(uint16_t id) {
     if (GET_OWNER(id) == currentMCU) {
         unForce(id);
@@ -211,6 +239,7 @@ void return_fault_control(uint16_t id) {
 /**
  * @brief Updates faults owned by current mcu
  *
+ * @return none
  */
 void updateFaults() {
     if (ownedidx < 0 || fault_lib_disable) {
@@ -317,6 +346,7 @@ void updateFaults() {
 /**
  * @brief Disables Fault Library
  *
+ * @return none
  */
 void killFaultLibrary() {
     fault_lib_disable = true;
@@ -387,14 +417,27 @@ bool checkFault(int id) {
     return message[GET_IDX(id)].latched;
 }
 
-//Unforce a fault
+/**
+ * @brief Allow fault to be controlled by updateFaults()
+ *
+ * @param id ID of fault to unforce
+ *
+ * @return none
+ */
 void unForce(int id) {
     faultArray[GET_IDX(id)].forceActive = false;
 }
 
 
 
-//Force a fault to be a certain state
+/**
+ * @brief Set a fault to a certain state, regardless of recieved data - disables updateFaults()
+ *
+ * @param id ID of fault to force
+ * @param state State to force fault to
+ *
+ * @return none
+ */
 void forceFault(int id, bool state) {
     uint16_t idx = GET_IDX(id);
     //If it is forced to be latched and wasn't already
@@ -445,11 +488,10 @@ void forceFault(int id, bool state) {
  * @param ext CAN ext ID from module's can_parse.h, usually of format ID_FAULT_SYNC{mcu}
  * @param dlc CAN dlc from module's can_parse.h, usually of format DLC_FAULT_SYNC{mcu}
  */
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext, uint32_t dlc) {
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext) {
     fault_lib_disable = false;
     bool foundStartIdx = false;
     can_ext = ext;
-    can_dlc = dlc;
     q_tx = txQ;
     q_rx = rxQ;
     currentMCU = mcu;

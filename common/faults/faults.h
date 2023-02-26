@@ -252,7 +252,7 @@ extern fault_status_t message[TOTAL_NUM_FAULTS];
 extern fault_attributes_t attributes[TOTAL_NUM_FAULTS];
 
 //Function defs
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext, uint32_t dlc);
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext);
 bool setFault(int, int);
 void forceFault(int, bool);
 void unForce(int);
@@ -260,7 +260,7 @@ void txFaultSpecific(int);
 void heartBeatTask();
 void updateFaults();
 void killFaultLibrary();
-void handleCallbacks(/*fault_status_t*/uint16_t id, bool latched);
+void handleCallbacks(uint16_t id, bool latched);
 bool currMCULatched();
 bool warningLatched();
 bool errorLatched();

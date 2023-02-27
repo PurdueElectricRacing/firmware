@@ -100,7 +100,7 @@
                 "sig_desc":{"type":"string"},
                 "type":{
                     "type":"string",
-                    "enum":["uint8_t", "uint16_t", "uint32_t", "uint64_t", 
+                    "enum":["uint8_t", "uint16_t", "uint32_t", "uint64_t",
                             "int8_t", "int16_t", "int32_t", "int64_t",
                             "float"],
                     "description":"can only change length of uints, float defaults to 32 bits"
@@ -132,4 +132,3 @@
     }
 
 }
-    

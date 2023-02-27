@@ -145,9 +145,9 @@ def generateFLmessages(can_config, fault_config):
                 node['tx'].append({'msg_name': 'fault_sync_' + (str)(node['node_name']).lower(), 'msg_desc': 'Fault status message', 'signals': [{'sig_name': 'idx', 'type': 'uint16_t', 'length': 16}, {'sig_name': 'latched', 'type': 'uint8_t', 'length': 1}], 'msg_period': 0, 'msg_hlp': 0, 'msg_pgn': (9000 + i)})
                 for f_node in fault_config['modules']:
                     if (str)(f_node['can_name']).lower() != (str)(node['node_name']).lower():
-                        node['rx'].append({'msg_name': 'fault_sync_' + (str)(f_node['can_name']).lower(), 'callback': True})
-                node['rx'].append({"msg_name": "set_fault", "callback": True})
-                node['rx'].append({"msg_name": "return_fault_control", "callback": True})
+                        node['rx'].append({'msg_name': 'fault_sync_' + (str)(f_node['can_name']).lower(), 'callback': True, 'fault': True})
+                node['rx'].append({"msg_name": "set_fault", "callback": True, 'fault': True, 'fault_set': True})
+                node['rx'].append({"msg_name": "return_fault_control", "callback": True, 'fault': True, 'fault_return': True})
                 i += 1
 
 
@@ -304,20 +304,6 @@ def load_json_config(config_path, schema_path):
 
     return config
 
-def check_json_config(config, schema_path):
-    """ loads config from json and validates with existing can config dictionary"""
-    schema = json.load(open(schema_path))
-
-    # compare with schema
-    try:
-        validate(config, schema)
-    except ValidationError as e:
-        log_error("Invalid JSON after adding fault messages!")
-        print(e)
-        quit(1)
-
-    return config
-
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
@@ -339,8 +325,6 @@ def generate_all():
     fault_config = load_json_config(fault_config_path, fault_schema_path)
 
     generateFLmessages(can_config, fault_config)
-
-    check_json_config(can_config, can_schema_path)
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)

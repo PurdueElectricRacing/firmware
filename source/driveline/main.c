@@ -172,7 +172,7 @@ int main(void)
     {
         HardFault_Handler();
     }
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can, ID_FAULT_SYNC_DRIVELINE);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_DRIVELINE);
 
     /* Task Creation */
     schedInit(SystemCoreClock);

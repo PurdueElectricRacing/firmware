@@ -253,7 +253,7 @@ void preflightChecks(void) {
            initCANParse(&q_rx_can);
            if(daqInit(&q_tx_can))
                HardFault_Handler();
-           initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, &q_rx_can, ID_FAULT_SYNC_MAIN_MODULE);
+           initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);

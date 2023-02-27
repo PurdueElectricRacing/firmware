@@ -252,7 +252,7 @@ extern fault_status_t message[TOTAL_NUM_FAULTS];
 extern fault_attributes_t attributes[TOTAL_NUM_FAULTS];
 
 //Function defs
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext);
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext);
 bool setFault(int, int);
 void forceFault(int, bool);
 void unForce(int);

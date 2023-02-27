@@ -45,53 +45,52 @@ fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
 	(fault_status_t){false, ID_TEST_FAULT_4_FAULT},
 };
 fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {
-	(fault_attributes_t){false, false, BATT_FLOW_PRIORITY, 0, 0, BATT_FLOW_MAX, BATT_FLOW_MIN, &statusArray[0], BATT_FLOW_MSG}, 
-	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[1], DRIVE_FLOW_MSG}, 
-	(fault_attributes_t){false, false, MAIN_COMM_PRIORITY, 0, 0, MAIN_COMM_MAX, MAIN_COMM_MIN, &statusArray[2], MAIN_COMM_MSG}, 
-	(fault_attributes_t){false, false, LV_DEAD_PRIORITY, 0, 0, LV_DEAD_MAX, LV_DEAD_MIN, &statusArray[3], LV_DEAD_MSG}, 
-	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[4], MOT_FRONT_OT_MSG}, 
-	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG}, 
-	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG}, 
-	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG}, 
-	(fault_attributes_t){false, false, APPS_WIRING_T1_PRIORITY, 0, 0, APPS_WIRING_T1_MAX, APPS_WIRING_T1_MIN, &statusArray[8], APPS_WIRING_T1_MSG}, 
-	(fault_attributes_t){false, false, APPS_WIRING_T2_PRIORITY, 0, 0, APPS_WIRING_T2_MAX, APPS_WIRING_T2_MIN, &statusArray[9], APPS_WIRING_T2_MSG}, 
-	(fault_attributes_t){false, false, BSE_WIRING_B1_PRIORITY, 0, 0, BSE_WIRING_B1_MAX, BSE_WIRING_B1_MIN, &statusArray[10], BSE_WIRING_B1_MSG}, 
-	(fault_attributes_t){false, false, BSE_WIRING_B2_PRIORITY, 0, 0, BSE_WIRING_B2_MAX, BSE_WIRING_B2_MIN, &statusArray[11], BSE_WIRING_B2_MSG}, 
-	(fault_attributes_t){false, false, BSE_WIRING_B3_PRIORITY, 0, 0, BSE_WIRING_B3_MAX, BSE_WIRING_B3_MIN, &statusArray[12], BSE_WIRING_B3_MSG}, 
-	(fault_attributes_t){false, false, IMPLAUS_DETECTED_PRIORITY, 0, 0, IMPLAUS_DETECTED_MAX, IMPLAUS_DETECTED_MIN, &statusArray[13], IMPLAUS_DETECTED_MSG}, 
-	(fault_attributes_t){false, false, APPS_BRAKE_PRIORITY, 0, 0, APPS_BRAKE_MAX, APPS_BRAKE_MIN, &statusArray[14], APPS_BRAKE_MSG}, 
-	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[15], BATT_OT_MSG}, 
-	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[16], TV_OFFLINE_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[17], TEST_FAULT_1_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[18], TEST_FAULT_2_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[19], TEST_FAULT_3_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[20], TEST_FAULT_4_MSG}, 
+	(fault_attributes_t){false, false, BATT_FLOW_PRIORITY, 0, 0, BATT_FLOW_MAX, BATT_FLOW_MIN, &statusArray[0], BATT_FLOW_MSG},
+	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[1], DRIVE_FLOW_MSG},
+	(fault_attributes_t){false, false, MAIN_COMM_PRIORITY, 0, 0, MAIN_COMM_MAX, MAIN_COMM_MIN, &statusArray[2], MAIN_COMM_MSG},
+	(fault_attributes_t){false, false, LV_DEAD_PRIORITY, 0, 0, LV_DEAD_MAX, LV_DEAD_MIN, &statusArray[3], LV_DEAD_MSG},
+	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[4], MOT_FRONT_OT_MSG},
+	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG},
+	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG},
+	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG},
+	(fault_attributes_t){false, false, APPS_WIRING_T1_PRIORITY, 0, 0, APPS_WIRING_T1_MAX, APPS_WIRING_T1_MIN, &statusArray[8], APPS_WIRING_T1_MSG},
+	(fault_attributes_t){false, false, APPS_WIRING_T2_PRIORITY, 0, 0, APPS_WIRING_T2_MAX, APPS_WIRING_T2_MIN, &statusArray[9], APPS_WIRING_T2_MSG},
+	(fault_attributes_t){false, false, BSE_WIRING_B1_PRIORITY, 0, 0, BSE_WIRING_B1_MAX, BSE_WIRING_B1_MIN, &statusArray[10], BSE_WIRING_B1_MSG},
+	(fault_attributes_t){false, false, BSE_WIRING_B2_PRIORITY, 0, 0, BSE_WIRING_B2_MAX, BSE_WIRING_B2_MIN, &statusArray[11], BSE_WIRING_B2_MSG},
+	(fault_attributes_t){false, false, BSE_WIRING_B3_PRIORITY, 0, 0, BSE_WIRING_B3_MAX, BSE_WIRING_B3_MIN, &statusArray[12], BSE_WIRING_B3_MSG},
+	(fault_attributes_t){false, false, IMPLAUS_DETECTED_PRIORITY, 0, 0, IMPLAUS_DETECTED_MAX, IMPLAUS_DETECTED_MIN, &statusArray[13], IMPLAUS_DETECTED_MSG},
+	(fault_attributes_t){false, false, APPS_BRAKE_PRIORITY, 0, 0, APPS_BRAKE_MAX, APPS_BRAKE_MIN, &statusArray[14], APPS_BRAKE_MSG},
+	(fault_attributes_t){false, false, BATT_OT_PRIORITY, 0, 0, BATT_OT_MAX, BATT_OT_MIN, &statusArray[15], BATT_OT_MSG},
+	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[16], TV_OFFLINE_MSG},
+	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[17], TEST_FAULT_1_MSG},
+	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[18], TEST_FAULT_2_MSG},
+	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[19], TEST_FAULT_3_MSG},
+	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[20], TEST_FAULT_4_MSG},
 };
 //END AUTO FAULT INFO ARRAY DEFS
 
 
 //Corresponds to fault_defs.h
-uint8_t currentMCU;
+static uint8_t currentMCU;
 
 
 //Variables containing the number of latched faults
-uint16_t fatalCount;
-uint16_t errorCount;
-uint16_t warnCount;
-uint16_t currCount;
+static uint16_t fatalCount;
+static uint16_t errorCount;
+static uint16_t warnCount;
+static uint16_t currCount;
 
-q_handle_t *q_tx;
-q_handle_t *q_rx;
+static q_handle_t *q_tx;
 
 
 //Variables containing the index/limits of owned faults (heartbeat)
-uint16_t ownedidx;
-uint16_t curridx;
+static uint16_t ownedidx;
+static uint16_t curridx;
 
 //CAN msg ID
-uint32_t can_ext;
+static uint32_t can_ext;
 
-bool fault_lib_disable;
+static bool fault_lib_disable;
 
 
 /**
@@ -151,7 +150,7 @@ void heartBeatTask() {
  *
  * @return none
  */
-void txFaultSpecific(int id) {
+static void txFaultSpecific(int id) {
     fault_status_t *status = &statusArray[GET_IDX(id)];
     CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=3, .IDE=1};
     fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
@@ -424,7 +423,7 @@ bool checkFault(int id) {
  *
  * @return none
  */
-void unForce(int id) {
+static void unForce(int id) {
     faultArray[GET_IDX(id)].forceActive = false;
 }
 
@@ -438,7 +437,7 @@ void unForce(int id) {
  *
  * @return none
  */
-void forceFault(int id, bool state) {
+static void forceFault(int id, bool state) {
     uint16_t idx = GET_IDX(id);
     //If it is forced to be latched and wasn't already
     if (state & !statusArray[idx].latched) {
@@ -480,20 +479,19 @@ void forceFault(int id, bool state) {
 
 
 /**
- * @brief SPI1 Rx DMA Transfer Complete interrupt
+ * @brief Initialize the Fault library with starting values
  *
  * @param mcu Current MCU
  * @param qxQ Pointer to CAN TX queue
- * @param rxQ Pointer to CAN RX queue
  * @param ext CAN ext ID from module's can_parse.h, usually of format ID_FAULT_SYNC{mcu}
- * @param dlc CAN dlc from module's can_parse.h, usually of format DLC_FAULT_SYNC{mcu}
+ *
+ * @return none
  */
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ, uint32_t ext) {
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext) {
     fault_lib_disable = false;
     bool foundStartIdx = false;
     can_ext = ext;
     q_tx = txQ;
-    q_rx = rxQ;
     currentMCU = mcu;
     uint16_t num_owned_faults = 0;
     uint16_t num_recieved_faults = 0;

@@ -1,7 +1,7 @@
 #include "pedals.h"
 
 pedals_t pedals = {0};
-volatile raw_pedals_t raw_pedals = {0};
+volatile raw_pedals_shockpots_t raw_pedals = {0};
 
 pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=300, // WARNING: DAQ VARIABLE orig: 300
                                          .t2max=1550,.t2min=300, // IF EEPROM ENABLED,

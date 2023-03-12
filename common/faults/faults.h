@@ -206,7 +206,7 @@
 #define TEST_FAULT_4_MSG "Test fault 4\0" 
 //END AUTO SCREENMSG DEFS
 
-
+extern uint16_t most_recent_latched;
 
 typedef enum {
     FAULT_WARNING = 0,
@@ -234,6 +234,8 @@ typedef struct {
     fault_status_t *status;
     char* screen_MSG;
 } fault_attributes_t;
+
+extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];
 
 //Union to package CAN messages
 typedef union {

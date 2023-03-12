@@ -82,6 +82,7 @@ static uint16_t currCount;
 
 static q_handle_t *q_tx;
 
+uint16_t most_recent_latched;
 
 //Variables containing the index/limits of owned faults (heartbeat)
 static uint16_t ownedidx;
@@ -175,6 +176,7 @@ void handleCallbacks(uint16_t id, bool latched) {
         //If current Message = 0, and recieved message = 1 (fault is latching)
         if (!currStatus->latched) {
             currStatus->latched = recievedStatus.latched;
+            most_recent_latched = GET_IDX(id);
             switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
                 case FAULT_WARNING:
                     warnCount++;
@@ -255,6 +257,7 @@ void updateFaults() {
             if (fault->status->latched) {
                 fault->time_since_latch = 0;
                 currCount++;
+                most_recent_latched = idx;
                 switch(fault->priority) {
                     case FAULT_WARNING:
                         warnCount++;
@@ -305,6 +308,7 @@ void updateFaults() {
                 fault->status->latched = 1;
                 fault->tempLatch = 1;
                 currCount++;
+                most_recent_latched = idx;
                 switch(fault->priority) {
                     case FAULT_WARNING:
                         warnCount++;
@@ -322,6 +326,7 @@ void updateFaults() {
                 fault->status->latched = 1;
                 fault->tempLatch = 1;
                 currCount++;
+                most_recent_latched = idx;
                 switch(fault->priority) {
                     case FAULT_WARNING:
                         warnCount++;
@@ -442,6 +447,7 @@ static void forceFault(int id, bool state) {
     //If it is forced to be latched and wasn't already
     if (state & !statusArray[idx].latched) {
         currCount++;
+        most_recent_latched = idx;
         switch(faultArray[idx].priority) {
             case FAULT_WARNING:
                 warnCount++;
@@ -488,6 +494,7 @@ static void forceFault(int id, bool state) {
  * @return none
  */
 void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext) {
+    most_recent_latched = 0xFFFF;
     fault_lib_disable = false;
     bool foundStartIdx = false;
     can_ext = ext;

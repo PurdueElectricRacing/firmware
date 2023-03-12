@@ -58,9 +58,11 @@ typedef struct __attribute__((packed))
     uint16_t b1;
     uint16_t b2;
     uint16_t b3;
-} raw_pedals_t;
+    uint16_t shock_left;
+    uint16_t shock_right;
+} raw_pedals_shockpots_t;
 
-volatile extern raw_pedals_t raw_pedals;
+volatile extern raw_pedals_shockpots_t raw_pedals;
 
 typedef struct {
     uint16_t t1max;

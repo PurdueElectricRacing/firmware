@@ -16,7 +16,13 @@
                         {"var_name":"dt_temp_error", "access_phrase":"cooling.dt_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"bat_flow_error", "access_phrase":"cooling.bat_flow_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"bat_temp_error", "access_phrase":"cooling.bat_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
-                        {"var_name":"cal_steer_angle", "access_phrase": "calibrateSteeringAngle", "has_read_func":true, "read_only":true, "type":"uint8_t", "length": 1}
+                        {"var_name":"cal_steer_angle", "access_phrase": "calibrateSteeringAngle", "has_read_func":true, "read_only":true, "type":"uint8_t", "length": 1},
+                        {"var_name":"cooling_daq_override", "access_phrase": "cooling.daq_override", "read_only": false, "type":"uint8_t", "length": 1},
+                        {"var_name":"dt_pump", "access_phrase": "cooling.out_daq_req.dt_pump", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"bat_pump", "access_phrase": "cooling.out_daq_req.bat_pump", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"bat_pump_aux", "access_phrase": "cooling.out_daq_req.bat_pump_aux", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"dt_fan", "access_phrase": "cooling.out_daq_req.dt_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"},
+                        {"var_name":"bat_fan", "access_phrase": "cooling.out_daq_req.bat_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"}
                     ],
                     "files":[]
                 },

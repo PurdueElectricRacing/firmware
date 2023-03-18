@@ -78,7 +78,7 @@ RUN_TESTS = not options.no_test # TODO: This
 
 # Always clean if we specify
 if options.clean:
-    subprocess.run(["cmake", "-E", "rm", "-rf", BUILD_DIR, OUT_DIR])
+    subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR)])
     print("Build and output directories clean.")
 
 # Build the target if specified or we did not clean

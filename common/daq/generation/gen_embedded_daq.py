@@ -190,7 +190,7 @@ def configure_node(node_config, node_paths):
             if ('access_phrase_write' not in var and not var['read_only']):
                 generator.log_error(f"If access phrase is a read function, and not read only, must define access_phrase_write: {var['var_name']}")
                 quit(1)
-            line += f".has_read_func=1, .read_func_a={var['access_phrase']}, "
+            line += f".has_read_func=1, .read_func_a=(read_func_ptr_t){var['access_phrase']}, "
         else:
             line += f".read_var_a=&{var['access_phrase']}, "
         if (not var['read_only']):

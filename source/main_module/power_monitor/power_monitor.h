@@ -33,7 +33,6 @@
 /* CURRENT SENSE */
 #define LV_I_SENSE_GAIN 100 // V/V
 #define LV_I_SENSE_R    2   // mOhm
-#define ADC_REF_mV 3300 // mV
 
 typedef struct
 {
@@ -43,7 +42,7 @@ typedef struct
     uint16_t lv_5_v_sense_mV;
     uint16_t lv_5_i_sense_mA;
     uint16_t lv_3v3_v_sense_mV;
-    uint8_t     lv_3v3_power_good;
+    uint8_t  lv_3v3_power_good;
 } PowerMonitor_t;
 
 extern PowerMonitor_t power_monitor;

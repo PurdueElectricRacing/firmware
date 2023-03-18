@@ -21,18 +21,19 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
 #define ID_REAR_WHEEL_DATA 0x4000043
-#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
+#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
 #define ID_MAX_CELL_TEMP 0x404e604
-#define ID_REAR_CONTROLLER_TEMPS 0xc000303
+#define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_DASHBOARD_BL_CMD 0x409c47e
@@ -49,6 +50,7 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -84,6 +86,13 @@
         data_a->raw_throttle_brake.brake = brake_;\
         data_a->raw_throttle_brake.brake_right = brake_right_;\
         data_a->raw_throttle_brake.brake_pot = brake_pot_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_FILT_THROTTLE_BRAKE(queue, throttle_, brake_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FILT_THROTTLE_BRAKE, .DLC=DLC_FILT_THROTTLE_BRAKE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->filt_throttle_brake.throttle = throttle_;\
+        data_a->filt_throttle_brake.brake = brake_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_START_BUTTON(queue, start_) do {\
@@ -134,13 +143,14 @@
 
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
-    CAR_STATE_INIT,
+    CAR_STATE_IDLE,
     CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
     CAR_STATE_FATAL,
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
+    CAR_STATE_FAN_CTRL,
 } car_state_t;
 
 /* END AUTO CAN ENUMERATIONS */
@@ -155,6 +165,10 @@ typedef union {
         uint64_t brake_right: 12;
         uint64_t brake_pot: 12;
     } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
     struct {
         uint64_t start: 1;
     } start_button;

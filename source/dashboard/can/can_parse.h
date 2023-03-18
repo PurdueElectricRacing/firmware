@@ -178,7 +178,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t throttle: 12;
         uint64_t throttle_right: 12;

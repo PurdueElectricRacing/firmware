@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "can_parse.h"
 
@@ -45,7 +45,7 @@ void canRxUpdate()
             can_data.LWS_Standard.last_rx = sched.os_ticks;
         }
         else
-        
+
         {
 
         /* BEGIN AUTO CASES */

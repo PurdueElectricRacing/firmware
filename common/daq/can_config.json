@@ -12,8 +12,8 @@
                             "msg_desc":"Heart beat message for main module",
                             "signals":[
                                 {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8,
-                                 "choices": ["init", "buzzing", "ready2drive", "error", "fatal", "reset", "recover"]},
-                                {"sig_name":"precharge_state", "sig_desc":"Precharge complete state","type":"uint8_t","length":1}
+                                 "choices": ["idle", "buzzing", "ready2drive", "error", "fatal", "reset", "recover", "fan_ctrl"]},
+                                {"sig_name":"precharge_state", "type":"uint8_t", "length": 1}
                             ],
                             "msg_period":100,
                             "msg_hlp":1,
@@ -49,6 +49,20 @@
                             "msg_pgn":34
                         },
                         {
+                            "msg_name": "coolant_out",
+                            "msg_desc": "outputs to coolant loops",
+                            "signals": [
+                                {"sig_name": "bat_fan", "type":"uint8_t", "unit": "%"},
+                                {"sig_name":"dt_fan", "type":"uint8_t", "unit":"%"},
+                                {"sig_name": "bat_pump", "type":"uint8_t", "length": 1},
+                                {"sig_name": "bat_pump_aux", "type":"uint8_t", "length": 1},
+                                {"sig_name": "dt_pump", "type":"uint8_t", "length": 1}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp":1,
+                            "msg_pgn":35
+                        },
+                        {
                             "msg_name": "LWS_Config",
                             "msg_desc": "Steering sensor configuration",
                             "signals": [
@@ -72,6 +86,19 @@
                             "msg_period": 1000,
                             "msg_hlp": 4,
                             "msg_pgn": 100
+                        },
+                        {
+                            "msg_name": "precharge_state",
+                            "msg_desc": "precharge validation update",
+                            "signals": [
+                                {"sig_name":"v_mc",  "sig_desc": "Motor Controller Voltage", "type":"uint16_t", "length": 12, "unit":"V", "scale": 0.1},
+                                {"sig_name":"v_bat", "sig_desc": "Battery Voltage", "type":"uint16_t", "length": 12, "unit":"V", "scale": 0.1},
+                                {"sig_name":"precharge_complete", "sig_desc":"Precharge complete state","type":"uint8_t","length":1},
+                                {"sig_name":"precharge_error", "sig_desc":"Precharge error found","type":"uint8_t","length":1}
+                            ],
+                            "msg_period": 300,
+                            "msg_hlp": 2,
+                            "msg_pgn": 98
                         },
                         {
                             "msg_name": "current_meas",
@@ -98,19 +125,59 @@
                             "msg_period": 1000,
                             "msg_hlp": 4, 
                             "msg_pgn": 102
+                        },
+                        {
+                            "msg_name": "rear_mc_status",
+                            "msg_desc": "rear drivline heart beat",
+                            "signals": [
+                                {"sig_name": "rear_left_motor", "type":"uint8_t",
+                                 "choices": ["disconnected", "connected", "config", "error"]},
+                                {"sig_name": "rear_left_motor_link", "type":"uint8_t",
+                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
+                                {"sig_name": "rear_left_last_link_error", "type":"uint8_t",
+                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]},
+                                {"sig_name": "rear_right_motor", "type":"uint8_t",
+                                 "choices": ["disconnected", "connected", "config", "error"]},
+                                {"sig_name": "rear_right_motor_link", "type":"uint8_t",
+                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
+                                {"sig_name": "rear_right_last_link_error", "type":"uint8_t",
+                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]}
+                            ],
+                            "msg_hlp": 1,
+                            "msg_period": 100,
+                            "msg_pgn": 101
+                        },
+                        {
+                            "msg_name": "rear_motor_currents_temps",
+                            "msg_desc": "DC Current and Temperature of the motors",
+                            "signals": [
+                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Amp", "scale": 0.1},
+                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Amp", "scale":0.1},
+                                {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_voltage", "type":"uint16_t", "length": 16, "unit": "Voltx10"}
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 3,
+                            "msg_pgn": 11
+                        },
+                        {
+                            "msg_name": "rear_controller_temps",
+                            "msg_desc": "Temperature of motor controllers",
+                            "signals": [
+                                {"sig_name": "left_temp", "type":"uint8_t", "length": 8, "unit": "C"},
+                                {"sig_name": "right_temp", "type":"uint8_t", "length": 8, "unit": "C"}
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 3,
+                            "msg_pgn": 12
                         }
                     ],
                     "rx":[
                         {"msg_name": "raw_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
-                        {"msg_name": "front_motor_currents_temps"},
-                        {"msg_name": "rear_motor_currents_temps"},
-                        {"msg_name": "front_driveline_hb"},
-                        {"msg_name": "rear_driveline_hb"},
                         {"msg_name": "dashboard_hb"},
                         {"msg_name": "max_cell_temp"},
-                        {"msg_name": "front_wheel_data"},
-                        {"msg_name": "rear_wheel_data"},
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true}
                     ]
@@ -174,27 +241,7 @@
                             "msg_hlp": 1,
                             "msg_pgn": 100
                         },
-                        {
-                            "msg_name": "rear_driveline_hb",
-                            "msg_desc": "rear drivline heart beat",
-                            "signals": [
-                                {"sig_name": "rear_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "connected", "config", "error"]},
-                                {"sig_name": "rear_left_motor_link", "type":"uint8_t",
-                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
-                                {"sig_name": "rear_left_last_link_error", "type":"uint8_t",
-                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]},
-                                {"sig_name": "rear_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "connected", "config", "error"]},
-                                {"sig_name": "rear_right_motor_link", "type":"uint8_t",
-                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
-                                {"sig_name": "rear_right_last_link_error", "type":"uint8_t",
-                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]}
-                            ],
-                            "msg_hlp": 1,
-                            "msg_period": 100,
-                            "msg_pgn": 101
-                        },
+                        
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
@@ -231,30 +278,6 @@
                             "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 10
-                        },
-                        {   "msg_name": "rear_motor_currents_temps",
-                            "msg_desc": "DC Current and Temperature of the motors",
-                            "signals": [
-                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
-                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
-                                {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_voltage", "type":"uint16_t", "length": 16, "unit": "Voltx10"}
-                            ],
-                            "msg_period": 500,
-                            "msg_hlp": 3,
-                            "msg_pgn": 11
-                        },
-                        {
-                            "msg_name": "rear_controller_temps",
-                            "msg_desc": "Temperature of motor controllers",
-                            "signals": [
-                                {"sig_name": "left_temp", "type":"uint8_t", "length": 8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length": 8, "unit": "C"}
-                            ],
-                            "msg_period": 500,
-                            "msg_hlp": 3,
-                            "msg_pgn": 12
                         }
                     ],
                     "rx": [
@@ -486,6 +509,17 @@
                             "msg_period":15,
                             "msg_hlp":5,
                             "msg_pgn":10
+                        },
+                        {
+                            "msg_name":"filt_throttle_brake",
+                            "msg_desc":"Filtered throttle and brake values",
+                            "signals": [
+                                {"sig_name":"throttle","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":9
                         },
                         {   "msg_name":"start_button",
                             "msg_desc":"Car start button pressed",

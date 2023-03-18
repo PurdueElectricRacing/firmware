@@ -1,13 +1,12 @@
 #ifndef __PLETTENBERG_H__
 #define __PLETTENBERG_H__
 
-#include "common/phal_L4/usart/usart.h"
 #include "common/common_defs/common_defs.h"
+#include "common/phal_L4/usart/usart.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
-#include "source/driveline/can/can_parse.h"
-#include "stm32l432xx.h"
 #include "string.h"
+#include <stdbool.h>
 
 #define MC_MAX_TX_LENGTH (25)
 #define MC_MAX_RX_LENGTH (77 + MC_MAX_TX_LENGTH)
@@ -26,7 +25,7 @@
 #define MC_MOT_TMP_LIMIT (95)  // Celsius
 #define MC_CTL_TMP_LIMIT (70)  // Celsius
 #define MC_POLE_PAIR_CT  (15)  // number of pole pairs (poles / 2)
-#define MC_UPDATE_PERIOD (15)  // ms TODO: faster
+#define MC_UPDATE_PERIOD (15)  // ms
 
 typedef enum
 {
@@ -69,6 +68,7 @@ typedef struct
     motor_state_t motor_state;                      // Current motor state
     bool config_sent;                               // Config params have been sent
     motor_link_error_t last_link_error;             // Last link error
+    const bool          *hv_present;                // Address to variable stating if the tractive system has voltage present to power MCs
 
     // Motor configuration
     bool          is_inverted;                      // Send 'f' versus 'r' for positive torque command
@@ -85,15 +85,11 @@ typedef struct
     // Communications
     q_handle_t   *tx_queue;                         // FIFO for tx commands to be sent via DMA
     bool          data_stale;                       // True if data has not been parsed for MC_PARSE_TIMEOUT
-
-    volatile uint32_t last_rx_time;                 // Time of the last rx message received
-    volatile uint8_t  last_rx_loc;                  // Index of the last byte of the last byte received
-    volatile uint32_t last_msg_time;                // Time of the last rx message that was large
-    volatile uint8_t  last_msg_loc;                 // Index of the first byte of the last command received
-    volatile char     rx_buf[MC_MAX_RX_LENGTH];     // DMA rx circular buffer
+    volatile usart_rx_buf_t *rx_buf;                // Circular buffer for receiving via DMA
 } motor_t;
 
-void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue);
+void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue, 
+            usart_rx_buf_t *rx_buf, const bool *hv_present);
 void mcSetPower(float power, motor_t *m);
 void mcPeriodic(motor_t *m);
 

@@ -115,6 +115,16 @@ typedef struct {
                                     // The 2 above clear on calling ...xDMAComplete
 } usart_init_t;
 
+typedef struct {
+    uint32_t last_msg_time; // Time of last rx message that was size of msg_size
+    uint16_t msg_size;      // Size of typical msg
+    uint16_t last_msg_loc;  // Index of first byte of last msg received
+    uint32_t last_rx_time;  // Time of the last rx
+    uint16_t rx_buf_size;   // Size of rx circular buffer for DMA
+    uint16_t last_rx_loc;   // Index of byte of last rx
+    char     *rx_buf;       // Buffer location
+} usart_rx_buf_t;
+
 // Global vars
 // uint8_t tx_irqn[3] = {DMA1_Channel4_IRQn, DMA1_Channel6_IRQn, DMA2_Channel6_IRQn};
 // uint8_t rx_irqn[3] = {DMA1_Channel5_IRQn, DMA1_Channel7_IRQn, DMA2_Channel7_IRQn};

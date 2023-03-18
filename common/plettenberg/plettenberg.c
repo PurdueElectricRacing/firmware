@@ -56,19 +56,18 @@ static int16_t mcParseTerm(char *rx_buf, uint8_t start, char *search_term, uint3
  * @param is_inverted Set true if the motor is oriented backwards
  * @param tx_queue    The USART transmit queue, assumes periodically serviced
  */
-void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue){
+void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue, 
+            usart_rx_buf_t *rx_buf, const bool *hv_present) {
     *m = (motor_t) {
         .is_inverted = is_inverted,
         .tx_queue    = tx_queue,
         .data_stale  = true,
         .last_parse_time = 0xFFFF0000,
         .motor_state = MC_DISCONNECTED,
-        .last_rx_time = 0xFFFF0000,
-        .last_msg_time = 0xFFF0000,
-        .last_serial_time = 0xFFF0000
+        .last_serial_time = 0xFFF0000,
+        .rx_buf      = rx_buf,
+        .hv_present  = hv_present
     };
-
-        return;
 }
 
 
@@ -209,7 +208,7 @@ static void mcSendOneByteCmd(char command, motor_t *m)
 void mcPeriodic(motor_t* m) 
 {
     // Parse if recent data and update timing
-    if (sched.os_ticks - m->last_msg_time < 3 * MC_LOOP_DT / 2)
+    if (sched.os_ticks - m->rx_buf->last_msg_time < 3 * MC_LOOP_DT / 2)
         mcParseMessage(m);
     m->data_stale = (sched.os_ticks - m->last_parse_time > MC_PARSE_TIMEOUT);
 
@@ -243,8 +242,8 @@ static uint8_t mcCheckLinkState(motor_t* m)
     uint8_t i;
 
     // check for disconnect
-    if (sched.os_ticks - m->last_rx_time > MC_RX_LARGE_TIMEOUT_MS ||
-        !can_data.main_hb.precharge_state)
+    if (sched.os_ticks - m->rx_buf->last_rx_time > MC_RX_LARGE_TIMEOUT_MS ||
+        !*m->hv_present)
     {
         m->last_link_error = MC_LINK_ERROR_GEN_TIMEOUT;
         m->link_state = MC_LINK_DISCONNECTED;
@@ -255,7 +254,7 @@ static uint8_t mcCheckLinkState(motor_t* m)
     switch (m->link_state)
     {
         case MC_LINK_DISCONNECTED:
-            if (sched.os_ticks - m->last_rx_time < 2 * MC_LOOP_DT)
+            if (sched.os_ticks - m->rx_buf->last_rx_time < 2 * MC_LOOP_DT)
             {
                 m->link_state = MC_LINK_ATTEMPT;      // Message recently rx'd
             }
@@ -267,9 +266,9 @@ static uint8_t mcCheckLinkState(motor_t* m)
             break;
         case MC_LINK_VERIFYING:
             for (i = 0; i < MC_MAX_RX_LENGTH; ++i)      // Copy buffer to prevent from changing
-                tmp_rx_buf[i] = m->rx_buf[i];
+                tmp_rx_buf[i] = m->rx_buf->rx_buf[i];
             search_idx = mcParseTerm(tmp_rx_buf, 0, "S=", &throwaway);
-            if (search_idx != -1 && can_data.main_hb.precharge_state)
+            if (search_idx != -1 && *m->hv_present)
             {
                 m->link_state = MC_LINK_DELAY;
                 m->init_time = 0;
@@ -294,7 +293,7 @@ static uint8_t mcCheckLinkState(motor_t* m)
             if (m->motor_state == MC_CONFIG) 
             {
                 if (m->config_sent &&
-                    sched.os_ticks - m->last_msg_time < 2 * MC_LOOP_DT)
+                    sched.os_ticks - m->rx_buf->last_msg_time < 2 * MC_LOOP_DT)
                     m->motor_state = MC_CONNECTED;
             }
             else
@@ -390,11 +389,11 @@ static void mcParseMessage(motor_t *m)
     uint8_t  i;
     uint32_t val_buf;
 
-    curr = m->last_msg_loc;
+    curr = m->rx_buf->last_msg_loc;
 
     // Copy buffer so it doesn't change underneath us
     for (i = 0; i < MC_MAX_RX_LENGTH; ++i) {
-        tmp_rx_buf[i] = m->rx_buf[i];
+        tmp_rx_buf[i] = m->rx_buf->rx_buf[i];
     }
 
     // Parse the rx buffer, which may contain a message in the following format
@@ -416,7 +415,7 @@ static void mcParseMessage(motor_t *m)
     else
     {
         // S not found, could be error message
-        curr = m->last_msg_loc;
+        curr = m->rx_buf->last_msg_loc;
         curr = mcParseTerm(tmp_rx_buf, curr, "Err", &val_buf);
         if (curr >= 0)
         {

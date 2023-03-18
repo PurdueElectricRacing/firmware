@@ -12,7 +12,9 @@
 #define _CAR_H_
 
 #include "can_parse.h"
+#include "common/faults/faults.h"
 #include "common/phal_L4/gpio/gpio.h"
+#include "common/plettenberg/plettenberg.h"
 #include "common/psched/psched.h"
 #include "cooling.h"
 #include "main.h"
@@ -22,89 +24,63 @@
 
 #define ERROR_FALL_MS (5000)
 
-/* LV I_SENSE CALC */
-#define LV_GAIN         25
-#define LV_R_SENSE_mOHM 4 
-#define LV_MAX_ADC_RAW  4096
-#define LV_ADC_V_IN_V   5
-
 /* BRAKE LIGHT CONFIG */
-#define BRAKE_LIGHT_ON_THRESHOLD  500
-#define BRAKE_LIGHT_OFF_THRESHOLD 300
+#define BRAKE_LIGHT_ON_THRESHOLD  (500)
+#define BRAKE_LIGHT_OFF_THRESHOLD (300)
 
-// TODO: remove
-// /* STEERING ANGLE CALCULATION CONFIG */
-// #define STEERING_S1 (0.00007)
-// #define STEERING_S2 (-0.0038)
-// #define STEERING_S3 (0.6535)
-// #define STEERING_S4 (0.1061)
-// #define STEERING_INCH2MM (25.4)
-// #define STEERING_SLOPE (0.00962)
-// #define STEERING_DEG2RAD (0.01745329)
-
-// /* CAR PARAMETER */
-// #define STEERING_W 1.269
-// #define STEERING_L 1.574
-
-// /* TUNING PARAMETER */
-// #define STEERING_K 1.3      // increase k makes the car more oversteer
-// #define STEERING_P 10.0
-// #define MOTOR_TORQUE_LIMIT 25.0 // N * m (not used)
-
-typedef struct 
-{
-    // Do not modify this struct unless
-    // you modify the ADC DMA config
-    // in main.h to match
-    uint16_t v_mc;
-    uint16_t v_bat;
-    uint16_t shock_l;
-    uint16_t shock_r;
-    uint16_t lv_24_v_sense;
-    uint16_t lv_24_i_sense;
-    uint16_t lv_12_v_sense;
-    uint16_t lv_5_v_sense;
-    uint16_t lv_5_i_sense;
-    uint16_t lv_3v3_v_sense;
-    uint16_t therm_mux_d;
-}__attribute__((packed)) ADCReadings_t;
-
-volatile extern ADCReadings_t adc_readings;
-
+#define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 typedef struct
 {
-    int16_t torque_left;
-    int16_t torque_right;
+    float torque_left;    // [-100.0, 100.0]
+    float torque_right;
 } torqueRequest_t;
+
+typedef enum
+{
+    CAR_TORQUE_NONE,
+    CAR_TORQUE_RAW,
+    CAR_TORQUE_TV,
+    CAR_TORQUE_DAQ
+} torqueSource_t;
+
+#define HV_LOW_PASS_SIZE (5)
+#define HV_V_MC_CAL      (1000)        // V_actual / V_measured * 1000
+#define HV_V_BAT_CAL     (1000)        // V_actual / V_measured * 1000
+typedef struct
+{
+    bool pchg_complete;
+    bool pchg_error;
+    uint16_t  v_mc_filt;                     // volts x10
+    uint16_t  v_bat_filt;                    // volts x10
+    uint16_t  v_mc_buff[HV_LOW_PASS_SIZE];   // Units are 12-bit adc
+    uint8_t   v_mc_buff_idx;
+    uint16_t  v_bat_buff[HV_LOW_PASS_SIZE];  // Units are 12-bit adc
+    uint8_t   v_bat_buff_idx;
+} prechargeStat_t;
 
 typedef struct
 {
     car_state_t state;
+    motor_t motor_l;
+    motor_t motor_r;
+
+    torqueRequest_t torque_r;
+    torqueSource_t torque_src;
+    bool regen_enabled;
+
+    prechargeStat_t pchg;
+    bool start_btn_debounced;
+    bool sdc_close;
     bool brake_light;
-    uint8_t brake_blink_ct;
-    uint32_t brake_start_time;
-    uint16_t max_cell_temp;
-    uint16_t lv_current_mA;
+    bool buzzer;
+    uint32_t buzzer_start_ms;
 } Car_t;
-
-// DAQ testing variables
-extern uint16_t mot_left_req;  // 0 - 4095 value
-extern uint16_t mot_right_req; // 0 - 4095 value
-extern uint8_t prchg_set;
-
-volatile extern Car_t car;
+extern Car_t car;
 
 bool carInit();
 void carHeartbeat();
 void carPeriodic();
-void calibrateSteeringAngle(uint8_t *ret);
-
-/**
- * @brief Converts raw lv adc value
- * to the current in mA
- */
-void calcLVCurrent();
-
-void eDiff(int16_t t_req, torqueRequest_t* torque_r);
+void parseMCDataPeriodic(void);
+void calibrateSteeringAngle(uint8_t* success);
 
 #endif

@@ -100,20 +100,26 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     spi->periph->CR2 |= SPI_CR2_TXDMAEN;
     if (!out_data)
     {
-        out_data = &zero;
         spi->tx_dma_cfg->channel->CCR &= ~DMA_CCR_MINC;
+        PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) &zero);
+    }
+    else
+    {
+        PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) out_data);
     }
     PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
-    PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t) out_data);
 
     spi->periph->CR2 |= SPI_CR2_RXDMAEN;
     if (!in_data)
     {
-        in_data = &trash_can;
         spi->rx_dma_cfg->channel->CCR &= ~DMA_CCR_MINC;
+        PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) &trash_can);
+    }
+    else
+    {
+        PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) in_data);
     }
     PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
-    PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t) in_data);
 
     PHAL_startTxfer(spi->rx_dma_cfg);
 
@@ -145,7 +151,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
 bool PHAL_SPI_busy(SPI_InitConfig_t* cfg)
 {
     // Latch in case active_transfer cleared during interrupt
-    SPI_InitConfig_t *act = active_transfer;
+    volatile SPI_InitConfig_t *act = active_transfer;
     if (act && cfg->periph == act->periph)
         return act->_busy;
 

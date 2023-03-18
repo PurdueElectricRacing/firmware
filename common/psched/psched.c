@@ -279,7 +279,7 @@ static void schedLoop()
 
         calcTime(&sched.fg_time, 1, E_FG_MISS);
         calcTime(&sched.bg_time, 1, E_BG_MISS);
-        calcTime(&sched.ind_fg_time, sched.fg_count, E_IND_FG_MISS);
+        calcTime(sched.ind_fg_time, sched.fg_count, E_IND_FG_MISS);
     }
 }
 

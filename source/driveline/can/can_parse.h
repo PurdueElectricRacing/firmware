@@ -21,12 +21,9 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_FRONT_DRIVELINE_HB 0x4001903
-#define ID_REAR_DRIVELINE_HB 0x4001943
 #define ID_FRONT_WHEEL_DATA 0x4000003
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
-#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c3
-#define ID_REAR_CONTROLLER_TEMPS 0xc000303
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_DAQ_RESPONSE_DRIVELINE 0x17ffffc3
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
@@ -46,12 +43,9 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_FRONT_DRIVELINE_HB 6
-#define DLC_REAR_DRIVELINE_HB 6
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
-#define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
-#define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_DAQ_RESPONSE_DRIVELINE 8
 #define DLC_TORQUE_REQUEST_MAIN 8
@@ -81,17 +75,6 @@ extern uint32_t last_can_rx_time_ms;
         data_a->front_driveline_hb.front_right_last_link_error = front_right_last_link_error_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_DRIVELINE_HB(queue, rear_left_motor_, rear_left_motor_link_, rear_left_last_link_error_, rear_right_motor_, rear_right_motor_link_, rear_right_last_link_error_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_DRIVELINE_HB, .DLC=DLC_REAR_DRIVELINE_HB, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_driveline_hb.rear_left_motor = rear_left_motor_;\
-        data_a->rear_driveline_hb.rear_left_motor_link = rear_left_motor_link_;\
-        data_a->rear_driveline_hb.rear_left_last_link_error = rear_left_last_link_error_;\
-        data_a->rear_driveline_hb.rear_right_motor = rear_right_motor_;\
-        data_a->rear_driveline_hb.rear_right_motor_link = rear_right_motor_link_;\
-        data_a->rear_driveline_hb.rear_right_last_link_error = rear_right_last_link_error_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
 #define SEND_FRONT_WHEEL_DATA(queue, left_speed_, right_speed_, left_normal_, right_normal_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_WHEEL_DATA, .DLC=DLC_FRONT_WHEEL_DATA, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -118,23 +101,6 @@ extern uint32_t last_can_rx_time_ms;
         data_a->front_motor_currents_temps.left_temp = left_temp_;\
         data_a->front_motor_currents_temps.right_temp = right_temp_;\
         data_a->front_motor_currents_temps.right_voltage = right_voltage_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_REAR_MOTOR_CURRENTS_TEMPS(queue, left_current_, right_current_, left_temp_, right_temp_, right_voltage_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_CURRENTS_TEMPS, .DLC=DLC_REAR_MOTOR_CURRENTS_TEMPS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_motor_currents_temps.left_current = left_current_;\
-        data_a->rear_motor_currents_temps.right_current = right_current_;\
-        data_a->rear_motor_currents_temps.left_temp = left_temp_;\
-        data_a->rear_motor_currents_temps.right_temp = right_temp_;\
-        data_a->rear_motor_currents_temps.right_voltage = right_voltage_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_REAR_CONTROLLER_TEMPS(queue, left_temp_, right_temp_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_CONTROLLER_TEMPS, .DLC=DLC_REAR_CONTROLLER_TEMPS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_controller_temps.left_temp = left_temp_;\
-        data_a->rear_controller_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_DRIVELINE(queue, idx_, latched_) do {\
@@ -210,59 +176,14 @@ typedef enum {
 } front_right_last_link_error_t;
 
 typedef enum {
-    REAR_LEFT_MOTOR_DISCONNECTED,
-    REAR_LEFT_MOTOR_CONNECTED,
-    REAR_LEFT_MOTOR_CONFIG,
-    REAR_LEFT_MOTOR_ERROR,
-} rear_left_motor_t;
-
-typedef enum {
-    REAR_LEFT_MOTOR_LINK_DISCONNECTED,
-    REAR_LEFT_MOTOR_LINK_ATTEMPTING,
-    REAR_LEFT_MOTOR_LINK_VERIFYING,
-    REAR_LEFT_MOTOR_LINK_DELAY,
-    REAR_LEFT_MOTOR_LINK_CONNECTED,
-    REAR_LEFT_MOTOR_LINK_FAIL,
-} rear_left_motor_link_t;
-
-typedef enum {
-    REAR_LEFT_LAST_LINK_ERROR_NONE,
-    REAR_LEFT_LAST_LINK_ERROR_NOT_SERIAL,
-    REAR_LEFT_LAST_LINK_ERROR_CMD_TIMEOUT,
-    REAR_LEFT_LAST_LINK_ERROR_GEN_TIMEOUT,
-} rear_left_last_link_error_t;
-
-typedef enum {
-    REAR_RIGHT_MOTOR_DISCONNECTED,
-    REAR_RIGHT_MOTOR_CONNECTED,
-    REAR_RIGHT_MOTOR_CONFIG,
-    REAR_RIGHT_MOTOR_ERROR,
-} rear_right_motor_t;
-
-typedef enum {
-    REAR_RIGHT_MOTOR_LINK_DISCONNECTED,
-    REAR_RIGHT_MOTOR_LINK_ATTEMPTING,
-    REAR_RIGHT_MOTOR_LINK_VERIFYING,
-    REAR_RIGHT_MOTOR_LINK_DELAY,
-    REAR_RIGHT_MOTOR_LINK_CONNECTED,
-    REAR_RIGHT_MOTOR_LINK_FAIL,
-} rear_right_motor_link_t;
-
-typedef enum {
-    REAR_RIGHT_LAST_LINK_ERROR_NONE,
-    REAR_RIGHT_LAST_LINK_ERROR_NOT_SERIAL,
-    REAR_RIGHT_LAST_LINK_ERROR_CMD_TIMEOUT,
-    REAR_RIGHT_LAST_LINK_ERROR_GEN_TIMEOUT,
-} rear_right_last_link_error_t;
-
-typedef enum {
-    CAR_STATE_INIT,
+    CAR_STATE_IDLE,
     CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
     CAR_STATE_FATAL,
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
+    CAR_STATE_FAN_CTRL,
 } car_state_t;
 
 /* END AUTO CAN ENUMERATIONS */
@@ -278,14 +199,6 @@ typedef union {
         uint64_t front_right_motor_link: 8;
         uint64_t front_right_last_link_error: 8;
     } front_driveline_hb;
-    struct {
-        uint64_t rear_left_motor: 8;
-        uint64_t rear_left_motor_link: 8;
-        uint64_t rear_left_last_link_error: 8;
-        uint64_t rear_right_motor: 8;
-        uint64_t rear_right_motor_link: 8;
-        uint64_t rear_right_last_link_error: 8;
-    } rear_driveline_hb;
     struct {
         uint64_t left_speed: 16;
         uint64_t right_speed: 16;
@@ -305,17 +218,6 @@ typedef union {
         uint64_t right_temp: 8;
         uint64_t right_voltage: 16;
     } front_motor_currents_temps;
-    struct {
-        uint64_t left_current: 16;
-        uint64_t right_current: 16;
-        uint64_t left_temp: 8;
-        uint64_t right_temp: 8;
-        uint64_t right_voltage: 16;
-    } rear_motor_currents_temps;
-    struct {
-        uint64_t left_temp: 8;
-        uint64_t right_temp: 8;
-    } rear_controller_temps;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

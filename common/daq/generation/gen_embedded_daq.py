@@ -159,10 +159,11 @@ def configure_node(node_config, node_paths):
 
     # define file mappings
     init_lines = []
-    init_lines.append(f"    daqInitBase(tx_a, NUM_VARS, {node_config['daq_rsp_msg_periph']}, ID_DAQ_RESPONSE_{node_config['node_name'].upper()}, tracked_vars);\n")
+    init_lines.append(f"    uint8_t ret = daqInitBase(tx_a, NUM_VARS, {node_config['daq_rsp_msg_periph']}, ID_DAQ_RESPONSE_{node_config['node_name'].upper()}, tracked_vars);\n")
     if 'files' in node_config:
         for file in node_config['files']:
             init_lines.append(f"    mapMem((uint8_t *) &{file['name']}, sizeof({file['name']}), \"{file['eeprom_lbl']}\", 1);\n")
+    init_lines.append(f"    return ret;\n")
     generator.insert_lines(c_lines, gen_auto_init_start, gen_auto_init_stop, init_lines)
 
 

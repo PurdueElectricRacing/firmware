@@ -138,11 +138,6 @@ void carPeriodic()
         if (sched.os_ticks - car.buzzer_start_ms > BUZZER_DURATION_MS)
         {
             car.state = CAR_STATE_READY2DRIVE;
-            car.buzzer = false;
-        }
-        else
-        {
-            car.buzzer = true;
         }
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
@@ -212,6 +207,7 @@ void carPeriodic()
     }
 
     /* Update System Outputs */
+    car.buzzer = car.state == CAR_STATE_BUZZING;
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);

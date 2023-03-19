@@ -123,7 +123,7 @@
                                 {"sig_name":"can_tx_fails", "type":"uint8_t", "sig_desc":"Number of CAN transmit failures"}
                             ],
                             "msg_period": 1000,
-                            "msg_hlp": 4, 
+                            "msg_hlp": 4,
                             "msg_pgn": 102
                         },
                         {
@@ -241,7 +241,7 @@
                             "msg_hlp": 1,
                             "msg_pgn": 100
                         },
-                        
+
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
@@ -509,6 +509,20 @@
                             "msg_period":15,
                             "msg_hlp":5,
                             "msg_pgn":10
+                        },
+                        {
+                            "msg_name": "cooling_driver_request",
+                            "msg_desc": "Cooling Pump/Fan requests from Dash LCD",
+                            "signals": [
+                                {"sig_name": "dt_pump", "type": "uint8_t"},
+                                {"sig_name": "dt_fan", "type": "uint8_t"},
+                                {"sig_name": "batt_pump", "type": "uint8_t"},
+                                {"sig_name": "batt_pump2", "type": "uint8_t"},
+                                {"sig_name": "batt_fan", "type": "uint8_t"}
+                            ],
+                            "msg_period": 5,
+                            "msg_hlp": 3,
+                            "msg_pgn": 11
                         },
                         {
                             "msg_name":"filt_throttle_brake",

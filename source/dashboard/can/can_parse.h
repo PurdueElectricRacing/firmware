@@ -21,6 +21,7 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
+#define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
@@ -50,6 +51,7 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
@@ -86,6 +88,16 @@
         data_a->raw_throttle_brake.brake = brake_;\
         data_a->raw_throttle_brake.brake_right = brake_right_;\
         data_a->raw_throttle_brake.brake_pot = brake_pot_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_COOLING_DRIVER_REQUEST(queue, dt_pump_, dt_fan_, batt_pump_, batt_pump2_, batt_fan_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_COOLING_DRIVER_REQUEST, .DLC=DLC_COOLING_DRIVER_REQUEST, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->cooling_driver_request.dt_pump = dt_pump_;\
+        data_a->cooling_driver_request.dt_fan = dt_fan_;\
+        data_a->cooling_driver_request.batt_pump = batt_pump_;\
+        data_a->cooling_driver_request.batt_pump2 = batt_pump2_;\
+        data_a->cooling_driver_request.batt_fan = batt_fan_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FILT_THROTTLE_BRAKE(queue, throttle_, brake_) do {\
@@ -165,6 +177,13 @@ typedef union {
         uint64_t brake_right: 12;
         uint64_t brake_pot: 12;
     } raw_throttle_brake;
+    struct {
+        uint64_t dt_pump: 8;
+        uint64_t dt_fan: 8;
+        uint64_t batt_pump: 8;
+        uint64_t batt_pump2: 8;
+        uint64_t batt_fan: 8;
+    } cooling_driver_request;
     struct {
         uint64_t throttle: 12;
         uint64_t brake: 12;

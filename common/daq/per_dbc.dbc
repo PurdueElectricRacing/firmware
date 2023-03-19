@@ -285,6 +285,13 @@ BO_ 2483028613 raw_throttle_brake: 8 Dashboard
  SG_ throttle_right : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
  SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
 
+BO_ 2348810949 cooling_driver_request: 5 Dashboard
+ SG_ batt_fan : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ batt_pump2 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ batt_pump : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dt_fan : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dt_pump : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2214593093 filt_throttle_brake: 3 Dashboard
  SG_ brake : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
  SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
@@ -966,6 +973,12 @@ CM_ SG_ 2483028613 brake_right "";
 CM_ SG_ 2483028613 brake "";
 CM_ SG_ 2483028613 throttle_right "";
 CM_ SG_ 2483028613 throttle "";
+CM_ BO_ 2348810949 "Cooling Pump/Fan requests from Dash LCD";
+CM_ SG_ 2348810949 batt_fan "";
+CM_ SG_ 2348810949 batt_pump2 "";
+CM_ SG_ 2348810949 batt_pump "";
+CM_ SG_ 2348810949 dt_fan "";
+CM_ SG_ 2348810949 dt_pump "";
 CM_ BO_ 2214593093 "Filtered throttle and brake values";
 CM_ SG_ 2214593093 brake "";
 CM_ SG_ 2214593093 throttle "";

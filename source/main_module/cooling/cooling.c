@@ -8,6 +8,7 @@ uint32_t dt_pump_start_time_ms;
 uint32_t bat_pump_start_time_ms;
 
 extern q_handle_t q_tx_can;
+extern uint32_t APB1ClockRateHz;
 
 
 // static void setDtCooling(uint8_t on);
@@ -35,6 +36,28 @@ bool coolingInit()
     //                (0b1 << BAT_FLOW_RATE_PWM_Pin);
     // // enable the interrupt handlers
     // NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+    RCC -> APB1ENR1 |= RCC_APB1ENR1_TIM4EN; //0b100;
+    TIM4 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
+    TIM4 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * 100)) - 1; 
+    TIM4 -> ARR = 100 - 1; //setting it to 99 so it's easier to use it with Duty Cycle
+    //Enabling the MOE bit of the dead-time register
+    // TIM4 -> BDTR |= TIM_BDTR_MOE;
+    //Set Channels 1 and 2 to 110 (Mode 1 up counter) -> (active while CNT <= CCR)
+    TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC1M_0);
+    TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC2M_0);
+    TIM4 -> CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1; 
+    TIM4 -> CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+    //Setting the preload register
+    TIM4 -> CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC2PE;
+    // TIM1 -> CR1 |= TIM_CR1_ARPE;
+    //Enable Channels 1 and 2 outputs 
+    TIM4 -> CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
+    //Setting pwm to 0
+    TIM4 -> CCR1 = 100; // inverted
+    TIM4 -> CCR2 = 100;
+    //Enable counter as long as ccrs are 0
+    TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
 
     // Default pin configurations
     // setDtCooling(0);
@@ -68,6 +91,7 @@ void coolingPeriodic()
 
     // TODO: test signed temps
 
+    // 568 594
     // Since ADC readings happen ~2ms, the next measurement should be ready
     temp = rawThermtoCelcius(adc_readings.therm_mux_d);
     switch(curr_therm)
@@ -100,6 +124,27 @@ void coolingPeriodic()
         cooling.out = (Cooling_output_t) {0};
     }
 
+    // static uint8_t n;
+    // static uint8_t down;
+    // if (++n == 5)
+    // {
+    //     if (down)
+    //     {
+    //         cooling.out.dt_fan_power -= 10;
+    //     }
+    //     else
+    //     {
+    //         cooling.out.dt_fan_power += 10;
+    //     }
+    //     if (cooling.out.dt_fan_power == 100 ||
+    //         cooling.out.dt_fan_power == 0)
+    //     {
+    //         down = !down;
+    //     }
+    //     n = 0;
+    // }
+    cooling.out.dt_fan_power = (can_data.filt_throttle_brake.throttle * 100) / 4095;
+
     setDtFan(cooling.out.dt_fan_power);
     setBatFan(cooling.out.bat_fan_power);
     setBatPump(cooling.out.bat_pump, cooling.out.bat_pump_aux);
@@ -110,6 +155,9 @@ void coolingPeriodic()
                                   cooling.dt_therm_in_C,  cooling.dt_therm_out_C,
                                   cooling.bat_liters_p_min_x10, cooling.dt_liters_p_min_x10,
                                   0, 0);
+    SEND_COOLANT_OUT(q_tx_can, cooling.out.bat_fan_power, cooling.out.dt_fan_power,
+                               cooling.out.bat_pump, cooling.out.bat_pump_aux,
+                               cooling.out.dt_pump);
 
     return;
     /*
@@ -278,8 +326,7 @@ void setBatPump(bool on, bool on_aux)
  */
 void setBatFan(uint8_t power)
 {
-    // TODO: PWM Control
-    PHAL_writeGPIO(BAT_FAN_CTRL_GPIO_Port, BAT_FAN_CTRL_Pin, power > 0);
+    TIM4->CCR1 = 100 - CLAMP(power, 0, 100);
 }
 
 /**
@@ -289,8 +336,7 @@ void setBatFan(uint8_t power)
  */
 void setDtFan(uint8_t power)
 {
-    // TODO: PWM Control
-    PHAL_writeGPIO(DT_FAN_CTRL_GPIO_Port, DT_FAN_CTRL_Pin, power > 0);
+    TIM4->CCR2 = 100 - CLAMP(power, 0, 100);
 }
 
 float rawThermtoCelcius(uint16_t t)

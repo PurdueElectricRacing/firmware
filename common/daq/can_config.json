@@ -175,6 +175,7 @@
                     ],
                     "rx":[
                         {"msg_name": "raw_throttle_brake"},
+                        {"msg_name": "filt_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
                         {"msg_name": "dashboard_hb"},
                         {"msg_name": "max_cell_temp"},

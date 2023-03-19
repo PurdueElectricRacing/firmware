@@ -28,7 +28,8 @@ daq_variable_t tracked_vars[NUM_VARS] = {
 bool daqInit(q_handle_t* tx_a)
 {
     // BEGIN AUTO INIT
-    daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_DRIVELINE, tracked_vars);
+    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_DRIVELINE, tracked_vars);
+    return ret;
     // END AUTO INIT
 }
 

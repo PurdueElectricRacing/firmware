@@ -35,6 +35,7 @@
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_MAX_CELL_TEMP 0x404e604
@@ -67,6 +68,7 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
 #define DLC_MAX_CELL_TEMP 2
@@ -214,6 +216,7 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_RAW_THROTTLE_BRAKE 15
+#define UP_FILT_THROTTLE_BRAKE 15
 #define UP_DASHBOARD_HB 100
 #define UP_LWS_STANDARD 15
 /* END AUTO UP DEFS */
@@ -374,6 +377,10 @@ typedef union {
         uint64_t brake_pot: 12;
     } raw_throttle_brake;
     struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
+    struct {
         uint64_t start: 1;
     } start_button;
     struct {
@@ -444,6 +451,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } raw_throttle_brake;
+    struct {
+        uint16_t throttle;
+        uint16_t brake;
+        uint8_t stale;
+        uint32_t last_rx;
+    } filt_throttle_brake;
     struct {
         uint8_t start;
     } start_button;

@@ -57,6 +57,8 @@
 // Part 828 on Adafruit
 #define PULSES_P_LITER (450)
 
+#define PWM_FREQUENCY 25000  //PWM frequency to be 25kHz
+
 // Thermistor specifications
 #define THERM_R1  10000 // Top resistor in voltage divider
 #define MAX_THERM 4095  // 12-bit adc precision

@@ -63,6 +63,17 @@
                             "msg_pgn":35
                         },
                         {
+                            "msg_name": "gearbox",
+                            "msg_desc": "Gearbox temps",
+                            "signals": [
+                                {"sig_name": "l_temp", "type": "uint8_t"},
+                                {"sig_name": "r_temp", "type": "uint8_t"}
+                            ],
+                            "msg_period": 2000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 36
+                        },
+                        {
                             "msg_name": "LWS_Config",
                             "msg_desc": "Steering sensor configuration",
                             "signals": [
@@ -175,6 +186,7 @@
                     ],
                     "rx":[
                         {"msg_name": "raw_throttle_brake"},
+                        {"msg_name": "filt_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
                         {"msg_name": "dashboard_hb"},
                         {"msg_name": "max_cell_temp"},
@@ -568,6 +580,9 @@
                         {"msg_name": "rear_controller_temps"},
                         {"msg_name": "precharge_hb"},
                         {"msg_name": "torque_request_main"},
+                        {"msg_name": "flowrate_temps"},
+                        {"msg_name": "coolant_out", "callback": true},
+                        {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true}
                     ]
                 },

@@ -378,7 +378,7 @@
                         {   "msg_name":"max_cell_temp",
                             "msg_desc":"maximum cell temperature for the whole pack",
                             "signals":[
-                                {"sig_name":"max_temp","type":"uint16_t","length":16, "scale": 0.1}
+                                {"sig_name":"max_temp","type": "uint16_t", "scale": 0.01}
                             ],
                             "msg_period":0,
                             "msg_hlp":1,
@@ -387,23 +387,35 @@
                         {   "msg_name": "mod_cell_temp_avg",
                             "msg_desc": "Average cell temperature for each module",
                             "signals":[
-                                {"sig_name": "temp_A", "type": "uint16_t", "length": 16, "scale": 0.1},
-                                {"sig_name": "temp_B", "type": "uint16_t", "length": 16, "scale": 0.1},
-                                {"sig_name": "temp_C", "type": "uint16_t", "length": 16, "scale": 0.1},
-                                {"sig_name": "temp_D", "type": "uint16_t", "length": 16, "scale": 0.1}
+                                {"sig_name": "temp_A", "type": "uint16_t", "scale": 0.01},
+                                {"sig_name": "temp_B", "type": "uint16_t", "scale": 0.01},
+                                {"sig_name": "temp_C", "type": "uint16_t", "scale": 0.01},
+                                {"sig_name": "temp_D", "type": "uint16_t", "scale": 0.01}
                             ],
                             "msg_period":0,
                             "msg_hlp":5,
                             "msg_pgn":514
                         },
+                        {"msg_name": "mod_cell_temp_max",
+                        "msg_desc": "Max cell temperature for each module",
+                        "signals":[
+                            {"sig_name": "temp_A", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_B", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_C", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_D", "type": "uint16_t", "scale": 0.01}
+                        ],
+                        "msg_period":0,
+                        "msg_hlp":5,
+                        "msg_pgn":516
+                    },
                         {   "msg_name": "raw_cell_temp",
                             "msg_desc": "Raw cell temperature for each module of thermistor at index",
                             "signals":[
                                 {"sig_name": "index",  "type": "uint8_t",  "length": 8},
-                                {"sig_name": "temp_A", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
-                                {"sig_name": "temp_B", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
-                                {"sig_name": "temp_C", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
-                                {"sig_name": "temp_D", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"}
+                                {"sig_name": "temp_A", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"},
+                                {"sig_name": "temp_B", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"},
+                                {"sig_name": "temp_C", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"},
+                                {"sig_name": "temp_D", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"}
                             ],
                             "msg_period":0,
                             "msg_hlp":5,

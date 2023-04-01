@@ -201,19 +201,25 @@ BO_ 2214625540 angle_data: 6 Precharge
  SG_ pitch : 0|16@1- (1,0) [0|0] "degx10" Vector__XXX
 
 BO_ 2214913540 max_cell_temp: 2 Precharge
- SG_ max_temp : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ max_temp : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
 BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
- SG_ temp_D : 48|16@1+ (0.1,0) [0|0] "" Vector__XXX
- SG_ temp_C : 32|16@1+ (0.1,0) [0|0] "" Vector__XXX
- SG_ temp_B : 16|16@1+ (0.1,0) [0|0] "" Vector__XXX
- SG_ temp_A : 0|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
+
+BO_ 2483060996 mod_cell_temp_max: 8 Precharge
+ SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
 BO_ 2483060932 raw_cell_temp: 7 Precharge
- SG_ temp_D : 44|12@1+ (0.1,0) [0|0] "C" Vector__XXX
- SG_ temp_C : 32|12@1+ (0.1,0) [0|0] "C" Vector__XXX
- SG_ temp_B : 20|12@1+ (0.1,0) [0|0] "C" Vector__XXX
- SG_ temp_A : 8|12@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_D : 44|12@1+ (0.01,0) [0|0] "C" Vector__XXX
+ SG_ temp_C : 32|12@1+ (0.01,0) [0|0] "C" Vector__XXX
+ SG_ temp_B : 20|12@1+ (0.01,0) [0|0] "C" Vector__XXX
+ SG_ temp_A : 8|12@1+ (0.01,0) [0|0] "C" Vector__XXX
  SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059844 fault_sync_precharge: 3 Precharge
@@ -907,6 +913,11 @@ CM_ SG_ 2483060868 temp_D "";
 CM_ SG_ 2483060868 temp_C "";
 CM_ SG_ 2483060868 temp_B "";
 CM_ SG_ 2483060868 temp_A "";
+CM_ BO_ 2483060996 "Max cell temperature for each module";
+CM_ SG_ 2483060996 temp_D "";
+CM_ SG_ 2483060996 temp_C "";
+CM_ SG_ 2483060996 temp_B "";
+CM_ SG_ 2483060996 temp_A "";
 CM_ BO_ 2483060932 "Raw cell temperature for each module of thermistor at index";
 CM_ SG_ 2483060932 temp_D "";
 CM_ SG_ 2483060932 temp_C "";

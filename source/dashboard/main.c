@@ -184,6 +184,7 @@ void completeLCDBoot();
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 q_handle_t q_tx_usart;
+
 int main (void){
 
     /* Data Struct init */
@@ -217,6 +218,7 @@ int main (void){
     taskCreate(heartBeatTask, 100);
     taskCreate(updateFaults, 1);
     taskCreate(pollHDD, 250);
+    taskCreate(update_data_pages, 200);
     // taskCreate(toggleLights, 500);
     // taskCreate(heartBeatMsg, 100);
     // taskCreate(checkStartBtn, 100);
@@ -341,21 +343,22 @@ void preflightAnimation(void) {
 
 static uint8_t lights;
 void toggleLights() {
-    switch (lights++){
-        case 0:
-            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
-            break;
-        case 1:
-            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-            break;
-        case 2:
-            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
-            lights = 0;
-            break;
-    }
+    // switch (lights++){
+    //     case 0:
+    //         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    //         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
+    //         break;
+    //     case 1:
+    //         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    //         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+    //         break;
+    //     case 2:
+    //         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    //         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
+    //         lights = 0;
+    //         break;
+    // }
+
 
 }
 
@@ -477,6 +480,13 @@ void heartBeatLED()
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+
+    if (!can_data.main_hb.stale && can_data.main_hb.precharge_state) {
+        PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+    }
+    else {
+        PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    }
 }
 
 void enableInterrupts() {

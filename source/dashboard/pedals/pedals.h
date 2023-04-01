@@ -85,6 +85,8 @@ typedef struct {
 
 extern pedal_calibration_t pedal_calibration;
 
+extern uint16_t filtered_pedals;
+
 /* Function Prototypes */
 void pedalsPeriodic(void);
 

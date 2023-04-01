@@ -63,6 +63,10 @@ BO_ 2214594753 coolant_out: 3 Main_Module
  SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
  SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
 
+BO_ 2415921409 gearbox: 2 Main_Module
+ SG_ r_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ l_temp : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
@@ -780,6 +784,9 @@ CM_ SG_ 2214594753 bat_pump_aux "";
 CM_ SG_ 2214594753 bat_pump "";
 CM_ SG_ 2214594753 dt_fan "";
 CM_ SG_ 2214594753 bat_fan "";
+CM_ BO_ 2415921409 "Gearbox temps";
+CM_ SG_ 2415921409 r_temp "";
+CM_ SG_ 2415921409 l_temp "";
 CM_ BO_ 1984 "Steering sensor configuration";
 CM_ SG_ 1984 Reserved_2 "";
 CM_ SG_ 1984 Reserved_1 "";

@@ -24,6 +24,7 @@
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_FLOWRATE_TEMPS 0x4000881
 #define ID_COOLANT_OUT 0x40008c1
+#define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
 #define ID_VOLTAGE_RAILS 0x10001901
 #define ID_PRECHARGE_STATE 0x8001881
@@ -35,6 +36,7 @@
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_MAX_CELL_TEMP 0x404e604
@@ -56,6 +58,7 @@
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_FLOWRATE_TEMPS 8
 #define DLC_COOLANT_OUT 3
+#define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
 #define DLC_VOLTAGE_RAILS 8
 #define DLC_PRECHARGE_STATE 4
@@ -67,6 +70,7 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
 #define DLC_MAX_CELL_TEMP 2
@@ -121,6 +125,13 @@
         data_a->coolant_out.bat_pump = bat_pump_;\
         data_a->coolant_out.bat_pump_aux = bat_pump_aux_;\
         data_a->coolant_out.dt_pump = dt_pump_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_GEARBOX(queue, l_temp_, r_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GEARBOX, .DLC=DLC_GEARBOX, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->gearbox.l_temp = l_temp_;\
+        data_a->gearbox.r_temp = r_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_LWS_CONFIG(queue, CCW_, Reserved_1_, Reserved_2_) do {\
@@ -214,6 +225,7 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_RAW_THROTTLE_BRAKE 15
+#define UP_FILT_THROTTLE_BRAKE 15
 #define UP_DASHBOARD_HB 100
 #define UP_LWS_STANDARD 15
 /* END AUTO UP DEFS */
@@ -312,6 +324,10 @@ typedef union {
         uint64_t dt_pump: 1;
     } coolant_out;
     struct {
+        uint64_t l_temp: 8;
+        uint64_t r_temp: 8;
+    } gearbox;
+    struct {
         uint64_t CCW: 3;
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
@@ -373,6 +389,10 @@ typedef union {
         uint64_t brake_right: 12;
         uint64_t brake_pot: 12;
     } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
     struct {
         uint64_t start: 1;
     } start_button;
@@ -444,6 +464,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } raw_throttle_brake;
+    struct {
+        uint16_t throttle;
+        uint16_t brake;
+        uint8_t stale;
+        uint32_t last_rx;
+    } filt_throttle_brake;
     struct {
         uint8_t start;
     } start_button;

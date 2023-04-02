@@ -14,7 +14,7 @@
 
 /* Module Includes */
 #include "main.h"
-// #include "daq.h"
+#include "daq.h"
 #include "imu.h"
 #include "orion.h"
 #include "bsxlite_interface.h"
@@ -77,6 +77,8 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+extern uint8_t orion_error;
+
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -87,7 +89,7 @@ extern void HardFault_Handler();
 
 
 void canTxUpdate();
-void heartbeatTask();
+void heartBeatLED();
 void monitorStatus();
 void sendIMUData();
 void imuConfigureAccel();
@@ -179,23 +181,16 @@ int main (void)
        PHAL_FaultHandler();
 
 
-//    spi_config.data_rate = APB2ClockRateHz / 16;
    spi2_config.data_rate = APB2ClockRateHz / 16;
-//    if (!PHAL_SPI_init(&spi_config))
-//        PHAL_FaultHandler();
    if (!PHAL_SPI_init(&spi2_config))
        PHAL_FaultHandler();
-
-
-//    PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 0);
-//    PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
 
 
    NVIC_EnableIRQ(CAN1_RX0_IRQn);
    NVIC_EnableIRQ(CAN2_RX0_IRQn);
 
     initCANParse(&q_rx_can);
-//    orionInit();
+    orionInit();
 
 
    /* Module init */
@@ -204,13 +199,15 @@ int main (void)
 
    /* Task Creation */
    schedInit(SystemCoreClock);
-//    configureAnim(preflightAnimation, preflightChecks, 75, 750);
-   taskCreate(heartbeatTask, 500);
+   configureAnim(preflightAnimation, preflightChecks, 75, 750);
+   taskCreate(heartBeatLED, 500);
 //    taskCreate(orionCheckTempsPeriodic, 500);
    taskCreate(monitorStatus, 50);
-//    taskCreate(orionChargePeriodic, 50);
+   taskCreate(orionChargePeriodic, 50);
+   taskCreate(heartBeatTask, 100);
+   taskCreate(updateFaults, 1);
    // taskCreate(sendIMUData, 10);
-   // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
 
    taskCreateBackground(canTxUpdate);
@@ -241,6 +238,9 @@ void preflightChecks(void)
            }
 
            break;
+        case 1:
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_PRECHARGE);
+            break;
        default:
            if (state > 750)
            {
@@ -284,15 +284,19 @@ void preflightAnimation(void)
 
 
 // *** Misc. tasks ***
-void heartbeatTask()
+void heartBeatLED()
 {
    if ((sched.os_ticks - last_can_rx_time_ms) >= 500)
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 
+    bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
-   SEND_PRECHARGE_HB(q_tx_can, !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin), orionErrors());
+    setFault(ID_IMD_FAULT, imd_status);
+
+
+   SEND_PRECHARGE_HB(q_tx_can, imd_status, orion_error);
 }
 
 

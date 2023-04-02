@@ -408,6 +408,18 @@
                         "msg_hlp":5,
                         "msg_pgn":516
                     },
+                    {"msg_name": "mod_cell_temp_min",
+                        "msg_desc": "Min cell temperature for each module",
+                        "signals":[
+                            {"sig_name": "temp_A", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_B", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_C", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_D", "type": "uint16_t", "scale": 0.01}
+                        ],
+                        "msg_period":0,
+                        "msg_hlp":5,
+                        "msg_pgn":520
+                    },
                         {   "msg_name": "raw_cell_temp",
                             "msg_desc": "Raw cell temperature for each module of thermistor at index",
                             "signals":[

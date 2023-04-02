@@ -3,6 +3,7 @@
 #include "main.h"
 #include "common/common_defs/common_defs.h"
 #include "can_parse.h"
+#include "common/faults/faults.h"
 
 
 extern q_handle_t q_tx_can;
@@ -32,7 +33,6 @@ bool initTMU(tmu_handle_t *tmu) {
 
 
 void readTemps(tmu_handle_t *tmu) {
-    i = 1;
    uint8_t spi_tx_buffer[11] = {0};
    uint8_t spi_rx_buffer[11] = {0};
 
@@ -80,6 +80,12 @@ void readTemps(tmu_handle_t *tmu) {
     tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
     tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
 
+    tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[i]);
+    tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
+    tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
+    tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
+
+
     //Add new thermistor value to moving average
     tmu->tmu1_avg += tmu->tmu1[i];
     tmu->tmu2_avg += tmu->tmu2[i];
@@ -89,11 +95,31 @@ void readTemps(tmu_handle_t *tmu) {
 
 
     SEND_MOD_CELL_TEMP_AVG(q_tx_can, (tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / NUM_THERM), (tmu->tmu3_avg / NUM_THERM), (tmu->tmu4_avg / NUM_THERM));
-    SEND_MAX_CELL_TEMP(q_tx_can, MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max)));
-    SEND_MOD_CELL_TEMP_MAX(q_tx_can, tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
     SEND_RAW_CELL_TEMP(q_tx_can, i, tmu->tmu1[i], tmu->tmu2[i], tmu->tmu3[i], tmu->tmu4[i]);
 
-    // i = (((i + 1) < NUM_THERM) ? (i + 1) : 0);
+    if ((i + 1) < NUM_THERM) {
+        i++;
+    }
+    else {
+        SEND_MOD_CELL_TEMP_MAX(q_tx_can, tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
+        SEND_MOD_CELL_TEMP_MIN(q_tx_can, tmu->tmu1_min, tmu->tmu2_min, tmu->tmu3_min, tmu->tmu4_min);
+        uint16_t max_temp = MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max));
+        uint16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
+        SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
+        setFault(ID_PACK_TEMP_FAULT, max_temp);
+        setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
+        setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
+
+        i = 0;
+        tmu->tmu1_max = 0;
+        tmu->tmu2_max = 0;
+        tmu->tmu3_max = 0;
+        tmu->tmu4_max = 0;
+        tmu->tmu1_min = 0xFFFF;
+        tmu->tmu2_min = 0xFFFF;
+        tmu->tmu3_min = 0xFFFF;
+        tmu->tmu4_min = 0xFFFF;
+    }
 
 
 

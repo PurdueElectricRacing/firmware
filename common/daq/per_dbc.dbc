@@ -215,6 +215,12 @@ BO_ 2483060996 mod_cell_temp_max: 8 Precharge
  SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
+BO_ 2483061252 mod_cell_temp_min: 8 Precharge
+ SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
+
 BO_ 2483060932 raw_cell_temp: 7 Precharge
  SG_ temp_D : 44|12@1+ (0.01,0) [0|0] "C" Vector__XXX
  SG_ temp_C : 32|12@1+ (0.01,0) [0|0] "C" Vector__XXX
@@ -918,6 +924,11 @@ CM_ SG_ 2483060996 temp_D "";
 CM_ SG_ 2483060996 temp_C "";
 CM_ SG_ 2483060996 temp_B "";
 CM_ SG_ 2483060996 temp_A "";
+CM_ BO_ 2483061252 "Min cell temperature for each module";
+CM_ SG_ 2483061252 temp_D "";
+CM_ SG_ 2483061252 temp_C "";
+CM_ SG_ 2483061252 temp_B "";
+CM_ SG_ 2483061252 temp_A "";
 CM_ BO_ 2483060932 "Raw cell temperature for each module of thermistor at index";
 CM_ SG_ 2483060932 temp_D "";
 CM_ SG_ 2483060932 temp_C "";

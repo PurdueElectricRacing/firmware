@@ -15,7 +15,7 @@
 #define TMU_VREF 1.8F
 
 //Changing this value will change how many thermistor slots are read.
-#define NUM_THERM 9
+#define NUM_THERM 10
 
 
 
@@ -54,6 +54,10 @@ typedef struct {
    uint16_t tmu2_max;
    uint16_t tmu3_max;
    uint16_t tmu4_max;
+   uint16_t tmu1_min;
+   uint16_t tmu2_min;
+   uint16_t tmu3_min;
+   uint16_t tmu4_min;
    uint16_t tmu1_avg;
    uint16_t tmu2_avg;
    uint16_t tmu3_avg;

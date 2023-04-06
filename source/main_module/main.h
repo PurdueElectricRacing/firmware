@@ -143,11 +143,12 @@
 #define SHOCK_POT_R_ADC_CHNL        (7)
 
 // Drivetrain
-#define DT_GB_THERM_R_GPIO_Port     (GPIOA)
-#define DT_GB_THERM_R_Pin           (4)
-#define DT_GB_THERM_R_ADC_CHNL      (9)
+#define DT_GB_THERM_R_GPIO_Port     (GPIOC)
+#define DT_GB_THERM_R_Pin           (0)
+#define DT_GB_THERM_R_ADC_CHNL      (1)
 #define DT_GB_THERM_L_GPIO_Port     (GPIOA)
-#define DT_GB_THERM_L_Pin           (11)
+#define DT_GB_THERM_L_Pin           (4)
+#define DT_GB_THERM_L_ADC_CHNL      (9)
 
 #define DT_PUMP_CTRL_GPIO_Port      (GPIOB)
 #define DT_PUMP_CTRL_Pin            (10)
@@ -217,8 +218,8 @@
 #define LV_BAT_STAT_Pin             (4)
 
 // Thermistor Analog Multiplexer
-#define THERM_MUX_S0_GPIO_Port      (GPIOC)
-#define THERM_MUX_S0_Pin            (0)
+#define THERM_MUX_S0_GPIO_Port      (GPIOE)
+#define THERM_MUX_S0_Pin            (2)
 #define THERM_MUX_S1_GPIO_Port      (GPIOD)
 #define THERM_MUX_S1_Pin            (11)
 #define THERM_MUX_D_GPIO_Port       (GPIOA)
@@ -247,7 +248,8 @@ typedef struct
     uint16_t lv_5_i_sense;
     uint16_t lv_3v3_v_sense;
     uint16_t therm_mux_d;
-    uint16_t dt_r;
+    uint16_t dt_gb_l;
+    uint16_t dt_gb_r;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

@@ -22,13 +22,13 @@
 #define LV_12V_R2  3300  // Ohms
 #define LV_5V_R1   4300  // Ohms
 #define LV_5V_R2   3300  // Ohms
-#define LV_3V3_R1  1000  // Ohms
-#define LV_3V3_R2  0     // Ohms
+#define LV_3V3_R1  4300  // Ohms
+#define LV_3V3_R2  10000 // Ohms
 
 #define LV_24V_CAL (1015)        // V_actual / V_measured * 1000
 #define LV_12V_CAL (LV_24V_CAL)
 #define LV_5V_CAL  (LV_24V_CAL)
-#define LV_3V3_CAL (1000)
+#define LV_3V3_CAL (LV_24V_CAL)
 
 /* CURRENT SENSE */
 #define LV_I_SENSE_GAIN 100 // V/V

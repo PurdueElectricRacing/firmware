@@ -388,7 +388,7 @@ bool validatePrecharge()
     // Measure inputs
     car.pchg.v_mc_buff[car.pchg.v_mc_buff_idx++]   = adc_readings.v_mc;
     car.pchg.v_bat_buff[car.pchg.v_bat_buff_idx++] = adc_readings.v_bat;
-    car.pchg.pchg_complete = (PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+    car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
     // Update buffers
     car.pchg.v_mc_buff_idx  %= HV_LOW_PASS_SIZE;

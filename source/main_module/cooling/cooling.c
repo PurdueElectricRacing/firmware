@@ -113,7 +113,8 @@ void coolingPeriodic()
     PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, curr_therm & 0x01);
     PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, curr_therm & 0x02);
 
-    float drivetrain_right_temp = rawThermtoCelcius(adc_readings.dt_r);
+    uint8_t drivetrain_right_temp = adc_readings.dt_gb_r;//(uint8_t) rawThermtoCelcius(adc_readings.dt_gb_r);
+    uint8_t drivetrain_left_temp =  adc_readings.dt_gb_l;//(uint8_t) rawThermtoCelcius(adc_readings.dt_gb_l);
 
     // Update outputs
     if (cooling.daq_override)
@@ -133,7 +134,7 @@ void coolingPeriodic()
     SEND_COOLANT_OUT(q_tx_can, cooling.out.bat_fan_power, cooling.out.dt_fan_power,
                                cooling.out.bat_pump, cooling.out.bat_pump_aux,
                                cooling.out.dt_pump);
-    SEND_GEARBOX(q_tx_can, 0, drivetrain_right_temp);
+    SEND_GEARBOX(q_tx_can, drivetrain_left_temp, drivetrain_right_temp);
 
     return;
     /*

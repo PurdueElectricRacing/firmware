@@ -192,6 +192,8 @@ int main (void)
     initCANParse(&q_rx_can);
     orionInit();
 
+    if (daqInit(&q_tx_can))
+        HardFault_Handler();
 
    /* Module init */
    schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
@@ -304,15 +306,13 @@ void heartBeatLED()
 
 void monitorStatus()
 {
-   // uint8_t bms_err, imd_err;
-   // bms_err = orionErrors();
-   // imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
+   uint8_t bms_err, imd_err;
+   bms_err = orionErrors();
+   imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
+//    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
-   // PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
-
-
-   // PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
+   PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
    readTemps(&tmu);
 }
 

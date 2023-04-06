@@ -47,12 +47,12 @@ static uint32_t ext_id;
 static CAN_TypeDef* can;
 static daq_variable_t* tracked_vars;
 
-bool daqInitBase(q_handle_t* tx_a, uint8_t num_variables, CAN_TypeDef* hcan, uint32_t ext_id, 
+bool daqInitBase(q_handle_t* tx_a, uint8_t num_variables_, CAN_TypeDef* hcan, uint32_t ext_id_, 
              daq_variable_t* tracked_vars_)
 {
     q_tx_can_a = tx_a;
-    num_vars = num_variables;
-    ext_id = ext_id;
+    num_vars = num_variables_;
+    ext_id = ext_id_;
     can = hcan;
     tracked_vars = tracked_vars_;
 
@@ -329,7 +329,8 @@ static void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
                            .Bus=can,
                            .ExtId=ext_id,
                            .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
-    v_memcpy(msg.Data, tx_frame.data, msg.DLC);
+    // v_memcpy(msg.Data, tx_frame.data, msg.DLC);
+    v_memcpy(tx_frame.data, msg.Data, msg.DLC);
     qSendToBack(q_tx_can_a, &msg);
 }
 

@@ -21,7 +21,6 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_ELCON_CHARGER_STATUS2 0x18ff50e5
 #define ID_ORION_CURRENTS_VOLTS2 0x140006ff
 #define ID_PACK_CHARGE_STATUS2 0x80080bf
 #define ID_TEST_MSG 0x1400007f
@@ -51,7 +50,6 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_ELCON_CHARGER_STATUS2 5
 #define DLC_ORION_CURRENTS_VOLTS2 4
 #define DLC_PACK_CHARGE_STATUS2 7
 #define DLC_TEST_MSG 2
@@ -89,18 +87,6 @@ typedef union {
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_ELCON_CHARGER_STATUS2(queue, charge_voltage_, charge_current_, hw_fail_, temp_fail_, input_v_fail_, startup_fail_, communication_fail_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ELCON_CHARGER_STATUS2, .DLC=DLC_ELCON_CHARGER_STATUS2, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->elcon_charger_status2.charge_voltage = charge_voltage_;\
-        data_a->elcon_charger_status2.charge_current = charge_current_;\
-        data_a->elcon_charger_status2.hw_fail = hw_fail_;\
-        data_a->elcon_charger_status2.temp_fail = temp_fail_;\
-        data_a->elcon_charger_status2.input_v_fail = input_v_fail_;\
-        data_a->elcon_charger_status2.startup_fail = startup_fail_;\
-        data_a->elcon_charger_status2.communication_fail = communication_fail_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
 #define SEND_ORION_CURRENTS_VOLTS2(queue, pack_current_, pack_voltage_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ORION_CURRENTS_VOLTS2, .DLC=DLC_ORION_CURRENTS_VOLTS2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -260,15 +246,6 @@ typedef enum {
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { 
-    struct {
-        uint64_t charge_voltage: 16;
-        uint64_t charge_current: 16;
-        uint64_t hw_fail: 1;
-        uint64_t temp_fail: 1;
-        uint64_t input_v_fail: 1;
-        uint64_t startup_fail: 1;
-        uint64_t communication_fail: 1;
-    } elcon_charger_status2;
     struct {
         uint64_t pack_current: 16;
         uint64_t pack_voltage: 16;

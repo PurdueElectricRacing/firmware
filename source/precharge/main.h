@@ -16,9 +16,9 @@
 #define SPI_MOSI_GPIO_Port (GPIOA)
 #define SPI_MOSI_Pin (7)
 #define SPI_CS_ACEL_GPIO_Port (GPIOA)
-#define SPI_CS_ACEL_Pin (8)
+#define SPI_CS_ACEL_Pin (3)
 #define SPI_CS_GYRO_GPIO_Port (GPIOA)
-#define SPI_CS_GYRO_Pin (9)
+#define SPI_CS_GYRO_Pin (2)
 #define SPI_CS_TMU_GPIO_Port (GPIOD)
 #define SPI_CS_TMU_GPIO_Pin (15)
 
@@ -31,8 +31,8 @@
 
 
 // BMS Status
-#define BMS_STATUS_GPIO_Port (GPIOA)
-#define BMS_STATUS_Pin (3)
+#define BMS_STATUS_GPIO_Port (GPIOD)
+#define BMS_STATUS_Pin (1)
 
 
 // IMD Data
@@ -41,7 +41,7 @@
 #define IMD_LS_PWM_GPIO_Port (GPIOB)
 #define IMD_LS_PWM_Pin (7)
 #define IMD_STATUS_GPIO_Port (GPIOB)
-#define IMD_STATUS_Pin (8)
+#define IMD_STATUS_Pin (5)
 
 
 // Status LEDs
@@ -55,17 +55,13 @@
 
 //TMU Mux Pin
 #define MUX_A_NON_ISO_Port  (GPIOC)
-#define MUX_A_NON_ISO_Pin    (6)
+#define MUX_A_NON_ISO_Pin   (9)
 #define MUX_B_NON_ISO_Port  (GPIOC)
-#define MUX_B_NON_ISO_Pin   (7)
+#define MUX_B_NON_ISO_Pin   (8)
 #define MUX_C_NON_ISO_Port  (GPIOC)
-#define MUX_C_NON_ISO_Pin   (8)
+#define MUX_C_NON_ISO_Pin   (7)
 #define MUX_D_NON_ISO_Port  (GPIOC)
-#define MUX_D_NON_ISO_Pin   (9)
-
-
-
-
+#define MUX_D_NON_ISO_Pin   (6)
 
 
 #endif

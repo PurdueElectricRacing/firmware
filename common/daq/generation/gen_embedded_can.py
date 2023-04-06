@@ -59,7 +59,7 @@ def find_rx_messages(rx_names):
         if not rx_found:
             generator.log_error("Message def not found for rx " + str(rx))
             quit(1)
-    
+
     return msg_defs
 
 def gen_send_macro(lines, msg_config, peripheral):
@@ -122,10 +122,18 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
             lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = sched.os_ticks;\n")
         callback = [rx_config for rx_config in rx_callbacks if rx_config['msg_name'] == msg['msg_name']]
         if callback:
-            if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
-                lines.append(ind+f"                {msg['msg_name']}_CALLBACK(&msg_header);\n")
+            if "fault" in callback[0]:
+                if ("fault_set" not in callback[0] and "fault_return" not in callback[0]):
+                    lines.append(f"\t\t\t\thandleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);\n")
+                elif ("fault_set" in callback[0]):
+                    lines.append(f"\t\t\t\tset_fault_daq(msg_data_a->set_fault.id, msg_data_a->set_fault.value);\n")
+                else:
+                    lines.append(f"\t\t\t\treturn_fault_control(msg_data_a->return_fault_control.id);\n")
             else:
-                lines.append(ind+f"                {msg['msg_name']}_CALLBACK(msg_data_a);\n")
+                if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
+                    lines.append(ind+f"                {msg['msg_name']}_CALLBACK(&msg_header);\n")
+                else:
+                    lines.append(ind+f"                {msg['msg_name']}_CALLBACK(msg_data_a);\n")
         lines.append(ind+"                break;\n")
     lines.append(ind+"            default:\n")
     lines.append(ind+"                __asm__(\"nop\");\n")
@@ -133,7 +141,7 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
 
 
 def configure_node(node_config, node_paths):
-    """ 
+    """
     Generates code for c and h files within a node
     @param  node_config     json config for the specific node
     @param  node_paths      paths to [h file, c file] for that node
@@ -163,7 +171,7 @@ def configure_node(node_config, node_paths):
     node_specific_rx_msg_defs = find_rx_messages([rx_config["msg_name"] for rx_config in node_config['rx']])
     receiving_msg_defs += node_specific_rx_msg_defs
     junc_rx_msg_defs = []
-    if is_junc: 
+    if is_junc:
         junc_rx_msg_defs += find_rx_messages([rx_config['msg_name'] for rx_config in junc_config['rx']])
         receiving_msg_defs += junc_rx_msg_defs
     for new_msg in receiving_msg_defs:
@@ -175,6 +183,8 @@ def configure_node(node_config, node_paths):
     #
     with open(node_paths[0], "r") as h_file:
         h_lines = h_file.readlines()
+
+    # with open(node_paths)
 
     # Message IDs and DLCs
     id_lines = []
@@ -211,7 +221,7 @@ def configure_node(node_config, node_paths):
         raw_struct_lines.append("    struct {\n")
         for sig in msg['signals']:
             raw_struct_lines.append(f"        uint64_t {sig['sig_name']}: {sig['length']};\n")
-        raw_struct_lines.append(f"    }} {msg['msg_name']};\n") 
+        raw_struct_lines.append(f"    }} {msg['msg_name']};\n")
     raw_struct_lines.append("    uint8_t raw_data[8];\n")
     raw_struct_lines.append("} __attribute__((packed)) CanParsedData_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_raw_struct_start, gen_raw_struct_stop, raw_struct_lines)
@@ -225,7 +235,7 @@ def configure_node(node_config, node_paths):
             dtype = sig['type']
             if 'choices' in sig: dtype = f"{sig['sig_name']}_t"
             can_struct_lines.append(f"        {dtype} {sig['sig_name']};\n")
-        
+
         # stale checking variables
         if msg['msg_period'] > 0:
             can_struct_lines.append(f"        uint8_t stale;\n")
@@ -251,8 +261,13 @@ def configure_node(node_config, node_paths):
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
     if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
     extern_callback_lines = [f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n" for rx_config in rx_callbacks if ("arg_type" in rx_config and rx_config["arg_type"]=="header")]
-    extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data")]
+    extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("fault" not in rx_config) and (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data"))]
+    extern_callback_lines += "extern void handleCallbacks(uint16_t id, bool latched);\n"
+    extern_callback_lines += "extern void set_fault_daq(uint16_t id, bool value);\n"
+    extern_callback_lines += "extern void return_fault_control(uint16_t id);\n"
+    extern_callback_lines += "extern void send_fault(uint16_t id, bool latched);\n"
     h_lines = generator.insert_lines(h_lines, gen_callback_start, gen_callback_stop, extern_callback_lines)
+
 
     rx_irq_names = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
     if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
@@ -303,12 +318,12 @@ def configure_node(node_config, node_paths):
     filter_lines = []
     if not ("accept_all_messages" in node_config and node_config["accept_all_messages"]):
         periph = DEFAULT_PERIPHERAL
-        if "can_peripheral" in node_config: periph = node_config['can_peripheral']    
+        if "can_peripheral" in node_config: periph = node_config['can_peripheral']
         gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
         if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
 
     c_lines = generator.insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
-    
+
     # Rx IRQ callbacks
     rx_irq_lines = []
     for rx_irq in rx_irq_names:
@@ -316,13 +331,13 @@ def configure_node(node_config, node_paths):
         rx_irq_lines.append(f"                {rx_irq}_IRQ(msg_data_a);\n")
         rx_irq_lines.append(f"                break;\n")
     c_lines = generator.insert_lines(c_lines, gen_rx_irq_start, gen_rx_irq_stop, rx_irq_lines)
-    
+
     # Write changes to source file
     with open(node_paths[1], "w") as c_file:
         c_file.writelines(c_lines)
 
 def configure_bus(bus, source_dir, c_dir, h_dir):
-    """ 
+    """
     Generates c code for each node on bus
     @param bus  bus dictionary configuration
     """

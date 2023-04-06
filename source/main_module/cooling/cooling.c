@@ -113,43 +113,18 @@ void coolingPeriodic()
     PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, curr_therm & 0x01);
     PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, curr_therm & 0x02);
 
+    float drivetrain_right_temp = rawThermtoCelcius(adc_readings.dt_r);
+
     // Update outputs
     if (cooling.daq_override)
     {
         cooling.out = cooling.out_daq_req;
     }
-    else
-    {
-        // TODO: dashbaord controlled
-        cooling.out = (Cooling_output_t) {0};
-    }
-
-    // static uint8_t n;
-    // static uint8_t down;
-    // if (++n == 5)
-    // {
-    //     if (down)
-    //     {
-    //         cooling.out.dt_fan_power -= 10;
-    //     }
-    //     else
-    //     {
-    //         cooling.out.dt_fan_power += 10;
-    //     }
-    //     if (cooling.out.dt_fan_power == 100 ||
-    //         cooling.out.dt_fan_power == 0)
-    //     {
-    //         down = !down;
-    //     }
-    //     n = 0;
-    // }
-    cooling.out.dt_fan_power = (can_data.filt_throttle_brake.throttle * 100) / 4095;
 
     setDtFan(cooling.out.dt_fan_power);
     setBatFan(cooling.out.bat_fan_power);
     setBatPump(cooling.out.bat_pump, cooling.out.bat_pump_aux);
     setDtPump(cooling.out.dt_pump);
-
 
     SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C,
                                   cooling.dt_therm_in_C,  cooling.dt_therm_out_C,
@@ -158,6 +133,7 @@ void coolingPeriodic()
     SEND_COOLANT_OUT(q_tx_can, cooling.out.bat_fan_power, cooling.out.dt_fan_power,
                                cooling.out.bat_pump, cooling.out.bat_pump_aux,
                                cooling.out.dt_pump);
+    SEND_GEARBOX(q_tx_can, 0, drivetrain_right_temp);
 
     return;
     /*
@@ -364,4 +340,16 @@ static double native_log_computation(const double n) {
             d += 2, c *= f;
     } else b = (n == 0) / 0.;
     return n < 1 ? -(a + b) : a + b;
+}
+
+void cooling_driver_request_CALLBACK(CanParsedData_t* data)
+{
+    if (!cooling.daq_override)
+    {
+        cooling.out.dt_fan_power = data->cooling_driver_request.dt_fan;
+        cooling.out.bat_fan_power = data->cooling_driver_request.batt_fan;
+        cooling.out.bat_pump = data->cooling_driver_request.batt_pump;
+        cooling.out.bat_pump_aux = data->cooling_driver_request.batt_pump2;
+        cooling.out.dt_pump = data->cooling_driver_request.dt_pump;
+    }
 }

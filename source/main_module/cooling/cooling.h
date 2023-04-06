@@ -68,7 +68,7 @@
 
 #define AVG_WINDOW_SIZE 10
 
-typedef struct 
+typedef struct __attribute__((packed))
 {
     uint8_t dt_pump;       // DT pump turned on
     uint8_t dt_fan_power;  // DT fan turned on

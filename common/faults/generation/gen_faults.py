@@ -29,14 +29,6 @@ gen_screenmsg_stop = "END AUTO SCREENMSG DEFS"
 #
 gen_info_array_start = "BEGIN AUTO FAULT INFO ARRAY DEFS"
 gen_info_array_stop = "END AUTO FAULT INFO ARRAY DEFS"
-gen_includes_start = "BEGIN AUTO INCLUDES"
-gen_includes_end = "END AUTO INCLUDES"
-gen_tx_start = "BEGIN AUTO TX COMMAND"
-gen_tx_end = "END AUTO TX COMMAND"
-gen_tx_specific_start = "BEGIN AUTO TX COMMAND SPECIFIC"
-gen_tx_specific_end = "END AUTO TX COMMAND SPECIFIC"
-gen_recieve_start = "BEGIN AUTO RECIEVE FUNCTIONS"
-gen_recieve_end = "END AUTO RECIEVE FUNCTIONS"
 
 def gen_totals(fault_config):
     """
@@ -228,37 +220,7 @@ def gen_fault_info_arrays(fault_config):
     return array
 
 
-def gen_includes(fault_config):
-    """
-    Generate C preprocessor logic for including can parse data
-    @param fault_config    Fault JSON dictionary
 
-    @return          Array of macros to add to file
-    """
-    print("Generating Includes")
-    gen_arr = []
-    idx = 0
-    for node in fault_config['modules']:
-        gen_arr.append(f"#if FAULT_NODE_NAME == {idx}\n\t#include \"source/{node['can_name'].lower()}/can/can_parse.h\"\n#endif\n")
-        idx += 1
-    return gen_arr
-
-def gen_tx_msg(fault_config):
-    """
-    Generate C preprocessor logic to add all possible tx commands
-    @param fault_config    Fault JSON dictionary
-
-    @return          Array of macros to add to file
-    """
-    print("Generating CAN TX Commands")
-    tx = []
-    idx = 0
-    for node in fault_config['modules']:
-        tx.append(f"\t\t\t#if FAULT_NODE_NAME == {idx}\n \
-            \tSEND_FAULT_SYNC_{node['can_name'].upper()}(*q_tx, status->f_ID, status->latched);\n \
-            #endif\n")
-        idx += 1
-    return tx
 
 def gen_rx_msg(fault_config):
     """
@@ -275,10 +237,10 @@ def gen_rx_msg(fault_config):
             generator.log_warning("Multiple fault nodes refer to the same CAN Node")
             continue
         #Generate the function logic
-        rx.append(f"void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
-        rx.append(f"\tfault_status_t recievedStatus = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
-        rx.append("\thandleCallbacks(recievedStatus);\n")
-        rx.append("}\n")
+        rx.append(f"//void fault_sync_{node['can_name'].lower()}_CALLBACK(CanParsedData_t *msg_header_a) {{\n")
+        rx.append(f"\t//fault_status_t recievedStatus = {{msg_header_a->fault_sync_{node['can_name'].lower()}.latched, msg_header_a->fault_sync_{node['can_name'].lower()}.idx}};\n")
+        rx.append("\t//handleCallbacks(recievedStatus);\n")
+        rx.append("//}\n")
     return rx
 
 
@@ -312,10 +274,6 @@ def gen_faults(config, c, h, nodes):
         c_lines = c_file.readlines()
 
     c_lines = generator.insert_lines(c_lines, gen_info_array_start, gen_info_array_stop, gen_fault_info_arrays(config))
-    c_lines = generator.insert_lines(c_lines, gen_includes_start, gen_includes_end, gen_includes(config))
-    c_lines = generator.insert_lines(c_lines, gen_tx_start, gen_tx_end, gen_tx_msg(config))
-    c_lines = generator.insert_lines(c_lines, gen_tx_specific_start, gen_tx_specific_end, gen_tx_msg(config))
-    c_lines = generator.insert_lines(c_lines, gen_recieve_start, gen_recieve_end, gen_rx_msg(config))
 
     # Write changes to c file
     with open(c, "w") as c_file:

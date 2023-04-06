@@ -236,13 +236,10 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void bitstream_request_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_main_module_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_test_node_CALLBACK(CanParsedData_t* msg_data_a);
-extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
-extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
+extern void handleCallbacks(uint16_t id, bool latched);
+extern void set_fault_daq(uint16_t id, bool value);
+extern void return_fault_control(uint16_t id);
+extern void send_fault(uint16_t id, bool latched);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

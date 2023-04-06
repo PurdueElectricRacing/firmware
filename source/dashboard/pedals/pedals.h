@@ -35,6 +35,12 @@
 
 #define BRAKE_PRESSURE_THRESHOLD (425)
 
+#define VREF 3.3F
+#define RESISTOR_T1 3300
+#define RESISTOR_T2 1000
+#define MAX_RESISTANCE 2500
+#define MAX_VALUE 4095
+
 typedef struct
 {
     bool     apps_faulted;              // wiring or 10% dev
@@ -58,9 +64,11 @@ typedef struct __attribute__((packed))
     uint16_t b1;
     uint16_t b2;
     uint16_t b3;
-} raw_pedals_t;
+    uint16_t shock_left;
+    uint16_t shock_right;
+} raw_pedals_shockpots_t;
 
-volatile extern raw_pedals_t raw_pedals;
+volatile extern raw_pedals_shockpots_t raw_pedals;
 
 typedef struct {
     uint16_t t1max;

@@ -95,12 +95,12 @@
 #define WLSPD_L_MAX 4096
 #define WLSPD_R_MAX 4096
 #define DRIVELINE_COMM_MAX 1
-#define APPS_WIRING_T1_MAX 3891
-#define APPS_WIRING_T2_MAX 3891
+#define APPS_WIRING_T1_MAX 3000
+#define APPS_WIRING_T2_MAX 3000
 #define BSE_WIRING_B1_MAX 3891
 #define BSE_WIRING_B2_MAX 3891
 #define BSE_WIRING_B3_MAX 3891
-#define IMPLAUS_DETECTED_MAX 3000
+#define IMPLAUS_DETECTED_MAX 500
 #define APPS_BRAKE_MAX 1
 #define BATT_OT_MAX 50
 #define TV_OFFLINE_MAX 1
@@ -119,8 +119,8 @@
 #define WLSPD_L_MIN 0
 #define WLSPD_R_MIN 0
 #define DRIVELINE_COMM_MIN 0
-#define APPS_WIRING_T1_MIN 51
-#define APPS_WIRING_T2_MIN 51
+#define APPS_WIRING_T1_MIN 200
+#define APPS_WIRING_T2_MIN 200
 #define BSE_WIRING_B1_MIN 51
 #define BSE_WIRING_B2_MIN 51
 #define BSE_WIRING_B3_MIN 0
@@ -206,7 +206,7 @@
 #define TEST_FAULT_4_MSG "Test fault 4\0" 
 //END AUTO SCREENMSG DEFS
 
-
+extern uint16_t most_recent_latched;
 
 typedef enum {
     FAULT_WARNING = 0,
@@ -235,6 +235,17 @@ typedef struct {
     char* screen_MSG;
 } fault_attributes_t;
 
+extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];
+
+//Union to package CAN messages
+typedef union {
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync;
+    uint8_t raw_data[8];
+} __attribute__((packed)) fault_can_format_t;
+
 
 
 
@@ -243,15 +254,15 @@ extern fault_status_t message[TOTAL_NUM_FAULTS];
 extern fault_attributes_t attributes[TOTAL_NUM_FAULTS];
 
 //Function defs
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, q_handle_t* rxQ);
+void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext);
 bool setFault(int, int);
-void forceFault(int, bool);
-void unForce(int);
-void txFaultSpecific(int);
+static void forceFault(int id, bool state);
+static void unForce(int);
+static void txFaultSpecific(int);
 void heartBeatTask();
 void updateFaults();
 void killFaultLibrary();
-void handleCallbacks(fault_status_t);
+void handleCallbacks(uint16_t id, bool latched);
 bool currMCULatched();
 bool warningLatched();
 bool errorLatched();

@@ -125,8 +125,10 @@
 // Shock Pots
 #define SHOCK_POT_L_GPIO_Port       (GPIOC)
 #define SHOCK_POT_L_Pin             (2)
+#define SHOCK_POT_L_ADC_CH          (3)
 #define SHOCK_POT_R_GPIO_Port       (GPIOC)
 #define SHOCK_POT_R_Pin             (3)
+#define SHOCK_POT_R_ADC_CH          (4)
 
 // Drivetrain
 #define DT_GB_THERM_L_GPIO_Port     (GPIOC)

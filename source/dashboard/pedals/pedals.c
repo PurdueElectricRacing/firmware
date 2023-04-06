@@ -1,16 +1,20 @@
 #include "pedals.h"
 
 pedals_t pedals = {0};
-volatile raw_pedals_t raw_pedals = {0};
+volatile raw_pedals_shockpots_t raw_pedals = {0};
 
-pedal_calibration_t pedal_calibration = {.t1max=1550,.t1min=300, // WARNING: DAQ VARIABLE orig: 300
-                                         .t2max=1550,.t2min=300, // IF EEPROM ENABLED,
+pedal_calibration_t pedal_calibration = {.t1max=2000,.t1min=540, // WARNING: DAQ VARIABLE
+                                         .t2max=1910,.t2min=400, // IF EEPROM ENABLED,
                                          .b1max=1000,.b1min=700, // VALUE WILL CHANGE
                                          .b2max=820,.b2min=690, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};
+uint16_t t1_buff[10] = {0};
+uint16_t t2_buff[10] = {0};
 uint8_t b3_idx = 0;
+uint8_t t1_idx = 0;
+uint8_t t2_idx = 0;
 
 uint16_t b3_offset = 0;
 uint32_t b3_start_cal_time = 0;
@@ -32,6 +36,8 @@ void pedalsPeriodic(void)
     uint32_t b3_sum = 0;
     for (uint8_t i = 0; i < 8; i++) b3_sum += b3_buff[i];
     uint16_t b3 = MAX_PEDAL_MEAS - (b3_sum / 8);
+
+    //3.3R2/(R2 - R1)
 
     // Calibrate minimum brake pot value after 2 seconds
     if (!b3_cal_complete)
@@ -77,6 +83,30 @@ void pedalsPeriodic(void)
     setFault(ID_BSE_WIRING_B2_FAULT, b2);
     setFault(ID_BSE_WIRING_B3_FAULT, b3);
 
+    float t1_volts = (VREF / 0xFFFU) * t1;
+    float t2_volts = (VREF / 0XFFFU) * t2;
+
+    t1 = (t1_volts * RESISTOR_T1) / (VREF - t1_volts);
+    t2 = (t2_volts * RESISTOR_T2) / (VREF - t2_volts);
+
+    t1_buff[t1_idx++] = t1;
+    t2_buff[t2_idx++] = t2;
+
+    t1_idx = t1_idx % 10;
+    t2_idx = t2_idx % 10;
+
+    uint32_t t1_avg = 0;
+    uint32_t t2_avg = 0;
+
+    for (uint8_t i = 0; i < 10; i++) {
+        t1_avg += t1_buff[i];
+        t2_avg += t2_buff[i];
+    }
+
+    t1 =  (uint16_t) (t1_avg / 10);
+    t2 = (uint16_t) (t2_avg / 10);
+
+
 
     // Scale values based on min and max
     t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
@@ -99,8 +129,8 @@ void pedalsPeriodic(void)
     // t2 = MAX_PEDAL_MEAS - t2;
 
         // Mask
-    t1 &= 0xFFFC;
-    t2 &= 0xFFFC;
+    // t1 &= 0xFFFC;
+    // t2 &= 0xFFFC;
     b1 &= 0xFFFC;
     b2 &= 0xFFFC;
     b3 &= 0xFFFC;
@@ -161,12 +191,21 @@ void pedalsPeriodic(void)
         setFault(ID_APPS_BRAKE_FAULT, false);
     }
 
+
+
+
+
     //Fault States detected by Main Module, which will exit ready2drive
     // if (pedals.apps_faulted || pedals.bse_faulted || pedals.apps_brake_faulted)
     // {
     //     t2 = 0;
     // }
+
+
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_pedals.t1,
                             raw_pedals.t2, raw_pedals.b1,
                             raw_pedals.b2, raw_pedals.b3);
+    SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b1);
+
+
 }

@@ -24,6 +24,7 @@
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_FLOWRATE_TEMPS 0x4000881
 #define ID_COOLANT_OUT 0x40008c1
+#define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
 #define ID_VOLTAGE_RAILS 0x10001901
 #define ID_PRECHARGE_STATE 0x8001881
@@ -41,6 +42,7 @@
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
+#define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
@@ -57,6 +59,7 @@
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_FLOWRATE_TEMPS 8
 #define DLC_COOLANT_OUT 3
+#define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
 #define DLC_VOLTAGE_RAILS 8
 #define DLC_PRECHARGE_STATE 4
@@ -74,6 +77,7 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
+#define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -123,6 +127,13 @@
         data_a->coolant_out.bat_pump = bat_pump_;\
         data_a->coolant_out.bat_pump_aux = bat_pump_aux_;\
         data_a->coolant_out.dt_pump = dt_pump_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_GEARBOX(queue, l_temp_, r_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GEARBOX, .DLC=DLC_GEARBOX, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->gearbox.l_temp = l_temp_;\
+        data_a->gearbox.r_temp = r_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_LWS_CONFIG(queue, CCW_, Reserved_1_, Reserved_2_) do {\
@@ -219,6 +230,7 @@
 #define UP_FILT_THROTTLE_BRAKE 15
 #define UP_DASHBOARD_HB 100
 #define UP_LWS_STANDARD 15
+#define UP_COOLING_DRIVER_REQUEST 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -315,6 +327,10 @@ typedef union {
         uint64_t dt_pump: 1;
     } coolant_out;
     struct {
+        uint64_t l_temp: 8;
+        uint64_t r_temp: 8;
+    } gearbox;
+    struct {
         uint64_t CCW: 3;
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
@@ -405,6 +421,13 @@ typedef union {
         uint64_t data: 32;
     } main_module_bl_cmd;
     struct {
+        uint64_t dt_pump: 8;
+        uint64_t dt_fan: 8;
+        uint64_t batt_pump: 8;
+        uint64_t batt_pump2: 8;
+        uint64_t batt_fan: 8;
+    } cooling_driver_request;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_driveline;
@@ -486,6 +509,15 @@ typedef struct {
         uint32_t data;
     } main_module_bl_cmd;
     struct {
+        uint8_t dt_pump;
+        uint8_t dt_fan;
+        uint8_t batt_pump;
+        uint8_t batt_pump2;
+        uint8_t batt_fan;
+        uint8_t stale;
+        uint32_t last_rx;
+    } cooling_driver_request;
+    struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_driveline;
@@ -524,13 +556,11 @@ extern volatile uint32_t last_can_rx_time_ms;
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_driveline_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_dashboard_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_precharge_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_torque_vector_CALLBACK(CanParsedData_t* msg_data_a);
-extern void fault_sync_test_node_CALLBACK(CanParsedData_t* msg_data_a);
-extern void set_fault_CALLBACK(CanParsedData_t* msg_data_a);
-extern void return_fault_control_CALLBACK(CanParsedData_t* msg_data_a);
+extern void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a);
+extern void handleCallbacks(uint16_t id, bool latched);
+extern void set_fault_daq(uint16_t id, bool value);
+extern void return_fault_control(uint16_t id);
+extern void send_fault(uint16_t id, bool latched);
 /* END AUTO EXTERN CALLBACK */
 
 /* BEGIN AUTO EXTERN RX IRQ */

@@ -11,6 +11,8 @@
 #include "common/phal_L4/rcc/rcc.h"
 #include "common/phal_L4/usart/usart.h"
 #include "common/plettenberg/plettenberg.h"
+#include "common/phal_L4/usart/usart.h"
+#include "common/plettenberg/plettenberg.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
 
@@ -183,7 +185,8 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
     {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
     {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=THERM_MUX_D_ADC_CHNL,    .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_640_5}
+    {.channel=THERM_MUX_D_ADC_CHNL,    .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=DT_GB_THERM_R_ADC_CHNL,    .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_640_5}
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
@@ -263,7 +266,6 @@ int main(void){
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
-    // taskCreate(setFanPWM, 1);
     taskCreate(updatePowerMonitor, 1000);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
@@ -286,6 +288,18 @@ void preflightChecks(void) {
     switch (state++)
     {
         case 0:
+            huart_l.rx_dma_cfg->circular = true;
+            if(!PHAL_initUSART(MC_L_UART, &huart_l, APB1ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            huart_r.rx_dma_cfg->circular = true;
+            if(!PHAL_initUSART(MC_R_UART, &huart_r, APB2ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 1:
             if(!PHAL_initCAN(CAN1, false))
             {
                 HardFault_Handler();
@@ -297,7 +311,7 @@ void preflightChecks(void) {
             if (initMem(EEPROM_nWP_GPIO_Port, EEPROM_nWP_Pin, &spi_config, 1, 1) != E_SUCCESS)
                 HardFault_Handler();
            break;
-        case 1:
+        case 2:
             if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
                             sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
             {
@@ -311,7 +325,7 @@ void preflightChecks(void) {
             PHAL_startTxfer(&adc_dma_config);
             PHAL_startADC(ADC1);
            break;
-        case 2:
+        case 3:
             /* UART Initialization */
             MC_L_UART->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
             NVIC_EnableIRQ(USART1_IRQn);
@@ -326,12 +340,12 @@ void preflightChecks(void) {
                             (uint16_t *) huart_r_rx_buf.rx_buf,
                             huart_r_rx_buf.rx_buf_size);
             break;
-        case 3:
+        case 4:
            /* Module Initialization */
            carInit();
            coolingInit();
            break;
-       case 4:
+       case 5:
            initCANParse(&q_rx_can);
            if(daqInit(&q_tx_can))
                HardFault_Handler();

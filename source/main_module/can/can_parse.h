@@ -42,6 +42,7 @@
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
+#define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
@@ -76,6 +77,7 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
+#define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -228,6 +230,7 @@
 #define UP_FILT_THROTTLE_BRAKE 15
 #define UP_DASHBOARD_HB 100
 #define UP_LWS_STANDARD 15
+#define UP_COOLING_DRIVER_REQUEST 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -418,6 +421,13 @@ typedef union {
         uint64_t data: 32;
     } main_module_bl_cmd;
     struct {
+        uint64_t dt_pump: 8;
+        uint64_t dt_fan: 8;
+        uint64_t batt_pump: 8;
+        uint64_t batt_pump2: 8;
+        uint64_t batt_fan: 8;
+    } cooling_driver_request;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_driveline;
@@ -498,6 +508,15 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } main_module_bl_cmd;
+    struct {
+        uint8_t dt_pump;
+        uint8_t dt_fan;
+        uint8_t batt_pump;
+        uint8_t batt_pump2;
+        uint8_t batt_fan;
+        uint8_t stale;
+        uint32_t last_rx;
+    } cooling_driver_request;
     struct {
         uint16_t idx;
         uint8_t latched;

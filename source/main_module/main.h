@@ -247,6 +247,7 @@ typedef struct
     uint16_t lv_5_i_sense;
     uint16_t lv_3v3_v_sense;
     uint16_t therm_mux_d;
+    uint16_t dt_r;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

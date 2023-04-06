@@ -73,14 +73,14 @@ void carPeriodic()
      * behave similar to a Shmitt-trigger, preventing blinking
      * during a transition
      */
-    if (can_data.raw_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
+    if (can_data.filt_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD)
     {
         if (!car.brake_light)
         {
             car.brake_light = true;
         }
     }
-    else if (car.brake_light < BRAKE_LIGHT_OFF_THRESHOLD)
+    else if (can_data.filt_throttle_brake.brake < BRAKE_LIGHT_OFF_THRESHOLD)
     {
         if (car.brake_light)
         {
@@ -124,8 +124,9 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_IDLE)
     {
-        if (car.start_btn_debounced && 
-            can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
+        // TODO: add brake back!!
+        if (car.start_btn_debounced )//&& 
+           // can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
         {
             car.state = CAR_STATE_BUZZING;
             car.buzzer_start_ms = sched.os_ticks;
@@ -150,11 +151,11 @@ void carPeriodic()
         else
         {
             // TODO: ensure stale checking
-            float t_req_pedal = (float) CLAMP(can_data.raw_throttle_brake.throttle, -4095, 4095);
+            float t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             // TODO: set deadzone through dashboard
-            // TODO: linearize throttle
             // TODO: create a filtered torque output from dashboard
+            // TODO: ensure APPS checks sets throttle to 0 if enough braking
             // t_req = t_req < 100 ? 0 : ((t_req - 100) / (4095 - 100) * 4095);
             // uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
             
@@ -164,10 +165,14 @@ void carPeriodic()
                 case CAR_TORQUE_RAW:
                     temp_t_req.torque_left  = t_req_pedal;
                     temp_t_req.torque_right = t_req_pedal;
+                    break;
                 case CAR_TORQUE_TV:
                     // TODO: TV torque source
+                    break;
                 case CAR_TORQUE_DAQ:
+                    break;
                 case CAR_TORQUE_NONE:
+                    break;
                 default:
                     temp_t_req.torque_left  = 0;
                     temp_t_req.torque_right = 0;

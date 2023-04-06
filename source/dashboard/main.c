@@ -480,13 +480,54 @@ void heartBeatLED()
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-
     if (!can_data.main_hb.stale && can_data.main_hb.precharge_state) {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
     }
     else {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     }
+}
+
+void enableInterrupts() {
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    //Unmask + Enable interrupt for start button
+    SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI0_PE;
+    EXTI->IMR1 |= EXTI_IMR1_IM0;
+    EXTI->RTSR1 &= ~EXTI_RTSR1_RT0;
+    EXTI->FTSR1 |= EXTI_FTSR1_FT0;
+    NVIC_EnableIRQ(EXTI0_IRQn);
+
+    //Left button
+    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI8_PD;
+    EXTI->IMR1 |= EXTI_IMR1_IM8;
+    EXTI->FTSR1 |= EXTI_FTSR1_FT8;
+    NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+    //Ok button
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI12_PB;
+    EXTI->IMR1 |= EXTI_IMR1_IM12;
+    EXTI->FTSR1 |= EXTI_FTSR1_FT12;
+    EXTI->RTSR1 &= ~EXTI_RTSR1_RT12;
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+    //Down Button
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PB;
+    EXTI->IMR1 |= EXTI_IMR1_IM13;
+    EXTI->FTSR1 |= EXTI_FTSR1_FT13;
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+    //Up Button
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI14_PB;
+    EXTI->IMR1 |= EXTI_IMR1_IM14;
+    EXTI->FTSR1 |= EXTI_FTSR1_FT14;
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+    //Right Button
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI15_PB;
+    EXTI->IMR1 |= EXTI_IMR1_IM15;
+    EXTI->FTSR1 |= EXTI_FTSR1_FT15;
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 void enableInterrupts() {

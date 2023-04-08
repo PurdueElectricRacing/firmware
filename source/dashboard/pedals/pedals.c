@@ -3,8 +3,8 @@
 pedals_t pedals = {0};
 volatile raw_pedals_shockpots_t raw_pedals = {0};
 
-pedal_calibration_t pedal_calibration = {.t1max=2000,.t1min=540, // WARNING: DAQ VARIABLE
-                                         .t2max=1910,.t2min=400, // IF EEPROM ENABLED,
+pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
+                                         .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
                                          .b1max=1000,.b1min=700, // VALUE WILL CHANGE
                                          .b2max=820,.b2min=690, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436

@@ -93,7 +93,7 @@
                     "min": 200,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Wiring Fail T1"
                 },
                 {
@@ -102,7 +102,7 @@
                     "min": 200,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Wiring Fail T2"
                 },
                 {
@@ -111,7 +111,7 @@
                     "min": 51,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "BSE Wiring Fail B1"
                 },
                 {
@@ -120,7 +120,7 @@
                     "min": 51,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "BSE Wiring Fail B2"
                 },
                 {
@@ -129,7 +129,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "BSE Wiring Fail B3"
                 },
                 {
@@ -138,7 +138,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 100,
                     "lcd_message": "APPS Implaus Detected"
                 },
                 {
@@ -147,7 +147,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Brake Fault"
                 }
             ]

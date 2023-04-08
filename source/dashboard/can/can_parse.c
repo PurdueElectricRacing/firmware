@@ -125,6 +125,8 @@ void canRxUpdate()
                 break;
             case ID_MAX_CELL_TEMP:
                 can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
+                can_data.max_cell_temp.stale = 0;
+                can_data.max_cell_temp.last_rx = sched.os_ticks;
                 break;
             case ID_REAR_CONTROLLER_TEMPS:
                 can_data.rear_controller_temps.left_temp = msg_data_a->rear_controller_temps.left_temp;
@@ -242,6 +244,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.orion_errors.stale,
                 sched.os_ticks, can_data.orion_errors.last_rx,
                 UP_ORION_ERRORS);
+    CHECK_STALE(can_data.max_cell_temp.stale,
+                sched.os_ticks, can_data.max_cell_temp.last_rx,
+                UP_MAX_CELL_TEMP);
     CHECK_STALE(can_data.rear_controller_temps.stale,
                 sched.os_ticks, can_data.rear_controller_temps.last_rx,
                 UP_REAR_CONTROLLER_TEMPS);

@@ -227,6 +227,7 @@
 #define UP_RAW_THROTTLE_BRAKE 15
 #define UP_FILT_THROTTLE_BRAKE 15
 #define UP_DASHBOARD_HB 100
+#define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
 /* END AUTO UP DEFS */
 
@@ -482,6 +483,8 @@ typedef struct {
     } dashboard_hb;
     struct {
         uint16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
     } max_cell_temp;
     struct {
         int16_t LWS_ANGLE;

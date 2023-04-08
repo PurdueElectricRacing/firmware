@@ -151,6 +151,7 @@
 #define UP_ORION_INFO 32
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_ORION_ERRORS 1000
+#define UP_MAX_CELL_TEMP 500
 #define UP_REAR_CONTROLLER_TEMPS 500
 #define UP_PRECHARGE_HB 100
 #define UP_TORQUE_REQUEST_MAIN 15
@@ -458,6 +459,8 @@ typedef struct {
     } orion_errors;
     struct {
         uint16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
     } max_cell_temp;
     struct {
         uint8_t left_temp;

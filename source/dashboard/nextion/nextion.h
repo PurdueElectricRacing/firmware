@@ -23,6 +23,7 @@
 #define RED    63488
 #define YELLOW 65504
 #define GREEN  4065
+#define RACE_GREEN 1376
 #define WHITE 65535
 #define BLACK 0
 

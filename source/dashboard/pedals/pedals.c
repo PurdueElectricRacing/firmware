@@ -16,6 +16,8 @@ uint8_t b3_idx = 0;
 uint8_t t1_idx = 0;
 uint8_t t2_idx = 0;
 
+uint16_t filtered_pedals;
+
 uint16_t b3_offset = 0;
 uint32_t b3_start_cal_time = 0;
 uint8_t  b3_cal_complete = 0;
@@ -200,7 +202,7 @@ void pedalsPeriodic(void)
     // {
     //     t2 = 0;
     // }
-
+    filtered_pedals = t2;
 
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_pedals.t1,
                             raw_pedals.t2, raw_pedals.b1,

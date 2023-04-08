@@ -31,6 +31,8 @@
 #define ID_ANGLE_DATA 0x4008104
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_MOD_CELL_TEMP_AVG 0x14008084
+#define ID_MOD_CELL_TEMP_MAX 0x14008104
+#define ID_MOD_CELL_TEMP_MIN 0x14008204
 #define ID_RAW_CELL_TEMP 0x140080c4
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
 #define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
@@ -78,6 +80,8 @@
 #define DLC_ANGLE_DATA 6
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_MOD_CELL_TEMP_AVG 8
+#define DLC_MOD_CELL_TEMP_MAX 8
+#define DLC_MOD_CELL_TEMP_MIN 8
 #define DLC_RAW_CELL_TEMP 7
 #define DLC_FAULT_SYNC_PRECHARGE 3
 #define DLC_DAQ_RESPONSE_PRECHARGE 8
@@ -196,6 +200,24 @@
         data_a->mod_cell_temp_avg.temp_D = temp_D_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_MOD_CELL_TEMP_MAX(queue, temp_A_, temp_B_, temp_C_, temp_D_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MAX, .DLC=DLC_MOD_CELL_TEMP_MAX, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->mod_cell_temp_max.temp_A = temp_A_;\
+        data_a->mod_cell_temp_max.temp_B = temp_B_;\
+        data_a->mod_cell_temp_max.temp_C = temp_C_;\
+        data_a->mod_cell_temp_max.temp_D = temp_D_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_MOD_CELL_TEMP_MIN(queue, temp_A_, temp_B_, temp_C_, temp_D_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MIN, .DLC=DLC_MOD_CELL_TEMP_MIN, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->mod_cell_temp_min.temp_A = temp_A_;\
+        data_a->mod_cell_temp_min.temp_B = temp_B_;\
+        data_a->mod_cell_temp_min.temp_C = temp_C_;\
+        data_a->mod_cell_temp_min.temp_D = temp_D_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_RAW_CELL_TEMP(queue, index_, temp_A_, temp_B_, temp_C_, temp_D_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP, .DLC=DLC_RAW_CELL_TEMP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -288,6 +310,18 @@ typedef union {
         uint64_t temp_C: 16;
         uint64_t temp_D: 16;
     } mod_cell_temp_avg;
+    struct {
+        uint64_t temp_A: 16;
+        uint64_t temp_B: 16;
+        uint64_t temp_C: 16;
+        uint64_t temp_D: 16;
+    } mod_cell_temp_max;
+    struct {
+        uint64_t temp_A: 16;
+        uint64_t temp_B: 16;
+        uint64_t temp_C: 16;
+        uint64_t temp_D: 16;
+    } mod_cell_temp_min;
     struct {
         uint64_t index: 8;
         uint64_t temp_A: 12;

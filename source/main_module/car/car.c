@@ -5,6 +5,8 @@ extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 
+bool high_Voltage = 0;
+
 bool validatePrecharge();
 
 bool carInit()
@@ -19,8 +21,8 @@ bool carInit()
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
     /* Motor Controller Initialization */
-    mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
-    mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
+    mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &high_Voltage);//&car.pchg.pchg_complete);
+    mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &high_Voltage);//&car.pchg.pchg_complete);
 }
 
 void carHeartbeat()
@@ -210,6 +212,8 @@ void carPeriodic()
     {
         // TODO: control fan speed based on throttle and steering angle
     }
+
+    high_Voltage = (car.state == CAR_STATE_READY2DRIVE);
 
     /* Update System Outputs */
     car.buzzer = car.state == CAR_STATE_BUZZING;

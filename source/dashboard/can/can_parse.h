@@ -37,6 +37,9 @@
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_FLOWRATE_TEMPS 0x4000881
+#define ID_COOLANT_OUT 0x40008c1
+#define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
@@ -67,6 +70,9 @@
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_PRECHARGE_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_FLOWRATE_TEMPS 8
+#define DLC_COOLANT_OUT 3
+#define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
@@ -148,6 +154,9 @@
 #define UP_REAR_CONTROLLER_TEMPS 500
 #define UP_PRECHARGE_HB 100
 #define UP_TORQUE_REQUEST_MAIN 15
+#define UP_FLOWRATE_TEMPS 200
+#define UP_COOLANT_OUT 1000
+#define UP_GEARBOX 2000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -296,6 +305,27 @@ typedef union {
         uint64_t rear_left: 16;
         uint64_t rear_right: 16;
     } torque_request_main;
+    struct {
+        uint64_t battery_in_temp: 8;
+        uint64_t battery_out_temp: 8;
+        uint64_t drivetrain_in_temp: 8;
+        uint64_t drivetrain_out_temp: 8;
+        uint64_t battery_flowrate: 8;
+        uint64_t drivetrain_flowrate: 8;
+        uint64_t battery_fan_speed: 8;
+        uint64_t drivetrain_fan_speed: 8;
+    } flowrate_temps;
+    struct {
+        uint64_t bat_fan: 8;
+        uint64_t dt_fan: 8;
+        uint64_t bat_pump: 1;
+        uint64_t bat_pump_aux: 1;
+        uint64_t dt_pump: 1;
+    } coolant_out;
+    struct {
+        uint64_t l_temp: 8;
+        uint64_t r_temp: 8;
+    } gearbox;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -450,6 +480,33 @@ typedef struct {
         uint32_t last_rx;
     } torque_request_main;
     struct {
+        int8_t battery_in_temp;
+        int8_t battery_out_temp;
+        int8_t drivetrain_in_temp;
+        int8_t drivetrain_out_temp;
+        uint8_t battery_flowrate;
+        uint8_t drivetrain_flowrate;
+        uint8_t battery_fan_speed;
+        uint8_t drivetrain_fan_speed;
+        uint8_t stale;
+        uint32_t last_rx;
+    } flowrate_temps;
+    struct {
+        uint8_t bat_fan;
+        uint8_t dt_fan;
+        uint8_t bat_pump;
+        uint8_t bat_pump_aux;
+        uint8_t dt_pump;
+        uint8_t stale;
+        uint32_t last_rx;
+    } coolant_out;
+    struct {
+        uint8_t l_temp;
+        uint8_t r_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } gearbox;
+    struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
@@ -490,6 +547,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void coolant_out_CALLBACK(CanParsedData_t* msg_data_a);
 extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);

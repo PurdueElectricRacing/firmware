@@ -379,7 +379,7 @@
                         {   "msg_name":"max_cell_temp",
                             "msg_desc":"maximum cell temperature for the whole pack",
                             "signals":[
-                                {"sig_name":"max_temp","type":"uint16_t","length":16, "scale": 0.1}
+                                {"sig_name":"max_temp","type": "uint16_t", "scale": 0.01}
                             ],
                             "msg_period":0,
                             "msg_hlp":1,
@@ -388,23 +388,47 @@
                         {   "msg_name": "mod_cell_temp_avg",
                             "msg_desc": "Average cell temperature for each module",
                             "signals":[
-                                {"sig_name": "temp_A", "type": "uint16_t", "length": 16, "scale": 0.1},
-                                {"sig_name": "temp_B", "type": "uint16_t", "length": 16, "scale": 0.1},
-                                {"sig_name": "temp_C", "type": "uint16_t", "length": 16, "scale": 0.1},
-                                {"sig_name": "temp_D", "type": "uint16_t", "length": 16, "scale": 0.1}
+                                {"sig_name": "temp_A", "type": "uint16_t", "scale": 0.01},
+                                {"sig_name": "temp_B", "type": "uint16_t", "scale": 0.01},
+                                {"sig_name": "temp_C", "type": "uint16_t", "scale": 0.01},
+                                {"sig_name": "temp_D", "type": "uint16_t", "scale": 0.01}
                             ],
                             "msg_period":0,
                             "msg_hlp":5,
                             "msg_pgn":514
                         },
+                        {"msg_name": "mod_cell_temp_max",
+                        "msg_desc": "Max cell temperature for each module",
+                        "signals":[
+                            {"sig_name": "temp_A", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_B", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_C", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_D", "type": "uint16_t", "scale": 0.01}
+                        ],
+                        "msg_period":0,
+                        "msg_hlp":5,
+                        "msg_pgn":516
+                    },
+                    {"msg_name": "mod_cell_temp_min",
+                        "msg_desc": "Min cell temperature for each module",
+                        "signals":[
+                            {"sig_name": "temp_A", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_B", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_C", "type": "uint16_t", "scale": 0.01},
+                            {"sig_name": "temp_D", "type": "uint16_t", "scale": 0.01}
+                        ],
+                        "msg_period":0,
+                        "msg_hlp":5,
+                        "msg_pgn":520
+                    },
                         {   "msg_name": "raw_cell_temp",
                             "msg_desc": "Raw cell temperature for each module of thermistor at index",
                             "signals":[
                                 {"sig_name": "index",  "type": "uint8_t",  "length": 8},
-                                {"sig_name": "temp_A", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
-                                {"sig_name": "temp_B", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
-                                {"sig_name": "temp_C", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"},
-                                {"sig_name": "temp_D", "type": "uint16_t", "length": 12, "scale": 0.1, "unit": "C"}
+                                {"sig_name": "temp_A", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"},
+                                {"sig_name": "temp_B", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"},
+                                {"sig_name": "temp_C", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"},
+                                {"sig_name": "temp_D", "type": "uint16_t", "length": 12, "scale": 0.01, "unit": "C"}
                             ],
                             "msg_period":0,
                             "msg_hlp":5,
@@ -581,6 +605,9 @@
                         {"msg_name": "rear_controller_temps"},
                         {"msg_name": "precharge_hb"},
                         {"msg_name": "torque_request_main"},
+                        {"msg_name": "flowrate_temps"},
+                        {"msg_name": "coolant_out", "callback": true},
+                        {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true}
                     ]
                 },
@@ -1477,20 +1504,6 @@
                     "node_name": "TEST_NODE",
                     "node_ssa":63,
                     "tx":[
-                        {   "msg_name":"elcon_charger_status2",
-                            "msg_desc":"Realtime charger status",
-                            "signals":[
-                                {"sig_name":"charge_voltage","unit":"V", "scale": 0.1, "type":"uint16_t","length":16},
-                                {"sig_name":"charge_current", "unit":"A", "scale": 0.1, "type":"uint16_t","length":16},
-                                {"sig_name":"hw_fail", "sig_desc": "Hardware failure","type":"uint8_t","length":1},
-                                {"sig_name":"temp_fail", "sig_desc": "Temperature failure","type":"uint8_t","length":1},
-                                {"sig_name":"input_v_fail", "sig_desc": "Input voltage failure","type":"uint8_t","length":1},
-                                {"sig_name":"startup_fail", "sig_desc": "Startup voltage detection failure","type":"uint8_t","length":1},
-                                {"sig_name":"communication_fail", "sig_desc": " 5s timeout from communication failure","type":"uint8_t","length":1}
-                            ],
-                            "msg_id_override": "0x18FF50E5",
-                            "msg_period": 2000
-                        },
                         {   "msg_name":"orion_currents_volts2",
                             "msg_desc":"Pack current + voltage",
                             "signals":[

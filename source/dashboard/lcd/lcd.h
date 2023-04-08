@@ -36,9 +36,11 @@
 #define B_FAN1_TXT "t5"
 #define B_FAN2_TXT "t6"
 #define B_PUMP_TXT "t7"
-#define DT_FAN_OP "c0"
+#define DT_FAN_BAR "j0"
+#define DT_FAN_VAL "t8"
 #define DT_PUMP_OP "c1"
-#define B_FAN1_OP "c2"
+#define B_FAN1_BAR "j1"
+#define B_FAN1_VAL "t9"
 #define B_FAN2_OP "c3"
 #define B_PUMP_OP "c4"
 
@@ -50,8 +52,31 @@
 #define TV_HOVER_FG_I 33823
 #define TV_HOVER_BG 52857
 #define SETTINGS_HOVER_BG 28223
+#define SETTINGS_BAR_BG 48631
+#define SETTINGS_BAR_FG 495
 #define SETTINGS_BG 1214
 #define SETTINGS_FG BLACK
+#define INFO_GRAY 48631
+#define SETTINGS_UV_SELECT 31727
+#define ORANGE 64512
+
+//Race/Data pages
+#define THROT_BAR "j1"
+#define POW_LIM_BAR "j0"
+
+//Race specific Values
+#define TV_FL "t2"
+#define TV_FR "t3"
+#define TV_LR "t5"
+#define TV_RR "t4"
+#define BATT_TEMP "t8"
+#define BATT_VOLT "t10"
+#define BATT_CURR "t13"
+#define MOT_TEMP "t20"
+#define GEAR_TEMP "t21"
+#define CAR_STAT "t22"
+#define SPEED "t0"
+
 
 typedef enum {
   PAGE_PREFLIGHT,
@@ -86,7 +111,9 @@ typedef enum {
   DT_PUMP_HOVER,
   FAN1_HOVER,
   FAN2_HOVER,
-  PUMP_HOVER
+  PUMP_HOVER,
+  DT_FAN_SELECT,
+  FAN1_SELECT
 } hover_state_t;
 
 typedef struct {
@@ -95,6 +122,8 @@ typedef struct {
   bool b_fan1_selected;
   bool b_fan2_selected;
   bool b_pump_selected;
+  uint8_t d_fan_val;
+  uint8_t b_fan_val;
   hover_state_t curr_hover;
 } settings_t;
 
@@ -109,6 +138,8 @@ void updateFaultDisplay();
 void knobDisplay();
 void send_p_val();
 void send_i_val();
+void update_data_pages();
 char *get_deadband();
+char *int_to_char(uint8_t val, char *val_to_send);
 
 #endif

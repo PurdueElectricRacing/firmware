@@ -5,16 +5,20 @@ volatile raw_pedals_shockpots_t raw_pedals = {0};
 
 pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
                                          .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
-                                         .b1max=1000,.b1min=700, // VALUE WILL CHANGE
-                                         .b2max=820,.b2min=690, // 1400, 400
+                                         .b1max=4095,.b1min=410, // VALUE WILL CHANGE
+                                         .b2max=4095,.b2min=0, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};
 uint16_t t1_buff[10] = {0};
 uint16_t t2_buff[10] = {0};
+uint16_t b1_buff[10] = {0};
+uint16_t b2_buff[10] = {0};
 uint8_t b3_idx = 0;
 uint8_t t1_idx = 0;
 uint8_t t2_idx = 0;
+uint8_t b1_idx = 0;
+uint8_t b2_idx = 0;
 
 uint16_t filtered_pedals;
 
@@ -93,20 +97,30 @@ void pedalsPeriodic(void)
 
     t1_buff[t1_idx++] = t1;
     t2_buff[t2_idx++] = t2;
+    b1_buff[b1_idx++] = b1;
+    b2_buff[b2_idx++] = b2;
 
     t1_idx = t1_idx % 10;
     t2_idx = t2_idx % 10;
+    b1_idx %= 10;
+    b2_idx %= 10;
 
     uint32_t t1_avg = 0;
     uint32_t t2_avg = 0;
+    uint32_t b1_avg = 0;
+    uint32_t b2_avg = 0;
 
     for (uint8_t i = 0; i < 10; i++) {
         t1_avg += t1_buff[i];
         t2_avg += t2_buff[i];
+        b1_avg += b1_buff[i];
+        b2_avg += b2_buff[i];
     }
 
     t1 =  (uint16_t) (t1_avg / 10);
     t2 = (uint16_t) (t2_avg / 10);
+    b1 = (uint16_t) (b1_avg / 10);
+    b2 = (uint16_t) (b2_avg / 10);
 
 
 
@@ -133,8 +147,8 @@ void pedalsPeriodic(void)
         // Mask
     // t1 &= 0xFFFC;
     // t2 &= 0xFFFC;
-    b1 &= 0xFFFC;
-    b2 &= 0xFFFC;
+    // b1 &= 0xFFFC;
+    // b2 &= 0xFFFC;
     b3 &= 0xFFFC;
 
 

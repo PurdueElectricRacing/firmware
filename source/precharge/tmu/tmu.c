@@ -66,41 +66,73 @@ void readTemps(tmu_handle_t *tmu) {
     tmu->tmu3_avg -= tmu->tmu3[i];
     tmu->tmu4_avg -= tmu->tmu4[i];
 
-    //Convert the read resistance to temperature
-    resistance_to_temp(tmu1_r2, &tmu->tmu1[i]);
-    if (i != 3 && i != 8)
-        resistance_to_temp(tmu2_r2, &tmu->tmu2[i]);
-    if (i != 0 && i != 8)
-        resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
-    if (i != 1 && i != 2)
+    if (i != 0) {
+
+    }
+
+    if (i != 1 && i != 2) {
         resistance_to_temp(tmu4_r2, &tmu->tmu4[i]);
+        tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
+        tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
+        tmu->tmu4_avg += tmu->tmu4[i];
+    }
+
+    if (i != 8) {
+        if (i != 3) {
+            resistance_to_temp(tmu2_r2, &tmu->tmu2[i]);
+            tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[i]);
+            tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
+            tmu->tmu2_avg += tmu->tmu2[i];
+        }
+        if (i != 0) {
+            resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
+            tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
+            tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
+            tmu->tmu3_avg += tmu->tmu3[i];
+        }
+    }
+    if (i != 0) {
+        resistance_to_temp(tmu1_r2, &tmu->tmu1[i]);
+        tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[i]);
+        tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[i]);
+        tmu->tmu1_avg += tmu->tmu1[i];
+    }
+
+    //Convert the read resistance to temperature
+    // resistance_to_temp(tmu1_r2, &tmu->tmu1[i]);
+    // if (i != 3 && i != 8)
+    //     resistance_to_temp(tmu2_r2, &tmu->tmu2[i]);
+    // if (i != 0 && i != 8)
+    //     resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
+    // if (i != 1 && i != 2)
+    //     resistance_to_temp(tmu4_r2, &tmu->tmu4[i]);
 
     //Check whether this is a new maximum value
-    tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[i]);
-    if (i != 3 && i != 8)
-        tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[i]);
-    if (i != 0 && i != 8)
-        tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
-    if (i != 1 && i != 2)
-        tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
+    // tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[i]);
+    // if (i != 3 && i != 8)
+    //     tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[i]);
+    // if (i != 0 && i != 8)
+    //     tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
+    // if (i != 1 && i != 2)
+    //     tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
 
-    tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[i]);
-    if (i != 3 && i != 8)
-        tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
-    if (i != 0& i != 8)
-        tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
-    if (i != 1 && i != 2)
-        tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
+    // tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[i]);
+    // if (i != 3 && i != 8)
+    //     tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
+    // if (i != 0& i != 8)
+    //     tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
+    // if (i != 1 && i != 2)
+    //     tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
 
 
     //Add new thermistor value to moving average
-    tmu->tmu1_avg += tmu->tmu1[i];
-    if (i != 3 && i != 8)
-        tmu->tmu2_avg += tmu->tmu2[i];
-    if (i != 0 && i != 8)
-        tmu->tmu3_avg += tmu->tmu3[i];
-    if (i != 1 && i != 2)
-        tmu->tmu4_avg += tmu->tmu4[i];
+    // tmu->tmu1_avg += tmu->tmu1[i];
+    // if (i != 3 && i != 8)
+    //     tmu->tmu2_avg += tmu->tmu2[i];
+    // if (i != 0 && i != 8)
+    //     tmu->tmu3_avg += tmu->tmu3[i];
+    // if (i != 1 && i != 2)
+    //     tmu->tmu4_avg += tmu->tmu4[i];
 
     // tmu->tmu1[i] = tmu->tmu1_volts * 100;
     // if (i != 3 && i != 8)

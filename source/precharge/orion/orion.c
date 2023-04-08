@@ -89,7 +89,7 @@ void orionChargePeriodic() {
 
     /* TODO: charge_request_user &= !can_data.elcon_charger_status.stale; */
     // charge_request_user  = 1; // TODO: remove
-    if (charge_request_user && orion_charger_status && !orionErrors()) {
+    if (charge_request_user && orion_charger_status && !orionErrors() && !errorLatched() && !fatalLatched()) {
             elcon_charge_enable = true;
 
             // user_charge_current_request = 11;

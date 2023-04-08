@@ -209,12 +209,10 @@ int main (void)
    schedInit(SystemCoreClock);
    configureAnim(preflightAnimation, preflightChecks, 75, 750);
    taskCreate(heartBeatLED, 500);
-//    taskCreate(orionCheckTempsPeriodic, 500);
    taskCreate(monitorStatus, 50);
    taskCreate(orionChargePeriodic, 50);
    taskCreate(heartBeatTask, 100);
    taskCreate(updateFaults, 1);
-   // taskCreate(sendIMUData, 10);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
 
@@ -316,12 +314,12 @@ void monitorStatus()
 
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
-   PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
+   PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
    readTemps(&tmu);
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, imd_err || orion_error);
+   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, orion_error);
 }
 
 

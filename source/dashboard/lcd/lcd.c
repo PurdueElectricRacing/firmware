@@ -556,7 +556,7 @@ void update_data_pages() {
             set_text(TV_FR, NXT_TEXT, "S");
             set_text(TV_LR, NXT_TEXT, "S");
             set_text(TV_RR, NXT_TEXT, "S");
-                        if (can_data.main_hb.stale) {
+            if (can_data.main_hb.stale) {
                 set_text(CAR_STAT, NXT_TEXT, "S");
                 set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
             }
@@ -578,9 +578,24 @@ void update_data_pages() {
                         break;
                 }
             }
-            set_text(BATT_CURR, NXT_TEXT, "S");
-            set_text(BATT_VOLT, NXT_TEXT, "S");
-            set_text(BATT_TEMP, NXT_TEXT, "S");
+            if (can_data.max_cell_temp.stale) {
+                set_text(BATT_TEMP, NXT_TEXT, "S");
+            }
+            else {
+                set_text(BATT_TEMP, NXT_TEXT, int_to_char((can_data.max_cell_temp.max_temp / 100), parsed_value));
+                bzero(parsed_value, 3);
+            }
+            if (can_data.orion_currents_volts.stale) {
+                set_text(BATT_VOLT, NXT_TEXT, "S");
+                set_text(BATT_CURR, NXT_TEXT, "S");
+            }
+            else {
+                set_text(BATT_VOLT, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_voltage / 10), parsed_value));
+                bzero(parsed_value, 3);
+                set_text(BATT_CURR, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_current / 10), parsed_value));
+                bzero(parsed_value, 3);
+            }
+
             set_text(SPEED, NXT_TEXT, "S");
             // set_text(GEAR_TEMP, NXT_TEXT, "S");
             break;
@@ -723,7 +738,7 @@ char *get_deadband() {
     }
 }
 
-char *int_to_char(uint8_t val, char *val_to_send) {
+char *int_to_char(uint16_t val, char *val_to_send) {
     char *orig_ptr = val_to_send;
     if (val < 10) {
         *val_to_send = (char)(val + 48);

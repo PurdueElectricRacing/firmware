@@ -140,6 +140,6 @@ void send_p_val();
 void send_i_val();
 void update_data_pages();
 char *get_deadband();
-char *int_to_char(uint8_t val, char *val_to_send);
+char *int_to_char(uint16_t val, char *val_to_send);
 
 #endif

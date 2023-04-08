@@ -404,7 +404,7 @@
                             "signals":[
                                 {"sig_name":"max_temp","type": "uint16_t", "scale": 0.01}
                             ],
-                            "msg_period":0,
+                            "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":5016
                         },

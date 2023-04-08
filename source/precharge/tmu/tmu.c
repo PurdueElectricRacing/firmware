@@ -8,7 +8,7 @@
 
 extern q_handle_t q_tx_can;
 uint8_t i;
-
+bool overtemp = false;
 
 //Function defs not needed by any other file
 void resistance_to_temp(float resistance, uint16_t *temp);
@@ -28,6 +28,10 @@ bool initTMU(tmu_handle_t *tmu) {
         i = 0;
        return true;
    }
+    PHAL_writeGPIO(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, 0);
+    PHAL_writeGPIO(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, 0);
+    PHAL_writeGPIO(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, 0);
+    PHAL_writeGPIO(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, 0);
    return false;
 }
 
@@ -35,12 +39,6 @@ bool initTMU(tmu_handle_t *tmu) {
 void readTemps(tmu_handle_t *tmu) {
    uint8_t spi_tx_buffer[11] = {0};
    uint8_t spi_rx_buffer[11] = {0};
-
-    //Select the MUX pin on each TMU board to read the thermistor value
-    PHAL_writeGPIO(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, (i & 0x1));
-    PHAL_writeGPIO(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, (i & 0x2));
-    PHAL_writeGPIO(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, (i & 0x4));
-    PHAL_writeGPIO(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, (i & 0x8));
 
 
     //Read the therm value
@@ -70,35 +68,57 @@ void readTemps(tmu_handle_t *tmu) {
 
     //Convert the read resistance to temperature
     resistance_to_temp(tmu1_r2, &tmu->tmu1[i]);
-    resistance_to_temp(tmu2_r2, &tmu->tmu2[i]);
-    resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
-    resistance_to_temp(tmu4_r2, &tmu->tmu4[i]);
+    if (i != 3 && i != 8)
+        resistance_to_temp(tmu2_r2, &tmu->tmu2[i]);
+    if (i != 0 && i != 8)
+        resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
+    if (i != 1 && i != 2)
+        resistance_to_temp(tmu4_r2, &tmu->tmu4[i]);
 
     //Check whether this is a new maximum value
     tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[i]);
-    tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[i]);
-    tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
-    tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
+    if (i != 3 && i != 8)
+        tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[i]);
+    if (i != 0 && i != 8)
+        tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
+    if (i != 1 && i != 2)
+        tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
 
     tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[i]);
-    tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
-    tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
-    tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
+    if (i != 3 && i != 8)
+        tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
+    if (i != 0& i != 8)
+        tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
+    if (i != 1 && i != 2)
+        tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
 
 
     //Add new thermistor value to moving average
     tmu->tmu1_avg += tmu->tmu1[i];
-    tmu->tmu2_avg += tmu->tmu2[i];
-    tmu->tmu3_avg += tmu->tmu3[i];
-    tmu->tmu4_avg += tmu->tmu4[i];
+    if (i != 3 && i != 8)
+        tmu->tmu2_avg += tmu->tmu2[i];
+    if (i != 0 && i != 8)
+        tmu->tmu3_avg += tmu->tmu3[i];
+    if (i != 1 && i != 2)
+        tmu->tmu4_avg += tmu->tmu4[i];
+
+    // tmu->tmu1[i] = tmu->tmu1_volts * 100;
+    // if (i != 3 && i != 8)
+    //     tmu->tmu2[i] = tmu->tmu2_volts * 100;
+    // if (i != 0 && i != 8)
+    //     tmu->tmu3[i] = tmu->tmu3_volts * 100;
+    // if (i != 1 && i != 2)
+    //     tmu->tmu4[i] = tmu->tmu4_volts * 100;
 
 
 
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / NUM_THERM), (tmu->tmu3_avg / NUM_THERM), (tmu->tmu4_avg / NUM_THERM));
+
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / (NUM_THERM - 2)), (tmu->tmu3_avg / (NUM_THERM - 2)), (tmu->tmu4_avg / (NUM_THERM - 2)));
     SEND_RAW_CELL_TEMP(q_tx_can, i, tmu->tmu1[i], tmu->tmu2[i], tmu->tmu3[i], tmu->tmu4[i]);
 
     if ((i + 1) < NUM_THERM) {
         i++;
+            //Select the MUX pin on each TMU board to read the thermistor value
     }
     else {
         SEND_MOD_CELL_TEMP_MAX(q_tx_can, tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
@@ -122,9 +142,10 @@ void readTemps(tmu_handle_t *tmu) {
     }
 
 
-
-
-
+    PHAL_writeGPIO(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, (i & 0x1));
+    PHAL_writeGPIO(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, (i & 0x2));
+    PHAL_writeGPIO(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, (i & 0x4));
+    PHAL_writeGPIO(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, (i & 0x8));
 
 }
 

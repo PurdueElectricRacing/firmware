@@ -63,10 +63,10 @@ bool orionErrors() {
         bms_err = true;
     }
 
-    orion_error = bms_err;
+    orion_error = bms_err || isLatched(ID_PACK_TEMP_EXCEEDED_FAULT);
 
-    return (bms_err
-            /* TODO: can_data.orion_info.stale || */);
+    return (orion_error);
+            /* TODO: can_data.orion_info.stale || );*/
 }
 
 /*

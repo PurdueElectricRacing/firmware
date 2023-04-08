@@ -58,6 +58,12 @@ GPIOInitConfig_t gpio_config[] = {
    GPIO_INIT_OUTPUT(ERROR_LED_GPIO_Port, ERROR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
    GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+
+   //Select Pins
+   GPIO_INIT_OUTPUT(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED)
 };
 
 
@@ -295,8 +301,6 @@ void heartBeatLED()
 
     bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
-    setFault(ID_IMD_FAULT, imd_status);
-
 
    SEND_PRECHARGE_HB(q_tx_can, imd_status, orion_error);
 }
@@ -314,6 +318,10 @@ void monitorStatus()
 
    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err | imd_err);
    readTemps(&tmu);
+
+   setFault(ID_IMD_FAULT, imd_err);
+
+   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, imd_err || orion_error);
 }
 
 

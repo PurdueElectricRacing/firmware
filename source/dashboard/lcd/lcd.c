@@ -558,13 +558,13 @@ void update_data_pages() {
             set_text(TV_RR, NXT_TEXT, "S");
             if (can_data.main_hb.stale) {
                 set_text(CAR_STAT, NXT_TEXT, "S");
-                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, BLACK);
             }
             else {
                 switch(can_data.main_hb.car_state) {
                     case CAR_STATE_IDLE:
                         if (can_data.main_hb.precharge_state == 0) {
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, YELLOW);
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
                             set_text(CAR_STAT, NXT_TEXT, "ACC");
                         }
                         else {
@@ -575,6 +575,14 @@ void update_data_pages() {
                     case CAR_STATE_READY2DRIVE:
                         set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RACE_GREEN);
                         set_text(CAR_STAT, NXT_TEXT, "ON");
+                        break;
+                    case CAR_STATE_ERROR:
+                        set_value(CAR_STAT, NXT_BACKGROUND_COLOR, YELLOW);
+                        set_text(CAR_STAT, NXT_TEXT, "Err");
+                        break;
+                    case CAR_STATE_FATAL:
+                        set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RED);
+                        set_text(CAR_STAT, NXT_TEXT, "FTL");
                         break;
                 }
             }

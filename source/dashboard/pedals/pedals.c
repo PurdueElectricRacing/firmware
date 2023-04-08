@@ -5,8 +5,8 @@ volatile raw_pedals_shockpots_t raw_pedals = {0};
 
 pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
                                          .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
-                                         .b1max=4095,.b1min=410, // VALUE WILL CHANGE
-                                         .b2max=4095,.b2min=0, // 1400, 400
+                                         .b1max=1200,.b1min=410, // VALUE WILL CHANGE
+                                         .b2max=1050,.b2min=400, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};
@@ -87,7 +87,7 @@ void pedalsPeriodic(void)
 
     setFault(ID_BSE_WIRING_B1_FAULT, b1);
     setFault(ID_BSE_WIRING_B2_FAULT, b2);
-    setFault(ID_BSE_WIRING_B3_FAULT, b3);
+    // setFault(ID_BSE_WIRING_B3_FAULT, b3);
 
     float t1_volts = (VREF / 0xFFFU) * t1;
     float t2_volts = (VREF / 0XFFFU) * t2;
@@ -206,6 +206,7 @@ void pedalsPeriodic(void)
     {
         setFault(ID_APPS_BRAKE_FAULT, false);
     }
+    setFault(ID_APPS_BRAKE_IMPLAUS_FAULT, ((b2>b1)?(b2-b1):(b1-b2)));
 
 
 

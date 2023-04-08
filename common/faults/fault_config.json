@@ -107,8 +107,8 @@
                 },
                 {
                     "fault_name": "BSE_wiring_b1",
-                    "max": 3891,
-                    "min": 51,
+                    "max": 2500,
+                    "min": 150,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -116,21 +116,12 @@
                 },
                 {
                     "fault_name": "BSE_wiring_b2",
-                    "max": 3891,
-                    "min": 51,
+                    "max": 2500,
+                    "min": 150,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
                     "lcd_message": "BSE Wiring Fail B2"
-                },
-                {
-                    "fault_name": "BSE_wiring_b3",
-                    "max": 3891,
-                    "min": 0,
-                    "priority": "error",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 1000,
-                    "lcd_message": "BSE Wiring Fail B3"
                 },
                 {
                     "fault_name": "Implaus_detected",
@@ -149,6 +140,15 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
                     "lcd_message": "APPS Brake Fault"
+                },
+                {
+                    "fault_name": "APPS_brake_implaus",
+                    "max": 500,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Invalid Brake Pressure"
                 }
             ]
         },

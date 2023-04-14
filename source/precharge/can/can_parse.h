@@ -25,6 +25,7 @@
 #define ID_BALANCE_REQUEST 0xc00002a
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
+#define ID_NUM_THEM_BAD 0x80080c4
 #define ID_PACK_CHARGE_STATUS 0x8008084
 #define ID_GYRO_DATA 0x4008004
 #define ID_ACCEL_DATA 0x4008044
@@ -74,6 +75,7 @@
 #define DLC_BALANCE_REQUEST 2
 #define DLC_PRECHARGE_HB 2
 #define DLC_ELCON_CHARGER_COMMAND 5
+#define DLC_NUM_THEM_BAD 4
 #define DLC_PACK_CHARGE_STATUS 7
 #define DLC_GYRO_DATA 6
 #define DLC_ACCEL_DATA 6
@@ -150,6 +152,15 @@
         data_a->elcon_charger_command.voltage_limit = voltage_limit_;\
         data_a->elcon_charger_command.current_limit = current_limit_;\
         data_a->elcon_charger_command.charge_disable = charge_disable_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_NUM_THEM_BAD(queue, module_1_, module_2_, module_3_, module_4_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_THEM_BAD, .DLC=DLC_NUM_THEM_BAD, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->num_them_bad.module_1 = module_1_;\
+        data_a->num_them_bad.module_2 = module_2_;\
+        data_a->num_them_bad.module_3 = module_3_;\
+        data_a->num_them_bad.module_4 = module_4_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, voltage_, current_) do {\
@@ -280,6 +291,12 @@ typedef union {
         uint64_t current_limit: 16;
         uint64_t charge_disable: 1;
     } elcon_charger_command;
+    struct {
+        uint64_t module_1: 8;
+        uint64_t module_2: 8;
+        uint64_t module_3: 8;
+        uint64_t module_4: 8;
+    } num_them_bad;
     struct {
         uint64_t power: 16;
         uint64_t charge_enable: 1;

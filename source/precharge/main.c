@@ -319,7 +319,7 @@ void monitorStatus()
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, orion_error);
+   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, bms_err | imd_err);
 }
 
 

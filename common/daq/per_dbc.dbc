@@ -179,6 +179,12 @@ BO_ 2550588916 elcon_charger_command: 5 Precharge
  SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
 
+BO_ 2281734340 num_them_bad: 4 Precharge
+ SG_ module_4 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ module_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ module_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ module_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2281734276 pack_charge_status: 7 Precharge
  SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
@@ -886,6 +892,11 @@ CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
 CM_ SG_ 2550588916 charge_disable "Disable charging";
 CM_ SG_ 2550588916 current_limit "Charge current";
 CM_ SG_ 2550588916 voltage_limit "Charge voltage";
+CM_ BO_ 2281734340 "Number of wonky thermistors on pack";
+CM_ SG_ 2281734340 module_4 "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 module_3 "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 module_2 "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 module_1 "Number of thermistors > 1.5v";
 CM_ BO_ 2281734276 "Send charge information";
 CM_ SG_ 2281734276 current "Instantaneous charge current";
 CM_ SG_ 2281734276 voltage "Instantaneous charge voltage";

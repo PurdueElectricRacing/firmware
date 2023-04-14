@@ -327,6 +327,19 @@
                             "msg_period": 1000
                         },
                         {
+                            "msg_name": "num_them_bad",
+                            "msg_desc": "Number of wonky thermistors on pack",
+                            "signals":[
+                                {"sig_name": "module_1", "sig_desc": "Number of thermistors > 1.5v", "type": "uint8_t"},
+                                {"sig_name": "module_2", "sig_desc": "Number of thermistors > 1.5v", "type": "uint8_t"},
+                                {"sig_name": "module_3", "sig_desc": "Number of thermistors > 1.5v", "type": "uint8_t"},
+                                {"sig_name": "module_4", "sig_desc": "Number of thermistors > 1.5v", "type": "uint8_t"}
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 2,
+                            "msg_pgn": 515
+                        },
+                        {
                             "msg_name": "pack_charge_status",
                             "msg_desc": "Send charge information",
                             "signals": [

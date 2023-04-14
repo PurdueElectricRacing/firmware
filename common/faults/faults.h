@@ -458,6 +458,7 @@ bool errorLatched();
 bool fatalLatched();
 bool otherMCUsLatched();
 bool isLatched();
+bool checkFault(int id);
 fault_attributes_t getFault(int id);
 
 #endif

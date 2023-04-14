@@ -8,6 +8,7 @@
 
 extern q_handle_t q_tx_can;
 uint8_t i;
+uint8_t num_bad1, num_bad2, num_bad3, num_bad4;
 bool overtemp = false;
 
 //Function defs not needed by any other file
@@ -28,6 +29,10 @@ bool initTMU(tmu_handle_t *tmu) {
         i = 0;
        return true;
    }
+   num_bad1 = 0;
+   num_bad2 = 0;
+   num_bad3 = 0;
+   num_bad4 = 2;
     PHAL_writeGPIO(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, 0);
     PHAL_writeGPIO(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, 0);
     PHAL_writeGPIO(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, 0);
@@ -53,6 +58,14 @@ void readTemps(tmu_handle_t *tmu) {
     tmu->tmu3_volts = (((TMU_VREF / TMU_ADDR_SIZE) * (uint16_t)((spi_rx_buffer[5] << 8) | spi_rx_buffer[6])));
     tmu->tmu4_volts = (((TMU_VREF / TMU_ADDR_SIZE) * (uint16_t)((spi_rx_buffer[7] << 8) | spi_rx_buffer[8])));
 
+    if (tmu->tmu1_volts > 1.40)
+        num_bad1++;
+    if (tmu->tmu2_volts > 1.40)
+        num_bad2++;
+    if (tmu->tmu3_volts > 1.40)
+        num_bad3++;
+    if (tmu->tmu4_volts > 1.40)
+        num_bad4++;
 
     //Resistance of Thermistor (Bottom resistor)
     float tmu1_r2 = (tmu->tmu1_volts * R1) / (TMU_VIN - tmu->tmu1_volts);
@@ -158,9 +171,14 @@ void readTemps(tmu_handle_t *tmu) {
         uint16_t max_temp = MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max));
         uint16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
         SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
+        SEND_NUM_THEM_BAD(q_tx_can, num_bad1, num_bad2, num_bad3, num_bad4);
+        num_bad1 = 0;
+        num_bad2 = 0;
+        num_bad3 = 0;
+        num_bad4 = 2;
         setFault(ID_PACK_TEMP_FAULT, max_temp);
         setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
-        setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
+        // setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
 
         i = 0;
         tmu->tmu1_max = 0;

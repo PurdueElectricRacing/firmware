@@ -4,9 +4,9 @@
  * @brief  Embedded DAQ protocol meant to communicate with a PC dashboard over CAN
  * @version 0.1
  * @date 2021-10-06
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "common/daq/daq_base.h"
 
@@ -39,7 +39,7 @@ static void flushDaqFrame(daq_tx_frame_writer_t* tx_msg);
 static void sendDaqFrame(daq_tx_frame_writer_t tx_frame);
 static void daqeQueuePop();
 static void daqeQueuePush();
-static void v_memcpy(volatile void *src, volatile void *dest, size_t len);
+static void v_memcpy(volatile void *dest, volatile void *src, size_t len);
 
 static q_handle_t* q_tx_can_a;
 static uint8_t num_vars;
@@ -47,7 +47,7 @@ static uint32_t ext_id;
 static CAN_TypeDef* can;
 static daq_variable_t* tracked_vars;
 
-bool daqInitBase(q_handle_t* tx_a, uint8_t num_variables_, CAN_TypeDef* hcan, uint32_t ext_id_, 
+bool daqInitBase(q_handle_t* tx_a, uint8_t num_variables_, CAN_TypeDef* hcan, uint32_t ext_id_,
              daq_variable_t* tracked_vars_)
 {
     q_tx_can_a = tx_a;
@@ -89,7 +89,7 @@ static bool readVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg)
         flushDaqFrame(tx_msg);
     }
     // add var id
-    appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_READ, 
+    appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_READ,
                       DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
 
     // get data
@@ -118,13 +118,13 @@ static bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg, daq_tx_frame
         // can't write to read only variable
         appendDataToFrame(tx_msg, (var_id << DAQ_CMD_LENGTH) | DAQ_RPLY_WRITE_ERROR,
                         DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
-        return true; 
+        return true;
     }
 
     rx_msg->curr_bit += DAQ_ID_LENGTH;
 
     // get data
-    uint64_t temp_storage = (*(rx_msg->raw_data_a) >> rx_msg->curr_bit) & 
+    uint64_t temp_storage = (*(rx_msg->raw_data_a) >> rx_msg->curr_bit) &
                             ~(0xFFFFFFFFFFFFFFFF << (tracked_vars[var_id].bit_length));
     // place data
     if (tracked_vars[var_id].has_write_func)
@@ -133,7 +133,7 @@ static bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg, daq_tx_frame
     }
     else
     {
-        v_memcpy(tracked_vars[var_id].write_var_a, &temp_storage, 
+        v_memcpy(tracked_vars[var_id].write_var_a, &temp_storage,
                (tracked_vars[var_id].bit_length + 7) / 8);
     }
 
@@ -253,7 +253,7 @@ void daqPeriodicBase()
     // publish
     for (uint8_t i = 0; i < num_vars; i++)
     {
-        if (tracked_vars[i].pub_period != 0 && 
+        if (tracked_vars[i].pub_period != 0 &&
             daq_tick % tracked_vars[i].pub_period == 0)
         {
             // read var and publish
@@ -265,7 +265,7 @@ void daqPeriodicBase()
             }
 
             // add var id
-            appendDataToFrame(&tx_msg, (i << DAQ_CMD_LENGTH) | DAQ_RPLY_PUB, 
+            appendDataToFrame(&tx_msg, (i << DAQ_CMD_LENGTH) | DAQ_RPLY_PUB,
                             DAQ_CMD_LENGTH + DAQ_ID_LENGTH);
 
             // get data
@@ -325,16 +325,16 @@ static void flushDaqFrame(daq_tx_frame_writer_t* tx_msg)
 // send tx frame
 static void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
 {
-    CanMsgTypeDef_t msg = {.IDE=1, 
+    CanMsgTypeDef_t msg = {.IDE=1,
                            .Bus=can,
                            .ExtId=ext_id,
                            .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
-    // v_memcpy(msg.Data, tx_frame.data, msg.DLC);
-    v_memcpy(tx_frame.data, msg.Data, msg.DLC);
+    v_memcpy(msg.Data, tx_frame.data, msg.DLC);
+    //v_memcpy(tx_frame.data, msg.Data, msg.DLC);
     qSendToBack(q_tx_can_a, &msg);
 }
 
-static void v_memcpy(volatile void *src, volatile void *dest, size_t len)
+static void v_memcpy(volatile void *dest, volatile void *src, size_t len)
 {
     for (size_t i = 0; i < len; ++i)
         ((volatile uint8_t *) dest)[i] = ((volatile uint8_t *)src)[i];

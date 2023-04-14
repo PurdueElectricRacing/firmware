@@ -480,7 +480,7 @@ bool isLatched() {
  * @return Whether requested fault is latched
  */
 bool checkFault(int id) {
-    return message[GET_IDX(id)].latched;
+    return statusArray[GET_IDX(id)].latched;
 }
 
 /**

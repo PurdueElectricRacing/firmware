@@ -97,16 +97,6 @@ void canRxUpdate()
                 can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
                 main_module_bl_cmd_CALLBACK(msg_data_a);
                 break;
-            case ID_COOLING_DRIVER_REQUEST:
-                can_data.cooling_driver_request.dt_pump = msg_data_a->cooling_driver_request.dt_pump;
-                can_data.cooling_driver_request.dt_fan = msg_data_a->cooling_driver_request.dt_fan;
-                can_data.cooling_driver_request.batt_pump = msg_data_a->cooling_driver_request.batt_pump;
-                can_data.cooling_driver_request.batt_pump2 = msg_data_a->cooling_driver_request.batt_pump2;
-                can_data.cooling_driver_request.batt_fan = msg_data_a->cooling_driver_request.batt_fan;
-                can_data.cooling_driver_request.stale = 0;
-                can_data.cooling_driver_request.last_rx = sched.os_ticks;
-                cooling_driver_request_CALLBACK(msg_data_a);
-                break;
             case ID_FAULT_SYNC_DRIVELINE:
                 can_data.fault_sync_driveline.idx = msg_data_a->fault_sync_driveline.idx;
                 can_data.fault_sync_driveline.latched = msg_data_a->fault_sync_driveline.latched;
@@ -168,9 +158,6 @@ void canRxUpdate()
     CHECK_STALE(can_data.LWS_Standard.stale,
                 sched.os_ticks, can_data.LWS_Standard.last_rx,
                 UP_LWS_STANDARD);
-    CHECK_STALE(can_data.cooling_driver_request.stale,
-                sched.os_ticks, can_data.cooling_driver_request.last_rx,
-                UP_COOLING_DRIVER_REQUEST);
     /* END AUTO STALE CHECKS */
 }
 
@@ -199,19 +186,18 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR2 = (ID_LWS_STANDARD << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
     CAN1->sFilterRegister[3].FR1 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_COOLING_DRIVER_REQUEST << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_LWS_STANDARD << 21);

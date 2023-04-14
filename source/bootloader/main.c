@@ -32,6 +32,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(GPIOB, 6, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(GPIOB, 1, GPIO_OUTPUT_LOW_SPEED),
     #endif
+    #if (APP_ID == APP_MAIN_MODULE)
+    GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED),
+    #endif
 };
     /* TODO: remove ^ */
 
@@ -86,6 +90,11 @@ int main (void)
         
     if (1 != PHAL_initCAN(CAN1, false))
         HardFault_Handler();
+
+    #if (APP_ID == APP_MAIN_MODULE)
+        PHAL_writeGPIO(GPIOD, 12, 1);
+        PHAL_writeGPIO(GPIOD, 13, 1);
+    #endif
 
     /* Module init */
     initCANParse(&q_rx_can);

@@ -64,8 +64,8 @@ BO_ 2214594753 coolant_out: 3 Main_Module
  SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
 
 BO_ 2415921409 gearbox: 2 Main_Module
- SG_ r_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ l_temp : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ r_temp : 8|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ l_temp : 0|8@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -114,6 +114,10 @@ BO_ 2348810945 rear_motor_currents_temps: 8 Main_Module
 BO_ 2348811009 rear_controller_temps: 2 Main_Module
  SG_ right_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
+
+BO_ 2281702273 rear_wheel_speeds: 8 Main_Module
+ SG_ right_speed : 32|32@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ left_speed : 0|32@1+ (1,0) [0|0] "RPM" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -841,6 +845,9 @@ CM_ SG_ 2348810945 left_current "";
 CM_ BO_ 2348811009 "Temperature of motor controllers";
 CM_ SG_ 2348811009 right_temp "";
 CM_ SG_ 2348811009 left_temp "";
+CM_ BO_ 2281702273 "Rear Wheel speeds from motor controllers";
+CM_ SG_ 2281702273 right_speed "";
+CM_ SG_ 2281702273 left_speed "";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";

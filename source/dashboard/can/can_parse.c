@@ -169,8 +169,8 @@ void canRxUpdate()
                 coolant_out_CALLBACK(msg_data_a);
                 break;
             case ID_GEARBOX:
-                can_data.gearbox.l_temp = msg_data_a->gearbox.l_temp;
-                can_data.gearbox.r_temp = msg_data_a->gearbox.r_temp;
+                can_data.gearbox.l_temp = (int8_t) msg_data_a->gearbox.l_temp;
+                can_data.gearbox.r_temp = (int8_t) msg_data_a->gearbox.r_temp;
                 can_data.gearbox.stale = 0;
                 can_data.gearbox.last_rx = sched.os_ticks;
                 break;

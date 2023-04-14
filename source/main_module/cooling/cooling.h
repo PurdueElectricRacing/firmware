@@ -63,8 +63,13 @@
 #define THERM_R1  10000 // Top resistor in voltage divider
 #define MAX_THERM 4095  // 12-bit adc precision
 // Temp (Celcius) = a * ln(resistance) + b
-#define THERM_A (-25.16)
-#define THERM_B (260.93)
+// Thermistor PN: GE-2102
+#define THERM_A (-25.16f)
+#define THERM_B (260.93f)
+
+// Thermistor PN: USP10981
+#define DT_THERM_A (-22.93f)
+#define DT_THERM_B (241.39f)
 
 #define AVG_WINDOW_SIZE 10
 

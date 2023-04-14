@@ -97,13 +97,11 @@ void readTemps(tmu_handle_t *tmu) {
             tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
             tmu->tmu2_avg += tmu->tmu2[i];
         }
-        if (i != 0) {
-            resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
-            tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
-            tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
-            tmu->tmu3_avg += tmu->tmu3[i];
-        }
     }
+    resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
+    tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
+    tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
+    tmu->tmu3_avg += tmu->tmu3[i];
     if (i != 0) {
         resistance_to_temp(tmu1_r2, &tmu->tmu1[i]);
         tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[i]);
@@ -158,7 +156,7 @@ void readTemps(tmu_handle_t *tmu) {
 
 
 
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / (NUM_THERM - 2)), (tmu->tmu3_avg / (NUM_THERM - 2)), (tmu->tmu4_avg / (NUM_THERM - 2)));
+    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / (NUM_THERM - 2)), (tmu->tmu3_avg / (NUM_THERM)), (tmu->tmu4_avg / (NUM_THERM - 2)));
     SEND_RAW_CELL_TEMP(q_tx_can, i, tmu->tmu1[i], tmu->tmu2[i], tmu->tmu3[i], tmu->tmu4[i]);
 
     if ((i + 1) < NUM_THERM) {

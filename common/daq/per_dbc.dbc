@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Navigation Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -293,6 +293,63 @@ BO_ 2348812088 orion_errors: 4 OrionBMS
  SG_ internal_hardware : 2|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810935 gps_velocity: 8 Navigation
+ SG_ gps_vel_total : 48|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_d : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_e : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_n : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
+BO_ 2348819255 gps_position: 8 Navigation
+ SG_ height : 48|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ gps_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ gps_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ gps_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
+
+BO_ 2348819319 gps_coordinates: 8 Navigation
+ SG_ longitude : 32|32@1- (1,0) [0|0] "deg" Vector__XXX
+ SG_ latitude : 0|32@1- (1,0) [0|0] "deg" Vector__XXX
+
+BO_ 2348810999 imu_gyro: 6 Navigation
+ SG_ imu_gyro_z : 32|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ imu_gyro_y : 16|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ imu_gyro_x : 0|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+
+BO_ 2348819383 imu_accel: 6 Navigation
+ SG_ imu_accel_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ imu_accel_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ imu_accel_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+
+BO_ 2348819447 bmm_mag: 6 Navigation
+ SG_ bmm_mag_z : 32|16@1- (1,0) [0|0] "uT" Vector__XXX
+ SG_ bmm_mag_y : 16|16@1- (1,0) [0|0] "uT" Vector__XXX
+ SG_ bmm_mag_x : 0|16@1- (1,0) [0|0] "uT" Vector__XXX
+
+BO_ 2348902711 sfs_pos: 6 Navigation
+ SG_ sfs_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ sfs_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ sfs_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
+
+BO_ 2348902775 sfs_vel: 6 Navigation
+ SG_ sfs_vel_z : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ sfs_vel_y : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ sfs_vel_x : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
+BO_ 2348902839 sfs_acc: 6 Navigation
+ SG_ sfs_acc_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ sfs_acc_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ sfs_acc_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+
+BO_ 2348902903 sfs_ang: 8 Navigation
+ SG_ sfs_ang_d : 48|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_c : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_b : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_a : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
+
+BO_ 2348902967 sfs_ang_vel: 6 Navigation
+ SG_ sfs_ang_vel_z : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
 BO_ 2483028613 raw_throttle_brake: 8 Dashboard
  SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
@@ -751,6 +808,7 @@ CM_ BU_ Torque_Vector "";
 CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ OrionBMS "";
+CM_ BU_ Navigation "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
 CM_ BU_ Acceleration "";
@@ -987,6 +1045,52 @@ CM_ SG_ 2348812088 heatsink_thermistor "";
 CM_ SG_ 2348812088 internal_hardware "";
 CM_ SG_ 2348812088 charger_safety_relay "";
 CM_ SG_ 2348812088 discharge_limit_enforce "";
+CM_ BO_ 2348810935 "gps velocity";
+CM_ SG_ 2348810935 gps_vel_total "";
+CM_ SG_ 2348810935 gps_vel_d "";
+CM_ SG_ 2348810935 gps_vel_e "";
+CM_ SG_ 2348810935 gps_vel_n "";
+CM_ BO_ 2348819255 "gps position";
+CM_ SG_ 2348819255 height "";
+CM_ SG_ 2348819255 gps_pos_z "";
+CM_ SG_ 2348819255 gps_pos_y "";
+CM_ SG_ 2348819255 gps_pos_x "";
+CM_ BO_ 2348819319 "gps coordinates";
+CM_ SG_ 2348819319 longitude "";
+CM_ SG_ 2348819319 latitude "";
+CM_ BO_ 2348810999 "gyroscope from imu";
+CM_ SG_ 2348810999 imu_gyro_z "";
+CM_ SG_ 2348810999 imu_gyro_y "";
+CM_ SG_ 2348810999 imu_gyro_x "";
+CM_ BO_ 2348819383 "acceleration from imu";
+CM_ SG_ 2348819383 imu_accel_z "";
+CM_ SG_ 2348819383 imu_accel_y "";
+CM_ SG_ 2348819383 imu_accel_x "";
+CM_ BO_ 2348819447 "magnetic from bmm";
+CM_ SG_ 2348819447 bmm_mag_z "";
+CM_ SG_ 2348819447 bmm_mag_y "";
+CM_ SG_ 2348819447 bmm_mag_x "";
+CM_ BO_ 2348902711 "position from sfs";
+CM_ SG_ 2348902711 sfs_pos_z "";
+CM_ SG_ 2348902711 sfs_pos_y "";
+CM_ SG_ 2348902711 sfs_pos_x "";
+CM_ BO_ 2348902775 "velocity from sfs";
+CM_ SG_ 2348902775 sfs_vel_z "";
+CM_ SG_ 2348902775 sfs_vel_y "";
+CM_ SG_ 2348902775 sfs_vel_x "";
+CM_ BO_ 2348902839 "acceleratoin from sfs";
+CM_ SG_ 2348902839 sfs_acc_z "";
+CM_ SG_ 2348902839 sfs_acc_y "";
+CM_ SG_ 2348902839 sfs_acc_x "";
+CM_ BO_ 2348902903 "orientation from sfs";
+CM_ SG_ 2348902903 sfs_ang_d "";
+CM_ SG_ 2348902903 sfs_ang_c "";
+CM_ SG_ 2348902903 sfs_ang_b "";
+CM_ SG_ 2348902903 sfs_ang_a "";
+CM_ BO_ 2348902967 "orientation vel from sfs";
+CM_ SG_ 2348902967 sfs_ang_vel_z "";
+CM_ SG_ 2348902967 sfs_ang_vel_y "";
+CM_ SG_ 2348902967 sfs_ang_vel_x "";
 CM_ BO_ 2483028613 "Throttle and brake values";
 CM_ SG_ 2483028613 brake_pot "";
 CM_ SG_ 2483028613 brake_right "";

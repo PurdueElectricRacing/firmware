@@ -530,6 +530,138 @@
                     ]
                 },
                 {
+                    "node_name":"Navigation",
+                    "node_ssa": 55,
+                    "tx":[
+                        {   "msg_name":"gps_velocity",
+                            "msg_desc":"gps velocity",
+                            "signals":[
+                                {"sig_name":"gps_vel_n","type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name":"gps_vel_e", "type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name":"gps_vel_d", "type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name":"gps_vel_total", "type":"int16_t", "unit": "m/s","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":10
+                        },
+                        {   "msg_name":"gps_position",
+                            "msg_desc":"gps position",
+                            "signals":[
+                                {"sig_name":"gps_pos_x","type":"int16_t","unit": "m", "scale": 0.01},
+                                {"sig_name":"gps_pos_y", "type":"int16_t","unit": "m", "scale": 0.01},
+                                {"sig_name":"gps_pos_z", "type":"int16_t","unit": "m", "scale": 0.01},
+                                {"sig_name":"height", "type":"int16_t", "unit": "m", "scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":140
+                        },
+                        {   "msg_name":"gps_coordinates",
+                            "msg_desc":"gps coordinates",
+                            "signals":[
+                                {"sig_name":"latitude","type":"int32_t","unit": "deg"},
+                                {"sig_name":"longitude", "type":"int32_t","unit": "deg"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":141
+                        },
+                        {   "msg_name":"imu_gyro",
+                            "msg_desc":"gyroscope from imu",
+                            "signals":[
+                                {"sig_name":"imu_gyro_x","type":"int16_t", "scale": 0.01,"unit": "rad/s"},
+                                {"sig_name":"imu_gyro_y","type":"int16_t", "scale": 0.01,"unit": "rad/s"},
+                                {"sig_name":"imu_gyro_z","type":"int16_t", "scale": 0.01,"unit": "rad/s"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":11
+                        },
+                        {   "msg_name":"imu_accel",
+                            "msg_desc":"acceleration from imu",
+                            "signals":[
+                                {"sig_name":"imu_accel_x","type":"int16_t", "scale": 0.01,"unit": "m/s^2"},
+                                {"sig_name":"imu_accel_y","type":"int16_t", "scale": 0.01,"unit": "m/s^2"},
+                                {"sig_name":"imu_accel_z","type":"int16_t", "scale": 0.01,"unit": "m/s^2"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":142
+                        },
+                        {   "msg_name":"bmm_mag",
+                            "msg_desc":"magnetic from bmm",
+                            "signals":[
+                                {"sig_name":"bmm_mag_x","type":"int16_t","unit": "uT"},
+                                {"sig_name":"bmm_mag_y","type":"int16_t","unit": "uT"},
+                                {"sig_name":"bmm_mag_z","type":"int16_t","unit": "uT"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":143
+                        },
+                        {   "msg_name":"sfs_pos",
+                            "msg_desc":"position from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_pos_x","type":"int16_t","unit": "m","scale": 0.01},
+                                {"sig_name":"sfs_pos_y","type":"int16_t","unit": "m","scale": 0.01},
+                                {"sig_name":"sfs_pos_z","type":"int16_t","unit": "m","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1444
+                        },
+                        {   "msg_name":"sfs_vel",
+                            "msg_desc":"velocity from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_vel_x","type":"int16_t","unit": "m/s","scale": 0.01},
+                                {"sig_name":"sfs_vel_y","type":"int16_t","unit": "m/s","scale": 0.01},
+                                {"sig_name":"sfs_vel_z","type":"int16_t","unit": "m/s","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1445
+                        },
+                        {   "msg_name":"sfs_acc",
+                            "msg_desc":"acceleratoin from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_acc_x","type":"int16_t","unit": "m/s^2","scale": 0.01},
+                                {"sig_name":"sfs_acc_y","type":"int16_t","unit": "m/s^2","scale": 0.01},
+                                {"sig_name":"sfs_acc_z","type":"int16_t","unit": "m/s^2","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1446
+                        },
+                         {   "msg_name":"sfs_ang",
+                            "msg_desc":"orientation from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_ang_a","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_b","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_c","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_d","type":"int16_t","scale": 0.0001}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1447
+                        },
+                        {   "msg_name":"sfs_ang_vel",
+                            "msg_desc":"orientation vel from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_ang_vel_x","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_vel_y","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_vel_z","type":"int16_t","scale": 0.0001}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1448
+                        }
+                    ],
+                    "rx":[
+                      
+                    ]
+                },
+                {
                     "node_name":"Dashboard",
                     "node_ssa":5,
                     "tx":[

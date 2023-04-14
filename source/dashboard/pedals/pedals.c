@@ -1,20 +1,27 @@
 #include "pedals.h"
+#include "main.h"
+#include "common/phal_l4/gpio/gpio.h"
+#include "can_parse.h"
 
 pedals_t pedals = {0};
 volatile raw_pedals_shockpots_t raw_pedals = {0};
 
-pedal_calibration_t pedal_calibration = {.t1max=2000,.t1min=540, // WARNING: DAQ VARIABLE
-                                         .t2max=1910,.t2min=400, // IF EEPROM ENABLED,
-                                         .b1max=1000,.b1min=700, // VALUE WILL CHANGE
-                                         .b2max=820,.b2min=690, // 1400, 400
+pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
+                                         .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
+                                         .b1max=1200,.b1min=410, // VALUE WILL CHANGE
+                                         .b2max=1050,.b2min=400, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};
 uint16_t t1_buff[10] = {0};
 uint16_t t2_buff[10] = {0};
+uint16_t b1_buff[10] = {0};
+uint16_t b2_buff[10] = {0};
 uint8_t b3_idx = 0;
 uint8_t t1_idx = 0;
 uint8_t t2_idx = 0;
+uint8_t b1_idx = 0;
+uint8_t b2_idx = 0;
 
 uint16_t filtered_pedals;
 
@@ -81,9 +88,15 @@ void pedalsPeriodic(void)
     //     pedals.bse_faulted = false;
     // }
 
-    setFault(ID_BSE_WIRING_B1_FAULT, b1);
-    setFault(ID_BSE_WIRING_B2_FAULT, b2);
-    setFault(ID_BSE_WIRING_B3_FAULT, b3);
+    // setFault(ID_BSE_WIRING_B1_FAULT, b1);
+    // setFault(ID_BSE_WIRING_B2_FAULT, b2);
+    setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
+    if (PHAL_readGPIO(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin)) {
+        setFault(ID_BSPD_FAULT, can_data.orion_currents_volts.pack_current);
+    }
+    else {
+        setFault(ID_BSPD_FAULT, 0);
+    }
 
     float t1_volts = (VREF / 0xFFFU) * t1;
     float t2_volts = (VREF / 0XFFFU) * t2;
@@ -93,20 +106,30 @@ void pedalsPeriodic(void)
 
     t1_buff[t1_idx++] = t1;
     t2_buff[t2_idx++] = t2;
+    b1_buff[b1_idx++] = b1;
+    b2_buff[b2_idx++] = b2;
 
     t1_idx = t1_idx % 10;
     t2_idx = t2_idx % 10;
+    b1_idx %= 10;
+    b2_idx %= 10;
 
     uint32_t t1_avg = 0;
     uint32_t t2_avg = 0;
+    uint32_t b1_avg = 0;
+    uint32_t b2_avg = 0;
 
     for (uint8_t i = 0; i < 10; i++) {
         t1_avg += t1_buff[i];
         t2_avg += t2_buff[i];
+        b1_avg += b1_buff[i];
+        b2_avg += b2_buff[i];
     }
 
     t1 =  (uint16_t) (t1_avg / 10);
     t2 = (uint16_t) (t2_avg / 10);
+    b1 = (uint16_t) (b1_avg / 10);
+    b2 = (uint16_t) (b2_avg / 10);
 
 
 
@@ -133,8 +156,8 @@ void pedalsPeriodic(void)
         // Mask
     // t1 &= 0xFFFC;
     // t2 &= 0xFFFC;
-    b1 &= 0xFFFC;
-    b2 &= 0xFFFC;
+    // b1 &= 0xFFFC;
+    // b2 &= 0xFFFC;
     b3 &= 0xFFFC;
 
 

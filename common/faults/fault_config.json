@@ -93,7 +93,7 @@
                     "min": 200,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Wiring Fail T1"
                 },
                 {
@@ -102,43 +102,34 @@
                     "min": 200,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Wiring Fail T2"
                 },
                 {
-                    "fault_name": "BSE_wiring_b1",
-                    "max": 3891,
-                    "min": 51,
+                    "fault_name": "BSE",
+                    "max": 1,
+                    "min": 0,
                     "priority": "error",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "BSE Wiring Fail B1"
+                    "time_to_latch": 100,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Brake Wiring Fail (BSE)"
                 },
                 {
-                    "fault_name": "BSE_wiring_b2",
-                    "max": 3891,
-                    "min": 51,
+                    "fault_name": "bspd",
+                    "max": 182,
+                    "min": 0,
                     "priority": "error",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_latch": 100,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "BSE Wiring Fail B2"
                 },
                 {
-                    "fault_name": "BSE_wiring_b3",
-                    "max": 3891,
-                    "min": 0,
-                    "priority": "error",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "BSE Wiring Fail B3"
-                },
-                {
                     "fault_name": "Implaus_detected",
-                    "max": 500,
+                    "max": 410,
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 100,
                     "lcd_message": "APPS Implaus Detected"
                 },
                 {
@@ -147,7 +138,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 10,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Brake Fault"
                 }
             ]

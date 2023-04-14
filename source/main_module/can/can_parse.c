@@ -78,6 +78,8 @@ void canRxUpdate()
                 break;
             case ID_MAX_CELL_TEMP:
                 can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
+                can_data.max_cell_temp.stale = 0;
+                can_data.max_cell_temp.last_rx = sched.os_ticks;
                 break;
             case ID_LWS_STANDARD:
                 can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
@@ -160,6 +162,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.dashboard_hb.stale,
                 sched.os_ticks, can_data.dashboard_hb.last_rx,
                 UP_DASHBOARD_HB);
+    CHECK_STALE(can_data.max_cell_temp.stale,
+                sched.os_ticks, can_data.max_cell_temp.last_rx,
+                UP_MAX_CELL_TEMP);
     CHECK_STALE(can_data.LWS_Standard.stale,
                 sched.os_ticks, can_data.LWS_Standard.last_rx,
                 UP_LWS_STANDARD);

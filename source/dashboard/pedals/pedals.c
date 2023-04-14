@@ -1,4 +1,7 @@
 #include "pedals.h"
+#include "main.h"
+#include "common/phal_l4/gpio/gpio.h"
+#include "can_parse.h"
 
 pedals_t pedals = {0};
 volatile raw_pedals_shockpots_t raw_pedals = {0};
@@ -85,9 +88,15 @@ void pedalsPeriodic(void)
     //     pedals.bse_faulted = false;
     // }
 
-    setFault(ID_BSE_WIRING_B1_FAULT, b1);
-    setFault(ID_BSE_WIRING_B2_FAULT, b2);
-    // setFault(ID_BSE_WIRING_B3_FAULT, b3);
+    // setFault(ID_BSE_WIRING_B1_FAULT, b1);
+    // setFault(ID_BSE_WIRING_B2_FAULT, b2);
+    setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
+    if (PHAL_readGPIO(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin)) {
+        setFault(ID_BSPD_FAULT, can_data.orion_currents_volts.pack_current);
+    }
+    else {
+        setFault(ID_BSPD_FAULT, 0);
+    }
 
     float t1_volts = (VREF / 0xFFFU) * t1;
     float t2_volts = (VREF / 0XFFFU) * t2;
@@ -206,7 +215,6 @@ void pedalsPeriodic(void)
     {
         setFault(ID_APPS_BRAKE_FAULT, false);
     }
-    setFault(ID_APPS_BRAKE_IMPLAUS_FAULT, ((b2>b1)?(b2-b1):(b1-b2)));
 
 
 

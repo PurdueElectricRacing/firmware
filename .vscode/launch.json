@@ -29,7 +29,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32L496VG",
+            "device:": "STM32L432KC",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -38,6 +38,25 @@
             "debuggerArgs": [
                 "-d",
                 "${workspaceFolder}/source/dashboard"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {   "name": "Navigation",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/navigation/navigation.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32L471RE",
+            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32l4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/navigation"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
@@ -77,7 +96,7 @@
                 "-d",
                 "${workspaceFolder}/source/bms"
             ],
-            "preLaunchTask": "build",
+            // "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {   "name": "Torque Vectoring",

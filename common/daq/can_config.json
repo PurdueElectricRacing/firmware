@@ -66,8 +66,8 @@
                             "msg_name": "gearbox",
                             "msg_desc": "Gearbox temps",
                             "signals": [
-                                {"sig_name": "l_temp", "type": "uint8_t"},
-                                {"sig_name": "r_temp", "type": "uint8_t"}
+                                {"sig_name": "l_temp", "type": "int8_t"},
+                                {"sig_name": "r_temp", "type": "int8_t"}
                             ],
                             "msg_period": 2000,
                             "msg_hlp": 4,
@@ -182,6 +182,17 @@
                             "msg_period": 500,
                             "msg_hlp": 3,
                             "msg_pgn": 12
+                        },
+                        {
+                            "msg_name": "rear_wheel_speeds",
+                            "msg_desc": "Rear Wheel speeds from motor controllers",
+                            "signals": [
+                                {"sig_name": "left_speed", "type":"uint32_t", "unit": "RPM"},
+                                {"sig_name": "right_speed", "type":"uint32_t", "unit": "RPM"}
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 2,
+                            "msg_pgn": 14 
                         }
                     ],
                     "rx":[

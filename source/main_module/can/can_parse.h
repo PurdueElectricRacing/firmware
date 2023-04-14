@@ -33,6 +33,7 @@
 #define ID_REAR_MC_STATUS 0x4001941
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
+#define ID_REAR_WHEEL_SPEEDS 0x8000381
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
@@ -68,6 +69,7 @@
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
 #define DLC_REAR_CONTROLLER_TEMPS 2
+#define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
@@ -206,6 +208,13 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_controller_temps.left_temp = left_temp_;\
         data_a->rear_controller_temps.right_temp = right_temp_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_REAR_WHEEL_SPEEDS(queue, left_speed_, right_speed_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->rear_wheel_speeds.left_speed = left_speed_;\
+        data_a->rear_wheel_speeds.right_speed = right_speed_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(queue, idx_, latched_) do {\
@@ -378,6 +387,10 @@ typedef union {
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
     } rear_controller_temps;
+    struct {
+        uint64_t left_speed: 32;
+        uint64_t right_speed: 32;
+    } rear_wheel_speeds;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

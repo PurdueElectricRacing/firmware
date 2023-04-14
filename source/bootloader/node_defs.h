@@ -58,7 +58,7 @@
     #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PD1
 
     #define STATUS_LED_GPIO_Port  (GPIOE)
-    #define STATUS_LED_Pin        (10)
+    #define STATUS_LED_Pin        (8)
 #endif
 
 #if (APP_ID == APP_DASHBOARD)

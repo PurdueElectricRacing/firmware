@@ -501,8 +501,8 @@ typedef struct {
         uint32_t last_rx;
     } coolant_out;
     struct {
-        uint8_t l_temp;
-        uint8_t r_temp;
+        int8_t l_temp;
+        int8_t r_temp;
         uint8_t stale;
         uint32_t last_rx;
     } gearbox;

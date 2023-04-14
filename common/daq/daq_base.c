@@ -39,7 +39,7 @@ static void flushDaqFrame(daq_tx_frame_writer_t* tx_msg);
 static void sendDaqFrame(daq_tx_frame_writer_t tx_frame);
 static void daqeQueuePop();
 static void daqeQueuePush();
-static void v_memcpy(volatile void *src, volatile void *dest, size_t len);
+static void v_memcpy(volatile void *dest, volatile void *src, size_t len);
 
 static q_handle_t* q_tx_can_a;
 static uint8_t num_vars;
@@ -329,12 +329,11 @@ static void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
                            .Bus=can,
                            .ExtId=ext_id,
                            .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
-    // v_memcpy(msg.Data, tx_frame.data, msg.DLC);
-    v_memcpy(tx_frame.data, msg.Data, msg.DLC);
+    v_memcpy(msg.Data, tx_frame.data, msg.DLC);
     qSendToBack(q_tx_can_a, &msg);
 }
 
-static void v_memcpy(volatile void *src, volatile void *dest, size_t len)
+static void v_memcpy(volatile void *dest, volatile void *src, size_t len)
 {
     for (size_t i = 0; i < len; ++i)
         ((volatile uint8_t *) dest)[i] = ((volatile uint8_t *)src)[i];

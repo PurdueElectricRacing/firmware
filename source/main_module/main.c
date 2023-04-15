@@ -278,6 +278,10 @@ int main(void){
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(memBg);
 
+    // calibrateSteeringAngle(&i);
+    // SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
+    // SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
+
     schedStart();
 
     return 0;

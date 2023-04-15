@@ -5,7 +5,7 @@ extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 
-bool high_Voltage = 0;
+uint8_t thtl_limit;
 
 bool validatePrecharge();
 
@@ -21,8 +21,8 @@ bool carInit()
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
     /* Motor Controller Initialization */
-    mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &high_Voltage);//&car.pchg.pchg_complete);
-    mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &high_Voltage);//&car.pchg.pchg_complete);
+    mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
+    mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
 }
 
 void carHeartbeat()
@@ -182,8 +182,9 @@ void carPeriodic()
             }
 
             // Enforce range
-            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, 100.0f);
-            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, 100.0f);
+            float thtl_limit_f = (float) CLAMP(thtl_limit, 0, 100);
+            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, thtl_limit_f);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, thtl_limit_f);
 
             // EV.4.2.3 - Torque algorithm
             // Any algorithm or electronic control unit that can adjust the 
@@ -212,8 +213,6 @@ void carPeriodic()
     {
         // TODO: control fan speed based on throttle and steering angle
     }
-
-    high_Voltage = (car.state == CAR_STATE_READY2DRIVE);
 
     /* Update System Outputs */
     car.buzzer = car.state == CAR_STATE_BUZZING;

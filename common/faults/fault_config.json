@@ -125,7 +125,7 @@
                 },
                 {
                     "fault_name": "Implaus_detected",
-                    "max": 410,
+                    "max": 700,
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,

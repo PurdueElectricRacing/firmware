@@ -3,15 +3,18 @@
 
 // Includes
 #if defined(STM32L432xx)
-    #include "stm32l4xx.h"
-    #include "system_stm32l4xx.h"
+#include "stm32l4xx.h"
+#include "system_stm32l4xx.h"
+#elif defined(STM32L471xx)
+#include "stm32l4xx.h"
+#include "system_stm32l4xx.h"
 #elif defined(STM32L496xx)
-    #include "stm32l4xx.h"
-    #include "system_stm32l4xx.h"
+#include "stm32l4xx.h"
+#include "system_stm32l4xx.h"
 #elif defined(STM32F4)
-    #include "system_stm32f4xx.h"
+#include "system_stm32f4xx.h"
 #else
-    #error "Please define a MCU arch"
+#error "Please define a MCU arch"
 #endif
 
 #define toMicros(time) ((uint32_t) time * 1000)

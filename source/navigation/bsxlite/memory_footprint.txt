@@ -1,0 +1,2 @@
+   text	   data	    bss	    dec	    hex	filename
+  15819	      0	   1572	  17391	   43ef	(TOTALS)

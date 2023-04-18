@@ -1,6 +1,6 @@
 #include "pedals.h"
 #include "main.h"
-#include "common/phal_l4/gpio/gpio.h"
+#include "common/phal_L4/gpio/gpio.h"
 #include "can_parse.h"
 
 pedals_t pedals = {0};

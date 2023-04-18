@@ -217,7 +217,6 @@ int main (void){
     taskCreate(updateFaultDisplay, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
-    taskCreate(updateFaults, 1);
     taskCreate(pollHDD, 250);
     taskCreate(update_data_pages, 200);
     // taskCreate(toggleLights, 500);

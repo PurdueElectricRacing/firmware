@@ -262,7 +262,6 @@ int main (void)
     // taskCreate(usartTXTest, 1000);
     taskCreate(ledBlink, 500);
     //Fault Stuff
-    taskCreate(updateFaults, 5);
     taskCreate(heartBeatTask, 100);
     //Fault Stuff
     // taskCreate(adcConvert, 50);

@@ -414,6 +414,7 @@ typedef struct {
     int f_max;
     int f_min;
     fault_status_t *status;
+    uint32_t start_ticks;
     char* screen_MSG;
 } fault_attributes_t;
 
@@ -441,6 +442,7 @@ bool setFault(int, int);
 static void forceFault(int id, bool state);
 static void unForce(int);
 static void txFaultSpecific(int);
+bool updateFault(uint16_t idx);
 void heartBeatTask();
 void updateFaults();
 void killFaultLibrary();
@@ -451,6 +453,6 @@ bool errorLatched();
 bool fatalLatched();
 bool otherMCUsLatched();
 bool isLatched();
-fault_attributes_t getFault(int id);
+bool checkFault(int id);
 
 #endif

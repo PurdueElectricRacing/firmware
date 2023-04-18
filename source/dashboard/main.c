@@ -186,7 +186,7 @@ q_handle_t q_rx_can;
 q_handle_t q_tx_usart;
 
 
-int main (void){w
+int main (void){
 
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));

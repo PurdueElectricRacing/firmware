@@ -207,7 +207,6 @@ int main (void)
    taskCreate(monitorStatus, 50);
    taskCreate(orionChargePeriodic, 50);
    taskCreate(heartBeatTask, 100);
-   taskCreate(updateFaults, 1);
    // taskCreate(sendIMUData, 10);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 

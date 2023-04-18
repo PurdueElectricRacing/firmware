@@ -70,6 +70,7 @@ typedef struct __attribute__((packed))
 
 volatile extern raw_pedals_shockpots_t raw_pedals;
 
+extern uint8_t thtl_limit;
 typedef struct {
     uint16_t t1max;
     uint16_t t1min;

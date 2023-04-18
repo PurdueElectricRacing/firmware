@@ -6,6 +6,8 @@
 pedals_t pedals = {0};
 volatile raw_pedals_shockpots_t raw_pedals = {0};
 
+uint8_t thtl_limit = 100;
+
 pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
                                          .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
                                          .b1max=1200,.b1min=450, // VALUE WILL CHANGE
@@ -216,7 +218,8 @@ void pedalsPeriodic(void)
         // setFault(ID_APPS_BRAKE_FAULT, false);
     }
 
-
+    // t2 = ((t2 > 410) ? 410 : t2);
+    // t1 = ((t1 > 410) ? 410 : t1);
 
 
 
@@ -230,6 +233,8 @@ void pedalsPeriodic(void)
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_pedals.t1,
                             raw_pedals.t2, raw_pedals.b1,
                             raw_pedals.b2, raw_pedals.b3);
+
+    // t2 = CLAMP(t2, 0, (uint16_t) (((uint32_t)thtl_limit*4095)/100));
     SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b2);
 
 

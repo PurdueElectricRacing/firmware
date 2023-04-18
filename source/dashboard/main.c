@@ -185,7 +185,8 @@ q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 q_handle_t q_tx_usart;
 
-int main (void){
+
+int main (void){w
 
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
@@ -488,8 +489,8 @@ void heartBeatLED()
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     }
     if (!can_data.precharge_hb.stale) {
-        PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !can_data.precharge_hb.IMD);
-        PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);
+        PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, can_data.precharge_hb.IMD);
+        PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, can_data.precharge_hb.BMS);
     }
     else {
         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);

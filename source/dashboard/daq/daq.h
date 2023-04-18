@@ -19,7 +19,7 @@
 #define DAQ_UPDATE_PERIOD 15 // ms
 
 // BEGIN AUTO VAR COUNT
-#define NUM_VARS 5
+#define NUM_VARS 6
 // END AUTO VAR COUNT
 
 // BEGIN AUTO VAR IDs
@@ -28,6 +28,7 @@
 #define DAQ_ID_B1 2
 #define DAQ_ID_B2 3
 #define DAQ_ID_B3 4
+#define DAQ_ID_THTL_LIMIT_DASH 5
 // END AUTO VAR IDs
 
 // BEGIN AUTO FILE STRUCTS

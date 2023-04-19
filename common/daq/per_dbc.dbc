@@ -64,8 +64,8 @@ BO_ 2214594753 coolant_out: 3 Main_Module
  SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
 
 BO_ 2415921409 gearbox: 2 Main_Module
- SG_ r_temp : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ l_temp : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ r_temp : 8|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ l_temp : 0|8@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -84,8 +84,9 @@ BO_ 2281707649 precharge_state: 4 Main_Module
  SG_ v_bat : 12|12@1+ (0.1,0) [0|0] "V" Vector__XXX
  SG_ v_mc : 0|12@1+ (0.1,0) [0|0] "V" Vector__XXX
 
-BO_ 2415925569 current_meas: 5 Main_Module
- SG_ LV3V3_PG : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2415925569 current_meas: 7 Main_Module
+ SG_ LV3V3_PG : 48|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MCU_TEMP : 32|16@1- (1,0) [0|0] "C" Vector__XXX
  SG_ LV5_I : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
  SG_ LV24_I : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
 
@@ -114,6 +115,10 @@ BO_ 2348810945 rear_motor_currents_temps: 8 Main_Module
 BO_ 2348811009 rear_controller_temps: 2 Main_Module
  SG_ right_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
+
+BO_ 2281702273 rear_wheel_speeds: 8 Main_Module
+ SG_ right_speed : 32|32@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ left_speed : 0|32@1+ (1,0) [0|0] "RPM" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -862,8 +867,9 @@ CM_ SG_ 2281707649 precharge_error "Precharge error found";
 CM_ SG_ 2281707649 precharge_complete "Precharge complete state";
 CM_ SG_ 2281707649 v_bat "Battery Voltage";
 CM_ SG_ 2281707649 v_mc "Motor Controller Voltage";
-CM_ BO_ 2415925569 "Local main LV current measurements";
+CM_ BO_ 2415925569 "Local main LV current measurements and additional info";
 CM_ SG_ 2415925569 LV3V3_PG "Power good status pin on the 3V3 LDO";
+CM_ SG_ 2415925569 MCU_TEMP "";
 CM_ SG_ 2415925569 LV5_I "";
 CM_ SG_ 2415925569 LV24_I "";
 CM_ BO_ 2415925633 "performance metrics of MCU";
@@ -893,6 +899,9 @@ CM_ SG_ 2348810945 left_current "";
 CM_ BO_ 2348811009 "Temperature of motor controllers";
 CM_ SG_ 2348811009 right_temp "";
 CM_ SG_ 2348811009 left_temp "";
+CM_ BO_ 2281702273 "Rear Wheel speeds from motor controllers";
+CM_ SG_ 2281702273 right_speed "";
+CM_ SG_ 2281702273 left_speed "";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";

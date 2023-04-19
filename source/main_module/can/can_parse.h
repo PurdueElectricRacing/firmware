@@ -64,7 +64,7 @@
 #define DLC_LWS_CONFIG 2
 #define DLC_VOLTAGE_RAILS 8
 #define DLC_PRECHARGE_STATE 4
-#define DLC_CURRENT_MEAS 5
+#define DLC_CURRENT_MEAS 7
 #define DLC_MCU_STATUS 5
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
@@ -164,11 +164,12 @@
         data_a->precharge_state.precharge_error = precharge_error_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, LV3V3_PG_) do {\
+#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, MCU_TEMP_, LV3V3_PG_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CURRENT_MEAS, .DLC=DLC_CURRENT_MEAS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->current_meas.LV24_I = LV24_I_;\
         data_a->current_meas.LV5_I = LV5_I_;\
+        data_a->current_meas.MCU_TEMP = MCU_TEMP_;\
         data_a->current_meas.LV3V3_PG = LV3V3_PG_;\
         qSendToBack(&queue, &msg);\
     } while(0)
@@ -360,6 +361,7 @@ typedef union {
     struct {
         uint64_t LV24_I: 16;
         uint64_t LV5_I: 16;
+        uint64_t MCU_TEMP: 16;
         uint64_t LV3V3_PG: 1;
     } current_meas;
     struct {

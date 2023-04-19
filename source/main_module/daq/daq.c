@@ -34,7 +34,7 @@ daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=0, .bit_length=1, .read_var_a=&cooling.out_daq_req.bat_pump_aux, .write_var_a=&cooling.out_daq_req.bat_pump_aux, },
     {.is_read_only=0, .bit_length=8, .read_var_a=&cooling.out_daq_req.dt_fan_power, .write_var_a=&cooling.out_daq_req.dt_fan_power, },
     {.is_read_only=0, .bit_length=8, .read_var_a=&cooling.out_daq_req.bat_fan_power, .write_var_a=&cooling.out_daq_req.bat_fan_power, },
-    {.is_read_only=0, .bit_length=8, .read_var_a=&thtl_limit, .write_var_a=&thtl_limit, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&daq_buzzer, .write_var_a=&daq_buzzer, },
 };
 // END AUTO VAR DEFS
 

@@ -25,8 +25,8 @@
 #define ERROR_FALL_MS (5000)
 
 /* BRAKE LIGHT CONFIG */
-#define BRAKE_LIGHT_ON_THRESHOLD  (500)
-#define BRAKE_LIGHT_OFF_THRESHOLD (300)
+#define BRAKE_LIGHT_ON_THRESHOLD  (250)
+#define BRAKE_LIGHT_OFF_THRESHOLD (150)
 
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 typedef struct
@@ -42,8 +42,6 @@ typedef enum
     CAR_TORQUE_TV,
     CAR_TORQUE_DAQ
 } torqueSource_t;
-
-extern uint8_t thtl_limit;
 
 #define HV_LOW_PASS_SIZE (5)
 #define HV_V_MC_CAL      (1000)        // V_actual / V_measured * 1000
@@ -78,6 +76,8 @@ typedef struct
     uint32_t buzzer_start_ms;
 } Car_t;
 extern Car_t car;
+
+extern uint8_t daq_buzzer;
 
 bool carInit();
 void carHeartbeat();

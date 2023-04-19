@@ -4,8 +4,7 @@ Car_t car;
 extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
-
-uint8_t thtl_limit;
+uint8_t daq_buzzer;
 
 bool validatePrecharge();
 
@@ -19,6 +18,8 @@ bool carInit()
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
+
+    daq_buzzer = 0;
 
     /* Motor Controller Initialization */
     mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
@@ -126,9 +127,8 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_IDLE)
     {
-        // TODO: add brake back!!
-        if (car.start_btn_debounced )//&& 
-           // can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
+        if (car.start_btn_debounced && 
+           can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
         {
             car.state = CAR_STATE_BUZZING;
             car.buzzer_start_ms = sched.os_ticks;
@@ -152,11 +152,11 @@ void carPeriodic()
         }
         else
         {
-            // TODO: ensure stale checking
-            float t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+            float t_req_pedal = 0;
+            if (!can_data.filt_throttle_brake.stale)
+                t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+            
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
-            // TODO: set deadzone through dashboard
-            // TODO: create a filtered torque output from dashboard
             // TODO: ensure APPS checks sets throttle to 0 if enough braking
             // t_req = t_req < 100 ? 0 : ((t_req - 100) / (4095 - 100) * 4095);
             // uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
@@ -182,9 +182,8 @@ void carPeriodic()
             }
 
             // Enforce range
-            float thtl_limit_f = (float) CLAMP(thtl_limit, 0, 100);
-            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, thtl_limit_f);
-            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, thtl_limit_f);
+            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, 100.0f);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, 100.0f);
 
             // EV.4.2.3 - Torque algorithm
             // Any algorithm or electronic control unit that can adjust the 
@@ -215,7 +214,7 @@ void carPeriodic()
     }
 
     /* Update System Outputs */
-    car.buzzer = car.state == CAR_STATE_BUZZING;
+    car.buzzer = car.state == CAR_STATE_BUZZING || daq_buzzer;
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
@@ -388,6 +387,7 @@ void calibrateSteeringAngle(uint8_t *success)
 bool validatePrecharge()
 {
     uint32_t tmp_mc, tmp_bat;
+    tmp_mc = tmp_bat = 0;
 
     // Measure inputs
     car.pchg.v_mc_buff[car.pchg.v_mc_buff_idx++]   = adc_readings.v_mc;
@@ -399,7 +399,7 @@ bool validatePrecharge()
     car.pchg.v_bat_buff_idx %= HV_LOW_PASS_SIZE;
 
     // Sum buffers
-    for (uint8_t i = 0, tmp_mc = 0, tmp_bat=0; i < HV_LOW_PASS_SIZE; ++i)
+    for (uint8_t i = 0; i < HV_LOW_PASS_SIZE; ++i)
     {
         tmp_mc  += car.pchg.v_mc_buff[i];
         tmp_bat += car.pchg.v_bat_buff[i];
@@ -408,9 +408,9 @@ bool validatePrecharge()
     tmp_mc  /= HV_LOW_PASS_SIZE;
     tmp_bat /= HV_LOW_PASS_SIZE;
 
-    // V_out = adc_raw * adc_v_ref / adc_max
-    car.pchg.v_mc_filt  = ((uint32_t) tmp_mc  * ((ADC_REF_mV * (uint32_t) HV_V_MC_CAL)  / 1000)) / 0xFFFUL;
-    car.pchg.v_bat_filt = ((uint32_t) tmp_bat * ((ADC_REF_mV * (uint32_t) HV_V_BAT_CAL) / 1000)) / 0xFFFUL;
+    // V_outx10 = adc_raw * adc_v_ref / adc_max (Tiffomy outputs volts / 100)
+    car.pchg.v_mc_filt  = (tmp_mc  * ((ADC_REF_mV * HV_V_MC_CAL)  / 1000UL)) / 0xFFFUL;
+    car.pchg.v_bat_filt = (tmp_bat * ((ADC_REF_mV * HV_V_BAT_CAL) / 1000UL)) / 0xFFFUL;
 
     // Validate
     if ((car.pchg.pchg_complete && car.pchg.v_mc_filt < ((((uint32_t) car.pchg.v_bat_filt) * 80) / 100)) ||

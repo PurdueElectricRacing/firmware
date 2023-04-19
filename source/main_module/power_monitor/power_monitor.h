@@ -34,6 +34,13 @@
 #define LV_I_SENSE_GAIN 100 // V/V
 #define LV_I_SENSE_R    2   // mOhm
 
+/* INTENERAL TEMPERATURE SENSOR */
+#define TS_CAL1_ADDR   ((uint16_t*) 0x1FFF75A8UL)
+#define TS_CAL2_ADDR   ((uint16_t*) 0x1FFF75CAUL)
+#define TS_CAL1_TEMP   ((int32_t) 30)      // C +/-5
+#define TS_CAL2_TEMP   ((int32_t) 130)     // C +/-5
+#define TS_CAL_ADC_REF (3000UL)            // mV
+
 typedef struct
 {
     uint16_t lv_24_v_sense_mV;
@@ -43,6 +50,7 @@ typedef struct
     uint16_t lv_5_i_sense_mA;
     uint16_t lv_3v3_v_sense_mV;
     uint8_t  lv_3v3_power_good;
+    int16_t  mcu_temp;
 } PowerMonitor_t;
 
 extern PowerMonitor_t power_monitor;

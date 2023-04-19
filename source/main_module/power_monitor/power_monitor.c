@@ -17,10 +17,16 @@ static uint16_t calcVoltage(uint16_t adc_raw, uint16_t r1, uint16_t r2, uint16_t
 
 PowerMonitor_t power_monitor;
 extern q_handle_t q_tx_can;
+static uint16_t ts_cal1_val, ts_cal2_val;
 
 void initPowerMonitor()
 {
     power_monitor = (PowerMonitor_t) {0};
+
+    // Enable the temperature sensor
+    ADC123_COMMON->CCR |= ADC_CCR_TSEN;
+    ts_cal1_val = *(TS_CAL1_ADDR);
+    ts_cal2_val = *(TS_CAL2_ADDR);
 
     // Interrupt for full transfer (testing frequency of ADC)
     // Toggles the error LED pin on each transfer complete
@@ -40,12 +46,16 @@ void updatePowerMonitor()
     power_monitor.lv_3v3_v_sense_mV = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2, LV_3V3_CAL);
     power_monitor.lv_3v3_power_good = PHAL_readGPIO(LV_3V3_PG_GPIO_Port, LV_3V3_PG_Pin);
 
+    power_monitor.mcu_temp = (int16_t) ((((int32_t) adc_readings.therm_mcu)*ADC_REF_mV/ TS_CAL_ADC_REF - ts_cal1_val) *
+                             (TS_CAL2_TEMP - TS_CAL1_TEMP) / (ts_cal2_val - ts_cal1_val) + TS_CAL1_TEMP);
+
     SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,
                                  power_monitor.lv_5_v_sense_mV,  power_monitor.lv_3v3_v_sense_mV);
     SEND_CURRENT_MEAS(q_tx_can, power_monitor.lv_24_i_sense_mA, power_monitor.lv_5_i_sense_mA,
-                                power_monitor.lv_3v3_power_good);
+                                power_monitor.mcu_temp, power_monitor.lv_3v3_power_good);
     // TODO: add power monitoring faults
 }
+
 
 #ifdef PM_ADC_FREQ_TEST
 void DMA2_Channel3_IRQHandler()

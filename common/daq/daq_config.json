@@ -23,7 +23,7 @@
                         {"var_name":"bat_pump_aux", "access_phrase": "cooling.out_daq_req.bat_pump_aux", "read_only": false, "type": "uint8_t", "length": 1},
                         {"var_name":"dt_fan", "access_phrase": "cooling.out_daq_req.dt_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"},
                         {"var_name":"bat_fan", "access_phrase": "cooling.out_daq_req.bat_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"},
-                        {"var_name":"thtl_limit", "access_phrase": "thtl_limit", "read_only": false, "type": "uint8_t", "unit": "%"}
+                        {"var_name":"daq_buzzer", "access_phrase": "daq_buzzer", "read_only": false, "type": "uint8_t", "length": 1, "unit": "%"}
                     ],
                     "files":[]
                 },

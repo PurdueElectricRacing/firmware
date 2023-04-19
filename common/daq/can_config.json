@@ -113,10 +113,11 @@
                         },
                         {
                             "msg_name": "current_meas",
-                            "msg_desc": "Local main LV current measurements",
+                            "msg_desc": "Local main LV current measurements and additional info",
                             "signals": [
                                 {"sig_name":"LV24_I", "type": "uint16_t", "unit":"mA"},
                                 {"sig_name":"LV5_I", "type": "uint16_t", "unit":"mA"},
+                                {"sig_name":"MCU_TEMP", "type": "int16_t", "unit":"C"},
                                 {"sig_name":"LV3V3_PG", "type": "uint8_t", "length":1, "sig_desc": "Power good status pin on the 3V3 LDO"}
                             ],
                             "msg_period": 1000,

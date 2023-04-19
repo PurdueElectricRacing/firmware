@@ -273,7 +273,6 @@ int main(void){
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(memFg, MEM_FG_TIME);
-    taskCreate(updateFaults, 1);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);

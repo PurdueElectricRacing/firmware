@@ -11,6 +11,7 @@
 
 #include "power_monitor.h"
 #include "car.h"
+#include "common/faults/faults.h"
 
 static uint16_t calcCurrent(uint16_t adc_raw);
 static uint16_t calcVoltage(uint16_t adc_raw, uint16_t r1, uint16_t r2, uint16_t cal);
@@ -48,6 +49,11 @@ void updatePowerMonitor()
 
     power_monitor.mcu_temp = (int16_t) ((((int32_t) adc_readings.therm_mcu)*ADC_REF_mV/ TS_CAL_ADC_REF - ts_cal1_val) *
                              (TS_CAL2_TEMP - TS_CAL1_TEMP) / (ts_cal2_val - ts_cal1_val) + TS_CAL1_TEMP);
+    
+    setFault(ID_MCU_TEMP_HIGH_FAULT, power_monitor.mcu_temp);
+    setFault(ID_LV_BAT_LOW_FAULT, power_monitor.lv_24_v_sense_mV);
+    setFault(ID_LV_BAT_VERY_LOW_FAULT, power_monitor.lv_24_v_sense_mV);
+    // TODO: BMS Fault (LV_BAT_BMS)
 
     SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,
                                  power_monitor.lv_5_v_sense_mV,  power_monitor.lv_3v3_v_sense_mV);

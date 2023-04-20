@@ -60,15 +60,15 @@ void carPeriodic()
 
     /* Process Inputs */
 
-    // TODO: define faults and set them somewhere, not necessarily all here
-    // TODO: udpate precharge status
-
     // Start button debounce (only want rising edge)
     car.start_btn_debounced = can_data.start_button.start;
     can_data.start_button.start = false;
 
 
     /* State Independent Operations */
+    validatePrecharge();
+    setFault(ID_PCHG_IMPLAUS_FAULT, car.pchg.pchg_error);
+    setFault(ID_RTD_EXIT_FAULT, !car.pchg.pchg_complete && car.state == CAR_STATE_READY2DRIVE);
 
     /**
      * Brake Light Control
@@ -91,6 +91,12 @@ void carPeriodic()
         }
     }
 
+    if (checkFault(ID_RTD_EXIT_FAULT))
+    {
+        car.state = CAR_STATE_IDLE;
+    }
+    // An error fault has higher priority
+    // than the RTD Exit Fault
     if (errorLatched())
     {
         car.state = CAR_STATE_ERROR;
@@ -103,7 +109,6 @@ void carPeriodic()
     }
 
     /* State Dependent Operations */
-    validatePrecharge();
 
     // EV.10.4 - Activation sequence
     // Tractive System Active - SDC closed, HV outside accumulator
@@ -128,7 +133,8 @@ void carPeriodic()
     else if (car.state == CAR_STATE_IDLE)
     {
         if (car.start_btn_debounced && 
-           can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
+           can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD &&
+           car.pchg.pchg_complete)
         {
             car.state = CAR_STATE_BUZZING;
             car.buzzer_start_ms = sched.os_ticks;
@@ -236,6 +242,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
+    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete && 
+                car.motor_l.motor_state != MC_CONNECTED);
+    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete && 
+                car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;

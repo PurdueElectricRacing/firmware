@@ -16,7 +16,7 @@
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
-#include "wheel_speeds.h"
+#include "common/modules/wheel_speeds/wheel_speeds.h"
 
 #include "common/faults/faults.h"
 
@@ -34,6 +34,8 @@ GPIOInitConfig_t gpio_config[] = {
 //   GPIO_INIT_OUTPUT(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_OUTPUT_LOW_SPEED),
 //   GPIO_INIT_OUTPUT(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(LED1_GPIO_Port, LED1_Pin, GPIO_OUTPUT_LOW_SPEED),
+  GPIO_INIT_AF(GPIOA, 0, 1, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN),
+  GPIO_INIT_AF(GPIOA, 1, 1, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN),
 //   GPIO_INIT_INPUT(BUTTON_1_GPIO_Port, BUTTON_1_Pin, GPIO_INPUT_PULL_DOWN),
 //   GPIO_INIT_AF(TIM1_GPIO_Port, TIM1_Pin, TIM1_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
 //   GPIO_INIT_AF(TIM2_GPIO_Port, TIM2_Pin, TIM2_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
@@ -99,6 +101,11 @@ SPI_InitConfig_t spi_config = {
 static uint16_t adc_conversions[3];
 uint8_t charge_enable;
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) adc_conversions, 3, 0b01);
+
+WheelSpeed_t left_wheel =  {.tim=TIM2, .invert=false};
+WheelSpeed_t right_wheel = {.tim=TIM2, .invert=false};
+// TODO: test invert
+WheelSpeeds_t wheel_speeds = {.l=&left_wheel, .r=&right_wheel};
 
 #define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
@@ -176,10 +183,10 @@ int main (void)
 
     volatile uint16_t var = 0;
 
-    if(!PHAL_initCAN(CAN1, false))
-    {
-        HardFault_Handler();
-    }
+    // if(!PHAL_initCAN(CAN1, false))
+    // {
+    //     HardFault_Handler();
+    // }
 //     if(!PHAL_initUSART(USART1, &huart1, APB2ClockRateHz))
 //     {
 //         HardFault_Handler();
@@ -219,10 +226,10 @@ int main (void)
     }*/
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    spi_config.data_rate = APB2ClockRateHz / 4; // 5 MHz
-    if (!PHAL_SPI_init(&spi_config))
-        HardFault_Handler();
-    initMem(GPIOA, 3, &spi_config, 1, 1);
+    // spi_config.data_rate = APB2ClockRateHz / 4; // 5 MHz
+    // if (!PHAL_SPI_init(&spi_config))
+    //     HardFault_Handler();
+    // initMem(GPIOA, 3, &spi_config, 1, 1);
     // uint8_t  page[MICRO_PG_SIZE] = {0};
     // page[0] = 1;
     // page[1] = 2;
@@ -237,8 +244,9 @@ int main (void)
     // PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
 
     /* Module init */
-    initCANParse(&q_rx_can);
+    // initCANParse(&q_rx_can);
     // wheelSpeedsInit();
+    wheelSpeedsInit(&wheel_speeds);
 
     // linkReada(DAQ_ID_TEST_VAR, &my_counter);
     // linkReada(DAQ_ID_TEST_VAR2, &my_counter2);
@@ -249,11 +257,11 @@ int main (void)
     // linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
     // linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
     // linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    if(daqInit(&q_tx_can))
-    {
-        PHAL_writeGPIO(LED1_GPIO_Port, LED1_Pin, 1);
-        HardFault_Handler();
-    }
+    // if(daqInit(&q_tx_can))
+    // {
+    //     PHAL_writeGPIO(LED1_GPIO_Port, LED1_Pin, 1);
+    //     HardFault_Handler();
+    // }
 
     initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_TEST_NODE);
 
@@ -261,18 +269,19 @@ int main (void)
     schedInit(APB1ClockRateHz);
     // taskCreate(usartTXTest, 1000);
     taskCreate(ledBlink, 500);
+    taskCreate(wheelSpeedsPeriodic, 15);
     //Fault Stuff
     taskCreate(heartBeatTask, 100);
     //Fault Stuff
     // taskCreate(adcConvert, 50);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(canSendTest, 50);
-    taskCreate(memFg, MEM_FG_TIME);
+    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    // taskCreate(canSendTest, 50);
+    // taskCreate(memFg, MEM_FG_TIME);
     // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(myCounterTest, 50);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
-    taskCreateBackground(memBg);
+    // taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(canRxUpdate);
+    // taskCreateBackground(memBg);
 
 
     // signify end of initialization
@@ -301,7 +310,7 @@ void ledBlink()
     //     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, false);
     // }
     // PHAL_toggleGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
-    if (otherMCUsLatched()) {
+    // if (otherMCUsLatched()) {
         PHAL_writeGPIO(LED_GREEN_GPIO_Port, 3, 1);
         // forceFault(ID_TEST_FAULT_4_FAULT, 0);
     }

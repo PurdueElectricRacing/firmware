@@ -41,6 +41,7 @@ typedef enum {
 } TimerInputMode_t;
 
 
+bool PHAL_enableTIMClk(TIM_TypeDef* timer);
 /**
  * @brief Setup a timer for input capture to measure frequency of a PWM signal
  * 

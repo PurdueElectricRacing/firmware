@@ -11,39 +11,35 @@
 #include "common/phal_L4/tim/tim.h"
 
 // prototypes
-bool enableTIMClk(TIM_TypeDef* timer);
 
-bool enableTIMClk(TIM_TypeDef* timer)
+/**
+ * @brief Enables the clock for a timer
+ * 
+ * @param timer Timer to clock
+ * @return true  - success
+ * @return false - fail
+ */
+bool PHAL_enableTIMClk(TIM_TypeDef* timer)
 {
     // Enable Timer Clock 
     if (timer == TIM1)
-    {
         RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
-    }
     else if (timer == TIM2)
-    {
         RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
-    }
+    #ifdef TIM5
+    else if (timer == TIM5)
+        RCC->APB1ENR1 |= RCC_APB1ENR1_TIM5EN;
+    #endif
     else if (timer == TIM6)
-    {
         RCC->APB1ENR1 |= RCC_APB1ENR1_TIM6EN;
-    }
     else if (timer == TIM7)
-    {
         RCC->APB1ENR1 |= RCC_APB1ENR1_TIM7EN;
-    }
     else if (timer == TIM15)
-    {
         RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
-    }
     else if (timer == TIM16)
-    {
         RCC->APB2ENR |= RCC_APB2ENR_TIM16EN;
-    }
     else
-    {
         return false;
-    }
     return true;
 }
 
@@ -53,7 +49,7 @@ bool enableTIMClk(TIM_TypeDef* timer)
 // TIM2 is the only 32 bit resolution, currently 32 is not supported
 bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelection_t trigger_select)
 {
-    if (!enableTIMClk(timer)) return false;
+    if (!PHAL_enableTIMClk(timer)) return false;
     // can set the input prescaler (capture / events ICPSC)
     // this is done if using interrupts and you want less of them
 
@@ -115,7 +111,7 @@ bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputM
 
 bool PHAL_initPWMOut(TIM_TypeDef* timer, uint16_t counter_period, uint16_t ccmr1, uint16_t prescaler)
 {
-    if (!enableTIMClk(timer)) return false;
+    if (!PHAL_enableTIMClk(timer)) return false;
 
     // auto reload preload CR1 ARPE 
     timer->CR1 |= TIM_CR1_ARPE; // buffered

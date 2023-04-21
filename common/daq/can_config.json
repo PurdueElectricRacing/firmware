@@ -291,6 +291,26 @@
                             "msg_hlp": 1,
                             "msg_pgn": 1
                         },
+                        {   "msg_name": "rear_mc_req",
+                            "msg_desc": "Rear request to motor controllers",
+                            "signals": [
+                                {"sig_name": "left_cmd", "type": "float", "unit":"%"},
+                                {"sig_name": "right_cmd", "type": "float", "unit":"%"}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 1,
+                            "msg_pgn": 18
+                        },
+                        {   "msg_name": "rear_pow_lim_l",
+                            "msg_desc": "Rear request to motor controllers",
+                            "signals": [
+                                {"sig_name": "T", "type": "float", "unit":"Nm"},
+                                {"sig_name": "P_c", "type": "float", "unit":"W"}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 1,
+                            "msg_pgn": 19
+                        },
                         {   "msg_name": "front_motor_currents_temps",
                             "msg_desc": "DC Current and Temperature of the motors",
                             "signals": [
@@ -308,6 +328,10 @@
                     "rx": [
                         {"msg_name":"torque_request_main"},
                         {"msg_name":"main_hb"},
+                        {"msg_name":"front_wheel_data"},
+                        {"msg_name":"rear_wheel_data"},
+                        {"msg_name":"orion_info"},
+                        {"msg_name":"orion_currents_volts"},
                         {"msg_name": "driveline_front_bl_cmd" , "callback": true},
                         {"msg_name": "driveline_rear_bl_cmd" , "callback": true}
                     ]

@@ -253,8 +253,9 @@ void CAN1_RX0_IRQHandler()
     }
 }
 
-void bma_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-    if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
-}
+// TODO:
+// void bms_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+// {
+//     if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
+//         Bootloader_ResetForFirmwareDownload();
+// }

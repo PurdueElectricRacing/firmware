@@ -25,9 +25,12 @@
 // #include "daq.h"
 #include "main.h"
 #include "can_parse.h"
-#include "wheel_speeds.h"
+#include "common/modules/wheel_speeds/wheel_speeds.h"
 #include "shockpot.h"
 #include "plettenberg.h"
+#include "testbench.h"
+#include "MC_PL0/MC_PL0.h"
+#include "MC_PL_pp/MC_PL_pp.h"
 
 #include "common/faults/faults.h"
 
@@ -35,20 +38,23 @@ GPIOInitConfig_t gpio_config[] = {
   GPIO_INIT_CANRX_PA11,
   GPIO_INIT_CANTX_PA12,
   // Shock Pots
-  GPIO_INIT_ANALOG(POT_AMP_LEFT_GPIO_Port,  POT_AMP_LEFT_Pin),
-  GPIO_INIT_ANALOG(POT_AMP_RIGHT_GPIO_Port, POT_AMP_RIGHT_Pin),
+//   GPIO_INIT_ANALOG(POT_AMP_LEFT_GPIO_Port,  POT_AMP_LEFT_Pin),
+//   GPIO_INIT_ANALOG(POT_AMP_RIGHT_GPIO_Port, POT_AMP_RIGHT_Pin),
   // Motor Controllers
   GPIO_INIT_USART1TX_PA9,
   GPIO_INIT_USART1RX_PA10,
   GPIO_INIT_USART2TX_PA2,
-  GPIO_INIT_USART2RX_PA3,
+  GPIO_INIT_USART2RX_PA15,
+  //GPIO_INIT_USART2RX_PA3,
   // Wheel Speed
-  GPIO_INIT_AF(WSPEEDR_GPIO_Port, WSPEEDR_Pin, WHEELSPEEDR_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
-  GPIO_INIT_AF(WSPEEDL_GPIO_Port, WSPEEDL_Pin, WHEELSPEEDL_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+//   GPIO_INIT_AF(WSPEEDR_GPIO_Port, WSPEEDR_Pin, WHEELSPEEDR_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+//   GPIO_INIT_AF(WSPEEDL_GPIO_Port, WSPEEDL_Pin, WHEELSPEEDL_AF, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_PULL_UP),
+  GPIO_INIT_AF(GPIOA, 0, 1, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN),
+  GPIO_INIT_AF(GPIOA, 1, 1, GPIO_OUTPUT_ULTRA_SPEED, GPIO_TYPE_AF, GPIO_INPUT_OPEN_DRAIN),
   // EEPROM
   GPIO_INIT_OUTPUT(WC_GPIO_Port, WC_Pin, GPIO_OUTPUT_LOW_SPEED),
-  GPIO_INIT_I2C1_SCL_PB6,
-  GPIO_INIT_I2C1_SDA_PB7,
+//   GPIO_INIT_I2C1_SCL_PB6,
+//   GPIO_INIT_I2C1_SDA_PB7,
   // Status LEDs
   GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
   GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -68,8 +74,8 @@ usart_init_t huart_l = {
     .parity      = PT_NONE,
     .obsample    = OB_DISABLE,
     .ovsample    = OV_16,
-    .adv_feature.rx_inv    = true,
-    .adv_feature.tx_inv    = true,
+    .adv_feature.rx_inv    = false,
+    .adv_feature.tx_inv    = false,
     .adv_feature.auto_baud = false,
     .adv_feature.data_inv  = false,
     .adv_feature.msb_first = false,
@@ -90,8 +96,8 @@ usart_init_t huart_r = {
     .parity      = PT_NONE,
     .obsample    = OB_DISABLE,
     .ovsample    = OV_16,
-    .adv_feature.rx_inv    = true,
-    .adv_feature.tx_inv    = true,
+    .adv_feature.rx_inv    = false,
+    .adv_feature.tx_inv    = false,
     .adv_feature.auto_baud = false,
     .adv_feature.data_inv  = false,
     .adv_feature.msb_first = false,
@@ -116,6 +122,11 @@ ADCChannelConfig_t adc_channel_config[] = {
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_shock_pots,
                             sizeof(raw_shock_pots) / sizeof(raw_shock_pots.pot_left), 0b01);
+
+WheelSpeed_t left_wheel =  {.tim=TIM2, .invert=true};
+WheelSpeed_t right_wheel = {.tim=TIM2, .invert=true};
+// TODO: test invert
+WheelSpeeds_t wheel_speeds = {.l=&left_wheel, .r=&right_wheel};
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -142,7 +153,8 @@ void parseDataPeriodic();
 void canTxUpdate();
 void usartTxUpdate();
 void usartRxUpdate();
-void usartIdleIRQ(motor_t *m, usart_init_t *huart);
+void usart1IdleIRQ(motor_t *m, usart_init_t *huart);
+void usart2IdleIRQ(micro_t *m, usart_init_t *huart);
 void ledUpdate();
 void linkDAQVars();
 void heartBeat();
@@ -153,9 +165,21 @@ q_handle_t q_rx_can;
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
 motor_t motor_left, motor_right;
+micro_t micro;
 
-int main(void)
-{
+static ExtU rtU;                       /* External inputs */
+static ExtY rtY;                       /* External outputs */
+
+/* TV Definitions */
+static RT_MODEL rtM_;
+static RT_MODEL *const rtMPtr = &rtM_; /* Real-time model */                       /* Observable states */
+static RT_MODEL *const rtM = rtMPtr;
+static DW rtDW;                        /* Observable states */
+
+uint32_t N = 0;
+float k_avg = 0.1;
+
+int main(void){
     i = 0;
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
@@ -187,8 +211,8 @@ int main(void)
     taskCreate(parseDataPeriodic, MC_LOOP_DT);
     // TODO: taskCreate(shockpot1000Hz, 5);
     taskCreate(wheelSpeedsPeriodic, 15);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    //taskCreateBackground(canTxUpdate);
+    //taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
 
     // signify end of initialization
@@ -216,47 +240,50 @@ void preflightChecks(void) {
             }
             break;
         case 1:
-            if(!PHAL_initCAN(CAN1, false))
-            {
-                HardFault_Handler();
-            }
-            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            //if(!PHAL_initCAN(CAN1, false))
+            //{
+            //    HardFault_Handler();
+            //}
+            //NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 2:
-            if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
-            {
-                HardFault_Handler();
-            }
-            if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
-            {
-                HardFault_Handler();
-            }
-            if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
-            {
-                HardFault_Handler();
-            }
-            if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
-            {
-                HardFault_Handler();
-            }
+            // if(!PHAL_initPWMIn(TIM1, APB2ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+            // {
+            //     HardFault_Handler();
+            // }
+            // if(!PHAL_initPWMChannel(TIM1, CC1, CC_INTERNAL, false))
+            // {
+            //     HardFault_Handler();
+            // }
+            // if(!PHAL_initPWMIn(TIM2, APB1ClockRateHz / TIM_CLOCK_FREQ, TI1FP1))
+            // {
+            //     HardFault_Handler();
+            // }
+            // if(!PHAL_initPWMChannel(TIM2, CC1, CC_INTERNAL, false))
+            // {
+            //     HardFault_Handler();
+            // }
             break;
         case 3:
-            if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
-            sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-            {
-                HardFault_Handler();
-            }
-            if(!PHAL_initDMA(&adc_dma_config))
-            {
-                HardFault_Handler();
-            }
-            PHAL_startTxfer(&adc_dma_config);
-            PHAL_startADC(ADC1);
+            //if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, 
+            //sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            //{
+            //    HardFault_Handler();
+            //}
+            //if(!PHAL_initDMA(&adc_dma_config))
+            //{
+            //    HardFault_Handler();
+            //}
+            //PHAL_startTxfer(&adc_dma_config);
+            //PHAL_startADC(ADC1);
             break;
        case 4:
             /* Module init */
-            initCANParse(&q_rx_can);
-            wheelSpeedsInit();
+            //initCANParse(&q_rx_can);
+            // wheelSpeedsInit();
+            wheelSpeedsInit(&wheel_speeds);
+            rtM->dwork = &rtDW;
+            MC_PL0_initialize(rtM);
             break;
         case 5:
             // Left MC
@@ -269,14 +296,14 @@ void preflightChecks(void) {
                             MC_MAX_RX_LENGTH);
             break;
         case 6:
-            // Right MC
-            mcInit(&motor_right, M_INVERT_RIGHT, &q_tx_usart_r);
+            // Micro Controller
+            tiInit(&micro, &q_tx_usart_r);
             USART_R->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
             NVIC_EnableIRQ(USART2_IRQn);
             // initial rx request
-            PHAL_usartRxDma(USART_R, &huart_r,
-                            (uint16_t *) motor_right.rx_buf,
-                            MC_MAX_RX_LENGTH);
+            PHAL_usartRxDma(USART_R, &huart_r, 
+                            (uint16_t *) micro.rx_buf, 
+                            TI_MAX_RX_LENGTH);
             break;
         default:
             registerPreflightComplete(1);
@@ -321,42 +348,76 @@ void heartBeat()
     #endif
 }
 
-
 /**
  * @brief Receives torque command from can message
  *        Relays this to the motor controllers
  */
 void commandTorquePeriodic()
 {
-    #if (FTR_DRIVELINE_FRONT)
-    float pow_left  = (float) CLAMP(can_data.torque_request_main.front_left, -4095, 4095);
-    float pow_right = (float) CLAMP(can_data.torque_request_main.front_right, -4095, 4095);
-    #elif (FTR_DRIVELINE_REAR)
-    float pow_left  = (float) CLAMP(can_data.torque_request_main.rear_left, -4095, 4095);
-    float pow_right = (float) CLAMP(can_data.torque_request_main.rear_right, -4095, 4095);
-    #endif
-    pow_left  = pow_left  * 100.0 / 4095.0;
-    pow_right = pow_right * 100.0 / 4095.0;
+    //#if (FTR_DRIVELINE_FRONT)
+    //float pow_left  = (float) CLAMP(micro.Tx_in[0], -4095, 4095);
+    //float pow_right = (float) CLAMP(micro.Tx_in[1], -4095, 4095);
+    //#elif (FTR_DRIVELINE_REAR)
+    //float pow_left  = (float) CLAMP(micro.Tx_in[2], -4095, 4095);
+    //float pow_right = (float) CLAMP(micro.Tx_in[3], -4095, 4095);
+    //#endif
+
+    float pow_left;
+    float pow_right;
+    volatile uint32_t time1 = 0;
+    volatile uint32_t time2 = 0;
+
+    mcPeriodic(&motor_left);
+    //mcPeriodic(&motor_right);
+    tiPeriodic(&micro);
+
+    // pow_left = (float) mot_left_req;
+    // pow_right = (float) mot_right_req;
+
+    // Power Limiting
+    time1 = sched.os_ticks;
+    MC_PL_pp(&rtU, &motor_left, &micro);
+    //rt_OneStep(rtM);
+    //pow_left = rtY.k[2] * 100.0 / 4095.0;
+    //pow_right = rtY.k[3] * 100.0 / 4095.0;
+
+    // No Power Limiting
+    pow_left = rtU.Tx[2] * 100.0 / 25.0;
+    pow_right = rtU.Tx[3] * 100.0 / 25.0;
 
     // Prevent regenerative braking, functionality not yet implemented
     if (pow_left < 0)  pow_left  = 0.0;
     if (pow_right < 0) pow_right = 0.0;
 
+    //if (pow_left > 0)
+    //{
+    //    k_avg = (k_avg*N + pow_left)/(N+1);
+    //    N = N + 1;
+    //}
+
     // Only drive if ready
-    if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE ||
-        can_data.main_hb.stale                              ||
-        can_data.torque_request_main.stale                  ||
-        motor_left.motor_state  != MC_CONNECTED             ||
-        motor_right.motor_state != MC_CONNECTED)
-    {
-        pow_left  = 0.0;
-        pow_right = 0.0;
-    }
+    //if (can_data.main_hb.car_state != CAR_STATE_READY2DRIVE || 
+        // TODO: fix stale checks can_data.main_hb.stale    ||
+        // can_data.torque_request_main.stale               ||
+    //    motor_left.motor_state  != MC_CONNECTED             ||
+    //    motor_right.motor_state != MC_CONNECTED) 
+    //{
+    //    pow_left  = 0.0;
+    //    pow_right = 0.0;
+    //}
     // Continuously send, despite connection state
     // Ensures that if we lost connection we continue
     // to send 0 to stop motor
     mcSetPower(pow_left,  &motor_left);
-    mcSetPower(pow_right, &motor_right);
+    tiSetParam(pow_left, &motor_left, &micro, &rtU, &wheel_speeds);
+    time2 = time1 - sched.os_ticks;
+
+    //mcSetPower(0, &motor_right);
+    //#if (FTR_DRIVELINE_REAR)
+    //SEND_REAR_MC_REQ(q_tx_can, pow_left, pow_right);
+    //SEND_REAR_POW_LIM_L(q_tx_can, rtY.T[2], rtY.P_g[2]);
+    //#endif
+
 }
 
 /**
@@ -366,19 +427,20 @@ void commandTorquePeriodic()
  */
 void parseDataPeriodic()
 {
-    uint16_t shock_l, shock_r;
+    //uint16_t shock_l, shock_r;
 
-    /* Update Motor Controller Data Structures */
-    mcPeriodic(&motor_left);
-    mcPeriodic(&motor_right);
+    /* Update Data Structures */
+    //mcPeriodic(&motor_left);
+    //mcPeriodic(&motor_right);
+    //tiPeriodic(&micro);
 
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;
 
     // Extract raw shocks from DMA buffer
-    shock_l = raw_shock_pots.pot_left;
-    shock_r = raw_shock_pots.pot_right;
+    //shock_l = raw_shock_pots.pot_left;
+    //shock_r = raw_shock_pots.pot_right;
     // Scale from raw 12bit adc to mm * 10 of linear pot travel
     shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
     shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
@@ -433,7 +495,7 @@ void ledUpdate()
 
 /* USART Message Handling */
 uint8_t tmp_left[MC_MAX_TX_LENGTH] = {'\0'};
-uint8_t tmp_right[MC_MAX_TX_LENGTH] = {'\0'};
+uint8_t tmp_right[TI_MAX_TX_LENGTH] = {'\0'};
 void usartTxUpdate()
 {
     if (PHAL_usartTxDmaComplete(&huart_l) &&
@@ -450,19 +512,19 @@ void usartTxUpdate()
 
 void USART1_IRQHandler(void) {
     if (USART_L->ISR & USART_ISR_IDLE) {
-        usartIdleIRQ(&motor_left, &huart_l);
+        usart1IdleIRQ(&motor_left, &huart_l);
         USART_L->ICR = USART_ICR_IDLECF;
     }
 }
 
 void USART2_IRQHandler(void) {
     if (USART_R->ISR & USART_ISR_IDLE) {
-        usartIdleIRQ(&motor_right, &huart_r);
+        usart2IdleIRQ(&micro, &huart_r);
         USART_R->ICR = USART_ICR_IDLECF;
     }
 }
 
-void usartIdleIRQ(motor_t *m, usart_init_t *huart)
+void usart1IdleIRQ(motor_t *m, usart_init_t *huart)
 {
     uint16_t new_loc = 0;
     m->last_rx_time = sched.os_ticks;
@@ -475,6 +537,21 @@ void usartIdleIRQ(motor_t *m, usart_init_t *huart)
         m->last_msg_loc = (m->last_rx_loc + 1) % MC_MAX_RX_LENGTH;
     }
     m->last_rx_loc = new_loc % MC_MAX_RX_LENGTH;
+}
+
+void usart2IdleIRQ(micro_t *m, usart_init_t *huart)
+{
+    uint16_t new_loc = 0;
+    m->last_rx_time = sched.os_ticks;
+    new_loc = TI_MAX_RX_LENGTH - huart->rx_dma_cfg->channel->CNDTR; // extract last location from DMA
+    if (new_loc == TI_MAX_RX_LENGTH) new_loc = 0;                   // should never happen
+    else if (new_loc < m->last_rx_loc) new_loc += TI_MAX_RX_LENGTH; // wrap around
+    if (new_loc - m->last_rx_loc > TI_MAX_TX_LENGTH)                // status msg vs just an echo
+    {
+        m->last_msg_time = sched.os_ticks;
+        m->last_msg_loc = (m->last_rx_loc + 1) % TI_MAX_RX_LENGTH;
+    }
+    m->last_rx_loc = new_loc % TI_MAX_RX_LENGTH;
 }
 
 /* CAN Message Handling */
@@ -546,4 +623,35 @@ void HardFault_Handler()
     {
         __asm__("nop");
     }
+}
+
+void rt_OneStep(RT_MODEL *const rtM)
+{
+  static boolean_T OverrunFlag = false;
+
+  /* Disable interrupts here */
+
+  /* Check for overrun */
+  if (OverrunFlag) {
+    rtmSetErrorStatus(rtM, "Overrun");
+    return;
+  }
+
+  OverrunFlag = true;
+
+  /* Save FPU context here (if necessary) */
+  /* Re-enable timer or interrupt here */
+  /* Set model inputs here */
+
+  /* Step the model */
+  MC_PL0_step(rtM, &rtU, &rtY);
+
+  /* Get model outputs here */
+
+  /* Indicate task complete */
+  OverrunFlag = false;
+
+  /* Disable interrupts here */
+  /* Restore FPU context here (if necessary) */
+  /* Enable interrupts here */
 }

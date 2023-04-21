@@ -54,6 +54,7 @@ add_subdirectory(common/common_defs)
 add_subdirectory(common/faults)
 add_subdirectory(common/daq)
 add_subdirectory(common/plettenberg)
+add_subdirectory(common/modules/wheel_speeds)
 
 # Properties that are set for each firmware component
 # Used to generate the .elf and other files for each project

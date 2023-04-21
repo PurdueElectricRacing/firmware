@@ -161,6 +161,14 @@ BO_ 2214592579 rear_wheel_data: 8 Driveline
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
 
+BO_ 2214593667 rear_mc_req: 8 Driveline
+ SG_ right_cmd : 32|32@1- (1,0) [0|0] "%" Vector__XXX
+ SG_ left_cmd : 0|32@1- (1,0) [0|0] "%" Vector__XXX
+
+BO_ 2214593731 rear_pow_lim_l: 8 Driveline
+ SG_ P_c : 32|32@1- (1,0) [0|0] "W" Vector__XXX
+ SG_ T : 0|32@1- (1,0) [0|0] "Nm" Vector__XXX
+
 BO_ 2348810883 front_motor_currents_temps: 8 Driveline
  SG_ right_voltage : 48|16@1+ (1,0) [0|0] "Voltx10" Vector__XXX
  SG_ right_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
@@ -940,6 +948,12 @@ CM_ SG_ 2214592579 right_normal "Linear potentiometer distance between mounting 
 CM_ SG_ 2214592579 left_normal "Linear potentiometer distance between mounting points";
 CM_ SG_ 2214592579 right_speed "";
 CM_ SG_ 2214592579 left_speed "";
+CM_ BO_ 2214593667 "Rear request to motor controllers";
+CM_ SG_ 2214593667 right_cmd "";
+CM_ SG_ 2214593667 left_cmd "";
+CM_ BO_ 2214593731 "Rear request to motor controllers";
+CM_ SG_ 2214593731 P_c "";
+CM_ SG_ 2214593731 T "";
 CM_ BO_ 2348810883 "DC Current and Temperature of the motors";
 CM_ SG_ 2348810883 right_voltage "";
 CM_ SG_ 2348810883 right_temp "";
@@ -1477,6 +1491,10 @@ VAL_ 2214598915 front_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifyi
 VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+SIG_VALTYPE_ 2214593667 left_cmd : 1;
+SIG_VALTYPE_ 2214593667 right_cmd : 1;
+SIG_VALTYPE_ 2214593731 T : 1;
+SIG_VALTYPE_ 2214593731 P_c : 1;
 SIG_VALTYPE_ 2348810751 left_speed : 1;
 SIG_VALTYPE_ 2348810751 right_speed : 1;
 SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;

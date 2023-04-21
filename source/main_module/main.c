@@ -271,7 +271,7 @@ int main(void){
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
     taskCreate(wheelSpeedsPeriodic, 15);
-    taskCreate(updatePowerMonitor, 1000);
+    taskCreate(updatePowerMonitor, 100);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);

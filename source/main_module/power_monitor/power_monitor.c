@@ -4,9 +4,9 @@
  * @brief  Monitor voltage and current present on the board
  * @version 0.1
  * @date 2023-02-02
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include "power_monitor.h"
@@ -49,16 +49,20 @@ void updatePowerMonitor()
 
     power_monitor.mcu_temp = (int16_t) ((((int32_t) adc_readings.therm_mcu)*ADC_REF_mV/ TS_CAL_ADC_REF - ts_cal1_val) *
                              (TS_CAL2_TEMP - TS_CAL1_TEMP) / (ts_cal2_val - ts_cal1_val) + TS_CAL1_TEMP);
-    
+
     setFault(ID_MCU_TEMP_HIGH_FAULT, power_monitor.mcu_temp);
     setFault(ID_LV_BAT_LOW_FAULT, power_monitor.lv_24_v_sense_mV / 1000);
     setFault(ID_LV_BAT_VERY_LOW_FAULT, power_monitor.lv_24_v_sense_mV / 1000);
     // TODO: BMS Fault (LV_BAT_BMS)
-
-    SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,
+    static uint8_t skip;
+    if (skip++ >= 10) {
+        SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,
                                  power_monitor.lv_5_v_sense_mV,  power_monitor.lv_3v3_v_sense_mV);
     SEND_CURRENT_MEAS(q_tx_can, power_monitor.lv_24_i_sense_mA, power_monitor.lv_5_i_sense_mA,
                                 power_monitor.mcu_temp, power_monitor.lv_3v3_power_good);
+        skip = 0;
+    }
+
     // TODO: add power monitoring faults
 }
 
@@ -78,7 +82,7 @@ void DMA2_Channel3_IRQHandler()
  * @brief Calculates the low voltage system current
  *        draw based on the output of a current
  *        sense amplifier
- * 
+ *
  * @param adc_raw 12-bit adc reading
  * @return uint16_t current in mA
  */
@@ -92,9 +96,9 @@ static uint16_t calcCurrent(uint16_t adc_raw)
 }
 
 /**
- * @brief Calculate the rail voltage given the adc 
+ * @brief Calculate the rail voltage given the adc
  *        reading from a voltage divider
- * 
+ *
  * @param adc_raw 12-bit adc reading
  * @param r1      Top resistor (Ohms)
  * @param r2      Bottom resistor (Ohms)

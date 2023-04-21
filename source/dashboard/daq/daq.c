@@ -19,6 +19,7 @@
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
+    {.is_read_only=0, .bit_length=16, .read_var_a=&thtl_limit, .write_var_a=&thtl_limit, },
 };
 // END AUTO VAR DEFS
 

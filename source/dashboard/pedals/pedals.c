@@ -4,6 +4,7 @@
 #include "can_parse.h"
 
 pedals_t pedals = {0};
+uint16_t thtl_limit = 4096;
 
 pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
                                          .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
@@ -224,6 +225,7 @@ void pedalsPeriodic(void)
     // {
     //     t2 = 0;
     // }
+    t2 = t2 > thtl_limit ? thtl_limit : t2;
     filtered_pedals = t2;
 
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_adc_values.t1,

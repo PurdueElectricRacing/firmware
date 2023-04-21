@@ -31,6 +31,7 @@
                     "node_name":"Dashboard",
                     "includes":"#include \"pedals.h\"",
                     "variables": [
+                        {"var_name":"thtl_limit", "access_phrase": "thtl_limit", "read_only": false, "type": "uint16_t", "unit": "%"}
                     ],
                     "files":[]
                 },

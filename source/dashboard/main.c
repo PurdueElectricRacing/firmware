@@ -225,6 +225,7 @@ int main (void){
     taskCreate(update_data_pages, 200);
     taskCreate(pedalsPeriodic, 15);
     taskCreate(sendMCUTempsVolts, 500);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -286,10 +287,8 @@ void preflightChecks(void) {
         case 5:
             /* Module Initialization */
             initCANParse(&q_rx_can);
-            // if (daqInit(&q_tx_can, I2C1))
-            // {
-            //     HardFault_Handler();
-            // }
+            if (daqInit(&q_tx_can))
+                HardFault_Handler();
             break;
         case 6:
             //Initialize HDD

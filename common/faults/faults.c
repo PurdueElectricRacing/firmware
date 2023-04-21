@@ -369,59 +369,59 @@ bool updateFault(uint16_t idx) {
         }
     }
     else {
-        //Account for potential noise during the latching process
-        if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4)&& fault->tempLatch == 1) {
-            fault->time_since_latch = curr_time - fault->start_ticks;
-            fault->bounces++;
-        }
-        else if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
-            fault->time_since_latch = curr_time = fault->start_ticks;
-            fault->bounces++;
-        }
-        else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 1) {
+        // //Account for potential noise during the latching process
+        // if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4)&& fault->tempLatch == 1) {
+        //     fault->time_since_latch = curr_time - fault->start_ticks;
+        //     fault->bounces++;
+        // }
+        // else if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
+        //     fault->time_since_latch = curr_time = fault->start_ticks;
+        //     fault->bounces++;
+        // }
+        // else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 1) {
+        //     fault->time_since_latch = 0;
+        //     fault->start_ticks = curr_time;
+        //     fault->status->latched = 1;
+        //     fault->tempLatch = 1;
+        //     fault->bounces = 0;
+        //     currCount++;
+        //     most_recent_latched = idx;
+        //     switch(fault->priority) {
+        //         case FAULT_WARNING:
+        //             warnCount++;
+        //             break;
+        //         case FAULT_ERROR:
+        //             errorCount++;
+        //             break;
+        //         case FAULT_FATAL:
+        //             fatalCount++;
+        //             break;
+        //     }
+        // }
+        // else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
+        //     fault->time_since_latch = 0;
+        //     fault->start_ticks = curr_time;
+        //     fault->status->latched = 1;
+        //     fault->tempLatch = 1;
+        //     fault->bounces = 0;
+        //     currCount++;
+        //     most_recent_latched = idx;
+        //     switch(fault->priority) {
+        //         case FAULT_WARNING:
+        //             warnCount++;
+        //             break;
+        //         case FAULT_ERROR:
+        //             errorCount++;
+        //             break;
+        //         case FAULT_FATAL:
+        //             fatalCount++;
+        //             break;
+        //     }
+        // }
+        // else {
             fault->time_since_latch = 0;
             fault->start_ticks = curr_time;
-            fault->status->latched = 1;
-            fault->tempLatch = 1;
-            fault->bounces = 0;
-            currCount++;
-            most_recent_latched = idx;
-            switch(fault->priority) {
-                case FAULT_WARNING:
-                    warnCount++;
-                    break;
-                case FAULT_ERROR:
-                    errorCount++;
-                    break;
-                case FAULT_FATAL:
-                    fatalCount++;
-                    break;
-            }
-        }
-        else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
-            fault->time_since_latch = 0;
-            fault->start_ticks = curr_time;
-            fault->status->latched = 1;
-            fault->tempLatch = 1;
-            fault->bounces = 0;
-            currCount++;
-            most_recent_latched = idx;
-            switch(fault->priority) {
-                case FAULT_WARNING:
-                    warnCount++;
-                    break;
-                case FAULT_ERROR:
-                    errorCount++;
-                    break;
-                case FAULT_FATAL:
-                    fatalCount++;
-                    break;
-            }
-        }
-        else {
-            fault->time_since_latch = 0;
-            fault->start_ticks = curr_time;
-        }
+        // }
     }
 }
 

@@ -211,11 +211,13 @@
         data_a->rear_controller_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_WHEEL_SPEEDS(queue, left_speed_, right_speed_) do {\
+#define SEND_REAR_WHEEL_SPEEDS(queue, left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_wheel_speeds.left_speed = left_speed_;\
-        data_a->rear_wheel_speeds.right_speed = right_speed_;\
+        data_a->rear_wheel_speeds.left_speed_mc = left_speed_mc_;\
+        data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
+        data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
+        data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(queue, idx_, latched_) do {\
@@ -391,8 +393,10 @@ typedef union {
         uint64_t right_temp: 8;
     } rear_controller_temps;
     struct {
-        uint64_t left_speed: 32;
-        uint64_t right_speed: 32;
+        uint64_t left_speed_mc: 16;
+        uint64_t right_speed_mc: 16;
+        uint64_t left_speed_sensor: 16;
+        uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
     struct {
         uint64_t idx: 16;

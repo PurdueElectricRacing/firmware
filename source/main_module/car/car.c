@@ -1,10 +1,17 @@
 #include "car.h"
+#include "common/modules/wheel_speeds/wheel_speeds.h"
 
 Car_t car;
 extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 uint8_t daq_buzzer;
+
+/* Wheel Speed Config */
+WheelSpeed_t left_wheel =  {.tim=TIM2, .invert=true};
+WheelSpeed_t right_wheel = {.tim=TIM5, .invert=true};
+// TODO: test invert
+WheelSpeeds_t wheel_speeds = {.l=&left_wheel, .r=&right_wheel};
 
 bool validatePrecharge();
 
@@ -24,6 +31,9 @@ bool carInit()
     /* Motor Controller Initialization */
     mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
     mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
+
+
+    wheelSpeedsInit(&wheel_speeds);
 }
 
 void carHeartbeat()
@@ -261,7 +271,10 @@ void parseMCDataPeriodic(void)
 
     // SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
     //                      shock_l, shock_r);
-    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm);
+    uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
+    uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
+    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm, 
+                                     l_speed, r_speed);
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) car.motor_l.current_x10,
                                    (uint16_t) car.motor_r.current_x10,

@@ -2,6 +2,7 @@
 #include "stm32l496xx.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/faults/faults.h"
+#include "common/modules/wheel_speeds/wheel_speeds.h"
 #include "common/phal_L4/adc/adc.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/eeprom_spi/eeprom_spi.h"
@@ -207,6 +208,7 @@ SPI_InitConfig_t spi_config = {
     .periph = SPI1
 };
 
+
 /* Clock Configuration */
 #define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
@@ -268,6 +270,7 @@ int main(void){
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
+    taskCreate(wheelSpeedsPeriodic, 15);
     taskCreate(updatePowerMonitor, 1000);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);

@@ -51,8 +51,8 @@ void updatePowerMonitor()
                              (TS_CAL2_TEMP - TS_CAL1_TEMP) / (ts_cal2_val - ts_cal1_val) + TS_CAL1_TEMP);
     
     setFault(ID_MCU_TEMP_HIGH_FAULT, power_monitor.mcu_temp);
-    setFault(ID_LV_BAT_LOW_FAULT, power_monitor.lv_24_v_sense_mV);
-    setFault(ID_LV_BAT_VERY_LOW_FAULT, power_monitor.lv_24_v_sense_mV);
+    setFault(ID_LV_BAT_LOW_FAULT, power_monitor.lv_24_v_sense_mV / 1000);
+    setFault(ID_LV_BAT_VERY_LOW_FAULT, power_monitor.lv_24_v_sense_mV / 1000);
     // TODO: BMS Fault (LV_BAT_BMS)
 
     SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,

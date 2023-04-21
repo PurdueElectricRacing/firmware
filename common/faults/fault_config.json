@@ -84,24 +84,6 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "battery pump flow brokey"
-                },
-                {
-                    "fault_name": "main_comm",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "fatal",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "main not talking"
-                },
-                {
-                    "fault_name": "lv_dead",
-                    "max": 3200,
-                    "min": 2000,
-                    "priority": "fatal",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "LV dead, shut car off ASAP"
                 }
             ]
         },

@@ -382,6 +382,11 @@ BO_ 2214598917 dashboard_hb: 1 Dashboard
  SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214598981 dashboard_volts_temp: 6 Dashboard
+ SG_ volts_3v3 : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts_5v : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
+
 BO_ 2148059909 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -1121,6 +1126,10 @@ CM_ BO_ 2214598917 "periodic dashboard heartbeat";
 CM_ SG_ 2214598917 apps_brake_faulted "";
 CM_ SG_ 2214598917 bse_faulted "";
 CM_ SG_ 2214598917 apps_faulted "";
+CM_ BO_ 2214598981 "periodic dashboard MCU temp";
+CM_ SG_ 2214598981 volts_3v3 "";
+CM_ SG_ 2214598981 volts_5v "";
+CM_ SG_ 2214598981 mcu_temp "";
 CM_ BO_ 2148059909 "Fault status message";
 CM_ SG_ 2148059909 latched "";
 CM_ SG_ 2148059909 idx "";

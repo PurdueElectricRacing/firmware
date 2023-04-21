@@ -31,11 +31,6 @@
                     "node_name":"Dashboard",
                     "includes":"#include \"pedals.h\"",
                     "variables": [
-                        {"var_name":"t1", "access_phrase":"raw_pedals.t1", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"t2", "access_phrase":"raw_pedals.t2", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"b1", "access_phrase":"raw_pedals.b1", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"b2", "access_phrase":"raw_pedals.b2", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"b3", "access_phrase":"raw_pedals.b3", "read_only": true, "type":"uint16_t", "length": 12}
                     ],
                     "files":[]
                 },

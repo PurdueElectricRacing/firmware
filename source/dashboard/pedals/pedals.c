@@ -4,7 +4,6 @@
 #include "can_parse.h"
 
 pedals_t pedals = {0};
-volatile raw_pedals_shockpots_t raw_pedals = {0};
 
 pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
                                          .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
@@ -34,11 +33,11 @@ extern q_handle_t q_tx_can;
 void pedalsPeriodic(void)
 {
     // Get current values (don't want them changing mid-calculation)
-    uint16_t t1 = raw_pedals.t1;
-    uint16_t t2 = raw_pedals.t2;
-    uint16_t b1 = raw_pedals.b1;
-    uint16_t b2 = raw_pedals.b2;
-    uint16_t b3_raw = raw_pedals.b3;
+    uint16_t t1 = raw_adc_values.t1;
+    uint16_t t2 = raw_adc_values.t2;
+    uint16_t b1 = raw_adc_values.b1;
+    uint16_t b2 = raw_adc_values.b2;
+    uint16_t b3_raw = raw_adc_values.b3;
 
     b3_buff[b3_idx++] = b3_raw;
     b3_idx %= 8;
@@ -227,9 +226,9 @@ void pedalsPeriodic(void)
     // }
     filtered_pedals = t2;
 
-    SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_pedals.t1,
-                            raw_pedals.t2, raw_pedals.b1,
-                            raw_pedals.b2, raw_pedals.b3);
+    SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_adc_values.t1,
+                            raw_adc_values.t2, raw_adc_values.b1,
+                            raw_adc_values.b2, raw_adc_values.b3);
     SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b2);
 
 

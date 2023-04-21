@@ -193,7 +193,7 @@
                             ],
                             "msg_period": 500,
                             "msg_hlp": 2,
-                            "msg_pgn": 14 
+                            "msg_pgn": 14
                         }
                     ],
                     "rx":[
@@ -266,7 +266,7 @@
                             "msg_hlp": 1,
                             "msg_pgn": 100
                         },
-                        
+
                         {   "msg_name": "front_wheel_data",
                             "msg_desc": "Wheel data for the rear tires",
                             "signals": [
@@ -671,7 +671,7 @@
                         }
                     ],
                     "rx":[
-                      
+
                     ]
                 },
                 {
@@ -736,7 +736,20 @@
                             "msg_period":100,
                             "msg_hlp":1,
                             "msg_pgn":100
+                        },
+                        {
+                            "msg_name":"dashboard_volts_temp",
+                            "msg_desc":"periodic dashboard MCU temp",
+                            "signals":[
+                                {"sig_name": "mcu_temp", "type":"int16_t"},
+                                {"sig_name": "volts_5v", "type":"uint16_t"},
+                                {"sig_name": "volts_3v3", "type":"uint16_t"}
+                            ],
+                            "msg_period":500,
+                            "msg_hlp":1,
+                            "msg_pgn":101
                         }
+
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},

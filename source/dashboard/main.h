@@ -18,6 +18,25 @@
 
 //STM32L496VGT6
 
+typedef struct __attribute__((packed))
+{
+    // Do not modify this struct unless
+    // you modify the ADC DMA config
+    // in main.h to match
+    uint16_t t1;
+    uint16_t t2;
+    uint16_t b1;
+    uint16_t b2;
+    uint16_t b3;
+    uint16_t shock_left;
+    uint16_t shock_right;
+    uint16_t lv_5v_sense;
+    uint16_t lv_3v3_sense;
+    uint16_t mcu_therm;
+} raw_adc_values_t;
+
+volatile extern raw_adc_values_t raw_adc_values;
+
 // Status Indicators
 #define CONN_LED_GPIO_Port          (GPIOE)
 #define CONN_LED_Pin                (6)
@@ -170,7 +189,20 @@
 // LV Status
 #define LV_5V_V_SENSE_GPIO_Port     (GPIOB)
 #define LV_5V_V_SENSE_Pin           (0)
+#define LV_5V_V_SENSE_ADC_CHNL      (15)
 #define LV_3V3_V_SENSE_GPIO_Port    (GPIOB)
 #define LV_3V3_V_SENSE_Pin          (1)
+#define LV_3V3_V_SENSE_ADC_CHNL     (16)
+#define LV_5V_SCALE                 (0.413F)
+
+//Internal MCU Thermistor
+#define MCU_THERM_ADC_CHNL          (17)
+#define TS_CAL1_ADDR                ((uint16_t*) 0x1FFF75A8UL)
+#define TS_CAL2_ADDR                ((uint16_t*) 0x1FFF75CAUL)
+#define TS_CAL1_VAL                 ((int32_t) 30)
+#define TS_CAL2_VAL                 ((int32_t) 130)
+#define TS_VREF                     (3000UL)
+#define ADC_VREF_INT                (3300UL)
+
 
 #endif

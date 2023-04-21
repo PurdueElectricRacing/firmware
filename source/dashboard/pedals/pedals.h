@@ -54,22 +54,6 @@ typedef struct
 
 extern pedals_t pedals;
 
-typedef struct __attribute__((packed))
-{
-    // Do not modify this struct unless
-    // you modify the ADC DMA config
-    // in main.h to match
-    uint16_t t1;
-    uint16_t t2;
-    uint16_t b1;
-    uint16_t b2;
-    uint16_t b3;
-    uint16_t shock_left;
-    uint16_t shock_right;
-} raw_pedals_shockpots_t;
-
-volatile extern raw_pedals_shockpots_t raw_pedals;
-
 typedef struct {
     uint16_t t1max;
     uint16_t t1min;

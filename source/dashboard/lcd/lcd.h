@@ -84,8 +84,8 @@ typedef enum {
   PAGE_SETTINGS,
   PAGE_DATA,
   PAGE_TV,
-  PAGE_ERROR,
   PAGE_WARNING,
+  PAGE_ERROR,
   PAGE_FATAL,
   PAGE_KNOBS
 } page_t;

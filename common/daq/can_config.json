@@ -788,6 +788,7 @@
                         {"msg_name": "rear_controller_temps"},
                         {"msg_name": "precharge_hb"},
                         {"msg_name": "torque_request_main"},
+                        {"msg_name": "rear_wheel_speeds"},
                         {"msg_name": "flowrate_temps"},
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},

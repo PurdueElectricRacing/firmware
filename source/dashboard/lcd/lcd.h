@@ -6,7 +6,7 @@
 #include "can_parse.h"
 #include "main.h"
 
-//Page Strings
+//Page Strings / info
 #define RACE_STRING "race"
 #define SETTINGS_STRING "settings"
 #define DATA_STRING "data"
@@ -16,6 +16,7 @@
 #define FATAL_STRING "critical"
 #define DEADBAND_STRING "deadband"
 #define INTENSITY_STRING "intensity"
+#define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U)
 
 //Error/Knob page values
 #define TIME_BAR "j0"
@@ -140,6 +141,6 @@ void send_p_val();
 void send_i_val();
 void update_data_pages();
 char *get_deadband();
-char *int_to_char(uint16_t val, char *val_to_send);
+char *int_to_char(int16_t val, char *val_to_send);
 
 #endif

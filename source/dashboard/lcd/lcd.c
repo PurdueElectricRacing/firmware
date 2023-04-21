@@ -541,7 +541,13 @@ void update_data_pages() {
         case PAGE_RACE:
             set_value(POW_LIM_BAR, NXT_VALUE, 0);
             set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
-            set_text(SPEED, NXT_TEXT, "S");
+            if (can_data.rear_wheel_speeds.stale) {
+                set_text(SPEED, NXT_TEXT, "S");
+            }
+            else {
+                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_mc, can_data.rear_wheel_speeds.right_speed_mc) / GEAR_RATIO), parsed_value));
+                bzero(parsed_value, 3);
+            }
             if (sendFirsthalf) {
                 if (can_data.rear_motor_currents_temps.stale) {
                     set_text(MOT_TEMP, NXT_TEXT, "S");
@@ -754,9 +760,13 @@ char *get_deadband() {
     }
 }
 
-char *int_to_char(uint16_t val, char *val_to_send) {
+char *int_to_char(int16_t val, char *val_to_send) {
     char *orig_ptr = val_to_send;
     if (val < 10) {
+        if (val < 0) {
+            *val_to_send++ = (char)('-');
+            val *= -1;
+        }
         *val_to_send = (char)(val + 48);
         return orig_ptr;
     }

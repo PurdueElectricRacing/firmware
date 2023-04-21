@@ -38,6 +38,7 @@
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_REAR_WHEEL_SPEEDS 0x8000381
 #define ID_FLOWRATE_TEMPS 0x4000881
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
@@ -72,6 +73,7 @@
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_PRECHARGE_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_FLOWRATE_TEMPS 8
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
@@ -165,6 +167,7 @@
 #define UP_REAR_CONTROLLER_TEMPS 500
 #define UP_PRECHARGE_HB 100
 #define UP_TORQUE_REQUEST_MAIN 15
+#define UP_REAR_WHEEL_SPEEDS 15
 #define UP_FLOWRATE_TEMPS 200
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 2000
@@ -321,6 +324,12 @@ typedef union {
         uint64_t rear_left: 16;
         uint64_t rear_right: 16;
     } torque_request_main;
+    struct {
+        uint64_t left_speed_mc: 16;
+        uint64_t right_speed_mc: 16;
+        uint64_t left_speed_sensor: 16;
+        uint64_t right_speed_sensor: 16;
+    } rear_wheel_speeds;
     struct {
         uint64_t battery_in_temp: 8;
         uint64_t battery_out_temp: 8;
@@ -497,6 +506,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } torque_request_main;
+    struct {
+        uint16_t left_speed_mc;
+        uint16_t right_speed_mc;
+        uint16_t left_speed_sensor;
+        uint16_t right_speed_sensor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_wheel_speeds;
     struct {
         int8_t battery_in_temp;
         int8_t battery_out_temp;

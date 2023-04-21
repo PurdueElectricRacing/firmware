@@ -8,7 +8,7 @@
             "nodes":[
                 {
                     "node_name":"Main_Module",
-                    "includes":"#include \"cooling.h\"\n#include\"main.h\"",
+                    "includes":"#include \"cooling.h\"\n#include\"main.h\"\n#include\"car.h\"",
                     "variables": [
                         {"var_name":"dt_liters_p_min_x10", "access_phrase":"cooling.dt_liters_p_min_x10", "read_only": true, "type":"uint8_t", "length": 8},
                         {"var_name":"bat_liters_p_min_x10", "access_phrase":"cooling.bat_liters_p_min_x10", "read_only": true, "type":"uint8_t", "length": 8},
@@ -22,7 +22,8 @@
                         {"var_name":"bat_pump", "access_phrase": "cooling.out_daq_req.bat_pump", "read_only": false, "type": "uint8_t", "length": 1},
                         {"var_name":"bat_pump_aux", "access_phrase": "cooling.out_daq_req.bat_pump_aux", "read_only": false, "type": "uint8_t", "length": 1},
                         {"var_name":"dt_fan", "access_phrase": "cooling.out_daq_req.dt_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"},
-                        {"var_name":"bat_fan", "access_phrase": "cooling.out_daq_req.bat_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"}
+                        {"var_name":"bat_fan", "access_phrase": "cooling.out_daq_req.bat_fan_power", "read_only": false, "type": "uint8_t", "unit": "%"},
+                        {"var_name":"daq_buzzer", "access_phrase": "daq_buzzer", "read_only": false, "type": "uint8_t", "length": 1, "unit": "%"}
                     ],
                     "files":[]
                 },
@@ -30,11 +31,7 @@
                     "node_name":"Dashboard",
                     "includes":"#include \"pedals.h\"",
                     "variables": [
-                        {"var_name":"t1", "access_phrase":"raw_pedals.t1", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"t2", "access_phrase":"raw_pedals.t2", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"b1", "access_phrase":"raw_pedals.b1", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"b2", "access_phrase":"raw_pedals.b2", "read_only": true, "type":"uint16_t", "length": 12},
-                        {"var_name":"b3", "access_phrase":"raw_pedals.b3", "read_only": true, "type":"uint16_t", "length": 12}
+                        {"var_name":"thtl_limit", "access_phrase": "thtl_limit", "read_only": false, "type": "uint16_t", "unit": "%"}
                     ],
                     "files":[]
                 },

@@ -25,8 +25,8 @@
 #define ERROR_FALL_MS (5000)
 
 /* BRAKE LIGHT CONFIG */
-#define BRAKE_LIGHT_ON_THRESHOLD  (500)
-#define BRAKE_LIGHT_OFF_THRESHOLD (300)
+#define BRAKE_LIGHT_ON_THRESHOLD  (250)
+#define BRAKE_LIGHT_OFF_THRESHOLD (150)
 
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 typedef struct
@@ -76,6 +76,8 @@ typedef struct
     uint32_t buzzer_start_ms;
 } Car_t;
 extern Car_t car;
+
+extern uint8_t daq_buzzer;
 
 bool carInit();
 void carHeartbeat();

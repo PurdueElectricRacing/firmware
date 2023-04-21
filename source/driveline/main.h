@@ -35,8 +35,8 @@
 
 #define M_INVERT_FRONT_RIGHT 0
 #define M_INVERT_FRONT_LEFT  0
-#define M_INVERT_REAR_RIGHT  0
-#define M_INVERT_REAR_LEFT   0
+#define M_INVERT_REAR_RIGHT  1
+#define M_INVERT_REAR_LEFT   1
 
 #if (FTR_DRIVELINE_FRONT)
 #define M_INVERT_RIGHT M_INVERT_FRONT_RIGHT
@@ -51,7 +51,8 @@
 #define WSPEEDL_Pin       (8)
 #define WHEELSPEEDL_AF    (1)
 #define WSPEEDR_GPIO_Port (GPIOA)
-#define WSPEEDR_Pin       (15)
+//#define WSPEEDR_Pin       (15)
+#define WSPEEDR_Pin       (0)
 #define WHEELSPEEDR_AF    (1)
 
 /* EEPROM */

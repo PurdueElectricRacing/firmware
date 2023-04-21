@@ -43,6 +43,7 @@
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
+#define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
@@ -63,7 +64,7 @@
 #define DLC_LWS_CONFIG 2
 #define DLC_VOLTAGE_RAILS 8
 #define DLC_PRECHARGE_STATE 4
-#define DLC_CURRENT_MEAS 5
+#define DLC_CURRENT_MEAS 7
 #define DLC_MCU_STATUS 5
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
@@ -78,6 +79,7 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
+#define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -162,11 +164,12 @@
         data_a->precharge_state.precharge_error = precharge_error_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, LV3V3_PG_) do {\
+#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, MCU_TEMP_, LV3V3_PG_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CURRENT_MEAS, .DLC=DLC_CURRENT_MEAS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->current_meas.LV24_I = LV24_I_;\
         data_a->current_meas.LV5_I = LV5_I_;\
+        data_a->current_meas.MCU_TEMP = MCU_TEMP_;\
         data_a->current_meas.LV3V3_PG = LV3V3_PG_;\
         qSendToBack(&queue, &msg);\
     } while(0)
@@ -208,11 +211,13 @@
         data_a->rear_controller_temps.right_temp = right_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_REAR_WHEEL_SPEEDS(queue, left_speed_, right_speed_) do {\
+#define SEND_REAR_WHEEL_SPEEDS(queue, left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_wheel_speeds.left_speed = left_speed_;\
-        data_a->rear_wheel_speeds.right_speed = right_speed_;\
+        data_a->rear_wheel_speeds.left_speed_mc = left_speed_mc_;\
+        data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
+        data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
+        data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(queue, idx_, latched_) do {\
@@ -238,6 +243,7 @@
 #define UP_DASHBOARD_HB 100
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
+#define UP_COOLING_DRIVER_REQUEST 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -357,6 +363,7 @@ typedef union {
     struct {
         uint64_t LV24_I: 16;
         uint64_t LV5_I: 16;
+        uint64_t MCU_TEMP: 16;
         uint64_t LV3V3_PG: 1;
     } current_meas;
     struct {
@@ -386,8 +393,10 @@ typedef union {
         uint64_t right_temp: 8;
     } rear_controller_temps;
     struct {
-        uint64_t left_speed: 32;
-        uint64_t right_speed: 32;
+        uint64_t left_speed_mc: 16;
+        uint64_t right_speed_mc: 16;
+        uint64_t left_speed_sensor: 16;
+        uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
     struct {
         uint64_t idx: 16;
@@ -431,6 +440,13 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } main_module_bl_cmd;
+    struct {
+        uint64_t dt_pump: 8;
+        uint64_t dt_fan: 8;
+        uint64_t batt_pump: 8;
+        uint64_t batt_pump2: 8;
+        uint64_t batt_fan: 8;
+    } cooling_driver_request;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -515,6 +531,15 @@ typedef struct {
         uint32_t data;
     } main_module_bl_cmd;
     struct {
+        uint8_t dt_pump;
+        uint8_t dt_fan;
+        uint8_t batt_pump;
+        uint8_t batt_pump2;
+        uint8_t batt_fan;
+        uint8_t stale;
+        uint32_t last_rx;
+    } cooling_driver_request;
+    struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_driveline;
@@ -553,6 +578,7 @@ extern volatile uint32_t last_can_rx_time_ms;
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

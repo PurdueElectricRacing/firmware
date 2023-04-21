@@ -1,9 +1,17 @@
 #include "car.h"
+#include "common/modules/wheel_speeds/wheel_speeds.h"
 
 Car_t car;
 extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
+uint8_t daq_buzzer;
+
+/* Wheel Speed Config */
+WheelSpeed_t left_wheel =  {.tim=TIM2, .invert=true};
+WheelSpeed_t right_wheel = {.tim=TIM5, .invert=true};
+// TODO: test invert
+WheelSpeeds_t wheel_speeds = {.l=&left_wheel, .r=&right_wheel};
 
 bool validatePrecharge();
 
@@ -18,9 +26,14 @@ bool carInit()
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
+    daq_buzzer = 0;
+
     /* Motor Controller Initialization */
     mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
     mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
+
+
+    wheelSpeedsInit(&wheel_speeds);
 }
 
 void carHeartbeat()
@@ -33,7 +46,7 @@ void carHeartbeat()
     static uint8_t n;
     if (++n == 5)
     {
-        SEND_PRECHARGE_STATE(q_tx_can, car.pchg.v_mc_filt, car.pchg.v_bat_filt, 
+        SEND_PRECHARGE_STATE(q_tx_can, car.pchg.v_mc_filt, car.pchg.v_bat_filt,
                                        car.pchg.pchg_complete, car.pchg.pchg_error);
         n = 0;
     }
@@ -57,15 +70,15 @@ void carPeriodic()
 
     /* Process Inputs */
 
-    // TODO: define faults and set them somewhere, not necessarily all here
-    // TODO: udpate precharge status
-
     // Start button debounce (only want rising edge)
     car.start_btn_debounced = can_data.start_button.start;
     can_data.start_button.start = false;
 
 
     /* State Independent Operations */
+    validatePrecharge();
+    setFault(ID_PCHG_IMPLAUS_FAULT, car.pchg.pchg_error);
+    // setFault(ID_RTD_EXIT_FAULT, !car.pchg.pchg_complete && car.state == CAR_STATE_READY2DRIVE);
 
     /**
      * Brake Light Control
@@ -88,6 +101,12 @@ void carPeriodic()
         }
     }
 
+    if (checkFault(ID_RTD_EXIT_FAULT))
+    {
+        car.state = CAR_STATE_IDLE;
+    }
+    // An error fault has higher priority
+    // than the RTD Exit Fault
     if (errorLatched())
     {
         car.state = CAR_STATE_ERROR;
@@ -100,7 +119,6 @@ void carPeriodic()
     }
 
     /* State Dependent Operations */
-    validatePrecharge();
 
     // EV.10.4 - Activation sequence
     // Tractive System Active - SDC closed, HV outside accumulator
@@ -124,9 +142,9 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_IDLE)
     {
-        // TODO: add brake back!!
-        if (car.start_btn_debounced )//&& 
-           // can_data.raw_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
+        if (car.start_btn_debounced &&
+           can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD &&
+           car.pchg.pchg_complete)
         {
             car.state = CAR_STATE_BUZZING;
             car.buzzer_start_ms = sched.os_ticks;
@@ -150,15 +168,15 @@ void carPeriodic()
         }
         else
         {
-            // TODO: ensure stale checking
-            float t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+            float t_req_pedal = 0;
+            if (!can_data.filt_throttle_brake.stale)
+                t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
-            // TODO: set deadzone through dashboard
-            // TODO: create a filtered torque output from dashboard
             // TODO: ensure APPS checks sets throttle to 0 if enough braking
             // t_req = t_req < 100 ? 0 : ((t_req - 100) / (4095 - 100) * 4095);
             // uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
-            
+
             torqueRequest_t temp_t_req;
             switch (car.torque_src)
             {
@@ -184,8 +202,8 @@ void carPeriodic()
             temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, 100.0f);
 
             // EV.4.2.3 - Torque algorithm
-            // Any algorithm or electronic control unit that can adjust the 
-            // requested wheel torque may only lower the total driver 
+            // Any algorithm or electronic control unit that can adjust the
+            // requested wheel torque may only lower the total driver
             // requested torque and must not increase it
             if (temp_t_req.torque_left > t_req_pedal)
             {
@@ -212,7 +230,7 @@ void carPeriodic()
     }
 
     /* Update System Outputs */
-    car.buzzer = car.state == CAR_STATE_BUZZING;
+    car.buzzer = car.state == CAR_STATE_BUZZING || daq_buzzer;
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
@@ -234,6 +252,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
+    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_l.motor_state != MC_CONNECTED);
+    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;
@@ -249,7 +271,10 @@ void parseMCDataPeriodic(void)
 
     // SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
     //                      shock_l, shock_r);
-    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm);
+    uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
+    uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
+    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
+                                     l_speed, r_speed);
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) car.motor_l.current_x10,
                                    (uint16_t) car.motor_r.current_x10,
@@ -266,7 +291,7 @@ void parseMCDataPeriodic(void)
  * @brief  Checks faults that should prevent
  *         the car from driving, but are okay
  *         to leave the sdc closed
- * 
+ *
  * @return true  Faults exist
  * @return false No faults have existed for set time
  */
@@ -278,7 +303,7 @@ bool checkErrorFaults()
     uint8_t prchg_stat;
     static uint16_t prchg_time;
 
-    /* Heart Beat Stale */ 
+    /* Heart Beat Stale */
     // is_error += can_data.dashboard_hb.stale;
     // is_error += can_data.front_driveline_hb.stale;
     // TODO: is_error += can_data.rear_driveline_hb.stale;
@@ -307,17 +332,17 @@ bool checkErrorFaults()
 
     /* Driveline */
     // Front
-    // is_error += can_data.front_driveline_hb.front_left_motor  != 
+    // is_error += can_data.front_driveline_hb.front_left_motor  !=
     //             FRONT_LEFT_MOTOR_CONNECTED;
-    // is_error += can_data.front_driveline_hb.front_right_motor != 
+    // is_error += can_data.front_driveline_hb.front_right_motor !=
     //             FRONT_RIGHT_MOTOR_CONNECTED;
 
     // Rear
     // TODO: revert
     /*
-    is_error += can_data.rear_driveline_hb.rear_left_motor    != 
+    is_error += can_data.rear_driveline_hb.rear_left_motor    !=
                 REAR_LEFT_MOTOR_CONNECTED;
-    is_error += can_data.rear_driveline_hb.rear_right_motor   != 
+    is_error += can_data.rear_driveline_hb.rear_right_motor   !=
                 REAR_RIGHT_MOTOR_CONNECTED;
                 */
 
@@ -325,7 +350,7 @@ bool checkErrorFaults()
     // TODO: if (!DT_ALWAYS_COOL)  is_error += cooling.dt_temp_error;
     // TODO: if (!BAT_ALWAYS_COOL) is_error += cooling.bat_temp_error;
 
-    if (is_error && !error_rose) 
+    if (is_error && !error_rose)
     {
         error_rose = true;
         last_error_time = sched.os_ticks;
@@ -362,7 +387,7 @@ bool checkFatalFaults()
 /**
  * @brief Resets the steering angle sensor calibration
  *        Call once after assembly with wheel centered
- *        Device: Bosch F02U.V02.894-01 
+ *        Device: Bosch F02U.V02.894-01
  */
 void calibrateSteeringAngle(uint8_t *success)
 {
@@ -379,12 +404,13 @@ void calibrateSteeringAngle(uint8_t *success)
  * @brief Checks if the precharge circuit is working
  *        correctly based on the V_MV and V_Bat ADC
  *        measurements and PRCHG Complete Signal
- * 
+ *
  * @return true Precharge Working Properly
  */
 bool validatePrecharge()
 {
     uint32_t tmp_mc, tmp_bat;
+    tmp_mc = tmp_bat = 0;
 
     // Measure inputs
     car.pchg.v_mc_buff[car.pchg.v_mc_buff_idx++]   = adc_readings.v_mc;
@@ -396,7 +422,7 @@ bool validatePrecharge()
     car.pchg.v_bat_buff_idx %= HV_LOW_PASS_SIZE;
 
     // Sum buffers
-    for (uint8_t i = 0, tmp_mc = 0, tmp_bat=0; i < HV_LOW_PASS_SIZE; ++i)
+    for (uint8_t i = 0; i < HV_LOW_PASS_SIZE; ++i)
     {
         tmp_mc  += car.pchg.v_mc_buff[i];
         tmp_bat += car.pchg.v_bat_buff[i];
@@ -405,9 +431,9 @@ bool validatePrecharge()
     tmp_mc  /= HV_LOW_PASS_SIZE;
     tmp_bat /= HV_LOW_PASS_SIZE;
 
-    // V_out = adc_raw * adc_v_ref / adc_max
-    car.pchg.v_mc_filt  = ((uint32_t) tmp_mc  * ((ADC_REF_mV * (uint32_t) HV_V_MC_CAL)  / 1000)) / 0xFFFUL;
-    car.pchg.v_bat_filt = ((uint32_t) tmp_bat * ((ADC_REF_mV * (uint32_t) HV_V_BAT_CAL) / 1000)) / 0xFFFUL;
+    // V_outx10 = adc_raw * adc_v_ref / adc_max (Tiffomy outputs volts / 100)
+    car.pchg.v_mc_filt  = (tmp_mc  * ((ADC_REF_mV * HV_V_MC_CAL)  / 1000UL)) / 0xFFFUL;
+    car.pchg.v_bat_filt = (tmp_bat * ((ADC_REF_mV * HV_V_BAT_CAL) / 1000UL)) / 0xFFFUL;
 
     // Validate
     if ((car.pchg.pchg_complete && car.pchg.v_mc_filt < ((((uint32_t) car.pchg.v_bat_filt) * 80) / 100)) ||

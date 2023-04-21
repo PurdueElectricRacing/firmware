@@ -18,16 +18,30 @@
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Driveline"
 
+// Used to represent a float as 32 bits
+typedef union {
+    float f;
+    uint32_t u;
+} FloatConvert_t;
+#define FLOAT_TO_UINT32(float_) (((FloatConvert_t) float_).u)
+#define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t) ((uint32_t) uint32_)).f)
+
+
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_FRONT_WHEEL_DATA 0x4000003
 #define ID_REAR_WHEEL_DATA 0x4000043
+#define ID_REAR_MC_REQ 0x4000483
+#define ID_REAR_POW_LIM_L 0x40004c3
 #define ID_FRONT_MOTOR_CURRENTS_TEMPS 0xc000283
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_DAQ_RESPONSE_DRIVELINE 0x17ffffc3
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_MAIN_HB 0x4001901
+#define ID_ORION_INFO 0x140006b8
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_DRIVELINE_FRONT_BL_CMD 0x409c4fe
 #define ID_DRIVELINE_REAR_BL_CMD 0x409c53e
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
@@ -45,11 +59,15 @@
 #define DLC_FRONT_DRIVELINE_HB 6
 #define DLC_FRONT_WHEEL_DATA 8
 #define DLC_REAR_WHEEL_DATA 8
+#define DLC_REAR_MC_REQ 8
+#define DLC_REAR_POW_LIM_L 8
 #define DLC_FRONT_MOTOR_CURRENTS_TEMPS 8
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_DAQ_RESPONSE_DRIVELINE 8
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_MAIN_HB 2
+#define DLC_ORION_INFO 7
+#define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_DRIVELINE_FRONT_BL_CMD 5
 #define DLC_DRIVELINE_REAR_BL_CMD 5
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -93,6 +111,20 @@ extern uint32_t last_can_rx_time_ms;
         data_a->rear_wheel_data.right_normal = right_normal_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_REAR_MC_REQ(queue, left_cmd_, right_cmd_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MC_REQ, .DLC=DLC_REAR_MC_REQ, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->rear_mc_req.left_cmd = FLOAT_TO_UINT32(left_cmd_);\
+        data_a->rear_mc_req.right_cmd = FLOAT_TO_UINT32(right_cmd_);\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_REAR_POW_LIM_L(queue, T_, P_c_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_POW_LIM_L, .DLC=DLC_REAR_POW_LIM_L, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->rear_pow_lim_l.T = FLOAT_TO_UINT32(T_);\
+        data_a->rear_pow_lim_l.P_c = FLOAT_TO_UINT32(P_c_);\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_FRONT_MOTOR_CURRENTS_TEMPS(queue, left_current_, right_current_, left_temp_, right_temp_, right_voltage_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FRONT_MOTOR_CURRENTS_TEMPS, .DLC=DLC_FRONT_MOTOR_CURRENTS_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -123,6 +155,10 @@ extern uint32_t last_can_rx_time_ms;
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_TORQUE_REQUEST_MAIN 15
 #define UP_MAIN_HB 100
+#define UP_FRONT_WHEEL_DATA 10
+#define UP_REAR_WHEEL_DATA 10
+#define UP_ORION_INFO 32
+#define UP_ORION_CURRENTS_VOLTS 32
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -212,6 +248,14 @@ typedef union {
         uint64_t right_normal: 16;
     } rear_wheel_data;
     struct {
+        uint64_t left_cmd: 32;
+        uint64_t right_cmd: 32;
+    } rear_mc_req;
+    struct {
+        uint64_t T: 32;
+        uint64_t P_c: 32;
+    } rear_pow_lim_l;
+    struct {
         uint64_t left_current: 16;
         uint64_t right_current: 16;
         uint64_t left_temp: 8;
@@ -235,6 +279,31 @@ typedef union {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
     } main_hb;
+    struct {
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -295,6 +364,51 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } main_hb;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } front_wheel_data;
+    struct {
+        uint16_t left_speed;
+        uint16_t right_speed;
+        uint16_t left_normal;
+        uint16_t right_normal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_wheel_data;
+    struct {
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_info;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
     struct {
         uint8_t cmd;
         uint32_t data;

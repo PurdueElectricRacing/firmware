@@ -25,6 +25,7 @@
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
+#define ID_DASHBOARD_VOLTS_TEMP 0x4001945
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
@@ -37,6 +38,7 @@
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
+#define ID_REAR_WHEEL_SPEEDS 0x8000381
 #define ID_FLOWRATE_TEMPS 0x4000881
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
@@ -58,6 +60,7 @@
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
+#define DLC_DASHBOARD_VOLTS_TEMP 6
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
@@ -70,6 +73,7 @@
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_PRECHARGE_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
+#define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_FLOWRATE_TEMPS 8
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
@@ -127,6 +131,14 @@
         data_a->dashboard_hb.apps_brake_faulted = apps_brake_faulted_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_DASHBOARD_VOLTS_TEMP(queue, mcu_temp_, volts_5v_, volts_3v3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_VOLTS_TEMP, .DLC=DLC_DASHBOARD_VOLTS_TEMP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dashboard_volts_temp.mcu_temp = mcu_temp_;\
+        data_a->dashboard_volts_temp.volts_5v = volts_5v_;\
+        data_a->dashboard_volts_temp.volts_3v3 = volts_3v3_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_FAULT_SYNC_DASHBOARD(queue, idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_DASHBOARD, .DLC=DLC_FAULT_SYNC_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -155,6 +167,7 @@
 #define UP_REAR_CONTROLLER_TEMPS 500
 #define UP_PRECHARGE_HB 100
 #define UP_TORQUE_REQUEST_MAIN 15
+#define UP_REAR_WHEEL_SPEEDS 15
 #define UP_FLOWRATE_TEMPS 200
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 2000
@@ -206,6 +219,11 @@ typedef union {
         uint64_t bse_faulted: 1;
         uint64_t apps_brake_faulted: 1;
     } dashboard_hb;
+    struct {
+        uint64_t mcu_temp: 16;
+        uint64_t volts_5v: 16;
+        uint64_t volts_3v3: 16;
+    } dashboard_volts_temp;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -306,6 +324,12 @@ typedef union {
         uint64_t rear_left: 16;
         uint64_t rear_right: 16;
     } torque_request_main;
+    struct {
+        uint64_t left_speed_mc: 16;
+        uint64_t right_speed_mc: 16;
+        uint64_t left_speed_sensor: 16;
+        uint64_t right_speed_sensor: 16;
+    } rear_wheel_speeds;
     struct {
         uint64_t battery_in_temp: 8;
         uint64_t battery_out_temp: 8;
@@ -482,6 +506,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } torque_request_main;
+    struct {
+        uint16_t left_speed_mc;
+        uint16_t right_speed_mc;
+        uint16_t left_speed_sensor;
+        uint16_t right_speed_sensor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_wheel_speeds;
     struct {
         int8_t battery_in_temp;
         int8_t battery_out_temp;

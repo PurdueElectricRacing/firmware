@@ -2,6 +2,7 @@
 #include "stm32l496xx.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/faults/faults.h"
+#include "common/modules/wheel_speeds/wheel_speeds.h"
 #include "common/phal_L4/adc/adc.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/eeprom_spi/eeprom_spi.h"
@@ -187,7 +188,8 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
     {.channel=THERM_MUX_D_ADC_CHNL,    .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
     {.channel=DT_GB_THERM_L_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=DT_GB_THERM_R_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_640_5}
+    {.channel=DT_GB_THERM_R_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
@@ -205,6 +207,7 @@ SPI_InitConfig_t spi_config = {
     .tx_dma_cfg = &spi_tx_dma_config,
     .periph = SPI1
 };
+
 
 /* Clock Configuration */
 #define TargetCoreClockrateHz 80000000
@@ -267,16 +270,21 @@ int main(void){
     taskCreate(heartBeatLED, 500);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
-    taskCreate(updatePowerMonitor, 1000);
+    taskCreate(wheelSpeedsPeriodic, 15);
+    taskCreate(updatePowerMonitor, 100);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(memFg, MEM_FG_TIME);
-    taskCreate(updateFaults, 1);
+    // taskCreate(updateFaults, 1);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(memBg);
+
+    // calibrateSteeringAngle(&i);
+    // SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
+    // SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
 
     schedStart();
 
@@ -350,7 +358,7 @@ void preflightChecks(void) {
            initCANParse(&q_rx_can);
            if(daqInit(&q_tx_can))
                HardFault_Handler();
-           initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_MAIN_MODULE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);

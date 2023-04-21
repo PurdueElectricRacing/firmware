@@ -113,10 +113,11 @@
                         },
                         {
                             "msg_name": "current_meas",
-                            "msg_desc": "Local main LV current measurements",
+                            "msg_desc": "Local main LV current measurements and additional info",
                             "signals": [
                                 {"sig_name":"LV24_I", "type": "uint16_t", "unit":"mA"},
                                 {"sig_name":"LV5_I", "type": "uint16_t", "unit":"mA"},
+                                {"sig_name":"MCU_TEMP", "type": "int16_t", "unit":"C"},
                                 {"sig_name":"LV3V3_PG", "type": "uint8_t", "length":1, "sig_desc": "Power good status pin on the 3V3 LDO"}
                             ],
                             "msg_period": 1000,
@@ -187,12 +188,14 @@
                             "msg_name": "rear_wheel_speeds",
                             "msg_desc": "Rear Wheel speeds from motor controllers",
                             "signals": [
-                                {"sig_name": "left_speed", "type":"uint32_t", "unit": "RPM"},
-                                {"sig_name": "right_speed", "type":"uint32_t", "unit": "RPM"}
+                                {"sig_name": "left_speed_mc", "type":"uint16_t", "unit": "RPM"},
+                                {"sig_name": "right_speed_mc", "type":"uint16_t", "unit": "RPM"},
+                                {"sig_name": "left_speed_sensor", "type":"uint16_t", "unit": "RPM"},
+                                {"sig_name": "right_speed_sensor", "type":"uint16_t", "unit": "RPM"}
                             ],
-                            "msg_period": 500,
+                            "msg_period": 15,
                             "msg_hlp": 2,
-                            "msg_pgn": 14 
+                            "msg_pgn": 14
                         }
                     ],
                     "rx":[
@@ -202,7 +205,8 @@
                         {"msg_name": "dashboard_hb"},
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "LWS_Standard"},
-                        {"msg_name": "main_module_bl_cmd" , "callback": true}
+                        {"msg_name": "main_module_bl_cmd" , "callback": true},
+                        {"msg_name": "cooling_driver_request", "callback": true}
                     ]
                 },
                 {
@@ -289,6 +293,26 @@
                             "msg_hlp": 1,
                             "msg_pgn": 1
                         },
+                        {   "msg_name": "rear_mc_req",
+                            "msg_desc": "Rear request to motor controllers",
+                            "signals": [
+                                {"sig_name": "left_cmd", "type": "float", "unit":"%"},
+                                {"sig_name": "right_cmd", "type": "float", "unit":"%"}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 1,
+                            "msg_pgn": 18
+                        },
+                        {   "msg_name": "rear_pow_lim_l",
+                            "msg_desc": "Rear request to motor controllers",
+                            "signals": [
+                                {"sig_name": "T", "type": "float", "unit":"Nm"},
+                                {"sig_name": "P_c", "type": "float", "unit":"W"}
+                            ],
+                            "msg_period": 10,
+                            "msg_hlp": 1,
+                            "msg_pgn": 19
+                        },
                         {   "msg_name": "front_motor_currents_temps",
                             "msg_desc": "DC Current and Temperature of the motors",
                             "signals": [
@@ -306,6 +330,10 @@
                     "rx": [
                         {"msg_name":"torque_request_main"},
                         {"msg_name":"main_hb"},
+                        {"msg_name":"front_wheel_data"},
+                        {"msg_name":"rear_wheel_data"},
+                        {"msg_name":"orion_info"},
+                        {"msg_name":"orion_currents_volts"},
                         {"msg_name": "driveline_front_bl_cmd" , "callback": true},
                         {"msg_name": "driveline_rear_bl_cmd" , "callback": true}
                     ]
@@ -554,6 +582,138 @@
                     ]
                 },
                 {
+                    "node_name":"Navigation",
+                    "node_ssa": 55,
+                    "tx":[
+                        {   "msg_name":"gps_velocity",
+                            "msg_desc":"gps velocity",
+                            "signals":[
+                                {"sig_name":"gps_vel_n","type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name":"gps_vel_e", "type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name":"gps_vel_d", "type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name":"gps_vel_total", "type":"int16_t", "unit": "m/s","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":10
+                        },
+                        {   "msg_name":"gps_position",
+                            "msg_desc":"gps position",
+                            "signals":[
+                                {"sig_name":"gps_pos_x","type":"int16_t","unit": "m", "scale": 0.01},
+                                {"sig_name":"gps_pos_y", "type":"int16_t","unit": "m", "scale": 0.01},
+                                {"sig_name":"gps_pos_z", "type":"int16_t","unit": "m", "scale": 0.01},
+                                {"sig_name":"height", "type":"int16_t", "unit": "m", "scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":140
+                        },
+                        {   "msg_name":"gps_coordinates",
+                            "msg_desc":"gps coordinates",
+                            "signals":[
+                                {"sig_name":"latitude","type":"int32_t","unit": "deg"},
+                                {"sig_name":"longitude", "type":"int32_t","unit": "deg"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":141
+                        },
+                        {   "msg_name":"imu_gyro",
+                            "msg_desc":"gyroscope from imu",
+                            "signals":[
+                                {"sig_name":"imu_gyro_x","type":"int16_t", "scale": 0.01,"unit": "rad/s"},
+                                {"sig_name":"imu_gyro_y","type":"int16_t", "scale": 0.01,"unit": "rad/s"},
+                                {"sig_name":"imu_gyro_z","type":"int16_t", "scale": 0.01,"unit": "rad/s"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":11
+                        },
+                        {   "msg_name":"imu_accel",
+                            "msg_desc":"acceleration from imu",
+                            "signals":[
+                                {"sig_name":"imu_accel_x","type":"int16_t", "scale": 0.01,"unit": "m/s^2"},
+                                {"sig_name":"imu_accel_y","type":"int16_t", "scale": 0.01,"unit": "m/s^2"},
+                                {"sig_name":"imu_accel_z","type":"int16_t", "scale": 0.01,"unit": "m/s^2"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":142
+                        },
+                        {   "msg_name":"bmm_mag",
+                            "msg_desc":"magnetic from bmm",
+                            "signals":[
+                                {"sig_name":"bmm_mag_x","type":"int16_t","unit": "uT"},
+                                {"sig_name":"bmm_mag_y","type":"int16_t","unit": "uT"},
+                                {"sig_name":"bmm_mag_z","type":"int16_t","unit": "uT"}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":143
+                        },
+                        {   "msg_name":"sfs_pos",
+                            "msg_desc":"position from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_pos_x","type":"int16_t","unit": "m","scale": 0.01},
+                                {"sig_name":"sfs_pos_y","type":"int16_t","unit": "m","scale": 0.01},
+                                {"sig_name":"sfs_pos_z","type":"int16_t","unit": "m","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1444
+                        },
+                        {   "msg_name":"sfs_vel",
+                            "msg_desc":"velocity from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_vel_x","type":"int16_t","unit": "m/s","scale": 0.01},
+                                {"sig_name":"sfs_vel_y","type":"int16_t","unit": "m/s","scale": 0.01},
+                                {"sig_name":"sfs_vel_z","type":"int16_t","unit": "m/s","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1445
+                        },
+                        {   "msg_name":"sfs_acc",
+                            "msg_desc":"acceleratoin from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_acc_x","type":"int16_t","unit": "m/s^2","scale": 0.01},
+                                {"sig_name":"sfs_acc_y","type":"int16_t","unit": "m/s^2","scale": 0.01},
+                                {"sig_name":"sfs_acc_z","type":"int16_t","unit": "m/s^2","scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1446
+                        },
+                         {   "msg_name":"sfs_ang",
+                            "msg_desc":"orientation from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_ang_a","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_b","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_c","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_d","type":"int16_t","scale": 0.0001}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1447
+                        },
+                        {   "msg_name":"sfs_ang_vel",
+                            "msg_desc":"orientation vel from sfs",
+                            "signals":[
+                                {"sig_name":"sfs_ang_vel_x","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_vel_y","type":"int16_t","scale": 0.0001},
+                                {"sig_name":"sfs_ang_vel_z","type":"int16_t","scale": 0.0001}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":1448
+                        }
+                    ],
+                    "rx":[
+
+                    ]
+                },
+                {
                     "node_name":"Dashboard",
                     "node_ssa":5,
                     "tx":[
@@ -615,7 +775,20 @@
                             "msg_period":100,
                             "msg_hlp":1,
                             "msg_pgn":100
+                        },
+                        {
+                            "msg_name":"dashboard_volts_temp",
+                            "msg_desc":"periodic dashboard MCU temp",
+                            "signals":[
+                                {"sig_name": "mcu_temp", "type":"int16_t"},
+                                {"sig_name": "volts_5v", "type":"uint16_t"},
+                                {"sig_name": "volts_3v3", "type":"uint16_t"}
+                            ],
+                            "msg_period":500,
+                            "msg_hlp":1,
+                            "msg_pgn":101
                         }
+
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
@@ -628,6 +801,7 @@
                         {"msg_name": "rear_controller_temps"},
                         {"msg_name": "precharge_hb"},
                         {"msg_name": "torque_request_main"},
+                        {"msg_name": "rear_wheel_speeds"},
                         {"msg_name": "flowrate_temps"},
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},

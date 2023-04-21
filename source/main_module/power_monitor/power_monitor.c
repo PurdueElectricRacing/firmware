@@ -4,23 +4,30 @@
  * @brief  Monitor voltage and current present on the board
  * @version 0.1
  * @date 2023-02-02
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include "power_monitor.h"
 #include "car.h"
+#include "common/faults/faults.h"
 
 static uint16_t calcCurrent(uint16_t adc_raw);
 static uint16_t calcVoltage(uint16_t adc_raw, uint16_t r1, uint16_t r2, uint16_t cal);
 
 PowerMonitor_t power_monitor;
 extern q_handle_t q_tx_can;
+static uint16_t ts_cal1_val, ts_cal2_val;
 
 void initPowerMonitor()
 {
     power_monitor = (PowerMonitor_t) {0};
+
+    // Enable the temperature sensor
+    ADC123_COMMON->CCR |= ADC_CCR_TSEN;
+    ts_cal1_val = *(TS_CAL1_ADDR);
+    ts_cal2_val = *(TS_CAL2_ADDR);
 
     // Interrupt for full transfer (testing frequency of ADC)
     // Toggles the error LED pin on each transfer complete
@@ -40,12 +47,25 @@ void updatePowerMonitor()
     power_monitor.lv_3v3_v_sense_mV = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2, LV_3V3_CAL);
     power_monitor.lv_3v3_power_good = PHAL_readGPIO(LV_3V3_PG_GPIO_Port, LV_3V3_PG_Pin);
 
-    SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,
+    power_monitor.mcu_temp = (int16_t) ((((int32_t) adc_readings.therm_mcu)*ADC_REF_mV/ TS_CAL_ADC_REF - ts_cal1_val) *
+                             (TS_CAL2_TEMP - TS_CAL1_TEMP) / (ts_cal2_val - ts_cal1_val) + TS_CAL1_TEMP);
+
+    setFault(ID_MCU_TEMP_HIGH_FAULT, power_monitor.mcu_temp);
+    setFault(ID_LV_BAT_LOW_FAULT, power_monitor.lv_24_v_sense_mV / 1000);
+    setFault(ID_LV_BAT_VERY_LOW_FAULT, power_monitor.lv_24_v_sense_mV / 1000);
+    // TODO: BMS Fault (LV_BAT_BMS)
+    static uint8_t skip;
+    if (skip++ >= 10) {
+        SEND_VOLTAGE_RAILS(q_tx_can, power_monitor.lv_24_v_sense_mV, power_monitor.lv_12_v_sense_mV,
                                  power_monitor.lv_5_v_sense_mV,  power_monitor.lv_3v3_v_sense_mV);
     SEND_CURRENT_MEAS(q_tx_can, power_monitor.lv_24_i_sense_mA, power_monitor.lv_5_i_sense_mA,
-                                power_monitor.lv_3v3_power_good);
+                                power_monitor.mcu_temp, power_monitor.lv_3v3_power_good);
+        skip = 0;
+    }
+
     // TODO: add power monitoring faults
 }
+
 
 #ifdef PM_ADC_FREQ_TEST
 void DMA2_Channel3_IRQHandler()
@@ -62,7 +82,7 @@ void DMA2_Channel3_IRQHandler()
  * @brief Calculates the low voltage system current
  *        draw based on the output of a current
  *        sense amplifier
- * 
+ *
  * @param adc_raw 12-bit adc reading
  * @return uint16_t current in mA
  */
@@ -76,9 +96,9 @@ static uint16_t calcCurrent(uint16_t adc_raw)
 }
 
 /**
- * @brief Calculate the rail voltage given the adc 
+ * @brief Calculate the rail voltage given the adc
  *        reading from a voltage divider
- * 
+ *
  * @param adc_raw 12-bit adc reading
  * @param r1      Top resistor (Ohms)
  * @param r2      Bottom resistor (Ohms)

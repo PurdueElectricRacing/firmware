@@ -217,6 +217,8 @@
 #define LV_BAT_STAT_GPIO_Port       (GPIOB)
 #define LV_BAT_STAT_Pin             (4)
 
+#define INTERNAL_THERM_ADC_CHNL     (17)
+
 // Thermistor Analog Multiplexer
 #define THERM_MUX_S0_GPIO_Port      (GPIOE)
 #define THERM_MUX_S0_Pin            (2)
@@ -231,7 +233,7 @@
 #define THERM_MUX_DT_IN             (2)
 #define THERM_MUX_DT_OUT            (3)
 
-#define ADC_REF_mV 3300 // mV
+#define ADC_REF_mV (3300UL) // mV
 typedef struct 
 {
     // Do not modify this struct unless
@@ -250,6 +252,7 @@ typedef struct
     uint16_t therm_mux_d;
     uint16_t dt_gb_l;
     uint16_t dt_gb_r;
+    uint16_t therm_mcu;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

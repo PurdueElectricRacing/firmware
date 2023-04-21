@@ -241,7 +241,7 @@ void _get_damp_force (float *f_damp, float v, const float force_reb [VEL_SIZE], 
 
 void _upadte_geometry (struct Geometry *g) {
     // update gometry of a suspension node, the comments correspond to the
-    // equation nujmbers in the description document
+    // equation numbers in the description document
 
     g->cos_ocd = (g->oc*g->oc + g->cd*g->cd - g->od*g->od)/(2 * g->oc * g->cd); // 1
 

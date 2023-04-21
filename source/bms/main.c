@@ -1,5 +1,6 @@
 /* System Includes */
 #include "stm32l432xx.h"
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/rcc/rcc.h"
@@ -102,27 +103,27 @@ int main(void) {
     configureAnim(preflightAnimation, preflightChecks, 250, 750);
     taskCreate(bmsStatus, 500);
     taskCreate(afeTask, 1);
-    #ifdef BMS_ACCUM
+    // #ifdef BMS_ACCUM
 
     taskCreate(txCAN, 100);
-    #if ((BMS_NODE_NAME == BMS_A) || \
-         (BMS_NODE_NAME == BMS_C) || \
-         (BMS_NODE_NAME == BMS_E) || \
-         (BMS_NODE_NAME == BMS_G))
-    taskCreate(tempTask, 100);
-    #endif
+    // #if ((BMS_NODE_NAME == BMS_A) || \
+    //      (BMS_NODE_NAME == BMS_C) || \
+    //      (BMS_NODE_NAME == BMS_E) || \
+    //      (BMS_NODE_NAME == BMS_G))
+    // taskCreate(tempTask, 100);
+    // #endif
     
-    #endif
+    // #endif
     taskCreate(calcMisc, 100);
     taskCreate(setPLim, 100);
     taskCreate(checkConn, 1000);
     #ifdef BMS_LV
     taskCreate(checkLVStatus, 3000);
     #endif
-    #ifdef BMS_ACCUM
+    // #ifdef BMS_ACCUM
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-    #endif
+    // #endif
 
     schedStart();
 
@@ -161,12 +162,12 @@ void preflightChecks(void) {
             break;
 
         case 3:
-            #ifdef BMS_ACCUM
+            // #ifdef BMS_ACCUM
             if(!PHAL_initCAN(CAN1, false))
             {
                 HardFault_Handler();
             }
-            #endif
+            // #endif
 
             break;
 
@@ -251,3 +252,10 @@ void CAN1_RX0_IRQHandler()
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
 }
+
+// TODO:
+// void bms_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+// {
+//     if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
+//         Bootloader_ResetForFirmwareDownload();
+// }

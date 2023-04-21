@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Navigation Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -84,8 +84,9 @@ BO_ 2281707649 precharge_state: 4 Main_Module
  SG_ v_bat : 12|12@1+ (0.1,0) [0|0] "V" Vector__XXX
  SG_ v_mc : 0|12@1+ (0.1,0) [0|0] "V" Vector__XXX
 
-BO_ 2415925569 current_meas: 5 Main_Module
- SG_ LV3V3_PG : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2415925569 current_meas: 7 Main_Module
+ SG_ LV3V3_PG : 48|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ MCU_TEMP : 32|16@1- (1,0) [0|0] "C" Vector__XXX
  SG_ LV5_I : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
  SG_ LV24_I : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
 
@@ -116,8 +117,10 @@ BO_ 2348811009 rear_controller_temps: 2 Main_Module
  SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
 
 BO_ 2281702273 rear_wheel_speeds: 8 Main_Module
- SG_ right_speed : 32|32@1+ (1,0) [0|0] "RPM" Vector__XXX
- SG_ left_speed : 0|32@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ right_speed_sensor : 48|16@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ left_speed_sensor : 32|16@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ right_speed_mc : 16|16@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ left_speed_mc : 0|16@1+ (1,0) [0|0] "RPM" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -159,6 +162,14 @@ BO_ 2214592579 rear_wheel_data: 8 Driveline
  SG_ left_normal : 32|16@1+ (0.1,0) [0|0] "mm" Vector__XXX
  SG_ right_speed : 16|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
  SG_ left_speed : 0|16@1+ (1,0) [0|0] "kphx100" Vector__XXX
+
+BO_ 2214593667 rear_mc_req: 8 Driveline
+ SG_ right_cmd : 32|32@1- (1,0) [0|0] "%" Vector__XXX
+ SG_ left_cmd : 0|32@1- (1,0) [0|0] "%" Vector__XXX
+
+BO_ 2214593731 rear_pow_lim_l: 8 Driveline
+ SG_ P_c : 32|32@1- (1,0) [0|0] "W" Vector__XXX
+ SG_ T : 0|32@1- (1,0) [0|0] "Nm" Vector__XXX
 
 BO_ 2348810883 front_motor_currents_temps: 8 Driveline
  SG_ right_voltage : 48|16@1+ (1,0) [0|0] "Voltx10" Vector__XXX
@@ -304,6 +315,63 @@ BO_ 2348812088 orion_errors: 4 OrionBMS
  SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2348810935 gps_velocity: 8 Navigation
+ SG_ gps_vel_total : 48|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_d : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_e : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_n : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
+BO_ 2348819255 gps_position: 8 Navigation
+ SG_ height : 48|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ gps_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ gps_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ gps_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
+
+BO_ 2348819319 gps_coordinates: 8 Navigation
+ SG_ longitude : 32|32@1- (1,0) [0|0] "deg" Vector__XXX
+ SG_ latitude : 0|32@1- (1,0) [0|0] "deg" Vector__XXX
+
+BO_ 2348810999 imu_gyro: 6 Navigation
+ SG_ imu_gyro_z : 32|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ imu_gyro_y : 16|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ imu_gyro_x : 0|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+
+BO_ 2348819383 imu_accel: 6 Navigation
+ SG_ imu_accel_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ imu_accel_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ imu_accel_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+
+BO_ 2348819447 bmm_mag: 6 Navigation
+ SG_ bmm_mag_z : 32|16@1- (1,0) [0|0] "uT" Vector__XXX
+ SG_ bmm_mag_y : 16|16@1- (1,0) [0|0] "uT" Vector__XXX
+ SG_ bmm_mag_x : 0|16@1- (1,0) [0|0] "uT" Vector__XXX
+
+BO_ 2348902711 sfs_pos: 6 Navigation
+ SG_ sfs_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ sfs_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
+ SG_ sfs_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
+
+BO_ 2348902775 sfs_vel: 6 Navigation
+ SG_ sfs_vel_z : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ sfs_vel_y : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ sfs_vel_x : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
+BO_ 2348902839 sfs_acc: 6 Navigation
+ SG_ sfs_acc_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ sfs_acc_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ sfs_acc_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+
+BO_ 2348902903 sfs_ang: 8 Navigation
+ SG_ sfs_ang_d : 48|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_c : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_b : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_a : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
+
+BO_ 2348902967 sfs_ang_vel: 6 Navigation
+ SG_ sfs_ang_vel_z : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
+ SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
+
 BO_ 2483028613 raw_throttle_brake: 8 Dashboard
  SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
  SG_ brake_right : 36|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
@@ -329,6 +397,11 @@ BO_ 2214598917 dashboard_hb: 1 Dashboard
  SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214598981 dashboard_volts_temp: 6 Dashboard
+ SG_ volts_3v3 : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ volts_5v : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059909 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -761,6 +834,7 @@ CM_ BU_ Torque_Vector "";
 CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ OrionBMS "";
+CM_ BU_ Navigation "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
 CM_ BU_ Acceleration "";
@@ -814,8 +888,9 @@ CM_ SG_ 2281707649 precharge_error "Precharge error found";
 CM_ SG_ 2281707649 precharge_complete "Precharge complete state";
 CM_ SG_ 2281707649 v_bat "Battery Voltage";
 CM_ SG_ 2281707649 v_mc "Motor Controller Voltage";
-CM_ BO_ 2415925569 "Local main LV current measurements";
+CM_ BO_ 2415925569 "Local main LV current measurements and additional info";
 CM_ SG_ 2415925569 LV3V3_PG "Power good status pin on the 3V3 LDO";
+CM_ SG_ 2415925569 MCU_TEMP "";
 CM_ SG_ 2415925569 LV5_I "";
 CM_ SG_ 2415925569 LV24_I "";
 CM_ BO_ 2415925633 "performance metrics of MCU";
@@ -846,8 +921,10 @@ CM_ BO_ 2348811009 "Temperature of motor controllers";
 CM_ SG_ 2348811009 right_temp "";
 CM_ SG_ 2348811009 left_temp "";
 CM_ BO_ 2281702273 "Rear Wheel speeds from motor controllers";
-CM_ SG_ 2281702273 right_speed "";
-CM_ SG_ 2281702273 left_speed "";
+CM_ SG_ 2281702273 right_speed_sensor "";
+CM_ SG_ 2281702273 left_speed_sensor "";
+CM_ SG_ 2281702273 right_speed_mc "";
+CM_ SG_ 2281702273 left_speed_mc "";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";
@@ -881,6 +958,12 @@ CM_ SG_ 2214592579 right_normal "Linear potentiometer distance between mounting 
 CM_ SG_ 2214592579 left_normal "Linear potentiometer distance between mounting points";
 CM_ SG_ 2214592579 right_speed "";
 CM_ SG_ 2214592579 left_speed "";
+CM_ BO_ 2214593667 "Rear request to motor controllers";
+CM_ SG_ 2214593667 right_cmd "";
+CM_ SG_ 2214593667 left_cmd "";
+CM_ BO_ 2214593731 "Rear request to motor controllers";
+CM_ SG_ 2214593731 P_c "";
+CM_ SG_ 2214593731 T "";
 CM_ BO_ 2348810883 "DC Current and Temperature of the motors";
 CM_ SG_ 2348810883 right_voltage "";
 CM_ SG_ 2348810883 right_temp "";
@@ -1005,6 +1088,52 @@ CM_ SG_ 2348812088 heatsink_thermistor "";
 CM_ SG_ 2348812088 internal_hardware "";
 CM_ SG_ 2348812088 charger_safety_relay "";
 CM_ SG_ 2348812088 discharge_limit_enforce "";
+CM_ BO_ 2348810935 "gps velocity";
+CM_ SG_ 2348810935 gps_vel_total "";
+CM_ SG_ 2348810935 gps_vel_d "";
+CM_ SG_ 2348810935 gps_vel_e "";
+CM_ SG_ 2348810935 gps_vel_n "";
+CM_ BO_ 2348819255 "gps position";
+CM_ SG_ 2348819255 height "";
+CM_ SG_ 2348819255 gps_pos_z "";
+CM_ SG_ 2348819255 gps_pos_y "";
+CM_ SG_ 2348819255 gps_pos_x "";
+CM_ BO_ 2348819319 "gps coordinates";
+CM_ SG_ 2348819319 longitude "";
+CM_ SG_ 2348819319 latitude "";
+CM_ BO_ 2348810999 "gyroscope from imu";
+CM_ SG_ 2348810999 imu_gyro_z "";
+CM_ SG_ 2348810999 imu_gyro_y "";
+CM_ SG_ 2348810999 imu_gyro_x "";
+CM_ BO_ 2348819383 "acceleration from imu";
+CM_ SG_ 2348819383 imu_accel_z "";
+CM_ SG_ 2348819383 imu_accel_y "";
+CM_ SG_ 2348819383 imu_accel_x "";
+CM_ BO_ 2348819447 "magnetic from bmm";
+CM_ SG_ 2348819447 bmm_mag_z "";
+CM_ SG_ 2348819447 bmm_mag_y "";
+CM_ SG_ 2348819447 bmm_mag_x "";
+CM_ BO_ 2348902711 "position from sfs";
+CM_ SG_ 2348902711 sfs_pos_z "";
+CM_ SG_ 2348902711 sfs_pos_y "";
+CM_ SG_ 2348902711 sfs_pos_x "";
+CM_ BO_ 2348902775 "velocity from sfs";
+CM_ SG_ 2348902775 sfs_vel_z "";
+CM_ SG_ 2348902775 sfs_vel_y "";
+CM_ SG_ 2348902775 sfs_vel_x "";
+CM_ BO_ 2348902839 "acceleratoin from sfs";
+CM_ SG_ 2348902839 sfs_acc_z "";
+CM_ SG_ 2348902839 sfs_acc_y "";
+CM_ SG_ 2348902839 sfs_acc_x "";
+CM_ BO_ 2348902903 "orientation from sfs";
+CM_ SG_ 2348902903 sfs_ang_d "";
+CM_ SG_ 2348902903 sfs_ang_c "";
+CM_ SG_ 2348902903 sfs_ang_b "";
+CM_ SG_ 2348902903 sfs_ang_a "";
+CM_ BO_ 2348902967 "orientation vel from sfs";
+CM_ SG_ 2348902967 sfs_ang_vel_z "";
+CM_ SG_ 2348902967 sfs_ang_vel_y "";
+CM_ SG_ 2348902967 sfs_ang_vel_x "";
 CM_ BO_ 2483028613 "Throttle and brake values";
 CM_ SG_ 2483028613 brake_pot "";
 CM_ SG_ 2483028613 brake_right "";
@@ -1026,6 +1155,10 @@ CM_ BO_ 2214598917 "periodic dashboard heartbeat";
 CM_ SG_ 2214598917 apps_brake_faulted "";
 CM_ SG_ 2214598917 bse_faulted "";
 CM_ SG_ 2214598917 apps_faulted "";
+CM_ BO_ 2214598981 "periodic dashboard MCU temp";
+CM_ SG_ 2214598981 volts_3v3 "";
+CM_ SG_ 2214598981 volts_5v "";
+CM_ SG_ 2214598981 mcu_temp "";
 CM_ BO_ 2148059909 "Fault status message";
 CM_ SG_ 2148059909 latched "";
 CM_ SG_ 2148059909 idx "";
@@ -1373,6 +1506,10 @@ VAL_ 2214598915 front_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifyi
 VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+SIG_VALTYPE_ 2214593667 left_cmd : 1;
+SIG_VALTYPE_ 2214593667 right_cmd : 1;
+SIG_VALTYPE_ 2214593731 T : 1;
+SIG_VALTYPE_ 2214593731 P_c : 1;
 SIG_VALTYPE_ 2348810751 left_speed : 1;
 SIG_VALTYPE_ 2348810751 right_speed : 1;
 SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;

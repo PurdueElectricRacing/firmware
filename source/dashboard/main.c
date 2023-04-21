@@ -90,6 +90,8 @@ GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
 };
 
+volatile raw_adc_values_t raw_adc_values;
+
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
    .clock_prescaler = ADC_CLK_PRESC_6,
@@ -107,9 +109,12 @@ ADCChannelConfig_t adc_channel_config[] = {
    {.channel=BRK_2_ADC_CHNL,  .rank=4, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
    {.channel=BRK_3_ADC_CHNL,  .rank=5, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
    {.channel=SHOCK_POT_L_ADC_CH, .rank=6, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-   {.channel=SHOCK_POT_R_ADC_CH, .rank=7, .sampling_time=ADC_CHN_SMP_CYCLES_640_5}
+   {.channel=SHOCK_POT_R_ADC_CH, .rank=7, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=LV_5V_V_SENSE_ADC_CHNL, .rank=8, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=9, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+   {.channel=MCU_THERM_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_640_5}
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_pedals, sizeof(raw_pedals) / sizeof(raw_pedals.t1), 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
 
 /* USART Confiugration */
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -164,21 +169,21 @@ extern page_t curr_page;
 extern uint8_t tvNotifiValue;
 extern bool knob;
 
+static int32_t ts_ratio;
+static uint16_t ts_cal_1, ts_cal_2;
+
+
 /* Function Prototypes */
 void preflightChecks(void);
 void preflightAnimation(void);
 void heartBeatLED();
-void heartBeatMsg();
-void brakeStatMonitor();
 void canTxUpdate();
 void usartTxUpdate();
-void linkDAQVars();
-void checkStartBtn();
 extern void HardFault_Handler();
 void pollHDD();
 void enableInterrupts();
-void toggleLights();
-void completeLCDBoot();
+void sendMCUTempsVolts();
+void sendVoltageSense();
 
 
 q_handle_t q_tx_can;
@@ -216,41 +221,15 @@ int main (void){
     taskCreate(updateFaultDisplay, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
-    taskCreate(updateFaults, 1);
     taskCreate(pollHDD, 250);
     taskCreate(update_data_pages, 200);
-    // taskCreate(toggleLights, 500);
-    // taskCreate(heartBeatMsg, 100);
-    // taskCreate(checkStartBtn, 100);
     taskCreate(pedalsPeriodic, 15);
-    //********* UNCOMMENT END
+    taskCreate(sendMCUTempsVolts, 500);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
-
-    // taskCreate(joystickUpdatePeriodic, 60);
-    // taskCreate(valueUpdatePeriodic, 60);
-
-    //*******UNCOMMENT
-
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
-    //*********UNCOMMENT
-
-
-    // taskCreate(update_time, 50);
-    // taskCreate(update_err_pages, 500);
-    // taskCreate(update_info_pages, 200);
-    // taskCreate(update_race_colors, 1000);
-    // taskCreate(updateBarsFast, 75);
-
-    //taskCreate(check_precharge, 100);
-
-    // taskCreate(check_buttons, 100);
-    // taskCreate(check_error, 1000);
-    //Fault Library Enable
-    // taskCreate(heartBeatTask, 100);
-    // taskCreate(updateFaults, 5);
 
     taskCreateBackground(usartTxUpdate);
 
@@ -278,10 +257,11 @@ void preflightChecks(void) {
             }
             break;
         case 2:
-            // if(!PHAL_SPI_init(&hspi1))
-            // {
-            //     HardFault_Handler();
-            // }
+            //Enable MCU Internal Thermistor
+            // ADC123_COMMON->CCR |= ADC_CCR_TSEN;
+            // ts_cal_1 = *(TS_CAL1_ADDR);
+            // ts_cal_2 = *(TS_CAL2_ADDR);
+            // ts_ratio = (int32_t)(TS_CAL2_VAL - TS_CAL1_VAL) / (ts_cal_2 - ts_cal_1);
             break;
         case 3:
             // if(!PHAL_initI2C(I2C1))
@@ -298,16 +278,17 @@ void preflightChecks(void) {
             {
                 HardFault_Handler();
             }
+            ADC123_COMMON->CCR |= ADC_CCR_TSEN;
+            ts_cal_1 = *(TS_CAL1_ADDR);
+            ts_cal_2 = *(TS_CAL2_ADDR);
             PHAL_startTxfer(&adc_dma_config);
             PHAL_startADC(ADC1);
             break;
         case 5:
             /* Module Initialization */
             initCANParse(&q_rx_can);
-            // if (daqInit(&q_tx_can, I2C1))
-            // {
-            //     HardFault_Handler();
-            // }
+            if (daqInit(&q_tx_can))
+                HardFault_Handler();
             break;
         case 6:
             //Initialize HDD
@@ -341,25 +322,13 @@ void preflightAnimation(void) {
     }
 }
 
-static uint8_t lights;
-void toggleLights() {
-    // switch (lights++){
-    //     case 0:
-    //         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-    //         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
-    //         break;
-    //     case 1:
-    //         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-    //         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-    //         break;
-    //     case 2:
-    //         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-    //         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
-    //         lights = 0;
-    //         break;
-    // }
-
-
+void sendMCUTempsVolts() {
+    int16_t calc_temp = (int16_t) ((((int32_t) raw_adc_values.mcu_therm)*ADC_VREF_INT/ TS_VREF - ts_cal_1) *
+                             (TS_CAL2_VAL - TS_CAL1_VAL) / (ts_cal_2 - ts_cal_1) + TS_CAL1_VAL);
+    float lv_5v_sense = ((VREF / 0xFFFU) * raw_adc_values.lv_5v_sense) / LV_5V_SCALE;
+    float lv_3v3_sense = (VREF / 0xFFFU) * raw_adc_values.lv_3v3_sense;
+    // SEND_DASHBOARD_VOLTS_TEMP(q_tx_can, calc_temp, (uint16_t)(lv_5v_sense * 100), (uint16_t)(lv_3v3_sense * 100));
+    SEND_DASHBOARD_VOLTS_TEMP(q_tx_can, raw_adc_values.mcu_therm, raw_adc_values.lv_5v_sense, raw_adc_values.lv_3v3_sense);
 }
 
 void pollHDD() {
@@ -468,15 +437,6 @@ void EXTI15_10_IRQHandler() {
 void heartBeatLED()
 {
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-    // if (can_data.main_hb.precharge_state)
-    //     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-    // else PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-    // TODO IMD LED
-    // PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-    // PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !can_data.precharge_hb.IMD);
-    // TODO BMS LED
-    // PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-    // PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
@@ -536,38 +496,6 @@ void enableInterrupts() {
     EXTI->IMR1 |= EXTI_IMR1_IM15;
     EXTI->FTSR1 |= EXTI_FTSR1_FT15;
     NVIC_EnableIRQ(EXTI15_10_IRQn);
-}
-
-void heartBeatMsg()
-{
-    SEND_DASHBOARD_HB(q_tx_can, pedals.apps_faulted,
-                                    pedals.bse_faulted,
-                                    pedals.apps_brake_faulted);
-}
-
-bool start_prev = false;
-uint8_t start_ct = 0;
-void checkStartBtn()
-{
-   // Button is inverted
-   if (!PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin))
-   {
-       if (!start_prev) start_ct++;
-       if (start_ct > 3)
-       {
-           if (can_data.main_hb.car_state == CAR_STATE_READY2DRIVE || raw_pedals.b2 > BRAKE_PRESSURE_THRESHOLD)
-           {
-               SEND_START_BUTTON(q_tx_can, 1);
-               start_prev = true;
-               start_ct = 0;
-           }
-       }
-   }
-   else
-   {
-       start_prev = false;
-       start_ct = 0;
-   }
 }
 
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};

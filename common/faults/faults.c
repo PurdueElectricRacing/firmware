@@ -10,28 +10,36 @@
  */
 #include "faults.h"
 #include "common/phal_L4/can/can.h"
+#include "common/psched/psched.h"
 
 //BEGIN AUTO FAULT INFO ARRAY DEFS
-uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_LATCH_TIME, DRIVE_FLOW_LATCH_TIME, MAIN_COMM_LATCH_TIME, LV_DEAD_LATCH_TIME, MOT_FRONT_OT_LATCH_TIME, WLSPD_L_LATCH_TIME,
-			WLSPD_R_LATCH_TIME, DRIVELINE_COMM_LATCH_TIME, APPS_WIRING_T1_LATCH_TIME, APPS_WIRING_T2_LATCH_TIME, BSE_LATCH_TIME, BSPD_LATCH_TIME, IMPLAUS_DETECTED_LATCH_TIME,
-			APPS_BRAKE_LATCH_TIME, DISCHARGE_LIMIT_ENFORCE_LATCH_TIME, CHARGER_SAFETY_RELAY_LATCH_TIME, INTERNAL_HARDWARE_LATCH_TIME, HEATSINK_THERMISTOR_LATCH_TIME, SOFTWARE_LATCH_TIME, MAX_CELLV_HIGH_LATCH_TIME,
-			MIN_CELLV_LOW_LATCH_TIME, PACK_OVERHEAT_ORION_LATCH_TIME, INTERNAL_COMMS_LATCH_TIME, CELL_BALANCING_FOFF_LATCH_TIME, WEAK_CELL_LATCH_TIME, LOW_CELLV_LATCH_TIME, OPEN_WIRE_LATCH_TIME,
-			CURRENT_SENSOR_LATCH_TIME, MAX_CELLV_O5V_LATCH_TIME, CELL_ASIC_LATCH_TIME, WEAK_PACK_LATCH_TIME, FAN_MONITOR_LATCH_TIME, THERMISTOR_LATCH_TIME, EXTERNAL_COMMS_LATCH_TIME,
-			REDUNDANT_PSU_LATCH_TIME, HV_ISOLATION_LATCH_TIME, INPUT_PSU_LATCH_TIME, CHARGE_LIMIT_ENFORCE_LATCH_TIME, PACK_TEMP_LATCH_TIME, PACK_TEMP_EXCEEDED_LATCH_TIME, MIN_PACK_TEMP_LATCH_TIME,
-			IMD_LATCH_TIME, TV_OFFLINE_LATCH_TIME, TEST_FAULT_1_LATCH_TIME, TEST_FAULT_2_LATCH_TIME, TEST_FAULT_3_LATCH_TIME, TEST_FAULT_4_LATCH_TIME,};
-uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = { BATT_FLOW_UNLATCH_TIME, DRIVE_FLOW_UNLATCH_TIME, MAIN_COMM_UNLATCH_TIME, LV_DEAD_UNLATCH_TIME, MOT_FRONT_OT_UNLATCH_TIME, WLSPD_L_UNLATCH_TIME,
-			WLSPD_R_UNLATCH_TIME, DRIVELINE_COMM_UNLATCH_TIME, APPS_WIRING_T1_UNLATCH_TIME, APPS_WIRING_T2_UNLATCH_TIME, BSE_UNLATCH_TIME, BSPD_UNLATCH_TIME, IMPLAUS_DETECTED_UNLATCH_TIME,
-			APPS_BRAKE_UNLATCH_TIME, DISCHARGE_LIMIT_ENFORCE_UNLATCH_TIME, CHARGER_SAFETY_RELAY_UNLATCH_TIME, INTERNAL_HARDWARE_UNLATCH_TIME, HEATSINK_THERMISTOR_UNLATCH_TIME, SOFTWARE_UNLATCH_TIME, MAX_CELLV_HIGH_UNLATCH_TIME,
-			MIN_CELLV_LOW_UNLATCH_TIME, PACK_OVERHEAT_ORION_UNLATCH_TIME, INTERNAL_COMMS_UNLATCH_TIME, CELL_BALANCING_FOFF_UNLATCH_TIME, WEAK_CELL_UNLATCH_TIME, LOW_CELLV_UNLATCH_TIME, OPEN_WIRE_UNLATCH_TIME,
-			CURRENT_SENSOR_UNLATCH_TIME, MAX_CELLV_O5V_UNLATCH_TIME, CELL_ASIC_UNLATCH_TIME, WEAK_PACK_UNLATCH_TIME, FAN_MONITOR_UNLATCH_TIME, THERMISTOR_UNLATCH_TIME, EXTERNAL_COMMS_UNLATCH_TIME,
-			REDUNDANT_PSU_UNLATCH_TIME, HV_ISOLATION_UNLATCH_TIME, INPUT_PSU_UNLATCH_TIME, CHARGE_LIMIT_ENFORCE_UNLATCH_TIME, PACK_TEMP_UNLATCH_TIME, PACK_TEMP_EXCEEDED_UNLATCH_TIME, MIN_PACK_TEMP_UNLATCH_TIME,
-			IMD_UNLATCH_TIME, TV_OFFLINE_UNLATCH_TIME, TEST_FAULT_1_UNLATCH_TIME, TEST_FAULT_2_UNLATCH_TIME, TEST_FAULT_3_UNLATCH_TIME, TEST_FAULT_4_UNLATCH_TIME,};
+uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = { PCHG_IMPLAUS_LATCH_TIME, RTD_EXIT_LATCH_TIME, LEFT_MC_CONN_LATCH_TIME, RIGHT_MC_CONN_LATCH_TIME, MCU_TEMP_HIGH_LATCH_TIME, LV_BAT_LOW_LATCH_TIME,
+			LV_BAT_VERY_LOW_LATCH_TIME, LV_BAT_BMS_LATCH_TIME, DRIVE_FLOW_LATCH_TIME, MOT_FRONT_OT_LATCH_TIME, WLSPD_L_LATCH_TIME, WLSPD_R_LATCH_TIME, DRIVELINE_COMM_LATCH_TIME,
+			APPS_WIRING_T1_LATCH_TIME, APPS_WIRING_T2_LATCH_TIME, BSE_LATCH_TIME, BSPD_LATCH_TIME, IMPLAUS_DETECTED_LATCH_TIME, APPS_BRAKE_LATCH_TIME, DISCHARGE_LIMIT_ENFORCE_LATCH_TIME,
+			CHARGER_SAFETY_RELAY_LATCH_TIME, INTERNAL_HARDWARE_LATCH_TIME, HEATSINK_THERMISTOR_LATCH_TIME, SOFTWARE_LATCH_TIME, MAX_CELLV_HIGH_LATCH_TIME, MIN_CELLV_LOW_LATCH_TIME, PACK_OVERHEAT_ORION_LATCH_TIME,
+			INTERNAL_COMMS_LATCH_TIME, CELL_BALANCING_FOFF_LATCH_TIME, WEAK_CELL_LATCH_TIME, LOW_CELLV_LATCH_TIME, OPEN_WIRE_LATCH_TIME, CURRENT_SENSOR_LATCH_TIME, MAX_CELLV_O5V_LATCH_TIME,
+			CELL_ASIC_LATCH_TIME, WEAK_PACK_LATCH_TIME, FAN_MONITOR_LATCH_TIME, THERMISTOR_LATCH_TIME, EXTERNAL_COMMS_LATCH_TIME, REDUNDANT_PSU_LATCH_TIME, HV_ISOLATION_LATCH_TIME,
+			INPUT_PSU_LATCH_TIME, CHARGE_LIMIT_ENFORCE_LATCH_TIME, PACK_TEMP_LATCH_TIME, PACK_TEMP_EXCEEDED_LATCH_TIME, MIN_PACK_TEMP_LATCH_TIME, IMD_LATCH_TIME, TV_OFFLINE_LATCH_TIME,
+			TEST_FAULT_1_LATCH_TIME, TEST_FAULT_2_LATCH_TIME, TEST_FAULT_3_LATCH_TIME, TEST_FAULT_4_LATCH_TIME,};
+uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = { PCHG_IMPLAUS_UNLATCH_TIME, RTD_EXIT_UNLATCH_TIME, LEFT_MC_CONN_UNLATCH_TIME, RIGHT_MC_CONN_UNLATCH_TIME, MCU_TEMP_HIGH_UNLATCH_TIME, LV_BAT_LOW_UNLATCH_TIME,
+			LV_BAT_VERY_LOW_UNLATCH_TIME, LV_BAT_BMS_UNLATCH_TIME, DRIVE_FLOW_UNLATCH_TIME, MOT_FRONT_OT_UNLATCH_TIME, WLSPD_L_UNLATCH_TIME, WLSPD_R_UNLATCH_TIME, DRIVELINE_COMM_UNLATCH_TIME,
+			APPS_WIRING_T1_UNLATCH_TIME, APPS_WIRING_T2_UNLATCH_TIME, BSE_UNLATCH_TIME, BSPD_UNLATCH_TIME, IMPLAUS_DETECTED_UNLATCH_TIME, APPS_BRAKE_UNLATCH_TIME, DISCHARGE_LIMIT_ENFORCE_UNLATCH_TIME,
+			CHARGER_SAFETY_RELAY_UNLATCH_TIME, INTERNAL_HARDWARE_UNLATCH_TIME, HEATSINK_THERMISTOR_UNLATCH_TIME, SOFTWARE_UNLATCH_TIME, MAX_CELLV_HIGH_UNLATCH_TIME, MIN_CELLV_LOW_UNLATCH_TIME, PACK_OVERHEAT_ORION_UNLATCH_TIME,
+			INTERNAL_COMMS_UNLATCH_TIME, CELL_BALANCING_FOFF_UNLATCH_TIME, WEAK_CELL_UNLATCH_TIME, LOW_CELLV_UNLATCH_TIME, OPEN_WIRE_UNLATCH_TIME, CURRENT_SENSOR_UNLATCH_TIME, MAX_CELLV_O5V_UNLATCH_TIME,
+			CELL_ASIC_UNLATCH_TIME, WEAK_PACK_UNLATCH_TIME, FAN_MONITOR_UNLATCH_TIME, THERMISTOR_UNLATCH_TIME, EXTERNAL_COMMS_UNLATCH_TIME, REDUNDANT_PSU_UNLATCH_TIME, HV_ISOLATION_UNLATCH_TIME,
+			INPUT_PSU_UNLATCH_TIME, CHARGE_LIMIT_ENFORCE_UNLATCH_TIME, PACK_TEMP_UNLATCH_TIME, PACK_TEMP_EXCEEDED_UNLATCH_TIME, MIN_PACK_TEMP_UNLATCH_TIME, IMD_UNLATCH_TIME, TV_OFFLINE_UNLATCH_TIME,
+			TEST_FAULT_1_UNLATCH_TIME, TEST_FAULT_2_UNLATCH_TIME, TEST_FAULT_3_UNLATCH_TIME, TEST_FAULT_4_UNLATCH_TIME,};
 //Global arrays with all faults
 fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
-	(fault_status_t){false, ID_BATT_FLOW_FAULT},
+	(fault_status_t){false, ID_PCHG_IMPLAUS_FAULT},
+	(fault_status_t){false, ID_RTD_EXIT_FAULT},
+	(fault_status_t){false, ID_LEFT_MC_CONN_FAULT},
+	(fault_status_t){false, ID_RIGHT_MC_CONN_FAULT},
+	(fault_status_t){false, ID_MCU_TEMP_HIGH_FAULT},
+	(fault_status_t){false, ID_LV_BAT_LOW_FAULT},
+	(fault_status_t){false, ID_LV_BAT_VERY_LOW_FAULT},
+	(fault_status_t){false, ID_LV_BAT_BMS_FAULT},
 	(fault_status_t){false, ID_DRIVE_FLOW_FAULT},
-	(fault_status_t){false, ID_MAIN_COMM_FAULT},
-	(fault_status_t){false, ID_LV_DEAD_FAULT},
 	(fault_status_t){false, ID_MOT_FRONT_OT_FAULT},
 	(fault_status_t){false, ID_WLSPD_L_FAULT},
 	(fault_status_t){false, ID_WLSPD_R_FAULT},
@@ -77,53 +85,58 @@ fault_status_t statusArray[TOTAL_NUM_FAULTS] = {
 	(fault_status_t){false, ID_TEST_FAULT_4_FAULT},
 };
 fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {
-	(fault_attributes_t){false, false, BATT_FLOW_PRIORITY, 0, 0, BATT_FLOW_MAX, BATT_FLOW_MIN, &statusArray[0], BATT_FLOW_MSG}, 
-	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[1], DRIVE_FLOW_MSG}, 
-	(fault_attributes_t){false, false, MAIN_COMM_PRIORITY, 0, 0, MAIN_COMM_MAX, MAIN_COMM_MIN, &statusArray[2], MAIN_COMM_MSG}, 
-	(fault_attributes_t){false, false, LV_DEAD_PRIORITY, 0, 0, LV_DEAD_MAX, LV_DEAD_MIN, &statusArray[3], LV_DEAD_MSG}, 
-	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[4], MOT_FRONT_OT_MSG}, 
-	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[5], WLSPD_L_MSG}, 
-	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[6], WLSPD_R_MSG}, 
-	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[7], DRIVELINE_COMM_MSG}, 
-	(fault_attributes_t){false, false, APPS_WIRING_T1_PRIORITY, 0, 0, APPS_WIRING_T1_MAX, APPS_WIRING_T1_MIN, &statusArray[8], APPS_WIRING_T1_MSG}, 
-	(fault_attributes_t){false, false, APPS_WIRING_T2_PRIORITY, 0, 0, APPS_WIRING_T2_MAX, APPS_WIRING_T2_MIN, &statusArray[9], APPS_WIRING_T2_MSG}, 
-	(fault_attributes_t){false, false, BSE_PRIORITY, 0, 0, BSE_MAX, BSE_MIN, &statusArray[10], BSE_MSG}, 
-	(fault_attributes_t){false, false, BSPD_PRIORITY, 0, 0, BSPD_MAX, BSPD_MIN, &statusArray[11], BSPD_MSG}, 
-	(fault_attributes_t){false, false, IMPLAUS_DETECTED_PRIORITY, 0, 0, IMPLAUS_DETECTED_MAX, IMPLAUS_DETECTED_MIN, &statusArray[12], IMPLAUS_DETECTED_MSG}, 
-	(fault_attributes_t){false, false, APPS_BRAKE_PRIORITY, 0, 0, APPS_BRAKE_MAX, APPS_BRAKE_MIN, &statusArray[13], APPS_BRAKE_MSG}, 
-	(fault_attributes_t){false, false, DISCHARGE_LIMIT_ENFORCE_PRIORITY, 0, 0, DISCHARGE_LIMIT_ENFORCE_MAX, DISCHARGE_LIMIT_ENFORCE_MIN, &statusArray[14], DISCHARGE_LIMIT_ENFORCE_MSG}, 
-	(fault_attributes_t){false, false, CHARGER_SAFETY_RELAY_PRIORITY, 0, 0, CHARGER_SAFETY_RELAY_MAX, CHARGER_SAFETY_RELAY_MIN, &statusArray[15], CHARGER_SAFETY_RELAY_MSG}, 
-	(fault_attributes_t){false, false, INTERNAL_HARDWARE_PRIORITY, 0, 0, INTERNAL_HARDWARE_MAX, INTERNAL_HARDWARE_MIN, &statusArray[16], INTERNAL_HARDWARE_MSG}, 
-	(fault_attributes_t){false, false, HEATSINK_THERMISTOR_PRIORITY, 0, 0, HEATSINK_THERMISTOR_MAX, HEATSINK_THERMISTOR_MIN, &statusArray[17], HEATSINK_THERMISTOR_MSG}, 
-	(fault_attributes_t){false, false, SOFTWARE_PRIORITY, 0, 0, SOFTWARE_MAX, SOFTWARE_MIN, &statusArray[18], SOFTWARE_MSG}, 
-	(fault_attributes_t){false, false, MAX_CELLV_HIGH_PRIORITY, 0, 0, MAX_CELLV_HIGH_MAX, MAX_CELLV_HIGH_MIN, &statusArray[19], MAX_CELLV_HIGH_MSG}, 
-	(fault_attributes_t){false, false, MIN_CELLV_LOW_PRIORITY, 0, 0, MIN_CELLV_LOW_MAX, MIN_CELLV_LOW_MIN, &statusArray[20], MIN_CELLV_LOW_MSG}, 
-	(fault_attributes_t){false, false, PACK_OVERHEAT_ORION_PRIORITY, 0, 0, PACK_OVERHEAT_ORION_MAX, PACK_OVERHEAT_ORION_MIN, &statusArray[21], PACK_OVERHEAT_ORION_MSG}, 
-	(fault_attributes_t){false, false, INTERNAL_COMMS_PRIORITY, 0, 0, INTERNAL_COMMS_MAX, INTERNAL_COMMS_MIN, &statusArray[22], INTERNAL_COMMS_MSG}, 
-	(fault_attributes_t){false, false, CELL_BALANCING_FOFF_PRIORITY, 0, 0, CELL_BALANCING_FOFF_MAX, CELL_BALANCING_FOFF_MIN, &statusArray[23], CELL_BALANCING_FOFF_MSG}, 
-	(fault_attributes_t){false, false, WEAK_CELL_PRIORITY, 0, 0, WEAK_CELL_MAX, WEAK_CELL_MIN, &statusArray[24], WEAK_CELL_MSG}, 
-	(fault_attributes_t){false, false, LOW_CELLV_PRIORITY, 0, 0, LOW_CELLV_MAX, LOW_CELLV_MIN, &statusArray[25], LOW_CELLV_MSG}, 
-	(fault_attributes_t){false, false, OPEN_WIRE_PRIORITY, 0, 0, OPEN_WIRE_MAX, OPEN_WIRE_MIN, &statusArray[26], OPEN_WIRE_MSG}, 
-	(fault_attributes_t){false, false, CURRENT_SENSOR_PRIORITY, 0, 0, CURRENT_SENSOR_MAX, CURRENT_SENSOR_MIN, &statusArray[27], CURRENT_SENSOR_MSG}, 
-	(fault_attributes_t){false, false, MAX_CELLV_O5V_PRIORITY, 0, 0, MAX_CELLV_O5V_MAX, MAX_CELLV_O5V_MIN, &statusArray[28], MAX_CELLV_O5V_MSG}, 
-	(fault_attributes_t){false, false, CELL_ASIC_PRIORITY, 0, 0, CELL_ASIC_MAX, CELL_ASIC_MIN, &statusArray[29], CELL_ASIC_MSG}, 
-	(fault_attributes_t){false, false, WEAK_PACK_PRIORITY, 0, 0, WEAK_PACK_MAX, WEAK_PACK_MIN, &statusArray[30], WEAK_PACK_MSG}, 
-	(fault_attributes_t){false, false, FAN_MONITOR_PRIORITY, 0, 0, FAN_MONITOR_MAX, FAN_MONITOR_MIN, &statusArray[31], FAN_MONITOR_MSG}, 
-	(fault_attributes_t){false, false, THERMISTOR_PRIORITY, 0, 0, THERMISTOR_MAX, THERMISTOR_MIN, &statusArray[32], THERMISTOR_MSG}, 
-	(fault_attributes_t){false, false, EXTERNAL_COMMS_PRIORITY, 0, 0, EXTERNAL_COMMS_MAX, EXTERNAL_COMMS_MIN, &statusArray[33], EXTERNAL_COMMS_MSG}, 
-	(fault_attributes_t){false, false, REDUNDANT_PSU_PRIORITY, 0, 0, REDUNDANT_PSU_MAX, REDUNDANT_PSU_MIN, &statusArray[34], REDUNDANT_PSU_MSG}, 
-	(fault_attributes_t){false, false, HV_ISOLATION_PRIORITY, 0, 0, HV_ISOLATION_MAX, HV_ISOLATION_MIN, &statusArray[35], HV_ISOLATION_MSG}, 
-	(fault_attributes_t){false, false, INPUT_PSU_PRIORITY, 0, 0, INPUT_PSU_MAX, INPUT_PSU_MIN, &statusArray[36], INPUT_PSU_MSG}, 
-	(fault_attributes_t){false, false, CHARGE_LIMIT_ENFORCE_PRIORITY, 0, 0, CHARGE_LIMIT_ENFORCE_MAX, CHARGE_LIMIT_ENFORCE_MIN, &statusArray[37], CHARGE_LIMIT_ENFORCE_MSG}, 
-	(fault_attributes_t){false, false, PACK_TEMP_PRIORITY, 0, 0, PACK_TEMP_MAX, PACK_TEMP_MIN, &statusArray[38], PACK_TEMP_MSG}, 
-	(fault_attributes_t){false, false, PACK_TEMP_EXCEEDED_PRIORITY, 0, 0, PACK_TEMP_EXCEEDED_MAX, PACK_TEMP_EXCEEDED_MIN, &statusArray[39], PACK_TEMP_EXCEEDED_MSG}, 
-	(fault_attributes_t){false, false, MIN_PACK_TEMP_PRIORITY, 0, 0, MIN_PACK_TEMP_MAX, MIN_PACK_TEMP_MIN, &statusArray[40], MIN_PACK_TEMP_MSG}, 
-	(fault_attributes_t){false, false, IMD_PRIORITY, 0, 0, IMD_MAX, IMD_MIN, &statusArray[41], IMD_MSG}, 
-	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[42], TV_OFFLINE_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[43], TEST_FAULT_1_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[44], TEST_FAULT_2_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[45], TEST_FAULT_3_MSG}, 
-	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[46], TEST_FAULT_4_MSG}, 
+	(fault_attributes_t){false, false, PCHG_IMPLAUS_PRIORITY, 0, 0, PCHG_IMPLAUS_MAX, PCHG_IMPLAUS_MIN, &statusArray[0], 0, PCHG_IMPLAUS_MSG}, 
+	(fault_attributes_t){false, false, RTD_EXIT_PRIORITY, 0, 0, RTD_EXIT_MAX, RTD_EXIT_MIN, &statusArray[1], 0, RTD_EXIT_MSG}, 
+	(fault_attributes_t){false, false, LEFT_MC_CONN_PRIORITY, 0, 0, LEFT_MC_CONN_MAX, LEFT_MC_CONN_MIN, &statusArray[2], 0, LEFT_MC_CONN_MSG}, 
+	(fault_attributes_t){false, false, RIGHT_MC_CONN_PRIORITY, 0, 0, RIGHT_MC_CONN_MAX, RIGHT_MC_CONN_MIN, &statusArray[3], 0, RIGHT_MC_CONN_MSG}, 
+	(fault_attributes_t){false, false, MCU_TEMP_HIGH_PRIORITY, 0, 0, MCU_TEMP_HIGH_MAX, MCU_TEMP_HIGH_MIN, &statusArray[4], 0, MCU_TEMP_HIGH_MSG}, 
+	(fault_attributes_t){false, false, LV_BAT_LOW_PRIORITY, 0, 0, LV_BAT_LOW_MAX, LV_BAT_LOW_MIN, &statusArray[5], 0, LV_BAT_LOW_MSG}, 
+	(fault_attributes_t){false, false, LV_BAT_VERY_LOW_PRIORITY, 0, 0, LV_BAT_VERY_LOW_MAX, LV_BAT_VERY_LOW_MIN, &statusArray[6], 0, LV_BAT_VERY_LOW_MSG}, 
+	(fault_attributes_t){false, false, LV_BAT_BMS_PRIORITY, 0, 0, LV_BAT_BMS_MAX, LV_BAT_BMS_MIN, &statusArray[7], 0, LV_BAT_BMS_MSG}, 
+	(fault_attributes_t){false, false, DRIVE_FLOW_PRIORITY, 0, 0, DRIVE_FLOW_MAX, DRIVE_FLOW_MIN, &statusArray[8], 0, DRIVE_FLOW_MSG}, 
+	(fault_attributes_t){false, false, MOT_FRONT_OT_PRIORITY, 0, 0, MOT_FRONT_OT_MAX, MOT_FRONT_OT_MIN, &statusArray[9], 0, MOT_FRONT_OT_MSG}, 
+	(fault_attributes_t){false, false, WLSPD_L_PRIORITY, 0, 0, WLSPD_L_MAX, WLSPD_L_MIN, &statusArray[10], 0, WLSPD_L_MSG}, 
+	(fault_attributes_t){false, false, WLSPD_R_PRIORITY, 0, 0, WLSPD_R_MAX, WLSPD_R_MIN, &statusArray[11], 0, WLSPD_R_MSG}, 
+	(fault_attributes_t){false, false, DRIVELINE_COMM_PRIORITY, 0, 0, DRIVELINE_COMM_MAX, DRIVELINE_COMM_MIN, &statusArray[12], 0, DRIVELINE_COMM_MSG}, 
+	(fault_attributes_t){false, false, APPS_WIRING_T1_PRIORITY, 0, 0, APPS_WIRING_T1_MAX, APPS_WIRING_T1_MIN, &statusArray[13], 0, APPS_WIRING_T1_MSG}, 
+	(fault_attributes_t){false, false, APPS_WIRING_T2_PRIORITY, 0, 0, APPS_WIRING_T2_MAX, APPS_WIRING_T2_MIN, &statusArray[14], 0, APPS_WIRING_T2_MSG}, 
+	(fault_attributes_t){false, false, BSE_PRIORITY, 0, 0, BSE_MAX, BSE_MIN, &statusArray[15], 0, BSE_MSG}, 
+	(fault_attributes_t){false, false, BSPD_PRIORITY, 0, 0, BSPD_MAX, BSPD_MIN, &statusArray[16], 0, BSPD_MSG}, 
+	(fault_attributes_t){false, false, IMPLAUS_DETECTED_PRIORITY, 0, 0, IMPLAUS_DETECTED_MAX, IMPLAUS_DETECTED_MIN, &statusArray[17], 0, IMPLAUS_DETECTED_MSG}, 
+	(fault_attributes_t){false, false, APPS_BRAKE_PRIORITY, 0, 0, APPS_BRAKE_MAX, APPS_BRAKE_MIN, &statusArray[18], 0, APPS_BRAKE_MSG}, 
+	(fault_attributes_t){false, false, DISCHARGE_LIMIT_ENFORCE_PRIORITY, 0, 0, DISCHARGE_LIMIT_ENFORCE_MAX, DISCHARGE_LIMIT_ENFORCE_MIN, &statusArray[19], 0, DISCHARGE_LIMIT_ENFORCE_MSG}, 
+	(fault_attributes_t){false, false, CHARGER_SAFETY_RELAY_PRIORITY, 0, 0, CHARGER_SAFETY_RELAY_MAX, CHARGER_SAFETY_RELAY_MIN, &statusArray[20], 0, CHARGER_SAFETY_RELAY_MSG}, 
+	(fault_attributes_t){false, false, INTERNAL_HARDWARE_PRIORITY, 0, 0, INTERNAL_HARDWARE_MAX, INTERNAL_HARDWARE_MIN, &statusArray[21], 0, INTERNAL_HARDWARE_MSG}, 
+	(fault_attributes_t){false, false, HEATSINK_THERMISTOR_PRIORITY, 0, 0, HEATSINK_THERMISTOR_MAX, HEATSINK_THERMISTOR_MIN, &statusArray[22], 0, HEATSINK_THERMISTOR_MSG}, 
+	(fault_attributes_t){false, false, SOFTWARE_PRIORITY, 0, 0, SOFTWARE_MAX, SOFTWARE_MIN, &statusArray[23], 0, SOFTWARE_MSG}, 
+	(fault_attributes_t){false, false, MAX_CELLV_HIGH_PRIORITY, 0, 0, MAX_CELLV_HIGH_MAX, MAX_CELLV_HIGH_MIN, &statusArray[24], 0, MAX_CELLV_HIGH_MSG}, 
+	(fault_attributes_t){false, false, MIN_CELLV_LOW_PRIORITY, 0, 0, MIN_CELLV_LOW_MAX, MIN_CELLV_LOW_MIN, &statusArray[25], 0, MIN_CELLV_LOW_MSG}, 
+	(fault_attributes_t){false, false, PACK_OVERHEAT_ORION_PRIORITY, 0, 0, PACK_OVERHEAT_ORION_MAX, PACK_OVERHEAT_ORION_MIN, &statusArray[26], 0, PACK_OVERHEAT_ORION_MSG}, 
+	(fault_attributes_t){false, false, INTERNAL_COMMS_PRIORITY, 0, 0, INTERNAL_COMMS_MAX, INTERNAL_COMMS_MIN, &statusArray[27], 0, INTERNAL_COMMS_MSG}, 
+	(fault_attributes_t){false, false, CELL_BALANCING_FOFF_PRIORITY, 0, 0, CELL_BALANCING_FOFF_MAX, CELL_BALANCING_FOFF_MIN, &statusArray[28], 0, CELL_BALANCING_FOFF_MSG}, 
+	(fault_attributes_t){false, false, WEAK_CELL_PRIORITY, 0, 0, WEAK_CELL_MAX, WEAK_CELL_MIN, &statusArray[29], 0, WEAK_CELL_MSG}, 
+	(fault_attributes_t){false, false, LOW_CELLV_PRIORITY, 0, 0, LOW_CELLV_MAX, LOW_CELLV_MIN, &statusArray[30], 0, LOW_CELLV_MSG}, 
+	(fault_attributes_t){false, false, OPEN_WIRE_PRIORITY, 0, 0, OPEN_WIRE_MAX, OPEN_WIRE_MIN, &statusArray[31], 0, OPEN_WIRE_MSG}, 
+	(fault_attributes_t){false, false, CURRENT_SENSOR_PRIORITY, 0, 0, CURRENT_SENSOR_MAX, CURRENT_SENSOR_MIN, &statusArray[32], 0, CURRENT_SENSOR_MSG}, 
+	(fault_attributes_t){false, false, MAX_CELLV_O5V_PRIORITY, 0, 0, MAX_CELLV_O5V_MAX, MAX_CELLV_O5V_MIN, &statusArray[33], 0, MAX_CELLV_O5V_MSG}, 
+	(fault_attributes_t){false, false, CELL_ASIC_PRIORITY, 0, 0, CELL_ASIC_MAX, CELL_ASIC_MIN, &statusArray[34], 0, CELL_ASIC_MSG}, 
+	(fault_attributes_t){false, false, WEAK_PACK_PRIORITY, 0, 0, WEAK_PACK_MAX, WEAK_PACK_MIN, &statusArray[35], 0, WEAK_PACK_MSG}, 
+	(fault_attributes_t){false, false, FAN_MONITOR_PRIORITY, 0, 0, FAN_MONITOR_MAX, FAN_MONITOR_MIN, &statusArray[36], 0, FAN_MONITOR_MSG}, 
+	(fault_attributes_t){false, false, THERMISTOR_PRIORITY, 0, 0, THERMISTOR_MAX, THERMISTOR_MIN, &statusArray[37], 0, THERMISTOR_MSG}, 
+	(fault_attributes_t){false, false, EXTERNAL_COMMS_PRIORITY, 0, 0, EXTERNAL_COMMS_MAX, EXTERNAL_COMMS_MIN, &statusArray[38], 0, EXTERNAL_COMMS_MSG}, 
+	(fault_attributes_t){false, false, REDUNDANT_PSU_PRIORITY, 0, 0, REDUNDANT_PSU_MAX, REDUNDANT_PSU_MIN, &statusArray[39], 0, REDUNDANT_PSU_MSG}, 
+	(fault_attributes_t){false, false, HV_ISOLATION_PRIORITY, 0, 0, HV_ISOLATION_MAX, HV_ISOLATION_MIN, &statusArray[40], 0, HV_ISOLATION_MSG}, 
+	(fault_attributes_t){false, false, INPUT_PSU_PRIORITY, 0, 0, INPUT_PSU_MAX, INPUT_PSU_MIN, &statusArray[41], 0, INPUT_PSU_MSG}, 
+	(fault_attributes_t){false, false, CHARGE_LIMIT_ENFORCE_PRIORITY, 0, 0, CHARGE_LIMIT_ENFORCE_MAX, CHARGE_LIMIT_ENFORCE_MIN, &statusArray[42], 0, CHARGE_LIMIT_ENFORCE_MSG}, 
+	(fault_attributes_t){false, false, PACK_TEMP_PRIORITY, 0, 0, PACK_TEMP_MAX, PACK_TEMP_MIN, &statusArray[43], 0, PACK_TEMP_MSG}, 
+	(fault_attributes_t){false, false, PACK_TEMP_EXCEEDED_PRIORITY, 0, 0, PACK_TEMP_EXCEEDED_MAX, PACK_TEMP_EXCEEDED_MIN, &statusArray[44], 0, PACK_TEMP_EXCEEDED_MSG}, 
+	(fault_attributes_t){false, false, MIN_PACK_TEMP_PRIORITY, 0, 0, MIN_PACK_TEMP_MAX, MIN_PACK_TEMP_MIN, &statusArray[45], 0, MIN_PACK_TEMP_MSG}, 
+	(fault_attributes_t){false, false, IMD_PRIORITY, 0, 0, IMD_MAX, IMD_MIN, &statusArray[46], 0, IMD_MSG}, 
+	(fault_attributes_t){false, false, TV_OFFLINE_PRIORITY, 0, 0, TV_OFFLINE_MAX, TV_OFFLINE_MIN, &statusArray[47], 0, TV_OFFLINE_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_1_PRIORITY, 0, 0, TEST_FAULT_1_MAX, TEST_FAULT_1_MIN, &statusArray[48], 0, TEST_FAULT_1_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_2_PRIORITY, 0, 0, TEST_FAULT_2_MAX, TEST_FAULT_2_MIN, &statusArray[49], 0, TEST_FAULT_2_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_3_PRIORITY, 0, 0, TEST_FAULT_3_MAX, TEST_FAULT_3_MIN, &statusArray[50], 0, TEST_FAULT_3_MSG}, 
+	(fault_attributes_t){false, false, TEST_FAULT_4_PRIORITY, 0, 0, TEST_FAULT_4_MAX, TEST_FAULT_4_MIN, &statusArray[51], 0, TEST_FAULT_4_MSG}, 
 };
 //END AUTO FAULT INFO ARRAY DEFS
 
@@ -166,17 +179,18 @@ bool setFault(int id, int valueToCompare) {
     {
         return false;
     }
-
-    fault_attributes_t *fault = &faultArray[GET_IDX(id)];
+    uint16_t idx = GET_IDX(id);
+    fault_attributes_t *fault = &faultArray[idx];
 
     //The fault is being forced to be a certain value, stop running
     if (fault->forceActive)
     {
-        return statusArray[GET_IDX(id)].latched;
+        return statusArray[idx].latched;
     }
     //Templatch = result of comparison of limits + current value
     fault->tempLatch = ((valueToCompare >= fault->f_max) || (valueToCompare < fault->f_min)) ? true : false;
-    return faultArray[GET_IDX(id)].tempLatch;
+    updateFault(idx);
+    return faultArray[idx].tempLatch;
 }
 
 
@@ -294,116 +308,123 @@ void return_fault_control(uint16_t id) {
     }
 }
 
-
 /**
  * @brief Updates faults owned by current mcu
  *
  * @return none
  */
-void updateFaults() {
+bool updateFault(uint16_t idx) {
     if (ownedidx < 0 || fault_lib_disable) {
-        return;
+        return false;
     }
-    uint16_t idx = ownedidx;
-    fault_attributes_t *fault;
-    do {
-        fault = &faultArray[idx];
-        //Fault is showing up as latched
-        if (((fault->tempLatch) && !(fault->status->latched))) {
-            //Has latching period ended
-            fault->status->latched = (++fault->time_since_latch >= faultLatchTime[idx]) ? true : false;
-            if (fault->status->latched) {
-                fault->time_since_latch = 0;
-                currCount++;
-                most_recent_latched = idx;
-                switch(fault->priority) {
-                    case FAULT_WARNING:
-                        warnCount++;
-                        break;
-                    case FAULT_ERROR:
-                        errorCount++;
-                        break;
-                    case FAULT_FATAL:
-                        fatalCount++;
-                        break;
-                }
-                txFaultSpecific(idx);
+    fault_attributes_t *fault = &faultArray[idx];
+    uint32_t curr_time = sched.os_ticks;
+    //Fault is showing up as latched
+    if (((fault->tempLatch) && !(fault->status->latched))) {
+        fault->time_since_latch = curr_time - fault->start_ticks;
+        //Has latching period ended
+        fault->status->latched = (fault->time_since_latch >= faultLatchTime[idx]) ? true : false;
+        if (fault->status->latched) {
+            fault->time_since_latch = 0;
+            fault->start_ticks = curr_time;
+            fault->bounces = 0;
+            currCount++;
+            most_recent_latched = idx;
+            switch(fault->priority) {
+                case FAULT_WARNING:
+                    warnCount++;
+                    break;
+                case FAULT_ERROR:
+                    errorCount++;
+                    break;
+                case FAULT_FATAL:
+                    fatalCount++;
+                    break;
             }
+            txFaultSpecific(idx);
         }
-        //Fault is showing up as unlatched
-        else if (!(fault->tempLatch) && (fault->status->latched)) {
-            //Make sure unlatch period has elapsed
-            fault->status->latched = (++fault->time_since_latch >= faultULatchTime[idx]) ? false : true;
-            if (!(fault->status->latched)) {
-                fault->time_since_latch = 0;
-                currCount--;
-                switch(fault->priority) {
-                    case FAULT_WARNING:
-                        warnCount--;
-                        break;
-                    case FAULT_ERROR:
-                        errorCount--;
-                        break;
-                    case FAULT_FATAL:
-                        fatalCount--;
-                        break;
-                }
-                txFaultSpecific(idx);
+    }
+    //Fault is showing up as unlatched
+    else if (!(fault->tempLatch) && (fault->status->latched)) {
+        fault->time_since_latch = curr_time - fault->start_ticks;
+        //Make sure unlatch period has elapsed
+        fault->status->latched = (fault->time_since_latch >= faultULatchTime[idx]) ? false : true;
+        if (!(fault->status->latched)) {
+            fault->time_since_latch = 0;
+            fault->start_ticks = curr_time;
+            fault->bounces = 0;
+            currCount--;
+            switch(fault->priority) {
+                case FAULT_WARNING:
+                    warnCount--;
+                    break;
+                case FAULT_ERROR:
+                    errorCount--;
+                    break;
+                case FAULT_FATAL:
+                    fatalCount--;
+                    break;
             }
+            txFaultSpecific(idx);
         }
-        else {
-            //Account for potential noise during the latching process
-            if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4)&& fault->tempLatch == 1) {
-                fault->time_since_latch++;
-                fault->bounces++;
-            }
-            else if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 0) {
-                fault->time_since_latch++;
-                fault->bounces++;
-            }
-            else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 1) {
-                fault->time_since_latch = 0;
-                fault->status->latched = 1;
-                fault->tempLatch = 1;
-                currCount++;
-                most_recent_latched = idx;
-                switch(fault->priority) {
-                    case FAULT_WARNING:
-                        warnCount++;
-                        break;
-                    case FAULT_ERROR:
-                        errorCount++;
-                        break;
-                    case FAULT_FATAL:
-                        fatalCount++;
-                        break;
-                }
-            }
-            else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
-                fault->time_since_latch = 0;
-                fault->status->latched = 1;
-                fault->tempLatch = 1;
-                currCount++;
-                most_recent_latched = idx;
-                switch(fault->priority) {
-                    case FAULT_WARNING:
-                        warnCount++;
-                        break;
-                    case FAULT_ERROR:
-                        errorCount++;
-                        break;
-                    case FAULT_FATAL:
-                        fatalCount++;
-                        break;
-                }
-            }
-            else {
-                fault->time_since_latch = 0;
-            }
-        }
-        idx++;
-    } while ((idx < TOTAL_NUM_FAULTS) && (GET_OWNER(faultArray[idx].status->f_ID) == currentMCU));
+    }
+    else {
+        // //Account for potential noise during the latching process
+        // if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4)&& fault->tempLatch == 1) {
+        //     fault->time_since_latch = curr_time - fault->start_ticks;
+        //     fault->bounces++;
+        // }
+        // else if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
+        //     fault->time_since_latch = curr_time = fault->start_ticks;
+        //     fault->bounces++;
+        // }
+        // else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultLatchTime[idx] * 0.4) && fault->tempLatch == 1) {
+        //     fault->time_since_latch = 0;
+        //     fault->start_ticks = curr_time;
+        //     fault->status->latched = 1;
+        //     fault->tempLatch = 1;
+        //     fault->bounces = 0;
+        //     currCount++;
+        //     most_recent_latched = idx;
+        //     switch(fault->priority) {
+        //         case FAULT_WARNING:
+        //             warnCount++;
+        //             break;
+        //         case FAULT_ERROR:
+        //             errorCount++;
+        //             break;
+        //         case FAULT_FATAL:
+        //             fatalCount++;
+        //             break;
+        //     }
+        // }
+        // else if (fault->time_since_latch > 0 && fault->bounces > (uint16_t)(faultULatchTime[idx] * 0.4) && fault->tempLatch == 0) {
+        //     fault->time_since_latch = 0;
+        //     fault->start_ticks = curr_time;
+        //     fault->status->latched = 1;
+        //     fault->tempLatch = 1;
+        //     fault->bounces = 0;
+        //     currCount++;
+        //     most_recent_latched = idx;
+        //     switch(fault->priority) {
+        //         case FAULT_WARNING:
+        //             warnCount++;
+        //             break;
+        //         case FAULT_ERROR:
+        //             errorCount++;
+        //             break;
+        //         case FAULT_FATAL:
+        //             fatalCount++;
+        //             break;
+        //     }
+        // }
+        // else {
+            fault->time_since_latch = 0;
+            fault->start_ticks = curr_time;
+        // }
+    }
 }
+
 
 /**
  * @brief Disables Fault Library
@@ -536,6 +557,9 @@ static void forceFault(int id, bool state) {
     //Update the array and send through CAN
     faultArray[idx].tempLatch = state;
     faultArray[idx].forceActive = true;
+    faultArray[idx].time_since_latch = 0;
+    faultArray[idx].bounces = 0;
+    faultArray[idx].start_ticks = sched.os_ticks;
     statusArray[idx].latched = state;
 	txFaultSpecific(id);
 

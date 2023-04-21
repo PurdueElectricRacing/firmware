@@ -330,7 +330,6 @@ static void sendDaqFrame(daq_tx_frame_writer_t tx_frame)
                            .ExtId=ext_id,
                            .DLC=(tx_frame.curr_bit + 7) / 8}; // rounding up
     v_memcpy(msg.Data, tx_frame.data, msg.DLC);
-    //v_memcpy(tx_frame.data, msg.Data, msg.DLC);
     qSendToBack(q_tx_can_a, &msg);
 }
 

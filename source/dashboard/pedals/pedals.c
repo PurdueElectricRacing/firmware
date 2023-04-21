@@ -1,15 +1,15 @@
 #include "pedals.h"
 #include "main.h"
-#include "common/phal_l4/gpio/gpio.h"
+#include "common/phal_L4/gpio/gpio.h"
 #include "can_parse.h"
 
 pedals_t pedals = {0};
-volatile raw_pedals_shockpots_t raw_pedals = {0};
+uint16_t thtl_limit = 4096;
 
 pedal_calibration_t pedal_calibration = {.t1max=2015,.t1min=785, // WARNING: DAQ VARIABLE
                                          .t2max=1920,.t2min=550, // IF EEPROM ENABLED,
-                                         .b1max=1200,.b1min=410, // VALUE WILL CHANGE
-                                         .b2max=1050,.b2min=400, // 1400, 400
+                                         .b1max=1200,.b1min=450, // VALUE WILL CHANGE
+                                         .b2max=1050,.b2min=425, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};
@@ -34,11 +34,11 @@ extern q_handle_t q_tx_can;
 void pedalsPeriodic(void)
 {
     // Get current values (don't want them changing mid-calculation)
-    uint16_t t1 = raw_pedals.t1;
-    uint16_t t2 = raw_pedals.t2;
-    uint16_t b1 = raw_pedals.b1;
-    uint16_t b2 = raw_pedals.b2;
-    uint16_t b3_raw = raw_pedals.b3;
+    uint16_t t1 = raw_adc_values.t1;
+    uint16_t t2 = raw_adc_values.t2;
+    uint16_t b1 = raw_adc_values.b1;
+    uint16_t b2 = raw_adc_values.b2;
+    uint16_t b3_raw = raw_adc_values.b3;
 
     b3_buff[b3_idx++] = b3_raw;
     b3_idx %= 8;
@@ -209,11 +209,11 @@ void pedalsPeriodic(void)
     if (b2 >= APPS_BRAKE_THRESHOLD &&
         t2 >= APPS_THROTTLE_FAULT_THRESHOLD)
     {
-        setFault(ID_APPS_BRAKE_FAULT, true);
+        // setFault(ID_APPS_BRAKE_FAULT, true);
     }
     else if (t2 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
     {
-        setFault(ID_APPS_BRAKE_FAULT, false);
+        // setFault(ID_APPS_BRAKE_FAULT, false);
     }
 
 
@@ -225,12 +225,13 @@ void pedalsPeriodic(void)
     // {
     //     t2 = 0;
     // }
+    t2 = t2 > thtl_limit ? thtl_limit : t2;
     filtered_pedals = t2;
 
-    SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_pedals.t1,
-                            raw_pedals.t2, raw_pedals.b1,
-                            raw_pedals.b2, raw_pedals.b3);
-    SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b1);
+    SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_adc_values.t1,
+                            raw_adc_values.t2, raw_adc_values.b1,
+                            raw_adc_values.b2, raw_adc_values.b3);
+    SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b2);
 
 
 }

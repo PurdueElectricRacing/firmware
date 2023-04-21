@@ -5,13 +5,76 @@
             "node_name": "main_module",
             "faults": [
                 {
-                    "fault_name": "batt_flow",
-                    "max": 63,
-                    "min": 46,
+                    "fault_name": "pchg_implaus",
+                    "max": 1,
+                    "min": 0,
                     "priority": "error",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "battery pump flow brokey"
+                    "time_to_latch": 50,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Precharge Implausibility"
+                },
+                {
+                    "fault_name": "rtd_exit",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 100,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "HV not detected, idling"
+                },
+                {
+                    "fault_name": "left_mc_conn",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 3000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "LEFT MC CONN FAIL"
+                },
+                {
+                    "fault_name": "right_mc_conn",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 3000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "RIGHT MC CONN FAIL"
+                },
+                {
+                    "fault_name": "mcu_temp_high",
+                    "max": 50,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 2000,
+                    "lcd_message": "HIGH PDU MCU TEMP"
+                },
+                {
+                    "fault_name": "lv_bat_low",
+                    "max": 34,
+                    "min": 24,
+                    "priority": "warning",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 2000,
+                    "lcd_message": "LV Bat Getting Low"
+                },
+                {
+                    "fault_name": "lv_bat_very_low",
+                    "max": 34,
+                    "min": 22,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 2000,
+                    "lcd_message": "LV Bat Very Low"
+                },
+                {
+                    "fault_name": "lv_bat_bms",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 50,
+                    "time_to_unlatch": 2000,
+                    "lcd_message": "LV Bat BMS Fault"
                 },
                 {
                     "fault_name": "drive_flow",
@@ -21,24 +84,6 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "battery pump flow brokey"
-                },
-                {
-                    "fault_name": "main_comm",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "fatal",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "main not talking"
-                },
-                {
-                    "fault_name": "lv_dead",
-                    "max": 3200,
-                    "min": 2000,
-                    "priority": "fatal",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "LV dead, shut car off ASAP"
                 }
             ]
         },
@@ -125,7 +170,7 @@
                 },
                 {
                     "fault_name": "Implaus_detected",
-                    "max": 410,
+                    "max": 700,
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 10,

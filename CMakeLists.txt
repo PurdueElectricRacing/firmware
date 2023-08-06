@@ -53,13 +53,13 @@ make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/common/S
 
 # Add Common modules
 add_subdirectory(common/psched)
-if (MCU_FAMILY_SELECTION STREQUAL STM32F4)
-    message(STATUS "Including Phal F4")
-    add_subdirectory(common/phal_F4)
-else()
-    message(STATUS "Including Phal L4")
-    add_subdirectory(common/phal_L4)
-endif()
+# if (MCU_FAMILY_SELECTION STREQUAL STM32F4)
+#     message(STATUS "Including Phal F4")
+add_subdirectory(common/phal_F4)
+# else()
+#     message(STATUS "Including Phal L4")
+add_subdirectory(common/phal_L4)
+# endif()
 add_subdirectory(common/bootloader)
 add_subdirectory(common/queue)
 add_subdirectory(common/common_defs)
@@ -90,7 +90,7 @@ define_property(TARGET PROPERTY OUTPUT_DIR
 include(cmake/common_component.cmake)
 
 # Add Components
-# add_subdirectory(source/main_module)
+add_subdirectory(source/main_module)
 add_subdirectory(source/bootloader)
 # add_subdirectory(source/l4_testing)
 add_subdirectory(source/torque_vector)

@@ -17,7 +17,11 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
 
     # Default values for target props.
     if (NOT _LINKER_SCRIPT)
-        set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
+        if (MCU_FAMILY_SELECTION STREQUAL STM32F4)
+            set(_LINKER_SCRIPT "STM32F407VGTX_FLASH")
+        else()
+            set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
+        endif()
     endif()
     if (NOT _COMMON_LIBS)
         set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;FAULTS")

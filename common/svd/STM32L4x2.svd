@@ -30,7 +30,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
     <fpuPresent>true</fpuPresent>
     <nvicPrioBits>4</nvicPrioBits>
     <vendorSystickConfig>false</vendorSystickConfig>
-  </cpu>  
+  </cpu>
   <!--Bus Interface Properties-->
   <!--Cortex-M3 is byte addressable-->
   <addressUnitBits>8</addressUnitBits>
@@ -7057,7 +7057,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <description>nRST_SHDW</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
-            </field>			
+            </field>
             <field>
               <name>IWDG_SW</name>
               <description>Independent watchdog
@@ -7084,7 +7084,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <description>Window watchdog selection</description>
               <bitOffset>19</bitOffset>
               <bitWidth>1</bitWidth>
-            </field>                      
+            </field>
             <field>
               <name>nBOOT1</name>
               <description>Boot configuration</description>
@@ -7103,7 +7103,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               reset</description>
               <bitOffset>25</bitOffset>
               <bitWidth>1</bitWidth>
-            </field>			
+            </field>
 			<field>
               <name>nSWBOOT0</name>
               <description>Software BOOT0</description>
@@ -7115,7 +7115,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <description>nBOOT0 option bit</description>
               <bitOffset>27</bitOffset>
               <bitWidth>1</bitWidth>
-            </field>			
+            </field>
           </fields>
         </register>
         <register>
@@ -7214,7 +7214,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>8</bitWidth>
             </field>
           </fields>
-        </register>                               
+        </register>
       </registers>
     </peripheral>
     <peripheral>
@@ -45846,7 +45846,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register>     
+        </register>
 		<register>
           <name>CH2CFGR1</name>
           <displayName>CH2CFGR1</displayName>
@@ -46020,7 +46020,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register>        
+        </register>
 		<register>
           <name>CH3CFGR1</name>
           <displayName>CH3CFGR1</displayName>
@@ -46194,7 +46194,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register>        
+        </register>
 		<register>
           <name>CH4CFGR1</name>
           <displayName>CH4CFGR1</displayName>
@@ -46368,7 +46368,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register>        
+        </register>
 		<register>
           <name>CH5CFGR1</name>
           <displayName>CH5CFGR1</displayName>
@@ -46542,7 +46542,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register>            
+        </register>
 		<register>
           <name>CH6CFGR1</name>
           <displayName>CH6CFGR1</displayName>
@@ -46716,7 +46716,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register> 
+        </register>
         <register>
           <name>CH7CFGR1</name>
           <displayName>CH7CFGR1</displayName>
@@ -46890,7 +46890,7 @@ xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
               <bitWidth>6</bitWidth>
             </field>
           </fields>
-        </register>     
+        </register>
         <register>
           <name>DFSDM_FLT0CR1</name>
           <displayName>DFSDM_FLT0CR1</displayName>

@@ -301,8 +301,8 @@ void adcConvert()
 
 void ledBlink()
 {
-    // if (can_data.test_stale.stale)
-    // {
+    if (can_data.test_stale.stale)
+    {
     //     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, true);
     // }
     // else

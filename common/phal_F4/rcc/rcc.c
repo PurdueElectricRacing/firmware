@@ -4,13 +4,13 @@
  * @brief RCC Configuration Driver for STM32L432 Devices
  * @version 0.1
  * @date 2021-10-14
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
-#include "common/phal_L4/rcc/rcc.h"
-#include "system_stm32l4xx.h"
+#include "common/phal_F4/rcc/rcc.h"
+#include "system_stm32f4xx.h"
 
 // Local Macros
 #define HZ_TO_MHZ(hz) ((uint32_t)((uint32_t) hz / ((uint32_t)1e6)))
@@ -30,10 +30,10 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
     switch(config->system_source)
     {
         case SYSTEM_CLOCK_SRC_PLL:
-            if (config->pll_src == PLL_SRC_MSI) 
-                ret_code |= !PHAL_configureMSIClock(config->msi_output_rate_target_hz);
+            if (config->pll_src == PLL_SRC_MSI)
+                // ret_code |= !PHAL_configureMSIClock(config->msi_output_rate_target_hz);
             ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << 7;
-            ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 6;
+            // ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 6;
             break;
         case SYSTEM_CLOCK_SRC_HSE: // TODO: Implement
             return 0xFF;
@@ -41,7 +41,7 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
             ret_code |= (!PHAL_configureHSISystemClock()) << 4;
             config->system_clock_target_hz = 16000000;
             break;
-        default: 
+        default:
             return 0xFF;
     }
 
@@ -53,14 +53,14 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
 
     return ret_code;
 }
-    
+
 
 bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_hz)
 {
     // Valid range for PLL output is 64Mhx <= PLL_CLK <= 344Mhz
     vco_output_rate_target_hz = vco_output_rate_target_hz > (uint32_t) 344e6 ? (uint32_t) 344e6 : vco_output_rate_target_hz;
     vco_output_rate_target_hz = vco_output_rate_target_hz < (uint32_t) 64e6 ? (uint32_t) 64e6 : vco_output_rate_target_hz;
-    
+
     RCC->CR &= ~RCC_CR_PLLON;
     while((RCC->CR & RCC_CR_PLLRDY))
         ; // Wait for PLL to turn off
@@ -78,9 +78,9 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
                 ; // Wait for HSI to turn on
             pll_input_f_hz = HSI_CLOCK_RATE_HZ;
             break;
-        
+
         case PLL_SRC_MSI:
-            RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_MSI;
+            RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSI;
             pll_input_f_hz = MSIClockRateHz;
             break;
 
@@ -130,7 +130,6 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     // Update global variable used to reference the PLL
     PLLClockRateHz = (pll_input_f_hz / pll_input_divisor) * pll_output_multiplier;
 
-    RCC->PLLCFGR |= RCC_PLLCFGR_PLLPEN;
     RCC->CR |= RCC_CR_PLLON;
     while(!(RCC->CR & RCC_CR_PLLRDY))
         ; // Wait for PLL to turn on
@@ -139,57 +138,58 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     return true;
 }
 
-bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
-{
-    if (system_clock_target_hz > 80000000)
-    {
-        system_clock_target_hz = 80000000;
-    }
+// bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
+// {
+//     if (system_clock_target_hz > 80000000)
+//     {
+//         system_clock_target_hz = 80000000;
+//     }
 
-    // Valid number for PLLR divisor are 2,4,6,8 (2 bit encoded)
-    uint8_t pll_r_divisor = PLLClockRateHz / system_clock_target_hz;
-    if(pll_r_divisor == 0 || pll_r_divisor % 2 != 0 || pll_r_divisor > 8)
-    {
-        return false;
-    }
+//     // Valid number for PLLR divisor are 2,4,6,8 (2 bit encoded)
+//     uint8_t pll_r_divisor = PLLClockRateHz / system_clock_target_hz;
+//     if(pll_r_divisor == 0 || pll_r_divisor % 2 != 0 || pll_r_divisor > 8)
+//     {
+//         return false;
+//     }
 
-    // Enable PLLR and set the PLLR divisor
-    RCC->PLLCFGR |= RCC_PLLCFGR_PLLREN;
-    RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLR_Msk;
-    RCC->PLLCFGR |= (((pll_r_divisor / 2) - 1) << RCC_PLLCFGR_PLLR_Pos) & RCC_PLLCFGR_PLLR_Msk;
+//     // Enable PLLR and set the PLLR divisor
+//     // RCC->PLLCFGR |= RCC_PLLCFGR_PLLREN;
+//     // RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLR_Msk;
+//     // RCC->PLLCFGR |= (((pll_r_divisor / 2) - 1) << RCC_PLLCFGR_PLLR_Pos) & RCC_PLLCFGR_PLLR_Msk;
 
-    // Voltge Scaling
-    __DSB();
-    PWR->CR1 |= (PWR_CR1_VOS_0 << PWR_CR1_VOS_Pos) & PWR_CR1_VOS_Msk;
-    while (PWR->SR2 & PWR_SR2_VOSF)
-        ; // Wait for flag to clear
-    __DSB();
+//     // Voltge Scaling
+//     // __DSB();
+//     // PWR->CR1 |= (PWR_CR1_VOS_0 << PWR_CR1_VOS_Pos) & PWR_CR1_VOS_Msk;
+//     // while (PWR->SR2 & PWR_SR2_VOSF)
+//     //     ; // Wait for flag to clear
+//     // __DSB();
+//     //Set PLL P, Q, and
 
-    // Flash latency adjustment, see ST RM0395 Table 9
-    uint32_t flash_acr_temp = FLASH->ACR;
-    flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
-    if(system_clock_target_hz >= 80000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_4WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 64000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_3WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 48000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_2WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 32000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_1WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 16000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
+//     // Flash latency adjustment, see ST RM0395 Table 9
+//     uint32_t flash_acr_temp = FLASH->ACR;
+//     flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
+//     if(system_clock_target_hz >= 80000000)
+//         flash_acr_temp |= FLASH_ACR_LATENCY_4WS << FLASH_ACR_LATENCY_Pos;
+//     else if (system_clock_target_hz >= 64000000)
+//         flash_acr_temp |= FLASH_ACR_LATENCY_3WS << FLASH_ACR_LATENCY_Pos;
+//     else if (system_clock_target_hz >= 48000000)
+//         flash_acr_temp |= FLASH_ACR_LATENCY_2WS << FLASH_ACR_LATENCY_Pos;
+//     else if (system_clock_target_hz >= 32000000)
+//         flash_acr_temp |= FLASH_ACR_LATENCY_1WS << FLASH_ACR_LATENCY_Pos;
+//     else if (system_clock_target_hz >= 16000000)
+//         flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
 
-    FLASH->ACR = flash_acr_temp;
+//     FLASH->ACR = flash_acr_temp;
 
-    __DSB();
-    RCC->CFGR |= RCC_CFGR_SW_PLL;
-    while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))
-        ; // Wait for PLL to be the new system clock
-    __DSB();
+//     __DSB();
+//     RCC->CFGR |= RCC_CFGR_SW_PLL;
+//     while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))
+//         ; // Wait for PLL to be the new system clock
+//     __DSB();
 
-    SystemCoreClockUpdate();
-    return true;
-}
+//     SystemCoreClockUpdate();
+//     return true;
+// }
 
 bool PHAL_configureHSISystemClock()
 {
@@ -198,11 +198,11 @@ bool PHAL_configureHSISystemClock()
     while (!(RCC->CR & RCC_CR_HSIRDY))
         ;
 
-    __DSB();
-    PWR->CR1 |= (PWR_CR1_VOS_0 << PWR_CR1_VOS_Pos) & PWR_CR1_VOS_Msk;
-    while (PWR->SR2 & PWR_SR2_VOSF)
-        ; // Wait for flag to clear
-    __DSB();
+    // __DSB();
+    // PWR->CR1 |= (PWR_CR1_VOS_0 << PWR_CR1_VOS_Pos) & PWR_CR1_VOS_Msk;
+    // while (PWR->SR2 & PWR_SR2_VOSF)
+    //     ; // Wait for flag to clear
+    // __DSB();
 
     // Flash latency adjustment, see ST RM0395 Table 9
     uint32_t flash_acr_temp = FLASH->ACR;
@@ -291,7 +291,7 @@ bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz)
         default:
             return false; // Invalid prescalar value
     }
-    
+
     uint32_t rcc_cfgr_temp = RCC->CFGR;
     rcc_cfgr_temp &= ~(RCC_CFGR_PPRE1_Msk);
     rcc_cfgr_temp |= (ahb_clk_div);
@@ -326,7 +326,7 @@ bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz)
         default:
             return false; // Invalid prescalar value
     }
-    
+
     uint32_t rcc_cfgr_temp = RCC->CFGR;
     rcc_cfgr_temp &= ~(RCC_CFGR_PPRE2_Msk);
     rcc_cfgr_temp |= ahb_clk_div;
@@ -337,30 +337,30 @@ bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz)
     return true;
 }
 
-bool PHAL_configureMSIClock(uint32_t target_hz)
-{
-    uint32_t range;
-    // range only modifiable if off or
-    // if MSI ready
-    if (!(RCC->CR & RCC_CR_MSION) || RCC->CR & RCC_CR_MSIRDY)
-    {
-        switch(target_hz)
-        {
-            // TODO: implement
-            case 16000000:
-                range = RCC_CR_MSIRANGE_8;
-                break;
-            default:
-                return false;
-        }
-        RCC->CR |= RCC_CR_MSIRGSEL;
-        RCC->CR &= ~RCC_CR_MSIRANGE_Msk;
-        RCC->CR |= range;
-        MSIClockRateHz = target_hz;
-    }
-    else
-        return false;
+// bool PHAL_configureMSIClock(uint32_t target_hz)
+// {
+//     uint32_t range;
+//     // range only modifiable if off or
+//     // if MSI ready
+//     if (!(RCC->CR & RCC_CR_MSION) || RCC->CR & RCC_CR_MSIRDY)
+//     {
+//         switch(target_hz)
+//         {
+//             // TODO: implement
+//             case 16000000:
+//                 range = RCC_CR_MSIRANGE_8;
+//                 break;
+//             default:
+//                 return false;
+//         }
+//         RCC->CR |= RCC_CR_MSIRGSEL;
+//         RCC->CR &= ~RCC_CR_MSIRANGE_Msk;
+//         RCC->CR |= range;
+//         MSIClockRateHz = target_hz;
+//     }
+//     else
+//         return false;
 
-    SystemCoreClockUpdate();
-    return true;
-}
+//     SystemCoreClockUpdate();
+//     return true;
+// }

@@ -14,7 +14,7 @@ sched_t sched;
 //
 // @brief: Adds task to scheduler with set rate
 //
-// @param: func: Pointer to function to run 
+// @param: func: Pointer to function to run
 // @param: task_time: Rate of task in ms
 int taskCreate(func_ptr_t func, uint16_t task_time)
 {
@@ -61,7 +61,7 @@ void taskDelete(uint8_t type, uint8_t task)
      if (type == TASK)
      {
          fp = sched.task_pointer;
-        
+
          for (i = task; i < sched.fg_count; i++)
          {
              sched.task_time[i] = sched.task_time[i + 1];
@@ -132,7 +132,11 @@ void schedInit(uint32_t freq)
     // Configure timer 2
     // Targeting an interrupt every 1 ms
     if (RCC->CFGR & RCC_CFGR_PPRE1_2) freq *= 2; // RM0394 pg 188 (timer clock doubles if apb1 prescaler != 0)
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM7EN;
+    #if defined(STM32F407xx)
+        RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
+    #else
+        RCC->APB1ENR1 |= RCC_APB1ENR1_TIM7EN;
+    #endif
     TIM7->PSC = (freq / 1000000) - 1;
     TIM7->ARR = ARR_SET;
     TIM7->CR1 &= ~(TIM_CR1_DIR);
@@ -150,7 +154,7 @@ void schedStart()
 {
     TIM7->CR1     |= TIM_CR1_CEN;
     NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
-    IWDG->KR      =  0xCCCC;     
+    IWDG->KR      =  0xCCCC;
     IWDG->KR      =  0x5555;
     IWDG->PR      |= 2;
     IWDG->RLR     =  20;

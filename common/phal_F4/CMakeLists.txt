@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13)
 
 MACRO(MAKE_PHAL_LIBRARY lib_name lib_link)
     set(TARGET_NAME ${lib_name})
-    set(MCU_FAMILY "STM32F4")
     add_library(${TARGET_NAME})
 
     # Find all .c sources in project
@@ -17,4 +16,4 @@ MACRO(MAKE_PHAL_LIBRARY lib_name lib_link)
     target_link_libraries(${TARGET_NAME} common_defs)
 ENDMACRO(MAKE_PHAL_LIBRARY)
 
-MAKE_PHAL_LIBRARY(PHAL_F4107 CMSIS_L432)
+MAKE_PHAL_LIBRARY(PHAL_F407 CMSIS_F407)

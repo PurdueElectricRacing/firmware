@@ -3,7 +3,7 @@
     "configurations": [
 
 
-    
+
         {   "name": "Main Module",
             "cwd": "${workspaceRoot}",
             "executable": "./output/main_module/main_module.elf",
@@ -76,6 +76,25 @@
             "debuggerArgs": [
                 "-d",
                 "${workspaceFolder}/source/l4_testing"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
+        {   "name": "f4_testing",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/f4_testing/f4_testing.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F407VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/f4_testing"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"

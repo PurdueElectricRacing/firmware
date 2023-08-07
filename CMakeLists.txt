@@ -24,11 +24,6 @@ else()
     "Your application will NOT work if you are NOT using the bootloader download tool.") # You have been warned
 endif()
 
-# Check for STM32 MCU selection
-set(MCU_OPTIONS STM32L4 STM32F4 STM32F7)
-set(MCU_FAMILY_SELECTION STM32L4 CACHE STRING "MCU family to build for")
-set_property(CACHE MCU_FAMILY_SELECTION PROPERTY STRINGS ${MCU_OPTIONS})
-
 # Setup arm-none-eabi as our compile toolcahin
 set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)
 
@@ -52,14 +47,9 @@ make_cmsis_library(CMSIS_L496 STM32L4xx STM32L496xx ${CMAKE_SOURCE_DIR}/common/S
 make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/common/STM32CubeF4/Drivers/CMSIS)
 
 # Add Common modules
-add_subdirectory(common/psched)
-# if (MCU_FAMILY_SELECTION STREQUAL STM32F4)
-#     message(STATUS "Including Phal F4")
 add_subdirectory(common/phal_F4)
-# else()
-#     message(STATUS "Including Phal L4")
 add_subdirectory(common/phal_L4)
-# endif()
+add_subdirectory(common/psched)
 add_subdirectory(common/bootloader)
 add_subdirectory(common/queue)
 add_subdirectory(common/common_defs)
@@ -86,13 +76,14 @@ define_property(TARGET PROPERTY OUTPUT_DIR
     BRIEF_DOCS "Archive directory override"
     FULL_DOCS "Change where the generated files are archvied to for the target")
 
-# Macro for defining hte common build process across all firmware components
+# Macro for defining the common build process across all firmware components
 include(cmake/common_component.cmake)
 
 # Add Components
 add_subdirectory(source/main_module)
 add_subdirectory(source/bootloader)
-# add_subdirectory(source/l4_testing)
+add_subdirectory(source/l4_testing)
+add_subdirectory(source/f4_testing)
 add_subdirectory(source/torque_vector)
 add_subdirectory(source/precharge)
 # add_subdirectory(source/driveline)

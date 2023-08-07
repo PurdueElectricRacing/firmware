@@ -47,7 +47,7 @@ make_cmsis_library(CMSIS_L496 STM32L4xx STM32L496xx ${CMAKE_SOURCE_DIR}/common/S
 make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/common/STM32CubeF4/Drivers/CMSIS)
 
 # Add Common modules
-add_subdirectory(common/phal_F4)
+add_subdirectory(common/phal_F4) #L4 an F4 directories are never linked together
 add_subdirectory(common/phal_L4)
 add_subdirectory(common/psched)
 add_subdirectory(common/bootloader)

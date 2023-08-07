@@ -43,7 +43,7 @@ _estack = ORIGIN(RAM) + LENGTH(RAM); /* end of "RAM" Ram type memory */
 _Min_Heap_Size = 0x200; /* required amount of heap */
 _Min_Stack_Size = 0x400; /* required amount of stack */
 
-PROVIDE(_eboot_flash = 0x08002000); /* End of the bootloader flash, this is where the application begins*/
+PROVIDE(_eboot_flash = 0x08004000); /* End of the bootloader flash, this is where the application begins*/
 
 /* Memories definition */
 MEMORY

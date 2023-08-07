@@ -3,7 +3,7 @@
 #include "common/psched/psched.h"
 
 GPIOInitConfig_t gpio_config[] = {
-  GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
+// TODO: LED Pin def
 };
 
 #define TargetCoreClockrateHz 16000000
@@ -24,7 +24,6 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
-void ledBlink();
 
 int main()
 {
@@ -38,40 +37,12 @@ int main()
     }
         /* Task Creation */
     schedInit(APB1ClockRateHz);
-    // taskCreate(usartTXTest, 1000);
-    taskCreate(ledBlink, 500);
-    //Fault Stuff
-    // taskCreate(adcConvert, 50);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    // taskCreate(canSendTest, 50);
-    // taskCreate(memFg, MEM_FG_TIME);
-    // taskCreate(wheelSpeedsPeriodic, 15);
-    // taskCreate(myCounterTest, 50);
-    // taskCreateBackground(canTxUpdate);
-    // taskCreateBackground(canRxUpdate);
-    // taskCreateBackground(memBg);
-
-
-    // signify end of initialization
-    // PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
+        /* Schedule Periodic tasks here */
     schedStart();
     return 0;
 }
 
-void ledBlink()
-{
-    static uint8_t status;
-    if (status)
-    {
-        PHAL_writeGPIO(GPIOD, 12, 0);
-        status = 0;
-    }
-    else
-    {
-        PHAL_writeGPIO(GPIOD, 12, 1);
-        status = 1;
-    }
-}
+
 void HardFault_Handler()
 {
     while(1)

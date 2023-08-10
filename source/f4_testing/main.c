@@ -42,7 +42,6 @@ int main()
     return 0;
 }
 
-
 void HardFault_Handler()
 {
     while(1)

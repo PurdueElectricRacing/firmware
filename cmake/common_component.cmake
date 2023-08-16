@@ -17,6 +17,7 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
 
     # Default values for target props.
     if (NOT _LINKER_SCRIPT)
+        message(STATUS "Missing Linker Script definition. Defaulting to STM32L432")
         set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
     endif()
     if (NOT _COMMON_LIBS)

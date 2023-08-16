@@ -44,10 +44,12 @@ include(cmake/FindSTM32HAL.cmake)
 # See cmake/FindCMSIS.cmake and cmake/FindSTM32HAL.cmake for constructing additional libraries
 make_cmsis_library(CMSIS_L432 STM32L4xx STM32L432xx ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/CMSIS)
 make_cmsis_library(CMSIS_L496 STM32L4xx STM32L496xx ${CMAKE_SOURCE_DIR}/common/STM32CubeL4/Drivers/CMSIS)
+make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/common/STM32CubeF4/Drivers/CMSIS)
 
 # Add Common modules
-add_subdirectory(common/psched)
+add_subdirectory(common/phal_F4) #L4 an F4 directories are never linked together
 add_subdirectory(common/phal_L4)
+add_subdirectory(common/psched)
 add_subdirectory(common/bootloader)
 add_subdirectory(common/queue)
 add_subdirectory(common/common_defs)
@@ -74,16 +76,17 @@ define_property(TARGET PROPERTY OUTPUT_DIR
     BRIEF_DOCS "Archive directory override"
     FULL_DOCS "Change where the generated files are archvied to for the target")
 
-# Macro for defining hte common build process across all firmware components
+# Macro for defining the common build process across all firmware components
 include(cmake/common_component.cmake)
 
 # Add Components
-# add_subdirectory(source/main_module)
+add_subdirectory(source/main_module)
 add_subdirectory(source/bootloader)
-# add_subdirectory(source/l4_testing)
+add_subdirectory(source/l4_testing)
+add_subdirectory(source/f4_testing)
 add_subdirectory(source/torque_vector)
 add_subdirectory(source/precharge)
 # add_subdirectory(source/driveline)
 add_subdirectory(source/dashboard)
 # add_subdirectory(source/template)
-add_subdirectory(source/bms)
+# add_subdirectory(source/bms)

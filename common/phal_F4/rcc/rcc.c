@@ -90,7 +90,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
         }
         
         // VCO output frequency = VCO input * PLLN
-        for (; pll_output_multiplier <= 432; pll_output_multiplier ++)                         // PLLN must be 50 to 432 (Pg. 227)
+        for (; pll_output_multiplier <= 432; pll_output_multiplier++)                          // PLLN must be 50 to 432 (Pg. 227)
         {
             if ((pll_input_f_hz / pll_input_divisor) * pll_output_multiplier == vco_output_rate_target_hz)
             {

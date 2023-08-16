@@ -25,9 +25,7 @@
 #define HSI_CLOCK_RATE_HZ (16000000)
 
 typedef enum {
-    PLL_SRC_MSI,
     PLL_SRC_HSI16,
-    PLL_SRC_HSE,
 } PLLSrc_t;
 
 

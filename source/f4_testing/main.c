@@ -9,8 +9,6 @@ GPIOInitConfig_t gpio_config[] = {
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_HSI,
-    .pll_src                    =PLL_SRC_MSI,
-    .msi_output_rate_target_hz  =16000000,
     .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),

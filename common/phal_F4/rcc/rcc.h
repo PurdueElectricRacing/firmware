@@ -1,11 +1,11 @@
 /**
  * @file rcc.h
- * @author Adam Busch (busch8@purdue.edu)
- * @brief RCC Configuration Driver for STM32L432 Devices
+ * @author Chris McGalliard (cmcgalli@purdue.edu) - Port of L4 RCC by Adam Busch (busch8@purdue.edu)
+ * @brief RCC Configuration Driver for STM32F4 Devices
  * @version 0.1
- * @date 2021-10-14
+ * @date 2023-08-16
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2023
  *
  */
 #ifndef _PHAL_RCC_H_
@@ -16,7 +16,6 @@
 
 #include "stm32f4xx.h"
 
-
 #define HSE_CLOCK_RATE_HZ_INVALID (1) /* High Speed External oscilator value */
 #ifndef HSE_CLOCK_RATE_HZ
 #define HSE_CLOCK_RATE_HZ HSE_CLOCK_RATE_HZ_INVALID /* Define this in order to configure clocks to use the HSE clock */
@@ -25,9 +24,7 @@
 #define HSI_CLOCK_RATE_HZ (16000000)
 
 typedef enum {
-    PLL_SRC_MSI,
     PLL_SRC_HSI16,
-    PLL_SRC_HSE,
 } PLLSrc_t;
 
 
@@ -117,14 +114,5 @@ bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz);
  * @return false
  */
 bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz);
-
-/**
- * @brief Configure MSI Clock rate
- *
- * @param target_hz
- * @return true Successfully configured MSI clock rate to @param target_hz
- * @return false
- */
-bool PHAL_configureMSIClock(uint32_t target_hz);
 
 #endif // _PHAL_PLL_H_

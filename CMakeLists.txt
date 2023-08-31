@@ -48,7 +48,8 @@ make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/common/S
 make_cmsis_library(CMSIS_F732 STM32F7xx STM32F732xx ${CMAKE_SOURCE_DIR}/common/STM32CubeF7/Drivers/CMSIS)
 
 # Add Common modules
-add_subdirectory(common/phal_F4) #L4 an F4 directories are never linked together
+add_subdirectory(common/phal_F4) #L4, F4, and F7 directories are never linked together
+add_subdirectory(common/phal_F7) #L4, F4, and F7 directories are never linked together
 add_subdirectory(common/phal_L4)
 add_subdirectory(common/psched)
 add_subdirectory(common/bootloader)
@@ -85,6 +86,7 @@ add_subdirectory(source/main_module)
 add_subdirectory(source/bootloader)
 add_subdirectory(source/l4_testing)
 add_subdirectory(source/f4_testing)
+add_subdirectory(source/f7_testing)
 add_subdirectory(source/torque_vector)
 add_subdirectory(source/precharge)
 # add_subdirectory(source/driveline)

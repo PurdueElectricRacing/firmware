@@ -4,16 +4,16 @@
  * @brief Basic DMA Peripheral HAL library for setting up DMA transfers
  * @version 0.1
  * @date 2023-08-19
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
-#include "common/phal_F4/dma/dma.h"
+#include "common/phal_F4_F7/dma/dma.h"
 
 bool PHAL_initDMA(dma_init_t* init) {
     // Check we aren't going to break the peripheral
-    if (init->mem_to_mem && init->circular) {                       
+    if (init->mem_to_mem && init->circular) {
         return false;
     } else if (init->dir > 1) {
         return false;
@@ -33,18 +33,18 @@ bool PHAL_initDMA(dma_init_t* init) {
     }
 
     // Ensure the stream is disabled, must be in order to configure the DMA control registers
-    init->stream->CR &= ~(DMA_SxCR_EN);    
+    init->stream->CR &= ~(DMA_SxCR_EN);
     while(init->stream->CR &= DMA_SxCR_EN)
-        ;                       
+        ;
 
     // Set channel, priority, memory data size
-    init->stream->CR |= (init->dma_chan_request << 25) | (init->priority << 16) | (init->mem_size << 13);         
-    
+    init->stream->CR |= (init->dma_chan_request << 25) | (init->priority << 16) | (init->mem_size << 13);
+
     // Set peripheral data size, memory increment, peripheral increment
-    init->stream->CR |= (init->periph_size << 11) | (init->mem_inc << 10) | (init->periph_inc << 9);      
-    
+    init->stream->CR |= (init->periph_size << 11) | (init->mem_inc << 10) | (init->periph_inc << 9);
+
     // Set circular mode, direction, transfer error interrupt enable, and transfer complete interrupt enable
-    init->stream->CR |= (init->circular << 8) | (init->dir << 6) | (init->tx_isr_en << 4) | (1U << 2);    
+    init->stream->CR |= (init->circular << 8) | (init->dir << 6) | (init->tx_isr_en << 4) | (1U << 2);
 
     // Set peripheral port register address
     init->stream->PAR = init->periph_addr;

@@ -9,8 +9,7 @@
  *
  */
 
-#include "common/phal_F4/rcc/rcc.h"
-#include "system_stm32f4xx.h"
+#include "common/phal_F4_F7/rcc/rcc.h"
 
 /* Globals for Clock Rates */
 uint32_t APB1ClockRateHz;
@@ -21,18 +20,18 @@ uint32_t PLLClockRateHz;
 uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
 {
     // Nonzero Bit Encoded Error Code Indicates Error
-    uint8_t ret_code = 0;  
+    uint8_t ret_code = 0;
 
-    // Configure clock rates based off an indicated system source in the config         
+    // Configure clock rates based off an indicated system source in the config
     switch(config->system_source)
     {
         // Configure System Clock from Phase Locked Loop
         case SYSTEM_CLOCK_SRC_PLL:
-            ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << 5;       
+            ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << 5;
             ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 4;
             break;
         // Configure System Clock from High Speed External Oscillator (not supported currently in F4 HAL)
-        case SYSTEM_CLOCK_SRC_HSE:                                                             
+        case SYSTEM_CLOCK_SRC_HSE:
             return 0xFF;
         // Configure System Clock from the High Speed Internal Oscillator
         case SYSTEM_CLOCK_SRC_HSI:
@@ -67,7 +66,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     switch (pll_source)
     {
         // 16 MHz HSI
-        case PLL_SRC_HSI16:                                                                              
+        case PLL_SRC_HSI16:
             RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSI;                                            // Select HSI source
             RCC->CR |= RCC_CR_HSION;                                                           // Turn on HSI
             while(!(RCC->CR & RCC_CR_HSIRDY))                                                  // Wait for HSI to enable
@@ -83,12 +82,12 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     for (; pll_input_divisor <= 63; pll_input_divisor++)                                       // PLLM must be 2 to 63 (Pg. 227)
     {
         // VCO input frequency = PLL input clock frequency / PLLM with 2 <= PLLM <= 63
-        uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;                         
+        uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;
         if(pll_vco_in_rate < 1000000 || pll_vco_in_rate > 2000000)                             // VCO input rate must be 1MHz to 2MHz (Pg. 227 PLLM)
         {
             continue;
         }
-        
+
         // VCO output frequency = VCO input * PLLN
         for (; pll_output_multiplier <= 432; pll_output_multiplier++)                          // PLLN must be 50 to 432 (Pg. 227)
         {
@@ -155,11 +154,11 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
     RCC->CR |= RCC_CR_PLLON;                                                                   // Enable PLL
     while(!(RCC->CR & RCC_CR_PLLRDY))
         ;                                                                                      // Wait for PLL to turn on
-    
+
     __DSB();                                                                                   // Wait for explicit memory accesses to finish
     RCC->CFGR |= RCC_CFGR_SW_PLL;                                                              // Set system clock switch register to PLL
-    while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))                                  // Wait for PLL to be the new system clock           
-        ;                                                                               
+    while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))                                  // Wait for PLL to be the new system clock
+        ;
     __DSB();                                                                                   // Wait for explicit memory accesses to finish
 
     SystemCoreClockUpdate();                                                                   // Must be called each time the core clock HCLK changes
@@ -183,7 +182,7 @@ bool PHAL_configureHSISystemClock()
     __DSB();                                                        // Wait for explicit memory accesses to finish
     RCC->CFGR |= RCC_CFGR_SW_HSI;                                   // Set system clock switch register to HSI
     while((RCC->CFGR & RCC_CFGR_SWS_HSI) != RCC_CFGR_SWS_HSI)       // Wait until the system clock switch register indicates that HSI is selected
-        ; 
+        ;
     __DSB();                                                        // Wait for explicit memory accesses to finish
 
     SystemCoreClockUpdate();                                        // Must be called each time the core clock HCLK changes
@@ -238,7 +237,7 @@ bool PHAL_configureAHBClock(uint32_t ahb_clock_target_hz)
     RCC->CFGR = rcc_cfgr_temp;
 
     AHBClockRateHz = ahb_clock_target_hz;                           // Set global for AHB Clock Rate
-    return true;                                    
+    return true;
 }
 
 // Low speed peripheral bus (Max speed 42 MHz)

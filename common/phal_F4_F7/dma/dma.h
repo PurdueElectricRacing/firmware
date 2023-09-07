@@ -13,8 +13,15 @@
 #define _DMA_H_
 
 #include <stdbool.h>
+#if defined(STM32F407xx)
 #include "stm32f4xx.h"
 #include "stm32f407xx.h"
+#elif defined(STM32F732xx)
+#include "stm32f7xx.h"
+#include "stm32f732xx.h"
+#else
+#error "Please define a MCU arch"
+#endif
 
 typedef struct {
     uint32_t    periph_addr;
@@ -41,7 +48,7 @@ typedef struct {
 /*
  * @brief Initialize DMA peripheral to set m2m, p2p, or p2m with set size
  *        and length of txfer
- * 
+ *
  * @param init -> Address of initialization structure
  * @return true -> Successful init (no clashing params)
  * @return false -> Init not complete (parameters clash)
@@ -50,7 +57,7 @@ bool PHAL_initDMA(dma_init_t* init);
 
 /*
  * @brief Set transfer length for DMA transaction
- * 
+ *
  * @param init -> Address of initialization structure
  */
 void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length);

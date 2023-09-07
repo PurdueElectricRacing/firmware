@@ -5,6 +5,9 @@
 #if defined(STM32F407xx)
 #include "stm32f4xx.h"
 #include "system_stm32f4xx.h"
+#elif defined(STM32F732xx)
+#include "stm32f7xx.h"
+#include "system_stm32f7xx.h"
 #elif defined(STM32L432xx)
 #include "stm32l4xx.h"
 #include "system_stm32l4xx.h"

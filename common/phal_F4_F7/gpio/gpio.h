@@ -13,7 +13,41 @@
 #ifndef _PHAL_GPIO_H_
 #define _PHAL_GPIO_H_
 
+#if defined(STM32F407xx)
 #include "stm32f4xx.h"
+#elif defined(STM32F732xx)
+#include "stm32f7xx.h"
+//Alternate Function register redifinition
+#define GPIO_AFRL_AFSEL0_Msk GPIO_AFRL_AFRL0_Msk
+#define GPIO_AFRL_AFSEL1_Msk GPIO_AFRL_AFRL1_Msk
+#define GPIO_AFRL_AFSEL2_Msk GPIO_AFRL_AFRL2_Msk
+
+#define GPIO_AFRL_AFSEL0_Pos GPIO_AFRL_AFRL0_Pos
+#define GPIO_AFRL_AFSEL1_Pos GPIO_AFRL_AFRL1_Pos
+#define GPIO_AFRL_AFSEL2_Pos GPIO_AFRL_AFRL2_Pos
+
+//Pull-select register redefinition
+#define GPIO_PUPDR_PUPD0_Msk GPIO_PUPDR_PUPDR0_Msk
+
+#define GPIO_PUPDR_PUPD0_Pos GPIO_PUPDR_PUPDR0_Pos
+#define GPIO_PUPDR_PUPD1_Pos GPIO_PUPDR_PUPDR1_Pos
+
+//Output Speed register redefinition
+#define GPIO_OSPEEDR_OSPEED0_Msk GPIO_OSPEEDR_OSPEEDR0_Msk
+#define GPIO_OSPEEDR_OSPEED1_Msk GPIO_OSPEEDR_OSPEEDR1_Msk
+
+#define GPIO_OSPEEDR_OSPEED0_Pos GPIO_OSPEEDR_OSPEEDR0_Pos
+#define GPIO_OSPEEDR_OSPEED1_Pos GPIO_OSPEEDR_OSPEEDR1_Pos
+
+//Mode register redefinitions
+#define GPIO_MODER_MODE0_Msk GPIO_MODER_MODER0_Msk
+#define GPIO_MODER_MODE1_Msk GPIO_MODER_MODER1_Msk
+
+#define GPIO_MODER_MODE0_Pos GPIO_MODER_MODER0_Pos
+#define GPIO_MODER_MODE1_Pos GPIO_MODER_MODER1_Pos
+#else
+#error "Please define a MCU arch"
+#endif
 #include <stdbool.h>
 
 /**

@@ -17,6 +17,9 @@
 #include "SFS.h"
 #include "SFS_pp.h"
 
+#include <stdio.h>
+#include <stdarg.h>
+
 extern q_handle_t q_tx_can;
 
 uint8_t collect_test[100] = {0};
@@ -35,9 +38,13 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_OUTPUT(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, GPIO_OUTPUT_HIGH_SPEED),
 
-    // GPS USART
+    // GPS USART 
+    // TODO: switch to USART4 pin numbers
     GPIO_INIT_USART3RX_PC5,
     GPIO_INIT_USART3TX_PC4,
+
+    GPIO_INIT_USART5RX_PD2,
+    GPIO_INIT_USART5TX_PC12,
 
     // EEPROM
     GPIO_INIT_OUTPUT(NAV_EEPROM_CS_GPIO_PORT, NAV_EEPROM_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
@@ -49,8 +56,8 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* USART Configuration */
 // M9N GPS
-dma_init_t usart_gps_tx_dma_config = USART3_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_gps_rx_dma_config = USART3_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_gps_tx_dma_config = USART4_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_gps_rx_dma_config = USART4_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_gps = {
     .baud_rate = 115200,
     .word_length = WORD_8,
@@ -68,7 +75,31 @@ usart_init_t huart_gps = {
     .adv_feature.overrun = false,
     .adv_feature.dma_on_rx_err = false,
     .tx_dma_cfg = &usart_gps_tx_dma_config,
-    .rx_dma_cfg = &usart_gps_rx_dma_config};
+    .rx_dma_cfg = &usart_gps_rx_dma_config
+};
+
+// FTDI Serial
+dma_init_t usart_serial_tx_dma_config = USART5_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_serial_rx_dma_config = USART5_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t huart_serial = {
+    .baud_rate = 115200,
+    .word_length = WORD_8,
+    .hw_flow_ctl = HW_DISABLE,
+    .mode = MODE_TX_RX,
+    .stop_bits = SB_ONE,
+    .parity = PT_NONE,
+    .obsample = OB_DISABLE,
+    .ovsample = OV_16,
+    .adv_feature.rx_inv = false,
+    .adv_feature.tx_inv = false,
+    .adv_feature.auto_baud = false,
+    .adv_feature.data_inv = false,
+    .adv_feature.msb_first = false,
+    .adv_feature.overrun = false,
+    .adv_feature.dma_on_rx_err = false,
+    .tx_dma_cfg = &usart_serial_tx_dma_config,
+    .rx_dma_cfg = &usart_serial_rx_dma_config
+};
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -133,6 +164,7 @@ void preflightChecks(void);
 void sendIMUData(void);
 void collectGPSData(void);
 void collectMagData(void);
+void serial_printf(const char *format, ...);
 extern void HardFault_Handler(void);
 q_handle_t q_tx_can, q_rx_can;
 
@@ -166,11 +198,17 @@ int main(void)
 
     /* USART initialization */
     huart_gps.rx_dma_cfg->circular = true;
-    if (!PHAL_initUSART(USART3, &huart_gps, APB1ClockRateHz))
+    if (!PHAL_initUSART(USART4, &huart_gps, APB1ClockRateHz))
     {
         HardFault_Handler();
     }
-    PHAL_usartRxDma(USART3, &huart_gps, (uint16_t *)testGPSHandle.raw_message, 100);
+    PHAL_usartRxDma(USART4, &huart_gps, (uint16_t *)testGPSHandle.raw_message, 100);
+
+    huart_serial.rx_dma_cfg->circular = true;
+    if (!PHAL_initUSART(USART5, &huart_serial, APB1ClockRateHZ)) 
+    {
+        HardFault_Handler();
+    }
 
     /* SPI initialization */
     if (!PHAL_SPI_init(&spi_config))
@@ -434,6 +472,27 @@ void SFS_MAIN(void)
     /* Disable interrupts here */
     /* Restore FPU context here (if necessary) */
     /* Enable interrupts here */
+}
+
+void serial_printf(const char *format, ...) 
+{
+    const uint16_t BUF_MAX_LEN = 1024;
+    char serial_buf[BUF_MAX_LEN];
+
+    va_list args;
+    va_start(args, format);
+    uint32_t len = vsnprintf(serial_buf, 1024, format, args);
+    va_end(args);
+    
+    if (len <= 0) {
+        return;
+    }
+    else if (len >= BUF_MAX_LEN)
+    {
+        len = BUF_MAX_LEN - 1; // last char is str null terminator
+    }
+
+    PHAL_usartTxDma(USART5, &huart_serial, (uin16_t *)serial_buf, len);
 }
 
 void HardFault_Handler()

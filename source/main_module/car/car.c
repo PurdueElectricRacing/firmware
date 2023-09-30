@@ -20,7 +20,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_RAW;
+    car.torque_src = CAR_TORQUE_TV;
     car.regen_enabled = false;
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
@@ -169,10 +169,20 @@ void carPeriodic()
         else
         {
             float t_req_pedal = 0;
+            float t_req_pedal_l = 0;
+            float t_req_pedal_r = 0;
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+            if (!can_data.throttle_remapped.stale)
+                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.remap_k_rl, 0, 4095);
+            if (!can_data.throttle_remapped.stale)
+                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.remap_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
+            t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
+            t_req_pedal_r = t_req_pedal_r * 100.0f / 4095.0f;
+
+
             // TODO: ensure APPS checks sets throttle to 0 if enough braking
             // t_req = t_req < 100 ? 0 : ((t_req - 100) / (4095 - 100) * 4095);
             // uint16_t adjusted_throttle = (can_data.raw_throttle_brake.throttle < 100) ? 0 : (can_data.raw_throttle_brake.throttle - 100) * 4095 / (4095 - 100);
@@ -185,7 +195,8 @@ void carPeriodic()
                     temp_t_req.torque_right = t_req_pedal;
                     break;
                 case CAR_TORQUE_TV:
-                    // TODO: TV torque source
+                    temp_t_req.torque_left  = t_req_pedal_l;
+                    temp_t_req.torque_right = t_req_pedal_r;
                     break;
                 case CAR_TORQUE_DAQ:
                     break;
@@ -205,13 +216,21 @@ void carPeriodic()
             // Any algorithm or electronic control unit that can adjust the
             // requested wheel torque may only lower the total driver
             // requested torque and must not increase it
-            if (temp_t_req.torque_left > t_req_pedal)
+            // if (temp_t_req.torque_left > t_req_pedal)
+            // {
+            //     temp_t_req.torque_left = t_req_pedal;
+            // }
+            // if (temp_t_req.torque_right > t_req_pedal)
+            // {
+            //     temp_t_req.torque_right = t_req_pedal;
+            // }
+            if (temp_t_req.torque_left > t_req_pedal_l)
             {
-                temp_t_req.torque_left = t_req_pedal;
+                temp_t_req.torque_left = t_req_pedal_l;
             }
-            if (temp_t_req.torque_right > t_req_pedal)
+            if (temp_t_req.torque_right > t_req_pedal_r)
             {
-                temp_t_req.torque_right = t_req_pedal;
+                temp_t_req.torque_right = t_req_pedal_r;
             }
 
             // Disable Regenerative Braking

@@ -372,6 +372,10 @@ BO_ 2348902967 sfs_ang_vel: 6 Navigation
  SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
+BO_ 2348819895 throttle_remapped: 4 Navigation
+ SG_ remap_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
+ SG_ remap_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+
 BO_ 2483028613 raw_throttle_brake: 8 Dashboard
  SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
  SG_ brake_right : 36|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
@@ -1134,6 +1138,9 @@ CM_ BO_ 2348902967 "orientation vel from sfs";
 CM_ SG_ 2348902967 sfs_ang_vel_z "";
 CM_ SG_ 2348902967 sfs_ang_vel_y "";
 CM_ SG_ 2348902967 sfs_ang_vel_x "";
+CM_ BO_ 2348819895 "throttle remapped";
+CM_ SG_ 2348819895 remap_k_rr "";
+CM_ SG_ 2348819895 remap_k_rl "";
 CM_ BO_ 2483028613 "Throttle and brake values";
 CM_ SG_ 2483028613 brake_pot "";
 CM_ SG_ 2483028613 brake_right "";

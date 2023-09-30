@@ -206,7 +206,8 @@
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
-                        {"msg_name": "cooling_driver_request", "callback": true}
+                        {"msg_name": "cooling_driver_request", "callback": true},
+                        {"msg_name": "throttle_remapped"}
                     ]
                 },
                 {
@@ -707,6 +708,17 @@
                             "msg_period":40,
                             "msg_hlp":3,
                             "msg_pgn":1448
+                        },
+                        {
+                            "msg_name": "throttle_remapped",
+                            "msg_desc": "throttle remapped",
+                            "signals":[
+                                {"sig_name": "remap_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
+                                {"sig_name": "remap_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 3,
+                            "msg_pgn": 150
                         }
                     ],
                     "rx":[

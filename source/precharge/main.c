@@ -182,9 +182,13 @@ int main (void)
    if (1 != PHAL_initCAN(CAN1, false))
        PHAL_FaultHandler();
 
+//     for (uint16_t dimitri_is_not_better_than_me = 0; dimitri_is_not_better_than_me < 1000; dimitri_is_not_better_than_me++)
+//     {
+//         asm("nop");
+//     }
 
-   if (1 != PHAL_initCAN(CAN2, false))
-       PHAL_FaultHandler();
+//    if (1 != PHAL_initCAN(CAN2, fchrom alse))
+//        PHAL_FaultHandler();
 
 
    spi2_config.data_rate = APB2ClockRateHz / 16;

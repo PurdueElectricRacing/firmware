@@ -92,7 +92,7 @@ void orionChargePeriodic() {
     if (charge_request_user && orion_charger_status && !orionErrors() && !errorLatched() && !fatalLatched()) {
             elcon_charge_enable = true;
 
-             user_charge_current_request = 7;
+             user_charge_current_request = 10;
             charge_current_req = MIN(can_data.orion_info.pack_ccl, user_charge_current_request);
 
              user_charge_voltage_request = 314;

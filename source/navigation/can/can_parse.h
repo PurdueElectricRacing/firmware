@@ -31,6 +31,7 @@
 #define ID_SFS_ACC 0xc0169b7
 #define ID_SFS_ANG 0xc0169f7
 #define ID_SFS_ANG_VEL 0xc016a37
+#define ID_THROTTLE_REMAPPED 0xc0025b7
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -46,6 +47,7 @@
 #define DLC_SFS_ACC 6
 #define DLC_SFS_ANG 8
 #define DLC_SFS_ANG_VEL 6
+#define DLC_THROTTLE_REMAPPED 4
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -140,6 +142,13 @@
         data_a->sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_THROTTLE_REMAPPED(queue, remap_k_rl_, remap_k_rr_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_REMAPPED, .DLC=DLC_THROTTLE_REMAPPED, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->throttle_remapped.remap_k_rl = remap_k_rl_;\
+        data_a->throttle_remapped.remap_k_rr = remap_k_rr_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -215,6 +224,10 @@ typedef union {
         uint64_t sfs_ang_vel_y: 16;
         uint64_t sfs_ang_vel_z: 16;
     } sfs_ang_vel;
+    struct {
+        uint64_t remap_k_rl: 16;
+        uint64_t remap_k_rr: 16;
+    } throttle_remapped;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */

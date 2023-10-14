@@ -29,6 +29,11 @@
             "type": "shell",
             "command": "python3 ./common/faults/generation/generator.py",
             "problemMatcher": []
+        },
+        {
+            "label": "docs_gen",
+            "type": "shell",
+            "command": "doxygen Doxyfile"
         }
     ]
 }

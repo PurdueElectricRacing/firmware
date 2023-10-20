@@ -55,7 +55,7 @@ void PHAL_setupTIMClk(uint32_t prescl_tim3, uint32_t prescl_tim4, TimerTriggerSe
 *
 */
 bool checkIMD_signal_OKhs() {
-    if((GPIOB -> IDR >> 7) & 0x1) { // Checking GPIOB pin 7 to see if input is high
+    if(((GPIOB -> IDR >> 7) & 0x1) == 1) { // Checking GPIOB pin 7 to see if input is high
         return true;                // No fault detected
     }
     return false;                   // Fault detected

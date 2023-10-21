@@ -21,32 +21,29 @@ void setup_IMDReading()  {
     GPIOB -> MODER &= ~(0xf << 10); // Setting GPIOB pin 5-6 to general mode (to read duty signals Mhs and Mls)
 }
 
-
-
 /**
-* @brief Enabling and configuring Timer 3 and 4 for reading IMD frequency
-*
-* @param prescl_tim3 prescaler for Timer 3 clock
-* @param prescl_tim4 prescaler for Timer 4 clock
-* @param tim3_trigger trigger type for Timer 3
-* @param tim4_trigger trigger type for Timer 4
+* @brief Enabling and configuring Timer 3 and 4 for reading IMD frequency.
+*        The capture frequency (100Hz) is twice the maximum frequency of the IMD (50Hz).
 */
-void PHAL_setupTIMClk(uint32_t prescl_tim3, uint32_t prescl_tim4, TimerTriggerSelection_t tim3_trigger, TimerTriggerSelection_t tim4_trigger) {
+void PHAL_setupTIMClk() {
     // Enabling Timer Clock 3
     RCC -> APB1ENR |= RCC_AHB1ENR_TIM3EN;
-    TIM3 -> PSC = prescl_tim3 - 1;
-    TIM3 -> CR1 |= TIM_CR1_URS;
-    TIM3 -> SMCR |= (trigger_select << TIM_SMCR_TS_Pos) & TIM_SMCR_TS;
-    TIM3 -> SMCR |= TIM_SMCR_SMS_2;
+    TIM3 -> PSC = (TargetCoreClockrateHz / 10000) - 1;  // Divides 80MHz by 8000 (=10000Hz)
+    TIM3 -> ARR = 100 - 1;                              // Divides 10kHz by 100 (=100Hz)
+    
+    TIM3 -> DIER |= TIM_DIER_UIE;                       // Enables update interrupt
     TIM3 -> CR1 |= TIM_CR1_CEN;
+    NVIC -> ISER[0] |= 1 << TIM3_DAC_IRQn;
+
 
     // Enabling Timer Clock 4
     RCC -> APB1ENR |= RCC_AHB1ENR_TIM4EN;
-    TIM4 -> PSC = prescl_tim4 - 1;
-    TIM4 -> CR1 |= TIM_CR1_URS;
-    TIM4 -> SMCR |= (trigger_select << TIM_SMCR_TS_Pos) & TIM_SMCR_TS;
-    TIM4 -> SMCR |= TIM_SMCR_SMS_2;
+    TIM4 -> PSC = (TargetCoreClockrateHz / 10000) - 1;  // Divides 80MHz by 8000 (=10000Hz)
+    TIM4 -> ARR = 100 - 1;                              // Divides 10kHz by 100 (=100Hz)
+
+    TIM4 -> DIER |= TIM_DIER_UIE;                       // Enables update interrupt
     TIM4 -> CR1 |= TIM_CR1_CEN;
+    NVIC -> ISER[0] |= 1 << TIM4_DAC_IRQn;
 }
 
 /**

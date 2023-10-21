@@ -42,7 +42,7 @@ void setup_IMDReading();
 /**
 * @brief Enabling and configuring Timer 3 and 4 to read IMD frequency
 */
-void PHAL_setupTIMClk(TIM_TypeDef* timer);
+void PHAL_setupTIMClk();
 
 /**
 * @brief                Checks if the IMD's OKhs signal is high, signaling that there

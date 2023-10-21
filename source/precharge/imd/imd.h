@@ -47,8 +47,17 @@ void PHAL_setupTIMClk(TIM_TypeDef* timer);
 /**
 * @brief                Checks if the IMD's OKhs signal is high, signaling that there
 *                       is no faulty resistance
-*
 */
 bool checkIMD_signal_OKhs();
+
+/**
+* @brief                Checks and returns the frequency of the Mhs
+*/
+int checkIMD_signal_Mhs();
+
+/**
+* @brief                Checks and returns the frequency of the Mls
+*/
+int checkIMD_signal_Mls();
 
 #endif //_PHAL_IMD_H

@@ -34,13 +34,15 @@ typedef enum {
 } TimerCCRegister_t;
 
 /**
-* @brief                enables and sets the proper GPIO pins (GPIOB pins 5-7) to read IMD channels
+* @brief                Enabling and configuring the proper GPIO pins (GPIOB pins 5-7)
+*                       to read IMD channels
 * 
 */
 void setup_IMDReading();
 
 /**
-* @brief Enabling and configuring Timer 3 and 4 to read IMD frequency
+* @brief                Enabling and configuring Timer 3 and 4 for reading IMD
+*                       frequency.
 */
 void PHAL_setupTIMClk();
 

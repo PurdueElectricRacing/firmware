@@ -36,7 +36,6 @@ typedef enum {
 /**
 * @brief                Enabling and configuring the proper GPIO pins (GPIOB pins 5-7)
 *                       to read IMD channels
-* 
 */
 void setup_IMDReading();
 

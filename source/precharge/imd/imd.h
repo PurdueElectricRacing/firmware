@@ -13,25 +13,6 @@
 #define _PHAL_IMD_H
 
 #include <stdbool.h>
-#include "stm3214xx.h"
-
-typedef enum {
-    ITR0    = 0b000,
-    ITR1    = 0b001,
-    ITR2    = 0b010,
-    ITR3    = 0b011,
-    TI1F_ED = 0b100,
-    TI1FP1  = 0b101,
-    TI2FP2  = 0b110,
-    ETRF    = 0b111
-} TimerTriggerSelection_t;
-
-typedef enum {
-    CC1 = 1,
-    CC2 = 2,
-    CC3 = 3,
-    CC4 = 4
-} TimerCCRegister_t;
 
 /**
 * @brief                Enabling and configuring the proper GPIO pins (GPIOB pins 5-7)

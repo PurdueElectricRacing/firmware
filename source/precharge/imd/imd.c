@@ -41,7 +41,6 @@ void PHAL_setupTIMClk() {
     TIM3 -> CR1 |= TIM_CR1_CEN;
     NVIC -> ISER[0] |= 1 << TIM3_IRQn;
 
-
     // Enabling Timer Clock 4
     RCC -> APB1ENR |= RCC_AHB1ENR_TIM4EN;
     TIM4 -> PSC = (TargetCoreClockrateHz / 10000) - 1;  // Divides 80MHz by 8000 (=10000Hz)

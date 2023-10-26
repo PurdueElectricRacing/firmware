@@ -2,7 +2,7 @@
 * @file imd.h
 * @author Michael Gliane (mgliane@purdue.edu)
 * @brief
-* @version 1.2
+* @version 1.3
 * @date 2023-9-30
 * 
 * @copyright Copyright (c) 2023
@@ -13,6 +13,7 @@
 #define _PHAL_IMD_H
 
 #include <stdbool.h>
+#include "stm32f4xx.h"
 
 /**
 * @brief                Enabling and configuring the proper GPIO pins (GPIOB pins 5-7)

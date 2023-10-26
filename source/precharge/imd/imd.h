@@ -2,7 +2,7 @@
 * @file imd.h
 * @author Michael Gliane (mgliane@purdue.edu)
 * @brief
-* @version 0.1
+* @version 1.2
 * @date 2023-9-30
 * 
 * @copyright Copyright (c) 2023

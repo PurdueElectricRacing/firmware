@@ -2,7 +2,7 @@
 * @file imd.c
 * @author Michael Gliane (mgliane@purdue.edu)
 * @brief
-* @version 1.0 - L4
+* @version 1.4
 * @date 2023-9-30
 * 
 * @copyright Copyright (c) 2023
@@ -13,8 +13,8 @@
 
 int mhs_frequency[100];
 int mls_frequency[100];
-int mhs_arrayidx = 0;
-int mls_arrayidx = 0;
+int mhs_array_idx = 0;
+int mls_array_idx = 0;
 
 /**
 * @brief                Enabling and configuring the proper GPIO pins (GPIOB pins 5-7)
@@ -57,8 +57,8 @@ void PHAL_setupTIMClk() {
 *                       array (mhs_frequency[])
 */
 void TIM3_IRQHandler() {
-    mhs_frequency[mhs_arrayidx] = (GPIOB -> IDR >> 5) & 1;
-    mhs_arrayidx = (mhs_arrayidx + 1) % 100;
+    mhs_frequency[mhs_array_idx] = (GPIOB -> IDR >> 5) & 1;
+    mhs_array_idx = (mhs_array_idx + 1) % 100;
 }
 
 /**
@@ -67,8 +67,8 @@ void TIM3_IRQHandler() {
 *                       array (mls_frequency[])
 */
 void TIM4_IRQHandler() {
-    mls_frequency[mls_arrayidx] = (GPIOB -> IDR >> 6) & 1;
-    mls_arrayidx = (mls_arrayidx + 1) % 100;
+    mls_frequency[mls_array_idx] = (GPIOB -> IDR >> 6) & 1;
+    mls_array_idx = (mls_array_idx + 1) % 100;
 }
 
 /**

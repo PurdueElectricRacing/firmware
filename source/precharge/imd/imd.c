@@ -2,7 +2,7 @@
 * @file imd.c
 * @author Michael Gliane (mgliane@purdue.edu)
 * @brief
-* @version 0.1
+* @version 1.0 - L4
 * @date 2023-9-30
 * 
 * @copyright Copyright (c) 2023
@@ -57,8 +57,8 @@ void PHAL_setupTIMClk() {
 *                       array (mhs_frequency[])
 */
 void TIM3_IRQHandler() {
-    mhs_frequency[mhs_array_idx] = (GPIOB -> IDR >> 5) & 1;
-    mhs_arrayidx = (mhs_array_idx + 1) % 100;
+    mhs_frequency[mhs_arrayidx] = (GPIOB -> IDR >> 5) & 1;
+    mhs_arrayidx = (mhs_arrayidx + 1) % 100;
 }
 
 /**
@@ -67,8 +67,8 @@ void TIM3_IRQHandler() {
 *                       array (mls_frequency[])
 */
 void TIM4_IRQHandler() {
-    mls_frequency[mls_array_idx] = (GPIOB -> IDR >> 6) & 1;
-    mls_arrayidx = (mls_array_idx + 1) % 100;
+    mls_frequency[mls_arrayidx] = (GPIOB -> IDR >> 6) & 1;
+    mls_arrayidx = (mls_arrayidx + 1) % 100;
 }
 
 /**
@@ -92,7 +92,9 @@ int checkIMD_signal_Mhs() {
     TIM3 -> CR1 &= TIM_CR1_CEN;     // Temporarily turning off TIM3 to avoid new values whilst reading
     for (int freq_idx = 0; freq_idx < 100; freq_idx++) {
         // If array value == 1, increase the captured frequncy by 1
-        mhs_frequency[freq_idx] == 1? cap_frequency += 1 : cap_frequency += 0;
+        if (mhs_frequency[freq_idx] == 1) {
+            cap_frequency += 1;
+        }
     }
     cap_frequency /= 2;             // Dividing captured frequncy by 2 so that the maximum return value is 50
     TIM3 -> CR1 |= TIM_CR1_CEN;
@@ -109,7 +111,9 @@ int checkIMD_signal_Mls() {
     TIM4 -> CR1 &= TIM_CR1_CEN;     // Temporarily turning off TIM3 to avoid new values whilst reading
     for (int freq_idx = 0; freq_idx < 100; freq_idx++) {
         // If array value == 0, increase the captured frequency by 1
-        mls_frequency[freq_idx] == 0? cap_frequency += 1 : cap_frequency += 0;
+         if (mls_frequency[freq_idx] == 0) {
+            cap_frequency += 1;
+        }    
     }
     cap_frequency /= 2;             // Dividing captured frequncy by 2 so that the maximum return value is 50
     TIM4 -> CR1 |= TIM_CR1_CEN;

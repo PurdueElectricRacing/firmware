@@ -245,21 +245,22 @@ typedef struct
     // Do not modify this struct unless
     // you modify the ADC DMA config
     // in main.c to match
-    uint16_t pump_1_imon
-    uint16_t pump_2_imon
-    uint16_t aux_hp_imon
-    uint16_t sdc_imon
-    uint16_t fan_1_cs
-    uint16_t fan_2_cs
-    uint16_t main_cs
-    uint16_t dash_cs
-    uint16_t abox_cs
+    uint16_t pump_1_imon;
+    uint16_t pump_2_imon;
+    uint16_t aux_hp_imon;
+    uint16_t sdc_imon;
+    uint16_t fan_1_cs;
+    uint16_t fan_2_cs;
+    uint16_t main_cs;
+    uint16_t dash_cs;
+    uint16_t abox_cs;
     uint16_t lv_24_v_sense;
     uint16_t lv_24_i_sense;
     uint16_t lv_5_v_sense;
     uint16_t lv_5_i_sense;
     uint16_t lv_3v3_v_sense;
-    uint16_t therm_mcu;
+    uint16_t external_therm;
+    uint16_t internal_therm;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

@@ -72,7 +72,6 @@ bool PHAL_initDMA(dma_init_t* init) {
 
     // Set memory address
     init->stream->M0AR = init->mem_addr;
-    init->stream->M1AR = init->mem_two_addr;
 
     init->stream->CR = 0;       //Reset preconfigured CR values
 

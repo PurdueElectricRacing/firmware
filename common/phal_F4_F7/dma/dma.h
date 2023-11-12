@@ -26,7 +26,6 @@
 typedef struct {
     uint32_t    periph_addr;
     uint32_t    mem_addr;
-    uint32_t    mem_two_addr; //For use in double buffering mode
     uint16_t    tx_size;
     uint8_t     mem_size;
 

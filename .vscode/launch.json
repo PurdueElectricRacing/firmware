@@ -106,7 +106,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device:": "STM32F732RET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F7x2.svd",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f7x.cfg"

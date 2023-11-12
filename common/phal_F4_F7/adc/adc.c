@@ -1,7 +1,7 @@
 /**
  * @file adc.c
  * @author Chris McGalliard - port of L4 HAL by Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-09-17
  */
@@ -10,9 +10,9 @@
 
 bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels)
 {
-    // Enable clock to the selected peripheral 
+    // Enable clock to the selected peripheral
     RCC->APB2ENR |= (1 << (RCC_APB2ENR_ADC1EN_Pos + config->adc_number - 1)) & (0x7UL << RCC_APB2ENR_ADC1EN_Pos);
-    
+
     // Set prescaler (todo maintain acceptable bounds)
     ADC123_COMMON->CCR &= ~(ADC_CCR_ADCPRE_Msk);
     ADC123_COMMON->CCR |= (config->clock_prescaler << ADC_CCR_ADCPRE_Pos) & ADC_CCR_ADCPRE_Msk;
@@ -38,7 +38,7 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     if (config->dma_mode != ADC_DMA_OFF)
     {
         // Circular or one shot
-        adc->CR2 |= (ADC_CR2_DMA) | 
+        adc->CR2 |= (ADC_CR2_DMA) |
             (((config->dma_mode == ADC_DMA_CIRCULAR) << ADC_CR2_DDS_Pos) & ADC_CR2_DDS_Msk);
     }
     else
@@ -81,7 +81,7 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     }
 
     // Wake up from power down if necessary
-    if (!(adc->CR2 &= ADC_CR2_ADON_Msk))
+    if (!(adc->CR2 & ADC_CR2_ADON_Msk))
     {
         adc->CR2 |= (ADC_CR2_ADON);
     }
@@ -105,4 +105,3 @@ uint16_t PHAL_readADC(ADC_TypeDef* adc)
 {
     return (uint16_t) (adc->DR & ADC_DR_DATA_Msk);
 }
-

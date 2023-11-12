@@ -26,7 +26,9 @@
 typedef struct {
     uint32_t    periph_addr;
     uint32_t    mem_addr;
+    uint32_t    mem_two_addr; //For use in double buffering mode
     uint16_t    tx_size;
+    uint8_t     mem_size;
 
     bool        increment;
     bool        circular;
@@ -35,7 +37,6 @@ typedef struct {
     bool        periph_inc;
     bool        mem_to_mem;
     uint8_t     priority;
-    uint8_t     mem_size;
     uint8_t     periph_size;
     bool        tx_isr_en;
     uint8_t     dma_chan_request;
@@ -56,9 +57,38 @@ typedef struct {
 bool PHAL_initDMA(dma_init_t* init);
 
 /*
+ * @brief Start txfer after sucessful DMA peripheral initialization
+ *
+ * @param init -> Address of initialization structure
+ */
+void PHAL_startTxfer(dma_init_t* init);
+
+/*
+ * @brief Stop txfer
+ *
+ * @param init -> Address of initialization structure
+ */
+void PHAL_stopTxfer(dma_init_t* init);
+
+/*
+ * @brief Re-enable DMA txfer after error ISR fires
+ *
+ * @param init -> Address of initialization structure
+ */
+void PHAL_reEnable(dma_init_t* init);
+
+/*
+ * @brief Set memory address for DMA transfer. In Mem to Mem this acts as the source address
+ *
+ * @param init -> Address of initialization structure
+ */
+void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address);
+
+/*
  * @brief Set transfer length for DMA transaction
  *
  * @param init -> Address of initialization structure
  */
 void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length);
+
 #endif

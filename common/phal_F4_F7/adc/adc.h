@@ -1,7 +1,7 @@
 /**
  * @file adc.h
  * @author Chris McGalliard - port of L4 HAL by Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-09-17
  */
@@ -73,11 +73,18 @@ typedef struct {
 } ADCChannelConfig_t;
 
 // TODO DMA CONFIGS FOR ADC
+#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)        \
+    {.periph_addr=(uint32_t) &(ADC1->DR), .mem_addr=mem_addr_,      \
+     .tx_size=tx_size_, .increment=true, .circular=true,            \
+     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false, \
+     .priority=priority_, .mem_size=0b01, .periph_size=0b01,        \
+     .tx_isr_en=false, .dma_chan_request=0b0000, .stream_idx=0,    \
+     .periph=DMA2, .stream=DMA2_Stream0}
 
 
 /**
  * @brief Initializes the ADC, requires GPIO config prior
- * 
+ *
  * @param adc ADC handle
  * @param config ADC initial config settings
  * @param channels List of channel configurations
@@ -87,20 +94,20 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
 
 /**
  * @brief Starts the ADC conversions, requires PHAL_initADC to be called prior
- * 
+ *
  * @param adc ADC handle
 **/
 bool PHAL_startADC(ADC_TypeDef* adc);
 /**
  * @brief Stops the ADC conversions, requires PHAL_initADC to be called prior
- * 
+ *
  * @param adc ADC handle
 **/
 bool PHAL_stopADC(ADC_TypeDef* adc);
 
 /**
  * @brief Reads the ADC data register
- * 
+ *
  * @param adc ADC handle
  * @return contents of the data register
 **/

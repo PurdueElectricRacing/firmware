@@ -99,6 +99,25 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
+        {   "name": "f7_testing",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/f7_testing/f7_testing.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F732RET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f7x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/f7_testing"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
         {   "name": "BMS (12 Cell)",
             "cwd": "${workspaceRoot}",
             "executable": "./output/bmses/bms_c/bms_c.elf",

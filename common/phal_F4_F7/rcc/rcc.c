@@ -52,8 +52,8 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
 bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_hz)
 {
     // Ensure range for PLL output is 100Mhz <= PLL_CLK <= 432Mhz
-    vco_output_rate_target_hz = vco_output_rate_target_hz > (uint32_t) 432e6 ? (uint32_t) 432e6 : vco_output_rate_target_hz;
-    vco_output_rate_target_hz = vco_output_rate_target_hz < (uint32_t) 100e6 ? (uint32_t) 100e6 : vco_output_rate_target_hz;
+    vco_output_rate_target_hz = vco_output_rate_target_hz > RCC_MAX_VCO_RATE_HZ ? RCC_MAX_VCO_RATE_HZ : vco_output_rate_target_hz;
+    vco_output_rate_target_hz = vco_output_rate_target_hz < RCC_MIN_VCO_RATE_HZ ? RCC_MIN_VCO_RATE_HZ : vco_output_rate_target_hz;
 
     // Turn off and wait for PLL to disable
     RCC->CR &= ~RCC_CR_PLLON;
@@ -76,10 +76,10 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     }
 
     /* Search for a possible PLL configuration */
-    uint8_t pll_input_divisor = 2;                                                             // PLLM
-    uint8_t pll_output_multiplier = 50;                                                        // PLLN
+    uint8_t pll_input_divisor = RCC_MIN_PLL_INPUT_DIVISOR;                                     // PLLM
+    uint8_t pll_output_multiplier = RCC_MIN_PLL_OUTPUT_MULTIPLIER;                                 // PLLN
     bool valid_rate = false;
-    for (; pll_input_divisor <= 63; pll_input_divisor++)                                       // PLLM must be 2 to 63 (Pg. 227)
+    for (; pll_input_divisor <= RCC_MAX_PLL_INPUT_DIVISOR; pll_input_divisor++)                                       // PLLM must be 2 to 63 (Pg. 227)
     {
         // VCO input frequency = PLL input clock frequency / PLLM with 2 <= PLLM <= 63
         uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;
@@ -89,7 +89,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
         }
 
         // VCO output frequency = VCO input * PLLN
-        for (; pll_output_multiplier <= 432; pll_output_multiplier++)                          // PLLN must be 50 to 432 (Pg. 227)
+        for (; pll_output_multiplier <= RCC_MAX_PLL_OUTPUT_MULTIPLIER; pll_output_multiplier++)                          // PLLN must be 50 to 432 (Pg. 227)
         {
             if ((pll_input_f_hz / pll_input_divisor) * pll_output_multiplier == vco_output_rate_target_hz)
             {
@@ -108,7 +108,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     RCC->PLLCFGR |= ((pll_output_multiplier) << RCC_PLLCFGR_PLLN_Pos) & RCC_PLLCFGR_PLLN_Msk;  // Set PLLN
 
     // Update global variable used to reference the PLL
-    PLLClockRateHz = (pll_input_f_hz / pll_input_divisor) * pll_output_multiplier;
+    PLLClockRateHz = ((pll_input_f_hz / pll_input_divisor) * pll_output_multiplier);
 
     SystemCoreClockUpdate();                                                                   // Must be called each time the core clock HCLK changes
     return true;
@@ -117,9 +117,9 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
 bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
 {
     // Ensure sysetm clock target is valid (Must be under 168 MHz)
-    if (system_clock_target_hz > 168000000)
+    if (system_clock_target_hz > RCC_MAX_SYSCLK_TARGET_HZ)
     {
-        system_clock_target_hz = 168000000;
+        system_clock_target_hz = RCC_MAX_SYSCLK_TARGET_HZ;
     }
 
     // Valid number for PLLP divisor are 2,4,6,8 (2 bit encoded)
@@ -133,10 +133,63 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
     RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLP_Msk;
     RCC->PLLCFGR |= (((pll_p_divisor / 2) - 1) << RCC_PLLCFGR_PLLP_Pos) & RCC_PLLCFGR_PLLP_Msk; // Divisor value to PLLP bits (Pg. 227)
 
-    //Flash latency adjustment, see ST RM 0090 Pg. 80
+    __DSB();                                                                                   // Wait for explicit memory accesses to finish
+
+    #if defined STM32F732xx
+        bool enable_overdrive = false;
+        RCC->APB1ENR |= RCC_APB1ENR_PWREN;
+        // Voltage regulator scaling based on system clock, see p. 14: https://www.st.com/resource/en/product_training/STM32F7_System_PWR.pdf
+        if (system_clock_target_hz > 180000000)
+        {
+            PWR->CR1 &= ~PWR_CR1_VOS;
+            PWR->CR1 |= PWR_CR1_VOS;
+            enable_overdrive = true;
+        }
+        else if (system_clock_target_hz > 168000000)
+        {
+            PWR->CR1 &= ~PWR_CR1_VOS;   //No need to use overdrive, but select scale 1 on voltage regulator
+            PWR->CR1 |= PWR_CR1_VOS;
+        }
+        else if (system_clock_target_hz > 144000000)
+        {
+            PWR->CR1 &= ~PWR_CR1_VOS;   //No need to use overdrive, but select scale 2 on voltage regulator
+            PWR->CR1 |= PWR_CR1_VOS_1;
+        }
+        else
+        {
+            PWR->CR1 &= ~PWR_CR1_VOS;   //No need to use overdrive, but select scale 3 on voltage regulator
+            PWR->CR1 |= PWR_CR1_VOS_0;
+        }
+
+    #endif
+    RCC->CR |= RCC_CR_PLLON;                                                                   // Enable PLL
+    while(!(RCC->CR & RCC_CR_PLLRDY))
+        ;                                                                                       // Wait for PLL to turn on
+    __DSB();
+
+    //Set Level of Internal Voltage Regulator, see ST RM 0090/0431
+    #if defined STM32F732xx
+        if (enable_overdrive)
+        {
+            PWR->CR1 |= PWR_CR1_ODEN;
+            while (!(PWR->CSR1 & PWR_CSR1_ODRDY))                                                  //Wait for regulator output to turn on
+                ;
+            PWR->CR1 |= PWR_CR1_ODSWEN;                                                            //Enable Overdrive
+            while (!(PWR->CSR1 & PWR_CSR1_ODSWRDY))
+                ;                                                                                  //Wait for overdrive to turn on
+        }
+    #endif
+
+
+    //Flash latency adjustment, see ST RM 0090 Pg. 80, ST RM 0431 Pg. 69
     uint32_t flash_acr_temp = FLASH->ACR;
     flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
-    if(system_clock_target_hz >= 150000000)
+
+    if(system_clock_target_hz >= 210000000)
+        flash_acr_temp |=  FLASH_ACR_LATENCY_7WS << FLASH_ACR_LATENCY_Pos;
+    else if (system_clock_target_hz >= 180000000)
+        flash_acr_temp |=  FLASH_ACR_LATENCY_6WS << FLASH_ACR_LATENCY_Pos;
+    else if(system_clock_target_hz >= 150000000)
         flash_acr_temp |= FLASH_ACR_LATENCY_5WS << FLASH_ACR_LATENCY_Pos;
     else if (system_clock_target_hz >= 120000000)
         flash_acr_temp |= FLASH_ACR_LATENCY_4WS << FLASH_ACR_LATENCY_Pos;
@@ -151,15 +204,11 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
     FLASH->ACR = flash_acr_temp;
 
     __DSB();                                                                                   // Wait for explicit memory accesses to finish
-    RCC->CR |= RCC_CR_PLLON;                                                                   // Enable PLL
-    while(!(RCC->CR & RCC_CR_PLLRDY))
-        ;                                                                                      // Wait for PLL to turn on
-
-    __DSB();                                                                                   // Wait for explicit memory accesses to finish
     RCC->CFGR |= RCC_CFGR_SW_PLL;                                                              // Set system clock switch register to PLL
     while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))                                  // Wait for PLL to be the new system clock
         ;
     __DSB();                                                                                   // Wait for explicit memory accesses to finish
+
 
     SystemCoreClockUpdate();                                                                   // Must be called each time the core clock HCLK changes
     return true;

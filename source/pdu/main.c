@@ -1,4 +1,6 @@
 /* System Includes */
+#include "common/phal_F4_F7/adc/adc.h"
+#include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/psched/psched.h"
@@ -93,33 +95,33 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .clock_prescaler = ADC_CLK_PRESC_16,
+    .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
     .resolution      = ADC_RES_12_BIT,
     .data_align      = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode  = true,
-    .overrun         = true,
+    .adc_number      = 1,
     .dma_mode        = ADC_DMA_CIRCULAR
 };
 
 /* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=PUMP_1_IMON_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=PUMP_2_IMON_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=AUX_HP_IMON_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=SDC_IMON_ADC_CHNL,       .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=FAN_1_CS_ADC_CHNL,       .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=FAN_2_CS_ADC_CHNL,       .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=MAIN_CS_ADC_CHNL,        .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=DASH_CS_ADC_CHNL,        .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=ABOX_CS_ADC_CHNL,        .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=EXTERNAL_THERM_ADC_CHNL, .rank=15, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
-    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_640_5},
+    {.channel=PUMP_1_IMON_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=PUMP_2_IMON_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=AUX_HP_IMON_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=SDC_IMON_ADC_CHNL,       .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=FAN_1_CS_ADC_CHNL,       .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=FAN_2_CS_ADC_CHNL,       .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=MAIN_CS_ADC_CHNL,        .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=DASH_CS_ADC_CHNL,        .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=ABOX_CS_ADC_CHNL,        .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=EXTERNAL_THERM_ADC_CHNL, .rank=15, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
@@ -152,6 +154,7 @@ int main()
     {
         HardFault_Handler();
     }
+    PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);

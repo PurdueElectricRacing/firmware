@@ -23,6 +23,25 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
+        {   "name": "PDU",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/pdu/pdu.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F407VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/f4_testing"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
         {   "name": "Dashboard",
             "cwd": "${workspaceRoot}",
             "executable": "./output/dashboard/dashboard.elf",

@@ -112,26 +112,28 @@ ADCInitConfig_t adc_config = {
 
 /* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
-ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=PUMP_1_IMON_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=PUMP_2_IMON_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=AUX_HP_IMON_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+ADCChannelConfig_t adc_channel_config[] = {/*
+    {.channel=PUMP_1_IMON_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},*/
+    {.channel=PUMP_2_IMON_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=AUX_HP_IMON_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    /*
     {.channel=SDC_IMON_ADC_CHNL,       .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=FAN_1_CS_ADC_CHNL,       .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=FAN_2_CS_ADC_CHNL,       .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=MAIN_CS_ADC_CHNL,        .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=DASH_CS_ADC_CHNL,        .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=ABOX_CS_ADC_CHNL,        .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=ABOX_CS_ADC_CHNL,        .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_480},*/
+    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=3, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    /*
     {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=EXTERNAL_THERM_ADC_CHNL, .rank=15, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},*/
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
-            sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
+            sizeof(adc_readings) / sizeof(adc_readings.lv_24_v_sense), 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -189,6 +191,8 @@ int main()
     }
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
+
+    PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, 1);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);

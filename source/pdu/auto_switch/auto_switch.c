@@ -10,12 +10,15 @@
  */
 #include "auto_switch.h"
 
+// Initialize struct
+auto_switch_t auto_switch;
+
 uint8_t faultStatus() {
     return 0;
 }
 
 void getFaults() {
-    
+
 }
 
 void getCurrent() {

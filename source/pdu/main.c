@@ -11,6 +11,7 @@
 
 /* Module Includes */
 #include "main.h"
+#include "auto_switch.h"
 #include "can_parse.h"
 #include "daq.h"
 
@@ -177,6 +178,17 @@ int main()
 
     PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
+        sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -188,6 +200,7 @@ int main()
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+    taskCreate(getCurrent, 15);
     schedStart();
     return 0;
 }

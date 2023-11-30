@@ -62,5 +62,7 @@ void getFaults();
 void getCurrent();
 void getVoltage();
 void enableSwitch();
+float getCurrent_HP(uint16_t);
+float getCurrent_LP(uint16_t);
 
 #endif

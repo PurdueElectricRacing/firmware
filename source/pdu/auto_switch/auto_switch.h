@@ -49,6 +49,7 @@ typedef struct {
 } voltage_t;
 
 typedef struct {
+    float fault_status[NUM_SWITCHES];
     float current[NUM_SWITCHES];
     voltage_t voltage;
 } auto_switch_t;
@@ -57,6 +58,7 @@ extern auto_switch_t auto_switch;
 
 // Function definitions
 uint8_t faultStatus();
+void getFaults();
 void getCurrent();
 void getVoltage();
 void enableSwitch();

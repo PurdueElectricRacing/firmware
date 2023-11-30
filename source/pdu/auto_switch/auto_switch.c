@@ -14,6 +14,10 @@ uint8_t faultStatus() {
     return 0;
 }
 
+void getFaults() {
+    
+}
+
 void getCurrent() {
     // High power switches
     auto_switch.current[SW_PUMP_1] = getCurrent_HP(adc_readings.pump_1_imon);

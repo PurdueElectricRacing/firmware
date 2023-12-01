@@ -1,0 +1,100 @@
+/**
+ * @file spi.h
+ * @author Adam Busch (busch8@purdue.edu)
+ * @brief
+ * @version 0.1
+ * @date 2022-01-22
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+#ifndef _PHAL_SPI_H
+#define _PHAL_SPI_H
+
+#if defined(STM32F407xx)
+    #include "stm32f4xx.h"
+#elif defined(STM32F732xx)
+    #include "stm32f7xx.h"
+#endif
+
+#include <stdbool.h>
+#include "common/phal_F4_F7/dma/dma.h"
+#include "common/phal_F4_F7/rcc/rcc.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common_defs.h"
+#include <stddef.h>
+#include <stdbool.h>
+
+/**
+ * @brief Configuration entry for SPI initilization
+ */
+typedef struct
+{
+    uint32_t data_rate; /* Target baudrate in b/s (might be different depending on peripheral clock divison) */
+    uint8_t data_len;   /* Number of bits per transaction */
+    bool nss_sw;        /* Save Select controlled by Software */
+    GPIO_TypeDef *nss_gpio_port;
+    uint32_t nss_gpio_pin;
+
+    dma_init_t *rx_dma_cfg; /* DMA initilization for RX transfer */
+    dma_init_t *tx_dma_cfg; /* DMA initilization for TX transfer */
+
+    volatile bool _busy;  /* SPI Peripheral currently in a transaction */
+    volatile bool _error; /* SPI Peripheral current transaction error */
+
+    SPI_TypeDef *periph; /*SPI Peripheral*/
+} SPI_InitConfig_t;
+
+/**
+ * @brief Initilize SPI peripheral with the configuired structure
+ *
+ * @param handle SPI handle to configure.
+ * @return true
+ * @return false
+ */
+bool PHAL_SPI_init(SPI_InitConfig_t *handle);
+
+/**
+ * @brief Transfer  data_len bytes from out_data to SPI device and place MISO data in in_data
+ * This function just starts the DMA transfer,
+ *
+ * @param spi SPI handle
+ * @param out_data Address of data buffer to put on MOSI line
+ * @param data_len Number of SPI packets to send
+ * @param in_data Address of data buffer to put data coming in MISO line
+ * @return true Able to start DMA transaction
+ * @return false Unable to start DMA transaction
+ */
+bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uint32_t data_len, const uint8_t *in_data);
+
+bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data);
+
+/**
+ * @brief Check for current SPI transaction to complete
+ * @param cfg Spi config
+ *
+ * @return true
+ * @return false
+ */
+bool PHAL_SPI_busy(SPI_InitConfig_t *cfg);
+
+/**
+ * @brief Blocking function to write a single byte to a SPI device.
+ * Useful for Initilization functions that just need to write a single byte in a blocking function.
+ *
+ * @param spi Spi handle
+ * @param address Address of data to read
+ * @param writeDat Data to write to address
+ */
+uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t writeDat);
+
+/**
+ * @brief Blocking function to read a single byte from a SPI device.
+ * Useful for Initilization functions that just need to read a single byte in a blocking function.
+ *
+ * @param spi Spi handle
+ * @param address Address of data to read
+ * @param skipDummy Return the 3rd byte read instead of the 2nd byte
+ */
+uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
+#endif /* _PHAL_SPI_H */

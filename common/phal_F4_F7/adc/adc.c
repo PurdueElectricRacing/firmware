@@ -79,6 +79,11 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
             adc->SQR1 |= (channels[i].channel & ADC_SQR1_SQ13_Msk) << ((channels[i].rank - 13) * 5);
         }
     }
+    // Enable scan mode to read multiple channels
+    if (num_channels > 1)
+    {
+        adc->CR1 |= ADC_CR1_SCAN;
+    }
 
     // Wake up from power down if necessary
     if (!(adc->CR2 & ADC_CR2_ADON_Msk))

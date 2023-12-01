@@ -42,28 +42,28 @@ bool PHAL_initDMA(dma_init_t* init) {
     switch(init->stream_idx)
     {
         case 0:
-            init->periph->LIFCR |= 0x2F;
+            init->periph->LIFCR |= 0x2D;
             break;
         case 1:
-            init->periph->LIFCR |= 0x2F << 6;
+            init->periph->LIFCR |= 0x2D << 6;
             break;
         case 2:
-            init->periph->LIFCR |= 0x2F << 16;
+            init->periph->LIFCR |= 0x2D << 16;
             break;
         case 3:
-            init->periph->LIFCR |= 0x2F << 22;
+            init->periph->LIFCR |= 0x2D << 22;
             break;
         case 4:
-            init->periph->HIFCR |= 0x2F;
+            init->periph->HIFCR |= 0x2D;
             break;
         case 5:
-            init->periph->HIFCR |= 0x2F << 6;
+            init->periph->HIFCR |= 0x2D << 6;
             break;
         case 6:
-            init->periph->HIFCR |= 0x2F << 16;
+            init->periph->HIFCR |= 0x2D << 16;
             break;
         case 7:
-            init->periph->HIFCR |= 0x2F << 22;
+            init->periph->HIFCR |= 0x2D << 22;
             break;
     }
 
@@ -109,28 +109,28 @@ void PHAL_reEnable(dma_init_t* init) {
     switch(init->stream_idx)
     {
         case 0:
-            init->periph->LIFCR |= 0x2F;
+            init->periph->LIFCR |= 0x2D;
             break;
         case 1:
-            init->periph->LIFCR |= 0x2F << 6;
+            init->periph->LIFCR |= 0x2D << 6;
             break;
         case 2:
-            init->periph->LIFCR |= 0x2F << 16;
+            init->periph->LIFCR |= 0x2D << 16;
             break;
         case 3:
-            init->periph->LIFCR |= 0x2F << 22;
+            init->periph->LIFCR |= 0x2D << 22;
             break;
         case 4:
-            init->periph->HIFCR |= 0x2F;
+            init->periph->HIFCR |= 0x2D;
             break;
         case 5:
-            init->periph->HIFCR |= 0x2F << 6;
+            init->periph->HIFCR |= 0x2D << 6;
             break;
         case 6:
-            init->periph->HIFCR |= 0x2F << 16;
+            init->periph->HIFCR |= 0x2D << 16;
             break;
         case 7:
-            init->periph->HIFCR |= 0x2F << 22;
+            init->periph->HIFCR |= 0x2D << 22;
             break;
     }
 

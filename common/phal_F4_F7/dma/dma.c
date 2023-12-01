@@ -1,6 +1,6 @@
 /**
  * @file dma.c
- * @author Chris McGalliard - Port of L4 HAL by Dawson Moore (moore800@purdue.edu)
+ * @author Aditya Anand, Chris McGalliard - Port of L4 HAL by Dawson Moore (moore800@purdue.edu)
  * @brief Basic DMA Peripheral HAL library for setting up DMA transfers
  * @version 0.1
  * @date 2023-08-19

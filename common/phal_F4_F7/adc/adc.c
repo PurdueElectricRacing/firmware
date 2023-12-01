@@ -1,6 +1,6 @@
 /**
  * @file adc.c
- * @author Chris McGalliard - port of L4 HAL by Luke Oxley (lcoxley@purdue.edu)
+ * @author Aditya Anand, Chris McGalliard - port of L4 HAL by Luke Oxley (lcoxley@purdue.edu)
  * @brief
  * @version 0.1
  * @date 2023-09-17

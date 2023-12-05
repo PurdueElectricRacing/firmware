@@ -1,9 +1,9 @@
 /**
  * @file spi.h
- * @author Adam Busch (busch8@purdue.edu)
+ * @author Aditya Anand (anand89@purdue.edu)
  * @brief
  * @version 0.1
- * @date 2022-01-22
+ * @date 2024-12-4
  *
  * @copyright Copyright (c) 2021
  *
@@ -30,19 +30,21 @@
  */
 typedef struct
 {
-    uint32_t data_rate; /* Target baudrate in b/s (might be different depending on peripheral clock divison) */
-    uint8_t data_len;   /* Number of bits per transaction */
-    bool nss_sw;        /* Save Select controlled by Software */
-    GPIO_TypeDef *nss_gpio_port;
-    uint32_t nss_gpio_pin;
+    uint32_t data_rate; //!< Target baudrate in b/s (might be different depending on peripheral clock divison)
+    uint8_t data_len;   //!< Number of bits per transaction
+    bool nss_sw;        //!< Save Select controlled by Software
+    GPIO_TypeDef *nss_gpio_port; //!< GPIO Port of SPI CS Pin
+    uint32_t nss_gpio_pin; //!< GPIO Pin of SPI CS Pin
 
-    dma_init_t *rx_dma_cfg; /* DMA initilization for RX transfer */
-    dma_init_t *tx_dma_cfg; /* DMA initilization for TX transfer */
+    dma_init_t *rx_dma_cfg; //!< DMA initilization for RX transfer
+    dma_init_t *tx_dma_cfg; //!< DMA initilization for TX transfer
 
-    volatile bool _busy;  /* SPI Peripheral currently in a transaction */
-    volatile bool _error; /* SPI Peripheral current transaction error */
+    volatile bool _busy;  //!< SPI Peripheral currently in a transaction
+    volatile bool _error; //!< SPI Peripheral current transaction error
+    volatile bool _direct_mode_error; //!< DMA error while attempting to operate in direct mode
+    volatile bool _fifo_overrun; //!< DMA FIFO has been overrun - this should never occur, as it should never be enabled
 
-    SPI_TypeDef *periph; /*SPI Peripheral*/
+    SPI_TypeDef *periph; //!< SPI Peripheral
 } SPI_InitConfig_t;
 
 /**
@@ -67,6 +69,17 @@ bool PHAL_SPI_init(SPI_InitConfig_t *handle);
  */
 bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uint32_t data_len, const uint8_t *in_data);
 
+/**
+ * @brief SPI handle
+ *
+ * @param spi SPI handle
+ * @param out_data Address of data buffer to put on MOSI line
+ * @param txlen Number of SPI Packets to Send
+ * @param rxlen Number of SPI Packets to Receive
+ * @param in_data Address of data buffer to put data coming in MISO line
+ * @return true Successfully completed non-DMA SPI transaction
+ * @return false Unable to complete non-DMA SPI transaction
+ */
 bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data);
 
 /**
@@ -97,4 +110,27 @@ uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t write
  * @param skipDummy Return the 3rd byte read instead of the 2nd byte
  */
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
+
+
+
+// SPI Configuration macros
+#define SPI1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
+    {                                                                             \
+        .periph_addr = (uint32_t) & (SPI1->DR), .mem_addr = (uint32_t)(rx_addr_), \
+        .tx_size = 1, .increment = false, .circular = false,                      \
+        .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
+        .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
+        .tx_isr_en = false, .dma_chan_request=0b0011, .stream_idx=2,              \
+        .periph=DMA2, .stream=DMA2_Stream2                                        \
+    }
+
+#define SPI1_TXDMA_CONT_CONFIG(tx_addr_, priority_)                               \
+    {                                                                             \
+        .periph_addr = (uint32_t) & (SPI1->DR), .mem_addr = (uint32_t)(tx_addr_), \
+        .tx_size = 1, .increment = false, .circular = false,                      \
+        .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
+        .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
+        .tx_isr_en = true, .dma_chan_request=0b0011, .stream_idx=3,               \
+        .periph=DMA2, .stream=DMA2_Stream3                                        \
+    }
 #endif /* _PHAL_SPI_H */

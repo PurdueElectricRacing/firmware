@@ -86,13 +86,11 @@ bool PHAL_initDMA(dma_init_t* init) {
 
     // Set circular mode, direction, transfer error interrupt enable, and transfer complete interrupt enable
     init->stream->CR |= (init->circular << DMA_SxCR_CIRC_Pos)
-            | (init->dir << DMA_SxCR_DIR_Pos) | (init->tx_isr_en << DMA_SxCR_TCIE_Pos) | DMA_SxCR_TEIE;
+            | (init->dir << DMA_SxCR_DIR_Pos) | (init->tx_isr_en << DMA_SxCR_TCIE_Pos) | (init->tx_isr_en << DMA_SxCR_TEIE_Pos) ;
 
     // Set stream memory configuration
     PHAL_DMA_setTxferLength(init, init->tx_size);
 
-    // Active the stream
-    init->stream->CR |= (DMA_SxCR_EN);
     return true;
 }
 

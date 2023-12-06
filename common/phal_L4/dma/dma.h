@@ -3,6 +3,8 @@
 
 #ifdef STM32L496xx
 #include "stm32l496xx.h"
+#elif STM32L471xx
+#include "stm32l471xx.h"
 #elif STM32L432xx
 #include "stm32l432xx.h"
 #else
@@ -37,7 +39,7 @@ typedef struct {
 /*
  * @brief Initialize DMA peripheral to set m2m, p2p, or p2m with set size
  *        and length of txfer
- * 
+ *
  * @param init -> Address of initialization structure
  * @return true -> Successful init (no clashing params)
  * @return false -> Init not complete (parameters clash)
@@ -46,35 +48,35 @@ bool PHAL_initDMA(dma_init_t* init);
 
 /*
  * @brief Start txfer after sucessful DMA peripheral initialization
- * 
+ *
  * @param init -> Address of initialization structure
  */
 void PHAL_startTxfer(dma_init_t* init);
 
 /*
  * @brief Stop txfer
- * 
+ *
  * @param init -> Address of initialization structure
  */
 void PHAL_stopTxfer(dma_init_t* init);
 
 /*
  * @brief Re-enable DMA txfer after error ISR fires
- * 
+ *
  * @param init -> Address of initialization structure
  */
 void PHAL_reEnable(dma_init_t* init);
 
 /*
  * @brief Set memory address for DMA transfer. In Mem to Mem this acts as the source address
- * 
+ *
  * @param init -> Address of initialization structure
  */
 void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address);
 
 /*
  * @brief Set transfer length for DMA transaction
- * 
+ *
  * @param init -> Address of initialization structure
  */
 void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length);

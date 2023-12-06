@@ -3,6 +3,8 @@
 
 #ifdef STM32L496xx
 #include "stm32l496xx.h"
+#elif STM32L471xx
+#include "stm32l471xx.h"
 #elif STM32L432xx
 #include "stm32l432xx.h"
 #else
@@ -46,7 +48,7 @@
 #define S_BCMP          63
 
 #define M_INIT          0
-#define M_VERSION       (M_INIT + S_INIT) 
+#define M_VERSION       (M_INIT + S_INIT)
 #define M_FNAME         (M_VERSION + S_VERSION)
 #define M_ADDR          (M_FNAME + S_FNAME)
 #define M_LEN           (M_ADDR + S_ADDR)
@@ -75,7 +77,7 @@
  * +-----------------------------------------+
  * +                PAGE 63                  +
  * +-----------------------------------------+
- * 
+ *
  */
 
 // Structures

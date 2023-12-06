@@ -3,10 +3,12 @@
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
+#include "common/phal_F4_F7/can/can.h"
 #include "common/psched/psched.h"
 
 /* Module Includes */
 #include "main.h"
+#include "can_parse.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -142,10 +144,21 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
+void preflightAnimation();
+void preflightChecks(void);
+void canTxUpdate();
 void heatBeatLED();
+void sendtestmsg();
+
+q_handle_t q_tx_can;
+q_handle_t q_rx_can;
 
 int main()
 {
+    /* Data Struct init */
+    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+
     if(0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -156,18 +169,134 @@ int main()
     }
     PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
+
     /* Task Creation */
     schedInit(APB1ClockRateHz);
+    configureAnim(preflightAnimation, preflightChecks, 60, 750);
+
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
+    taskCreate(sendtestmsg, 100);
+    taskCreateBackground(canTxUpdate);
+    taskCreateBackground(canRxUpdate);
     schedStart();
     return 0;
+}
+
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            if(!PHAL_initCAN(CAN1, false))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+           break;
+        case 1:
+            initCANParse(&q_rx_can);
+           break;
+        default:
+            registerPreflightComplete(1);
+            state = 255; // prevent wrap around
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time;
+
+    PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
+    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+
+    switch (time++ % 6)
+    {
+        case 0:
+        case 5:
+            PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
+            break;
+        case 1:
+        case 4:
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            break;
+        case 2:
+        case 3:
+            PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+            break;
+    }
 }
 
 void heatBeatLED()
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
 }
+
+void sendtestmsg()
+{
+    static uint8_t test_1;
+    static uint8_t test_2;
+    static uint8_t test_3;
+
+    if (test_3 == 0)
+        test_3 = 1;
+
+    SEND_PDU_TEST(q_tx_can, test_1++, test_2, test_3);
+
+    test_2 += 5;
+    test_3 *= 2;
+
+}
+
+void canTxUpdate()
+{
+   CanMsgTypeDef_t tx_msg;
+   if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+   {
+       PHAL_txCANMessage(&tx_msg);
+   }
+}
+
+void CAN1_RX0_IRQHandler()
+{
+   if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
+       CAN1->RF0R &= !(CAN_RF0R_FOVR0);
+
+   if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
+       CAN1->RF0R &= !(CAN_RF0R_FULL0);
+
+   if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
+   {
+       CanMsgTypeDef_t rx;
+       rx.Bus = CAN1;
+
+       // Get either StdId or ExtId
+       if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
+       {
+         rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+       }
+       else
+       {
+         rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+       }
+
+       rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
+
+       rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0)  & 0xFF;
+       rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8)  & 0xFF;
+       rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
+       rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
+       rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0)  & 0xFF;
+       rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
+       rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
+       rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+
+       CAN1->RF0R |= (CAN_RF0R_RFOM0);
+       qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
+   }
+}
+
 
 void HardFault_Handler()
 {

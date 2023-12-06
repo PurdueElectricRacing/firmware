@@ -45,11 +45,12 @@
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_THROTTLE_REMAPPED 0xc0025b7
+#define ID_FAULT_SYNC_PDU 0x8cb5f
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
+#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
@@ -82,6 +83,7 @@
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_THROTTLE_REMAPPED 4
+#define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -457,6 +459,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
+    } fault_sync_pdu;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
     } fault_sync_driveline;
     struct {
         uint64_t idx: 16;
@@ -552,6 +558,10 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } throttle_remapped;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_pdu;
     struct {
         uint16_t idx;
         uint8_t latched;

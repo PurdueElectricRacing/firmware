@@ -43,11 +43,12 @@
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
+#define ID_FAULT_SYNC_PDU 0x8cb5f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
+#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
@@ -78,6 +79,7 @@
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
+#define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -358,6 +360,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
+    } fault_sync_pdu;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
     } fault_sync_main_module;
     struct {
         uint64_t idx: 16;
@@ -545,6 +551,10 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_pdu;
     struct {
         uint16_t idx;
         uint8_t latched;

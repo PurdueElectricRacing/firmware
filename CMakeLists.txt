@@ -87,11 +87,14 @@ add_subdirectory(source/bootloader)
 add_subdirectory(source/l4_testing)
 add_subdirectory(source/f4_testing)
 add_subdirectory(source/f7_testing)
-add_subdirectory(source/torque_vector)
 add_subdirectory(source/precharge)
-add_subdirectory(source/navigation)
-# add_subdirectory(source/driveline)
+add_subdirectory(source/torque_vector)
 add_subdirectory(source/dashboard)
+add_subdirectory(source/pdu)
+
+
+# Deprecated Components
+# add_subdirectory(source/driveline)
+# add_subdirectory(source/torque_vector_fpga)
 # add_subdirectory(source/template)
 # add_subdirectory(source/bms)
-add_subdirectory(source/pdu)

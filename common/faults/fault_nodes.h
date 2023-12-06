@@ -8,7 +8,7 @@
 #define NODE_DRIVELINE_FRONT 1
 #define NODE_DASHBOARD 2
 #define NODE_PRECHARGE 3
-#define NODE_TV 4
+#define NODE_TV_OLD 4
 #define NODE_TEST 5
 //END AUTO NODE DEFS
 

@@ -447,8 +447,8 @@
             ]
         },
         {
-            "node_name": "tv",
-            "can_name": "torque_vector",
+            "node_name": "tv_old",
+            "can_name": "torque_vector_fpga",
             "faults": [
                 {
                     "fault_name": "tv_offline",

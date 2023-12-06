@@ -300,6 +300,7 @@ void CAN1_RX0_IRQHandler()
 
 void HardFault_Handler()
 {
+    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
     while(1)
     {
         __asm__("nop");

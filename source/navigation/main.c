@@ -15,7 +15,7 @@
 #include "gps.h"
 #include "bmm150.h"
 #include "SFS.h"
-#include "SFS_pp.h"
+#include "sfs_pp.h"
 
 extern q_handle_t q_tx_can;
 

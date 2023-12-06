@@ -16,7 +16,7 @@
 #include "common_defs.h"
 #include "stdbool.h"
 #include "can_parse.h"
-#include "SFS_pp.h"
+#include "sfs_pp.h"
 
 static inline void BMM150_selectMag(BMM150_Handle_t *bmm);
 bool BMM150_readID(BMM150_Handle_t *bmm);

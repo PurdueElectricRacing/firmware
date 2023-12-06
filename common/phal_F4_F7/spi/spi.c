@@ -17,10 +17,13 @@ static volatile SPI_InitConfig_t *active_transfer = NULL;
 static uint16_t trash_can; //!< Used as an address for DMA to dump data into
 static uint16_t zero;      //!< Used as a constant zero during transmissions
 
+
+static void handleTxComplete();
+
 bool PHAL_SPI_init(SPI_InitConfig_t *cfg)
 {
     zero = 0;
-    // Enable RCC Clock
+    // Enable RCC Clock - Add new cases for each SPI Peripheral, to enable their clocks
     if (cfg->periph == SPI1)
     {
         RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
@@ -211,7 +214,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
     // We must clear interrupt flags before enabling DMA
     PHAL_reEnable(spi->rx_dma_cfg);
 
-    // // Enable the DMA IRQ
+    // Enable the DMA IRQ - copy + paste enabling selected SPI peripheral's TX DMA Stream ISR
     if (spi->periph == SPI1)
     {
         NVIC_EnableIRQ(DMA2_Stream3_IRQn);
@@ -237,20 +240,137 @@ bool PHAL_SPI_busy(SPI_InitConfig_t *cfg)
 }
 
 
-//DMA TX ISR
-//Streams 0-3 are in the Low interrupt flag register (LIFR)
-//Streams 4-7 are in the High interrupt flag register (HIFCR)
-void DMA2_Stream3_IRQHandler()
+/**
+ * @brief Handle TCIF interrupt signaling end of TX transaction
+ *
+ */
+static void handleTxComplete()
 {
-    // Transfer Error interrupt
-    if (DMA2->LISR & DMA_LISR_TEIF3)
+    // Bitmask for each DMA interrupt flag
+    uint32_t teif_flag;
+    uint32_t tcif_flag;
+    uint32_t htif_flag;
+    uint32_t feif_flag;
+    uint32_t dmeif_flag;
+
+    // Clear register for DMA Stream
+    volatile uint32_t *sr_reg;
+    volatile uint32_t *csr_reg;
+
+    // Populate Flag Bitmasks, along with Flag and Clear registers for active DMA Stream
+    switch(active_transfer->tx_dma_cfg->stream_idx)
     {
-        DMA2->LIFCR |= DMA_LIFCR_CTEIF3;
+        case 0:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_LISR_TEIF0;
+            tcif_flag = DMA_LISR_TCIF0;
+            htif_flag = DMA_LISR_HTIF0;
+            feif_flag = DMA_LISR_FEIF0;
+            dmeif_flag = DMA_LISR_DMEIF0;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
+            break;
+        case 1:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_LISR_TEIF1;
+            tcif_flag = DMA_LISR_TCIF1;
+            htif_flag = DMA_LISR_HTIF1;
+            feif_flag = DMA_LISR_FEIF1;
+            dmeif_flag = DMA_LISR_DMEIF1;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
+            break;
+        case 2:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_LISR_TEIF2;
+            tcif_flag = DMA_LISR_TCIF2;
+            htif_flag = DMA_LISR_HTIF2;
+            feif_flag = DMA_LISR_FEIF2;
+            dmeif_flag = DMA_LISR_DMEIF2;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
+            break;
+        case 3:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_LISR_TEIF3;
+            tcif_flag = DMA_LISR_TCIF3;
+            htif_flag = DMA_LISR_HTIF3;
+            feif_flag = DMA_LISR_FEIF3;
+            dmeif_flag = DMA_LISR_DMEIF3;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
+            break;
+        case 4:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_HISR_TEIF4;
+            tcif_flag = DMA_HISR_TCIF4;
+            htif_flag = DMA_HISR_HTIF4;
+            feif_flag = DMA_HISR_FEIF4;
+            dmeif_flag = DMA_HISR_DMEIF4;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
+            break;
+        case 5:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_HISR_TEIF5;
+            tcif_flag = DMA_HISR_TCIF5;
+            htif_flag = DMA_HISR_HTIF5;
+            feif_flag = DMA_HISR_FEIF5;
+            dmeif_flag = DMA_HISR_DMEIF5;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
+            break;
+        case 6:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_HISR_TEIF6;
+            tcif_flag = DMA_HISR_TCIF6;
+            htif_flag = DMA_HISR_HTIF6;
+            feif_flag = DMA_HISR_FEIF6;
+            dmeif_flag = DMA_HISR_DMEIF6;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
+            break;
+        case 7:
+            // Populate Flag Bitmasks
+            teif_flag = DMA_HISR_TEIF7;
+            tcif_flag = DMA_HISR_TCIF7;
+            htif_flag = DMA_HISR_HTIF7;
+            feif_flag = DMA_HISR_FEIF7;
+            dmeif_flag = DMA_HISR_DMEIF4;
+
+            // Select appropriate flag and clear registers for Stream
+            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
+            break;
+        default:
+            // Invalid stream selected, do not attempt to service interrupt
+            return;
+    }
+
+    bool clear_act_transfer = false;
+    // Transfer Error interrupt
+    if (*sr_reg & teif_flag)
+    {
+        *csr_reg |= teif_flag;
         if (active_transfer)
             active_transfer->_error = true;
     }
     // Transfer Complete interrupt flag
-    if (DMA2->LISR & DMA_LISR_TCIF3)
+    if (*sr_reg & tcif_flag)
     {
         // RM0090 p.895, wait for TXE and BSY to be cleared to satisfy timing requirements
         while (!(active_transfer->periph->SR & (SPI_SR_TXE)) || (active_transfer->periph->SR & (SPI_SR_BSY)))
@@ -270,38 +390,48 @@ void DMA2_Stream3_IRQHandler()
             active_transfer->tx_dma_cfg->stream->CR |= DMA_SxCR_MINC;
 
         // Disable SPI peripheral and DMA requests
-        SPI1->CR1 &= ~SPI_CR1_SPE;
-        SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
+        active_transfer->periph->CR1 &= ~SPI_CR1_SPE;
+        active_transfer->periph->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
         // Clear possible errors, remove current transaction from active transfer
         active_transfer->_busy = false;
         active_transfer->_error = false;
         active_transfer->_direct_mode_error = false;
         active_transfer->_fifo_overrun = false;
-        active_transfer = NULL;
+        clear_act_transfer = true;
 
         //Clear interrupt flag
-        DMA2->LIFCR |= DMA_LIFCR_CTCIF3;
+        *csr_reg |= tcif_flag;
     }
     // Half transfer complete flag
-    if (DMA2->LISR & DMA_LISR_HTIF3)
+    if ((*sr_reg) & htif_flag)
     {
-        DMA2->LIFCR |= DMA_LIFCR_CHTIF3;
+        *csr_reg |= htif_flag;
     }
     // FIFO Overrun Error flag
-    if (DMA2->LISR & DMA_LISR_FEIF3)
+    if (*sr_reg & feif_flag)
     {
         if (active_transfer)
             active_transfer->_fifo_overrun = true;
-        DMA2->LIFCR |= DMA_LIFCR_CFEIF3;
+        *csr_reg |= feif_flag;
     }
     // Direct Mode Error flag
-    if (DMA2->LISR & DMA_LISR_DMEIF3)
+    if (*sr_reg & dmeif_flag)
     {
         if (active_transfer)
             active_transfer->_direct_mode_error = true;
-        DMA2->LIFCR |= DMA_LIFCR_CDMEIF3;
+        *csr_reg |= dmeif_flag;
     }
+
+    // Clear active transfer
+    if (clear_act_transfer)
+        active_transfer = NULL;
+}
+
+//DMA TX ISR - copy + paste for selected SPI peripheral's DMA ISR
+void DMA2_Stream3_IRQHandler()
+{
+    handleTxComplete();
 }
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy)

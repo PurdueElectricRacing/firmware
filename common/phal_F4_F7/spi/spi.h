@@ -111,8 +111,6 @@ uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t write
  */
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
 
-
-
 // SPI Configuration macros
 #define SPI1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
     {                                                                             \

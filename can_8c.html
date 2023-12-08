@@ -79,6 +79,9 @@ $(function() {
   <div class="headertitle"><div class="title">can.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Basic CAN Peripheral HAL library for setting up CAN peripheral and sending messages.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="can_8h_source.html">common/phal_L4/can/can.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -87,6 +90,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3ca252693b269019a358dc2de8e6b7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize CAN peripheral to 500k.  <br /></td></tr>
 <tr class="separator:a3ca252693b269019a358dc2de8e6b7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad50ebe6b97656b5ccad44c2d71e280d9" id="r_ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8c.html#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a> (CAN_TypeDef *bus)</td></tr>
+<tr class="memdesc:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-initialize the CAN peripheral.  <br /></td></tr>
 <tr class="separator:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef9d4d5251aa91cc37359b6e07934c8d" id="r_aef9d4d5251aa91cc37359b6e07934c8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8c.html#aef9d4d5251aa91cc37359b6e07934c8d">PHAL_txCANMessage</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="memdesc:aef9d4d5251aa91cc37359b6e07934c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucessful transmission of message until a specified timeout.  <br /></td></tr>
@@ -99,7 +103,13 @@ Variables</h2></td></tr>
 <tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8c.html#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basic CAN Peripheral HAL library for setting up CAN peripheral and sending messages. </p>
+<dl class="section author"><dt>Author</dt><dd>Adam Busch (<a href="#" onclick="location.href='mai'+'lto:'+'bus'+'ch'+'8@p'+'ur'+'due'+'.e'+'du'; return false;">busch<span class="obfuscator">.nosp@m.</span>8@pu<span class="obfuscator">.nosp@m.</span>rdue.<span class="obfuscator">.nosp@m.</span>edu</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2021-02-27</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021 </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a201468129b483039afc5a619e2d31097" name="a201468129b483039afc5a619e2d31097"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a201468129b483039afc5a619e2d31097">&#9670;&#160;</a></span>__attribute__()</h2>
 
@@ -134,6 +144,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>De-initialize the CAN peripheral. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bus</td><td>The CAN peripheral to de-initialize (i.e. CAN1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Perihperal succesfully de-initialized </dd></dl>
+
 </div>
 </div>
 <a id="a3ca252693b269019a358dc2de8e6b7ee" name="a3ca252693b269019a358dc2de8e6b7ee"></a>
@@ -165,6 +184,7 @@ Variables</h2></td></tr>
 <p>Initilize CAN peripheral to 500k. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">bus</td><td>The CAN peripheral to initialize (i.e. CAN1) </td></tr>
     <tr><td class="paramname">test_mode</td><td>Initilize CAN peripheral for self test mode</td></tr>
   </table>
   </dd>

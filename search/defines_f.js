@@ -2,8 +2,8 @@ var searchData=
 [
   ['p_5fbar_0',['P_BAR',['../lcd_8h.html#af704231774b9babdead879eb94111958',1,'lcd.h']]],
   ['p_5ftxt_1',['P_TXT',['../lcd_8h.html#a5dfcfe0af61fe53efba057594ea705c4',1,'lcd.h']]],
-  ['phal_5fadc_5fcr_5fbits_5frs_2',['PHAL_ADC_CR_BITS_RS',['../adc_8h.html#a55383615242fdbb9234f4d72ff1c1f43',1,'adc.h']]],
-  ['phal_5fadc_5finit_5ftimeout_3',['PHAL_ADC_INIT_TIMEOUT',['../adc_8h.html#a5c09ae4020b80288e37ae1d339045e9f',1,'adc.h']]],
+  ['phal_5fadc_5fcr_5fbits_5frs_2',['PHAL_ADC_CR_BITS_RS',['../phal__L4_2adc_2adc_8h.html#a55383615242fdbb9234f4d72ff1c1f43',1,'adc.h']]],
+  ['phal_5fadc_5finit_5ftimeout_3',['PHAL_ADC_INIT_TIMEOUT',['../phal__L4_2adc_2adc_8h.html#a5c09ae4020b80288e37ae1d339045e9f',1,'adc.h']]],
   ['phal_5fcan_5f16mhz_5f500k_4',['PHAL_CAN_16MHz_500k',['../can_8h.html#ace565e35a57de06a0afe38438a33a08b',1,'can.h']]],
   ['phal_5fcan_5f20mhz_5f500k_5',['PHAL_CAN_20MHz_500k',['../can_8h.html#ab61f7cde72a44d14c64a2a8835a6026b',1,'can.h']]],
   ['phal_5fcan_5f40mhz_5f500k_6',['PHAL_CAN_40MHz_500k',['../can_8h.html#a9a5aad92ca4b5b2d0a1f78e649810961',1,'can.h']]],
@@ -40,5 +40,15 @@ var searchData=
   ['prchg_5fstat_5fgpio_5fport_37',['PRCHG_STAT_GPIO_Port',['../main__module_2main_8h.html#a8b56a41ca797e376557a64abc774aea1',1,'main.h']]],
   ['prchg_5fstat_5fpin_38',['PRCHG_STAT_Pin',['../main__module_2main_8h.html#a58b5c180118eab3603a64611e7b45f81',1,'main.h']]],
   ['pulses_5fp_5fliter_39',['PULSES_P_LITER',['../cooling_8h.html#ad963e1bb274aeaa95a7e90b817523ff3',1,'cooling.h']]],
-  ['pwm_5ffrequency_40',['PWM_FREQUENCY',['../cooling_8h.html#a6177eb86ee16a1956c81749e4e332cf0',1,'cooling.h']]]
+  ['pump_5f1_5fctrl_5fgpio_5fport_40',['PUMP_1_CTRL_GPIO_Port',['../pdu_2main_8h.html#a53ffbd54ae0666ad00edaecd5e39376f',1,'main.h']]],
+  ['pump_5f1_5fctrl_5fpin_41',['PUMP_1_CTRL_Pin',['../pdu_2main_8h.html#af96b134149e174d5450be02862122fbb',1,'main.h']]],
+  ['pump_5f1_5fimon_5fadc_5fchnl_42',['PUMP_1_IMON_ADC_CHNL',['../pdu_2main_8h.html#abe48beede5f93cf969860e6f815241a1',1,'main.h']]],
+  ['pump_5f1_5fimon_5fgpio_5fport_43',['PUMP_1_IMON_GPIO_Port',['../pdu_2main_8h.html#a07fa221502b305e4c2460f2118e95a5b',1,'main.h']]],
+  ['pump_5f1_5fimon_5fpin_44',['PUMP_1_IMON_Pin',['../pdu_2main_8h.html#a67a65a9f32b0e899e943691b4ec7f23d',1,'main.h']]],
+  ['pump_5f2_5fctrl_5fgpio_5fport_45',['PUMP_2_CTRL_GPIO_Port',['../pdu_2main_8h.html#a9471e3563ac89b4d8a801f0c99fe5b9f',1,'main.h']]],
+  ['pump_5f2_5fctrl_5fpin_46',['PUMP_2_CTRL_Pin',['../pdu_2main_8h.html#af939f45d3a4ff00006870d856896ac57',1,'main.h']]],
+  ['pump_5f2_5fimon_5fadc_5fchnl_47',['PUMP_2_IMON_ADC_CHNL',['../pdu_2main_8h.html#a5053116e39f1f2bb65f36df8fc2a0419',1,'main.h']]],
+  ['pump_5f2_5fimon_5fgpio_5fport_48',['PUMP_2_IMON_GPIO_Port',['../pdu_2main_8h.html#aaeeb8cf8c516dbc85e692a0d3e5fe550',1,'main.h']]],
+  ['pump_5f2_5fimon_5fpin_49',['PUMP_2_IMON_Pin',['../pdu_2main_8h.html#ae4203a9cb4b1ca55a49e3817d01f8bde',1,'main.h']]],
+  ['pwm_5ffrequency_50',['PWM_FREQUENCY',['../cooling_8h.html#a6177eb86ee16a1956c81749e4e332cf0',1,'cooling.h']]]
 ];

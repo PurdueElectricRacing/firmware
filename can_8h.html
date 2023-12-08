@@ -93,8 +93,10 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a4c48763fa1d6597fc262204b862f04a6" id="r_a4c48763fa1d6597fc262204b862f04a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8h.html#a4c48763fa1d6597fc262204b862f04a6">PHAL_CAN_TX_TIMEOUT</a>&#160;&#160;&#160;(5000U)</td></tr>
+<tr class="memdesc:a4c48763fa1d6597fc262204b862f04a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">in milliseconds  <br /></td></tr>
 <tr class="separator:a4c48763fa1d6597fc262204b862f04a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab8c59dae5913bfc4a7aafc3812ef975" id="r_aab8c59dae5913bfc4a7aafc3812ef975"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8h.html#aab8c59dae5913bfc4a7aafc3812ef975">PHAL_CAN_INIT_TIMEOUT</a>&#160;&#160;&#160;(5000U)</td></tr>
+<tr class="memdesc:aab8c59dae5913bfc4a7aafc3812ef975"><td class="mdescLeft">&#160;</td><td class="mdescRight">in milliseconds  <br /></td></tr>
 <tr class="separator:aab8c59dae5913bfc4a7aafc3812ef975"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace565e35a57de06a0afe38438a33a08b" id="r_ace565e35a57de06a0afe38438a33a08b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8h.html#ace565e35a57de06a0afe38438a33a08b">PHAL_CAN_16MHz_500k</a>&#160;&#160;&#160;(0x001c0001)</td></tr>
 <tr class="separator:ace565e35a57de06a0afe38438a33a08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,6 +113,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3ca252693b269019a358dc2de8e6b7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize CAN peripheral to 500k.  <br /></td></tr>
 <tr class="separator:a3ca252693b269019a358dc2de8e6b7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad50ebe6b97656b5ccad44c2d71e280d9" id="r_ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8h.html#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a> (CAN_TypeDef *bus)</td></tr>
+<tr class="memdesc:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-initialize the CAN peripheral.  <br /></td></tr>
 <tr class="separator:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef9d4d5251aa91cc37359b6e07934c8d" id="r_aef9d4d5251aa91cc37359b6e07934c8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="can_8h.html#aef9d4d5251aa91cc37359b6e07934c8d">PHAL_txCANMessage</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="memdesc:aef9d4d5251aa91cc37359b6e07934c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucessful transmission of message until a specified timeout.  <br /></td></tr>
@@ -133,6 +136,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Bit timing recovered from <a href="http://www.bittiming.can-wiki.info/">http://www.bittiming.can-wiki.info/</a> </p>
 
 </div>
 </div>
@@ -190,6 +194,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>in milliseconds </p>
+
 </div>
 </div>
 <a id="a4c48763fa1d6597fc262204b862f04a6" name="a4c48763fa1d6597fc262204b862f04a6"></a>
@@ -203,6 +209,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>in milliseconds </p>
 
 </div>
 </div>
@@ -222,6 +230,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>De-initialize the CAN peripheral. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bus</td><td>The CAN peripheral to de-initialize (i.e. CAN1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Perihperal succesfully de-initialized </dd></dl>
 
 </div>
 </div>
@@ -254,6 +271,7 @@ Functions</h2></td></tr>
 <p>Initilize CAN peripheral to 500k. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">bus</td><td>The CAN peripheral to initialize (i.e. CAN1) </td></tr>
     <tr><td class="paramname">test_mode</td><td>Initilize CAN peripheral for self test mode</td></tr>
   </table>
   </dd>

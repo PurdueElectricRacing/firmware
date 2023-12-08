@@ -222,6 +222,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6841b05bd806f73f43fb84b15496b789"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a logic value to an output pin.  <br /></td></tr>
 <tr class="separator:a6841b05bd806f73f43fb84b15496b789"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d7ddb18c0d583fe20834a9ccd650fb" id="r_aa1d7ddb18c0d583fe20834a9ccd650fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__L4_2gpio_2gpio_8h.html#aa1d7ddb18c0d583fe20834a9ccd650fb">PHAL_toggleGPIO</a> (GPIO_TypeDef *bank, uint8_t pin)</td></tr>
+<tr class="memdesc:aa1d7ddb18c0d583fe20834a9ccd650fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle an output pin.  <br /></td></tr>
 <tr class="separator:aa1d7ddb18c0d583fe20834a9ccd650fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -986,9 +987,12 @@ Functions</h2></td></tr>
 
 <p>Enable internal pullup/down resistors. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8" name="ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8"></a>GPIO_INPUT_OPEN_DRAIN&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef" name="ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef"></a>GPIO_INPUT_PULL_UP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3" name="ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3"></a>GPIO_INPUT_PULL_DOWN&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8" name="ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8"></a>GPIO_INPUT_OPEN_DRAIN&#160;</td><td class="fielddoc"><p>No internal pull up/down. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef" name="ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef"></a>GPIO_INPUT_PULL_UP&#160;</td><td class="fielddoc"><p>Weak internal pull-up enabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3" name="ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3"></a>GPIO_INPUT_PULL_DOWN&#160;</td><td class="fielddoc"><p>Weak internal pull-down enabled. </p>
+</td></tr>
 </table>
 
 </div>
@@ -1007,8 +1011,10 @@ Functions</h2></td></tr>
 
 <p>Output drive mode selection. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9" name="a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"></a>GPIO_OUTPUT_PUSH_PULL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b" name="a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"></a>GPIO_OUTPUT_OPEN_DRAIN&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9" name="a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"></a>GPIO_OUTPUT_PUSH_PULL&#160;</td><td class="fielddoc"><p>Drive the output pin high and low. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b" name="a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"></a>GPIO_OUTPUT_OPEN_DRAIN&#160;</td><td class="fielddoc"><p>Drive the output pin low, high-z otherwise. </p>
+</td></tr>
 </table>
 
 </div>
@@ -1027,10 +1033,14 @@ Functions</h2></td></tr>
 
 <p>Slew rate control for output pins. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0" name="af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"></a>GPIO_OUTPUT_LOW_SPEED&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6" name="af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6"></a>GPIO_OUTPUT_MED_SPEED&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a" name="af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a"></a>GPIO_OUTPUT_HIGH_SPEED&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c" name="af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c"></a>GPIO_OUTPUT_ULTRA_SPEED&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0" name="af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"></a>GPIO_OUTPUT_LOW_SPEED&#160;</td><td class="fielddoc"><p>Slew rate control, max 8Mhz. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6" name="af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6"></a>GPIO_OUTPUT_MED_SPEED&#160;</td><td class="fielddoc"><p>Slew rate control, max 50Mhz. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a" name="af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a"></a>GPIO_OUTPUT_HIGH_SPEED&#160;</td><td class="fielddoc"><p>Slew rate control, max 100Mhz. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c" name="af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c"></a>GPIO_OUTPUT_ULTRA_SPEED&#160;</td><td class="fielddoc"><p>Slew rate control, max 180Mhz. </p>
+</td></tr>
 </table>
 
 </div>
@@ -1049,10 +1059,14 @@ Functions</h2></td></tr>
 
 <p>Configuration type for GPIO Pin. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a" name="a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a"></a>GPIO_TYPE_INPUT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1" name="a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1"></a>GPIO_TYPE_OUTPUT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927" name="a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927"></a>GPIO_TYPE_AF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc" name="a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc"></a>GPIO_TYPE_ANALOG&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a" name="a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a"></a>GPIO_TYPE_INPUT&#160;</td><td class="fielddoc"><p>Pin input mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1" name="a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1"></a>GPIO_TYPE_OUTPUT&#160;</td><td class="fielddoc"><p>Pin output mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927" name="a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927"></a>GPIO_TYPE_AF&#160;</td><td class="fielddoc"><p>Pin alternate function mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc" name="a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc"></a>GPIO_TYPE_ANALOG&#160;</td><td class="fielddoc"><p>Pin alternate function mode. </p>
+</td></tr>
 </table>
 
 </div>
@@ -1179,6 +1193,15 @@ false GPIO Input false </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Toggle an output pin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bank</td><td>GPIO Bank of the pin </td></tr>
+    <tr><td class="paramname">pin</td><td>GPIO pin number </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

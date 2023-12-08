@@ -17,7 +17,7 @@ var searchData=
   ['rdsctrl_14',['RDSCTRL',['../afe_8h.html#a09c0dbf0d1d3f0a1e69a940017a45932',1,'afe.h']]],
   ['rdstata_15',['RDSTATA',['../afe_8h.html#ac4de550d5bdae9cfe7733164ee70a5e0',1,'afe.h']]],
   ['rdstatb_16',['RDSTATB',['../afe_8h.html#a6c2598b2b6b646455599c1a0774a94bb',1,'afe.h']]],
-  ['red_17',['RED',['../nextion_8h.html#a8d23feea868a983c8c2b661e1e16972f',1,'nextion.h']]],
+  ['red_17',['red',['../nextion_8h.html#a8d23feea868a983c8c2b661e1e16972f',1,'RED:&#160;nextion.h'],['../f4__testing_2main_8h.html#a8d23feea868a983c8c2b661e1e16972f',1,'RED:&#160;main.h']]],
   ['reg_5fa_18',['REG_A',['../afe_8h.html#aa0e40d1cb9fea79e800aa79b8ca291f7',1,'afe.h']]],
   ['reg_5fb_19',['REG_B',['../afe_8h.html#a28ed75c6727784e56c2bb8d828c876c9',1,'afe.h']]],
   ['reg_5fc_20',['REG_C',['../afe_8h.html#a088e580de0961d5f30eb3366f97b324c',1,'afe.h']]],

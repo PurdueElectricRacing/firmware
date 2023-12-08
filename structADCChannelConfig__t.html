@@ -76,18 +76,23 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="adc_8h_source.html">adc.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="phal__L4_2adc_2adc_8h_source.html">adc.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a550316324e917e04f4924dd6864012cd" id="r_a550316324e917e04f4924dd6864012cd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structADCChannelConfig__t.html#a550316324e917e04f4924dd6864012cd">channel</a></td></tr>
+<tr class="memdesc:a550316324e917e04f4924dd6864012cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">not the GPIO channel, use the ADC channel (ie. PA0 = channel 5)  <br /></td></tr>
 <tr class="separator:a550316324e917e04f4924dd6864012cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c53664f2543e4be4300f2dfc8945ef5" id="r_a1c53664f2543e4be4300f2dfc8945ef5"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structADCChannelConfig__t.html#a1c53664f2543e4be4300f2dfc8945ef5">rank</a></td></tr>
+<tr class="memdesc:a1c53664f2543e4be4300f2dfc8945ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">order at which the channels will be polled, starting at 1  <br /></td></tr>
 <tr class="separator:a1c53664f2543e4be4300f2dfc8945ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada8dc6abf7c4671fed77bc443913bd6b" id="r_ada8dc6abf7c4671fed77bc443913bd6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adc_8h.html#a3b4912a4712446e46171c080ef0bd94e">ADCChannelSampleCycles_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structADCChannelConfig__t.html#ada8dc6abf7c4671fed77bc443913bd6b">sampling_time</a></td></tr>
+<tr class="memitem:ada8dc6abf7c4671fed77bc443913bd6b" id="r_ada8dc6abf7c4671fed77bc443913bd6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94e">ADCChannelSampleCycles_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structADCChannelConfig__t.html#ada8dc6abf7c4671fed77bc443913bd6b">sampling_time</a></td></tr>
+<tr class="memdesc:ada8dc6abf7c4671fed77bc443913bd6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set higher for large impedances.  <br /></td></tr>
 <tr class="separator:ada8dc6abf7c4671fed77bc443913bd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>ADC configuration for one channel </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a550316324e917e04f4924dd6864012cd" name="a550316324e917e04f4924dd6864012cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a550316324e917e04f4924dd6864012cd">&#9670;&#160;</a></span>channel</h2>
 
@@ -99,6 +104,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>not the GPIO channel, use the ADC channel (ie. PA0 = channel 5) </p>
 
 </div>
 </div>
@@ -114,6 +121,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>order at which the channels will be polled, starting at 1 </p>
+
 </div>
 </div>
 <a id="ada8dc6abf7c4671fed77bc443913bd6b" name="ada8dc6abf7c4671fed77bc443913bd6b"></a>
@@ -123,15 +132,18 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="adc_8h.html#a3b4912a4712446e46171c080ef0bd94e">ADCChannelSampleCycles_t</a> ADCChannelConfig_t::sampling_time</td>
+          <td class="memname"><a class="el" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94e">ADCChannelSampleCycles_t</a> ADCChannelConfig_t::sampling_time</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Set higher for large impedances. </p>
+
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>common/phal_L4/adc/<a class="el" href="adc_8h_source.html">adc.h</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>common/phal_L4/adc/<a class="el" href="phal__L4_2adc_2adc_8h_source.html">adc.h</a></li>
+<li>common/phal_F4_F7/adc/<a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html">adc.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

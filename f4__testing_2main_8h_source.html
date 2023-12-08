@@ -81,7 +81,43 @@ $(document).ready(function() { init_codefold(0); });
   <div class="headertitle"><div class="title">main.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="f4__testing_2main_8h.html">Go to the documentation of this file.</a><div class="fragment"></div><!-- fragment --></div><!-- contents -->
+<a href="f4__testing_2main_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="foldopen" id="foldopen00001" data-start="{" data-end="}">
+<div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#ab898071398b359603a35c202e9c65f3b">    1</a></span><span class="preprocessor">#ifndef _MAIN_H_</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _MAIN_H_</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_union" href="union____attribute____.html">__attribute__</a>((packed))</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="comment">// Do not modify this struct unless</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="comment">// you modify the ADC DMA config</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="comment">// in main.h to match</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    uint16_t testval;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">   10</a></span>} <a class="code hl_variable" href="dashboard_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a>;</div>
+</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a8d23feea868a983c8c2b661e1e16972f">   12</a></span><span class="preprocessor">#define RED 14</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a79d10e672abb49ad63eeaa8aaef57c38">   13</a></span><span class="preprocessor">#define BLUE 15</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#acfbc006ea433ad708fdee3e82996e721">   14</a></span><span class="preprocessor">#define GREEN 12</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#ac5b6e19bf06822021f35602c59658de3">   15</a></span><span class="preprocessor">#define ORANGE 13</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#ad315c5b0bf1d3cd5a38b85b54f45d8a2">   17</a></span><span class="preprocessor">#define SPI_CS_PIN 3</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a9912b2a4108ecd9f98ad04eceef5f836">   18</a></span><span class="preprocessor">#define SPI_CS_PORT GPIOE</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#aee89f642bb559e12db93e9f412ea185e">   20</a></span><span class="preprocessor">#define SPI_SCK_PIN 5</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a6f9b7e59b3a2efdc061e0c886c80e068">   21</a></span><span class="preprocessor">#define SPI_SCK_PORT GPIOA</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a315722498711fce1e1aa6ea6654385cf">   23</a></span><span class="preprocessor">#define SPI_MISO_PIN 6</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a28f80193fbde762d8b7f896aa393deb6">   24</a></span><span class="preprocessor">#define SPI_MISO_PORT GPIOA</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#a67d2c0b6e0ecbd0351958756e4830172">   26</a></span><span class="preprocessor">#define SPI_MOSI_PIN 7</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="f4__testing_2main_8h.html#ae524a02b21071c5529918a33e35e846b">   27</a></span><span class="preprocessor">#define SPI_MOSI_PORT GPIOA</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">volatile</span> <span class="keyword">extern</span> <a class="code hl_variable" href="dashboard_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a> <a class="code hl_variable" href="dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="adashboard_2main_8h_html_a29bc293670e53a11d854f35bca555254"><div class="ttname"><a href="dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254">raw_adc_values</a></div><div class="ttdeci">volatile raw_adc_values_t raw_adc_values</div><div class="ttdef"><b>Definition</b> main.c:93</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_af796e3555932af2c8dce8e497f1e4734"><div class="ttname"><a href="dashboard_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a></div><div class="ttdeci">raw_adc_values_t</div><div class="ttdef"><b>Definition</b> main.h:36</div></div>
+<div class="ttc" id="aunion____attribute_____html"><div class="ttname"><a href="union____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition</b> can_parse.h:235</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8

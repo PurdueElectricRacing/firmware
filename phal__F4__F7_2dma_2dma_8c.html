@@ -86,8 +86,22 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5eef9fdb02d8b29dc11d7e69328e7504" id="r_a5eef9fdb02d8b29dc11d7e69328e7504"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__F4__F7_2dma_2dma_8c.html#a5eef9fdb02d8b29dc11d7e69328e7504">PHAL_initDMA</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="memdesc:a5eef9fdb02d8b29dc11d7e69328e7504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize DMA peripheral to set m2m, p2p, or p2m with set size and length of txfer.  <br /></td></tr>
 <tr class="separator:a5eef9fdb02d8b29dc11d7e69328e7504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab15d4afcf0988a8065caced65d1883fe" id="r_ab15d4afcf0988a8065caced65d1883fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__F4__F7_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe">PHAL_startTxfer</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="memdesc:ab15d4afcf0988a8065caced65d1883fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start txfer after sucessful DMA peripheral initialization.  <br /></td></tr>
+<tr class="separator:ab15d4afcf0988a8065caced65d1883fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31d09afa5679cb34c0c776051450e62a" id="r_a31d09afa5679cb34c0c776051450e62a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__F4__F7_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a">PHAL_stopTxfer</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="memdesc:a31d09afa5679cb34c0c776051450e62a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop txfer.  <br /></td></tr>
+<tr class="separator:a31d09afa5679cb34c0c776051450e62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af36fe9d375254e9bb0c09c760a761dc5" id="r_af36fe9d375254e9bb0c09c760a761dc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__F4__F7_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5">PHAL_reEnable</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="memdesc:af36fe9d375254e9bb0c09c760a761dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-enable DMA txfer after error ISR fires.  <br /></td></tr>
+<tr class="separator:af36fe9d375254e9bb0c09c760a761dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a989d2d9b7c591de33e96581ac3bb11" id="r_a2a989d2d9b7c591de33e96581ac3bb11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__F4__F7_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11">PHAL_DMA_setMemAddress</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init, const uint32_t address)</td></tr>
+<tr class="memdesc:a2a989d2d9b7c591de33e96581ac3bb11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set memory address for DMA transfer. In Mem to Mem this acts as the source address.  <br /></td></tr>
+<tr class="separator:a2a989d2d9b7c591de33e96581ac3bb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14faecce0cd8bd38b14c987e17ce1033" id="r_a14faecce0cd8bd38b14c987e17ce1033"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__F4__F7_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033">PHAL_DMA_setTxferLength</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init, const uint32_t length)</td></tr>
+<tr class="memdesc:a14faecce0cd8bd38b14c987e17ce1033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set transfer length for DMA transaction.  <br /></td></tr>
 <tr class="separator:a14faecce0cd8bd38b14c987e17ce1033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -97,6 +111,42 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2023-08-19</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a2a989d2d9b7c591de33e96581ac3bb11" name="a2a989d2d9b7c591de33e96581ac3bb11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a989d2d9b7c591de33e96581ac3bb11">&#9670;&#160;</a></span>PHAL_DMA_setMemAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_DMA_setMemAddress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *&#160;</td>
+          <td class="paramname"><em>init</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>address</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set memory address for DMA transfer. In Mem to Mem this acts as the source address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>-&gt; Address of initialization structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a14faecce0cd8bd38b14c987e17ce1033" name="a14faecce0cd8bd38b14c987e17ce1033"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14faecce0cd8bd38b14c987e17ce1033">&#9670;&#160;</a></span>PHAL_DMA_setTxferLength()</h2>
 
@@ -123,6 +173,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Set transfer length for DMA transaction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>-&gt; Address of initialization structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a5eef9fdb02d8b29dc11d7e69328e7504" name="a5eef9fdb02d8b29dc11d7e69328e7504"></a>
@@ -140,6 +198,95 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialize DMA peripheral to set m2m, p2p, or p2m with set size and length of txfer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>-&gt; Address of initialization structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true -&gt; Successful init (no clashing params) </dd>
+<dd>
+false -&gt; Init not complete (parameters clash) </dd></dl>
+
+</div>
+</div>
+<a id="af36fe9d375254e9bb0c09c760a761dc5" name="af36fe9d375254e9bb0c09c760a761dc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af36fe9d375254e9bb0c09c760a761dc5">&#9670;&#160;</a></span>PHAL_reEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_reEnable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *&#160;</td>
+          <td class="paramname"><em>init</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Re-enable DMA txfer after error ISR fires. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>-&gt; Address of initialization structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab15d4afcf0988a8065caced65d1883fe" name="ab15d4afcf0988a8065caced65d1883fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab15d4afcf0988a8065caced65d1883fe">&#9670;&#160;</a></span>PHAL_startTxfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_startTxfer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *&#160;</td>
+          <td class="paramname"><em>init</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start txfer after sucessful DMA peripheral initialization. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>-&gt; Address of initialization structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a31d09afa5679cb34c0c776051450e62a" name="a31d09afa5679cb34c0c776051450e62a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31d09afa5679cb34c0c776051450e62a">&#9670;&#160;</a></span>PHAL_stopTxfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_stopTxfer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *&#160;</td>
+          <td class="paramname"><em>init</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop txfer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>-&gt; Address of initialization structure </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

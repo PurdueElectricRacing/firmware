@@ -22,7 +22,7 @@ var searchData=
   ['noise_5fstate_19',['noise_state',['../structP__.html#a0ad4914c63d0392e517f6fb41dfc703e',1,'P_']]],
   ['norm_5fid_20',['norm_id',['../structbutton__t.html#a46d95f84b97784bd28018eca00b4fbd2',1,'button_t']]],
   ['nss_5fgpio_5fpin_21',['nss_gpio_pin',['../structSPI__InitConfig__t.html#ad0862369c85d703198c28df1f085ad11',1,'SPI_InitConfig_t']]],
-  ['nss_5fgpio_5fport_22',['nss_gpio_port',['../structSPI__InitConfig__t.html#a77a909019cec9eb9cfa7e3b3cb288b08',1,'SPI_InitConfig_t']]],
+  ['nss_5fgpio_5fport_22',['nss_gpio_port',['../structSPI__InitConfig__t.html#ae82235e4faf01aa37ffcb212f626abc2',1,'SPI_InitConfig_t']]],
   ['nss_5fsw_23',['nss_sw',['../structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba',1,'SPI_InitConfig_t']]],
   ['num_5fbad1_24',['num_bad1',['../tmu_8c.html#ab53c11d9af49fc72c012e08f5b72741c',1,'tmu.c']]],
   ['num_5fbad2_25',['num_bad2',['../tmu_8c.html#a826804619d18fc9cd65222479e4df1d0',1,'tmu.c']]],

@@ -82,7 +82,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="phal__L4_2gpio_2gpio_8h_source.html">common/phal_L4/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="spi_8h_source.html">common/phal_L4/spi/spi.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__L4_2spi_2spi_8h_source.html">common/phal_L4/spi/spi.h</a>&quot;</code><br />
 <code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
 <code>#include &quot;stddef.h&quot;</code><br />
 <code>#include &quot;stdbool.h&quot;</code><br />
@@ -160,22 +160,29 @@ Functions</h2></td></tr>
 <tr class="memitem:ae370895215ec34373f5c65e318d1b9c1" id="r_ae370895215ec34373f5c65e318d1b9c1"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structphys__mem.html">phys_mem</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#ae370895215ec34373f5c65e318d1b9c1">__attribute__</a> ((__packed__))</td></tr>
 <tr class="separator:ae370895215ec34373f5c65e318d1b9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73ee46b31719dd2669d7a81205ace711" id="r_a73ee46b31719dd2669d7a81205ace711"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a73ee46b31719dd2669d7a81205ace711">initMem</a> (GPIO_TypeDef *wc_gpio_port, uint32_t wc_gpio_pin, <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint16_t <a class="el" href="eeprom__spi_8h.html#ab6d7b6f8c2ceaba7acda80aaf05f4899">version</a>, bool force_init)</td></tr>
+<tr class="memdesc:a73ee46b31719dd2669d7a81205ace711"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Initializes chip metadata. Attemps to read and load all metadata from last run. If memory isn't initialized, force_init can be set to set a default version of 1 and mark the chip as officially in use  <br /></td></tr>
 <tr class="separator:a73ee46b31719dd2669d7a81205ace711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeedc6f80f47efb34c48ce55e11d65372" id="r_aeedc6f80f47efb34c48ce55e11d65372"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#aeedc6f80f47efb34c48ce55e11d65372">checkVersion</a> (uint16_t <a class="el" href="eeprom__spi_8h.html#ab6d7b6f8c2ceaba7acda80aaf05f4899">version</a>)</td></tr>
+<tr class="memdesc:aeedc6f80f47efb34c48ce55e11d65372"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Checks version to ensure app code is new enough  <br /></td></tr>
 <tr class="separator:aeedc6f80f47efb34c48ce55e11d65372"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22aa117e1d6dc6023665d06786ebcdbd" id="r_a22aa117e1d6dc6023665d06786ebcdbd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a22aa117e1d6dc6023665d06786ebcdbd">mapMem</a> (uint8_t *addr, uint16_t len, uint8_t *fname, bool <a class="el" href="eeprom__spi_8h.html#a12939658a56147d173cd60f235eeda23">bcmp</a>)</td></tr>
+<tr class="memdesc:a22aa117e1d6dc6023665d06786ebcdbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Maps local address to chip address  <br /></td></tr>
 <tr class="separator:a22aa117e1d6dc6023665d06786ebcdbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80229a212accabcced087b237c0abfad" id="r_a80229a212accabcced087b237c0abfad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a80229a212accabcced087b237c0abfad">memBg</a> (void)</td></tr>
+<tr class="memdesc:a80229a212accabcced087b237c0abfad"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Background task for searching for stale data If metadata or any mapped struct is updated, it will be written to the device once searched by the foreground loop  <br /></td></tr>
 <tr class="separator:a80229a212accabcced087b237c0abfad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a183772232ecac26e1b4739cabec3a814" id="r_a183772232ecac26e1b4739cabec3a814"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a183772232ecac26e1b4739cabec3a814">memFg</a> (void)</td></tr>
+<tr class="memdesc:a183772232ecac26e1b4739cabec3a814"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Foreground routine for 5ms write coherency  <br /></td></tr>
 <tr class="separator:a183772232ecac26e1b4739cabec3a814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8153a951a16feb54ddc933f7f18bd58c" id="r_a8153a951a16feb54ddc933f7f18bd58c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a8153a951a16feb54ddc933f7f18bd58c">requestLoad</a> (char *name)</td></tr>
 <tr class="separator:a8153a951a16feb54ddc933f7f18bd58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04e6ba9a69837fd8a177a0a2034a77e7" id="r_a04e6ba9a69837fd8a177a0a2034a77e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a04e6ba9a69837fd8a177a0a2034a77e7">requestFlush</a> (char *name)</td></tr>
 <tr class="separator:a04e6ba9a69837fd8a177a0a2034a77e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa639fbdf7be238a64da85c18f16c5528" id="r_aa639fbdf7be238a64da85c18f16c5528"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#aa639fbdf7be238a64da85c18f16c5528">writePage</a> (uint16_t addr, uint8_t *page, uint8_t size)</td></tr>
+<tr class="memdesc:aa639fbdf7be238a64da85c18f16c5528"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Writes a single micro page to chip Must wait 5ms between calls Fails if SPI busy  <br /></td></tr>
 <tr class="separator:aa639fbdf7be238a64da85c18f16c5528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58980a6983f33c9c594048e5d0fe283d" id="r_a58980a6983f33c9c594048e5d0fe283d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#a58980a6983f33c9c594048e5d0fe283d">readPage</a> (uint16_t addr, uint8_t *page)</td></tr>
+<tr class="memdesc:a58980a6983f33c9c594048e5d0fe283d"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Reads a single micro page from chip Fails if SPI busy  <br /></td></tr>
 <tr class="separator:a58980a6983f33c9c594048e5d0fe283d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -201,7 +208,12 @@ Variables</h2></td></tr>
 <tr class="memitem:afe4d52c56b160c835f546fb8c70f5a11" id="r_afe4d52c56b160c835f546fb8c70f5a11"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structeeprom.html">eeprom</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></td></tr>
 <tr class="separator:afe4d52c56b160c835f546fb8c70f5a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>), modification of Dawson Moore's <a class="el" href="eeprom_8c.html">eeprom.c</a> for SPI support </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-12-01</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aa1696d5b89188435080ba5b8cb546e9d" name="aa1696d5b89188435080ba5b8cb546e9d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1696d5b89188435080ba5b8cb546e9d">&#9670;&#160;</a></span>CHIP_SIZE</h2>
 
@@ -629,6 +641,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>: Checks version to ensure app code is new enough </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>dest: Pointer to location to set </td></tr>
+    <tr><td class="paramname"></td><td>len: Length to set </td></tr>
+    <tr><td class="paramname"></td><td>value: Value to set each memory address to </td></tr>
+    <tr><td class="paramname"></td><td>Difference between current and chip versions if app code is newer, -E_V_MISMATCH if app code is old. -E_NO_INIT if memory hasn't been initialized yet </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a73ee46b31719dd2669d7a81205ace711" name="a73ee46b31719dd2669d7a81205ace711"></a>
@@ -675,6 +698,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>: Initializes chip metadata. Attemps to read and load all metadata from last run. If memory isn't initialized, force_init can be set to set a default version of 1 and mark the chip as officially in use </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>wc_gpio_port: Mem lock port0 </td></tr>
+    <tr><td class="paramname"></td><td>wc_gpio_pin: Mem lock pin </td></tr>
+    <tr><td class="paramname"></td><td>version: Version of app code </td></tr>
+    <tr><td class="paramname"></td><td>force_init: Force initialization if memory isn't initialized. Only set if version is truly 1 </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a22aa117e1d6dc6023665d06786ebcdbd" name="a22aa117e1d6dc6023665d06786ebcdbd"></a>
@@ -715,6 +749,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>: Maps local address to chip address </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>addr: Pointer to local address </td></tr>
+    <tr><td class="paramname"></td><td>len: Length of data </td></tr>
+    <tr><td class="paramname"></td><td>fname: File name (NAME_LEN characters) </td></tr>
+    <tr><td class="paramname"></td><td>bcmp: Backwards compatibility enabled. Disable for temp storage </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a80229a212accabcced087b237c0abfad" name="a80229a212accabcced087b237c0abfad"></a>
@@ -733,6 +778,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>: Background task for searching for stale data If metadata or any mapped struct is updated, it will be written to the device once searched by the foreground loop </p>
+<dl class="section note"><dt>Note</dt><dd>: Application code must add to background queue with rate MEM_FG_TIME </dd></dl>
+
 </div>
 </div>
 <a id="a183772232ecac26e1b4739cabec3a814" name="a183772232ecac26e1b4739cabec3a814"></a>
@@ -750,6 +798,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>: Foreground routine for 5ms write coherency </p>
+<dl class="section note"><dt>Note</dt><dd>: Application code must add to foreground queue </dd></dl>
 
 </div>
 </div>
@@ -778,6 +829,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>: Reads a single micro page from chip Fails if SPI busy </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>addr: On chip address of data </td></tr>
+    <tr><td class="paramname"></td><td>page: Pointer to returned data</td></tr>
+    <tr><td class="paramname"></td><td>E_SUCCESS if read, -E_SPI if failed </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -848,6 +909,17 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>: Writes a single micro page to chip Must wait 5ms between calls Fails if SPI busy </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"></td><td>addr: On chip address of data </td></tr>
+    <tr><td class="paramname"></td><td>page: Pointer to data to write </td></tr>
+    <tr><td class="paramname"></td><td>size: Length of write (capped at MICRO_PG_SIZE)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>: E_SUCCESS if written, -E_SPI if failed </dd></dl>
 
 </div>
 </div>

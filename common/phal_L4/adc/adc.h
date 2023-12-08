@@ -1,7 +1,7 @@
 /**
  * @file adc.h
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief ADC HAL for STM32L4 MCU
  * @version 0.1
  * @date 2021-12-27
  */
@@ -13,7 +13,7 @@
 #include <stdbool.h>
 
 #define PHAL_ADC_INIT_TIMEOUT 1000000
-#define PHAL_ADC_CR_BITS_RS 0b10000000000000000000000000111111
+#define PHAL_ADC_CR_BITS_RS 0x8000003F
 
 typedef enum {
     ADC_RES_12_BIT = 0b00,
@@ -38,29 +38,36 @@ typedef enum {
 } ADCClkPrescaler_t;
 
 typedef enum {
-    ADC_DMA_OFF      = 0b00,
-    ADC_DMA_ONE_SHOT = 0b01,
-    ADC_DMA_CIRCULAR = 0b11
+    ADC_DMA_OFF      = 0b00,    //!< ADC performs no conversion
+    ADC_DMA_ONE_SHOT = 0b01,    //!< ADC performs single conversion
+    ADC_DMA_CIRCULAR = 0b11     //!< ADC conitinuously converts
 } ADCDMAMode_t;
 
+/** Data bit alignment within the conversion */
 typedef enum {
     ADC_DATA_ALIGN_RIGHT = 0b0,
     ADC_DATA_ALIGN_LEFT = 0b1
 } ADCDataAlign_t;
 
+/** Top-level ADC configuration */
 typedef struct {
-    ADCClkPrescaler_t clock_prescaler; // required to have high enough prescaler to operate within ADC maximum freq
-    ADCResolution_t resolution; // bit resolution of readings
-    ADCDataAlign_t data_align;
+    ADCClkPrescaler_t clock_prescaler; //!< required to have high enough prescaler to operate within ADC maximum freq
+    ADCResolution_t resolution;        //!< Bit resolution of readings
+    ADCDataAlign_t data_align;         //!< Data bit alignment within the conversion
     //uint32_t ext_trig_conv;
     //uint32_t ext_trig_conv_edge;
-    bool cont_conv_mode;
+    bool cont_conv_mode;               //!< ADC restarts conversions once complete
     //bool discont_conv_mode;
-    bool overrun; // set true if data register can be overwritten before being read
+    bool overrun;                      //!< Set true if data register can be overwritten before being read
     //uint32_t nbr_of_disc_conv;
-    ADCDMAMode_t dma_mode;
+    ADCDMAMode_t dma_mode;             //!< ADC DMA mode
 } ADCInitConfig_t;
 
+/** 
+ * Duration of the sample in ADC clock cycles.
+ * A longer conversion time allows the internal
+ * measurement capacitor to fully charge.
+*/
 typedef enum {
     ADC_CHN_SMP_CYCLES_2_5   = 0b000,
     ADC_CHN_SMP_CYCLES_6_5   = 0b001,
@@ -72,10 +79,11 @@ typedef enum {
     ADC_CHN_SMP_CYCLES_640_5 = 0b111,
 } ADCChannelSampleCycles_t;
 
+/** ADC configuration for one channel */
 typedef struct {
-    uint32_t channel; // not the GPIO channel, use the ADC channel (ie. PA0 = channel 5)
-    uint32_t rank; // order at which the channels will be polled, starting at 1
-    ADCChannelSampleCycles_t sampling_time; // 2_5 works, set higher for large imedances
+    uint32_t channel;                       //!< not the GPIO channel, use the ADC channel (ie. PA0 = channel 5)
+    uint32_t rank;                          //!< order at which the channels will be polled, starting at 1
+    ADCChannelSampleCycles_t sampling_time; //!< Set higher for large impedances
     //uint32_t single_diff;
     //uint32_t offset_num;
     //uint32_t offset;

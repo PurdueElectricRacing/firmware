@@ -1,6 +1,16 @@
+/**
+ * @file gpio.c
+ * @author Adam Busch (busch8@purdue.edu)
+ * @brief GPIO Driver for STM32L432 Devices
+ * @version 0.1
+ * @date 2021-09-20
+ *
+ *
+ * @copyright Copyright (c) 2021
+ *
+ *
+ */
 #include "common/phal_L4/gpio/gpio.h"
-
-
 
 bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
 {

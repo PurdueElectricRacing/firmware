@@ -16,10 +16,10 @@
 
 #include <stdbool.h>
 
-#define PHAL_CAN_TX_TIMEOUT   (5000U)
-#define PHAL_CAN_INIT_TIMEOUT (5000U)
+#define PHAL_CAN_TX_TIMEOUT   (5000U) //!< in milliseconds
+#define PHAL_CAN_INIT_TIMEOUT (5000U) //!< in milliseconds
 
-// Bit timing recovered from http://www.bittiming.can-wiki.info/
+/** Bit timing recovered from http://www.bittiming.can-wiki.info/ */
 #define PHAL_CAN_16MHz_500k (0x001c0001)
 #define PHAL_CAN_20MHz_500k (0x00050004)
 #define PHAL_CAN_40MHz_500k (0x001c0004)
@@ -27,17 +27,18 @@
 
 typedef struct
 {
-  CAN_TypeDef* Bus; /*!< Specifies the bus. */
-  uint16_t StdId; /*!< Specifies the standard identifier. */
-  uint32_t ExtId; /*!< Specifies the extended identifier. */
-  uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */
-  uint32_t DLC; /*!< Specifies the length of the frame that will be transmitted. */
-  uint8_t Data[8]; /*!< Contains the data to be transmitted. */
+  CAN_TypeDef* Bus; //!< Specifies the bus.
+  uint16_t StdId;   //!< Specifies the standard identifier.
+  uint32_t ExtId;   //!< Specifies the extended identifier.
+  uint32_t IDE;     //!< Specifies the type of identifier for the message that will be transmitted.
+  uint32_t DLC;     //!< Specifies the length of the frame that will be transmitted.
+  uint8_t Data[8];  //!< Contains the data to be transmitted. */
 } CanMsgTypeDef_t;
 
 /**
  * @brief Initilize CAN peripheral to 500k. 
  * 
+ * @param bus The CAN peripheral to initialize (i.e. CAN1)
  * @param test_mode Initilize CAN peripheral for self test mode
  * 
  * @return true Peripheral sucessfully initalized
@@ -45,6 +46,12 @@ typedef struct
  */
 bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode);
 
+/**
+ * @brief De-initialize the CAN peripheral
+ * 
+ * @param bus The CAN peripheral to de-initialize (i.e. CAN1)
+ * @return Perihperal succesfully de-initialized
+ */
 bool PHAL_deinitCAN(CAN_TypeDef* bus);
 
 /**

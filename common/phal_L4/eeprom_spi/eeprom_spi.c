@@ -1,12 +1,21 @@
+/**
+ * @file eeprom_spi.c
+ * @author Luke Oxley (lcoxley@purdue.edu), modification of Dawson Moore's eeprom.c for SPI support
+ * @version 0.1
+ * @date 2022-12-01
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include "common/phal_L4/eeprom_spi/eeprom_spi.h"
 
 // Local defines
-#define E_READ  0x03    // Read data from memory beginning at selected address
-#define E_WRITE 0x02    // Write data to memory beginning at selected address
-#define E_WRDI  0x04    // Reset the write enable latch (disable write operations)
-#define E_WREN  0x06    // Set the write enable latch (enable write operations)
-#define E_RDSR  0x05    // Read STATUS register
-#define E_WRSR  0x01    // Write STATUS register
+#define E_READ  0x03    //!< Read data from memory beginning at selected address
+#define E_WRITE 0x02    //!< Write data to memory beginning at selected address
+#define E_WRDI  0x04    //!< Reset the write enable latch (disable write operations)
+#define E_WREN  0x06    //!< Set the write enable latch (enable write operations)
+#define E_RDSR  0x05    //!< Read STATUS register
+#define E_WRSR  0x01    //!< Write STATUS register
 
 // EEPROM struct
 struct eeprom mem;
@@ -26,19 +35,19 @@ static uint8_t ee_get_idx(uint32_t *req);
 static void ee_clear_idx(uint32_t *req, uint8_t idx);
 static void ee_request_flush_physical();
 
-// @funcname: initMem
-//
-// @brief: Initializes chip metadata. Attemps to read
-//         and load all metadata from last run. If memory
-//         isn't initialized, force_init can be set to
-//         set a default version of 1 and mark the chip
-//         as officially in use
-//
-// @param: wc_gpio_port: Mem lock port0
-// @param: wc_gpio_pin: Mem lock pin
-// @param: version: Version of app code
-// @param: force_init: Force initialization if memory isn't
-//                     initialized. Only set if version is truly 1
+/**
+ * @brief: Initializes chip metadata. Attemps to read
+ *         and load all metadata from last run. If memory
+ *         isn't initialized, force_init can be set to
+ *         set a default version of 1 and mark the chip
+ *         as officially in use
+ *
+ * @param: wc_gpio_port: Mem lock port0
+ * @param: wc_gpio_pin: Mem lock pin
+ * @param: version: Version of app code
+ * @param: force_init: Force initialization if memory isn't
+ *                     initialized. Only set if version is truly 1
+ */
 int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t* spi, uint16_t version, bool force_init) {
     int      ret;
     uint16_t i, size, end;
@@ -108,17 +117,17 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t* 
     return E_SUCCESS;
 }
 
-// @funcname: checkVersion
-//
-// @brief: Checks version to ensure app code is new enough
-//
-// @param: dest: Pointer to location to set
-// @param: len: Length to set
-// @param: value: Value to set each memory address to
-// @param: Difference between current and chip versions
-//         if app code is newer, -E_V_MISMATCH if app
-//         code is old. -E_NO_INIT if memory hasn't
-//         been initialized yet
+/**
+ * @brief: Checks version to ensure app code is new enough
+ *
+ * @param: dest: Pointer to location to set
+ * @param: len: Length to set
+ * @param: value: Value to set each memory address to
+ * @param: Difference between current and chip versions
+ *         if app code is newer, -E_V_MISMATCH if app
+ *         code is old. -E_NO_INIT if memory hasn't
+ *         been initialized yet
+ */
 int checkVersion(uint16_t version) {
     // Check if we're even initialized
     if (mem.phys.init_key != INIT_KEY) {
@@ -133,14 +142,14 @@ int checkVersion(uint16_t version) {
     }
 }
 
-// @funcname: mapMem
-//
-// @brief: Maps local address to chip address
-//
-// @param: addr: Pointer to local address
-// @param: len: Length of data
-// @param: fname: File name (NAME_LEN characters)
-// @param: bcmp: Backwards compatibility enabled. Disable for temp storage
+/**
+ * @brief: Maps local address to chip address
+ *
+ * @param: addr: Pointer to local address
+ * @param: len: Length of data
+ * @param: fname: File name (NAME_LEN characters)
+ * @param: bcmp: Backwards compatibility enabled. Disable for temp storage
+ */
 int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
     int     i;
     uint8_t null_name[NAME_LEN], ret;
@@ -224,14 +233,14 @@ static uint8_t  curr_page;
 static uint32_t addr;
 static BG_State bg_state;
 
-// @funcname: memBg
-//
-// @brief: Background task for searching for stale data
-//         If metadata or any mapped struct is updated,
-//         it will be written to the device once searched
-//         by the foreground loop
-//
-// @note: Application code must add to background queue with rate MEM_FG_TIME
+/**
+ * @brief: Background task for searching for stale data
+ *         If metadata or any mapped struct is updated,
+ *         it will be written to the device once searched
+ *         by the foreground loop
+ *
+ * @note: Application code must add to background queue with rate MEM_FG_TIME
+ */
 void memBg(void) {
     int      ret;
     static uint8_t  page[MICRO_PG_SIZE];
@@ -345,11 +354,11 @@ void memBg(void) {
     }
 }
 
-// @funcname: memFg
-//
-// @brief: Foreground routine for 5ms write coherency
-//
-// @note: Application code must add to foreground queue
+/**
+ * @brief: Foreground routine for 5ms write coherency
+ *
+ * @note: Application code must add to foreground queue
+ */
 void memFg(void) {
     if (!mem.write_pending) {
         return;
@@ -360,17 +369,17 @@ void memFg(void) {
     mem.write_pending = false; // TODO: Since this is called t 5ms, should be okay to set here...
 }
 
-// @funcname: readMem
-//
-// @brief: Reads memory across micro page boundaries
-//         Blocks until data fully read
-//         Assumes phys_addr is a page_bd
-//
-// @param: phys_addr: On chip address of data
-// @param: loc_addr: Local address of data
-// @param: len: Length of data
-//
-// @return: E_SUCCESS if read, error code if failed
+/**
+ * @brief: Reads memory across micro page boundaries
+ *         Blocks until data fully read
+ *         Assumes phys_addr is a page_bd
+ *
+ * @param: phys_addr: On chip address of data
+ * @param: loc_addr: Local address of data
+ * @param: len: Length of data
+ *
+ * @return: E_SUCCESS if read, error code if failed
+ */
 static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len) {
     int      ret;
     uint8_t  page[MICRO_PG_SIZE];
@@ -397,17 +406,17 @@ static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len) {
     return E_SUCCESS;
 }
 
-// @funcname: writePage
-//
-// @brief: Writes a single micro page to chip
-//         Must wait 5ms between calls
-//         Fails if SPI busy
-//
-// @param: addr: On chip address of data
-// @param: page: Pointer to data to write
-// @param: size: Length of write (capped at MICRO_PG_SIZE)
-//
-// @note: E_SUCCESS if written, -E_SPI if failed
+/**
+ * @brief: Writes a single micro page to chip
+ *         Must wait 5ms between calls
+ *         Fails if SPI busy
+ *
+ * @param: addr: On chip address of data
+ * @param: page: Pointer to data to write
+ * @param: size: Length of write (capped at MICRO_PG_SIZE)
+ *
+ * @note: E_SUCCESS if written, -E_SPI if failed
+ */
 int writePage(uint16_t addr, uint8_t* page, uint8_t size) {
     uint8_t ret;
 
@@ -439,15 +448,15 @@ int writePage(uint16_t addr, uint8_t* page, uint8_t size) {
     return ret ? -E_SPI : E_SUCCESS;
 }
 
-// @funcname: readPage
-//
-// @brief: Reads a single micro page from chip
-//         Fails if SPI busy
-//
-// @param: addr: On chip address of data
-// @param: page: Pointer to returned data
-//
-// @param: E_SUCCESS if read, -E_SPI if failed
+/**
+* @brief: Reads a single micro page from chip
+*         Fails if SPI busy
+*
+* @param: addr: On chip address of data
+* @param: page: Pointer to returned data
+*
+* @param: E_SUCCESS if read, -E_SPI if failed
+*/
 int readPage(uint16_t addr, uint8_t* page) {
     uint8_t ret;
 
@@ -495,22 +504,22 @@ void requestFlush(char* name)
     }
 }
 
-// @funcname: memClear
-//
-// @brief: Clears all addresses to 0 on chip
+/**
+ * @brief: Clears all addresses to 0 on chip
+ */
 static void memClear() {
     mem.zero_req = true;
 }
 
-// @funcname: memTest
-//
-// @brief: Fill chip with ones and check each location
-//         to ensure writes were complete
-//
-// @return: E_SUCCESS if memory matches, -E_M_MISMATCH
-//
-// @note: DO NOT USE! WILL RESET STRUCTS AND CAUSE DEVICE
-//        NAKS FOLLOWED BY I2C STOPPAGE
+/**
+ * @brief: Fill chip with ones and check each location
+ *         to ensure writes were complete
+ *
+ * @return: E_SUCCESS if memory matches, -E_M_MISMATCH
+ *
+ * @note: DO NOT USE! WILL RESET STRUCTS AND CAUSE DEVICE
+ *        NAKS FOLLOWED BY I2C STOPPAGE
+ */
 static int memTest() {
     size_t  i;
     uint8_t one[MICRO_PG_SIZE];
@@ -533,15 +542,15 @@ static int memTest() {
     return E_SUCCESS;
 }
 
-// @funcname: fnameSearch
-//
-// @brief: Find index
-//
-// @param: dest: Pointer to location to set
-// @param: len: Length to set
-// @param: value: Value to set each memory address to
-//
-// @return: Index of name if it exists, -E_NO_NAME else
+/**
+* @brief: Find index
+*
+* @param: dest: Pointer to location to set
+* @param: len: Length to set
+* @param: value: Value to set each memory address to
+*
+* @return: Index of name if it exists, -E_NO_NAME else
+*/
 static int fnameSearch(char* name) {
     uint8_t i;
 
@@ -555,15 +564,15 @@ static int fnameSearch(char* name) {
     return -E_NO_NAME;
 }
 
-// @funcname: ee_memcheck
-//
-// @brief: Simple memcheck routine
-//
-// @param: src: Pointer to location to check
-// @param: dest: Pointer to second location to check
-// @param: len: Length to check
-//
-// @return: E_SUCCESS if memory matches, -E_M_MISMATCH else
+/**
+ * @brief: Simple memcheck routine
+ *
+ * @param: src: Pointer to location to check
+ * @param: dest: Pointer to second location to check
+ * @param: len: Length to check
+ *
+ * @return: E_SUCCESS if memory matches, -E_M_MISMATCH else
+ */
 static int ee_memcheck(uint8_t* src, uint8_t* dest, size_t len) {
     size_t i;
 
@@ -576,13 +585,13 @@ static int ee_memcheck(uint8_t* src, uint8_t* dest, size_t len) {
     return E_SUCCESS;
 }
 
-// @funcname: ee_memset
-//
-// @brief: Simple memset routine
-//
-// @param: dest: Pointer to location to set
-// @param: len: Length to set
-// @param: value: Value to set each memory address to
+/**
+ * @brief: Simple memset routine
+ *
+ * @param: dest: Pointer to location to set
+ * @param: len: Length to set
+ * @param: value: Value to set each memory address to
+ */
 static void ee_memset(uint8_t* dest, size_t len, uint8_t value) {
     size_t i;
 
@@ -591,13 +600,13 @@ static void ee_memset(uint8_t* dest, size_t len, uint8_t value) {
     }
 }
 
-// @funcname: ee_memcpy
-//
-// @brief: Simple memcpy routine
-//
-// @param: src: Pointer to location to copy
-// @param: dest: Pointer to location from which to copy
-// @param: len: Length of data to copy
+/**
+ * @brief: Simple memcpy routine
+ *
+ * @param: src: Pointer to location to copy
+ * @param: dest: Pointer to location from which to copy
+ * @param: len: Length of data to copy
+ */
 static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len) {
     size_t i;
 
@@ -606,7 +615,10 @@ static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len) {
     }
 }
 
-// gets index of first set bit, assumes a bit is set
+/**
+ * @brief gets index of first set bit, assumes a bit is set
+ * 
+ */
 static uint8_t ee_get_idx(uint32_t *req)
 {
     uint8_t idx = 0;
@@ -629,7 +641,9 @@ static uint8_t ee_get_idx(uint32_t *req)
     return idx;
 }
 
-// clears bit at index
+/**
+ * @brief clears bit at index
+ */
 static void ee_clear_idx(uint32_t *req, uint8_t idx)
 {
     if (idx < 32)

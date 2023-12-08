@@ -1,3 +1,12 @@
+/**
+ * @file eeprom_spi.h
+ * @author Luke Oxley (lcoxley@purdue.edu), modification of Dawson Moore's eeprom.c for SPI support
+ * @version 0.1
+ * @date 2022-12-01
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef _PHAL_EEPROM_SPI_H_
 #define _PHAL_EEPROM_SPI_H_
 

@@ -1,3 +1,12 @@
+/**
+ * @file eeprom_spi.h
+ * @author Luke Oxley (lcoxley@purdue.edu), modification of Dawson Moore's eeprom.c for SPI support
+ * @version 0.1
+ * @date 2022-12-01
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef _PHAL_EEPROM_SPI_H_
 #define _PHAL_EEPROM_SPI_H_
 
@@ -80,32 +89,32 @@
 
 // Structures
 struct phys_mem {
-    uint8_t         init_key;                           // Initialization key
-    uint16_t        version;                            // Version number -> X.X.X
-    char            filename[MAX_PAGES * NAME_LEN];     // 4 character page-name
-    uint16_t        pg_bound[MAX_PAGES];                // Page bound offset
-    uint16_t        mem_size[MAX_PAGES];                // Size of file in bytes (actual)
-    uint8_t         bcmp[MAX_PAGES];                    // Backwards compatibility enabled
+    uint8_t         init_key;                           //!< Initialization key
+    uint16_t        version;                            //!< Version number -> X.X.X
+    char            filename[MAX_PAGES * NAME_LEN];     //!< 4 character page-name
+    uint16_t        pg_bound[MAX_PAGES];                //!< Page bound offset
+    uint16_t        mem_size[MAX_PAGES];                //!< Size of file in bytes (actual)
+    uint8_t         bcmp[MAX_PAGES];                    //!< Backwards compatibility enabled
 }__attribute__((__packed__));
 
 struct eeprom {
-    struct phys_mem phys;                               // Physical
-    bool            init_physical;                      // Memory on chip initialized
-    bool            flush_physical;                     // Request to flush the metadata
-    bool            zero_req;                           // Request chip reset
-    uint32_t        req_load[2];                        // Page requires loading    TODO: not used
-    uint32_t        req_flush[2];                       // Page requires flushing   TODO: not used
+    struct phys_mem phys;                               //!< Physical
+    bool            init_physical;                      //!< Memory on chip initialized
+    bool            flush_physical;                     //!< Request to flush the metadata
+    bool            zero_req;                           //!< Request chip reset
+    uint32_t        req_load[2];                        //!< Page requires loading    TODO: not used
+    uint32_t        req_flush[2];                       //!< Page requires flushing   TODO: not used
     // TODO: page auto sync versus single sync request -> implementing req_flush
-    uint8_t*        pg_addr[MAX_PAGES];                 // Page address
-    size_t          pg_size[MAX_PAGES];                 // Size of file in bytes (desired)
-    GPIO_TypeDef*   wc_gpio_port;                       // WC port
-    uint32_t        wc_gpio_pin;                        // WC pin
-    SPI_InitConfig_t* spi;
+    uint8_t*        pg_addr[MAX_PAGES];                 //!< Page address
+    size_t          pg_size[MAX_PAGES];                 //!< Size of file in bytes (desired)
+    GPIO_TypeDef*   wc_gpio_port;                       //!< WC port
+    uint32_t        wc_gpio_pin;                        //!< WC pin
+    SPI_InitConfig_t* spi;                              //!< SPI
 
-    bool            write_pending;                      // Background wants a write
-    uint8_t*        source_loc;                         // Source location for write
-    uint16_t        dest_loc;                           // Destination location for write
-    uint8_t         update_len;                         // Foreground write length
+    bool            write_pending;                      //!< Background wants a write
+    uint8_t*        source_loc;                         //!< Source location for write
+    uint16_t        dest_loc;                           //!< Destination location for write
+    uint8_t         update_len;                         //!< Foreground write length
 };
 
 // Prototypes

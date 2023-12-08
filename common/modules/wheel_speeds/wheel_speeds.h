@@ -20,15 +20,15 @@
 #define WHEEL_COUNTS_PER_REV (1056)
 
 typedef struct {
-  TIM_TypeDef *tim;             // Timer peripheral
-  bool        invert;           // Invert count direction
-  uint32_t    last_count;       // Last timer counter value
-  float       rad_s;            // Radians per second
+  TIM_TypeDef *tim;             //!< Timer peripheral
+  bool        invert;           //!< Invert count direction
+  uint32_t    last_count;       //!< Last timer counter value
+  float       rad_s;            //!< Radians per second
 } WheelSpeed_t; 
 typedef struct { 
-  uint32_t     last_update_ms;  // Last update time (off of os_ticks)
-  WheelSpeed_t *l;               // Left wheel configuration
-  WheelSpeed_t *r;               // Right wheel configuration
+  uint32_t     last_update_ms;  //!< Last update time (off of os_ticks)
+  WheelSpeed_t *l;              //!< Left wheel configuration
+  WheelSpeed_t *r;              //!< Right wheel configuration
 } WheelSpeeds_t;
 
 bool wheelSpeedsInit(WheelSpeeds_t *ws);

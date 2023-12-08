@@ -6,7 +6,7 @@ name: Doxygen Action
 # events but only for the master branch
 on:
   push:
-    branches: [ user/loxley/doxygen-support ]
+    branches: [ master ]
 # TODO: switch branch to master
 
   

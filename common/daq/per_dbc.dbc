@@ -1,7 +1,7 @@
 VERSION ""
 
 
-NS_ : 
+NS_ :
 	NS_DESC_
 	CM_
 	BA_DEF_
@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector_fpga Driveline Precharge OrionBMS torque_vector Dashboard Steering PDU Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector_fpga Driveline Precharge OrionBMS torque_vector Dashboard Steering Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -1537,5 +1537,3 @@ SIG_VALTYPE_ 2214593731 P_c : 1;
 SIG_VALTYPE_ 2348810751 left_speed : 1;
 SIG_VALTYPE_ 2348810751 right_speed : 1;
 SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;
-
-

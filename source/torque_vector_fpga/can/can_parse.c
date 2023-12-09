@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "can_parse.h"
 
@@ -63,11 +63,6 @@ void canRxUpdate()
                 can_data.bitstream_request.download_request = msg_data_a->bitstream_request.download_request;
                 can_data.bitstream_request.download_size = msg_data_a->bitstream_request.download_size;
                 bitstream_request_CALLBACK(msg_data_a);
-                break;
-            case ID_FAULT_SYNC_PDU:
-                can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
-                can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
-				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_MAIN_MODULE:
                 can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
@@ -140,17 +135,16 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR1 = (ID_BITSTREAM_DATA << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_BITSTREAM_REQUEST << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

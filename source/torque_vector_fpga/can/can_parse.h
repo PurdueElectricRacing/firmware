@@ -27,12 +27,11 @@
 #define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_BITSTREAM_DATA 0x400193e
 #define ID_BITSTREAM_REQUEST 0x1000197e
-#define ID_FAULT_SYNC_PDU 0x8cb5f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
-#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 /* END AUTO ID DEFS */
@@ -46,7 +45,6 @@
 #define DLC_REAR_WHEEL_DATA 8
 #define DLC_BITSTREAM_DATA 8
 #define DLC_BITSTREAM_REQUEST 5
-#define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -98,7 +96,7 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t front_left: 12;
         uint64_t front_right: 12;
@@ -139,10 +137,6 @@ typedef union {
         uint64_t download_request: 1;
         uint64_t download_size: 32;
     } bitstream_request;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_pdu;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -208,10 +202,6 @@ typedef struct {
         uint8_t download_request;
         uint32_t download_size;
     } bitstream_request;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_pdu;
     struct {
         uint16_t idx;
         uint8_t latched;

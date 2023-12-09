@@ -78,72 +78,76 @@ $(function() {
   <div class="headertitle"><div class="title">main.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;common/faults/fault_nodes.h&quot;</code><br />
-</div>
+
+<p>Software for controlling Torque Vectoring PCB sensor acquisition.  
+<a href="#details">More...</a></p>
+
 <p><a href="torque__vector_2main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:abae3566da9e6c5d249d85f2316c40a3c" id="r_abae3566da9e6c5d249d85f2316c40a3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#abae3566da9e6c5d249d85f2316c40a3c">FAULT_NODE_NAME</a>&#160;&#160;&#160;NODE_TV</td></tr>
-<tr class="separator:abae3566da9e6c5d249d85f2316c40a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2efca2af5472f7ca34d685921cb84e9e" id="r_a2efca2af5472f7ca34d685921cb84e9e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a2efca2af5472f7ca34d685921cb84e9e">QUADSPI_CS_FLASH_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a2efca2af5472f7ca34d685921cb84e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9534adce86c2d08395ca24fdc6d6a4b9" id="r_a9534adce86c2d08395ca24fdc6d6a4b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a9534adce86c2d08395ca24fdc6d6a4b9">QUADSPI_CS_FLASH_Pin</a>&#160;&#160;&#160;(2)</td></tr>
-<tr class="separator:a9534adce86c2d08395ca24fdc6d6a4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b1896cf5fbd1bd3586319d6b44f9921" id="r_a5b1896cf5fbd1bd3586319d6b44f9921"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a5b1896cf5fbd1bd3586319d6b44f9921">QUADSPI_CS_FPGA_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a5b1896cf5fbd1bd3586319d6b44f9921"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5321572ef020d3d3e75089cb0a241bfd" id="r_a5321572ef020d3d3e75089cb0a241bfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a5321572ef020d3d3e75089cb0a241bfd">QUADSPI_CS_FPGA_Pin</a>&#160;&#160;&#160;(1)</td></tr>
-<tr class="separator:a5321572ef020d3d3e75089cb0a241bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ae5ee249bd63543e798ad2920eb3085" id="r_a9ae5ee249bd63543e798ad2920eb3085"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a9ae5ee249bd63543e798ad2920eb3085">QUADSPI_CLK_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a9ae5ee249bd63543e798ad2920eb3085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6987c2102f791f5782ed210ca4f8a15b" id="r_a6987c2102f791f5782ed210ca4f8a15b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a6987c2102f791f5782ed210ca4f8a15b">QUADSPI_CLK_Pin</a>&#160;&#160;&#160;(3)</td></tr>
-<tr class="separator:a6987c2102f791f5782ed210ca4f8a15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee58cd2831620a82e00b7b66974907a7" id="r_aee58cd2831620a82e00b7b66974907a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#aee58cd2831620a82e00b7b66974907a7">QUADSPI_IO0_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:aee58cd2831620a82e00b7b66974907a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7658980120369e148ee78c6323a60e7e" id="r_a7658980120369e148ee78c6323a60e7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a7658980120369e148ee78c6323a60e7e">QUADSPI_IO0_Pin</a>&#160;&#160;&#160;(2)</td></tr>
-<tr class="separator:a7658980120369e148ee78c6323a60e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af354743b67701e7aa935d6b4200cb88d" id="r_af354743b67701e7aa935d6b4200cb88d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#af354743b67701e7aa935d6b4200cb88d">QUADSPI_IO1_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:af354743b67701e7aa935d6b4200cb88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa20a2c7ee68bb73cce2a83122551ec43" id="r_aa20a2c7ee68bb73cce2a83122551ec43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#aa20a2c7ee68bb73cce2a83122551ec43">QUADSPI_IO1_Pin</a>&#160;&#160;&#160;(1)</td></tr>
-<tr class="separator:aa20a2c7ee68bb73cce2a83122551ec43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cf2788d12798aa0c2c82313486749e0" id="r_a8cf2788d12798aa0c2c82313486749e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a8cf2788d12798aa0c2c82313486749e0">QUADSPI_IO2_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a8cf2788d12798aa0c2c82313486749e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a026c15e06888ec3d5eb54de51e4ff51b" id="r_a026c15e06888ec3d5eb54de51e4ff51b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a026c15e06888ec3d5eb54de51e4ff51b">QUADSPI_IO2_Pin</a>&#160;&#160;&#160;(7)</td></tr>
-<tr class="separator:a026c15e06888ec3d5eb54de51e4ff51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73b5a1075a78ec7b03dd2e40b66f2e7c" id="r_a73b5a1075a78ec7b03dd2e40b66f2e7c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a73b5a1075a78ec7b03dd2e40b66f2e7c">QUADSPI_IO3_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a73b5a1075a78ec7b03dd2e40b66f2e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac74ddcc23af73302d78982dd0fb6ef30" id="r_ac74ddcc23af73302d78982dd0fb6ef30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ac74ddcc23af73302d78982dd0fb6ef30">QUADSPI_IO3_Pin</a>&#160;&#160;&#160;(6)</td></tr>
-<tr class="separator:ac74ddcc23af73302d78982dd0fb6ef30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a8882a5a870ecf39a71947654dd06d2" id="r_a6a8882a5a870ecf39a71947654dd06d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a6a8882a5a870ecf39a71947654dd06d2">FPGA_CFG_RST_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a6a8882a5a870ecf39a71947654dd06d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c93689ba74b2db10c58d4f91a841932" id="r_a7c93689ba74b2db10c58d4f91a841932"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a7c93689ba74b2db10c58d4f91a841932">FPGA_CFG_RST_Pin</a>&#160;&#160;&#160;(4)</td></tr>
-<tr class="separator:a7c93689ba74b2db10c58d4f91a841932"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a98730d4a379ba4633ee9dec6a85aa2" id="r_a4a98730d4a379ba4633ee9dec6a85aa2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a4a98730d4a379ba4633ee9dec6a85aa2">I2C_SCL_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:a4a98730d4a379ba4633ee9dec6a85aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90aff746759bcec5c2432924a4e87e08" id="r_a90aff746759bcec5c2432924a4e87e08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a90aff746759bcec5c2432924a4e87e08">I2C_SCL_Pin</a>&#160;&#160;&#160;(6)</td></tr>
-<tr class="separator:a90aff746759bcec5c2432924a4e87e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d2a140ae7591b02085095ae39e7c826" id="r_a1d2a140ae7591b02085095ae39e7c826"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a1d2a140ae7591b02085095ae39e7c826">I2C_SDA_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:a1d2a140ae7591b02085095ae39e7c826"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c9bf24a02d97a93266c254da7491798" id="r_a6c9bf24a02d97a93266c254da7491798"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a6c9bf24a02d97a93266c254da7491798">I2C_SDA_Pin</a>&#160;&#160;&#160;(7)</td></tr>
-<tr class="separator:a6c9bf24a02d97a93266c254da7491798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cc87c9c5283855ccb0a54fa4bf51083" id="r_a9cc87c9c5283855ccb0a54fa4bf51083"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a9cc87c9c5283855ccb0a54fa4bf51083">I2C_WRITE_CONTROL_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a9cc87c9c5283855ccb0a54fa4bf51083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe49128ea9b117686d2d97bc8b5a3d2b" id="r_afe49128ea9b117686d2d97bc8b5a3d2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#afe49128ea9b117686d2d97bc8b5a3d2b">I2C_WRITE_CONTROL_Pin</a>&#160;&#160;&#160;(6)</td></tr>
-<tr class="separator:afe49128ea9b117686d2d97bc8b5a3d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55ec4779622d3da5b56b7f53e1ca034d" id="r_a55ec4779622d3da5b56b7f53e1ca034d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a55ec4779622d3da5b56b7f53e1ca034d">ERROR_LED_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a55ec4779622d3da5b56b7f53e1ca034d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1ffe5f18a2a114ebf4cd850ef002636" id="r_ad1ffe5f18a2a114ebf4cd850ef002636"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ad1ffe5f18a2a114ebf4cd850ef002636">ERROR_LED_Pin</a>&#160;&#160;&#160;(15)</td></tr>
-<tr class="separator:ad1ffe5f18a2a114ebf4cd850ef002636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad606c68e7c4fc77a58df05a77a2ac2d0" id="r_ad606c68e7c4fc77a58df05a77a2ac2d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ad606c68e7c4fc77a58df05a77a2ac2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac38565041738156d70795f7d45a458ef" id="r_ac38565041738156d70795f7d45a458ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="separator:ac38565041738156d70795f7d45a458ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75d1cb8230e6eaf53142a5bca49003ef" id="r_a75d1cb8230e6eaf53142a5bca49003ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
 <tr class="separator:a75d1cb8230e6eaf53142a5bca49003ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0111b42f1cdfd22b52e5aa836d743a60" id="r_a0111b42f1cdfd22b52e5aa836d743a60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memitem:a0111b42f1cdfd22b52e5aa836d743a60" id="r_a0111b42f1cdfd22b52e5aa836d743a60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>&#160;&#160;&#160;(7)</td></tr>
 <tr class="separator:a0111b42f1cdfd22b52e5aa836d743a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96eaadfc04207cb651aa08b8d2480f28" id="r_a96eaadfc04207cb651aa08b8d2480f28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a96eaadfc04207cb651aa08b8d2480f28">HEARTBEAT_LED_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:a96eaadfc04207cb651aa08b8d2480f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ea3eb090b8d04ec57eda2631bcd3c27" id="r_a4ea3eb090b8d04ec57eda2631bcd3c27"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a4ea3eb090b8d04ec57eda2631bcd3c27">HEARTBEAT_LED_Pin</a>&#160;&#160;&#160;(5)</td></tr>
-<tr class="separator:a4ea3eb090b8d04ec57eda2631bcd3c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fdbfbcfbcb8f2c98f4bf69597b60ae8" id="r_a0fdbfbcfbcb8f2c98f4bf69597b60ae8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a0fdbfbcfbcb8f2c98f4bf69597b60ae8">CONN_LED_MS_THRESH</a>&#160;&#160;&#160;(500)</td></tr>
+<tr class="separator:a0fdbfbcfbcb8f2c98f4bf69597b60ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a1bec8475d2774ce7a82559f9644f09" id="r_a5a1bec8475d2774ce7a82559f9644f09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">HEARTBEAT_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:a5a1bec8475d2774ce7a82559f9644f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f60dbdca30f90ed4ab09fb63e83a50" id="r_ab1f60dbdca30f90ed4ab09fb63e83a50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a>&#160;&#160;&#160;(6)</td></tr>
+<tr class="separator:ab1f60dbdca30f90ed4ab09fb63e83a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec842ba18536df50cc7c35d24fe9f89e" id="r_aec842ba18536df50cc7c35d24fe9f89e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#aec842ba18536df50cc7c35d24fe9f89e">SPI_SCLK_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:aec842ba18536df50cc7c35d24fe9f89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e93f9482a06a62b4a3a3b59c051e79c" id="r_a3e93f9482a06a62b4a3a3b59c051e79c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="separator:a3e93f9482a06a62b4a3a3b59c051e79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acefbb4f623273b9808c5dd75f0f0c7ee" id="r_acefbb4f623273b9808c5dd75f0f0c7ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#acefbb4f623273b9808c5dd75f0f0c7ee">SPI_MISO_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:acefbb4f623273b9808c5dd75f0f0c7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f125c65f6d8a90050ebb72cf459e95" id="r_a96f125c65f6d8a90050ebb72cf459e95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a>&#160;&#160;&#160;(6)</td></tr>
+<tr class="separator:a96f125c65f6d8a90050ebb72cf459e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af86c484e6065ee32b61f1b141cb0014e" id="r_af86c484e6065ee32b61f1b141cb0014e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#af86c484e6065ee32b61f1b141cb0014e">SPI_MOSI_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:af86c484e6065ee32b61f1b141cb0014e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4312169e5b462272dc4be10d4ffa4e40" id="r_a4312169e5b462272dc4be10d4ffa4e40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a>&#160;&#160;&#160;(7)</td></tr>
+<tr class="separator:a4312169e5b462272dc4be10d4ffa4e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc6e26a0a2afa5bc42f86e3abe643b2" id="r_aacc6e26a0a2afa5bc42f86e3abe643b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:aacc6e26a0a2afa5bc42f86e3abe643b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a086a2a66044e2f21882f62f7251759f5" id="r_a086a2a66044e2f21882f62f7251759f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="separator:a086a2a66044e2f21882f62f7251759f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9de9e7d70d216f0eebd7c18e3dcc55e5" id="r_a9de9e7d70d216f0eebd7c18e3dcc55e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:a9de9e7d70d216f0eebd7c18e3dcc55e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b195084506d284f754d772f6d709d7c" id="r_a8b195084506d284f754d772f6d709d7c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="separator:a8b195084506d284f754d772f6d709d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5665af74a1694ea5ba62b64357f1d1c" id="r_ac5665af74a1694ea5ba62b64357f1d1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ac5665af74a1694ea5ba62b64357f1d1c">SPI_CS_MAG_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ac5665af74a1694ea5ba62b64357f1d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02556e1e48a9b40a33301403980dfc08" id="r_a02556e1e48a9b40a33301403980dfc08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a02556e1e48a9b40a33301403980dfc08">SPI_CS_MAG_Pin</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="separator:a02556e1e48a9b40a33301403980dfc08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc89cc61069cb8b442a35f1161c1d87" id="r_a1bc89cc61069cb8b442a35f1161c1d87"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a1bc89cc61069cb8b442a35f1161c1d87">GPS_RX_GPIO_Port</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a1bc89cc61069cb8b442a35f1161c1d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89cdb230417327765f2bfe195224e472" id="r_a89cdb230417327765f2bfe195224e472"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a89cdb230417327765f2bfe195224e472">GPS_RX_Pin</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="separator:a89cdb230417327765f2bfe195224e472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afce6dc18c643e795dd758a711a54136a" id="r_afce6dc18c643e795dd758a711a54136a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#afce6dc18c643e795dd758a711a54136a">GPS_TX_GPIO_Port</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:afce6dc18c643e795dd758a711a54136a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acee3e8b13796741e5d3df8b332c9fe61" id="r_acee3e8b13796741e5d3df8b332c9fe61"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#acee3e8b13796741e5d3df8b332c9fe61">GPS_TX_Pin</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="separator:acee3e8b13796741e5d3df8b332c9fe61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74cf7d131f660a473bc6ad54bd568181" id="r_a74cf7d131f660a473bc6ad54bd568181"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a74cf7d131f660a473bc6ad54bd568181">NAV_EEPROM_CS_GPIO_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:a74cf7d131f660a473bc6ad54bd568181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab852f251259010530cd10f0f77419829" id="r_ab852f251259010530cd10f0f77419829"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#ab852f251259010530cd10f0f77419829">NAV_EEPROM_CS_PIN</a>&#160;&#160;&#160;(12)</td></tr>
+<tr class="separator:ab852f251259010530cd10f0f77419829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa33a6843dfd20ad077dc6d560abaf310" id="r_aa33a6843dfd20ad077dc6d560abaf310"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#aa33a6843dfd20ad077dc6d560abaf310">NAV_WP_GPIO_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:aa33a6843dfd20ad077dc6d560abaf310"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e91ca30ff165db8e051d6fd035b9f42" id="r_a4e91ca30ff165db8e051d6fd035b9f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="torque__vector_2main_8h.html#a4e91ca30ff165db8e051d6fd035b9f42">NAV_WP_PIN</a>&#160;&#160;&#160;(13)</td></tr>
+<tr class="separator:a4e91ca30ff165db8e051d6fd035b9f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Software for controlling Torque Vectoring PCB sensor acquisition. </p>
+<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-12-08</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a75d1cb8230e6eaf53142a5bca49003ef" name="a75d1cb8230e6eaf53142a5bca49003ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75d1cb8230e6eaf53142a5bca49003ef">&#9670;&#160;</a></span>CONN_LED_GPIO_Port</h2>
 
@@ -158,6 +162,20 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="a0fdbfbcfbcb8f2c98f4bf69597b60ae8" name="a0fdbfbcfbcb8f2c98f4bf69597b60ae8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fdbfbcfbcb8f2c98f4bf69597b60ae8">&#9670;&#160;</a></span>CONN_LED_MS_THRESH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONN_LED_MS_THRESH&#160;&#160;&#160;(500)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0111b42f1cdfd22b52e5aa836d743a60" name="a0111b42f1cdfd22b52e5aa836d743a60"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0111b42f1cdfd22b52e5aa836d743a60">&#9670;&#160;</a></span>CONN_LED_Pin</h2>
 
@@ -165,385 +183,343 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONN_LED_Pin&#160;&#160;&#160;(4)</td>
+          <td class="memname">#define CONN_LED_Pin&#160;&#160;&#160;(7)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a55ec4779622d3da5b56b7f53e1ca034d" name="a55ec4779622d3da5b56b7f53e1ca034d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55ec4779622d3da5b56b7f53e1ca034d">&#9670;&#160;</a></span>ERROR_LED_GPIO_Port</h2>
+<a id="ad606c68e7c4fc77a58df05a77a2ac2d0" name="ad606c68e7c4fc77a58df05a77a2ac2d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad606c68e7c4fc77a58df05a77a2ac2d0">&#9670;&#160;</a></span>ERR_LED_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ERROR_LED_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define ERR_LED_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad1ffe5f18a2a114ebf4cd850ef002636" name="ad1ffe5f18a2a114ebf4cd850ef002636"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1ffe5f18a2a114ebf4cd850ef002636">&#9670;&#160;</a></span>ERROR_LED_Pin</h2>
+<a id="ac38565041738156d70795f7d45a458ef" name="ac38565041738156d70795f7d45a458ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac38565041738156d70795f7d45a458ef">&#9670;&#160;</a></span>ERR_LED_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ERROR_LED_Pin&#160;&#160;&#160;(15)</td>
+          <td class="memname">#define ERR_LED_Pin&#160;&#160;&#160;(5)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="abae3566da9e6c5d249d85f2316c40a3c" name="abae3566da9e6c5d249d85f2316c40a3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abae3566da9e6c5d249d85f2316c40a3c">&#9670;&#160;</a></span>FAULT_NODE_NAME</h2>
+<a id="a1bc89cc61069cb8b442a35f1161c1d87" name="a1bc89cc61069cb8b442a35f1161c1d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc89cc61069cb8b442a35f1161c1d87">&#9670;&#160;</a></span>GPS_RX_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FAULT_NODE_NAME&#160;&#160;&#160;NODE_TV</td>
+          <td class="memname">#define GPS_RX_GPIO_Port&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6a8882a5a870ecf39a71947654dd06d2" name="a6a8882a5a870ecf39a71947654dd06d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a8882a5a870ecf39a71947654dd06d2">&#9670;&#160;</a></span>FPGA_CFG_RST_GPIO_Port</h2>
+<a id="a89cdb230417327765f2bfe195224e472" name="a89cdb230417327765f2bfe195224e472"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89cdb230417327765f2bfe195224e472">&#9670;&#160;</a></span>GPS_RX_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FPGA_CFG_RST_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define GPS_RX_Pin&#160;&#160;&#160;(5)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7c93689ba74b2db10c58d4f91a841932" name="a7c93689ba74b2db10c58d4f91a841932"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c93689ba74b2db10c58d4f91a841932">&#9670;&#160;</a></span>FPGA_CFG_RST_Pin</h2>
+<a id="afce6dc18c643e795dd758a711a54136a" name="afce6dc18c643e795dd758a711a54136a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afce6dc18c643e795dd758a711a54136a">&#9670;&#160;</a></span>GPS_TX_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FPGA_CFG_RST_Pin&#160;&#160;&#160;(4)</td>
+          <td class="memname">#define GPS_TX_GPIO_Port&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a96eaadfc04207cb651aa08b8d2480f28" name="a96eaadfc04207cb651aa08b8d2480f28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96eaadfc04207cb651aa08b8d2480f28">&#9670;&#160;</a></span>HEARTBEAT_LED_GPIO_Port</h2>
+<a id="acee3e8b13796741e5d3df8b332c9fe61" name="acee3e8b13796741e5d3df8b332c9fe61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee3e8b13796741e5d3df8b332c9fe61">&#9670;&#160;</a></span>GPS_TX_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define HEARTBEAT_LED_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define GPS_TX_Pin&#160;&#160;&#160;(4)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4ea3eb090b8d04ec57eda2631bcd3c27" name="a4ea3eb090b8d04ec57eda2631bcd3c27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ea3eb090b8d04ec57eda2631bcd3c27">&#9670;&#160;</a></span>HEARTBEAT_LED_Pin</h2>
+<a id="a5a1bec8475d2774ce7a82559f9644f09" name="a5a1bec8475d2774ce7a82559f9644f09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a1bec8475d2774ce7a82559f9644f09">&#9670;&#160;</a></span>HEARTBEAT_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define HEARTBEAT_LED_Pin&#160;&#160;&#160;(5)</td>
+          <td class="memname">#define HEARTBEAT_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4a98730d4a379ba4633ee9dec6a85aa2" name="a4a98730d4a379ba4633ee9dec6a85aa2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a98730d4a379ba4633ee9dec6a85aa2">&#9670;&#160;</a></span>I2C_SCL_GPIO_Port</h2>
+<a id="ab1f60dbdca30f90ed4ab09fb63e83a50" name="ab1f60dbdca30f90ed4ab09fb63e83a50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f60dbdca30f90ed4ab09fb63e83a50">&#9670;&#160;</a></span>HEARTBEAT_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SCL_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define HEARTBEAT_Pin&#160;&#160;&#160;(6)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a90aff746759bcec5c2432924a4e87e08" name="a90aff746759bcec5c2432924a4e87e08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90aff746759bcec5c2432924a4e87e08">&#9670;&#160;</a></span>I2C_SCL_Pin</h2>
+<a id="a74cf7d131f660a473bc6ad54bd568181" name="a74cf7d131f660a473bc6ad54bd568181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74cf7d131f660a473bc6ad54bd568181">&#9670;&#160;</a></span>NAV_EEPROM_CS_GPIO_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SCL_Pin&#160;&#160;&#160;(6)</td>
+          <td class="memname">#define NAV_EEPROM_CS_GPIO_PORT&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1d2a140ae7591b02085095ae39e7c826" name="a1d2a140ae7591b02085095ae39e7c826"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d2a140ae7591b02085095ae39e7c826">&#9670;&#160;</a></span>I2C_SDA_GPIO_Port</h2>
+<a id="ab852f251259010530cd10f0f77419829" name="ab852f251259010530cd10f0f77419829"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab852f251259010530cd10f0f77419829">&#9670;&#160;</a></span>NAV_EEPROM_CS_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SDA_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define NAV_EEPROM_CS_PIN&#160;&#160;&#160;(12)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6c9bf24a02d97a93266c254da7491798" name="a6c9bf24a02d97a93266c254da7491798"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c9bf24a02d97a93266c254da7491798">&#9670;&#160;</a></span>I2C_SDA_Pin</h2>
+<a id="aa33a6843dfd20ad077dc6d560abaf310" name="aa33a6843dfd20ad077dc6d560abaf310"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa33a6843dfd20ad077dc6d560abaf310">&#9670;&#160;</a></span>NAV_WP_GPIO_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_SDA_Pin&#160;&#160;&#160;(7)</td>
+          <td class="memname">#define NAV_WP_GPIO_PORT&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9cc87c9c5283855ccb0a54fa4bf51083" name="a9cc87c9c5283855ccb0a54fa4bf51083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cc87c9c5283855ccb0a54fa4bf51083">&#9670;&#160;</a></span>I2C_WRITE_CONTROL_GPIO_Port</h2>
+<a id="a4e91ca30ff165db8e051d6fd035b9f42" name="a4e91ca30ff165db8e051d6fd035b9f42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e91ca30ff165db8e051d6fd035b9f42">&#9670;&#160;</a></span>NAV_WP_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_WRITE_CONTROL_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define NAV_WP_PIN&#160;&#160;&#160;(13)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="afe49128ea9b117686d2d97bc8b5a3d2b" name="afe49128ea9b117686d2d97bc8b5a3d2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe49128ea9b117686d2d97bc8b5a3d2b">&#9670;&#160;</a></span>I2C_WRITE_CONTROL_Pin</h2>
+<a id="aacc6e26a0a2afa5bc42f86e3abe643b2" name="aacc6e26a0a2afa5bc42f86e3abe643b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc6e26a0a2afa5bc42f86e3abe643b2">&#9670;&#160;</a></span>SPI_CS_ACEL_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define I2C_WRITE_CONTROL_Pin&#160;&#160;&#160;(6)</td>
+          <td class="memname">#define SPI_CS_ACEL_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9ae5ee249bd63543e798ad2920eb3085" name="a9ae5ee249bd63543e798ad2920eb3085"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ae5ee249bd63543e798ad2920eb3085">&#9670;&#160;</a></span>QUADSPI_CLK_GPIO_Port</h2>
+<a id="a086a2a66044e2f21882f62f7251759f5" name="a086a2a66044e2f21882f62f7251759f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a086a2a66044e2f21882f62f7251759f5">&#9670;&#160;</a></span>SPI_CS_ACEL_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_CLK_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define SPI_CS_ACEL_Pin&#160;&#160;&#160;(3)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6987c2102f791f5782ed210ca4f8a15b" name="a6987c2102f791f5782ed210ca4f8a15b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6987c2102f791f5782ed210ca4f8a15b">&#9670;&#160;</a></span>QUADSPI_CLK_Pin</h2>
+<a id="a9de9e7d70d216f0eebd7c18e3dcc55e5" name="a9de9e7d70d216f0eebd7c18e3dcc55e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9de9e7d70d216f0eebd7c18e3dcc55e5">&#9670;&#160;</a></span>SPI_CS_GYRO_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_CLK_Pin&#160;&#160;&#160;(3)</td>
+          <td class="memname">#define SPI_CS_GYRO_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a2efca2af5472f7ca34d685921cb84e9e" name="a2efca2af5472f7ca34d685921cb84e9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2efca2af5472f7ca34d685921cb84e9e">&#9670;&#160;</a></span>QUADSPI_CS_FLASH_GPIO_Port</h2>
+<a id="a8b195084506d284f754d772f6d709d7c" name="a8b195084506d284f754d772f6d709d7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b195084506d284f754d772f6d709d7c">&#9670;&#160;</a></span>SPI_CS_GYRO_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_CS_FLASH_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define SPI_CS_GYRO_Pin&#160;&#160;&#160;(2)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9534adce86c2d08395ca24fdc6d6a4b9" name="a9534adce86c2d08395ca24fdc6d6a4b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9534adce86c2d08395ca24fdc6d6a4b9">&#9670;&#160;</a></span>QUADSPI_CS_FLASH_Pin</h2>
+<a id="ac5665af74a1694ea5ba62b64357f1d1c" name="ac5665af74a1694ea5ba62b64357f1d1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5665af74a1694ea5ba62b64357f1d1c">&#9670;&#160;</a></span>SPI_CS_MAG_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_CS_FLASH_Pin&#160;&#160;&#160;(2)</td>
+          <td class="memname">#define SPI_CS_MAG_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a5b1896cf5fbd1bd3586319d6b44f9921" name="a5b1896cf5fbd1bd3586319d6b44f9921"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b1896cf5fbd1bd3586319d6b44f9921">&#9670;&#160;</a></span>QUADSPI_CS_FPGA_GPIO_Port</h2>
+<a id="a02556e1e48a9b40a33301403980dfc08" name="a02556e1e48a9b40a33301403980dfc08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02556e1e48a9b40a33301403980dfc08">&#9670;&#160;</a></span>SPI_CS_MAG_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_CS_FPGA_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define SPI_CS_MAG_Pin&#160;&#160;&#160;(0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a5321572ef020d3d3e75089cb0a241bfd" name="a5321572ef020d3d3e75089cb0a241bfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5321572ef020d3d3e75089cb0a241bfd">&#9670;&#160;</a></span>QUADSPI_CS_FPGA_Pin</h2>
+<a id="acefbb4f623273b9808c5dd75f0f0c7ee" name="acefbb4f623273b9808c5dd75f0f0c7ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acefbb4f623273b9808c5dd75f0f0c7ee">&#9670;&#160;</a></span>SPI_MISO_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_CS_FPGA_Pin&#160;&#160;&#160;(1)</td>
+          <td class="memname">#define SPI_MISO_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aee58cd2831620a82e00b7b66974907a7" name="aee58cd2831620a82e00b7b66974907a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee58cd2831620a82e00b7b66974907a7">&#9670;&#160;</a></span>QUADSPI_IO0_GPIO_Port</h2>
+<a id="a96f125c65f6d8a90050ebb72cf459e95" name="a96f125c65f6d8a90050ebb72cf459e95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f125c65f6d8a90050ebb72cf459e95">&#9670;&#160;</a></span>SPI_MISO_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_IO0_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define SPI_MISO_Pin&#160;&#160;&#160;(6)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7658980120369e148ee78c6323a60e7e" name="a7658980120369e148ee78c6323a60e7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7658980120369e148ee78c6323a60e7e">&#9670;&#160;</a></span>QUADSPI_IO0_Pin</h2>
+<a id="af86c484e6065ee32b61f1b141cb0014e" name="af86c484e6065ee32b61f1b141cb0014e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af86c484e6065ee32b61f1b141cb0014e">&#9670;&#160;</a></span>SPI_MOSI_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_IO0_Pin&#160;&#160;&#160;(2)</td>
+          <td class="memname">#define SPI_MOSI_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af354743b67701e7aa935d6b4200cb88d" name="af354743b67701e7aa935d6b4200cb88d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af354743b67701e7aa935d6b4200cb88d">&#9670;&#160;</a></span>QUADSPI_IO1_GPIO_Port</h2>
+<a id="a4312169e5b462272dc4be10d4ffa4e40" name="a4312169e5b462272dc4be10d4ffa4e40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4312169e5b462272dc4be10d4ffa4e40">&#9670;&#160;</a></span>SPI_MOSI_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_IO1_GPIO_Port&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define SPI_MOSI_Pin&#160;&#160;&#160;(7)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa20a2c7ee68bb73cce2a83122551ec43" name="aa20a2c7ee68bb73cce2a83122551ec43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa20a2c7ee68bb73cce2a83122551ec43">&#9670;&#160;</a></span>QUADSPI_IO1_Pin</h2>
+<a id="aec842ba18536df50cc7c35d24fe9f89e" name="aec842ba18536df50cc7c35d24fe9f89e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec842ba18536df50cc7c35d24fe9f89e">&#9670;&#160;</a></span>SPI_SCLK_GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_IO1_Pin&#160;&#160;&#160;(1)</td>
+          <td class="memname">#define SPI_SCLK_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8cf2788d12798aa0c2c82313486749e0" name="a8cf2788d12798aa0c2c82313486749e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cf2788d12798aa0c2c82313486749e0">&#9670;&#160;</a></span>QUADSPI_IO2_GPIO_Port</h2>
+<a id="a3e93f9482a06a62b4a3a3b59c051e79c" name="a3e93f9482a06a62b4a3a3b59c051e79c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e93f9482a06a62b4a3a3b59c051e79c">&#9670;&#160;</a></span>SPI_SCLK_Pin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define QUADSPI_IO2_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a026c15e06888ec3d5eb54de51e4ff51b" name="a026c15e06888ec3d5eb54de51e4ff51b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026c15e06888ec3d5eb54de51e4ff51b">&#9670;&#160;</a></span>QUADSPI_IO2_Pin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define QUADSPI_IO2_Pin&#160;&#160;&#160;(7)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a73b5a1075a78ec7b03dd2e40b66f2e7c" name="a73b5a1075a78ec7b03dd2e40b66f2e7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73b5a1075a78ec7b03dd2e40b66f2e7c">&#9670;&#160;</a></span>QUADSPI_IO3_GPIO_Port</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define QUADSPI_IO3_GPIO_Port&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac74ddcc23af73302d78982dd0fb6ef30" name="ac74ddcc23af73302d78982dd0fb6ef30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac74ddcc23af73302d78982dd0fb6ef30">&#9670;&#160;</a></span>QUADSPI_IO3_Pin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define QUADSPI_IO3_Pin&#160;&#160;&#160;(6)</td>
+          <td class="memname">#define SPI_SCLK_Pin&#160;&#160;&#160;(5)</td>
         </tr>
       </table>
 </div><div class="memdoc">

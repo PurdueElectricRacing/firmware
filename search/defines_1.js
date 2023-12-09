@@ -13,7 +13,7 @@ var searchData=
   ['abs_5fmax_5ftorque_10',['ABS_MAX_TORQUE',['../MC__PL__pp_8h.html#a554a315250de13c5e0ca684c08b9f016',1,'MC_PL_pp.h']]],
   ['abs_5fmin_5ftorque_11',['ABS_MIN_TORQUE',['../MC__PL__pp_8h.html#a5196b7afc81374eb57b46bb7da468417',1,'MC_PL_pp.h']]],
   ['acc_5fcalibration_12',['ACC_CALIBRATION',['../sfs__pp_8h.html#a633065ee7487621d6f65f909eee6dbd8',1,'sfs_pp.h']]],
-  ['acc_5fscaling_5facc_5flsb_5fto_5fmps2_13',['acc_scaling_acc_lsb_to_mps2',['../navigation_2bsxlite_2bsxlite__interface_8h.html#a87698e0ffc7371118c5e41bbf3460862',1,'ACC_SCALING_ACC_LSB_TO_MPS2:&#160;bsxlite_interface.h'],['../precharge_2bsxlite_2bsxlite__interface_8h.html#a87698e0ffc7371118c5e41bbf3460862',1,'ACC_SCALING_ACC_LSB_TO_MPS2:&#160;bsxlite_interface.h']]],
+  ['acc_5fscaling_5facc_5flsb_5fto_5fmps2_13',['acc_scaling_acc_lsb_to_mps2',['../precharge_2bsxlite_2bsxlite__interface_8h.html#a87698e0ffc7371118c5e41bbf3460862',1,'ACC_SCALING_ACC_LSB_TO_MPS2:&#160;bsxlite_interface.h'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html#a87698e0ffc7371118c5e41bbf3460862',1,'ACC_SCALING_ACC_LSB_TO_MPS2:&#160;bsxlite_interface.h']]],
   ['adax_14',['ADAX',['../afe_8h.html#a28b010fb413388650030645fed5ed99b',1,'afe.h']]],
   ['adaxd_15',['ADAXD',['../afe_8h.html#a00cd9f61d3d4eebecc1fd508c65837bd',1,'afe.h']]],
   ['adc1_5fdma_5fcont_5fconfig_16',['adc1_dma_cont_config',['../phal__L4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868',1,'ADC1_DMA_CONT_CONFIG:&#160;adc.h'],['../phal__F4__F7_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868',1,'ADC1_DMA_CONT_CONFIG:&#160;adc.h']]],

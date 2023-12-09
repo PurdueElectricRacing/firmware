@@ -115,6 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa44c022e7bafc2f33240d3fa837a4244" id="r_aa44c022e7bafc2f33240d3fa837a4244"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__L4_2spi_2spi_8h.html#aa44c022e7bafc2f33240d3fa837a4244">PHAL_SPI_transfer</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, const uint32_t data_len, const uint8_t *in_data)</td></tr>
 <tr class="memdesc:aa44c022e7bafc2f33240d3fa837a4244"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just starts the DMA transfer,.  <br /></td></tr>
 <tr class="separator:aa44c022e7bafc2f33240d3fa837a4244"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7593e1c8be8711c7bda6d7de43913816" id="r_a7593e1c8be8711c7bda6d7de43913816"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__L4_2spi_2spi_8h.html#a7593e1c8be8711c7bda6d7de43913816">PHAL_SPI_transfer_noDMA</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data)</td></tr>
+<tr class="memdesc:a7593e1c8be8711c7bda6d7de43913816"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI handle.  <br /></td></tr>
+<tr class="separator:a7593e1c8be8711c7bda6d7de43913816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35fd94eb02f487e09065ddc0ecb92e53" id="r_a35fd94eb02f487e09065ddc0ecb92e53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="phal__L4_2spi_2spi_8h.html#a35fd94eb02f487e09065ddc0ecb92e53">PHAL_SPI_busy</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *cfg)</td></tr>
 <tr class="memdesc:a35fd94eb02f487e09065ddc0ecb92e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for current SPI transaction to complete.  <br /></td></tr>
 <tr class="separator:a35fd94eb02f487e09065ddc0ecb92e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -431,6 +434,67 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Able to start DMA transaction </dd>
 <dd>
 false Unable to start DMA transaction </dd></dl>
+
+</div>
+</div>
+<a id="a7593e1c8be8711c7bda6d7de43913816" name="a7593e1c8be8711c7bda6d7de43913816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7593e1c8be8711c7bda6d7de43913816">&#9670;&#160;</a></span>PHAL_SPI_transfer_noDMA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_SPI_transfer_noDMA </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *&#160;</td>
+          <td class="paramname"><em>spi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>out_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>txlen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>rxlen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>in_data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SPI handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spi</td><td>SPI handle </td></tr>
+    <tr><td class="paramname">out_data</td><td>Address of data buffer to put on MOSI line </td></tr>
+    <tr><td class="paramname">txlen</td><td>Number of SPI Packets to Send </td></tr>
+    <tr><td class="paramname">rxlen</td><td>Number of SPI Packets to Receive </td></tr>
+    <tr><td class="paramname">in_data</td><td>Address of data buffer to put data coming in MISO line </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true Successfully completed non-DMA SPI transaction </dd>
+<dd>
+false Unable to complete non-DMA SPI transaction </dd></dl>
 
 </div>
 </div>

@@ -123,7 +123,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#ac2116081dea4d2c1b67ddfd1d2937270">   47</a></span><span class="preprocessor">#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a85ba219b4669ae0c2cf57c75251effc5">   48</a></span><span class="preprocessor">#define ID_FAULT_SYNC_DASHBOARD 0x8cb05</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#ad151502d81267d149e6277e22128b1f4">   49</a></span><span class="preprocessor">#define ID_FAULT_SYNC_PRECHARGE 0x8cac4</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#aac200fec881129bfcd5d8465b1882166">   50</a></span><span class="preprocessor">#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#ac8f2a75f9b8dcadecae94a73e13ae821">   50</a></span><span class="preprocessor">#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a12f3d04cdf82c1f290c4698194a606ed">   51</a></span><span class="preprocessor">#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a68424e950371457cae8f97fb0029a671">   52</a></span><span class="preprocessor">#define ID_SET_FAULT 0x809c83e</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a2099b532fab5ae6dc0c646b3f79d382e">   53</a></span><span class="preprocessor">#define ID_RETURN_FAULT_CONTROL 0x809c87e</span></div>
@@ -149,7 +149,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#ac1567d3af94fd261778e554c6c788f32">   73</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_MAIN_MODULE 3</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a811ce2db0d1bb06c42f9405f98fa702a">   74</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_DASHBOARD 3</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a7f803ccb1bc5506b2c2680d2004ec0a7">   75</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_PRECHARGE 3</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#ac15c18bd936616d8ce9bf7b92fe2b77f">   76</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_TORQUE_VECTOR 3</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#ab8c2ebd5a42a595a94f140fafe9f5e5c">   76</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a156e954405f42507632dd680ae202b6a">   77</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_TEST_NODE 3</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#aec449f050d774f2db0b00838d3e9bb59">   78</a></span><span class="preprocessor">#define DLC_SET_FAULT 3</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="driveline_2can_2can__parse_8h.html#a8a7adca2e81599090ebd289d2cc484c9">   79</a></span><span class="preprocessor">#define DLC_RETURN_FAULT_CONTROL 2</span></div>
@@ -435,7 +435,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8275167f881513cf021e2925667ea3a8">  330</a></span>    } fault_sync_torque_vector;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="union____attribute____.html#a42c45bad9592fe155d536912d67e0e93">  330</a></span>    } fault_sync_torque_vector_fpga;</div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        uint64_t latched: 1;</div>
@@ -540,7 +540,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>        uint16_t idx;</div>
 <div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        uint8_t latched;</div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a188e0f97f8ee4276e5ffb527feea5d87">  435</a></span>    } fault_sync_torque_vector;</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a76a70dccad81c7054505343033dbd4d3">  435</a></span>    } fault_sync_torque_vector_fpga;</div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>        uint16_t idx;</div>
 <div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>        uint8_t latched;</div>

@@ -90,251 +90,276 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="can_8h.html">common/phal_L4/can/can.h</a>&quot;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">// Make this match the node name within the can_config.json</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a8cc8d559acdd2f74085b20977182d5b7">   19</a></span><span class="preprocessor">#define NODE_NAME &quot;Torque_Vector&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a8cc8d559acdd2f74085b20977182d5b7">   19</a></span><span class="preprocessor">#define NODE_NAME &quot;torque_vector&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// Message ID definitions</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">/* BEGIN AUTO ID DEFS */</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#af3b1939bd393c5d26f652eb123d7968d">   23</a></span><span class="preprocessor">#define ID_TORQUE_REQUEST 0x4000042</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ab00a4de52d51b8a279a93aa5857727c0">   24</a></span><span class="preprocessor">#define ID_BITSTREAM_FLASH_STATUS 0x1902</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aac200fec881129bfcd5d8465b1882166">   25</a></span><span class="preprocessor">#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a22fee1fa6a82b00676e40a97be68c09b">   26</a></span><span class="preprocessor">#define ID_FRONT_WHEEL_DATA 0x4000003</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ae44d56d052bd9cb4007218ad325e7b98">   27</a></span><span class="preprocessor">#define ID_REAR_WHEEL_DATA 0x4000043</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2cab3d9f09ece0f760d116f3fc217974">   28</a></span><span class="preprocessor">#define ID_BITSTREAM_DATA 0x400193e</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2a79d25e932a0596827e7a38cd3fc636">   29</a></span><span class="preprocessor">#define ID_BITSTREAM_REQUEST 0x1000197e</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ac2116081dea4d2c1b67ddfd1d2937270">   30</a></span><span class="preprocessor">#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a7a9adcc21401f948f58f4c27506e7ff7">   31</a></span><span class="preprocessor">#define ID_FAULT_SYNC_DRIVELINE 0x8ca83</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a85ba219b4669ae0c2cf57c75251effc5">   32</a></span><span class="preprocessor">#define ID_FAULT_SYNC_DASHBOARD 0x8cb05</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ad151502d81267d149e6277e22128b1f4">   33</a></span><span class="preprocessor">#define ID_FAULT_SYNC_PRECHARGE 0x8cac4</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a12f3d04cdf82c1f290c4698194a606ed">   34</a></span><span class="preprocessor">#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a68424e950371457cae8f97fb0029a671">   35</a></span><span class="preprocessor">#define ID_SET_FAULT 0x809c83e</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2099b532fab5ae6dc0c646b3f79d382e">   36</a></span><span class="preprocessor">#define ID_RETURN_FAULT_CONTROL 0x809c87e</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/* END AUTO ID DEFS */</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// Message DLC definitions</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">/* BEGIN AUTO DLC DEFS */</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a722336c4132eb347be29059cd1932e30">   41</a></span><span class="preprocessor">#define DLC_TORQUE_REQUEST 6</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aa162c98f17bfc2ca5a66d432e5847ec9">   42</a></span><span class="preprocessor">#define DLC_BITSTREAM_FLASH_STATUS 1</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ac15c18bd936616d8ce9bf7b92fe2b77f">   43</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_TORQUE_VECTOR 3</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a5623c30cc58528eb308d25ec43aacfe8">   44</a></span><span class="preprocessor">#define DLC_FRONT_WHEEL_DATA 8</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ace4e76e97cb279b6cb758a0dcadf461a">   45</a></span><span class="preprocessor">#define DLC_REAR_WHEEL_DATA 8</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a58bd876d369468f12d631d7d48d2a48a">   46</a></span><span class="preprocessor">#define DLC_BITSTREAM_DATA 8</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ab87e322dcd6ecca257d7827271675883">   47</a></span><span class="preprocessor">#define DLC_BITSTREAM_REQUEST 5</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ac1567d3af94fd261778e554c6c788f32">   48</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_MAIN_MODULE 3</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a5acb92ec593ec966ec8430213861e8ee">   49</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_DRIVELINE 3</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a811ce2db0d1bb06c42f9405f98fa702a">   50</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_DASHBOARD 3</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a7f803ccb1bc5506b2c2680d2004ec0a7">   51</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_PRECHARGE 3</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a156e954405f42507632dd680ae202b6a">   52</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_TEST_NODE 3</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aec449f050d774f2db0b00838d3e9bb59">   53</a></span><span class="preprocessor">#define DLC_SET_FAULT 3</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a8a7adca2e81599090ebd289d2cc484c9">   54</a></span><span class="preprocessor">#define DLC_RETURN_FAULT_CONTROL 2</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">/* END AUTO DLC DEFS */</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// Message sending macros</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">/* BEGIN AUTO SEND MACROS */</span></div>
-<div class="foldopen" id="foldopen00059" data-start="" data-end="">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a7d39c0bdc68e6e2bf2ca201df2708583">   59</a></span><span class="preprocessor">#define SEND_TORQUE_REQUEST(queue, front_left_, front_right_, rear_left_, rear_right_) do {\</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUE_REQUEST, .DLC=DLC_TORQUE_REQUEST, .IDE=1};\</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">        data_a-&gt;torque_request.front_left = front_left_;\</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">        data_a-&gt;torque_request.front_right = front_right_;\</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">        data_a-&gt;torque_request.rear_left = rear_left_;\</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">        data_a-&gt;torque_request.rear_right = rear_right_;\</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">    } while(0)</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a7a80e67f3a4ff27304cbdadab020a734">   23</a></span><span class="preprocessor">#define ID_GPS_VELOCITY 0xc0002b7</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a78bd2ebd88d63a1ce74235ccae6b4a93">   24</a></span><span class="preprocessor">#define ID_GPS_POSITION 0xc002337</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ad6f795294a8402e74efe43de78ddf89d">   25</a></span><span class="preprocessor">#define ID_GPS_COORDINATES 0xc002377</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aa50a975ba4f6974b6dede204e5e0e12a">   26</a></span><span class="preprocessor">#define ID_IMU_GYRO 0xc0002f7</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#adddf6645959e058911a6d333a63fcfcb">   27</a></span><span class="preprocessor">#define ID_IMU_ACCEL 0xc0023b7</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aae465ac62bfe986db3b523947759352c">   28</a></span><span class="preprocessor">#define ID_BMM_MAG 0xc0023f7</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a0d768d19050961fb7aa0706b9fe6e137">   29</a></span><span class="preprocessor">#define ID_SFS_POS 0xc016937</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aaf7c7a66d64c837f31594485c8a0d1f6">   30</a></span><span class="preprocessor">#define ID_SFS_VEL 0xc016977</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a238431200eb71f72c564fc4409749d87">   31</a></span><span class="preprocessor">#define ID_SFS_ACC 0xc0169b7</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ae5d3d2fe5091257227ae11fcb9682fca">   32</a></span><span class="preprocessor">#define ID_SFS_ANG 0xc0169f7</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a3bbe82fcc81464cab25a2e33b4a6a23a">   33</a></span><span class="preprocessor">#define ID_SFS_ANG_VEL 0xc016a37</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ae842348ad23de45062fd1bf9ad8d00de">   34</a></span><span class="preprocessor">#define ID_THROTTLE_REMAPPED 0xc0025b7</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">/* END AUTO ID DEFS */</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// Message DLC definitions</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/* BEGIN AUTO DLC DEFS */</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2b845c58240d8e685afd5bcb2192d494">   39</a></span><span class="preprocessor">#define DLC_GPS_VELOCITY 8</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a35225c4e9c2bc4e1d18bce374f362b89">   40</a></span><span class="preprocessor">#define DLC_GPS_POSITION 8</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ac7a6b04f055d4a5caef1f7410e09629f">   41</a></span><span class="preprocessor">#define DLC_GPS_COORDINATES 8</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aa3619bb7c64f584a3e133950a8253ae5">   42</a></span><span class="preprocessor">#define DLC_IMU_GYRO 6</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#af9d19885d32a4c9390c5d01c46bd1295">   43</a></span><span class="preprocessor">#define DLC_IMU_ACCEL 6</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a48c84e01c5559b3a3b179472c7e310b6">   44</a></span><span class="preprocessor">#define DLC_BMM_MAG 6</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a35bee63db36ffe7b5a2c4f5cd450b09a">   45</a></span><span class="preprocessor">#define DLC_SFS_POS 6</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a1eafc43f4592e512d1bf5366b95fbb7d">   46</a></span><span class="preprocessor">#define DLC_SFS_VEL 6</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a93e98ac29b9a74e29fe1299a9ca0057e">   47</a></span><span class="preprocessor">#define DLC_SFS_ACC 6</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#af15c262d4d871b339c615a623365c077">   48</a></span><span class="preprocessor">#define DLC_SFS_ANG 8</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a033b44a3740abebd81651ad2f3b4b535">   49</a></span><span class="preprocessor">#define DLC_SFS_ANG_VEL 6</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a0ed200dd1c75faa31afcbcd1e155c7e3">   50</a></span><span class="preprocessor">#define DLC_THROTTLE_REMAPPED 4</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">/* END AUTO DLC DEFS */</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// Message sending macros</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">/* BEGIN AUTO SEND MACROS */</span></div>
+<div class="foldopen" id="foldopen00055" data-start="" data-end="">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aaac0826a8a31f435864793e06b53590e">   55</a></span><span class="preprocessor">#define SEND_GPS_VELOCITY(queue, gps_vel_n_, gps_vel_e_, gps_vel_d_, gps_vel_total_) do {\</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_VELOCITY, .DLC=DLC_GPS_VELOCITY, .IDE=1};\</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">        data_a-&gt;gps_velocity.gps_vel_n = gps_vel_n_;\</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">        data_a-&gt;gps_velocity.gps_vel_e = gps_vel_e_;\</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">        data_a-&gt;gps_velocity.gps_vel_d = gps_vel_d_;\</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">        data_a-&gt;gps_velocity.gps_vel_total = gps_vel_total_;\</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">    } while(0)</span></div>
 </div>
-<div class="foldopen" id="foldopen00068" data-start="" data-end="">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a842bff4bb93d0fa88aed2222cab7c702">   68</a></span><span class="preprocessor">#define SEND_BITSTREAM_FLASH_STATUS(queue, flash_success_, flash_timeout_rx_) do {\</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BITSTREAM_FLASH_STATUS, .DLC=DLC_BITSTREAM_FLASH_STATUS, .IDE=1};\</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">        data_a-&gt;bitstream_flash_status.flash_success = flash_success_;\</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">        data_a-&gt;bitstream_flash_status.flash_timeout_rx = flash_timeout_rx_;\</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">    } while(0)</span></div>
+<div class="foldopen" id="foldopen00064" data-start="" data-end="">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a52fb4d6fb44fc32c19282f62d57adb7c">   64</a></span><span class="preprocessor">#define SEND_GPS_POSITION(queue, gps_pos_x_, gps_pos_y_, gps_pos_z_, height_) do {\</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_POSITION, .DLC=DLC_GPS_POSITION, .IDE=1};\</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">        data_a-&gt;gps_position.gps_pos_x = gps_pos_x_;\</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">        data_a-&gt;gps_position.gps_pos_y = gps_pos_y_;\</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">        data_a-&gt;gps_position.gps_pos_z = gps_pos_z_;\</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">        data_a-&gt;gps_position.height = height_;\</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">    } while(0)</span></div>
 </div>
-<div class="foldopen" id="foldopen00075" data-start="" data-end="">
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ac663d197d486a4339f14e63abcaaf2e1">   75</a></span><span class="preprocessor">#define SEND_FAULT_SYNC_TORQUE_VECTOR(queue, idx_, latched_) do {\</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_TORQUE_VECTOR, .DLC=DLC_FAULT_SYNC_TORQUE_VECTOR, .IDE=1};\</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">        data_a-&gt;fault_sync_torque_vector.idx = idx_;\</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">        data_a-&gt;fault_sync_torque_vector.latched = latched_;\</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">    } while(0)</span></div>
+<div class="foldopen" id="foldopen00073" data-start="" data-end="">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ae0be6aa41ee9660574bbf50e09f20862">   73</a></span><span class="preprocessor">#define SEND_GPS_COORDINATES(queue, latitude_, longitude_) do {\</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_COORDINATES, .DLC=DLC_GPS_COORDINATES, .IDE=1};\</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">        data_a-&gt;gps_coordinates.latitude = latitude_;\</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">        data_a-&gt;gps_coordinates.longitude = longitude_;\</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">    } while(0)</span></div>
 </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">/* END AUTO SEND MACROS */</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">// Stale Checking</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">   85</a></span><span class="preprocessor">#define STALE_THRESH 3 / 2 </span><span class="comment">// 3 / 2 would be 150% of period</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">/* BEGIN AUTO UP DEFS (Update Period)*/</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a074924762c20cb67597b79e0155f08a4">   87</a></span><span class="preprocessor">#define UP_FRONT_WHEEL_DATA 10</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a0d2291155447b3631e61ac45ccfab076">   88</a></span><span class="preprocessor">#define UP_REAR_WHEEL_DATA 10</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">/* END AUTO UP DEFS */</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="foldopen" id="foldopen00091" data-start="" data-end="">
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a969cc60c23232b8b979b9822e5acd4f8">   91</a></span><span class="preprocessor">#define CHECK_STALE(stale, curr, last, period) if(!stale &amp;&amp; \</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">                    (curr - last) &gt; period * STALE_THRESH) stale = 1</span></div>
+<div class="foldopen" id="foldopen00080" data-start="" data-end="">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#af064166bd74330cd3be05e56ff151ccb">   80</a></span><span class="preprocessor">#define SEND_IMU_GYRO(queue, imu_gyro_x_, imu_gyro_y_, imu_gyro_z_) do {\</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_IMU_GYRO, .DLC=DLC_IMU_GYRO, .IDE=1};\</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">        data_a-&gt;imu_gyro.imu_gyro_x = imu_gyro_x_;\</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">        data_a-&gt;imu_gyro.imu_gyro_y = imu_gyro_y_;\</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">        data_a-&gt;imu_gyro.imu_gyro_z = imu_gyro_z_;\</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">    } while(0)</span></div>
 </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">/* BEGIN AUTO CAN ENUMERATIONS */</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">/* END AUTO CAN ENUMERATIONS */</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">// Message Raw Structures</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">/* BEGIN AUTO MESSAGE STRUCTURE */</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">typedef</span> <span class="keyword">union </span>{ </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        uint64_t front_left: 12;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        uint64_t front_right: 12;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        uint64_t rear_left: 12;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        uint64_t rear_right: 12;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5ce8a05a33e077f8f0bd4765e9dfc385">  105</a></span>    } torque_request;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="union____attribute____.html#a6c89e8ff9ddc49c1561f0c2cffcb5b95">  107</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a6c89e8ff9ddc49c1561f0c2cffcb5b95">flash_success</a>: 1;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad94cd0f1da2d339029ea609c8eef7921">  108</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ad94cd0f1da2d339029ea609c8eef7921">flash_timeout_rx</a>: 1;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="union____attribute____.html#aff2fa84ab1ffff5f9a9397959796c29a">  109</a></span>    } bitstream_flash_status;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        uint64_t idx: 16;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="union____attribute____.html#aedb51c850d8362e08a481ab0ed540b40">  113</a></span>    } fault_sync_torque_vector;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        uint64_t left_speed: 16;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        uint64_t right_speed: 16;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        uint64_t left_normal: 16;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        uint64_t right_normal: 16;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4cfda29585b8d62c399b4a2bed8486e1">  119</a></span>    } front_wheel_data;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        uint64_t left_speed: 16;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        uint64_t right_speed: 16;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        uint64_t left_normal: 16;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        uint64_t right_normal: 16;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0cb8d1416abef134e0d30e208a063c08">  125</a></span>    } rear_wheel_data;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        uint64_t d0: 8;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        uint64_t d1: 8;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        uint64_t d2: 8;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        uint64_t d3: 8;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        uint64_t d4: 8;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        uint64_t d5: 8;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        uint64_t d6: 8;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        uint64_t d7: 8;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab7688a85701dcd1ae342bc4e384bf76b">  135</a></span>    } bitstream_data;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="union____attribute____.html#aaa4776de081b8d87e4645793b2c5ad4b">  137</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aaa4776de081b8d87e4645793b2c5ad4b">download_request</a>: 1;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2fef01a9b40825631a15e9b27ad1a41a">  138</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a2fef01a9b40825631a15e9b27ad1a41a">download_size</a>: 32;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab91f83f86491543615aa1697d7b8a7e4">  139</a></span>    } bitstream_request;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        uint64_t idx: 16;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3943ef0ebefdf5f8933469a01c4e5adb">  143</a></span>    } fault_sync_main_module;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        uint64_t idx: 16;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="union____attribute____.html#a21961db3d24580b8e302d49a58071e74">  147</a></span>    } fault_sync_driveline;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        uint64_t idx: 16;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="union____attribute____.html#a64ac6f99e8ab101c79e3fed46736e7fb">  151</a></span>    } fault_sync_dashboard;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        uint64_t idx: 16;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad4fe5e3f7da57b907823c684661a30b7">  155</a></span>    } fault_sync_precharge;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        uint64_t idx: 16;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa2947660bc84b8746ea9e8f0d3d1b001">  159</a></span>    } fault_sync_test_node;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        uint64_t id: 16;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        uint64_t value: 1;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="union____attribute____.html#a972a265cd793e717018df99b8576b61b">  163</a></span>    } set_fault;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        uint64_t id: 16;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="union____attribute____.html#aeae6fada48be6e05b9bdabda7ace6732">  166</a></span>    } <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    uint8_t raw_data[8];</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>} <a class="code hl_union" href="union____attribute____.html">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">// contains most up to date received</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">// type for each variable matches that defined in JSON</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">/* BEGIN AUTO CAN DATA STRUCTURE */</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        uint16_t left_speed;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        uint16_t right_speed;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        uint16_t left_normal;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        uint16_t right_normal;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        uint8_t stale;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a56922e21a6f1ac23892ad8e11adc1730">  182</a></span>    } front_wheel_data;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        uint16_t left_speed;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        uint16_t right_speed;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        uint16_t left_normal;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        uint16_t right_normal;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        uint8_t stale;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab28d1c687fb5a027a541f4326e6344c1">  190</a></span>    } rear_wheel_data;</div>
+<div class="foldopen" id="foldopen00088" data-start="" data-end="">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a73c86426d11fa188a211cd322cde9504">   88</a></span><span class="preprocessor">#define SEND_IMU_ACCEL(queue, imu_accel_x_, imu_accel_y_, imu_accel_z_) do {\</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_IMU_ACCEL, .DLC=DLC_IMU_ACCEL, .IDE=1};\</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">        data_a-&gt;imu_accel.imu_accel_x = imu_accel_x_;\</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">        data_a-&gt;imu_accel.imu_accel_y = imu_accel_y_;\</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">        data_a-&gt;imu_accel.imu_accel_z = imu_accel_z_;\</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00096" data-start="" data-end="">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a29a71723b53fcce6bb2483b36b1c7f01">   96</a></span><span class="preprocessor">#define SEND_BMM_MAG(queue, bmm_mag_x_, bmm_mag_y_, bmm_mag_z_) do {\</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMM_MAG, .DLC=DLC_BMM_MAG, .IDE=1};\</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">        data_a-&gt;bmm_mag.bmm_mag_x = bmm_mag_x_;\</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">        data_a-&gt;bmm_mag.bmm_mag_y = bmm_mag_y_;\</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">        data_a-&gt;bmm_mag.bmm_mag_z = bmm_mag_z_;\</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00104" data-start="" data-end="">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#afd5225b3598585ce3939a5746c31d72f">  104</a></span><span class="preprocessor">#define SEND_SFS_POS(queue, sfs_pos_x_, sfs_pos_y_, sfs_pos_z_) do {\</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_POS, .DLC=DLC_SFS_POS, .IDE=1};\</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">        data_a-&gt;sfs_pos.sfs_pos_x = sfs_pos_x_;\</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">        data_a-&gt;sfs_pos.sfs_pos_y = sfs_pos_y_;\</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">        data_a-&gt;sfs_pos.sfs_pos_z = sfs_pos_z_;\</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00112" data-start="" data-end="">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aba5e92b1ac40859e8a23a05d1157537e">  112</a></span><span class="preprocessor">#define SEND_SFS_VEL(queue, sfs_vel_x_, sfs_vel_y_, sfs_vel_z_) do {\</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_VEL, .DLC=DLC_SFS_VEL, .IDE=1};\</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">        data_a-&gt;sfs_vel.sfs_vel_x = sfs_vel_x_;\</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">        data_a-&gt;sfs_vel.sfs_vel_y = sfs_vel_y_;\</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">        data_a-&gt;sfs_vel.sfs_vel_z = sfs_vel_z_;\</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00120" data-start="" data-end="">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ab1915b0b95eb1aaac7d85ade7c92a382">  120</a></span><span class="preprocessor">#define SEND_SFS_ACC(queue, sfs_acc_x_, sfs_acc_y_, sfs_acc_z_) do {\</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ACC, .DLC=DLC_SFS_ACC, .IDE=1};\</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">        data_a-&gt;sfs_acc.sfs_acc_x = sfs_acc_x_;\</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">        data_a-&gt;sfs_acc.sfs_acc_y = sfs_acc_y_;\</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">        data_a-&gt;sfs_acc.sfs_acc_z = sfs_acc_z_;\</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00128" data-start="" data-end="">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a3c6f554d49a349df6d0a03bdce05e2b5">  128</a></span><span class="preprocessor">#define SEND_SFS_ANG(queue, sfs_ang_a_, sfs_ang_b_, sfs_ang_c_, sfs_ang_d_) do {\</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ANG, .DLC=DLC_SFS_ANG, .IDE=1};\</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">        data_a-&gt;sfs_ang.sfs_ang_a = sfs_ang_a_;\</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">        data_a-&gt;sfs_ang.sfs_ang_b = sfs_ang_b_;\</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">        data_a-&gt;sfs_ang.sfs_ang_c = sfs_ang_c_;\</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">        data_a-&gt;sfs_ang.sfs_ang_d = sfs_ang_d_;\</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00137" data-start="" data-end="">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a8b572ffd49ee3a3d59d94722d006af25">  137</a></span><span class="preprocessor">#define SEND_SFS_ANG_VEL(queue, sfs_ang_vel_x_, sfs_ang_vel_y_, sfs_ang_vel_z_) do {\</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ANG_VEL, .DLC=DLC_SFS_ANG_VEL, .IDE=1};\</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">        data_a-&gt;sfs_ang_vel.sfs_ang_vel_x = sfs_ang_vel_x_;\</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">        data_a-&gt;sfs_ang_vel.sfs_ang_vel_y = sfs_ang_vel_y_;\</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">        data_a-&gt;sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="foldopen" id="foldopen00145" data-start="" data-end="">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aef24c02d0fc28ca88f3ac4570309d905">  145</a></span><span class="preprocessor">#define SEND_THROTTLE_REMAPPED(queue, remap_k_rl_, remap_k_rr_) do {\</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_REMAPPED, .DLC=DLC_THROTTLE_REMAPPED, .IDE=1};\</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">        data_a-&gt;throttle_remapped.remap_k_rl = remap_k_rl_;\</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="preprocessor">        data_a-&gt;throttle_remapped.remap_k_rr = remap_k_rr_;\</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">        qSendToBack(&amp;queue, &amp;msg);\</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">    } while(0)</span></div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment">/* END AUTO SEND MACROS */</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">// Stale Checking</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">  155</a></span><span class="preprocessor">#define STALE_THRESH 3 / 2 </span><span class="comment">// 3 / 2 would be 150% of period</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">/* BEGIN AUTO UP DEFS (Update Period)*/</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">/* END AUTO UP DEFS */</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="" data-end="">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a969cc60c23232b8b979b9822e5acd4f8">  159</a></span><span class="preprocessor">#define CHECK_STALE(stale, curr, last, period) \</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="preprocessor">    if (!stale &amp;&amp;                              \</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="preprocessor">        (curr - last) &gt; period * STALE_THRESH) \</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">    stale = 1</span></div>
+</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">/* BEGIN AUTO CAN ENUMERATIONS */</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">/* END AUTO CAN ENUMERATIONS */</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">// Message Raw Structures</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">/* BEGIN AUTO MESSAGE STRUCTURE */</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword">typedef</span> <span class="keyword">union </span>{ </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2cb7d542f0710de8f301db69d6ed4352">  171</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a2cb7d542f0710de8f301db69d6ed4352">gps_vel_n</a>: 16;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="union____attribute____.html#afbe0fa5f52736570178222352ec9f10e">  172</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#afbe0fa5f52736570178222352ec9f10e">gps_vel_e</a>: 16;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="union____attribute____.html#a12488bcf2e3117e5853dbfbe3554239b">  173</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a12488bcf2e3117e5853dbfbe3554239b">gps_vel_d</a>: 16;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="union____attribute____.html#a735889e915c9c407b65eed213aebf944">  174</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a735889e915c9c407b65eed213aebf944">gps_vel_total</a>: 16;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="union____attribute____.html#a9470da8c15fb264503adcc24183d8794">  175</a></span>    } gps_velocity;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="union____attribute____.html#a35ca695511842a42148a98b5ab32038a">  177</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a35ca695511842a42148a98b5ab32038a">gps_pos_x</a>: 16;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="union____attribute____.html#a008bafbe482a111024b36bf11d20176d">  178</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a008bafbe482a111024b36bf11d20176d">gps_pos_y</a>: 16;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="union____attribute____.html#a59872324fd2e9068a78a4bc8290ef5e1">  179</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a59872324fd2e9068a78a4bc8290ef5e1">gps_pos_z</a>: 16;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="union____attribute____.html#afdbecba0297bf817398dc56e927af7e1">  180</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#afdbecba0297bf817398dc56e927af7e1">height</a>: 16;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab7fe31a7dc72e90871df80dd50c6b435">  181</a></span>    } gps_position;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="union____attribute____.html#af7a2f5b49493e4f34abf63d459752cac">  183</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#af7a2f5b49493e4f34abf63d459752cac">latitude</a>: 32;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="union____attribute____.html#aed269691fd156fa62b0baf753b02b020">  184</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aed269691fd156fa62b0baf753b02b020">longitude</a>: 32;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="union____attribute____.html#a931e9d03c68f89507f44231e357cd1f3">  185</a></span>    } gps_coordinates;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0a62056fa4c37d1683536bf0c4da3e97">  187</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a0a62056fa4c37d1683536bf0c4da3e97">imu_gyro_x</a>: 16;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2004c6f409893d7db9884353d2f41852">  188</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a2004c6f409893d7db9884353d2f41852">imu_gyro_y</a>: 16;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="union____attribute____.html#a65232cd87181c7a0b8dba856f103c740">  189</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a65232cd87181c7a0b8dba856f103c740">imu_gyro_z</a>: 16;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="union____attribute____.html#a6270969672867ca340b6e71f4cbe6fb8">  190</a></span>    } imu_gyro;</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        uint8_t d0;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        uint8_t d1;</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        uint8_t d2;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        uint8_t d3;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        uint8_t d4;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        uint8_t d5;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        uint8_t d6;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        uint8_t d7;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab28fca4544534a5c1601dd5c53f2d6d3">  200</a></span>    } bitstream_data;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab68dd5b0640b2bd10bdb23bca2bf0013">  192</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ab68dd5b0640b2bd10bdb23bca2bf0013">imu_accel_x</a>: 16;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="union____attribute____.html#adb5f88eb982db83a4b373eb7456ff9b8">  193</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#adb5f88eb982db83a4b373eb7456ff9b8">imu_accel_y</a>: 16;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="union____attribute____.html#a38c1b269660637261829cd0047c4da1c">  194</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a38c1b269660637261829cd0047c4da1c">imu_accel_z</a>: 16;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="union____attribute____.html#af1158fb263df2923780db6f2b55b6b2a">  195</a></span>    } imu_accel;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="union____attribute____.html#a946087dbe6ba96c31585a79c2cc37093">  197</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a946087dbe6ba96c31585a79c2cc37093">bmm_mag_x</a>: 16;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="union____attribute____.html#a886ce10db40714192c26703f80993cb5">  198</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a886ce10db40714192c26703f80993cb5">bmm_mag_y</a>: 16;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0a6a4fca2ce97ebe4cc3ffe39a0b04d2">  199</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a0a6a4fca2ce97ebe4cc3ffe39a0b04d2">bmm_mag_z</a>: 16;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="union____attribute____.html#a446946e9107b8c5067dfdc2fbb32320d">  200</a></span>    } bmm_mag;</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a42dbb3a6b665e93b747daf944da812fe">  202</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a42dbb3a6b665e93b747daf944da812fe">download_request</a>;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a6bf7dae21e2373d4e29603b6e8e1e091">  203</a></span>        uint32_t <a class="code hl_variable" href="structcan__data__t.html#a6bf7dae21e2373d4e29603b6e8e1e091">download_size</a>;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a7fd9f19f98a56c308378db945f1c8414">  204</a></span>    } bitstream_request;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        uint16_t idx;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        uint8_t latched;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a5d55d32cc8a53a69954437b0e5ec53af">  208</a></span>    } fault_sync_main_module;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        uint16_t idx;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        uint8_t latched;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a1f000e2022227067f1deead35043f5ee">  212</a></span>    } fault_sync_driveline;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        uint16_t idx;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        uint8_t latched;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a17b523c109cdc736e0e8cd005dfafcb3">  216</a></span>    } fault_sync_dashboard;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        uint16_t idx;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        uint8_t latched;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a95ad6f019fdb58e143a249f037174e0b">  220</a></span>    } fault_sync_precharge;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        uint16_t idx;</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        uint8_t latched;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a0ca371bc658b58b62c7e61d478034a97">  224</a></span>    } fault_sync_test_node;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        uint16_t id;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        uint8_t value;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a4b1dbfbf5658ec87e33441dab7a69a34">  228</a></span>    } set_fault;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        uint16_t id;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad443eacae03ade4569e14ec33f33bc93">  231</a></span>    } <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>} <a class="code hl_struct" href="structcan__data__t.html">can_data_t</a>;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">/* END AUTO CAN DATA STRUCTURE */</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5ede7b3cd1d7ef4523b4a27de8d9be0a">  202</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a5ede7b3cd1d7ef4523b4a27de8d9be0a">sfs_pos_x</a>: 16;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="union____attribute____.html#a79696299d72fdf46477ce99b539b27b6">  203</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a79696299d72fdf46477ce99b539b27b6">sfs_pos_y</a>: 16;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="union____attribute____.html#aaf496b8eddae139c28e14d3b80c7933d">  204</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aaf496b8eddae139c28e14d3b80c7933d">sfs_pos_z</a>: 16;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="union____attribute____.html#a34416d8dc226eb9a088c2b326d85ca99">  205</a></span>    } sfs_pos;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="union____attribute____.html#aaca2c8b9f18d733ad37951799340a76e">  207</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aaca2c8b9f18d733ad37951799340a76e">sfs_vel_x</a>: 16;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab552aa7f73c8c35eb7d10835946a67c1">  208</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ab552aa7f73c8c35eb7d10835946a67c1">sfs_vel_y</a>: 16;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="union____attribute____.html#a94794170fc702ca8b3d535977ed9a27d">  209</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a94794170fc702ca8b3d535977ed9a27d">sfs_vel_z</a>: 16;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="union____attribute____.html#a51cfc606ea547d19c8a0b1cbeab27aaa">  210</a></span>    } sfs_vel;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="union____attribute____.html#a59953028715cf70451768c93ebcedac1">  212</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a59953028715cf70451768c93ebcedac1">sfs_acc_x</a>: 16;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="union____attribute____.html#a316e811ab35108a13fdb79b5de605cd7">  213</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a316e811ab35108a13fdb79b5de605cd7">sfs_acc_y</a>: 16;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="union____attribute____.html#aefe32f514103dccf53159504ff529d29">  214</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aefe32f514103dccf53159504ff529d29">sfs_acc_z</a>: 16;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5df9d10a6c9ddd3d8c9ca5dae2ea127e">  215</a></span>    } sfs_acc;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="union____attribute____.html#a61490d6c268a7aa60504dfe5b996eb90">  217</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a61490d6c268a7aa60504dfe5b996eb90">sfs_ang_a</a>: 16;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="union____attribute____.html#a55e3fb6c0b3cb2fe288b63b0f235a281">  218</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a55e3fb6c0b3cb2fe288b63b0f235a281">sfs_ang_b</a>: 16;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="union____attribute____.html#a1ef918ac87d0eca7b828c22e93bcae35">  219</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a1ef918ac87d0eca7b828c22e93bcae35">sfs_ang_c</a>: 16;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="union____attribute____.html#aeaf845ab63395847a29480c7e8e0d89e">  220</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aeaf845ab63395847a29480c7e8e0d89e">sfs_ang_d</a>: 16;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="union____attribute____.html#afd9a8dea159884407201f02babbd8e5c">  221</a></span>    } sfs_ang;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa8d6c4a742b08d1b6bc18bd9a4ad3a6c">  223</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aa8d6c4a742b08d1b6bc18bd9a4ad3a6c">sfs_ang_vel_x</a>: 16;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="union____attribute____.html#abb76eb9e72efc58a78a86d4e817b6885">  224</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#abb76eb9e72efc58a78a86d4e817b6885">sfs_ang_vel_y</a>: 16;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad17bb482ff26f4511d701191bc3f53c6">  225</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ad17bb482ff26f4511d701191bc3f53c6">sfs_ang_vel_z</a>: 16;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad8e1d1468eaacce9c391e98b8ae86f05">  226</a></span>    } sfs_ang_vel;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        uint64_t remap_k_rl: 16;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        uint64_t remap_k_rr: 16;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac699c0b57a104bf4a68f0147196f5a8c">  230</a></span>    } throttle_remapped;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    uint8_t raw_data[8];</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>} <a class="code hl_union" href="union____attribute____.html">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="keyword">extern</span> <a class="code hl_struct" href="structcan__data__t.html">can_data_t</a> <a class="code hl_variable" href="bms_2can_2can__parse_8h.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>;</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">/* BEGIN AUTO EXTERN CALLBACK */</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="torque__vector_2can_2can__parse_8h.html#a53dd855156d2013f0b019d99b28c8e18">bitstream_request_CALLBACK</a>(<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* msg_data_a);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">  239</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">handleCallbacks</a>(uint16_t <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> latched);</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a665f7e8f072ba4bff25d21ae6fa8765d">  240</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a665f7e8f072ba4bff25d21ae6fa8765d">set_fault_daq</a>(uint16_t <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> value);</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">  241</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>(uint16_t <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">  242</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">send_fault</a>(uint16_t <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> latched);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">/* END AUTO EXTERN CALLBACK */</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">/* BEGIN AUTO EXTERN RX IRQ */</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="torque__vector_2can_2can__parse_8h.html#ad80b4d5b5085d0319c780b1b03572616">bitstream_data_IRQ</a>(<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* msg_data_a);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment">/* END AUTO EXTERN RX IRQ */</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="keywordtype">void</span> <a class="code hl_function" href="bms_2can_2can__parse_8h.html#a46f1da6e61014a6553d5a6b4f12c223f">initCANParse</a>(<a class="code hl_struct" href="structq__handle__t.html">q_handle_t</a>* <a class="code hl_variable" href="bms_2can_2can__parse_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a>);</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keywordtype">void</span> <a class="code hl_function" href="bms_2can_2can__parse_8h.html#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a>();</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="keywordtype">void</span> <a class="code hl_function" href="bms_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">canProcessRxIRQs</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>* rx);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">// contains most up to date received</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment">// type for each variable matches that defined in JSON</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">/* BEGIN AUTO CAN DATA STRUCTURE */</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>} <a class="code hl_struct" href="structcan__data__t.html">can_data_t</a>;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">/* END AUTO CAN DATA STRUCTURE */</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="keyword">extern</span> <a class="code hl_struct" href="structcan__data__t.html">can_data_t</a> <a class="code hl_variable" href="bms_2can_2can__parse_8h.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">/* BEGIN AUTO EXTERN CALLBACK */</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">  245</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">handleCallbacks</a>(uint16_t <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> latched);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a665f7e8f072ba4bff25d21ae6fa8765d">  246</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a665f7e8f072ba4bff25d21ae6fa8765d">set_fault_daq</a>(uint16_t <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> value);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">  247</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>(uint16_t <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">  248</a></span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">send_fault</a>(uint16_t <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> latched);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">/* END AUTO EXTERN CALLBACK */</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">/* BEGIN AUTO EXTERN RX IRQ */</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment">/* END AUTO EXTERN RX IRQ */</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="keywordtype">void</span> <a class="code hl_function" href="bms_2can_2can__parse_8h.html#a46f1da6e61014a6553d5a6b4f12c223f">initCANParse</a>(<a class="code hl_struct" href="structq__handle__t.html">q_handle_t</a> *<a class="code hl_variable" href="bms_2can_2can__parse_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a>);</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="keywordtype">void</span> <a class="code hl_function" href="bms_2can_2can__parse_8h.html#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a>();</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="keywordtype">void</span> <a class="code hl_function" href="bms_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">canProcessRxIRQs</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *rx);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="keyword">extern</span> <span class="keyword">volatile</span> uint32_t <a class="code hl_variable" href="dashboard_2can_2can__parse_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a>;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abms_2can_2can__parse_8c_html_aaff8b712768c6fdcd153bcc291f4e320"><div class="ttname"><a href="bms_2can_2can__parse_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a></div><div class="ttdeci">q_handle_t * q_rx_can_a</div><div class="ttdef"><b>Definition</b> can_parse.c:17</div></div>
 <div class="ttc" id="abms_2can_2can__parse_8h_html_a3f543c89f40becb3d4280c764807f9a7"><div class="ttname"><a href="bms_2can_2can__parse_8h.html#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a></div><div class="ttdeci">void canRxUpdate()</div><div class="ttdoc">Pull message off of rx buffer, update can_data struct, check for stale messages.</div><div class="ttdef"><b>Definition</b> can_parse.c:27</div></div>
 <div class="ttc" id="abms_2can_2can__parse_8h_html_a46f1da6e61014a6553d5a6b4f12c223f"><div class="ttname"><a href="bms_2can_2can__parse_8h.html#a46f1da6e61014a6553d5a6b4f12c223f">initCANParse</a></div><div class="ttdeci">void initCANParse(q_handle_t *q_rx_can_a)</div><div class="ttdoc">Setup queue and message filtering.</div><div class="ttdef"><b>Definition</b> can_parse.c:19</div></div>
@@ -345,21 +370,49 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="abootloader_2can_2can__parse_8h_html_a8c20a3b0d572b6071bc2104e9a336cb6"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">handleCallbacks</a></div><div class="ttdeci">void handleCallbacks(uint16_t id, bool latched)</div></div>
 <div class="ttc" id="abootloader_2can_2can__parse_8h_html_ad57d03501801eed3789b1ab135dd9419"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">send_fault</a></div><div class="ttdeci">void send_fault(uint16_t id, bool latched)</div></div>
 <div class="ttc" id="acan_8h_html"><div class="ttname"><a href="can_8h.html">can.h</a></div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a6d7ff913bb95222bc96d632a6e8d8ea4"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a></div><div class="ttdeci">volatile uint32_t last_can_rx_time_ms</div><div class="ttdef"><b>Definition</b> can_parse.c:18</div></div>
 <div class="ttc" id="apsched_8h_html"><div class="ttname"><a href="psched_8h.html">psched.h</a></div></div>
 <div class="ttc" id="aqueue_8h_html"><div class="ttname"><a href="queue_8h.html">queue.h</a></div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
 <div class="ttc" id="astructcan__data__t_html"><div class="ttname"><a href="structcan__data__t.html">can_data_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:817</div></div>
-<div class="ttc" id="astructcan__data__t_html_a42dbb3a6b665e93b747daf944da812fe"><div class="ttname"><a href="structcan__data__t.html#a42dbb3a6b665e93b747daf944da812fe">can_data_t::download_request</a></div><div class="ttdeci">uint8_t download_request</div><div class="ttdef"><b>Definition</b> can_parse.h:202</div></div>
-<div class="ttc" id="astructcan__data__t_html_a6bf7dae21e2373d4e29603b6e8e1e091"><div class="ttname"><a href="structcan__data__t.html#a6bf7dae21e2373d4e29603b6e8e1e091">can_data_t::download_size</a></div><div class="ttdeci">uint32_t download_size</div><div class="ttdef"><b>Definition</b> can_parse.h:203</div></div>
 <div class="ttc" id="astructq__handle__t_html"><div class="ttname"><a href="structq__handle__t.html">q_handle_t</a></div><div class="ttdef"><b>Definition</b> queue.h:25</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a53dd855156d2013f0b019d99b28c8e18"><div class="ttname"><a href="torque__vector_2can_2can__parse_8h.html#a53dd855156d2013f0b019d99b28c8e18">bitstream_request_CALLBACK</a></div><div class="ttdeci">void bitstream_request_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdoc">New state change request from CAN tester.</div><div class="ttdef"><b>Definition</b> bitstream.c:105</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ad80b4d5b5085d0319c780b1b03572616"><div class="ttname"><a href="torque__vector_2can_2can__parse_8h.html#ad80b4d5b5085d0319c780b1b03572616">bitstream_data_IRQ</a></div><div class="ttdeci">void bitstream_data_IRQ(CanParsedData_t *msg_data_a)</div><div class="ttdoc">Callback when new bitstream data message Rxd.</div><div class="ttdef"><b>Definition</b> bitstream.c:71</div></div>
 <div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
 <div class="ttc" id="aunion____attribute_____html"><div class="ttname"><a href="union____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition</b> can_parse.h:235</div></div>
-<div class="ttc" id="aunion____attribute_____html_a2fef01a9b40825631a15e9b27ad1a41a"><div class="ttname"><a href="union____attribute____.html#a2fef01a9b40825631a15e9b27ad1a41a">__attribute__::download_size</a></div><div class="ttdeci">uint64_t download_size</div><div class="ttdef"><b>Definition</b> can_parse.h:138</div></div>
-<div class="ttc" id="aunion____attribute_____html_a6c89e8ff9ddc49c1561f0c2cffcb5b95"><div class="ttname"><a href="union____attribute____.html#a6c89e8ff9ddc49c1561f0c2cffcb5b95">__attribute__::flash_success</a></div><div class="ttdeci">uint64_t flash_success</div><div class="ttdef"><b>Definition</b> can_parse.h:107</div></div>
-<div class="ttc" id="aunion____attribute_____html_aaa4776de081b8d87e4645793b2c5ad4b"><div class="ttname"><a href="union____attribute____.html#aaa4776de081b8d87e4645793b2c5ad4b">__attribute__::download_request</a></div><div class="ttdeci">uint64_t download_request</div><div class="ttdef"><b>Definition</b> can_parse.h:137</div></div>
-<div class="ttc" id="aunion____attribute_____html_ad94cd0f1da2d339029ea609c8eef7921"><div class="ttname"><a href="union____attribute____.html#ad94cd0f1da2d339029ea609c8eef7921">__attribute__::flash_timeout_rx</a></div><div class="ttdeci">uint64_t flash_timeout_rx</div><div class="ttdef"><b>Definition</b> can_parse.h:108</div></div>
+<div class="ttc" id="aunion____attribute_____html_a008bafbe482a111024b36bf11d20176d"><div class="ttname"><a href="union____attribute____.html#a008bafbe482a111024b36bf11d20176d">__attribute__::gps_pos_y</a></div><div class="ttdeci">uint64_t gps_pos_y</div><div class="ttdef"><b>Definition</b> can_parse.h:178</div></div>
+<div class="ttc" id="aunion____attribute_____html_a0a62056fa4c37d1683536bf0c4da3e97"><div class="ttname"><a href="union____attribute____.html#a0a62056fa4c37d1683536bf0c4da3e97">__attribute__::imu_gyro_x</a></div><div class="ttdeci">uint64_t imu_gyro_x</div><div class="ttdef"><b>Definition</b> can_parse.h:187</div></div>
+<div class="ttc" id="aunion____attribute_____html_a0a6a4fca2ce97ebe4cc3ffe39a0b04d2"><div class="ttname"><a href="union____attribute____.html#a0a6a4fca2ce97ebe4cc3ffe39a0b04d2">__attribute__::bmm_mag_z</a></div><div class="ttdeci">uint64_t bmm_mag_z</div><div class="ttdef"><b>Definition</b> can_parse.h:199</div></div>
+<div class="ttc" id="aunion____attribute_____html_a12488bcf2e3117e5853dbfbe3554239b"><div class="ttname"><a href="union____attribute____.html#a12488bcf2e3117e5853dbfbe3554239b">__attribute__::gps_vel_d</a></div><div class="ttdeci">uint64_t gps_vel_d</div><div class="ttdef"><b>Definition</b> can_parse.h:173</div></div>
+<div class="ttc" id="aunion____attribute_____html_a1ef918ac87d0eca7b828c22e93bcae35"><div class="ttname"><a href="union____attribute____.html#a1ef918ac87d0eca7b828c22e93bcae35">__attribute__::sfs_ang_c</a></div><div class="ttdeci">uint64_t sfs_ang_c</div><div class="ttdef"><b>Definition</b> can_parse.h:219</div></div>
+<div class="ttc" id="aunion____attribute_____html_a2004c6f409893d7db9884353d2f41852"><div class="ttname"><a href="union____attribute____.html#a2004c6f409893d7db9884353d2f41852">__attribute__::imu_gyro_y</a></div><div class="ttdeci">uint64_t imu_gyro_y</div><div class="ttdef"><b>Definition</b> can_parse.h:188</div></div>
+<div class="ttc" id="aunion____attribute_____html_a2cb7d542f0710de8f301db69d6ed4352"><div class="ttname"><a href="union____attribute____.html#a2cb7d542f0710de8f301db69d6ed4352">__attribute__::gps_vel_n</a></div><div class="ttdeci">uint64_t gps_vel_n</div><div class="ttdef"><b>Definition</b> can_parse.h:171</div></div>
+<div class="ttc" id="aunion____attribute_____html_a316e811ab35108a13fdb79b5de605cd7"><div class="ttname"><a href="union____attribute____.html#a316e811ab35108a13fdb79b5de605cd7">__attribute__::sfs_acc_y</a></div><div class="ttdeci">uint64_t sfs_acc_y</div><div class="ttdef"><b>Definition</b> can_parse.h:213</div></div>
+<div class="ttc" id="aunion____attribute_____html_a35ca695511842a42148a98b5ab32038a"><div class="ttname"><a href="union____attribute____.html#a35ca695511842a42148a98b5ab32038a">__attribute__::gps_pos_x</a></div><div class="ttdeci">uint64_t gps_pos_x</div><div class="ttdef"><b>Definition</b> can_parse.h:177</div></div>
+<div class="ttc" id="aunion____attribute_____html_a38c1b269660637261829cd0047c4da1c"><div class="ttname"><a href="union____attribute____.html#a38c1b269660637261829cd0047c4da1c">__attribute__::imu_accel_z</a></div><div class="ttdeci">uint64_t imu_accel_z</div><div class="ttdef"><b>Definition</b> can_parse.h:194</div></div>
+<div class="ttc" id="aunion____attribute_____html_a55e3fb6c0b3cb2fe288b63b0f235a281"><div class="ttname"><a href="union____attribute____.html#a55e3fb6c0b3cb2fe288b63b0f235a281">__attribute__::sfs_ang_b</a></div><div class="ttdeci">uint64_t sfs_ang_b</div><div class="ttdef"><b>Definition</b> can_parse.h:218</div></div>
+<div class="ttc" id="aunion____attribute_____html_a59872324fd2e9068a78a4bc8290ef5e1"><div class="ttname"><a href="union____attribute____.html#a59872324fd2e9068a78a4bc8290ef5e1">__attribute__::gps_pos_z</a></div><div class="ttdeci">uint64_t gps_pos_z</div><div class="ttdef"><b>Definition</b> can_parse.h:179</div></div>
+<div class="ttc" id="aunion____attribute_____html_a59953028715cf70451768c93ebcedac1"><div class="ttname"><a href="union____attribute____.html#a59953028715cf70451768c93ebcedac1">__attribute__::sfs_acc_x</a></div><div class="ttdeci">uint64_t sfs_acc_x</div><div class="ttdef"><b>Definition</b> can_parse.h:212</div></div>
+<div class="ttc" id="aunion____attribute_____html_a5ede7b3cd1d7ef4523b4a27de8d9be0a"><div class="ttname"><a href="union____attribute____.html#a5ede7b3cd1d7ef4523b4a27de8d9be0a">__attribute__::sfs_pos_x</a></div><div class="ttdeci">uint64_t sfs_pos_x</div><div class="ttdef"><b>Definition</b> can_parse.h:202</div></div>
+<div class="ttc" id="aunion____attribute_____html_a61490d6c268a7aa60504dfe5b996eb90"><div class="ttname"><a href="union____attribute____.html#a61490d6c268a7aa60504dfe5b996eb90">__attribute__::sfs_ang_a</a></div><div class="ttdeci">uint64_t sfs_ang_a</div><div class="ttdef"><b>Definition</b> can_parse.h:217</div></div>
+<div class="ttc" id="aunion____attribute_____html_a65232cd87181c7a0b8dba856f103c740"><div class="ttname"><a href="union____attribute____.html#a65232cd87181c7a0b8dba856f103c740">__attribute__::imu_gyro_z</a></div><div class="ttdeci">uint64_t imu_gyro_z</div><div class="ttdef"><b>Definition</b> can_parse.h:189</div></div>
+<div class="ttc" id="aunion____attribute_____html_a735889e915c9c407b65eed213aebf944"><div class="ttname"><a href="union____attribute____.html#a735889e915c9c407b65eed213aebf944">__attribute__::gps_vel_total</a></div><div class="ttdeci">uint64_t gps_vel_total</div><div class="ttdef"><b>Definition</b> can_parse.h:174</div></div>
+<div class="ttc" id="aunion____attribute_____html_a79696299d72fdf46477ce99b539b27b6"><div class="ttname"><a href="union____attribute____.html#a79696299d72fdf46477ce99b539b27b6">__attribute__::sfs_pos_y</a></div><div class="ttdeci">uint64_t sfs_pos_y</div><div class="ttdef"><b>Definition</b> can_parse.h:203</div></div>
+<div class="ttc" id="aunion____attribute_____html_a886ce10db40714192c26703f80993cb5"><div class="ttname"><a href="union____attribute____.html#a886ce10db40714192c26703f80993cb5">__attribute__::bmm_mag_y</a></div><div class="ttdeci">uint64_t bmm_mag_y</div><div class="ttdef"><b>Definition</b> can_parse.h:198</div></div>
+<div class="ttc" id="aunion____attribute_____html_a946087dbe6ba96c31585a79c2cc37093"><div class="ttname"><a href="union____attribute____.html#a946087dbe6ba96c31585a79c2cc37093">__attribute__::bmm_mag_x</a></div><div class="ttdeci">uint64_t bmm_mag_x</div><div class="ttdef"><b>Definition</b> can_parse.h:197</div></div>
+<div class="ttc" id="aunion____attribute_____html_a94794170fc702ca8b3d535977ed9a27d"><div class="ttname"><a href="union____attribute____.html#a94794170fc702ca8b3d535977ed9a27d">__attribute__::sfs_vel_z</a></div><div class="ttdeci">uint64_t sfs_vel_z</div><div class="ttdef"><b>Definition</b> can_parse.h:209</div></div>
+<div class="ttc" id="aunion____attribute_____html_aa8d6c4a742b08d1b6bc18bd9a4ad3a6c"><div class="ttname"><a href="union____attribute____.html#aa8d6c4a742b08d1b6bc18bd9a4ad3a6c">__attribute__::sfs_ang_vel_x</a></div><div class="ttdeci">uint64_t sfs_ang_vel_x</div><div class="ttdef"><b>Definition</b> can_parse.h:223</div></div>
+<div class="ttc" id="aunion____attribute_____html_aaca2c8b9f18d733ad37951799340a76e"><div class="ttname"><a href="union____attribute____.html#aaca2c8b9f18d733ad37951799340a76e">__attribute__::sfs_vel_x</a></div><div class="ttdeci">uint64_t sfs_vel_x</div><div class="ttdef"><b>Definition</b> can_parse.h:207</div></div>
+<div class="ttc" id="aunion____attribute_____html_aaf496b8eddae139c28e14d3b80c7933d"><div class="ttname"><a href="union____attribute____.html#aaf496b8eddae139c28e14d3b80c7933d">__attribute__::sfs_pos_z</a></div><div class="ttdeci">uint64_t sfs_pos_z</div><div class="ttdef"><b>Definition</b> can_parse.h:204</div></div>
+<div class="ttc" id="aunion____attribute_____html_ab552aa7f73c8c35eb7d10835946a67c1"><div class="ttname"><a href="union____attribute____.html#ab552aa7f73c8c35eb7d10835946a67c1">__attribute__::sfs_vel_y</a></div><div class="ttdeci">uint64_t sfs_vel_y</div><div class="ttdef"><b>Definition</b> can_parse.h:208</div></div>
+<div class="ttc" id="aunion____attribute_____html_ab68dd5b0640b2bd10bdb23bca2bf0013"><div class="ttname"><a href="union____attribute____.html#ab68dd5b0640b2bd10bdb23bca2bf0013">__attribute__::imu_accel_x</a></div><div class="ttdeci">uint64_t imu_accel_x</div><div class="ttdef"><b>Definition</b> can_parse.h:192</div></div>
+<div class="ttc" id="aunion____attribute_____html_abb76eb9e72efc58a78a86d4e817b6885"><div class="ttname"><a href="union____attribute____.html#abb76eb9e72efc58a78a86d4e817b6885">__attribute__::sfs_ang_vel_y</a></div><div class="ttdeci">uint64_t sfs_ang_vel_y</div><div class="ttdef"><b>Definition</b> can_parse.h:224</div></div>
+<div class="ttc" id="aunion____attribute_____html_ad17bb482ff26f4511d701191bc3f53c6"><div class="ttname"><a href="union____attribute____.html#ad17bb482ff26f4511d701191bc3f53c6">__attribute__::sfs_ang_vel_z</a></div><div class="ttdeci">uint64_t sfs_ang_vel_z</div><div class="ttdef"><b>Definition</b> can_parse.h:225</div></div>
+<div class="ttc" id="aunion____attribute_____html_adb5f88eb982db83a4b373eb7456ff9b8"><div class="ttname"><a href="union____attribute____.html#adb5f88eb982db83a4b373eb7456ff9b8">__attribute__::imu_accel_y</a></div><div class="ttdeci">uint64_t imu_accel_y</div><div class="ttdef"><b>Definition</b> can_parse.h:193</div></div>
+<div class="ttc" id="aunion____attribute_____html_aeaf845ab63395847a29480c7e8e0d89e"><div class="ttname"><a href="union____attribute____.html#aeaf845ab63395847a29480c7e8e0d89e">__attribute__::sfs_ang_d</a></div><div class="ttdeci">uint64_t sfs_ang_d</div><div class="ttdef"><b>Definition</b> can_parse.h:220</div></div>
+<div class="ttc" id="aunion____attribute_____html_aed269691fd156fa62b0baf753b02b020"><div class="ttname"><a href="union____attribute____.html#aed269691fd156fa62b0baf753b02b020">__attribute__::longitude</a></div><div class="ttdeci">uint64_t longitude</div><div class="ttdef"><b>Definition</b> can_parse.h:184</div></div>
+<div class="ttc" id="aunion____attribute_____html_aefe32f514103dccf53159504ff529d29"><div class="ttname"><a href="union____attribute____.html#aefe32f514103dccf53159504ff529d29">__attribute__::sfs_acc_z</a></div><div class="ttdeci">uint64_t sfs_acc_z</div><div class="ttdef"><b>Definition</b> can_parse.h:214</div></div>
+<div class="ttc" id="aunion____attribute_____html_af7a2f5b49493e4f34abf63d459752cac"><div class="ttname"><a href="union____attribute____.html#af7a2f5b49493e4f34abf63d459752cac">__attribute__::latitude</a></div><div class="ttdeci">uint64_t latitude</div><div class="ttdef"><b>Definition</b> can_parse.h:183</div></div>
+<div class="ttc" id="aunion____attribute_____html_afbe0fa5f52736570178222352ec9f10e"><div class="ttname"><a href="union____attribute____.html#afbe0fa5f52736570178222352ec9f10e">__attribute__::gps_vel_e</a></div><div class="ttdeci">uint64_t gps_vel_e</div><div class="ttdef"><b>Definition</b> can_parse.h:172</div></div>
+<div class="ttc" id="aunion____attribute_____html_afdbecba0297bf817398dc56e927af7e1"><div class="ttname"><a href="union____attribute____.html#afdbecba0297bf817398dc56e927af7e1">__attribute__::height</a></div><div class="ttdeci">uint64_t height</div><div class="ttdef"><b>Definition</b> can_parse.h:180</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

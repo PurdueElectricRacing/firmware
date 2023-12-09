@@ -1,7 +1,7 @@
 /**
  * @file adc.h
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2021-12-27
  */
@@ -41,7 +41,7 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
 
     #ifdef STM32L432xx
     #define ADC_COMMON ADC1_COMMON
-    #elif STM32L496xx
+    #elif STM32L496xx || STM32L471xx
     #define ADC_COMMON ADC123_COMMON
     #else
     #error "STM32 Arch not currently supported for ADC"
@@ -58,7 +58,7 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     adc->CFGR &= ~(ADC_CFGR_CONT);
     adc->CFGR |= (config->cont_conv_mode << ADC_CFGR_CONT_Pos) & ADC_CFGR_CONT_Msk;
 
-    // Overrun    
+    // Overrun
     adc->CFGR &= ~(ADC_CFGR_OVRMOD);
     adc->CFGR |= (config->overrun << ADC_CFGR_OVRMOD_Pos) & ADC_CFGR_OVRMOD_Msk;
 
@@ -77,7 +77,7 @@ bool PHAL_initADC(ADC_TypeDef* adc, ADCInitConfig_t* config, ADCChannelConfig_t 
     // DMA configuration
     if (config->dma_mode != ADC_DMA_OFF)
     {
-        adc->CFGR |= (ADC_CFGR_DMAEN) | 
+        adc->CFGR |= (ADC_CFGR_DMAEN) |
                      (((config->dma_mode == ADC_DMA_CIRCULAR) << ADC_CFGR_DMACFG_Pos) & ADC_CFGR_DMACFG);
     }
     else adc->CFGR &= ~(ADC_CFGR_DMAEN);
@@ -149,4 +149,3 @@ uint16_t PHAL_readADC(ADC_TypeDef* adc)
 {
     return (uint16_t) (adc->DR & ADC_DR_RDATA_Msk);
 }
-

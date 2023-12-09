@@ -61,9 +61,9 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
-        {   "name": "Navigation",
+        {   "name": "Torque Vectoring",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/navigation/navigation.elf",
+            "executable": "./output/torque_vector/torque_vector.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -75,7 +75,7 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/navigation"
+                "${workspaceFolder}/source/torque_vector"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
@@ -156,9 +156,9 @@
             // "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
-        {   "name": "Torque Vectoring",
+        {   "name": "Torque Vectoring (FPGA)",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/torque_vector/torque_vector.elf",
+            "executable": "./output/torque_vector_fpga/torque_vector_fpga.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -170,7 +170,7 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/torque_vector"
+                "${workspaceFolder}/source/torque_vector_fpga"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
@@ -289,9 +289,9 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
-        {   "name": "BL App - Torque Vectoring",
+        {   "name": "BL App - Torque Vectoring (FPGA)",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/torque_vector/BL_torque_vector.elf",
+            "executable": "./output/torque_vector_fpga/BL_torque_vector_fpga.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -303,7 +303,7 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/torque_vector"
+                "${workspaceFolder}/source/torque_vector_fpga"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main"

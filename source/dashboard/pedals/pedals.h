@@ -2,8 +2,8 @@
  * @file pedals.h
  * @author Luke Oxley (lcoxley@purdue.edu)
  * @brief  Read, check, and send pedal measurements
- * @version 0.1
- * @date 2022-03-09
+ * @version 24.1
+ * @date 2023-12-10
  *
  * @copyright Copyright (c) 2022
  *
@@ -15,10 +15,11 @@
 /* System Includes */
 #include "common/psched/psched.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "stdbool.h"
+// #include "common/faults/faults.h"
 
 /* Module Includes */
-#include "can_parse.h"
+// #include "can_parse.h"
 
 #define MAX_PEDAL_MEAS (4095)
 
@@ -63,8 +64,6 @@ typedef struct {
     uint16_t b1min;
     uint16_t b2max;
     uint16_t b2min;
-    uint16_t b3max;
-    uint16_t b3min;
 } pedal_calibration_t;
 
 extern pedal_calibration_t pedal_calibration;

@@ -86,7 +86,7 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="can_8h_source.html">common/phal_L4/can/can.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__L4_2can_2can_8h_source.html">common/phal_L4/can/can.h</a>&quot;</code><br />
 </div>
 <p><a href="precharge_2can_2can__parse_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -177,6 +177,8 @@ Macros</h2></td></tr>
 <tr class="separator:a107f24fa8e4697f5a28ce9099304f7f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9becb85577e845fd529c8b543ad2e170" id="r_a9becb85577e845fd529c8b543ad2e170"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#a9becb85577e845fd529c8b543ad2e170">ID_PRECHARGE_BL_CMD</a>&#160;&#160;&#160;0x409c57e</td></tr>
 <tr class="separator:a9becb85577e845fd529c8b543ad2e170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e89d9220b475fbb54758b0a464b73ad" id="r_a6e89d9220b475fbb54758b0a464b73ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#a6e89d9220b475fbb54758b0a464b73ad">ID_FAULT_SYNC_PDU</a>&#160;&#160;&#160;0x8cb5f</td></tr>
+<tr class="separator:a6e89d9220b475fbb54758b0a464b73ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2116081dea4d2c1b67ddfd1d2937270" id="r_ac2116081dea4d2c1b67ddfd1d2937270"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#ac2116081dea4d2c1b67ddfd1d2937270">ID_FAULT_SYNC_MAIN_MODULE</a>&#160;&#160;&#160;0x8ca01</td></tr>
 <tr class="separator:ac2116081dea4d2c1b67ddfd1d2937270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a9adcc21401f948f58f4c27506e7ff7" id="r_a7a9adcc21401f948f58f4c27506e7ff7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#a7a9adcc21401f948f58f4c27506e7ff7">ID_FAULT_SYNC_DRIVELINE</a>&#160;&#160;&#160;0x8ca83</td></tr>
@@ -269,6 +271,8 @@ Macros</h2></td></tr>
 <tr class="separator:a16866fbb37ada2b61258b983c01287ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79dc69993674f0a52d2b0b5eeb9b71ae" id="r_a79dc69993674f0a52d2b0b5eeb9b71ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#a79dc69993674f0a52d2b0b5eeb9b71ae">DLC_PRECHARGE_BL_CMD</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:a79dc69993674f0a52d2b0b5eeb9b71ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27fa6a4ac57c58a060d60b5b9bd8ebcc" id="r_a27fa6a4ac57c58a060d60b5b9bd8ebcc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#a27fa6a4ac57c58a060d60b5b9bd8ebcc">DLC_FAULT_SYNC_PDU</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a27fa6a4ac57c58a060d60b5b9bd8ebcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1567d3af94fd261778e554c6c788f32" id="r_ac1567d3af94fd261778e554c6c788f32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#ac1567d3af94fd261778e554c6c788f32">DLC_FAULT_SYNC_MAIN_MODULE</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:ac1567d3af94fd261778e554c6c788f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5acb92ec593ec966ec8430213861e8ee" id="r_a5acb92ec593ec966ec8430213861e8ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="precharge_2can_2can__parse_8h.html#a5acb92ec593ec966ec8430213861e8ee">DLC_FAULT_SYNC_DRIVELINE</a>&#160;&#160;&#160;3</td></tr>
@@ -548,6 +552,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define DLC_FAULT_SYNC_MAIN_MODULE&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27fa6a4ac57c58a060d60b5b9bd8ebcc" name="a27fa6a4ac57c58a060d60b5b9bd8ebcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27fa6a4ac57c58a060d60b5b9bd8ebcc">&#9670;&#160;</a></span>DLC_FAULT_SYNC_PDU</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_FAULT_SYNC_PDU&#160;&#160;&#160;3</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1198,6 +1216,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a6e89d9220b475fbb54758b0a464b73ad" name="a6e89d9220b475fbb54758b0a464b73ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e89d9220b475fbb54758b0a464b73ad">&#9670;&#160;</a></span>ID_FAULT_SYNC_PDU</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_FAULT_SYNC_PDU&#160;&#160;&#160;0x8cb5f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad151502d81267d149e6277e22128b1f4" name="ad151502d81267d149e6277e22128b1f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad151502d81267d149e6277e22128b1f4">&#9670;&#160;</a></span>ID_FAULT_SYNC_PRECHARGE</h2>
 
@@ -1762,7 +1794,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ac381c15f46a3df61c6db5b2448aaed39"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ac381c15f46a3df61c6db5b2448aaed39">ID_ACCEL_DATA</a></div><div class="ttdeci">#define ID_ACCEL_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:31</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ac7ada9e79f8647bb5fe6a46a1f3ebe22"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ac7ada9e79f8647bb5fe6a46a1f3ebe22">DLC_ACCEL_DATA</a></div><div class="ttdeci">#define DLC_ACCEL_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:81</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ac7ada9e79f8647bb5fe6a46a1f3ebe22"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ac7ada9e79f8647bb5fe6a46a1f3ebe22">DLC_ACCEL_DATA</a></div><div class="ttdeci">#define DLC_ACCEL_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:82</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
 <div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
 </div><!-- fragment -->
@@ -1814,7 +1846,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a3e13e3432d0c59f176800e15b1449ce8"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a3e13e3432d0c59f176800e15b1449ce8">ID_ANGLE_DATA</a></div><div class="ttdeci">#define ID_ANGLE_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:32</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a5b21222f3125adc950279ca755d5b356"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a5b21222f3125adc950279ca755d5b356">DLC_ANGLE_DATA</a></div><div class="ttdeci">#define DLC_ANGLE_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:82</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a5b21222f3125adc950279ca755d5b356"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a5b21222f3125adc950279ca755d5b356">DLC_ANGLE_DATA</a></div><div class="ttdeci">#define DLC_ANGLE_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:83</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1850,7 +1882,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a31f52898d0a45a80cbd9d40c0780ea8e"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a31f52898d0a45a80cbd9d40c0780ea8e">ID_BALANCE_REQUEST</a></div><div class="ttdeci">#define ID_BALANCE_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:25</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_af050aa792ce80a6be03761e22a390f92"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#af050aa792ce80a6be03761e22a390f92">DLC_BALANCE_REQUEST</a></div><div class="ttdeci">#define DLC_BALANCE_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:75</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_af050aa792ce80a6be03761e22a390f92"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#af050aa792ce80a6be03761e22a390f92">DLC_BALANCE_REQUEST</a></div><div class="ttdeci">#define DLC_BALANCE_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:76</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1886,7 +1918,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a974b798bb2f46cdb1a85befa0a3a1367"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a974b798bb2f46cdb1a85befa0a3a1367">ID_DAQ_RESPONSE_PRECHARGE</a></div><div class="ttdeci">#define ID_DAQ_RESPONSE_PRECHARGE</div><div class="ttdef"><b>Definition</b> can_parse.h:39</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_aab401f4af6145655275d680841ee7a47"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#aab401f4af6145655275d680841ee7a47">DLC_DAQ_RESPONSE_PRECHARGE</a></div><div class="ttdeci">#define DLC_DAQ_RESPONSE_PRECHARGE</div><div class="ttdef"><b>Definition</b> can_parse.h:89</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_aab401f4af6145655275d680841ee7a47"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#aab401f4af6145655275d680841ee7a47">DLC_DAQ_RESPONSE_PRECHARGE</a></div><div class="ttdeci">#define DLC_DAQ_RESPONSE_PRECHARGE</div><div class="ttdef"><b>Definition</b> can_parse.h:90</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1936,7 +1968,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a3f35297e3edc2441bd2c220668574c27"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a3f35297e3edc2441bd2c220668574c27">ID_ELCON_CHARGER_COMMAND</a></div><div class="ttdeci">#define ID_ELCON_CHARGER_COMMAND</div><div class="ttdef"><b>Definition</b> can_parse.h:27</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ae5f2908f1069732d3e7b0ad73167ec03"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ae5f2908f1069732d3e7b0ad73167ec03">DLC_ELCON_CHARGER_COMMAND</a></div><div class="ttdeci">#define DLC_ELCON_CHARGER_COMMAND</div><div class="ttdef"><b>Definition</b> can_parse.h:77</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ae5f2908f1069732d3e7b0ad73167ec03"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ae5f2908f1069732d3e7b0ad73167ec03">DLC_ELCON_CHARGER_COMMAND</a></div><div class="ttdeci">#define DLC_ELCON_CHARGER_COMMAND</div><div class="ttdef"><b>Definition</b> can_parse.h:78</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1978,7 +2010,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;fault_sync_precharge.latched = latched_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a7f803ccb1bc5506b2c2680d2004ec0a7"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a7f803ccb1bc5506b2c2680d2004ec0a7">DLC_FAULT_SYNC_PRECHARGE</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_PRECHARGE</div><div class="ttdef"><b>Definition</b> can_parse.h:88</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a7f803ccb1bc5506b2c2680d2004ec0a7"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a7f803ccb1bc5506b2c2680d2004ec0a7">DLC_FAULT_SYNC_PRECHARGE</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_PRECHARGE</div><div class="ttdef"><b>Definition</b> can_parse.h:89</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ad151502d81267d149e6277e22128b1f4"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ad151502d81267d149e6277e22128b1f4">ID_FAULT_SYNC_PRECHARGE</a></div><div class="ttdeci">#define ID_FAULT_SYNC_PRECHARGE</div><div class="ttdef"><b>Definition</b> can_parse.h:38</div></div>
 </div><!-- fragment -->
 </div>
@@ -2028,7 +2060,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;gyro_data.gz = gz_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a2128b0328a8f827f307637611171a462"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a2128b0328a8f827f307637611171a462">DLC_GYRO_DATA</a></div><div class="ttdeci">#define DLC_GYRO_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:80</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a2128b0328a8f827f307637611171a462"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a2128b0328a8f827f307637611171a462">DLC_GYRO_DATA</a></div><div class="ttdeci">#define DLC_GYRO_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:81</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a874430e82e89610e520557de55d49328"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a874430e82e89610e520557de55d49328">ID_GYRO_DATA</a></div><div class="ttdeci">#define ID_GYRO_DATA</div><div class="ttdef"><b>Definition</b> can_parse.h:30</div></div>
 </div><!-- fragment -->
 </div>
@@ -2072,7 +2104,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a3bc3f9dad25ece125fdb319e648cb6f1"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a3bc3f9dad25ece125fdb319e648cb6f1">ID_HEAT_REQ</a></div><div class="ttdeci">#define ID_HEAT_REQ</div><div class="ttdef"><b>Definition</b> can_parse.h:23</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a47fe0491f67f1a5fc3aa37fd642e8668"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a47fe0491f67f1a5fc3aa37fd642e8668">DLC_HEAT_REQ</a></div><div class="ttdeci">#define DLC_HEAT_REQ</div><div class="ttdef"><b>Definition</b> can_parse.h:73</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a47fe0491f67f1a5fc3aa37fd642e8668"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a47fe0491f67f1a5fc3aa37fd642e8668">DLC_HEAT_REQ</a></div><div class="ttdeci">#define DLC_HEAT_REQ</div><div class="ttdef"><b>Definition</b> can_parse.h:74</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2107,7 +2139,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;max_cell_temp.max_temp = max_temp_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a91254e5ed58aa658d0ed0c95e7f5105e"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a91254e5ed58aa658d0ed0c95e7f5105e">DLC_MAX_CELL_TEMP</a></div><div class="ttdeci">#define DLC_MAX_CELL_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:83</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a91254e5ed58aa658d0ed0c95e7f5105e"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a91254e5ed58aa658d0ed0c95e7f5105e">DLC_MAX_CELL_TEMP</a></div><div class="ttdeci">#define DLC_MAX_CELL_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:84</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_abb7088059c9c8e6721740cdce654845c"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#abb7088059c9c8e6721740cdce654845c">ID_MAX_CELL_TEMP</a></div><div class="ttdeci">#define ID_MAX_CELL_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:33</div></div>
 </div><!-- fragment -->
 </div>
@@ -2165,7 +2197,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a38ab86b3f9fbe52d6d1b4dc6f4bd1e55"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a38ab86b3f9fbe52d6d1b4dc6f4bd1e55">ID_MOD_CELL_TEMP_AVG</a></div><div class="ttdeci">#define ID_MOD_CELL_TEMP_AVG</div><div class="ttdef"><b>Definition</b> can_parse.h:34</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a644aa3fb06919d62e680fb36ca04d2e7"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a644aa3fb06919d62e680fb36ca04d2e7">DLC_MOD_CELL_TEMP_AVG</a></div><div class="ttdeci">#define DLC_MOD_CELL_TEMP_AVG</div><div class="ttdef"><b>Definition</b> can_parse.h:84</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a644aa3fb06919d62e680fb36ca04d2e7"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a644aa3fb06919d62e680fb36ca04d2e7">DLC_MOD_CELL_TEMP_AVG</a></div><div class="ttdeci">#define DLC_MOD_CELL_TEMP_AVG</div><div class="ttdef"><b>Definition</b> can_parse.h:85</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2221,7 +2253,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;mod_cell_temp_max.temp_D = temp_D_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a55992a1c967b7977671fe9e332640487"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a55992a1c967b7977671fe9e332640487">DLC_MOD_CELL_TEMP_MAX</a></div><div class="ttdeci">#define DLC_MOD_CELL_TEMP_MAX</div><div class="ttdef"><b>Definition</b> can_parse.h:85</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a55992a1c967b7977671fe9e332640487"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a55992a1c967b7977671fe9e332640487">DLC_MOD_CELL_TEMP_MAX</a></div><div class="ttdeci">#define DLC_MOD_CELL_TEMP_MAX</div><div class="ttdef"><b>Definition</b> can_parse.h:86</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ada9b3dabc65cc6db8899c02d6e60895d"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ada9b3dabc65cc6db8899c02d6e60895d">ID_MOD_CELL_TEMP_MAX</a></div><div class="ttdeci">#define ID_MOD_CELL_TEMP_MAX</div><div class="ttdef"><b>Definition</b> can_parse.h:35</div></div>
 </div><!-- fragment -->
 </div>
@@ -2279,7 +2311,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a409ae40550b20030700748df1020b932"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a409ae40550b20030700748df1020b932">ID_MOD_CELL_TEMP_MIN</a></div><div class="ttdeci">#define ID_MOD_CELL_TEMP_MIN</div><div class="ttdef"><b>Definition</b> can_parse.h:36</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a66958839d59e5d5567f914623792b064"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a66958839d59e5d5567f914623792b064">DLC_MOD_CELL_TEMP_MIN</a></div><div class="ttdeci">#define DLC_MOD_CELL_TEMP_MIN</div><div class="ttdef"><b>Definition</b> can_parse.h:86</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a66958839d59e5d5567f914623792b064"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a66958839d59e5d5567f914623792b064">DLC_MOD_CELL_TEMP_MIN</a></div><div class="ttdeci">#define DLC_MOD_CELL_TEMP_MIN</div><div class="ttdef"><b>Definition</b> can_parse.h:87</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2335,7 +2367,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;num_them_bad.module_4 = module_4_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a3d9b117cb146436fce7efb54ed99ba35"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a3d9b117cb146436fce7efb54ed99ba35">DLC_NUM_THEM_BAD</a></div><div class="ttdeci">#define DLC_NUM_THEM_BAD</div><div class="ttdef"><b>Definition</b> can_parse.h:78</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a3d9b117cb146436fce7efb54ed99ba35"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a3d9b117cb146436fce7efb54ed99ba35">DLC_NUM_THEM_BAD</a></div><div class="ttdeci">#define DLC_NUM_THEM_BAD</div><div class="ttdef"><b>Definition</b> can_parse.h:79</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a9535210cc4bdd366420e03b59019c6f2"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a9535210cc4bdd366420e03b59019c6f2">ID_NUM_THEM_BAD</a></div><div class="ttdeci">#define ID_NUM_THEM_BAD</div><div class="ttdef"><b>Definition</b> can_parse.h:28</div></div>
 </div><!-- fragment -->
 </div>
@@ -2393,7 +2425,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a8247dc9d0f2bcd2993c9eb80ef5248b9"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a8247dc9d0f2bcd2993c9eb80ef5248b9">ID_PACK_CHARGE_STATUS</a></div><div class="ttdeci">#define ID_PACK_CHARGE_STATUS</div><div class="ttdef"><b>Definition</b> can_parse.h:29</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ac2b828f3de694e4dac960511bd0ba232"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ac2b828f3de694e4dac960511bd0ba232">DLC_PACK_CHARGE_STATUS</a></div><div class="ttdeci">#define DLC_PACK_CHARGE_STATUS</div><div class="ttdef"><b>Definition</b> can_parse.h:79</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ac2b828f3de694e4dac960511bd0ba232"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ac2b828f3de694e4dac960511bd0ba232">DLC_PACK_CHARGE_STATUS</a></div><div class="ttdeci">#define DLC_PACK_CHARGE_STATUS</div><div class="ttdef"><b>Definition</b> can_parse.h:80</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2428,7 +2460,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;pack_curr.current = current_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a588b98d347b7b0a268fef962bb7379cb"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a588b98d347b7b0a268fef962bb7379cb">DLC_PACK_CURR</a></div><div class="ttdeci">#define DLC_PACK_CURR</div><div class="ttdef"><b>Definition</b> can_parse.h:74</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a588b98d347b7b0a268fef962bb7379cb"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a588b98d347b7b0a268fef962bb7379cb">DLC_PACK_CURR</a></div><div class="ttdeci">#define DLC_PACK_CURR</div><div class="ttdef"><b>Definition</b> can_parse.h:75</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_aedd9fe344de3b6d2e172e3d21106555b"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#aedd9fe344de3b6d2e172e3d21106555b">ID_PACK_CURR</a></div><div class="ttdeci">#define ID_PACK_CURR</div><div class="ttdef"><b>Definition</b> can_parse.h:24</div></div>
 </div><!-- fragment -->
 </div>
@@ -2472,7 +2504,7 @@ Variables</h2></td></tr>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a3cbde89aca1662a7d8ee7893e3d806eb"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a3cbde89aca1662a7d8ee7893e3d806eb">ID_PRECHARGE_HB</a></div><div class="ttdeci">#define ID_PRECHARGE_HB</div><div class="ttdef"><b>Definition</b> can_parse.h:26</div></div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ae8ac51a743bd50eeef49dd0198425938"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ae8ac51a743bd50eeef49dd0198425938">DLC_PRECHARGE_HB</a></div><div class="ttdeci">#define DLC_PRECHARGE_HB</div><div class="ttdef"><b>Definition</b> can_parse.h:76</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_ae8ac51a743bd50eeef49dd0198425938"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#ae8ac51a743bd50eeef49dd0198425938">DLC_PRECHARGE_HB</a></div><div class="ttdeci">#define DLC_PRECHARGE_HB</div><div class="ttdef"><b>Definition</b> can_parse.h:77</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2535,7 +2567,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;raw_cell_temp.temp_D = temp_D_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a2e1856594c29c5ceaef00fc96e5dc607"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a2e1856594c29c5ceaef00fc96e5dc607">DLC_RAW_CELL_TEMP</a></div><div class="ttdeci">#define DLC_RAW_CELL_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:87</div></div>
+<div class="ttc" id="aprecharge_2can_2can__parse_8h_html_a2e1856594c29c5ceaef00fc96e5dc607"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#a2e1856594c29c5ceaef00fc96e5dc607">DLC_RAW_CELL_TEMP</a></div><div class="ttdeci">#define DLC_RAW_CELL_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:88</div></div>
 <div class="ttc" id="aprecharge_2can_2can__parse_8h_html_abb3448bf96810283c9c22053d921cf2f"><div class="ttname"><a href="precharge_2can_2can__parse_8h.html#abb3448bf96810283c9c22053d921cf2f">ID_RAW_CELL_TEMP</a></div><div class="ttdeci">#define ID_RAW_CELL_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:37</div></div>
 </div><!-- fragment -->
 </div>

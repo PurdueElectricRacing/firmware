@@ -84,8 +84,11 @@ $(function() {
 <code>#include &quot;<a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html">common/phal_F4_F7/dma/dma.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html">common/phal_F4_F7/rcc/rcc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
+<code>#include &quot;common/faults/faults.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="pdu_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -96,10 +99,20 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac30a8964bf994b5667a97641aba63ac1" id="r_ac30a8964bf994b5667a97641aba63ac1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#ac30a8964bf994b5667a97641aba63ac1">preflightAnimation</a> ()</td></tr>
+<tr class="separator:ac30a8964bf994b5667a97641aba63ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60cfcf15038028a030b9adb3f61b0ad1" id="r_a60cfcf15038028a030b9adb3f61b0ad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a60cfcf15038028a030b9adb3f61b0ad1">preflightChecks</a> (void)</td></tr>
+<tr class="separator:a60cfcf15038028a030b9adb3f61b0ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1180d6a3af2f6cab216f947333f61f" id="r_a8f1180d6a3af2f6cab216f947333f61f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a8f1180d6a3af2f6cab216f947333f61f">canTxUpdate</a> ()</td></tr>
+<tr class="separator:a8f1180d6a3af2f6cab216f947333f61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d8a0a3c7d5704459f39b57f14412b1a" id="r_a1d8a0a3c7d5704459f39b57f14412b1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a1d8a0a3c7d5704459f39b57f14412b1a">heatBeatLED</a> ()</td></tr>
 <tr class="separator:a1d8a0a3c7d5704459f39b57f14412b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63024810ac78b1929f924aabbd1151d" id="r_ab63024810ac78b1929f924aabbd1151d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#ab63024810ac78b1929f924aabbd1151d">sendtestmsg</a> ()</td></tr>
+<tr class="separator:ab63024810ac78b1929f924aabbd1151d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
+<tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -123,6 +136,10 @@ Variables</h2></td></tr>
 <tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c95aa854f1338bfb6e9273572403bda" id="r_a2c95aa854f1338bfb6e9273572403bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a></td></tr>
+<tr class="separator:a2c95aa854f1338bfb6e9273572403bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f61f7099706a5b18a5161318a097bd9" id="r_a6f61f7099706a5b18a5161318a097bd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdu_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a></td></tr>
+<tr class="separator:a6f61f7099706a5b18a5161318a097bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a041cbdf351ae1da6f864d0d249c93008" name="a041cbdf351ae1da6f864d0d249c93008"></a>
@@ -140,6 +157,41 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN1_RX0_IRQHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f1180d6a3af2f6cab216f947333f61f" name="a8f1180d6a3af2f6cab216f947333f61f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1180d6a3af2f6cab216f947333f61f">&#9670;&#160;</a></span>canTxUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canTxUpdate </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -185,6 +237,59 @@ Variables</h2></td></tr>
           <td class="memname">int main </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac30a8964bf994b5667a97641aba63ac1" name="ac30a8964bf994b5667a97641aba63ac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac30a8964bf994b5667a97641aba63ac1">&#9670;&#160;</a></span>preflightAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void preflightAnimation </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60cfcf15038028a030b9adb3f61b0ad1" name="a60cfcf15038028a030b9adb3f61b0ad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60cfcf15038028a030b9adb3f61b0ad1">&#9670;&#160;</a></span>preflightChecks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void preflightChecks </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab63024810ac78b1929f924aabbd1151d" name="ab63024810ac78b1929f924aabbd1151d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab63024810ac78b1929f924aabbd1151d">&#9670;&#160;</a></span>sendtestmsg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sendtestmsg </td>
+          <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -423,6 +528,34 @@ Variables</h2></td></tr>
 <span class="mlabels"><span class="mlabel">extern</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f61f7099706a5b18a5161318a097bd9" name="a6f61f7099706a5b18a5161318a097bd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f61f7099706a5b18a5161318a097bd9">&#9670;&#160;</a></span>q_rx_can</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_rx_can</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c95aa854f1338bfb6e9273572403bda" name="a2c95aa854f1338bfb6e9273572403bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c95aa854f1338bfb6e9273572403bda">&#9670;&#160;</a></span>q_tx_can</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_can</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>

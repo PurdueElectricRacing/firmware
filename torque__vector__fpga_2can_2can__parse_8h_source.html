@@ -87,7 +87,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="queue_8h.html">common/queue/queue.h</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="psched_8h.html">common/psched/psched.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="can_8h.html">common/phal_L4/can/can.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="phal__L4_2can_2can_8h.html">common/phal_L4/can/can.h</a>&quot;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">// Make this match the node name within the can_config.json</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="torque__vector__fpga_2can_2can__parse_8h.html#a8cc8d559acdd2f74085b20977182d5b7">   19</a></span><span class="preprocessor">#define NODE_NAME &quot;Torque_Vector_fpga&quot;</span></div>
@@ -184,27 +184,27 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        uint64_t front_right: 12;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        uint64_t rear_left: 12;</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        uint64_t rear_right: 12;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5ce8a05a33e077f8f0bd4765e9dfc385">  105</a></span>    } torque_request;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad39ba80782d20879ac2adb1112e2eaa9">  105</a></span>    } torque_request;</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="union____attribute____.html#a6c89e8ff9ddc49c1561f0c2cffcb5b95">  107</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a6c89e8ff9ddc49c1561f0c2cffcb5b95">flash_success</a>: 1;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad94cd0f1da2d339029ea609c8eef7921">  108</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ad94cd0f1da2d339029ea609c8eef7921">flash_timeout_rx</a>: 1;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="union____attribute____.html#aff2fa84ab1ffff5f9a9397959796c29a">  109</a></span>    } bitstream_flash_status;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="union____attribute____.html#a9855ce3dced606c9981d47d10401e7c3">  109</a></span>    } bitstream_flash_status;</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="union____attribute____.html#a6bdc2b761e15bca409612b62de7d6ff4">  113</a></span>    } fault_sync_torque_vector_fpga;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="union____attribute____.html#a09a4ea0cc0f0bd6ea7eb7c7b16eb976b">  113</a></span>    } fault_sync_torque_vector_fpga;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        uint64_t left_speed: 16;</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        uint64_t right_speed: 16;</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        uint64_t left_normal: 16;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        uint64_t right_normal: 16;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4cfda29585b8d62c399b4a2bed8486e1">  119</a></span>    } front_wheel_data;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac0c5b5d768403ab17f7b3e1c0bb71581">  119</a></span>    } front_wheel_data;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        uint64_t left_speed: 16;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        uint64_t right_speed: 16;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        uint64_t left_normal: 16;</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        uint64_t right_normal: 16;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0cb8d1416abef134e0d30e208a063c08">  125</a></span>    } rear_wheel_data;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4c766c6499c005f407725c4ebd3c4ab2">  125</a></span>    } rear_wheel_data;</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        uint64_t d0: 8;</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        uint64_t d1: 8;</div>
@@ -214,38 +214,38 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        uint64_t d5: 8;</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        uint64_t d6: 8;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        uint64_t d7: 8;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab7688a85701dcd1ae342bc4e384bf76b">  135</a></span>    } bitstream_data;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2ddf285fd8e916ee5ab87b0720a9f48c">  135</a></span>    } bitstream_data;</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="union____attribute____.html#aaa4776de081b8d87e4645793b2c5ad4b">  137</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aaa4776de081b8d87e4645793b2c5ad4b">download_request</a>: 1;</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2fef01a9b40825631a15e9b27ad1a41a">  138</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a2fef01a9b40825631a15e9b27ad1a41a">download_size</a>: 32;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab91f83f86491543615aa1697d7b8a7e4">  139</a></span>    } bitstream_request;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab8d87be5ec06e744fcc6f25c6847eee6">  139</a></span>    } bitstream_request;</div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3943ef0ebefdf5f8933469a01c4e5adb">  143</a></span>    } fault_sync_main_module;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="union____attribute____.html#a10a420b17b0a07971a54a93e99d45f49">  143</a></span>    } fault_sync_main_module;</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="union____attribute____.html#a21961db3d24580b8e302d49a58071e74">  147</a></span>    } fault_sync_driveline;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="union____attribute____.html#a9602bf1cbcc97133fbbdc6f38b572122">  147</a></span>    } fault_sync_driveline;</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="union____attribute____.html#a64ac6f99e8ab101c79e3fed46736e7fb">  151</a></span>    } fault_sync_dashboard;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="union____attribute____.html#aff14ab45092c28564b52224458cbe306">  151</a></span>    } fault_sync_dashboard;</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad4fe5e3f7da57b907823c684661a30b7">  155</a></span>    } fault_sync_precharge;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0ae847d37edeebbe06ebca6f84c6788d">  155</a></span>    } fault_sync_precharge;</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa2947660bc84b8746ea9e8f0d3d1b001">  159</a></span>    } fault_sync_test_node;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3c5bed025e9048a77c5b51a95fa9c5e9">  159</a></span>    } fault_sync_test_node;</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        uint64_t id: 16;</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        uint64_t value: 1;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="union____attribute____.html#a972a265cd793e717018df99b8576b61b">  163</a></span>    } set_fault;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="union____attribute____.html#a39c2770f473b854c4f907541b8770b9c">  163</a></span>    } set_fault;</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        uint64_t id: 16;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="union____attribute____.html#aeae6fada48be6e05b9bdabda7ace6732">  166</a></span>    } <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa1904661d064772f84e4a25aa5753531">  166</a></span>    } <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    uint8_t raw_data[8];</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>} <a class="code hl_union" href="union____attribute____.html">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
@@ -261,7 +261,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        uint16_t right_normal;</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        uint8_t stale;</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a56922e21a6f1ac23892ad8e11adc1730">  182</a></span>    } front_wheel_data;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a71d12fdf98e99dae970f730cae47fe7d">  182</a></span>    } front_wheel_data;</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        uint16_t left_speed;</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        uint16_t right_speed;</div>
@@ -269,7 +269,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        uint16_t right_normal;</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        uint8_t stale;</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab28d1c687fb5a027a541f4326e6344c1">  190</a></span>    } rear_wheel_data;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab5ead2d3c2f2f5ec10e2091f29f65cd3">  190</a></span>    } rear_wheel_data;</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        uint8_t d0;</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        uint8_t d1;</div>
@@ -279,38 +279,38 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        uint8_t d5;</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        uint8_t d6;</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        uint8_t d7;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab28fca4544534a5c1601dd5c53f2d6d3">  200</a></span>    } bitstream_data;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af099f963f13bc35336236b5241ba427f">  200</a></span>    } bitstream_data;</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a42dbb3a6b665e93b747daf944da812fe">  202</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a42dbb3a6b665e93b747daf944da812fe">download_request</a>;</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a6bf7dae21e2373d4e29603b6e8e1e091">  203</a></span>        uint32_t <a class="code hl_variable" href="structcan__data__t.html#a6bf7dae21e2373d4e29603b6e8e1e091">download_size</a>;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a7fd9f19f98a56c308378db945f1c8414">  204</a></span>    } bitstream_request;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a70e4c3ba38f0703c1187f1f3547859b7">  204</a></span>    } bitstream_request;</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        uint16_t idx;</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        uint8_t latched;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a5d55d32cc8a53a69954437b0e5ec53af">  208</a></span>    } fault_sync_main_module;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a68163e571dec4ac8987429c198a56c76">  208</a></span>    } fault_sync_main_module;</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        uint16_t idx;</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        uint8_t latched;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a1f000e2022227067f1deead35043f5ee">  212</a></span>    } fault_sync_driveline;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a530e2c1fb7e5e8482876e056e371b73a">  212</a></span>    } fault_sync_driveline;</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        uint16_t idx;</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        uint8_t latched;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a17b523c109cdc736e0e8cd005dfafcb3">  216</a></span>    } fault_sync_dashboard;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a598c15a0eed44f5a5d67d611a15beedf">  216</a></span>    } fault_sync_dashboard;</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        uint16_t idx;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        uint8_t latched;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a95ad6f019fdb58e143a249f037174e0b">  220</a></span>    } fault_sync_precharge;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a53d2cbca8dad64d47e5823d637033545">  220</a></span>    } fault_sync_precharge;</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        uint16_t idx;</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        uint8_t latched;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a0ca371bc658b58b62c7e61d478034a97">  224</a></span>    } fault_sync_test_node;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af751f2a2c1cac3e72ed55d14f9fbcd84">  224</a></span>    } fault_sync_test_node;</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        uint16_t id;</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        uint8_t value;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a4b1dbfbf5658ec87e33441dab7a69a34">  228</a></span>    } set_fault;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a8a501216b5a59f77522f0e9f2dcb78bb">  228</a></span>    } set_fault;</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        uint16_t id;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad443eacae03ade4569e14ec33f33bc93">  231</a></span>    } <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a6ca31fd6d30c3cbecf6c0aef4837be22">  231</a></span>    } <a class="code hl_function" href="bootloader_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>} <a class="code hl_struct" href="structcan__data__t.html">can_data_t</a>;</div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">/* END AUTO CAN DATA STRUCTURE */</span></div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
@@ -344,7 +344,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="abootloader_2can_2can__parse_8h_html_a665f7e8f072ba4bff25d21ae6fa8765d"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a665f7e8f072ba4bff25d21ae6fa8765d">set_fault_daq</a></div><div class="ttdeci">void set_fault_daq(uint16_t id, bool value)</div></div>
 <div class="ttc" id="abootloader_2can_2can__parse_8h_html_a8c20a3b0d572b6071bc2104e9a336cb6"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">handleCallbacks</a></div><div class="ttdeci">void handleCallbacks(uint16_t id, bool latched)</div></div>
 <div class="ttc" id="abootloader_2can_2can__parse_8h_html_ad57d03501801eed3789b1ab135dd9419"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">send_fault</a></div><div class="ttdeci">void send_fault(uint16_t id, bool latched)</div></div>
-<div class="ttc" id="acan_8h_html"><div class="ttname"><a href="can_8h.html">can.h</a></div></div>
+<div class="ttc" id="aphal__L4_2can_2can_8h_html"><div class="ttname"><a href="phal__L4_2can_2can_8h.html">can.h</a></div></div>
 <div class="ttc" id="apsched_8h_html"><div class="ttname"><a href="psched_8h.html">psched.h</a></div></div>
 <div class="ttc" id="aqueue_8h_html"><div class="ttname"><a href="queue_8h.html">queue.h</a></div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>

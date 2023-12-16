@@ -2,6 +2,20 @@
     "$schema":"./fault_schema.json",
     "modules": [
         {
+            "node_name": "pdu",
+            "faults": [
+                {
+                    "fault_name": "pdu_mcu_temp_high",
+                    "max": 50,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 2000,
+                    "lcd_message": "HIGH PDU MCU TEMP"
+                }
+            ]
+        },
+        {
             "node_name": "main_module",
             "faults": [
                 {

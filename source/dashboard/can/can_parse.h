@@ -43,6 +43,7 @@
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
+#define ID_FAULT_SYNC_PDU 0x8cb5f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
@@ -78,6 +79,7 @@
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
+#define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -192,7 +194,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t throttle: 12;
         uint64_t throttle_right: 12;
@@ -355,6 +357,10 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } dashboard_bl_cmd;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_pdu;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -545,6 +551,10 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_pdu;
     struct {
         uint16_t idx;
         uint8_t latched;

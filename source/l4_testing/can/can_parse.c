@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "can_parse.h"
 
@@ -88,9 +88,9 @@ void canRxUpdate(void)
                 can_data.fault_sync_precharge.latched = msg_data_a->fault_sync_precharge.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
-            case ID_FAULT_SYNC_TORQUE_VECTOR:
-                can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
-                can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
+            case ID_FAULT_SYNC_TORQUE_VECTOR_FPGA:
+                can_data.fault_sync_torque_vector_fpga.idx = msg_data_a->fault_sync_torque_vector_fpga.idx;
+                can_data.fault_sync_torque_vector_fpga.latched = msg_data_a->fault_sync_torque_vector_fpga.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_SET_FAULT:
@@ -155,7 +155,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;

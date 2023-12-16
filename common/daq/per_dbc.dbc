@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector Driveline Precharge OrionBMS Navigation Dashboard Steering PDU Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector_fpga Driveline Precharge OrionBMS torque_vector Dashboard Steering PDU Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -129,17 +129,17 @@ BO_ 2148059649 fault_sync_main_module: 3 Main_Module
 BO_ 2550136769 daq_response_MAIN_MODULE: 8 Main_Module
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214592578 torque_request: 6 Torque_Vector
+BO_ 2214592578 torque_request: 6 Torque_Vector_fpga
  SG_ rear_right : 36|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_left : 24|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ front_right : 12|12@1+ (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|12@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147490050 bitstream_flash_status: 1 Torque_Vector
+BO_ 2147490050 bitstream_flash_status: 1 Torque_Vector_fpga
  SG_ flash_timeout_rx : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ flash_success : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059714 fault_sync_torque_vector: 3 Torque_Vector
+BO_ 2148059714 fault_sync_torque_vector_fpga: 3 Torque_Vector_fpga
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -315,64 +315,64 @@ BO_ 2348812088 orion_errors: 4 OrionBMS
  SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2348810935 gps_velocity: 8 Navigation
+BO_ 2348810935 gps_velocity: 8 torque_vector
  SG_ gps_vel_total : 48|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ gps_vel_d : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ gps_vel_e : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ gps_vel_n : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
 
-BO_ 2348819255 gps_position: 8 Navigation
+BO_ 2348819255 gps_position: 8 torque_vector
  SG_ height : 48|16@1- (0.01,0) [0|0] "m" Vector__XXX
  SG_ gps_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
  SG_ gps_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
  SG_ gps_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
 
-BO_ 2348819319 gps_coordinates: 8 Navigation
+BO_ 2348819319 gps_coordinates: 8 torque_vector
  SG_ longitude : 32|32@1- (1,0) [0|0] "deg" Vector__XXX
  SG_ latitude : 0|32@1- (1,0) [0|0] "deg" Vector__XXX
 
-BO_ 2348810999 imu_gyro: 6 Navigation
+BO_ 2348810999 imu_gyro: 6 torque_vector
  SG_ imu_gyro_z : 32|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
  SG_ imu_gyro_y : 16|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
  SG_ imu_gyro_x : 0|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
 
-BO_ 2348819383 imu_accel: 6 Navigation
+BO_ 2348819383 imu_accel: 6 torque_vector
  SG_ imu_accel_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
  SG_ imu_accel_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
  SG_ imu_accel_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
 
-BO_ 2348819447 bmm_mag: 6 Navigation
+BO_ 2348819447 bmm_mag: 6 torque_vector
  SG_ bmm_mag_z : 32|16@1- (1,0) [0|0] "uT" Vector__XXX
  SG_ bmm_mag_y : 16|16@1- (1,0) [0|0] "uT" Vector__XXX
  SG_ bmm_mag_x : 0|16@1- (1,0) [0|0] "uT" Vector__XXX
 
-BO_ 2348902711 sfs_pos: 6 Navigation
+BO_ 2348902711 sfs_pos: 6 torque_vector
  SG_ sfs_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
  SG_ sfs_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
  SG_ sfs_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
 
-BO_ 2348902775 sfs_vel: 6 Navigation
+BO_ 2348902775 sfs_vel: 6 torque_vector
  SG_ sfs_vel_z : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ sfs_vel_y : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ sfs_vel_x : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
 
-BO_ 2348902839 sfs_acc: 6 Navigation
+BO_ 2348902839 sfs_acc: 6 torque_vector
  SG_ sfs_acc_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
  SG_ sfs_acc_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
  SG_ sfs_acc_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
 
-BO_ 2348902903 sfs_ang: 8 Navigation
+BO_ 2348902903 sfs_ang: 8 torque_vector
  SG_ sfs_ang_d : 48|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_c : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_b : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_a : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
-BO_ 2348902967 sfs_ang_vel: 6 Navigation
+BO_ 2348902967 sfs_ang_vel: 6 torque_vector
  SG_ sfs_ang_vel_z : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
-BO_ 2348819895 throttle_remapped: 4 Navigation
+BO_ 2348819895 throttle_remapped: 4 torque_vector
  SG_ remap_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ remap_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
 
@@ -843,11 +843,11 @@ BO_ 2483032050 daq_command_TEST_NODE: 8 DAQ
 
 
 CM_ BU_ Main_Module "";
-CM_ BU_ Torque_Vector "";
+CM_ BU_ Torque_Vector_fpga "";
 CM_ BU_ Driveline "";
 CM_ BU_ Precharge "";
 CM_ BU_ OrionBMS "";
-CM_ BU_ Navigation "";
+CM_ BU_ torque_vector "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
 CM_ BU_ PDU "";

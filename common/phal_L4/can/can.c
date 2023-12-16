@@ -1,5 +1,5 @@
 /**
- * @file hal_can_f4.c
+ * @file can.c
  * @author Adam Busch (busch8@purdue.edu)
  * @brief Basic CAN Peripheral HAL library for setting up CAN peripheral and sending messages
  * @version 0.1

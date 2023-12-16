@@ -211,7 +211,7 @@
                     ]
                 },
                 {
-                    "node_name":"Torque_Vector",
+                    "node_name":"Torque_Vector_fpga",
                     "node_ssa":2,
                     "tx":[
                         {   "msg_name":"torque_request",
@@ -583,7 +583,7 @@
                     ]
                 },
                 {
-                    "node_name":"Navigation",
+                    "node_name":"torque_vector",
                     "node_ssa": 55,
                     "tx":[
                         {   "msg_name":"gps_velocity",

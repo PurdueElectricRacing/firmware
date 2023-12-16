@@ -4,6 +4,7 @@
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/can/can.h"
+#include "common/phal_F4_F7/can/can.h"
 #include "common/psched/psched.h"
 #include "common/faults/faults.h"
 
@@ -178,7 +179,6 @@ int main()
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
     taskCreate(sendtestmsg, 100);
-    taskCreate(heartBeatTask, 100);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     schedStart();
@@ -198,9 +198,6 @@ void preflightChecks(void) {
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
            break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_MAIN_MODULE);
-            break;
-        case 2:
             initCANParse(&q_rx_can);
            break;
         default:

@@ -49,7 +49,7 @@
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
-#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42
+#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
 #define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
@@ -87,7 +87,7 @@
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -475,7 +475,7 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_torque_vector;
+    } fault_sync_torque_vector_fpga;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -577,7 +577,7 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_torque_vector;
+    } fault_sync_torque_vector_fpga;
     struct {
         uint16_t idx;
         uint8_t latched;

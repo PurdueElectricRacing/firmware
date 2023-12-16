@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
@@ -48,7 +48,7 @@ typedef union {
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
-#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8ca42
+#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
 #define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
@@ -75,7 +75,7 @@ typedef union {
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -333,7 +333,7 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_torque_vector;
+    } fault_sync_torque_vector_fpga;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -442,7 +442,7 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_torque_vector;
+    } fault_sync_torque_vector_fpga;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -477,7 +477,7 @@ extern void send_fault(uint16_t id, bool latched);
 
 /**
  * @brief Setup queue and message filtering
- * 
+ *
  * @param q_rx_can RX buffer of CAN messages
  */
 void initCANParse(q_handle_t* q_rx_can_a);
@@ -491,7 +491,7 @@ void canRxUpdate();
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ
- * 
+ *
  * @param rx rx data from message just recieved
  */
 void canProcessRxIRQs(CanMsgTypeDef_t* rx);

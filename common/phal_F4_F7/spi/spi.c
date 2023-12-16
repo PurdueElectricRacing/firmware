@@ -166,7 +166,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
     RX Side interrupts disabled, since the same data lengths are sent to both TX and RX
     */
    // Cannot use DMA without knowing essential configuration info
-   if (spi->tx_dma_cfg == 0 || spi->rx_dma_cfg == 0)
+   if (spi->tx_dma_cfg == 0)
    {
     return false;
    }
@@ -198,21 +198,24 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
 
 
     //Configure DMA receive Msg
-    spi->periph->CR2 |= SPI_CR2_RXDMAEN;
-    if (!in_data)
+    if (spi->rx_dma_cfg)
     {
-        // No data to receive, so configure DMA to disregard any received messages
-        spi->rx_dma_cfg->stream->CR &= ~DMA_SxCR_MINC;
-        PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)&trash_can);
-    }
-    else
-    {
-        PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)in_data);
-    }
-    PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
+        spi->periph->CR2 |= SPI_CR2_RXDMAEN;
+        if (!in_data)
+        {
+            // No data to receive, so configure DMA to disregard any received messages
+            spi->rx_dma_cfg->stream->CR &= ~DMA_SxCR_MINC;
+            PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)&trash_can);
+        }
+        else
+        {
+            PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)in_data);
+        }
+        PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
 
-    // We must clear interrupt flags before enabling DMA
-    PHAL_reEnable(spi->rx_dma_cfg);
+        // We must clear interrupt flags before enabling DMA
+        PHAL_reEnable(spi->rx_dma_cfg);
+    }
 
     // Enable the DMA IRQ - copy + paste enabling selected SPI peripheral's TX DMA Stream ISR
     if (spi->periph == SPI1)

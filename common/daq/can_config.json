@@ -845,6 +845,25 @@
                     "rx": []
                 },
                 {
+                    "node_name": "PDU",
+                    "node_ssa":31,
+                    "tx": [
+                        {
+                            "msg_name":"pdu_test",
+                            "msg_desc":"periodic dashboard heartbeat",
+                            "signals":[
+                                {"sig_name": "test_1", "type":"uint8_t"},
+                                {"sig_name": "test_2", "type":"uint8_t"},
+                                {"sig_name": "test_3", "type":"uint8_t"}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":1040
+                        }
+                    ],
+                    "rx": [             ]
+                },
+                {
                     "node_name": "Acceleration",
                     "can_peripheral": "CAN1",
                     "node_ssa": 43,

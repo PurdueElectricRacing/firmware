@@ -1,7 +1,7 @@
 VERSION ""
 
 
-NS_ : 
+NS_ :
 	NS_DESC_
 	CM_
 	BA_DEF_
@@ -423,6 +423,15 @@ BO_ 688 LWS_Standard: 5 Steering
  SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "deg/s" Vector__XXX
  SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "deg" Vector__XXX
 
+BO_ 2214659103 pdu_test: 3 PDU
+ SG_ test_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2148059999 fault_sync_pdu: 3 PDU
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 372 Y_Accel: 8 Acceleration
  SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_2 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -797,7 +806,7 @@ BO_ 2147488308 adc_values: 5 TEST_NODE
 BO_ 2347693088 car_state: 1 TEST_NODE
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148060031 fault_sync_test_node: 3 TEST_NODE
+BO_ 2148060095 fault_sync_test_node: 3 TEST_NODE
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -841,6 +850,7 @@ CM_ BU_ OrionBMS "";
 CM_ BU_ torque_vector "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
+CM_ BU_ PDU "";
 CM_ BU_ Acceleration "";
 CM_ BU_ bootloader "";
 CM_ BU_ BMS_LV "";
@@ -1179,6 +1189,13 @@ CM_ SG_ 688 Cal "";
 CM_ SG_ 688 Ok "";
 CM_ SG_ 688 LWS_SPEED "";
 CM_ SG_ 688 LWS_ANGLE "";
+CM_ BO_ 2214659103 "periodic dashboard heartbeat";
+CM_ SG_ 2214659103 test_3 "";
+CM_ SG_ 2214659103 test_2 "";
+CM_ SG_ 2214659103 test_1 "";
+CM_ BO_ 2148059999 "Fault status message";
+CM_ SG_ 2148059999 latched "";
+CM_ SG_ 2148059999 idx "";
 CM_ BO_ 372 "Y Acceleration Update";
 CM_ SG_ 372 Reserved_3 "";
 CM_ SG_ 372 Reserved_2 "";
@@ -1472,9 +1489,9 @@ CM_ SG_ 2147488308 pot2 "";
 CM_ SG_ 2147488308 pot1 "";
 CM_ BO_ 2347693088 "state of the car";
 CM_ SG_ 2347693088 car_state "";
-CM_ BO_ 2148060031 "Fault status message";
-CM_ SG_ 2148060031 latched "";
-CM_ SG_ 2148060031 idx "";
+CM_ BO_ 2148060095 "Fault status message";
+CM_ SG_ 2148060095 latched "";
+CM_ SG_ 2148060095 idx "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";
@@ -1520,5 +1537,3 @@ SIG_VALTYPE_ 2214593731 P_c : 1;
 SIG_VALTYPE_ 2348810751 left_speed : 1;
 SIG_VALTYPE_ 2348810751 right_speed : 1;
 SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;
-
-

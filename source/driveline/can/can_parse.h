@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
@@ -44,6 +44,7 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_DRIVELINE_FRONT_BL_CMD 0x409c4fe
 #define ID_DRIVELINE_REAR_BL_CMD 0x409c53e
+#define ID_FAULT_SYNC_PDU 0x8cb5f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
@@ -70,6 +71,7 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_DRIVELINE_FRONT_BL_CMD 5
 #define DLC_DRIVELINE_REAR_BL_CMD 5
+#define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_PRECHARGE 3
@@ -226,7 +228,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t front_left_motor: 8;
         uint64_t front_left_motor_link: 8;
@@ -312,6 +314,10 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } driveline_rear_bl_cmd;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_pdu;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -420,6 +426,10 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
+    } fault_sync_pdu;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
     } fault_sync_main_module;
     struct {
         uint16_t idx;
@@ -467,7 +477,7 @@ extern void send_fault(uint16_t id, bool latched);
 
 /**
  * @brief Setup queue and message filtering
- * 
+ *
  * @param q_rx_can RX buffer of CAN messages
  */
 void initCANParse(q_handle_t* q_rx_can_a);
@@ -481,7 +491,7 @@ void canRxUpdate();
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ
- * 
+ *
  * @param rx rx data from message just recieved
  */
 void canProcessRxIRQs(CanMsgTypeDef_t* rx);

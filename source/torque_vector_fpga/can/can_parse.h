@@ -96,7 +96,7 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union {
+typedef union { 
     struct {
         uint64_t front_left: 12;
         uint64_t front_right: 12;

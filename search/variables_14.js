@@ -6,7 +6,7 @@ var searchData=
   ['udlookuptable_5ftabledata_3',['uDLookupTable_tableData',['../structConstP.html#a0b3c6e43ed350fd81762ce9858644b36',1,'ConstP']]],
   ['udlookuptable_5ftabledata_5fb_4',['uDLookupTable_tableData_b',['../structConstP.html#a4236418987df677451e9d9230112210e',1,'ConstP']]],
   ['udlookuptable_5ftabledata_5fg_5',['uDLookupTable_tableData_g',['../structConstP.html#a9ebc655f23312ec97165f7c100fdf07d',1,'ConstP']]],
-  ['unitdelay1_5fdstate_6',['unitdelay1_dstate',['../structDW.html#ac5663007751560ce42b6322578ef4483',1,'DW::UnitDelay1_DSTATE'],['../structDW__SFS.html#a3a956f1ee192b9de1abfbbbf99ef9897',1,'DW_SFS::UnitDelay1_DSTATE']]],
+  ['unitdelay1_5fdstate_6',['UnitDelay1_DSTATE',['../structDW.html#ac5663007751560ce42b6322578ef4483',1,'DW::UnitDelay1_DSTATE'],['../structDW__SFS.html#a3a956f1ee192b9de1abfbbbf99ef9897',1,'DW_SFS::UnitDelay1_DSTATE']]],
   ['unitdelay2_5fdstate_7',['UnitDelay2_DSTATE',['../structDW__SFS.html#a92440d9bc927b19aa47a0fa2b5d41bc1',1,'DW_SFS']]],
   ['unitdelay2_5finitialcondition_8',['UnitDelay2_InitialCondition',['../structConstP.html#ab622dd67a8fe821fecbcc8e33d42ae6b',1,'ConstP']]],
   ['unitdelay3_5fdstate_9',['UnitDelay3_DSTATE',['../structDW__SFS.html#a5a0007fc73bc3389979a1afe966add2f',1,'DW_SFS']]],
@@ -23,7 +23,7 @@ var searchData=
   ['usart_5fr_5ftx_5fdma_5fconfig_20',['usart_r_tx_dma_config',['../driveline_2main_8c.html#adcd8c184d9eb9dc8a6b39a9a64b347a8',1,'usart_r_tx_dma_config:&#160;main.c'],['../main__module_2main_8c.html#adcd8c184d9eb9dc8a6b39a9a64b347a8',1,'usart_r_tx_dma_config:&#160;main.c']]],
   ['usart_5frx_5fdma_5fconfig_21',['usart_rx_dma_config',['../dashboard_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../l4__testing_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c']]],
   ['usart_5ftx_5fdma_5fconfig_22',['usart_tx_dma_config',['../dashboard_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../l4__testing_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c']]],
-  ['user_5fcharge_5fcurrent_5frequest_23',['user_charge_current_request',['../orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c'],['../orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c']]],
+  ['user_5fcharge_5fcurrent_5frequest_23',['user_charge_current_request',['../orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c'],['../orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c']]],
   ['user_5fcharge_5fvoltage_5frequest_24',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]],
   ['uv_25',['uv',['../structbms__t.html#a8ac7eb3a23e4d1d9b236d8b07cb13d35',1,'bms_t::uv'],['../unionCanParsedData__t.html#aab1aab295881eb805b5d911b25878481',1,'CanParsedData_t::uv']]]
 ];

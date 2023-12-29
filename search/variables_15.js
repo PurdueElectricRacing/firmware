@@ -20,7 +20,7 @@ var searchData=
   ['vel_17',['vel',['../structExtU.html#af41b46d7c4eedf92601468d5addf1c93',1,'ExtU']]],
   ['vel_5fvned_18',['vel_VNED',['../structExtY.html#a9bbb7a8ef57ae217fcae2970e8158558',1,'ExtY']]],
   ['velocitynoise_19',['VelocityNoise',['../structtag__qHRwoV6ocLgXRwuZ4G6fCE.html#abb98cf05a225adf49eafeaf3dad34e61',1,'tag_qHRwoV6ocLgXRwuZ4G6fCE']]],
-  ['version_20',['version',['../eeprom__spi_8h.html#ab6d7b6f8c2ceaba7acda80aaf05f4899',1,'version:&#160;eeprom_spi.h'],['../structphys__mem.html#ae7fcf054829918204fbb9b4907542318',1,'phys_mem::version'],['../structIMU__Handle__t.html#a466e61f1dba210bb73c4c0f0485111df',1,'IMU_Handle_t::version']]],
+  ['version_20',['version',['../structIMU__Handle__t.html#a466e61f1dba210bb73c4c0f0485111df',1,'IMU_Handle_t::version'],['../structphys__mem.html#ae7fcf054829918204fbb9b4907542318',1,'phys_mem::version'],['../eeprom__spi_8h.html#ab6d7b6f8c2ceaba7acda80aaf05f4899',1,'version:&#160;eeprom_spi.h']]],
   ['version_5fmajor_21',['version_major',['../structbsxlite__version.html#a5b9e2264c355d80eef083aa73b64ea3b',1,'bsxlite_version']]],
   ['version_5fminor_22',['version_minor',['../structbsxlite__version.html#a933851e534b39bbb46bbb0b4f864eeb9',1,'bsxlite_version']]],
   ['vert_5fao_23',['vert_ao',['../structGeometry.html#a3796bd089ba5c030a66e065be632d0a6',1,'Geometry']]],

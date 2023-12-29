@@ -1,8 +1,8 @@
 var searchData=
 [
   ['warn_5fstring_0',['WARN_STRING',['../lcd_8h.html#a68be2e50ca8954fe2c024b7604d23623',1,'lcd.h']]],
-  ['wc_5fgpio_5fport_1',['wc_gpio_port',['../bms_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'WC_GPIO_Port:&#160;main.h'],['../driveline_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'WC_GPIO_Port:&#160;main.h']]],
-  ['wc_5fpin_2',['wc_pin',['../bms_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'WC_Pin:&#160;main.h'],['../driveline_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'WC_Pin:&#160;main.h']]],
+  ['wc_5fgpio_5fport_1',['WC_GPIO_Port',['../bms_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'WC_GPIO_Port:&#160;main.h'],['../driveline_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'WC_GPIO_Port:&#160;main.h']]],
+  ['wc_5fpin_2',['WC_Pin',['../bms_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'WC_Pin:&#160;main.h'],['../driveline_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'WC_Pin:&#160;main.h']]],
   ['wheel_5fcircumf_5fm_3',['WHEEL_CIRCUMF_M',['../wheel__speeds_8h.html#aedd7fda7dfb4d2db2ab9ab5f2ac2318d',1,'wheel_speeds.h']]],
   ['wheel_5fcounts_5fper_5frev_4',['WHEEL_COUNTS_PER_REV',['../wheel__speeds_8h.html#a086dd6c82cbaf91b98e1c101d938f4b0',1,'wheel_speeds.h']]],
   ['wheel_5fdiam_5fm_5',['WHEEL_DIAM_M',['../wheel__speeds_8h.html#a2a1415b698d1cc2e15d0ec4fdaef5c6d',1,'wheel_speeds.h']]],

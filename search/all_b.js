@@ -8,5 +8,5 @@ var searchData=
   ['knb_5ftxt_5',['KNB_TXT',['../lcd_8h.html#a5bf912d37cb66d71b7ecc1dd4b22f7ff',1,'lcd.h']]],
   ['knob_6',['knob',['../lcd_8c.html#ab18d653cfaded39b65c8d24676ea85e4',1,'knob:&#160;lcd.c'],['../dashboard_2main_8c.html#ab18d653cfaded39b65c8d24676ea85e4',1,'knob:&#160;lcd.c']]],
   ['knob_5fold_7',['knob_old',['../lcd_8c.html#ab2faca322fbb133fd7695c80707d6bea',1,'lcd.c']]],
-  ['knobdisplay_8',['knobdisplay',['../lcd_8c.html#ae180c8de76ef9b571923b40e3c077f1e',1,'knobDisplay():&#160;lcd.c'],['../lcd_8h.html#ae180c8de76ef9b571923b40e3c077f1e',1,'knobDisplay():&#160;lcd.c']]]
+  ['knobdisplay_8',['knobDisplay',['../lcd_8c.html#ae180c8de76ef9b571923b40e3c077f1e',1,'knobDisplay():&#160;lcd.c'],['../lcd_8h.html#ae180c8de76ef9b571923b40e3c077f1e',1,'knobDisplay():&#160;lcd.c']]]
 ];

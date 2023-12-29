@@ -117,7 +117,7 @@ int main (void)
     */
     while(!bootloader_timeout || !allow_application_launch)
     {
-        while (q_rx_can.item_count > 0)
+        while (!qIsEmpty(&q_rx_can))
             canRxUpdate();
 
         if (send_status_flag)

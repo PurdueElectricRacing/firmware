@@ -3,7 +3,7 @@
 
 // Includes
 #include "stdint.h"
-#include "string.h"
+#include "stdbool.h"
 
 // Generic defines
 #ifdef MEM_SMALL
@@ -23,17 +23,17 @@ typedef enum {
 
 // Structs
 typedef struct {
-    uint8_t  buffer[MEM_SIZE];      // Ring buffer for queue storage
-    uint8_t  item_count;            // Number of items in queue
-    uint8_t  max_items;             // Maximum number of items in queue based on size
-    uint8_t* start;                 // Pointer to first item in queue
-    uint8_t* current;               // Pointer to next location for addition
-    uint16_t size;                  // Size of each item
+    volatile uint8_t  buffer[MEM_SIZE]; //!< Ring buffer for queue storage
+    volatile uint32_t head;             //!< Element number of first item
+    volatile uint32_t tail;             //!< Element number of last item
+    uint32_t size;                      //!< Size of each item 
+    uint32_t max_items;                 //!< Maximum number of items in queue based on size (can only ever hold max_items - 1)
 } q_handle_t;
 
 // Prototypes
 void qConstruct(q_handle_t* q, uint8_t size);
 uint8_t qIsFull(q_handle_t* q);
+uint8_t qIsEmpty(q_handle_t* q);
 success_t qSendToBack(q_handle_t* q, const void* item);
 success_t qReceive(q_handle_t* q, void* rx_buf);
 

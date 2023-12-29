@@ -48,7 +48,7 @@
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_PRECHARGE 0x8cac4
 #define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
+#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
@@ -194,7 +194,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union {
+typedef union { 
     struct {
         uint64_t throttle: 12;
         uint64_t throttle_right: 12;

@@ -221,8 +221,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
     CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->sFilterRegister[7].FR2 = (ID_SET_FAULT << 3) | 4;

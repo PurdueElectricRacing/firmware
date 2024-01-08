@@ -3,6 +3,7 @@
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/spi/spi.h"
+#include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
 
 #include "main.h"
@@ -21,6 +22,24 @@ ADCInitConfig_t adc_config = {
 };
 
 
+dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t lcd = {
+   .baud_rate   = 4800,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .mode        = MODE_TX_RX,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART2,
+   .wake_addr = false,
+   .usart_active_num = USART2_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_tx_dma_config,
+   .rx_dma_cfg = &usart_rx_dma_config
+};
+
 #define WHO_AM_I 0x8F
 #define I_AM_HIM 0x3F
 
@@ -36,6 +55,9 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
     // GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
     // GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_USART2TX_PA2,
+    GPIO_INIT_USART2RX_PA3,
+    
     GPIO_INIT_OUTPUT(SPI_CS_PORT, SPI_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_AF(SPI_SCK_PORT, SPI_SCK_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(SPI_MOSI_PORT, SPI_MOSI_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
@@ -85,6 +107,7 @@ SPI_InitConfig_t spi_config_nonDMA = {
 void HardFault_Handler();
 
 void ledblink();
+void testUsart();
 
 int main()
 {
@@ -102,6 +125,10 @@ int main()
     {
         HardFault_Handler();
     }
+    if(!PHAL_initUSART(&lcd, APB1ClockRateHz))
+    {
+        HardFault_Handler();
+    }
     if(!PHAL_initDMA(&adc_dma_config))
     {
         HardFault_Handler();
@@ -112,9 +139,16 @@ int main()
         /* Task Creation */
     schedInit(APB1ClockRateHz);
         taskCreate(ledblink, 50);
+        taskCreate(testUsart, 100);
         /* Schedule Periodic tasks here */
     schedStart();
     return 0;
+}
+
+void testUsart()
+{
+    char* msg = "Hello World!\n";
+    PHAL_usartTxDma(&lcd, (uint16_t *)msg, 13);
 }
 
 void ledblink()

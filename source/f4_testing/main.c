@@ -29,7 +29,6 @@ usart_init_t lcd = {
    .word_length = WORD_8,
    .stop_bits   = SB_ONE,
    .parity      = PT_NONE,
-   .mode        = MODE_TX_RX,
    .hw_flow_ctl = HW_DISABLE,
    .ovsample    = OV_16,
    .obsample    = OB_DISABLE,
@@ -102,6 +101,7 @@ SPI_InitConfig_t spi_config_nonDMA = {
     .tx_dma_cfg = 0,
     .periph = SPI1
 };
+char msg[100];
 
 
 void HardFault_Handler();
@@ -136,10 +136,11 @@ int main()
     PHAL_writeGPIO(SPI_CS_PORT, SPI_CS_PIN, 1);
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
+    // PHAL_usartRxDma(&lcd, (uint16_t *) msg, 4);
         /* Task Creation */
     schedInit(APB1ClockRateHz);
         taskCreate(ledblink, 50);
-        taskCreate(testUsart, 100);
+        taskCreate(testUsart, 1000);
         /* Schedule Periodic tasks here */
     schedStart();
     return 0;
@@ -147,8 +148,16 @@ int main()
 
 void testUsart()
 {
-    char* msg = "Hello World!\n";
-    PHAL_usartTxDma(&lcd, (uint16_t *)msg, 13);
+    char* txmsg = "Hello World!\n";
+    PHAL_usartTxDma(&lcd, (uint16_t *)txmsg, 13);
+    if (msg[0] != 0)
+    {
+        asm("nop");
+        for (uint8_t i = 0; i < 100; i++)
+        {
+            msg[i] = 0;
+        } 
+    }
 }
 
 void ledblink()

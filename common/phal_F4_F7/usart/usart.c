@@ -27,6 +27,10 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
     uint32_t div_fraction;
     uint32_t div_mantissa;
 
+    // Add Handle to active peripheral set for keeping track of activity. The same handle must be passed throughout the use of the USART peripheral
+    // If a different configuration of peripheral is to be used/a different handle, peripheral must be reinitalized. 
+    active_uarts[handle->usart_active_num].active_handle = handle;
+
     // Disable peripheral until properly configured
     handle->periph->CR1 &= ~USART_CR1_UE;
 
@@ -76,7 +80,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
     handle->periph->CR1 |= (handle->parity >> 2) << USART_CR1_PS_Pos;
     handle->periph->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
     handle->periph->CR1 |= handle->wake_addr << USART_CR1_WAKE_Pos;
-    handle->periph->CR1 |= handle->mode << USART_CR1_RE_Pos;
+    // handle->periph->CR1 |= handle->mode << USART_CR1_RE_Pos;
     handle->periph->CR1 |= USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_IDLEIE | USART_CR1_PEIE/* | USART_CR1_TE*/;
 
     // Set CR2 parameters
@@ -130,26 +134,27 @@ void PHAL_usartRxBl(usart_init_t* handle, uint16_t* data, uint32_t len) {
 }
 
 bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
-    uint8_t active_idx;
+    if (active_uarts[handle->usart_active_num].active_handle != handle)
+        return false;
+    handle->periph->CR1 |= USART_CR1_TE;
     // Enable All Interrupts needed to complete Tx transaction  
     switch ((ptr_int) handle->periph) {
         case USART2_BASE:
             NVIC_EnableIRQ(DMA1_Stream6_IRQn);
             NVIC_EnableIRQ(USART2_IRQn);
-            active_idx = USART2_ACTIVE_IDX;
             break;
         default:
             return false;
     }
-    // Configure DMA Peripheral, and set up USART for DMA Transactions
-    handle->periph->CR3 |= USART_CR3_DMAT;
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t) data);
 
     // Start DMA transaction
     PHAL_startTxfer(handle->tx_dma_cfg);
-    active_uarts[active_idx].active_handle = handle;
-    active_uarts[active_idx]._tx_busy = 1;
+    // if (active_uarts[active_idx].active_handle != 0 && active_uarts[active_idx].active_handle != active_uarts)
+    active_uarts[handle->usart_active_num]._tx_busy = 1;
+    // Configure DMA Peripheral, and set up USART for DMA Transactions
+    handle->periph->CR3 |= USART_CR3_DMAT;
     return true;
 }
 
@@ -161,34 +166,41 @@ bool PHAL_usartTxBusy(usart_init_t* handle)
 }
 
 bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
-    PHAL_stopTxfer(handle->rx_dma_cfg);
-
+    // Provided handle must match with the one we have, and we cannot be continously receiving when calling this function
+    if (active_uarts[handle->usart_active_num].active_handle != handle || active_uarts[handle->usart_active_num].cont_rx)
+        return false;
+    // PHAL_stopTxfer(handle->rx_dma_cfg);
+    handle->periph->CR1 |= USART_CR1_RE;
+    // Enable All Interrupts needed to complete Tx transaction  
+    switch ((ptr_int) handle->periph) {
+        case USART2_BASE:
+            // NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+            NVIC_EnableIRQ(USART2_IRQn);
+            break;
+        default:
+            return false;
+    }
     handle->periph->CR3 |= USART_CR3_DMAR;
     PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
     //NVIC_EnableIRQ(irq);
     PHAL_reEnable(handle->rx_dma_cfg);
-    //PHAL_startTxfer(handle->rx_dma_cfg);
-    handle->_rx_busy = 1;
+    active_uarts[handle->usart_active_num]._rx_busy = 1;
     return true;
 }
 
 bool PHAL_usartRxDmaComplete(usart_init_t* handle)
 {
-    // if (!handle->_rx_busy || handle->rx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1)))
-    // {
-    //     handle->rx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1));
-    //     handle->_rx_busy = 0;
-    //     return true;
-    // }
+    if (active_uarts[handle->usart_active_num].active_handle != 0)
+        return active_uarts[handle->usart_active_num]._rx_busy;
     return false;
 }
 
 /**
- * @brief Handle TCIF interrupt signaling end of TX transaction
+ * @brief Handle DMA interrupts
  *
  */
-static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_init_t *cfg, uint32_t irq)
+static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
 {
     // Bitmask for each DMA interrupt flag
     uint32_t teif_flag;
@@ -200,9 +212,27 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
     // Clear register for DMA Stream
     volatile uint32_t *sr_reg;
     volatile uint32_t *csr_reg;
+    uint8_t dma_num;
 
+    // Populate values based on whether DMA Rx or Tx is being handled (Different configurations, streams)
+    if (dma_type == USART_DMA_TX)
+    {
+        dma_num = active_uarts[idx].active_handle->tx_dma_cfg->stream_idx;
+
+        // Select appropriate flag and clear registers for Stream
+        sr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HISR;
+        csr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HIFCR;
+    }
+    else // DMA RX is ongoing
+    {
+        dma_num = active_uarts[idx].active_handle->rx_dma_cfg->stream_idx;
+
+        // Select appropriate flag and clear registers for Stream
+        sr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HISR;
+        csr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HIFCR;
+    }
     // Populate Flag Bitmasks, along with Flag and Clear registers for active DMA Stream
-    switch(stream_idx)
+    switch(dma_num)
     {
         case 0:
             // Populate Flag Bitmasks
@@ -211,10 +241,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_LISR_HTIF0;
             feif_flag = DMA_LISR_FEIF0;
             dmeif_flag = DMA_LISR_DMEIF0;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->LISR;
-            csr_reg = &dma_periph->LIFCR;
             break;
         case 1:
             // Populate Flag Bitmasks
@@ -223,10 +249,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_LISR_HTIF1;
             feif_flag = DMA_LISR_FEIF1;
             dmeif_flag = DMA_LISR_DMEIF1;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->LISR;
-            csr_reg = &dma_periph->LIFCR;
             break;
         case 2:
             // Populate Flag Bitmasks
@@ -235,10 +257,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_LISR_HTIF2;
             feif_flag = DMA_LISR_FEIF2;
             dmeif_flag = DMA_LISR_DMEIF2;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->LISR;
-            csr_reg = &dma_periph->LIFCR;
             break;
         case 3:
             // Populate Flag Bitmasks
@@ -247,10 +265,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_LISR_HTIF3;
             feif_flag = DMA_LISR_FEIF3;
             dmeif_flag = DMA_LISR_DMEIF3;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->LISR;
-            csr_reg = &dma_periph->LIFCR;
             break;
         case 4:
             // Populate Flag Bitmasks
@@ -259,10 +273,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_HISR_HTIF4;
             feif_flag = DMA_HISR_FEIF4;
             dmeif_flag = DMA_HISR_DMEIF4;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->HISR;
-            csr_reg = &dma_periph->HIFCR;
             break;
         case 5:
             // Populate Flag Bitmasks
@@ -271,10 +281,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_HISR_HTIF5;
             feif_flag = DMA_HISR_FEIF5;
             dmeif_flag = DMA_HISR_DMEIF5;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->HISR;
-            csr_reg = &dma_periph->HIFCR;
             break;
         case 6:
             // Populate Flag Bitmasks
@@ -283,10 +289,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_HISR_HTIF6;
             feif_flag = DMA_HISR_FEIF6;
             dmeif_flag = DMA_HISR_DMEIF6;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->HISR;
-            csr_reg = &dma_periph->HIFCR;
             break;
         case 7:
             // Populate Flag Bitmasks
@@ -295,10 +297,6 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
             htif_flag = DMA_HISR_HTIF7;
             feif_flag = DMA_HISR_FEIF7;
             dmeif_flag = DMA_HISR_DMEIF4;
-
-            // Select appropriate flag and clear registers for Stream
-            sr_reg = &dma_periph->HISR;
-            csr_reg = &dma_periph->HIFCR;
             break;
         default:
             // Invalid stream selected, do not attempt to service interrupt
@@ -314,7 +312,10 @@ static void handleTxComplete(DMA_TypeDef* dma_periph, uint8_t stream_idx, dma_in
     // Transfer Complete interrupt flag
     if (*sr_reg & tcif_flag)
     {
-        PHAL_stopTxfer(cfg);
+        if (dma_type == USART_DMA_TX)
+            PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
+        else if (active_uarts[idx].cont_rx == 0)
+            PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
         // We no longer need the interrupt for this DMA stream, so disable it for now
         NVIC_DisableIRQ(irq);
         //Clear interrupt flag
@@ -405,6 +406,7 @@ static void handleUsartIRQ(USART_TypeDef *handle, uint8_t idx)
         if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._tx_busy)
         {
             active_uarts[idx]._tx_busy = 0;
+            // active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_TE;
         }
         handle->SR &= ~USART_SR_TC; // Clear Transfer complete interrupt flag
     }
@@ -422,15 +424,13 @@ static void handleUsartIRQ(USART_TypeDef *handle, uint8_t idx)
 
 void DMA1_Stream6_IRQHandler()
 {
-    dma_init_t dma_cfg =  USART2_TXDMA_CONT_CONFIG(0, 0);
-    handleTxComplete(dma_cfg.periph, dma_cfg.stream_idx, &dma_cfg, DMA1_Stream6_IRQn);
+    handleDMAxComplete(USART2_ACTIVE_IDX, DMA1_Stream6_IRQn, USART_DMA_TX);
 }  
 
 void DMA1_Stream5_IRQHandler()
 {
-    // dma_init_t *dma_cfg =  USART2_RXDMA_CONT_CONFIG(0, 0);
-    // handleTxComplete(dma_cfg.periph, dma_cfg.stream_idx, &dma_cfg);
-}
+    handleDMAxComplete(USART2_ACTIVE_IDX, DMA1_Stream5_IRQn, USART_DMA_RX);
+}  
 
 void USART2_IRQHandler()
 {

@@ -107,10 +107,9 @@ typedef enum
 
 typedef enum
 {
-    BLOCKING,
-    INTERRUPT,
-    DMA
-} tx_mode_t;
+    USART_DMA_TX,
+    USART_DMA_RX
+} usart_dma_mode_t;
 
 typedef struct
 {
@@ -128,7 +127,6 @@ typedef struct
     word_length_t word_length; // Word length for tx/rx (8 default)
     stop_bits_t stop_bits;     // Number of stop bits to use (1 default)
     parity_t parity;           // Parity of communication (none default)
-    usart_mode_t mode;         // TX/RX mode (TX & RX default)
     hw_flow_ctl_t hw_flow_ctl; // Special hardware modes (none default)
     ovsample_t ovsample;       // 8x or 16x oversample (16x default)
     obsample_t obsample;       // One bit sampling enable (off default)

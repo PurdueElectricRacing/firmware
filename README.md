@@ -40,14 +40,13 @@ Before you can compile software for PER car, here are some steps you need to tak
    - On Macos, check this [link](https://discussions.apple.com/thread/254226896?sortBy=best)
 10. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
    - [Alternate open-source drivers for all platforms](https://github.com/stlink-org/stlink)
-<!-->   '
+<!--
 Deprecating this as it is no longer relevant, since we simply add everything to path now
 ## Setup VSCode
 1. Create a `/.vscode/settings.json` file
 2. Configure two cortex-debug extension settings (make sure to install the recommended VSCode extensions first)
    - "cortex-debug.openocdPath": "<path to openocd executable\>"
    - "cortex-debug.gdbPath": "<path to arm-none-eabi-gdb executable\>"
-<!---
 Deprecating this section as it does not currently work for debugging.
 If someone wants to figure out how to get the gdb server to connect through Docker/WSL & make file paths work nicely...
 this would be a easy way to get people setup as they only need Docker, STLink Drivers and openocd.

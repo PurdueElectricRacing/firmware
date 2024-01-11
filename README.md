@@ -1,7 +1,7 @@
 # PER Component Firmware Projects
-[![CircleCI](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master.svg?style=svg)](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master) 
+[![CircleCI](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master.svg?style=svg)](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master)
  [![HitCount](http://hits.dwyl.com/PurdueElectricRacing/firmware.svg?style=flat-square)](http://hits.dwyl.com/PurdueElectricRacing/firmware) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/firmware?style=flat-square)
- 
+
 A mega-repository full of all firmware projects, build tools, and dependencies to create firmware modules for the car.
 
 ## Directory Structure
@@ -17,24 +17,31 @@ A mega-repository full of all firmware projects, build tools, and dependencies t
 ## Getting Started
 Before you can compile software for PER car, here are some steps you need to take to configure your system.
 
-## Install Software
-1. Initialize the git submodules in this project with the command `git submodule update --init --recursive` to download the source for the various git submodules.
-2. Install the required python packages with the command `pip install -r requirements.txt`.
+1. Install [Git](https://git-scm.com/downloads): Tool for managing source code and uploading to GitHub.
+   - If you are on Macos, this should be preinstalled for you. To double-check this, type `git --version` into your terminal
+2. Clone this repository
+3. Install [Visual Studio Code](https://code.visualstudio.com/): Text editor with extensions for helping build the firmware components using CMake.
+4. Initialize the git submodules in this project with the command `git submodule update --init --recursive` to download the source for the various git submodules.
+5. Install the required python packages with the command `pip install -r requirements.txt`.
 
-3. Install [arm-none-eabi-gcc](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads): Compiler specific to ARM based targets.
+6. Install [arm-none-eabi-gcc](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads): Compiler specific to ARM based targets.
    - [Windows](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07win32/gcc-arm-none-eabi-10.3-2021.07-win32.exe)
-   - [Mac](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-mac-10.14.6-sha1.pkg)
+      - Note: You must manually add this to your path. To do so, open the start menu and select "edit the system environment variables". From here, copy the full file path of your arm-none-eabi-gcc executable into the PATH environment variable (C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.07\bin). Your filepath may not look exactly the same, but it should look similar to this.
+   - Mac: Install the required compiler using [homebrew](https://brew.sh/): `brew install arm-none-eabi-gcc`
    - Linux - Find it yourself
-4. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
-   - It is extremely important that you install this version of openocd or else you might run into issues with debugging, especially on MacOS
-   - Installation Instructions [here](https://xpack.github.io/openocd/install/). Again, use v0.11.0-3 as linked above. 
-5. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
+7. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
+   - It is extremely important that you install this version of openocd or else you might run into issues with debugging
+   - Installation Instructions [here](https://xpack.github.io/openocd/install/). Again, use v0.11.0-3 as linked above.
+   - If you are on a Mac, you must install the latest version of OpenOcd (v12), or you will run into issues while debugging STM32F7 microcontrollers. To install, simply run `brew install openocd`
+8. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
    - On some Mac OS versions, CMake will install as a GUI only, follow the `Tools > Install Command Line Tools` tip inside CMake to fix this
-6. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake
-7. Install [Git](https://git-scm.com/downloads): Tool for managing source code and uploading to GitHub.
-8. Install [Visual Studio Code](https://code.visualstudio.com/): Text editor with extensions for helping build the firmware components using CMake.
-9. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
+9. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake
+   - On Windows, you must add this to your path environment variable. This time, use the filepath to ninja.exe
+   - On Macos, check this [link](https://discussions.apple.com/thread/254226896?sortBy=best)
+10. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
    - [Alternate open-source drivers for all platforms](https://github.com/stlink-org/stlink)
+<!-->   '
+Deprecating this as it is no longer relevant, since we simply add everything to path now
 ## Setup VSCode
 1. Create a `/.vscode/settings.json` file
 2. Configure two cortex-debug extension settings (make sure to install the recommended VSCode extensions first)
@@ -43,7 +50,7 @@ Before you can compile software for PER car, here are some steps you need to tak
 <!---
 Deprecating this section as it does not currently work for debugging.
 If someone wants to figure out how to get the gdb server to connect through Docker/WSL & make file paths work nicely...
-this would be a easy way to get people setup as they only need Docker, STLink Drivers and openocd. 
+this would be a easy way to get people setup as they only need Docker, STLink Drivers and openocd.
 
 ### Notes for MacOS Install
 1. Adding a program to your path: `sudo vim /etc/paths`
@@ -57,7 +64,7 @@ You can also use docker to install all of the packages inside a development cont
 ```
 docker compose build develop
 ```
->This command uses the `docker-compose.yaml` file to build the image with the tag of `stm32_develop:latest`. 
+>This command uses the `docker-compose.yaml` file to build the image with the tag of `stm32_develop:latest`.
 
 4. Run the compiled image in a container:
 ```
@@ -74,7 +81,7 @@ VSCode has a recommended CMake extension. This extension is configured throught 
 
 ```
 python3 per_build.py
-``` 
+```
 > This command is a thin wrapper around CMake to build all of the components which will be placed in a newly created `output` folder. Running `python3 per_build.py --help` will give you more options for building components.
 
 ## Debugging on Hardware

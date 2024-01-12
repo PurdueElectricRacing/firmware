@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector_fpga Driveline Precharge OrionBMS torque_vector Dashboard Steering PDU Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector_fpga Driveline Precharge OrionBMS torque_vector Dashboard Steering PDU f4_testing Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -431,6 +431,11 @@ BO_ 2214659103 pdu_test: 3 PDU
 BO_ 2148059999 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214659106 test: 3 f4_testing
+ SG_ test_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 372 Y_Accel: 8 Acceleration
  SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -851,6 +856,7 @@ CM_ BU_ torque_vector "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
 CM_ BU_ PDU "";
+CM_ BU_ f4_testing "";
 CM_ BU_ Acceleration "";
 CM_ BU_ bootloader "";
 CM_ BU_ BMS_LV "";
@@ -1196,6 +1202,10 @@ CM_ SG_ 2214659103 test_1 "";
 CM_ BO_ 2148059999 "Fault status message";
 CM_ SG_ 2148059999 latched "";
 CM_ SG_ 2148059999 idx "";
+CM_ BO_ 2214659106 "periodic test msg";
+CM_ SG_ 2214659106 test_3 "";
+CM_ SG_ 2214659106 test_2 "";
+CM_ SG_ 2214659106 test_1 "";
 CM_ BO_ 372 "Y Acceleration Update";
 CM_ SG_ 372 Reserved_3 "";
 CM_ SG_ 372 Reserved_2 "";

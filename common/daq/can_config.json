@@ -864,6 +864,25 @@
                     "rx": [             ]
                 },
                 {
+                    "node_name": "f4_testing",
+                    "node_ssa":34,
+                    "tx": [
+                        {
+                            "msg_name":"test",
+                            "msg_desc":"periodic test msg",
+                            "signals":[
+                                {"sig_name": "test_1", "type":"uint8_t"},
+                                {"sig_name": "test_2", "type":"uint8_t"},
+                                {"sig_name": "test_3", "type":"uint8_t"}
+                            ],
+                            "msg_period":15,
+                            "msg_hlp":1,
+                            "msg_pgn":1040
+                        }
+                    ],
+                    "rx": [             ]
+                },
+                {
                     "node_name": "Acceleration",
                     "can_peripheral": "CAN1",
                     "node_ssa": 43,

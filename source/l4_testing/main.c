@@ -22,7 +22,9 @@
 
 
 GPIOInitConfig_t gpio_config[] = {
-    /* Insert pin definitions here! */
+//TODO: LED port
+//TODO: Button port
+//TODO: CAN Ports
 };
 
 #define TargetCoreClockrateHz 80000000
@@ -43,6 +45,8 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+//TODO: queue definitions
+
 /* Function Prototypes */
 void HardFault_Handler();
 //Insert function prototypes here
@@ -50,6 +54,7 @@ void HardFault_Handler();
 
 int main (void)
 {
+    //TODO: init queues
 
     /* HAL Initilization */
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -61,11 +66,15 @@ int main (void)
         HardFault_Handler();
     }
 
-    volatile uint16_t var = 0;
+
+    //TODO: init CAN
+
+    //TODO: configure button interrupt
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-        //Schedule your tasks here!
+        //TODO: LED task
+        //TODO: CAN background tasks
 
     schedStart();
 

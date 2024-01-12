@@ -23,17 +23,17 @@ void getFaults() {
 
 void getCurrent() {
     // High power switches
-    //auto_switch.current[SW_PUMP_1] = getCurrent_HP(adc_readings.pump_1_imon);
-    //auto_switch.current[SW_PUMP_2] = getCurrent_HP(adc_readings.pump_2_imon);
-    //auto_switch.current[SW_SDC] = getCurrent_HP(adc_readings.sdc_imon);
-    // auto_switch.current[SW_AUX] = getCurrent_HP(adc_readings.aux_hp_imon);
+    auto_switch.current[SW_PUMP_1] = getCurrent_HP(adc_readings.pump_1_imon);
+    auto_switch.current[SW_PUMP_2] = getCurrent_HP(adc_readings.pump_2_imon);
+    auto_switch.current[SW_SDC] = getCurrent_HP(adc_readings.sdc_imon);
+    auto_switch.current[SW_AUX] = getCurrent_HP(adc_readings.aux_hp_imon);
 
     // Low power switches
-    //auto_switch.current[SW_FAN_1] = getCurrent_LP(adc_readings.fan_1_cs);
-    //auto_switch.current[SW_FAN_2] = getCurrent_LP(adc_readings.fan_2_cs);
-    //auto_switch.current[SW_DASH] = getCurrent_LP(adc_readings.dash_cs);
-    //auto_switch.current[SW_ABOX] = getCurrent_LP(adc_readings.abox_cs);
-    //auto_switch.current[SW_MAIN] = getCurrent_LP(adc_readings.main_cs);
+    auto_switch.current[SW_FAN_1] = getCurrent_LP(adc_readings.fan_1_cs);
+    auto_switch.current[SW_FAN_2] = getCurrent_LP(adc_readings.fan_2_cs);
+    auto_switch.current[SW_DASH] = getCurrent_LP(adc_readings.dash_cs);
+    auto_switch.current[SW_ABOX] = getCurrent_LP(adc_readings.abox_cs);
+    auto_switch.current[SW_MAIN] = getCurrent_LP(adc_readings.main_cs);
     // TODO: bullet switch doesn't have cs signal
 
     // 5V switches
@@ -47,9 +47,9 @@ void getCurrent() {
 
 // Updates voltage for all switches and stores values in struct
 void getVoltage() {
-    //auto_switch.voltage.in_24v = adc_readings.lv_24_v_sense * (3300 / (47000 + 3300));
-    //auto_switch.voltage.out_5v = adc_readings.lv_5_v_sense * (3300 / (4300 + 3300));
-    //auto_switch.voltage.out_3v3 = adc_readings.lv_3v3_v_sense * (10000 / (4300 + 10000));
+    auto_switch.voltage.in_24v = adc_readings.lv_24_v_sense * (3300 / (47000 + 3300));
+    auto_switch.voltage.out_5v = adc_readings.lv_5_v_sense * (3300 / (4300 + 3300));
+    auto_switch.voltage.out_3v3 = adc_readings.lv_3v3_v_sense * (10000 / (4300 + 10000));
 }
 
 // Current helper functions

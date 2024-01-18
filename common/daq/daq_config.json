@@ -51,6 +51,16 @@
                     "variables": [
                     ],
                     "files":[]
+                },
+                {
+                    "node_name":"PDU",
+                    "includes":"#include \"main.h\"",
+                    "variables": [
+                        {"var_name":"lv_24_v_sense", "access_phrase": "adc_readings.lv_24_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"lv_5_v_sense", "access_phrase": "adc_readings.lv_5_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"lv_3v3_v_sense", "access_phrase": "adc_readings.lv_3v3_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"}
+                    ],
+                    "files":[]
                 }
             ]
         },

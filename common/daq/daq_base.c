@@ -72,6 +72,66 @@ bool daqInitBase(q_handle_t* tx_a, uint8_t num_variables_, CAN_TypeDef* hcan, ui
     return false;
 }
 
+// read GPIO pin state
+// returns true if error
+static bool readPin(uint8_t bank_pin, daq_tx_frame_writer_t* tx_msg)
+{
+    if (DAQ_PIN_VAL_LENGTH + DAQ_CMD_LENGTH + DAQ_BANK_LENGTH + DAQ_PIN_LENGTH > 64 - tx_msg->curr_bit)
+    {
+        // make room so entire message will fit
+        flushDaqFrame(tx_msg);
+    }
+    // add bank and pin
+    appendDataToFrame(tx_msg, (bank_pin << DAQ_CMD_LENGTH) | DAQ_RPLY_READ_PIN,
+                      DAQ_CMD_LENGTH + DAQ_BANK_LENGTH + DAQ_PIN_LENGTH);
+
+    // get data
+    uint8_t val = 0;
+    GPIO_TypeDef * bank;
+    switch(bank_pin & DAQ_BANK_MASK)
+    {
+        case 0:
+            bank = GPIOA;
+            break;
+        case 1:
+            bank = GPIOB;
+            break;
+        case 2:
+            bank = GPIOC;
+            break;
+#ifdef GPIOD
+        case 3:
+            bank = GPIOD;
+            break;
+#endif
+#ifdef GPIOE
+        case 4:
+            bank = GPIOE;
+            break;
+#endif
+#ifdef GPIOF
+        case 5:
+            bank = GPIOF;
+            break;
+#endif
+        default:
+            bank = NULL;
+    }
+    if (bank == NULL)
+    {
+        val = DAQ_PIN_VAL_ERROR;
+    }
+    else
+    {
+        val = PHAL_readGPIO(bank, (bank_pin >> DAQ_BANK_LENGTH) & DAQ_PIN_MASK);
+    }
+
+    // place data, based on error checking, should be within the same frame
+    appendDataToFrame(tx_msg, val, DAQ_PIN_VAL_LENGTH);
+
+    return false;
+}
+
 // read variable
 // returns true if error
 static bool readVar(uint8_t var_id, daq_tx_frame_writer_t* tx_msg)
@@ -145,6 +205,7 @@ static bool writeVar(uint8_t var_id, daq_rx_frame_reader_t* rx_msg, daq_tx_frame
 // returns true if error
 static bool loadFile(daq_rx_frame_reader_t* rx_msg, daq_tx_frame_writer_t* tx_msg)
 {
+#ifdef DAQ_EEPROM_ENABLE
     char file_name[NAME_LEN];
     rx_msg->curr_bit += DAQ_ID_LENGTH;
     for (uint8_t i = 0; i < NAME_LEN; ++i)
@@ -154,12 +215,14 @@ static bool loadFile(daq_rx_frame_reader_t* rx_msg, daq_tx_frame_writer_t* tx_ms
     }
 
     requestLoad(file_name);
+#endif
     return false;
 }
 
 // returns true if error
 static bool saveFile(daq_rx_frame_reader_t* rx_msg, daq_tx_frame_writer_t* tx_msg)
 {
+#ifdef DAQ_EEPROM_ENABLE
     char file_name[NAME_LEN];
     rx_msg->curr_bit += DAQ_ID_LENGTH;
     for (uint8_t i = 0; i < NAME_LEN; ++i)
@@ -169,6 +232,7 @@ static bool saveFile(daq_rx_frame_reader_t* rx_msg, daq_tx_frame_writer_t* tx_ms
     }
 
     requestFlush(file_name);
+#endif
     return false;
 }
 
@@ -235,6 +299,9 @@ void daq_command_callback(CanMsgTypeDef_t* msg_header_a)
                 pubVarStop((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & DAQ_ID_MASK);
                 rx_reader.curr_bit += DAQ_ID_LENGTH;
                 break;
+            case DAQ_CMD_READ_PIN:
+                readPin((*(rx_reader.raw_data_a) >> rx_reader.curr_bit) & (DAQ_BANK_MASK | (DAQ_PIN_MASK << DAQ_PIN_LENGTH)), &tx_writer);
+                rx_reader.curr_bit += DAQ_BANK_LENGTH + DAQ_PIN_LENGTH;
             default:
                 __asm__("nop"); // Do nothing so we can place a breakpoint
         }

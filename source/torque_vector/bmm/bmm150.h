@@ -12,12 +12,11 @@
 #ifndef _BMM150_H_
 #define _BMM150_H_
 
-#include "stm32l4xx.h"
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4_F7/spi/spi.h"
 #include "SFS.h"
 
 // Suspend mode is the default power mode of BMM150 after the chip is powered

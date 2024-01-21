@@ -1,10 +1,9 @@
 /* System Includes */
-#include "stm32l471xx.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/rcc/rcc.h"
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4_F7/rcc/rcc.h"
+#include "common/phal_F4_F7/spi/spi.h"
 #include "common/psched/psched.h"
-#include "common/phal_L4/usart/usart.h"
+// #include "common/phal_F4_F7/usart/usart.h"
 
 /* Module Includes */
 #include "bmi088.h"
@@ -36,39 +35,40 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, GPIO_OUTPUT_HIGH_SPEED),
 
     // GPS USART
-    GPIO_INIT_USART3RX_PC5,
-    GPIO_INIT_USART3TX_PC4,
+    // GPIO_INIT_USART3RX_PC5,
+    // GPIO_INIT_USART3TX_PC4,
 
     // EEPROM
     GPIO_INIT_OUTPUT(NAV_EEPROM_CS_GPIO_PORT, NAV_EEPROM_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_OUTPUT(NAV_WP_GPIO_PORT, NAV_WP_PIN, GPIO_OUTPUT_HIGH_SPEED),
 
     // CAN
-    GPIO_INIT_CANRX_PA11,
-    GPIO_INIT_CANTX_PA12};
+    // GPIO_INIT_CANRX_PA11,
+    // GPIO_INIT_CANTX_PA12
+    };
 
 /* USART Configuration */
 // M9N GPS
-dma_init_t usart_gps_tx_dma_config = USART3_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_gps_rx_dma_config = USART3_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t huart_gps = {
-    .baud_rate = 115200,
-    .word_length = WORD_8,
-    .hw_flow_ctl = HW_DISABLE,
-    .mode = MODE_TX_RX,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .obsample = OB_DISABLE,
-    .ovsample = OV_16,
-    .adv_feature.rx_inv = false,
-    .adv_feature.tx_inv = false,
-    .adv_feature.auto_baud = false,
-    .adv_feature.data_inv = false,
-    .adv_feature.msb_first = false,
-    .adv_feature.overrun = false,
-    .adv_feature.dma_on_rx_err = false,
-    .tx_dma_cfg = &usart_gps_tx_dma_config,
-    .rx_dma_cfg = &usart_gps_rx_dma_config};
+// dma_init_t usart_gps_tx_dma_config = USART3_TXDMA_CONT_CONFIG(NULL, 1);
+// dma_init_t usart_gps_rx_dma_config = USART3_RXDMA_CONT_CONFIG(NULL, 2);
+// usart_init_t huart_gps = {
+//     .baud_rate = 115200,
+//     .word_length = WORD_8,
+//     .hw_flow_ctl = HW_DISABLE,
+//     .mode = MODE_TX_RX,
+//     .stop_bits = SB_ONE,
+//     .parity = PT_NONE,
+//     .obsample = OB_DISABLE,
+//     .ovsample = OV_16,
+//     .adv_feature.rx_inv = false,
+//     .adv_feature.tx_inv = false,
+//     .adv_feature.auto_baud = false,
+//     .adv_feature.data_inv = false,
+//     .adv_feature.msb_first = false,
+//     .adv_feature.overrun = false,
+//     .adv_feature.dma_on_rx_err = false,
+//     .tx_dma_cfg = &usart_gps_tx_dma_config,
+//     .rx_dma_cfg = &usart_gps_rx_dma_config};
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -165,12 +165,12 @@ int main(void)
     }
 
     /* USART initialization */
-    huart_gps.rx_dma_cfg->circular = true;
-    if (!PHAL_initUSART(USART3, &huart_gps, APB1ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    PHAL_usartRxDma(USART3, &huart_gps, (uint16_t *)testGPSHandle.raw_message, 100);
+    // huart_gps.rx_dma_cfg->circular = true;
+    // if (!PHAL_initUSART(USART3, &huart_gps, APB1ClockRateHz))
+    // {
+    //     HardFault_Handler();
+    // }
+    // PHAL_usartRxDma(USART3, &huart_gps, (uint16_t *)testGPSHandle.raw_message, 100);
 
     /* SPI initialization */
     if (!PHAL_SPI_init(&spi_config))
@@ -193,15 +193,15 @@ int main(void)
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 74, 1000);
 
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    // taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
 
     taskCreate(sendIMUData, 10);
-    taskCreate(collectGPSData, 40);
-    taskCreate(collectMagData, 40);
-    taskCreate(SFS_MAIN, 10);
+    // taskCreate(collectGPSData, 40);
+    // taskCreate(collectMagData, 40);
+    // taskCreate(SFS_MAIN, 10);
 
     /* No Way Home */
     schedStart();
@@ -216,17 +216,17 @@ void preflightChecks(void)
     switch (state++)
     {
     case 0:
-        if (!PHAL_initCAN(CAN1, false))
-        {
-            HardFault_Handler();
-        }
-        NVIC_EnableIRQ(CAN1_RX0_IRQn);
+        // if (!PHAL_initCAN(CAN1, false))
+        // {
+        //     HardFault_Handler();
+        // }
+        // NVIC_EnableIRQ(CAN1_RX0_IRQn);
         break;
     case 2:
-        if (!BMM150_readID(&bmm_config))
-        {
-            asm("nop");
-        }
+        // if (!BMM150_readID(&bmm_config))
+        // {
+        //     asm("nop");
+        // }
         break;
     case 1:
         if (!BMI088_init(&bmi_config))
@@ -252,7 +252,7 @@ void preflightChecks(void)
         {
             if (!imu_init(&imu_h))
                 HardFault_Handler();
-            initCANParse(&q_rx_can);
+            // initCANParse(&q_rx_can);
             registerPreflightComplete(1);
             state = 750; // prevent wrap around
         }

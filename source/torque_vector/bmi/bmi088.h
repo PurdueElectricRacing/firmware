@@ -12,13 +12,12 @@
 #ifndef _BMI_H_
 #define _BMI_H_
 
-#include "stm32l4xx.h"
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>
 #include "bsxlite_interface.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4_F7/spi/spi.h"
 
 #define BMI088_GYRO_CHIP_ID (0x0FU)
 #define BMI088_ACC_CHIP_ID (0x1EU)

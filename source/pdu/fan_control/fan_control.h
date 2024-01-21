@@ -7,5 +7,8 @@
 
 #define PWM_FREQUENCY_HZ (25000) // PWM frequency to be 25kHz
 #define FAN_PWM_TIM (FAN_1_PWM_TIM) // Fan 1 and 2 user same timer
+//
+bool fanControlInit();
+void setFanSpeed(uint8_t fan_speed);
 
 #endif // _FAN_CONTROL_H_

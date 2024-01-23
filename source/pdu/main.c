@@ -202,6 +202,7 @@ int main()
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreate(getCurrent, 15);
+    taskCreate(getVoltage, 15);
     schedStart();
     return 0;
 }

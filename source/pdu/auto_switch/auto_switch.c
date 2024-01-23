@@ -47,25 +47,34 @@ void getCurrent() {
 
 // Updates voltage for all switches and stores values in struct
 void getVoltage() {
-    auto_switch.voltage.in_24v = adc_readings.lv_24_v_sense * (3300 / (47000 + 3300));
-    auto_switch.voltage.out_5v = adc_readings.lv_5_v_sense * (3300 / (4300 + 3300));
-    auto_switch.voltage.out_3v3 = adc_readings.lv_3v3_v_sense * (10000 / (4300 + 10000));
+    auto_switch.voltage.in_24v = calcVoltage(adc_readings.lv_24_v_sense, LV_24V_R1, LV_24V_R2);
+    auto_switch.voltage.out_5v = calcVoltage(adc_readings.lv_5_v_sense, LV_5V_R1, LV_5V_R2);
+    auto_switch.voltage.out_3v3 = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2);
 }
 
 // Current helper functions
-float getCurrent_HP(uint16_t adc_reading) {
+uint16_t getCurrent_HP(uint16_t adc_reading) {
     adc_reading = adc_reading * 3300 / 4095;  // Convert to mV
     uint16_t current = adc_reading;
     return current;
 }
 
-float getCurrent_LP(uint16_t adc_reading) {
+uint16_t getCurrent_LP(uint16_t adc_reading) {
     uint16_t current = adc_reading;
     return current;
 }
 
-float getCurrent_5V() {
+uint16_t getCurrent_5V(uint16_t adc_reading) {
     return 0;
+}
+
+// Converts ADC voltage reading to mV
+uint16_t calcVoltage(uint16_t adc_reading, int r1, int r2) {
+    // Compensate for voltage divider
+    uint16_t voltage = adc_reading * (r1 + r2) / r2;
+    // Scale for 12-bit adc at 3.3v
+    voltage = voltage * ADC_REF_mV / ADC_MAX;
+    return voltage;
 }
 
 void enableSwitch() {

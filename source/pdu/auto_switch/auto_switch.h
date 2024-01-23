@@ -16,6 +16,15 @@
 
 // Static variables
 #define SHUNT_R 10000000
+#define ADC_MAX 4095
+
+// Voltage sense
+#define LV_24V_R1  47000 // Ohms
+#define LV_24V_R2  3300  // Ohms
+#define LV_5V_R1   4300  // Ohms
+#define LV_5V_R2   3300  // Ohms
+#define LV_3V3_R1  4300  // Ohms
+#define LV_3V3_R2  10000 // Ohms
 
 // Enumeration
 typedef enum {
@@ -62,7 +71,8 @@ void getFaults();
 void getCurrent();
 void getVoltage();
 void enableSwitch();
-float getCurrent_HP(uint16_t);
-float getCurrent_LP(uint16_t);
+uint16_t getCurrent_HP(uint16_t);
+uint16_t getCurrent_LP(uint16_t);
+uint16_t getCurrent_5V(uint16_t)
 
 #endif

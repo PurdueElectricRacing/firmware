@@ -18,11 +18,11 @@
 #define SHUNT_R 10000000
 #define ADC_MAX 4095
 
-// Voltage sense
+// Voltage sense resistors
 #define LV_24V_R1  47000 // Ohms
-#define LV_24V_R2  3300  // Ohms
+#define LV_24V_R2  3400  // Ohms
 #define LV_5V_R1   4300  // Ohms
-#define LV_5V_R2   3300  // Ohms
+#define LV_5V_R2   3400  // Ohms
 #define LV_3V3_R1  4300  // Ohms
 #define LV_3V3_R2  10000 // Ohms
 
@@ -46,7 +46,7 @@ typedef enum {
     SW_DAQ,
     SW_FAN_5V,
 
-    // Number of switches
+    // Number of switches (must be last)
     NUM_SWITCHES
 } switches_t;
 
@@ -73,6 +73,7 @@ void getVoltage();
 void enableSwitch();
 uint16_t getCurrent_HP(uint16_t);
 uint16_t getCurrent_LP(uint16_t);
-uint16_t getCurrent_5V(uint16_t)
+uint16_t getCurrent_5V(uint16_t);
+uint16_t calcVoltage(uint16_t, int, int);
 
 #endif

@@ -12,9 +12,20 @@
 #define _DAQ_BASE_H_
 
 #include <string.h>
+#if defined(STM32F407xx)
+#include "common/phal_F4_F7/can/can.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#elif defined(STM32F732xx)
+#include "common/phal_F4_F7/can/can.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#else
 #include "common/phal_L4/can/can.h"
-#include "common/queue/queue.h"
+#include "common/phal_L4/gpio/gpio.h"
+#define DAQ_EEPROM_ENABLE
 #include "common/phal_L4/eeprom_spi/eeprom_spi.h"
+#endif
+#include "common/queue/queue.h"
+
 
 typedef void (*read_func_ptr_t)(void* arg);
 typedef void (*write_func_ptr_t)(void* arg);
@@ -30,7 +41,8 @@ typedef enum
     DAQ_CMD_LOAD      = 2,
     DAQ_CMD_SAVE      = 3, 
     DAQ_CMD_PUB_START = 4, 
-    DAQ_CMD_PUB_STOP  = 5
+    DAQ_CMD_PUB_STOP  = 5,
+    DAQ_CMD_READ_PIN  = 6
 } Daq_Cmd_t;
 
 typedef enum
@@ -41,11 +53,20 @@ typedef enum
     DAQ_RPLY_WRITE_ERROR = 3,
     DAQ_RPLY_SAVE_ERROR  = 4,
     DAQ_RPLY_LOAD_ERROR  = 5,
-    DAQ_RPLY_PUB         = 6
+    DAQ_RPLY_PUB         = 6,
+    DAQ_RPLY_READ_PIN    = 7
 } Daq_Rply_t;
 
 #define DAQ_ID_LENGTH     5 // bits
 #define DAQ_ID_MASK       0b11111
+
+#define DAQ_BANK_LENGTH   4 // bits
+#define DAQ_BANK_MASK     0xF
+#define DAQ_PIN_LENGTH    4 // bits
+#define DAQ_PIN_MASK      0xF
+
+#define DAQ_PIN_VAL_LENGTH 2 // bits
+#define DAQ_PIN_VAL_ERROR  0x2
 
 typedef struct
 {

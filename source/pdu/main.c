@@ -11,6 +11,7 @@
 /* Module Includes */
 #include "main.h"
 #include "can_parse.h"
+#include "daq.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -179,6 +180,7 @@ int main()
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
     taskCreate(sendtestmsg, 100);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     schedStart();
@@ -198,7 +200,9 @@ void preflightChecks(void) {
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
            break;
         case 1:
-            initCANParse(&q_rx_can);
+           initCANParse(&q_rx_can);
+           if(daqInit(&q_tx_can))
+               HardFault_Handler();
            break;
         default:
             registerPreflightComplete(1);

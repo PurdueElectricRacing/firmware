@@ -9,7 +9,13 @@
  *
  */
 #include "faults.h"
+#if defined(STM32F407xx)
+#include "common/phal_F4_F7/can/can.h"
+#elif defined(STM32F732xx)
+#include "common/phal_F4_F7/can/can.h"
+#else
 #include "common/phal_L4/can/can.h"
+#endif
 #include "common/psched/psched.h"
 
 //BEGIN AUTO FAULT INFO ARRAY DEFS

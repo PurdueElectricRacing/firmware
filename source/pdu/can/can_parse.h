@@ -22,6 +22,7 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_PDU_TEST 0x401041f
 #define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_DAQ_RESPONSE_PDU 0x17ffffdf
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
@@ -30,12 +31,14 @@
 #define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
+#define ID_DAQ_COMMAND_PDU 0x140007f2
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_PDU_TEST 3
 #define DLC_FAULT_SYNC_PDU 3
+#define DLC_DAQ_RESPONSE_PDU 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -44,6 +47,7 @@
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
+#define DLC_DAQ_COMMAND_PDU 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -61,6 +65,12 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->fault_sync_pdu.idx = idx_;\
         data_a->fault_sync_pdu.latched = latched_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_DAQ_RESPONSE_PDU(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PDU, .DLC=DLC_DAQ_RESPONSE_PDU, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->daq_response_PDU.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -88,6 +98,9 @@ typedef union {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
+    struct {
+        uint64_t daq_response: 64;
+    } daq_response_PDU;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -119,6 +132,9 @@ typedef union {
     struct {
         uint64_t id: 16;
     } return_fault_control;
+    struct {
+        uint64_t daq_command: 64;
+    } daq_command_PDU;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -158,12 +174,16 @@ typedef struct {
     struct {
         uint16_t id;
     } return_fault_control;
+    struct {
+        uint64_t daq_command;
+    } daq_command_PDU;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void daq_command_PDU_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

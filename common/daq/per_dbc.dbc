@@ -432,6 +432,9 @@ BO_ 2148059999 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2550136799 daq_response_PDU: 8 PDU
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 372 Y_Accel: 8 Acceleration
  SG_ Reserved_3 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_2 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -661,6 +664,9 @@ BO_ 2483028274 daq_command_PRECHARGE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028210 daq_command_DRIVELINE: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483030002 daq_command_PDU: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281733418 heat_req: 3 Precharge
@@ -1196,6 +1202,8 @@ CM_ SG_ 2214659103 test_1 "";
 CM_ BO_ 2148059999 "Fault status message";
 CM_ SG_ 2148059999 latched "";
 CM_ SG_ 2148059999 idx "";
+CM_ BO_ 2550136799 "daq response from node PDU";
+CM_ SG_ 2550136799 daq_response "";
 CM_ BO_ 372 "Y Acceleration Update";
 CM_ SG_ 372 Reserved_3 "";
 CM_ SG_ 372 Reserved_2 "";
@@ -1375,6 +1383,8 @@ CM_ BO_ 2483028274 "daq command for node PRECHARGE";
 CM_ SG_ 2483028274 daq_command "";
 CM_ BO_ 2483028210 "daq command for node DRIVELINE";
 CM_ SG_ 2483028210 daq_command "";
+CM_ BO_ 2483030002 "daq command for node PDU";
+CM_ SG_ 2483030002 daq_command "";
 CM_ BO_ 2281733418 "Starts BMS pre-heat for set time";
 CM_ SG_ 2281733418 time "Set runtime in ms";
 CM_ SG_ 2281733418 toggle "1 for start, 0 for stop";

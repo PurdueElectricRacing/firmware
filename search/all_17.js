@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['w_0',['W',['../structDW__SFS.html#aec3dc241daba507708f226d97a65dd17',1,'DW_SFS']]],
-  ['w_1',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t']]],
+  ['w_0',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t']]],
+  ['w_1',['W',['../structDW__SFS.html#aec3dc241daba507708f226d97a65dd17',1,'DW_SFS']]],
   ['wait_2',['WAIT',['../afe_8h.html#a11572cbe35854bf2b4b1bba03771e9f9a79a322ccb4b29b85b3cab52dbccefd17',1,'afe.h']]],
   ['waitmicros_3',['waitMicros',['../psched_8c.html#ae0b2904fe4803f03f712a9d8f544ec52',1,'psched.c']]],
   ['warn_5fstring_4',['WARN_STRING',['../lcd_8h.html#a68be2e50ca8954fe2c024b7604d23623',1,'lcd.h']]],
@@ -32,10 +32,10 @@ var searchData=
   ['word_5flength_29',['word_length',['../structusart__init__t.html#a05cc99e8162f284a52d93388d800c782',1,'usart_init_t']]],
   ['word_5flength_5ft_30',['word_length_t',['../usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'usart.h']]],
   ['wordh_31',['wordH',['../structBigEndianIEEEDouble.html#a5dfc5681dc38f1f1bef513b4ad2c2e8e',1,'BigEndianIEEEDouble::wordH'],['../structLittleEndianIEEEDouble.html#af06d938c7ecc1561e5e51fba3b77aee6',1,'LittleEndianIEEEDouble::wordH']]],
-  ['wordl_32',['wordL',['../structBigEndianIEEEDouble.html#a598739bee320c62ff8c61a9141bf4dec',1,'BigEndianIEEEDouble::wordL'],['../structLittleEndianIEEEDouble.html#a606de4acde1005975e56e1e4ae9234f8',1,'LittleEndianIEEEDouble::wordL'],['../structIEEESingle.html#ab85bf6afd689f791215e8a8c1642045f',1,'IEEESingle::wordL'],['../structIEEESingle.html#a7dfb40d4028f33804919e244ac86952f',1,'IEEESingle::wordL']]],
+  ['wordl_32',['wordL',['../structBigEndianIEEEDouble.html#a598739bee320c62ff8c61a9141bf4dec',1,'BigEndianIEEEDouble::wordL'],['../structLittleEndianIEEEDouble.html#a606de4acde1005975e56e1e4ae9234f8',1,'LittleEndianIEEEDouble::wordL'],['../structIEEESingle.html#ab85bf6afd689f791215e8a8c1642045f',1,'IEEESingle::wordL'],['../structIEEESingle.html#af15f29da0d5d0d1d1496904cfae66f32',1,'IEEESingle::wordL']]],
   ['wordlreal_33',['wordLreal',['../structIEEESingle.html#afec10c9e3f9764d54e28adb3c551d62d',1,'IEEESingle']]],
   ['wordluint_34',['wordLuint',['../structIEEESingle.html#ab54f13fd229e1ffea7f2ad57e97add6a',1,'IEEESingle']]],
-  ['words_35',['words',['../structBigEndianIEEEDouble.html#aa8102fb2e221a69e59b60d652baea10c',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#a4acf936ee7ec5c604d9e020d7f5808e0',1,'LittleEndianIEEEDouble::words'],['../structBigEndianIEEEDouble.html#a7d71015cc7487a138885d48e598a3d5b',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#a3540992c7d0dfe64ed49aac84b4e4b2b',1,'LittleEndianIEEEDouble::words']]],
+  ['words_35',['words',['../structBigEndianIEEEDouble.html#aa8102fb2e221a69e59b60d652baea10c',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#a4acf936ee7ec5c604d9e020d7f5808e0',1,'LittleEndianIEEEDouble::words'],['../structBigEndianIEEEDouble.html#ac9b89cf3b28f13f7934d27c96eeb3347',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#adc6d4588c075acb1b66d5f79f9c8edf4',1,'LittleEndianIEEEDouble::words']]],
   ['wrcfga_36',['WRCFGA',['../afe_8h.html#a0f38cada613ae1a9c0918543abae1dfe',1,'afe.h']]],
   ['wrcomm_37',['WRCOMM',['../afe_8h.html#a725b9d2986b81351736e77afe3e4a8bf',1,'afe.h']]],
   ['write_5fpending_38',['write_pending',['../structeeprom.html#af741d6e457776c48e7988aa8cbf120c9',1,'eeprom']]],

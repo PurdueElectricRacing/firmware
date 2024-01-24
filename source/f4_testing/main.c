@@ -5,6 +5,7 @@
 #include "common/phal_F4_F7/spi/spi.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
+#include "string.h"
 
 #include "main.h"
 
@@ -25,7 +26,7 @@ ADCInitConfig_t adc_config = {
 dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lcd = {
-   .baud_rate   = 4800,
+   .baud_rate   = 250000,
    .word_length = WORD_8,
    .stop_bits   = SB_ONE,
    .parity      = PT_NONE,
@@ -52,11 +53,11 @@ GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_ANALOG(GPIOA, 0),
     GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
-    // GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
-    // GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_USART2TX_PA2,
     GPIO_INIT_USART2RX_PA3,
-    
+
     GPIO_INIT_OUTPUT(SPI_CS_PORT, SPI_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_AF(SPI_SCK_PORT, SPI_SCK_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(SPI_MOSI_PORT, SPI_MOSI_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
@@ -136,27 +137,40 @@ int main()
     PHAL_writeGPIO(SPI_CS_PORT, SPI_CS_PIN, 1);
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
-    // PHAL_usartRxDma(&lcd, (uint16_t *) msg, 4);
+    PHAL_usartRxDma(&lcd, (uint16_t *) msg, 5, 1);
         /* Task Creation */
     schedInit(APB1ClockRateHz);
         taskCreate(ledblink, 50);
-        taskCreate(testUsart, 1000);
+        taskCreate(testUsart, 100);
         /* Schedule Periodic tasks here */
     schedStart();
     return 0;
+}
+
+
+void usart_recieve_complete_callback(usart_init_t *handle)
+{
+    if (handle == &lcd)
+    {
+        PHAL_toggleGPIO(GPIOD, 15);
+    }
+    else
+    {
+        PHAL_writeGPIO(GPIOD, 15, 0);
+    }
 }
 
 void testUsart()
 {
     char* txmsg = "Hello World!\n";
     PHAL_usartTxDma(&lcd, (uint16_t *)txmsg, 13);
-    if (msg[0] != 0)
+    if (strcmp(msg, "hello") == 0)
     {
-        asm("nop");
-        for (uint8_t i = 0; i < 100; i++)
-        {
-            msg[i] = 0;
-        } 
+        PHAL_writeGPIO(GPIOD, 14, 1);
+    }
+    else
+    {
+        PHAL_writeGPIO(GPIOD, 14, 0);
     }
 }
 

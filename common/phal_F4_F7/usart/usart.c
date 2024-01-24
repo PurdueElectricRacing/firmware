@@ -1,26 +1,25 @@
 /**
  * @file usart.c
- * @author Aditya Anand (anand89@purdue.edu) - Port of L4 UART HAL by Dawson Moore (moore800@purdue.edu)
+ * @author Aditya Anand (anand89@purdue.edu) - Redesign of L4 UART HAL by Dawson Moore (moore800@purdue.edu)
  * @brief
  * @version 0.1
  * @date 2024-1-4
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2024
  *
  */
 
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/common_defs/common_defs.h"
 
-static void usart_isr_handle(USART_TypeDef* instance, uint8_t instance_idx);
-static void usart_unmask_irq(USART_TypeDef* instance);
-static void usart_mask_irq(USART_TypeDef* instance);
+// Comments labeled "ADD: " indicate that code needs to be modified in order to add extra peripherals
 
-/*static*/ volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
+// These items should not be modified by anybody other than the HAL
+static volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
 
 bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
 {
-     // Locals
+    // Locals
     uint8_t over8;
     uint32_t div;
     uint32_t carry;
@@ -28,13 +27,14 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
     uint32_t div_mantissa;
 
     // Add Handle to active peripheral set for keeping track of activity. The same handle must be passed throughout the use of the USART peripheral
-    // If a different configuration of peripheral is to be used/a different handle, peripheral must be reinitalized. 
+    // If a different configuration of peripheral is to be used/a different handle, peripheral must be reinitalized.
     active_uarts[handle->usart_active_num].active_handle = handle;
 
     // Disable peripheral until properly configured
     handle->periph->CR1 &= ~USART_CR1_UE;
 
     // Enable peripheral clock in RCC
+    // ADD: When adding a new peripheral, be sure to enable the clock here
     switch ((ptr_int) handle->periph) {
         case USART1_BASE:
             RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
@@ -54,7 +54,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
 
     //Calculate DIV_Fraction value, round to nearest real number, then acquire carry value if div_fraction > 4bits
     div_fraction = (over8 * (div % 100));
-    div_fraction = (( div_fraction > 50) ? ROUNDUP(div_fraction, 100) : ROUNDDOWN(div_fraction, 100)) / 100; 
+    div_fraction = (( div_fraction > 50) ? ROUNDUP(div_fraction, 100) : ROUNDDOWN(div_fraction, 100)) / 100;
     if (div_fraction > 15 && handle->ovsample == OV_16)
     {
         carry = div_fraction - 15;
@@ -80,13 +80,12 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
     handle->periph->CR1 |= (handle->parity >> 2) << USART_CR1_PS_Pos;
     handle->periph->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
     handle->periph->CR1 |= handle->wake_addr << USART_CR1_WAKE_Pos;
-    // handle->periph->CR1 |= handle->mode << USART_CR1_RE_Pos;
-    handle->periph->CR1 |= USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_IDLEIE | USART_CR1_PEIE/* | USART_CR1_TE*/;
+    handle->periph->CR1 |=  USART_CR1_RXNEIE | USART_CR1_IDLEIE;
 
     // Set CR2 parameters
     handle->periph->CR2 =  0U;
     handle->periph->CR2 |= (handle->address & 0xF) << USART_CR2_ADD_Pos;
-    handle->periph->CR2 |= handle->stop_bits << USART_CR2_STOP_Pos;   
+    handle->periph->CR2 |= handle->stop_bits << USART_CR2_STOP_Pos;
 
     // // Set CR3 parameters
     handle->periph->CR3 |= handle->obsample << USART_CR3_ONEBIT_Pos;
@@ -95,53 +94,34 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
     // Enable peripheral for use
     handle->periph->CR1 |= USART_CR1_UE;
 
+    // Blocking is currently not supported
+    if (!handle->rx_dma_cfg || !handle->tx_dma_cfg)
+        return false;
     // Configure DMA
-    if (handle->tx_dma_cfg && !PHAL_initDMA(handle->tx_dma_cfg)) {
+    if (!PHAL_initDMA(handle->tx_dma_cfg)) {
         return false;
     }
 
-    if (handle->rx_dma_cfg && !PHAL_initDMA(handle->rx_dma_cfg)) {
+    if (!PHAL_initDMA(handle->rx_dma_cfg)) {
         return false;
     }
 
     return true;
 }
 
-void PHAL_usartTxBl(usart_init_t* handle, const uint16_t* data, uint32_t len) {
-    uint8_t i;
-
-    handle->periph->CR3 &= ~USART_CR3_DMAT;
-
-    // for (i = 0; i < len; i++) {
-    //     while (!(handle->periph->ISR & USART_ISR_TXE));
-
-    //     handle->periph->TDR = data[i] & 0x01ff;
-    // }
-
-    // while (!(handle->periph->ISR & USART_ISR_TC));
-}
-
-void PHAL_usartRxBl(usart_init_t* handle, uint16_t* data, uint32_t len) {
-    uint8_t i;
-
-    handle->periph->CR3 &= ~USART_CR3_DMAR;
-
-    for (i = 0; i < len; i++) {
-        // while (!(handle->periph->ISR & USART_ISR_RXNE));
-
-        // data[i] = handle->periph->RDR & 0x01ff;
-    }
-}
-
 bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
-    handle->periph->CR1 |= USART_CR1_TE;
-    // Enable All Interrupts needed to complete Tx transaction  
+    #ifdef STM32F407xx
+    // Ensure any RX data is not overwritten before continuing with transfer
+    while ((active_uarts[handle->usart_active_num].active_handle->periph->SR & USART_SR_RXNE))
+        ;
+    #endif
+    // Enable All Interrupts needed to complete Tx transaction
+    // ADD: Ensure you enable the TX DMA interrupt for a new UART peripheral
     switch ((ptr_int) handle->periph) {
         case USART2_BASE:
             NVIC_EnableIRQ(DMA1_Stream6_IRQn);
-            NVIC_EnableIRQ(USART2_IRQn);
             break;
         default:
             return false;
@@ -151,49 +131,150 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
 
     // Start DMA transaction
     PHAL_startTxfer(handle->tx_dma_cfg);
-    // if (active_uarts[active_idx].active_handle != 0 && active_uarts[active_idx].active_handle != active_uarts)
     active_uarts[handle->usart_active_num]._tx_busy = 1;
     // Configure DMA Peripheral, and set up USART for DMA Transactions
     handle->periph->CR3 |= USART_CR3_DMAT;
+    handle->periph->CR1 |= USART_CR1_TE;
     return true;
 }
 
 bool PHAL_usartTxBusy(usart_init_t* handle)
 {
-    if (active_uarts[handle->usart_active_num].active_handle != 0)
-        return active_uarts[handle->usart_active_num]._tx_busy;
-    return false;
+    return active_uarts[handle->usart_active_num]._tx_busy;
 }
 
-bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
-    // Provided handle must match with the one we have, and we cannot be continously receiving when calling this function
-    if (active_uarts[handle->usart_active_num].active_handle != handle || active_uarts[handle->usart_active_num].cont_rx)
+bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool cont) {
+    // Provided handle must match with the one we have
+    if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
-    // PHAL_stopTxfer(handle->rx_dma_cfg);
+    // Keep track of this information for later use in USART interrupt
+    active_uarts[handle->usart_active_num].cont_rx = cont;
+    active_uarts[handle->usart_active_num].rxfer_size = len;
     handle->periph->CR1 |= USART_CR1_RE;
-    // Enable All Interrupts needed to complete Tx transaction  
+    // Enable All Interrupts needed to complete Tx transaction
+    // ADD: Add cases to this switch statement to enable DMA and USART interrupts for RX USART peripherals
     switch ((ptr_int) handle->periph) {
         case USART2_BASE:
-            // NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+            NVIC_EnableIRQ(DMA1_Stream5_IRQn);
             NVIC_EnableIRQ(USART2_IRQn);
             break;
         default:
             return false;
     }
-    handle->periph->CR3 |= USART_CR3_DMAR;
-    PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
+    // Configure parts of DMA that will not change each transaction, and enable DMA on USART
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
-    //NVIC_EnableIRQ(irq);
-    PHAL_reEnable(handle->rx_dma_cfg);
-    active_uarts[handle->usart_active_num]._rx_busy = 1;
+    handle->periph->CR3 |= USART_CR3_DMAR;
     return true;
 }
 
-bool PHAL_usartRxDmaComplete(usart_init_t* handle)
+bool PHAL_disableContinousRxDMA(usart_init_t *handle)
 {
-    if (active_uarts[handle->usart_active_num].active_handle != 0)
-        return active_uarts[handle->usart_active_num]._rx_busy;
-    return false;
+    // Provided handle must match with the one we have
+    if (active_uarts[handle->usart_active_num].active_handle != handle)
+        return false;
+    active_uarts[handle->usart_active_num].cont_rx = 0;
+    handle->periph->CR1 &= ~USART_CR1_RE;
+    handle->periph->CR3 &= ~USART_CR3_DMAR;
+    // Enable All Interrupts needed to complete Tx transaction
+    // ADD: Add cases to this switch statement to disable interrupts for new USART peripherals
+    switch ((ptr_int) handle->periph) {
+        case USART2_BASE:
+            NVIC_DisableIRQ(DMA1_Stream5_IRQn);
+            NVIC_DisableIRQ(USART2_IRQn);
+            break;
+        default:
+            return false;
+    }
+    // RX will no longer be busy
+    active_uarts[handle->usart_active_num]._rx_busy = 0;
+}
+
+bool PHAL_usartRxBusy(usart_init_t* handle)
+{
+    return active_uarts[handle->usart_active_num]._rx_busy;
+}
+
+static void handleUsartIRQ(USART_TypeDef *handle, uint8_t idx)
+{
+    #ifdef STM32F407xx
+    uint32_t sr = handle->SR;
+    static uint32_t trash;
+    // USART RX Not Empty interrupt flag
+    if ( sr & USART_SR_RXNE)
+    {
+        // Rx transaction is beginning, so set rx to busy and enable DMA to recieve this message
+        active_uarts[idx]._rx_busy = 1;
+        PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg, active_uarts[idx].rxfer_size);
+        PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
+        active_uarts[idx].active_handle->periph->SR &= ~USART_SR_RXNE; // Clear RXNE interrupt flag
+        // We only need to enable DMA immediately after the reception of the first bit
+        // We also do not want this interrupt activating for every single bit recieved on the rx buffer
+        active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
+        // Clear any errors that may have been set in the previous Rx
+        active_uarts[idx].active_handle->rx_errors.framing_error = 0;
+        active_uarts[idx].active_handle->rx_errors.noise_detected = 0;
+        active_uarts[idx].active_handle->rx_errors.overrun = 0;
+        active_uarts[idx].active_handle->rx_errors.parity_error = 0;
+    }
+    // Clear to send flag
+    if (sr & USART_SR_CTS)
+    {
+        sr &= ~USART_SR_CTS; // We currently do not plan on using CTS or LIN mode in the near future, so this is placeholder code for the future
+    }
+    // Lin Break Detection flag
+    if (sr & USART_SR_LBD)
+    {
+        sr &= ~USART_SR_LBD; // We currently do not plan on using CTS or LIN mode in the near future, so this is placeholder code for the future
+    }
+    // Overrun Error Flag
+    if (sr & USART_SR_ORE)
+    {
+        // Communicate these errors to the user, so we can clear this bit but leave USART clear for future transactions
+        active_uarts[idx].active_handle->rx_errors.overrun = 1;
+    }
+    // Noise Error Flag
+    if (sr & USART_SR_NE)
+    {
+        // Communicate these errors to the user, so we can clear this bit for future transactions
+        active_uarts[idx].active_handle->rx_errors.noise_detected = 1;
+    }
+    // Framing Error Flag
+    if (sr & USART_SR_FE)
+    {
+        // Communicate these errors to the user, so we can clear this bit for future transactions
+        active_uarts[idx].active_handle->rx_errors.framing_error = 1;
+    }
+    // Parity Error Flag
+    if (sr & USART_SR_PE)
+    {
+        // Communicate these errors to the user, so we can clear this bit for future transactions
+        active_uarts[idx].active_handle->rx_errors.parity_error = 1;
+    }
+
+    // Idle line is detected upon the completion of a USART reception
+    // This is the last flag handled, so that important info can be updated before callback function
+    if (sr & USART_SR_IDLE)
+    {
+        // Stop DMA Transaction
+        PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
+        if (active_uarts[idx].cont_rx)
+        {
+            // Re-enable the RX not empty interrupt to accept the next message
+            active_uarts[idx].active_handle->periph->CR1 |= USART_CR1_RXNEIE;
+        }
+        else
+        {
+            // No more messages should be recieved, so disable RX mode for the peripheral
+            active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RE;
+        }
+        active_uarts[idx]._rx_busy = 0;
+        // Clear error + idle flags (Per RM 0090 Register map, a read to the SR followed by a read to the DR)
+        trash = active_uarts[idx].active_handle->periph->SR;
+        trash = active_uarts[idx].active_handle->periph->DR;
+        usart_recieve_complete_callback(active_uarts[idx].active_handle);
+    }
+    //NOTE: According to RM0090, it is not safe to clear the TC bit unless Multibuffer mode is enabled.
+    #endif
 }
 
 /**
@@ -220,16 +301,15 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
         dma_num = active_uarts[idx].active_handle->tx_dma_cfg->stream_idx;
 
         // Select appropriate flag and clear registers for Stream
-        sr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HISR;
-        csr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HIFCR;
+        sr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HISR;
+        csr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HIFCR;
     }
     else // DMA RX is ongoing
-    {
-        dma_num = active_uarts[idx].active_handle->rx_dma_cfg->stream_idx;
+    {   dma_num = active_uarts[idx].active_handle->rx_dma_cfg->stream_idx;
 
         // Select appropriate flag and clear registers for Stream
-        sr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HISR;
-        csr_reg = (dma_num < 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HIFCR;
+        sr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HISR;
+        csr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HIFCR;
     }
     // Populate Flag Bitmasks, along with Flag and Clear registers for active DMA Stream
     switch(dma_num)
@@ -307,17 +387,49 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
     // Transfer Error interrupt
     if (*sr_reg & teif_flag)
     {
+        // Communicate these errors to the user, so we can clear this bit for future transactions
+        // Using the DMA ISR for Tx is easier than using the usart interrupt, as you don't need to worry about which transaction (tx or rx) is occuring
+        if (dma_type == USART_DMA_TX)
+        {
+            active_uarts[idx].active_handle->tx_errors.dma_transfer_error = 1;
+        }
+        else
+        {
+            active_uarts[idx].active_handle->rx_errors.dma_transfer_error = 1;
+        }
         *csr_reg |= teif_flag;
+    }
+    else
+    {
+        // There was no error, so clear the bit if it was originally set
+        if (dma_type == USART_DMA_TX)
+        {
+            active_uarts[idx].active_handle->tx_errors.dma_transfer_error = 0;
+        }
+        else
+        {
+            active_uarts[idx].active_handle->rx_errors.dma_transfer_error = 0;
+        }
     }
     // Transfer Complete interrupt flag
     if (*sr_reg & tcif_flag)
     {
         if (dma_type == USART_DMA_TX)
+        {
+            // TX is complete, so we no longer need this DMA stream active
             PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
-        else if (active_uarts[idx].cont_rx == 0)
-            PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
-        // We no longer need the interrupt for this DMA stream, so disable it for now
-        NVIC_DisableIRQ(irq);
+            if (active_uarts[idx]._tx_busy)
+            {
+                #ifdef STM32F407xx
+                // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
+                while (!(active_uarts[idx].active_handle->periph->SR & USART_SR_TC))
+                    ;
+                #endif
+                // TX is no longer busy, so communicate this and disable TX part of USART
+                active_uarts[idx]._tx_busy = 0;
+                active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_TE;
+            }
+        }
         //Clear interrupt flag
         *csr_reg |= tcif_flag;
     }
@@ -327,149 +439,98 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
         *csr_reg |= htif_flag;
     }
     // FIFO Overrun Error flag
+    // Apparently FIFO errors can safely be ignored in the configuration that we use (no FIFO)
     if (*sr_reg & feif_flag)
     {
+        // Communicate these errors to the user, so we can clear this bit for future transactions
+        if (dma_type == USART_DMA_TX)
+        {
+            active_uarts[idx].active_handle->tx_errors.dma_fifo_overrun = 1;
+        }
+        else
+        {
+            active_uarts[idx].active_handle->rx_errors.dma_fifo_overrun = 1;
+        }
         *csr_reg |= feif_flag;
+    }
+    else
+    {
+        // There was no error, so clear the bit if it was originally set
+        if (dma_type == USART_DMA_TX)
+        {
+            active_uarts[idx].active_handle->tx_errors.dma_fifo_overrun = 0;
+        }
+        else
+        {
+            active_uarts[idx].active_handle->rx_errors.dma_fifo_overrun = 0;
+        }
     }
     // Direct Mode Error flag
     if (*sr_reg & dmeif_flag)
     {
+        // Communicate these errors to the user, so we can clear this bit for future transactions
+        if (dma_type == USART_DMA_TX)
+        {
+            active_uarts[idx].active_handle->tx_errors.dma_direct_mode_error = 1;
+        }
+        else
+        {
+            active_uarts[idx].active_handle->rx_errors.dma_direct_mode_error = 1;
+        }
         *csr_reg |= dmeif_flag;
     }
+    else
+    {
+        // There was no error, so clear the bit if it was originally set
+        if (dma_type == USART_DMA_TX)
+        {
+            active_uarts[idx].active_handle->tx_errors.dma_direct_mode_error = 0;
+        }
+        else
+        {
+            active_uarts[idx].active_handle->rx_errors.dma_direct_mode_error = 0;
+        }
+    }
 }
 
-static void handleUsartIRQ(USART_TypeDef *handle, uint8_t idx)
+__WEAK void usart_recieve_complete_callback(usart_init_t *handle)
 {
-    #ifdef STM32F407xx
-    if (handle->SR & USART_SR_CTS)
-    {
-        handle->SR &= ~USART_SR_CTS; // We currently do not plan on using CTS or LIN mode in the near future, so this is placeholder code for the future
-    }
-    if (handle->SR & USART_SR_LBD)
-    {
-        handle->SR &= ~USART_SR_LBD; // We currently do not plan on using CTS or LIN mode in the near future, so this is placeholder code for the future
-    }
-    if (handle->SR & USART_SR_ORE)
-    {
-        // Communicate these errors to the user, so we can clear this bit but leave USART clear for future transactions
-        if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._tx_busy)
-        {
-            active_uarts[idx].active_handle->tx_errors.overrun = 1;
-        }
-        else if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._rx_busy)
-        {
-            active_uarts[idx].active_handle->rx_errors.overrun = 1;
-        }
-        handle->SR &= ~USART_SR_ORE; // Clear Overrun Error interrupt flag
-    }
-    if (handle->SR & USART_SR_NE)
-    {
-        // Communicate these errors to the user, so we can clear this bit for future transactions
-        if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._tx_busy)
-        {
-            active_uarts[idx].active_handle->tx_errors.noise_detected = 1;
-        }
-        else if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._rx_busy)
-        {
-            active_uarts[idx].active_handle->rx_errors.noise_detected = 1;
-        }
-        handle->SR &= ~USART_SR_NE; // Clear Noise Error (NF) interrupt flag
-    }
-    if (handle->SR & USART_SR_FE)
-    {
-        // Communicate these errors to the user, so we can clear this bit for future transactions
-        if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._tx_busy)
-        {
-            active_uarts[idx].active_handle->tx_errors.framing_error = 1;
-        }
-        else if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._rx_busy)
-        {
-            active_uarts[idx].active_handle->rx_errors.framing_error = 1;
-        }
-        handle->SR &= ~USART_SR_FE; // Clear Framing Error interrupt flag
-    }
-    if (handle->SR & USART_SR_PE)
-    {
-        // Communicate these errors to the user, so we can clear this bit for future transactions
-        if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._tx_busy)
-        {
-            active_uarts[idx].active_handle->tx_errors.parity_error = 1;
-        }
-        else if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._rx_busy)
-        {
-            active_uarts[idx].active_handle->rx_errors.parity_error = 1;
-        }
-        handle->SR &= ~USART_SR_PE; // Clear Parity Error interrupt flag
-    }
-    if (handle->SR & USART_SR_TC)
-    {
-        if (active_uarts[idx].active_handle != 0 && active_uarts[idx]._tx_busy)
-        {
-            active_uarts[idx]._tx_busy = 0;
-            // active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_TE;
-        }
-        handle->SR &= ~USART_SR_TC; // Clear Transfer complete interrupt flag
-    }
-    if (handle->SR & USART_SR_RXNE)
-    {
-        handle->SR &= ~USART_SR_RXNE; // Clear RX Not Empty interrupt flag
-    }
-    if (handle->SR & USART_SR_IDLE)
-    {
-        handle->SR &= ~USART_SR_IDLE; // Clear Idle Line interrupt flag
-    }
-    #endif
+    return;
 }
 
+/*
 
-void DMA1_Stream6_IRQHandler()
+USART TX and RX interrupts - need to modify when adding a usart peripheral
+
+*/
+
+//ADD:
+
+// USART1:
+
+// USART2:
+
+// Add new DMA interrupt handlers here, passing in new active struct index, along with
+// the correct DMA IRQ, and corresponding transfer mode (TX or Rx)
+void DMA1_Stream6_IRQHandler() //TX
 {
     handleDMAxComplete(USART2_ACTIVE_IDX, DMA1_Stream6_IRQn, USART_DMA_TX);
-}  
+}
 
-void DMA1_Stream5_IRQHandler()
+// Add new DMA interrupt handlers here, passing in new active struct index, along with
+// the correct DMA IRQ, and corresponding transfer mode (TX or Rx)
+void DMA1_Stream5_IRQHandler() //RX
 {
     handleDMAxComplete(USART2_ACTIVE_IDX, DMA1_Stream5_IRQn, USART_DMA_RX);
-}  
+}
 
+// Add new USART Interrupts as new peripherals are needed,
+// feeding in the new USART peripheral, along with active array index
 void USART2_IRQHandler()
 {
     handleUsartIRQ(USART2, USART2_ACTIVE_IDX);
 }
 
+// USART3:
 
-// Masking and unmasking ISRs. Useful for interrupt based functionality.
-// Likely don't need it since we use DMA, but could come in handy sometime
-static void usart_unmask_irq(USART_TypeDef* instance) {
-    switch ((ptr_int) instance)
-    {
-        case USART1_BASE:
-            NVIC->ISER[1] |= 1U << (USART1_IRQn - 32);
-            break;
-
-        case USART2_BASE:
-            NVIC->ISER[1] |= 1U << (USART2_IRQn - 32);
-            break;
-
-        // case LPUART1_BASE:
-        //     NVIC->ISER[2] |= 1U << (LPUART1_IRQn - 64);
-        //     break;
-    }
-}
-
-static void usart_mask_irq(USART_TypeDef* instance) {
-    switch ((ptr_int) instance)
-    {
-        case USART1_BASE:
-            NVIC->ISER[1] &= ~(1U << (USART1_IRQn - 32));
-            break;
-
-        case USART2_BASE:
-            NVIC->ISER[1] &= ~(1U << (USART2_IRQn - 32));
-            break;
-
-        // case LPUART1_BASE:
-        //     NVIC->ISER[2] &= ~(1U << (LPUART1_IRQn - 64));
-        //     break;
-    }
-}
+//...etc

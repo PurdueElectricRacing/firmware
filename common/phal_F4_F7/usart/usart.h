@@ -1,11 +1,11 @@
 /**
  * @file usart.h
- * @author Aditya Anand (anand89@purdue.edu) - Port of L4 USART HAL by Dawson Moore (moore800@purdue.edu)
+ * @author Aditya Anand (anand89@purdue.edu) - Redesign of L4 USART HAL by Dawson Moore (moore800@purdue.edu)
  * @brief
  * @version 0.1
  * @date 2024-1-4
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2024
  *
  */
 
@@ -47,136 +47,125 @@
 #include "common/phal_F4_F7/dma/dma.h"
 #include <stdbool.h>
 
-// Generic Defines
-#define PHAL_USART_TX_TIMEOUT (0xFFFFFFFF)
-#define PHAL_USART_RX_TIMEOUT (0xFFFFFFFF)
-
 typedef uint32_t ptr_int;
+
+// See USART section of Family reference manual (RM0090 for F4, or RM0431 for F7) for configuration information
 
 // Enumerations
 // See Table 146 in RM. 0090
-// By enabling Parity, you sacrifice one bit from your total word length 
+// By enabling Parity, you sacrifice one bit from your total word length
 // (eg. if WORD_8 is selected, you now have 7 data bits and 1 parity bit)
 typedef enum
 {
-    PT_EVEN = 0b010,
-    PT_ODD = 0b100,
-    PT_NONE = 0b000
+    PT_EVEN = 0b010, //!< Even Parity
+    PT_ODD = 0b100,  //!< Odd Parity
+    PT_NONE = 0b000  //!< Disable Parity bits
 } parity_t;
 
 typedef enum
 {
-    WORD_8,
-    WORD_9,
+    WORD_8, //!< 8-Bit word length
+    WORD_9, //!< 9-Bit word length
 } word_length_t;
 
 typedef enum
 {
-    SB_ONE = 0b00,
-    SB_TWO = 0b01,
-    SB_HALF = 0b10,
-    SB_ONE_HALF = 0b11
+    SB_ONE = 0b00,  //!< One Stop bit
+    SB_TWO = 0b01,  //!< Two Stop bits
+    SB_HALF = 0b10, //!< One half stop bit
+    SB_ONE_HALF = 0b11 //!< 1.5 Stop bits
 } stop_bits_t;
 
 typedef enum
 {
-    MODE_TX_RX = 0b11,
-    MODE_TX = 0b10,
-    MODE_RX = 0b01
-} usart_mode_t;
-
-typedef enum
-{
-    HW_DISABLE,
-    CTS,
-    RTS,
-    CTS_RTS
+    HW_DISABLE, //!< Hardware flow control disable
+    CTS,    //!< Enable Clear to send control
+    RTS,    //!< Enable Request to send control
+    CTS_RTS //!< Enable both CTS and RTS
 } hw_flow_ctl_t;
-
 typedef enum
 {
-    OV_16 = 0,
-    OV_8 = 1
+    OV_16 = 0, //!< Oversample by 16
+    OV_8 = 1   //!< Oversample by 8
 } ovsample_t;
 
 typedef enum
 {
-    OB_DISABLE,
-    OB_ENABLE
+    OB_DISABLE, //!< Disable one bit sampling
+    OB_ENABLE   //!< Enable one bit sampling
 } obsample_t;
 
 typedef enum
 {
-    USART_DMA_TX,
-    USART_DMA_RX
+    USART_DMA_TX,   //!< USART is transmitting over DMA
+    USART_DMA_RX    //!< USART is recieving over DMA
 } usart_dma_mode_t;
 
 typedef struct
 {
-    uint8_t overrun;
-    uint8_t noise_detected;
-    uint8_t framing_error;
-    uint8_t parity_error;
-} usart_errors_t;
+    bool overrun;        //!< USART unable to parse data in time
+    bool noise_detected; //!< Oversampling detected a possible bit flip due to noise in usart frame
+    bool framing_error; //!< Unable to understand USART frame
+    bool parity_error; //!< USART Parity bit incorrect (Only when parity is enabled)
+
+    // DMA Errors
+    bool dma_transfer_error; //!< DMA transfer error
+    bool dma_direct_mode_error; //!< DMA error while attempting to operate in direct mode
+    bool dma_fifo_overrun; //!< DMA FIFO has been overrun - apparently this can be ignored on USART peripherals AS LONG AS YOU AREN'T USING THE FIFO
+} usart_rx_errors_t;
+
+typedef struct
+{
+    bool dma_transfer_error; //!< DMA transfer error
+    bool dma_direct_mode_error; //!< DMA error while attempting to operate in direct mode
+    bool dma_fifo_overrun; //!< DMA FIFO has been overrun - apparently this can be ignored on USART peripherals AS LONG AS YOU AREN'T USING THE FIFO
+} usart_tx_errors_t;
 
 // Structures
 typedef struct
 {
     // Required parameters
-    uint32_t baud_rate;        // Baud rate for communication
-    word_length_t word_length; // Word length for tx/rx (8 default)
-    stop_bits_t stop_bits;     // Number of stop bits to use (1 default)
-    parity_t parity;           // Parity of communication (none default)
-    hw_flow_ctl_t hw_flow_ctl; // Special hardware modes (none default)
-    ovsample_t ovsample;       // 8x or 16x oversample (16x default)
-    obsample_t obsample;       // One bit sampling enable (off default)
-    bool wake_addr; //Wake up when given a specific address
-    uint8_t address; //Address to wake up to when addr_mode is enabled
-    uint8_t usart_active_num;    // Index of USART in active array (see USARTx_ACTIVE_IDX)
+    uint32_t baud_rate;        //!< Baud rate for communication
+    word_length_t word_length; //!< Word length for tx/rx (8 default)
+    stop_bits_t stop_bits;     //!< Number of stop bits to use (1 default)
+    parity_t parity;           //!< Parity of communication (none default)
+    hw_flow_ctl_t hw_flow_ctl; //!< Special hardware modes (none default)
+    ovsample_t ovsample;       //!< 8x or 16x oversample (16x default)
+    obsample_t obsample;       //!< One bit sampling enable (off default)
+    bool wake_addr; //!< Wake up when given a specific address
+    uint8_t address; //!< Address to wake up to when addr_mode is enabled
+    uint8_t usart_active_num;    //!< Index of USART in active array (see USARTx_ACTIVE_IDX)
 
     // DMA configurations
-    dma_init_t *tx_dma_cfg; // TX configuration
-    dma_init_t *rx_dma_cfg; // RX configuration
-    USART_TypeDef *periph;     // USART Peripheral to be used
+    dma_init_t *tx_dma_cfg; //!< TX configuration
+    dma_init_t *rx_dma_cfg; //!< RX configuration
+    USART_TypeDef *periph;  //!< USART Peripheral to be used
 
     // Structs to communicate errors to user
-    volatile usart_errors_t tx_errors;
-    volatile usart_errors_t rx_errors;
-
-    uint8_t _tx_busy; // Waiting on a transmission to finish
-    uint8_t _rx_busy; // Waiting on a reception to finish
-                      // The 2 above clear on calling ...xDMAComplete
+    volatile usart_tx_errors_t tx_errors; //!< Any TX error flags set during transmission
+    volatile usart_rx_errors_t rx_errors; //!< And RX error flags set during reception
 } usart_init_t;
 
 typedef struct {
-    usart_init_t *active_handle;
-    uint8_t cont_rx;
-    uint8_t _tx_busy; // Waiting on a transmission to finish
-    uint8_t _rx_busy; // Waiting on a reception to finish
-                      // The 2 above clear on calling ...xDMAComplete
+    usart_init_t *active_handle;   //!< USART handle provided on initialization
+    uint8_t cont_rx;               //!< Flag controlling RX rececption mode (once or continously)
+    uint8_t _tx_busy;              //!< Waiting on a transmission to finish
+    volatile uint8_t _rx_busy;     //!< Waiting on a reception to finish
+    volatile uint32_t rxfer_size;  //!< Size of data to receive over DMA
 } usart_active_transfer_t;
 
-
-
-typedef struct
-{
-    uint32_t last_msg_time; // Time of last rx message that was size of msg_size
-    uint16_t msg_size;      // Size of typical msg
-    uint16_t last_msg_loc;  // Index of first byte of last msg received
-    uint32_t last_rx_time;  // Time of the last rx
-    uint16_t rx_buf_size;   // Size of rx circular buffer for DMA
-    uint16_t last_rx_loc;   // Index of byte of last rx
-    char *rx_buf;           // Buffer location
-} usart_rx_buf_t;
-
-// Global vars
-// uint8_t tx_irqn[3] = {DMA1_Channel4_IRQn, DMA1_Channel6_IRQn, DMA2_Channel6_IRQn};
-// uint8_t rx_irqn[3] = {DMA1_Channel5_IRQn, DMA1_Channel7_IRQn, DMA2_Channel7_IRQn};
-
 // Function Prototypes
+
+/**
+ * @brief Initialize a USART Peripheral with desired settings
+ *
+ * @param handle Handle containing settings for USART peripheral
+ * @param fck Clock rate going to USART peripheral (APBx bus)
+ * @return true Successfully initialized USART peripheral
+ * @return false Failed to initialize USART peripheral
+ */
 bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck);
-void PHAL_usartTxBl(usart_init_t* handle, const uint16_t* data, uint32_t len);
-void PHAL_usartRxBl(usart_init_t* handle, uint16_t* data, uint32_t len);
+
 
 /**
  * @brief           Starts a tx using dma, use PHAL_usartTxDmaComplete
@@ -189,14 +178,48 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len);
 
 /**
  * @brief           Starts an rx using dma of a specific length
- *                  Use PHAL_usartRxDmaComplete to check if the entire msg has been received
+ *
  * @param handle    The handle for the usart configuration
  * @param data      The address to put the received data, ensure a cast to (uint16_t *), even if 8 bits
  * @param len       Number of units of data, depending on the configured word length
+ * @param cont      Enable Continous RX using the idle line interrupt (only need to call this function once, and HAL will keep recieving messages of the same length)
  */
-bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len);
-bool PHAL_usartTxDmaComplete(usart_init_t* handle);
-bool PHAL_usartRxDmaComplete(usart_init_t *handle);
+bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool cont);
+
+/**
+ * @brief Disables the Continous RX that was previously used
+ *
+ * @param handle The handle for the usart configuration
+ */
+bool PHAL_disableContinousRxDMA(usart_init_t* handle);
+
+/**
+ * @brief Returns whether USART peripheral is currently transmitting data
+ *
+ * @param handle Handle of USART peripheral to check
+ * @return true USART peripheral is currently sending a message
+ * @return false USART peripheal is not currently sending a message
+ */
+bool PHAL_usartTxBusy(usart_init_t* handle);
+
+/**
+ * @brief Returns whether USART peripheral is currently receiving data
+ *
+ * @param handle Handle of USART peripheral check
+ * @return true USART peripheral is currently receiving a message
+ * @return false USART peripheal is not currently receiving a message
+ */
+bool PHAL_usartRxBusy(usart_init_t *handle);
+
+/**
+ * @brief Callback function called immediately after reception of a USART RX message
+ * Uses USART IDLE line interrupt
+ *
+ * NOTE: this is executed during an interrupt handler call, so keep code in this function light
+ *
+ * @param handle Handle of USART peripheral that just recieved a message
+ */
+extern void usart_recieve_complete_callback(usart_init_t *handle);
 
 #ifdef STM32F407xx
     #define USART2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
@@ -205,7 +228,7 @@ bool PHAL_usartRxDmaComplete(usart_init_t *handle);
             .tx_size = 1, .increment = false, .circular = false,                      \
             .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
             .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
-            .tx_isr_en = false, .dma_chan_request=0b0100, .stream_idx=5,              \
+            .tx_isr_en = true, .dma_chan_request=0b0100, .stream_idx=5,              \
             .periph=DMA1, .stream=DMA1_Stream5                                        \
         }
 
@@ -218,7 +241,7 @@ bool PHAL_usartRxDmaComplete(usart_init_t *handle);
             .tx_isr_en = true, .dma_chan_request=0b0100, .stream_idx=6,               \
             .periph=DMA1, .stream=DMA1_Stream6                                        \
         }
-#else 
+#else
     #define USART2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
         {                                                                             \
             .periph_addr = (uint32_t) & (USART2->TDR), .mem_addr = (uint32_t)(rx_addr_), \

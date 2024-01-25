@@ -95,12 +95,6 @@ typedef enum
     OB_ENABLE   //!< Enable one bit sampling
 } obsample_t;
 
-typedef enum
-{
-    USART_DMA_TX,   //!< USART is transmitting over DMA
-    USART_DMA_RX    //!< USART is recieving over DMA
-} usart_dma_mode_t;
-
 typedef struct
 {
     bool overrun;        //!< USART unable to parse data in time
@@ -143,16 +137,8 @@ typedef struct
 
     // Structs to communicate errors to user
     volatile usart_tx_errors_t tx_errors; //!< Any TX error flags set during transmission
-    volatile usart_rx_errors_t rx_errors; //!< And RX error flags set during reception
+    volatile usart_rx_errors_t rx_errors; //!< Any RX error flags set during reception
 } usart_init_t;
-
-typedef struct {
-    usart_init_t *active_handle;   //!< USART handle provided on initialization
-    uint8_t cont_rx;               //!< Flag controlling RX rececption mode (once or continously)
-    uint8_t _tx_busy;              //!< Waiting on a transmission to finish
-    volatile uint8_t _rx_busy;     //!< Waiting on a reception to finish
-    volatile uint32_t rxfer_size;  //!< Size of data to receive over DMA
-} usart_active_transfer_t;
 
 // Function Prototypes
 

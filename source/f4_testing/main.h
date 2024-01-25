@@ -26,6 +26,12 @@ typedef struct __attribute__((packed))
 #define SPI_MOSI_PIN 7
 #define SPI_MOSI_PORT GPIOA
 
+
+#define USART2_TX_PIN 2
+#define USART2_TX_GPIO_PORT GPIOA
+
+#define USART2_RX_PIN 3
+#define USART2_RX_GPIO_PORT GPIOA
 volatile extern raw_adc_values_t raw_adc_values;
 
 #endif

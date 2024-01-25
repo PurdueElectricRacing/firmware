@@ -151,7 +151,7 @@ var searchData=
   ['blerror_5flow_5faddr_148',['BLERROR_LOW_ADDR',['../bootloader_8h.html#a6fe43176e8469ce6db5f7bae59a3497ba985432596728fbc9accc689cb01c2e05',1,'bootloader.h']]],
   ['blerror_5ft_149',['BLError_t',['../bootloader_8h.html#a6fe43176e8469ce6db5f7bae59a3497b',1,'bootloader.h']]],
   ['blinktask_150',['blinkTask',['../torque__vector__fpga_2main_8c.html#a678b3506d8937d5d21a3ec8f982b6e95',1,'main.c']]],
-  ['blocking_151',['BLOCKING',['../usart_8h.html#acaaee747d423cb49896842b4c05637f0a854a1cd6e3a98db9e290dddea29725e7',1,'usart.h']]],
+  ['blocking_151',['BLOCKING',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0a854a1cd6e3a98db9e290dddea29725e7',1,'usart.h']]],
   ['blstat_5fboot_152',['BLSTAT_BOOT',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa2feb6d0987ac30c6b4a54a981b9a651f',1,'bootloader.h']]],
   ['blstat_5fdone_153',['BLSTAT_DONE',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa597ca068730ace8dc7a04f57af89a060',1,'bootloader.h']]],
   ['blstat_5finvaid_5fapp_154',['BLSTAT_INVAID_APP',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aae4d70f2d922521c75aa23745424fc8c1',1,'bootloader.h']]],

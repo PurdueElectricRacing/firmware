@@ -9,6 +9,6 @@ var searchData=
   ['_5ferror_6',['_error',['../structSPI__InitConfig__t.html#ada152e2e047c6680d60ff8e66857b349',1,'SPI_InitConfig_t']]],
   ['_5festack_7',['_estack',['../bootloader_2main_8c.html#a71010d56f5257f4dfaff9ef224836050',1,'main.c']]],
   ['_5ffifo_5foverrun_8',['_fifo_overrun',['../structSPI__InitConfig__t.html#aadfb91be77d4793f5dd8331b1c7e892d',1,'SPI_InitConfig_t']]],
-  ['_5frx_5fbusy_9',['_rx_busy',['../structi2c__handle__t.html#a97e10be71a21ddaef207abe66e4dcf48',1,'i2c_handle_t::_rx_busy'],['../structusart__init__t.html#a765a0685341f516f65dd7ac126aa900f',1,'usart_init_t::_rx_busy']]],
-  ['_5ftx_5fbusy_10',['_tx_busy',['../structi2c__handle__t.html#a3cea31aab0331553bd2df31bd7f20f87',1,'i2c_handle_t::_tx_busy'],['../structusart__init__t.html#a9b8f7f328062af9ee54daf2fc81f3717',1,'usart_init_t::_tx_busy']]]
+  ['_5frx_5fbusy_9',['_rx_busy',['../structi2c__handle__t.html#a97e10be71a21ddaef207abe66e4dcf48',1,'i2c_handle_t::_rx_busy'],['../structusart__init__t.html#a765a0685341f516f65dd7ac126aa900f',1,'usart_init_t::_rx_busy'],['../structusart__active__transfer__t.html#ad5705eb4be605cd9bc3d9fd1e5dbda1c',1,'usart_active_transfer_t::_rx_busy']]],
+  ['_5ftx_5fbusy_10',['_tx_busy',['../structi2c__handle__t.html#a3cea31aab0331553bd2df31bd7f20f87',1,'i2c_handle_t::_tx_busy'],['../structusart__init__t.html#a9b8f7f328062af9ee54daf2fc81f3717',1,'usart_init_t::_tx_busy'],['../structusart__active__transfer__t.html#ae68b95e433700ce2a0d13de1d4a05d82',1,'usart_active_transfer_t::_tx_busy']]]
 ];

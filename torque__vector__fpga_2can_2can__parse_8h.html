@@ -709,13 +709,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
-<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> msg = {.Bus=CAN1, .ExtId=<a class="code hl_define" href="#ab00a4de52d51b8a279a93aa5857727c0">ID_BITSTREAM_FLASH_STATUS</a>, .DLC=<a class="code hl_define" href="#aa162c98f17bfc2ca5a66d432e5847ec9">DLC_BITSTREAM_FLASH_STATUS</a>, .IDE=1};\</div>
-<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;msg.Data;\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#ab00a4de52d51b8a279a93aa5857727c0">ID_BITSTREAM_FLASH_STATUS</a>, .DLC=<a class="code hl_define" href="#aa162c98f17bfc2ca5a66d432e5847ec9">DLC_BITSTREAM_FLASH_STATUS</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
 <div class="line">        data_a-&gt;bitstream_flash_status.flash_success = flash_success_;\</div>
 <div class="line">        data_a-&gt;bitstream_flash_status.flash_timeout_rx = flash_timeout_rx_;\</div>
-<div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="af4__testing_2main_8c_html_a184b5dd9844bf6e022deb71044ff7f64"><div class="ttname"><a href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a></div><div class="ttdeci">char msg[100]</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
+<div class="ttc" id="astructCanMsgTypeDef__t_html_aa43587215a51d07288de14b4af7b1a9a"><div class="ttname"><a href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">CanMsgTypeDef_t::Bus</a></div><div class="ttdeci">CAN_TypeDef * Bus</div><div class="ttdoc">Specifies the bus.</div><div class="ttdef"><b>Definition</b> can.h:30</div></div>
 <div class="ttc" id="atorque__vector__fpga_2can_2can__parse_8h_html_aa162c98f17bfc2ca5a66d432e5847ec9"><div class="ttname"><a href="#aa162c98f17bfc2ca5a66d432e5847ec9">DLC_BITSTREAM_FLASH_STATUS</a></div><div class="ttdeci">#define DLC_BITSTREAM_FLASH_STATUS</div><div class="ttdef"><b>Definition</b> can_parse.h:43</div></div>
 <div class="ttc" id="atorque__vector__fpga_2can_2can__parse_8h_html_ab00a4de52d51b8a279a93aa5857727c0"><div class="ttname"><a href="#ab00a4de52d51b8a279a93aa5857727c0">ID_BITSTREAM_FLASH_STATUS</a></div><div class="ttdeci">#define ID_BITSTREAM_FLASH_STATUS</div><div class="ttdef"><b>Definition</b> can_parse.h:24</div></div>
 <div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
@@ -746,11 +748,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
-<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> msg = {.Bus=CAN1, .ExtId=<a class="code hl_define" href="#ac8f2a75f9b8dcadecae94a73e13ae821">ID_FAULT_SYNC_TORQUE_VECTOR_FPGA</a>, .DLC=<a class="code hl_define" href="#ab8c2ebd5a42a595a94f140fafe9f5e5c">DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA</a>, .IDE=1};\</div>
-<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;msg.Data;\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#ac8f2a75f9b8dcadecae94a73e13ae821">ID_FAULT_SYNC_TORQUE_VECTOR_FPGA</a>, .DLC=<a class="code hl_define" href="#ab8c2ebd5a42a595a94f140fafe9f5e5c">DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
 <div class="line">        data_a-&gt;fault_sync_torque_vector_fpga.idx = idx_;\</div>
 <div class="line">        data_a-&gt;fault_sync_torque_vector_fpga.latched = latched_;\</div>
-<div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector__fpga_2can_2can__parse_8h_html_ab8c2ebd5a42a595a94f140fafe9f5e5c"><div class="ttname"><a href="#ab8c2ebd5a42a595a94f140fafe9f5e5c">DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA</div><div class="ttdef"><b>Definition</b> can_parse.h:44</div></div>
 <div class="ttc" id="atorque__vector__fpga_2can_2can__parse_8h_html_ac8f2a75f9b8dcadecae94a73e13ae821"><div class="ttname"><a href="#ac8f2a75f9b8dcadecae94a73e13ae821">ID_FAULT_SYNC_TORQUE_VECTOR_FPGA</a></div><div class="ttdeci">#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA</div><div class="ttdef"><b>Definition</b> can_parse.h:25</div></div>
@@ -791,13 +793,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
-<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> msg = {.Bus=CAN1, .ExtId=<a class="code hl_define" href="#af3b1939bd393c5d26f652eb123d7968d">ID_TORQUE_REQUEST</a>, .DLC=<a class="code hl_define" href="#a722336c4132eb347be29059cd1932e30">DLC_TORQUE_REQUEST</a>, .IDE=1};\</div>
-<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;msg.Data;\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#af3b1939bd393c5d26f652eb123d7968d">ID_TORQUE_REQUEST</a>, .DLC=<a class="code hl_define" href="#a722336c4132eb347be29059cd1932e30">DLC_TORQUE_REQUEST</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
 <div class="line">        data_a-&gt;torque_request.front_left = front_left_;\</div>
 <div class="line">        data_a-&gt;torque_request.front_right = front_right_;\</div>
 <div class="line">        data_a-&gt;torque_request.rear_left = rear_left_;\</div>
 <div class="line">        data_a-&gt;torque_request.rear_right = rear_right_;\</div>
-<div class="line">        qSendToBack(&amp;queue, &amp;msg);\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector__fpga_2can_2can__parse_8h_html_a722336c4132eb347be29059cd1932e30"><div class="ttname"><a href="#a722336c4132eb347be29059cd1932e30">DLC_TORQUE_REQUEST</a></div><div class="ttdeci">#define DLC_TORQUE_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:42</div></div>
 <div class="ttc" id="atorque__vector__fpga_2can_2can__parse_8h_html_af3b1939bd393c5d26f652eb123d7968d"><div class="ttname"><a href="#af3b1939bd393c5d26f652eb123d7968d">ID_TORQUE_REQUEST</a></div><div class="ttdeci">#define ID_TORQUE_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:23</div></div>

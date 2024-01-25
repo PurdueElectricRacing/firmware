@@ -102,12 +102,13 @@ var searchData=
   ['tv_99',['tv',['../lcd_8c.html#a0f60ca1b96ba5e2602da8d7968552dc7',1,'lcd.c']]],
   ['tvnotifivalue_100',['tvNotifiValue',['../dashboard_2main_8c.html#a146d39fe581cd744b75e9c2f91eb102b',1,'main.c']]],
   ['tx_101',['Tx',['../structExtU.html#a77c5ba58fa23d3d96780aeccfe554da4',1,'ExtU']]],
-  ['tx_5fdma_5fcfg_102',['tx_dma_cfg',['../structi2c__handle__t.html#a301eb8f5d7140477f13d4768f530af74',1,'i2c_handle_t::tx_dma_cfg'],['../structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1',1,'SPI_InitConfig_t::tx_dma_cfg'],['../structusart__init__t.html#aa6c3fafc12f5c502d6d1fa956bb58cad',1,'usart_init_t::tx_dma_cfg']]],
-  ['tx_5fin_103',['Tx_in',['../structmicro__t.html#a19c8e949f80f32a243e2b7587c7cf412',1,'micro_t']]],
-  ['tx_5finv_104',['tx_inv',['../structadv__feature__t.html#aa52422800ade8f537f694a355015a9f4',1,'adv_feature_t']]],
-  ['tx_5fisr_5fen_105',['tx_isr_en',['../structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d',1,'dma_init_t']]],
-  ['tx_5fqueue_106',['tx_queue',['../structmicro__t.html#adefd33497dd511f75fcb588f1675cb82',1,'micro_t::tx_queue'],['../structmotor__t.html#a68db397a4de791977482d3bc630e4075',1,'motor_t::tx_queue']]],
-  ['tx_5frx_5fswp_107',['tx_rx_swp',['../structadv__feature__t.html#abe81c2b86150c6d7cef84e31186a4c59',1,'adv_feature_t']]],
-  ['tx_5fsize_108',['tx_size',['../structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2',1,'dma_init_t']]],
-  ['type_109',['type',['../structGPIOInitConfig__t.html#a1754a3977a0df8a75a29b4960910cdb2',1,'GPIOInitConfig_t']]]
+  ['tx_5fdma_5fcfg_102',['tx_dma_cfg',['../structi2c__handle__t.html#a301eb8f5d7140477f13d4768f530af74',1,'i2c_handle_t::tx_dma_cfg'],['../structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1',1,'SPI_InitConfig_t::tx_dma_cfg'],['../structusart__init__t.html#a0c7fab65ad8ab4ea54185a97147a9d06',1,'usart_init_t::tx_dma_cfg']]],
+  ['tx_5ferrors_103',['tx_errors',['../structusart__init__t.html#a07ef62d79c7f5cc1e02a13fa3333652f',1,'usart_init_t']]],
+  ['tx_5fin_104',['Tx_in',['../structmicro__t.html#a19c8e949f80f32a243e2b7587c7cf412',1,'micro_t']]],
+  ['tx_5finv_105',['tx_inv',['../structadv__feature__t.html#aa52422800ade8f537f694a355015a9f4',1,'adv_feature_t']]],
+  ['tx_5fisr_5fen_106',['tx_isr_en',['../structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d',1,'dma_init_t']]],
+  ['tx_5fqueue_107',['tx_queue',['../structmicro__t.html#adefd33497dd511f75fcb588f1675cb82',1,'micro_t::tx_queue'],['../structmotor__t.html#a68db397a4de791977482d3bc630e4075',1,'motor_t::tx_queue']]],
+  ['tx_5frx_5fswp_108',['tx_rx_swp',['../structadv__feature__t.html#abe81c2b86150c6d7cef84e31186a4c59',1,'adv_feature_t']]],
+  ['tx_5fsize_109',['tx_size',['../structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2',1,'dma_init_t']]],
+  ['type_110',['type',['../structGPIOInitConfig__t.html#a1754a3977a0df8a75a29b4960910cdb2',1,'GPIOInitConfig_t']]]
 ];

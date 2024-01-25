@@ -95,7 +95,9 @@ var searchData=
   ['rx_92',['rx',['../namespacecan__test.html#acd5b4137e983d16a57987e9e006af168',1,'can_test.rx'],['../namespacedaq__test.html#ad573c754b1029759298151aefcfe29af',1,'daq_test.rx']]],
   ['rx_5fbuf_93',['rx_buf',['../structmicro__t.html#aeebbd3d3a1de311bdab52cac29af4b07',1,'micro_t::rx_buf'],['../structusart__rx__buf__t.html#a0ce142c8f93c31c3b7de0dfb91edc4a7',1,'usart_rx_buf_t::rx_buf'],['../structmotor__t.html#a2e2ce3e72383acba6437e9af1b4dc6cf',1,'motor_t::rx_buf']]],
   ['rx_5fbuf_5fsize_94',['rx_buf_size',['../structusart__rx__buf__t.html#aabf56296adcc75e55b146afe4c1ddf85',1,'usart_rx_buf_t']]],
-  ['rx_5fdma_5fcfg_95',['rx_dma_cfg',['../structi2c__handle__t.html#abfdf4ddb6a3234db7df25862c58eb643',1,'i2c_handle_t::rx_dma_cfg'],['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#a2ba906ee7666896dbd3d8735604a3532',1,'usart_init_t::rx_dma_cfg']]],
-  ['rx_5finv_96',['rx_inv',['../structadv__feature__t.html#adca02addd4d7f2797554f6e28228a082',1,'adv_feature_t']]],
-  ['rx_5ftimeout_97',['rx_timeout',['../structmicro__t.html#a88011a59f0e2be040c9efa480d611774',1,'micro_t::rx_timeout'],['../structmotor__t.html#a6d3fbe6b2b180e5bd8794787fe460cb8',1,'motor_t::rx_timeout']]]
+  ['rx_5fdma_5fcfg_95',['rx_dma_cfg',['../structi2c__handle__t.html#abfdf4ddb6a3234db7df25862c58eb643',1,'i2c_handle_t::rx_dma_cfg'],['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
+  ['rx_5ferrors_96',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
+  ['rx_5finv_97',['rx_inv',['../structadv__feature__t.html#adca02addd4d7f2797554f6e28228a082',1,'adv_feature_t']]],
+  ['rx_5ftimeout_98',['rx_timeout',['../structmicro__t.html#a88011a59f0e2be040c9efa480d611774',1,'micro_t::rx_timeout'],['../structmotor__t.html#a6d3fbe6b2b180e5bd8794787fe460cb8',1,'motor_t::rx_timeout']]],
+  ['rxfer_5fsize_99',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
 ];

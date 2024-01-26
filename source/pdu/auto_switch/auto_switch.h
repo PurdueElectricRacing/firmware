@@ -2,7 +2,7 @@
  * @file auto_switch.h
  * @author Gavin Zyonse (gzyonse@purdue.edu)
  * @brief 
- * @version 0.1
+ * @version 1.0
  * @date 2023-11-09
  * 
  * @copyright Copyright (c) 2023
@@ -26,10 +26,15 @@
 #define LV_3V3_R1  4300  // Ohms
 #define LV_3V3_R2  10000 // Ohms
 
-// Current sense resistors
+// HP Current sense resistors
 #define HP_CS_R1 180 // Ohms
 #define HP_CS_R2 330 // Ohms
 #define HP_CS_R3 500 // Ohms
+
+// Upstream Current sense
+#define HP_CS_R_SENSE 0.002 // Ohms
+#define CS_GAIN 100
+
 
 // Enumeration
 typedef enum {
@@ -51,20 +56,24 @@ typedef enum {
     SW_DAQ,
     SW_FAN_5V,
 
+    // Not actually switches
+    CS_24V,
+    CS_5V,
+
     // Number of switches (must be last)
     NUM_SWITCHES
 } switches_t;
 
 // Structures
 typedef struct {
-    float in_24v;
-    float out_5v;
-    float out_3v3;
-} voltage_t;
+    uint16_t in_24v;
+    uint16_t out_5v;
+    uint16_t out_3v3;
+} voltage_t;  // Voltage in mV
 
 typedef struct {
-    float fault_status[NUM_SWITCHES];
-    float current[NUM_SWITCHES];
+    uint8_t fault_status[NUM_SWITCHES];
+    uint16_t current[NUM_SWITCHES];  // Current in mA
     voltage_t voltage;
 } auto_switch_t;
 
@@ -78,7 +87,7 @@ void getVoltage();
 void enableSwitch();
 uint16_t calcCurrent_HP(uint16_t);
 uint16_t calcCurrent_LP(uint16_t);
-uint16_t calcCurrent_5V(uint16_t);
+void calcCurrent_Total();
 uint16_t calcVoltage(uint16_t, int, int);
 
 #endif

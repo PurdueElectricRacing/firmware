@@ -36,7 +36,7 @@
                     "files":[]
                 },
                 {
-                    "node_name":"Precharge",
+                    "node_name":"a_box",
                     "includes":"#include \"orion.h\"",
                     "variables": [
                         {"var_name":"charge_request_user", "access_phrase":"charge_request_user", "read_only": false, "type":"uint8_t", "length": 1},

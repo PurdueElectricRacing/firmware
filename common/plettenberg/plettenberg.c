@@ -31,10 +31,10 @@
 #define MC_PAR_POLE_PAIR_CT        "pp"
 #define MC_PAR_UPDATE_PERIOD       "ot"
 
-static char* mc_param_cmds[] = {MC_PAR_RPM_LIMIT, MC_PAR_CURRENT_LIMIT, MC_PAR_INPUT_CURRENT_LIMIT, 
+static char* mc_param_cmds[] = {MC_PAR_RPM_LIMIT, MC_PAR_CURRENT_LIMIT, MC_PAR_INPUT_CURRENT_LIMIT,
                                 MC_PAR_MAX_VOLTAGE_LIMIT, MC_PAR_MOT_TMP_LIMIT, MC_PAR_CTL_TMP_LIMIT,
                                 MC_PAR_POLE_PAIR_CT, MC_PAR_UPDATE_PERIOD};
-static uint16_t mc_param_vals[] = {MC_RPM_LIMIT, MC_CURRENT_LIMIT, MC_CURRENT_LIMIT, 
+static uint16_t mc_param_vals[] = {MC_RPM_LIMIT, MC_CURRENT_LIMIT, MC_CURRENT_LIMIT,
                                    MC_MAX_VOLTAGE, MC_MOT_TMP_LIMIT, MC_CTL_TMP_LIMIT,
                                    MC_POLE_PAIR_CT, MC_UPDATE_PERIOD};
 
@@ -51,12 +51,12 @@ static int16_t mcParseTerm(char *rx_buf, uint8_t start, char *search_term, uint3
 /**
  * @brief Initializes the motor structure
  *        call before using any other functions
- * 
+ *
  * @param m           Motor controller
  * @param is_inverted Set true if the motor is oriented backwards
  * @param tx_queue    The USART transmit queue, assumes periodically serviced
  */
-void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue, 
+void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue,
             usart_rx_buf_t *rx_buf, const bool *hv_present) {
     *m = (motor_t) {
         .is_inverted = is_inverted,
@@ -73,7 +73,7 @@ void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue,
 
 /**
  * @brief Sets the motor power if connected
- * 
+ *
  * @param power 100.0 is max output, -100.0 max regen
  * @param m     Motor controller
  */
@@ -123,7 +123,7 @@ void mcSetPower(float power, motor_t *m)
         // tens
         cmd[idx++] = (tens_to_command == 10) ? MC_MAX_POWER : tens_to_command + '0';
         // ones
-        if (ones_to_command < 0) 
+        if (ones_to_command < 0)
         {
             c = MC_DECREASE_ONE;
             ones_to_command *= -1;
@@ -150,7 +150,7 @@ void mcSetPower(float power, motor_t *m)
  * @brief Sets a 5 byte adjust mode parameter
  *        Must first call mcSetParamStart
  *        To save, call mcSetParamEnd
- * 
+ *
  * @param value Value to set param to (<999)
  * @param param TWO character param
  * @param m     Motor controller
@@ -171,7 +171,7 @@ static void mcSetParam(char *param, uint16_t value, motor_t *m)
 
 /**
  * @brief Sends a two byte command to the MC
- * 
+ *
  * @param param TWO character param
  * @param m Motor controller
  */
@@ -186,7 +186,7 @@ static void mcSendTwoByteCmd(char *param, motor_t *m)
 
 /**
  * @brief Sends a one byte command to the MC
- * 
+ *
  * @param command Command character
  * @param m Motor controller
  */
@@ -202,10 +202,10 @@ static void mcSendOneByteCmd(char command, motor_t *m)
 /**
  * @brief Updates motor connection state and parses
  *        periodic status message
- * 
+ *
  * @param m      The motor controller to update
  */
-void mcPeriodic(motor_t* m) 
+void mcPeriodic(motor_t* m)
 {
     // Parse if recent data and update timing
     if (sched.os_ticks - m->rx_buf->last_msg_time < 3 * MC_LOOP_DT / 2)
@@ -231,10 +231,10 @@ void mcPeriodic(motor_t* m)
 /**
  * @brief Updates motor link state based on
  *        last received message times
- * 
+ *
  * @param m      The motor controller to update
  */
-static uint8_t mcCheckLinkState(motor_t* m) 
+static uint8_t mcCheckLinkState(motor_t* m)
 {
     char     tmp_rx_buf[MC_MAX_RX_LENGTH];
     int8_t   search_idx;
@@ -290,7 +290,7 @@ static uint8_t mcCheckLinkState(motor_t* m)
             ++m->init_time;
             break;
         case MC_LINK_CONNECTED:
-            if (m->motor_state == MC_CONFIG) 
+            if (m->motor_state == MC_CONFIG)
             {
                 if (m->config_sent &&
                     sched.os_ticks - m->rx_buf->last_msg_time < 2 * MC_LOOP_DT)
@@ -299,7 +299,7 @@ static uint8_t mcCheckLinkState(motor_t* m)
             else
             {
                 // COMMENTED OUT BECAUSE
-                // The motor controller connection state will only be based on 
+                // The motor controller connection state will only be based on
                 // if any data is received, not necessarily a full message
                 // if (sched.os_ticks - m->last_msg_time < MC_RX_LARGE_TIMEOUT_MS)
                 // {
@@ -331,10 +331,10 @@ static uint8_t mcCheckLinkState(motor_t* m)
 /**
  * @brief Send motor configuration params via
  *        adjust mode
- * 
+ *
  * @param m      The motor controller to update
  */
-static uint8_t mcUpdateConfig(motor_t* m) 
+static uint8_t mcUpdateConfig(motor_t* m)
 {
     uint8_t i;
 
@@ -379,7 +379,7 @@ static uint8_t mcUpdateConfig(motor_t* m)
 /**
  * @brief Parses information from a message
  *        and verifies serial mode
- * 
+ *
  * @param m The motor controller to update
  */
 static void mcParseMessage(motor_t *m)
@@ -402,11 +402,11 @@ static void mcParseMessage(motor_t *m)
 
     // Check state
     curr = mcParseTerm(tmp_rx_buf, curr, "S=", &val_buf);
-    if (curr >= 0) 
+    if (curr >= 0)
     {
         m->last_serial_time = sched.os_ticks;
         // if error is fixed without power cycle, recover
-        if (m->motor_state == MC_ERROR) 
+        if (m->motor_state == MC_ERROR)
         {
             m->config_step = 0;
             m->motor_state = MC_CONFIG;
@@ -458,9 +458,9 @@ static void mcParseMessage(motor_t *m)
  * @brief Parses a number after the specified search term
  *        Starts searching at start and stops at start - 1 (wrap around)
  *        Multiplies the value by 10 if a decimal point is found
- * 
+ *
  * @param rx_buf      Buffer possibly containing a status message
- * @param start       Index to start searching for the search term 
+ * @param start       Index to start searching for the search term
  * @param search_term The term to search for in the buffer
  * @param val_addr    The address to store the parsed value
  * @return int16_t    Index of the next start location, -1 on failure
@@ -471,7 +471,7 @@ int16_t mcParseTerm(char *rx_buf, uint8_t start, char *search_term, uint32_t *va
     bool match = false;
     uint8_t curr = 0xFF;
 
-    for (uint8_t i = start; i < MC_MAX_RX_LENGTH + start; ++i) 
+    for (uint8_t i = start; i < MC_MAX_RX_LENGTH + start; ++i)
     {
         if (rx_buf[i % MC_MAX_RX_LENGTH] == search_term[0])
         {

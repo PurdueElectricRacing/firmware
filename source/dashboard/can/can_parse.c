@@ -204,9 +204,9 @@ void canRxUpdate()
                 can_data.fault_sync_driveline.latched = msg_data_a->fault_sync_driveline.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
-            case ID_FAULT_SYNC_PRECHARGE:
-                can_data.fault_sync_precharge.idx = msg_data_a->fault_sync_precharge.idx;
-                can_data.fault_sync_precharge.latched = msg_data_a->fault_sync_precharge.latched;
+            case ID_FAULT_SYNC_A_BOX:
+                can_data.fault_sync_a_box.idx = msg_data_a->fault_sync_a_box.idx;
+                can_data.fault_sync_a_box.latched = msg_data_a->fault_sync_a_box.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_TORQUE_VECTOR_FPGA:
@@ -326,7 +326,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_PRECHARGE << 3) | 4;
+    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->sFilterRegister[9].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
     CAN1->FA1R |= (1 << 10);    // configure bank 10
     CAN1->sFilterRegister[10].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;

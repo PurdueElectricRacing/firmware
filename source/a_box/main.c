@@ -1,15 +1,13 @@
 /* System Includes */
-#include "stm32l496xx.h"
-#include "system_stm32l4xx.h"
 #include "can_parse.h"
-#include "common/bootloader/bootloader_common.h"
+// #include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
-#include "common/phal_L4/can/can.h"
-#include "common/phal_L4/quadspi/quadspi.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/rcc/rcc.h"
-#include "common/phal_L4/usart/usart.h"
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/can/can.h"
+// #include "common/phal_F4_F7/quadspi/quadspi.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4_F7/rcc/rcc.h"
+#include "common/phal_F4_F7/usart/usart.h"
+#include "common/phal_F4_F7/spi/spi.h"
 
 
 /* Module Includes */
@@ -29,19 +27,19 @@
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
    // CAN
-   GPIO_INIT_CANRX_PA11,
-   GPIO_INIT_CANTX_PA12,
-   GPIO_INIT_CAN2RX_PB12,
-   GPIO_INIT_CAN2TX_PB13,
+   // GPIO_INIT_CANRX_PA11,
+   // GPIO_INIT_CANTX_PA12,
+   // GPIO_INIT_CAN2RX_PB12,
+   // GPIO_INIT_CAN2TX_PB13,
 
 
    // SPI
    GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
    GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
    GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-   GPIO_INIT_SPI2_SCK_PB10,
-   GPIO_INIT_SPI2_MOSI_PC3,
-   GPIO_INIT_SPI2_MISO_PC2,
+   // GPIO_INIT_SPI2_SCK_PB10,
+   // GPIO_INIT_SPI2_MOSI_PC3,
+   // GPIO_INIT_SPI2_MISO_PC2,
    GPIO_INIT_OUTPUT(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, GPIO_OUTPUT_HIGH_SPEED),
    GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
    GPIO_INIT_OUTPUT(SPI_CS_TMU_GPIO_Port, SPI_CS_TMU_GPIO_Pin, GPIO_OUTPUT_HIGH_SPEED),
@@ -119,18 +117,18 @@ SPI_InitConfig_t spi_config = {
 };
 
 
-dma_init_t spi2_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi2_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
-SPI_InitConfig_t spi2_config = {
-   .data_rate = TargetCoreClockrateHz / 64,
-   .data_len  = 8,
-   .nss_sw = true,
-   .nss_gpio_port = SPI_CS_TMU_GPIO_Port,
-   .nss_gpio_pin = SPI_CS_TMU_GPIO_Pin,
-   .rx_dma_cfg = &spi2_rx_dma_config,
-   .tx_dma_cfg = &spi2_tx_dma_config,
-   .periph = SPI2
-};
+// dma_init_t spi2_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
+// dma_init_t spi2_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
+// SPI_InitConfig_t spi2_config = {
+//    .data_rate = TargetCoreClockrateHz / 64,
+//    .data_len  = 8,
+//    .nss_sw = true,
+//    .nss_gpio_port = SPI_CS_TMU_GPIO_Port,
+//    .nss_gpio_pin = SPI_CS_TMU_GPIO_Pin,
+//    .rx_dma_cfg = &spi2_rx_dma_config,
+//    .tx_dma_cfg = &spi2_tx_dma_config,
+//    .periph = SPI2
+// };
 
 
 BMI088_Handle_t bmi_config = {
@@ -148,7 +146,7 @@ BMI088_Handle_t bmi_config = {
 
 
 tmu_handle_t tmu = {
-   .spi = &spi2_config,
+   // .spi = &spi2_config,
 };
 
 
@@ -191,9 +189,9 @@ int main (void)
 //        PHAL_FaultHandler();
 
 
-   spi2_config.data_rate = APB2ClockRateHz / 16;
-   if (!PHAL_SPI_init(&spi2_config))
-       PHAL_FaultHandler();
+   // spi2_config.data_rate = APB2ClockRateHz / 16;
+   // if (!PHAL_SPI_init(&spi2_config))
+   //     PHAL_FaultHandler();
 
 
    NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -250,7 +248,7 @@ void preflightChecks(void)
 
            break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_PRECHARGE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_A_BOX);
             break;
        default:
            if (state > 750)
@@ -451,8 +449,8 @@ void CAN2_RX0_IRQHandler()
 
 void precharge_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
-   if (can_data.precharge_bl_cmd.cmd == BLCMD_RST)
-       Bootloader_ResetForFirmwareDownload();
+//    if (can_data.precharge_bl_cmd.cmd == BLCMD_RST)
+//        Bootloader_ResetForFirmwareDownload();
 }
 
 

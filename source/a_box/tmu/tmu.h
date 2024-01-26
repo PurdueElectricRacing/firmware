@@ -2,7 +2,7 @@
 #define _TMU_H_
 
 
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/spi/spi.h"
 #include <stdint.h>
 #include <inttypes.h>
 

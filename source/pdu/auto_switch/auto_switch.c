@@ -9,6 +9,7 @@
  * 
  */
 #include "auto_switch.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
 
 // Initialize struct
 auto_switch_t auto_switch;
@@ -23,17 +24,17 @@ void getFaults() {
 
 void getCurrent() {
     // High power switches
-    auto_switch.current[SW_PUMP_1] = getCurrent_HP(adc_readings.pump_1_imon);
-    auto_switch.current[SW_PUMP_2] = getCurrent_HP(adc_readings.pump_2_imon);
-    auto_switch.current[SW_SDC] = getCurrent_HP(adc_readings.sdc_imon);
-    auto_switch.current[SW_AUX] = getCurrent_HP(adc_readings.aux_hp_imon);
+    auto_switch.current[SW_PUMP_1] = calcCurrent_HP(adc_readings.pump_1_imon);
+    auto_switch.current[SW_PUMP_2] = calcCurrent_HP(adc_readings.pump_2_imon);
+    auto_switch.current[SW_SDC] = calcCurrent_HP(adc_readings.sdc_imon);
+    auto_switch.current[SW_AUX] = calcCurrent_HP(adc_readings.aux_hp_imon);
 
     // Low power switches
-    auto_switch.current[SW_FAN_1] = getCurrent_LP(adc_readings.fan_1_cs);
-    auto_switch.current[SW_FAN_2] = getCurrent_LP(adc_readings.fan_2_cs);
-    auto_switch.current[SW_DASH] = getCurrent_LP(adc_readings.dash_cs);
-    auto_switch.current[SW_ABOX] = getCurrent_LP(adc_readings.abox_cs);
-    auto_switch.current[SW_MAIN] = getCurrent_LP(adc_readings.main_cs);
+    auto_switch.current[SW_FAN_1] = calcCurrent_LP(adc_readings.fan_1_cs);
+    auto_switch.current[SW_FAN_2] = calcCurrent_LP(adc_readings.fan_2_cs);
+    auto_switch.current[SW_DASH] = calcCurrent_LP(adc_readings.dash_cs);
+    auto_switch.current[SW_ABOX] = calcCurrent_LP(adc_readings.abox_cs);
+    auto_switch.current[SW_MAIN] = calcCurrent_LP(adc_readings.main_cs);
     // TODO: bullet switch doesn't have cs signal
 
     // 5V switches
@@ -53,18 +54,19 @@ void getVoltage() {
 }
 
 // Current helper functions
-uint16_t getCurrent_HP(uint16_t adc_reading) {
-    adc_reading = adc_reading * 3300 / 4095;  // Convert to mV
+uint16_t calcCurrent_HP(uint16_t adc_reading) {
+    adc_reading = adc_reading * ADC_REF_mV * ADC_MAX;  // Convert to mV
+    uint16_t current = adc_reading * (HP_CS_R1 + HP_CS_R2) / HP_CS_R2;
+    current = current * HP_CS_R3 / (HP_CS_R1 + HP_CS_R2);
+    return current;
+}
+
+uint16_t calcCurrent_LP(uint16_t adc_reading) {
     uint16_t current = adc_reading;
     return current;
 }
 
-uint16_t getCurrent_LP(uint16_t adc_reading) {
-    uint16_t current = adc_reading;
-    return current;
-}
-
-uint16_t getCurrent_5V(uint16_t adc_reading) {
+uint16_t calcCurrent_5V(uint16_t adc_reading) {
     return 0;
 }
 
@@ -78,5 +80,5 @@ uint16_t calcVoltage(uint16_t adc_reading, int r1, int r2) {
 }
 
 void enableSwitch() {
-
+    PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, 1);
 }

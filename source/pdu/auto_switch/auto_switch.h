@@ -26,6 +26,11 @@
 #define LV_3V3_R1  4300  // Ohms
 #define LV_3V3_R2  10000 // Ohms
 
+// Current sense resistors
+#define HP_CS_R1 180 // Ohms
+#define HP_CS_R2 330 // Ohms
+#define HP_CS_R3 500 // Ohms
+
 // Enumeration
 typedef enum {
     // High power switches
@@ -71,9 +76,9 @@ void getFaults();
 void getCurrent();
 void getVoltage();
 void enableSwitch();
-uint16_t getCurrent_HP(uint16_t);
-uint16_t getCurrent_LP(uint16_t);
-uint16_t getCurrent_5V(uint16_t);
+uint16_t calcCurrent_HP(uint16_t);
+uint16_t calcCurrent_LP(uint16_t);
+uint16_t calcCurrent_5V(uint16_t);
 uint16_t calcVoltage(uint16_t, int, int);
 
 #endif

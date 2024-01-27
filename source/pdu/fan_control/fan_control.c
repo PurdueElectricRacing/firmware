@@ -1,6 +1,7 @@
 #include "fan_control.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 
+extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 
 /* My notes
@@ -46,7 +47,8 @@ bool fanControlInit()
     FAN_PWM_TIM -> CCMR1 |= TIM_CCMR1_OC2PE |TIM_CCMR1_OC1PE; // Enable preload register ch1 & ch2
 
     FAN_PWM_TIM -> CCER |= TIM_CCER_CC2E | TIM_CCER_CC1E; // Enable output compare 1 & 2 
-    // do I even need 2?
+
+    // FIXME: Do we need this?
     FAN_PWM_TIM -> BDTR |= TIM_BDTR_MOE; // Enable main output
 
     FAN_PWM_TIM -> CR1 &= ~TIM_CR1_DIR; // Set to upcounting mode
@@ -59,15 +61,43 @@ bool fanControlInit()
 
     /* FAN_1_TACH_TIM */
     RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
+
     FAN_1_TACH_TIM -> CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
 
-    /* Set input capture mode */
-    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC2E; // Turn of the channel (necessary to write CC2S bits)
-    FAN_1_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC2S;
-    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI2
+    FAN_1_TACH_TIM -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY_HZ * 100)) - 1;
+    FAN_1_TACH_TIM -> ARR = 100 - 1;
 
-    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC2P; // Capture input on the rising edge
-    FAN_1_TACH_TIM -> CCER |= TIM_CCER_CC2E; // Enable the channel
+    /* Set input capture mode */
+    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC2S bits)
+    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC2E; // Turn off the channel (necessary to write CC2S bits)
+
+    /* Setup capture compare 1 (period) */
+    FAN_1_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC1S;
+    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC1S_1; // Map IC2 to TI1
+
+    /* Setup capture compare 2 (duty cycle) */
+    FAN_1_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC2S;
+    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI1
+
+    /* CCR1 (period) needs rising edge */
+    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1P;
+    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1NP;
+
+    /* CCR2 (duty cycle) needs falling edge */
+    FAN_1_TACH_TIM -> CCER |= TIM_CCER_CC1P;
+    FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1NP;
+
+    /* Select trigger */
+    FAN_1_TACH_TIM -> SMCR &= ~TIM_SMCR_TS;
+    FAN_1_TACH_TIM -> SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_1;
+
+    /* Select trigger */
+    FAN_1_TACH_TIM -> SMCR &= ~TIM_SMCR_SMS;
+    FAN_1_TACH_TIM -> SMCR |= TIM_SMCR_SMS_2;
+
+    /* Enable channels */
+    FAN_1_TACH_TIM -> CCER |= TIM_CCER_CC1E; // Enable CCR1
+    FAN_1_TACH_TIM -> CCER |= TIM_CCER_CC2E; // Enable CCR2
 
     FAN_1_TACH_TIM -> CR1 |= TIM_CR1_CEN; // Enable timer
 
@@ -79,4 +109,5 @@ void setFanSpeed(uint8_t fan_speed)
 {
     // Duty cycle is (CCR1 / ARR)%. So CCR1 = (ARR / duty cycle)
     FAN_PWM_TIM -> CCR1 = (FAN_PWM_TIM -> ARR) * (fan_speed / 100.0);
+    FAN_PWM_TIM -> CCR2 = (FAN_PWM_TIM -> ARR) * (fan_speed / 100.0);
 }

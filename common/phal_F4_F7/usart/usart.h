@@ -228,24 +228,24 @@ extern void usart_recieve_complete_callback(usart_init_t *handle);
             .periph=DMA1, .stream=DMA1_Stream6                                        \
         }
 #else
-    #define USART2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
+    #define USART4_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
         {                                                                             \
-            .periph_addr = (uint32_t) & (USART2->TDR), .mem_addr = (uint32_t)(rx_addr_), \
+            .periph_addr = (uint32_t) & (UART4->RDR), .mem_addr = (uint32_t)(rx_addr_), \
             .tx_size = 1, .increment = false, .circular = false,                      \
             .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
             .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
-            .tx_isr_en = false, .dma_chan_request=0b0100, .stream_idx=5,              \
-            .periph=DMA1, .stream=DMA1_Stream5                                        \
+            .tx_isr_en = true, .dma_chan_request=0b0100, .stream_idx=2,              \
+            .periph=DMA1, .stream=DMA1_Stream2                                        \
         }
 
-    #define USART2_TXDMA_CONT_CONFIG(tx_addr_, priority_)                               \
+    #define USART4_TXDMA_CONT_CONFIG(tx_addr_, priority_)                               \
         {                                                                             \
-            .periph_addr = (uint32_t) & (USART2->RDR), .mem_addr = (uint32_t)(tx_addr_), \
+            .periph_addr = (uint32_t) & (UART4->TDR), .mem_addr = (uint32_t)(tx_addr_), \
             .tx_size = 1, .increment = false, .circular = false,                      \
             .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
             .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
-            .tx_isr_en = true, .dma_chan_request=0b0100, .stream_idx=6,               \
-            .periph=DMA1, .stream=DMA1_Stream6                                        \
+            .tx_isr_en = true, .dma_chan_request=0b0100, .stream_idx=4,               \
+            .periph=DMA1, .stream=DMA1_Stream4                                        \
         }
 #endif
 #endif

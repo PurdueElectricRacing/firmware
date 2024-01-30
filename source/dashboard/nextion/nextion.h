@@ -7,7 +7,6 @@
 #ifndef __NEXTION_H__
 #define __NEXTION_H__
 
-#include "stm32l496xx.h"
 #include <string.h>
 #include <stdio.h>
 #include "common/queue/queue.h"

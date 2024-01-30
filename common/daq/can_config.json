@@ -340,7 +340,7 @@
                     ]
                 },
                 {
-                    "node_name": "Precharge",
+                    "node_name": "a_box",
                     "can_peripheral": "CAN1",
                     "node_ssa": 4,
                     "tx": [
@@ -1464,7 +1464,7 @@
             "bus_name": "Battery",
             "nodes": [
                 {
-                    "node_name": "Precharge",
+                    "node_name": "a_box",
                     "can_peripheral": "CAN2",
                     "node_ssa": 42,
                     "tx": [

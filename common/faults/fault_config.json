@@ -203,7 +203,7 @@
             ]
         },
         {
-            "node_name": "precharge",
+            "node_name": "a_box",
             "faults": [
                 {
                     "fault_name": "discharge_limit_enforce",

@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module Torque_Vector_fpga Driveline Precharge OrionBMS torque_vector Dashboard Steering PDU Acceleration bootloader BMS_LV BITSTREAM Charger DAQ Precharge ARDUINO TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module Torque_Vector_fpga Driveline a_box OrionBMS torque_vector Dashboard Steering PDU Acceleration bootloader BMS_LV BITSTREAM Charger DAQ a_box ARDUINO TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2214598913 main_hb: 2 Main_Module
@@ -185,75 +185,75 @@ BO_ 2148059779 fault_sync_driveline: 3 Driveline
 BO_ 2550136771 daq_response_DRIVELINE: 8 Driveline
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598980 precharge_hb: 2 Precharge
+BO_ 2214598980 precharge_hb: 2 a_box
  SG_ BMS : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ IMD : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2550588916 elcon_charger_command: 5 Precharge
+BO_ 2550588916 elcon_charger_command: 5 a_box
  SG_ charge_disable : 32|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
 
-BO_ 2281734340 num_them_bad: 4 Precharge
+BO_ 2281734340 num_them_bad: 4 a_box
  SG_ module_4 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ module_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ module_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ module_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281734276 pack_charge_status: 7 Precharge
+BO_ 2281734276 pack_charge_status: 7 a_box
  SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
  SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
 
-BO_ 2214625284 gyro_data: 6 Precharge
+BO_ 2214625284 gyro_data: 6 a_box
  SG_ gz : 32|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
  SG_ gy : 16|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
  SG_ gx : 0|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
 
-BO_ 2214625348 accel_data: 6 Precharge
+BO_ 2214625348 accel_data: 6 a_box
  SG_ az : 32|16@1- (1,0) [0|0] "m/s^2*100" Vector__XXX
  SG_ ay : 16|16@1- (1,0) [0|0] "m/s^2*100" Vector__XXX
  SG_ ax : 0|16@1- (1,0) [0|0] "m/s^2*100" Vector__XXX
 
-BO_ 2214625540 angle_data: 6 Precharge
+BO_ 2214625540 angle_data: 6 a_box
  SG_ yaw : 32|16@1- (1,0) [0|0] "degx10" Vector__XXX
  SG_ roll : 16|16@1- (1,0) [0|0] "degx10" Vector__XXX
  SG_ pitch : 0|16@1- (1,0) [0|0] "degx10" Vector__XXX
 
-BO_ 2214913540 max_cell_temp: 2 Precharge
+BO_ 2214913540 max_cell_temp: 2 a_box
  SG_ max_temp : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
-BO_ 2483060868 mod_cell_temp_avg: 8 Precharge
+BO_ 2483060868 mod_cell_temp_avg: 8 a_box
  SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
-BO_ 2483060996 mod_cell_temp_max: 8 Precharge
+BO_ 2483060996 mod_cell_temp_max: 8 a_box
  SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
-BO_ 2483061252 mod_cell_temp_min: 8 Precharge
+BO_ 2483061252 mod_cell_temp_min: 8 a_box
  SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
 
-BO_ 2483060932 raw_cell_temp: 7 Precharge
+BO_ 2483060932 raw_cell_temp: 7 a_box
  SG_ temp_D : 44|12@1+ (0.01,0) [0|0] "C" Vector__XXX
  SG_ temp_C : 32|12@1+ (0.01,0) [0|0] "C" Vector__XXX
  SG_ temp_B : 20|12@1+ (0.01,0) [0|0] "C" Vector__XXX
  SG_ temp_A : 8|12@1+ (0.01,0) [0|0] "C" Vector__XXX
  SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059844 fault_sync_precharge: 3 Precharge
+BO_ 2148059844 fault_sync_a_box: 3 a_box
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2550136772 daq_response_PRECHARGE: 8 Precharge
+BO_ 2550136772 daq_response_A_BOX: 8 a_box
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483029688 orion_info: 7 OrionBMS
@@ -660,7 +660,7 @@ BO_ 2483028082 daq_command_MAIN_MODULE: 8 DAQ
 BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028274 daq_command_PRECHARGE: 8 DAQ
+BO_ 2483028274 daq_command_A_BOX: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028210 daq_command_DRIVELINE: 8 DAQ
@@ -669,14 +669,14 @@ BO_ 2483028210 daq_command_DRIVELINE: 8 DAQ
 BO_ 2483030002 daq_command_PDU: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281733418 heat_req: 3 Precharge
+BO_ 2281733418 heat_req: 3 a_box
  SG_ time : 1|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ toggle : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214624618 pack_curr: 2 Precharge
+BO_ 2214624618 pack_curr: 2 a_box
  SG_ current : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2348810282 balance_request: 2 Precharge
+BO_ 2348810282 balance_request: 2 a_box
  SG_ voltage_target : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
 BO_ 2147486688 module_temp_0: 8 ARDUINO
@@ -851,7 +851,7 @@ BO_ 2483032050 daq_command_TEST_NODE: 8 DAQ
 CM_ BU_ Main_Module "";
 CM_ BU_ Torque_Vector_fpga "";
 CM_ BU_ Driveline "";
-CM_ BU_ Precharge "";
+CM_ BU_ a_box "";
 CM_ BU_ OrionBMS "";
 CM_ BU_ torque_vector "";
 CM_ BU_ Dashboard "";
@@ -863,7 +863,7 @@ CM_ BU_ BMS_LV "";
 CM_ BU_ BITSTREAM "";
 CM_ BU_ Charger "";
 CM_ BU_ DAQ "";
-CM_ BU_ Precharge "";
+CM_ BU_ a_box "";
 CM_ BU_ ARDUINO "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
@@ -1050,7 +1050,7 @@ CM_ SG_ 2483060932 index "";
 CM_ BO_ 2148059844 "Fault status message";
 CM_ SG_ 2148059844 latched "";
 CM_ SG_ 2148059844 idx "";
-CM_ BO_ 2550136772 "daq response from node PRECHARGE";
+CM_ BO_ 2550136772 "daq response from node A_BOX";
 CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
 CM_ SG_ 2483029688 pack_soc "";
@@ -1379,7 +1379,7 @@ CM_ BO_ 2483028082 "daq command for node MAIN_MODULE";
 CM_ SG_ 2483028082 daq_command "";
 CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
-CM_ BO_ 2483028274 "daq command for node PRECHARGE";
+CM_ BO_ 2483028274 "daq command for node A_BOX";
 CM_ SG_ 2483028274 daq_command "";
 CM_ BO_ 2483028210 "daq command for node DRIVELINE";
 CM_ SG_ 2483028210 daq_command "";

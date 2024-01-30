@@ -1,24 +1,23 @@
 /**
  * @file bmi.h
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-01-29
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef _BMI_H_
 #define _BMI_H_
 
-#include "stm32l496xx.h"
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>
 #include "bsxlite_interface.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4_F7/spi/spi.h"
 
 #define BMI088_GYRO_CHIP_ID         (0x0FU)
 #define BMI088_ACC_CHIP_ID          (0x1EU)
@@ -102,11 +101,11 @@ typedef struct {
 } BMI088_Handle_t;
 
 /**
- * @brief 
- * 
- * @param bmi 
- * @return true 
- * @return false 
+ * @brief
+ *
+ * @param bmi
+ * @return true
+ * @return false
  */
 bool BMI088_init(BMI088_Handle_t* bmi);
 
@@ -116,9 +115,9 @@ void BMI088_powerOnAccel(BMI088_Handle_t* bmi);
 
 
 /**
- * @brief Setup the accelerometer, must be done 50ms or longer after POR 
- * 
- * @param bmi 
+ * @brief Setup the accelerometer, must be done 50ms or longer after POR
+ *
+ * @param bmi
  * @return true ACCEL responded sucessfully
  * @return false not good
  */
@@ -126,15 +125,15 @@ bool BMI088_initAccel(BMI088_Handle_t* bmi);
 
 /**
  * @brief Start the gyro self test
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool BMI088_gyroSelfTestStart(BMI088_Handle_t* bmi);
 
 /**
  * @brief Check the status of the most recent Gyro self test
- * 
+ *
  * @return true Self test passed, gyro data is good
  * @return false Self test failed, gyro data bad or no test was conduced
  */
@@ -142,7 +141,7 @@ bool BMI088_gyroSelfTestComplete(BMI088_Handle_t* bmi);
 
 /**
  * @brief Check the status of the most recent Gyro self test
- * 
+ *
  * @return true Self test passed, gyro data is good
  * @return false Self test failed, gyro data bad or no test was conduced
  */
@@ -150,7 +149,7 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t* bmi);
 
 /**
  * @brief Blocking function to read the most recent Data Sample from the gyro
- * 
+ *
  * @param v.x Acceleration around the X axis (pitch acceleration) in rad/s
  * @param v.y Acceletation around the Y axis (roll acceleration) in rad/s
  * @param v.z Acceleration around the Z axis (yaw acceleration) in rad/s
@@ -161,13 +160,13 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, vector_3d_t* v);
 
 /**
  * @brief Blocking function to read the acceleration values form the device.
- * 
- * @param bmi 
+ *
+ * @param bmi
  * @param v.x Returned acceleration over x axis (m/s^2)
- * @param v.y Returned acceleration over y axis (m/s^2) 
+ * @param v.y Returned acceleration over y axis (m/s^2)
  * @param v.z Returned acceleration over z axis (m/s^2)
- * @return true 
- * @return false 
+ * @return true
+ * @return false
  */
 bool BMI088_readAccel(BMI088_Handle_t* bmi, vector_3d_t* v);
 

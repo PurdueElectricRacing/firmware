@@ -5,7 +5,7 @@
 #include "common/faults/fault_nodes.h"
 
 
-#define FAULT_NODE_NAME NODE_PRECHARGE
+#define FAULT_NODE_NAME NODE_A_BOX
 
 
 // SPI Accel

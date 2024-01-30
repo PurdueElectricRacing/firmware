@@ -1,6 +1,6 @@
 #ifndef __LCD_H__
 #define __LCD_H__
-#include "common/phal_L4/spi/spi.h"
+#include "common/phal_F4_F7/spi/spi.h"
 #include "nextion.h"
 #include "pedals.h"
 #include "can_parse.h"

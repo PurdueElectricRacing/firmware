@@ -4,9 +4,9 @@
  * @brief  Embedded DAQ protocol meant to communicate with a PC dashboard over CAN
  * @version 0.1
  * @date 2021-10-06
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #ifndef _DAQ_H_
 #define _DAQ_H_
@@ -14,7 +14,7 @@
 #include "can_parse.h"
 
 // Make this match the node name within the daq_config.json
-#define NODE_NAME "Precharge"
+#define NODE_NAME "a_box"
 
 #define DAQ_UPDATE_PERIOD 15 // ms
 

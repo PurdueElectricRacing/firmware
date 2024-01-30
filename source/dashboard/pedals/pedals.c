@@ -1,6 +1,6 @@
 #include "pedals.h"
 #include "main.h"
-#include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
 #include "can_parse.h"
 
 pedals_t pedals = {0};
@@ -38,7 +38,7 @@ void pedalsPeriodic(void)
     uint16_t t2 = raw_adc_values.t2;
     uint16_t b1 = raw_adc_values.b1;
     uint16_t b2 = raw_adc_values.b2;
-    uint16_t b3_raw = raw_adc_values.b3;
+    uint16_t b3_raw = /*raw_adc_values.b3*/0; //no longer use b3
 
     b3_buff[b3_idx++] = b3_raw;
     b3_idx %= 8;
@@ -230,7 +230,7 @@ void pedalsPeriodic(void)
 
     SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_adc_values.t1,
                             raw_adc_values.t2, raw_adc_values.b1,
-                            raw_adc_values.b2, raw_adc_values.b3);
+                            raw_adc_values.b2, /*raw_adc_values.b3*/0); //no longer use b3
     SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b2);
 
 

@@ -13,10 +13,10 @@
 
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
-#include "common/phal_L4/can/can.h"
+#include "common/phal_F4_F7/can/can.h"
 
 // Make this match the node name within the can_config.json
-#define NODE_NAME "Precharge"
+#define NODE_NAME "a_box"
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
@@ -35,8 +35,8 @@
 #define ID_MOD_CELL_TEMP_MAX 0x14008104
 #define ID_MOD_CELL_TEMP_MIN 0x14008204
 #define ID_RAW_CELL_TEMP 0x140080c4
-#define ID_FAULT_SYNC_PRECHARGE 0x8cac4
-#define ID_DAQ_RESPONSE_PRECHARGE 0x17ffffc4
+#define ID_FAULT_SYNC_A_BOX 0x8cac4
+#define ID_DAQ_RESPONSE_A_BOX 0x17ffffc4
 #define ID_MODULE_TEMP_0 0xbe0
 #define ID_MODULE_TEMP_1 0xbe1
 #define ID_MODULE_TEMP_2 0xbe2
@@ -66,7 +66,7 @@
 #define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
-#define ID_DAQ_COMMAND_PRECHARGE 0x14000132
+#define ID_DAQ_COMMAND_A_BOX 0x14000132
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -86,8 +86,8 @@
 #define DLC_MOD_CELL_TEMP_MAX 8
 #define DLC_MOD_CELL_TEMP_MIN 8
 #define DLC_RAW_CELL_TEMP 7
-#define DLC_FAULT_SYNC_PRECHARGE 3
-#define DLC_DAQ_RESPONSE_PRECHARGE 8
+#define DLC_FAULT_SYNC_A_BOX 3
+#define DLC_DAQ_RESPONSE_A_BOX 8
 #define DLC_MODULE_TEMP_0 8
 #define DLC_MODULE_TEMP_1 8
 #define DLC_MODULE_TEMP_2 8
@@ -117,7 +117,7 @@
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
-#define DLC_DAQ_COMMAND_PRECHARGE 8
+#define DLC_DAQ_COMMAND_A_BOX 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -241,17 +241,17 @@
         data_a->raw_cell_temp.temp_D = temp_D_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_FAULT_SYNC_PRECHARGE(queue, idx_, latched_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_PRECHARGE, .DLC=DLC_FAULT_SYNC_PRECHARGE, .IDE=1};\
+#define SEND_FAULT_SYNC_A_BOX(queue, idx_, latched_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_A_BOX, .DLC=DLC_FAULT_SYNC_A_BOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->fault_sync_precharge.idx = idx_;\
-        data_a->fault_sync_precharge.latched = latched_;\
+        data_a->fault_sync_a_box.idx = idx_;\
+        data_a->fault_sync_a_box.latched = latched_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_PRECHARGE(queue, daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PRECHARGE, .DLC=DLC_DAQ_RESPONSE_PRECHARGE, .IDE=1};\
+#define SEND_DAQ_RESPONSE_A_BOX(queue, daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_A_BOX, .DLC=DLC_DAQ_RESPONSE_A_BOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_PRECHARGE.daq_response = daq_response_;\
+        data_a->daq_response_A_BOX.daq_response = daq_response_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -351,10 +351,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_precharge;
+    } fault_sync_a_box;
     struct {
         uint64_t daq_response: 64;
-    } daq_response_PRECHARGE;
+    } daq_response_A_BOX;
     struct {
         uint64_t mod_temp_0: 16;
         uint64_t mod_temp_1: 16;
@@ -556,7 +556,7 @@ typedef union {
     } return_fault_control;
     struct {
         uint64_t daq_command: 64;
-    } daq_command_PRECHARGE;
+    } daq_command_A_BOX;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -774,14 +774,14 @@ typedef struct {
     } return_fault_control;
     struct {
         uint64_t daq_command;
-    } daq_command_PRECHARGE;
+    } daq_command_A_BOX;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_PRECHARGE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_A_BOX_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);

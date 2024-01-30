@@ -13,7 +13,7 @@
 
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
-#include "common/phal_L4/can/can.h"
+#include "common/phal_F4_F7/can/can.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "torque_vector"

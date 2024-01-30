@@ -55,10 +55,6 @@ void imu_periodic(IMU_Handle_t *imu_h, ExtU *rtU)
     r = (int16_t)(imu_h->output.orientation.roll * 10.0f / DEG_TO_RAD);
     y = (int16_t)(imu_h->output.orientation.yaw * 10.0f / DEG_TO_RAD);
 
-    // SEND_ANGLE_DATA(q_tx_can, p, r, y);
-    // SEND_ACCEL_DATA(q_tx_can, (int16_t) (accel_in.x * 100), (int16_t) (accel_in.y * 100), (int16_t) (accel_in.z * 100));
-    // SEND_GYRO_DATA(q_tx_can, (int16_t) (gyro_in.x * 100), (int16_t) (gyro_in.y * 100), (int16_t) (gyro_in.z * 100));
-
     rtU->gyro[0] = CLAMP(gyro_in.x * ACC_CALIBRATION, MIN_GYRO, MAX_GYRO);
     rtU->gyro[1] = CLAMP(gyro_in.y * ACC_CALIBRATION, MIN_GYRO, MAX_GYRO);
     rtU->gyro[2] = CLAMP(gyro_in.z * ACC_CALIBRATION, MIN_GYRO, MAX_GYRO);

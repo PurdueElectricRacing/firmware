@@ -72,6 +72,27 @@ typedef struct
     uint8_t fix_type;
 } GPS_Handle_t; // GPS handle
 
+// GPS Message Attributes
+#define UBX_NAV_PVT_HEADER_B0 0xB5
+#define UBX_NAV_PVT_HEADER_B1 0x62
+#define UBX_NAV_PVT_CLASS     0x01
+#define UBX_NAV_PVT_MSG_ID    0x07
+
+#define GPS_FIX_NONE    0
+#define GPS_FIX_DEAD_RECKONING   1
+#define GPS_FIX_2D  2
+#define GPS_FIX_3D  3
+#define GPS_FIX_GNSS_DEAD_RECKONING 4
+#define GPS_FIX_TIME_ONLY       5
+
+/**
+ * @brief Function to Parse periodic GPS UBX message
+ *
+ * @param GPS Handle for GPS configuration
+ * @param rtU Handle for SFS
+ * @return true Parsing successful
+ * @return false Parsing failed
+ */
 bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU);
 
 #endif //_GPS_H

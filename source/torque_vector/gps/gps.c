@@ -4,6 +4,23 @@
 #include "sfs_pp.h"
 #include "SFS.h"
 
+/*
+    Instructions on configuring GPS:
+    1. GPS will not send messages without a fix, so find a space where the GPS gets a fix (use UCenter for this)
+    2. Pull up configuration menu, go to "msg" configuration
+        2a. Select "01-07 NAV-PVT", and enable it on your desired communication port and USB
+        2b. Find any messages containing "NMEA", and disable them for USB and your desired communication port
+        2c. Send this config change to the GPS
+    3. Go to "PRT (Port)" configuration
+        3a. This is where you configure your peripheral. Currently, USART1, with baudrate at 115200 is used. Also, ensure that "UBX" is selected ad protocol out.
+        3b. Send this config change to the GPS
+    4. Go to "RATE" configuration
+        4a. Select 40ms as the measurement period
+        4b. Send this config change to the GPS
+    5. Go to "CFG" setting, and hit the "send" button to once again save changes to the GPS.
+    6. At this point, confirm you changes by turning it off and reconnecting it, ensuring the correct message is sent at 40ms
+*/
+
 union i_Long iLong;
 union i_Short iShort;
 
@@ -41,13 +58,17 @@ GPS_Handle_t gps_handle = {.raw_message = {0},
 // Parse velocity from raw message
 bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
 {
+    // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT
     // Validate the message header, class, and id
-    if (((GPS->raw_message)[0] == 181) && (GPS->raw_message[1] == 98) && ((GPS->raw_message)[2] == 1) && ((GPS->raw_message)[3] == 7))
+    if (((GPS->raw_message)[0] == UBX_NAV_PVT_HEADER_B0) && (GPS->raw_message[1] == UBX_NAV_PVT_HEADER_B1) &&
+        ((GPS->raw_message)[2] == UBX_NAV_PVT_CLASS) && ((GPS->raw_message)[3] == UBX_NAV_PVT_MSG_ID))
     {
+        bool correctFix = false;
         // Collect fix type
         GPS->fix_type = GPS->raw_message[26];
-        if (GPS->fix_type > 2)
+        if (GPS->fix_type > GPS_FIX_2D && GPS->fix_type < GPS_FIX_TIME_ONLY)
         {
+            correctFix = true;
             // Collect Ground Speed
             GPS->g_speed_bytes[0] = GPS->raw_message[66];
             GPS->g_speed_bytes[1] = GPS->raw_message[67];
@@ -145,12 +166,14 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             SEND_GPS_POSITION(q_tx_can, 0, 0, 0, GPS->height_rounded);
         }
 
-        // // Collect Magnetic Declination
-        // GPS->mag_dec_bytes[0] = GPS->raw_message[94];
-        // GPS->mag_dec_bytes[1] = GPS->raw_message[95];
-        // iShort.bytes[0] = GPS->raw_message[94];
-        // iShort.bytes[1] = GPS->raw_message[95];
-        // GPS->mag_dec = iShort.iShort;
+        // Collect Magnetic Declination
+        GPS->mag_dec_bytes[0] = GPS->raw_message[94];
+        GPS->mag_dec_bytes[1] = GPS->raw_message[95];
+        iShort.bytes[0] = GPS->raw_message[94];
+        iShort.bytes[1] = GPS->raw_message[95];
+        GPS->mag_dec = iShort.iShort;
+
+        return correctFix;
     }
-    return true;
+    return false;
 }

@@ -44,6 +44,9 @@
 #define GPS_TX_GPIO_Port (GPIOC)
 #define GPS_TX_Pin (4)
 
+#define GPS_RESET_GPIO_Port (GPIOC)
+#define GPS_RESET_Pin       (9)
+
 // EEPROM
 #define NAV_EEPROM_CS_GPIO_PORT (GPIOB)
 #define NAV_EEPROM_CS_PIN (12)

@@ -100,10 +100,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ac430fe8ba46535342f594095e8f9396f" id="r_ac430fe8ba46535342f594095e8f9396f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac430fe8ba46535342f594095e8f9396f">USART2_RXDMA_CONT_CONFIG</a>(rx_addr_,  priority_)</td></tr>
-<tr class="separator:ac430fe8ba46535342f594095e8f9396f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d57b467b30021cf52c6bc65f4d3da5e" id="r_a1d57b467b30021cf52c6bc65f4d3da5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d57b467b30021cf52c6bc65f4d3da5e">USART2_TXDMA_CONT_CONFIG</a>(tx_addr_,  priority_)</td></tr>
-<tr class="separator:a1d57b467b30021cf52c6bc65f4d3da5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa166abd04c0dedc6986d324a66989c51" id="r_aa166abd04c0dedc6986d324a66989c51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa166abd04c0dedc6986d324a66989c51">USART4_RXDMA_CONT_CONFIG</a>(rx_addr_,  priority_)</td></tr>
+<tr class="separator:aa166abd04c0dedc6986d324a66989c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f737a2390de88ed8b648ca0a18814a" id="r_ae3f737a2390de88ed8b648ca0a18814a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f737a2390de88ed8b648ca0a18814a">USART4_TXDMA_CONT_CONFIG</a>(tx_addr_,  priority_)</td></tr>
+<tr class="separator:ae3f737a2390de88ed8b648ca0a18814a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -172,14 +172,14 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2024-1-4</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ac430fe8ba46535342f594095e8f9396f" name="ac430fe8ba46535342f594095e8f9396f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac430fe8ba46535342f594095e8f9396f">&#9670;&#160;</a></span>USART2_RXDMA_CONT_CONFIG</h2>
+<a id="aa166abd04c0dedc6986d324a66989c51" name="aa166abd04c0dedc6986d324a66989c51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa166abd04c0dedc6986d324a66989c51">&#9670;&#160;</a></span>USART4_RXDMA_CONT_CONFIG</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define USART2_RXDMA_CONT_CONFIG</td>
+          <td class="memname">#define USART4_RXDMA_CONT_CONFIG</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">rx_addr_, </span></td>
         </tr>
@@ -191,25 +191,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        {                                                                             \</div>
-<div class="line">            .periph_addr = (uint32_t) &amp; (USART2-&gt;TDR), .mem_addr = (uint32_t)(rx_addr_), \</div>
+<div class="line">            .periph_addr = (uint32_t) &amp; (UART4-&gt;RDR), .mem_addr = (uint32_t)(rx_addr_), \</div>
 <div class="line">            .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                      \</div>
 <div class="line">            .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,    \</div>
 <div class="line">            .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,           \</div>
-<div class="line">            .tx_isr_en = <span class="keyword">false</span>, .dma_chan_request=0b0100, .stream_idx=5,              \</div>
-<div class="line">            .periph=DMA1, .stream=DMA1_Stream5                                        \</div>
+<div class="line">            .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request=0b0100, .stream_idx=2,              \</div>
+<div class="line">            .periph=DMA1, .stream=DMA1_Stream2                                        \</div>
 <div class="line">        }</div>
 <div class="ttc" id="aeeprom__spi_8h_html_ab6cda81580b0760b92d051888cd9b2c9"><div class="ttname"><a href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a></div><div class="ttdeci">uint16_t mem_size[MAX_PAGES]</div><div class="ttdoc">Size of file in bytes (actual)</div><div class="ttdef"><b>Definition</b> eeprom_spi.h:4</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a1d57b467b30021cf52c6bc65f4d3da5e" name="a1d57b467b30021cf52c6bc65f4d3da5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d57b467b30021cf52c6bc65f4d3da5e">&#9670;&#160;</a></span>USART2_TXDMA_CONT_CONFIG</h2>
+<a id="ae3f737a2390de88ed8b648ca0a18814a" name="ae3f737a2390de88ed8b648ca0a18814a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3f737a2390de88ed8b648ca0a18814a">&#9670;&#160;</a></span>USART4_TXDMA_CONT_CONFIG</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define USART2_TXDMA_CONT_CONFIG</td>
+          <td class="memname">#define USART4_TXDMA_CONT_CONFIG</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">tx_addr_, </span></td>
         </tr>
@@ -221,12 +221,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        {                                                                             \</div>
-<div class="line">            .periph_addr = (uint32_t) &amp; (USART2-&gt;RDR), .mem_addr = (uint32_t)(tx_addr_), \</div>
+<div class="line">            .periph_addr = (uint32_t) &amp; (UART4-&gt;TDR), .mem_addr = (uint32_t)(tx_addr_), \</div>
 <div class="line">            .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                      \</div>
 <div class="line">            .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,    \</div>
 <div class="line">            .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,           \</div>
-<div class="line">            .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request=0b0100, .stream_idx=6,               \</div>
-<div class="line">            .periph=DMA1, .stream=DMA1_Stream6                                        \</div>
+<div class="line">            .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request=0b0100, .stream_idx=4,               \</div>
+<div class="line">            .periph=DMA1, .stream=DMA1_Stream4                                        \</div>
 <div class="line">        }</div>
 </div><!-- fragment -->
 </div>

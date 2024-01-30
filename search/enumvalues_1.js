@@ -22,9 +22,5 @@ var searchData=
   ['blstat_5fmetdata_5frx_19',['BLSTAT_METDATA_RX',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa2792a29682493b2730a61af163d9ac78',1,'bootloader.h']]],
   ['blstat_5fprogress_20',['BLSTAT_PROGRESS',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa84e29369f1dd43be8a3af26fe56b14fe',1,'bootloader.h']]],
   ['blstat_5funknown_5fcmd_21',['BLSTAT_UNKNOWN_CMD',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa652e1419c1f73de97ba163c02eabfe85',1,'bootloader.h']]],
-  ['blstat_5fwait_22',['BLSTAT_WAIT',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa945a0587bc7ab93ed5a38cdad308804b',1,'bootloader.h']]],
-  ['bmm_5fodr_5f10hz_23',['BMM_ODR_10hz',['../bmm150_8h.html#a43f0f8ffec6e1746bdb3e4f1c6063559aefb7a29c41f83b1d0918cb74e80451cc',1,'bmm150.h']]],
-  ['bmm_5fodr_5f2hz_24',['BMM_ODR_2hz',['../bmm150_8h.html#a43f0f8ffec6e1746bdb3e4f1c6063559a5ddc4ce0c980f19cd16d26741497beae',1,'bmm150.h']]],
-  ['bmm_5fodr_5f6hz_25',['BMM_ODR_6hz',['../bmm150_8h.html#a43f0f8ffec6e1746bdb3e4f1c6063559a2cd7241a4a6954c6ae8586e839f29b2d',1,'bmm150.h']]],
-  ['bmm_5fodr_5f8hz_26',['BMM_ODR_8hz',['../bmm150_8h.html#a43f0f8ffec6e1746bdb3e4f1c6063559ad8568d523a9bf5017e1a4c1f32ba975c',1,'bmm150.h']]]
+  ['blstat_5fwait_22',['BLSTAT_WAIT',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa945a0587bc7ab93ed5a38cdad308804b',1,'bootloader.h']]]
 ];

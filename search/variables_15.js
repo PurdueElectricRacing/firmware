@@ -14,7 +14,7 @@ var searchData=
   ['v_5fmc_5fbuff_5fidx_11',['v_mc_buff_idx',['../structprechargeStat__t.html#ac829721a5cc900276cfacecdb89ce5d2',1,'prechargeStat_t']]],
   ['v_5fmc_5ffilt_12',['v_mc_filt',['../structprechargeStat__t.html#a3682611fdae34a78623e298de36c4d17',1,'prechargeStat_t']]],
   ['val_13',['val',['../structDW__SFS.html#ada6a888b5cc872f8ebfd308f6f8ea1d5',1,'DW_SFS']]],
-  ['value_14',['value',['../union____attribute____.html#ada5e5760317a3030596660104dd738c9',1,'__attribute__::value'],['../structcan__data__t.html#a441516b4e7e488f7ca612ed11bc6f13a',1,'can_data_t::value'],['../union____attribute____.html#a4f1483871e03caa7e622cf7adef2a2be',1,'__attribute__::value']]],
+  ['value_14',['value',['../union____attribute____.html#ada5e5760317a3030596660104dd738c9',1,'__attribute__::value'],['../structcan__data__t.html#a441516b4e7e488f7ca612ed11bc6f13a',1,'can_data_t::value']]],
   ['vco_5foutput_5frate_5ftarget_5fhz_15',['vco_output_rate_target_hz',['../structClockRateConfig__t.html#a4039a07f33b4924b422fe5b318399698',1,'ClockRateConfig_t']]],
   ['veh_5fcon_16',['veh_con',['../structbms__t.html#a958553a0533b659a214b8b152312b9d9',1,'bms_t']]],
   ['vel_17',['vel',['../structExtU.html#af41b46d7c4eedf92601468d5addf1c93',1,'ExtU']]],

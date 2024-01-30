@@ -163,11 +163,24 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <a class="code hl_struct" href="structGPS__Handle__t.html">GPS_Handle_t</a>; <span class="comment">// GPS handle</span></div>
 </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">bool</span> <a class="code hl_function" href="gps_8h.html#acb7853fb1cad3185e1b34aace9a44b2d">parseVelocity</a>(<a class="code hl_struct" href="structGPS__Handle__t.html">GPS_Handle_t</a> *GPS, <a class="code hl_struct" href="structExtU.html">ExtU</a> *rtU);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif </span><span class="comment">//_GPS_H</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// GPS Message Attributes</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="gps_8h.html#a7a1f71ae452a5df2140feaafef5c3497">   76</a></span><span class="preprocessor">#define UBX_NAV_PVT_HEADER_B0 0xB5</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="gps_8h.html#a5201dc04a39942c6c60cafdba560dc1f">   77</a></span><span class="preprocessor">#define UBX_NAV_PVT_HEADER_B1 0x62</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="gps_8h.html#a139bd2db435e4d669c825e22938f9a63">   78</a></span><span class="preprocessor">#define UBX_NAV_PVT_CLASS     0x01</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="gps_8h.html#a068c9cc75335efc47a1422f792e85e58">   79</a></span><span class="preprocessor">#define UBX_NAV_PVT_MSG_ID    0x07</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="gps_8h.html#a84f437a5cef3517e2c56fdd4c8c09ff5">   81</a></span><span class="preprocessor">#define GPS_FIX_NONE    0</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="gps_8h.html#a897a6fa611b6cab44ffc6473b9dc08d0">   82</a></span><span class="preprocessor">#define GPS_FIX_DEAD_RECKONING   1</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="gps_8h.html#ab9017c3f1cc7ed2f396f90be17706c98">   83</a></span><span class="preprocessor">#define GPS_FIX_2D  2</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="gps_8h.html#ac5e980c8325a29dd79a45ed26af404be">   84</a></span><span class="preprocessor">#define GPS_FIX_3D  3</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="gps_8h.html#a314e93a99a2e0c58f94ea879366e38b5">   85</a></span><span class="preprocessor">#define GPS_FIX_GNSS_DEAD_RECKONING 4</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="gps_8h.html#a059237ce8923ecbcdf8dece75a91f006">   86</a></span><span class="preprocessor">#define GPS_FIX_TIME_ONLY       5</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keywordtype">bool</span> <a class="code hl_function" href="gps_8h.html#acb7853fb1cad3185e1b34aace9a44b2d">parseVelocity</a>(<a class="code hl_struct" href="structGPS__Handle__t.html">GPS_Handle_t</a> *GPS, <a class="code hl_struct" href="structExtU.html">ExtU</a> *rtU);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#endif </span><span class="comment">//_GPS_H</span></div>
 <div class="ttc" id="aSFS_8h_html"><div class="ttname"><a href="SFS_8h.html">SFS.h</a></div></div>
-<div class="ttc" id="agps_8h_html_acb7853fb1cad3185e1b34aace9a44b2d"><div class="ttname"><a href="gps_8h.html#acb7853fb1cad3185e1b34aace9a44b2d">parseVelocity</a></div><div class="ttdeci">bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)</div><div class="ttdef"><b>Definition</b> gps.c:42</div></div>
+<div class="ttc" id="agps_8h_html_acb7853fb1cad3185e1b34aace9a44b2d"><div class="ttname"><a href="gps_8h.html#acb7853fb1cad3185e1b34aace9a44b2d">parseVelocity</a></div><div class="ttdeci">bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)</div><div class="ttdoc">Function to Parse periodic GPS UBX message.</div><div class="ttdef"><b>Definition</b> gps.c:59</div></div>
 <div class="ttc" id="astructExtU_html"><div class="ttname"><a href="structExtU.html">ExtU</a></div><div class="ttdef"><b>Definition</b> MC_PL0.h:108</div></div>
 <div class="ttc" id="astructGPS__Handle__t_html"><div class="ttname"><a href="structGPS__Handle__t.html">GPS_Handle_t</a></div><div class="ttdef"><b>Definition</b> gps.h:33</div></div>
 <div class="ttc" id="astructGPS__Handle__t_html_a05b8a44db85d0f44f19b49d83f084f4b"><div class="ttname"><a href="structGPS__Handle__t.html#a05b8a44db85d0f44f19b49d83f084f4b">GPS_Handle_t::longitude</a></div><div class="ttdeci">signed long longitude</div><div class="ttdef"><b>Definition</b> gps.h:44</div></div>

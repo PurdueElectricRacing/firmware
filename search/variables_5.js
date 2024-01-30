@@ -15,9 +15,8 @@ var searchData=
   ['est_5fcap_5fmax_12',['est_cap_max',['../structcells__t.html#a2a5ce1b8cb26c654db5af00135f161ff',1,'cells_t']]],
   ['est_5fsoc_13',['est_SOC',['../structcells__t.html#aa611bbba4cfff4079e6ae87bc13b8346',1,'cells_t']]],
   ['est_5fsoh_14',['est_SOH',['../structcells__t.html#a768901600e66d90fe0f433f12f6b59be',1,'cells_t']]],
-  ['excess_15',['excess',['../union____attribute____.html#a6490afb7761535ed52e0992b977bea11',1,'__attribute__']]],
-  ['expected_5fbitstream_5fsize_16',['expected_bitstream_size',['../bitstream_8c.html#a1155ca5ff04ecae454454312d1b03c0e',1,'bitstream.c']]],
-  ['external_5fcomms_17',['external_comms',['../union____attribute____.html#ac45682a49a3f17375575c0c45a331058',1,'__attribute__::external_comms'],['../structcan__data__t.html#a4a68c88cd26f000d172b6042fefa8fa1',1,'can_data_t::external_comms']]],
-  ['external_5ftherm_18',['external_therm',['../union____attribute____.html#a7b6c245c7571a477af1e186033a74a92',1,'__attribute__']]],
-  ['extid_19',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
+  ['expected_5fbitstream_5fsize_15',['expected_bitstream_size',['../bitstream_8c.html#a1155ca5ff04ecae454454312d1b03c0e',1,'bitstream.c']]],
+  ['external_5fcomms_16',['external_comms',['../union____attribute____.html#ac45682a49a3f17375575c0c45a331058',1,'__attribute__::external_comms'],['../structcan__data__t.html#a4a68c88cd26f000d172b6042fefa8fa1',1,'can_data_t::external_comms']]],
+  ['external_5ftherm_17',['external_therm',['../union____attribute____.html#a7b6c245c7571a477af1e186033a74a92',1,'__attribute__']]],
+  ['extid_18',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
 ];

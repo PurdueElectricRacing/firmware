@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/precharge/main.c File Reference</title>
+<title>PER Firmware: source/a_box/main.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_ad78d35c56e9fa5bf1267cb81b3c9db1.html">precharge</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_463a06e8c8df3dfb8722b56866f4fb0c.html">a_box</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -82,18 +82,14 @@ $(function() {
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;stm32l496xx.h&quot;</code><br />
-<code>#include &quot;system_stm32l4xx.h&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2can_2can_8h_source.html">common/phal_L4/can/can.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="quadspi_8h_source.html">common/phal_L4/quadspi/quadspi.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2gpio_2gpio_8h_source.html">common/phal_L4/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2rcc_2rcc_8h_source.html">common/phal_L4/rcc/rcc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2usart_2usart_8h_source.html">common/phal_L4/usart/usart.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2spi_2spi_8h_source.html">common/phal_L4/spi/spi.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="precharge_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html">common/phal_F4_F7/rcc/rcc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2usart_2usart_8h_source.html">common/phal_F4_F7/usart/usart.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html">common/phal_F4_F7/spi/spi.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a__box_2main_8h_source.html">main.h</a>&quot;</code><br />
 <code>#include &quot;daq.h&quot;</code><br />
 <code>#include &quot;imu.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="orion_8h_source.html">orion.h</a>&quot;</code><br />
@@ -161,12 +157,6 @@ Variables</h2></td></tr>
 <tr class="separator:ac9d88a12a20b964301d43f839eee3f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada0a7177585eb88526a6239618b3bfdf" id="r_ada0a7177585eb88526a6239618b3bfdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></td></tr>
 <tr class="separator:ada0a7177585eb88526a6239618b3bfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14f717336acbb49a5607de39b56394ac" id="r_a14f717336acbb49a5607de39b56394ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14f717336acbb49a5607de39b56394ac">spi2_rx_dma_config</a> = <a class="el" href="phal__L4_2spi_2spi_8h.html#ad217bb70b78900c527c5a018b315a81b">SPI2_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:a14f717336acbb49a5607de39b56394ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a655ef90679fefb0852d0727cdcedc70c" id="r_a655ef90679fefb0852d0727cdcedc70c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a655ef90679fefb0852d0727cdcedc70c">spi2_tx_dma_config</a> = <a class="el" href="phal__L4_2spi_2spi_8h.html#a06e18d5b51b4646a94248ccb2ad3d083">SPI2_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:a655ef90679fefb0852d0727cdcedc70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66debd2915cab138505e6ba2c43eb2c8" id="r_a66debd2915cab138505e6ba2c43eb2c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66debd2915cab138505e6ba2c43eb2c8">spi2_config</a></td></tr>
-<tr class="separator:a66debd2915cab138505e6ba2c43eb2c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a823719761a6d336bbc785b787ae73459" id="r_a823719761a6d336bbc785b787ae73459"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a823719761a6d336bbc785b787ae73459">bmi_config</a></td></tr>
 <tr class="separator:a823719761a6d336bbc785b787ae73459"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a269bcebc6c49de76613c407c8047bcc5" id="r_a269bcebc6c49de76613c407c8047bcc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtmu__handle__t.html">tmu_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a269bcebc6c49de76613c407c8047bcc5">tmu</a></td></tr>
@@ -253,7 +243,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void HardFault_Handler </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -498,27 +488,27 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .accel_csb_gpio_port = <a class="code hl_define" href="precharge_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
-<div class="line">   .accel_csb_pin = <a class="code hl_define" href="precharge_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
-<div class="line">   .accel_range = <a class="code hl_enumvalue" href="precharge_2bmi_2bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a>,</div>
-<div class="line">   .accel_odr = <a class="code hl_enumvalue" href="precharge_2bmi_2bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a>,</div>
-<div class="line">   .accel_bwp = <a class="code hl_enumvalue" href="precharge_2bmi_2bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a>,</div>
-<div class="line">   .gyro_csb_gpio_port = <a class="code hl_define" href="precharge_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>,</div>
-<div class="line">   .gyro_csb_pin = <a class="code hl_define" href="precharge_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>,</div>
-<div class="line">   .gyro_datarate = <a class="code hl_enumvalue" href="precharge_2bmi_2bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a>,</div>
-<div class="line">   .gyro_range = <a class="code hl_enumvalue" href="precharge_2bmi_2bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a>,</div>
+<div class="line">   .accel_csb_gpio_port = <a class="code hl_define" href="a__box_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
+<div class="line">   .accel_csb_pin = <a class="code hl_define" href="a__box_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
+<div class="line">   .accel_range = <a class="code hl_enumvalue" href="a__box_2bmi_2bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a>,</div>
+<div class="line">   .accel_odr = <a class="code hl_enumvalue" href="a__box_2bmi_2bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a>,</div>
+<div class="line">   .accel_bwp = <a class="code hl_enumvalue" href="a__box_2bmi_2bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a>,</div>
+<div class="line">   .gyro_csb_gpio_port = <a class="code hl_define" href="a__box_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>,</div>
+<div class="line">   .gyro_csb_pin = <a class="code hl_define" href="a__box_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>,</div>
+<div class="line">   .gyro_datarate = <a class="code hl_enumvalue" href="a__box_2bmi_2bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a>,</div>
+<div class="line">   .gyro_range = <a class="code hl_enumvalue" href="a__box_2bmi_2bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a>,</div>
 <div class="line">   .spi = &amp;<a class="code hl_variable" href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div>
 <div class="line">}</div>
-<div class="ttc" id="aprecharge_2bmi_2bmi088_8h_html_a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5"><div class="ttname"><a href="precharge_2bmi_2bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a></div><div class="ttdeci">@ GYRO_RANGE_250</div><div class="ttdef"><b>Definition</b> bmi088.h:74</div></div>
-<div class="ttc" id="aprecharge_2bmi_2bmi088_8h_html_a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084"><div class="ttname"><a href="precharge_2bmi_2bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a></div><div class="ttdeci">@ ACCEL_ODR_50Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:49</div></div>
-<div class="ttc" id="aprecharge_2bmi_2bmi088_8h_html_a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6"><div class="ttname"><a href="precharge_2bmi_2bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a></div><div class="ttdeci">@ ACCEL_RANGE_3G</div><div class="ttdef"><b>Definition</b> bmi088.h:64</div></div>
-<div class="ttc" id="aprecharge_2bmi_2bmi088_8h_html_ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0"><div class="ttname"><a href="precharge_2bmi_2bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a></div><div class="ttdeci">@ GYRO_DR_100Hz_32Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:86</div></div>
-<div class="ttc" id="aprecharge_2bmi_2bmi088_8h_html_adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115"><div class="ttname"><a href="precharge_2bmi_2bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a></div><div class="ttdeci">@ ACCEL_OS_NORMAL</div><div class="ttdef"><b>Definition</b> bmi088.h:58</div></div>
-<div class="ttc" id="aprecharge_2main_8c_html_ada0a7177585eb88526a6239618b3bfdf"><div class="ttname"><a href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div><div class="ttdeci">SPI_InitConfig_t spi_config</div><div class="ttdef"><b>Definition</b> main.c:110</div></div>
-<div class="ttc" id="aprecharge_2main_8h_html_a086a2a66044e2f21882f62f7251759f5"><div class="ttname"><a href="precharge_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a></div><div class="ttdeci">#define SPI_CS_ACEL_Pin</div><div class="ttdef"><b>Definition</b> main.h:19</div></div>
-<div class="ttc" id="aprecharge_2main_8h_html_a8b195084506d284f754d772f6d709d7c"><div class="ttname"><a href="precharge_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a></div><div class="ttdeci">#define SPI_CS_GYRO_Pin</div><div class="ttdef"><b>Definition</b> main.h:21</div></div>
-<div class="ttc" id="aprecharge_2main_8h_html_a9de9e7d70d216f0eebd7c18e3dcc55e5"><div class="ttname"><a href="precharge_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_GYRO_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:20</div></div>
-<div class="ttc" id="aprecharge_2main_8h_html_aacc6e26a0a2afa5bc42f86e3abe643b2"><div class="ttname"><a href="precharge_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_ACEL_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:18</div></div>
+<div class="ttc" id="aa__box_2bmi_2bmi088_8h_html_a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5"><div class="ttname"><a href="a__box_2bmi_2bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a></div><div class="ttdeci">@ GYRO_RANGE_250</div><div class="ttdef"><b>Definition</b> bmi088.h:73</div></div>
+<div class="ttc" id="aa__box_2bmi_2bmi088_8h_html_a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084"><div class="ttname"><a href="a__box_2bmi_2bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a></div><div class="ttdeci">@ ACCEL_ODR_50Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:48</div></div>
+<div class="ttc" id="aa__box_2bmi_2bmi088_8h_html_a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6"><div class="ttname"><a href="a__box_2bmi_2bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a></div><div class="ttdeci">@ ACCEL_RANGE_3G</div><div class="ttdef"><b>Definition</b> bmi088.h:63</div></div>
+<div class="ttc" id="aa__box_2bmi_2bmi088_8h_html_ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0"><div class="ttname"><a href="a__box_2bmi_2bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a></div><div class="ttdeci">@ GYRO_DR_100Hz_32Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:85</div></div>
+<div class="ttc" id="aa__box_2bmi_2bmi088_8h_html_adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115"><div class="ttname"><a href="a__box_2bmi_2bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a></div><div class="ttdeci">@ ACCEL_OS_NORMAL</div><div class="ttdef"><b>Definition</b> bmi088.h:57</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_ada0a7177585eb88526a6239618b3bfdf"><div class="ttname"><a href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div><div class="ttdeci">SPI_InitConfig_t spi_config</div><div class="ttdef"><b>Definition</b> main.c:108</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a086a2a66044e2f21882f62f7251759f5"><div class="ttname"><a href="a__box_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a></div><div class="ttdeci">#define SPI_CS_ACEL_Pin</div><div class="ttdef"><b>Definition</b> main.h:19</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a8b195084506d284f754d772f6d709d7c"><div class="ttname"><a href="a__box_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a></div><div class="ttdeci">#define SPI_CS_GYRO_Pin</div><div class="ttdef"><b>Definition</b> main.h:21</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a9de9e7d70d216f0eebd7c18e3dcc55e5"><div class="ttname"><a href="a__box_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_GYRO_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:20</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_aacc6e26a0a2afa5bc42f86e3abe643b2"><div class="ttname"><a href="a__box_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_ACEL_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:18</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -535,12 +525,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">   .system_source              =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a4e0a761960a863e2836fbda119714a79">SYSTEM_CLOCK_SRC_HSI</a>,</div>
-<div class="line">   .system_clock_target_hz     =<a class="code hl_define" href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">   .ahb_clock_target_hz        =(<a class="code hl_define" href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">   .apb1_clock_target_hz       =(<a class="code hl_define" href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
-<div class="line">   .apb2_clock_target_hz       =(<a class="code hl_define" href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">   .system_clock_target_hz     =<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">   .ahb_clock_target_hz        =(<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">   .apb1_clock_target_hz       =(<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">   .apb2_clock_target_hz       =(<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
 <div class="line">}</div>
-<div class="ttc" id="abms_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:61</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:68</div></div>
 <div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_ae9995a373c275b437777b74c78d64894a4e0a761960a863e2836fbda119714a79"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a4e0a761960a863e2836fbda119714a79">SYSTEM_CLOCK_SRC_HSI</a></div><div class="ttdeci">@ SYSTEM_CLOCK_SRC_HSI</div><div class="ttdef"><b>Definition</b> rcc.h:36</div></div>
 </div><!-- fragment -->
 </div>
@@ -573,7 +563,7 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">   .bmi = &amp;<a class="code hl_variable" href="#a823719761a6d336bbc785b787ae73459">bmi_config</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="aprecharge_2main_8c_html_a823719761a6d336bbc785b787ae73459"><div class="ttname"><a href="#a823719761a6d336bbc785b787ae73459">bmi_config</a></div><div class="ttdeci">BMI088_Handle_t bmi_config</div><div class="ttdef"><b>Definition</b> main.c:136</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a823719761a6d336bbc785b787ae73459"><div class="ttname"><a href="#a823719761a6d336bbc785b787ae73459">bmi_config</a></div><div class="ttdeci">BMI088_Handle_t bmi_config</div><div class="ttdef"><b>Definition</b> main.c:134</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -649,63 +639,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a66debd2915cab138505e6ba2c43eb2c8" name="a66debd2915cab138505e6ba2c43eb2c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66debd2915cab138505e6ba2c43eb2c8">&#9670;&#160;</a></span>spi2_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> spi2_config</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .data_rate = <a class="code hl_define" href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
-<div class="line">   .data_len  = 8,</div>
-<div class="line">   .nss_sw = <span class="keyword">true</span>,</div>
-<div class="line">   .nss_gpio_port = <a class="code hl_define" href="precharge_2main_8h.html#ac7b81bfa4ffb8437468f50d960ada93f">SPI_CS_TMU_GPIO_Port</a>,</div>
-<div class="line">   .nss_gpio_pin = <a class="code hl_define" href="precharge_2main_8h.html#af9132782658b3e370625051ef2ec6041">SPI_CS_TMU_GPIO_Pin</a>,</div>
-<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="#a14f717336acbb49a5607de39b56394ac">spi2_rx_dma_config</a>,</div>
-<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a655ef90679fefb0852d0727cdcedc70c">spi2_tx_dma_config</a>,</div>
-<div class="line">   .<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a> = SPI2</div>
-<div class="line">}</div>
-<div class="ttc" id="aprecharge_2main_8c_html_a14f717336acbb49a5607de39b56394ac"><div class="ttname"><a href="#a14f717336acbb49a5607de39b56394ac">spi2_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi2_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:122</div></div>
-<div class="ttc" id="aprecharge_2main_8c_html_a655ef90679fefb0852d0727cdcedc70c"><div class="ttname"><a href="#a655ef90679fefb0852d0727cdcedc70c">spi2_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi2_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:123</div></div>
-<div class="ttc" id="aprecharge_2main_8h_html_ac7b81bfa4ffb8437468f50d960ada93f"><div class="ttname"><a href="precharge_2main_8h.html#ac7b81bfa4ffb8437468f50d960ada93f">SPI_CS_TMU_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_TMU_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:22</div></div>
-<div class="ttc" id="aprecharge_2main_8h_html_af9132782658b3e370625051ef2ec6041"><div class="ttname"><a href="precharge_2main_8h.html#af9132782658b3e370625051ef2ec6041">SPI_CS_TMU_GPIO_Pin</a></div><div class="ttdeci">#define SPI_CS_TMU_GPIO_Pin</div><div class="ttdef"><b>Definition</b> main.h:23</div></div>
-<div class="ttc" id="astructdma__init__t_html_a190bea09bd8d062bb2f4a97056cfe9c3"><div class="ttname"><a href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">dma_init_t::periph</a></div><div class="ttdeci">DMA_TypeDef * periph</div><div class="ttdef"><b>Definition</b> dma.h:45</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a14f717336acbb49a5607de39b56394ac" name="a14f717336acbb49a5607de39b56394ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14f717336acbb49a5607de39b56394ac">&#9670;&#160;</a></span>spi2_rx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi2_rx_dma_config = <a class="el" href="phal__L4_2spi_2spi_8h.html#ad217bb70b78900c527c5a018b315a81b">SPI2_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a655ef90679fefb0852d0727cdcedc70c" name="a655ef90679fefb0852d0727cdcedc70c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a655ef90679fefb0852d0727cdcedc70c">&#9670;&#160;</a></span>spi2_tx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi2_tx_dma_config = <a class="el" href="phal__L4_2spi_2spi_8h.html#a06e18d5b51b4646a94248ccb2ad3d083">SPI2_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ada0a7177585eb88526a6239618b3bfdf" name="ada0a7177585eb88526a6239618b3bfdf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada0a7177585eb88526a6239618b3bfdf">&#9670;&#160;</a></span>spi_config</h2>
 
@@ -718,17 +651,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .data_rate = <a class="code hl_define" href="bms_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
+<div class="line">   .data_rate = <a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
 <div class="line">   .data_len  = 8,</div>
 <div class="line">   .nss_sw = <span class="keyword">true</span>,</div>
-<div class="line">   .nss_gpio_port = <a class="code hl_define" href="precharge_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>,</div>
-<div class="line">   .nss_gpio_pin = <a class="code hl_define" href="precharge_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>,</div>
-<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="bms_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
-<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="bms_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
+<div class="line">   .nss_gpio_port = <a class="code hl_define" href="a__box_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>,</div>
+<div class="line">   .nss_gpio_pin = <a class="code hl_define" href="a__box_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>,</div>
+<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
+<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
 <div class="line">   .<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a> = SPI1</div>
 <div class="line">}</div>
-<div class="ttc" id="abms_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="bms_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:47</div></div>
-<div class="ttc" id="abms_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="bms_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:48</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:104</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
+<div class="ttc" id="astructdma__init__t_html_a190bea09bd8d062bb2f4a97056cfe9c3"><div class="ttname"><a href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">dma_init_t::periph</a></div><div class="ttdeci">DMA_TypeDef * periph</div><div class="ttdef"><b>Definition</b> dma.h:45</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -772,9 +706,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .spi = &amp;<a class="code hl_variable" href="#a66debd2915cab138505e6ba2c43eb2c8">spi2_config</a>,</div>
+<div class="line">   </div>
 <div class="line">}</div>
-<div class="ttc" id="aprecharge_2main_8c_html_a66debd2915cab138505e6ba2c43eb2c8"><div class="ttname"><a href="#a66debd2915cab138505e6ba2c43eb2c8">spi2_config</a></div><div class="ttdeci">SPI_InitConfig_t spi2_config</div><div class="ttdef"><b>Definition</b> main.c:124</div></div>
 </div><!-- fragment -->
 </div>
 </div>

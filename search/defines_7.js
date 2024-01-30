@@ -36,9 +36,9 @@ var searchData=
   ['gpio_5finit_5fspi2_5fmosi_5fpc3_33',['GPIO_INIT_SPI2_MOSI_PC3',['../phal__L4_2gpio_2gpio_8h.html#a47c15da025ad515fc43d5b2956ad2f27',1,'gpio.h']]],
   ['gpio_5finit_5fspi2_5fsck_5fpb10_34',['GPIO_INIT_SPI2_SCK_PB10',['../phal__L4_2gpio_2gpio_8h.html#abc7258cde9ce465b7994b9bc634eaac3',1,'gpio.h']]],
   ['gpio_5finit_5fspi2_5fsck_5fpb13_35',['GPIO_INIT_SPI2_SCK_PB13',['../phal__F4__F7_2gpio_2gpio_8h.html#aa1cf6ef83b98507f8368c78827549c70',1,'gpio.h']]],
-  ['gpio_5finit_5fusart1rx_5fpa10_36',['GPIO_INIT_USART1RX_PA10',['../phal__L4_2gpio_2gpio_8h.html#a0256b76506310723de45d89fd5767511',1,'gpio.h']]],
+  ['gpio_5finit_5fusart1rx_5fpa10_36',['GPIO_INIT_USART1RX_PA10',['../phal__L4_2gpio_2gpio_8h.html#a0256b76506310723de45d89fd5767511',1,'GPIO_INIT_USART1RX_PA10:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a0256b76506310723de45d89fd5767511',1,'GPIO_INIT_USART1RX_PA10:&#160;gpio.h']]],
   ['gpio_5finit_5fusart1rx_5fpb7_37',['GPIO_INIT_USART1RX_PB7',['../phal__L4_2gpio_2gpio_8h.html#a5868fa4d7b99ba83fa29c91c4d8b3356',1,'gpio.h']]],
-  ['gpio_5finit_5fusart1tx_5fpa9_38',['GPIO_INIT_USART1TX_PA9',['../phal__L4_2gpio_2gpio_8h.html#a022de8e1d2192b6c96fc9f943d85dbd0',1,'gpio.h']]],
+  ['gpio_5finit_5fusart1tx_5fpa9_38',['GPIO_INIT_USART1TX_PA9',['../phal__L4_2gpio_2gpio_8h.html#a022de8e1d2192b6c96fc9f943d85dbd0',1,'GPIO_INIT_USART1TX_PA9:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a022de8e1d2192b6c96fc9f943d85dbd0',1,'GPIO_INIT_USART1TX_PA9:&#160;gpio.h']]],
   ['gpio_5finit_5fusart1tx_5fpb6_39',['GPIO_INIT_USART1TX_PB6',['../phal__L4_2gpio_2gpio_8h.html#af79a015c38247946e86b817b737fb283',1,'gpio.h']]],
   ['gpio_5finit_5fusart2rx_5fpa3_40',['GPIO_INIT_USART2RX_PA3',['../phal__L4_2gpio_2gpio_8h.html#ac136253d4f95327bdfc8de3e3566f66a',1,'GPIO_INIT_USART2RX_PA3:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#ac136253d4f95327bdfc8de3e3566f66a',1,'GPIO_INIT_USART2RX_PA3:&#160;gpio.h']]],
   ['gpio_5finit_5fusart2rx_5fpd6_41',['GPIO_INIT_USART2RX_PD6',['../phal__L4_2gpio_2gpio_8h.html#aabedd76b97130aaf388b7d09fc0f5a1f',1,'gpio.h']]],
@@ -54,5 +54,5 @@ var searchData=
   ['gps_5ftx_5fpin_51',['GPS_TX_Pin',['../torque__vector_2main_8h.html#acee3e8b13796741e5d3df8b332c9fe61',1,'main.h']]],
   ['green_52',['GREEN',['../nextion_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'GREEN:&#160;nextion.h'],['../f4__testing_2main_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'GREEN:&#160;main.h']]],
   ['gyro_5fcalibration_53',['GYRO_CALIBRATION',['../sfs__pp_8h.html#a5f00f42fc2574820abde7c7dd797a036',1,'sfs_pp.h']]],
-  ['gyroscope_5fscaling_5fgyro_5flsb_5fto_5fradps_54',['GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS',['../precharge_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h']]]
+  ['gyroscope_5fscaling_5fgyro_5flsb_5fto_5fradps_54',['GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS',['../a__box_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/precharge/tmu/tmu.h Source File</title>
+<title>PER Firmware: source/a_box/tmu/tmu.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,7 +76,7 @@ $(function() { codefold.init(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_ad78d35c56e9fa5bf1267cb81b3c9db1.html">precharge</a></li><li class="navelem"><a class="el" href="dir_924209465df8be38f4496699afdf0d24.html">tmu</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_463a06e8c8df3dfb8722b56866f4fb0c.html">a_box</a></li><li class="navelem"><a class="el" href="dir_a3e2686e95db547f2f97c26d8b87b78c.html">tmu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -87,7 +87,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno"><a class="line" href="tmu_8h.html#a94a880f5e8709dc384a535d342024e1c">    2</a></span><span class="preprocessor">#define _TMU_H_</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="phal__L4_2spi_2spi_8h.html">common/phal_L4/spi/spi.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4__F7_2spi_2spi_8h.html">common/phal_F4_F7/spi/spi.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;inttypes.h&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
@@ -154,8 +154,8 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structtmu__handle__t.html#a5f8836dd9a00f532d2b51cf47688babb">   68</a></span>   uint16_t tmu4[15];</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a>;</div>
 </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">void</span> <a class="code hl_function" href="tmu_8h.html#a5d22016f583003f578d5b1a1fabc3f85">readTemps</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="precharge_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">bool</span> <a class="code hl_function" href="tmu_8h.html#ae2944cbf76db2e1e250235edb0d30fd9">initTMU</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="precharge_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keywordtype">void</span> <a class="code hl_function" href="tmu_8h.html#a5d22016f583003f578d5b1a1fabc3f85">readTemps</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">bool</span> <a class="code hl_function" href="tmu_8h.html#ae2944cbf76db2e1e250235edb0d30fd9">initTMU</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
@@ -163,8 +163,8 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aphal__L4_2spi_2spi_8h_html"><div class="ttname"><a href="phal__L4_2spi_2spi_8h.html">spi.h</a></div></div>
-<div class="ttc" id="aprecharge_2main_8c_html_a269bcebc6c49de76613c407c8047bcc5"><div class="ttname"><a href="precharge_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a></div><div class="ttdeci">tmu_handle_t tmu</div><div class="ttdef"><b>Definition</b> main.c:150</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a269bcebc6c49de76613c407c8047bcc5"><div class="ttname"><a href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a></div><div class="ttdeci">tmu_handle_t tmu</div><div class="ttdef"><b>Definition</b> main.c:148</div></div>
+<div class="ttc" id="aphal__F4__F7_2spi_2spi_8h_html"><div class="ttname"><a href="phal__F4__F7_2spi_2spi_8h.html">spi.h</a></div></div>
 <div class="ttc" id="astructSPI__InitConfig__t_html"><div class="ttname"><a href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a></div><div class="ttdoc">Configuration entry for SPI initilization.</div><div class="ttdef"><b>Definition</b> spi.h:26</div></div>
 <div class="ttc" id="astructtmu__handle__t_html"><div class="ttname"><a href="structtmu__handle__t.html">tmu_handle_t</a></div><div class="ttdef"><b>Definition</b> tmu.h:47</div></div>
 <div class="ttc" id="astructtmu__handle__t_html_a0d077377a28550c7d2067a647d40a268"><div class="ttname"><a href="structtmu__handle__t.html#a0d077377a28550c7d2067a647d40a268">tmu_handle_t::tmu2_max</a></div><div class="ttdeci">uint16_t tmu2_max</div><div class="ttdef"><b>Definition</b> tmu.h:54</div></div>

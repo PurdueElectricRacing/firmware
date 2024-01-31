@@ -107,5 +107,7 @@ typedef struct
 
 } sdc_nodes_t;
 
+extern sdc_nodes_t sdc_mux;
+
 
 #endif

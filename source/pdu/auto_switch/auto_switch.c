@@ -61,7 +61,7 @@ uint16_t calcCurrent_LP(uint16_t current) {
     return current;
 }
 
-// CS signals for upstream 24V and 5V
+// CS signals for upstream 24V and 5V (total current through each)
 void calcCurrent_Total() {
     // 24V current
     uint16_t current = adc_readings.lv_24_i_sense;

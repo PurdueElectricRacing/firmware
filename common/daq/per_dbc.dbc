@@ -112,6 +112,21 @@ BO_ 2348810945 rear_motor_currents_temps: 8 Main_Module
  SG_ right_current : 16|16@1+ (0.1,0) [0|0] "Amp" Vector__XXX
  SG_ left_current : 0|16@1+ (0.1,0) [0|0] "Amp" Vector__XXX
 
+BO_ 2348811137 sdc_status: 2 Main_Module
+ SG_ pchg_out : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ TSMS : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ hub : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ HVD : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ l_estop : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ r_estop : 7|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ main : 6|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ c_estop : 5|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ inertia : 4|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ BOTS : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ BSPD : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMS : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ IMD : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2348811009 rear_controller_temps: 2 Main_Module
  SG_ right_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
@@ -937,6 +952,20 @@ CM_ SG_ 2348810945 right_temp "";
 CM_ SG_ 2348810945 left_temp "";
 CM_ SG_ 2348810945 right_current "";
 CM_ SG_ 2348810945 left_current "";
+CM_ BO_ 2348811137 "Shutdown Circuit Status";
+CM_ SG_ 2348811137 pchg_out "";
+CM_ SG_ 2348811137 TSMS "";
+CM_ SG_ 2348811137 hub "";
+CM_ SG_ 2348811137 HVD "";
+CM_ SG_ 2348811137 l_estop "";
+CM_ SG_ 2348811137 r_estop "";
+CM_ SG_ 2348811137 main "";
+CM_ SG_ 2348811137 c_estop "";
+CM_ SG_ 2348811137 inertia "";
+CM_ SG_ 2348811137 BOTS "";
+CM_ SG_ 2348811137 BSPD "";
+CM_ SG_ 2348811137 BMS "";
+CM_ SG_ 2348811137 IMD "";
 CM_ BO_ 2348811009 "Temperature of motor controllers";
 CM_ SG_ 2348811009 right_temp "";
 CM_ SG_ 2348811009 left_temp "";

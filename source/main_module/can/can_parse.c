@@ -113,6 +113,13 @@ void canRxUpdate()
                 can_data.throttle_remapped.stale = 0;
                 can_data.throttle_remapped.last_rx = sched.os_ticks;
                 break;
+            case ID_PDU_TEST:
+                can_data.pdu_test.test_1 = msg_data_a->pdu_test.test_1;
+                can_data.pdu_test.test_2 = msg_data_a->pdu_test.test_2;
+                can_data.pdu_test.test_3 = msg_data_a->pdu_test.test_3;
+                can_data.pdu_test.stale = 0;
+                can_data.pdu_test.last_rx = sched.os_ticks;
+                break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                 can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -185,6 +192,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.throttle_remapped.stale,
                 sched.os_ticks, can_data.throttle_remapped.last_rx,
                 UP_THROTTLE_REMAPPED);
+    CHECK_STALE(can_data.pdu_test.stale,
+                sched.os_ticks, can_data.pdu_test.last_rx,
+                UP_PDU_TEST);
     /* END AUTO STALE CHECKS */
 }
 
@@ -216,19 +226,21 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_COOLING_DRIVER_REQUEST << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_REMAPPED << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_PDU_TEST << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->FA1R |= (1 << 9);    // configure bank 9
+    CAN1->sFilterRegister[9].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_LWS_STANDARD << 21);

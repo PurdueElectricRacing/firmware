@@ -4,22 +4,11 @@ const float adc_to_ln[] = {0.0f, 3.66932195489841f, 4.36639937878818f, 4.7758102
 };
 
 Cooling_t cooling;
-volatile uint16_t raw_dt_flow_ct;
-volatile uint16_t raw_bat_flow_ct;
-uint32_t last_flow_meas_time_ms;
-uint32_t dt_pump_start_time_ms;
-uint32_t bat_pump_start_time_ms;
 
 extern q_handle_t q_tx_can;
 extern uint32_t APB1ClockRateHz;
 
 
-// static void setDtCooling(uint8_t on);
-// static void setBatCooling(uint8_t on);
-static void setDtPump(bool on);
-static void setBatPump(bool on, bool on_aux);
-static void setBatFan(uint8_t power);
-static void setDtFan(uint8_t power);
 uint8_t lowpass(uint8_t new, uint8_t *old, uint8_t curr);
 
 bool coolingInit()
@@ -40,35 +29,29 @@ bool coolingInit()
     // // enable the interrupt handlers
     // NVIC_EnableIRQ(EXTI9_5_IRQn);
 
-    RCC -> APB1ENR1 |= RCC_APB1ENR1_TIM4EN; //0b100;
-    TIM4 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
-    TIM4 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * 100)) - 1; 
-    TIM4 -> ARR = 100 - 1; //setting it to 99 so it's easier to use it with Duty Cycle
-    //Enabling the MOE bit of the dead-time register
-    // TIM4 -> BDTR |= TIM_BDTR_MOE;
-    //Set Channels 1 and 2 to 110 (Mode 1 up counter) -> (active while CNT <= CCR)
-    TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC1M_0);
-    TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC2M_0);
-    TIM4 -> CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1; 
-    TIM4 -> CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
-    //Setting the preload register
-    TIM4 -> CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC2PE;
-    // TIM1 -> CR1 |= TIM_CR1_ARPE;
-    //Enable Channels 1 and 2 outputs 
-    TIM4 -> CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
-    //Setting pwm to 0
-    TIM4 -> CCR1 = 100; // inverted
-    TIM4 -> CCR2 = 100;
-    //Enable counter as long as ccrs are 0
-    TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
+    // RCC -> APB1ENR1 |= RCC_APB1ENR1_TIM4EN; //0b100;
+    // TIM4 -> CR1 &= ~TIM_CR1_CEN; //Turning off counter
+    // TIM4 -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY * 100)) - 1;
+    // TIM4 -> ARR = 100 - 1; //setting it to 99 so it's easier to use it with Duty Cycle
+    // //Enabling the MOE bit of the dead-time register
+    // // TIM4 -> BDTR |= TIM_BDTR_MOE;
+    // //Set Channels 1 and 2 to 110 (Mode 1 up counter) -> (active while CNT <= CCR)
+    // TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC1M_0);
+    // TIM4 -> CCMR1 &= ~(TIM_CCMR1_OC2M_0);
+    // TIM4 -> CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
+    // TIM4 -> CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+    // //Setting the preload register
+    // TIM4 -> CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC2PE;
+    // // TIM1 -> CR1 |= TIM_CR1_ARPE;
+    // //Enable Channels 1 and 2 outputs
+    // TIM4 -> CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
+    // //Setting pwm to 0
+    // TIM4 -> CCR1 = 100; // inverted
+    // TIM4 -> CCR2 = 100;
+    // //Enable counter as long as ccrs are 0
+    // TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
 
     // Default pin configurations
-    // setDtCooling(0);
-    // setBatCooling(0);
-    setDtPump(0);
-    setBatPump(0, 0);
-    setDtFan(0);
-    setBatFan(0);
 
     return true;
 }
@@ -97,48 +80,43 @@ void coolingPeriodic()
     // 568 594
     // Since ADC readings happen ~2ms, the next measurement should be ready
     // temp = rawThermtoCelcius(adc_readings.therm_mux_d);
-    temp = THERM_A * adc_to_ln[(adc_readings.therm_mux_d / 16)] + THERM_B;
-    switch(curr_therm)
-    {
-        case THERM_MUX_BAT_IN:
-            cooling.bat_therm_in_C  = temp;
-            break;
-        case THERM_MUX_BAT_OUT:
-            cooling.bat_therm_out_C = temp;
-            break;
-        case THERM_MUX_DT_IN:
-            cooling.dt_therm_in_C = temp;
-            break;
-        case THERM_MUX_DT_OUT:
-            cooling.dt_therm_out_C = temp;
-            break;
-    }
-    curr_therm = (curr_therm + 1) & 0x03;
-    PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, curr_therm & 0x01);
-    PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, curr_therm & 0x02);
+    // temp = THERM_A * adc_to_ln[(adc_readings.therm_mux_d / 16)] + THERM_B;
+    // switch(curr_therm)
+    // {
+    //     case THERM_MUX_BAT_IN:
+    //         cooling.bat_therm_in_C  = temp;
+    //         break;
+    //     case THERM_MUX_BAT_OUT:
+    //         cooling.bat_therm_out_C = temp;
+    //         break;
+    //     case THERM_MUX_DT_IN:
+    //         cooling.dt_therm_in_C = temp;
+    //         break;
+    //     case THERM_MUX_DT_OUT:
+    //         cooling.dt_therm_out_C = temp;
+    //         break;
+    // }
+    // curr_therm = (curr_therm + 1) & 0x03;
+    // PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, curr_therm & 0x01);
+    // PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, curr_therm & 0x02);
 
-    int8_t drivetrain_right_temp = (DT_THERM_A * adc_to_ln[adc_readings.dt_gb_r/16] + DT_THERM_B);
-    int8_t drivetrain_left_temp  = (DT_THERM_A * adc_to_ln[adc_readings.dt_gb_l/16] + DT_THERM_B);
+    // int8_t drivetrain_right_temp = (DT_THERM_A * adc_to_ln[adc_readings.dt_gb_r/16] + DT_THERM_B);
+    // int8_t drivetrain_left_temp  = (DT_THERM_A * adc_to_ln[adc_readings.dt_gb_l/16] + DT_THERM_B);
 
-    // Update outputs
-    if (cooling.daq_override)
-    {
-        cooling.out = cooling.out_daq_req;
-    }
+    // // Update outputs
+    // if (cooling.daq_override)
+    // {
+    //     cooling.out = cooling.out_daq_req;
+    // }
 
-    setDtFan(cooling.out.dt_fan_power);
-    setBatFan(cooling.out.bat_fan_power);
-    setBatPump(cooling.out.bat_pump, cooling.out.bat_pump_aux);
-    setDtPump(cooling.out.dt_pump);
-
-    SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C,
-                                  cooling.dt_therm_in_C,  cooling.dt_therm_out_C,
-                                  cooling.bat_liters_p_min_x10, cooling.dt_liters_p_min_x10,
-                                  0, 0);
-    SEND_COOLANT_OUT(q_tx_can, cooling.out.bat_fan_power, cooling.out.dt_fan_power,
-                               cooling.out.bat_pump, cooling.out.bat_pump_aux,
-                               cooling.out.dt_pump);
-    SEND_GEARBOX(q_tx_can, drivetrain_left_temp, drivetrain_right_temp);
+    // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C,
+    //                               cooling.dt_therm_in_C,  cooling.dt_therm_out_C,
+    //                               cooling.bat_liters_p_min_x10, cooling.dt_liters_p_min_x10,
+    //                               0, 0);
+    // SEND_COOLANT_OUT(q_tx_can, cooling.out.bat_fan_power, cooling.out.dt_fan_power,
+    //                            cooling.out.bat_pump, cooling.out.bat_pump_aux,
+    //                            cooling.out.dt_pump);
+    // SEND_GEARBOX(q_tx_can, drivetrain_left_temp, drivetrain_right_temp);
 
     return;
     /*
@@ -164,7 +142,7 @@ void coolingPeriodic()
     //Send CAN messages with flowrates
     // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
     //                     adc_readings.dt_therm_1, adc_readings.dt_therm_2);
-     DT COOLANT SYSTEM 
+     DT COOLANT SYSTEM
 
     // Find max motor temperature (CELSIUS)
     uint8_t max_motor_temp = MAX(car.motor_l.motor_temp,
@@ -191,7 +169,7 @@ void coolingPeriodic()
 
     max_motor_temp = 0;
     // Determine if system should be on
-    
+
     if ((!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) &&
     (max_motor_temp > DT_PUMP_ON_TEMP_C || ((prchg_set) &&
     (cooling.dt_temp_error || DT_ALWAYS_COOL))))
@@ -208,7 +186,7 @@ void coolingPeriodic()
     }
     setDtCooling(true);
 
-     BAT COOLANT SYSTEM 
+     BAT COOLANT SYSTEM
 
     // TODO: replace with CAN frame
     uint8_t max_bat_temp = 0;
@@ -232,7 +210,7 @@ void coolingPeriodic()
     }
 
     max_bat_temp = 0;
-    
+
     // Determine if system should be on
     if ((!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) &&
     (max_bat_temp > BAT_PUMP_ON_TEMP_C || ((prchg_set) &&
@@ -247,7 +225,7 @@ void coolingPeriodic()
     else if (cooling.bat_pump)
     {
         setBatCooling(false);
-    } 
+    }
     setBatCooling(true);
     */
 }
@@ -273,52 +251,7 @@ void coolingPeriodic()
     // PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, set_bat);
 }*/
 
-void setDtPump(bool on)
-{
-    PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, on);
-    /*
-    if (!cooling.dt_pump && on) dt_pump_start_time_ms = sched.os_ticks;
-    if (!on) cooling.dt_rose = 0;
-    cooling.dt_pump = on;
-    PHAL_writeGPIO(DT_PUMP_CTRL_GPIO_Port, DT_PUMP_CTRL_Pin, on);
-    cooling.dt_fan_power = on ? 4 : 0;
-    // PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, on);
-    */
-}
 
-void setBatPump(bool on, bool on_aux)
-{
-    PHAL_writeGPIO(BAT_PUMP_CTRL_1_GPIO_Port, BAT_PUMP_CTRL_1_Pin, on);
-    PHAL_writeGPIO(BAT_PUMP_CTRL_2_GPIO_Port, BAT_PUMP_CTRL_2_Pin, on_aux);
-    /*
-    if (!cooling.bat_pump && on) bat_pump_start_time_ms = sched.os_ticks;
-    if (!on) cooling.bat_rose = 0;
-    cooling.bat_pump = on;
-    PHAL_writeGPIO(BAT_PUMP_CTRL_GPIO_Port, BAT_PUMP_CTRL_Pin, on);
-    cooling.bat_fan_power = on ? 4 : 0;
-    // PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, on);
-    */
-}
-
-/**
- * @brief Set the Bat Fan Speed
- * 
- * @param power 0 - 100%
- */
-void setBatFan(uint8_t power)
-{
-    TIM4->CCR1 = 100 - CLAMP(power, 0, 100);
-}
-
-/**
- * @brief Set the DT Fan Speed
- * 
- * @param power 0 - 100%
- */
-void setDtFan(uint8_t power)
-{
-    TIM4->CCR2 = 100 - CLAMP(power, 0, 100);
-}
 
 float rawThermtoCelcius(uint16_t t)
 {
@@ -349,12 +282,12 @@ static double native_log_computation(const double n) {
 
 void cooling_driver_request_CALLBACK(CanParsedData_t* data)
 {
-    if (!cooling.daq_override)
-    {
-        cooling.out.dt_fan_power = data->cooling_driver_request.dt_fan;
-        cooling.out.bat_fan_power = data->cooling_driver_request.batt_fan;
-        cooling.out.bat_pump = data->cooling_driver_request.batt_pump;
-        cooling.out.bat_pump_aux = data->cooling_driver_request.batt_pump2;
-        cooling.out.dt_pump = data->cooling_driver_request.dt_pump;
-    }
+    // if (!cooling.daq_override)
+    // {
+    //     cooling.out.dt_fan_power = data->cooling_driver_request.dt_fan;
+    //     cooling.out.bat_fan_power = data->cooling_driver_request.batt_fan;
+    //     cooling.out.bat_pump = data->cooling_driver_request.batt_pump;
+    //     cooling.out.bat_pump_aux = data->cooling_driver_request.batt_pump2;
+    //     cooling.out.dt_pump = data->cooling_driver_request.dt_pump;
+    // }
 }

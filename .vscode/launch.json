@@ -11,10 +11,10 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device:": "STM32L432KC",
-            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
-                "target/stm32l4x.cfg"
+                "target/stm32f4x.cfg"
             ],
             "debuggerArgs": [
                 "-d",

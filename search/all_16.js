@@ -62,5 +62,7 @@ var searchData=
   ['volts_5fcells_5f8_59',['volts_cells_8',['../unionCanParsedData__t.html#a80d8f618e0c177f4c43d2607d4f9e6a8',1,'CanParsedData_t']]],
   ['vov_60',['VOV',['../afe_8h.html#a03a15e8246dea283377cfee5d74d401b',1,'afe.h']]],
   ['vref_61',['VREF',['../pedals_8h.html#a2c9e85d22a9ba37ea589b1747af46307',1,'pedals.h']]],
-  ['vuv_62',['VUV',['../afe_8h.html#af9b7fd46372c66f730f0bac8a364339e',1,'afe.h']]]
+  ['vsense_5f5v_5fpin_62',['VSENSE_5V_Pin',['../a__box_2main_8h.html#afab07b19ea4875a7f68ddce6d886ed82',1,'main.h']]],
+  ['vsense_5f5v_5fport_63',['VSENSE_5V_Port',['../a__box_2main_8h.html#a829d4c997c1436dc575f2a80de0b4ef2',1,'main.h']]],
+  ['vuv_64',['VUV',['../afe_8h.html#af9b7fd46372c66f730f0bac8a364339e',1,'afe.h']]]
 ];

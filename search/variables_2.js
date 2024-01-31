@@ -57,7 +57,7 @@ var searchData=
   ['bitstream_5frequest_54',['bitstream_request',['../union____attribute____.html#a20312a3caa74d8028740854f020abb80',1,'__attribute__::bitstream_request'],['../structcan__data__t.html#a70e4c3ba38f0703c1187f1f3547859b7',1,'can_data_t::bitstream_request']]],
   ['blue_5fon_55',['blue_on',['../union____attribute____.html#ad0c20298e446a4ac58be81fcf240cccf',1,'__attribute__']]],
   ['bmi_56',['bmi',['../structIMU__Handle__t.html#a3ca32fc5e9d90f0e4427e0e438c6410f',1,'IMU_Handle_t']]],
-  ['bmi_5fconfig_57',['bmi_config',['../a__box_2main_8c.html#a823719761a6d336bbc785b787ae73459',1,'bmi_config:&#160;main.c'],['../torque__vector_2main_8c.html#a823719761a6d336bbc785b787ae73459',1,'bmi_config:&#160;main.c']]],
+  ['bmi_5fconfig_57',['bmi_config',['../torque__vector_2main_8c.html#a823719761a6d336bbc785b787ae73459',1,'main.c']]],
   ['bmm_5fmag_58',['bmm_mag',['../union____attribute____.html#aadaee536745bcb5a58a83fbffe67da05',1,'__attribute__']]],
   ['bmm_5fmag_5fx_59',['bmm_mag_x',['../union____attribute____.html#a946087dbe6ba96c31585a79c2cc37093',1,'__attribute__']]],
   ['bmm_5fmag_5fy_60',['bmm_mag_y',['../union____attribute____.html#a886ce10db40714192c26703f80993cb5',1,'__attribute__']]],

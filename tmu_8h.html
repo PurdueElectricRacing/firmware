@@ -82,7 +82,7 @@ $(function() {
   <div class="headertitle"><div class="title">tmu.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html">common/phal_F4_F7/spi/spi.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html">common/phal_F4_F7/adc/adc.h</a>&quot;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;inttypes.h&gt;</code><br />
 </div>
@@ -103,14 +103,24 @@ Macros</h2></td></tr>
 <tr class="separator:af5ba8062ed9257d0c9a655d5dd9416bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9359e5c7d680402151b3748cd4dda264" id="r_a9359e5c7d680402151b3748cd4dda264"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9359e5c7d680402151b3748cd4dda264">TMU_ADDR_SIZE</a>&#160;&#160;&#160;0xFFFU</td></tr>
 <tr class="separator:a9359e5c7d680402151b3748cd4dda264"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bb1cc0781062831a819d602e57af563" id="r_a8bb1cc0781062831a819d602e57af563"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bb1cc0781062831a819d602e57af563">TMU_VREF</a>&#160;&#160;&#160;1.8F</td></tr>
+<tr class="memitem:a8bb1cc0781062831a819d602e57af563" id="r_a8bb1cc0781062831a819d602e57af563"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bb1cc0781062831a819d602e57af563">TMU_VREF</a>&#160;&#160;&#160;3.3F</td></tr>
 <tr class="separator:a8bb1cc0781062831a819d602e57af563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3af3e9cb38a804d2900457e14b8f3f0" id="r_ac3af3e9cb38a804d2900457e14b8f3f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3af3e9cb38a804d2900457e14b8f3f0">NUM_THERM</a>&#160;&#160;&#160;10</td></tr>
 <tr class="separator:ac3af3e9cb38a804d2900457e14b8f3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdd91b8a4b151960a271a058ac604a13" id="r_afdd91b8a4b151960a271a058ac604a13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdd91b8a4b151960a271a058ac604a13">TMU_VIN</a>&#160;&#160;&#160;5.0F</td></tr>
+<tr class="memitem:afdd91b8a4b151960a271a058ac604a13" id="r_afdd91b8a4b151960a271a058ac604a13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdd91b8a4b151960a271a058ac604a13">TMU_VIN</a>&#160;&#160;&#160;3.3F</td></tr>
 <tr class="separator:afdd91b8a4b151960a271a058ac604a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a918f64eb53db8e8dc694f36a87646476" id="r_a918f64eb53db8e8dc694f36a87646476"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a918f64eb53db8e8dc694f36a87646476">R1</a>&#160;&#160;&#160;68000</td></tr>
+<tr class="memitem:a918f64eb53db8e8dc694f36a87646476" id="r_a918f64eb53db8e8dc694f36a87646476"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a918f64eb53db8e8dc694f36a87646476">R1</a>&#160;&#160;&#160;4700</td></tr>
 <tr class="separator:a918f64eb53db8e8dc694f36a87646476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48c945e21828118c1d6fab15405b7fca" id="r_a48c945e21828118c1d6fab15405b7fca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48c945e21828118c1d6fab15405b7fca">R3</a>&#160;&#160;&#160;470000</td></tr>
+<tr class="separator:a48c945e21828118c1d6fab15405b7fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95bc4534b1b8013eea6aa471826b2cd6" id="r_a95bc4534b1b8013eea6aa471826b2cd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95bc4534b1b8013eea6aa471826b2cd6">ADC_UPPER</a>&#160;&#160;&#160;3980</td></tr>
+<tr class="separator:a95bc4534b1b8013eea6aa471826b2cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eb311ee50b49e87db1890c4f7d62918" id="r_a4eb311ee50b49e87db1890c4f7d62918"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4eb311ee50b49e87db1890c4f7d62918">ADC_LOWER</a>&#160;&#160;&#160;649</td></tr>
+<tr class="separator:a4eb311ee50b49e87db1890c4f7d62918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743925b64ed0af9e04c828db76508592" id="r_a743925b64ed0af9e04c828db76508592"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a743925b64ed0af9e04c828db76508592">ERROR_HIGH</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="separator:a743925b64ed0af9e04c828db76508592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362a0780cdaaaa0f10c1db5a80cc957a" id="r_a362a0780cdaaaa0f10c1db5a80cc957a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a362a0780cdaaaa0f10c1db5a80cc957a">ERROR_LOW</a>&#160;&#160;&#160;-500</td></tr>
+<tr class="separator:a362a0780cdaaaa0f10c1db5a80cc957a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec0d18d474186d431863571aebe48bd9" id="r_aec0d18d474186d431863571aebe48bd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec0d18d474186d431863571aebe48bd9">R25</a>&#160;&#160;&#160;10000</td></tr>
 <tr class="separator:aec0d18d474186d431863571aebe48bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91b97b9da41d020e7ebe229968c37ffc" id="r_a91b97b9da41d020e7ebe229968c37ffc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91b97b9da41d020e7ebe229968c37ffc">LOW_RANGE_MIN</a>&#160;&#160;&#160;3.277F</td></tr>
@@ -162,6 +172,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4eb311ee50b49e87db1890c4f7d62918" name="a4eb311ee50b49e87db1890c4f7d62918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eb311ee50b49e87db1890c4f7d62918">&#9670;&#160;</a></span>ADC_LOWER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ADC_LOWER&#160;&#160;&#160;649</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95bc4534b1b8013eea6aa471826b2cd6" name="a95bc4534b1b8013eea6aa471826b2cd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95bc4534b1b8013eea6aa471826b2cd6">&#9670;&#160;</a></span>ADC_UPPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ADC_UPPER&#160;&#160;&#160;3980</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abe7e9d2cd94125b3eb7af4ee3bfcd6c4" name="abe7e9d2cd94125b3eb7af4ee3bfcd6c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abe7e9d2cd94125b3eb7af4ee3bfcd6c4">&#9670;&#160;</a></span>COMP</h2>
 
@@ -182,6 +220,34 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">max</span>&#160;)&#160;&#160;&#160;((val &lt; min &amp;&amp; val &gt; max) ? 1 : 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a743925b64ed0af9e04c828db76508592" name="a743925b64ed0af9e04c828db76508592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743925b64ed0af9e04c828db76508592">&#9670;&#160;</a></span>ERROR_HIGH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_HIGH&#160;&#160;&#160;10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a362a0780cdaaaa0f10c1db5a80cc957a" name="a362a0780cdaaaa0f10c1db5a80cc957a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a362a0780cdaaaa0f10c1db5a80cc957a">&#9670;&#160;</a></span>ERROR_LOW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_LOW&#160;&#160;&#160;-500</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -377,7 +443,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define R1&#160;&#160;&#160;68000</td>
+          <td class="memname">#define R1&#160;&#160;&#160;4700</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -392,6 +458,20 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define R25&#160;&#160;&#160;10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48c945e21828118c1d6fab15405b7fca" name="a48c945e21828118c1d6fab15405b7fca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48c945e21828118c1d6fab15405b7fca">&#9670;&#160;</a></span>R3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define R3&#160;&#160;&#160;470000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -447,7 +527,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TMU_VIN&#160;&#160;&#160;5.0F</td>
+          <td class="memname">#define TMU_VIN&#160;&#160;&#160;3.3F</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -461,7 +541,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TMU_VREF&#160;&#160;&#160;1.8F</td>
+          <td class="memname">#define TMU_VREF&#160;&#160;&#160;3.3F</td>
         </tr>
       </table>
 </div><div class="memdoc">

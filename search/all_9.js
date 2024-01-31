@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['i_0',['i',['../tmu_8c.html#af27e3188294c2df66d975b74a09c001d',1,'i:&#160;tmu.c'],['../driveline_2main_8c.html#af27e3188294c2df66d975b74a09c001d',1,'i:&#160;main.c']]],
+  ['i_0',['i',['../driveline_2main_8c.html#af27e3188294c2df66d975b74a09c001d',1,'main.c']]],
   ['i2c_1',['I2C',['../driveline_2main_8h.html#a457a9aa93dbb216459873a30bdb4d84a',1,'main.h']]],
   ['i2c_2ec_2',['i2c.c',['../i2c_8c.html',1,'']]],
   ['i2c_2eh_3',['i2c.h',['../i2c_8h.html',1,'']]],
@@ -249,7 +249,7 @@ var searchData=
   ['imu_5fgyro_5fx_246',['imu_gyro_x',['../union____attribute____.html#a0a62056fa4c37d1683536bf0c4da3e97',1,'__attribute__']]],
   ['imu_5fgyro_5fy_247',['imu_gyro_y',['../union____attribute____.html#a2004c6f409893d7db9884353d2f41852',1,'__attribute__']]],
   ['imu_5fgyro_5fz_248',['imu_gyro_z',['../union____attribute____.html#a65232cd87181c7a0b8dba856f103c740',1,'__attribute__']]],
-  ['imu_5fh_249',['imu_h',['../a__box_2main_8c.html#a8bd776ed8407f670c61c45d9d2a4be06',1,'imu_h:&#160;main.c'],['../torque__vector_2main_8c.html#a8bd776ed8407f670c61c45d9d2a4be06',1,'imu_h:&#160;main.c']]],
+  ['imu_5fh_249',['imu_h',['../torque__vector_2main_8c.html#a8bd776ed8407f670c61c45d9d2a4be06',1,'main.c']]],
   ['imu_5fhandle_5ft_250',['IMU_Handle_t',['../structIMU__Handle__t.html',1,'']]],
   ['imu_5finit_251',['imu_init',['../a__box_2imu_2imu_8c.html#ad979d68102dbb88b4c169db7d0d0cd50',1,'imu_init(IMU_Handle_t *imu_h):&#160;imu.c'],['../a__box_2imu_2imu_8h.html#ad979d68102dbb88b4c169db7d0d0cd50',1,'imu_init(IMU_Handle_t *imu_h):&#160;imu.c'],['../torque__vector_2imu_2imu_8c.html#ad979d68102dbb88b4c169db7d0d0cd50',1,'imu_init(IMU_Handle_t *imu_h):&#160;imu.c'],['../torque__vector_2imu_2imu_8h.html#ad979d68102dbb88b4c169db7d0d0cd50',1,'imu_init(IMU_Handle_t *imu_h):&#160;imu.c']]],
   ['imu_5fperiodic_252',['imu_periodic',['../a__box_2imu_2imu_8c.html#a59f0cafe9642f895aed8c5d6de17a445',1,'imu_periodic(IMU_Handle_t *imu_h):&#160;imu.c'],['../a__box_2imu_2imu_8h.html#a59f0cafe9642f895aed8c5d6de17a445',1,'imu_periodic(IMU_Handle_t *imu_h):&#160;imu.c'],['../torque__vector_2imu_2imu_8c.html#a2342c47565fa017c55583ce160e56780',1,'imu_periodic(IMU_Handle_t *imu_h, ExtU *rtU):&#160;imu.c'],['../torque__vector_2imu_2imu_8h.html#a2342c47565fa017c55583ce160e56780',1,'imu_periodic(IMU_Handle_t *imu_h, ExtU *rtU):&#160;imu.c']]],

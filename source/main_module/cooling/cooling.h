@@ -15,13 +15,12 @@
 #include "can_parse.h"
 #include "car.h"
 #include "common/common_defs/common_defs.h"
-#include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/psched/psched.h"
 #include <float.h>
 #include "main.h"
 #include <math.h>
 #include <stdbool.h>
-#include "stm32l496xx.h"
 
 //45 C  (off fail state) bat
 //90 C  (drivetrain)
@@ -73,20 +72,10 @@
 
 #define AVG_WINDOW_SIZE 10
 
-typedef struct __attribute__((packed))
-{
-    uint8_t dt_pump;       // DT pump turned on
-    uint8_t dt_fan_power;  // DT fan turned on
-    uint8_t bat_pump;      // BAT pump turned on
-    uint8_t bat_pump_aux;  // BAT pump 2 turned on
-    uint8_t bat_fan_power; // BAT fan turned on
-} Cooling_output_t;
 
 
 typedef struct
 {
-    uint8_t  dt_liters_p_min_x10;
-    uint8_t  bat_liters_p_min_x10;
     float    dt_therm_out_C;
     float    dt_therm_in_C;
     float    bat_therm_out_C;
@@ -95,17 +84,10 @@ typedef struct
     uint32_t bat_delta_t;
 
     bool    daq_override;          // Outputs controlled by DAQ
-    Cooling_output_t out_daq_req;  // Outputs requested by DAQ
-    Cooling_output_t out;          // Outputs sent to peripherals
 
     uint8_t dt_temp_error; // DT either over temp or not receiving
-    uint8_t dt_flow_error; // DT flow is too low
-    uint8_t dt_rose;       // DT pump has been on for
-                           // the startup time
+
     uint8_t bat_temp_error;// BAT either over temp or not receiving temps
-    uint8_t bat_flow_error;// BAT flow is too low
-    uint8_t bat_rose;      // BAT pump has been on for
-                           // the startup time
 } Cooling_t;
 
 extern Cooling_t cooling;

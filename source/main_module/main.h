@@ -19,66 +19,81 @@
 
 #define FAULT_NODE_NAME NODE_MAIN_MODULE
 
-// Status Indicators
-#define ERR_LED_GPIO_Port           (GPIOE)
-#define ERR_LED_Pin                 (7)
-#define CONN_LED_GPIO_Port          (GPIOE)
-#define CONN_LED_Pin                (8)
+// Internal Status Indicators
+#define ERR_LED_GPIO_Port           (GPIOD)
+#define ERR_LED_Pin                 (4)
+#define CONN_LED_GPIO_Port          (GPIOD)
+#define CONN_LED_Pin                (3)
 #define CONN_LED_MS_THRESH          (500)
-#define HEARTBEAT_GPIO_Port         (GPIOE)
-#define HEARTBEAT_Pin               (5)
-#define BRK_LIGHT_GPIO_Port         (GPIOA)
-#define BRK_LIGHT_Pin               (12)
-#define BUZZER_GPIO_Port            (GPIOB)
-#define BUZZER_Pin                  (2)
-#define UNDERGLOW_GPIO_Port         (GPIOB)
-#define UNDERGLOW_Pin               (5)
+#define HEARTBEAT_GPIO_Port         (GPIOD)
+#define HEARTBEAT_Pin               (2)
+
+// External Status Indicators
+#define BRK_LIGHT_GPIO_Port         (GPIOD)
+#define BRK_LIGHT_Pin               (14)
+#define BUZZER_GPIO_Port            (GPIOD)
+#define BUZZER_Pin                  (12)
+
+#define BRK_BUZZER_STAT_GPIO_Port   (GPIOB)
+#define BRK_BUZZER_STAT_Pin         (15)
+
+#define TSAL_LVAL_STAT_GPIO_Port    (GPIOD)
+#define TSAL_LVAL_STAT_Pin          (10)
 
 // CAN
-#define VCAN_RX_GPIO_Port           (GPIOD)
-#define VCAN_RX_Pin                 (0)
-#define VCAN_TX_GPIO_Port           (GPIOD)
-#define VCAN_TX_Pin                 (1)
+#define VCAN_RX_GPIO_Port           (GPIOA)
+#define VCAN_RX_Pin                 (11)
+#define VCAN_TX_GPIO_Port           (GPIOA)
+#define VCAN_TX_Pin                 (12)
 
-#define IMUCAN_RX_GPIO_Port         (GPIOB)
-#define IMUCAN_RX_Pin               (12)
-#define IMUCAN_TX_GPIO_Port         (GPIOB)
-#define IMUCAN_TX_Pin               (13)
+#define EMCAN_RX_GPIO_Port         (GPIOB)
+#define EMCAN_RX_Pin               (12)
+#define EMCAN_TX_GPIO_Port         (GPIOB)
+#define EMCAN_TX_Pin               (13)
 
 // SPI Peripherals
-#define SPI1_SCK_GPIO_Port          (GPIOE)
-#define SPI1_SCK_Pin                (13)
-#define SPI1_MISO_GPIO_Port         (GPIOE)
-#define SPI1_MISO_Pin               (14)
-#define SPI1_MOSI_GPIO_Port         (GPIOE)
-#define SPI1_MOSI_Pin               (15)
+#define SPI1_SCK_GPIO_Port          (GPIOA)
+#define SPI1_SCK_Pin                (5)
+#define SPI1_MISO_GPIO_Port         (GPIOA)
+#define SPI1_MISO_Pin               (6)
+#define SPI1_MOSI_GPIO_Port         (GPIOA)
+#define SPI1_MOSI_Pin               (7)
 
-#define EEPROM_nWP_GPIO_Port        (GPIOE)
-#define EEPROM_nWP_Pin              (6)
-#define EEPROM_NSS_GPIO_Port        (GPIOE)
-#define EEPROM_NSS_Pin              (10)
-
-#define SD_CARD_NSS_GPIO_Port       (GPIOE)
-#define SD_CARD_NSS_Pin             (12)
+#define EEPROM_nWP_GPIO_Port        (GPIOB)
+#define EEPROM_nWP_Pin              (1)
+#define EEPROM_NSS_GPIO_Port        (GPIOB)
+#define EEPROM_NSS_Pin              (0)
 
 // Shutdown Circuit
-#define SDC_CTRL_GPIO_Port          (GPIOA)
-#define SDC_CTRL_Pin                (8)
+#define SDC_CTRL_GPIO_Port          (GPIOD)
+#define SDC_CTRL_Pin                (11)
 
-#define BSPD_TEST_CTRL_GPIO_Port    (GPIOB)
-#define BSPD_TEST_CTRL_Pin          (9)
+#define SDC_MUX_S0_GPIO_Port        (GPIOC)
+#define SDC_MUX_S0_Pin              (9)
+#define SDC_MUX_S1_GPIO_Port        (GPIOD)
+#define SDC_MUX_S1_Pin              (15)
+#define SDC_MUX_S2_GPIO_Port        (GPIOC)
+#define SDC_MUX_S2_Pin              (6)
+#define SDC_MUX_S3_GPIO_Port        (GPIOC)
+#define SDC_MUX_S3_Pin              (7)
 
-#define V_MC_SENSE_GPIO_Port        (GPIOC)
-#define V_MC_SENSE_Pin              (4)
-#define V_MC_SENSE_ADC_CHNL         (13)
-#define V_BAT_SENSE_GPIO_Port       (GPIOC)
-#define V_BAT_SENSE_Pin             (5)
-#define V_BAT_SENSE_ADC_CHNL        (14)
+#define SDC_MUX_DATA_GPIO_Port      (GPIOC)
+#define SDC_MUX_DATA_Pin            (8)
 
-#define BMS_STAT_GPIO_Port          (GPIOC)
-#define BMS_STAT_Pin                (11)
-#define PRCHG_STAT_GPIO_Port        (GPIOC)
-#define PRCHG_STAT_Pin              (13)
+
+// HV Bus Information
+#define V_MC_SENSE_GPIO_Port        (GPIOA)
+#define V_MC_SENSE_Pin              (1)
+#define V_MC_SENSE_ADC_CHNL         (1)
+#define V_BAT_SENSE_GPIO_Port       (GPIOA)
+#define V_BAT_SENSE_Pin             (0)
+#define V_BAT_SENSE_ADC_CHNL        (0)
+
+#define BMS_STAT_GPIO_Port          (GPIOD)
+#define BMS_STAT_Pin                (13)
+
+#define PRCHG_STAT_GPIO_Port        (GPIOE)
+#define PRCHG_STAT_Pin              (5)
 
 // Motor Controllers
 #define MC_L_INVERT                 (0)
@@ -88,145 +103,57 @@
 #define MC_L_UART_RX_GPIO_Port      (GPIOA)
 #define MC_L_UART_RX_GPIO_Pin       (10)
 
-#define MC_L_TIM                    (TIM3)
-#define MC_L_TIM_CH                 (3)
-#define MC_L_PWM_GPIO_Port          (GPIOC)
-#define MC_L_PWM_Pin                (8)
-
 #define MC_R_INVERT                 (0)
 #define MC_R_UART                   (USART2)
-#define MC_R_UART_TX_GPIO_Port      (GPIOD)
-#define MC_R_UART_TX_GPIO_Pin       (5)
-#define MC_R_UART_RX_GPIO_Port      (GPIOD)
-#define MC_R_UART_RX_GPIO_Pin       (6)
-
-#define MC_R_TIM                    (TIM3)
-#define MC_R_TIM_CH                 (4)
-#define MC_R_PWM_GPIO_Port          (GPIOC)
-#define MC_R_PWM_Pin                (9)
+#define MC_R_UART_TX_GPIO_Port      (GPIOA)
+#define MC_R_UART_TX_GPIO_Pin       (2)
+#define MC_R_UART_RX_GPIO_Port      (GPIOA)
+#define MC_R_UART_RX_GPIO_Pin       (3)
 
 // Wheel Speed
-#define MOTOR_L_WS_QUAD_TIM         (TIM2)
-#define MOTOR_L_WS_A_GPIO_Port      (GPIOA)
-#define MOTOR_L_WS_A_Pin            (15)
-#define MOTOR_L_WS_B_GPIO_Port      (GPIOB)
-#define MOTOR_L_WS_B_Pin            (3)
+#define MOTOR_R_WS_PWM_TIM          (TIM1)
+#define MOTOR_R_WS_PWM_CH           (1)
+#define MOTOR_R_WS_GPIO_Port        (GPIOA)
+#define MOTOR_R_WS_Pin              (8)
+#define MOTOR_R_WS_AF               (1)
 
-#define MOTOR_L_WS_PWM_TIM          (TIM8) // NOTE: SHARED WITH BAT_FLOW
+#define MOTOR_L_WS_PWM_TIM          (TIM4)
 #define MOTOR_L_WS_PWM_CH           (1)
-#define MOTOR_L_WS_Z_GPIO_Port      (GPIOC)
-#define MOTOR_L_WS_Z_Pin            (6)
-
-#define MOTOR_L_WS_ERROR_GPIO_Port  (GPIOB)
-#define MOTOR_L_WS_ERROR_Pin        (7)
-
-#define MOTOR_R_WS_QUAD_TIM         (TIM5)
-#define MOTOR_R_WS_A_GPIO_Port      (GPIOA)
-#define MOTOR_R_WS_A_Pin            (0)
-#define MOTOR_R_WS_B_GPIO_Port      (GPIOA)
-#define MOTOR_R_WS_B_Pin            (1)
-
-#define MOTOR_R_WS_PWM_TIM          (TIM1) // NOTE: SHARED WITH DT_FLOW
-#define MOTOR_R_WS_PWM_TIM_CH       (1)
-#define MOTOR_R_WS_Z_GPIO_Port      (GPIOE)
-#define MOTOR_R_WS_Z_Pin            (9)
-
-#define MOTOR_R_WS_ERROR_GPIO_Port  (GPIOB)
-#define MOTOR_R_WS_ERROR_Pin        (6)
+#define MOTOR_L_WS_GPIO_Port        (GPIOB)
+#define MOTOR_L_WS_Pin              (6)
+#define MOTOR_L_WS_AF               (2)
 
 // Shock Pots
-#define SHOCK_POT_L_GPIO_Port       (GPIOA)
-#define SHOCK_POT_L_Pin             (5)
-#define SHOCK_POT_L_ADC_CHNL        (10)
-#define SHOCK_POT_R_GPIO_Port       (GPIOA)
+#define SHOCK_POT_L_GPIO_Port       (GPIOC)
+#define SHOCK_POT_L_Pin             (3)
+#define SHOCK_POT_L_ADC_CHNL        (13)
+
+#define SHOCK_POT_R_GPIO_Port       (GPIOC)
 #define SHOCK_POT_R_Pin             (2)
-#define SHOCK_POT_R_ADC_CHNL        (7)
+#define SHOCK_POT_R_ADC_CHNL        (12)
 
-// Drivetrain
-#define DT_GB_THERM_R_GPIO_Port     (GPIOC)
-#define DT_GB_THERM_R_Pin           (0)
-#define DT_GB_THERM_R_ADC_CHNL      (1)
-#define DT_GB_THERM_L_GPIO_Port     (GPIOA)
-#define DT_GB_THERM_L_Pin           (4)
-#define DT_GB_THERM_L_ADC_CHNL      (9)
+// Load Sensors
+#define LOAD_R_GPIO_Port            (GPIOA)
+#define LOAD_R_Pin                  (4)
+#define LOAD_R_ADC_CHNL             (4)
 
-#define DT_PUMP_CTRL_GPIO_Port      (GPIOB)
-#define DT_PUMP_CTRL_Pin            (10)
+#define LOAD_L_GPIO_Port            (GPIOC)
+#define LOAD_L_Pin                  (1)
+#define LOAD_L_ADC_CHNL             (11)
 
-#define DT_FLOW_RATE_TIM            (TIM1) // NOTE: SHARED WITH R_WS_Z
-#define DT_FLOW_RATE_TIM_CH         (2)
-#define DT_FLOW_RATE_GPIO_Port      (GPIOE)
-#define DT_FLOW_RATE_Pin            (11)
-
-#define DT_FAN_CTRL_TIM             (TIM4)
-#define DT_FAN_CTRL_TIM_CH          (2)
-#define DT_FAN_CTRL_GPIO_Port       (GPIOD)
-#define DT_FAN_CTRL_Pin             (13)
-
-#define DT_FAN_TACK_TIM             (TIM17)
-#define DT_FAN_TACK_TIM_CH          (1)
-#define DT_FAN_TACK_GPIO_Port       (GPIOE)
-#define DT_FAN_TACK_Pin             (1)
-
-// HV Battery
-#define BAT_PUMP_CTRL_1_GPIO_Port   (GPIOB)
-#define BAT_PUMP_CTRL_1_Pin         (14)
-#define BAT_PUMP_CTRL_2_GPIO_Port   (GPIOB)
-#define BAT_PUMP_CTRL_2_Pin         (15)
-
-#define BAT_FLOW_RATE_TIM           (TIM8) // NOTE: SHARED WITH L_WS_Z
-#define BAT_FLOW_RATE_TIM_CH        (CH2)
-#define BAT_FLOW_RATE_GPIO_Port     (GPIOC)
-#define BAT_FLOW_RATE_Pin           (7)
-
-#define BAT_FAN_CTRL_TIM            (TIM4)
-#define BAT_FAN_CTRL_TIM_CH         (1)
-#define BAT_FAN_CTRL_GPIO_Port      (GPIOD)
-#define BAT_FAN_CTRL_Pin            (12)
-
-#define BAT_FAN_TACK_TIM            (TIM16)
-#define BAT_FAN_TACK_TIM_CH         (1)
-#define BAT_FAN_TACK_GPIO_Port      (GPIOE)
-#define BAT_FAN_TACK_Pin            (0)
-
-// LV Status
-#define LV_24V_V_SENSE_GPIO_Port    (GPIOA)
-#define LV_24V_V_SENSE_Pin          (6)
-#define LV_24V_V_SENSE_ADC_CHNL     (11)
-#define LV_24V_I_SENSE_GPIO_Port    (GPIOC)
-#define LV_24V_I_SENSE_Pin          (1)
-#define LV_24V_I_SENSE_ADC_CHNL     (2)
-
-#define LV_12V_V_SENSE_GPIO_Port    (GPIOA)
-#define LV_12V_V_SENSE_Pin          (7)
-#define LV_12V_V_SENSE_ADC_CHNL     (12)
-
-#define LV_5V_V_SENSE_GPIO_Port     (GPIOB)
-#define LV_5V_V_SENSE_Pin           (0)
-#define LV_5V_V_SENSE_ADC_CHNL      (15)
-#define LV_5V_I_SENSE_GPIO_Port     (GPIOC)
-#define LV_5V_I_SENSE_Pin           (2)
-#define LV_5V_I_SENSE_ADC_CHNL      (3)
-
-#define LV_3V3_V_SENSE_GPIO_Port    (GPIOB)
-#define LV_3V3_V_SENSE_Pin          (1)
-#define LV_3V3_V_SENSE_ADC_CHNL     (16)
-#define LV_3V3_PG_GPIO_Port         (GPIOB)
-#define LV_3V3_PG_Pin               (8)
-
-#define LV_BAT_STAT_GPIO_Port       (GPIOB)
-#define LV_BAT_STAT_Pin             (4)
-
+// MCU Internal Thermistor
 #define INTERNAL_THERM_ADC_CHNL     (17)
 
 // Thermistor Analog Multiplexer
 #define THERM_MUX_S0_GPIO_Port      (GPIOE)
 #define THERM_MUX_S0_Pin            (2)
-#define THERM_MUX_S1_GPIO_Port      (GPIOD)
-#define THERM_MUX_S1_Pin            (11)
-#define THERM_MUX_D_GPIO_Port       (GPIOA)
-#define THERM_MUX_D_Pin             (3)
-#define THERM_MUX_D_ADC_CHNL        (8)
+#define THERM_MUX_S1_GPIO_Port      (GPIOE)
+#define THERM_MUX_S1_Pin            (3)
+#define THERM_MUX_S2_GPIO_Port      (GPIOE)
+#define THERM_MUX_S2_Pin            (4)
+#define THERM_MUX_D_GPIO_Port       (GPIOC)
+#define THERM_MUX_D_Pin             (0)
+#define THERM_MUX_D_ADC_CHNL        (10)
 
 #define THERM_MUX_BAT_IN            (0)
 #define THERM_MUX_BAT_OUT           (1)
@@ -234,7 +161,7 @@
 #define THERM_MUX_DT_OUT            (3)
 
 #define ADC_REF_mV (3300UL) // mV
-typedef struct 
+typedef struct
 {
     // Do not modify this struct unless
     // you modify the ADC DMA config

@@ -13,7 +13,7 @@
 
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
-#include "common/phal_L4/can/can.h"
+#include "common/phal_F4_F7/can/can.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Main_Module"
@@ -32,6 +32,7 @@
 #define ID_MCU_STATUS 0x10001981
 #define ID_REAR_MC_STATUS 0x4001941
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
+#define ID_SDC_STATUS 0xc000381
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_REAR_WHEEL_SPEEDS 0x8000381
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
@@ -45,6 +46,7 @@
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_THROTTLE_REMAPPED 0xc0025b7
+#define ID_PDU_TEST 0x401041f
 #define ID_FAULT_SYNC_PDU 0x8cb5f
 #define ID_FAULT_SYNC_DRIVELINE 0x8ca83
 #define ID_FAULT_SYNC_DASHBOARD 0x8cb05
@@ -70,6 +72,7 @@
 #define DLC_MCU_STATUS 5
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
+#define DLC_SDC_STATUS 2
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -83,6 +86,7 @@
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_THROTTLE_REMAPPED 4
+#define DLC_PDU_TEST 3
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -208,6 +212,24 @@
         data_a->rear_motor_currents_temps.right_voltage = right_voltage_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_SDC_STATUS(queue, IMD_, BMS_, BSPD_, BOTS_, inertia_, c_estop_, main_, r_estop_, l_estop_, HVD_, hub_, TSMS_, pchg_out_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SDC_STATUS, .DLC=DLC_SDC_STATUS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->sdc_status.IMD = IMD_;\
+        data_a->sdc_status.BMS = BMS_;\
+        data_a->sdc_status.BSPD = BSPD_;\
+        data_a->sdc_status.BOTS = BOTS_;\
+        data_a->sdc_status.inertia = inertia_;\
+        data_a->sdc_status.c_estop = c_estop_;\
+        data_a->sdc_status.main = main_;\
+        data_a->sdc_status.r_estop = r_estop_;\
+        data_a->sdc_status.l_estop = l_estop_;\
+        data_a->sdc_status.HVD = HVD_;\
+        data_a->sdc_status.hub = hub_;\
+        data_a->sdc_status.TSMS = TSMS_;\
+        data_a->sdc_status.pchg_out = pchg_out_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_REAR_CONTROLLER_TEMPS(queue, left_temp_, right_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_CONTROLLER_TEMPS, .DLC=DLC_REAR_CONTROLLER_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -249,6 +271,7 @@
 #define UP_LWS_STANDARD 15
 #define UP_COOLING_DRIVER_REQUEST 5
 #define UP_THROTTLE_REMAPPED 15
+#define UP_PDU_TEST 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -394,6 +417,21 @@ typedef union {
         uint64_t right_voltage: 16;
     } rear_motor_currents_temps;
     struct {
+        uint64_t IMD: 1;
+        uint64_t BMS: 1;
+        uint64_t BSPD: 1;
+        uint64_t BOTS: 1;
+        uint64_t inertia: 1;
+        uint64_t c_estop: 1;
+        uint64_t main: 1;
+        uint64_t r_estop: 1;
+        uint64_t l_estop: 1;
+        uint64_t HVD: 1;
+        uint64_t hub: 1;
+        uint64_t TSMS: 1;
+        uint64_t pchg_out: 1;
+    } sdc_status;
+    struct {
         uint64_t left_temp: 8;
         uint64_t right_temp: 8;
     } rear_controller_temps;
@@ -456,6 +494,11 @@ typedef union {
         uint64_t remap_k_rl: 16;
         uint64_t remap_k_rr: 16;
     } throttle_remapped;
+    struct {
+        uint64_t test_1: 8;
+        uint64_t test_2: 8;
+        uint64_t test_3: 8;
+    } pdu_test;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -558,6 +601,13 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } throttle_remapped;
+    struct {
+        uint8_t test_1;
+        uint8_t test_2;
+        uint8_t test_3;
+        uint8_t stale;
+        uint32_t last_rx;
+    } pdu_test;
     struct {
         uint16_t idx;
         uint8_t latched;

@@ -2,7 +2,7 @@
 #define __PLETTENBERG_H__
 
 #include "common/common_defs/common_defs.h"
-#include "common/phal_L4/usart/usart.h"
+#include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
 #include "string.h"
@@ -57,7 +57,18 @@ typedef enum
     MC_ERROR         // :(
 } motor_state_t;
 
-typedef struct 
+typedef struct
+{
+    uint32_t last_msg_time; // Time of last rx message that was size of msg_size
+    uint16_t msg_size;      // Size of typical msg
+    uint16_t last_msg_loc;  // Index of first byte of last msg received
+    uint32_t last_rx_time;  // Time of the last rx
+    uint16_t rx_buf_size;   // Size of rx circular buffer for DMA
+    uint16_t last_rx_loc;   // Index of byte of last rx
+    char *rx_buf;           // Buffer location
+} usart_rx_buf_t;
+
+typedef struct
 {
     // Motor status
     uint16_t      init_time;                        // Current init timing
@@ -75,7 +86,7 @@ typedef struct
     uint32_t      rx_timeout;                       // Dynamically set timeout to determine connection status
 
     // Motor outputs
-    uint16_t      voltage_x10;                      
+    uint16_t      voltage_x10;
     uint16_t      current_x10;
     uint16_t      curr_power_x10;                   // Last torque command percent output sent x10
     uint32_t      rpm;
@@ -88,7 +99,7 @@ typedef struct
     volatile usart_rx_buf_t *rx_buf;                // Circular buffer for receiving via DMA
 } motor_t;
 
-void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue, 
+void mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue,
             usart_rx_buf_t *rx_buf, const bool *hv_present);
 void mcSetPower(float power, motor_t *m);
 void mcPeriodic(motor_t *m);

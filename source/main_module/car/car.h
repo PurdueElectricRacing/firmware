@@ -4,16 +4,16 @@
  * @brief  Master Car Control and Safety Checking
  * @version 0.1
  * @date 2022-03-01
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #ifndef _CAR_H_
 #define _CAR_H_
 
 #include "can_parse.h"
 #include "common/faults/faults.h"
-#include "common/phal_L4/gpio/gpio.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/plettenberg/plettenberg.h"
 #include "common/psched/psched.h"
 #include "cooling.h"
@@ -84,5 +84,28 @@ void carHeartbeat();
 void carPeriodic();
 void parseMCDataPeriodic(void);
 void calibrateSteeringAngle(uint8_t* success);
+void monitorSDCPeriodic(void);
+
+#define SDC_MUX_HIGH_IDX 14
+
+typedef struct
+{
+    bool main_stat; //y0
+    bool c_stop_stat; //y1
+    bool inertia_stat; //y2
+    bool bots_stat; //y3
+    bool nc; //y4
+    bool bspd_stat; //y5
+    bool bms_stat; //y6
+    bool imd_stat; //y7
+    bool r_stop_stat; //y8
+    bool l_stop_stat; //y9
+    bool hvd_stat; //y10
+    bool r_hub_stat; //y11
+    bool tsms_stat; //y12
+    bool pchg_out_stat; //y13
+
+} sdc_nodes_t;
+
 
 #endif

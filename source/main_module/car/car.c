@@ -1,17 +1,20 @@
 #include "car.h"
-#include "common/modules/wheel_speeds/wheel_speeds.h"
+// #include "common/modules/wheel_speeds/wheel_speeds.h"
 
 Car_t car;
 extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
-extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
+// extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
+// TODO: Just to remove errors for now
+usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 uint8_t daq_buzzer;
+sdc_nodes_t sdc_mux;
 
 /* Wheel Speed Config */
-WheelSpeed_t left_wheel =  {.tim=TIM2, .invert=true};
-WheelSpeed_t right_wheel = {.tim=TIM5, .invert=true};
-// TODO: test invert
-WheelSpeeds_t wheel_speeds = {.l=&left_wheel, .r=&right_wheel};
+// WheelSpeed_t left_wheel =  {.tim=TIM2, .invert=true};
+// WheelSpeed_t right_wheel = {.tim=TIM5, .invert=true};
+// // TODO: test invert
+// WheelSpeeds_t wheel_speeds = {.l=&left_wheel, .r=&right_wheel};
 
 bool validatePrecharge();
 
@@ -33,7 +36,11 @@ bool carInit()
     mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
 
 
-    wheelSpeedsInit(&wheel_speeds);
+    PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
+    PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, 0);
+    PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, 0);
+    PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, 0);
+    // wheelSpeedsInit(&wheel_speeds);
 }
 
 void carHeartbeat()
@@ -290,10 +297,10 @@ void parseMCDataPeriodic(void)
 
     // SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
     //                      shock_l, shock_r);
-    uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
-    uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
-    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
-                                     l_speed, r_speed);
+    // uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
+    // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
+    // SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
+    //                                  l_speed, r_speed);
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) car.motor_l.current_x10,
                                    (uint16_t) car.motor_r.current_x10,
@@ -393,9 +400,6 @@ bool checkFatalFaults()
 {
     uint8_t is_error = 0;
 
-    if (!DT_FLOW_CHECK_OVERRIDE)  is_error += cooling.dt_flow_error;
-    if (!BAT_FLOW_CHECK_OVERRIDE) is_error += cooling.bat_flow_error;
-
     // TODO: is_error += !PHAL_readGPIO(LIPO_BAT_STAT_GPIO_Port, LIPO_BAT_STAT_Pin);
 
     is_error += (can_data.max_cell_temp.max_temp > 500) ? 1 : 0;
@@ -466,4 +470,32 @@ bool validatePrecharge()
     }
 
     return car.pchg.pchg_error;
+}
+
+/**
+ * @brief Update Status of SDC Mux and Send on CAN
+ *
+ */
+void monitorSDCPeriodic()
+{
+    static uint8_t index = 0;
+    bool *nodes = (bool *) &sdc_mux;
+
+    *(nodes+index++) = PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);;
+
+    index = (index == 4) ? (index + 1) : index;
+
+    if (index == SDC_MUX_HIGH_IDX)
+    {
+        index = 0;
+        SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
+                sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
+                sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
+    }
+
+    PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
+    PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
+    PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
+    PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
+
 }

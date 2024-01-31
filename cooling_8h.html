@@ -89,13 +89,12 @@ $(function() {
 <div class="textblock"><code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="car_8h_source.html">car.h</a>&quot;</code><br />
 <code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2gpio_2gpio_8h_source.html">common/phal_L4/gpio/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &lt;float.h&gt;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &quot;stm32l496xx.h&quot;</code><br />
 </div>
 <p><a href="cooling_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -159,8 +158,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab898071398b359603a35c202e9c65f3b" id="r_ab898071398b359603a35c202e9c65f3b"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab898071398b359603a35c202e9c65f3b">__attribute__</a> ((packed))</td></tr>
-<tr class="separator:ab898071398b359603a35c202e9c65f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a821f59891a53828e64a7b9c0d9293739" id="r_a821f59891a53828e64a7b9c0d9293739"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a821f59891a53828e64a7b9c0d9293739">coolingInit</a> ()</td></tr>
 <tr class="memdesc:a821f59891a53828e64a7b9c0d9293739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes gpio interrupts Sets default output states.  <br /></td></tr>
 <tr class="separator:a821f59891a53828e64a7b9c0d9293739"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,8 +172,6 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0efe73f161ba3be673de0185968b11af" id="r_a0efe73f161ba3be673de0185968b11af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0efe73f161ba3be673de0185968b11af">Cooling_output_t</a></td></tr>
-<tr class="separator:a0efe73f161ba3be673de0185968b11af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12b9f30ee387df3295a74841cf1a57d0" id="r_a12b9f30ee387df3295a74841cf1a57d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCooling__t.html">Cooling_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12b9f30ee387df3295a74841cf1a57d0">cooling</a></td></tr>
 <tr class="separator:a12b9f30ee387df3295a74841cf1a57d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -538,23 +533,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab898071398b359603a35c202e9c65f3b" name="ab898071398b359603a35c202e9c65f3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab898071398b359603a35c202e9c65f3b">&#9670;&#160;</a></span>__attribute__()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct __attribute__ </td>
-          <td>(</td>
-          <td class="paramtype">(packed)</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a821f59891a53828e64a7b9c0d9293739" name="a821f59891a53828e64a7b9c0d9293739"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a821f59891a53828e64a7b9c0d9293739">&#9670;&#160;</a></span>coolingInit()</h2>
 
@@ -658,20 +636,6 @@ false Fail </dd></dl>
 <span class="mlabels"><span class="mlabel">extern</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0efe73f161ba3be673de0185968b11af" name="a0efe73f161ba3be673de0185968b11af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0efe73f161ba3be673de0185968b11af">&#9670;&#160;</a></span>Cooling_output_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Cooling_output_t</td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>

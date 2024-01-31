@@ -82,7 +82,6 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="car_8h_source.html">car.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="wheel__speeds_8h_source.html">common/modules/wheel_speeds/wheel_speeds.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -106,6 +105,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae55ccf9762670dec4bda7e2ca7206b0e" id="r_ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae55ccf9762670dec4bda7e2ca7206b0e">calibrateSteeringAngle</a> (uint8_t *success)</td></tr>
 <tr class="memdesc:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the steering angle sensor calibration Call once after assembly with wheel centered Device: Bosch F02U.V02.894-01.  <br /></td></tr>
 <tr class="separator:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a734067d55fba1fd73f37eea2d3886a3e" id="r_a734067d55fba1fd73f37eea2d3886a3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a734067d55fba1fd73f37eea2d3886a3e">monitorSDCPeriodic</a> ()</td></tr>
+<tr class="memdesc:a734067d55fba1fd73f37eea2d3886a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Status of SDC Mux and Send on CAN.  <br /></td></tr>
+<tr class="separator:a734067d55fba1fd73f37eea2d3886a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -123,12 +125,8 @@ Variables</h2></td></tr>
 <tr class="separator:ad1ad90cfd3865516793aa974cb5738b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae783a16dbd596639a5f721037ec407c9" id="r_ae783a16dbd596639a5f721037ec407c9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae783a16dbd596639a5f721037ec407c9">daq_buzzer</a></td></tr>
 <tr class="separator:ae783a16dbd596639a5f721037ec407c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe6cb3a9e98f35ac8d65e58d4a6cb136" id="r_afe6cb3a9e98f35ac8d65e58d4a6cb136"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structWheelSpeed__t.html">WheelSpeed_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe6cb3a9e98f35ac8d65e58d4a6cb136">left_wheel</a> = {.tim=TIM2, .invert=<a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>}</td></tr>
-<tr class="separator:afe6cb3a9e98f35ac8d65e58d4a6cb136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a696d203a8791031649009d16886d9ce9" id="r_a696d203a8791031649009d16886d9ce9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structWheelSpeed__t.html">WheelSpeed_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a696d203a8791031649009d16886d9ce9">right_wheel</a> = {.tim=TIM5, .invert=<a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>}</td></tr>
-<tr class="separator:a696d203a8791031649009d16886d9ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0469791220721e9a5b9620b746ebf953" id="r_a0469791220721e9a5b9620b746ebf953"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structWheelSpeeds__t.html">WheelSpeeds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0469791220721e9a5b9620b746ebf953">wheel_speeds</a> = {.l=&amp;<a class="el" href="driveline_2main_8c.html#afe6cb3a9e98f35ac8d65e58d4a6cb136">left_wheel</a>, .r=&amp;<a class="el" href="driveline_2main_8c.html#a696d203a8791031649009d16886d9ce9">right_wheel</a>}</td></tr>
-<tr class="separator:a0469791220721e9a5b9620b746ebf953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e8f2a7fa2955f10cec4235a67fa184c" id="r_a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsdc__nodes__t.html">sdc_nodes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8f2a7fa2955f10cec4235a67fa184c">sdc_mux</a></td></tr>
+<tr class="separator:a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf31bd4dca7310ba032781bf74fee32c" id="r_adf31bd4dca7310ba032781bf74fee32c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf31bd4dca7310ba032781bf74fee32c">last_time</a> = 0</td></tr>
 <tr class="memdesc:adf31bd4dca7310ba032781bf74fee32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main task for the car containing a finite state machine to determine when the car should be driveable.  <br /></td></tr>
 <tr class="separator:adf31bd4dca7310ba032781bf74fee32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -251,6 +249,25 @@ false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
+<a id="a734067d55fba1fd73f37eea2d3886a3e" name="a734067d55fba1fd73f37eea2d3886a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a734067d55fba1fd73f37eea2d3886a3e">&#9670;&#160;</a></span>monitorSDCPeriodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void monitorSDCPeriodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update Status of SDC Mux and Send on CAN. </p>
+
+</div>
+</div>
 <a id="a633e21d9684094efa19b292bc12975e8" name="a633e21d9684094efa19b292bc12975e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a633e21d9684094efa19b292bc12975e8">&#9670;&#160;</a></span>parseMCDataPeriodic()</h2>
 
@@ -352,19 +369,11 @@ false No faults have existed for set time </dd></dl>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> huart_l_rx_buf</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -415,20 +424,6 @@ false No faults have existed for set time </dd></dl>
 </div><div class="memdoc">
 
 <p>Main task for the car containing a finite state machine to determine when the car should be driveable. </p>
-
-</div>
-</div>
-<a id="afe6cb3a9e98f35ac8d65e58d4a6cb136" name="afe6cb3a9e98f35ac8d65e58d4a6cb136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe6cb3a9e98f35ac8d65e58d4a6cb136">&#9670;&#160;</a></span>left_wheel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structWheelSpeed__t.html">WheelSpeed_t</a> left_wheel = {.tim=TIM2, .invert=<a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -490,28 +485,14 @@ false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
-<a id="a696d203a8791031649009d16886d9ce9" name="a696d203a8791031649009d16886d9ce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a696d203a8791031649009d16886d9ce9">&#9670;&#160;</a></span>right_wheel</h2>
+<a id="a8e8f2a7fa2955f10cec4235a67fa184c" name="a8e8f2a7fa2955f10cec4235a67fa184c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e8f2a7fa2955f10cec4235a67fa184c">&#9670;&#160;</a></span>sdc_mux</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structWheelSpeed__t.html">WheelSpeed_t</a> right_wheel = {.tim=TIM5, .invert=<a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0469791220721e9a5b9620b746ebf953" name="a0469791220721e9a5b9620b746ebf953"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0469791220721e9a5b9620b746ebf953">&#9670;&#160;</a></span>wheel_speeds</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structWheelSpeeds__t.html">WheelSpeeds_t</a> wheel_speeds = {.l=&amp;<a class="el" href="driveline_2main_8c.html#afe6cb3a9e98f35ac8d65e58d4a6cb136">left_wheel</a>, .r=&amp;<a class="el" href="driveline_2main_8c.html#a696d203a8791031649009d16886d9ce9">right_wheel</a>}</td>
+          <td class="memname"><a class="el" href="structsdc__nodes__t.html">sdc_nodes_t</a> sdc_mux</td>
         </tr>
       </table>
 </div><div class="memdoc">

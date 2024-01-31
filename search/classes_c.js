@@ -5,6 +5,5 @@ var searchData=
   ['pedal_5fcalibration_5ft_2',['pedal_calibration_t',['../structpedal__calibration__t.html',1,'']]],
   ['pedals_5ft_3',['pedals_t',['../structpedals__t.html',1,'']]],
   ['phys_5fmem_4',['phys_mem',['../structphys__mem.html',1,'']]],
-  ['powermonitor_5ft_5',['PowerMonitor_t',['../structPowerMonitor__t.html',1,'']]],
-  ['prechargestat_5ft_6',['prechargeStat_t',['../structprechargeStat__t.html',1,'']]]
+  ['prechargestat_5ft_5',['prechargeStat_t',['../structprechargeStat__t.html',1,'']]]
 ];

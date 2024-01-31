@@ -89,7 +89,7 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2gpio_2gpio_8h_source.html">common/phal_L4/gpio/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="plettenberg_8h_source.html">common/plettenberg/plettenberg.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cooling_8h_source.html">cooling.h</a>&quot;</code><br />
@@ -105,6 +105,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprechargeStat__t.html">prechargeStat_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCar__t.html">Car_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsdc__nodes__t.html">sdc_nodes_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -125,6 +127,8 @@ Macros</h2></td></tr>
 <tr class="separator:a3e8aea4400df51843f2611a24145e31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a558410ca52658dd8f6cead3601fc50f3" id="r_a558410ca52658dd8f6cead3601fc50f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a558410ca52658dd8f6cead3601fc50f3">HV_V_BAT_CAL</a>&#160;&#160;&#160;(1000)</td></tr>
 <tr class="separator:a558410ca52658dd8f6cead3601fc50f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78d6e8ad097099025542e9421be07d4d" id="r_a78d6e8ad097099025542e9421be07d4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78d6e8ad097099025542e9421be07d4d">SDC_MUX_HIGH_IDX</a>&#160;&#160;&#160;14</td></tr>
+<tr class="separator:a78d6e8ad097099025542e9421be07d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -149,6 +153,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae55ccf9762670dec4bda7e2ca7206b0e" id="r_ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae55ccf9762670dec4bda7e2ca7206b0e">calibrateSteeringAngle</a> (uint8_t *success)</td></tr>
 <tr class="memdesc:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the steering angle sensor calibration Call once after assembly with wheel centered Device: Bosch F02U.V02.894-01.  <br /></td></tr>
 <tr class="separator:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34cb026481a9ad022a436ecce147f5ff" id="r_a34cb026481a9ad022a436ecce147f5ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34cb026481a9ad022a436ecce147f5ff">monitorSDCPeriodic</a> (void)</td></tr>
+<tr class="memdesc:a34cb026481a9ad022a436ecce147f5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Status of SDC Mux and Send on CAN.  <br /></td></tr>
+<tr class="separator:a34cb026481a9ad022a436ecce147f5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -156,6 +163,8 @@ Variables</h2></td></tr>
 <tr class="separator:aca4b89b43b3dae762dec5cfa5e2d5628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae783a16dbd596639a5f721037ec407c9" id="r_ae783a16dbd596639a5f721037ec407c9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae783a16dbd596639a5f721037ec407c9">daq_buzzer</a></td></tr>
 <tr class="separator:ae783a16dbd596639a5f721037ec407c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e8f2a7fa2955f10cec4235a67fa184c" id="r_a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsdc__nodes__t.html">sdc_nodes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8f2a7fa2955f10cec4235a67fa184c">sdc_mux</a></td></tr>
+<tr class="separator:a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Master Car Control and Safety Checking. </p>
@@ -276,6 +285,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a78d6e8ad097099025542e9421be07d4d" name="a78d6e8ad097099025542e9421be07d4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78d6e8ad097099025542e9421be07d4d">&#9670;&#160;</a></span>SDC_MUX_HIGH_IDX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SDC_MUX_HIGH_IDX&#160;&#160;&#160;14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aed430a76e63683fb2c72fbaa1e5e9bc2" name="aed430a76e63683fb2c72fbaa1e5e9bc2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed430a76e63683fb2c72fbaa1e5e9bc2">&#9670;&#160;</a></span>torqueSource_t</h2>
@@ -369,6 +392,25 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a34cb026481a9ad022a436ecce147f5ff" name="a34cb026481a9ad022a436ecce147f5ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34cb026481a9ad022a436ecce147f5ff">&#9670;&#160;</a></span>monitorSDCPeriodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void monitorSDCPeriodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update Status of SDC Mux and Send on CAN. </p>
+
+</div>
+</div>
 <a id="a633e21d9684094efa19b292bc12975e8" name="a633e21d9684094efa19b292bc12975e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a633e21d9684094efa19b292bc12975e8">&#9670;&#160;</a></span>parseMCDataPeriodic()</h2>
 
@@ -422,6 +464,28 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">uint8_t daq_buzzer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e8f2a7fa2955f10cec4235a67fa184c" name="a8e8f2a7fa2955f10cec4235a67fa184c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e8f2a7fa2955f10cec4235a67fa184c">&#9670;&#160;</a></span>sdc_mux</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsdc__nodes__t.html">sdc_nodes_t</a> sdc_mux</td>
         </tr>
       </table>
   </td>

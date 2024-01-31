@@ -33,6 +33,12 @@
 // BMS Status
 #define BMS_STATUS_GPIO_Port (GPIOD)
 #define BMS_STATUS_Pin (1)
+#define BMS_DISCHARGE_ENABLE_Port (GPIOD)
+#define BMS_DISCHARGE_ENABLE_Pin (0)
+#define BMS_CHARGE_ENABLE_Port (GPIOD)
+#define BMS_CHARGE_ENABLE_Pin (3)
+#define BMS_CHARGER_SAFETY_Port (GPIOD)
+#define BMS_CHARGER_SAFETY_Pin (2)
 
 
 // IMD Data
@@ -53,15 +59,50 @@
 #define ERROR_LED_Pin           (15)
 
 
-//TMU Mux Pin
-#define MUX_A_NON_ISO_Port  (GPIOC)
-#define MUX_A_NON_ISO_Pin   (9)
-#define MUX_B_NON_ISO_Port  (GPIOC)
-#define MUX_B_NON_ISO_Pin   (8)
-#define MUX_C_NON_ISO_Port  (GPIOC)
-#define MUX_C_NON_ISO_Pin   (7)
-#define MUX_D_NON_ISO_Port  (GPIOC)
-#define MUX_D_NON_ISO_Pin   (6)
+//TMU Mux Input Pins
+#define MUX_A_Port  (GPIOC)
+#define MUX_A_Pin   (9)
+#define MUX_B_Port  (GPIOC)
+#define MUX_B_Pin   (8)
+#define MUX_C_Port  (GPIOC)
+#define MUX_C_Pin   (7)
+#define MUX_D_Port  (GPIOC)
+#define MUX_D_Pin   (6)
 
+//TMU Mux Output Pins
+#define MUX_1_OUT_Port (GPIOC)
+#define MUX_1_OUT_Pin (0)
+#define MUX_2_OUT_Port (GPIOC)
+#define MUX_2_OUT_Pin (1)
+#define MUX_3_OUT_Port (GPIOC)
+#define MUX_3_OUT_Pin (2)
+#define MUX_4_OUT_Port (GPIOC)
+#define MUX_4_OUT_Pin (3)
+
+// Board Temp
+#define BOARD_TEMP_Port (GPIOB)
+#define BOARD_TEMP_Pin (0)
+
+// 5V Monitoring
+#define VSENSE_5V_Port (GPIOA)
+#define VSENSE_5V_Pin (7)
+
+// ADC Channels
+#define TMU_1_ADC_CHANNEL (10)
+#define TMU_2_ADC_CHANNEL (11)
+#define TMU_3_ADC_CHANNEL (12)
+#define TMU_4_ADC_CHANNEL (13)
+
+typedef struct 
+{
+    // Do not modify this struct unless
+    // you modify the ADC DMA config
+    // in main.c to match
+    uint16_t tmu_1;
+    uint16_t tmu_2;
+    uint16_t tmu_3;
+    uint16_t tmu_4;
+}__attribute__((packed)) ADCReadings_t;
+volatile extern ADCReadings_t adc_readings;
 
 #endif

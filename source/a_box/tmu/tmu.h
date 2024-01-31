@@ -2,7 +2,8 @@
 #define _TMU_H_
 
 
-#include "common/phal_F4_F7/spi/spi.h"
+
+#include "common/phal_F4_F7/adc/adc.h"
 #include <stdint.h>
 #include <inttypes.h>
 
@@ -12,7 +13,7 @@
 
 
 #define TMU_ADDR_SIZE 0xFFFU
-#define TMU_VREF 1.8F
+#define TMU_VREF 3.3F
 
 //Changing this value will change how many thermistor slots are read.
 #define NUM_THERM 10
@@ -20,9 +21,17 @@
 
 
 
-#define TMU_VIN 5.0F
+#define TMU_VIN 3.3F
 //Top resistor of voltage divider
-#define R1 68000
+#define R1 4700
+//Pulldown resistor on abox
+#define R3 470000
+// ADC raw upper and lower values
+#define ADC_UPPER 3980
+#define ADC_LOWER 649
+// max and min values
+#define ERROR_HIGH 10000
+#define ERROR_LOW -500
 //Based on datasheet p. 69- https://www.amphenol-sensors.com/hubfs/Documents/AAS-913-318C-Temperature-resistance-curves-071816-web.pdf
 #define R25 10000
 #define LOW_RANGE_MIN 3.277F
@@ -45,27 +54,24 @@
 
 
 typedef struct {
-   SPI_InitConfig_t *spi;
-   float tmu1_volts;
-   float tmu2_volts;
-   float tmu3_volts;
-   float tmu4_volts;
-   uint16_t tmu1_max;
-   uint16_t tmu2_max;
-   uint16_t tmu3_max;
-   uint16_t tmu4_max;
-   uint16_t tmu1_min;
-   uint16_t tmu2_min;
-   uint16_t tmu3_min;
-   uint16_t tmu4_min;
-   uint16_t tmu1_avg;
-   uint16_t tmu2_avg;
-   uint16_t tmu3_avg;
-   uint16_t tmu4_avg;
-   uint16_t tmu1[15];
-   uint16_t tmu2[15];
-   uint16_t tmu3[15];
-   uint16_t tmu4[15];
+   // instantaneous values
+   int16_t tmu1_max;
+   int16_t tmu2_max;
+   int16_t tmu3_max;
+   int16_t tmu4_max;
+   int16_t tmu1_min;
+   int16_t tmu2_min;
+   int16_t tmu3_min;
+   int16_t tmu4_min;
+   int16_t tmu1_avg;
+   int16_t tmu2_avg;
+   int16_t tmu3_avg;
+   int16_t tmu4_avg;
+   //raw temps
+   int16_t tmu1[16];
+   int16_t tmu2[16];
+   int16_t tmu3[16];
+   int16_t tmu4[16];
 } tmu_handle_t;
 void readTemps(tmu_handle_t *tmu);
 bool initTMU(tmu_handle_t *tmu);

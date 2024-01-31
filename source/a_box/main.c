@@ -1,21 +1,18 @@
 /* System Includes */
+#include "stm32f407xx.h"
 #include "can_parse.h"
 // #include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
-// #include "common/phal_F4_F7/quadspi/quadspi.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
-#include "common/phal_F4_F7/usart/usart.h"
-#include "common/phal_F4_F7/spi/spi.h"
-
+#include "common/phal_F4_F7/adc/adc.h"
+#include "common/phal_F4_F7/dma/dma.h"
 
 /* Module Includes */
 #include "main.h"
 #include "daq.h"
-#include "imu.h"
 #include "orion.h"
-#include "bsxlite_interface.h"
 #include "tmu.h"
 
 
@@ -26,24 +23,13 @@
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
+   // I-Sense
+   GPIO_INIT_ANALOG(I_SENSE_CH1_GPIO_Port, I_SENSE_CH1_Pin),
+   GPIO_INIT_ANALOG(I_SENSE_CH2_GPIO_Port, I_SENSE_CH2_Pin),
+
    // CAN
-   // GPIO_INIT_CANRX_PA11,
-   // GPIO_INIT_CANTX_PA12,
-   // GPIO_INIT_CAN2RX_PB12,
-   // GPIO_INIT_CAN2TX_PB13,
-
-
-   // SPI
-   GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
-   GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
-   GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin,  5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-   // GPIO_INIT_SPI2_SCK_PB10,
-   // GPIO_INIT_SPI2_MOSI_PC3,
-   // GPIO_INIT_SPI2_MISO_PC2,
-   GPIO_INIT_OUTPUT(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, GPIO_OUTPUT_HIGH_SPEED),
-   GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
-   GPIO_INIT_OUTPUT(SPI_CS_TMU_GPIO_Port, SPI_CS_TMU_GPIO_Pin, GPIO_OUTPUT_HIGH_SPEED),
-
+   GPIO_INIT_CANRX_PA11,
+   GPIO_INIT_CANTX_PA12,
 
    // Status and HV Monitoring
    GPIO_INIT_OUTPUT(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -57,11 +43,26 @@ GPIOInitConfig_t gpio_config[] = {
    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
    GPIO_INIT_OUTPUT(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
 
-   //Select Pins
-   GPIO_INIT_OUTPUT(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
-   GPIO_INIT_OUTPUT(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
-   GPIO_INIT_OUTPUT(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
-   GPIO_INIT_OUTPUT(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED)
+   // TMU Mux Selects and Measurements
+   GPIO_INIT_OUTPUT(MUX_A_Port, MUX_A_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT(MUX_B_Port, MUX_B_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT(MUX_C_Port, MUX_C_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT(MUX_D_Port, MUX_D_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_ANALOG(MUX_1_OUT_Port, MUX_1_OUT_Pin),
+   GPIO_INIT_ANALOG(MUX_2_OUT_Port, MUX_2_OUT_Pin),
+   GPIO_INIT_ANALOG(MUX_3_OUT_Port, MUX_3_OUT_Pin),
+   GPIO_INIT_ANALOG(MUX_4_OUT_Port, MUX_4_OUT_Pin),
+
+   // Board Temp Measurement
+   GPIO_INIT_ANALOG(BOARD_TEMP_Port, BOARD_TEMP_Pin),
+
+   // 5V Monitoring
+   GPIO_INIT_ANALOG(VSENSE_5V_Port, VSENSE_5V_Pin),
+
+   // Orion BMS Comms (external pull up on PCB)
+   GPIO_INIT_INPUT(BMS_DISCHARGE_ENABLE_Port, BMS_DISCHARGE_ENABLE_Pin, GPIO_INPUT_OPEN_DRAIN),
+   GPIO_INIT_INPUT(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin, GPIO_INPUT_OPEN_DRAIN),
+   GPIO_INIT_INPUT(BMS_CHARGER_SAFETY_Port, BMS_CHARGER_SAFETY_Pin, GPIO_INPUT_OPEN_DRAIN)
 };
 
 
@@ -99,63 +100,29 @@ void sendIMUData();
 void imuConfigureAccel();
 void preflightChecks();
 void preflightAnimation();
+void updateTherm();
 
+tmu_handle_t tmu;
 
-dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
-
-
-SPI_InitConfig_t spi_config = {
-   .data_rate = TargetCoreClockrateHz / 64,
-   .data_len  = 8,
-   .nss_sw = true,
-   .nss_gpio_port = SPI_CS_GYRO_GPIO_Port,
-   .nss_gpio_pin = SPI_CS_GYRO_Pin,
-   .rx_dma_cfg = &spi_rx_dma_config,
-   .tx_dma_cfg = &spi_tx_dma_config,
-   .periph = SPI1
+/* ADC Configuration */
+ADCInitConfig_t adc_config = {
+    .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .adc_number      = 1,
+    .dma_mode        = ADC_DMA_CIRCULAR
 };
 
-
-// dma_init_t spi2_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
-// dma_init_t spi2_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
-// SPI_InitConfig_t spi2_config = {
-//    .data_rate = TargetCoreClockrateHz / 64,
-//    .data_len  = 8,
-//    .nss_sw = true,
-//    .nss_gpio_port = SPI_CS_TMU_GPIO_Port,
-//    .nss_gpio_pin = SPI_CS_TMU_GPIO_Pin,
-//    .rx_dma_cfg = &spi2_rx_dma_config,
-//    .tx_dma_cfg = &spi2_tx_dma_config,
-//    .periph = SPI2
-// };
-
-
-BMI088_Handle_t bmi_config = {
-   .accel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
-   .accel_csb_pin = SPI_CS_ACEL_Pin,
-   .accel_range = ACCEL_RANGE_3G,
-   .accel_odr = ACCEL_ODR_50Hz,
-   .accel_bwp = ACCEL_OS_NORMAL,
-   .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
-   .gyro_csb_pin = SPI_CS_GYRO_Pin,
-   .gyro_datarate = GYRO_DR_100Hz_32Hz,
-   .gyro_range = GYRO_RANGE_250,
-   .spi = &spi_config
+volatile ADCReadings_t adc_readings;
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel=TMU_1_ADC_CHANNEL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=TMU_2_ADC_CHANNEL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=TMU_3_ADC_CHANNEL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=TMU_4_ADC_CHANNEL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
-
-
-tmu_handle_t tmu = {
-   // .spi = &spi2_config,
-};
-
-
-IMU_Handle_t imu_h = {
-   .bmi = &bmi_config,
-};
-
-
-
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
+            sizeof(adc_readings) / sizeof(adc_readings.tmu_1), 0b01);
 
 int main (void)
 {
@@ -172,6 +139,18 @@ int main (void)
    if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
        PHAL_FaultHandler();
 
+   /* ADC and DMA Initialization */
+   if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+   {
+      HardFault_Handler();
+   }
+   if(!PHAL_initDMA(&adc_dma_config))
+   {
+      HardFault_Handler();
+   }
+
+   PHAL_startTxfer(&adc_dma_config);
+   PHAL_startADC(ADC1);
 
 //    set high during init
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
@@ -325,15 +304,19 @@ void monitorStatus()
    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, bms_err | imd_err);
 }
 
-
-
-
-
-
-void sendIMUData()
-{
-   imu_periodic(&imu_h);
+void monitorTherm() {
+   uint8_t tmu_err;
+   
 }
+
+
+
+
+
+// void sendIMUData()
+// {
+//    imu_periodic(&imu_h);
+// }
 
 
 

@@ -177,7 +177,7 @@
         },
         {   "name": "A_Box",
             "cwd": "${workspaceRoot}",
-            "executable": "./output/precharge/precharge.elf",
+            "executable": "./output/a_box/a_box.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -189,9 +189,9 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/precharge"
+                "${workspaceFolder}/source/a_box"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
         {   "name": "Driveline Front",

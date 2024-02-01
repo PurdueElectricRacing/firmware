@@ -15,6 +15,8 @@
 
 // BEGIN AUTO VAR INCLUDES
 #include "orion.h"
+#include "tmu.h"
+#include "main.h"
 // END AUTO VAR INCLUDES
 
 // BEGIN AUTO VAR DEFS
@@ -22,6 +24,14 @@ daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=0, .bit_length=1, .read_var_a=&charge_request_user, .write_var_a=&charge_request_user, },
     {.is_read_only=0, .bit_length=16, .read_var_a=&user_charge_current_request, .write_var_a=&user_charge_current_request, },
     {.is_read_only=0, .bit_length=16, .read_var_a=&user_charge_voltage_request, .write_var_a=&user_charge_voltage_request, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&tmu_daq_override, .write_var_a=&tmu_daq_override, },
+    {.is_read_only=0, .bit_length=4, .read_var_a=&tmu_daq_therm, .write_var_a=&tmu_daq_therm, },
+    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.tmu_1, .write_var_a=NULL, },
+    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.tmu_2, .write_var_a=NULL, },
+    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.tmu_3, .write_var_a=NULL, },
+    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.tmu_4, .write_var_a=NULL, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&bms_daq_override, .write_var_a=&bms_daq_override, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&bms_daq_stat, .write_var_a=&bms_daq_stat, },
 };
 // END AUTO VAR DEFS
 

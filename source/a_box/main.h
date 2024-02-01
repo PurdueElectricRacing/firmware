@@ -8,26 +8,13 @@
 #define FAULT_NODE_NAME NODE_A_BOX
 
 
-// SPI Accel
-#define SPI_SCLK_GPIO_Port (GPIOA)
-#define SPI_SCLK_Pin (5)
-#define SPI_MISO_GPIO_Port (GPIOA)
-#define SPI_MISO_Pin (6)
-#define SPI_MOSI_GPIO_Port (GPIOA)
-#define SPI_MOSI_Pin (7)
-#define SPI_CS_ACEL_GPIO_Port (GPIOA)
-#define SPI_CS_ACEL_Pin (3)
-#define SPI_CS_GYRO_GPIO_Port (GPIOA)
-#define SPI_CS_GYRO_Pin (2)
-#define SPI_CS_TMU_GPIO_Port (GPIOD)
-#define SPI_CS_TMU_GPIO_Pin (15)
-
-
 // Current Sense
-#define I_SENSE_CH1_GPIO_Port (GPIOA) // ADC12_IN5
+#define I_SENSE_CH1_GPIO_Port (GPIOA) 
 #define I_SENSE_CH1_Pin (0)
-#define I_SENSE_CH2_GPIO_Port (GPIOA) // ADC12_IN6
+#define I_SENSE_CH1_ADC_CHNL  (0)
+#define I_SENSE_CH2_GPIO_Port (GPIOA)
 #define I_SENSE_CH2_Pin (1)
+#define I_SENSE_CH2_ADC_CHNL  (1)
 
 
 // BMS Status
@@ -43,9 +30,9 @@
 
 // IMD Data
 #define IMD_HS_PWM_GPIO_Port (GPIOB)
-#define IMD_HS_PWM_Pin (6)
-#define IMD_LS_PWM_GPIO_Port (GPIOB)
-#define IMD_LS_PWM_Pin (7)
+#define IMD_HS_PWM_Pin (3)
+#define IMD_LS_PWM_GPIO_Port (GPIOA)
+#define IMD_LS_PWM_Pin (15)
 #define IMD_STATUS_GPIO_Port (GPIOB)
 #define IMD_STATUS_Pin (5)
 
@@ -70,14 +57,14 @@
 #define MUX_D_Pin   (6)
 
 //TMU Mux Output Pins
-#define MUX_1_OUT_Port (GPIOC)
-#define MUX_1_OUT_Pin (0)
-#define MUX_2_OUT_Port (GPIOC)
-#define MUX_2_OUT_Pin (1)
-#define MUX_3_OUT_Port (GPIOC)
-#define MUX_3_OUT_Pin (2)
-#define MUX_4_OUT_Port (GPIOC)
-#define MUX_4_OUT_Pin (3)
+#define TMU_1_Port (GPIOC)
+#define TMU_1_Pin (0)
+#define TMU_2_Port (GPIOC)
+#define TMU_2_Pin (1)
+#define TMU_3_Port (GPIOC)
+#define TMU_3_Pin (2)
+#define TMU_4_Port (GPIOC)
+#define TMU_4_Pin (3)
 
 // Board Temp
 #define BOARD_TEMP_Port (GPIOB)
@@ -86,6 +73,7 @@
 // 5V Monitoring
 #define VSENSE_5V_Port (GPIOA)
 #define VSENSE_5V_Pin (7)
+#define VSENSE_5V_ADC_CHNL  (7)
 
 // ADC Channels
 #define TMU_1_ADC_CHANNEL (10)
@@ -104,5 +92,8 @@ typedef struct
     uint16_t tmu_4;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
+
+extern bool bms_daq_override;
+extern bool bms_daq_stat;
 
 #endif

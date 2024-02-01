@@ -10,6 +10,8 @@ extern q_handle_t q_tx_can;
 //uint8_t curr_therm;
 uint8_t num_bad1, num_bad2, num_bad3, num_bad4;
 bool overtemp = false;
+bool tmu_daq_override = false;
+uint8_t tmu_daq_therm = 0;
 
 //Function defs not needed by any other file
 void resistance_to_temp(float resistance, uint16_t *temp);
@@ -25,10 +27,12 @@ bool initTMU(tmu_handle_t *tmu) {
    num_bad2 = 0;
    num_bad3 = 0;
    num_bad4 = 0;
-   PHAL_writeGPIO(MUX_1_OUT_Port, MUX_1_OUT_Pin, 0);
-   PHAL_writeGPIO(MUX_2_OUT_Port, MUX_2_OUT_Pin, 0);
-   PHAL_writeGPIO(MUX_3_OUT_Port, MUX_3_OUT_Pin, 0);
-   PHAL_writeGPIO(MUX_4_OUT_Port, MUX_4_OUT_Pin, 0);
+   tmu_daq_override = false;
+   tmu_daq_therm = 0;
+   PHAL_writeGPIO(MUX_A_Port, MUX_A_Pin, 0);
+   PHAL_writeGPIO(MUX_B_Port, MUX_B_Pin, 0);
+   PHAL_writeGPIO(MUX_C_Port, MUX_C_Pin, 0);
+   PHAL_writeGPIO(MUX_D_Port, MUX_D_Pin, 0);
    return false;
 }
 
@@ -185,10 +189,12 @@ void readTemps(tmu_handle_t *tmu) {
     }
 
 
-    PHAL_writeGPIO(MUX_1_OUT_Port, MUX_1_OUT_Pin, (curr_therm & 0x1));
-    PHAL_writeGPIO(MUX_2_OUT_Port, MUX_2_OUT_Pin, (curr_therm & 0x2));
-    PHAL_writeGPIO(MUX_3_OUT_Port, MUX_3_OUT_Pin, (curr_therm & 0x4));
-    PHAL_writeGPIO(MUX_4_OUT_Port, MUX_4_OUT_Pin, (curr_therm & 0x8));
+    uint8_t therm = curr_therm;
+    if (tmu_daq_override) therm = tmu_daq_therm;
+    PHAL_writeGPIO(MUX_A_Port, MUX_A_Pin, (therm & 0x1));
+    PHAL_writeGPIO(MUX_B_Port, MUX_B_Pin, (therm & 0x2));
+    PHAL_writeGPIO(MUX_C_Port, MUX_C_Pin, (therm & 0x4));
+    PHAL_writeGPIO(MUX_D_Port, MUX_D_Pin, (therm & 0x8));
 
 }
 

@@ -32,7 +32,7 @@ GPIOInitConfig_t gpio_config[] = {
    GPIO_INIT_CANTX_PA12,
 
    // Status and HV Monitoring
-   GPIO_INIT_OUTPUT(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, GPIO_OUTPUT_LOW_SPEED),
+   GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, GPIO_OUTPUT_LOW_SPEED),
    GPIO_INIT_INPUT(IMD_HS_PWM_GPIO_Port, IMD_HS_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
    GPIO_INIT_INPUT(IMD_LS_PWM_GPIO_Port, IMD_LS_PWM_Pin, GPIO_INPUT_OPEN_DRAIN),
    GPIO_INIT_INPUT(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin, GPIO_INPUT_OPEN_DRAIN),
@@ -48,10 +48,10 @@ GPIOInitConfig_t gpio_config[] = {
    GPIO_INIT_OUTPUT(MUX_B_Port, MUX_B_Pin, GPIO_OUTPUT_LOW_SPEED),
    GPIO_INIT_OUTPUT(MUX_C_Port, MUX_C_Pin, GPIO_OUTPUT_LOW_SPEED),
    GPIO_INIT_OUTPUT(MUX_D_Port, MUX_D_Pin, GPIO_OUTPUT_LOW_SPEED),
-   GPIO_INIT_ANALOG(MUX_1_OUT_Port, MUX_1_OUT_Pin),
-   GPIO_INIT_ANALOG(MUX_2_OUT_Port, MUX_2_OUT_Pin),
-   GPIO_INIT_ANALOG(MUX_3_OUT_Port, MUX_3_OUT_Pin),
-   GPIO_INIT_ANALOG(MUX_4_OUT_Port, MUX_4_OUT_Pin),
+   GPIO_INIT_ANALOG(TMU_1_Port, TMU_1_Pin),
+   GPIO_INIT_ANALOG(TMU_2_Port, TMU_2_Pin),
+   GPIO_INIT_ANALOG(TMU_3_Port, TMU_3_Pin),
+   GPIO_INIT_ANALOG(TMU_4_Port, TMU_4_Pin),
 
    // Board Temp Measurement
    GPIO_INIT_ANALOG(BOARD_TEMP_Port, BOARD_TEMP_Pin),
@@ -87,6 +87,9 @@ extern uint8_t orion_error;
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
+
+bool bms_daq_override = false;
+bool bms_daq_stat = false;
 
 
 void PHAL_FaultHandler();
@@ -179,6 +182,9 @@ int main (void)
     initCANParse(&q_rx_can);
     orionInit();
 
+    bms_daq_override = false;
+    bms_daq_stat = false;
+
     if (daqInit(&q_tx_can))
         HardFault_Handler();
 
@@ -221,7 +227,7 @@ void preflightChecks(void)
    switch (state++)
    {
        case 0 :
-           if (!initTMU(&tmu)) {
+           if (initTMU(&tmu)) {
                 PHAL_FaultHandler();
            }
 
@@ -296,12 +302,15 @@ void monitorStatus()
 
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
-   PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
+   if (bms_daq_override | tmu_daq_override) PHAL_toggleGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin);
+   else PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
    readTemps(&tmu);
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, bms_err | imd_err);
+   uint8_t stat = bms_err | imd_err;
+   if (bms_daq_override) stat = bms_daq_stat;
+   PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }
 
 void monitorTherm() {

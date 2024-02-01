@@ -73,6 +73,9 @@ typedef struct {
    int16_t tmu3[16];
    int16_t tmu4[16];
 } tmu_handle_t;
+extern bool tmu_daq_override;
+extern uint8_t tmu_daq_therm;
+
 void readTemps(tmu_handle_t *tmu);
 bool initTMU(tmu_handle_t *tmu);
 

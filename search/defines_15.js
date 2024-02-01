@@ -17,7 +17,8 @@ var searchData=
   ['voltage_5ftop_14',['VOLTAGE_TOP',['../temp_8h.html#a1f43c2ebdce784e95f172faf384eab82',1,'temp.h']]],
   ['vov_15',['VOV',['../afe_8h.html#a03a15e8246dea283377cfee5d74d401b',1,'afe.h']]],
   ['vref_16',['VREF',['../pedals_8h.html#a2c9e85d22a9ba37ea589b1747af46307',1,'pedals.h']]],
-  ['vsense_5f5v_5fpin_17',['VSENSE_5V_Pin',['../a__box_2main_8h.html#afab07b19ea4875a7f68ddce6d886ed82',1,'main.h']]],
-  ['vsense_5f5v_5fport_18',['VSENSE_5V_Port',['../a__box_2main_8h.html#a829d4c997c1436dc575f2a80de0b4ef2',1,'main.h']]],
-  ['vuv_19',['VUV',['../afe_8h.html#af9b7fd46372c66f730f0bac8a364339e',1,'afe.h']]]
+  ['vsense_5f5v_5fadc_5fchnl_17',['VSENSE_5V_ADC_CHNL',['../a__box_2main_8h.html#a0252ce2d44eb8707afa103fdaf998f1f',1,'main.h']]],
+  ['vsense_5f5v_5fpin_18',['VSENSE_5V_Pin',['../a__box_2main_8h.html#afab07b19ea4875a7f68ddce6d886ed82',1,'main.h']]],
+  ['vsense_5f5v_5fport_19',['VSENSE_5V_Port',['../a__box_2main_8h.html#a829d4c997c1436dc575f2a80de0b4ef2',1,'main.h']]],
+  ['vuv_20',['VUV',['../afe_8h.html#af9b7fd46372c66f730f0bac8a364339e',1,'afe.h']]]
 ];

@@ -160,16 +160,19 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structtmu__handle__t.html#a09b52086ec3da421c2987a3fbadfda0b">   74</a></span>   int16_t tmu4[16];</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a>;</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">void</span> <a class="code hl_function" href="tmu_8h.html#a5d22016f583003f578d5b1a1fabc3f85">readTemps</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">bool</span> <a class="code hl_function" href="tmu_8h.html#ae2944cbf76db2e1e250235edb0d30fd9">initTMU</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">extern</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="tmu_8h.html#aeb18e2a5de6056475d7416d38df3474c">tmu_daq_override</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="tmu_8h.html#ad1be929d5b478a03da46f2f106b71c33">tmu_daq_therm</a>;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">void</span> <a class="code hl_function" href="tmu_8h.html#a5d22016f583003f578d5b1a1fabc3f85">readTemps</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">bool</span> <a class="code hl_function" href="tmu_8h.html#ae2944cbf76db2e1e250235edb0d30fd9">initTMU</a>(<a class="code hl_struct" href="structtmu__handle__t.html">tmu_handle_t</a> *<a class="code hl_variable" href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a>);</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa__box_2main_8c_html_a269bcebc6c49de76613c407c8047bcc5"><div class="ttname"><a href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a></div><div class="ttdeci">tmu_handle_t tmu</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa__box_2main_8c_html_a269bcebc6c49de76613c407c8047bcc5"><div class="ttname"><a href="a__box_2main_8c.html#a269bcebc6c49de76613c407c8047bcc5">tmu</a></div><div class="ttdeci">tmu_handle_t tmu</div><div class="ttdef"><b>Definition</b> main.c:108</div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html">adc.h</a></div></div>
 <div class="ttc" id="astructtmu__handle__t_html"><div class="ttname"><a href="structtmu__handle__t.html">tmu_handle_t</a></div><div class="ttdef"><b>Definition</b> tmu.h:56</div></div>
 <div class="ttc" id="astructtmu__handle__t_html_a150e3e1a8b0201f27d090a4bb60452dc"><div class="ttname"><a href="structtmu__handle__t.html#a150e3e1a8b0201f27d090a4bb60452dc">tmu_handle_t::tmu1_max</a></div><div class="ttdeci">int16_t tmu1_max</div><div class="ttdef"><b>Definition</b> tmu.h:58</div></div>
@@ -184,8 +187,10 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="astructtmu__handle__t_html_a765bc871d168dbf5a127b9dac883f43b"><div class="ttname"><a href="structtmu__handle__t.html#a765bc871d168dbf5a127b9dac883f43b">tmu_handle_t::tmu2_avg</a></div><div class="ttdeci">int16_t tmu2_avg</div><div class="ttdef"><b>Definition</b> tmu.h:67</div></div>
 <div class="ttc" id="astructtmu__handle__t_html_ab21d3397ef29c87a2313995dd1bea1b5"><div class="ttname"><a href="structtmu__handle__t.html#ab21d3397ef29c87a2313995dd1bea1b5">tmu_handle_t::tmu2_min</a></div><div class="ttdeci">int16_t tmu2_min</div><div class="ttdef"><b>Definition</b> tmu.h:63</div></div>
 <div class="ttc" id="astructtmu__handle__t_html_ac420eb31cc58fc9e95fd5538d1f394a4"><div class="ttname"><a href="structtmu__handle__t.html#ac420eb31cc58fc9e95fd5538d1f394a4">tmu_handle_t::tmu4_avg</a></div><div class="ttdeci">int16_t tmu4_avg</div><div class="ttdef"><b>Definition</b> tmu.h:69</div></div>
-<div class="ttc" id="atmu_8h_html_a5d22016f583003f578d5b1a1fabc3f85"><div class="ttname"><a href="tmu_8h.html#a5d22016f583003f578d5b1a1fabc3f85">readTemps</a></div><div class="ttdeci">void readTemps(tmu_handle_t *tmu)</div><div class="ttdef"><b>Definition</b> tmu.c:36</div></div>
-<div class="ttc" id="atmu_8h_html_ae2944cbf76db2e1e250235edb0d30fd9"><div class="ttname"><a href="tmu_8h.html#ae2944cbf76db2e1e250235edb0d30fd9">initTMU</a></div><div class="ttdeci">bool initTMU(tmu_handle_t *tmu)</div><div class="ttdef"><b>Definition</b> tmu.c:23</div></div>
+<div class="ttc" id="atmu_8h_html_a5d22016f583003f578d5b1a1fabc3f85"><div class="ttname"><a href="tmu_8h.html#a5d22016f583003f578d5b1a1fabc3f85">readTemps</a></div><div class="ttdeci">void readTemps(tmu_handle_t *tmu)</div><div class="ttdef"><b>Definition</b> tmu.c:40</div></div>
+<div class="ttc" id="atmu_8h_html_ad1be929d5b478a03da46f2f106b71c33"><div class="ttname"><a href="tmu_8h.html#ad1be929d5b478a03da46f2f106b71c33">tmu_daq_therm</a></div><div class="ttdeci">uint8_t tmu_daq_therm</div><div class="ttdef"><b>Definition</b> tmu.c:14</div></div>
+<div class="ttc" id="atmu_8h_html_ae2944cbf76db2e1e250235edb0d30fd9"><div class="ttname"><a href="tmu_8h.html#ae2944cbf76db2e1e250235edb0d30fd9">initTMU</a></div><div class="ttdeci">bool initTMU(tmu_handle_t *tmu)</div><div class="ttdef"><b>Definition</b> tmu.c:25</div></div>
+<div class="ttc" id="atmu_8h_html_aeb18e2a5de6056475d7416d38df3474c"><div class="ttname"><a href="tmu_8h.html#aeb18e2a5de6056475d7416d38df3474c">tmu_daq_override</a></div><div class="ttdeci">bool tmu_daq_override</div><div class="ttdef"><b>Definition</b> tmu.c:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

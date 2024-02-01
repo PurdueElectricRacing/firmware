@@ -78,7 +78,7 @@ void coolingPeriodic()
     // TODO: test signed temps
 
     // 568 594
-    // Since ADC readings happen ~2ms, the next measurement should be ready
+    // Since ADC readin/gs happen ~2ms, the next measurement should be ready
     // temp = rawThermtoCelcius(adc_readings.therm_mux_d);
     // temp = THERM_A * adc_to_ln[(adc_readings.therm_mux_d / 16)] + THERM_B;
     // switch(curr_therm)
@@ -96,162 +96,51 @@ void coolingPeriodic()
     //         cooling.dt_therm_out_C = temp;
     //         break;
     // }
-    // curr_therm = (curr_therm + 1) & 0x03;
-    // PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, curr_therm & 0x01);
-    // PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, curr_therm & 0x02);
 
-    // int8_t drivetrain_right_temp = (DT_THERM_A * adc_to_ln[adc_readings.dt_gb_r/16] + DT_THERM_B);
-    // int8_t drivetrain_left_temp  = (DT_THERM_A * adc_to_ln[adc_readings.dt_gb_l/16] + DT_THERM_B);
-
-    // // Update outputs
-    // if (cooling.daq_override)
-    // {
-    //     cooling.out = cooling.out_daq_req;
-    // }
-
-    // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C,
-    //                               cooling.dt_therm_in_C,  cooling.dt_therm_out_C,
-    //                               cooling.bat_liters_p_min_x10, cooling.dt_liters_p_min_x10,
-    //                               0, 0);
-    // SEND_COOLANT_OUT(q_tx_can, cooling.out.bat_fan_power, cooling.out.dt_fan_power,
-    //                            cooling.out.bat_pump, cooling.out.bat_pump_aux,
-    //                            cooling.out.dt_pump);
     // SEND_GEARBOX(q_tx_can, drivetrain_left_temp, drivetrain_right_temp);
 
     return;
-    /*
-     FLOW CALCULATIONS
-    // Convert ticks and time delta to liters per minute
-    if (cooling.dt_delta_t == 0)
-        cooling.dt_liters_p_min_x10 = 0;
-    else
-        cooling.dt_liters_p_min_x10 = ((1000 / (float) (cooling.dt_delta_t * 7.5))) * 10;
-    if (cooling.bat_delta_t == 0)
-        cooling.bat_delta_t = 0;
-    else
-        cooling.bat_liters_p_min_x10 = ((1000 / (float) (cooling.bat_delta_t * 7.5))) * 10;
+    //  FLOW CALCULATIONS
+    // // Convert ticks and time delta to liters per minute
+    // if (cooling.dt_delta_t == 0)
+    //     cooling.dt_liters_p_min_x10 = 0;
+    // else
+    //     cooling.dt_liters_p_min_x10 = ((1000 / (float) (cooling.dt_delta_t * 7.5))) * 10;
+    // if (cooling.bat_delta_t == 0)
+    //     cooling.bat_delta_t = 0;
+    // else
+    //     cooling.bat_liters_p_min_x10 = ((1000 / (float) (cooling.bat_delta_t * 7.5))) * 10;
 
-    static uint8_t dt_old[AVG_WINDOW_SIZE];
-    static uint8_t bat_old[AVG_WINDOW_SIZE];
-    static uint8_t curr;
-    cooling.dt_liters_p_min_x10 = lowpass(cooling.dt_liters_p_min_x10, dt_old, curr);
-    cooling.bat_liters_p_min_x10 = lowpass(cooling.bat_liters_p_min_x10, bat_old, curr);
-    ++curr;
-    curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
+    // static uint8_t dt_old[AVG_WINDOW_SIZE];
+    // static uint8_t bat_old[AVG_WINDOW_SIZE];
+    // static uint8_t curr;
+    // cooling.dt_liters_p_min_x10 = lowpass(cooling.dt_liters_p_min_x10, dt_old, curr);
+    // cooling.bat_liters_p_min_x10 = lowpass(cooling.bat_liters_p_min_x10, bat_old, curr);
+    // ++curr;
+    // curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
 
-    //Send CAN messages with flowrates
-    // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
-    //                     adc_readings.dt_therm_1, adc_readings.dt_therm_2);
-     DT COOLANT SYSTEM
+    // //Send CAN messages with flowrates
+    // // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
+    // //                     adc_readings.dt_therm_1, adc_readings.dt_therm_2);
+    //  DT COOLANT SYSTEM
 
-    // Find max motor temperature (CELSIUS)
-    uint8_t max_motor_temp = MAX(car.motor_l.motor_temp,
-                                 car.motor_r.motor_temp);
+    // // Find max motor temperature (CELSIUS)
+    // uint8_t max_motor_temp = MAX(car.motor_l.motor_temp,
+    //                              car.motor_r.motor_temp);
 
-    // Determine if temp error
-    // TODO: add in stale checking for temperatures
-    cooling.dt_temp_error = 0;//(car.pch car.motor_l.data_stale ||
-                            //max_motor_temp >= DT_ERROR_TEMP_C;
-    // Check flow rate
-    if (cooling.dt_pump && !cooling.dt_rose &&
-        ((sched.os_ticks - dt_pump_start_time_ms) / 1000) > DT_FLOW_STARTUP_TIME_S)
-        cooling.dt_rose = 1;
-    if (cooling.dt_pump && cooling.dt_rose &&
-        cooling.dt_liters_p_min_x10 < DT_MIN_FLOW_L_M * 10)
-    {
-        cooling.dt_flow_error = 1;
-    }
-    else
-    {
-        // TODO: how to reset error?
-        //cooling.dt_flow_error = 0;
-    }
+    // // Determine if temp error
+    // // TODO: add in stale checking for temperatures
+    // cooling.dt_temp_error = 0;//(car.pch car.motor_l.data_stale ||
+    //                         //max_motor_temp >= DT_ERROR_TEMP_C;
 
-    max_motor_temp = 0;
-    // Determine if system should be on
+    // max_motor_temp = 0;
+    // // Determine if system should be on
 
-    if ((!cooling.dt_flow_error || DT_FLOW_CHECK_OVERRIDE) &&
-    (max_motor_temp > DT_PUMP_ON_TEMP_C || ((prchg_set) &&
-    (cooling.dt_temp_error || DT_ALWAYS_COOL))))
-    {
-        if (!cooling.dt_pump)
-        {
-            setDtCooling(true);
-        }
-    }
-    // Determine if system should be off
-    else if (cooling.dt_pump)
-    {
-        setDtCooling(false);
-    }
-    setDtCooling(true);
+    // // TODO: replace with CAN frame
+    // cooling.bat_temp_error = 1||// TODO: replace with CAN frame can_data.bat_temp.stale ||
+    //                          max_bat_temp >= BAT_ERROR_TEMP_C;
 
-     BAT COOLANT SYSTEM
-
-    // TODO: replace with CAN frame
-    uint8_t max_bat_temp = 0;
-
-    cooling.bat_temp_error = 1||// TODO: replace with CAN frame can_data.bat_temp.stale ||
-                             max_bat_temp >= BAT_ERROR_TEMP_C;
-
-    // Check flow rate
-    if (cooling.bat_pump && !cooling.bat_rose &&
-        ((sched.os_ticks - bat_pump_start_time_ms) / 1000) > BAT_FLOW_STARTUP_TIME_S)
-        cooling.bat_rose = 1;
-    if (cooling.bat_pump && cooling.bat_rose &&
-        cooling.bat_liters_p_min_x10 < BAT_MIN_FLOW_L_M * 10)
-    {
-        cooling.bat_flow_error = 1;
-    }
-    else
-    {
-        // TODO: how to reset error?
-        //cooling.bat_flow_error = 0;
-    }
-
-    max_bat_temp = 0;
-
-    // Determine if system should be on
-    if ((!cooling.bat_flow_error || BAT_FLOW_CHECK_OVERRIDE) &&
-    (max_bat_temp > BAT_PUMP_ON_TEMP_C || ((prchg_set) &&
-    (cooling.bat_temp_error || BAT_ALWAYS_COOL))))
-    {
-        if (!cooling.bat_pump)
-        {
-            setBatCooling(true);
-        }
-    }
-    // Determine if system should be off
-    else if (cooling.bat_pump)
-    {
-        setBatCooling(false);
-    }
-    setBatCooling(true);
-    */
 }
-
-/*void setFanPWM(void) {
-    uint8_t set_dt = 0;
-    uint8_t set_bat = 0;
-    static uint16_t time_curr;
-
-    if (time_curr < cooling.dt_fan_power) {
-        set_dt = 1;
-    }
-
-    if (time_curr < cooling.bat_fan_power) {
-        set_bat = 1;
-    }
-
-    if (++time_curr == 10) {
-        time_curr = 0;
-    }
-
-    // PHAL_writeGPIO(DT_RAD_FAN_CTRL_GPIO_Port, DT_RAD_FAN_CTRL_Pin, set_dt);
-    // PHAL_writeGPIO(BAT_RAD_FAN_CTRL_GPIO_Port, BAT_RAD_FAN_CTRL_Pin, set_bat);
-}*/
-
-
 
 float rawThermtoCelcius(uint16_t t)
 {

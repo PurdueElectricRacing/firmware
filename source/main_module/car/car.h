@@ -78,6 +78,8 @@ typedef struct
 extern Car_t car;
 
 extern uint8_t daq_buzzer;
+extern uint8_t daq_brake;
+extern uint8_t buzzer_brake_fault;
 
 bool carInit();
 void carHeartbeat();

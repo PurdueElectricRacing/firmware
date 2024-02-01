@@ -27,7 +27,11 @@
                         {"var_name":"sdc_rear_hub_stat", "access_phrase": "sdc_mux.r_hub_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_tsms_stat", "access_phrase": "sdc_mux.tsms_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_pchg_out_stat", "access_phrase": "sdc_mux.pchg_out_stat", "read_only": true, "type":"uint8_t", "length": 1},
-                        {"var_name":"daq_buzzer", "access_phrase": "daq_buzzer", "read_only": false, "type": "uint8_t", "length": 1, "unit": "%"}
+                        {"var_name":"daq_buzzer", "access_phrase": "daq_buzzer", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"daq_brake", "access_phrase": "daq_brake", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"daq_buzzer_brake_status", "access_phrase": "buzzer_brake_fault", "read_only": false, "type": "uint8_t", "length": 1}
+
+
                     ],
                     "files":[]
                 },

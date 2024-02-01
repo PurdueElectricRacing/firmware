@@ -8,6 +8,8 @@ extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 // TODO: Just to remove errors for now
 usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 uint8_t daq_buzzer;
+uint8_t daq_brake;
+uint8_t buzzer_brake_fault;
 sdc_nodes_t sdc_mux;
 
 /* Wheel Speed Config */
@@ -32,8 +34,8 @@ bool carInit()
     daq_buzzer = 0;
 
     /* Motor Controller Initialization */
-    mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
-    mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
+    // mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
+    // mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
 
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
@@ -70,21 +72,21 @@ void carPeriodic()
     /* Set Default Outputs */
     // Set Outputs that are purely combinational (do not depend on previous events)
     // Default values will typically reflect those in the IDLE state
-    car.torque_r.torque_left  = 0.0f;
-    car.torque_r.torque_right = 0.0f;
-    car.buzzer    = false;
-    car.sdc_close = true;
+    // car.torque_r.torque_left  = 0.0f;
+    // car.torque_r.torque_right = 0.0f;
+    // car.buzzer    = false;
+    // car.sdc_close = true;
 
-    /* Process Inputs */
+    // /* Process Inputs */
 
-    // Start button debounce (only want rising edge)
-    car.start_btn_debounced = can_data.start_button.start;
-    can_data.start_button.start = false;
+    // // Start button debounce (only want rising edge)
+    // car.start_btn_debounced = can_data.start_button.start;
+    // can_data.start_button.start = false;
 
 
     /* State Independent Operations */
-    validatePrecharge();
-    setFault(ID_PCHG_IMPLAUS_FAULT, car.pchg.pchg_error);
+    // validatePrecharge();
+    // setFault(ID_PCHG_IMPLAUS_FAULT, car.pchg.pchg_error);
     // setFault(ID_RTD_EXIT_FAULT, !car.pchg.pchg_complete && car.state == CAR_STATE_READY2DRIVE);
 
     /**
@@ -257,8 +259,9 @@ void carPeriodic()
 
     /* Update System Outputs */
     car.buzzer = car.state == CAR_STATE_BUZZING || daq_buzzer;
+    buzzer_brake_fault = PHAL_readGPIO(BRK_BUZZER_STAT_GPIO_Port, BRK_BUZZER_STAT_Pin);
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
-    PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
+    PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light | daq_brake);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
     mcSetPower(car.torque_r.torque_left,  &car.motor_l);
     mcSetPower(car.torque_r.torque_right, &car.motor_r);

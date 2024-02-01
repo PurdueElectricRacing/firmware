@@ -10,5 +10,6 @@
 //
 bool fanControlInit();
 void setFanSpeed(uint8_t fan_speed);
+uint32_t getFan1Speed();
 
 #endif // _FAN_CONTROL_H_

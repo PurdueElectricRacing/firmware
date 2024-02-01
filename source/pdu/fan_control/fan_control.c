@@ -31,7 +31,7 @@ bool fanControlInit()
      * Therefore we wolve for the below formula for the desired PSC based on the
      * necessary PWMfreq specified by the fan vendor.
     */
-    FAN_PWM_TIM -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY_HZ * 100)) - 1;
+    FAN_PWM_TIM -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY_HZ * FAN_PWM_TIM -> ARR)) - 1;
 
     // NOTE: Set up regs so that CCR1 can be directly set from 0-100
     FAN_PWM_TIM -> ARR = 100 - 1; // Using this for ease of calculations
@@ -64,8 +64,8 @@ bool fanControlInit()
 
     FAN_1_TACH_TIM -> CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
 
-    FAN_1_TACH_TIM -> PSC = (APB1ClockRateHz / (PWM_FREQUENCY_HZ * 100)) - 1;
-    FAN_1_TACH_TIM -> ARR = 100 - 1;
+    FAN_1_TACH_TIM -> PSC = 1 - 1;
+    FAN_1_TACH_TIM -> ARR = 0xFFFF - 1;
 
     /* Set input capture mode */
     FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC2S bits)
@@ -73,11 +73,11 @@ bool fanControlInit()
 
     /* Setup capture compare 1 (period) */
     FAN_1_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC1S;
-    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC1S_1; // Map IC2 to TI1
+    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC1S_1; // Map IC1 to TI2
 
     /* Setup capture compare 2 (duty cycle) */
     FAN_1_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC2S;
-    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI1
+    FAN_1_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI2
 
     /* CCR1 (period) needs rising edge */
     FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1P;
@@ -102,6 +102,10 @@ bool fanControlInit()
     FAN_1_TACH_TIM -> CR1 |= TIM_CR1_CEN; // Enable timer
 
     return true;
+}
+
+uint32_t getFan1Speed() {
+    return (1.0 / ((FAN_1_TACH_TIM -> CCR2) * ((FAN_1_TACH_TIM -> PSC + 1.0) / APB1ClockRateHz)));
 }
 
 // This speed will be between 0-100%

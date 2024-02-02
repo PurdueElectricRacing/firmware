@@ -22,7 +22,8 @@ void getFaults() {
 
 }
 
-void getCurrent() {
+// Called periodically, Calculates current through each switch in mA
+void updateCurrent() {
     // High power switches
     auto_switch.current[SW_PUMP_1] = calcCurrent_HP(adc_readings.pump_1_imon);
     auto_switch.current[SW_PUMP_2] = calcCurrent_HP(adc_readings.pump_2_imon);
@@ -41,8 +42,8 @@ void getCurrent() {
     calcCurrent_Total();
 }
 
-// Updates voltage for all switches and stores values in struct
-void getVoltage() {
+// Called periodically, Updates voltage for each rail in mV
+void updateVoltage() {
     auto_switch.voltage.in_24v = calcVoltage(adc_readings.lv_24_v_sense, LV_24V_R1, LV_24V_R2);
     auto_switch.voltage.out_5v = calcVoltage(adc_readings.lv_5_v_sense, LV_5V_R1, LV_5V_R2);
     auto_switch.voltage.out_3v3 = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2);

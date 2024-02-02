@@ -202,8 +202,8 @@ int main()
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-    taskCreate(getCurrent, 15);
-    taskCreate(getVoltage, 15);
+    taskCreate(updateCurrent, 15);
+    taskCreate(updateVoltage, 15);
     schedStart();
     return 0;
 }

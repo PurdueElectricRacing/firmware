@@ -43,25 +43,29 @@ typedef enum {
     SW_PUMP_2,
     SW_SDC,
     SW_AUX,
+
     // Low power switches
     SW_FAN_1,
     SW_FAN_2,
     SW_DASH,
     SW_ABOX,
     SW_MAIN,
-    SW_BLT,
-    // 5V switches
-    SW_CRIT_5V,
-    SW_NCRIT_5V,
-    SW_DAQ,
-    SW_FAN_5V,
 
     // Not actually switches
     CS_24V,
     CS_5V,
 
-    // Number of switches (must be last)
-    NUM_SWITCHES
+    // Number of switches with CS signals (used for array bounds)
+    // If switch has a current senese circuit, PLACE IT ABOVE THIS COMMENT
+    CS_SWITCH_COUNT,
+
+    // Low power switches (no CS)
+    SW_BLT,
+    // 5V switches (no CS)
+    SW_CRIT_5V,
+    SW_NCRIT_5V,
+    SW_DAQ,
+    SW_FAN_5V
 } switches_t;
 
 // Structures
@@ -72,8 +76,7 @@ typedef struct {
 } voltage_t;  // Voltage in mV
 
 typedef struct {
-    uint8_t fault_status[NUM_SWITCHES];
-    uint16_t current[NUM_SWITCHES];  // Current in mA
+    uint16_t current[CS_SWITCH_COUNT];  // Current in mA
     voltage_t voltage;
 } auto_switch_t;
 
@@ -82,8 +85,8 @@ extern auto_switch_t auto_switch;
 // Function definitions
 uint8_t faultStatus();
 void getFaults();
-void getCurrent();
-void getVoltage();
+void updateCurrent();
+void updateVoltage();
 void enableSwitch();
 uint16_t calcCurrent_HP(uint16_t);
 uint16_t calcCurrent_LP(uint16_t);

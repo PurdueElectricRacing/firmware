@@ -695,8 +695,30 @@
                             "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":101
+                        },
+                        {
+                            "msg_name":"dashboard_brake_status",
+                            "msg_desc":"periodic dashboard brake health",
+                            "signals":[
+                                {"sig_name": "brake_status", "type":"uint8_t", "length":1}
+                            ],
+                            "msg_period":500,
+                            "msg_hlp":1,
+                            "msg_pgn":33
+                        },
+                        {
+                            "msg_name":"dashboard_tv_parameters",
+                            "msg_desc":"periodic dashboard tv parameters",
+                            "signals":[
+                                {"sig_name": "tv_enabled", "type":"uint8_t", "length":1},
+                                {"sig_name": "tv_deadband_val", "type":"uint16_t"},
+                                {"sig_name": "tv_intensity_val", "type":"uint16_t"},
+                                {"sig_name": "tv_p_val", "type":"uint16_t"}
+                            ],
+                            "msg_period":500,
+                            "msg_hlp":1,
+                            "msg_pgn":55
                         }
-
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
@@ -712,7 +734,8 @@
                         {"msg_name": "coolant_temps"},
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},
-                        {"msg_name": "dashboard_bl_cmd" , "callback": true}
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true},
+                        {"msg_name": "dashboard_brake_status"}
                     ]
                 },
                 {

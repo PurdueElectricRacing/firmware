@@ -26,6 +26,8 @@
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_DASHBOARD_VOLTS_TEMP 0x4001945
+#define ID_DASHBOARD_BRAKE_STATUS 0x4000845
+#define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
 #define ID_FAULT_SYNC_DASHBOARD 0x8ca85
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
@@ -59,6 +61,8 @@
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_HB 1
 #define DLC_DASHBOARD_VOLTS_TEMP 6
+#define DLC_DASHBOARD_BRAKE_STATUS 1
+#define DLC_DASHBOARD_TV_PARAMETERS 7
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
@@ -135,6 +139,21 @@
         data_a->dashboard_volts_temp.volts_3v3 = volts_3v3_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_DASHBOARD_BRAKE_STATUS(queue, brake_status_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_BRAKE_STATUS, .DLC=DLC_DASHBOARD_BRAKE_STATUS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dashboard_brake_status.brake_status = brake_status_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_DASHBOARD_TV_PARAMETERS(queue, tv_enabled_, tv_deadband_val_, tv_intensity_val_, tv_p_val_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_TV_PARAMETERS, .DLC=DLC_DASHBOARD_TV_PARAMETERS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dashboard_tv_parameters.tv_enabled = tv_enabled_;\
+        data_a->dashboard_tv_parameters.tv_deadband_val = tv_deadband_val_;\
+        data_a->dashboard_tv_parameters.tv_intensity_val = tv_intensity_val_;\
+        data_a->dashboard_tv_parameters.tv_p_val = tv_p_val_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_FAULT_SYNC_DASHBOARD(queue, idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_DASHBOARD, .DLC=DLC_FAULT_SYNC_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -166,6 +185,7 @@
 #define UP_COOLANT_TEMPS 200
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 2000
+#define UP_DASHBOARD_BRAKE_STATUS 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -221,6 +241,15 @@ typedef union {
         uint64_t volts_5v: 16;
         uint64_t volts_3v3: 16;
     } dashboard_volts_temp;
+    struct {
+        uint64_t brake_status: 1;
+    } dashboard_brake_status;
+    struct {
+        uint64_t tv_enabled: 1;
+        uint64_t tv_deadband_val: 16;
+        uint64_t tv_intensity_val: 16;
+        uint64_t tv_p_val: 16;
+    } dashboard_tv_parameters;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -516,6 +545,11 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
+    struct {
+        uint8_t brake_status;
+        uint8_t stale;
+        uint32_t last_rx;
+    } dashboard_brake_status;
     struct {
         uint16_t idx;
         uint8_t latched;

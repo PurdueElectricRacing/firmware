@@ -494,7 +494,7 @@ extern fault_attributes_t attributes[TOTAL_NUM_FAULTS];
 //Function defs
 void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext);
 bool setFault(int, int);
-static void forceFault(int id, bool state);
+void forceFault(int id, bool state);
 static void unForce(int);
 static void txFaultSpecific(int);
 bool updateFault(uint16_t idx);

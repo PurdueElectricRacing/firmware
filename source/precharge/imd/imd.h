@@ -2,7 +2,7 @@
 * @file imd.h
 * @author Michael Gliane (mgliane@purdue.edu)
 * @brief
-* @version 1.5
+* @version 2.0
 * @date 2023-9-30
 * 
 * @copyright Copyright (c) 2023
@@ -13,8 +13,14 @@
 #define _PHAL_IMD_H
 
 #include <stdbool.h>
-#include "stm32f4xx.h"
+//#include "stm32f4xx.h"
 //#include "stm32l496xx.h"
+
+/**
+* @brief                Isolated testing environment using proper GPIO pin
+*                       *Make sure to comment out if errrors are occuring
+*/
+int main();
 
 /**
 * @brief                Enabling and configuring the proper GPIO pins (GPIOB pins 5-7)
@@ -37,11 +43,11 @@ bool checkIMD_signal_OKhs();
 /**
 * @brief                Checks and returns the frequency of the Mhs
 */
-int checkIMD_signal_Mhs();
+float checkIMD_signal_Mhs();
 
 /**
 * @brief                Checks and returns the frequency of the Mls
 */
-int checkIMD_signal_Mls();
+float checkIMD_signal_Mls();
 
 #endif //_PHAL_IMD_H

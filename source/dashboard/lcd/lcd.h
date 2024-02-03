@@ -16,12 +16,26 @@
 #define FATAL_STRING "critical"
 #define DEADBAND_STRING "deadband"
 #define INTENSITY_STRING "intensity"
+#define FAULT_STRING "faults"
 #define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U)
 
 //Error/Knob page values
 #define TIME_BAR "j0"
 #define ERR_TXT "t1"
 #define KNB_TXT "t3"
+
+//Fault Page Values
+#define FAULT_1_TXT "t1"
+#define FAULT_2_TXT "t2"
+#define FAULT_3_TXT "t3"
+#define FAULT_4_TXT "t4"
+#define FAULT_5_TXT "t5"
+#define FLT_STAT_1_TXT "t6"
+#define FLT_STAT_2_TXT "t7"
+#define FLT_STAT_3_TXT "t8"
+#define FLT_STAT_4_TXT "t9"
+#define FLT_STAT_5_TXT "t10"
+#define FAULT_NONE_STRING "NONE\0"
 
 //TV Page Values
 #define P_BAR "j0"
@@ -80,15 +94,21 @@
 
 
 typedef enum {
-  PAGE_PREFLIGHT,
+
+  // Pages selectable with the rot encoder
+  // Should corresspond with the page count in main.h
   PAGE_RACE,
   PAGE_SETTINGS,
   PAGE_DATA,
   PAGE_TV,
+  PAGE_FAULTS,    
+
+  // Pages that can be displayed but not selected with the encoder
+  PAGE_PREFLIGHT,
   PAGE_WARNING,
   PAGE_ERROR,
   PAGE_FATAL,
-  PAGE_KNOBS
+  //PAGE_KNOBS
 } page_t;
 
 typedef enum {
@@ -128,6 +148,13 @@ typedef struct {
   hover_state_t curr_hover;
 } settings_t;
 
+typedef struct {
+  volatile int8_t encoder_position;
+  volatile int8_t current_enc_rot;
+  uint8_t num_pages;
+
+} lcd_t;
+
 void initLCD();
 void updatePage();
 void moveLeft();
@@ -142,5 +169,7 @@ void send_i_val();
 void update_data_pages();
 char *get_deadband();
 char *int_to_char(int16_t val, char *val_to_send);
+bool zeroEncoder(volatile int8_t* start_pos);
+void updateShutdownCircuitDisplay();
 
 #endif

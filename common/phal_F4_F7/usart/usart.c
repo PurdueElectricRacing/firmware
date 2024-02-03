@@ -667,7 +667,6 @@ USART TX and RX interrupts - need to modify when adding a usart peripheral
 
 #ifdef STM32F407xx
 // USART1:
-
 void DMA2_Stream7_IRQHandler() //TX
 {
     handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream7_IRQn, USART_DMA_TX);
@@ -677,6 +676,7 @@ void DMA2_Stream5_IRQHandler() //TX
 {
     handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream5_IRQn, USART_DMA_TX);
 }
+
 
 // USART2:
 
@@ -696,6 +696,7 @@ void DMA1_Stream5_IRQHandler() //RX
 
 // Add new USART Interrupts as new peripherals are needed,
 // feeding in the new USART peripheral, along with active array index
+
 void USART1_IRQHandler()
 {
     handleUsartIRQ(USART1, USART1_ACTIVE_IDX);

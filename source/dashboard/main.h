@@ -16,7 +16,7 @@
 
 #define FAULT_NODE_NAME NODE_DASHBOARD
 
-//STM32L496VGT6
+//STM32F407
 
 typedef struct __attribute__((packed))
 {
@@ -31,9 +31,25 @@ typedef struct __attribute__((packed))
     uint16_t shock_right;
     uint16_t lv_5v_sense;
     uint16_t lv_3v3_sense;
+    uint16_t lv_12v_sense;
+    uint16_t lv_24_v_sense;
+    uint16_t load_l;
+    uint16_t load_r;
 } raw_adc_values_t;
 
 volatile extern raw_adc_values_t raw_adc_values;
+
+typedef enum 
+{
+    DASH_INPUT_NONE,
+    DASH_INPUT_ROT_ENC,
+    DASH_INPUT_UP_BUTTON,
+    DASH_INPUT_DOWN_BUTTON,
+    DASH_INPUT_SELECT_BUTTON,
+    DASH_INPUT_START_BUTTON,
+    DASH_INPUT_COUNT,
+    DASH_INPUT_INVALID,
+} dashboard_input_t;
 
 // Status LED Indicators
 #define CONN_LED_GPIO_Port          (GPIOE)
@@ -67,6 +83,7 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define ENC_A_Pin                   (10)
 #define ENC_B_GPIO_Port             (GPIOD)
 #define ENC_B_Pin                   (9)
+#define ENC_NUM_STATES              (4)
 
 // CAN
 #define VCAN_RX_GPIO_Port           (GPIOD)
@@ -134,6 +151,7 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define LCD_UART_TX_Pin             (9)
 #define LCD_UART_RX_GPIO_Port       (GPIOA)
 #define LCD_UART_RX_Pin             (10)
+#define LCD_NUM_PAGES               (5) // Number of pages (does not include preflight)
 
 // LV Status
 #define LV_5V_V_SENSE_GPIO_Port     (GPIOC)
@@ -142,15 +160,14 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define LV_3V3_V_SENSE_GPIO_Port    (GPIOC)
 #define LV_3V3_V_SENSE_Pin          (3)
 #define LV_3V3_V_SENSE_ADC_CHNL     (13)
-#define LV_12_V_SENSE_GPIO_Port    (GPIOC)
-#define LV_12_V_SENSE_Pin          (4)
-#define LV_12_V_SENSE_ADC_CHNL     (14)
-#define LV_24_V_SENSE_GPIO_Port    (GPIOC)
-#define LV_24_V_SENSE_Pin          (5)
-#define LV_24_V_SENSE_ADC_CHNL     (15)
-#define LV_24_V_FAULT_GPIO_Port    (GPIOC)
-#define LV_24_V_FAULT_Pin          (8)
+#define LV_12_V_SENSE_GPIO_Port     (GPIOC)
+#define LV_12_V_SENSE_Pin           (4)
+#define LV_12_V_SENSE_ADC_CHNL      (14)
+#define LV_24_V_SENSE_GPIO_Port     (GPIOC)
+#define LV_24_V_SENSE_Pin           (5)
+#define LV_24_V_SENSE_ADC_CHNL      (15)
+#define LV_24_V_FAULT_GPIO_Port     (GPIOC)
+#define LV_24_V_FAULT_Pin           (8)
 #define LV_5V_SCALE                 (0.413F)
-
 
 #endif

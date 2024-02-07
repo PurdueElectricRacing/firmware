@@ -31,19 +31,16 @@
 #define ID_WHEEL_SPEEDS 0xc0001ff
 #define ID_ADC_VALUES 0x1234
 #define ID_CAR_STATE 0xbeef420
-#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
-#define ID_FRONT_DRIVELINE_HB 0x4001903
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
-#define ID_L4_TESTING_BL_CMD 0x409c83e
-#define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_L4_TESTING_BL_CMD 0x409c57e
+#define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DRIVELINE 0x8ca83
-#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
-#define ID_FAULT_SYNC_A_BOX 0x8cac4
-#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
+#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_FAULT_SYNC_A_BOX 0x8ca44
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
@@ -63,17 +60,14 @@
 #define DLC_CAR_STATE 1
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_DAQ_RESPONSE_TEST_NODE 8
-#define DLC_FRONT_DRIVELINE_HB 6
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
 #define DLC_L4_TESTING_BL_CMD 5
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
-#define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_DAQ_COMMAND_TEST_NODE 8
@@ -174,7 +168,6 @@ typedef union {
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period) in milliseconds*/
-#define UP_FRONT_DRIVELINE_HB 100
 #define UP_TEST_MSG5_2 15
 #define UP_TEST_STALE 1000
 /* END AUTO UP DEFS */
@@ -189,52 +182,6 @@ typedef enum {
     CAR_STATE_FLYING,
     CAR_STATE_LIGHTSPEED,
 } car_state_t;
-
-typedef enum {
-    FRONT_LEFT_MOTOR_DISCONNECTED,
-    FRONT_LEFT_MOTOR_CONNECTED,
-    FRONT_LEFT_MOTOR_CONFIG,
-    FRONT_LEFT_MOTOR_ERROR,
-} front_left_motor_t;
-
-typedef enum {
-    FRONT_LEFT_MOTOR_LINK_DISCONNECTED,
-    FRONT_LEFT_MOTOR_LINK_ATTEMPTING,
-    FRONT_LEFT_MOTOR_LINK_VERIFYING,
-    FRONT_LEFT_MOTOR_LINK_DELAY,
-    FRONT_LEFT_MOTOR_LINK_CONNECTED,
-    FRONT_LEFT_MOTOR_LINK_FAIL,
-} front_left_motor_link_t;
-
-typedef enum {
-    FRONT_LEFT_LAST_LINK_ERROR_NONE,
-    FRONT_LEFT_LAST_LINK_ERROR_NOT_SERIAL,
-    FRONT_LEFT_LAST_LINK_ERROR_CMD_TIMEOUT,
-    FRONT_LEFT_LAST_LINK_ERROR_GEN_TIMEOUT,
-} front_left_last_link_error_t;
-
-typedef enum {
-    FRONT_RIGHT_MOTOR_DISCONNECTED,
-    FRONT_RIGHT_MOTOR_CONNECTED,
-    FRONT_RIGHT_MOTOR_CONFIG,
-    FRONT_RIGHT_MOTOR_ERROR,
-} front_right_motor_t;
-
-typedef enum {
-    FRONT_RIGHT_MOTOR_LINK_DISCONNECTED,
-    FRONT_RIGHT_MOTOR_LINK_ATTEMPTING,
-    FRONT_RIGHT_MOTOR_LINK_VERIFYING,
-    FRONT_RIGHT_MOTOR_LINK_DELAY,
-    FRONT_RIGHT_MOTOR_LINK_CONNECTED,
-    FRONT_RIGHT_MOTOR_LINK_FAIL,
-} front_right_motor_link_t;
-
-typedef enum {
-    FRONT_RIGHT_LAST_LINK_ERROR_NONE,
-    FRONT_RIGHT_LAST_LINK_ERROR_NOT_SERIAL,
-    FRONT_RIGHT_LAST_LINK_ERROR_CMD_TIMEOUT,
-    FRONT_RIGHT_LAST_LINK_ERROR_GEN_TIMEOUT,
-} front_right_last_link_error_t;
 
 typedef enum {
     CAR_STATE2_READY2GO,
@@ -293,14 +240,6 @@ typedef union {
         uint64_t daq_response: 64;
     } daq_response_TEST_NODE;
     struct {
-        uint64_t front_left_motor: 8;
-        uint64_t front_left_motor_link: 8;
-        uint64_t front_left_last_link_error: 8;
-        uint64_t front_right_motor: 8;
-        uint64_t front_right_motor_link: 8;
-        uint64_t front_right_last_link_error: 8;
-    } front_driveline_hb;
-    struct {
         uint64_t test_sig5: 16;
         uint64_t test_sig5_2: 16;
         uint64_t test_sig5_3: 32;
@@ -326,19 +265,11 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_driveline;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
     } fault_sync_dashboard;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_a_box;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint64_t id: 16;
         uint64_t value: 1;
@@ -357,16 +288,6 @@ typedef union {
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
-    struct {
-        front_left_motor_t front_left_motor;
-        front_left_motor_link_t front_left_motor_link;
-        front_left_last_link_error_t front_left_last_link_error;
-        front_right_motor_t front_right_motor;
-        front_right_motor_link_t front_right_motor_link;
-        front_right_last_link_error_t front_right_last_link_error;
-        uint8_t stale;
-        uint32_t last_rx;
-    } front_driveline_hb;
     struct {
         uint16_t test_sig5;
         int16_t test_sig5_2;
@@ -397,19 +318,11 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_driveline;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
     } fault_sync_dashboard;
     struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint16_t id;
         uint8_t value;

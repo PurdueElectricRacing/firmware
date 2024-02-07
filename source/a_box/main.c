@@ -1,7 +1,7 @@
 /* System Includes */
 #include "stm32f407xx.h"
 #include "can_parse.h"
-// #include "common/bootloader/bootloader_common.h"
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -439,10 +439,10 @@ void CAN2_RX0_IRQHandler()
 }
 
 
-void precharge_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+void a_box_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
-//    if (can_data.precharge_bl_cmd.cmd == BLCMD_RST)
-//        Bootloader_ResetForFirmwareDownload();
+   if (can_data.a_box_bl_cmd.cmd == BLCMD_RST)
+       Bootloader_ResetForFirmwareDownload();
 }
 
 

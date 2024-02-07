@@ -13,7 +13,11 @@
 
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
+#if defined(STM32F407xx) || defined(STM32F732xx)
+#include "common/phal_F4_F7/can/can.h"
+#else
 #include "common/phal_L4/can/can.h"
+#endif
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "bootloader"
@@ -23,38 +27,20 @@
 #define ID_MAIN_MODULE_BL_RESP 0x404e23c
 #define ID_DASHBOARD_BL_RESP 0x404e27c
 #define ID_TORQUEVECTOR_BL_RESP 0x404e2bc
-#define ID_DRIVELINE_FRONT_BL_RESP 0x404e2fc
-#define ID_DRIVELINE_REAR_BL_RESP 0x404e33c
-#define ID_PRECHARGE_BL_RESP 0x404e37c
-#define ID_BMS_A_BL_RESP 0x404e3bc
-#define ID_BMS_B_BL_RESP 0x404e3fc
-#define ID_BMS_C_BL_RESP 0x404e43c
-#define ID_BMS_D_BL_RESP 0x404e47c
-#define ID_BMS_E_BL_RESP 0x404e4bc
-#define ID_BMS_F_BL_RESP 0x404e4fc
-#define ID_BMS_G_BL_RESP 0x404e53c
-#define ID_BMS_H_BL_RESP 0x404e57c
-#define ID_BMS_I_BL_RESP 0x404e5bc
-#define ID_BMS_J_BL_RESP 0x404e5fc
-#define ID_L4_TESTING_BL_RESP 0x404e63c
+#define ID_A_BOX_BL_RESP 0x404e2fc
+#define ID_PDU_BL_RESP 0x404e33c
+#define ID_L4_TESTING_BL_RESP 0x430d57c
+#define ID_F4_TESTING_BL_RESP 0x430d5bc
+#define ID_F7_TESTING_BL_RESP 0x430d5fc
 #define ID_BITSTREAM_DATA 0x400193e
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
-#define ID_DRIVELINE_FRONT_BL_CMD 0x409c4fe
-#define ID_DRIVELINE_REAR_BL_CMD 0x409c53e
-#define ID_PRECHARGE_BL_CMD 0x409c57e
-#define ID_BMS_A_BL_CMD 0x409c5be
-#define ID_BMS_B_BL_CMD 0x409c5fe
-#define ID_BMS_C_BL_CMD 0x409c63e
-#define ID_BMS_D_BL_CMD 0x409c67e
-#define ID_BMS_E_BL_CMD 0x409c6be
-#define ID_BMS_F_BL_CMD 0x409c6fe
-#define ID_BMS_G_BL_CMD 0x409c73e
-#define ID_BMS_H_BL_CMD 0x409c77e
-#define ID_BMS_I_BL_CMD 0x409c7be
-#define ID_BMS_J_BL_CMD 0x409c7fe
-#define ID_L4_TESTING_BL_CMD 0x409c83e
+#define ID_A_BOX_BL_CMD 0x409c4fe
+#define ID_PDU_BL_CMD 0x409c53e
+#define ID_L4_TESTING_BL_CMD 0x409c57e
+#define ID_F4_TESTING_BL_CMD 0x409c5be
+#define ID_F7_TESTING_BL_CMD 0x409c5fe
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -62,38 +48,20 @@
 #define DLC_MAIN_MODULE_BL_RESP 5
 #define DLC_DASHBOARD_BL_RESP 5
 #define DLC_TORQUEVECTOR_BL_RESP 5
-#define DLC_DRIVELINE_FRONT_BL_RESP 5
-#define DLC_DRIVELINE_REAR_BL_RESP 5
-#define DLC_PRECHARGE_BL_RESP 5
-#define DLC_BMS_A_BL_RESP 5
-#define DLC_BMS_B_BL_RESP 5
-#define DLC_BMS_C_BL_RESP 5
-#define DLC_BMS_D_BL_RESP 5
-#define DLC_BMS_E_BL_RESP 5
-#define DLC_BMS_F_BL_RESP 5
-#define DLC_BMS_G_BL_RESP 5
-#define DLC_BMS_H_BL_RESP 5
-#define DLC_BMS_I_BL_RESP 5
-#define DLC_BMS_J_BL_RESP 5
+#define DLC_A_BOX_BL_RESP 5
+#define DLC_PDU_BL_RESP 5
 #define DLC_L4_TESTING_BL_RESP 5
+#define DLC_F4_TESTING_BL_RESP 5
+#define DLC_F7_TESTING_BL_RESP 5
 #define DLC_BITSTREAM_DATA 8
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_TORQUEVECTOR_BL_CMD 5
-#define DLC_DRIVELINE_FRONT_BL_CMD 5
-#define DLC_DRIVELINE_REAR_BL_CMD 5
-#define DLC_PRECHARGE_BL_CMD 5
-#define DLC_BMS_A_BL_CMD 5
-#define DLC_BMS_B_BL_CMD 5
-#define DLC_BMS_C_BL_CMD 5
-#define DLC_BMS_D_BL_CMD 5
-#define DLC_BMS_E_BL_CMD 5
-#define DLC_BMS_F_BL_CMD 5
-#define DLC_BMS_G_BL_CMD 5
-#define DLC_BMS_H_BL_CMD 5
-#define DLC_BMS_I_BL_CMD 5
-#define DLC_BMS_J_BL_CMD 5
+#define DLC_A_BOX_BL_CMD 5
+#define DLC_PDU_BL_CMD 5
 #define DLC_L4_TESTING_BL_CMD 5
+#define DLC_F4_TESTING_BL_CMD 5
+#define DLC_F7_TESTING_BL_CMD 5
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -119,95 +87,18 @@
         data_a->torquevector_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DRIVELINE_FRONT_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVELINE_FRONT_BL_RESP, .DLC=DLC_DRIVELINE_FRONT_BL_RESP, .IDE=1};\
+#define SEND_A_BOX_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_A_BOX_BL_RESP, .DLC=DLC_A_BOX_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->driveline_front_bl_resp.cmd = cmd_;\
-        data_a->driveline_front_bl_resp.data = data_;\
+        data_a->a_box_bl_resp.cmd = cmd_;\
+        data_a->a_box_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DRIVELINE_REAR_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVELINE_REAR_BL_RESP, .DLC=DLC_DRIVELINE_REAR_BL_RESP, .IDE=1};\
+#define SEND_PDU_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PDU_BL_RESP, .DLC=DLC_PDU_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->driveline_rear_bl_resp.cmd = cmd_;\
-        data_a->driveline_rear_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_PRECHARGE_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PRECHARGE_BL_RESP, .DLC=DLC_PRECHARGE_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->precharge_bl_resp.cmd = cmd_;\
-        data_a->precharge_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_A_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_A_BL_RESP, .DLC=DLC_BMS_A_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_a_bl_resp.cmd = cmd_;\
-        data_a->bms_a_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_B_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_B_BL_RESP, .DLC=DLC_BMS_B_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_b_bl_resp.cmd = cmd_;\
-        data_a->bms_b_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_C_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_C_BL_RESP, .DLC=DLC_BMS_C_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_c_bl_resp.cmd = cmd_;\
-        data_a->bms_c_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_D_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_D_BL_RESP, .DLC=DLC_BMS_D_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_d_bl_resp.cmd = cmd_;\
-        data_a->bms_d_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_E_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_E_BL_RESP, .DLC=DLC_BMS_E_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_e_bl_resp.cmd = cmd_;\
-        data_a->bms_e_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_F_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_F_BL_RESP, .DLC=DLC_BMS_F_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_f_bl_resp.cmd = cmd_;\
-        data_a->bms_f_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_G_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_G_BL_RESP, .DLC=DLC_BMS_G_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_g_bl_resp.cmd = cmd_;\
-        data_a->bms_g_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_H_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_H_BL_RESP, .DLC=DLC_BMS_H_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_h_bl_resp.cmd = cmd_;\
-        data_a->bms_h_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_I_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_I_BL_RESP, .DLC=DLC_BMS_I_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_i_bl_resp.cmd = cmd_;\
-        data_a->bms_i_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BMS_J_BL_RESP(queue, cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMS_J_BL_RESP, .DLC=DLC_BMS_J_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bms_j_bl_resp.cmd = cmd_;\
-        data_a->bms_j_bl_resp.data = data_;\
+        data_a->pdu_bl_resp.cmd = cmd_;\
+        data_a->pdu_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_L4_TESTING_BL_RESP(queue, cmd_, data_) do {\
@@ -215,6 +106,20 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->l4_testing_bl_resp.cmd = cmd_;\
         data_a->l4_testing_bl_resp.data = data_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_F4_TESTING_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_F4_TESTING_BL_RESP, .DLC=DLC_F4_TESTING_BL_RESP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->f4_testing_bl_resp.cmd = cmd_;\
+        data_a->f4_testing_bl_resp.data = data_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_F7_TESTING_BL_RESP(queue, cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_F7_TESTING_BL_RESP, .DLC=DLC_F7_TESTING_BL_RESP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->f7_testing_bl_resp.cmd = cmd_;\
+        data_a->f7_testing_bl_resp.data = data_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -248,59 +153,23 @@ typedef union {
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_front_bl_resp;
+    } a_box_bl_resp;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_rear_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } precharge_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_a_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_b_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_c_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_d_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_e_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_f_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_g_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_h_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_i_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_j_bl_resp;
+    } pdu_bl_resp;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } l4_testing_bl_resp;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } f4_testing_bl_resp;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } f7_testing_bl_resp;
     struct {
         uint64_t d0: 8;
         uint64_t d1: 8;
@@ -326,59 +195,23 @@ typedef union {
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_front_bl_cmd;
+    } a_box_bl_cmd;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } driveline_rear_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } precharge_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_a_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_b_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_c_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_d_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_e_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_f_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_g_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_h_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_i_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } bms_j_bl_cmd;
+    } pdu_bl_cmd;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } l4_testing_bl_cmd;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } f4_testing_bl_cmd;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } f7_testing_bl_cmd;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -412,59 +245,23 @@ typedef struct {
     struct {
         uint8_t cmd;
         uint32_t data;
-    } driveline_front_bl_cmd;
+    } a_box_bl_cmd;
     struct {
         uint8_t cmd;
         uint32_t data;
-    } driveline_rear_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } precharge_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_a_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_b_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_c_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_d_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_e_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_f_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_g_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_h_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_i_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } bms_j_bl_cmd;
+    } pdu_bl_cmd;
     struct {
         uint8_t cmd;
         uint32_t data;
     } l4_testing_bl_cmd;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } f4_testing_bl_cmd;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } f7_testing_bl_cmd;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -475,20 +272,11 @@ extern void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a);
 extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void driveline_front_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void driveline_rear_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_a_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_b_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_c_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_d_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_e_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_f_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_g_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_h_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_i_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void bms_j_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void f4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void f7_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

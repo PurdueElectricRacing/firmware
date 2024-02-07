@@ -1,4 +1,5 @@
 /* System Includes */
+#include "common/bootloader/bootloader_common.h"
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -307,6 +308,11 @@ void CAN1_RX0_IRQHandler()
    }
 }
 
+void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+   if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
+       Bootloader_ResetForFirmwareDownload();
+}
 
 void HardFault_Handler()
 {

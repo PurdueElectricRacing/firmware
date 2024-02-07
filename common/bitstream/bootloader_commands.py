@@ -47,11 +47,10 @@ class BootloaderCommand():
         0 : "BLERROR_CRC_FAIL",
         1 : "BLERROR_LOCKED",
         2 : "BLERROR_LOW_ADDR",
-        3 : "BLERROR_ADDR_BOUND"
+        3 : "BLERROR_ADDR_BOUND",
+        4 : "BLERROR_FLASH",
     }
 
-    ADDRESS_START = 0x08002000
-    
     def __init__(self, application_name, can_db) -> None:
         if (application_name not in self.APP_IDs):
             print(f"App name \"{application_name}\" not recoginzed")

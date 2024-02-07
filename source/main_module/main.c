@@ -1,5 +1,5 @@
 /* System Includes */
-// #include "common/bootloader/bootloader_common.h"
+#include "common/bootloader/bootloader_common.h"
 #include "common/faults/faults.h"
 // #include "common/modules/wheel_speeds/wheel_speeds.h"
 #include "common/phal_F4_F7/adc/adc.h"
@@ -486,8 +486,8 @@ void CAN1_RX0_IRQHandler()
 
 void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
-    // if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
-    //     Bootloader_ResetForFirmwareDownload();
+    if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 void HardFault_Handler()

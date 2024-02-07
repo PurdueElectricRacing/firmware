@@ -13,8 +13,13 @@
 #define _BOOTLOADER_COMMON_H_
 
 #include "inttypes.h"
+#if defined(STM32F407xx)
+#include "stm32f4xx.h"
+#elif defined(STM32F732xx)
+#include "stm32f7xx.h"
+#else
 #include "stm32l4xx.h"
-
+#endif
 
 #define BOOTLOADER_SHARED_MEMORY_MAGIC (0xABCDBEEF)
 

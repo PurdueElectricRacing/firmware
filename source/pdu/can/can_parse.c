@@ -35,14 +35,14 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
+            case ID_PDU_BL_CMD:
+                can_data.pdu_bl_cmd.cmd = msg_data_a->pdu_bl_cmd.cmd;
+                can_data.pdu_bl_cmd.data = msg_data_a->pdu_bl_cmd.data;
+                pdu_bl_cmd_CALLBACK(msg_data_a);
+                break;
             case ID_FAULT_SYNC_MAIN_MODULE:
                 can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
                 can_data.fault_sync_main_module.latched = msg_data_a->fault_sync_main_module.latched;
-				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_FAULT_SYNC_DRIVELINE:
-                can_data.fault_sync_driveline.idx = msg_data_a->fault_sync_driveline.idx;
-                can_data.fault_sync_driveline.latched = msg_data_a->fault_sync_driveline.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_DASHBOARD:
@@ -53,11 +53,6 @@ void canRxUpdate()
             case ID_FAULT_SYNC_A_BOX:
                 can_data.fault_sync_a_box.idx = msg_data_a->fault_sync_a_box.idx;
                 can_data.fault_sync_a_box.latched = msg_data_a->fault_sync_a_box.latched;
-				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_FAULT_SYNC_TORQUE_VECTOR_FPGA:
-                can_data.fault_sync_torque_vector_fpga.idx = msg_data_a->fault_sync_torque_vector_fpga.idx;
-                can_data.fault_sync_torque_vector_fpga.latched = msg_data_a->fault_sync_torque_vector_fpga.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_TEST_NODE:
@@ -103,19 +98,17 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_FAULT_SYNC_DRIVELINE << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_PDU_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR_FPGA << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_DAQ_COMMAND_PDU << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_DAQ_COMMAND_PDU << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

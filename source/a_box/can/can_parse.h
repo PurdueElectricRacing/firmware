@@ -20,9 +20,6 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_HEAT_REQ 0x8007d2a
-#define ID_PACK_CURR 0x4007d6a
-#define ID_BALANCE_REQUEST 0xc00002a
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
 #define ID_NUM_THEM_BAD 0x80080c4
@@ -35,35 +32,17 @@
 #define ID_MOD_CELL_TEMP_MAX 0x14008104
 #define ID_MOD_CELL_TEMP_MIN 0x14008204
 #define ID_RAW_CELL_TEMP 0x140080c4
-#define ID_FAULT_SYNC_A_BOX 0x8cac4
+#define ID_FAULT_SYNC_A_BOX 0x8ca44
 #define ID_DAQ_RESPONSE_A_BOX 0x17ffffc4
-#define ID_MODULE_TEMP_0 0xbe0
-#define ID_MODULE_TEMP_1 0xbe1
-#define ID_MODULE_TEMP_2 0xbe2
-#define ID_MODULE_TEMP_3 0xbe3
-#define ID_MODULE_TEMP_4 0xbe4
-#define ID_MODULE_TEMP_5 0xbe5
-#define ID_MODULE_TEMP_6 0xbe6
-#define ID_MODULE_TEMP_7 0xbe7
-#define ID_MODULE_TEMP_8 0xbe8
-#define ID_MODULE_TEMP_9 0xbe9
-#define ID_MODULE_TEMP_10 0xbea
-#define ID_MODULE_TEMP_11 0xbeb
-#define ID_MODULE_TEMP_12 0xbec
-#define ID_MODULE_TEMP_13 0xbed
-#define ID_MODULE_TEMP_14 0xbee
-#define ID_MODULE_TEMP_15 0xbef
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
-#define ID_PRECHARGE_BL_CMD 0x409c57e
-#define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_A_BOX_BL_CMD 0x409c4fe
+#define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DRIVELINE 0x8ca83
-#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
-#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
-#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
+#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_A_BOX 0x14000132
@@ -71,9 +50,6 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_HEAT_REQ 3
-#define DLC_PACK_CURR 2
-#define DLC_BALANCE_REQUEST 2
 #define DLC_PRECHARGE_HB 2
 #define DLC_ELCON_CHARGER_COMMAND 5
 #define DLC_NUM_THEM_BAD 4
@@ -88,32 +64,14 @@
 #define DLC_RAW_CELL_TEMP 7
 #define DLC_FAULT_SYNC_A_BOX 3
 #define DLC_DAQ_RESPONSE_A_BOX 8
-#define DLC_MODULE_TEMP_0 8
-#define DLC_MODULE_TEMP_1 8
-#define DLC_MODULE_TEMP_2 8
-#define DLC_MODULE_TEMP_3 8
-#define DLC_MODULE_TEMP_4 8
-#define DLC_MODULE_TEMP_5 8
-#define DLC_MODULE_TEMP_6 8
-#define DLC_MODULE_TEMP_7 8
-#define DLC_MODULE_TEMP_8 8
-#define DLC_MODULE_TEMP_9 8
-#define DLC_MODULE_TEMP_10 8
-#define DLC_MODULE_TEMP_11 8
-#define DLC_MODULE_TEMP_12 8
-#define DLC_MODULE_TEMP_13 8
-#define DLC_MODULE_TEMP_14 8
-#define DLC_MODULE_TEMP_15 8
 #define DLC_ELCON_CHARGER_STATUS 5
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_ORION_ERRORS 4
-#define DLC_PRECHARGE_BL_CMD 5
+#define DLC_A_BOX_BL_CMD 5
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
-#define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -122,25 +80,6 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_HEAT_REQ(queue, toggle_, time_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_HEAT_REQ, .DLC=DLC_HEAT_REQ, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->heat_req.toggle = toggle_;\
-        data_a->heat_req.time = time_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_PACK_CURR(queue, current_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_PACK_CURR, .DLC=DLC_PACK_CURR, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->pack_curr.current = current_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_BALANCE_REQUEST(queue, voltage_target_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_BALANCE_REQUEST, .DLC=DLC_BALANCE_REQUEST, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->balance_request.voltage_target = voltage_target_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
 #define SEND_PRECHARGE_HB(queue, IMD_, BMS_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PRECHARGE_HB, .DLC=DLC_PRECHARGE_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -275,16 +214,6 @@
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { 
     struct {
-        uint64_t toggle: 1;
-        uint64_t time: 16;
-    } heat_req;
-    struct {
-        uint64_t current: 16;
-    } pack_curr;
-    struct {
-        uint64_t voltage_target: 16;
-    } balance_request;
-    struct {
         uint64_t IMD: 8;
         uint64_t BMS: 8;
     } precharge_hb;
@@ -356,102 +285,6 @@ typedef union {
         uint64_t daq_response: 64;
     } daq_response_A_BOX;
     struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_0;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_1;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_2;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_3;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_4;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_5;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_6;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_7;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_8;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_9;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_10;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_11;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_12;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_13;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_14;
-    struct {
-        uint64_t mod_temp_0: 16;
-        uint64_t mod_temp_1: 16;
-        uint64_t mod_temp_2: 16;
-        uint64_t mod_temp_3: 16;
-    } module_temp_15;
-    struct {
         uint64_t charge_voltage: 16;
         uint64_t charge_current: 16;
         uint64_t hw_fail: 1;
@@ -522,7 +355,7 @@ typedef union {
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
-    } precharge_bl_cmd;
+    } a_box_bl_cmd;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -534,15 +367,7 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_driveline;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
     } fault_sync_dashboard;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -565,102 +390,6 @@ typedef union {
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_0;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_1;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_2;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_3;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_4;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_5;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_6;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_7;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_8;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_9;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_10;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_11;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_12;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_13;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_14;
-    struct {
-        uint16_t mod_temp_0;
-        uint16_t mod_temp_1;
-        uint16_t mod_temp_2;
-        uint16_t mod_temp_3;
-    } module_temp_15;
     struct {
         uint16_t charge_voltage;
         uint16_t charge_current;
@@ -740,7 +469,7 @@ typedef struct {
     struct {
         uint8_t cmd;
         uint32_t data;
-    } precharge_bl_cmd;
+    } a_box_bl_cmd;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -752,15 +481,7 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_driveline;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
     } fault_sync_dashboard;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -782,7 +503,7 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_A_BOX_CALLBACK(CanMsgTypeDef_t* msg_header_a);
-extern void precharge_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

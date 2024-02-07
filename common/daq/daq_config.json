@@ -58,13 +58,6 @@
                     "files":[]
                 },
                 {
-                    "node_name":"Driveline",
-                    "includes":"",
-                    "variables": [
-                    ],
-                    "files":[]
-                },
-                {
                     "node_name":"PDU",
                     "includes":"#include \"main.h\"",
                     "variables": [

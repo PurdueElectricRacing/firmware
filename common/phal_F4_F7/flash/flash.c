@@ -11,14 +11,47 @@
 
 #include "common/phal_F4_F7/flash/flash.h"
 
-static void flashUnlock()
+/**
+ * @brief Convert address to sector number
+ *        Assumes addr is within flash addr space
+ * 
+ * @param addr Flash address
+ * @return The flash sector
+ */
+static uint32_t flashGetSector(uint32_t addr)
 {
-    while ((FLASH->SR & FLASH_SR_BSY))
+    uint32_t sector = 0;
+    if      (addr < ADDR_FLASH_SECTOR_1)  sector = 0;
+    else if (addr < ADDR_FLASH_SECTOR_2)  sector = 1;
+    else if (addr < ADDR_FLASH_SECTOR_3)  sector = 2;
+    else if (addr < ADDR_FLASH_SECTOR_4)  sector = 3;
+    else if (addr < ADDR_FLASH_SECTOR_5)  sector = 4;
+    else if (addr < ADDR_FLASH_SECTOR_6)  sector = 5;
+    else if (addr < ADDR_FLASH_SECTOR_7)  sector = 6;
+#ifdef STM32F407xx
+    else if (addr < ADDR_FLASH_SECTOR_8)  sector = 7;
+    else if (addr < ADDR_FLASH_SECTOR_9)  sector = 8;
+    else if (addr < ADDR_FLASH_SECTOR_10) sector = 9;
+    else if (addr < ADDR_FLASH_SECTOR_11) sector = 10;
+    else sector = 11;
+#else
+    sector = 7;
+#endif
+    return sector;
+}
+
+static uint8_t flashUnlock()
+{
+    uint32_t timeout = 0;
+
+    while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
         asm("nop");
+    if (timeout == PHAL_FLASH_TIMEOUT) return FLASH_TIMEOUT;
 
     FLASH->KEYR = FLASH_KEY_1;                  // Keys must be set to unlock flash
     FLASH->KEYR = FLASH_KEY_2;
     __DSB();                                    // Data synchonization barrier (wait for any memory instructions to finish)
+    return FLASH_OK;
 }
 
 static void flashLock()
@@ -27,106 +60,107 @@ static void flashLock()
     FLASH->CR |= FLASH_CR_LOCK;                 // Set-only bit, will be cleared upon next succcessful flash unlock
 }
 
-void PHAL_flashWriteU32(uint32_t* address, uint32_t value)
+uint8_t PHAL_flashWriteU32(uint32_t Address, uint32_t value)
 {
-    flashUnlock();
+    uint32_t timeout = 0;
+    uint8_t ret;
+    ret = flashUnlock();
+    if (ret != FLASH_OK) return ret;
+
+    // Ensure word has been cleared
+    if (*(uint32_t*) Address != 0xFFFFFFFF) return FLASH_ADDR_NOT_CLEARED;
+
+    // Wait until not busy
+    while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
+        asm("nop");
+    if (timeout == PHAL_FLASH_TIMEOUT) return FLASH_TIMEOUT;
+    timeout = 0;
 
     // Set 32 bit parallelism (see RM 0090 Page 85)
     FLASH->CR &= ~(FLASH_CR_PSIZE_Msk);
-    FLASH->CR |= ((FLASH_CR_PSIZE_1) << FLASH_CR_PSIZE_Pos) & FLASH_CR_PSIZE_Msk;
+    FLASH->CR |= FLASH_CR_PSIZE_1;
 
     // Enable flash programming
     FLASH->CR |= FLASH_CR_PG;
 
     // Write word
-    *(__IO uint32_t*)address = value;
+    *(__IO uint32_t*)Address = value;
     asm("nop");
     asm("nop");
 
-    while ((FLASH->SR & FLASH_SR_BSY))
+    while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
         asm("nop");
-
-    // Disable flash programming
-    FLASH->CR &= ~(FLASH_CR_PG);
-
-    // Check for proper flash write
-    if (*((uint32_t*) address) != value)
-    {
-        asm("bkpt 1");
-    }
-
-    flashLock();
-}
-
-void PHAL_flashWriteU64(uint32_t Address, uint64_t Data)
-{
-    flashUnlock();
-
-    // Set 32 bit parallelism (see RM 0090 Page 85)
-    FLASH->CR &= ~(FLASH_CR_PSIZE_Msk);
-    FLASH->CR |= ((FLASH_CR_PSIZE_1) << FLASH_CR_PSIZE_Pos) & FLASH_CR_PSIZE_Msk;
-
-    // Ensure the requested 64 bits are ready
-    if (*((uint32_t*) Address) != 0xFFFFFFFF) asm("bkpt 1");
-    if (*((uint32_t*) (Address + 4)) != 0xFFFFFFFF) asm("bkpt 1");
-
-    while ((FLASH->SR & FLASH_SR_BSY))
-        asm("nop");
-
-    // Enable flash programming
-    FLASH->CR |= FLASH_CR_PG;
-
-    // Program First word
-    *(__IO uint32_t*)Address = (uint32_t)Data;
-
-    // Program Second word
-    *(__IO uint32_t*)(Address+4U) = (uint32_t)(Data >> 32);
-    asm("nop");
-    asm("nop");
-
-    while ((FLASH->SR & FLASH_SR_BSY))
-        asm("nop");
+    if (timeout == PHAL_FLASH_TIMEOUT) return FLASH_TIMEOUT;
 
     // Disable flash programming
     FLASH->CR &= ~(FLASH_CR_PG);
     flashLock();
 
     // Check for proper flash write
-    if (*((uint64_t*) Address) != Data)
+    if (*((uint32_t*) Address) != value)
     {
-        asm("bkpt 1");
+        return FLASH_FAIL;
     }
+
+    return FLASH_OK;
 }
 
-void PHAL_flashErasePage(uint8_t page)
+uint8_t PHAL_flashWriteU64(uint32_t Address, uint64_t Data)
 {
+    uint8_t ret;
+    ret = PHAL_flashWriteU32(Address, (uint32_t) Data);
+    if (ret != FLASH_OK) return ret;
+    ret = PHAL_flashWriteU32(Address+4, (uint32_t) (Data >> 32));
+    return ret;
+}
 
+uint8_t PHAL_flashErasePage(uint8_t page)
+{
     // Validate page request
-    if (page > 0b1011)
+    if (page > MAX_FLASH_SECTOR)
     {
-        asm("bkpt 1");
+        return FLASH_FAIL;
     }
 
-    flashUnlock();
-
-    // Set 32 bit parallelism (see RM 0090 Page 85)
-    FLASH->CR &= ~(FLASH_CR_PSIZE_Msk);
-    FLASH->CR |= ((FLASH_CR_PSIZE_1) << FLASH_CR_PSIZE_Pos) & FLASH_CR_PSIZE_Msk;
+    uint32_t timeout = 0;
+    uint8_t ret;
+    ret = flashUnlock();
+    if (ret != FLASH_OK) return ret;
 
     // Enable sector erase
     FLASH->CR |= FLASH_CR_SER;
 
     // Set the sector to be erased (0-11)
+    FLASH->CR &= ~FLASH_CR_SNB_Msk;
     FLASH->CR |= ((page) << FLASH_CR_SNB_Pos) & FLASH_CR_SNB_Msk;
 
     // Execute the erase
     FLASH->CR |= FLASH_CR_STRT;
 
-    while ((FLASH->SR & FLASH_SR_BSY))
+    while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
         asm("nop");
+    if (timeout == PHAL_FLASH_TIMEOUT) return FLASH_TIMEOUT;
 
     // Disable page erase and clear the page request
     FLASH->CR &= ~(FLASH_CR_SER | FLASH_CR_SNB_Msk);
 
     flashLock();
+
+    return FLASH_OK;
+}
+
+uint8_t PHAL_flashErase(uint32_t *addr, uint32_t words)
+{
+    uint8_t ret;
+    if (words == 0) return FLASH_OK;
+    uint32_t *end_addr_inclusive = addr + (words - 1);
+    if ((uint32_t)addr < FLASH_BASE || (uint32_t)end_addr_inclusive > (FLASH_END-3)) return FLASH_FAIL;
+    uint8_t sector_start = flashGetSector((uint32_t) addr);
+    uint8_t sector_end = flashGetSector((uint32_t) end_addr_inclusive);
+    for (uint8_t i = sector_start; i <= sector_end; ++i)
+    {
+        ret = PHAL_flashErasePage(i);
+        if (ret != FLASH_OK) return ret;
+    }
+    return FLASH_OK;
 }

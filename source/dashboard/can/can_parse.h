@@ -26,10 +26,9 @@
 #define ID_START_BUTTON 0x4000005
 #define ID_DASHBOARD_HB 0x4001905
 #define ID_DASHBOARD_VOLTS_TEMP 0x4001945
-#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
+#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
-#define ID_REAR_WHEEL_DATA 0x4000043
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
@@ -43,12 +42,10 @@
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
-#define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DRIVELINE 0x8ca83
-#define ID_FAULT_SYNC_A_BOX 0x8cac4
-#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
-#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
+#define ID_FAULT_SYNC_A_BOX 0x8ca44
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
@@ -65,7 +62,6 @@
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
-#define DLC_REAR_WHEEL_DATA 8
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
@@ -81,9 +77,7 @@
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
-#define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_A_BOX 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -160,7 +154,6 @@
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 100
-#define UP_REAR_WHEEL_DATA 10
 #define UP_REAR_MOTOR_CURRENTS_TEMPS 500
 #define UP_ORION_INFO 32
 #define UP_ORION_CURRENTS_VOLTS 32
@@ -237,12 +230,6 @@ typedef union {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
     } main_hb;
-    struct {
-        uint64_t left_speed: 16;
-        uint64_t right_speed: 16;
-        uint64_t left_normal: 16;
-        uint64_t right_normal: 16;
-    } rear_wheel_data;
     struct {
         uint64_t left_current: 16;
         uint64_t right_current: 16;
@@ -368,15 +355,7 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_driveline;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
     } fault_sync_a_box;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -405,14 +384,6 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } main_hb;
-    struct {
-        uint16_t left_speed;
-        uint16_t right_speed;
-        uint16_t left_normal;
-        uint16_t right_normal;
-        uint8_t stale;
-        uint32_t last_rx;
-    } rear_wheel_data;
     struct {
         uint16_t left_current;
         uint16_t right_current;
@@ -562,15 +533,7 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_driveline;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
     } fault_sync_a_box;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint16_t idx;
         uint8_t latched;

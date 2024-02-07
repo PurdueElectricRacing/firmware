@@ -1,21 +1,15 @@
 var searchData=
 [
   ['warn_5fstring_0',['WARN_STRING',['../lcd_8h.html#a68be2e50ca8954fe2c024b7604d23623',1,'lcd.h']]],
-  ['wc_5fgpio_5fport_1',['WC_GPIO_Port',['../bms_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'WC_GPIO_Port:&#160;main.h'],['../driveline_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'WC_GPIO_Port:&#160;main.h']]],
-  ['wc_5fpin_2',['WC_Pin',['../bms_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'WC_Pin:&#160;main.h'],['../driveline_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'WC_Pin:&#160;main.h']]],
+  ['wc_5fgpio_5fport_1',['WC_GPIO_Port',['../bms_2main_8h.html#a99bd508cac7772621e16321c9f2f6a5f',1,'main.h']]],
+  ['wc_5fpin_2',['WC_Pin',['../bms_2main_8h.html#a9465f0d01dfeca682017d2463da54d06',1,'main.h']]],
   ['wheel_5fcircumf_5fm_3',['WHEEL_CIRCUMF_M',['../wheel__speeds_8h.html#aedd7fda7dfb4d2db2ab9ab5f2ac2318d',1,'wheel_speeds.h']]],
   ['wheel_5fcounts_5fper_5frev_4',['WHEEL_COUNTS_PER_REV',['../wheel__speeds_8h.html#a086dd6c82cbaf91b98e1c101d938f4b0',1,'wheel_speeds.h']]],
   ['wheel_5fdiam_5fm_5',['WHEEL_DIAM_M',['../wheel__speeds_8h.html#a2a1415b698d1cc2e15d0ec4fdaef5c6d',1,'wheel_speeds.h']]],
-  ['wheelspeedl_5faf_6',['WHEELSPEEDL_AF',['../driveline_2main_8h.html#a5effc13944b04a9b9477aabf46e8fe56',1,'main.h']]],
-  ['wheelspeedr_5faf_7',['WHEELSPEEDR_AF',['../driveline_2main_8h.html#a0e000209ad9628f313f3a91c1540406f',1,'main.h']]],
-  ['white_8',['WHITE',['../nextion_8h.html#a87b537f5fa5c109d3c05c13d6b18f382',1,'nextion.h']]],
-  ['who_5fam_5fi_9',['WHO_AM_I',['../f4__testing_2main_8c.html#a9fcb9e460d175bfc7ab4d80bf788b43a',1,'main.c']]],
-  ['wrcfga_10',['WRCFGA',['../afe_8h.html#a0f38cada613ae1a9c0918543abae1dfe',1,'afe.h']]],
-  ['wrcomm_11',['WRCOMM',['../afe_8h.html#a725b9d2986b81351736e77afe3e4a8bf',1,'afe.h']]],
-  ['wrpwm_12',['WRPWM',['../afe_8h.html#aabeefbce7b4b3c1cf42be280416d5537',1,'afe.h']]],
-  ['wrsctrl_13',['WRSCTRL',['../afe_8h.html#af1ba8fd1c677bcb8ce2d1bd73ef01785',1,'afe.h']]],
-  ['wspeedl_5fgpio_5fport_14',['WSPEEDL_GPIO_Port',['../driveline_2main_8h.html#a9567292609b8d9d3c57ad911b4fda78b',1,'main.h']]],
-  ['wspeedl_5fpin_15',['WSPEEDL_Pin',['../driveline_2main_8h.html#a65cb4d66de9bfa50e9cad0f60667fe1e',1,'main.h']]],
-  ['wspeedr_5fgpio_5fport_16',['WSPEEDR_GPIO_Port',['../driveline_2main_8h.html#aa07fe8a0e9ba5a06e3ed93831fd56836',1,'main.h']]],
-  ['wspeedr_5fpin_17',['WSPEEDR_Pin',['../driveline_2main_8h.html#a49d62203e1cb24fbaea58063b3625507',1,'main.h']]]
+  ['white_6',['WHITE',['../nextion_8h.html#a87b537f5fa5c109d3c05c13d6b18f382',1,'nextion.h']]],
+  ['who_5fam_5fi_7',['WHO_AM_I',['../f4__testing_2main_8c.html#a9fcb9e460d175bfc7ab4d80bf788b43a',1,'main.c']]],
+  ['wrcfga_8',['WRCFGA',['../afe_8h.html#a0f38cada613ae1a9c0918543abae1dfe',1,'afe.h']]],
+  ['wrcomm_9',['WRCOMM',['../afe_8h.html#a725b9d2986b81351736e77afe3e4a8bf',1,'afe.h']]],
+  ['wrpwm_10',['WRPWM',['../afe_8h.html#aabeefbce7b4b3c1cf42be280416d5537',1,'afe.h']]],
+  ['wrsctrl_11',['WRSCTRL',['../afe_8h.html#af1ba8fd1c677bcb8ce2d1bd73ef01785',1,'afe.h']]]
 ];

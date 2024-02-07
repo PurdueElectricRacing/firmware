@@ -84,26 +84,58 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5dc46b08d7aba56a0dc3908763758845" id="r_a5dc46b08d7aba56a0dc3908763758845"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dc46b08d7aba56a0dc3908763758845">PHAL_flashWriteU32</a> (uint32_t *address, uint32_t value)</td></tr>
-<tr class="separator:a5dc46b08d7aba56a0dc3908763758845"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42eda5243c8193445fe7a9e149540890" id="r_a42eda5243c8193445fe7a9e149540890"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42eda5243c8193445fe7a9e149540890">PHAL_flashWriteU64</a> (uint32_t Address, uint64_t Data)</td></tr>
-<tr class="memdesc:a42eda5243c8193445fe7a9e149540890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes 64 bits to flash memory.  <br /></td></tr>
-<tr class="separator:a42eda5243c8193445fe7a9e149540890"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb3d23d3ededda8795ca454224e65716" id="r_acb3d23d3ededda8795ca454224e65716"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb3d23d3ededda8795ca454224e65716">PHAL_flashErasePage</a> (uint8_t page)</td></tr>
-<tr class="memdesc:acb3d23d3ededda8795ca454224e65716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a page in flash.  <br /></td></tr>
-<tr class="separator:acb3d23d3ededda8795ca454224e65716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9950da2f019f37020a9691d9c0da0bc" id="r_af9950da2f019f37020a9691d9c0da0bc"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9950da2f019f37020a9691d9c0da0bc">PHAL_flashWriteU64</a> (uint32_t Address, uint64_t Data)</td></tr>
+<tr class="memdesc:af9950da2f019f37020a9691d9c0da0bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes 64 bits to flash memory.  <br /></td></tr>
+<tr class="separator:af9950da2f019f37020a9691d9c0da0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9120788116686f895988090ad139b4a3" id="r_a9120788116686f895988090ad139b4a3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9120788116686f895988090ad139b4a3">PHAL_flashErasePage</a> (uint16_t page)</td></tr>
+<tr class="memdesc:a9120788116686f895988090ad139b4a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a page in flash.  <br /></td></tr>
+<tr class="separator:a9120788116686f895988090ad139b4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac485437c5bd0991fd68791403c8cb3b3" id="r_ac485437c5bd0991fd68791403c8cb3b3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac485437c5bd0991fd68791403c8cb3b3">PHAL_flashErase</a> (uint32_t *addr, uint32_t words)</td></tr>
+<tr class="memdesc:ac485437c5bd0991fd68791403c8cb3b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase pages containing [addr, addr+words)  <br /></td></tr>
+<tr class="separator:ac485437c5bd0991fd68791403c8cb3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="acb3d23d3ededda8795ca454224e65716" name="acb3d23d3ededda8795ca454224e65716"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb3d23d3ededda8795ca454224e65716">&#9670;&#160;</a></span>PHAL_flashErasePage()</h2>
+<a id="ac485437c5bd0991fd68791403c8cb3b3" name="ac485437c5bd0991fd68791403c8cb3b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac485437c5bd0991fd68791403c8cb3b3">&#9670;&#160;</a></span>PHAL_flashErase()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PHAL_flashErasePage </td>
+          <td class="memname">uint8_t PHAL_flashErase </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>page</em></span></td><td>)</td>
+          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>addr</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>words</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Erase pages containing [addr, addr+words) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td></td></tr>
+    <tr><td class="paramname">words</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t Operation result </dd></dl>
+
+</div>
+</div>
+<a id="a9120788116686f895988090ad139b4a3" name="a9120788116686f895988090ad139b4a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9120788116686f895988090ad139b4a3">&#9670;&#160;</a></span>PHAL_flashErasePage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_flashErasePage </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>page</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -119,35 +151,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5dc46b08d7aba56a0dc3908763758845" name="a5dc46b08d7aba56a0dc3908763758845"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc46b08d7aba56a0dc3908763758845">&#9670;&#160;</a></span>PHAL_flashWriteU32()</h2>
+<a id="af9950da2f019f37020a9691d9c0da0bc" name="af9950da2f019f37020a9691d9c0da0bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9950da2f019f37020a9691d9c0da0bc">&#9670;&#160;</a></span>PHAL_flashWriteU64()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PHAL_flashWriteU32 </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>address</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a42eda5243c8193445fe7a9e149540890" name="a42eda5243c8193445fe7a9e149540890"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42eda5243c8193445fe7a9e149540890">&#9670;&#160;</a></span>PHAL_flashWriteU64()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_flashWriteU64 </td>
+          <td class="memname">uint8_t PHAL_flashWriteU64 </td>
           <td>(</td>
           <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>address</em>, </span></td>
         </tr>

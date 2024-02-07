@@ -84,6 +84,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;stm32f407xx.h&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
@@ -131,8 +132,8 @@ Functions</h2></td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b1e6757f968cf4456a655d61e249555">CAN2_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a8b1e6757f968cf4456a655d61e249555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe630659d75d17d3db2a1fee53d1c45d" id="r_abe630659d75d17d3db2a1fee53d1c45d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe630659d75d17d3db2a1fee53d1c45d">precharge_bl_cmd_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *msg_data_a)</td></tr>
-<tr class="separator:abe630659d75d17d3db2a1fee53d1c45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a2a1b6100f6bc248f0b4d93d6aceec" id="r_a50a2a1b6100f6bc248f0b4d93d6aceec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50a2a1b6100f6bc248f0b4d93d6aceec">a_box_bl_cmd_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *msg_data_a)</td></tr>
+<tr class="separator:a50a2a1b6100f6bc248f0b4d93d6aceec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -154,9 +155,9 @@ Variables</h2></td></tr>
 <tr class="separator:a2c95aa854f1338bfb6e9273572403bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f61f7099706a5b18a5161318a097bd9" id="r_a6f61f7099706a5b18a5161318a097bd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a></td></tr>
 <tr class="separator:a6f61f7099706a5b18a5161318a097bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5dc2833c28e9934f6ee1f171042f455" id="r_ae5dc2833c28e9934f6ee1f171042f455"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5dc2833c28e9934f6ee1f171042f455">bms_daq_override</a> = <a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td></tr>
+<tr class="memitem:ae5dc2833c28e9934f6ee1f171042f455" id="r_ae5dc2833c28e9934f6ee1f171042f455"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5dc2833c28e9934f6ee1f171042f455">bms_daq_override</a> = <a class="el" href="rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td></tr>
 <tr class="separator:ae5dc2833c28e9934f6ee1f171042f455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afadd97d03c6ac3188ad6e12bfca41f69" id="r_afadd97d03c6ac3188ad6e12bfca41f69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afadd97d03c6ac3188ad6e12bfca41f69">bms_daq_stat</a> = <a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td></tr>
+<tr class="memitem:afadd97d03c6ac3188ad6e12bfca41f69" id="r_afadd97d03c6ac3188ad6e12bfca41f69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afadd97d03c6ac3188ad6e12bfca41f69">bms_daq_stat</a> = <a class="el" href="rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td></tr>
 <tr class="separator:afadd97d03c6ac3188ad6e12bfca41f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a269bcebc6c49de76613c407c8047bcc5" id="r_a269bcebc6c49de76613c407c8047bcc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtmu__handle__t.html">tmu_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a269bcebc6c49de76613c407c8047bcc5">tmu</a></td></tr>
 <tr class="separator:a269bcebc6c49de76613c407c8047bcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,6 +186,23 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a50a2a1b6100f6bc248f0b4d93d6aceec" name="a50a2a1b6100f6bc248f0b4d93d6aceec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a2a1b6100f6bc248f0b4d93d6aceec">&#9670;&#160;</a></span>a_box_bl_cmd_CALLBACK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void a_box_bl_cmd_CALLBACK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
 
@@ -356,23 +374,6 @@ Variables</h2></td></tr>
           <td class="memname">void PHAL_FaultHandler </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abe630659d75d17d3db2a1fee53d1c45d" name="abe630659d75d17d3db2a1fee53d1c45d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe630659d75d17d3db2a1fee53d1c45d">&#9670;&#160;</a></span>precharge_bl_cmd_CALLBACK()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void precharge_bl_cmd_CALLBACK </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -605,7 +606,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool bms_daq_override = <a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td>
+          <td class="memname">bool bms_daq_override = <a class="el" href="rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -619,7 +620,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool bms_daq_stat = <a class="el" href="driveline_2MC__PL0_2rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td>
+          <td class="memname">bool bms_daq_stat = <a class="el" href="rtwtypes_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

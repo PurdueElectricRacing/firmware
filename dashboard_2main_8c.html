@@ -82,7 +82,8 @@ $(function() {
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2usart_2usart_8h_source.html">common/phal_F4_F7/usart/usart.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
@@ -130,6 +131,8 @@ Functions</h2></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cdf0cafe2fb1948be5005da31d6cd7f" id="r_a9cdf0cafe2fb1948be5005da31d6cd7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cdf0cafe2fb1948be5005da31d6cd7f">dashboard_bl_cmd_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *msg_data_a)</td></tr>
+<tr class="separator:a9cdf0cafe2fb1948be5005da31d6cd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -213,6 +216,23 @@ Variables</h2></td></tr>
           <td class="memname">void canTxUpdate </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cdf0cafe2fb1948be5005da31d6cd7f" name="a9cdf0cafe2fb1948be5005da31d6cd7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdf0cafe2fb1948be5005da31d6cd7f">&#9670;&#160;</a></span>dashboard_bl_cmd_CALLBACK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dashboard_bl_cmd_CALLBACK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

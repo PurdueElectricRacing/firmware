@@ -1,5 +1,5 @@
 /* System Includes */
-// #include "common/bootloader/bootloader_common.h"
+#include "common/bootloader/bootloader_common.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -537,12 +537,11 @@ void CAN1_RX0_IRQHandler()
    }
 }
 
-// We haven't tested bootloader for this year's car yet
-// void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-// {
-//     if (can_data.dashboard_bl_cmd.cmd == BLCMD_RST)
-//         Bootloader_ResetForFirmwareDownload();
-// }
+void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.dashboard_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
+}
 
 void HardFault_Handler()
 {

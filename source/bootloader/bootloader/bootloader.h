@@ -36,7 +36,8 @@ typedef enum
     BLERROR_CRC_FAIL = 0,
     BLERROR_LOCKED = 1,
     BLERROR_LOW_ADDR = 2,
-    BLERROR_ADDR_BOUND = 3
+    BLERROR_ADDR_BOUND = 3,
+    BLERROR_FLASH = 4,
 } BLError_t;
 
 void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr);

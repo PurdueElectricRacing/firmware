@@ -106,9 +106,9 @@ class Bootloader():
 
             for seg in self.segments:
                 self._logInfo(f"Segment: 0x{seg[0]:02X} : 0x{seg[1]:02X}") 
-            if (self.segments[0][0] != 0x8002000):
+            if (self.segments[0][0] < 0x8002000):
                 self.ui.currFileLbl.setText("Please select file")
-                self._logInfo(f"Invalid start address, ensure the hex is of type BL_ and starts at 0x8002000")
+                self._logInfo(f"Invalid start address, ensure the hex is of type BL_ and starts at 0x8002000 (L series) or 0x8004000 (F series)")
                 self.hex_loc = ""
                 self.segments = None
                 return

@@ -35,6 +35,11 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
+            case ID_TORQUEVECTOR_BL_CMD:
+                can_data.torquevector_bl_cmd.cmd = msg_data_a->torquevector_bl_cmd.cmd;
+                can_data.torquevector_bl_cmd.data = msg_data_a->torquevector_bl_cmd.data;
+                torquevector_bl_cmd_CALLBACK(msg_data_a);
+                break;
             default:
                 __asm__("nop");
         }
@@ -59,6 +64,8 @@ bool initCANFilter()
     CAN1->FS1R |= 0x07FFFFFF;   // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
+    CAN1->FA1R |= (1 << 0);    // configure bank 0
+    CAN1->sFilterRegister[0].FR1 = (ID_TORQUEVECTOR_BL_CMD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR &= ~CAN_FMR_FINIT; // Enable Filters (exit filter init mode)

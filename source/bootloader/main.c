@@ -9,12 +9,28 @@
 #ifdef STM32L496xx
 #include "stm32l496xx.h"
 #endif
+
+#ifdef STM32F407xx
+#include "stm32f407xx.h"
+#endif
+
+#ifdef STM32F732xx
+#include "stm32f732xx.h"
+#endif
 // #include "system_stm32l4xx.h"
 
 #include "can_parse.h"
+#if defined(STM32L496xx) || defined(STM32L432xx)
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
 #include "common/phal_L4/rcc/rcc.h"
+#endif
+#if defined(STM32F407xx) || defined(STM32F732xx)
+#include "common/phal_F4_F7/can/can.h"
+#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4_F7/rcc/rcc.h"
+#endif
+
 #include "common/bootloader/bootloader_common.h"
 
 
@@ -315,11 +331,16 @@ void jump_to_application(void)
         msp != estack) return;
 
     // Reset all of our used peripherals
-    RCC->APB1RSTR1  |= RCC_APB1RSTR1_CAN1RST;
-    RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOBRST;       // Must change based on status led port
+    // RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOBRST;       // Must change based on status led port
     RCC->AHB1RSTR   |= RCC_AHB1RSTR_CRCRST;
+#if defined(STM32F407xx) || defined(STM32F732xx)
+    RCC->APB1RSTR |= RCC_APB1RSTR_CAN1RST;
+    RCC->APB1RSTR &= ~(RCC_APB1RSTR_CAN1RST);
+#else
+    RCC->APB1RSTR1  |= RCC_APB1RSTR1_CAN1RST;
     RCC->APB1RSTR1  &= ~(RCC_APB1RSTR1_CAN1RST);
-    RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOBRST);
+#endif
+    // RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOBRST);
     RCC->AHB1RSTR   &= ~(RCC_AHB1RSTR_CRCRST);
     SysTick->CTRL = 0;
     SysTick->LOAD = 0;

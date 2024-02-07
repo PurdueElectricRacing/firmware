@@ -1,4 +1,5 @@
 /* System Includes */
+#include "common/bootloader/bootloader_common.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/spi/spi.h"
@@ -387,6 +388,12 @@ void SFS_MAIN(void)
     /* Disable interrupts here */
     /* Restore FPU context here (if necessary) */
     /* Enable interrupts here */
+}
+
+void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 void HardFault_Handler()

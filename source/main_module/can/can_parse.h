@@ -47,12 +47,10 @@
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_THROTTLE_REMAPPED 0xc0025b7
 #define ID_PDU_TEST 0x401041f
-#define ID_FAULT_SYNC_PDU 0x8cb5f
-#define ID_FAULT_SYNC_DRIVELINE 0x8ca83
-#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
-#define ID_FAULT_SYNC_A_BOX 0x8cac4
-#define ID_FAULT_SYNC_TORQUE_VECTOR_FPGA 0x8ca42
-#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
+#define ID_FAULT_SYNC_PDU 0x8cadf
+#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_FAULT_SYNC_A_BOX 0x8ca44
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
@@ -88,10 +86,8 @@
 #define DLC_THROTTLE_REMAPPED 4
 #define DLC_PDU_TEST 3
 #define DLC_FAULT_SYNC_PDU 3
-#define DLC_FAULT_SYNC_DRIVELINE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
-#define DLC_FAULT_SYNC_TORQUE_VECTOR_FPGA 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -506,19 +502,11 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
-    } fault_sync_driveline;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
     } fault_sync_dashboard;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_a_box;
-    struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -615,19 +603,11 @@ typedef struct {
     struct {
         uint16_t idx;
         uint8_t latched;
-    } fault_sync_driveline;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
     } fault_sync_dashboard;
     struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
-    struct {
-        uint16_t idx;
-        uint8_t latched;
-    } fault_sync_torque_vector_fpga;
     struct {
         uint16_t idx;
         uint8_t latched;

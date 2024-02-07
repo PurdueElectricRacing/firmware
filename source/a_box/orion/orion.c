@@ -119,14 +119,14 @@ void orionChargePeriodic() {
 }
 
 
-uint16_t* orion_temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0,  &can_data.module_temp_1.mod_temp_0,
-                                    &can_data.module_temp_2.mod_temp_0,  &can_data.module_temp_3.mod_temp_0,
-                                    &can_data.module_temp_4.mod_temp_0,  &can_data.module_temp_5.mod_temp_0,
-                                    &can_data.module_temp_6.mod_temp_0,  &can_data.module_temp_7.mod_temp_0,
-                                    &can_data.module_temp_8.mod_temp_0,  &can_data.module_temp_9.mod_temp_0,
-                                    &can_data.module_temp_10.mod_temp_0, &can_data.module_temp_11.mod_temp_0,
-                                    &can_data.module_temp_12.mod_temp_0, &can_data.module_temp_13.mod_temp_0,
-                                    &can_data.module_temp_14.mod_temp_0, &can_data.module_temp_15.mod_temp_0};
+// uint16_t* orion_temp_pointer[16] = {&can_data.module_temp_0.mod_temp_0,  &can_data.module_temp_1.mod_temp_0,
+//                                     &can_data.module_temp_2.mod_temp_0,  &can_data.module_temp_3.mod_temp_0,
+//                                     &can_data.module_temp_4.mod_temp_0,  &can_data.module_temp_5.mod_temp_0,
+//                                     &can_data.module_temp_6.mod_temp_0,  &can_data.module_temp_7.mod_temp_0,
+//                                     &can_data.module_temp_8.mod_temp_0,  &can_data.module_temp_9.mod_temp_0,
+//                                     &can_data.module_temp_10.mod_temp_0, &can_data.module_temp_11.mod_temp_0,
+//                                     &can_data.module_temp_12.mod_temp_0, &can_data.module_temp_13.mod_temp_0,
+//                                     &can_data.module_temp_14.mod_temp_0, &can_data.module_temp_15.mod_temp_0};
 
 // void orionCheckTempsPeriodic (){
 //     uint16_t max_temp = 0;

@@ -10,7 +10,6 @@
  */
 
 #include "bootloader_common.h"
-#include "stm32l4xx.h"
 
 __attribute__((section(".bootlaoder_shared_memory"))) 
 BootlaoderSharedMemory_t bootloader_shared_memory = {

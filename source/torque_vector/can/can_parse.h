@@ -32,6 +32,7 @@
 #define ID_SFS_ANG 0xc0169f7
 #define ID_SFS_ANG_VEL 0xc016a37
 #define ID_THROTTLE_REMAPPED 0xc0025b7
+#define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -48,6 +49,7 @@
 #define DLC_SFS_ANG 8
 #define DLC_SFS_ANG_VEL 6
 #define DLC_THROTTLE_REMAPPED 4
+#define DLC_TORQUEVECTOR_BL_CMD 5
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -228,6 +230,10 @@ typedef union {
         uint64_t remap_k_rl: 16;
         uint64_t remap_k_rr: 16;
     } throttle_remapped;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } torquevector_bl_cmd;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -236,12 +242,17 @@ typedef union {
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } torquevector_bl_cmd;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

@@ -59,75 +59,30 @@ void canRxUpdate()
                 can_data.torquevector_bl_cmd.data = msg_data_a->torquevector_bl_cmd.data;
                 torquevector_bl_cmd_CALLBACK(msg_data_a);
                 break;
-            case ID_DRIVELINE_FRONT_BL_CMD:
-                can_data.driveline_front_bl_cmd.cmd = msg_data_a->driveline_front_bl_cmd.cmd;
-                can_data.driveline_front_bl_cmd.data = msg_data_a->driveline_front_bl_cmd.data;
-                driveline_front_bl_cmd_CALLBACK(msg_data_a);
+            case ID_A_BOX_BL_CMD:
+                can_data.a_box_bl_cmd.cmd = msg_data_a->a_box_bl_cmd.cmd;
+                can_data.a_box_bl_cmd.data = msg_data_a->a_box_bl_cmd.data;
+                a_box_bl_cmd_CALLBACK(msg_data_a);
                 break;
-            case ID_DRIVELINE_REAR_BL_CMD:
-                can_data.driveline_rear_bl_cmd.cmd = msg_data_a->driveline_rear_bl_cmd.cmd;
-                can_data.driveline_rear_bl_cmd.data = msg_data_a->driveline_rear_bl_cmd.data;
-                driveline_rear_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_PRECHARGE_BL_CMD:
-                can_data.precharge_bl_cmd.cmd = msg_data_a->precharge_bl_cmd.cmd;
-                can_data.precharge_bl_cmd.data = msg_data_a->precharge_bl_cmd.data;
-                precharge_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_A_BL_CMD:
-                can_data.bms_a_bl_cmd.cmd = msg_data_a->bms_a_bl_cmd.cmd;
-                can_data.bms_a_bl_cmd.data = msg_data_a->bms_a_bl_cmd.data;
-                bms_a_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_B_BL_CMD:
-                can_data.bms_b_bl_cmd.cmd = msg_data_a->bms_b_bl_cmd.cmd;
-                can_data.bms_b_bl_cmd.data = msg_data_a->bms_b_bl_cmd.data;
-                bms_b_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_C_BL_CMD:
-                can_data.bms_c_bl_cmd.cmd = msg_data_a->bms_c_bl_cmd.cmd;
-                can_data.bms_c_bl_cmd.data = msg_data_a->bms_c_bl_cmd.data;
-                bms_c_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_D_BL_CMD:
-                can_data.bms_d_bl_cmd.cmd = msg_data_a->bms_d_bl_cmd.cmd;
-                can_data.bms_d_bl_cmd.data = msg_data_a->bms_d_bl_cmd.data;
-                bms_d_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_E_BL_CMD:
-                can_data.bms_e_bl_cmd.cmd = msg_data_a->bms_e_bl_cmd.cmd;
-                can_data.bms_e_bl_cmd.data = msg_data_a->bms_e_bl_cmd.data;
-                bms_e_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_F_BL_CMD:
-                can_data.bms_f_bl_cmd.cmd = msg_data_a->bms_f_bl_cmd.cmd;
-                can_data.bms_f_bl_cmd.data = msg_data_a->bms_f_bl_cmd.data;
-                bms_f_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_G_BL_CMD:
-                can_data.bms_g_bl_cmd.cmd = msg_data_a->bms_g_bl_cmd.cmd;
-                can_data.bms_g_bl_cmd.data = msg_data_a->bms_g_bl_cmd.data;
-                bms_g_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_H_BL_CMD:
-                can_data.bms_h_bl_cmd.cmd = msg_data_a->bms_h_bl_cmd.cmd;
-                can_data.bms_h_bl_cmd.data = msg_data_a->bms_h_bl_cmd.data;
-                bms_h_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_I_BL_CMD:
-                can_data.bms_i_bl_cmd.cmd = msg_data_a->bms_i_bl_cmd.cmd;
-                can_data.bms_i_bl_cmd.data = msg_data_a->bms_i_bl_cmd.data;
-                bms_i_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_BMS_J_BL_CMD:
-                can_data.bms_j_bl_cmd.cmd = msg_data_a->bms_j_bl_cmd.cmd;
-                can_data.bms_j_bl_cmd.data = msg_data_a->bms_j_bl_cmd.data;
-                bms_j_bl_cmd_CALLBACK(msg_data_a);
+            case ID_PDU_BL_CMD:
+                can_data.pdu_bl_cmd.cmd = msg_data_a->pdu_bl_cmd.cmd;
+                can_data.pdu_bl_cmd.data = msg_data_a->pdu_bl_cmd.data;
+                pdu_bl_cmd_CALLBACK(msg_data_a);
                 break;
             case ID_L4_TESTING_BL_CMD:
                 can_data.l4_testing_bl_cmd.cmd = msg_data_a->l4_testing_bl_cmd.cmd;
                 can_data.l4_testing_bl_cmd.data = msg_data_a->l4_testing_bl_cmd.data;
                 l4_testing_bl_cmd_CALLBACK(msg_data_a);
+                break;
+            case ID_F4_TESTING_BL_CMD:
+                can_data.f4_testing_bl_cmd.cmd = msg_data_a->f4_testing_bl_cmd.cmd;
+                can_data.f4_testing_bl_cmd.data = msg_data_a->f4_testing_bl_cmd.data;
+                f4_testing_bl_cmd_CALLBACK(msg_data_a);
+                break;
+            case ID_F7_TESTING_BL_CMD:
+                can_data.f7_testing_bl_cmd.cmd = msg_data_a->f7_testing_bl_cmd.cmd;
+                can_data.f7_testing_bl_cmd.data = msg_data_a->f7_testing_bl_cmd.data;
+                f7_testing_bl_cmd_CALLBACK(msg_data_a);
                 break;
             default:
                 __asm__("nop");
@@ -171,26 +126,13 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_TORQUEVECTOR_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_DRIVELINE_FRONT_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_DRIVELINE_REAR_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_A_BOX_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_PDU_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_PRECHARGE_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_BMS_A_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_L4_TESTING_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_F4_TESTING_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_BMS_B_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_BMS_C_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_BMS_D_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_BMS_E_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_BMS_F_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_BMS_G_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_BMS_H_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_BMS_I_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_BMS_J_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_L4_TESTING_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_F7_TESTING_BL_CMD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

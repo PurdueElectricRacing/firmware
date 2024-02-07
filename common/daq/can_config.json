@@ -235,135 +235,6 @@
                     ]
                 },
                 {
-                    "node_name":"Torque_Vector_fpga",
-                    "node_ssa":2,
-                    "tx":[
-                        {   "msg_name":"torque_request",
-                            "msg_desc":"Torque request for all motors.",
-                            "signals":[
-                                {"sig_name":"front_left", "sig_desc":"torque request. 0-4096","type":"uint16_t","length":12},
-                                {"sig_name":"front_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
-                                {"sig_name":"rear_left", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12},
-                                {"sig_name":"rear_right", "sig_desc":"torque request. 0-4096", "type":"uint16_t", "length":12}
-                            ],
-                            "msg_period":15,
-                            "msg_hlp":1,
-                            "msg_pgn":1
-                        },
-                        {   "msg_name":"bitstream_flash_status",
-                            "msg_desc":"Status message for bitstream flashing",
-                            "signals":[
-                                {"sig_name":"flash_success", "sig_desc":"Done flashing bitstream","type":"uint8_t","length":1},
-                                {"sig_name":"flash_timeout_rx", "sig_desc":"Timeout from CAN rx","type":"uint8_t","length":1}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":0,
-                            "msg_pgn":100
-                        }
-                    ],
-                    "rx":[
-                        {"msg_name": "front_wheel_data"},
-                        {"msg_name": "rear_wheel_data"},
-                        {"msg_name": "bitstream_data",    "callback": false, "irq": true},
-                        {"msg_name": "bitstream_request", "callback": true, "irq": false}
-                    ]
-                },
-                {
-                    "node_name": "Driveline",
-                    "node_ssa":3,
-                    "tx": [
-                        {
-                            "msg_name": "front_driveline_hb",
-                            "msg_desc": "front drivline heart beat",
-                            "signals": [
-                                {"sig_name": "front_left_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "connected", "config", "error"]},
-                                {"sig_name": "front_left_motor_link", "type":"uint8_t",
-                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
-                                {"sig_name": "front_left_last_link_error", "type":"uint8_t",
-                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]},
-                                {"sig_name": "front_right_motor", "type":"uint8_t",
-                                 "choices": ["disconnected", "connected", "config", "error"]},
-                                {"sig_name": "front_right_motor_link", "type":"uint8_t",
-                                 "choices": ["disconnected", "attempting", "verifying", "delay", "connected", "fail"]},
-                                {"sig_name": "front_right_last_link_error", "type":"uint8_t",
-                                 "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]}
-                            ],
-                            "msg_period": 100,
-                            "msg_hlp": 1,
-                            "msg_pgn": 100
-                        },
-
-                        {   "msg_name": "front_wheel_data",
-                            "msg_desc": "Wheel data for the rear tires",
-                            "signals": [
-                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit": "kphx100"},
-                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
-                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"},
-                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"}
-                            ],
-                            "msg_period": 10,
-                            "msg_hlp": 1,
-                            "msg_pgn": 0
-                        },
-                        {   "msg_name": "rear_wheel_data",
-                            "msg_desc": "Wheel data for the rear tires",
-                            "signals": [
-                                {"sig_name": "left_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
-                                {"sig_name": "right_speed", "type": "uint16_t", "length": 16, "unit":"kphx100"},
-                                {"sig_name": "left_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"},
-                                {"sig_name": "right_normal", "type": "uint16_t", "length": 16, "unit":"mm", "scale":0.1, "sig_desc": "Linear potentiometer distance between mounting points"}
-                            ],
-                            "msg_period": 10,
-                            "msg_hlp": 1,
-                            "msg_pgn": 1
-                        },
-                        {   "msg_name": "rear_mc_req",
-                            "msg_desc": "Rear request to motor controllers",
-                            "signals": [
-                                {"sig_name": "left_cmd", "type": "float", "unit":"%"},
-                                {"sig_name": "right_cmd", "type": "float", "unit":"%"}
-                            ],
-                            "msg_period": 10,
-                            "msg_hlp": 1,
-                            "msg_pgn": 18
-                        },
-                        {   "msg_name": "rear_pow_lim_l",
-                            "msg_desc": "Rear request to motor controllers",
-                            "signals": [
-                                {"sig_name": "T", "type": "float", "unit":"Nm"},
-                                {"sig_name": "P_c", "type": "float", "unit":"W"}
-                            ],
-                            "msg_period": 10,
-                            "msg_hlp": 1,
-                            "msg_pgn": 19
-                        },
-                        {   "msg_name": "front_motor_currents_temps",
-                            "msg_desc": "DC Current and Temperature of the motors",
-                            "signals": [
-                                {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
-                                {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Ampx10"},
-                                {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_voltage", "type":"uint16_t", "length": 16, "unit": "Voltx10"}
-                            ],
-                            "msg_period": 500,
-                            "msg_hlp": 3,
-                            "msg_pgn": 10
-                        }
-                    ],
-                    "rx": [
-                        {"msg_name":"torque_request_main"},
-                        {"msg_name":"main_hb"},
-                        {"msg_name":"front_wheel_data"},
-                        {"msg_name":"rear_wheel_data"},
-                        {"msg_name":"orion_info"},
-                        {"msg_name":"orion_currents_volts"},
-                        {"msg_name": "driveline_front_bl_cmd" , "callback": true},
-                        {"msg_name": "driveline_rear_bl_cmd" , "callback": true}
-                    ]
-                },
-                {
                     "node_name": "a_box",
                     "can_peripheral": "CAN1",
                     "node_ssa": 4,
@@ -516,7 +387,7 @@
                         {"msg_name": "orion_info"},
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "orion_errors"},
-                        {"msg_name": "precharge_bl_cmd", "callback": true}
+                        {"msg_name": "a_box_bl_cmd", "callback": true}
                     ],
                     "accept_all_messages": false
                 },
@@ -746,7 +617,7 @@
                         }
                     ],
                     "rx":[
-
+                        {"msg_name": "torquevector_bl_cmd", "callback": true}
                     ]
                 },
                 {
@@ -828,7 +699,6 @@
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
-                        {"msg_name": "rear_wheel_data"},
                         {"msg_name": "rear_motor_currents_temps"},
                         {"msg_name": "orion_info"},
                         {"msg_name": "orion_currents_volts"},
@@ -885,57 +755,9 @@
                             "msg_pgn":1040
                         }
                     ],
-                    "rx": [             ]
-                },
-                {
-                    "node_name": "Acceleration",
-                    "can_peripheral": "CAN1",
-                    "node_ssa": 43,
-                    "tx": [
-                        {
-                            "msg_name": "Y_Accel",
-                            "msg_desc": "Y Acceleration Update",
-                            "signals": [
-                                {"sig_name": "Yaw_Rate", "type":"uint16_t", "length":16, "unit":"°/s", "scale":0.005, "offset": -163.84},
-                                {"sig_name": "Reserved_1", "type":"uint16_t", "length": 16},
-                                {"sig_name": "Y_Acc", "type":"uint16_t", "length":16, "unit":"g", "scale":0.0001274, "offset": -4.1746432},
-                                {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8},
-                                {"sig_name": "Reserved_3", "type":"uint8_t", "length": 8}
-                            ],
-                            "msg_period": 67,
-                            "msg_id_override": "0x174",
-                            "is_normal":true
-                        },
-                        {
-                            "msg_name": "X_Accel",
-                            "msg_desc": "X Acceleration Update",
-                            "signals": [
-                                {"sig_name": "Roll_Rate", "type":"uint16_t", "length":16, "unit":"°/s", "scale":0.005, "offset": -163.84},
-                                {"sig_name": "Reserved_1", "type":"uint16_t", "length": 16},
-                                {"sig_name": "X_Acc", "type":"uint16_t", "length":16, "unit":"g", "scale":0.0001274, "offset": -4.1746432},
-                                {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8},
-                                {"sig_name": "Reserved_3", "type":"uint8_t", "length": 8}
-                            ],
-                            "msg_period": 67,
-                            "msg_id_override": "0x178",
-                            "is_normal":true
-                        },
-                        {
-                            "msg_name": "Z_Accel",
-                            "msg_desc": "Z Acceleration Update",
-                            "signals": [
-                                {"sig_name": "Reserved_1", "type":"uint16_t", "length": 16},
-                                {"sig_name": "Reserved_2", "type":"uint16_t", "length": 16},
-                                {"sig_name": "Z_Acc", "type":"uint16_t", "length":16, "unit":"g", "scale":0.0001274, "offset": -4.1746432},
-                                {"sig_name": "Reserved_3", "type":"uint8_t", "length": 8},
-                                {"sig_name": "Reserved_4", "type":"uint8_t", "length": 8}
-                            ],
-                            "msg_period": 67,
-                            "msg_id_override": "0x17C",
-                            "is_normal":true
-                        }
-                    ],
-                    "rx": []
+                    "rx": [
+                        {"msg_name": "pdu_bl_cmd" , "callback": true}
+                    ]
                 },
                 {
                     "node_name": "bootloader",
@@ -972,8 +794,8 @@
                             "msg_hlp":1,
                             "msg_pgn":5002
                         },
-                        {   "msg_name":"driveline_front_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
+                        {   "msg_name":"a_box_bl_resp",
+                            "msg_desc":"Accumulator Box PCB Bootloader response",
                             "signals":[
                                 {"sig_name":"cmd","type":"uint8_t","length":8},
                                 {"sig_name":"data","type":"uint32_t","length":32}
@@ -982,8 +804,8 @@
                             "msg_hlp":1,
                             "msg_pgn":5003
                         },
-                        {   "msg_name":"driveline_rear_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
+                        {   "msg_name":"pdu_bl_resp",
+                            "msg_desc":"PDU Bootloader response",
                             "signals":[
                                 {"sig_name":"cmd","type":"uint8_t","length":8},
                                 {"sig_name":"data","type":"uint32_t","length":32}
@@ -991,116 +813,6 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":5004
-                        },
-                        {   "msg_name":"precharge_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5005
-                        },
-                        {   "msg_name":"bms_a_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5006
-                        },
-                        {   "msg_name":"bms_b_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5007
-                        },
-                        {   "msg_name":"bms_c_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5008
-                        },
-                        {   "msg_name":"bms_d_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5009
-                        },
-                        {   "msg_name":"bms_e_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5010
-                        },
-                        {   "msg_name":"bms_f_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5011
-                        },
-                        {   "msg_name":"bms_g_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5012
-                        },
-                        {   "msg_name":"bms_h_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5013
-                        },
-                        {   "msg_name":"bms_i_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5014
-                        },
-                        {   "msg_name":"bms_j_bl_resp",
-                            "msg_desc":"Torque Vector Bootloader response",
-                            "signals":[
-                                {"sig_name":"cmd","type":"uint8_t","length":8},
-                                {"sig_name":"data","type":"uint32_t","length":32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":5015
                         },
                         {   "msg_name":"l4_testing_bl_resp",
                             "msg_desc":"L4 Test Bootloader response",
@@ -1110,7 +822,27 @@
                             ],
                             "msg_period":0,
                             "msg_hlp":1,
-                            "msg_pgn":5016
+                            "msg_pgn":50005
+                        },
+                        {   "msg_name":"f4_testing_bl_resp",
+                            "msg_desc":"F4 Test Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":50006
+                        },
+                        {   "msg_name":"f7_testing_bl_resp",
+                            "msg_desc":"F7 Test Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":50007
                         }
                     ],
                     "rx": [
@@ -1118,103 +850,12 @@
                         {"msg_name": "main_module_bl_cmd", "callback": true},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "torquevector_bl_cmd" , "callback": true},
-                        {"msg_name": "driveline_front_bl_cmd" , "callback": true},
-                        {"msg_name": "driveline_rear_bl_cmd" , "callback": true},
-                        {"msg_name": "precharge_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_a_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_b_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_c_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_d_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_e_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_f_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_g_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_h_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_i_bl_cmd" , "callback": true},
-                        {"msg_name": "bms_j_bl_cmd" , "callback": true},
-                        {"msg_name": "l4_testing_bl_cmd" , "callback": true}
+                        {"msg_name": "a_box_bl_cmd" , "callback": true},
+                        {"msg_name": "pdu_bl_cmd" , "callback": true},
+                        {"msg_name": "l4_testing_bl_cmd" , "callback": true},
+                        {"msg_name": "f4_testing_bl_cmd" , "callback": true},
+                        {"msg_name": "f7_testing_bl_cmd" , "callback": true}
                     ]
-                },
-                {
-                    "node_name": "BMS_LV",
-                    "can_peripheral": "CAN1",
-                    "node_ssa": 6,
-                    "tx": [
-                        {
-                            "msg_name": "soc_cells_lv",
-                            "msg_desc": "Estimated soc",
-                            "signals": [
-                                {"sig_name": "idx", "sig_desc": "Index of each set", "type": "uint8_t", "length": 8},
-                                {"sig_name": "soc1", "sig_desc": "Cell 0 in % * 100", "type": "uint16_t", "length":16},
-                                {"sig_name": "soc2", "sig_desc": "Cell 1 in % * 100", "type": "uint16_t", "length":16},
-                                {"sig_name": "soc3", "sig_desc": "Cell 2 in % * 100", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 2,
-                            "msg_pgn": 501
-                        },
-                        {
-                            "msg_name": "volts_cells_lv",
-                            "msg_desc": "Measured cell voltages",
-                            "signals": [
-                                {"sig_name": "idx", "sig_desc": "Index of each set", "type": "uint8_t", "length": 8},
-                                {"sig_name": "v1", "sig_desc": "Cell 0 in V * 10000", "type": "uint16_t", "length":16},
-                                {"sig_name": "v2", "sig_desc": "Cell 1 in V * 10000", "type": "uint16_t", "length":16},
-                                {"sig_name": "v3", "sig_desc": "Cell 2 in V * 10000", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 1,
-                            "msg_pgn": 502
-                        },
-                        {
-                            "msg_name": "pack_info_lv",
-                            "msg_desc": "Pack information",
-                            "signals": [
-                                {"sig_name": "volts", "sig_desc": "Pack voltage in V * 10000", "type": "uint16_t", "length": 16},
-                                {"sig_name": "error", "sig_desc": "Error flags (non-zero is fault)", "type": "uint16_t", "length":16},
-                                {"sig_name": "bal_flags", "sig_desc": "Balance flags. 1 for on", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 2,
-                            "msg_pgn": 503
-                        },
-                        {
-                            "msg_name": "temps_cells_lv",
-                            "msg_desc": "Measured cell temperatures",
-                            "signals": [
-                                {"sig_name": "idx", "sig_desc": "Index of each set", "type": "uint8_t", "length": 8},
-                                {"sig_name": "t1", "sig_desc": "Cell 0 in deg C * 10000", "type": "uint16_t", "length":16},
-                                {"sig_name": "t2", "sig_desc": "Cell 1 in deg C * 10000", "type": "uint16_t", "length":16},
-                                {"sig_name": "t3", "sig_desc": "Cell 2 in deg C * 10000", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 1,
-                            "msg_pgn": 504
-                        },
-                        {
-                            "msg_name": "cell_info_lv",
-                            "msg_desc": "Cell information",
-                            "signals": [
-                                {"sig_name": "delta", "sig_desc": "Max cell delta in V * 10000", "type": "uint16_t", "length": 16},
-                                {"sig_name": "ov", "sig_desc": "Over-voltage flags. 1 for fault", "type": "uint16_t", "length":16},
-                                {"sig_name": "uv", "sig_desc": "Under-voltage flags. 1 for fault", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 2,
-                            "msg_pgn": 505
-                        },
-                        {
-                            "msg_name": "power_lim_lv",
-                            "msg_desc": "Power limits",
-                            "signals": [
-                                {"sig_name": "disch_lim", "sig_desc": "Discharge limit in W", "type": "uint16_t", "length": 16},
-                                {"sig_name": "chg_lim", "sig_desc": "Charge limit in W", "type": "uint16_t", "length":16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 1,
-                            "msg_pgn": 506
-                        }
-                    ],
-                    "rx": []
                 },
                 {
                     "node_name":"BITSTREAM",
@@ -1280,8 +921,8 @@
                             "msg_pgn":10002
                         },
                         {
-                            "msg_name": "driveline_front_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
+                            "msg_name": "a_box_bl_cmd",
+                            "msg_desc": "Bootloader command for a-box",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
                                 {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
@@ -1291,8 +932,8 @@
                             "msg_pgn":10003
                         },
                         {
-                            "msg_name": "driveline_rear_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
+                            "msg_name": "pdu_bl_cmd",
+                            "msg_desc": "Bootloader command for pdu",
                             "signals": [
                                 {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
                                 {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
@@ -1300,127 +941,6 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10004
-                        },
-                        {
-                            "msg_name": "precharge_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10005
-                        },
-                        {
-                            "msg_name": "bms_a_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10006
-                        },
-                        {
-                            "msg_name": "bms_b_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10007
-                        },
-                        {
-                            "msg_name": "bms_c_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10008
-                        },
-                        {
-                            "msg_name": "bms_d_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10009
-                        },
-                        {
-                            "msg_name": "bms_e_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10010
-                        },
-                        {
-                            "msg_name": "bms_f_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10011
-                        },
-                        {
-                            "msg_name": "bms_g_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10012
-                        },
-                        {
-                            "msg_name": "bms_h_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10013
-                        },
-                        {
-                            "msg_name": "bms_i_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10014
-                        },
-                        {
-                            "msg_name": "bms_j_bl_cmd",
-                            "msg_desc": "Bootloader command for torque vector",
-                            "signals": [
-                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
-                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
-                            ],
-                            "msg_period":0,
-                            "msg_hlp":1,
-                            "msg_pgn":10015
                         },
                         {
                             "msg_name": "l4_testing_bl_cmd",
@@ -1431,7 +951,29 @@
                             ],
                             "msg_period":0,
                             "msg_hlp":1,
-                            "msg_pgn":10016
+                            "msg_pgn":10005
+                        },
+                        {
+                            "msg_name": "f4_testing_bl_cmd",
+                            "msg_desc": "Bootloader command for f4 testing",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10006
+                        },
+                        {
+                            "msg_name": "f7_testing_bl_cmd",
+                            "msg_desc": "Bootloader command for f7 testing",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10007
                         },
                         {
                             "msg_name": "set_fault",
@@ -1480,271 +1022,6 @@
                     ],
                     "rx":[
 
-                    ]
-                }
-            ]
-        },
-        {
-            "bus_name": "Battery",
-            "nodes": [
-                {
-                    "node_name": "a_box",
-                    "can_peripheral": "CAN2",
-                    "node_ssa": 42,
-                    "tx": [
-                        {
-                            "msg_name": "heat_req",
-                            "msg_desc": "Starts BMS pre-heat for set time",
-                            "signals": [
-                                {"sig_name": "toggle", "sig_desc": "1 for start, 0 for stop", "type": "uint8_t", "length": 1},
-                                {"sig_name": "time", "sig_desc": "Set runtime in ms", "type": "uint16_t", "length": 16}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 2,
-                            "msg_pgn": 500
-                        },
-                        {
-                            "msg_name": "pack_curr",
-                            "msg_desc": "Pack current",
-                            "signals": [
-                                {"sig_name": "current", "sig_desc": "Pack current", "type": "int16_t"}
-                            ],
-                            "msg_period": 0,
-                            "msg_hlp": 1,
-                            "msg_pgn": 501
-                        },
-                        {
-                            "msg_name": "balance_request",
-                            "msg_desc": "Global cell balance request setpoint",
-                            "signals": [
-                                {"sig_name": "voltage_target", "sig_desc": "Global balance target", "scale": 0.0001, "type": "int16_t"}
-                            ],
-                            "msg_period": 500,
-                            "msg_hlp": 3,
-                            "msg_pgn": 0
-                        }
-                    ],
-                    "accept_all_messages": false,
-                    "rx": [
-                        {"msg_name": "module_temp_0"},
-                        {"msg_name": "module_temp_1"},
-                        {"msg_name": "module_temp_2"},
-                        {"msg_name": "module_temp_3"},
-                        {"msg_name": "module_temp_4"},
-                        {"msg_name": "module_temp_5"},
-                        {"msg_name": "module_temp_6"},
-                        {"msg_name": "module_temp_7"},
-                        {"msg_name": "module_temp_8"},
-                        {"msg_name": "module_temp_9"},
-                        {"msg_name": "module_temp_10"},
-                        {"msg_name": "module_temp_11"},
-                        {"msg_name": "module_temp_12"},
-                        {"msg_name": "module_temp_13"},
-                        {"msg_name": "module_temp_14"},
-                        {"msg_name": "module_temp_15"}
-                    ]
-                },
-                {
-                    "node_name": "ARDUINO",
-                    "can_peripheral": "CAN1",
-                    "node_ssa": 44,
-                    "tx": [
-                        {
-                            "msg_name": "module_temp_0",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE0"
-                        },
-                        {
-                            "msg_name": "module_temp_1",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE1"
-                        },
-                        {
-                            "msg_name": "module_temp_2",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE2"
-                        },
-                        {
-                            "msg_name": "module_temp_3",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE3"
-                        },
-                        {
-                            "msg_name": "module_temp_4",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE4"
-                        },
-                        {
-                            "msg_name": "module_temp_5",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE5"
-                        },
-                        {
-                            "msg_name": "module_temp_6",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE6"
-                        },
-                        {
-                            "msg_name": "module_temp_7",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE7"
-                        },
-                        {
-                            "msg_name": "module_temp_8",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE8"
-                        },
-                        {
-                            "msg_name": "module_temp_9",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BE9"
-                        },
-                        {
-                            "msg_name": "module_temp_10",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BEA"
-                        },
-                        {
-                            "msg_name": "module_temp_11",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BEB"
-                        },
-                        {
-                            "msg_name": "module_temp_12",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BEC"
-                        },
-                        {
-                            "msg_name": "module_temp_13",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BED"
-                        },
-                        {
-                            "msg_name": "module_temp_14",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BEE"
-                        },
-                        {
-                            "msg_name": "module_temp_15",
-                            "msg_desc": "Cell temps from each module",
-                            "signals": [
-                                {"sig_name": "mod_temp_0", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_1", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_2", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1},
-                                {"sig_name": "mod_temp_3", "sig_desc": "", "type": "uint16_t", "length":16, "unit":"Cx10", "scale":0.1}
-                            ],
-                            "msg_period": 0,
-                            "msg_id_override": "0x00000BEF"
-                        }
-                    ],
-                    "rx": [
-                        {"msg_name": "heat_req"},
-                        {"msg_name": "pack_curr"}
                     ]
                 }
             ]
@@ -1857,7 +1134,6 @@
                         }
                     ],
                     "rx":[
-                        {"msg_name": "front_driveline_hb"},
                         {"msg_name": "test_msg5_2"},
                         {"msg_name": "test_stale"},
                         {"msg_name": "car_state2"},

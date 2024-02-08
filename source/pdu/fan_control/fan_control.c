@@ -154,16 +154,17 @@ bool fanControlInit()
 }
 
 uint32_t getFan1Speed() {
-    uint32_t rpm = ((1.0 / FAN_1_TACH_TIM -> CCR2) / 2) * 60;
     uint32_t freq = (1.0 / ((FAN_1_TACH_TIM -> CCR2) * ((FAN_1_TACH_TIM -> PSC + 1.0) / APB1ClockRateHz)));
+    uint32_t duty_cycle = ((float)(FAN_1_TACH_TIM -> CCR1) / FAN_1_TACH_TIM -> CCR2) * 100;
+    uint32_t rpm = (freq / 2.0) * 60;
     // return rpm;
-    return freq;
+    return freq + duty_cycle + rpm;
 }
 
 // This speed will be between 0-100%
 void setFanSpeed(uint8_t fan_speed)
 {
     // Duty cycle is (CCR1 / ARR)%. So CCR1 = (ARR / duty cycle)
-    FAN_PWM_TIM -> CCR1 = (FAN_PWM_TIM -> ARR) * (fan_speed / 100.0);
-    FAN_PWM_TIM -> CCR2 = (FAN_PWM_TIM -> ARR) * (fan_speed / 100.0);
+    FAN_PWM_TIM -> CCR1 = (FAN_PWM_TIM -> ARR + 1) * (fan_speed / 100.0);
+    FAN_PWM_TIM -> CCR2 = (FAN_PWM_TIM -> ARR + 1) * (fan_speed / 100.0);
 }

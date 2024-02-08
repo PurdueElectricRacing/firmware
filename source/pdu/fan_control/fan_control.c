@@ -31,10 +31,12 @@ bool fanControlInit()
      * Therefore we wolve for the below formula for the desired PSC based on the
      * necessary PWMfreq specified by the fan vendor.
     */
-    FAN_PWM_TIM -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY_HZ * (FAN_PWM_TIM -> ARR + 1))) - 1;
+    // FAN_PWM_TIM -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY_HZ * (FAN_PWM_TIM -> ARR + 1))) - 1;
 
     // NOTE: Set up regs so that CCR1 can be directly set from 0-100
     FAN_PWM_TIM -> ARR = 100 - 1; // Using this for ease of calculations
+
+    FAN_PWM_TIM -> PSC = (APB2ClockRateHz / (PWM_FREQUENCY_HZ * (FAN_PWM_TIM -> ARR + 1))) - 1;
 
     FAN_PWM_TIM -> CCR1 = 0; // Start with it off
     FAN_PWM_TIM -> CCR2 = 0; // Start with it off
@@ -64,8 +66,12 @@ bool fanControlInit()
 
     FAN_1_TACH_TIM -> CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
 
+    // FAN_1_TACH_TIM -> PSC = (APB1ClockRateHz / (25000 * (FAN_1_TACH_TIM->ARR + 1))) - 1;
+    // FAN_1_TACH_TIM -> ARR = (APB1ClockRateHz / 25000) - 1;
     FAN_1_TACH_TIM -> PSC = 1 - 1;
     FAN_1_TACH_TIM -> ARR = 0xFFFF - 1;
+    // FAN_1_TACH_TIM -> PSC = 1000 - 1;
+    // FAN_1_TACH_TIM -> ARR = 640 - 1;
 
     /* Set input capture mode */
     FAN_1_TACH_TIM -> CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC1S bits)
@@ -104,59 +110,60 @@ bool fanControlInit()
 
     /* Fan 2 Tach */
 
-    RCC->APB2ENR |= RCC_APB2ENR_TIM10EN;
-    FAN_2_TACH_TIM -> CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
-
-    FAN_2_TACH_TIM -> PSC = 1 - 1;
-    FAN_2_TACH_TIM -> ARR = 0xFFFF - 1;
-
-    /* Set input capture mode */
-    FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC1S bits)
-    FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC2E; // Turn off the channel (necessary to write CC2S bits)
-
-    /* Setup capture compare 1 (period) */
-    FAN_2_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC1S;
-    FAN_2_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC1S_1; // Map IC1 to TI2
-
-    /* Setup capture compare 2 (duty cycle) */
-    FAN_2_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC2S;
-    FAN_2_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI2
-
-    /* CCR1 (period) needs rising edge */
-    FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1P;
-    FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1NP;
-
-    /* CCR2 (duty cycle) needs falling edge */
-    FAN_2_TACH_TIM -> CCER |= TIM_CCER_CC1P;
-    FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1NP;
-
-    /* Select trigger */
-    FAN_2_TACH_TIM -> SMCR &= ~TIM_SMCR_TS;
-    FAN_2_TACH_TIM -> SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_1;
-
-    /* Select trigger */
-    FAN_2_TACH_TIM -> SMCR &= ~TIM_SMCR_SMS;
-    FAN_2_TACH_TIM -> SMCR |= TIM_SMCR_SMS_2;
-
-    /* Enable channels */
-    FAN_2_TACH_TIM -> CCER |= TIM_CCER_CC1E; // Enable CCR1
-    FAN_2_TACH_TIM -> CCER |= TIM_CCER_CC2E; // Enable CCR2
-
-    FAN_2_TACH_TIM -> CR1 |= TIM_CR1_CEN; // Enable timer
+    // RCC->APB2ENR |= RCC_APB2ENR_TIM10EN;
+    // FAN_2_TACH_TIM -> CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
+    //
+    // FAN_2_TACH_TIM -> PSC = 5 - 1;
+    // FAN_2_TACH_TIM -> ARR = 0xFFFF - 1;
+    //
+    // /* Set input capture mode */
+    // FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC1S bits)
+    // FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC2E; // Turn off the channel (necessary to write CC2S bits)
+    //
+    // /* Setup capture compare 1 (period) */
+    // FAN_2_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC1S;
+    // FAN_2_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC1S_1; // Map IC1 to TI2
+    //
+    // /* Setup capture compare 2 (duty cycle) */
+    // FAN_2_TACH_TIM -> CCMR1 &= ~TIM_CCMR1_CC2S;
+    // FAN_2_TACH_TIM -> CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI2
+    //
+    // /* CCR1 (period) needs rising edge */
+    // FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1P;
+    // FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1NP;
+    //
+    // /* CCR2 (duty cycle) needs falling edge */
+    // FAN_2_TACH_TIM -> CCER |= TIM_CCER_CC1P;
+    // FAN_2_TACH_TIM -> CCER &= ~TIM_CCER_CC1NP;
+    //
+    // /* Select trigger */
+    // FAN_2_TACH_TIM -> SMCR &= ~TIM_SMCR_TS;
+    // FAN_2_TACH_TIM -> SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_1;
+    //
+    // /* Select trigger */
+    // FAN_2_TACH_TIM -> SMCR &= ~TIM_SMCR_SMS;
+    // FAN_2_TACH_TIM -> SMCR |= TIM_SMCR_SMS_2;
+    //
+    // /* Enable channels */
+    // FAN_2_TACH_TIM -> CCER |= TIM_CCER_CC1E; // Enable CCR1
+    // FAN_2_TACH_TIM -> CCER |= TIM_CCER_CC2E; // Enable CCR2
+    //
+    // FAN_2_TACH_TIM -> CR1 |= TIM_CR1_CEN; // Enable timer
 
     return true;
 }
 
 uint32_t getFan1Speed() {
     uint32_t rpm = ((1.0 / FAN_1_TACH_TIM -> CCR2) / 2) * 60;
-    return rpm;
-    // return (1.0 / ((FAN_1_TACH_TIM -> CCR2) * ((FAN_1_TACH_TIM -> PSC + 1.0) / APB1ClockRateHz)));
+    uint32_t freq = (1.0 / ((FAN_1_TACH_TIM -> CCR2) * ((FAN_1_TACH_TIM -> PSC + 1.0) / APB1ClockRateHz)));
+    // return rpm;
+    return freq;
 }
 
 // This speed will be between 0-100%
 void setFanSpeed(uint8_t fan_speed)
 {
     // Duty cycle is (CCR1 / ARR)%. So CCR1 = (ARR / duty cycle)
-    FAN_PWM_TIM -> CCR1 = (FAN_PWM_TIM -> ARR + 1) * (fan_speed / 100.0);
-    FAN_PWM_TIM -> CCR2 = (FAN_PWM_TIM -> ARR + 1) * (fan_speed / 100.0);
+    FAN_PWM_TIM -> CCR1 = (FAN_PWM_TIM -> ARR) * (fan_speed / 100.0);
+    FAN_PWM_TIM -> CCR2 = (FAN_PWM_TIM -> ARR) * (fan_speed / 100.0);
 }

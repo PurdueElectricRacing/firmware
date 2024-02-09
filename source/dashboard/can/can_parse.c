@@ -156,17 +156,13 @@ void canRxUpdate()
                 can_data.rear_wheel_speeds.stale = 0;
                 can_data.rear_wheel_speeds.last_rx = sched.os_ticks;
                 break;
-            case ID_FLOWRATE_TEMPS:
-                can_data.flowrate_temps.battery_in_temp = (int8_t) msg_data_a->flowrate_temps.battery_in_temp;
-                can_data.flowrate_temps.battery_out_temp = (int8_t) msg_data_a->flowrate_temps.battery_out_temp;
-                can_data.flowrate_temps.drivetrain_in_temp = (int8_t) msg_data_a->flowrate_temps.drivetrain_in_temp;
-                can_data.flowrate_temps.drivetrain_out_temp = (int8_t) msg_data_a->flowrate_temps.drivetrain_out_temp;
-                can_data.flowrate_temps.battery_flowrate = msg_data_a->flowrate_temps.battery_flowrate;
-                can_data.flowrate_temps.drivetrain_flowrate = msg_data_a->flowrate_temps.drivetrain_flowrate;
-                can_data.flowrate_temps.battery_fan_speed = msg_data_a->flowrate_temps.battery_fan_speed;
-                can_data.flowrate_temps.drivetrain_fan_speed = msg_data_a->flowrate_temps.drivetrain_fan_speed;
-                can_data.flowrate_temps.stale = 0;
-                can_data.flowrate_temps.last_rx = sched.os_ticks;
+            case ID_COOLANT_TEMPS:
+                can_data.coolant_temps.battery_in_temp = (int8_t) msg_data_a->coolant_temps.battery_in_temp;
+                can_data.coolant_temps.battery_out_temp = (int8_t) msg_data_a->coolant_temps.battery_out_temp;
+                can_data.coolant_temps.drivetrain_in_temp = (int8_t) msg_data_a->coolant_temps.drivetrain_in_temp;
+                can_data.coolant_temps.drivetrain_out_temp = (int8_t) msg_data_a->coolant_temps.drivetrain_out_temp;
+                can_data.coolant_temps.stale = 0;
+                can_data.coolant_temps.last_rx = sched.os_ticks;
                 break;
             case ID_COOLANT_OUT:
                 can_data.coolant_out.bat_fan = msg_data_a->coolant_out.bat_fan;
@@ -272,9 +268,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.rear_wheel_speeds.stale,
                 sched.os_ticks, can_data.rear_wheel_speeds.last_rx,
                 UP_REAR_WHEEL_SPEEDS);
-    CHECK_STALE(can_data.flowrate_temps.stale,
-                sched.os_ticks, can_data.flowrate_temps.last_rx,
-                UP_FLOWRATE_TEMPS);
+    CHECK_STALE(can_data.coolant_temps.stale,
+                sched.os_ticks, can_data.coolant_temps.last_rx,
+                UP_COOLANT_TEMPS);
     CHECK_STALE(can_data.coolant_out.stale,
                 sched.os_ticks, can_data.coolant_out.last_rx,
                 UP_COOLANT_OUT);
@@ -315,7 +311,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[4].FR2 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FLOWRATE_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_COOLANT_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_COOLANT_OUT << 3) | 4;
     CAN1->sFilterRegister[6].FR2 = (ID_GEARBOX << 3) | 4;

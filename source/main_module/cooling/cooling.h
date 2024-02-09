@@ -26,37 +26,17 @@
 //90 C  (drivetrain)
 // temp exceeds, stop drive don't open sdc
 // room temp based
+#define THERM_MUX_END_IDX   (6)
 
-#define DT_ALWAYS_COOL  1
-#define BAT_ALWAYS_COOL 1
-#define DT_FLOW_CHECK_OVERRIDE  1
-#define BAT_FLOW_CHECK_OVERRIDE 1
+// Cooling Loops
+
+#define COOL_LOOP_START_IDX (2)
 
 /* DRIVETRAIN COOLANT SYSTEM */
-#define DT_PUMP_ON_TEMP_C   (27)
-#define DT_PUMP_OFF_TEMP_C  (26)
 #define DT_ERROR_TEMP_C     (100) // temp to not drive
 
-// TODO: calibrate flow rates
-// Flow checks
-#define DT_MAX_FLOW_L_M (26) // average of 3.7
-#define DT_MIN_FLOW_L_M (DT_MAX_FLOW_L_M / 3)
-#define DT_FLOW_STARTUP_TIME_S (5)
-
 /* BATTERY COOLANT SYSTEM */
-#define BAT_PUMP_ON_TEMP_C  (27)
-#define BAT_PUMP_OFF_TEMP_C (26)
 #define BAT_ERROR_TEMP_C    (60) // temp to not drive
-
-// Flow checks
-#define BAT_MAX_FLOW_L_M (26)
-#define BAT_MIN_FLOW_L_M (20)
-#define BAT_FLOW_STARTUP_TIME_S (5)
-
-// Part 828 on Adafruit
-#define PULSES_P_LITER (450)
-
-#define PWM_FREQUENCY 25000  //PWM frequency to be 25kHz
 
 // Thermistor specifications
 #define THERM_R1  10000 // Top resistor in voltage divider
@@ -66,7 +46,9 @@
 #define THERM_A (-25.16f)
 #define THERM_B (260.93f)
 
-// Thermistor PN: USP10981
+
+// Powertrain
+// Thermistor PN: GE-1337
 #define DT_THERM_A (-22.93f)
 #define DT_THERM_B (241.39f)
 
@@ -76,10 +58,12 @@
 
 typedef struct
 {
-    float    dt_therm_out_C;
-    float    dt_therm_in_C;
-    float    bat_therm_out_C;
-    float    bat_therm_in_C;
+    int8_t    gb_therm_r_c;
+    int8_t    gb_therm_l_c;
+    int8_t    bat_therm_in_C; //therm 1 (These are drivetrain in altium)
+    int8_t    bat_therm_out_C; //therm 2
+    int8_t    dt_therm_out_C; //therm 1 (These are Battery in altium)
+    int8_t    dt_therm_in_C; //therm 2
     uint32_t dt_delta_t;
     uint32_t bat_delta_t;
 

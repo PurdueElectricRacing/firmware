@@ -51,7 +51,10 @@ bool coolingInit()
     // //Enable counter as long as ccrs are 0
     // TIM4 -> CR1 |= TIM_CR1_CEN; // turning on counter
 
-    // Default pin configurations
+    // Select Thermistor 0 on mux to begin checking thermistors
+    PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, 0);
+    PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, 0);
+    PHAL_writeGPIO(THERM_MUX_S2_GPIO_Port, THERM_MUX_S2_Pin, 0);
 
     return true;
 }
@@ -79,49 +82,26 @@ void coolingPeriodic()
 
     // 568 594
     // Since ADC readin/gs happen ~2ms, the next measurement should be ready
-    // temp = rawThermtoCelcius(adc_readings.therm_mux_d);
-    // temp = THERM_A * adc_to_ln[(adc_readings.therm_mux_d / 16)] + THERM_B;
-    // switch(curr_therm)
-    // {
-    //     case THERM_MUX_BAT_IN:
-    //         cooling.bat_therm_in_C  = temp;
-    //         break;
-    //     case THERM_MUX_BAT_OUT:
-    //         cooling.bat_therm_out_C = temp;
-    //         break;
-    //     case THERM_MUX_DT_IN:
-    //         cooling.dt_therm_in_C = temp;
-    //         break;
-    //     case THERM_MUX_DT_OUT:
-    //         cooling.dt_therm_out_C = temp;
-    //         break;
-    // }
+    if (curr_therm < COOL_LOOP_START_IDX)
+        temp = adc_readings.therm_mux_d;
+    else
+        temp = THERM_A * adc_to_ln[(adc_readings.therm_mux_d / 16)] + THERM_B;
+    // Because the select lines are in order, we can just update this by treating it as an array
+    *((int8_t *)(&cooling) + curr_therm) = (int8_t) temp;
 
-    // SEND_GEARBOX(q_tx_can, drivetrain_left_temp, drivetrain_right_temp);
+    curr_therm = (curr_therm == THERM_MUX_END_IDX) ? 0 : (curr_therm + 1);
+
+    PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, (curr_therm & 0x01));
+    PHAL_writeGPIO(THERM_MUX_S1_GPIO_Port, THERM_MUX_S1_Pin, (curr_therm & 0x02));
+    PHAL_writeGPIO(THERM_MUX_S2_GPIO_Port, THERM_MUX_S2_Pin, (curr_therm & 0x04));
+
+
+    SEND_COOLANT_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C, cooling.dt_therm_in_C, cooling.dt_therm_out_C);
+
+    SEND_GEARBOX(q_tx_can, cooling.gb_therm_l_c, cooling.gb_therm_r_c);
 
     return;
-    //  FLOW CALCULATIONS
-    // // Convert ticks and time delta to liters per minute
-    // if (cooling.dt_delta_t == 0)
-    //     cooling.dt_liters_p_min_x10 = 0;
-    // else
-    //     cooling.dt_liters_p_min_x10 = ((1000 / (float) (cooling.dt_delta_t * 7.5))) * 10;
-    // if (cooling.bat_delta_t == 0)
-    //     cooling.bat_delta_t = 0;
-    // else
-    //     cooling.bat_liters_p_min_x10 = ((1000 / (float) (cooling.bat_delta_t * 7.5))) * 10;
 
-    // static uint8_t dt_old[AVG_WINDOW_SIZE];
-    // static uint8_t bat_old[AVG_WINDOW_SIZE];
-    // static uint8_t curr;
-    // cooling.dt_liters_p_min_x10 = lowpass(cooling.dt_liters_p_min_x10, dt_old, curr);
-    // cooling.bat_liters_p_min_x10 = lowpass(cooling.bat_liters_p_min_x10, bat_old, curr);
-    // ++curr;
-    // curr = (curr == AVG_WINDOW_SIZE) ? 0 : curr;
-
-    // //Send CAN messages with flowrates
-    // // SEND_FLOWRATE_TEMPS(q_tx_can, cooling.bat_liters_p_min_x10, cooling.bat_therm_in_C, cooling.dt_therm_2_C,
-    // //                     adc_readings.dt_therm_1, adc_readings.dt_therm_2);
     //  DT COOLANT SYSTEM
 
     // // Find max motor temperature (CELSIUS)
@@ -139,6 +119,8 @@ void coolingPeriodic()
     // // TODO: replace with CAN frame
     // cooling.bat_temp_error = 1||// TODO: replace with CAN frame can_data.bat_temp.stale ||
     //                          max_bat_temp >= BAT_ERROR_TEMP_C;
+
+
 
 }
 

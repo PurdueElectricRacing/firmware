@@ -32,17 +32,13 @@
                             "msg_pgn":1
                         },
                         {
-                            "msg_name": "flowrate_temps",
-                            "msg_desc": "Flowrate and Water temp of cooling loops",
+                            "msg_name": "coolant_temps",
+                            "msg_desc": "Water temp of cooling loops",
                             "signals": [
                                 {"sig_name": "battery_in_temp", "sig_desc":"In flow temperature of battery coolant loop", "type":"int8_t", "unit":"C"},
                                 {"sig_name": "battery_out_temp", "sig_desc":"Out flow temperature of battery coolant loop", "type":"int8_t", "unit":"C"},
                                 {"sig_name": "drivetrain_in_temp", "sig_desc":"In flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"},
-                                {"sig_name": "drivetrain_out_temp", "sig_desc":"Out flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"},
-                                {"sig_name": "battery_flowrate", "sig_desc": "Flow rate for battery coolant loop", "type": "uint8_t", "scale": 0.1, "unit":"LPM"},
-                                {"sig_name": "drivetrain_flowrate", "sig_desc": "Flow rate for drivetrain coolant loop", "type": "uint8_t", "scale": 0.1, "unit":"LPM"},
-                                {"sig_name": "battery_fan_speed", "sig_desc": "Speed of battery fan", "type": "uint8_t", "scale":100, "unit":"RPM"},
-                                {"sig_name": "drivetrain_fan_speed", "sig_desc": "Speed of drivetrain fan", "type": "uint8_t", "scale":100, "unit":"RPM"}
+                                {"sig_name": "drivetrain_out_temp", "sig_desc":"Out flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"}
                             ],
                             "msg_period":200,
                             "msg_hlp":1,
@@ -838,7 +834,7 @@
                         {"msg_name": "precharge_hb"},
                         {"msg_name": "torque_request_main"},
                         {"msg_name": "rear_wheel_speeds"},
-                        {"msg_name": "flowrate_temps"},
+                        {"msg_name": "coolant_temps"},
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true}

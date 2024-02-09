@@ -46,11 +46,7 @@ BO_ 2214592577 torque_request_main: 8 Main_Module
  SG_ front_right : 16|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ front_left : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214594689 flowrate_temps: 8 Main_Module
- SG_ drivetrain_fan_speed : 56|8@1+ (100,0) [0|0] "RPM" Vector__XXX
- SG_ battery_fan_speed : 48|8@1+ (100,0) [0|0] "RPM" Vector__XXX
- SG_ drivetrain_flowrate : 40|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
- SG_ battery_flowrate : 32|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+BO_ 2214594689 coolant_temps: 4 Main_Module
  SG_ drivetrain_out_temp : 24|8@1- (1,0) [0|0] "C" Vector__XXX
  SG_ drivetrain_in_temp : 16|8@1- (1,0) [0|0] "C" Vector__XXX
  SG_ battery_out_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
@@ -891,11 +887,7 @@ CM_ SG_ 2214592577 rear_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 rear_left "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_right "torque request. -4095-4095";
 CM_ SG_ 2214592577 front_left "torque request. -4095-4095";
-CM_ BO_ 2214594689 "Flowrate and Water temp of cooling loops";
-CM_ SG_ 2214594689 drivetrain_fan_speed "Speed of drivetrain fan";
-CM_ SG_ 2214594689 battery_fan_speed "Speed of battery fan";
-CM_ SG_ 2214594689 drivetrain_flowrate "Flow rate for drivetrain coolant loop";
-CM_ SG_ 2214594689 battery_flowrate "Flow rate for battery coolant loop";
+CM_ BO_ 2214594689 "Water temp of cooling loops";
 CM_ SG_ 2214594689 drivetrain_out_temp "Out flow temperature of drivetrain coolant loop";
 CM_ SG_ 2214594689 drivetrain_in_temp "In flow temperature of drivetrain coolant loop";
 CM_ SG_ 2214594689 battery_out_temp "Out flow temperature of battery coolant loop";

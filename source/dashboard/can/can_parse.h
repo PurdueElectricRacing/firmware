@@ -39,7 +39,7 @@
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_REAR_WHEEL_SPEEDS 0x8000381
-#define ID_FLOWRATE_TEMPS 0x4000881
+#define ID_COOLANT_TEMPS 0x4000881
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
@@ -75,7 +75,7 @@
 #define DLC_PRECHARGE_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_REAR_WHEEL_SPEEDS 8
-#define DLC_FLOWRATE_TEMPS 8
+#define DLC_COOLANT_TEMPS 4
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
@@ -170,7 +170,7 @@
 #define UP_PRECHARGE_HB 100
 #define UP_TORQUE_REQUEST_MAIN 15
 #define UP_REAR_WHEEL_SPEEDS 15
-#define UP_FLOWRATE_TEMPS 200
+#define UP_COOLANT_TEMPS 200
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 2000
 /* END AUTO UP DEFS */
@@ -337,11 +337,7 @@ typedef union {
         uint64_t battery_out_temp: 8;
         uint64_t drivetrain_in_temp: 8;
         uint64_t drivetrain_out_temp: 8;
-        uint64_t battery_flowrate: 8;
-        uint64_t drivetrain_flowrate: 8;
-        uint64_t battery_fan_speed: 8;
-        uint64_t drivetrain_fan_speed: 8;
-    } flowrate_temps;
+    } coolant_temps;
     struct {
         uint64_t bat_fan: 8;
         uint64_t dt_fan: 8;
@@ -525,13 +521,9 @@ typedef struct {
         int8_t battery_out_temp;
         int8_t drivetrain_in_temp;
         int8_t drivetrain_out_temp;
-        uint8_t battery_flowrate;
-        uint8_t drivetrain_flowrate;
-        uint8_t battery_fan_speed;
-        uint8_t drivetrain_fan_speed;
         uint8_t stale;
         uint32_t last_rx;
-    } flowrate_temps;
+    } coolant_temps;
     struct {
         uint8_t bat_fan;
         uint8_t dt_fan;

@@ -25,8 +25,9 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_TV;
+    car.torque_src = CAR_TORQUE_RAW;
     car.regen_enabled = false;
+    car.sdc_close = true; // We want to initialize SDC as "good"
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
@@ -484,9 +485,11 @@ void monitorSDCPeriodic()
     static uint8_t index = 0;
     bool *nodes = (bool *) &sdc_mux;
 
-    *(nodes+index++) = PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);;
+    uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
 
-    index = (index == 4) ? (index + 1) : index;
+    *(nodes+index++) = stat;
+
+    // index = (index == 4) ? (index + 1) : index;
 
     if (index == SDC_MUX_HIGH_IDX)
     {
@@ -496,6 +499,9 @@ void monitorSDCPeriodic()
                 sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }
 
+    SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
+        sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
+        sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
     PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));

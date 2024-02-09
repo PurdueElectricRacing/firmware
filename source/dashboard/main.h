@@ -46,7 +46,7 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define PRCHG_LED_GPIO_Port         (GPIOE)
 #define PRCHG_LED_Pin               (1)
 #define IMD_LED_GPIO_Port           (GPIOE)
-#define IMD_LED_Pin                 (1)
+#define IMD_LED_Pin                 (2)
 #define BMS_LED_GPIO_Port           (GPIOE)
 #define BMS_LED_Pin                 (3)
 

@@ -188,6 +188,8 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
 // };
 
 
+
+
 /* Clock Configuration */
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -215,6 +217,8 @@ void canTxUpdate(void);
 void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 
+void brak_buzz_test();
+
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 uint8_t can_tx_fails; // number of CAN messages that failed to transmit
@@ -239,14 +243,17 @@ int main(void){
         HardFault_Handler();
     }
 
+    // PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, 1);
+    PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
+
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-    // taskCreate(coolingPeriodic, 200);
+    taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
-    taskCreate(monitorSDCPeriodic, 15);
+    taskCreate(monitorSDCPeriodic, 20);
     // taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
     // taskCreate(wheelSpeedsPeriodic, 15);
@@ -255,7 +262,6 @@ int main(void){
     // taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
-    // // taskCreate(updateFaults, 1);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     // taskCreateBackground(usartTxUpdate);
@@ -330,7 +336,7 @@ void preflightChecks(void) {
         case 4:
            /* Module Initialization */
            carInit();
-        //    coolingInit();
+           coolingInit();
            break;
        case 5:
            initCANParse(&q_rx_can);
@@ -366,6 +372,12 @@ void preflightAnimation(void) {
             PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
             break;
     }
+}
+
+void brak_buzz_test()
+{
+    PHAL_toggleGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin);
+    PHAL_toggleGPIO(BUZZER_GPIO_Port, BUZZER_Pin);
 }
 
 void heartBeatLED(void)

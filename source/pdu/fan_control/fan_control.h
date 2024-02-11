@@ -9,7 +9,9 @@
 #define FAN_PWM_TIM (FAN_1_PWM_TIM) // Fan 1 and 2 user same timer
 //
 bool fanControlInit();
-void setFanSpeed(uint8_t fan_speed);
+void setFan1Speed(uint8_t fan_speed);
+void setFan2Speed(uint8_t fan_speed);
 uint32_t getFan1Speed();
+uint32_t getFan2Speed();
 
 #endif // _FAN_CONTROL_H_

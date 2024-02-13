@@ -414,6 +414,15 @@
                     "time_to_latch": 100,
                     "time_to_unlatch": 5000,
                     "lcd_message": "IMD Isolation Fault"
+                },
+                {
+                    "fault_name": "tmu_power_lost",
+                    "max": 5,
+                    "min": 3,
+                    "priority": "error",
+                    "time_to_latch": 100,
+                    "time_to_unlatch": 5000,
+                    "lcd_message": "Fuck! TMU Power Lost!"
                 }
 
             ]

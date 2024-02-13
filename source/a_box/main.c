@@ -199,7 +199,6 @@ int main (void)
    taskCreate(monitorStatus, 50);
    taskCreate(orionChargePeriodic, 50);
    taskCreate(heartBeatTask, 100);
-   // taskCreate(updateFaults, 1);
    // taskCreate(sendIMUData, 10);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
@@ -227,11 +226,8 @@ void preflightChecks(void)
    switch (state++)
    {
        case 0 :
-           if (initTMU(&tmu)) {
-                PHAL_FaultHandler();
-           }
-
-           break;
+            initTMU(&tmu);
+            break;
         case 1:
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_A_BOX);
             break;
@@ -312,22 +308,6 @@ void monitorStatus()
    if (bms_daq_override) stat = bms_daq_stat;
    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }
-
-void monitorTherm() {
-   uint8_t tmu_err;
-   
-}
-
-
-
-
-
-// void sendIMUData()
-// {
-//    imu_periodic(&imu_h);
-// }
-
-
 
 
 // *** Compulsory CAN Tx/Rx callbacks ***

@@ -43,5 +43,6 @@ var searchData=
   ['pump_5f2_5fimon_5fadc_5fchnl_40',['PUMP_2_IMON_ADC_CHNL',['../pdu_2main_8h.html#a5053116e39f1f2bb65f36df8fc2a0419',1,'main.h']]],
   ['pump_5f2_5fimon_5fgpio_5fport_41',['PUMP_2_IMON_GPIO_Port',['../pdu_2main_8h.html#aaeeb8cf8c516dbc85e692a0d3e5fe550',1,'main.h']]],
   ['pump_5f2_5fimon_5fpin_42',['PUMP_2_IMON_Pin',['../pdu_2main_8h.html#ae4203a9cb4b1ca55a49e3817d01f8bde',1,'main.h']]],
-  ['pwm_5ffrequency_43',['PWM_FREQUENCY',['../cooling_8h.html#a6177eb86ee16a1956c81749e4e332cf0',1,'cooling.h']]]
+  ['pwm_5ffrequency_43',['PWM_FREQUENCY',['../cooling_8h.html#a6177eb86ee16a1956c81749e4e332cf0',1,'cooling.h']]],
+  ['pwm_5ffrequency_5fhz_44',['PWM_FREQUENCY_HZ',['../fan__control_8h.html#a51d3a2096977a34d2375fb2e2eb21f3a',1,'fan_control.h']]]
 ];

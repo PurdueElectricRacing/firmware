@@ -12,6 +12,7 @@
 #define _AUTO_SWITCH_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <source/pdu/main.h>
 
 // Static variables
@@ -82,12 +83,13 @@ typedef struct {
 
 extern auto_switch_t auto_switch;
 
-// Function definitions
-uint8_t faultStatus();
-void getFaults();
+// Parent function definitions
 void updateCurrent();
 void updateVoltage();
-void enableSwitch();
+void enableSwitch(uint16_t, uint16_t);
+bool getSwitchStatus(uint16_t);
+
+// Internal helper functions
 uint16_t calcCurrent_HP(uint16_t);
 uint16_t calcCurrent_LP(uint16_t);
 void calcCurrent_Total();

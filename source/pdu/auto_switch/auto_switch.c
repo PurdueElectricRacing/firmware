@@ -14,14 +14,6 @@
 // Initialize struct
 auto_switch_t auto_switch;
 
-uint8_t faultStatus() {
-    return 0;
-}
-
-void getFaults() {
-
-}
-
 // Called periodically, Calculates current through each switch in mA
 void updateCurrent() {
     // High power switches
@@ -85,6 +77,99 @@ uint16_t calcVoltage(uint16_t voltage, int r1, int r2) {
     return voltage;
 }
 
-void enableSwitch() {
-    PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, 1);
+void enableSwitch(uint16_t auto_switch_enum, uint16_t value) {
+    switch (auto_switch_enum) {
+        case SW_PUMP_1:
+            PHAL_writeGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, value);
+            break;
+        case SW_PUMP_2:
+            PHAL_writeGPIO(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin, value);
+            break;
+        case SW_SDC:
+            PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, value);
+            break;
+        case SW_AUX:
+            PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, value);
+            break;
+        case SW_FAN_1:
+            PHAL_writeGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin, value);
+            break;
+        case SW_FAN_2:
+            PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, value);
+            break;
+        case SW_DASH:
+            PHAL_writeGPIO(DASH_CTRL_GPIO_Port, DASH_CTRL_Pin, value);
+            break;
+        case SW_ABOX:
+            PHAL_writeGPIO(ABOX_CTRL_GPIO_Port, ABOX_CTRL_Pin, value);
+            break;
+        case SW_MAIN:
+            PHAL_writeGPIO(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin, value);
+            break;
+        case SW_BLT:
+            PHAL_writeGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, value);
+            break;
+        case SW_CRIT_5V:
+            PHAL_writeGPIO(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, value);
+            break;
+        case SW_NCRIT_5V:
+            PHAL_writeGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin, value);
+            break;
+        case SW_DAQ:
+            PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, value);
+            break;
+        case SW_FAN_5V:
+            PHAL_writeGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin, value);
+            break;
+    }
+}
+
+bool getSwitchStatus(uint16_t auto_switch_enum) {
+    bool status;
+    // get switch state and return it
+    switch (auto_switch_enum) {
+        case SW_PUMP_1:
+            status = PHAL_readGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin);
+            break;
+        case SW_PUMP_2:
+            status = PHAL_readGPIO(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin);
+            break;
+        case SW_SDC:
+            status = PHAL_readGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin);
+            break;
+        case SW_AUX:
+            status = PHAL_readGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin);
+            break;
+        case SW_FAN_1:
+            status = PHAL_readGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin);
+            break;
+        case SW_FAN_2:
+            status = PHAL_readGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin);
+            break;
+        case SW_DASH:
+            status = PHAL_readGPIO(DASH_CTRL_GPIO_Port, DASH_CTRL_Pin);
+            break;
+        case SW_ABOX:
+            status = PHAL_readGPIO(ABOX_CTRL_GPIO_Port, ABOX_CTRL_Pin);
+            break;
+        case SW_MAIN:
+            status = PHAL_readGPIO(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin);
+            break;
+        case SW_BLT:
+            status = PHAL_readGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin);
+            break;
+        case SW_CRIT_5V:
+            status = PHAL_readGPIO(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin);
+            break;
+        case SW_NCRIT_5V:
+            status = PHAL_readGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin);
+            break;
+        case SW_DAQ:
+            status = PHAL_readGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin);
+            break;
+        case SW_FAN_5V:
+            status = PHAL_readGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin);
+            break;
+    return status;
+    }
 }

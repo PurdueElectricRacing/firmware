@@ -190,8 +190,6 @@ int main()
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
-    enableSwitch();  // TODO: Remove before merge
-
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);

@@ -77,6 +77,7 @@ uint16_t calcVoltage(uint16_t voltage, int r1, int r2) {
     return voltage;
 }
 
+// Enable or disable switche by name
 void enableSwitch(uint16_t auto_switch_enum, uint16_t value) {
     switch (auto_switch_enum) {
         case SW_PUMP_1:
@@ -124,9 +125,9 @@ void enableSwitch(uint16_t auto_switch_enum, uint16_t value) {
     }
 }
 
+// Get switch state and return it
 bool getSwitchStatus(uint16_t auto_switch_enum) {
     bool status;
-    // get switch state and return it
     switch (auto_switch_enum) {
         case SW_PUMP_1:
             status = PHAL_readGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin);

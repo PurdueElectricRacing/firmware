@@ -14,6 +14,12 @@
 // Initialize struct
 auto_switch_t auto_switch;
 
+// Static function declarations
+uint16_t calcCurrent_HP(uint16_t);
+uint16_t calcCurrent_LP(uint16_t);
+void calcCurrent_Total();
+uint16_t calcVoltage(uint16_t, int, int);
+
 // Called periodically, Calculates current through each switch in mA
 void updateCurrent() {
     // High power switches

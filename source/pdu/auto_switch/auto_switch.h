@@ -83,16 +83,10 @@ typedef struct {
 
 extern auto_switch_t auto_switch;
 
-// Parent function definitions
+// Function declarations
 void updateCurrent();
 void updateVoltage();
 void enableSwitch(uint16_t, uint16_t);
 bool getSwitchStatus(uint16_t);
-
-// Internal helper functions
-uint16_t calcCurrent_HP(uint16_t);
-uint16_t calcCurrent_LP(uint16_t);
-void calcCurrent_Total();
-uint16_t calcVoltage(uint16_t, int, int);
 
 #endif

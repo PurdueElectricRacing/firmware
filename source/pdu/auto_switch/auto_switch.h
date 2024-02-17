@@ -79,14 +79,15 @@ typedef struct {
 typedef struct {
     uint16_t current[CS_SWITCH_COUNT];  // Current in mA
     voltage_t voltage;
-} auto_switch_t;
+} auto_switches_t;
 
-extern auto_switch_t auto_switch;
+extern auto_switches_t auto_switches;
 
 // Function declarations
 void updateCurrent();
 void updateVoltage();
-void enableSwitch(uint16_t, uint16_t);
-bool getSwitchStatus(uint16_t);
+void enableSwitch(uint16_t auto_switch_enum, uint16_t value);
+bool getSwitchStatus(uint16_t auto_switch_enum);
+void autoSwitchPeriodic();
 
 #endif

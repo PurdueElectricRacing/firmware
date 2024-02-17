@@ -12,7 +12,7 @@
 #include "common/phal_F4_F7/gpio/gpio.h"
 
 // Initialize struct
-auto_switch_t auto_switch;
+auto_switches_t auto_switches;
 
 // Static function declarations
 uint16_t calcCurrent_HP(uint16_t);
@@ -23,17 +23,17 @@ uint16_t calcVoltage(uint16_t, int, int);
 // Called periodically, Calculates current through each switch in mA
 void updateCurrent() {
     // High power switches
-    auto_switch.current[SW_PUMP_1] = calcCurrent_HP(adc_readings.pump_1_imon);
-    auto_switch.current[SW_PUMP_2] = calcCurrent_HP(adc_readings.pump_2_imon);
-    auto_switch.current[SW_SDC] = calcCurrent_HP(adc_readings.sdc_imon);
-    auto_switch.current[SW_AUX] = calcCurrent_HP(adc_readings.aux_hp_imon);
+    auto_switches.current[SW_PUMP_1] = calcCurrent_HP(adc_readings.pump_1_imon);
+    auto_switches.current[SW_PUMP_2] = calcCurrent_HP(adc_readings.pump_2_imon);
+    auto_switches.current[SW_SDC] = calcCurrent_HP(adc_readings.sdc_imon);
+    auto_switches.current[SW_AUX] = calcCurrent_HP(adc_readings.aux_hp_imon);
 
     // Low power switches
-    auto_switch.current[SW_FAN_1] = calcCurrent_LP(adc_readings.fan_1_cs);
-    auto_switch.current[SW_FAN_2] = calcCurrent_LP(adc_readings.fan_2_cs);
-    auto_switch.current[SW_DASH] = calcCurrent_LP(adc_readings.dash_cs);
-    auto_switch.current[SW_ABOX] = calcCurrent_LP(adc_readings.abox_cs);
-    auto_switch.current[SW_MAIN] = calcCurrent_LP(adc_readings.main_cs);
+    auto_switches.current[SW_FAN_1] = calcCurrent_LP(adc_readings.fan_1_cs);
+    auto_switches.current[SW_FAN_2] = calcCurrent_LP(adc_readings.fan_2_cs);
+    auto_switches.current[SW_DASH] = calcCurrent_LP(adc_readings.dash_cs);
+    auto_switches.current[SW_ABOX] = calcCurrent_LP(adc_readings.abox_cs);
+    auto_switches.current[SW_MAIN] = calcCurrent_LP(adc_readings.main_cs);
     // TODO: bullet switch doesn't have cs signal
 
     // Upstream CS
@@ -42,9 +42,9 @@ void updateCurrent() {
 
 // Called periodically, Updates voltage for each rail in mV
 void updateVoltage() {
-    auto_switch.voltage.in_24v = calcVoltage(adc_readings.lv_24_v_sense, LV_24V_R1, LV_24V_R2);
-    auto_switch.voltage.out_5v = calcVoltage(adc_readings.lv_5_v_sense, LV_5V_R1, LV_5V_R2);
-    auto_switch.voltage.out_3v3 = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2);
+    auto_switches.voltage.in_24v = calcVoltage(adc_readings.lv_24_v_sense, LV_24V_R1, LV_24V_R2);
+    auto_switches.voltage.out_5v = calcVoltage(adc_readings.lv_5_v_sense, LV_5V_R1, LV_5V_R2);
+    auto_switches.voltage.out_3v3 = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2);
 }
 
 // Current helper functions
@@ -66,12 +66,12 @@ void calcCurrent_Total() {
     uint16_t current = adc_readings.lv_24_i_sense;
     current = current * ADC_REF_mV / ADC_MAX;  // Convert to mV
     current = current / HP_CS_R_SENSE / CS_GAIN;
-    auto_switch.current[CS_24V] = current;
+    auto_switches.current[CS_24V] = current;
 
     // 5V current
     current = adc_readings.lv_5_i_sense;
     current = current * ADC_REF_mV / ADC_MAX;  // Convert to mA
-    auto_switch.current[CS_5V] = current;
+    auto_switches.current[CS_5V] = current;
 }
 
 // Converts ADC voltage reading to mV
@@ -83,7 +83,7 @@ uint16_t calcVoltage(uint16_t voltage, int r1, int r2) {
     return voltage;
 }
 
-// Enable or disable switche by name
+// Enable or disable switches by name
 void enableSwitch(uint16_t auto_switch_enum, uint16_t value) {
     switch (auto_switch_enum) {
         case SW_PUMP_1:
@@ -103,15 +103,6 @@ void enableSwitch(uint16_t auto_switch_enum, uint16_t value) {
             break;
         case SW_FAN_2:
             PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, value);
-            break;
-        case SW_DASH:
-            PHAL_writeGPIO(DASH_CTRL_GPIO_Port, DASH_CTRL_Pin, value);
-            break;
-        case SW_ABOX:
-            PHAL_writeGPIO(ABOX_CTRL_GPIO_Port, ABOX_CTRL_Pin, value);
-            break;
-        case SW_MAIN:
-            PHAL_writeGPIO(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin, value);
             break;
         case SW_BLT:
             PHAL_writeGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, value);
@@ -153,15 +144,6 @@ bool getSwitchStatus(uint16_t auto_switch_enum) {
         case SW_FAN_2:
             status = PHAL_readGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin);
             break;
-        case SW_DASH:
-            status = PHAL_readGPIO(DASH_CTRL_GPIO_Port, DASH_CTRL_Pin);
-            break;
-        case SW_ABOX:
-            status = PHAL_readGPIO(ABOX_CTRL_GPIO_Port, ABOX_CTRL_Pin);
-            break;
-        case SW_MAIN:
-            status = PHAL_readGPIO(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin);
-            break;
         case SW_BLT:
             status = PHAL_readGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin);
             break;
@@ -177,6 +159,12 @@ bool getSwitchStatus(uint16_t auto_switch_enum) {
         case SW_FAN_5V:
             status = PHAL_readGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin);
             break;
-    return status;
     }
+
+    return status;
+}
+
+void autoSwitchPeriodic() {
+    updateCurrent();
+    updateVoltage();
 }

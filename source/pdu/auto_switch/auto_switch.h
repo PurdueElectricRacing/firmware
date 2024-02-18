@@ -84,10 +84,38 @@ typedef struct {
 extern auto_switches_t auto_switches;
 
 // Function declarations
+/**
+ * @brief Calculates current through each switch in mA
+ *        and stores the result in auto_switches.current[]
+*/
 void updateCurrent();
+
+/**
+ * @brief Updates voltage for each rail in mV and stores
+ *        the result in auto_switches.voltage[]
+*/
 void updateVoltage();
-void enableSwitch(uint16_t auto_switch_enum, uint16_t value);
+
+/**
+ * @brief Enable or disable a switch
+ * 
+ * @param auto_switch_enum Switch to enable or disable
+ * @param state 1 to enable, 0 to disable
+*/
+void setSwitch(uint16_t auto_switch_enum, uint16_t state);
+
+/**
+ * @brief Check if a switch is enabled
+ * 
+ * @param auto_switch_enum Switch to check
+ * @return 1 if enabled, 0 if disabled
+*/
 bool getSwitchStatus(uint16_t auto_switch_enum);
+
+/**
+ * @brief Combined function that calls updateVoltage()
+ *        and updateCurrent()
+*/
 void autoSwitchPeriodic();
 
 #endif

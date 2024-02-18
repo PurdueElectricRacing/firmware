@@ -34,7 +34,6 @@ void updateCurrent() {
     auto_switches.current[SW_DASH] = calcCurrent_LP(adc_readings.dash_cs);
     auto_switches.current[SW_ABOX] = calcCurrent_LP(adc_readings.abox_cs);
     auto_switches.current[SW_MAIN] = calcCurrent_LP(adc_readings.main_cs);
-    // TODO: bullet switch doesn't have cs signal
 
     // Upstream CS
     calcCurrent_Total();
@@ -84,40 +83,40 @@ uint16_t calcVoltage(uint16_t voltage, int r1, int r2) {
 }
 
 // Enable or disable switches by name
-void enableSwitch(uint16_t auto_switch_enum, uint16_t value) {
+void setSwitch(uint16_t auto_switch_enum, uint16_t state) {
     switch (auto_switch_enum) {
         case SW_PUMP_1:
-            PHAL_writeGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, value);
+            PHAL_writeGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, state);
             break;
         case SW_PUMP_2:
-            PHAL_writeGPIO(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin, value);
+            PHAL_writeGPIO(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin, state);
             break;
         case SW_SDC:
-            PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, value);
+            PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, state);
             break;
         case SW_AUX:
-            PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, value);
+            PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, state);
             break;
         case SW_FAN_1:
-            PHAL_writeGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin, value);
+            PHAL_writeGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin, state);
             break;
         case SW_FAN_2:
-            PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, value);
+            PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, state);
             break;
         case SW_BLT:
-            PHAL_writeGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, value);
+            PHAL_writeGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, state);
             break;
         case SW_CRIT_5V:
-            PHAL_writeGPIO(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, value);
+            PHAL_writeGPIO(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, state);
             break;
         case SW_NCRIT_5V:
-            PHAL_writeGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin, value);
+            PHAL_writeGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin, state);
             break;
         case SW_DAQ:
-            PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, value);
+            PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, state);
             break;
         case SW_FAN_5V:
-            PHAL_writeGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin, value);
+            PHAL_writeGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin, state);
             break;
     }
 }

@@ -85,18 +85,6 @@ extern auto_switches_t auto_switches;
 
 // Function declarations
 /**
- * @brief Calculates current through each switch in mA
- *        and stores the result in auto_switches.current[]
-*/
-void updateCurrent();
-
-/**
- * @brief Updates voltage for each rail in mV and stores
- *        the result in auto_switches.voltage[]
-*/
-void updateVoltage();
-
-/**
  * @brief Enable or disable a switch
  * 
  * @param auto_switch_enum Switch to enable or disable
@@ -110,11 +98,17 @@ void setSwitch(uint16_t auto_switch_enum, uint16_t state);
  * @param auto_switch_enum Switch to check
  * @return 1 if enabled, 0 if disabled
 */
-bool getSwitchStatus(uint16_t auto_switch_enum);
+bool getSwitchStatus(switches_t auto_switch_enum);
 
 /**
  * @brief Combined function that calls updateVoltage()
  *        and updateCurrent()
+ * 
+ *        Voltage on each rail is stored at:
+ *        auto_switches.voltage[auto_switch_enum]
+ * 
+ *        Current through each switch is stored at:
+ *        auto_switches.current[auto_switch_enum]
 */
 void autoSwitchPeriodic();
 

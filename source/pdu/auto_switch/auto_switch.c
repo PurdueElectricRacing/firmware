@@ -15,6 +15,8 @@
 auto_switches_t auto_switches;
 
 // Static function declarations
+void updateCurrent();
+void updateVoltage();
 uint16_t calcCurrent_HP(uint16_t);
 uint16_t calcCurrent_LP(uint16_t);
 void calcCurrent_Total();
@@ -122,7 +124,7 @@ void setSwitch(uint16_t auto_switch_enum, uint16_t state) {
 }
 
 // Get switch state and return it
-bool getSwitchStatus(uint16_t auto_switch_enum) {
+bool getSwitchStatus(switches_t auto_switch_enum) {
     bool status;
     switch (auto_switch_enum) {
         case SW_PUMP_1:

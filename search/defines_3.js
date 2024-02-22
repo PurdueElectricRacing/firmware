@@ -21,7 +21,8 @@ var searchData=
   ['crit_5f5v_5fctrl_5fpin_18',['CRIT_5V_CTRL_Pin',['../pdu_2main_8h.html#aac171a2cba24500a65b972f178ee15a6',1,'main.h']]],
   ['crit_5f5v_5fnflt_5fgpio_5fport_19',['CRIT_5V_NFLT_GPIO_Port',['../pdu_2main_8h.html#a4a06c1138fee5dd1415f31c10a778fba',1,'main.h']]],
   ['crit_5f5v_5fnflt_5fpin_20',['CRIT_5V_NFLT_Pin',['../pdu_2main_8h.html#a4636a6f9397c7572d3f6651837a63daa',1,'main.h']]],
-  ['csb_5fafe_5fgpio_5fport_21',['CSB_AFE_GPIO_Port',['../bms_2main_8h.html#a11b076731ea100b3c31e13130faa716b',1,'main.h']]],
-  ['csb_5fafe_5fpin_22',['CSB_AFE_Pin',['../bms_2main_8h.html#a37cabf768c9bd30279de1ced8617c8b5',1,'main.h']]],
-  ['cvst_23',['CVST',['../afe_8h.html#a46cf9f9c6a4f127d5ab47c101f1b0f6d',1,'afe.h']]]
+  ['cs_5fgain_21',['CS_GAIN',['../auto__switch_8h.html#ad1b5bc35cb4ea53f3dde54a7d082027d',1,'auto_switch.h']]],
+  ['csb_5fafe_5fgpio_5fport_22',['CSB_AFE_GPIO_Port',['../bms_2main_8h.html#a11b076731ea100b3c31e13130faa716b',1,'main.h']]],
+  ['csb_5fafe_5fpin_23',['CSB_AFE_Pin',['../bms_2main_8h.html#a37cabf768c9bd30279de1ced8617c8b5',1,'main.h']]],
+  ['cvst_24',['CVST',['../afe_8h.html#a46cf9f9c6a4f127d5ab47c101f1b0f6d',1,'afe.h']]]
 ];

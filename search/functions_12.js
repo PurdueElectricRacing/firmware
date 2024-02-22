@@ -26,11 +26,12 @@ var searchData=
   ['setlimits_23',['setLimits',['../charge_8c.html#ade857f847f4237729ea43fffcab8f49f',1,'charge.c']]],
   ['setplim_24',['setPLim',['../bms_2bms_8c.html#a3f6fceec5eb9d128c88a138cf1378597',1,'setPLim(void):&#160;bms.c'],['../bms_2bms_8h.html#a3f6fceec5eb9d128c88a138cf1378597',1,'setPLim(void):&#160;bms.c']]],
   ['setred_25',['setRed',['../l4__testing_2main_8c.html#a6df3aecce67bfe87a415204641ec446e',1,'main.c']]],
-  ['sfs_5finitialize_26',['SFS_initialize',['../SFS_8c.html#ae245e3c550f612c8e75d3d9562de597f',1,'SFS_initialize(RT_MODEL *const rtM):&#160;SFS.c'],['../SFS_8h.html#ae245e3c550f612c8e75d3d9562de597f',1,'SFS_initialize(RT_MODEL *const rtM):&#160;SFS.c']]],
-  ['sfs_5fmain_27',['SFS_MAIN',['../torque__vector_2main_8c.html#aae76d03d7b60f1adc24b10c19d64c87d',1,'SFS_MAIN(void):&#160;main.c'],['../SFS_8h.html#aae76d03d7b60f1adc24b10c19d64c87d',1,'SFS_MAIN(void):&#160;main.c']]],
-  ['sfs_5fpp_28',['SFS_pp',['../sfs__pp_8c.html#a262635e2165e43457d3928a420f15990',1,'SFS_pp(ExtU *rtU):&#160;sfs_pp.c'],['../sfs__pp_8h.html#a262635e2165e43457d3928a420f15990',1,'SFS_pp(ExtU *rtU):&#160;sfs_pp.c']]],
-  ['sfs_5fstep_29',['SFS_step',['../SFS_8c.html#a8aaa84c985bb85ee3777fa3c9655fd93',1,'SFS_step(RT_MODEL *const rtM, ExtU *rtU, ExtY *rtY):&#160;SFS.c'],['../SFS_8h.html#a8aaa84c985bb85ee3777fa3c9655fd93',1,'SFS_step(RT_MODEL *const rtM, ExtU *rtU, ExtY *rtY):&#160;SFS.c']]],
-  ['startcharge_30',['startCharge',['../charge_8c.html#a05671070f9ffeb2f34d12cbdb70fe1b4',1,'charge.c']]],
-  ['stopcharge_31',['stopCharge',['../charge_8c.html#a2c98073a6617effb879351db71a1c087',1,'charge.c']]],
-  ['systick_5fhandler_32',['SysTick_Handler',['../bootloader_2main_8c.html#ab5e09814056d617c521549e542639b7e',1,'SysTick_Handler(void):&#160;main.c'],['../l4__testing_2main_8c.html#aafb8d3e0fd06464b1ee0ae1edbc3c7d6',1,'SysTick_Handler():&#160;main.c']]]
+  ['setswitch_26',['setSwitch',['../auto__switch_8c.html#a8509532d58f56e7044ab6f36a2f17eb5',1,'setSwitch(switches_t auto_switch_enum, bool state):&#160;auto_switch.c'],['../auto__switch_8h.html#a8509532d58f56e7044ab6f36a2f17eb5',1,'setSwitch(switches_t auto_switch_enum, bool state):&#160;auto_switch.c']]],
+  ['sfs_5finitialize_27',['SFS_initialize',['../SFS_8c.html#ae245e3c550f612c8e75d3d9562de597f',1,'SFS_initialize(RT_MODEL *const rtM):&#160;SFS.c'],['../SFS_8h.html#ae245e3c550f612c8e75d3d9562de597f',1,'SFS_initialize(RT_MODEL *const rtM):&#160;SFS.c']]],
+  ['sfs_5fmain_28',['SFS_MAIN',['../torque__vector_2main_8c.html#aae76d03d7b60f1adc24b10c19d64c87d',1,'SFS_MAIN(void):&#160;main.c'],['../SFS_8h.html#aae76d03d7b60f1adc24b10c19d64c87d',1,'SFS_MAIN(void):&#160;main.c']]],
+  ['sfs_5fpp_29',['SFS_pp',['../sfs__pp_8c.html#a262635e2165e43457d3928a420f15990',1,'SFS_pp(ExtU *rtU):&#160;sfs_pp.c'],['../sfs__pp_8h.html#a262635e2165e43457d3928a420f15990',1,'SFS_pp(ExtU *rtU):&#160;sfs_pp.c']]],
+  ['sfs_5fstep_30',['SFS_step',['../SFS_8c.html#a8aaa84c985bb85ee3777fa3c9655fd93',1,'SFS_step(RT_MODEL *const rtM, ExtU *rtU, ExtY *rtY):&#160;SFS.c'],['../SFS_8h.html#a8aaa84c985bb85ee3777fa3c9655fd93',1,'SFS_step(RT_MODEL *const rtM, ExtU *rtU, ExtY *rtY):&#160;SFS.c']]],
+  ['startcharge_31',['startCharge',['../charge_8c.html#a05671070f9ffeb2f34d12cbdb70fe1b4',1,'charge.c']]],
+  ['stopcharge_32',['stopCharge',['../charge_8c.html#a2c98073a6617effb879351db71a1c087',1,'charge.c']]],
+  ['systick_5fhandler_33',['SysTick_Handler',['../bootloader_2main_8c.html#ab5e09814056d617c521549e542639b7e',1,'SysTick_Handler(void):&#160;main.c'],['../l4__testing_2main_8c.html#aafb8d3e0fd06464b1ee0ae1edbc3c7d6',1,'SysTick_Handler():&#160;main.c']]]
 ];

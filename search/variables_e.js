@@ -18,10 +18,12 @@ var searchData=
   ['os_5fticks_15',['os_ticks',['../structsched__t.html#a00eeb3d75bd5397f31925ce0f10f6aed',1,'sched_t']]],
   ['ospeed_16',['ospeed',['../structGPIOInitConfig__t.html#a9e91fe0f71b365a8fc0243c59721ecda',1,'GPIOInitConfig_t']]],
   ['otype_17',['otype',['../structGPIOInitConfig__t.html#a5cccb3d6f1fc7d1ade98fcec56390452',1,'GPIOInitConfig_t']]],
-  ['output_18',['output',['../structIMU__Handle__t.html#af689d33e3eb6ee1830a7bf6e3a81894f',1,'IMU_Handle_t']]],
-  ['ov_19',['ov',['../structbms__t.html#a0dcc0f408bb94bfd1728cbd2db45b86d',1,'bms_t::ov'],['../unionCanParsedData__t.html#a5fe7384527ca993ffa4aa301e9ba46a4',1,'CanParsedData_t::ov']]],
-  ['overrun_20',['overrun',['../structADCInitConfig__t.html#a240616678fa789f5c025b3d50f116361',1,'ADCInitConfig_t::overrun'],['../structadv__feature__t.html#a97ac3d560ed3a7c8169a8fe216be0902',1,'adv_feature_t::overrun'],['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t::overrun']]],
-  ['overtemp_21',['overtemp',['../tmu_8c.html#a7fd8531ce257669c8de0f39430086bb4',1,'tmu.c']]],
-  ['ovsample_22',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]],
-  ['ow_23',['ow',['../structbms__t.html#a2d8028cad2841431e80f66c1f6cdc3f3',1,'bms_t']]]
+  ['out_5f3v3_18',['out_3v3',['../structvoltage__t.html#a3a9409130cff6a1e817501e4305b76ad',1,'voltage_t']]],
+  ['out_5f5v_19',['out_5v',['../structvoltage__t.html#a18c9ce48d5effc7e11b2eca371925cf0',1,'voltage_t']]],
+  ['output_20',['output',['../structIMU__Handle__t.html#af689d33e3eb6ee1830a7bf6e3a81894f',1,'IMU_Handle_t']]],
+  ['ov_21',['ov',['../structbms__t.html#a0dcc0f408bb94bfd1728cbd2db45b86d',1,'bms_t::ov'],['../unionCanParsedData__t.html#a5fe7384527ca993ffa4aa301e9ba46a4',1,'CanParsedData_t::ov']]],
+  ['overrun_22',['overrun',['../structADCInitConfig__t.html#a240616678fa789f5c025b3d50f116361',1,'ADCInitConfig_t::overrun'],['../structadv__feature__t.html#a97ac3d560ed3a7c8169a8fe216be0902',1,'adv_feature_t::overrun'],['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t::overrun']]],
+  ['overtemp_23',['overtemp',['../tmu_8c.html#a7fd8531ce257669c8de0f39430086bb4',1,'tmu.c']]],
+  ['ovsample_24',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]],
+  ['ow_25',['ow',['../structbms__t.html#a2d8028cad2841431e80f66c1f6cdc3f3',1,'bms_t']]]
 ];

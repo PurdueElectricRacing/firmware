@@ -22,7 +22,7 @@ var searchData=
   ['version_19',['version',['../structIMU__Handle__t.html#a466e61f1dba210bb73c4c0f0485111df',1,'IMU_Handle_t::version'],['../structphys__mem.html#ae7fcf054829918204fbb9b4907542318',1,'phys_mem::version'],['../eeprom__spi_8h.html#ab6d7b6f8c2ceaba7acda80aaf05f4899',1,'version:&#160;eeprom_spi.h']]],
   ['version_5fmajor_20',['version_major',['../structbsxlite__version.html#a5b9e2264c355d80eef083aa73b64ea3b',1,'bsxlite_version']]],
   ['version_5fminor_21',['version_minor',['../structbsxlite__version.html#a933851e534b39bbb46bbb0b4f864eeb9',1,'bsxlite_version']]],
-  ['voltage_22',['voltage',['../union____attribute____.html#aa4f2d028c8f7413eb8ef515391cc3e80',1,'__attribute__']]],
+  ['voltage_22',['voltage',['../union____attribute____.html#aa4f2d028c8f7413eb8ef515391cc3e80',1,'__attribute__::voltage'],['../structauto__switches__t.html#ae9cbf95c7dfa1ceba8c1e5beed7ef55b',1,'auto_switches_t::voltage']]],
   ['voltage_5flimit_23',['voltage_limit',['../union____attribute____.html#ad14dcc248bb28d8b50fd20d1e9bc8cec',1,'__attribute__']]],
   ['voltage_5fout_24',['voltage_out',['../structbms__t.html#ab70fd546b42287fc0f7b77fd472a4185',1,'bms_t']]],
   ['voltage_5frails_25',['voltage_rails',['../union____attribute____.html#ae69f816e86e5c25fcacef2d923a1f754',1,'__attribute__']]],

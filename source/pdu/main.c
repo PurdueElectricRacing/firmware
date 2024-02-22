@@ -11,6 +11,7 @@
 
 /* Module Includes */
 #include "main.h"
+#include "auto_switch.h"
 #include "can_parse.h"
 #include "daq.h"
 
@@ -130,7 +131,7 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=INTERNAL_THERM_ADC_CHNL, .rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
-            sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
+            sizeof(adc_readings) / sizeof(adc_readings.lv_24_v_sense), 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -177,6 +178,17 @@ int main()
 
     PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
+    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
+        sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -188,6 +200,7 @@ int main()
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+    taskCreate(autoSwitchPeriodic, 15);
     schedStart();
     return 0;
 }

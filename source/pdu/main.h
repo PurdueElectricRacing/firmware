@@ -72,52 +72,52 @@
 #define FLOW_RATE_1_GPIO_Port       (GPIOC)
 #define FLOW_RATE_1_Pin             (6)
 #define FLOW_RATE_1_AF              (2)
-  
+
 #define FLOW_RATE_2_TIM             (TIM8)
 #define FLOW_RATE_2_TIM_CH          (2)
 #define FLOW_RATE_2_GPIO_Port       (GPIOC)
 #define FLOW_RATE_2_Pin             (7)
 #define FLOW_RATE_2_AF              (3)
-  
-// Fan Control  
+
+// Fan Control
 #define FAN_1_PWM_TIM               (TIM1)
 #define FAN_1_PWM_TIM_CH            (1)
 #define FAN_1_PWM_GPIO_Port         (GPIOE)
 #define FAN_1_PWM_Pin               (9)
 #define FAN_1_PWM_AF                (1)
-  
+
 #define FAN_2_PWM_TIM               (TIM1)
 #define FAN_2_PWM_TIM_CH            (2)
 #define FAN_2_PWM_GPIO_Port         (GPIOE)
 #define FAN_2_PWM_Pin               (11)
 #define FAN_2_PWM_AF                (1)
-  
+
 #define FAN_1_TACH_TIM              (TIM4)
 #define FAN_1_TACH_TIM_CH           (2)
 #define FAN_1_TACH_GPIO_Port        (GPIOB)
 #define FAN_1_TACH_Pin              (7)
 #define FAN_1_TACH_AF               (2)
-  
+
 #define FAN_2_TACH_TIM              (TIM10)
 #define FAN_2_TACH_TIM_CH           (1)
 #define FAN_2_TACH_GPIO_Port        (GPIOB)
 #define FAN_2_TACH_Pin              (8)
 #define FAN_2_TACH_AF               (3)
-  
-// Pump Switches (High Power)  
+
+// Pump Switches (High Power)
 #define PUMP_1_CTRL_GPIO_Port       (GPIOB)
 #define PUMP_1_CTRL_Pin             (10)
 #define PUMP_1_IMON_GPIO_Port       (GPIOA)
 #define PUMP_1_IMON_Pin             (6)
 #define PUMP_1_IMON_ADC_CHNL        (6)
-  
+
 #define PUMP_2_CTRL_GPIO_Port       (GPIOE)
 #define PUMP_2_CTRL_Pin             (15)
 #define PUMP_2_IMON_GPIO_Port       (GPIOA)
 #define PUMP_2_IMON_Pin             (5)
 #define PUMP_2_IMON_ADC_CHNL        (5)
-  
-// Auxiliary Switch (High Power)  
+
+// Auxiliary Switch (High Power)
 #define AUX_HP_CTRL_GPIO_Port       (GPIOD)
 #define AUX_HP_CTRL_Pin             (12)
 #define AUX_HP_IMON_GPIO_Port       (GPIOC)
@@ -139,7 +139,7 @@
 #define FAN_1_CS_GPIO_Port          (GPIOA)
 #define FAN_1_CS_Pin                (2)
 #define FAN_1_CS_ADC_CHNL           (2)
-   
+
 #define FAN_2_CTRL_GPIO_Port        (GPIOD)
 #define FAN_2_CTRL_Pin              (11)
 #define FAN_2_NFLT_GPIO_Port        (GPIOD)
@@ -180,26 +180,26 @@
 #define BLT_CTRL_Pin                (13)
 #define BLT_NFLT_GPIO_Port          (GPIOE)
 #define BLT_NFLT_Pin                (14)
-    
-// 5V Critical Switch (5V)    
+
+// 5V Critical Switch (5V)
 #define CRIT_5V_CTRL_GPIO_Port      (GPIOE)
 #define CRIT_5V_CTRL_Pin            (2)
 #define CRIT_5V_NFLT_GPIO_Port      (GPIOE)
 #define CRIT_5V_NFLT_Pin            (1)
-    
-// 5V Non-Critical Switch (5V)    
+
+// 5V Non-Critical Switch (5V)
 #define NCRIT_5V_CTRL_GPIO_Port     (GPIOE)
 #define NCRIT_5V_CTRL_Pin           (6)
 #define NCRIT_5V_NFLT_GPIO_Port     (GPIOE)
 #define NCRIT_5V_NFLT_Pin           (5)
-    
-// DAQ Switch (5V)    
+
+// DAQ Switch (5V)
 #define DAQ_CTRL_GPIO_Port          (GPIOE)
 #define DAQ_CTRL_Pin                (4)
 #define DAQ_NFLT_GPIO_Port          (GPIOE)
 #define DAQ_NFLT_Pin                (3)
-    
-// 5V Fan Switch (5V)    
+
+// 5V Fan Switch (5V)
 #define FAN_5V_CTRL_GPIO_Port       (GPIOE)
 #define FAN_5V_CTRL_Pin             (8)
 #define FAN_5V_NFLT_GPIO_Port       (GPIOE)
@@ -240,7 +240,7 @@
 
 // ADC Configuration
 #define ADC_REF_mV (3300UL) // mV
-typedef struct 
+typedef struct
 {
     // Do not modify this struct unless
     // you modify the ADC DMA config

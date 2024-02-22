@@ -90,7 +90,7 @@ extern auto_switches_t auto_switches;
  * @param auto_switch_enum Switch to enable or disable
  * @param state 1 to enable, 0 to disable
 */
-void setSwitch(uint16_t auto_switch_enum, uint16_t state);
+void setSwitch(switches_t auto_switch_enum, bool state);
 
 /**
  * @brief Check if a switch is enabled
@@ -105,7 +105,9 @@ bool getSwitchStatus(switches_t auto_switch_enum);
  *        and updateCurrent()
  * 
  *        Voltage on each rail is stored at:
- *        auto_switches.voltage[auto_switch_enum]
+ *        auto_switches.voltage.in_24v
+ *        auto_switches.voltage.out_5v
+ *        auto_switches.voltage.out_3v3
  * 
  *        Current through each switch is stored at:
  *        auto_switches.current[auto_switch_enum]

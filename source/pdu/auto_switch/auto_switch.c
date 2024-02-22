@@ -15,12 +15,12 @@
 auto_switches_t auto_switches;
 
 // Static function declarations
-void updateCurrent();
-void updateVoltage();
-uint16_t calcCurrent_HP(uint16_t);
-uint16_t calcCurrent_LP(uint16_t);
-void calcCurrent_Total();
-uint16_t calcVoltage(uint16_t, int, int);
+static void updateCurrent();
+static void updateVoltage();
+static uint16_t calcCurrent_HP(uint16_t);
+static uint16_t calcCurrent_LP(uint16_t);
+static void calcCurrent_Total();
+static uint16_t calcVoltage(uint16_t, int, int);
 
 // Called periodically, Calculates current through each switch in mA
 void updateCurrent() {
@@ -85,7 +85,7 @@ uint16_t calcVoltage(uint16_t voltage, int r1, int r2) {
 }
 
 // Enable or disable switches by name
-void setSwitch(uint16_t auto_switch_enum, uint16_t state) {
+void setSwitch(switches_t auto_switch_enum, bool state) {
     switch (auto_switch_enum) {
         case SW_PUMP_1:
             PHAL_writeGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, state);

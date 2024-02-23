@@ -94,6 +94,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;daq.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -127,6 +128,12 @@ Variables</h2></td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
 <tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a048ceaccc44b006a77f0c988ae1877ce" id="r_a048ceaccc44b006a77f0c988ae1877ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a> = <a class="el" href="phal__L4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">SPI1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
+<tr class="separator:a048ceaccc44b006a77f0c988ae1877ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d88a12a20b964301d43f839eee3f94" id="r_ac9d88a12a20b964301d43f839eee3f94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a> = <a class="el" href="phal__L4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af">SPI1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
+<tr class="separator:ac9d88a12a20b964301d43f839eee3f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada0a7177585eb88526a6239618b3bfdf" id="r_ada0a7177585eb88526a6239618b3bfdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></td></tr>
+<tr class="separator:ada0a7177585eb88526a6239618b3bfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27666df6fadbd9638916906797be5ebe" id="r_a27666df6fadbd9638916906797be5ebe"><td class="memItemLeft" align="right" valign="top">volatile ADCReadings_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a></td></tr>
 <tr class="separator:a27666df6fadbd9638916906797be5ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
@@ -350,19 +357,19 @@ Variables</h2></td></tr>
 <div class="ttc" id="adashboard_2main_8h_html_a85adef97ea600b8438801efec6e9d8e1"><div class="ttname"><a href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_3V3_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:144</div></div>
 <div class="ttc" id="adashboard_2main_8h_html_ac6f487a150e7e658b1968bb7b27446b0"><div class="ttname"><a href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:141</div></div>
 <div class="ttc" id="amain__module_2main_8h_html_a1cbc6a9cd1dee627e19b856033260320"><div class="ttname"><a href="main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a></div><div class="ttdeci">#define INTERNAL_THERM_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:145</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a08b4b395be733adc04cbdc9e8fbce97f"><div class="ttname"><a href="pdu_2main_8h.html#a08b4b395be733adc04cbdc9e8fbce97f">AUX_HP_IMON_ADC_CHNL</a></div><div class="ttdeci">#define AUX_HP_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:125</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a323a00f7f0e19988612bd9d5e185f1ed"><div class="ttname"><a href="pdu_2main_8h.html#a323a00f7f0e19988612bd9d5e185f1ed">MAIN_CS_ADC_CHNL</a></div><div class="ttdeci">#define MAIN_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:158</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a5053116e39f1f2bb65f36df8fc2a0419"><div class="ttname"><a href="pdu_2main_8h.html#a5053116e39f1f2bb65f36df8fc2a0419">PUMP_2_IMON_ADC_CHNL</a></div><div class="ttdeci">#define PUMP_2_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:118</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a79bbf37e54451ee85736c1da5bc7b301"><div class="ttname"><a href="pdu_2main_8h.html#a79bbf37e54451ee85736c1da5bc7b301">SDC_IMON_ADC_CHNL</a></div><div class="ttdeci">#define SDC_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:132</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a85a83a82da4ce9473097f771b0334585"><div class="ttname"><a href="pdu_2main_8h.html#a85a83a82da4ce9473097f771b0334585">EXTERNAL_THERM_ADC_CHNL</a></div><div class="ttdeci">#define EXTERNAL_THERM_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:237</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a8a5983ded49c96ee81ee435caaf3d645"><div class="ttname"><a href="pdu_2main_8h.html#a8a5983ded49c96ee81ee435caaf3d645">DASH_CS_ADC_CHNL</a></div><div class="ttdeci">#define DASH_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:167</div></div>
-<div class="ttc" id="apdu_2main_8h_html_aa9fe81db68f525a6eae68ccab95910b0"><div class="ttname"><a href="pdu_2main_8h.html#aa9fe81db68f525a6eae68ccab95910b0">ABOX_CS_ADC_CHNL</a></div><div class="ttdeci">#define ABOX_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:176</div></div>
-<div class="ttc" id="apdu_2main_8h_html_abe48beede5f93cf969860e6f815241a1"><div class="ttname"><a href="pdu_2main_8h.html#abe48beede5f93cf969860e6f815241a1">PUMP_1_IMON_ADC_CHNL</a></div><div class="ttdeci">#define PUMP_1_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:112</div></div>
-<div class="ttc" id="apdu_2main_8h_html_aceda22c7b3deb945ea7e68b2008342ed"><div class="ttname"><a href="pdu_2main_8h.html#aceda22c7b3deb945ea7e68b2008342ed">FAN_2_CS_ADC_CHNL</a></div><div class="ttdeci">#define FAN_2_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:149</div></div>
-<div class="ttc" id="apdu_2main_8h_html_ad39b80fc13b180322575917acc684e19"><div class="ttname"><a href="pdu_2main_8h.html#ad39b80fc13b180322575917acc684e19">LV_5V_I_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_I_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:229</div></div>
-<div class="ttc" id="apdu_2main_8h_html_ad96bf81ae9e446e629dbe93dfecae647"><div class="ttname"><a href="pdu_2main_8h.html#ad96bf81ae9e446e629dbe93dfecae647">LV_24V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:219</div></div>
-<div class="ttc" id="apdu_2main_8h_html_af0122468e42f010953b5cccdeee2d803"><div class="ttname"><a href="pdu_2main_8h.html#af0122468e42f010953b5cccdeee2d803">FAN_1_CS_ADC_CHNL</a></div><div class="ttdeci">#define FAN_1_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:141</div></div>
-<div class="ttc" id="apdu_2main_8h_html_aff430a3148159daba666c13abf43b9fd"><div class="ttname"><a href="pdu_2main_8h.html#aff430a3148159daba666c13abf43b9fd">LV_24V_I_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24V_I_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:222</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a08b4b395be733adc04cbdc9e8fbce97f"><div class="ttname"><a href="pdu_2main_8h.html#a08b4b395be733adc04cbdc9e8fbce97f">AUX_HP_IMON_ADC_CHNL</a></div><div class="ttdeci">#define AUX_HP_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:122</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a323a00f7f0e19988612bd9d5e185f1ed"><div class="ttname"><a href="pdu_2main_8h.html#a323a00f7f0e19988612bd9d5e185f1ed">MAIN_CS_ADC_CHNL</a></div><div class="ttdeci">#define MAIN_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:155</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a5053116e39f1f2bb65f36df8fc2a0419"><div class="ttname"><a href="pdu_2main_8h.html#a5053116e39f1f2bb65f36df8fc2a0419">PUMP_2_IMON_ADC_CHNL</a></div><div class="ttdeci">#define PUMP_2_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:115</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a79bbf37e54451ee85736c1da5bc7b301"><div class="ttname"><a href="pdu_2main_8h.html#a79bbf37e54451ee85736c1da5bc7b301">SDC_IMON_ADC_CHNL</a></div><div class="ttdeci">#define SDC_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:129</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a85a83a82da4ce9473097f771b0334585"><div class="ttname"><a href="pdu_2main_8h.html#a85a83a82da4ce9473097f771b0334585">EXTERNAL_THERM_ADC_CHNL</a></div><div class="ttdeci">#define EXTERNAL_THERM_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:234</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a8a5983ded49c96ee81ee435caaf3d645"><div class="ttname"><a href="pdu_2main_8h.html#a8a5983ded49c96ee81ee435caaf3d645">DASH_CS_ADC_CHNL</a></div><div class="ttdeci">#define DASH_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:164</div></div>
+<div class="ttc" id="apdu_2main_8h_html_aa9fe81db68f525a6eae68ccab95910b0"><div class="ttname"><a href="pdu_2main_8h.html#aa9fe81db68f525a6eae68ccab95910b0">ABOX_CS_ADC_CHNL</a></div><div class="ttdeci">#define ABOX_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:173</div></div>
+<div class="ttc" id="apdu_2main_8h_html_abe48beede5f93cf969860e6f815241a1"><div class="ttname"><a href="pdu_2main_8h.html#abe48beede5f93cf969860e6f815241a1">PUMP_1_IMON_ADC_CHNL</a></div><div class="ttdeci">#define PUMP_1_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:109</div></div>
+<div class="ttc" id="apdu_2main_8h_html_aceda22c7b3deb945ea7e68b2008342ed"><div class="ttname"><a href="pdu_2main_8h.html#aceda22c7b3deb945ea7e68b2008342ed">FAN_2_CS_ADC_CHNL</a></div><div class="ttdeci">#define FAN_2_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:146</div></div>
+<div class="ttc" id="apdu_2main_8h_html_ad39b80fc13b180322575917acc684e19"><div class="ttname"><a href="pdu_2main_8h.html#ad39b80fc13b180322575917acc684e19">LV_5V_I_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_I_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:226</div></div>
+<div class="ttc" id="apdu_2main_8h_html_ad96bf81ae9e446e629dbe93dfecae647"><div class="ttname"><a href="pdu_2main_8h.html#ad96bf81ae9e446e629dbe93dfecae647">LV_24V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:216</div></div>
+<div class="ttc" id="apdu_2main_8h_html_af0122468e42f010953b5cccdeee2d803"><div class="ttname"><a href="pdu_2main_8h.html#af0122468e42f010953b5cccdeee2d803">FAN_1_CS_ADC_CHNL</a></div><div class="ttdeci">#define FAN_1_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:138</div></div>
+<div class="ttc" id="apdu_2main_8h_html_aff430a3148159daba666c13abf43b9fd"><div class="ttname"><a href="pdu_2main_8h.html#aff430a3148159daba666c13abf43b9fd">LV_24V_I_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24V_I_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:219</div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a></div><div class="ttdeci">@ ADC_CHN_SMP_CYCLES_480</div><div class="ttdef"><b>Definition</b> adc.h:66</div></div>
 </div><!-- fragment -->
 </div>
@@ -573,6 +580,58 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_can</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada0a7177585eb88526a6239618b3bfdf" name="ada0a7177585eb88526a6239618b3bfdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada0a7177585eb88526a6239618b3bfdf">&#9670;&#160;</a></span>spi_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> spi_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .data_len  = 8,</div>
+<div class="line">    .nss_sw = <span class="keyword">false</span>,</div>
+<div class="line">    .rx_dma_cfg = &amp;<a class="code hl_variable" href="bms_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
+<div class="line">    .tx_dma_cfg = &amp;<a class="code hl_variable" href="bms_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
+<div class="line">    .<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a> = SPI1</div>
+<div class="line">}</div>
+<div class="ttc" id="abms_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="bms_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:47</div></div>
+<div class="ttc" id="abms_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="bms_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:48</div></div>
+<div class="ttc" id="astructdma__init__t_html_a190bea09bd8d062bb2f4a97056cfe9c3"><div class="ttname"><a href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">dma_init_t::periph</a></div><div class="ttdeci">DMA_TypeDef * periph</div><div class="ttdef"><b>Definition</b> dma.h:45</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a048ceaccc44b006a77f0c988ae1877ce" name="a048ceaccc44b006a77f0c988ae1877ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a048ceaccc44b006a77f0c988ae1877ce">&#9670;&#160;</a></span>spi_rx_dma_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi_rx_dma_config = <a class="el" href="phal__L4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">SPI1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac9d88a12a20b964301d43f839eee3f94" name="ac9d88a12a20b964301d43f839eee3f94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d88a12a20b964301d43f839eee3f94">&#9670;&#160;</a></span>spi_tx_dma_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi_tx_dma_config = <a class="el" href="phal__L4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af">SPI1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
         </tr>
       </table>
 </div><div class="memdoc">

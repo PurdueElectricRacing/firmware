@@ -13,6 +13,7 @@
 #include "main.h"
 #include "can_parse.h"
 #include "daq.h"
+#include "led.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -109,6 +110,19 @@ ADCInitConfig_t adc_config = {
     .dma_mode        = ADC_DMA_CIRCULAR
 };
 
+
+/* SPI Configuration */
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
+
+SPI_InitConfig_t spi_config = {
+    .data_len  = 8,
+    .nss_sw = false,
+    .rx_dma_cfg = &spi_rx_dma_config,
+    .tx_dma_cfg = &spi_tx_dma_config,
+    .periph = SPI1
+};
+
 /* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
@@ -171,21 +185,25 @@ int main()
     {
         HardFault_Handler();
     }
+    if(!PHAL_SPI_init(&spi_config))
+    {
+        HardFault_Handler();
+    }
 
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
     PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, 1);
 
     PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
-
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 60, 750);
+    configureAnim(preflightAnimation, preflightChecks, 40, 1500);
 
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
     taskCreate(sendtestmsg, 100);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(LED_periodic, 500);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     schedStart();
@@ -217,6 +235,8 @@ void preflightChecks(void) {
 
 void preflightAnimation(void) {
     static uint32_t time;
+    static int led_number;
+    static bool led_decrement = false;
 
     PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
@@ -237,6 +257,24 @@ void preflightAnimation(void) {
             PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
             break;
     }
+
+    if(led_number < 14 && !led_decrement)
+    {
+        led_number++;
+        LED_control(led_number, ON);
+    }
+    else if(led_number >= 14 && !led_decrement)
+    {
+        led_decrement = true;
+    }
+    else
+    {
+        led_number--;
+        LED_control(led_number, OFF);
+        led_number = (led_number == 0) ? 0 : led_number;
+    }
+    
+    
 }
 
 void heatBeatLED()

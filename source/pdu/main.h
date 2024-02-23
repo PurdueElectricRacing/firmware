@@ -58,9 +58,6 @@
 #define LED_CTRL_BLANK_GPIO_Port    (GPIOB)
 #define LED_CTRL_BLANK_Pin          (6)
 
-// TODO: fill in structure to map LED driver pins
-
-
 // NOTE: Schematic refers to coolant hardware as 1 and 2
 // MAPPING
 // 1 = Battery Cooling

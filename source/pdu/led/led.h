@@ -17,6 +17,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define MAX_NUM_LED 14
+
 // LED Driver Pins
 #define LED_PUMP_1                  (0)
 #define LED_PUMP_2                  (1)
@@ -34,9 +36,9 @@
 #define LED_BLT                     (13)
 
 enum LED_state {
-    OFF = 0,
-    ON,
-    BLINK,
+    LED_OFF = 0,
+    LED_ON,
+    LED_BLINK
 };
 
 /**
@@ -57,5 +59,13 @@ bool LED_control(int led, enum LED_state state);
  * @return
  */
 void LED_periodic();
+
+/**
+ * @brief Get the status of a specified LED pin
+ * 
+ * @param led LED driver pin
+ * @return enum for the LED state
+ */
+uint8_t get_LED_status(int led);
 
 #endif /* _LED_H */

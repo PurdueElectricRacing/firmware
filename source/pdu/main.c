@@ -186,15 +186,9 @@ int main()
     {
         HardFault_Handler();
     }
-    if(!PHAL_SPI_init(&spi_config))
-    {
-        HardFault_Handler();
-    }
 
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
     PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, 1);
-
-    PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
     if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
         sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
@@ -210,7 +204,7 @@ int main()
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 40, 1500);
+    configureAnim(preflightAnimation, preflightChecks, 20, 750);
 
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
@@ -241,6 +235,12 @@ void preflightChecks(void) {
            if(daqInit(&q_tx_can))
                HardFault_Handler();
            break;
+        case 2:
+            if(!PHAL_SPI_init(&spi_config))
+            {
+                HardFault_Handler();
+            }
+            PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
         default:
             registerPreflightComplete(1);
             state = 255; // prevent wrap around
@@ -256,7 +256,7 @@ void preflightAnimation(void) {
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
 
-    switch (time++ % 6)
+    switch (time++ % 18)
     {
         case 0:
         case 5:
@@ -272,19 +272,19 @@ void preflightAnimation(void) {
             break;
     }
 
-    if(led_number < 14 && !led_decrement)
+    if(led_number < MAX_NUM_LED && !led_decrement)
     {
         led_number++;
-        LED_control(led_number, ON);
+        LED_control(led_number, LED_ON);
     }
-    else if(led_number >= 14 && !led_decrement)
+    else if(led_number >= MAX_NUM_LED && !led_decrement)
     {
         led_decrement = true;
     }
     else
     {
         led_number--;
-        LED_control(led_number, OFF);
+        LED_control(led_number, LED_OFF);
         led_number = (led_number == 0) ? 0 : led_number;
     }
     

@@ -346,10 +346,10 @@ BO_ 2483028613 raw_throttle_brake: 8 Dashboard
  SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
 
 BO_ 2348810949 cooling_driver_request: 5 Dashboard
- SG_ batt_fan : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ batt_fan : 32|8@1+ (1,0) [0|100] "%" Vector__XXX
  SG_ batt_pump2 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ batt_pump : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ dt_fan : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dt_fan : 8|8@1+ (1,0) [0|100] "%" Vector__XXX
  SG_ dt_pump : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214593093 filt_throttle_brake: 3 Dashboard
@@ -385,10 +385,27 @@ BO_ 688 LWS_Standard: 5 Steering
  SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "deg/s" Vector__XXX
  SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "deg" Vector__XXX
 
-BO_ 2214659103 pdu_test: 3 PDU
- SG_ test_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ test_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ test_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214659167 v_rails: 6 PDU
+ SG_ out_3v3 : 32|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ out_5v : 16|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ in_24v : 0|16@1+ (1,0) [0|0] "mV" Vector__XXX
+
+BO_ 2214659231 rail_currents: 4 PDU
+ SG_ i_5v : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_24v : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
+
+BO_ 2214659295 pump_and_fan_current: 7 PDU
+ SG_ i_fan2 : 44|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_fan1 : 32|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_pump2 : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_pump1 : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
+
+BO_ 2214659359 other_currents: 8 PDU
+ SG_ i_main : 48|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_abox : 36|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_dash : 24|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_aux : 12|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_sdc : 0|12@1+ (1,0) [0|0] "mA" Vector__XXX
 
 BO_ 2148059871 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -887,10 +904,24 @@ CM_ SG_ 688 Cal "";
 CM_ SG_ 688 Ok "";
 CM_ SG_ 688 LWS_SPEED "";
 CM_ SG_ 688 LWS_ANGLE "";
-CM_ BO_ 2214659103 "periodic dashboard heartbeat";
-CM_ SG_ 2214659103 test_3 "";
-CM_ SG_ 2214659103 test_2 "";
-CM_ SG_ 2214659103 test_1 "";
+CM_ BO_ 2214659167 "PDU voltage rail readings";
+CM_ SG_ 2214659167 out_3v3 "";
+CM_ SG_ 2214659167 out_5v "";
+CM_ SG_ 2214659167 in_24v "";
+CM_ BO_ 2214659231 "PDU rail currents";
+CM_ SG_ 2214659231 i_5v "";
+CM_ SG_ 2214659231 i_24v "";
+CM_ BO_ 2214659295 "PDU pump and fan currents";
+CM_ SG_ 2214659295 i_fan2 "";
+CM_ SG_ 2214659295 i_fan1 "";
+CM_ SG_ 2214659295 i_pump2 "";
+CM_ SG_ 2214659295 i_pump1 "";
+CM_ BO_ 2214659359 "Other PDU currents";
+CM_ SG_ 2214659359 i_main "";
+CM_ SG_ 2214659359 i_abox "";
+CM_ SG_ 2214659359 i_dash "";
+CM_ SG_ 2214659359 i_aux "";
+CM_ SG_ 2214659359 i_sdc "";
 CM_ BO_ 2148059871 "Fault status message";
 CM_ SG_ 2148059871 latched "";
 CM_ SG_ 2148059871 idx "";

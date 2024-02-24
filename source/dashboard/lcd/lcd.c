@@ -692,7 +692,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
     set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
     set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
     settings.d_pump_selected = msg_data_a->coolant_out.dt_pump;
-    settings.b_fan2_selected = msg_data_a->coolant_out.bat_pump;
+    settings.b_fan2_selected = msg_data_a->coolant_out.bat_fan;
     settings.b_pump_selected = msg_data_a->coolant_out.bat_pump_aux;
     set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
     set_value(B_FAN2_OP, NXT_VALUE, settings.b_fan2_selected);

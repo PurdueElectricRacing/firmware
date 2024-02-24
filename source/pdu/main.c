@@ -14,7 +14,9 @@
 #include "auto_switch.h"
 #include "can_parse.h"
 #include "daq.h"
+#include "fan_control.h"
 #include "led.h"
+#include "cooling.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -167,8 +169,8 @@ void preflightAnimation();
 void preflightChecks(void);
 void canTxUpdate();
 void heatBeatLED();
-void sendtestmsg();
-
+void send_iv_readings();
+//test
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
@@ -209,12 +211,13 @@ int main()
 
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
-    taskCreate(sendtestmsg, 100);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(LED_periodic, 500);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     taskCreate(autoSwitchPeriodic, 15);
+    taskCreate(update_cooling_periodic, 100);
+    taskCreate(send_iv_readings, 100);
     schedStart();
     return 0;
 }
@@ -242,6 +245,10 @@ void preflightChecks(void) {
                 HardFault_Handler();
             }
             PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
+        case 3:
+            fanControlInit();
+            setFan1Speed(0);
+            setFan2Speed(0);
         default:
             registerPreflightComplete(1);
             state = 255; // prevent wrap around
@@ -297,21 +304,6 @@ void heatBeatLED()
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
 }
 
-void sendtestmsg()
-{
-    static uint8_t test_1;
-    static uint8_t test_2;
-    static uint8_t test_3;
-
-    if (test_3 == 0)
-        test_3 = 1;
-
-    SEND_PDU_TEST(q_tx_can, test_1++, test_2, test_3);
-
-    test_2 += 5;
-    test_3 *= 2;
-
-}
 
 void canTxUpdate()
 {
@@ -365,6 +357,13 @@ void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
    if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
        Bootloader_ResetForFirmwareDownload();
+}
+
+void send_iv_readings() {
+    SEND_V_RAILS(q_tx_can, auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3);
+    SEND_RAIL_CURRENTS(q_tx_can, auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
+    SEND_PUMP_AND_FAN_CURRENT(q_tx_can, auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
+    SEND_OTHER_CURRENTS(q_tx_can, auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
 }
 
 void HardFault_Handler()

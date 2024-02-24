@@ -10,6 +10,7 @@
  */
 #include "auto_switch.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/faults/faults.h"
 
 // Initialize struct
 auto_switches_t auto_switches;
@@ -165,7 +166,18 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
     return status;
 }
 
+void setAutoSwitchFaults() {
+    setFault(ID_PDU_FAN_1_AUTO_SWITCH_FAULT, PHAL_readGPIO(FAN_1_NFLT_GPIO_Port, FAN_1_NFLT_Pin));
+    setFault(ID_PDU_FAN_2_AUTO_SWITCH_FAULT, PHAL_readGPIO(FAN_2_NFLT_GPIO_Port, FAN_2_NFLT_Pin));
+    setFault(ID_PDU_BLT_AUTO_SWITCH_FAULT, PHAL_readGPIO(BLT_NFLT_GPIO_Port, BLT_NFLT_Pin));
+    setFault(ID_PDU_CRIT_5V_AUTO_SWITCH_FAULT, PHAL_readGPIO(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin));
+    setFault(ID_PDU_NCRIT_5V_AUTO_SWITCH_FAULT, PHAL_readGPIO(NCRIT_5V_NFLT_GPIO_Port, NCRIT_5V_NFLT_Pin));
+    setFault(ID_PDU_NCRIT_5V_AUTO_SWITCH_FAULT, PHAL_readGPIO(NCRIT_5V_NFLT_GPIO_Port, NCRIT_5V_NFLT_Pin));
+}
+
+/* TODO: Have something check all the fault pins and set faults if necessary */
 void autoSwitchPeriodic() {
     updateCurrent();
     updateVoltage();
+    setAutoSwitchFaults();
 }

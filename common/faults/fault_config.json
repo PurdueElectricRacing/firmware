@@ -12,6 +12,105 @@
                     "time_to_latch": 1000,
                     "time_to_unlatch": 2000,
                     "lcd_message": "HIGH PDU MCU TEMP"
+                },
+                {
+                    "fault_name": "pdu_pump_1_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU PUMP 1 AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_pump_2_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU PUMP 2 AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_sdc_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU SDC AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_aux_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU AUX AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_fan_1_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU FAN 1 AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_fan_2_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU FAN 2 AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_blt_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU BLT AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_crit_5v_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU CRIT 5V AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_ncrit_5v_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU NCRIT 5V AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_daq_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU DAQ AUTO SWITCH FAILURE"
+                },
+                {
+                    "fault_name": "pdu_fan_5v_auto_switch",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 0,
+                    "time_to_unlatch": 0,
+                    "lcd_message": "PDU FAN 5V AUTO SWITCH FAILURE"
                 }
             ]
         },

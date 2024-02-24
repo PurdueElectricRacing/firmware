@@ -18,6 +18,14 @@
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Main_Module"
 
+// Used to represent a float as 32 bits
+typedef union {
+    float f;
+    uint32_t u;
+} FloatConvert_t;
+#define FLOAT_TO_UINT32(float_) (((FloatConvert_t) float_).u)
+#define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t) ((uint32_t) uint32_)).f)
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_MAIN_HB 0x4001901
@@ -35,6 +43,7 @@
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_REAR_WHEEL_SPEEDS 0x8000381
+#define ID_LOAD_SENSOR_READINGS 0x1000fa01
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
@@ -75,6 +84,7 @@
 #define DLC_SDC_STATUS 2
 #define DLC_REAR_CONTROLLER_TEMPS 2
 #define DLC_REAR_WHEEL_SPEEDS 8
+#define DLC_LOAD_SENSOR_READINGS 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
@@ -240,6 +250,13 @@
         data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
         data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_LOAD_SENSOR_READINGS(queue, left_load_sensor_, right_load_sensor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LOAD_SENSOR_READINGS, .DLC=DLC_LOAD_SENSOR_READINGS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->load_sensor_readings.left_load_sensor = FLOAT_TO_UINT32(left_load_sensor_);\
+        data_a->load_sensor_readings.right_load_sensor = FLOAT_TO_UINT32(right_load_sensor_);\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(queue, idx_, latched_) do {\
@@ -433,6 +450,10 @@ typedef union {
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
+    struct {
+        uint64_t left_load_sensor: 32;
+        uint64_t right_load_sensor: 32;
+    } load_sensor_readings;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

@@ -215,6 +215,17 @@
                             "msg_period": 15,
                             "msg_hlp": 2,
                             "msg_pgn": 14
+                        },
+                        {
+                            "msg_name": "load_sensor_readings",
+                            "msg_desc": "Load Sensor readings from left and right",
+                            "signals": [
+                                {"sig_name": "left_load_sensor", "type": "float", "unit": "N"},
+                                {"sig_name": "right_load_sensor", "type": "float", "unit": "N"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1000
                         }
                     ],
                     "rx":[

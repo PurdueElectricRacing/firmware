@@ -133,6 +133,10 @@ BO_ 2281702273 rear_wheel_speeds: 8 Main_Module
  SG_ right_speed_mc : 16|16@1+ (1,0) [0|0] "RPM" Vector__XXX
  SG_ left_speed_mc : 0|16@1+ (1,0) [0|0] "RPM" Vector__XXX
 
+BO_ 2415983105 load_sensor_readings: 8 Main_Module
+ SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX
+ SG_ left_load_sensor : 0|32@1- (1,0) [0|0] "N" Vector__XXX
+
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -966,6 +970,9 @@ CM_ SG_ 2281702273 right_speed_sensor "";
 CM_ SG_ 2281702273 left_speed_sensor "";
 CM_ SG_ 2281702273 right_speed_mc "";
 CM_ SG_ 2281702273 left_speed_mc "";
+CM_ BO_ 2415983105 "Load Sensor readings from left and right";
+CM_ SG_ 2415983105 right_load_sensor "";
+CM_ SG_ 2415983105 left_load_sensor "";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";
@@ -1561,6 +1568,8 @@ VAL_ 2214598915 front_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifyi
 VAL_ 2214598915 front_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+SIG_VALTYPE_ 2415983105 left_load_sensor : 1;
+SIG_VALTYPE_ 2415983105 right_load_sensor : 1;
 SIG_VALTYPE_ 2214593667 left_cmd : 1;
 SIG_VALTYPE_ 2214593667 right_cmd : 1;
 SIG_VALTYPE_ 2214593731 T : 1;

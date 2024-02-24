@@ -219,6 +219,8 @@ extern void HardFault_Handler();
 
 void brak_buzz_test();
 
+void interpretLoadSensor();
+
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 uint8_t can_tx_fails; // number of CAN messages that failed to transmit
@@ -256,6 +258,11 @@ int main(void){
     taskCreate(monitorSDCPeriodic, 20);
     // taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
+
+    //Send load sensor readings every 15ms
+    taskCreate(interpretLoadSensor, 15);
+
+
     // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(updatePowerMonitor, 100);
     // taskCreate(heartBeatTask, 100);
@@ -272,6 +279,9 @@ int main(void){
     // SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
 
     schedStart();
+
+    //Testing load sensor interpreter
+    interpretLoadSensor();
 
     return 0;
 }
@@ -513,3 +523,37 @@ void HardFault_Handler()
         __asm__("nop");
     }
 }
+
+float voltToForce(uint16_t load_read) {
+    /*
+    //Return in newtons
+    float v_out_load_l = adc_readings.load_l / 4095 * 3.3;
+    float v_out_load_r = adc_readings.load_r / 4095 * 3.3;
+    //voltage -> weight
+    //V_out = (V_in * R_2) / (R_1 + R_2)
+    //Solve for V_in
+    //R_1 = 3.4K
+    //R_2 = 6.6K
+    float v_in_load_l = (v_out_load_l * 10) / 6.6;
+    float v_in_load_r = (v_out_load_r * 10) / 6.6;
+    //voltage * 100 = mass
+    //weight (in newtons) = mass * g
+    float force_load_l = v_in_load_l * 100 * g;
+    float force_load_r = v_in_load_r * 100 * g;
+    */
+    float g = 9.8;
+    return (((load_read / 4095 * 3.3) * 10) / 6.6) * 100 * g;
+}
+
+void interpretLoadSensor(void) {
+    float force_load_l = voltToForce(adc_readings.load_l);
+    float force_load_r = voltToForce(adc_readings.load_r);
+    //send a can message w/ minimal force info
+    //every 15 milliseconds
+    SEND_LOAD_SENSOR_READINGS(q_tx_can, force_load_l, force_load_r);
+
+    
+}
+
+
+

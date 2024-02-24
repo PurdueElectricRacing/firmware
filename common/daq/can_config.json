@@ -765,7 +765,7 @@
                                 {"sig_name": "out_5v", "type":"uint16_t", "unit":"mV"},
                                 {"sig_name": "out_3v3", "type":"uint16_t", "unit":"mV"}
                             ],
-                            "msg_period":100,
+                            "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":1041
                         },
@@ -776,7 +776,7 @@
                                 {"sig_name": "i_24v", "type":"uint16_t", "unit":"mA"},
                                 {"sig_name": "i_5v", "type":"uint16_t", "unit":"mA"}
                             ],
-                            "msg_period":100,
+                            "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":1042
                         },
@@ -789,7 +789,7 @@
                                 {"sig_name": "i_fan1", "type":"uint16_t", "unit":"mA", "length":12},
                                 {"sig_name": "i_fan2", "type":"uint16_t", "unit":"mA", "length":12}
                             ],
-                            "msg_period":100,
+                            "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":1043
                         },
@@ -803,7 +803,7 @@
                                 {"sig_name": "i_abox", "type":"uint16_t", "unit":"mA", "length":12},
                                 {"sig_name": "i_main", "type":"uint16_t", "unit":"mA", "length":12}
                             ],
-                            "msg_period":100,
+                            "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":1044
                         }

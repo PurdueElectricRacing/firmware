@@ -217,7 +217,7 @@ int main()
     taskCreateBackground(canRxUpdate);
     taskCreate(autoSwitchPeriodic, 15);
     taskCreate(update_cooling_periodic, 100);
-    taskCreate(send_iv_readings, 100);
+    taskCreate(send_iv_readings, 500);
     schedStart();
     return 0;
 }

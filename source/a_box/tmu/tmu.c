@@ -132,7 +132,7 @@ void readTemps(tmu_handle_t *tmu) {
         SEND_MOD_CELL_TEMP_MAX(q_tx_can, tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
         SEND_MOD_CELL_TEMP_MIN(q_tx_can, tmu->tmu1_min, tmu->tmu2_min, tmu->tmu3_min, tmu->tmu4_min);
         uint16_t max_temp = MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max));
-        uint16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
+        int16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
         SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
         SEND_NUM_THEM_BAD(q_tx_can, num_bad1, num_bad2, num_bad3, num_bad4);
         num_bad1 = 0;

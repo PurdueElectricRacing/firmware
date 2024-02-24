@@ -99,8 +99,6 @@ extern void HardFault_Handler();
 void canTxUpdate();
 void heartBeatLED();
 void monitorStatus();
-void sendIMUData();
-void imuConfigureAccel();
 void preflightChecks();
 void preflightAnimation();
 void updateTherm();
@@ -199,8 +197,7 @@ int main (void)
    taskCreate(monitorStatus, 50);
    taskCreate(orionChargePeriodic, 50);
    taskCreate(heartBeatTask, 100);
-   // taskCreate(sendIMUData, 10);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+   taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
 
    taskCreateBackground(canTxUpdate);

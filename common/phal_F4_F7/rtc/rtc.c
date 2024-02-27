@@ -37,11 +37,13 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time)
     
     // Software reset backup power domain
     // RCC->BDCR |= RCC_BDCR_BDRST;
-    
-    RCC->BDCR |= RCC_BDCR_LSEON;
-    while (0 == (RCC->BDCR & RCC_BDCR_LSERDY))
+
+    RCC->CSR |= RCC_CSR_LSION;
+    while(false == (RCC->CSR & RCC_CSR_LSIRDY))
         ;
-    RCC->BDCR |= RCC_BDCR_RTCSEL_1; // select LSE
+        
+    RCC->BDCR &= ~RCC_BDCR_RTCSEL;  // Clear RTCSEL bits
+    RCC->BDCR |= RCC_BDCR_RTCSEL_1; // select LSI
     RCC->BDCR |= RCC_BDCR_RTCEN;
 
     // After backup domain reset, all the RTC registers are write-protected

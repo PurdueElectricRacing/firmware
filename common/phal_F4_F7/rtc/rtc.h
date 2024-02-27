@@ -41,8 +41,10 @@
 // Minimum division factor: 1
 // Maximum division factor: 2^22
 
-#define RTC_ASYNC_PRESCAL (256U)
-#define RTC_SYNC_PRESCAL  (128U)
+// RTC Clock = source / ((ASCNC + 1) * (SYNC + 1))
+// To target 1Hz on LSI, we are doing 32000 / ((255 + 1) * (124 + 1))
+#define RTC_ASYNC_PRESCAL (255U)
+#define RTC_SYNC_PRESCAL  (124U)
 
 
 // STM32 RTC uses lovely BCD

@@ -289,8 +289,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[4].FR1 = (ID_TORQUE_REQUEST_MAIN << 3) | 4;
     CAN1->sFilterRegister[4].FR2 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_COOLANT_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_COOLANT_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_COOLANT_OUT << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_GEARBOX << 3) | 4;
     CAN1->sFilterRegister[6].FR2 = (ID_DASHBOARD_BL_CMD << 3) | 4;

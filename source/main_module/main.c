@@ -242,8 +242,6 @@ int main(void){
     {
         HardFault_Handler();
     }
-
-    // PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, 1);
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
 
 
@@ -258,7 +256,7 @@ int main(void){
     taskCreate(carPeriodic, 15);
     // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(updatePowerMonitor, 100);
-    // taskCreate(heartBeatTask, 100);
+    taskCreate(heartBeatTask, 100);
     // taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);

@@ -10,10 +10,7 @@
                     "node_name":"Main_Module",
                     "includes":"#include \"cooling.h\"\n#include\"main.h\"\n#include\"car.h\"",
                     "variables": [
-                        {"var_name":"dt_temp_error", "access_phrase":"cooling.dt_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
-                        {"var_name":"bat_temp_error", "access_phrase":"cooling.bat_temp_error", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"cal_steer_angle", "access_phrase": "calibrateSteeringAngle", "has_read_func":true, "read_only":true, "type":"uint8_t", "length": 1},
-                        {"var_name":"cooling_daq_override", "access_phrase": "cooling.daq_override", "read_only": false, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_main_status", "access_phrase": "sdc_mux.main_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_center_stop_status", "access_phrase": "sdc_mux.c_stop_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_inertia_sw_status", "access_phrase": "sdc_mux.inertia_stat", "read_only": true, "type":"uint8_t", "length": 1},

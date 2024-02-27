@@ -225,9 +225,7 @@
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
-                        {"msg_name": "cooling_driver_request", "callback": true},
-                        {"msg_name": "throttle_remapped"},
-                        {"msg_name": "pdu_test"}
+                        {"msg_name": "throttle_remapped"}
                     ]
                 },
                 {

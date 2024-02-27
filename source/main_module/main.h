@@ -161,6 +161,8 @@
 #define THERM_MUX_DT_OUT            (3)
 
 #define ADC_REF_mV (3300UL) // mV
+#define ADC_REF_fp 3.3F
+#define ADC_MAX    4095
 typedef struct
 {
     // Do not modify this struct unless

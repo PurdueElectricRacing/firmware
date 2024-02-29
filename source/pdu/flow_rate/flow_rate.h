@@ -5,4 +5,8 @@
 #include "stm32f407xx.h"
 #include "main.h"
 
+bool flowRateInit();
+uint32_t getFlowRate1();
+uint32_t getFlowRate2();
+
 #endif // _FAN_CONTROL_H_

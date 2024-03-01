@@ -18,20 +18,15 @@
 //Changing this value will change how many thermistor slots are read.
 #define NUM_THERM 10
 
-
-
-
-#define TMU_VIN 3.3F
-//Top resistor of voltage divider
-#define R1 4700
-//Pulldown resistor on abox
-#define R3 470000
+// top  and bottom resistors for power rail voltage divider
+#define R1_3V3 200000
+#define R2_3V3 100000
 // ADC raw upper and lower values
-#define ADC_UPPER 3980
-#define ADC_LOWER 649
+#define ADC_ERROR_HIGH 3980
+#define ADC_ERROR_LOW 649
 // max and min values
-#define ERROR_HIGH 10000
-#define ERROR_LOW -500
+#define ERROR_HIGH INT32_MAX
+#define ERROR_LOW INT32_MIN
 //Based on datasheet p. 69- https://www.amphenol-sensors.com/hubfs/Documents/AAS-913-318C-Temperature-resistance-curves-071816-web.pdf
 #define R25 10000
 #define LOW_RANGE_MIN 3.277F
@@ -68,16 +63,21 @@ typedef struct {
    int16_t tmu3_avg;
    int16_t tmu4_avg;
    //raw temps
-   int16_t tmu1[16];
-   int16_t tmu2[16];
-   int16_t tmu3[16];
-   int16_t tmu4[16];
+   int16_t tmu1[NUM_THERM];
+   int16_t tmu2[NUM_THERM];
+   int16_t tmu3[NUM_THERM];
+   int16_t tmu4[NUM_THERM];
+   // tmu power rail voltages
+   float tmu1_pow;
+   float tmu2_pow;
+   float tmu3_pow;
+   float tmu4_pow;
 } tmu_handle_t;
 extern bool tmu_daq_override;
 extern uint8_t tmu_daq_therm;
 
 void readTemps(tmu_handle_t *tmu);
-bool initTMU(tmu_handle_t *tmu);
+void initTMU(tmu_handle_t *tmu);
 
 
 

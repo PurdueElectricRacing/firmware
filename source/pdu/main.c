@@ -247,8 +247,8 @@ void preflightChecks(void) {
             PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
         case 3:
             fanControlInit();
-            setFan1Speed(0);
-            setFan2Speed(0);
+        case 4:
+            coolingInit();
         default:
             registerPreflightComplete(1);
             state = 255; // prevent wrap around
@@ -360,6 +360,7 @@ void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 }
 
 void send_iv_readings() {
+    // Send CAN messages containing voltage and current data
     SEND_V_RAILS(q_tx_can, auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3);
     SEND_RAIL_CURRENTS(q_tx_can, auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
     SEND_PUMP_AND_FAN_CURRENT(q_tx_can, auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);

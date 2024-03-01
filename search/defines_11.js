@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['r1_0',['R1',['../tmu_8h.html#a918f64eb53db8e8dc694f36a87646476',1,'tmu.h']]],
+  ['r1_5f3v3_0',['R1_3V3',['../tmu_8h.html#afd0eda823ac2d07996da555eadcaa475',1,'tmu.h']]],
   ['r25_1',['R25',['../tmu_8h.html#aec0d18d474186d431863571aebe48bd9',1,'tmu.h']]],
-  ['r3_2',['R3',['../tmu_8h.html#a48c945e21828118c1d6fab15405b7fca',1,'tmu.h']]],
+  ['r2_5f3v3_2',['R2_3V3',['../tmu_8h.html#a478f0925800f46710e1617fdc69c9ea4',1,'tmu.h']]],
   ['r_5finf_5f3977_3',['R_INF_3977',['../temp_8h.html#acf2f5cd3d44f3d738ef04a331f1f55e7',1,'temp.h']]],
   ['race_5fgreen_4',['RACE_GREEN',['../nextion_8h.html#a597fc725523a8f4fe9369b86502d7446',1,'nextion.h']]],
   ['race_5fstring_5',['RACE_STRING',['../lcd_8h.html#a1982af4d7a313b7ec064857aa743d02b',1,'lcd.h']]],

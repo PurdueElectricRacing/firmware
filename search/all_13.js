@@ -177,7 +177,7 @@ var searchData=
   ['send_5fvolts_5fcells_5f8_174',['SEND_VOLTS_CELLS_8',['../bms_2can_2can__parse_8h.html#ae74961bbd55f98918e40089e53f406c8',1,'can_parse.h']]],
   ['send_5fwheel_5fspeeds_175',['SEND_WHEEL_SPEEDS',['../l4__testing_2can_2can__parse_8h.html#a1f58127427825c5aabab0d818cb4624e',1,'can_parse.h']]],
   ['sendfirsthalf_176',['sendFirsthalf',['../lcd_8c.html#a749a0866931edfac71663cc2acf13692',1,'lcd.c']]],
-  ['sendimudata_177',['sendIMUData',['../a__box_2main_8c.html#aac7f8101ecca804832632cd2c96476bf',1,'sendIMUData():&#160;main.c'],['../torque__vector_2main_8c.html#ab1ec70de348b861c19bda5e4f56c368c',1,'sendIMUData(void):&#160;main.c']]],
+  ['sendimudata_177',['sendIMUData',['../torque__vector_2main_8c.html#ab1ec70de348b861c19bda5e4f56c368c',1,'main.c']]],
   ['sendmcutempsvolts_178',['sendMCUTempsVolts',['../dashboard_2main_8c.html#ad1f5c4c193be22e68e7e1320b5526f63',1,'main.c']]],
   ['sendtestmsg_179',['sendtestmsg',['../pdu_2main_8c.html#ab63024810ac78b1929f924aabbd1151d',1,'main.c']]],
   ['sendvoltagesense_180',['sendVoltageSense',['../dashboard_2main_8c.html#a0f0b8813f70c8124eea1c6bad88fff3f',1,'main.c']]],

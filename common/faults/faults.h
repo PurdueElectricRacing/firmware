@@ -394,7 +394,7 @@
 #define PACK_TEMP_EXCEEDED_MSG "Pack Overheating\0" 
 #define MIN_PACK_TEMP_MSG "Pack Minimum temp < 10\0" 
 #define IMD_MSG "IMD Isolation Fault\0" 
-#define TMU_POWER_LOST_MSG "Fuck! TMU Power Lost!\0" 
+#define TMU_POWER_LOST_MSG "Poopy! TMU Power Lost!\0" 
 #define TEST_FAULT_1_MSG "Test fault 1\0" 
 #define TEST_FAULT_2_MSG "Test fault 2\0" 
 #define TEST_FAULT_3_MSG "Test fault 3\0" 

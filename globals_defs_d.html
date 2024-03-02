@@ -76,7 +76,6 @@ $(function() {
 <h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
 <li>DAQ_CTRL_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#ac7526b2c068cc05e5b6b1a45085b68e4">main.h</a></li>
 <li>DAQ_CTRL_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a28e0b63170f5a7f8c6ce876cbc49c6b3">main.h</a></li>
-<li>DAQ_ID_BAT_TEMP_ERROR&#160;:&#160;<a class="el" href="main__module_2daq_2daq_8h.html#aed9ae8dcd951f59c9912403a22f20db8">daq.h</a></li>
 <li>DAQ_ID_BLUE_ON&#160;:&#160;<a class="el" href="l4__testing_2daq_2daq_8h.html#a1a549065cea7419305abfbbf19edb705">daq.h</a></li>
 <li>DAQ_ID_BMS_DAQ_OVERRIDE&#160;:&#160;<a class="el" href="a__box_2daq_2daq_8h.html#a5812942aab1d3c490eea8a8a93547c67">daq.h</a></li>
 <li>DAQ_ID_BMS_DAQ_STAT&#160;:&#160;<a class="el" href="a__box_2daq_2daq_8h.html#ac2b2aab59f14f7cf90eec534501f855c">daq.h</a></li>
@@ -85,9 +84,9 @@ $(function() {
 <li>DAQ_ID_CHARGE_ENABLE&#160;:&#160;<a class="el" href="l4__testing_2daq_2daq_8h.html#aa94b655e9c6f4ffd69057421a223092c">daq.h</a></li>
 <li>DAQ_ID_CHARGE_REQUEST_USER&#160;:&#160;<a class="el" href="a__box_2daq_2daq_8h.html#a20e55166e25c1c91d863d2e359a1ec1d">daq.h</a></li>
 <li>DAQ_ID_CHARGE_VOLTAGE&#160;:&#160;<a class="el" href="l4__testing_2daq_2daq_8h.html#ab883a5ae1ec96179443e3b06c833b41e">daq.h</a></li>
-<li>DAQ_ID_COOLING_DAQ_OVERRIDE&#160;:&#160;<a class="el" href="main__module_2daq_2daq_8h.html#a49e75b8c04d8313c757183a6e14b9423">daq.h</a></li>
+<li>DAQ_ID_DAQ_BRAKE&#160;:&#160;<a class="el" href="main__module_2daq_2daq_8h.html#accc5349604c2b6e513627c3a79a174b7">daq.h</a></li>
 <li>DAQ_ID_DAQ_BUZZER&#160;:&#160;<a class="el" href="main__module_2daq_2daq_8h.html#a914e79cf59d129134ce3e7ce31007fa5">daq.h</a></li>
-<li>DAQ_ID_DT_TEMP_ERROR&#160;:&#160;<a class="el" href="main__module_2daq_2daq_8h.html#ac411a216f927efc75ec4d94f80946f07">daq.h</a></li>
+<li>DAQ_ID_DAQ_BUZZER_BRAKE_STATUS&#160;:&#160;<a class="el" href="main__module_2daq_2daq_8h.html#a615e308c2efe2fe698d9cfe8b6bc8bea">daq.h</a></li>
 <li>DAQ_ID_GREEN_ON&#160;:&#160;<a class="el" href="l4__testing_2daq_2daq_8h.html#acea18f2bab6690d107f8eaceff6ac402">daq.h</a></li>
 <li>DAQ_ID_LV_24_V_SENSE&#160;:&#160;<a class="el" href="pdu_2daq_2daq_8h.html#a8d7a98655eb59afb097a90fba19a96e3">daq.h</a></li>
 <li>DAQ_ID_LV_3V3_V_SENSE&#160;:&#160;<a class="el" href="pdu_2daq_2daq_8h.html#a3e85b995d2dc12f5267a01c91ec9c23c">daq.h</a></li>
@@ -152,6 +151,7 @@ $(function() {
 <li>DLC_CELL_INFO_7&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#abd0dbb0422380b60466f189573fb3117">can_parse.h</a></li>
 <li>DLC_CELL_INFO_8&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#a9b4e3b02693f51144b67fcf46bd9a307">can_parse.h</a></li>
 <li>DLC_COOLANT_OUT&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a0f3acf289b7e8f263a6bd73911a27d02">can_parse.h</a></li>
+<li>DLC_COOLANT_TEMPS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a1552a7d55c1d0edf7fde7a0359d8de02">can_parse.h</a></li>
 <li>DLC_COOLING_DRIVER_REQUEST&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#ac1a01cc93084360713b743bf94e4fd5e">can_parse.h</a></li>
 <li>DLC_CURRENT_MEAS&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a35d626d2327359657c5c14877cb3584c">can_parse.h</a></li>
 <li>DLC_DAQ_COMMAND_A_BOX&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#af40f362e6670d77a0beb873a3aedceb9">can_parse.h</a></li>
@@ -174,13 +174,12 @@ $(function() {
 <li>DLC_F4_TESTING_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#aff6d1c8895b098d9b1e8d86d59522164">can_parse.h</a></li>
 <li>DLC_F7_TESTING_BL_CMD&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#af6826d8d134d0477c6929fa4f6327e29">can_parse.h</a></li>
 <li>DLC_F7_TESTING_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#a868631ef5694d3ab143fa3dd17b03b8c">can_parse.h</a></li>
-<li>DLC_FAULT_SYNC_A_BOX&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#aa8b82ce9dd040213a00cc2ff54647fff">can_parse.h</a></li>
-<li>DLC_FAULT_SYNC_DASHBOARD&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a811ce2db0d1bb06c42f9405f98fa702a">can_parse.h</a></li>
-<li>DLC_FAULT_SYNC_MAIN_MODULE&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#ac1567d3af94fd261778e554c6c788f32">can_parse.h</a></li>
-<li>DLC_FAULT_SYNC_PDU&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a27fa6a4ac57c58a060d60b5b9bd8ebcc">can_parse.h</a></li>
+<li>DLC_FAULT_SYNC_A_BOX&#160;:&#160;<a class="el" href="pdu_2can_2can__parse_8h.html#aa8b82ce9dd040213a00cc2ff54647fff">can_parse.h</a></li>
+<li>DLC_FAULT_SYNC_DASHBOARD&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a811ce2db0d1bb06c42f9405f98fa702a">can_parse.h</a></li>
+<li>DLC_FAULT_SYNC_MAIN_MODULE&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#ac1567d3af94fd261778e554c6c788f32">can_parse.h</a></li>
+<li>DLC_FAULT_SYNC_PDU&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a27fa6a4ac57c58a060d60b5b9bd8ebcc">can_parse.h</a></li>
 <li>DLC_FAULT_SYNC_TEST_NODE&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a156e954405f42507632dd680ae202b6a">can_parse.h</a></li>
 <li>DLC_FILT_THROTTLE_BRAKE&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a2334651a6eb56277dd242468bcedba63">can_parse.h</a></li>
-<li>DLC_FLOWRATE_TEMPS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#aac99bdc97fb310a3afea589d5efc51d1">can_parse.h</a></li>
 <li>DLC_GEARBOX&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#aece14d379fddba6ae7520c622c18013a">can_parse.h</a></li>
 <li>DLC_GPS_COORDINATES&#160;:&#160;<a class="el" href="torque__vector_2can_2can__parse_8h.html#ac7a6b04f055d4a5caef1f7410e09629f">can_parse.h</a></li>
 <li>DLC_GPS_POSITION&#160;:&#160;<a class="el" href="torque__vector_2can_2can__parse_8h.html#a35225c4e9c2bc4e1d18bce374f362b89">can_parse.h</a></li>
@@ -196,13 +195,13 @@ $(function() {
 <li>DLC_MAIN_HB&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#ac62f13737af2572a5a77eae72288394d">can_parse.h</a></li>
 <li>DLC_MAIN_MODULE_BL_CMD&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#ab583a3fa6c08fff226a82b475c921727">can_parse.h</a></li>
 <li>DLC_MAIN_MODULE_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#a07fb637e02c202c8b0d7aabe3c093c53">can_parse.h</a></li>
-<li>DLC_MAX_CELL_TEMP&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a91254e5ed58aa658d0ed0c95e7f5105e">can_parse.h</a></li>
+<li>DLC_MAX_CELL_TEMP&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a91254e5ed58aa658d0ed0c95e7f5105e">can_parse.h</a></li>
 <li>DLC_MCU_STATUS&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a7f070172646686f42dfcfadc0e55ae1a">can_parse.h</a></li>
 <li>DLC_MOD_CELL_TEMP_AVG&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a644aa3fb06919d62e680fb36ca04d2e7">can_parse.h</a></li>
 <li>DLC_MOD_CELL_TEMP_MAX&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a55992a1c967b7977671fe9e332640487">can_parse.h</a></li>
 <li>DLC_MOD_CELL_TEMP_MIN&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a66958839d59e5d5567f914623792b064">can_parse.h</a></li>
 <li>DLC_NUM_THEM_BAD&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a3d9b117cb146436fce7efb54ed99ba35">can_parse.h</a></li>
-<li>DLC_ORION_CURRENTS_VOLTS&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a538e7dbcd39289356fe5c764dff28043">can_parse.h</a></li>
+<li>DLC_ORION_CURRENTS_VOLTS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a538e7dbcd39289356fe5c764dff28043">can_parse.h</a></li>
 <li>DLC_ORION_CURRENTS_VOLTS2&#160;:&#160;<a class="el" href="l4__testing_2can_2can__parse_8h.html#aa9ef63bbd4ceed8157c74b97d1b8dc8d">can_parse.h</a></li>
 <li>DLC_ORION_ERRORS&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a16866fbb37ada2b61258b983c01287ad">can_parse.h</a></li>
 <li>DLC_ORION_INFO&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#aaae1f6f144ab5841970e67a7a1bdd0c3">can_parse.h</a></li>
@@ -219,7 +218,7 @@ $(function() {
 <li>DLC_PACK_INFO_8&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#a04b13f8bca21fe34db405eca26a76fe1">can_parse.h</a></li>
 <li>DLC_PDU_BL_CMD&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#aa91a44175d8a77bdfefc0573aaa2a595">can_parse.h</a></li>
 <li>DLC_PDU_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#adf73cfaf6a21024ea3de2fca45d0355c">can_parse.h</a></li>
-<li>DLC_PDU_TEST&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a1f81fba436e8132caec9cb2a93299ff0">can_parse.h</a></li>
+<li>DLC_PDU_TEST&#160;:&#160;<a class="el" href="pdu_2can_2can__parse_8h.html#a1f81fba436e8132caec9cb2a93299ff0">can_parse.h</a></li>
 <li>DLC_POWER_LIM_1&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#ab60b28f211cedaa3e7b3b7e5bfcba123">can_parse.h</a></li>
 <li>DLC_POWER_LIM_2&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#a66c1fe345f63413f9b7ca5eaef5485ba">can_parse.h</a></li>
 <li>DLC_POWER_LIM_3&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#a3800a027ce6c88a609ad850f1a84b30c">can_parse.h</a></li>
@@ -235,8 +234,8 @@ $(function() {
 <li>DLC_REAR_CONTROLLER_TEMPS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a257593e73dea36c8c4d9ad620f761f04">can_parse.h</a></li>
 <li>DLC_REAR_MC_STATUS&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a5c4d8ac797d3bd86fb37cd3f90f64880">can_parse.h</a></li>
 <li>DLC_REAR_MOTOR_CURRENTS_TEMPS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a59180257b7ad394495d42fad54593dcd">can_parse.h</a></li>
-<li>DLC_REAR_WHEEL_SPEEDS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#ad6381e4f2bc9d36cdc8c1f959ca5c81f">can_parse.h</a></li>
-<li>DLC_RETURN_FAULT_CONTROL&#160;:&#160;<a class="el" href="pdu_2can_2can__parse_8h.html#a8a7adca2e81599090ebd289d2cc484c9">can_parse.h</a></li>
+<li>DLC_REAR_WHEEL_SPEEDS&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#ad6381e4f2bc9d36cdc8c1f959ca5c81f">can_parse.h</a></li>
+<li>DLC_RETURN_FAULT_CONTROL&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a8a7adca2e81599090ebd289d2cc484c9">can_parse.h</a></li>
 <li>DLC_SDC_STATUS&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a9c09158cb39d6e9e2cdbc53128c1d4c3">can_parse.h</a></li>
 <li>DLC_SET_FAULT&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#aec449f050d774f2db0b00838d3e9bb59">can_parse.h</a></li>
 <li>DLC_SFS_ACC&#160;:&#160;<a class="el" href="torque__vector_2can_2can__parse_8h.html#a93e98ac29b9a74e29fe1299a9ca0057e">can_parse.h</a></li>
@@ -282,22 +281,15 @@ $(function() {
 <li>DLC_VOLTS_CELLS_7&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#a0c5344f41804fb0d31573a7b55780a7e">can_parse.h</a></li>
 <li>DLC_VOLTS_CELLS_8&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#ab9c16f58492310f48cdc4110b8604c77">can_parse.h</a></li>
 <li>DLC_WHEEL_SPEEDS&#160;:&#160;<a class="el" href="l4__testing_2can_2can__parse_8h.html#a89037a680a24be417b8dbdd9a844c7f9">can_parse.h</a></li>
-<li>DT_ALWAYS_COOL&#160;:&#160;<a class="el" href="cooling_8h.html#a1c80e092f0732c3f76bcc7ac01394ed7">cooling.h</a></li>
 <li>DT_CRIT&#160;:&#160;<a class="el" href="temp_8h.html#a1f5b555b83a343de89f5078cd0b55b50">temp.h</a></li>
-<li>DT_ERROR_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#a71df06fab1801fbfc7374788fa21175a">cooling.h</a></li>
 <li>DT_FAN_BAR&#160;:&#160;<a class="el" href="lcd_8h.html#a295cff8414ee6274606c902ee24b78c9">lcd.h</a></li>
 <li>DT_FAN_TXT&#160;:&#160;<a class="el" href="lcd_8h.html#a29596d6e39bb75e1ec7f14224a3d20f1">lcd.h</a></li>
 <li>DT_FAN_VAL&#160;:&#160;<a class="el" href="lcd_8h.html#aaa6eb343a443d22ce11f247753fd599d">lcd.h</a></li>
-<li>DT_FLOW_CHECK_OVERRIDE&#160;:&#160;<a class="el" href="cooling_8h.html#a24efe72c27a66f17b67739fd52c7fcc4">cooling.h</a></li>
-<li>DT_FLOW_STARTUP_TIME_S&#160;:&#160;<a class="el" href="cooling_8h.html#a9978d1d25884f57f258816e2fda1f806">cooling.h</a></li>
-<li>DT_MAX_FLOW_L_M&#160;:&#160;<a class="el" href="cooling_8h.html#ac0db7593ae2c21a6dbe4d6799154446e">cooling.h</a></li>
-<li>DT_MIN_FLOW_L_M&#160;:&#160;<a class="el" href="cooling_8h.html#abe5677b8dff952704f9691b914a8f5b0">cooling.h</a></li>
-<li>DT_PUMP_OFF_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#ae39a5c3f75cf8bc35d9f7593caa4f887">cooling.h</a></li>
-<li>DT_PUMP_ON_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#a853e8a11695f8389498c3061c752bfa4">cooling.h</a></li>
 <li>DT_PUMP_OP&#160;:&#160;<a class="el" href="lcd_8h.html#a45d316cfd449318ab4905ec0ec2f54b6">lcd.h</a></li>
 <li>DT_PUMP_TXT&#160;:&#160;<a class="el" href="lcd_8h.html#a87ecc0eaecdfe41819aac6068719e428">lcd.h</a></li>
 <li>DT_THERM_A&#160;:&#160;<a class="el" href="cooling_8h.html#adb58e335741c335327373af3260679c1">cooling.h</a></li>
 <li>DT_THERM_B&#160;:&#160;<a class="el" href="cooling_8h.html#aa5febe3c220a470575e17b421fb998b4">cooling.h</a></li>
+<li>DT_THERM_R1&#160;:&#160;<a class="el" href="cooling_8h.html#ae64458ab2a0c5b90b7440ff391b9e6e2">cooling.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

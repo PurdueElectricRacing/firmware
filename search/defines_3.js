@@ -17,12 +17,13 @@ var searchData=
   ['conn_5fled_5fgpio_5fport_14',['CONN_LED_GPIO_Port',['../a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef',1,'CONN_LED_GPIO_Port:&#160;main.h'],['../dashboard_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef',1,'CONN_LED_GPIO_Port:&#160;main.h'],['../main__module_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef',1,'CONN_LED_GPIO_Port:&#160;main.h'],['../pdu_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef',1,'CONN_LED_GPIO_Port:&#160;main.h'],['../torque__vector_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef',1,'CONN_LED_GPIO_Port:&#160;main.h']]],
   ['conn_5fled_5fms_5fthresh_15',['CONN_LED_MS_THRESH',['../dashboard_2main_8h.html#a0fdbfbcfbcb8f2c98f4bf69597b60ae8',1,'CONN_LED_MS_THRESH:&#160;main.h'],['../main__module_2main_8h.html#a0fdbfbcfbcb8f2c98f4bf69597b60ae8',1,'CONN_LED_MS_THRESH:&#160;main.h'],['../pdu_2main_8h.html#a0fdbfbcfbcb8f2c98f4bf69597b60ae8',1,'CONN_LED_MS_THRESH:&#160;main.h'],['../torque__vector_2main_8h.html#a0fdbfbcfbcb8f2c98f4bf69597b60ae8',1,'CONN_LED_MS_THRESH:&#160;main.h']]],
   ['conn_5fled_5fpin_16',['CONN_LED_Pin',['../a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../dashboard_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../main__module_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../pdu_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../torque__vector_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h']]],
-  ['crit_5f5v_5fctrl_5fgpio_5fport_17',['CRIT_5V_CTRL_GPIO_Port',['../pdu_2main_8h.html#ab328db970db5a4260520bfe42d0c15a8',1,'main.h']]],
-  ['crit_5f5v_5fctrl_5fpin_18',['CRIT_5V_CTRL_Pin',['../pdu_2main_8h.html#aac171a2cba24500a65b972f178ee15a6',1,'main.h']]],
-  ['crit_5f5v_5fnflt_5fgpio_5fport_19',['CRIT_5V_NFLT_GPIO_Port',['../pdu_2main_8h.html#a4a06c1138fee5dd1415f31c10a778fba',1,'main.h']]],
-  ['crit_5f5v_5fnflt_5fpin_20',['CRIT_5V_NFLT_Pin',['../pdu_2main_8h.html#a4636a6f9397c7572d3f6651837a63daa',1,'main.h']]],
-  ['cs_5fgain_21',['CS_GAIN',['../auto__switch_8h.html#ad1b5bc35cb4ea53f3dde54a7d082027d',1,'auto_switch.h']]],
-  ['csb_5fafe_5fgpio_5fport_22',['CSB_AFE_GPIO_Port',['../bms_2main_8h.html#a11b076731ea100b3c31e13130faa716b',1,'main.h']]],
-  ['csb_5fafe_5fpin_23',['CSB_AFE_Pin',['../bms_2main_8h.html#a37cabf768c9bd30279de1ced8617c8b5',1,'main.h']]],
-  ['cvst_24',['CVST',['../afe_8h.html#a46cf9f9c6a4f127d5ab47c101f1b0f6d',1,'afe.h']]]
+  ['cool_5floop_5fstart_5fidx_17',['COOL_LOOP_START_IDX',['../cooling_8h.html#a34d21bd53587b41d4051514b8d83bd4d',1,'cooling.h']]],
+  ['crit_5f5v_5fctrl_5fgpio_5fport_18',['CRIT_5V_CTRL_GPIO_Port',['../pdu_2main_8h.html#ab328db970db5a4260520bfe42d0c15a8',1,'main.h']]],
+  ['crit_5f5v_5fctrl_5fpin_19',['CRIT_5V_CTRL_Pin',['../pdu_2main_8h.html#aac171a2cba24500a65b972f178ee15a6',1,'main.h']]],
+  ['crit_5f5v_5fnflt_5fgpio_5fport_20',['CRIT_5V_NFLT_GPIO_Port',['../pdu_2main_8h.html#a4a06c1138fee5dd1415f31c10a778fba',1,'main.h']]],
+  ['crit_5f5v_5fnflt_5fpin_21',['CRIT_5V_NFLT_Pin',['../pdu_2main_8h.html#a4636a6f9397c7572d3f6651837a63daa',1,'main.h']]],
+  ['cs_5fgain_22',['CS_GAIN',['../auto__switch_8h.html#ad1b5bc35cb4ea53f3dde54a7d082027d',1,'auto_switch.h']]],
+  ['csb_5fafe_5fgpio_5fport_23',['CSB_AFE_GPIO_Port',['../bms_2main_8h.html#a11b076731ea100b3c31e13130faa716b',1,'main.h']]],
+  ['csb_5fafe_5fpin_24',['CSB_AFE_Pin',['../bms_2main_8h.html#a37cabf768c9bd30279de1ced8617c8b5',1,'main.h']]],
+  ['cvst_25',['CVST',['../afe_8h.html#a46cf9f9c6a4f127d5ab47c101f1b0f6d',1,'afe.h']]]
 ];

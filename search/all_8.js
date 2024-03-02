@@ -49,10 +49,9 @@ var searchData=
   ['hv_5fv_5fbat_5fcal_46',['HV_V_BAT_CAL',['../car_8h.html#a558410ca52658dd8f6cead3601fc50f3',1,'car.h']]],
   ['hv_5fv_5fmc_5fcal_47',['HV_V_MC_CAL',['../car_8h.html#a3e8aea4400df51843f2611a24145e31b',1,'car.h']]],
   ['hvd_48',['HVD',['../union____attribute____.html#af1fe310ee3dea9a8a4f92527c3b53d68',1,'__attribute__']]],
-  ['hvd_5fstat_49',['hvd_stat',['../structsdc__nodes__t.html#a510f7e98374856af2fedf9479cc35347',1,'sdc_nodes_t']]],
-  ['hw_5fdisable_50',['HW_DISABLE',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'HW_DISABLE:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'HW_DISABLE:&#160;usart.h']]],
-  ['hw_5ffail_51',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
-  ['hw_5fflow_5fctl_52',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
-  ['hw_5fflow_5fctl_5ft_53',['hw_flow_ctl_t',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h']]],
-  ['hz_5fto_5fmhz_54',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
+  ['hw_5fdisable_49',['HW_DISABLE',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'HW_DISABLE:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'HW_DISABLE:&#160;usart.h']]],
+  ['hw_5ffail_50',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
+  ['hw_5fflow_5fctl_51',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
+  ['hw_5fflow_5fctl_5ft_52',['hw_flow_ctl_t',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h']]],
+  ['hz_5fto_5fmhz_53',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
 ];

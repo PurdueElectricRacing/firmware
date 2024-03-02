@@ -82,52 +82,28 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="cooling_8h_source.html">cooling.h</a>&quot;</code><br />
+<code>#include &quot;common_defs.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a26211f2582f6b152e66adb3beb9a8213" id="r_a26211f2582f6b152e66adb3beb9a8213"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26211f2582f6b152e66adb3beb9a8213">lowpass</a> (uint8_t new, uint8_t *old, uint8_t <a class="el" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a>)</td></tr>
-<tr class="separator:a26211f2582f6b152e66adb3beb9a8213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a821f59891a53828e64a7b9c0d9293739" id="r_a821f59891a53828e64a7b9c0d9293739"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a821f59891a53828e64a7b9c0d9293739">coolingInit</a> ()</td></tr>
-<tr class="memdesc:a821f59891a53828e64a7b9c0d9293739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes gpio interrupts Sets default output states.  <br /></td></tr>
+<tr class="memdesc:a821f59891a53828e64a7b9c0d9293739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes Thermistor Mux.  <br /></td></tr>
 <tr class="separator:a821f59891a53828e64a7b9c0d9293739"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad50f7e280921ae6cf832349effea18b9" id="r_ad50f7e280921ae6cf832349effea18b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad50f7e280921ae6cf832349effea18b9">coolingPeriodic</a> ()</td></tr>
-<tr class="memdesc:ad50f7e280921ae6cf832349effea18b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if fans and pumps should be turned on and checks for faults.  <br /></td></tr>
+<tr class="memdesc:ad50f7e280921ae6cf832349effea18b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks temperature of various cooling loops/Powertrain periodically.  <br /></td></tr>
 <tr class="separator:ad50f7e280921ae6cf832349effea18b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a407ffa9b60b545496b01002578c0d94d" id="r_a407ffa9b60b545496b01002578c0d94d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a407ffa9b60b545496b01002578c0d94d">rawThermtoCelcius</a> (uint16_t t)</td></tr>
-<tr class="memdesc:a407ffa9b60b545496b01002578c0d94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts from a raw thermistor reading to celcius Based on digikey sensor GE-2102.  <br /></td></tr>
-<tr class="separator:a407ffa9b60b545496b01002578c0d94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a224c440684ad6c631158e62b6f67100d" id="r_a224c440684ad6c631158e62b6f67100d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a224c440684ad6c631158e62b6f67100d">cooling_driver_request_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *data)</td></tr>
-<tr class="separator:a224c440684ad6c631158e62b6f67100d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e8b863e93909933505f41e27bd987e" id="r_a49e8b863e93909933505f41e27bd987e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49e8b863e93909933505f41e27bd987e">rawThermtoCelcius</a> (uint16_t t, float a, float b, uint16_t r1)</td></tr>
+<tr class="memdesc:a49e8b863e93909933505f41e27bd987e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts Raw ADC values to Temperature.  <br /></td></tr>
+<tr class="separator:a49e8b863e93909933505f41e27bd987e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aca625a3b2b6816150f02b696ccd26e6b" id="r_aca625a3b2b6816150f02b696ccd26e6b"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca625a3b2b6816150f02b696ccd26e6b">adc_to_ln</a> []</td></tr>
-<tr class="separator:aca625a3b2b6816150f02b696ccd26e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12b9f30ee387df3295a74841cf1a57d0" id="r_a12b9f30ee387df3295a74841cf1a57d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCooling__t.html">Cooling_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12b9f30ee387df3295a74841cf1a57d0">cooling</a></td></tr>
 <tr class="separator:a12b9f30ee387df3295a74841cf1a57d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c95aa854f1338bfb6e9273572403bda" id="r_a2c95aa854f1338bfb6e9273572403bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a></td></tr>
 <tr class="separator:a2c95aa854f1338bfb6e9273572403bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
-<tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a224c440684ad6c631158e62b6f67100d" name="a224c440684ad6c631158e62b6f67100d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a224c440684ad6c631158e62b6f67100d">&#9670;&#160;</a></span>cooling_driver_request_CALLBACK()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void cooling_driver_request_CALLBACK </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a821f59891a53828e64a7b9c0d9293739" name="a821f59891a53828e64a7b9c0d9293739"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a821f59891a53828e64a7b9c0d9293739">&#9670;&#160;</a></span>coolingInit()</h2>
 
@@ -143,7 +119,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes gpio interrupts Sets default output states. </p>
+<p>Initializes Thermistor Mux. </p>
 <dl class="section return"><dt>Returns</dt><dd>true Success </dd>
 <dd>
 false Fail </dd></dl>
@@ -165,38 +141,12 @@ false Fail </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Determines if fans and pumps should be turned on and checks for faults. </p>
+<p>Checks temperature of various cooling loops/Powertrain periodically. </p>
 
 </div>
 </div>
-<a id="a26211f2582f6b152e66adb3beb9a8213" name="a26211f2582f6b152e66adb3beb9a8213"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26211f2582f6b152e66adb3beb9a8213">&#9670;&#160;</a></span>lowpass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t lowpass </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>new</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>old</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>curr</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a407ffa9b60b545496b01002578c0d94d" name="a407ffa9b60b545496b01002578c0d94d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a407ffa9b60b545496b01002578c0d94d">&#9670;&#160;</a></span>rawThermtoCelcius()</h2>
+<a id="a49e8b863e93909933505f41e27bd987e" name="a49e8b863e93909933505f41e27bd987e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e8b863e93909933505f41e27bd987e">&#9670;&#160;</a></span>rawThermtoCelcius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,62 +154,41 @@ false Fail </dd></dl>
         <tr>
           <td class="memname">float rawThermtoCelcius </td>
           <td>(</td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>t</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>a</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>b</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>r1</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Converts from a raw thermistor reading to celcius Based on digikey sensor GE-2102. </p>
+<p>Converts Raw ADC values to Temperature. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>Raw thermistor measurement </td></tr>
+    <tr><td class="paramname">t</td><td>ADC Value </td></tr>
+    <tr><td class="paramname">a</td><td>'a' constant in thermistor equation above </td></tr>
+    <tr><td class="paramname">b</td><td>'b' constant in thermistor equation above </td></tr>
+    <tr><td class="paramname">r1</td><td>Top resistor value for thermistor </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Degrees Celcius </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="aca625a3b2b6816150f02b696ccd26e6b" name="aca625a3b2b6816150f02b696ccd26e6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca625a3b2b6816150f02b696ccd26e6b">&#9670;&#160;</a></span>adc_to_ln</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const float adc_to_ln[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {0.0f, 3.66932195489841f, 4.36639937878818f, 4.77581023800821f, 5.06745369221869f, 5.2945743802692f, 5.4808889545972f, 5.63904866008963f, 5.77660521538147f, 5.89842968114079f, 6.00784802635851f, 6.1072325688147f, 6.19833497682335f, 6.28248552082528f, 6.36071827325357f, 6.43385300932074f, 6.50255062145495f, 6.56735170457577f, 6.62870409572963f, 6.68698295786607f, 6.74250570608683f, 6.79554328837521f, 6.84632883966985f, 6.89506441066586f, 6.94192626350331f, 6.98706908570186f, 7.03062937713267f, 7.07272819744148f, 7.11347341358249f, 7.1529615527881f, 7.19127934128525f, 7.22850499062208f, 7.26470927971074f, 7.29995647032355f, 7.33430508588904f, 7.3678085773747f, 7.40051589535049f, 7.4324719836627f, 7.4637182072667f, 7.49429272448382f, 7.52423081212813f, 7.55356515048801f, 7.58232607396915f, 7.61054179224856f, 7.63823858600859f, 7.66544098067965f, 7.69217190109277f, 7.71845280950592f, 7.74430382910538f, 7.76974385477934f, 7.7947906527075f, 7.81946095009564f, 7.84377051620407f, 7.86773423566524f, 7.89136617495574f, 7.91467964277671f, 7.9376872450016f, 7.96040093476842f, 7.98283205822374f, 8.00499139636441f, 8.02688920337104f, 8.04853524178147f, 8.06993881481267f, 8.09110879610534f, 8.11205365713481f, 8.13278149250591f, 8.1533000433256f, 8.17361671882747f, 8.19373861640354f, 8.21367254018327f, 8.23342501828559f, 8.25300231885707f, 8.27241046499855f, 8.29165524867247f, 8.31074224367451f, 8.32967681774518f, 8.34846414389012f, 8.36710921097153f, 8.38561683362752f, 8.40399166157109f, 8.42223818831605f, 8.44036075937295f, 8.45836357995433f, 8.47625072222564f, 8.4940261321347f, 8.5116936358502f, 8.529256945837f, 8.5467196665941f, 8.56408530007868f, 8.58135725083814f, 8.59853883087019f, 8.61563326422949f, 8.63264369139813f, 8.64957317343572f, 8.66642469592386f, 8.68320117271867f, 8.69990544952401f, 8.71654030729723f, 8.73310846549834f, 8.74961258519297f, 8.76605527201844f, 8.78243907902203f, 8.7987665093797f, 8.81504001900293f, 8.83126201904121f, 8.84743487828681f, 8.86356092548834f, 8.87964245157913f, 8.8956817118262f, 8.91168092790504f, 8.92764228990538f, 8.94356795827277f, 8.95946006569037f, 8.97532071890552f, 8.9911520005049f, 9.00695597064244f, 9.02273466872357f, 9.03849011504952f, 9.05422431242489f, 9.06993924773203f, 9.08563689347523f, 9.1013192092979f, 9.11698814347564f, 9.13264563438814f, 9.14829361197268f, 9.16393399916203f, 9.17956871330943f, 9.1951996676033f, 9.21082877247429f, 9.22645793699725f, 9.24208907029076f, 9.25772408291671f, 9.27336488828254f, 9.28901340404866f, 9.30467155354376f, 9.32034126719051f, 9.33602448394432f, 9.35172315274794f, 9.36743923400462f, 9.38317470107257f, 9.39893154178373f, 9.41471175998981f, 9.43051737713856f, 9.44635043388364f, 9.46221299173125f, 9.47810713472702f, 9.49403497118674f, 9.50999863547468f, 9.5260002898334f, 9.54204212626923f, 9.55812636849767f, 9.57425527395335f, 9.59043113586931f, 9.60665628543076f, 9.62293309400858f, 9.63926397547845f, 9.65565138863155f, 9.67209783968326f, 9.68860588488691f, 9.70517813325966f, 9.72181724942849f, 9.73852595660465f, 9.75530703969537f, 9.77216334856257f, 9.78909780143873f, 9.80611338851095f, 9.82321317568514f, 9.84040030854287f, 9.85767801650483f, 9.87504961721559f, 9.89251852116555f, 9.91008823656748f, 9.92776237450618f, 9.94554465438154f, 9.96343890966679f, 9.98144909400584f, 9.99957928767527f, 10.0178337044393f, 10.036216698828f, 10.0547327738723f, 10.0733865893315f, 10.0921829704543f, 10.1111269173144f, 10.1302236147708f, 10.1494784431031f, 10.1688969893788f, 10.1884850596172f, 10.208248691817f, 10.2281941699247f, 10.2483280388279f, 10.2686571204663f, 10.2891885311634f, 10.3099297002921f, 10.3308883904023f, 10.3520727189493f, 10.3734911817819f, 10.395152678563f, 10.4170665403205f, 10.4392425593446f, 10.4616910216805f, 10.4844227424891f, 10.5074491045899f, 10.5307821005337f, 10.5544343786057f, 10.5784192932047f, 10.6027509601135f, 10.6274443172393f, 10.6525151914905f, 10.67798037255f, 10.7038576944166f, 10.7301661257206f, 10.756925869971f, 10.7841584770773f, 10.811886967703f, 10.8401359722661f, 10.8689318867084f, 10.8983030475226f, 10.928279928969f, 10.9588953659456f, 10.9901848066264f, 11.022186599771f, 11.0549423225786f, 11.0884971561543f, 11.1229003171347f, 11.1582055558673f, 11.1944717338517f, 11.2317634960773f, 11.2701520576111f, 11.3097161285568f, 11.3505430076665f, 11.3927298829085f, 11.4363853878479f, 11.4816314767016f, 11.5286056997271f, 11.5774639861078f, 11.6283840765351f, 11.6815697964567f, 11.7372564298417f, 11.7957175521278f, 11.8572738252678f, 11.9223044723995f, 11.9912624757751f, 12.0646950489125f, 12.1432717442911f, 12.2278238914625f, 12.3194013308372f, 12.4193564279281f, 12.529472800584f, 12.6521707539224f, 12.7908517893683f, 12.9505131204777f, 13.1389341808807f, 13.3692234553359f, 13.6661709812334f, 14.0862761567494f, 14.8161424382722f</div>
-<div class="line">}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3f547c0ac514dd12e5bab27a6b60bec">&#9670;&#160;</a></span>APB1ClockRateHz</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t APB1ClockRateHz</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a12b9f30ee387df3295a74841cf1a57d0" name="a12b9f30ee387df3295a74841cf1a57d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a12b9f30ee387df3295a74841cf1a57d0">&#9670;&#160;</a></span>cooling</h2>
 

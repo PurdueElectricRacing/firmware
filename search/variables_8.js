@@ -18,7 +18,6 @@ var searchData=
   ['hv_5fisolation_15',['hv_isolation',['../union____attribute____.html#ad5cbebd9d0fdcde852e3c1b7ef7493a8',1,'__attribute__::hv_isolation'],['../structcan__data__t.html#a392b7e17e73a7cc07ab7b9f32b8bd492',1,'can_data_t::hv_isolation']]],
   ['hv_5fpresent_16',['hv_present',['../structmotor__t.html#a886bd4f9cf1c48a76b8ad5a7469989e9',1,'motor_t']]],
   ['hvd_17',['HVD',['../union____attribute____.html#af1fe310ee3dea9a8a4f92527c3b53d68',1,'__attribute__']]],
-  ['hvd_5fstat_18',['hvd_stat',['../structsdc__nodes__t.html#a510f7e98374856af2fedf9479cc35347',1,'sdc_nodes_t']]],
-  ['hw_5ffail_19',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
-  ['hw_5fflow_5fctl_20',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['hw_5ffail_18',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
+  ['hw_5fflow_5fctl_19',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
 ];

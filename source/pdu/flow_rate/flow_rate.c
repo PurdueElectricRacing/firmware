@@ -3,6 +3,21 @@
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 
+/*
+ test flow rate of sink with syringe:
+    1730mL over 10 seconds
+    1.730 * 6 = 10.38 L/min
+
+ flow rate sensor hooked up to sink:
+    75hz = 10 L/min
+    if 70hz = 9.333... L/min
+    if 80hz = 10.666... L/min
+
+    Therefore we do not think we need any calibration. 10 ≅ 10.38 and
+    the syringe testing may have been off, plug some leakage with the 
+    flow rate sensor hooked up to the sink
+*/
+
 bool flowRateInit()
 {
     /* FLOW_RATE_1_TIM */
@@ -95,16 +110,22 @@ bool flowRateInit()
 
 uint32_t getFlowRate1()
 {
+    if (FLOW_RATE_1_TIM->CCR1 == 0) {
+        return 0;
+    }
+
     uint32_t freq = (1.0 / ((FLOW_RATE_1_TIM->CCR1) * ((FLOW_RATE_1_TIM->PSC + 1.0) / APB1ClockRateHz)));
-    // uint32_t duty_cycle = ((float)(FLOW_RATE_1_TIM->CCR1) / FLOW_RATE_1_TIM->CCR2) * 100;
     uint32_t flow_rate = freq / 7.5;
     return flow_rate;
 }
 
 uint32_t getFlowRate2()
 {
+    if (FLOW_RATE_2_TIM->CCR2 == 0) {
+        return 0;
+    }
+
     uint32_t freq = (1.0 / ((FLOW_RATE_2_TIM->CCR2) * ((FLOW_RATE_2_TIM->PSC + 1.0) / APB2ClockRateHz)));
-    // uint32_t duty_cycle = ((float)(FLOW_RATE_2_TIM->CCR1) / FLOW_RATE_2_TIM->CCR2) * 100;
     uint32_t flow_rate = freq / 7.5;
     return flow_rate;
 }

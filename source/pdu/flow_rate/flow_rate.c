@@ -1,17 +1,10 @@
 #include "flow_rate.h"
 
-bool fanControlInit();
-void setFan1Speed(uint8_t fan_speed);
-
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 
 bool flowRateInit()
 {
-    /* NOTE: This is just here for testing reading in a PWM signal */
-    fanControlInit();
-    setFan1Speed(50);
-
     /* FLOW_RATE_1_TIM */
     // CH1
     RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;

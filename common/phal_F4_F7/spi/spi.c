@@ -28,6 +28,10 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg)
     {
         RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
     }
+    else if (cfg->periph == SPI2)
+    {
+        RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;
+    }
     else
     {
         return false;
@@ -106,20 +110,21 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uin
     if (spi->nss_sw)
         PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
     // Add messages to TX FIFO
-    for (uint8_t i = 0; i < txlen; i++)
+    for (uint32_t i = 0; i < txlen; i++)
     {
         while (!(spi->periph->SR & SPI_SR_TXE))
             ;
-        if (i + 1 < txlen)
-        {
-            uint16_t data = out_data[i + 1] << 8 | (uint16_t)out_data[i];
-            spi->periph->DR = data;
-            i++;
-        }
-        else
-        {
-            spi->periph->DR = out_data[i];
-        }
+        // TODO: check byte size and set DR accordingly
+        // if (i + 1 < txlen)
+        // {
+        //     uint16_t data = out_data[i + 1] << 8 | (uint16_t)out_data[i];
+        //     spi->periph->DR = data;
+        //     i++;
+        // }
+        // else
+        // {
+        spi->periph->DR = out_data[i];
+        // }
     }
     // Wait till TX FIFO is empty and spi is not active
     while (!(spi->periph->SR & SPI_SR_TXE) || (spi->periph->SR & SPI_SR_BSY))
@@ -129,7 +134,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uin
     trash = spi->periph->SR;
 
     // RX
-    for (uint8_t i = 0; i < rxlen; i++)
+    for (uint32_t i = 0; i < rxlen; i++)
     {
         // Wait till SPI is not in active transaction, send dummy
         while ((spi->periph->SR & SPI_SR_BSY))

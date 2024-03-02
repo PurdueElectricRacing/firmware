@@ -21,10 +21,7 @@
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
-    {.is_read_only=1, .bit_length=1, .read_var_a=&cooling.dt_temp_error, .write_var_a=NULL, },
-    {.is_read_only=1, .bit_length=1, .read_var_a=&cooling.bat_temp_error, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .has_read_func=1, .read_func_a=(read_func_ptr_t)calibrateSteeringAngle, .write_var_a=NULL, },
-    {.is_read_only=0, .bit_length=1, .read_var_a=&cooling.daq_override, .write_var_a=&cooling.daq_override, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.main_stat, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.c_stop_stat, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.inertia_stat, .write_var_a=NULL, },
@@ -39,6 +36,8 @@ daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.tsms_stat, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.pchg_out_stat, .write_var_a=NULL, },
     {.is_read_only=0, .bit_length=1, .read_var_a=&daq_buzzer, .write_var_a=&daq_buzzer, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&daq_brake, .write_var_a=&daq_brake, },
+    {.is_read_only=0, .bit_length=1, .read_var_a=&buzzer_brake_fault, .write_var_a=&buzzer_brake_fault, },
 };
 // END AUTO VAR DEFS
 

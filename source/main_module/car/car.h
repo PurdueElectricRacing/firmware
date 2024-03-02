@@ -78,6 +78,8 @@ typedef struct
 extern Car_t car;
 
 extern uint8_t daq_buzzer;
+extern uint8_t daq_brake;
+extern uint8_t buzzer_brake_fault;
 
 bool carInit();
 void carHeartbeat();
@@ -88,22 +90,22 @@ void monitorSDCPeriodic(void);
 
 #define SDC_MUX_HIGH_IDX 14
 
-typedef struct
+typedef struct __attribute__((packed))
 {
-    bool main_stat; //y0
-    bool c_stop_stat; //y1
-    bool inertia_stat; //y2
-    bool bots_stat; //y3
-    bool nc; //y4
-    bool bspd_stat; //y5
-    bool bms_stat; //y6
-    bool imd_stat; //y7
-    bool r_stop_stat; //y8
-    bool l_stop_stat; //y9
-    bool hvd_stat; //y10
-    bool r_hub_stat; //y11
-    bool tsms_stat; //y12
-    bool pchg_out_stat; //y13
+    uint8_t main_stat; //y0
+    uint8_t c_stop_stat; //y1
+    uint8_t inertia_stat; //y2
+    uint8_t bots_stat; //y3
+    uint8_t nc; //y4
+    uint8_t bspd_stat; //y5
+    uint8_t bms_stat; //y6
+    uint8_t imd_stat; //y7
+    uint8_t r_stop_stat; //y8
+    uint8_t l_stop_stat; //y9
+    uint8_t hvd_stat; //y10
+    uint8_t r_hub_stat; //y11
+    uint8_t tsms_stat; //y12
+    uint8_t pchg_out_stat; //y13
 
 } sdc_nodes_t;
 

@@ -153,9 +153,11 @@ ADCInitConfig_t adc_config = {
     .resolution      = ADC_RES_12_BIT,
     .data_align      = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode  = true,
-    .dma_mode        = ADC_DMA_CIRCULAR
+    .dma_mode        = ADC_DMA_CIRCULAR,
+    .adc_number      = 1
 };
 
+// TODO: Update this comment with the correct sample time
 /* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
@@ -163,11 +165,13 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=THERM_MUX_D_ADC_CHNL,    .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=THERM_MUX_D_ADC_CHNL,    .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LOAD_L_ADC_CHNL,         .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=LOAD_R_ADC_CHNL,         .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
-            sizeof(adc_readings) / sizeof(adc_readings.lv_3v3_v_sense), 0b01);
+            sizeof(adc_readings) / sizeof(adc_readings.v_mc), 0b01);
 
 /* SPI Configuration */
 // dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
@@ -184,16 +188,17 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
 // };
 
 
+
+
 /* Clock Configuration */
-#define TargetCoreClockrateHz 80000000
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .pll_src                    =PLL_SRC_HSI16,
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
     .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -211,6 +216,8 @@ void usartTxUpdate(void);
 void canTxUpdate(void);
 void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
+
+void brak_buzz_test();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -235,24 +242,24 @@ int main(void){
     {
         HardFault_Handler();
     }
+    PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
 
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-    // taskCreate(coolingPeriodic, 200);
+    taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
-    taskCreate(monitorSDCPeriodic, 15);
+    taskCreate(monitorSDCPeriodic, 10);
     // taskCreate(carHeartbeat, 100);
-    // taskCreate(carPeriodic, 15);
+    taskCreate(carPeriodic, 15);
     // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(updatePowerMonitor, 100);
-    // taskCreate(heartBeatTask, 100);
+    taskCreate(heartBeatTask, 100);
     // taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
-    // // taskCreate(updateFaults, 1);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
     // taskCreateBackground(usartTxUpdate);
@@ -327,7 +334,7 @@ void preflightChecks(void) {
         case 4:
            /* Module Initialization */
            carInit();
-        //    coolingInit();
+           coolingInit();
            break;
        case 5:
            initCANParse(&q_rx_can);

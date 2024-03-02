@@ -22,7 +22,7 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_MAIN_HB 0x4001901
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
-#define ID_FLOWRATE_TEMPS 0x4000881
+#define ID_COOLANT_TEMPS 0x4000881
 #define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
@@ -44,9 +44,7 @@
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_THROTTLE_REMAPPED 0xc0025b7
-#define ID_PDU_TEST 0x401041f
 #define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_FAULT_SYNC_DASHBOARD 0x8ca85
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -60,7 +58,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
-#define DLC_FLOWRATE_TEMPS 8
+#define DLC_COOLANT_TEMPS 4
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
@@ -82,9 +80,7 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
-#define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_THROTTLE_REMAPPED 4
-#define DLC_PDU_TEST 3
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -112,17 +108,13 @@
         data_a->torque_request_main.rear_right = rear_right_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_FLOWRATE_TEMPS(queue, battery_in_temp_, battery_out_temp_, drivetrain_in_temp_, drivetrain_out_temp_, battery_flowrate_, drivetrain_flowrate_, battery_fan_speed_, drivetrain_fan_speed_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FLOWRATE_TEMPS, .DLC=DLC_FLOWRATE_TEMPS, .IDE=1};\
+#define SEND_COOLANT_TEMPS(queue, battery_in_temp_, battery_out_temp_, drivetrain_in_temp_, drivetrain_out_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_COOLANT_TEMPS, .DLC=DLC_COOLANT_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->flowrate_temps.battery_in_temp = battery_in_temp_;\
-        data_a->flowrate_temps.battery_out_temp = battery_out_temp_;\
-        data_a->flowrate_temps.drivetrain_in_temp = drivetrain_in_temp_;\
-        data_a->flowrate_temps.drivetrain_out_temp = drivetrain_out_temp_;\
-        data_a->flowrate_temps.battery_flowrate = battery_flowrate_;\
-        data_a->flowrate_temps.drivetrain_flowrate = drivetrain_flowrate_;\
-        data_a->flowrate_temps.battery_fan_speed = battery_fan_speed_;\
-        data_a->flowrate_temps.drivetrain_fan_speed = drivetrain_fan_speed_;\
+        data_a->coolant_temps.battery_in_temp = battery_in_temp_;\
+        data_a->coolant_temps.battery_out_temp = battery_out_temp_;\
+        data_a->coolant_temps.drivetrain_in_temp = drivetrain_in_temp_;\
+        data_a->coolant_temps.drivetrain_out_temp = drivetrain_out_temp_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_COOLANT_OUT(queue, bat_fan_, dt_fan_, bat_pump_, bat_pump_aux_, dt_pump_) do {\
@@ -265,9 +257,7 @@
 #define UP_DASHBOARD_HB 100
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
-#define UP_COOLING_DRIVER_REQUEST 5
 #define UP_THROTTLE_REMAPPED 15
-#define UP_PDU_TEST 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -351,11 +341,7 @@ typedef union {
         uint64_t battery_out_temp: 8;
         uint64_t drivetrain_in_temp: 8;
         uint64_t drivetrain_out_temp: 8;
-        uint64_t battery_flowrate: 8;
-        uint64_t drivetrain_flowrate: 8;
-        uint64_t battery_fan_speed: 8;
-        uint64_t drivetrain_fan_speed: 8;
-    } flowrate_temps;
+    } coolant_temps;
     struct {
         uint64_t bat_fan: 8;
         uint64_t dt_fan: 8;
@@ -480,21 +466,9 @@ typedef union {
         uint64_t data: 32;
     } main_module_bl_cmd;
     struct {
-        uint64_t dt_pump: 8;
-        uint64_t dt_fan: 8;
-        uint64_t batt_pump: 8;
-        uint64_t batt_pump2: 8;
-        uint64_t batt_fan: 8;
-    } cooling_driver_request;
-    struct {
         uint64_t remap_k_rl: 16;
         uint64_t remap_k_rr: 16;
     } throttle_remapped;
-    struct {
-        uint64_t test_1: 8;
-        uint64_t test_2: 8;
-        uint64_t test_3: 8;
-    } pdu_test;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -575,27 +549,11 @@ typedef struct {
         uint32_t data;
     } main_module_bl_cmd;
     struct {
-        uint8_t dt_pump;
-        uint8_t dt_fan;
-        uint8_t batt_pump;
-        uint8_t batt_pump2;
-        uint8_t batt_fan;
-        uint8_t stale;
-        uint32_t last_rx;
-    } cooling_driver_request;
-    struct {
         int16_t remap_k_rl;
         int16_t remap_k_rr;
         uint8_t stale;
         uint32_t last_rx;
     } throttle_remapped;
-    struct {
-        uint8_t test_1;
-        uint8_t test_2;
-        uint8_t test_3;
-        uint8_t stale;
-        uint32_t last_rx;
-    } pdu_test;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -631,7 +589,6 @@ extern volatile uint32_t last_can_rx_time_ms;
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

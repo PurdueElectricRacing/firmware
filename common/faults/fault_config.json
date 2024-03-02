@@ -70,7 +70,7 @@
                     "priority": "warning",
                     "time_to_latch": 1000,
                     "time_to_unlatch": 1000,
-                    "lcd_message": "Left Drivetrain Overheating"
+                    "lcd_message": "Left Gearbox Overheating"
                 },
                 {
                     "fault_name": "dt_r_temp_ot",
@@ -79,7 +79,7 @@
                     "priority": "warning",
                     "time_to_latch": 1000,
                     "time_to_unlatch": 1000,
-                    "lcd_message": "Right Drivetrain Overheating"
+                    "lcd_message": "Right Gearbox Overheating"
                 },
                 {
                     "fault_name": "dt_l_temp_high",
@@ -88,7 +88,7 @@
                     "priority": "warning",
                     "time_to_latch": 1000,
                     "time_to_unlatch": 1000,
-                    "lcd_message": "Left Drivetrain High (>80C)"
+                    "lcd_message": "Left Gearbox High (>80C)"
                 },
                 {
                     "fault_name": "dt_r_temp_high",
@@ -97,7 +97,7 @@
                     "priority": "warning",
                     "time_to_latch": 1000,
                     "time_to_unlatch": 1000,
-                    "lcd_message": "Right Drivetrain High (>80C)"
+                    "lcd_message": "Right Gearbox High (>80C)"
                 },
                 {
                     "fault_name": "bat_cool_loop_high",

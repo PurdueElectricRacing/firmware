@@ -251,14 +251,14 @@ int main(void){
 
     taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
-    taskCreate(monitorSDCPeriodic, 20);
+    taskCreate(monitorSDCPeriodic, 10);
     // taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
     // taskCreate(wheelSpeedsPeriodic, 15);
     // taskCreate(updatePowerMonitor, 100);
     taskCreate(heartBeatTask, 100);
     // taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
-    // taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
+    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -370,12 +370,6 @@ void preflightAnimation(void) {
             PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
             break;
     }
-}
-
-void brak_buzz_test()
-{
-    PHAL_toggleGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin);
-    PHAL_toggleGPIO(BUZZER_GPIO_Port, BUZZER_Pin);
 }
 
 void heartBeatLED(void)

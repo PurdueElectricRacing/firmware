@@ -483,25 +483,21 @@ bool validatePrecharge()
 void monitorSDCPeriodic()
 {
     static uint8_t index = 0;
-    bool *nodes = (bool *) &sdc_mux;
+    static sdc_nodes_t sdc_nodes_raw;
+    bool *nodes = (bool *) &sdc_nodes_raw;
 
     uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
 
     *(nodes+index++) = stat;
-
-    // index = (index == 4) ? (index + 1) : index;
-
     if (index == SDC_MUX_HIGH_IDX)
     {
+        sdc_mux = sdc_nodes_raw;
         index = 0;
         SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
                 sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
                 sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }
 
-    SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
-        sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
-        sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
     PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));

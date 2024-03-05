@@ -133,9 +133,10 @@ typedef enum
 #define UDP_MAX_WRITE_COUNT     (20)  // Assuming approx 1kHz  rx rate
 
 // TCP Receive Buffer Configuration
-#define TCP_RX_BUFF_ITEM_COUNT 100 // Shouldn't need to be much larger than max write count
+#define TCP_RX_BUFF_ITEM_COUNT 200 // Shouldn't need to be much larger than max write count
 #define TCP_MIN_RX_PERIOD_MS   50
-#define TCP_MAX_WRITE_COUNT    (20)
+#define TCP_MAX_WRITE_COUNT    (100)
+#define TCP_MAX_CAN_TX_COUNT   (5)
 
 typedef struct
 {
@@ -151,8 +152,10 @@ typedef struct
     // SD Card
     sd_state_t sd_state;
     FATFS fat_fs;
+    volatile uint32_t my_watch;
     uint32_t sd_error_ct;
     sd_error_t sd_last_err;
+    FRESULT sd_last_err_res;
     FIL log_fp;
     uint32_t log_start_ms;
     uint32_t last_write_ms;

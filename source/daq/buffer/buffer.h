@@ -28,6 +28,7 @@ typedef struct
     uint8_t num_tails;           //!< Number of tails
     volatile uint32_t _head;     //!< Element number to write
     uint32_t _min_tail;          //!< Oldest element number to be read
+    bool     _min_tail_active;   //!< At least one of the tails are active
     uint32_t _item_size;         //!< Size of buffer in bytes
     uint32_t _max_items;         //!< Maximum number of items that can be stored (only ever max - 1)
     // Logging

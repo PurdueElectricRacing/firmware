@@ -21,6 +21,7 @@ void bConstruct(b_handle_t *b, uint32_t item_size, uint32_t buff_size)
     b->overflows = 0;
     b->underflows = 0;
     b->max_level = 0;
+    b->_min_tail_active = false;
     for (uint8_t i = 0; i < b->num_tails; ++i)
     {
         b->tails[i]._tail = 0;
@@ -39,7 +40,8 @@ void bConstruct(b_handle_t *b, uint32_t item_size, uint32_t buff_size)
 int8_t bGetHeadForWrite(b_handle_t *b, void** tx_loc, uint32_t *contiguous_items)
 {
     uint32_t head = b->_head;
-    if (head < b->_min_tail)
+    if (!b->_min_tail_active) *contiguous_items = b->_max_items - head;
+    else if (head < b->_min_tail)
     {
         *contiguous_items = (b->_min_tail - 1) - head;
     }
@@ -70,7 +72,8 @@ int8_t bCommitWrite(b_handle_t *b, uint32_t items_written)
 {
     uint32_t head = b->_head;
     uint32_t max_contig;
-    if (head < b->_min_tail)
+    if (!b->_min_tail_active) max_contig = b->_max_items - head;
+    else if (head < b->_min_tail)
         max_contig = (b->_min_tail - 1) - head;
     else
     {
@@ -92,7 +95,7 @@ int8_t bCommitWrite(b_handle_t *b, uint32_t items_written)
 int8_t bSendToBack(b_handle_t *b, const void* data)
 {
     uint32_t next_head = (b->_head + 1) % b->_max_items;
-    if (next_head == b->_min_tail) 
+    if (b->_min_tail_active && next_head == b->_min_tail) 
     {
         ++b->overflows;
         return -1;                // No room
@@ -110,12 +113,14 @@ static void bUpdateMinTail(b_handle_t *b)
     uint32_t head = b->_head; // Capture head (volatile)
     uint32_t next_min_tail = head;
     b_tail_t *t = b->tails;
+    bool     tail_active = false;
     // If no tails active, updates to head (empties buffer)
     // Finds the active tail that is furthest from the head
     for (uint8_t i = 0; i < b->num_tails; ++i)
     {
         if (t->active)
         {
+            tail_active = true;
             if (t->_tail <= head) curr_to_read = head - t->_tail;
             else curr_to_read = b->_max_items - (t->_tail - head);
             if (curr_to_read > max_to_read)
@@ -127,6 +132,9 @@ static void bUpdateMinTail(b_handle_t *b)
         ++t;
     }
     b->_min_tail = next_min_tail;
+    b->_min_tail_active = tail_active;
+    // Set tail then if its active
+    // When reading, read if active first, then the value
 }
 
 /**
@@ -149,6 +157,7 @@ uint32_t bGetItemCount(b_handle_t *b, uint8_t t_idx)
 uint32_t bGetFillLevel(b_handle_t *b)
 {
     uint32_t head = b->_head;
+    if (!b->_min_tail_active) return 0;
     if (b->_min_tail <= head) return head - b->_min_tail;
     else return b->_max_items - (b->_min_tail - head);
 }

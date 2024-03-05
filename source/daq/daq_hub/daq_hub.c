@@ -53,7 +53,7 @@ eth_config_t eth_config = {
 daq_hub_t dh;
 
 // Local protoptypes
-static void sd_handle_error(sd_error_t err);
+static void sd_handle_error(sd_error_t err, FRESULT res);
 static void sd_update_connection_state(void);
 static bool sd_new_log_file(void);
 static void sd_write_periodic(void);
@@ -86,8 +86,10 @@ void daq_init(void)
     dh.sd_state = SD_IDLE;
     dh.sd_error_ct = 0;
     dh.sd_last_err = SD_ERROR_NONE;
+    dh.sd_last_err_res = 0;
     dh.log_enable_sw = false;
     dh.log_enable_tcp = false;
+    dh.my_watch = 0x420;
 
     // General
     dh.loop_time_avg_ms = 0;
@@ -136,22 +138,27 @@ void daq_loop(void)
             {
                 // NOTE: if the buffer size is not multiple of frame size, or the tail gets shifted
                 // by a frame, reception of frames will not work on the wrap-around.
-                switch(rx_msg_a->cmd)
+                cont = MIN(cont / sizeof(*rx_msg_a), TCP_MAX_CAN_TX_COUNT); // flow control
+                for (uint32_t i = 0; i < cont; ++i)
                 {
-                    case TCP_CMD_CAN_FRAME:
-                        conv_tcp_frame_to_can_msg(rx_msg_a, &tx_msg);
-                        PHAL_txCANMessage(&tx_msg);
-                        break;
-                    case TCP_CMD_START_LOG:
-                        dh.log_enable_tcp = true;
-                        break;
-                    case TCP_CMD_STOP_LOG:
-                        dh.log_enable_tcp = false;
-                        break;
-                    default:
-                        break;
+                    switch(rx_msg_a->cmd)
+                    {
+                        case TCP_CMD_CAN_FRAME:
+                            conv_tcp_frame_to_can_msg(rx_msg_a, &tx_msg);
+                            PHAL_txCANMessage(&tx_msg);
+                            break;
+                        case TCP_CMD_START_LOG:
+                            dh.log_enable_tcp = true;
+                            break;
+                        case TCP_CMD_STOP_LOG:
+                            dh.log_enable_tcp = false;
+                            break;
+                        default:
+                            break;
+                    }
+                    ++rx_msg_a;
                 }
-                bCommitRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, sizeof(*rx_msg_a));
+                bCommitRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, cont*sizeof(*rx_msg_a));
             }
         }
 
@@ -207,7 +214,7 @@ static void sd_update_connection_state(void)
     // Check if we should definitely disconnect
     if (dh.sd_state != SD_IDLE)
     {
-        if (!SD_Detect()) sd_handle_error(SD_ERROR_DETEC);
+        if (!SD_Detect()) sd_handle_error(SD_ERROR_DETEC, 0);
         else if (!get_log_enable()) dh.sd_state = SD_SHUTDOWN;
     }
     else if (!get_log_enable())
@@ -226,7 +233,7 @@ static void sd_update_connection_state(void)
             if (get_log_enable() && dh.sd_error_ct == 0) // TODO: revert, ensuring no auto-reset for now
             {
                 bActivateTail(&b_rx_can, RX_TAIL_SD);
-                if (!SD_Detect()) sd_handle_error(SD_ERROR_DETEC);
+                if (!SD_Detect()) sd_handle_error(SD_ERROR_DETEC, 0);
                 else
                 {
                     res = f_mount(&dh.fat_fs, "", 1);
@@ -236,7 +243,7 @@ static void sd_update_connection_state(void)
                     }
                     else 
                     {
-                        sd_handle_error(SD_ERROR_MOUNT);
+                        sd_handle_error(SD_ERROR_MOUNT, res);
                         dh.sd_state = SD_FAIL; // force fail from idle
                     }
                 }
@@ -251,15 +258,15 @@ static void sd_update_connection_state(void)
             }
             else
             {
-                sd_handle_error(SD_ERROR_FOPEN);
+                sd_handle_error(SD_ERROR_FOPEN, 0);
             }
             break;
         case SD_FILE_CREATED:
             if ((tick_ms - dh.log_start_ms) > SD_NEW_FILE_PERIOD_MS)
             {
                 // Swap to a new log file
-                if (f_close(&dh.log_fp) != FR_OK) sd_handle_error(SD_ERROR_FCLOSE);
-                else if (!sd_new_log_file()) sd_handle_error(SD_ERROR_FOPEN);
+                if ((res = f_close(&dh.log_fp)) != FR_OK) sd_handle_error(SD_ERROR_FCLOSE, res);
+                else if (!sd_new_log_file()) sd_handle_error(SD_ERROR_FOPEN, 0);
             }
             break;
         case SD_FAIL:
@@ -340,6 +347,7 @@ static void sd_write_periodic(void)
     timestamped_frame_t *buf;
     uint32_t consecutive_items;
     UINT bytes_written;
+    FRESULT res;
     if (dh.sd_state == SD_FILE_CREATED)
     {
         // Use the total item count, not contiguous for the threshold
@@ -350,9 +358,9 @@ static void sd_write_periodic(void)
             {
                 if (consecutive_items > SD_MAX_WRITE_COUNT) consecutive_items = SD_MAX_WRITE_COUNT; // limit
                 // Write time :D
-                if (f_write(&dh.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written) != FR_OK)
+                if ((res = f_write(&dh.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written)) != FR_OK)
                 {
-                    sd_handle_error(SD_ERROR_WRITE);
+                    sd_handle_error(SD_ERROR_WRITE, res);
                 }
                 else
                 {
@@ -364,10 +372,11 @@ static void sd_write_periodic(void)
     }
 }
 
-static void sd_handle_error(sd_error_t err)
+static void sd_handle_error(sd_error_t err, FRESULT res)
 {
     ++dh.sd_error_ct;
     dh.sd_last_err = err;
+    dh.sd_last_err_res = res;
 }
 
 static void eth_update_connection_state(void)

@@ -774,7 +774,7 @@ SD_Error SD_ReadMultiBlocks (uint8_t *readbuff, uint64_t ReadAddr, uint16_t Bloc
 	}
 
     SDIO->DTIMER = SD_DATATIMEOUT;				// timeout
-    SDIO->DLEN &= SDIO_DLEN_DATALENGTH;			// length
+    SDIO->DLEN &= ~SDIO_DLEN_DATALENGTH;	    // length
     SDIO->DLEN |= NumberOfBlocks * BlockSize; 
     SDIO->DCTRL &= ~(0xFFF);					// start read
 	SDIO->DCTRL |= SDIO_DATABLOCKSIZE | SDIO_DCTRL_DTDIR | 
@@ -942,7 +942,7 @@ SD_Error SD_WriteMultiBlocks (uint8_t *writebuff, uint64_t WriteAddr, uint16_t B
 	}
 
     SDIO->DTIMER = SD_DATATIMEOUT;				// timeout
-    SDIO->DLEN &= SDIO_DLEN_DATALENGTH;			// length
+    SDIO->DLEN &= ~SDIO_DLEN_DATALENGTH;	    // length
     SDIO->DLEN |= NumberOfBlocks * BlockSize; 
     SDIO->DCTRL &= ~(0xFFF);					// start write
 	SDIO->DCTRL |= SDIO_DATABLOCKSIZE |
@@ -1493,7 +1493,7 @@ static SD_Error FindSCR (uint16_t rca, uint32_t *pscr)
 	}
 
     SDIO->DTIMER = SD_DATATIMEOUT;
-    SDIO->DLEN &= SDIO_DLEN_DATALENGTH;
+    SDIO->DLEN &= ~SDIO_DLEN_DATALENGTH;
     SDIO->DLEN |= 8;
     SDIO->DCTRL &= ~(0xFFF);
     SDIO->DCTRL |= (SDIO_DCTRL_DBLOCKSIZE_1 | SDIO_DCTRL_DBLOCKSIZE_0) |

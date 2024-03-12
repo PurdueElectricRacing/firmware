@@ -529,7 +529,7 @@ typedef struct {
         uint32_t last_rx;
     } dashboard_hb;
     struct {
-        uint16_t max_temp;
+        int16_t max_temp;
         uint8_t stale;
         uint32_t last_rx;
     } max_cell_temp;

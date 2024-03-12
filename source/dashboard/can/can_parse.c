@@ -116,7 +116,7 @@ void canRxUpdate()
                 can_data.orion_errors.last_rx = sched.os_ticks;
                 break;
             case ID_MAX_CELL_TEMP:
-                can_data.max_cell_temp.max_temp = msg_data_a->max_cell_temp.max_temp;
+                can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
                 can_data.max_cell_temp.stale = 0;
                 can_data.max_cell_temp.last_rx = sched.os_ticks;
                 break;

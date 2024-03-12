@@ -149,11 +149,11 @@ BO_ 2550588916 elcon_charger_command: 5 a_box
  SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
 
-BO_ 2281734340 num_them_bad: 4 a_box
- SG_ module_4 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ module_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ module_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ module_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2281734340 num_therm_bad: 4 a_box
+ SG_ D : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ C : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ B : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ A : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2281734276 pack_charge_status: 7 a_box
  SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
@@ -177,31 +177,34 @@ BO_ 2214625540 angle_data: 6 a_box
  SG_ pitch : 0|16@1- (1,0) [0|0] "degx10" Vector__XXX
 
 BO_ 2214913540 max_cell_temp: 2 a_box
- SG_ max_temp : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ max_temp : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
 BO_ 2483060868 mod_cell_temp_avg: 8 a_box
- SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 48|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
 BO_ 2483060996 mod_cell_temp_max: 8 a_box
- SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 48|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
 BO_ 2483061252 mod_cell_temp_min: 8 a_box
- SG_ temp_D : 48|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_C : 32|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_B : 16|16@1+ (0.01,0) [0|0] "" Vector__XXX
- SG_ temp_A : 0|16@1+ (0.01,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 48|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
-BO_ 2483060932 raw_cell_temp: 7 a_box
- SG_ temp_D : 44|12@1+ (0.01,0) [0|0] "C" Vector__XXX
- SG_ temp_C : 32|12@1+ (0.01,0) [0|0] "C" Vector__XXX
- SG_ temp_B : 20|12@1+ (0.01,0) [0|0] "C" Vector__XXX
- SG_ temp_A : 8|12@1+ (0.01,0) [0|0] "C" Vector__XXX
+BO_ 2483060932 raw_cell_temp_a_b: 5 a_box
+ SG_ temp_B : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_A : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061636 raw_cell_temp_c_d: 5 a_box
+ SG_ temp_D : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_C : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059716 fault_sync_a_box: 3 a_box
@@ -683,10 +686,10 @@ CM_ SG_ 2550588916 charge_disable "Disable charging";
 CM_ SG_ 2550588916 current_limit "Charge current";
 CM_ SG_ 2550588916 voltage_limit "Charge voltage";
 CM_ BO_ 2281734340 "Number of wonky thermistors on pack";
-CM_ SG_ 2281734340 module_4 "Number of thermistors > 1.5v";
-CM_ SG_ 2281734340 module_3 "Number of thermistors > 1.5v";
-CM_ SG_ 2281734340 module_2 "Number of thermistors > 1.5v";
-CM_ SG_ 2281734340 module_1 "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 D "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 C "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 B "Number of thermistors > 1.5v";
+CM_ SG_ 2281734340 A "Number of thermistors > 1.5v";
 CM_ BO_ 2281734276 "Send charge information";
 CM_ SG_ 2281734276 current "Instantaneous charge current";
 CM_ SG_ 2281734276 voltage "Instantaneous charge voltage";
@@ -722,11 +725,13 @@ CM_ SG_ 2483061252 temp_C "";
 CM_ SG_ 2483061252 temp_B "";
 CM_ SG_ 2483061252 temp_A "";
 CM_ BO_ 2483060932 "Raw cell temperature for each module of thermistor at index";
-CM_ SG_ 2483060932 temp_D "";
-CM_ SG_ 2483060932 temp_C "";
 CM_ SG_ 2483060932 temp_B "";
 CM_ SG_ 2483060932 temp_A "";
 CM_ SG_ 2483060932 index "";
+CM_ BO_ 2483061636 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483061636 temp_D "";
+CM_ SG_ 2483061636 temp_C "";
+CM_ SG_ 2483061636 index "";
 CM_ BO_ 2148059716 "Fault status message";
 CM_ SG_ 2148059716 latched "";
 CM_ SG_ 2148059716 idx "";

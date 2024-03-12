@@ -22,7 +22,7 @@
 /* BEGIN AUTO ID DEFS */
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
-#define ID_NUM_THEM_BAD 0x80080c4
+#define ID_NUM_THERM_BAD 0x80080c4
 #define ID_PACK_CHARGE_STATUS 0x8008084
 #define ID_GYRO_DATA 0x4008004
 #define ID_ACCEL_DATA 0x4008044
@@ -31,7 +31,8 @@
 #define ID_MOD_CELL_TEMP_AVG 0x14008084
 #define ID_MOD_CELL_TEMP_MAX 0x14008104
 #define ID_MOD_CELL_TEMP_MIN 0x14008204
-#define ID_RAW_CELL_TEMP 0x140080c4
+#define ID_RAW_CELL_TEMP_A_B 0x140080c4
+#define ID_RAW_CELL_TEMP_C_D 0x14008384
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
 #define ID_DAQ_RESPONSE_A_BOX 0x17ffffc4
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
@@ -52,7 +53,7 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_PRECHARGE_HB 2
 #define DLC_ELCON_CHARGER_COMMAND 5
-#define DLC_NUM_THEM_BAD 4
+#define DLC_NUM_THERM_BAD 4
 #define DLC_PACK_CHARGE_STATUS 7
 #define DLC_GYRO_DATA 6
 #define DLC_ACCEL_DATA 6
@@ -61,7 +62,8 @@
 #define DLC_MOD_CELL_TEMP_AVG 8
 #define DLC_MOD_CELL_TEMP_MAX 8
 #define DLC_MOD_CELL_TEMP_MIN 8
-#define DLC_RAW_CELL_TEMP 7
+#define DLC_RAW_CELL_TEMP_A_B 5
+#define DLC_RAW_CELL_TEMP_C_D 5
 #define DLC_FAULT_SYNC_A_BOX 3
 #define DLC_DAQ_RESPONSE_A_BOX 8
 #define DLC_ELCON_CHARGER_STATUS 5
@@ -95,13 +97,13 @@
         data_a->elcon_charger_command.charge_disable = charge_disable_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_NUM_THEM_BAD(queue, module_1_, module_2_, module_3_, module_4_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_THEM_BAD, .DLC=DLC_NUM_THEM_BAD, .IDE=1};\
+#define SEND_NUM_THERM_BAD(queue, A_, B_, C_, D_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_THERM_BAD, .DLC=DLC_NUM_THERM_BAD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->num_them_bad.module_1 = module_1_;\
-        data_a->num_them_bad.module_2 = module_2_;\
-        data_a->num_them_bad.module_3 = module_3_;\
-        data_a->num_them_bad.module_4 = module_4_;\
+        data_a->num_therm_bad.A = A_;\
+        data_a->num_therm_bad.B = B_;\
+        data_a->num_therm_bad.C = C_;\
+        data_a->num_therm_bad.D = D_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, voltage_, current_) do {\
@@ -170,14 +172,20 @@
         data_a->mod_cell_temp_min.temp_D = temp_D_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_RAW_CELL_TEMP(queue, index_, temp_A_, temp_B_, temp_C_, temp_D_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP, .DLC=DLC_RAW_CELL_TEMP, .IDE=1};\
+#define SEND_RAW_CELL_TEMP_A_B(queue, index_, temp_A_, temp_B_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_A_B, .DLC=DLC_RAW_CELL_TEMP_A_B, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->raw_cell_temp.index = index_;\
-        data_a->raw_cell_temp.temp_A = temp_A_;\
-        data_a->raw_cell_temp.temp_B = temp_B_;\
-        data_a->raw_cell_temp.temp_C = temp_C_;\
-        data_a->raw_cell_temp.temp_D = temp_D_;\
+        data_a->raw_cell_temp_a_b.index = index_;\
+        data_a->raw_cell_temp_a_b.temp_A = temp_A_;\
+        data_a->raw_cell_temp_a_b.temp_B = temp_B_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_RAW_CELL_TEMP_C_D(queue, index_, temp_C_, temp_D_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_C_D, .DLC=DLC_RAW_CELL_TEMP_C_D, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->raw_cell_temp_c_d.index = index_;\
+        data_a->raw_cell_temp_c_d.temp_C = temp_C_;\
+        data_a->raw_cell_temp_c_d.temp_D = temp_D_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_A_BOX(queue, idx_, latched_) do {\
@@ -223,11 +231,11 @@ typedef union {
         uint64_t charge_disable: 1;
     } elcon_charger_command;
     struct {
-        uint64_t module_1: 8;
-        uint64_t module_2: 8;
-        uint64_t module_3: 8;
-        uint64_t module_4: 8;
-    } num_them_bad;
+        uint64_t A: 8;
+        uint64_t B: 8;
+        uint64_t C: 8;
+        uint64_t D: 8;
+    } num_therm_bad;
     struct {
         uint64_t power: 16;
         uint64_t charge_enable: 1;
@@ -272,11 +280,14 @@ typedef union {
     } mod_cell_temp_min;
     struct {
         uint64_t index: 8;
-        uint64_t temp_A: 12;
-        uint64_t temp_B: 12;
-        uint64_t temp_C: 12;
-        uint64_t temp_D: 12;
-    } raw_cell_temp;
+        uint64_t temp_A: 16;
+        uint64_t temp_B: 16;
+    } raw_cell_temp_a_b;
+    struct {
+        uint64_t index: 8;
+        uint64_t temp_C: 16;
+        uint64_t temp_D: 16;
+    } raw_cell_temp_c_d;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

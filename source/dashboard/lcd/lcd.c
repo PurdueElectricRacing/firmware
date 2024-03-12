@@ -711,7 +711,7 @@ void updateFaultDisplay() {
     // Display time can likely go
     display_time = 0;
 
-    // Process 5 faults each 500ms for now
+    // Process up to 5 faults each time for now
     for (int i = 0; i < 5; i++)
     {
         faultAlreadyInBuffer = false;
@@ -784,98 +784,98 @@ void updateFaultDisplay() {
     most_recent_latched = 0xFFFF;
 }
 
-// void update_data_pages() {
-//     char parsed_value[3] = "\0";
-//     switch (curr_page) {
-//         case PAGE_RACE:
-//             set_value(POW_LIM_BAR, NXT_VALUE, 0);
-//             set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
-//             if (can_data.rear_wheel_speeds.stale) {
-//                 set_text(SPEED, NXT_TEXT, "S");
-//             }
-//             else {
-//                 set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_mc, can_data.rear_wheel_speeds.right_speed_mc) / GEAR_RATIO), parsed_value));
-//                 bzero(parsed_value, 3);
-//             }
-//             if (sendFirsthalf) {
-//                 if (can_data.rear_motor_currents_temps.stale) {
-//                     set_text(MOT_TEMP, NXT_TEXT, "S");
-//                 }
-//                 else {
-//                     set_text(MOT_TEMP, NXT_TEXT, int_to_char(MAX(can_data.rear_motor_currents_temps.left_temp, can_data.rear_motor_currents_temps.right_temp), parsed_value));
-//                     bzero(parsed_value, 3);
-//                 }
-//                 if (can_data.gearbox.stale) {
-//                     set_text(GEAR_TEMP, NXT_TEXT, "S");
-//                 }
-//                 else {
-//                     set_text(GEAR_TEMP, NXT_TEXT, int_to_char(MAX(can_data.gearbox.l_temp, can_data.gearbox.r_temp), parsed_value));
-//                     bzero(parsed_value, 3);
-//                 }
-//                 set_text(TV_FL, NXT_TEXT, "S");
-//                 set_text(TV_FR, NXT_TEXT, "S");
-//                 set_text(TV_LR, NXT_TEXT, "S");
-//                 set_text(TV_RR, NXT_TEXT, "S");
-//                 sendFirsthalf = false;
-//             }
-//             else {
-//                 if (can_data.main_hb.stale) {
-//                     set_text(CAR_STAT, NXT_TEXT, "S");
-//                     set_value(CAR_STAT, NXT_BACKGROUND_COLOR, BLACK);
-//                 }
-//                 else {
-//                     switch(can_data.main_hb.car_state) {
-//                         case CAR_STATE_IDLE:
-//                             if (can_data.main_hb.precharge_state == 0) {
-//                                 set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
-//                                 set_text(CAR_STAT, NXT_TEXT, "INIT");
-//                             }
-//                             else {
-//                                 set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
-//                                 set_text(CAR_STAT, NXT_TEXT, "PRCHG");
-//                             }
-//                             break;
-//                         case CAR_STATE_READY2DRIVE:
-//                             set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-//                             set_text(CAR_STAT, NXT_TEXT, "ON");
-//                             break;
-//                         case CAR_STATE_ERROR:
-//                             set_value(CAR_STAT, NXT_BACKGROUND_COLOR, YELLOW);
-//                             set_text(CAR_STAT, NXT_TEXT, "ERR");
-//                             break;
-//                         case CAR_STATE_FATAL:
-//                             set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RED);
-//                             set_text(CAR_STAT, NXT_TEXT, "FATAL");
-//                             break;
-//                     }
-//                 }
-//                 if (can_data.max_cell_temp.stale) {
-//                     set_text(BATT_TEMP, NXT_TEXT, "S");
-//                 }
-//                 else {
-//                     set_text(BATT_TEMP, NXT_TEXT, int_to_char((can_data.max_cell_temp.max_temp / 100), parsed_value));
-//                     bzero(parsed_value, 3);
-//                 }
-//                 if (can_data.orion_currents_volts.stale) {
-//                     set_text(BATT_VOLT, NXT_TEXT, "S");
-//                     set_text(BATT_CURR, NXT_TEXT, "S");
-//                 }
-//                 else {
-//                     set_text(BATT_VOLT, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_voltage / 10), parsed_value));
-//                     bzero(parsed_value, 3);
-//                     set_text(BATT_CURR, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_current / 10), parsed_value));
-//                     bzero(parsed_value, 3);
-//                 }
-//                 sendFirsthalf = true;
-//             }
-//             // set_text(GEAR_TEMP, NXT_TEXT, "S");
-//             break;
-//         case PAGE_DATA:
-//             set_value(POW_LIM_BAR, NXT_VALUE, 0);
-//             set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
-//             break;
-//     }
-// }
+void update_data_pages() {
+    char parsed_value[3] = "\0";
+    switch (curr_page) {
+        case PAGE_RACE:
+            set_value(POW_LIM_BAR, NXT_VALUE, 0);
+            set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
+            if (can_data.rear_wheel_speeds.stale) {
+                set_text(SPEED, NXT_TEXT, "S");
+            }
+            else {
+                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_mc, can_data.rear_wheel_speeds.right_speed_mc) / GEAR_RATIO), parsed_value));
+                bzero(parsed_value, 3);
+            }
+            if (sendFirsthalf) {
+                if (can_data.rear_motor_currents_temps.stale) {
+                    set_text(MOT_TEMP, NXT_TEXT, "S");
+                }
+                else {
+                    set_text(MOT_TEMP, NXT_TEXT, int_to_char(MAX(can_data.rear_motor_currents_temps.left_temp, can_data.rear_motor_currents_temps.right_temp), parsed_value));
+                    bzero(parsed_value, 3);
+                }
+                if (can_data.gearbox.stale) {
+                    set_text(GEAR_TEMP, NXT_TEXT, "S");
+                }
+                else {
+                    set_text(GEAR_TEMP, NXT_TEXT, int_to_char(MAX(can_data.gearbox.l_temp, can_data.gearbox.r_temp), parsed_value));
+                    bzero(parsed_value, 3);
+                }
+                set_text(TV_FL, NXT_TEXT, "S");
+                set_text(TV_FR, NXT_TEXT, "S");
+                set_text(TV_LR, NXT_TEXT, "S");
+                set_text(TV_RR, NXT_TEXT, "S");
+                sendFirsthalf = false;
+            }
+            else {
+                if (can_data.main_hb.stale) {
+                    set_text(CAR_STAT, NXT_TEXT, "S");
+                    set_value(CAR_STAT, NXT_BACKGROUND_COLOR, BLACK);
+                }
+                else {
+                    switch(can_data.main_hb.car_state) {
+                        case CAR_STATE_IDLE:
+                            if (can_data.main_hb.precharge_state == 0) {
+                                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
+                                set_text(CAR_STAT, NXT_TEXT, "INIT");
+                            }
+                            else {
+                                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
+                                set_text(CAR_STAT, NXT_TEXT, "PRCHG");
+                            }
+                            break;
+                        case CAR_STATE_READY2DRIVE:
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                            set_text(CAR_STAT, NXT_TEXT, "ON");
+                            break;
+                        case CAR_STATE_ERROR:
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, YELLOW);
+                            set_text(CAR_STAT, NXT_TEXT, "ERR");
+                            break;
+                        case CAR_STATE_FATAL:
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RED);
+                            set_text(CAR_STAT, NXT_TEXT, "FATAL");
+                            break;
+                    }
+                }
+                if (can_data.max_cell_temp.stale) {
+                    set_text(BATT_TEMP, NXT_TEXT, "S");
+                }
+                else {
+                    set_text(BATT_TEMP, NXT_TEXT, int_to_char((can_data.max_cell_temp.max_temp / 100), parsed_value));
+                    bzero(parsed_value, 3);
+                }
+                if (can_data.orion_currents_volts.stale) {
+                    set_text(BATT_VOLT, NXT_TEXT, "S");
+                    set_text(BATT_CURR, NXT_TEXT, "S");
+                }
+                else {
+                    set_text(BATT_VOLT, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_voltage / 10), parsed_value));
+                    bzero(parsed_value, 3);
+                    set_text(BATT_CURR, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_current / 10), parsed_value));
+                    bzero(parsed_value, 3);
+                }
+                sendFirsthalf = true;
+            }
+            // set_text(GEAR_TEMP, NXT_TEXT, "S");
+            break;
+        case PAGE_DATA:
+            set_value(POW_LIM_BAR, NXT_VALUE, 0);
+            set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
+            break;
+    }
+}
 
 //1 = deadband, 0 = intensity
 // void knobDisplay() {

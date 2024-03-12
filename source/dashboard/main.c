@@ -174,6 +174,7 @@ void enableInterrupts();
 void encoder_ISR();
 void pollDashboardInput();
 void makeTheCarSad();
+void sendBrakeStatus();
 
 // Communication queues
 q_handle_t q_tx_can;
@@ -225,6 +226,8 @@ int main (void){
     taskCreate(pollDashboardInput, 100);
     taskCreate(heartBeatTask, 100);
     // taskCreate(makeTheCarSad, 7000);
+    taskCreate(update_data_pages, 200);
+    taskCreate(sendBrakeStatus, 500);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -607,6 +610,12 @@ void pollDashboardInput()
         selectItem();
         dashboard_input &= ~(1U << DASH_INPUT_SELECT_BUTTON);
     }
+}
+
+void sendBrakeStatus()
+{
+    uint8_t isBrakeFailure = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
+    SEND_DASHBOARD_BRAKE_STATUS(q_tx_can, isBrakeFailure);                  
 }
 
 void HardFault_Handler()

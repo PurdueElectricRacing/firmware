@@ -697,8 +697,17 @@
                             "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":101
+                        },
+                        {
+                            "msg_name":"dashboard_brake_status",
+                            "msg_desc":"periodic dashboard brake health",
+                            "signals":[
+                                {"sig_name": "brake_status", "type":"uint8_t", "length":1}
+                            ],
+                            "msg_period":500,
+                            "msg_hlp":1,
+                            "msg_pgn":33
                         }
-
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
@@ -714,7 +723,8 @@
                         {"msg_name": "coolant_temps"},
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},
-                        {"msg_name": "dashboard_bl_cmd" , "callback": true}
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true},
+                        {"msg_name": "dashboard_brake_status"}
                     ]
                 },
                 {

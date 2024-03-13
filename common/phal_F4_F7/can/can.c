@@ -4,9 +4,9 @@
  * @brief Basic CAN Peripheral HAL library for setting up CAN peripheral and sending messages
  * @version 0.1
  * @date 2023-09-18
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "common/phal_F4_F7/can/can.h"
 
@@ -16,7 +16,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
 {
     uint32_t timeout = 0;
 
-    // Enable CAN Clock 
+    // Enable CAN Clock
     if (bus == CAN1)
     {
         RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
@@ -25,7 +25,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     else if (bus == CAN2)
     {
         RCC->APB1ENR |= RCC_APB1ENR_CAN2EN;
-    } 
+    }
     #endif /* CAN2 */
     else
     {
@@ -33,7 +33,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     }
 
     // Leave SLEEP state
-    bus->MCR &= ~CAN_MCR_SLEEP; 
+    bus->MCR &= ~CAN_MCR_SLEEP;
     // Enter INIT state
     bus->MCR |= CAN_MCR_INRQ;
     while((bus->MSR & CAN_MSR_SLAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
@@ -58,6 +58,9 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
         case 20000000:
             bus->BTR = PHAL_CAN_20MHz_500k;
             break;
+        case 36000000:
+            bus->BTR = PHAL_CAN_36MHz_500k;
+            break;
         case 40000000:
             bus->BTR = PHAL_CAN_40MHz_500k;
             break;
@@ -75,7 +78,7 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     {
         bus->BTR |= CAN_BTR_LBKM;
     }
-    
+
     // Setup filters for all IDs
     bus->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
     bus->FM1R &= ~(CAN_FM1R_FBM0_Msk);       // Set bank 0 to mask mode
@@ -134,7 +137,7 @@ bool PHAL_txCANMessage(CanMsgTypeDef_t* msg)
         txMbox = 2;
         txOkay = CAN_TSR_TXOK2;
     }
-    else   
+    else
         return false;   // Unable to find Mailbox
 
     if (msg->IDE == 0)
@@ -154,7 +157,7 @@ bool PHAL_txCANMessage(CanMsgTypeDef_t* msg)
                                         ((uint32_t) msg->Data[6] << 16) |
                                         ((uint32_t) msg->Data[5] << 8)  |
                                         ((uint32_t) msg->Data[4]);
-    
+
     msg->Bus->sTxMailBox[txMbox].TIR |= (0b1 << CAN_TI0R_TXRQ_Pos);         // Request TX
 
     while(!(msg->Bus->TSR & txOkay) && ++timeout < PHAL_CAN_TX_TIMEOUT)      // Wait for message to be sent within specified timeout

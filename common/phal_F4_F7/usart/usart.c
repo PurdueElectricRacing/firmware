@@ -151,6 +151,9 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
     // ADD: Ensure you enable the TX DMA interrupt for a new UART peripheral
     #ifdef STM32F407xx
     switch ((ptr_int) handle->periph) {
+        case USART1_BASE:
+            NVIC_EnableIRQ(DMA2_Stream7_IRQn);
+            break;
         case USART2_BASE:
             NVIC_EnableIRQ(DMA1_Stream6_IRQn);
             break;
@@ -196,6 +199,10 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool co
     // ADD: Add cases to this switch statement to enable DMA and USART interrupts for RX USART peripherals
     #ifdef STM32F407xx
     switch ((ptr_int) handle->periph) {
+        case USART1_BASE:
+            NVIC_EnableIRQ(DMA2_Stream5_IRQn);
+            NVIC_EnableIRQ(USART1_IRQn);
+            break;
         case USART2_BASE:
             NVIC_EnableIRQ(DMA1_Stream5_IRQn);
             NVIC_EnableIRQ(USART2_IRQn);
@@ -232,6 +239,10 @@ bool PHAL_disableContinousRxDMA(usart_init_t *handle)
     // ADD: Add cases to this switch statement to disable interrupts for new USART peripherals
     #ifdef STM32F407xx
     switch ((ptr_int) handle->periph) {
+        case USART1_BASE:
+            NVIC_DisableIRQ(DMA2_Stream5_IRQn);
+            NVIC_DisableIRQ(USART1_IRQn);
+            break;
         case USART2_BASE:
             NVIC_DisableIRQ(DMA1_Stream5_IRQn);
             NVIC_DisableIRQ(USART2_IRQn);
@@ -570,13 +581,6 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
         {
             // TX is complete, so we no longer need this DMA stream active
             PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
-            if (active_uarts[idx]._tx_busy)
-            {
-                #ifdef STM32F407xx
-                // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
-                while (!(active_uarts[idx].active_handle->periph->SR & USART_SR_TC))
-                    ;
-                #endif
                 #ifdef STM32F732xx
                 // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
                 while (!(active_uarts[idx].active_handle->periph->ISR & USART_ISR_TC))
@@ -584,8 +588,6 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
                 #endif
                 // TX is no longer busy, so communicate this and disable TX part of USART
                 active_uarts[idx]._tx_busy = 0;
-                active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_TE;
-            }
         }
         //Clear interrupt flag
         *csr_reg |= tcif_flag;
@@ -666,6 +668,16 @@ USART TX and RX interrupts - need to modify when adding a usart peripheral
 #ifdef STM32F407xx
 // USART1:
 
+void DMA2_Stream7_IRQHandler() //TX
+{
+    handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream7_IRQn, USART_DMA_TX);
+}
+
+void DMA2_Stream5_IRQHandler() //TX
+{
+    handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream5_IRQn, USART_DMA_TX);
+}
+
 // USART2:
 
 // Add new DMA interrupt handlers here, passing in new active struct index, along with
@@ -684,6 +696,11 @@ void DMA1_Stream5_IRQHandler() //RX
 
 // Add new USART Interrupts as new peripherals are needed,
 // feeding in the new USART peripheral, along with active array index
+void USART1_IRQHandler()
+{
+    handleUsartIRQ(USART1, USART1_ACTIVE_IDX);
+}
+
 void USART2_IRQHandler()
 {
     handleUsartIRQ(USART2, USART2_ACTIVE_IDX);

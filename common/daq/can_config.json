@@ -12,7 +12,7 @@
                             "msg_desc":"Heart beat message for main module",
                             "signals":[
                                 {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8,
-                                 "choices": ["idle", "buzzing", "ready2drive", "error", "fatal", "reset", "recover", "fan_ctrl"]},
+                                 "choices": ["idle", "precharging", "energized", "buzzing", "ready2drive", "error", "fatal", "reset", "recover", "fan_ctrl"]},
                                 {"sig_name":"precharge_state", "type":"uint8_t", "length": 1}
                             ],
                             "msg_period":100,
@@ -135,6 +135,17 @@
                             "msg_pgn": 102
                         },
                         {
+                            "msg_name": "num_mc_skips",
+                            "msg_desc": "Messages ignored by MC",
+                            "signals": [
+                                {"sig_name":"noise_r", "type":"uint16_t", "sig_desc": "Num of skipped msgs"},
+                                {"sig_name":"noise_l", "type":"uint16_t", "sig_desc": "Num of skipped msgs"}
+                            ],
+                            "msg_period": 100,
+                            "msg_hlp": 4,
+                            "msg_pgn": 110
+                        },
+                        {
                             "msg_name": "rear_mc_status",
                             "msg_desc": "rear drivline heart beat",
                             "signals": [
@@ -188,7 +199,7 @@
                                 {"sig_name": "pchg_out", "type":"uint8_t", "length":1}
 
                             ],
-                            "msg_period": 165,
+                            "msg_period": 200,
                             "msg_hlp": 3,
                             "msg_pgn": 14
                         },
@@ -225,7 +236,8 @@
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
-                        {"msg_name": "throttle_remapped"}
+                        {"msg_name": "throttle_remapped"},
+                        {"msg_name": "orion_currents_volts"}
                     ]
                 },
                 {

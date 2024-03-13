@@ -151,7 +151,7 @@ typedef enum
 #define LCD_UART_TX_Pin             (9)
 #define LCD_UART_RX_GPIO_Port       (GPIOA)
 #define LCD_UART_RX_Pin             (10)
-#define LCD_NUM_PAGES               (5) // Number of pages (does not include preflight)
+#define LCD_NUM_PAGES               (5) // Number encoder selectable pages 
 
 // LV Status
 #define LV_5V_V_SENSE_GPIO_Port     (GPIOC)

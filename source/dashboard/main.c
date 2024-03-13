@@ -17,7 +17,6 @@
 #include "pedals.h"
 #include "lcd.h"
 #include "nextion.h"
-#include "hdd.h"
 
 
 GPIOInitConfig_t gpio_config[] = {
@@ -136,13 +135,6 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
-hdd_value_t hdd = {
-    .deadband_pos = 0,
-    .intensity_pos = 0,
-    .deadband_prev = 0,
-    .intensity_prev = 0
-};
-
 lcd_t lcd_data = {
     .encoder_position = 0,
     .num_pages = 8U,
@@ -228,6 +220,7 @@ int main (void){
     // taskCreate(makeTheCarSad, 7000);
     taskCreate(update_data_pages, 200);
     taskCreate(sendBrakeStatus, 500);
+    taskCreate(sendTVParameters, 4000);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);

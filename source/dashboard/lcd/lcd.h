@@ -17,6 +17,7 @@
 #define DEADBAND_STRING "deadband"
 #define INTENSITY_STRING "intensity"
 #define FAULT_STRING "faults"
+#define TVSETTINGS_STRING "tvsettings"
 #define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U)
 
 //Error/Knob page values
@@ -44,6 +45,12 @@
 #define I_TXT "t5"
 #define TV_DB_TXT "t7"
 #define TV_IN_TXT "t9"
+
+//TV Settings Page Values
+#define TV_INTENSITY_FLT "x0"
+#define TV_PROPORTION_FLT "x1"
+#define TV_DEAD_TXT "t6"
+#define TV_ENABLE_OP "c0"
 
 //Setings page values
 #define DT_FAN_TXT "t2"
@@ -100,32 +107,15 @@ typedef enum {
   PAGE_RACE,
   PAGE_SETTINGS,
   PAGE_DATA,
-  PAGE_TV,
-  PAGE_FAULTS,    
+  PAGE_FAULTS,
+  PAGE_TVSETTINGS,    
 
   // Pages that can be displayed but not selected with the encoder
   PAGE_PREFLIGHT,
   PAGE_WARNING,
   PAGE_ERROR,
   PAGE_FATAL,
-  //PAGE_KNOBS
 } page_t;
-
-typedef enum {
-  NONE_SELECTED,
-  P_SELECTED,
-  I_SELECTED
-} tv_select_t;
-
-typedef struct {
-  uint8_t yaw_p_val;
-  uint8_t yaw_i_val;
-  bool p_hover;
-  tv_select_t p_selected;
-  uint8_t intensity;
-  uint8_t deadband;
-  char *deadband_msg;
-} tv_options_t;
 
 typedef enum {
   DT_FAN_HOVER,
@@ -136,6 +126,29 @@ typedef enum {
   DT_FAN_SELECT,
   FAN1_SELECT
 } hover_state_t;
+
+typedef enum {
+  TV_INTENSITY_HOVER,
+  TV_P_HOVER,
+  TV_DEADBAND_HOVER,
+  TV_ENABLE_HOVER,
+  TV_INTENSITY_SELECTED,
+  TV_P_SELECTED,
+  TV_DEADBAND_SELECTED,
+  TV_NONE_SELECTED,
+
+} tv_hover_state_t;
+
+typedef struct {
+  bool tv_enable_selected;
+  tv_hover_state_t curr_hover;
+  uint8_t  tv_deadband_val;
+  
+  // intensity and p are 10x the float equivalent
+  uint16_t tv_intensity_val;
+  uint16_t tv_p_val;
+
+} tv_settings_t;
 
 typedef struct {
   bool d_fan_selected;
@@ -155,21 +168,16 @@ typedef struct {
 
 } lcd_t;
 
-void initLCD();
-void updatePage();
-void moveLeft();
-void moveRight();
-void moveUp();
-void moveDown();
-void selectItem();
-void updateFaultDisplay();
-void knobDisplay();
-void send_p_val();
-void send_i_val();
-void update_data_pages();
-char *get_deadband();
-char *int_to_char(int16_t val, char *val_to_send);
-bool zeroEncoder(volatile int8_t* start_pos);
-void updateShutdownCircuitDisplay();
+void initLCD();                                     // Initialize LCD data structures and configuration
+void updatePage();                                  // Change the current page of the LCD
+void moveUp();                                      // Upward UI input detected (up button or in some cases encoder)
+void moveDown();                                    // Downward UI input detected (down button or in some cases encoder)
+void selectItem();                                  // Selection UI input detected
+void updateFaultDisplay();                          // Periodically poll recent faults and update the fault buffer and page as needed
+void update_data_pages();                           // Periodically poll recent telemetry and update the data page as needd
+char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
+bool zeroEncoder(volatile int8_t* start_pos);       // Zero the encoder position for page selection
+void updateShutdownCircuitDisplay();            
+void sendTVParameters();                            // Periodically send updates to the TV configuration to TV board
 
 #endif

@@ -1,5 +1,4 @@
 #include "lcd.h"
-#include "hdd.h"
 #include "common/psched/psched.h"
 #include "pedals.h"
 #include "common/faults/faults.h"
@@ -8,38 +7,19 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-volatile page_t curr_page;  // Current page displayed on the LCD
-volatile page_t prev_page;  // Previous page displayed on the LCD
-uint16_t cur_fault_buf_ndx;
-uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};
-
-bool sendFirsthalf;
-
-uint8_t display_time;
-
-char *errorText;
-
-static uint8_t preflight;
-
-extern hdd_value_t hdd;
-
-extern uint16_t filtered_pedals;
-
-extern q_handle_t q_tx_can;
-extern q_handle_t q_fault_history;
-
-volatile tv_options_t tv;
-
-volatile settings_t settings;   // Data for the settings page 
-
+volatile page_t curr_page;            // Current page displayed on the LCD
+volatile page_t prev_page;            // Previous page displayed on the LCD
+uint16_t cur_fault_buf_ndx;           // Current index in the fault buffer
+uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // Buffer of displayed faults
+bool sendFirsthalf;                   // Flag for sending data to data page
+char *errorText;                      // Pointer to data to display for the Error, Warning, and Critical Fault codes
+extern uint16_t filtered_pedals;      // Global from pedals module for throttle display
+extern q_handle_t q_tx_can;           // Global queue for CAN tx
+extern q_handle_t q_fault_history;    // Global queue from fault library for fault history
+volatile settings_t settings;         // Data for the settings page 
+volatile tv_settings_t tv_settings;   // Data for the tvsettings page 
+tv_settings_t prev_tv_settings;       // Struct to detect changes to torque vectoring and send to TV board
 extern lcd_t lcd_data;
-
-//1 = deadband, 0 = intensity
-bool knob;
-bool knob_old;
-
-bool midAdjustment;
-
 
 // Call initially to ensure the LCD is initialized to the proper value - 
 // should be replaced with the struct prev page stuff eventually
@@ -62,15 +42,11 @@ bool zeroEncoder(volatile int8_t* start_pos)
 void initLCD() {
     curr_page = PAGE_RACE;
     prev_page = PAGE_PREFLIGHT; 
-    display_time = 0;
     errorText = 0;
-    knob = false;
-    knob_old = false;
-    midAdjustment = 0;
-    tv = (tv_options_t) {0, 0, 0, 0, 0, 0, "\0"};
     settings = (settings_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
-
+    tv_settings = (tv_settings_t) {true, 0, 12, 10, 10};
+    prev_tv_settings = tv_settings;
 }
 
 void updatePage() {
@@ -90,6 +66,27 @@ void updatePage() {
 
     // Parse the page that was passed into the function
     switch (curr_page) {
+        case PAGE_TVSETTINGS:
+            // Switch page
+            set_page(TVSETTINGS_STRING);
+
+            // Establish hover position
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
+            
+            // Set background colors
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+
+            // Set displayed data
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val); 
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_p_val); 
+            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value)); 
+            bzero(parsed_value, 3);                                                        
+            set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
+            break;
+
         case PAGE_ERROR:
             set_page(ERR_STRING);
             set_text(ERR_TXT, NXT_TEXT, errorText);
@@ -251,200 +248,87 @@ void updatePage() {
                     set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
                 }
             }
-            break;
-        case PAGE_TV:
-            prev_page = PAGE_TV;
-            set_page(TV_STRING);
-            tv.p_hover = true;
-            set_value(P_BAR, NXT_VALUE, tv.yaw_p_val);
-            set_value(I_BAR, NXT_VALUE, tv.yaw_i_val);
-            switch (tv.p_selected) {
-                case NONE_SELECTED:
-                    set_value(P_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-                    set_value(P_BAR, NXT_FONT_COLOR, TV_HOVER_FG_P);
-                    break;
-                case P_SELECTED:
-                    set_value(P_BAR, NXT_BACKGROUND_COLOR, BLACK);
-                    set_value(P_BAR, NXT_FONT_COLOR, WHITE);
-                    break;
-                case I_SELECTED:
-                    set_value(I_BAR, NXT_BACKGROUND_COLOR, BLACK);
-                    set_value(I_BAR, NXT_FONT_COLOR, WHITE);
-                    break;
-            }
-            send_p_val();
-            send_i_val();
-            char value_to_send[2] = "\0";
-            if (hdd.intensity_pos > 9) {
-                value_to_send[0] = (hdd.intensity_pos / 10) + 48;
-                value_to_send[1] = (hdd.intensity_pos % 10) + 48;
-            }
-            else {
-                value_to_send[0] = hdd.intensity_pos + 48;
-            }
-            set_text(TV_IN_TXT, NXT_TEXT, value_to_send);
-            tv.deadband_msg = get_deadband();
-            set_text(TV_DB_TXT, NXT_TEXT, tv.deadband_msg);
-            break;
-        // case PAGE_KNOBS:
-        //     switch (display_time++) {
-        //         case 0:
-        //             if (knob) {
-        //                 set_page(DEADBAND_STRING);
-        //                 tv.deadband_msg = get_deadband();
-        //                 set_text(KNB_TXT, NXT_TEXT, tv.deadband_msg);
-        //             }
-        //             else {
-        //                 set_page(INTENSITY_STRING);
-        //                 char value_to_send[2] = "\0";
-        //                 if (hdd.intensity_pos > 9) {
-        //                     value_to_send[0] = (hdd.intensity_pos / 10) + 48;
-        //                     value_to_send[1] = (hdd.intensity_pos % 10) + 48;
-        //                 }
-        //                 else {
-        //                     value_to_send[0] = hdd.intensity_pos + 48;
-        //                 }
-        //                 set_text(KNB_TXT, NXT_TEXT, value_to_send);
-        //             }
-        //             break;
-        //         case 5:
-        //             set_value(TIME_BAR, NXT_VALUE, 100);
-        //             display_time = 0;
-        //             curr_page = prev_page;
-        //             prev_page = PAGE_PREFLIGHT;
-        //             updatePage();
-        //             break;
-        //         default:
-        //             set_value(TIME_BAR, NXT_VALUE, (display_time * 20));
-        //             break;
-        //     }
-        //     break;
-        //default:
-            // switch(display_time++) {
-            //     case 0:
-            //         switch(curr_page) {
-            //             case PAGE_ERROR:
-            //                 set_page(ERR_STRING);
-            //                 break;
-            //             case PAGE_WARNING:
-            //                 set_page(WARN_STRING);
-            //                 break;
-            //             case PAGE_FATAL:
-            //                 set_page(FATAL_STRING);
-            //                 break;
-            //         }
-            //         set_value(TIME_BAR, NXT_VALUE, 0);
-            //         set_text(ERR_TXT, NXT_TEXT, errorText);
-            //         break;
-            //     case 10:
-            //         set_value(TIME_BAR, NXT_VALUE, 100);
-            //         curr_page = prev_page;
-            //         prev_page = PAGE_PREFLIGHT;
-            //         updatePage();
-            //         display_time = 0;
-            //         break;
-            //     default:
-            //         set_value(TIME_BAR, NXT_VALUE, (display_time * 10));
-            //         break;
-            // }
-
+        break;
     }
 }
 
-// void moveLeft() {
-//     switch(curr_page) {
-//         case PAGE_RACE:
-//             curr_page = PAGE_TV;
-//             updatePage();
-//             break;
-//         case PAGE_SETTINGS:
-//             if (settings.curr_hover < DT_FAN_SELECT) {
-//                 curr_page = PAGE_DATA;
-//                 updatePage();
-//             }
-//             break;
-//         case PAGE_DATA:
-//             curr_page = PAGE_RACE;
-//             updatePage();
-//             break;
-//         case PAGE_TV:
-//             if (tv.p_selected == NONE_SELECTED) {
-//                 curr_page = PAGE_SETTINGS;
-//                 updatePage();
-//             }
-//             break;
-//         default:
-//             curr_page = prev_page;
-//             prev_page = PAGE_PREFLIGHT;
-//             display_time = 0;
-//             updatePage();
-//             break;
-//     }
-// }
-
-// void moveRight() {
-//     switch(curr_page) {
-//         case PAGE_RACE:
-//             curr_page = PAGE_DATA;
-//             updatePage();
-//             break;
-//         case PAGE_SETTINGS:
-//             if (settings.curr_hover < DT_FAN_SELECT) {
-//                 curr_page = PAGE_TV;
-//                 updatePage();
-//             }
-//             break;
-//         case PAGE_DATA:
-//             curr_page = PAGE_SETTINGS;
-//             updatePage();
-//             break;
-//         case PAGE_TV:
-//             if (tv.p_selected == NONE_SELECTED) {
-//                 curr_page = PAGE_RACE;
-//                 updatePage();
-//             }
-//             break;
-//         default:
-//             curr_page = prev_page;
-//             prev_page = PAGE_PREFLIGHT;
-//             display_time = 0;
-//             updatePage();
-//             break;
-//     }
-// }
-
 void moveUp() {
-    // if (((curr_page != PAGE_SETTINGS) || (curr_page != PAGE_TV))&& curr_page > PAGE_TV) {
-    //     curr_page = prev_page;
-    //     prev_page = PAGE_RACE; 
-    //     display_time = 0;
-    //     updatePage();
-    //     return;
-    // }
-    if (curr_page == PAGE_TV) {
-        if (tv.p_hover && tv.p_selected == NONE_SELECTED) {
-            tv.p_hover = false;
-            set_value(P_BAR, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(P_BAR, NXT_FONT_COLOR, TV_P_FG);
-            set_value(I_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(I_BAR, NXT_FONT_COLOR, TV_HOVER_FG_I);
+    char parsed_value[3] = "\0";
+    if (curr_page == PAGE_TVSETTINGS)
+    {
+        // If Intensity is selected
+        if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
+        {
+            // Increase the intensity value
+            tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 1) % 100;
+
+            // Update the page items
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val); 
         }
-        else if (tv.p_selected == NONE_SELECTED) {
-            tv.p_hover = true;
-            set_value(P_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(P_BAR, NXT_FONT_COLOR, TV_HOVER_FG_P);
-            set_value(I_BAR, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(I_BAR, NXT_FONT_COLOR, TV_I_FG);
+        else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
+        {
+            // Wrap around to enable
+            tv_settings.curr_hover = TV_ENABLE_HOVER;
+
+            // Update the background 
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         }
-        else if (tv.p_selected == P_SELECTED){
-            tv.yaw_p_val = ((tv.yaw_p_val >= 100) ? 0 : tv.yaw_p_val + 10);
-            set_value(P_BAR, NXT_VALUE, tv.yaw_p_val);
-            send_p_val();
+        else if (tv_settings.curr_hover == TV_P_SELECTED)
+        {
+            // Increase the p value
+            tv_settings.tv_p_val = (tv_settings.tv_p_val + 1) % 100;
+
+            // Update the page items
+            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val); 
+
         }
-        else {
-            tv.yaw_i_val = ((tv.yaw_i_val >= 100) ? 0 : tv.yaw_i_val + 10);
-            set_value(I_BAR, NXT_VALUE, tv.yaw_i_val);
-            send_i_val();
+        else if (tv_settings.curr_hover == TV_P_HOVER)
+        {
+            // Scroll up to Intensity
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
+
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
+        {
+            // Increase the deadband value
+            tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
+            
+            // Update the page items
+            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value)); 
+            bzero(parsed_value, 3);   
+
+        }
+        else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
+        {
+            // Scroll up to P
+            tv_settings.curr_hover = TV_P_HOVER;
+
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
+        {
+            // Scroll up to deadband
+            tv_settings.curr_hover = TV_DEADBAND_HOVER;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else
+        {
+            // ?
         }
     }
     else if (curr_page == PAGE_SETTINGS) {
@@ -496,37 +380,102 @@ void moveUp() {
 }
 
 void moveDown() {
-    // if (((curr_page != PAGE_SETTINGS) || (curr_page != PAGE_TV))&& curr_page > PAGE_TV) {
-    //     curr_page = prev_page;
-    //     prev_page = PAGE_RACE; 
-    //     display_time = 0;
-    //     updatePage();
-    //     return;
-    // }
-    if (curr_page == PAGE_TV) {
-        if (tv.p_hover && tv.p_selected == NONE_SELECTED) {
-            tv.p_hover = false;
-            set_value(P_BAR, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(P_BAR, NXT_FONT_COLOR, TV_P_FG);
-            set_value(I_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(I_BAR, NXT_FONT_COLOR, TV_HOVER_FG_I);
+    char parsed_value[3] = "\0";
+    if (curr_page == PAGE_TVSETTINGS)
+    {
+        if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
+        {
+            // Decrease the intensity value
+            if (tv_settings.tv_intensity_val == 0)
+            {
+                tv_settings.tv_intensity_val = 100;
+            }
+            else
+            {
+                tv_settings.tv_intensity_val--;
+            }
+
+            // Update the page item
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val); 
         }
-        else if (tv.p_selected == NONE_SELECTED) {
-            tv.p_hover = true;
-            set_value(P_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(P_BAR, NXT_FONT_COLOR, TV_HOVER_FG_P);
-            set_value(I_BAR, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(I_BAR, NXT_FONT_COLOR, TV_I_FG);
+        else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
+        {
+            // Scroll down to P
+            tv_settings.curr_hover = TV_P_HOVER;
+
+            // Update the background 
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
         }
-        else if (tv.p_selected == P_SELECTED){
-            tv.yaw_p_val = ((tv.yaw_p_val <= 0) ? 100 : tv.yaw_p_val - 10);
-            set_value(P_BAR, NXT_VALUE, tv.yaw_p_val);
-            send_p_val();
+        else if (tv_settings.curr_hover == TV_P_SELECTED)
+        {
+            // Decrease the P value
+            if (tv_settings.tv_p_val == 0)
+            {
+                tv_settings.tv_p_val = 100;
+            }
+            else
+            {
+                tv_settings.tv_p_val--;
+            }
+
+            // Update the page items
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_p_val); 
+
         }
-        else {
-            tv.yaw_i_val = ((tv.yaw_i_val <= 0) ? 100 : tv.yaw_i_val - 10);
-            set_value(I_BAR, NXT_VALUE, tv.yaw_i_val);
-            send_i_val();
+        else if (tv_settings.curr_hover == TV_P_HOVER)
+        {
+            // Scroll down to deadband
+            tv_settings.curr_hover = TV_DEADBAND_HOVER;
+
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
+        {
+            // Decrease the deadband value
+            if (tv_settings.tv_deadband_val == 0)
+            {
+                tv_settings.tv_deadband_val = 30;
+            }
+            else
+            {
+                tv_settings.tv_deadband_val--;
+            }
+
+            // Update the page items
+            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value)); 
+            bzero(parsed_value, 3);   
+
+        }
+        else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
+        {
+            // Scroll down to enable
+            tv_settings.curr_hover = TV_ENABLE_HOVER;
+
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        }
+        else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
+        {
+            // Scroll down to intensity
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else
+        {
+            // ?
         }
     }
     else if (curr_page == PAGE_SETTINGS) {
@@ -587,35 +536,81 @@ void selectItem() {
         prev_page = PAGE_PREFLIGHT;
         updatePage();
     }
-    // if (((curr_page != PAGE_SETTINGS) || (curr_page != PAGE_TV))&& curr_page > PAGE_TV) {
-    //     curr_page = prev_page;
-    //     prev_page = PAGE_RACE;  
-    //     display_time = 0;
-    //     updatePage();
-    //     return;
-    // }
-    else if (curr_page == PAGE_TV) {
-        if (tv.p_hover && tv.p_selected == NONE_SELECTED) {
-            set_value(P_BAR, NXT_BACKGROUND_COLOR, BLACK);
-            set_value(P_BAR, NXT_FONT_COLOR, WHITE);
-            tv.p_selected = P_SELECTED;
+    else if (curr_page == PAGE_TVSETTINGS)
+    {
+        // So if we hit select on an already selected item, unselect it (switch to hover)
+        
+        if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
+        {
+            tv_settings.curr_hover = TV_INTENSITY_SELECTED;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            // todo Rot encoder state should let us scroll through value options
+            // for now just use buttons for move up and move down
         }
-        else if (tv.p_selected == NONE_SELECTED) {
-            set_value(I_BAR, NXT_BACKGROUND_COLOR, BLACK);
-            set_value(I_BAR, NXT_FONT_COLOR, WHITE);
-            tv.p_selected = I_SELECTED;
+        else if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
+        {
+            // "submit" -> CAN payload will update automatically? decide
+            // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault? 
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            // rot encoder state goes back to page move instead of value move
         }
-        else if (tv.p_selected == P_SELECTED){
-            tv.p_selected = NONE_SELECTED;
-            tv.p_hover = true;
-            set_value(P_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(P_BAR, NXT_FONT_COLOR, TV_HOVER_FG_P);
+        else if (tv_settings.curr_hover == TV_P_HOVER)
+        {
+            tv_settings.curr_hover = TV_P_SELECTED;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, ORANGE);  
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
         }
-        else {
-            tv.p_selected = NONE_SELECTED;
-            set_value(I_BAR, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(I_BAR, NXT_FONT_COLOR, TV_HOVER_FG_I);
+        else if (tv_settings.curr_hover == TV_P_SELECTED)
+        {
+            tv_settings.curr_hover = TV_P_HOVER;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
         }
+        else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
+        {
+            tv_settings.curr_hover = TV_DEADBAND_SELECTED;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);  
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, ORANGE);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
+        {
+            tv_settings.curr_hover = TV_DEADBAND_HOVER;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);  
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
+        {   
+            // Don't change the curr_hover
+
+            // Toggle the option
+            tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
+            
+            // Set the option
+            set_value(DT_PUMP_OP, NXT_VALUE, tv_settings.tv_enable_selected);
+        
+            // Update CAN as necessary
+        }
+        else
+        {
+            // ?
+        }
+
+
     }
     else if (curr_page == PAGE_SETTINGS) {
         switch (settings.curr_hover) {
@@ -707,9 +702,6 @@ void updateFaultDisplay() {
     // Track if we alrady have this fault in the display buffer
     bool faultAlreadyInBuffer = false;
     bool pageUpdateRequired = false;   
-
-    // Display time can likely go
-    display_time = 0;
 
     // Process up to 5 faults each time for now
     for (int i = 0; i < 5; i++)
@@ -877,41 +869,6 @@ void update_data_pages() {
     }
 }
 
-//1 = deadband, 0 = intensity
-// void knobDisplay() {
-//     if (preflight < 2) {
-//         preflight++;
-//         return;
-//     }
-//     if (curr_page == PAGE_KNOBS) {
-//         if (knob_old == knob && knob) {
-//             display_time = 1;
-//             tv.deadband_msg = get_deadband();
-//             set_text(KNB_TXT, NXT_TEXT, tv.deadband_msg);
-//             return;
-//         }
-//         else if (knob_old == knob && !knob) {
-//             display_time = 1;
-//             tv.intensity = hdd.intensity_pos;
-//             char value_to_send[2] = "\0";
-//             if (hdd.intensity_pos > 9) {
-//                 value_to_send[0] = (hdd.intensity_pos / 10) + 48;
-//                 value_to_send[1] = (hdd.intensity_pos % 10) + 48;
-//             }
-//             else {
-//                 value_to_send[0] = hdd.intensity_pos + 48;
-//             }
-//             set_text(KNB_TXT, NXT_TEXT, value_to_send);
-//             knob_old = knob;
-//             return;
-//         }
-//     }
-//     curr_page = PAGE_KNOBS;
-//     display_time = 0;
-//     knob_old = knob;
-//     updatePage();
-// }
-
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
     char parsed_value[3] = "\0";
     if (curr_page != PAGE_SETTINGS) {
@@ -949,66 +906,6 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
 
 }
 
-
-void send_p_val() {
-    if (tv.yaw_p_val == 100) {
-        set_text(P_TXT, NXT_TEXT, "100");
-    }
-    else if (tv.yaw_p_val == 0) {
-        set_text(P_TXT, NXT_TEXT, "0");
-    }
-    else {
-        char msg_to_send[2] = "\0";
-        msg_to_send[0] = (tv.yaw_p_val / 10) + 48;
-        msg_to_send[1] = (tv.yaw_p_val % 10) + 48;
-        set_text(P_TXT, NXT_TEXT, msg_to_send);
-    }
-}
-
-void send_i_val() {
-    if (tv.yaw_i_val == 100) {
-        set_text(I_TXT, NXT_TEXT, "100");
-    }
-    else if (tv.yaw_i_val == 0) {
-        set_text(I_TXT, NXT_TEXT, "0");
-    }
-    else {
-        char msg_to_send[2] = "\0";
-        msg_to_send[0] = (tv.yaw_i_val / 10) + 48;
-        msg_to_send[1] = (tv.yaw_i_val % 10) + 48;
-        set_text(I_TXT, NXT_TEXT, msg_to_send);
-    }
-}
-
-char *get_deadband() {
-    switch (hdd.deadband_pos) {
-        case 0:
-            return "0";
-        case 1:
-            return "2.2";
-        case 2:
-            return "4.4";
-        case 3:
-            return "6.6";
-        case 4:
-            return "8.8";
-        case 5:
-            return "11";
-        case 6:
-            return "13.2";
-        case 7:
-            return "15.4";
-        case 8:
-            return "17.6";
-        case 9:
-            return "19.8";
-        case 10:
-            return "22";
-        case 11:
-            return "24";
-    }
-}
-
 char *int_to_char(int16_t val, char *val_to_send) {
     char *orig_ptr = val_to_send;
     if (val < 10) {
@@ -1030,4 +927,17 @@ char *int_to_char(int16_t val, char *val_to_send) {
         *val_to_send = val % 10 + 48;
         return orig_ptr;
     }
+}
+
+void sendTVParameters()
+{
+    if ((tv_settings.tv_enable_selected != prev_tv_settings.tv_enable_selected) ||
+       (tv_settings.tv_deadband_val != prev_tv_settings.tv_deadband_val) ||
+       (tv_settings.tv_intensity_val != prev_tv_settings.tv_intensity_val) ||
+       (tv_settings.tv_p_val != prev_tv_settings.tv_p_val))
+       {
+            SEND_DASHBOARD_TV_PARAMETERS(q_tx_can, tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+       }
+
+    prev_tv_settings = tv_settings;
 }

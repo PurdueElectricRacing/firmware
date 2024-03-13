@@ -168,7 +168,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "BOTS Activated"
                 },
                 {
@@ -177,7 +177,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "Inertia Switch activated"
                 },
                 {
@@ -186,7 +186,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "Cockpit E-Stop Pressed"
                 },
                 {
@@ -195,7 +195,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "Right E-Stop Pressed"
                 },
                 {
@@ -204,7 +204,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "Left E-Stop Pressed"
                 },
                 {
@@ -213,7 +213,7 @@
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "HVD Disconnected"
                 },
                 {
@@ -222,7 +222,7 @@
                     "min": 0,
                     "priority": "error",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "Hub Interlock Disconencted"
                 },
                 {
@@ -231,7 +231,7 @@
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 400,
-                    "time_to_unlatch": 10000,
+                    "time_to_unlatch": 400,
                     "lcd_message": "TSMS Off"
                 },
                 {
@@ -242,6 +242,42 @@
                     "time_to_latch": 400,
                     "time_to_unlatch": 10000,
                     "lcd_message": "PRCHG time exceeded"
+                },
+                {
+                    "fault_name": "motor_r_heat",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Right Motor Hot (>80C)"
+                },
+                {
+                    "fault_name": "motor_l_heat",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Left Motor Hot (>80C)"
+                },
+                {
+                    "fault_name": "motor_r_ot",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Right Motor Overtemp (>90C)"
+                },
+                {
+                    "fault_name": "motor_l_ot",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Left Motor Overtemp (>90C)"
                 }
             ]
         },

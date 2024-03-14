@@ -30,6 +30,7 @@
 #define ID_PRECHARGE_STATE 0x8001881
 #define ID_CURRENT_MEAS 0x10001941
 #define ID_MCU_STATUS 0x10001981
+#define ID_NUM_MC_SKIPS 0x10001b81
 #define ID_REAR_MC_STATUS 0x4001941
 #define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
 #define ID_SDC_STATUS 0xc000381
@@ -45,6 +46,7 @@
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_THROTTLE_REMAPPED 0xc0025b7
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_FAULT_SYNC_DASHBOARD 0x8ca85
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -66,6 +68,7 @@
 #define DLC_PRECHARGE_STATE 4
 #define DLC_CURRENT_MEAS 7
 #define DLC_MCU_STATUS 5
+#define DLC_NUM_MC_SKIPS 4
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
 #define DLC_SDC_STATUS 2
@@ -81,6 +84,7 @@
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_THROTTLE_REMAPPED 4
+#define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -179,6 +183,13 @@
         data_a->mcu_status.can_tx_fails = can_tx_fails_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_NUM_MC_SKIPS(queue, noise_r_, noise_l_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_MC_SKIPS, .DLC=DLC_NUM_MC_SKIPS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->num_mc_skips.noise_r = noise_r_;\
+        data_a->num_mc_skips.noise_l = noise_l_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_REAR_MC_STATUS(queue, rear_left_motor_, rear_left_motor_link_, rear_left_last_link_error_, rear_right_motor_, rear_right_motor_link_, rear_right_last_link_error_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MC_STATUS, .DLC=DLC_REAR_MC_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -258,6 +269,7 @@
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
 #define UP_THROTTLE_REMAPPED 15
+#define UP_ORION_CURRENTS_VOLTS 32
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -266,6 +278,8 @@
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
     CAR_STATE_IDLE,
+    CAR_STATE_PRECHARGING,
+    CAR_STATE_ENERGIZED,
     CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
@@ -384,6 +398,10 @@ typedef union {
         uint64_t can_tx_fails: 8;
     } mcu_status;
     struct {
+        uint64_t noise_r: 16;
+        uint64_t noise_l: 16;
+    } num_mc_skips;
+    struct {
         uint64_t rear_left_motor: 8;
         uint64_t rear_left_motor_link: 8;
         uint64_t rear_left_last_link_error: 8;
@@ -470,6 +488,10 @@ typedef union {
         uint64_t remap_k_rr: 16;
     } throttle_remapped;
     struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -554,6 +576,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } throttle_remapped;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
     struct {
         uint16_t idx;
         uint8_t latched;

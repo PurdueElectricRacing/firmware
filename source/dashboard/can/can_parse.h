@@ -185,6 +185,7 @@
 #define UP_COOLANT_TEMPS 200
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 2000
+#define UP_DASHBOARD_BRAKE_STATUS 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -193,6 +194,8 @@
 /* BEGIN AUTO CAN ENUMERATIONS */
 typedef enum {
     CAR_STATE_IDLE,
+    CAR_STATE_PRECHARGING,
+    CAR_STATE_ENERGIZED,
     CAR_STATE_BUZZING,
     CAR_STATE_READY2DRIVE,
     CAR_STATE_ERROR,
@@ -542,6 +545,11 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } dashboard_bl_cmd;
+    struct {
+        uint8_t brake_status;
+        uint8_t stale;
+        uint32_t last_rx;
+    } dashboard_brake_status;
     struct {
         uint16_t idx;
         uint8_t latched;

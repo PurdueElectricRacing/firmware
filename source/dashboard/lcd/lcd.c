@@ -101,6 +101,7 @@ void updatePage() {
             break;
         case PAGE_RACE:
             prev_page = PAGE_RACE; 
+            prev_page = PAGE_RACE; 
             set_page(RACE_STRING);
             break;
         case PAGE_DATA:
@@ -248,7 +249,7 @@ void updatePage() {
                     set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
                 }
             }
-        break;
+            break;
     }
 }
 

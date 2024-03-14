@@ -1,12 +1,12 @@
 /**
  * @file can.h
  * @author Adam Busch (busch8@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2021-03-20
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef _PHAL_CAN_H
@@ -30,6 +30,7 @@
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
 #define PHAL_CAN_16MHz_500k (0x001c0001)
 #define PHAL_CAN_20MHz_500k (0x00050004)
+#define PHAL_CAN_36MHz_500k (0x001e0003)
 #define PHAL_CAN_40MHz_500k (0x001c0004)
 #define PHAL_CAN_80MHz_500k (0x001c0009)
 
@@ -44,10 +45,10 @@ typedef struct
 } CanMsgTypeDef_t;
 
 /**
- * @brief Initilize CAN peripheral to 500k. 
- * 
+ * @brief Initilize CAN peripheral to 500k.
+ *
  * @param test_mode Initilize CAN peripheral for self test mode
- * 
+ *
  * @return true Peripheral sucessfully initalized
  * @return false Peripheral stalled during initilization
  */
@@ -58,7 +59,7 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus);
 /**
  * @brief Find an empty TX mailbox and transmit a CAN message if one is found.
  * Function will block until sucessful transmission of message until a specified timeout.
- * 
+ *
  * @param can CAN peripheral to transmit with
  * @param msgId Message ID
  * @return true Sucessful TX of message.

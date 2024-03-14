@@ -581,13 +581,6 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
         {
             // TX is complete, so we no longer need this DMA stream active
             PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
-            if (active_uarts[idx]._tx_busy)
-            {
-                #ifdef STM32F407xx
-                // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
-                while (!(active_uarts[idx].active_handle->periph->SR & USART_SR_TC))
-                    ;
-                #endif
                 #ifdef STM32F732xx
                 // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
                 while (!(active_uarts[idx].active_handle->periph->ISR & USART_ISR_TC))
@@ -595,8 +588,6 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
                 #endif
                 // TX is no longer busy, so communicate this and disable TX part of USART
                 active_uarts[idx]._tx_busy = 0;
-                active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_TE;
-            }
         }
         //Clear interrupt flag
         *csr_reg |= tcif_flag;

@@ -93,6 +93,10 @@ BO_ 2415925633 mcu_status: 5 Main_Module
  SG_ foreground_use : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ sched_skips : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2415926145 num_mc_skips: 4 Main_Module
+ SG_ noise_l : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ noise_r : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2214598977 rear_mc_status: 6 Main_Module
  SG_ rear_right_last_link_error : 40|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ rear_right_motor_link : 32|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -647,6 +651,9 @@ CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
 CM_ SG_ 2415925633 background_use "Percent of the 1ms loop time used by background tasks";
 CM_ SG_ 2415925633 foreground_use "Percent of the 1ms loop time used by foreground tasks";
 CM_ SG_ 2415925633 sched_skips "Number of loop misses (execution time was skipped)";
+CM_ BO_ 2415926145 "Messages ignored by MC";
+CM_ SG_ 2415926145 noise_l "Num of skipped msgs";
+CM_ SG_ 2415926145 noise_r "Num of skipped msgs";
 CM_ BO_ 2214598977 "rear drivline heart beat";
 CM_ SG_ 2214598977 rear_right_last_link_error "";
 CM_ SG_ 2214598977 rear_right_motor_link "";
@@ -1039,7 +1046,7 @@ CM_ SG_ 2483032050 daq_command "";
 
 
 
-VAL_ 2214598913 car_state 0 "idle" 1 "buzzing" 2 "ready2drive" 3 "error" 4 "fatal" 5 "reset" 6 "recover" 7 "fan_ctrl" ;
+VAL_ 2214598913 car_state 0 "idle" 1 "precharging" 2 "energized" 3 "buzzing" 4 "ready2drive" 5 "error" 6 "fatal" 7 "reset" 8 "recover" 9 "fan_ctrl" ;
 VAL_ 2214598977 rear_right_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
 VAL_ 2214598977 rear_right_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
 VAL_ 2214598977 rear_right_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;

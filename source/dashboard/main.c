@@ -135,6 +135,7 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
+
 lcd_t lcd_data = {
     .encoder_position = 0,
     .num_pages = 8U,

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['w_0',['W',['../structDW__SFS.html#aec3dc241daba507708f226d97a65dd17',1,'DW_SFS']]],
-  ['w_1',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t']]],
+  ['w_0',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t']]],
+  ['w_1',['W',['../structDW__SFS.html#aec3dc241daba507708f226d97a65dd17',1,'DW_SFS']]],
   ['w_5ftherm_5fa_2',['W_THERM_A',['../cooling_8h.html#a7e5fcbd2ca5a0c08613de7978c0a97e3',1,'cooling.h']]],
   ['w_5ftherm_5fb_3',['W_THERM_B',['../cooling_8h.html#ae7fa48e09dbc199090bbd5c5acff9de2',1,'cooling.h']]],
   ['w_5ftherm_5fr1_4',['W_THERM_R1',['../cooling_8h.html#aef707e7844937916911fc0cabc0cf916',1,'cooling.h']]],
@@ -33,10 +33,10 @@ var searchData=
   ['word_5flength_30',['word_length',['../structusart__init__t.html#a05cc99e8162f284a52d93388d800c782',1,'usart_init_t']]],
   ['word_5flength_5ft_31',['word_length_t',['../phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'word_length_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'word_length_t:&#160;usart.h']]],
   ['wordh_32',['wordH',['../structBigEndianIEEEDouble.html#a5dfc5681dc38f1f1bef513b4ad2c2e8e',1,'BigEndianIEEEDouble::wordH'],['../structLittleEndianIEEEDouble.html#af06d938c7ecc1561e5e51fba3b77aee6',1,'LittleEndianIEEEDouble::wordH']]],
-  ['wordl_33',['wordL',['../structBigEndianIEEEDouble.html#a598739bee320c62ff8c61a9141bf4dec',1,'BigEndianIEEEDouble::wordL'],['../structLittleEndianIEEEDouble.html#a606de4acde1005975e56e1e4ae9234f8',1,'LittleEndianIEEEDouble::wordL'],['../structIEEESingle.html#a08e6f9e1e0ccc356c2eaa7f95c1eb8ec',1,'IEEESingle::wordL']]],
+  ['wordl_33',['wordL',['../structBigEndianIEEEDouble.html#a598739bee320c62ff8c61a9141bf4dec',1,'BigEndianIEEEDouble::wordL'],['../structLittleEndianIEEEDouble.html#a606de4acde1005975e56e1e4ae9234f8',1,'LittleEndianIEEEDouble::wordL'],['../structIEEESingle.html#a946c46db505a89a5291523351a9f2ae1',1,'IEEESingle::wordL']]],
   ['wordlreal_34',['wordLreal',['../structIEEESingle.html#afec10c9e3f9764d54e28adb3c551d62d',1,'IEEESingle']]],
   ['wordluint_35',['wordLuint',['../structIEEESingle.html#ab54f13fd229e1ffea7f2ad57e97add6a',1,'IEEESingle']]],
-  ['words_36',['words',['../structBigEndianIEEEDouble.html#ab90c3919f97d84c96764c290b204a42b',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#adbb366577052a4dd873b22c57311c148',1,'LittleEndianIEEEDouble::words']]],
+  ['words_36',['words',['../structBigEndianIEEEDouble.html#affdca26cc12bed86db3d6a944fcf7644',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#abf5f784b3dbd1a1f55d20e6481db66b0',1,'LittleEndianIEEEDouble::words']]],
   ['wrcfga_37',['WRCFGA',['../afe_8h.html#a0f38cada613ae1a9c0918543abae1dfe',1,'afe.h']]],
   ['wrcomm_38',['WRCOMM',['../afe_8h.html#a725b9d2986b81351736e77afe3e4a8bf',1,'afe.h']]],
   ['write_5fpending_39',['write_pending',['../structeeprom.html#af741d6e457776c48e7988aa8cbf120c9',1,'eeprom']]],

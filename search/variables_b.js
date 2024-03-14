@@ -55,5 +55,5 @@ var searchData=
   ['lws_5fangle_52',['LWS_ANGLE',['../union____attribute____.html#a474a7125abd57a407764de75809ec391',1,'__attribute__::LWS_ANGLE'],['../structcan__data__t.html#abff2f4e339624506f6a793455d1ddf51',1,'can_data_t::LWS_ANGLE']]],
   ['lws_5fconfig_53',['LWS_Config',['../union____attribute____.html#ac9460a29ba9565ae9cb4b1030a0a8f6d',1,'__attribute__']]],
   ['lws_5fspeed_54',['LWS_SPEED',['../union____attribute____.html#afe23346705976fb291d0eb24a9bc0dc0',1,'__attribute__::LWS_SPEED'],['../structcan__data__t.html#ab978d2819faa5d6c4572c2128be014db',1,'can_data_t::LWS_SPEED']]],
-  ['lws_5fstandard_55',['LWS_Standard',['../union____attribute____.html#afd250a4465e264b9f9246c09218b2281',1,'__attribute__::LWS_Standard'],['../structcan__data__t.html#a29edc3bf9bd5cc47d57a20e589f6addd',1,'can_data_t::LWS_Standard']]]
+  ['lws_5fstandard_55',['LWS_Standard',['../union____attribute____.html#af4a2d3be37d64ee2a662cb9e954d3bdf',1,'__attribute__::LWS_Standard'],['../structcan__data__t.html#a6e76a2bbe4d5d03e468e3637d68fe367',1,'can_data_t::LWS_Standard']]]
 ];

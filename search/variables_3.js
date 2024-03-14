@@ -50,7 +50,7 @@ var searchData=
   ['cnt_5fexit_47',['cnt_exit',['../structcpu__time__t.html#ad53f0ab6c111e6396b3b176e7a7a9774',1,'cpu_time_t']]],
   ['collect_5ftest_48',['collect_test',['../torque__vector_2main_8c.html#a8285bfc544ddaad6a8bec20bfe4d01ba',1,'main.c']]],
   ['communication_5ffail_49',['communication_fail',['../union____attribute____.html#a20c77c8e22010d5827a8bec97ba66cc3',1,'__attribute__::communication_fail'],['../structcan__data__t.html#ab06d684ad298bd64b924ca90917bd35f',1,'can_data_t::communication_fail']]],
-  ['config_50',['config',['../structGPIOInitConfig__t.html#a543c52971d10aca7c1fae54409964f24',1,'GPIOInitConfig_t::config'],['../structGPIOInitConfig__t.html#a0cb34b3a00400e86a6202be4a2d1f772',1,'GPIOInitConfig_t::config'],['../l4__testing_2daq_2daq_8c.html#a25ce4b69d296fc9a3324b494542c2420',1,'config:&#160;daq.c'],['../l4__testing_2daq_2daq_8h.html#a25ce4b69d296fc9a3324b494542c2420',1,'config:&#160;daq.c']]],
+  ['config_50',['config',['../structGPIOInitConfig__t.html#a0cb34b3a00400e86a6202be4a2d1f772',1,'GPIOInitConfig_t::config'],['../structGPIOInitConfig__t.html#a69ff212c07921b34b3a2e65372434159',1,'GPIOInitConfig_t::config'],['../l4__testing_2daq_2daq_8c.html#a25ce4b69d296fc9a3324b494542c2420',1,'config:&#160;daq.c'],['../l4__testing_2daq_2daq_8h.html#a25ce4b69d296fc9a3324b494542c2420',1,'config:&#160;daq.c']]],
   ['config_5fsent_51',['config_sent',['../structmotor__t.html#ab253e29a96c94aa43b50fb349cfcfcf7',1,'motor_t']]],
   ['config_5fstep_52',['config_step',['../structmotor__t.html#a1533e4f293c9dd90ccea02f460873634',1,'motor_t']]],
   ['cont_5fconv_5fmode_53',['cont_conv_mode',['../structADCInitConfig__t.html#af08893e9d1b2085d5b9090c9ee265f57',1,'ADCInitConfig_t']]],

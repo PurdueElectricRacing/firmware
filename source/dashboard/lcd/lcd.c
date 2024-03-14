@@ -422,7 +422,7 @@ void moveDown() {
             }
 
             // Update the page items
-            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_p_val); 
+            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val); 
 
         }
         else if (tv_settings.curr_hover == TV_P_HOVER)

@@ -77,6 +77,45 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
+        {   "name": "daq",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/daq/daq.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F407VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg",
+                "${workspaceRoot}/common/openocd/openocd-gdb.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/daq"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main",
+        },
+        {   "name": "daq_attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/daq/daq.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F407VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg",
+                "${workspaceRoot}/common/openocd/openocd-gdb.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/daq"
+            ],
+            "runToEntryPoint": "main",
+        },
         {   "name": "l4_testing",
             "cwd": "${workspaceRoot}",
             "executable": "./output/l4_testing/l4_testing.elf",

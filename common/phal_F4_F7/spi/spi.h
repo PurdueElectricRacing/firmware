@@ -131,4 +131,26 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy
         .tx_isr_en = true, .dma_chan_request=0b0011, .stream_idx=3,               \
         .periph=DMA2, .stream=DMA2_Stream3                                        \
     }
+
+#define SPI2_TXDMA_CONT_CONFIG(tx_addr_, priority_)                               \
+    {                                                                             \
+        .periph_addr = (uint32_t) & (SPI2->DR), .mem_addr = (uint32_t)(tx_addr_), \
+        .tx_size = 1, .increment = false, .circular = false,                      \
+        .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
+        .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
+        .tx_isr_en = true, .dma_chan_request=0b0000, .stream_idx=4,               \
+        .periph=DMA1, .stream=DMA1_Stream4                                        \
+    }
+
+#define SPI2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \
+    {                                                                             \
+        .periph_addr = (uint32_t) & (SPI2->DR), .mem_addr = (uint32_t)(rx_addr_), \
+        .tx_size = 1, .increment = false, .circular = false,                      \
+        .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \
+        .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \
+        .tx_isr_en = false, .dma_chan_request=0b0000, .stream_idx=3,              \
+        .periph=DMA1, .stream=DMA1_Stream3                                        \
+    }
+
+
 #endif /* _PHAL_SPI_H */

@@ -158,10 +158,12 @@ void carPeriodic()
         // Recover once error gone
         if (!errorLatched()) car.state = CAR_STATE_IDLE;
         car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        prchg_start = false;
     }
     else if (car.state == CAR_STATE_IDLE)
     {
         car.pchg.pchg_complete = false;
+        prchg_start = false;
         if (sdc_mux.tsms_stat)
         {
             car.state = CAR_STATE_PRECHARGING;
@@ -194,6 +196,10 @@ void carPeriodic()
     else if (car.state == CAR_STATE_ENERGIZED)
     {
         prchg_start = false;
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        if (!car.pchg.pchg_complete)
+            car.state = CAR_STATE_IDLE;
+
         if (car.start_btn_debounced &&
            can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
         {
@@ -203,6 +209,9 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_BUZZING)
     {
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        if (!car.pchg.pchg_complete)
+            car.state = CAR_STATE_IDLE;
         // EV.10.5 - Ready to drive sound
         // 1-3 seconds, unique from other sounds
         if (sched.os_ticks - car.buzzer_start_ms > BUZZER_DURATION_MS)
@@ -212,6 +221,9 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        if (!car.pchg.pchg_complete)
+            car.state = CAR_STATE_IDLE;
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced)
         {
@@ -328,12 +340,12 @@ void parseMCDataPeriodic(void)
     // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
     // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
 
-    // SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
+    //SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
     //                      shock_l, shock_r);
     // uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
     // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
-    // SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
-    //                                  l_speed, r_speed);
+    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
+                                    0, 0); // NO WHEEL SPEEDS YET
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) car.motor_l.current_x10,
                                    (uint16_t) car.motor_r.current_x10,

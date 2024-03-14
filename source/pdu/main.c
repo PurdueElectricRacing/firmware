@@ -186,9 +186,10 @@ int main()
     {
         HardFault_Handler();
     }
-
+    
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
     PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, 1);
+    setSwitch(SW_NCRIT_5V, 1);
 
     if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
         sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))

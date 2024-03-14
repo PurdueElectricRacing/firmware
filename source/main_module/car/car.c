@@ -151,6 +151,7 @@ void carPeriodic()
         // SDC critical error has occured, open sdc
         // Currently latches into this state
         car.sdc_close = false;
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
     }
     else if (car.state == CAR_STATE_ERROR)
     {
@@ -197,8 +198,6 @@ void carPeriodic()
     {
         prchg_start = false;
         car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
-        if (!car.pchg.pchg_complete)
-            car.state = CAR_STATE_IDLE;
 
         if (car.start_btn_debounced &&
            can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
@@ -210,8 +209,6 @@ void carPeriodic()
     else if (car.state == CAR_STATE_BUZZING)
     {
         car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
-        if (!car.pchg.pchg_complete)
-            car.state = CAR_STATE_IDLE;
         // EV.10.5 - Ready to drive sound
         // 1-3 seconds, unique from other sounds
         if (sched.os_ticks - car.buzzer_start_ms > BUZZER_DURATION_MS)
@@ -222,8 +219,6 @@ void carPeriodic()
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
         car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
-        if (!car.pchg.pchg_complete)
-            car.state = CAR_STATE_IDLE;
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced)
         {

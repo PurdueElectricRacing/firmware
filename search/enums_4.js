@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['hover_5fstate_5ft_0',['hover_state_t',['../lcd_8h.html#a588545a0d6aebd9a32aa41b2a8d8dc78',1,'lcd.h']]],
-  ['hw_5fflow_5fctl_5ft_1',['hw_flow_ctl_t',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h']]]
+  ['eth_5ferror_5ft_0',['eth_error_t',['../daq__hub_8h.html#a603f6504d6ae3785c03f1d4ef9eb24ec',1,'daq_hub.h']]],
+  ['eth_5fstate_5ft_1',['eth_state_t',['../daq__hub_8h.html#a2ceaa42c2c246ba593f6bb5b71bc5253',1,'daq_hub.h']]],
+  ['eth_5ftcp_5fstate_5ft_2',['eth_tcp_state_t',['../daq__hub_8h.html#a9e240693aeced11533813b53c9a5542c',1,'daq_hub.h']]]
 ];

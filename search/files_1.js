@@ -6,5 +6,7 @@ var searchData=
   ['bms_2eh_3',['bms.h',['../a__box_2bms_2bms_8h.html',1,'(Global Namespace)'],['../bms_2bms_8h.html',1,'(Global Namespace)']]],
   ['bootloader_2ec_4',['bootloader.c',['../bootloader_8c.html',1,'']]],
   ['bootloader_2eh_5',['bootloader.h',['../bootloader_8h.html',1,'']]],
-  ['bsxlite_5finterface_2eh_6',['bsxlite_interface.h',['../a__box_2bsxlite_2bsxlite__interface_8h.html',1,'(Global Namespace)'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html',1,'(Global Namespace)']]]
+  ['bsxlite_5finterface_2eh_6',['bsxlite_interface.h',['../a__box_2bsxlite_2bsxlite__interface_8h.html',1,'(Global Namespace)'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html',1,'(Global Namespace)']]],
+  ['buffer_2ec_7',['buffer.c',['../buffer_8c.html',1,'']]],
+  ['buffer_2eh_8',['buffer.h',['../buffer_8h.html',1,'']]]
 ];

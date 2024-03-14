@@ -156,7 +156,33 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">        .periph=DMA2, .stream=DMA2_Stream3                                        \</span></div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">    }</span></div>
 </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#endif </span><span class="comment">/* _PHAL_SPI_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="foldopen" id="foldopen00135" data-start="" data-end="">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="phal__F4__F7_2spi_2spi_8h.html#a06e18d5b51b4646a94248ccb2ad3d083">  135</a></span><span class="preprocessor">#define SPI2_TXDMA_CONT_CONFIG(tx_addr_, priority_)                               \</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">    {                                                                             \</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="preprocessor">        .periph_addr = (uint32_t) &amp; (SPI2-&gt;DR), .mem_addr = (uint32_t)(tx_addr_), \</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">        .tx_size = 1, .increment = false, .circular = false,                      \</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">        .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">        .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">        .tx_isr_en = true, .dma_chan_request=0b0000, .stream_idx=4,               \</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">        .periph=DMA1, .stream=DMA1_Stream4                                        \</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">    }</span></div>
+</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="foldopen" id="foldopen00145" data-start="" data-end="">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="phal__F4__F7_2spi_2spi_8h.html#ad217bb70b78900c527c5a018b315a81b">  145</a></span><span class="preprocessor">#define SPI2_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="preprocessor">    {                                                                             \</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">        .periph_addr = (uint32_t) &amp; (SPI2-&gt;DR), .mem_addr = (uint32_t)(rx_addr_), \</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">        .tx_size = 1, .increment = false, .circular = false,                      \</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="preprocessor">        .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false,    \</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">        .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00,           \</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">        .tx_isr_en = false, .dma_chan_request=0b0000, .stream_idx=3,              \</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="preprocessor">        .periph=DMA1, .stream=DMA1_Stream3                                        \</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">    }</span></div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">#endif </span><span class="comment">/* _PHAL_SPI_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aphal__F4__F7_2dma_2dma_8h_html"><div class="ttname"><a href="phal__F4__F7_2dma_2dma_8h.html">dma.h</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2gpio_2gpio_8h_html"><div class="ttname"><a href="phal__F4__F7_2gpio_2gpio_8h.html">gpio.h</a></div><div class="ttdoc">GPIO Driver for STM32L432 Devices.</div></div>
 <div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html">rcc.h</a></div><div class="ttdoc">RCC Configuration Driver for STM32F4 Devices.</div></div>

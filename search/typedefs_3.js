@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['insfilterasync_0',['insfilterAsync',['../SFS_8h.html#ada14f81c57f070c105562bbb6f33c850',1,'SFS.h']]],
-  ['int16_5ft_1',['int16_T',['../rtwtypes_8h.html#ad0054ad6e52717dec8a30de7cc40de39',1,'rtwtypes.h']]],
-  ['int32_5ft_2',['int32_T',['../rtwtypes_8h.html#a9609106d9819cc5902186f03b8c49508',1,'rtwtypes.h']]],
-  ['int64_5ft_3',['int64_T',['../rtwtypes_8h.html#a9f80a0238d372731ee0bed805f228dd1',1,'rtwtypes.h']]],
-  ['int8_5ft_4',['int8_T',['../rtwtypes_8h.html#ab7f14b954bf92a066b5a5cbc6f28b349',1,'rtwtypes.h']]],
-  ['int_5ft_5',['int_T',['../rtwtypes_8h.html#a708854ed500d1aada8fa33d38ed54fbf',1,'rtwtypes.h']]]
+  ['fsize_5ft_0',['FSIZE_t',['../ff_8h.html#a3fc0992ad7436250b6b1a0592214b7f2',1,'ff.h']]],
+  ['func_5fptr_5ft_1',['func_ptr_t',['../psched_8h.html#a770f699d7bfc60dfdd92e3c296fc55cd',1,'psched.h']]],
+  ['fusion_5finternal_5fframes_5fned_2',['fusion_internal_frames_NED',['../SFS_8h.html#a21c8a54c0a12ebabf481d4cc021f987e',1,'SFS.h']]]
 ];

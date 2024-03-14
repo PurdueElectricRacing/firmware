@@ -736,8 +736,7 @@
                         {"msg_name": "coolant_temps"},
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},
-                        {"msg_name": "dashboard_bl_cmd" , "callback": true},
-                        {"msg_name": "dashboard_brake_status"}
+                        {"msg_name": "dashboard_bl_cmd" , "callback": true}
                     ]
                 },
                 {

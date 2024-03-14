@@ -177,11 +177,6 @@ void canRxUpdate()
                 can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
                 dashboard_bl_cmd_CALLBACK(msg_data_a);
                 break;
-            case ID_DASHBOARD_BRAKE_STATUS:
-                can_data.dashboard_brake_status.brake_status = msg_data_a->dashboard_brake_status.brake_status;
-                can_data.dashboard_brake_status.stale = 0;
-                can_data.dashboard_brake_status.last_rx = sched.os_ticks;
-                break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                 can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -261,9 +256,6 @@ void canRxUpdate()
     CHECK_STALE(can_data.gearbox.stale,
                 sched.os_ticks, can_data.gearbox.last_rx,
                 UP_GEARBOX);
-    CHECK_STALE(can_data.dashboard_brake_status.stale,
-                sched.os_ticks, can_data.dashboard_brake_status.last_rx,
-                UP_DASHBOARD_BRAKE_STATUS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -303,17 +295,16 @@ bool initCANFilter()
     CAN1->sFilterRegister[6].FR1 = (ID_GEARBOX << 3) | 4;
     CAN1->sFilterRegister[6].FR2 = (ID_DASHBOARD_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_DASHBOARD_BRAKE_STATUS << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[9].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[9].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     CAN1->FA1R |= (1 << 10);    // configure bank 10
-    CAN1->sFilterRegister[10].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[10].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[10].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

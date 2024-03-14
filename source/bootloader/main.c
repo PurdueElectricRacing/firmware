@@ -42,7 +42,12 @@
 GPIOInitConfig_t gpio_config[] = {
     CAN_RX_GPIO_CONFIG,
     CAN_TX_GPIO_CONFIG,
-    GPIO_INIT_OUTPUT(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    #if (APP_ID != APP_DASHBOARD)
+        GPIO_INIT_OUTPUT(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    #else
+        GPIO_INIT_OUTPUT_OPEN_DRAIN(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
+    #endif
+
     #if (APP_ID == APP_L4_TESTING)
     GPIO_INIT_OUTPUT(GPIOB, 7, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(GPIOB, 6, GPIO_OUTPUT_LOW_SPEED),
@@ -103,13 +108,13 @@ int main (void)
 
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         HardFault_Handler();
-        
+
     if (1 != PHAL_initCAN(CAN1, false))
         HardFault_Handler();
 
     #if (APP_ID == APP_MAIN_MODULE)
-        PHAL_writeGPIO(GPIOD, 12, 1);
-        PHAL_writeGPIO(GPIOD, 13, 1);
+        PHAL_writeGPIO(GPIOD, 12, 0);
+        PHAL_writeGPIO(GPIOD, 14, 0);
     #endif
 
     /* Module init */
@@ -161,7 +166,7 @@ int main (void)
         PHAL_writeGPIO(GPIOB, 1, 0);
         #endif
 
-        /* 
+        /*
             Check if firmware download is complete
                 Attempt to launch the app if so
         */
@@ -211,14 +216,14 @@ void SysTick_Handler(void)
             }
             if (BL_flashStarted() && bootloader_ms >= 3000)
             {
-               BL_timeout(); 
+               BL_timeout();
                bootloader_ms = 0;
             }
             break;
         case RESET_REASON_BUTTON:
         case RESET_REASON_DOWNLOAD_FW:
         case RESET_REASON_APP_WATCHDOG:
-            // Watchdog reset or a bad firmware boot, 
+            // Watchdog reset or a bad firmware boot,
             // stay in bootlaoder for 3 seconds before attempting to boot again
             if (tick % 100 == 0)
             {
@@ -241,7 +246,7 @@ void SysTick_Handler(void)
             }
             break;
         default:
-            break;  
+            break;
     }
 
     if ((BL_flashStarted() && tick % 50 == 0) ||
@@ -304,12 +309,12 @@ bool check_boot_health(void)
     {
         bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
         bootloader_shared_memory.reset_count  = 0;
-    } 
+    }
     else
     {
         bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
     }
-    
+
     if (bootloader_shared_memory.reset_count >= 3)
     {
         // Reached the maximum number of resets
@@ -326,7 +331,7 @@ void jump_to_application(void)
     uint32_t msp = (uint32_t) *((uint32_t*) (((void *) &_eboot_flash)));
     uint32_t estack = (uint32_t) ((uint32_t*) (((void *) &_estack)));
     // Confirm app exists
-    if (app_reset_handler_address == 0xFFFFFFFF || 
+    if (app_reset_handler_address == 0xFFFFFFFF ||
         app_reset_handler_address < 0x8002000 || app_reset_handler_address > 0x807FFFF ||
         msp != estack) return;
 
@@ -364,10 +369,10 @@ void CAN1_RX0_IRQHandler()
     #endif
     can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0); 
+        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0); 
+        CAN1->RF0R &= !(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
@@ -376,7 +381,7 @@ void CAN1_RX0_IRQHandler()
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-        { 
+        {
           rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
         }
         else
@@ -395,7 +400,7 @@ void CAN1_RX0_IRQHandler()
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
-        CAN1->RF0R     |= (CAN_RF0R_RFOM0); 
+        CAN1->RF0R     |= (CAN_RF0R_RFOM0);
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }

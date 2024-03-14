@@ -152,6 +152,132 @@
                     "time_to_latch": 1000,
                     "time_to_unlatch": 1000,
                     "lcd_message": "DT CL Therm Disc"
+                },
+                {
+                    "fault_name": "BSPD_latched",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "fatal",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 10000,
+                    "lcd_message": "BSPD Latched. Restart Car"
+                },
+                {
+                    "fault_name": "bots_fail",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "BOTS Activated"
+                },
+                {
+                    "fault_name": "inertia_fail",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "Inertia Switch activated"
+                },
+                {
+                    "fault_name": "cockpit_estop",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "Cockpit E-Stop Pressed"
+                },
+                {
+                    "fault_name": "right_estop",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "Right E-Stop Pressed"
+                },
+                {
+                    "fault_name": "left_estop",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "Left E-Stop Pressed"
+                },
+                {
+                    "fault_name": "hvd_disc",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "HVD Disconnected"
+                },
+                {
+                    "fault_name": "hub_disc",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "Hub Interlock Disconencted"
+                },
+                {
+                    "fault_name": "tsms_disc",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 400,
+                    "lcd_message": "TSMS Off"
+                },
+                {
+                    "fault_name": "precharge_time_fault",
+                    "max": 9500,
+                    "min": -10,
+                    "priority": "fatal",
+                    "time_to_latch": 400,
+                    "time_to_unlatch": 10000,
+                    "lcd_message": "PRCHG time exceeded"
+                },
+                {
+                    "fault_name": "motor_r_heat",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Right Motor Hot (>80C)"
+                },
+                {
+                    "fault_name": "motor_l_heat",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Left Motor Hot (>80C)"
+                },
+                {
+                    "fault_name": "motor_r_ot",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Right Motor Overtemp (>90C)"
+                },
+                {
+                    "fault_name": "motor_l_ot",
+                    "max": 80,
+                    "min": -80,
+                    "priority": "error",
+                    "time_to_latch": 1000,
+                    "time_to_unlatch": 1000,
+                    "lcd_message": "Left Motor Overtemp (>90C)"
                 }
             ]
         },

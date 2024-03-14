@@ -92,61 +92,53 @@ GPIOInitConfig_t gpio_config[] = {
 
 /* USART Configuration */
 // Left Motor Controller UART
-// dma_init_t usart_l_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-// dma_init_t usart_l_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-// char usart_l_rx_array[MC_MAX_RX_LENGTH] = {'\0'};
-// volatile usart_rx_buf_t huart_l_rx_buf = {
-//     .last_msg_time = 0, .msg_size = MC_MAX_TX_LENGTH,
-//     .last_msg_loc  = 0, .last_rx_time = 0,
-//     .rx_buf_size   = MC_MAX_RX_LENGTH, .rx_buf = usart_l_rx_array
-// };
-// usart_init_t huart_l = {
-//     .baud_rate   = 115200,
-//     .word_length = WORD_8,
-//     .hw_flow_ctl = HW_DISABLE,
-//     .mode        = MODE_TX_RX,
-//     .stop_bits   = SB_ONE,
-//     .parity      = PT_NONE,
-//     .obsample    = OB_DISABLE,
-//     .ovsample    = OV_16,
-//     .adv_feature.rx_inv    = false,
-//     .adv_feature.tx_inv    = false,
-//     .adv_feature.auto_baud = false,
-//     .adv_feature.data_inv  = false,
-//     .adv_feature.msb_first = false,
-//     .adv_feature.overrun   = false,
-//     .adv_feature.dma_on_rx_err = false,
-//     .tx_dma_cfg = &usart_l_tx_dma_config,
-//     .rx_dma_cfg = &usart_l_rx_dma_config
-// };
+dma_init_t usart_l_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_l_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+char usart_l_rx_array[MC_MAX_RX_LENGTH] = {'\0'};
+volatile usart_rx_buf_t huart_l_rx_buf = {
+    .last_msg_time = 0, .msg_size = MC_MAX_TX_LENGTH,
+    .last_msg_loc  = 0, .last_rx_time = 0,
+    .rx_buf_size   = MC_MAX_RX_LENGTH, .rx_buf = usart_l_rx_array
+};
+usart_init_t huart_l = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART1,
+   .wake_addr = false,
+   .usart_active_num = USART1_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_l_tx_dma_config,
+   .rx_dma_cfg = &usart_l_rx_dma_config
+};
+
 // Right Motor Controller UART
-// dma_init_t usart_r_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
-// dma_init_t usart_r_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
-// char usart_r_rx_array[MC_MAX_RX_LENGTH] = {'\0'};
-// volatile usart_rx_buf_t huart_r_rx_buf = {
-//     .last_msg_time = 0, .msg_size = MC_MAX_TX_LENGTH,
-//     .last_msg_loc  = 0, .last_rx_time = 0,
-//     .rx_buf_size   = MC_MAX_RX_LENGTH, .rx_buf = usart_r_rx_array
-// };
-// usart_init_t huart_r = {
-//     .baud_rate   = 115200,
-//     .word_length = WORD_8,
-//     .hw_flow_ctl = HW_DISABLE,
-//     .mode        = MODE_TX_RX,
-//     .stop_bits   = SB_ONE,
-//     .parity      = PT_NONE,
-//     .obsample    = OB_DISABLE,
-//     .ovsample    = OV_16,
-//     .adv_feature.rx_inv    = false,
-//     .adv_feature.tx_inv    = false,
-//     .adv_feature.auto_baud = false,
-//     .adv_feature.data_inv  = false,
-//     .adv_feature.msb_first = false,
-//     .adv_feature.overrun   = false,
-//     .adv_feature.dma_on_rx_err = false,
-//     .tx_dma_cfg = &usart_r_tx_dma_config,
-//     .rx_dma_cfg = &usart_r_rx_dma_config
-// };
+dma_init_t usart_r_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_r_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t huart_r = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART2,
+   .wake_addr = false,
+   .usart_active_num = USART2_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_r_tx_dma_config,
+   .rx_dma_cfg = &usart_r_rx_dma_config
+};
+char usart_r_rx_array[MC_MAX_RX_LENGTH] = {'\0'};
+volatile usart_rx_buf_t huart_r_rx_buf = {
+    .last_msg_time = 0, .msg_size = MC_MAX_TX_LENGTH,
+    .last_msg_loc  = 0, .last_rx_time = 0,
+    .rx_buf_size   = MC_MAX_RX_LENGTH, .rx_buf = usart_r_rx_array
+};
+
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_6,
@@ -190,40 +182,42 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
 
 
 
-/* Clock Configuration */
-#define TargetCoreClockrateHz 16000000
-ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_HSI,
-    .vco_output_rate_target_hz  =160000000,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-};
-
-/* Locals for Clock Rates */
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
+
+#define TargetCoreClockrateHz 144000000
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =288000000,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+};
 
 /* Function Prototypes */
 void preflightAnimation(void);
 void preflightChecks(void);
 void heartBeatLED();
 void usartTxUpdate(void);
-// void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf);
+void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf);
 void canTxUpdate(void);
 void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 
-void brak_buzz_test();
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 uint8_t can_tx_fails; // number of CAN messages that failed to transmit
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
+
+uint16_t num_failed_msgs_r;
+uint16_t num_failed_msgs_l;
+
 
 int main(void){
     /* Data Struct Initialization */
@@ -251,18 +245,17 @@ int main(void){
 
     taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
-    taskCreate(monitorSDCPeriodic, 10);
-    // taskCreate(carHeartbeat, 100);
+    taskCreate(monitorSDCPeriodic, 200);
+    taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
     // taskCreate(wheelSpeedsPeriodic, 15);
-    // taskCreate(updatePowerMonitor, 100);
     taskCreate(heartBeatTask, 100);
-    // taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
+    taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-    // taskCreateBackground(usartTxUpdate);
+    taskCreateBackground(usartTxUpdate);
     // taskCreateBackground(memBg);
 
     // calibrateSteeringAngle(&i);
@@ -281,15 +274,15 @@ void preflightChecks(void) {
     {
         case 0:
             // huart_l.rx_dma_cfg->circular = true;
-            // if(!PHAL_initUSART(MC_L_UART, &huart_l, APB1ClockRateHz))
-            // {
-            //     HardFault_Handler();
-            // }
+            if(!PHAL_initUSART(&huart_l, APB2ClockRateHz))
+            {
+                HardFault_Handler();
+            }
             // huart_r.rx_dma_cfg->circular = true;
-            // if(!PHAL_initUSART(MC_R_UART, &huart_r, APB2ClockRateHz))
-            // {
-            //     HardFault_Handler();
-            // }
+            if(!PHAL_initUSART(&huart_r, APB1ClockRateHz))
+            {
+                HardFault_Handler();
+            }
             break;
         case 1:
             if(!PHAL_initCAN(CAN1, false))
@@ -317,19 +310,13 @@ void preflightChecks(void) {
             PHAL_startADC(ADC1);
            break;
         case 3:
-            /* UART Initialization */
-            // MC_L_UART->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
-            // NVIC_EnableIRQ(USART1_IRQn);
             // initial rx request
-            // PHAL_usartRxDma(MC_L_UART, &huart_l,
-            //                 (uint16_t *) huart_l_rx_buf.rx_buf,
-            //                 huart_l_rx_buf.rx_buf_size);
-            // MC_R_UART->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_TXEIE);
-            // NVIC_EnableIRQ(USART2_IRQn);
-            // // initial rx request
-            // PHAL_usartRxDma(MC_R_UART, &huart_r,
-            //                 (uint16_t *) huart_r_rx_buf.rx_buf,
-            //                 huart_r_rx_buf.rx_buf_size);
+            PHAL_usartRxDma(&huart_r,
+                            (uint16_t *) huart_r_rx_buf.rx_buf,
+                            huart_r_rx_buf.rx_buf_size, 1);
+            PHAL_usartRxDma(&huart_l,
+                            (uint16_t *) huart_l_rx_buf.rx_buf,
+                            huart_l_rx_buf.rx_buf_size, 1);
             break;
         case 4:
            /* Module Initialization */
@@ -391,51 +378,61 @@ void heartBeatLED(void)
 }
 
 /* USART Message Handling */
-// uint8_t tmp_left[MC_MAX_TX_LENGTH] = {'\0'};
-// uint8_t tmp_right[MC_MAX_TX_LENGTH] = {'\0'};
-// void usartTxUpdate(void)
-// {
-//     if (PHAL_usartTxDmaComplete(&huart_l) &&
-//         qReceive(&q_tx_usart_l, tmp_left) == SUCCESS_G)
-//     {
-//         PHAL_usartTxDma(MC_L_UART, &huart_l, (uint16_t *) tmp_left, strlen(tmp_left));
-//     }
-//     if (PHAL_usartTxDmaComplete(&huart_r) &&
-//         qReceive(&q_tx_usart_r, tmp_right) == SUCCESS_G)
-//     {
-//         PHAL_usartTxDma(MC_R_UART, &huart_r, (uint16_t *) tmp_right, strlen(tmp_right));
-//     }
-// }
+uint8_t tmp_left[MC_MAX_TX_LENGTH] = {'\0'};
+uint8_t tmp_right[MC_MAX_TX_LENGTH] = {'\0'};
+void usartTxUpdate(void)
+{
+    if (!PHAL_usartTxBusy(&huart_l) &&
+        qReceive(&q_tx_usart_l, tmp_left) == SUCCESS_G)
+    {
+        PHAL_usartTxDma(&huart_l, (uint16_t *) tmp_left, strlen(tmp_left));
+    }
+    if (!PHAL_usartTxBusy(&huart_r) &&
+        qReceive(&q_tx_usart_r, tmp_right) == SUCCESS_G)
+    {
+        PHAL_usartTxDma(&huart_r, (uint16_t *) tmp_right, strlen(tmp_right));
+    }
+}
 
-// void USART1_IRQHandler(void) {
-//     if (MC_L_UART->ISR & USART_ISR_IDLE) {
-//         usartIdleIRQ(&huart_l, &huart_l_rx_buf);
-//         MC_L_UART->ICR = USART_ICR_IDLECF;
-//     }
-// }
+void usart_recieve_complete_callback(usart_init_t *handle)
+{
+    if (handle == &huart_r)
+    {
+        if (handle->rx_errors.noise_detected)
+        {
+            num_failed_msgs_r++;
+            return;
+        }
+        usartIdleIRQ(&huart_r, &huart_r_rx_buf);
+    }
+    else if (handle == &huart_l)
+    {
+        if (handle->rx_errors.noise_detected)
+        {
+            num_failed_msgs_l++;
+            return;
+        }
+        usartIdleIRQ(&huart_l, &huart_l_rx_buf);
+    }
+}
 
-// void USART2_IRQHandler(void) {
-//     if (MC_R_UART->ISR & USART_ISR_IDLE) {
-//         usartIdleIRQ(&huart_r, &huart_r_rx_buf);
-//         MC_R_UART->ICR = USART_ICR_IDLECF;
-//     }
-// }
 
-// void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
-// {
-//     // TODO: check for overruns, framing errors, etc
-//     uint16_t new_loc = 0;
-//     rx_buf->last_rx_time = sched.os_ticks;
-//     new_loc = rx_buf->rx_buf_size - huart->rx_dma_cfg->channel->CNDTR;      // extract last location from DMA
-//     if (new_loc == rx_buf->rx_buf_size) new_loc = 0;                        // should never happen
-//     else if (new_loc < rx_buf->last_rx_loc) new_loc += rx_buf->rx_buf_size; // wrap around
-//     if (new_loc - rx_buf->last_rx_loc > rx_buf->msg_size)                   // status msg vs just an echo
-//     {
-//         rx_buf->last_msg_time = sched.os_ticks;
-//         rx_buf->last_msg_loc = (rx_buf->last_rx_loc + 1) % rx_buf->rx_buf_size;
-//     }
-//     rx_buf->last_rx_loc = new_loc % rx_buf->rx_buf_size;
-// }
+
+void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
+{
+    // TODO: check for overruns, framing errors, etc
+    uint16_t new_loc = 0;
+    rx_buf->last_rx_time = sched.os_ticks;
+    new_loc = rx_buf->rx_buf_size - huart->rx_dma_cfg->stream->NDTR;      // extract last location from DMA
+    if (new_loc == rx_buf->rx_buf_size) new_loc = 0;                        // should never happen
+    else if (new_loc < rx_buf->last_rx_loc) new_loc += rx_buf->rx_buf_size; // wrap around
+    if (new_loc - rx_buf->last_rx_loc > rx_buf->msg_size)                   // status msg vs just an echo
+    {
+        rx_buf->last_msg_time = sched.os_ticks;
+        rx_buf->last_msg_loc = (rx_buf->last_rx_loc + 1) % rx_buf->rx_buf_size;
+    }
+    rx_buf->last_rx_loc = new_loc % rx_buf->rx_buf_size;
+}
 
 /* CAN Message Handling */
 void canTxUpdate(void)

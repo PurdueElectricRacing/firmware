@@ -29,6 +29,10 @@
 #define BRAKE_LIGHT_OFF_THRESHOLD (150)
 
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
+
+
+//Defines to guess a BSPD fault
+#define NUM_HIST_BSPD 16
 typedef struct
 {
     float torque_left;    // [-100.0, 100.0]
@@ -87,8 +91,19 @@ void carPeriodic();
 void parseMCDataPeriodic(void);
 void calibrateSteeringAngle(uint8_t* success);
 void monitorSDCPeriodic(void);
+void updateSDCFaults(void);
 
+// SDC Node defines
 #define SDC_MUX_HIGH_IDX 14
+#define SDC_MAIN 0
+#define SDC_C_STOP 1
+#define SDC_INERTIA 2
+#define SDC_BOTS 3
+#define SDC_R_STOP 8
+#define SDC_L_STOP 9
+#define SDC_HVD 10
+#define SDC_HUB 11
+#define SDC_TSMS 12
 
 typedef struct __attribute__((packed))
 {

@@ -66,7 +66,12 @@ void coolingPeriodic()
     // Find max motor temperature (CELSIUS)
     // uint8_t max_motor_temp = MAX(car.motor_l.motor_temp,
     //                              car.motor_r.motor_temp);
-    // Determine if DT thermistors are disconnected
+    // Motor Temperature monitor
+    setFault(ID_MOTOR_L_HEAT_FAULT, car.motor_l.motor_temp);
+    setFault(ID_MOTOR_R_HEAT_FAULT, car.motor_r.motor_temp);
+
+    setFault(ID_MOTOR_L_OT_FAULT, car.motor_l.motor_temp);
+    setFault(ID_MOTOR_R_OT_FAULT, car.motor_r.motor_temp);
 
 
     // Determine if dt/coolant temps are too high

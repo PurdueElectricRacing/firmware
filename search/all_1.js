@@ -210,8 +210,9 @@ var searchData=
   ['aux_5fhp_5fimon_5fadc_5fchnl_207',['AUX_HP_IMON_ADC_CHNL',['../pdu_2main_8h.html#a08b4b395be733adc04cbdc9e8fbce97f',1,'main.h']]],
   ['aux_5fhp_5fimon_5fgpio_5fport_208',['AUX_HP_IMON_GPIO_Port',['../pdu_2main_8h.html#a8814bae3ae877ac1d75f96a0558c650b',1,'main.h']]],
   ['aux_5fhp_5fimon_5fpin_209',['AUX_HP_IMON_Pin',['../pdu_2main_8h.html#aab585f6b35fafab4e954d9933f8afe6d',1,'main.h']]],
-  ['ax_210',['ax',['../union____attribute____.html#ab52214b4cb486d5d17cea1156bc37ae3',1,'__attribute__']]],
-  ['axst_211',['AXST',['../afe_8h.html#a7a409f1aa75678cc56872e16d12e930e',1,'afe.h']]],
-  ['ay_212',['ay',['../union____attribute____.html#ae49a2cb93dc8208fa5ad5000013c2b9a',1,'__attribute__']]],
-  ['az_213',['az',['../union____attribute____.html#a2ccbf1673b69e4ddfad0033f457adaf8',1,'__attribute__']]]
+  ['aux_5fstatus_210',['aux_status',['../structcooling__request__t.html#a0aa1403ca0df35b4aaa96c95355a45ba',1,'cooling_request_t']]],
+  ['ax_211',['ax',['../union____attribute____.html#ab52214b4cb486d5d17cea1156bc37ae3',1,'__attribute__']]],
+  ['axst_212',['AXST',['../afe_8h.html#a7a409f1aa75678cc56872e16d12e930e',1,'afe.h']]],
+  ['ay_213',['ay',['../union____attribute____.html#ae49a2cb93dc8208fa5ad5000013c2b9a',1,'__attribute__']]],
+  ['az_214',['az',['../union____attribute____.html#a2ccbf1673b69e4ddfad0033f457adaf8',1,'__attribute__']]]
 ];

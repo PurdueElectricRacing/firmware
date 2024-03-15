@@ -43,7 +43,7 @@ var searchData=
   ['max_5ft_5fwake_40',['MAX_T_WAKE',['../afe_8h.html#a61d8c525bc350abf091d7f742c110857',1,'afe.h']]],
   ['max_5ftasks_41',['MAX_TASKS',['../psched_8h.html#aac747bed84189f8cfa509b94d488e622',1,'psched.h']]],
   ['max_5ftemp_42',['MAX_TEMP',['../a__box_2bms_2bms_8h.html#aed8ea54a2630aaf2ae3f2bd5fa886959',1,'MAX_TEMP:&#160;bms.h'],['../orion_8h.html#aed8ea54a2630aaf2ae3f2bd5fa886959',1,'MAX_TEMP:&#160;orion.h']]],
-  ['max_5ftherm_43',['MAX_THERM',['../cooling_8h.html#a952be1fe551d5e0111989f37479f9351',1,'cooling.h']]],
+  ['max_5ftherm_43',['MAX_THERM',['../main__module_2cooling_2cooling_8h.html#a952be1fe551d5e0111989f37479f9351',1,'cooling.h']]],
   ['max_5fuint16_5ft_44',['MAX_uint16_T',['../rtwtypes_8h.html#a5f69d019adce227ecfb104b7139aa52a',1,'rtwtypes.h']]],
   ['max_5fuint32_5ft_45',['MAX_uint32_T',['../rtwtypes_8h.html#af3b12d911332c30bc150743e1196660a',1,'rtwtypes.h']]],
   ['max_5fuint64_5ft_46',['MAX_uint64_T',['../rtwtypes_8h.html#ab4e249675db6a13f72914d4a0ca36364',1,'rtwtypes.h']]],

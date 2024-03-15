@@ -83,6 +83,9 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &quot;common/faults/faults.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -95,6 +98,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a467332216958e3faa3f70724fcf10194" id="r_a467332216958e3faa3f70724fcf10194"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a467332216958e3faa3f70724fcf10194">autoSwitchPeriodic</a> ()</td></tr>
 <tr class="memdesc:a467332216958e3faa3f70724fcf10194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combined function that calls updateVoltage() and updateCurrent()  <br /></td></tr>
 <tr class="separator:a467332216958e3faa3f70724fcf10194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea4edf80bd2f6bda11bfa85669197d6f" id="r_aea4edf80bd2f6bda11bfa85669197d6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea4edf80bd2f6bda11bfa85669197d6f">checkSwitchFaults</a> ()</td></tr>
+<tr class="memdesc:aea4edf80bd2f6bda11bfa85669197d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the status of various auto switches to ensure rails are ok. Sets fault and activates blink indicator if not..  <br /></td></tr>
+<tr class="separator:aea4edf80bd2f6bda11bfa85669197d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -125,6 +131,25 @@ Variables</h2></td></tr>
 <p>Combined function that calls updateVoltage() and updateCurrent() </p>
 <p>Voltage on each rail is stored at: auto_switches.voltage.in_24v auto_switches.voltage.out_5v auto_switches.voltage.out_3v3</p>
 <p>Current through each switch is stored at: auto_switches.current[auto_switch_enum] </p>
+
+</div>
+</div>
+<a id="aea4edf80bd2f6bda11bfa85669197d6f" name="aea4edf80bd2f6bda11bfa85669197d6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea4edf80bd2f6bda11bfa85669197d6f">&#9670;&#160;</a></span>checkSwitchFaults()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void checkSwitchFaults </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks the status of various auto switches to ensure rails are ok. Sets fault and activates blink indicator if not.. </p>
 
 </div>
 </div>

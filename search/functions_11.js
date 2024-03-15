@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rawthermtocelcius_0',['rawThermtoCelcius',['../cooling_8c.html#a49e8b863e93909933505f41e27bd987e',1,'rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1):&#160;cooling.c'],['../cooling_8h.html#a49e8b863e93909933505f41e27bd987e',1,'rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1):&#160;cooling.c']]],
+  ['rawthermtocelcius_0',['rawThermtoCelcius',['../main__module_2cooling_2cooling_8c.html#a49e8b863e93909933505f41e27bd987e',1,'rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1):&#160;cooling.c'],['../main__module_2cooling_2cooling_8h.html#a49e8b863e93909933505f41e27bd987e',1,'rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1):&#160;cooling.c']]],
   ['readblue_1',['readBlue',['../l4__testing_2main_8c.html#aa9b44c997b1968afeed8998a1098f3ef',1,'main.c']]],
   ['readgreen_2',['readGreen',['../l4__testing_2main_8c.html#a02ae988dac67e702fec9004e3cc5167b',1,'main.c']]],
   ['readpage_3',['readPage',['../eeprom__spi_8c.html#a58980a6983f33c9c594048e5d0fe283d',1,'readPage(uint16_t addr, uint8_t *page):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a58980a6983f33c9c594048e5d0fe283d',1,'readPage(uint16_t addr, uint8_t *page):&#160;eeprom_spi.c']]],

@@ -68,7 +68,8 @@ var searchData=
   ['auto_5fbaud_65',['auto_baud',['../structadv__feature__t.html#ae5b26318134e9b6d3a317a25c781a858',1,'adv_feature_t']]],
   ['auto_5fswitches_66',['auto_switches',['../auto__switch_8c.html#a19dbab87e0ceca06b137d8feb5b2dc90',1,'auto_switches:&#160;auto_switch.c'],['../auto__switch_8h.html#a19dbab87e0ceca06b137d8feb5b2dc90',1,'auto_switches:&#160;auto_switch.c']]],
   ['aux_5fhp_5fimon_67',['aux_hp_imon',['../union____attribute____.html#ae654c20d0f09ccbe3860a704b8b96f9f',1,'__attribute__']]],
-  ['ax_68',['ax',['../union____attribute____.html#ab52214b4cb486d5d17cea1156bc37ae3',1,'__attribute__']]],
-  ['ay_69',['ay',['../union____attribute____.html#ae49a2cb93dc8208fa5ad5000013c2b9a',1,'__attribute__']]],
-  ['az_70',['az',['../union____attribute____.html#a2ccbf1673b69e4ddfad0033f457adaf8',1,'__attribute__']]]
+  ['aux_5fstatus_68',['aux_status',['../structcooling__request__t.html#a0aa1403ca0df35b4aaa96c95355a45ba',1,'cooling_request_t']]],
+  ['ax_69',['ax',['../union____attribute____.html#ab52214b4cb486d5d17cea1156bc37ae3',1,'__attribute__']]],
+  ['ay_70',['ay',['../union____attribute____.html#ae49a2cb93dc8208fa5ad5000013c2b9a',1,'__attribute__']]],
+  ['az_71',['az',['../union____attribute____.html#a2ccbf1673b69e4ddfad0033f457adaf8',1,'__attribute__']]]
 ];

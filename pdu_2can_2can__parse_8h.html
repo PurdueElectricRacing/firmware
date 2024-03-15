@@ -78,6 +78,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">can_parse.h File Reference</div></div>
@@ -103,14 +104,26 @@ Classes</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a8cc8d559acdd2f74085b20977182d5b7" id="r_a8cc8d559acdd2f74085b20977182d5b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cc8d559acdd2f74085b20977182d5b7">NODE_NAME</a>&#160;&#160;&#160;&quot;PDU&quot;</td></tr>
 <tr class="separator:a8cc8d559acdd2f74085b20977182d5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d80a01a02ccf0750878b85e80ca48dd" id="r_a5d80a01a02ccf0750878b85e80ca48dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d80a01a02ccf0750878b85e80ca48dd">ID_PDU_TEST</a>&#160;&#160;&#160;0x401041f</td></tr>
-<tr class="separator:a5d80a01a02ccf0750878b85e80ca48dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88c5b30cb0594f4e8fe6313c38f1c6a5" id="r_a88c5b30cb0594f4e8fe6313c38f1c6a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88c5b30cb0594f4e8fe6313c38f1c6a5">ID_V_RAILS</a>&#160;&#160;&#160;0x401045f</td></tr>
+<tr class="separator:a88c5b30cb0594f4e8fe6313c38f1c6a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9f1ff358fb73b90fa57f562e454a2f5" id="r_aa9f1ff358fb73b90fa57f562e454a2f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9f1ff358fb73b90fa57f562e454a2f5">ID_RAIL_CURRENTS</a>&#160;&#160;&#160;0x401049f</td></tr>
+<tr class="separator:aa9f1ff358fb73b90fa57f562e454a2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac498861031c356b7ba976173e4b67bc8" id="r_ac498861031c356b7ba976173e4b67bc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac498861031c356b7ba976173e4b67bc8">ID_PUMP_AND_FAN_CURRENT</a>&#160;&#160;&#160;0x40104df</td></tr>
+<tr class="separator:ac498861031c356b7ba976173e4b67bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ec18e63c1dc1a227d92d7fba4163fb9" id="r_a7ec18e63c1dc1a227d92d7fba4163fb9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ec18e63c1dc1a227d92d7fba4163fb9">ID_OTHER_CURRENTS</a>&#160;&#160;&#160;0x401051f</td></tr>
+<tr class="separator:a7ec18e63c1dc1a227d92d7fba4163fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f14f4d846a4ede34109344143c2d93b" id="r_a6f14f4d846a4ede34109344143c2d93b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f14f4d846a4ede34109344143c2d93b">ID_COOLANT_OUT</a>&#160;&#160;&#160;0x40008df</td></tr>
+<tr class="separator:a6f14f4d846a4ede34109344143c2d93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e89d9220b475fbb54758b0a464b73ad" id="r_a6e89d9220b475fbb54758b0a464b73ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e89d9220b475fbb54758b0a464b73ad">ID_FAULT_SYNC_PDU</a>&#160;&#160;&#160;0x8cadf</td></tr>
 <tr class="separator:a6e89d9220b475fbb54758b0a464b73ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a450c6ff719faa36c1ca2c343f132c722" id="r_a450c6ff719faa36c1ca2c343f132c722"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a450c6ff719faa36c1ca2c343f132c722">ID_DAQ_RESPONSE_PDU</a>&#160;&#160;&#160;0x17ffffdf</td></tr>
 <tr class="separator:a450c6ff719faa36c1ca2c343f132c722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02586152262df09a03b0af4d7758e6fa" id="r_a02586152262df09a03b0af4d7758e6fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02586152262df09a03b0af4d7758e6fa">ID_PDU_BL_CMD</a>&#160;&#160;&#160;0x409c53e</td></tr>
 <tr class="separator:a02586152262df09a03b0af4d7758e6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07a40ecec89a6d0ab77dba44e34fc3ca" id="r_a07a40ecec89a6d0ab77dba44e34fc3ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07a40ecec89a6d0ab77dba44e34fc3ca">ID_COOLING_DRIVER_REQUEST</a>&#160;&#160;&#160;0xc0002c5</td></tr>
+<tr class="separator:a07a40ecec89a6d0ab77dba44e34fc3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb20d2ea361bfaaa69db1605c76a72fe" id="r_adb20d2ea361bfaaa69db1605c76a72fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb20d2ea361bfaaa69db1605c76a72fe">ID_MAIN_HB</a>&#160;&#160;&#160;0x4001901</td></tr>
+<tr class="separator:adb20d2ea361bfaaa69db1605c76a72fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2116081dea4d2c1b67ddfd1d2937270" id="r_ac2116081dea4d2c1b67ddfd1d2937270"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2116081dea4d2c1b67ddfd1d2937270">ID_FAULT_SYNC_MAIN_MODULE</a>&#160;&#160;&#160;0x8ca01</td></tr>
 <tr class="separator:ac2116081dea4d2c1b67ddfd1d2937270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85ba219b4669ae0c2cf57c75251effc5" id="r_a85ba219b4669ae0c2cf57c75251effc5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85ba219b4669ae0c2cf57c75251effc5">ID_FAULT_SYNC_DASHBOARD</a>&#160;&#160;&#160;0x8ca85</td></tr>
@@ -125,14 +138,26 @@ Macros</h2></td></tr>
 <tr class="separator:a2099b532fab5ae6dc0c646b3f79d382e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaa1346e44a4afa9eb68c8e8f5cddbcc" id="r_aaaa1346e44a4afa9eb68c8e8f5cddbcc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaa1346e44a4afa9eb68c8e8f5cddbcc">ID_DAQ_COMMAND_PDU</a>&#160;&#160;&#160;0x140007f2</td></tr>
 <tr class="separator:aaaa1346e44a4afa9eb68c8e8f5cddbcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f81fba436e8132caec9cb2a93299ff0" id="r_a1f81fba436e8132caec9cb2a93299ff0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f81fba436e8132caec9cb2a93299ff0">DLC_PDU_TEST</a>&#160;&#160;&#160;3</td></tr>
-<tr class="separator:a1f81fba436e8132caec9cb2a93299ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1799387c55cc3a0d94f33327764cadef" id="r_a1799387c55cc3a0d94f33327764cadef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1799387c55cc3a0d94f33327764cadef">DLC_V_RAILS</a>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:a1799387c55cc3a0d94f33327764cadef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afddf6a204adafc1c5386f8e9ce1aa946" id="r_afddf6a204adafc1c5386f8e9ce1aa946"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afddf6a204adafc1c5386f8e9ce1aa946">DLC_RAIL_CURRENTS</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:afddf6a204adafc1c5386f8e9ce1aa946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e1cc762db7e8e29cfdd81d9b738a2e0" id="r_a9e1cc762db7e8e29cfdd81d9b738a2e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e1cc762db7e8e29cfdd81d9b738a2e0">DLC_PUMP_AND_FAN_CURRENT</a>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:a9e1cc762db7e8e29cfdd81d9b738a2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a654e7f0c92a5ed06da4e76c1c5222b" id="r_a3a654e7f0c92a5ed06da4e76c1c5222b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a654e7f0c92a5ed06da4e76c1c5222b">DLC_OTHER_CURRENTS</a>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a3a654e7f0c92a5ed06da4e76c1c5222b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f3acf289b7e8f263a6bd73911a27d02" id="r_a0f3acf289b7e8f263a6bd73911a27d02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f3acf289b7e8f263a6bd73911a27d02">DLC_COOLANT_OUT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a0f3acf289b7e8f263a6bd73911a27d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27fa6a4ac57c58a060d60b5b9bd8ebcc" id="r_a27fa6a4ac57c58a060d60b5b9bd8ebcc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27fa6a4ac57c58a060d60b5b9bd8ebcc">DLC_FAULT_SYNC_PDU</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:a27fa6a4ac57c58a060d60b5b9bd8ebcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad88b0f6cd04d2f70bbb693b7faa105f6" id="r_ad88b0f6cd04d2f70bbb693b7faa105f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad88b0f6cd04d2f70bbb693b7faa105f6">DLC_DAQ_RESPONSE_PDU</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:ad88b0f6cd04d2f70bbb693b7faa105f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa91a44175d8a77bdfefc0573aaa2a595" id="r_aa91a44175d8a77bdfefc0573aaa2a595"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa91a44175d8a77bdfefc0573aaa2a595">DLC_PDU_BL_CMD</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:aa91a44175d8a77bdfefc0573aaa2a595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1a01cc93084360713b743bf94e4fd5e" id="r_ac1a01cc93084360713b743bf94e4fd5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1a01cc93084360713b743bf94e4fd5e">DLC_COOLING_DRIVER_REQUEST</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:ac1a01cc93084360713b743bf94e4fd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac62f13737af2572a5a77eae72288394d" id="r_ac62f13737af2572a5a77eae72288394d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac62f13737af2572a5a77eae72288394d">DLC_MAIN_HB</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:ac62f13737af2572a5a77eae72288394d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1567d3af94fd261778e554c6c788f32" id="r_ac1567d3af94fd261778e554c6c788f32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1567d3af94fd261778e554c6c788f32">DLC_FAULT_SYNC_MAIN_MODULE</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:ac1567d3af94fd261778e554c6c788f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a811ce2db0d1bb06c42f9405f98fa702a" id="r_a811ce2db0d1bb06c42f9405f98fa702a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a811ce2db0d1bb06c42f9405f98fa702a">DLC_FAULT_SYNC_DASHBOARD</a>&#160;&#160;&#160;3</td></tr>
@@ -147,16 +172,45 @@ Macros</h2></td></tr>
 <tr class="separator:a8a7adca2e81599090ebd289d2cc484c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a035a13151b144c5e779e755c4bdb62bc" id="r_a035a13151b144c5e779e755c4bdb62bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a035a13151b144c5e779e755c4bdb62bc">DLC_DAQ_COMMAND_PDU</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:a035a13151b144c5e779e755c4bdb62bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afab36e5aa49c3c0263ffc6768eecbc06" id="r_afab36e5aa49c3c0263ffc6768eecbc06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afab36e5aa49c3c0263ffc6768eecbc06">SEND_PDU_TEST</a>(queue,  test_1_,  test_2_,  test_3_)</td></tr>
-<tr class="separator:afab36e5aa49c3c0263ffc6768eecbc06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a532f187eb671a05cb6292569ca4a8f57" id="r_a532f187eb671a05cb6292569ca4a8f57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a532f187eb671a05cb6292569ca4a8f57">SEND_V_RAILS</a>(queue,  in_24v_,  out_5v_,  out_3v3_)</td></tr>
+<tr class="separator:a532f187eb671a05cb6292569ca4a8f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a152e350880b361f4acafc0dd12d76d29" id="r_a152e350880b361f4acafc0dd12d76d29"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a152e350880b361f4acafc0dd12d76d29">SEND_RAIL_CURRENTS</a>(queue,  i_24v_,  i_5v_)</td></tr>
+<tr class="separator:a152e350880b361f4acafc0dd12d76d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0970a416c6f0ed96e0369f96c7b72518" id="r_a0970a416c6f0ed96e0369f96c7b72518"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0970a416c6f0ed96e0369f96c7b72518">SEND_PUMP_AND_FAN_CURRENT</a>(queue,  i_pump1_,  i_pump2_,  i_fan1_,  i_fan2_)</td></tr>
+<tr class="separator:a0970a416c6f0ed96e0369f96c7b72518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa26a7cc5ac3a3ea59469f750af924734" id="r_aa26a7cc5ac3a3ea59469f750af924734"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa26a7cc5ac3a3ea59469f750af924734">SEND_OTHER_CURRENTS</a>(queue,  i_sdc_,  i_aux_,  i_dash_,  i_abox_,  i_main_)</td></tr>
+<tr class="separator:aa26a7cc5ac3a3ea59469f750af924734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8218081fc8b004260d5b973f2b078e88" id="r_a8218081fc8b004260d5b973f2b078e88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8218081fc8b004260d5b973f2b078e88">SEND_COOLANT_OUT</a>(queue,  bat_fan_,  dt_fan_,  bat_pump_,  bat_pump_aux_,  dt_pump_)</td></tr>
+<tr class="separator:a8218081fc8b004260d5b973f2b078e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61afea1205efae5d80f86dbddc8fe806" id="r_a61afea1205efae5d80f86dbddc8fe806"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61afea1205efae5d80f86dbddc8fe806">SEND_FAULT_SYNC_PDU</a>(queue,  idx_,  latched_)</td></tr>
 <tr class="separator:a61afea1205efae5d80f86dbddc8fe806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dbe8edcdd088672c7fd0443e7fd8e35" id="r_a5dbe8edcdd088672c7fd0443e7fd8e35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dbe8edcdd088672c7fd0443e7fd8e35">SEND_DAQ_RESPONSE_PDU</a>(queue,  daq_response_)</td></tr>
 <tr class="separator:a5dbe8edcdd088672c7fd0443e7fd8e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9fb8a91e43567fceb781c705d6dd93" id="r_abd9fb8a91e43567fceb781c705d6dd93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>&#160;&#160;&#160;3 / 2</td></tr>
 <tr class="separator:abd9fb8a91e43567fceb781c705d6dd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7af3b6b77c0c9bbddcb40ea59a55b36d" id="r_a7af3b6b77c0c9bbddcb40ea59a55b36d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7af3b6b77c0c9bbddcb40ea59a55b36d">UP_MAIN_HB</a>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:a7af3b6b77c0c9bbddcb40ea59a55b36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a969cc60c23232b8b979b9822e5acd4f8" id="r_a969cc60c23232b8b979b9822e5acd4f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a969cc60c23232b8b979b9822e5acd4f8">CHECK_STALE</a>(stale,  <a class="el" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a>,  last,  period)</td></tr>
 <tr class="separator:a969cc60c23232b8b979b9822e5acd4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a932556dc0435011d6235977e681a19bd" id="r_a932556dc0435011d6235977e681a19bd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a932556dc0435011d6235977e681a19bd">car_state_t</a> { <br />
+&#160;&#160;<a class="el" href="#a932556dc0435011d6235977e681a19bda787a75edc6f5f1a7a03746162fe6aa71">CAR_STATE_IDLE</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bdaa22b2048439056b52fd303750eb0bd9d">CAR_STATE_PRECHARGING</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bda8d1b0c02f9d7ffcb0abc907436a822fc">CAR_STATE_ENERGIZED</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bda62ae044a2f0c77a2d17671eb400a1bec">CAR_STATE_BUZZING</a>
+, <br />
+&#160;&#160;<a class="el" href="#a932556dc0435011d6235977e681a19bda5c88645da0c7acd889b18f103f75d539">CAR_STATE_READY2DRIVE</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0">CAR_STATE_ERROR</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bdac0a0561572cd346f456973749c3d68a3">CAR_STATE_FATAL</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5">CAR_STATE_RESET</a>
+, <br />
+&#160;&#160;<a class="el" href="#a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5">CAR_STATE_RECOVER</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bda85a73bfbecdab40e7758d26aab618f20">CAR_STATE_FAN_CTRL</a>
+<br />
+ }</td></tr>
+<tr class="separator:a932556dc0435011d6235977e681a19bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -164,6 +218,8 @@ Functions</h2></td></tr>
 <tr class="separator:a5ef4694715e9caf500fdeb0d90417b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5885557ea34a723281d8c5e2121451b8" id="r_a5885557ea34a723281d8c5e2121451b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5885557ea34a723281d8c5e2121451b8">pdu_bl_cmd_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *msg_data_a)</td></tr>
 <tr class="separator:a5885557ea34a723281d8c5e2121451b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83596406fd7d81df43e282cb5426f401" id="r_a83596406fd7d81df43e282cb5426f401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83596406fd7d81df43e282cb5426f401">cooling_driver_request_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *msg_data_a)</td></tr>
+<tr class="separator:a83596406fd7d81df43e282cb5426f401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c20a3b0d572b6071bc2104e9a336cb6" id="r_a8c20a3b0d572b6071bc2104e9a336cb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c20a3b0d572b6071bc2104e9a336cb6">handleCallbacks</a> (uint16_t id, bool latched)</td></tr>
 <tr class="separator:a8c20a3b0d572b6071bc2104e9a336cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a665f7e8f072ba4bff25d21ae6fa8765d" id="r_a665f7e8f072ba4bff25d21ae6fa8765d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a665f7e8f072ba4bff25d21ae6fa8765d">set_fault_daq</a> (uint16_t id, bool value)</td></tr>
@@ -229,6 +285,34 @@ Variables</h2></td></tr>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:207</div></div>
 <div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:78</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a0f3acf289b7e8f263a6bd73911a27d02" name="a0f3acf289b7e8f263a6bd73911a27d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3acf289b7e8f263a6bd73911a27d02">&#9670;&#160;</a></span>DLC_COOLANT_OUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_COOLANT_OUT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1a01cc93084360713b743bf94e4fd5e" name="ac1a01cc93084360713b743bf94e4fd5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1a01cc93084360713b743bf94e4fd5e">&#9670;&#160;</a></span>DLC_COOLING_DRIVER_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_COOLING_DRIVER_REQUEST&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a id="a035a13151b144c5e779e755c4bdb62bc" name="a035a13151b144c5e779e755c4bdb62bc"></a>
@@ -329,6 +413,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac62f13737af2572a5a77eae72288394d" name="ac62f13737af2572a5a77eae72288394d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac62f13737af2572a5a77eae72288394d">&#9670;&#160;</a></span>DLC_MAIN_HB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_MAIN_HB&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a654e7f0c92a5ed06da4e76c1c5222b" name="a3a654e7f0c92a5ed06da4e76c1c5222b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a654e7f0c92a5ed06da4e76c1c5222b">&#9670;&#160;</a></span>DLC_OTHER_CURRENTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_OTHER_CURRENTS&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa91a44175d8a77bdfefc0573aaa2a595" name="aa91a44175d8a77bdfefc0573aaa2a595"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa91a44175d8a77bdfefc0573aaa2a595">&#9670;&#160;</a></span>DLC_PDU_BL_CMD</h2>
 
@@ -343,14 +455,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a1f81fba436e8132caec9cb2a93299ff0" name="a1f81fba436e8132caec9cb2a93299ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f81fba436e8132caec9cb2a93299ff0">&#9670;&#160;</a></span>DLC_PDU_TEST</h2>
+<a id="a9e1cc762db7e8e29cfdd81d9b738a2e0" name="a9e1cc762db7e8e29cfdd81d9b738a2e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1cc762db7e8e29cfdd81d9b738a2e0">&#9670;&#160;</a></span>DLC_PUMP_AND_FAN_CURRENT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DLC_PDU_TEST&#160;&#160;&#160;3</td>
+          <td class="memname">#define DLC_PUMP_AND_FAN_CURRENT&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afddf6a204adafc1c5386f8e9ce1aa946" name="afddf6a204adafc1c5386f8e9ce1aa946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afddf6a204adafc1c5386f8e9ce1aa946">&#9670;&#160;</a></span>DLC_RAIL_CURRENTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_RAIL_CURRENTS&#160;&#160;&#160;4</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -379,6 +505,48 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define DLC_SET_FAULT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1799387c55cc3a0d94f33327764cadef" name="a1799387c55cc3a0d94f33327764cadef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1799387c55cc3a0d94f33327764cadef">&#9670;&#160;</a></span>DLC_V_RAILS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_V_RAILS&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f14f4d846a4ede34109344143c2d93b" name="a6f14f4d846a4ede34109344143c2d93b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f14f4d846a4ede34109344143c2d93b">&#9670;&#160;</a></span>ID_COOLANT_OUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_COOLANT_OUT&#160;&#160;&#160;0x40008df</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07a40ecec89a6d0ab77dba44e34fc3ca" name="a07a40ecec89a6d0ab77dba44e34fc3ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a40ecec89a6d0ab77dba44e34fc3ca">&#9670;&#160;</a></span>ID_COOLING_DRIVER_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_COOLING_DRIVER_REQUEST&#160;&#160;&#160;0xc0002c5</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -483,6 +651,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="adb20d2ea361bfaaa69db1605c76a72fe" name="adb20d2ea361bfaaa69db1605c76a72fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb20d2ea361bfaaa69db1605c76a72fe">&#9670;&#160;</a></span>ID_MAIN_HB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_MAIN_HB&#160;&#160;&#160;0x4001901</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ec18e63c1dc1a227d92d7fba4163fb9" name="a7ec18e63c1dc1a227d92d7fba4163fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ec18e63c1dc1a227d92d7fba4163fb9">&#9670;&#160;</a></span>ID_OTHER_CURRENTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_OTHER_CURRENTS&#160;&#160;&#160;0x401051f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a02586152262df09a03b0af4d7758e6fa" name="a02586152262df09a03b0af4d7758e6fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02586152262df09a03b0af4d7758e6fa">&#9670;&#160;</a></span>ID_PDU_BL_CMD</h2>
 
@@ -497,14 +693,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5d80a01a02ccf0750878b85e80ca48dd" name="a5d80a01a02ccf0750878b85e80ca48dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d80a01a02ccf0750878b85e80ca48dd">&#9670;&#160;</a></span>ID_PDU_TEST</h2>
+<a id="ac498861031c356b7ba976173e4b67bc8" name="ac498861031c356b7ba976173e4b67bc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac498861031c356b7ba976173e4b67bc8">&#9670;&#160;</a></span>ID_PUMP_AND_FAN_CURRENT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ID_PDU_TEST&#160;&#160;&#160;0x401041f</td>
+          <td class="memname">#define ID_PUMP_AND_FAN_CURRENT&#160;&#160;&#160;0x40104df</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9f1ff358fb73b90fa57f562e454a2f5" name="aa9f1ff358fb73b90fa57f562e454a2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9f1ff358fb73b90fa57f562e454a2f5">&#9670;&#160;</a></span>ID_RAIL_CURRENTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_RAIL_CURRENTS&#160;&#160;&#160;0x401049f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -539,6 +749,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a88c5b30cb0594f4e8fe6313c38f1c6a5" name="a88c5b30cb0594f4e8fe6313c38f1c6a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c5b30cb0594f4e8fe6313c38f1c6a5">&#9670;&#160;</a></span>ID_V_RAILS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_V_RAILS&#160;&#160;&#160;0x401045f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8cc8d559acdd2f74085b20977182d5b7" name="a8cc8d559acdd2f74085b20977182d5b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8cc8d559acdd2f74085b20977182d5b7">&#9670;&#160;</a></span>NODE_NAME</h2>
 
@@ -551,6 +775,63 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="a8218081fc8b004260d5b973f2b078e88" name="a8218081fc8b004260d5b973f2b078e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8218081fc8b004260d5b973f2b078e88">&#9670;&#160;</a></span>SEND_COOLANT_OUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEND_COOLANT_OUT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">queue, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">bat_fan_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">dt_fan_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">bat_pump_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">bat_pump_aux_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">dt_pump_</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#a6f14f4d846a4ede34109344143c2d93b">ID_COOLANT_OUT</a>, .DLC=<a class="code hl_define" href="#a0f3acf289b7e8f263a6bd73911a27d02">DLC_COOLANT_OUT</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
+<div class="line">        data_a-&gt;coolant_out.bat_fan = bat_fan_;\</div>
+<div class="line">        data_a-&gt;coolant_out.dt_fan = dt_fan_;\</div>
+<div class="line">        data_a-&gt;coolant_out.bat_pump = bat_pump_;\</div>
+<div class="line">        data_a-&gt;coolant_out.bat_pump_aux = bat_pump_aux_;\</div>
+<div class="line">        data_a-&gt;coolant_out.dt_pump = dt_pump_;\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
+<div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="af4__testing_2main_8c_html_a184b5dd9844bf6e022deb71044ff7f64"><div class="ttname"><a href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a></div><div class="ttdeci">char msg[100]</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a0f3acf289b7e8f263a6bd73911a27d02"><div class="ttname"><a href="#a0f3acf289b7e8f263a6bd73911a27d02">DLC_COOLANT_OUT</a></div><div class="ttdeci">#define DLC_COOLANT_OUT</div><div class="ttdef"><b>Definition</b> can_parse.h:48</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a6f14f4d846a4ede34109344143c2d93b"><div class="ttname"><a href="#a6f14f4d846a4ede34109344143c2d93b">ID_COOLANT_OUT</a></div><div class="ttdeci">#define ID_COOLANT_OUT</div><div class="ttdef"><b>Definition</b> can_parse.h:27</div></div>
+<div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
+<div class="ttc" id="astructCanMsgTypeDef__t_html_aa43587215a51d07288de14b4af7b1a9a"><div class="ttname"><a href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">CanMsgTypeDef_t::Bus</a></div><div class="ttdeci">CAN_TypeDef * Bus</div><div class="ttdoc">Specifies the bus.</div><div class="ttdef"><b>Definition</b> can.h:30</div></div>
+<div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a5dbe8edcdd088672c7fd0443e7fd8e35" name="a5dbe8edcdd088672c7fd0443e7fd8e35"></a>
@@ -577,12 +858,8 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;daq_response_PDU.daq_response = daq_response_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="af4__testing_2main_8c_html_a184b5dd9844bf6e022deb71044ff7f64"><div class="ttname"><a href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a></div><div class="ttdeci">char msg[100]</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
-<div class="ttc" id="apdu_2can_2can__parse_8h_html_a450c6ff719faa36c1ca2c343f132c722"><div class="ttname"><a href="#a450c6ff719faa36c1ca2c343f132c722">ID_DAQ_RESPONSE_PDU</a></div><div class="ttdeci">#define ID_DAQ_RESPONSE_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:25</div></div>
-<div class="ttc" id="apdu_2can_2can__parse_8h_html_ad88b0f6cd04d2f70bbb693b7faa105f6"><div class="ttname"><a href="#ad88b0f6cd04d2f70bbb693b7faa105f6">DLC_DAQ_RESPONSE_PDU</a></div><div class="ttdeci">#define DLC_DAQ_RESPONSE_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:40</div></div>
-<div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
-<div class="ttc" id="astructCanMsgTypeDef__t_html_aa43587215a51d07288de14b4af7b1a9a"><div class="ttname"><a href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">CanMsgTypeDef_t::Bus</a></div><div class="ttdeci">CAN_TypeDef * Bus</div><div class="ttdoc">Specifies the bus.</div><div class="ttdef"><b>Definition</b> can.h:30</div></div>
-<div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a450c6ff719faa36c1ca2c343f132c722"><div class="ttname"><a href="#a450c6ff719faa36c1ca2c343f132c722">ID_DAQ_RESPONSE_PDU</a></div><div class="ttdeci">#define ID_DAQ_RESPONSE_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:29</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_ad88b0f6cd04d2f70bbb693b7faa105f6"><div class="ttname"><a href="#ad88b0f6cd04d2f70bbb693b7faa105f6">DLC_DAQ_RESPONSE_PDU</a></div><div class="ttdeci">#define DLC_DAQ_RESPONSE_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:50</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -616,49 +893,184 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;fault_sync_pdu.latched = latched_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="apdu_2can_2can__parse_8h_html_a27fa6a4ac57c58a060d60b5b9bd8ebcc"><div class="ttname"><a href="#a27fa6a4ac57c58a060d60b5b9bd8ebcc">DLC_FAULT_SYNC_PDU</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:39</div></div>
-<div class="ttc" id="apdu_2can_2can__parse_8h_html_a6e89d9220b475fbb54758b0a464b73ad"><div class="ttname"><a href="#a6e89d9220b475fbb54758b0a464b73ad">ID_FAULT_SYNC_PDU</a></div><div class="ttdeci">#define ID_FAULT_SYNC_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:24</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a27fa6a4ac57c58a060d60b5b9bd8ebcc"><div class="ttname"><a href="#a27fa6a4ac57c58a060d60b5b9bd8ebcc">DLC_FAULT_SYNC_PDU</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:49</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a6e89d9220b475fbb54758b0a464b73ad"><div class="ttname"><a href="#a6e89d9220b475fbb54758b0a464b73ad">ID_FAULT_SYNC_PDU</a></div><div class="ttdeci">#define ID_FAULT_SYNC_PDU</div><div class="ttdef"><b>Definition</b> can_parse.h:28</div></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="afab36e5aa49c3c0263ffc6768eecbc06" name="afab36e5aa49c3c0263ffc6768eecbc06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afab36e5aa49c3c0263ffc6768eecbc06">&#9670;&#160;</a></span>SEND_PDU_TEST</h2>
+<a id="aa26a7cc5ac3a3ea59469f750af924734" name="aa26a7cc5ac3a3ea59469f750af924734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa26a7cc5ac3a3ea59469f750af924734">&#9670;&#160;</a></span>SEND_OTHER_CURRENTS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SEND_PDU_TEST</td>
+          <td class="memname">#define SEND_OTHER_CURRENTS</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">queue, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">test_1_, </span></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_sdc_, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">test_2_, </span></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_aux_, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">test_3_</span>&#160;)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_dash_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_abox_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_main_</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
-<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#a5d80a01a02ccf0750878b85e80ca48dd">ID_PDU_TEST</a>, .DLC=<a class="code hl_define" href="#a1f81fba436e8132caec9cb2a93299ff0">DLC_PDU_TEST</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#a7ec18e63c1dc1a227d92d7fba4163fb9">ID_OTHER_CURRENTS</a>, .DLC=<a class="code hl_define" href="#a3a654e7f0c92a5ed06da4e76c1c5222b">DLC_OTHER_CURRENTS</a>, .IDE=1};\</div>
 <div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
-<div class="line">        data_a-&gt;pdu_test.test_1 = test_1_;\</div>
-<div class="line">        data_a-&gt;pdu_test.test_2 = test_2_;\</div>
-<div class="line">        data_a-&gt;pdu_test.test_3 = test_3_;\</div>
+<div class="line">        data_a-&gt;other_currents.i_sdc = i_sdc_;\</div>
+<div class="line">        data_a-&gt;other_currents.i_aux = i_aux_;\</div>
+<div class="line">        data_a-&gt;other_currents.i_dash = i_dash_;\</div>
+<div class="line">        data_a-&gt;other_currents.i_abox = i_abox_;\</div>
+<div class="line">        data_a-&gt;other_currents.i_main = i_main_;\</div>
 <div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="apdu_2can_2can__parse_8h_html_a1f81fba436e8132caec9cb2a93299ff0"><div class="ttname"><a href="#a1f81fba436e8132caec9cb2a93299ff0">DLC_PDU_TEST</a></div><div class="ttdeci">#define DLC_PDU_TEST</div><div class="ttdef"><b>Definition</b> can_parse.h:38</div></div>
-<div class="ttc" id="apdu_2can_2can__parse_8h_html_a5d80a01a02ccf0750878b85e80ca48dd"><div class="ttname"><a href="#a5d80a01a02ccf0750878b85e80ca48dd">ID_PDU_TEST</a></div><div class="ttdeci">#define ID_PDU_TEST</div><div class="ttdef"><b>Definition</b> can_parse.h:23</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a3a654e7f0c92a5ed06da4e76c1c5222b"><div class="ttname"><a href="#a3a654e7f0c92a5ed06da4e76c1c5222b">DLC_OTHER_CURRENTS</a></div><div class="ttdeci">#define DLC_OTHER_CURRENTS</div><div class="ttdef"><b>Definition</b> can_parse.h:47</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a7ec18e63c1dc1a227d92d7fba4163fb9"><div class="ttname"><a href="#a7ec18e63c1dc1a227d92d7fba4163fb9">ID_OTHER_CURRENTS</a></div><div class="ttdeci">#define ID_OTHER_CURRENTS</div><div class="ttdef"><b>Definition</b> can_parse.h:26</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0970a416c6f0ed96e0369f96c7b72518" name="a0970a416c6f0ed96e0369f96c7b72518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0970a416c6f0ed96e0369f96c7b72518">&#9670;&#160;</a></span>SEND_PUMP_AND_FAN_CURRENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEND_PUMP_AND_FAN_CURRENT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">queue, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_pump1_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_pump2_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_fan1_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_fan2_</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#ac498861031c356b7ba976173e4b67bc8">ID_PUMP_AND_FAN_CURRENT</a>, .DLC=<a class="code hl_define" href="#a9e1cc762db7e8e29cfdd81d9b738a2e0">DLC_PUMP_AND_FAN_CURRENT</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
+<div class="line">        data_a-&gt;pump_and_fan_current.i_pump1 = i_pump1_;\</div>
+<div class="line">        data_a-&gt;pump_and_fan_current.i_pump2 = i_pump2_;\</div>
+<div class="line">        data_a-&gt;pump_and_fan_current.i_fan1 = i_fan1_;\</div>
+<div class="line">        data_a-&gt;pump_and_fan_current.i_fan2 = i_fan2_;\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
+<div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a9e1cc762db7e8e29cfdd81d9b738a2e0"><div class="ttname"><a href="#a9e1cc762db7e8e29cfdd81d9b738a2e0">DLC_PUMP_AND_FAN_CURRENT</a></div><div class="ttdeci">#define DLC_PUMP_AND_FAN_CURRENT</div><div class="ttdef"><b>Definition</b> can_parse.h:46</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_ac498861031c356b7ba976173e4b67bc8"><div class="ttname"><a href="#ac498861031c356b7ba976173e4b67bc8">ID_PUMP_AND_FAN_CURRENT</a></div><div class="ttdeci">#define ID_PUMP_AND_FAN_CURRENT</div><div class="ttdef"><b>Definition</b> can_parse.h:25</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a152e350880b361f4acafc0dd12d76d29" name="a152e350880b361f4acafc0dd12d76d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152e350880b361f4acafc0dd12d76d29">&#9670;&#160;</a></span>SEND_RAIL_CURRENTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEND_RAIL_CURRENTS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">queue, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_24v_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">i_5v_</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#aa9f1ff358fb73b90fa57f562e454a2f5">ID_RAIL_CURRENTS</a>, .DLC=<a class="code hl_define" href="#afddf6a204adafc1c5386f8e9ce1aa946">DLC_RAIL_CURRENTS</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
+<div class="line">        data_a-&gt;rail_currents.i_24v = i_24v_;\</div>
+<div class="line">        data_a-&gt;rail_currents.i_5v = i_5v_;\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
+<div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_aa9f1ff358fb73b90fa57f562e454a2f5"><div class="ttname"><a href="#aa9f1ff358fb73b90fa57f562e454a2f5">ID_RAIL_CURRENTS</a></div><div class="ttdeci">#define ID_RAIL_CURRENTS</div><div class="ttdef"><b>Definition</b> can_parse.h:24</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_afddf6a204adafc1c5386f8e9ce1aa946"><div class="ttname"><a href="#afddf6a204adafc1c5386f8e9ce1aa946">DLC_RAIL_CURRENTS</a></div><div class="ttdeci">#define DLC_RAIL_CURRENTS</div><div class="ttdef"><b>Definition</b> can_parse.h:45</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a532f187eb671a05cb6292569ca4a8f57" name="a532f187eb671a05cb6292569ca4a8f57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a532f187eb671a05cb6292569ca4a8f57">&#9670;&#160;</a></span>SEND_V_RAILS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEND_V_RAILS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">queue, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">in_24v_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">out_5v_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">out_3v3_</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#a88c5b30cb0594f4e8fe6313c38f1c6a5">ID_V_RAILS</a>, .DLC=<a class="code hl_define" href="#a1799387c55cc3a0d94f33327764cadef">DLC_V_RAILS</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
+<div class="line">        data_a-&gt;v_rails.in_24v = in_24v_;\</div>
+<div class="line">        data_a-&gt;v_rails.out_5v = out_5v_;\</div>
+<div class="line">        data_a-&gt;v_rails.out_3v3 = out_3v3_;\</div>
+<div class="line">        qSendToBack(&amp;queue, &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
+<div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a1799387c55cc3a0d94f33327764cadef"><div class="ttname"><a href="#a1799387c55cc3a0d94f33327764cadef">DLC_V_RAILS</a></div><div class="ttdeci">#define DLC_V_RAILS</div><div class="ttdef"><b>Definition</b> can_parse.h:44</div></div>
+<div class="ttc" id="apdu_2can_2can__parse_8h_html_a88c5b30cb0594f4e8fe6313c38f1c6a5"><div class="ttname"><a href="#a88c5b30cb0594f4e8fe6313c38f1c6a5">ID_V_RAILS</a></div><div class="ttdeci">#define ID_V_RAILS</div><div class="ttdef"><b>Definition</b> can_parse.h:23</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -673,6 +1085,47 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7af3b6b77c0c9bbddcb40ea59a55b36d" name="a7af3b6b77c0c9bbddcb40ea59a55b36d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7af3b6b77c0c9bbddcb40ea59a55b36d">&#9670;&#160;</a></span>UP_MAIN_HB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UP_MAIN_HB&#160;&#160;&#160;100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a932556dc0435011d6235977e681a19bd" name="a932556dc0435011d6235977e681a19bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a932556dc0435011d6235977e681a19bd">&#9670;&#160;</a></span>car_state_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bd">car_state_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda787a75edc6f5f1a7a03746162fe6aa71" name="a932556dc0435011d6235977e681a19bda787a75edc6f5f1a7a03746162fe6aa71"></a>CAR_STATE_IDLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdaa22b2048439056b52fd303750eb0bd9d" name="a932556dc0435011d6235977e681a19bdaa22b2048439056b52fd303750eb0bd9d"></a>CAR_STATE_PRECHARGING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda8d1b0c02f9d7ffcb0abc907436a822fc" name="a932556dc0435011d6235977e681a19bda8d1b0c02f9d7ffcb0abc907436a822fc"></a>CAR_STATE_ENERGIZED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda62ae044a2f0c77a2d17671eb400a1bec" name="a932556dc0435011d6235977e681a19bda62ae044a2f0c77a2d17671eb400a1bec"></a>CAR_STATE_BUZZING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda5c88645da0c7acd889b18f103f75d539" name="a932556dc0435011d6235977e681a19bda5c88645da0c7acd889b18f103f75d539"></a>CAR_STATE_READY2DRIVE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0" name="a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0"></a>CAR_STATE_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdac0a0561572cd346f456973749c3d68a3" name="a932556dc0435011d6235977e681a19bdac0a0561572cd346f456973749c3d68a3"></a>CAR_STATE_FATAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5" name="a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5"></a>CAR_STATE_RESET&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5" name="a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5"></a>CAR_STATE_RECOVER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda85a73bfbecdab40e7758d26aab618f20" name="a932556dc0435011d6235977e681a19bda85a73bfbecdab40e7758d26aab618f20"></a>CAR_STATE_FAN_CTRL&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
 </div>
 </div>
@@ -718,6 +1171,31 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pull message off of rx buffer, update can_data struct, check for stale messages. </p>
+
+</div>
+</div>
+<a id="a83596406fd7d81df43e282cb5426f401" name="a83596406fd7d81df43e282cb5426f401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83596406fd7d81df43e282cb5426f401">&#9670;&#160;</a></span>cooling_driver_request_CALLBACK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cooling_driver_request_CALLBACK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

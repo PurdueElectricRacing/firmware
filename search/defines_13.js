@@ -49,7 +49,7 @@ var searchData=
   ['therm_5fmux_5fd_5fpin_46',['THERM_MUX_D_Pin',['../main__module_2main_8h.html#a763426b9b2b25ebef642f5d0e20a1aab',1,'main.h']]],
   ['therm_5fmux_5fdt_5fin_47',['THERM_MUX_DT_IN',['../main__module_2main_8h.html#acba3e2518312376a24eb5ea7aa0a8753',1,'main.h']]],
   ['therm_5fmux_5fdt_5fout_48',['THERM_MUX_DT_OUT',['../main__module_2main_8h.html#aff58a207c82dc3aacc23fb36315442cc',1,'main.h']]],
-  ['therm_5fmux_5fend_5fidx_49',['THERM_MUX_END_IDX',['../cooling_8h.html#a3b427d4631350532e48720e1d207604e',1,'cooling.h']]],
+  ['therm_5fmux_5fend_5fidx_49',['THERM_MUX_END_IDX',['../main__module_2cooling_2cooling_8h.html#a3b427d4631350532e48720e1d207604e',1,'cooling.h']]],
   ['therm_5fmux_5fs0_5fgpio_5fport_50',['THERM_MUX_S0_GPIO_Port',['../main__module_2main_8h.html#aa7c0d8242ba5f6b85665a28f23a4e6f2',1,'main.h']]],
   ['therm_5fmux_5fs0_5fpin_51',['THERM_MUX_S0_Pin',['../main__module_2main_8h.html#ad842293d69760423cbe3ec33185b78a3',1,'main.h']]],
   ['therm_5fmux_5fs1_5fgpio_5fport_52',['THERM_MUX_S1_GPIO_Port',['../main__module_2main_8h.html#ae611900cbd5f4301586f54ffb69e9a68',1,'main.h']]],

@@ -8,6 +8,7 @@ var searchData=
   ['charge_5ft_5',['charge_t',['../structcharge__t.html',1,'']]],
   ['clockrateconfig_5ft_6',['ClockRateConfig_t',['../structClockRateConfig__t.html',1,'']]],
   ['constp_7',['ConstP',['../structConstP.html',1,'']]],
-  ['cooling_5ft_8',['Cooling_t',['../structCooling__t.html',1,'']]],
-  ['cpu_5ftime_5ft_9',['cpu_time_t',['../structcpu__time__t.html',1,'']]]
+  ['cooling_5frequest_5ft_8',['cooling_request_t',['../structcooling__request__t.html',1,'']]],
+  ['cooling_5ft_9',['Cooling_t',['../structCooling__t.html',1,'']]],
+  ['cpu_5ftime_5ft_10',['cpu_time_t',['../structcpu__time__t.html',1,'']]]
 ];

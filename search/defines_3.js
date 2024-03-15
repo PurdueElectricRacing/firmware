@@ -26,7 +26,7 @@ var searchData=
   ['conn_5fled_5fpin_23',['CONN_LED_Pin',['../a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../dashboard_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../main__module_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../pdu_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h'],['../torque__vector_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60',1,'CONN_LED_Pin:&#160;main.h']]],
   ['connection_5fled_5fpin_24',['CONNECTION_LED_PIN',['../daq_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86',1,'main.h']]],
   ['connection_5fled_5fport_25',['CONNECTION_LED_PORT',['../daq_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877',1,'main.h']]],
-  ['cool_5floop_5fstart_5fidx_26',['COOL_LOOP_START_IDX',['../cooling_8h.html#a34d21bd53587b41d4051514b8d83bd4d',1,'cooling.h']]],
+  ['cool_5floop_5fstart_5fidx_26',['COOL_LOOP_START_IDX',['../main__module_2cooling_2cooling_8h.html#a34d21bd53587b41d4051514b8d83bd4d',1,'cooling.h']]],
   ['create_5flinkmap_27',['CREATE_LINKMAP',['../ff_8h.html#aee297a9011164cf485a4df2a72758b08',1,'ff.h']]],
   ['crit_5f5v_5fctrl_5fgpio_5fport_28',['CRIT_5V_CTRL_GPIO_Port',['../pdu_2main_8h.html#ab328db970db5a4260520bfe42d0c15a8',1,'main.h']]],
   ['crit_5f5v_5fctrl_5fpin_29',['CRIT_5V_CTRL_Pin',['../pdu_2main_8h.html#aac171a2cba24500a65b972f178ee15a6',1,'main.h']]],

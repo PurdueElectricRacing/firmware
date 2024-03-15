@@ -170,9 +170,12 @@ void preflightChecks(void);
 void canTxUpdate();
 void heatBeatLED();
 void send_iv_readings();
-//test
+//CAN
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
+
+// To correctly execute preflight algorithm
+uint8_t led_anim_complete;
 
 int main()
 {
@@ -188,10 +191,6 @@ int main()
     {
         HardFault_Handler();
     }
-    
-    PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
-    PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, 1);
-    setSwitch(SW_NCRIT_5V, 1);
 
     if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
         sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
@@ -204,6 +203,8 @@ int main()
     }
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
+    led_anim_complete = 0;
+    PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, 1);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -218,6 +219,7 @@ int main()
     taskCreate(autoSwitchPeriodic, 15);
     taskCreate(update_cooling_periodic, 100);
     taskCreate(send_iv_readings, 500);
+    taskCreate(checkSwitchFaults, 100);
     schedStart();
     return 0;
 }
@@ -245,13 +247,29 @@ void preflightChecks(void) {
                 HardFault_Handler();
             }
             PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
+            break;
         case 3:
             fanControlInit();
+            break;
         case 4:
             coolingInit();
+            break;
         default:
-            registerPreflightComplete(1);
+            if (led_anim_complete)
+            {
+                // Initialize default 'ON' rails
+                setSwitch(SW_SDC, 1);
+                setSwitch(SW_DAQ, 1);
+                setSwitch(SW_NCRIT_5V, 1);
+                setSwitch(SW_MAIN, 1);
+                setSwitch(SW_ABOX, 1);
+                setSwitch(SW_DASH, 1);
+                setSwitch(SW_CRIT_5V, 1);
+                setSwitch(SW_BLT, 1);
+                registerPreflightComplete(1);
+            }
             state = 255; // prevent wrap around
+            break;
     }
 }
 
@@ -293,10 +311,13 @@ void preflightAnimation(void) {
     {
         led_number--;
         LED_control(led_number, LED_OFF);
-        led_number = (led_number == 0) ? 0 : led_number;
+        if (led_number == 0)
+        {
+            led_anim_complete = 1;
+        }
     }
-    
-    
+
+
 }
 
 void heatBeatLED()

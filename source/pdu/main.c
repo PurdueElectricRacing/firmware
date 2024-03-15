@@ -282,7 +282,7 @@ void preflightAnimation(void) {
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
 
-    switch (time++ % 18)
+    switch (time++ % 24)
     {
         case 0:
         case 5:

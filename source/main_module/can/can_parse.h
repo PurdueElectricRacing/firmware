@@ -23,7 +23,6 @@
 #define ID_MAIN_HB 0x4001901
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
 #define ID_COOLANT_TEMPS 0x4000881
-#define ID_COOLANT_OUT 0x40008c1
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
 #define ID_VOLTAGE_RAILS 0x10001901
@@ -61,7 +60,6 @@
 #define DLC_MAIN_HB 2
 #define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_COOLANT_TEMPS 4
-#define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
 #define DLC_VOLTAGE_RAILS 8
@@ -119,16 +117,6 @@
         data_a->coolant_temps.battery_out_temp = battery_out_temp_;\
         data_a->coolant_temps.drivetrain_in_temp = drivetrain_in_temp_;\
         data_a->coolant_temps.drivetrain_out_temp = drivetrain_out_temp_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_COOLANT_OUT(queue, bat_fan_, dt_fan_, bat_pump_, bat_pump_aux_, dt_pump_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_COOLANT_OUT, .DLC=DLC_COOLANT_OUT, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->coolant_out.bat_fan = bat_fan_;\
-        data_a->coolant_out.dt_fan = dt_fan_;\
-        data_a->coolant_out.bat_pump = bat_pump_;\
-        data_a->coolant_out.bat_pump_aux = bat_pump_aux_;\
-        data_a->coolant_out.dt_pump = dt_pump_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_GEARBOX(queue, l_temp_, r_temp_) do {\
@@ -356,13 +344,6 @@ typedef union {
         uint64_t drivetrain_in_temp: 8;
         uint64_t drivetrain_out_temp: 8;
     } coolant_temps;
-    struct {
-        uint64_t bat_fan: 8;
-        uint64_t dt_fan: 8;
-        uint64_t bat_pump: 1;
-        uint64_t bat_pump_aux: 1;
-        uint64_t dt_pump: 1;
-    } coolant_out;
     struct {
         uint64_t l_temp: 8;
         uint64_t r_temp: 8;

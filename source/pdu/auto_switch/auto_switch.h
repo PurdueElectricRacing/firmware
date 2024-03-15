@@ -1,12 +1,12 @@
 /**
  * @file auto_switch.h
  * @author Gavin Zyonse (gzyonse@purdue.edu)
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2023-11-09
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 #ifndef _AUTO_SWITCH_H_
 #define _AUTO_SWITCH_H_
@@ -86,7 +86,7 @@ extern auto_switches_t auto_switches;
 // Function declarations
 /**
  * @brief Enable or disable a switch
- * 
+ *
  * @param auto_switch_enum Switch to enable or disable
  * @param state 1 to enable, 0 to disable
 */
@@ -94,7 +94,7 @@ void setSwitch(switches_t auto_switch_enum, bool state);
 
 /**
  * @brief Check if a switch is enabled
- * 
+ *
  * @param auto_switch_enum Switch to check
  * @return 1 if enabled, 0 if disabled
 */
@@ -103,15 +103,21 @@ bool getSwitchStatus(switches_t auto_switch_enum);
 /**
  * @brief Combined function that calls updateVoltage()
  *        and updateCurrent()
- * 
+ *
  *        Voltage on each rail is stored at:
  *        auto_switches.voltage.in_24v
  *        auto_switches.voltage.out_5v
  *        auto_switches.voltage.out_3v3
- * 
+ *
  *        Current through each switch is stored at:
  *        auto_switches.current[auto_switch_enum]
 */
 void autoSwitchPeriodic();
+
+/**
+ * @brief Checks the status of various auto switches to ensure rails are ok. Sets fault and activates blink indicator if not..
+ *
+ */
+void checkSwitchFaults();
 
 #endif

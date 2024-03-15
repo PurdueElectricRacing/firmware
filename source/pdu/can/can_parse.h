@@ -20,10 +20,16 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_PDU_TEST 0x401041f
+#define ID_V_RAILS 0x401045f
+#define ID_RAIL_CURRENTS 0x401049f
+#define ID_PUMP_AND_FAN_CURRENT 0x40104df
+#define ID_OTHER_CURRENTS 0x401051f
+#define ID_COOLANT_OUT 0x40008df
 #define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_DAQ_RESPONSE_PDU 0x17ffffdf
 #define ID_PDU_BL_CMD 0x409c53e
+#define ID_COOLING_DRIVER_REQUEST 0xc0002c5
+#define ID_MAIN_HB 0x4001901
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8ca85
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -35,10 +41,16 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_PDU_TEST 3
+#define DLC_V_RAILS 6
+#define DLC_RAIL_CURRENTS 4
+#define DLC_PUMP_AND_FAN_CURRENT 7
+#define DLC_OTHER_CURRENTS 8
+#define DLC_COOLANT_OUT 3
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_DAQ_RESPONSE_PDU 8
 #define DLC_PDU_BL_CMD 5
+#define DLC_COOLING_DRIVER_REQUEST 5
+#define DLC_MAIN_HB 2
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -50,12 +62,48 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_PDU_TEST(queue, test_1_, test_2_, test_3_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PDU_TEST, .DLC=DLC_PDU_TEST, .IDE=1};\
+#define SEND_V_RAILS(queue, in_24v_, out_5v_, out_3v3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_V_RAILS, .DLC=DLC_V_RAILS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->pdu_test.test_1 = test_1_;\
-        data_a->pdu_test.test_2 = test_2_;\
-        data_a->pdu_test.test_3 = test_3_;\
+        data_a->v_rails.in_24v = in_24v_;\
+        data_a->v_rails.out_5v = out_5v_;\
+        data_a->v_rails.out_3v3 = out_3v3_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_RAIL_CURRENTS(queue, i_24v_, i_5v_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAIL_CURRENTS, .DLC=DLC_RAIL_CURRENTS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->rail_currents.i_24v = i_24v_;\
+        data_a->rail_currents.i_5v = i_5v_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_PUMP_AND_FAN_CURRENT(queue, i_pump1_, i_pump2_, i_fan1_, i_fan2_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PUMP_AND_FAN_CURRENT, .DLC=DLC_PUMP_AND_FAN_CURRENT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->pump_and_fan_current.i_pump1 = i_pump1_;\
+        data_a->pump_and_fan_current.i_pump2 = i_pump2_;\
+        data_a->pump_and_fan_current.i_fan1 = i_fan1_;\
+        data_a->pump_and_fan_current.i_fan2 = i_fan2_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_OTHER_CURRENTS(queue, i_sdc_, i_aux_, i_dash_, i_abox_, i_main_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_OTHER_CURRENTS, .DLC=DLC_OTHER_CURRENTS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->other_currents.i_sdc = i_sdc_;\
+        data_a->other_currents.i_aux = i_aux_;\
+        data_a->other_currents.i_dash = i_dash_;\
+        data_a->other_currents.i_abox = i_abox_;\
+        data_a->other_currents.i_main = i_main_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_COOLANT_OUT(queue, bat_fan_, dt_fan_, bat_pump_, bat_pump_aux_, dt_pump_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_COOLANT_OUT, .DLC=DLC_COOLANT_OUT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->coolant_out.bat_fan = bat_fan_;\
+        data_a->coolant_out.dt_fan = dt_fan_;\
+        data_a->coolant_out.bat_pump = bat_pump_;\
+        data_a->coolant_out.bat_pump_aux = bat_pump_aux_;\
+        data_a->coolant_out.dt_pump = dt_pump_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_PDU(queue, idx_, latched_) do {\
@@ -76,22 +124,60 @@
 // Stale Checking
 #define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
+#define UP_MAIN_HB 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
                     (curr - last) > period * STALE_THRESH) stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
+typedef enum {
+    CAR_STATE_IDLE,
+    CAR_STATE_PRECHARGING,
+    CAR_STATE_ENERGIZED,
+    CAR_STATE_BUZZING,
+    CAR_STATE_READY2DRIVE,
+    CAR_STATE_ERROR,
+    CAR_STATE_FATAL,
+    CAR_STATE_RESET,
+    CAR_STATE_RECOVER,
+    CAR_STATE_FAN_CTRL,
+} car_state_t;
+
 /* END AUTO CAN ENUMERATIONS */
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { 
     struct {
-        uint64_t test_1: 8;
-        uint64_t test_2: 8;
-        uint64_t test_3: 8;
-    } pdu_test;
+        uint64_t in_24v: 16;
+        uint64_t out_5v: 16;
+        uint64_t out_3v3: 16;
+    } v_rails;
+    struct {
+        uint64_t i_24v: 16;
+        uint64_t i_5v: 16;
+    } rail_currents;
+    struct {
+        uint64_t i_pump1: 16;
+        uint64_t i_pump2: 16;
+        uint64_t i_fan1: 12;
+        uint64_t i_fan2: 12;
+    } pump_and_fan_current;
+    struct {
+        uint64_t i_sdc: 12;
+        uint64_t i_aux: 12;
+        uint64_t i_dash: 12;
+        uint64_t i_abox: 12;
+        uint64_t i_main: 12;
+    } other_currents;
+    struct {
+        uint64_t bat_fan: 8;
+        uint64_t dt_fan: 8;
+        uint64_t bat_pump: 1;
+        uint64_t bat_pump_aux: 1;
+        uint64_t dt_pump: 1;
+    } coolant_out;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -103,6 +189,17 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } pdu_bl_cmd;
+    struct {
+        uint64_t dt_pump: 8;
+        uint64_t dt_fan: 8;
+        uint64_t batt_pump: 8;
+        uint64_t batt_pump2: 8;
+        uint64_t batt_fan: 8;
+    } cooling_driver_request;
+    struct {
+        uint64_t car_state: 8;
+        uint64_t precharge_state: 1;
+    } main_hb;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -142,6 +239,19 @@ typedef struct {
         uint32_t data;
     } pdu_bl_cmd;
     struct {
+        uint8_t dt_pump;
+        uint8_t dt_fan;
+        uint8_t batt_pump;
+        uint8_t batt_pump2;
+        uint8_t batt_fan;
+    } cooling_driver_request;
+    struct {
+        car_state_t car_state;
+        uint8_t precharge_state;
+        uint8_t stale;
+        uint32_t last_rx;
+    } main_hb;
+    struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_main_module;
@@ -175,6 +285,7 @@ extern can_data_t can_data;
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void daq_command_PDU_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

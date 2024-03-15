@@ -93,97 +93,55 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
     switch (auto_switch_enum) {
         case SW_PUMP_1:
             PHAL_writeGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, state);
-            if (get_LED_status(LED_PUMP_1) != LED_BLINK)
-            {
-                LED_control(LED_PUMP_1, state);
-            }
+            LED_control(LED_PUMP_1, state);
             break;
         case SW_PUMP_2:
             PHAL_writeGPIO(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin, state);
-            if (get_LED_status(LED_PUMP_2) != LED_BLINK)
-            {
-                LED_control(LED_PUMP_2, state);
-            }
+            LED_control(LED_PUMP_2, state);
             break;
         case SW_SDC:
             PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, state);
-            if (get_LED_status(LED_SDC) != LED_BLINK)
-            {
-                LED_control(LED_SDC, state);
-            }
+            LED_control(LED_SDC, state);
             break;
         case SW_AUX:
             PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, state);
-            if (get_LED_status(LED_AUX_1) != LED_BLINK)
-            {
-                LED_control(LED_AUX_1, state);
-            }
+            LED_control(LED_AUX_1, state);
             break;
         case SW_FAN_1:
             PHAL_writeGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin, state);
-            if (get_LED_status(LED_FAN_1) != LED_BLINK)
-            {
-                LED_control(LED_FAN_1, state);
-            }
+            LED_control(LED_FAN_1, state);
             break;
         case SW_FAN_2:
             PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, state);
-            if (get_LED_status(LED_FAN_2) != LED_BLINK)
-            {
-                LED_control(LED_FAN_2, state);
-            }
+            LED_control(LED_FAN_2, state);
             break;
         case SW_BLT:
             PHAL_writeGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, state);
-            if (get_LED_status(LED_BLT) != LED_BLINK)
-            {
-                LED_control(LED_BLT, state);
-            }
+            LED_control(LED_BLT, state);
             break;
         case SW_CRIT_5V:
-            if (get_LED_status(LED_5V_CRIT) != LED_BLINK)
-            {
-                LED_control(LED_5V_CRIT, state);
-            }
+            LED_control(LED_5V_CRIT, state);
             break;
         case SW_MAIN:
-            if (get_LED_status(LED_MAIN) != LED_BLINK)
-            {
-                LED_control(LED_MAIN, state);
-            }
+            LED_control(LED_MAIN, state);
             break;
         case SW_ABOX:
-            if (get_LED_status(LED_ABOX) != LED_BLINK)
-            {
-                LED_control(LED_ABOX, state);
-            }
+            LED_control(LED_ABOX, state);
             break;
         case SW_DASH:
-            if (get_LED_status(LED_DASH) != LED_BLINK)
-            {
-                LED_control(LED_DASH, state);
-            }
+            LED_control(LED_DASH, state);
             break;
         case SW_NCRIT_5V:
             PHAL_writeGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin, state);
-            if (get_LED_status(LED_5V_NCRIT) != LED_BLINK)
-            {
-                LED_control(LED_5V_NCRIT, state);
-            }
+            LED_control(LED_5V_NCRIT, state);
             break;
         case SW_DAQ:
             PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, state);
-            if (get_LED_status(LED_DAQ) != LED_BLINK)
-            {
-                LED_control(LED_DAQ, state);
-            }
+            LED_control(LED_DAQ, state);
             break;
         case SW_FAN_5V:
             PHAL_writeGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin, state);
-            if (get_LED_status(LED_5V_FAN) != LED_BLINK)
-            {
-                LED_control(LED_5V_FAN, state);
-            }
+            LED_control(LED_5V_FAN, state);
             break;
 
     }

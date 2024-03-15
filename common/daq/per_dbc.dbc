@@ -52,13 +52,6 @@ BO_ 2214594689 coolant_temps: 4 Main_Module
  SG_ battery_out_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
  SG_ battery_in_temp : 0|8@1- (1,0) [0|0] "C" Vector__XXX
 
-BO_ 2214594753 coolant_out: 3 Main_Module
- SG_ dt_pump : 18|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ bat_pump_aux : 17|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ bat_pump : 16|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
- SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
-
 BO_ 2415921409 gearbox: 2 Main_Module
  SG_ r_temp : 8|8@1- (1,0) [0|0] "" Vector__XXX
  SG_ l_temp : 0|8@1- (1,0) [0|0] "" Vector__XXX
@@ -407,6 +400,13 @@ BO_ 2214659359 other_currents: 8 PDU
  SG_ i_aux : 12|12@1+ (1,0) [0|0] "mA" Vector__XXX
  SG_ i_sdc : 0|12@1+ (1,0) [0|0] "mA" Vector__XXX
 
+BO_ 2214594783 coolant_out: 3 PDU
+ SG_ dt_pump : 18|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bat_pump_aux : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bat_pump : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
+
 BO_ 2148059871 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -620,12 +620,6 @@ CM_ SG_ 2214594689 drivetrain_out_temp "Out flow temperature of drivetrain coola
 CM_ SG_ 2214594689 drivetrain_in_temp "In flow temperature of drivetrain coolant loop";
 CM_ SG_ 2214594689 battery_out_temp "Out flow temperature of battery coolant loop";
 CM_ SG_ 2214594689 battery_in_temp "In flow temperature of battery coolant loop";
-CM_ BO_ 2214594753 "outputs to coolant loops";
-CM_ SG_ 2214594753 dt_pump "";
-CM_ SG_ 2214594753 bat_pump_aux "";
-CM_ SG_ 2214594753 bat_pump "";
-CM_ SG_ 2214594753 dt_fan "";
-CM_ SG_ 2214594753 bat_fan "";
 CM_ BO_ 2415921409 "Gearbox temps";
 CM_ SG_ 2415921409 r_temp "";
 CM_ SG_ 2415921409 l_temp "";
@@ -922,6 +916,12 @@ CM_ SG_ 2214659359 i_abox "";
 CM_ SG_ 2214659359 i_dash "";
 CM_ SG_ 2214659359 i_aux "";
 CM_ SG_ 2214659359 i_sdc "";
+CM_ BO_ 2214594783 "outputs to coolant loops";
+CM_ SG_ 2214594783 dt_pump "";
+CM_ SG_ 2214594783 bat_pump_aux "";
+CM_ SG_ 2214594783 bat_pump "";
+CM_ SG_ 2214594783 dt_fan "";
+CM_ SG_ 2214594783 bat_fan "";
 CM_ BO_ 2148059871 "Fault status message";
 CM_ SG_ 2148059871 latched "";
 CM_ SG_ 2148059871 idx "";

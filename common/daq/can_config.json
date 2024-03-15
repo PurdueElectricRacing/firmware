@@ -45,20 +45,6 @@
                             "msg_pgn":34
                         },
                         {
-                            "msg_name": "coolant_out",
-                            "msg_desc": "outputs to coolant loops",
-                            "signals": [
-                                {"sig_name": "bat_fan", "type":"uint8_t", "unit": "%"},
-                                {"sig_name":"dt_fan", "type":"uint8_t", "unit":"%"},
-                                {"sig_name": "bat_pump", "type":"uint8_t", "length": 1},
-                                {"sig_name": "bat_pump_aux", "type":"uint8_t", "length": 1},
-                                {"sig_name": "dt_pump", "type":"uint8_t", "length": 1}
-                            ],
-                            "msg_period": 1000,
-                            "msg_hlp":1,
-                            "msg_pgn":35
-                        },
-                        {
                             "msg_name": "gearbox",
                             "msg_desc": "Gearbox temps",
                             "signals": [
@@ -806,6 +792,20 @@
                             "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":1044
+                        },
+                        {
+                            "msg_name": "coolant_out",
+                            "msg_desc": "outputs to coolant loops",
+                            "signals": [
+                                {"sig_name": "bat_fan", "type":"uint8_t", "unit": "%"},
+                                {"sig_name":"dt_fan", "type":"uint8_t", "unit":"%"},
+                                {"sig_name": "bat_pump", "type":"uint8_t", "length": 1},
+                                {"sig_name": "bat_pump_aux", "type":"uint8_t", "length": 1},
+                                {"sig_name": "dt_pump", "type":"uint8_t", "length": 1}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp":1,
+                            "msg_pgn":35
                         }
                     ],
                     "rx": [

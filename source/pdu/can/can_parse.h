@@ -24,6 +24,7 @@
 #define ID_RAIL_CURRENTS 0x401049f
 #define ID_PUMP_AND_FAN_CURRENT 0x40104df
 #define ID_OTHER_CURRENTS 0x401051f
+#define ID_COOLANT_OUT 0x40008df
 #define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_DAQ_RESPONSE_PDU 0x17ffffdf
 #define ID_PDU_BL_CMD 0x409c53e
@@ -44,6 +45,7 @@
 #define DLC_RAIL_CURRENTS 4
 #define DLC_PUMP_AND_FAN_CURRENT 7
 #define DLC_OTHER_CURRENTS 8
+#define DLC_COOLANT_OUT 3
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_DAQ_RESPONSE_PDU 8
 #define DLC_PDU_BL_CMD 5
@@ -92,6 +94,16 @@
         data_a->other_currents.i_dash = i_dash_;\
         data_a->other_currents.i_abox = i_abox_;\
         data_a->other_currents.i_main = i_main_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_COOLANT_OUT(queue, bat_fan_, dt_fan_, bat_pump_, bat_pump_aux_, dt_pump_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_COOLANT_OUT, .DLC=DLC_COOLANT_OUT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->coolant_out.bat_fan = bat_fan_;\
+        data_a->coolant_out.dt_fan = dt_fan_;\
+        data_a->coolant_out.bat_pump = bat_pump_;\
+        data_a->coolant_out.bat_pump_aux = bat_pump_aux_;\
+        data_a->coolant_out.dt_pump = dt_pump_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_PDU(queue, idx_, latched_) do {\
@@ -159,6 +171,13 @@ typedef union {
         uint64_t i_abox: 12;
         uint64_t i_main: 12;
     } other_currents;
+    struct {
+        uint64_t bat_fan: 8;
+        uint64_t dt_fan: 8;
+        uint64_t bat_pump: 1;
+        uint64_t bat_pump_aux: 1;
+        uint64_t dt_pump: 1;
+    } coolant_out;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

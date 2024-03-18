@@ -673,9 +673,9 @@ void DMA2_Stream7_IRQHandler() //TX
     handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream7_IRQn, USART_DMA_TX);
 }
 
-void DMA2_Stream5_IRQHandler() //TX
+void DMA2_Stream5_IRQHandler() //RX
 {
-    handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream5_IRQn, USART_DMA_TX);
+    handleDMAxComplete(USART1_ACTIVE_IDX, DMA2_Stream5_IRQn, USART_DMA_RX);
 }
 
 // USART2:

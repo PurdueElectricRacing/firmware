@@ -104,10 +104,10 @@ void readTemps(tmu_handle_t *tmu) {
         tmu->tmu3_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_3 * (R1_3V3 + R2_3V3) / R2_3V3;
         tmu->tmu4_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_4 * (R1_3V3 + R2_3V3) / R2_3V3;
         // setting fault if power is lost
-        setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu1_pow);
-        setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu2_pow);
-        setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu3_pow);
-        setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu4_pow);
+        // setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu1_pow);
+        // setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu2_pow);
+        // setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu3_pow);
+        // setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu4_pow);
     }
 
     // send temperatures over CAN (sent multiplied by 10, so 221 would be 22.1 deg C)

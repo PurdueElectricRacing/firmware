@@ -205,6 +205,7 @@ int main()
     PHAL_startADC(ADC1);
     led_anim_complete = 0;
     PHAL_writeGPIO(DAQ_CTRL_GPIO_Port, DAQ_CTRL_Pin, 1);
+    PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, 1);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -212,6 +213,7 @@ int main()
 
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
+    taskCreate(heartBeatTask, 100);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(LED_periodic, 500);
     taskCreateBackground(canTxUpdate);
@@ -253,6 +255,9 @@ void preflightChecks(void) {
             break;
         case 4:
             coolingInit();
+            break;
+        case 5:
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_PDU);
             break;
         default:
             if (led_anim_complete)

@@ -17,12 +17,9 @@ uint8_t  orion_error = 0;
 
 void orionInit()
 {
-    //linkReada(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
-    //linkWritea(DAQ_ID_CHARGE_MODE_ENABLE, &charge_request_user);
-    //linkReada(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
-    //linkWritea(DAQ_ID_CHARGE_VOLTAGE_LIMIT, &user_charge_voltage_request);
-    //linkReada(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
-    //linkWritea(DAQ_ID_CHARGE_CURRENT_LIMIT, &user_charge_current_request);
+    user_charge_voltage_request = 314;
+    user_charge_current_request = 2;
+    charge_request_user = false;
 }
 
 
@@ -88,14 +85,14 @@ void orionChargePeriodic() {
                            !can_data.orion_info.stale */;
 
     /* TODO: charge_request_user &= !can_data.elcon_charger_status.stale; */
-     charge_request_user  = 1; // TODO: remove
+     //charge_request_user  = 1; // TODO: remove
     if (charge_request_user && orion_charger_status && !orionErrors() && !errorLatched() && !fatalLatched()) {
             elcon_charge_enable = true;
 
-             user_charge_current_request = 2;
+             //user_charge_current_request = 10;
             charge_current_req = MIN(can_data.orion_info.pack_ccl, user_charge_current_request);
 
-             user_charge_voltage_request = 314;
+             //user_charge_voltage_request = 314;
             charge_voltage_req = MIN(user_charge_voltage_request, MAX_VOLT); // Hard limit, don't overcharge
             charge_voltage_req *=  10;
             charge_current_req *= 10;

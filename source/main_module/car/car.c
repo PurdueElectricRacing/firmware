@@ -85,7 +85,6 @@ void carPeriodic()
     car.torque_r.torque_right = 0.0f;
     car.buzzer    = false;
     car.sdc_close = true;
-    updateSDCFaults();
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
     if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CAR_STATE_FATAL)
         car.state = CAR_STATE_IDLE;
@@ -172,27 +171,27 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_PRECHARGING)
     {
-        float v_mc = ((adc_readings.v_mc / 4095.0f) * 3.3f);
-        float v_batt = ((adc_readings.v_bat / 4095.0f) * 3.3f);
-        float threshold = 0.92f * v_batt;
+        // float v_mc = ((adc_readings.v_mc / 4095.0f) * 3.3f);
+        // float v_batt = ((adc_readings.v_bat / 4095.0f) * 3.3f);
+        // float threshold = 0.92f * v_batt;
 
-        static uint32_t precharge_start_ms;
-        if (!prchg_start)
-        {
-            precharge_start_ms = sched.os_ticks;
-            prchg_start = 1;
-        }
+        // static uint32_t precharge_start_ms;
+        // if (!prchg_start)
+        // {
+        //     precharge_start_ms = sched.os_ticks;
+        //     prchg_start = 1;
+        // }
 
-        setFault(ID_PRECHARGE_TIME_FAULT_FAULT, (sched.os_ticks - precharge_start_ms));
-        if (v_mc >= threshold && PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))
+        // setFault(ID_PRECHARGE_TIME_FAULT_FAULT, (sched.os_ticks - precharge_start_ms));
+        if (/*v_mc >= threshold && */PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))
         {
             car.pchg.pchg_complete = 1;
             car.state = CAR_STATE_ENERGIZED;
         }
-        else
-        {
-            setFault(ID_PCHG_IMPLAUS_FAULT, 1);
-        }
+        // else
+        // {
+        //     setFault(ID_PCHG_IMPLAUS_FAULT, 1);
+        // }
     }
     else if (car.state == CAR_STATE_ENERGIZED)
     {
@@ -318,10 +317,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
-    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-                car.motor_l.motor_state != MC_CONNECTED);
-    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-                car.motor_r.motor_state != MC_CONNECTED);
+    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_l.motor_state != MC_CONNECTED);
+    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;
@@ -529,7 +528,7 @@ void updateSDCFaults()
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat)
                 {
-                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    // setFault(ID_COCKPIT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -548,26 +547,26 @@ void updateSDCFaults()
                 break;
             case (SDC_BOTS):
                 //If bots is down, we need to check whether BOTS was tripped or BSPD was tripped
-                if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin))
-                {
-                    int32_t total_current;
-                    for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
-                    {
-                        total_current += hist_current[i];
-                    }
-                    if (total_current > 2000)
-                    {
-                        setFault(ID_BSPD_LATCHED_FAULT, 1);
-                    }
-                    else if (brake_fail)
-                        setFault(ID_BSPD_LATCHED_FAULT, 1);
-                    else
-                        setFault(ID_BOTS_FAIL_FAULT, 1);
-                }
-                else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
-                {
-                    setFault(ID_BOTS_FAIL_FAULT, 0);
-                }
+                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin))
+                // {
+                //     int32_t total_current;
+                //     for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
+                //     {
+                //         total_current += hist_current[i];
+                //     }
+                //     if (total_current > 2000)
+                //     {
+                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
+                //     }
+                //     else if (brake_fail)
+                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
+                //     else
+                //         setFault(ID_BOTS_FAIL_FAULT, 1);
+                // }
+                // else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
+                // {
+                //     setFault(ID_BOTS_FAIL_FAULT, 0);
+                // }
                 break;
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat)
@@ -646,7 +645,7 @@ void monitorSDCPeriodic()
         PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
         PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
         // Delay to allow mux to correctly select signal
-        for (uint8_t i = 0; i < 10; i++)
+        for (uint8_t i = 0; i < 50; i++)
             ;
     }
     sdc_mux = sdc_nodes_raw;

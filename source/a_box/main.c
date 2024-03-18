@@ -102,6 +102,7 @@ void monitorStatus();
 void preflightChecks();
 void preflightAnimation();
 void updateTherm();
+void sendhbmsg();
 
 tmu_handle_t tmu;
 
@@ -197,6 +198,7 @@ int main (void)
    taskCreate(monitorStatus, 50);
    taskCreate(orionChargePeriodic, 50);
    taskCreate(heartBeatTask, 100);
+   taskCreate(sendhbmsg, 100);
    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
 
@@ -238,6 +240,14 @@ void preflightChecks(void)
    }
 }
 
+void sendhbmsg()
+{
+    bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
+
+
+   SEND_PRECHARGE_HB(q_tx_can, imd_status, orion_error);
+}
+
 
 
 
@@ -277,11 +287,6 @@ void heartBeatLED()
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
-
-    bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
-
-
-   SEND_PRECHARGE_HB(q_tx_can, imd_status, orion_error);
 }
 
 

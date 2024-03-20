@@ -66,6 +66,7 @@ static void eth_send_udp_periodic(void);
 static void eth_rx_tcp_periodic(void);
 static bool get_log_enable(void);
 static void conv_tcp_frame_to_can_msg(tcp_can_frame_t *t, CanMsgTypeDef_t *c);
+static void conv_tcp_frame_to_rtc(tcp_can_frame_t *t, RTC_timestamp_t *time);
 
 // TODO: use can parse somehow to check for daq enable signal, etc
 
@@ -104,6 +105,7 @@ void daq_loop(void)
     uint32_t tic;
     uint32_t cont;
     uint32_t last_hb_toggle_ms = 0;
+    RTC_timestamp_t time;
     bool msg_valid;
 
     while (PER == GREAT)
@@ -153,6 +155,11 @@ void daq_loop(void)
                         case TCP_CMD_STOP_LOG:
                             dh.log_enable_tcp = false;
                             break;
+                        case TCP_CMD_SYNC_TIME:
+                            // Extract time from message and configure RTC 
+                            conv_tcp_frame_to_rtc(rx_msg_a, &time);
+                            PHAL_configureRTC(&time, true);
+                            break;
                         default:
                             break;
                     }
@@ -173,6 +180,20 @@ void daq_loop(void)
         }
     }
 
+}
+
+static void conv_tcp_frame_to_rtc(tcp_can_frame_t *t, RTC_timestamp_t *time)
+{
+    tcp_time_frame_t *tcp_time = (tcp_time_frame_t *) t->data;
+    time->time.hours_bcd   = RTC_CONV_TO_BCD(tcp_time->hours);
+    time->time.minutes_bcd = RTC_CONV_TO_BCD(tcp_time->minutes);
+    time->time.seconds_bcd = RTC_CONV_TO_BCD(tcp_time->seconds);
+    time->date.day_bcd     = RTC_CONV_TO_BCD(tcp_time->day);
+    time->date.weekday     = 0; // not used
+    time->date.month_bcd   = RTC_CONV_TO_BCD(tcp_time->month);
+    time->date.year_bcd    = RTC_CONV_TO_BCD(tcp_time->year);
+    // assumes 24H time format
+    time->time.time_format = RTC_FORMAT_24_HOUR;
 }
 
 static void conv_tcp_frame_to_can_msg(tcp_can_frame_t *t, CanMsgTypeDef_t *c)

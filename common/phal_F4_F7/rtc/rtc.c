@@ -14,6 +14,12 @@
 // Registers are in line 10400 of the stm32f407xx.h file
 uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time)
 {
+
+    // Enable the LSI always (CSR is reset unlike the BDCR register)
+    RCC->CSR |= RCC_CSR_LSION;
+    // TODO: make timeout
+    while (!(RCC->CSR & RCC_CSR_LSIRDY));
+
     // Check if already initialized
     if (!force_time && RTC->ISR & RTC_ISR_INITS) return true;
 
@@ -42,10 +48,6 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time)
     // Software reset backup power domain
     // RCC->BDCR |= RCC_BDCR_BDRST;
     
-    RCC->CSR |= RCC_CSR_LSION;
-    // TODO: make timeout
-    while (!(RCC->CSR & RCC_CSR_LSIRDY));
-
     RCC->BDCR &= ~(RCC_BDCR_RTCSEL); // Clear RTCSEL bits
     RCC->BDCR |= RCC_BDCR_RTCSEL_1; // select LSI
     RCC->BDCR |= RCC_BDCR_RTCEN;

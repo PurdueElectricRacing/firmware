@@ -62,6 +62,7 @@ typedef enum
     TCP_CMD_CAN_FRAME = 0,
     TCP_CMD_START_LOG = 1,
     TCP_CMD_STOP_LOG  = 3,
+    TCP_CMD_SYNC_TIME = 4,
 } tcp_cmd_t;
 
 // TODO: add on bus_id
@@ -72,6 +73,18 @@ typedef struct __attribute__((packed))
     uint8_t dlc;     //!< data length code
     uint8_t data[8]; //!< message data
 } tcp_can_frame_t;
+
+typedef struct __attribute__((packed))
+{
+    uint8_t seconds;
+    uint8_t minutes;
+    uint8_t hours;
+    uint8_t day;
+    RTC_MONTH_t month;
+    uint8_t year;
+    uint8_t _padding1;
+    uint8_t _padding2;
+} tcp_time_frame_t;
 
 typedef enum
 {

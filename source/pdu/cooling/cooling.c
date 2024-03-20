@@ -46,10 +46,10 @@ void update_cooling_periodic() {
 void cooling_driver_request_CALLBACK(CanParsedData_t *msg_data_a)
 {
     // Set cooling_request struct values to values received in CAN messages accessed through the global can_data variable
-    cooling_request.fan1_status = can_data.cooling_driver_request.dt_fan > 0 ? true : false; // determine if fans are on or off
-    cooling_request.fan2_status = can_data.cooling_driver_request.batt_fan > 0 ? true : false;
-    cooling_request.fan1_speed = can_data.cooling_driver_request.dt_fan > 100 ? 100 : can_data.cooling_driver_request.dt_fan; // cap fan speeds at 100
-    cooling_request.fan2_speed = can_data.cooling_driver_request.batt_fan > 100 ? 100 : can_data.cooling_driver_request.batt_fan;
+    cooling_request.fan2_status = can_data.cooling_driver_request.dt_fan > 0 ? true : false; // determine if fans are on or off
+    cooling_request.fan1_status = can_data.cooling_driver_request.batt_fan > 0 ? true : false;
+    cooling_request.fan2_speed = can_data.cooling_driver_request.dt_fan > 100 ? 100 : can_data.cooling_driver_request.dt_fan; // cap fan speeds at 100
+    cooling_request.fan1_speed = can_data.cooling_driver_request.batt_fan > 100 ? 100 : can_data.cooling_driver_request.batt_fan;
     cooling_request.pump1_status = can_data.cooling_driver_request.dt_pump; // determine if pumps are on or off
     cooling_request.pump2_status = can_data.cooling_driver_request.batt_pump;
     cooling_request.aux_status = can_data.cooling_driver_request.batt_pump2;

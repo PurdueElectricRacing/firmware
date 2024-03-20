@@ -183,7 +183,7 @@ int main()
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
     
-    if (!PHAL_configureRTC(&start_time, true))
+    if (!PHAL_configureRTC(&start_time, false))
         HardFault_Handler();
 
 

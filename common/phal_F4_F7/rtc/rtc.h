@@ -113,6 +113,8 @@ typedef struct
     RTC_time_t time;
 } RTC_timestamp_t;
 
+#define RTC_CONV_TO_BCD(v) (((v / 10) << 4) | (v % 10))
+
 bool PHAL_getTimeRTC(RTC_timestamp_t *currentTimestamp);
 uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time);
 

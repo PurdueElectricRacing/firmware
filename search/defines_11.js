@@ -31,10 +31,11 @@ var searchData=
   ['resistor_5ft1_28',['RESISTOR_T1',['../pedals_8h.html#aa1bdaa71505bd92355ebfe5eb2e15d41',1,'pedals.h']]],
   ['resistor_5ft2_29',['RESISTOR_T2',['../pedals_8h.html#a70900bf14d9b9417a844dcb766902915',1,'pedals.h']]],
   ['rtc_5fasync_5fprescal_30',['RTC_ASYNC_PRESCAL',['../rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
-  ['rtc_5fsync_5fprescal_31',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
-  ['rtmgeterrorstatus_32',['rtmGetErrorStatus',['../SFS_8h.html#a557d264325c9e243515f06d77552c662',1,'SFS.h']]],
-  ['rtmseterrorstatus_33',['rtmSetErrorStatus',['../SFS_8h.html#a068bf11f899627a85b3c169391608c78',1,'SFS.h']]],
-  ['rx_5fbuff_5fitem_5fcount_34',['RX_BUFF_ITEM_COUNT',['../daq__hub_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'daq_hub.h']]],
-  ['rx_5fct_35',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
-  ['rx_5ftail_5fct_36',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
+  ['rtc_5fconv_5fto_5fbcd_31',['RTC_CONV_TO_BCD',['../rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
+  ['rtc_5fsync_5fprescal_32',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
+  ['rtmgeterrorstatus_33',['rtmGetErrorStatus',['../SFS_8h.html#a557d264325c9e243515f06d77552c662',1,'SFS.h']]],
+  ['rtmseterrorstatus_34',['rtmSetErrorStatus',['../SFS_8h.html#a068bf11f899627a85b3c169391608c78',1,'SFS.h']]],
+  ['rx_5fbuff_5fitem_5fcount_35',['RX_BUFF_ITEM_COUNT',['../daq__hub_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'daq_hub.h']]],
+  ['rx_5fct_36',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
+  ['rx_5ftail_5fct_37',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
 ];

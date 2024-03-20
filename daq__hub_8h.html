@@ -153,6 +153,7 @@ Enumerations</h2></td></tr>
 <tr class="memitem:aa1955383b6915c2499a8abef44c34a73" id="r_aa1955383b6915c2499a8abef44c34a73"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1955383b6915c2499a8abef44c34a73">tcp_cmd_t</a> { <a class="el" href="#aa1955383b6915c2499a8abef44c34a73ac474a02edc0f78f984ece1185adb6700">TCP_CMD_CAN_FRAME</a> = 0
 , <a class="el" href="#aa1955383b6915c2499a8abef44c34a73a8fbd34eda43e0e5d5ebf17d1429967e2">TCP_CMD_START_LOG</a> = 1
 , <a class="el" href="#aa1955383b6915c2499a8abef44c34a73a8b8aeccae4f781b788422b6f752c14ff">TCP_CMD_STOP_LOG</a> = 3
+, <a class="el" href="#aa1955383b6915c2499a8abef44c34a73ad993a1668d4a71249354173aedecf039">TCP_CMD_SYNC_TIME</a> = 4
  }</td></tr>
 <tr class="separator:aa1955383b6915c2499a8abef44c34a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb425a95edaf884fd443c15be109f574" id="r_acb425a95edaf884fd443c15be109f574"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb425a95edaf884fd443c15be109f574">sd_state_t</a> { <br />
@@ -216,6 +217,8 @@ Variables</h2></td></tr>
 <tr class="separator:a701a0c393412d734f5261b6b191bd0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7236be2550735498ea720a9b794382f" id="r_ac7236be2550735498ea720a9b794382f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7236be2550735498ea720a9b794382f">tcp_can_frame_t</a></td></tr>
 <tr class="separator:ac7236be2550735498ea720a9b794382f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e36718c4f68246903b438bab6408d54" id="r_a0e36718c4f68246903b438bab6408d54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e36718c4f68246903b438bab6408d54">tcp_time_frame_t</a></td></tr>
+<tr class="separator:a0e36718c4f68246903b438bab6408d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b2dc0da4988dace2c3c705ab3c3eebb" id="r_a2b2dc0da4988dace2c3c705ab3c3eebb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdaq__hub__t.html">daq_hub_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b2dc0da4988dace2c3c705ab3c3eebb">dh</a></td></tr>
 <tr class="separator:a2b2dc0da4988dace2c3c705ab3c3eebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -662,6 +665,7 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa1955383b6915c2499a8abef44c34a73ac474a02edc0f78f984ece1185adb6700" name="aa1955383b6915c2499a8abef44c34a73ac474a02edc0f78f984ece1185adb6700"></a>TCP_CMD_CAN_FRAME&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa1955383b6915c2499a8abef44c34a73a8fbd34eda43e0e5d5ebf17d1429967e2" name="aa1955383b6915c2499a8abef44c34a73a8fbd34eda43e0e5d5ebf17d1429967e2"></a>TCP_CMD_START_LOG&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa1955383b6915c2499a8abef44c34a73a8b8aeccae4f781b788422b6f752c14ff" name="aa1955383b6915c2499a8abef44c34a73a8b8aeccae4f781b788422b6f752c14ff"></a>TCP_CMD_STOP_LOG&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa1955383b6915c2499a8abef44c34a73ad993a1668d4a71249354173aedecf039" name="aa1955383b6915c2499a8abef44c34a73ad993a1668d4a71249354173aedecf039"></a>TCP_CMD_SYNC_TIME&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -758,6 +762,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">tcp_can_frame_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e36718c4f68246903b438bab6408d54" name="a0e36718c4f68246903b438bab6408d54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e36718c4f68246903b438bab6408d54">&#9670;&#160;</a></span>tcp_time_frame_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tcp_time_frame_t</td>
         </tr>
       </table>
 </div><div class="memdoc">

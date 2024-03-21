@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "common/queue/queue.h"
 
-#define NXT_STR_SIZE 85
+#define NXT_STR_SIZE        100 // Important: Used for usart queue size, issues arise if less than len of longest fault msg
 #define SET_VALUE_EXTRA 	13
 #define SET_BCO_EXTRA 		13
 #define SET_TEXT_EXTRA 		10
@@ -26,8 +26,6 @@
 #define WHITE 65535
 #define BLACK 0
 
-
-
 #define FLAG_ENABLED_PIC  1
 #define FLAG_DISABLED_PIC 1
 
@@ -36,14 +34,6 @@
 #define NXT_VALUE            ".val="
 #define NXT_TEXT             ".txt="
 #define NXT_PICTURE          ".pic="
-
-typedef struct
-{
-    char* name;
-    uint8_t dirs[4]; // up right down left (CW)
-    uint8_t norm_id;
-    uint8_t high_id;
-} button_t;
 
 void set_flag(char* obj_name, uint8_t enable);
 void set_float(char* obj_name, char* param, float num, uint8_t precision);

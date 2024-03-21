@@ -362,6 +362,15 @@ BO_ 2214598981 dashboard_volts_temp: 6 Dashboard
  SG_ volts_5v : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214594629 dashboard_brake_status: 1 Dashboard
+ SG_ brake_status : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214596037 dashboard_tv_parameters: 7 Dashboard
+ SG_ tv_p_val : 33|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tv_intensity_val : 17|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tv_deadband_val : 1|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tv_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2148059781 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -885,6 +894,13 @@ CM_ BO_ 2214598981 "periodic dashboard MCU temp";
 CM_ SG_ 2214598981 volts_3v3 "";
 CM_ SG_ 2214598981 volts_5v "";
 CM_ SG_ 2214598981 mcu_temp "";
+CM_ BO_ 2214594629 "periodic dashboard brake health";
+CM_ SG_ 2214594629 brake_status "";
+CM_ BO_ 2214596037 "periodic dashboard tv parameters";
+CM_ SG_ 2214596037 tv_p_val "";
+CM_ SG_ 2214596037 tv_intensity_val "";
+CM_ SG_ 2214596037 tv_deadband_val "";
+CM_ SG_ 2214596037 tv_enabled "";
 CM_ BO_ 2148059781 "Fault status message";
 CM_ SG_ 2148059781 latched "";
 CM_ SG_ 2148059781 idx "";

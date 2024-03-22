@@ -718,6 +718,16 @@
                             "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":55
+                        },
+                        {
+                            "msg_name":"dashboard_start_logging",
+                            "msg_desc":"start logging",
+                            "signals":[
+                                {"sig_name": "logging_enabled", "type":"uint8_t", "length":1}
+                            ],
+                            "msg_period":500,
+                            "msg_hlp":1,
+                            "msg_pgn":56
                         }
                     ],
                     "rx":[
@@ -735,7 +745,7 @@
                         {"msg_name": "coolant_out", "callback": true},
                         {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
-                        {"msg_name": "dashboard_brake_status"}
+                        {"msg_name": "sdc_status"}
                     ]
                 },
                 {

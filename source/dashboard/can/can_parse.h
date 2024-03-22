@@ -28,6 +28,7 @@
 #define ID_DASHBOARD_VOLTS_TEMP 0x4001945
 #define ID_DASHBOARD_BRAKE_STATUS 0x4000845
 #define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
+#define ID_DASHBOARD_START_LOGGING 0x4000e05
 #define ID_FAULT_SYNC_DASHBOARD 0x8ca85
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0x4001901
@@ -44,6 +45,7 @@
 #define ID_COOLANT_OUT 0x40008df
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
+#define ID_SDC_STATUS 0xc000381
 #define ID_FAULT_SYNC_PDU 0x8cadf
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -63,6 +65,7 @@
 #define DLC_DASHBOARD_VOLTS_TEMP 6
 #define DLC_DASHBOARD_BRAKE_STATUS 1
 #define DLC_DASHBOARD_TV_PARAMETERS 7
+#define DLC_DASHBOARD_START_LOGGING 1
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
@@ -79,6 +82,7 @@
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
+#define DLC_SDC_STATUS 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -154,6 +158,12 @@
         data_a->dashboard_tv_parameters.tv_p_val = tv_p_val_;\
         qSendToBack(&queue, &msg);\
     } while(0)
+#define SEND_DASHBOARD_START_LOGGING(queue, logging_enabled_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_START_LOGGING, .DLC=DLC_DASHBOARD_START_LOGGING, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dashboard_start_logging.logging_enabled = logging_enabled_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
 #define SEND_FAULT_SYNC_DASHBOARD(queue, idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_DASHBOARD, .DLC=DLC_FAULT_SYNC_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -185,7 +195,7 @@
 #define UP_COOLANT_TEMPS 200
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 2000
-#define UP_DASHBOARD_BRAKE_STATUS 500
+#define UP_SDC_STATUS 200
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -250,6 +260,9 @@ typedef union {
         uint64_t tv_intensity_val: 16;
         uint64_t tv_p_val: 16;
     } dashboard_tv_parameters;
+    struct {
+        uint64_t logging_enabled: 1;
+    } dashboard_start_logging;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -371,6 +384,21 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } dashboard_bl_cmd;
+    struct {
+        uint64_t IMD: 1;
+        uint64_t BMS: 1;
+        uint64_t BSPD: 1;
+        uint64_t BOTS: 1;
+        uint64_t inertia: 1;
+        uint64_t c_estop: 1;
+        uint64_t main: 1;
+        uint64_t r_estop: 1;
+        uint64_t l_estop: 1;
+        uint64_t HVD: 1;
+        uint64_t hub: 1;
+        uint64_t TSMS: 1;
+        uint64_t pchg_out: 1;
+    } sdc_status;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -546,10 +574,22 @@ typedef struct {
         uint32_t data;
     } dashboard_bl_cmd;
     struct {
-        uint8_t brake_status;
+        uint8_t IMD;
+        uint8_t BMS;
+        uint8_t BSPD;
+        uint8_t BOTS;
+        uint8_t inertia;
+        uint8_t c_estop;
+        uint8_t main;
+        uint8_t r_estop;
+        uint8_t l_estop;
+        uint8_t HVD;
+        uint8_t hub;
+        uint8_t TSMS;
+        uint8_t pchg_out;
         uint8_t stale;
         uint32_t last_rx;
-    } dashboard_brake_status;
+    } sdc_status;
     struct {
         uint16_t idx;
         uint8_t latched;

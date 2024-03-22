@@ -18,7 +18,7 @@ extern q_handle_t q_tx_can;           // Global queue for CAN tx
 extern q_handle_t q_fault_history;    // Global queue from fault library for fault history
 volatile settings_t settings;         // Data for the settings page 
 volatile tv_settings_t tv_settings;   // Data for the tvsettings page 
-tv_settings_t prev_tv_settings;       // Struct to detect changes to torque vectoring and send to TV board
+volatile driver_config_t driver_config; // Data for the driver page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;         // Amount of units of time that the fault has been shown to the driver
 
@@ -47,7 +47,6 @@ void initLCD() {
     settings = (settings_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
     tv_settings = (tv_settings_t) {true, 0, 12, 10, 10};
-    prev_tv_settings = tv_settings;
 }
 
 void updatePage() {
@@ -57,21 +56,6 @@ void updatePage() {
         curr_page = lcd_data.encoder_position;
         fault_time_displayed = 0;
     }
-    // else
-    // {
-    //     if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
-    //     {
-    //         switch(++fault_time_displayed)
-    //         {
-    //             if (fault_time_displayed > 40)
-    //             {
-    //                 curr_page = prev_page;
-    //                 prev_page = PAGE_PREFLIGHT;
-    //                 fault_time_displayed = 0;
-    //             }
-    //         }
-    //     }
-    // }
 
     // If we do not detect a page update (most notably detect if encoder did not move), do nothing
     if (curr_page == prev_page) {
@@ -83,6 +67,61 @@ void updatePage() {
 
     // Parse the page that was passed into the function
     switch (curr_page) {
+        case PAGE_LOGGING:
+            prev_page = PAGE_LOGGING;
+            set_page(LOGGING_STRING);
+            break;
+        case PAGE_DRIVER:
+            prev_page = PAGE_DRIVER;
+            set_page(DRIVER_STRING);
+
+            driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+
+            if (driver_config.curr_select == DRIVER_DEFAULT_SELECT)
+            {
+                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
+            }
+            else
+            {
+                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+            }
+
+            if (driver_config.curr_select == DRIVER_TYLER_SELECT)
+            {
+                set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
+            }
+            else
+            {
+                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+            }
+
+            if (driver_config.curr_select == DRIVER_RUHAAN_SELECT)
+            {
+                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
+            }
+            else
+            {
+                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            }
+
+            if (driver_config.curr_select == DRIVER_LUKE_SELECT)
+            {
+                set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
+            }
+            else
+            {
+                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+            }
+            break;
+
+        case PAGE_SDCINFO:
+            prev_page = PAGE_SDCINFO;
+            set_page(SDCINFO_STRING);
+            break;
         case PAGE_TVSETTINGS:
             prev_page = PAGE_TVSETTINGS;
 
@@ -399,6 +438,48 @@ void moveUp() {
                 break;
         }
     }
+    else if (curr_page == PAGE_DRIVER)
+    {
+        if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
+        {
+            // Wrap around to enable
+            driver_config.curr_hover = DRIVER_LUKE_SELECT;
+            driver_config.curr_select = DRIVER_LUKE_SELECT;
+            // Update the background 
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        }
+        else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
+            driver_config.curr_select = DRIVER_DEFAULT_SELECT;
+
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (driver_config.curr_hover == DRIVER_RUHAAN_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_TYLER_SELECT;
+            driver_config.curr_select = DRIVER_TYLER_SELECT;
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_RUHAAN_SELECT;
+            driver_config.curr_select = DRIVER_RUHAAN_SELECT;
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+    }
 }
 
 void moveDown() {
@@ -548,6 +629,46 @@ void moveDown() {
                 break;
         }
     }
+    else if (curr_page == PAGE_DRIVER)
+    {
+        if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_TYLER_SELECT;
+            driver_config.curr_select = DRIVER_TYLER_SELECT;
+            // Update the background 
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_RUHAAN_SELECT;
+            driver_config.curr_select = DRIVER_RUHAAN_SELECT;
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+        else if (driver_config.curr_hover == DRIVER_RUHAAN_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_LUKE_SELECT;
+            driver_config.curr_select = DRIVER_LUKE_SELECT;
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        }
+        else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
+        {
+            driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
+            driver_config.curr_select = DRIVER_DEFAULT_SELECT;
+            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        }
+    }
 }
 
 void selectItem() {
@@ -560,6 +681,10 @@ void selectItem() {
         prev_page = PAGE_PREFLIGHT;
         fault_time_displayed = 0;
         updatePage();
+    }
+    else if (curr_page == PAGE_LOGGING)
+    {
+        SEND_DASHBOARD_START_LOGGING(q_tx_can, 1);
     }
     else if (curr_page == PAGE_TVSETTINGS)
     {
@@ -634,8 +759,6 @@ void selectItem() {
         {
             // ?
         }
-
-
     }
     else if (curr_page == PAGE_SETTINGS) {
         switch (settings.curr_hover) {
@@ -705,6 +828,36 @@ void selectItem() {
         }
         SEND_COOLING_DRIVER_REQUEST(q_tx_can, settings.d_pump_selected, settings.d_fan_val, settings.b_fan2_selected, settings.b_pump_selected, settings.b_fan_val);
     }
+    else if (curr_page == PAGE_DRIVER)
+    {
+        switch(driver_config.curr_hover)
+        {
+            case DRIVER_DEFAULT_SELECT:
+                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
+                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+                break;
+            case DRIVER_TYLER_SELECT:
+                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+                set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
+                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+                break;
+            case DRIVER_RUHAAN_SELECT:
+                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
+                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+                break;
+            case DRIVER_LUKE_SELECT:
+                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+                set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
+                break;
+        }
+    }
 }
 
 void updateShutdownCircuitDisplay() {
@@ -717,6 +870,20 @@ void updateShutdownCircuitDisplay() {
 }
 
 void updateFaultDisplay() {
+    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
+    {
+        if (++fault_time_displayed > 8)
+        {
+            curr_page = prev_page;
+            prev_page = PAGE_PREFLIGHT;
+            updatePage();
+        }
+
+    }
+    else
+    {
+        fault_time_displayed = 0;
+    }
 
     // No new fault to display
     if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF))
@@ -813,91 +980,6 @@ void updateFaultDisplay() {
     most_recent_latched = 0xFFFF;
 }
 
-// void updateFaultDisplay() {
-
-//     // No new fault to display
-//     if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF))
-//     {
-//         return;
-//     }
-
-//     // Track if we alrady have this fault in the display buffer
-//     bool faultAlreadyInBuffer = false;
-//     bool pageUpdateRequired = false;   
-
-//     // Process up to 5 faults each time for now
-//     for (int i = 0; i < 5; i++)
-//     {
-//         faultAlreadyInBuffer = false;
-//         uint16_t next_to_check = 0xFFFF;
-
-//         if (qReceive(&q_fault_history, &next_to_check))
-//         {
-//             // Iterate through fault buffer for existance of fault already
-//             for (int j = 0; j < 5; j++)
-//             {
-//                 // This should be based off of the queue item not anything else 
-//                 if (fault_buf[j] == next_to_check)
-//                 {
-//                     faultAlreadyInBuffer = true;
-//                     break;
-//                 }
-//             }
-
-//             // New fault to add to the display, if room
-//             if (false == faultAlreadyInBuffer)
-//             {
-//                 // If fault is currently not in our fault buffer, replace it if the current fault is cleared, 
-//                 //  or if the new fault has higher priority
-//                 if (fault_buf[cur_fault_buf_ndx] != 0xFFFF)
-//                 {
-//                     if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false ) || 
-//                     (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority))
-//                     {
-//                         fault_buf[cur_fault_buf_ndx] = next_to_check; 
-//                         pageUpdateRequired = true;           
-//                     }
-//                     else
-//                     {
-//                         // Put back in the queue if it wasn't processed
-//                         qSendToBack(&q_fault_history, &next_to_check);
-//                     }
-//                 }
-//                 else
-//                 {
-//                     // Empty slot just insert
-//                     fault_buf[cur_fault_buf_ndx] = next_to_check;
-//                     pageUpdateRequired = true;   
-//                 }
-//                 cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
-//             }
-//         }
-//         else
-//         {
-//             // Break out if issue or the queue is empty
-//             break;
-//         }
-
-//     }
-
-//     // Set the alert page to show based on most_recent_latched
-//     if ((most_recent_latched != 0xFFFF))
-//     {
-//         curr_page = faultArray[most_recent_latched].priority + 6;
-//         errorText = faultArray[most_recent_latched].screen_MSG;
-//         pageUpdateRequired = true;
-//     }
-
-//     // Update page if required
-//     if (pageUpdateRequired)
-//     {
-//         updatePage();
-//     }
-
-//     // Await next fault
-//     most_recent_latched = 0xFFFF;
-// }
-
 void update_data_pages() {
     char parsed_value[3] = "\0";
     switch (curr_page) {
@@ -907,8 +989,9 @@ void update_data_pages() {
             if (can_data.rear_wheel_speeds.stale) {
                 set_text(SPEED, NXT_TEXT, "S");
             }
+            // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
             else {
-                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_mc, can_data.rear_wheel_speeds.right_speed_mc) / GEAR_RATIO), parsed_value));
+                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_mc, can_data.rear_wheel_speeds.right_speed_mc) * 16.0 * 3.14159265358 * 0.254 / 60.0), parsed_value));
                 bzero(parsed_value, 3);
             }
             if (sendFirsthalf) {
@@ -1053,13 +1136,218 @@ char *int_to_char(int16_t val, char *val_to_send) {
 
 void sendTVParameters()
 {
-    if ((tv_settings.tv_enable_selected != prev_tv_settings.tv_enable_selected) ||
-       (tv_settings.tv_deadband_val != prev_tv_settings.tv_deadband_val) ||
-       (tv_settings.tv_intensity_val != prev_tv_settings.tv_intensity_val) ||
-       (tv_settings.tv_p_val != prev_tv_settings.tv_p_val))
-       {
-            SEND_DASHBOARD_TV_PARAMETERS(q_tx_can, tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
-       }
+    SEND_DASHBOARD_TV_PARAMETERS(q_tx_can, tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+}
 
-    prev_tv_settings = tv_settings;
+void updateFaultPageIndicators()
+{
+    if (curr_page == PAGE_FAULTS)
+    {
+        if (fault_buf[0] == 0xFFFF)
+        {
+            set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            if (checkFault(fault_buf[fault_buf[0]]) == false)
+            {
+                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+            }
+            else
+            {
+                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RED);
+            }
+        }
+        if (fault_buf[1] == 0xFFFF)
+        {
+            set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            if (checkFault(fault_buf[fault_buf[1]]) == false)
+            {
+                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+            }
+            else
+            {
+                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RED);
+            }
+        }
+        if (fault_buf[2] == 0xFFFF)
+        {
+            set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            if (checkFault(fault_buf[fault_buf[2]]) == false)
+            {
+                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+            }
+            else
+            {
+                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RED);
+            }
+        }
+        if (fault_buf[3] == 0xFFFF)
+        {
+            set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            if (checkFault(fault_buf[fault_buf[3]]) == false)
+            {
+                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+            }
+            else
+            {
+                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RED);
+            }
+        }
+        if (fault_buf[4] == 0xFFFF)
+        {
+            set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            if (checkFault(fault_buf[fault_buf[4]]) == false)
+            {
+                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+            }
+            else
+            {
+                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
+            }
+        }
+    }
+}
+
+void updateSDCDashboard()
+{
+    static uint8_t updateCode = 0U;
+    if (curr_page == PAGE_SDCINFO)
+    {
+        switch (++updateCode)
+        {
+            case 1:
+                if (can_data.sdc_status.IMD)
+                {
+                    set_value(SDC_IMD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_IMD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+
+                if (can_data.sdc_status.BMS)
+                {
+                    set_value(SDC_BMS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_BMS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+
+                if (can_data.sdc_status.BSPD)
+                {
+                    set_value(SDC_BSPD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_BSPD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+
+                if (can_data.sdc_status.BOTS)
+                {
+                    set_value(SDC_BOTS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_BOTS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+
+                if (can_data.sdc_status.inertia)
+                {
+                    set_value(SDC_INER_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_INER_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                break;
+        
+            case 2:
+                if (can_data.sdc_status.c_estop)
+                {
+                    set_value(SDC_CSTP_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_CSTP_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                if (can_data.sdc_status.main)
+                {
+                    set_value(SDC_MAIN_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_MAIN_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                if (can_data.sdc_status.r_estop)
+                {
+                    set_value(SDC_RSTP_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_RSTP_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                if (can_data.sdc_status.l_estop)
+                {
+                    set_value(SDC_LSTP_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_LSTP_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                if (can_data.sdc_status.HVD)
+                {
+                    set_value(SDC_HVD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_HVD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                break;
+            case 3:
+                if (can_data.sdc_status.hub)
+                {
+                    set_value(SDC_RHUB_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_RHUB_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                if (can_data.sdc_status.TSMS)
+                {
+                    set_value(SDC_TSMS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_TSMS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                if (can_data.sdc_status.pchg_out)
+                {
+                    set_value(SDC_PCHG_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
+                }
+                else
+                {
+                    set_value(SDC_PCHG_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
+                }
+                //todo set first trip from latest change in the sdc
+                updateCode = 0U;
+                break;
+            default:
+                updateCode = 0;
+            break;
+        }
+    }
 }

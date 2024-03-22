@@ -18,10 +18,7 @@
 #include "lcd.h"
 #include "nextion.h"
 
-
 GPIOInitConfig_t gpio_config[] = {
-
-
  // Status Indicators
  GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
  GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -211,7 +208,7 @@ int main (void){
     taskCreate(updateFaultPageIndicators, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(pedalsPeriodic, 15);
-    taskCreate(pollDashboardInput, 50);
+    taskCreate(pollDashboardInput, 25);
     taskCreate(heartBeatTask, 100);
     taskCreate(update_data_pages, 200);
     taskCreate(sendBrakeStatus, 500);
@@ -542,10 +539,36 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
         Bootloader_ResetForFirmwareDownload();
 }
 
+
+static uint8_t upButtonBuffer;
+static uint8_t downButtonBuffer;
+
 // Poll for Dashboard User Input
 void pollDashboardInput()
 {
     // Check for Encoder Input
+    upButtonBuffer <<= 1;
+    if (PHAL_readGPIO(GPIOD, 14) == 0)
+    {
+        upButtonBuffer |= 1; 
+    }    
+    upButtonBuffer &= 0b00011111;
+    if (upButtonBuffer == 0b00000001)
+    {
+        moveUp();
+    }
+
+    downButtonBuffer <<= 1;
+    if (PHAL_readGPIO(GPIOD, 13) == 0)
+    {
+        downButtonBuffer |= 1; 
+    }
+    downButtonBuffer &= 0b00011111;
+    if (downButtonBuffer == 0b00000001)
+    {
+        moveDown();
+    }
+
     if (dashboard_input & (1U << DASH_INPUT_ROT_ENC))
     {
         updatePage();
@@ -560,28 +583,28 @@ void pollDashboardInput()
     }
 
     // Check Up/Down Pressed
-    if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON) &&
-       (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON)))
-    {
-        // Default to Up if Both Pressed in x ms
-        moveUp();
-        dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
-        dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
-    }
-    else if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON))
-    {
-        moveUp();
-        dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
-    }
-    else if (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON))
-    {
-        moveDown();
-        dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
-    }
-    else
-    {
-        // nothing
-    }
+    // if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON) &&
+    //    (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON)))
+    // {
+    //     // Default to Up if Both Pressed in x ms
+    //     moveUp();
+    //     dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
+    //     dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
+    // }
+    // else if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON))
+    // {
+    //     moveUp();
+    //     dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
+    // }
+    // else if (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON))
+    // {
+    //     moveDown();
+    //     dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
+    // }
+    // else
+    // {
+    //     // nothing
+    // }
 
     // Check Select Item Pressed
     if (dashboard_input & (1U << DASH_INPUT_SELECT_BUTTON))

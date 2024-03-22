@@ -91,12 +91,12 @@ void pedalsPeriodic(void)
     // setFault(ID_BSE_WIRING_B1_FAULT, b1);
     // setFault(ID_BSE_WIRING_B2_FAULT, b2);
     setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
-    if (PHAL_readGPIO(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin)) {
-        setFault(ID_BSPD_FAULT, can_data.orion_currents_volts.pack_current);
-    }
-    else {
-        setFault(ID_BSPD_FAULT, 0);
-    }
+    // if (PHAL_readGPIO(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin)) {
+    //     setFault(ID_BSPD_FAULT, can_data.orion_currents_volts.pack_current);
+    // }
+    // else {
+    //     setFault(ID_BSPD_FAULT, 0);
+    // }
 
     float t1_volts = (VREF / 0xFFFU) * t1;
     float t2_volts = (VREF / 0XFFFU) * t2;

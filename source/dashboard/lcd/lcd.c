@@ -10,7 +10,7 @@
 volatile page_t curr_page;            // Current page displayed on the LCD
 volatile page_t prev_page;            // Previous page displayed on the LCD
 uint16_t cur_fault_buf_ndx;           // Current index in the fault buffer
-uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // Buffer of displayed faults
+volatile uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // Buffer of displayed faults
 bool sendFirsthalf;                   // Flag for sending data to data page
 char *errorText;                      // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern uint16_t filtered_pedals;      // Global from pedals module for throttle display
@@ -860,15 +860,6 @@ void selectItem() {
     }
 }
 
-void updateShutdownCircuitDisplay() {
-    // Grab status from the CAN message
-    // Update local struct 
-    // Display changes 
-    
-
-
-}
-
 void updateFaultDisplay() {
     if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
     {
@@ -965,7 +956,7 @@ void updateFaultDisplay() {
     // Set the alert page to show based on most_recent_latched
     if ((most_recent_latched != 0xFFFF))
     {
-        curr_page = faultArray[most_recent_latched].priority + 6;
+        curr_page = faultArray[most_recent_latched].priority + 9;
         errorText = faultArray[most_recent_latched].screen_MSG;
         pageUpdateRequired = true;
     }
@@ -1022,15 +1013,17 @@ void update_data_pages() {
                 }
                 else {
                     switch(can_data.main_hb.car_state) {
+                        case CAR_STATE_PRECHARGING:
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
+                            set_text(CAR_STAT, NXT_TEXT, "PRCHG");
+                            break;
+                        case CAR_STATE_ENERGIZED:
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
+                            set_text(CAR_STAT, NXT_TEXT, "ENER");
+                            break;
                         case CAR_STATE_IDLE:
-                            if (can_data.main_hb.precharge_state == 0) {
-                                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
-                                set_text(CAR_STAT, NXT_TEXT, "INIT");
-                            }
-                            else {
-                                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
-                                set_text(CAR_STAT, NXT_TEXT, "PRCHG");
-                            }
+                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
+                            set_text(CAR_STAT, NXT_TEXT, "INIT");
                             break;
                         case CAR_STATE_READY2DRIVE:
                             set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RACE_GREEN);
@@ -1229,7 +1222,8 @@ void updateSDCDashboard()
         switch (++updateCode)
         {
             case 1:
-                if (can_data.sdc_status.IMD)
+                // IMD from ABOX
+                if (can_data.precharge_hb.IMD)
                 {
                     set_value(SDC_IMD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
                 }
@@ -1238,7 +1232,7 @@ void updateSDCDashboard()
                     set_value(SDC_IMD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
                 }
 
-                if (can_data.sdc_status.BMS)
+                if (can_data.precharge_hb.BMS)
                 {
                     set_value(SDC_BMS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
                 }
@@ -1246,8 +1240,7 @@ void updateSDCDashboard()
                 {
                     set_value(SDC_BMS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
                 }
-
-                if (can_data.sdc_status.BSPD)
+                if (false == checkFault(ID_BSPD_LATCHED_FAULT))
                 {
                     set_value(SDC_BSPD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
                 }

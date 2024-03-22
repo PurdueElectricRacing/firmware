@@ -206,7 +206,6 @@ void updateFaultDisplay();                          // Periodically poll recent 
 void update_data_pages();                           // Periodically poll recent telemetry and update the data page as needd
 char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
 bool zeroEncoder(volatile int8_t* start_pos);       // Zero the encoder position for page selection
-void updateShutdownCircuitDisplay();            
 void sendTVParameters();                            // Periodically send updates to the TV configuration to TV board
 void updateFaultPageIndicators();
 void updateSDCDashboard();

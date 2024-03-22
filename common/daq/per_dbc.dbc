@@ -371,6 +371,9 @@ BO_ 2214596037 dashboard_tv_parameters: 7 Dashboard
  SG_ tv_deadband_val : 1|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ tv_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214596101 dashboard_start_logging: 1 Dashboard
+ SG_ logging_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2148059781 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -901,6 +904,8 @@ CM_ SG_ 2214596037 tv_p_val "";
 CM_ SG_ 2214596037 tv_intensity_val "";
 CM_ SG_ 2214596037 tv_deadband_val "";
 CM_ SG_ 2214596037 tv_enabled "";
+CM_ BO_ 2214596101 "start logging";
+CM_ SG_ 2214596101 logging_enabled "";
 CM_ BO_ 2148059781 "Fault status message";
 CM_ SG_ 2148059781 latched "";
 CM_ SG_ 2148059781 idx "";

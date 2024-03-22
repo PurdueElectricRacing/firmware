@@ -39,8 +39,8 @@ void update_cooling_periodic() {
     setFan1Speed(cooling_request.fan1_speed);
     setFan2Speed(cooling_request.fan2_speed);
 
-    SEND_COOLANT_OUT(q_tx_can, cooling_request.fan2_speed,
-        cooling_request.fan1_speed, cooling_request.pump2_status, cooling_request.aux_status,
+    SEND_COOLANT_OUT(q_tx_can, cooling_request.fan1_speed,
+        cooling_request.fan2_speed, cooling_request.pump2_status, cooling_request.aux_status,
         cooling_request.pump1_status);
 }
 void cooling_driver_request_CALLBACK(CanParsedData_t *msg_data_a)

@@ -125,8 +125,8 @@ BO_ 2348811009 rear_controller_temps: 2 Main_Module
  SG_ left_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
 
 BO_ 2281702273 rear_wheel_speeds: 8 Main_Module
- SG_ right_speed_sensor : 48|16@1+ (1,0) [0|0] "RPM" Vector__XXX
- SG_ left_speed_sensor : 32|16@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ right_speed_sensor : 48|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ left_speed_sensor : 32|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
  SG_ right_speed_mc : 16|16@1+ (1,0) [0|0] "RPM" Vector__XXX
  SG_ left_speed_mc : 0|16@1+ (1,0) [0|0] "RPM" Vector__XXX
 

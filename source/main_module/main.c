@@ -248,6 +248,7 @@ int main(void){
     taskCreate(monitorSDCPeriodic, 200);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
+    // taskCreate(updateSDCFaults, 400);
     // taskCreate(wheelSpeedsPeriodic, 15);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);

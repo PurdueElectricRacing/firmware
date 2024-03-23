@@ -206,8 +206,8 @@
                             "signals": [
                                 {"sig_name": "left_speed_mc", "type":"uint16_t", "unit": "RPM"},
                                 {"sig_name": "right_speed_mc", "type":"uint16_t", "unit": "RPM"},
-                                {"sig_name": "left_speed_sensor", "type":"uint16_t", "unit": "RPM"},
-                                {"sig_name": "right_speed_sensor", "type":"uint16_t", "unit": "RPM"}
+                                {"sig_name": "left_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01},
+                                {"sig_name": "right_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 2,

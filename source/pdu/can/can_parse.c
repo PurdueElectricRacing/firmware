@@ -129,11 +129,13 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_DAQ_COMMAND_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_DAQ_COMMAND_PDU << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

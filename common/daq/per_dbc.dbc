@@ -412,30 +412,6 @@ BO_ 2214594783 coolant_out: 3 PDU
  SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
  SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
 
-BO_ 2214659231 rail_currents: 4 PDU
- SG_ i_5v : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_24v : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
-
-BO_ 2214659295 pump_and_fan_current: 7 PDU
- SG_ i_fan2 : 44|12@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_fan1 : 32|12@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_pump2 : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_pump1 : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
-
-BO_ 2214659359 other_currents: 8 PDU
- SG_ i_main : 48|12@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_abox : 36|12@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_dash : 24|12@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_aux : 12|12@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ i_sdc : 0|12@1+ (1,0) [0|0] "mA" Vector__XXX
-
-BO_ 2214594783 coolant_out: 3 PDU
- SG_ dt_pump : 18|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ bat_pump_aux : 17|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ bat_pump : 16|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
- SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
-
 BO_ 2148059935 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -954,9 +930,9 @@ CM_ SG_ 2214594783 bat_pump_aux "";
 CM_ SG_ 2214594783 bat_pump "";
 CM_ SG_ 2214594783 dt_fan "";
 CM_ SG_ 2214594783 bat_fan "";
-CM_ BO_ 2148059871 "Fault status message";
-CM_ SG_ 2148059871 latched "";
-CM_ SG_ 2148059871 idx "";
+CM_ BO_ 2148059935 "Fault status message";
+CM_ SG_ 2148059935 latched "";
+CM_ SG_ 2148059935 idx "";
 CM_ BO_ 2550136799 "daq response from node PDU";
 CM_ SG_ 2550136799 daq_response "";
 CM_ BO_ 2214912572 "Main Module Bootloader response";

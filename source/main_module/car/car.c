@@ -85,6 +85,16 @@ void carPeriodic()
     car.torque_r.torque_right = 0.0f;
     car.buzzer    = false;
     car.sdc_close = true;
+    if (!can_data.orion_currents_volts.stale)
+    {
+        hist_current[hist_curr_idx++] = can_data.orion_currents_volts.pack_current;
+        hist_curr_idx %= NUM_HIST_BSPD;
+    }
+    else
+    {
+        hist_current[hist_curr_idx++] = 0;
+        hist_curr_idx %= NUM_HIST_BSPD;
+    }
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
     if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CAR_STATE_FATAL)
         car.state = CAR_STATE_IDLE;
@@ -547,26 +557,26 @@ void updateSDCFaults()
                 break;
             case (SDC_BOTS):
                 //If bots is down, we need to check whether BOTS was tripped or BSPD was tripped
-                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin))
-                // {
-                //     int32_t total_current;
-                //     for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
-                //     {
-                //         total_current += hist_current[i];
-                //     }
-                //     if (total_current > 2000)
-                //     {
-                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
-                //     }
-                //     else if (brake_fail)
-                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
-                //     else
-                //         setFault(ID_BOTS_FAIL_FAULT, 1);
-                // }
-                // else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
-                // {
-                //     setFault(ID_BOTS_FAIL_FAULT, 0);
-                // }
+                if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && (PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin) || can_data.orion_currents_volts.stale))
+                {
+                    int32_t total_current = 0;
+                    for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
+                    {
+                        total_current += hist_current[i];
+                    }
+                    if (total_current > 5000)
+                    {
+                        setFault(ID_BSPD_LATCHED_FAULT, 1);
+                    }
+                    else if (brake_fail)
+                        setFault(ID_BSPD_LATCHED_FAULT, 1);
+                    else
+                        setFault(ID_BOTS_FAIL_FAULT, 1);
+                }
+                else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
+                {
+                    setFault(ID_BOTS_FAIL_FAULT, 0);
+                }
                 break;
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat)
@@ -579,7 +589,7 @@ void updateSDCFaults()
                 }
                 break;
             case (SDC_R_STOP):
-                if (!sdc_mux.l_stop_stat && sdc_mux.main_stat)
+                if (!sdc_mux.r_stop_stat && sdc_mux.main_stat)
                 {
                     setFault(ID_RIGHT_ESTOP_FAULT, 1);
                 }
@@ -628,31 +638,24 @@ void updateSDCFaults()
  */
 void monitorSDCPeriodic()
 {
-    uint8_t index = 0;
+    static uint8_t index = 0;
     static sdc_nodes_t sdc_nodes_raw;
     bool *nodes = (bool *) &sdc_nodes_raw;
 
-    // In the event that an SDC Node latches mid poll, we want to check every SDC node at once in order to lower the chance of this occuring
-    // This does not completely prevent this from occuring, but it does dramatically lower the chance
-    while (index < SDC_MUX_HIGH_IDX)
+    uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
+
+    *(nodes+index++) = stat;
+    if (index == SDC_MUX_HIGH_IDX)
     {
-        uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
-
-        *(nodes+index++) = stat;
-
-        PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
-        PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
-        PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
-        PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
-        // Delay to allow mux to correctly select signal
-        for (uint8_t i = 0; i < 50; i++)
-            ;
+        index = 0;
+        sdc_mux = sdc_nodes_raw;
+        SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
+                sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
+                sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }
-    sdc_mux = sdc_nodes_raw;
-    index = 0;
-    SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
-            sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
-            sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
 
-
+    PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
+    PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
+    PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
+    PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
 }

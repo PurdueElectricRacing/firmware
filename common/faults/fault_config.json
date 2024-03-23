@@ -238,7 +238,7 @@
                     "fault_name": "BSPD_latched",
                     "max": 1,
                     "min": 0,
-                    "priority": "fatal",
+                    "priority": "error",
                     "time_to_latch": 400,
                     "time_to_unlatch": 10000,
                     "lcd_message": "BSPD Latched. Restart Car"

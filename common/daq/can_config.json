@@ -185,7 +185,7 @@
                                 {"sig_name": "pchg_out", "type":"uint8_t", "length":1}
 
                             ],
-                            "msg_period": 200,
+                            "msg_period": 300,
                             "msg_hlp": 3,
                             "msg_pgn": 14
                         },

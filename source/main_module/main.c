@@ -245,10 +245,10 @@ int main(void){
 
     taskCreate(coolingPeriodic, 100);
     taskCreate(heartBeatLED, 500);
-    taskCreate(monitorSDCPeriodic, 200);
+    taskCreate(monitorSDCPeriodic, 20);
     taskCreate(carHeartbeat, 100);
     taskCreate(carPeriodic, 15);
-    // taskCreate(updateSDCFaults, 400);
+    taskCreate(updateSDCFaults, 400);
     // taskCreate(wheelSpeedsPeriodic, 15);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);

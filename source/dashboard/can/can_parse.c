@@ -177,6 +177,23 @@ void canRxUpdate()
                 can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
                 dashboard_bl_cmd_CALLBACK(msg_data_a);
                 break;
+            case ID_SDC_STATUS:
+                can_data.sdc_status.IMD = msg_data_a->sdc_status.IMD;
+                can_data.sdc_status.BMS = msg_data_a->sdc_status.BMS;
+                can_data.sdc_status.BSPD = msg_data_a->sdc_status.BSPD;
+                can_data.sdc_status.BOTS = msg_data_a->sdc_status.BOTS;
+                can_data.sdc_status.inertia = msg_data_a->sdc_status.inertia;
+                can_data.sdc_status.c_estop = msg_data_a->sdc_status.c_estop;
+                can_data.sdc_status.main = msg_data_a->sdc_status.main;
+                can_data.sdc_status.r_estop = msg_data_a->sdc_status.r_estop;
+                can_data.sdc_status.l_estop = msg_data_a->sdc_status.l_estop;
+                can_data.sdc_status.HVD = msg_data_a->sdc_status.HVD;
+                can_data.sdc_status.hub = msg_data_a->sdc_status.hub;
+                can_data.sdc_status.TSMS = msg_data_a->sdc_status.TSMS;
+                can_data.sdc_status.pchg_out = msg_data_a->sdc_status.pchg_out;
+                can_data.sdc_status.stale = 0;
+                can_data.sdc_status.last_rx = sched.os_ticks;
+                break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                 can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -256,6 +273,9 @@ void canRxUpdate()
     CHECK_STALE(can_data.gearbox.stale,
                 sched.os_ticks, can_data.gearbox.last_rx,
                 UP_GEARBOX);
+    CHECK_STALE(can_data.sdc_status.stale,
+                sched.os_ticks, can_data.sdc_status.last_rx,
+                UP_SDC_STATUS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -295,16 +315,17 @@ bool initCANFilter()
     CAN1->sFilterRegister[6].FR1 = (ID_GEARBOX << 3) | 4;
     CAN1->sFilterRegister[6].FR2 = (ID_DASHBOARD_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_SDC_STATUS << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[9].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 10);    // configure bank 10
-    CAN1->sFilterRegister[10].FR1 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[10].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[10].FR2 = (ID_DAQ_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

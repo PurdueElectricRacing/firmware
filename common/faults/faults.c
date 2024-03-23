@@ -220,6 +220,7 @@ static uint16_t currCount;
 static q_handle_t *q_tx;
 
 uint16_t most_recent_latched;
+q_handle_t q_fault_history;
 
 //Variables containing the index/limits of owned faults (heartbeat)
 static uint16_t ownedidx;
@@ -315,6 +316,7 @@ void handleCallbacks(uint16_t id, bool latched) {
         if (!currStatus->latched) {
             currStatus->latched = recievedStatus.latched;
             most_recent_latched = GET_IDX(id);
+            qSendToBack(&q_fault_history, &most_recent_latched);
             switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
                 case FAULT_WARNING:
                     warnCount++;
@@ -396,6 +398,7 @@ bool updateFault(uint16_t idx) {
             fault->bounces = 0;
             currCount++;
             most_recent_latched = idx;
+            qSendToBack(&q_fault_history, &idx);
             switch(fault->priority) {
                 case FAULT_WARNING:
                     warnCount++;
@@ -593,6 +596,7 @@ static void forceFault(int id, bool state) {
     if (state & !statusArray[idx].latched) {
         currCount++;
         most_recent_latched = idx;
+        qSendToBack(&q_fault_history, &idx);
         switch(faultArray[idx].priority) {
             case FAULT_WARNING:
                 warnCount++;
@@ -665,4 +669,5 @@ void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext) {
     errorCount = 0;
     fatalCount = 0;
     currCount = 0;
+    qConstruct(&q_fault_history, sizeof(uint16_t));
 }

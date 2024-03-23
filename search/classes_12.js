@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['vector_5f3d_5ft_0',['vector_3d_t',['../structvector__3d__t.html',1,'']]],
-  ['voltage_5ft_1',['voltage_t',['../structvoltage__t.html',1,'']]]
+  ['wheelspeed_5ft_0',['WheelSpeed_t',['../structWheelSpeed__t.html',1,'']]],
+  ['wheelspeeds_5ft_1',['WheelSpeeds_t',['../structWheelSpeeds__t.html',1,'']]]
 ];

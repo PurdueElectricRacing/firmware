@@ -77,6 +77,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.h File Reference</div></div>
@@ -143,6 +144,8 @@ Macros</h2></td></tr>
 <tr class="separator:a77094db942cfdaf0ec482131d35691ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06a994f41386650fb1278089ce5af3c3" id="r_a06a994f41386650fb1278089ce5af3c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06a994f41386650fb1278089ce5af3c3">ENC_B_Pin</a>&#160;&#160;&#160;(9)</td></tr>
 <tr class="separator:a06a994f41386650fb1278089ce5af3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7d1e5c2c38a8e5ada861864b30a24f" id="r_ade7d1e5c2c38a8e5ada861864b30a24f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade7d1e5c2c38a8e5ada861864b30a24f">ENC_NUM_STATES</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="separator:ade7d1e5c2c38a8e5ada861864b30a24f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae149f315898d37fba8fd24600c9e0daa" id="r_ae149f315898d37fba8fd24600c9e0daa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae149f315898d37fba8fd24600c9e0daa">VCAN_RX_GPIO_Port</a>&#160;&#160;&#160;(GPIOD)</td></tr>
 <tr class="separator:ae149f315898d37fba8fd24600c9e0daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a371e4be64076c344b0e77350dafa88ed" id="r_a371e4be64076c344b0e77350dafa88ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a371e4be64076c344b0e77350dafa88ed">VCAN_RX_Pin</a>&#160;&#160;&#160;(0)</td></tr>
@@ -241,6 +244,8 @@ Macros</h2></td></tr>
 <tr class="separator:a0e000f3446c1ad6cf67df369ac563149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b89e89e5dfb9c7282c193a4055cc785" id="r_a4b89e89e5dfb9c7282c193a4055cc785"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b89e89e5dfb9c7282c193a4055cc785">LCD_UART_RX_Pin</a>&#160;&#160;&#160;(10)</td></tr>
 <tr class="separator:a4b89e89e5dfb9c7282c193a4055cc785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69f84138f29870fc5a3bb4a768b0d592" id="r_a69f84138f29870fc5a3bb4a768b0d592"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69f84138f29870fc5a3bb4a768b0d592">LCD_NUM_PAGES</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="separator:a69f84138f29870fc5a3bb4a768b0d592"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad60ab198300fe8aefa3f3996d1f1696c" id="r_ad60ab198300fe8aefa3f3996d1f1696c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad60ab198300fe8aefa3f3996d1f1696c">LV_5V_V_SENSE_GPIO_Port</a>&#160;&#160;&#160;(GPIOC)</td></tr>
 <tr class="separator:ad60ab198300fe8aefa3f3996d1f1696c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a139a458975c0d11e95ee47cd7fe58922" id="r_a139a458975c0d11e95ee47cd7fe58922"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a139a458975c0d11e95ee47cd7fe58922">LV_5V_V_SENSE_Pin</a>&#160;&#160;&#160;(2)</td></tr>
@@ -271,6 +276,22 @@ Macros</h2></td></tr>
 <tr class="separator:a8780d54576ecf8d9bb51f4bafc2cbea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ec3b1e4b284940c82b9622d5d62a163" id="r_a2ec3b1e4b284940c82b9622d5d62a163"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ec3b1e4b284940c82b9622d5d62a163">LV_5V_SCALE</a>&#160;&#160;&#160;(0.413F)</td></tr>
 <tr class="separator:a2ec3b1e4b284940c82b9622d5d62a163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a00f9f555032f246354cd9fb97fe8405e" id="r_a00f9f555032f246354cd9fb97fe8405e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00f9f555032f246354cd9fb97fe8405e">dashboard_input_t</a> { <br />
+&#160;&#160;<a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea79be469e08aa99d6a312c3bbf4a297e2">DASH_INPUT_NONE</a>
+, <a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea497eed3c7c70e05069b2b878f2a4e23d">DASH_INPUT_ROT_ENC</a>
+, <a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea400c53b85b5b5860dfba47e95d4ee9e5">DASH_INPUT_UP_BUTTON</a>
+, <a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea7ac9661bc19976ef17ddd7cc6bf1a789">DASH_INPUT_DOWN_BUTTON</a>
+, <br />
+&#160;&#160;<a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea096f94a0dd602d26d8455b51be5f0d91">DASH_INPUT_SELECT_BUTTON</a>
+, <a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea522b7f7ae0c162dbda82c9a3123dd023">DASH_INPUT_START_BUTTON</a>
+, <a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea9b0569afebdbe7df068ef5c93241316f">DASH_INPUT_COUNT</a>
+, <a class="el" href="#a00f9f555032f246354cd9fb97fe8405ea0081c4c40cb67f230664b0b57ac5ed65">DASH_INPUT_INVALID</a>
+<br />
+ }</td></tr>
+<tr class="separator:a00f9f555032f246354cd9fb97fe8405e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -725,6 +746,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ade7d1e5c2c38a8e5ada861864b30a24f" name="ade7d1e5c2c38a8e5ada861864b30a24f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7d1e5c2c38a8e5ada861864b30a24f">&#9670;&#160;</a></span>ENC_NUM_STATES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ENC_NUM_STATES&#160;&#160;&#160;(4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a55ec4779622d3da5b56b7f53e1ca034d" name="a55ec4779622d3da5b56b7f53e1ca034d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55ec4779622d3da5b56b7f53e1ca034d">&#9670;&#160;</a></span>ERROR_LED_GPIO_Port</h2>
 
@@ -817,6 +852,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define IMD_LED_Pin&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69f84138f29870fc5a3bb4a768b0d592" name="a69f84138f29870fc5a3bb4a768b0d592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f84138f29870fc5a3bb4a768b0d592">&#9670;&#160;</a></span>LCD_NUM_PAGES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LCD_NUM_PAGES&#160;&#160;&#160;(8)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1548,6 +1597,31 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a00f9f555032f246354cd9fb97fe8405e" name="a00f9f555032f246354cd9fb97fe8405e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00f9f555032f246354cd9fb97fe8405e">&#9670;&#160;</a></span>dashboard_input_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a00f9f555032f246354cd9fb97fe8405e">dashboard_input_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea79be469e08aa99d6a312c3bbf4a297e2" name="a00f9f555032f246354cd9fb97fe8405ea79be469e08aa99d6a312c3bbf4a297e2"></a>DASH_INPUT_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea497eed3c7c70e05069b2b878f2a4e23d" name="a00f9f555032f246354cd9fb97fe8405ea497eed3c7c70e05069b2b878f2a4e23d"></a>DASH_INPUT_ROT_ENC&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea400c53b85b5b5860dfba47e95d4ee9e5" name="a00f9f555032f246354cd9fb97fe8405ea400c53b85b5b5860dfba47e95d4ee9e5"></a>DASH_INPUT_UP_BUTTON&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea7ac9661bc19976ef17ddd7cc6bf1a789" name="a00f9f555032f246354cd9fb97fe8405ea7ac9661bc19976ef17ddd7cc6bf1a789"></a>DASH_INPUT_DOWN_BUTTON&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea096f94a0dd602d26d8455b51be5f0d91" name="a00f9f555032f246354cd9fb97fe8405ea096f94a0dd602d26d8455b51be5f0d91"></a>DASH_INPUT_SELECT_BUTTON&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea522b7f7ae0c162dbda82c9a3123dd023" name="a00f9f555032f246354cd9fb97fe8405ea522b7f7ae0c162dbda82c9a3123dd023"></a>DASH_INPUT_START_BUTTON&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea9b0569afebdbe7df068ef5c93241316f" name="a00f9f555032f246354cd9fb97fe8405ea9b0569afebdbe7df068ef5c93241316f"></a>DASH_INPUT_COUNT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a00f9f555032f246354cd9fb97fe8405ea0081c4c40cb67f230664b0b57ac5ed65" name="a00f9f555032f246354cd9fb97fe8405ea0081c4c40cb67f230664b0b57ac5ed65"></a>DASH_INPUT_INVALID&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
 </div>
 </div>

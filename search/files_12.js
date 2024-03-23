@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['usart_2ec_0',['usart.c',['../phal__F4__F7_2usart_2usart_8c.html',1,'(Global Namespace)'],['../phal__L4_2usart_2usart_8c.html',1,'(Global Namespace)']]],
-  ['usart_2eh_1',['usart.h',['../phal__F4__F7_2usart_2usart_8h.html',1,'(Global Namespace)'],['../phal__L4_2usart_2usart_8h.html',1,'(Global Namespace)']]]
+  ['wheel_5fspeeds_2ec_0',['wheel_speeds.c',['../wheel__speeds_8c.html',1,'']]],
+  ['wheel_5fspeeds_2eh_1',['wheel_speeds.h',['../wheel__speeds_8h.html',1,'']]]
 ];

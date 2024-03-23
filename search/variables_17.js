@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['x_0',['x',['../structvector__3d__t.html#adfbb7cfeea4b9b48a4c7cb261ea97dbc',1,'vector_3d_t::x'],['../structquaternion__t.html#ababae4ded8685ca533d9523bfdd1b79b',1,'quaternion_t::x']]],
-  ['x_5fc_1',['X_c',['../structDW__SFS.html#a0e287d70f3c16e0a776b89b3992518b7',1,'DW_SFS']]]
+  ['y_0',['y',['../structvector__3d__t.html#a6aaaeebd50a9b77237998d0fd5fcc3ce',1,'vector_3d_t::y'],['../structquaternion__t.html#ae5d6a1e97fd569e135735fa885af225f',1,'quaternion_t::y']]],
+  ['yaw_1',['yaw',['../structeuler__angles__t.html#a11c885d1265e328d41f48916230bd17c',1,'euler_angles_t::yaw'],['../union____attribute____.html#a839cc7e15942481449eacfa1fd513936',1,'__attribute__::yaw']]],
+  ['year_5fbcd_2',['year_bcd',['../structRTC__date__t.html#aa4e963fd0afe128ba6b328d3d2330d17',1,'RTC_date_t']]]
 ];

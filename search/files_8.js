@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['i2c_2ec_0',['i2c.c',['../i2c_8c.html',1,'']]],
-  ['i2c_2eh_1',['i2c.h',['../i2c_8h.html',1,'']]],
-  ['i2c_5falt_2ec_2',['i2c_alt.c',['../i2c__alt_8c.html',1,'']]],
-  ['i2c_5falt_2eh_3',['i2c_alt.h',['../i2c__alt_8h.html',1,'']]],
-  ['imu_2ec_4',['imu.c',['../a__box_2imu_2imu_8c.html',1,'(Global Namespace)'],['../torque__vector_2imu_2imu_8c.html',1,'(Global Namespace)']]],
-  ['imu_2eh_5',['imu.h',['../a__box_2imu_2imu_8h.html',1,'(Global Namespace)'],['../torque__vector_2imu_2imu_8h.html',1,'(Global Namespace)']]]
+  ['lcd_2ec_0',['lcd.c',['../lcd_8c.html',1,'']]],
+  ['lcd_2eh_1',['lcd.h',['../lcd_8h.html',1,'']]],
+  ['led_2ec_2',['led.c',['../led_8c.html',1,'']]],
+  ['led_2eh_3',['led.h',['../led_8h.html',1,'']]]
 ];

@@ -1,6 +1,6 @@
 #include "car.h"
 #include "main.h"
-// #include "common/modules/wheel_speeds/wheel_speeds.h"
+#include "wheel_speeds.h"
 
 Car_t car;
 extern q_handle_t q_tx_can;
@@ -51,7 +51,7 @@ bool carInit()
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, 0);
-    // wheelSpeedsInit(&wheel_speeds);
+    wheelSpeedsInit();
 }
 
 void carHeartbeat()
@@ -348,8 +348,10 @@ void parseMCDataPeriodic(void)
     //                      shock_l, shock_r);
     // uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
     // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
+    wheelSpeedsPeriodic();
     SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
-                                    0, 0); // NO WHEEL SPEEDS YET
+                                    wheel_speeds.left_rad_s_x100, 
+                                    wheel_speeds.right_rad_s_x100);
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) car.motor_l.current_x10,
                                    (uint16_t) car.motor_r.current_x10,

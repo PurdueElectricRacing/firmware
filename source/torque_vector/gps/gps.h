@@ -23,6 +23,12 @@ union i_Long
     signed long iLong;
 };
 
+union u_Long
+{
+    uint8_t bytes[4];
+    unsigned long uLong;
+};
+
 union i_Short
 {
     uint8_t bytes[2];
@@ -67,9 +73,21 @@ typedef struct
     signed long d_vel;
     uint16_t d_vel_rounded;
 
+    uint8_t headVeh_bytes[4];
+    signed long headVeh;
+    int16_t headVeh_rounded;
+
     uint8_t mag_dec_bytes[2];
     signed short mag_dec;
+
     uint8_t fix_type;
+
+    uint16_t iTOW_bytes[4];
+    unsigned long iTOW;
+    bool unique_iTOW;
+
+    uint8_t gyro_OK;
+
 } GPS_Handle_t; // GPS handle
 
 // GPS Message Attributes
@@ -93,6 +111,6 @@ typedef struct
  * @return true Parsing successful
  * @return false Parsing failed
  */
-bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU);
+bool parseVelocity(GPS_Handle_t *GPS);
 
 #endif //_GPS_H

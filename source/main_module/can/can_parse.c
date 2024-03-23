@@ -98,8 +98,8 @@ void canRxUpdate()
                 main_module_bl_cmd_CALLBACK(msg_data_a);
                 break;
             case ID_THROTTLE_REMAPPED:
-                can_data.throttle_remapped.remap_k_rl = (int16_t) msg_data_a->throttle_remapped.remap_k_rl;
-                can_data.throttle_remapped.remap_k_rr = (int16_t) msg_data_a->throttle_remapped.remap_k_rr;
+                can_data.throttle_remapped.vcu_k_rl = (int16_t) msg_data_a->throttle_remapped.vcu_k_rl;
+                can_data.throttle_remapped.vcu_k_rr = (int16_t) msg_data_a->throttle_remapped.vcu_k_rr;
                 can_data.throttle_remapped.stale = 0;
                 can_data.throttle_remapped.last_rx = sched.os_ticks;
                 break;
@@ -122,6 +122,11 @@ void canRxUpdate()
             case ID_FAULT_SYNC_A_BOX:
                 can_data.fault_sync_a_box.idx = msg_data_a->fault_sync_a_box.idx;
                 can_data.fault_sync_a_box.latched = msg_data_a->fault_sync_a_box.latched;
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
+                break;
+            case ID_FAULT_SYNC_TORQUE_VECTOR:
+                can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
+                can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
             case ID_FAULT_SYNC_TEST_NODE:

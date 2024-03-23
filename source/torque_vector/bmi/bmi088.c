@@ -14,6 +14,8 @@
 #include "common/phal_F4_F7/spi/spi.h"
 #include "common_defs.h"
 #include "main.h"
+#include "common/psched/psched.h"
+
 
 static inline void BMI088_selectGyro(BMI088_Handle_t *bmi);
 static inline void BMI088_selectAccel(BMI088_Handle_t *bmi);
@@ -29,6 +31,7 @@ bool BMI088_init(BMI088_Handle_t *bmi)
     PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_BANDWIDTH_ADDR, bmi->gyro_datarate);
     PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
+
     // Perform self tests for sensor
     BMI088_gyroSelfTestStart(bmi);
     while (!BMI088_gyroSelfTestComplete(bmi))
@@ -52,7 +55,7 @@ bool BMI088_initAccel(BMI088_Handle_t *bmi)
 {
     BMI088_selectAccel(bmi);
 
-    /* Wait a long time befoer you call this function (50ms) */
+    /* Wait a long time before you call this function (50ms) */
     PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_PWR_CONF_ADDR, 0);
     PHAL_SPI_readByte(bmi->spi, BMI088_ACC_CHIP_ID_ADDR, false);
 
@@ -62,6 +65,18 @@ bool BMI088_initAccel(BMI088_Handle_t *bmi)
     uint8_t read_back = PHAL_SPI_readByte(bmi->spi, BMI088_ACC_CHIP_ID_ADDR, false);
 
     bmi->accel_ready = true;
+    return true;
+}
+
+bool BMI088_gyroOK(BMI088_Handle_t *bmi)
+{
+    BMI088_gyroSelfTestStart(bmi);
+    while (!BMI088_gyroSelfTestComplete(bmi))
+        ;
+
+    if (!BMI088_gyroSelfTestPass(bmi))
+        return false;
+
     return true;
 }
 
@@ -192,8 +207,8 @@ bool BMI088_readAccel(BMI088_Handle_t *bmi, vector_3d_t *v)
     // Conversion taken from datasheet pg 22.
 
     // NOTE - changed x and y to correspond to data sheet
-    v->y = (float)(raw_ax << (bmi->accel_range + 1)) / 32768.0f * G_TO_M_S * 1.5f;
-    v->x = (float)(raw_ay << (bmi->accel_range + 1)) / 32768.0f * G_TO_M_S * 1.5f;
+    v->x = (float)(raw_ax << (bmi->accel_range + 1)) / 32768.0f * G_TO_M_S * 1.5f;
+    v->y = (float)(raw_ay << (bmi->accel_range + 1)) / 32768.0f * G_TO_M_S * 1.5f;
     v->z = (float)(raw_az << (bmi->accel_range + 1)) / 32768.0f * G_TO_M_S * 1.5f;
     // asm("nop");
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
@@ -214,4 +229,11 @@ static inline void BMI088_selectAccel(BMI088_Handle_t *bmi)
     PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
     bmi->spi->nss_gpio_port = bmi->accel_csb_gpio_port;
     bmi->spi->nss_gpio_pin = bmi->accel_csb_pin;
+}
+
+uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi)
+{
+    uint8_t self_test_register_result = PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, true);
+    // self_test_register_result &= 0b00010000;
+    return (self_test_register_result == 0b00010000);
 }

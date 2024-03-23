@@ -69,6 +69,11 @@ void canRxUpdate()
                 can_data.fault_sync_a_box.latched = msg_data_a->fault_sync_a_box.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
+            case ID_FAULT_SYNC_TORQUE_VECTOR:
+                can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
+                can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
+                break;
             case ID_FAULT_SYNC_TEST_NODE:
                 can_data.fault_sync_test_node.idx = msg_data_a->fault_sync_test_node.idx;
                 can_data.fault_sync_test_node.latched = msg_data_a->fault_sync_test_node.latched;

@@ -31,16 +31,17 @@
 #define ID_WHEEL_SPEEDS 0xc0001ff
 #define ID_ADC_VALUES 0x1234
 #define ID_CAR_STATE 0xbeef420
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
 #define ID_L4_TESTING_BL_CMD 0x409c57e
-#define ID_FAULT_SYNC_PDU 0x8cadf
+#define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
@@ -68,6 +69,7 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_DAQ_COMMAND_TEST_NODE 8
@@ -271,6 +273,10 @@ typedef union {
         uint64_t latched: 1;
     } fault_sync_a_box;
     struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_torque_vector;
+    struct {
         uint64_t id: 16;
         uint64_t value: 1;
     } set_fault;
@@ -323,6 +329,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
     struct {
         uint16_t id;
         uint8_t value;

@@ -30,6 +30,6 @@ typedef struct
 } IMU_Handle_t;
 
 bool imu_init(IMU_Handle_t *imu_h);
-void imu_periodic(IMU_Handle_t *imu_h, ExtU *rtU);
+void imu_periodic(IMU_Handle_t *imu_h);
 
 #endif

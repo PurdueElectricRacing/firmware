@@ -126,6 +126,15 @@ void BMI088_powerOnAccel(BMI088_Handle_t *bmi);
 bool BMI088_initAccel(BMI088_Handle_t *bmi);
 
 /**
+ * @brief Do self test of gyroscope
+ *
+ * @param bmi
+ * @return true gyro is OK
+ * @return false not good
+ */
+bool BMI088_gyroOK(BMI088_Handle_t *bmi);
+
+/**
  * @brief Start the gyro self test
  *
  * @return true
@@ -171,5 +180,8 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi, vector_3d_t *v);
  * @return false
  */
 bool BMI088_readAccel(BMI088_Handle_t *bmi, vector_3d_t *v);
+
+
+uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi);
 
 #endif

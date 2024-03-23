@@ -231,9 +231,9 @@ void carPeriodic()
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
             if (!can_data.throttle_remapped.stale)
-                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.remap_k_rl, 0, 4095);
+                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.vcu_k_rl, 0, 4095);
             if (!can_data.throttle_remapped.stale)
-                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.remap_k_rr, 0, 4095);
+                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.vcu_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
@@ -317,10 +317,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
-    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-    //             car.motor_l.motor_state != MC_CONNECTED);
-    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-    //             car.motor_r.motor_state != MC_CONNECTED);
+    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+                car.motor_l.motor_state != MC_CONNECTED);
+    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+                car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;
@@ -528,7 +528,7 @@ void updateSDCFaults()
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat)
                 {
-                    // setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -547,26 +547,26 @@ void updateSDCFaults()
                 break;
             case (SDC_BOTS):
                 //If bots is down, we need to check whether BOTS was tripped or BSPD was tripped
-                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin))
-                // {
-                //     int32_t total_current;
-                //     for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
-                //     {
-                //         total_current += hist_current[i];
-                //     }
-                //     if (total_current > 2000)
-                //     {
-                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
-                //     }
-                //     else if (brake_fail)
-                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
-                //     else
-                //         setFault(ID_BOTS_FAIL_FAULT, 1);
-                // }
-                // else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
-                // {
-                //     setFault(ID_BOTS_FAIL_FAULT, 0);
-                // }
+                if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin))
+                {
+                    int32_t total_current;
+                    for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
+                    {
+                        total_current += hist_current[i];
+                    }
+                    if (total_current > 2000)
+                    {
+                        setFault(ID_BSPD_LATCHED_FAULT, 1);
+                    }
+                    else if (brake_fail)
+                        setFault(ID_BSPD_LATCHED_FAULT, 1);
+                    else
+                        setFault(ID_BOTS_FAIL_FAULT, 1);
+                }
+                else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
+                {
+                    setFault(ID_BOTS_FAIL_FAULT, 0);
+                }
                 break;
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat)

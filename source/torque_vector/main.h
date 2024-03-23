@@ -12,8 +12,12 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+#include "common/faults/fault_nodes.h"
+
 // STM32L471RET
 
+
+#define FAULT_NODE_NAME NODE_TORQUE_VECTOR
 // Status Indicators
 #define ERR_LED_GPIO_Port (GPIOB)
 #define ERR_LED_Pin (5)

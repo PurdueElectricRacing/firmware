@@ -46,10 +46,12 @@
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_THROTTLE_REMAPPED 0xc0025b7
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_FAULT_SYNC_PDU 0x8cadf
-#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_THROTTLE_VCU 0xc0025f7
+#define ID_FAULT_SYNC_PDU 0x8cb1f
+#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
@@ -83,9 +85,11 @@
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_THROTTLE_REMAPPED 4
 #define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_THROTTLE_VCU 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -258,6 +262,7 @@
 #define UP_LWS_STANDARD 15
 #define UP_THROTTLE_REMAPPED 15
 #define UP_ORION_CURRENTS_VOLTS 32
+#define UP_THROTTLE_VCU 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -465,13 +470,17 @@ typedef union {
         uint64_t data: 32;
     } main_module_bl_cmd;
     struct {
-        uint64_t remap_k_rl: 16;
-        uint64_t remap_k_rr: 16;
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
     } throttle_remapped;
     struct {
         uint64_t pack_current: 16;
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
+    struct {
+        uint64_t vcu_r_rl: 16;
+        uint64_t vcu_r_rr: 16;
+    } throttle_vcu;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -484,6 +493,10 @@ typedef union {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_a_box;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_torque_vector;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -552,8 +565,8 @@ typedef struct {
         uint32_t data;
     } main_module_bl_cmd;
     struct {
-        int16_t remap_k_rl;
-        int16_t remap_k_rr;
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
         uint8_t stale;
         uint32_t last_rx;
     } throttle_remapped;
@@ -563,6 +576,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } orion_currents_volts;
+    struct {
+        int16_t vcu_r_rl;
+        int16_t vcu_r_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -575,6 +594,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
     struct {
         uint16_t idx;
         uint8_t latched;

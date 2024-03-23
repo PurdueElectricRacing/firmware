@@ -24,9 +24,6 @@
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
 #define ID_NUM_THERM_BAD 0x80080c4
 #define ID_PACK_CHARGE_STATUS 0x8008084
-#define ID_GYRO_DATA 0x4008004
-#define ID_ACCEL_DATA 0x4008044
-#define ID_ANGLE_DATA 0x4008104
 #define ID_MAX_CELL_TEMP 0x404e604
 #define ID_MOD_CELL_TEMP_AVG 0x14008084
 #define ID_MOD_CELL_TEMP_MAX 0x14008104
@@ -40,10 +37,11 @@
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
 #define ID_A_BOX_BL_CMD 0x409c4fe
-#define ID_FAULT_SYNC_PDU 0x8cadf
+#define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
+#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_A_BOX 0x14000132
@@ -55,9 +53,6 @@
 #define DLC_ELCON_CHARGER_COMMAND 5
 #define DLC_NUM_THERM_BAD 4
 #define DLC_PACK_CHARGE_STATUS 7
-#define DLC_GYRO_DATA 6
-#define DLC_ACCEL_DATA 6
-#define DLC_ANGLE_DATA 6
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_MOD_CELL_TEMP_AVG 8
 #define DLC_MOD_CELL_TEMP_MAX 8
@@ -74,6 +69,7 @@
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -113,30 +109,6 @@
         data_a->pack_charge_status.charge_enable = charge_enable_;\
         data_a->pack_charge_status.voltage = voltage_;\
         data_a->pack_charge_status.current = current_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_GYRO_DATA(queue, gx_, gy_, gz_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GYRO_DATA, .DLC=DLC_GYRO_DATA, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->gyro_data.gx = gx_;\
-        data_a->gyro_data.gy = gy_;\
-        data_a->gyro_data.gz = gz_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_ACCEL_DATA(queue, ax_, ay_, az_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ACCEL_DATA, .DLC=DLC_ACCEL_DATA, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->accel_data.ax = ax_;\
-        data_a->accel_data.ay = ay_;\
-        data_a->accel_data.az = az_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_ANGLE_DATA(queue, pitch_, roll_, yaw_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ANGLE_DATA, .DLC=DLC_ANGLE_DATA, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->angle_data.pitch = pitch_;\
-        data_a->angle_data.roll = roll_;\
-        data_a->angle_data.yaw = yaw_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_MAX_CELL_TEMP(queue, max_temp_) do {\
@@ -242,21 +214,6 @@ typedef union {
         uint64_t voltage: 16;
         uint64_t current: 16;
     } pack_charge_status;
-    struct {
-        uint64_t gx: 16;
-        uint64_t gy: 16;
-        uint64_t gz: 16;
-    } gyro_data;
-    struct {
-        uint64_t ax: 16;
-        uint64_t ay: 16;
-        uint64_t az: 16;
-    } accel_data;
-    struct {
-        uint64_t pitch: 16;
-        uint64_t roll: 16;
-        uint64_t yaw: 16;
-    } angle_data;
     struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
@@ -382,6 +339,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
+    } fault_sync_torque_vector;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
     } fault_sync_test_node;
     struct {
         uint64_t id: 16;
@@ -493,6 +454,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_dashboard;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
     struct {
         uint16_t idx;
         uint8_t latched;

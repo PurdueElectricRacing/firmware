@@ -241,9 +241,9 @@ void carPeriodic()
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
             if (!can_data.throttle_remapped.stale)
-                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.remap_k_rl, 0, 4095);
+                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.vcu_k_rl, 0, 4095);
             if (!can_data.throttle_remapped.stale)
-                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.remap_k_rr, 0, 4095);
+                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.vcu_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
@@ -327,10 +327,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
-    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-    //             car.motor_l.motor_state != MC_CONNECTED);
-    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-    //             car.motor_r.motor_state != MC_CONNECTED);
+    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+                car.motor_l.motor_state != MC_CONNECTED);
+    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+                car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;
@@ -350,7 +350,7 @@ void parseMCDataPeriodic(void)
     // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
     wheelSpeedsPeriodic();
     SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
-                                    wheel_speeds.left_rad_s_x100, 
+                                    wheel_speeds.left_rad_s_x100,
                                     wheel_speeds.right_rad_s_x100);
     SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
                                    (uint16_t) car.motor_l.current_x10,
@@ -540,7 +540,7 @@ void updateSDCFaults()
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat)
                 {
-                    // setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
                 }
                 else
                 {

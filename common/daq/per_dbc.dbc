@@ -158,21 +158,6 @@ BO_ 2281734276 pack_charge_status: 7 a_box
  SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
 
-BO_ 2214625284 gyro_data: 6 a_box
- SG_ gz : 32|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
- SG_ gy : 16|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
- SG_ gx : 0|16@1- (1,0) [0|0] "rad/s*100" Vector__XXX
-
-BO_ 2214625348 accel_data: 6 a_box
- SG_ az : 32|16@1- (1,0) [0|0] "m/s^2*100" Vector__XXX
- SG_ ay : 16|16@1- (1,0) [0|0] "m/s^2*100" Vector__XXX
- SG_ ax : 0|16@1- (1,0) [0|0] "m/s^2*100" Vector__XXX
-
-BO_ 2214625540 angle_data: 6 a_box
- SG_ yaw : 32|16@1- (1,0) [0|0] "degx10" Vector__XXX
- SG_ roll : 16|16@1- (1,0) [0|0] "degx10" Vector__XXX
- SG_ pitch : 0|16@1- (1,0) [0|0] "degx10" Vector__XXX
-
 BO_ 2214913540 max_cell_temp: 2 a_box
  SG_ max_temp : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
@@ -327,9 +312,23 @@ BO_ 2348902967 sfs_ang_vel: 6 torque_vector
  SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
+BO_ 2348819959 throttle_vcu: 4 torque_vector
+ SG_ vcu_r_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
+ SG_ vcu_r_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+
 BO_ 2348819895 throttle_remapped: 4 torque_vector
- SG_ remap_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
- SG_ remap_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+ SG_ vcu_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
+ SG_ vcu_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+
+BO_ 2348820023 maxR: 2 torque_vector
+ SG_ vcu_max_r : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+
+BO_ 2348820087 vehHead: 2 torque_vector
+ SG_ vehHead : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+
+BO_ 2148059831 fault_sync_torque_vector: 3 torque_vector
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2483028613 raw_throttle_brake: 8 Dashboard
  SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
@@ -374,7 +373,7 @@ BO_ 2214596037 dashboard_tv_parameters: 7 Dashboard
 BO_ 2214596101 dashboard_start_logging: 1 Dashboard
  SG_ logging_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059781 fault_sync_dashboard: 3 Dashboard
+BO_ 2148059845 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -419,7 +418,7 @@ BO_ 2214594783 coolant_out: 3 PDU
  SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
  SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
 
-BO_ 2148059871 fault_sync_pdu: 3 PDU
+BO_ 2148059935 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -569,7 +568,7 @@ BO_ 2147488308 adc_values: 5 TEST_NODE
 BO_ 2347693088 car_state: 1 TEST_NODE
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059967 fault_sync_test_node: 3 TEST_NODE
+BO_ 2148060031 fault_sync_test_node: 3 TEST_NODE
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -725,18 +724,6 @@ CM_ SG_ 2281734276 current "Instantaneous charge current";
 CM_ SG_ 2281734276 voltage "Instantaneous charge voltage";
 CM_ SG_ 2281734276 charge_enable "Charge mode enable";
 CM_ SG_ 2281734276 power "Instantaneous charge power";
-CM_ BO_ 2214625284 "Angular rate data";
-CM_ SG_ 2214625284 gz "";
-CM_ SG_ 2214625284 gy "";
-CM_ SG_ 2214625284 gx "";
-CM_ BO_ 2214625348 "Acceleration rate data";
-CM_ SG_ 2214625348 az "";
-CM_ SG_ 2214625348 ay "";
-CM_ SG_ 2214625348 ax "";
-CM_ BO_ 2214625540 "Angle data from bsxlite software";
-CM_ SG_ 2214625540 yaw "";
-CM_ SG_ 2214625540 roll "";
-CM_ SG_ 2214625540 pitch "";
 CM_ BO_ 2214913540 "maximum cell temperature for the whole pack";
 CM_ SG_ 2214913540 max_temp "";
 CM_ BO_ 2483060868 "Average cell temperature for each module";
@@ -856,7 +843,7 @@ CM_ BO_ 2348902775 "velocity from sfs";
 CM_ SG_ 2348902775 sfs_vel_z "";
 CM_ SG_ 2348902775 sfs_vel_y "";
 CM_ SG_ 2348902775 sfs_vel_x "";
-CM_ BO_ 2348902839 "acceleratoin from sfs";
+CM_ BO_ 2348902839 "acceleration from sfs";
 CM_ SG_ 2348902839 sfs_acc_z "";
 CM_ SG_ 2348902839 sfs_acc_y "";
 CM_ SG_ 2348902839 sfs_acc_x "";
@@ -869,9 +856,19 @@ CM_ BO_ 2348902967 "orientation vel from sfs";
 CM_ SG_ 2348902967 sfs_ang_vel_z "";
 CM_ SG_ 2348902967 sfs_ang_vel_y "";
 CM_ SG_ 2348902967 sfs_ang_vel_x "";
+CM_ BO_ 2348819959 "throttle vcu";
+CM_ SG_ 2348819959 vcu_r_rr "";
+CM_ SG_ 2348819959 vcu_r_rl "";
 CM_ BO_ 2348819895 "throttle remapped";
-CM_ SG_ 2348819895 remap_k_rr "";
-CM_ SG_ 2348819895 remap_k_rl "";
+CM_ SG_ 2348819895 vcu_k_rr "";
+CM_ SG_ 2348819895 vcu_k_rl "";
+CM_ BO_ 2348820023 "Maximum Allowed Throttle";
+CM_ SG_ 2348820023 vcu_max_r "";
+CM_ BO_ 2348820087 "Vehicle Heading";
+CM_ SG_ 2348820087 vehHead "";
+CM_ BO_ 2148059831 "Fault status message";
+CM_ SG_ 2148059831 latched "";
+CM_ SG_ 2148059831 idx "";
 CM_ BO_ 2483028613 "Throttle and brake values";
 CM_ SG_ 2483028613 brake_pot "";
 CM_ SG_ 2483028613 brake_right "";
@@ -906,9 +903,9 @@ CM_ SG_ 2214596037 tv_deadband_val "";
 CM_ SG_ 2214596037 tv_enabled "";
 CM_ BO_ 2214596101 "start logging";
 CM_ SG_ 2214596101 logging_enabled "";
-CM_ BO_ 2148059781 "Fault status message";
-CM_ SG_ 2148059781 latched "";
-CM_ SG_ 2148059781 idx "";
+CM_ BO_ 2148059845 "Fault status message";
+CM_ SG_ 2148059845 latched "";
+CM_ SG_ 2148059845 idx "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 688 "Standard steering angle and speed";
@@ -943,9 +940,9 @@ CM_ SG_ 2214594783 bat_pump_aux "";
 CM_ SG_ 2214594783 bat_pump "";
 CM_ SG_ 2214594783 dt_fan "";
 CM_ SG_ 2214594783 bat_fan "";
-CM_ BO_ 2148059871 "Fault status message";
-CM_ SG_ 2148059871 latched "";
-CM_ SG_ 2148059871 idx "";
+CM_ BO_ 2148059935 "Fault status message";
+CM_ SG_ 2148059935 latched "";
+CM_ SG_ 2148059935 idx "";
 CM_ BO_ 2550136799 "daq response from node PDU";
 CM_ SG_ 2550136799 daq_response "";
 CM_ BO_ 2214912572 "Main Module Bootloader response";
@@ -1056,9 +1053,9 @@ CM_ SG_ 2147488308 pot2 "";
 CM_ SG_ 2147488308 pot1 "";
 CM_ BO_ 2347693088 "state of the car";
 CM_ SG_ 2347693088 car_state "";
-CM_ BO_ 2148059967 "Fault status message";
-CM_ SG_ 2148059967 latched "";
-CM_ SG_ 2148059967 idx "";
+CM_ BO_ 2148060031 "Fault status message";
+CM_ SG_ 2148060031 latched "";
+CM_ SG_ 2148060031 idx "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";

@@ -248,7 +248,7 @@ static uint8_t mcCheckLinkState(motor_t* m)
     {
         m->last_link_error = MC_LINK_ERROR_GEN_TIMEOUT;
         m->link_state = MC_LINK_DISCONNECTED;
-        m->config_sent = false;
+        m->config_sent = true;
         return 0;
     }
 
@@ -259,9 +259,9 @@ static uint8_t mcCheckLinkState(motor_t* m)
             {
                 m->link_state = MC_LINK_ATTEMPT;      // Message recently rx'd
             }
+            m->init_time = 0;
             break;
         case MC_LINK_ATTEMPT:
-            m->init_time = 0;
             m->link_state = MC_LINK_VERIFYING;
             mcSendOneByteCmd(MC_SERIAL_MODE, m);
             break;
@@ -278,7 +278,10 @@ static uint8_t mcCheckLinkState(motor_t* m)
             {
                 m->link_state = MC_LINK_FAILED;
             }
-
+            else
+            {
+                m->link_state = MC_LINK_ATTEMPT;
+            }
             ++m->init_time;
             break;
         case MC_LINK_DELAY:
@@ -410,7 +413,7 @@ static void mcParseMessage(motor_t *m)
         if (m->motor_state == MC_ERROR)
         {
             m->config_step = 0;
-            m->motor_state = MC_CONFIG;
+            // m->motor_state = MC_CONFIG;
         }
     }
     else
@@ -474,6 +477,10 @@ static void mcParseMessage(motor_t *m)
     // // Parse motor temp
     // if (curr >= 0) curr = mcParseTerm(tmp_rx_buf, curr, "mot=", &val_buf);
     // if (curr >= 0) m->motor_temp = (uint8_t) val_buf;
+
+
+
+
     uint8_t idx[30];
     int8_t num_idx = -1;
     uint8_t num_var = 0;
@@ -499,9 +506,10 @@ static void mcParseMessage(motor_t *m)
     char smottemp[2];
     char wheelspd[5];
 
+
     int motor_W;
 
-    while ((num_var < 30) && (i < num_idx))
+    while ((num_var < 30) && (i <= num_idx))
     {
         d_idx = idx[i+1] - idx[i];
         if (((tmp_rx_buf[idx[i]+1]) == 'U') && (((tmp_rx_buf[idx[i]+2]) == '=')) && ((tmp_rx_buf[idx[i]+6]) == '.') && ((tmp_rx_buf[idx[i]+8]) == 'V') && (d_idx == 9))
@@ -527,7 +535,7 @@ static void mcParseMessage(motor_t *m)
 
                 if ((tmp_rx_buf[idx[i]+4]) == ' ')
                 {
-                    sscanf(scurrent, "% d", &(m->current_x10));
+                    sscanf(scurrent, "%d", &(m->current_x10));
                     num_var++;
                 }
                 else if (((tmp_rx_buf[idx[i]+4]) >= '0') && ((tmp_rx_buf[idx[i]+4]) <= '9'))
@@ -537,6 +545,19 @@ static void mcParseMessage(motor_t *m)
                 }
             }
         }
+        //Controller Temp
+        else if (((tmp_rx_buf[idx[i]+1]) == 'c') && (((tmp_rx_buf[idx[i]+2]) == 'o')) && ((tmp_rx_buf[idx[i]+3]) == 'n') && ((tmp_rx_buf[idx[i]+4]) == '=') && ((tmp_rx_buf[idx[i]+5]) == ' ') && ((tmp_rx_buf[idx[i]+9]) == 'C') && d_idx == 10)
+        {
+            if (((tmp_rx_buf[idx[i]+6]) >= '0') && ((tmp_rx_buf[idx[i]+6]) <= '9') && ((tmp_rx_buf[idx[i]+7]) >= '0') && ((tmp_rx_buf[idx[i]+7]) <= '9'))
+            {
+                num_var++;
+                smottemp[0] = (tmp_rx_buf[idx[i]+6]);
+                smottemp[1] = (tmp_rx_buf[idx[i]+7]);
+
+                sscanf(smottemp, "%d", &(m->controller_temp));
+            }
+        }
+        // Motor Temps
         else if (((tmp_rx_buf[idx[i]+1]) == 'm') && (((tmp_rx_buf[idx[i]+2]) == 'o')) && ((tmp_rx_buf[idx[i]+3]) == 't') && ((tmp_rx_buf[idx[i]+4]) == '=') && ((tmp_rx_buf[idx[i]+5]) == ' ') && ((tmp_rx_buf[idx[i]+9]) == 'C') )
         {
             if (((tmp_rx_buf[idx[i]+6]) >= '0') && ((tmp_rx_buf[idx[i]+6]) <= '9') && ((tmp_rx_buf[idx[i]+7]) >= '0') && ((tmp_rx_buf[idx[i]+7]) <= '9'))

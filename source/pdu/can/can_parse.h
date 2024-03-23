@@ -25,6 +25,7 @@
 #define ID_PUMP_AND_FAN_CURRENT 0x40104df
 #define ID_OTHER_CURRENTS 0x401051f
 #define ID_COOLANT_OUT 0x40008df
+#define ID_FLOWRATES 0x1000089f
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_DAQ_RESPONSE_PDU 0x17ffffdf
 #define ID_PDU_BL_CMD 0x409c53e
@@ -47,6 +48,7 @@
 #define DLC_PUMP_AND_FAN_CURRENT 7
 #define DLC_OTHER_CURRENTS 8
 #define DLC_COOLANT_OUT 3
+#define DLC_FLOWRATES 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_DAQ_RESPONSE_PDU 8
 #define DLC_PDU_BL_CMD 5
@@ -106,6 +108,13 @@
         data_a->coolant_out.bat_pump = bat_pump_;\
         data_a->coolant_out.bat_pump_aux = bat_pump_aux_;\
         data_a->coolant_out.dt_pump = dt_pump_;\
+        qSendToBack(&queue, &msg);\
+    } while(0)
+#define SEND_FLOWRATES(queue, battery_flowrate_, drivetrain_flowrate_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FLOWRATES, .DLC=DLC_FLOWRATES, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->flowrates.battery_flowrate = battery_flowrate_;\
+        data_a->flowrates.drivetrain_flowrate = drivetrain_flowrate_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_FAULT_SYNC_PDU(queue, idx_, latched_) do {\
@@ -180,6 +189,10 @@ typedef union {
         uint64_t bat_pump_aux: 1;
         uint64_t dt_pump: 1;
     } coolant_out;
+    struct {
+        uint64_t battery_flowrate: 8;
+        uint64_t drivetrain_flowrate: 8;
+    } flowrates;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

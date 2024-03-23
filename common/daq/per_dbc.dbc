@@ -418,6 +418,10 @@ BO_ 2214594783 coolant_out: 3 PDU
  SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
  SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
 
+BO_ 2415921311 flowrates: 2 PDU
+ SG_ drivetrain_flowrate : 8|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+ SG_ battery_flowrate : 0|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+
 BO_ 2148059935 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -940,6 +944,9 @@ CM_ SG_ 2214594783 bat_pump_aux "";
 CM_ SG_ 2214594783 bat_pump "";
 CM_ SG_ 2214594783 dt_fan "";
 CM_ SG_ 2214594783 bat_fan "";
+CM_ BO_ 2415921311 "Flowrate cooling loops";
+CM_ SG_ 2415921311 drivetrain_flowrate "Flow rate for drivetrain coolant loop";
+CM_ SG_ 2415921311 battery_flowrate "Flow rate for battery coolant loop";
 CM_ BO_ 2148059935 "Fault status message";
 CM_ SG_ 2148059935 latched "";
 CM_ SG_ 2148059935 idx "";

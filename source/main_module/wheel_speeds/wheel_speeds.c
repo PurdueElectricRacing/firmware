@@ -4,9 +4,9 @@
  * @brief   Use pwm input capture to measure left and right wheel speeds
  * @version 0.1
  * @date 2022-01-21
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include "wheel_speeds.h"
@@ -27,7 +27,7 @@ static volatile uint32_t right_update_time = 0;
 /**
  * @brief Configures timers for quadrature encoder operation
  *        Assumes channels A and B are on CH1 and CH2
- * 
+ *
  * @return      True on success, False on fail
  */
 bool wheelSpeedsInit(void)
@@ -35,6 +35,7 @@ bool wheelSpeedsInit(void)
     /* Right Init (TIM 1) */
     RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
     MOTOR_R_WS_PWM_TIM->CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
+    MOTOR_R_WS_PWM_TIM->CR1 |= TIM_CR1_URS; 
 
     MOTOR_R_WS_PWM_TIM->PSC = WS_TIM_PSC - 1;
     MOTOR_R_WS_PWM_TIM->ARR = 0xFFFF;
@@ -73,6 +74,8 @@ bool wheelSpeedsInit(void)
     /* Left Init (TIM4) */
     RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
     MOTOR_L_WS_PWM_TIM->CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
+    MOTOR_L_WS_PWM_TIM->CR1 |= TIM_CR1_URS;
+
 
     MOTOR_L_WS_PWM_TIM->PSC = WS_TIM_PSC - 1;
     MOTOR_L_WS_PWM_TIM->ARR = 0xFFFF;
@@ -115,7 +118,7 @@ bool wheelSpeedsInit(void)
 
 /**
  * @brief Updates radians per second calculation
- * 
+ *
  */
 void wheelSpeedsPeriodic()
 {

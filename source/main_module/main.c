@@ -219,7 +219,7 @@ uint16_t num_failed_msgs_r;
 uint16_t num_failed_msgs_l;
 
 
-int main(void){
+    int main(void){
     /* Data Struct Initialization */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
@@ -257,9 +257,10 @@ int main(void){
     taskCreateBackground(canRxUpdate);
     taskCreateBackground(usartTxUpdate);
     // taskCreateBackground(memBg);
-
+    // uint8_t i = 0;
     // calibrateSteeringAngle(&i);
-    // SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
+    // for (uint8_t i = 0; i < 10; i++)
+    //     SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
     // SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
 
     schedStart();
@@ -273,12 +274,12 @@ void preflightChecks(void) {
     switch (state++)
     {
         case 0:
-            // huart_l.rx_dma_cfg->circular = true;
+            huart_l.rx_dma_cfg->circular = true;
             if(!PHAL_initUSART(&huart_l, APB2ClockRateHz))
             {
                 HardFault_Handler();
             }
-            // huart_r.rx_dma_cfg->circular = true;
+            huart_r.rx_dma_cfg->circular = true;
             if(!PHAL_initUSART(&huart_r, APB1ClockRateHz))
             {
                 HardFault_Handler();

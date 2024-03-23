@@ -843,6 +843,17 @@
                             "msg_period": 1000,
                             "msg_hlp":1,
                             "msg_pgn":35
+                        },
+                        {
+                            "msg_name": "flowrates",
+                            "msg_desc": "Flowrate cooling loops",
+                            "signals": [
+                                {"sig_name": "battery_flowrate", "sig_desc": "Flow rate for battery coolant loop", "type": "uint8_t", "scale": 0.1, "unit":"LPM"},
+                                {"sig_name": "drivetrain_flowrate", "sig_desc": "Flow rate for drivetrain coolant loop", "type": "uint8_t", "scale": 0.1, "unit":"LPM"}
+                            ],
+                            "msg_period":200,
+                            "msg_hlp":4,
+                            "msg_pgn":34
                         }
                     ],
                     "rx": [

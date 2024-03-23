@@ -167,6 +167,7 @@ static bool TV_Calibrated = true; /* Flag Indicating if TV is calibrated */
 static int16_T gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 int main(void)
+
 {
     /* Data Struct Initialization */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));

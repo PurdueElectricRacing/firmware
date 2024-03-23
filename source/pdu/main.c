@@ -17,6 +17,7 @@
 #include "fan_control.h"
 #include "led.h"
 #include "cooling.h"
+#include "flow_rate.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -170,6 +171,7 @@ void preflightChecks(void);
 void canTxUpdate();
 void heatBeatLED();
 void send_iv_readings();
+void send_flowrates();
 //CAN
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -222,6 +224,7 @@ int main()
     taskCreate(update_cooling_periodic, 100);
     taskCreate(send_iv_readings, 500);
     taskCreate(checkSwitchFaults, 100);
+    taskCreate(send_flowrates, 200);
     schedStart();
     return 0;
 }
@@ -255,6 +258,7 @@ void preflightChecks(void) {
             break;
         case 4:
             coolingInit();
+            flowRateInit();
             break;
         case 5:
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_PDU);
@@ -323,6 +327,11 @@ void preflightAnimation(void) {
     }
 
 
+}
+
+void send_flowrates()
+{
+    SEND_FLOWRATES(q_tx_can, getFlowRate1(), getFlowRate2());
 }
 
 void heatBeatLED()

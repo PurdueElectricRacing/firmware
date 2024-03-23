@@ -172,7 +172,7 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_IDLE)
     {
-        car.pchg.pchg_complete = false;
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         prchg_start = false;
         if (sdc_mux.tsms_stat)
         {
@@ -191,7 +191,6 @@ void carPeriodic()
         //     precharge_start_ms = sched.os_ticks;
         //     prchg_start = 1;
         // }
-
         // setFault(ID_PRECHARGE_TIME_FAULT_FAULT, (sched.os_ticks - precharge_start_ms));
         if (/*v_mc >= threshold && */PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))
         {
@@ -227,7 +226,7 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced)
         {
@@ -248,6 +247,8 @@ void carPeriodic()
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
             t_req_pedal_r = t_req_pedal_r * 100.0f / 4095.0f;
+            // if (t_req_pedal > 10.0f)
+            //     t_req_pedal = 10.0f;
 
 
             // TODO: ensure APPS checks sets throttle to 0 if enough braking
@@ -559,26 +560,26 @@ void updateSDCFaults()
                 break;
             case (SDC_BOTS):
                 //If bots is down, we need to check whether BOTS was tripped or BSPD was tripped
-                if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && (PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin) || can_data.orion_currents_volts.stale))
-                {
-                    int32_t total_current = 0;
-                    for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
-                    {
-                        total_current += hist_current[i];
-                    }
-                    if (total_current > 5000)
-                    {
-                        setFault(ID_BSPD_LATCHED_FAULT, 1);
-                    }
-                    else if (brake_fail)
-                        setFault(ID_BSPD_LATCHED_FAULT, 1);
-                    else
-                        setFault(ID_BOTS_FAIL_FAULT, 1);
-                }
-                else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
-                {
-                    setFault(ID_BOTS_FAIL_FAULT, 0);
-                }
+                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && (PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin) || can_data.orion_currents_volts.stale))
+                // {
+                //     int32_t total_current = 0;
+                //     for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
+                //     {
+                //         total_current += hist_current[i];
+                //     }
+                //     if (total_current > 5000)
+                //     {
+                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
+                //     }
+                //     else if (brake_fail)
+                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
+                //     else
+                //         setFault(ID_BOTS_FAIL_FAULT, 1);
+                // }
+                // else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
+                // {
+                //     setFault(ID_BOTS_FAIL_FAULT, 0);
+                // }
                 break;
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat)

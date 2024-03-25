@@ -77,11 +77,20 @@
 #define VSENSE_5V_ADC_CHNL  (7)
 
 // ADC Channels
+// TMU
 #define TMU_1_ADC_CHANNEL (10)
 #define TMU_2_ADC_CHANNEL (11)
 #define TMU_3_ADC_CHANNEL (12)
 #define TMU_4_ADC_CHANNEL (13)
-
+// Current Sense
+#define I_SENSE_CH1_ADC_CHANNEL (0)
+#define I_SENSE_CH2_ADC_CHANNEL (1)
+// Vref
+#define ADC_VREF 3.3F
+#define ADC_ADDR_SIZE 0xFFFU
+// Current sense resistors in ohms
+#define R1_ISENSE 1000
+#define R2_ISENSE 2000
 typedef struct 
 {
     // Do not modify this struct unless
@@ -91,6 +100,9 @@ typedef struct
     uint16_t tmu_2;
     uint16_t tmu_3;
     uint16_t tmu_4;
+    // CAN I DO THIS??
+    uint16_t isense_ch1;
+    uint16_t isense_ch2;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

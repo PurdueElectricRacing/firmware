@@ -40,7 +40,7 @@
                                 {"sig_name": "drivetrain_in_temp", "sig_desc":"In flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"},
                                 {"sig_name": "drivetrain_out_temp", "sig_desc":"Out flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"}
                             ],
-                            "msg_period":200,
+                            "msg_period":1000,
                             "msg_hlp":1,
                             "msg_pgn":34
                         },
@@ -51,7 +51,7 @@
                                 {"sig_name": "l_temp", "type": "int8_t"},
                                 {"sig_name": "r_temp", "type": "int8_t"}
                             ],
-                            "msg_period": 2000,
+                            "msg_period": 1000,
                             "msg_hlp": 4,
                             "msg_pgn": 36
                         },
@@ -66,45 +66,6 @@
                             "msg_period": 0,
                             "msg_id_override": "0x7C0",
                             "is_normal":true
-                        },
-                        {
-                            "msg_name": "voltage_rails",
-                            "msg_desc": "Local main LV voltage rail measurements",
-                            "signals": [
-                                {"sig_name":"LV24", "type": "uint16_t", "unit":"mV"},
-                                {"sig_name":"LV12", "type": "uint16_t", "unit":"mV"},
-                                {"sig_name":"LV5", "type": "uint16_t", "unit":"mV"},
-                                {"sig_name":"LV3V3", "type": "uint16_t", "unit":"mV"}
-                            ],
-                            "msg_period": 1000,
-                            "msg_hlp": 4,
-                            "msg_pgn": 100
-                        },
-                        {
-                            "msg_name": "precharge_state",
-                            "msg_desc": "precharge validation update",
-                            "signals": [
-                                {"sig_name":"v_mc",  "sig_desc": "Motor Controller Voltage", "type":"uint16_t", "length": 12, "unit":"V", "scale": 0.1},
-                                {"sig_name":"v_bat", "sig_desc": "Battery Voltage", "type":"uint16_t", "length": 12, "unit":"V", "scale": 0.1},
-                                {"sig_name":"precharge_complete", "sig_desc":"Precharge complete state","type":"uint8_t","length":1},
-                                {"sig_name":"precharge_error", "sig_desc":"Precharge error found","type":"uint8_t","length":1}
-                            ],
-                            "msg_period": 300,
-                            "msg_hlp": 2,
-                            "msg_pgn": 98
-                        },
-                        {
-                            "msg_name": "current_meas",
-                            "msg_desc": "Local main LV current measurements and additional info",
-                            "signals": [
-                                {"sig_name":"LV24_I", "type": "uint16_t", "unit":"mA"},
-                                {"sig_name":"LV5_I", "type": "uint16_t", "unit":"mA"},
-                                {"sig_name":"MCU_TEMP", "type": "int16_t", "unit":"C"},
-                                {"sig_name":"LV3V3_PG", "type": "uint8_t", "length":1, "sig_desc": "Power good status pin on the 3V3 LDO"}
-                            ],
-                            "msg_period": 1000,
-                            "msg_hlp": 4,
-                            "msg_pgn": 101
                         },
                         {
                             "msg_name": "mcu_status",
@@ -218,7 +179,6 @@
                         {"msg_name": "raw_throttle_brake"},
                         {"msg_name": "filt_throttle_brake"},
                         {"msg_name": "start_button", "callback": false},
-                        {"msg_name": "dashboard_hb"},
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
@@ -264,7 +224,7 @@
                                 {"sig_name": "D", "sig_desc": "Number of thermistors > 1.5v", "type": "uint8_t"}
                             ],
                             "msg_period": 500,
-                            "msg_hlp": 2,
+                            "msg_hlp": 5,
                             "msg_pgn": 515
                         },
                         {
@@ -277,7 +237,7 @@
                                 {"sig_name": "current", "sig_desc": "Instantaneous charge current", "unit":"A", "scale": 0.1, "type": "uint16_t", "length": 16}
                             ],
                             "msg_period": 50,
-                            "msg_hlp": 2,
+                            "msg_hlp": 5,
                             "msg_pgn": 514
                         },
                         {   "msg_name":"max_cell_temp",
@@ -286,7 +246,7 @@
                                 {"sig_name":"max_temp","type": "int16_t", "scale": 0.1}
                             ],
                             "msg_period":500,
-                            "msg_hlp":1,
+                            "msg_hlp":2,
                             "msg_pgn":5016
                         },
                         {   "msg_name": "mod_cell_temp_avg",
@@ -299,7 +259,7 @@
                             ],
                             "msg_period":0,
                             "msg_hlp":5,
-                            "msg_pgn":514
+                            "msg_pgn":1234
                         },
                         {"msg_name": "mod_cell_temp_max",
                         "msg_desc": "Max cell temperature for each module",
@@ -334,7 +294,7 @@
                             ],
                             "msg_period":0,
                             "msg_hlp":5,
-                            "msg_pgn":515
+                            "msg_pgn":1222
                         },
                         {"msg_name": "raw_cell_temp_c_d",
                         "msg_desc": "Raw cell temperature for each module of thermistor at index",
@@ -677,18 +637,6 @@
                             "msg_pgn":0
                         },
                         {
-                            "msg_name":"dashboard_hb",
-                            "msg_desc":"periodic dashboard heartbeat",
-                            "signals":[
-                                {"sig_name": "apps_faulted", "type":"uint8_t","length":1},
-                                {"sig_name": "bse_faulted", "type":"uint8_t","length":1},
-                                {"sig_name": "apps_brake_faulted", "type":"uint8_t","length":1}
-                            ],
-                            "msg_period":100,
-                            "msg_hlp":1,
-                            "msg_pgn":100
-                        },
-                        {
                             "msg_name":"dashboard_volts_temp",
                             "msg_desc":"periodic dashboard MCU temp",
                             "signals":[
@@ -699,16 +647,6 @@
                             "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":101
-                        },
-                        {
-                            "msg_name":"dashboard_brake_status",
-                            "msg_desc":"periodic dashboard brake health",
-                            "signals":[
-                                {"sig_name": "brake_status", "type":"uint8_t", "length":1}
-                            ],
-                            "msg_period":500,
-                            "msg_hlp":1,
-                            "msg_pgn":33
                         },
                         {
                             "msg_name":"dashboard_tv_parameters",

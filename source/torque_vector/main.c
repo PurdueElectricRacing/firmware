@@ -352,7 +352,10 @@ void canTxUpdate(void)
     CanMsgTypeDef_t tx_msg;
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G) // Check queue for items and take if there is one
     {
-        PHAL_txCANMessage(&tx_msg);
+        if (!PHAL_txCANMessage(&tx_msg))
+        {
+            qSendToBack(&q_tx_can, &tx_msg);
+        }
     }
 }
 

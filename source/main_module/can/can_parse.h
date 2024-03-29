@@ -25,9 +25,6 @@
 #define ID_COOLANT_TEMPS 0x4000881
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
-#define ID_VOLTAGE_RAILS 0x10001901
-#define ID_PRECHARGE_STATE 0x8001881
-#define ID_CURRENT_MEAS 0x10001941
 #define ID_MCU_STATUS 0x10001981
 #define ID_NUM_MC_SKIPS 0x10001b81
 #define ID_REAR_MC_STATUS 0x4001941
@@ -40,8 +37,7 @@
 #define ID_RAW_THROTTLE_BRAKE 0x14000285
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
-#define ID_DASHBOARD_HB 0x4001905
-#define ID_MAX_CELL_TEMP 0x404e604
+#define ID_MAX_CELL_TEMP 0x804e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_THROTTLE_REMAPPED 0xc0025b7
@@ -64,9 +60,6 @@
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
-#define DLC_VOLTAGE_RAILS 8
-#define DLC_PRECHARGE_STATE 4
-#define DLC_CURRENT_MEAS 7
 #define DLC_MCU_STATUS 5
 #define DLC_NUM_MC_SKIPS 4
 #define DLC_REAR_MC_STATUS 6
@@ -79,7 +72,6 @@
 #define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
-#define DLC_DASHBOARD_HB 1
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
@@ -136,33 +128,6 @@
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_VOLTAGE_RAILS(queue, LV24_, LV12_, LV5_, LV3V3_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VOLTAGE_RAILS, .DLC=DLC_VOLTAGE_RAILS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->voltage_rails.LV24 = LV24_;\
-        data_a->voltage_rails.LV12 = LV12_;\
-        data_a->voltage_rails.LV5 = LV5_;\
-        data_a->voltage_rails.LV3V3 = LV3V3_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_PRECHARGE_STATE(queue, v_mc_, v_bat_, precharge_complete_, precharge_error_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PRECHARGE_STATE, .DLC=DLC_PRECHARGE_STATE, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->precharge_state.v_mc = v_mc_;\
-        data_a->precharge_state.v_bat = v_bat_;\
-        data_a->precharge_state.precharge_complete = precharge_complete_;\
-        data_a->precharge_state.precharge_error = precharge_error_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, MCU_TEMP_, LV3V3_PG_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CURRENT_MEAS, .DLC=DLC_CURRENT_MEAS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->current_meas.LV24_I = LV24_I_;\
-        data_a->current_meas.LV5_I = LV5_I_;\
-        data_a->current_meas.MCU_TEMP = MCU_TEMP_;\
-        data_a->current_meas.LV3V3_PG = LV3V3_PG_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_MCU_STATUS(queue, sched_skips_, foreground_use_, background_use_, sched_error_, can_tx_fails_) do {\
@@ -257,7 +222,6 @@
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_RAW_THROTTLE_BRAKE 15
 #define UP_FILT_THROTTLE_BRAKE 15
-#define UP_DASHBOARD_HB 100
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
 #define UP_THROTTLE_REMAPPED 15
@@ -359,24 +323,6 @@ typedef union {
         uint64_t Reserved_2: 8;
     } LWS_Config;
     struct {
-        uint64_t LV24: 16;
-        uint64_t LV12: 16;
-        uint64_t LV5: 16;
-        uint64_t LV3V3: 16;
-    } voltage_rails;
-    struct {
-        uint64_t v_mc: 12;
-        uint64_t v_bat: 12;
-        uint64_t precharge_complete: 1;
-        uint64_t precharge_error: 1;
-    } precharge_state;
-    struct {
-        uint64_t LV24_I: 16;
-        uint64_t LV5_I: 16;
-        uint64_t MCU_TEMP: 16;
-        uint64_t LV3V3_PG: 1;
-    } current_meas;
-    struct {
         uint64_t sched_skips: 8;
         uint64_t foreground_use: 8;
         uint64_t background_use: 8;
@@ -448,11 +394,6 @@ typedef union {
     struct {
         uint64_t start: 1;
     } start_button;
-    struct {
-        uint64_t apps_faulted: 1;
-        uint64_t bse_faulted: 1;
-        uint64_t apps_brake_faulted: 1;
-    } dashboard_hb;
     struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
@@ -537,13 +478,6 @@ typedef struct {
     struct {
         uint8_t start;
     } start_button;
-    struct {
-        uint8_t apps_faulted;
-        uint8_t bse_faulted;
-        uint8_t apps_brake_faulted;
-        uint8_t stale;
-        uint32_t last_rx;
-    } dashboard_hb;
     struct {
         int16_t max_temp;
         uint8_t stale;

@@ -34,6 +34,8 @@
 #define PHAL_CAN_40MHz_500k (0x001c0004)
 #define PHAL_CAN_80MHz_500k (0x001c0009)
 
+
+
 typedef struct
 {
   CAN_TypeDef* Bus; /*!< Specifies the bus. */

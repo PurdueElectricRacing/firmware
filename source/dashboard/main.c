@@ -211,7 +211,6 @@ int main (void){
     taskCreate(pollDashboardInput, 25);
     taskCreate(heartBeatTask, 100);
     taskCreate(update_data_pages, 200);
-    taskCreate(sendBrakeStatus, 500);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
     taskCreateBackground(usartTxUpdate);
@@ -490,7 +489,10 @@ void canTxUpdate()
    CanMsgTypeDef_t tx_msg;
    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
    {
-       PHAL_txCANMessage(&tx_msg);
+        if (!PHAL_txCANMessage(&tx_msg))
+        {
+            qSendToBack(&q_tx_can, &tx_msg);
+        }
    }
 }
 
@@ -550,8 +552,8 @@ void pollDashboardInput()
     upButtonBuffer <<= 1;
     if (PHAL_readGPIO(GPIOD, 14) == 0)
     {
-        upButtonBuffer |= 1; 
-    }    
+        upButtonBuffer |= 1;
+    }
     upButtonBuffer &= 0b00011111;
     if (upButtonBuffer == 0b00000001)
     {
@@ -561,7 +563,7 @@ void pollDashboardInput()
     downButtonBuffer <<= 1;
     if (PHAL_readGPIO(GPIOD, 13) == 0)
     {
-        downButtonBuffer |= 1; 
+        downButtonBuffer |= 1;
     }
     downButtonBuffer &= 0b00011111;
     if (downButtonBuffer == 0b00000001)
@@ -612,12 +614,6 @@ void pollDashboardInput()
         selectItem();
         dashboard_input &= ~(1U << DASH_INPUT_SELECT_BUTTON);
     }
-}
-
-void sendBrakeStatus()
-{
-    uint8_t isBrakeFailure = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
-    SEND_DASHBOARD_BRAKE_STATUS(q_tx_can, isBrakeFailure);                  
 }
 
 void HardFault_Handler()

@@ -69,13 +69,6 @@ void canRxUpdate()
             case ID_START_BUTTON:
                 can_data.start_button.start = msg_data_a->start_button.start;
                 break;
-            case ID_DASHBOARD_HB:
-                can_data.dashboard_hb.apps_faulted = msg_data_a->dashboard_hb.apps_faulted;
-                can_data.dashboard_hb.bse_faulted = msg_data_a->dashboard_hb.bse_faulted;
-                can_data.dashboard_hb.apps_brake_faulted = msg_data_a->dashboard_hb.apps_brake_faulted;
-                can_data.dashboard_hb.stale = 0;
-                can_data.dashboard_hb.last_rx = sched.os_ticks;
-                break;
             case ID_MAX_CELL_TEMP:
                 can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
                 can_data.max_cell_temp.stale = 0;
@@ -167,9 +160,6 @@ void canRxUpdate()
     CHECK_STALE(can_data.filt_throttle_brake.stale,
                 sched.os_ticks, can_data.filt_throttle_brake.last_rx,
                 UP_FILT_THROTTLE_BRAKE);
-    CHECK_STALE(can_data.dashboard_hb.stale,
-                sched.os_ticks, can_data.dashboard_hb.last_rx,
-                UP_DASHBOARD_HB);
     CHECK_STALE(can_data.max_cell_temp.stale,
                 sched.os_ticks, can_data.max_cell_temp.last_rx,
                 UP_MAX_CELL_TEMP);
@@ -207,28 +197,27 @@ bool initCANFilter()
     CAN1->sFilterRegister[0].FR2 = (ID_FILT_THROTTLE_BRAKE << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_START_BUTTON << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_DASHBOARD_HB << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_THROTTLE_REMAPPED << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_THROTTLE_REMAPPED << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_THROTTLE_VCU << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_VCU << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_LWS_STANDARD << 21);

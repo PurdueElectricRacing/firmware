@@ -61,24 +61,6 @@ BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415925505 voltage_rails: 8 Main_Module
- SG_ LV3V3 : 48|16@1+ (1,0) [0|0] "mV" Vector__XXX
- SG_ LV5 : 32|16@1+ (1,0) [0|0] "mV" Vector__XXX
- SG_ LV12 : 16|16@1+ (1,0) [0|0] "mV" Vector__XXX
- SG_ LV24 : 0|16@1+ (1,0) [0|0] "mV" Vector__XXX
-
-BO_ 2281707649 precharge_state: 4 Main_Module
- SG_ precharge_error : 25|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ precharge_complete : 24|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ v_bat : 12|12@1+ (0.1,0) [0|0] "V" Vector__XXX
- SG_ v_mc : 0|12@1+ (0.1,0) [0|0] "V" Vector__XXX
-
-BO_ 2415925569 current_meas: 7 Main_Module
- SG_ LV3V3_PG : 48|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ MCU_TEMP : 32|16@1- (1,0) [0|0] "C" Vector__XXX
- SG_ LV5_I : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
- SG_ LV24_I : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
-
 BO_ 2415925633 mcu_status: 5 Main_Module
  SG_ can_tx_fails : 32|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ sched_error : 24|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -146,22 +128,22 @@ BO_ 2550588916 elcon_charger_command: 5 a_box
  SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
 
-BO_ 2281734340 num_therm_bad: 4 a_box
+BO_ 2483060932 num_therm_bad: 4 a_box
  SG_ D : 24|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ C : 16|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ B : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ A : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2281734276 pack_charge_status: 7 a_box
+BO_ 2483060868 pack_charge_status: 7 a_box
  SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
  SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
  SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
 
-BO_ 2214913540 max_cell_temp: 2 a_box
+BO_ 2282022404 max_cell_temp: 2 a_box
  SG_ max_temp : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
-BO_ 2483060868 mod_cell_temp_avg: 8 a_box
+BO_ 2483106948 mod_cell_temp_avg: 8 a_box
  SG_ temp_D : 48|16@1- (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
@@ -179,7 +161,7 @@ BO_ 2483061252 mod_cell_temp_min: 8 a_box
  SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
  SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
 
-BO_ 2483060932 raw_cell_temp_a_b: 5 a_box
+BO_ 2483106180 raw_cell_temp_a_b: 5 a_box
  SG_ temp_B : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ temp_A : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -351,18 +333,10 @@ BO_ 2214593093 filt_throttle_brake: 3 Dashboard
 BO_ 2214592517 start_button: 1 Dashboard
  SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214598917 dashboard_hb: 1 Dashboard
- SG_ apps_brake_faulted : 2|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ bse_faulted : 1|1@1+ (1,0) [0|0] "" Vector__XXX
- SG_ apps_faulted : 0|1@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2214598981 dashboard_volts_temp: 6 Dashboard
  SG_ volts_3v3 : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ volts_5v : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
-
-BO_ 2214594629 dashboard_brake_status: 1 Dashboard
- SG_ brake_status : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214596037 dashboard_tv_parameters: 7 Dashboard
  SG_ tv_p_val : 33|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -642,21 +616,6 @@ CM_ BO_ 1984 "Steering sensor configuration";
 CM_ SG_ 1984 Reserved_2 "";
 CM_ SG_ 1984 Reserved_1 "";
 CM_ SG_ 1984 CCW "";
-CM_ BO_ 2415925505 "Local main LV voltage rail measurements";
-CM_ SG_ 2415925505 LV3V3 "";
-CM_ SG_ 2415925505 LV5 "";
-CM_ SG_ 2415925505 LV12 "";
-CM_ SG_ 2415925505 LV24 "";
-CM_ BO_ 2281707649 "precharge validation update";
-CM_ SG_ 2281707649 precharge_error "Precharge error found";
-CM_ SG_ 2281707649 precharge_complete "Precharge complete state";
-CM_ SG_ 2281707649 v_bat "Battery Voltage";
-CM_ SG_ 2281707649 v_mc "Motor Controller Voltage";
-CM_ BO_ 2415925569 "Local main LV current measurements and additional info";
-CM_ SG_ 2415925569 LV3V3_PG "Power good status pin on the 3V3 LDO";
-CM_ SG_ 2415925569 MCU_TEMP "";
-CM_ SG_ 2415925569 LV5_I "";
-CM_ SG_ 2415925569 LV24_I "";
 CM_ BO_ 2415925633 "performance metrics of MCU";
 CM_ SG_ 2415925633 can_tx_fails "Number of CAN transmit failures";
 CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
@@ -718,23 +677,23 @@ CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
 CM_ SG_ 2550588916 charge_disable "Disable charging";
 CM_ SG_ 2550588916 current_limit "Charge current";
 CM_ SG_ 2550588916 voltage_limit "Charge voltage";
-CM_ BO_ 2281734340 "Number of wonky thermistors on pack";
-CM_ SG_ 2281734340 D "Number of thermistors > 1.5v";
-CM_ SG_ 2281734340 C "Number of thermistors > 1.5v";
-CM_ SG_ 2281734340 B "Number of thermistors > 1.5v";
-CM_ SG_ 2281734340 A "Number of thermistors > 1.5v";
-CM_ BO_ 2281734276 "Send charge information";
-CM_ SG_ 2281734276 current "Instantaneous charge current";
-CM_ SG_ 2281734276 voltage "Instantaneous charge voltage";
-CM_ SG_ 2281734276 charge_enable "Charge mode enable";
-CM_ SG_ 2281734276 power "Instantaneous charge power";
-CM_ BO_ 2214913540 "maximum cell temperature for the whole pack";
-CM_ SG_ 2214913540 max_temp "";
-CM_ BO_ 2483060868 "Average cell temperature for each module";
-CM_ SG_ 2483060868 temp_D "";
-CM_ SG_ 2483060868 temp_C "";
-CM_ SG_ 2483060868 temp_B "";
-CM_ SG_ 2483060868 temp_A "";
+CM_ BO_ 2483060932 "Number of wonky thermistors on pack";
+CM_ SG_ 2483060932 D "Number of thermistors > 1.5v";
+CM_ SG_ 2483060932 C "Number of thermistors > 1.5v";
+CM_ SG_ 2483060932 B "Number of thermistors > 1.5v";
+CM_ SG_ 2483060932 A "Number of thermistors > 1.5v";
+CM_ BO_ 2483060868 "Send charge information";
+CM_ SG_ 2483060868 current "Instantaneous charge current";
+CM_ SG_ 2483060868 voltage "Instantaneous charge voltage";
+CM_ SG_ 2483060868 charge_enable "Charge mode enable";
+CM_ SG_ 2483060868 power "Instantaneous charge power";
+CM_ BO_ 2282022404 "maximum cell temperature for the whole pack";
+CM_ SG_ 2282022404 max_temp "";
+CM_ BO_ 2483106948 "Average cell temperature for each module";
+CM_ SG_ 2483106948 temp_D "";
+CM_ SG_ 2483106948 temp_C "";
+CM_ SG_ 2483106948 temp_B "";
+CM_ SG_ 2483106948 temp_A "";
 CM_ BO_ 2483060996 "Max cell temperature for each module";
 CM_ SG_ 2483060996 temp_D "";
 CM_ SG_ 2483060996 temp_C "";
@@ -745,10 +704,10 @@ CM_ SG_ 2483061252 temp_D "";
 CM_ SG_ 2483061252 temp_C "";
 CM_ SG_ 2483061252 temp_B "";
 CM_ SG_ 2483061252 temp_A "";
-CM_ BO_ 2483060932 "Raw cell temperature for each module of thermistor at index";
-CM_ SG_ 2483060932 temp_B "";
-CM_ SG_ 2483060932 temp_A "";
-CM_ SG_ 2483060932 index "";
+CM_ BO_ 2483106180 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483106180 temp_B "";
+CM_ SG_ 2483106180 temp_A "";
+CM_ SG_ 2483106180 index "";
 CM_ BO_ 2483061636 "Raw cell temperature for each module of thermistor at index";
 CM_ SG_ 2483061636 temp_D "";
 CM_ SG_ 2483061636 temp_C "";
@@ -890,16 +849,10 @@ CM_ SG_ 2214593093 brake "";
 CM_ SG_ 2214593093 throttle "";
 CM_ BO_ 2214592517 "Car start button pressed";
 CM_ SG_ 2214592517 start "";
-CM_ BO_ 2214598917 "periodic dashboard heartbeat";
-CM_ SG_ 2214598917 apps_brake_faulted "";
-CM_ SG_ 2214598917 bse_faulted "";
-CM_ SG_ 2214598917 apps_faulted "";
 CM_ BO_ 2214598981 "periodic dashboard MCU temp";
 CM_ SG_ 2214598981 volts_3v3 "";
 CM_ SG_ 2214598981 volts_5v "";
 CM_ SG_ 2214598981 mcu_temp "";
-CM_ BO_ 2214594629 "periodic dashboard brake health";
-CM_ SG_ 2214594629 brake_status "";
 CM_ BO_ 2214596037 "periodic dashboard tv parameters";
 CM_ SG_ 2214596037 tv_p_val "";
 CM_ SG_ 2214596037 tv_intensity_val "";

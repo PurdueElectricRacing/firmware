@@ -243,7 +243,7 @@ uint16_t num_failed_msgs_l;
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-    taskCreate(coolingPeriodic, 100);
+    taskCreate(coolingPeriodic, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(monitorSDCPeriodic, 20);
     taskCreate(carHeartbeat, 100);
@@ -441,7 +441,11 @@ void canTxUpdate(void)
     CanMsgTypeDef_t tx_msg;
     if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
     {
-        if (!PHAL_txCANMessage(&tx_msg)) ++can_tx_fails;
+        if (!PHAL_txCANMessage(&tx_msg))
+        {
+            ++can_tx_fails;
+            qSendToBack(&q_tx_can, &tx_msg);
+        }
     }
 }
 

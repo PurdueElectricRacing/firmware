@@ -62,12 +62,6 @@ void carHeartbeat()
         car.motor_r.motor_state, car.motor_r.link_state,
         car.motor_r.last_link_error);
     static uint8_t n;
-    if (++n == 5)
-    {
-        SEND_PRECHARGE_STATE(q_tx_can, car.pchg.v_mc_filt, car.pchg.v_bat_filt,
-                                       car.pchg.pchg_complete, car.pchg.pchg_error);
-        n = 0;
-    }
 }
 
 /**
@@ -95,6 +89,14 @@ void carPeriodic()
         hist_current[hist_curr_idx++] = 0;
         hist_curr_idx %= NUM_HIST_BSPD;
     }
+    // if (!checkFault(ID_TV_DISABLED_FAULT))
+    // {
+    //     car.torque_src = CAR_TORQUE_TV;
+    // }
+    // else
+    // {
+    //     car.torque_src = CAR_TORQUE_RAW;
+    // }
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
     if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CAR_STATE_FATAL)
         car.state = CAR_STATE_IDLE;
@@ -328,10 +330,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
-    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-                car.motor_l.motor_state != MC_CONNECTED);
-    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-                car.motor_r.motor_state != MC_CONNECTED);
+    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_l.motor_state != MC_CONNECTED);
+    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;

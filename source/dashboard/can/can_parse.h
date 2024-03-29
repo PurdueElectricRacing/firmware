@@ -24,9 +24,7 @@
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
-#define ID_DASHBOARD_HB 0x4001905
 #define ID_DASHBOARD_VOLTS_TEMP 0x4001945
-#define ID_DASHBOARD_BRAKE_STATUS 0x4000845
 #define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
 #define ID_DASHBOARD_START_LOGGING 0x4000e05
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -36,7 +34,7 @@
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
-#define ID_MAX_CELL_TEMP 0x404e604
+#define ID_MAX_CELL_TEMP 0x804e604
 #define ID_REAR_CONTROLLER_TEMPS 0xc000301
 #define ID_PRECHARGE_HB 0x4001944
 #define ID_TORQUE_REQUEST_MAIN 0x4000041
@@ -62,9 +60,7 @@
 #define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
-#define DLC_DASHBOARD_HB 1
 #define DLC_DASHBOARD_VOLTS_TEMP 6
-#define DLC_DASHBOARD_BRAKE_STATUS 1
 #define DLC_DASHBOARD_TV_PARAMETERS 7
 #define DLC_DASHBOARD_START_LOGGING 1
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -129,26 +125,12 @@
         data_a->start_button.start = start_;\
         qSendToBack(&queue, &msg);\
     } while(0)
-#define SEND_DASHBOARD_HB(queue, apps_faulted_, bse_faulted_, apps_brake_faulted_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_HB, .DLC=DLC_DASHBOARD_HB, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->dashboard_hb.apps_faulted = apps_faulted_;\
-        data_a->dashboard_hb.bse_faulted = bse_faulted_;\
-        data_a->dashboard_hb.apps_brake_faulted = apps_brake_faulted_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
 #define SEND_DASHBOARD_VOLTS_TEMP(queue, mcu_temp_, volts_5v_, volts_3v3_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_VOLTS_TEMP, .DLC=DLC_DASHBOARD_VOLTS_TEMP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->dashboard_volts_temp.mcu_temp = mcu_temp_;\
         data_a->dashboard_volts_temp.volts_5v = volts_5v_;\
         data_a->dashboard_volts_temp.volts_3v3 = volts_3v3_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_DASHBOARD_BRAKE_STATUS(queue, brake_status_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_BRAKE_STATUS, .DLC=DLC_DASHBOARD_BRAKE_STATUS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->dashboard_brake_status.brake_status = brake_status_;\
         qSendToBack(&queue, &msg);\
     } while(0)
 #define SEND_DASHBOARD_TV_PARAMETERS(queue, tv_enabled_, tv_deadband_val_, tv_intensity_val_, tv_p_val_) do {\
@@ -182,7 +164,7 @@
 /* END AUTO SEND MACROS */
 
 // Stale Checking
-#define STALE_THRESH 10 / 2 // 3 / 2 would be 150% of period
+#define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 100
 #define UP_REAR_MOTOR_CURRENTS_TEMPS 500
@@ -194,9 +176,9 @@
 #define UP_PRECHARGE_HB 100
 #define UP_TORQUE_REQUEST_MAIN 15
 #define UP_REAR_WHEEL_SPEEDS 15
-#define UP_COOLANT_TEMPS 200
+#define UP_COOLANT_TEMPS 1000
 #define UP_COOLANT_OUT 1000
-#define UP_GEARBOX 2000
+#define UP_GEARBOX 1000
 #define UP_SDC_STATUS 300
 /* END AUTO UP DEFS */
 
@@ -221,7 +203,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union {
+typedef union { 
     struct {
         uint64_t throttle: 12;
         uint64_t throttle_right: 12;
@@ -244,18 +226,10 @@ typedef union {
         uint64_t start: 1;
     } start_button;
     struct {
-        uint64_t apps_faulted: 1;
-        uint64_t bse_faulted: 1;
-        uint64_t apps_brake_faulted: 1;
-    } dashboard_hb;
-    struct {
         uint64_t mcu_temp: 16;
         uint64_t volts_5v: 16;
         uint64_t volts_3v3: 16;
     } dashboard_volts_temp;
-    struct {
-        uint64_t brake_status: 1;
-    } dashboard_brake_status;
     struct {
         uint64_t tv_enabled: 1;
         uint64_t tv_deadband_val: 16;

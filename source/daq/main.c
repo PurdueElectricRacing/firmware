@@ -134,6 +134,7 @@ void _log_str(char* data)
 }
 #endif
 
+static void configure_exti(void);
 static void cs_sel(void);
 static void cs_desel(void);
 static uint8_t spi_rb(void);
@@ -209,6 +210,8 @@ int main()
     reg_wizchip_cs_cbfunc(cs_sel, cs_desel);
     reg_wizchip_spi_cbfunc(spi_rb, spi_wb);
     reg_wizchip_spiburst_cbfunc(spi_rb_burst, spi_wb_burst);
+    
+    configure_exti();
 
     daq_init();
 
@@ -219,6 +222,21 @@ int main()
     log_red("Main loop exited!\n");
 
     return 0;
+}
+
+static void configure_exti(void)
+{
+    // Configure exti interupt for power loss pin (PE15)
+
+    // Enable the SYSCFG clock for interrupts
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI15_PE; // Map PE15 to EXTI 15
+    EXTI->IMR |= EXTI_IMR_MR15; // Unmask EXTI15
+    EXTI->FTSR |= EXTI_FTSR_TR15; // Enable the falling edge trigger (active low reset)
+
+    NVIC_SetPriority(EXTI15_10_IRQn, 15); // allow other interrupts to preempt this one (especially systick and dma)
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 void SysTick_Handler(void)

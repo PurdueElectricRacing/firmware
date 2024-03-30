@@ -14,6 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
+#include "main.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "torque_vector"
@@ -31,8 +32,8 @@
 #define ID_SFS_ACC 0xc0169b7
 #define ID_SFS_ANG 0xc0169f7
 #define ID_SFS_ANG_VEL 0xc016a37
-#define ID_THROTTLE_VCU 0xc0025f7
-#define ID_THROTTLE_REMAPPED 0xc0025b7
+#define ID_THROTTLE_VCU 0x40025f7
+#define ID_THROTTLE_REMAPPED 0x40025b7
 #define ID_MAXR 0xc002637
 #define ID_VEHHEAD 0xc002677
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
@@ -41,10 +42,10 @@
 #define ID_LWS_STANDARD 0x2b0
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
-#define ID_MAIN_HB 0x4001901
-#define ID_REAR_WHEEL_SPEEDS 0x8000381
-#define ID_REAR_CONTROLLER_TEMPS 0xc000301
-#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
+#define ID_MAIN_HB 0xc001901
+#define ID_REAR_WHEEL_SPEEDS 0x4000381
+#define ID_REAR_MOTOR_TEMPS 0x10000301
+#define ID_REAR_MOTOR_CURRENTS_VOLTS 0x100002c1
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -79,8 +80,8 @@
 #define DLC_DASHBOARD_TV_PARAMETERS 7
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
-#define DLC_REAR_CONTROLLER_TEMPS 2
-#define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
+#define DLC_REAR_MOTOR_TEMPS 4
+#define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -92,128 +93,128 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_GPS_VELOCITY(queue, gps_vel_n_, gps_vel_e_, gps_vel_d_, gps_vel_total_) do {\
+#define SEND_GPS_VELOCITY(gps_vel_n_, gps_vel_e_, gps_vel_d_, gps_vel_total_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_VELOCITY, .DLC=DLC_GPS_VELOCITY, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_velocity.gps_vel_n = gps_vel_n_;\
         data_a->gps_velocity.gps_vel_e = gps_vel_e_;\
         data_a->gps_velocity.gps_vel_d = gps_vel_d_;\
         data_a->gps_velocity.gps_vel_total = gps_vel_total_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_GPS_POSITION(queue, gps_pos_x_, gps_pos_y_, gps_pos_z_, height_) do {\
+#define SEND_GPS_POSITION(gps_pos_x_, gps_pos_y_, gps_pos_z_, height_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_POSITION, .DLC=DLC_GPS_POSITION, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_position.gps_pos_x = gps_pos_x_;\
         data_a->gps_position.gps_pos_y = gps_pos_y_;\
         data_a->gps_position.gps_pos_z = gps_pos_z_;\
         data_a->gps_position.height = height_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_GPS_COORDINATES(queue, latitude_, longitude_) do {\
+#define SEND_GPS_COORDINATES(latitude_, longitude_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_COORDINATES, .DLC=DLC_GPS_COORDINATES, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_coordinates.latitude = latitude_;\
         data_a->gps_coordinates.longitude = longitude_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_IMU_GYRO(queue, imu_gyro_x_, imu_gyro_y_, imu_gyro_z_) do {\
+#define SEND_IMU_GYRO(imu_gyro_x_, imu_gyro_y_, imu_gyro_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_IMU_GYRO, .DLC=DLC_IMU_GYRO, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->imu_gyro.imu_gyro_x = imu_gyro_x_;\
         data_a->imu_gyro.imu_gyro_y = imu_gyro_y_;\
         data_a->imu_gyro.imu_gyro_z = imu_gyro_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_IMU_ACCEL(queue, imu_accel_x_, imu_accel_y_, imu_accel_z_) do {\
+#define SEND_IMU_ACCEL(imu_accel_x_, imu_accel_y_, imu_accel_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_IMU_ACCEL, .DLC=DLC_IMU_ACCEL, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->imu_accel.imu_accel_x = imu_accel_x_;\
         data_a->imu_accel.imu_accel_y = imu_accel_y_;\
         data_a->imu_accel.imu_accel_z = imu_accel_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_BMM_MAG(queue, bmm_mag_x_, bmm_mag_y_, bmm_mag_z_) do {\
+#define SEND_BMM_MAG(bmm_mag_x_, bmm_mag_y_, bmm_mag_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMM_MAG, .DLC=DLC_BMM_MAG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->bmm_mag.bmm_mag_x = bmm_mag_x_;\
         data_a->bmm_mag.bmm_mag_y = bmm_mag_y_;\
         data_a->bmm_mag.bmm_mag_z = bmm_mag_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SFS_POS(queue, sfs_pos_x_, sfs_pos_y_, sfs_pos_z_) do {\
+#define SEND_SFS_POS(sfs_pos_x_, sfs_pos_y_, sfs_pos_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_POS, .DLC=DLC_SFS_POS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->sfs_pos.sfs_pos_x = sfs_pos_x_;\
         data_a->sfs_pos.sfs_pos_y = sfs_pos_y_;\
         data_a->sfs_pos.sfs_pos_z = sfs_pos_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SFS_VEL(queue, sfs_vel_x_, sfs_vel_y_, sfs_vel_z_) do {\
+#define SEND_SFS_VEL(sfs_vel_x_, sfs_vel_y_, sfs_vel_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_VEL, .DLC=DLC_SFS_VEL, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->sfs_vel.sfs_vel_x = sfs_vel_x_;\
         data_a->sfs_vel.sfs_vel_y = sfs_vel_y_;\
         data_a->sfs_vel.sfs_vel_z = sfs_vel_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SFS_ACC(queue, sfs_acc_x_, sfs_acc_y_, sfs_acc_z_) do {\
+#define SEND_SFS_ACC(sfs_acc_x_, sfs_acc_y_, sfs_acc_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ACC, .DLC=DLC_SFS_ACC, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->sfs_acc.sfs_acc_x = sfs_acc_x_;\
         data_a->sfs_acc.sfs_acc_y = sfs_acc_y_;\
         data_a->sfs_acc.sfs_acc_z = sfs_acc_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SFS_ANG(queue, sfs_ang_a_, sfs_ang_b_, sfs_ang_c_, sfs_ang_d_) do {\
+#define SEND_SFS_ANG(sfs_ang_a_, sfs_ang_b_, sfs_ang_c_, sfs_ang_d_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ANG, .DLC=DLC_SFS_ANG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->sfs_ang.sfs_ang_a = sfs_ang_a_;\
         data_a->sfs_ang.sfs_ang_b = sfs_ang_b_;\
         data_a->sfs_ang.sfs_ang_c = sfs_ang_c_;\
         data_a->sfs_ang.sfs_ang_d = sfs_ang_d_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SFS_ANG_VEL(queue, sfs_ang_vel_x_, sfs_ang_vel_y_, sfs_ang_vel_z_) do {\
+#define SEND_SFS_ANG_VEL(sfs_ang_vel_x_, sfs_ang_vel_y_, sfs_ang_vel_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ANG_VEL, .DLC=DLC_SFS_ANG_VEL, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->sfs_ang_vel.sfs_ang_vel_x = sfs_ang_vel_x_;\
         data_a->sfs_ang_vel.sfs_ang_vel_y = sfs_ang_vel_y_;\
         data_a->sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_THROTTLE_VCU(queue, vcu_r_rl_, vcu_r_rr_) do {\
+#define SEND_THROTTLE_VCU(vcu_r_rl_, vcu_r_rr_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU, .DLC=DLC_THROTTLE_VCU, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->throttle_vcu.vcu_r_rl = vcu_r_rl_;\
         data_a->throttle_vcu.vcu_r_rr = vcu_r_rr_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_THROTTLE_REMAPPED(queue, vcu_k_rl_, vcu_k_rr_) do {\
+#define SEND_THROTTLE_REMAPPED(vcu_k_rl_, vcu_k_rr_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_REMAPPED, .DLC=DLC_THROTTLE_REMAPPED, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->throttle_remapped.vcu_k_rl = vcu_k_rl_;\
         data_a->throttle_remapped.vcu_k_rr = vcu_k_rr_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MAXR(queue, vcu_max_r_) do {\
+#define SEND_MAXR(vcu_max_r_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAXR, .DLC=DLC_MAXR, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->maxR.vcu_max_r = vcu_max_r_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_VEHHEAD(queue, vehHead_) do {\
+#define SEND_VEHHEAD(vehHead_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VEHHEAD, .DLC=DLC_VEHHEAD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->vehHead.vehHead = vehHead_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_FAULT_SYNC_TORQUE_VECTOR(queue, idx_, latched_) do {\
+#define SEND_FAULT_SYNC_TORQUE_VECTOR(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_TORQUE_VECTOR, .DLC=DLC_FAULT_SYNC_TORQUE_VECTOR, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->fault_sync_torque_vector.idx = idx_;\
         data_a->fault_sync_torque_vector.latched = latched_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
 
@@ -224,10 +225,10 @@
 #define UP_LWS_STANDARD 15
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_DASHBOARD_TV_PARAMETERS 500
-#define UP_MAIN_HB 100
+#define UP_MAIN_HB 500
 #define UP_REAR_WHEEL_SPEEDS 15
-#define UP_REAR_CONTROLLER_TEMPS 500
-#define UP_REAR_MOTOR_CURRENTS_TEMPS 500
+#define UP_REAR_MOTOR_TEMPS 1000
+#define UP_REAR_MOTOR_CURRENTS_VOLTS 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) \
@@ -367,16 +368,16 @@ typedef union {
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
     struct {
-        uint64_t left_temp: 8;
-        uint64_t right_temp: 8;
-    } rear_controller_temps;
+        uint64_t left_mot_temp: 8;
+        uint64_t right_mot_temp: 8;
+        uint64_t left_ctrl_temp: 8;
+        uint64_t right_ctrl_temp: 8;
+    } rear_motor_temps;
     struct {
         uint64_t left_current: 16;
         uint64_t right_current: 16;
-        uint64_t left_temp: 8;
-        uint64_t right_temp: 8;
         uint64_t right_voltage: 16;
-    } rear_motor_currents_temps;
+    } rear_motor_currents_volts;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -462,20 +463,20 @@ typedef struct {
         uint32_t last_rx;
     } rear_wheel_speeds;
     struct {
-        uint8_t left_temp;
-        uint8_t right_temp;
+        uint8_t left_mot_temp;
+        uint8_t right_mot_temp;
+        uint8_t left_ctrl_temp;
+        uint8_t right_ctrl_temp;
         uint8_t stale;
         uint32_t last_rx;
-    } rear_controller_temps;
+    } rear_motor_temps;
     struct {
         uint16_t left_current;
         uint16_t right_current;
-        uint8_t left_temp;
-        uint8_t right_temp;
         uint16_t right_voltage;
         uint8_t stale;
         uint32_t last_rx;
-    } rear_motor_currents_temps;
+    } rear_motor_currents_volts;
     struct {
         uint16_t idx;
         uint8_t latched;

@@ -198,10 +198,10 @@ bool parseVelocity(GPS_Handle_t *GPS)
                 ++counter;
             }
 
-            SEND_GPS_VELOCITY(q_tx_can, GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded, GPS->speed_rounded);
-            SEND_GPS_COORDINATES(q_tx_can, GPS->lat_rounded, GPS->lon_rounded);
-            SEND_GPS_POSITION(q_tx_can, 0, 0, 0, GPS->height_rounded);
-            SEND_VEHHEAD(q_tx_can, GPS->headVeh_rounded);
+            SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded, GPS->speed_rounded);
+            SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
+            SEND_GPS_POSITION(0, 0, 0, GPS->height_rounded);
+            SEND_VEHHEAD(GPS->headVeh_rounded);
         }
 
         // Collect Magnetic Declination

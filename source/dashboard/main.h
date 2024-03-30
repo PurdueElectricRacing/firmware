@@ -13,6 +13,7 @@
 #define _MAIN_H_
 
 #include "common/faults/fault_nodes.h"
+#include "common/phal_F4_F7/can/can.h"
 
 #define FAULT_NODE_NAME NODE_DASHBOARD
 
@@ -169,5 +170,7 @@ typedef enum
 #define LV_24_V_FAULT_GPIO_Port     (GPIOC)
 #define LV_24_V_FAULT_Pin           (8)
 #define LV_5V_SCALE                 (0.413F)
+
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

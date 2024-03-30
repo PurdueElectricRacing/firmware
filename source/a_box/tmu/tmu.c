@@ -111,20 +111,20 @@ void readTemps(tmu_handle_t *tmu) {
     }
 
     // send temperatures over CAN (sent multiplied by 10, so 221 would be 22.1 deg C)
-    SEND_RAW_CELL_TEMP_A_B(q_tx_can, curr_therm, tmu->tmu1[curr_therm], tmu->tmu2[curr_therm]);
-    SEND_RAW_CELL_TEMP_C_D(q_tx_can, curr_therm, tmu->tmu3[curr_therm], tmu->tmu4[curr_therm]);
+    SEND_RAW_CELL_TEMP_A_B(curr_therm, tmu->tmu1[curr_therm], tmu->tmu2[curr_therm]);
+    SEND_RAW_CELL_TEMP_C_D(curr_therm, tmu->tmu3[curr_therm], tmu->tmu4[curr_therm]);
 
     if (curr_therm < NUM_THERM ) {
         curr_therm++;
     }
     else { // finished incrementing, sending max and min values, sending averages, setting faults
-        SEND_MOD_CELL_TEMP_AVG(q_tx_can, (tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / NUM_THERM), (tmu->tmu3_avg / NUM_THERM), (tmu->tmu4_avg / NUM_THERM));
-        SEND_MOD_CELL_TEMP_MAX(q_tx_can, tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
-        SEND_MOD_CELL_TEMP_MIN(q_tx_can, tmu->tmu1_min, tmu->tmu2_min, tmu->tmu3_min, tmu->tmu4_min);
+        SEND_MOD_CELL_TEMP_AVG((tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / NUM_THERM), (tmu->tmu3_avg / NUM_THERM), (tmu->tmu4_avg / NUM_THERM));
+        SEND_MOD_CELL_TEMP_MAX(tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
+        SEND_MOD_CELL_TEMP_MIN(tmu->tmu1_min, tmu->tmu2_min, tmu->tmu3_min, tmu->tmu4_min);
         int16_t max_temp = MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max));
         int16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
-        SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-        SEND_NUM_THERM_BAD(q_tx_can, num_bad1, num_bad2, num_bad3, num_bad4);
+        SEND_MAX_CELL_TEMP(max_temp);
+        SEND_NUM_THERM_BAD(num_bad1, num_bad2, num_bad3, num_bad4);
         num_bad1 = 0;
         num_bad2 = 0;
         num_bad3 = 0;

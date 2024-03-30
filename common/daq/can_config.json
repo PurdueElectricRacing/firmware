@@ -15,21 +15,9 @@
                                  "choices": ["idle", "precharging", "energized", "buzzing", "ready2drive", "error", "fatal", "reset", "recover", "fan_ctrl"]},
                                 {"sig_name":"precharge_state", "type":"uint8_t", "length": 1}
                             ],
-                            "msg_period":100,
-                            "msg_hlp":1,
+                            "msg_period":500,
+                            "msg_hlp":3,
                             "msg_pgn":100
-                        },
-                        {   "msg_name":"torque_request_main",
-                            "msg_desc":"Torque request for all motors, temporarily from main.",
-                            "signals":[
-                                {"sig_name":"front_left", "sig_desc":"torque request. -4095-4095","type":"int16_t"},
-                                {"sig_name":"front_right", "sig_desc":"torque request. -4095-4095", "type":"int16_t"},
-                                {"sig_name":"rear_left", "sig_desc":"torque request. -4095-4095", "type":"int16_t"},
-                                {"sig_name":"rear_right", "sig_desc":"torque request. -4095-4095", "type":"int16_t"}
-                            ],
-                            "msg_period":15,
-                            "msg_hlp":1,
-                            "msg_pgn":1
                         },
                         {
                             "msg_name": "coolant_temps",
@@ -40,8 +28,8 @@
                                 {"sig_name": "drivetrain_in_temp", "sig_desc":"In flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"},
                                 {"sig_name": "drivetrain_out_temp", "sig_desc":"Out flow temperature of drivetrain coolant loop", "type":"int8_t", "unit":"C"}
                             ],
-                            "msg_period":1000,
-                            "msg_hlp":1,
+                            "msg_period":3000,
+                            "msg_hlp":4,
                             "msg_pgn":34
                         },
                         {
@@ -51,7 +39,7 @@
                                 {"sig_name": "l_temp", "type": "int8_t"},
                                 {"sig_name": "r_temp", "type": "int8_t"}
                             ],
-                            "msg_period": 1000,
+                            "msg_period": 3000,
                             "msg_hlp": 4,
                             "msg_pgn": 36
                         },
@@ -88,7 +76,7 @@
                                 {"sig_name":"noise_r", "type":"uint16_t", "sig_desc": "Num of skipped msgs"},
                                 {"sig_name":"noise_l", "type":"uint16_t", "sig_desc": "Num of skipped msgs"}
                             ],
-                            "msg_period": 100,
+                            "msg_period": 1000,
                             "msg_hlp": 4,
                             "msg_pgn": 110
                         },
@@ -109,22 +97,20 @@
                                 {"sig_name": "rear_right_last_link_error", "type":"uint8_t",
                                  "choices": ["none", "not_serial", "cmd_timeout", "gen_timeout"]}
                             ],
-                            "msg_hlp": 1,
-                            "msg_period": 100,
+                            "msg_hlp": 4,
+                            "msg_period": 500,
                             "msg_pgn": 101
                         },
                         {
-                            "msg_name": "rear_motor_currents_temps",
-                            "msg_desc": "DC Current and Temperature of the motors",
+                            "msg_name": "rear_motor_currents_volts",
+                            "msg_desc": "DC Current and Voltage of the motors",
                             "signals": [
                                 {"sig_name": "left_current", "type": "uint16_t", "length": 16, "unit":"Amp", "scale": 0.1},
                                 {"sig_name": "right_current", "type": "uint16_t", "length": 16, "unit":"Amp", "scale":0.1},
-                                {"sig_name": "left_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length":8, "unit": "C"},
                                 {"sig_name": "right_voltage", "type":"uint16_t", "length": 16, "unit": "Voltx10"}
                             ],
-                            "msg_period": 500,
-                            "msg_hlp": 3,
+                            "msg_period": 100,
+                            "msg_hlp": 4,
                             "msg_pgn": 11
                         },
                         {
@@ -151,14 +137,16 @@
                             "msg_pgn": 14
                         },
                         {
-                            "msg_name": "rear_controller_temps",
-                            "msg_desc": "Temperature of motor controllers",
+                            "msg_name": "rear_motor_temps",
+                            "msg_desc": "Temperature of motor controllers and motors",
                             "signals": [
-                                {"sig_name": "left_temp", "type":"uint8_t", "length": 8, "unit": "C"},
-                                {"sig_name": "right_temp", "type":"uint8_t", "length": 8, "unit": "C"}
+                                {"sig_name": "left_mot_temp", "type":"uint8_t", "length": 8, "unit": "C"},
+                                {"sig_name": "right_mot_temp", "type":"uint8_t", "length": 8, "unit": "C"},
+                                {"sig_name": "left_ctrl_temp", "type":"uint8_t", "length":8, "unit": "C"},
+                                {"sig_name": "right_ctrl_temp", "type":"uint8_t", "length":8, "unit": "C"}
                             ],
-                            "msg_period": 500,
-                            "msg_hlp": 3,
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
                             "msg_pgn": 12
                         },
                         {
@@ -171,7 +159,7 @@
                                 {"sig_name": "right_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01}
                             ],
                             "msg_period": 15,
-                            "msg_hlp": 2,
+                            "msg_hlp": 1,
                             "msg_pgn": 14
                         }
                     ],
@@ -199,8 +187,8 @@
                                 {"sig_name": "IMD", "type":"uint8_t"},
                                 {"sig_name": "BMS", "type":"uint8_t"}
                             ],
-                            "msg_hlp": 1,
-                            "msg_period": 100,
+                            "msg_hlp": 3,
+                            "msg_period": 500,
                             "msg_pgn": 101
                         },
                         {
@@ -224,7 +212,7 @@
                                 {"sig_name": "D", "sig_desc": "Number of thermistors > 1.5v", "type": "uint8_t"}
                             ],
                             "msg_period": 500,
-                            "msg_hlp": 5,
+                            "msg_hlp": 4,
                             "msg_pgn": 515
                         },
                         {
@@ -246,7 +234,7 @@
                                 {"sig_name":"max_temp","type": "int16_t", "scale": 0.1}
                             ],
                             "msg_period":500,
-                            "msg_hlp":2,
+                            "msg_hlp":3,
                             "msg_pgn":5016
                         },
                         {   "msg_name": "mod_cell_temp_avg",
@@ -538,7 +526,7 @@
                                 {"sig_name": "vcu_r_rr", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
                             "msg_period": 15,
-                            "msg_hlp": 3,
+                            "msg_hlp": 1,
                             "msg_pgn": 151
                         },
                         {
@@ -549,7 +537,7 @@
                                 {"sig_name": "vcu_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
                             "msg_period": 15,
-                            "msg_hlp": 3,
+                            "msg_hlp": 1,
                             "msg_pgn": 150
                         },
                         {
@@ -581,8 +569,8 @@
                         {"msg_name": "dashboard_tv_parameters"},
                         {"msg_name": "main_hb"},
                         {"msg_name": "rear_wheel_speeds"},
-                        {"msg_name": "rear_controller_temps"},
-                        {"msg_name": "rear_motor_currents_temps"}
+                        {"msg_name": "rear_motor_temps"},
+                        {"msg_name": "rear_motor_currents_volts"}
                     ]
                 },
                 {
@@ -599,7 +587,7 @@
                                 {"sig_name":"brake_pot", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
                             ],
                             "msg_period":15,
-                            "msg_hlp":5,
+                            "msg_hlp":4,
                             "msg_pgn":10
                         },
                         {
@@ -645,7 +633,7 @@
                                 {"sig_name": "volts_3v3", "type":"uint16_t"}
                             ],
                             "msg_period":500,
-                            "msg_hlp":1,
+                            "msg_hlp":4,
                             "msg_pgn":101
                         },
                         {
@@ -667,21 +655,20 @@
                             "signals":[
                                 {"sig_name": "logging_enabled", "type":"uint8_t", "length":1}
                             ],
-                            "msg_period":500,
+                            "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":56
                         }
                     ],
                     "rx":[
                         {"msg_name": "main_hb"},
-                        {"msg_name": "rear_motor_currents_temps"},
+                        {"msg_name": "rear_motor_currents_volts"},
                         {"msg_name": "orion_info"},
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "orion_errors"},
                         {"msg_name": "max_cell_temp"},
-                        {"msg_name": "rear_controller_temps"},
+                        {"msg_name": "rear_motor_temps"},
                         {"msg_name": "precharge_hb"},
-                        {"msg_name": "torque_request_main"},
                         {"msg_name": "rear_wheel_speeds"},
                         {"msg_name": "coolant_temps"},
                         {"msg_name": "coolant_out", "callback": true},
@@ -727,7 +714,7 @@
                                 {"sig_name": "out_3v3", "type":"uint16_t", "unit":"mV"}
                             ],
                             "msg_period":500,
-                            "msg_hlp":1,
+                            "msg_hlp":4,
                             "msg_pgn":1041
                         },
                         {
@@ -738,7 +725,7 @@
                                 {"sig_name": "i_5v", "type":"uint16_t", "unit":"mA"}
                             ],
                             "msg_period":500,
-                            "msg_hlp":1,
+                            "msg_hlp":4,
                             "msg_pgn":1042
                         },
                         {
@@ -751,7 +738,7 @@
                                 {"sig_name": "i_fan2", "type":"uint16_t", "unit":"mA", "length":12}
                             ],
                             "msg_period":500,
-                            "msg_hlp":1,
+                            "msg_hlp":4,
                             "msg_pgn":1043
                         },
                         {
@@ -765,7 +752,7 @@
                                 {"sig_name": "i_main", "type":"uint16_t", "unit":"mA", "length":12}
                             ],
                             "msg_period":500,
-                            "msg_hlp":1,
+                            "msg_hlp":4,
                             "msg_pgn":1044
                         },
                         {
@@ -779,7 +766,7 @@
                                 {"sig_name": "dt_pump", "type":"uint8_t", "length": 1}
                             ],
                             "msg_period": 1000,
-                            "msg_hlp":1,
+                            "msg_hlp":4,
                             "msg_pgn":35
                         },
                         {

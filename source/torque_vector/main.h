@@ -13,6 +13,7 @@
 #define _MAIN_H_
 
 #include "common/faults/fault_nodes.h"
+#include "common/phal_F4_F7/can/can.h"
 
 // STM32L471RET
 
@@ -56,5 +57,7 @@
 #define NAV_EEPROM_CS_PIN (12)
 #define NAV_WP_GPIO_PORT (GPIOB)
 #define NAV_WP_PIN (13)
+
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

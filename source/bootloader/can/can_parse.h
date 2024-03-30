@@ -66,61 +66,61 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_MAIN_MODULE_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_MAIN_MODULE_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_MODULE_BL_RESP, .DLC=DLC_MAIN_MODULE_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->main_module_bl_resp.cmd = cmd_;\
         data_a->main_module_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DASHBOARD_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_DASHBOARD_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_BL_RESP, .DLC=DLC_DASHBOARD_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->dashboard_bl_resp.cmd = cmd_;\
         data_a->dashboard_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TORQUEVECTOR_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_TORQUEVECTOR_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUEVECTOR_BL_RESP, .DLC=DLC_TORQUEVECTOR_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->torquevector_bl_resp.cmd = cmd_;\
         data_a->torquevector_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_A_BOX_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_A_BOX_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_A_BOX_BL_RESP, .DLC=DLC_A_BOX_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->a_box_bl_resp.cmd = cmd_;\
         data_a->a_box_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_PDU_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_PDU_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PDU_BL_RESP, .DLC=DLC_PDU_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pdu_bl_resp.cmd = cmd_;\
         data_a->pdu_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_L4_TESTING_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_L4_TESTING_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_L4_TESTING_BL_RESP, .DLC=DLC_L4_TESTING_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->l4_testing_bl_resp.cmd = cmd_;\
         data_a->l4_testing_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_F4_TESTING_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_F4_TESTING_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_F4_TESTING_BL_RESP, .DLC=DLC_F4_TESTING_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->f4_testing_bl_resp.cmd = cmd_;\
         data_a->f4_testing_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_F7_TESTING_BL_RESP(queue, cmd_, data_) do {\
+#define SEND_F7_TESTING_BL_RESP(cmd_, data_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_F7_TESTING_BL_RESP, .DLC=DLC_F7_TESTING_BL_RESP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->f7_testing_bl_resp.cmd = cmd_;\
         data_a->f7_testing_bl_resp.data = data_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
 

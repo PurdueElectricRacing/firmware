@@ -14,17 +14,18 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
+#include "main.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "a_box"
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_PRECHARGE_HB 0x4001944
+#define ID_PRECHARGE_HB 0xc001944
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
-#define ID_NUM_THERM_BAD 0x140080c4
+#define ID_NUM_THERM_BAD 0x100080c4
 #define ID_PACK_CHARGE_STATUS 0x14008084
-#define ID_MAX_CELL_TEMP 0x804e604
+#define ID_MAX_CELL_TEMP 0xc04e604
 #define ID_MOD_CELL_TEMP_AVG 0x14013484
 #define ID_MOD_CELL_TEMP_MAX 0x14008104
 #define ID_MOD_CELL_TEMP_MIN 0x14008204
@@ -78,100 +79,100 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_PRECHARGE_HB(queue, IMD_, BMS_) do {\
+#define SEND_PRECHARGE_HB(IMD_, BMS_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PRECHARGE_HB, .DLC=DLC_PRECHARGE_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->precharge_hb.IMD = IMD_;\
         data_a->precharge_hb.BMS = BMS_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_ELCON_CHARGER_COMMAND(queue, voltage_limit_, current_limit_, charge_disable_) do {\
+#define SEND_ELCON_CHARGER_COMMAND(voltage_limit_, current_limit_, charge_disable_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ELCON_CHARGER_COMMAND, .DLC=DLC_ELCON_CHARGER_COMMAND, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->elcon_charger_command.voltage_limit = voltage_limit_;\
         data_a->elcon_charger_command.current_limit = current_limit_;\
         data_a->elcon_charger_command.charge_disable = charge_disable_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_NUM_THERM_BAD(queue, A_, B_, C_, D_) do {\
+#define SEND_NUM_THERM_BAD(A_, B_, C_, D_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_THERM_BAD, .DLC=DLC_NUM_THERM_BAD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->num_therm_bad.A = A_;\
         data_a->num_therm_bad.B = B_;\
         data_a->num_therm_bad.C = C_;\
         data_a->num_therm_bad.D = D_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_PACK_CHARGE_STATUS(queue, power_, charge_enable_, voltage_, current_) do {\
+#define SEND_PACK_CHARGE_STATUS(power_, charge_enable_, voltage_, current_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PACK_CHARGE_STATUS, .DLC=DLC_PACK_CHARGE_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pack_charge_status.power = power_;\
         data_a->pack_charge_status.charge_enable = charge_enable_;\
         data_a->pack_charge_status.voltage = voltage_;\
         data_a->pack_charge_status.current = current_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MAX_CELL_TEMP(queue, max_temp_) do {\
+#define SEND_MAX_CELL_TEMP(max_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAX_CELL_TEMP, .DLC=DLC_MAX_CELL_TEMP, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->max_cell_temp.max_temp = max_temp_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MOD_CELL_TEMP_AVG(queue, temp_A_, temp_B_, temp_C_, temp_D_) do {\
+#define SEND_MOD_CELL_TEMP_AVG(temp_A_, temp_B_, temp_C_, temp_D_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_AVG, .DLC=DLC_MOD_CELL_TEMP_AVG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->mod_cell_temp_avg.temp_A = temp_A_;\
         data_a->mod_cell_temp_avg.temp_B = temp_B_;\
         data_a->mod_cell_temp_avg.temp_C = temp_C_;\
         data_a->mod_cell_temp_avg.temp_D = temp_D_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MOD_CELL_TEMP_MAX(queue, temp_A_, temp_B_, temp_C_, temp_D_) do {\
+#define SEND_MOD_CELL_TEMP_MAX(temp_A_, temp_B_, temp_C_, temp_D_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MAX, .DLC=DLC_MOD_CELL_TEMP_MAX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->mod_cell_temp_max.temp_A = temp_A_;\
         data_a->mod_cell_temp_max.temp_B = temp_B_;\
         data_a->mod_cell_temp_max.temp_C = temp_C_;\
         data_a->mod_cell_temp_max.temp_D = temp_D_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MOD_CELL_TEMP_MIN(queue, temp_A_, temp_B_, temp_C_, temp_D_) do {\
+#define SEND_MOD_CELL_TEMP_MIN(temp_A_, temp_B_, temp_C_, temp_D_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MIN, .DLC=DLC_MOD_CELL_TEMP_MIN, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->mod_cell_temp_min.temp_A = temp_A_;\
         data_a->mod_cell_temp_min.temp_B = temp_B_;\
         data_a->mod_cell_temp_min.temp_C = temp_C_;\
         data_a->mod_cell_temp_min.temp_D = temp_D_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_RAW_CELL_TEMP_A_B(queue, index_, temp_A_, temp_B_) do {\
+#define SEND_RAW_CELL_TEMP_A_B(index_, temp_A_, temp_B_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_A_B, .DLC=DLC_RAW_CELL_TEMP_A_B, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->raw_cell_temp_a_b.index = index_;\
         data_a->raw_cell_temp_a_b.temp_A = temp_A_;\
         data_a->raw_cell_temp_a_b.temp_B = temp_B_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_RAW_CELL_TEMP_C_D(queue, index_, temp_C_, temp_D_) do {\
+#define SEND_RAW_CELL_TEMP_C_D(index_, temp_C_, temp_D_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_C_D, .DLC=DLC_RAW_CELL_TEMP_C_D, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->raw_cell_temp_c_d.index = index_;\
         data_a->raw_cell_temp_c_d.temp_C = temp_C_;\
         data_a->raw_cell_temp_c_d.temp_D = temp_D_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_FAULT_SYNC_A_BOX(queue, idx_, latched_) do {\
+#define SEND_FAULT_SYNC_A_BOX(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_A_BOX, .DLC=DLC_FAULT_SYNC_A_BOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->fault_sync_a_box.idx = idx_;\
         data_a->fault_sync_a_box.latched = latched_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_A_BOX(queue, daq_response_) do {\
+#define SEND_DAQ_RESPONSE_A_BOX(daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_A_BOX, .DLC=DLC_DAQ_RESPONSE_A_BOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->daq_response_A_BOX.daq_response = daq_response_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
 

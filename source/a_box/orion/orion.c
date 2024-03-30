@@ -103,7 +103,7 @@ void orionChargePeriodic() {
     }
     if (!elcon_charge_enable) asm("nop"); // for bkpt
 
-    SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !elcon_charge_enable);
+    SEND_ELCON_CHARGER_COMMAND(charge_voltage_req, charge_current_req, !elcon_charge_enable);
 
     // Parse current values from elcon charger status
     charge_current = can_data.elcon_charger_status.charge_current;
@@ -112,7 +112,7 @@ void orionChargePeriodic() {
     charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
     charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
     power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
-    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), elcon_charge_enable, charge_voltage, charge_current);
+    SEND_PACK_CHARGE_STATUS((uint16_t) (power), elcon_charge_enable, charge_voltage, charge_current);
 }
 
 
@@ -141,15 +141,15 @@ void orionChargePeriodic() {
 //         }
 //     }
 
-//     SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-//     SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16),
+//     SEND_MAX_CELL_TEMP(max_temp);
+//     SEND_MOD_CELL_TEMP_AVG((uint16_t) (avg_temp[0] * 10 / 16),
 //                                      (uint16_t) (avg_temp[1] * 10 / 16),
 //                                      (uint16_t) (avg_temp[2] * 10 / 16),
 //                                      (uint16_t) (avg_temp[3] * 10 / 16));
 
 //     // Send raw temperatures for heat map generation
 //     static uint8_t idx;
-//     SEND_RAW_CELL_TEMP(q_tx_can, idx,
+//     SEND_RAW_CELL_TEMP(idx,
 //                                  *(orion_temp_pointer[idx] + 0),
 //                                  *(orion_temp_pointer[idx] + 1),
 //                                  *(orion_temp_pointer[idx] + 2),

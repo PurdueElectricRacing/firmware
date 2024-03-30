@@ -56,9 +56,9 @@ void coolingPeriodic()
     // Only send data once all new thermistors are updated to avoid clutter on CAN bus
     if (curr_therm == 0)
     {
-        SEND_COOLANT_TEMPS(q_tx_can, cooling.bat_therm_in_C, cooling.bat_therm_out_C, cooling.dt_therm_in_C, cooling.dt_therm_out_C);
+        SEND_COOLANT_TEMPS(cooling.bat_therm_in_C, cooling.bat_therm_out_C, cooling.dt_therm_in_C, cooling.dt_therm_out_C);
 
-        SEND_GEARBOX(q_tx_can, cooling.gb_therm_l_c, cooling.gb_therm_r_c);
+        SEND_GEARBOX(cooling.gb_therm_l_c, cooling.gb_therm_r_c);
     }
 
 

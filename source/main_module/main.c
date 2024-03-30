@@ -209,7 +209,12 @@ void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 
 
-q_handle_t q_tx_can;
+/**
+ * q_tx_can_0 -> hlp [0,1] -> mailbox 1
+ * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
+ * q_tx_can_2 -> hlp [4,5] -> mailbox 3
+*/
+q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
 q_handle_t q_rx_can;
 uint8_t can_tx_fails; // number of CAN messages that failed to transmit
 q_handle_t q_tx_usart_l;
@@ -221,7 +226,9 @@ uint16_t num_failed_msgs_l;
 
     int main(void){
     /* Data Struct Initialization */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     can_tx_fails = 0;
     qConstruct(&q_tx_usart_l, MC_MAX_TX_LENGTH);
@@ -246,7 +253,7 @@ uint16_t num_failed_msgs_l;
     taskCreate(coolingPeriodic, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(monitorSDCPeriodic, 20);
-    taskCreate(carHeartbeat, 100);
+    taskCreate(carHeartbeat, 500);
     taskCreate(carPeriodic, 15);
     taskCreate(updateSDCFaults, 400);
     taskCreate(heartBeatTask, 100);
@@ -260,8 +267,8 @@ uint16_t num_failed_msgs_l;
     // uint8_t i = 0;
     // calibrateSteeringAngle(&i);
     // for (uint8_t i = 0; i < 10; i++)
-    //     SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
-    // SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
+    //     SEND_LWS_CONFIG(0x05, 0, 0); // reset cal
+    // SEND_LWS_CONFIG(0x03, 0, 0); // start new
 
     schedStart();
 
@@ -326,9 +333,9 @@ void preflightChecks(void) {
            break;
        case 5:
            initCANParse(&q_rx_can);
-           if(daqInit(&q_tx_can))
+           if(daqInit(&q_tx_can_2))
                HardFault_Handler();
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_MAIN_MODULE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);
@@ -371,7 +378,7 @@ void heartBeatLED(void)
 
     // Send every other time (1000 ms)
     if (trig) {
-        SEND_MCU_STATUS(q_tx_can, sched.skips, (uint8_t) sched.fg_time.cpu_use,
+        SEND_MCU_STATUS(sched.skips, (uint8_t) sched.fg_time.cpu_use,
                                            (uint8_t) sched.bg_time.cpu_use,
                                            sched.error, can_tx_fails);
     }
@@ -418,7 +425,6 @@ void usart_recieve_complete_callback(usart_init_t *handle)
 }
 
 
-
 void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
 {
     // TODO: check for overruns, framing errors, etc
@@ -436,17 +442,69 @@ void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
 }
 
 /* CAN Message Handling */
+void canTxSendToBack(CanMsgTypeDef_t *msg)
+{
+    if (msg->IDE == 1)
+    {
+        // extended id, check hlp
+        switch((msg->ExtId >> 26) & 0b111)
+        {
+            case 0:
+            case 1:
+                qSendToBack(&q_tx_can_0, &msg);
+                break;
+            case 2:
+            case 3:
+                qSendToBack(&q_tx_can_1, &msg);
+                break;
+            default:
+                qSendToBack(&q_tx_can_2, &msg);
+                break;
+        }
+    }
+    else
+    {
+        qSendToBack(&q_tx_can_0, &msg);
+    }
+}
+
 void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
-    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+    // TODO: we only check if CAN1 mailbox is free -> create separate queue for
+    // CAN2 is you are using it!!!!
+    if(PHAL_txMailboxFree(CAN1, 0))
     {
-        if (!PHAL_txCANMessage(&tx_msg))
+        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
         {
-            ++can_tx_fails;
-            qSendToBack(&q_tx_can, &tx_msg);
+            if (!PHAL_txCANMessage(&tx_msg, 0))
+            {
+                ++can_tx_fails;
+            }
         }
     }
+    if(PHAL_txMailboxFree(CAN1, 1))
+    {
+        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 1);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 2))
+    {
+        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 2);
+        }
+    }
+    //     if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+    //     {
+    //         if (!PHAL_txCANMessage(&tx_msg))
+    //         {
+    //             ++can_tx_fails;
+    //             qSendToBack(&q_tx_can, &tx_msg);
+    //         }
+    //     }
 }
 
 void CAN1_RX0_IRQHandler()

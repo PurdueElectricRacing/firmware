@@ -3,6 +3,7 @@
 
 
 #include "common/faults/fault_nodes.h"
+#include "common/phal_F4_F7/can/can.h"
 
 
 #define FAULT_NODE_NAME NODE_A_BOX
@@ -95,5 +96,7 @@ volatile extern ADCReadings_t adc_readings;
 
 extern bool bms_daq_override;
 extern bool bms_daq_stat;
+
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

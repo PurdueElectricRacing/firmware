@@ -684,7 +684,7 @@ void selectItem() {
     }
     else if (curr_page == PAGE_LOGGING)
     {
-        SEND_DASHBOARD_START_LOGGING(q_tx_can, 1);
+        SEND_DASHBOARD_START_LOGGING(1);
     }
     else if (curr_page == PAGE_TVSETTINGS)
     {
@@ -826,7 +826,7 @@ void selectItem() {
                 set_value(B_FAN1_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
                 break;
         }
-        SEND_COOLING_DRIVER_REQUEST(q_tx_can, settings.d_pump_selected, settings.d_fan_val, settings.b_fan2_selected, settings.b_pump_selected, settings.b_fan_val);
+        SEND_COOLING_DRIVER_REQUEST(settings.d_pump_selected, settings.d_fan_val, settings.b_fan2_selected, settings.b_pump_selected, settings.b_fan_val);
     }
     else if (curr_page == PAGE_DRIVER)
     {
@@ -986,11 +986,11 @@ void update_data_pages() {
                 bzero(parsed_value, 3);
             }
             if (sendFirsthalf) {
-                if (can_data.rear_motor_currents_temps.stale) {
+                if (can_data.rear_motor_temps.stale) {
                     set_text(MOT_TEMP, NXT_TEXT, "S");
                 }
                 else {
-                    set_text(MOT_TEMP, NXT_TEXT, int_to_char(MAX(can_data.rear_motor_currents_temps.left_temp, can_data.rear_motor_currents_temps.right_temp), parsed_value));
+                    set_text(MOT_TEMP, NXT_TEXT, int_to_char(MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp), parsed_value));
                     bzero(parsed_value, 3);
                 }
                 if (can_data.gearbox.stale) {
@@ -1129,7 +1129,7 @@ char *int_to_char(int16_t val, char *val_to_send) {
 
 void sendTVParameters()
 {
-    SEND_DASHBOARD_TV_PARAMETERS(q_tx_can, tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+    SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
 }
 
 void updateFaultPageIndicators()

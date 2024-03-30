@@ -16,6 +16,7 @@
 //STM32L496VGT6
 
 #include "common/faults/fault_nodes.h"
+#include "common/phal_F4_F7/can/can.h"
 
 #define FAULT_NODE_NAME NODE_MAIN_MODULE
 
@@ -178,5 +179,7 @@ typedef struct
     uint16_t therm_mcu;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
+
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

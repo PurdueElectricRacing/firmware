@@ -85,20 +85,20 @@ void canRxUpdate()
                 can_data.rear_wheel_speeds.stale = 0;
                 can_data.rear_wheel_speeds.last_rx = sched.os_ticks;
                 break;
-            case ID_REAR_CONTROLLER_TEMPS:
-                can_data.rear_controller_temps.left_temp = msg_data_a->rear_controller_temps.left_temp;
-                can_data.rear_controller_temps.right_temp = msg_data_a->rear_controller_temps.right_temp;
-                can_data.rear_controller_temps.stale = 0;
-                can_data.rear_controller_temps.last_rx = sched.os_ticks;
+            case ID_REAR_MOTOR_TEMPS:
+                can_data.rear_motor_temps.left_mot_temp = msg_data_a->rear_motor_temps.left_mot_temp;
+                can_data.rear_motor_temps.right_mot_temp = msg_data_a->rear_motor_temps.right_mot_temp;
+                can_data.rear_motor_temps.left_ctrl_temp = msg_data_a->rear_motor_temps.left_ctrl_temp;
+                can_data.rear_motor_temps.right_ctrl_temp = msg_data_a->rear_motor_temps.right_ctrl_temp;
+                can_data.rear_motor_temps.stale = 0;
+                can_data.rear_motor_temps.last_rx = sched.os_ticks;
                 break;
-            case ID_REAR_MOTOR_CURRENTS_TEMPS:
-                can_data.rear_motor_currents_temps.left_current = msg_data_a->rear_motor_currents_temps.left_current;
-                can_data.rear_motor_currents_temps.right_current = msg_data_a->rear_motor_currents_temps.right_current;
-                can_data.rear_motor_currents_temps.left_temp = msg_data_a->rear_motor_currents_temps.left_temp;
-                can_data.rear_motor_currents_temps.right_temp = msg_data_a->rear_motor_currents_temps.right_temp;
-                can_data.rear_motor_currents_temps.right_voltage = msg_data_a->rear_motor_currents_temps.right_voltage;
-                can_data.rear_motor_currents_temps.stale = 0;
-                can_data.rear_motor_currents_temps.last_rx = sched.os_ticks;
+            case ID_REAR_MOTOR_CURRENTS_VOLTS:
+                can_data.rear_motor_currents_volts.left_current = msg_data_a->rear_motor_currents_volts.left_current;
+                can_data.rear_motor_currents_volts.right_current = msg_data_a->rear_motor_currents_volts.right_current;
+                can_data.rear_motor_currents_volts.right_voltage = msg_data_a->rear_motor_currents_volts.right_voltage;
+                can_data.rear_motor_currents_volts.stale = 0;
+                can_data.rear_motor_currents_volts.last_rx = sched.os_ticks;
                 break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
@@ -159,12 +159,12 @@ void canRxUpdate()
     CHECK_STALE(can_data.rear_wheel_speeds.stale,
                 sched.os_ticks, can_data.rear_wheel_speeds.last_rx,
                 UP_REAR_WHEEL_SPEEDS);
-    CHECK_STALE(can_data.rear_controller_temps.stale,
-                sched.os_ticks, can_data.rear_controller_temps.last_rx,
-                UP_REAR_CONTROLLER_TEMPS);
-    CHECK_STALE(can_data.rear_motor_currents_temps.stale,
-                sched.os_ticks, can_data.rear_motor_currents_temps.last_rx,
-                UP_REAR_MOTOR_CURRENTS_TEMPS);
+    CHECK_STALE(can_data.rear_motor_temps.stale,
+                sched.os_ticks, can_data.rear_motor_temps.last_rx,
+                UP_REAR_MOTOR_TEMPS);
+    CHECK_STALE(can_data.rear_motor_currents_volts.stale,
+                sched.os_ticks, can_data.rear_motor_currents_volts.last_rx,
+                UP_REAR_MOTOR_CURRENTS_VOLTS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -193,9 +193,9 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR2 = (ID_MAIN_HB << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
     CAN1->sFilterRegister[3].FR1 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_REAR_CONTROLLER_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_REAR_MOTOR_CURRENTS_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_REAR_MOTOR_CURRENTS_VOLTS << 3) | 4;
     CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;

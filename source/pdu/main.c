@@ -173,7 +173,12 @@ void heatBeatLED();
 void send_iv_readings();
 void send_flowrates();
 //CAN
-q_handle_t q_tx_can;
+/**
+ * q_tx_can_0 -> hlp [0,1] -> mailbox 1
+ * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
+ * q_tx_can_2 -> hlp [4,5] -> mailbox 3
+*/
+q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
 q_handle_t q_rx_can;
 
 // To correctly execute preflight algorithm
@@ -182,7 +187,9 @@ uint8_t led_anim_complete;
 int main()
 {
     /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -243,7 +250,7 @@ void preflightChecks(void) {
            break;
         case 1:
            initCANParse(&q_rx_can);
-           if(daqInit(&q_tx_can))
+           if(daqInit(&q_tx_can_2))
                HardFault_Handler();
            break;
         case 2:
@@ -261,7 +268,7 @@ void preflightChecks(void) {
             flowRateInit();
             break;
         case 5:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_PDU);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_PDU);
             break;
         default:
             if (led_anim_complete)
@@ -331,7 +338,7 @@ void preflightAnimation(void) {
 
 void send_flowrates()
 {
-    SEND_FLOWRATES(q_tx_can, getFlowRate1(), getFlowRate2());
+    SEND_FLOWRATES(getFlowRate1(), getFlowRate2());
 }
 
 void heatBeatLED()
@@ -340,16 +347,57 @@ void heatBeatLED()
 }
 
 
-void canTxUpdate()
+/* CAN Message Handling */
+void canTxSendToBack(CanMsgTypeDef_t *msg)
 {
-   CanMsgTypeDef_t tx_msg;
-   if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-   {
-       if (!PHAL_txCANMessage(&tx_msg))
+    if (msg->IDE == 1)
+    {
+        // extended id, check hlp
+        switch((msg->ExtId >> 26) & 0b111)
         {
-            qSendToBack(&q_tx_can, &tx_msg);
+            case 0:
+            case 1:
+                qSendToBack(&q_tx_can_0, &msg);
+                break;
+            case 2:
+            case 3:
+                qSendToBack(&q_tx_can_1, &msg);
+                break;
+            default:
+                qSendToBack(&q_tx_can_2, &msg);
+                break;
         }
-   }
+    }
+    else
+    {
+        qSendToBack(&q_tx_can_0, &msg);
+    }
+}
+
+void canTxUpdate(void)
+{
+    CanMsgTypeDef_t tx_msg;
+    if(PHAL_txMailboxFree(CAN1, 0))
+    {
+        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 0);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 1))
+    {
+        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 1);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 2))
+    {
+        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 2);
+        }
+    }
 }
 
 void CAN1_RX0_IRQHandler()
@@ -399,10 +447,10 @@ void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 
 void send_iv_readings() {
     // Send CAN messages containing voltage and current data
-    SEND_V_RAILS(q_tx_can, auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3);
-    SEND_RAIL_CURRENTS(q_tx_can, auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
-    SEND_PUMP_AND_FAN_CURRENT(q_tx_can, auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
-    SEND_OTHER_CURRENTS(q_tx_can, auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
+    SEND_V_RAILS(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3);
+    SEND_RAIL_CURRENTS(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
+    SEND_PUMP_AND_FAN_CURRENT(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
+    SEND_OTHER_CURRENTS(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
 }
 
 void HardFault_Handler()

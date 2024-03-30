@@ -294,7 +294,7 @@ int main (void)
 void adcConvert()
 {
     uint16_t pot1 = adc_conversions[0];
-    SEND_ADC_VALUES(q_tx_can, adc_conversions[0],
+    SEND_ADC_VALUES(adc_conversions[0],
                               adc_conversions[1],
                               adc_conversions[2]);
 }
@@ -369,8 +369,8 @@ uint16_t adc_reading = 0;
 
 void canSendTest()
 {
-    // SEND_TEST_MSG(q_tx_can, (int16_t) (500 * sin(((double) counter)/100)));
-    SEND_TEST_MSG2(q_tx_can, counter2);
+    // SEND_TEST_MSG((int16_t) (500 * sin(((double) counter)/100)));
+    SEND_TEST_MSG2(counter2);
 
     counter += 1;
     counter2 += 2;
@@ -379,10 +379,10 @@ void canSendTest()
         counter2 = 1;
     }
 
-    // SEND_TEST_MSG3(q_tx_can, counter2);
-    // SEND_TEST_MSG4(q_tx_can, counter2);
-    // SEND_TEST_MSG5(q_tx_can, 0xFFF - counter2);
-    // SEND_CAR_STATE(q_tx_can, CAR_STATE_FLIPPED);
+    // SEND_TEST_MSG3(counter2);
+    // SEND_TEST_MSG4(counter2);
+    // SEND_TEST_MSG5(0xFFF - counter2);
+    // SEND_CAR_STATE(CAR_STATE_FLIPPED);
     //PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, green_on);
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, config.green_on);
 }

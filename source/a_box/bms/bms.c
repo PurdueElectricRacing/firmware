@@ -67,7 +67,7 @@ void BMS_txBatteryStatus()
     {
     case 0:
         findGlobalImbalance(&lowest, &delta, &pack_voltage);
-        SEND_BATTERY_INFO(q_tx_can, pack_voltage, delta, lowest, BMS_updateErrorFlags());
+        SEND_BATTERY_INFO(pack_voltage, delta, lowest, BMS_updateErrorFlags());
         state ++;
         break;
 
@@ -81,7 +81,7 @@ void BMS_txBatteryStatus()
         if (idx + 2 < NUM_CELLS)
             v3 = cell_volts[idx + 2];
 
-        SEND_CELL_INFO(q_tx_can, idx, v1, v2, v3);
+        SEND_CELL_INFO(idx, v1, v2, v3);
         state ++;
         if (idx + 2 >= NUM_CELLS)
             state = 0;
@@ -157,7 +157,7 @@ void BMS_chargePeriodic()
             // Basiacally done charging, try balancing to the mV level
             if (delta > BALANCE_DELTA_MINIMUM_V * 10000)
             {
-                SEND_BALANCE_REQUEST(q_tx_can, lowest);
+                SEND_BALANCE_REQUEST(lowest);
                 balance_req = true;
             }
             else
@@ -176,7 +176,7 @@ void BMS_chargePeriodic()
     charge_voltage_req      = MIN(charge_voltage_req, 42 * 80); // Hard limit, don't overcharge!
     charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
     charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
-    SEND_ELCON_CHARGER_COMMAND(q_tx_can, charge_voltage_req, charge_current_req, !charge_power_enable);
+    SEND_ELCON_CHARGER_COMMAND(charge_voltage_req, charge_current_req, !charge_power_enable);
 
     uint16_t charge_current = can_data.elcon_charger_status.charge_current;
     uint16_t charge_voltage = can_data.elcon_charger_status.charge_voltage;
@@ -185,7 +185,7 @@ void BMS_chargePeriodic()
 
 
     float power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
-    SEND_PACK_CHARGE_STATUS(q_tx_can, (uint16_t) (power), charge_power_enable, balance_req, charge_voltage, charge_current);
+    SEND_PACK_CHARGE_STATUS((uint16_t) (power), charge_power_enable, balance_req, charge_voltage, charge_current);
 }
 
 
@@ -233,8 +233,8 @@ void tempPeriodic (){
         }
     }
 
-    SEND_MAX_CELL_TEMP(q_tx_can, max_temp);
-    SEND_MOD_CELL_TEMP_AVG(q_tx_can, (uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
+    SEND_MAX_CELL_TEMP(max_temp);
+    SEND_MOD_CELL_TEMP_AVG((uint16_t) (avg_temp[0] * 10 / 16), (uint16_t) (avg_temp[1] * 10 / 16), (uint16_t) (avg_temp[2] * 10 / 16), (uint16_t) (avg_temp[3] * 10 / 16));
 
     if (max_temp > MAX_TEMP) {
         bms_temp_err = 1;

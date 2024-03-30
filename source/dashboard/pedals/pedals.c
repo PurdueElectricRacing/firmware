@@ -228,11 +228,11 @@ void pedalsPeriodic(void)
     t2 = t2 > thtl_limit ? thtl_limit : t2;
     filtered_pedals = t2;
 
-    SEND_RAW_THROTTLE_BRAKE(q_tx_can, raw_adc_values.t1,
+    SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1,
                             raw_adc_values.t2, raw_adc_values.b1,
                             raw_adc_values.b2, /*raw_adc_values.b3*/0); //no longer use b3
-    //SEND_FILT_THROTTLE_BRAKE(q_tx_can, t2, b2);
-    SEND_FILT_THROTTLE_BRAKE(q_tx_can, t1, b1);
+    //SEND_FILT_THROTTLE_BRAKE(t2, b2);
+    SEND_FILT_THROTTLE_BRAKE(t1, b1);
 
 
 }

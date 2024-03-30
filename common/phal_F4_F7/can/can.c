@@ -117,19 +117,21 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus)
     return true;
 }
 
-bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t mbx)
+bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t txMbox)
 {
-    uint8_t txMbox = 0;
     uint32_t timeout = 0;
     uint32_t txOkay = 0;
 
     if (txMbox > 2) return false; // invalid box
 
-    switch (mbx)
+    switch (txMbox)
     {
         case 0: if (!(msg->Bus->TSR & CAN_TSR_TME0)) return false; // mbx full
+            break;
         case 1: if (!(msg->Bus->TSR & CAN_TSR_TME1)) return false;
+            break;
         case 2: if (!(msg->Bus->TSR & CAN_TSR_TME2)) return false;
+            break;
     }
 
     // if (msg->Bus->TSR & CAN_TSR_TME0)

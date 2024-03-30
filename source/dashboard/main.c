@@ -501,21 +501,21 @@ void canTxSendToBack(CanMsgTypeDef_t *msg)
         {
             case 0:
             case 1:
-                qSendToBack(&q_tx_can_0, &msg);
+                qSendToBack(&q_tx_can_0, msg);
                 break;
             case 2:
             case 3:
-                qSendToBack(&q_tx_can_1, &msg);
+                qSendToBack(&q_tx_can_1, msg);
                 break;
             default:
-                qSendToBack(&q_tx_can_2, &msg);
+                qSendToBack(&q_tx_can_2, msg);
                 break;
         }
     }
     else
     {
         qSendToBack(&q_tx_can_0, &msg);
-    }
+}
 }
 
 void canTxUpdate(void)

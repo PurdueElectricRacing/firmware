@@ -198,8 +198,6 @@ int main (void){
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
 
-
-
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 2500);
@@ -539,7 +537,6 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
         Bootloader_ResetForFirmwareDownload();
 }
 
-
 static uint8_t upButtonBuffer;
 static uint8_t downButtonBuffer;
 
@@ -578,33 +575,9 @@ void pollDashboardInput()
     // Check for Start Button Pressed
     if (dashboard_input & (1U << DASH_INPUT_START_BUTTON))
     {
-        SEND_START_BUTTON(q_tx_can, 1);                     // Report start button pressed
+        SEND_START_BUTTON(q_tx_can, 1);                     
         dashboard_input &= ~(1U << DASH_INPUT_START_BUTTON);
     }
-
-    // Check Up/Down Pressed
-    // if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON) &&
-    //    (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON)))
-    // {
-    //     // Default to Up if Both Pressed in x ms
-    //     moveUp();
-    //     dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
-    //     dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
-    // }
-    // else if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON))
-    // {
-    //     moveUp();
-    //     dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
-    // }
-    // else if (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON))
-    // {
-    //     moveDown();
-    //     dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
-    // }
-    // else
-    // {
-    //     // nothing
-    // }
 
     // Check Select Item Pressed
     if (dashboard_input & (1U << DASH_INPUT_SELECT_BUTTON))

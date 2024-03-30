@@ -74,13 +74,11 @@ void updatePage() {
         case PAGE_DRIVER:
             prev_page = PAGE_DRIVER;
             set_page(DRIVER_STRING);
-
             driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
             set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-
             if (driver_config.curr_select == DRIVER_DEFAULT_SELECT)
             {
                 set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
@@ -89,7 +87,6 @@ void updatePage() {
             {
                 set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             }
-
             if (driver_config.curr_select == DRIVER_TYLER_SELECT)
             {
                 set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
@@ -98,7 +95,6 @@ void updatePage() {
             {
                 set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
             }
-
             if (driver_config.curr_select == DRIVER_RUHAAN_SELECT)
             {
                 set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
@@ -107,7 +103,6 @@ void updatePage() {
             {
                 set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
             }
-
             if (driver_config.curr_select == DRIVER_LUKE_SELECT)
             {
                 set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
@@ -117,7 +112,6 @@ void updatePage() {
                 set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             }
             break;
-
         case PAGE_SDCINFO:
             prev_page = PAGE_SDCINFO;
             set_page(SDCINFO_STRING);
@@ -144,7 +138,6 @@ void updatePage() {
             bzero(parsed_value, 3);                                                         
             set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
             break;
-
         case PAGE_ERROR:
             set_page(ERR_STRING);
             set_text(ERR_TXT, NXT_TEXT, errorText);
@@ -170,12 +163,12 @@ void updatePage() {
             prev_page = PAGE_SETTINGS;
             set_page(SETTINGS_STRING);
 
-            settings.curr_hover = DT_FAN_HOVER;                                     // Set hover
-            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);         // Set t2 with settings hover
-            set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);                   // Set progress bar for j0
-            set_value(DT_FAN_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);                         // Set color for t8 (background of bar?)
-            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));  // Set fan value for t8
-            bzero(parsed_value, 3);                                                         // Clear our char buffer
+            settings.curr_hover = DT_FAN_HOVER;                                     
+            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);         
+            set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);                   
+            set_value(DT_FAN_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);                         
+            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));  
+            bzero(parsed_value, 3);                                                        
             
             // Set drivetrain pump selector color 
             if (settings.d_pump_selected) {     
@@ -188,8 +181,6 @@ void updatePage() {
             // Set drivetrain pump selector status
             set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
 
-            // Set Battery fan c3 (Pump 1?)
-            // todo: Why is this here?
             if (settings.b_fan2_selected) {
                 set_value(B_FAN2_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
             }
@@ -227,14 +218,6 @@ void updatePage() {
             else
             {
                 set_text(FAULT_1_TXT, NXT_TEXT, faultArray[fault_buf[0]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[0]]) == false)
-                // {
-                //     set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
             if (fault_buf[1] == 0xFFFF)
             {
@@ -244,16 +227,7 @@ void updatePage() {
             else
             {
                 set_text(FAULT_2_TXT, NXT_TEXT, faultArray[fault_buf[1]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[1]]) == false)
-                // {
-                //     set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
-
             if (fault_buf[2] == 0xFFFF)
             {
                 set_text(FAULT_3_TXT, NXT_TEXT, FAULT_NONE_STRING);
@@ -262,16 +236,7 @@ void updatePage() {
             else
             {
                 set_text(FAULT_3_TXT, NXT_TEXT, faultArray[fault_buf[2]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[2]]) == false)
-                // {
-                //     set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
-
             if (fault_buf[3] == 0xFFFF)
             {
                 set_text(FAULT_4_TXT, NXT_TEXT, FAULT_NONE_STRING);
@@ -280,16 +245,7 @@ void updatePage() {
             else
             {
                 set_text(FAULT_4_TXT, NXT_TEXT, faultArray[fault_buf[3]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[3]]) == false)
-                // {
-                //     set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
-
             if (fault_buf[4] == 0xFFFF)
             {
                 set_text(FAULT_5_TXT, NXT_TEXT, FAULT_NONE_STRING);
@@ -298,14 +254,6 @@ void updatePage() {
             else
             {
                 set_text(FAULT_5_TXT, NXT_TEXT, faultArray[fault_buf[4]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[4]]) == false)
-                // {
-                //     set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
         break;
     }
@@ -688,8 +636,6 @@ void selectItem() {
     }
     else if (curr_page == PAGE_TVSETTINGS)
     {
-        // So if we hit select on an already selected item, unselect it (switch to hover)
-        
         if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
         {
             tv_settings.curr_hover = TV_INTENSITY_SELECTED;
@@ -697,19 +643,14 @@ void selectItem() {
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-            // todo Rot encoder state should let us scroll through value options
-            // for now just use buttons for move up and move down
         }
         else if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
         {
-            // "submit" -> CAN payload will update automatically? decide
-            // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault? 
             tv_settings.curr_hover = TV_INTENSITY_HOVER;
             set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-            // rot encoder state goes back to page move instead of value move
         }
         else if (tv_settings.curr_hover == TV_P_HOVER)
         {
@@ -745,8 +686,6 @@ void selectItem() {
         }
         else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
         {   
-            // Don't change the curr_hover
-
             // Toggle the option
             tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
             
@@ -782,8 +721,6 @@ void selectItem() {
                 set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
                 break;
             case FAN1_HOVER:
-                // settings.b_fan1_selected = !settings.b_fan1_selected;
-                // set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan1_selected);
                 settings.curr_hover = FAN1_SELECT;
                 set_value(B_FAN1_TXT, NXT_VALUE, SETTINGS_BG);
                 set_value(B_FAN1_BAR, NXT_BACKGROUND_COLOR, WHITE);

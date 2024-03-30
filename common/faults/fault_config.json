@@ -367,7 +367,7 @@
             "faults": [
                 {
                     "fault_name": "APPS_wiring_t1",
-                    "max": 3000,
+                    "max": 3400,
                     "min": 200,
                     "priority": "error",
                     "time_to_latch": 10,
@@ -376,7 +376,7 @@
                 },
                 {
                     "fault_name": "APPS_wiring_t2",
-                    "max": 3000,
+                    "max": 3400,
                     "min": 200,
                     "priority": "error",
                     "time_to_latch": 10,
@@ -406,8 +406,8 @@
                     "max": 700,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 100,
+                    "time_to_latch": 100,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "APPS Implaus Detected"
                 },
                 {

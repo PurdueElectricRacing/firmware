@@ -85,7 +85,7 @@ include(cmake/common_component.cmake)
 
 # Add Components
 add_subdirectory(source/main_module)
-add_subdirectory(source/bootloader)
+#add_subdirectory(source/bootloader)
 #add_subdirectory(source/l4_testing)
 add_subdirectory(source/f4_testing)
 add_subdirectory(source/f7_testing)

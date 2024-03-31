@@ -146,7 +146,7 @@ extern void HardFault_Handler();
 void init_ADC();
 void testCaller(void);
 
-q_handle_t q_tx_can;
+q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
 q_handle_t q_rx_can;
 
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -164,7 +164,9 @@ int main (void)
     // Main stack pointer is saved as the first entry in the .isr_entry
     Bootloader_ConfirmApplicationLaunch();
     /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
 
@@ -257,13 +259,13 @@ int main (void)
     // linkWriteFunc(DAQ_ID_RED_ON, (write_func_ptr_t) setRed);
     // linkWriteFunc(DAQ_ID_GREEN_ON, (write_func_ptr_t) setGreen);
     // linkWriteFunc(DAQ_ID_BLUE_ON, (write_func_ptr_t) setBlue);
-    // if(daqInit(&q_tx_can))
+    // if(daqInit(&q_tx_can_2))
     // {
     //     PHAL_writeGPIO(LED1_GPIO_Port, LED1_Pin, 1);
     //     HardFault_Handler();
     // }
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_TEST_NODE);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_TEST_NODE);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -387,12 +389,55 @@ void canSendTest()
     PHAL_writeGPIO(LED_GREEN_GPIO_Port, LED_GREEN_Pin, config.green_on);
 }
 
-void canTxUpdate()
+void canTxSendToBack(CanMsgTypeDef_t *msg)
+{
+    if (msg->IDE == 1)
+    {
+        // extended id, check hlp
+        switch((msg->ExtId >> 26) & 0b111)
+        {
+            case 0:
+            case 1:
+                qSendToBack(&q_tx_can_0, msg);
+                break;
+            case 2:
+            case 3:
+                qSendToBack(&q_tx_can_1, msg);
+                break;
+            default:
+                qSendToBack(&q_tx_can_2, msg);
+                break;
+        }
+    }
+    else
+    {
+        qSendToBack(&q_tx_can_0, &msg);
+    }
+}
+
+void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
-    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+    if(PHAL_txMailboxFree(CAN1, 0))
     {
-        PHAL_txCANMessage(&tx_msg);
+        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 0);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 1))
+    {
+        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 1);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 2))
+    {
+        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 2);
+        }
     }
 }
 

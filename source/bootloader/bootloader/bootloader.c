@@ -201,7 +201,7 @@ void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
 // Quickly setup case statments for send function based on Node ID
 #define NODE_CASE_BL_RESPONSE(app_id, resp_func) \
 case app_id:\
-            resp_func(q_tx_can, cmd, data);\
+            resp_func(cmd, data);\
             break;\
 
 void BL_sendStatusMessage(uint8_t cmd, uint32_t data)

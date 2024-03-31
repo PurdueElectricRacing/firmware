@@ -14,6 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
+#include "main.h"
 
 // Make this match the node name within the can_config.json
 

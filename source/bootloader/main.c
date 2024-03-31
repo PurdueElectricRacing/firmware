@@ -80,6 +80,8 @@ void HardFault_Handler();
 extern void Default_Handler();
 void jump_to_application(void);
 bool check_boot_health(void);
+void canTxSendToBack(CanMsgTypeDef_t *msg);
+static void send_pending_can(void);
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -129,7 +131,6 @@ int main (void)
     NVIC_EnableIRQ(SysTick_IRQn);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    CanMsgTypeDef_t tx_msg;
     BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_reason);
 
     /*
@@ -151,20 +152,8 @@ int main (void)
                 BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) BL_getCurrentFlashAddress());
         }
 
-        while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
-        {
-            #if (APP_ID == APP_L4_TESTING)
-            PHAL_writeGPIO(GPIOB, 1, 1);
-            #endif
-            if(!PHAL_txCANMessage(&tx_msg))
-            {
-                qSendToBack(&q_tx_can, &tx_msg); // retry later
-                break;
-            }
-        }
-        #if (APP_ID == APP_L4_TESTING)
-        PHAL_writeGPIO(GPIOB, 1, 0);
-        #endif
+        // Send all pending CAN messages
+        send_pending_can();
 
         /*
             Check if firmware download is complete
@@ -185,17 +174,28 @@ int main (void)
     // Check the first word of the application, it should contain the MSP
     // an address can not start with 0xFF for the MSP
     BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
-    while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
-        PHAL_txCANMessage(&tx_msg);
+    send_pending_can();
+    
 
     jump_to_application();
 
     // Only sent if first double-word is NULL (no app exists)
     BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
     bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
-    while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
-        PHAL_txCANMessage(&tx_msg);
+    send_pending_can();
+    
     NVIC_SystemReset();
+}
+
+// Sends all pending messages in the tx queue
+static void send_pending_can(void)
+{
+    CanMsgTypeDef_t tx_msg;
+    while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+    {
+        while (!PHAL_txMailboxFree(CAN1, 0));
+        PHAL_txCANMessage(&tx_msg, 0);
+    }
 }
 
 void SysTick_Handler(void)
@@ -359,6 +359,11 @@ void jump_to_application(void)
     SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
     __enable_irq();
    ((void(*)(void)) app_reset_handler_address)();
+}
+
+void canTxSendToBack(CanMsgTypeDef_t *msg)
+{
+    qSendToBack(&q_tx_can, msg);
 }
 
 static uint32_t can_irq_hits = 0;

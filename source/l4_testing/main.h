@@ -2,6 +2,7 @@
 #define MAIN_H_
 
 #include "common/faults/fault_nodes.h"
+#include "common/phal_L4/can/can.h"
 
 #define FAULT_NODE_NAME NODE_TEST
 
@@ -52,4 +53,5 @@
 #define SPI_CS_EEPROM_GPIO_Port (GPIOA)
 #define SPI_CS_EEPROM_Pin (4)
 
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 #endif

@@ -19,6 +19,9 @@
 #include "common/phal_L4/can/can.h"
 #endif
 
+// defined in main.c
+extern void canTxSendToBack(CanMsgTypeDef_t *msg);
+
 // Make this match the node name within the can_config.json
 #define NODE_NAME "bootloader"
 

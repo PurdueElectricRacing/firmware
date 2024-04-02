@@ -312,7 +312,7 @@ void monitorStatus()
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   uint8_t stat = bms_err | imd_err;
+   uint8_t stat = bms_err;
    if (bms_daq_override) stat = bms_daq_stat;
    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }

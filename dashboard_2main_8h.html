@@ -87,6 +87,7 @@ $(function() {
 <p>Software to measure pedal state and control the LCD display.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;common/faults/fault_nodes.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
 </div>
 <p><a href="dashboard_2main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -297,6 +298,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ab898071398b359603a35c202e9c65f3b" id="r_ab898071398b359603a35c202e9c65f3b"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab898071398b359603a35c202e9c65f3b">__attribute__</a> ((packed))</td></tr>
 <tr class="separator:ab898071398b359603a35c202e9c65f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4815a2b32e2a6f5a2902f820ef92501" id="r_ad4815a2b32e2a6f5a2902f820ef92501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4815a2b32e2a6f5a2902f820ef92501">canTxSendToBack</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *<a class="el" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>)</td></tr>
+<tr class="separator:ad4815a2b32e2a6f5a2902f820ef92501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -1636,6 +1639,23 @@ Variables</h2></td></tr>
           <td class="memname">struct __attribute__ </td>
           <td>(</td>
           <td class="paramtype">(packed)</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4815a2b32e2a6f5a2902f820ef92501" name="ad4815a2b32e2a6f5a2902f820ef92501"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4815a2b32e2a6f5a2902f820ef92501">&#9670;&#160;</a></span>canTxSendToBack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canTxSendToBack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

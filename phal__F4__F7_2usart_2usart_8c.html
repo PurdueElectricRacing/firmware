@@ -78,7 +78,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">usart.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -105,9 +106,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abbaa51dfa3243c22b4015aaff9eba9da" id="r_abbaa51dfa3243c22b4015aaff9eba9da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbaa51dfa3243c22b4015aaff9eba9da">PHAL_usartTxDma</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *data, uint32_t len)</td></tr>
 <tr class="memdesc:abbaa51dfa3243c22b4015aaff9eba9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete.  <br /></td></tr>
 <tr class="separator:abbaa51dfa3243c22b4015aaff9eba9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56f2d3e8345497a11cd895adddb063e3" id="r_a56f2d3e8345497a11cd895adddb063e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56f2d3e8345497a11cd895adddb063e3">PHAL_usartTxBusy</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
-<tr class="memdesc:a56f2d3e8345497a11cd895adddb063e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether USART peripheral is currently transmitting data.  <br /></td></tr>
-<tr class="separator:a56f2d3e8345497a11cd895adddb063e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accfcc099ca86755feae42c7acca653a0" id="r_accfcc099ca86755feae42c7acca653a0"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accfcc099ca86755feae42c7acca653a0">PHAL_usartTxBusy</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
+<tr class="memdesc:accfcc099ca86755feae42c7acca653a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether USART peripheral is currently transmitting data.  <br /></td></tr>
+<tr class="separator:accfcc099ca86755feae42c7acca653a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a716a03068c8b5c1138c217cfd2c5e689" id="r_a716a03068c8b5c1138c217cfd2c5e689"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a716a03068c8b5c1138c217cfd2c5e689">PHAL_usartRxDma</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *data, uint32_t len, bool cont)</td></tr>
 <tr class="memdesc:a716a03068c8b5c1138c217cfd2c5e689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts an rx using dma of a specific length.  <br /></td></tr>
 <tr class="separator:a716a03068c8b5c1138c217cfd2c5e689"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,6 +121,11 @@ Functions</h2></td></tr>
 <tr class="memitem:afd98e1acca0fdcf343db884ea257b819" id="r_afd98e1acca0fdcf343db884ea257b819"><td class="memItemLeft" align="right" valign="top">__WEAK void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd98e1acca0fdcf343db884ea257b819">usart_recieve_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
 <tr class="memdesc:afd98e1acca0fdcf343db884ea257b819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt.  <br /></td></tr>
 <tr class="separator:afd98e1acca0fdcf343db884ea257b819"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa60b7883befa64719dce13560b391074" id="r_aa60b7883befa64719dce13560b391074"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60b7883befa64719dce13560b391074">active_uarts</a> [TOTAL_NUM_UART]</td></tr>
+<tr class="separator:aa60b7883befa64719dce13560b391074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Aditya Anand (<a href="#" onclick="location.href='mai'+'lto:'+'ana'+'nd'+'89@'+'pu'+'rdu'+'e.'+'edu'; return false;">anand<span class="obfuscator">.nosp@m.</span>89@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) - Redesign of L4 UART HAL by Dawson Moore (<a href="#" onclick="location.href='mai'+'lto:'+'moo'+'re'+'800'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">moore<span class="obfuscator">.nosp@m.</span>800@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
@@ -276,14 +282,14 @@ false USART peripheal is not currently receiving a message </dd></dl>
 
 </div>
 </div>
-<a id="a56f2d3e8345497a11cd895adddb063e3" name="a56f2d3e8345497a11cd895adddb063e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f2d3e8345497a11cd895adddb063e3">&#9670;&#160;</a></span>PHAL_usartTxBusy()</h2>
+<a id="accfcc099ca86755feae42c7acca653a0" name="accfcc099ca86755feae42c7acca653a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfcc099ca86755feae42c7acca653a0">&#9670;&#160;</a></span>PHAL_usartTxBusy()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool PHAL_usartTxBusy </td>
+          <td class="memname">volatile bool PHAL_usartTxBusy </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structusart__init__t.html">usart_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>handle</em></span></td><td>)</td>
           <td></td>
@@ -363,6 +369,21 @@ false USART peripheal is not currently sending a message </dd></dl>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa60b7883befa64719dce13560b391074" name="aa60b7883befa64719dce13560b391074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60b7883befa64719dce13560b391074">&#9670;&#160;</a></span>active_uarts</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a> active_uarts[TOTAL_NUM_UART]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

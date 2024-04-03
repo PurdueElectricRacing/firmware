@@ -76,18 +76,23 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">main.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Software for controlling Torque Vectoring PCB sensor acquisition.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &quot;common/faults/fault_nodes.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
+</div>
 <p><a href="torque__vector_2main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:abae3566da9e6c5d249d85f2316c40a3c" id="r_abae3566da9e6c5d249d85f2316c40a3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abae3566da9e6c5d249d85f2316c40a3c">FAULT_NODE_NAME</a>&#160;&#160;&#160;NODE_TORQUE_VECTOR</td></tr>
+<tr class="separator:abae3566da9e6c5d249d85f2316c40a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad606c68e7c4fc77a58df05a77a2ac2d0" id="r_ad606c68e7c4fc77a58df05a77a2ac2d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a>&#160;&#160;&#160;(GPIOB)</td></tr>
 <tr class="separator:ad606c68e7c4fc77a58df05a77a2ac2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac38565041738156d70795f7d45a458ef" id="r_ac38565041738156d70795f7d45a458ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a>&#160;&#160;&#160;(5)</td></tr>
@@ -146,6 +151,11 @@ Macros</h2></td></tr>
 <tr class="separator:aa33a6843dfd20ad077dc6d560abaf310"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e91ca30ff165db8e051d6fd035b9f42" id="r_a4e91ca30ff165db8e051d6fd035b9f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e91ca30ff165db8e051d6fd035b9f42">NAV_WP_PIN</a>&#160;&#160;&#160;(13)</td></tr>
 <tr class="separator:a4e91ca30ff165db8e051d6fd035b9f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad4815a2b32e2a6f5a2902f820ef92501" id="r_ad4815a2b32e2a6f5a2902f820ef92501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4815a2b32e2a6f5a2902f820ef92501">canTxSendToBack</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *<a class="el" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>)</td></tr>
+<tr class="separator:ad4815a2b32e2a6f5a2902f820ef92501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Software for controlling Torque Vectoring PCB sensor acquisition. </p>
@@ -218,6 +228,20 @@ Macros</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define ERR_LED_Pin&#160;&#160;&#160;(5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abae3566da9e6c5d249d85f2316c40a3c" name="abae3566da9e6c5d249d85f2316c40a3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae3566da9e6c5d249d85f2316c40a3c">&#9670;&#160;</a></span>FAULT_NODE_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAULT_NODE_NAME&#160;&#160;&#160;NODE_TORQUE_VECTOR</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -554,6 +578,24 @@ Macros</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define SPI_SCLK_Pin&#160;&#160;&#160;(5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ad4815a2b32e2a6f5a2902f820ef92501" name="ad4815a2b32e2a6f5a2902f820ef92501"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4815a2b32e2a6f5a2902f820ef92501">&#9670;&#160;</a></span>canTxSendToBack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void canTxSendToBack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">

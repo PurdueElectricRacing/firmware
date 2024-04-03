@@ -6,11 +6,12 @@ var searchData=
   ['mcinit_3',['mcInit',['../plettenberg_8c.html#a98b21b3e7feafaf52e16dd450b85a405',1,'mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue, usart_rx_buf_t *rx_buf, const bool *hv_present):&#160;plettenberg.c'],['../plettenberg_8h.html#a98b21b3e7feafaf52e16dd450b85a405',1,'mcInit(motor_t *m, bool is_inverted, q_handle_t *tx_queue, usart_rx_buf_t *rx_buf, const bool *hv_present):&#160;plettenberg.c']]],
   ['mcperiodic_4',['mcPeriodic',['../plettenberg_8c.html#acdfdbf32af1cee0b29df8d53afda01b1',1,'mcPeriodic(motor_t *m):&#160;plettenberg.c'],['../plettenberg_8h.html#acdfdbf32af1cee0b29df8d53afda01b1',1,'mcPeriodic(motor_t *m):&#160;plettenberg.c']]],
   ['mcsetpower_5',['mcSetPower',['../plettenberg_8c.html#ac4fe3c04930160bd9c9ddc598b70dacb',1,'mcSetPower(float power, motor_t *m):&#160;plettenberg.c'],['../plettenberg_8h.html#ac4fe3c04930160bd9c9ddc598b70dacb',1,'mcSetPower(float power, motor_t *m):&#160;plettenberg.c']]],
-  ['membg_6',['memBg',['../eeprom__spi_8c.html#a80229a212accabcced087b237c0abfad',1,'memBg(void):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a80229a212accabcced087b237c0abfad',1,'memBg(void):&#160;eeprom_spi.c']]],
-  ['memfg_7',['memFg',['../eeprom__spi_8c.html#a183772232ecac26e1b4739cabec3a814',1,'memFg(void):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a183772232ecac26e1b4739cabec3a814',1,'memFg(void):&#160;eeprom_spi.c']]],
-  ['monitorsdcperiodic_8',['monitorSDCPeriodic',['../car_8c.html#a734067d55fba1fd73f37eea2d3886a3e',1,'monitorSDCPeriodic():&#160;car.c'],['../car_8h.html#a34cb026481a9ad022a436ecce147f5ff',1,'monitorSDCPeriodic(void):&#160;car.c']]],
-  ['monitorstatus_9',['monitorStatus',['../a__box_2main_8c.html#ab6d5656a78ce6f1885312bb466f171a8',1,'main.c']]],
-  ['movedown_10',['moveDown',['../lcd_8c.html#a486267210dfc8118e23e6b1bc6090286',1,'moveDown():&#160;lcd.c'],['../lcd_8h.html#a486267210dfc8118e23e6b1bc6090286',1,'moveDown():&#160;lcd.c']]],
-  ['moveup_11',['moveUp',['../lcd_8c.html#a75e03afeaf9e13a6399279ed36c0c59f',1,'moveUp():&#160;lcd.c'],['../lcd_8h.html#a75e03afeaf9e13a6399279ed36c0c59f',1,'moveUp():&#160;lcd.c']]],
-  ['mycountertest_12',['myCounterTest',['../l4__testing_2main_8c.html#a73e9fbfd2dff848cb02f89af2ec6abe7',1,'main.c']]]
+  ['median_6',['median',['../median_8c.html#a29d1df669988adbd9de276341d8ed6aa',1,'median(const float x[151]):&#160;median.c'],['../median_8h.html#a29d1df669988adbd9de276341d8ed6aa',1,'median(const float x[151]):&#160;median.c']]],
+  ['membg_7',['memBg',['../eeprom__spi_8c.html#a80229a212accabcced087b237c0abfad',1,'memBg(void):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a80229a212accabcced087b237c0abfad',1,'memBg(void):&#160;eeprom_spi.c']]],
+  ['memfg_8',['memFg',['../eeprom__spi_8c.html#a183772232ecac26e1b4739cabec3a814',1,'memFg(void):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a183772232ecac26e1b4739cabec3a814',1,'memFg(void):&#160;eeprom_spi.c']]],
+  ['monitorsdcperiodic_9',['monitorSDCPeriodic',['../car_8c.html#a734067d55fba1fd73f37eea2d3886a3e',1,'monitorSDCPeriodic():&#160;car.c'],['../car_8h.html#a34cb026481a9ad022a436ecce147f5ff',1,'monitorSDCPeriodic(void):&#160;car.c']]],
+  ['monitorstatus_10',['monitorStatus',['../a__box_2main_8c.html#ab6d5656a78ce6f1885312bb466f171a8',1,'main.c']]],
+  ['movedown_11',['moveDown',['../lcd_8c.html#a486267210dfc8118e23e6b1bc6090286',1,'moveDown():&#160;lcd.c'],['../lcd_8h.html#a486267210dfc8118e23e6b1bc6090286',1,'moveDown():&#160;lcd.c']]],
+  ['moveup_12',['moveUp',['../lcd_8c.html#a75e03afeaf9e13a6399279ed36c0c59f',1,'moveUp():&#160;lcd.c'],['../lcd_8h.html#a75e03afeaf9e13a6399279ed36c0c59f',1,'moveUp():&#160;lcd.c']]],
+  ['mycountertest_13',['myCounterTest',['../l4__testing_2main_8c.html#a73e9fbfd2dff848cb02f89af2ec6abe7',1,'main.c']]]
 ];

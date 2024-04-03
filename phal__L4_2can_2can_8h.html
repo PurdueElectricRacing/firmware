@@ -117,9 +117,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ad50ebe6b97656b5ccad44c2d71e280d9" id="r_ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a> (CAN_TypeDef *bus)</td></tr>
 <tr class="memdesc:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-initialize the CAN peripheral.  <br /></td></tr>
 <tr class="separator:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef9d4d5251aa91cc37359b6e07934c8d" id="r_aef9d4d5251aa91cc37359b6e07934c8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef9d4d5251aa91cc37359b6e07934c8d">PHAL_txCANMessage</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *<a class="el" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>)</td></tr>
-<tr class="memdesc:aef9d4d5251aa91cc37359b6e07934c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucessful transmission of message until a specified timeout.  <br /></td></tr>
-<tr class="separator:aef9d4d5251aa91cc37359b6e07934c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af473720603564f53462184a374df4490" id="r_af473720603564f53462184a374df4490"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af473720603564f53462184a374df4490">PHAL_txCANMessage</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *<a class="el" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>, uint8_t txMbox)</td></tr>
+<tr class="memdesc:af473720603564f53462184a374df4490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucessful transmission of message until a specified timeout.  <br /></td></tr>
+<tr class="separator:af473720603564f53462184a374df4490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65d09c3c6b1c24a5fc09bbf7f71659bb" id="r_a65d09c3c6b1c24a5fc09bbf7f71659bb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65d09c3c6b1c24a5fc09bbf7f71659bb">PHAL_txMailboxFree</a> (CAN_TypeDef *bus, uint8_t mbx)</td></tr>
+<tr class="separator:a65d09c3c6b1c24a5fc09bbf7f71659bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Adam Busch (<a href="#" onclick="location.href='mai'+'lto:'+'bus'+'ch'+'8@p'+'ur'+'due'+'.e'+'du'; return false;">busch<span class="obfuscator">.nosp@m.</span>8@pu<span class="obfuscator">.nosp@m.</span>rdue.<span class="obfuscator">.nosp@m.</span>edu</a>) </dd></dl>
@@ -276,8 +278,8 @@ false Peripheral stalled during initilization </dd></dl>
 
 </div>
 </div>
-<a id="aef9d4d5251aa91cc37359b6e07934c8d" name="aef9d4d5251aa91cc37359b6e07934c8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef9d4d5251aa91cc37359b6e07934c8d">&#9670;&#160;</a></span>PHAL_txCANMessage()</h2>
+<a id="af473720603564f53462184a374df4490" name="af473720603564f53462184a374df4490"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af473720603564f53462184a374df4490">&#9670;&#160;</a></span>PHAL_txCANMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,8 +287,12 @@ false Peripheral stalled during initilization </dd></dl>
         <tr>
           <td class="memname">bool PHAL_txCANMessage </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>txMbox</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -302,6 +308,27 @@ false Peripheral stalled during initilization </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Sucessful TX of message. </dd>
 <dd>
 false Unable to find empty message or transmit took too long. </dd></dl>
+
+</div>
+</div>
+<a id="a65d09c3c6b1c24a5fc09bbf7f71659bb" name="a65d09c3c6b1c24a5fc09bbf7f71659bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65d09c3c6b1c24a5fc09bbf7f71659bb">&#9670;&#160;</a></span>PHAL_txMailboxFree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_txMailboxFree </td>
+          <td>(</td>
+          <td class="paramtype">CAN_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>bus</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>mbx</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

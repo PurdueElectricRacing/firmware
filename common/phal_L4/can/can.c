@@ -113,29 +113,22 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus)
     return true;
 }
 
-bool PHAL_txCANMessage(CanMsgTypeDef_t* msg)
+bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t txMbox)
 {
-    uint8_t txMbox = 0;
     uint32_t timeout = 0;
     uint32_t txOkay = 0;
 
-    if (msg->Bus->TSR & CAN_TSR_TME0)
+    if (txMbox > 2) return false; // invalid box
+
+    switch (txMbox)
     {
-        txMbox = 0;
-        txOkay = CAN_TSR_TXOK0;
+        case 0: if (!(msg->Bus->TSR & CAN_TSR_TME0)) return false; // mbx full
+            break;
+        case 1: if (!(msg->Bus->TSR & CAN_TSR_TME1)) return false;
+            break;
+        case 2: if (!(msg->Bus->TSR & CAN_TSR_TME2)) return false;
+            break;
     }
-    else if (msg->Bus->TSR & CAN_TSR_TME1)
-    {
-        txMbox = 1;
-        txOkay = CAN_TSR_TXOK1;
-    }
-    else if (msg->Bus->TSR & CAN_TSR_TME2)
-    {
-        txMbox = 2;
-        txOkay = CAN_TSR_TXOK2;
-    }
-    else   
-        return false;   // Unable to find Mailbox
 
     if (msg->IDE == 0)
     {
@@ -157,10 +150,26 @@ bool PHAL_txCANMessage(CanMsgTypeDef_t* msg)
     
     msg->Bus->sTxMailBox[txMbox].TIR |= (0b1 << CAN_TI0R_TXRQ_Pos);         // Request TX
 
-    while(!(msg->Bus->TSR & txOkay) && ++timeout < PHAL_CAN_TX_TIMEOUT)      // Wait for message to be sent within specified timeout
-        ;
+    // while(!(msg->Bus->TSR & txOkay) && ++timeout < PHAL_CAN_TX_TIMEOUT)      // Wait for message to be sent within specified timeout
+    //     ;
 
-    return timeout != PHAL_CAN_TX_TIMEOUT;
+    // return timeout != PHAL_CAN_TX_TIMEOUT;
+    return true;
+}
+
+bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx)
+{
+    switch(mbx)
+    {
+        case 0:
+            return  bus->TSR & CAN_TSR_TME0;
+        case 1:
+            return  bus->TSR & CAN_TSR_TME1;
+        case 2:
+            return  bus->TSR & CAN_TSR_TME2;
+        default:
+            return false;
+    }
 }
 
 void  __attribute__((weak)) CAN1_RX0_IRQHandler()

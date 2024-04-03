@@ -124,20 +124,20 @@ void txCAN(void)
     {
         case 0:
         {
-            SEND_PACK_INFO(q_tx_can, bms.cells.mod_volts_raw, bms.error, bms.cells.balance_flags & ~bms.cells.balance_mask);
-            SEND_CELL_INFO(q_tx_can, 0, bms.error & (1U << 1), bms.error & (1U << 2));
+            SEND_PACK_INFO(bms.cells.mod_volts_raw, bms.error, bms.cells.balance_flags & ~bms.cells.balance_mask);
+            SEND_CELL_INFO(0, bms.error & (1U << 1), bms.error & (1U << 2));
             break;
         }
 
         case 1:
         {
-            SEND_POWER_LIM(q_tx_can, bms.p_lim.temp_max, 0);
+            SEND_POWER_LIM(bms.p_lim.temp_max, 0);
             break;
         }
         default:
         {
             msg_idx = state - 2;
-            SEND_VOLTS_CELLS(q_tx_can, msg_idx, bms.cells.chan_volts_raw[msg_idx * 3], bms.cells.chan_volts_raw[msg_idx * 3 + 1], bms.cells.chan_volts_raw[msg_idx * 3 + 2]);
+            SEND_VOLTS_CELLS(msg_idx, bms.cells.chan_volts_raw[msg_idx * 3], bms.cells.chan_volts_raw[msg_idx * 3 + 1], bms.cells.chan_volts_raw[msg_idx * 3 + 2]);
             break;
         }
     }

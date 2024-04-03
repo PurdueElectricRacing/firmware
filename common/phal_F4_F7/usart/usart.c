@@ -29,7 +29,7 @@ typedef struct {
     volatile uint32_t rxfer_size;  //!< Size of data to receive over DMA
 } usart_active_transfer_t;
 
-static volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
+volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
 
 bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
 {
@@ -137,11 +137,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
 bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
-    #ifdef STM32F407xx
-    // Ensure any RX data is not overwritten before continuing with transfer
-    while ((active_uarts[handle->usart_active_num].active_handle->periph->SR & USART_SR_RXNE))
-        ;
-    #endif
+
     #ifdef STM32F732xx
     // Ensure any RX data is not overwritten before continuing with transfer
     while ((active_uarts[handle->usart_active_num].active_handle->periph->ISR & USART_ISR_RXNE))
@@ -173,16 +169,22 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t) data);
 
-    // Start DMA transaction
-    PHAL_startTxfer(handle->tx_dma_cfg);
+
     active_uarts[handle->usart_active_num]._tx_busy = 1;
     // Configure DMA Peripheral, and set up USART for DMA Transactions
     handle->periph->CR3 |= USART_CR3_DMAT;
     handle->periph->CR1 |= USART_CR1_TE;
+     #ifdef STM32F407xx
+    // Ensure any RX data is not overwritten before continuing with transfer
+    while ((active_uarts[handle->usart_active_num].active_handle->periph->SR & USART_SR_RXNE))
+        ;
+    #endif
+    // Start DMA transaction
+    PHAL_startTxfer(handle->tx_dma_cfg);
     return true;
 }
 
-bool PHAL_usartTxBusy(usart_init_t* handle)
+volatile bool PHAL_usartTxBusy(usart_init_t* handle)
 {
     return active_uarts[handle->usart_active_num]._tx_busy;
 }

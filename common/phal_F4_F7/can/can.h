@@ -34,6 +34,8 @@
 #define PHAL_CAN_40MHz_500k (0x001c0004)
 #define PHAL_CAN_80MHz_500k (0x001c0009)
 
+
+
 typedef struct
 {
   CAN_TypeDef* Bus; /*!< Specifies the bus. */
@@ -65,6 +67,7 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus);
  * @return true Sucessful TX of message.
  * @return false Unable to find empty message or transmit took too long.
  */
-bool PHAL_txCANMessage(CanMsgTypeDef_t* msg);
+bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t mbx);
+bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx);
 
 #endif // _PHAL_CAN_H

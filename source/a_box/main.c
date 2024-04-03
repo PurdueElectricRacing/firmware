@@ -84,8 +84,12 @@ extern uint32_t PLLClockRateHz;
 
 extern uint8_t orion_error;
 
-
-q_handle_t q_tx_can;
+/**
+ * q_tx_can_0 -> hlp [0,1] -> mailbox 1
+ * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
+ * q_tx_can_2 -> hlp [4,5] -> mailbox 3
+*/
+q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
 q_handle_t q_rx_can;
 
 bool bms_daq_override = false;
@@ -128,9 +132,11 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
 
 int main (void)
 {
-   /* Data Struct init */
-   qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
-   qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    /* Data Struct init */
+    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
 
    /* HAL Initilization */
@@ -184,7 +190,7 @@ int main (void)
     bms_daq_override = false;
     bms_daq_stat = false;
 
-    if (daqInit(&q_tx_can))
+    if (daqInit(&q_tx_can_2))
         HardFault_Handler();
 
    /* Module init */
@@ -198,7 +204,7 @@ int main (void)
    taskCreate(monitorStatus, 50);
    taskCreate(orionChargePeriodic, 50);
    taskCreate(heartBeatTask, 100);
-   taskCreate(sendhbmsg, 100);
+   taskCreate(sendhbmsg, 500);
    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
 
@@ -228,7 +234,7 @@ void preflightChecks(void)
             initTMU(&tmu);
             break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_A_BOX);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_A_BOX);
             break;
        default:
            if (state > 750)
@@ -245,7 +251,7 @@ void sendhbmsg()
     bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
 
-   SEND_PRECHARGE_HB(q_tx_can, imd_status, orion_error);
+   SEND_PRECHARGE_HB(imd_status, orion_error);
 }
 
 
@@ -306,24 +312,65 @@ void monitorStatus()
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   uint8_t stat = bms_err | imd_err;
+   uint8_t stat = bms_err;
    if (bms_daq_override) stat = bms_daq_stat;
    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }
 
 
 // *** Compulsory CAN Tx/Rx callbacks ***
-void canTxUpdate()
+/* CAN Message Handling */
+void canTxSendToBack(CanMsgTypeDef_t *msg)
 {
-   CanMsgTypeDef_t tx_msg;
-   if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-   {
-       PHAL_txCANMessage(&tx_msg);
-   }
+    if (msg->IDE == 1)
+    {
+        // extended id, check hlp
+        switch((msg->ExtId >> 26) & 0b111)
+        {
+            case 0:
+            case 1:
+                qSendToBack(&q_tx_can_0, msg);
+                break;
+            case 2:
+            case 3:
+                qSendToBack(&q_tx_can_1, msg);
+                break;
+            default:
+                qSendToBack(&q_tx_can_2, msg);
+                break;
+        }
+    }
+    else
+    {
+        qSendToBack(&q_tx_can_0, &msg);
+}
 }
 
-
-
+void canTxUpdate(void)
+{
+    CanMsgTypeDef_t tx_msg;
+    if(PHAL_txMailboxFree(CAN1, 0))
+    {
+        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 0);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 1))
+    {
+        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 1);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 2))
+    {
+        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 2);
+        }
+    }
+}
 
 void CAN1_RX0_IRQHandler()
 {

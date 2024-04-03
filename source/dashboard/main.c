@@ -161,14 +161,21 @@ void pollDashboardInput();
 void sendBrakeStatus();
 
 // Communication queues
-q_handle_t q_tx_can;
+/**
+ * q_tx_can_0 -> hlp [0,1] -> mailbox 1
+ * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
+ * q_tx_can_2 -> hlp [4,5] -> mailbox 3
+*/
+q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
 q_handle_t q_rx_can;
 q_handle_t q_tx_usart;
 
 int main (void){
 
     /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
@@ -192,7 +199,7 @@ int main (void){
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can, ID_FAULT_SYNC_DASHBOARD);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_DASHBOARD);
 
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
@@ -211,7 +218,6 @@ int main (void){
     taskCreate(pollDashboardInput, 25);
     taskCreate(heartBeatTask, 100);
     taskCreate(update_data_pages, 200);
-    taskCreate(sendBrakeStatus, 500);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
     taskCreateBackground(usartTxUpdate);
@@ -256,7 +262,7 @@ void preflightChecks(void) {
         case 3:
             /* Module Initialization */
             initCANParse(&q_rx_can);
-            if (daqInit(&q_tx_can))
+            if (daqInit(&q_tx_can_2))
                 HardFault_Handler();
             break;
         case 4:
@@ -485,13 +491,57 @@ void usartTxUpdate()
     }
 }
 
-void canTxUpdate()
+/* CAN Message Handling */
+void canTxSendToBack(CanMsgTypeDef_t *msg)
 {
-   CanMsgTypeDef_t tx_msg;
-   if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-   {
-       PHAL_txCANMessage(&tx_msg);
-   }
+    if (msg->IDE == 1)
+    {
+        // extended id, check hlp
+        switch((msg->ExtId >> 26) & 0b111)
+        {
+            case 0:
+            case 1:
+                qSendToBack(&q_tx_can_0, msg);
+                break;
+            case 2:
+            case 3:
+                qSendToBack(&q_tx_can_1, msg);
+                break;
+            default:
+                qSendToBack(&q_tx_can_2, msg);
+                break;
+        }
+    }
+    else
+    {
+        qSendToBack(&q_tx_can_0, &msg);
+}
+}
+
+void canTxUpdate(void)
+{
+    CanMsgTypeDef_t tx_msg;
+    if(PHAL_txMailboxFree(CAN1, 0))
+    {
+        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 0);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 1))
+    {
+        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 1);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 2))
+    {
+        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 2);
+        }
+    }
 }
 
 void CAN1_RX0_IRQHandler()
@@ -550,8 +600,8 @@ void pollDashboardInput()
     upButtonBuffer <<= 1;
     if (PHAL_readGPIO(GPIOD, 14) == 0)
     {
-        upButtonBuffer |= 1; 
-    }    
+        upButtonBuffer |= 1;
+    }
     upButtonBuffer &= 0b00011111;
     if (upButtonBuffer == 0b00000001)
     {
@@ -561,7 +611,7 @@ void pollDashboardInput()
     downButtonBuffer <<= 1;
     if (PHAL_readGPIO(GPIOD, 13) == 0)
     {
-        downButtonBuffer |= 1; 
+        downButtonBuffer |= 1;
     }
     downButtonBuffer &= 0b00011111;
     if (downButtonBuffer == 0b00000001)
@@ -578,7 +628,7 @@ void pollDashboardInput()
     // Check for Start Button Pressed
     if (dashboard_input & (1U << DASH_INPUT_START_BUTTON))
     {
-        SEND_START_BUTTON(q_tx_can, 1);                     // Report start button pressed
+        SEND_START_BUTTON(1);                     // Report start button pressed
         dashboard_input &= ~(1U << DASH_INPUT_START_BUTTON);
     }
 
@@ -612,12 +662,6 @@ void pollDashboardInput()
         selectItem();
         dashboard_input &= ~(1U << DASH_INPUT_SELECT_BUTTON);
     }
-}
-
-void sendBrakeStatus()
-{
-    uint8_t isBrakeFailure = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
-    SEND_DASHBOARD_BRAKE_STATUS(q_tx_can, isBrakeFailure);                  
 }
 
 void HardFault_Handler()

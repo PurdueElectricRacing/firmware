@@ -14,42 +14,40 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
+#include "main.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Main_Module"
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_MAIN_HB 0x4001901
-#define ID_TORQUE_REQUEST_MAIN 0x4000041
-#define ID_COOLANT_TEMPS 0x4000881
+#define ID_MAIN_HB 0xc001901
+#define ID_COOLANT_TEMPS 0x10000881
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
-#define ID_VOLTAGE_RAILS 0x10001901
-#define ID_PRECHARGE_STATE 0x8001881
-#define ID_CURRENT_MEAS 0x10001941
 #define ID_MCU_STATUS 0x10001981
 #define ID_NUM_MC_SKIPS 0x10001b81
-#define ID_REAR_MC_STATUS 0x4001941
-#define ID_REAR_MOTOR_CURRENTS_TEMPS 0xc0002c1
+#define ID_REAR_MC_STATUS 0x10001941
+#define ID_REAR_MOTOR_CURRENTS_VOLTS 0x100002c1
 #define ID_SDC_STATUS 0xc000381
-#define ID_REAR_CONTROLLER_TEMPS 0xc000301
-#define ID_REAR_WHEEL_SPEEDS 0x8000381
+#define ID_REAR_MOTOR_TEMPS 0x10000301
+#define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
-#define ID_RAW_THROTTLE_BRAKE 0x14000285
+#define ID_RAW_THROTTLE_BRAKE 0x10000285
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
-#define ID_DASHBOARD_HB 0x4001905
-#define ID_MAX_CELL_TEMP 0x404e604
+#define ID_MAX_CELL_TEMP 0xc04e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_THROTTLE_REMAPPED 0xc0025b7
+#define ID_THROTTLE_REMAPPED 0x40025b7
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_FAULT_SYNC_PDU 0x8cadf
-#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_THROTTLE_VCU 0x40025f7
+#define ID_FAULT_SYNC_PDU 0x8cb1f
+#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_MAIN_MODULE 0x14000072
@@ -58,34 +56,31 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB 2
-#define DLC_TORQUE_REQUEST_MAIN 8
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
-#define DLC_VOLTAGE_RAILS 8
-#define DLC_PRECHARGE_STATE 4
-#define DLC_CURRENT_MEAS 7
 #define DLC_MCU_STATUS 5
 #define DLC_NUM_MC_SKIPS 4
 #define DLC_REAR_MC_STATUS 6
-#define DLC_REAR_MOTOR_CURRENTS_TEMPS 8
+#define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_SDC_STATUS 2
-#define DLC_REAR_CONTROLLER_TEMPS 2
+#define DLC_REAR_MOTOR_TEMPS 4
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
-#define DLC_DASHBOARD_HB 1
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_THROTTLE_REMAPPED 4
 #define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_THROTTLE_VCU 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -94,74 +89,38 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_MAIN_HB(queue, car_state_, precharge_state_) do {\
+#define SEND_MAIN_HB(car_state_, precharge_state_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_HB, .DLC=DLC_MAIN_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->main_hb.car_state = car_state_;\
         data_a->main_hb.precharge_state = precharge_state_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TORQUE_REQUEST_MAIN(queue, front_left_, front_right_, rear_left_, rear_right_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUE_REQUEST_MAIN, .DLC=DLC_TORQUE_REQUEST_MAIN, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->torque_request_main.front_left = front_left_;\
-        data_a->torque_request_main.front_right = front_right_;\
-        data_a->torque_request_main.rear_left = rear_left_;\
-        data_a->torque_request_main.rear_right = rear_right_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_COOLANT_TEMPS(queue, battery_in_temp_, battery_out_temp_, drivetrain_in_temp_, drivetrain_out_temp_) do {\
+#define SEND_COOLANT_TEMPS(battery_in_temp_, battery_out_temp_, drivetrain_in_temp_, drivetrain_out_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_COOLANT_TEMPS, .DLC=DLC_COOLANT_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->coolant_temps.battery_in_temp = battery_in_temp_;\
         data_a->coolant_temps.battery_out_temp = battery_out_temp_;\
         data_a->coolant_temps.drivetrain_in_temp = drivetrain_in_temp_;\
         data_a->coolant_temps.drivetrain_out_temp = drivetrain_out_temp_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_GEARBOX(queue, l_temp_, r_temp_) do {\
+#define SEND_GEARBOX(l_temp_, r_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GEARBOX, .DLC=DLC_GEARBOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gearbox.l_temp = l_temp_;\
         data_a->gearbox.r_temp = r_temp_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_LWS_CONFIG(queue, CCW_, Reserved_1_, Reserved_2_) do {\
+#define SEND_LWS_CONFIG(CCW_, Reserved_1_, Reserved_2_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_VOLTAGE_RAILS(queue, LV24_, LV12_, LV5_, LV3V3_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VOLTAGE_RAILS, .DLC=DLC_VOLTAGE_RAILS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->voltage_rails.LV24 = LV24_;\
-        data_a->voltage_rails.LV12 = LV12_;\
-        data_a->voltage_rails.LV5 = LV5_;\
-        data_a->voltage_rails.LV3V3 = LV3V3_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_PRECHARGE_STATE(queue, v_mc_, v_bat_, precharge_complete_, precharge_error_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PRECHARGE_STATE, .DLC=DLC_PRECHARGE_STATE, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->precharge_state.v_mc = v_mc_;\
-        data_a->precharge_state.v_bat = v_bat_;\
-        data_a->precharge_state.precharge_complete = precharge_complete_;\
-        data_a->precharge_state.precharge_error = precharge_error_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_CURRENT_MEAS(queue, LV24_I_, LV5_I_, MCU_TEMP_, LV3V3_PG_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CURRENT_MEAS, .DLC=DLC_CURRENT_MEAS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->current_meas.LV24_I = LV24_I_;\
-        data_a->current_meas.LV5_I = LV5_I_;\
-        data_a->current_meas.MCU_TEMP = MCU_TEMP_;\
-        data_a->current_meas.LV3V3_PG = LV3V3_PG_;\
-        qSendToBack(&queue, &msg);\
-    } while(0)
-#define SEND_MCU_STATUS(queue, sched_skips_, foreground_use_, background_use_, sched_error_, can_tx_fails_) do {\
+#define SEND_MCU_STATUS(sched_skips_, foreground_use_, background_use_, sched_error_, can_tx_fails_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MCU_STATUS, .DLC=DLC_MCU_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->mcu_status.sched_skips = sched_skips_;\
@@ -169,16 +128,16 @@
         data_a->mcu_status.background_use = background_use_;\
         data_a->mcu_status.sched_error = sched_error_;\
         data_a->mcu_status.can_tx_fails = can_tx_fails_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_NUM_MC_SKIPS(queue, noise_r_, noise_l_) do {\
+#define SEND_NUM_MC_SKIPS(noise_r_, noise_l_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_MC_SKIPS, .DLC=DLC_NUM_MC_SKIPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->num_mc_skips.noise_r = noise_r_;\
         data_a->num_mc_skips.noise_l = noise_l_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_MC_STATUS(queue, rear_left_motor_, rear_left_motor_link_, rear_left_last_link_error_, rear_right_motor_, rear_right_motor_link_, rear_right_last_link_error_) do {\
+#define SEND_REAR_MC_STATUS(rear_left_motor_, rear_left_motor_link_, rear_left_last_link_error_, rear_right_motor_, rear_right_motor_link_, rear_right_last_link_error_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MC_STATUS, .DLC=DLC_REAR_MC_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_mc_status.rear_left_motor = rear_left_motor_;\
@@ -187,19 +146,17 @@
         data_a->rear_mc_status.rear_right_motor = rear_right_motor_;\
         data_a->rear_mc_status.rear_right_motor_link = rear_right_motor_link_;\
         data_a->rear_mc_status.rear_right_last_link_error = rear_right_last_link_error_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_MOTOR_CURRENTS_TEMPS(queue, left_current_, right_current_, left_temp_, right_temp_, right_voltage_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_CURRENTS_TEMPS, .DLC=DLC_REAR_MOTOR_CURRENTS_TEMPS, .IDE=1};\
+#define SEND_REAR_MOTOR_CURRENTS_VOLTS(left_current_, right_current_, right_voltage_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_CURRENTS_VOLTS, .DLC=DLC_REAR_MOTOR_CURRENTS_VOLTS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_motor_currents_temps.left_current = left_current_;\
-        data_a->rear_motor_currents_temps.right_current = right_current_;\
-        data_a->rear_motor_currents_temps.left_temp = left_temp_;\
-        data_a->rear_motor_currents_temps.right_temp = right_temp_;\
-        data_a->rear_motor_currents_temps.right_voltage = right_voltage_;\
-        qSendToBack(&queue, &msg);\
+        data_a->rear_motor_currents_volts.left_current = left_current_;\
+        data_a->rear_motor_currents_volts.right_current = right_current_;\
+        data_a->rear_motor_currents_volts.right_voltage = right_voltage_;\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SDC_STATUS(queue, IMD_, BMS_, BSPD_, BOTS_, inertia_, c_estop_, main_, r_estop_, l_estop_, HVD_, hub_, TSMS_, pchg_out_) do {\
+#define SEND_SDC_STATUS(IMD_, BMS_, BSPD_, BOTS_, inertia_, c_estop_, main_, r_estop_, l_estop_, HVD_, hub_, TSMS_, pchg_out_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SDC_STATUS, .DLC=DLC_SDC_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->sdc_status.IMD = IMD_;\
@@ -215,49 +172,51 @@
         data_a->sdc_status.hub = hub_;\
         data_a->sdc_status.TSMS = TSMS_;\
         data_a->sdc_status.pchg_out = pchg_out_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_CONTROLLER_TEMPS(queue, left_temp_, right_temp_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_CONTROLLER_TEMPS, .DLC=DLC_REAR_CONTROLLER_TEMPS, .IDE=1};\
+#define SEND_REAR_MOTOR_TEMPS(left_mot_temp_, right_mot_temp_, left_ctrl_temp_, right_ctrl_temp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_TEMPS, .DLC=DLC_REAR_MOTOR_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_controller_temps.left_temp = left_temp_;\
-        data_a->rear_controller_temps.right_temp = right_temp_;\
-        qSendToBack(&queue, &msg);\
+        data_a->rear_motor_temps.left_mot_temp = left_mot_temp_;\
+        data_a->rear_motor_temps.right_mot_temp = right_mot_temp_;\
+        data_a->rear_motor_temps.left_ctrl_temp = left_ctrl_temp_;\
+        data_a->rear_motor_temps.right_ctrl_temp = right_ctrl_temp_;\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_WHEEL_SPEEDS(queue, left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
+#define SEND_REAR_WHEEL_SPEEDS(left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_wheel_speeds.left_speed_mc = left_speed_mc_;\
         data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
         data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_FAULT_SYNC_MAIN_MODULE(queue, idx_, latched_) do {\
+#define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_MAIN_MODULE, .DLC=DLC_FAULT_SYNC_MAIN_MODULE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->fault_sync_main_module.idx = idx_;\
         data_a->fault_sync_main_module.latched = latched_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_MAIN_MODULE(queue, daq_response_) do {\
+#define SEND_DAQ_RESPONSE_MAIN_MODULE(daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_MAIN_MODULE, .DLC=DLC_DAQ_RESPONSE_MAIN_MODULE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->daq_response_MAIN_MODULE.daq_response = daq_response_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
-#define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
+#define STALE_THRESH 5 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_RAW_THROTTLE_BRAKE 15
 #define UP_FILT_THROTTLE_BRAKE 15
-#define UP_DASHBOARD_HB 100
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
 #define UP_THROTTLE_REMAPPED 15
 #define UP_ORION_CURRENTS_VOLTS 32
+#define UP_THROTTLE_VCU 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -333,12 +292,6 @@ typedef union {
         uint64_t precharge_state: 1;
     } main_hb;
     struct {
-        uint64_t front_left: 16;
-        uint64_t front_right: 16;
-        uint64_t rear_left: 16;
-        uint64_t rear_right: 16;
-    } torque_request_main;
-    struct {
         uint64_t battery_in_temp: 8;
         uint64_t battery_out_temp: 8;
         uint64_t drivetrain_in_temp: 8;
@@ -353,24 +306,6 @@ typedef union {
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
     } LWS_Config;
-    struct {
-        uint64_t LV24: 16;
-        uint64_t LV12: 16;
-        uint64_t LV5: 16;
-        uint64_t LV3V3: 16;
-    } voltage_rails;
-    struct {
-        uint64_t v_mc: 12;
-        uint64_t v_bat: 12;
-        uint64_t precharge_complete: 1;
-        uint64_t precharge_error: 1;
-    } precharge_state;
-    struct {
-        uint64_t LV24_I: 16;
-        uint64_t LV5_I: 16;
-        uint64_t MCU_TEMP: 16;
-        uint64_t LV3V3_PG: 1;
-    } current_meas;
     struct {
         uint64_t sched_skips: 8;
         uint64_t foreground_use: 8;
@@ -393,10 +328,8 @@ typedef union {
     struct {
         uint64_t left_current: 16;
         uint64_t right_current: 16;
-        uint64_t left_temp: 8;
-        uint64_t right_temp: 8;
         uint64_t right_voltage: 16;
-    } rear_motor_currents_temps;
+    } rear_motor_currents_volts;
     struct {
         uint64_t IMD: 1;
         uint64_t BMS: 1;
@@ -413,9 +346,11 @@ typedef union {
         uint64_t pchg_out: 1;
     } sdc_status;
     struct {
-        uint64_t left_temp: 8;
-        uint64_t right_temp: 8;
-    } rear_controller_temps;
+        uint64_t left_mot_temp: 8;
+        uint64_t right_mot_temp: 8;
+        uint64_t left_ctrl_temp: 8;
+        uint64_t right_ctrl_temp: 8;
+    } rear_motor_temps;
     struct {
         uint64_t left_speed_mc: 16;
         uint64_t right_speed_mc: 16;
@@ -444,11 +379,6 @@ typedef union {
         uint64_t start: 1;
     } start_button;
     struct {
-        uint64_t apps_faulted: 1;
-        uint64_t bse_faulted: 1;
-        uint64_t apps_brake_faulted: 1;
-    } dashboard_hb;
-    struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
     struct {
@@ -465,13 +395,17 @@ typedef union {
         uint64_t data: 32;
     } main_module_bl_cmd;
     struct {
-        uint64_t remap_k_rl: 16;
-        uint64_t remap_k_rr: 16;
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
     } throttle_remapped;
     struct {
         uint64_t pack_current: 16;
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
+    struct {
+        uint64_t vcu_r_rl: 16;
+        uint64_t vcu_r_rr: 16;
+    } throttle_vcu;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -484,6 +418,10 @@ typedef union {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_a_box;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_torque_vector;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -525,13 +463,6 @@ typedef struct {
         uint8_t start;
     } start_button;
     struct {
-        uint8_t apps_faulted;
-        uint8_t bse_faulted;
-        uint8_t apps_brake_faulted;
-        uint8_t stale;
-        uint32_t last_rx;
-    } dashboard_hb;
-    struct {
         int16_t max_temp;
         uint8_t stale;
         uint32_t last_rx;
@@ -552,8 +483,8 @@ typedef struct {
         uint32_t data;
     } main_module_bl_cmd;
     struct {
-        int16_t remap_k_rl;
-        int16_t remap_k_rr;
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
         uint8_t stale;
         uint32_t last_rx;
     } throttle_remapped;
@@ -563,6 +494,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } orion_currents_volts;
+    struct {
+        int16_t vcu_r_rl;
+        int16_t vcu_r_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
     struct {
         uint16_t idx;
         uint8_t latched;
@@ -575,6 +512,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
     struct {
         uint16_t idx;
         uint8_t latched;

@@ -86,12 +86,12 @@ typedef struct
     uint32_t      rx_timeout;                       // Dynamically set timeout to determine connection status
 
     // Motor outputs
-    uint16_t      voltage_x10;
-    uint16_t      current_x10;
-    uint16_t      curr_power_x10;                   // Last torque command percent output sent x10
+    uint32_t      voltage_x10;
+    uint32_t      current_x10;
+    uint32_t      curr_power_x10;                   // Last torque command percent output sent x10
     uint32_t      rpm;
-    uint8_t       controller_temp;
-    uint8_t       motor_temp;
+    uint32_t       controller_temp;
+    uint32_t       motor_temp;
 
     // Communications
     q_handle_t   *tx_queue;                         // FIFO for tx commands to be sent via DMA

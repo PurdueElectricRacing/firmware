@@ -123,49 +123,56 @@ void daq_loop(void)
         //--------------------------------
         // Message Tx
         //--------------------------------
-        if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+
+        if (PHAL_txMailboxFree(CAN1, 0))
         {
-            // File Write
-            // CAN Send
-            // TODO: monitor if send failed, possibly re-try after waiting
-            PHAL_txCANMessage(&tx_msg);
+            if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+            {
+                // File Write
+                // CAN Send
+                // TODO: monitor if send failed, possibly re-try after waiting
+                PHAL_txCANMessage(&tx_msg, 0);
+            }
         }
         eth_rx_tcp_periodic();
         // TODO: flow control, multiple at once?
 
         // Pull frame and send from tcp rx buffer
-        if (bGetTailForRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, (void**) &rx_msg_a, &cont) == 0)
+        if (PHAL_txMailboxFree(CAN1, 1))
         {
-            if ((cont / sizeof(*rx_msg_a)) > 0)
+            if (bGetTailForRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, (void**) &rx_msg_a, &cont) == 0)
             {
-                // NOTE: if the buffer size is not multiple of frame size, or the tail gets shifted
-                // by a frame, reception of frames will not work on the wrap-around.
-                cont = MIN(cont / sizeof(*rx_msg_a), TCP_MAX_CAN_TX_COUNT); // flow control
-                for (uint32_t i = 0; i < cont; ++i)
+                if ((cont / sizeof(*rx_msg_a)) > 0)
                 {
-                    switch(rx_msg_a->cmd)
+                    // NOTE: if the buffer size is not multiple of frame size, or the tail gets shifted
+                    // by a frame, reception of frames will not work on the wrap-around.
+                    cont = MIN(cont / sizeof(*rx_msg_a), TCP_MAX_CAN_TX_COUNT); // flow control
+                    for (uint32_t i = 0; i < cont; ++i)
                     {
-                        case TCP_CMD_CAN_FRAME:
-                            conv_tcp_frame_to_can_msg(rx_msg_a, &tx_msg);
-                            PHAL_txCANMessage(&tx_msg);
-                            break;
-                        case TCP_CMD_START_LOG:
-                            dh.log_enable_tcp = true;
-                            break;
-                        case TCP_CMD_STOP_LOG:
-                            dh.log_enable_tcp = false;
-                            break;
-                        case TCP_CMD_SYNC_TIME:
-                            // Extract time from message and configure RTC 
-                            conv_tcp_frame_to_rtc(rx_msg_a, &time);
-                            PHAL_configureRTC(&time, true);
-                            break;
-                        default:
-                            break;
+                        switch(rx_msg_a->cmd)
+                        {
+                            case TCP_CMD_CAN_FRAME:
+                                conv_tcp_frame_to_can_msg(rx_msg_a, &tx_msg);
+                                PHAL_txCANMessage(&tx_msg, 1);
+                                break;
+                            case TCP_CMD_START_LOG:
+                                dh.log_enable_tcp = true;
+                                break;
+                            case TCP_CMD_STOP_LOG:
+                                dh.log_enable_tcp = false;
+                                break;
+                            case TCP_CMD_SYNC_TIME:
+                                // Extract time from message and configure RTC 
+                                conv_tcp_frame_to_rtc(rx_msg_a, &time);
+                                PHAL_configureRTC(&time, true);
+                                break;
+                            default:
+                                break;
+                        }
+                        ++rx_msg_a;
                     }
-                    ++rx_msg_a;
+                    bCommitRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, cont*sizeof(*rx_msg_a));
                 }
-                bCommitRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, cont*sizeof(*rx_msg_a));
             }
         }
 

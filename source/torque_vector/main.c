@@ -5,18 +5,27 @@
 #include "common/phal_F4_F7/spi/spi.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/usart/usart.h"
+#include "common/faults/faults.h"
+#include "common/common_defs/common_defs.h"
 
 /* Module Includes */
-#include "bmi088.h"
-#include "can_parse.h"
-#include "bsxlite_interface.h"
-#include "imu.h"
 #include "main.h"
-#include "gps.h"
-#include "SFS.h"
-#include "sfs_pp.h"
+#include "source/torque_vector/can/can_parse.h"
 
-extern q_handle_t q_tx_can;
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
 
 uint8_t collect_test[100] = {0};
 
@@ -103,6 +112,7 @@ SPI_InitConfig_t spi_config = {
 GPS_Handle_t GPSHandle = {};
 vector_3d_t accel_in, gyro_in, mag_in;
 
+
 BMI088_Handle_t bmi_config = {
     .accel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
     .accel_csb_pin = SPI_CS_ACEL_Pin,
@@ -125,22 +135,48 @@ void heartBeatLED(void);
 void preflightAnimation(void);
 void preflightChecks(void);
 void sendIMUData(void);
-void collectGPSData(void);
+void collectIMUData(void);
+void VCU_MAIN(void);
 extern void HardFault_Handler(void);
-q_handle_t q_tx_can, q_rx_can;
+/**
+ * q_tx_can_0 -> hlp [0,1] -> mailbox 1
+ * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
+ * q_tx_can_2 -> hlp [4,5] -> mailbox 3
+*/
+q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
+q_handle_t q_rx_can;
 
-/* SFS Definitions */
-static ExtU rtU; /* External inputs */
-static ExtY rtY; /* External outputs */
-static RT_MODEL rtM_;
-static RT_MODEL *const rtMPtr = &rtM_; /* Real-time model */
-static DW rtDW;                        /* Observable states */
-static RT_MODEL *const rtM = rtMPtr;
+/* Torque Vectoring Definitions */
+static ExtU_tv rtU_tv; /* External inputs */
+static ExtY_tv rtY_tv; /* External outputs */
+static RT_MODEL_tv rtM_tvv;
+static RT_MODEL_tv *const rtMPtr_tv = &rtM_tvv; /* Real-time model */
+static DW_tv rtDW_tv;                        /* Observable states */
+static RT_MODEL_tv *const rtM_tv = rtMPtr_tv;
+static int16_t tv_timing;
+
+/* Engine Map Definitions */
+static ExtU_em rtU_em; /* External inputs */
+static ExtY_em rtY_em; /* External outputs */
+static RT_MODEL_em rtM_emv;
+static RT_MODEL_em *const rtMPtr_em = &rtM_emv; /* Real-time model */
+static DW_em rtDW_em;                           /* Observable states */
+static RT_MODEL_em *const rtM_em = rtMPtr_em;
+static int16_t em_timing;
+
+/* Moving Median Definition */
+static vec_accumulator vec_mm; /* Vector of Accumulation */
+static int16_T ac_counter; /* Number of data points collected */
+static bool TV_Calibrated = true; /* Flag Indicating if TV is calibrated */
+static int16_T gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 int main(void)
+
 {
     /* Data Struct Initialization */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
     /* HAL Initialization */
@@ -163,9 +199,11 @@ int main(void)
     taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
+    taskCreate(heartBeatTask, 100);
 
     taskCreate(sendIMUData, 10);
-    taskCreate(collectGPSData, 40);
+    taskCreate(collectIMUData, 10);
+    taskCreate(VCU_MAIN,15);
 
     /* No Way Home */
     schedStart();
@@ -198,6 +236,9 @@ void preflightChecks(void)
         PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
         PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
     break;
+    case 5:
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
     case 1:
         /* SPI initialization */
         if (!PHAL_SPI_init(&spi_config))
@@ -224,11 +265,20 @@ void preflightChecks(void)
             HardFault_Handler();
         break;
     case 700:
-        /* Pack model data into RTM */
-        rtM->dwork = &rtDW;
+        /* Pack torque vectoring data into rtM_tv */
+        rtM_tv->dwork = &rtDW_tv;
 
-        /* Initialize model */
-        SFS_initialize(rtM);
+        /* Initialize Torque Vectoring */
+        tv_initialize(rtM_tv);
+
+        /* Initialize TV IO */
+        tv_IO_initialize(&rtU_tv);
+
+        /* Pack Engine map data into rtM_em */
+        rtM_em->dwork = &rtDW_em;
+
+        /* Initialize Engine Map */
+        em_initialize(rtM_em);
     default:
         if (state > 750)
         {
@@ -266,6 +316,7 @@ void preflightAnimation(void)
         break;
     }
 }
+
 void heartBeatLED(void)
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
@@ -277,27 +328,82 @@ void heartBeatLED(void)
 
 void sendIMUData(void)
 {
-    imu_periodic(&imu_h, &rtU);
+    imu_periodic(&imu_h);
 }
 
-uint8_t poll_pvt[] = {"0xB5, 0x62, 0x01, 0x07, 0x00, 0x00, 0x08, 0x19"};
-
-// Periodic function to collect IMU data
-void collectGPSData(void)
+void collectIMUData(void)
 {
     GPSHandle.messages_received++;
     BMI088_readGyro(&bmi_config, &gyro_in);
     BMI088_readAccel(&bmi_config, &accel_in);
     GPSHandle.acceleration = accel_in;
     GPSHandle.gyroscope = gyro_in;
+
+    /* Update Gyro OK flag */
+    if (gyro_counter == 150){
+        GPSHandle.gyro_OK = BMI088_gyroOK(&bmi_config);
+        gyro_counter = 0;
+    } else {
+        ++gyro_counter;
+    }
+}
+
+void usart_recieve_complete_callback(usart_init_t *handle)
+{
+   parseVelocity(&GPSHandle);
+}
+
+/* CAN Message Handling */
+
+void canTxSendToBack(CanMsgTypeDef_t *msg)
+{
+    if (msg->IDE == 1)
+    {
+        // extended id, check hlp
+        switch((msg->ExtId >> 26) & 0b111)
+        {
+            case 0:
+            case 1:
+                qSendToBack(&q_tx_can_0, msg);
+                break;
+            case 2:
+            case 3:
+                qSendToBack(&q_tx_can_1, msg);
+                break;
+            default:
+                qSendToBack(&q_tx_can_2, msg);
+                break;
+        }
+    }
+    else
+    {
+        qSendToBack(&q_tx_can_0, &msg);
+}
 }
 
 void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
-    if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G) // Check queue for items and take if there is one
+    if(PHAL_txMailboxFree(CAN1, 0))
     {
-        PHAL_txCANMessage(&tx_msg);
+        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 0);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 1))
+    {
+        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 1);
+        }
+    }
+    if(PHAL_txMailboxFree(CAN1, 2))
+    {
+        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+        {
+            PHAL_txCANMessage(&tx_msg, 2);
+        }
     }
 }
 
@@ -342,52 +448,65 @@ void CAN1_RX0_IRQHandler()
     }
 }
 
-void usart_recieve_complete_callback(usart_init_t *handle)
+void VCU_MAIN(void)
 {
-   parseVelocity(&GPSHandle, &rtU);
-}
+    /* Check if not driving */
+    /* If Energized -> Accumulate Acceleration Vector */
+    /* If R2D -> Do TV */
+    /* Else -> Do Nothing */
+    if ((can_data.main_hb.car_state == 2) & (ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
+        /* Accumulate Acceleration Vector */
+        vec_mm.ax[ac_counter] = GPSHandle.acceleration.x;
+        vec_mm.ay[ac_counter] = GPSHandle.acceleration.y;
+        vec_mm.az[ac_counter] = GPSHandle.acceleration.z;
+        ++ac_counter;
 
-void SFS_MAIN(void)
-{
-    SFS_pp(&rtU);
+        /* If length Acceleration Vector > ##, Compute R */
+        if (ac_counter == NUM_ELEM_ACC_CALIBRATION) {
+            ac_compute_R(vec_mm.ax, vec_mm.ay, vec_mm.az, rtU_tv.R);
+        }
 
-    static boolean_T OverrunFlag = false;
+    } else if ((can_data.main_hb.car_state == 4)) {
+        TV_Calibrated = (ac_counter == NUM_ELEM_ACC_CALIBRATION);
+        /* Populate torque vectoring inputs */
+        tv_pp(&rtU_tv, &GPSHandle);
 
-    /* Disable interrupts here */
+        /* Step torque vectoring */
+        tv_timing = sched.os_ticks;
+        tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
+        tv_timing = sched.os_ticks - tv_timing;
 
-    /* Check for overrun */
-    if (OverrunFlag)
-    {
-        rtmSetErrorStatus(rtM, "Overrun");
-        return;
+        /* Populate Engine map inputs */
+        em_pp(&rtU_em, &rtY_tv);
+
+        /* Step Engine map */
+        em_timing = sched.os_ticks;
+        em_step(rtMPtr_em, &rtU_em, &rtY_em);
+        em_timing = sched.os_ticks - em_timing;
     }
 
-    OverrunFlag = true;
+    /* Set Faults */
+    setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
+    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
+    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
-    /* Save FPU context here (if necessary) */
-    /* Re-enable timer or interrupt here */
-    /* Set model inputs here */
+    /* Send Messages */
+    SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095));
+    SEND_THROTTLE_REMAPPED((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095));
 
-    /* Step the model */
-    SFS_step(rtM, &rtU, &rtY);
-    SEND_SFS_POS(q_tx_can, (int16_t)(rtY.pos_VNED[0] * 100),
-                 (int16_t)(rtY.pos_VNED[1] * 100), (int16_t)(rtY.pos_VNED[2] * 100));
-    SEND_SFS_VEL(q_tx_can, (int16_t)(rtY.vel_VNED[0] * 100),
-                 (int16_t)(rtY.vel_VNED[1] * 100), (int16_t)(rtY.vel_VNED[2] * 100));
-    SEND_SFS_ACC(q_tx_can, (int16_t)(rtY.acc_VNED[0] * 100),
-                 (int16_t)(rtY.acc_VNED[1] * 100), (int16_t)(rtY.acc_VNED[2] * 100));
-    SEND_SFS_ANG(q_tx_can, (int16_t)(rtY.ang_NED[0] * 10000),
-                 (int16_t)(rtY.ang_NED[1] * 10000), (int16_t)(rtY.ang_NED[2] * 10000), (int16_t)(rtY.ang_NED[3] * 10000));
-    SEND_SFS_ANG_VEL(q_tx_can, (int16_t)(rtY.angvel_VNED[0] * 10000),
-                     (int16_t)(rtY.angvel_VNED[1] * 10000), (int16_t)(rtY.angvel_VNED[2] * 10000));
-    /* Get model outputs here */
+    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),
+                    (int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
+    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),
+                     (int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
 
-    /* Indicate task complete */
-    OverrunFlag = false;
+    SEND_MAXR((int16_t)(rtY_tv.max_K*100));
 
-    /* Disable interrupts here */
-    /* Restore FPU context here (if necessary) */
-    /* Enable interrupts here */
+    //SEND_SFS_POS((int16_t)(rtY.pos_VNED[0] * 100),
+    //             (int16_t)(rtY.pos_VNED[1] * 100), (int16_t)(rtY.pos_VNED[2] * 100));
+    //SEND_SFS_VEL((int16_t)(rtY.vel_VNED[0] * 100),
+    //             (int16_t)(rtY.vel_VNED[1] * 100), (int16_t)(rtY.vel_VNED[2] * 100));
+    //SEND_SFS_ANG((int16_t)(rtY.ang_NED[0] * 10000),
+    //             (int16_t)(rtY.ang_NED[1] * 10000), (int16_t)(rtY.ang_NED[2] * 10000), (int16_t)(rtY.ang_NED[3] * 10000));
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

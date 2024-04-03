@@ -14,7 +14,7 @@ extern uint32_t APB2ClockRateHz;
     if 80hz = 10.666... L/min
 
     Therefore we do not think we need any calibration. 10 ≅ 10.38 and
-    the syringe testing may have been off, plug some leakage with the 
+    the syringe testing may have been off, plug some leakage with the
     flow rate sensor hooked up to the sink
 */
 
@@ -70,6 +70,9 @@ bool flowRateInit()
 
     FLOW_RATE_2_TIM->PSC = 1 - 1;
     FLOW_RATE_2_TIM->ARR = 0xFFFF - 1;
+
+    FLOW_RATE_2_TIM->CCR1 = 0;
+    FLOW_RATE_2_TIM->CCR2 = 0;
 
     /* Set input capture mode */
     FLOW_RATE_2_TIM->CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC1S bits)

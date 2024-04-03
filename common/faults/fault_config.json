@@ -238,7 +238,7 @@
                     "fault_name": "BSPD_latched",
                     "max": 1,
                     "min": 0,
-                    "priority": "fatal",
+                    "priority": "error",
                     "time_to_latch": 400,
                     "time_to_unlatch": 10000,
                     "lcd_message": "BSPD Latched. Restart Car"
@@ -367,8 +367,8 @@
             "faults": [
                 {
                     "fault_name": "APPS_wiring_t1",
-                    "max": 3000,
-                    "min": 200,
+                    "max": 4000,
+                    "min": 100,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -376,8 +376,8 @@
                 },
                 {
                     "fault_name": "APPS_wiring_t2",
-                    "max": 3000,
-                    "min": 200,
+                    "max": 4000,
+                    "min": 100,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -686,6 +686,38 @@
                     "lcd_message": "Poopy! TMU Power Lost!"
                 }
 
+            ]
+        },
+        {
+            "node_name":"torque_vector",
+            "faults": [
+                {
+                    "fault_name": "TV_Disabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "TV Disabled"
+                },
+                {
+                    "fault_name": "TV_uncalibrated",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "TV Uncalibrated"
+                },
+                {
+                    "fault_name": "No_GPS_Fix",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "No GPS Fix"
+                }
             ]
         },
         {

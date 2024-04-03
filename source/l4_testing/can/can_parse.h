@@ -14,6 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
+#include "main.h"
 
 // Make this match the node name within the can_config.json
 
@@ -31,16 +32,17 @@
 #define ID_WHEEL_SPEEDS 0xc0001ff
 #define ID_ADC_VALUES 0x1234
 #define ID_CAR_STATE 0xbeef420
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb3f
+#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
 #define ID_L4_TESTING_BL_CMD 0x409c57e
-#define ID_FAULT_SYNC_PDU 0x8cadf
+#define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DASHBOARD 0x8ca85
+#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
@@ -68,6 +70,7 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
+#define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
 #define DLC_DAQ_COMMAND_TEST_NODE 8
@@ -83,90 +86,90 @@ typedef union {
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_ORION_CURRENTS_VOLTS2(queue, pack_current_, pack_voltage_) do {\
+#define SEND_ORION_CURRENTS_VOLTS2(pack_current_, pack_voltage_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ORION_CURRENTS_VOLTS2, .DLC=DLC_ORION_CURRENTS_VOLTS2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->orion_currents_volts2.pack_current = pack_current_;\
         data_a->orion_currents_volts2.pack_voltage = pack_voltage_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_PACK_CHARGE_STATUS2(queue, power_, charge_enable_, voltage_, current_) do {\
+#define SEND_PACK_CHARGE_STATUS2(power_, charge_enable_, voltage_, current_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PACK_CHARGE_STATUS2, .DLC=DLC_PACK_CHARGE_STATUS2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pack_charge_status2.power = power_;\
         data_a->pack_charge_status2.charge_enable = charge_enable_;\
         data_a->pack_charge_status2.voltage = voltage_;\
         data_a->pack_charge_status2.current = current_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TEST_MSG(queue, test_sig_) do {\
+#define SEND_TEST_MSG(test_sig_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG, .DLC=DLC_TEST_MSG, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->test_msg.test_sig = test_sig_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TEST_MSG2(queue, test_sig2_) do {\
+#define SEND_TEST_MSG2(test_sig2_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG2, .DLC=DLC_TEST_MSG2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->test_msg2.test_sig2 = test_sig2_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TEST_MSG3(queue, test_sig3_) do {\
+#define SEND_TEST_MSG3(test_sig3_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG3, .DLC=DLC_TEST_MSG3, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->test_msg3.test_sig3 = test_sig3_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TEST_MSG4(queue, test_sig4_) do {\
+#define SEND_TEST_MSG4(test_sig4_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG4, .DLC=DLC_TEST_MSG4, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->test_msg4.test_sig4 = test_sig4_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TEST_MSG5(queue, test_sig5_) do {\
+#define SEND_TEST_MSG5(test_sig5_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TEST_MSG5, .DLC=DLC_TEST_MSG5, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->test_msg5.test_sig5 = test_sig5_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_WHEEL_SPEEDS(queue, left_speed_, right_speed_) do {\
+#define SEND_WHEEL_SPEEDS(left_speed_, right_speed_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_WHEEL_SPEEDS, .DLC=DLC_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->wheel_speeds.left_speed = FLOAT_TO_UINT32(left_speed_);\
         data_a->wheel_speeds.right_speed = FLOAT_TO_UINT32(right_speed_);\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_ADC_VALUES(queue, pot1_, pot2_, pot3_) do {\
+#define SEND_ADC_VALUES(pot1_, pot2_, pot3_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ADC_VALUES, .DLC=DLC_ADC_VALUES, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->adc_values.pot1 = pot1_;\
         data_a->adc_values.pot2 = pot2_;\
         data_a->adc_values.pot3 = pot3_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_CAR_STATE(queue, car_state_) do {\
+#define SEND_CAR_STATE(car_state_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_CAR_STATE, .DLC=DLC_CAR_STATE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->car_state.car_state = car_state_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_FAULT_SYNC_TEST_NODE(queue, idx_, latched_) do {\
+#define SEND_FAULT_SYNC_TEST_NODE(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_TEST_NODE, .DLC=DLC_FAULT_SYNC_TEST_NODE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->fault_sync_test_node.idx = idx_;\
         data_a->fault_sync_test_node.latched = latched_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_TEST_NODE(queue, daq_response_) do {\
+#define SEND_DAQ_RESPONSE_TEST_NODE(daq_response_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->daq_response_TEST_NODE.daq_response = daq_response_;\
-        qSendToBack(&queue, &msg);\
+        canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
-#define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
+#define STALE_THRESH 5 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period) in milliseconds*/
 #define UP_TEST_MSG5_2 15
 #define UP_TEST_STALE 1000
@@ -271,6 +274,10 @@ typedef union {
         uint64_t latched: 1;
     } fault_sync_a_box;
     struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
+    } fault_sync_torque_vector;
+    struct {
         uint64_t id: 16;
         uint64_t value: 1;
     } set_fault;
@@ -323,6 +330,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_torque_vector;
     struct {
         uint16_t id;
         uint8_t value;

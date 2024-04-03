@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "gps.h"
-#include "sfs_pp.h"
-#include "SFS.h"
+//#include "sfs_pp.h"
+//#include "SFS.h"
 
 /*
     Instructions on configuring GPS:
@@ -23,10 +23,14 @@
 
 union i_Long iLong;
 union i_Short iShort;
+union u_Long uLong;
 
 extern q_handle_t q_tx_can;
 double checkVelN;
 double checkVelN2;
+signed long prev_iTOW;
+uint16_t counter;
+u_int16_t diff;
 // Nav Message
 GPS_Handle_t gps_handle = {.raw_message = {0},
                            .g_speed = 0,
@@ -50,13 +54,19 @@ GPS_Handle_t gps_handle = {.raw_message = {0},
                            .d_vel_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
                            .d_vel = 0,
                            .d_vel_rounded = 0,
+                           .headVeh_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
+                           .headVeh = 0,
+                           .headVeh_rounded = 0,
                            .mag_dec_bytes = {0xFF, 0xFF},
                            .mag_dec = 0,
                            .fix_type = -1,
+                           .iTOW_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
+                           .iTOW = 0,
+                           .unique_iTOW = true,
                            .messages_received = -1};
 
 // Parse velocity from raw message
-bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
+bool parseVelocity(GPS_Handle_t *GPS)
 {
     // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT
     // Validate the message header, class, and id
@@ -78,7 +88,7 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[67];
             iLong.bytes[2] = GPS->raw_message[68];
             iLong.bytes[3] = GPS->raw_message[69];
-            GPS->g_speed = iLong.iLong;
+            GPS->g_speed = iLong.iLong; /* mm/s is the raw data */
             GPS->speed_rounded = (int16_t)((GPS->g_speed * 100) / 10000);
 
             // Collect Longitude
@@ -90,7 +100,7 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[31];
             iLong.bytes[2] = GPS->raw_message[32];
             iLong.bytes[3] = GPS->raw_message[33];
-            GPS->longitude = iLong.iLong;
+            GPS->longitude = iLong.iLong; /* deg * 10^7 is the raw data */
             GPS->lon_rounded = (int32_t)(GPS->longitude);
 
             // Colect Latitude
@@ -102,7 +112,7 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[35];
             iLong.bytes[2] = GPS->raw_message[36];
             iLong.bytes[3] = GPS->raw_message[37];
-            GPS->latitude = iLong.iLong;
+            GPS->latitude = iLong.iLong; /* deg * 10^7 is the raw data */
             GPS->lat_rounded = (int32_t)(GPS->latitude);
 
             // Collect Height above mean sea level
@@ -114,7 +124,7 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[43];
             iLong.bytes[2] = GPS->raw_message[44];
             iLong.bytes[3] = GPS->raw_message[45];
-            GPS->height = iLong.iLong;
+            GPS->height = iLong.iLong; /* mm is the raw data */
             GPS->height_rounded = (int16_t)((GPS->height * 100) / 10000);
 
             // Collect North Velocity
@@ -126,10 +136,11 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[55];
             iLong.bytes[2] = GPS->raw_message[56];
             iLong.bytes[3] = GPS->raw_message[57];
-            GPS->n_vel = iLong.iLong;
-            GPS->n_vel_rounded = (int16_t)((GPS->n_vel * 100) / 10000);
+            GPS->n_vel = iLong.iLong; /* mm/s is the raw data */
+            GPS->n_vel_rounded = (int16_t)((GPS->n_vel * 100) / 1000);
             GPS->n_vel_sfs1 = (double)(GPS->n_vel);
             GPS->n_vel_sfs2 = (double)GPS->n_vel;
+
             // Collect East Velocity
             GPS->e_vel_bytes[0] = GPS->raw_message[58];
             GPS->e_vel_bytes[1] = GPS->raw_message[59];
@@ -139,8 +150,9 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[59];
             iLong.bytes[2] = GPS->raw_message[60];
             iLong.bytes[3] = GPS->raw_message[61];
-            GPS->e_vel = iLong.iLong;
-            GPS->e_vel_rounded = (int16_t)((GPS->e_vel * 100) / 10000);
+            GPS->e_vel = iLong.iLong; /* mm/s is the raw data */
+            GPS->e_vel_rounded = (int16_t)((GPS->e_vel * 100) / 1000);
+
             // Collect Down Velocity
             GPS->d_vel_bytes[0] = GPS->raw_message[62];
             GPS->d_vel_bytes[1] = GPS->raw_message[63];
@@ -150,20 +162,46 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
             iLong.bytes[1] = GPS->raw_message[63];
             iLong.bytes[2] = GPS->raw_message[64];
             iLong.bytes[3] = GPS->raw_message[65];
-            GPS->d_vel = iLong.iLong;
-            GPS->d_vel_rounded = (int16_t)((GPS->d_vel * 100) / 10000);
+            GPS->d_vel = iLong.iLong; /* mm/s is the raw data */
+            GPS->d_vel_rounded = (int16_t)((GPS->d_vel * 100) / 1000);
 
-            rtU->vel[0] = CLAMP(((double)GPS->n_vel) * VEL_CALIBRATION, MIN_POS, MAX_POS);
-            rtU->vel[1] = CLAMP(((double)GPS->e_vel) * VEL_CALIBRATION, MIN_POS, MAX_POS);
-            rtU->vel[2] = CLAMP(((double)GPS->d_vel) * VEL_CALIBRATION, MIN_POS, MAX_POS);
+            // Collect Vehicle Heading of Motion
+            GPS->headVeh_bytes[0] = GPS->raw_message[70];
+            GPS->headVeh_bytes[1] = GPS->raw_message[71];
+            GPS->headVeh_bytes[2] = GPS->raw_message[72];
+            GPS->headVeh_bytes[3] = GPS->raw_message[73];
+            iLong.bytes[0] = GPS->raw_message[70];
+            iLong.bytes[1] = GPS->raw_message[71];
+            iLong.bytes[2] = GPS->raw_message[72];
+            iLong.bytes[3] = GPS->raw_message[73];
+            GPS->headVeh = iLong.iLong; /* deg * 10^5 is the raw data */
+            GPS->headVeh_rounded = (int16_t)(GPS->headVeh / 10000); /* deg * 10^1 */
 
-            rtU->pos[0] = CLAMP(((double)GPS->latitude) * POS_DEG_CALIBRATION, MIN_VEL, MAX_VEL);
-            rtU->pos[1] = CLAMP(((double)GPS->longitude) * POS_DEG_CALIBRATION, MIN_VEL, MAX_VEL);
-            rtU->pos[2] = CLAMP(((double)GPS->height) * POS_H_CALIBRATION, MIN_VEL, MAX_VEL);
+            // Collect iTOW (Time of Week)
+            GPS->iTOW_bytes[0] = GPS->raw_message[6];
+            GPS->iTOW_bytes[1] = GPS->raw_message[7];
+            GPS->iTOW_bytes[2] = GPS->raw_message[8];
+            GPS->iTOW_bytes[3] = GPS->raw_message[9];
+            uLong.bytes[0] = GPS->raw_message[6];
+            uLong.bytes[1] = GPS->raw_message[7];
+            uLong.bytes[2] = GPS->raw_message[8];
+            uLong.bytes[3] = GPS->raw_message[9];
+            GPS->iTOW = uLong.uLong; /* ms is the raw data */
 
-            SEND_GPS_VELOCITY(q_tx_can, GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded, GPS->speed_rounded);
-            SEND_GPS_COORDINATES(q_tx_can, GPS->lat_rounded, GPS->lon_rounded);
-            SEND_GPS_POSITION(q_tx_can, 0, 0, 0, GPS->height_rounded);
+            if (GPS->iTOW != prev_iTOW) {
+                GPS->unique_iTOW = true;
+                diff = GPS->iTOW - prev_iTOW;
+                counter = 0;
+                prev_iTOW = GPS->iTOW;
+            } else {
+                GPS->unique_iTOW = false;
+                ++counter;
+            }
+
+            SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded, GPS->speed_rounded);
+            SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
+            SEND_GPS_POSITION(0, 0, 0, GPS->height_rounded);
+            SEND_VEHHEAD(GPS->headVeh_rounded);
         }
 
         // Collect Magnetic Declination
@@ -171,7 +209,7 @@ bool parseVelocity(GPS_Handle_t *GPS, ExtU *rtU)
         GPS->mag_dec_bytes[1] = GPS->raw_message[95];
         iShort.bytes[0] = GPS->raw_message[94];
         iShort.bytes[1] = GPS->raw_message[95];
-        GPS->mag_dec = iShort.iShort;
+        GPS->mag_dec = iShort.iShort; /* deg * 10^2 is the raw data */
 
         return correctFix;
     }

@@ -66,7 +66,7 @@ def gen_send_macro(lines, msg_config, peripheral):
     """ generates a send macro to add a message to the tx queue """
     cap = msg_config['msg_name'].upper()
     sig_args = ", ".join([sig['sig_name']+'_' for sig in msg_config['signals']])
-    lines.append(f"#define SEND_{cap}(queue, {sig_args}) do {{\\\n")
+    lines.append(f"#define SEND_{cap}({sig_args}) do {{\\\n")
     lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .ExtId=ID_{cap}, .DLC=DLC_{cap}, .IDE=1}};\\\n")
     lines.append(f"        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
     for sig in msg_config['signals']:
@@ -74,7 +74,8 @@ def gen_send_macro(lines, msg_config, peripheral):
         convert_str = f"FLOAT_TO_UINT32({sig['sig_name']}_)" if 'float' in sig['type'] else f"{sig['sig_name']}_"
         # conversion not necessary for signed integers (source: testing)
         lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {convert_str};\\\n")
-    lines.append(f"        qSendToBack(&queue, &msg);\\\n")
+    #lines.append(f"        qSendToBack(&queue, &msg);\\\n")
+    lines.append(f"        canTxSendToBack(&msg);\\\n")
     lines.append(f"    }} while(0)\n")
 
 def gen_filter_lines(lines, rx_msg_configs, peripheral):

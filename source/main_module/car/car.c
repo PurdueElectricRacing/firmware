@@ -1,6 +1,6 @@
 #include "car.h"
 #include "main.h"
-// #include "common/modules/wheel_speeds/wheel_speeds.h"
+#include "wheel_speeds.h"
 
 Car_t car;
 extern q_handle_t q_tx_can;
@@ -51,23 +51,17 @@ bool carInit()
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, 0);
-    // wheelSpeedsInit(&wheel_speeds);
+    wheelSpeedsInit();
 }
 
 void carHeartbeat()
 {
-    SEND_MAIN_HB(q_tx_can, car.state, car.pchg.pchg_complete);
-    SEND_REAR_MC_STATUS(q_tx_can, car.motor_l.motor_state,
+    SEND_MAIN_HB(car.state, car.pchg.pchg_complete);
+    SEND_REAR_MC_STATUS(car.motor_l.motor_state,
         car.motor_l.link_state, car.motor_l.last_link_error,
         car.motor_r.motor_state, car.motor_r.link_state,
         car.motor_r.last_link_error);
     static uint8_t n;
-    if (++n == 5)
-    {
-        SEND_PRECHARGE_STATE(q_tx_can, car.pchg.v_mc_filt, car.pchg.v_bat_filt,
-                                       car.pchg.pchg_complete, car.pchg.pchg_error);
-        n = 0;
-    }
 }
 
 /**
@@ -85,6 +79,24 @@ void carPeriodic()
     car.torque_r.torque_right = 0.0f;
     car.buzzer    = false;
     car.sdc_close = true;
+    if (!can_data.orion_currents_volts.stale)
+    {
+        hist_current[hist_curr_idx++] = can_data.orion_currents_volts.pack_current;
+        hist_curr_idx %= NUM_HIST_BSPD;
+    }
+    else
+    {
+        hist_current[hist_curr_idx++] = 0;
+        hist_curr_idx %= NUM_HIST_BSPD;
+    }
+    // if (!checkFault(ID_TV_DISABLED_FAULT))
+    // {
+    //     car.torque_src = CAR_TORQUE_TV;
+    // }
+    // else
+    // {
+    //     car.torque_src = CAR_TORQUE_RAW;
+    // }
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
     if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CAR_STATE_FATAL)
         car.state = CAR_STATE_IDLE;
@@ -162,7 +174,7 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_IDLE)
     {
-        car.pchg.pchg_complete = false;
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         prchg_start = false;
         if (sdc_mux.tsms_stat)
         {
@@ -181,7 +193,6 @@ void carPeriodic()
         //     precharge_start_ms = sched.os_ticks;
         //     prchg_start = 1;
         // }
-
         // setFault(ID_PRECHARGE_TIME_FAULT_FAULT, (sched.os_ticks - precharge_start_ms));
         if (/*v_mc >= threshold && */PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))
         {
@@ -217,7 +228,7 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced)
         {
@@ -231,13 +242,15 @@ void carPeriodic()
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
             if (!can_data.throttle_remapped.stale)
-                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.remap_k_rl, 0, 4095);
+                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.vcu_k_rl, 0, 4095);
             if (!can_data.throttle_remapped.stale)
-                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.remap_k_rr, 0, 4095);
+                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.vcu_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
             t_req_pedal_r = t_req_pedal_r * 100.0f / 4095.0f;
+            // if (t_req_pedal > 10.0f)
+            //     t_req_pedal = 10.0f;
 
 
             // TODO: ensure APPS checks sets throttle to 0 if enough braking
@@ -334,23 +347,35 @@ void parseMCDataPeriodic(void)
     // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
     // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
 
-    //SEND_REAR_WHEEL_DATA(q_tx_can, wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
+    //SEND_REAR_WHEEL_DATA(wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
     //                      shock_l, shock_r);
     // uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
     // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
-    SEND_REAR_WHEEL_SPEEDS(q_tx_can, car.motor_l.rpm, car.motor_r.rpm,
-                                    0, 0); // NO WHEEL SPEEDS YET
-    SEND_REAR_MOTOR_CURRENTS_TEMPS(q_tx_can,
-                                   (uint16_t) car.motor_l.current_x10,
-                                   (uint16_t) car.motor_r.current_x10,
-                                   (uint8_t)  car.motor_l.motor_temp,
-                                   (uint8_t)  car.motor_r.motor_temp,
-                                   (uint16_t) car.motor_r.voltage_x10);
+    wheelSpeedsPeriodic();
+    SEND_REAR_WHEEL_SPEEDS(car.motor_l.rpm, car.motor_r.rpm,
+                                    wheel_speeds.left_rad_s_x100,
+                                    wheel_speeds.right_rad_s_x100);
+    static uint32_t last_curr_t;
+    if (sched.os_ticks - last_curr_t >= 100)
+    {
+        SEND_REAR_MOTOR_CURRENTS_VOLTS(
+                                    (uint16_t) car.motor_l.current_x10,
+                                    (uint16_t) car.motor_r.current_x10,
+                                    (uint16_t) car.motor_r.voltage_x10);
+        last_curr_t = sched.os_ticks;
+    }
     // TODO: possibly move into cooling
-    SEND_REAR_CONTROLLER_TEMPS(q_tx_can,
-                               (uint8_t) car.motor_l.controller_temp,
-                               (uint8_t) car.motor_r.controller_temp);
-    SEND_NUM_MC_SKIPS(q_tx_can, num_failed_msgs_r, num_failed_msgs_l);
+    static uint32_t last_tmp_t;
+    if (sched.os_ticks - last_tmp_t >= 500)
+    {
+        SEND_REAR_MOTOR_TEMPS(
+                                (uint8_t) car.motor_l.motor_temp,
+                                (uint8_t) car.motor_r.motor_temp,
+                                (uint8_t) car.motor_l.controller_temp,
+                                (uint8_t) car.motor_r.controller_temp);
+        SEND_NUM_MC_SKIPS(num_failed_msgs_r, num_failed_msgs_l);
+        last_tmp_t = sched.os_ticks;
+    }
 }
 
 /**
@@ -458,8 +483,8 @@ void calibrateSteeringAngle(uint8_t *success)
     // Reset calibration with CCW = 5h
     // Start a new calibration with CCW = 3h
     // The sensor can then be used immediately
-    SEND_LWS_CONFIG(q_tx_can, 0x05, 0, 0); // reset cal
-    SEND_LWS_CONFIG(q_tx_can, 0x03, 0, 0); // start new
+    SEND_LWS_CONFIG(0x05, 0, 0); // reset cal
+    SEND_LWS_CONFIG(0x03, 0, 0); // start new
     *success = 1;
 }
 
@@ -528,7 +553,7 @@ void updateSDCFaults()
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat)
                 {
-                    // setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -547,14 +572,14 @@ void updateSDCFaults()
                 break;
             case (SDC_BOTS):
                 //If bots is down, we need to check whether BOTS was tripped or BSPD was tripped
-                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin))
+                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && (PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin) || can_data.orion_currents_volts.stale))
                 // {
-                //     int32_t total_current;
+                //     int32_t total_current = 0;
                 //     for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
                 //     {
                 //         total_current += hist_current[i];
                 //     }
-                //     if (total_current > 2000)
+                //     if (total_current > 5000)
                 //     {
                 //         setFault(ID_BSPD_LATCHED_FAULT, 1);
                 //     }
@@ -579,7 +604,7 @@ void updateSDCFaults()
                 }
                 break;
             case (SDC_R_STOP):
-                if (!sdc_mux.l_stop_stat && sdc_mux.main_stat)
+                if (!sdc_mux.r_stop_stat && sdc_mux.main_stat)
                 {
                     setFault(ID_RIGHT_ESTOP_FAULT, 1);
                 }
@@ -628,31 +653,24 @@ void updateSDCFaults()
  */
 void monitorSDCPeriodic()
 {
-    uint8_t index = 0;
+    static uint8_t index = 0;
     static sdc_nodes_t sdc_nodes_raw;
     bool *nodes = (bool *) &sdc_nodes_raw;
 
-    // In the event that an SDC Node latches mid poll, we want to check every SDC node at once in order to lower the chance of this occuring
-    // This does not completely prevent this from occuring, but it does dramatically lower the chance
-    while (index < SDC_MUX_HIGH_IDX)
+    uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
+
+    *(nodes+index++) = stat;
+    if (index == SDC_MUX_HIGH_IDX)
     {
-        uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
-
-        *(nodes+index++) = stat;
-
-        PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
-        PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
-        PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
-        PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
-        // Delay to allow mux to correctly select signal
-        for (uint8_t i = 0; i < 50; i++)
-            ;
+        index = 0;
+        sdc_mux = sdc_nodes_raw;
+        SEND_SDC_STATUS(sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
+                sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
+                sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }
-    sdc_mux = sdc_nodes_raw;
-    index = 0;
-    SEND_SDC_STATUS(q_tx_can, sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
-            sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
-            sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
 
-
+    PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));
+    PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
+    PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
+    PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
 }

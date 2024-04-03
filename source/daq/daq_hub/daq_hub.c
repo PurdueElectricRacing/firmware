@@ -405,6 +405,8 @@ static void eth_update_connection_state(void)
     static uint32_t last_error_count;
     static uint32_t last_link_check_time;
     static uint32_t last_blink_time;
+    static uint32_t last_init_time;
+    static uint32_t init_try_counter;
 
     if (dh.eth_error_ct - last_error_count > 0) dh.eth_state = ETH_FAIL;
     last_error_count = dh.eth_error_ct;
@@ -413,8 +415,10 @@ static void eth_update_connection_state(void)
     {
         case ETH_IDLE:
             if ((dh.eth_enable_tcp_reception | dh.eth_enable_udp_broadcast) &&
-                tick_ms > 250) // Allow for module to power up
+                (tick_ms - last_init_time) > 500) // Allow for module to power up
             {
+                last_init_time = tick_ms;
+                init_try_counter++;
                 if (eth_init() == ETH_ERROR_NONE)
                 {
                     dh.eth_state = ETH_LINK_DOWN;
@@ -428,6 +432,7 @@ static void eth_update_connection_state(void)
                 else
                 {
                     dh.eth_state = ETH_FAIL;
+                    dh.eth_last_error_time = tick_ms;
                 }
             }
             break;
@@ -456,21 +461,13 @@ static void eth_update_connection_state(void)
         case ETH_FAIL:
             // Intentional fall-through
         default:
-            if (dh.eth_last_err == ETH_ERROR_INIT ||
-                dh.eth_last_err == ETH_ERROR_VERS ||
-                dh.eth_last_err == ETH_ERROR_UDP_SOCK ||
-                dh.eth_last_err == ETH_ERROR_TCP_SOCK ||
-                dh.eth_last_err == ETH_ERROR_TCP_LISTEN)
+            // Do not re-attempt (immediately), something is very wrong
+            PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+            if (tick_ms - dh.eth_last_error_time > 500)
             {
-                // Do not re-attempt (immediately), something is very wrong
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-                // if (tick_ms - dh.eth_last_error_time > 500)
-                //     dh.eth_state = ETH_IDLE; // Retry
-            }
-            else
-            {
-                // Retry
-                dh.eth_state = ETH_IDLE;
+                dh.eth_state = ETH_IDLE; // Retry
+                last_init_time = tick_ms;
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
             }
             bDeactivateTail(&b_rx_can, RX_TAIL_UDP);
             break;
@@ -514,13 +511,7 @@ static int8_t eth_init(void)
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
     timeout_ms = tick_ms;
     while (tick_ms - timeout_ms < ETH_PHY_RESET_PERIOD_MS);
-    // TODO: determine if all this resetting is required
-    // timeout_ms = tick_ms;
-    // while (tick_ms - timeout_ms < 5);
-    // wizphy_reset();
-    // timeout_ms = tick_ms;
-    // while (tick_ms - timeout_ms < 5);
-
+    
     // Check for sign of life
     if (getVERSIONR() != 0x04)
     {
@@ -725,4 +716,43 @@ static bool get_log_enable(void)
 {
     // TODO: combine with CAN message from dash
     return dh.log_enable_sw || dh.log_enable_tcp;
+}
+
+/**
+ * @brief Disables high power consumption devices
+ *        If file open, flushes it to the sd card
+ *        Then unmounts sd card
+ */
+static void shutdown(void)
+{
+    // First, turn off all power consuming devices to increase our write time to sd card
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
+    PHAL_deinitCAN(CAN1);
+    PHAL_deinitCAN(CAN2);
+    GPIOA->MODER &= (0x3 << (12 * 2)); // all LED pins go bye bye (except don't float CAN TX)
+
+    f_close(&dh.log_fp);   // Close file
+    f_mount(0, "", 1);     // Unmount drive
+    SD_DeInit();           // Shutdown SDIO peripheral
+
+    // Hooray, we made it, blink an LED to show the world
+    GPIOA->MODER |= (0x1) << (SD_DETECT_LED_PIN * 2); // back to output mode
+    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+    uint32_t start_tick = tick_ms;
+    while (tick_ms - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart
+    {
+        //if (tick_ms % 250 == 0) PHAL_toggleGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN);
+    }
+    NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
+}
+
+// Interrupt handler for power loss detection
+// Note: this is set to lowest priority to allow preemption by other interrupts
+void EXTI15_10_IRQHandler()
+{
+    if (EXTI->PR & EXTI_PR_PR15)
+    {
+        EXTI->PR |= EXTI_PR_PR15; // Clear interrupt
+        shutdown();
+    }
 }

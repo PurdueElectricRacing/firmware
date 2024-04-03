@@ -128,7 +128,7 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 /* END AUTO SEND MACROS */
 
 // Stale Checking
-#define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
+#define STALE_THRESH 5 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 /* END AUTO UP DEFS */
 

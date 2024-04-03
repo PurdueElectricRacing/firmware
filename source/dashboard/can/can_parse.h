@@ -163,7 +163,7 @@
 /* END AUTO SEND MACROS */
 
 // Stale Checking
-#define STALE_THRESH 3 / 2 // 3 / 2 would be 150% of period
+#define STALE_THRESH 5 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 500
 #define UP_REAR_MOTOR_CURRENTS_VOLTS 100

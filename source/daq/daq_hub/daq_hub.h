@@ -132,7 +132,7 @@ typedef enum
     ETH_ERROR_TCP_LISTEN,
 } eth_error_t;
 
-#define ETH_PHY_RESET_PERIOD_MS 250
+#define ETH_PHY_RESET_PERIOD_MS 10
 #define ETH_PHY_LINK_TIMEOUT_MS 5000
 
 // CAN Receive Buffer Configuration

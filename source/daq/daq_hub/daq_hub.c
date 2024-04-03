@@ -405,6 +405,8 @@ static void eth_update_connection_state(void)
     static uint32_t last_error_count;
     static uint32_t last_link_check_time;
     static uint32_t last_blink_time;
+    static uint32_t last_init_time;
+    static uint32_t init_try_counter;
 
     if (dh.eth_error_ct - last_error_count > 0) dh.eth_state = ETH_FAIL;
     last_error_count = dh.eth_error_ct;
@@ -413,8 +415,10 @@ static void eth_update_connection_state(void)
     {
         case ETH_IDLE:
             if ((dh.eth_enable_tcp_reception | dh.eth_enable_udp_broadcast) &&
-                tick_ms > 250) // Allow for module to power up
+                (tick_ms - last_init_time) > 500) // Allow for module to power up
             {
+                last_init_time = tick_ms;
+                init_try_counter++;
                 if (eth_init() == ETH_ERROR_NONE)
                 {
                     dh.eth_state = ETH_LINK_DOWN;
@@ -457,21 +461,13 @@ static void eth_update_connection_state(void)
         case ETH_FAIL:
             // Intentional fall-through
         default:
-            if (dh.eth_last_err == ETH_ERROR_INIT ||
-                dh.eth_last_err == ETH_ERROR_VERS ||
-                dh.eth_last_err == ETH_ERROR_UDP_SOCK ||
-                dh.eth_last_err == ETH_ERROR_TCP_SOCK ||
-                dh.eth_last_err == ETH_ERROR_TCP_LISTEN)
+            // Do not re-attempt (immediately), something is very wrong
+            PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+            if (tick_ms - dh.eth_last_error_time > 500)
             {
-                // Do not re-attempt (immediately), something is very wrong
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-                // if (tick_ms - dh.eth_last_error_time > 500)
-                //     dh.eth_state = ETH_IDLE; // Retry
-            }
-            else
-            {
-                // Retry
-                dh.eth_state = ETH_IDLE;
+                dh.eth_state = ETH_IDLE; // Retry
+                last_init_time = tick_ms;
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
             }
             bDeactivateTail(&b_rx_can, RX_TAIL_UDP);
             break;
@@ -515,13 +511,7 @@ static int8_t eth_init(void)
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
     timeout_ms = tick_ms;
     while (tick_ms - timeout_ms < ETH_PHY_RESET_PERIOD_MS);
-    // TODO: determine if all this resetting is required
-    // timeout_ms = tick_ms;
-    // while (tick_ms - timeout_ms < 5);
-    // wizphy_reset();
-    // timeout_ms = tick_ms;
-    // while (tick_ms - timeout_ms < 5);
-
+    
     // Check for sign of life
     if (getVERSIONR() != 0x04)
     {

@@ -178,6 +178,8 @@ int main()
     if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         HardFault_Handler();
 
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
+
     if (!PHAL_SPI_init(&eth_spi_config))
         HardFault_Handler();
 

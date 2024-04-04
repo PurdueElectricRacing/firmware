@@ -90,7 +90,7 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
-<code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;common/daq/can_parse_base.h&quot;</code><br />
 </div>
 <p><a href="torque__vector_2can_2can__parse_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -135,6 +135,8 @@ Macros</h2></td></tr>
 <tr class="separator:af3b0c442332e239ab0f697016a15065c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3790ca838a66fa568dd6369c67cd2b9a" id="r_a3790ca838a66fa568dd6369c67cd2b9a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3790ca838a66fa568dd6369c67cd2b9a">ID_VEHHEAD</a>&#160;&#160;&#160;0xc002677</td></tr>
 <tr class="separator:a3790ca838a66fa568dd6369c67cd2b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574e95ce8fe749cf6ff4f43d3dd3dd51" id="r_a574e95ce8fe749cf6ff4f43d3dd3dd51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a574e95ce8fe749cf6ff4f43d3dd3dd51">ID_TV_CAN_STATS</a>&#160;&#160;&#160;0x10016337</td></tr>
+<tr class="separator:a574e95ce8fe749cf6ff4f43d3dd3dd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac200fec881129bfcd5d8465b1882166" id="r_aac200fec881129bfcd5d8465b1882166"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac200fec881129bfcd5d8465b1882166">ID_FAULT_SYNC_TORQUE_VECTOR</a>&#160;&#160;&#160;0x8cab7</td></tr>
 <tr class="separator:aac200fec881129bfcd5d8465b1882166"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2b8a0f7c6efbb60ae44565bfd2ff87c" id="r_ac2b8a0f7c6efbb60ae44565bfd2ff87c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2b8a0f7c6efbb60ae44565bfd2ff87c">ID_TORQUEVECTOR_BL_CMD</a>&#160;&#160;&#160;0x409c4be</td></tr>
@@ -199,6 +201,8 @@ Macros</h2></td></tr>
 <tr class="separator:ab1e29f7c12e45f5ce705c4c90435a8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21b5034be7da31da85e3c24ea4a0c08a" id="r_a21b5034be7da31da85e3c24ea4a0c08a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21b5034be7da31da85e3c24ea4a0c08a">DLC_VEHHEAD</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:a21b5034be7da31da85e3c24ea4a0c08a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94913fda8a8208a2c7b11811a3bc2c2d" id="r_a94913fda8a8208a2c7b11811a3bc2c2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94913fda8a8208a2c7b11811a3bc2c2d">DLC_TV_CAN_STATS</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a94913fda8a8208a2c7b11811a3bc2c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac15c18bd936616d8ce9bf7b92fe2b77f" id="r_ac15c18bd936616d8ce9bf7b92fe2b77f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac15c18bd936616d8ce9bf7b92fe2b77f">DLC_FAULT_SYNC_TORQUE_VECTOR</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:ac15c18bd936616d8ce9bf7b92fe2b77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f870c825c64a1daab1eb854a7a2ab0c" id="r_a1f870c825c64a1daab1eb854a7a2ab0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f870c825c64a1daab1eb854a7a2ab0c">DLC_TORQUEVECTOR_BL_CMD</a>&#160;&#160;&#160;5</td></tr>
@@ -263,6 +267,8 @@ Macros</h2></td></tr>
 <tr class="separator:a543013a28f025651376b609c03f96e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fda3b521ad4019dd76f52350dd5f7fc" id="r_a9fda3b521ad4019dd76f52350dd5f7fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fda3b521ad4019dd76f52350dd5f7fc">SEND_VEHHEAD</a>(vehHead_)</td></tr>
 <tr class="separator:a9fda3b521ad4019dd76f52350dd5f7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5697dee6f0e08ed58da15b1ef78a21e2" id="r_a5697dee6f0e08ed58da15b1ef78a21e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5697dee6f0e08ed58da15b1ef78a21e2">SEND_TV_CAN_STATS</a>(can_tx_overflow_,  can_tx_fail_,  can_rx_overflow_,  can_rx_overrun_)</td></tr>
+<tr class="separator:a5697dee6f0e08ed58da15b1ef78a21e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac833a540d73193ba6beb5a70d720a7d1" id="r_ac833a540d73193ba6beb5a70d720a7d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac833a540d73193ba6beb5a70d720a7d1">SEND_FAULT_SYNC_TORQUE_VECTOR</a>(idx_,  latched_)</td></tr>
 <tr class="separator:ac833a540d73193ba6beb5a70d720a7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9fb8a91e43567fceb781c705d6dd93" id="r_abd9fb8a91e43567fceb781c705d6dd93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>&#160;&#160;&#160;5 / 2</td></tr>
@@ -317,9 +323,9 @@ Functions</h2></td></tr>
 <tr class="separator:a63a2b96fd46a3dd2a69273fab74de24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad57d03501801eed3789b1ab135dd9419" id="r_ad57d03501801eed3789b1ab135dd9419"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad57d03501801eed3789b1ab135dd9419">send_fault</a> (uint16_t id, bool latched)</td></tr>
 <tr class="separator:ad57d03501801eed3789b1ab135dd9419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f1da6e61014a6553d5a6b4f12c223f" id="r_a46f1da6e61014a6553d5a6b4f12c223f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46f1da6e61014a6553d5a6b4f12c223f">initCANParse</a> (<a class="el" href="structq__handle__t.html">q_handle_t</a> *<a class="el" href="a__box_2can_2can__parse_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a>)</td></tr>
-<tr class="memdesc:a46f1da6e61014a6553d5a6b4f12c223f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup queue and message filtering.  <br /></td></tr>
-<tr class="separator:a46f1da6e61014a6553d5a6b4f12c223f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c60094ea5db2cec8e57bb40a3a1f8f" id="r_aa1c60094ea5db2cec8e57bb40a3a1f8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1c60094ea5db2cec8e57bb40a3a1f8f">initCANParse</a> (void)</td></tr>
+<tr class="memdesc:aa1c60094ea5db2cec8e57bb40a3a1f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup queue and message filtering.  <br /></td></tr>
+<tr class="separator:aa1c60094ea5db2cec8e57bb40a3a1f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f543c89f40becb3d4280c764807f9a7" id="r_a3f543c89f40becb3d4280c764807f9a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a> ()</td></tr>
 <tr class="memdesc:a3f543c89f40becb3d4280c764807f9a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull message off of rx buffer, update can_data struct, check for stale messages.  <br /></td></tr>
 <tr class="separator:a3f543c89f40becb3d4280c764807f9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -372,7 +378,7 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!stale &amp;&amp;                              \</div>
 <div class="line">        (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) \</div>
 <div class="line">    stale = 1</div>
-<div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:180</div></div>
+<div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:191</div></div>
 <div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:72</div></div>
 </div><!-- fragment -->
 </div>
@@ -805,6 +811,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define DLC_TORQUEVECTOR_BL_CMD&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94913fda8a8208a2c7b11811a3bc2c2d" name="a94913fda8a8208a2c7b11811a3bc2c2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94913fda8a8208a2c7b11811a3bc2c2d">&#9670;&#160;</a></span>DLC_TV_CAN_STATS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_TV_CAN_STATS&#160;&#160;&#160;4</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1259,6 +1279,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a574e95ce8fe749cf6ff4f43d3dd3dd51" name="a574e95ce8fe749cf6ff4f43d3dd3dd51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a574e95ce8fe749cf6ff4f43d3dd3dd51">&#9670;&#160;</a></span>ID_TV_CAN_STATS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_TV_CAN_STATS&#160;&#160;&#160;0x10016337</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3790ca838a66fa568dd6369c67cd2b9a" name="a3790ca838a66fa568dd6369c67cd2b9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3790ca838a66fa568dd6369c67cd2b9a">&#9670;&#160;</a></span>ID_VEHHEAD</h2>
 
@@ -1321,7 +1355,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="af4__testing_2main_8c_html_a184b5dd9844bf6e022deb71044ff7f64"><div class="ttname"><a href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a></div><div class="ttdeci">char msg[100]</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html_aa43587215a51d07288de14b4af7b1a9a"><div class="ttname"><a href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">CanMsgTypeDef_t::Bus</a></div><div class="ttdeci">CAN_TypeDef * Bus</div><div class="ttdoc">Specifies the bus.</div><div class="ttdef"><b>Definition</b> can.h:30</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a48c84e01c5559b3a3b179472c7e310b6"><div class="ttname"><a href="#a48c84e01c5559b3a3b179472c7e310b6">DLC_BMM_MAG</a></div><div class="ttdeci">#define DLC_BMM_MAG</div><div class="ttdef"><b>Definition</b> can_parse.h:65</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a48c84e01c5559b3a3b179472c7e310b6"><div class="ttname"><a href="#a48c84e01c5559b3a3b179472c7e310b6">DLC_BMM_MAG</a></div><div class="ttdeci">#define DLC_BMM_MAG</div><div class="ttdef"><b>Definition</b> can_parse.h:66</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aae465ac62bfe986db3b523947759352c"><div class="ttname"><a href="#aae465ac62bfe986db3b523947759352c">ID_BMM_MAG</a></div><div class="ttdeci">#define ID_BMM_MAG</div><div class="ttdef"><b>Definition</b> can_parse.h:29</div></div>
 <div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
 </div><!-- fragment -->
@@ -1352,8 +1386,8 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;fault_sync_torque_vector.latched = latched_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aac200fec881129bfcd5d8465b1882166"><div class="ttname"><a href="#aac200fec881129bfcd5d8465b1882166">ID_FAULT_SYNC_TORQUE_VECTOR</a></div><div class="ttdeci">#define ID_FAULT_SYNC_TORQUE_VECTOR</div><div class="ttdef"><b>Definition</b> can_parse.h:39</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ac15c18bd936616d8ce9bf7b92fe2b77f"><div class="ttname"><a href="#ac15c18bd936616d8ce9bf7b92fe2b77f">DLC_FAULT_SYNC_TORQUE_VECTOR</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_TORQUE_VECTOR</div><div class="ttdef"><b>Definition</b> can_parse.h:75</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aac200fec881129bfcd5d8465b1882166"><div class="ttname"><a href="#aac200fec881129bfcd5d8465b1882166">ID_FAULT_SYNC_TORQUE_VECTOR</a></div><div class="ttdeci">#define ID_FAULT_SYNC_TORQUE_VECTOR</div><div class="ttdef"><b>Definition</b> can_parse.h:40</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ac15c18bd936616d8ce9bf7b92fe2b77f"><div class="ttname"><a href="#ac15c18bd936616d8ce9bf7b92fe2b77f">DLC_FAULT_SYNC_TORQUE_VECTOR</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_TORQUE_VECTOR</div><div class="ttdef"><b>Definition</b> can_parse.h:77</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1382,7 +1416,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;gps_coordinates.longitude = longitude_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ac7a6b04f055d4a5caef1f7410e09629f"><div class="ttname"><a href="#ac7a6b04f055d4a5caef1f7410e09629f">DLC_GPS_COORDINATES</a></div><div class="ttdeci">#define DLC_GPS_COORDINATES</div><div class="ttdef"><b>Definition</b> can_parse.h:62</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ac7a6b04f055d4a5caef1f7410e09629f"><div class="ttname"><a href="#ac7a6b04f055d4a5caef1f7410e09629f">DLC_GPS_COORDINATES</a></div><div class="ttdeci">#define DLC_GPS_COORDINATES</div><div class="ttdef"><b>Definition</b> can_parse.h:63</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ad6f795294a8402e74efe43de78ddf89d"><div class="ttname"><a href="#ad6f795294a8402e74efe43de78ddf89d">ID_GPS_COORDINATES</a></div><div class="ttdeci">#define ID_GPS_COORDINATES</div><div class="ttdef"><b>Definition</b> can_parse.h:26</div></div>
 </div><!-- fragment -->
 </div>
@@ -1424,7 +1458,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;gps_position.height = height_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a35225c4e9c2bc4e1d18bce374f362b89"><div class="ttname"><a href="#a35225c4e9c2bc4e1d18bce374f362b89">DLC_GPS_POSITION</a></div><div class="ttdeci">#define DLC_GPS_POSITION</div><div class="ttdef"><b>Definition</b> can_parse.h:61</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a35225c4e9c2bc4e1d18bce374f362b89"><div class="ttname"><a href="#a35225c4e9c2bc4e1d18bce374f362b89">DLC_GPS_POSITION</a></div><div class="ttdeci">#define DLC_GPS_POSITION</div><div class="ttdef"><b>Definition</b> can_parse.h:62</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a78bd2ebd88d63a1ce74235ccae6b4a93"><div class="ttname"><a href="#a78bd2ebd88d63a1ce74235ccae6b4a93">ID_GPS_POSITION</a></div><div class="ttdeci">#define ID_GPS_POSITION</div><div class="ttdef"><b>Definition</b> can_parse.h:25</div></div>
 </div><!-- fragment -->
 </div>
@@ -1466,7 +1500,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;gps_velocity.gps_vel_total = gps_vel_total_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a2b845c58240d8e685afd5bcb2192d494"><div class="ttname"><a href="#a2b845c58240d8e685afd5bcb2192d494">DLC_GPS_VELOCITY</a></div><div class="ttdeci">#define DLC_GPS_VELOCITY</div><div class="ttdef"><b>Definition</b> can_parse.h:60</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a2b845c58240d8e685afd5bcb2192d494"><div class="ttname"><a href="#a2b845c58240d8e685afd5bcb2192d494">DLC_GPS_VELOCITY</a></div><div class="ttdeci">#define DLC_GPS_VELOCITY</div><div class="ttdef"><b>Definition</b> can_parse.h:61</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a7a80e67f3a4ff27304cbdadab020a734"><div class="ttname"><a href="#a7a80e67f3a4ff27304cbdadab020a734">ID_GPS_VELOCITY</a></div><div class="ttdeci">#define ID_GPS_VELOCITY</div><div class="ttdef"><b>Definition</b> can_parse.h:24</div></div>
 </div><!-- fragment -->
 </div>
@@ -1503,7 +1537,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_adddf6645959e058911a6d333a63fcfcb"><div class="ttname"><a href="#adddf6645959e058911a6d333a63fcfcb">ID_IMU_ACCEL</a></div><div class="ttdeci">#define ID_IMU_ACCEL</div><div class="ttdef"><b>Definition</b> can_parse.h:28</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_af9d19885d32a4c9390c5d01c46bd1295"><div class="ttname"><a href="#af9d19885d32a4c9390c5d01c46bd1295">DLC_IMU_ACCEL</a></div><div class="ttdeci">#define DLC_IMU_ACCEL</div><div class="ttdef"><b>Definition</b> can_parse.h:64</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_af9d19885d32a4c9390c5d01c46bd1295"><div class="ttname"><a href="#af9d19885d32a4c9390c5d01c46bd1295">DLC_IMU_ACCEL</a></div><div class="ttdeci">#define DLC_IMU_ACCEL</div><div class="ttdef"><b>Definition</b> can_parse.h:65</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1538,7 +1572,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;imu_gyro.imu_gyro_z = imu_gyro_z_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aa3619bb7c64f584a3e133950a8253ae5"><div class="ttname"><a href="#aa3619bb7c64f584a3e133950a8253ae5">DLC_IMU_GYRO</a></div><div class="ttdeci">#define DLC_IMU_GYRO</div><div class="ttdef"><b>Definition</b> can_parse.h:63</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aa3619bb7c64f584a3e133950a8253ae5"><div class="ttname"><a href="#aa3619bb7c64f584a3e133950a8253ae5">DLC_IMU_GYRO</a></div><div class="ttdeci">#define DLC_IMU_GYRO</div><div class="ttdef"><b>Definition</b> can_parse.h:64</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aa50a975ba4f6974b6dede204e5e0e12a"><div class="ttname"><a href="#aa50a975ba4f6974b6dede204e5e0e12a">ID_IMU_GYRO</a></div><div class="ttdeci">#define ID_IMU_GYRO</div><div class="ttdef"><b>Definition</b> can_parse.h:27</div></div>
 </div><!-- fragment -->
 </div>
@@ -1563,7 +1597,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;maxR.vcu_max_r = vcu_max_r_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ab1e29f7c12e45f5ce705c4c90435a8a7"><div class="ttname"><a href="#ab1e29f7c12e45f5ce705c4c90435a8a7">DLC_MAXR</a></div><div class="ttdeci">#define DLC_MAXR</div><div class="ttdef"><b>Definition</b> can_parse.h:73</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ab1e29f7c12e45f5ce705c4c90435a8a7"><div class="ttname"><a href="#ab1e29f7c12e45f5ce705c4c90435a8a7">DLC_MAXR</a></div><div class="ttdeci">#define DLC_MAXR</div><div class="ttdef"><b>Definition</b> can_parse.h:74</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_af3b0c442332e239ab0f697016a15065c"><div class="ttname"><a href="#af3b0c442332e239ab0f697016a15065c">ID_MAXR</a></div><div class="ttdeci">#define ID_MAXR</div><div class="ttdef"><b>Definition</b> can_parse.h:37</div></div>
 </div><!-- fragment -->
 </div>
@@ -1600,7 +1634,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a238431200eb71f72c564fc4409749d87"><div class="ttname"><a href="#a238431200eb71f72c564fc4409749d87">ID_SFS_ACC</a></div><div class="ttdeci">#define ID_SFS_ACC</div><div class="ttdef"><b>Definition</b> can_parse.h:32</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a93e98ac29b9a74e29fe1299a9ca0057e"><div class="ttname"><a href="#a93e98ac29b9a74e29fe1299a9ca0057e">DLC_SFS_ACC</a></div><div class="ttdeci">#define DLC_SFS_ACC</div><div class="ttdef"><b>Definition</b> can_parse.h:68</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a93e98ac29b9a74e29fe1299a9ca0057e"><div class="ttname"><a href="#a93e98ac29b9a74e29fe1299a9ca0057e">DLC_SFS_ACC</a></div><div class="ttdeci">#define DLC_SFS_ACC</div><div class="ttdef"><b>Definition</b> can_parse.h:69</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1642,7 +1676,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ae5d3d2fe5091257227ae11fcb9682fca"><div class="ttname"><a href="#ae5d3d2fe5091257227ae11fcb9682fca">ID_SFS_ANG</a></div><div class="ttdeci">#define ID_SFS_ANG</div><div class="ttdef"><b>Definition</b> can_parse.h:33</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_af15c262d4d871b339c615a623365c077"><div class="ttname"><a href="#af15c262d4d871b339c615a623365c077">DLC_SFS_ANG</a></div><div class="ttdeci">#define DLC_SFS_ANG</div><div class="ttdef"><b>Definition</b> can_parse.h:69</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_af15c262d4d871b339c615a623365c077"><div class="ttname"><a href="#af15c262d4d871b339c615a623365c077">DLC_SFS_ANG</a></div><div class="ttdeci">#define DLC_SFS_ANG</div><div class="ttdef"><b>Definition</b> can_parse.h:70</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1677,7 +1711,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a033b44a3740abebd81651ad2f3b4b535"><div class="ttname"><a href="#a033b44a3740abebd81651ad2f3b4b535">DLC_SFS_ANG_VEL</a></div><div class="ttdeci">#define DLC_SFS_ANG_VEL</div><div class="ttdef"><b>Definition</b> can_parse.h:70</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a033b44a3740abebd81651ad2f3b4b535"><div class="ttname"><a href="#a033b44a3740abebd81651ad2f3b4b535">DLC_SFS_ANG_VEL</a></div><div class="ttdeci">#define DLC_SFS_ANG_VEL</div><div class="ttdef"><b>Definition</b> can_parse.h:71</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a3bbe82fcc81464cab25a2e33b4a6a23a"><div class="ttname"><a href="#a3bbe82fcc81464cab25a2e33b4a6a23a">ID_SFS_ANG_VEL</a></div><div class="ttdeci">#define ID_SFS_ANG_VEL</div><div class="ttdef"><b>Definition</b> can_parse.h:34</div></div>
 </div><!-- fragment -->
 </div>
@@ -1714,7 +1748,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a0d768d19050961fb7aa0706b9fe6e137"><div class="ttname"><a href="#a0d768d19050961fb7aa0706b9fe6e137">ID_SFS_POS</a></div><div class="ttdeci">#define ID_SFS_POS</div><div class="ttdef"><b>Definition</b> can_parse.h:30</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a35bee63db36ffe7b5a2c4f5cd450b09a"><div class="ttname"><a href="#a35bee63db36ffe7b5a2c4f5cd450b09a">DLC_SFS_POS</a></div><div class="ttdeci">#define DLC_SFS_POS</div><div class="ttdef"><b>Definition</b> can_parse.h:66</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a35bee63db36ffe7b5a2c4f5cd450b09a"><div class="ttname"><a href="#a35bee63db36ffe7b5a2c4f5cd450b09a">DLC_SFS_POS</a></div><div class="ttdeci">#define DLC_SFS_POS</div><div class="ttdef"><b>Definition</b> can_parse.h:67</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1749,7 +1783,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;sfs_vel.sfs_vel_z = sfs_vel_z_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a1eafc43f4592e512d1bf5366b95fbb7d"><div class="ttname"><a href="#a1eafc43f4592e512d1bf5366b95fbb7d">DLC_SFS_VEL</a></div><div class="ttdeci">#define DLC_SFS_VEL</div><div class="ttdef"><b>Definition</b> can_parse.h:67</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a1eafc43f4592e512d1bf5366b95fbb7d"><div class="ttname"><a href="#a1eafc43f4592e512d1bf5366b95fbb7d">DLC_SFS_VEL</a></div><div class="ttdeci">#define DLC_SFS_VEL</div><div class="ttdef"><b>Definition</b> can_parse.h:68</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_aaf7c7a66d64c837f31594485c8a0d1f6"><div class="ttname"><a href="#aaf7c7a66d64c837f31594485c8a0d1f6">ID_SFS_VEL</a></div><div class="ttdeci">#define ID_SFS_VEL</div><div class="ttdef"><b>Definition</b> can_parse.h:31</div></div>
 </div><!-- fragment -->
 </div>
@@ -1779,7 +1813,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;throttle_remapped.vcu_k_rr = vcu_k_rr_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a0ed200dd1c75faa31afcbcd1e155c7e3"><div class="ttname"><a href="#a0ed200dd1c75faa31afcbcd1e155c7e3">DLC_THROTTLE_REMAPPED</a></div><div class="ttdeci">#define DLC_THROTTLE_REMAPPED</div><div class="ttdef"><b>Definition</b> can_parse.h:72</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a0ed200dd1c75faa31afcbcd1e155c7e3"><div class="ttname"><a href="#a0ed200dd1c75faa31afcbcd1e155c7e3">DLC_THROTTLE_REMAPPED</a></div><div class="ttdeci">#define DLC_THROTTLE_REMAPPED</div><div class="ttdef"><b>Definition</b> can_parse.h:73</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_ae842348ad23de45062fd1bf9ad8d00de"><div class="ttname"><a href="#ae842348ad23de45062fd1bf9ad8d00de">ID_THROTTLE_REMAPPED</a></div><div class="ttdeci">#define ID_THROTTLE_REMAPPED</div><div class="ttdef"><b>Definition</b> can_parse.h:36</div></div>
 </div><!-- fragment -->
 </div>
@@ -1810,7 +1844,49 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a18bea6c1f06d072551c89ab66ab81195"><div class="ttname"><a href="#a18bea6c1f06d072551c89ab66ab81195">ID_THROTTLE_VCU</a></div><div class="ttdeci">#define ID_THROTTLE_VCU</div><div class="ttdef"><b>Definition</b> can_parse.h:35</div></div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a8bd3b59259b89a7776027e7e2ede3432"><div class="ttname"><a href="#a8bd3b59259b89a7776027e7e2ede3432">DLC_THROTTLE_VCU</a></div><div class="ttdeci">#define DLC_THROTTLE_VCU</div><div class="ttdef"><b>Definition</b> can_parse.h:71</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a8bd3b59259b89a7776027e7e2ede3432"><div class="ttname"><a href="#a8bd3b59259b89a7776027e7e2ede3432">DLC_THROTTLE_VCU</a></div><div class="ttdeci">#define DLC_THROTTLE_VCU</div><div class="ttdef"><b>Definition</b> can_parse.h:72</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5697dee6f0e08ed58da15b1ef78a21e2" name="a5697dee6f0e08ed58da15b1ef78a21e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5697dee6f0e08ed58da15b1ef78a21e2">&#9670;&#160;</a></span>SEND_TV_CAN_STATS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEND_TV_CAN_STATS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_tx_overflow_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_tx_fail_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_rx_overflow_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_rx_overrun_</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#a574e95ce8fe749cf6ff4f43d3dd3dd51">ID_TV_CAN_STATS</a>, .DLC=<a class="code hl_define" href="#a94913fda8a8208a2c7b11811a3bc2c2d">DLC_TV_CAN_STATS</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
+<div class="line">        data_a-&gt;tv_can_stats.can_tx_overflow = can_tx_overflow_;\</div>
+<div class="line">        data_a-&gt;tv_can_stats.can_tx_fail = can_tx_fail_;\</div>
+<div class="line">        data_a-&gt;tv_can_stats.can_rx_overflow = can_rx_overflow_;\</div>
+<div class="line">        data_a-&gt;tv_can_stats.can_rx_overrun = can_rx_overrun_;\</div>
+<div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
+<div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a574e95ce8fe749cf6ff4f43d3dd3dd51"><div class="ttname"><a href="#a574e95ce8fe749cf6ff4f43d3dd3dd51">ID_TV_CAN_STATS</a></div><div class="ttdeci">#define ID_TV_CAN_STATS</div><div class="ttdef"><b>Definition</b> can_parse.h:39</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a94913fda8a8208a2c7b11811a3bc2c2d"><div class="ttname"><a href="#a94913fda8a8208a2c7b11811a3bc2c2d">DLC_TV_CAN_STATS</a></div><div class="ttdeci">#define DLC_TV_CAN_STATS</div><div class="ttdef"><b>Definition</b> can_parse.h:76</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1834,7 +1910,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;vehHead.vehHead = vehHead_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a21b5034be7da31da85e3c24ea4a0c08a"><div class="ttname"><a href="#a21b5034be7da31da85e3c24ea4a0c08a">DLC_VEHHEAD</a></div><div class="ttdeci">#define DLC_VEHHEAD</div><div class="ttdef"><b>Definition</b> can_parse.h:74</div></div>
+<div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a21b5034be7da31da85e3c24ea4a0c08a"><div class="ttname"><a href="#a21b5034be7da31da85e3c24ea4a0c08a">DLC_VEHHEAD</a></div><div class="ttdeci">#define DLC_VEHHEAD</div><div class="ttdef"><b>Definition</b> can_parse.h:75</div></div>
 <div class="ttc" id="atorque__vector_2can_2can__parse_8h_html_a3790ca838a66fa568dd6369c67cd2b9a"><div class="ttname"><a href="#a3790ca838a66fa568dd6369c67cd2b9a">ID_VEHHEAD</a></div><div class="ttdeci">#define ID_VEHHEAD</div><div class="ttdef"><b>Definition</b> can_parse.h:38</div></div>
 </div><!-- fragment -->
 </div>
@@ -2066,8 +2142,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a46f1da6e61014a6553d5a6b4f12c223f" name="a46f1da6e61014a6553d5a6b4f12c223f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46f1da6e61014a6553d5a6b4f12c223f">&#9670;&#160;</a></span>initCANParse()</h2>
+<a id="aa1c60094ea5db2cec8e57bb40a3a1f8f" name="aa1c60094ea5db2cec8e57bb40a3a1f8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c60094ea5db2cec8e57bb40a3a1f8f">&#9670;&#160;</a></span>initCANParse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2075,7 +2151,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void initCANParse </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structq__handle__t.html">q_handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>q_rx_can_a</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

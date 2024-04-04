@@ -90,7 +90,7 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
-<code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;common/daq/can_parse_base.h&quot;</code><br />
 </div>
 <p><a href="dashboard_2can_2can__parse_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -119,6 +119,8 @@ Macros</h2></td></tr>
 <tr class="separator:a373f2ffa8c0b15d844797ebf2178e670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a246723e8306e85d520225f0e19f89646" id="r_a246723e8306e85d520225f0e19f89646"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a246723e8306e85d520225f0e19f89646">ID_DASHBOARD_START_LOGGING</a>&#160;&#160;&#160;0x4000e05</td></tr>
 <tr class="separator:a246723e8306e85d520225f0e19f89646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fec6ecd20a95f570dc898d99e0d2096" id="r_a0fec6ecd20a95f570dc898d99e0d2096"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fec6ecd20a95f570dc898d99e0d2096">ID_DASH_CAN_STATS</a>&#160;&#160;&#160;0x10016305</td></tr>
+<tr class="separator:a0fec6ecd20a95f570dc898d99e0d2096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85ba219b4669ae0c2cf57c75251effc5" id="r_a85ba219b4669ae0c2cf57c75251effc5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85ba219b4669ae0c2cf57c75251effc5">ID_FAULT_SYNC_DASHBOARD</a>&#160;&#160;&#160;0x8cac5</td></tr>
 <tr class="separator:a85ba219b4669ae0c2cf57c75251effc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabefcb5af62f0aeea432529337561d39" id="r_aabefcb5af62f0aeea432529337561d39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabefcb5af62f0aeea432529337561d39">ID_DAQ_RESPONSE_DASHBOARD</a>&#160;&#160;&#160;0x17ffffc5</td></tr>
@@ -181,6 +183,8 @@ Macros</h2></td></tr>
 <tr class="separator:a66355be8239e47d2b06db1034931985c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72a43b0dffb7936ca95b5c66e58b087f" id="r_a72a43b0dffb7936ca95b5c66e58b087f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72a43b0dffb7936ca95b5c66e58b087f">DLC_DASHBOARD_START_LOGGING</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a72a43b0dffb7936ca95b5c66e58b087f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200eff1f83533ad626637ab1b283ea8d" id="r_a200eff1f83533ad626637ab1b283ea8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a200eff1f83533ad626637ab1b283ea8d">DLC_DASH_CAN_STATS</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a200eff1f83533ad626637ab1b283ea8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a811ce2db0d1bb06c42f9405f98fa702a" id="r_a811ce2db0d1bb06c42f9405f98fa702a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a811ce2db0d1bb06c42f9405f98fa702a">DLC_FAULT_SYNC_DASHBOARD</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:a811ce2db0d1bb06c42f9405f98fa702a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78bb1d274fb3d8536919a4c16f2b6e91" id="r_a78bb1d274fb3d8536919a4c16f2b6e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78bb1d274fb3d8536919a4c16f2b6e91">DLC_DAQ_RESPONSE_DASHBOARD</a>&#160;&#160;&#160;8</td></tr>
@@ -243,6 +247,8 @@ Macros</h2></td></tr>
 <tr class="separator:a6687dba8437d7ba8edbbad997c13080e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cd307555b3ee4be964536784215e174" id="r_a2cd307555b3ee4be964536784215e174"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cd307555b3ee4be964536784215e174">SEND_DASHBOARD_START_LOGGING</a>(logging_enabled_)</td></tr>
 <tr class="separator:a2cd307555b3ee4be964536784215e174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d72ca73528fa183112fecd5811daf0" id="r_a05d72ca73528fa183112fecd5811daf0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05d72ca73528fa183112fecd5811daf0">SEND_DASH_CAN_STATS</a>(can_tx_overflow_,  can_tx_fail_,  can_rx_overflow_,  can_rx_overrun_)</td></tr>
+<tr class="separator:a05d72ca73528fa183112fecd5811daf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2382325ac08d62238b53d19f35918d84" id="r_a2382325ac08d62238b53d19f35918d84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2382325ac08d62238b53d19f35918d84">SEND_FAULT_SYNC_DASHBOARD</a>(idx_,  latched_)</td></tr>
 <tr class="separator:a2382325ac08d62238b53d19f35918d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6869a235e5621f4a055fd4bd7d1b811" id="r_ad6869a235e5621f4a055fd4bd7d1b811"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6869a235e5621f4a055fd4bd7d1b811">SEND_DAQ_RESPONSE_DASHBOARD</a>(daq_response_)</td></tr>
@@ -313,9 +319,9 @@ Functions</h2></td></tr>
 <tr class="separator:a63a2b96fd46a3dd2a69273fab74de24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad57d03501801eed3789b1ab135dd9419" id="r_ad57d03501801eed3789b1ab135dd9419"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad57d03501801eed3789b1ab135dd9419">send_fault</a> (uint16_t id, bool latched)</td></tr>
 <tr class="separator:ad57d03501801eed3789b1ab135dd9419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f1da6e61014a6553d5a6b4f12c223f" id="r_a46f1da6e61014a6553d5a6b4f12c223f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46f1da6e61014a6553d5a6b4f12c223f">initCANParse</a> (<a class="el" href="structq__handle__t.html">q_handle_t</a> *<a class="el" href="a__box_2can_2can__parse_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a>)</td></tr>
-<tr class="memdesc:a46f1da6e61014a6553d5a6b4f12c223f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup queue and message filtering.  <br /></td></tr>
-<tr class="separator:a46f1da6e61014a6553d5a6b4f12c223f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c60094ea5db2cec8e57bb40a3a1f8f" id="r_aa1c60094ea5db2cec8e57bb40a3a1f8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1c60094ea5db2cec8e57bb40a3a1f8f">initCANParse</a> (void)</td></tr>
+<tr class="memdesc:aa1c60094ea5db2cec8e57bb40a3a1f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup queue and message filtering.  <br /></td></tr>
+<tr class="separator:aa1c60094ea5db2cec8e57bb40a3a1f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f543c89f40becb3d4280c764807f9a7" id="r_a3f543c89f40becb3d4280c764807f9a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a> ()</td></tr>
 <tr class="memdesc:a3f543c89f40becb3d4280c764807f9a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull message off of rx buffer, update can_data struct, check for stale messages.  <br /></td></tr>
 <tr class="separator:a3f543c89f40becb3d4280c764807f9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -367,7 +373,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">                    <span class="keywordflow">if</span>(!stale &amp;&amp; \</div>
 <div class="line">                    (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) stale = 1</div>
-<div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:180</div></div>
+<div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:191</div></div>
 <div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:72</div></div>
 </div><!-- fragment -->
 </div>
@@ -436,6 +442,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define DLC_DAQ_RESPONSE_DASHBOARD&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a200eff1f83533ad626637ab1b283ea8d" name="a200eff1f83533ad626637ab1b283ea8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200eff1f83533ad626637ab1b283ea8d">&#9670;&#160;</a></span>DLC_DASH_CAN_STATS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DLC_DASH_CAN_STATS&#160;&#160;&#160;4</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -876,6 +896,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a0fec6ecd20a95f570dc898d99e0d2096" name="a0fec6ecd20a95f570dc898d99e0d2096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fec6ecd20a95f570dc898d99e0d2096">&#9670;&#160;</a></span>ID_DASH_CAN_STATS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ID_DASH_CAN_STATS&#160;&#160;&#160;0x10016305</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a76e9f76a134891161cff8a1f0ebbac2e" name="a76e9f76a134891161cff8a1f0ebbac2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a76e9f76a134891161cff8a1f0ebbac2e">&#9670;&#160;</a></span>ID_DASHBOARD_BL_CMD</h2>
 
@@ -1298,7 +1332,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a07a40ecec89a6d0ab77dba44e34fc3ca"><div class="ttname"><a href="#a07a40ecec89a6d0ab77dba44e34fc3ca">ID_COOLING_DRIVER_REQUEST</a></div><div class="ttdeci">#define ID_COOLING_DRIVER_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:25</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_ac1a01cc93084360713b743bf94e4fd5e"><div class="ttname"><a href="#ac1a01cc93084360713b743bf94e4fd5e">DLC_COOLING_DRIVER_REQUEST</a></div><div class="ttdeci">#define DLC_COOLING_DRIVER_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:60</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_ac1a01cc93084360713b743bf94e4fd5e"><div class="ttname"><a href="#ac1a01cc93084360713b743bf94e4fd5e">DLC_COOLING_DRIVER_REQUEST</a></div><div class="ttdeci">#define DLC_COOLING_DRIVER_REQUEST</div><div class="ttdef"><b>Definition</b> can_parse.h:61</div></div>
 <div class="ttc" id="af4__testing_2main_8c_html_a184b5dd9844bf6e022deb71044ff7f64"><div class="ttname"><a href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a></div><div class="ttdeci">char msg[100]</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:29</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html_aa43587215a51d07288de14b4af7b1a9a"><div class="ttname"><a href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">CanMsgTypeDef_t::Bus</a></div><div class="ttdeci">CAN_TypeDef * Bus</div><div class="ttdoc">Specifies the bus.</div><div class="ttdef"><b>Definition</b> can.h:30</div></div>
@@ -1326,8 +1360,50 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;daq_response_DASHBOARD.daq_response = daq_response_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a78bb1d274fb3d8536919a4c16f2b6e91"><div class="ttname"><a href="#a78bb1d274fb3d8536919a4c16f2b6e91">DLC_DAQ_RESPONSE_DASHBOARD</a></div><div class="ttdeci">#define DLC_DAQ_RESPONSE_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:67</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_aabefcb5af62f0aeea432529337561d39"><div class="ttname"><a href="#aabefcb5af62f0aeea432529337561d39">ID_DAQ_RESPONSE_DASHBOARD</a></div><div class="ttdeci">#define ID_DAQ_RESPONSE_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:32</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a78bb1d274fb3d8536919a4c16f2b6e91"><div class="ttname"><a href="#a78bb1d274fb3d8536919a4c16f2b6e91">DLC_DAQ_RESPONSE_DASHBOARD</a></div><div class="ttdeci">#define DLC_DAQ_RESPONSE_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:69</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_aabefcb5af62f0aeea432529337561d39"><div class="ttname"><a href="#aabefcb5af62f0aeea432529337561d39">ID_DAQ_RESPONSE_DASHBOARD</a></div><div class="ttdeci">#define ID_DAQ_RESPONSE_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:33</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a05d72ca73528fa183112fecd5811daf0" name="a05d72ca73528fa183112fecd5811daf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05d72ca73528fa183112fecd5811daf0">&#9670;&#160;</a></span>SEND_DASH_CAN_STATS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SEND_DASH_CAN_STATS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_tx_overflow_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_tx_fail_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_rx_overflow_, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">can_rx_overrun_</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
+<div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#a0fec6ecd20a95f570dc898d99e0d2096">ID_DASH_CAN_STATS</a>, .DLC=<a class="code hl_define" href="#a200eff1f83533ad626637ab1b283ea8d">DLC_DASH_CAN_STATS</a>, .IDE=1};\</div>
+<div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
+<div class="line">        data_a-&gt;dash_can_stats.can_tx_overflow = can_tx_overflow_;\</div>
+<div class="line">        data_a-&gt;dash_can_stats.can_tx_fail = can_tx_fail_;\</div>
+<div class="line">        data_a-&gt;dash_can_stats.can_rx_overflow = can_rx_overflow_;\</div>
+<div class="line">        data_a-&gt;dash_can_stats.can_rx_overrun = can_rx_overrun_;\</div>
+<div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
+<div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a0fec6ecd20a95f570dc898d99e0d2096"><div class="ttname"><a href="#a0fec6ecd20a95f570dc898d99e0d2096">ID_DASH_CAN_STATS</a></div><div class="ttdeci">#define ID_DASH_CAN_STATS</div><div class="ttdef"><b>Definition</b> can_parse.h:31</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a200eff1f83533ad626637ab1b283ea8d"><div class="ttname"><a href="#a200eff1f83533ad626637ab1b283ea8d">DLC_DASH_CAN_STATS</a></div><div class="ttdeci">#define DLC_DASH_CAN_STATS</div><div class="ttdef"><b>Definition</b> can_parse.h:67</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1352,7 +1428,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a246723e8306e85d520225f0e19f89646"><div class="ttname"><a href="#a246723e8306e85d520225f0e19f89646">ID_DASHBOARD_START_LOGGING</a></div><div class="ttdeci">#define ID_DASHBOARD_START_LOGGING</div><div class="ttdef"><b>Definition</b> can_parse.h:30</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a72a43b0dffb7936ca95b5c66e58b087f"><div class="ttname"><a href="#a72a43b0dffb7936ca95b5c66e58b087f">DLC_DASHBOARD_START_LOGGING</a></div><div class="ttdeci">#define DLC_DASHBOARD_START_LOGGING</div><div class="ttdef"><b>Definition</b> can_parse.h:65</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a72a43b0dffb7936ca95b5c66e58b087f"><div class="ttname"><a href="#a72a43b0dffb7936ca95b5c66e58b087f">DLC_DASHBOARD_START_LOGGING</a></div><div class="ttdeci">#define DLC_DASHBOARD_START_LOGGING</div><div class="ttdef"><b>Definition</b> can_parse.h:66</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1394,7 +1470,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a373f2ffa8c0b15d844797ebf2178e670"><div class="ttname"><a href="#a373f2ffa8c0b15d844797ebf2178e670">ID_DASHBOARD_TV_PARAMETERS</a></div><div class="ttdeci">#define ID_DASHBOARD_TV_PARAMETERS</div><div class="ttdef"><b>Definition</b> can_parse.h:29</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a66355be8239e47d2b06db1034931985c"><div class="ttname"><a href="#a66355be8239e47d2b06db1034931985c">DLC_DASHBOARD_TV_PARAMETERS</a></div><div class="ttdeci">#define DLC_DASHBOARD_TV_PARAMETERS</div><div class="ttdef"><b>Definition</b> can_parse.h:64</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a66355be8239e47d2b06db1034931985c"><div class="ttname"><a href="#a66355be8239e47d2b06db1034931985c">DLC_DASHBOARD_TV_PARAMETERS</a></div><div class="ttdeci">#define DLC_DASHBOARD_TV_PARAMETERS</div><div class="ttdef"><b>Definition</b> can_parse.h:65</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1430,7 +1506,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a5cdc217abb56efd870e6769df30bb0dc"><div class="ttname"><a href="#a5cdc217abb56efd870e6769df30bb0dc">ID_DASHBOARD_VOLTS_TEMP</a></div><div class="ttdeci">#define ID_DASHBOARD_VOLTS_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:28</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_aa8d4cf882bb500a4146096e2d3c73723"><div class="ttname"><a href="#aa8d4cf882bb500a4146096e2d3c73723">DLC_DASHBOARD_VOLTS_TEMP</a></div><div class="ttdeci">#define DLC_DASHBOARD_VOLTS_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:63</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_aa8d4cf882bb500a4146096e2d3c73723"><div class="ttname"><a href="#aa8d4cf882bb500a4146096e2d3c73723">DLC_DASHBOARD_VOLTS_TEMP</a></div><div class="ttdeci">#define DLC_DASHBOARD_VOLTS_TEMP</div><div class="ttdef"><b>Definition</b> can_parse.h:64</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1459,8 +1535,8 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;fault_sync_dashboard.latched = latched_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a811ce2db0d1bb06c42f9405f98fa702a"><div class="ttname"><a href="#a811ce2db0d1bb06c42f9405f98fa702a">DLC_FAULT_SYNC_DASHBOARD</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:66</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a85ba219b4669ae0c2cf57c75251effc5"><div class="ttname"><a href="#a85ba219b4669ae0c2cf57c75251effc5">ID_FAULT_SYNC_DASHBOARD</a></div><div class="ttdeci">#define ID_FAULT_SYNC_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:31</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a811ce2db0d1bb06c42f9405f98fa702a"><div class="ttname"><a href="#a811ce2db0d1bb06c42f9405f98fa702a">DLC_FAULT_SYNC_DASHBOARD</a></div><div class="ttdeci">#define DLC_FAULT_SYNC_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:68</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a85ba219b4669ae0c2cf57c75251effc5"><div class="ttname"><a href="#a85ba219b4669ae0c2cf57c75251effc5">ID_FAULT_SYNC_DASHBOARD</a></div><div class="ttdeci">#define ID_FAULT_SYNC_DASHBOARD</div><div class="ttdef"><b>Definition</b> can_parse.h:32</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1489,7 +1565,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;filt_throttle_brake.brake = brake_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a2334651a6eb56277dd242468bcedba63"><div class="ttname"><a href="#a2334651a6eb56277dd242468bcedba63">DLC_FILT_THROTTLE_BRAKE</a></div><div class="ttdeci">#define DLC_FILT_THROTTLE_BRAKE</div><div class="ttdef"><b>Definition</b> can_parse.h:61</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a2334651a6eb56277dd242468bcedba63"><div class="ttname"><a href="#a2334651a6eb56277dd242468bcedba63">DLC_FILT_THROTTLE_BRAKE</a></div><div class="ttdeci">#define DLC_FILT_THROTTLE_BRAKE</div><div class="ttdef"><b>Definition</b> can_parse.h:62</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_aea636f87af1755977ec0d0582cf6c75b"><div class="ttname"><a href="#aea636f87af1755977ec0d0582cf6c75b">ID_FILT_THROTTLE_BRAKE</a></div><div class="ttdeci">#define ID_FILT_THROTTLE_BRAKE</div><div class="ttdef"><b>Definition</b> can_parse.h:26</div></div>
 </div><!-- fragment -->
 </div>
@@ -1537,7 +1613,7 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;raw_throttle_brake.brake_pot = brake_pot_;\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a451386f71e486b6c7da2ebe2a2e8811e"><div class="ttname"><a href="#a451386f71e486b6c7da2ebe2a2e8811e">DLC_RAW_THROTTLE_BRAKE</a></div><div class="ttdeci">#define DLC_RAW_THROTTLE_BRAKE</div><div class="ttdef"><b>Definition</b> can_parse.h:59</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_a451386f71e486b6c7da2ebe2a2e8811e"><div class="ttname"><a href="#a451386f71e486b6c7da2ebe2a2e8811e">DLC_RAW_THROTTLE_BRAKE</a></div><div class="ttdeci">#define DLC_RAW_THROTTLE_BRAKE</div><div class="ttdef"><b>Definition</b> can_parse.h:60</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a63285c14c40a1fd276266f7210aa4122"><div class="ttname"><a href="#a63285c14c40a1fd276266f7210aa4122">ID_RAW_THROTTLE_BRAKE</a></div><div class="ttdeci">#define ID_RAW_THROTTLE_BRAKE</div><div class="ttdef"><b>Definition</b> can_parse.h:24</div></div>
 </div><!-- fragment -->
 </div>
@@ -1563,7 +1639,7 @@ Variables</h2></td></tr>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a754ae65cd7d7ad3ade0912e4cb244d60"><div class="ttname"><a href="#a754ae65cd7d7ad3ade0912e4cb244d60">ID_START_BUTTON</a></div><div class="ttdeci">#define ID_START_BUTTON</div><div class="ttdef"><b>Definition</b> can_parse.h:27</div></div>
-<div class="ttc" id="adashboard_2can_2can__parse_8h_html_aed3d37fdbf68eeff4414dcf9fd82a662"><div class="ttname"><a href="#aed3d37fdbf68eeff4414dcf9fd82a662">DLC_START_BUTTON</a></div><div class="ttdeci">#define DLC_START_BUTTON</div><div class="ttdef"><b>Definition</b> can_parse.h:62</div></div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_aed3d37fdbf68eeff4414dcf9fd82a662"><div class="ttname"><a href="#aed3d37fdbf68eeff4414dcf9fd82a662">DLC_START_BUTTON</a></div><div class="ttdeci">#define DLC_START_BUTTON</div><div class="ttdef"><b>Definition</b> can_parse.h:63</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1939,8 +2015,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a46f1da6e61014a6553d5a6b4f12c223f" name="a46f1da6e61014a6553d5a6b4f12c223f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46f1da6e61014a6553d5a6b4f12c223f">&#9670;&#160;</a></span>initCANParse()</h2>
+<a id="aa1c60094ea5db2cec8e57bb40a3a1f8f" name="aa1c60094ea5db2cec8e57bb40a3a1f8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c60094ea5db2cec8e57bb40a3a1f8f">&#9670;&#160;</a></span>initCANParse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1948,7 +2024,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void initCANParse </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structq__handle__t.html">q_handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>q_rx_can_a</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

@@ -149,7 +149,7 @@ typedef enum
 #define TCP_RX_BUFF_ITEM_COUNT 200 // Shouldn't need to be much larger than max write count
 #define TCP_MIN_RX_PERIOD_MS   50
 #define TCP_MAX_WRITE_COUNT    (100)
-#define TCP_MAX_CAN_TX_COUNT   (5)
+#define TCP_MAX_CAN_TX_COUNT   (3)
 
 typedef struct
 {

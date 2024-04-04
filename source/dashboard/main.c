@@ -152,7 +152,6 @@ static volatile uint8_t dashboard_input;
 void preflightChecks(void);
 void preflightAnimation(void);
 void heartBeatLED();
-void canTxUpdate();
 void usartTxUpdate();
 extern void HardFault_Handler();
 void enableInterrupts();
@@ -161,22 +160,11 @@ void pollDashboardInput();
 void sendBrakeStatus();
 
 // Communication queues
-/**
- * q_tx_can_0 -> hlp [0,1] -> mailbox 1
- * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
- * q_tx_can_2 -> hlp [4,5] -> mailbox 3
-*/
-q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
-q_handle_t q_rx_can;
 q_handle_t q_tx_usart;
 
 int main (void){
 
     /* Data Struct init */
-    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
     /* HAL Initilization */
@@ -199,7 +187,7 @@ int main (void){
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_DASHBOARD);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_DASHBOARD);
 
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
@@ -261,8 +249,8 @@ void preflightChecks(void) {
             break;
         case 3:
             /* Module Initialization */
-            initCANParse(&q_rx_can);
-            if (daqInit(&q_tx_can_2))
+            initCANParse();
+            if (daqInit(&q_tx_can1_s[2]))
                 HardFault_Handler();
             break;
         case 4:
@@ -340,6 +328,12 @@ void heartBeatLED()
         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
     }
+
+
+   static uint8_t trig;
+   if (trig) SEND_DASH_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
+                  can_stats.rx_of, can_stats.rx_overrun);
+    trig = !trig;
 }
 
 static volatile uint32_t last_click_time;
@@ -491,96 +485,9 @@ void usartTxUpdate()
     }
 }
 
-/* CAN Message Handling */
-void canTxSendToBack(CanMsgTypeDef_t *msg)
-{
-    if (msg->IDE == 1)
-    {
-        // extended id, check hlp
-        switch((msg->ExtId >> 26) & 0b111)
-        {
-            case 0:
-            case 1:
-                qSendToBack(&q_tx_can_0, msg);
-                break;
-            case 2:
-            case 3:
-                qSendToBack(&q_tx_can_1, msg);
-                break;
-            default:
-                qSendToBack(&q_tx_can_2, msg);
-                break;
-        }
-    }
-    else
-    {
-        qSendToBack(&q_tx_can_0, &msg);
-}
-}
-
-void canTxUpdate(void)
-{
-    CanMsgTypeDef_t tx_msg;
-    if(PHAL_txMailboxFree(CAN1, 0))
-    {
-        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 0);
-        }
-    }
-    if(PHAL_txMailboxFree(CAN1, 1))
-    {
-        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 1);
-        }
-    }
-    if(PHAL_txMailboxFree(CAN1, 2))
-    {
-        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 2);
-        }
-    }
-}
-
 void CAN1_RX0_IRQHandler()
 {
-   if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-       CAN1->RF0R &= !(CAN_RF0R_FOVR0);
-
-   if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-       CAN1->RF0R &= !(CAN_RF0R_FULL0);
-
-   if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
-   {
-       CanMsgTypeDef_t rx;
-       rx.Bus = CAN1;
-
-       // Get either StdId or ExtId
-       if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-       {
-         rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
-       }
-       else
-       {
-         rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-       }
-
-       rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
-
-       rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0)  & 0xFF;
-       rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8)  & 0xFF;
-       rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
-       rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-       rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0)  & 0xFF;
-       rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
-       rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
-       rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
-
-       CAN1->RF0R |= (CAN_RF0R_RFOM0);
-       qSendToBack(&q_rx_can, &rx);
-   }
+    canParseIRQHandler(CAN1);
 }
 
 void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

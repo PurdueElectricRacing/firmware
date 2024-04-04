@@ -62,12 +62,24 @@
                                 {"sig_name":"sched_skips", "type":"uint8_t", "sig_desc": "Number of loop misses (execution time was skipped)"},
                                 {"sig_name":"foreground_use", "type":"uint8_t", "units":"%", "sig_desc":"Percent of the 1ms loop time used by foreground tasks"},
                                 {"sig_name":"background_use", "type":"uint8_t", "units":"%", "sig_desc":"Percent of the 1ms loop time used by background tasks"},
-                                {"sig_name":"sched_error", "type":"uint8_t", "sig_desc":"PSCHED Error Flags (bit #)\n 0 - N/A\n1 - no free task\n2 - FG Miss\n3 - BG Miss\n4 - Individual FG Miss"},
-                                {"sig_name":"can_tx_fails", "type":"uint8_t", "sig_desc":"Number of CAN transmit failures"}
+                                {"sig_name":"sched_error", "type":"uint8_t", "sig_desc":"PSCHED Error Flags (bit #)\n 0 - N/A\n1 - no free task\n2 - FG Miss\n3 - BG Miss\n4 - Individual FG Miss"}
                             ],
                             "msg_period": 1000,
                             "msg_hlp": 4,
                             "msg_pgn": 102
+                        },
+                        {
+                            "msg_name": "main_module_can_stats",
+                            "msg_desc": "CAN diagnostics",
+                            "signals": [
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1420
                         },
                         {
                             "msg_name": "num_mc_skips",
@@ -294,6 +306,19 @@
                         "msg_period":0,
                         "msg_hlp":5,
                         "msg_pgn":526
+                    },
+                    {
+                            "msg_name": "a_box_can_stats",
+                            "msg_desc": "CAN diagnostics",
+                            "signals": [
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1420
                     }
                     ],
                     "rx": [
@@ -559,6 +584,19 @@
                             "msg_period": 15,
                             "msg_hlp": 3,
                             "msg_pgn": 153
+                        },
+                        {
+                            "msg_name": "tv_can_stats",
+                            "msg_desc": "CAN diagnostics",
+                            "signals": [
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1420
                         }
                     ],
                     "rx":[
@@ -658,6 +696,19 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":56
+                        },
+                        {
+                            "msg_name": "dash_can_stats",
+                            "msg_desc": "CAN diagnostics",
+                            "signals": [
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1420
                         }
                     ],
                     "rx":[
@@ -779,6 +830,19 @@
                             "msg_period":200,
                             "msg_hlp":4,
                             "msg_pgn":34
+                        },
+                        {
+                            "msg_name": "pdu_can_stats",
+                            "msg_desc": "CAN diagnostics",
+                            "signals": [
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                            ],
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1420
                         }
                     ],
                     "rx": [

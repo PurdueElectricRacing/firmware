@@ -14,21 +14,20 @@
 bool initCANFilter();
 
 can_data_t can_data;
-q_handle_t* q_rx_can_a;
 volatile uint32_t last_can_rx_time_ms = 0;
 
-void initCANParse(q_handle_t* rx_a)
+void initCANParse(void)
 {
-    q_rx_can_a = rx_a;
+    initCANParseBase();
     initCANFilter();
 }
 
-void canRxUpdate()
+void canRxUpdate(void)
 {
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
-    if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
+    if(qReceive(&q_rx_can, &msg_header) == SUCCESS_G)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         last_can_rx_time_ms = sched.os_ticks;

@@ -138,7 +138,6 @@ void daq_loop(void)
         // TODO: flow control, multiple at once?
 
         // Pull frame and send from tcp rx buffer
-        if (PHAL_txMailboxFree(CAN1, 1))
         {
             if (bGetTailForRead(&b_rx_tcp, TCP_RX_TAIL_CAN_TX, (void**) &rx_msg_a, &cont) == 0)
             {
@@ -153,6 +152,7 @@ void daq_loop(void)
                         {
                             case TCP_CMD_CAN_FRAME:
                                 conv_tcp_frame_to_can_msg(rx_msg_a, &tx_msg);
+                                while (PHAL_txMailboxFree(CAN1, 1) == false);
                                 PHAL_txCANMessage(&tx_msg, 1);
                                 break;
                             case TCP_CMD_START_LOG:

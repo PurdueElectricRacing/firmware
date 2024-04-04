@@ -1,4 +1,5 @@
 #include "flow_rate.h"
+#include "common/psched/psched.h"
 
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;

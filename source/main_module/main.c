@@ -21,7 +21,6 @@
 #include "daq.h"
 #include "main.h"
 
-
 GPIOInitConfig_t gpio_config[] = {
     // Internal Status Indicators
     GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -204,33 +203,17 @@ void preflightChecks(void);
 void heartBeatLED();
 void usartTxUpdate(void);
 void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf);
-void canTxUpdate(void);
 void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 
-
-/**
- * q_tx_can_0 -> hlp [0,1] -> mailbox 1
- * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
- * q_tx_can_2 -> hlp [4,5] -> mailbox 3
-*/
-q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
-q_handle_t q_rx_can;
-uint8_t can_tx_fails; // number of CAN messages that failed to transmit
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
 
 uint16_t num_failed_msgs_r;
 uint16_t num_failed_msgs_l;
 
-
-    int main(void){
+int main(void){
     /* Data Struct Initialization */
-    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    can_tx_fails = 0;
     qConstruct(&q_tx_usart_l, MC_MAX_TX_LENGTH);
     qConstruct(&q_tx_usart_r, MC_MAX_TX_LENGTH);
 
@@ -332,10 +315,10 @@ void preflightChecks(void) {
            coolingInit();
            break;
        case 5:
-           initCANParse(&q_rx_can);
-           if(daqInit(&q_tx_can_2))
+           initCANParse();
+           if(daqInit(&q_tx_can1_s[2]))
                HardFault_Handler();
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_MAIN_MODULE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);
@@ -380,7 +363,12 @@ void heartBeatLED(void)
     if (trig) {
         SEND_MCU_STATUS(sched.skips, (uint8_t) sched.fg_time.cpu_use,
                                            (uint8_t) sched.bg_time.cpu_use,
-                                           sched.error, can_tx_fails);
+                                           sched.error);
+    }
+    else
+    {
+        SEND_MAIN_MODULE_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
+                                   can_stats.rx_of, can_stats.rx_overrun);
     }
     trig = !trig;
 }
@@ -424,7 +412,6 @@ void usart_recieve_complete_callback(usart_init_t *handle)
     }
 }
 
-
 void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
 {
     // TODO: check for overruns, framing errors, etc
@@ -442,113 +429,9 @@ void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
 }
 
 /* CAN Message Handling */
-void canTxSendToBack(CanMsgTypeDef_t *msg)
-{
-    if (msg->IDE == 1)
-    {
-        // extended id, check hlp
-        switch((msg->ExtId >> 26) & 0b111)
-        {
-            case 0:
-            case 1:
-                qSendToBack(&q_tx_can_0, msg);
-                break;
-            case 2:
-            case 3:
-                qSendToBack(&q_tx_can_1, msg);
-                break;
-            default:
-                qSendToBack(&q_tx_can_2, msg);
-                break;
-        }
-    }
-    else
-    {
-        qSendToBack(&q_tx_can_0, msg);
-    }
-}
-
-void canTxUpdate(void)
-{
-    CanMsgTypeDef_t tx_msg;
-    // TODO: we only check if CAN1 mailbox is free -> create separate queue for
-    // CAN2 is you are using it!!!!
-    if(PHAL_txMailboxFree(CAN1, 0))
-    {
-        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            if (!PHAL_txCANMessage(&tx_msg, 0))
-            {
-                ++can_tx_fails;
-            }
-        }
-    }
-    if(PHAL_txMailboxFree(CAN1, 1))
-    {
-        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 1);
-        }
-    }
-    if(PHAL_txMailboxFree(CAN1, 2))
-    {
-        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 2);
-        }
-    }
-    //     if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-    //     {
-    //         if (!PHAL_txCANMessage(&tx_msg))
-    //         {
-    //             ++can_tx_fails;
-    //             qSendToBack(&q_tx_can, &tx_msg);
-    //         }
-    //     }
-}
-
 void CAN1_RX0_IRQHandler()
 {
-    if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
-
-    if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0);
-        CAN1->RF0R &= !(CAN_RF0R_FULL0);
-
-    if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
-    {
-        CanMsgTypeDef_t rx;
-        rx.Bus = CAN1;
-
-        // Get either StdId or ExtId
-        rx.IDE = CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR;
-        if (rx.IDE)
-        {
-          rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
-        }
-        else
-        {
-          rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_STID_Pos;
-        }
-
-        rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
-
-        rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0)  & 0xFF;
-        rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8)  & 0xFF;
-        rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
-        rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-        rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0)  & 0xFF;
-        rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
-        rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
-        rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
-
-        CAN1->RF0R |= (CAN_RF0R_RFOM0);
-        CAN1->RF0R |= (CAN_RF0R_RFOM0);
-
-        qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
-    }
+    canParseIRQHandler(CAN1);
 }
 
 void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

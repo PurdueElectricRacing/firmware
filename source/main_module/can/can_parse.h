@@ -14,7 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
-#include "main.h"
+#include "common/daq/can_parse_base.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Main_Module"
@@ -26,6 +26,7 @@
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
 #define ID_MCU_STATUS 0x10001981
+#define ID_MAIN_MODULE_CAN_STATS 0x10016301
 #define ID_NUM_MC_SKIPS 0x10001b81
 #define ID_REAR_MC_STATUS 0x10001941
 #define ID_REAR_MOTOR_CURRENTS_VOLTS 0x100002c1
@@ -59,7 +60,8 @@
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
-#define DLC_MCU_STATUS 5
+#define DLC_MCU_STATUS 4
+#define DLC_MAIN_MODULE_CAN_STATS 4
 #define DLC_NUM_MC_SKIPS 4
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
@@ -120,14 +122,22 @@
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MCU_STATUS(sched_skips_, foreground_use_, background_use_, sched_error_, can_tx_fails_) do {\
+#define SEND_MCU_STATUS(sched_skips_, foreground_use_, background_use_, sched_error_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MCU_STATUS, .DLC=DLC_MCU_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->mcu_status.sched_skips = sched_skips_;\
         data_a->mcu_status.foreground_use = foreground_use_;\
         data_a->mcu_status.background_use = background_use_;\
         data_a->mcu_status.sched_error = sched_error_;\
-        data_a->mcu_status.can_tx_fails = can_tx_fails_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_MAIN_MODULE_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_MODULE_CAN_STATS, .DLC=DLC_MAIN_MODULE_CAN_STATS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->main_module_can_stats.can_tx_overflow = can_tx_overflow_;\
+        data_a->main_module_can_stats.can_tx_fail = can_tx_fail_;\
+        data_a->main_module_can_stats.can_rx_overflow = can_rx_overflow_;\
+        data_a->main_module_can_stats.can_rx_overrun = can_rx_overrun_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_NUM_MC_SKIPS(noise_r_, noise_l_) do {\
@@ -311,8 +321,13 @@ typedef union {
         uint64_t foreground_use: 8;
         uint64_t background_use: 8;
         uint64_t sched_error: 8;
-        uint64_t can_tx_fails: 8;
     } mcu_status;
+    struct {
+        uint64_t can_tx_overflow: 8;
+        uint64_t can_tx_fail: 8;
+        uint64_t can_rx_overflow: 8;
+        uint64_t can_rx_overrun: 8;
+    } main_module_can_stats;
     struct {
         uint64_t noise_r: 16;
         uint64_t noise_l: 16;
@@ -553,14 +568,14 @@ extern void send_fault(uint16_t id, bool latched);
  *
  * @param q_rx_can RX buffer of CAN messages
  */
-void initCANParse(q_handle_t* q_rx_can_a);
+void initCANParse(void);
 
 /**
  * @brief Pull message off of rx buffer,
  *        update can_data struct,
  *        check for stale messages
  */
-void canRxUpdate();
+void canRxUpdate(void);
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ

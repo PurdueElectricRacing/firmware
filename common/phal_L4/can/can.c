@@ -172,6 +172,23 @@ bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx)
     }
 }
 
+void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx)
+{
+    switch(mbx)
+    {
+        case 0:
+            bus->TSR |= CAN_TSR_ABRQ0;
+            break;
+        case 1:
+            bus->TSR |= CAN_TSR_ABRQ1;
+            break;
+        case 2:
+            bus->TSR |= CAN_TSR_ABRQ2;
+            break;
+        default:
+            break;
+    }
+}
 void  __attribute__((weak)) CAN1_RX0_IRQHandler()
 {
     // Implement for RX Mailbox 0 Handler

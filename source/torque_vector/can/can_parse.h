@@ -14,7 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
-#include "main.h"
+#include "common/daq/can_parse_base.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "torque_vector"
@@ -36,6 +36,7 @@
 #define ID_THROTTLE_REMAPPED 0x40025b7
 #define ID_MAXR 0xc002637
 #define ID_VEHHEAD 0xc002677
+#define ID_TV_CAN_STATS 0x10016337
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
@@ -72,6 +73,7 @@
 #define DLC_THROTTLE_REMAPPED 4
 #define DLC_MAXR 2
 #define DLC_VEHHEAD 2
+#define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_TORQUEVECTOR_BL_CMD 5
 #define DLC_FILT_THROTTLE_BRAKE 3
@@ -209,6 +211,15 @@
         data_a->vehHead.vehHead = vehHead_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_TV_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TV_CAN_STATS, .DLC=DLC_TV_CAN_STATS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->tv_can_stats.can_tx_overflow = can_tx_overflow_;\
+        data_a->tv_can_stats.can_tx_fail = can_tx_fail_;\
+        data_a->tv_can_stats.can_rx_overflow = can_rx_overflow_;\
+        data_a->tv_can_stats.can_rx_overrun = can_rx_overrun_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 #define SEND_FAULT_SYNC_TORQUE_VECTOR(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_TORQUE_VECTOR, .DLC=DLC_FAULT_SYNC_TORQUE_VECTOR, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -326,6 +337,12 @@ typedef union {
     struct {
         uint64_t vehHead: 16;
     } vehHead;
+    struct {
+        uint64_t can_tx_overflow: 8;
+        uint64_t can_tx_fail: 8;
+        uint64_t can_rx_overflow: 8;
+        uint64_t can_rx_overrun: 8;
+    } tv_can_stats;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -525,7 +542,7 @@ extern void send_fault(uint16_t id, bool latched);
  *
  * @param q_rx_can RX buffer of CAN messages
  */
-void initCANParse(q_handle_t *q_rx_can_a);
+void initCANParse(void);
 
 /**
  * @brief Pull message off of rx buffer,

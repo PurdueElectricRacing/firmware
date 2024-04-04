@@ -69,5 +69,6 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus);
  */
 bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t mbx);
 bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx);
+void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx);
 
 #endif // _PHAL_CAN_H

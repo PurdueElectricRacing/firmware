@@ -15,11 +15,7 @@
 #include "orion.h"
 #include "tmu.h"
 
-
 #include "common/faults/faults.h"
-
-
-
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -84,14 +80,6 @@ extern uint32_t PLLClockRateHz;
 
 extern uint8_t orion_error;
 
-/**
- * q_tx_can_0 -> hlp [0,1] -> mailbox 1
- * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
- * q_tx_can_2 -> hlp [4,5] -> mailbox 3
-*/
-q_handle_t q_tx_can_0, q_tx_can_1, q_tx_can_2;
-q_handle_t q_rx_can;
-
 bool bms_daq_override = false;
 bool bms_daq_stat = false;
 
@@ -100,7 +88,6 @@ void PHAL_FaultHandler();
 extern void HardFault_Handler();
 
 
-void canTxUpdate();
 void heartBeatLED();
 void monitorStatus();
 void preflightChecks();
@@ -133,11 +120,6 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
 int main (void)
 {
     /* Data Struct init */
-    qConstruct(&q_tx_can_0, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_tx_can_1, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_tx_can_2, sizeof(CanMsgTypeDef_t));
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-
 
    /* HAL Initilization */
    if (0 != PHAL_configureClockRates(&clock_config))
@@ -184,13 +166,13 @@ int main (void)
    NVIC_EnableIRQ(CAN1_RX0_IRQn);
    NVIC_EnableIRQ(CAN2_RX0_IRQn);
 
-    initCANParse(&q_rx_can);
+    initCANParse();
     orionInit();
 
     bms_daq_override = false;
     bms_daq_stat = false;
 
-    if (daqInit(&q_tx_can_2))
+    if (daqInit(&q_tx_can1_s[2]))
         HardFault_Handler();
 
    /* Module init */
@@ -234,7 +216,7 @@ void preflightChecks(void)
             initTMU(&tmu);
             break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_A_BOX);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_A_BOX);
             break;
        default:
            if (state > 750)
@@ -293,6 +275,11 @@ void heartBeatLED()
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
+
+    static uint8_t trig;
+    if (trig) SEND_A_BOX_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
+                  can_stats.rx_of, can_stats.rx_overrun);
+    trig = !trig;
 }
 
 
@@ -319,161 +306,21 @@ void monitorStatus()
 
 
 // *** Compulsory CAN Tx/Rx callbacks ***
-/* CAN Message Handling */
-void canTxSendToBack(CanMsgTypeDef_t *msg)
-{
-    if (msg->IDE == 1)
-    {
-        // extended id, check hlp
-        switch((msg->ExtId >> 26) & 0b111)
-        {
-            case 0:
-            case 1:
-                qSendToBack(&q_tx_can_0, msg);
-                break;
-            case 2:
-            case 3:
-                qSendToBack(&q_tx_can_1, msg);
-                break;
-            default:
-                qSendToBack(&q_tx_can_2, msg);
-                break;
-        }
-    }
-    else
-    {
-        qSendToBack(&q_tx_can_0, &msg);
-}
-}
-
-void canTxUpdate(void)
-{
-    CanMsgTypeDef_t tx_msg;
-    if(PHAL_txMailboxFree(CAN1, 0))
-    {
-        if (qReceive(&q_tx_can_0, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 0);
-        }
-    }
-    if(PHAL_txMailboxFree(CAN1, 1))
-    {
-        if (qReceive(&q_tx_can_1, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 1);
-        }
-    }
-    if(PHAL_txMailboxFree(CAN1, 2))
-    {
-        if (qReceive(&q_tx_can_2, &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
-        {
-            PHAL_txCANMessage(&tx_msg, 2);
-        }
-    }
-}
-
 void CAN1_RX0_IRQHandler()
 {
-   if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-       CAN1->RF0R &= !(CAN_RF0R_FOVR0);
-
-
-   if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-       CAN1->RF0R &= !(CAN_RF0R_FULL0);
-
-
-   if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
-   {
-       CanMsgTypeDef_t rx;
-
-
-       // Get either StdId or ExtId
-       if (CAN_RI0R_IDE & CAN1->sFIFOMailBox[0].RIR)
-       {
-         rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN1->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
-       }
-       else
-       {
-         rx.StdId = (CAN_RI0R_STID & CAN1->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-       }
-
-
-       rx.Bus = CAN1;
-       rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
-
-
-       rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
-       rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
-       rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
-       rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-       rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
-       rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
-       rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
-       rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
-
-
-       CAN1->RF0R     |= (CAN_RF0R_RFOM0);
-       canProcessRxIRQs(&rx);
-       qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
-   }
+    canParseIRQHandler(CAN1);
 }
-
-
-
 
 void CAN2_RX0_IRQHandler()
 {
-   if (CAN2->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-       CAN2->RF0R &= !(CAN_RF0R_FOVR0);
-
-
-   if (CAN2->RF0R & CAN_RF0R_FULL0) // FIFO Full
-       CAN2->RF0R &= !(CAN_RF0R_FULL0);
-
-
-   if (CAN2->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
-   {
-       CanMsgTypeDef_t rx;
-       rx.Bus = CAN2;
-
-
-       // Get either StdId or ExtId
-       if (CAN_RI0R_IDE & CAN2->sFIFOMailBox[0].RIR)
-       {
-         rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & CAN2->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
-       }
-       else
-       {
-         rx.StdId = (CAN_RI0R_STID & CAN2->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-       }
-
-
-       rx.DLC = (CAN_RDT0R_DLC & CAN2->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
-
-
-       rx.Data[0] = (uint8_t) (CAN2->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
-       rx.Data[1] = (uint8_t) (CAN2->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
-       rx.Data[2] = (uint8_t) (CAN2->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
-       rx.Data[3] = (uint8_t) (CAN2->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-       rx.Data[4] = (uint8_t) (CAN2->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
-       rx.Data[5] = (uint8_t) (CAN2->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
-       rx.Data[6] = (uint8_t) (CAN2->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
-       rx.Data[7] = (uint8_t) (CAN2->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
-
-
-       CAN2->RF0R     |= (CAN_RF0R_RFOM0);
-       canProcessRxIRQs(&rx);
-       qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
-   }
+    canParseIRQHandler(CAN2);
 }
-
 
 void a_box_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
    if (can_data.a_box_bl_cmd.cmd == BLCMD_RST)
        Bootloader_ResetForFirmwareDownload();
 }
-
 
 void PHAL_FaultHandler()
 {

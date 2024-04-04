@@ -14,7 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
-#include "main.h"
+#include "common/daq/can_parse_base.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Dashboard"
@@ -28,6 +28,7 @@
 #define ID_DASHBOARD_VOLTS_TEMP 0x10001945
 #define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
 #define ID_DASHBOARD_START_LOGGING 0x4000e05
+#define ID_DASH_CAN_STATS 0x10016305
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0xc001901
@@ -63,6 +64,7 @@
 #define DLC_DASHBOARD_VOLTS_TEMP 6
 #define DLC_DASHBOARD_TV_PARAMETERS 7
 #define DLC_DASHBOARD_START_LOGGING 1
+#define DLC_DASH_CAN_STATS 4
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_DAQ_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
@@ -145,6 +147,15 @@
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_START_LOGGING, .DLC=DLC_DASHBOARD_START_LOGGING, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->dashboard_start_logging.logging_enabled = logging_enabled_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_DASH_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASH_CAN_STATS, .DLC=DLC_DASH_CAN_STATS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->dash_can_stats.can_tx_overflow = can_tx_overflow_;\
+        data_a->dash_can_stats.can_tx_fail = can_tx_fail_;\
+        data_a->dash_can_stats.can_rx_overflow = can_rx_overflow_;\
+        data_a->dash_can_stats.can_rx_overrun = can_rx_overrun_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_DASHBOARD(idx_, latched_) do {\
@@ -237,6 +248,12 @@ typedef union {
     struct {
         uint64_t logging_enabled: 1;
     } dashboard_start_logging;
+    struct {
+        uint64_t can_tx_overflow: 8;
+        uint64_t can_tx_fail: 8;
+        uint64_t can_rx_overflow: 8;
+        uint64_t can_rx_overrun: 8;
+    } dash_can_stats;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -607,7 +624,7 @@ extern void send_fault(uint16_t id, bool latched);
  *
  * @param q_rx_can RX buffer of CAN messages
  */
-void initCANParse(q_handle_t* q_rx_can_a);
+void initCANParse(void);
 
 /**
  * @brief Pull message off of rx buffer,

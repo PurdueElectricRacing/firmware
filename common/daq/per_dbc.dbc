@@ -55,12 +55,17 @@ BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415925633 mcu_status: 5 Main_Module
- SG_ can_tx_fails : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2415925633 mcu_status: 4 Main_Module
  SG_ sched_error : 24|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ background_use : 16|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ foreground_use : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ sched_skips : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416009985 main_module_can_stats: 4 Main_Module
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415926145 num_mc_skips: 4 Main_Module
  SG_ noise_l : 16|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -164,6 +169,12 @@ BO_ 2483061636 raw_cell_temp_c_d: 5 a_box
  SG_ temp_D : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ temp_C : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416009988 a_box_can_stats: 4 a_box
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059716 fault_sync_a_box: 3 a_box
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -302,6 +313,12 @@ BO_ 2348820023 maxR: 2 torque_vector
 BO_ 2348820087 vehHead: 2 torque_vector
  SG_ vehHead : 0|16@1- (1,0) [0|0] "none" Vector__XXX
 
+BO_ 2416010039 tv_can_stats: 4 torque_vector
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2148059831 fault_sync_torque_vector: 3 torque_vector
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -340,6 +357,12 @@ BO_ 2214596037 dashboard_tv_parameters: 7 Dashboard
 
 BO_ 2214596101 dashboard_start_logging: 1 Dashboard
  SG_ logging_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416009989 dash_can_stats: 4 Dashboard
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059845 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -389,6 +412,12 @@ BO_ 2415921375 coolant_out: 3 PDU
 BO_ 2415921311 flowrates: 2 PDU
  SG_ drivetrain_flowrate : 8|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
  SG_ battery_flowrate : 0|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+
+BO_ 2416010015 pdu_can_stats: 4 PDU
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059935 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -606,7 +635,6 @@ CM_ SG_ 1984 Reserved_2 "";
 CM_ SG_ 1984 Reserved_1 "";
 CM_ SG_ 1984 CCW "";
 CM_ BO_ 2415925633 "performance metrics of MCU";
-CM_ SG_ 2415925633 can_tx_fails "Number of CAN transmit failures";
 CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
  0 - N/A
 1 - no free task
@@ -616,6 +644,11 @@ CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
 CM_ SG_ 2415925633 background_use "Percent of the 1ms loop time used by background tasks";
 CM_ SG_ 2415925633 foreground_use "Percent of the 1ms loop time used by foreground tasks";
 CM_ SG_ 2415925633 sched_skips "Number of loop misses (execution time was skipped)";
+CM_ BO_ 2416009985 "CAN diagnostics";
+CM_ SG_ 2416009985 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416009985 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416009985 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416009985 can_tx_overflow "CAN Tx queue overflow count";
 CM_ BO_ 2415926145 "Messages ignored by MC";
 CM_ SG_ 2415926145 noise_l "Num of skipped msgs";
 CM_ SG_ 2415926145 noise_r "Num of skipped msgs";
@@ -701,6 +734,11 @@ CM_ BO_ 2483061636 "Raw cell temperature for each module of thermistor at index"
 CM_ SG_ 2483061636 temp_D "";
 CM_ SG_ 2483061636 temp_C "";
 CM_ SG_ 2483061636 index "";
+CM_ BO_ 2416009988 "CAN diagnostics";
+CM_ SG_ 2416009988 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416009988 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416009988 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416009988 can_tx_overflow "CAN Tx queue overflow count";
 CM_ BO_ 2148059716 "Fault status message";
 CM_ SG_ 2148059716 latched "";
 CM_ SG_ 2148059716 idx "";
@@ -818,6 +856,11 @@ CM_ BO_ 2348820023 "Maximum Allowed Throttle";
 CM_ SG_ 2348820023 vcu_max_r "";
 CM_ BO_ 2348820087 "Vehicle Heading";
 CM_ SG_ 2348820087 vehHead "";
+CM_ BO_ 2416010039 "CAN diagnostics";
+CM_ SG_ 2416010039 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416010039 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416010039 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416010039 can_tx_overflow "CAN Tx queue overflow count";
 CM_ BO_ 2148059831 "Fault status message";
 CM_ SG_ 2148059831 latched "";
 CM_ SG_ 2148059831 idx "";
@@ -849,6 +892,11 @@ CM_ SG_ 2214596037 tv_deadband_val "";
 CM_ SG_ 2214596037 tv_enabled "";
 CM_ BO_ 2214596101 "start logging";
 CM_ SG_ 2214596101 logging_enabled "";
+CM_ BO_ 2416009989 "CAN diagnostics";
+CM_ SG_ 2416009989 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416009989 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416009989 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416009989 can_tx_overflow "CAN Tx queue overflow count";
 CM_ BO_ 2148059845 "Fault status message";
 CM_ SG_ 2148059845 latched "";
 CM_ SG_ 2148059845 idx "";
@@ -889,6 +937,11 @@ CM_ SG_ 2415921375 bat_fan "";
 CM_ BO_ 2415921311 "Flowrate cooling loops";
 CM_ SG_ 2415921311 drivetrain_flowrate "Flow rate for drivetrain coolant loop";
 CM_ SG_ 2415921311 battery_flowrate "Flow rate for battery coolant loop";
+CM_ BO_ 2416010015 "CAN diagnostics";
+CM_ SG_ 2416010015 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416010015 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416010015 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416010015 can_tx_overflow "CAN Tx queue overflow count";
 CM_ BO_ 2148059935 "Fault status message";
 CM_ SG_ 2148059935 latched "";
 CM_ SG_ 2148059935 idx "";

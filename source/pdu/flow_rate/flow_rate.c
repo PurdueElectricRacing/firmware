@@ -60,6 +60,8 @@ bool flowRateInit()
     FLOW_RATE_1_TIM->CCER |= TIM_CCER_CC1E; // Enable CCR1
     FLOW_RATE_1_TIM->CCER |= TIM_CCER_CC2E; // Enable CCR2
 
+    FLOW_RATE_1_TIM->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
+
     FLOW_RATE_1_TIM->CR1 |= TIM_CR1_CEN; // Enable timer
 
     /* FLOW_RATE_2_TIM */
@@ -102,14 +104,43 @@ bool flowRateInit()
     /* Enable channels */
     FLOW_RATE_2_TIM->CCER |= TIM_CCER_CC1E; // Enable CCR1
     FLOW_RATE_2_TIM->CCER |= TIM_CCER_CC2E; // Enable CCR2
+    
+    FLOW_RATE_2_TIM->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
 
     FLOW_RATE_2_TIM->CR1 |= TIM_CR1_CEN; // Enable timer
+
+    NVIC_EnableIRQ(TIM3_IRQn);
+    NVIC_EnableIRQ(TIM8_CC_IRQn);
 
     return true;
 }
 
+volatile uint32_t last_cc_flow_1 = 0;
+void TIM3_IRQHandler()
+{
+    /* We have a capture compare event */
+    if (TIM3->SR & TIM_SR_CC1IF) {
+        last_cc_flow_1 = sched.os_ticks;
+        TIM3->SR = ~(TIM_SR_CC1IF);
+    }
+}
+
+volatile uint32_t last_cc_flow_2 = 0;
+void TIM8_CC_IRQHandler()
+{
+    /* We have a capture compare event */
+    if (TIM8->SR & TIM_SR_CC2IF) {
+        last_cc_flow_2 = sched.os_ticks;
+        TIM8->SR = ~(TIM_SR_CC2IF);
+    }
+}
+
 uint32_t getFlowRate1()
 {
+    if (sched.os_ticks - last_cc_flow_1 >= MAX_TIME_BETWEEN_CC_MS) {
+        return 0;
+    }
+
     if (FLOW_RATE_1_TIM->CCR1 == 0) {
         return 0;
     }
@@ -121,6 +152,10 @@ uint32_t getFlowRate1()
 
 uint32_t getFlowRate2()
 {
+    if (sched.os_ticks - last_cc_flow_2 >= MAX_TIME_BETWEEN_CC_MS) {
+        return 0;
+    }
+
     if (FLOW_RATE_2_TIM->CCR2 == 0) {
         return 0;
     }

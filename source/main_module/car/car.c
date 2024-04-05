@@ -330,10 +330,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
-    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-                car.motor_l.motor_state != MC_CONNECTED);
-    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-                car.motor_r.motor_state != MC_CONNECTED);
+    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_l.motor_state != MC_CONNECTED);
+    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+    //             car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;

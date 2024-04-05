@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'tv'.
  *
- * Model version                  : 1.21
+ * Model version                  : 1.26
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Wed Mar 13 19:11:02 2024
+ * C/C++ source code generated on : Thu Mar 28 16:15:49 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -60,9 +60,9 @@ typedef struct {
 
 /* External inputs (root inport signals with default storage) */
 typedef struct {
-  real_T R[9];                         /* '<Root>/R' */
-  boolean_T F_raw[13];                 /* '<Root>/F_raw' */
   real_T D_raw[19];                    /* '<Root>/D_raw' */
+  boolean_T F_raw[13];                 /* '<Root>/F_raw' */
+  real_T R[9];                         /* '<Root>/R' */
   real_T dphi;                         /* '<Root>/dphi' */
   real_T TVS_P;                        /* '<Root>/TVS_P' */
   real_T TVS_I;                        /* '<Root>/TVS_I' */
@@ -72,13 +72,13 @@ typedef struct {
 typedef struct {
   real_T rTVS[2];                      /* '<Root>/rTVS' */
   real_T rEQUAL[2];                    /* '<Root>/rEQUAL' */
+  real_T max_K;                        /* '<Root>/max_K' */
   real_T w[2];                         /* '<Root>/w' */
   real_T V;                            /* '<Root>/V' */
   real_T TVS_STATE;                    /* '<Root>/TVS_STATE' */
   boolean_T F_TVS[51];                 /* '<Root>/F_TVS' */
   real_T sig_trunc[19];                /* '<Root>/sig_trunc' */
   real_T sig_filt[18];                 /* '<Root>/sig_filt' */
-  real_T max_K;                        /* '<Root>/max_K' */
 } ExtY_tv;
 
 /* Parameters (default storage) */

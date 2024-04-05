@@ -32,8 +32,7 @@
 #define ID_SFS_ACC 0xc0169b7
 #define ID_SFS_ANG 0xc0169f7
 #define ID_SFS_ANG_VEL 0xc016a37
-#define ID_THROTTLE_VCU 0x40025f7
-#define ID_THROTTLE_REMAPPED 0x40025b7
+#define ID_THROTTLE_VCU 0xc0025b7
 #define ID_MAXR 0xc002637
 #define ID_VEHHEAD 0xc002677
 #define ID_TV_CAN_STATS 0x10016337
@@ -58,8 +57,8 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_GPS_VELOCITY 8
-#define DLC_GPS_POSITION 8
+#define DLC_GPS_VELOCITY 6
+#define DLC_GPS_POSITION 2
 #define DLC_GPS_COORDINATES 8
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
@@ -69,8 +68,7 @@
 #define DLC_SFS_ACC 6
 #define DLC_SFS_ANG 8
 #define DLC_SFS_ANG_VEL 6
-#define DLC_THROTTLE_VCU 4
-#define DLC_THROTTLE_REMAPPED 4
+#define DLC_THROTTLE_VCU 6
 #define DLC_MAXR 2
 #define DLC_VEHHEAD 2
 #define DLC_TV_CAN_STATS 4
@@ -95,21 +93,17 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_GPS_VELOCITY(gps_vel_n_, gps_vel_e_, gps_vel_d_, gps_vel_total_) do {\
+#define SEND_GPS_VELOCITY(gps_vel_n_, gps_vel_e_, gps_vel_d_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_VELOCITY, .DLC=DLC_GPS_VELOCITY, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_velocity.gps_vel_n = gps_vel_n_;\
         data_a->gps_velocity.gps_vel_e = gps_vel_e_;\
         data_a->gps_velocity.gps_vel_d = gps_vel_d_;\
-        data_a->gps_velocity.gps_vel_total = gps_vel_total_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_GPS_POSITION(gps_pos_x_, gps_pos_y_, gps_pos_z_, height_) do {\
+#define SEND_GPS_POSITION(height_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_POSITION, .DLC=DLC_GPS_POSITION, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->gps_position.gps_pos_x = gps_pos_x_;\
-        data_a->gps_position.gps_pos_y = gps_pos_y_;\
-        data_a->gps_position.gps_pos_z = gps_pos_z_;\
         data_a->gps_position.height = height_;\
         canTxSendToBack(&msg);\
     } while(0)
@@ -185,18 +179,12 @@
         data_a->sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_THROTTLE_VCU(vcu_r_rl_, vcu_r_rr_) do {\
+#define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_, vcu_r_max_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU, .DLC=DLC_THROTTLE_VCU, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->throttle_vcu.vcu_r_rl = vcu_r_rl_;\
-        data_a->throttle_vcu.vcu_r_rr = vcu_r_rr_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_THROTTLE_REMAPPED(vcu_k_rl_, vcu_k_rr_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_REMAPPED, .DLC=DLC_THROTTLE_REMAPPED, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->throttle_remapped.vcu_k_rl = vcu_k_rl_;\
-        data_a->throttle_remapped.vcu_k_rr = vcu_k_rr_;\
+        data_a->throttle_vcu.vcu_k_rl = vcu_k_rl_;\
+        data_a->throttle_vcu.vcu_k_rr = vcu_k_rr_;\
+        data_a->throttle_vcu.vcu_r_max = vcu_r_max_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_MAXR(vcu_max_r_) do {\
@@ -270,12 +258,8 @@ typedef union {
         uint64_t gps_vel_n: 16;
         uint64_t gps_vel_e: 16;
         uint64_t gps_vel_d: 16;
-        uint64_t gps_vel_total: 16;
     } gps_velocity;
     struct {
-        uint64_t gps_pos_x: 16;
-        uint64_t gps_pos_y: 16;
-        uint64_t gps_pos_z: 16;
         uint64_t height: 16;
     } gps_position;
     struct {
@@ -324,13 +308,10 @@ typedef union {
         uint64_t sfs_ang_vel_z: 16;
     } sfs_ang_vel;
     struct {
-        uint64_t vcu_r_rl: 16;
-        uint64_t vcu_r_rr: 16;
-    } throttle_vcu;
-    struct {
         uint64_t vcu_k_rl: 16;
         uint64_t vcu_k_rr: 16;
-    } throttle_remapped;
+        uint64_t vcu_r_max: 16;
+    } throttle_vcu;
     struct {
         uint64_t vcu_max_r: 16;
     } maxR;

@@ -27,6 +27,21 @@
 #include "tv.h"
 #include "tv_pp.h"
 
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+
 uint8_t collect_test[100] = {0};
 
 GPIOInitConfig_t gpio_config[] = {
@@ -359,7 +374,7 @@ void VCU_MAIN(void)
     /* If Energized -> Accumulate Acceleration Vector */
     /* If R2D -> Do TV */
     /* Else -> Do Nothing */
-    if ((can_data.main_hb.car_state == 2) & (ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
+    if (((can_data.main_hb.car_state == 1) | (can_data.main_hb.car_state == 2)) & (ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
         /* Accumulate Acceleration Vector */
         vec_mm.ax[ac_counter] = GPSHandle.acceleration.x;
         vec_mm.ay[ac_counter] = GPSHandle.acceleration.y;
@@ -396,21 +411,17 @@ void VCU_MAIN(void)
     setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
     /* Send Messages */
-    SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095));
-    SEND_THROTTLE_REMAPPED((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095));
+    SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095),MAX((int16_t)(rtY_tv.rTVS[0]*4095),(int16_t)(rtY_tv.rTVS[1])));
+    SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
 
-    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),
-                    (int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
-    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),
-                     (int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
+    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
+    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
 
-    SEND_MAXR((int16_t)(rtY_tv.max_K*100));
-
-    //SEND_SFS_POS((int16_t)(rtY.pos_VNED[0] * 100),
+    //SEND_SFS_POS(q_tx_can, (int16_t)(rtY.pos_VNED[0] * 100),
     //             (int16_t)(rtY.pos_VNED[1] * 100), (int16_t)(rtY.pos_VNED[2] * 100));
-    //SEND_SFS_VEL((int16_t)(rtY.vel_VNED[0] * 100),
+    //SEND_SFS_VEL(q_tx_can, (int16_t)(rtY.vel_VNED[0] * 100),
     //             (int16_t)(rtY.vel_VNED[1] * 100), (int16_t)(rtY.vel_VNED[2] * 100));
-    //SEND_SFS_ANG((int16_t)(rtY.ang_NED[0] * 10000),
+    //SEND_SFS_ANG(q_tx_can, (int16_t)(rtY.ang_NED[0] * 10000),
     //             (int16_t)(rtY.ang_NED[1] * 10000), (int16_t)(rtY.ang_NED[2] * 10000), (int16_t)(rtY.ang_NED[3] * 10000));
 }
 

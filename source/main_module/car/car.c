@@ -241,10 +241,10 @@ void carPeriodic()
             float t_req_pedal_r = 0;
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
-            if (!can_data.throttle_remapped.stale)
-                t_req_pedal_l = (float) CLAMP(can_data.throttle_remapped.vcu_k_rl, 0, 4095);
-            if (!can_data.throttle_remapped.stale)
-                t_req_pedal_r = (float) CLAMP(can_data.throttle_remapped.vcu_k_rr, 0, 4095);
+            if (!can_data.throttle_vcu.stale)
+                t_req_pedal_l = (float) CLAMP(can_data.throttle_vcu.vcu_k_rl, 0, 4095);
+            if (!can_data.throttle_vcu.stale)
+                t_req_pedal_r = (float) CLAMP(can_data.throttle_vcu.vcu_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
@@ -330,10 +330,10 @@ void parseMCDataPeriodic(void)
     mcPeriodic(&car.motor_l);
     mcPeriodic(&car.motor_r);
 
-    // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-    //             car.motor_l.motor_state != MC_CONNECTED);
-    // setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
-    //             car.motor_r.motor_state != MC_CONNECTED);
+    setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+                car.motor_l.motor_state != MC_CONNECTED);
+    setFault(ID_RIGHT_MC_CONN_FAULT, car.pchg.pchg_complete &&
+                car.motor_r.motor_state != MC_CONNECTED);
     // Only send once both controllers have updated data
     // if (motor_right.data_stale ||
     //     motor_left.data_stale) return;

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'tv'.
  *
- * Model version                  : 1.21
+ * Model version                  : 1.26
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Wed Mar 13 19:11:02 2024
+ * C/C++ source code generated on : Thu Mar 28 16:15:49 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -26,7 +26,7 @@ P_tv rtP_tv = {
   /* Variable: I_FUSE
    * Referenced by: '<S4>/I_FUSE'
    */
-  125.0,
+  130.0,
 
   /* Variable: PLb
    * Referenced by:
@@ -61,7 +61,7 @@ P_tv rtP_tv = {
    *   '<S4>/T_m to Max Power Level'
    *   '<S4>/T_mc to Max Power Level'
    */
-  { 1.0, 0.0 },
+  { 2.0, 0.0 },
 
   /* Variable: r_power_sat
    * Referenced by: '<S4>/Gain4'
@@ -82,7 +82,7 @@ P_tv rtP_tv = {
    *   '<S3>/Constant4'
    *   '<S3>/Saturation'
    */
-  { 1.0, 130.0, 430.0, 1100.0, 1100.0, 30.0, 30.0, 30.0, 2.5, 2.5, 2.5, 125.0,
+  { 1.0, 130.0, 430.0, 1100.0, 1100.0, 30.0, 30.0, 30.0, 2.5, 2.5, 2.5, 130.0,
     100.0, 100.0, 125.0, 125.0, 30.0, 30.0, 30.0 },
 
   /* Variable: v

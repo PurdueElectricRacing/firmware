@@ -192,7 +192,6 @@ int main (void)
    taskCreate(heartBeatTask, 100);
    taskCreate(sendhbmsg, 500);
    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-   // CAN I DO THIS??
    taskCreate(readCurrents, 50);
 
    taskCreateBackground(canTxUpdate);
@@ -293,7 +292,8 @@ void heartBeatLED()
 void monitorStatus()
 {
    uint8_t bms_err, imd_err;
-   bms_err = orionErrors() | readTemps(&tmu);
+   bms_err = orionErrors();
+   bms_err = readTemps(&tmu) | bms_err;
    imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
@@ -335,16 +335,18 @@ void PHAL_FaultHandler()
 
 void readCurrents() {
     // storing ADC values to preserve them
-    volatile uint16_t adc_isense_1 = adc_readings.isense_ch1;
-    volatile uint16_t adc_isense_2 = adc_readings.isense_ch1;
+    uint16_t adc_isense_1 = adc_readings.isense_ch1;
+    uint16_t adc_isense_2 = adc_readings.isense_ch2;
     // Calculating currents from ADC using equation from: https://www.lem.com/sites/default/files/products_datasheets/dhab_s_124.pdf
     float V_offset = 2.5; // offset voltage (V)
     float G1 = 26.7 / 1000; // channel 1 sensitivity (V/A)
     float G2 = 4 / 1000; // channel 2 sensitivity (V/A)
-    int Uc = 5; // supply voltage (V)
     // calculating Vout and converting from 3.3 to 5 based on voltage divider
     float Vout_ch1 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_1 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
     float Vout_ch2 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_2 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
-    volatile float i_ch1 = (Vout_ch1 - V_offset) / G1;
-    volatile float i_ch2 = (Vout_ch2 - V_offset) / G2;
+    // calculating current, scaling by 17 due to coil turns, multiplying by 100 to send as int over CAN
+    int16_t i_ch1 = (Vout_ch1 - V_offset) / G1 / NUM_TURNS * 100;
+    int16_t i_ch2 = (Vout_ch2 - V_offset) / G2 / NUM_TURNS * 100;
+    // sending currents over CAN
+    SEND_I_SENSE(i_ch1, i_ch2);
 }

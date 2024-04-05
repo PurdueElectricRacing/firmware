@@ -130,8 +130,12 @@ uint8_t readTemps(tmu_handle_t *tmu) {
         setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
         setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
 
+        // checking if faults have latched
+        checkFault(ID_PACK_TEMP_EXCEEDED_FAULT);
+        checkFault(ID_MIN_PACK_TEMP_FAULT);
+
         // setting temp error fault high for bms fault if there is temp fault
-        tempError = max_temp > MAX_TEMP_TMU ? 1 :  min_temp < MIN_TEMP_TMU ? 1 : 0;
+        tempError = max_temp > PACK_TEMP_EXCEEDED_MAX ? 1 :  min_temp < MIN_PACK_TEMP_MIN ? 1 : 0;
 
         // resetting
         curr_therm = 0;

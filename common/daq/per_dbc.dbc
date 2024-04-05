@@ -176,6 +176,10 @@ BO_ 2416009988 a_box_can_stats: 4 a_box
  SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2416010308 i_sense: 4 a_box
+ SG_ current_channel_2 : 16|16@1- (0.01,0) [0|0] "A" Vector__XXX
+ SG_ current_channel_1 : 0|16@1- (0.01,0) [0|0] "A" Vector__XXX
+
 BO_ 2148059716 fault_sync_a_box: 3 a_box
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -739,6 +743,9 @@ CM_ SG_ 2416009988 can_rx_overrun "CAN Rx FIFO overrun count";
 CM_ SG_ 2416009988 can_rx_overflow "CAN Rx queue overflow count";
 CM_ SG_ 2416009988 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
 CM_ SG_ 2416009988 can_tx_overflow "CAN Tx queue overflow count";
+CM_ BO_ 2416010308 "Current sense value for channel 1 and channel 2 of current sensor";
+CM_ SG_ 2416010308 current_channel_2 "";
+CM_ SG_ 2416010308 current_channel_1 "";
 CM_ BO_ 2148059716 "Fault status message";
 CM_ SG_ 2148059716 latched "";
 CM_ SG_ 2148059716 idx "";

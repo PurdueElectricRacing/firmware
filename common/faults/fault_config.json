@@ -654,7 +654,7 @@
                     "max": 600,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 2000,
+                    "time_to_latch": 500,
                     "time_to_unlatch": 10000,
                     "lcd_message": "Pack Overheating"
                 },

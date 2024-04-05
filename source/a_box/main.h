@@ -91,6 +91,8 @@
 // Current sense resistors in ohms
 #define R1_ISENSE 1000
 #define R2_ISENSE 2000
+// number of turns of isense wire coil
+#define NUM_TURNS 17
 typedef struct 
 {
     // Do not modify this struct unless

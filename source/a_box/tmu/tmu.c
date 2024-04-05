@@ -41,7 +41,8 @@ void initTMU(tmu_handle_t *tmu) {
 }
 
 
-void readTemps(tmu_handle_t *tmu) {
+uint8_t readTemps(tmu_handle_t *tmu) {
+    uint8_t tempError = 0;
     static int curr_therm; // current thermistor counter variable
     /* Storing ADC readings */
     uint16_t ADC_tmu_1 = adc_readings.tmu_1;
@@ -125,13 +126,12 @@ void readTemps(tmu_handle_t *tmu) {
         int16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
         SEND_MAX_CELL_TEMP(max_temp);
         SEND_NUM_THERM_BAD(num_bad1, num_bad2, num_bad3, num_bad4);
-        num_bad1 = 0;
-        num_bad2 = 0;
-        num_bad3 = 0;
-        num_bad4 = 0;
         setFault(ID_PACK_TEMP_FAULT, max_temp);
         setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
         setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
+
+        // setting temp error fault high for bms fault if there is temp fault
+        tempError = max_temp > MAX_TEMP_TMU ? 1 :  min_temp < MIN_TEMP_TMU ? 1 : 0;
 
         // resetting
         curr_therm = 0;
@@ -143,6 +143,10 @@ void readTemps(tmu_handle_t *tmu) {
         tmu->tmu2_min = ERROR_HIGH;
         tmu->tmu3_min = ERROR_HIGH;
         tmu->tmu4_min = ERROR_HIGH;
+        num_bad1 = 0;
+        num_bad2 = 0;
+        num_bad3 = 0;
+        num_bad4 = 0;
     }
 
     // skipping to measure power rail
@@ -158,4 +162,6 @@ void readTemps(tmu_handle_t *tmu) {
     PHAL_writeGPIO(MUX_B_Port, MUX_B_Pin, (therm & 0x2));
     PHAL_writeGPIO(MUX_C_Port, MUX_C_Pin, (therm & 0x4));
     PHAL_writeGPIO(MUX_D_Port, MUX_D_Pin, (therm & 0x8));
+
+    return tempError;
 }

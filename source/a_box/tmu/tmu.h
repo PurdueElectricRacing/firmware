@@ -27,6 +27,9 @@
 // max and min values
 #define ERROR_HIGH INT16_MAX
 #define ERROR_LOW INT16_MIN
+// max and min temp values
+#define MAX_TEMP_TMU 60
+#define MIN_TEMP_TMU 10
 //Based on datasheet p. 69- https://www.amphenol-sensors.com/hubfs/Documents/AAS-913-318C-Temperature-resistance-curves-071816-web.pdf
 #define R25 10000
 #define LOW_RANGE_MIN 3.277F
@@ -76,7 +79,7 @@ typedef struct {
 extern bool tmu_daq_override;
 extern uint8_t tmu_daq_therm;
 
-void readTemps(tmu_handle_t *tmu);
+uint8_t readTemps(tmu_handle_t *tmu);
 void initTMU(tmu_handle_t *tmu);
 
 

@@ -293,14 +293,13 @@ void heartBeatLED()
 void monitorStatus()
 {
    uint8_t bms_err, imd_err;
-   bms_err = orionErrors();
+   bms_err = orionErrors() | readTemps(&tmu);
    imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
    if (bms_daq_override | tmu_daq_override) PHAL_toggleGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin);
    else PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
-   readTemps(&tmu);
 
    setFault(ID_IMD_FAULT, imd_err);
 

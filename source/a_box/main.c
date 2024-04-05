@@ -95,6 +95,8 @@ void preflightAnimation();
 void updateTherm();
 void sendhbmsg();
 
+void readCurrents();
+
 tmu_handle_t tmu;
 
 /* ADC Configuration */
@@ -113,6 +115,8 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=TMU_2_ADC_CHANNEL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=TMU_3_ADC_CHANNEL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=TMU_4_ADC_CHANNEL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=I_SENSE_CH1_ADC_CHANNEL,    .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=I_SENSE_CH2_ADC_CHANNEL,    .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.tmu_1), 0b01);
@@ -188,7 +192,7 @@ int main (void)
    taskCreate(heartBeatTask, 100);
    taskCreate(sendhbmsg, 500);
    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-
+   taskCreate(readCurrents, 50);
 
    taskCreateBackground(canTxUpdate);
    taskCreateBackground(canRxUpdate);
@@ -283,23 +287,21 @@ void heartBeatLED()
 }
 
 
-
-
 void monitorStatus()
 {
-   uint8_t bms_err, imd_err;
+   uint8_t bms_err, imd_err, tmu_err;
    bms_err = orionErrors();
+   tmu_err = readTemps(&tmu);
    imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
    if (bms_daq_override | tmu_daq_override) PHAL_toggleGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin);
    else PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
-   readTemps(&tmu);
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   uint8_t stat = bms_err;
+   uint8_t stat = bms_err | tmu_err;
    if (bms_daq_override) stat = bms_daq_stat;
    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }
@@ -327,4 +329,22 @@ void PHAL_FaultHandler()
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
    asm("bkpt");
    HardFault_Handler();
+}
+
+void readCurrents() {
+    // storing ADC values to preserve them
+    uint16_t adc_isense_1 = adc_readings.isense_ch1;
+    uint16_t adc_isense_2 = adc_readings.isense_ch2;
+    // Calculating currents from ADC using equation from: https://www.lem.com/sites/default/files/products_datasheets/dhab_s_124.pdf
+    float V_offset = 2.5; // offset voltage (V)
+    float G1 = 26.7 / 1000; // channel 1 sensitivity (V/A)
+    float G2 = 4 / 1000; // channel 2 sensitivity (V/A)
+    // calculating Vout and converting from 3.3 to 5 based on voltage divider
+    float Vout_ch1 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_1 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
+    float Vout_ch2 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_2 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
+    // calculating current, scaling by 17 due to coil turns, multiplying by 100 to send as int over CAN
+    int16_t i_ch1 = (Vout_ch1 - V_offset) / G1 / NUM_TURNS * 100;
+    int16_t i_ch2 = (Vout_ch2 - V_offset) / G2 / NUM_TURNS * 100;
+    // sending currents over CAN
+    SEND_I_SENSE(i_ch1, i_ch2);
 }

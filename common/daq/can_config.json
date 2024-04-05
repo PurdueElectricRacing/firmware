@@ -318,6 +318,17 @@
                             "msg_period": 1000,
                             "msg_hlp": 4,
                             "msg_pgn": 1420
+                    },
+                    {
+                        "msg_name": "i_sense",
+                        "msg_desc": "Current sense value for channel 1 and channel 2 of current sensor",
+                        "signals": [
+                            {"sig_name":"current_channel_1", "type":"int16_t", "scale": 0.01, "unit": "A"},
+                            {"sig_name":"current_channel_2", "type":"int16_t", "scale": 0.01, "unit": "A"}
+                        ],
+                        "msg_period": 1000,
+                        "msg_hlp": 4,
+                        "msg_pgn": 1425
                     }
                     ],
                     "rx": [

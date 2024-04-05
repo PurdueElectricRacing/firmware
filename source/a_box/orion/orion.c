@@ -60,7 +60,7 @@ bool orionErrors() {
         bms_err = true;
     }
 
-    orion_error = bms_err || checkFault(ID_PACK_TEMP_EXCEEDED_FAULT);
+    orion_error = bms_err;
 
     return (orion_error);
             /* TODO: can_data.orion_info.stale || );*/

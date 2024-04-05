@@ -76,7 +76,7 @@ typedef struct {
 extern bool tmu_daq_override;
 extern uint8_t tmu_daq_therm;
 
-void readTemps(tmu_handle_t *tmu);
+uint8_t readTemps(tmu_handle_t *tmu);
 void initTMU(tmu_handle_t *tmu);
 
 

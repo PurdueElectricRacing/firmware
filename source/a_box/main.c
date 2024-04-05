@@ -287,13 +287,11 @@ void heartBeatLED()
 }
 
 
-
-
 void monitorStatus()
 {
-   uint8_t bms_err, imd_err;
+   uint8_t bms_err, imd_err, tmu_err;
    bms_err = orionErrors();
-   bms_err = readTemps(&tmu) | bms_err;
+   tmu_err = readTemps(&tmu);
    imd_err = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
@@ -303,7 +301,7 @@ void monitorStatus()
 
    setFault(ID_IMD_FAULT, imd_err);
 
-   uint8_t stat = bms_err;
+   uint8_t stat = bms_err | tmu_err;
    if (bms_daq_override) stat = bms_daq_stat;
    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }

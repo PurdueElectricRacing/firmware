@@ -125,7 +125,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[2] = GPS->raw_message[44];
             iLong.bytes[3] = GPS->raw_message[45];
             GPS->height = iLong.iLong; /* mm is the raw data */
-            GPS->height_rounded = (int16_t)((GPS->height * 100) / 10000);
+            GPS->height_rounded = (int16_t)(GPS->height / 10);
 
             // Collect North Velocity
             GPS->n_vel_bytes[0] = GPS->raw_message[54];
@@ -137,7 +137,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[2] = GPS->raw_message[56];
             iLong.bytes[3] = GPS->raw_message[57];
             GPS->n_vel = iLong.iLong; /* mm/s is the raw data */
-            GPS->n_vel_rounded = (int16_t)((GPS->n_vel * 100) / 1000);
+            GPS->n_vel_rounded = (int16_t)(GPS->n_vel / 10);
             GPS->n_vel_sfs1 = (double)(GPS->n_vel);
             GPS->n_vel_sfs2 = (double)GPS->n_vel;
 
@@ -151,7 +151,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[2] = GPS->raw_message[60];
             iLong.bytes[3] = GPS->raw_message[61];
             GPS->e_vel = iLong.iLong; /* mm/s is the raw data */
-            GPS->e_vel_rounded = (int16_t)((GPS->e_vel * 100) / 1000);
+            GPS->e_vel_rounded = (int16_t)(GPS->e_vel / 10);
 
             // Collect Down Velocity
             GPS->d_vel_bytes[0] = GPS->raw_message[62];
@@ -163,7 +163,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[2] = GPS->raw_message[64];
             iLong.bytes[3] = GPS->raw_message[65];
             GPS->d_vel = iLong.iLong; /* mm/s is the raw data */
-            GPS->d_vel_rounded = (int16_t)((GPS->d_vel * 100) / 1000);
+            GPS->d_vel_rounded = (int16_t)(GPS->d_vel / 10);
 
             // Collect Vehicle Heading of Motion
             GPS->headVeh_bytes[0] = GPS->raw_message[70];
@@ -198,10 +198,11 @@ bool parseVelocity(GPS_Handle_t *GPS)
                 ++counter;
             }
 
-            SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded, GPS->speed_rounded);
-            SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
-            SEND_GPS_POSITION(0, 0, 0, GPS->height_rounded);
+            SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded);
             SEND_VEHHEAD(GPS->headVeh_rounded);
+            
+            SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
+            SEND_GPS_POSITION(GPS->height_rounded);
         }
 
         // Collect Magnetic Declination

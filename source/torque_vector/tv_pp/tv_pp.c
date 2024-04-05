@@ -31,7 +31,7 @@ void tv_pp(ExtU_tv *rtU_tv, GPS_Handle_t *GPS)
     rtU_tv->D_raw[8] = (GPS->gyroscope.x);  /* Incoming data is rad/s */
     rtU_tv->D_raw[9] = (GPS->gyroscope.y);  /* Incoming data is rad/s */
     rtU_tv->D_raw[10] = (GPS->gyroscope.z); /* Incoming data is rad/s */
-    rtU_tv->D_raw[11] = (can_data.orion_currents_volts.pack_current*0.1); /* Incoming is A out of battery */
+    rtU_tv->D_raw[11] = (can_data.orion_currents_volts.pack_current*0.1); /* Incoming is 10*A out of battery */
     rtU_tv->D_raw[12] = (can_data.rear_motor_temps.left_ctrl_temp); /* Incoming is degree C */
     rtU_tv->D_raw[13] = (can_data.rear_motor_temps.right_ctrl_temp); /* Incoming is degree C */
     rtU_tv->D_raw[14] = (can_data.rear_motor_temps.left_mot_temp); /* Incoming is degree C */

@@ -41,9 +41,8 @@
 #define ID_MAX_CELL_TEMP 0xc04e604
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_THROTTLE_REMAPPED 0x40025b7
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_THROTTLE_VCU 0x40025f7
+#define ID_THROTTLE_VCU 0xc0025b7
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -76,9 +75,8 @@
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
-#define DLC_THROTTLE_REMAPPED 4
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU 6
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -224,7 +222,6 @@
 #define UP_FILT_THROTTLE_BRAKE 15
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
-#define UP_THROTTLE_REMAPPED 15
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_THROTTLE_VCU 15
 /* END AUTO UP DEFS */
@@ -410,16 +407,13 @@ typedef union {
         uint64_t data: 32;
     } main_module_bl_cmd;
     struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_remapped;
-    struct {
         uint64_t pack_current: 16;
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t vcu_r_rl: 16;
-        uint64_t vcu_r_rr: 16;
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+        uint64_t vcu_r_max: 16;
     } throttle_vcu;
     struct {
         uint64_t idx: 16;
@@ -498,20 +492,15 @@ typedef struct {
         uint32_t data;
     } main_module_bl_cmd;
     struct {
-        int16_t vcu_k_rl;
-        int16_t vcu_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_remapped;
-    struct {
         int16_t pack_current;
         uint16_t pack_voltage;
         uint8_t stale;
         uint32_t last_rx;
     } orion_currents_volts;
     struct {
-        int16_t vcu_r_rl;
-        int16_t vcu_r_rr;
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        int16_t vcu_r_max;
         uint8_t stale;
         uint32_t last_rx;
     } throttle_vcu;

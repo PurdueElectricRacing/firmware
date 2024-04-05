@@ -50,7 +50,7 @@ var searchData=
   ['blue_5fon_47',['blue_on',['../union____attribute____.html#ad0c20298e446a4ac58be81fcf240cccf',1,'__attribute__']]],
   ['bmi_48',['bmi',['../structIMU__Handle__t.html#a3ca32fc5e9d90f0e4427e0e438c6410f',1,'IMU_Handle_t']]],
   ['bmi_5fconfig_49',['bmi_config',['../torque__vector_2main_8c.html#a823719761a6d336bbc785b787ae73459',1,'main.c']]],
-  ['bmm_5fmag_50',['bmm_mag',['../union____attribute____.html#a6245c20bf4d4346453dea732ac8563ac',1,'__attribute__']]],
+  ['bmm_5fmag_50',['bmm_mag',['../union____attribute____.html#a391990ba0eed56bb4672e00c39723ec3',1,'__attribute__']]],
   ['bmm_5fmag_5fx_51',['bmm_mag_x',['../union____attribute____.html#a946087dbe6ba96c31585a79c2cc37093',1,'__attribute__']]],
   ['bmm_5fmag_5fy_52',['bmm_mag_y',['../union____attribute____.html#a886ce10db40714192c26703f80993cb5',1,'__attribute__']]],
   ['bmm_5fmag_5fz_53',['bmm_mag_z',['../union____attribute____.html#a0a6a4fca2ce97ebe4cc3ffe39a0b04d2',1,'__attribute__']]],

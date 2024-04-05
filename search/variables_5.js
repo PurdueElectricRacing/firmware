@@ -5,7 +5,7 @@ var searchData=
   ['e_5fvel_5frounded_2',['e_vel_rounded',['../structGPS__Handle__t.html#a200678f57348a03c88dc0b0ea2e8f094',1,'GPS_Handle_t']]],
   ['ecc_3',['ECC',['../structSD__CSD.html#a3f15a69d00564e8c1e6c5bbda4ffefd7',1,'SD_CSD']]],
   ['elcon_5fcharger_5fcommand_4',['elcon_charger_command',['../union____attribute____.html#a3831f8e7c3839399e69fae4ba632863c',1,'__attribute__']]],
-  ['elcon_5fcharger_5fstatus_5',['elcon_charger_status',['../union____attribute____.html#ad237a0235c99c01bfde066d7fb3b740b',1,'__attribute__::elcon_charger_status'],['../structcan__data__t.html#a3a96d2556c12b40e4e9ed0a949b90544',1,'can_data_t::elcon_charger_status']]],
+  ['elcon_5fcharger_5fstatus_5',['elcon_charger_status',['../union____attribute____.html#aa957d40c8c7f5c6e2dc6454be5578f18',1,'__attribute__::elcon_charger_status'],['../structcan__data__t.html#ab10b4dd550b7e22a8bf29af2184efe4e',1,'can_data_t::elcon_charger_status']]],
   ['encoder_5fposition_6',['encoder_position',['../structlcd__t.html#a12e8796d925039af9b8a1d9459b005b0',1,'lcd_t']]],
   ['encoder_5ftransition_5ftable_7',['encoder_transition_table',['../dashboard_2main_8c.html#a238fcc286a7f4130d0a83ee4f6bd4123',1,'main.c']]],
   ['erasegrmul_8',['EraseGrMul',['../structSD__CSD.html#a7aac5c37c5a01ad59f8e54c35985df00',1,'SD_CSD']]],

@@ -28,13 +28,14 @@ var searchData=
   ['num_5felem_5facc_5fcalibration_25',['NUM_ELEM_ACC_CALIBRATION',['../ac__ext_8h.html#a5cd1f2034380eda21a561b17ec0a98f7',1,'ac_ext.h']]],
   ['num_5fhist_5fbspd_26',['NUM_HIST_BSPD',['../car_8h.html#a5d7bc83cc68e6be9578302705cda1a2f',1,'car.h']]],
   ['num_5ftherm_27',['NUM_THERM',['../tmu_8h.html#ac3af3e9cb38a804d2900457e14b8f3f0',1,'tmu.h']]],
-  ['num_5fvars_28',['NUM_VARS',['../a__box_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../dashboard_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../l4__testing_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../main__module_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../pdu_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h']]],
-  ['numbitsperchar_29',['NumBitsPerChar',['../SFS_8c.html#a8197f5963d92e593c702e5fd6c77ed54',1,'SFS.c']]],
-  ['nxt_5fbackground_5fcolor_30',['NXT_BACKGROUND_COLOR',['../nextion_8h.html#ae6d10ba8c48f3d0e3a58572789935a76',1,'nextion.h']]],
-  ['nxt_5fcmd_5fterm_31',['NXT_CMD_TERM',['../nextion_8h.html#a9103be471f1a868467c6abd00059970b',1,'nextion.h']]],
-  ['nxt_5ffont_5fcolor_32',['NXT_FONT_COLOR',['../nextion_8h.html#a8efd290ff41b537206712236e2d04b8c',1,'nextion.h']]],
-  ['nxt_5fpicture_33',['NXT_PICTURE',['../nextion_8h.html#ae44f0a027ccdf1238fa4c950b15dc49f',1,'nextion.h']]],
-  ['nxt_5fstr_5fsize_34',['NXT_STR_SIZE',['../nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516',1,'nextion.h']]],
-  ['nxt_5ftext_35',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
-  ['nxt_5fvalue_36',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
+  ['num_5fturns_28',['NUM_TURNS',['../a__box_2main_8h.html#a268f1cbe94efa5eb3b792a557df3b5a7',1,'main.h']]],
+  ['num_5fvars_29',['NUM_VARS',['../a__box_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../dashboard_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../l4__testing_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../main__module_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h'],['../pdu_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e',1,'NUM_VARS:&#160;daq.h']]],
+  ['numbitsperchar_30',['NumBitsPerChar',['../SFS_8c.html#a8197f5963d92e593c702e5fd6c77ed54',1,'SFS.c']]],
+  ['nxt_5fbackground_5fcolor_31',['NXT_BACKGROUND_COLOR',['../nextion_8h.html#ae6d10ba8c48f3d0e3a58572789935a76',1,'nextion.h']]],
+  ['nxt_5fcmd_5fterm_32',['NXT_CMD_TERM',['../nextion_8h.html#a9103be471f1a868467c6abd00059970b',1,'nextion.h']]],
+  ['nxt_5ffont_5fcolor_33',['NXT_FONT_COLOR',['../nextion_8h.html#a8efd290ff41b537206712236e2d04b8c',1,'nextion.h']]],
+  ['nxt_5fpicture_34',['NXT_PICTURE',['../nextion_8h.html#ae44f0a027ccdf1238fa4c950b15dc49f',1,'nextion.h']]],
+  ['nxt_5fstr_5fsize_35',['NXT_STR_SIZE',['../nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516',1,'nextion.h']]],
+  ['nxt_5ftext_36',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
+  ['nxt_5fvalue_37',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
 ];

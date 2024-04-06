@@ -406,20 +406,17 @@ void VCU_MAIN(void)
         em_timing = sched.os_ticks - em_timing;
     }
 
-    /* Set Torque Vectoring Faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
-    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
-
-    /* Set Throttle Map Faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtU_em.TVS_STATE);
+    /* Set Faults */
+    // setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
+    // setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
+    // setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
     /* Send Messages */
-    SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095),MAX((int16_t)(rtY_tv.rTVS[0]*4095),(int16_t)(rtY_tv.rTVS[1])));
-    SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
+    // SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095),MAX((int16_t)(rtY_tv.rTVS[0]*4095),(int16_t)(rtY_tv.rTVS[1])));
+    // SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
 
-    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
-    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
+    // SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
+    // SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
 
     //SEND_SFS_POS(q_tx_can, (int16_t)(rtY.pos_VNED[0] * 100),
     //             (int16_t)(rtY.pos_VNED[1] * 100), (int16_t)(rtY.pos_VNED[2] * 100));

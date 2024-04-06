@@ -22,19 +22,18 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_GPS_VELOCITY 0xc0002b7
+#define ID_GPS_SPEED 0xc001137
 #define ID_GPS_POSITION 0xc002337
 #define ID_GPS_COORDINATES 0xc002377
+#define ID_VEHHEAD 0xc002677
 #define ID_IMU_GYRO 0xc0002f7
 #define ID_IMU_ACCEL 0xc0023b7
 #define ID_BMM_MAG 0xc0023f7
-#define ID_SFS_POS 0xc016937
 #define ID_SFS_VEL 0xc016977
 #define ID_SFS_ACC 0xc0169b7
-#define ID_SFS_ANG 0xc0169f7
 #define ID_SFS_ANG_VEL 0xc016a37
 #define ID_THROTTLE_VCU 0xc0025b7
 #define ID_MAXR 0xc002637
-#define ID_VEHHEAD 0xc002677
 #define ID_TV_CAN_STATS 0x10016337
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
@@ -45,7 +44,6 @@
 #define ID_MAIN_HB 0xc001901
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
-#define ID_REAR_MOTOR_CURRENTS_VOLTS 0x100002c1
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -58,19 +56,18 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_GPS_VELOCITY 6
+#define DLC_GPS_SPEED 2
 #define DLC_GPS_POSITION 2
 #define DLC_GPS_COORDINATES 8
+#define DLC_VEHHEAD 2
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
 #define DLC_BMM_MAG 6
-#define DLC_SFS_POS 6
 #define DLC_SFS_VEL 6
 #define DLC_SFS_ACC 6
-#define DLC_SFS_ANG 8
 #define DLC_SFS_ANG_VEL 6
 #define DLC_THROTTLE_VCU 6
 #define DLC_MAXR 2
-#define DLC_VEHHEAD 2
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_TORQUEVECTOR_BL_CMD 5
@@ -81,7 +78,6 @@
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_REAR_MOTOR_TEMPS 4
-#define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -101,6 +97,12 @@
         data_a->gps_velocity.gps_vel_d = gps_vel_d_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_GPS_SPEED(gps_speed_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_SPEED, .DLC=DLC_GPS_SPEED, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->gps_speed.gps_speed = gps_speed_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 #define SEND_GPS_POSITION(height_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_POSITION, .DLC=DLC_GPS_POSITION, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -112,6 +114,12 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_coordinates.latitude = latitude_;\
         data_a->gps_coordinates.longitude = longitude_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_VEHHEAD(vehHead_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VEHHEAD, .DLC=DLC_VEHHEAD, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->vehHead.vehHead = vehHead_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_IMU_GYRO(imu_gyro_x_, imu_gyro_y_, imu_gyro_z_) do {\
@@ -138,14 +146,6 @@
         data_a->bmm_mag.bmm_mag_z = bmm_mag_z_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SFS_POS(sfs_pos_x_, sfs_pos_y_, sfs_pos_z_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_POS, .DLC=DLC_SFS_POS, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sfs_pos.sfs_pos_x = sfs_pos_x_;\
-        data_a->sfs_pos.sfs_pos_y = sfs_pos_y_;\
-        data_a->sfs_pos.sfs_pos_z = sfs_pos_z_;\
-        canTxSendToBack(&msg);\
-    } while(0)
 #define SEND_SFS_VEL(sfs_vel_x_, sfs_vel_y_, sfs_vel_z_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_VEL, .DLC=DLC_SFS_VEL, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -160,15 +160,6 @@
         data_a->sfs_acc.sfs_acc_x = sfs_acc_x_;\
         data_a->sfs_acc.sfs_acc_y = sfs_acc_y_;\
         data_a->sfs_acc.sfs_acc_z = sfs_acc_z_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_SFS_ANG(sfs_ang_a_, sfs_ang_b_, sfs_ang_c_, sfs_ang_d_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ANG, .DLC=DLC_SFS_ANG, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sfs_ang.sfs_ang_a = sfs_ang_a_;\
-        data_a->sfs_ang.sfs_ang_b = sfs_ang_b_;\
-        data_a->sfs_ang.sfs_ang_c = sfs_ang_c_;\
-        data_a->sfs_ang.sfs_ang_d = sfs_ang_d_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_SFS_ANG_VEL(sfs_ang_vel_x_, sfs_ang_vel_y_, sfs_ang_vel_z_) do {\
@@ -191,12 +182,6 @@
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAXR, .DLC=DLC_MAXR, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->maxR.vcu_max_r = vcu_max_r_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_VEHHEAD(vehHead_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VEHHEAD, .DLC=DLC_VEHHEAD, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->vehHead.vehHead = vehHead_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_TV_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
@@ -227,7 +212,6 @@
 #define UP_MAIN_HB 500
 #define UP_REAR_WHEEL_SPEEDS 15
 #define UP_REAR_MOTOR_TEMPS 1000
-#define UP_REAR_MOTOR_CURRENTS_VOLTS 100
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) \
@@ -260,12 +244,18 @@ typedef union {
         uint64_t gps_vel_d: 16;
     } gps_velocity;
     struct {
+        uint64_t gps_speed: 16;
+    } gps_speed;
+    struct {
         uint64_t height: 16;
     } gps_position;
     struct {
         uint64_t latitude: 32;
         uint64_t longitude: 32;
     } gps_coordinates;
+    struct {
+        uint64_t vehHead: 16;
+    } vehHead;
     struct {
         uint64_t imu_gyro_x: 16;
         uint64_t imu_gyro_y: 16;
@@ -282,11 +272,6 @@ typedef union {
         uint64_t bmm_mag_z: 16;
     } bmm_mag;
     struct {
-        uint64_t sfs_pos_x: 16;
-        uint64_t sfs_pos_y: 16;
-        uint64_t sfs_pos_z: 16;
-    } sfs_pos;
-    struct {
         uint64_t sfs_vel_x: 16;
         uint64_t sfs_vel_y: 16;
         uint64_t sfs_vel_z: 16;
@@ -296,12 +281,6 @@ typedef union {
         uint64_t sfs_acc_y: 16;
         uint64_t sfs_acc_z: 16;
     } sfs_acc;
-    struct {
-        uint64_t sfs_ang_a: 16;
-        uint64_t sfs_ang_b: 16;
-        uint64_t sfs_ang_c: 16;
-        uint64_t sfs_ang_d: 16;
-    } sfs_ang;
     struct {
         uint64_t sfs_ang_vel_x: 16;
         uint64_t sfs_ang_vel_y: 16;
@@ -315,9 +294,6 @@ typedef union {
     struct {
         uint64_t vcu_max_r: 16;
     } maxR;
-    struct {
-        uint64_t vehHead: 16;
-    } vehHead;
     struct {
         uint64_t can_tx_overflow: 8;
         uint64_t can_tx_fail: 8;
@@ -371,11 +347,6 @@ typedef union {
         uint64_t left_ctrl_temp: 8;
         uint64_t right_ctrl_temp: 8;
     } rear_motor_temps;
-    struct {
-        uint64_t left_current: 16;
-        uint64_t right_current: 16;
-        uint64_t right_voltage: 16;
-    } rear_motor_currents_volts;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -468,13 +439,6 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_temps;
-    struct {
-        uint16_t left_current;
-        uint16_t right_current;
-        uint16_t right_voltage;
-        uint8_t stale;
-        uint32_t last_rx;
-    } rear_motor_currents_volts;
     struct {
         uint16_t idx;
         uint8_t latched;

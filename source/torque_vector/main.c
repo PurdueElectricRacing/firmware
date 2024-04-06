@@ -148,10 +148,11 @@ IMU_Handle_t imu_h = {
 void heartBeatLED(void);
 void preflightAnimation(void);
 void preflightChecks(void);
-void sendIMUData(void);
-void collectIMUData(void);
-void VCU_MAIN(void);
 extern void HardFault_Handler(void);
+
+void parseIMU(void);
+void pollIMU(void);
+void VCU_MAIN(void);
 
 /* Torque Vectoring Definitions */
 static ExtU_tv rtU_tv; /* External inputs */
@@ -205,9 +206,9 @@ int main(void)
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
 
-    taskCreate(sendIMUData, 10);
-    taskCreate(collectIMUData, 10);
-    taskCreate(VCU_MAIN,15);
+    taskCreate(parseIMU, 20);
+    taskCreate(pollIMU, 20);
+    taskCreate(VCU_MAIN, 20);
 
     /* No Way Home */
     schedStart();
@@ -336,12 +337,12 @@ void heartBeatLED(void)
     trig = !trig;
 }
 
-void sendIMUData(void)
+void pollIMU(void)
 {
     imu_periodic(&imu_h);
 }
 
-void collectIMUData(void)
+void parseIMU(void)
 {
     GPSHandle.messages_received++;
     BMI088_readGyro(&bmi_config, &gyro_in);
@@ -407,16 +408,16 @@ void VCU_MAIN(void)
     }
 
     /* Set Faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
-    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
+    // setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
+    // setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
+    // setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
     /* Send Messages */
-    SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095),MAX((int16_t)(rtY_tv.rTVS[0]*4095),(int16_t)(rtY_tv.rTVS[1])));
-    SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
+    // SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095),MAX((int16_t)(rtY_tv.rTVS[0]*4095),(int16_t)(rtY_tv.rTVS[1])));
+    // SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
 
-    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
-    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
+    // SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
+    // SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
 
     //SEND_SFS_POS(q_tx_can, (int16_t)(rtY.pos_VNED[0] * 100),
     //             (int16_t)(rtY.pos_VNED[1] * 100), (int16_t)(rtY.pos_VNED[2] * 100));

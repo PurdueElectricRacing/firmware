@@ -55,15 +55,7 @@ void imu_periodic(IMU_Handle_t *imu_h)
     r = (int16_t)(imu_h->output.orientation.roll * 10.0f / DEG_TO_RAD);
     y = (int16_t)(imu_h->output.orientation.yaw * 10.0f / DEG_TO_RAD);
 
-    //rtU->gyro[0] = CLAMP(gyro_in.x * ACC_CALIBRATION, MIN_GYRO, MAX_GYRO);
-    //rtU->gyro[1] = CLAMP(gyro_in.y * ACC_CALIBRATION, MIN_GYRO, MAX_GYRO);
-    //rtU->gyro[2] = CLAMP(gyro_in.z * ACC_CALIBRATION, MIN_GYRO, MAX_GYRO);
-
-    //rtU->acc[0] = CLAMP(accel_in.x * GYRO_CALIBRATION, MIN_ACC, MAX_ACC);
-    //rtU->acc[1] = CLAMP(accel_in.y * GYRO_CALIBRATION, MIN_ACC, MAX_ACC);
-    //rtU->acc[2] = CLAMP(accel_in.z * GYRO_CALIBRATION, MIN_ACC, MAX_ACC);
-
-    SEND_IMU_GYRO((int16_t)(gyro_in.x * 100), (int16_t)(gyro_in.y * 100), (int16_t)(gyro_in.z * 100));
-    SEND_IMU_ACCEL((int16_t)(accel_in.x * 100), (int16_t)(accel_in.y * 100), (int16_t)(accel_in.z * 100));
+    // SEND_IMU_GYRO((int16_t)(gyro_in.x * 100), (int16_t)(gyro_in.y * 100), (int16_t)(gyro_in.z * 100));
+    // SEND_IMU_ACCEL((int16_t)(accel_in.x * 100), (int16_t)(accel_in.y * 100), (int16_t)(accel_in.z * 100));
     t_us += 10000;
 }

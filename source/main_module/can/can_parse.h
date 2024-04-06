@@ -250,7 +250,7 @@ typedef union {
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
 #define UP_ORION_CURRENTS_VOLTS 32
-#define UP_THROTTLE_VCU 15
+#define UP_THROTTLE_VCU 20
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \

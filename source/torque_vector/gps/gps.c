@@ -89,7 +89,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[2] = GPS->raw_message[68];
             iLong.bytes[3] = GPS->raw_message[69];
             GPS->g_speed = iLong.iLong; /* mm/s is the raw data */
-            GPS->speed_rounded = (int16_t)((GPS->g_speed * 100) / 10000);
+            GPS->speed_rounded = (int16_t)(GPS->g_speed / 10);
 
             // Collect Longitude
             GPS->longitude_bytes[0] = GPS->raw_message[30];
@@ -188,6 +188,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             uLong.bytes[3] = GPS->raw_message[9];
             GPS->iTOW = uLong.uLong; /* ms is the raw data */
 
+            /* Determine if data is new */
             if (GPS->iTOW != prev_iTOW) {
                 GPS->unique_iTOW = true;
                 diff = GPS->iTOW - prev_iTOW;
@@ -198,11 +199,13 @@ bool parseVelocity(GPS_Handle_t *GPS)
                 ++counter;
             }
 
-            SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded);
-            SEND_VEHHEAD(GPS->headVeh_rounded);
+            // SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded);
+            // SEND_VEHHEAD(GPS->headVeh_rounded);
+
+            // SEND_GPS_SPEED(GPS->speed_rounded);
             
             SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
-            SEND_GPS_POSITION(GPS->height_rounded);
+            // SEND_GPS_POSITION(GPS->height_rounded);
         }
 
         // Collect Magnetic Declination

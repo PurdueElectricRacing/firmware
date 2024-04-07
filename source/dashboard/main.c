@@ -214,6 +214,7 @@ int main (void){
     taskCreate(update_data_pages, 200);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
+    taskCreate(sendVoltageData, 1000);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -631,6 +632,25 @@ void pollDashboardInput()
         selectItem();
         dashboard_input &= ~(1U << DASH_INPUT_SELECT_BUTTON);
     }
+}
+
+void sendVoltageData()
+{
+    /*
+    Vin = (Vout * (R1 + R2)) / R2
+    V3v3: R1 = 4.3k, R2 = 10k
+    V5v: R1 = 4.3k, R2 = 3.3k
+    V12v: R1 = 15.8k, R2 = 3.3k
+    V24v: R1 = 47k, R2 = 3.3k
+    Scale Vin by 100 to avoid losing precision
+    */
+
+    SEND_DASHBOARD_VOLTAGE(
+        (uint16_t)((((raw_adc_values.lv_3v3_sense * 3.3) / 4095) * (4.3 + 10.0) / 10.0) * 100), 
+        (uint16_t)((((raw_adc_values.lv_5v_sense * 3.3) / 4095) * (4.3 + 3.3) / 3.3) * 100), 
+        (uint16_t)((((raw_adc_values.lv_12v_sense * 3.3) / 4095) * (15.8 + 3.3) / 3.3) * 100), 
+        (uint16_t)((((raw_adc_values.lv_24_v_sense * 3.3) / 4095) * (47.0 + 3.3) / 3.3) * 100)
+    );
 }
 
 void HardFault_Handler()

@@ -162,6 +162,8 @@ void sendBrakeStatus();
 void interpretLoadSensor(void);
 void send_shockpots();
 float voltToForce(uint16_t load_read);
+void sendVoltageData();
+
 // Communication queues
 q_handle_t q_tx_usart;
 

@@ -115,7 +115,7 @@ Macros</h2></td></tr>
 <tr class="separator:ae98a7cb801e427cbd9c60b5a20f06a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41ec9c371c143d254906f581e88aad05" id="r_a41ec9c371c143d254906f581e88aad05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41ec9c371c143d254906f581e88aad05">BRAKE_LIGHT_ON_THRESHOLD</a>&#160;&#160;&#160;(170)</td></tr>
 <tr class="separator:a41ec9c371c143d254906f581e88aad05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47184338f8488ba6971ee4ebd7b3a27e" id="r_a47184338f8488ba6971ee4ebd7b3a27e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47184338f8488ba6971ee4ebd7b3a27e">BRAKE_LIGHT_OFF_THRESHOLD</a>&#160;&#160;&#160;(700)</td></tr>
+<tr class="memitem:a47184338f8488ba6971ee4ebd7b3a27e" id="r_a47184338f8488ba6971ee4ebd7b3a27e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47184338f8488ba6971ee4ebd7b3a27e">BRAKE_LIGHT_OFF_THRESHOLD</a>&#160;&#160;&#160;(70)</td></tr>
 <tr class="separator:a47184338f8488ba6971ee4ebd7b3a27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae11ed5bdf31ac8ed48c2f8a56bc41760" id="r_ae11ed5bdf31ac8ed48c2f8a56bc41760"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae11ed5bdf31ac8ed48c2f8a56bc41760">BRAKE_PRESSED_THRESHOLD</a>&#160;&#160;&#160;(<a class="el" href="#a41ec9c371c143d254906f581e88aad05">BRAKE_LIGHT_ON_THRESHOLD</a>)</td></tr>
 <tr class="separator:ae11ed5bdf31ac8ed48c2f8a56bc41760"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,10 +150,14 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aed430a76e63683fb2c72fbaa1e5e9bc2" id="r_aed430a76e63683fb2c72fbaa1e5e9bc2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2">torqueSource_t</a> { <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543">CAR_TORQUE_NONE</a>
+<tr class="memitem:aed430a76e63683fb2c72fbaa1e5e9bc2" id="r_aed430a76e63683fb2c72fbaa1e5e9bc2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2">torqueSource_t</a> { <br />
+&#160;&#160;<a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543">CAR_TORQUE_NONE</a>
 , <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a9d0cbbd5afb0869a3c451293201120fb">CAR_TORQUE_RAW</a>
 , <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a40716b7ed5da9c0df5169e3b1eaf7d30">CAR_TORQUE_TV</a>
-, <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8">CAR_TORQUE_DAQ</a>
+, <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a306afa5b81cf2b47f78b7294d8f40f37">CAR_TORQUE_THROT_MAP</a>
+, <br />
+&#160;&#160;<a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8">CAR_TORQUE_DAQ</a>
+<br />
  }</td></tr>
 <tr class="separator:aed430a76e63683fb2c72fbaa1e5e9bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -189,6 +193,10 @@ Variables</h2></td></tr>
 <tr class="separator:a301ff2938beaddf54bddeddcbd9d073b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afae2cff077007127230990ab4699cb55" id="r_afae2cff077007127230990ab4699cb55"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afae2cff077007127230990ab4699cb55">buzzer_brake_fault</a></td></tr>
 <tr class="separator:afae2cff077007127230990ab4699cb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4440cb67fc741641cd6987534dd9e5e7" id="r_a4440cb67fc741641cd6987534dd9e5e7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4440cb67fc741641cd6987534dd9e5e7">daq_constant_tq</a></td></tr>
+<tr class="separator:a4440cb67fc741641cd6987534dd9e5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8403d225b2127bcd6b7ebc25b047bb49" id="r_a8403d225b2127bcd6b7ebc25b047bb49"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8403d225b2127bcd6b7ebc25b047bb49">const_tq_val</a></td></tr>
+<tr class="separator:a8403d225b2127bcd6b7ebc25b047bb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c210c435f032c86ef5bd91fe1171ddf" id="r_a7c210c435f032c86ef5bd91fe1171ddf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c210c435f032c86ef5bd91fe1171ddf">sdc_nodes_t</a></td></tr>
 <tr class="separator:a7c210c435f032c86ef5bd91fe1171ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e8f2a7fa2955f10cec4235a67fa184c" id="r_a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7c210c435f032c86ef5bd91fe1171ddf">sdc_nodes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8f2a7fa2955f10cec4235a67fa184c">sdc_mux</a></td></tr>
@@ -208,7 +216,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BRAKE_LIGHT_OFF_THRESHOLD&#160;&#160;&#160;(700)</td>
+          <td class="memname">#define BRAKE_LIGHT_OFF_THRESHOLD&#160;&#160;&#160;(70)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -483,6 +491,7 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543" name="aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543"></a>CAR_TORQUE_NONE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a9d0cbbd5afb0869a3c451293201120fb" name="aed430a76e63683fb2c72fbaa1e5e9bc2a9d0cbbd5afb0869a3c451293201120fb"></a>CAR_TORQUE_RAW&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a40716b7ed5da9c0df5169e3b1eaf7d30" name="aed430a76e63683fb2c72fbaa1e5e9bc2a40716b7ed5da9c0df5169e3b1eaf7d30"></a>CAR_TORQUE_TV&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a306afa5b81cf2b47f78b7294d8f40f37" name="aed430a76e63683fb2c72fbaa1e5e9bc2a306afa5b81cf2b47f78b7294d8f40f37"></a>CAR_TORQUE_THROT_MAP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8" name="aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8"></a>CAR_TORQUE_DAQ&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -677,6 +686,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8403d225b2127bcd6b7ebc25b047bb49" name="a8403d225b2127bcd6b7ebc25b047bb49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8403d225b2127bcd6b7ebc25b047bb49">&#9670;&#160;</a></span>const_tq_val</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t const_tq_val</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a301ff2938beaddf54bddeddcbd9d073b" name="a301ff2938beaddf54bddeddcbd9d073b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a301ff2938beaddf54bddeddcbd9d073b">&#9670;&#160;</a></span>daq_brake</h2>
 
@@ -710,6 +741,28 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">uint8_t daq_buzzer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4440cb67fc741641cd6987534dd9e5e7" name="a4440cb67fc741641cd6987534dd9e5e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4440cb67fc741641cd6987534dd9e5e7">&#9670;&#160;</a></span>daq_constant_tq</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t daq_constant_tq</td>
         </tr>
       </table>
   </td>

@@ -253,7 +253,7 @@ Macros</h2></td></tr>
 <tr class="separator:aae5e7d8c85740e3a8382ecfa67e8a43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3c2039c96a05590f6dbbdc29542088f" id="r_ae3c2039c96a05590f6dbbdc29542088f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3c2039c96a05590f6dbbdc29542088f">SEND_DAQ_RESPONSE_MAIN_MODULE</a>(daq_response_)</td></tr>
 <tr class="separator:ae3c2039c96a05590f6dbbdc29542088f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd9fb8a91e43567fceb781c705d6dd93" id="r_abd9fb8a91e43567fceb781c705d6dd93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>&#160;&#160;&#160;5 / 2</td></tr>
+<tr class="memitem:abd9fb8a91e43567fceb781c705d6dd93" id="r_abd9fb8a91e43567fceb781c705d6dd93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>&#160;&#160;&#160;30 / 2</td></tr>
 <tr class="separator:abd9fb8a91e43567fceb781c705d6dd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeef91a7ddfaa37942ba0f6acca72132" id="r_aeeef91a7ddfaa37942ba0f6acca72132"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeeef91a7ddfaa37942ba0f6acca72132">UP_RAW_THROTTLE_BRAKE</a>&#160;&#160;&#160;15</td></tr>
 <tr class="separator:aeeef91a7ddfaa37942ba0f6acca72132"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -284,7 +284,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5">CAR_STATE_RESET</a>
 , <br />
 &#160;&#160;<a class="el" href="#a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5">CAR_STATE_RECOVER</a>
-, <a class="el" href="#a932556dc0435011d6235977e681a19bda85a73bfbecdab40e7758d26aab618f20">CAR_STATE_FAN_CTRL</a>
+, <a class="el" href="#a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40">CAR_STATE_CONSTANT_TORQUE</a>
 <br />
  }</td></tr>
 <tr class="separator:a932556dc0435011d6235977e681a19bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -404,7 +404,7 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">                    <span class="keywordflow">if</span>(!stale &amp;&amp; \</div>
 <div class="line">                    (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) stale = 1</div>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:200</div></div>
-<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:72</div></div>
+<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:76</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1850,7 +1850,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STALE_THRESH&#160;&#160;&#160;5 / 2</td>
+          <td class="memname">#define STALE_THRESH&#160;&#160;&#160;30 / 2</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1963,7 +1963,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdac0a0561572cd346f456973749c3d68a3" name="a932556dc0435011d6235977e681a19bdac0a0561572cd346f456973749c3d68a3"></a>CAR_STATE_FATAL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5" name="a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5"></a>CAR_STATE_RESET&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5" name="a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5"></a>CAR_STATE_RECOVER&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bda85a73bfbecdab40e7758d26aab618f20" name="a932556dc0435011d6235977e681a19bda85a73bfbecdab40e7758d26aab618f20"></a>CAR_STATE_FAN_CTRL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40" name="a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"></a>CAR_STATE_CONSTANT_TORQUE&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

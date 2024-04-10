@@ -11,6 +11,8 @@ extern uint16_t num_failed_msgs_l, num_failed_msgs_r;
 // usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 uint8_t daq_buzzer;
 uint8_t daq_brake;
+uint8_t daq_constant_tq;
+uint8_t const_tq_val;
 uint8_t buzzer_brake_fault;
 sdc_nodes_t sdc_mux;
 
@@ -41,6 +43,8 @@ bool carInit()
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
     daq_buzzer = 0;
+    daq_constant_tq = 0;
+    const_tq_val = 0;
     hist_curr_idx = 0;
     /* Motor Controller Initialization */
     mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
@@ -79,16 +83,16 @@ void carPeriodic()
     car.torque_r.torque_right = 0.0f;
     car.buzzer    = false;
     car.sdc_close = true;
-    if (!can_data.orion_currents_volts.stale)
-    {
-        hist_current[hist_curr_idx++] = can_data.orion_currents_volts.pack_current;
-        hist_curr_idx %= NUM_HIST_BSPD;
-    }
-    else
-    {
-        hist_current[hist_curr_idx++] = 0;
-        hist_curr_idx %= NUM_HIST_BSPD;
-    }
+    // if (!can_data.orion_currents_volts.stale)
+    // {
+    //     hist_current[hist_curr_idx++] = can_data.orion_currents_volts.pack_current;
+    //     hist_curr_idx %= NUM_HIST_BSPD;
+    // }
+    // else
+    // {
+    //     hist_current[hist_curr_idx++] = 0;
+    //     hist_curr_idx %= NUM_HIST_BSPD;
+    // }
     // if (!checkFault(ID_TV_DISABLED_FAULT))
     // {
     //     car.torque_src = CAR_TORQUE_TV;
@@ -223,7 +227,10 @@ void carPeriodic()
         // 1-3 seconds, unique from other sounds
         if (sched.os_ticks - car.buzzer_start_ms > BUZZER_DURATION_MS)
         {
-            car.state = CAR_STATE_READY2DRIVE;
+            if (daq_constant_tq)
+                car.state = CAR_STATE_CONSTANT_TORQUE;
+            else
+                car.state = CAR_STATE_READY2DRIVE;
         }
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
@@ -271,15 +278,40 @@ void carPeriodic()
                     // Any algorithm or electronic control unit that can adjust the
                     // requested wheel torque may only lower the total driver
                     // requested torque and must not increase it
-
-                    if (temp_t_req.torque_left > t_req_pedal_l)
+                    if (t_req_pedal == 0)
                     {
-                        temp_t_req.torque_left = t_req_pedal_l;
+                        temp_t_req.torque_left = 0;
+                        temp_t_req.torque_right = 0;
                     }
-                    if (temp_t_req.torque_right > t_req_pedal_r)
+                    // if (temp_t_req.torque_left > t_req_pedal_l)
+                    // {
+                    //     temp_t_req.torque_left = t_req_pedal_l;
+                    // }
+                    // if (temp_t_req.torque_right > t_req_pedal_r)
+                    // {
+                    //     temp_t_req.torque_right = t_req_pedal_r;
+                    // }
+                    break;
+                case CAR_TORQUE_THROT_MAP:
+                    temp_t_req.torque_left  = t_req_pedal_l;
+                    temp_t_req.torque_right = t_req_pedal_r;
+                    // EV.4.2.3 - Torque algorithm
+                    // Any algorithm or electronic control unit that can adjust the
+                    // requested wheel torque may only lower the total driver
+                    // requested torque and must not increase it
+                    if (t_req_pedal == 0)
                     {
-                        temp_t_req.torque_right = t_req_pedal_r;
+                        temp_t_req.torque_left = 0;
+                        temp_t_req.torque_right = 0;
                     }
+                    // if (temp_t_req.torque_left > t_req_pedal_l)
+                    // {
+                    //     temp_t_req.torque_left = t_req_pedal_l;
+                    // }
+                    // if (temp_t_req.torque_right > t_req_pedal_r)
+                    // {
+                    //     temp_t_req.torque_right = t_req_pedal_r;
+                    // }
                     break;
                 case CAR_TORQUE_DAQ:
                     break;
@@ -304,6 +336,54 @@ void carPeriodic()
 
             car.torque_r = temp_t_req;
         }
+    }
+    else if (car.state == CAR_STATE_CONSTANT_TORQUE)
+    {
+        static bool throttle_pressed;
+        static bool brake_pressed;
+        PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        // Check if requesting to exit ready2drive
+        // if (car.start_btn_debounced)
+        // {
+        //     car.state = CAR_STATE_IDLE;
+        // }
+        // else
+        // {
+            float t_req_pedal = 0;
+
+            if (!can_data.filt_throttle_brake.stale)
+                t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+
+            torqueRequest_t temp_t_req;
+            // Register an INTENTIONAL press of throttle and hold this state untill commanded otherwise
+            if (throttle_pressed || (!throttle_pressed && t_req_pedal > 1024))
+            {
+                brake_pressed = 0;
+                temp_t_req.torque_left = (const_tq_val * 1.0f);
+                temp_t_req.torque_right = (const_tq_val * 1.0f);
+                throttle_pressed = 1;
+            }
+            if ((can_data.filt_throttle_brake.brake > 50) || brake_pressed)
+            {
+                throttle_pressed = 0;
+                brake_pressed = 1;
+                temp_t_req.torque_left = 0.0f;
+                temp_t_req.torque_right = 0.0f;
+            }
+
+            // Enforce range
+            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, 100.0f);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, 100.0f);
+
+            // Disable Regenerative Braking
+            if (!car.regen_enabled)
+            {
+                if (temp_t_req.torque_left  < 0) temp_t_req.torque_left  = 0.0f;
+                if (temp_t_req.torque_right < 0) temp_t_req.torque_right = 0.0f;
+            }
+
+            car.torque_r = temp_t_req;
+        // }
     }
 
     /* Update System Outputs */
@@ -553,7 +633,7 @@ void updateSDCFaults()
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat)
                 {
-                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    // setFault(ID_COCKPIT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -563,7 +643,7 @@ void updateSDCFaults()
             case (SDC_INERTIA):
                 if (!sdc_mux.inertia_stat && sdc_mux.bots_stat)
                 {
-                    setFault(ID_INERTIA_FAIL_FAULT, 1);
+                    // setFault(ID_INERTIA_FAIL_FAULT, 1);
                 }
                 else
                 {
@@ -596,7 +676,7 @@ void updateSDCFaults()
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat)
                 {
-                    setFault(ID_LEFT_ESTOP_FAULT, 1);
+                    // setFault(ID_LEFT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -606,7 +686,7 @@ void updateSDCFaults()
             case (SDC_R_STOP):
                 if (!sdc_mux.r_stop_stat && sdc_mux.main_stat)
                 {
-                    setFault(ID_RIGHT_ESTOP_FAULT, 1);
+                    // setFault(ID_RIGHT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -616,7 +696,7 @@ void updateSDCFaults()
             case (SDC_HVD):
                 if (!sdc_mux.hvd_stat && sdc_mux.l_stop_stat)
                 {
-                    setFault(ID_HVD_DISC_FAULT, 1);
+                    // setFault(ID_HVD_DISC_FAULT, 1);
                 }
                 else
                 {
@@ -626,7 +706,7 @@ void updateSDCFaults()
             case (SDC_HUB):
                 if (!sdc_mux.r_hub_stat && sdc_mux.hvd_stat)
                 {
-                    setFault(ID_HUB_DISC_FAULT, 1);
+                    // setFault(ID_HUB_DISC_FAULT, 1);
                 }
                 else
                 {
@@ -636,7 +716,7 @@ void updateSDCFaults()
             case (SDC_TSMS):
                 if (!sdc_mux.tsms_stat && sdc_mux.r_hub_stat)
                 {
-                    setFault(ID_TSMS_DISC_FAULT, 1);
+                    // setFault(ID_TSMS_DISC_FAULT, 1);
                 }
                 else
                 {
@@ -654,16 +734,76 @@ void updateSDCFaults()
 void monitorSDCPeriodic()
 {
     static uint8_t index = 0;
-    static sdc_nodes_t sdc_nodes_raw;
-    bool *nodes = (bool *) &sdc_nodes_raw;
+    // static sdc_nodes_t sdc_nodes_raw;
+    // bool *nodes = (bool *) &sdc_nodes_raw;
 
     uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
-
-    *(nodes+index++) = stat;
+    // uint8_t main_stat; //y0
+    // uint8_t c_stop_stat; //y1
+    // uint8_t inertia_stat; //y2
+    // uint8_t bots_stat; //y3
+    // uint8_t nc; //y4
+    // uint8_t bspd_stat; //y5
+    // uint8_t bms_stat; //y6
+    // uint8_t imd_stat; //y7
+    // uint8_t r_stop_stat; //y8
+    // uint8_t l_stop_stat; //y9
+    // uint8_t hvd_stat; //y10
+    // uint8_t r_hub_stat; //y11
+    // uint8_t tsms_stat; //y12
+    // uint8_t pchg_out_stat; //y13
+    // *(nodes+index++) = stat;
+    switch(index)
+    {
+        case 0:
+            sdc_mux.main_stat = stat;
+            break;
+        case 1:
+            sdc_mux.c_stop_stat = stat;
+            break;
+        case 2:
+            sdc_mux.inertia_stat = stat;
+            break;
+        case 3:
+            sdc_mux.bots_stat = stat;
+            break;
+        case 4:
+            break;
+        case 5:
+            sdc_mux.bspd_stat = stat;
+            break;
+        case 6:
+            sdc_mux.bms_stat = stat;
+            break;
+        case 7:
+            sdc_mux.imd_stat = stat;
+            break;
+        case 8:
+            sdc_mux.r_stop_stat = stat;
+            break;
+        case 9:
+            sdc_mux.l_stop_stat = stat;
+            break;
+        case 10:
+            sdc_mux.hvd_stat = stat;
+            break;
+        case 11:
+            sdc_mux.r_hub_stat = stat;
+            break;
+        case 12:
+            sdc_mux.tsms_stat = stat;
+            break;
+        case 13:
+            sdc_mux.pchg_out_stat = stat;
+            break;
+        default:
+            break;
+    }
+    index++;
     if (index == SDC_MUX_HIGH_IDX)
     {
         index = 0;
-        sdc_mux = sdc_nodes_raw;
+        // sdc_mux = sdc_nodes_raw;
         SEND_SDC_STATUS(sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
                 sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
                 sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);

@@ -26,6 +26,8 @@
                         {"var_name":"sdc_pchg_out_stat", "access_phrase": "sdc_mux.pchg_out_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"daq_buzzer", "access_phrase": "daq_buzzer", "read_only": false, "type": "uint8_t", "length": 1},
                         {"var_name":"daq_brake", "access_phrase": "daq_brake", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"daq_constant_torque", "access_phrase": "daq_constant_tq", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"const_tq_val", "access_phrase": "const_tq_val", "read_only": false, "type": "uint8_t", "length": 8},
                         {"var_name":"daq_buzzer_brake_status", "access_phrase": "buzzer_brake_fault", "read_only": false, "type": "uint8_t", "length": 1}
 
 

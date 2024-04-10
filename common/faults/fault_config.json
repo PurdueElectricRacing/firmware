@@ -239,7 +239,7 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
+                    "time_to_latch": 1500,
                     "time_to_unlatch": 10000,
                     "lcd_message": "BSPD Latched. Restart Car"
                 },
@@ -248,8 +248,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "BOTS Activated"
                 },
                 {
@@ -257,8 +257,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "Inertia Switch activated"
                 },
                 {
@@ -266,8 +266,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "Cockpit E-Stop Pressed"
                 },
                 {
@@ -275,8 +275,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "Right E-Stop Pressed"
                 },
                 {
@@ -284,8 +284,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "Left E-Stop Pressed"
                 },
                 {
@@ -293,8 +293,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "HVD Disconnected"
                 },
                 {
@@ -302,8 +302,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "error",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "Hub Interlock Disconencted"
                 },
                 {
@@ -311,8 +311,8 @@
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
-                    "time_to_latch": 400,
-                    "time_to_unlatch": 400,
+                    "time_to_latch": 1500,
+                    "time_to_unlatch": 1000,
                     "lcd_message": "TSMS Off"
                 },
                 {
@@ -414,7 +414,7 @@
                     "fault_name": "APPS_brake",
                     "max": 1,
                     "min": 0,
-                    "priority": "error",
+                    "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
                     "lcd_message": "APPS Brake Fault"

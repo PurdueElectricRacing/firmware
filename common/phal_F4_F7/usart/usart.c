@@ -176,8 +176,8 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
     handle->periph->CR1 |= USART_CR1_TE;
      #ifdef STM32F407xx
     // Ensure any RX data is not overwritten before continuing with transfer
-    while ((active_uarts[handle->usart_active_num].active_handle->periph->SR & USART_SR_RXNE))
-        ;
+    // while ((active_uarts[handle->usart_active_num].active_handle->periph->SR & USART_SR_RXNE))
+    //     ;
     #endif
     // Start DMA transaction
     PHAL_startTxfer(handle->tx_dma_cfg);
@@ -585,8 +585,8 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type)
             PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
                 #ifdef STM32F732xx
                 // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
-                while (!(active_uarts[idx].active_handle->periph->ISR & USART_ISR_TC))
-                    ;
+                // while (!(active_uarts[idx].active_handle->periph->ISR & USART_ISR_TC))
+                //     ;
                 #endif
                 // TX is no longer busy, so communicate this and disable TX part of USART
                 active_uarts[idx]._tx_busy = 0;

@@ -216,7 +216,7 @@
 /* END AUTO SEND MACROS */
 
 // Stale Checking
-#define STALE_THRESH 5 / 2 // 5 / 2 would be 250% of period
+#define STALE_THRESH 30 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_RAW_THROTTLE_BRAKE 15
 #define UP_FILT_THROTTLE_BRAKE 15
@@ -240,7 +240,7 @@ typedef enum {
     CAR_STATE_FATAL,
     CAR_STATE_RESET,
     CAR_STATE_RECOVER,
-    CAR_STATE_FAN_CTRL,
+    CAR_STATE_CONSTANT_TORQUE,
 } car_state_t;
 
 typedef enum {

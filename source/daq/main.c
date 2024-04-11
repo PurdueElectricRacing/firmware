@@ -14,6 +14,7 @@
 #include "common/modules/Wiznet/W5500/Ethernet/socket.h"
 
 #include "ff.h"
+#include "gs_usb.h"
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -55,7 +56,7 @@ GPIOInitConfig_t gpio_config[] = {
 dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t eth_spi_config = {
-    .data_rate = 36000000 / 36,
+    .data_rate = 24000000 / 24,
     .data_len  = 8,
     .nss_sw = false,
     .nss_gpio_port = ETH_CS_PORT,
@@ -83,11 +84,11 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#define TargetCoreClockrateHz 144000000
+#define TargetCoreClockrateHz 96000000 // 144000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
     .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =288000000,
+    .vco_output_rate_target_hz  = 192000000,//288000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
     .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
@@ -141,6 +142,7 @@ static uint8_t spi_rb(void);
 static void spi_wb(uint8_t b);
 static void spi_rb_burst(uint8_t *pBuf, uint16_t len);
 static void spi_wb_burst(uint8_t *pBuf, uint16_t len);
+bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 
 q_handle_t q_tx_can;
 
@@ -200,6 +202,10 @@ int main()
     if(!PHAL_initCAN(CAN1, false))
         HardFault_Handler();
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
+                 CAN_IER_BOFIE | CAN_IER_EPVIE |
+                 CAN_IER_EWGIE;
+    NVIC_EnableIRQ(CAN1_SCE_IRQn);
 
 #ifdef EN_CAN2
     if(!PHAL_initCAN(CAN2, false))
@@ -332,6 +338,92 @@ void CAN2_RX0_IRQHandler()
     can_rx_irq_handler(CAN2);
 }
 #endif
+//volatile uint32_t last_err_stat = 0;
+volatile uint32_t error_irq_cnt = 0;
+void CAN1_SCE_IRQHandler()
+{
+    uint32_t err_stat;
+    error_irq_cnt++;
+    if (CAN1->MSR & CAN_MSR_ERRI)
+    {
+        err_stat = CAN1->ESR;
+        CAN1->ESR &= ~(CAN_ESR_LEC_Msk);
+
+        timestamped_frame_t *rx;
+        uint32_t cont;
+        if (bGetHeadForWrite(&b_rx_can, (void**) &rx, &cont) == 0)
+        {
+            rx->tick_ms = tick_ms;
+            can_parse_error_status(err_stat, rx);
+            bCommitWrite(&b_rx_can, 1);
+        }
+        CAN1->MSR |= CAN_MSR_ERRI; // clear interrupt
+    }
+}
+
+bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame)
+{
+	//frame->echo_id = 0xFFFFFFFF;
+    frame->bus_id = 0;
+	frame->msg_id  = CAN_ERR_FLAG | CAN_ERR_CRTL;
+	frame->dlc = CAN_ERR_DLC;
+	frame->data[0] = CAN_ERR_LOSTARB_UNSPEC;
+	frame->data[1] = CAN_ERR_CRTL_UNSPEC;
+	frame->data[2] = CAN_ERR_PROT_UNSPEC;
+	frame->data[3] = CAN_ERR_PROT_LOC_UNSPEC;
+	frame->data[4] = CAN_ERR_TRX_UNSPEC;
+	frame->data[5] = 0;
+	frame->data[6] = 0;
+	frame->data[7] = 0;
+
+	if ((err & CAN_ESR_BOFF) != 0) {
+		frame->msg_id |= CAN_ERR_BUSOFF;
+	}
+
+	/*
+	uint8_t tx_error_cnt = (err>>16) & 0xFF;
+	uint8_t rx_error_cnt = (err>>24) & 0xFF;
+	*/
+
+	if (err & CAN_ESR_EPVF) {
+		frame->data[1] |= CAN_ERR_CRTL_RX_PASSIVE | CAN_ERR_CRTL_TX_PASSIVE;
+	} else if (err & CAN_ESR_EWGF) {
+		frame->data[1] |= CAN_ERR_CRTL_RX_WARNING | CAN_ERR_CRTL_TX_WARNING;
+	}
+
+	uint8_t lec = (err>>4) & 0x07;
+	if (lec!=0) { /* protocol error */
+		switch (lec) {
+			case 0x01: /* stuff error */
+				frame->msg_id |= CAN_ERR_PROT;
+				frame->data[2] |= CAN_ERR_PROT_STUFF;
+				break;
+			case 0x02: /* form error */
+				frame->msg_id |= CAN_ERR_PROT;
+				frame->data[2] |= CAN_ERR_PROT_FORM;
+				break;
+			case 0x03: /* ack error */
+				frame->msg_id |= CAN_ERR_ACK;
+				break;
+			case 0x04: /* bit recessive error */
+				frame->msg_id |= CAN_ERR_PROT;
+				frame->data[2] |= CAN_ERR_PROT_BIT1;
+				break;
+			case 0x05: /* bit dominant error */
+				frame->msg_id |= CAN_ERR_PROT;
+				frame->data[2] |= CAN_ERR_PROT_BIT0;
+				break;
+			case 0x06: /* CRC error */
+				frame->msg_id |= CAN_ERR_PROT;
+				frame->data[3] |= CAN_ERR_PROT_LOC_CRC_SEQ;
+				break;
+			default:
+				break;
+		}
+	}
+
+	return true;
+}
 
 void HardFault_Handler()
 {

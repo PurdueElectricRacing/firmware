@@ -30,6 +30,7 @@
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
 #define PHAL_CAN_16MHz_500k (0x001c0001)
 #define PHAL_CAN_20MHz_500k (0x00050004)
+#define PHAL_CAN_24MHz_500k (0x001c0002)
 #define PHAL_CAN_36MHz_500k (0x001e0003)
 #define PHAL_CAN_40MHz_500k (0x001c0004)
 #define PHAL_CAN_80MHz_500k (0x001c0009)

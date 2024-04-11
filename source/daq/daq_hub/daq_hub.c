@@ -107,6 +107,7 @@ void daq_loop(void)
     uint32_t last_hb_toggle_ms = 0;
     RTC_timestamp_t time;
     bool msg_valid;
+    uint32_t tx_t = 0;
 
     while (PER == GREAT)
     {
@@ -152,7 +153,9 @@ void daq_loop(void)
                         {
                             case TCP_CMD_CAN_FRAME:
                                 conv_tcp_frame_to_can_msg(rx_msg_a, &tx_msg);
-                                while (PHAL_txMailboxFree(CAN1, 1) == false);
+                                tx_t = tick_ms;
+                                while (PHAL_txMailboxFree(CAN1, 1) == false && (tick_ms - tx_t) < 50); // 50 ms tx timeout
+                                if (tick_ms - tx_t >= 50) PHAL_txCANAbort(CAN1, 1);
                                 PHAL_txCANMessage(&tx_msg, 1);
                                 break;
                             case TCP_CMD_START_LOG:

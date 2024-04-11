@@ -26,7 +26,7 @@
 
 /* BRAKE LIGHT CONFIG */
 #define BRAKE_LIGHT_ON_THRESHOLD  (170)
-#define BRAKE_LIGHT_OFF_THRESHOLD (700)
+#define BRAKE_LIGHT_OFF_THRESHOLD (70)
 
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 
@@ -44,6 +44,7 @@ typedef enum
     CAR_TORQUE_NONE,
     CAR_TORQUE_RAW,
     CAR_TORQUE_TV,
+    CAR_TORQUE_THROT_MAP,
     CAR_TORQUE_DAQ
 } torqueSource_t;
 
@@ -84,6 +85,8 @@ extern Car_t car;
 extern uint8_t daq_buzzer;
 extern uint8_t daq_brake;
 extern uint8_t buzzer_brake_fault;
+extern uint8_t daq_constant_tq;
+extern uint8_t const_tq_val;
 
 bool carInit();
 void carHeartbeat();

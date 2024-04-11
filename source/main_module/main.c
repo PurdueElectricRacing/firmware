@@ -59,8 +59,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     // HV Bus Information
-    GPIO_INIT_ANALOG(V_MC_SENSE_GPIO_Port, V_MC_SENSE_Pin),
-    GPIO_INIT_ANALOG(V_BAT_SENSE_GPIO_Port, V_BAT_SENSE_Pin),
+    // GPIO_INIT_ANALOG(V_MC_SENSE_GPIO_Port, V_MC_SENSE_Pin),
+    // GPIO_INIT_ANALOG(V_BAT_SENSE_GPIO_Port, V_BAT_SENSE_Pin),
     GPIO_INIT_INPUT(BMS_STAT_GPIO_Port, BMS_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
 
@@ -186,15 +186,14 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#define TargetCoreClockrateHz 144000000
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =288000000,
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Function Prototypes */
@@ -233,12 +232,12 @@ int main(void){
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 750);
 
-    taskCreate(coolingPeriodic, 500);
+    taskCreate(coolingPeriodic, 50);
     taskCreate(heartBeatLED, 500);
     taskCreate(monitorSDCPeriodic, 20);
     taskCreate(carHeartbeat, 500);
     taskCreate(carPeriodic, 15);
-    taskCreate(updateSDCFaults, 400);
+    taskCreate(updateSDCFaults, 300);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);

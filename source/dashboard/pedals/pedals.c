@@ -6,8 +6,8 @@
 pedals_t pedals = {0};
 uint16_t thtl_limit = 4096;
 
-pedal_calibration_t pedal_calibration = {.t1max=2022,.t1min=652, // WARNING: DAQ VARIABLE
-                                         .t2max=1986,.t2min=590, // IF EEPROM ENABLED,
+pedal_calibration_t pedal_calibration = {.t1max=2022,.t1min=662, // WARNING: DAQ VARIABLE
+                                         .t2max=1986,.t2min=610, // IF EEPROM ENABLED,
                                          .b1max=1490,.b1min=420, // VALUE WILL CHANGE
                                          .b2max=1240,.b2min=420, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
@@ -132,7 +132,7 @@ void pedalsPeriodic(void)
     // b2 = (uint16_t) (b2_avg / 10);
 
 
- 
+
     // Scale values based on min and max
     t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
     t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
@@ -208,25 +208,27 @@ void pedalsPeriodic(void)
     // }
 
     // Both set at the same time
-    if (b2 >= APPS_BRAKE_THRESHOLD &&
-        t2 >= APPS_THROTTLE_FAULT_THRESHOLD)
-    {
-        // set warning fault and treq could be 0
-        t2 = 0;
-        // Later - setup
-    }
-    else if (t2 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
-    {
-        // setFault(ID_APPS_BRAKE_FAULT, false);
-    }
+    // if ((b1 >=. APPS_BRAKE_THRESHOLD &&
+    //     t1 >= APPS_THROTTLE_FAULT_THRESHOLD) || (checkFault(ID_APPS_BRAKE_FAULT) && t1 >= APPS_THROTTLE_CLEARFAULT_THRESHOLD))
+    // {
+    //     // set warning fault and treq could be 0
+    //     t2 = 0;
+    //     t1 = 0;
+    //     setFault(ID_APPS_BRAKE_FAULT, true);
+    //     // Later - setup
+    // }
+    // else if (t1 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
+    // {
+    //     setFault(ID_APPS_BRAKE_FAULT, false);
+    // }
 
     //Fault States detected by Main Module, which will exit ready2drive
     // if (pedals.apps_faulted || pedals.bse_faulted || pedals.apps_brake_faulted)
     // {
     //     t2 = 0;
     // }
-    t2 = t2 > thtl_limit ? thtl_limit : t2;
-    filtered_pedals = t2;
+    // t2 = t2 > thtl_limit ? thtl_limit : t2;
+    filtered_pedals = t1;
 
     SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1,
                             raw_adc_values.t2, raw_adc_values.b1,

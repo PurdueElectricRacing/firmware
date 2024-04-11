@@ -16,8 +16,8 @@ var searchData=
   ['heart_5fled_5fpin_13',['HEART_LED_Pin',['../dashboard_2main_8h.html#a2022467d5254212f7d997a8d8cc35ffd',1,'main.h']]],
   ['heartbeat_5fgpio_5fport_14',['HEARTBEAT_GPIO_Port',['../main__module_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09',1,'HEARTBEAT_GPIO_Port:&#160;main.h'],['../pdu_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09',1,'HEARTBEAT_GPIO_Port:&#160;main.h'],['../torque__vector_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09',1,'HEARTBEAT_GPIO_Port:&#160;main.h']]],
   ['heartbeat_5fled_5fgpio_5fport_15',['HEARTBEAT_LED_GPIO_Port',['../a__box_2main_8h.html#a96eaadfc04207cb651aa08b8d2480f28',1,'main.h']]],
-  ['heartbeat_5fled_5fpin_16',['HEARTBEAT_LED_PIN',['../daq_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'main.h']]],
-  ['heartbeat_5fled_5fpin_17',['HEARTBEAT_LED_Pin',['../a__box_2main_8h.html#a4ea3eb090b8d04ec57eda2631bcd3c27',1,'main.h']]],
+  ['heartbeat_5fled_5fpin_16',['HEARTBEAT_LED_Pin',['../a__box_2main_8h.html#a4ea3eb090b8d04ec57eda2631bcd3c27',1,'main.h']]],
+  ['heartbeat_5fled_5fpin_17',['HEARTBEAT_LED_PIN',['../daq_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'main.h']]],
   ['heartbeat_5fled_5fport_18',['HEARTBEAT_LED_PORT',['../daq_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'main.h']]],
   ['heartbeat_5fpin_19',['HEARTBEAT_Pin',['../main__module_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50',1,'HEARTBEAT_Pin:&#160;main.h'],['../pdu_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50',1,'HEARTBEAT_Pin:&#160;main.h'],['../torque__vector_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50',1,'HEARTBEAT_Pin:&#160;main.h']]],
   ['heartbeatled_20',['heartBeatLED',['../a__box_2main_8c.html#ae27c40f4d29be22da86fe0720492648a',1,'heartBeatLED():&#160;main.c'],['../dashboard_2main_8c.html#ae27c40f4d29be22da86fe0720492648a',1,'heartBeatLED():&#160;main.c'],['../main__module_2main_8c.html#ae27c40f4d29be22da86fe0720492648a',1,'heartBeatLED():&#160;main.c'],['../torque__vector_2main_8c.html#a89496010ddd5e80988393252e4138da7',1,'heartBeatLED(void):&#160;main.c']]],
@@ -61,5 +61,6 @@ var searchData=
   ['hw_5ffail_58',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
   ['hw_5fflow_5fctl_59',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
   ['hw_5fflow_5fctl_5ft_60',['hw_flow_ctl_t',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h']]],
-  ['hz_5fto_5fmhz_61',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
+  ['hw_5fversion_61',['hw_version',['../structgs__device__config.html#aad313881a57fd02d7b4cf10e1221d897',1,'gs_device_config']]],
+  ['hz_5fto_5fmhz_62',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
 ];

@@ -26,5 +26,6 @@ var searchData=
   ['hv_5fpresent_23',['hv_present',['../structmotor__t.html#a886bd4f9cf1c48a76b8ad5a7469989e9',1,'motor_t']]],
   ['hvd_24',['HVD',['../union____attribute____.html#af1fe310ee3dea9a8a4f92527c3b53d68',1,'__attribute__::HVD'],['../structcan__data__t.html#adab184386e0f0a7927419b8ccff4cc45',1,'can_data_t::HVD']]],
   ['hw_5ffail_25',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
-  ['hw_5fflow_5fctl_26',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['hw_5fflow_5fctl_26',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
+  ['hw_5fversion_27',['hw_version',['../structgs__device__config.html#aad313881a57fd02d7b4cf10e1221d897',1,'gs_device_config']]]
 ];

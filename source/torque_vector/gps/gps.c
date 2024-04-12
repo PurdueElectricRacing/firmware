@@ -203,7 +203,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             SEND_VEHHEAD(GPS->headVeh_rounded);
 
             SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
-            // SEND_GPS_POSITION(GPS->height_rounded);
+            SEND_GPS_POSITION(GPS->height_rounded);
         }
 
         // Collect Magnetic Declination

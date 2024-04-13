@@ -109,12 +109,16 @@ Macros</h2></td></tr>
 <tr class="separator:a9a5aad92ca4b5b2d0a1f78e649810961"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80e83d2041b98e14612f4276f854935d" id="r_a80e83d2041b98e14612f4276f854935d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80e83d2041b98e14612f4276f854935d">PHAL_CAN_80MHz_500k</a>&#160;&#160;&#160;(0x001c0009)</td></tr>
 <tr class="separator:a80e83d2041b98e14612f4276f854935d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5f0e580f5f2de0b7f79d7607e1aeff4" id="r_ad5f0e580f5f2de0b7f79d7607e1aeff4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5f0e580f5f2de0b7f79d7607e1aeff4">PHAL_CAN_16MHz_250k</a>&#160;&#160;&#160;(0x003a0003)</td></tr>
+<tr class="separator:ad5f0e580f5f2de0b7f79d7607e1aeff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06487d0687197e9c129e227c6d0e9c19" id="r_a06487d0687197e9c129e227c6d0e9c19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06487d0687197e9c129e227c6d0e9c19">PHAL_CAN_24MHz_250k</a>&#160;&#160;&#160;(0x003a0005)</td></tr>
+<tr class="separator:a06487d0687197e9c129e227c6d0e9c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3ca252693b269019a358dc2de8e6b7ee" id="r_a3ca252693b269019a358dc2de8e6b7ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ca252693b269019a358dc2de8e6b7ee">PHAL_initCAN</a> (CAN_TypeDef *bus, bool test_mode)</td></tr>
-<tr class="memdesc:a3ca252693b269019a358dc2de8e6b7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize CAN peripheral to 500k.  <br /></td></tr>
-<tr class="separator:a3ca252693b269019a358dc2de8e6b7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd53152f7b205f76bfbfc43077f85251" id="r_abd53152f7b205f76bfbfc43077f85251"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd53152f7b205f76bfbfc43077f85251">PHAL_initCAN</a> (CAN_TypeDef *bus, bool test_mode, uint32_t bit_rate)</td></tr>
+<tr class="memdesc:abd53152f7b205f76bfbfc43077f85251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize CAN peripheral to bit_rate.  <br /></td></tr>
+<tr class="separator:abd53152f7b205f76bfbfc43077f85251"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad50ebe6b97656b5ccad44c2d71e280d9" id="r_ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a> (CAN_TypeDef *bus)</td></tr>
 <tr class="memdesc:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-initialize the CAN peripheral.  <br /></td></tr>
 <tr class="separator:ad50ebe6b97656b5ccad44c2d71e280d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +136,20 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2021-03-20</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ad5f0e580f5f2de0b7f79d7607e1aeff4" name="ad5f0e580f5f2de0b7f79d7607e1aeff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5f0e580f5f2de0b7f79d7607e1aeff4">&#9670;&#160;</a></span>PHAL_CAN_16MHz_250k</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PHAL_CAN_16MHz_250k&#160;&#160;&#160;(0x003a0003)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ace565e35a57de06a0afe38438a33a08b" name="ace565e35a57de06a0afe38438a33a08b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace565e35a57de06a0afe38438a33a08b">&#9670;&#160;</a></span>PHAL_CAN_16MHz_500k</h2>
 
@@ -154,6 +172,20 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define PHAL_CAN_20MHz_500k&#160;&#160;&#160;(0x00050004)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a06487d0687197e9c129e227c6d0e9c19" name="a06487d0687197e9c129e227c6d0e9c19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06487d0687197e9c129e227c6d0e9c19">&#9670;&#160;</a></span>PHAL_CAN_24MHz_250k</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PHAL_CAN_24MHz_250k&#160;&#160;&#160;(0x003a0005)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -271,8 +303,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3ca252693b269019a358dc2de8e6b7ee" name="a3ca252693b269019a358dc2de8e6b7ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ca252693b269019a358dc2de8e6b7ee">&#9670;&#160;</a></span>PHAL_initCAN()</h2>
+<a id="abd53152f7b205f76bfbfc43077f85251" name="abd53152f7b205f76bfbfc43077f85251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd53152f7b205f76bfbfc43077f85251">&#9670;&#160;</a></span>PHAL_initCAN()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,25 +317,33 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>test_mode</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>test_mode</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>bit_rate</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initilize CAN peripheral to 500k. </p>
+<p>Initilize CAN peripheral to bit_rate. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">test_mode</td><td>Initilize CAN peripheral for self test mode</td></tr>
+    <tr><td class="paramname">test_mode</td><td>Initilize CAN peripheral for self test mode </td></tr>
+    <tr><td class="paramname">bit_rate</td><td>Bit rate in bps (i.e. 500000)</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true Peripheral sucessfully initalized </dd>
 <dd>
 false Peripheral stalled during initilization</dd></dl>
+<p>Initilize CAN peripheral to bit_rate.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bus</td><td>The CAN peripheral to initialize (i.e. CAN1) </td></tr>
-    <tr><td class="paramname">test_mode</td><td>Initilize CAN peripheral for self test mode</td></tr>
+    <tr><td class="paramname">test_mode</td><td>Initilize CAN peripheral for self test mode </td></tr>
+    <tr><td class="paramname">bit_rate</td><td>Bit rate in bps (i.e. 500000)</td></tr>
   </table>
   </dd>
 </dl>

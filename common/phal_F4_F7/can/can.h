@@ -35,7 +35,8 @@
 #define PHAL_CAN_40MHz_500k (0x001c0004)
 #define PHAL_CAN_80MHz_500k (0x001c0009)
 
-
+#define PHAL_CAN_16MHz_250k (0x003a0003) // sample point = 75%
+#define PHAL_CAN_24MHz_250k (0x003a0005) // sample point = 75%
 
 typedef struct
 {
@@ -48,14 +49,15 @@ typedef struct
 } CanMsgTypeDef_t;
 
 /**
- * @brief Initilize CAN peripheral to 500k.
+ * @brief Initilize CAN peripheral to bit_rate.
  *
  * @param test_mode Initilize CAN peripheral for self test mode
+ * @param bit_rate  Bit rate in bps (i.e. 500000)
  *
  * @return true Peripheral sucessfully initalized
  * @return false Peripheral stalled during initilization
  */
-bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode);
+bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate);
 
 bool PHAL_deinitCAN(CAN_TypeDef* bus);
 

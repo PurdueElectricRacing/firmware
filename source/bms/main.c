@@ -163,7 +163,7 @@ void preflightChecks(void) {
 
         case 3:
             // #ifdef BMS_ACCUM
-            if(!PHAL_initCAN(CAN1, false))
+            if(!PHAL_initCAN(CAN1, false, 250000))
             {
                 HardFault_Handler();
             }

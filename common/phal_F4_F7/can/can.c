@@ -13,7 +13,7 @@
 extern uint32_t APB1ClockRateHz;
 
 
-bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
+bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate)
 {
     uint32_t timeout = 0;
 
@@ -51,29 +51,51 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    switch (APB1ClockRateHz)
+    if (bit_rate == 500000)
     {
-        case 16000000:
-            bus->BTR = PHAL_CAN_16MHz_500k;
-            break;
-        case 20000000:
-            bus->BTR = PHAL_CAN_20MHz_500k;
-            break;
-        case 24000000:
-            bus->BTR = PHAL_CAN_24MHz_500k;
-            break;
-        case 36000000:
-            bus->BTR = PHAL_CAN_36MHz_500k;
-            break;
-        case 40000000:
-            bus->BTR = PHAL_CAN_40MHz_500k;
-            break;
-        case 80000000:
-            bus->BTR = PHAL_CAN_80MHz_500k;
-            break;
-        default:
-            return false;
+        switch (APB1ClockRateHz)
+        {
+            case 16000000:
+                bus->BTR = PHAL_CAN_16MHz_500k;
+                break;
+            case 20000000:
+                bus->BTR = PHAL_CAN_20MHz_500k;
+                break;
+            case 24000000:
+                bus->BTR = PHAL_CAN_24MHz_500k;
+                break;
+            case 36000000:
+                bus->BTR = PHAL_CAN_36MHz_500k;
+                break;
+            case 40000000:
+                bus->BTR = PHAL_CAN_40MHz_500k;
+                break;
+            case 80000000:
+                bus->BTR = PHAL_CAN_80MHz_500k;
+                break;
+            default:
+                return false;
+        }
     }
+    else if (bit_rate == 250000)
+    {
+        switch (APB1ClockRateHz)
+        {
+            case 16000000:
+                bus->BTR = PHAL_CAN_16MHz_250k;
+                break;
+            case 24000000:
+                bus->BTR = PHAL_CAN_24MHz_250k;
+                break;
+            default:
+                return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+
     // Keep the bus active
     bus->MCR |= CAN_MCR_ABOM;
 
@@ -84,13 +106,25 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     }
 
     // Setup filters for all IDs
-    bus->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
-    bus->FM1R &= ~(CAN_FM1R_FBM0_Msk);       // Set bank 0 to mask mode
-    bus->FS1R &= ~(1 << CAN_FS1R_FSC0_Pos);  // Set bank 0 to 16bit mode
-    bus->FA1R |= (1 << CAN_FA1R_FACT0_Pos);  // Activate bank 0
-    bus->sFilterRegister[0].FR1 = 0;         // Set mask to 0
-    bus->sFilterRegister[0].FR2 = 0;
-    bus->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters
+    if (bus == CAN1)
+    {
+        bus->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
+        bus->FM1R &= ~(CAN_FM1R_FBM0_Msk);       // Set bank 0 to mask mode
+        bus->FS1R &= ~(1 << CAN_FS1R_FSC0_Pos);  // Set bank 0 to 16bit mode
+        bus->FA1R |= (1 << CAN_FA1R_FACT0_Pos);  // Activate bank 0
+        bus->sFilterRegister[0].FR1 = 0;         // Set mask to 0
+        bus->sFilterRegister[0].FR2 = 0;
+#ifdef CAN2
+        bus->FMR &= ~(CAN_FMR_CAN2SB);
+        bus->FMR |= (27 << CAN_FMR_CAN2SB_Pos);
+        bus->FM1R &= ~(CAN_FM1R_FBM27_Msk);      // Set bank 27 to mask mode
+        bus->FS1R &= ~(1 << CAN_FS1R_FSC27_Pos); // Set bank 27 to 16bit mode
+        bus->FA1R |= (1 << CAN_FA1R_FACT27_Pos); // Activate bank 0
+        bus->sFilterRegister[27].FR1 = 0;        // Set mask to 0
+        bus->sFilterRegister[27].FR2 = 0;
+#endif
+        bus->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters
+    }
 
     // Enable FIFO0/1 RX message pending interrupt
     bus->IER |= CAN_IER_FMPIE0;

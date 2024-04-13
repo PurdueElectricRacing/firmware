@@ -185,7 +185,7 @@ int main (void)
 
     volatile uint16_t var = 0;
 
-    // if(!PHAL_initCAN(CAN1, false))
+    // if(!PHAL_initCAN(CAN1, false, 250000))
     // {
     //     HardFault_Handler();
     // }

@@ -12,7 +12,7 @@
 
 extern uint32_t APB1ClockRateHz;
 
-bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
+bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate)
 {
     uint32_t timeout = 0;
 
@@ -50,22 +50,40 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode)
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    switch (APB1ClockRateHz)
+    if (bit_rate == 500000)
     {
-        case 16000000:
-            bus->BTR = PHAL_CAN_16MHz_500k;
-            break;
-        case 20000000:
-            bus->BTR = PHAL_CAN_20MHz_500k;
-            break;
-        case 40000000:
-            bus->BTR = PHAL_CAN_40MHz_500k;
-            break;
-        case 80000000:
-            bus->BTR = PHAL_CAN_80MHz_500k;
-            break;
-        default:
-            return false;
+        switch (APB1ClockRateHz)
+        {
+            case 16000000:
+                bus->BTR = PHAL_CAN_16MHz_500k;
+                break;
+            case 20000000:
+                bus->BTR = PHAL_CAN_20MHz_500k;
+                break;
+            case 40000000:
+                bus->BTR = PHAL_CAN_40MHz_500k;
+                break;
+            case 80000000:
+                bus->BTR = PHAL_CAN_80MHz_500k;
+                break;
+            default:
+                return false;
+        }
+    }
+    else if (bit_rate == 250000)
+    {
+        switch (APB1ClockRateHz)
+        {
+            case 16000000:
+                bus->BTR = PHAL_CAN_16MHz_250k;
+                break;
+            default:
+                return false;
+        }
+    }
+    else
+    {
+        return false;
     }
     // Keep the bus active
     bus->MCR |= CAN_MCR_ABOM;

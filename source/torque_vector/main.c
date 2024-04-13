@@ -221,7 +221,7 @@ void preflightChecks(void)
     switch (state++)
     {
     case 0:
-        if (!PHAL_initCAN(CAN1, false))
+        if (!PHAL_initCAN(CAN1, false, 250000))
         {
             HardFault_Handler();
         }

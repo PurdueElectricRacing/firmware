@@ -27,7 +27,7 @@ if dev:
     bus_num = dev.bus
     addr = dev.address
     del(dev)
-    bus = can.ThreadSafeBus(bustype="gs_usb", channel=channel, bus=bus_num, address=addr, bitrate=500000)
+    bus = can.ThreadSafeBus(bustype="gs_usb", channel=channel, bus=bus_num, address=addr, bitrate=250000)
     while(bus.recv(0)): pass
 
 class CANRxThread(threading.Thread):

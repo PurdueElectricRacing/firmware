@@ -6,7 +6,7 @@ channel = dev.product
 bus_num = dev.bus
 addr = dev.address
 del(dev)
-bus = can.Bus(bustype="gs_usb", channel=channel, bus=bus_num, address=addr, bitrate=500000)
+bus = can.Bus(bustype="gs_usb", channel=channel, bus=bus_num, address=addr, bitrate=250000)
 
 msg = can.Message(arbitration_id=0x1400028b,
                   data=[0xC5, 0x1A, 0, 1],

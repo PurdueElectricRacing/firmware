@@ -1,7 +1,9 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-// #define EN_CAN2
+// Enable the CAN2 bus
+#define EN_CAN2 1
+#define ID_LWS_STANDARD 0x2b0 // hehe
 
 typedef enum {
     RX_TAIL_CAN_RX, //!< CAN rx message parsing
@@ -93,7 +95,7 @@ void _log_str(char* data);
 #define GREAT PER
 
 extern volatile uint32_t tick_ms; // Systick 1ms counter
-extern q_handle_t q_tx_can;
+extern q_handle_t q_tx_can2_to_can1;
 extern b_handle_t b_rx_can;
 extern b_handle_t b_rx_tcp;
 

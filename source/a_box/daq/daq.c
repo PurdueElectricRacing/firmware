@@ -32,6 +32,7 @@ daq_variable_t tracked_vars[NUM_VARS] = {
     {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.tmu_4, .write_var_a=NULL, },
     {.is_read_only=0, .bit_length=1, .read_var_a=&bms_daq_override, .write_var_a=&bms_daq_override, },
     {.is_read_only=0, .bit_length=1, .read_var_a=&bms_daq_stat, .write_var_a=&bms_daq_stat, },
+    {.is_read_only=1, .bit_length=32, .read_var_a=&CAN1->ESR, .write_var_a=NULL, },
 };
 // END AUTO VAR DEFS
 

@@ -150,7 +150,7 @@ int main (void)
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
 
 
-   if (1 != PHAL_initCAN(CAN1, false))
+   if (1 != PHAL_initCAN(CAN1, false, 250000))
        PHAL_FaultHandler();
 
 //     for (uint16_t dimitri_is_not_better_than_me = 0; dimitri_is_not_better_than_me < 1000; dimitri_is_not_better_than_me++)

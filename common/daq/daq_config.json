@@ -28,9 +28,8 @@
                         {"var_name":"daq_brake", "access_phrase": "daq_brake", "read_only": false, "type": "uint8_t", "length": 1},
                         {"var_name":"daq_constant_torque", "access_phrase": "daq_constant_tq", "read_only": false, "type": "uint8_t", "length": 1},
                         {"var_name":"const_tq_val", "access_phrase": "const_tq_val", "read_only": false, "type": "uint8_t", "length": 8},
-                        {"var_name":"daq_buzzer_brake_status", "access_phrase": "buzzer_brake_fault", "read_only": false, "type": "uint8_t", "length": 1}
-
-
+                        {"var_name":"daq_buzzer_brake_status", "access_phrase": "buzzer_brake_fault", "read_only": false, "type": "uint8_t", "length": 1},
+                        {"var_name":"can_esr", "access_phrase": "CAN1->ESR", "read_only": true, "type":"uint32_t", "length": 32}
                     ],
                     "files":[]
                 },
@@ -38,7 +37,8 @@
                     "node_name":"Dashboard",
                     "includes":"#include \"pedals.h\"",
                     "variables": [
-                        {"var_name":"thtl_limit", "access_phrase": "thtl_limit", "read_only": false, "type": "uint16_t", "unit": "%"}
+                        {"var_name":"thtl_limit", "access_phrase": "thtl_limit", "read_only": false, "type": "uint16_t", "unit": "%"},
+                        {"var_name":"can_esr", "access_phrase": "CAN1->ESR", "read_only": true, "type":"uint32_t", "length": 32}
                     ],
                     "files":[]
                 },
@@ -56,7 +56,8 @@
                         {"var_name":"tmu_3", "access_phrase": "adc_readings.tmu_3", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
                         {"var_name":"tmu_4", "access_phrase": "adc_readings.tmu_4", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
                         {"var_name":"bms_daq_override", "access_phrase": "bms_daq_override", "read_only": false, "type":"uint8_t", "length": 1},
-                        {"var_name":"bms_daq_stat", "access_phrase": "bms_daq_stat", "read_only": false, "type": "uint8_t", "length":1}
+                        {"var_name":"bms_daq_stat", "access_phrase": "bms_daq_stat", "read_only": false, "type": "uint8_t", "length":1},
+                        {"var_name":"can_esr", "access_phrase": "CAN1->ESR", "read_only": true, "type":"uint32_t", "length": 32}
                     ],
                     "files":[]
                 },
@@ -66,7 +67,8 @@
                     "variables": [
                         {"var_name":"lv_24_v_sense", "access_phrase": "adc_readings.lv_24_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
                         {"var_name":"lv_5_v_sense", "access_phrase": "adc_readings.lv_5_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
-                        {"var_name":"lv_3v3_v_sense", "access_phrase": "adc_readings.lv_3v3_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"}
+                        {"var_name":"lv_3v3_v_sense", "access_phrase": "adc_readings.lv_3v3_v_sense", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"can_esr", "access_phrase": "CAN1->ESR", "read_only": true, "type":"uint32_t", "length": 32}
                     ],
                     "files":[]
                 }

@@ -125,9 +125,10 @@ void daq_loop(void)
         // Message Tx
         //--------------------------------
 
+        // Messages that pass through from CAN2 to CAN1
         if (PHAL_txMailboxFree(CAN1, 0))
         {
-            if (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
+            if (qReceive(&q_tx_can2_to_can1, &tx_msg) == SUCCESS_G)
             {
                 // File Write
                 // CAN Send

@@ -48,7 +48,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANTX_PA12,
 #endif
 #ifdef EN_CAN2
-    // TODO: CAN2 gpio pins
+    GPIO_INIT_CAN2RX_PB5,
+    GPIO_INIT_CAN2TX_PB6,
 #endif
 };
 
@@ -144,7 +145,7 @@ static void spi_rb_burst(uint8_t *pBuf, uint16_t len);
 static void spi_wb_burst(uint8_t *pBuf, uint16_t len);
 bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 
-q_handle_t q_tx_can;
+q_handle_t q_tx_can2_to_can1;
 
 volatile timestamped_frame_t rx_buffer[RX_BUFF_ITEM_COUNT];
 b_tail_t tails[RX_TAIL_COUNT];
@@ -167,7 +168,8 @@ int main()
 
     // TODO: use watchdog to recover if timed out?
     /* Data Struct init */
-    qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
+    // TODO: note: using send to back to q_tx_can2_to_can1 from the interrupt handler! (i.e. DO NOT SEND FROM NORMAL CONTEXT!)
+    qConstruct(&q_tx_can2_to_can1, sizeof(CanMsgTypeDef_t));
     bConstruct(&b_rx_can, sizeof(*rx_buffer), sizeof(rx_buffer));
     bConstruct(&b_rx_tcp, 1, sizeof(tcp_rx_buffer)); // Byte resolution for tcp receive
 
@@ -199,7 +201,7 @@ int main()
 
     log_yellow("PER PER PER\n");
 
-    if(!PHAL_initCAN(CAN1, false))
+    if(!PHAL_initCAN(CAN1, false, 250000))
         HardFault_Handler();
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
@@ -208,7 +210,7 @@ int main()
     NVIC_EnableIRQ(CAN1_SCE_IRQn);
 
 #ifdef EN_CAN2
-    if(!PHAL_initCAN(CAN2, false))
+    if(!PHAL_initCAN(CAN2, false, 500000))
         HardFault_Handler();
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
 #endif
@@ -320,6 +322,26 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
             rx->data[5] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
             rx->data[6] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
             rx->data[7] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+
+            // Pass-through to CAN1
+            if (rx->bus_id == BUS_ID_CAN2 && rx->msg_id == (ID_LWS_STANDARD))
+            {
+                CanMsgTypeDef_t msg;
+                msg.Bus = CAN1;
+                msg.IDE = !(rx->msg_id & CAN_EFF_FLAG);
+                if (msg.IDE) msg.ExtId = rx->msg_id & CAN_EFF_MASK;
+                else msg.StdId = rx->msg_id & CAN_SFF_MASK;
+                msg.DLC = rx->dlc;
+                msg.Data[0] = rx->data[0];
+                msg.Data[1] = rx->data[1];
+                msg.Data[2] = rx->data[2];
+                msg.Data[3] = rx->data[3];
+                msg.Data[4] = rx->data[4];
+                msg.Data[5] = rx->data[5];
+                msg.Data[6] = rx->data[6];
+                msg.Data[7] = rx->data[7];
+                qSendToBack(&q_tx_can2_to_can1, &msg);
+            }
 
             bCommitWrite(&b_rx_can, 1);
         }

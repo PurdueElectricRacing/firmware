@@ -38,6 +38,8 @@
 #include "node_defs.h"
 #include "bootloader.h"
 
+#define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
+
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     CAN_RX_GPIO_CONFIG,
@@ -111,7 +113,7 @@ int main (void)
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         HardFault_Handler();
 
-    if (1 != PHAL_initCAN(CAN1, false))
+    if (1 != PHAL_initCAN(CAN1, false, 250000))
         HardFault_Handler();
 
     #if (APP_ID == APP_MAIN_MODULE)
@@ -187,14 +189,16 @@ int main (void)
     NVIC_SystemReset();
 }
 
-// Sends all pending messages in the tx queue
+// Sends all pending messages in the tx queue, doesn't require systick to be active
 static void send_pending_can(void)
 {
     CanMsgTypeDef_t tx_msg;
     while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
     {
-        while (!PHAL_txMailboxFree(CAN1, 0));
-        PHAL_txCANMessage(&tx_msg, 0);
+        uint32_t t = 0;
+        while (!PHAL_txMailboxFree(CAN1, 0) && (t++ < CAN_TX_BLOCK_TIMEOUT));
+        if (t < CAN_TX_BLOCK_TIMEOUT) PHAL_txCANMessage(&tx_msg, 0);
+        // TODO: count errors?
     }
 }
 

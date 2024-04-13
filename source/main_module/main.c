@@ -275,7 +275,7 @@ void preflightChecks(void) {
             }
             break;
         case 1:
-            if(!PHAL_initCAN(CAN1, false))
+            if(!PHAL_initCAN(CAN1, false, 250000))
             {
                 HardFault_Handler();
             }

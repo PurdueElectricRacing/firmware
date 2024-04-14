@@ -390,12 +390,12 @@ void VCU_MAIN(void)
     } else if ((can_data.main_hb.car_state == 4)) {
         TV_Calibrated = (ac_counter == NUM_ELEM_ACC_CALIBRATION);
         /* Populate torque vectoring inputs */
-        tv_pp(&rtU_tv, &GPSHandle);
+        // tv_pp(&rtU_tv, &GPSHandle);
 
-        /* Step torque vectoring */
-        tv_timing = sched.os_ticks;
-        tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
-        tv_timing = sched.os_ticks - tv_timing;
+        // /* Step torque vectoring */
+        // tv_timing = sched.os_ticks;
+        // tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
+        // tv_timing = sched.os_ticks - tv_timing;
 
         /* Populate Engine map inputs */
         em_pp(&rtU_em, &rtY_tv);
@@ -407,9 +407,9 @@ void VCU_MAIN(void)
     }
 
     /* Set Torque Vectoring Faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
-    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
+    // setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
+    // setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
+    // setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
     /* Set Throttle Map Faults */
     setFault(ID_TV_DISABLED_FAULT,!rtU_em.TVS_STATE);

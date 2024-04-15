@@ -397,20 +397,19 @@ void VCU_MAIN(void)
         // tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
         // tv_timing = sched.os_ticks - tv_timing;
 
-        /* Populate Engine map inputs */
-        em_pp(&rtU_em, &rtY_tv);
-
-        /* Step Engine map */
-        em_timing = sched.os_ticks;
-        em_step(rtMPtr_em, &rtU_em, &rtY_em);
-        em_timing = sched.os_ticks - em_timing;
     }
 
     /* Set Torque Vectoring Faults */
     // setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
     // setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
     // setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
+    /* Populate Engine map inputs */
+    em_pp(&rtU_em, &rtY_tv);
 
+    /* Step Engine map */
+    em_timing = sched.os_ticks;
+    em_step(rtMPtr_em, &rtU_em, &rtY_em);
+    em_timing = sched.os_ticks - em_timing;
     /* Set Throttle Map Faults */
     setFault(ID_TV_DISABLED_FAULT,!rtU_em.TVS_STATE);
 

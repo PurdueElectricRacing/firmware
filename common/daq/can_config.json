@@ -56,6 +56,28 @@
                             "is_normal":true
                         },
                         {
+                            "msg_name": "load_sensor_readings",
+                            "msg_desc": "Load Sensor readings from left and right",
+                            "signals": [
+                                {"sig_name": "left_load_sensor", "type": "float", "unit": "N"},
+                                {"sig_name": "right_load_sensor", "type": "float", "unit": "N"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1000
+                        },
+                        {
+                            "msg_name": "shock_rear",
+                            "msg_desc": "Load Sensor readings from left and right",
+                            "signals": [
+                                {"sig_name": "left_shock", "type": "uint16_t", "unit": "mm"},
+                                {"sig_name": "right_shock", "type": "uint16_t", "unit": "mm"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1020
+                        },
+                        {
                             "msg_name": "mcu_status",
                             "msg_desc": "performance metrics of MCU",
                             "signals": [
@@ -623,6 +645,28 @@
                             "msg_period":15,
                             "msg_hlp":4,
                             "msg_pgn":10
+                        },
+                        {
+                            "msg_name": "shock_front",
+                            "msg_desc": "Load Sensor readings from left and right",
+                            "signals": [
+                                {"sig_name": "left_shock", "type": "uint16_t", "unit": "mm"},
+                                {"sig_name": "right_shock", "type": "uint16_t", "unit": "mm"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1015
+                        },
+                        {
+                            "msg_name": "load_sensor_readings_dash",
+                            "msg_desc": "Load Sensor readings from left and right",
+                            "signals": [
+                                {"sig_name": "left_load_sensor", "type": "float", "unit": "N"},
+                                {"sig_name": "right_load_sensor", "type": "float", "unit": "N"}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1010
                         },
                         {
                             "msg_name": "cooling_driver_request",

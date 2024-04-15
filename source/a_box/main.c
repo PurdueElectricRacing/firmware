@@ -149,9 +149,20 @@ int main (void)
 //    set high during init
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
 
-
-   if (1 != PHAL_initCAN(CAN1, false, 250000))
+    uint8_t charger_speed_def = 0;
+    charger_speed_def = PHAL_readGPIO(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin);
+    uint8_t speed_2 = PHAL_readGPIO(BMS_CHARGER_SAFETY_Port, BMS_CHARGER_SAFETY_Pin);
+    if (charger_speed_def || speed_2)
+    {
+        if (1 != PHAL_initCAN(CAN1, false, 250000))
        PHAL_FaultHandler();
+    }
+    else
+    {
+        if (1 != PHAL_initCAN(CAN1, false, 500000))
+        PHAL_FaultHandler();
+    }
+
 
 //     for (uint16_t dimitri_is_not_better_than_me = 0; dimitri_is_not_better_than_me < 1000; dimitri_is_not_better_than_me++)
 //     {

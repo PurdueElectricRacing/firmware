@@ -37,6 +37,7 @@
 
 #define PHAL_CAN_16MHz_250k (0x003a0003) // sample point = 75%
 #define PHAL_CAN_24MHz_250k (0x003a0005) // sample point = 75%
+#define PHAL_CAN_36MHz_250k (0x003c0007)
 
 typedef struct
 {

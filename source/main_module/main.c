@@ -186,14 +186,15 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz 144000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_HSI,
-    .vco_output_rate_target_hz  =160000000,
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =288000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
 };
 
 /* Function Prototypes */
@@ -204,6 +205,8 @@ void usartTxUpdate(void);
 void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf);
 void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
+void interpretLoadSensor(void);
+float voltToForce(uint16_t load_read);
 
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
@@ -237,8 +240,10 @@ int main(void){
     taskCreate(monitorSDCPeriodic, 20);
     taskCreate(carHeartbeat, 500);
     taskCreate(carPeriodic, 15);
+    taskCreate(interpretLoadSensor, 15);
     taskCreate(updateSDCFaults, 300);
     taskCreate(heartBeatTask, 100);
+    taskCreate(send_shockpots, 15);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
@@ -425,6 +430,42 @@ void usartIdleIRQ(volatile usart_init_t *huart, volatile usart_rx_buf_t *rx_buf)
         rx_buf->last_msg_loc = (rx_buf->last_rx_loc + 1) % rx_buf->rx_buf_size;
     }
     rx_buf->last_rx_loc = new_loc % rx_buf->rx_buf_size;
+}
+
+
+#define SCALE_F = (1 + (3.4/6.6))
+float voltToForce(uint16_t load_read) {
+    /*
+    //Return in newtons
+    float v_out_load_l = adc_readings.load_l / 4095 * 3.3;
+    float v_out_load_r = adc_readings.load_r / 4095 * 3.3;
+    //voltage -> weight
+    //V_out = (V_in * R_2) / (R_1 + R_2)
+    //Solve for V_in
+    //R_1 = 3.4K
+    //R_2 = 6.6K
+    float v_in_load_l = (v_out_load_l * 10) / 6.6;
+    float v_in_load_r = (v_out_load_r * 10) / 6.6;
+    //voltage * 100 = mass
+    //weight (in newtons) = mass * g
+    float force_load_l = v_in_load_l * 100 * g;
+    float force_load_r = v_in_load_r * 100 * g;
+    */
+    float g = 9.8;
+    // float val = ((load_read / 4095.0 * 3.3) * 10.0)
+    float val = ((load_read / 4095.0 * 3.3) * (1.0 + (3.4/6.6)));
+    // return ( val / 6.6) * 100.0 * g;
+    return val * 100.0 * g;
+}
+
+void interpretLoadSensor(void) {
+    float force_load_l = voltToForce(adc_readings.load_l);
+    float force_load_r = voltToForce(adc_readings.load_r);
+    //send a can message w/ minimal force info
+    //every 15 milliseconds
+    SEND_LOAD_SENSOR_READINGS(force_load_l, force_load_r);
+
+
 }
 
 /* CAN Message Handling */

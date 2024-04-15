@@ -6,7 +6,7 @@
 pedals_t pedals = {0};
 uint16_t thtl_limit = 4096;
 
-pedal_calibration_t pedal_calibration = {.t1max=2022,.t1min=662, // WARNING: DAQ VARIABLE
+pedal_calibration_t pedal_calibration = {.t1max=2022,.t1min=690, // WARNING: DAQ VARIABLE
                                          .t2max=1986,.t2min=610, // IF EEPROM ENABLED,
                                          .b1max=1490,.b1min=420, // VALUE WILL CHANGE
                                          .b2max=1240,.b2min=420, // 1400, 400

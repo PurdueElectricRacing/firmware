@@ -35,7 +35,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_RAW;
+    car.torque_src = CAR_TORQUE_THROT_MAP;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
@@ -427,7 +427,7 @@ void parseMCDataPeriodic(void)
     // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
     // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
 
-    //SEND_REAR_WHEEL_DATA(wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
+    // SEND_REAR_WHEEL_DATA(wheel_speeds.left_kph_x100, wheel_speeds.right_kph_x100,
     //                      shock_l, shock_r);
     // uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
     // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
@@ -456,6 +456,19 @@ void parseMCDataPeriodic(void)
         SEND_NUM_MC_SKIPS(num_failed_msgs_r, num_failed_msgs_l);
         last_tmp_t = sched.os_ticks;
     }
+}
+
+#define POT_VOLT_MAX_DIST_MM 0
+#define POT_VOLT_MIN_DIST_MM 4095
+
+void send_shockpots()
+{
+    uint16_t shock_l = adc_readings.shock_l;
+    uint16_t shock_r = adc_readings.shock_r;
+    //Scale from raw 12bit adc to mm * 10 of linear pot travel
+    // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
+    // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
+    SEND_SHOCK_REAR(shock_l, shock_r);
 }
 
 /**

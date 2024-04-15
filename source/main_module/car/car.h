@@ -95,6 +95,7 @@ void parseMCDataPeriodic(void);
 void calibrateSteeringAngle(uint8_t* success);
 void monitorSDCPeriodic(void);
 void updateSDCFaults(void);
+void send_shockpots();
 
 // SDC Node defines
 #define SDC_MUX_HIGH_IDX 14

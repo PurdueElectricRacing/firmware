@@ -19,9 +19,19 @@
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Dashboard"
 
+// Used to represent a float as 32 bits
+typedef union {
+    float f;
+    uint32_t u;
+} FloatConvert_t;
+#define FLOAT_TO_UINT32(float_) (((FloatConvert_t) float_).u)
+#define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t) ((uint32_t) uint32_)).f)
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
+#define ID_SHOCK_FRONT 0x1000fdc5
+#define ID_LOAD_SENSOR_READINGS_DASH 0x1000fc85
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
@@ -58,6 +68,8 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_SHOCK_FRONT 4
+#define DLC_LOAD_SENSOR_READINGS_DASH 8
 #define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
@@ -101,6 +113,20 @@
         data_a->raw_throttle_brake.brake = brake_;\
         data_a->raw_throttle_brake.brake_right = brake_right_;\
         data_a->raw_throttle_brake.brake_pot = brake_pot_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_SHOCK_FRONT(left_shock_, right_shock_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SHOCK_FRONT, .DLC=DLC_SHOCK_FRONT, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->shock_front.left_shock = left_shock_;\
+        data_a->shock_front.right_shock = right_shock_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_LOAD_SENSOR_READINGS_DASH(left_load_sensor_, right_load_sensor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LOAD_SENSOR_READINGS_DASH, .DLC=DLC_LOAD_SENSOR_READINGS_DASH, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->load_sensor_readings_dash.left_load_sensor = FLOAT_TO_UINT32(left_load_sensor_);\
+        data_a->load_sensor_readings_dash.right_load_sensor = FLOAT_TO_UINT32(right_load_sensor_);\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_COOLING_DRIVER_REQUEST(dt_pump_, dt_fan_, batt_pump_, batt_pump2_, batt_fan_) do {\
@@ -220,6 +246,14 @@ typedef union {
         uint64_t brake_right: 12;
         uint64_t brake_pot: 12;
     } raw_throttle_brake;
+    struct {
+        uint64_t left_shock: 16;
+        uint64_t right_shock: 16;
+    } shock_front;
+    struct {
+        uint64_t left_load_sensor: 32;
+        uint64_t right_load_sensor: 32;
+    } load_sensor_readings_dash;
     struct {
         uint64_t dt_pump: 8;
         uint64_t dt_fan: 8;

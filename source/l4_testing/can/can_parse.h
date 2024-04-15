@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
@@ -363,7 +363,7 @@ extern void send_fault(uint16_t id, bool latched);
 
 /**
  * @brief Setup queue and message filtering
- * 
+ *
  * @param q_rx_can RX buffer of CAN messages
  */
 void initCANParse(q_handle_t* q_rx_can_a);
@@ -377,7 +377,7 @@ void canRxUpdate(void);
 
 /**
  * @brief Process any rx message callbacks from the CAN Rx IRQ
- * 
+ *
  * @param rx rx data from message just recieved
  */
 void canProcessRxIRQs(CanMsgTypeDef_t* rx);

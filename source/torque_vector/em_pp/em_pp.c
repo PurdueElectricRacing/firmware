@@ -28,8 +28,8 @@ void em_pp(ExtU_em *rtU_tm, ExtY_tv *rtY_tv)
 
     rtU_tm->TVS_STATE = can_data.dashboard_tv_parameters.tv_enabled;
 
-    rtU_tm->w[0] = (can_data.rear_wheel_speeds.left_speed_sensor*0.01);
-    rtU_tm->w[1] = (can_data.rear_wheel_speeds.right_speed_sensor*0.01);
+    rtU_tm->w[0] = (can_data.rear_wheel_speeds.left_speed_sensor*8.75*0.01);
+    rtU_tm->w[1] = (can_data.rear_wheel_speeds.right_speed_sensor*8.75*0.01);
 
     rtU_tm->V = (can_data.orion_currents_volts.pack_current*0.1);
 }

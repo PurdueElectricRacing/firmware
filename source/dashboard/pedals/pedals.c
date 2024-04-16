@@ -208,19 +208,19 @@ void pedalsPeriodic(void)
     // }
 
     // Both set at the same time
-    // if ((b1 >=. APPS_BRAKE_THRESHOLD &&
-    //     t1 >= APPS_THROTTLE_FAULT_THRESHOLD) || (checkFault(ID_APPS_BRAKE_FAULT) && t1 >= APPS_THROTTLE_CLEARFAULT_THRESHOLD))
-    // {
-    //     // set warning fault and treq could be 0
-    //     t2 = 0;
-    //     t1 = 0;
-    //     setFault(ID_APPS_BRAKE_FAULT, true);
-    //     // Later - setup
-    // }
-    // else if (t1 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
-    // {
-    //     setFault(ID_APPS_BRAKE_FAULT, false);
-    // }
+    if ((b1 >= APPS_BRAKE_THRESHOLD &&
+        t1 >= APPS_THROTTLE_FAULT_THRESHOLD) || (checkFault(ID_APPS_BRAKE_FAULT) && t1 >= APPS_THROTTLE_CLEARFAULT_THRESHOLD))
+    {
+        // set warning fault and treq could be 0
+        t2 = 0;
+        t1 = 0;
+        setFault(ID_APPS_BRAKE_FAULT, true);
+        // Later - setup
+    }
+    else if (t1 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
+    {
+        setFault(ID_APPS_BRAKE_FAULT, false);
+    }
 
     //Fault States detected by Main Module, which will exit ready2drive
     // if (pedals.apps_faulted || pedals.bse_faulted || pedals.apps_brake_faulted)

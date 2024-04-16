@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU bootloader BITSTREAM Charger DAQ TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU daq bootloader BITSTREAM Charger DAQ TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2348816641 main_hb: 2 Main_Module
@@ -471,6 +471,10 @@ BO_ 2217793020 f7_testing_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2217793084 daq_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2214598974 bitstream_data: 8 BITSTREAM
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -481,7 +485,7 @@ BO_ 2214598974 bitstream_data: 8 BITSTREAM
  SG_ d1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d0 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415925630 bitstream_request: 5 BITSTREAM
+BO_ 2214599038 bitstream_request: 5 BITSTREAM
  SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -514,6 +518,10 @@ BO_ 2215232958 f4_testing_bl_cmd: 5 BITSTREAM
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2215233022 f7_testing_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233086 daq_bl_cmd: 5 BITSTREAM
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -625,6 +633,7 @@ CM_ BU_ torque_vector "";
 CM_ BU_ Dashboard "";
 CM_ BU_ Steering "";
 CM_ BU_ PDU "";
+CM_ BU_ daq "";
 CM_ BU_ bootloader "";
 CM_ BU_ BITSTREAM "";
 CM_ BU_ Charger "";
@@ -993,6 +1002,9 @@ CM_ SG_ 2217792956 cmd "";
 CM_ BO_ 2217793020 "F7 Test Bootloader response";
 CM_ SG_ 2217793020 data "";
 CM_ SG_ 2217793020 cmd "";
+CM_ BO_ 2217793084 "DAQ Bootloader response";
+CM_ SG_ 2217793084 data "";
+CM_ SG_ 2217793084 cmd "";
 CM_ BO_ 2214598974 "Bitstream download command";
 CM_ SG_ 2214598974 d7 "Bitstream data word 7";
 CM_ SG_ 2214598974 d6 "Bitstream data word 6";
@@ -1002,9 +1014,9 @@ CM_ SG_ 2214598974 d3 "Bitstream data word 3";
 CM_ SG_ 2214598974 d2 "Bitstream data word 2";
 CM_ SG_ 2214598974 d1 "Bitstream data word 1";
 CM_ SG_ 2214598974 d0 "Bitstream data word 0";
-CM_ BO_ 2415925630 "Bitstream state command";
-CM_ SG_ 2415925630 download_size "size for expected bitstream download (bytes)";
-CM_ SG_ 2415925630 download_request "Request to download new bitstream";
+CM_ BO_ 2214599038 "Bitstream state command";
+CM_ SG_ 2214599038 download_size "size for expected bitstream download (bytes)";
+CM_ SG_ 2214599038 download_request "Request to download new bitstream";
 CM_ BO_ 2215232574 "Bootloader command for main module";
 CM_ SG_ 2215232574 data "Bootloader data";
 CM_ SG_ 2215232574 cmd "Bootloader Command type";
@@ -1029,6 +1041,9 @@ CM_ SG_ 2215232958 cmd "Bootloader Command type";
 CM_ BO_ 2215233022 "Bootloader command for f7 testing";
 CM_ SG_ 2215233022 data "Bootloader data";
 CM_ SG_ 2215233022 cmd "Bootloader Command type";
+CM_ BO_ 2215233086 "Bootloader command for DAQ";
+CM_ SG_ 2215233086 data "Bootloader data";
+CM_ SG_ 2215233086 cmd "Bootloader Command type";
 CM_ BO_ 2282342462 "Set a fault";
 CM_ SG_ 2282342462 value "Bootloader data";
 CM_ SG_ 2282342462 id "Bootloader Command type";

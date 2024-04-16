@@ -97,12 +97,15 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
         if(filter_bank > filter_bank_max):
             generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
             quit(1)
+        # For extended id vs standard id
+        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
+                       f"(ID_{msg['msg_name'].upper()} << 21)"
         if not on_mask:
             lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
             on_mask = True
         else:
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = (ID_{msg['msg_name'].upper()} << 3) | 4;\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
             on_mask = False
             filter_bank += 1
 

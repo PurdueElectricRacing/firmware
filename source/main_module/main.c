@@ -1,5 +1,6 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
+#include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
 // #include "common/modules/wheel_speeds/wheel_speeds.h"
 #include "common/phal_F4_F7/adc/adc.h"
@@ -186,11 +187,11 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#define TargetCoreClockrateHz 144000000
+#define TargetCoreClockrateHz 96000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
     .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =288000000,
+    .vco_output_rate_target_hz  =192000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
     .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
@@ -220,6 +221,7 @@ int main(void){
     qConstruct(&q_tx_usart_r, MC_MAX_TX_LENGTH);
 
     /* HAL Initialization */
+    PHAL_trimHSI(HSI_TRIM_MAIN_MODULE);
     if(0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -280,7 +282,7 @@ void preflightChecks(void) {
             }
             break;
         case 1:
-            if(!PHAL_initCAN(CAN1, false, 250000))
+            if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
             {
                 HardFault_Handler();
             }

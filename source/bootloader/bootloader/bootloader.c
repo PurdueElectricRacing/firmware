@@ -216,6 +216,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
         NODE_CASE_BL_RESPONSE(APP_L4_TESTING,       SEND_L4_TESTING_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_F4_TESTING,       SEND_F4_TESTING_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_F7_TESTING,       SEND_F7_TESTING_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_DAQ,              SEND_DAQ_BL_RESP)
         default:
             asm("bkpt");
     }
@@ -236,3 +237,4 @@ NODE_BL_CMD_CALLBACK(pdu_bl_cmd_CALLBACK,             pdu_bl_cmd,             AP
 NODE_BL_CMD_CALLBACK(l4_testing_bl_cmd_CALLBACK,      l4_testing_bl_cmd,      APP_L4_TESTING)
 NODE_BL_CMD_CALLBACK(f4_testing_bl_cmd_CALLBACK,      f4_testing_bl_cmd,      APP_F4_TESTING)
 NODE_BL_CMD_CALLBACK(f7_testing_bl_cmd_CALLBACK,      f7_testing_bl_cmd,      APP_F7_TESTING)
+NODE_BL_CMD_CALLBACK(daq_bl_cmd_CALLBACK,             daq_bl_cmd,             APP_DAQ)

@@ -149,4 +149,12 @@ bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz);
  */
 bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz);
 
+/**
+ * @brief Trim the HSI clock
+ * 0 <= trim_val <= 31
+ * 17 = increase speed by ~0.2%
+ * 15 = decrease speed by ~0.2%
+ */
+void PHAL_trimHSI(uint8_t trim_val);
+
 #endif // _PHAL_PLL_H_

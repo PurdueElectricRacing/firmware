@@ -185,7 +185,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[0].FR1 = (ID_TORQUEVECTOR_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_FILT_THROTTLE_BRAKE << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->sFilterRegister[1].FR1 = (ID_LWS_STANDARD << 21);
     CAN1->sFilterRegister[1].FR2 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
     CAN1->sFilterRegister[2].FR1 = (ID_DASHBOARD_TV_PARAMETERS << 3) | 4;

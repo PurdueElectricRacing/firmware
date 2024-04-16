@@ -892,6 +892,13 @@
                     ]
                 },
                 {
+                    "node_name": "daq",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 49,
+                    "tx": [],
+                    "rx":[{"msg_name":"daq_bl_cmd", "callback": true}]
+                },
+                {
                     "node_name": "bootloader",
                     "node_ssa": 60,
                     "can_peripheral": "CAN1",
@@ -975,6 +982,16 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":50007
+                        },
+                        {   "msg_name":"daq_bl_resp",
+                            "msg_desc":"DAQ Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":50008
                         }
                     ],
                     "rx": [
@@ -986,7 +1003,8 @@
                         {"msg_name": "pdu_bl_cmd" , "callback": true},
                         {"msg_name": "l4_testing_bl_cmd" , "callback": true},
                         {"msg_name": "f4_testing_bl_cmd" , "callback": true},
-                        {"msg_name": "f7_testing_bl_cmd" , "callback": true}
+                        {"msg_name": "f7_testing_bl_cmd" , "callback": true},
+                        {"msg_name": "daq_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -1016,7 +1034,7 @@
                                 {"sig_name":"download_size", "sig_desc":"size for expected bitstream download (bytes)","type":"uint32_t","length":32}
                             ],
                             "msg_period":0,
-                            "msg_hlp":4,
+                            "msg_hlp":1,
                             "msg_pgn":101
                         },
                         {
@@ -1106,6 +1124,17 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10007
+                        },
+                        {
+                            "msg_name": "daq_bl_cmd",
+                            "msg_desc": "Bootloader command for DAQ",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10008
                         },
                         {
                             "msg_name": "set_fault",

@@ -1,4 +1,6 @@
+#include "common/bootloader/bootloader_common.h"
 #include "common/phal_F4_F7/can/can.h"
+#include "common/common_defs/common_defs.h"
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
@@ -10,6 +12,7 @@
 #include "main.h"
 #include "sdio.h"
 #include "daq_hub.h"
+#include "can_parse.h"
 #include "common/modules/Wiznet/W5500/Ethernet/wizchip_conf.h"
 #include "common/modules/Wiznet/W5500/Ethernet/socket.h"
 
@@ -176,6 +179,7 @@ int main()
     // TODO: size the buffer to handle the time it takes to write new file (last max loop time was 71ms)
     // TODO: investigate flushing file periodically to get the loop times down
 
+    PHAL_trimHSI(HSI_TRIM_DAQ);
     if(0 != PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
 
@@ -201,7 +205,7 @@ int main()
 
     log_yellow("PER PER PER\n");
 
-    if(!PHAL_initCAN(CAN1, false, 250000))
+    if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
         HardFault_Handler();
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
@@ -210,7 +214,7 @@ int main()
     NVIC_EnableIRQ(CAN1_SCE_IRQn);
 
 #ifdef EN_CAN2
-    if(!PHAL_initCAN(CAN2, false, 500000))
+    if(!PHAL_initCAN(CAN2, false, DCAN_BPS))
         HardFault_Handler();
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
 #endif
@@ -343,6 +347,17 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
                 qSendToBack(&q_tx_can2_to_can1, &msg);
             }
 
+            // Bootloader check
+            if (rx->msg_id == (ID_DAQ_BL_CMD | CAN_EFF_FLAG) && rx->bus_id == BUS_ID_CAN1)
+            {
+                CanParsedData_t* msg_data_a = (CanParsedData_t *) &rx->data;
+                if (msg_data_a->daq_bl_cmd.cmd == BLCMD_RST)
+                {
+                    // TODO: stop logging first
+                    Bootloader_ResetForFirmwareDownload();
+                }
+            }
+
             bCommitWrite(&b_rx_can, 1);
         }
         can_h->RF0R |= (CAN_RF0R_RFOM0);
@@ -446,6 +461,8 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame)
 
 	return true;
 }
+
+
 
 void HardFault_Handler()
 {

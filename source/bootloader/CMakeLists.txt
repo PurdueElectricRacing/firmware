@@ -7,7 +7,7 @@ STRING(TOLOWER ${COMPONENT_NAME} COMPONENT_NAME)
 
 set(L432_BOOTLOADER_NAMES l4_testing)
 set(L496_BOOTLOADER_NAMES )
-set(F407_BOOTLOADER_NAMES dashboard main_module pdu a_box f4_testing)
+set(F407_BOOTLOADER_NAMES dashboard main_module pdu a_box f4_testing daq)
 set(F732_BOOTLOADER_NAMES torquevector f7_testing)
 if (BOOTLOADER_BUILD)
     foreach(BL_NAME IN ITEMS ${L432_BOOTLOADER_NAMES})

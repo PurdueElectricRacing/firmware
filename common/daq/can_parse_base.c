@@ -102,6 +102,7 @@ void canParseIRQHandler(CAN_TypeDef *can_h)
         else
         {
           rx.StdId = (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_STID_Pos;
+          rx.ExtId = rx.StdId; // for can_parse (assumes all are ExtId)
         }
 
         rx.DLC = (CAN_RDT0R_DLC & can_h->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;

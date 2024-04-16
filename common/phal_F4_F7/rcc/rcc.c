@@ -373,3 +373,12 @@ bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz)
     APB2ClockRateHz = apb2_clock_target_hz;                         // Set global for APB2
     return true;
 }
+
+void PHAL_trimHSI(uint8_t trim_val)
+{
+    if (trim_val > 31) return;
+    uint32_t reg = RCC->CR;
+    reg &= ~(RCC_CR_HSITRIM);
+    reg |= trim_val << RCC_CR_HSITRIM_Pos;
+    RCC->CR = reg;
+}

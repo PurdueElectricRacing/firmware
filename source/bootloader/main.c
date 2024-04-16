@@ -57,7 +57,7 @@ GPIOInitConfig_t gpio_config[] = {
     #endif
     #if (APP_ID == APP_MAIN_MODULE)
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
     #endif
 };
     /* TODO: remove ^ */
@@ -107,13 +107,16 @@ int main (void)
     bootloader_ms = 0;
 
     /* HAL Initilization */
+#ifdef HSI_TRIM_BL_NODE
+    PHAL_trimHSI(HSI_TRIM_BL_NODE);
+#endif
     if (0 != PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
 
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         HardFault_Handler();
 
-    if (1 != PHAL_initCAN(CAN1, false, 250000))
+    if (1 != PHAL_initCAN(CAN1, false, VCAN_BPS))
         HardFault_Handler();
 
     #if (APP_ID == APP_MAIN_MODULE)

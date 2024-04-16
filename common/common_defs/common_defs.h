@@ -42,4 +42,17 @@
 #define DEG_TO_RAD (PI / 180.0f)
 #define G_TO_M_S (9.80665f)
 
+/* CAN Bus Frequency */
+#define VCAN_BPS 500000 // Main vehicle CAN bus
+#define DCAN_BPS 500000 // Steering angle, DAQ, (wheel temps)
+#define CCAN_BPS 500000 // Charger (ELCON, A_Box, Orion)
+
+/* Per-Node HSI RCC Trim Constants */
+#define HSI_TRIM_TORQUE_VECTOR 	15
+#define HSI_TRIM_MAIN_MODULE	15
+#define HSI_TRIM_PDU			17
+#define HSI_TRIM_DASHBOARD		16
+#define HSI_TRIM_DAQ			19
+#define HSI_TRIM_A_BOX			17
+
 #endif /* COMMON_DEFS_H_ */

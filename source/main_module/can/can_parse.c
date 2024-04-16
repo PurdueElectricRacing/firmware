@@ -31,22 +31,6 @@ void canRxUpdate(void)
     {
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         last_can_rx_time_ms = sched.os_ticks;
-        if (msg_header.IDE == 0 && msg_header.StdId == ID_LWS_STANDARD)
-        {
-            can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
-            can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
-            can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
-            can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
-            can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
-            can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
-            can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
-            can_data.LWS_Standard.stale = 0;
-            can_data.LWS_Standard.last_rx = sched.os_ticks;
-        }
-        else
-
-        {
-
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
@@ -144,7 +128,6 @@ void canRxUpdate(void)
                 __asm__("nop");
         }
         /* END AUTO CASES */
-        }
     }
 
     /* BEGIN AUTO STALE CHECKS */
@@ -190,7 +173,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR1 = (ID_START_BUTTON << 3) | 4;
     CAN1->sFilterRegister[1].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_LWS_STANDARD << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_LWS_STANDARD << 21);
     CAN1->sFilterRegister[2].FR2 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
     CAN1->sFilterRegister[3].FR1 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
@@ -208,8 +191,6 @@ bool initCANFilter()
     CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     CAN1->sFilterRegister[7].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
-    CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_LWS_STANDARD << 21);
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
 

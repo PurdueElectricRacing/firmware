@@ -58,20 +58,8 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate)
             case 16000000:
                 bus->BTR = PHAL_CAN_16MHz_500k;
                 break;
-            case 20000000:
-                bus->BTR = PHAL_CAN_20MHz_500k;
-                break;
             case 24000000:
                 bus->BTR = PHAL_CAN_24MHz_500k;
-                break;
-            case 36000000:
-                bus->BTR = PHAL_CAN_36MHz_500k;
-                break;
-            case 40000000:
-                bus->BTR = PHAL_CAN_40MHz_500k;
-                break;
-            case 80000000:
-                bus->BTR = PHAL_CAN_80MHz_500k;
                 break;
             default:
                 return false;

@@ -12,6 +12,8 @@
 #ifndef _NODE_DEFS_H
 #define _NODE_DEFS_H
 
+#include "common/common_defs/common_defs.h"
+
 /**
  * Each registered bootloader application ID lives here.
  * DO NOT change any existing IDs
@@ -25,6 +27,7 @@
 #define    APP_L4_TESTING      0x06
 #define    APP_F4_TESTING      0x07
 #define    APP_F7_TESTING      0x08
+#define    APP_DAQ             0x09
 
 #if !defined(APP_ID)
     #warning "Please define which device this bootloader will be running on. Defaulting to APP_MAIN_MODULE"
@@ -40,6 +43,8 @@
 
     #define STATUS_LED_GPIO_Port GPIOB
     #define STATUS_LED_Pin       7
+
+    #define HSI_TRIM_BL_NODE HSI_TRIM_TORQUE_VECTOR
 #endif
 
 #if (APP_ID == APP_PDU)
@@ -48,6 +53,8 @@
 
     #define STATUS_LED_GPIO_Port  (GPIOC)
     #define STATUS_LED_Pin        (14)
+
+    #define HSI_TRIM_BL_NODE HSI_TRIM_PDU
 #endif
 
 #if (APP_ID == APP_MAIN_MODULE)
@@ -56,6 +63,8 @@
 
     #define STATUS_LED_GPIO_Port  (GPIOD)
     #define STATUS_LED_Pin        (3)
+
+    #define HSI_TRIM_BL_NODE HSI_TRIM_MAIN_MODULE
 #endif
 
 #if (APP_ID == APP_DASHBOARD)
@@ -64,6 +73,8 @@
 
     #define STATUS_LED_GPIO_Port (GPIOE) // Precharge LED
     #define STATUS_LED_Pin       (1)
+
+    #define HSI_TRIM_BL_NODE HSI_TRIM_DASHBOARD
 #endif
 
 #if (APP_ID == APP_L4_TESTING)
@@ -96,6 +107,16 @@
 
     #define STATUS_LED_GPIO_Port GPIOE
     #define STATUS_LED_Pin       14
+
+    #define HSI_TRIM_BL_NODE HSI_TRIM_A_BOX
+#endif
+
+#if (APP_ID == APP_DAQ)
+    #define CAN_RX_GPIO_CONFIG GPIO_INIT_CANRX_PA11
+    #define CAN_TX_GPIO_CONFIG GPIO_INIT_CANTX_PA12
+
+    #define STATUS_LED_GPIO_Port GPIOA
+    #define STATUS_LED_Pin       1
 #endif
 
 #ifndef CAN_RX_GPIO_CONFIG

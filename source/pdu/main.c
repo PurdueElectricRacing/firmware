@@ -1,5 +1,6 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
+#include "common/common_defs/common_defs.h"
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -178,6 +179,7 @@ uint8_t led_anim_complete;
 int main()
 {
     /* Data Struct init */
+    PHAL_trimHSI(HSI_TRIM_PDU);
     if(0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -228,7 +230,7 @@ void preflightChecks(void) {
     switch (state++)
     {
         case 0:
-            if(!PHAL_initCAN(CAN1, false, 250000))
+            if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
             {
                 HardFault_Handler();
             }

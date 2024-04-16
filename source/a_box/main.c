@@ -2,6 +2,7 @@
 #include "stm32f407xx.h"
 #include "can_parse.h"
 #include "common/bootloader/bootloader_common.h"
+#include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -126,6 +127,7 @@ int main (void)
     /* Data Struct init */
 
    /* HAL Initilization */
+    PHAL_trimHSI(HSI_TRIM_A_BOX);
    if (0 != PHAL_configureClockRates(&clock_config))
        PHAL_FaultHandler();
 
@@ -226,13 +228,13 @@ void preflightChecks(void)
             uint8_t speed_2 = PHAL_readGPIO(BMS_CHARGER_SAFETY_Port, BMS_CHARGER_SAFETY_Pin);
             if (charger_speed_def)
             {
-                if (1 != PHAL_initCAN(CAN1, false, 250000))
-            PHAL_FaultHandler();
+                if (1 != PHAL_initCAN(CAN1, false, VCAN_BPS))
+                    PHAL_FaultHandler();
             }
             else
             {
-                if (1 != PHAL_initCAN(CAN1, false, 500000))
-                PHAL_FaultHandler();
+                if (1 != PHAL_initCAN(CAN1, false, CCAN_BPS))
+                    PHAL_FaultHandler();
             }
             break;
        default:

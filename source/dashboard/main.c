@@ -1,5 +1,6 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
+#include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -170,6 +171,7 @@ int main (void){
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
     /* HAL Initilization */
+    PHAL_trimHSI(HSI_TRIM_DASHBOARD);
     if(0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -227,7 +229,7 @@ void preflightChecks(void) {
     switch (state++)
     {
         case 0:
-            if(false == PHAL_initCAN(CAN1, false, 250000))
+            if(false == PHAL_initCAN(CAN1, false, VCAN_BPS))
             {
                 HardFault_Handler();
             }

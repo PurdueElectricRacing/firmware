@@ -183,6 +183,7 @@ int main(void)
     /* Data Struct Initialization */
 
     /* HAL Initialization */
+    PHAL_trimHSI(HSI_TRIM_TORQUE_VECTOR);
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -221,7 +222,7 @@ void preflightChecks(void)
     switch (state++)
     {
     case 0:
-        if (!PHAL_initCAN(CAN1, false, 250000))
+        if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
         {
             HardFault_Handler();
         }

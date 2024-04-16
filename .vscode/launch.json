@@ -287,6 +287,25 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },
+        {   "name": "BL App - DAQ",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/daq/BL_daq.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F407VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/daq"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main"
+        },
         {   "name": "BL App - l4_testing",
             "cwd": "${workspaceRoot}",
             "executable": "./output/l4_testing/BL_l4_testing.elf",
@@ -387,6 +406,25 @@
         {   "name": "BL Bootloader - PDU",
             "cwd": "${workspaceRoot}",
             "executable": "./output/bootloaders/bootloader_pdu/BL_bootloader_pdu.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32F407VG",
+            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/bootloader"
+            ],
+            // "preLaunchTask": "build",
+            "runToEntryPoint": "Reset_Handler"
+        },
+        {   "name": "BL Bootloader - DAQ",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/bootloaders/bootloader_daq/BL_bootloader_daq.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",

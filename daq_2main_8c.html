@@ -82,7 +82,9 @@ $(function() {
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
+<code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html">common/phal_F4_F7/dma/dma.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html">common/phal_F4_F7/rcc/rcc.h</a>&quot;</code><br />
@@ -93,6 +95,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="daq_2main_8h_source.html">main.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sdio_8h_source.html">sdio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>&quot;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;common/modules/Wiznet/W5500/Ethernet/wizchip_conf.h&quot;</code><br />
 <code>#include &quot;common/modules/Wiznet/W5500/Ethernet/socket.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="ff_8h_source.html">ff.h</a>&quot;</code><br />
@@ -383,8 +386,8 @@ Variables</h2></td></tr>
 <div class="line">    .<a class="code hl_variable" href="#aac3a3e5230e3c11b414018f7ba38667b">tails</a>=<a class="code hl_variable" href="#aac3a3e5230e3c11b414018f7ba38667b">tails</a>,</div>
 <div class="line">    .num_tails=<a class="code hl_enumvalue" href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="adaq_2main_8c_html_a46b15dd534b3d2b69a61779a0d5bcaa7"><div class="ttname"><a href="#a46b15dd534b3d2b69a61779a0d5bcaa7">rx_buffer</a></div><div class="ttdeci">volatile timestamped_frame_t rx_buffer[RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:150</div></div>
-<div class="ttc" id="adaq_2main_8c_html_aac3a3e5230e3c11b414018f7ba38667b"><div class="ttname"><a href="#aac3a3e5230e3c11b414018f7ba38667b">tails</a></div><div class="ttdeci">b_tail_t tails[RX_TAIL_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:151</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a46b15dd534b3d2b69a61779a0d5bcaa7"><div class="ttname"><a href="#a46b15dd534b3d2b69a61779a0d5bcaa7">rx_buffer</a></div><div class="ttdeci">volatile timestamped_frame_t rx_buffer[RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:153</div></div>
+<div class="ttc" id="adaq_2main_8c_html_aac3a3e5230e3c11b414018f7ba38667b"><div class="ttname"><a href="#aac3a3e5230e3c11b414018f7ba38667b">tails</a></div><div class="ttdeci">b_tail_t tails[RX_TAIL_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:154</div></div>
 <div class="ttc" id="adaq_2main_8h_html_af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a"><div class="ttname"><a href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a></div><div class="ttdeci">@ RX_TAIL_COUNT</div><div class="ttdef"><b>Definition</b> main.h:13</div></div>
 </div><!-- fragment -->
 </div>
@@ -405,8 +408,8 @@ Variables</h2></td></tr>
 <div class="line">    .<a class="code hl_variable" href="#aac3a3e5230e3c11b414018f7ba38667b">tails</a>=<a class="code hl_variable" href="#a0145c777f15ef2deb87cbac89165fadc">tcp_tails</a>,</div>
 <div class="line">    .num_tails=<a class="code hl_enumvalue" href="daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62a64c149a9c1240bd8be19c9f72ae5dad4">TCP_RX_TAIL_COUNT</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="adaq_2main_8c_html_a0145c777f15ef2deb87cbac89165fadc"><div class="ttname"><a href="#a0145c777f15ef2deb87cbac89165fadc">tcp_tails</a></div><div class="ttdeci">b_tail_t tcp_tails[TCP_RX_TAIL_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:159</div></div>
-<div class="ttc" id="adaq_2main_8c_html_a7750ec6aa5cdd568ca4c401b78d99a48"><div class="ttname"><a href="#a7750ec6aa5cdd568ca4c401b78d99a48">tcp_rx_buffer</a></div><div class="ttdeci">tcp_can_frame_t tcp_rx_buffer[TCP_RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:158</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a0145c777f15ef2deb87cbac89165fadc"><div class="ttname"><a href="#a0145c777f15ef2deb87cbac89165fadc">tcp_tails</a></div><div class="ttdeci">b_tail_t tcp_tails[TCP_RX_TAIL_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:162</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a7750ec6aa5cdd568ca4c401b78d99a48"><div class="ttname"><a href="#a7750ec6aa5cdd568ca4c401b78d99a48">tcp_rx_buffer</a></div><div class="ttdeci">tcp_can_frame_t tcp_rx_buffer[TCP_RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:161</div></div>
 <div class="ttc" id="adaq_2main_8h_html_a40a35add8d823c3e93b3cefa5050ce62a64c149a9c1240bd8be19c9f72ae5dad4"><div class="ttname"><a href="daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62a64c149a9c1240bd8be19c9f72ae5dad4">TCP_RX_TAIL_COUNT</a></div><div class="ttdeci">@ TCP_RX_TAIL_COUNT</div><div class="ttdef"><b>Definition</b> main.h:19</div></div>
 </div><!-- fragment -->
 </div>
@@ -431,7 +434,7 @@ Variables</h2></td></tr>
 <div class="line">    .apb1_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">    .apb2_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:65</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:66</div></div>
 <div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a></div><div class="ttdeci">@ PLL_SRC_HSI16</div><div class="ttdef"><b>Definition</b> rcc.h:29</div></div>
 <div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a></div><div class="ttdeci">@ SYSTEM_CLOCK_SRC_PLL</div><div class="ttdef"><b>Definition</b> rcc.h:35</div></div>
 </div><!-- fragment -->

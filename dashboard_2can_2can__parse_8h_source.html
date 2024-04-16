@@ -351,65 +351,65 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac7b5557f07dffcac2d91f995281e05e4">  245</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ac7b5557f07dffcac2d91f995281e05e4">brake</a>: 12;</div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab5cd4341c160dbd9210743a203e3ecb2">  246</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ab5cd4341c160dbd9210743a203e3ecb2">brake_right</a>: 12;</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="union____attribute____.html#a507924ed422060a913238fd9e8b23ddc">  247</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a507924ed422060a913238fd9e8b23ddc">brake_pot</a>: 12;</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4c01341bf06f85edfd496ce2395a173d">  248</a></span>    } raw_throttle_brake;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3be5f3e9e74ddc43dca30168770d4373">  248</a></span>    } raw_throttle_brake;</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="union____attribute____.html#adc808c40125a03e97d9495124558bf3a">  250</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#adc808c40125a03e97d9495124558bf3a">left_shock</a>: 16;</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="union____attribute____.html#a9cefe291d3d8c2f67312084828f4de09">  251</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a9cefe291d3d8c2f67312084828f4de09">right_shock</a>: 16;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac3ccb68896087f07474e2a08aae544a1">  252</a></span>    } shock_front;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="union____attribute____.html#a16137734a135620470797efd6c1bd3c6">  252</a></span>    } shock_front;</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="union____attribute____.html#adfe226c99e2f2dcb8de928cd0f58b22f">  254</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#adfe226c99e2f2dcb8de928cd0f58b22f">left_load_sensor</a>: 32;</div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="union____attribute____.html#a19de03452f00864634ae13da7f97f31d">  255</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a19de03452f00864634ae13da7f97f31d">right_load_sensor</a>: 32;</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="union____attribute____.html#a30e0ad60c48f6de6165830bcc7b3b75d">  256</a></span>    } load_sensor_readings_dash;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="union____attribute____.html#aaf50f74ed8efcdb25d538f7916732200">  256</a></span>    } load_sensor_readings_dash;</div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="union____attribute____.html#a14ab22daf8324872936f30a0936ba4b2">  258</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a14ab22daf8324872936f30a0936ba4b2">dt_pump</a>: 8;</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7f1abad46e76b87a860b99ad24c3913d">  259</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a7f1abad46e76b87a860b99ad24c3913d">dt_fan</a>: 8;</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2993fca23e7902a0434216dd471d0db4">  260</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a2993fca23e7902a0434216dd471d0db4">batt_pump</a>: 8;</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="union____attribute____.html#a332c1824bcdf28215dc554ac5f9ec0dd">  261</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a332c1824bcdf28215dc554ac5f9ec0dd">batt_pump2</a>: 8;</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa1b75f8896f0805cf539e8aafa18d3af">  262</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aa1b75f8896f0805cf539e8aafa18d3af">batt_fan</a>: 8;</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="union____attribute____.html#aba475a90113eb121630891e1e749b457">  263</a></span>    } cooling_driver_request;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab5fed404ab3a15ce13c358e90235e1ac">  263</a></span>    } cooling_driver_request;</div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        uint64_t throttle: 12;</div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        uint64_t brake: 12;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac929d7eef4147cc0a13adb5ff2f37b51">  267</a></span>    } filt_throttle_brake;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2c468769973af9d9fee9debf22b92a99">  267</a></span>    } filt_throttle_brake;</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab9cc4dded29826fb32f7429163a46413">  269</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ab9cc4dded29826fb32f7429163a46413">start</a>: 1;</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7b89ead32ae39d8f63e143234482b40f">  270</a></span>    } start_button;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="union____attribute____.html#a657a0ce7f28ff9333ac2951ac77e8e68">  270</a></span>    } start_button;</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa7b1b49db7c123d55bf5c6e738dd0660">  272</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aa7b1b49db7c123d55bf5c6e738dd0660">mcu_temp</a>: 16;</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="union____attribute____.html#a256bc60edd7081b851af617fcd093f24">  273</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a256bc60edd7081b851af617fcd093f24">volts_5v</a>: 16;</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno"><a class="line" href="union____attribute____.html#af88a74acc4cc39deb09a73ce2f8c95cc">  274</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#af88a74acc4cc39deb09a73ce2f8c95cc">volts_3v3</a>: 16;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0f948c04f3421c27230f9e9de9fe30d7">  275</a></span>    } dashboard_volts_temp;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3fa167496e7a2c63b83cd8226c056190">  275</a></span>    } dashboard_volts_temp;</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="union____attribute____.html#abd767f42af252240111aae39511e9bd0">  277</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#abd767f42af252240111aae39511e9bd0">tv_enabled</a>: 1;</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="union____attribute____.html#af850af5c81559df0e78655cebe7f83b0">  278</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#af850af5c81559df0e78655cebe7f83b0">tv_deadband_val</a>: 16;</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="union____attribute____.html#afe041efa99ee6fa3833b83939aca68b8">  279</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#afe041efa99ee6fa3833b83939aca68b8">tv_intensity_val</a>: 16;</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno"><a class="line" href="union____attribute____.html#a80c90245e6ce4b2c4370450d5cdedf32">  280</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a80c90245e6ce4b2c4370450d5cdedf32">tv_p_val</a>: 16;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="union____attribute____.html#a548849b0401fb5ba1937e97defccc9db">  281</a></span>    } dashboard_tv_parameters;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0eeed40bd63aa5f230c7c365e0fc4bd1">  281</a></span>    } dashboard_tv_parameters;</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7aa55913353422f0c7e3186accfcad3c">  283</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a7aa55913353422f0c7e3186accfcad3c">logging_enabled</a>: 1;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="union____attribute____.html#a68b175c09e2d91d40a8b29de2713a1ea">  284</a></span>    } dashboard_start_logging;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7900582d392f5497d9ac331c4eb8245e">  284</a></span>    } dashboard_start_logging;</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        uint64_t can_tx_overflow: 8;</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        uint64_t can_tx_fail: 8;</div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        uint64_t can_rx_overflow: 8;</div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        uint64_t can_rx_overrun: 8;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="union____attribute____.html#a41749f007791398b3d03d904f82b2399">  290</a></span>    } dash_can_stats;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="union____attribute____.html#a75d448d60b6341bbe2adc1b6db3b864c">  290</a></span>    } dash_can_stats;</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="union____attribute____.html#a54ae684e1e5972fd7fe5a570a0f7f1f0">  294</a></span>    } fault_sync_dashboard;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5f8c3297db2d021c8b335946c84034b6">  294</a></span>    } fault_sync_dashboard;</div>
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        uint64_t daq_response: 64;</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab8c506d15482b346deb878496d6e6c92">  297</a></span>    } daq_response_DASHBOARD;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4cb3deb41e4717549f779ea17ee46579">  297</a></span>    } daq_response_DASHBOARD;</div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="union____attribute____.html#aef77451db7913976c005f0e02eb36886">  299</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aef77451db7913976c005f0e02eb36886">car_state</a>: 8;</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4ff4cead872f5baa6394f880d6ed3249">  300</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a4ff4cead872f5baa6394f880d6ed3249">precharge_state</a>: 1;</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno"><a class="line" href="union____attribute____.html#a53b407714b94e771c611139040992c64">  301</a></span>    } main_hb;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno"><a class="line" href="union____attribute____.html#a943b8cd8477e8f0610748d971bab21a8">  301</a></span>    } main_hb;</div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="union____attribute____.html#afe425d38ce405eb97ae0084adfd62dcf">  303</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#afe425d38ce405eb97ae0084adfd62dcf">left_current</a>: 16;</div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa7e7202e63347621f9cec23ac5af1fa7">  304</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aa7e7202e63347621f9cec23ac5af1fa7">right_current</a>: 16;</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8fce7133116c028bf64795d8c021a1d9">  305</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a8fce7133116c028bf64795d8c021a1d9">right_voltage</a>: 16;</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="union____attribute____.html#a79e91fa28a30f9958f10e8b5e676963d">  306</a></span>    } rear_motor_currents_volts;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="union____attribute____.html#a074d631d1b0ac592c993d95ea2d6dc33">  306</a></span>    } rear_motor_currents_volts;</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        uint64_t discharge_enable: 1;</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        uint64_t <a class="code hl_variable" href="l4__testing_2daq_2daq_8c.html#ab84f8aed561146f738758e941a2a545b">charge_enable</a>: 1;</div>
@@ -430,11 +430,11 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        uint64_t pack_dcl: 16;</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        uint64_t pack_ccl: 16;</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        uint64_t pack_soc: 8;</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0ff5fa0f6a3ad0c5bfea7044d388e941">  327</a></span>    } orion_info;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="union____attribute____.html#accf78148fe0c562e5ca4b74c79252976">  327</a></span>    } orion_info;</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        uint64_t pack_current: 16;</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        uint64_t pack_voltage: 16;</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno"><a class="line" href="union____attribute____.html#a30b19a44b699da4cbd578cc20448f5cf">  331</a></span>    } orion_currents_volts;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8bce0b4bbba85c5052062922a0e251a5">  331</a></span>    } orion_currents_volts;</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        uint64_t discharge_limit_enforce: 1;</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        uint64_t charger_safety_relay: 1;</div>
@@ -468,47 +468,47 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        uint64_t hv_isolation: 1;</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        uint64_t input_psu: 1;</div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        uint64_t charge_limit_enforce: 1;</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="union____attribute____.html#a0242144acf8f57bfd561f63387d02ec9">  365</a></span>    } orion_errors;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="union____attribute____.html#abf3f60b06abb0a1de3d3d7c6a183b76a">  365</a></span>    } orion_errors;</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        uint64_t max_temp: 16;</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa57e021dfb1a85c139f2988a5d5c628a">  368</a></span>    } max_cell_temp;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno"><a class="line" href="union____attribute____.html#a33f92de02f83ec392904c974f5ea2222">  368</a></span>    } max_cell_temp;</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac57df57ca610531cc3af8102638e49dc">  370</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ac57df57ca610531cc3af8102638e49dc">left_mot_temp</a>: 8;</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac6172cd3f3099875dc2c2968cc869d8a">  371</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ac6172cd3f3099875dc2c2968cc869d8a">right_mot_temp</a>: 8;</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8a8abf5ded5ff83d4625fcce8fe8444f">  372</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a8a8abf5ded5ff83d4625fcce8fe8444f">left_ctrl_temp</a>: 8;</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8f94ab86f3c72972f950e6150c1344f2">  373</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a8f94ab86f3c72972f950e6150c1344f2">right_ctrl_temp</a>: 8;</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno"><a class="line" href="union____attribute____.html#ae6c386220b21c0a377e9bda5b2a35ccf">  374</a></span>    } rear_motor_temps;</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5545700a6dbe32676a3a37e028df1a3c">  374</a></span>    } rear_motor_temps;</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>        uint64_t IMD: 8;</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        uint64_t BMS: 8;</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4e8d45e71bdfb46b550df20f988af8c6">  378</a></span>    } precharge_hb;</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno"><a class="line" href="union____attribute____.html#a9c2f395a096b84886c97b0012c661922">  378</a></span>    } precharge_hb;</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno"><a class="line" href="union____attribute____.html#ae36ded3c17c8d840781834964718aff6">  380</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ae36ded3c17c8d840781834964718aff6">left_speed_mc</a>: 16;</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno"><a class="line" href="union____attribute____.html#a4b4d851285e3abf910baca9380c11cfd">  381</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a4b4d851285e3abf910baca9380c11cfd">right_speed_mc</a>: 16;</div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno"><a class="line" href="union____attribute____.html#a380650cf1e662e2bd9ed626193352b66">  382</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a380650cf1e662e2bd9ed626193352b66">left_speed_sensor</a>: 16;</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno"><a class="line" href="union____attribute____.html#a18b4028e10bd4d16cbcf119a4eadfddf">  383</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a18b4028e10bd4d16cbcf119a4eadfddf">right_speed_sensor</a>: 16;</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab1212fa11bf17f44387774a3e86aa9d4">  384</a></span>    } rear_wheel_speeds;</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno"><a class="line" href="union____attribute____.html#a215a4a9b8e9090ccf2b64edfb437db7d">  384</a></span>    } rear_wheel_speeds;</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno"><a class="line" href="union____attribute____.html#a18bda9b083ea3c78ff48fda4307de9a9">  386</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a18bda9b083ea3c78ff48fda4307de9a9">battery_in_temp</a>: 8;</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8ddd1e1206ec5f52089215d06e72ae8c">  387</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a8ddd1e1206ec5f52089215d06e72ae8c">battery_out_temp</a>: 8;</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad676e058b4248afe3192e160de8604f7">  388</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ad676e058b4248afe3192e160de8604f7">drivetrain_in_temp</a>: 8;</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno"><a class="line" href="union____attribute____.html#afe9fa9edc08b9eb93d0d50f63425d0d4">  389</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#afe9fa9edc08b9eb93d0d50f63425d0d4">drivetrain_out_temp</a>: 8;</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac9e70c53e22088949fd097668582d5ae">  390</a></span>    } coolant_temps;</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad1fe0367b0058b6f9af253d3f5d8298f">  390</a></span>    } coolant_temps;</div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno"><a class="line" href="union____attribute____.html#a89bb39c22a46b08c9290e0553aecfeca">  392</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a89bb39c22a46b08c9290e0553aecfeca">bat_fan</a>: 8;</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        uint64_t dt_fan: 8;</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno"><a class="line" href="union____attribute____.html#aedf542ad3bf236fa950a134a311de468">  394</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aedf542ad3bf236fa950a134a311de468">bat_pump</a>: 1;</div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno"><a class="line" href="union____attribute____.html#a6929d28364212397513b08d79f3ca059">  395</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a6929d28364212397513b08d79f3ca059">bat_pump_aux</a>: 1;</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        uint64_t dt_pump: 1;</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno"><a class="line" href="union____attribute____.html#abb980ab2e70ace61b42b1c6097fff167">  397</a></span>    } coolant_out;</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno"><a class="line" href="union____attribute____.html#aae6268c94aac903958fc14dca4eb39eb">  397</a></span>    } coolant_out;</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa5bc751cd4ebeefdc9eb652535c0f023">  399</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#aa5bc751cd4ebeefdc9eb652535c0f023">l_temp</a>: 8;</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno"><a class="line" href="union____attribute____.html#a6c22ae022468006e0a337a6f8df46b02">  400</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a6c22ae022468006e0a337a6f8df46b02">r_temp</a>: 8;</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno"><a class="line" href="union____attribute____.html#a9e142b0fdea4e384e6554f6060be2358">  401</a></span>    } gearbox;</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5b57c4c16a15d2f3e3b0a2721ec231b9">  401</a></span>    } gearbox;</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        uint64_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>: 8;</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>        uint64_t data: 32;</div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac701c90a4535ecf41a7561b5ec252a03">  405</a></span>    } dashboard_bl_cmd;</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno"><a class="line" href="union____attribute____.html#adce22fc678a3bba35b6889f51d951cc1">  405</a></span>    } dashboard_bl_cmd;</div>
 <div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        uint64_t IMD: 1;</div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        uint64_t BMS: 1;</div>
@@ -523,37 +523,37 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno"><a class="line" href="union____attribute____.html#a15ac364c8596b2ed3fea9ddb3afab605">  417</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a15ac364c8596b2ed3fea9ddb3afab605">hub</a>: 1;</div>
 <div class="line"><a id="l00418" name="l00418"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2c8ad937d0f69ab1ad4d62c994d18f71">  418</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a2c8ad937d0f69ab1ad4d62c994d18f71">TSMS</a>: 1;</div>
 <div class="line"><a id="l00419" name="l00419"></a><span class="lineno"><a class="line" href="union____attribute____.html#ad804b0651d2532b22fd58905d4d25e37">  419</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#ad804b0651d2532b22fd58905d4d25e37">pchg_out</a>: 1;</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno"><a class="line" href="union____attribute____.html#a470be28ce51c8a4cc95ee358b573b463">  420</a></span>    } sdc_status;</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno"><a class="line" href="union____attribute____.html#acfce9c241f0ba8b0e82b49a3f174afdc">  420</a></span>    } sdc_status;</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="union____attribute____.html#ae108f31badfcc388efc3dd119ade762b">  424</a></span>    } fault_sync_pdu;</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="union____attribute____.html#a60eefe45b308c77a9b7e23224785bde3">  424</a></span>    } fault_sync_pdu;</div>
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00428" name="l00428"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5e6f03e8cc55a12c1a9e782eec94620e">  428</a></span>    } fault_sync_main_module;</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno"><a class="line" href="union____attribute____.html#a97c426fb462d9265cbf4ce7931de1a50">  428</a></span>    } fault_sync_main_module;</div>
 <div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00432" name="l00432"></a><span class="lineno"><a class="line" href="union____attribute____.html#a1cb8cd962eac5927bff8901f93fd3d3c">  432</a></span>    } fault_sync_a_box;</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2219519d09684bc5555f981fba0b8f3e">  432</a></span>    } fault_sync_a_box;</div>
 <div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00436" name="l00436"></a><span class="lineno"><a class="line" href="union____attribute____.html#a599bc5e5fe5f449e1b59c9d131814ebd">  436</a></span>    } fault_sync_torque_vector;</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno"><a class="line" href="union____attribute____.html#ab67c390b4dcc2c25e9f0853d65437cfb">  436</a></span>    } fault_sync_torque_vector;</div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>        uint64_t idx: 16;</div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>        uint64_t latched: 1;</div>
-<div class="line"><a id="l00440" name="l00440"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8aaa81af0024cacf6a74f66fe5c5df14">  440</a></span>    } fault_sync_test_node;</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno"><a class="line" href="union____attribute____.html#ac37db5b4844ae77c0d478006f1c568ee">  440</a></span>    } fault_sync_test_node;</div>
 <div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>        uint64_t id: 16;</div>
 <div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>        uint64_t value: 1;</div>
-<div class="line"><a id="l00444" name="l00444"></a><span class="lineno"><a class="line" href="union____attribute____.html#a2b45b6fbb1489134ece5523d49e1908e">  444</a></span>    } set_fault;</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno"><a class="line" href="union____attribute____.html#a23d24eb16a420ce53e9b3bec356126c8">  444</a></span>    } set_fault;</div>
 <div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>        uint64_t id: 16;</div>
-<div class="line"><a id="l00447" name="l00447"></a><span class="lineno"><a class="line" href="union____attribute____.html#a52ab023635a32a19dd9833856f148ec0">  447</a></span>    } <a class="code hl_function" href="a__box_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3fea9984cef863fe65401b0f58ec7e85">  447</a></span>    } <a class="code hl_function" href="a__box_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
 <div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>        uint64_t daq_command: 64;</div>
-<div class="line"><a id="l00450" name="l00450"></a><span class="lineno"><a class="line" href="union____attribute____.html#a25a4738153b8b366d5c97df2d46446ff">  450</a></span>    } daq_command_DASHBOARD;</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno"><a class="line" href="union____attribute____.html#a33dc9f3a86a6331f5f1e97f21825c2af">  450</a></span>    } daq_command_DASHBOARD;</div>
 <div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>    uint8_t raw_data[8];</div>
 <div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>} <a class="code hl_variable" href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
 <div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
@@ -567,14 +567,14 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af752e94d0fa10f3ca17a164ba4312457">  461</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#af752e94d0fa10f3ca17a164ba4312457">precharge_state</a>;</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>        uint8_t stale;</div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00464" name="l00464"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab7928bdbe90b6cfde5aa276912761518">  464</a></span>    } main_hb;</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno"><a class="line" href="structcan__data__t.html#abb535a55a86f4365ac98c48b384c5aa0">  464</a></span>    } main_hb;</div>
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno"><a class="line" href="structcan__data__t.html#addccff6626d8d434595908abe03eb4ba">  466</a></span>        uint16_t <a class="code hl_variable" href="structcan__data__t.html#addccff6626d8d434595908abe03eb4ba">left_current</a>;</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ace48f4ac415023c7bc88e35b758bd030">  467</a></span>        uint16_t <a class="code hl_variable" href="structcan__data__t.html#ace48f4ac415023c7bc88e35b758bd030">right_current</a>;</div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a8dfdc15132226e47e0c3d4064f1cf8cd">  468</a></span>        uint16_t <a class="code hl_variable" href="structcan__data__t.html#a8dfdc15132226e47e0c3d4064f1cf8cd">right_voltage</a>;</div>
 <div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>        uint8_t stale;</div>
 <div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00471" name="l00471"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a17b07553cabdce6b1110d297b85a6534">  471</a></span>    } rear_motor_currents_volts;</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a1c7b9b3044bc16bff4ea898e94cb02b7">  471</a></span>    } rear_motor_currents_volts;</div>
 <div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>        uint8_t discharge_enable;</div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>        uint8_t <a class="code hl_variable" href="l4__testing_2daq_2daq_8c.html#ab84f8aed561146f738758e941a2a545b">charge_enable</a>;</div>
@@ -597,13 +597,13 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>        uint8_t pack_soc;</div>
 <div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>        uint8_t stale;</div>
 <div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00494" name="l00494"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a11d577916fef06cfaa5a17d69e7ad7e5">  494</a></span>    } orion_info;</div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a7346c6580f743d32969f541e7d3608a8">  494</a></span>    } orion_info;</div>
 <div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>        int16_t pack_current;</div>
 <div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>        uint16_t pack_voltage;</div>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>        uint8_t stale;</div>
 <div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00500" name="l00500"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a2c306df5877cd8324dbfe41ff7ed723a">  500</a></span>    } orion_currents_volts;</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af3cef64efc1b94e27e9e4b7a8e702edc">  500</a></span>    } orion_currents_volts;</div>
 <div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>        uint8_t discharge_limit_enforce;</div>
 <div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>        uint8_t charger_safety_relay;</div>
@@ -639,12 +639,12 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        uint8_t charge_limit_enforce;</div>
 <div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        uint8_t stale;</div>
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ac9b07a25c1d9f03a0e1c4124db4264e4">  536</a></span>    } orion_errors;</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a064fd5db4e3ec4f05ddacbbf9dbf7af2">  536</a></span>    } orion_errors;</div>
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ae4ea9551e4d15a07cd034eb83441bee7">  538</a></span>        int16_t <a class="code hl_variable" href="structcan__data__t.html#ae4ea9551e4d15a07cd034eb83441bee7">max_temp</a>;</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        uint8_t stale;</div>
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a0a9cb065a888fca2e6e28cb6719ecb28">  541</a></span>    } max_cell_temp;</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad94c17a6ee7b71aa16434423e8bec587">  541</a></span>    } max_cell_temp;</div>
 <div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00543" name="l00543"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a2c19a1910e9973ef741bdee4e9852836">  543</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a2c19a1910e9973ef741bdee4e9852836">left_mot_temp</a>;</div>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad24f6cc46dfbe77e44e9d8c0d7d2fc8d">  544</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#ad24f6cc46dfbe77e44e9d8c0d7d2fc8d">right_mot_temp</a>;</div>
@@ -652,13 +652,13 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00546" name="l00546"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a5818cd2e51d78d4a36fc3fda61c0394b">  546</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a5818cd2e51d78d4a36fc3fda61c0394b">right_ctrl_temp</a>;</div>
 <div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        uint8_t stale;</div>
 <div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a1a940ff27fdc57af54d1aa69569f6609">  549</a></span>    } rear_motor_temps;</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a580c93cc7d8e36d35cc384a2d9c48dae">  549</a></span>    } rear_motor_temps;</div>
 <div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00551" name="l00551"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ac8e557a248056ab08be6f4fc28107066">  551</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#ac8e557a248056ab08be6f4fc28107066">IMD</a>;</div>
 <div class="line"><a id="l00552" name="l00552"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a8461f1bb33941ac658d6c2912ae36c1b">  552</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a8461f1bb33941ac658d6c2912ae36c1b">BMS</a>;</div>
 <div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        uint8_t stale;</div>
 <div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a43807bc83a83ef57a61b912f8bf2b1f8">  555</a></span>    } precharge_hb;</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a7ae19434b68d9586dd6215f886cbe40d">  555</a></span>    } precharge_hb;</div>
 <div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00557" name="l00557"></a><span class="lineno"><a class="line" href="structcan__data__t.html#aa21abbdc8e6289379ea31708d124edc2">  557</a></span>        uint16_t <a class="code hl_variable" href="structcan__data__t.html#aa21abbdc8e6289379ea31708d124edc2">left_speed_mc</a>;</div>
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a64e19ae97c1a1c5de480ef7393e2c4c3">  558</a></span>        uint16_t <a class="code hl_variable" href="structcan__data__t.html#a64e19ae97c1a1c5de480ef7393e2c4c3">right_speed_mc</a>;</div>
@@ -666,7 +666,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno"><a class="line" href="structcan__data__t.html#aaaa2e06cc3fc2140d564f0662f8719e3">  560</a></span>        uint16_t <a class="code hl_variable" href="structcan__data__t.html#aaaa2e06cc3fc2140d564f0662f8719e3">right_speed_sensor</a>;</div>
 <div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>        uint8_t stale;</div>
 <div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a3d408c106611199f9d1ca39570cfe77b">  563</a></span>    } rear_wheel_speeds;</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a4428975f1791a486252d9874d5b8e530">  563</a></span>    } rear_wheel_speeds;</div>
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno"><a class="line" href="structcan__data__t.html#aedf5ef3c0ead8a50dc546489bbf37c68">  565</a></span>        int8_t <a class="code hl_variable" href="structcan__data__t.html#aedf5ef3c0ead8a50dc546489bbf37c68">battery_in_temp</a>;</div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno"><a class="line" href="structcan__data__t.html#aaa63c405c897c3d0e0fb164092d7867d">  566</a></span>        int8_t <a class="code hl_variable" href="structcan__data__t.html#aaa63c405c897c3d0e0fb164092d7867d">battery_out_temp</a>;</div>
@@ -674,7 +674,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00568" name="l00568"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad807085199077fbc94ba466c5e1202dd">  568</a></span>        int8_t <a class="code hl_variable" href="structcan__data__t.html#ad807085199077fbc94ba466c5e1202dd">drivetrain_out_temp</a>;</div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        uint8_t stale;</div>
 <div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af177ff328e48e0a3cd61a99d5c9f8cff">  571</a></span>    } coolant_temps;</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad60bc9ef363702637486120252bd0b2a">  571</a></span>    } coolant_temps;</div>
 <div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00573" name="l00573"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a613622400a122ba600053becfa5523f3">  573</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a613622400a122ba600053becfa5523f3">bat_fan</a>;</div>
 <div class="line"><a id="l00574" name="l00574"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a141f25ccc1dd928a7cb7acda537917dd">  574</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a141f25ccc1dd928a7cb7acda537917dd">dt_fan</a>;</div>
@@ -683,17 +683,17 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a7dcdc043d7bfb6f50a4a629f4038ac7e">  577</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#a7dcdc043d7bfb6f50a4a629f4038ac7e">dt_pump</a>;</div>
 <div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        uint8_t stale;</div>
 <div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno"><a class="line" href="structcan__data__t.html#aa9317cb45eb5faa845919c359fc91c80">  580</a></span>    } coolant_out;</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a0a54fdf2bee746dbef2f8fd82930a7a8">  580</a></span>    } coolant_out;</div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00582" name="l00582"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af639408c81ba98118da61ddfaa4304f2">  582</a></span>        int8_t <a class="code hl_variable" href="structcan__data__t.html#af639408c81ba98118da61ddfaa4304f2">l_temp</a>;</div>
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ac22d2a17e504bce192559e2e515955ee">  583</a></span>        int8_t <a class="code hl_variable" href="structcan__data__t.html#ac22d2a17e504bce192559e2e515955ee">r_temp</a>;</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        uint8_t stale;</div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ae4aff64d64cc226b505ca303c930460b">  586</a></span>    } gearbox;</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a536843457a11c817257373f793abd8d2">  586</a></span>    } gearbox;</div>
 <div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>        uint8_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>;</div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        uint32_t data;</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno"><a class="line" href="structcan__data__t.html#aec69b6c06aca3b7e5cbbd631a202561e">  590</a></span>    } dashboard_bl_cmd;</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a2ff2a18ea390136a6fe54925a328894c">  590</a></span>    } dashboard_bl_cmd;</div>
 <div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>        uint8_t IMD;</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        uint8_t BMS;</div>
@@ -710,37 +710,37 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00604" name="l00604"></a><span class="lineno"><a class="line" href="structcan__data__t.html#adb87aed9738dd2fdebe54b1744120b91">  604</a></span>        uint8_t <a class="code hl_variable" href="structcan__data__t.html#adb87aed9738dd2fdebe54b1744120b91">pchg_out</a>;</div>
 <div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        uint8_t stale;</div>
 <div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        uint32_t last_rx;</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad770cc0df5d5ce982bfbeb760b08936a">  607</a></span>    } sdc_status;</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a7e19bee7170e282e074073000a788669">  607</a></span>    } sdc_status;</div>
 <div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>        uint16_t idx;</div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        uint8_t latched;</div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a441899fb4f1fb4b66d7cf0324fbe9bce">  611</a></span>    } fault_sync_pdu;</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af3e154b4d7cc73854da3f4a987472c68">  611</a></span>    } fault_sync_pdu;</div>
 <div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>        uint16_t idx;</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>        uint8_t latched;</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a555093d3a01b42f245847f5baf2f5774">  615</a></span>    } fault_sync_main_module;</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a61d9e51db3bf73978a109e6688d352b6">  615</a></span>    } fault_sync_main_module;</div>
 <div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>        uint16_t idx;</div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>        uint8_t latched;</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a24d67f61fbb3959d2f807e5ac334d6af">  619</a></span>    } fault_sync_a_box;</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno"><a class="line" href="structcan__data__t.html#af8caf650d41b7c1bbbdef47ad8146fc3">  619</a></span>    } fault_sync_a_box;</div>
 <div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        uint16_t idx;</div>
 <div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>        uint8_t latched;</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a4c3c928c19457b793a750fb8a9195cc9">  623</a></span>    } fault_sync_torque_vector;</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a5a47e1fde1174d7e11fe1174fba63f7b">  623</a></span>    } fault_sync_torque_vector;</div>
 <div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        uint16_t idx;</div>
 <div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>        uint8_t latched;</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a62c4769fb9c36138332c3fcc9517073e">  627</a></span>    } fault_sync_test_node;</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab363dbdda484e0e6bc6cf8f8ed5516b8">  627</a></span>    } fault_sync_test_node;</div>
 <div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>        uint16_t id;</div>
 <div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>        uint8_t value;</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a4b84def3ccfd7f87a1298cda04ba9d88">  631</a></span>    } set_fault;</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a537058804c44057d213846f469c09e4d">  631</a></span>    } set_fault;</div>
 <div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>        uint16_t id;</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab4ba08e6b11359b98cb77604851e30af">  634</a></span>    } <a class="code hl_function" href="a__box_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a03d354f23a5782d8a2c9525331bfa5f8">  634</a></span>    } <a class="code hl_function" href="a__box_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
 <div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        uint64_t daq_command;</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a451f788d33cfdf7538f2862b6ddcc52d">  637</a></span>    } daq_command_DASHBOARD;</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ad4325ba46662f1006db1f537f48e1556">  637</a></span>    } daq_command_DASHBOARD;</div>
 <div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>} <a class="code hl_struct" href="structcan__data__t.html">can_data_t</a>;</div>
 <div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span><span class="comment">/* END AUTO CAN DATA STRUCTURE */</span></div>
 <div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
@@ -777,7 +777,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_a8eaf23ac1da3fc4a879c3b1b11733ea2"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a></div><div class="ttdeci">can_data_t can_data</div><div class="ttdef"><b>Definition</b> can_parse.c:16</div></div>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_aa1c60094ea5db2cec8e57bb40a3a1f8f"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#aa1c60094ea5db2cec8e57bb40a3a1f8f">initCANParse</a></div><div class="ttdeci">void initCANParse(void)</div><div class="ttdoc">Setup queue and message filtering.</div><div class="ttdef"><b>Definition</b> can_parse.c:19</div></div>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_ad57d03501801eed3789b1ab135dd9419"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">send_fault</a></div><div class="ttdeci">void send_fault(uint16_t id, bool latched)</div></div>
-<div class="ttc" id="abootloader_2can_2can__parse_8h_html_a9cdf0cafe2fb1948be5005da31d6cd7f"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a9cdf0cafe2fb1948be5005da31d6cd7f">dashboard_bl_cmd_CALLBACK</a></div><div class="ttdeci">void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdef"><b>Definition</b> main.c:546</div></div>
+<div class="ttc" id="abootloader_2can_2can__parse_8h_html_a9cdf0cafe2fb1948be5005da31d6cd7f"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a9cdf0cafe2fb1948be5005da31d6cd7f">dashboard_bl_cmd_CALLBACK</a></div><div class="ttdeci">void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdef"><b>Definition</b> main.c:548</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a6cc7d939574f518f5f626a0ae75b2f0e"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a6cc7d939574f518f5f626a0ae75b2f0e">coolant_out_CALLBACK</a></div><div class="ttdeci">void coolant_out_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdef"><b>Definition</b> lcd.c:1070</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bd"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bd">car_state_t</a></div><div class="ttdeci">car_state_t</div><div class="ttdef"><b>Definition</b> can_parse.h:224</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0">CAR_STATE_ERROR</a></div><div class="ttdeci">@ CAR_STATE_ERROR</div><div class="ttdef"><b>Definition</b> can_parse.h:230</div></div>
@@ -791,7 +791,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5">CAR_STATE_RESET</a></div><div class="ttdeci">@ CAR_STATE_RESET</div><div class="ttdef"><b>Definition</b> can_parse.h:232</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40">CAR_STATE_CONSTANT_TORQUE</a></div><div class="ttdeci">@ CAR_STATE_CONSTANT_TORQUE</div><div class="ttdef"><b>Definition</b> can_parse.h:234</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_aee74acccf85e52e0c411a11afc0c2a2d"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#aee74acccf85e52e0c411a11afc0c2a2d">daq_command_DASHBOARD_CALLBACK</a></div><div class="ttdeci">void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t *msg_header_a)</div><div class="ttdef"><b>Definition</b> daq.c:44</div></div>
-<div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdef"><b>Definition</b> main.c:532</div></div>
+<div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdef"><b>Definition</b> main.c:534</div></div>
 <div class="ttc" id="aeeprom__spi_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct eeprom __attribute__</div><div class="ttdef"><b>Definition</b> daq_hub.h:69</div></div>
 <div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab84f8aed561146f738758e941a2a545b"><div class="ttname"><a href="l4__testing_2daq_2daq_8c.html#ab84f8aed561146f738758e941a2a545b">charge_enable</a></div><div class="ttdeci">uint8_t charge_enable</div><div class="ttdef"><b>Definition</b> main.c:102</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html">can.h</a></div></div>

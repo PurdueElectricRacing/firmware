@@ -106,6 +106,9 @@ Functions</h2></td></tr>
 <tr class="memitem:acb32cd6570e5e56268df32a141c188f0" id="r_acb32cd6570e5e56268df32a141c188f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb32cd6570e5e56268df32a141c188f0">PHAL_configureAPB2Clock</a> (uint32_t apb2_clock_target_hz)</td></tr>
 <tr class="memdesc:acb32cd6570e5e56268df32a141c188f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure APB1 Clock rate by modifying the APB2 prescaler value.  <br /></td></tr>
 <tr class="separator:acb32cd6570e5e56268df32a141c188f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ee0c309b609633dd82c31c95a11d61" id="r_af4ee0c309b609633dd82c31c95a11d61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4ee0c309b609633dd82c31c95a11d61">PHAL_trimHSI</a> (uint8_t trim_val)</td></tr>
+<tr class="memdesc:af4ee0c309b609633dd82c31c95a11d61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trim the HSI clock 0 &lt;= trim_val &lt;= 31 17 = increase speed by ~0.2% 15 = decrease speed by ~0.2%.  <br /></td></tr>
+<tr class="separator:af4ee0c309b609633dd82c31c95a11d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -324,6 +327,25 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
+
+</div>
+</div>
+<a id="af4ee0c309b609633dd82c31c95a11d61" name="af4ee0c309b609633dd82c31c95a11d61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ee0c309b609633dd82c31c95a11d61">&#9670;&#160;</a></span>PHAL_trimHSI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_trimHSI </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>trim_val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trim the HSI clock 0 &lt;= trim_val &lt;= 31 17 = increase speed by ~0.2% 15 = decrease speed by ~0.2%. </p>
 
 </div>
 </div>

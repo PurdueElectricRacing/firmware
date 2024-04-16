@@ -103,6 +103,12 @@ $(function() {
 Macros</h2></td></tr>
 <tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;16000000</td></tr>
 <tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8530569983c0bc4b7ca650ff7cd2402" id="r_ae8530569983c0bc4b7ca650ff7cd2402"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8530569983c0bc4b7ca650ff7cd2402">POT_VOLT_MAX_DIST_MM</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ae8530569983c0bc4b7ca650ff7cd2402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bdb15dd395bcc5df22ba10bcd6518b1" id="r_a5bdb15dd395bcc5df22ba10bcd6518b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bdb15dd395bcc5df22ba10bcd6518b1">POT_VOLT_MIN_DIST_MM</a>&#160;&#160;&#160;4095</td></tr>
+<tr class="separator:a5bdb15dd395bcc5df22ba10bcd6518b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53f1d055ee0e79b0a01d53f86a97c1cf" id="r_a53f1d055ee0e79b0a01d53f86a97c1cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53f1d055ee0e79b0a01d53f86a97c1cf">SCALE_F</a>&#160;&#160;&#160;= (1 + (3.4/6.6))</td></tr>
+<tr class="separator:a53f1d055ee0e79b0a01d53f86a97c1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -124,6 +130,12 @@ Functions</h2></td></tr>
 <tr class="separator:a06173b19941ecf5de7018ae474646287"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a655198e7e2640e278bd9fdb8b1f65aed" id="r_a655198e7e2640e278bd9fdb8b1f65aed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a655198e7e2640e278bd9fdb8b1f65aed">sendBrakeStatus</a> ()</td></tr>
 <tr class="separator:a655198e7e2640e278bd9fdb8b1f65aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a538b9ee9d40df9460e4ca280fd7d7a5a" id="r_a538b9ee9d40df9460e4ca280fd7d7a5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a538b9ee9d40df9460e4ca280fd7d7a5a">interpretLoadSensor</a> (void)</td></tr>
+<tr class="separator:a538b9ee9d40df9460e4ca280fd7d7a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6ba0d0ae9db5952778408ab7f015c79" id="r_aa6ba0d0ae9db5952778408ab7f015c79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ba0d0ae9db5952778408ab7f015c79">send_shockpots</a> ()</td></tr>
+<tr class="separator:aa6ba0d0ae9db5952778408ab7f015c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb734be46d90206d4a5216667c8e038b" id="r_aeb734be46d90206d4a5216667c8e038b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb734be46d90206d4a5216667c8e038b">voltToForce</a> (uint16_t load_read)</td></tr>
+<tr class="separator:aeb734be46d90206d4a5216667c8e038b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b2096b8b2643286dc3a7e5110e5ae85" id="r_a7b2096b8b2643286dc3a7e5110e5ae85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b2096b8b2643286dc3a7e5110e5ae85">EXTI9_5_IRQHandler</a> (void)</td></tr>
@@ -177,6 +189,48 @@ Variables</h2></td></tr>
 <tr class="separator:a4971180e813d33303c758243debeb13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ae8530569983c0bc4b7ca650ff7cd2402" name="ae8530569983c0bc4b7ca650ff7cd2402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8530569983c0bc4b7ca650ff7cd2402">&#9670;&#160;</a></span>POT_VOLT_MAX_DIST_MM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define POT_VOLT_MAX_DIST_MM&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5bdb15dd395bcc5df22ba10bcd6518b1" name="a5bdb15dd395bcc5df22ba10bcd6518b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdb15dd395bcc5df22ba10bcd6518b1">&#9670;&#160;</a></span>POT_VOLT_MIN_DIST_MM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define POT_VOLT_MIN_DIST_MM&#160;&#160;&#160;4095</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53f1d055ee0e79b0a01d53f86a97c1cf" name="a53f1d055ee0e79b0a01d53f86a97c1cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53f1d055ee0e79b0a01d53f86a97c1cf">&#9670;&#160;</a></span>SCALE_F</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCALE_F&#160;&#160;&#160;= (1 + (3.4/6.6))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a041cbdf351ae1da6f864d0d249c93008" name="a041cbdf351ae1da6f864d0d249c93008"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a041cbdf351ae1da6f864d0d249c93008">&#9670;&#160;</a></span>TargetCoreClockrateHz</h2>
 
@@ -336,6 +390,23 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a538b9ee9d40df9460e4ca280fd7d7a5a" name="a538b9ee9d40df9460e4ca280fd7d7a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a538b9ee9d40df9460e4ca280fd7d7a5a">&#9670;&#160;</a></span>interpretLoadSensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interpretLoadSensor </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
 
@@ -404,6 +475,23 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa6ba0d0ae9db5952778408ab7f015c79" name="aa6ba0d0ae9db5952778408ab7f015c79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6ba0d0ae9db5952778408ab7f015c79">&#9670;&#160;</a></span>send_shockpots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void send_shockpots </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a655198e7e2640e278bd9fdb8b1f65aed" name="a655198e7e2640e278bd9fdb8b1f65aed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a655198e7e2640e278bd9fdb8b1f65aed">&#9670;&#160;</a></span>sendBrakeStatus()</h2>
 
@@ -431,6 +519,23 @@ Variables</h2></td></tr>
           <td class="memname">void usartTxUpdate </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeb734be46d90206d4a5216667c8e038b" name="aeb734be46d90206d4a5216667c8e038b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb734be46d90206d4a5216667c8e038b">&#9670;&#160;</a></span>voltToForce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float voltToForce </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>load_read</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

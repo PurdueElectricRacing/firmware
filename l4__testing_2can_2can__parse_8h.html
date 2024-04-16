@@ -1367,13 +1367,13 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">do</span> {\</div>
 <div class="line">        <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a> = {.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>=CAN1, .ExtId=<a class="code hl_define" href="#aa1fe8244525f9da31b29fcdf032fd874">ID_WHEEL_SPEEDS</a>, .DLC=<a class="code hl_define" href="#a89037a680a24be417b8dbdd9a844c7f9">DLC_WHEEL_SPEEDS</a>, .IDE=1};\</div>
 <div class="line">        <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* data_a = (<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a> *) &amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>.Data;\</div>
-<div class="line">        data_a-&gt;wheel_speeds.left_speed = <a class="code hl_define" href="#acd89b628eb123c4eee4c69e664105998">FLOAT_TO_UINT32</a>(left_speed_);\</div>
-<div class="line">        data_a-&gt;wheel_speeds.right_speed = <a class="code hl_define" href="#acd89b628eb123c4eee4c69e664105998">FLOAT_TO_UINT32</a>(right_speed_);\</div>
+<div class="line">        data_a-&gt;wheel_speeds.left_speed = <a class="code hl_define" href="dashboard_2can_2can__parse_8h.html#acd89b628eb123c4eee4c69e664105998">FLOAT_TO_UINT32</a>(left_speed_);\</div>
+<div class="line">        data_a-&gt;wheel_speeds.right_speed = <a class="code hl_define" href="dashboard_2can_2can__parse_8h.html#acd89b628eb123c4eee4c69e664105998">FLOAT_TO_UINT32</a>(right_speed_);\</div>
 <div class="line">        canTxSendToBack(&amp;<a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
+<div class="ttc" id="adashboard_2can_2can__parse_8h_html_acd89b628eb123c4eee4c69e664105998"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#acd89b628eb123c4eee4c69e664105998">FLOAT_TO_UINT32</a></div><div class="ttdeci">#define FLOAT_TO_UINT32(float_)</div><div class="ttdef"><b>Definition</b> can_parse.h:27</div></div>
 <div class="ttc" id="al4__testing_2can_2can__parse_8h_html_a89037a680a24be417b8dbdd9a844c7f9"><div class="ttname"><a href="#a89037a680a24be417b8dbdd9a844c7f9">DLC_WHEEL_SPEEDS</a></div><div class="ttdeci">#define DLC_WHEEL_SPEEDS</div><div class="ttdef"><b>Definition</b> can_parse.h:60</div></div>
 <div class="ttc" id="al4__testing_2can_2can__parse_8h_html_aa1fe8244525f9da31b29fcdf032fd874"><div class="ttname"><a href="#aa1fe8244525f9da31b29fcdf032fd874">ID_WHEEL_SPEEDS</a></div><div class="ttdeci">#define ID_WHEEL_SPEEDS</div><div class="ttdef"><b>Definition</b> can_parse.h:32</div></div>
-<div class="ttc" id="al4__testing_2can_2can__parse_8h_html_acd89b628eb123c4eee4c69e664105998"><div class="ttname"><a href="#acd89b628eb123c4eee4c69e664105998">FLOAT_TO_UINT32</a></div><div class="ttdeci">#define FLOAT_TO_UINT32(float_)</div><div class="ttdef"><b>Definition</b> can_parse.h:84</div></div>
 </div><!-- fragment -->
 </div>
 </div>

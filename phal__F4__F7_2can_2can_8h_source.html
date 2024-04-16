@@ -112,26 +112,27 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="phal__F4__F7_2can_2can_8h.html#ad5f0e580f5f2de0b7f79d7607e1aeff4">   38</a></span><span class="preprocessor">#define PHAL_CAN_16MHz_250k (0x003a0003) </span><span class="comment">// sample point = 75%</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="phal__F4__F7_2can_2can_8h.html#a06487d0687197e9c129e227c6d0e9c19">   39</a></span><span class="preprocessor">#define PHAL_CAN_24MHz_250k (0x003a0005) </span><span class="comment">// sample point = 75%</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  CAN_TypeDef* Bus; </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  uint16_t StdId; </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  uint32_t ExtId; </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  uint32_t IDE; </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  uint32_t DLC; </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  uint8_t Data[8]; </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#abd53152f7b205f76bfbfc43077f85251">PHAL_initCAN</a>(CAN_TypeDef* bus, <span class="keywordtype">bool</span> test_mode, uint32_t bit_rate);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a>(CAN_TypeDef* bus);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a27cc0a1cff5e2f9e0a55483b7acff539">PHAL_txCANMessage</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>* <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>, uint8_t mbx);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a65d09c3c6b1c24a5fc09bbf7f71659bb">PHAL_txMailboxFree</a>(CAN_TypeDef* bus, uint8_t mbx);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a>(CAN_TypeDef* bus, uint8_t mbx);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif </span><span class="comment">// _PHAL_CAN_H</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="phal__F4__F7_2can_2can_8h.html#a9fab5ca76b15d19a2222191fa315e889">   40</a></span><span class="preprocessor">#define PHAL_CAN_36MHz_250k (0x003a0008) </span><span class="comment">// sample point = 75%</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  CAN_TypeDef* Bus; </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  uint16_t StdId; </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  uint32_t ExtId; </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  uint32_t IDE; </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  uint32_t DLC; </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  uint8_t Data[8]; </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#abd53152f7b205f76bfbfc43077f85251">PHAL_initCAN</a>(CAN_TypeDef* bus, <span class="keywordtype">bool</span> test_mode, uint32_t bit_rate);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a>(CAN_TypeDef* bus);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a27cc0a1cff5e2f9e0a55483b7acff539">PHAL_txCANMessage</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>* <a class="code hl_variable" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>, uint8_t mbx);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a65d09c3c6b1c24a5fc09bbf7f71659bb">PHAL_txMailboxFree</a>(CAN_TypeDef* bus, uint8_t mbx);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a>(CAN_TypeDef* bus, uint8_t mbx);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">// _PHAL_CAN_H</span></div>
 <div class="ttc" id="af4__testing_2main_8c_html_a184b5dd9844bf6e022deb71044ff7f64"><div class="ttname"><a href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a></div><div class="ttdeci">char msg[100]</div><div class="ttdef"><b>Definition</b> main.c:105</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a22269e3f8f5f895a2a2b8e2865814369"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a></div><div class="ttdeci">void PHAL_txCANAbort(CAN_TypeDef *bus, uint8_t mbx)</div><div class="ttdef"><b>Definition</b> can.c:193</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a27cc0a1cff5e2f9e0a55483b7acff539"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a27cc0a1cff5e2f9e0a55483b7acff539">PHAL_txCANMessage</a></div><div class="ttdeci">bool PHAL_txCANMessage(CanMsgTypeDef_t *msg, uint8_t mbx)</div><div class="ttdoc">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucess...</div><div class="ttdef"><b>Definition</b> can.c:134</div></div>

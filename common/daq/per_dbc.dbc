@@ -55,6 +55,14 @@ BO_ 1984 LWS_Config: 2 Main_Module
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2415983105 load_sensor_readings: 8 Main_Module
+ SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX
+ SG_ left_load_sensor : 0|32@1- (1,0) [0|0] "N" Vector__XXX
+
+BO_ 2415984385 shock_rear: 4 Main_Module
+ SG_ right_shock : 16|16@1+ (1,0) [0|0] "mm" Vector__XXX
+ SG_ left_shock : 0|16@1+ (1,0) [0|0] "mm" Vector__XXX
+
 BO_ 2415925633 mcu_status: 4 Main_Module
  SG_ sched_error : 24|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ background_use : 16|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -326,6 +334,14 @@ BO_ 2415919749 raw_throttle_brake: 8 Dashboard
  SG_ brake : 24|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
  SG_ throttle_right : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
  SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+
+BO_ 2415984069 shock_front: 4 Dashboard
+ SG_ right_shock : 16|16@1+ (1,0) [0|0] "mm" Vector__XXX
+ SG_ left_shock : 0|16@1+ (1,0) [0|0] "mm" Vector__XXX
+
+BO_ 2415983749 load_sensor_readings_dash: 8 Dashboard
+ SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX
+ SG_ left_load_sensor : 0|32@1- (1,0) [0|0] "N" Vector__XXX
 
 BO_ 2348810949 cooling_driver_request: 5 Dashboard
  SG_ batt_fan : 32|8@1+ (1,0) [0|100] "%" Vector__XXX
@@ -631,6 +647,12 @@ CM_ BO_ 1984 "Steering sensor configuration";
 CM_ SG_ 1984 Reserved_2 "";
 CM_ SG_ 1984 Reserved_1 "";
 CM_ SG_ 1984 CCW "";
+CM_ BO_ 2415983105 "Load Sensor readings from left and right";
+CM_ SG_ 2415983105 right_load_sensor "";
+CM_ SG_ 2415983105 left_load_sensor "";
+CM_ BO_ 2415984385 "Load Sensor readings from left and right";
+CM_ SG_ 2415984385 right_shock "";
+CM_ SG_ 2415984385 left_shock "";
 CM_ BO_ 2415925633 "performance metrics of MCU";
 CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
  0 - N/A
@@ -864,6 +886,12 @@ CM_ SG_ 2415919749 brake_right "";
 CM_ SG_ 2415919749 brake "";
 CM_ SG_ 2415919749 throttle_right "";
 CM_ SG_ 2415919749 throttle "";
+CM_ BO_ 2415984069 "Load Sensor readings from left and right";
+CM_ SG_ 2415984069 right_shock "";
+CM_ SG_ 2415984069 left_shock "";
+CM_ BO_ 2415983749 "Load Sensor readings from left and right";
+CM_ SG_ 2415983749 right_load_sensor "";
+CM_ SG_ 2415983749 left_load_sensor "";
 CM_ BO_ 2348810949 "Cooling Pump/Fan requests from Dash LCD";
 CM_ SG_ 2348810949 batt_fan "";
 CM_ SG_ 2348810949 batt_pump2 "";
@@ -1084,6 +1112,10 @@ VAL_ 2415925569 rear_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifyin
 VAL_ 2415925569 rear_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
 VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
 VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+SIG_VALTYPE_ 2415983105 left_load_sensor : 1;
+SIG_VALTYPE_ 2415983105 right_load_sensor : 1;
+SIG_VALTYPE_ 2415983749 left_load_sensor : 1;
+SIG_VALTYPE_ 2415983749 right_load_sensor : 1;
 SIG_VALTYPE_ 2348810751 left_speed : 1;
 SIG_VALTYPE_ 2348810751 right_speed : 1;
 SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;

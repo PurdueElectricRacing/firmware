@@ -114,7 +114,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
 
     // // Set CR3 parameters
     handle->periph->CR3 |= handle->obsample << USART_CR3_ONEBIT_Pos;
-    handle->periph->CR3 |= USART_CR3_EIE;
+    // handle->periph->CR3 |= USART_CR3_EIE;
 
     // Enable peripheral for use
     handle->periph->CR1 |= USART_CR1_UE;

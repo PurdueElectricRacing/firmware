@@ -158,7 +158,9 @@ void enableInterrupts();
 void encoder_ISR();
 void pollDashboardInput();
 void sendBrakeStatus();
-
+void interpretLoadSensor(void);
+void send_shockpots();
+float voltToForce(uint16_t load_read);
 // Communication queues
 q_handle_t q_tx_usart;
 
@@ -205,6 +207,8 @@ int main (void){
     taskCreate(pedalsPeriodic, 15);
     taskCreate(pollDashboardInput, 25);
     taskCreate(heartBeatTask, 100);
+    taskCreate(send_shockpots, 15);
+    taskCreate(interpretLoadSensor, 15);
     taskCreate(update_data_pages, 200);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
@@ -269,6 +273,20 @@ void preflightChecks(void) {
     }
 }
 
+
+#define POT_VOLT_MAX_DIST_MM 0
+#define POT_VOLT_MIN_DIST_MM 4095
+
+void send_shockpots()
+{
+    uint16_t shock_l = raw_adc_values.shock_left;
+    uint16_t shock_r = raw_adc_values.shock_right;
+    //Scale from raw 12bit adc to mm * 10 of linear pot travel
+    // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
+    // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
+    SEND_SHOCK_FRONT(shock_l, shock_r);
+}
+
 void preflightAnimation(void) {
     // Controls external LEDs since they are more visible when dash is in car
     static uint32_t time_ext;
@@ -306,6 +324,41 @@ void preflightAnimation(void) {
             PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
             break;
     }
+}
+
+#define SCALE_F = (1 + (3.4/6.6))
+float voltToForce(uint16_t load_read) {
+    /*
+    //Return in newtons
+    float v_out_load_l = adc_readings.load_l / 4095 * 3.3;
+    float v_out_load_r = adc_readings.load_r / 4095 * 3.3;
+    //voltage -> weight
+    //V_out = (V_in * R_2) / (R_1 + R_2)
+    //Solve for V_in
+    //R_1 = 3.4K
+    //R_2 = 6.6K
+    float v_in_load_l = (v_out_load_l * 10) / 6.6;
+    float v_in_load_r = (v_out_load_r * 10) / 6.6;
+    //voltage * 100 = mass
+    //weight (in newtons) = mass * g
+    float force_load_l = v_in_load_l * 100 * g;
+    float force_load_r = v_in_load_r * 100 * g;
+    */
+    float g = 9.8;
+    // float val = ((load_read / 4095.0 * 3.3) * 10.0)
+    float val = ((load_read / 4095.0 * 3.3) * (1.0 + (3.4/6.6)));
+    // return ( val / 6.6) * 100.0 * g;
+    return val * 100.0 * g;
+}
+
+void interpretLoadSensor(void) {
+    float force_load_l = voltToForce(raw_adc_values.load_l);
+    float force_load_r = voltToForce(raw_adc_values.load_r);
+    //send a can message w/ minimal force info
+    //every 15 milliseconds
+    SEND_LOAD_SENSOR_READINGS_DASH(force_load_l, force_load_r);
+
+
 }
 
 void heartBeatLED()

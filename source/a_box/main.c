@@ -150,8 +150,7 @@ int main (void)
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
 
 
-   if (1 != PHAL_initCAN(CAN1, false, 250000))
-       PHAL_FaultHandler();
+
 
 //     for (uint16_t dimitri_is_not_better_than_me = 0; dimitri_is_not_better_than_me < 1000; dimitri_is_not_better_than_me++)
 //     {
@@ -212,7 +211,7 @@ int main (void)
 void preflightChecks(void)
 {
    static uint16_t state;
-
+    uint8_t charger_speed_def = 0;
 
    switch (state++)
    {
@@ -221,6 +220,20 @@ void preflightChecks(void)
             break;
         case 1:
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_A_BOX);
+            break;
+        case 700:
+            charger_speed_def = PHAL_readGPIO(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin);
+            uint8_t speed_2 = PHAL_readGPIO(BMS_CHARGER_SAFETY_Port, BMS_CHARGER_SAFETY_Pin);
+            if (charger_speed_def)
+            {
+                if (1 != PHAL_initCAN(CAN1, false, 250000))
+            PHAL_FaultHandler();
+            }
+            else
+            {
+                if (1 != PHAL_initCAN(CAN1, false, 500000))
+                PHAL_FaultHandler();
+            }
             break;
        default:
            if (state > 750)

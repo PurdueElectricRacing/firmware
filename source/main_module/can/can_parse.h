@@ -19,12 +19,23 @@
 // Make this match the node name within the can_config.json
 #define NODE_NAME "Main_Module"
 
+
+// Used to represent a float as 32 bits
+typedef union {
+    float f;
+    uint32_t u;
+} FloatConvert_t;
+#define FLOAT_TO_UINT32(float_) (((FloatConvert_t) float_).u)
+#define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t) ((uint32_t) uint32_)).f)
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
+#define ID_LOAD_SENSOR_READINGS 0x1000fa01
+#define ID_SHOCK_REAR 0x1000ff01
 #define ID_MCU_STATUS 0x10001981
 #define ID_MAIN_MODULE_CAN_STATS 0x10016301
 #define ID_NUM_MC_SKIPS 0x10001b81
@@ -59,6 +70,8 @@
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
+#define DLC_LOAD_SENSOR_READINGS 8
+#define DLC_SHOCK_REAR 4
 #define DLC_MCU_STATUS 4
 #define DLC_MAIN_MODULE_CAN_STATS 4
 #define DLC_NUM_MC_SKIPS 4
@@ -118,6 +131,20 @@
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_LOAD_SENSOR_READINGS(left_load_sensor_, right_load_sensor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LOAD_SENSOR_READINGS, .DLC=DLC_LOAD_SENSOR_READINGS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->load_sensor_readings.left_load_sensor = FLOAT_TO_UINT32(left_load_sensor_);\
+        data_a->load_sensor_readings.right_load_sensor = FLOAT_TO_UINT32(right_load_sensor_);\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_SHOCK_REAR(left_shock_, right_shock_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SHOCK_REAR, .DLC=DLC_SHOCK_REAR, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->shock_rear.left_shock = left_shock_;\
+        data_a->shock_rear.right_shock = right_shock_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_MCU_STATUS(sched_skips_, foreground_use_, background_use_, sched_error_) do {\
@@ -313,6 +340,14 @@ typedef union {
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
     } LWS_Config;
+    struct {
+        uint64_t left_load_sensor: 32;
+        uint64_t right_load_sensor: 32;
+    } load_sensor_readings;
+    struct {
+        uint64_t left_shock: 16;
+        uint64_t right_shock: 16;
+    } shock_rear;
     struct {
         uint64_t sched_skips: 8;
         uint64_t foreground_use: 8;

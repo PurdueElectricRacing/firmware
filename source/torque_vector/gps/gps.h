@@ -86,7 +86,7 @@ typedef struct
     unsigned long iTOW;
     bool unique_iTOW;
 
-    uint8_t gyro_OK;
+    bool gyro_OK;
 
 } GPS_Handle_t; // GPS handle
 

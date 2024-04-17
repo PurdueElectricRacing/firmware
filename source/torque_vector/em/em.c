@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'em'.
  *
- * Model version                  : 1.20
+ * Model version                  : 1.35
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr  6 13:25:04 2024
+ * C/C++ source code generated on : Tue Apr 16 17:06:49 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -20,7 +20,6 @@
  */
 
 #include "em.h"
-#include <math.h>
 #include "rtwtypes.h"
 
 static uint32_T plook_evencag(real_T u, real_T bp0, real_T bpSpace, real_T
@@ -116,135 +115,53 @@ static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
 /* Model step function */
 void em_step(RT_MODEL_em *const rtM_em, ExtU_em *rtU_em, ExtY_em *rtY_em)
 {
-  DW_em *rtDW_em = rtM_em->dwork;
-  real_T UnitDelay[2];
   real_T fractions[2];
+  real_T fractions_0[2];
+  real_T bpIndices_tmp;
   real_T dk_idx_0;
-  real_T frac;
+  real_T dk_idx_1;
   real_T k_min_idx_0;
   real_T k_min_idx_1;
-  real_T smoothed_command_idx_0;
   uint32_T bpIndices[2];
   uint32_T bpIndices_0[2];
   dk_idx_0 = rtP_em.V[1] - rtP_em.V[0];
-  bpIndices[1U] = plook_evencag(rtU_em->V, rtP_em.V[0], dk_idx_0, &frac);
-  UnitDelay[1U] = frac;
-  smoothed_command_idx_0 = rtP_em.w[1] - rtP_em.w[0];
-  bpIndices[0U] = plook_evencag(rtU_em->w[0], rtP_em.w[0],
-    smoothed_command_idx_0, &frac);
-  UnitDelay[0U] = frac;
-  k_min_idx_0 = intrp2d_la(bpIndices, UnitDelay, rtConstP_em.k_min_tableData,
+  bpIndices[1U] = plook_evencag(rtU_em->V, rtP_em.V[0], dk_idx_0, &dk_idx_1);
+  fractions[1U] = dk_idx_1;
+  bpIndices_tmp = rtP_em.w[1] - rtP_em.w[0];
+  bpIndices[0U] = plook_evencag(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp,
+    &dk_idx_1);
+  fractions[0U] = dk_idx_1;
+  k_min_idx_0 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_min_tableData,
     107U, rtConstP_em.pooled1);
-  bpIndices[0U] = plook_evencag(rtU_em->w[1], rtP_em.w[0],
-    smoothed_command_idx_0, &frac);
-  UnitDelay[0U] = frac;
-  k_min_idx_1 = intrp2d_la(bpIndices, UnitDelay, rtConstP_em.k_min_tableData,
+  bpIndices[0U] = plook_evencag(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp,
+    &dk_idx_1);
+  fractions[0U] = dk_idx_1;
+  k_min_idx_1 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_min_tableData,
     107U, rtConstP_em.pooled1);
-  bpIndices_0[1U] = plook_evencag(rtU_em->V, rtP_em.V[0], dk_idx_0, &frac);
-  fractions[1U] = frac;
-  bpIndices_0[0U] = plook_evencag(rtU_em->w[0], rtP_em.w[0],
-    smoothed_command_idx_0, &frac);
-  fractions[0U] = frac;
-  dk_idx_0 = intrp2d_la(bpIndices_0, fractions, rtConstP_em.dk_tableData, 107U,
+  bpIndices_0[1U] = plook_evencag(rtU_em->V, rtP_em.V[0], dk_idx_0, &dk_idx_1);
+  fractions_0[1U] = dk_idx_1;
+  bpIndices_0[0U] = plook_evencag(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp,
+    &dk_idx_1);
+  fractions_0[0U] = dk_idx_1;
+  dk_idx_0 = intrp2d_la(bpIndices_0, fractions_0, rtConstP_em.dk_tableData, 107U,
                         rtConstP_em.pooled1);
-  bpIndices_0[0U] = plook_evencag(rtU_em->w[1], rtP_em.w[0],
-    smoothed_command_idx_0, &frac);
-  fractions[0U] = frac;
-  UnitDelay[0] = rtDW_em->UnitDelay_DSTATE[0];
-  UnitDelay[1] = rtDW_em->UnitDelay_DSTATE[1];
-  frac = rtDW_em->UnitDelay2_DSTATE;
-  if (rtU_em->TVS_STATE != 0.0) {
-    k_min_idx_0 += dk_idx_0 * rtU_em->rTVS[0];
-    k_min_idx_1 += intrp2d_la(bpIndices_0, fractions, rtConstP_em.dk_tableData,
-      107U, rtConstP_em.pooled1) * rtU_em->rTVS[1];
-  } else {
-    k_min_idx_0 = rtU_em->rEQUAL[0];
-    k_min_idx_1 = rtU_em->rEQUAL[1];
-  }
-
-  if (rtU_em->TVS_STATE != rtDW_em->UnitDelay1_DSTATE) {
-    frac = 0.0;
-  }
-
-  if (UnitDelay[0] > UnitDelay[1]) {
-    if (k_min_idx_0 > k_min_idx_1) {
-      smoothed_command_idx_0 = k_min_idx_1;
-    } else {
-      smoothed_command_idx_0 = k_min_idx_0;
-    }
-
-    dk_idx_0 = smoothed_command_idx_0 - UnitDelay[1];
-    if (fabs(dk_idx_0) < rtP_em.dk_thresh) {
-      frac = 1.0;
-    }
-
-    if (frac == 0.0) {
-      if (k_min_idx_0 < k_min_idx_1) {
-        smoothed_command_idx_0 = k_min_idx_1;
-      } else {
-        smoothed_command_idx_0 = k_min_idx_0;
-      }
-
-      dk_idx_0 = fmin(rtP_em.alpha * dk_idx_0 + UnitDelay[1],
-                      smoothed_command_idx_0);
-      if (k_min_idx_0 < k_min_idx_1) {
-        smoothed_command_idx_0 = k_min_idx_1;
-      } else {
-        smoothed_command_idx_0 = k_min_idx_0;
-      }
-    } else {
-      smoothed_command_idx_0 = k_min_idx_0;
-      dk_idx_0 = k_min_idx_1;
-    }
-  } else {
-    if (k_min_idx_0 > k_min_idx_1) {
-      smoothed_command_idx_0 = k_min_idx_1;
-    } else {
-      smoothed_command_idx_0 = k_min_idx_0;
-    }
-
-    dk_idx_0 = smoothed_command_idx_0 - UnitDelay[0];
-    if (fabs(dk_idx_0) < rtP_em.dk_thresh) {
-      frac = 1.0;
-    }
-
-    if (frac == 0.0) {
-      if (k_min_idx_0 < k_min_idx_1) {
-        smoothed_command_idx_0 = k_min_idx_1;
-      } else {
-        smoothed_command_idx_0 = k_min_idx_0;
-      }
-
-      smoothed_command_idx_0 = fmin(rtP_em.alpha * dk_idx_0 + UnitDelay[0],
-        smoothed_command_idx_0);
-      if (k_min_idx_0 < k_min_idx_1) {
-        dk_idx_0 = k_min_idx_1;
-      } else {
-        dk_idx_0 = k_min_idx_0;
-      }
-    } else {
-      smoothed_command_idx_0 = k_min_idx_0;
-      dk_idx_0 = k_min_idx_1;
-    }
-  }
-
-  rtY_em->TVS_PERMIT = ((frac == 0.0) || (rtU_em->TVS_STATE != 0.0));
-  rtDW_em->UnitDelay1_DSTATE = rtU_em->TVS_STATE;
-  rtDW_em->UnitDelay2_DSTATE = frac;
-  rtY_em->k[0] = smoothed_command_idx_0;
-  rtDW_em->UnitDelay_DSTATE[0] = smoothed_command_idx_0;
-  rtY_em->k[1] = dk_idx_0;
-  rtDW_em->UnitDelay_DSTATE[1] = dk_idx_0;
+  bpIndices_0[0U] = plook_evencag(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp,
+    &dk_idx_1);
+  fractions_0[0U] = dk_idx_1;
+  dk_idx_1 = intrp2d_la(bpIndices_0, fractions_0, rtConstP_em.dk_tableData, 107U,
+                        rtConstP_em.pooled1);
+  rtY_em->kTVS[0] = dk_idx_0 * rtU_em->rTVS[0] + k_min_idx_0;
+  rtY_em->kTVS[1] = dk_idx_1 * rtU_em->rTVS[1] + k_min_idx_1;
+  rtY_em->kEQUAL[0] = dk_idx_0 * rtU_em->rEQUAL[0] + k_min_idx_0;
+  rtY_em->kEQUAL[1] = dk_idx_1 * rtU_em->rEQUAL[1] + k_min_idx_1;
+  UNUSED_PARAMETER(rtM_em);
 }
 
 /* Model initialize function */
 void em_initialize(RT_MODEL_em *const rtM_em)
 {
-  DW_em *rtDW_em = rtM_em->dwork;
-  rtDW_em->UnitDelay1_DSTATE = rtP_em.LAST_TVS_PERMIT_IC;
-  rtDW_em->UnitDelay2_DSTATE = rtP_em.FINISHED_SMOOTHENING_IC;
-  rtDW_em->UnitDelay_DSTATE[0] = rtP_em.k_IC[0];
-  rtDW_em->UnitDelay_DSTATE[1] = rtP_em.k_IC[1];
+  /* (no initialization code required) */
+  UNUSED_PARAMETER(rtM_em);
 }
 
 /* Model terminate function */

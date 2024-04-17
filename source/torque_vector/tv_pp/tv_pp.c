@@ -6,18 +6,18 @@
 void tv_pp(ExtU_tv *rtU_tv, GPS_Handle_t *GPS)
 {
     /* Flags */
-    rtU_tv->F_raw[0] = can_data.main_hb.car_state == 4;
-    rtU_tv->F_raw[1] = !can_data.main_hb.stale;
-    rtU_tv->F_raw[2] = !can_data.filt_throttle_brake.stale;
-    rtU_tv->F_raw[3] = !can_data.LWS_Standard.stale;
-    rtU_tv->F_raw[4] = !can_data.rear_wheel_speeds.stale;
-    rtU_tv->F_raw[5] = !can_data.orion_currents_volts.stale;
-    rtU_tv->F_raw[6] = can_data.LWS_Standard.Ok;
-    rtU_tv->F_raw[7] = GPS->gyro_OK;
-    rtU_tv->F_raw[8] = GPS->fix_type == 3;
-    rtU_tv->F_raw[9] = 1.0;
-    rtU_tv->F_raw[10] = 1.0;
-    rtU_tv->F_raw[11] = 1.0;
+    rtU_tv->F_raw[0] = true;
+    rtU_tv->F_raw[1] = (can_data.main_hb.stale == 0);
+    rtU_tv->F_raw[2] = (can_data.filt_throttle_brake.stale == 0);
+    rtU_tv->F_raw[3] = (can_data.LWS_Standard.stale == 0);
+    rtU_tv->F_raw[4] = (can_data.rear_wheel_speeds.stale == 0);
+    rtU_tv->F_raw[5] = (can_data.orion_currents_volts.stale == 0);
+    rtU_tv->F_raw[6] = (can_data.LWS_Standard.Ok == 1);
+    rtU_tv->F_raw[7] = (GPS->gyro_OK == 1);
+    rtU_tv->F_raw[8] = (GPS->fix_type == 3);
+    rtU_tv->F_raw[9] = true;
+    rtU_tv->F_raw[10] = true;
+    rtU_tv->F_raw[11] = true;
 
     /* Raw Data */
     rtU_tv->D_raw[0] = (can_data.filt_throttle_brake.throttle/4095.0); /* Incoming is a scalar in the range [0 4095] */
@@ -25,7 +25,7 @@ void tv_pp(ExtU_tv *rtU_tv, GPS_Handle_t *GPS)
     rtU_tv->D_raw[2] = (can_data.orion_currents_volts.pack_voltage*0.1); /* Incoming is V of terminal*/
     rtU_tv->D_raw[3] = (can_data.rear_wheel_speeds.left_speed_sensor*0.01*8.75); /* Incoming is rad/s of tire */
     rtU_tv->D_raw[4] = (can_data.rear_wheel_speeds.right_speed_sensor*0.01*8.75); /* Incoming is rad/s of tire */
-    rtU_tv->D_raw[5] = (GPS->n_vel*0.001); /* Incoming data is mm/s, uint16_t */
+    rtU_tv->D_raw[5] = (GPS->n_vel*0.001); /* Incoming data is mm/s */
     rtU_tv->D_raw[6] = (GPS->e_vel*0.001); /* Incoming data is mm/s */
     rtU_tv->D_raw[7] = (GPS->d_vel*0.001); /* Incoming data is mm/s */
     rtU_tv->D_raw[8] = (GPS->gyroscope.x);  /* Incoming data is rad/s */
@@ -46,7 +46,7 @@ void tv_pp(ExtU_tv *rtU_tv, GPS_Handle_t *GPS)
         rtU_tv->dphi = can_data.dashboard_tv_parameters.tv_deadband_val;
         rtU_tv->TVS_P = can_data.dashboard_tv_parameters.tv_p_val;
         rtU_tv->TVS_I = can_data.dashboard_tv_parameters.tv_intensity_val;
-        rtU_tv->F_raw[12] = can_data.dashboard_tv_parameters.tv_enabled;
+        rtU_tv->F_raw[12] = (can_data.dashboard_tv_parameters.tv_enabled == 1);
     }
 }
 

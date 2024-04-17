@@ -573,7 +573,8 @@
                             "signals":[
                                 {"sig_name": "vcu_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
                                 {"sig_name": "vcu_k_rr", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "vcu_r_max", "type": "int16_t", "unit": "none", "scale": 1}
+                                {"sig_name": "equal_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
+                                {"sig_name": "equal_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 3,

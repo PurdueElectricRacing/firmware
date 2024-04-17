@@ -89,7 +89,7 @@ typedef union {
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_THROTTLE_VCU 6
+#define DLC_THROTTLE_VCU 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -448,7 +448,8 @@ typedef union {
     struct {
         uint64_t vcu_k_rl: 16;
         uint64_t vcu_k_rr: 16;
-        uint64_t vcu_r_max: 16;
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
     } throttle_vcu;
     struct {
         uint64_t idx: 16;
@@ -535,7 +536,8 @@ typedef struct {
     struct {
         int16_t vcu_k_rl;
         int16_t vcu_k_rr;
-        int16_t vcu_r_max;
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
         uint8_t stale;
         uint32_t last_rx;
     } throttle_vcu;

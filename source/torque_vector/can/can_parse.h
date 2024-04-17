@@ -66,7 +66,7 @@
 #define DLC_SFS_VEL 6
 #define DLC_SFS_ACC 6
 #define DLC_SFS_ANG_VEL 6
-#define DLC_THROTTLE_VCU 6
+#define DLC_THROTTLE_VCU 8
 #define DLC_MAXR 2
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
@@ -170,12 +170,13 @@
         data_a->sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_, vcu_r_max_) do {\
+#define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_, equal_k_rl_, equal_k_rr_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU, .DLC=DLC_THROTTLE_VCU, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->throttle_vcu.vcu_k_rl = vcu_k_rl_;\
         data_a->throttle_vcu.vcu_k_rr = vcu_k_rr_;\
-        data_a->throttle_vcu.vcu_r_max = vcu_r_max_;\
+        data_a->throttle_vcu.equal_k_rl = equal_k_rl_;\
+        data_a->throttle_vcu.equal_k_rr = equal_k_rr_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_MAXR(vcu_max_r_) do {\
@@ -289,7 +290,8 @@ typedef union {
     struct {
         uint64_t vcu_k_rl: 16;
         uint64_t vcu_k_rr: 16;
-        uint64_t vcu_r_max: 16;
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
     } throttle_vcu;
     struct {
         uint64_t vcu_max_r: 16;

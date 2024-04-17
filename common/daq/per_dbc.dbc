@@ -302,8 +302,9 @@ BO_ 2348902967 sfs_ang_vel: 6 torque_vector
  SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
-BO_ 2348819895 throttle_vcu: 6 torque_vector
- SG_ vcu_r_max : 32|16@1- (1,0) [0|0] "none" Vector__XXX
+BO_ 2348819895 throttle_vcu: 8 torque_vector
+ SG_ equal_k_rr : 48|16@1- (1,0) [0|0] "none" Vector__XXX
+ SG_ equal_k_rl : 32|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ vcu_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ vcu_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
 
@@ -861,7 +862,8 @@ CM_ SG_ 2348902967 sfs_ang_vel_z "";
 CM_ SG_ 2348902967 sfs_ang_vel_y "";
 CM_ SG_ 2348902967 sfs_ang_vel_x "";
 CM_ BO_ 2348819895 "throttle vcu";
-CM_ SG_ 2348819895 vcu_r_max "";
+CM_ SG_ 2348819895 equal_k_rr "";
+CM_ SG_ 2348819895 equal_k_rl "";
 CM_ SG_ 2348819895 vcu_k_rr "";
 CM_ SG_ 2348819895 vcu_k_rl "";
 CM_ BO_ 2348820023 "Maximum Allowed Throttle";

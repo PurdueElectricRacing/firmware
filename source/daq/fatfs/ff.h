@@ -297,6 +297,8 @@ typedef enum {
 
 
 
+FRESULT scan_files(char* path, char* buf, int * buf_len);
+int get_filesize(char* path, char *filename);
 /*--------------------------------------------------------------*/
 /* FatFs Module Application Interface                           */
 /*--------------------------------------------------------------*/

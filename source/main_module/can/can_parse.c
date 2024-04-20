@@ -82,8 +82,6 @@ void canRxUpdate(void)
             case ID_THROTTLE_VCU:
                 can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
                 can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
-                can_data.throttle_vcu.equal_k_rl = (int16_t) msg_data_a->throttle_vcu.equal_k_rl;
-                can_data.throttle_vcu.equal_k_rr = (int16_t) msg_data_a->throttle_vcu.equal_k_rr;
                 can_data.throttle_vcu.stale = 0;
                 can_data.throttle_vcu.last_rx = sched.os_ticks;
                 break;

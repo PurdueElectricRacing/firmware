@@ -412,15 +412,18 @@ void VCU_MAIN(void)
     setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
     setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
     setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
+    setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
+    setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);
+    setFault(ID_YES_GPS_FIX_FAULT,rtU_tv.F_raw[8]);
 
     /* Get motor commands */
     tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);
     tvs_k_rr = (int16_t)(rtY_em.kTVS[1]*4095);
     equal_k_rl = (int16_t)(rtY_em.kEQUAL[0]*4095);
-    equal_k_rr = (int16_t)(rtY_em.kEQUAL[0]*4095);
+    equal_k_rr = (int16_t)(rtY_em.kEQUAL[1]*4095);
 
     /* Send messages */
-    SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr,equal_k_rl,equal_k_rr);
+    SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr);
     SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
 
     SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));

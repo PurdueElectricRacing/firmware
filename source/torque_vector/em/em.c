@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'em'.
  *
- * Model version                  : 1.40
+ * Model version                  : 1.41
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 09:58:48 2024
+ * C/C++ source code generated on : Sat Apr 20 17:57:48 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -129,45 +129,28 @@ static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
 void em_step(RT_MODEL_em *const rtM_em, ExtU_em *rtU_em, ExtY_em *rtY_em)
 {
   real_T fractions[2];
-  real_T fractions_0[2];
   real_T bpIndices_tmp;
-  real_T dk_idx_0;
-  real_T dk_idx_1;
-  real_T k_min_idx_0;
-  real_T k_min_idx_1;
+  real_T k_max_idx_0;
+  real_T k_max_idx_1;
   uint32_T bpIndices[2];
-  uint32_T bpIndices_0[2];
-  dk_idx_0 = rtP_em.V[1] - rtP_em.V[0];
-  bpIndices[1U] = plook_evenca(rtU_em->V, rtP_em.V[0], dk_idx_0, 25U, &dk_idx_1);
-  fractions[1U] = dk_idx_1;
+  bpIndices[1U] = plook_evenca(rtU_em->V, rtP_em.V[0], rtP_em.V[1] - rtP_em.V[0],
+    25U, &k_max_idx_1);
+  fractions[1U] = k_max_idx_1;
   bpIndices_tmp = rtP_em.w[1] - rtP_em.w[0];
   bpIndices[0U] = plook_evenca(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp, 106U,
-    &dk_idx_1);
-  fractions[0U] = dk_idx_1;
-  k_min_idx_0 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_min_tableData,
-    107U, rtConstP_em.pooled1);
+    &k_max_idx_1);
+  fractions[0U] = k_max_idx_1;
+  k_max_idx_0 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_max_tableData,
+    107U, rtConstP_em.k_max_maxIndex);
   bpIndices[0U] = plook_evenca(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp, 106U,
-    &dk_idx_1);
-  fractions[0U] = dk_idx_1;
-  k_min_idx_1 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_min_tableData,
-    107U, rtConstP_em.pooled1);
-  bpIndices_0[1U] = plook_evenca(rtU_em->V, rtP_em.V[0], dk_idx_0, 25U,
-    &dk_idx_1);
-  fractions_0[1U] = dk_idx_1;
-  bpIndices_0[0U] = plook_evenca(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp, 106U,
-    &dk_idx_1);
-  fractions_0[0U] = dk_idx_1;
-  dk_idx_0 = intrp2d_la(bpIndices_0, fractions_0, rtConstP_em.dk_tableData, 107U,
-                        rtConstP_em.pooled1);
-  bpIndices_0[0U] = plook_evenca(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp, 106U,
-    &dk_idx_1);
-  fractions_0[0U] = dk_idx_1;
-  dk_idx_1 = intrp2d_la(bpIndices_0, fractions_0, rtConstP_em.dk_tableData, 107U,
-                        rtConstP_em.pooled1);
-  rtY_em->kTVS[0] = dk_idx_0 * rtU_em->rTVS[0] + k_min_idx_0;
-  rtY_em->kTVS[1] = dk_idx_1 * rtU_em->rTVS[1] + k_min_idx_1;
-  rtY_em->kEQUAL[0] = dk_idx_0 * rtU_em->rEQUAL[0] + k_min_idx_0;
-  rtY_em->kEQUAL[1] = dk_idx_1 * rtU_em->rEQUAL[1] + k_min_idx_1;
+    &k_max_idx_1);
+  fractions[0U] = k_max_idx_1;
+  k_max_idx_1 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_max_tableData,
+    107U, rtConstP_em.k_max_maxIndex);
+  rtY_em->kTVS[0] = k_max_idx_0 * rtU_em->rTVS[0];
+  rtY_em->kTVS[1] = k_max_idx_1 * rtU_em->rTVS[1];
+  rtY_em->kEQUAL[0] = k_max_idx_0 * rtU_em->rEQUAL[0];
+  rtY_em->kEQUAL[1] = k_max_idx_1 * rtU_em->rEQUAL[1];
   UNUSED_PARAMETER(rtM_em);
 }
 

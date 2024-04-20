@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'em'.
  *
- * Model version                  : 1.40
+ * Model version                  : 1.41
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 09:58:48 2024
+ * C/C++ source code generated on : Sat Apr 20 17:57:48 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -30,22 +30,15 @@
 
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Expression: minK
-   * Referenced by: '<S1>/k_min'
+  /* Expression: maxK
+   * Referenced by: '<S1>/k_max'
    */
-  real_T k_min_tableData[2782];
+  real_T k_max_tableData[2782];
 
-  /* Expression: dK
-   * Referenced by: '<S1>/dk'
+  /* Computed Parameter: k_max_maxIndex
+   * Referenced by: '<S1>/k_max'
    */
-  real_T dk_tableData[2782];
-
-  /* Pooled Parameter (Expression: )
-   * Referenced by:
-   *   '<S1>/dk'
-   *   '<S1>/k_min'
-   */
-  uint32_T pooled1[2];
+  uint32_T k_max_maxIndex[2];
 } ConstP_em;
 
 /* External inputs (root inport signals with default storage) */
@@ -65,14 +58,10 @@ typedef struct {
 /* Parameters (default storage) */
 struct P_em_ {
   real_T V[26];                        /* Variable: V
-                                        * Referenced by:
-                                        *   '<S1>/dk'
-                                        *   '<S1>/k_min'
+                                        * Referenced by: '<S1>/k_max'
                                         */
   real_T w[107];                       /* Variable: w
-                                        * Referenced by:
-                                        *   '<S1>/dk'
-                                        *   '<S1>/k_min'
+                                        * Referenced by: '<S1>/k_max'
                                         */
 };
 

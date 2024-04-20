@@ -32,7 +32,8 @@
 #define ID_SFS_VEL 0xc016977
 #define ID_SFS_ACC 0xc0169b7
 #define ID_SFS_ANG_VEL 0xc016a37
-#define ID_THROTTLE_VCU 0xc0025b7
+#define ID_THROTTLE_VCU 0x40025b7
+#define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_MAXR 0xc002637
 #define ID_TV_CAN_STATS 0x10016337
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
@@ -66,7 +67,8 @@
 #define DLC_SFS_VEL 6
 #define DLC_SFS_ACC 6
 #define DLC_SFS_ANG_VEL 6
-#define DLC_THROTTLE_VCU 8
+#define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_MAXR 2
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
@@ -170,13 +172,18 @@
         data_a->sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_, equal_k_rl_, equal_k_rr_) do {\
+#define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU, .DLC=DLC_THROTTLE_VCU, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->throttle_vcu.vcu_k_rl = vcu_k_rl_;\
         data_a->throttle_vcu.vcu_k_rr = vcu_k_rr_;\
-        data_a->throttle_vcu.equal_k_rl = equal_k_rl_;\
-        data_a->throttle_vcu.equal_k_rr = equal_k_rr_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_THROTTLE_VCU_EQUAL(equal_k_rl_, equal_k_rr_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU_EQUAL, .DLC=DLC_THROTTLE_VCU_EQUAL, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->throttle_vcu_equal.equal_k_rl = equal_k_rl_;\
+        data_a->throttle_vcu_equal.equal_k_rr = equal_k_rr_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_MAXR(vcu_max_r_) do {\
@@ -290,9 +297,11 @@ typedef union {
     struct {
         uint64_t vcu_k_rl: 16;
         uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
+    struct {
         uint64_t equal_k_rl: 16;
         uint64_t equal_k_rr: 16;
-    } throttle_vcu;
+    } throttle_vcu_equal;
     struct {
         uint64_t vcu_max_r: 16;
     } maxR;

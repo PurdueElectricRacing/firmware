@@ -572,13 +572,22 @@
                             "msg_desc": "throttle vcu",
                             "signals":[
                                 {"sig_name": "vcu_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "vcu_k_rr", "type": "int16_t", "unit": "none", "scale": 1},
+                                {"sig_name": "vcu_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
+                            ],
+                            "msg_period": 20,
+                            "msg_hlp": 1,
+                            "msg_pgn": 150
+                        },
+                        {
+                            "msg_name": "throttle_vcu_equal",
+                            "msg_desc": "throttle vcu_equal",
+                            "signals":[
                                 {"sig_name": "equal_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
                                 {"sig_name": "equal_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
                             "msg_period": 20,
-                            "msg_hlp": 3,
-                            "msg_pgn": 150
+                            "msg_hlp": 1,
+                            "msg_pgn": 160
                         },
                         {
                             "msg_name": "maxR",

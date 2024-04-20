@@ -259,12 +259,18 @@ BO_ 2348810935 gps_velocity: 6 torque_vector
  SG_ gps_vel_e : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ gps_vel_n : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
 
+BO_ 2348814647 gps_speed: 2 torque_vector
+ SG_ gps_speed : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
 BO_ 2348819255 gps_position: 2 torque_vector
  SG_ height : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
 
 BO_ 2348819319 gps_coordinates: 8 torque_vector
  SG_ longitude : 32|32@1- (1,0) [0|0] "deg" Vector__XXX
  SG_ latitude : 0|32@1- (1,0) [0|0] "deg" Vector__XXX
+
+BO_ 2348820087 vehHead: 2 torque_vector
+ SG_ vehHead : 0|16@1- (0.1,0) [0|0] "none" Vector__XXX
 
 BO_ 2348810999 imu_gyro: 6 torque_vector
  SG_ imu_gyro_z : 32|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
@@ -281,11 +287,6 @@ BO_ 2348819447 bmm_mag: 6 torque_vector
  SG_ bmm_mag_y : 16|16@1- (1,0) [0|0] "uT" Vector__XXX
  SG_ bmm_mag_x : 0|16@1- (1,0) [0|0] "uT" Vector__XXX
 
-BO_ 2348902711 sfs_pos: 6 torque_vector
- SG_ sfs_pos_z : 32|16@1- (0.01,0) [0|0] "m" Vector__XXX
- SG_ sfs_pos_y : 16|16@1- (0.01,0) [0|0] "m" Vector__XXX
- SG_ sfs_pos_x : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
-
 BO_ 2348902775 sfs_vel: 6 torque_vector
  SG_ sfs_vel_z : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
  SG_ sfs_vel_y : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
@@ -296,27 +297,19 @@ BO_ 2348902839 sfs_acc: 6 torque_vector
  SG_ sfs_acc_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
  SG_ sfs_acc_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
 
-BO_ 2348902903 sfs_ang: 8 torque_vector
- SG_ sfs_ang_d : 48|16@1- (0.0001,0) [0|0] "" Vector__XXX
- SG_ sfs_ang_c : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
- SG_ sfs_ang_b : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
- SG_ sfs_ang_a : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
-
 BO_ 2348902967 sfs_ang_vel: 6 torque_vector
  SG_ sfs_ang_vel_z : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
  SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
 
-BO_ 2348819895 throttle_vcu: 6 torque_vector
- SG_ vcu_r_max : 32|16@1- (1,0) [0|0] "none" Vector__XXX
+BO_ 2348819895 throttle_vcu: 8 torque_vector
+ SG_ equal_k_rr : 48|16@1- (1,0) [0|0] "none" Vector__XXX
+ SG_ equal_k_rl : 32|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ vcu_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ vcu_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
 
 BO_ 2348820023 maxR: 2 torque_vector
  SG_ vcu_max_r : 0|16@1- (1,0) [0|0] "none" Vector__XXX
-
-BO_ 2348820087 vehHead: 2 torque_vector
- SG_ vehHead : 0|16@1- (0.1,0) [0|0] "none" Vector__XXX
 
 BO_ 2416010039 tv_can_stats: 4 torque_vector
  SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -835,11 +828,15 @@ CM_ BO_ 2348810935 "gps velocity";
 CM_ SG_ 2348810935 gps_vel_d "";
 CM_ SG_ 2348810935 gps_vel_e "";
 CM_ SG_ 2348810935 gps_vel_n "";
+CM_ BO_ 2348814647 "gps speed";
+CM_ SG_ 2348814647 gps_speed "";
 CM_ BO_ 2348819255 "gps position";
 CM_ SG_ 2348819255 height "";
 CM_ BO_ 2348819319 "gps coordinates";
 CM_ SG_ 2348819319 longitude "";
 CM_ SG_ 2348819319 latitude "";
+CM_ BO_ 2348820087 "Vehicle Heading";
+CM_ SG_ 2348820087 vehHead "";
 CM_ BO_ 2348810999 "gyroscope from imu";
 CM_ SG_ 2348810999 imu_gyro_z "";
 CM_ SG_ 2348810999 imu_gyro_y "";
@@ -852,10 +849,6 @@ CM_ BO_ 2348819447 "magnetic from bmm";
 CM_ SG_ 2348819447 bmm_mag_z "";
 CM_ SG_ 2348819447 bmm_mag_y "";
 CM_ SG_ 2348819447 bmm_mag_x "";
-CM_ BO_ 2348902711 "position from sfs";
-CM_ SG_ 2348902711 sfs_pos_z "";
-CM_ SG_ 2348902711 sfs_pos_y "";
-CM_ SG_ 2348902711 sfs_pos_x "";
 CM_ BO_ 2348902775 "velocity from sfs";
 CM_ SG_ 2348902775 sfs_vel_z "";
 CM_ SG_ 2348902775 sfs_vel_y "";
@@ -864,23 +857,17 @@ CM_ BO_ 2348902839 "acceleration from sfs";
 CM_ SG_ 2348902839 sfs_acc_z "";
 CM_ SG_ 2348902839 sfs_acc_y "";
 CM_ SG_ 2348902839 sfs_acc_x "";
-CM_ BO_ 2348902903 "orientation from sfs";
-CM_ SG_ 2348902903 sfs_ang_d "";
-CM_ SG_ 2348902903 sfs_ang_c "";
-CM_ SG_ 2348902903 sfs_ang_b "";
-CM_ SG_ 2348902903 sfs_ang_a "";
 CM_ BO_ 2348902967 "orientation vel from sfs";
 CM_ SG_ 2348902967 sfs_ang_vel_z "";
 CM_ SG_ 2348902967 sfs_ang_vel_y "";
 CM_ SG_ 2348902967 sfs_ang_vel_x "";
 CM_ BO_ 2348819895 "throttle vcu";
-CM_ SG_ 2348819895 vcu_r_max "";
+CM_ SG_ 2348819895 equal_k_rr "";
+CM_ SG_ 2348819895 equal_k_rl "";
 CM_ SG_ 2348819895 vcu_k_rr "";
 CM_ SG_ 2348819895 vcu_k_rl "";
 CM_ BO_ 2348820023 "Maximum Allowed Throttle";
 CM_ SG_ 2348820023 vcu_max_r "";
-CM_ BO_ 2348820087 "Vehicle Heading";
-CM_ SG_ 2348820087 vehHead "";
 CM_ BO_ 2416010039 "CAN diagnostics";
 CM_ SG_ 2416010039 can_rx_overrun "CAN Rx FIFO overrun count";
 CM_ SG_ 2416010039 can_rx_overflow "CAN Rx queue overflow count";

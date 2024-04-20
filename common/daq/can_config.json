@@ -463,6 +463,15 @@
                             "msg_hlp":3,
                             "msg_pgn":10
                         },
+                        {   "msg_name":"gps_speed",
+                            "msg_desc":"gps speed",
+                            "signals":[
+                                {"sig_name":"gps_speed","type":"int16_t","unit": "m/s", "scale": 0.01}
+                            ],
+                            "msg_period":40,
+                            "msg_hlp":3,
+                            "msg_pgn":68
+                        },
                         {   "msg_name":"gps_position",
                             "msg_desc":"gps position",
                             "signals":[
@@ -482,6 +491,16 @@
                             "msg_hlp":3,
                             "msg_pgn":141
                         },
+                        {
+                            "msg_name": "vehHead",
+                            "msg_desc": "Vehicle Heading",
+                            "signals":[
+                                {"sig_name": "vehHead", "type": "int16_t", "unit": "none", "scale": 0.1}
+                            ],
+                            "msg_period": 40,
+                            "msg_hlp": 3,
+                            "msg_pgn": 153
+                        },
                         {   "msg_name":"imu_gyro",
                             "msg_desc":"gyroscope from imu",
                             "signals":[
@@ -489,7 +508,7 @@
                                 {"sig_name":"imu_gyro_y","type":"int16_t", "scale": 0.01,"unit": "rad/s"},
                                 {"sig_name":"imu_gyro_z","type":"int16_t", "scale": 0.01,"unit": "rad/s"}
                             ],
-                            "msg_period":40,
+                            "msg_period":20,
                             "msg_hlp":3,
                             "msg_pgn":11
                         },
@@ -500,7 +519,7 @@
                                 {"sig_name":"imu_accel_y","type":"int16_t", "scale": 0.01,"unit": "m/s^2"},
                                 {"sig_name":"imu_accel_z","type":"int16_t", "scale": 0.01,"unit": "m/s^2"}
                             ],
-                            "msg_period":40,
+                            "msg_period":20,
                             "msg_hlp":3,
                             "msg_pgn":142
                         },
@@ -511,20 +530,9 @@
                                 {"sig_name":"bmm_mag_y","type":"int16_t","unit": "uT"},
                                 {"sig_name":"bmm_mag_z","type":"int16_t","unit": "uT"}
                             ],
-                            "msg_period":40,
+                            "msg_period":20,
                             "msg_hlp":3,
                             "msg_pgn":143
-                        },
-                        {   "msg_name":"sfs_pos",
-                            "msg_desc":"position from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_pos_x","type":"int16_t","unit": "m","scale": 0.01},
-                                {"sig_name":"sfs_pos_y","type":"int16_t","unit": "m","scale": 0.01},
-                                {"sig_name":"sfs_pos_z","type":"int16_t","unit": "m","scale": 0.01}
-                            ],
-                            "msg_period":40,
-                            "msg_hlp":3,
-                            "msg_pgn":1444
                         },
                         {   "msg_name":"sfs_vel",
                             "msg_desc":"velocity from sfs",
@@ -533,7 +541,7 @@
                                 {"sig_name":"sfs_vel_y","type":"int16_t","unit": "m/s","scale": 0.01},
                                 {"sig_name":"sfs_vel_z","type":"int16_t","unit": "m/s","scale": 0.01}
                             ],
-                            "msg_period":40,
+                            "msg_period":20,
                             "msg_hlp":3,
                             "msg_pgn":1445
                         },
@@ -544,21 +552,9 @@
                                 {"sig_name":"sfs_acc_y","type":"int16_t","unit": "m/s^2","scale": 0.01},
                                 {"sig_name":"sfs_acc_z","type":"int16_t","unit": "m/s^2","scale": 0.01}
                             ],
-                            "msg_period":40,
+                            "msg_period":20,
                             "msg_hlp":3,
                             "msg_pgn":1446
-                        },
-                         {   "msg_name":"sfs_ang",
-                            "msg_desc":"orientation from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_ang_a","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_b","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_c","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_d","type":"int16_t","scale": 0.0001}
-                            ],
-                            "msg_period":40,
-                            "msg_hlp":3,
-                            "msg_pgn":1447
                         },
                         {   "msg_name":"sfs_ang_vel",
                             "msg_desc":"orientation vel from sfs",
@@ -567,7 +563,7 @@
                                 {"sig_name":"sfs_ang_vel_y","type":"int16_t","scale": 0.0001},
                                 {"sig_name":"sfs_ang_vel_z","type":"int16_t","scale": 0.0001}
                             ],
-                            "msg_period":40,
+                            "msg_period":20,
                             "msg_hlp":3,
                             "msg_pgn":1448
                         },
@@ -577,9 +573,10 @@
                             "signals":[
                                 {"sig_name": "vcu_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
                                 {"sig_name": "vcu_k_rr", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "vcu_r_max", "type": "int16_t", "unit": "none", "scale": 1}
+                                {"sig_name": "equal_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
+                                {"sig_name": "equal_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
-                            "msg_period": 15,
+                            "msg_period": 20,
                             "msg_hlp": 3,
                             "msg_pgn": 150
                         },
@@ -589,19 +586,9 @@
                             "signals":[
                                 {"sig_name": "vcu_max_r", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
-                            "msg_period": 15,
+                            "msg_period": 20,
                             "msg_hlp": 3,
                             "msg_pgn": 152
-                        },
-                        {
-                            "msg_name": "vehHead",
-                            "msg_desc": "Vehicle Heading",
-                            "signals":[
-                                {"sig_name": "vehHead", "type": "int16_t", "unit": "none", "scale": 0.1}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 3,
-                            "msg_pgn": 153
                         },
                         {
                             "msg_name": "tv_can_stats",
@@ -625,8 +612,7 @@
                         {"msg_name": "dashboard_tv_parameters"},
                         {"msg_name": "main_hb"},
                         {"msg_name": "rear_wheel_speeds"},
-                        {"msg_name": "rear_motor_temps"},
-                        {"msg_name": "rear_motor_currents_volts"}
+                        {"msg_name": "rear_motor_temps"}
                     ]
                 },
                 {

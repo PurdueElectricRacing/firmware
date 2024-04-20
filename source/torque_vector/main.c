@@ -148,10 +148,11 @@ IMU_Handle_t imu_h = {
 void heartBeatLED(void);
 void preflightAnimation(void);
 void preflightChecks(void);
-void sendIMUData(void);
-void collectIMUData(void);
-void VCU_MAIN(void);
 extern void HardFault_Handler(void);
+
+void parseIMU(void);
+void pollIMU(void);
+void VCU_MAIN(void);
 
 /* Torque Vectoring Definitions */
 static ExtU_tv rtU_tv; /* External inputs */
@@ -167,18 +168,17 @@ static ExtU_em rtU_em; /* External inputs */
 static ExtY_em rtY_em; /* External outputs */
 static RT_MODEL_em rtM_emv;
 static RT_MODEL_em *const rtMPtr_em = &rtM_emv; /* Real-time model */
-static DW_em rtDW_em;                           /* Observable states */
+// static DW_em rtDW_em;                        /* Observable states */
 static RT_MODEL_em *const rtM_em = rtMPtr_em;
 static int16_t em_timing;
 
 /* Moving Median Definition */
 static vec_accumulator vec_mm; /* Vector of Accumulation */
-static int16_T ac_counter; /* Number of data points collected */
-static bool TV_Calibrated = true; /* Flag Indicating if TV is calibrated */
-static int16_T gyro_counter = 0; /* Number of steps that gyro has not been checked */
+static int16_t ac_counter = 0; /* Number of data points collected */
+static bool TV_Calibrated = false; /* Flag Indicating if TV is calibrated */
+static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 int main(void)
-
 {
     /* Data Struct Initialization */
 
@@ -205,9 +205,9 @@ int main(void)
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
 
-    taskCreate(sendIMUData, 10);
-    taskCreate(collectIMUData, 10);
-    taskCreate(VCU_MAIN,15);
+    taskCreate(parseIMU, 20);
+    taskCreate(pollIMU, 20);
+    taskCreate(VCU_MAIN, 15);
 
     /* No Way Home */
     schedStart();
@@ -279,7 +279,7 @@ void preflightChecks(void)
         tv_IO_initialize(&rtU_tv);
 
         /* Pack Engine map data into rtM_em */
-        rtM_em->dwork = &rtDW_em;
+        // rtM_em->dwork = &rtDW_em;
 
         /* Initialize Engine Map */
         em_initialize(rtM_em);
@@ -336,12 +336,12 @@ void heartBeatLED(void)
     trig = !trig;
 }
 
-void sendIMUData(void)
+void pollIMU(void)
 {
     imu_periodic(&imu_h);
 }
 
-void collectIMUData(void)
+void parseIMU(void)
 {
     GPSHandle.messages_received++;
     BMI088_readGyro(&bmi_config, &gyro_in);
@@ -371,59 +371,60 @@ void CAN1_RX0_IRQHandler()
 
 void VCU_MAIN(void)
 {
-    /* Check if not driving */
-    /* If Energized -> Accumulate Acceleration Vector */
-    /* If R2D -> Do TV */
-    /* Else -> Do Nothing */
-    if (((can_data.main_hb.car_state == 1) | (can_data.main_hb.car_state == 2)) & (ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
-        /* Accumulate Acceleration Vector */
+    /* Initialize Throttles */
+    int16_t tvs_k_rl = 0;
+    int16_t tvs_k_rr = 0;
+    int16_t equal_k_rl = 0;
+    int16_t equal_k_rr = 0;
+
+    /* If precharging -> Accumulate acceleration vector */
+    if (/*(can_data.main_hb.car_state == 1) & */(ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
+        /* Accumulate acceleration vector */
         vec_mm.ax[ac_counter] = GPSHandle.acceleration.x;
         vec_mm.ay[ac_counter] = GPSHandle.acceleration.y;
         vec_mm.az[ac_counter] = GPSHandle.acceleration.z;
         ++ac_counter;
 
-        /* If length Acceleration Vector > ##, Compute R */
+        /* If length of acceleration vector == ##, compute R */
         if (ac_counter == NUM_ELEM_ACC_CALIBRATION) {
             ac_compute_R(vec_mm.ax, vec_mm.ay, vec_mm.az, rtU_tv.R);
+            TV_Calibrated = true;
         }
-
-    } else if ((can_data.main_hb.car_state == 4)) {
-        TV_Calibrated = (ac_counter == NUM_ELEM_ACC_CALIBRATION);
-        /* Populate torque vectoring inputs */
-        tv_pp(&rtU_tv, &GPSHandle);
-
-        /* Step torque vectoring */
-        tv_timing = sched.os_ticks;
-        tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
-        tv_timing = sched.os_ticks - tv_timing;
-
-        /* Populate Engine map inputs */
-        em_pp(&rtU_em, &rtY_tv);
-
-        /* Step Engine map */
-        em_timing = sched.os_ticks;
-        em_step(rtMPtr_em, &rtU_em, &rtY_em);
-        em_timing = sched.os_ticks - em_timing;
     }
 
-    /* Set Faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_em.TVS_PERMIT);
+    /* Populate torque vectoring inputs */
+    tv_pp(&rtU_tv, &GPSHandle);
+
+    /* Step torque vectoring */
+    tv_timing = sched.os_ticks;
+    tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
+    tv_timing = sched.os_ticks - tv_timing;
+
+    /* Populate engine map inputs */
+    em_pp(&rtU_em, &rtY_tv);
+
+    /* Step engine map */
+    em_timing = sched.os_ticks;
+    em_step(rtMPtr_em, &rtU_em, &rtY_em);
+    em_timing = sched.os_ticks - em_timing;
+
+    /* Set TV faults */
+    setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
     setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
     setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
-    /* Send Messages */
-    SEND_THROTTLE_VCU((int16_t)(rtY_em.k[0]*4095),(int16_t)(rtY_em.k[1]*4095),MAX((int16_t)(rtY_tv.rTVS[0]*4095),(int16_t)(rtY_tv.rTVS[1])));
+    /* Get motor commands */
+    tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);
+    tvs_k_rr = (int16_t)(rtY_em.kTVS[1]*4095);
+    equal_k_rl = (int16_t)(rtY_em.kEQUAL[0]*4095);
+    equal_k_rr = (int16_t)(rtY_em.kEQUAL[0]*4095);
+
+    /* Send messages */
+    SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr,equal_k_rl,equal_k_rr);
     SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
 
     SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
     SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
-
-    //SEND_SFS_POS(q_tx_can, (int16_t)(rtY.pos_VNED[0] * 100),
-    //             (int16_t)(rtY.pos_VNED[1] * 100), (int16_t)(rtY.pos_VNED[2] * 100));
-    //SEND_SFS_VEL(q_tx_can, (int16_t)(rtY.vel_VNED[0] * 100),
-    //             (int16_t)(rtY.vel_VNED[1] * 100), (int16_t)(rtY.vel_VNED[2] * 100));
-    //SEND_SFS_ANG(q_tx_can, (int16_t)(rtY.ang_NED[0] * 10000),
-    //             (int16_t)(rtY.ang_NED[1] * 10000), (int16_t)(rtY.ang_NED[2] * 10000), (int16_t)(rtY.ang_NED[3] * 10000));
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

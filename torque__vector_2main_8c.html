@@ -116,14 +116,14 @@ Functions</h2></td></tr>
 <tr class="separator:a7f13e659440b6211dd711b5bae3dd575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60cfcf15038028a030b9adb3f61b0ad1" id="r_a60cfcf15038028a030b9adb3f61b0ad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60cfcf15038028a030b9adb3f61b0ad1">preflightChecks</a> (void)</td></tr>
 <tr class="separator:a60cfcf15038028a030b9adb3f61b0ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1ec70de348b861c19bda5e4f56c368c" id="r_ab1ec70de348b861c19bda5e4f56c368c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1ec70de348b861c19bda5e4f56c368c">sendIMUData</a> (void)</td></tr>
-<tr class="separator:ab1ec70de348b861c19bda5e4f56c368c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80944b8f88ad21f1a88e54b898b10ec5" id="r_a80944b8f88ad21f1a88e54b898b10ec5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80944b8f88ad21f1a88e54b898b10ec5">collectIMUData</a> (void)</td></tr>
-<tr class="separator:a80944b8f88ad21f1a88e54b898b10ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a598f0a8a448de4670e8a6dad0a92abd4" id="r_a598f0a8a448de4670e8a6dad0a92abd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a598f0a8a448de4670e8a6dad0a92abd4">VCU_MAIN</a> (void)</td></tr>
-<tr class="separator:a598f0a8a448de4670e8a6dad0a92abd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bffc10d5bd4106753b7c30e86903bea">HardFault_Handler</a> (void)</td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47356497cdad36a2cebea5588f2f67ac" id="r_a47356497cdad36a2cebea5588f2f67ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47356497cdad36a2cebea5588f2f67ac">parseIMU</a> (void)</td></tr>
+<tr class="separator:a47356497cdad36a2cebea5588f2f67ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbfcd19d30c0e37a1818c67b711d2aad" id="r_abbfcd19d30c0e37a1818c67b711d2aad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbfcd19d30c0e37a1818c67b711d2aad">pollIMU</a> (void)</td></tr>
+<tr class="separator:abbfcd19d30c0e37a1818c67b711d2aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598f0a8a448de4670e8a6dad0a92abd4" id="r_a598f0a8a448de4670e8a6dad0a92abd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a598f0a8a448de4670e8a6dad0a92abd4">VCU_MAIN</a> (void)</td></tr>
+<tr class="separator:a598f0a8a448de4670e8a6dad0a92abd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61341976b0cee71be1b6cf3bc17db4de" id="r_a61341976b0cee71be1b6cf3bc17db4de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61341976b0cee71be1b6cf3bc17db4de">usart_recieve_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
@@ -208,23 +208,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a80944b8f88ad21f1a88e54b898b10ec5" name="a80944b8f88ad21f1a88e54b898b10ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80944b8f88ad21f1a88e54b898b10ec5">&#9670;&#160;</a></span>collectIMUData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void collectIMUData </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2bffc10d5bd4106753b7c30e86903bea">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -284,6 +267,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a47356497cdad36a2cebea5588f2f67ac" name="a47356497cdad36a2cebea5588f2f67ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47356497cdad36a2cebea5588f2f67ac">&#9670;&#160;</a></span>parseIMU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parseIMU </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abbfcd19d30c0e37a1818c67b711d2aad" name="abbfcd19d30c0e37a1818c67b711d2aad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbfcd19d30c0e37a1818c67b711d2aad">&#9670;&#160;</a></span>pollIMU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pollIMU </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7f13e659440b6211dd711b5bae3dd575" name="a7f13e659440b6211dd711b5bae3dd575"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f13e659440b6211dd711b5bae3dd575">&#9670;&#160;</a></span>preflightAnimation()</h2>
 
@@ -309,23 +326,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void preflightChecks </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab1ec70de348b861c19bda5e4f56c368c" name="ab1ec70de348b861c19bda5e4f56c368c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1ec70de348b861c19bda5e4f56c368c">&#9670;&#160;</a></span>sendIMUData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendIMUData </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>

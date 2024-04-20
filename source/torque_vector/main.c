@@ -207,7 +207,7 @@ int main(void)
 
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 20);
+    taskCreate(VCU_MAIN, 15);
 
     /* No Way Home */
     schedStart();
@@ -411,8 +411,9 @@ void VCU_MAIN(void)
     /* Set TV faults */
     setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
     setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);  
+    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
 
+    /* Get motor commands */
     tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);
     tvs_k_rr = (int16_t)(rtY_em.kTVS[1]*4095);
     equal_k_rl = (int16_t)(rtY_em.kEQUAL[0]*4095);

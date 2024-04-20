@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'tv'.
  *
- * Model version                  : 1.26
+ * Model version                  : 1.31
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Mar 28 16:15:49 2024
+ * C/C++ source code generated on : Sat Apr 20 09:30:06 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -24,8 +24,8 @@
 #include "rtwtypes.h"
 
 extern real_T rt_roundd(real_T u);
-static uint32_T plook_evencag(real_T u, real_T bp0, real_T bpSpace, real_T
-  *fraction);
+static uint32_T plook_evenca(real_T u, real_T bp0, real_T bpSpace, uint32_T
+  maxIndex, real_T *fraction);
 static real_T intrp1d_la(uint32_T bpIndex, real_T frac, const real_T table[],
   uint32_T maxIndex);
 static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
@@ -34,22 +34,35 @@ static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
 /* Forward declaration for local functions */
 static void SystemCore_setup(dsp_simulink_MovingAverage_tv *obj);
 static void SystemCore_setup_j(dsp_simulink_MovingAverage_j_tv *obj);
-static uint32_T plook_evencag(real_T u, real_T bp0, real_T bpSpace, real_T
-  *fraction)
+static uint32_T plook_evenca(real_T u, real_T bp0, real_T bpSpace, uint32_T
+  maxIndex, real_T *fraction)
 {
-  real_T invSpc;
   uint32_T bpIndex;
 
   /* Prelookup - Index and Fraction
      Index Search method: 'even'
+     Extrapolation method: 'Clip'
      Use previous index: 'off'
      Use last breakpoint for index at or above upper limit: 'on'
-     Remove protection against out-of-range input in generated code: 'on'
+     Remove protection against out-of-range input in generated code: 'off'
    */
-  invSpc = 1.0 / bpSpace;
-  bpIndex = (uint32_T)((u - bp0) * invSpc);
-  *fraction = (u - ((real_T)(uint32_T)((u - bp0) * invSpc) * bpSpace + bp0)) *
-    invSpc;
+  if (u <= bp0) {
+    bpIndex = 0U;
+    *fraction = 0.0;
+  } else {
+    real_T fbpIndex;
+    real_T invSpc;
+    invSpc = 1.0 / bpSpace;
+    fbpIndex = (u - bp0) * invSpc;
+    if (fbpIndex < maxIndex) {
+      bpIndex = (uint32_T)fbpIndex;
+      *fraction = (u - ((real_T)(uint32_T)fbpIndex * bpSpace + bp0)) * invSpc;
+    } else {
+      bpIndex = maxIndex;
+      *fraction = 0.0;
+    }
+  }
+
   return bpIndex;
 }
 
@@ -168,6 +181,7 @@ void tv_step(RT_MODEL_tv *const rtM_tv, ExtU_tv *rtU_tv, ExtY_tv *rtY_tv)
   real_T fractions[2];
   real_T BatterytoMaxPowerLevel;
   real_T Gain4;
+  real_T Saturation_l;
   real_T csum;
   real_T cumRevIndex;
   real_T modValueRev;
@@ -296,30 +310,41 @@ void tv_step(RT_MODEL_tv *const rtM_tv, ExtU_tv *rtU_tv, ExtY_tv *rtY_tv)
   rtY_tv->sig_filt[17] = tmp[2];
   rtY_tv->rEQUAL[0] = Saturation[0];
   rtY_tv->rEQUAL[1] = Saturation[0];
-  bpIdx = plook_evencag(fmax(Saturation[14], Saturation[15]), rtP_tv.Tmo[0],
-                        rtP_tv.Tmo[1] - rtP_tv.Tmo[0], &z);
-  cumRevIndex = intrp1d_la(bpIdx, z, rtP_tv.k_TL, 1U);
-  bpIdx = plook_evencag(fmax(Saturation[12], Saturation[13]), rtP_tv.Tmc[0],
-                        rtP_tv.Tmc[1] - rtP_tv.Tmc[0], &z);
-  csum = intrp1d_la(bpIdx, z, rtP_tv.k_TL, 1U);
-  bpIdx = plook_evencag(BatterytoMaxPowerLevel - rtP_tv.I_FUSE, rtP_tv.dIb[0],
-                        rtP_tv.dIb[1] - rtP_tv.dIb[0], &z);
-  BatterytoMaxPowerLevel = intrp1d_la(bpIdx, z, rtP_tv.k_TL, 1U);
+  bpIdx = plook_evenca(fmax(Saturation[14], Saturation[15]), rtP_tv.Tmo[0],
+                       rtP_tv.Tmo[1] - rtP_tv.Tmo[0], 18U, &z);
+  cumRevIndex = intrp1d_la(bpIdx, z, rtConstP_tv.T_mtoMaxPowerLevel_tableData,
+    18U);
+  bpIdx = plook_evenca(fmax(Saturation[12], Saturation[13]), rtP_tv.Tmc[0],
+                       rtP_tv.Tmc[1] - rtP_tv.Tmc[0], 18U, &z);
+  csum = intrp1d_la(bpIdx, z, rtConstP_tv.T_mctoMaxPowerLevel_tableData, 18U);
+  bpIdx = plook_evenca(BatterytoMaxPowerLevel, rtP_tv.dIb[0], rtP_tv.dIb[1] -
+                       rtP_tv.dIb[0], 16U, &z);
+  BatterytoMaxPowerLevel = intrp1d_la(bpIdx, z,
+    rtConstP_tv.BatterytoMaxPowerLevel_tableDat, 16U);
   Gain4 = rtP_tv.r_power_sat / rtP_tv.PLb * fmin(fmin(fmin(Saturation[0] +
     Saturation[0], cumRevIndex), csum), BatterytoMaxPowerLevel);
-  bpIndices[0U] = plook_evencag(modValueRev, rtP_tv.v[0], rtP_tv.v[1] -
-    rtP_tv.v[0], &z);
+  if (Saturation[1] > 130.0) {
+    Saturation_l = 130.0;
+  } else if (Saturation[1] < -130.0) {
+    Saturation_l = -130.0;
+  } else {
+    Saturation_l = Saturation[1];
+  }
+
+  bpIndices[0U] = plook_evenca(modValueRev, rtP_tv.v[0], rtP_tv.v[1] - rtP_tv.v
+    [0], 50U, &z);
   fractions[0U] = z;
-  bpIndices[1U] = plook_evencag(fabs(Saturation[1]) > rtU_tv->dphi ? Saturation
-    [1] : 0.0, rtP_tv.s[0], rtP_tv.s[1] - rtP_tv.s[0], &z);
+  bpIndices[1U] = plook_evenca(fabs(Saturation_l) > rtU_tv->dphi ? Saturation_l :
+    0.0, rtP_tv.s[0], rtP_tv.s[1] - rtP_tv.s[0], 52U, &z);
   fractions[1U] = z;
-  modValueRev = (rtU_tv->TVS_I * intrp2d_la(bpIndices, fractions,
+  Saturation_l = (rtU_tv->TVS_I * intrp2d_la(bpIndices, fractions,
     rtP_tv.yaw_table, 51U, rtConstP_tv.uDLookupTable_maxIndex) - Product_p[2]) *
     rtU_tv->TVS_P * rtP_tv.half_track[1];
-  if (modValueRev <= Gain4) {
-    Gain4 = -Gain4;
-    if (modValueRev >= Gain4) {
-      Gain4 = modValueRev;
+  if (Saturation_l <= Gain4) {
+    if (Saturation_l < -Gain4) {
+      Gain4 = -Gain4;
+    } else {
+      Gain4 = Saturation_l;
     }
   }
 
@@ -335,9 +360,8 @@ void tv_step(RT_MODEL_tv *const rtM_tv, ExtU_tv *rtU_tv, ExtY_tv *rtY_tv)
     BatterytoMaxPowerLevel);
   for (i = 0; i < 19; i++) {
     BatterytoMaxPowerLevel = rtU_tv->D_raw[i];
-    MatrixConcatenate[i + 32] = (rtConstP_tv.pooled1[i] <=
-      BatterytoMaxPowerLevel);
-    MatrixConcatenate[i + 13] = (rtP_tv.ub[i] >= BatterytoMaxPowerLevel);
+    MatrixConcatenate[i + 32] = (rtConstP_tv.pooled1[i] < BatterytoMaxPowerLevel);
+    MatrixConcatenate[i + 13] = (rtP_tv.ub[i] > BatterytoMaxPowerLevel);
   }
 
   for (i = 0; i < 13; i++) {
@@ -379,7 +403,7 @@ void tv_step(RT_MODEL_tv *const rtM_tv, ExtU_tv *rtU_tv, ExtY_tv *rtY_tv)
 
   modValueRev = obj_0->pModValueRev;
   z = 0.0;
-  Gain4 = 0.0;
+  Saturation_l = 0.0;
   csum += (real_T)localProduct;
   if (modValueRev == 0.0) {
     z = csumrev_0[(int32_T)cumRevIndex - 1] + csum;
@@ -398,7 +422,7 @@ void tv_step(RT_MODEL_tv *const rtM_tv, ExtU_tv *rtU_tv, ExtY_tv *rtY_tv)
   }
 
   if (modValueRev == 0.0) {
-    Gain4 = z / 6.0;
+    Saturation_l = z / 6.0;
   }
 
   obj_0->pCumSum = csum;
@@ -413,7 +437,7 @@ void tv_step(RT_MODEL_tv *const rtM_tv, ExtU_tv *rtU_tv, ExtY_tv *rtY_tv)
     obj_0->pModValueRev = 0.0;
   }
 
-  rtY_tv->TVS_STATE = rt_roundd(Gain4);
+  rtY_tv->TVS_STATE = rt_roundd(Saturation_l);
   for (i = 0; i < 51; i++) {
     rtY_tv->F_TVS[i] = MatrixConcatenate[i];
   }
@@ -458,6 +482,39 @@ void tv_initialize(RT_MODEL_tv *const rtM_tv)
 
       obj_0->pCumRevIndex = 1.0;
       obj_0->pModValueRev = 0.0;
+    }
+  }
+}
+
+/* Model terminate function */
+void tv_terminate(RT_MODEL_tv *const rtM_tv)
+{
+  DW_tv *rtDW_tv = rtM_tv->dwork;
+  h_dsp_internal_SlidingWind_j_tv *obj_0;
+  h_dsp_internal_SlidingWindow_tv *obj;
+  if (!rtDW_tv->obj.matlabCodegenIsDeleted) {
+    rtDW_tv->obj.matlabCodegenIsDeleted = true;
+    if ((rtDW_tv->obj.isInitialized == 1) && rtDW_tv->obj.isSetupComplete) {
+      obj = rtDW_tv->obj.pStatistic;
+      if (obj->isInitialized == 1) {
+        obj->isInitialized = 2;
+      }
+
+      rtDW_tv->obj.NumChannels = -1;
+      rtDW_tv->obj.FrameLength = -1;
+    }
+  }
+
+  if (!rtDW_tv->obj_m.matlabCodegenIsDeleted) {
+    rtDW_tv->obj_m.matlabCodegenIsDeleted = true;
+    if ((rtDW_tv->obj_m.isInitialized == 1) && rtDW_tv->obj_m.isSetupComplete) {
+      obj_0 = rtDW_tv->obj_m.pStatistic;
+      if (obj_0->isInitialized == 1) {
+        obj_0->isInitialized = 2;
+      }
+
+      rtDW_tv->obj_m.NumChannels = -1;
+      rtDW_tv->obj_m.FrameLength = -1;
     }
   }
 }

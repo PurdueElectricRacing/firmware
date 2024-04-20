@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'em'.
  *
- * Model version                  : 1.35
+ * Model version                  : 1.40
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Tue Apr 16 17:06:49 2024
+ * C/C++ source code generated on : Sat Apr 20 09:58:48 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -22,8 +22,8 @@
 #include "em.h"
 #include "rtwtypes.h"
 
-static uint32_T plook_evencag(real_T u, real_T bp0, real_T bpSpace, real_T
-  *fraction);
+static uint32_T plook_evenca(real_T u, real_T bp0, real_T bpSpace, uint32_T
+  maxIndex, real_T *fraction);
 static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
   real_T table[], const uint32_T stride, const uint32_T maxIndex[]);
 
@@ -57,22 +57,35 @@ static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
 #endif
 #endif
 
-static uint32_T plook_evencag(real_T u, real_T bp0, real_T bpSpace, real_T
-  *fraction)
+static uint32_T plook_evenca(real_T u, real_T bp0, real_T bpSpace, uint32_T
+  maxIndex, real_T *fraction)
 {
-  real_T invSpc;
   uint32_T bpIndex;
 
   /* Prelookup - Index and Fraction
      Index Search method: 'even'
+     Extrapolation method: 'Clip'
      Use previous index: 'off'
      Use last breakpoint for index at or above upper limit: 'on'
-     Remove protection against out-of-range input in generated code: 'on'
+     Remove protection against out-of-range input in generated code: 'off'
    */
-  invSpc = 1.0 / bpSpace;
-  bpIndex = (uint32_T)((u - bp0) * invSpc);
-  *fraction = (u - ((real_T)(uint32_T)((u - bp0) * invSpc) * bpSpace + bp0)) *
-    invSpc;
+  if (u <= bp0) {
+    bpIndex = 0U;
+    *fraction = 0.0;
+  } else {
+    real_T fbpIndex;
+    real_T invSpc;
+    invSpc = 1.0 / bpSpace;
+    fbpIndex = (u - bp0) * invSpc;
+    if (fbpIndex < maxIndex) {
+      bpIndex = (uint32_T)fbpIndex;
+      *fraction = (u - ((real_T)(uint32_T)fbpIndex * bpSpace + bp0)) * invSpc;
+    } else {
+      bpIndex = maxIndex;
+      *fraction = 0.0;
+    }
+  }
+
   return bpIndex;
 }
 
@@ -125,27 +138,28 @@ void em_step(RT_MODEL_em *const rtM_em, ExtU_em *rtU_em, ExtY_em *rtY_em)
   uint32_T bpIndices[2];
   uint32_T bpIndices_0[2];
   dk_idx_0 = rtP_em.V[1] - rtP_em.V[0];
-  bpIndices[1U] = plook_evencag(rtU_em->V, rtP_em.V[0], dk_idx_0, &dk_idx_1);
+  bpIndices[1U] = plook_evenca(rtU_em->V, rtP_em.V[0], dk_idx_0, 25U, &dk_idx_1);
   fractions[1U] = dk_idx_1;
   bpIndices_tmp = rtP_em.w[1] - rtP_em.w[0];
-  bpIndices[0U] = plook_evencag(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp,
+  bpIndices[0U] = plook_evenca(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp, 106U,
     &dk_idx_1);
   fractions[0U] = dk_idx_1;
   k_min_idx_0 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_min_tableData,
     107U, rtConstP_em.pooled1);
-  bpIndices[0U] = plook_evencag(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp,
+  bpIndices[0U] = plook_evenca(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp, 106U,
     &dk_idx_1);
   fractions[0U] = dk_idx_1;
   k_min_idx_1 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_min_tableData,
     107U, rtConstP_em.pooled1);
-  bpIndices_0[1U] = plook_evencag(rtU_em->V, rtP_em.V[0], dk_idx_0, &dk_idx_1);
+  bpIndices_0[1U] = plook_evenca(rtU_em->V, rtP_em.V[0], dk_idx_0, 25U,
+    &dk_idx_1);
   fractions_0[1U] = dk_idx_1;
-  bpIndices_0[0U] = plook_evencag(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp,
+  bpIndices_0[0U] = plook_evenca(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp, 106U,
     &dk_idx_1);
   fractions_0[0U] = dk_idx_1;
   dk_idx_0 = intrp2d_la(bpIndices_0, fractions_0, rtConstP_em.dk_tableData, 107U,
                         rtConstP_em.pooled1);
-  bpIndices_0[0U] = plook_evencag(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp,
+  bpIndices_0[0U] = plook_evenca(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp, 106U,
     &dk_idx_1);
   fractions_0[0U] = dk_idx_1;
   dk_idx_1 = intrp2d_la(bpIndices_0, fractions_0, rtConstP_em.dk_tableData, 107U,

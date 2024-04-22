@@ -100,13 +100,13 @@
             "node_name": "main_module",
             "faults": [
                 {
-                    "fault_name": "pchg_implaus",
+                    "fault_name": "remap_unreliable",
                     "max": 1,
                     "min": 0,
-                    "priority": "error",
+                    "priority": "warning",
                     "time_to_latch": 50,
                     "time_to_unlatch": 1000,
-                    "lcd_message": "Precharge Implausibility"
+                    "lcd_message": "Remap Disabled"
                 },
                 {
                     "fault_name": "rtd_exit",
@@ -416,7 +416,7 @@
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 10,
-                    "time_to_unlatch": 1000,
+                    "time_to_unlatch": 10,
                     "lcd_message": "APPS Brake Fault"
                 }
             ]

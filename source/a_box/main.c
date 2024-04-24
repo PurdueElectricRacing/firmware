@@ -353,13 +353,13 @@ void readCurrents() {
     // Calculating currents from ADC using equation from: https://www.lem.com/sites/default/files/products_datasheets/dhab_s_124.pdf
     float V_offset = 2.5; // offset voltage (V)
     float G1 = 26.7 / 1000; // channel 1 sensitivity (V/A)
-    float G2 = 4 / 1000; // channel 2 sensitivity (V/A)
+    float G2 = 4.0 / 1000; // channel 2 sensitivity (V/A)
     // calculating Vout and converting from 3.3 to 5 based on voltage divider
     float Vout_ch1 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_1 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
     float Vout_ch2 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_2 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
     // calculating current, scaling by 17 due to coil turns, multiplying by 100 to send as int over CAN
-    int16_t i_ch1 = (Vout_ch1 - V_offset) / G1 / NUM_TURNS * 100;
-    int16_t i_ch2 = (Vout_ch2 - V_offset) / G2 / NUM_TURNS * 100;
+    int16_t i_ch1 = (Vout_ch1 - V_offset) / G1 * 100;
+    int16_t i_ch2 = (Vout_ch2 - V_offset) / G2 * 100;
     // sending currents over CAN
     SEND_I_SENSE(i_ch1, i_ch2);
 }

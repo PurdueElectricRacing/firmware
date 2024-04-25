@@ -74,8 +74,8 @@ $(function() {
   <div class="headertitle"><div class="title">PSched</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> This modules serves as our "RTOS", if you will. It replaces FreeRTOS with a simpler scheduling method that doesn't carry the bagage of priority issues or untraceable hard faults. It should be relatively easy to implement. It's been tested a tad on an L4. F4 support hasn't been confirmed yet.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md13"></a> This modules serves as our "RTOS", if you will. It replaces FreeRTOS with a simpler scheduling method that doesn't carry the bagage of priority issues or untraceable hard faults. It should be relatively easy to implement. It's been tested a tad on an L4. F4 support hasn't been confirmed yet.</p>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Roadmap</h1>
 <ul>
 <li>[X] Basic scheduling</li>
@@ -89,7 +89,7 @@ Roadmap</h1>
 <li>[ ] Free running counter rather than interrupt based</li>
 <li>[ ] Proper task execution time tracking</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Using PSched</h1>
 <p>Use is pretty simple. 3 function calls are required to start the scheduler. First, <code><a class="el" href="psched_8c.html#ac6ca5da144d7fc43f597d882f260e14c">schedInit()</a></code> should be called with the operating frequency of the MCU as an input argument. This value can be found in the clock configuration portion of Cube. Next, <code><a class="el" href="psched_8c.html#a8573802f3283bce5a41c40b696b1ccf4">taskCreate()</a></code> needs to be called with the address of the function to schedule and a rate for the task in milliseconds. Finally, <code><a class="el" href="psched_8c.html#a29bb369f2942ae7cbb1e573209751e60">schedStart()</a></code> should be called to begin scheduler execution. This function will not return unless <a class="el" href="psched_8c.html#a8e180e6b5d16a43c812c12be37a0acce">schedPause()</a> is called for some reason. Here's an example.</p>
 <div class="fragment"><div class="line"> ++</div>
@@ -101,25 +101,25 @@ Using PSched</h1>
 <div class="ttc" id="apsched_8c_html_a8573802f3283bce5a41c40b696b1ccf4"><div class="ttname"><a href="psched_8c.html#a8573802f3283bce5a41c40b696b1ccf4">taskCreate</a></div><div class="ttdeci">int taskCreate(func_ptr_t func, uint16_t task_time)</div><div class="ttdef"><b>Definition</b> psched.c:19</div></div>
 <div class="ttc" id="apsched_8c_html_ac6ca5da144d7fc43f597d882f260e14c"><div class="ttname"><a href="psched_8c.html#ac6ca5da144d7fc43f597d882f260e14c">schedInit</a></div><div class="ttdeci">void schedInit(uint32_t freq)</div><div class="ttdef"><b>Definition</b> psched.c:117</div></div>
 </div><!-- fragment --><p>This setup assumes a base clock frequency of 32 MHz. A function named <code>blink()</code> will run every 500 ms, while a function named <code>stop()</code> will run every 4 seconds. Once <code><a class="el" href="psched_8c.html#a29bb369f2942ae7cbb1e573209751e60">schedStart()</a></code> is called, the scheduler will run until it is told otherwise.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Function Descriptions</h1>
 <p>Doxygen comments are inserted, and the source files should be enough to understand usage, but they're documented here just to be sure.</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 schedInit(uint32_t freq)</h2>
 <p>Initializes the scheduler. Input argument is base clock frequency (to timer 7). There is no need to call this after <code><a class="el" href="psched_8c.html#a8e180e6b5d16a43c812c12be37a0acce">schedPause()</a></code>.</p>
 <blockquote class="doxtable">
 <p>&zwj; NOT CALL <code><a class="el" href="psched_8c.html#a8573802f3283bce5a41c40b696b1ccf4">taskCreate()</a></code> prior to <code><a class="el" href="psched_8c.html#ac6ca5da144d7fc43f597d882f260e14c">schedInit()</a></code>! Your task will be removed upon calling <code><a class="el" href="psched_8c.html#ac6ca5da144d7fc43f597d882f260e14c">schedInit()</a></code>! </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 taskCreate(func_ptr_t func, uint16_t task_time)</h2>
 <p>Initializes a task to run. <code>func</code> is the address of the function in question. <code>task_time</code> is the execution period in milliseconds.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md19"></a>
 taskDelete(uint8_t type, uint8_t task)</h2>
 <p>Deletes a task and stops its execution. <code>type</code> is the type of task to delete. 0 marks it as a regular task; 1 marks it as a background task. <code>task</code> is the index of the task to remove.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 schedStart()</h2>
 <p>Starts the scheduler. Will not return unless <code><a class="el" href="psched_8c.html#a8e180e6b5d16a43c812c12be37a0acce">schedPause()</a></code> is called.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 schedPause()</h2>
 <p>Pauses the scheduler. Will allow <code><a class="el" href="psched_8c.html#a29bb369f2942ae7cbb1e573209751e60">schedStart()</a></code> to return to <code><a class="el" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a></code>, so if you need to use this, you'd better have a contingency once the function returns. After calling <code><a class="el" href="psched_8c.html#a8e180e6b5d16a43c812c12be37a0acce">schedPause()</a></code>, the scheduler does not need to be re-initialized, nor to tasks need to be re-registered with the scheduler. </p>
 </div></div><!-- contents -->

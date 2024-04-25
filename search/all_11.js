@@ -40,5 +40,6 @@ var searchData=
   ['queue_2ec_37',['queue.c',['../queue_8c.html',1,'']]],
   ['queue_2eh_38',['queue.h',['../queue_8h.html',1,'']]],
   ['quickselect_2ec_39',['quickselect.c',['../quickselect_8c.html',1,'']]],
-  ['quickselect_2eh_40',['quickselect.h',['../quickselect_8h.html',1,'']]]
+  ['quickselect_2eh_40',['quickselect.h',['../quickselect_8h.html',1,'']]],
+  ['quit_5fcmd_41',['QUIT_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3ad9af2a6371d94f0cae9c8d1bb6bb645e',1,'ftpd.h']]]
 ];

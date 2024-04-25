@@ -212,6 +212,7 @@ var menudata={children:[
 {text:"i",url:"globals_eval_i.html#index_i"},
 {text:"l",url:"globals_eval_l.html#index_l"},
 {text:"m",url:"globals_eval_m.html#index_m"},
+{text:"n",url:"globals_eval_n.html#index_n"},
 {text:"o",url:"globals_eval_o.html#index_o"},
 {text:"p",url:"globals_eval_p.html#index_p"},
 {text:"q",url:"globals_eval_q.html#index_q"},
@@ -219,7 +220,8 @@ var menudata={children:[
 {text:"s",url:"globals_eval_s.html#index_s"},
 {text:"t",url:"globals_eval_t.html#index_t"},
 {text:"u",url:"globals_eval_u.html#index_u"},
-{text:"w",url:"globals_eval_w.html#index_w"}]},
+{text:"w",url:"globals_eval_w.html#index_w"},
+{text:"x",url:"globals_eval_x.html#index_x"}]},
 {text:"Macros",url:"globals_defs.html",children:[
 {text:"_",url:"globals_defs.html#index__5F"},
 {text:"a",url:"globals_defs_a.html#index_a"},

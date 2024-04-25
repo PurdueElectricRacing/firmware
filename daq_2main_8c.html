@@ -103,7 +103,7 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;96000000</td></tr>
+<tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;168000000</td></tr>
 <tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -172,7 +172,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TargetCoreClockrateHz&#160;&#160;&#160;96000000</td>
+          <td class="memname">#define TargetCoreClockrateHz&#160;&#160;&#160;168000000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -428,7 +428,7 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    .system_source              =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a>,</div>
 <div class="line">    .pll_src                    =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a>,</div>
-<div class="line">    .vco_output_rate_target_hz  = 192000000,</div>
+<div class="line">    .vco_output_rate_target_hz  = 336000000,</div>
 <div class="line">    .system_clock_target_hz     =<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
 <div class="line">    .ahb_clock_target_hz        =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
 <div class="line">    .apb1_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
@@ -466,7 +466,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .data_rate = 24000000 / 24,</div>
+<div class="line">    .data_rate = 42000000 / 2,</div>
 <div class="line">    .data_len  = 8,</div>
 <div class="line">    .nss_sw = <span class="keyword">false</span>,</div>
 <div class="line">    .nss_gpio_port = <a class="code hl_define" href="daq_2main_8h.html#a2107ae7691edb9a15edccada3ee54a43">ETH_CS_PORT</a>,</div>

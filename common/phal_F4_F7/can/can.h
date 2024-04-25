@@ -30,6 +30,7 @@
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
 #define PHAL_CAN_16MHz_500k (0x033a0001) // sample point = 75%, SJW = 4
 #define PHAL_CAN_24MHz_500k (0x033a0002) // sample point = 75%, SJW = 4
+#define PHAL_CAN_42MHz_500k (0x034e0003) // sample point = 75%, SJW = 4
 
 #define PHAL_CAN_16MHz_250k (0x003a0003) // sample point = 75%
 #define PHAL_CAN_24MHz_250k (0x003a0005) // sample point = 75%

@@ -16,6 +16,7 @@
 
 #include <stdint.h>
 #include "ff.h"
+#include "common/phal_F4_F7/rtc/rtc.h"
 
 
 /* Begin CAN Definitions from <linux/can.h> */
@@ -177,10 +178,13 @@ typedef struct
     // General
     uint32_t loop_time_max_ms;
     uint32_t loop_time_avg_ms;
+    // FTP
+    bool ftp_busy;
 } daq_hub_t;
 extern daq_hub_t dh;
 
 void daq_init(void);
 void daq_loop(void);
+bool daq_request_sd_mount(void);
 
 #endif

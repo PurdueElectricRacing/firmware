@@ -23,6 +23,7 @@
 /* Module Includes */
 #include "buffer.h"
 #include "daq_hub.h"
+#include "ftpd.h"
 #include "main.h"
 #include "sdio.h"
 
@@ -48,9 +49,12 @@ eth_config_t eth_config = {
     .udp_bc_sock = 0,
     .tcp_port = 5005,
     .tcp_sock = 1,
+    // NOTE: ftp uses 2, 3, 4
 };
 
 daq_hub_t dh;
+
+uint8_t gFTPBUF[_FTP_BUF_SIZE];
 
 // Local protoptypes
 static void sd_handle_error(sd_error_t err, FRESULT res);
@@ -91,6 +95,10 @@ void daq_init(void)
     dh.log_enable_sw = false;
     dh.log_enable_tcp = false;
     dh.my_watch = 0x420;
+
+    // FTP
+    ftpd_init(eth_config.net_info.ip);
+    dh.ftp_busy = false;
 
     // General
     dh.loop_time_avg_ms = 0;
@@ -227,6 +235,35 @@ static void conv_tcp_frame_to_can_msg(tcp_can_frame_t *t, CanMsgTypeDef_t *c)
     for (uint8_t i = 0; i < 8; ++i) c->Data[i] = t->data[i];
 }
 
+bool daq_request_sd_mount(void)
+{
+    FRESULT res;
+    if (dh.sd_state == SD_MOUNTED || dh.sd_state == SD_FILE_CREATED)
+    {
+        return true;
+    }
+
+    if (!SD_Detect()) 
+    {
+        sd_handle_error(SD_ERROR_DETEC, 0);
+    }
+    else
+    {
+        res = f_mount(&dh.fat_fs, "", 1);
+        if (res == FR_OK) 
+        {
+            dh.sd_state = SD_MOUNTED;
+            return true;
+        }
+        else 
+        {
+            sd_handle_error(SD_ERROR_MOUNT, res);
+            dh.sd_state = SD_FAIL; // force fail from idle
+        }
+    }
+    return false;
+}
+
 static void sd_update_connection_state(void)
 {
     FRESULT res;
@@ -247,7 +284,7 @@ static void sd_update_connection_state(void)
     if (dh.sd_state != SD_IDLE)
     {
         if (!SD_Detect()) sd_handle_error(SD_ERROR_DETEC, 0);
-        else if (!get_log_enable()) dh.sd_state = SD_SHUTDOWN;
+        else if (!get_log_enable() && !dh.ftp_busy) dh.sd_state = SD_SHUTDOWN;
     }
     else if (!get_log_enable())
     {
@@ -264,41 +301,36 @@ static void sd_update_connection_state(void)
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0); // Activity LED disable
             if (get_log_enable() && dh.sd_error_ct == 0) // TODO: revert, ensuring no auto-reset for now
             {
-                bActivateTail(&b_rx_can, RX_TAIL_SD);
-                if (!SD_Detect()) sd_handle_error(SD_ERROR_DETEC, 0);
-                else
-                {
-                    res = f_mount(&dh.fat_fs, "", 1);
-                    if (res == FR_OK) 
-                    {
-                        dh.sd_state = SD_MOUNTED;
-                    }
-                    else 
-                    {
-                        sd_handle_error(SD_ERROR_MOUNT, res);
-                        dh.sd_state = SD_FAIL; // force fail from idle
-                    }
-                }
+                daq_request_sd_mount();
             }
             break;
         case SD_MOUNTED:
-            if (sd_new_log_file())
+            PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+            if (get_log_enable())
             {
-                dh.sd_state = SD_FILE_CREATED;
-                dh.sd_last_err = SD_ERROR_NONE; // back to okay
-                PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+                bActivateTail(&b_rx_can, RX_TAIL_SD);
+                if (sd_new_log_file())
+                {
+                    dh.sd_state = SD_FILE_CREATED;
+                    dh.sd_last_err = SD_ERROR_NONE; // back to okay
+                }
+                else
+                {
+                    sd_handle_error(SD_ERROR_FOPEN, 0);
+                }
             }
-            else
-            {
-                sd_handle_error(SD_ERROR_FOPEN, 0);
-            }
-            break;
+           break;
         case SD_FILE_CREATED:
             if ((tick_ms - dh.log_start_ms) > SD_NEW_FILE_PERIOD_MS)
             {
                 // Swap to a new log file
                 if ((res = f_close(&dh.log_fp)) != FR_OK) sd_handle_error(SD_ERROR_FCLOSE, res);
                 else if (!sd_new_log_file()) sd_handle_error(SD_ERROR_FOPEN, 0);
+            }
+            if (!get_log_enable())
+            {
+                if ((res = f_close(&dh.log_fp)) != FR_OK) sd_handle_error(SD_ERROR_FCLOSE, res);
+                dh.sd_state = SD_MOUNTED;
             }
             break;
         case SD_FAIL:
@@ -419,8 +451,13 @@ static void eth_update_connection_state(void)
     static uint32_t last_init_time;
     static uint32_t init_try_counter;
 
-    if (dh.eth_error_ct - last_error_count > 0) dh.eth_state = ETH_FAIL;
+    if (dh.eth_error_ct - last_error_count > 0) 
+    {
+        dh.eth_state = ETH_FAIL;
+    }
     last_error_count = dh.eth_error_ct;
+
+    // TODO: on forceful dismount, reset the ports (maybe even ftp_init())
 
     switch(dh.eth_state)
     {
@@ -468,6 +505,7 @@ static void eth_update_connection_state(void)
                 }
                 last_link_check_time = tick_ms;
             }
+            ftpd_run(gFTPBUF);
             break;
         case ETH_FAIL:
             // Intentional fall-through
@@ -487,7 +525,7 @@ static void eth_update_connection_state(void)
     // Update connection LED
     if (dh.eth_state == ETH_LINK_UP)
     {
-        if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED)
+        if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED || dh.ftp_busy)
         {
             if (tick_ms - last_blink_time > 250)
             {
@@ -531,7 +569,7 @@ static int8_t eth_init(void)
     }
 
     uint8_t rxBufSizes[] = {2, 2, 2, 2, 2, 2, 2, 2}; // kB
-    uint8_t txBufSizes[] = {2, 2, 2, 2, 2, 2, 2, 2}; // kB
+    uint8_t txBufSizes[] = {2, 2, 2, 8, 2, 0, 0, 0}; // kB
 
     if(wizchip_init(txBufSizes, rxBufSizes))
     {

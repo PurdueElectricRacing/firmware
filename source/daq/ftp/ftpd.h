@@ -25,6 +25,8 @@ extern "C" {
 #endif
 
 #define F_APP_FTP
+
+#define _FTP_BUF_SIZE 512//8192
 // #define _FTP_DEBUG_
 
 

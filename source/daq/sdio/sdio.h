@@ -387,7 +387,7 @@ bool PHAL_SDIO_init(void);
  * @brief  SDIO Data Transfer Frequency (25MHz max)
  */
 // #define SDIO_TRANSFER_CLK_DIV           ((uint8_t)78)
-#define SDIO_TRANSFER_CLK_DIV              ((uint8_t)46)
+#define SDIO_TRANSFER_CLK_DIV              ((uint8_t)0)//(46)
 // #define SDIO_TRANSFER_CLK_DIV           ((uint8_t)78)
 // TODO: see about increasing (1MHz now)
 

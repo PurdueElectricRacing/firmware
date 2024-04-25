@@ -54,7 +54,7 @@ eth_config_t eth_config = {
 
 daq_hub_t dh;
 
-uint8_t gFTPBUF[FF_MAX_SS];
+uint8_t gFTPBUF[_FTP_BUF_SIZE];
 
 // Local protoptypes
 static void sd_handle_error(sd_error_t err, FRESULT res);
@@ -451,12 +451,13 @@ static void eth_update_connection_state(void)
     static uint32_t last_init_time;
     static uint32_t init_try_counter;
 
-    if (dh.eth_error_ct - last_error_count > 0) dh.eth_state = ETH_FAIL;
+    if (dh.eth_error_ct - last_error_count > 0) 
+    {
+        dh.eth_state = ETH_FAIL;
+    }
     last_error_count = dh.eth_error_ct;
 
     // TODO: on forceful dismount, reset the ports (maybe even ftp_init())
-    // Allow SD dismount on link down
-    if (dh.eth_state != ETH_LINK_UP) dh.ftp_busy = false;
 
     switch(dh.eth_state)
     {
@@ -568,7 +569,7 @@ static int8_t eth_init(void)
     }
 
     uint8_t rxBufSizes[] = {2, 2, 2, 2, 2, 2, 2, 2}; // kB
-    uint8_t txBufSizes[] = {2, 2, 2, 2, 2, 2, 2, 2}; // kB
+    uint8_t txBufSizes[] = {2, 2, 2, 8, 2, 0, 0, 0}; // kB
 
     if(wizchip_init(txBufSizes, rxBufSizes))
     {

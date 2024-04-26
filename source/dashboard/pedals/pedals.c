@@ -2,6 +2,7 @@
 #include "main.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "can_parse.h"
+#include "lcd.h"
 
 pedals_t pedals = {0};
 uint16_t thtl_limit = 4096;
@@ -30,6 +31,7 @@ uint32_t b3_start_cal_time = 0;
 uint8_t  b3_cal_complete = 0;
 
 extern q_handle_t q_tx_can;
+extern race_page_t race_page_data;
 
 void pedalsPeriodic(void)
 {
@@ -38,6 +40,16 @@ void pedalsPeriodic(void)
     uint16_t t2 = raw_adc_values.t2;
     uint16_t b1 = raw_adc_values.b1;
     uint16_t b2 = raw_adc_values.b2;
+
+    // Brake bias
+    float brake_bias = 0;
+    if (b1 + b2)
+    {
+        brake_bias = ((float)b1 / (b1 + b2));
+    }
+    // Convert to 0 - 10000 for display 0.00 to 100.00
+    race_page_data.brake_bias_adj = brake_bias * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
+    
     //uint16_t b3_raw = /*raw_adc_values.b3*/0; //no longer use b3
 
     // b3_buff[b3_idx++] = b3_raw;

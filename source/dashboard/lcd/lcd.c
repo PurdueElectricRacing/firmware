@@ -19,6 +19,7 @@ extern q_handle_t q_fault_history;    // Global queue from fault library for fau
 volatile settings_t settings;         // Data for the settings page
 volatile tv_settings_t tv_settings;   // Data for the tvsettings page
 volatile driver_config_t driver_config; // Data for the driver page
+race_page_t race_page_data;             // Data for the race page 
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;         // Amount of units of time that the fault has been shown to the driver
 
@@ -222,90 +223,45 @@ void updatePage() {
             if (fault_buf[0] == 0xFFFF)
             {
                 set_text(FAULT_1_TXT, NXT_TEXT, FAULT_NONE_STRING);
-                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, WHITE);
             }
             else
             {
                 set_text(FAULT_1_TXT, NXT_TEXT, faultArray[fault_buf[0]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[0]]) == false)
-                // {
-                //     set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
             if (fault_buf[1] == 0xFFFF)
             {
                 set_text(FAULT_2_TXT, NXT_TEXT, FAULT_NONE_STRING);
-                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, WHITE);
             }
             else
             {
                 set_text(FAULT_2_TXT, NXT_TEXT, faultArray[fault_buf[1]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[1]]) == false)
-                // {
-                //     set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
 
             if (fault_buf[2] == 0xFFFF)
             {
                 set_text(FAULT_3_TXT, NXT_TEXT, FAULT_NONE_STRING);
-                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, WHITE);
             }
             else
             {
                 set_text(FAULT_3_TXT, NXT_TEXT, faultArray[fault_buf[2]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[2]]) == false)
-                // {
-                //     set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
 
             if (fault_buf[3] == 0xFFFF)
             {
                 set_text(FAULT_4_TXT, NXT_TEXT, FAULT_NONE_STRING);
-                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, WHITE);
             }
             else
             {
                 set_text(FAULT_4_TXT, NXT_TEXT, faultArray[fault_buf[3]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[3]]) == false)
-                // {
-                //     set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
 
             if (fault_buf[4] == 0xFFFF)
             {
                 set_text(FAULT_5_TXT, NXT_TEXT, FAULT_NONE_STRING);
-                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, WHITE);
             }
             else
             {
                 set_text(FAULT_5_TXT, NXT_TEXT, faultArray[fault_buf[4]].screen_MSG);
-                // if (checkFault(fault_buf[fault_buf[4]]) == false)
-                // {
-                //     set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                // }
-                // else
-                // {
-                //     set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
-                // }
             }
         break;
     }
@@ -1000,10 +956,26 @@ void update_data_pages() {
                     set_text(GEAR_TEMP, NXT_TEXT, int_to_char(MAX(can_data.gearbox.l_temp, can_data.gearbox.r_temp), parsed_value));
                     bzero(parsed_value, 3);
                 }
-                set_text(TV_FL, NXT_TEXT, "S");
-                set_text(TV_FR, NXT_TEXT, "S");
-                set_text(TV_LR, NXT_TEXT, "S");
-                set_text(TV_RR, NXT_TEXT, "S");
+                // Value MUST be between 0 and 9999 and represents the percentage
+                // We will do the division as a float and then convert to an integer 
+                set_value(BRAKE_BIAS_FLT, NXT_VALUE, race_page_data.brake_bias_adj);
+                if (can_data.throttle_vcu.stale)
+                {
+                    set_value(TV_RL_FLT, NXT_VALUE, 7777);
+                    set_value(TV_RR_FLT, NXT_VALUE, 7777);
+                }
+                else
+                {
+                    int adj_vcu_rl = can_data.throttle_vcu.vcu_k_rl * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
+                    int adj_vcu_rr = can_data.throttle_vcu.vcu_k_rr * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
+                    set_value(TV_RL_FLT, NXT_VALUE, adj_vcu_rl);
+                    set_value(TV_RR_FLT, NXT_VALUE, adj_vcu_rr);
+                }
+
+                // set_text(TV_FL, NXT_TEXT, "S");
+                // set_text(TV_FR, NXT_TEXT, "S");
+                // set_text(TV_LR, NXT_TEXT, "S");
+                // set_text(TV_RR, NXT_TEXT, "S");
                 sendFirsthalf = false;
             }
             else {
@@ -1142,13 +1114,13 @@ void updateFaultPageIndicators()
         }
         else
         {
-            if (checkFault(fault_buf[fault_buf[0]]) == false)
+            if (checkFault(fault_buf[0]))
             {
-                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RED);
             }
             else
             {
-                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RED);
+                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
             }
         }
         if (fault_buf[1] == 0xFFFF)
@@ -1157,13 +1129,13 @@ void updateFaultPageIndicators()
         }
         else
         {
-            if (checkFault(fault_buf[fault_buf[1]]) == false)
+            if (checkFault(fault_buf[1]))
             {
-                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RED);
             }
             else
             {
-                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RED);
+                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
             }
         }
         if (fault_buf[2] == 0xFFFF)
@@ -1172,13 +1144,13 @@ void updateFaultPageIndicators()
         }
         else
         {
-            if (checkFault(fault_buf[fault_buf[2]]) == false)
+            if (checkFault(fault_buf[2]))
             {
-                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RED);
             }
             else
             {
-                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RED);
+                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
             }
         }
         if (fault_buf[3] == 0xFFFF)
@@ -1187,13 +1159,13 @@ void updateFaultPageIndicators()
         }
         else
         {
-            if (checkFault(fault_buf[fault_buf[3]]) == false)
+            if (checkFault(fault_buf[3]))
             {
-                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RED);
             }
             else
             {
-                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RED);
+                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
             }
         }
         if (fault_buf[4] == 0xFFFF)
@@ -1202,13 +1174,13 @@ void updateFaultPageIndicators()
         }
         else
         {
-            if (checkFault(fault_buf[fault_buf[4]]) == false)
+            if (checkFault(fault_buf[4]))
             {
-                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
             }
             else
             {
-                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
+                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
             }
         }
     }

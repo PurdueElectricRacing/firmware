@@ -115,6 +115,9 @@
 #define CAR_STAT "t22"
 #define SPEED "t0"
 
+// Logging Page
+#define LOGGING_START_BUTTON "t1"
+#define LOGGING_STOP_BUTTON "t2"
 
 typedef enum {
 
@@ -158,6 +161,11 @@ typedef enum {
 
 } tv_hover_state_t;
 
+typedef enum {
+  LOGGING_START_HOVER,
+  LOGGING_STOP_HOVER,
+
+} logging_hover_state_t;
 typedef struct {
   bool tv_enable_selected;
   tv_hover_state_t curr_hover;
@@ -168,6 +176,13 @@ typedef struct {
   uint16_t tv_p_val;
 
 } tv_settings_t;
+
+typedef struct {
+  bool tv_enable_selected;
+  tv_hover_state_t curr_hover;
+
+} logging_settings_t;
+
 
 typedef struct {
   uint16_t brake_bias_adj;  // 0 to 10000 for the page

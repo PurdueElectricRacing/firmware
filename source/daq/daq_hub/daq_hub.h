@@ -175,6 +175,7 @@ typedef struct
     uint32_t last_write_ms;
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
+    volatile bool log_enable_dashboard;
     // General
     uint32_t loop_time_max_ms;
     uint32_t loop_time_avg_ms;
@@ -185,6 +186,8 @@ extern daq_hub_t dh;
 
 void daq_init(void);
 void daq_loop(void);
+void daq_dashboard_log_enable_request(void);
+void daq_dashboard_log_disable_request(void);
 bool daq_request_sd_mount(void);
 
 #endif

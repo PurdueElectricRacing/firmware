@@ -884,7 +884,8 @@
                     "can_peripheral": "CAN1",
                     "node_ssa": 49,
                     "tx": [],
-                    "rx":[{"msg_name":"daq_bl_cmd", "callback": true}]
+                    "rx":[{"msg_name":"daq_bl_cmd", "callback": true},
+                         {"msg_name": "dashboard_start_logging"}]
                 },
                 {
                     "node_name": "bootloader",

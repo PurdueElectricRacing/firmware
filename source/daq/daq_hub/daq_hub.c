@@ -275,7 +275,12 @@ static void sd_update_connection_state(void)
     if (tick_ms - last_sw_check > 100) 
     {
         new_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
-        if (new_sw != dh.log_enable_sw) dh.log_enable_tcp = new_sw; // switch trumps tcp on change
+        if (new_sw != dh.log_enable_sw)
+        {
+            // switch trumps tcp, dashboard on change
+            dh.log_enable_tcp = new_sw;
+            dh.log_enable_dashboard = new_sw;
+        }
         dh.log_enable_sw = new_sw;
         last_sw_check = tick_ms;
     }
@@ -763,8 +768,7 @@ static void eth_rx_tcp_periodic(void)
  */
 static bool get_log_enable(void)
 {
-    // TODO: combine with CAN message from dash
-    return dh.log_enable_sw || dh.log_enable_tcp;
+    return (dh.log_enable_sw || dh.log_enable_tcp || dh.log_enable_dashboard);
 }
 
 /**
@@ -804,4 +808,14 @@ void EXTI15_10_IRQHandler()
         EXTI->PR |= EXTI_PR_PR15; // Clear interrupt
         shutdown();
     }
+}
+
+void daq_dashboard_log_enable_request(void)
+{
+    dh.log_enable_dashboard = true;
+}
+
+void daq_dashboard_log_disable_request(void)
+{
+    dh.log_enable_dashboard = false;
 }

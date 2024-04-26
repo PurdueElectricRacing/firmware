@@ -347,14 +347,29 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
                 qSendToBack(&q_tx_can2_to_can1, &msg);
             }
 
+            CanParsedData_t* msg_data_a;
             // Bootloader check
             if (rx->msg_id == (ID_DAQ_BL_CMD | CAN_EFF_FLAG) && rx->bus_id == BUS_ID_CAN1)
             {
-                CanParsedData_t* msg_data_a = (CanParsedData_t *) &rx->data;
+                msg_data_a = (CanParsedData_t *) &rx->data;
                 if (msg_data_a->daq_bl_cmd.cmd == BLCMD_RST)
                 {
                     // TODO: stop logging first
                     Bootloader_ResetForFirmwareDownload();
+                }
+            }
+
+            // Dashboard Logging Request
+            if (rx->msg_id == ID_DASHBOARD_START_LOGGING)
+            {
+                msg_data_a = (CanParsedData_t *) &rx->data;
+                if (msg_data_a->dashboard_start_logging.logging_enabled)
+                {
+                    daq_dashboard_log_enable_request();
+                }
+                else
+                {
+                    daq_dashboard_log_disable_request();
                 }
             }
 

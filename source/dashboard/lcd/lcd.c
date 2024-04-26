@@ -18,6 +18,7 @@ extern q_handle_t q_tx_can;           // Global queue for CAN tx
 extern q_handle_t q_fault_history;    // Global queue from fault library for fault history
 volatile settings_t settings;         // Data for the settings page
 volatile tv_settings_t tv_settings;   // Data for the tvsettings page
+volatile logging_settings_t logging_settings;   // Data for the logging page
 volatile driver_config_t driver_config; // Data for the driver page
 race_page_t race_page_data;             // Data for the race page 
 extern lcd_t lcd_data;
@@ -346,6 +347,25 @@ void moveUp() {
             // ?
         }
     }
+        else if (curr_page == PAGE_LOGGING)
+    {
+        if (logging_settings.curr_hover == LOGGING_START_HOVER)
+        {
+            logging_settings.curr_hover = LOGGING_STOP_HOVER;
+            set_value(LOGGING_START_BUTTON, NXT_BACKGROUND_COLOR, WHITE);
+            set_value(LOGGING_STOP_BUTTON, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        }
+        else if (logging_settings.curr_hover == LOGGING_STOP_HOVER)
+        {
+            logging_settings.curr_hover = LOGGING_START_HOVER;
+            set_value(LOGGING_START_BUTTON, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(LOGGING_STOP_BUTTON, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            // ?
+        }
+    }
     else if (curr_page == PAGE_SETTINGS) {
         char parsed_value[3] = "\0";
         switch (settings.curr_hover) {
@@ -537,6 +557,25 @@ void moveDown() {
             // ?
         }
     }
+    else if (curr_page == PAGE_LOGGING)
+    {
+        if (logging_settings.curr_hover == LOGGING_START_HOVER)
+        {
+            logging_settings.curr_hover = LOGGING_STOP_HOVER;
+            set_value(LOGGING_START_BUTTON, NXT_BACKGROUND_COLOR, WHITE);
+            set_value(LOGGING_STOP_BUTTON, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        }
+        else if (logging_settings.curr_hover == LOGGING_STOP_HOVER)
+        {
+            logging_settings.curr_hover = LOGGING_START_HOVER;
+            set_value(LOGGING_START_BUTTON, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(LOGGING_STOP_BUTTON, NXT_BACKGROUND_COLOR, WHITE);
+        }
+        else
+        {
+            // ?
+        }
+    }
     else if (curr_page == PAGE_SETTINGS) {
         char parsed_value[3] = "\0";
         switch (settings.curr_hover) {
@@ -640,7 +679,18 @@ void selectItem() {
     }
     else if (curr_page == PAGE_LOGGING)
     {
-        SEND_DASHBOARD_START_LOGGING(1);
+        if (logging_settings.curr_hover == LOGGING_START_HOVER)
+        {
+            SEND_DASHBOARD_START_LOGGING(1);
+        }
+        else if (logging_settings.curr_hover == LOGGING_STOP_HOVER)
+        {
+            SEND_DASHBOARD_START_LOGGING(0);
+        }
+        else
+        {
+            // ?
+        }
     }
     else if (curr_page == PAGE_TVSETTINGS)
     {

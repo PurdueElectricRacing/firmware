@@ -22,11 +22,13 @@
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_DAQ_BL_CMD 0x409c63e
+#define ID_DASHBOARD_START_LOGGING 0x4000e05
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_DAQ_BL_CMD 5
+#define DLC_DASHBOARD_START_LOGGING 1
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -51,6 +53,9 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } daq_bl_cmd;
+    struct {
+        uint64_t logging_enabled: 1;
+    } dashboard_start_logging;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -63,6 +68,9 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } daq_bl_cmd;
+    struct {
+        uint8_t logging_enabled;
+    } dashboard_start_logging;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

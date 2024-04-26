@@ -631,21 +631,16 @@ void pollDashboardInput()
 
 void sendVoltageData()
 {
-    /*
-    Vin = (Vout * (R1 + R2)) / R2
-    V3v3: R1 = 4.3k, R2 = 10k
-    V5v: R1 = 4.3k, R2 = 3.3k
-    V12v: R1 = 15.8k, R2 = 3.3k
-    V24v: R1 = 47k, R2 = 3.3k
-    Scale Vin by 100 to avoid losing precision
-    */
+    float adc_to_voltage = ADC_REF_VOLTAGE / ADC_MAX_VALUE;
 
-    SEND_DASHBOARD_VOLTAGE(
-        (uint16_t)((((raw_adc_values.lv_3v3_sense * 3.3) / 4095) * (4.3 + 10.0) / 10.0) * 100), 
-        (uint16_t)((((raw_adc_values.lv_5v_sense * 3.3) / 4095) * (4.3 + 3.3) / 3.3) * 100), 
-        (uint16_t)((((raw_adc_values.lv_12v_sense * 3.3) / 4095) * (15.8 + 3.3) / 3.3) * 100), 
-        (uint16_t)((((raw_adc_values.lv_24_v_sense * 3.3) / 4095) * (47.0 + 3.3) / 3.3) * 100)
-    );
+    // Vin = Vout * (R1 + R2) / R2
+    u_int16_t vin_3v3 = (uint16_t)(raw_adc_values.lv_3v3_sense * adc_to_voltage * (V_3V3_RES_R1 + V_3V3_RES_R2) / V_3V3_RES_R2);
+    u_int16_t vin_5v = (uint16_t)(raw_adc_values.lv_5v_sense * adc_to_voltage * (V_5V_RES_R1 + V_5V_RES_R2) / V_5V_RES_R2);
+    u_int16_t vin_12v = (uint16_t)(raw_adc_values.lv_12v_sense * adc_to_voltage * (V_12V_RES_R1 + V_12V_RES_R2) / V_12V_RES_R2);
+    u_int16_t vin_24v = (uint16_t)(raw_adc_values.lv_24_v_sense * adc_to_voltage * (V_24V_RES_R1 + V_24V_RES_R2) / V_24V_RES_R2);
+
+    // Scale calculations by 100 to avoid losing precision
+    SEND_DASHBOARD_VOLTAGE(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
 }
 
 void HardFault_Handler()

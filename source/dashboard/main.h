@@ -171,6 +171,18 @@ typedef enum
 #define LV_24_V_FAULT_Pin           (8)
 #define LV_5V_SCALE                 (0.413F)
 
+// Voltage Divider Resistors
+#define V_3V3_RES_R1   (4.3F)
+#define V_3V3_RES_R2   (10.0F)
+#define V_5V_RES_R1    (4.3F)
+#define V_5V_RES_R2    (3.3F)
+#define V_12V_RES_R1   (15.8F)
+#define V_12V_RES_R2   (3.3F)
+#define V_24V_RES_R1   (47.0F)
+#define V_24V_RES_R2   (3.3F)
+#define ADC_MAX_VALUE  (4095)
+#define ADC_REF_VOLTAGE (3.3F)
+
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

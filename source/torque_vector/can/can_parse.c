@@ -31,6 +31,20 @@ void canRxUpdate()
     {
         last_can_rx_time_ms = sched.os_ticks;
         msg_data_a = (CanParsedData_t *)&msg_header.Data;
+
+        if (msg_header.IDE == 0 && msg_header.StdId == ID_LWS_STANDARD)
+            {
+                can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+                can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
+                can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
+                can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
+                can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+                can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+                can_data.LWS_Standard.stale = 0;
+                can_data.LWS_Standard.last_rx = sched.os_ticks;
+            }
+
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {

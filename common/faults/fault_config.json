@@ -717,33 +717,6 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "No GPS Fix"
-                },
-                {
-                    "fault_name": "TV_Enabled",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "TV Enabled"
-                },
-                {
-                    "fault_name": "TV_calibrated",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "TV calibrated"
-                },
-                {
-                    "fault_name": "Yes_GPS_Fix",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "Yes GPS Fix"
                 }
             ]
         },

@@ -82,8 +82,8 @@ typedef enum
 
 #define BRK_STAT_TAP_GPIO_Port      (GPIOB)
 #define BRK_STAT_TAP_Pin            (9)
-#define BRK_FAIL_TAP_GPIO_Port      (GPIOB)
-#define BRK_FAIL_TAP_Pin            (10)
+#define BRK_FAIL_TAP_GPIO_Port      (GPIOA)
+#define BRK_FAIL_TAP_Pin            (6)
 
 #define DAQ_SWITCH_GPIO_Port        (GPIOD)
 #define DAQ_SWITCH_Pin              (8)

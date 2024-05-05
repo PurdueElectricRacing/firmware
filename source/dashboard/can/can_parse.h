@@ -55,6 +55,7 @@ typedef union {
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_SDC_STATUS 0xc000381
+#define ID_THROTTLE_VCU 0xc0025b7
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -93,6 +94,7 @@ typedef union {
 #define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_SDC_STATUS 2
+#define DLC_THROTTLE_VCU 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -215,6 +217,7 @@ typedef union {
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 3000
 #define UP_SDC_STATUS 300
+#define UP_THROTTLE_VCU 20
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -419,6 +422,12 @@ typedef union {
         uint64_t pchg_out: 1;
     } sdc_status;
     struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -605,6 +614,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } sdc_status;
+    struct {
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
     struct {
         uint16_t idx;
         uint8_t latched;

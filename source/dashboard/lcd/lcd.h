@@ -100,12 +100,13 @@
 //Race/Data pages
 #define THROT_BAR "j1"
 #define POW_LIM_BAR "j0"
+#define BRAKE_BIAS_FLT "x0"
+#define TV_RL_FLT "x1"
+#define TV_RR_FLT "x2"
+#define FLT_TO_DISPLAY_INT_2_DEC (100U)
+#define FLT_TO_PERCENTAGE (100U)
 
 //Race specific Values
-#define TV_FL "t2"
-#define TV_FR "t3"
-#define TV_LR "t5"
-#define TV_RR "t4"
 #define BATT_TEMP "t8"
 #define BATT_VOLT "t10"
 #define BATT_CURR "t13"
@@ -167,6 +168,10 @@ typedef struct {
   uint16_t tv_p_val;
 
 } tv_settings_t;
+
+typedef struct {
+  uint16_t brake_bias_adj;  // 0 to 10000 for the page
+} race_page_t;
 
 typedef enum {
   DRIVER_DEFAULT_SELECT,

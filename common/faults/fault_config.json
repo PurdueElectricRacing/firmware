@@ -701,7 +701,16 @@
                     "lcd_message": "TV Disabled"
                 },
                 {
-                    "fault_name": "TV_uncalibrated",
+                    "fault_name": "MM_Disabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "MM Disabled"
+                },
+                {
+                    "fault_name": "TV_Uncalibrated",
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
@@ -717,6 +726,42 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "No GPS Fix"
+                },
+                {
+                    "fault_name": "TV_Enabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "TV Enabled"
+                },
+                {
+                    "fault_name": "MM_Enabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "MM Enabled"
+                },
+                {
+                    "fault_name": "TV_Calibrated",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "TV Calibrated"
+                },
+                {
+                    "fault_name": "Yes_GPS_Fix",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Yes GPS Fix"
                 }
             ]
         },

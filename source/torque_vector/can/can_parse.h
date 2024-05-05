@@ -25,7 +25,6 @@
 #define ID_GPS_SPEED 0xc001137
 #define ID_GPS_POSITION 0xc002337
 #define ID_GPS_COORDINATES 0xc002377
-#define ID_VEHHEAD 0xc002677
 #define ID_IMU_GYRO 0xc0002f7
 #define ID_IMU_ACCEL 0xc0023b7
 #define ID_BMM_MAG 0xc0023f7
@@ -45,6 +44,7 @@
 #define ID_MAIN_HB 0xc001901
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
+#define ID_MAX_CELL_TEMP 0xc04e604
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -57,10 +57,9 @@
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_GPS_VELOCITY 6
-#define DLC_GPS_SPEED 2
+#define DLC_GPS_SPEED 4
 #define DLC_GPS_POSITION 2
 #define DLC_GPS_COORDINATES 8
-#define DLC_VEHHEAD 2
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
 #define DLC_BMM_MAG 6
@@ -80,6 +79,7 @@
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_REAR_MOTOR_TEMPS 4
+#define DLC_MAX_CELL_TEMP 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -99,10 +99,11 @@
         data_a->gps_velocity.gps_vel_d = gps_vel_d_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_GPS_SPEED(gps_speed_) do {\
+#define SEND_GPS_SPEED(gps_speed_, gps_heading_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_SPEED, .DLC=DLC_GPS_SPEED, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_speed.gps_speed = gps_speed_;\
+        data_a->gps_speed.gps_heading = gps_heading_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_GPS_POSITION(height_) do {\
@@ -116,12 +117,6 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_coordinates.latitude = latitude_;\
         data_a->gps_coordinates.longitude = longitude_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_VEHHEAD(vehHead_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VEHHEAD, .DLC=DLC_VEHHEAD, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->vehHead.vehHead = vehHead_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_IMU_GYRO(imu_gyro_x_, imu_gyro_y_, imu_gyro_z_) do {\
@@ -220,6 +215,7 @@
 #define UP_MAIN_HB 500
 #define UP_REAR_WHEEL_SPEEDS 15
 #define UP_REAR_MOTOR_TEMPS 1000
+#define UP_MAX_CELL_TEMP 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) \
@@ -253,6 +249,7 @@ typedef union {
     } gps_velocity;
     struct {
         uint64_t gps_speed: 16;
+        uint64_t gps_heading: 16;
     } gps_speed;
     struct {
         uint64_t height: 16;
@@ -261,9 +258,6 @@ typedef union {
         uint64_t latitude: 32;
         uint64_t longitude: 32;
     } gps_coordinates;
-    struct {
-        uint64_t vehHead: 16;
-    } vehHead;
     struct {
         uint64_t imu_gyro_x: 16;
         uint64_t imu_gyro_y: 16;
@@ -359,6 +353,9 @@ typedef union {
         uint64_t right_ctrl_temp: 8;
     } rear_motor_temps;
     struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -450,6 +447,11 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_temps;
+    struct {
+        int16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } max_cell_temp;
     struct {
         uint16_t idx;
         uint8_t latched;

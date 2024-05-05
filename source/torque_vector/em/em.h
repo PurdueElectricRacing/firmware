@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'em'.
  *
- * Model version                  : 1.41
+ * Model version                  : 1.51
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 17:57:48 2024
+ * C/C++ source code generated on : Sat May  4 21:48:34 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -28,46 +28,66 @@
 
 #include "em_types.h"
 
+/* Block signals and states (default storage) for system '<Root>' */
+typedef struct {
+  dsp_simulink_MovingAverage_em obj;   /* '<S1>/Moving Average1' */
+} DW_em;
+
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Expression: maxK
-   * Referenced by: '<S1>/k_max'
-   */
-  real_T k_max_tableData[2782];
-
   /* Computed Parameter: k_max_maxIndex
-   * Referenced by: '<S1>/k_max'
+   * Referenced by: '<S2>/k_max'
    */
   uint32_T k_max_maxIndex[2];
 } ConstP_em;
 
 /* External inputs (root inport signals with default storage) */
 typedef struct {
-  real_T rTVS[2];                      /* '<Root>/rTVS' */
-  real_T rEQUAL[2];                    /* '<Root>/rEQUAL' */
-  real_T V;                            /* '<Root>/V' */
-  real_T w[2];                         /* '<Root>/w' */
+  real_T rTV[2];                       /* '<Root>/rTVS' */
+  real_T rEQUAL;                       /* '<Root>/rEQUAL' */
+  boolean_T F_raw[4];                  /* '<Root>/F_raw' */
+  real_T D_raw[3];                     /* '<Root>/D_raw' */
 } ExtU_em;
 
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
   real_T kTVS[2];                      /* '<Root>/kTVS' */
   real_T kEQUAL[2];                    /* '<Root>/kEQUAL' */
+  boolean_T MM_FLAGS[10];              /* '<Root>/MM_FLAGS' */
+  real_T MM_STATE;                     /* '<Root>/MM_STATE' */
 } ExtY_em;
 
 /* Parameters (default storage) */
 struct P_em_ {
   real_T V[26];                        /* Variable: V
-                                        * Referenced by: '<S1>/k_max'
+                                        * Referenced by: '<S2>/k_max'
+                                        */
+  real_T epsilon;                      /* Variable: epsilon
+                                        * Referenced by:
+                                        *   '<S1>/Constant4'
+                                        *   '<S1>/Constant5'
+                                        */
+  real_T lb_mm[3];                     /* Variable: lb_mm
+                                        * Referenced by:
+                                        *   '<S1>/Constant5'
+                                        *   '<S1>/Saturation'
+                                        */
+  real_T maxK[2782];                   /* Variable: maxK
+                                        * Referenced by: '<S2>/k_max'
+                                        */
+  real_T ub_mm[3];                     /* Variable: ub_mm
+                                        * Referenced by:
+                                        *   '<S1>/Constant4'
+                                        *   '<S1>/Saturation'
                                         */
   real_T w[107];                       /* Variable: w
-                                        * Referenced by: '<S1>/k_max'
+                                        * Referenced by: '<S2>/k_max'
                                         */
 };
 
 /* Real-time Model Data Structure */
 struct tag_RTM_em {
-  char_T rt_unused;
+  DW_em *dwork;
 };
 
 /* Block parameters (default storage) */
@@ -96,7 +116,8 @@ extern void em_terminate(RT_MODEL_em *const rtM_em);
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'em'
- * '<S1>'   : 'em/em'
+ * '<S1>'   : 'em/State Machine'
+ * '<S2>'   : 'em/em'
  */
 #endif                                 /* RTW_HEADER_em_h_ */
 

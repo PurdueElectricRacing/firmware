@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'em'.
  *
- * Model version                  : 1.41
+ * Model version                  : 1.51
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 17:57:48 2024
+ * C/C++ source code generated on : Sat May  4 21:48:34 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -21,42 +21,16 @@
 
 #include "em.h"
 #include "rtwtypes.h"
+#include <math.h>
 
+extern real_T rt_roundd(real_T u);
 static uint32_T plook_evenca(real_T u, real_T bp0, real_T bpSpace, uint32_T
   maxIndex, real_T *fraction);
 static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
   real_T table[], const uint32_T stride, const uint32_T maxIndex[]);
 
-/*===========*
- * Constants *
- *===========*/
-#define RT_PI                          3.14159265358979323846
-#define RT_PIF                         3.1415927F
-#define RT_LN_10                       2.30258509299404568402
-#define RT_LN_10F                      2.3025851F
-#define RT_LOG10E                      0.43429448190325182765
-#define RT_LOG10EF                     0.43429449F
-#define RT_E                           2.7182818284590452354
-#define RT_EF                          2.7182817F
-
-/*
- * UNUSED_PARAMETER(x)
- *   Used to specify that a function parameter (argument) is required but not
- *   accessed by the function body.
- */
-#ifndef UNUSED_PARAMETER
-#if defined(__LCC__)
-#define UNUSED_PARAMETER(x)                                      /* do nothing */
-#else
-
-/*
- * This is the semi-ANSI standard way of indicating that an
- * unused function parameter is required.
- */
-#define UNUSED_PARAMETER(x)            (void) (x)
-#endif
-#endif
-
+/* Forward declaration for local functions */
+static void em_SystemCore_setup(dsp_simulink_MovingAverage_em *obj);
 static uint32_T plook_evenca(real_T u, real_T bp0, real_T bpSpace, uint32_T
   maxIndex, real_T *fraction)
 {
@@ -125,47 +99,221 @@ static real_T intrp2d_la(const uint32_T bpIndex[], const real_T frac[], const
   return y;
 }
 
+real_T rt_roundd(real_T u)
+{
+  real_T y;
+  if (fabs(u) < 4.503599627370496E+15) {
+    if (u >= 0.5) {
+      y = floor(u + 0.5);
+    } else if (u > -0.5) {
+      y = 0.0;
+    } else {
+      y = ceil(u - 0.5);
+    }
+  } else {
+    y = u;
+  }
+
+  return y;
+}
+
+static void em_SystemCore_setup(dsp_simulink_MovingAverage_em *obj)
+{
+  obj->isSetupComplete = false;
+  obj->isInitialized = 1;
+  obj->NumChannels = 1;
+  obj->FrameLength = 1;
+  obj->_pobj0.isInitialized = 0;
+  obj->_pobj0.isInitialized = 0;
+  obj->pStatistic = &obj->_pobj0;
+  obj->isSetupComplete = true;
+  obj->TunablePropsChanged = false;
+}
+
 /* Model step function */
 void em_step(RT_MODEL_em *const rtM_em, ExtU_em *rtU_em, ExtY_em *rtY_em)
 {
+  DW_em *rtDW_em = rtM_em->dwork;
+  h_dsp_internal_SlidingWindow_em *obj;
+  real_T csumrev[5];
   real_T fractions[2];
-  real_T bpIndices_tmp;
+  real_T MovingAverage1_i_0;
+  real_T cumRevIndex;
   real_T k_max_idx_0;
-  real_T k_max_idx_1;
+  real_T modValueRev;
+  real_T z;
+  int32_T i;
+  int32_T localProduct;
   uint32_T bpIndices[2];
-  bpIndices[1U] = plook_evenca(rtU_em->V, rtP_em.V[0], rtP_em.V[1] - rtP_em.V[0],
-    25U, &k_max_idx_1);
-  fractions[1U] = k_max_idx_1;
-  bpIndices_tmp = rtP_em.w[1] - rtP_em.w[0];
-  bpIndices[0U] = plook_evenca(rtU_em->w[0], rtP_em.w[0], bpIndices_tmp, 106U,
-    &k_max_idx_1);
-  fractions[0U] = k_max_idx_1;
-  k_max_idx_0 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_max_tableData,
-    107U, rtConstP_em.k_max_maxIndex);
-  bpIndices[0U] = plook_evenca(rtU_em->w[1], rtP_em.w[0], bpIndices_tmp, 106U,
-    &k_max_idx_1);
-  fractions[0U] = k_max_idx_1;
-  k_max_idx_1 = intrp2d_la(bpIndices, fractions, rtConstP_em.k_max_tableData,
-    107U, rtConstP_em.k_max_maxIndex);
-  rtY_em->kTVS[0] = k_max_idx_0 * rtU_em->rTVS[0];
-  rtY_em->kTVS[1] = k_max_idx_1 * rtU_em->rTVS[1];
-  rtY_em->kEQUAL[0] = k_max_idx_0 * rtU_em->rEQUAL[0];
-  rtY_em->kEQUAL[1] = k_max_idx_1 * rtU_em->rEQUAL[1];
-  UNUSED_PARAMETER(rtM_em);
+  boolean_T MatrixConcatenate[10];
+  if (rtU_em->D_raw[0] > rtP_em.ub_mm[0]) {
+    modValueRev = rtP_em.ub_mm[0];
+  } else if (rtU_em->D_raw[0] < rtP_em.lb_mm[0]) {
+    modValueRev = rtP_em.lb_mm[0];
+  } else {
+    modValueRev = rtU_em->D_raw[0];
+  }
+
+  bpIndices[1U] = plook_evenca(modValueRev, rtP_em.V[0], rtP_em.V[1] - rtP_em.V
+    [0], 25U, &cumRevIndex);
+  fractions[1U] = cumRevIndex;
+  if (rtU_em->D_raw[1] > rtP_em.ub_mm[1]) {
+    modValueRev = rtP_em.ub_mm[1];
+  } else if (rtU_em->D_raw[1] < rtP_em.lb_mm[1]) {
+    modValueRev = rtP_em.lb_mm[1];
+  } else {
+    modValueRev = rtU_em->D_raw[1];
+  }
+
+  z = rtP_em.w[1] - rtP_em.w[0];
+  bpIndices[0U] = plook_evenca(modValueRev, rtP_em.w[0], z, 106U, &cumRevIndex);
+  fractions[0U] = cumRevIndex;
+  k_max_idx_0 = intrp2d_la(bpIndices, fractions, rtP_em.maxK, 107U,
+    rtConstP_em.k_max_maxIndex);
+  if (rtU_em->D_raw[2] > rtP_em.ub_mm[2]) {
+    modValueRev = rtP_em.ub_mm[2];
+  } else if (rtU_em->D_raw[2] < rtP_em.lb_mm[2]) {
+    modValueRev = rtP_em.lb_mm[2];
+  } else {
+    modValueRev = rtU_em->D_raw[2];
+  }
+
+  bpIndices[0U] = plook_evenca(modValueRev, rtP_em.w[0], z, 106U, &cumRevIndex);
+  fractions[0U] = cumRevIndex;
+  cumRevIndex = intrp2d_la(bpIndices, fractions, rtP_em.maxK, 107U,
+    rtConstP_em.k_max_maxIndex);
+  rtY_em->kTVS[0] = k_max_idx_0 * rtU_em->rTV[0];
+  rtY_em->kEQUAL[0] = k_max_idx_0 * rtU_em->rEQUAL;
+  rtY_em->kTVS[1] = cumRevIndex * rtU_em->rTV[1];
+  rtY_em->kEQUAL[1] = cumRevIndex * rtU_em->rEQUAL;
+  MatrixConcatenate[4] = (rtP_em.ub_mm[0] + rtP_em.epsilon > rtU_em->D_raw[0]);
+  MatrixConcatenate[7] = (rtP_em.lb_mm[0] - rtP_em.epsilon < rtU_em->D_raw[0]);
+  MatrixConcatenate[5] = (rtP_em.ub_mm[1] + rtP_em.epsilon > rtU_em->D_raw[1]);
+  MatrixConcatenate[8] = (rtP_em.lb_mm[1] - rtP_em.epsilon < rtU_em->D_raw[1]);
+  MatrixConcatenate[6] = (rtP_em.ub_mm[2] + rtP_em.epsilon > rtU_em->D_raw[2]);
+  MatrixConcatenate[9] = (rtP_em.lb_mm[2] - rtP_em.epsilon < rtU_em->D_raw[2]);
+  MatrixConcatenate[0] = rtU_em->F_raw[0];
+  MatrixConcatenate[1] = rtU_em->F_raw[1];
+  MatrixConcatenate[2] = rtU_em->F_raw[2];
+  MatrixConcatenate[3] = rtU_em->F_raw[3];
+  localProduct = rtU_em->F_raw[0] ? (int32_T)rtU_em->F_raw[1] : 0;
+  for (i = 0; i < 8; i++) {
+    localProduct = MatrixConcatenate[i + 2] ? localProduct : 0;
+  }
+
+  if (rtDW_em->obj.TunablePropsChanged) {
+    rtDW_em->obj.TunablePropsChanged = false;
+  }
+
+  obj = rtDW_em->obj.pStatistic;
+  if (rtDW_em->obj.pStatistic->isInitialized != 1) {
+    rtDW_em->obj.pStatistic->isSetupComplete = false;
+    rtDW_em->obj.pStatistic->isInitialized = 1;
+    obj->pCumSum = 0.0;
+    obj->pCumRevIndex = 1.0;
+    obj->pModValueRev = 0.0;
+    obj->isSetupComplete = true;
+    obj->pCumSum = 0.0;
+    for (i = 0; i < 5; i++) {
+      obj->pCumSumRev[i] = 0.0;
+      obj->pCumSumRev[i] = 0.0;
+    }
+
+    obj->pCumRevIndex = 1.0;
+    obj->pModValueRev = 0.0;
+  }
+
+  cumRevIndex = obj->pCumRevIndex;
+  k_max_idx_0 = obj->pCumSum;
+  for (i = 0; i < 5; i++) {
+    csumrev[i] = obj->pCumSumRev[i];
+  }
+
+  modValueRev = obj->pModValueRev;
+  z = 0.0;
+  MovingAverage1_i_0 = 0.0;
+  k_max_idx_0 += (real_T)localProduct;
+  if (modValueRev == 0.0) {
+    z = csumrev[(int32_T)cumRevIndex - 1] + k_max_idx_0;
+  }
+
+  csumrev[(int32_T)cumRevIndex - 1] = localProduct;
+  if (cumRevIndex != 5.0) {
+    cumRevIndex++;
+  } else {
+    cumRevIndex = 1.0;
+    k_max_idx_0 = 0.0;
+    csumrev[3] += csumrev[4];
+    csumrev[2] += csumrev[3];
+    csumrev[1] += csumrev[2];
+    csumrev[0] += csumrev[1];
+  }
+
+  if (modValueRev == 0.0) {
+    MovingAverage1_i_0 = z / 6.0;
+  }
+
+  obj->pCumSum = k_max_idx_0;
+  for (i = 0; i < 5; i++) {
+    obj->pCumSumRev[i] = csumrev[i];
+  }
+
+  obj->pCumRevIndex = cumRevIndex;
+  if (modValueRev > 0.0) {
+    obj->pModValueRev = modValueRev - 1.0;
+  } else {
+    obj->pModValueRev = 0.0;
+  }
+
+  rtY_em->MM_STATE = rt_roundd(MovingAverage1_i_0);
+  for (i = 0; i < 10; i++) {
+    rtY_em->MM_FLAGS[i] = MatrixConcatenate[i];
+  }
 }
 
 /* Model initialize function */
 void em_initialize(RT_MODEL_em *const rtM_em)
 {
-  /* (no initialization code required) */
-  UNUSED_PARAMETER(rtM_em);
+  DW_em *rtDW_em = rtM_em->dwork;
+
+  {
+    h_dsp_internal_SlidingWindow_em *obj;
+    int32_T i;
+    rtDW_em->obj.isInitialized = 0;
+    rtDW_em->obj.NumChannels = -1;
+    rtDW_em->obj.FrameLength = -1;
+    rtDW_em->obj.matlabCodegenIsDeleted = false;
+    em_SystemCore_setup(&rtDW_em->obj);
+    obj = rtDW_em->obj.pStatistic;
+    if (obj->isInitialized == 1) {
+      obj->pCumSum = 0.0;
+      for (i = 0; i < 5; i++) {
+        obj->pCumSumRev[i] = 0.0;
+      }
+
+      obj->pCumRevIndex = 1.0;
+      obj->pModValueRev = 0.0;
+    }
+  }
 }
 
 /* Model terminate function */
 void em_terminate(RT_MODEL_em *const rtM_em)
 {
-  /* (no terminate code required) */
-  UNUSED_PARAMETER(rtM_em);
+  DW_em *rtDW_em = rtM_em->dwork;
+  h_dsp_internal_SlidingWindow_em *obj;
+  if (!rtDW_em->obj.matlabCodegenIsDeleted) {
+    rtDW_em->obj.matlabCodegenIsDeleted = true;
+    if ((rtDW_em->obj.isInitialized == 1) && rtDW_em->obj.isSetupComplete) {
+      obj = rtDW_em->obj.pStatistic;
+      if (obj->isInitialized == 1) {
+        obj->isInitialized = 2;
+      }
+
+      rtDW_em->obj.NumChannels = -1;
+      rtDW_em->obj.FrameLength = -1;
+    }
+  }
 }
 
 /*

@@ -466,7 +466,8 @@
                         {   "msg_name":"gps_speed",
                             "msg_desc":"gps speed",
                             "signals":[
-                                {"sig_name":"gps_speed","type":"int16_t","unit": "m/s", "scale": 0.01}
+                                {"sig_name":"gps_speed","type":"int16_t","unit": "m/s", "scale": 0.01},
+                                {"sig_name": "gps_heading", "type": "int16_t", "unit": "none", "scale": 0.1}
                             ],
                             "msg_period":40,
                             "msg_hlp":3,
@@ -490,16 +491,6 @@
                             "msg_period":40,
                             "msg_hlp":3,
                             "msg_pgn":141
-                        },
-                        {
-                            "msg_name": "vehHead",
-                            "msg_desc": "Vehicle Heading",
-                            "signals":[
-                                {"sig_name": "vehHead", "type": "int16_t", "unit": "none", "scale": 0.1}
-                            ],
-                            "msg_period": 40,
-                            "msg_hlp": 3,
-                            "msg_pgn": 153
                         },
                         {   "msg_name":"imu_gyro",
                             "msg_desc":"gyroscope from imu",
@@ -621,7 +612,8 @@
                         {"msg_name": "dashboard_tv_parameters"},
                         {"msg_name": "main_hb"},
                         {"msg_name": "rear_wheel_speeds"},
-                        {"msg_name": "rear_motor_temps"}
+                        {"msg_name": "rear_motor_temps"},
+                        {"msg_name": "max_cell_temp"}
                     ]
                 },
                 {

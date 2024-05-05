@@ -95,13 +95,15 @@ usart_init_t huart_gps =
     .rx_dma_cfg = &usart_gps_rx_dma_config
 };
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz 96000000
 ClockRateConfig_t clock_config = {
-    .system_source = SYSTEM_CLOCK_SRC_HSI,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .system_source              =SYSTEM_CLOCK_SRC_PLL,
+    .pll_src                    =PLL_SRC_HSI16,
+    .vco_output_rate_target_hz  =192000000,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
 };
 
 /* Locals for Clock Rates */
@@ -168,7 +170,7 @@ static ExtU_em rtU_em; /* External inputs */
 static ExtY_em rtY_em; /* External outputs */
 static RT_MODEL_em rtM_emv;
 static RT_MODEL_em *const rtMPtr_em = &rtM_emv; /* Real-time model */
-// static DW_em rtDW_em;                        /* Observable states */
+static DW_em rtDW_em;                        /* Observable states */
 static RT_MODEL_em *const rtM_em = rtMPtr_em;
 static int16_t em_timing;
 
@@ -279,7 +281,7 @@ void preflightChecks(void)
         tv_IO_initialize(&rtU_tv);
 
         /* Pack Engine map data into rtM_em */
-        // rtM_em->dwork = &rtDW_em;
+        rtM_em->dwork = &rtDW_em;
 
         /* Initialize Engine Map */
         em_initialize(rtM_em);
@@ -409,12 +411,15 @@ void VCU_MAIN(void)
     em_timing = sched.os_ticks - em_timing;
 
     /* Set TV faults */
-    setFault(ID_TV_DISABLED_FAULT,rtY_tv.TVS_STATE);
+    setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
+    setFault(ID_MM_DISABLED_FAULT,!rtY_em.MM_STATE);
     setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
     setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
-    // setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
-    // setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);
-    // setFault(ID_YES_GPS_FIX_FAULT,rtU_tv.F_raw[8]);
+    
+    setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
+    setFault(ID_MM_ENABLED_FAULT,rtY_em.MM_STATE);
+    setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);
+    setFault(ID_YES_GPS_FIX_FAULT,rtU_tv.F_raw[8]);
 
     /* Get motor commands */
     tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);

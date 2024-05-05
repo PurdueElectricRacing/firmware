@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'tv'.
  *
- * Model version                  : 1.31
+ * Model version                  : 1.45
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 09:30:06 2024
+ * C/C++ source code generated on : Sat May  4 21:24:23 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -23,35 +23,57 @@
 
 /* Block parameters (default storage) */
 P_tv rtP_tv = {
-  /* Variable: PLb
+  /* Variable: bI_bias
+   * Referenced by: '<S4>/Bias3'
+   */
+  -130.0,
+
+  /* Variable: bI_gain
+   * Referenced by: '<S4>/Gain5'
+   */
+  -0.1,
+
+  /* Variable: bT_bias
+   * Referenced by: '<S4>/Bias2'
+   */
+  -50.0,
+
+  /* Variable: bT_gain
+   * Referenced by: '<S4>/Gain3'
+   */
+  -0.1,
+
+  /* Variable: epsilon
    * Referenced by:
-   *   '<S4>/Gain'
-   *   '<S4>/Gain4'
+   *   '<S3>/Constant4'
+   *   '<S3>/Constant5'
    */
-  2.0,
-
-  /* Variable: Tmc
-   * Referenced by: '<S4>/T_mc to Max Power Level'
-   */
-  { -50.0, -40.0, -30.0, -20.0, -10.0, 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0,
-    70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0 },
-
-  /* Variable: Tmo
-   * Referenced by: '<S4>/T_m to Max Power Level'
-   */
-  { -50.0, -40.0, -30.0, -20.0, -10.0, 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0,
-    70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0 },
-
-  /* Variable: dIb
-   * Referenced by: '<S4>/Battery to Max Power Level'
-   */
-  { 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0, 110.0,
-    120.0, 130.0, 140.0, 150.0, 160.0 },
+  0.001,
 
   /* Variable: half_track
    * Referenced by: '<S4>/P_gain'
    */
   { 0.649, 0.621 },
+
+  /* Variable: mT_bias
+   * Referenced by: '<S4>/Bias'
+   */
+  -90.0,
+
+  /* Variable: mT_gain
+   * Referenced by: '<S4>/Gain'
+   */
+  -0.1,
+
+  /* Variable: mcT_bias
+   * Referenced by: '<S4>/Bias1'
+   */
+  -60.0,
+
+  /* Variable: mcT_gain
+   * Referenced by: '<S4>/Gain1'
+   */
+  -0.1,
 
   /* Variable: r_power_sat
    * Referenced by: '<S4>/Gain4'
@@ -72,8 +94,8 @@ P_tv rtP_tv = {
    *   '<S3>/Constant4'
    *   '<S3>/Saturation'
    */
-  { 1.0, 170.0, 430.0, 1100.0, 1100.0, 30.0, 30.0, 30.0, 2.5, 2.5, 2.5, 160.0,
-    120.0, 120.0, 120.0, 120.0, 30.0, 30.0, 30.0 },
+  { 1.0, 170.0, 430.0, 1100.0, 1100.0, 30.0, 2.5, 2.5, 2.5, 160.0, 120.0, 120.0,
+    120.0, 30.0, 30.0, 30.0 },
 
   /* Variable: v
    * Referenced by: '<S4>/2-D Lookup Table'
@@ -958,31 +980,17 @@ P_tv rtP_tv = {
 
 /* Constant parameters (default storage) */
 const ConstP_tv rtConstP_tv = {
-  /* Pooled Parameter (Expression: lb)
-   * Referenced by:
-   *   '<S3>/Constant5'
-   *   '<S3>/Saturation'
+  /* Variable: lb
+   * Referenced by: '<S3>/Constant5'
    */
-  { 0.0, -170.0, 150.0, -20.0, -20.0, -30.0, -30.0, -30.0, -2.5, -2.5, -2.5,
-    -5.0, -40.0, -40.0, -40.0, -40.0, -30.0, -30.0, -30.0 },
+  { 0.0, -170.0, 150.0, -20.0, -20.0, -30.0, -2.5, -2.5, -2.5, -1.0, -40.0,
+    -40.0, -40.0, -30.0, -30.0, -30.0 },
 
-  /* Expression: k_TLmo
-   * Referenced by: '<S4>/T_m to Max Power Level'
+  /* Expression: lb
+   * Referenced by: '<S3>/Saturation'
    */
-  { 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
-    0.0, 0.0, 0.0, 0.0 },
-
-  /* Expression: k_TLmc
-   * Referenced by: '<S4>/T_mc to Max Power Level'
-   */
-  { 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0 },
-
-  /* Expression: k_PL
-   * Referenced by: '<S4>/Battery to Max Power Level'
-   */
-  { 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
-    0.0, 0.0 },
+  { 0.0, -170.0, 150.0, -20.0, -20.0, -30.0, -2.5, -2.5, -2.5, -1.0, -40.0,
+    -40.0, -40.0, -30.0, -30.0, -30.0 },
 
   /* Computed Parameter: uDLookupTable_maxIndex
    * Referenced by: '<S4>/2-D Lookup Table'

@@ -494,14 +494,29 @@ void parseMCDataPeriodic(void)
 #define POT_VOLT_MAX_DIST_MM 0
 #define POT_VOLT_MIN_DIST_MM 4095
 
+#define POT_TOTAL_RES 3000
+#define POT_MAX_RES 3300
+#define POT_MIN_RES 300
+
+#define POT_VOLT_MAX_L 4.0f
+#define POT_VOLT_MIN_L 4077.0f
+#define POT_VOLT_MAX_R 4.0f
+#define POT_VOLT_MIN_R 4090.0f
+#define POT_MAX_DIST 75
+#define POT_DIST_DROOP_L 57
+#define POT_DIST_DROOP_R 54
+
 void send_shockpots()
 {
     uint16_t shock_l = adc_readings.shock_l;
     uint16_t shock_r = adc_readings.shock_r;
-    //Scale from raw 12bit adc to mm * 10 of linear pot travel
-    // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
-    // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
-    SEND_SHOCK_REAR(shock_l, shock_r);
+    int16_t shock_l_parsed;
+    int16_t shock_r_parsed;
+    // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
+    shock_l_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
+    shock_r_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
+
+    SEND_SHOCK_REAR(shock_l_parsed, shock_r_parsed);
 }
 
 /**

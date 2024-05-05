@@ -70,8 +70,8 @@
                             "msg_name": "shock_rear",
                             "msg_desc": "Load Sensor readings from left and right",
                             "signals": [
-                                {"sig_name": "left_shock", "type": "uint16_t", "unit": "mm"},
-                                {"sig_name": "right_shock", "type": "uint16_t", "unit": "mm"}
+                                {"sig_name": "left_shock", "type": "int16_t", "unit": "mm"},
+                                {"sig_name": "right_shock", "type": "int16_t", "unit": "mm"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 4,
@@ -636,8 +636,8 @@
                             "msg_name": "shock_front",
                             "msg_desc": "Load Sensor readings from left and right",
                             "signals": [
-                                {"sig_name": "left_shock", "type": "uint16_t", "unit": "mm"},
-                                {"sig_name": "right_shock", "type": "uint16_t", "unit": "mm"}
+                                {"sig_name": "left_shock", "type": "int16_t", "unit": "mm"},
+                                {"sig_name": "right_shock", "type": "int16_t", "unit": "mm"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 4,

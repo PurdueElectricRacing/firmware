@@ -60,8 +60,8 @@ BO_ 2415983105 load_sensor_readings: 8 Main_Module
  SG_ left_load_sensor : 0|32@1- (1,0) [0|0] "N" Vector__XXX
 
 BO_ 2415984385 shock_rear: 4 Main_Module
- SG_ right_shock : 16|16@1+ (1,0) [0|0] "mm" Vector__XXX
- SG_ left_shock : 0|16@1+ (1,0) [0|0] "mm" Vector__XXX
+ SG_ right_shock : 16|16@1- (1,0) [0|0] "mm" Vector__XXX
+ SG_ left_shock : 0|16@1- (1,0) [0|0] "mm" Vector__XXX
 
 BO_ 2415925633 mcu_status: 4 Main_Module
  SG_ sched_error : 24|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -329,8 +329,8 @@ BO_ 2415919749 raw_throttle_brake: 8 Dashboard
  SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
 
 BO_ 2415984069 shock_front: 4 Dashboard
- SG_ right_shock : 16|16@1+ (1,0) [0|0] "mm" Vector__XXX
- SG_ left_shock : 0|16@1+ (1,0) [0|0] "mm" Vector__XXX
+ SG_ right_shock : 16|16@1- (1,0) [0|0] "mm" Vector__XXX
+ SG_ left_shock : 0|16@1- (1,0) [0|0] "mm" Vector__XXX
 
 BO_ 2415983749 load_sensor_readings_dash: 8 Dashboard
  SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX

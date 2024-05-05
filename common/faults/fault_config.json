@@ -93,6 +93,33 @@
                     "time_to_latch": 100,
                     "time_to_unlatch": 1000,
                     "lcd_message": "Fan 2 Rail Down"
+                },
+                {
+                    "fault_name": "lv_critical_low",
+                    "max": 50000,
+                    "min": 20000,
+                    "priority": "warning",
+                    "time_to_latch": 500,
+                    "time_to_unlatch": 1500,
+                    "lcd_message": "LV bat Very Low (20V)"
+                },
+                {
+                    "fault_name": "lv_getting_low",
+                    "max": 50000,
+                    "min": 21000,
+                    "priority": "warning",
+                    "time_to_latch": 500,
+                    "time_to_unlatch": 1500,
+                    "lcd_message": "LV bat Low (21V)"
+                },
+                {
+                    "fault_name": "lv_batt_fifty",
+                    "max": 50000,
+                    "min": 25000,
+                    "priority": "warning",
+                    "time_to_latch": 500,
+                    "time_to_unlatch": 1500,
+                    "lcd_message": "LV bat Nominal (25V)"
                 }
             ]
         },

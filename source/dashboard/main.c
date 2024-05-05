@@ -276,13 +276,7 @@ void preflightChecks(void) {
 }
 
 
-#define POT_VOLT_MAX_L 4.0f
-#define POT_VOLT_MIN_L 4090.0f
-#define POT_VOLT_MAX_R 4.0f
-#define POT_VOLT_MIN_R 4060.0f
-#define POT_MAX_DIST 75
-#define POT_DIST_DROOP_L 55
-#define POT_DIST_DROOP_R 57
+
 
 void send_shockpots()
 {

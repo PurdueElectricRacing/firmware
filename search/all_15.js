@@ -58,7 +58,7 @@ var searchData=
   ['up_5fsdc_5fstatus_55',['UP_SDC_STATUS',['../dashboard_2can_2can__parse_8h.html#ad242a53aa898f9d3f4cd4684d603d212',1,'can_parse.h']]],
   ['up_5ftest_5fmsg5_5f2_56',['UP_TEST_MSG5_2',['../l4__testing_2can_2can__parse_8h.html#a50af412569f941404ce8db2b35ba6f20',1,'can_parse.h']]],
   ['up_5ftest_5fstale_57',['UP_TEST_STALE',['../l4__testing_2can_2can__parse_8h.html#a4ff1eca73cf5c26971cb71341234df7a',1,'can_parse.h']]],
-  ['up_5fthrottle_5fvcu_58',['UP_THROTTLE_VCU',['../main__module_2can_2can__parse_8h.html#a8b1222a550d6ebb35598c848479f8982',1,'can_parse.h']]],
+  ['up_5fthrottle_5fvcu_58',['UP_THROTTLE_VCU',['../dashboard_2can_2can__parse_8h.html#a8b1222a550d6ebb35598c848479f8982',1,'UP_THROTTLE_VCU:&#160;can_parse.h'],['../main__module_2can_2can__parse_8h.html#a8b1222a550d6ebb35598c848479f8982',1,'UP_THROTTLE_VCU:&#160;can_parse.h']]],
   ['update_5fcooling_5fperiodic_59',['update_cooling_periodic',['../pdu_2cooling_2cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398',1,'update_cooling_periodic():&#160;cooling.c'],['../pdu_2cooling_2cooling_8h.html#a3e02c27284622cd9e494e2af92cbe398',1,'update_cooling_periodic():&#160;cooling.c']]],
   ['update_5fdata_5fpages_60',['update_data_pages',['../lcd_8c.html#a98cc2f1ee3e8ffd043bc97202f797bff',1,'update_data_pages():&#160;lcd.c'],['../lcd_8h.html#a98cc2f1ee3e8ffd043bc97202f797bff',1,'update_data_pages():&#160;lcd.c']]],
   ['update_5flen_61',['update_len',['../structeeprom.html#aa0134efe66af231523043d224bd8a021',1,'eeprom']]],

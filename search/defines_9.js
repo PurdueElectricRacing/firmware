@@ -160,7 +160,7 @@ var searchData=
   ['id_5ftest_5fmsg5_157',['ID_TEST_MSG5',['../l4__testing_2can_2can__parse_8h.html#aec4cd310ac979317e782d55b3344bb2d',1,'can_parse.h']]],
   ['id_5ftest_5fmsg5_5f2_158',['ID_TEST_MSG5_2',['../l4__testing_2can_2can__parse_8h.html#a0b9b175f278ae4d671913903a0ab1ada',1,'can_parse.h']]],
   ['id_5ftest_5fstale_159',['ID_TEST_STALE',['../l4__testing_2can_2can__parse_8h.html#ab6293de89f8e872ab06623ef69adc2a3',1,'can_parse.h']]],
-  ['id_5fthrottle_5fvcu_160',['ID_THROTTLE_VCU',['../main__module_2can_2can__parse_8h.html#a18bea6c1f06d072551c89ab66ab81195',1,'ID_THROTTLE_VCU:&#160;can_parse.h'],['../torque__vector_2can_2can__parse_8h.html#a18bea6c1f06d072551c89ab66ab81195',1,'ID_THROTTLE_VCU:&#160;can_parse.h']]],
+  ['id_5fthrottle_5fvcu_160',['ID_THROTTLE_VCU',['../dashboard_2can_2can__parse_8h.html#a18bea6c1f06d072551c89ab66ab81195',1,'ID_THROTTLE_VCU:&#160;can_parse.h'],['../main__module_2can_2can__parse_8h.html#a18bea6c1f06d072551c89ab66ab81195',1,'ID_THROTTLE_VCU:&#160;can_parse.h'],['../torque__vector_2can_2can__parse_8h.html#a18bea6c1f06d072551c89ab66ab81195',1,'ID_THROTTLE_VCU:&#160;can_parse.h']]],
   ['id_5ftorquevector_5fbl_5fcmd_161',['ID_TORQUEVECTOR_BL_CMD',['../bootloader_2can_2can__parse_8h.html#ac2b8a0f7c6efbb60ae44565bfd2ff87c',1,'ID_TORQUEVECTOR_BL_CMD:&#160;can_parse.h'],['../torque__vector_2can_2can__parse_8h.html#ac2b8a0f7c6efbb60ae44565bfd2ff87c',1,'ID_TORQUEVECTOR_BL_CMD:&#160;can_parse.h']]],
   ['id_5ftorquevector_5fbl_5fresp_162',['ID_TORQUEVECTOR_BL_RESP',['../bootloader_2can_2can__parse_8h.html#aacea100084f27b5aa899253e83086fc5',1,'can_parse.h']]],
   ['id_5ftv_5fcan_5fstats_163',['ID_TV_CAN_STATS',['../torque__vector_2can_2can__parse_8h.html#a574e95ce8fe749cf6ff4f43d3dd3dd51',1,'can_parse.h']]],

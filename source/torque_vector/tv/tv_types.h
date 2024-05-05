@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'tv'.
  *
- * Model version                  : 1.31
+ * Model version                  : 1.45
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 09:30:06 2024
+ * C/C++ source code generated on : Sat May  4 21:24:23 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -21,6 +21,71 @@
 
 #ifndef RTW_HEADER_tv_types_h_
 #define RTW_HEADER_tv_types_h_
+#ifndef struct_tag_tLjx1RjfJ1qVLkgioS4yWB
+#define struct_tag_tLjx1RjfJ1qVLkgioS4yWB
+
+struct tag_tLjx1RjfJ1qVLkgioS4yWB
+{
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  real_T pWinLen;
+  real_T pBuf[150];
+  real_T pHeap[150];
+  real_T pMidHeap;
+  real_T pIdx;
+  real_T pPos[150];
+  real_T pMinHeapLength;
+  real_T pMaxHeapLength;
+};
+
+#endif                                 /* struct_tag_tLjx1RjfJ1qVLkgioS4yWB */
+
+#ifndef typedef_c_dsp_internal_MedianFilterC_tv
+#define typedef_c_dsp_internal_MedianFilterC_tv
+
+typedef struct tag_tLjx1RjfJ1qVLkgioS4yWB c_dsp_internal_MedianFilterC_tv;
+
+#endif                             /* typedef_c_dsp_internal_MedianFilterC_tv */
+
+#ifndef struct_tag_BlgwLpgj2bjudmbmVKWwDE
+#define struct_tag_BlgwLpgj2bjudmbmVKWwDE
+
+struct tag_BlgwLpgj2bjudmbmVKWwDE
+{
+  uint32_T f1[8];
+};
+
+#endif                                 /* struct_tag_BlgwLpgj2bjudmbmVKWwDE */
+
+#ifndef typedef_cell_wrap_tv
+#define typedef_cell_wrap_tv
+
+typedef struct tag_BlgwLpgj2bjudmbmVKWwDE cell_wrap_tv;
+
+#endif                                 /* typedef_cell_wrap_tv */
+
+#ifndef struct_tag_yR8ab8akrT9uTdOSCFfIYB
+#define struct_tag_yR8ab8akrT9uTdOSCFfIYB
+
+struct tag_yR8ab8akrT9uTdOSCFfIYB
+{
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  cell_wrap_tv inputVarSize;
+  int32_T NumChannels;
+  c_dsp_internal_MedianFilterC_tv pMID;
+};
+
+#endif                                 /* struct_tag_yR8ab8akrT9uTdOSCFfIYB */
+
+#ifndef typedef_dsp_simulink_MedianFilter_tv
+#define typedef_dsp_simulink_MedianFilter_tv
+
+typedef struct tag_yR8ab8akrT9uTdOSCFfIYB dsp_simulink_MedianFilter_tv;
+
+#endif                                /* typedef_dsp_simulink_MedianFilter_tv */
+
 #ifndef struct_tag_2ykk7BbtZEWHYu0XKNZ1LE
 #define struct_tag_2ykk7BbtZEWHYu0XKNZ1LE
 
@@ -64,23 +129,6 @@ struct tag_J38farKz2epFg1DFUoymjH
 typedef struct tag_J38farKz2epFg1DFUoymjH h_dsp_internal_SlidingWind_j_tv;
 
 #endif                             /* typedef_h_dsp_internal_SlidingWind_j_tv */
-
-#ifndef struct_tag_BlgwLpgj2bjudmbmVKWwDE
-#define struct_tag_BlgwLpgj2bjudmbmVKWwDE
-
-struct tag_BlgwLpgj2bjudmbmVKWwDE
-{
-  uint32_T f1[8];
-};
-
-#endif                                 /* struct_tag_BlgwLpgj2bjudmbmVKWwDE */
-
-#ifndef typedef_cell_wrap_tv
-#define typedef_cell_wrap_tv
-
-typedef struct tag_BlgwLpgj2bjudmbmVKWwDE cell_wrap_tv;
-
-#endif                                 /* typedef_cell_wrap_tv */
 
 #ifndef struct_tag_A9AnQ4YrsYeUCGYxAP6xUF
 #define struct_tag_A9AnQ4YrsYeUCGYxAP6xUF

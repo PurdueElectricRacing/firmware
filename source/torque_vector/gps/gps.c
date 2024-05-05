@@ -35,7 +35,7 @@ u_int16_t diff;
 GPS_Handle_t gps_handle = {.raw_message = {0},
                            .g_speed = 0,
                            .g_speed_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .speed_rounded = 0,
+                           .g_speed_rounded = 0,
                            .longitude_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
                            .longitude = 0,
                            .lon_rounded = 0,
@@ -89,7 +89,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[2] = GPS->raw_message[68];
             iLong.bytes[3] = GPS->raw_message[69];
             GPS->g_speed = iLong.iLong; /* mm/s is the raw data */
-            GPS->speed_rounded = (int16_t)(GPS->g_speed / 10);
+            GPS->g_speed_rounded = (int16_t)(GPS->g_speed / 10);
 
             // Collect Longitude
             GPS->longitude_bytes[0] = GPS->raw_message[30];
@@ -138,8 +138,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             iLong.bytes[3] = GPS->raw_message[57];
             GPS->n_vel = iLong.iLong; /* mm/s is the raw data */
             GPS->n_vel_rounded = (int16_t)(GPS->n_vel / 10);
-            GPS->n_vel_sfs1 = (double)(GPS->n_vel);
-            GPS->n_vel_sfs2 = (double)GPS->n_vel;
 
             // Collect East Velocity
             GPS->e_vel_bytes[0] = GPS->raw_message[58];
@@ -200,7 +198,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
             }
 
             SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded);
-            SEND_VEHHEAD(GPS->headVeh_rounded);
+            SEND_GPS_SPEED(GPS->g_speed_rounded, GPS->headVeh_rounded);
 
             SEND_GPS_COORDINATES(GPS->lat_rounded, GPS->lon_rounded);
             SEND_GPS_POSITION(GPS->height_rounded);

@@ -44,7 +44,7 @@ typedef struct
 
     uint8_t g_speed_bytes[4];
     signed long g_speed;
-    int16_t speed_rounded;
+    int16_t g_speed_rounded;
 
     uint8_t longitude_bytes[4];
     signed long longitude;
@@ -61,9 +61,6 @@ typedef struct
     uint8_t n_vel_bytes[4];
     signed long n_vel;
     int16_t n_vel_rounded;
-    double n_vel_sfs1;
-    double n_vel_sfs2;
-    double n_hi;
 
     uint8_t e_vel_bytes[4];
     signed long e_vel;
@@ -71,7 +68,7 @@ typedef struct
 
     uint8_t d_vel_bytes[4];
     signed long d_vel;
-    uint16_t d_vel_rounded;
+    int16_t d_vel_rounded;
 
     uint8_t headVeh_bytes[4];
     signed long headVeh;

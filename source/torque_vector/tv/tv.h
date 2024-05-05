@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'tv'.
  *
- * Model version                  : 1.31
+ * Model version                  : 1.45
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sat Apr 20 09:30:06 2024
+ * C/C++ source code generated on : Sat May  4 21:24:23 2024
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -37,35 +37,33 @@
 #define rtmSetErrorStatus(rtm, val)    ((rtm)->errorStatus = (val))
 #endif
 
+/* Block signals and states (default storage) for system '<S2>/Median Filter' */
+typedef struct {
+  dsp_simulink_MedianFilter_tv obj;    /* '<S2>/Median Filter' */
+  real_T MedianFilter_c;               /* '<S2>/Median Filter' */
+  boolean_T objisempty;                /* '<S2>/Median Filter' */
+} DW_MedianFilter_tv;
+
 /* Block signals and states (default storage) for system '<Root>' */
 typedef struct {
+  DW_MedianFilter_tv MedianFilter2;    /* '<S2>/Median Filter' */
+  DW_MedianFilter_tv MedianFilter1;    /* '<S2>/Median Filter' */
+  DW_MedianFilter_tv MedianFilter_g;   /* '<S2>/Median Filter' */
   dsp_simulink_MovingAverage_tv obj;   /* '<S2>/Moving Average1' */
   dsp_simulink_MovingAverage_j_tv obj_m;/* '<S3>/Moving Average1' */
 } DW_tv;
 
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Pooled Parameter (Expression: lb)
-   * Referenced by:
-   *   '<S3>/Constant5'
-   *   '<S3>/Saturation'
+  /* Variable: lb
+   * Referenced by: '<S3>/Constant5'
    */
-  real_T pooled1[19];
+  real_T Constant5_lb[16];
 
-  /* Expression: k_TLmo
-   * Referenced by: '<S4>/T_m to Max Power Level'
+  /* Expression: lb
+   * Referenced by: '<S3>/Saturation'
    */
-  real_T T_mtoMaxPowerLevel_tableData[19];
-
-  /* Expression: k_TLmc
-   * Referenced by: '<S4>/T_mc to Max Power Level'
-   */
-  real_T T_mctoMaxPowerLevel_tableData[19];
-
-  /* Expression: k_PL
-   * Referenced by: '<S4>/Battery to Max Power Level'
-   */
-  real_T BatterytoMaxPowerLevel_tableDat[17];
+  real_T Saturation_LowerSat[16];
 
   /* Computed Parameter: uDLookupTable_maxIndex
    * Referenced by: '<S4>/2-D Lookup Table'
@@ -75,7 +73,7 @@ typedef struct {
 
 /* External inputs (root inport signals with default storage) */
 typedef struct {
-  real_T D_raw[19];                    /* '<Root>/D_raw' */
+  real_T D_raw[16];                    /* '<Root>/D_raw' */
   boolean_T F_raw[13];                 /* '<Root>/F_raw' */
   real_T R[9];                         /* '<Root>/R' */
   real_T dphi;                         /* '<Root>/dphi' */
@@ -86,34 +84,47 @@ typedef struct {
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
   real_T rTVS[2];                      /* '<Root>/rTVS' */
-  real_T rEQUAL[2];                    /* '<Root>/rEQUAL' */
+  real_T rEQUAL;                       /* '<Root>/rEQUAL' */
   real_T max_K;                        /* '<Root>/max_K' */
-  real_T w[2];                         /* '<Root>/w' */
-  real_T V;                            /* '<Root>/V' */
   real_T TVS_STATE;                    /* '<Root>/TVS_STATE' */
-  boolean_T F_TVS[51];                 /* '<Root>/F_TVS' */
-  real_T sig_trunc[19];                /* '<Root>/sig_trunc' */
-  real_T sig_filt[18];                 /* '<Root>/sig_filt' */
+  boolean_T F_TVS[39];                 /* '<Root>/F_TVS' */
+  real_T sig_trunc[15];                /* '<Root>/sig_trunc' */
+  real_T sig_filt[15];                 /* '<Root>/sig_filt' */
 } ExtY_tv;
 
 /* Parameters (default storage) */
 struct P_tv_ {
-  real_T PLb;                          /* Variable: PLb
+  real_T bI_bias;                      /* Variable: bI_bias
+                                        * Referenced by: '<S4>/Bias3'
+                                        */
+  real_T bI_gain;                      /* Variable: bI_gain
+                                        * Referenced by: '<S4>/Gain5'
+                                        */
+  real_T bT_bias;                      /* Variable: bT_bias
+                                        * Referenced by: '<S4>/Bias2'
+                                        */
+  real_T bT_gain;                      /* Variable: bT_gain
+                                        * Referenced by: '<S4>/Gain3'
+                                        */
+  real_T epsilon;                      /* Variable: epsilon
                                         * Referenced by:
-                                        *   '<S4>/Gain'
-                                        *   '<S4>/Gain4'
-                                        */
-  real_T Tmc[19];                      /* Variable: Tmc
-                                        * Referenced by: '<S4>/T_mc to Max Power Level'
-                                        */
-  real_T Tmo[19];                      /* Variable: Tmo
-                                        * Referenced by: '<S4>/T_m to Max Power Level'
-                                        */
-  real_T dIb[17];                      /* Variable: dIb
-                                        * Referenced by: '<S4>/Battery to Max Power Level'
+                                        *   '<S3>/Constant4'
+                                        *   '<S3>/Constant5'
                                         */
   real_T half_track[2];                /* Variable: half_track
                                         * Referenced by: '<S4>/P_gain'
+                                        */
+  real_T mT_bias;                      /* Variable: mT_bias
+                                        * Referenced by: '<S4>/Bias'
+                                        */
+  real_T mT_gain;                      /* Variable: mT_gain
+                                        * Referenced by: '<S4>/Gain'
+                                        */
+  real_T mcT_bias;                     /* Variable: mcT_bias
+                                        * Referenced by: '<S4>/Bias1'
+                                        */
+  real_T mcT_gain;                     /* Variable: mcT_gain
+                                        * Referenced by: '<S4>/Gain1'
                                         */
   real_T r_power_sat;                  /* Variable: r_power_sat
                                         * Referenced by: '<S4>/Gain4'
@@ -121,7 +132,7 @@ struct P_tv_ {
   real_T s[53];                        /* Variable: s
                                         * Referenced by: '<S4>/2-D Lookup Table'
                                         */
-  real_T ub[19];                       /* Variable: ub
+  real_T ub[16];                       /* Variable: ub
                                         * Referenced by:
                                         *   '<S3>/Constant4'
                                         *   '<S3>/Saturation'
@@ -170,8 +181,9 @@ extern void tv_terminate(RT_MODEL_tv *const rtM_tv);
  * '<S2>'   : 'tv/tv/State Estimation'
  * '<S3>'   : 'tv/tv/State Machine'
  * '<S4>'   : 'tv/tv/Torque Vectoring'
- * '<S5>'   : 'tv/tv/Torque Vectoring/Saturation Dynamic'
- * '<S6>'   : 'tv/tv/Torque Vectoring/compute_r_TVS'
+ * '<S5>'   : 'tv/tv/Torque Vectoring/Power Limit'
+ * '<S6>'   : 'tv/tv/Torque Vectoring/Saturation Dynamic'
+ * '<S7>'   : 'tv/tv/Torque Vectoring/compute_r_TVS'
  */
 #endif                                 /* RTW_HEADER_tv_h_ */
 

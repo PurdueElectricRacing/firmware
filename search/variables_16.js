@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['w_0',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t::w'],['../structExtU__em.html#a6655f0efe728d267797307cb90937881',1,'ExtU_em::w'],['../structP__em__.html#aaf657b991defc1012cf6dff30facdd79',1,'P_em_::w'],['../structExtY__tv.html#a012571bab8b4d2f7f90d114ef8dc617e',1,'ExtY_tv::w']]],
-  ['w_1',['W',['../structDW__SFS.html#aec3dc241daba507708f226d97a65dd17',1,'DW_SFS']]],
+  ['w_0',['W',['../structDW__SFS.html#aec3dc241daba507708f226d97a65dd17',1,'DW_SFS']]],
+  ['w_1',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t::w'],['../structP__em__.html#aaf657b991defc1012cf6dff30facdd79',1,'P_em_::w']]],
   ['wake_5faddr_2',['wake_addr',['../structusart__init__t.html#a72b5f7df2bcce44b8d47c08e616df66f',1,'usart_init_t']]],
   ['wc_5fgpio_5fpin_3',['wc_gpio_pin',['../structeeprom.html#a99539ba427114235059a3007b2429db4',1,'eeprom']]],
   ['wc_5fgpio_5fport_4',['wc_gpio_port',['../structeeprom.html#a53e4e0c9172cbc5f7826c289337de020',1,'eeprom']]],
@@ -14,10 +14,10 @@ var searchData=
   ['winsect_11',['winsect',['../structFATFS.html#aaf7eccaccdc9c4243230672d6b2f6566',1,'FATFS']]],
   ['word_5flength_12',['word_length',['../structusart__init__t.html#a05cc99e8162f284a52d93388d800c782',1,'usart_init_t']]],
   ['wordh_13',['wordH',['../structBigEndianIEEEDouble.html#a5dfc5681dc38f1f1bef513b4ad2c2e8e',1,'BigEndianIEEEDouble::wordH'],['../structLittleEndianIEEEDouble.html#af06d938c7ecc1561e5e51fba3b77aee6',1,'LittleEndianIEEEDouble::wordH']]],
-  ['wordl_14',['wordL',['../structBigEndianIEEEDouble.html#a598739bee320c62ff8c61a9141bf4dec',1,'BigEndianIEEEDouble::wordL'],['../structLittleEndianIEEEDouble.html#a606de4acde1005975e56e1e4ae9234f8',1,'LittleEndianIEEEDouble::wordL'],['../structIEEESingle.html#aacecf38ad48be15643984f3c1b046bb8',1,'IEEESingle::wordL']]],
+  ['wordl_14',['wordL',['../structBigEndianIEEEDouble.html#a598739bee320c62ff8c61a9141bf4dec',1,'BigEndianIEEEDouble::wordL'],['../structLittleEndianIEEEDouble.html#a606de4acde1005975e56e1e4ae9234f8',1,'LittleEndianIEEEDouble::wordL'],['../structIEEESingle.html#ac78cc5da892a05f6cf41d7d5c5d6f496',1,'IEEESingle::wordL']]],
   ['wordlreal_15',['wordLreal',['../structIEEESingle.html#afec10c9e3f9764d54e28adb3c551d62d',1,'IEEESingle']]],
   ['wordluint_16',['wordLuint',['../structIEEESingle.html#ab54f13fd229e1ffea7f2ad57e97add6a',1,'IEEESingle']]],
-  ['words_17',['words',['../structBigEndianIEEEDouble.html#ad6c26ea00b3df6810204b6cae20fc0cd',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#afc3c207dbf212918f44075941d5f6bf2',1,'LittleEndianIEEEDouble::words']]],
+  ['words_17',['words',['../structBigEndianIEEEDouble.html#a0881b41d78b2061ebc9653356549802e',1,'BigEndianIEEEDouble::words'],['../structLittleEndianIEEEDouble.html#a5c24f30cb7f8a732e69e3eda37e1b4f2',1,'LittleEndianIEEEDouble::words']]],
   ['workingdir_18',['workingdir',['../structftpd.html#ad0cf96f11fe70c6a5e59d95dc405e167',1,'ftpd']]],
   ['wrblockmisalign_19',['WrBlockMisalign',['../structSD__CSD.html#a54d08d114ba504e72f0001fa922ec919',1,'SD_CSD']]],
   ['write_5fpending_20',['write_pending',['../structeeprom.html#af741d6e457776c48e7988aa8cbf120c9',1,'eeprom']]],

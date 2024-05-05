@@ -19,6 +19,15 @@
 
 //STM32F407
 
+// Shockpot Calibration
+#define POT_VOLT_MAX_L 4.0f
+#define POT_VOLT_MIN_L 4090.0f
+#define POT_VOLT_MAX_R 4.0f
+#define POT_VOLT_MIN_R 4060.0f
+#define POT_MAX_DIST 75
+#define POT_DIST_DROOP_L 55
+#define POT_DIST_DROOP_R 57
+
 typedef struct __attribute__((packed))
 {
     // Do not modify this struct unless
@@ -40,7 +49,7 @@ typedef struct __attribute__((packed))
 
 volatile extern raw_adc_values_t raw_adc_values;
 
-typedef enum 
+typedef enum
 {
     DASH_INPUT_NONE,
     DASH_INPUT_ROT_ENC,
@@ -152,7 +161,7 @@ typedef enum
 #define LCD_UART_TX_Pin             (9)
 #define LCD_UART_RX_GPIO_Port       (GPIOA)
 #define LCD_UART_RX_Pin             (10)
-#define LCD_NUM_PAGES               (8) // Number encoder selectable pages 
+#define LCD_NUM_PAGES               (8) // Number encoder selectable pages
 
 // LV Status
 #define LV_5V_V_SENSE_GPIO_Port     (GPIOC)

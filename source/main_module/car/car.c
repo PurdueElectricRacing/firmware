@@ -7,6 +7,7 @@ extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 extern uint16_t num_failed_msgs_l, num_failed_msgs_r;
+extern WheelSpeeds_t wheel_speeds;
 // TODO: Just to remove errors for now
 // usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 uint8_t daq_buzzer;
@@ -35,7 +36,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_THROT_MAP;
+    car.torque_src = CAR_TORQUE_TV;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
@@ -235,7 +236,12 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
-        PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+        if (!car.pchg.pchg_complete)
+        {
+            car.state = CAR_STATE_IDLE;
+        }
+
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced)
         {
@@ -246,12 +252,18 @@ void carPeriodic()
             float t_req_pedal = 0;
             float t_req_pedal_l = 0;
             float t_req_pedal_r = 0;
+            float t_req_equal_l = 0;
+            float t_req_equal_r = 0;
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
             if (!can_data.throttle_vcu.stale)
                 t_req_pedal_l = (float) CLAMP(can_data.throttle_vcu.vcu_k_rl, 0, 4095);
             if (!can_data.throttle_vcu.stale)
                 t_req_pedal_r = (float) CLAMP(can_data.throttle_vcu.vcu_k_rr, 0, 4095);
+            // if (!can_data.throttle_vcu.stale)
+            //     t_req_pedal_l = (float) CLAMP(can_data.throttle_vcu.equal_k_rl, 0, 4095);
+            // if (!can_data.throttle_vcu.stale)
+            //     t_req_pedal_r = (float) CLAMP(can_data.throttle_vcu.equal_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
@@ -272,25 +284,46 @@ void carPeriodic()
                     temp_t_req.torque_right = t_req_pedal;
                     break;
                 case CAR_TORQUE_TV:
-                    temp_t_req.torque_left  = t_req_pedal_l;
-                    temp_t_req.torque_right = t_req_pedal_r;
-                    // EV.4.2.3 - Torque algorithm
-                    // Any algorithm or electronic control unit that can adjust the
-                    // requested wheel torque may only lower the total driver
-                    // requested torque and must not increase it
+                    if ((wheel_speeds.left_rad_s_x100 == 0 || wheel_speeds.right_rad_s_x100 == 0) && can_data.orion_currents_volts.pack_current > 10)
+                    {
+                        setFault(ID_REMAP_UNRELIABLE_FAULT, 1);
+                    }
+                    else
+                    {
+                        setFault(ID_REMAP_UNRELIABLE_FAULT, 0);
+                    }
+                    if (checkFault(ID_TV_DISABLED_FAULT))
+                    {
+                        temp_t_req.torque_left  = t_req_pedal_l;
+                        temp_t_req.torque_right = t_req_pedal_r;
+                        // EV.4.2.3 - Torque algorithm
+                        // Any algorithm or electronic control unit that can adjust the
+                        // requested wheel torque may only lower the total driver
+                        // requested torque and must not increase it
+                        if (temp_t_req.torque_left > t_req_equal_l)
+                        {
+                            temp_t_req.torque_left = t_req_equal_l;
+                        }
+                        if (temp_t_req.torque_right > t_req_equal_r)
+                        {
+                            temp_t_req.torque_right = t_req_equal_r;
+                        }
+                    }
+                    else if (!checkFault(ID_REMAP_UNRELIABLE_FAULT))
+                    {
+                        temp_t_req.torque_left  = t_req_equal_l;
+                        temp_t_req.torque_right = t_req_equal_r;
+                    }
+                    else
+                    {
+                        temp_t_req.torque_left = t_req_pedal;
+                        temp_t_req.torque_right = t_req_pedal;
+                    }
                     if (t_req_pedal == 0)
                     {
                         temp_t_req.torque_left = 0;
                         temp_t_req.torque_right = 0;
                     }
-                    // if (temp_t_req.torque_left > t_req_pedal_l)
-                    // {
-                    //     temp_t_req.torque_left = t_req_pedal_l;
-                    // }
-                    // if (temp_t_req.torque_right > t_req_pedal_r)
-                    // {
-                    //     temp_t_req.torque_right = t_req_pedal_r;
-                    // }
                     break;
                 case CAR_TORQUE_THROT_MAP:
                     temp_t_req.torque_left  = t_req_pedal_l;
@@ -458,17 +491,17 @@ void parseMCDataPeriodic(void)
     }
 }
 
-#define POT_VOLT_MAX_DIST_MM 0
-#define POT_VOLT_MIN_DIST_MM 4095
-
 void send_shockpots()
 {
     uint16_t shock_l = adc_readings.shock_l;
     uint16_t shock_r = adc_readings.shock_r;
-    //Scale from raw 12bit adc to mm * 10 of linear pot travel
-    // shock_l = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_l) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
-    // shock_r = (POT_VOLT_MIN_DIST_MM * 10 - ((uint32_t) shock_r) * (POT_VOLT_MIN_DIST_MM - POT_VOLT_MAX_DIST_MM) * 10 / 4095);
-    SEND_SHOCK_REAR(shock_l, shock_r);
+    int16_t shock_l_parsed;
+    int16_t shock_r_parsed;
+    // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
+    shock_l_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
+    shock_r_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
+
+    SEND_SHOCK_REAR(shock_l_parsed, shock_r_parsed);
 }
 
 /**

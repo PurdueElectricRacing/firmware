@@ -4,9 +4,9 @@
  * @brief Common defs for the entire firmware repository. Dont let this get too out of control please.
  * @version 0.1
  * @date 2022-01-26
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef COMMON_DEFS_H_
@@ -50,9 +50,9 @@
 /* Per-Node HSI RCC Trim Constants */
 #define HSI_TRIM_TORQUE_VECTOR 	15
 #define HSI_TRIM_MAIN_MODULE	15
-#define HSI_TRIM_PDU			17
-#define HSI_TRIM_DASHBOARD		16
-#define HSI_TRIM_DAQ			19
-#define HSI_TRIM_A_BOX			17
+#define HSI_TRIM_PDU			16
+#define HSI_TRIM_DASHBOARD		15
+#define HSI_TRIM_DAQ			17
+#define HSI_TRIM_A_BOX			16
 
 #endif /* COMMON_DEFS_H_ */

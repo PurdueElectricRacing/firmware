@@ -31,6 +31,20 @@
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 
 
+// Shock Pot Calibration
+#define POT_TOTAL_RES 3000
+#define POT_MAX_RES 3300
+#define POT_MIN_RES 300
+
+#define POT_VOLT_MAX_L 4.0f
+#define POT_VOLT_MIN_L 4077.0f
+#define POT_VOLT_MAX_R 4.0f
+#define POT_VOLT_MIN_R 4090.0f
+#define POT_MAX_DIST 75
+#define POT_DIST_DROOP_L 57
+#define POT_DIST_DROOP_R 54
+
+
 //Defines to guess a BSPD fault
 #define NUM_HIST_BSPD 16
 typedef struct

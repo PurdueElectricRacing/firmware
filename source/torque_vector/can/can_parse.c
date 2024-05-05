@@ -195,6 +195,9 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 7);    // configure bank 7
     CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     /* END AUTO FILTER */
+    // Adding LWS standard to bank 8 since it needs to be ExtID
+    CAN1->FA1R |= (1 << 8);    // configure bank 8
+    CAN1->sFilterRegister[8].FR1 = (ID_LWS_STANDARD << 3) | 4;
 
     CAN1->FMR &= ~CAN_FMR_FINIT; // Enable Filters (exit filter init mode)
 

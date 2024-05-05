@@ -104,10 +104,6 @@ $(function() {
 Macros</h2></td></tr>
 <tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;16000000</td></tr>
 <tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8530569983c0bc4b7ca650ff7cd2402" id="r_ae8530569983c0bc4b7ca650ff7cd2402"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8530569983c0bc4b7ca650ff7cd2402">POT_VOLT_MAX_DIST_MM</a>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:ae8530569983c0bc4b7ca650ff7cd2402"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bdb15dd395bcc5df22ba10bcd6518b1" id="r_a5bdb15dd395bcc5df22ba10bcd6518b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bdb15dd395bcc5df22ba10bcd6518b1">POT_VOLT_MIN_DIST_MM</a>&#160;&#160;&#160;4095</td></tr>
-<tr class="separator:a5bdb15dd395bcc5df22ba10bcd6518b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53f1d055ee0e79b0a01d53f86a97c1cf" id="r_a53f1d055ee0e79b0a01d53f86a97c1cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53f1d055ee0e79b0a01d53f86a97c1cf">SCALE_F</a>&#160;&#160;&#160;= (1 + (3.4/6.6))</td></tr>
 <tr class="separator:a53f1d055ee0e79b0a01d53f86a97c1cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -190,34 +186,6 @@ Variables</h2></td></tr>
 <tr class="separator:a4971180e813d33303c758243debeb13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ae8530569983c0bc4b7ca650ff7cd2402" name="ae8530569983c0bc4b7ca650ff7cd2402"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8530569983c0bc4b7ca650ff7cd2402">&#9670;&#160;</a></span>POT_VOLT_MAX_DIST_MM</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define POT_VOLT_MAX_DIST_MM&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5bdb15dd395bcc5df22ba10bcd6518b1" name="a5bdb15dd395bcc5df22ba10bcd6518b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bdb15dd395bcc5df22ba10bcd6518b1">&#9670;&#160;</a></span>POT_VOLT_MIN_DIST_MM</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define POT_VOLT_MIN_DIST_MM&#160;&#160;&#160;4095</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a53f1d055ee0e79b0a01d53f86a97c1cf" name="a53f1d055ee0e79b0a01d53f86a97c1cf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53f1d055ee0e79b0a01d53f86a97c1cf">&#9670;&#160;</a></span>SCALE_F</h2>
 
@@ -570,18 +538,18 @@ Variables</h2></td></tr>
 <div class="line">   {.channel=<a class="code hl_define" href="dashboard_2main_8h.html#ab93f5cbfdd937472631479d82a172847">LOAD_FL_ADC_CH</a>, .rank=11, .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">   {.channel=<a class="code hl_define" href="dashboard_2main_8h.html#accad293b054d8f148a1c4af9fe8975dd">LOAD_FR_ADC_CH</a>, .rank=12, .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">}</div>
-<div class="ttc" id="adashboard_2main_8h_html_a0e0c327c4d1fe69f8a87570b340a02a6"><div class="ttname"><a href="dashboard_2main_8h.html#a0e0c327c4d1fe69f8a87570b340a02a6">LV_24_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:169</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a27f9a65bf5114ff1aaa15966b130a05e"><div class="ttname"><a href="dashboard_2main_8h.html#a27f9a65bf5114ff1aaa15966b130a05e">SHOCK_POT_R_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_R_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:139</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a4233bb0cb87f5097e74a37522171ad73"><div class="ttname"><a href="dashboard_2main_8h.html#a4233bb0cb87f5097e74a37522171ad73">THTL_2_ADC_CHNL</a></div><div class="ttdeci">#define THTL_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:114</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a5d8bda549f17e3f2c106d5bda0104868"><div class="ttname"><a href="dashboard_2main_8h.html#a5d8bda549f17e3f2c106d5bda0104868">THTL_1_ADC_CHNL</a></div><div class="ttdeci">#define THTL_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:111</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a6e35c963f4bca3379f0b1ef3509f2863"><div class="ttname"><a href="dashboard_2main_8h.html#a6e35c963f4bca3379f0b1ef3509f2863">LV_12_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_12_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:166</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a7962f0bffd765d6eba4af90bb972e87e"><div class="ttname"><a href="dashboard_2main_8h.html#a7962f0bffd765d6eba4af90bb972e87e">BRK_2_ADC_CHNL</a></div><div class="ttdeci">#define BRK_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:131</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a85adef97ea600b8438801efec6e9d8e1"><div class="ttname"><a href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_3V3_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:163</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_ab93f5cbfdd937472631479d82a172847"><div class="ttname"><a href="dashboard_2main_8h.html#ab93f5cbfdd937472631479d82a172847">LOAD_FL_ADC_CH</a></div><div class="ttdeci">#define LOAD_FL_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:144</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_ac6f487a150e7e658b1968bb7b27446b0"><div class="ttname"><a href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:160</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_acb963c476e7622b97ae288f20ec0b2b8"><div class="ttname"><a href="dashboard_2main_8h.html#acb963c476e7622b97ae288f20ec0b2b8">SHOCK_POT_L_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_L_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:136</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_accad293b054d8f148a1c4af9fe8975dd"><div class="ttname"><a href="dashboard_2main_8h.html#accad293b054d8f148a1c4af9fe8975dd">LOAD_FR_ADC_CH</a></div><div class="ttdeci">#define LOAD_FR_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:147</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_ad3d9001850277dfbc92614d175d3a005"><div class="ttname"><a href="dashboard_2main_8h.html#ad3d9001850277dfbc92614d175d3a005">BRK_1_ADC_CHNL</a></div><div class="ttdeci">#define BRK_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:128</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a0e0c327c4d1fe69f8a87570b340a02a6"><div class="ttname"><a href="dashboard_2main_8h.html#a0e0c327c4d1fe69f8a87570b340a02a6">LV_24_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:178</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a27f9a65bf5114ff1aaa15966b130a05e"><div class="ttname"><a href="dashboard_2main_8h.html#a27f9a65bf5114ff1aaa15966b130a05e">SHOCK_POT_R_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_R_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:148</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a4233bb0cb87f5097e74a37522171ad73"><div class="ttname"><a href="dashboard_2main_8h.html#a4233bb0cb87f5097e74a37522171ad73">THTL_2_ADC_CHNL</a></div><div class="ttdeci">#define THTL_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:123</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a5d8bda549f17e3f2c106d5bda0104868"><div class="ttname"><a href="dashboard_2main_8h.html#a5d8bda549f17e3f2c106d5bda0104868">THTL_1_ADC_CHNL</a></div><div class="ttdeci">#define THTL_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:120</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a6e35c963f4bca3379f0b1ef3509f2863"><div class="ttname"><a href="dashboard_2main_8h.html#a6e35c963f4bca3379f0b1ef3509f2863">LV_12_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_12_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:175</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a7962f0bffd765d6eba4af90bb972e87e"><div class="ttname"><a href="dashboard_2main_8h.html#a7962f0bffd765d6eba4af90bb972e87e">BRK_2_ADC_CHNL</a></div><div class="ttdeci">#define BRK_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:140</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a85adef97ea600b8438801efec6e9d8e1"><div class="ttname"><a href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_3V3_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:172</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_ab93f5cbfdd937472631479d82a172847"><div class="ttname"><a href="dashboard_2main_8h.html#ab93f5cbfdd937472631479d82a172847">LOAD_FL_ADC_CH</a></div><div class="ttdeci">#define LOAD_FL_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:153</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_ac6f487a150e7e658b1968bb7b27446b0"><div class="ttname"><a href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:169</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_acb963c476e7622b97ae288f20ec0b2b8"><div class="ttname"><a href="dashboard_2main_8h.html#acb963c476e7622b97ae288f20ec0b2b8">SHOCK_POT_L_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_L_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:145</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_accad293b054d8f148a1c4af9fe8975dd"><div class="ttname"><a href="dashboard_2main_8h.html#accad293b054d8f148a1c4af9fe8975dd">LOAD_FR_ADC_CH</a></div><div class="ttdeci">#define LOAD_FR_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:156</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_ad3d9001850277dfbc92614d175d3a005"><div class="ttname"><a href="dashboard_2main_8h.html#ad3d9001850277dfbc92614d175d3a005">BRK_1_ADC_CHNL</a></div><div class="ttdeci">#define BRK_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:137</div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a></div><div class="ttdeci">@ ADC_CHN_SMP_CYCLES_480</div><div class="ttdef"><b>Definition</b> adc.h:66</div></div>
 </div><!-- fragment -->
 </div>

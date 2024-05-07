@@ -98,6 +98,7 @@ def generate_firmware_hex():
             with open(hex_file, "r") as hex_file:
                 hex_data = hex_file.read()
                 combined_hex_data.append(hex_data)
+                combined_hex_data.append("\n") # Add new line between hex files
         
         # Write the combined hex data to the firmware.hex file
         with open(firmware_output_dir/"firmware.hex", "w") as firmware_hex:

@@ -4,6 +4,7 @@
 from optparse import OptionParser
 import pathlib
 import subprocess
+import os
 
 # Logging helper functions
 class bcolors:
@@ -75,6 +76,36 @@ TARGET = options.target if options.target else "all"
 VERBOSE = "--verbose" if options.verbose else ""
 RUN_TESTS = not options.no_test # TODO: This
 
+# Combine HEX files into a single firmware.hex
+# NOTE - No additional memory address offsets are needed since each node has its own memory space
+def generate_firmware_hex():
+    print("Generating firmware.hex")
+    # List of nodes to combine, these must match the directory names in the output directory
+    NODES = ["main_module", "dashboard", "pdu", "a_box", "daq", "torque_vector"]
+    combined_hex_data = []
+    firmware_output_dir = OUT_DIR/"firmware"
+
+    # Create the firmware output directory if it does not exist
+    try: 
+        os.mkdir(firmware_output_dir)
+    except FileExistsError:
+        pass
+
+    try:
+        # Read each hex file and append to the combined hex data
+        for node in NODES:
+            hex_file = f"{OUT_DIR}/{node}/BL_{node}.hex"
+            with open(hex_file, "r") as hex_file:
+                hex_data = hex_file.read()
+                combined_hex_data.append(hex_data)
+        
+        # Write the combined hex data to the firmware.hex file
+        with open(firmware_output_dir/"firmware.hex", "w") as firmware_hex:
+            firmware_hex.writelines(combined_hex_data)
+        log_success("Sucessfully generated firmware.hex")
+    except FileNotFoundError as e:
+        log_error("Unable to find hex files for all nodes.")
+        exit()
 
 # Always clean if we specify
 if options.clean:
@@ -115,3 +146,4 @@ if options.target or not options.clean:
         log_error("Unable to generate targets.")
     else:
         log_success("Sucessfully built targets.")
+        generate_firmware_hex()

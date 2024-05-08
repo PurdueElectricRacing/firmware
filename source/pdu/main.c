@@ -332,6 +332,9 @@ void send_flowrates()
 void heatBeatLED()
 {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
     static uint8_t trig;
     if (trig) SEND_PDU_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,

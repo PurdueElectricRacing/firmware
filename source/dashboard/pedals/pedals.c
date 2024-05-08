@@ -7,10 +7,10 @@
 pedals_t pedals = {0};
 uint16_t thtl_limit = 4096;
 
-pedal_calibration_t pedal_calibration = {.t1max=2022,.t1min=690, // WARNING: DAQ VARIABLE
-                                         .t2max=1986,.t2min=610, // IF EEPROM ENABLED,
-                                         .b1max=1490,.b1min=420, // VALUE WILL CHANGE
-                                         .b2max=1240,.b2min=420, // 1400, 400
+pedal_calibration_t pedal_calibration = {.t1max=1640,.t1min=585, // WARNING: DAQ VARIABLE
+                                         .t2max=2760,.t2min=1000, // IF EEPROM ENABLED,
+                                         .b1max=1490,.b1min=450, // VALUE WILL CHANGE
+                                         .b2max=1490,.b2min=450, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
 uint16_t b3_buff[8] = {0};
@@ -49,7 +49,7 @@ void pedalsPeriodic(void)
     }
     // Convert to 0 - 10000 for display 0.00 to 100.00
     race_page_data.brake_bias_adj = brake_bias * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
-    
+
     //uint16_t b3_raw = /*raw_adc_values.b3*/0; //no longer use b3
 
     // b3_buff[b3_idx++] = b3_raw;

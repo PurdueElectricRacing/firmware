@@ -205,7 +205,8 @@
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
                         {"msg_name": "orion_currents_volts"},
-                        {"msg_name": "throttle_vcu"}
+                        {"msg_name": "throttle_vcu"},
+                        {"msg_name": "throttle_vcu_equal"}
                     ]
                 },
                 {
@@ -623,11 +624,11 @@
                         {   "msg_name":"raw_throttle_brake",
                             "msg_desc":"Throttle and brake values",
                             "signals":[
-                                {"sig_name":"throttle","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
-                                {"sig_name":"throttle_right","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
-                                {"sig_name":"brake", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"},
-                                {"sig_name":"brake_right", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"},
-                                {"sig_name":"brake_pot", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
+                                {"sig_name":"throttle","type":"uint16_t","length":12, "unit":"%"},
+                                {"sig_name":"throttle_right","type":"uint16_t","length":12, "unit":"%"},
+                                {"sig_name":"brake", "type":"uint16_t", "length":12, "unit":"%"},
+                                {"sig_name":"brake_right", "type":"uint16_t", "length":12,"unit":"%"},
+                                {"sig_name":"brake_pot", "type":"uint16_t", "length":12, "unit":"%"}
                             ],
                             "msg_period":15,
                             "msg_hlp":4,

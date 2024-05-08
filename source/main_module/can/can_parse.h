@@ -54,6 +54,7 @@ typedef union {
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_THROTTLE_VCU 0x40025b7
+#define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -90,6 +91,7 @@ typedef union {
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -251,6 +253,7 @@ typedef union {
 #define UP_LWS_STANDARD 15
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_THROTTLE_VCU 20
+#define UP_THROTTLE_VCU_EQUAL 20
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -450,6 +453,10 @@ typedef union {
         uint64_t vcu_k_rr: 16;
     } throttle_vcu;
     struct {
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu_equal;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -537,6 +544,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } throttle_vcu;
+    struct {
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu_equal;
     struct {
         uint16_t idx;
         uint8_t latched;

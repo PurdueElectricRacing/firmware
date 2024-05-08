@@ -322,11 +322,11 @@ BO_ 2148059831 fault_sync_torque_vector: 3 torque_vector
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415919749 raw_throttle_brake: 8 Dashboard
- SG_ brake_pot : 48|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
- SG_ brake_right : 36|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
- SG_ brake : 24|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
- SG_ throttle_right : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
- SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ brake_pot : 48|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ brake_right : 36|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ brake : 24|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ throttle_right : 12|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ throttle : 0|12@1+ (1,0) [0|0] "%" Vector__XXX
 
 BO_ 2415984069 shock_front: 4 Dashboard
  SG_ right_shock : 16|16@1- (1,0) [0|0] "mm" Vector__XXX

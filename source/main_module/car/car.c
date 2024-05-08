@@ -36,7 +36,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_TV;
+    car.torque_src = CAR_TORQUE_THROT_MAP;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
@@ -260,14 +260,16 @@ void carPeriodic()
                 t_req_pedal_l = (float) CLAMP(can_data.throttle_vcu.vcu_k_rl, 0, 4095);
             if (!can_data.throttle_vcu.stale)
                 t_req_pedal_r = (float) CLAMP(can_data.throttle_vcu.vcu_k_rr, 0, 4095);
-            // if (!can_data.throttle_vcu.stale)
-            //     t_req_pedal_l = (float) CLAMP(can_data.throttle_vcu.equal_k_rl, 0, 4095);
-            // if (!can_data.throttle_vcu.stale)
-            //     t_req_pedal_r = (float) CLAMP(can_data.throttle_vcu.equal_k_rr, 0, 4095);
+            if (!can_data.throttle_vcu_equal.stale)
+                t_req_equal_l = (float) CLAMP(can_data.throttle_vcu_equal.equal_k_rl, 0, 4095);
+            if (!can_data.throttle_vcu_equal.stale)
+                t_req_equal_r = (float) CLAMP(can_data.throttle_vcu_equal.equal_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
             t_req_pedal_r = t_req_pedal_r * 100.0f / 4095.0f;
+            t_req_equal_l = t_req_equal_l * 100.0f / 4095.0f;
+            t_req_equal_r = t_req_equal_r * 100.0f / 4095.0f;
             // if (t_req_pedal > 10.0f)
             //     t_req_pedal = 10.0f;
 
@@ -292,7 +294,7 @@ void carPeriodic()
                     {
                         setFault(ID_REMAP_UNRELIABLE_FAULT, 0);
                     }
-                    if (checkFault(ID_TV_DISABLED_FAULT))
+                    if (checkFault(ID_TV_ENABLED_FAULT))
                     {
                         temp_t_req.torque_left  = t_req_pedal_l;
                         temp_t_req.torque_right = t_req_pedal_r;
@@ -309,7 +311,7 @@ void carPeriodic()
                             temp_t_req.torque_right = t_req_equal_r;
                         }
                     }
-                    else if (!checkFault(ID_REMAP_UNRELIABLE_FAULT))
+                    else if (!checkFault(ID_REMAP_UNRELIABLE_FAULT) || (checkFault(ID_MM_ENABLED_FAULT)))
                     {
                         temp_t_req.torque_left  = t_req_equal_l;
                         temp_t_req.torque_right = t_req_equal_r;
@@ -326,8 +328,8 @@ void carPeriodic()
                     }
                     break;
                 case CAR_TORQUE_THROT_MAP:
-                    temp_t_req.torque_left  = t_req_pedal_l;
-                    temp_t_req.torque_right = t_req_pedal_r;
+                    temp_t_req.torque_left  = t_req_equal_l;
+                    temp_t_req.torque_right = t_req_equal_r;
                     // EV.4.2.3 - Torque algorithm
                     // Any algorithm or electronic control unit that can adjust the
                     // requested wheel torque may only lower the total driver

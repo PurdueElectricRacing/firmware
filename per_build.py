@@ -101,7 +101,7 @@ def generate_firmware_hex():
                 combined_hex_data.append("\n") # Add new line between hex files
         
         # Write the combined hex data to the firmware.hex file
-        with open(firmware_output_dir/"firmware.hex", "w") as firmware_hex:
+        with open(firmware_output_dir/"BL_firmware.hex", "w") as firmware_hex:
             firmware_hex.writelines(combined_hex_data)
         log_success("Sucessfully generated firmware.hex")
     except FileNotFoundError as e:

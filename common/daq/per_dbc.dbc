@@ -468,6 +468,10 @@ BO_ 2217793084 daq_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2217793148 firmware_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2214598974 bitstream_data: 8 BITSTREAM
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -515,6 +519,10 @@ BO_ 2215233022 f7_testing_bl_cmd: 5 BITSTREAM
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2215233086 daq_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233150 firmware_bl_cmd: 5 BITSTREAM
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -992,6 +1000,9 @@ CM_ SG_ 2217793020 cmd "";
 CM_ BO_ 2217793084 "DAQ Bootloader response";
 CM_ SG_ 2217793084 data "";
 CM_ SG_ 2217793084 cmd "";
+CM_ BO_ 2217793148 "Firmware Bootloader response";
+CM_ SG_ 2217793148 data "";
+CM_ SG_ 2217793148 cmd "";
 CM_ BO_ 2214598974 "Bitstream download command";
 CM_ SG_ 2214598974 d7 "Bitstream data word 7";
 CM_ SG_ 2214598974 d6 "Bitstream data word 6";
@@ -1031,6 +1042,9 @@ CM_ SG_ 2215233022 cmd "Bootloader Command type";
 CM_ BO_ 2215233086 "Bootloader command for DAQ";
 CM_ SG_ 2215233086 data "Bootloader data";
 CM_ SG_ 2215233086 cmd "Bootloader Command type";
+CM_ BO_ 2215233150 "Bootloader command for all Firmware";
+CM_ SG_ 2215233150 data "Bootloader data";
+CM_ SG_ 2215233150 cmd "Bootloader Command type";
 CM_ BO_ 2282342462 "Set a fault";
 CM_ SG_ 2282342462 value "Bootloader data";
 CM_ SG_ 2282342462 id "Bootloader Command type";

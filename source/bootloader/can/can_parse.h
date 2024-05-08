@@ -36,6 +36,7 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 #define ID_F4_TESTING_BL_RESP 0x430d5bc
 #define ID_F7_TESTING_BL_RESP 0x430d5fc
 #define ID_DAQ_BL_RESP 0x430d63c
+#define ID_FIRMWARE_BL_RESP 0x430d67c
 #define ID_BITSTREAM_DATA 0x400193e
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_DASHBOARD_BL_CMD 0x409c47e
@@ -46,6 +47,7 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 #define ID_F4_TESTING_BL_CMD 0x409c5be
 #define ID_F7_TESTING_BL_CMD 0x409c5fe
 #define ID_DAQ_BL_CMD 0x409c63e
+#define ID_FIRMWARE_BL_CMD 0x409c67e
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -59,6 +61,7 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 #define DLC_F4_TESTING_BL_RESP 5
 #define DLC_F7_TESTING_BL_RESP 5
 #define DLC_DAQ_BL_RESP 5
+#define DLC_FIRMWARE_BL_RESP 5
 #define DLC_BITSTREAM_DATA 8
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_DASHBOARD_BL_CMD 5
@@ -69,6 +72,7 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 #define DLC_F4_TESTING_BL_CMD 5
 #define DLC_F7_TESTING_BL_CMD 5
 #define DLC_DAQ_BL_CMD 5
+#define DLC_FIRMWARE_BL_CMD 5
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -136,6 +140,13 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
         data_a->daq_bl_resp.data = data_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_FIRMWARE_BL_RESP(cmd_, data_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FIRMWARE_BL_RESP, .DLC=DLC_FIRMWARE_BL_RESP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->firmware_bl_resp.cmd = cmd_;\
+        data_a->firmware_bl_resp.data = data_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -189,6 +200,10 @@ typedef union {
         uint64_t data: 32;
     } daq_bl_resp;
     struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } firmware_bl_resp;
+    struct {
         uint64_t d0: 8;
         uint64_t d1: 8;
         uint64_t d2: 8;
@@ -234,6 +249,10 @@ typedef union {
         uint64_t cmd: 8;
         uint64_t data: 32;
     } daq_bl_cmd;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } firmware_bl_cmd;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -288,6 +307,10 @@ typedef struct {
         uint8_t cmd;
         uint32_t data;
     } daq_bl_cmd;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } firmware_bl_cmd;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -304,6 +327,7 @@ extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void f4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void f7_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void daq_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void firmware_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

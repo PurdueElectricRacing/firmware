@@ -89,6 +89,11 @@ void canRxUpdate()
                 can_data.daq_bl_cmd.data = msg_data_a->daq_bl_cmd.data;
                 daq_bl_cmd_CALLBACK(msg_data_a);
                 break;
+            case ID_FIRMWARE_BL_CMD:
+                can_data.firmware_bl_cmd.cmd = msg_data_a->firmware_bl_cmd.cmd;
+                can_data.firmware_bl_cmd.data = msg_data_a->firmware_bl_cmd.data;
+                firmware_bl_cmd_CALLBACK(msg_data_a);
+                break;
             default:
                 __asm__("nop");
         }
@@ -139,6 +144,8 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_F7_TESTING_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[4].FR2 = (ID_DAQ_BL_CMD << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_FIRMWARE_BL_CMD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

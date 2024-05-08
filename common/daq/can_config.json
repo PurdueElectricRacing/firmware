@@ -980,6 +980,16 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":50008
+                        },
+                        {   "msg_name":"firmware_bl_resp",
+                            "msg_desc":"Firmware Bootloader response",
+                            "signals":[
+                                {"sig_name":"cmd","type":"uint8_t","length":8},
+                                {"sig_name":"data","type":"uint32_t","length":32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":50009
                         }
                     ],
                     "rx": [
@@ -992,7 +1002,8 @@
                         {"msg_name": "l4_testing_bl_cmd" , "callback": true},
                         {"msg_name": "f4_testing_bl_cmd" , "callback": true},
                         {"msg_name": "f7_testing_bl_cmd" , "callback": true},
-                        {"msg_name": "daq_bl_cmd" , "callback": true}
+                        {"msg_name": "daq_bl_cmd" , "callback": true},
+                        {"msg_name": "firmware_bl_cmd" , "callback": true}
                     ]
                 },
                 {
@@ -1123,6 +1134,17 @@
                             "msg_period":0,
                             "msg_hlp":1,
                             "msg_pgn":10008
+                        },
+                        {
+                            "msg_name": "firmware_bl_cmd",
+                            "msg_desc": "Bootloader command for all Firmware",
+                            "signals": [
+                                {"sig_name": "cmd",  "sig_desc": "Bootloader Command type", "type": "uint8_t", "length": 8},
+                                {"sig_name": "data", "sig_desc": "Bootloader data", "type": "uint32_t", "length": 32}
+                            ],
+                            "msg_period":0,
+                            "msg_hlp":1,
+                            "msg_pgn":10009
                         },
                         {
                             "msg_name": "set_fault",

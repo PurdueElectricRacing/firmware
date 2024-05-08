@@ -28,6 +28,7 @@
 #define    APP_F4_TESTING      0x07
 #define    APP_F7_TESTING      0x08
 #define    APP_DAQ             0x09
+#define    APP_FIRMWARE        0x0A
 
 #if !defined(APP_ID)
     #warning "Please define which device this bootloader will be running on. Defaulting to APP_MAIN_MODULE"

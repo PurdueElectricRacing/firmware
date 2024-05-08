@@ -217,9 +217,16 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
         NODE_CASE_BL_RESPONSE(APP_F4_TESTING,       SEND_F4_TESTING_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_F7_TESTING,       SEND_F7_TESTING_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_DAQ,              SEND_DAQ_BL_RESP)
+        NODE_CASE_BL_RESPONSE(APP_FIRMWARE,         SEND_FIRMWARE_BL_RESP)
         default:
             asm("bkpt");
     }
+}
+
+void firmware_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a) //TODO start firmware download
+{
+    if (can_data.firmware_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 // Quickly setup the CAN callbacks based on Node ID

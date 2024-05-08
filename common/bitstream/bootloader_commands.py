@@ -13,6 +13,8 @@ class BootloaderCommand():
         "l4_testing",
         "f4_testing",
         "f7_testing",
+        "daq",
+        "firmware"
     ]
 
     TX_CMD = {

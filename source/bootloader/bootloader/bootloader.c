@@ -223,11 +223,11 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
     }
 }
 
-void firmware_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a) //TODO start firmware download
-{
-    if (can_data.firmware_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
-}
+// void firmware_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a) //TODO start firmware download
+// {
+//     if (can_data.firmware_bl_cmd.cmd == BLCMD_RST)
+//         Bootloader_ResetForFirmwareDownload();
+// }
 
 // Quickly setup the CAN callbacks based on Node ID
 #define NODE_BL_CMD_CALLBACK(callback_name, can_msg_name, node_id) \
@@ -245,3 +245,4 @@ NODE_BL_CMD_CALLBACK(l4_testing_bl_cmd_CALLBACK,      l4_testing_bl_cmd,      AP
 NODE_BL_CMD_CALLBACK(f4_testing_bl_cmd_CALLBACK,      f4_testing_bl_cmd,      APP_F4_TESTING)
 NODE_BL_CMD_CALLBACK(f7_testing_bl_cmd_CALLBACK,      f7_testing_bl_cmd,      APP_F7_TESTING)
 NODE_BL_CMD_CALLBACK(daq_bl_cmd_CALLBACK,             daq_bl_cmd,             APP_DAQ)
+NODE_BL_CMD_CALLBACK(firmware_bl_cmd_CALLBACK,        firmware_bl_cmd,        APP_FIRMWARE)

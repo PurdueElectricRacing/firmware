@@ -84,6 +84,9 @@ void jump_to_application(void);
 bool check_boot_health(void);
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 static void send_pending_can(void);
+void bootloader_init();
+void bootloader_terminate();
+void bootloader_main(int app_id);
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
@@ -96,11 +99,31 @@ extern char _estack;      /* The start location of the stack */
 static volatile uint32_t bootloader_ms = 0;
 static volatile uint32_t bootloader_ms_2 = 0;
 static volatile bool bootloader_timeout = false;
+static volatile bool allow_application_launch = false;
 static volatile bool send_status_flag = false;
 static bool send_flash_address = false;
 
-int main (void)
+int main(void)
 {
+    if (APP_ID == APP_FIRMWARE)
+    {
+        for (int i = APP_MAIN_MODULE; i < APP_FIRMWARE; i++) {
+            if (i != APP_L4_TESTING && i != APP_L4_TESTING && i != APP_F7_TESTING) { //Exclude the testing nodes
+                bootloader_init();
+                bootloader_main(i);
+                bootloader_terminate();
+            }
+        }
+    }
+    else
+    {
+        bootloader_init();
+        bootloader_main(APP_ID);
+        bootloader_terminate();
+    }
+}
+
+void bootloader_init() {
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
@@ -137,7 +160,30 @@ int main (void)
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
     BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_reason);
+}
 
+void bootloader_terminate() {
+
+    NVIC_DisableIRQ(SysTick_IRQn);
+    NVIC_DisableIRQ(CAN1_RX0_IRQn);
+
+    // Check the first word of the application, it should contain the MSP
+    // an address can not start with 0xFF for the MSP
+    BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
+    send_pending_can();
+    
+
+    jump_to_application();
+
+    // Only sent if first double-word is NULL (no app exists)
+    BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
+    bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
+    send_pending_can();
+    
+    NVIC_SystemReset();
+}
+
+void bootloader_main(int app_id) {
     /*
         Main bootloader loop.
         Will run until the systick timer times out or the bootloader process completes
@@ -172,24 +218,6 @@ int main (void)
         }
 
     }
-
-    NVIC_DisableIRQ(SysTick_IRQn);
-    NVIC_DisableIRQ(CAN1_RX0_IRQn);
-
-    // Check the first word of the application, it should contain the MSP
-    // an address can not start with 0xFF for the MSP
-    BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
-    send_pending_can();
-    
-
-    jump_to_application();
-
-    // Only sent if first double-word is NULL (no app exists)
-    BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
-    bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
-    send_pending_can();
-    
-    NVIC_SystemReset();
 }
 
 // Sends all pending messages in the tx queue, doesn't require systick to be active

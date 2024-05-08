@@ -81,7 +81,14 @@ RUN_TESTS = not options.no_test # TODO: This
 def generate_firmware_hex():
     print("Generating firmware.hex")
     # List of nodes to combine, these must match the directory names in the output directory
-    NODES = ["main_module", "dashboard", "pdu", "a_box", "daq", "torque_vector"]
+    NODES = [
+        "main_module",
+        "dashboard",
+        "torque_vector",
+        "a_box",
+        "pdu",
+        "daq"
+    ]
     combined_hex_data = []
     firmware_output_dir = OUT_DIR/"firmware"
 
@@ -105,7 +112,7 @@ def generate_firmware_hex():
             firmware_hex.writelines(combined_hex_data)
         log_success("Sucessfully generated firmware.hex")
     except FileNotFoundError as e:
-        log_error("Unable to find hex files for all nodes.")
+        log_error(f"Unable to find hex files for all nodes: {e}")
         exit()
 
 # Always clean if we specify

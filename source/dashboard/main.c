@@ -366,6 +366,8 @@ void interpretLoadSensor(void) {
 
 void heartBeatLED()
 {
+    static uint8_t imd_prev_latched;
+    static uint8_t bms_prev_latched;
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
@@ -377,13 +379,17 @@ void heartBeatLED()
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     }
     if (!can_data.precharge_hb.stale) {
-        PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !can_data.precharge_hb.IMD);
-        PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !can_data.precharge_hb.BMS);
+        if (can_data.precharge_hb.IMD)
+            imd_prev_latched = 1;
+        if (can_data.precharge_hb.BMS)
+            bms_prev_latched = 1;
     }
     else {
         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
     }
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !imd_prev_latched);
+    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !bms_prev_latched);
 
 
    static uint8_t trig;

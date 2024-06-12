@@ -19,7 +19,7 @@ extern q_handle_t q_fault_history;    // Global queue from fault library for fau
 volatile settings_t settings;         // Data for the settings page
 volatile tv_settings_t tv_settings;   // Data for the tvsettings page
 volatile driver_config_t driver_config; // Data for the driver page
-race_page_t race_page_data;             // Data for the race page 
+race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;         // Amount of units of time that the fault has been shown to the driver
 
@@ -47,7 +47,7 @@ void initLCD() {
     errorText = 0;
     settings = (settings_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
-    tv_settings = (tv_settings_t) {true, 0, 12, 10, 10};
+    tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
 }
 
 void updatePage() {
@@ -275,7 +275,7 @@ void moveUp() {
         if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
         {
             // Increase the intensity value
-            tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 1) % 100;
+            tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
 
             // Update the page items
             set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
@@ -294,7 +294,7 @@ void moveUp() {
         else if (tv_settings.curr_hover == TV_P_SELECTED)
         {
             // Increase the p value
-            tv_settings.tv_p_val = (tv_settings.tv_p_val + 1) % 100;
+            tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
 
             // Update the page items
             set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
@@ -451,7 +451,7 @@ void moveDown() {
             }
             else
             {
-                tv_settings.tv_intensity_val--;
+                tv_settings.tv_intensity_val-= 5;
             }
 
             // Update the page item
@@ -477,7 +477,7 @@ void moveDown() {
             }
             else
             {
-                tv_settings.tv_p_val--;
+                tv_settings.tv_p_val-= 5;
             }
 
             // Update the page items
@@ -938,7 +938,8 @@ void update_data_pages() {
             }
             // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
             else {
-                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_mc, can_data.rear_wheel_speeds.right_speed_mc) * 16.0 * 3.14159265358 * 0.254 / 60.0), parsed_value));
+                // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
+                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)can_data.gps_speed.gps_speed * 0.02237), parsed_value));
                 bzero(parsed_value, 3);
             }
             if (sendFirsthalf) {
@@ -957,7 +958,7 @@ void update_data_pages() {
                     bzero(parsed_value, 3);
                 }
                 // Value MUST be between 0 and 9999 and represents the percentage
-                // We will do the division as a float and then convert to an integer 
+                // We will do the division as a float and then convert to an integer
                 set_value(BRAKE_BIAS_FLT, NXT_VALUE, race_page_data.brake_bias_adj);
                 if (can_data.throttle_vcu.stale)
                 {

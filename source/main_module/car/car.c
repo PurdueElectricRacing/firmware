@@ -36,7 +36,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_THROT_MAP;
+    car.torque_src = CAR_TORQUE_TV;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);

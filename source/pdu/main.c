@@ -355,7 +355,7 @@ void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 
 void send_iv_readings() {
     // Set LV Batt faults
-    setFault(ID_LV_BATT_FIFTY_FAULT, auto_switches.voltage.in_24v);
+    // setFault(ID_LV_BATT_FIFTY_FAULT, auto_switches.voltage.in_24v);
     setFault(ID_LV_GETTING_LOW_FAULT, auto_switches.voltage.in_24v);
     setFault(ID_LV_CRITICAL_LOW_FAULT, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data

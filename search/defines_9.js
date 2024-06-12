@@ -67,7 +67,7 @@ var searchData=
   ['id_5fgearbox_64',['ID_GEARBOX',['../dashboard_2can_2can__parse_8h.html#a0f3a69a1d184caaf95498a50fc2d88fc',1,'ID_GEARBOX:&#160;can_parse.h'],['../main__module_2can_2can__parse_8h.html#a0f3a69a1d184caaf95498a50fc2d88fc',1,'ID_GEARBOX:&#160;can_parse.h']]],
   ['id_5fgps_5fcoordinates_65',['ID_GPS_COORDINATES',['../torque__vector_2can_2can__parse_8h.html#ad6f795294a8402e74efe43de78ddf89d',1,'can_parse.h']]],
   ['id_5fgps_5fposition_66',['ID_GPS_POSITION',['../torque__vector_2can_2can__parse_8h.html#a78bd2ebd88d63a1ce74235ccae6b4a93',1,'can_parse.h']]],
-  ['id_5fgps_5fspeed_67',['ID_GPS_SPEED',['../torque__vector_2can_2can__parse_8h.html#a0740e1b2aeb7f7a2c62d14f3d7054b0e',1,'can_parse.h']]],
+  ['id_5fgps_5fspeed_67',['ID_GPS_SPEED',['../dashboard_2can_2can__parse_8h.html#a0740e1b2aeb7f7a2c62d14f3d7054b0e',1,'ID_GPS_SPEED:&#160;can_parse.h'],['../torque__vector_2can_2can__parse_8h.html#a0740e1b2aeb7f7a2c62d14f3d7054b0e',1,'ID_GPS_SPEED:&#160;can_parse.h']]],
   ['id_5fgps_5fvelocity_68',['ID_GPS_VELOCITY',['../torque__vector_2can_2can__parse_8h.html#a7a80e67f3a4ff27304cbdadab020a734',1,'can_parse.h']]],
   ['id_5fheat_5freq_69',['ID_HEAT_REQ',['../bms_2can_2can__parse_8h.html#a3bc3f9dad25ece125fdb319e648cb6f1',1,'can_parse.h']]],
   ['id_5fi_5fsense_70',['ID_I_SENSE',['../a__box_2can_2can__parse_8h.html#a959658e0d0375ce8c39c00f6e6c9728c',1,'can_parse.h']]],

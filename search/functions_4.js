@@ -25,5 +25,6 @@ var searchData=
   ['dma1_5fchannel7_5firqhandler_22',['DMA1_Channel7_IRQHandler',['../i2c__alt_8c.html#ae528c9f11bf8bb5a27e9ebe9bdb0fb2e',1,'i2c_alt.c']]],
   ['dma2_5fchannel1_5firqhandler_23',['DMA2_Channel1_IRQHandler',['../phal__L4_2spi_2spi_8c.html#aed3077bf6425c643f7a7c4d4dee9a1f4',1,'spi.c']]],
   ['dma2_5fchannel2_5firqhandler_24',['DMA2_Channel2_IRQHandler',['../phal__L4_2spi_2spi_8c.html#ae937104ab11742301be2732187fa3a44',1,'spi.c']]],
-  ['dma2_5fstream3_5firqhandler_25',['DMA2_Stream3_IRQHandler',['../phal__F4__F7_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95',1,'spi.c']]]
+  ['dma2_5fstream3_5firqhandler_25',['DMA2_Stream3_IRQHandler',['../phal__F4__F7_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95',1,'spi.c']]],
+  ['dma2_5fstream6_5firqhandler_26',['DMA2_Stream6_IRQHandler',['../sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3',1,'sdio.c']]]
 ];

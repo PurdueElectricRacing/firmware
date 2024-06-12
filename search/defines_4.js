@@ -131,7 +131,7 @@ var searchData=
   ['dlc_5fgearbox_128',['DLC_GEARBOX',['../dashboard_2can_2can__parse_8h.html#aece14d379fddba6ae7520c622c18013a',1,'DLC_GEARBOX:&#160;can_parse.h'],['../main__module_2can_2can__parse_8h.html#aece14d379fddba6ae7520c622c18013a',1,'DLC_GEARBOX:&#160;can_parse.h']]],
   ['dlc_5fgps_5fcoordinates_129',['DLC_GPS_COORDINATES',['../torque__vector_2can_2can__parse_8h.html#ac7a6b04f055d4a5caef1f7410e09629f',1,'can_parse.h']]],
   ['dlc_5fgps_5fposition_130',['DLC_GPS_POSITION',['../torque__vector_2can_2can__parse_8h.html#a35225c4e9c2bc4e1d18bce374f362b89',1,'can_parse.h']]],
-  ['dlc_5fgps_5fspeed_131',['DLC_GPS_SPEED',['../torque__vector_2can_2can__parse_8h.html#a8b2c8ffef9f63c49e3a5a6dd0651c62e',1,'can_parse.h']]],
+  ['dlc_5fgps_5fspeed_131',['DLC_GPS_SPEED',['../dashboard_2can_2can__parse_8h.html#a8b2c8ffef9f63c49e3a5a6dd0651c62e',1,'DLC_GPS_SPEED:&#160;can_parse.h'],['../torque__vector_2can_2can__parse_8h.html#a8b2c8ffef9f63c49e3a5a6dd0651c62e',1,'DLC_GPS_SPEED:&#160;can_parse.h']]],
   ['dlc_5fgps_5fvelocity_132',['DLC_GPS_VELOCITY',['../torque__vector_2can_2can__parse_8h.html#a2b845c58240d8e685afd5bcb2192d494',1,'can_parse.h']]],
   ['dlc_5fheat_5freq_133',['DLC_HEAT_REQ',['../bms_2can_2can__parse_8h.html#a47fe0491f67f1a5fc3aa37fd642e8668',1,'can_parse.h']]],
   ['dlc_5fi_5fsense_134',['DLC_I_SENSE',['../a__box_2can_2can__parse_8h.html#aa6479cb2744cefae46b3c018ea98f209',1,'can_parse.h']]],

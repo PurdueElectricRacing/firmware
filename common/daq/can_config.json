@@ -5,6 +5,13 @@
             "bus_name":"Main",
             "nodes":[
                 {
+                    "node_name": "Rhenium",
+                    "can_peripheral": "CAN1",
+                    "node_ssa": 54,
+                    "tx": [],
+                    "rx":[]
+                },
+                {
                     "node_name":"Main_Module",
                     "node_ssa":1,
                     "tx":[

@@ -35,7 +35,7 @@
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_MAXR 0xc002637
 #define ID_TV_CAN_STATS 0x10016337
-#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8caf7
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_LWS_STANDARD 0x2b0
@@ -45,11 +45,12 @@
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_MAX_CELL_TEMP 0xc04e604
-#define ID_FAULT_SYNC_PDU 0x8cb1f
-#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
-#define ID_FAULT_SYNC_A_BOX 0x8ca44
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
+#define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca41
+#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
+#define ID_FAULT_SYNC_A_BOX 0x8ca84
+#define ID_FAULT_SYNC_RHENIUM 0x8ca36
+#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 /* END AUTO ID DEFS */
@@ -84,6 +85,7 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
+#define DLC_FAULT_SYNC_RHENIUM 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -374,6 +376,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
+    } fault_sync_rhenium;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
     } fault_sync_test_node;
     struct {
         uint64_t id: 16;
@@ -468,6 +474,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_a_box;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_rhenium;
     struct {
         uint16_t idx;
         uint8_t latched;

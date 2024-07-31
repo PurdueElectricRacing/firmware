@@ -135,6 +135,11 @@ void canRxUpdate()
                 can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
                 break;
+            case ID_FAULT_SYNC_RHENIUM:
+                can_data.fault_sync_rhenium.idx = msg_data_a->fault_sync_rhenium.idx;
+                can_data.fault_sync_rhenium.latched = msg_data_a->fault_sync_rhenium.latched;
+				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
+                break;
             case ID_FAULT_SYNC_TEST_NODE:
                 can_data.fault_sync_test_node.idx = msg_data_a->fault_sync_test_node.idx;
                 can_data.fault_sync_test_node.latched = msg_data_a->fault_sync_test_node.latched;
@@ -215,12 +220,13 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_RHENIUM << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_DAQ_COMMAND_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_DAQ_COMMAND_A_BOX << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)

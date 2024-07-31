@@ -34,6 +34,13 @@
                     "files":[]
                 },
                 {
+                    "node_name":"Rhenium",
+                    "includes":"#include \"main.h\"",
+                    "variables": [
+                    ],
+                    "files":[]
+                },
+                {
                     "node_name":"Dashboard",
                     "includes":"#include \"pedals.h\"",
                     "variables": [

@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU daq bootloader BITSTREAM Charger DAQ TEST_NODE TEST_NODE_2 DAQ
+BU_: Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU daq bootloader BITSTREAM Charger DAQ software-intro TEST_NODE TEST_NODE_2 DAQ
 
 
 BO_ 2348816641 main_hb: 2 Main_Module
@@ -546,6 +546,11 @@ BO_ 2483028274 daq_command_A_BOX: 8 DAQ
 BO_ 2483030002 daq_command_PDU: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2214659106 test: 3 software-intro
+ SG_ test_3 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ test_1 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2483029759 orion_currents_volts2: 4 TEST_NODE
  SG_ pack_voltage : 16|16@1+ (0.1,0) [0|0] "V" Vector__XXX
  SG_ pack_current : 0|16@1- (0.1,0) [0|0] "A" Vector__XXX
@@ -631,6 +636,7 @@ CM_ BU_ bootloader "";
 CM_ BU_ BITSTREAM "";
 CM_ BU_ Charger "";
 CM_ BU_ DAQ "";
+CM_ BU_ software-intro "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
@@ -1052,6 +1058,10 @@ CM_ BO_ 2483028274 "daq command for node A_BOX";
 CM_ SG_ 2483028274 daq_command "";
 CM_ BO_ 2483030002 "daq command for node PDU";
 CM_ SG_ 2483030002 daq_command "";
+CM_ BO_ 2214659106 "periodic test msg";
+CM_ SG_ 2214659106 test_3 "";
+CM_ SG_ 2214659106 test_2 "";
+CM_ SG_ 2214659106 test_1 "";
 CM_ BO_ 2483029759 "Pack current + voltage";
 CM_ SG_ 2483029759 pack_voltage "";
 CM_ SG_ 2483029759 pack_current "";

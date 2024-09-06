@@ -13,7 +13,7 @@
 
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
-#include "common/phal_l4/can/can.h"
+#include "common/phal_L4/can/can.h"
 #include "common/daq/can_parse_base.h"
 
 // Make this match the node name within the can_config.json
@@ -62,7 +62,7 @@ typedef union {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t test_1: 8;
         uint64_t test_2: 8;

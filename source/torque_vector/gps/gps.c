@@ -30,7 +30,7 @@ double checkVelN;
 double checkVelN2;
 signed long prev_iTOW;
 uint16_t counter;
-u_int16_t diff;
+uint16_t diff;
 // Nav Message
 GPS_Handle_t gps_handle = {.raw_message = {0},
                            .g_speed = 0,

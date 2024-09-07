@@ -1,0 +1,1250 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU daq bootloader InverterA InverterB BITSTREAM DAQ
+
+
+BO_ 2348816641 main_hb: 2 Main_Module
+ SG_ precharge_state : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415921281 coolant_temps: 4 Main_Module
+ SG_ drivetrain_out_temp : 24|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ drivetrain_in_temp : 16|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ battery_out_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ battery_in_temp : 0|8@1- (1,0) [0|0] "C" Vector__XXX
+
+BO_ 2415921409 gearbox: 2 Main_Module
+ SG_ r_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
+ SG_ l_temp : 0|8@1- (1,0) [0|0] "C" Vector__XXX
+
+BO_ 2147485632 LWS_Config: 2 Main_Module
+ SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415983105 load_sensor_readings: 8 Main_Module
+ SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX
+ SG_ left_load_sensor : 0|32@1- (1,0) [0|0] "N" Vector__XXX
+
+BO_ 2415984385 shock_rear: 4 Main_Module
+ SG_ right_shock : 16|16@1- (1,0) [0|0] "mm" Vector__XXX
+ SG_ left_shock : 0|16@1- (1,0) [0|0] "mm" Vector__XXX
+
+BO_ 2415925633 mcu_status: 4 Main_Module
+ SG_ sched_error : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ background_use : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ foreground_use : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ sched_skips : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416009985 main_module_can_stats: 7 Main_Module
+ SG_ can2_rx_overrun : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_rx_overrun : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_queue_overflow : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can2_tx_fail : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_tx_fail : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can2_tx_queue_overflow : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_tx_queue_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415926145 num_mc_skips: 4 Main_Module
+ SG_ noise_l : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ noise_r : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415923521 INVA_LOG_SET: 8 Main_Module
+ SG_ AMK_NegativeTorqueLimit : 48|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_Control_bReserve2 : 12|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bErrorReset : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bEnable : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bDcOn : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bInverterOn : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415923585 INVB_LOG_SET: 8 Main_Module
+ SG_ AMK_NegativeTorqueLimit : 48|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_Control_bReserve2 : 12|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bErrorReset : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bEnable : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bDcOn : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bInverterOn : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415925569 rear_mc_status: 6 Main_Module
+ SG_ rear_right_last_link_error : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_right_motor_link : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_right_motor : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_last_link_error : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_motor_link : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ rear_left_motor : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415919809 rear_motor_currents_volts: 6 Main_Module
+ SG_ right_voltage : 32|16@1+ (1,0) [0|0] "Voltx10" Vector__XXX
+ SG_ right_current : 16|16@1+ (0.1,0) [0|0] "Amp" Vector__XXX
+ SG_ left_current : 0|16@1+ (0.1,0) [0|0] "Amp" Vector__XXX
+
+BO_ 2348811137 sdc_status: 2 Main_Module
+ SG_ pchg_out : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ TSMS : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ hub : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ emeter : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ HVD : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ l_estop : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ r_estop : 7|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ IMD : 6|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ BMS : 5|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ BSPD : 4|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ BOTS : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ inertia : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ c_estop : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ main : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415919873 rear_motor_temps: 6 Main_Module
+ SG_ right_igbt_temp : 40|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_igbt_temp : 32|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ right_inv_temp : 24|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_inv_temp : 16|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ right_mot_temp : 8|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_mot_temp : 0|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+
+BO_ 2214593409 rear_wheel_speeds: 4 Main_Module
+ SG_ right_speed_sensor : 16|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ left_speed_sensor : 0|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
+
+BO_ 2214592577 simulated_tv: 4 Main_Module
+ SG_ right_tv : 16|16@1+ (1,0) [0|0] "rad/s" Vector__XXX
+ SG_ left_tv : 0|16@1+ (1,0) [0|0] "rad/s" Vector__XXX
+
+BO_ 2148059649 fault_sync_main_module: 3 Main_Module
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136769 daq_response_MAIN_MODULE_VCAN: 8 Main_Module
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348816708 precharge_hb: 2 a_box
+ SG_ BMS : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ IMD : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550588916 elcon_charger_command: 5 a_box
+ SG_ charge_disable : 32|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ current_limit : 16|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage_limit : 0|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+
+BO_ 2415952068 num_therm_bad: 5 a_box
+ SG_ E_right : 36|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ E_left : 32|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ D_right : 28|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ D_left : 24|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ C_right : 20|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ C_left : 16|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ B_right : 12|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ B_left : 8|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ A_right : 4|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ A_left : 0|4@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483060868 pack_charge_status: 7 a_box
+ SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
+
+BO_ 2349131268 max_cell_temp: 2 a_box
+ SG_ max_temp : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483106948 mod_cell_temp_avg_a_b_c: 6 a_box
+ SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483107012 mod_cell_temp_avg_d_e: 4 a_box
+ SG_ temp_E : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483060996 mod_cell_temp_max_a_b_c: 6 a_box
+ SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061060 mod_cell_temp_max_d_e: 4 a_box
+ SG_ temp_E : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061252 mod_cell_temp_min_a_b_c: 6 a_box
+ SG_ temp_C : 32|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_B : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_A : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061316 mod_cell_temp_min_d_e: 4 a_box
+ SG_ temp_E : 16|16@1- (0.1,0) [0|0] "" Vector__XXX
+ SG_ temp_D : 0|16@1- (0.1,0) [0|0] "" Vector__XXX
+
+BO_ 2483106180 raw_cell_temp_module1: 5 a_box
+ SG_ temp_right : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_left : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061636 raw_cell_temp_module2: 5 a_box
+ SG_ temp_right : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_left : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061700 raw_cell_temp_module3: 5 a_box
+ SG_ temp_right : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_left : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061764 raw_cell_temp_module4: 5 a_box
+ SG_ temp_right : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_left : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483061828 raw_cell_temp_module5: 5 a_box
+ SG_ temp_right : 24|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ temp_left : 8|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ index : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416009988 a_box_can_stats: 7 a_box
+ SG_ can2_rx_overrun : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_rx_overrun : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_queue_overflow : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can2_tx_fail : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_tx_fail : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can2_tx_queue_overflow : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_tx_queue_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416010308 i_sense: 4 a_box
+ SG_ current_channel_2 : 16|16@1- (0.01,0) [0|0] "A" Vector__XXX
+ SG_ current_channel_1 : 0|16@1- (0.01,0) [0|0] "A" Vector__XXX
+
+BO_ 2148059716 fault_sync_a_box: 3 a_box
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136772 daq_response_A_BOX_VCAN: 8 a_box
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483029688 orion_info: 7 OrionBMS
+ SG_ pack_soc : 48|8@1+ (0.5,0) [0|0] "%" Vector__XXX
+ SG_ pack_ccl : 32|16@1+ (1,0) [0|0] "A" Vector__XXX
+ SG_ pack_dcl : 16|16@1+ (1,0) [0|0] "A" Vector__XXX
+ SG_ multi_output_1 : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_enable : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_output_4 : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_output_3 : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_output_2 : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_input_3 : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_input_2 : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ is_charging : 7|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ is_ready : 6|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ always_on : 5|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ multi_input : 4|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dtc_status : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charger_safety : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charge_enable : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ discharge_enable : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483029752 orion_currents_volts: 4 OrionBMS
+ SG_ pack_voltage : 16|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ pack_current : 0|16@1- (0.1,0) [0|0] "A" Vector__XXX
+
+BO_ 2348812088 orion_errors: 4 OrionBMS
+ SG_ charge_limit_enforce : 31|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ input_psu : 30|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ hv_isolation : 29|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ redundant_psu : 28|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ external_comms : 27|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ thermistor : 26|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ fan_monitor : 25|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ weak_pack : 24|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cell_asic : 23|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ max_cellv_o5v : 22|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ current_sensor : 21|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ open_wire : 20|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ low_cellv : 19|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ weak_cell : 18|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cell_balancing_foff : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ internal_comms : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved7 : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved6 : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved5 : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved4 : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved3 : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved2 : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved1 : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ reserved0 : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pack_overheat : 7|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ min_cellv_low : 6|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ max_cellv_high : 5|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ software : 4|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ heatsink_thermistor : 3|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ internal_hardware : 2|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ charger_safety_relay : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ discharge_limit_enforce : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810935 gps_velocity: 6 torque_vector
+ SG_ gps_vel_d : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_e : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+ SG_ gps_vel_n : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
+BO_ 2348814647 gps_speed: 4 torque_vector
+ SG_ gps_heading : 16|16@1- (0.1,0) [0|0] "none" Vector__XXX
+ SG_ gps_speed : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
+
+BO_ 2348819255 gps_position: 2 torque_vector
+ SG_ height : 0|16@1- (0.01,0) [0|0] "m" Vector__XXX
+
+BO_ 2348819319 gps_coordinates: 8 torque_vector
+ SG_ longitude : 32|32@1- (1,0) [0|0] "deg" Vector__XXX
+ SG_ latitude : 0|32@1- (1,0) [0|0] "deg" Vector__XXX
+
+BO_ 2348819831 gps_time: 8 torque_vector
+ SG_ millisecond : 48|16@1+ (1,0) [0|0] "ms" Vector__XXX
+ SG_ second : 40|8@1+ (1,0) [0|0] "s" Vector__XXX
+ SG_ minute : 32|8@1+ (1,0) [0|0] "m" Vector__XXX
+ SG_ hour : 24|8@1+ (1,0) [0|0] "h" Vector__XXX
+ SG_ day : 16|8@1+ (1,0) [0|0] "d" Vector__XXX
+ SG_ month : 8|8@1+ (1,0) [0|0] "mo" Vector__XXX
+ SG_ year : 0|8@1+ (1,0) [0|0] "yr" Vector__XXX
+
+BO_ 2348810999 imu_gyro: 6 torque_vector
+ SG_ imu_gyro_z : 32|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ imu_gyro_y : 16|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ imu_gyro_x : 0|16@1- (0.01,0) [0|0] "rad/s" Vector__XXX
+
+BO_ 2348819383 imu_accel: 6 torque_vector
+ SG_ imu_accel_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ imu_accel_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+ SG_ imu_accel_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
+
+BO_ 2214602423 VCU_torques_speeds: 7 torque_vector
+ SG_ VCU_mode : 48|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ TO_PT_equal : 32|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ TO_VT_right : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ TO_VT_left : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+
+BO_ 2281711351 vcu_soc_estimate: 4 torque_vector
+ SG_ Voc_estimate : 16|16@1- (0.1,0) [0|0] "V" Vector__XXX
+ SG_ SOC_estimate : 0|16@1- (0.01,0) [0|0] "none" Vector__XXX
+
+BO_ 2348820279 drive_modes: 3 torque_vector
+ SG_ WS_VS_equal : 8|16@1- (1,0) [0|0] "rad/s" Vector__XXX
+ SG_ VT_mode : 0|8@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416010039 tv_can_stats: 4 torque_vector
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2148059831 fault_sync_torque_vector: 3 torque_vector
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415919749 raw_throttle_brake: 8 Dashboard
+ SG_ brake_pot : 48|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ brake_right : 36|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ brake : 24|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ throttle_right : 12|12@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ throttle : 0|12@1+ (1,0) [0|0] "%" Vector__XXX
+
+BO_ 2415984069 shock_front: 4 Dashboard
+ SG_ right_shock : 16|16@1- (1,0) [0|0] "mm" Vector__XXX
+ SG_ left_shock : 0|16@1- (1,0) [0|0] "mm" Vector__XXX
+
+BO_ 2415983749 load_sensor_readings_dash: 8 Dashboard
+ SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX
+ SG_ left_load_sensor : 0|32@1- (1,0) [0|0] "N" Vector__XXX
+
+BO_ 2348810949 cooling_driver_request: 5 Dashboard
+ SG_ batt_fan : 32|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ batt_pump2 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ batt_pump : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dt_fan : 8|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ dt_pump : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214593093 filt_throttle_brake: 3 Dashboard
+ SG_ brake : 12|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+ SG_ throttle : 0|12@1+ (0.02442,0) [0|0] "%" Vector__XXX
+
+BO_ 2214592517 start_button: 1 Dashboard
+ SG_ start : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415925573 dashboard_mcu_temp: 2 Dashboard
+ SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 2415925637 dashboard_voltage: 8 Dashboard
+ SG_ volts_24v : 48|16@1+ (0.01,0) [0|0] "V" Vector__XXX
+ SG_ volts_12v : 32|16@1+ (0.01,0) [0|0] "V" Vector__XXX
+ SG_ volts_5v : 16|16@1+ (0.01,0) [0|0] "V" Vector__XXX
+ SG_ volts_3v3 : 0|16@1+ (0.01,0) [0|0] "V" Vector__XXX
+
+BO_ 2214596037 dashboard_vcu_parameters: 6 Dashboard
+ SG_ vs_max_sr_val : 34|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tc_tr_val : 26|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tv_pp_val : 10|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vt_db_val : 2|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vcu_cmode : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vcu_fmode : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214596101 dashboard_start_logging: 1 Dashboard
+ SG_ logging_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416009989 dash_can_stats: 4 Dashboard
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2148059845 fault_sync_dashboard: 3 Dashboard
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136773 daq_response_DASHBOARD_VCAN: 8 Dashboard
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484336 LWS_Standard: 5 Steering
+ SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Reserved_1 : 27|5@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Trim : 26|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Cal : 25|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Ok : 24|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ LWS_SPEED : 16|8@1+ (4,0) [0|0] "deg/s" Vector__XXX
+ SG_ LWS_ANGLE : 0|16@1- (0.1,0) [0|0] "deg" Vector__XXX
+
+BO_ 2415985759 v_rails: 8 PDU
+ SG_ amk_24v : 48|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ out_3v3 : 32|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ out_5v : 16|16@1+ (1,0) [0|0] "mV" Vector__XXX
+ SG_ in_24v : 0|16@1+ (1,0) [0|0] "mV" Vector__XXX
+
+BO_ 2415985823 rail_currents: 4 PDU
+ SG_ i_5v : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_24v : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
+
+BO_ 2415985887 pump_and_fan_current: 7 PDU
+ SG_ i_fan2 : 44|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_fan1 : 32|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_pump2 : 16|16@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_pump1 : 0|16@1+ (1,0) [0|0] "mA" Vector__XXX
+
+BO_ 2415985951 other_currents: 8 PDU
+ SG_ i_main : 48|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_abox : 36|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_dash : 24|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_aux : 12|12@1+ (1,0) [0|0] "mA" Vector__XXX
+ SG_ i_sdc : 0|12@1+ (1,0) [0|0] "mA" Vector__XXX
+
+BO_ 2415921375 coolant_out: 3 PDU
+ SG_ dt_pump : 18|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bat_pump_aux : 17|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bat_pump : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ dt_fan : 8|8@1+ (1,0) [0|0] "%" Vector__XXX
+ SG_ bat_fan : 0|8@1+ (1,0) [0|0] "%" Vector__XXX
+
+BO_ 2415921311 flowrates: 2 PDU
+ SG_ drivetrain_flowrate : 8|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+ SG_ battery_flowrate : 0|8@1+ (0.1,0) [0|0] "LPM" Vector__XXX
+
+BO_ 2415921439 pdu_temps: 2 PDU
+ SG_ internal_therm : 0|16@1+ (1,0) [0|0] "C" Vector__XXX
+
+BO_ 2416010015 pdu_can_stats: 4 PDU
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2148059935 fault_sync_pdu: 3 PDU
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136799 daq_response_PDU_VCAN: 8 PDU
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416022833 daq_can_stats: 8 daq
+ SG_ can_rx_overrun : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2416022897 daq_queue_stats: 8 daq
+ SG_ tcp_tx_overflow : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ sd_rx_overflow : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can1_rx_overflow : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ bcan_rx_overflow : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912572 main_module_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912636 dashboard_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912700 torquevector_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912764 a_box_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214912828 pdu_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2217792892 l4_testing_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2217792956 f4_testing_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2217793020 f7_testing_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2217793084 daq_bl_resp: 5 bootloader
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484290 INVA_CRIT: 8 InverterA
+ SG_ AMK_DisplayOverloadMotor : 48|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ AMK_DisplayOverloadInverter : 32|16@1+ (0.1,0) [0|0] "" Vector__XXX
+ SG_ AMK_ActualTorque : 16|16@1- (0.1,0) [0|0] "%" Vector__XXX
+ SG_ AMK_ActualSpeed : 0|16@1- (1,0) [0|0] "rpm" Vector__XXX
+
+BO_ 2147484292 INVA_TEMPS: 6 InverterA
+ SG_ AMK_IGBTTemp : 32|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_InverterTemp : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_MotorTemp : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
+
+BO_ 2147484294 INVA_INFO: 4 InverterA
+ SG_ AMK_DCBusVoltage : 16|16@1+ (1,0) [0|0] "V" Vector__XXX
+ SG_ AMK_Status_bDerating : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bInverterOn : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bQuitInverterOn : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bDcOn : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bQuitDcOn : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bWarn : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bError : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bSystemReady : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484296 INVA_ERR_1: 8 InverterA
+ SG_ AMK_ErrorInfo1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_DiagnosticNumber : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484304 INVA_ERR_2: 8 InverterA
+ SG_ AMK_ErrorInfo3 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_ErrorInfo2 : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484306 INVA_PHASE_I: 4 InverterA
+ SG_ AMK_PhaseUCurrent : 0|32@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484291 INVB_CRIT: 8 InverterB
+ SG_ AMK_DisplayOverloadMotor : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_DisplayOverloadInverter : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_ActualTorque : 16|16@1- (0.1,0) [0|0] "%" Vector__XXX
+ SG_ AMK_ActualSpeed : 0|16@1- (1,0) [0|0] "rpm" Vector__XXX
+
+BO_ 2147484293 INVB_TEMPS: 6 InverterB
+ SG_ AMK_IGBTTemp : 32|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_InverterTemp : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_MotorTemp : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
+
+BO_ 2147484295 INVB_INFO: 4 InverterB
+ SG_ AMK_DCBusVoltage : 16|16@1+ (1,0) [0|0] "V" Vector__XXX
+ SG_ AMK_Status_bDerating : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bInverterOn : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bQuitInverterOn : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bDcOn : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bQuitDcOn : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bWarn : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bError : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bSystemReady : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484297 INVB_ERR_1: 8 InverterB
+ SG_ AMK_ErrorInfo1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_DiagnosticNumber : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484305 INVB_ERR_2: 8 InverterB
+ SG_ AMK_ErrorInfo3 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_ErrorInfo2 : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484307 INVB_PHASE_I: 4 InverterB
+ SG_ AMK_PhaseUCurrent : 0|32@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214598974 bitstream_data: 8 BITSTREAM
+ SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d6 : 48|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d5 : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d4 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d3 : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d2 : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d1 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ d0 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214599038 bitstream_request: 5 BITSTREAM
+ SG_ download_size : 1|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ download_request : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232574 main_module_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232638 dashboard_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232702 torquevector_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232766 a_box_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232830 pdu_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232894 l4_testing_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215232958 f4_testing_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233022 f7_testing_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2215233086 daq_bl_cmd: 5 BITSTREAM
+ SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2282342462 set_fault: 3 BITSTREAM
+ SG_ value : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ id : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2282342526 return_fault_control: 2 BITSTREAM
+ SG_ id : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028082 daq_command_MAIN_MODULE_VCAN: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028338 daq_command_DASHBOARD_VCAN: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028274 daq_command_A_BOX_VCAN: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483030002 daq_command_PDU_VCAN: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+
+
+
+CM_ BU_ Main_Module "";
+CM_ BU_ a_box "";
+CM_ BU_ OrionBMS "";
+CM_ BU_ torque_vector "";
+CM_ BU_ Dashboard "";
+CM_ BU_ Steering "";
+CM_ BU_ PDU "";
+CM_ BU_ daq "";
+CM_ BU_ bootloader "";
+CM_ BU_ InverterA "";
+CM_ BU_ InverterB "";
+CM_ BU_ BITSTREAM "";
+CM_ BU_ DAQ "";
+CM_ BO_ 2348816641 "Heart beat message for main module";
+CM_ SG_ 2348816641 precharge_state "Status of Precharge (complete vs not)";
+CM_ SG_ 2348816641 car_state "Main car state";
+CM_ BO_ 2415921281 "Water temp of cooling loops";
+CM_ SG_ 2415921281 drivetrain_out_temp "Out flow temperature of drivetrain coolant loop";
+CM_ SG_ 2415921281 drivetrain_in_temp "In flow temperature of drivetrain coolant loop";
+CM_ SG_ 2415921281 battery_out_temp "Out flow temperature of battery coolant loop";
+CM_ SG_ 2415921281 battery_in_temp "In flow temperature of battery coolant loop";
+CM_ BO_ 2415921409 "Gearbox temps";
+CM_ SG_ 2415921409 r_temp "Temperature of right gearbox";
+CM_ SG_ 2415921409 l_temp "Temperature of left gearbox";
+CM_ BO_ 2147485632 "Steering sensor configuration";
+CM_ SG_ 2147485632 Reserved_2 "";
+CM_ SG_ 2147485632 Reserved_1 "";
+CM_ SG_ 2147485632 CCW "";
+CM_ BO_ 2415983105 "Load Sensor readings from left and right";
+CM_ SG_ 2415983105 right_load_sensor "Right Normal Force";
+CM_ SG_ 2415983105 left_load_sensor "Left Normal Force";
+CM_ BO_ 2415984385 "Shockpot readings from left and right";
+CM_ SG_ 2415984385 right_shock "Right Shockpot Travel";
+CM_ SG_ 2415984385 left_shock "Left Shockpot Travel";
+CM_ BO_ 2415925633 "performance metrics of MCU";
+CM_ SG_ 2415925633 sched_error "PSCHED Error Flags (bit #)
+ 0 - N/A
+1 - no free task
+2 - FG Miss
+3 - BG Miss
+4 - Individual FG Miss";
+CM_ SG_ 2415925633 background_use "Percent of the 1ms loop time used by background tasks";
+CM_ SG_ 2415925633 foreground_use "Percent of the 1ms loop time used by foreground tasks";
+CM_ SG_ 2415925633 sched_skips "Number of loop misses (execution time was skipped)";
+CM_ BO_ 2416009985 "CAN diagnostics";
+CM_ SG_ 2416009985 can2_rx_overrun "MCAN Rx FIFO overrun count";
+CM_ SG_ 2416009985 can1_rx_overrun "VCAN Rx FIFO overrun count";
+CM_ SG_ 2416009985 can_rx_queue_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416009985 can2_tx_fail "CAN Tx fail count for MCAN (due to timeout in mailbox)";
+CM_ SG_ 2416009985 can1_tx_fail "CAN Tx fail count for VCAN (due to timeout in mailbox)";
+CM_ SG_ 2416009985 can2_tx_queue_overflow "MCAN Tx queue overflow count";
+CM_ SG_ 2416009985 can1_tx_queue_overflow "VCAN Tx queue overflow count";
+CM_ BO_ 2415926145 "Messages ignored by MC";
+CM_ SG_ 2415926145 noise_l "Num of skipped MC UART msgs";
+CM_ SG_ 2415926145 noise_r "Num of skipped MC UART msgs";
+CM_ BO_ 2415923521 "Contains control word and setpoints";
+CM_ SG_ 2415923521 AMK_NegativeTorqueLimit "Negative Torque Limit";
+CM_ SG_ 2415923521 AMK_PositiveTorqueLimit "Positive Torque Limit";
+CM_ SG_ 2415923521 AMK_TorqueSetpoint "Torque setpoint";
+CM_ SG_ 2415923521 AMK_Control_bReserve2 "Control word: RESERVED";
+CM_ SG_ 2415923521 AMK_Control_bErrorReset "Control word: remove error";
+CM_ SG_ 2415923521 AMK_Control_bEnable "Control word: driver enable";
+CM_ SG_ 2415923521 AMK_Control_bDcOn "Control word: HV activation";
+CM_ SG_ 2415923521 AMK_Control_bInverterOn "Control word: controller enable";
+CM_ SG_ 2415923521 AMK_Control_bReserve "Control word: RESERVED";
+CM_ BO_ 2415923585 "Contains control word and setpoints";
+CM_ SG_ 2415923585 AMK_NegativeTorqueLimit "Negative Torque Limit";
+CM_ SG_ 2415923585 AMK_PositiveTorqueLimit "Positive Torque Limit";
+CM_ SG_ 2415923585 AMK_TorqueSetpoint "Torque setpoint";
+CM_ SG_ 2415923585 AMK_Control_bReserve2 "Control word: RESERVED";
+CM_ SG_ 2415923585 AMK_Control_bErrorReset "Control word: remove error";
+CM_ SG_ 2415923585 AMK_Control_bEnable "Control word: driver enable";
+CM_ SG_ 2415923585 AMK_Control_bDcOn "Control word: HV activation";
+CM_ SG_ 2415923585 AMK_Control_bInverterOn "Control word: controller enable";
+CM_ SG_ 2415923585 AMK_Control_bReserve "Control word: RESERVED";
+CM_ BO_ 2415925569 "rear drivline heart beat";
+CM_ SG_ 2415925569 rear_right_last_link_error "Error reason for failed MC communication link attempt";
+CM_ SG_ 2415925569 rear_right_motor_link "State of Connection attempt to MC";
+CM_ SG_ 2415925569 rear_right_motor "Connection State of Rear Right Motor";
+CM_ SG_ 2415925569 rear_left_last_link_error "Error reason for failed MC communication link attempt";
+CM_ SG_ 2415925569 rear_left_motor_link "State of Connection attempt to MC";
+CM_ SG_ 2415925569 rear_left_motor "Connection State of Rear Left Motor";
+CM_ BO_ 2415919809 "DC Current and Voltage of the motors";
+CM_ SG_ 2415919809 right_voltage "";
+CM_ SG_ 2415919809 right_current "";
+CM_ SG_ 2415919809 left_current "";
+CM_ BO_ 2348811137 "Shutdown Circuit Status";
+CM_ SG_ 2348811137 pchg_out "";
+CM_ SG_ 2348811137 TSMS "";
+CM_ SG_ 2348811137 hub "";
+CM_ SG_ 2348811137 emeter "";
+CM_ SG_ 2348811137 HVD "";
+CM_ SG_ 2348811137 l_estop "";
+CM_ SG_ 2348811137 r_estop "";
+CM_ SG_ 2348811137 IMD "";
+CM_ SG_ 2348811137 BMS "";
+CM_ SG_ 2348811137 BSPD "";
+CM_ SG_ 2348811137 BOTS "";
+CM_ SG_ 2348811137 inertia "";
+CM_ SG_ 2348811137 c_estop "";
+CM_ SG_ 2348811137 main "";
+CM_ BO_ 2415919873 "Temperature of motor controllers and motors";
+CM_ SG_ 2415919873 right_igbt_temp "";
+CM_ SG_ 2415919873 left_igbt_temp "";
+CM_ SG_ 2415919873 right_inv_temp "";
+CM_ SG_ 2415919873 left_inv_temp "";
+CM_ SG_ 2415919873 right_mot_temp "";
+CM_ SG_ 2415919873 left_mot_temp "";
+CM_ BO_ 2214593409 "Rear Wheel speeds from motor controllers";
+CM_ SG_ 2214593409 right_speed_sensor "";
+CM_ SG_ 2214593409 left_speed_sensor "";
+CM_ BO_ 2214592577 "Rear Wheel speeds from motor controllers";
+CM_ SG_ 2214592577 right_tv "";
+CM_ SG_ 2214592577 left_tv "";
+CM_ BO_ 2148059649 "Fault status message";
+CM_ SG_ 2148059649 latched "";
+CM_ SG_ 2148059649 idx "";
+CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
+CM_ SG_ 2550136769 daq_response "";
+CM_ BO_ 2348816708 "heart beat for precharge";
+CM_ SG_ 2348816708 BMS "Fault State of BMS";
+CM_ SG_ 2348816708 IMD "Fault State of IMD";
+CM_ BO_ 2550588916 "Charge voltage and current request to ELCON charger";
+CM_ SG_ 2550588916 charge_disable "Disable charging";
+CM_ SG_ 2550588916 current_limit "Requested charge current";
+CM_ SG_ 2550588916 voltage_limit "Requested charge voltage";
+CM_ BO_ 2415952068 "Number of wonky thermistors on pack";
+CM_ SG_ 2415952068 E_right "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 E_left "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 D_right "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 D_left "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 C_right "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 C_left "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 B_right "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 B_left "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 A_right "Number of thermistors > 1.5v";
+CM_ SG_ 2415952068 A_left "Number of thermistors > 1.5v";
+CM_ BO_ 2483060868 "Statistics about current charge cycle";
+CM_ SG_ 2483060868 current "Instantaneous charge current";
+CM_ SG_ 2483060868 voltage "Instantaneous charge voltage";
+CM_ SG_ 2483060868 charge_enable "Charge mode enabled";
+CM_ SG_ 2483060868 power "Instantaneous charge power";
+CM_ BO_ 2349131268 "maximum cell temperature for the whole pack";
+CM_ SG_ 2349131268 max_temp "";
+CM_ BO_ 2483106948 "Average cell temperature for each module";
+CM_ SG_ 2483106948 temp_C "";
+CM_ SG_ 2483106948 temp_B "";
+CM_ SG_ 2483106948 temp_A "";
+CM_ BO_ 2483107012 "Average cell temperature for each module";
+CM_ SG_ 2483107012 temp_E "";
+CM_ SG_ 2483107012 temp_D "";
+CM_ BO_ 2483060996 "Max cell temperature for a, b, and c";
+CM_ SG_ 2483060996 temp_C "";
+CM_ SG_ 2483060996 temp_B "";
+CM_ SG_ 2483060996 temp_A "";
+CM_ BO_ 2483061060 "Max cell temperature for d and e";
+CM_ SG_ 2483061060 temp_E "";
+CM_ SG_ 2483061060 temp_D "";
+CM_ BO_ 2483061252 "Min cell temperature for each a, b, and c";
+CM_ SG_ 2483061252 temp_C "";
+CM_ SG_ 2483061252 temp_B "";
+CM_ SG_ 2483061252 temp_A "";
+CM_ BO_ 2483061316 "Min cell temperature for each d and e";
+CM_ SG_ 2483061316 temp_E "";
+CM_ SG_ 2483061316 temp_D "";
+CM_ BO_ 2483106180 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483106180 temp_right "";
+CM_ SG_ 2483106180 temp_left "";
+CM_ SG_ 2483106180 index "";
+CM_ BO_ 2483061636 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483061636 temp_right "";
+CM_ SG_ 2483061636 temp_left "";
+CM_ SG_ 2483061636 index "";
+CM_ BO_ 2483061700 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483061700 temp_right "";
+CM_ SG_ 2483061700 temp_left "";
+CM_ SG_ 2483061700 index "";
+CM_ BO_ 2483061764 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483061764 temp_right "";
+CM_ SG_ 2483061764 temp_left "";
+CM_ SG_ 2483061764 index "";
+CM_ BO_ 2483061828 "Raw cell temperature for each module of thermistor at index";
+CM_ SG_ 2483061828 temp_right "";
+CM_ SG_ 2483061828 temp_left "";
+CM_ SG_ 2483061828 index "";
+CM_ BO_ 2416009988 "CAN diagnostics";
+CM_ SG_ 2416009988 can2_rx_overrun "CCAN (Charger CAN) Rx FIFO overrun count";
+CM_ SG_ 2416009988 can1_rx_overrun "VCAN Rx FIFO overrun count";
+CM_ SG_ 2416009988 can_rx_queue_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416009988 can2_tx_fail "CAN Tx fail count for CCAN (Charger CAN) (due to timeout in mailbox)";
+CM_ SG_ 2416009988 can1_tx_fail "CAN Tx fail count for VCAN (due to timeout in mailbox)";
+CM_ SG_ 2416009988 can2_tx_queue_overflow "CCAN (Charger CAN) Tx queue overflow count";
+CM_ SG_ 2416009988 can1_tx_queue_overflow "VCAN Tx queue overflow count";
+CM_ BO_ 2416010308 "Current sense value for channel 1 and channel 2 of pack current sensor";
+CM_ SG_ 2416010308 current_channel_2 "Channel 2 used to measure higher pack currents, lower fidelity than channel 1";
+CM_ SG_ 2416010308 current_channel_1 "Channel 1 used for BSPD circuit, Higher fidelity, but maxes out at a low amperage";
+CM_ BO_ 2148059716 "Fault status message";
+CM_ SG_ 2148059716 latched "";
+CM_ SG_ 2148059716 idx "";
+CM_ BO_ 2550136772 "daq response from node A_BOX";
+CM_ SG_ 2550136772 daq_response "";
+CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
+CM_ SG_ 2483029688 pack_soc "Pack State of Charge";
+CM_ SG_ 2483029688 pack_ccl "Pack charge current limit";
+CM_ SG_ 2483029688 pack_dcl "Pack discharge current limit";
+CM_ SG_ 2483029688 multi_output_1 "Orion multi purpose output status - unused";
+CM_ SG_ 2483029688 multi_enable "Orion multi purpose output with watchdog functionality - unused";
+CM_ SG_ 2483029688 multi_output_4 "Orion multi purpose output status - unused";
+CM_ SG_ 2483029688 multi_output_3 "Orion multi purpose output status - unused";
+CM_ SG_ 2483029688 multi_output_2 "Orion multi purpose output status - unused";
+CM_ SG_ 2483029688 reserved "";
+CM_ SG_ 2483029688 multi_input_3 "Orion multi purpose input status - unused";
+CM_ SG_ 2483029688 multi_input_2 "Orion multi purpose input status - unused";
+CM_ SG_ 2483029688 is_charging "Orion is in \"CHARGE\" mode - controlled by charge power pin";
+CM_ SG_ 2483029688 is_ready "Orion is in \"READY\" (discharge) mode";
+CM_ SG_ 2483029688 always_on "Orion's low power sleep input is configured";
+CM_ SG_ 2483029688 multi_input "Orion multi purpose input status - unused";
+CM_ SG_ 2483029688 dtc_status "General error status of OrionBMS";
+CM_ SG_ 2483029688 charger_safety "Charger BMS SDC control input - allows current to flow into pack";
+CM_ SG_ 2483029688 charge_enable "Permits intermittent charging of pack - AKA Regen (Not currently used)";
+CM_ SG_ 2483029688 discharge_enable "Main BMS SDC control input - allows current to be drawn from pack";
+CM_ BO_ 2483029752 "Pack current + voltage";
+CM_ SG_ 2483029752 pack_voltage "";
+CM_ SG_ 2483029752 pack_current "";
+CM_ BO_ 2348812088 "Pack DTC (Diagnostic Trouble Code) Flags";
+CM_ SG_ 2348812088 charge_limit_enforce "The orion pack charge curent limit was exceeded - set if violation occured with \"charge enable\" relay";
+CM_ SG_ 2348812088 input_psu "Orion is not recieving a stable power supply between 9v and 30v";
+CM_ SG_ 2348812088 hv_isolation "BMS has detected a breakdown in HV/LV isolation";
+CM_ SG_ 2348812088 redundant_psu "The BMS has lost the \"always on\" power supply, meaning it is no longer redundant (must be configured)";
+CM_ SG_ 2348812088 external_comms "Expected CAN messages (must be configured) have not been recieved";
+CM_ SG_ 2348812088 thermistor "A thermistor reading has fallen out of it expected operating range";
+CM_ SG_ 2348812088 fan_monitor "Voltage on fan monitor (multi-input-3) goes outside provided threshold (if enabled)";
+CM_ SG_ 2348812088 weak_pack "Pack state of health estimation falls below provided threshold";
+CM_ SG_ 2348812088 cell_asic "Orion has detected a communication problem with its cell voltage measurement circuitry - check fault subcode";
+CM_ SG_ 2348812088 max_cellv_o5v "A cell in the pack has been detected to have a cell voltage over 5V";
+CM_ SG_ 2348812088 current_sensor "BMS has detected a problem with the current sensor (check fault subcodes)";
+CM_ SG_ 2348812088 open_wire "Cell tap wire is either weakly connected or fully disconnected";
+CM_ SG_ 2348812088 low_cellv "One or more cells have an extremely low cell voltage (likely dead or wiring problem) (threshold configurable)";
+CM_ SG_ 2348812088 weak_cell "Orion has either detected a weak cell within the pack, or a cell that is too far out of balance";
+CM_ SG_ 2348812088 cell_balancing_foff "At least one cell balancing circuit is not working";
+CM_ SG_ 2348812088 internal_comms "Orion cannot communicate with its isolated cell voltage measurement hardware";
+CM_ SG_ 2348812088 reserved7 "";
+CM_ SG_ 2348812088 reserved6 "";
+CM_ SG_ 2348812088 reserved5 "";
+CM_ SG_ 2348812088 reserved4 "";
+CM_ SG_ 2348812088 reserved3 "";
+CM_ SG_ 2348812088 reserved2 "";
+CM_ SG_ 2348812088 reserved1 "";
+CM_ SG_ 2348812088 reserved0 "";
+CM_ SG_ 2348812088 pack_overheat "Pack temp has exceeded its max allowable value for >30s";
+CM_ SG_ 2348812088 min_cellv_low "An individual cell has gone under its minimum allowable voltage";
+CM_ SG_ 2348812088 max_cellv_high "An individual cell has exceeded its maximum allowable voltage";
+CM_ SG_ 2348812088 software "Bug in internal software led to invalid operation";
+CM_ SG_ 2348812088 heatsink_thermistor "Orion can't detect it's internal temperature";
+CM_ SG_ 2348812088 internal_hardware "Orion has detected a hardware failure within itself";
+CM_ SG_ 2348812088 charger_safety_relay "Charge Current limit exceeded - set if violation occured with \"charger safety\" relay";
+CM_ SG_ 2348812088 discharge_limit_enforce "Discharge current limit exceed";
+CM_ BO_ 2348810935 "gps velocity";
+CM_ SG_ 2348810935 gps_vel_d "";
+CM_ SG_ 2348810935 gps_vel_e "";
+CM_ SG_ 2348810935 gps_vel_n "";
+CM_ BO_ 2348814647 "gps speed";
+CM_ SG_ 2348814647 gps_heading "";
+CM_ SG_ 2348814647 gps_speed "";
+CM_ BO_ 2348819255 "gps position";
+CM_ SG_ 2348819255 height "";
+CM_ BO_ 2348819319 "gps coordinates";
+CM_ SG_ 2348819319 longitude "";
+CM_ SG_ 2348819319 latitude "";
+CM_ BO_ 2348819831 "gps time in UTC";
+CM_ SG_ 2348819831 millisecond "";
+CM_ SG_ 2348819831 second "";
+CM_ SG_ 2348819831 minute "";
+CM_ SG_ 2348819831 hour "";
+CM_ SG_ 2348819831 day "";
+CM_ SG_ 2348819831 month "";
+CM_ SG_ 2348819831 year "";
+CM_ BO_ 2348810999 "gyroscope from imu";
+CM_ SG_ 2348810999 imu_gyro_z "";
+CM_ SG_ 2348810999 imu_gyro_y "";
+CM_ SG_ 2348810999 imu_gyro_x "";
+CM_ BO_ 2348819383 "acceleration from imu";
+CM_ SG_ 2348819383 imu_accel_z "";
+CM_ SG_ 2348819383 imu_accel_y "";
+CM_ SG_ 2348819383 imu_accel_x "";
+CM_ BO_ 2214602423 "All torque setpoints and speed setpoints";
+CM_ SG_ 2214602423 VCU_mode "";
+CM_ SG_ 2214602423 TO_PT_equal "";
+CM_ SG_ 2214602423 TO_VT_right "";
+CM_ SG_ 2214602423 TO_VT_left "";
+CM_ BO_ 2281711351 "Estimated Voc and SOC for HV battery";
+CM_ SG_ 2281711351 Voc_estimate "";
+CM_ SG_ 2281711351 SOC_estimate "";
+CM_ BO_ 2348820279 "Drive Modes";
+CM_ SG_ 2348820279 WS_VS_equal "";
+CM_ SG_ 2348820279 VT_mode "";
+CM_ BO_ 2416010039 "CAN diagnostics";
+CM_ SG_ 2416010039 can_rx_overrun "VCAN Rx FIFO overrun count";
+CM_ SG_ 2416010039 can_rx_overflow "VCAN Rx queue overflow count";
+CM_ SG_ 2416010039 can_tx_fail "VCAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416010039 can_tx_overflow "VCAN Tx queue overflow count";
+CM_ BO_ 2148059831 "Fault status message";
+CM_ SG_ 2148059831 latched "";
+CM_ SG_ 2148059831 idx "";
+CM_ BO_ 2415919749 "Throttle and brake values";
+CM_ SG_ 2415919749 brake_pot "Reading for potentiometer on brake pedal [OLD, no longer used]";
+CM_ SG_ 2415919749 brake_right "Raw sensor reading from right (rear) brake sensor";
+CM_ SG_ 2415919749 brake "Raw sensor reading from left (front) brake sensor";
+CM_ SG_ 2415919749 throttle_right "Raw sensor reading from right throttle sensor";
+CM_ SG_ 2415919749 throttle "Raw sensor reading from left throttle sensor";
+CM_ BO_ 2415984069 "Shockpot readings from front left and front right";
+CM_ SG_ 2415984069 right_shock "Travel distance of front right shockpot";
+CM_ SG_ 2415984069 left_shock "Travel distance of front left shockpot";
+CM_ BO_ 2415983749 "Load Sensor normal force readings from front left and right";
+CM_ SG_ 2415983749 right_load_sensor "";
+CM_ SG_ 2415983749 left_load_sensor "";
+CM_ BO_ 2348810949 "Cooling Pump/Fan requests from Dash LCD";
+CM_ SG_ 2348810949 batt_fan "";
+CM_ SG_ 2348810949 batt_pump2 "";
+CM_ SG_ 2348810949 batt_pump "";
+CM_ SG_ 2348810949 dt_fan "";
+CM_ SG_ 2348810949 dt_pump "";
+CM_ BO_ 2214593093 "Filtered throttle and brake values";
+CM_ SG_ 2214593093 brake "Processed brake request from driver";
+CM_ SG_ 2214593093 throttle "Official throttle request from driver";
+CM_ BO_ 2214592517 "Car start button pressed";
+CM_ SG_ 2214592517 start "";
+CM_ BO_ 2415925573 "periodic dashboard MCU temp";
+CM_ SG_ 2415925573 mcu_temp "";
+CM_ BO_ 2415925637 "Voltage rail measurements on dashboard";
+CM_ SG_ 2415925637 volts_24v "";
+CM_ SG_ 2415925637 volts_12v "";
+CM_ SG_ 2415925637 volts_5v "";
+CM_ SG_ 2415925637 volts_3v3 "";
+CM_ BO_ 2214596037 "periodic dashboard vcu parameters";
+CM_ SG_ 2214596037 vs_max_sr_val "";
+CM_ SG_ 2214596037 tc_tr_val "";
+CM_ SG_ 2214596037 tv_pp_val "";
+CM_ SG_ 2214596037 vt_db_val "";
+CM_ SG_ 2214596037 vcu_cmode "";
+CM_ SG_ 2214596037 vcu_fmode "";
+CM_ BO_ 2214596101 "Log enable request for DAQ SD card";
+CM_ SG_ 2214596101 logging_enabled "Request SD card logging to begin";
+CM_ BO_ 2416009989 "CAN diagnostics";
+CM_ SG_ 2416009989 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416009989 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416009989 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416009989 can_tx_overflow "CAN Tx queue overflow count";
+CM_ BO_ 2148059845 "Fault status message";
+CM_ SG_ 2148059845 latched "";
+CM_ SG_ 2148059845 idx "";
+CM_ BO_ 2550136773 "daq response from node DASHBOARD";
+CM_ SG_ 2550136773 daq_response "";
+CM_ BO_ 2147484336 "Standard steering angle and speed";
+CM_ SG_ 2147484336 Reserved_2 "";
+CM_ SG_ 2147484336 Reserved_1 "";
+CM_ SG_ 2147484336 Trim "Sensor information validity flag (invalid if 0)";
+CM_ SG_ 2147484336 Cal "Sensor calibration status";
+CM_ SG_ 2147484336 Ok "Sensor failure status";
+CM_ SG_ 2147484336 LWS_SPEED "Angular speed of steering input";
+CM_ SG_ 2147484336 LWS_ANGLE "Steering Angle";
+CM_ BO_ 2415985759 "PDU voltage rail readings";
+CM_ SG_ 2415985759 amk_24v "";
+CM_ SG_ 2415985759 out_3v3 "3v3 rail output voltage";
+CM_ SG_ 2415985759 out_5v "5v rail output voltage";
+CM_ SG_ 2415985759 in_24v "Unregulated 24V input";
+CM_ BO_ 2415985823 "PDU rail currents";
+CM_ SG_ 2415985823 i_5v "5v rail current";
+CM_ SG_ 2415985823 i_24v "Unregulated 24V rail current";
+CM_ BO_ 2415985887 "PDU pump and fan currents";
+CM_ SG_ 2415985887 i_fan2 "";
+CM_ SG_ 2415985887 i_fan1 "";
+CM_ SG_ 2415985887 i_pump2 "";
+CM_ SG_ 2415985887 i_pump1 "";
+CM_ BO_ 2415985951 "Other PDU currents";
+CM_ SG_ 2415985951 i_main "";
+CM_ SG_ 2415985951 i_abox "";
+CM_ SG_ 2415985951 i_dash "";
+CM_ SG_ 2415985951 i_aux "";
+CM_ SG_ 2415985951 i_sdc "";
+CM_ BO_ 2415921375 "outputs to coolant loops";
+CM_ SG_ 2415921375 dt_pump "Drivetrain pump enabled";
+CM_ SG_ 2415921375 bat_pump_aux "Auxilliary output enable request";
+CM_ SG_ 2415921375 bat_pump "Battery pump enabled";
+CM_ SG_ 2415921375 dt_fan "Drivetrain fan speed request";
+CM_ SG_ 2415921375 bat_fan "Battery fan speed request";
+CM_ BO_ 2415921311 "Flowrate cooling loops";
+CM_ SG_ 2415921311 drivetrain_flowrate "Flow rate for drivetrain coolant loop";
+CM_ SG_ 2415921311 battery_flowrate "Flow rate for battery coolant loop";
+CM_ BO_ 2415921439 "PDU board temperatures";
+CM_ SG_ 2415921439 internal_therm "Temperature from internal thermistor";
+CM_ BO_ 2416010015 "CAN diagnostics";
+CM_ SG_ 2416010015 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416010015 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416010015 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416010015 can_tx_overflow "CAN Tx queue overflow count";
+CM_ BO_ 2148059935 "Fault status message";
+CM_ SG_ 2148059935 latched "";
+CM_ SG_ 2148059935 idx "";
+CM_ BO_ 2550136799 "daq response from node PDU";
+CM_ SG_ 2550136799 daq_response "";
+CM_ BO_ 2416022833 "CAN diagnostics";
+CM_ SG_ 2416022833 can_rx_overrun "CAN Rx FIFO overrun count";
+CM_ SG_ 2416022833 can_rx_overflow "CAN Rx queue overflow count";
+CM_ SG_ 2416022833 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
+CM_ SG_ 2416022833 can_tx_overflow "CAN Tx queue overflow count";
+CM_ BO_ 2416022897 "Queue diagnostics";
+CM_ SG_ 2416022897 tcp_tx_overflow "TCP TX queue overflow";
+CM_ SG_ 2416022897 sd_rx_overflow "SD RX queue overflow";
+CM_ SG_ 2416022897 can1_rx_overflow "CAN RX queue overflow";
+CM_ SG_ 2416022897 bcan_rx_overflow "CAN RX buffer overflow";
+CM_ BO_ 2214912572 "Main Module Bootloader response";
+CM_ SG_ 2214912572 data "";
+CM_ SG_ 2214912572 cmd "";
+CM_ BO_ 2214912636 "Dashboard Bootloader response";
+CM_ SG_ 2214912636 data "";
+CM_ SG_ 2214912636 cmd "";
+CM_ BO_ 2214912700 "Torque Vector Bootloader response";
+CM_ SG_ 2214912700 data "";
+CM_ SG_ 2214912700 cmd "";
+CM_ BO_ 2214912764 "Accumulator Box PCB Bootloader response";
+CM_ SG_ 2214912764 data "";
+CM_ SG_ 2214912764 cmd "";
+CM_ BO_ 2214912828 "PDU Bootloader response";
+CM_ SG_ 2214912828 data "";
+CM_ SG_ 2214912828 cmd "";
+CM_ BO_ 2217792892 "L4 Test Bootloader response";
+CM_ SG_ 2217792892 data "";
+CM_ SG_ 2217792892 cmd "";
+CM_ BO_ 2217792956 "F4 Test Bootloader response";
+CM_ SG_ 2217792956 data "";
+CM_ SG_ 2217792956 cmd "";
+CM_ BO_ 2217793020 "F7 Test Bootloader response";
+CM_ SG_ 2217793020 data "";
+CM_ SG_ 2217793020 cmd "";
+CM_ BO_ 2217793084 "DAQ Bootloader response";
+CM_ SG_ 2217793084 data "";
+CM_ SG_ 2217793084 cmd "";
+CM_ BO_ 2147484290 "Contains the status word and actual values";
+CM_ SG_ 2147484290 AMK_DisplayOverloadMotor "";
+CM_ SG_ 2147484290 AMK_DisplayOverloadInverter "";
+CM_ SG_ 2147484290 AMK_ActualTorque "Actual torque value";
+CM_ SG_ 2147484290 AMK_ActualSpeed "Actual speed value";
+CM_ BO_ 2147484292 "Contains temperatures";
+CM_ SG_ 2147484292 AMK_IGBTTemp "IGBT temperature";
+CM_ SG_ 2147484292 AMK_InverterTemp "Inverter cold plate temperature";
+CM_ SG_ 2147484292 AMK_MotorTemp "Motor temperature";
+CM_ BO_ 2147484294 "Contains the status word and actual values";
+CM_ SG_ 2147484294 AMK_DCBusVoltage "Voltage of the DC bus";
+CM_ SG_ 2147484294 AMK_Status_bDerating "Status word: torque limit activation";
+CM_ SG_ 2147484294 AMK_Status_bInverterOn "Status word: Controller enable level";
+CM_ SG_ 2147484294 AMK_Status_bQuitInverterOn "Status word: Controller enable ACK";
+CM_ SG_ 2147484294 AMK_Status_bDcOn "Status word: HV activation level";
+CM_ SG_ 2147484294 AMK_Status_bQuitDcOn "Status word: HV activation ACK";
+CM_ SG_ 2147484294 AMK_Status_bWarn "Status word: warning";
+CM_ SG_ 2147484294 AMK_Status_bError "Status word: error";
+CM_ SG_ 2147484294 AMK_Status_bSystemReady "Status word: system ready";
+CM_ SG_ 2147484294 AMK_Status_bReserve "Status word: RESERVED";
+CM_ BO_ 2147484296 "All error information";
+CM_ SG_ 2147484296 AMK_ErrorInfo1 "Error info";
+CM_ SG_ 2147484296 AMK_DiagnosticNumber "Error number";
+CM_ BO_ 2147484304 "All error information";
+CM_ SG_ 2147484304 AMK_ErrorInfo3 "Error info";
+CM_ SG_ 2147484304 AMK_ErrorInfo2 "Error info";
+CM_ BO_ 2147484306 "All error information";
+CM_ SG_ 2147484306 AMK_PhaseUCurrent "INVA Phase U Current";
+CM_ BO_ 2147484291 "Contains the status word and actual values";
+CM_ SG_ 2147484291 AMK_DisplayOverloadMotor "";
+CM_ SG_ 2147484291 AMK_DisplayOverloadInverter "";
+CM_ SG_ 2147484291 AMK_ActualTorque "Actual torque value";
+CM_ SG_ 2147484291 AMK_ActualSpeed "Actual speed value";
+CM_ BO_ 2147484293 "Contains temperatures";
+CM_ SG_ 2147484293 AMK_IGBTTemp "IGBT temperature";
+CM_ SG_ 2147484293 AMK_InverterTemp "Inverter cold plate temperature";
+CM_ SG_ 2147484293 AMK_MotorTemp "Motor temperature";
+CM_ BO_ 2147484295 "Contains the status word and actual values";
+CM_ SG_ 2147484295 AMK_DCBusVoltage "Voltage of the DC bus";
+CM_ SG_ 2147484295 AMK_Status_bDerating "Status word: torque limit activation";
+CM_ SG_ 2147484295 AMK_Status_bInverterOn "Status word: Controller enable level";
+CM_ SG_ 2147484295 AMK_Status_bQuitInverterOn "Status word: Controller enable ACK";
+CM_ SG_ 2147484295 AMK_Status_bDcOn "Status word: HV activation level";
+CM_ SG_ 2147484295 AMK_Status_bQuitDcOn "Status word: HV activation ACK";
+CM_ SG_ 2147484295 AMK_Status_bWarn "Status word: warning";
+CM_ SG_ 2147484295 AMK_Status_bError "Status word: error";
+CM_ SG_ 2147484295 AMK_Status_bSystemReady "Status word: system ready";
+CM_ SG_ 2147484295 AMK_Status_bReserve "Status word: RESERVED";
+CM_ BO_ 2147484297 "All error information";
+CM_ SG_ 2147484297 AMK_ErrorInfo1 "Error info";
+CM_ SG_ 2147484297 AMK_DiagnosticNumber "Error number";
+CM_ BO_ 2147484305 "All error information";
+CM_ SG_ 2147484305 AMK_ErrorInfo3 "Error info";
+CM_ SG_ 2147484305 AMK_ErrorInfo2 "Error info";
+CM_ BO_ 2147484307 "All error information";
+CM_ SG_ 2147484307 AMK_PhaseUCurrent "INVB Phase U Current";
+CM_ BO_ 2214598974 "Bitstream download command";
+CM_ SG_ 2214598974 d7 "Bitstream data word 7";
+CM_ SG_ 2214598974 d6 "Bitstream data word 6";
+CM_ SG_ 2214598974 d5 "Bitstream data word 5";
+CM_ SG_ 2214598974 d4 "Bitstream data word 4";
+CM_ SG_ 2214598974 d3 "Bitstream data word 3";
+CM_ SG_ 2214598974 d2 "Bitstream data word 2";
+CM_ SG_ 2214598974 d1 "Bitstream data word 1";
+CM_ SG_ 2214598974 d0 "Bitstream data word 0";
+CM_ BO_ 2214599038 "Bitstream state command";
+CM_ SG_ 2214599038 download_size "size for expected bitstream download (bytes)";
+CM_ SG_ 2214599038 download_request "Request to download new bitstream";
+CM_ BO_ 2215232574 "Bootloader command for main module";
+CM_ SG_ 2215232574 data "Bootloader data";
+CM_ SG_ 2215232574 cmd "Bootloader Command type";
+CM_ BO_ 2215232638 "Bootloader command for dashboard";
+CM_ SG_ 2215232638 data "Bootloader data";
+CM_ SG_ 2215232638 cmd "Bootloader Command type";
+CM_ BO_ 2215232702 "Bootloader command for torque vector";
+CM_ SG_ 2215232702 data "Bootloader data";
+CM_ SG_ 2215232702 cmd "Bootloader Command type";
+CM_ BO_ 2215232766 "Bootloader command for a-box";
+CM_ SG_ 2215232766 data "Bootloader data";
+CM_ SG_ 2215232766 cmd "Bootloader Command type";
+CM_ BO_ 2215232830 "Bootloader command for pdu";
+CM_ SG_ 2215232830 data "Bootloader data";
+CM_ SG_ 2215232830 cmd "Bootloader Command type";
+CM_ BO_ 2215232894 "Bootloader command for l4 testing";
+CM_ SG_ 2215232894 data "Bootloader data";
+CM_ SG_ 2215232894 cmd "Bootloader Command type";
+CM_ BO_ 2215232958 "Bootloader command for f4 testing";
+CM_ SG_ 2215232958 data "Bootloader data";
+CM_ SG_ 2215232958 cmd "Bootloader Command type";
+CM_ BO_ 2215233022 "Bootloader command for f7 testing";
+CM_ SG_ 2215233022 data "Bootloader data";
+CM_ SG_ 2215233022 cmd "Bootloader Command type";
+CM_ BO_ 2215233086 "Bootloader command for DAQ";
+CM_ SG_ 2215233086 data "Bootloader data";
+CM_ SG_ 2215233086 cmd "Bootloader Command type";
+CM_ BO_ 2282342462 "Set a fault";
+CM_ SG_ 2282342462 value "Bootloader data";
+CM_ SG_ 2282342462 id "Bootloader Command type";
+CM_ BO_ 2282342526 "Return control of fault back to the MCU";
+CM_ SG_ 2282342526 id "Fault ID";
+CM_ BO_ 2483028082 "daq command for node MAIN_MODULE_VCAN";
+CM_ SG_ 2483028082 daq_command "";
+CM_ BO_ 2483028338 "daq command for node DASHBOARD_VCAN";
+CM_ SG_ 2483028338 daq_command "";
+CM_ BO_ 2483028274 "daq command for node A_BOX_VCAN";
+CM_ SG_ 2483028274 daq_command "";
+CM_ BO_ 2483030002 "daq command for node PDU_VCAN";
+CM_ SG_ 2483030002 daq_command "";
+
+
+
+VAL_ 2348816641 car_state 0 "idle" 1 "precharging" 2 "energized" 3 "buzzing" 4 "ready2drive" 5 "error" 6 "fatal" 7 "reset" 8 "recover" 9 "constant_torque" ;
+VAL_ 2415925569 rear_right_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
+VAL_ 2415925569 rear_right_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
+VAL_ 2415925569 rear_right_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
+VAL_ 2415925569 rear_left_last_link_error 0 "none" 1 "not_serial" 2 "cmd_timeout" 3 "gen_timeout" ;
+VAL_ 2415925569 rear_left_motor_link 0 "disconnected" 1 "attempting" 2 "verifying" 3 "delay" 4 "connected" 5 "fail" ;
+VAL_ 2415925569 rear_left_motor 0 "disconnected" 1 "connected" 2 "config" 3 "error" ;
+VAL_ 2214602423 VCU_mode 0 "equal_speed" 1 "equal_torque" 2 "equal_torque_with_safety" 3 "variable_speed" 4 "variable_torque" 5 "invalid" ;
+SIG_VALTYPE_ 2415983105 left_load_sensor : 1;
+SIG_VALTYPE_ 2415983105 right_load_sensor : 1;
+SIG_VALTYPE_ 2415983749 left_load_sensor : 1;
+SIG_VALTYPE_ 2415983749 right_load_sensor : 1;
+
+

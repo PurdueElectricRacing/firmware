@@ -1,0 +1,98 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: Main_Module
+
+
+BO_ 2348816705 main_hb_amk: 2 Main_Module
+ SG_ precharge_state : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484040 INVA_SET: 8 Main_Module
+ SG_ AMK_NegativeTorqueLimit : 48|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_Control_bReserve2 : 12|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bErrorReset : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bEnable : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bDcOn : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bInverterOn : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484041 INVB_SET: 8 Main_Module
+ SG_ AMK_NegativeTorqueLimit : 48|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_Control_bReserve2 : 12|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bErrorReset : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bEnable : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bDcOn : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bInverterOn : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+
+
+
+CM_ BU_ Main_Module "";
+CM_ BO_ 2348816705 "Heart beat message for main module";
+CM_ SG_ 2348816705 precharge_state "";
+CM_ SG_ 2348816705 car_state "Main car state";
+CM_ BO_ 2147484040 "Contains control word and setpoints";
+CM_ SG_ 2147484040 AMK_NegativeTorqueLimit "Negative Torque Limit";
+CM_ SG_ 2147484040 AMK_PositiveTorqueLimit "Positive Torque Limit";
+CM_ SG_ 2147484040 AMK_TorqueSetpoint "Torque setpoint";
+CM_ SG_ 2147484040 AMK_Control_bReserve2 "Control word: RESERVED";
+CM_ SG_ 2147484040 AMK_Control_bErrorReset "Control word: remove error";
+CM_ SG_ 2147484040 AMK_Control_bEnable "Control word: driver enable";
+CM_ SG_ 2147484040 AMK_Control_bDcOn "Control word: HV activation";
+CM_ SG_ 2147484040 AMK_Control_bInverterOn "Control word: controller enable";
+CM_ SG_ 2147484040 AMK_Control_bReserve "Control word: RESERVED";
+CM_ BO_ 2147484041 "Contains control word and setpoints";
+CM_ SG_ 2147484041 AMK_NegativeTorqueLimit "Negative Torque Limit";
+CM_ SG_ 2147484041 AMK_PositiveTorqueLimit "Positive Torque Limit";
+CM_ SG_ 2147484041 AMK_TorqueSetpoint "Torque setpoint";
+CM_ SG_ 2147484041 AMK_Control_bReserve2 "Control word: RESERVED";
+CM_ SG_ 2147484041 AMK_Control_bErrorReset "Control word: remove error";
+CM_ SG_ 2147484041 AMK_Control_bEnable "Control word: driver enable";
+CM_ SG_ 2147484041 AMK_Control_bDcOn "Control word: HV activation";
+CM_ SG_ 2147484041 AMK_Control_bInverterOn "Control word: controller enable";
+CM_ SG_ 2147484041 AMK_Control_bReserve "Control word: RESERVED";
+
+
+
+
+
+
+

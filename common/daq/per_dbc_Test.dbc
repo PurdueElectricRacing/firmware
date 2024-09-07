@@ -1,0 +1,174 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: TEST_NODE TEST_NODE_2 DAQ
+
+
+BO_ 2483029759 orion_currents_volts2: 4 TEST_NODE
+ SG_ pack_voltage : 16|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ pack_current : 0|16@1- (0.1,0) [0|0] "A" Vector__XXX
+
+BO_ 2281734335 pack_charge_status2: 7 TEST_NODE
+ SG_ current : 33|16@1+ (0.1,0) [0|0] "A" Vector__XXX
+ SG_ voltage : 17|16@1+ (0.1,0) [0|0] "V" Vector__XXX
+ SG_ charge_enable : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ power : 0|16@1+ (1,0) [0|0] "W" Vector__XXX
+
+BO_ 2483028095 test_msg: 2 TEST_NODE
+ SG_ test_sig : 0|16@1- (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028159 test_msg2: 2 TEST_NODE
+ SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028223 test_msg3: 2 TEST_NODE
+ SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028287 test_msg4: 2 TEST_NODE
+ SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028351 test_msg5: 2 TEST_NODE
+ SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348810751 wheel_speeds: 8 TEST_NODE
+ SG_ right_speed : 32|32@1- (1,0) [0|0] "kph" Vector__XXX
+ SG_ left_speed : 0|32@1- (1,0) [0|0] "kph" Vector__XXX
+
+BO_ 2147488308 adc_values: 5 TEST_NODE
+ SG_ pot3 : 24|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pot2 : 12|12@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ pot1 : 0|12@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2347693088 car_state: 1 TEST_NODE
+ SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2148060031 fault_sync_test_node: 3 TEST_NODE
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136831 daq_response_TEST_NODE_TEST: 8 TEST_NODE
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028093 test_msg_2: 2 TEST_NODE_2
+ SG_ test_sig : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028157 test_msg2_2: 2 TEST_NODE_2
+ SG_ test_sig2 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028221 test_msg3_2: 2 TEST_NODE_2
+ SG_ test_sig3 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028285 test_msg4_2: 2 TEST_NODE_2
+ SG_ test_sig4 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483028349 test_msg5_2: 8 TEST_NODE_2
+ SG_ test_sig5_3 : 32|32@1- (1,0) [0|0] "" Vector__XXX
+ SG_ test_sig5_2 : 16|16@1- (1,0) [0|0] "" Vector__XXX
+ SG_ test_sig5 : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147492386 test_stale: 1 TEST_NODE_2
+ SG_ data : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2347693089 car_state2: 1 TEST_NODE_2
+ SG_ car_state2 : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2483032050 daq_command_TEST_NODE_TEST: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
+
+
+
+CM_ BU_ TEST_NODE "";
+CM_ BU_ TEST_NODE_2 "";
+CM_ BU_ DAQ "";
+CM_ BO_ 2483029759 "Pack current + voltage";
+CM_ SG_ 2483029759 pack_voltage "";
+CM_ SG_ 2483029759 pack_current "";
+CM_ BO_ 2281734335 "Send charge information";
+CM_ SG_ 2281734335 current "Instantaneous charge current";
+CM_ SG_ 2281734335 voltage "Instantaneous charge voltage";
+CM_ SG_ 2281734335 charge_enable "Charge mode enable";
+CM_ SG_ 2281734335 power "Instantaneous charge power";
+CM_ BO_ 2483028095 "test_msg desc";
+CM_ SG_ 2483028095 test_sig "";
+CM_ BO_ 2483028159 "test_msg2 desc";
+CM_ SG_ 2483028159 test_sig2 "";
+CM_ BO_ 2483028223 "test_msg2 desc";
+CM_ SG_ 2483028223 test_sig3 "";
+CM_ BO_ 2483028287 "test_msg4 desc";
+CM_ SG_ 2483028287 test_sig4 "";
+CM_ BO_ 2483028351 "test_msg5 desc";
+CM_ SG_ 2483028351 test_sig5 "";
+CM_ BO_ 2348810751 "wheel speeds";
+CM_ SG_ 2348810751 right_speed "";
+CM_ SG_ 2348810751 left_speed "";
+CM_ BO_ 2147488308 "adc potentiometer readings";
+CM_ SG_ 2147488308 pot3 "";
+CM_ SG_ 2147488308 pot2 "";
+CM_ SG_ 2147488308 pot1 "";
+CM_ BO_ 2347693088 "state of the car";
+CM_ SG_ 2347693088 car_state "";
+CM_ BO_ 2148060031 "Fault status message";
+CM_ SG_ 2148060031 latched "";
+CM_ SG_ 2148060031 idx "";
+CM_ BO_ 2550136831 "daq response from node TEST_NODE";
+CM_ SG_ 2550136831 daq_response "";
+CM_ BO_ 2483028093 "test_msg desc";
+CM_ SG_ 2483028093 test_sig "";
+CM_ BO_ 2483028157 "test_msg2 desc";
+CM_ SG_ 2483028157 test_sig2 "";
+CM_ BO_ 2483028221 "test_msg2 desc";
+CM_ SG_ 2483028221 test_sig3 "";
+CM_ BO_ 2483028285 "test_msg4 desc";
+CM_ SG_ 2483028285 test_sig4 "";
+CM_ BO_ 2483028349 "test_msg5 desc";
+CM_ SG_ 2483028349 test_sig5_3 "";
+CM_ SG_ 2483028349 test_sig5_2 "";
+CM_ SG_ 2483028349 test_sig5 "";
+CM_ BO_ 2147492386 "used to test stale";
+CM_ SG_ 2147492386 data "";
+CM_ BO_ 2347693089 "state of the car";
+CM_ SG_ 2347693089 car_state2 "";
+CM_ BO_ 2483032050 "daq command for node TEST_NODE_TEST";
+CM_ SG_ 2483032050 daq_command "";
+
+
+
+VAL_ 2347693088 car_state 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+VAL_ 2347693089 car_state2 0 "ready2go" 1 "flipped" 2 "flying" 3 "lightspeed" ;
+SIG_VALTYPE_ 2348810751 left_speed : 1;
+SIG_VALTYPE_ 2348810751 right_speed : 1;
+SIG_VALTYPE_ 2483028349 test_sig5_3 : 1;
+
+

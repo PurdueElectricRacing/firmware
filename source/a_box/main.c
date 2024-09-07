@@ -53,9 +53,12 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_SPI1MOSI_PA7,
 
     // Status Inputs + Analog Reads
-    GPIO_INIT_INPUT(NOT_PRECHARGE_COMPLETE_PORT, NOT_PRECHARGE_COMPLETE_PIN, GPIO_INPUT_OPEN_DRAIN);
-    GPIO_INIT_INPUT(IMD_STATUS_PORT, IMD_STATUS_PORT, GPIO_INPUT_PULL_DOWN);
-    GPIO_INIT_INPUT(CHARGER_CONNECT_PORT, CHARGER_CONNECT_PIN, GPIO_INPUT_PULL_DOWN);
+    GPIO_INIT_INPUT(NOT_PRECHARGE_COMPLETE_PORT, NOT_PRECHARGE_COMPLETE_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(IMD_STATUS_PORT, IMD_STATUS_PORT, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_INPUT(CHARGER_CONNECT_PORT, CHARGER_CONNECT_PIN, GPIO_INPUT_PULL_DOWN),
+
+    GPIO_ANALOG_INIT(VBATT_MCU_PORT, VBATT_MCU_PIN),
+    GPIO_ANALOG_INIT(ISENSE_MCU_PORT, ISENSE_MCU_PIN),    
 
 };
 
@@ -85,6 +88,7 @@ extern void HardFault_Handler(void);
 void g_bms_periodic(void);
 
 defineThreadStack(g_bms_periodic, ADBMS_PERIODIC_INTERVAL_MS, osPriorityHigh, 2048);
+
 
 int main(void) {
     // Hardware Initilization
@@ -129,6 +133,10 @@ void g_bms_periodic() {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
     adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
 
+}
+
+void i_sense_periodic() {
+    uint16_t i_sense_value = 
 }
 
 // todo reboot on hardfault

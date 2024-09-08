@@ -29,10 +29,10 @@ int main()
     {
         HardFault_Handler();
     }
-    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
-    {
-        HardFault_Handler();
-    }
+    // if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    // {
+    //     HardFault_Handler();
+    // }
         /* Task Creation */
     schedInit(APB1ClockRateHz);
         /* Schedule Periodic tasks here */

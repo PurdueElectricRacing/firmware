@@ -61,7 +61,7 @@ var searchData=
   ['dfdx_58',['dfdx',['../structDW__SFS.html#a2f5bf9978ce75086b9c6c98d364a5ff6',1,'DW_SFS']]],
   ['dh_59',['dh',['../daq__hub_8c.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c'],['../daq__hub_8h.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c']]],
   ['die_5ftemp_60',['die_temp',['../structbms__t.html#abcdcaa83cf71ccb503cfa19cf94d5fb8',1,'bms_t']]],
-  ['diff_61',['diff',['../gps_8c.html#a64413734cf0e99c00a6cbc7226e38585',1,'gps.c']]],
+  ['diff_61',['diff',['../gps_8c.html#af46173b99f6ab22dcdea5e3099b1ed19',1,'gps.c']]],
   ['dir_62',['dir',['../structDIR.html#a6c2a8c0cf2d55ae99775e93a16593449',1,'DIR::dir'],['../structdma__init__t.html#a377884e67ed4aa00aea9c7e925f3b6b3',1,'dma_init_t::dir']]],
   ['dir_5fptr_63',['dir_ptr',['../structFIL.html#a5af9e9fb312b629220eaf684dd28c4a9',1,'FIL']]],
   ['dir_5fsect_64',['dir_sect',['../structFIL.html#a19e61b116df8e6f2138243998e43f131',1,'FIL']]],

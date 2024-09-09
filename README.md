@@ -27,7 +27,8 @@ Before you can compile software for PER car, here are some steps you need to tak
 6. Install [arm-none-eabi-gcc](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads): Compiler specific to ARM based targets.
    - [Windows](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07win32/gcc-arm-none-eabi-10.3-2021.07-win32.exe)
       - Note: You must manually add this to your path. To do so, open the start menu and select "edit the system environment variables". From here, copy the full file path of your arm-none-eabi-gcc executable into the PATH environment variable (C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.07\bin). Your filepath may not look exactly the same, but it should look similar to this.
-   - Mac: Install the required compiler using [homebrew](https://brew.sh/): `brew install arm-none-eabi-gcc`
+   <!-- - Mac: Install the required compiler using [homebrew](https://brew.sh/): `brew install arm-none-eabi-gcc` -->
+   - Mac: Install the required compiler using [homebrew](https://brew.sh/): `brew install gcc-arm-embedded`
    - Linux - Find it yourself
 7. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
    - It is extremely important that you install this version of openocd or else you might run into issues with debugging

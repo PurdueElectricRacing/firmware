@@ -7,7 +7,7 @@
     - MacOS: Add `opt/homebrew/bin`. Check this [link](https://discussions.apple.com/thread/254226896?sortBy=best) for help with the process.
 
 3. Install [Git](https://git-scm.com/downloads): Tool for managing source code and uploading to GitHub.
-    - Windows: `pacman -S git`
+    - Windows: `pacman -S git`.
     - MacOS: this should be preinstalled for you. To double-check this, type `git --version` into your terminal. Otherwise, install with `brew install git`.
 
 4. Clone this repository with the following command: 
@@ -30,22 +30,22 @@ git clone https://github.com/PurdueElectricRacing/firmware.git
       - Note: You must manually add this to your path. To do so, open the start menu and select "edit the system environment variables". From here, copy the full file path of your arm-none-eabi-gcc executable into the PATH environment variable (C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.07\bin). Your filepath may not look exactly the same, but it should look similar to this. -->
    
 
-7. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
-    - Windows: `pacman -S mingw-w64-x86_64-openocd`
+9. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
+    - Windows: `pacman -S mingw-w64-x86_64-openocd`.
     <!-- It is extremely important that you install this version of openocd or else you might run into issues with debugging 
    - Installation Instructions [here](https://xpack.github.io/openocd/install/). Again, use v0.11.0-3 as linked above.-->
-   - MacOS: `brew install openocd`
+   - MacOS: `brew install openocd`.
 <!--If you are on MacOS, you must install the latest version of OpenOcd (v12), or you will run into issues while debugging STM32F7 microcontrollers. To install, simply run -->
 
-8. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
-    - Windows: `pacman -S mingw-w64-x86_64-cmake`
-    - MacOS: `brew install cmake`. 
+10. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
+    - Windows: `pacman -S mingw-w64-x86_64-cmake`.
+    - MacOS: `brew install cmake`.
    <!-- On some MacOS versions, CMake will install as a GUI only, follow the `Tools > Install Command Line Tools` tip inside CMake to fix this. -->
 
-9. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake
-   - Windows: `mingw-w64-x86_64-ninja`
+11. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake
+   - Windows: `mingw-w64-x86_64-ninja`.
    - MacOS: `brew install ninja`. 
 
-10. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
+12. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
     - Windows: `mingw-w64-x86_64-stlink`.
     - MacOS, use `brew install stlink`.

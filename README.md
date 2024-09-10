@@ -75,7 +75,7 @@ python3 per_build.py
 
 ## Debugging on Hardware
 
-In order to begin flashing, executing, or debugging your code, you need to connect to a STM32 device using an STLink. You need to install the latest STLink drivers as mentionted in the getting started section. VSCode has a "Cortex-Debug" extension that we use for connecting to the STM32 devices.
+In order to begin flashing, executing, or debugging your code, you need to connect to a STM32 device using an STLink. You need to install the latest STLink drivers as mentionted in the getting started section. VSCode has a ["Cortex-Debug" extension](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) that we use for connecting to the STM32 devices.
 
 The "Run and Debug" window will allow for you to upload code to any firmware component which has a configuration in the `.vscode/launch.json` file.
 
@@ -92,19 +92,19 @@ This is an attempt at making sure that all code is able to build when pushed to 
 In order to update the docker image being used by CircleCI to build the firmware components you must make the necessacary changes to the Dockerfile so the firmware is able to build completley. The docker image is hosted by DockerHub, you will need to create an account there before you can push a new image.
 After the changes have been made to the Dockerfile, build the docker image with a tag by running
 
-```
+```bash
 docker image build . -t <docker hub username>/per_firmware:latest
 ```
 
 You can then push that to docker hub with
 
-```
+```bash
 docker push <docker hub username>/per_firmware:latest
 ```
 
 Make sure that image tag is being referenced in the `.circleci/config.yaml`:
 
-```
+```bash
     docker:
       - image: <docker hub username>/per_firmware:latest
 ```

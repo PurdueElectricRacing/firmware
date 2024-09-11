@@ -1,7 +1,7 @@
 1. Package Manager - A tool to help you easily install the other tools.
 
-   - Windows users should install [MSYS2](https://www.msys2.org/)
-   - MacOS users should install [Homebrew](https://brew.sh/)
+   - Windows users should install [MSYS2](https://www.msys2.org/).
+   - MacOS users should install [Homebrew](https://brew.sh/).
 
 2. Add your package manager's `bin/` directory to your environment path variable to make your tools accessible. Note that your install location may vary.
 
@@ -51,11 +51,11 @@ git clone https://github.com/PurdueElectricRacing/firmware.git
     - MacOS: `brew install cmake`.
     <!-- On some MacOS versions, CMake will install as a GUI only, follow the `Tools > Install Command Line Tools` tip inside CMake to fix this. -->
 
-11. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake
+11. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake.
 
     - Windows: `mingw-w64-x86_64-ninja`.
     - MacOS: `brew install ninja`.
 
-12. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe
+12. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe.
     - Windows: `mingw-w64-x86_64-stlink`.
     - MacOS, use `brew install stlink`.

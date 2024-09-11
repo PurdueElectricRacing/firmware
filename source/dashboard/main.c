@@ -162,6 +162,8 @@ void sendBrakeStatus();
 void interpretLoadSensor(void);
 void send_shockpots();
 float voltToForce(uint16_t load_read);
+void sendVoltageData();
+
 // Communication queues
 q_handle_t q_tx_usart;
 
@@ -214,6 +216,7 @@ int main (void){
     taskCreate(update_data_pages, 200);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
+    taskCreate(sendVoltageData, 1000);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -631,6 +634,20 @@ void pollDashboardInput()
         selectItem();
         dashboard_input &= ~(1U << DASH_INPUT_SELECT_BUTTON);
     }
+}
+
+void sendVoltageData()
+{
+    float adc_to_voltage = ADC_REF_VOLTAGE / ADC_MAX_VALUE;
+
+    // Vin = Vout * (R1 + R2) / R2
+    u_int16_t vin_3v3 = (uint16_t)(raw_adc_values.lv_3v3_sense * adc_to_voltage * (V_3V3_RES_R1 + V_3V3_RES_R2) / V_3V3_RES_R2);
+    u_int16_t vin_5v = (uint16_t)(raw_adc_values.lv_5v_sense * adc_to_voltage * (V_5V_RES_R1 + V_5V_RES_R2) / V_5V_RES_R2);
+    u_int16_t vin_12v = (uint16_t)(raw_adc_values.lv_12v_sense * adc_to_voltage * (V_12V_RES_R1 + V_12V_RES_R2) / V_12V_RES_R2);
+    u_int16_t vin_24v = (uint16_t)(raw_adc_values.lv_24_v_sense * adc_to_voltage * (V_24V_RES_R1 + V_24V_RES_R2) / V_24V_RES_R2);
+
+    // Scale calculations by 100 to avoid losing precision
+    SEND_DASHBOARD_VOLTAGE(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
 }
 
 void HardFault_Handler()

@@ -1,0 +1,4 @@
+# Any PRs made to protected branches need to be approved by a specific group of people
+# who have knowledge about the entire codebase to avoid regressions in previously
+# established behavior.
+* @PurdueElectricRacing/reviewers

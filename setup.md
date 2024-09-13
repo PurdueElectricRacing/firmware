@@ -53,9 +53,9 @@ git clone https://github.com/PurdueElectricRacing/firmware.git
 
 11. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake.
 
-    - Windows: `mingw-w64-x86_64-ninja`.
+    - Windows: `pacman -S mingw-w64-x86_64-ninja`.
     - MacOS: `brew install ninja`.
 
 12. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe.
-    - Windows: `mingw-w64-x86_64-stlink`.
+    - Windows: `pacman -S mingw-w64-x86_64-stlink`.
     - MacOS, use `brew install stlink`.

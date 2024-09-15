@@ -9,7 +9,8 @@
 #define NODE_DASHBOARD 2
 #define NODE_A_BOX 3
 #define NODE_TORQUE_VECTOR 4
-#define NODE_TEST 5
+#define NODE_RHENIUM 5
+#define NODE_TEST 6
 //END AUTO NODE DEFS
 
 

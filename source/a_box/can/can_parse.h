@@ -33,18 +33,19 @@
 #define ID_RAW_CELL_TEMP_C_D 0x14008384
 #define ID_A_BOX_CAN_STATS 0x10016304
 #define ID_I_SENSE 0x10016444
-#define ID_FAULT_SYNC_A_BOX 0x8ca44
+#define ID_FAULT_SYNC_A_BOX 0x8ca84
 #define ID_DAQ_RESPONSE_A_BOX 0x17ffffc4
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
 #define ID_A_BOX_BL_CMD 0x409c4fe
-#define ID_FAULT_SYNC_PDU 0x8cb1f
-#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
-#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
+#define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca41
+#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8caf7
+#define ID_FAULT_SYNC_RHENIUM 0x8ca36
+#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_A_BOX 0x14000132
@@ -75,6 +76,7 @@
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_FAULT_SYNC_RHENIUM 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -374,6 +376,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
+    } fault_sync_rhenium;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
     } fault_sync_test_node;
     struct {
         uint64_t id: 16;
@@ -489,6 +495,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_torque_vector;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_rhenium;
     struct {
         uint16_t idx;
         uint8_t latched;

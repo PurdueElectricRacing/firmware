@@ -1,11 +1,11 @@
 1. Package Manager - A tool to help you easily install the other tools.
 
-   - Windows users should install [MSYS2](https://www.msys2.org/).
+   - Windows users should install [MSYS2](https://www.msys2.org/): `winget install MSYS2.MSYS2`.
    - MacOS users should install [Homebrew](https://brew.sh/).
 
 2. Add your package manager's `bin/` directory to your environment path variable to make your tools accessible. Note that your install location may vary.
 
-   - Windows: Add `C:\mingw\bin`. Check this [link](https://stackoverflow.com/questions/5733220/how-do-i-add-the-mingw-bin-directory-to-my-system-path) for help with the process.
+   - Windows: Add `C:\msys64\usr\bin`. Check this [link](https://stackoverflow.com/questions/5733220/how-do-i-add-the-mingw-bin-directory-to-my-system-path) for help with the process.
    - MacOS: Add `/opt/homebrew/bin`. Check this [link](https://stackoverflow.com/questions/35677031/adding-homebrew-to-path) for help with the process.
 
 3. Install [Git](https://git-scm.com/downloads): Tool for managing source code and uploading to GitHub.

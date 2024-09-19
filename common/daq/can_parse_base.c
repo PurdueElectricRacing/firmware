@@ -7,20 +7,22 @@
 
 can_stats_t can_stats;
 
-q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-
+// TODO: support CAN2
+// CAN2 cannot happen in here, move it over to MAIN stuff
+q_handle_t q_tx_can1_s[CAN_TX_MAILBOX_CNT];
+q_handle_t q_tx_can2_s[CAN_TX_MAILBOX_CNT];
 q_handle_t q_rx_can;
+uint32_t can1_mbx_last_send_time[CAN_TX_MAILBOX_CNT];
+uint32_t can2_mbx_last_send_time[CAN_TX_MAILBOX_CNT];
 
 void initCANParseBase()
 {
-    for (uint8_t can_periph = 0; can_periph < NUM_CAN_PERIPHERALS; can_periph++)
+    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i)
     {
-      for (uint8_t mbx = 0; mbx < CAN_TX_MAILBOX_CNT; mbx++)
-      {
-        qConstruct(&q_tx_can[can_periph][mbx], sizeof(CanMsgTypeDef_t));
-        can_mbx_last_send_time[can_periph][mbx] = 0;
-      }
+        qConstruct(&q_tx_can1_s[i], sizeof(CanMsgTypeDef_t));
+        qConstruct(&q_tx_can2_s[i], sizeof(CanMsgTypeDef_t));
+        can1_mbx_last_send_time[i] = 0;
+        can2_mbx_last_send_time[i] = 0;
     }
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     can_stats = (can_stats_t){0};
@@ -38,21 +40,39 @@ void canTxSendToBack(CanMsgTypeDef_t *msg)
         {
             case 0:
             case 1:
-                mailbox = CAN_MAILBOX_HIGH_PRIO;
+                if (msg->Bus == CAN1) {
+                    qh = &q_tx_can1_s[0];
+                } else {
+                    qh = &q_tx_can2_s[0];
+                }
                 break;
             case 2:
             case 3:
-                mailbox = CAN_MAILBOX_MED_PRIO;
+                if (msg->Bus == CAN1) {
+                    qh = &q_tx_can1_s[1];
+                } else {
+                    qh = &q_tx_can2_s[1];
+                }
                 break;
             default:
-                mailbox = CAN_MAILBOX_LOW_PRIO;
+                if (msg->Bus == CAN1) {
+                    qh = &q_tx_can1_s[2];
+                } else {
+                    qh = &q_tx_can2_s[2];
+                }
                 break;
         }
         qh = &q_tx_can[peripheral_idx][mailbox];
     }
     else
     {
-        qh = &q_tx_can[peripheral_idx][CAN_MAILBOX_HIGH_PRIO]; // IDE = 0 doesn't have an HLP
+        // IDE = 0 doesn't have an HLP
+        if (msg->Bus == CAN1) {
+            qh = &q_tx_can1_s[0];
+        } else {
+            qh = &q_tx_can2_s[0];
+        }
+        // qh = &q_tx_can1_s[0]; // IDE = 0 doesn't have an HLP
     }
     if (qSendToBack(qh, msg) != SUCCESS_G)
     {
@@ -71,10 +91,10 @@ void canTxUpdate(void)
             if (qReceive(&q_tx_can[CAN1_IDX][i], &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
             {
                 PHAL_txCANMessage(&tx_msg, i);
-                can_mbx_last_send_time[CAN1_IDX][i] = sched.os_ticks;
+                can1_mbx_last_send_time[i] = sched.os_ticks;
             }
         }
-        else if (sched.os_ticks - can_mbx_last_send_time[CAN1_IDX][i] > CAN_TX_TIMEOUT_MS)
+        else if (sched.os_ticks - can1_mbx_last_send_time[i] > CAN_TX_TIMEOUT_MS)
         {
             PHAL_txCANAbort(CAN1, i); // aborts tx and empties the mailbox
             can_stats.can_peripheral_stats[CAN1_IDX].tx_fail++;
@@ -147,3 +167,4 @@ void canParseIRQHandler(CAN_TypeDef *can_h)
         }
     }
 }
+

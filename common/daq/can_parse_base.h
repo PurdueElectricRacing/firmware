@@ -49,6 +49,9 @@ typedef struct {
 } can_stats_t;
 
 extern can_stats_t can_stats;
+extern q_handle_t q_tx_can1_s[CAN_TX_MAILBOX_CNT ];
+extern q_handle_t q_tx_can2_s[CAN_TX_MAILBOX_CNT ];
+extern q_handle_t q_rx_can;
 
 void initCANParseBase();
 void canTxUpdate(void);

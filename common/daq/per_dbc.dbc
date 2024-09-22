@@ -468,19 +468,19 @@ BO_ 2217793084 daq_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2217793215 AMK Actual Values 1: 8 Rhenium
+BO_ 2216774399 AMK Actual Values 1: 8 Rhenium
  SG_ AMK_MagnetizingCurrent : 48|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ AMK_TorqueCurrent : 32|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ AMK_ActualVelocity : 16|16@1- (1,0) [0|0] "rpm" Vector__XXX
  SG_ AMK_Status : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2217793279 AMK Actual Values 2: 8 Rhenium
+BO_ 2216774463 AMK Actual Values 2: 8 Rhenium
  SG_ AMK_TempIGBT : 48|16@1+ (0.1,0) [0|0] "C" Vector__XXX
  SG_ AMK_ErrorInfo : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ AMK_TempInverter : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ AMK_TempMotor : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
 
-BO_ 2217793343 AMK Setpoints 1: 0 Rhenium
+BO_ 2216826367 AMK Setpoints 1: 0 Rhenium
 
 BO_ 2214598974 bitstream_data: 8 BITSTREAM
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -1007,17 +1007,17 @@ CM_ SG_ 2217793020 cmd "";
 CM_ BO_ 2217793084 "DAQ Bootloader response";
 CM_ SG_ 2217793084 data "";
 CM_ SG_ 2217793084 cmd "";
-CM_ BO_ 2217793215 "Contains the status word and actual values";
-CM_ SG_ 2217793215 AMK_MagnetizingCurrent "Raw data for calculating actual magnetizing current";
-CM_ SG_ 2217793215 AMK_TorqueCurrent "Raw data for calculating actual torque current";
-CM_ SG_ 2217793215 AMK_ActualVelocity "Actual speed value";
-CM_ SG_ 2217793215 AMK_Status "Status word, bit field";
-CM_ BO_ 2217793279 "Contains actual values";
-CM_ SG_ 2217793279 AMK_TempIGBT "IGBT Temperature";
-CM_ SG_ 2217793279 AMK_ErrorInfo "Diagnostic Number";
-CM_ SG_ 2217793279 AMK_TempInverter "Cold Plate Temperature";
-CM_ SG_ 2217793279 AMK_TempMotor "Motor Temperature";
-CM_ BO_ 2217793343 "Contains status word and setpoints";
+CM_ BO_ 2216774399 "Contains the status word and actual values";
+CM_ SG_ 2216774399 AMK_MagnetizingCurrent "Raw data for calculating actual magnetizing current";
+CM_ SG_ 2216774399 AMK_TorqueCurrent "Raw data for calculating actual torque current";
+CM_ SG_ 2216774399 AMK_ActualVelocity "Actual speed value";
+CM_ SG_ 2216774399 AMK_Status "Status word, bit field";
+CM_ BO_ 2216774463 "Contains actual values";
+CM_ SG_ 2216774463 AMK_TempIGBT "IGBT Temperature";
+CM_ SG_ 2216774463 AMK_ErrorInfo "Diagnostic Number";
+CM_ SG_ 2216774463 AMK_TempInverter "Cold Plate Temperature";
+CM_ SG_ 2216774463 AMK_TempMotor "Motor Temperature";
+CM_ BO_ 2216826367 "Contains status word and setpoints";
 CM_ BO_ 2214598974 "Bitstream download command";
 CM_ SG_ 2214598974 d7 "Bitstream data word 7";
 CM_ SG_ 2214598974 d6 "Bitstream data word 6";

@@ -999,29 +999,33 @@
                 },
                 {
                     "node_name": "Rhenium",
-                    "node_ssa": 63
+                    "node_ssa": 63,
                     "tx": [
                         {
                             "msg_name": "AMK Actual Values 1",
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_Status", "sig_desc": "Status word, bit field", "type":"uint16_t"},
-                                {"sig_name": "AMK_ActualVelocity", "sig_desc": "Actual speed value", type":"int16_t", "unit":"rpm"},
+                                {"sig_name": "AMK_ActualVelocity", "sig_desc": "Actual speed value", "type":"int16_t", "unit":"rpm"},
                                 {"sig_name": "AMK_TorqueCurrent", "sig_desc": "Raw data for calculating actual torque current", "type":"int16_t"},
-                                {"sig_name": "AMK_MagnetizingCurrent", "sig_desc": "Raw data for calculating actual magnetizing current", type":"int16_t"},
+                                {"sig_name": "AMK_MagnetizingCurrent", "sig_desc": "Raw data for calculating actual magnetizing current", "type":"int16_t"}
                             ],
                             "msg_period": 15,
+                            "msg_hlp":1,
+                            "msg_pgn":50010
                         },
                         {
                             "msg_name": "AMK Actual Values 2",
                             "msg_desc": "Contains actual values",
                             "signals": [
-                                {"sig_name": "AMK_TempMotor", "sig_desc": "Motor Temperature", "type":"int16_t", "unit": "C", "scale": "0.1"},
-                                {"sig_name": "AMK_TempInverter", "sig_desc": "Cold Plate Temperature", "type":"int16_t", "unit": "C", "scale": "0.1"},
+                                {"sig_name": "AMK_TempMotor", "sig_desc": "Motor Temperature", "type":"int16_t", "unit": "C", "scale": 0.1},
+                                {"sig_name": "AMK_TempInverter", "sig_desc": "Cold Plate Temperature", "type":"int16_t", "unit": "C", "scale": 0.1},
                                 {"sig_name": "AMK_ErrorInfo", "sig_desc": "Diagnostic Number", "type":"uint16_t"},
-                                {"sig_name": "AMK_TempIGBT", "sig_desc": "IGBT Temperature", "type":"uint16_t", "unit": "C", "scale": "0.1"},
+                                {"sig_name": "AMK_TempIGBT", "sig_desc": "IGBT Temperature", "type":"uint16_t", "unit": "C", "scale": 0.1}
                             ],
                             "msg_period": 15,
+                            "msg_hlp":1,
+                            "msg_pgn":50011
                         },
                         {
                             "msg_name": "AMK Setpoints 1",
@@ -1029,6 +1033,8 @@
                             "signals": [
                             ],
                             "msg_period": 15,
+                            "msg_hlp":1,
+                            "msg_pgn":50012
                         }
                     ],
                     "rx": []

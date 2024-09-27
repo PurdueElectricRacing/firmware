@@ -998,7 +998,7 @@
                     ]
                 },
                 {
-                    "node_name": "Rhenium",
+                    "node_name": "Inverter1",
                     "node_ssa": 63,
                     "tx": [
                         {
@@ -1011,8 +1011,7 @@
                                 {"sig_name": "AMK_MagnetizingCurrent", "sig_desc": "Raw data for calculating actual magnetizing current", "type":"int16_t"}
                             ],
                             "msg_period": 5,
-                            "msg_hlp":1,
-                            "msg_pgn":34091
+                            "msg_id_override": "0x283"
                         },
                         {
                             "msg_name": "AMK Actual Values 2",
@@ -1024,20 +1023,67 @@
                                 {"sig_name": "AMK_TempIGBT", "sig_desc": "IGBT Temperature", "type":"uint16_t", "unit": "C", "scale": 0.1}
                             ],
                             "msg_period": 5,
-                            "msg_hlp":1,
-                            "msg_pgn":34092
-                        },
+                            "msg_id_override": "0x285"
+                        }
+                    ],
+                    "rx": [
                         {
                             "msg_name": "AMK Setpoints 1",
                             "msg_desc": "Contains status word and setpoints",
                             "signals": [
+                                {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
+                                {"sig_name": "AMK_TargetVelocity", "sig_desc": "Speed setpoint", "type":"int16_t", "unit": "rpm"},
+                                {"sig_name": "AMK_TorqueLimitPositiv", "sig_desc": "Positive torque limit", "type":"int16_t", "unit": "Mn", "scale": 0.1},
+                                {"sig_name": "AMK_TorqueLimitNegativ", "sig_desc": "Negative torque limit", "type":"int16_t", "unit": "Mn", "scale": 0.1}
                             ],
                             "msg_period": 5,
-                            "msg_hlp":1,
-                            "msg_pgn":34903
+                            "msg_id_override": "0x184"
+                        }
+                    ]
+                },
+                {
+                    "node_name": "f4_testing",
+                    "node_ssa": 61,
+                    "tx": [
+                            {
+                            "msg_name": "AMK Setpoints 1",
+                            "msg_desc": "Contains status word and setpoints",
+                            "signals": [
+                                {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
+                                {"sig_name": "AMK_TargetVelocity", "sig_desc": "Speed setpoint", "type":"int16_t", "unit": "rpm"},
+                                {"sig_name": "AMK_TorqueLimitPositiv", "sig_desc": "Positive torque limit", "type":"int16_t", "unit": "Mn", "scale": 0.1},
+                                {"sig_name": "AMK_TorqueLimitNegativ", "sig_desc": "Negative torque limit", "type":"int16_t", "unit": "Mn", "scale": 0.1}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x184"
                         }
                     ],
-                    "rx": []
+                    "rx": [
+                        {
+                            "msg_name": "AMK Actual Values 1",
+                            "msg_desc": "Contains the status word and actual values",
+                            "signals": [
+                                {"sig_name": "AMK_Status", "sig_desc": "Status word, bit field", "type":"uint16_t"},
+                                {"sig_name": "AMK_ActualVelocity", "sig_desc": "Actual speed value", "type":"int16_t", "unit":"rpm"},
+                                {"sig_name": "AMK_TorqueCurrent", "sig_desc": "Raw data for calculating actual torque current", "type":"int16_t"},
+                                {"sig_name": "AMK_MagnetizingCurrent", "sig_desc": "Raw data for calculating actual magnetizing current", "type":"int16_t"}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x283"
+                        },
+                        {
+                            "msg_name": "AMK Actual Values 2",
+                            "msg_desc": "Contains actual values",
+                            "signals": [
+                                {"sig_name": "AMK_TempMotor", "sig_desc": "Motor Temperature", "type":"int16_t", "unit": "C", "scale": 0.1},
+                                {"sig_name": "AMK_TempInverter", "sig_desc": "Cold Plate Temperature", "type":"int16_t", "unit": "C", "scale": 0.1},
+                                {"sig_name": "AMK_ErrorInfo", "sig_desc": "Diagnostic Number", "type":"uint16_t"},
+                                {"sig_name": "AMK_TempIGBT", "sig_desc": "IGBT Temperature", "type":"uint16_t", "unit": "C", "scale": 0.1}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x285"
+                        }
+                    ]
                 },
                 {
                     "node_name":"BITSTREAM",

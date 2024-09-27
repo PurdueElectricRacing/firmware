@@ -468,19 +468,19 @@ BO_ 2217793084 daq_bl_resp: 5 bootloader
  SG_ data : 8|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ cmd : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147484291 AMK Actual Values 1: 8 Inverter1
+BO_ 2147484291 AMK_Actual_Values_1: 8 Inverter1
  SG_ AMK_MagnetizingCurrent : 48|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ AMK_TorqueCurrent : 32|16@1- (1,0) [0|0] "" Vector__XXX
  SG_ AMK_ActualVelocity : 16|16@1- (1,0) [0|0] "rpm" Vector__XXX
  SG_ AMK_Status : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2147484293 AMK Actual Values 2: 8 Inverter1
+BO_ 2147484293 AMK_Actual_Values_2: 8 Inverter1
  SG_ AMK_TempIGBT : 48|16@1+ (0.1,0) [0|0] "C" Vector__XXX
  SG_ AMK_ErrorInfo : 32|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ AMK_TempInverter : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ AMK_TempMotor : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
 
-BO_ 2147484036 AMK Setpoints 1: 8 f4_testing
+BO_ 2147484036 AMK_Setpoints_1: 8 f4_testing
  SG_ AMK_TorqueLimitNegativ : 48|16@1- (0.1,0) [0|0] "Mn" Vector__XXX
  SG_ AMK_TorqueLimitPositiv : 32|16@1- (0.1,0) [0|0] "Mn" Vector__XXX
  SG_ AMK_TargetVelocity : 16|16@1- (1,0) [0|0] "rpm" Vector__XXX

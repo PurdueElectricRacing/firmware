@@ -1002,7 +1002,7 @@
                     "node_ssa": 63,
                     "tx": [
                         {
-                            "msg_name": "AMK Actual Values 1",
+                            "msg_name": "AMK_Actual_Values_1",
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_Status", "sig_desc": "Status word, bit field", "type":"uint16_t"},
@@ -1014,7 +1014,7 @@
                             "msg_id_override": "0x283"
                         },
                         {
-                            "msg_name": "AMK Actual Values 2",
+                            "msg_name": "AMK_Actual_Values_2",
                             "msg_desc": "Contains actual values",
                             "signals": [
                                 {"sig_name": "AMK_TempMotor", "sig_desc": "Motor Temperature", "type":"int16_t", "unit": "C", "scale": 0.1},
@@ -1028,7 +1028,7 @@
                     ],
                     "rx": [
                         {
-                            "msg_name": "AMK Setpoints 1",
+                            "msg_name": "AMK_Setpoints_1",
                             "msg_desc": "Contains status word and setpoints",
                             "signals": [
                                 {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
@@ -1046,7 +1046,7 @@
                     "node_ssa": 61,
                     "tx": [
                             {
-                            "msg_name": "AMK Setpoints 1",
+                            "msg_name": "AMK_Setpoints_1",
                             "msg_desc": "Contains status word and setpoints",
                             "signals": [
                                 {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
@@ -1060,7 +1060,7 @@
                     ],
                     "rx": [
                         {
-                            "msg_name": "AMK Actual Values 1",
+                            "msg_name": "AMK_Actual_Values_1",
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_Status", "sig_desc": "Status word, bit field", "type":"uint16_t"},
@@ -1072,7 +1072,7 @@
                             "msg_id_override": "0x283"
                         },
                         {
-                            "msg_name": "AMK Actual Values 2",
+                            "msg_name": "AMK_Actual_Values_2",
                             "msg_desc": "Contains actual values",
                             "signals": [
                                 {"sig_name": "AMK_TempMotor", "sig_desc": "Motor Temperature", "type":"int16_t", "unit": "C", "scale": 0.1},

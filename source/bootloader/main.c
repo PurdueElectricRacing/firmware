@@ -180,7 +180,7 @@ int main (void)
     // an address can not start with 0xFF for the MSP
     BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
     send_pending_can();
-    
+
 
     jump_to_application();
 
@@ -188,7 +188,7 @@ int main (void)
     BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
     bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
     send_pending_can();
-    
+
     NVIC_SystemReset();
 }
 
@@ -381,10 +381,10 @@ void CAN1_RX0_IRQHandler()
     #endif
     can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
+        CAN1->RF0R &= ~(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0);
+        CAN1->RF0R &= ~(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {

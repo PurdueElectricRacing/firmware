@@ -291,10 +291,10 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
 {
     // TODO: track FIFO overrun and full errors
     if (can_h->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        can_h->RF0R &= !(CAN_RF0R_FOVR0);
+        can_h->RF0R &= ~(CAN_RF0R_FOVR0);
 
     if (can_h->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        can_h->RF0R &= !(CAN_RF0R_FULL0);
+        can_h->RF0R &= ~(CAN_RF0R_FULL0);
 
     if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {

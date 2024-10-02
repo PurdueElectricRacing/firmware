@@ -364,6 +364,15 @@ void jump_to_application(void)
     SysTick->LOAD = 0;
     SysTick->VAL  = 0;
 
+#if 1
+    // Clear all interrupt bits
+    for (int i = 0; i < sizeof(NVIC->ICER) / sizeof(NVIC->ICER[0]); i++)
+    {
+        NVIC->ICER[i] = 0xFFFFFFFF;
+        NVIC->ICPR[i] = 0xFFFFFFFF;
+    }
+#endif
+
     // Actually jump to application
     __set_MSP(msp);
     SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));

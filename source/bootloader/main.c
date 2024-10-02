@@ -342,6 +342,10 @@ void jump_to_application(void)
         app_reset_handler_address < 0x8002000 || app_reset_handler_address > 0x807FFFF ||
         msp != estack) return;
 
+    // Make sure interrupts are disabled before we reset peripherals/attempt to jump to the app
+    // Getting an interrupt after we set VTOR would be bad.
+    __disable_irq();
+
     // Reset all of our used peripherals
     // RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOBRST;       // Must change based on status led port
     RCC->AHB1RSTR   |= RCC_AHB1RSTR_CRCRST;
@@ -358,10 +362,7 @@ void jump_to_application(void)
     SysTick->LOAD = 0;
     SysTick->VAL  = 0;
 
-    // Make sure the interrupts are disabled before we start attempting to jump to the app
-    // Getting an interrupt after we set VTOR would be bad.
     // Actually jump to application
-    __disable_irq();
     __set_MSP(msp);
     SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
     __enable_irq();

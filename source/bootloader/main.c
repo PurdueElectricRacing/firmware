@@ -358,6 +358,8 @@ void jump_to_application(void)
 #endif
     // RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOBRST);
     RCC->AHB1RSTR   &= ~(RCC_AHB1RSTR_CRCRST);
+
+    // Disable Systick
     SysTick->CTRL = 0;
     SysTick->LOAD = 0;
     SysTick->VAL  = 0;

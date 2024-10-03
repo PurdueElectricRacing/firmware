@@ -364,7 +364,7 @@ void jump_to_application(void)
     SysTick->LOAD = 0;
     SysTick->VAL  = 0;
 
-#if 1
+#if 0
     // Clear all interrupt bits
     for (int i = 0; i < sizeof(NVIC->ICER) / sizeof(NVIC->ICER[0]); i++)
     {

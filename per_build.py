@@ -43,7 +43,7 @@ parser.add_option("-t", "--target",
     help="firmware target to build. Defaults to `all`"
 )
 
-parser.add_option("--clean",
+parser.add_option("-c", "--clean",
     dest="clean",
     action="store_true", default=False,
     help="remove build artifacts"

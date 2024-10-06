@@ -133,7 +133,7 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             break;
         }
         case BLCMD_RST:
-            // Bootloader_ResetForFirmwareDownload();
+            Bootloader_ResetForFirmwareDownload();
             break;
         default:
         {

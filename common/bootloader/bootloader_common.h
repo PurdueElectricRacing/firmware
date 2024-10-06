@@ -1,13 +1,13 @@
 /**
  * @file bootloader_common.h
  * @author Adam Busch (busch8@purdue.edu)
- * @brief Common bootloader functions for all firmware components. 
+ * @brief Common bootloader functions for all firmware components.
  * Useful for entering the bootloader to download new firmware
  * @version 0.1
  * @date 2022-03-10
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #ifndef _BOOTLOADER_COMMON_H_
 #define _BOOTLOADER_COMMON_H_
@@ -27,7 +27,9 @@ typedef enum
 {
     BLCMD_START = 0x1,      /* Request to start firmware download */
     BLCMD_CRC = 0x3,        /* Final CRC-32b check of firmware */
-    BLCMD_RST = 0x5         /* Request for reset */
+    BLCMD_RST = 0x5,        /* Request for reset */
+    BLCMD_SET_ADDR = 0x6,   /* Jump relative base address (used for discontiguous firmware segments) */
+    BLCMD_SET_SIZE = 0x7,   /* Set number of discontiguous firmware words to transfer */
 } BLCmd_t;
 
 typedef enum {

@@ -96,7 +96,7 @@ extern char _estack;      /* The start location of the stack */
 static volatile uint32_t bootloader_ms = 0;
 static volatile uint32_t bootloader_ms_2 = 0;
 static volatile bool bootloader_timeout = false;
-static volatile bool send_status_flag = false;
+static volatile bool send_status_flag = true;
 static bool send_flash_address = false;
 
 int main (void)

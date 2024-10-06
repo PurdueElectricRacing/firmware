@@ -383,10 +383,10 @@ void CAN1_RX0_IRQHandler()
     #endif
     can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        CAN1->RF0R &= !(CAN_RF0R_FOVR0);
+        CAN1->RF0R &= ~(CAN_RF0R_FOVR0);
 
     if (CAN1->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        CAN1->RF0R &= !(CAN_RF0R_FULL0);
+        CAN1->RF0R &= ~(CAN_RF0R_FULL0);
 
     if (CAN1->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {

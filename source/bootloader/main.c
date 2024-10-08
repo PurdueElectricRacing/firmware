@@ -238,6 +238,7 @@ void SysTick_Handler(void)
             }
             if (bootloader_ms >= 3000)
             {
+                send_status_flag = true;
                 bootloader_timeout = true;
             }
             break;
@@ -249,6 +250,7 @@ void SysTick_Handler(void)
             // Allow some time in case bootloader request present
             if (bootloader_ms >= 500)
             {
+                send_status_flag = true;
                 bootloader_timeout = true;
             }
             break;

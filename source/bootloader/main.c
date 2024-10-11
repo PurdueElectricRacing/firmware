@@ -153,8 +153,8 @@ int main (void)
 
             if (!BL_flashStarted())
                 BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
-            else
-                BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) BL_getCurrentFlashAddress());
+            //else
+            //    BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) BL_getCurrentFlashAddress());
         }
 
         // Send all pending CAN messages
@@ -180,7 +180,7 @@ int main (void)
     // an address can not start with 0xFF for the MSP
     BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
     send_pending_can();
-    
+
 
     jump_to_application();
 
@@ -188,7 +188,7 @@ int main (void)
     BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
     bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
     send_pending_can();
-    
+
     NVIC_SystemReset();
 }
 

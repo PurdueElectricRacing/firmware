@@ -22,7 +22,7 @@ void turnMotorsOn()
      */
     
     /* 1. Turn on 24V DC to inverters */
-        /* 1r. Check AMK_bSystemReady = 1*/
+    /* 1r. Check AMK_bSystemReady = 1*/
     /* 2. Charge DC caps; QUE should be set (is this just DcOn?) */
     /* 3. Set AMK_bDcOn = 1 */
     control.fields.AMK_bDcOn = true;
@@ -32,6 +32,19 @@ void turnMotorsOn()
                          DEFAULT_NEGATIVE_TORQUE_LIMIT);
     /* 3r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
     status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+
+    /* I can't even do this, can_data does not update until canRxUpdate() runs
+     * and it does not run in the middle of this function running. So how do I do
+     * what I am trying to do here? I don't necessarily have to check this, atleast
+     * I don't think. But later on there are some things I do need to check.
+     */
+    uint32_t start = sched.os_ticks;
+    while (status.fields.AMK_bDcOn != true) {
+        status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+        if (sched.os_ticks - start >= UP_AMK_ACTUAL_VALUES_1 * STALE_THRESH) {
+            /* FAILURE */
+        }
+    }
     if (status.fields.AMK_bDcOn != true) {
         /* FAILURE */
         /* But how do I check if it was read recently? I can wait until it is 
@@ -93,7 +106,7 @@ void turnMotorsOff()
     /* 8. Set AMK_bDcOn = 1 */
     /* 8r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
     /* 8r. Check AMK_bQuitDcOn = 0 */
-        /* Does where do I check QUE??? */
+    /* Does where do I check QUE??? */
     /* 9. Charge DC caps; QUE should be set (is this just DcOn?) */
     /* 10. Turn off 24v DC to inverters */
 

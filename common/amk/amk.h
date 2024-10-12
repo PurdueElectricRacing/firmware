@@ -15,28 +15,40 @@
 #include <stdint.h>
 
 /* Inverter -> CAN */
-typedef struct
+/* In AMK_Actual_Values_1 */
+typedef union
 {
-    uint16_t AMK_bReserve        : 8;
-    uint16_t AMK_bSystemReady    : 1;
-    uint16_t AMK_bError          : 1;
-    uint16_t AMK_bWarn           : 1;
-    uint16_t AMK_bQuitDcOn       : 1;
-    uint16_t AMK_bDcOn           : 1; /* Same as QUE ?? */
-    uint16_t AMK_bQuitInverterOn : 1;
-    uint16_t AMK_bInverterOn     : 1;
-    uint16_t AMK_bDerating       : 1;
+    struct {
+        uint16_t AMK_bReserve        : 8;
+        uint16_t AMK_bSystemReady    : 1;
+        uint16_t AMK_bError          : 1;
+        uint16_t AMK_bWarn           : 1;
+        uint16_t AMK_bQuitDcOn       : 1;
+        uint16_t AMK_bDcOn           : 1; /* Same as QUE ?? */
+        uint16_t AMK_bQuitInverterOn : 1;
+        uint16_t AMK_bInverterOn     : 1;
+        uint16_t AMK_bDerating       : 1;
+    } fields;
+    uint16_t bits;
 } AMK_Status_t;
 
 /* CAN -> Inverter */
-typedef struct
+/* In AMK_Setpoints */
+typedef union
 {
-    uint16_t AMK_bReserve1   : 8;
-    uint16_t AMK_bInverterOn : 1;
-    uint16_t AMK_bDcOn       : 1;
-    uint16_t AMK_bEnable     : 1;
-    uint16_t AMK_bErrorReset : 1;
-    uint16_t AMK_bReserve2   : 1;
+    struct {
+        uint16_t AMK_bReserve1   : 8;
+        uint16_t AMK_bInverterOn : 1;
+        uint16_t AMK_bDcOn       : 1;
+        uint16_t AMK_bEnable     : 1;
+        uint16_t AMK_bErrorReset : 1;
+        uint16_t AMK_bReserve2   : 1;
+    } fields;
+    uint16_t bits;
 } AMK_Control_t;
+
+#define DEFAULT_TARGET_VELOCITY 0
+#define DEFAULT_POSITIVE_TORQUE_LIMIT 0
+#define DEFAULT_NEGATIVE_TORQUE_LIMIT 0
 
 #endif /* _AMK_H_ */

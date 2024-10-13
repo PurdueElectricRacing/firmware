@@ -14,6 +14,29 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+typedef struct {
+    uint8_t stage;
+    uint8_t running_state;
+    uint8_t init_state;
+    uint8_t deinit_state;
+} amk_motor_states_t;
+
+typedef struct {
+    amk_motor_states_t states;
+} amk_motor_t;
+
+typedef enum {
+    MOTOR_INIT_POWER_ON,
+    MOTOR_INIT_PRECHARGE,
+    
+} amk_motor_init_state_t;
+
+typedef enum {
+    MOTOR_STAGE_INIT,
+    MOTOR_STAGE_RUNNING,
+    MOTOR_STAGE_DEINIT
+} amk_motor_stage_t;
+
 /* Inverter -> CAN */
 /* In AMK_Actual_Values_1 */
 typedef union
@@ -34,6 +57,7 @@ typedef union
 
 /* CAN -> Inverter */
 /* In AMK_Setpoints */
+/* THIS NEEDS TO BE SENT EVERY 50ms */
 typedef union
 {
     struct {

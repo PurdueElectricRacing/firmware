@@ -28,7 +28,12 @@ typedef struct {
 typedef enum {
     MOTOR_INIT_POWER_ON,
     MOTOR_INIT_PRECHARGE,
-    
+    MOTOR_INIT_DC_ON,
+    MOTOR_INIT_DC_ON_CHECK,
+    MOTOR_INIT_TORQUE_INIT,
+    MOTOR_INIT_ENABLE,
+    MOTOR_INIT_INVERTER_ON,
+    MOTOR_INIT_INVERTER_ON_CHECK,
 } amk_motor_init_state_t;
 
 typedef enum {

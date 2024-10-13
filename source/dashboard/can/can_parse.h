@@ -39,7 +39,7 @@ typedef union {
 #define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
 #define ID_DASHBOARD_START_LOGGING 0x4000e05
 #define ID_DASH_CAN_STATS 0x10016305
-#define ID_FAULT_SYNC_DASHBOARD 0x8cac5
+#define ID_FAULT_SYNC_DASHBOARD 0x8cb05
 #define ID_DAQ_RESPONSE_DASHBOARD 0x17ffffc5
 #define ID_MAIN_HB 0xc001901
 #define ID_REAR_MOTOR_CURRENTS_VOLTS 0x100002c1
@@ -57,11 +57,12 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_GPS_SPEED 0xc001137
-#define ID_FAULT_SYNC_PDU 0x8cb1f
-#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
-#define ID_FAULT_SYNC_A_BOX 0x8ca44
-#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
-#define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
+#define ID_FAULT_SYNC_PDU 0x8cb5f
+#define ID_FAULT_SYNC_MAIN_MODULE 0x8ca41
+#define ID_FAULT_SYNC_A_BOX 0x8ca84
+#define ID_FAULT_SYNC_TORQUE_VECTOR 0x8caf7
+#define ID_FAULT_SYNC_RHENIUM 0x8ca36
+#define ID_FAULT_SYNC_TEST_NODE 0x8cbbf
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
 #define ID_DAQ_COMMAND_DASHBOARD 0x14000172
@@ -101,6 +102,7 @@ typedef union {
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_A_BOX 3
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_FAULT_SYNC_RHENIUM 3
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
@@ -451,6 +453,10 @@ typedef union {
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
+    } fault_sync_rhenium;
+    struct {
+        uint64_t idx: 16;
+        uint64_t latched: 1;
     } fault_sync_test_node;
     struct {
         uint64_t id: 16;
@@ -647,6 +653,10 @@ typedef struct {
         uint16_t idx;
         uint8_t latched;
     } fault_sync_torque_vector;
+    struct {
+        uint16_t idx;
+        uint8_t latched;
+    } fault_sync_rhenium;
     struct {
         uint16_t idx;
         uint8_t latched;

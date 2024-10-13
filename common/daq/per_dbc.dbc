@@ -33,8 +33,15 @@ NS_ :
 
 BS_:
 
-BU_: Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU daq bootloader BITSTREAM Charger DAQ TEST_NODE TEST_NODE_2 DAQ
+BU_: Rhenium Main_Module a_box OrionBMS torque_vector Dashboard Steering PDU daq bootloader BITSTREAM Charger DAQ TEST_NODE TEST_NODE_2 DAQ
 
+
+BO_ 2148059702 fault_sync_rhenium: 3 Rhenium
+ SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2550136822 daq_response_RHENIUM: 8 Rhenium
+ SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2348816641 main_hb: 2 Main_Module
  SG_ precharge_state : 8|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -119,7 +126,7 @@ BO_ 2214593409 rear_wheel_speeds: 8 Main_Module
  SG_ right_speed_mc : 16|16@1+ (1,0) [0|0] "RPM" Vector__XXX
  SG_ left_speed_mc : 0|16@1+ (1,0) [0|0] "RPM" Vector__XXX
 
-BO_ 2148059649 fault_sync_main_module: 3 Main_Module
+BO_ 2148059713 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -188,7 +195,7 @@ BO_ 2416010308 i_sense: 4 a_box
  SG_ current_channel_2 : 16|16@1- (0.01,0) [0|0] "A" Vector__XXX
  SG_ current_channel_1 : 0|16@1- (0.01,0) [0|0] "A" Vector__XXX
 
-BO_ 2148059716 fault_sync_a_box: 3 a_box
+BO_ 2148059780 fault_sync_a_box: 3 a_box
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -317,7 +324,7 @@ BO_ 2416010039 tv_can_stats: 4 torque_vector
  SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059831 fault_sync_torque_vector: 3 torque_vector
+BO_ 2148059895 fault_sync_torque_vector: 3 torque_vector
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -370,7 +377,7 @@ BO_ 2416009989 dash_can_stats: 4 Dashboard
  SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059845 fault_sync_dashboard: 3 Dashboard
+BO_ 2148059909 fault_sync_dashboard: 3 Dashboard
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -425,7 +432,7 @@ BO_ 2416010015 pdu_can_stats: 4 PDU
  SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148059935 fault_sync_pdu: 3 PDU
+BO_ 2148059999 fault_sync_pdu: 3 PDU
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -537,6 +544,9 @@ BO_ 2566869221 elcon_charger_status: 5 Charger
 BO_ 2483028082 daq_command_MAIN_MODULE: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
+BO_ 2483031474 daq_command_RHENIUM: 8 DAQ
+ SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
+
 BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -583,7 +593,7 @@ BO_ 2147488308 adc_values: 5 TEST_NODE
 BO_ 2347693088 car_state: 1 TEST_NODE
  SG_ car_state : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2148060031 fault_sync_test_node: 3 TEST_NODE
+BO_ 2148060095 fault_sync_test_node: 3 TEST_NODE
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -619,6 +629,7 @@ BO_ 2483032050 daq_command_TEST_NODE: 8 DAQ
 
 
 
+CM_ BU_ Rhenium "";
 CM_ BU_ Main_Module "";
 CM_ BU_ a_box "";
 CM_ BU_ OrionBMS "";
@@ -634,6 +645,11 @@ CM_ BU_ DAQ "";
 CM_ BU_ TEST_NODE "";
 CM_ BU_ TEST_NODE_2 "";
 CM_ BU_ DAQ "";
+CM_ BO_ 2148059702 "Fault status message";
+CM_ SG_ 2148059702 latched "";
+CM_ SG_ 2148059702 idx "";
+CM_ BO_ 2550136822 "daq response from node RHENIUM";
+CM_ SG_ 2550136822 daq_response "";
 CM_ BO_ 2348816641 "Heart beat message for main module";
 CM_ SG_ 2348816641 precharge_state "";
 CM_ SG_ 2348816641 car_state "Main car state";
@@ -708,9 +724,9 @@ CM_ SG_ 2214593409 right_speed_sensor "";
 CM_ SG_ 2214593409 left_speed_sensor "";
 CM_ SG_ 2214593409 right_speed_mc "";
 CM_ SG_ 2214593409 left_speed_mc "";
-CM_ BO_ 2148059649 "Fault status message";
-CM_ SG_ 2148059649 latched "";
-CM_ SG_ 2148059649 idx "";
+CM_ BO_ 2148059713 "Fault status message";
+CM_ SG_ 2148059713 latched "";
+CM_ SG_ 2148059713 idx "";
 CM_ BO_ 2550136769 "daq response from node MAIN_MODULE";
 CM_ SG_ 2550136769 daq_response "";
 CM_ BO_ 2348816708 "heart beat for precharge";
@@ -763,9 +779,9 @@ CM_ SG_ 2416009988 can_tx_overflow "CAN Tx queue overflow count";
 CM_ BO_ 2416010308 "Current sense value for channel 1 and channel 2 of current sensor";
 CM_ SG_ 2416010308 current_channel_2 "";
 CM_ SG_ 2416010308 current_channel_1 "";
-CM_ BO_ 2148059716 "Fault status message";
-CM_ SG_ 2148059716 latched "";
-CM_ SG_ 2148059716 idx "";
+CM_ BO_ 2148059780 "Fault status message";
+CM_ SG_ 2148059780 latched "";
+CM_ SG_ 2148059780 idx "";
 CM_ BO_ 2550136772 "daq response from node A_BOX";
 CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
@@ -873,9 +889,9 @@ CM_ SG_ 2416010039 can_rx_overrun "CAN Rx FIFO overrun count";
 CM_ SG_ 2416010039 can_rx_overflow "CAN Rx queue overflow count";
 CM_ SG_ 2416010039 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
 CM_ SG_ 2416010039 can_tx_overflow "CAN Tx queue overflow count";
-CM_ BO_ 2148059831 "Fault status message";
-CM_ SG_ 2148059831 latched "";
-CM_ SG_ 2148059831 idx "";
+CM_ BO_ 2148059895 "Fault status message";
+CM_ SG_ 2148059895 latched "";
+CM_ SG_ 2148059895 idx "";
 CM_ BO_ 2415919749 "Throttle and brake values";
 CM_ SG_ 2415919749 brake_pot "";
 CM_ SG_ 2415919749 brake_right "";
@@ -915,9 +931,9 @@ CM_ SG_ 2416009989 can_rx_overrun "CAN Rx FIFO overrun count";
 CM_ SG_ 2416009989 can_rx_overflow "CAN Rx queue overflow count";
 CM_ SG_ 2416009989 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
 CM_ SG_ 2416009989 can_tx_overflow "CAN Tx queue overflow count";
-CM_ BO_ 2148059845 "Fault status message";
-CM_ SG_ 2148059845 latched "";
-CM_ SG_ 2148059845 idx "";
+CM_ BO_ 2148059909 "Fault status message";
+CM_ SG_ 2148059909 latched "";
+CM_ SG_ 2148059909 idx "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
 CM_ BO_ 688 "Standard steering angle and speed";
@@ -960,9 +976,9 @@ CM_ SG_ 2416010015 can_rx_overrun "CAN Rx FIFO overrun count";
 CM_ SG_ 2416010015 can_rx_overflow "CAN Rx queue overflow count";
 CM_ SG_ 2416010015 can_tx_fail "CAN Tx fail count (due to timeout in mailbox)";
 CM_ SG_ 2416010015 can_tx_overflow "CAN Tx queue overflow count";
-CM_ BO_ 2148059935 "Fault status message";
-CM_ SG_ 2148059935 latched "";
-CM_ SG_ 2148059935 idx "";
+CM_ BO_ 2148059999 "Fault status message";
+CM_ SG_ 2148059999 latched "";
+CM_ SG_ 2148059999 idx "";
 CM_ BO_ 2550136799 "daq response from node PDU";
 CM_ SG_ 2550136799 daq_response "";
 CM_ BO_ 2214912572 "Main Module Bootloader response";
@@ -1046,6 +1062,8 @@ CM_ SG_ 2566869221 charge_current "";
 CM_ SG_ 2566869221 charge_voltage "";
 CM_ BO_ 2483028082 "daq command for node MAIN_MODULE";
 CM_ SG_ 2483028082 daq_command "";
+CM_ BO_ 2483031474 "daq command for node RHENIUM";
+CM_ SG_ 2483031474 daq_command "";
 CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
 CM_ BO_ 2483028274 "daq command for node A_BOX";
@@ -1079,9 +1097,9 @@ CM_ SG_ 2147488308 pot2 "";
 CM_ SG_ 2147488308 pot1 "";
 CM_ BO_ 2347693088 "state of the car";
 CM_ SG_ 2347693088 car_state "";
-CM_ BO_ 2148060031 "Fault status message";
-CM_ SG_ 2148060031 latched "";
-CM_ SG_ 2148060031 idx "";
+CM_ BO_ 2148060095 "Fault status message";
+CM_ SG_ 2148060095 latched "";
+CM_ SG_ 2148060095 idx "";
 CM_ BO_ 2550136831 "daq response from node TEST_NODE";
 CM_ SG_ 2550136831 daq_response "";
 CM_ BO_ 2483028093 "test_msg desc";

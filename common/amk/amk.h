@@ -56,6 +56,7 @@ typedef enum {
 } amk_motor_deinit_state_t;
 
 typedef enum {
+    MOTOR_STAGE_OFF,
     MOTOR_STAGE_INIT,
     MOTOR_STAGE_RUNNING,
     MOTOR_STAGE_DEINIT
@@ -98,5 +99,9 @@ typedef union
 #define DEFAULT_TARGET_VELOCITY 0
 #define DEFAULT_POSITIVE_TORQUE_LIMIT 0
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT 0
+
+#define MAX_TARGET_VELOCITY 6000
+#define MAX_POSITIVE_TORQUE_LIMIT 1000
+#define MAX_NEGATIVE_TORQUE_LIMIT 1000
 
 #endif /* _AMK_H_ */

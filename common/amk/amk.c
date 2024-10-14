@@ -12,7 +12,7 @@
 
 /* NOTE:
  * Step 1 is turning on LV
- * Step 3 happens when HV is turned on and precharging starts
+ * Step 3 happens when HV is turned on and precharging starts (I think this is actually step 2)
  *  I can check when this is done with precharge complete and then move 
  *  onto other steps
  *  MAYBE we can check when AMK_bSystemReady is on and display a message
@@ -20,14 +20,18 @@
  *  Not sure if I need that
  */
 
-static amk_motor_t motor = {0};
+/* NOTE: Page 36 says max velocity is 6000 rpm. But page 37 says that the
+ * default max velocity limit is ±5000 rpm */
+
+
+static amk_motor_t right = {0};
 
 static AMK_Control_t control = {0};
 static AMK_Status_t status = {0};
 
-static void turnMotorsOn();
-static void motorsRunning();
-static void turnMotorsOff();
+static void turnMotorOn(amk_motor_t* motor);
+static void motorRunning(amk_motor_t* motor);
+static void turnMotorOff(amk_motor_t* motor);
 
 /* NOTE: As of now this is just setting everything to 0, but it may make sense
  * to have it in case something changes down the line while I learn more, so
@@ -41,8 +45,8 @@ void motorInit(amk_motor_t* motor)
         /* States */
         .states.stage = MOTOR_STAGE_INIT,
         .states.init_state = MOTOR_INIT_POWER_ON,
-        /* FIXME: FILL IN ONCE I MAKE ENUMS */
-        .states.deinit_state = 0,
+        .states.deinit_state = MOTOR_DEINIT_SETPOINTS_DEINIT,
+        /* FIXME: FILL IN ONCE I MAKE ENUM */
         .states.running_state = 0,
 
         /* Values */
@@ -52,22 +56,25 @@ void motorInit(amk_motor_t* motor)
     };
 }
 
+/* FIXME: Maybe have a seperate instance of this function for each motor, or
+ * handle all motors in a single instance
+ * */
 void motorPeriodic()
 {
-    switch(motor.states.stage) {
+    switch(right.states.stage) {
     case MOTOR_STAGE_INIT:
-        turnMotorsOn();
+        turnMotorOn(&right);
         break;
     case MOTOR_STAGE_RUNNING:
-        motorsRunning();
+        motorRunning(&right);
         break;
     case MOTOR_STAGE_DEINIT:
-        turnMotorsOff();
+        turnMotorOff(&right);
         break;
     }
 }
 
-static void motorsRunning()
+static void motorRunning(amk_motor_t* motor)
 {
     /* Set setpoint settings (AMK_TargetVelocity, AMK_TorqueLimitNegativ, AMK_TorqueLimitPositiv) */
     SEND_AMK_SETPOINTS_1(control.bits, 
@@ -207,38 +214,38 @@ static void turnMotorOff(amk_motor_t* motor)
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);
 
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_INVERTER_OFF_CHECK:
             /* 2r. AMK_bInverterOn is mirrored in AMK_Status, so should be on there */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_DISABLE:
             /* 3. Set AMK_bEnable = 0 */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_QUIT_INVERTER_CHECK:
             /* 4. Check AMK_bQuitInverterOn = 0 */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_DC_OFF:
             /* 5. Set AMK_bDcOn = 0 */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_DC_OFF_CHECK:
             /* 5r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
             /* 5r. Check AMK_bQuitDcOn = 0 */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_PRECHARGE:
             /* 6. Discharge DC caps; QUE should be reset (is this just DcOn?) */
 
             /* If discharged, move on */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
         case MOTOR_DEINIT_POWER_OFF:
             /* 7. Turn off 24v DC to inverters */
-            motor->states.init_state++;
+            motor->states.deinit_state++;
             break;
     }
 }

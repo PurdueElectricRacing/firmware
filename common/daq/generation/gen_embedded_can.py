@@ -154,30 +154,30 @@ def configure_node(node_config, node_paths):
     print("Configuring Node " + node_config['node_name'])
 
     # Junction node?
-    is_junc = False
-    junc_config = None
-    if 'is_junction' in node_config and node_config['is_junction']:
-        is_junc = True
-        print(f"Treating {node_config['node_name']} as junction")
-        global can_config
-        for bus in can_config['busses']:
-            for node in bus['nodes']:
-                if node['node_name'] == node_config['node_name'] and node['can_peripheral'] != node_config['can_peripheral']:
-                    junc_config = node
-                    break
-            if junc_config: break
+    # is_junc = False
+    # junc_config = None
+    # if 'is_junction' in node_config and node_config['is_junction']:
+    #     is_junc = True
+    #     print(f"Treating {node_config['node_name']} as junction")
+    #     global can_config
+    #     for bus in can_config['busses']:
+    #         for node in bus['nodes']:
+    #             if node['node_name'] == node_config['node_name'] and node['can_peripheral'] != node_config['can_peripheral']:
+    #                 junc_config = node
+    #                 break
+    #         if junc_config: break
 
     # Combine message definitions
     raw_msg_defs = []
     raw_msg_defs += node_config['tx']
-    if is_junc: raw_msg_defs += junc_config['tx']
+    # if is_junc: raw_msg_defs += junc_config['tx']
     receiving_msg_defs = []
     node_specific_rx_msg_defs = find_rx_messages([rx_config["msg_name"] for rx_config in node_config['rx']])
     receiving_msg_defs += node_specific_rx_msg_defs
-    junc_rx_msg_defs = []
-    if is_junc:
-        junc_rx_msg_defs += find_rx_messages([rx_config['msg_name'] for rx_config in junc_config['rx']])
-        receiving_msg_defs += junc_rx_msg_defs
+    # junc_rx_msg_defs = []
+    # if is_junc:
+    #     junc_rx_msg_defs += find_rx_messages([rx_config['msg_name'] for rx_config in junc_config['rx']])
+    #     receiving_msg_defs += junc_rx_msg_defs
     for new_msg in receiving_msg_defs:
         if new_msg not in raw_msg_defs:
             raw_msg_defs.append(new_msg)
@@ -206,10 +206,10 @@ def configure_node(node_config, node_paths):
     for msg in node_config['tx']:
         if 'can_peripheral_override' in msg: periph = msg['can_peripheral_override']
         gen_send_macro(macro_lines, msg, periph)
-    if is_junc:
-        periph = junc_config['can_peripheral']
-        for msg in junc_config['tx']:
-            gen_send_macro(macro_lines, msg, periph)
+    # if is_junc:
+    #     periph = junc_config['can_peripheral']
+    #     for msg in junc_config['tx']:
+    #         gen_send_macro(macro_lines, msg, periph)
     h_lines = generator.insert_lines(h_lines, gen_send_macro_start, gen_send_macro_stop, macro_lines)
 
     # Message update periods
@@ -264,7 +264,7 @@ def configure_node(node_config, node_paths):
 
     # Rx callbacks
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
-    if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
+    # if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
     extern_callback_lines = [f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n" for rx_config in rx_callbacks if ("arg_type" in rx_config and rx_config["arg_type"]=="header")]
     extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("fault" not in rx_config) and (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data"))]
     extern_callback_lines += "extern void handleCallbacks(uint16_t id, bool latched);\n"
@@ -275,7 +275,7 @@ def configure_node(node_config, node_paths):
 
 
     rx_irq_names = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
-    if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
+    # if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
     extern_callback_lines = [f"extern void {msg_name}_IRQ(CanParsedData_t* msg_data_a);\n" for msg_name in rx_irq_names]
     h_lines = generator.insert_lines(h_lines, gen_irq_extern_start, gen_irq_extern_stop, extern_callback_lines)
 
@@ -295,19 +295,19 @@ def configure_node(node_config, node_paths):
     periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     ind = ""
-    if is_junc:
-        ind = "    "
-        # add if statement for distinguishing between peripherals
-        case_lines.append(f"        if (msg_header.Bus == {periph})\n")
-        case_lines.append(f"        {{\n")
-    gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
-    if is_junc:
-        periph = junc_config['can_peripheral']
-        case_lines.append("        }\n")
-        case_lines.append(f"        else if (msg_header.Bus == {periph})\n")
-        case_lines.append("        {\n")
-        gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
-        case_lines.append("        }\n")
+    # if is_junc:
+    #     ind = "    "
+    #     # add if statement for distinguishing between peripherals
+    #     case_lines.append(f"        if (msg_header.Bus == {periph})\n")
+    #     case_lines.append(f"        {{\n")
+    # gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
+    # if is_junc:
+    #     periph = junc_config['can_peripheral']
+    #     case_lines.append("        }\n")
+    #     case_lines.append(f"        else if (msg_header.Bus == {periph})\n")
+    #     case_lines.append("        {\n")
+    #     gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
+    #     case_lines.append("        }\n")
     c_lines = generator.insert_lines(c_lines, gen_switch_case_start, gen_switch_case_stop, case_lines)
 
     # Stale checking
@@ -325,7 +325,7 @@ def configure_node(node_config, node_paths):
         periph = DEFAULT_PERIPHERAL_NODE
         if "can_peripheral" in node_config: periph = node_config['can_peripheral']
         gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
-        if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
+        # if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
 
     c_lines = generator.insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
 

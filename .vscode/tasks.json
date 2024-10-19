@@ -13,6 +13,14 @@
             }
         },
         {
+            "label": "build_bl",
+            "type": "shell",
+            "command": "python3 per_build.py --bootloader",
+            "group": {
+                "kind": "build",
+            }
+        },
+        {
             "label": "Submodule Update",
             "group": "none",
             "type": "shell",

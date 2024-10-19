@@ -1,12 +1,12 @@
 /**
  * @file process.c
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2022-02-28
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #include "bootloader.h"
@@ -21,7 +21,9 @@
 
 static          uint32_t* app_flash_start_address;   /* Store the start address of the Application, never changes */
 static volatile uint32_t* app_flash_current_address; /* Current address we are writing to */
-static volatile uint32_t* app_flash_end_address;     /* Expected end address to stop writing */
+static volatile uint32_t app_flash_size = 0;
+static volatile uint32_t app_flash_written = 0;
+static volatile uint32_t app_flash_segment_written = 0;
 static volatile uint32_t* bootloader_ms;
 
 extern q_handle_t q_tx_can;
@@ -41,8 +43,9 @@ void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr)
 #endif
 
     app_flash_start_address     = app_flash_start;
-    app_flash_end_address       = app_flash_start;
-    app_flash_current_address   = app_flash_start;
+    app_flash_current_address   = app_flash_start; // base
+    app_flash_written           = 0;
+    app_flash_segment_written   = 0;
     bootloader_ms = bootloader_ms_ptr;
 }
 
@@ -59,12 +62,14 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
     {
         case BLCMD_START:
         {
-            app_flash_current_address = app_flash_start_address;
-            app_flash_end_address += data; // Number of words
+            // data: padded total flash size (num words), i.e. end addr - start addr
+            app_flash_current_address = app_flash_start_address; // init
+            app_flash_written = 0;
+            app_flash_segment_written = 0;
             *bootloader_ms = 0;
-            
+
             #ifndef DEBUG
-            if (PHAL_flashErase(app_flash_start_address, data) != FLASH_OK)
+            if (data && PHAL_flashErase(app_flash_start_address, data) != FLASH_OK)
             {
                 BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
                 bl_unlock = false;
@@ -75,16 +80,17 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             {
                 BL_sendStatusMessage(BLSTAT_METDATA_RX, (uint32_t) data);
             }
-            num_msg = 0;
-            bl_unlock = true;
             flash_complete = false;
+            num_msg = 0;
             first_word = second_word = 0;
             CRC->CR |= CRC_CR_RESET; // Reset CRC
+            bl_unlock = true;
             break;
         }
         case BLCMD_CRC:
         {
-            if (bl_unlock && app_flash_current_address == app_flash_end_address)
+            // data: CRC checksum
+            if (bl_unlock && app_flash_written == app_flash_size)
             {
                 if (CRC->DR != data)
                     BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_CRC_FAIL);
@@ -108,12 +114,26 @@ void BL_processCommand(BLCmd_t cmd, uint32_t data)
             }
             else if (!bl_unlock)
                 BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_LOCKED);
-            else 
+            else
                 BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_LOW_ADDR);
             break;
         }
+        case BLCMD_SET_SIZE:
+        {
+            // data: unpadded firmware size i.e. sum of segments
+            // should be called only once
+            app_flash_size = data; // num crc words to transfer
+            break;
+        }
+        case BLCMD_SET_ADDR:
+        {
+            // data: new relative base address of segment
+            app_flash_current_address = (uint32_t* )data;
+            app_flash_segment_written = 0; // reset local counter
+            break;
+        }
         case BLCMD_RST:
-            // Bootloader_ResetForFirmwareDownload();
+            Bootloader_ResetForFirmwareDownload();
             break;
         default:
         {
@@ -135,7 +155,7 @@ bool BL_flashComplete(void)
 
 volatile uint32_t* BL_getCurrentFlashAddress(void)
 {
-    return app_flash_current_address;
+    return app_flash_current_address + app_flash_segment_written;
 }
 
 void BL_timeout(void)
@@ -151,17 +171,17 @@ void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
     #if (APP_ID == APP_L4_TESTING)
     PHAL_writeGPIO(GPIOB, 7, 1);
     #endif
-    uint64_t data;    
+    uint64_t data;
     if (bl_unlock)
     {
-        if(app_flash_current_address >= app_flash_start_address &&
-           app_flash_current_address < app_flash_end_address)
-        { 
+        if (app_flash_written < app_flash_size)
+        {
             num_msg++;
             data = *((uint64_t *) msg_data_a->raw_data);
+            uint32_t curr_addr = (uint32_t) app_flash_current_address + app_flash_segment_written * sizeof(uint32_t);
 
             // Skip the first two words
-            if (app_flash_current_address == app_flash_start_address) 
+            if (!app_flash_written)
             {
                 CRC->DR = first_word = *((uint32_t *) msg_data_a->raw_data);
                 CRC->DR = second_word = *((uint32_t *) msg_data_a->raw_data + 1);
@@ -170,7 +190,7 @@ void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
             {
                 // Address is 2-word aligned, do the actual programming now
                 #ifndef DEBUG
-                if (PHAL_flashWriteU64((uint32_t) app_flash_current_address, data) != FLASH_OK)
+                if (PHAL_flashWriteU64(curr_addr, data) != FLASH_OK)
                 {
                     BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
                     bl_unlock = false;
@@ -178,15 +198,18 @@ void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
                 else
                 #endif
                 {
-                    CRC->DR = *(app_flash_current_address);
-                    CRC->DR = *(app_flash_current_address + 1);
+                    CRC->DR = *((uint32_t *)curr_addr);
+                    CRC->DR = *((uint32_t *)(curr_addr + sizeof(uint32_t)));
                 }
             }
             *bootloader_ms = 0; // Reset timeout counter, message received!
-            app_flash_current_address += 2; // wrote 64 bits
+            app_flash_written += 2; // wrote 64 bits
+            app_flash_segment_written += 2;
         }
         else
+        {
             BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_ADDR_BOUND);
+        }
     }
 
     #if (APP_ID == APP_L4_TESTING)
@@ -195,7 +218,7 @@ void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
 }
 
 /*
-    Component specific callbacks 
+    Component specific callbacks
 */
 
 // Quickly setup case statments for send function based on Node ID

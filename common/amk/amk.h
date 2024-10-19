@@ -22,7 +22,7 @@ typedef struct {
 } amk_motor_states_t;
 
 typedef struct {
-    uint16_t target_velocity;
+    uint16_t torque_setpoint;
     uint16_t torque_limit_positive;
     uint16_t torque_limit_negative;
 } amk_motor_values_t;
@@ -41,6 +41,7 @@ typedef enum {
     MOTOR_INIT_ENABLE,
     MOTOR_INIT_INVERTER_ON,
     MOTOR_INIT_INVERTER_ON_CHECK,
+    MOTOR_INIT_DONE,
 } amk_motor_init_state_t;
 
 typedef enum {
@@ -53,6 +54,7 @@ typedef enum {
     MOTOR_DEINIT_DC_OFF_CHECK,
     MOTOR_DEINIT_PRECHARGE,
     MOTOR_DEINIT_POWER_OFF,
+    MOTOR_DEINIT_DONE,
 } amk_motor_deinit_state_t;
 
 typedef enum {
@@ -96,11 +98,11 @@ typedef union
     uint16_t bits;
 } AMK_Control_t;
 
-#define DEFAULT_TARGET_VELOCITY 0
+#define DEFAULT_TORQUE_SETPOINT 0
 #define DEFAULT_POSITIVE_TORQUE_LIMIT 0
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT 0
 
-#define MAX_TARGET_VELOCITY 6000
+#define MAX_TORQUE_SETPOINT 6000
 #define MAX_POSITIVE_TORQUE_LIMIT 1000
 #define MAX_NEGATIVE_TORQUE_LIMIT 1000
 

@@ -204,6 +204,7 @@ def configure_node(node_config, node_paths):
     periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     for msg in node_config['tx']:
+        if 'can_peripheral_override' in msg: periph = msg['can_peripheral_override']
         gen_send_macro(macro_lines, msg, periph)
     if is_junc:
         periph = junc_config['can_peripheral']

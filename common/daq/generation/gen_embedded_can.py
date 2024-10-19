@@ -32,7 +32,7 @@ gen_irq_extern_stop = "END AUTO EXTERN RX IRQ"
 gen_can_enums_start = "BEGIN AUTO CAN ENUMERATIONS"
 gen_can_enums_stop = "END AUTO CAN ENUMERATIONS"
 
-DEFAULT_PERIPHERAL = "CAN1"
+DEFAULT_PERIPHERAL_NODE = "CAN1"
 
 def find_rx_messages(rx_names):
     """
@@ -201,7 +201,7 @@ def configure_node(node_config, node_paths):
 
     # Send Macros, requires knowledge of CAN peripheral
     macro_lines = []
-    periph = DEFAULT_PERIPHERAL
+    periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     for msg in node_config['tx']:
         gen_send_macro(macro_lines, msg, periph)
@@ -291,7 +291,7 @@ def configure_node(node_config, node_paths):
 
     # Rx switch case
     case_lines = []
-    periph = DEFAULT_PERIPHERAL
+    periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     ind = ""
     if is_junc:
@@ -321,7 +321,7 @@ def configure_node(node_config, node_paths):
     # Hardware filtering
     filter_lines = []
     if not ("accept_all_messages" in node_config and node_config["accept_all_messages"]):
-        periph = DEFAULT_PERIPHERAL
+        periph = DEFAULT_PERIPHERAL_NODE
         if "can_peripheral" in node_config: periph = node_config['can_peripheral']
         gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
         if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])

@@ -89,6 +89,11 @@
                 "msg_id_override":{
                     "type":"string",
                     "description":"sets the message to a specific id, ignoring the node's ssa\nTo use hex do \"0x########\""
+                },
+                "can_peripheral_override":{
+                    "type":"string",
+                    "enum": ["CAN1", "CAN2"],
+                    "description": "sets the peripheral for a single message, overriding the node's and default"
                 }
             }
         },
@@ -109,7 +114,7 @@
                     "type":"integer",
                     "description":"length in bits, only valid if unsigned data type",
                     "minimum":1,
-                    "maimum":64
+                    "maximum":64
                 },
                 "scale":{"type":"number", "description":"scale factor to apply, default of 1\nDecoding results in (x * scale)+offset"},
                 "offset":{"type":"number", "description": "offset to apply, default of 0\nDecoding results in (x * scale)+offset"},
@@ -127,6 +132,11 @@
                 "callback":{"type":"boolean"},
                 "irq":{"type":"boolean"},
                 "arg_type":{"type":"string", "enum":["msg_data", "header"]}
+            },
+            "can_peripheral_override":{
+                "type":"string",
+                "enum": ["CAN1", "CAN2"],
+                "description": "sets the peripheral for a single message, overriding the node's and default"
             }
         }
     }

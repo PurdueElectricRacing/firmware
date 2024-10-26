@@ -98,22 +98,27 @@
 #define ORANGE 64512
 
 //Race/Data pages
-#define THROT_BAR "j1"
 #define POW_LIM_BAR "j0"
 #define BRAKE_BIAS_FLT "x0"
 #define TV_RL_FLT "x1"
 #define TV_RR_FLT "x2"
+
+#define THROT_BAR "throt_bar"
+#define BRK_BAR "brk_bar"
+#define TV_ON "tv"
 #define FLT_TO_DISPLAY_INT_2_DEC (100U)
 #define FLT_TO_PERCENTAGE (100U)
 
 //Race specific Values
-#define BATT_TEMP "t8"
-#define BATT_VOLT "t10"
-#define BATT_CURR "t13"
-#define MOT_TEMP "t20"
 #define GEAR_TEMP "t21"
-#define CAR_STAT "t22"
-#define SPEED "t0"
+
+#define BATT_TEMP "batt_temp"
+#define BATT_VOLT "volts"
+#define BATT_CURR "amps"
+#define MOT_TEMP "motor_temp"
+#define MC_TEMP "mc_temp"
+#define CAR_STAT "status"
+#define SPEED "speed"
 
 
 typedef enum {
@@ -122,12 +127,12 @@ typedef enum {
   // Should corresspond with the page count in main.h
   PAGE_RACE,
   PAGE_SETTINGS,
-  PAGE_DATA,
   PAGE_FAULTS,
   PAGE_TVSETTINGS,
   PAGE_SDCINFO,    
   PAGE_DRIVER,
   PAGE_LOGGING,
+  PAGE_DATA,
 
   // Pages that can be displayed but not selected with the encoder
   PAGE_PREFLIGHT,

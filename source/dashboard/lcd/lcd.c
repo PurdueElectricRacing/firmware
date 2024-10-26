@@ -1105,215 +1105,76 @@ void sendTVParameters()
     SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
 }
 
-void updateFaultPageIndicators()
-{
-    if (curr_page == PAGE_FAULTS)
-    {
-        if (fault_buf[0] == 0xFFFF)
-        {
-            set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, WHITE);
-        }
-        else
-        {
-            if (checkFault(fault_buf[0]))
-            {
-                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RED);
-            }
-            else
-            {
-                set_value(FLT_STAT_1_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-            }
-        }
-        if (fault_buf[1] == 0xFFFF)
-        {
-            set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, WHITE);
-        }
-        else
-        {
-            if (checkFault(fault_buf[1]))
-            {
-                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RED);
-            }
-            else
-            {
-                set_value(FLT_STAT_2_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-            }
-        }
-        if (fault_buf[2] == 0xFFFF)
-        {
-            set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, WHITE);
-        }
-        else
-        {
-            if (checkFault(fault_buf[2]))
-            {
-                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RED);
-            }
-            else
-            {
-                set_value(FLT_STAT_3_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-            }
-        }
-        if (fault_buf[3] == 0xFFFF)
-        {
-            set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, WHITE);
-        }
-        else
-        {
-            if (checkFault(fault_buf[3]))
-            {
-                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RED);
-            }
-            else
-            {
-                set_value(FLT_STAT_4_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-            }
-        }
-        if (fault_buf[4] == 0xFFFF)
-        {
-            set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, WHITE);
-        }
-        else
-        {
-            if (checkFault(fault_buf[4]))
-            {
-                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RED);
-            }
-            else
-            {
-                set_value(FLT_STAT_5_TXT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-            }
-        }
+void setFaultIndicator(uint16_t fault, char *element) {
+    if (fault == 0xFFFF) {
+        set_value(element, NXT_BACKGROUND_COLOR, WHITE);
+    } else if (checkFault(fault)) {
+        set_value(element, NXT_BACKGROUND_COLOR, RED);
     }
+    set_value(element, NXT_BACKGROUND_COLOR, RACE_GREEN);
 }
 
-void updateSDCDashboard()
-{
-    static uint8_t updateCode = 0U;
-    if (curr_page == PAGE_SDCINFO)
-    {
-        switch (++updateCode)
-        {
-            case 1:
-                // IMD from ABOX
-                if (can_data.precharge_hb.IMD)
-                {
-                    set_value(SDC_IMD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_IMD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
+void updateFaultPageIndicators() {
+    if (curr_page != PAGE_FAULTS) {
+        return;
+    }
 
-                if (can_data.precharge_hb.BMS)
-                {
-                    set_value(SDC_BMS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_BMS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (false == checkFault(ID_BSPD_LATCHED_FAULT))
-                {
-                    set_value(SDC_BSPD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_BSPD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
+    setFaultIndicator(fault_buf[0], FLT_STAT_1_TXT);
+    setFaultIndicator(fault_buf[1], FLT_STAT_2_TXT);
+    setFaultIndicator(fault_buf[2], FLT_STAT_3_TXT);
+    setFaultIndicator(fault_buf[3], FLT_STAT_4_TXT);
+    setFaultIndicator(fault_buf[4], FLT_STAT_5_TXT);
+}
 
-                if (can_data.sdc_status.BOTS)
-                {
-                    set_value(SDC_BOTS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_BOTS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
 
-                if (can_data.sdc_status.inertia)
-                {
-                    set_value(SDC_INER_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_INER_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                break;
+void updateSDCStatus(uint8_t status, char *element) {
+    set_value(element, NXT_BACKGROUND_COLOR, status ? GREEN : RED);
+}
 
-            case 2:
-                if (can_data.sdc_status.c_estop)
-                {
-                    set_value(SDC_CSTP_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_CSTP_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (can_data.sdc_status.main)
-                {
-                    set_value(SDC_MAIN_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_MAIN_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (can_data.sdc_status.r_estop)
-                {
-                    set_value(SDC_RSTP_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_RSTP_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (can_data.sdc_status.l_estop)
-                {
-                    set_value(SDC_LSTP_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_LSTP_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (can_data.sdc_status.HVD)
-                {
-                    set_value(SDC_HVD_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_HVD_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                break;
-            case 3:
-                if (can_data.sdc_status.hub)
-                {
-                    set_value(SDC_RHUB_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_RHUB_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (can_data.sdc_status.TSMS)
-                {
-                    set_value(SDC_TSMS_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_TSMS_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                if (can_data.sdc_status.pchg_out)
-                {
-                    set_value(SDC_PCHG_STAT_TXT, NXT_BACKGROUND_COLOR, GREEN);
-                }
-                else
-                {
-                    set_value(SDC_PCHG_STAT_TXT, NXT_BACKGROUND_COLOR, RED);
-                }
-                //todo set first trip from latest change in the sdc
-                updateCode = 0U;
-                break;
-            default:
-                updateCode = 0;
+void updateSDCGroup1() {
+    updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+    updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+    updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
+}
+
+void updateSDCGroup2() {
+    updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
+}
+
+void updateSDCGroup3() {
+    updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+    //todo set first trip from latest change in the sdc
+}
+
+void updateSDCDashboard() {
+    static uint8_t update_group = 0U;
+    if (curr_page != PAGE_SDCINFO) {
+        return;
+    }
+
+    // cycle through the update groups to update each element
+    update_group++;
+    switch (update_group) {
+        case 1:
+            updateSDCGroup1();
             break;
-        }
+        case 2:
+            updateSDCGroup2();
+            break;
+        case 3:
+            updateSDCGroup3();
+            update_group = 0U;
+            break;
+        default:
+            update_group = 0U;
+            break;
     }
 }

@@ -93,21 +93,27 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
     else:
         print(f"Unknown CAN peripheral {peripheral}")
 
+# TODO rx messages locked to CAN1
     for msg in rx_msg_configs:
-        if(filter_bank > filter_bank_max):
-            generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
-            quit(1)
-        # For extended id vs standard id
-        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
-                       f"(ID_{msg['msg_name'].upper()} << 21)"
-        if not on_mask:
-            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
-            on_mask = True
-        else:
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
-            on_mask = False
-            filter_bank += 1
+            if(msg[can_peripheral_override] == "CAN1"):
+                if(filter_bank > filter_bank_max):
+                    generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
+                    quit(1)
+                # For extended id vs standard id
+                shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
+                            f"(ID_{msg['msg_name'].upper()} << 21)"
+                if not on_mask:
+                    lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
+                    lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
+                    on_mask = True
+                else:
+                    lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
+                    on_mask = False
+                    filter_bank += 1
+            elif (msg[can_peripheral_override] == "CAN2"):
+                print("CAN2 RX messages not implemented")
+            else:
+                print("???")
 
 def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     """ generates switch case for receiving messages """
@@ -294,7 +300,8 @@ def configure_node(node_config, node_paths):
     case_lines = []
     periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
-    ind = ""
+    
+    # ind = ""
     # if is_junc:
     #     ind = "    "
     #     # add if statement for distinguishing between peripherals
@@ -313,6 +320,7 @@ def configure_node(node_config, node_paths):
     # Stale checking
     stale_lines = []
     for msg in receiving_msg_defs:
+        if 'can_peripheral_override' in msg: periph = msg['can_peripheral_override']
         if msg['msg_period'] > 0:
             stale_lines.append(f"    CHECK_STALE(can_data.{msg['msg_name']}.stale,\n")
             stale_lines.append(f"                sched.os_ticks, can_data.{msg['msg_name']}.last_rx,\n")

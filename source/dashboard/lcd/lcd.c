@@ -927,117 +927,143 @@ void updateFaultDisplay() {
     most_recent_latched = 0xFFFF;
 }
 
-void update_data_pages() {
-    char parsed_value[3] = "\0";
-    switch (curr_page) {
-        case PAGE_RACE:
-            set_value(POW_LIM_BAR, NXT_VALUE, 0);
-            set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
-            if (can_data.rear_wheel_speeds.stale) {
-                set_text(SPEED, NXT_TEXT, "S");
-            }
-            // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
-            else {
-                // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
-                set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)can_data.gps_speed.gps_speed * 0.02237), parsed_value));
-                bzero(parsed_value, 3);
-            }
-            if (sendFirsthalf) {
-                if (can_data.rear_motor_temps.stale) {
-                    set_text(MOT_TEMP, NXT_TEXT, "S");
-                }
-                else {
-                    set_text(MOT_TEMP, NXT_TEXT, int_to_char(MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp), parsed_value));
-                    bzero(parsed_value, 3);
-                }
-                if (can_data.gearbox.stale) {
-                    set_text(GEAR_TEMP, NXT_TEXT, "S");
-                }
-                else {
-                    set_text(GEAR_TEMP, NXT_TEXT, int_to_char(MAX(can_data.gearbox.l_temp, can_data.gearbox.r_temp), parsed_value));
-                    bzero(parsed_value, 3);
-                }
-                // Value MUST be between 0 and 9999 and represents the percentage
-                // We will do the division as a float and then convert to an integer
-                set_value(BRAKE_BIAS_FLT, NXT_VALUE, race_page_data.brake_bias_adj);
-                if (can_data.throttle_vcu.stale)
-                {
-                    set_value(TV_RL_FLT, NXT_VALUE, 7777);
-                    set_value(TV_RR_FLT, NXT_VALUE, 7777);
-                }
-                else
-                {
-                    int adj_vcu_rl = can_data.throttle_vcu.vcu_k_rl * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
-                    int adj_vcu_rr = can_data.throttle_vcu.vcu_k_rr * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
-                    set_value(TV_RL_FLT, NXT_VALUE, adj_vcu_rl);
-                    set_value(TV_RR_FLT, NXT_VALUE, adj_vcu_rr);
-                }
+void update_race_page_group1(char* parsed_value) {
+    if (can_data.rear_motor_temps.stale) {
+        set_text(MOT_TEMP, NXT_TEXT, "S");
+    }
+    else {
+        set_text(MOT_TEMP, NXT_TEXT, int_to_char(MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp), parsed_value));
+        bzero(parsed_value, 3);
+    }
+    if (can_data.gearbox.stale) {
+        set_text(GEAR_TEMP, NXT_TEXT, "S");
+    }
+    else {
+        set_text(GEAR_TEMP, NXT_TEXT, int_to_char(MAX(can_data.gearbox.l_temp, can_data.gearbox.r_temp), parsed_value));
+        bzero(parsed_value, 3);
+    }
+    // Value MUST be between 0 and 9999 and represents the percentage
+    // We will do the division as a float and then convert to an integer
+    set_value(BRAKE_BIAS_FLT, NXT_VALUE, race_page_data.brake_bias_adj);
+    if (can_data.throttle_vcu.stale)
+    {
+        set_value(TV_RL_FLT, NXT_VALUE, 7777);
+        set_value(TV_RR_FLT, NXT_VALUE, 7777);
+    }
+    else
+    {
+        int adj_vcu_rl = can_data.throttle_vcu.vcu_k_rl * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
+        int adj_vcu_rr = can_data.throttle_vcu.vcu_k_rr * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
+        set_value(TV_RL_FLT, NXT_VALUE, adj_vcu_rl);
+        set_value(TV_RR_FLT, NXT_VALUE, adj_vcu_rr);
+    }
+    // set_text(TV_FL, NXT_TEXT, "S");
+    // set_text(TV_FR, NXT_TEXT, "S");
+    // set_text(TV_LR, NXT_TEXT, "S");
+    // set_text(TV_RR, NXT_TEXT, "S");
+}
 
-                // set_text(TV_FL, NXT_TEXT, "S");
-                // set_text(TV_FR, NXT_TEXT, "S");
-                // set_text(TV_LR, NXT_TEXT, "S");
-                // set_text(TV_RR, NXT_TEXT, "S");
-                sendFirsthalf = false;
-            }
-            else {
-                if (can_data.main_hb.stale) {
-                    set_text(CAR_STAT, NXT_TEXT, "S");
-                    set_value(CAR_STAT, NXT_BACKGROUND_COLOR, BLACK);
-                }
-                else {
-                    switch(can_data.main_hb.car_state) {
-                        case CAR_STATE_PRECHARGING:
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
-                            set_text(CAR_STAT, NXT_TEXT, "PRCHG");
-                            break;
-                        case CAR_STATE_ENERGIZED:
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
-                            set_text(CAR_STAT, NXT_TEXT, "ENER");
-                            break;
-                        case CAR_STATE_IDLE:
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
-                            set_text(CAR_STAT, NXT_TEXT, "INIT");
-                            break;
-                        case CAR_STATE_READY2DRIVE:
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RACE_GREEN);
-                            set_text(CAR_STAT, NXT_TEXT, "ON");
-                            break;
-                        case CAR_STATE_ERROR:
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, YELLOW);
-                            set_text(CAR_STAT, NXT_TEXT, "ERR");
-                            break;
-                        case CAR_STATE_FATAL:
-                            set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RED);
-                            set_text(CAR_STAT, NXT_TEXT, "FATAL");
-                            break;
-                    }
-                }
-                if (can_data.max_cell_temp.stale) {
-                    set_text(BATT_TEMP, NXT_TEXT, "S");
-                }
-                else {
-                    set_text(BATT_TEMP, NXT_TEXT, int_to_char((can_data.max_cell_temp.max_temp / 10), parsed_value));
-                    bzero(parsed_value, 3);
-                }
-                if (can_data.orion_currents_volts.stale) {
-                    set_text(BATT_VOLT, NXT_TEXT, "S");
-                    set_text(BATT_CURR, NXT_TEXT, "S");
-                }
-                else {
-                    set_text(BATT_VOLT, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_voltage / 10), parsed_value));
-                    bzero(parsed_value, 3);
-                    set_text(BATT_CURR, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_current / 10), parsed_value));
-                    bzero(parsed_value, 3);
-                }
-                sendFirsthalf = true;
-            }
-            // set_text(GEAR_TEMP, NXT_TEXT, "S");
+void update_race_page_group2(char* parsed_value) {
+    if (can_data.main_hb.stale) {
+        set_text(CAR_STAT, NXT_TEXT, "S");
+        set_value(CAR_STAT, NXT_BACKGROUND_COLOR, BLACK);
+    }
+    else {
+        switch(can_data.main_hb.car_state) {
+            case CAR_STATE_PRECHARGING:
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
+                set_text(CAR_STAT, NXT_TEXT, "PRCHG");
+                break;
+            case CAR_STATE_ENERGIZED:
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, ORANGE);
+                set_text(CAR_STAT, NXT_TEXT, "ENER");
+                break;
+            case CAR_STATE_IDLE:
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, INFO_GRAY);
+                set_text(CAR_STAT, NXT_TEXT, "INIT");
+                break;
+            case CAR_STATE_READY2DRIVE:
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RACE_GREEN);
+                set_text(CAR_STAT, NXT_TEXT, "ON");
+                break;
+            case CAR_STATE_ERROR:
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, YELLOW);
+                set_text(CAR_STAT, NXT_TEXT, "ERR");
+                break;
+            case CAR_STATE_FATAL:
+                set_value(CAR_STAT, NXT_BACKGROUND_COLOR, RED);
+                set_text(CAR_STAT, NXT_TEXT, "FATAL");
+                break;
+        }
+    }
+    if (can_data.max_cell_temp.stale) {
+        set_text(BATT_TEMP, NXT_TEXT, "S");
+    }
+    else {
+        set_text(BATT_TEMP, NXT_TEXT, int_to_char((can_data.max_cell_temp.max_temp / 10), parsed_value));
+        bzero(parsed_value, 3);
+    }
+    if (can_data.orion_currents_volts.stale) {
+        set_text(BATT_VOLT, NXT_TEXT, "S");
+        set_text(BATT_CURR, NXT_TEXT, "S");
+    }
+    else {
+        set_text(BATT_VOLT, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_voltage / 10), parsed_value));
+        bzero(parsed_value, 3);
+        set_text(BATT_CURR, NXT_TEXT, int_to_char((can_data.orion_currents_volts.pack_current / 10), parsed_value));
+        bzero(parsed_value, 3);
+    }
+
+}
+
+void update_race_page() {
+    static uint8_t update_group = 0U;
+    if (curr_page != PAGE_RACE) {
+        return;
+    }
+
+    char parsed_value[3] = "\0";
+    set_value(POW_LIM_BAR, NXT_VALUE, 0);
+    set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
+
+    if (can_data.rear_wheel_speeds.stale) {
+        set_text(SPEED, NXT_TEXT, "S");
+    }
+    // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
+    else {
+        // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
+        set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)can_data.gps_speed.gps_speed * 0.02237), parsed_value));
+        bzero(parsed_value, 3);
+    }
+
+    update_group++;
+    switch (update_group) {
+        case 1:
+            update_race_page_group1(parsed_value);
             break;
-        case PAGE_DATA:
-            set_value(POW_LIM_BAR, NXT_VALUE, 0);
-            set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
+        case 2:
+            update_race_page_group2(parsed_value);
+            update_group = 0U;
+            break;
+        default:
+            update_group = 0U;
             break;
     }
+    
+}
+
+void update_data_pages() {
+    if (curr_page == PAGE_RACE) {
+        update_race_page();
+        return;
+    }
+
+    if (curr_page == PAGE_DATA) {
+        set_value(POW_LIM_BAR, NXT_VALUE, 0);
+        set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
+    }
+
+    return;
 }
 
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
@@ -1048,6 +1074,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
         settings.b_pump_selected = msg_data_a->coolant_out.bat_pump_aux;
         return;
     }
+
     if (settings.curr_hover != DT_FAN_SELECT) {
         settings.d_fan_val = msg_data_a->coolant_out.dt_fan;
         set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);
@@ -1055,6 +1082,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
         set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));
         bzero(parsed_value, 3);
     }
+
     if (settings.curr_hover != FAN1_SELECT) {
         settings.b_fan_val = msg_data_a->coolant_out.bat_fan;
         set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
@@ -1062,6 +1090,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
         set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
         bzero(parsed_value, 3);
     }
+
     set_value(DT_PUMP_OP, NXT_FONT_COLOR, BLACK);
     set_value(B_FAN2_OP, NXT_FONT_COLOR, BLACK);
     set_value(B_PUMP_OP, NXT_FONT_COLOR, BLACK);
@@ -1128,30 +1157,14 @@ void updateFaultPageIndicators() {
 
 
 void updateSDCStatus(uint8_t status, char *element) {
-    set_value(element, NXT_BACKGROUND_COLOR, status ? GREEN : RED);
-}
-
-void updateSDCGroup1() {
-    updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
-    updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-    updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
-}
-
-void updateSDCGroup2() {
-    updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
-}
-
-void updateSDCGroup3() {
-    updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-    //todo set first trip from latest change in the sdc
+    if (status)
+    {
+        set_value(element, NXT_BACKGROUND_COLOR, GREEN);
+    }
+    else
+    {
+        set_value(element, NXT_BACKGROUND_COLOR, RED);
+    }
 }
 
 void updateSDCDashboard() {
@@ -1160,17 +1173,28 @@ void updateSDCDashboard() {
         return;
     }
 
-    // cycle through the update groups to update each element
+    // cycle through the update groups (5 elements each)
     update_group++;
     switch (update_group) {
         case 1:
-            updateSDCGroup1();
+            updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+            updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+            updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
             break;
         case 2:
-            updateSDCGroup2();
+            updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
             break;
         case 3:
-            updateSDCGroup3();
+            updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+            //todo set first trip from latest change in the sdc
             update_group = 0U;
             break;
         default:

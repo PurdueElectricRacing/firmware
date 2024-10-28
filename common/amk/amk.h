@@ -55,15 +55,15 @@ typedef struct {
     uint8_t deinit_state;
 } amk_motor_states_t;
 
-// typedef struct {
-//     uint16_t torque_setpoint;
-//     uint16_t torque_limit_positive;
-//     uint16_t torque_limit_negative;
-// } amk_motor_values_t;
+typedef struct {
+    uint16_t torque_setpoint;
+    uint16_t torque_limit_positive;
+    uint16_t torque_limit_negative;
+} amk_motor_values_t;
 
 typedef struct {
     amk_motor_states_t states;
-    uint16_t torque_setpoint;
+    amk_motor_values_t values;
     AMK_Status_t status;
     AMK_Control_t control;
 } amk_motor_t;

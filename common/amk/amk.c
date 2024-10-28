@@ -8,7 +8,7 @@
  * like car.c. It will have states such as init which will turn motors on,
  * and a state to turn motors off and a state to actually run stuff.
  * The massive state machine will run periodically (not sure how often yet,
- * has to be < 50ms so that the control word can be send often)
+ * has to be < 50ms so that the motor->control word can be send often)
  */
 
 /* NOTE:
@@ -27,9 +27,6 @@
 
 static amk_motor_t right = {0};
 
-static AMK_Control_t control = {0};
-static AMK_Status_t status = {0};
-
 static void turnMotorOn(amk_motor_t* motor);
 static void motorRunning(amk_motor_t* motor);
 static void turnMotorOff(amk_motor_t* motor);
@@ -38,7 +35,7 @@ static void turnMotorOff(amk_motor_t* motor);
  * to have it in case something changes down the line while I learn more, so
  * this may end up being deleted if everything just inits to 0 */
 
-/* FIXME: Move control word and status words into motor struct */
+/* FIXME: Move motor->control word and status words into motor struct */
 
 void motorInit(amk_motor_t* motor)
 {
@@ -75,8 +72,21 @@ void motorPeriodic()
     }
 }
 
+/* So car.c has READY2DRIVE state. This calculates all of the torque values.
+ * The car state machine can write to the motor structs and then this can
+ * send them to the motors. Or we can move that login into here, not sure.
+ * But we will need some way to figure out when to deinit the motors, maybe
+ * some thing that will give it time before turning the power to the car off?
+ * And the driver will have to wait once initing the "turning off" sequece
+ * before actually turning off the car.
+ */
 static void motorRunning(amk_motor_t* motor)
 {
+    /* Set setpoints as needed */
+    SEND_AMK_SETPOINTS(motor->control.bits,
+                         motor->values.torque_setpoint,
+                         motor->values.torque_limit_positive,
+                         motor->values.torque_limit_negative);
 }
 
 static void turnMotorOn(amk_motor_t* motor)
@@ -98,9 +108,9 @@ static void turnMotorOn(amk_motor_t* motor)
             if (can_data.AMK_Actual_Values_1.stale)
                 break;
 
-            status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+            motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
 
-            if (status.fields.AMK_bSystemReady)
+            if (motor->status.fields.AMK_bSystemReady)
                 motor->states.init_state = MOTOR_INIT_PRECHARGE;
 
             break;
@@ -119,9 +129,9 @@ static void turnMotorOn(amk_motor_t* motor)
             break;
         case MOTOR_INIT_DC_ON:
             /* 3. Set AMK_bDcOn = 1 */
-            control.fields.AMK_bDcOn = true;
+            motor->control.fields.AMK_bDcOn = true;
 
-            SEND_AMK_SETPOINTS_1(control.bits,
+            SEND_AMK_SETPOINTS(motor->control.bits,
                                  motor->values.torque_setpoint,
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);
@@ -133,14 +143,14 @@ static void turnMotorOn(amk_motor_t* motor)
             if (can_data.AMK_Actual_Values_1.stale)
                 break;
 
-            status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+            motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
 
             /* When will AMK_bQuitDcOn go on? Does it take some time after 
              * DcOn is set?? */
             /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
                 /* Does where do I check QUE??? */
 
-            if (status.fields.AMK_bQuitDcOn)
+            if (motor->status.fields.AMK_bQuitDcOn)
                 motor->states.init_state = MOTOR_INIT_TORQUE_INIT;
 
             break;
@@ -149,7 +159,8 @@ static void turnMotorOn(amk_motor_t* motor)
             motor->values.torque_limit_positive = 0;
             motor->values.torque_limit_negative = 0;
 
-            SEND_AMK_SETPOINTS_1(control.bits,
+            /* Says I also need to set act speed to 0? */
+            SEND_AMK_SETPOINTS(motor->control.bits,
                                  motor->values.torque_setpoint,
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);
@@ -159,8 +170,8 @@ static void turnMotorOn(amk_motor_t* motor)
             break;
         case MOTOR_INIT_ENABLE:
             /* 7. Set AMK_bEnable = 1 */
-            control.fields.AMK_bEnable = true;
-            SEND_AMK_SETPOINTS_1(control.bits,
+            motor->control.fields.AMK_bEnable = true;
+            SEND_AMK_SETPOINTS(motor->control.bits,
                                  motor->values.torque_setpoint,
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);
@@ -169,8 +180,8 @@ static void turnMotorOn(amk_motor_t* motor)
             break;
         case MOTOR_INIT_INVERTER_ON:
             /* 8  Set AMK_bInverterOn = 1 */
-            control.fields.AMK_bInverterOn = true;
-            SEND_AMK_SETPOINTS_1(control.bits,
+            motor->control.fields.AMK_bInverterOn = true;
+            SEND_AMK_SETPOINTS(motor->control.bits,
                                  motor->values.torque_setpoint,
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);
@@ -182,14 +193,14 @@ static void turnMotorOn(amk_motor_t* motor)
             if (can_data.AMK_Actual_Values_1.stale)
                 break;
 
-            status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+            motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
 
             /* Same with AMK_bQuitDcOn, do we need seperate states for these quits?? */
             /* 9. Check AMK_bQuitInverterOn = 1 */
 
             /* This should be the last init state, so now we move onto the stage for 
              * running the motors */
-            if (status.fields.AMK_bQuitInverterOn) {
+            if (motor->status.fields.AMK_bQuitInverterOn) {
                 motor->states.init_state = MOTOR_INIT_DONE;
                 motor->states.stage = MOTOR_STAGE_RUNNING;
             }
@@ -215,7 +226,7 @@ static void turnMotorOff(amk_motor_t* motor)
             motor->values.torque_limit_positive = 0;
             motor->values.torque_limit_negative = 0;
 
-            SEND_AMK_SETPOINTS_1(control.bits,
+            SEND_AMK_SETPOINTS(motor->control.bits,
                                  motor->values.torque_setpoint,
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);
@@ -225,9 +236,9 @@ static void turnMotorOff(amk_motor_t* motor)
 
         case MOTOR_DEINIT_INVERTER_OFF:
             /* 2. Set AMK_bInverterOn = 0 */
-            control.fields.AMK_bInverterOn = true;
+            motor->control.fields.AMK_bInverterOn = true;
 
-            SEND_AMK_SETPOINTS_1(control.bits,
+            SEND_AMK_SETPOINTS(motor->control.bits,
                                  motor->values.torque_setpoint,
                                  motor->values.torque_limit_positive,
                                  motor->values.torque_limit_negative);

@@ -37,6 +37,8 @@ void canRxUpdate(void)
             case ID_AMK_SETPOINTS:
                 can_data.AMK_Setpoints.AMK_Control = msg_data_a->AMK_Setpoints.AMK_Control;
                 can_data.AMK_Setpoints.AMK_TorqueSetpoint = (int16_t) msg_data_a->AMK_Setpoints.AMK_TorqueSetpoint;
+                can_data.AMK_Setpoints.AMK_PositiveTorqueLimit = (int16_t) msg_data_a->AMK_Setpoints.AMK_PositiveTorqueLimit;
+                can_data.AMK_Setpoints.AMK_NegativeTorqueLimit = (int16_t) msg_data_a->AMK_Setpoints.AMK_NegativeTorqueLimit;
                 can_data.AMK_Setpoints.stale = 0;
                 can_data.AMK_Setpoints.last_rx = sched.os_ticks;
                 break;

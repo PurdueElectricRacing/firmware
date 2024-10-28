@@ -31,8 +31,9 @@ typedef union {
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_AMK_ACTUAL_VALUES_1 0x283
-#define ID_AMK_ACTUAL_VALUES_2 0x285
-#define ID_AMK_TEMPERATURES_1 0x186
+#define ID_AMK_ACTUAL_VALUES_2 0x284
+#define ID_AMK_TEMPERATURES_1 0x285
+#define ID_AMK_TEMPERATURES_2 0x286
 #define ID_AMK_SETPOINTS 0x184
 /* END AUTO ID DEFS */
 
@@ -41,18 +42,18 @@ typedef union {
 #define DLC_AMK_ACTUAL_VALUES_1 8
 #define DLC_AMK_ACTUAL_VALUES_2 6
 #define DLC_AMK_TEMPERATURES_1 6
-#define DLC_AMK_SETPOINTS 4
+#define DLC_AMK_TEMPERATURES_2 6
+#define DLC_AMK_SETPOINTS 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_AMK_ACTUAL_VALUES_1(AMK_Status_, AMK_ActualVelocity_, AMK_TorqueCurrent_, AMK_MagnetizingCurrent_) do {\
+#define SEND_AMK_ACTUAL_VALUES_1(AMK_Status_, AMK_ActualTorque_, AMK_MotorSerialNumber_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_ACTUAL_VALUES_1, .DLC=DLC_AMK_ACTUAL_VALUES_1, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->AMK_Actual_Values_1.AMK_Status = AMK_Status_;\
-        data_a->AMK_Actual_Values_1.AMK_ActualVelocity = AMK_ActualVelocity_;\
-        data_a->AMK_Actual_Values_1.AMK_TorqueCurrent = AMK_TorqueCurrent_;\
-        data_a->AMK_Actual_Values_1.AMK_MagnetizingCurrent = AMK_MagnetizingCurrent_;\
+        data_a->AMK_Actual_Values_1.AMK_ActualTorque = AMK_ActualTorque_;\
+        data_a->AMK_Actual_Values_1.AMK_MotorSerialNumber = AMK_MotorSerialNumber_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_AMK_ACTUAL_VALUES_2(AMK_ActualSpeed_, AMK_DCBusVoltage_, AMK_SystemReset_) do {\
@@ -69,6 +70,14 @@ typedef union {
         data_a->AMK_Temperatures_1.AMK_MotorTemp = AMK_MotorTemp_;\
         data_a->AMK_Temperatures_1.AMK_InverterTemp = AMK_InverterTemp_;\
         data_a->AMK_Temperatures_1.AMK_IGBTTemp = AMK_IGBTTemp_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_TEMPERATURES_2(AMK_InternalTemp_, AMK_ExternalTemp_, AMK_TempSensorMotor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_TEMPERATURES_2, .DLC=DLC_AMK_TEMPERATURES_2, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Temperatures_2.AMK_InternalTemp = AMK_InternalTemp_;\
+        data_a->AMK_Temperatures_2.AMK_ExternalTemp = AMK_ExternalTemp_;\
+        data_a->AMK_Temperatures_2.AMK_TempSensorMotor = AMK_TempSensorMotor_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -90,9 +99,8 @@ typedef union {
 typedef union { 
     struct {
         uint64_t AMK_Status: 16;
-        uint64_t AMK_ActualVelocity: 16;
-        uint64_t AMK_TorqueCurrent: 16;
-        uint64_t AMK_MagnetizingCurrent: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_MotorSerialNumber: 32;
     } AMK_Actual_Values_1;
     struct {
         uint64_t AMK_ActualSpeed: 16;
@@ -105,8 +113,15 @@ typedef union {
         uint64_t AMK_IGBTTemp: 16;
     } AMK_Temperatures_1;
     struct {
+        uint64_t AMK_InternalTemp: 16;
+        uint64_t AMK_ExternalTemp: 16;
+        uint64_t AMK_TempSensorMotor: 16;
+    } AMK_Temperatures_2;
+    struct {
         uint64_t AMK_Control: 16;
         uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
     } AMK_Setpoints;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
@@ -119,6 +134,8 @@ typedef struct {
     struct {
         uint16_t AMK_Control;
         int16_t AMK_TorqueSetpoint;
+        int16_t AMK_PositiveTorqueLimit;
+        int16_t AMK_NegativeTorqueLimit;
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Setpoints;

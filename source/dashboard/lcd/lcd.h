@@ -214,6 +214,7 @@ void moveDown();                                    // Downward UI input detecte
 void selectItem();                                  // Selection UI input detected
 void updateFaultDisplay();                          // Periodically poll recent faults and update the fault buffer and page as needed
 void update_data_pages();                           // Periodically poll recent telemetry and update the data page as needd
+void append_char(char *str, char ch, size_t max_len);
 char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
 bool zeroEncoder(volatile int8_t* start_pos);       // Zero the encoder position for page selection
 void sendTVParameters();                            // Periodically send updates to the TV configuration to TV board

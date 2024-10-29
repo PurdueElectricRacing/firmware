@@ -49,23 +49,24 @@ typedef union
 } AMK_Control_t;
 
 typedef struct {
+    // uint8_t state;
     uint8_t stage;
-    uint8_t running_state;
-    uint8_t init_state;
-    uint8_t deinit_state;
+    uint8_t running_stage;
+    uint8_t init_stage;
+    uint8_t deinit_stage;
 } amk_motor_states_t;
 
 typedef struct {
-    uint16_t torque_setpoint;
-    uint16_t torque_limit_positive;
-    uint16_t torque_limit_negative;
-} amk_motor_values_t;
-
-typedef struct {
     amk_motor_states_t states;
-    amk_motor_values_t values;
     AMK_Status_t status;
     AMK_Control_t control;
+    int16_t torque_setpoint;
+    int16_t torque_limit_positive;
+    int16_t torque_limit_negative;
+    int16_t actual_torque;
+    int16_t actual_speed;
+    int16_t motor_temp;
+    int16_t inverter_temp;
 } amk_motor_t;
 
 typedef enum {

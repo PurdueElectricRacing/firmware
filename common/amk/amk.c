@@ -30,6 +30,7 @@ static amk_motor_t right = {0};
 static void turnMotorOn(amk_motor_t* motor);
 static void motorRunning(amk_motor_t* motor);
 static void turnMotorOff(amk_motor_t* motor);
+static void motorGetData(amk_motor_t* motor);
 
 /* NOTE: As of now this is just setting everything to 0, but it may make sense
  * to have it in case something changes down the line while I learn more, so
@@ -59,6 +60,7 @@ void motorInit(amk_motor_t* motor)
  * */
 void motorPeriodic(amk_motor_t* motor)
 {
+    motorGetData(motor);
     switch(motor->states.stage) {
     case MOTOR_STAGE_INIT:
         turnMotorOn(motor);
@@ -69,6 +71,26 @@ void motorPeriodic(amk_motor_t* motor)
     case MOTOR_STAGE_DEINIT:
         turnMotorOff(motor);
         break;
+    }
+}
+
+static void motorGetData(amk_motor_t* motor)
+{
+    if (!can_data.AMK_Actual_Values_1.stale) {
+        motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+        motor->actual_torque = can_data.AMK_Actual_Values_1.AMK_ActualTorque;
+        motor->serial_num = can_data.AMK_Actual_Values_1.AMK_MotorSerialNumber;
+    }
+
+    if (!can_data.AMK_Actual_Values_2.stale) {
+        motor->actual_speed = can_data.AMK_Actual_Values_2.AMK_ActualSpeed;
+        motor->dc_bus_voltage = can_data.AMK_Actual_Values_2.AMK_DCBusVoltage;
+        motor->system_reset = can_data.AMK_Actual_Values_2.AMK_SystemReset;
+    }
+
+    if (!can_data.AMK_Temperatures_1.stale) {
+        motor->motor_temp = can_data.AMK_Temperatures_1.AMK_MotorTemp;
+        motor->inverter_temp = can_data.AMK_Temperatures_1.AMK_InverterTemp;
     }
 }
 
@@ -87,6 +109,7 @@ static void motorRunning(amk_motor_t* motor)
                          motor->torque_setpoint,
                          motor->torque_limit_positive,
                          motor->torque_limit_negative);
+
 }
 
 static void turnMotorOn(amk_motor_t* motor)

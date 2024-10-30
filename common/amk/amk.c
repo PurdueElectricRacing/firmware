@@ -135,6 +135,7 @@ static void turnMotorOn(amk_motor_t* motor)
                                  motor->torque_setpoint,
                                  motor->torque_limit_positive,
                                  motor->torque_limit_negative);
+
             motor->states.init_stage = MOTOR_INIT_DC_ON_CHECK;
 
             break;
@@ -223,10 +224,16 @@ static void turnMotorOff(amk_motor_t* motor)
      * be met before moving onto the next step.
      */
 
+    /* NOTE: For some reason in the deinit state machine, we have to turn the
+     * inverter off, then disable, and then check for the inverter being off.
+     * This is different to how it is done in the init state machine but it
+     * is correct based on the datasheet.
+     */
+
     switch(motor->states.deinit_stage) {
         case MOTOR_DEINIT_SETPOINTS_DEINIT:
             /* 1. Set setpoint settings to 0 (AMK_TargetVelocity, AMK_TorqueLimitNegativ, AMK_TorqueLimitPositiv) */
-            motor->torque_setpoint= 0;
+            motor->torque_setpoint = 0;
             motor->torque_limit_positive = 0;
             motor->torque_limit_negative = 0;
 
@@ -252,7 +259,7 @@ static void turnMotorOff(amk_motor_t* motor)
 
             break;
         case MOTOR_DEINIT_DISABLE:
-            /* 2. Set AMK_bEnable = 0 */
+            /* 3. Set AMK_bEnable = 0 */
 
             motor->control.fields.AMK_bEnable = false;
 
@@ -263,11 +270,6 @@ static void turnMotorOff(amk_motor_t* motor)
 
             motor->states.deinit_stage = MOTOR_DEINIT_INVERTER_OFF_CHECK;
 
-            break;
-        case MOTOR_DEINIT_INVERTER_OFF_CHECK:
-            /* 3. AMK_bInverterOn is mirrored in AMK_Status, so should be on there */
-
-            motor->states.deinit_stage = MOTOR_DEINIT_DISABLE;
             break;
         case MOTOR_DEINIT_QUIT_INVERTER_CHECK:
             /* 4. Check AMK_bQuitInverterOn = 0 */
@@ -286,17 +288,42 @@ static void turnMotorOff(amk_motor_t* motor)
             break;
         case MOTOR_DEINIT_DC_OFF:
             /* 5. Set AMK_bDcOn = 0 */
+
+            motor->control.fields.AMK_bDcOn = false;
+
+            SEND_AMK_SETPOINTS(motor->control.bits,
+                                 motor->torque_setpoint,
+                                 motor->torque_limit_positive,
+                                 motor->torque_limit_negative);
+
             motor->states.deinit_stage = MOTOR_DEINIT_DC_OFF_CHECK;
 
             break;
         case MOTOR_DEINIT_DC_OFF_CHECK:
             /* 5r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
             /* 5r. Check AMK_bQuitDcOn = 0 */
+            if (can_data.AMK_Actual_Values_1.stale)
+                break;
+
+            motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
+
+            /* When will AMK_bQuitDcOn go on? Does it take some time after 
+             * DcOn is set?? */
+            /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
+                /* Does where do I check QUE??? */
+
+            if (!(motor->status.fields.AMK_bQuitDcOn))
+                motor->states.init_stage = MOTOR_INIT_TORQUE_INIT;
+
             motor->states.deinit_stage = MOTOR_DEINIT_PRECHARGE;
 
             break;
         case MOTOR_DEINIT_PRECHARGE:
             /* 6. Discharge DC caps; QUE should be reset (is this just DcOn?) */
+            
+            /* FIXME: Will this work? Not sure if this goes low when discharged */
+            if (!(car.pchg.pchg_complete))
+                motor->states.init_stage = MOTOR_DEINIT_POWER_OFF;
 
             /* If discharged, move on */
             motor->states.deinit_stage = MOTOR_DEINIT_POWER_OFF;
@@ -304,6 +331,7 @@ static void turnMotorOff(amk_motor_t* motor)
             break;
         case MOTOR_DEINIT_POWER_OFF:
             /* 7. Turn off 24v DC to inverters */
+            /* We don't do much here, just have to turn off the car I guess */
             motor->states.deinit_stage = MOTOR_DEINIT_DONE;
             motor->states.stage = MOTOR_STAGE_OFF;
 

@@ -13,7 +13,6 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <can_parse.h>
 
 /* Inverter -> CAN */
 /* In AMK_Actual_Values_1 */
@@ -61,12 +60,14 @@ typedef struct {
     amk_motor_states_t states;
     AMK_Status_t status;
     AMK_Control_t control;
+
     int16_t torque_setpoint;
     int16_t torque_limit_positive;
     int16_t torque_limit_negative;
+
     int16_t actual_torque;
     int16_t actual_speed;
-    uint32_t serial_num;
+    uint32_t serial_num; // for sanity checking
     int16_t motor_temp;
     int16_t inverter_temp;
     uint16_t dc_bus_voltage;
@@ -88,7 +89,6 @@ typedef enum {
 typedef enum {
     MOTOR_DEINIT_SETPOINTS_DEINIT,
     MOTOR_DEINIT_INVERTER_OFF,
-    MOTOR_DEINIT_INVERTER_OFF_CHECK,
     MOTOR_DEINIT_DISABLE,
     MOTOR_DEINIT_QUIT_INVERTER_CHECK,
     MOTOR_DEINIT_DC_OFF,
@@ -109,7 +109,7 @@ typedef enum {
 #define DEFAULT_POSITIVE_TORQUE_LIMIT 0
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT 0
 
-#define MAX_TORQUE_SETPOINT 6000
+#define MAX_TORQUE_SETPOINT 1000
 #define MAX_POSITIVE_TORQUE_LIMIT 1000
 #define MAX_NEGATIVE_TORQUE_LIMIT 1000
 

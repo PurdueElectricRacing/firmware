@@ -45,8 +45,7 @@ void motorInit(amk_motor_t* motor)
         .states.stage = MOTOR_STAGE_INIT,
         .states.init_stage = MOTOR_INIT_POWER_ON,
         .states.deinit_stage = MOTOR_DEINIT_SETPOINTS_DEINIT,
-        /* FIXME: FILL IN ONCE I MAKE ENUM */
-        .states.running_stage = 0,
+        .states.running_stage = 0, /* FIXME: FILL IN ONCE I MAKE ENUM */
 
         /* Values */
         .torque_setpoint = DEFAULT_TORQUE_SETPOINT,
@@ -55,12 +54,14 @@ void motorInit(amk_motor_t* motor)
     };
 }
 
-/* FIXME: Maybe have a seperate instance of this function for each motor, or
- * handle all motors in a single instance
- * */
+/* TODO: Determine period of this. Should be pretty often of course. The control
+ * word needs to be sent every 50ms or the motors will shut off. Plettenberg did
+ * every 15ms so maybe we will just do that?
+ */
 void motorPeriodic(amk_motor_t* motor)
 {
     motorGetData(motor);
+
     switch(motor->states.stage) {
     case MOTOR_STAGE_INIT:
         turnMotorOn(motor);
@@ -94,13 +95,8 @@ static void motorGetData(amk_motor_t* motor)
     }
 }
 
-/* So car.c has READY2DRIVE state. This calculates all of the torque values.
- * The car state machine can write to the motor structs and then this can
- * send them to the motors. Or we can move that login into here, not sure.
- * But we will need some way to figure out when to deinit the motors, maybe
- * some thing that will give it time before turning the power to the car off?
- * And the driver will have to wait once initing the "turning off" sequece
- * before actually turning off the car.
+/* TODO: Not really sure what needs to be done here. We just need to push
+ * these values that are determined in car.c state machine (READY2DRIVE state)
  */
 static void motorRunning(amk_motor_t* motor)
 {
@@ -109,7 +105,6 @@ static void motorRunning(amk_motor_t* motor)
                          motor->torque_setpoint,
                          motor->torque_limit_positive,
                          motor->torque_limit_negative);
-
 }
 
 static void turnMotorOn(amk_motor_t* motor)

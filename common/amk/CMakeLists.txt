@@ -1,4 +1,4 @@
-set(TARGET_NAME amk)
+set(TARGET_NAME AMK)
 add_library(${TARGET_NAME})
 
 # Find all .c sources in project

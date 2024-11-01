@@ -107,9 +107,11 @@ BO_ 2348811137 sdc_status: 2 Main_Module
  SG_ BMS : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ IMD : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415919873 rear_motor_temps: 4 Main_Module
- SG_ right_ctrl_temp : 24|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ left_ctrl_temp : 16|8@1+ (1,0) [0|0] "C" Vector__XXX
+BO_ 2415919873 rear_motor_temps: 6 Main_Module
+ SG_ right_igbt_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
+ SG_ left_igbt_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
+ SG_ right_inv_temp : 24|8@1+ (1,0) [0|0] "C" Vector__XXX
+ SG_ left_inv_temp : 16|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ right_mot_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
  SG_ left_mot_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
 
@@ -726,8 +728,10 @@ CM_ SG_ 2348811137 BSPD "";
 CM_ SG_ 2348811137 BMS "";
 CM_ SG_ 2348811137 IMD "";
 CM_ BO_ 2415919873 "Temperature of motor controllers and motors";
-CM_ SG_ 2415919873 right_ctrl_temp "";
-CM_ SG_ 2415919873 left_ctrl_temp "";
+CM_ SG_ 2415919873 right_igbt_temp "";
+CM_ SG_ 2415919873 left_igbt_temp "";
+CM_ SG_ 2415919873 right_inv_temp "";
+CM_ SG_ 2415919873 left_inv_temp "";
 CM_ SG_ 2415919873 right_mot_temp "";
 CM_ SG_ 2415919873 left_mot_temp "";
 CM_ BO_ 2214593409 "Rear Wheel speeds from motor controllers";

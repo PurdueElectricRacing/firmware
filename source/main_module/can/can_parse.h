@@ -84,7 +84,7 @@ typedef union {
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_SDC_STATUS 2
-#define DLC_REAR_MOTOR_TEMPS 4
+#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_AMK_SETPOINTS 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -221,13 +221,15 @@ typedef union {
         data_a->sdc_status.pchg_out = pchg_out_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_MOTOR_TEMPS(left_mot_temp_, right_mot_temp_, left_ctrl_temp_, right_ctrl_temp_) do {\
+#define SEND_REAR_MOTOR_TEMPS(left_mot_temp_, right_mot_temp_, left_inv_temp_, right_inv_temp_, left_igbt_temp_, right_igbt_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_TEMPS, .DLC=DLC_REAR_MOTOR_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_motor_temps.left_mot_temp = left_mot_temp_;\
         data_a->rear_motor_temps.right_mot_temp = right_mot_temp_;\
-        data_a->rear_motor_temps.left_ctrl_temp = left_ctrl_temp_;\
-        data_a->rear_motor_temps.right_ctrl_temp = right_ctrl_temp_;\
+        data_a->rear_motor_temps.left_inv_temp = left_inv_temp_;\
+        data_a->rear_motor_temps.right_inv_temp = right_inv_temp_;\
+        data_a->rear_motor_temps.left_igbt_temp = left_igbt_temp_;\
+        data_a->rear_motor_temps.right_igbt_temp = right_igbt_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_REAR_WHEEL_SPEEDS(left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
@@ -421,8 +423,10 @@ typedef union {
     struct {
         uint64_t left_mot_temp: 8;
         uint64_t right_mot_temp: 8;
-        uint64_t left_ctrl_temp: 8;
-        uint64_t right_ctrl_temp: 8;
+        uint64_t left_inv_temp: 8;
+        uint64_t right_inv_temp: 8;
+        uint64_t left_igbt_temp: 8;
+        uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
         uint64_t left_speed_mc: 16;

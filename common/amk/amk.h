@@ -68,11 +68,20 @@ typedef struct {
     int16_t actual_torque;
     int16_t actual_speed;
     uint32_t serial_num; // for sanity checking
+
     int16_t motor_temp;
     int16_t inverter_temp;
+    int16_t igbt_temp;
+
     uint16_t dc_bus_voltage;
     uint16_t system_reset;
+
+    bool* pchg_complete;
 } amk_motor_t;
+
+void motorInit(amk_motor_t* motor, bool* pchg_complete);
+void motorPeriodic(amk_motor_t* motor);
+void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint);
 
 typedef enum {
     MOTOR_INIT_POWER_ON,
@@ -109,8 +118,9 @@ typedef enum {
 #define DEFAULT_POSITIVE_TORQUE_LIMIT 0
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT 0
 
-#define MAX_TORQUE_SETPOINT 1000
+#define MAX_POSITIVE_TORQUE_SETPOINT 1000
+#define MAX_NEGATIVE_TORQUE_SETPOINT -1000
 #define MAX_POSITIVE_TORQUE_LIMIT 1000
-#define MAX_NEGATIVE_TORQUE_LIMIT 1000
+#define MAX_NEGATIVE_TORQUE_LIMIT -1000
 
 #endif /* _AMK_H_ */

@@ -1,7 +1,5 @@
 #include "amk.h"
-#include "source/main_module/car/car.h"
 #include "source/main_module/can/can_parse.h"
-
 
 /* NOTE:
  * I need change all of this to be a massive state machine in one function
@@ -38,7 +36,7 @@ static void motorGetData(amk_motor_t* motor);
 
 /* FIXME: Move motor->control word and status words into motor struct */
 
-void motorInit(amk_motor_t* motor)
+void motorInit(amk_motor_t* motor, bool* pchg_complete)
 {
     *motor = (amk_motor_t){
         /* States */
@@ -50,7 +48,9 @@ void motorInit(amk_motor_t* motor)
         /* Values */
         .torque_setpoint = DEFAULT_TORQUE_SETPOINT,
         .torque_limit_positive = DEFAULT_POSITIVE_TORQUE_LIMIT,
-        .torque_limit_negative = DEFAULT_NEGATIVE_TORQUE_LIMIT
+        .torque_limit_negative = DEFAULT_NEGATIVE_TORQUE_LIMIT,
+
+        .pchg_complete = pchg_complete
     };
 }
 
@@ -75,6 +75,20 @@ void motorPeriodic(amk_motor_t* motor)
     }
 }
 
+/* Sets the torque setpoint from -1000% to 1000% of nominal torque.
+ * But this function just takes in -100% to 100% to stay consistent */
+void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
+{
+    if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT 
+        || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT)
+        return;
+
+    /* Scale up since unit is 0.1% of nominal torque */
+    torque_setpoint *= 10;
+
+    motor->torque_setpoint = torque_setpoint;
+}
+
 static void motorGetData(amk_motor_t* motor)
 {
     if (!can_data.AMK_Actual_Values_1.stale) {
@@ -92,6 +106,7 @@ static void motorGetData(amk_motor_t* motor)
     if (!can_data.AMK_Temperatures_1.stale) {
         motor->motor_temp = can_data.AMK_Temperatures_1.AMK_MotorTemp;
         motor->inverter_temp = can_data.AMK_Temperatures_1.AMK_InverterTemp;
+        motor->igbt_temp = can_data.AMK_Temperatures_1.AMK_IGBTTemp;
     }
 }
 
@@ -141,7 +156,7 @@ static void turnMotorOn(amk_motor_t* motor)
         /* if precharge complete pin is high */
         /* NOTE: This is found for us in car.c. Can check the pin ourselves
          * if we should not be touching this struct outside of car.c */
-        if (car.pchg.pchg_complete)
+        if (*motor->pchg_complete)
             motor->states.init_stage = MOTOR_INIT_DC_ON;
 
         break;
@@ -340,7 +355,7 @@ static void turnMotorOff(amk_motor_t* motor)
         /* 7. Discharge DC caps; QUE should be reset (is this just DcOn?) */
         
         /* FIXME: Will this work? Not sure if this goes low when discharged */
-        if (!(car.pchg.pchg_complete))
+        if (!(*motor->pchg_complete))
             motor->states.init_stage = MOTOR_DEINIT_POWER_OFF;
 
         /* If discharged, move on */

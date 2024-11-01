@@ -87,6 +87,16 @@ void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
     torque_setpoint *= 10;
 
     motor->torque_setpoint = torque_setpoint;
+
+    if (torque_setpoint < 0) {
+        motor->torque_limit_negative = torque_setpoint;
+        motor->torque_limit_positive = 0;
+    }
+    else {
+        motor->torque_limit_positive = torque_setpoint;
+        motor->torque_limit_negative = 0;
+    }
+
 }
 
 static void motorGetData(amk_motor_t* motor)

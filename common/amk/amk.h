@@ -61,14 +61,18 @@ typedef struct {
     AMK_Status_t status;
     AMK_Control_t control;
 
+    /* Scaling: 0.1% */
     int16_t torque_setpoint;
     int16_t torque_limit_positive;
     int16_t torque_limit_negative;
 
+    /* Scaling: 0.1% */
     int16_t actual_torque;
     int16_t actual_speed;
+
     uint32_t serial_num; // for sanity checking
 
+    /* Scaling: 0.1% */
     int16_t motor_temp;
     int16_t inverter_temp;
     int16_t igbt_temp;

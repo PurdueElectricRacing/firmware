@@ -112,6 +112,11 @@ typedef enum {
 } amk_motor_deinit_state_t;
 
 typedef enum {
+    MOTOR_RUNNING_GOOD,
+    MOTOR_RUNNING_ERROR,
+} amk_motor_running_state_t;
+
+typedef enum {
     MOTOR_STAGE_OFF,
     MOTOR_STAGE_INIT,
     MOTOR_STAGE_RUNNING,

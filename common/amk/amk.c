@@ -125,11 +125,24 @@ static void motorGetData(amk_motor_t* motor)
  */
 static void motorRunning(amk_motor_t* motor)
 {
-    /* Set setpoints as needed */
-    SEND_AMK_SETPOINTS(motor->control.bits,
-                         motor->torque_setpoint,
-                         motor->torque_limit_positive,
-                         motor->torque_limit_negative);
+    switch (motor->states.running_stage) {
+    case MOTOR_RUNNING_GOOD:
+        /* Set setpoints as needed */
+        SEND_AMK_SETPOINTS(motor->control.bits,
+                             motor->torque_setpoint,
+                             motor->torque_limit_positive,
+                             motor->torque_limit_negative);
+
+        /* Check for errors */
+        if (motor->status.fields.AMK_bError)
+            motor->states.running_stage = MOTOR_RUNNING_ERROR;
+
+        break;
+    case MOTOR_RUNNING_ERROR:
+        /* 8.2.5 for error diagram */
+
+        break;
+    }
 }
 
 static void turnMotorOn(amk_motor_t* motor)

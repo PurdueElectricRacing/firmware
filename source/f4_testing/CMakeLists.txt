@@ -6,11 +6,20 @@ STRING(TOLOWER ${COMPONENT_NAME} COMPONENT_NAME)
 set(TARGET_NAME ${COMPONENT_NAME}.elf)
 add_executable(${TARGET_NAME})
 
-# Propreties are set in order to make the common component
+# Add include directories
+target_include_directories(${TARGET_NAME} PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/../dashboard/lcd
+    ${CMAKE_CURRENT_LIST_DIR}/../dashboard/nextion
+    ${CMAKE_CURRENT_LIST_DIR}/../dashboard/pedals
+    ${CMAKE_CURRENT_LIST_DIR}/../dashboard/can
+)
+
+# Properties are set in order to make the common component
 set_target_properties(${TARGET_NAME} PROPERTIES
     COMPONENT_NAME ${COMPONENT_NAME}
     COMPONENT_DIR  ${CMAKE_CURRENT_LIST_DIR}
     LINKER_SCRIPT  "STM32F407VGTx_FLASH"
-    COMMON_LIBS    "CMSIS_F407;PSCHED_F407;PHAL_F407;"
+    COMMON_LIBS    "CMSIS_F407;PSCHED_F407;PHAL_F407;QUEUE;"
 )
+
 COMMON_FIRMWARE_COMPONENT(${TARGET_NAME})

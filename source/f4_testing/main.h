@@ -6,13 +6,8 @@ typedef struct __attribute__((packed))
     // Do not modify this struct unless
     // you modify the ADC DMA config
     // in main.h to match
-    uint16_t testval;
+    uint16_t pot_val;
 } raw_adc_values_t;
-
-#define RED 14
-#define BLUE 15
-#define GREEN 12
-#define ORANGE 13
 
 #define SPI_CS_PIN 3
 #define SPI_CS_PORT GPIOE

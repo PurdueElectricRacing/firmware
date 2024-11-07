@@ -97,6 +97,9 @@ void usartTxUpdate();
 void config_inturrupts();
 void handle_inputs();
 extern void updatePage();
+void set_page_test();
+void preflightChecks(void);
+void preflightAnimation(void);
 
 // Communication queues
 q_handle_t q_tx_usart;
@@ -124,35 +127,20 @@ int main()
     {
         HardFault_Handler();
     }
-    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if(!PHAL_initDMA(&adc_dma_config))
-    {
-        HardFault_Handler();
-    }
-    if(false == PHAL_initUSART(&lcd, APB2ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
-
-    config_inturrupts();
 
     schedInit(APB1ClockRateHz);
-    initLCD();
+    configureAnim(preflightAnimation, preflightChecks, 60, 2500);
     
-    taskCreate(handle_inputs, 50);
-    taskCreate(updatePage,  1000);
-    taskCreate(usartTxUpdate, 200);
-    registerPreflightComplete(1);
-    //taskCreateBackground(usartTxUpdate);
+    taskCreate(set_page_test, 3000);
+    taskCreateBackground(usartTxUpdate);
 
     schedStart();
     // Never reached
     return 0;
+}
+
+void set_page_test() {
+    set_page(LOGGING_STRING);
 }
 
 void handle_inputs() {
@@ -258,4 +246,40 @@ void HardFault_Handler()
     {
         __asm__("nop");
     }
+}
+
+void preflightChecks(void) {
+    static uint8_t state;
+
+    switch (state++)
+    {
+        case 0:
+            break;
+        case 1:
+            if(false == PHAL_initUSART(&lcd, APB2ClockRateHz))
+            {
+                HardFault_Handler();
+            }
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            config_inturrupts();
+            break;
+        case 6:
+            break;
+        case 5:
+            initLCD();
+            break;
+        default:
+            registerPreflightComplete(1);
+            state = 255; // prevent wrap around
+    }
+}
+
+void preflightAnimation(void) {
+    static uint32_t time_ext;
+
 }

@@ -2,7 +2,7 @@
 #define _MAIN_H_
 
 // Enable the CAN2 bus
-#define EN_CAN2 1
+//#define EN_CAN2 1
 #define ID_LWS_STANDARD 0x2b0 // hehe
 
 typedef enum {
@@ -30,8 +30,9 @@ void _log_str(char* data);
 #endif
 
 // #define DISCO_BOARD
+// Status LEDs
+#ifdef DISCO_BOARD
 
-// DISCO
 #define RED    14
 #define BLUE   15
 #define GREEN  12
@@ -48,8 +49,6 @@ void _log_str(char* data);
 #define USER_BTN_PORT   GPIOA
 #define USER_BTN_PIN    0
 
-// Status LEDs
-#ifdef DISCO_BOARD
 #define HEARTBEAT_LED_PORT   BLUE_LED_PORT
 #define HEARTBEAT_LED_PIN    BLUE_LED_PIN
 #define CONNECTION_LED_PORT  ORANGE_LED_PORT
@@ -61,35 +60,46 @@ void _log_str(char* data);
 #define SD_ERROR_LED_PORT    RED_LED_PORT
 #define SD_ERROR_LED_PIN     RED_LED_PIN
 #else
-#define HEARTBEAT_LED_PORT   GPIOA
-#define HEARTBEAT_LED_PIN    0
-#define CONNECTION_LED_PORT  GPIOA
-#define CONNECTION_LED_PIN   1
-#define ERROR_LED_PORT       GPIOA
-#define ERROR_LED_PIN        4
+#define HEARTBEAT_LED_PORT   GPIOD
+#define HEARTBEAT_LED_PIN    13
+#define CONNECTION_LED_PORT  GPIOD
+#define CONNECTION_LED_PIN   14
+#define ERROR_LED_PORT       GPIOD
+#define ERROR_LED_PIN        15
 #define SD_ACTIVITY_LED_PORT GPIOA
 #define SD_ACTIVITY_LED_PIN  9
 #define SD_ERROR_LED_PORT    GPIOA
 #define SD_ERROR_LED_PIN     8
 #endif
 
-// TODO: SD Detect LED
-#define SD_DETECT_LED_PORT GPIOA
+#define SD_DETECT_LED_PORT GPIOD
 #define SD_DETECT_LED_PIN  10
-#define SD_CD_PORT         GPIOC
-#define SD_CD_PIN          6
+#define SD_CD_PORT         GPIOD
+#define SD_CD_PIN          4
 
-#define ETH_CS_PORT  GPIOB
-#define ETH_CS_PIN   12
-#define ETH_RST_PORT GPIOB
-#define ETH_RST_PIN  11
+// W5500 ETH SPI1
+#define ETH_CS_PORT   GPIOA
+#define ETH_CS_PIN    4
+#define ETH_SCK_PORT  GPIOA
+#define ETH_SCK_PIN   5
+#define ETH_MISO_PORT GPIOA
+#define ETH_MISO_PIN  6
+#define ETH_MOSI_PORT GPIOA
+#define ETH_MOSI_PIN  7
+#define ETH_RST_PORT  GPIOE
+#define ETH_RST_PIN   3
+
+// LTE USART6
+#define LTE_UART_TX_PORT GPIOC
+#define LTE_UART_TX_PIN  6
+#define LTE_UART_RX_PORT GPIOC
+#define LTE_UART_RX_PIN  7
 
 #define PWR_LOSS_PORT GPIOE
 #define PWR_LOSS_PIN  15
 
-
 #define LOG_ENABLE_PORT GPIOC
-#define LOG_ENABLE_PIN  7
+#define LOG_ENABLE_PIN  15
 
 #define PER 1
 #define GREAT PER

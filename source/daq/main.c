@@ -20,57 +20,64 @@
 #include "gs_usb.h"
 
 GPIOInitConfig_t gpio_config[] = {
+    // LEDs
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_SPI2_SCK_PB13,
-    GPIO_INIT_SPI2_MISO_PC2,
-    GPIO_INIT_SPI2_MOSI_PC3,
+
+    // W5500 ETH SPI1
+    GPIO_INIT_AF(ETH_SCK_PORT, ETH_SCK_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(ETH_MISO_PORT, ETH_MISO_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(ETH_MOSI_PORT, ETH_MOSI_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_OUTPUT(ETH_CS_PORT, ETH_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
-    // GPIO_INIT_OUTPUT(ETH_RST_PORT, ETH_RST_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(ETH_RST_PORT, ETH_RST_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // SDIO
     GPIO_INIT_SDIO_CLK,
     GPIO_INIT_SDIO_CMD,
     GPIO_INIT_SDIO_DT0,
     GPIO_INIT_SDIO_DT1,
     GPIO_INIT_SDIO_DT2,
     GPIO_INIT_SDIO_DT3,
+
     GPIO_INIT_INPUT(SD_CD_PORT, SD_CD_PIN, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(LOG_ENABLE_PORT, LOG_ENABLE_PIN, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_USART2TX_PA2,
-    GPIO_INIT_USART2RX_PA3,
     GPIO_INIT_INPUT(PWR_LOSS_PORT, PWR_LOSS_PIN, GPIO_INPUT_OPEN_DRAIN),
+
+    // LTE UART
+    GPIO_INIT_USART6TX_PC6,
+    GPIO_INIT_USART6RX_PC7,
+
 #ifdef DISCO_BOARD
     GPIO_INIT_CANRX_PD0,
     GPIO_INIT_CANTX_PD1,
 #else
-    GPIO_INIT_CANRX_PA11,
+    GPIO_INIT_CANRX_PA11, // MCAN
     GPIO_INIT_CANTX_PA12,
 #endif
 #ifdef EN_CAN2
-    GPIO_INIT_CAN2RX_PB5,
+    GPIO_INIT_CAN2RX_PB5, // VCAN
     GPIO_INIT_CAN2TX_PB6,
 #endif
 };
 
 /* SPI CONFIG FOR ETHERNET MODULE */
-dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t eth_spi_config = {
-    .data_rate = 42000000 / 2,
     .data_len  = 8,
     .nss_sw = false,
     .nss_gpio_port = ETH_CS_PORT,
     .nss_gpio_pin = ETH_CS_PIN,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI2
+    .periph = SPI1,
 };
 
-RTC_timestamp_t start_time = 
+RTC_timestamp_t start_time =
 {
     .date = {.month_bcd=RTC_MONTH_FEBRUARY,
              .weekday=RTC_WEEKDAY_TUESDAY,
@@ -88,6 +95,7 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+#if 0
 #define TargetCoreClockrateHz 168000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
@@ -98,6 +106,17 @@ ClockRateConfig_t clock_config = {
     .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
 };
+#else
+#define TargetCoreClockrateHz 16000000
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .vco_output_rate_target_hz  =16000000,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+};
+#endif
 
 volatile uint32_t tick_ms; // Systick 1ms counter
 
@@ -193,7 +212,7 @@ int main()
 
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
-    
+
     if (!PHAL_configureRTC(&start_time, false))
         HardFault_Handler();
 
@@ -224,7 +243,7 @@ int main()
     reg_wizchip_cs_cbfunc(cs_sel, cs_desel);
     reg_wizchip_spi_cbfunc(spi_rb, spi_wb);
     reg_wizchip_spiburst_cbfunc(spi_rb_burst, spi_wb_burst);
-    
+
     configure_exti();
 
     daq_init();

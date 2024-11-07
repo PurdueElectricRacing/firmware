@@ -14,12 +14,19 @@ target_include_directories(${TARGET_NAME} PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/../dashboard/can
 )
 
+# Add source files
+target_sources(${TARGET_NAME} PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/../dashboard/lcd/lcd.c
+    ${CMAKE_CURRENT_LIST_DIR}/../dashboard/nextion/nextion.c
+
+)
+
 # Properties are set in order to make the common component
 set_target_properties(${TARGET_NAME} PROPERTIES
     COMPONENT_NAME ${COMPONENT_NAME}
     COMPONENT_DIR  ${CMAKE_CURRENT_LIST_DIR}
     LINKER_SCRIPT  "STM32F407VGTx_FLASH"
-    COMMON_LIBS    "CMSIS_F407;PSCHED_F407;PHAL_F407;QUEUE;"
+    COMMON_LIBS    "CMSIS_F407;PSCHED_F407;CAN_PARSE_F407;DAQ_F407;QUEUE;PHAL_F407;FAULTS_F407;BOOTLOADER_COMMON_F407"
 )
 
 COMMON_FIRMWARE_COMPONENT(${TARGET_NAME})

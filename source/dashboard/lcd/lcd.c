@@ -33,10 +33,10 @@ uint8_t fault_time_displayed;         // Amount of units of time that the fault 
 bool zeroEncoder(volatile int8_t* start_pos)
 {
     // Collect initial raw reading from encoder
-    uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
-    uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
-    uint8_t raw_res = (raw_enc_b | (raw_enc_a << 1));
-    *start_pos = raw_res;
+    // uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
+    // uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
+    // uint8_t raw_res = (raw_enc_b | (raw_enc_a << 1));
+    // *start_pos = raw_res;
     lcd_data.encoder_position = 0;
 
     // Set page (leave preflight)
@@ -57,16 +57,16 @@ void initLCD() {
 
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
-    if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
-    {
-        curr_page = lcd_data.encoder_position;
-        fault_time_displayed = 0;
-    }
+    // if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
+    // {
+    //     curr_page = lcd_data.encoder_position;
+    //     fault_time_displayed = 0;
+    // }
 
     // If we do not detect a page update (most notably detect if encoder did not move), do nothing
-    if (curr_page == prev_page) {
-        return;
-    }
+    // if (curr_page == prev_page) {
+    //     return;
+    // }
 
     // Parsed value represents:
     char parsed_value[3] = "\0";

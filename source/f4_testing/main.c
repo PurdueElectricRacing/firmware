@@ -15,7 +15,6 @@
 #include <stdint.h>
 #include <string.h>
 
-
 #include "main.h"
 
 volatile raw_adc_values_t raw_adc_values;
@@ -44,7 +43,7 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_adc_values, siz
 
 GPIOInitConfig_t gpio_config[] = {
     // Page Knob
-    GPIO_INIT_ANALOG(GPIOA, 1),
+    GPIO_INIT_ANALOG(GPIOA, 0),
 
     // LCD
     GPIO_INIT_USART1TX_PA9,
@@ -96,12 +95,27 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 void usartTxUpdate();
 void config_inturrupts();
+void handle_inputs();
+extern void updatePage();
 
 // Communication queues
 q_handle_t q_tx_usart;
 
+struct inputs {
+    uint8_t up;
+    uint8_t down;
+    uint8_t select;
+    uint8_t page;
+} g_inputs;
+
+lcd_t lcd_data = {
+    .encoder_position = 0,
+};
+
 int main()
 {
+    qConstruct(&q_tx_usart, NXT_STR_SIZE);
+    
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -114,11 +128,11 @@ int main()
     {
         HardFault_Handler();
     }
-    if(false == PHAL_initUSART(&lcd, APB2ClockRateHz))
+    if(!PHAL_initDMA(&adc_dma_config))
     {
         HardFault_Handler();
     }
-    if(!PHAL_initDMA(&adc_dma_config))
+    if(false == PHAL_initUSART(&lcd, APB2ClockRateHz))
     {
         HardFault_Handler();
     }
@@ -128,23 +142,39 @@ int main()
     config_inturrupts();
 
     schedInit(APB1ClockRateHz);
-    // //taskcreate
-    //taskCreate(handle_press, 300);
-
-    // taskCreateBackground(usartTxUpdate);
+    initLCD();
+    
+    taskCreate(handle_inputs, 50);
+    taskCreate(updatePage,  1000);
+    taskCreate(usartTxUpdate, 200);
+    registerPreflightComplete(1);
+    //taskCreateBackground(usartTxUpdate);
 
     schedStart();
-
-
+    // Never reached
     return 0;
 }
 
-// void handle_press() {
-//     if (flag) {
-//         // do your thing
-//         flag = 0;
-//     } 
-// }
+void handle_inputs() {
+    if (g_inputs.up) {
+        g_inputs.up = 0;
+        // TODO
+    }
+
+    if (g_inputs.down) {
+        g_inputs.down = 0;
+        // TODO
+    }
+
+    if (g_inputs.select) {
+        g_inputs.select = 0;
+        // TODO
+    }
+
+    // divide the pot value by 8 pages
+    g_inputs.page = raw_adc_values.pot_val / ((POT_MAX + 1) / 8);
+    lcd_data.encoder_position = g_inputs.page;
+}
 
 
 // LCD USART Communication
@@ -160,16 +190,18 @@ void usartTxUpdate()
 static volatile uint32_t last_click_time;
 void EXTI9_5_IRQHandler() {
     if (EXTI->PR & (0x1<<7)) { // check triggered by PB7
-        if (sched.os_ticks - last_click_time > 50) { // simple debounce
+        if (sched.os_ticks - last_click_time > 20) { // simple debounce
             last_click_time = sched.os_ticks;
+            g_inputs.up = 1;
             PHAL_toggleGPIO(GPIOD, 12);
         }
         EXTI->PR = (0x1<<7); // clear the pending bit
     }
 
     if (EXTI->PR & (0x1<<5)) { // check triggered by PB5
-        if (sched.os_ticks - last_click_time > 50) { // simple debounce
+        if (sched.os_ticks - last_click_time > 20) { // simple debounce
             last_click_time = sched.os_ticks;
+            g_inputs.down = 1;
             PHAL_toggleGPIO(GPIOD, 13);
         }
         EXTI->PR = (0x1<<5); // clear the pending bit
@@ -178,8 +210,9 @@ void EXTI9_5_IRQHandler() {
 
 void EXTI3_IRQHandler() {
     if (EXTI->PR & (0x1<<3)) { // check triggered by PB3
-        if (sched.os_ticks - last_click_time > 50) { // simple debounce
+        if (sched.os_ticks - last_click_time > 20) { // simple debounce
             last_click_time = sched.os_ticks;
+            g_inputs.select = 1;
             PHAL_toggleGPIO(GPIOD, 14);
         }
         EXTI->PR = (0x1<<3); // clear the pending bit
@@ -208,7 +241,7 @@ void config_inturrupts() {
 
     /* Configure SELECT (GPIO B3) */
     SYSCFG->EXTICR[0] &= ~(0b1111 << 12);
-    SYSCFG->EXTICR[0] |= (0b0001 << 12);
+    SYSCFG->EXTICR[0] |= (0b0001 << 12); 
 
     EXTI->IMR |= (0x1 << 3);
     EXTI->RTSR |= (0x1 << 3);

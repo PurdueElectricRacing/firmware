@@ -72,7 +72,7 @@ void _log_str(char* data);
 #define SD_ERROR_LED_PIN     8
 #endif
 
-#define SD_DETECT_LED_PORT GPIOD
+#define SD_DETECT_LED_PORT GPIOA
 #define SD_DETECT_LED_PIN  10
 #define SD_CD_PORT         GPIOD
 #define SD_CD_PIN          4

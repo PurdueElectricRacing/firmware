@@ -55,11 +55,11 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANRX_PD0,
     GPIO_INIT_CANTX_PD1,
 #else
-    GPIO_INIT_CANRX_PA11, // MCAN
+    GPIO_INIT_CANRX_PA11, // VCAN
     GPIO_INIT_CANTX_PA12,
 #endif
 #ifdef EN_CAN2
-    GPIO_INIT_CAN2RX_PB5, // VCAN
+    GPIO_INIT_CAN2RX_PB5, // MCAN
     GPIO_INIT_CAN2TX_PB6,
 #endif
 };
@@ -95,7 +95,7 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#if 0
+#if 1
 #define TargetCoreClockrateHz 168000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,

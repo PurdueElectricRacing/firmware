@@ -119,8 +119,10 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
             on_mask_periph[peripheral] = False
             filter_bank_periph[peripheral] += 1
 
-# ok this function simply does not get called anymore wtf
-# TODO looking into it !
+        # example line generated:  102 |     CAN2->FA1R |= (1 << 14);    // configure bank 14
+        # error: 'CAN2' undeclared
+        # TODO need to read into docs more to see how it expected CAN2 to be referred to by
+
 def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     """ generates switch case for receiving messages """
     lines.append(ind+"        switch(msg_header.ExtId)\n")

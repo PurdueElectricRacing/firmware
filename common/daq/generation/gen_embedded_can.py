@@ -81,7 +81,7 @@ def gen_send_macro(lines, msg_config, peripheral):
 def gen_filter_lines(lines, rx_msg_configs, peripheral):
     # peripheral being passed in is node-wise
     """ generates hardware filters for a set of message definitions for a specific peripheral """
-    
+    tlp = peripheral
     on_mask_periph = {"CAN1": False, "CAN2": False} # separated for safety (i don't know what this does)
     filter_bank_periph = {"CAN1": 0, "CAN2": 14}
     filter_bank_max_periph = {"CAN1": 14, "CAN2": 27}
@@ -93,16 +93,29 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
     # elif peripheral == "CAN2":
     #     filter_bank = 14
     #     filter_bank_max = 27
- 
+
+    can1_msgs = []
+    can2_msgs = []
+
+    # look for messages on each bus
+
     for msg in rx_msg_configs:
 
         if 'can_peripheral_override' in msg:
             print(f"rx can override detected in {msg}")
             # use overridden periph
             peripheral = msg['can_peripheral_override']
-            print(f"using filter bank {filter_bank_periph[peripheral]}")
+        else:
+            peripheral = tlp
 
+        if peripheral == "CAN1":    
+            can1_msgs.append(msg)
+        if peripheral == "CAN2":
+            can2_msgs.append(msg)
 
+    # split old loop into two to ensure correct filter writing in genned code
+    for msg in can1_msgs:
+        peripheral = "CAN1"
         if(filter_bank_periph[peripheral] > filter_bank_max_periph[peripheral]):
             generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
             quit(1)
@@ -111,17 +124,34 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
         shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
                     f"(ID_{msg['msg_name'].upper()} << 21)"
         if not on_mask_periph[peripheral]:
-            lines.append(f"    {peripheral}->FA1R |= (1 << {filter_bank_periph[peripheral]});    // configure bank {filter_bank_periph[peripheral]}\n")
-            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank_periph[peripheral]}].FR1 = {shift_phrase};\n")
+            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank_periph[peripheral]});    // configure bank {filter_bank_periph[peripheral]}\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR1 = {shift_phrase};\n")
             on_mask_periph[peripheral] = True
         else:
-            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank_periph[peripheral]}].FR2 = {shift_phrase};\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR2 = {shift_phrase};\n")
             on_mask_periph[peripheral] = False
             filter_bank_periph[peripheral] += 1
 
-        # example line generated:  102 |     CAN2->FA1R |= (1 << 14);    // configure bank 14
-        # error: 'CAN2' undeclared
-        # TODO need to read into docs more to see how it expected CAN2 to be referred to by
+    for msg in can2_msgs:
+        peripheral = "CAN2"
+        if(filter_bank_periph[peripheral] > filter_bank_max_periph[peripheral]):
+            generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
+            quit(1)
+
+        # For extended id vs standard id
+        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
+                    f"(ID_{msg['msg_name'].upper()} << 21)"
+        if not on_mask_periph[peripheral]:
+            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank_periph[peripheral]});    // configure bank {filter_bank_periph[peripheral]}\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR1 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = True
+        else:
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR2 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = False
+            filter_bank_periph[peripheral] += 1  
+ 
+
+
 
 def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     """ generates switch case for receiving messages """

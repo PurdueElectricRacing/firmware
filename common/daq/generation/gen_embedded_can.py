@@ -79,42 +79,48 @@ def gen_send_macro(lines, msg_config, peripheral):
     lines.append(f"    }} while(0)\n")
 
 def gen_filter_lines(lines, rx_msg_configs, peripheral):
+    # peripheral being passed in is node-wise
     """ generates hardware filters for a set of message definitions for a specific peripheral """
-    on_mask = False
-    filter_bank = 0
-    filter_bank_max = 27
+    
+    on_mask_periph = {"CAN1": False, "CAN2": False} # separated for safety (i don't know what this does)
+    filter_bank_periph = {"CAN1": 0, "CAN2": 14}
+    filter_bank_max_periph = {"CAN1": 14, "CAN2": 27}
 
-    if peripheral == "CAN1":
-        filter_bank = 0
-        filter_bank_max = 14
-    elif peripheral == "CAN2":
-        filter_bank = 14
-        filter_bank_max = 27
-    else:
-        print(f"Unknown CAN peripheral {peripheral}")
-
-# TODO rx messages locked to CAN1
+    # these lines were default behavior, just moved into tuples above and symbols renamed
+    # if peripheral == "CAN1":
+    #     filter_bank = 0
+    #     filter_bank_max = 14
+    # elif peripheral == "CAN2":
+    #     filter_bank = 14
+    #     filter_bank_max = 27
+ 
     for msg in rx_msg_configs:
-            if(msg[can_peripheral_override] == "CAN1"):
-                if(filter_bank > filter_bank_max):
-                    generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
-                    quit(1)
-                # For extended id vs standard id
-                shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
-                            f"(ID_{msg['msg_name'].upper()} << 21)"
-                if not on_mask:
-                    lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-                    lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
-                    on_mask = True
-                else:
-                    lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
-                    on_mask = False
-                    filter_bank += 1
-            elif (msg[can_peripheral_override] == "CAN2"):
-                print("CAN2 RX messages not implemented")
-            else:
-                print("???")
 
+        if 'can_peripheral_override' in msg:
+            print(f"rx can override detected in {msg}")
+            # use overridden periph
+            peripheral = msg['can_peripheral_override']
+            print(f"using filter bank {filter_bank_periph[peripheral]}")
+
+
+        if(filter_bank_periph[peripheral] > filter_bank_max_periph[peripheral]):
+            generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
+            quit(1)
+
+        # For extended id vs standard id
+        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
+                    f"(ID_{msg['msg_name'].upper()} << 21)"
+        if not on_mask_periph[peripheral]:
+            lines.append(f"    {peripheral}->FA1R |= (1 << {filter_bank_periph[peripheral]});    // configure bank {filter_bank_periph[peripheral]}\n")
+            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank_periph[peripheral]}].FR1 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = True
+        else:
+            lines.append(f"    {peripheral}->sFilterRegister[{filter_bank_periph[peripheral]}].FR2 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = False
+            filter_bank_periph[peripheral] += 1
+
+# ok this function simply does not get called anymore wtf
+# TODO looking into it !
 def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     """ generates switch case for receiving messages """
     lines.append(ind+"        switch(msg_header.ExtId)\n")
@@ -210,7 +216,11 @@ def configure_node(node_config, node_paths):
     periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     for msg in node_config['tx']:
-        if 'can_peripheral_override' in msg: periph = msg['can_peripheral_override']
+        periph = DEFAULT_PERIPHERAL_NODE
+
+        if 'can_peripheral_override' in msg:
+                periph = msg['can_peripheral_override']
+                # print(f"found override in {msg}")
         gen_send_macro(macro_lines, msg, periph)
     # if is_junc:
     #     periph = junc_config['can_peripheral']
@@ -301,13 +311,13 @@ def configure_node(node_config, node_paths):
     periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     
-    # ind = ""
+    ind = ""
     # if is_junc:
     #     ind = "    "
     #     # add if statement for distinguishing between peripherals
     #     case_lines.append(f"        if (msg_header.Bus == {periph})\n")
     #     case_lines.append(f"        {{\n")
-    # gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
+    gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
     # if is_junc:
     #     periph = junc_config['can_peripheral']
     #     case_lines.append("        }\n")

@@ -46,13 +46,13 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(GPIOA, 0),
 
     // LCD
-    GPIO_INIT_USART1TX_PA9,
-    GPIO_INIT_USART1RX_PA10,
+    GPIO_INIT_USART2TX_PA2,
+    GPIO_INIT_USART2RX_PA3,
 
     // Buttons/Switches
-    GPIO_INIT_INPUT(GPIOB, 7, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(GPIOB, 5, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(GPIOB, 3, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(GPIOB, 7, GPIO_INPUT_PULL_UP), // UP
+    GPIO_INIT_INPUT(GPIOB, 5, GPIO_INPUT_PULL_UP), // DOWN
+    GPIO_INIT_INPUT(GPIOB, 3, GPIO_INPUT_PULL_UP), // SELECT
 
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED), // green LED
     GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED), // orange LED
@@ -60,8 +60,8 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 // USART Configuration for LCD
-dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lcd = {
    .baud_rate   = 115200,
    .word_length = WORD_8,
@@ -70,9 +70,9 @@ usart_init_t lcd = {
    .hw_flow_ctl = HW_DISABLE,
    .ovsample    = OV_16,
    .obsample    = OB_DISABLE,
-   .periph      = USART1,
+   .periph      = USART2,
    .wake_addr   = false,
-   .usart_active_num = USART1_ACTIVE_IDX,
+   .usart_active_num = USART2_ACTIVE_IDX,
    .tx_dma_cfg = &usart_tx_dma_config,
    .rx_dma_cfg = &usart_rx_dma_config
 };
@@ -97,9 +97,6 @@ void usartTxUpdate();
 void config_inturrupts();
 void handle_inputs();
 extern void updatePage();
-void set_page_test();
-void preflightChecks(void);
-void preflightAnimation(void);
 
 // Communication queues
 q_handle_t q_tx_usart;
@@ -127,11 +124,28 @@ int main()
     {
         HardFault_Handler();
     }
+    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if (!PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initUSART(&lcd, APB2ClockRateHz))
+    {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
+
+    config_inturrupts();
 
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 60, 2500);
+    initLCD();
     
-    taskCreate(set_page_test, 3000);
+    taskCreate(handle_inputs, 100);
+    taskCreate(updatePage,  1000);
     taskCreateBackground(usartTxUpdate);
 
     schedStart();
@@ -139,24 +153,20 @@ int main()
     return 0;
 }
 
-void set_page_test() {
-    set_page(LOGGING_STRING);
-}
-
 void handle_inputs() {
     if (g_inputs.up) {
         g_inputs.up = 0;
-        // TODO
+        moveUp();
     }
 
     if (g_inputs.down) {
         g_inputs.down = 0;
-        // TODO
+        moveDown();
     }
 
     if (g_inputs.select) {
         g_inputs.select = 0;
-        // TODO
+        selectItem();
     }
 
     // divide the pot value by 8 pages
@@ -246,40 +256,4 @@ void HardFault_Handler()
     {
         __asm__("nop");
     }
-}
-
-void preflightChecks(void) {
-    static uint8_t state;
-
-    switch (state++)
-    {
-        case 0:
-            break;
-        case 1:
-            if(false == PHAL_initUSART(&lcd, APB2ClockRateHz))
-            {
-                HardFault_Handler();
-            }
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            config_inturrupts();
-            break;
-        case 6:
-            break;
-        case 5:
-            initLCD();
-            break;
-        default:
-            registerPreflightComplete(1);
-            state = 255; // prevent wrap around
-    }
-}
-
-void preflightAnimation(void) {
-    static uint32_t time_ext;
-
 }

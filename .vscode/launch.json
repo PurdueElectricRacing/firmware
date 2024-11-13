@@ -151,6 +151,10 @@
                 "-d",
                 "${workspaceFolder}/source/f4_testing"
             ],
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            },
             "preLaunchTask": "build",
             "runToEntryPoint": "main"
         },

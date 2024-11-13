@@ -57,16 +57,16 @@ void initLCD() {
 
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
-    // if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
-    // {
-    //     curr_page = lcd_data.encoder_position;
-    //     fault_time_displayed = 0;
-    // }
+    if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
+    {
+        curr_page = lcd_data.encoder_position;
+        fault_time_displayed = 0;
+    }
 
-    // If we do not detect a page update (most notably detect if encoder did not move), do nothing
-    // if (curr_page == prev_page) {
-    //     return;
-    // }
+    //If we do not detect a page update (most notably detect if encoder did not move), do nothing
+    if (curr_page == prev_page) {
+        return;
+    }
 
     // Parsed value represents:
     char parsed_value[3] = "\0";
@@ -646,6 +646,10 @@ void selectItem() {
     else if (curr_page == PAGE_LOGGING)
     {
         SEND_DASHBOARD_START_LOGGING(1);
+    }
+    else if (curr_page == PAGE_RACE) {
+        tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
+        set_value(RACE_TV_ON, NXT_VALUE, tv_settings.tv_enable_selected);
     }
     else if (curr_page == PAGE_TVSETTINGS)
     {

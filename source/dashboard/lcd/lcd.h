@@ -119,7 +119,7 @@
 #define MC_TEMP "mc_temp"
 #define CAR_STAT "status"
 #define SPEED "speed"
-
+#define RACE_TV_ON "tvon"
 
 typedef enum {
 
@@ -127,8 +127,8 @@ typedef enum {
   // Should corresspond with the page count in main.h
   PAGE_RACE,
   PAGE_SETTINGS,
-  PAGE_FAULTS,
   PAGE_TVSETTINGS,
+  PAGE_FAULTS,
   PAGE_SDCINFO,    
   PAGE_DRIVER,
   PAGE_LOGGING,

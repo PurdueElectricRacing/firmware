@@ -108,12 +108,12 @@ BO_ 2348811137 sdc_status: 2 Main_Module
  SG_ IMD : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2415919873 rear_motor_temps: 6 Main_Module
- SG_ right_igbt_temp : 40|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ left_igbt_temp : 32|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right_inv_temp : 24|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ left_inv_temp : 16|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right_mot_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ left_mot_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
+ SG_ right_igbt_temp : 40|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_igbt_temp : 32|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ right_inv_temp : 24|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_inv_temp : 16|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ right_mot_temp : 8|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_mot_temp : 0|8@1+ (0.1,0) [0|0] "C" Vector__XXX
 
 BO_ 2214593409 rear_wheel_speeds: 8 Main_Module
  SG_ right_speed_sensor : 48|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
@@ -126,6 +126,12 @@ BO_ 2147484036 AMK_Setpoints: 8 Main_Module
  SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
  SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
  SG_ AMK_Control : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2147484548 AMK_Testing: 6 Main_Module
+ SG_ precharge : 40|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_from_motor : 24|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control : 8|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_InitStage : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -744,6 +750,11 @@ CM_ SG_ 2147484036 AMK_NegativeTorqueLimit "Negative Torque Limit";
 CM_ SG_ 2147484036 AMK_PositiveTorqueLimit "Positive Torque Limit";
 CM_ SG_ 2147484036 AMK_TorqueSetpoint "Torque setpoint";
 CM_ SG_ 2147484036 AMK_Control "Control word";
+CM_ BO_ 2147484548 "Contains control word and setpoints";
+CM_ SG_ 2147484548 precharge "Control word";
+CM_ SG_ 2147484548 AMK_Status_from_motor "Control word";
+CM_ SG_ 2147484548 AMK_Control "Control word";
+CM_ SG_ 2147484548 AMK_InitStage "init stage";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";

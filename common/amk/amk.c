@@ -58,9 +58,17 @@ void motorInit(amk_motor_t* motor, bool* pchg_complete)
  * word needs to be sent every 50ms or the motors will shut off. Plettenberg did
  * every 15ms so maybe we will just do that?
  */
+
+void amkCanTesting(amk_motor_t* motor)
+{
+    SEND_AMK_TESTING(motor->states.init_stage, motor->control.bits, motor->status.bits, *motor->pchg_complete);
+}
+
 void motorPeriodic(amk_motor_t* motor)
 {
     motorGetData(motor);
+
+    amkCanTesting(motor);
 
     switch(motor->states.stage) {
     case MOTOR_STAGE_INIT:
@@ -161,14 +169,8 @@ static void turnMotorOn(amk_motor_t* motor)
     case MOTOR_INIT_POWER_ON:
         /* 1. Turn on 24V DC to inverters */
         /* 1r. Check AMK_bSystemReady = 1*/
-        if (can_data.AMK_Actual_Values_1.stale)
-            break;
-
-        motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
-
         if (motor->status.fields.AMK_bSystemReady)
             motor->states.init_stage = MOTOR_INIT_PRECHARGE;
-
         break;
     case MOTOR_INIT_PRECHARGE:
         /* 2. Charge DC caps; QUE should be set (is this just DcOn?) */
@@ -197,11 +199,6 @@ static void turnMotorOn(amk_motor_t* motor)
         break;
     case MOTOR_INIT_DC_ON_CHECK:
         /* 3r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
-        if (can_data.AMK_Actual_Values_1.stale)
-            break;
-
-        motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
-
         /* When will AMK_bQuitDcOn go on? Does it take some time after 
          * DcOn is set?? */
         /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
@@ -213,6 +210,7 @@ static void turnMotorOn(amk_motor_t* motor)
         break;
     case MOTOR_INIT_TORQUE_INIT:
         /* 4. Set AMK_TorqueLimitNegativ = 0 and AMK_TorqueLimitPositiv = 0 */
+        /* Should already be done, just doing again to confirm */
         motor->torque_limit_positive = 0;
         motor->torque_limit_negative = 0;
 
@@ -249,11 +247,6 @@ static void turnMotorOn(amk_motor_t* motor)
         break;
     case MOTOR_INIT_INVERTER_ON_CHECK:
         /* 8r. AMK_bInverterOn is mirrored in AMK_Status, so should be on there */
-        if (can_data.AMK_Actual_Values_1.stale)
-            break;
-
-        motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
-
         /* Same with AMK_bQuitDcOn, do we need seperate states for these quits?? */
         /* 9. Check AMK_bQuitInverterOn = 1 */
 
@@ -329,12 +322,6 @@ static void turnMotorOff(amk_motor_t* motor)
         break;
     case MOTOR_DEINIT_QUIT_INVERTER_CHECK:
         /* 4. Check AMK_bQuitInverterOn = 0 */
-
-        if (can_data.AMK_Actual_Values_1.stale)
-            break;
-
-        motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
-
         if (!(motor->status.fields.AMK_bQuitInverterOn)) {
             motor->states.deinit_stage = MOTOR_DEINIT_DISABLE;
         }
@@ -358,11 +345,6 @@ static void turnMotorOff(amk_motor_t* motor)
     case MOTOR_DEINIT_DC_OFF_CHECK:
         /* 6r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
         /* 6r. Check AMK_bQuitDcOn = 0 */
-        if (can_data.AMK_Actual_Values_1.stale)
-            break;
-
-        motor->status.bits = can_data.AMK_Actual_Values_1.AMK_Status;
-
         /* When will AMK_bQuitDcOn go on? Does it take some time after 
          * DcOn is set?? */
         /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */

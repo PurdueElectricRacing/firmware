@@ -209,6 +209,18 @@
                             ],
                             "msg_period": 5,
                             "msg_id_override": "0x184"
+                        },
+                        {
+                            "msg_name": "AMK_Testing",
+                            "msg_desc": "Contains control word and setpoints",
+                            "signals": [
+                                {"sig_name": "AMK_InitStage", "sig_desc": "init stage", "type":"uint8_t"},
+                                {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
+                                {"sig_name": "AMK_Status_from_motor", "sig_desc": "Control word", "type":"uint16_t"},
+                                {"sig_name": "precharge", "sig_desc": "Control word", "type":"uint8_t"}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x384"
                         }
                     ],
                     "rx":[
@@ -1110,12 +1122,24 @@
                             "msg_desc": "Contains control word and setpoints",
                             "signals": [
                                 {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
-                                {"sig_name": "AMK_TorqueSetpoint", "sig_desc": "Torque setpoint", "type":"int16_t", "unit":"Nm", "scale":0.1},
+                                {"sig_name": "AMK_TorqueSetpoint", "sig_desc": "Torque setpoint", "type":"int16_t", "unit":"Nm", "scale":1},
                                 {"sig_name": "AMK_PositiveTorqueLimit", "sig_desc": "Positive Torque Limit", "type":"int16_t", "unit":"Nm", "scale":0.1},
                                 {"sig_name": "AMK_NegativeTorqueLimit", "sig_desc": "Negative Torque Limit", "type":"int16_t", "unit":"Nm", "scale":0.1}
                             ],
                             "msg_period": 5,
                             "msg_id_override": "0x184"
+                        },
+                        {
+                            "msg_name": "AMK_Testing",
+                            "msg_desc": "Contains control word and setpoints",
+                            "signals": [
+                                {"sig_name": "AMK_InitStage", "sig_desc": "init stage", "type":"uint8_t", "choices":["power_on","percharge","dc_on","dc_on_check"]},
+                                {"sig_name": "AMK_Control", "sig_desc": "Control word", "type":"uint16_t"},
+                                {"sig_name": "AMK_Status_from_motor", "sig_desc": "Control word", "type":"uint16_t"},
+                                {"sig_name": "precharge", "sig_desc": "Control word", "type":"uint8_t"}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x384"
                         }
                     ]
                 },

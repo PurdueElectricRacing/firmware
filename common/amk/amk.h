@@ -88,7 +88,7 @@ void motorPeriodic(amk_motor_t* motor);
 void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint);
 
 typedef enum {
-    MOTOR_INIT_POWER_ON,
+    MOTOR_INIT_POWER_ON = 0,
     MOTOR_INIT_PRECHARGE,
     MOTOR_INIT_DC_ON,
     MOTOR_INIT_DC_ON_CHECK,
@@ -100,7 +100,7 @@ typedef enum {
 } amk_motor_init_state_t;
 
 typedef enum {
-    MOTOR_DEINIT_SETPOINTS_DEINIT,
+    MOTOR_DEINIT_SETPOINTS_DEINIT = 0,
     MOTOR_DEINIT_INVERTER_OFF,
     MOTOR_DEINIT_DISABLE,
     MOTOR_DEINIT_QUIT_INVERTER_CHECK,
@@ -112,12 +112,12 @@ typedef enum {
 } amk_motor_deinit_state_t;
 
 typedef enum {
-    MOTOR_RUNNING_GOOD,
+    MOTOR_RUNNING_GOOD = 0,
     MOTOR_RUNNING_ERROR,
 } amk_motor_running_state_t;
 
 typedef enum {
-    MOTOR_STAGE_OFF,
+    MOTOR_STAGE_OFF = 0,
     MOTOR_STAGE_INIT,
     MOTOR_STAGE_RUNNING,
     MOTOR_STAGE_DEINIT

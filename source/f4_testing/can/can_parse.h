@@ -35,6 +35,7 @@ typedef union {
 #define ID_AMK_TEMPERATURES_1 0x285
 #define ID_AMK_TEMPERATURES_2 0x286
 #define ID_AMK_SETPOINTS 0x184
+#define ID_AMK_TESTING 0x384
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -44,6 +45,7 @@ typedef union {
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
 #define DLC_AMK_SETPOINTS 8
+#define DLC_AMK_TESTING 6
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -86,6 +88,7 @@ typedef union {
 #define STALE_THRESH 30 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_AMK_SETPOINTS 5
+#define UP_AMK_TESTING 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -123,6 +126,12 @@ typedef union {
         uint64_t AMK_PositiveTorqueLimit: 16;
         uint64_t AMK_NegativeTorqueLimit: 16;
     } AMK_Setpoints;
+    struct {
+        uint64_t AMK_InitStage: 8;
+        uint64_t AMK_Control: 16;
+        uint64_t AMK_Status_from_motor: 16;
+        uint64_t precharge: 8;
+    } AMK_Testing;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -139,6 +148,14 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Setpoints;
+    struct {
+        uint8_t AMK_InitStage;
+        uint16_t AMK_Control;
+        uint16_t AMK_Status_from_motor;
+        uint8_t precharge;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Testing;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

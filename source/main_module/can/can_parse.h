@@ -45,6 +45,7 @@ typedef union {
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_AMK_SETPOINTS 0x184
+#define ID_AMK_TESTING 0x384
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
@@ -87,6 +88,7 @@ typedef union {
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_AMK_SETPOINTS 8
+#define DLC_AMK_TESTING 6
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
@@ -248,6 +250,15 @@ typedef union {
         data_a->AMK_Setpoints.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
         data_a->AMK_Setpoints.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
         data_a->AMK_Setpoints.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_TESTING(AMK_InitStage_, AMK_Control_, AMK_Status_from_motor_, precharge_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_TESTING, .DLC=DLC_AMK_TESTING, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Testing.AMK_InitStage = AMK_InitStage_;\
+        data_a->AMK_Testing.AMK_Control = AMK_Control_;\
+        data_a->AMK_Testing.AMK_Status_from_motor = AMK_Status_from_motor_;\
+        data_a->AMK_Testing.precharge = precharge_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
@@ -440,6 +451,12 @@ typedef union {
         uint64_t AMK_PositiveTorqueLimit: 16;
         uint64_t AMK_NegativeTorqueLimit: 16;
     } AMK_Setpoints;
+    struct {
+        uint64_t AMK_InitStage: 8;
+        uint64_t AMK_Control: 16;
+        uint64_t AMK_Status_from_motor: 16;
+        uint64_t precharge: 8;
+    } AMK_Testing;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

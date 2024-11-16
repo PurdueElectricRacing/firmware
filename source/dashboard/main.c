@@ -211,7 +211,7 @@ int main (void){
     taskCreate(heartBeatTask, 100);
     taskCreate(send_shockpots, 15);
     taskCreate(interpretLoadSensor, 15);
-    taskCreate(update_data_pages, 200);
+    taskCreate(updateDataPages, 200);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
     taskCreateBackground(usartTxUpdate);

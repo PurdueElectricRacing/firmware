@@ -2,7 +2,6 @@
 
 #include "can_parse.h"
 #include "common/phal_F4_F7/spi/spi.h"
-#include "common/psched/psched.h"
 #include "nextion.h"
 #include "pedals.h"
 #include "common/faults/faults.h"
@@ -10,7 +9,6 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdbool.h>
 
 volatile page_t curr_page;            // Current page displayed on the LCD
 volatile page_t prev_page;            // Previous page displayed on the LCD
@@ -28,10 +26,40 @@ race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;         // Amount of units of time that the fault has been shown to the driver
 
+
+// update helper prototypes
+void update_driver_page();
+void update_cooling_page();
+void update_tv_page();
+void update_faults_page();
+// move up helper prototypes
+void move_up_tv();
+void move_up_cooling();
+void move_up_driver();
+// move down helper prototypes
+void move_down_tv();
+void move_down_cooling();
+void move_down_driver();
+// select helper prototypes
+void select_race();
+void select_driver();
+void select_tv();
+void select_cooling();
+// update helper prototypes
+void update_race_page_group1();
+void update_race_page_group2();
+void update_race_page();
+void updateSDCStatus(uint8_t status, char *element);
+void setFaultIndicator(uint16_t fault, char *element);
+// string helper prototypes
+void append_char(char *str, char ch, size_t max_len); // Append a character to a string
+char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
+
+
 // Call initially to ensure the LCD is initialized to the proper value -
 // should be replaced with the struct prev page stuff eventually
-bool zeroEncoder(volatile int8_t* start_pos)
-{
+int zeroEncoder(volatile int8_t* start_pos) {
+    // ! uncomment this when encoder is implemented
     // Collect initial raw reading from encoder
     // uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
     // uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
@@ -41,7 +69,7 @@ bool zeroEncoder(volatile int8_t* start_pos)
 
     // Set page (leave preflight)
     updatePage();
-    return true;
+    return 1;
 }
 
 // Initialize the LCD screen
@@ -54,6 +82,327 @@ void initLCD() {
     sendFirsthalf = true;
     tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
 }
+
+void updatePage() {
+    // Only update the encoder if we are on a "selectable" page
+    if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
+    {
+        curr_page = lcd_data.encoder_position;
+        fault_time_displayed = 0;
+    }
+
+    // If we do not detect a page update (most notably detect if encoder did not move), do nothing
+    if (curr_page == prev_page) {
+        return;
+    }
+
+    // Parse the page that was passed into the function
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            prev_page = PAGE_LOGGING;
+            set_page(LOGGING_STRING);
+            break;
+        case PAGE_DRIVER:
+            prev_page = PAGE_DRIVER;
+            set_page(DRIVER_STRING);
+            update_driver_page();
+            break;
+        case PAGE_SDCINFO:
+            prev_page = PAGE_SDCINFO;
+            set_page(SDCINFO_STRING);
+            break;
+        case PAGE_TVSETTINGS:
+            prev_page = PAGE_TVSETTINGS;
+            set_page(TVSETTINGS_STRING);
+            update_tv_page();
+            break;
+        case PAGE_ERROR:
+            set_page(ERR_STRING);
+            set_text(ERR_TXT, NXT_TEXT, errorText);
+            break;
+        case PAGE_WARNING:
+            set_page(WARN_STRING);
+            set_text(ERR_TXT, NXT_TEXT, errorText);
+            break;
+        case PAGE_FATAL:
+            set_page(FATAL_STRING);
+            set_text(ERR_TXT, NXT_TEXT, errorText);
+            break;
+        case PAGE_RACE:
+            prev_page = PAGE_RACE;
+            set_page(RACE_STRING);
+            break;
+        case PAGE_DATA:
+            prev_page = PAGE_DATA;
+            set_page(DATA_STRING);
+            break;
+        case PAGE_SETTINGS:
+            prev_page = PAGE_SETTINGS;
+            set_page(SETTINGS_STRING);
+            update_cooling_page();
+            break;
+        case PAGE_FAULTS:
+            prev_page = PAGE_FAULTS;
+            set_page(FAULT_STRING);
+            update_faults_page();
+            break;
+    }
+}
+
+void moveUp() {
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            //TODO
+            break;
+        case PAGE_DRIVER:
+            move_up_driver();
+            break;
+        case PAGE_TVSETTINGS:
+            move_up_tv();
+            break;
+        case PAGE_SETTINGS:
+            move_up_cooling();
+            break;
+        case PAGE_FAULTS:
+            // TODO support new faults page
+            break;
+    }
+}
+
+void moveDown() {
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            //TODO
+            break;
+        case PAGE_DRIVER:
+            move_down_driver();
+            break;
+        case PAGE_TVSETTINGS:
+            move_down_tv();
+            break;
+        case PAGE_SETTINGS:
+            move_down_cooling();
+            break;
+        case PAGE_FAULTS:
+            // TODO support new faults page
+            break;
+    }
+}
+
+void selectItem() {
+
+    // User has selected to clear the current fault screen
+    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_FATAL) || (curr_page == PAGE_WARNING))
+    {
+        // Go back to where we were before
+        curr_page = prev_page;
+        // so select item doesnt't break
+        prev_page = PAGE_PREFLIGHT;
+        fault_time_displayed = 0;
+        updatePage();
+        return;
+    }
+
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            SEND_DASHBOARD_START_LOGGING(1);
+            break;
+        case PAGE_DRIVER:
+            select_driver();
+            break;
+        case PAGE_TVSETTINGS:
+            select_tv();
+            break;
+        case PAGE_SETTINGS:
+            select_cooling();
+            break;
+        case PAGE_RACE:
+            select_race();
+            break;
+        case PAGE_FAULTS:
+            // TODO support new faults page
+            break;
+    }
+}
+
+void updateDataPages() {
+    if (curr_page == PAGE_RACE) {
+        update_race_page();
+        return;
+    }
+
+    if (curr_page == PAGE_DATA) {
+        set_value(POW_LIM_BAR, NXT_VALUE, 0);
+        set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
+    }
+
+    return;
+}
+
+void sendTVParameters() {
+    SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+}
+
+void updateFaultDisplay() {
+    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
+    {
+        if (++fault_time_displayed > 8)
+        {
+            curr_page = prev_page;
+            prev_page = PAGE_PREFLIGHT;
+            updatePage();
+        }
+
+    }
+    else
+    {
+        fault_time_displayed = 0;
+    }
+
+    // No new fault to display
+    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF))
+    {
+        return;
+    }
+
+    // Track if we alrady have this fault in the display buffer
+    bool faultAlreadyInBuffer = false;
+    bool pageUpdateRequired = false;
+    bool faultWasInserted = false;
+
+    // Process up to 5 faults each time for now
+    for (int i = 0; i < 5; i++)
+    {
+        faultAlreadyInBuffer = false;
+        uint16_t next_to_check = 0xFFFF;
+        faultWasInserted = false;
+
+        if (qReceive(&q_fault_history, &next_to_check))
+        {
+            // Iterate through fault buffer for existance of fault already
+            for (int j = 0; j < 5; j++)
+            {
+                // This should be based off of the queue item not anything else
+                if (fault_buf[j] == next_to_check)
+                {
+                    faultAlreadyInBuffer = true;
+                    break;
+                }
+            }
+
+            // New fault to add to the display, if room
+            if (false == faultAlreadyInBuffer)
+            {
+                // try all the slots for inserting the fault
+                for (uint8_t k = 0; k < 5; k++)
+                {
+                    // If fault is currently not in our fault buffer, replace it if the current fault is cleared,
+                    //  or if the new fault has higher priority
+                    if (fault_buf[cur_fault_buf_ndx] != 0xFFFF)
+                    {
+                        if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false ) ||
+                        (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority))
+                        {
+                            fault_buf[cur_fault_buf_ndx] = next_to_check;
+                            faultWasInserted = true;
+                            pageUpdateRequired = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // Empty slot just insert
+                        fault_buf[cur_fault_buf_ndx] = next_to_check;
+                        faultWasInserted = true;
+                        pageUpdateRequired = true;
+                        break;
+                    }
+                    cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
+                }
+
+                // Put back in the queue if it wasn't processed
+                if (false == faultWasInserted)
+                {
+                    qSendToBack(&q_fault_history, &next_to_check);
+                }
+
+            }
+        }
+        else
+        {
+            // Break out if issue or the queue is empty
+            break;
+        }
+
+    }
+
+    // Set the alert page to show based on most_recent_latched
+    if ((most_recent_latched != 0xFFFF))
+    {
+        curr_page = faultArray[most_recent_latched].priority + 9;
+        errorText = faultArray[most_recent_latched].screen_MSG;
+        pageUpdateRequired = true;
+    }
+
+    // Update page if required
+    if (pageUpdateRequired)
+    {
+        updatePage();
+    }
+
+    // Await next fault
+    most_recent_latched = 0xFFFF;
+}
+
+void updateFaultPageIndicators() {
+    if (curr_page != PAGE_FAULTS) {
+        return;
+    }
+
+    setFaultIndicator(fault_buf[0], FLT_STAT_1_TXT);
+    setFaultIndicator(fault_buf[1], FLT_STAT_2_TXT);
+    setFaultIndicator(fault_buf[2], FLT_STAT_3_TXT);
+    setFaultIndicator(fault_buf[3], FLT_STAT_4_TXT);
+    setFaultIndicator(fault_buf[4], FLT_STAT_5_TXT);
+}
+
+void updateSDCDashboard() {
+    static uint8_t update_group = 0U;
+    if (curr_page != PAGE_SDCINFO) {
+        return;
+    }
+
+    // cycle through the update groups (5 elements each)
+    update_group++;
+    switch (update_group) {
+        case 1:
+            updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+            updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+            updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
+            break;
+        case 2:
+            updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
+            break;
+        case 3:
+            updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+            updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+            //todo set first trip from latest change in the sdc
+            update_group = 0U;
+            break;
+        default:
+            update_group = 0U;
+            break;
+    }
+}
+
+// ! Helper function definitions
 
 void update_driver_page() {
     driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
@@ -215,73 +564,7 @@ void update_faults_page() {
     }
 }
 
-void updatePage() {
-    // Only update the encoder if we are on a "selectable" page
-    if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
-    {
-        curr_page = lcd_data.encoder_position;
-        fault_time_displayed = 0;
-    }
-
-    // If we do not detect a page update (most notably detect if encoder did not move), do nothing
-    if (curr_page == prev_page) {
-        return;
-    }
-
-    // Parse the page that was passed into the function
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            prev_page = PAGE_LOGGING;
-            set_page(LOGGING_STRING);
-            break;
-        case PAGE_DRIVER:
-            prev_page = PAGE_DRIVER;
-            set_page(DRIVER_STRING);
-            update_driver_page();
-            break;
-        case PAGE_SDCINFO:
-            prev_page = PAGE_SDCINFO;
-            set_page(SDCINFO_STRING);
-            break;
-        case PAGE_TVSETTINGS:
-            prev_page = PAGE_TVSETTINGS;
-            set_page(TVSETTINGS_STRING);
-            update_tv_page();
-            break;
-        case PAGE_ERROR:
-            set_page(ERR_STRING);
-            set_text(ERR_TXT, NXT_TEXT, errorText);
-            break;
-        case PAGE_WARNING:
-            set_page(WARN_STRING);
-            set_text(ERR_TXT, NXT_TEXT, errorText);
-            break;
-        case PAGE_FATAL:
-            set_page(FATAL_STRING);
-            set_text(ERR_TXT, NXT_TEXT, errorText);
-            break;
-        case PAGE_RACE:
-            prev_page = PAGE_RACE;
-            set_page(RACE_STRING);
-            break;
-        case PAGE_DATA:
-            prev_page = PAGE_DATA;
-            set_page(DATA_STRING);
-            break;
-        case PAGE_SETTINGS:
-            prev_page = PAGE_SETTINGS;
-            set_page(SETTINGS_STRING);
-            update_cooling_page();
-            break;
-        case PAGE_FAULTS:
-            prev_page = PAGE_FAULTS;
-            set_page(FAULT_STRING);
-            update_faults_page();
-            break;
-    }
-}
-
-void tv_move_up() {
+void move_up_tv() {
     char parsed_value[3] = "\0";
     // If Intensity is selected
     if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
@@ -359,7 +642,7 @@ void tv_move_up() {
     }
 }
 
-void cooling_move_up() {
+void move_up_cooling() {
     char parsed_value[3] = "\0";
     switch (settings.curr_hover) {
         case DT_FAN_HOVER:
@@ -408,7 +691,7 @@ void cooling_move_up() {
     }
 }
 
-void driver_move_up() {
+void move_up_driver() {
     if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
     {
         // Wrap around to enable
@@ -450,27 +733,7 @@ void driver_move_up() {
     }
 }
 
-void moveUp() {
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            //TODO
-            break;
-        case PAGE_DRIVER:
-            driver_move_up();
-            break;
-        case PAGE_TVSETTINGS:
-            tv_move_up();
-            break;
-        case PAGE_SETTINGS:
-            cooling_move_up();
-            break;
-        case PAGE_FAULTS:
-            // TODO support new faults page
-            break;
-    }
-}
-
-void tv_move_down() {
+void move_down_tv() {
     char parsed_value[3] = "\0";
     if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
     {
@@ -568,7 +831,7 @@ void tv_move_down() {
     }
 }
 
-void cooling_move_down() {
+void move_down_cooling() {
     char parsed_value[3] = "\0";
     switch (settings.curr_hover) {
         case DT_FAN_HOVER:
@@ -617,7 +880,7 @@ void cooling_move_down() {
     }
 }
 
-void driver_move_down() {
+void move_down_driver() {
     if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
     {
         driver_config.curr_hover = DRIVER_TYLER_SELECT;
@@ -657,32 +920,12 @@ void driver_move_down() {
     }
 }
 
-void moveDown() {
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            //TODO
-            break;
-        case PAGE_DRIVER:
-            driver_move_down();
-            break;
-        case PAGE_TVSETTINGS:
-            tv_move_down();
-            break;
-        case PAGE_SETTINGS:
-            cooling_move_down();
-            break;
-        case PAGE_FAULTS:
-            // TODO support new faults page
-            break;
-    }
-}
-
-void race_select() {
+void select_race() {
     tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
     set_value(RACE_TV_ON, NXT_VALUE, tv_settings.tv_enable_selected);
 }
 
-void tv_select() {
+void select_tv() {
     // So if we hit select on an already selected item, unselect it (switch to hover)
     if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
     {
@@ -755,7 +998,7 @@ void tv_select() {
     }
 }
 
-void cooling_select() {
+void select_cooling() {
     switch (settings.curr_hover) {
     case DT_FAN_HOVER:
         // settings.d_fan_selected = !settings.d_fan_selected;
@@ -824,7 +1067,7 @@ void cooling_select() {
     SEND_COOLING_DRIVER_REQUEST(settings.d_pump_selected, settings.d_fan_val, settings.b_fan2_selected, settings.b_pump_selected, settings.b_fan_val);
 }
 
-void driver_select() {
+void select_driver() {
     switch(driver_config.curr_hover)
     {
         case DRIVER_DEFAULT_SELECT:
@@ -854,154 +1097,6 @@ void driver_select() {
     }
 }
 
-
-void selectItem() {
-
-    // User has selected to clear the current fault screen
-    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_FATAL) || (curr_page == PAGE_WARNING))
-    {
-        // Go back to where we were before
-        curr_page = prev_page;
-        // so select item doesnt't break
-        prev_page = PAGE_PREFLIGHT;
-        fault_time_displayed = 0;
-        updatePage();
-        return;
-    }
-
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            SEND_DASHBOARD_START_LOGGING(1);
-            break;
-        case PAGE_DRIVER:
-            driver_select();
-            break;
-        case PAGE_TVSETTINGS:
-            tv_select();
-            break;
-        case PAGE_SETTINGS:
-            cooling_select();
-            break;
-        case PAGE_RACE:
-            race_select();
-            break;
-        case PAGE_FAULTS:
-            // TODO support new faults page
-            break;
-    }
-}
-
-void updateFaultDisplay() {
-    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
-    {
-        if (++fault_time_displayed > 8)
-        {
-            curr_page = prev_page;
-            prev_page = PAGE_PREFLIGHT;
-            updatePage();
-        }
-
-    }
-    else
-    {
-        fault_time_displayed = 0;
-    }
-
-    // No new fault to display
-    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF))
-    {
-        return;
-    }
-
-    // Track if we alrady have this fault in the display buffer
-    bool faultAlreadyInBuffer = false;
-    bool pageUpdateRequired = false;
-    bool faultWasInserted = false;
-
-    // Process up to 5 faults each time for now
-    for (int i = 0; i < 5; i++)
-    {
-        faultAlreadyInBuffer = false;
-        uint16_t next_to_check = 0xFFFF;
-        faultWasInserted = false;
-
-        if (qReceive(&q_fault_history, &next_to_check))
-        {
-            // Iterate through fault buffer for existance of fault already
-            for (int j = 0; j < 5; j++)
-            {
-                // This should be based off of the queue item not anything else
-                if (fault_buf[j] == next_to_check)
-                {
-                    faultAlreadyInBuffer = true;
-                    break;
-                }
-            }
-
-            // New fault to add to the display, if room
-            if (false == faultAlreadyInBuffer)
-            {
-                // try all the slots for inserting the fault
-                for (uint8_t k = 0; k < 5; k++)
-                {
-                    // If fault is currently not in our fault buffer, replace it if the current fault is cleared,
-                    //  or if the new fault has higher priority
-                    if (fault_buf[cur_fault_buf_ndx] != 0xFFFF)
-                    {
-                        if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false ) ||
-                        (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority))
-                        {
-                            fault_buf[cur_fault_buf_ndx] = next_to_check;
-                            faultWasInserted = true;
-                            pageUpdateRequired = true;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        // Empty slot just insert
-                        fault_buf[cur_fault_buf_ndx] = next_to_check;
-                        faultWasInserted = true;
-                        pageUpdateRequired = true;
-                        break;
-                    }
-                    cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
-                }
-
-                // Put back in the queue if it wasn't processed
-                if (false == faultWasInserted)
-                {
-                    qSendToBack(&q_fault_history, &next_to_check);
-                }
-
-            }
-        }
-        else
-        {
-            // Break out if issue or the queue is empty
-            break;
-        }
-
-    }
-
-    // Set the alert page to show based on most_recent_latched
-    if ((most_recent_latched != 0xFFFF))
-    {
-        curr_page = faultArray[most_recent_latched].priority + 9;
-        errorText = faultArray[most_recent_latched].screen_MSG;
-        pageUpdateRequired = true;
-    }
-
-    // Update page if required
-    if (pageUpdateRequired)
-    {
-        updatePage();
-    }
-
-    // Await next fault
-    most_recent_latched = 0xFFFF;
-}
-
 void update_race_page_group1() {
     char temps_buf[5] = "\0"; // TODO adjust buf to proper size (adjust for digits needed)
 
@@ -1012,7 +1107,7 @@ void update_race_page_group1() {
         uint8_t motor_temp = MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp);
         int_to_char(motor_temp, temps_buf);
         append_char(temps_buf, 'C', sizeof(temps_buf));
-        
+
         set_text(MOT_TEMP, NXT_TEXT, temps_buf);
         bzero(temps_buf, sizeof(temps_buf));
     }
@@ -1066,7 +1161,7 @@ void update_race_page_group2() {
         }
     }
 
-    
+
     // Update the voltage and current
     char batt_buf[5] = "\0"; // 3 digits + 1 unit + \0
     if (can_data.orion_currents_volts.stale) {
@@ -1103,7 +1198,7 @@ void update_race_page() {
     }
     else {
         // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
-        char speed_buf[3] = "\0"; 
+        char speed_buf[3] = "\0";
         // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
         uint16_t speed = ((float)can_data.gps_speed.gps_speed * 0.02237); // TODO macro this magic number
         set_text(SPEED, NXT_TEXT, int_to_char(speed, speed_buf));
@@ -1124,20 +1219,6 @@ void update_race_page() {
             update_group = 0U;
             break;
     }
-}
-
-void update_data_pages() {
-    if (curr_page == PAGE_RACE) {
-        update_race_page();
-        return;
-    }
-
-    if (curr_page == PAGE_DATA) {
-        set_value(POW_LIM_BAR, NXT_VALUE, 0);
-        set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
-    }
-
-    return;
 }
 
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
@@ -1180,7 +1261,6 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
 
 }
 
-
 void append_char(char *str, char ch, size_t max_len) {
     size_t len = 0;
     while (*str != '\0' && len < max_len - 1) {
@@ -1216,11 +1296,6 @@ char *int_to_char(int16_t val, char *val_to_send) {
     }
 }
 
-void sendTVParameters()
-{
-    SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
-}
-
 void setFaultIndicator(uint16_t fault, char *element) {
     if (fault == 0xFFFF) {
         set_value(element, NXT_BACKGROUND_COLOR, WHITE);
@@ -1230,19 +1305,6 @@ void setFaultIndicator(uint16_t fault, char *element) {
     set_value(element, NXT_BACKGROUND_COLOR, RACE_GREEN);
 }
 
-void updateFaultPageIndicators() {
-    if (curr_page != PAGE_FAULTS) {
-        return;
-    }
-
-    setFaultIndicator(fault_buf[0], FLT_STAT_1_TXT);
-    setFaultIndicator(fault_buf[1], FLT_STAT_2_TXT);
-    setFaultIndicator(fault_buf[2], FLT_STAT_3_TXT);
-    setFaultIndicator(fault_buf[3], FLT_STAT_4_TXT);
-    setFaultIndicator(fault_buf[4], FLT_STAT_5_TXT);
-}
-
-
 void updateSDCStatus(uint8_t status, char *element) {
     if (status)
     {
@@ -1251,41 +1313,5 @@ void updateSDCStatus(uint8_t status, char *element) {
     else
     {
         set_value(element, NXT_BACKGROUND_COLOR, RED);
-    }
-}
-
-void updateSDCDashboard() {
-    static uint8_t update_group = 0U;
-    if (curr_page != PAGE_SDCINFO) {
-        return;
-    }
-
-    // cycle through the update groups (5 elements each)
-    update_group++;
-    switch (update_group) {
-        case 1:
-            updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
-            updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-            updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
-            break;
-        case 2:
-            updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
-            break;
-        case 3:
-            updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-            //todo set first trip from latest change in the sdc
-            update_group = 0U;
-            break;
-        default:
-            update_group = 0U;
-            break;
     }
 }

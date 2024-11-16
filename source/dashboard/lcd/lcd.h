@@ -1,10 +1,7 @@
 #ifndef __LCD_H__
 #define __LCD_H__
-#include "common/phal_F4_F7/spi/spi.h"
+
 #include "nextion.h"
-#include "pedals.h"
-#include "can_parse.h"
-#include "main.h"
 
 //Page Strings / info
 #define RACE_STRING "race"
@@ -129,7 +126,7 @@ typedef enum {
   PAGE_SETTINGS,
   PAGE_TVSETTINGS,
   PAGE_FAULTS,
-  PAGE_SDCINFO,    
+  PAGE_SDCINFO,
   PAGE_DRIVER,
   PAGE_LOGGING,
   PAGE_DATA,
@@ -160,18 +157,16 @@ typedef enum {
   TV_P_SELECTED,
   TV_DEADBAND_SELECTED,
   TV_NONE_SELECTED,
-
 } tv_hover_state_t;
 
 typedef struct {
   bool tv_enable_selected;
   tv_hover_state_t curr_hover;
   uint8_t  tv_deadband_val;
-  
+
   // intensity and p are 10x the float equivalent
   uint16_t tv_intensity_val;
   uint16_t tv_p_val;
-
 } tv_settings_t;
 
 typedef struct {
@@ -183,7 +178,6 @@ typedef enum {
   DRIVER_TYLER_SELECT,
   DRIVER_RUHAAN_SELECT,
   DRIVER_LUKE_SELECT,
-
 } driver_select_state_t;
 
 typedef struct {
@@ -204,7 +198,6 @@ typedef struct {
 
 typedef struct {
   volatile int8_t encoder_position;
-
 } lcd_t;
 
 void initLCD();                                     // Initialize LCD data structures and configuration
@@ -213,12 +206,10 @@ void moveUp();                                      // Upward UI input detected 
 void moveDown();                                    // Downward UI input detected (down button or in some cases encoder)
 void selectItem();                                  // Selection UI input detected
 void updateFaultDisplay();                          // Periodically poll recent faults and update the fault buffer and page as needed
-void update_data_pages();                           // Periodically poll recent telemetry and update the data page as needd
-void append_char(char *str, char ch, size_t max_len);
-char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
-bool zeroEncoder(volatile int8_t* start_pos);       // Zero the encoder position for page selection
+void updateDataPages();                           // Periodically poll recent telemetry and update the data page as needd
+int zeroEncoder(volatile int8_t* start_pos);       // Zero the encoder position for page selection
 void sendTVParameters();                            // Periodically send updates to the TV configuration to TV board
 void updateFaultPageIndicators();
 void updateSDCDashboard();
 
-#endif
+#endif // __LCD_H__

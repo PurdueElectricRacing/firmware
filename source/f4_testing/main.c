@@ -145,7 +145,7 @@ int main()
     initLCD();
     
     taskCreate(handle_inputs, 100);
-    taskCreate(updatePage,  1000);
+    taskCreate(updatePage,  500);
     taskCreateBackground(usartTxUpdate);
 
     schedStart();

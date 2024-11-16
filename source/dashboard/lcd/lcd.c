@@ -55,6 +55,166 @@ void initLCD() {
     tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
 }
 
+void update_driver_page() {
+    driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
+    set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+
+    if (driver_config.curr_select == DRIVER_DEFAULT_SELECT)
+    {
+        set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
+    }
+    else
+    {
+        set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+    }
+
+    if (driver_config.curr_select == DRIVER_TYLER_SELECT)
+    {
+        set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
+    }
+    else
+    {
+        set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+    }
+
+    if (driver_config.curr_select == DRIVER_RUHAAN_SELECT)
+    {
+        set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
+    }
+    else
+    {
+        set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+    }
+
+    if (driver_config.curr_select == DRIVER_LUKE_SELECT)
+    {
+        set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
+    }
+    else
+    {
+        set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+    }
+}
+
+void update_cooling_page() {
+    // Parsed value represents:
+    char parsed_value[3] = "\0";
+    settings.curr_hover = DT_FAN_HOVER;                                     // Set hover
+    set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);         // Set t2 with settings hover
+    set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);                   // Set progress bar for j0
+    set_value(DT_FAN_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);                         // Set color for t8 (background of bar?)
+    set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));  // Set fan value for t8
+    bzero(parsed_value, 3);                                                         // Clear our char buffer
+
+    // Set drivetrain pump selector color
+    if (settings.d_pump_selected) {
+        set_value(DT_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
+    }
+    else {
+        set_value(DT_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+    }
+
+    // Set drivetrain pump selector status
+    set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
+
+    // Set Battery fan c3 (Pump 1?)
+    // todo: Why is this here?
+    if (settings.b_fan2_selected) {
+        set_value(B_FAN2_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
+    }
+    else {
+        set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+    }
+
+    // Set value for c3 battery pump 1
+    set_value(B_FAN2_OP, NXT_VALUE, settings.b_fan2_selected);
+    if (settings.b_pump_selected) {
+        set_value(B_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
+    }
+    else {
+        set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+    }
+
+    // Set Battery Pump 2 value
+    set_value(B_PUMP_OP, NXT_VALUE, settings.b_pump_selected);
+
+    // Set battery fan bar, text, color
+    set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
+    set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
+    bzero(parsed_value, 3);
+    set_value(B_FAN1_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
+}
+
+void update_tv_page() {
+    // Parsed value represents:
+    char parsed_value[3] = "\0";
+
+    // Establish hover position
+    tv_settings.curr_hover = TV_INTENSITY_HOVER;
+
+    // Set background colors
+    set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+    set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+
+    // Set displayed data
+    set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
+    set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+    set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+    bzero(parsed_value, 3);
+    set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
+}
+
+void update_faults_page() {
+    if (fault_buf[0] == 0xFFFF)
+    {
+        set_text(FAULT_1_TXT, NXT_TEXT, FAULT_NONE_STRING);
+    }
+    else
+    {
+        set_text(FAULT_1_TXT, NXT_TEXT, faultArray[fault_buf[0]].screen_MSG);
+    }
+    if (fault_buf[1] == 0xFFFF)
+    {
+        set_text(FAULT_2_TXT, NXT_TEXT, FAULT_NONE_STRING);
+    }
+    else
+    {
+        set_text(FAULT_2_TXT, NXT_TEXT, faultArray[fault_buf[1]].screen_MSG);
+    }
+
+    if (fault_buf[2] == 0xFFFF)
+    {
+        set_text(FAULT_3_TXT, NXT_TEXT, FAULT_NONE_STRING);
+    }
+    else
+    {
+        set_text(FAULT_3_TXT, NXT_TEXT, faultArray[fault_buf[2]].screen_MSG);
+    }
+
+    if (fault_buf[3] == 0xFFFF)
+    {
+        set_text(FAULT_4_TXT, NXT_TEXT, FAULT_NONE_STRING);
+    }
+    else
+    {
+        set_text(FAULT_4_TXT, NXT_TEXT, faultArray[fault_buf[3]].screen_MSG);
+    }
+
+    if (fault_buf[4] == 0xFFFF)
+    {
+        set_text(FAULT_5_TXT, NXT_TEXT, FAULT_NONE_STRING);
+    }
+    else
+    {
+        set_text(FAULT_5_TXT, NXT_TEXT, faultArray[fault_buf[4]].screen_MSG);
+    }
+}
+
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
     if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
@@ -63,13 +223,10 @@ void updatePage() {
         fault_time_displayed = 0;
     }
 
-    //If we do not detect a page update (most notably detect if encoder did not move), do nothing
+    // If we do not detect a page update (most notably detect if encoder did not move), do nothing
     if (curr_page == prev_page) {
         return;
     }
-
-    // Parsed value represents:
-    char parsed_value[3] = "\0";
 
     // Parse the page that was passed into the function
     switch (curr_page) {
@@ -80,77 +237,17 @@ void updatePage() {
         case PAGE_DRIVER:
             prev_page = PAGE_DRIVER;
             set_page(DRIVER_STRING);
-
-            driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-
-            if (driver_config.curr_select == DRIVER_DEFAULT_SELECT)
-            {
-                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
-            }
-            else
-            {
-                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
-            }
-
-            if (driver_config.curr_select == DRIVER_TYLER_SELECT)
-            {
-                set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
-            }
-            else
-            {
-                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-            }
-
-            if (driver_config.curr_select == DRIVER_RUHAAN_SELECT)
-            {
-                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
-            }
-            else
-            {
-                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
-            }
-
-            if (driver_config.curr_select == DRIVER_LUKE_SELECT)
-            {
-                set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
-            }
-            else
-            {
-                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
-            }
+            update_driver_page();
             break;
-
         case PAGE_SDCINFO:
             prev_page = PAGE_SDCINFO;
             set_page(SDCINFO_STRING);
             break;
         case PAGE_TVSETTINGS:
             prev_page = PAGE_TVSETTINGS;
-
-            // Switch page
             set_page(TVSETTINGS_STRING);
-
-            // Establish hover position
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-
-            // Set background colors
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-
-            // Set displayed data
-            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
-            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
-            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-            bzero(parsed_value, 3);
-            set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
+            update_tv_page();
             break;
-
         case PAGE_ERROR:
             set_page(ERR_STRING);
             set_text(ERR_TXT, NXT_TEXT, errorText);
@@ -172,463 +269,411 @@ void updatePage() {
             set_page(DATA_STRING);
             break;
         case PAGE_SETTINGS:
-            // Show page
             prev_page = PAGE_SETTINGS;
             set_page(SETTINGS_STRING);
-
-            settings.curr_hover = DT_FAN_HOVER;                                     // Set hover
-            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);         // Set t2 with settings hover
-            set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);                   // Set progress bar for j0
-            set_value(DT_FAN_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);                         // Set color for t8 (background of bar?)
-            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));  // Set fan value for t8
-            bzero(parsed_value, 3);                                                         // Clear our char buffer
-
-            // Set drivetrain pump selector color
-            if (settings.d_pump_selected) {
-                set_value(DT_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
-            }
-            else {
-                set_value(DT_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-            }
-
-            // Set drivetrain pump selector status
-            set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
-
-            // Set Battery fan c3 (Pump 1?)
-            // todo: Why is this here?
-            if (settings.b_fan2_selected) {
-                set_value(B_FAN2_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
-            }
-            else {
-                set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-            }
-
-            // Set value for c3 battery pump 1
-            set_value(B_FAN2_OP, NXT_VALUE, settings.b_fan2_selected);
-            if (settings.b_pump_selected) {
-                set_value(B_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
-            }
-            else {
-                set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-            }
-
-            // Set Battery Pump 2 value
-            set_value(B_PUMP_OP, NXT_VALUE, settings.b_pump_selected);
-
-            // Set battery fan bar, text, color
-            set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
-            set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
-            bzero(parsed_value, 3);
-            set_value(B_FAN1_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
+            update_cooling_page();
             break;
-
         case PAGE_FAULTS:
             prev_page = PAGE_FAULTS;
             set_page(FAULT_STRING);
-            if (fault_buf[0] == 0xFFFF)
-            {
-                set_text(FAULT_1_TXT, NXT_TEXT, FAULT_NONE_STRING);
-            }
-            else
-            {
-                set_text(FAULT_1_TXT, NXT_TEXT, faultArray[fault_buf[0]].screen_MSG);
-            }
-            if (fault_buf[1] == 0xFFFF)
-            {
-                set_text(FAULT_2_TXT, NXT_TEXT, FAULT_NONE_STRING);
-            }
-            else
-            {
-                set_text(FAULT_2_TXT, NXT_TEXT, faultArray[fault_buf[1]].screen_MSG);
-            }
+            update_faults_page();
+            break;
+    }
+}
 
-            if (fault_buf[2] == 0xFFFF)
-            {
-                set_text(FAULT_3_TXT, NXT_TEXT, FAULT_NONE_STRING);
-            }
-            else
-            {
-                set_text(FAULT_3_TXT, NXT_TEXT, faultArray[fault_buf[2]].screen_MSG);
-            }
+void tv_move_up() {
+    char parsed_value[3] = "\0";
+    // If Intensity is selected
+    if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
+    {
+        // Increase the intensity value
+        tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
 
-            if (fault_buf[3] == 0xFFFF)
-            {
-                set_text(FAULT_4_TXT, NXT_TEXT, FAULT_NONE_STRING);
-            }
-            else
-            {
-                set_text(FAULT_4_TXT, NXT_TEXT, faultArray[fault_buf[3]].screen_MSG);
-            }
+        // Update the page items
+        set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
+    }
+    else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
+    {
+        // Wrap around to enable
+        tv_settings.curr_hover = TV_ENABLE_HOVER;
 
-            if (fault_buf[4] == 0xFFFF)
-            {
-                set_text(FAULT_5_TXT, NXT_TEXT, FAULT_NONE_STRING);
-            }
-            else
-            {
-                set_text(FAULT_5_TXT, NXT_TEXT, faultArray[fault_buf[4]].screen_MSG);
-            }
-        break;
+        // Update the background
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    }
+    else if (tv_settings.curr_hover == TV_P_SELECTED)
+    {
+        // Increase the p value
+        tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
+
+        // Update the page items
+        set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+
+    }
+    else if (tv_settings.curr_hover == TV_P_HOVER)
+    {
+        // Scroll up to Intensity
+        tv_settings.curr_hover = TV_INTENSITY_HOVER;
+
+        // Update the background
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
+    {
+        // Increase the deadband value
+        tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
+
+        // Update the page items
+        set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+        bzero(parsed_value, 3);
+
+    }
+    else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
+    {
+        // Scroll up to P
+        tv_settings.curr_hover = TV_P_HOVER;
+
+        // Update the background
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
+    {
+        // Scroll up to deadband
+        tv_settings.curr_hover = TV_DEADBAND_HOVER;
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else
+    {
+        // ?
+    }
+}
+
+void cooling_move_up() {
+    char parsed_value[3] = "\0";
+    switch (settings.curr_hover) {
+        case DT_FAN_HOVER:
+            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = PUMP_HOVER;
+            break;
+        case DT_PUMP_HOVER:
+            set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = DT_FAN_HOVER;
+            break;
+        case FAN1_HOVER:
+            set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = DT_PUMP_HOVER;
+            break;
+        case FAN2_HOVER:
+            set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = FAN1_HOVER;
+            break;
+        case PUMP_HOVER:
+            set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = FAN2_HOVER;
+            break;
+        case DT_FAN_SELECT:
+            settings.d_fan_val /= 10;
+            settings.d_fan_val *= 10;
+            settings.d_fan_val = (settings.d_fan_val == 100) ? 0 : settings.d_fan_val + 10;
+            set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);
+            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));
+            bzero(parsed_value, 3);
+            set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
+            break;
+        case FAN1_SELECT:
+            settings.b_fan_val /= 10;
+            settings.b_fan_val *= 10;
+            settings.b_fan_val = (settings.b_fan_val == 100) ? 0 : settings.b_fan_val + 10;
+            set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
+            set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
+            bzero(parsed_value, 3);
+            set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
+            break;
+    }
+}
+
+void driver_move_up() {
+    if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
+    {
+        // Wrap around to enable
+        driver_config.curr_hover = DRIVER_LUKE_SELECT;
+        driver_config.curr_select = DRIVER_LUKE_SELECT;
+        // Update the background
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    }
+    else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
+        driver_config.curr_select = DRIVER_DEFAULT_SELECT;
+
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (driver_config.curr_hover == DRIVER_RUHAAN_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_TYLER_SELECT;
+        driver_config.curr_select = DRIVER_TYLER_SELECT;
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_RUHAAN_SELECT;
+        driver_config.curr_select = DRIVER_RUHAAN_SELECT;
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
 }
 
 void moveUp() {
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            //TODO
+            break;
+        case PAGE_DRIVER:
+            driver_move_up();
+            break;
+        case PAGE_TVSETTINGS:
+            tv_move_up();
+            break;
+        case PAGE_SETTINGS:
+            cooling_move_up();
+            break;
+        case PAGE_FAULTS:
+            // TODO support new faults page
+            break;
+    }
+}
+
+void tv_move_down() {
     char parsed_value[3] = "\0";
-    if (curr_page == PAGE_TVSETTINGS)
+    if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
     {
-        // If Intensity is selected
-        if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
+        // Decrease the intensity value
+        if (tv_settings.tv_intensity_val == 0)
         {
-            // Increase the intensity value
-            tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
-
-            // Update the page items
-            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
-        }
-        else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
-        {
-            // Wrap around to enable
-            tv_settings.curr_hover = TV_ENABLE_HOVER;
-
-            // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        }
-        else if (tv_settings.curr_hover == TV_P_SELECTED)
-        {
-            // Increase the p value
-            tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
-
-            // Update the page items
-            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
-
-        }
-        else if (tv_settings.curr_hover == TV_P_HOVER)
-        {
-            // Scroll up to Intensity
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-
-            // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
-        {
-            // Increase the deadband value
-            tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
-
-            // Update the page items
-            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-            bzero(parsed_value, 3);
-
-        }
-        else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
-        {
-            // Scroll up to P
-            tv_settings.curr_hover = TV_P_HOVER;
-
-            // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
-        {
-            // Scroll up to deadband
-            tv_settings.curr_hover = TV_DEADBAND_HOVER;
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            tv_settings.tv_intensity_val = 100;
         }
         else
         {
-            // ?
+            tv_settings.tv_intensity_val-= 5;
         }
-    }
-    else if (curr_page == PAGE_SETTINGS) {
-        char parsed_value[3] = "\0";
-        switch (settings.curr_hover) {
-            case DT_FAN_HOVER:
-                set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = PUMP_HOVER;
-                break;
-            case DT_PUMP_HOVER:
-                set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = DT_FAN_HOVER;
-                break;
-            case FAN1_HOVER:
-                set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = DT_PUMP_HOVER;
-                break;
-            case FAN2_HOVER:
-                set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = FAN1_HOVER;
-                break;
-            case PUMP_HOVER:
-                set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = FAN2_HOVER;
-                break;
-            case DT_FAN_SELECT:
-                settings.d_fan_val /= 10;
-                settings.d_fan_val *= 10;
-                settings.d_fan_val = (settings.d_fan_val == 100) ? 0 : settings.d_fan_val + 10;
-                set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);
-                set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));
-                bzero(parsed_value, 3);
-                set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
-                break;
-            case FAN1_SELECT:
-                settings.b_fan_val /= 10;
-                settings.b_fan_val *= 10;
-                settings.b_fan_val = (settings.b_fan_val == 100) ? 0 : settings.b_fan_val + 10;
-                set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
-                set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
-                bzero(parsed_value, 3);
-                set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
-                break;
-        }
-    }
-    else if (curr_page == PAGE_DRIVER)
-    {
-        if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
-        {
-            // Wrap around to enable
-            driver_config.curr_hover = DRIVER_LUKE_SELECT;
-            driver_config.curr_select = DRIVER_LUKE_SELECT;
-            // Update the background
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        }
-        else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
-        {
-            driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
-            driver_config.curr_select = DRIVER_DEFAULT_SELECT;
 
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (driver_config.curr_hover == DRIVER_RUHAAN_SELECT)
+        // Update the page item
+        set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
+    }
+    else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
+    {
+        // Scroll down to P
+        tv_settings.curr_hover = TV_P_HOVER;
+
+        // Update the background
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_P_SELECTED)
+    {
+        // Decrease the P value
+        if (tv_settings.tv_p_val == 0)
         {
-            driver_config.curr_hover = DRIVER_TYLER_SELECT;
-            driver_config.curr_select = DRIVER_TYLER_SELECT;
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            tv_settings.tv_p_val = 100;
         }
-        else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
+        else
         {
-            driver_config.curr_hover = DRIVER_RUHAAN_SELECT;
-            driver_config.curr_select = DRIVER_RUHAAN_SELECT;
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            tv_settings.tv_p_val-= 5;
         }
+
+        // Update the page items
+        set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+
+    }
+    else if (tv_settings.curr_hover == TV_P_HOVER)
+    {
+        // Scroll down to deadband
+        tv_settings.curr_hover = TV_DEADBAND_HOVER;
+
+        // Update the background
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
+    {
+        // Decrease the deadband value
+        if (tv_settings.tv_deadband_val == 0)
+        {
+            tv_settings.tv_deadband_val = 30;
+        }
+        else
+        {
+            tv_settings.tv_deadband_val--;
+        }
+
+        // Update the page items
+        set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+        bzero(parsed_value, 3);
+
+    }
+    else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
+    {
+        // Scroll down to enable
+        tv_settings.curr_hover = TV_ENABLE_HOVER;
+
+        // Update the background
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    }
+    else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
+    {
+        // Scroll down to intensity
+        tv_settings.curr_hover = TV_INTENSITY_HOVER;
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else
+    {
+        // ?
+    }
+}
+
+void cooling_move_down() {
+    char parsed_value[3] = "\0";
+    switch (settings.curr_hover) {
+        case DT_FAN_HOVER:
+            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = DT_PUMP_HOVER;
+            break;
+        case DT_PUMP_HOVER:
+            set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = FAN1_HOVER;
+            break;
+        case FAN1_HOVER:
+            set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = FAN2_HOVER;
+            break;
+        case FAN2_HOVER:
+            set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = PUMP_HOVER;
+            break;
+        case PUMP_HOVER:
+            set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+            set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+            settings.curr_hover = DT_FAN_HOVER;
+            break;
+        case DT_FAN_SELECT:
+            settings.d_fan_val /= 10;
+            settings.d_fan_val *= 10;
+            settings.d_fan_val = (settings.d_fan_val == 0) ? 100 : settings.d_fan_val - 10;
+            set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);
+            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));
+            bzero(parsed_value, 3);
+            set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
+            break;
+        case FAN1_SELECT:
+            settings.b_fan_val /= 10;
+            settings.b_fan_val *= 10;
+            settings.b_fan_val = (settings.b_fan_val == 0) ? 100 : settings.b_fan_val - 10;
+            set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
+            set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
+            bzero(parsed_value, 3);
+            set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
+            break;
+    }
+}
+
+void driver_move_down() {
+    if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_TYLER_SELECT;
+        driver_config.curr_select = DRIVER_TYLER_SELECT;
+        // Update the background
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_RUHAAN_SELECT;
+        driver_config.curr_select = DRIVER_RUHAAN_SELECT;
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (driver_config.curr_hover == DRIVER_RUHAAN_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_LUKE_SELECT;
+        driver_config.curr_select = DRIVER_LUKE_SELECT;
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    }
+    else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
+    {
+        driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
+        driver_config.curr_select = DRIVER_DEFAULT_SELECT;
+        set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
 }
 
 void moveDown() {
-    char parsed_value[3] = "\0";
-    if (curr_page == PAGE_TVSETTINGS)
-    {
-        if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
-        {
-            // Decrease the intensity value
-            if (tv_settings.tv_intensity_val == 0)
-            {
-                tv_settings.tv_intensity_val = 100;
-            }
-            else
-            {
-                tv_settings.tv_intensity_val-= 5;
-            }
-
-            // Update the page item
-            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
-        }
-        else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
-        {
-            // Scroll down to P
-            tv_settings.curr_hover = TV_P_HOVER;
-
-            // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_P_SELECTED)
-        {
-            // Decrease the P value
-            if (tv_settings.tv_p_val == 0)
-            {
-                tv_settings.tv_p_val = 100;
-            }
-            else
-            {
-                tv_settings.tv_p_val-= 5;
-            }
-
-            // Update the page items
-            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
-
-        }
-        else if (tv_settings.curr_hover == TV_P_HOVER)
-        {
-            // Scroll down to deadband
-            tv_settings.curr_hover = TV_DEADBAND_HOVER;
-
-            // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
-        {
-            // Decrease the deadband value
-            if (tv_settings.tv_deadband_val == 0)
-            {
-                tv_settings.tv_deadband_val = 30;
-            }
-            else
-            {
-                tv_settings.tv_deadband_val--;
-            }
-
-            // Update the page items
-            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-            bzero(parsed_value, 3);
-
-        }
-        else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
-        {
-            // Scroll down to enable
-            tv_settings.curr_hover = TV_ENABLE_HOVER;
-
-            // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        }
-        else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
-        {
-            // Scroll down to intensity
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else
-        {
-            // ?
-        }
-    }
-    else if (curr_page == PAGE_SETTINGS) {
-        char parsed_value[3] = "\0";
-        switch (settings.curr_hover) {
-            case DT_FAN_HOVER:
-                set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = DT_PUMP_HOVER;
-                break;
-            case DT_PUMP_HOVER:
-                set_value(DT_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = FAN1_HOVER;
-                break;
-            case FAN1_HOVER:
-                set_value(B_FAN1_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = FAN2_HOVER;
-                break;
-            case FAN2_HOVER:
-                set_value(B_FAN2_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = PUMP_HOVER;
-                break;
-            case PUMP_HOVER:
-                set_value(B_PUMP_TXT, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                settings.curr_hover = DT_FAN_HOVER;
-                break;
-            case DT_FAN_SELECT:
-                settings.d_fan_val /= 10;
-                settings.d_fan_val *= 10;
-                settings.d_fan_val = (settings.d_fan_val == 0) ? 100 : settings.d_fan_val - 10;
-                set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_val);
-                set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(settings.d_fan_val, parsed_value));
-                bzero(parsed_value, 3);
-                set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
-                break;
-            case FAN1_SELECT:
-                settings.b_fan_val /= 10;
-                settings.b_fan_val *= 10;
-                settings.b_fan_val = (settings.b_fan_val == 0) ? 100 : settings.b_fan_val - 10;
-                set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan_val);
-                set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(settings.b_fan_val, parsed_value));
-                bzero(parsed_value, 3);
-                set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
-                break;
-        }
-    }
-    else if (curr_page == PAGE_DRIVER)
-    {
-        if (driver_config.curr_hover == DRIVER_DEFAULT_SELECT)
-        {
-            driver_config.curr_hover = DRIVER_TYLER_SELECT;
-            driver_config.curr_select = DRIVER_TYLER_SELECT;
-            // Update the background
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
-        {
-            driver_config.curr_hover = DRIVER_RUHAAN_SELECT;
-            driver_config.curr_select = DRIVER_RUHAAN_SELECT;
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (driver_config.curr_hover == DRIVER_RUHAAN_SELECT)
-        {
-            driver_config.curr_hover = DRIVER_LUKE_SELECT;
-            driver_config.curr_select = DRIVER_LUKE_SELECT;
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        }
-        else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
-        {
-            driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
-            driver_config.curr_select = DRIVER_DEFAULT_SELECT;
-            set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        }
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            //TODO
+            break;
+        case PAGE_DRIVER:
+            driver_move_down();
+            break;
+        case PAGE_TVSETTINGS:
+            tv_move_down();
+            break;
+        case PAGE_SETTINGS:
+            cooling_move_down();
+            break;
+        case PAGE_FAULTS:
+            // TODO support new faults page
+            break;
     }
 }
 
@@ -1039,7 +1084,7 @@ void update_race_page() {
         // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
         char speed_buf[3] = "\0"; 
         // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
-        uint16_t speed = ((float)can_data.gps_speed.gps_speed * 0.02237);
+        uint16_t speed = ((float)can_data.gps_speed.gps_speed * 0.02237); // TODO macro this magic number
         set_text(SPEED, NXT_TEXT, int_to_char(speed, speed_buf));
         bzero(speed_buf, sizeof(speed_buf));
     }

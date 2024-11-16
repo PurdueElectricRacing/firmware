@@ -677,7 +677,186 @@ void moveDown() {
     }
 }
 
+void race_select() {
+    tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
+    set_value(RACE_TV_ON, NXT_VALUE, tv_settings.tv_enable_selected);
+}
+
+void tv_select() {
+    // So if we hit select on an already selected item, unselect it (switch to hover)
+    if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
+    {
+        tv_settings.curr_hover = TV_INTENSITY_SELECTED;
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        // todo Rot encoder state should let us scroll through value options
+        // for now just use buttons for move up and move down
+    }
+    else if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
+    {
+        // "submit" -> CAN payload will update automatically? decide
+        // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault?
+        tv_settings.curr_hover = TV_INTENSITY_HOVER;
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+        // rot encoder state goes back to page move instead of value move
+    }
+    else if (tv_settings.curr_hover == TV_P_HOVER)
+    {
+        tv_settings.curr_hover = TV_P_SELECTED;
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_P_SELECTED)
+    {
+        tv_settings.curr_hover = TV_P_HOVER;
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
+    {
+        tv_settings.curr_hover = TV_DEADBAND_SELECTED;
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, ORANGE);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
+    {
+        tv_settings.curr_hover = TV_DEADBAND_HOVER;
+        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+    else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
+    {
+        // Don't change the curr_hover
+
+        // Toggle the option
+        tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
+
+        // Set the option
+        set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
+
+        // Update CAN as necessary
+    }
+    else
+    {
+        // ?
+    }
+}
+
+void cooling_select() {
+    switch (settings.curr_hover) {
+    case DT_FAN_HOVER:
+        // settings.d_fan_selected = !settings.d_fan_selected;
+        // set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_selected);
+        settings.curr_hover = DT_FAN_SELECT;
+        set_value(DT_FAN_TXT, NXT_VALUE, SETTINGS_BG);
+        set_value(DT_FAN_BAR, NXT_BACKGROUND_COLOR, WHITE);
+        set_value(DT_FAN_BAR, NXT_FONT_COLOR, BLACK);
+        return;
+    case DT_PUMP_HOVER:
+        settings.d_pump_selected = !settings.d_pump_selected;
+        if (settings.d_pump_selected) {
+            set_value(DT_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
+            set_value(DT_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+        }
+        else {
+            set_value(DT_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+        }
+        set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
+        break;
+    case FAN1_HOVER:
+        // settings.b_fan1_selected = !settings.b_fan1_selected;
+        // set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan1_selected);
+        settings.curr_hover = FAN1_SELECT;
+        set_value(B_FAN1_TXT, NXT_VALUE, SETTINGS_BG);
+        set_value(B_FAN1_BAR, NXT_BACKGROUND_COLOR, WHITE);
+        set_value(B_FAN1_BAR, NXT_FONT_COLOR, BLACK);
+        break;
+    case FAN2_HOVER:
+        settings.b_fan2_selected = !settings.b_fan2_selected;
+        if (settings.b_fan2_selected) {
+            set_value(B_FAN2_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
+            set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+        }
+        else {
+            set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+        }
+        set_value(B_FAN2_OP, NXT_VALUE, settings.b_fan2_selected);
+        break;
+    case PUMP_HOVER:
+        settings.b_pump_selected = !settings.b_pump_selected;
+        if (settings.b_pump_selected) {
+        set_value(B_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
+        set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
+        }
+        else {
+            set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
+        }
+        set_value(B_PUMP_OP, NXT_VALUE, settings.b_pump_selected);
+        break;
+    case DT_FAN_SELECT:
+        settings.curr_hover = DT_FAN_HOVER;
+        set_value(DT_FAN_TXT, NXT_VALUE, SETTINGS_HOVER_BG);
+        set_value(DT_FAN_BAR, NXT_BACKGROUND_COLOR, SETTINGS_BAR_BG);
+        set_value(DT_FAN_BAR, NXT_FONT_COLOR, SETTINGS_BAR_FG);
+        set_value(DT_FAN_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
+        break;
+    case FAN1_SELECT:
+        settings.curr_hover = FAN1_HOVER;
+        set_value(B_FAN1_TXT, NXT_VALUE, SETTINGS_HOVER_BG);
+        set_value(B_FAN1_BAR, NXT_BACKGROUND_COLOR, SETTINGS_BAR_BG);
+        set_value(B_FAN1_BAR, NXT_FONT_COLOR, SETTINGS_BAR_FG);
+        set_value(B_FAN1_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
+        break;
+    }
+    SEND_COOLING_DRIVER_REQUEST(settings.d_pump_selected, settings.d_fan_val, settings.b_fan2_selected, settings.b_pump_selected, settings.b_fan_val);
+}
+
+void driver_select() {
+    switch(driver_config.curr_hover)
+    {
+        case DRIVER_DEFAULT_SELECT:
+            set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
+            set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+            break;
+        case DRIVER_TYLER_SELECT:
+            set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+            set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
+            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+            break;
+        case DRIVER_RUHAAN_SELECT:
+            set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+            set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
+            set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
+            break;
+        case DRIVER_LUKE_SELECT:
+            set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
+            set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
+            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
+            break;
+    }
+}
+
+
 void selectItem() {
+
     // User has selected to clear the current fault screen
     if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_FATAL) || (curr_page == PAGE_WARNING))
     {
@@ -687,186 +866,28 @@ void selectItem() {
         prev_page = PAGE_PREFLIGHT;
         fault_time_displayed = 0;
         updatePage();
+        return;
     }
-    else if (curr_page == PAGE_LOGGING)
-    {
-        SEND_DASHBOARD_START_LOGGING(1);
-    }
-    else if (curr_page == PAGE_RACE) {
-        tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
-        set_value(RACE_TV_ON, NXT_VALUE, tv_settings.tv_enable_selected);
-    }
-    else if (curr_page == PAGE_TVSETTINGS)
-    {
-        // So if we hit select on an already selected item, unselect it (switch to hover)
 
-        if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
-        {
-            tv_settings.curr_hover = TV_INTENSITY_SELECTED;
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, ORANGE);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-            // todo Rot encoder state should let us scroll through value options
-            // for now just use buttons for move up and move down
-        }
-        else if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
-        {
-            // "submit" -> CAN payload will update automatically? decide
-            // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault?
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-            // rot encoder state goes back to page move instead of value move
-        }
-        else if (tv_settings.curr_hover == TV_P_HOVER)
-        {
-            tv_settings.curr_hover = TV_P_SELECTED;
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, ORANGE);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_P_SELECTED)
-        {
-            tv_settings.curr_hover = TV_P_HOVER;
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
-        {
-            tv_settings.curr_hover = TV_DEADBAND_SELECTED;
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, ORANGE);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
-        {
-            tv_settings.curr_hover = TV_DEADBAND_HOVER;
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        }
-        else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
-        {
-            // Don't change the curr_hover
-
-            // Toggle the option
-            tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
-
-            // Set the option
-            set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
-
-            // Update CAN as necessary
-        }
-        else
-        {
-            // ?
-        }
-    }
-    else if (curr_page == PAGE_SETTINGS) {
-        switch (settings.curr_hover) {
-            case DT_FAN_HOVER:
-                // settings.d_fan_selected = !settings.d_fan_selected;
-                // set_value(DT_FAN_BAR, NXT_VALUE, settings.d_fan_selected);
-                settings.curr_hover = DT_FAN_SELECT;
-                set_value(DT_FAN_TXT, NXT_VALUE, SETTINGS_BG);
-                set_value(DT_FAN_BAR, NXT_BACKGROUND_COLOR, WHITE);
-                set_value(DT_FAN_BAR, NXT_FONT_COLOR, BLACK);
-                return;
-            case DT_PUMP_HOVER:
-                settings.d_pump_selected = !settings.d_pump_selected;
-                if (settings.d_pump_selected) {
-                    set_value(DT_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
-                    set_value(DT_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                }
-                else {
-                    set_value(DT_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                }
-                set_value(DT_PUMP_OP, NXT_VALUE, settings.d_pump_selected);
-                break;
-            case FAN1_HOVER:
-                // settings.b_fan1_selected = !settings.b_fan1_selected;
-                // set_value(B_FAN1_BAR, NXT_VALUE, settings.b_fan1_selected);
-                settings.curr_hover = FAN1_SELECT;
-                set_value(B_FAN1_TXT, NXT_VALUE, SETTINGS_BG);
-                set_value(B_FAN1_BAR, NXT_BACKGROUND_COLOR, WHITE);
-                set_value(B_FAN1_BAR, NXT_FONT_COLOR, BLACK);
-                break;
-            case FAN2_HOVER:
-                settings.b_fan2_selected = !settings.b_fan2_selected;
-                if (settings.b_fan2_selected) {
-                    set_value(B_FAN2_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
-                    set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                }
-                else {
-                    set_value(B_FAN2_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                }
-                set_value(B_FAN2_OP, NXT_VALUE, settings.b_fan2_selected);
-                break;
-            case PUMP_HOVER:
-                settings.b_pump_selected = !settings.b_pump_selected;
-                if (settings.b_pump_selected) {
-                set_value(B_PUMP_OP, NXT_FONT_COLOR, SETTINGS_UV_SELECT);
-                set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_BG);
-                }
-                else {
-                    set_value(B_PUMP_OP, NXT_BACKGROUND_COLOR, SETTINGS_HOVER_BG);
-                }
-                set_value(B_PUMP_OP, NXT_VALUE, settings.b_pump_selected);
-                break;
-            case DT_FAN_SELECT:
-                settings.curr_hover = DT_FAN_HOVER;
-                set_value(DT_FAN_TXT, NXT_VALUE, SETTINGS_HOVER_BG);
-                set_value(DT_FAN_BAR, NXT_BACKGROUND_COLOR, SETTINGS_BAR_BG);
-                set_value(DT_FAN_BAR, NXT_FONT_COLOR, SETTINGS_BAR_FG);
-                set_value(DT_FAN_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
-                break;
-            case FAN1_SELECT:
-                settings.curr_hover = FAN1_HOVER;
-                set_value(B_FAN1_TXT, NXT_VALUE, SETTINGS_HOVER_BG);
-                set_value(B_FAN1_BAR, NXT_BACKGROUND_COLOR, SETTINGS_BAR_BG);
-                set_value(B_FAN1_BAR, NXT_FONT_COLOR, SETTINGS_BAR_FG);
-                set_value(B_FAN1_VAL, NXT_FONT_COLOR, SETTINGS_BAR_BG);
-                break;
-        }
-        SEND_COOLING_DRIVER_REQUEST(settings.d_pump_selected, settings.d_fan_val, settings.b_fan2_selected, settings.b_pump_selected, settings.b_fan_val);
-    }
-    else if (curr_page == PAGE_DRIVER)
-    {
-        switch(driver_config.curr_hover)
-        {
-            case DRIVER_DEFAULT_SELECT:
-                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
-                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
-                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
-                break;
-            case DRIVER_TYLER_SELECT:
-                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
-                set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
-                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
-                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
-                break;
-            case DRIVER_RUHAAN_SELECT:
-                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
-                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
-                set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
-                break;
-            case DRIVER_LUKE_SELECT:
-                set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
-                set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-                set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
-                set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
-                break;
-        }
+    switch (curr_page) {
+        case PAGE_LOGGING:
+            SEND_DASHBOARD_START_LOGGING(1);
+            break;
+        case PAGE_DRIVER:
+            driver_select();
+            break;
+        case PAGE_TVSETTINGS:
+            tv_select();
+            break;
+        case PAGE_SETTINGS:
+            cooling_select();
+            break;
+        case PAGE_RACE:
+            race_select();
+            break;
+        case PAGE_FAULTS:
+            // TODO support new faults page
+            break;
     }
 }
 

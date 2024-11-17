@@ -2,14 +2,6 @@
 #include "source/main_module/can/can_parse.h"
 
 /* NOTE:
- * I need change all of this to be a massive state machine in one function
- * like car.c. It will have states such as init which will turn motors on,
- * and a state to turn motors off and a state to actually run stuff.
- * The massive state machine will run periodically (not sure how often yet,
- * has to be < 50ms so that the motor->control word can be send often)
- */
-
-/* NOTE:
  * Step 1 is turning on LV
  * Step 3 happens when HV is turned on and precharging starts (I think this is actually step 2)
  *  I can check when this is done with precharge complete and then move 
@@ -19,23 +11,17 @@
  *  Not sure if I need that
  */
 
-/* NOTE: Page 36 says max velocity is 6000 rpm. But page 37 says that the
- * default max velocity limit is ±5000 rpm */
-
-
 amk_motor_t right = {0};
 
 static void turnMotorOn(amk_motor_t* motor);
 static void motorRunning(amk_motor_t* motor);
 static void turnMotorOff(amk_motor_t* motor);
 static void motorGetData(amk_motor_t* motor);
+static void motorReset(amk_motor_t* motor);
 
 /* NOTE: As of now this is just setting everything to 0, but it may make sense
  * to have it in case something changes down the line while I learn more, so
  * this may end up being deleted if everything just inits to 0 */
-
-/* FIXME: Move motor->control word and status words into motor struct */
-
 void motorInit(amk_motor_t* motor, bool* pchg_complete)
 {
     *motor = (amk_motor_t){
@@ -43,7 +29,7 @@ void motorInit(amk_motor_t* motor, bool* pchg_complete)
         .states.stage = MOTOR_STAGE_INIT,
         .states.init_stage = MOTOR_INIT_POWER_ON,
         .states.deinit_stage = MOTOR_DEINIT_SETPOINTS_DEINIT,
-        .states.running_stage = 0, /* FIXME: FILL IN ONCE I MAKE ENUM */
+        .states.running_stage = MOTOR_RUNNING_GOOD,
 
         /* Values */
         .torque_setpoint = DEFAULT_TORQUE_SETPOINT,
@@ -54,16 +40,15 @@ void motorInit(amk_motor_t* motor, bool* pchg_complete)
     };
 }
 
-/* TODO: Determine period of this. Should be pretty often of course. The control
- * word needs to be sent every 50ms or the motors will shut off. Plettenberg did
- * every 15ms so maybe we will just do that?
- */
-
 void amkCanTesting(amk_motor_t* motor)
 {
     SEND_AMK_TESTING(motor->states.init_stage, motor->control.bits, motor->status.bits, *motor->pchg_complete);
 }
 
+/* TODO: Determine period of this. Should be pretty often of course. The control
+ * word needs to be sent every 50ms or the motors will shut off. Plettenberg did
+ * every 15ms so maybe we will just do that?
+ */
 void motorPeriodic(amk_motor_t* motor)
 {
     motorGetData(motor);
@@ -97,14 +82,17 @@ void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
     motor->torque_setpoint = torque_setpoint;
 
     if (torque_setpoint < 0) {
-        // motor->torque_limit_negative = torque_setpoint;
-        motor->torque_limit_negative = 100;
+        motor->torque_limit_negative = -100;
         motor->torque_limit_positive = 0;
     }
     else {
-        // motor->torque_limit_positive = torque_setpoint;
-        motor->torque_limit_positive = 100;
-        motor->torque_limit_negative = 0;
+        /* FIXME: Was told 9.8Nm is nominal, and to set to limit to 17Nm for now,
+         * but in the mean time I am going to go less than 100% as I am unsure */
+        motor->torque_limit_positive = 500;
+
+        /* FIXME: Should this actually be negative? */
+        /* NOTE: For some reason it cannot be 0, so do -0.1% (according to UIUC's team) */
+        motor->torque_limit_negative = -1;
     }
 
 }
@@ -130,6 +118,11 @@ static void motorGetData(amk_motor_t* motor)
     }
 }
 
+static void motorReset(amk_motor_t* motor)
+{
+    /* State machine here based on 8.2.6 */
+}
+
 /* TODO: Not really sure what needs to be done here. We just need to push
  * these values that are determined in car.c state machine (READY2DRIVE state)
  */
@@ -149,8 +142,10 @@ static void motorRunning(amk_motor_t* motor)
 
         break;
     case MOTOR_RUNNING_ERROR:
-        /* 8.2.5 for error diagram */
-        /* FIXME: Just send a CAN message or something for now to test */
+        /* FIXME: We should also send a message to dash, so we can see
+         * when this happens, or do we just latch an error in the fault
+         * library? */
+        motorReset(motor);
 
         break;
     }

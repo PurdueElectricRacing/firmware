@@ -22,7 +22,7 @@ extern q_handle_t q_fault_history;      // Global queue from fault library for f
 volatile settings_t settings;           // Data for the settings page
 volatile tv_settings_t tv_settings;     // Data for the tvsettings page
 volatile driver_config_t driver_config; // Data for the driver page
-volatile fault_config_t fault_config;   // Data for the faults page
+volatile fault_page_t fault_page;       // Data for the faults page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
@@ -37,10 +37,12 @@ void update_faults_page();
 void move_up_tv();
 void move_up_cooling();
 void move_up_driver();
+void move_up_faults();
 // move down helper prototypes
 void move_down_tv();
 void move_down_cooling();
 void move_down_driver();
+void move_down_faults();
 // select helper prototypes
 void select_race();
 void select_driver();
@@ -82,7 +84,7 @@ void initLCD() {
     settings = (settings_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
     tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
-    fault_config_t fault_config = {FAULT1, FAULT1}; // TODO
+    fault_page_t fault_config = {FAULT1, FAULT1}; // Default to first fault
 }
 
 void updatePage() {
@@ -166,7 +168,7 @@ void moveUp() {
             move_up_cooling();
             break;
         case PAGE_FAULTS:
-            // TODO support new faults page
+            move_up_faults();
             break;
     }
 }
@@ -186,7 +188,7 @@ void moveDown() {
             move_down_cooling();
             break;
         case PAGE_FAULTS:
-            // TODO support new faults page
+            move_down_faults();
             break;
     }
 }
@@ -244,7 +246,6 @@ void updateDataPages() {
 void sendTVParameters() {
     SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
 }
-
 
 bool isFaultAlreadyInBuffer(uint16_t fault) {
     for (int j = 0; j < 5; j++) {
@@ -717,6 +718,60 @@ void move_up_driver() {
     }
 }
 
+void move_up_faults() {
+    switch (fault_page.curr_hover) {
+        case FAULT1:
+            // Wrap around to the last item
+            fault_page.curr_hover = CLEAR;
+            fault_page.curr_select = CLEAR;
+
+            set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            break;
+        case FAULT2:
+            fault_page.curr_hover = FAULT1;
+            fault_page.curr_select = FAULT1;
+
+            set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT3:
+            fault_page.curr_hover = FAULT2;
+            fault_page.curr_select = FAULT2;
+
+            set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT4:
+            fault_page.curr_hover = FAULT3;
+            fault_page.curr_select = FAULT3;
+
+            set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT5:
+            fault_page.curr_hover = FAULT4;
+            fault_page.curr_select = FAULT4;
+
+            set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case CLEAR:
+            fault_page.curr_hover = FAULT5;
+            fault_page.curr_select = FAULT5;
+
+            set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+    }
+}
+
 void move_down_tv() {
     char parsed_value[3] = "\0";
     if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
@@ -901,6 +956,59 @@ void move_down_driver() {
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    }
+}
+
+void move_down_faults() {
+    switch (fault_page.curr_hover) {
+        case FAULT1:
+            fault_page.curr_hover = FAULT2;
+            fault_page.curr_select = FAULT2;
+
+            set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT2:
+            fault_page.curr_hover = FAULT3;
+            fault_page.curr_select = FAULT3;
+
+            set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT3:
+            fault_page.curr_hover = FAULT4;
+            fault_page.curr_select = FAULT4;
+
+            set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT4:
+            fault_page.curr_hover = FAULT5;
+            fault_page.curr_select = FAULT5;
+
+            set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+        case FAULT5:
+            fault_page.curr_hover = CLEAR;
+            fault_page.curr_select = CLEAR;
+
+            set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            break;
+        case CLEAR:
+            fault_page.curr_hover = FAULT1;
+            fault_page.curr_select = FAULT1;
+
+            set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
     }
 }
 

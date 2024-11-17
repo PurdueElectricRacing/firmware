@@ -55,7 +55,7 @@
 #define FAULT_3_TXT "fault3"
 #define FAULT_4_TXT "fault4"
 #define FAULT_5_TXT "fault5"
-#define CLEAR_FAULTS "clear"
+#define CLEAR_FAULTS_TXT "clear"
 #define FAULT_NONE_STRING "NONE\0"
 
 //TV Settings Page Values
@@ -190,7 +190,7 @@ typedef enum {
 typedef struct {
   fault_hover_state_t curr_hover;
   fault_hover_state_t curr_select;
-} fault_config_t;
+} fault_page_t;
 
 typedef struct {
   bool d_fan_selected;

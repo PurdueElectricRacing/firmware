@@ -193,6 +193,51 @@ void moveDown() {
     }
 }
 
+void clear_fault(int index) {
+    if (index < 0 || index >= 5) {
+        return;
+    }
+
+    if (fault_buf[index] == 0xFFFF) {
+        return;
+    }
+
+    if (checkFault(fault_buf[index])) {  // Check if fault is not latched
+        return;
+    }
+
+    // Shift the elements to the left
+    for (int i = index; i < 4; i++) {
+        fault_buf[i] = fault_buf[i + 1];
+    }
+    fault_buf[4] = 0xFFFF;
+}
+
+void select_fault() {
+    switch (fault_page.curr_select) {
+        case FAULT1:
+            clear_fault(0);
+            break;
+        case FAULT2:
+            clear_fault(1);
+            break;
+        case FAULT3:
+            clear_fault(2);
+            break;
+        case FAULT4:
+            clear_fault(3);
+            break;
+        case FAULT5:
+            clear_fault(4);
+            break;
+        case CLEAR:
+            for (int i = 4; i >= 0; i--) {
+                clear_fault(i);
+            }
+            break;
+    }
+}
+
 void selectItem() {
 
     // User has selected to clear the current fault screen
@@ -224,7 +269,7 @@ void selectItem() {
             select_race();
             break;
         case PAGE_FAULTS:
-            // TODO support new faults page
+            select_fault();
             break;
     }
 }
@@ -247,91 +292,110 @@ void sendTVParameters() {
     SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
 }
 
-bool isFaultAlreadyInBuffer(uint16_t fault) {
-    for (int j = 0; j < 5; j++) {
-        if (fault_buf[j] == fault) {
-            return true;
+void updateFaultDisplay() {
+    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
+    {
+        if (++fault_time_displayed > 8)
+        {
+            curr_page = prev_page;
+            prev_page = PAGE_PREFLIGHT;
+            updatePage();
         }
-    }
-    return false;
-}
 
-bool insertFaultIntoBuffer(uint16_t fault) {
-    for (uint8_t k = 0; k < 5; k++) {
-        if (fault_buf[cur_fault_buf_ndx] != 0xFFFF) {
-            if (!checkFault(fault_buf[cur_fault_buf_ndx]) ||
-                (faultArray[fault].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority)) {
-                fault_buf[cur_fault_buf_ndx] = fault;
-                cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
-                return true;
-            }
-        } else {
-            fault_buf[cur_fault_buf_ndx] = fault;
-            cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
-            return true;
-        }
-        cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
     }
-    return false;
-}
+    else
+    {
+        fault_time_displayed = 0;
+    }
 
-bool processFaults() {
+    // No new fault to display
+    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF))
+    {
+        return;
+    }
+
+    // Track if we alrady have this fault in the display buffer
+    bool faultAlreadyInBuffer = false;
     bool pageUpdateRequired = false;
+    bool faultWasInserted = false;
 
     // Process up to 5 faults each time for now
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++)
+    {
+        faultAlreadyInBuffer = false;
         uint16_t next_to_check = 0xFFFF;
-        bool faultWasInserted = false;
+        faultWasInserted = false;
 
-        if (!qReceive(&q_fault_history, &next_to_check)) {
+        if (qReceive(&q_fault_history, &next_to_check))
+        {
+            // Iterate through fault buffer for existance of fault already
+            for (int j = 0; j < 5; j++)
+            {
+                // This should be based off of the queue item not anything else
+                if (fault_buf[j] == next_to_check)
+                {
+                    faultAlreadyInBuffer = true;
+                    break;
+                }
+            }
+
+            // New fault to add to the display, if room
+            if (false == faultAlreadyInBuffer)
+            {
+                // try all the slots for inserting the fault
+                for (uint8_t k = 0; k < 5; k++)
+                {
+                    // If fault is currently not in our fault buffer, replace it if the current fault is cleared,
+                    //  or if the new fault has higher priority
+                    if (fault_buf[cur_fault_buf_ndx] != 0xFFFF)
+                    {
+                        if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false ) ||
+                        (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority))
+                        {
+                            fault_buf[cur_fault_buf_ndx] = next_to_check;
+                            faultWasInserted = true;
+                            pageUpdateRequired = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // Empty slot just insert
+                        fault_buf[cur_fault_buf_ndx] = next_to_check;
+                        faultWasInserted = true;
+                        pageUpdateRequired = true;
+                        break;
+                    }
+                    cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
+                }
+
+                // Put back in the queue if it wasn't processed
+                if (false == faultWasInserted)
+                {
+                    qSendToBack(&q_fault_history, &next_to_check);
+                }
+
+            }
+        }
+        else
+        {
             // Break out if issue or the queue is empty
             break;
         }
 
-        if (isFaultAlreadyInBuffer(next_to_check)) {
-            continue;
-        }
-
-        faultWasInserted = insertFaultIntoBuffer(next_to_check);
-        if (!faultWasInserted) {
-            qSendToBack(&q_fault_history, &next_to_check);
-        } else {
-            pageUpdateRequired = true;
-        }
     }
-
-    return pageUpdateRequired;
-}
-
-void updateFaultDisplay() {
-    if (!(curr_page == PAGE_ERROR || curr_page == PAGE_WARNING || curr_page == PAGE_FATAL)) {
-        fault_time_displayed = 0;
-        return;
-    }
-
-    if (++fault_time_displayed > 8) {
-        curr_page = prev_page;
-        prev_page = PAGE_PREFLIGHT;
-        updatePage();
-        return;
-    }
-
-    // No new fault to display
-    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF)) {
-        return;
-    }
-
-    bool pageUpdateRequired = processFaults();
 
     // Set the alert page to show based on most_recent_latched
-    if (most_recent_latched != 0xFFFF) {
+    if ((most_recent_latched != 0xFFFF))
+    {
         curr_page = faultArray[most_recent_latched].priority + 9;
         errorText = faultArray[most_recent_latched].screen_MSG;
         pageUpdateRequired = true;
     }
 
     // Update page if required
-    if (pageUpdateRequired) {
+    if (pageUpdateRequired)
+    {
         updatePage();
     }
 

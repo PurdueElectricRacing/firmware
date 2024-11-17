@@ -1,3 +1,4 @@
+#include "common/faults/faults.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/adc/adc.h"
@@ -95,6 +96,7 @@ void usartTxUpdate();
 void config_inturrupts();
 void handle_inputs();
 extern void updatePage();
+void emulate_fault();
 
 // Communication queues
 q_handle_t q_tx_usart;
@@ -141,15 +143,33 @@ int main()
 
     schedInit(APB1ClockRateHz);
     initLCD();
-    
+
     taskCreate(handle_inputs, 100);
     taskCreate(updatePage,  500);
     taskCreateBackground(usartTxUpdate);
+    //taskCreate(updateFaultDisplay, 500);
+    taskCreate(updateFaultPageIndicators, 500);
+    taskCreate(emulate_fault, 5000);
 
 
     schedStart();
     // Never reached
     return 0;
+}
+
+extern uint16_t fault_buf[5];
+
+void emulate_fault() {
+    fault_buf[0] = 1;
+    fault_buf[1] = 2;
+    fault_buf[2] = 3;
+    fault_buf[3] = 4;
+    fault_buf[4] = 5;
+    // setFault(1, 1);
+    // setFault(2, 1);
+    // setFault(3, 1);
+    // setFault(4, 1);
+    // setFault(5, 1);
 }
 
 void handle_inputs() {

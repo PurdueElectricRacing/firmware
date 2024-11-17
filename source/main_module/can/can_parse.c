@@ -102,6 +102,7 @@ void canRxUpdate(void)
                 can_data.AMK_Actual_Values_2.AMK_ActualSpeed = (int16_t) msg_data_a->AMK_Actual_Values_2.AMK_ActualSpeed;
                 can_data.AMK_Actual_Values_2.AMK_DCBusVoltage = msg_data_a->AMK_Actual_Values_2.AMK_DCBusVoltage;
                 can_data.AMK_Actual_Values_2.AMK_SystemReset = msg_data_a->AMK_Actual_Values_2.AMK_SystemReset;
+                can_data.AMK_Actual_Values_2.AMK_DiagnosticNumber = msg_data_a->AMK_Actual_Values_2.AMK_DiagnosticNumber;
                 can_data.AMK_Actual_Values_2.stale = 0;
                 can_data.AMK_Actual_Values_2.last_rx = sched.os_ticks;
                 break;

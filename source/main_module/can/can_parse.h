@@ -44,7 +44,7 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
-#define ID_AMK_SETPOINTS 0x184
+#define ID_AMK_SETPOINTS 0x182
 #define ID_AMK_TESTING 0x384
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
@@ -57,10 +57,10 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
-#define ID_AMK_ACTUAL_VALUES_1 0x283
+#define ID_AMK_ACTUAL_VALUES_1 0x282
 #define ID_AMK_ACTUAL_VALUES_2 0x284
-#define ID_AMK_TEMPERATURES_1 0x285
-#define ID_AMK_TEMPERATURES_2 0x286
+#define ID_AMK_TEMPERATURES_1 0x286
+#define ID_AMK_TEMPERATURES_2 0x288
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -101,7 +101,7 @@ typedef union {
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_AMK_ACTUAL_VALUES_1 8
-#define DLC_AMK_ACTUAL_VALUES_2 6
+#define DLC_AMK_ACTUAL_VALUES_2 8
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
 #define DLC_FAULT_SYNC_PDU 3
@@ -515,6 +515,7 @@ typedef union {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_DCBusVoltage: 16;
         uint64_t AMK_SystemReset: 16;
+        uint64_t AMK_DiagnosticNumber: 16;
     } AMK_Actual_Values_2;
     struct {
         uint64_t AMK_MotorTemp: 16;
@@ -631,6 +632,7 @@ typedef struct {
         int16_t AMK_ActualSpeed;
         uint16_t AMK_DCBusVoltage;
         uint16_t AMK_SystemReset;
+        uint16_t AMK_DiagnosticNumber;
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Actual_Values_2;

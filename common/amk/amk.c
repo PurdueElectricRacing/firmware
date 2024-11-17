@@ -30,6 +30,7 @@ void motorInit(amk_motor_t* motor, bool* pchg_complete)
         .states.init_stage = MOTOR_INIT_POWER_ON,
         .states.deinit_stage = MOTOR_DEINIT_SETPOINTS_DEINIT,
         .states.running_stage = MOTOR_RUNNING_GOOD,
+        .states.reset_state = MOTOR_RESET_INVERTER_OFF,
 
         /* Values */
         .torque_setpoint = DEFAULT_TORQUE_SETPOINT,
@@ -84,8 +85,7 @@ void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
     if (torque_setpoint < 0) {
         motor->torque_limit_negative = -100;
         motor->torque_limit_positive = 0;
-    }
-    else {
+    } else {
         /* FIXME: Was told 9.8Nm is nominal, and to set to limit to 17Nm for now,
          * but in the mean time I am going to go less than 100% as I am unsure */
         motor->torque_limit_positive = 500;
@@ -109,6 +109,8 @@ static void motorGetData(amk_motor_t* motor)
         motor->actual_speed = can_data.AMK_Actual_Values_2.AMK_ActualSpeed;
         motor->dc_bus_voltage = can_data.AMK_Actual_Values_2.AMK_DCBusVoltage;
         motor->system_reset = can_data.AMK_Actual_Values_2.AMK_SystemReset;
+        /* FIXME: Will this grab diagnostic number in time? It should? */
+        motor->diagnostic_num = can_data.AMK_Actual_Values_2.AMK_DiagnosticNumber;
     }
 
     if (!can_data.AMK_Temperatures_1.stale) {
@@ -121,6 +123,49 @@ static void motorGetData(amk_motor_t* motor)
 static void motorReset(amk_motor_t* motor)
 {
     /* State machine here based on 8.2.6 */
+    switch (motor->states.reset_state) {
+    case MOTOR_RESET_INVERTER_OFF:
+        /* 1. Set AMK_bInverterOn = 0 */
+        motor->control.fields.AMK_bInverterOn = false;
+
+        SEND_AMK_SETPOINTS(motor->control.bits,
+                             motor->torque_setpoint,
+                             motor->torque_limit_positive,
+                             motor->torque_limit_negative);
+
+        motor->states.reset_state = MOTOR_RESET_ERROR_RESET_ON;
+
+        break;
+    case MOTOR_RESET_ERROR_RESET_ON:
+        motor->control.fields.AMK_bErrorReset = true;
+
+        SEND_AMK_SETPOINTS(motor->control.bits,
+                             0,
+                             0,
+                             0);
+
+        motor->states.reset_state = MOTOR_RESET_ERROR_RESET_OFF;
+
+        break;
+    case MOTOR_RESET_ERROR_RESET_OFF:
+        motor->control.fields.AMK_bErrorReset = false;
+
+        SEND_AMK_SETPOINTS(motor->control.bits,
+                             0,
+                             0,
+                             0);
+
+        motor->states.reset_state = MOTOR_RESET_CHECK_SYSTEM_READY;
+
+        break;
+    case MOTOR_RESET_CHECK_SYSTEM_READY:
+        if (motor->status.fields.AMK_bSystemReady) {
+            motor->states.reset_state = MOTOR_RESET_INVERTER_OFF;
+            motor->states.running_stage = MOTOR_RUNNING_GOOD;
+        }
+
+        break;
+    }
 }
 
 /* TODO: Not really sure what needs to be done here. We just need to push
@@ -169,6 +214,7 @@ static void turnMotorOn(amk_motor_t* motor)
         /* 1r. Check AMK_bSystemReady = 1*/
         if (motor->status.fields.AMK_bSystemReady)
             motor->states.init_stage = MOTOR_INIT_PRECHARGE;
+
         break;
     case MOTOR_INIT_PRECHARGE:
         /* 2. Charge DC caps; QUE should be set (is this just DcOn?) */
@@ -243,6 +289,7 @@ static void turnMotorOn(amk_motor_t* motor)
                              motor->torque_limit_negative);
 
         motor->states.init_stage = MOTOR_INIT_INVERTER_ON_CHECK;
+
         break;
     case MOTOR_INIT_INVERTER_ON_CHECK:
         /* 8r. AMK_bInverterOn is mirrored in AMK_Status, so should be on there */

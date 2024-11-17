@@ -30,18 +30,18 @@ typedef union {
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_AMK_ACTUAL_VALUES_1 0x283
+#define ID_AMK_ACTUAL_VALUES_1 0x282
 #define ID_AMK_ACTUAL_VALUES_2 0x284
-#define ID_AMK_TEMPERATURES_1 0x285
-#define ID_AMK_TEMPERATURES_2 0x286
-#define ID_AMK_SETPOINTS 0x184
+#define ID_AMK_TEMPERATURES_1 0x286
+#define ID_AMK_TEMPERATURES_2 0x288
+#define ID_AMK_SETPOINTS 0x182
 #define ID_AMK_TESTING 0x384
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_AMK_ACTUAL_VALUES_1 8
-#define DLC_AMK_ACTUAL_VALUES_2 6
+#define DLC_AMK_ACTUAL_VALUES_2 8
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
 #define DLC_AMK_SETPOINTS 8
@@ -58,12 +58,13 @@ typedef union {
         data_a->AMK_Actual_Values_1.AMK_MotorSerialNumber = AMK_MotorSerialNumber_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_AMK_ACTUAL_VALUES_2(AMK_ActualSpeed_, AMK_DCBusVoltage_, AMK_SystemReset_) do {\
+#define SEND_AMK_ACTUAL_VALUES_2(AMK_ActualSpeed_, AMK_DCBusVoltage_, AMK_SystemReset_, AMK_DiagnosticNumber_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_ACTUAL_VALUES_2, .DLC=DLC_AMK_ACTUAL_VALUES_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->AMK_Actual_Values_2.AMK_ActualSpeed = AMK_ActualSpeed_;\
         data_a->AMK_Actual_Values_2.AMK_DCBusVoltage = AMK_DCBusVoltage_;\
         data_a->AMK_Actual_Values_2.AMK_SystemReset = AMK_SystemReset_;\
+        data_a->AMK_Actual_Values_2.AMK_DiagnosticNumber = AMK_DiagnosticNumber_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_AMK_TEMPERATURES_1(AMK_MotorTemp_, AMK_InverterTemp_, AMK_IGBTTemp_) do {\
@@ -109,6 +110,7 @@ typedef union {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_DCBusVoltage: 16;
         uint64_t AMK_SystemReset: 16;
+        uint64_t AMK_DiagnosticNumber: 16;
     } AMK_Actual_Values_2;
     struct {
         uint64_t AMK_MotorTemp: 16;

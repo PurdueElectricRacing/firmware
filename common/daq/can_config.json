@@ -250,7 +250,8 @@
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
                                 {"sig_name": "AMK_DCBusVoltage", "sig_desc": "Voltage of the DC bus", "type":"uint16_t", "unit": "V"},
-                                {"sig_name": "AMK_SystemReset", "sig_desc": "System reset", "type":"uint16_t"}
+                                {"sig_name": "AMK_SystemReset", "sig_desc": "System reset", "type":"uint16_t"},
+                                {"sig_name": "AMK_DiagnosticNumber", "sig_desc": "Error number", "type":"uint16_t"}
                             ],
                             "msg_period": 5,
                             "msg_id_override": "0x284"
@@ -1088,7 +1089,8 @@
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
                                 {"sig_name": "AMK_DCBusVoltage", "sig_desc": "Voltage of the DC bus", "type":"uint16_t", "unit": "V"},
-                                {"sig_name": "AMK_SystemReset", "sig_desc": "System reset", "type":"uint16_t"}
+                                {"sig_name": "AMK_SystemReset", "sig_desc": "System reset", "type":"uint16_t"},
+                                {"sig_name": "AMK_DiagnosticNumber", "sig_desc": "Error number", "type":"uint16_t"}
                             ],
                             "msg_period": 5,
                             "msg_id_override": "0x284"

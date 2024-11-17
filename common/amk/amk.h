@@ -54,6 +54,7 @@ typedef struct {
     uint8_t running_stage;
     uint8_t init_stage;
     uint8_t deinit_stage;
+    uint8_t reset_state;
 } amk_motor_states_t;
 
 typedef struct {
@@ -79,6 +80,8 @@ typedef struct {
 
     uint16_t dc_bus_voltage;
     uint16_t system_reset;
+
+    uint16_t diagnostic_num;
 
     bool* pchg_complete;
 } amk_motor_t;
@@ -115,6 +118,13 @@ typedef enum {
     MOTOR_RUNNING_GOOD = 0,
     MOTOR_RUNNING_ERROR,
 } amk_motor_running_state_t;
+
+typedef enum {
+    MOTOR_RESET_INVERTER_OFF = 0,
+    MOTOR_RESET_ERROR_RESET_ON,
+    MOTOR_RESET_ERROR_RESET_OFF,
+    MOTOR_RESET_CHECK_SYSTEM_READY,
+} amk_motor_reset_state_t;
 
 typedef enum {
     MOTOR_STAGE_OFF = 0,

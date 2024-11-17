@@ -275,7 +275,6 @@ int main(void){
     //     SEND_LWS_CONFIG(0x05, 0, 0); // reset cal
     // SEND_LWS_CONFIG(0x03, 0, 0); // start new
 
-    motorSetTorque(&right, 100);
     schedStart();
 
     return 0;

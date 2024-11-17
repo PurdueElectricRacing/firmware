@@ -10,21 +10,22 @@
 #include <string.h>
 #include <stdio.h>
 
-volatile page_t curr_page;            // Current page displayed on the LCD
-volatile page_t prev_page;            // Previous page displayed on the LCD
-uint16_t cur_fault_buf_ndx;           // Current index in the fault buffer
+volatile page_t curr_page;              // Current page displayed on the LCD
+volatile page_t prev_page;              // Previous page displayed on the LCD
+uint16_t cur_fault_buf_ndx;             // Current index in the fault buffer
 volatile uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // Buffer of displayed faults
-bool sendFirsthalf;                   // Flag for sending data to data page
-char *errorText;                      // Pointer to data to display for the Error, Warning, and Critical Fault codes
-extern uint16_t filtered_pedals;      // Global from pedals module for throttle display
-extern q_handle_t q_tx_can;           // Global queue for CAN tx
-extern q_handle_t q_fault_history;    // Global queue from fault library for fault history
-volatile settings_t settings;         // Data for the settings page
-volatile tv_settings_t tv_settings;   // Data for the tvsettings page
+bool sendFirsthalf;                     // Flag for sending data to data page
+char *errorText;                        // Pointer to data to display for the Error, Warning, and Critical Fault codes
+extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
+extern q_handle_t q_tx_can;             // Global queue for CAN tx
+extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
+volatile settings_t settings;           // Data for the settings page
+volatile tv_settings_t tv_settings;     // Data for the tvsettings page
 volatile driver_config_t driver_config; // Data for the driver page
+volatile fault_config_t fault_config;   // Data for the faults page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
-uint8_t fault_time_displayed;         // Amount of units of time that the fault has been shown to the driver
+uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
 
 
 // update helper prototypes
@@ -81,6 +82,7 @@ void initLCD() {
     settings = (settings_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
     tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
+    fault_config_t fault_config = {FAULT1, FAULT1};
 }
 
 void updatePage() {
@@ -359,11 +361,11 @@ void updateFaultPageIndicators() {
         return;
     }
 
-    setFaultIndicator(fault_buf[0], FLT_STAT_1_TXT);
-    setFaultIndicator(fault_buf[1], FLT_STAT_2_TXT);
-    setFaultIndicator(fault_buf[2], FLT_STAT_3_TXT);
-    setFaultIndicator(fault_buf[3], FLT_STAT_4_TXT);
-    setFaultIndicator(fault_buf[4], FLT_STAT_5_TXT);
+    setFaultIndicator(fault_buf[0], FAULT_1_TXT);
+    setFaultIndicator(fault_buf[1], FAULT_2_TXT);
+    setFaultIndicator(fault_buf[2], FAULT_3_TXT);
+    setFaultIndicator(fault_buf[3], FAULT_4_TXT);
+    setFaultIndicator(fault_buf[4], FAULT_5_TXT);
 }
 
 void updateSDCDashboard() {
@@ -1298,11 +1300,11 @@ char *int_to_char(int16_t val, char *val_to_send) {
 
 void setFaultIndicator(uint16_t fault, char *element) {
     if (fault == 0xFFFF) {
-        set_value(element, NXT_BACKGROUND_COLOR, WHITE);
+        set_value(element, NXT_FONT_COLOR, WHITE);
     } else if (checkFault(fault)) {
-        set_value(element, NXT_BACKGROUND_COLOR, RED);
+        set_value(element, NXT_FONT_COLOR, RED);
     }
-    set_value(element, NXT_BACKGROUND_COLOR, RACE_GREEN);
+    set_value(element, NXT_FONT_COLOR, RACE_GREEN);
 }
 
 void updateSDCStatus(uint8_t status, char *element) {

@@ -50,16 +50,12 @@
 
 
 //Fault Page Values
-#define FAULT_1_TXT "t1"
-#define FAULT_2_TXT "t2"
-#define FAULT_3_TXT "t3"
-#define FAULT_4_TXT "t4"
-#define FAULT_5_TXT "t5"
-#define FLT_STAT_1_TXT "t6"
-#define FLT_STAT_2_TXT "t7"
-#define FLT_STAT_3_TXT "t8"
-#define FLT_STAT_4_TXT "t9"
-#define FLT_STAT_5_TXT "t10"
+#define FAULT_1_TXT "fault1"
+#define FAULT_2_TXT "fault2"
+#define FAULT_3_TXT "fault3"
+#define FAULT_4_TXT "fault4"
+#define FAULT_5_TXT "fault5"
+#define CLEAR_FAULTS "clear"
 #define FAULT_NONE_STRING "NONE\0"
 
 //TV Settings Page Values
@@ -107,8 +103,6 @@
 #define FLT_TO_PERCENTAGE (100U)
 
 //Race specific Values
-#define GEAR_TEMP "t21"
-
 #define BATT_TEMP "batt_temp"
 #define BATT_VOLT "volts"
 #define BATT_CURR "amps"
@@ -185,6 +179,19 @@ typedef struct {
   driver_select_state_t curr_select;
 } driver_config_t;
 
+typedef enum {
+  FAULT1,
+  FAULT2,
+  FAULT3,
+  FAULT4,
+  FAULT5,
+  CLEAR
+} fault_hover_state_t;
+typedef struct {
+  fault_hover_state_t curr_hover;
+  fault_hover_state_t curr_select;
+} fault_config_t;
+
 typedef struct {
   bool d_fan_selected;
   bool d_pump_selected;
@@ -206,8 +213,8 @@ void moveUp();                                      // Upward UI input detected 
 void moveDown();                                    // Downward UI input detected (down button or in some cases encoder)
 void selectItem();                                  // Selection UI input detected
 void updateFaultDisplay();                          // Periodically poll recent faults and update the fault buffer and page as needed
-void updateDataPages();                           // Periodically poll recent telemetry and update the data page as needd
-int zeroEncoder(volatile int8_t* start_pos);       // Zero the encoder position for page selection
+void updateDataPages();                             // Periodically poll recent telemetry and update the data page as needd
+int zeroEncoder(volatile int8_t* start_pos);        // Zero the encoder position for page selection
 void sendTVParameters();                            // Periodically send updates to the TV configuration to TV board
 void updateFaultPageIndicators();
 void updateSDCDashboard();

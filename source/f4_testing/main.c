@@ -2,12 +2,10 @@
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/dma/dma.h"
-#include "common/phal_F4_F7/spi/spi.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
-#include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
 
+#include "nextion.h"
 #include "source/dashboard/lcd/lcd.h"
 #include "common/queue/queue.h"
 #include "stm32f407xx.h"

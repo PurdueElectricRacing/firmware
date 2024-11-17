@@ -11,8 +11,6 @@
  *  Not sure if I need that
  */
 
-amk_motor_t right = {0};
-
 static void turnMotorOn(amk_motor_t* motor);
 static void motorRunning(amk_motor_t* motor);
 static void turnMotorOff(amk_motor_t* motor);

@@ -16,6 +16,8 @@
 
 #include "main.h"
 
+#include "can_parse.h"
+
 volatile raw_adc_values_t raw_adc_values;
 
 #define POT_MIN 0
@@ -139,6 +141,8 @@ int main()
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
+    initFaultLibrary(2, &q_tx_can1_s[0], ID_FAULT_SYNC_DASHBOARD);
+
     config_inturrupts();
 
     schedInit(APB1ClockRateHz);
@@ -147,7 +151,7 @@ int main()
     taskCreate(handle_inputs, 100);
     taskCreate(updatePage,  500);
     taskCreateBackground(usartTxUpdate);
-    //taskCreate(updateFaultDisplay, 500);
+    taskCreate(updateFaultDisplay, 500);
     taskCreate(updateFaultPageIndicators, 500);
     taskCreate(emulate_fault, 5000);
 
@@ -158,18 +162,16 @@ int main()
 }
 
 extern uint16_t fault_buf[5];
-
 void emulate_fault() {
-    fault_buf[0] = 1;
-    fault_buf[1] = 2;
-    fault_buf[2] = 3;
-    fault_buf[3] = 4;
-    fault_buf[4] = 5;
-    // setFault(1, 1);
-    // setFault(2, 1);
-    // setFault(3, 1);
-    // setFault(4, 1);
-    // setFault(5, 1);
+    // fault_buf[0] = 1;
+    // fault_buf[1] = 2;
+    // fault_buf[2] = 3;
+    // fault_buf[3] = 4;
+    // fault_buf[4] = 5;
+    setFault(ID_TEST_FAULT_1_FAULT, 2);
+    setFault(ID_TEST_FAULT_2_FAULT, 2);
+    setFault(ID_TEST_FAULT_3_FAULT, 2);
+    setFault(ID_TEST_FAULT_4_FAULT, 124);
 }
 
 void handle_inputs() {

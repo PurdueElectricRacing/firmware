@@ -194,7 +194,7 @@ void moveDown() {
 }
 
 void clear_fault(int index) {
-    if (index < 0 || index >= 5) {
+    if (index < 0 || index > 4) {
         return;
     }
 
@@ -1162,7 +1162,7 @@ void select_cooling() {
         settings.curr_hover = DT_FAN_SELECT;
         set_value(DT_FAN_TXT, NXT_VALUE, SETTINGS_BG);
         set_value(DT_FAN_BAR, NXT_BACKGROUND_COLOR, WHITE);
-        set_value(DT_FAN_BAR, NXT_FONT_COLOR, BLACK);
+        //set_value(DT_FAN_BAR, NXT_FONT_COLOR, BLACK);
         return;
     case DT_PUMP_HOVER:
         settings.d_pump_selected = !settings.d_pump_selected;
@@ -1181,7 +1181,7 @@ void select_cooling() {
         settings.curr_hover = FAN1_SELECT;
         set_value(B_FAN1_TXT, NXT_VALUE, SETTINGS_BG);
         set_value(B_FAN1_BAR, NXT_BACKGROUND_COLOR, WHITE);
-        set_value(B_FAN1_BAR, NXT_FONT_COLOR, BLACK);
+        //set_value(B_FAN1_BAR, NXT_FONT_COLOR, BLACK);
         break;
     case FAN2_HOVER:
         settings.b_fan2_selected = !settings.b_fan2_selected;

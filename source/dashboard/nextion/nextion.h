@@ -25,6 +25,8 @@
 #define RACE_GREEN 1376
 #define WHITE 65535
 #define BLACK 0
+#define GOLD 50273
+#define GREY 57051
 
 #define FLAG_ENABLED_PIC  1
 #define FLAG_DISABLED_PIC 1

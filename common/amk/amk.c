@@ -23,7 +23,7 @@
  * default max velocity limit is ±5000 rpm */
 
 
-static amk_motor_t right = {0};
+amk_motor_t right = {0};
 
 static void turnMotorOn(amk_motor_t* motor);
 static void motorRunning(amk_motor_t* motor);
@@ -97,11 +97,13 @@ void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
     motor->torque_setpoint = torque_setpoint;
 
     if (torque_setpoint < 0) {
-        motor->torque_limit_negative = torque_setpoint;
+        // motor->torque_limit_negative = torque_setpoint;
+        motor->torque_limit_negative = 100;
         motor->torque_limit_positive = 0;
     }
     else {
-        motor->torque_limit_positive = torque_setpoint;
+        // motor->torque_limit_positive = torque_setpoint;
+        motor->torque_limit_positive = 100;
         motor->torque_limit_negative = 0;
     }
 
@@ -148,6 +150,7 @@ static void motorRunning(amk_motor_t* motor)
         break;
     case MOTOR_RUNNING_ERROR:
         /* 8.2.5 for error diagram */
+        /* FIXME: Just send a CAN message or something for now to test */
 
         break;
     }
@@ -238,6 +241,7 @@ static void turnMotorOn(amk_motor_t* motor)
     case MOTOR_INIT_INVERTER_ON:
         /* 8  Set AMK_bInverterOn = 1 */
         motor->control.fields.AMK_bInverterOn = true;
+
         SEND_AMK_SETPOINTS(motor->control.bits,
                              motor->torque_setpoint,
                              motor->torque_limit_positive,

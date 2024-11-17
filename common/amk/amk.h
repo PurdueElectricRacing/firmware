@@ -123,6 +123,9 @@ typedef enum {
     MOTOR_STAGE_DEINIT
 } amk_motor_stage_t;
 
+extern amk_motor_t right;
+extern amk_motor_t left;
+
 #define DEFAULT_TORQUE_SETPOINT 0
 #define DEFAULT_POSITIVE_TORQUE_LIMIT 0
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT 0

@@ -208,7 +208,7 @@
                                 {"sig_name": "AMK_NegativeTorqueLimit", "sig_desc": "Negative Torque Limit", "type":"int16_t", "unit":"Nm", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x184"
+                            "msg_id_override": "0x182"
                         },
                         {
                             "msg_name": "AMK_Testing",
@@ -242,7 +242,7 @@
                                 {"sig_name": "AMK_MotorSerialNumber", "sig_desc": "Serial number of the motor", "type":"uint32_t"}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x283"
+                            "msg_id_override": "0x282"
                         },
                         {
                             "msg_name": "AMK_Actual_Values_2",
@@ -264,7 +264,7 @@
                                 {"sig_name": "AMK_IGBTTemp", "sig_desc": "IGBT temperature", "type":"int16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x285"
+                            "msg_id_override": "0x286"
                         },
                         {
                             "msg_name": "AMK_Temperatures_2",
@@ -275,7 +275,7 @@
                                 {"sig_name": "AMK_TempSensorMotor", "sig_desc": "???", "type":"int16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x286"
+                            "msg_id_override": "0x288"
                         }
                     ]
                 },
@@ -1080,7 +1080,7 @@
                                 {"sig_name": "AMK_MotorSerialNumber", "sig_desc": "Serial number of the motor", "type":"uint32_t"}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x283"
+                            "msg_id_override": "0x282"
                         },
                         {
                             "msg_name": "AMK_Actual_Values_2",
@@ -1102,7 +1102,7 @@
                                 {"sig_name": "AMK_IGBTTemp", "sig_desc": "IGBT temperature", "type":"int16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x285"
+                            "msg_id_override": "0x286"
                         },
                         {
                             "msg_name": "AMK_Temperatures_2",
@@ -1113,7 +1113,7 @@
                                 {"sig_name": "AMK_TempSensorMotor", "sig_desc": "???", "type":"int16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x286"
+                            "msg_id_override": "0x288"
                         }
                     ],
                     "rx": [
@@ -1127,7 +1127,7 @@
                                 {"sig_name": "AMK_NegativeTorqueLimit", "sig_desc": "Negative Torque Limit", "type":"int16_t", "unit":"Nm", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x184"
+                            "msg_id_override": "0x182"
                         },
                         {
                             "msg_name": "AMK_Testing",

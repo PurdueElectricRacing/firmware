@@ -146,6 +146,7 @@ int main()
     taskCreate(updatePage,  500);
     taskCreateBackground(usartTxUpdate);
 
+
     schedStart();
     // Never reached
     return 0;

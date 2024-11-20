@@ -65,23 +65,25 @@
 #define TV_ENABLE_OP "c0"
 
 //Setings page values
-#define DT_FAN_TXT "t2"
-#define DT_PUMP_TXT "t3"
-#define B_FAN1_TXT "t5"
-#define B_FAN2_TXT "t6"
-#define B_PUMP_TXT "t7"
-#define DT_FAN_BAR "j0"
-#define DT_FAN_VAL "t8"
-#define DT_PUMP_OP "c1"
-#define B_FAN1_BAR "j1"
-#define B_FAN1_VAL "t9"
-#define B_FAN2_OP "c3"
-#define B_PUMP_OP "c4"
+#define DT_FAN_TXT "dt_txt"
+#define DT_FAN_BAR "dt_bar"
+#define DT_FAN_VAL "dt_val"
+#define DT_PUMP_TXT "t2"
+#define DT_PUMP_OP "dt_p"
+#define B_FAN1_TXT "batt_txt"
+#define B_FAN1_VAL "batt_val"
+#define B_FAN1_BAR "batt_bar"
+#define B_FAN2_TXT "t4"
+#define B_FAN2_OP "batt_p1"
+#define B_PUMP_TXT "t5"
+#define B_PUMP_OP "batt_p2"
+#define BAR_INTERVAL 25
 
 //Colors
 #define TV_BG 38066
 #define TV_HOVER_BG 52857
 #define SETTINGS_HOVER_BG GREY
+#define SETTINGS_HOVER_FG BLACK
 #define SETTINGS_BAR_BG 48631
 #define SETTINGS_BAR_FG GOLD
 #define SETTINGS_BG BLACK
@@ -189,7 +191,6 @@ typedef enum {
 } fault_hover_state_t;
 typedef struct {
   fault_hover_state_t curr_hover;
-  fault_hover_state_t curr_select;
 } fault_page_t;
 
 typedef struct {

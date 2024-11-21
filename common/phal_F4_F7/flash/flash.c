@@ -14,7 +14,7 @@
 /**
  * @brief Convert address to sector number
  *        Assumes addr is within flash addr space
- * 
+ *
  * @param addr Flash address
  * @return The flash sector
  */
@@ -139,7 +139,11 @@ uint8_t PHAL_flashErasePage(uint8_t page)
 
     while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
         asm("nop");
-    if (timeout == PHAL_FLASH_TIMEOUT) return FLASH_TIMEOUT;
+    if (timeout == PHAL_FLASH_TIMEOUT)
+    {
+        flashLock();
+        return FLASH_TIMEOUT;
+    }
 
     // Disable page erase and clear the page request
     FLASH->CR &= ~(FLASH_CR_SER | FLASH_CR_SNB_Msk);

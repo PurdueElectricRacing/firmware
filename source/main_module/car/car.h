@@ -81,8 +81,6 @@ typedef struct
 typedef struct
 {
     car_state_t state;
-    // motor_t motor_l;
-    // motor_t motor_r;
     amk_motor_t motor_l;
     amk_motor_t motor_r;
 

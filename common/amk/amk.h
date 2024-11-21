@@ -49,7 +49,6 @@ typedef union
 } AMK_Control_t;
 
 typedef struct {
-    // uint8_t state;
     uint8_t stage;
     uint8_t running_stage;
     uint8_t init_stage;
@@ -133,13 +132,13 @@ typedef enum {
     MOTOR_STAGE_DEINIT
 } amk_motor_stage_t;
 
-#define DEFAULT_TORQUE_SETPOINT 0
-#define DEFAULT_POSITIVE_TORQUE_LIMIT 0
-#define DEFAULT_NEGATIVE_TORQUE_LIMIT 0
+#define DEFAULT_TORQUE_SETPOINT (0)
+#define DEFAULT_POSITIVE_TORQUE_LIMIT (0)
+#define DEFAULT_NEGATIVE_TORQUE_LIMIT (0)
 
-#define MAX_POSITIVE_TORQUE_SETPOINT 1000
-#define MAX_NEGATIVE_TORQUE_SETPOINT -1000
-#define MAX_POSITIVE_TORQUE_LIMIT 1000
-#define MAX_NEGATIVE_TORQUE_LIMIT -1000
+#define MAX_POSITIVE_TORQUE_SETPOINT (1000)
+#define MAX_NEGATIVE_TORQUE_SETPOINT (-1000)
+#define MAX_POSITIVE_TORQUE_LIMIT (1000)
+#define MAX_NEGATIVE_TORQUE_LIMIT (-1000)
 
 #endif /* _AMK_H_ */

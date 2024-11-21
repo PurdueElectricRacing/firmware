@@ -72,8 +72,9 @@ void motorPeriodic(amk_motor_t* motor)
 void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
 {
     if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT 
-        || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT)
+        || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT) {
         return;
+    }
 
     /* Scale up since unit is 0.1% of nominal torque */
     torque_setpoint *= 10;
@@ -180,8 +181,9 @@ static void motorRunning(amk_motor_t* motor)
                              motor->torque_limit_negative);
 
         /* Check for errors */
-        if (motor->status.fields.AMK_bError)
+        if (motor->status.fields.AMK_bError) {
             motor->states.running_stage = MOTOR_RUNNING_ERROR;
+        }
 
         break;
     case MOTOR_RUNNING_ERROR:
@@ -210,8 +212,9 @@ static void turnMotorOn(amk_motor_t* motor)
     case MOTOR_INIT_POWER_ON:
         /* 1. Turn on 24V DC to inverters */
         /* 1r. Check AMK_bSystemReady = 1*/
-        if (motor->status.fields.AMK_bSystemReady)
+        if (motor->status.fields.AMK_bSystemReady) {
             motor->states.init_stage = MOTOR_INIT_PRECHARGE;
+        }
 
         break;
     case MOTOR_INIT_PRECHARGE:
@@ -223,8 +226,9 @@ static void turnMotorOn(amk_motor_t* motor)
         /* if precharge complete pin is high */
         /* NOTE: This is found for us in car.c. Can check the pin ourselves
          * if we should not be touching this struct outside of car.c */
-        if (*motor->pchg_complete)
+        if (*motor->pchg_complete) {
             motor->states.init_stage = MOTOR_INIT_DC_ON;
+        }
 
         break;
     case MOTOR_INIT_DC_ON:
@@ -246,8 +250,9 @@ static void turnMotorOn(amk_motor_t* motor)
         /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
             /* Does where do I check QUE??? */
 
-        if (motor->status.fields.AMK_bQuitDcOn)
+        if (motor->status.fields.AMK_bQuitDcOn) {
             motor->states.init_stage = MOTOR_INIT_TORQUE_INIT;
+        }
 
         break;
     case MOTOR_INIT_TORQUE_INIT:
@@ -394,8 +399,9 @@ static void turnMotorOff(amk_motor_t* motor)
         /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
             /* Does where do I check QUE??? */
 
-        if (!(motor->status.fields.AMK_bQuitDcOn))
+        if (!(motor->status.fields.AMK_bQuitDcOn)) {
             motor->states.init_stage = MOTOR_INIT_TORQUE_INIT;
+        }
 
         motor->states.deinit_stage = MOTOR_DEINIT_PRECHARGE;
 
@@ -404,8 +410,9 @@ static void turnMotorOff(amk_motor_t* motor)
         /* 7. Discharge DC caps; QUE should be reset (is this just DcOn?) */
         
         /* FIXME: Will this work? Not sure if this goes low when discharged */
-        if (!(*motor->pchg_complete))
+        if (!(*motor->pchg_complete)) {
             motor->states.init_stage = MOTOR_DEINIT_POWER_OFF;
+        }
 
         /* If discharged, move on */
         motor->states.deinit_stage = MOTOR_DEINIT_POWER_OFF;

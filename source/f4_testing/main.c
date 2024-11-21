@@ -65,7 +65,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_AF(SPI_MISO_PORT, SPI_MISO_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
 
     // CAN
-    // FIXME: (I think these are backwards on schematic? Or are the defs different?)
     GPIO_INIT_CANRX_PA11,
     GPIO_INIT_CANTX_PA12,
 

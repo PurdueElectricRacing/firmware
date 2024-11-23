@@ -21,6 +21,11 @@ git clone https://github.com/PurdueElectricRacing/firmware.git
 
 5. Install [Visual Studio Code](https://code.visualstudio.com/): Text editor with extensions for helping build the firmware components using CMake.
 
+   Important extensions:
+   - [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug): Provides debugging support for ARM Cortex-M microcontrollers, including live watch capability.
+   - [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd): Provides advanced C/C++ code completion and analysis. (Optional)
+
+
 6. Initialize the git submodules in this project with the following command to download the source for the various git submodules: `git submodule update --init --recursive`.
 
    - This command needs to be run in the base folder of the cloned repository and may take a few minutes to complete.

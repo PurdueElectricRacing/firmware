@@ -4,7 +4,7 @@
 #include "can_parse.h"
 #include "common_defs.h"
 #include "common/faults/faults.h"
-#include "daq.h"
+//#include "daq.h"
 
 
 extern q_handle_t q_tx_can;

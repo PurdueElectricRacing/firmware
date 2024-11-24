@@ -13,7 +13,7 @@
 
 /* Module Includes */
 #include "main.h"
-#include "daq.h"
+//#include "daq.h"
 #include "orion.h"
 #include "tmu.h"
 
@@ -46,6 +46,12 @@ GPIOInitConfig_t gpio_config[] = {
 
     // Conn
     GPIO_INIT_OUTPUT(GPIOE, 14, GPIO_OUTPUT_LOW_SPEED),
+
+    //Select Pins
+    GPIO_INIT_OUTPUT(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, GPIO_OUTPUT_LOW_SPEED)
 };
 
 
@@ -68,6 +74,10 @@ SPI_InitConfig_t spi_config = {
     .tx_dma_cfg = NULL,
     .periph = SPI1};
 
+tmu_handle_t tmu = {
+   .spi = &spi_config,
+};
+
 /* Locals for Clock Rates */
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
@@ -75,10 +85,10 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler();
-
 void preflightChecks();
 void preflightAnimation();
 void read_max_chip_id();
+void get_stuff(void);
 
 int main (void)
 {
@@ -101,7 +111,7 @@ int main (void)
     schedInit(SystemCoreClock);
     configureAnim(preflightAnimation, preflightChecks, 75, 750);
 
-    taskCreate(read_max_chip_id, 1000);
+    taskCreate(get_stuff, 1000);
 
     /* No Way Home */
     schedStart();
@@ -128,6 +138,11 @@ void preflightChecks(void)
 
         // Raise chip select line
         PHAL_writeGPIO(GPIOC, 2, 1);
+        break;
+    case 20:
+        if (!initTMU(&tmu)) {
+            HardFault_Handler();
+        }
         break;
     case 700:
         break;
@@ -205,4 +220,9 @@ void read_max_chip_id(void)
         // Based on loose docs: https://github.com/analogdevicesinc/PyTrinamicMicro/blob/315849f30d3063c57b9ab54912ba8a99e683114a/PyTrinamicMicro/platforms/motionpy2/modules/max/max22531.py#L228
         __asm__("nop");
     }
+}
+
+void get_stuff(void)
+{
+    readTemps(&tmu);
 }

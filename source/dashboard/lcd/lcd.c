@@ -313,7 +313,6 @@ void updateFaultDisplay() {
             prev_page = PAGE_PREFLIGHT;
             updatePage();
         }
-
     }
     else
     {
@@ -416,15 +415,27 @@ void updateFaultDisplay() {
 }
 
 void updateFaultPageIndicators() {
+    static uint8_t update_group = 0U;
     if (curr_page != PAGE_FAULTS) {
         return;
     }
 
-    setFaultIndicator(fault_buf[0], FAULT_1_TXT);
-    setFaultIndicator(fault_buf[1], FAULT_2_TXT);
-    setFaultIndicator(fault_buf[2], FAULT_3_TXT);
-    setFaultIndicator(fault_buf[3], FAULT_4_TXT);
-    setFaultIndicator(fault_buf[4], FAULT_5_TXT);
+    update_group++;
+    switch (update_group) {
+        case 1:
+            setFaultIndicator(fault_buf[0], FAULT_1_TXT);
+            setFaultIndicator(fault_buf[1], FAULT_2_TXT);
+            setFaultIndicator(fault_buf[2], FAULT_3_TXT);
+            break;
+        case 2:
+            setFaultIndicator(fault_buf[3], FAULT_4_TXT);
+            setFaultIndicator(fault_buf[4], FAULT_5_TXT);
+            update_group = 0U;
+            break;
+        default:
+            update_group = 0U;
+            break;
+    }
 }
 
 void updateSDCDashboard() {

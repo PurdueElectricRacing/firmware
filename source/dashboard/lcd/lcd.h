@@ -143,8 +143,7 @@ typedef enum {
   FAN2_HOVER,
   PUMP_HOVER,
   DT_FAN_SELECT,
-  FAN1_SELECT,
-  NONE_SELECTED
+  FAN1_SELECT
 } cooling_hover_state_t;
 
 typedef enum {

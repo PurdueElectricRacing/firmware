@@ -60,6 +60,27 @@ static void flashLock()
     FLASH->CR |= FLASH_CR_LOCK;                 // Set-only bit, will be cleared upon next succcessful flash unlock
 }
 
+uint32_t PHAL_flashReadU32(uint32_t addr)
+{
+    // technically it's undef bheavior if we read flash while writing but this is slow
+#if 0
+    uint32_t val = 0xFFFFFFFF;
+    uint8_t ret;
+    if (addr < FLASH_BASE || addr > FLASH_END)
+        return 0xFFFFFFFF;
+
+    ret = flashUnlock();
+    if (ret != FLASH_OK) return ret;
+
+    val = *((__IO uint32_t*) addr);
+
+    flashLock();
+#else
+    uint32_t val = *((__IO uint32_t*) addr);
+#endif
+    return val;
+}
+
 uint8_t PHAL_flashWriteU32(uint32_t Address, uint32_t value)
 {
     uint32_t timeout = 0;

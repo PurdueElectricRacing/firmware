@@ -66,6 +66,8 @@ enum
 #define MAX_FLASH_SECTOR (8-1)
 #endif
 
+uint32_t PHAL_flashReadU32(uint32_t addr);
+
 uint8_t PHAL_flashWriteU32(uint32_t address, uint32_t value);
 uint8_t PHAL_flashWriteU64(uint32_t address, uint64_t data);
 uint8_t PHAL_flashErasePage(uint8_t page);

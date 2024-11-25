@@ -1,25 +1,5 @@
-/* System Includes */
+#include "common/bootloader/bootloader_common.h"
 
-#include "inttypes.h"
-
-#ifdef STM32L432xx
-#include "stm32l432xx.h"
-#endif
-
-#ifdef STM32L496xx
-#include "stm32l496xx.h"
-#endif
-
-#ifdef STM32F407xx
-#include "stm32f407xx.h"
-#endif
-
-#ifdef STM32F732xx
-#include "stm32f732xx.h"
-#endif
-// #include "system_stm32l4xx.h"
-
-#include "can_parse.h"
 #if defined(STM32L496xx) || defined(STM32L432xx)
 #include "common/phal_L4/can/can.h"
 #include "common/phal_L4/gpio/gpio.h"
@@ -31,36 +11,22 @@
 #include "common/phal_F4_F7/rcc/rcc.h"
 #endif
 
-#include "common/bootloader/bootloader_common.h"
-
-
 /* Module Includes */
+#include "can_parse.h"
 #include "node_defs.h"
 #include "bootloader.h"
 
-#define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     CAN_RX_GPIO_CONFIG,
     CAN_TX_GPIO_CONFIG,
-    #if (APP_ID != APP_DASHBOARD)
-        GPIO_INIT_OUTPUT(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-    #else
-        GPIO_INIT_OUTPUT_OPEN_DRAIN(STATUS_LED_GPIO_Port, STATUS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-    #endif
-
-    #if (APP_ID == APP_L4_TESTING)
-    GPIO_INIT_OUTPUT(GPIOB, 7, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(GPIOB, 6, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(GPIOB, 1, GPIO_OUTPUT_LOW_SPEED),
-    #endif
-    #if (APP_ID == APP_MAIN_MODULE)
-    GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
-    #endif
 };
-    /* TODO: remove ^ */
+
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -71,42 +37,25 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
-/* Locals for Clock Rates */
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
-extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
-
-/* Function Prototypes */
 void HardFault_Handler();
-extern void Default_Handler();
-void jump_to_application(void);
-bool check_boot_health(void);
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 static void send_pending_can(void);
+static void BL_CANPoll(void);
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-extern char __isr_vector_start; /* VA of the vector table for the bootloader */
-extern char _eboot_flash;      /* End of the bootlaoder flash region, same as the application start address */
-extern char _estack;      /* The start location of the stack */
+#define BOOTLOADER_INITIAL_TIMEOUT 3000   // wait 3s at start
+#define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
+static volatile uint32_t bootloader_ms = 0; // systick
 
-/* Bootlaoder timing control */
-static volatile uint32_t bootloader_ms = 0;
-static volatile uint32_t bootloader_ms_2 = 0;
-static volatile bool bootloader_timeout = false;
-static volatile bool send_status_flag = true;
-static bool send_flash_address = false;
-
-int main (void)
+int main(void)
 {
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     bootloader_ms = 0;
 
-    /* HAL Initilization */
 #ifdef HSI_TRIM_BL_NODE
     PHAL_trimHSI(HSI_TRIM_BL_NODE);
 #endif
@@ -116,80 +65,39 @@ int main (void)
     if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
         HardFault_Handler();
 
+    // Init bare minimum peripherals (systick, can1, crc)
+    SysTick_Config(SystemCoreClock / 1000);
+    NVIC_EnableIRQ(SysTick_IRQn);
+
     if (1 != PHAL_initCAN(CAN1, false, VCAN_BPS))
         HardFault_Handler();
 
-    #if (APP_ID == APP_MAIN_MODULE)
-        PHAL_writeGPIO(GPIOD, 12, 0);
-        PHAL_writeGPIO(GPIOD, 14, 0);
-    #endif
-
-    /* Module init */
     initCANParse(&q_rx_can);
-    BL_init((uint32_t *) &_eboot_flash, &bootloader_ms);
-
-    // Only enable application launch timeout if the device has not
-    // boot looped more than allowed.
-    bool allow_application_launch = check_boot_health();
-
-    SysTick_Config(SystemCoreClock / 1000);
-    NVIC_EnableIRQ(SysTick_IRQn);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    BL_sendStatusMessage(BLSTAT_BOOT, bootloader_shared_memory.reset_reason);
+    // BL_sendStatusMessage(BLSTAT_BOOT, 1); // TODO send initial message
 
-    /*
-        Main bootloader loop.
-        Will run until the systick timer times out or the bootloader process completes
-    */
-    while(!bootloader_timeout || !allow_application_launch)
+    // bootloader can loop
+    while (bootloader_ms < BOOTLOADER_INITIAL_TIMEOUT || BL_flashStarted())
     {
-        while (!qIsEmpty(&q_rx_can))
-            canRxUpdate();
-
-        if (send_status_flag)
-        {
-            send_status_flag = false;
-
-            if (!BL_flashStarted())
-                BL_sendStatusMessage(BLSTAT_WAIT, bootloader_ms);
-            //else
-            //    BL_sendStatusMessage(BLSTAT_PROGRESS, (uint32_t) BL_getCurrentFlashAddress());
-        }
-
-        // Send all pending CAN messages
-        send_pending_can();
-
-        /*
-            Check if firmware download is complete
-                Attempt to launch the app if so
-        */
-        if (BL_flashComplete())
-        {
-            allow_application_launch = true;
-            bootloader_timeout = true;
-            break;
-        }
-
+        BL_CANPoll();
     }
 
-    NVIC_DisableIRQ(SysTick_IRQn);
-    NVIC_DisableIRQ(CAN1_RX0_IRQn);
+    // dont init can or systick before this
+    BL_checkAndBoot();
 
-    // Check the first word of the application, it should contain the MSP
-    // an address can not start with 0xFF for the MSP
-    BL_sendStatusMessage(BLSTAT_JUMP_TO_APP, 0);
+    while (1) // infinite bootloader can loop
+    {
+        BL_CANPoll();
+    }
+}
+
+static void BL_CANPoll(void)
+{
     send_pending_can();
-
-
-    jump_to_application();
-
-    // Only sent if first double-word is NULL (no app exists)
-    BL_sendStatusMessage(BLSTAT_INVAID_APP, bootloader_shared_memory.reset_count);
-    bootloader_shared_memory.reset_reason = RESET_REASON_BAD_FIRMWARE;
+    while (!qIsEmpty(&q_rx_can))
+        canRxUpdate();
     send_pending_can();
-
-    NVIC_SystemReset();
 }
 
 // Sends all pending messages in the tx queue, doesn't require systick to be active
@@ -205,183 +113,13 @@ static void send_pending_can(void)
     }
 }
 
-void SysTick_Handler(void)
-{
-    static uint16_t tick;
-    tick++;
-    bootloader_ms++;
-
-    switch (bootloader_shared_memory.reset_reason)
-    {
-        case RESET_REASON_BAD_FIRMWARE:
-        case RESET_REASON_INVALID:
-            // Unknown reset cause or bad firmware
-            // Will infinetly wait in bootloader mode
-            if (tick % 100 == 0)
-            {
-                send_status_flag = true;
-            }
-            if (BL_flashStarted() && bootloader_ms >= 3000)
-            {
-               BL_timeout();
-               bootloader_ms = 0;
-            }
-            break;
-        case RESET_REASON_BUTTON:
-        case RESET_REASON_DOWNLOAD_FW:
-        case RESET_REASON_APP_WATCHDOG:
-            // Watchdog reset or a bad firmware boot,
-            // stay in bootlaoder for 3 seconds before attempting to boot again
-            if (tick % 100 == 0)
-            {
-                send_status_flag = true;
-            }
-            if (bootloader_ms >= 3000)
-            {
-                send_status_flag = true;
-                bootloader_timeout = true;
-            }
-            break;
-        case RESET_REASON_POR:
-            if (tick % 100 == 0)
-            {
-                send_status_flag = true;
-            }
-            // Allow some time in case bootloader request present
-            if (bootloader_ms >= 500)
-            {
-                send_status_flag = true;
-                bootloader_timeout = true;
-            }
-            break;
-        default:
-            break;
-    }
-
-    if ((BL_flashStarted() && tick % 50 == 0) ||
-        !BL_flashStarted() && tick % 250 == 0)
-        PHAL_toggleGPIO(STATUS_LED_GPIO_Port, STATUS_LED_Pin);
-}
-
-bool check_boot_health(void)
-{
-    // Initilize the shared memory block if it was corrupted or a POR
-    if(bootloader_shared_memory.magic_word != BOOTLOADER_SHARED_MEMORY_MAGIC)
-    {
-        bootloader_shared_memory.magic_word     = BOOTLOADER_SHARED_MEMORY_MAGIC;
-        bootloader_shared_memory.reset_count    = 0;
-        bootloader_shared_memory.reset_reason   = RESET_REASON_POR;
-    }
-
-    uint32_t reset_cause = RCC->CSR;
-    RCC->CSR |= RCC_CSR_RMVF;
-
-    if (reset_cause & (RCC_CSR_BORRSTF | RCC_CSR_LPWRRSTF))
-    {
-        // Power-on-reset, update reset count to initial value
-        // reset_count could have been garbage otherwise
-        bootloader_shared_memory.reset_reason = RESET_REASON_POR;
-        bootloader_shared_memory.reset_count  = 0;
-    }
-    else if ((reset_cause & RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF)
-    {
-        // Software reset
-        // In this case, we are assuming that the software left a reason for this reboot.
-        if (bootloader_shared_memory.reset_reason == RESET_REASON_DOWNLOAD_FW)
-        {
-            // We wanted to reset for a new firmware download
-            bootloader_shared_memory.reset_count = 0;
-        }
-        else if (bootloader_shared_memory.reset_reason == RESET_REASON_APP_WATCHDOG)
-        {
-            // Reset from software watchdog (not necessicarly IWDG, just some form of bad software reboot)
-            bootloader_shared_memory.reset_count++;
-        }
-        else if (bootloader_shared_memory.reset_reason == RESET_REASON_BAD_FIRMWARE)
-        {
-            // Reset from invalid app
-            bootloader_shared_memory.reset_count++;
-        }
-        else
-        {
-            // Debug reset event
-            bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
-        }
-    }
-    else if ((reset_cause & RCC_CSR_IWDGRSTF) == RCC_CSR_IWDGRSTF)
-    {
-        // Application Watchdog reset from hardware watchdog
-        bootloader_shared_memory.reset_count++;
-        bootloader_shared_memory.reset_reason = RESET_REASON_APP_WATCHDOG;
-    }
-    else if ((reset_cause & RCC_CSR_PINRSTF) == RCC_CSR_PINRSTF)
-    {
-        bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
-        bootloader_shared_memory.reset_count  = 0;
-    }
-    else
-    {
-        bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
-    }
-
-    if (bootloader_shared_memory.reset_count >= 3)
-    {
-        // Reached the maximum number of resets
-        // Do not allow normal operation
-        return false;
-    }
-
-    return true;
-}
-
-void jump_to_application(void)
-{
-    uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
-    uint32_t msp = (uint32_t) *((uint32_t*) (((void *) &_eboot_flash)));
-    uint32_t estack = (uint32_t) ((uint32_t*) (((void *) &_estack)));
-    // Confirm app exists
-    if (app_reset_handler_address == 0xFFFFFFFF ||
-        app_reset_handler_address < 0x8002000 || app_reset_handler_address > 0x807FFFF ||
-        msp != estack) return;
-
-    // Reset all of our used peripherals
-    // RCC->AHB2RSTR   |= RCC_AHB2RSTR_GPIOBRST;       // Must change based on status led port
-    RCC->AHB1RSTR   |= RCC_AHB1RSTR_CRCRST;
-#if defined(STM32F407xx) || defined(STM32F732xx)
-    RCC->APB1RSTR |= RCC_APB1RSTR_CAN1RST;
-    RCC->APB1RSTR &= ~(RCC_APB1RSTR_CAN1RST);
-#else
-    RCC->APB1RSTR1  |= RCC_APB1RSTR1_CAN1RST;
-    RCC->APB1RSTR1  &= ~(RCC_APB1RSTR1_CAN1RST);
-#endif
-    // RCC->AHB2RSTR   &= ~(RCC_AHB2RSTR_GPIOBRST);
-    RCC->AHB1RSTR   &= ~(RCC_AHB1RSTR_CRCRST);
-    SysTick->CTRL = 0;
-    SysTick->LOAD = 0;
-    SysTick->VAL  = 0;
-
-    // Make sure the interrupts are disabled before we start attempting to jump to the app
-    // Getting an interrupt after we set VTOR would be bad.
-    // Actually jump to application
-    __disable_irq();
-    __set_MSP(msp);
-    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
-    __enable_irq();
-   ((void(*)(void)) app_reset_handler_address)();
-}
-
 void canTxSendToBack(CanMsgTypeDef_t *msg)
 {
     qSendToBack(&q_tx_can, msg);
 }
 
-static uint32_t can_irq_hits = 0;
 void CAN1_RX0_IRQHandler()
 {
-    #if (APP_ID == APP_L4_TESTING)
-    PHAL_toggleGPIO(GPIOB, 6);
-    #endif
-    can_irq_hits ++;
     if (CAN1->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
         CAN1->RF0R &= ~(CAN_RF0R_FOVR0);
 
@@ -418,6 +156,11 @@ void CAN1_RX0_IRQHandler()
 
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
+}
+
+void SysTick_Handler(void)
+{
+    bootloader_ms++;
 }
 
 void HardFault_Handler()

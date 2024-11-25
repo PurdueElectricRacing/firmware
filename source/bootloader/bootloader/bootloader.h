@@ -19,15 +19,10 @@
 
 typedef enum
 {
-    BLSTAT_INVALID = 0,     /* Invalid operation */
-    BLSTAT_BOOT = 1,        /* Bootloader boot alert */
-    BLSTAT_WAIT = 2,        /* Stage 1: RST done, waiting for BLCMD */
-    BLSTAT_METDATA_RX = 3,  /* Stage 2: Flash erase done */
-    BLSTAT_PROGRESS = 4,    /* Progress update for bootloader download */
-    BLSTAT_DONE = 5,        /* Stage 3: Completed firmware transfer with CRC checksum */
-    BLSTAT_JUMP_TO_APP = 6, /* About to jump to application */
-    BLSTAT_INVAID_APP = 7,  /* Did not attempt to boot because the starting address was invalid */
-    BLSTAT_UNKNOWN_CMD = 8, /* Incorrect CAN command message format */
+    BLSTAT_VALID        = 0,
+    BLSTAT_INVALID      = 1,
+    BLSTAT_INVALID_CRC  = 2,
+    BLSTAT_UNKNOWN_CMD  = 3,
 } BLStatus_t;
 
 typedef enum
@@ -37,36 +32,15 @@ typedef enum
     BLERROR_LOW_ADDR = 2,
     BLERROR_ADDR_BOUND = 3,
     BLERROR_FLASH = 4,
+    BLERROR_SIZE = 5,
 } BLError_t;
 
-void BL_init(uint32_t* app_flash_start, volatile uint32_t* bootloader_ms_ptr);
+void BL_checkAndBoot(void);
 
-/**
- * @brief Process an incoming bootlaoder command
- *
- * @param cmd
- * @param data
- */
 void BL_processCommand(BLCmd_t cmd, uint32_t data);
 
-/**
- * @brief The entire application has been written to flash.
- *
- * @return true
- * @return false
- */
-bool BL_flashComplete(void);
-
-/**
- * @brief Send a Bootloader status message with the correct app ID
- *
- * @param cmd  Command/status enum, see BLStatus_t
- * @param data Status data, context specific
- */
 void BL_sendStatusMessage(uint8_t cmd, uint32_t data);
 
 bool BL_flashStarted(void);
-void BL_timeout(void);
-volatile uint32_t* BL_getCurrentFlashAddress(void);
 
 #endif

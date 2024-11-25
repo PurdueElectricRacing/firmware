@@ -918,250 +918,217 @@ void update_tv_page() {
 
 void move_up_tv() {
     char parsed_value[3] = "\0";
-    // If Intensity is selected
-    if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
-    {
-        // Increase the intensity value
-        tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
+    switch(tv_settings.curr_hover) {
+        case TV_INTENSITY_SELECTED:
+            // Increase the intensity value
+            tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
 
-        // Update the page items
-        set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
-    }
-    else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
-    {
-        // Wrap around to enable
-        tv_settings.curr_hover = TV_ENABLE_HOVER;
+            // Update the page items
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
+            break;
+        case TV_INTENSITY_HOVER:
+            // Wrap around to enable
+            tv_settings.curr_hover = TV_ENABLE_HOVER;
 
-        // Update the background
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-    }
-    else if (tv_settings.curr_hover == TV_P_SELECTED)
-    {
-        // Increase the p value
-        tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            break;
+        case TV_P_SELECTED:
+            // Increase the p value
+            tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
 
-        // Update the page items
-        set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+            // Update the page items
+            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+            break;
+        case TV_P_HOVER:
+            // Scroll up to Intensity
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
 
-    }
-    else if (tv_settings.curr_hover == TV_P_HOVER)
-    {
-        // Scroll up to Intensity
-        tv_settings.curr_hover = TV_INTENSITY_HOVER;
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_DEADBAND_SELECTED:
+            // Increase the deadband value
+            tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
 
-        // Update the background
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
-    {
-        // Increase the deadband value
-        tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
+            // Update the page items
+            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+            bzero(parsed_value, 3);
+            break;
+        case TV_DEADBAND_HOVER:
+            // Scroll up to P
+            tv_settings.curr_hover = TV_P_HOVER;
 
-        // Update the page items
-        set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-        bzero(parsed_value, 3);
-
-    }
-    else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
-    {
-        // Scroll up to P
-        tv_settings.curr_hover = TV_P_HOVER;
-
-        // Update the background
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
-    {
-        // Scroll up to deadband
-        tv_settings.curr_hover = TV_DEADBAND_HOVER;
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else
-    {
-        // ?
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_ENABLE_HOVER:
+            // Scroll up to deadband
+            tv_settings.curr_hover = TV_DEADBAND_HOVER;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
     }
 }
 
 void move_down_tv() {
     char parsed_value[3] = "\0";
-    if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
-    {
-        // Decrease the intensity value
-        if (tv_settings.tv_intensity_val == 0)
-        {
-            tv_settings.tv_intensity_val = 100;
-        }
-        else
-        {
-            tv_settings.tv_intensity_val-= 5;
-        }
+    switch (tv_settings.curr_hover) {
+        case TV_INTENSITY_SELECTED:
+            // Decrease the intensity value
+            if (tv_settings.tv_intensity_val == 0)
+            {
+                tv_settings.tv_intensity_val = 100;
+            }
+            else
+            {
+                tv_settings.tv_intensity_val-= 5;
+            }
 
-        // Update the page item
-        set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
-    }
-    else if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
-    {
-        // Scroll down to P
-        tv_settings.curr_hover = TV_P_HOVER;
+            // Update the page item
+            set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
+            break;
+        case TV_INTENSITY_HOVER:
+            // Scroll down to P
+            tv_settings.curr_hover = TV_P_HOVER;
 
-        // Update the background
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_P_SELECTED)
-    {
-        // Decrease the P value
-        if (tv_settings.tv_p_val == 0)
-        {
-            tv_settings.tv_p_val = 100;
-        }
-        else
-        {
-            tv_settings.tv_p_val-= 5;
-        }
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_P_SELECTED:
+            // Decrease the P value
+            if (tv_settings.tv_p_val == 0)
+            {
+                tv_settings.tv_p_val = 100;
+            }
+            else
+            {
+                tv_settings.tv_p_val-= 5;
+            }
 
-        // Update the page items
-        set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+            // Update the page items
+            set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
+            break;
+        case TV_P_HOVER:
+            // Scroll down to deadband
+            tv_settings.curr_hover = TV_DEADBAND_HOVER;
 
-    }
-    else if (tv_settings.curr_hover == TV_P_HOVER)
-    {
-        // Scroll down to deadband
-        tv_settings.curr_hover = TV_DEADBAND_HOVER;
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_DEADBAND_SELECTED:
+            // Decrease the deadband value
+            if (tv_settings.tv_deadband_val == 0)
+            {
+                tv_settings.tv_deadband_val = 30;
+            }
+            else
+            {
+                tv_settings.tv_deadband_val--;
+            }
 
-        // Update the background
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
-    {
-        // Decrease the deadband value
-        if (tv_settings.tv_deadband_val == 0)
-        {
-            tv_settings.tv_deadband_val = 30;
-        }
-        else
-        {
-            tv_settings.tv_deadband_val--;
-        }
+            // Update the page items
+            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+            bzero(parsed_value, 3);
+            break;
+        case TV_DEADBAND_HOVER:
+            // Scroll down to enable
+            tv_settings.curr_hover = TV_ENABLE_HOVER;
 
-        // Update the page items
-        set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-        bzero(parsed_value, 3);
-
-    }
-    else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
-    {
-        // Scroll down to enable
-        tv_settings.curr_hover = TV_ENABLE_HOVER;
-
-        // Update the background
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-    }
-    else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
-    {
-        // Scroll down to intensity
-        tv_settings.curr_hover = TV_INTENSITY_HOVER;
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else
-    {
-        // ?
+            // Update the background
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            break;
+        case TV_ENABLE_HOVER:
+            // Scroll down to intensity
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
     }
 }
 
 void select_tv() {
     // So if we hit select on an already selected item, unselect it (switch to hover)
-    if (tv_settings.curr_hover == TV_INTENSITY_HOVER)
-    {
-        tv_settings.curr_hover = TV_INTENSITY_SELECTED;
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, ORANGE);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        // todo Rot encoder state should let us scroll through value options
-        // for now just use buttons for move up and move down
-    }
-    else if (tv_settings.curr_hover == TV_INTENSITY_SELECTED)
-    {
-        // "submit" -> CAN payload will update automatically? decide
-        // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault?
-        tv_settings.curr_hover = TV_INTENSITY_HOVER;
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-        // rot encoder state goes back to page move instead of value move
-    }
-    else if (tv_settings.curr_hover == TV_P_HOVER)
-    {
-        tv_settings.curr_hover = TV_P_SELECTED;
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, ORANGE);
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_P_SELECTED)
-    {
-        tv_settings.curr_hover = TV_P_HOVER;
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_DEADBAND_HOVER)
-    {
-        tv_settings.curr_hover = TV_DEADBAND_SELECTED;
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, ORANGE);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_DEADBAND_SELECTED)
-    {
-        tv_settings.curr_hover = TV_DEADBAND_HOVER;
-        set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
-    }
-    else if (tv_settings.curr_hover == TV_ENABLE_HOVER)
-    {
-        // Don't change the curr_hover
+    switch (tv_settings.curr_hover) {
+        case TV_INTENSITY_HOVER:
+            tv_settings.curr_hover = TV_INTENSITY_SELECTED;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            // todo Rot encoder state should let us scroll through value options
+            // for now just use buttons for move up and move down
+            break;
+        case TV_INTENSITY_SELECTED:
+            // "submit" -> CAN payload will update automatically? decide
+            // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault?
+            tv_settings.curr_hover = TV_INTENSITY_HOVER;
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            // rot encoder state goes back to page move instead of value move
+            break;
+        case TV_P_HOVER:
+            tv_settings.curr_hover = TV_P_SELECTED;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_P_SELECTED:
+            tv_settings.curr_hover = TV_P_HOVER;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_DEADBAND_HOVER:
+            tv_settings.curr_hover = TV_DEADBAND_SELECTED;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, ORANGE);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_DEADBAND_SELECTED:
+            tv_settings.curr_hover = TV_DEADBAND_HOVER;
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case TV_ENABLE_HOVER:
+            // Don't change the curr_hover
+            // Toggle the option
+            tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
 
-        // Toggle the option
-        tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
+            // Set the option
+            set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
 
-        // Set the option
-        set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
-
-        // Update CAN as necessary
-    }
-    else
-    {
-        // ?
+            // Update CAN as necessary
+            break;
     }
 }
 

@@ -143,8 +143,9 @@ typedef enum {
   FAN2_HOVER,
   PUMP_HOVER,
   DT_FAN_SELECT,
-  FAN1_SELECT
-} hover_state_t;
+  FAN1_SELECT,
+  NONE_SELECTED
+} cooling_hover_state_t;
 
 typedef enum {
   TV_INTENSITY_HOVER,
@@ -203,7 +204,7 @@ typedef struct {
   bool b_pump_selected;
   uint8_t d_fan_val;
   uint8_t b_fan_val;
-  hover_state_t curr_hover;
+  cooling_hover_state_t curr_hover;
 } cooling_t;
 
 typedef struct {

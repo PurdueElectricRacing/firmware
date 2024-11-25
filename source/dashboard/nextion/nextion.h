@@ -17,7 +17,7 @@
 #define SET_TEXT_EXTRA 		10
 #define SET_PAGE_EXTRA      8
 #define ASCII_OFFSET 		48
-#define NXT_CMD_TERM "\xFF\xFF\xFF"
+#define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
 
 #define RED    63488
 #define YELLOW 65504
@@ -43,5 +43,6 @@ void set_value(char* obj_name, char* param, uint16_t val);
 void set_text(char* obj_name, char* param, char* text);
 void set_page(char* page_name);
 void set_brightness(uint8_t brightness);
+void set_baud(uint32_t baud);
 
 #endif

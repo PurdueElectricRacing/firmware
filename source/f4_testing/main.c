@@ -147,6 +147,7 @@ int main()
 
     schedInit(APB1ClockRateHz);
     initLCD();
+    set_baud(115200);
 
     taskCreate(handle_inputs, 100);
     taskCreate(updatePage,  500);

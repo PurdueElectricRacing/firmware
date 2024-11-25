@@ -42,5 +42,6 @@ void set_float(char* obj_name, char* param, float num, uint8_t precision);
 void set_value(char* obj_name, char* param, uint16_t val);
 void set_text(char* obj_name, char* param, char* text);
 void set_page(char* page_name);
+void set_brightness(uint8_t brightness);
 
 #endif

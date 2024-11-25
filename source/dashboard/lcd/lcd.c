@@ -6,7 +6,6 @@
 #include "pedals.h"
 #include "common/faults/faults.h"
 #include "common_defs.h"
-#include "stm32f4xx.h"
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
@@ -161,6 +160,7 @@ void updatePage() {
 }
 
 void moveUp() {
+    set_brightness(100);
     switch (curr_page) {
         case PAGE_LOGGING:
             //TODO
@@ -181,6 +181,7 @@ void moveUp() {
 }
 
 void moveDown() {
+    set_brightness(30);
     switch (curr_page) {
         case PAGE_LOGGING:
             //TODO
@@ -1414,6 +1415,7 @@ void update_race_page_group2() {
 }
 
 void select_race() {
+    // there is only one option for now
     tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
     set_value(RACE_TV_ON, NXT_VALUE, tv_settings.tv_enable_selected);
 }

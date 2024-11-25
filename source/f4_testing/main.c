@@ -155,7 +155,6 @@ int main()
     taskCreate(updateFaultPageIndicators, 500);
     taskCreate(emulate_fault, 5000);
 
-
     schedStart();
     // Never reached
     return 0;

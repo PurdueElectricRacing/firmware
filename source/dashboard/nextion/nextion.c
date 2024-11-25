@@ -69,3 +69,14 @@ void set_page(char* page_name) {
   strcat(ptr, NXT_CMD_TERM);
   qSendToBack(&q_tx_usart, (uint16_t *) ptr);
 }
+
+/**
+ * @brief Sets the brightness of the Nextion display.
+ * @param percentage The desired brightness level as a percentage (0-100).
+ */
+void set_brightness(uint8_t percentage) {
+  if (percentage > 100) percentage = 100;
+  char result[NXT_STR_SIZE];
+  snprintf(result, sizeof(result), "dims=%d%s", percentage, NXT_CMD_TERM);
+  qSendToBack(&q_tx_usart, (uint16_t *) result);
+}

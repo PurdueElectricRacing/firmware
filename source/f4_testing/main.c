@@ -96,7 +96,7 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 void usartTxUpdate();
 void config_inturrupts();
-void handle_inputs();
+void pollDashboardInputs();
 extern void updatePage();
 void emulate_fault();
 
@@ -147,10 +147,9 @@ int main()
 
     schedInit(APB1ClockRateHz);
     initLCD();
-    set_baud(115200);
 
-    taskCreate(handle_inputs, 100);
-    taskCreate(updatePage,  500);
+    taskCreate(pollDashboardInputs, 100);
+    taskCreate(updatePage,  500); // for testing only
     taskCreateBackground(usartTxUpdate);
     taskCreate(updateFaultDisplay, 500);
     taskCreate(updateFaultPageIndicators, 500);
@@ -174,7 +173,7 @@ void emulate_fault() {
     setFault(ID_TEST_FAULT_4_FAULT, 124);
 }
 
-void handle_inputs() {
+void pollDashboardInputs() {
     if (g_inputs.up) {
         g_inputs.up = 0;
         moveUp();
@@ -191,7 +190,7 @@ void handle_inputs() {
     }
 
     // divide the pot value by 8 pages
-    g_inputs.page = raw_adc_values.pot_val / ((POT_MAX + 1) / 8);
+    g_inputs.page = raw_adc_values.pot_val / ((POT_MAX + 1) / 9);
     lcd_data.encoder_position = g_inputs.page;
 }
 

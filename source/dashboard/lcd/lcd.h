@@ -5,7 +5,7 @@
 
 //Page Strings / info
 #define RACE_STRING "race"
-#define SETTINGS_STRING "settings"
+#define COOLING_STRING "cooling"
 #define DATA_STRING "data"
 #define ERR_STRING "error"
 #define WARN_STRING "warning"
@@ -13,6 +13,7 @@
 #define FAULT_STRING "faults"
 #define TVSETTINGS_STRING "tvsettings"
 #define DRIVER_STRING "driver"
+#define DRIVER_CALIBRATION_STRING "calibration"
 #define SDCINFO_STRING "sdcinfo"
 #define LOGGING_STRING "logging"
 #define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U)
@@ -82,12 +83,12 @@
 //Colors
 #define TV_BG 38066
 #define TV_HOVER_BG 52857
-#define SETTINGS_HOVER_BG GREY
-#define SETTINGS_HOVER_FG BLACK
-#define SETTINGS_BAR_BG 48631
-#define SETTINGS_BAR_FG GOLD
-#define SETTINGS_BG BLACK
-#define SETTINGS_FG WHITE
+#define COOLING_HOVER_BG GREY
+#define COOLING_HOVER_FG BLACK
+#define COOLING_BAR_BG 48631
+#define COOLING_BAR_FG GOLD
+#define COOLING_BG BLACK
+#define COOLING_FG WHITE
 #define INFO_GRAY 48631
 #define SETTINGS_UV_SELECT WHITE
 #define ORANGE 64512
@@ -119,11 +120,12 @@ typedef enum {
   // Pages selectable with the rot encoder
   // Should corresspond with the page count in main.h
   PAGE_RACE,
-  PAGE_SETTINGS,
+  PAGE_COOLING,
   PAGE_TVSETTINGS,
   PAGE_FAULTS,
   PAGE_SDCINFO,
   PAGE_DRIVER,
+  PAGE_DRIVER_CALIBRATION,
   PAGE_LOGGING,
   PAGE_DATA,
 
@@ -172,7 +174,7 @@ typedef struct {
 typedef enum {
   DRIVER_DEFAULT_SELECT,
   DRIVER_TYLER_SELECT,
-  DRIVER_RUHAAN_SELECT,
+  DRIVER_LUCA_SELECT,
   DRIVER_LUKE_SELECT,
 } driver_select_state_t;
 
@@ -202,7 +204,7 @@ typedef struct {
   uint8_t d_fan_val;
   uint8_t b_fan_val;
   hover_state_t curr_hover;
-} settings_t;
+} cooling_t;
 
 typedef struct {
   volatile int8_t encoder_position;

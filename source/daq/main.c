@@ -280,25 +280,25 @@ static void cs_desel(void)
 static uint8_t spi_rb(void)
 {
     uint8_t b;
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, NULL, 0, sizeof(b), &b);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, NULL, 0, sizeof(b), &b);
     return b;
 }
 
 static void spi_wb(uint8_t b)
 {
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, &b, sizeof(b), 0, NULL);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, &b, sizeof(b), 0, NULL);
 }
 
 static void spi_rb_burst(uint8_t *pBuf, uint16_t len)
 {
     // SPI RX Burst, must block! (uses local pointer)
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, NULL, 0, len, pBuf);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, NULL, 0, len, pBuf);
 }
 
 static void spi_wb_burst(uint8_t *pBuf, uint16_t len)
 {
     // SPI TX Burst, must block! (uses local pointer)
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, pBuf, len, 0, NULL);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, pBuf, len, 0, NULL);
 }
 
 static void can_rx_irq_handler(CAN_TypeDef * can_h)

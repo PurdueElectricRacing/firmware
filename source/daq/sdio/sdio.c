@@ -1,6 +1,6 @@
 /**
  * @file sdio.c
- * @author Tilen Majerle, modified by Luke Oxley for PER usage (lcoxley@purdue.edu) 
+ * @author Tilen Majerle, modified by Luke Oxley for PER usage (lcoxley@purdue.edu)
  * @brief Secure Digital Input Output Interface driver for STM32F4
  * @version 0.1
  * @date 2023-12-31
@@ -12,8 +12,8 @@
 
 #include "main.h"
 #include "string.h"
-#define SD_LOG(...) log_msg(__VA_ARGS__)
-// #define SD_LOG(msg_) 
+//#define SD_LOG(...) log_msg(__VA_ARGS__)
+#define SD_LOG(...)
 
 static uint32_t CardType = SDIO_STD_CAPACITY_SD_CARD_V1_1;
 static uint32_t CSD_Tab[4], CID_Tab[4], RCA = 0;
@@ -37,8 +37,8 @@ static SD_Error FindSCR (uint16_t rca, uint32_t *pscr);
 
 /**
  * @brief Configures the SDIO peripheral
- * 
- * @param cfg 
+ *
+ * @param cfg
  * @return true Success
  * @return false Fail
  */
@@ -56,7 +56,7 @@ bool PHAL_SDIO_init(void)
 	TransferEnd = 0;
 	DMAEndOfTransfer = 0;
 	SDCardInfo = (SD_CardInfo){0};
-    
+
     RCC->APB2ENR |= RCC_APB2ENR_SDIOEN;
 	// NVIC_SetPriorityGrouping()
 	// NVIC_EncodePriority(1, 1, 0);
@@ -74,12 +74,12 @@ bool PHAL_SDIO_init(void)
 
 /**
  * @brief Initialize the SD Card for Data Transfer
- * 
- * @return DSTATUS 
+ *
+ * @return DSTATUS
  */
 // DSTATUS disk_initialize(void) {
 //     // GPIO Pins are to be initialized in main.c
-    
+
 //     // SDIO
 //     RCC->APB2ENR |= RCC_APB2_ENR_SDIOEN;
 //     NVIC_EnableIRQ(SDIO_IRQn);
@@ -100,7 +100,7 @@ bool PHAL_SDIO_init(void)
 // 	} else {
 // 		TM_FATFS_SD_SDIO_Stat &= ~STA_PROTECT;
 // 	}
-	
+
 // 	return TM_FATFS_SD_SDIO_Stat;
 // }
 
@@ -215,7 +215,7 @@ SDCardState SD_GetState(void) {
 			return (SDCardState) ((resp1 >> 9) & 0x0F);
 		}
 	}
-	
+
 	return SD_CARD_ERROR;
 }
 
@@ -303,7 +303,7 @@ SD_Error SD_PowerON(void)
         PHAL_SDIO_SendCommand(&cmd);
         errorstatus = CmdResp1Error (SD_CMD_APP_CMD );
 	}
-	
+
 	/*!< CMD55 */
     cmd.idx = SD_CMD_APP_CMD;
     cmd.res = SD_RESP_SHORT;
@@ -393,10 +393,10 @@ SD_Error SD_InitializeCards (void)
         CID_Tab[2] = SDIO->RESP3;
         CID_Tab[3] = SDIO->RESP4;
 	}
-	
+
 	if (
-		(SDIO_STD_CAPACITY_SD_CARD_V1_1 == CardType) || 
-		(SDIO_STD_CAPACITY_SD_CARD_V2_0 == CardType) || 
+		(SDIO_STD_CAPACITY_SD_CARD_V1_1 == CardType) ||
+		(SDIO_STD_CAPACITY_SD_CARD_V2_0 == CardType) ||
 		(SDIO_SECURE_DIGITAL_IO_COMBO_CARD == CardType) ||
 		(SDIO_HIGH_CAPACITY_SD_CARD == CardType)
 	) {
@@ -713,13 +713,13 @@ SD_Error SD_SelectDeselect (uint64_t addr)
 
 /**
  * @brief Send a command
- * 
- * @param cmd 
+ *
+ * @param cmd
  */
 void PHAL_SDIO_SendCommand(PHAL_SD_Cmd_t *cmd)
 {
     SDIO->ARG = cmd->arg;
-    SDIO->CMD = ((cmd->idx & SDIO_CMD_CMDINDEX_Msk)) |    
+    SDIO->CMD = ((cmd->idx & SDIO_CMD_CMDINDEX_Msk)) |
                 ((cmd->res << SDIO_CMD_WAITRESP_Pos) & SDIO_CMD_WAITRESP_Msk)|
                 SDIO_CMD_CPSMEN;
 }
@@ -775,9 +775,9 @@ SD_Error SD_ReadMultiBlocks (uint8_t *readbuff, uint64_t ReadAddr, uint16_t Bloc
 
     SDIO->DTIMER = SD_DATATIMEOUT;				// timeout
     SDIO->DLEN &= ~SDIO_DLEN_DATALENGTH;	    // length
-    SDIO->DLEN |= NumberOfBlocks * BlockSize; 
+    SDIO->DLEN |= NumberOfBlocks * BlockSize;
     SDIO->DCTRL &= ~(0xFFF);					// start read
-	SDIO->DCTRL |= SDIO_DATABLOCKSIZE | SDIO_DCTRL_DTDIR | 
+	SDIO->DCTRL |= SDIO_DATABLOCKSIZE | SDIO_DCTRL_DTDIR |
 				   SDIO_DCTRL_DMAEN   | SDIO_DCTRL_DTEN;
 
 	// if (NumberOfBlocks > 1)
@@ -827,7 +827,7 @@ SD_Error SD_WaitReadOperation (void)
 	while ((DMAEndOfTransfer == 0x00) && (TransferEnd == 0) && (TransferError == SD_OK) && (timeout > 0)) {
 		timeout--;
 	}
-	
+
 	DMAEndOfTransfer = 0x00;
 
 	timeout = SD_DATATIMEOUT;
@@ -857,7 +857,7 @@ SD_Error SD_WaitReadOperation (void)
 	if (TransferError != SD_OK) {
 		return (TransferError);
 	}
-	
+
 	return (errorstatus);
 }
 
@@ -916,7 +916,7 @@ SD_Error SD_WriteMultiBlocks (uint8_t *writebuff, uint64_t WriteAddr, uint16_t B
 	if (errorstatus != SD_OK) {
 		return (errorstatus);
 	}
-	
+
 	/*!< To improve performance */
 	cmd.idx = SD_CMD_SET_BLOCK_COUNT;
 	cmd.res = SD_RESP_SHORT;
@@ -943,7 +943,7 @@ SD_Error SD_WriteMultiBlocks (uint8_t *writebuff, uint64_t WriteAddr, uint16_t B
 
     SDIO->DTIMER = SD_DATATIMEOUT;				// timeout
     SDIO->DLEN &= ~SDIO_DLEN_DATALENGTH;	    // length
-    SDIO->DLEN |= NumberOfBlocks * BlockSize; 
+    SDIO->DLEN |= NumberOfBlocks * BlockSize;
     SDIO->DCTRL &= ~(0xFFF);					// start write
 	SDIO->DCTRL |= SDIO_DATABLOCKSIZE |
 				   SDIO_DCTRL_DMAEN   | SDIO_DCTRL_DTEN;
@@ -1497,8 +1497,8 @@ static SD_Error FindSCR (uint16_t rca, uint32_t *pscr)
     SDIO->DLEN |= 8;
     SDIO->DCTRL &= ~(0xFFF);
     SDIO->DCTRL |= (SDIO_DCTRL_DBLOCKSIZE_1 | SDIO_DCTRL_DBLOCKSIZE_0) |
-                    SDIO_DCTRL_DTDIR | 
-                    SDIO_DCTRL_DTEN; 
+                    SDIO_DCTRL_DTDIR |
+                    SDIO_DCTRL_DTEN;
 
 	/*!< Send ACMD51 SD_APP_SEND_SCR with argument as 0 */
     cmd.idx = SD_CMD_SD_APP_SEND_SCR;
@@ -1598,9 +1598,9 @@ void SDIO_IRQHandler (void)
 		SD_LOG ("SDIO IRQ : SD_START_BIT_ERR\r\n");
 	}
 	// Disable the following interrupts
-	SDIO->MASK &= ~(SDIO_MASK_DCRCFAILIE | SDIO_MASK_DTIMEOUTIE | 
-					SDIO_MASK_DATAENDIE  | SDIO_MASK_TXFIFOHEIE | 
-					SDIO_MASK_RXFIFOHFIE | SDIO_MASK_TXUNDERRIE | 
+	SDIO->MASK &= ~(SDIO_MASK_DCRCFAILIE | SDIO_MASK_DTIMEOUTIE |
+					SDIO_MASK_DATAENDIE  | SDIO_MASK_TXFIFOHEIE |
+					SDIO_MASK_RXFIFOHFIE | SDIO_MASK_TXUNDERRIE |
 					SDIO_MASK_RXOVERRIE  | SDIO_MASK_STBITERRIE);
 }
 
@@ -1635,8 +1635,8 @@ void SD_LowLevel_DMA_TxConfig (uint32_t *BufferSRC, uint32_t BufferSize) {
 	sdio_tx_config.stream->FCR &= ~(DMA_SxFCR_FTH_Msk);
 	sdio_tx_config.stream->FCR |= DMA_SxFCR_DMDIS | DMA_SxFCR_FTH;
 	// peripheral flow control, and burst transfer of 4 beats
-	sdio_tx_config.stream->CR |= DMA_SxCR_PFCTRL | 
-	DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0; 	
+	sdio_tx_config.stream->CR |= DMA_SxCR_PFCTRL |
+	DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0;
 	PHAL_startTxfer(&sdio_tx_config);
 
 	// TODO: if it doesn't work, look at why memory size is byte, peirph size is word, and fifo threshold half full, memory burst single
@@ -1671,8 +1671,8 @@ void SD_LowLevel_DMA_RxConfig (uint32_t *BufferDST, uint32_t BufferSize)
 	// fifo mode enable with full threshold (do BEFORE enabling burst)
 	sdio_rx_config.stream->FCR |= DMA_SxFCR_DMDIS | DMA_SxFCR_FTH;
 	// peripheral flow control, and burst transfer of 4 beats
-	sdio_rx_config.stream->CR |= DMA_SxCR_PFCTRL | 
-	DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0; 	
+	sdio_rx_config.stream->CR |= DMA_SxCR_PFCTRL |
+	DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0;
 
 	PHAL_startTxfer(&sdio_rx_config);
 }

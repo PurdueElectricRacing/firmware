@@ -28,12 +28,12 @@
 // Clock source: currently only supporting LSE
 
 /*
-    When both prescalers are used, it is recommended to configure the asynchronous 
+    When both prescalers are used, it is recommended to configure the asynchronous
     prescaler to a high value to minimize consumption. (RM0090 26.3.1)
 
     Default Configuration STM32F4
     =======================================================
-    The asynchronous prescaler division factor is set to 128, and the synchronous division factor to 256, 
+    The asynchronous prescaler division factor is set to 128, and the synchronous division factor to 256,
     to obtain an internal clock frequency of 1 Hz (ck_spre) with an LSE frequency of 32.768 kHz.
 */
 
@@ -45,7 +45,7 @@
 // To target 1Hz on LSI, we are doing 32000 / ((255 + 1) * (124 + 1))
 #define RTC_ASYNC_PRESCAL (255U)
 #define RTC_SYNC_PRESCAL  (124U)
- 
+
 
 
 // STM32 RTC uses lovely BCD
@@ -69,13 +69,13 @@ typedef enum {
 
 typedef enum {
     RTC_WEEKDAY_UNKNOWN = 0x0,
-    RTC_WEEKDAY_MONDAY,
-    RTC_WEEKDAY_TUESDAY,
-    RTC_WEEKDAY_WEDNESDAY,
-    RTC_WEEKDAY_THURSDAY,
-    RTC_WEEKDAY_FRIDAY,
-    RTC_WEEKDAY_SATURDAY,
-    RTC_WEEKDAY_SUNDAY,
+    RTC_WEEKDAY_MONDAY  = 0x1,
+    RTC_WEEKDAY_TUESDAY = 0x2,
+    RTC_WEEKDAY_WEDNESDAY = 0x3,
+    RTC_WEEKDAY_THURSDAY = 0x4,
+    RTC_WEEKDAY_FRIDAY = 0x5,
+    RTC_WEEKDAY_SATURDAY = 0x6,
+    RTC_WEEKDAY_SUNDAY = 0x7,
 } RTC_WEEKDAY_t;
 
 typedef enum

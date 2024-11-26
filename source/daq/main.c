@@ -148,6 +148,7 @@ static void spi_wb_burst(uint8_t *pBuf, uint16_t len);
 bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 
 q_handle_t q_tx_can2_to_can1;
+q_handle_t q_rx_can_uds;
 
 volatile timestamped_frame_t rx_buffer[RX_BUFF_ITEM_COUNT];
 b_tail_t tails[RX_TAIL_COUNT];
@@ -172,6 +173,7 @@ int main()
     /* Data Struct init */
     // TODO: note: using send to back to q_tx_can2_to_can1 from the interrupt handler! (i.e. DO NOT SEND FROM NORMAL CONTEXT!)
     qConstruct(&q_tx_can2_to_can1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can_uds, sizeof(timestamped_frame_t));
     bConstruct(&b_rx_can, sizeof(*rx_buffer), sizeof(rx_buffer));
     bConstruct(&b_rx_tcp, 1, sizeof(tcp_rx_buffer)); // Byte resolution for tcp receive
 
@@ -364,12 +366,7 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
             // Bootloader check
             if (rx->msg_id == (ID_DAQ_BL_CMD | CAN_EFF_FLAG) && rx->bus_id == BUS_ID_CAN1)
             {
-                CanParsedData_t* msg_data_a = (CanParsedData_t *) &rx->data;
-                if (msg_data_a->daq_bl_cmd.cmd == BLCMD_RST)
-                {
-                    // TODO: stop logging first
-                    Bootloader_ResetForFirmwareDownload();
-                }
+                qSendToBack(&q_rx_can_uds, rx);
             }
 
             bCommitWrite(&b_rx_can, 1);

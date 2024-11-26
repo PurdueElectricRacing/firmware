@@ -71,6 +71,8 @@ static void eth_rx_tcp_periodic(void);
 static bool get_log_enable(void);
 static void conv_tcp_frame_to_can_msg(tcp_can_frame_t *t, CanMsgTypeDef_t *c);
 static void conv_tcp_frame_to_rtc(tcp_can_frame_t *t, RTC_timestamp_t *time);
+static void shutdown(void);
+static void uds_receive_periodic(void);
 
 // TODO: use can parse somehow to check for daq enable signal, etc
 
@@ -120,6 +122,7 @@ void daq_loop(void)
     while (PER == GREAT)
     {
         tic = tick_ms;
+        uds_receive_periodic();
         sd_update_connection_state();
         eth_update_connection_state();
 
@@ -775,6 +778,82 @@ static bool get_log_enable(void)
     // TODO: combine with CAN message from dash
     return dh.log_enable_sw || dh.log_enable_tcp;
 }
+
+#define DAQ_BL_CMD_RST        0x05
+
+#define DAQ_BL_CMD_NTP_DATE   0x10
+#define DAQ_BL_CMD_NTP_TIME   0x11
+#define DAQ_BL_CMD_NTP_GET    0x12
+
+#define DAQ_BL_CMD_LOG_ENABLE 0x20
+#define DAQ_BL_CMD_LOG_STATUS 0x21
+
+static RTC_timestamp_t start_time =
+{
+    .date = {.month_bcd=RTC_MONTH_FEBRUARY,
+             .weekday=RTC_WEEKDAY_TUESDAY,
+             .day_bcd=0x27,
+             .year_bcd=0x24},
+    .time = {.hours_bcd=0x18,
+             .minutes_bcd=0x27,
+             .seconds_bcd=0x00,
+             .time_format=RTC_FORMAT_24_HOUR},
+};
+
+static void uds_process_cmd_ntp_get(void)
+{
+    RTC_timestamp_t time;
+    if (PHAL_getTimeRTC(&time))
+        debug_printf("DAQ time: 20%02d-%02d-%02d %02d:%02d:%02d\n",
+            time.date.year_bcd, time.date.month_bcd,
+            time.date.day_bcd,  time.time.hours_bcd,
+            time.time.minutes_bcd, time.time.seconds_bcd);
+}
+
+static void daq_uds_handle_cmd(uint8_t cmd, uint32_t data)
+{
+    switch (cmd)
+    {
+        case DAQ_BL_CMD_RST:
+            shutdown(); // NVIC reset / bootloader if loaded
+            break;
+        case DAQ_BL_CMD_NTP_DATE: // send date first
+            start_time.date.day_bcd = data & 0xff;
+            start_time.date.weekday = (data >> 8) & 0xf;
+            start_time.date.month_bcd = (data >> 12) & 0xff;
+            start_time.date.year_bcd = (data >> 20) & 0xff;
+            break;
+        case DAQ_BL_CMD_NTP_TIME:
+            start_time.time.seconds_bcd = data & 0xff;
+            start_time.time.minutes_bcd = (data >> 8) & 0xff;
+            start_time.time.hours_bcd = (data >> 16) & 0xff;
+            PHAL_configureRTC(&start_time, true);
+            break;
+        case DAQ_BL_CMD_NTP_GET:
+            uds_process_cmd_ntp_get();
+            break;
+        case DAQ_BL_CMD_LOG_ENABLE:
+            dh.log_enable_uds = !!data;
+            break;
+        case DAQ_BL_CMD_LOG_STATUS:
+            if (get_log_enable())
+                debug_printf("Logging enabled\n");
+            else
+                debug_printf("Logging disabled\n");
+            break;
+    }
+}
+
+static void uds_receive_periodic(void)
+{
+    timestamped_frame_t rx_msg;
+    while (qReceive(&q_rx_can_uds, &rx_msg) == SUCCESS_G)
+    {
+        uint32_t data = rx_msg.data[4] << 24 | rx_msg.data[3] << 16 | rx_msg.data[2] << 8 | rx_msg.data[1];
+        daq_uds_handle_cmd(rx_msg.data[0], data);
+    }
+}
+
 
 /**
  * @brief Disables high power consumption devices

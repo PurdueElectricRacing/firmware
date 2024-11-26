@@ -100,6 +100,7 @@ typedef enum {
 
 extern volatile uint32_t tick_ms; // Systick 1ms counter
 extern q_handle_t q_tx_can2_to_can1;
+extern q_handle_t q_rx_can_uds;
 extern b_handle_t b_rx_can;
 extern b_handle_t b_rx_tcp;
 

@@ -450,23 +450,15 @@ static void sd_handle_error(sd_error_t err, FRESULT res)
     dh.sd_last_err_res = res;
 }
 
-volatile uint32_t last_error_count = 0;
-volatile uint32_t last_link_check_time = 0;
-volatile uint32_t last_blink_time = 0;
-volatile uint32_t last_init_time = 0;
-volatile uint32_t init_try_counter = 0;
-
 static void eth_update_connection_state(void)
 {
-#if 0
-    static uint32_t last_error_count;
-    static uint32_t last_link_check_time;
-    static uint32_t last_blink_time;
-    static uint32_t last_init_time;
-    static uint32_t init_try_counter;
-#endif
+    static uint32_t last_link_check_time = 0;
+    static uint32_t last_blink_time = 0;
+    static uint32_t last_init_time = 0;
+    static uint32_t init_try_counter = 0;
 
 #if 0
+    static uint32_t last_error_count = 0;
     if (dh.eth_error_ct - last_error_count > 0)
     {
         dh.eth_state = ETH_FAIL;
@@ -478,30 +470,35 @@ static void eth_update_connection_state(void)
     switch(dh.eth_state)
     {
         case ETH_IDLE:
-            if ((dh.eth_enable_tcp_reception || dh.eth_enable_udp_broadcast) &&
-                (tick_ms - last_init_time) > 500) // Allow for module to power up
+            if ((dh.eth_enable_tcp_reception || dh.eth_enable_udp_broadcast))
             {
-                last_init_time = tick_ms;
-                init_try_counter++;
-                if (eth_init() == ETH_ERROR_NONE)
+                // Allow for module to power up
+                if (!last_init_time)
+                    last_init_time = tick_ms;
+                else if ((tick_ms - last_init_time) > 500)
                 {
-                    dh.eth_state = ETH_LINK_DOWN;
-                    if (dh.eth_enable_udp_broadcast)
+                    last_init_time = tick_ms;
+                    init_try_counter++;
+                    if (eth_init() == ETH_ERROR_NONE)
                     {
-                        // Chip initialized, setup UDP socket
-                        if (eth_init_udp_broadcast() != ETH_ERROR_NONE)
-                            dh.eth_state = ETH_FAIL;
+                        dh.eth_state = ETH_LINK_DOWN;
+                        if (dh.eth_enable_udp_broadcast)
+                        {
+                            // Chip initialized, setup UDP socket
+                            if (eth_init_udp_broadcast() != ETH_ERROR_NONE)
+                                dh.eth_state = ETH_FAIL;
+                        }
                     }
-                }
-                else
-                {
-                    dh.eth_state = ETH_FAIL;
-                    dh.eth_last_error_time = tick_ms;
+                    else
+                    {
+                        dh.eth_state = ETH_FAIL;
+                        dh.eth_last_error_time = tick_ms;
+                    }
                 }
             }
             break;
         case ETH_LINK_DOWN:
-            if (tick_ms - last_link_check_time > 100)
+            if (!last_link_check_time || tick_ms - last_link_check_time > 100)
             {
                 if (eth_get_link_up())
                 {
@@ -543,7 +540,7 @@ static void eth_update_connection_state(void)
     {
         if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED || dh.ftp_busy)
         {
-            if (tick_ms - last_blink_time > 250)
+            if (!last_blink_time || tick_ms - last_blink_time > 250)
             {
                 last_blink_time = tick_ms;
                 PHAL_toggleGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN);

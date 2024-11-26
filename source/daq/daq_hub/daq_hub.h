@@ -175,6 +175,7 @@ typedef struct
     uint32_t last_write_ms;
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
+    bool log_enable_uds;
     // General
     uint32_t loop_time_max_ms;
     uint32_t loop_time_avg_ms;

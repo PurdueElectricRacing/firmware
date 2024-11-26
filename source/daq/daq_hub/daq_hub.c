@@ -96,6 +96,7 @@ void daq_init(void)
     dh.sd_last_err_res = 0;
     dh.log_enable_sw = false;
     dh.log_enable_tcp = false;
+    dh.log_enable_uds = false;
     dh.my_watch = 0x420;
 
     // FTP
@@ -271,17 +272,20 @@ static void sd_update_connection_state(void)
 {
     FRESULT res;
     static uint32_t last_error_count;
-    static uint32_t last_sw_check;
+    static uint32_t last_sw_check = 0;
     bool new_sw;
 
     // Log enable debouncing
-    if (tick_ms - last_sw_check > 100)
+    // TMP: switch doesnt work
+    #if 0
+    if (!last_sw_check || tick_ms - last_sw_check > 100)
     {
         new_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
         if (new_sw != dh.log_enable_sw) dh.log_enable_tcp = new_sw; // switch trumps tcp on change
         dh.log_enable_sw = new_sw;
         last_sw_check = tick_ms;
     }
+    #endif
 
     // Check if we should definitely disconnect
     if (dh.sd_state != SD_IDLE)
@@ -776,7 +780,9 @@ static void eth_rx_tcp_periodic(void)
 static bool get_log_enable(void)
 {
     // TODO: combine with CAN message from dash
-    return dh.log_enable_sw || dh.log_enable_tcp;
+    // return dh.log_enable_sw || dh.log_enable_tcp;
+    // TMP: switch doesnt work
+    return dh.log_enable_uds;
 }
 
 #define DAQ_BL_CMD_RST        0x05

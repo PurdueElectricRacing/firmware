@@ -257,8 +257,25 @@ void SysTick_Handler(void)
 
 /* SPI Callbacks for Ethernet Driver */
 
-static void cs_sel(void)   {PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 0);}
-static void cs_desel(void) {PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);}
+/*
+ * W5500 uses a custom framed multi-byte SPI format that requires
+ * CS to be low for the entire duration of the multi-byte transaction.
+ * Hence the SW CS. Since the W5500 driver pulls CS manually using this
+ * callback before calling SPI_transfer, and the SPI peripheral needs to be
+ * enabled before CS, we enable it here and use a special function in the PHAL
+ * that doesn't pull CS/enable SPI
+ */
+static void cs_sel(void)
+{
+    eth_spi_config.periph->CR1 |= SPI_CR1_SPE;
+    PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 0);
+}
+
+static void cs_desel(void)
+{
+    eth_spi_config.periph->CR1 &= ~SPI_CR1_SPE;
+    PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);
+}
 
 static uint8_t spi_rb(void)
 {

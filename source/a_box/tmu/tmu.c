@@ -85,31 +85,31 @@ void readTemps(tmu_handle_t *tmu) {
 
     }
 
-    if (i != 1 && i != 2) {
+    //if (i != 1 && i != 2) {
         resistance_to_temp(tmu4_r2, &tmu->tmu4[i]);
         tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[i]);
         tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[i]);
         tmu->tmu4_avg += tmu->tmu4[i];
-    }
+    //}
 
-    if (i != 8) {
-        if (i != 3) {
+    //if (i != 8) {
+      //  if (i != 3) {
             resistance_to_temp(tmu2_r2, &tmu->tmu2[i]);
             tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[i]);
             tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[i]);
             tmu->tmu2_avg += tmu->tmu2[i];
-        }
-    }
+        //}
+    //}
     resistance_to_temp(tmu3_r2, &tmu->tmu3[i]);
     tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[i]);
     tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[i]);
     tmu->tmu3_avg += tmu->tmu3[i];
-    if (i != 0) {
+    //if (i != 0) {
         resistance_to_temp(tmu1_r2, &tmu->tmu1[i]);
         tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[i]);
         tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[i]);
         tmu->tmu1_avg += tmu->tmu1[i];
-    }
+    //}
 
     if ((i + 1) < NUM_THERM) {
         i++;
@@ -142,10 +142,10 @@ void readTemps(tmu_handle_t *tmu) {
     }
 
 
-    // PHAL_writeGPIO(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, (i & 0x1));
-    // PHAL_writeGPIO(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, (i & 0x2));
-    // PHAL_writeGPIO(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, (i & 0x4));
-    // PHAL_writeGPIO(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, (i & 0x8));
+    PHAL_writeGPIO(MUX_A_NON_ISO_Port, MUX_A_NON_ISO_Pin, (i & 0x1));
+    PHAL_writeGPIO(MUX_B_NON_ISO_Port, MUX_B_NON_ISO_Pin, (i & 0x2));
+    PHAL_writeGPIO(MUX_C_NON_ISO_Port, MUX_C_NON_ISO_Pin, (i & 0x4));
+    PHAL_writeGPIO(MUX_D_NON_ISO_Port, MUX_D_NON_ISO_Pin, (i & 0x8));
 
 }
 

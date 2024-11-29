@@ -286,19 +286,23 @@ void selectItem() {
     }
 }
 
-void updateDataPages() {
-    if (curr_page == PAGE_RACE) {
-        update_race_page();
-        return;
-    }
-
-    if (curr_page == PAGE_DATA) {
-        set_value(POW_LIM_BAR, NXT_VALUE, 0);
-        set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
-    }
-
-    return;
+void update_data_page() {
+    set_value(POW_LIM_BAR, NXT_VALUE, 0);
+    set_value(THROT_BAR, NXT_VALUE, (int) ((filtered_pedals / 4095.0) * 100));
 }
+
+void updateDataPages() {
+    switch (curr_page) {
+        case PAGE_RACE:
+            update_race_page();
+            break;
+        case PAGE_DATA:
+            update_data_page();
+            break;
+    }
+}
+
+
 
 void sendTVParameters() {
     SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
@@ -480,7 +484,7 @@ void update_driver_page() {
     driver_config.curr_hover = DRIVER_DEFAULT_SELECT;
     set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-    set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+    set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
 
     if (driver_config.curr_select == DRIVER_DEFAULT_SELECT)
@@ -503,11 +507,11 @@ void update_driver_page() {
 
     if (driver_config.curr_select == DRIVER_LUCA_SELECT)
     {
-        set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
+        set_value(DRIVER_LUCA_OP, NXT_VALUE, 1);
     }
     else
     {
-        set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+        set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
     }
 
     if (driver_config.curr_select == DRIVER_LUKE_SELECT)
@@ -529,7 +533,7 @@ void move_up_driver() {
         // Update the background
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     }
     else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
@@ -539,7 +543,7 @@ void move_up_driver() {
 
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
     else if (driver_config.curr_hover == DRIVER_LUCA_SELECT)
@@ -548,7 +552,7 @@ void move_up_driver() {
         driver_config.curr_select = DRIVER_TYLER_SELECT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
     else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
@@ -557,7 +561,7 @@ void move_up_driver() {
         driver_config.curr_select = DRIVER_LUCA_SELECT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
 }
@@ -570,7 +574,7 @@ void move_down_driver() {
         // Update the background
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
     else if (driver_config.curr_hover == DRIVER_TYLER_SELECT)
@@ -579,7 +583,7 @@ void move_down_driver() {
         driver_config.curr_select = DRIVER_LUCA_SELECT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
     else if (driver_config.curr_hover == DRIVER_LUCA_SELECT)
@@ -588,7 +592,7 @@ void move_down_driver() {
         driver_config.curr_select = DRIVER_LUKE_SELECT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     }
     else if (driver_config.curr_hover == DRIVER_LUKE_SELECT)
@@ -597,7 +601,7 @@ void move_down_driver() {
         driver_config.curr_select = DRIVER_DEFAULT_SELECT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-        set_value(DRIVER_RUHAAN_TXT, NXT_BACKGROUND_COLOR, TV_BG);
+        set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
 }
@@ -608,25 +612,25 @@ void select_driver() {
         case DRIVER_DEFAULT_SELECT:
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             break;
         case DRIVER_TYLER_SELECT:
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
-            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             break;
         case DRIVER_LUCA_SELECT:
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 1);
+            set_value(DRIVER_LUCA_OP, NXT_VALUE, 1);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             break;
         case DRIVER_LUKE_SELECT:
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
-            set_value(DRIVER_RUHAAN_OP, NXT_VALUE, 0);
+            set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
             break;
     }

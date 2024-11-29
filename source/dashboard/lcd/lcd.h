@@ -16,17 +16,17 @@
 #define DRIVER_CALIBRATION_STRING "calibration"
 #define SDCINFO_STRING "sdcinfo"
 #define LOGGING_STRING "logging"
-#define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U)
+#define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U) // TODO remove?
 
 
 // Driver Configuration Page
 #define DRIVER_DEFAULT_OP "r0"
 #define DRIVER_TYLER_OP "r1"
-#define DRIVER_RUHAAN_OP "r2"
+#define DRIVER_LUCA_OP "r2"
 #define DRIVER_LUKE_OP "r3"
 #define DRIVER_DEFAULT_TXT "t1"
 #define DRIVER_TYLER_TXT "t2"
-#define DRIVER_RUHAAN_TXT "t3"
+#define DRIVER_LUCA_TXT "t3"
 #define DRIVER_LUKE_TXT "t4"
 
 //Error/Knob page values

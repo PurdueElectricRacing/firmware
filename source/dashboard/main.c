@@ -165,26 +165,26 @@ float voltToForce(uint16_t load_read);
 // Communication queues
 q_handle_t q_tx_usart;
 
-int main (void){
+int main(void){
 
     /* Data Struct init */
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
     /* HAL Initilization */
     PHAL_trimHSI(HSI_TRIM_DASHBOARD);
-    if(0 != PHAL_configureClockRates(&clock_config))
+    if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
     }
-    if(false == PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
     {
         HardFault_Handler();
     }
-    if(false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
     {
         HardFault_Handler();
     }
-    if(false == PHAL_initDMA(&adc_dma_config))
+    if (false == PHAL_initDMA(&adc_dma_config))
     {
         HardFault_Handler();
     }
@@ -229,24 +229,24 @@ void preflightChecks(void) {
     switch (state++)
     {
         case 0:
-            if(false == PHAL_initCAN(CAN1, false, VCAN_BPS))
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
             {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 1:
-            if(false == PHAL_initUSART(&lcd, APB2ClockRateHz))
+            if (false == PHAL_initUSART(&lcd, APB2ClockRateHz))
             {
                 HardFault_Handler();
             }
             break;
         case 2:
-            if(false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
             {
                 HardFault_Handler();
             }
-            if(false == PHAL_initDMA(&adc_dma_config))
+            if (false == PHAL_initDMA(&adc_dma_config))
             {
                 HardFault_Handler();
             }
@@ -274,9 +274,6 @@ void preflightChecks(void) {
             state = 255; // prevent wrap around
     }
 }
-
-
-
 
 void send_shockpots()
 {
@@ -360,8 +357,6 @@ void interpretLoadSensor(void) {
     //send a can message w/ minimal force info
     //every 15 milliseconds
     SEND_LOAD_SENSOR_READINGS_DASH(force_load_l, force_load_r);
-
-
 }
 
 void heartBeatLED()
@@ -472,15 +467,15 @@ void EXTI15_10_IRQHandler() {
     }
 }
 
-// [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
-const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
-    { 0, -1,  1,  0},
-    { 1,  0,  0, -1},
-    {-1,  0,  0,  1},
-    { 0,  1, -1,  0}
-};
-
 void encoder_ISR() {
+    // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
+    static const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
+        { 0, -1,  1,  0},
+        { 1,  0,  0, -1},
+        {-1,  0,  0,  1},
+        { 0,  1, -1,  0}
+    };
+
     uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
     uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
     uint8_t current_state = (raw_enc_b | (raw_enc_a << 1));
@@ -541,7 +536,7 @@ void enableInterrupts()
 uint8_t cmd[NXT_STR_SIZE] = {'\0'};
 void usartTxUpdate()
 {
-    if((false == PHAL_usartTxBusy(&lcd)) &&  (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
+    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
     {
         PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
     }
@@ -558,13 +553,12 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
         Bootloader_ResetForFirmwareDownload();
 }
 
-
-static uint8_t upButtonBuffer;
-static uint8_t downButtonBuffer;
-
 // Poll for Dashboard User Input
 void pollDashboardInput()
 {
+    static uint8_t upButtonBuffer;
+    static uint8_t downButtonBuffer;
+
     // Check for Encoder Input
     upButtonBuffer <<= 1;
     if (PHAL_readGPIO(GPIOD, 14) == 0)
@@ -600,30 +594,6 @@ void pollDashboardInput()
         SEND_START_BUTTON(1);                     // Report start button pressed
         dashboard_input &= ~(1U << DASH_INPUT_START_BUTTON);
     }
-
-    // Check Up/Down Pressed
-    // if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON) &&
-    //    (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON)))
-    // {
-    //     // Default to Up if Both Pressed in x ms
-    //     moveUp();
-    //     dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
-    //     dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
-    // }
-    // else if (dashboard_input & (1U << DASH_INPUT_UP_BUTTON))
-    // {
-    //     moveUp();
-    //     dashboard_input &= ~(1U << DASH_INPUT_UP_BUTTON);
-    // }
-    // else if (dashboard_input & (1U << DASH_INPUT_DOWN_BUTTON))
-    // {
-    //     moveDown();
-    //     dashboard_input &= ~(1U << DASH_INPUT_DOWN_BUTTON);
-    // }
-    // else
-    // {
-    //     // nothing
-    // }
 
     // Check Select Item Pressed
     if (dashboard_input & (1U << DASH_INPUT_SELECT_BUTTON))

@@ -156,6 +156,7 @@ int main()
     taskCreate(emulate_fault, 5000);
 
     schedStart();
+
     // Never reached
     return 0;
 }
@@ -199,7 +200,7 @@ void pollDashboardInputs() {
 uint8_t cmd[100] = {'\0'};
 void usartTxUpdate()
 {
-    if((false == PHAL_usartTxBusy(&lcd)) &&  (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
+    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
     {
         PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
     }

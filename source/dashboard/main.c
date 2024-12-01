@@ -162,11 +162,11 @@ void sendBrakeStatus();
 void interpretLoadSensor(void);
 void send_shockpots();
 float voltToForce(uint16_t load_read);
+
 // Communication queues
 q_handle_t q_tx_usart;
 
 int main(void){
-
     /* Data Struct init */
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
@@ -196,8 +196,6 @@ int main(void){
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-
-
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);

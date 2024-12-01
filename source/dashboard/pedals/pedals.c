@@ -13,22 +13,16 @@ pedal_calibration_t pedal_calibration = {.t1max=1640,.t1min=1000, // WARNING: DA
                                          .b2max=1490,.b2min=450, // 1400, 400
                                          .b3max=124,.b3min=0};   // 910, 812 3312 3436
 
-uint16_t b3_buff[8] = {0};
 uint16_t t1_buff[10] = {0};
 uint16_t t2_buff[10] = {0};
 uint16_t b1_buff[10] = {0};
 uint16_t b2_buff[10] = {0};
-uint8_t b3_idx = 0;
 uint8_t t1_idx = 0;
 uint8_t t2_idx = 0;
 uint8_t b1_idx = 0;
 uint8_t b2_idx = 0;
 
 uint16_t filtered_pedals;
-
-uint16_t b3_offset = 0;
-uint32_t b3_start_cal_time = 0;
-uint8_t  b3_cal_complete = 0;
 
 extern q_handle_t q_tx_can;
 extern race_page_t race_page_data;
@@ -50,30 +44,7 @@ void pedalsPeriodic(void)
     // Convert to 0 - 10000 for display 0.00 to 100.00
     race_page_data.brake_bias_adj = brake_bias * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
 
-    //uint16_t b3_raw = /*raw_adc_values.b3*/0; //no longer use b3
-
-    // b3_buff[b3_idx++] = b3_raw;
-    // b3_idx %= 8;
-    // uint32_t b3_sum = 0;
-    // for (uint8_t i = 0; i < 8; i++) b3_sum += b3_buff[i];
-    // uint16_t b3 = MAX_PEDAL_MEAS - (b3_sum / 8);
-
     //3.3R2/(R2 - R1)
-
-    // // Calibrate minimum brake pot value after 2 seconds
-    // if (!b3_cal_complete)
-    // {
-    //     if (b3_start_cal_time == 0) b3_start_cal_time = sched.os_ticks;
-    //     else if (sched.os_ticks - b3_start_cal_time > 2000)
-    //     {
-    //         b3_cal_complete = 1;
-    //         b3_offset = b3 + 10;
-    //     }
-    //     return;
-    // }
-    // // subtract offset, prevent wrap around (uint)
-    // uint16_t diff = b3 - b3_offset;
-    // b3 = diff > b3 ? 0 : diff;
 
     // bool apps_wiring_fail = false;
 
@@ -88,8 +59,7 @@ void pedalsPeriodic(void)
 
     // Check for BSE wiring failure T.4.3.4
     // if (b1 <= BSE_IMPLAUS_MIN || b1 >= BSE_IMPLAUS_MAX ||
-    //     b2 <= BSE_IMPLAUS_MIN || b2 >= BSE_IMPLAUS_MAX ||
-    //     b3 >= BSE_IMPLAUS_MAX) // No min check on b3 since min is 0
+    //     b2 <= BSE_IMPLAUS_MIN || b2 >= BSE_IMPLAUS_MAX
     // {
     //     if (!pedals.bse_wiring_fail_detected) pedals.bse_wiring_fail_start_time = sched.os_ticks;
     //     pedals.bse_wiring_fail_detected = true;
@@ -150,7 +120,6 @@ void pedalsPeriodic(void)
     t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
     b1 = CLAMP(b1, pedal_calibration.b1min, pedal_calibration.b1max);
     b2 = CLAMP(b2, pedal_calibration.b2min, pedal_calibration.b2max);
-    // b3 = CLAMP(b3, pedal_calibration.b3min, pedal_calibration.b3max);
     t1 = (uint16_t) ((((uint32_t) (t1 - pedal_calibration.t1min)) * MAX_PEDAL_MEAS) /
                      (pedal_calibration.t1max - pedal_calibration.t1min));
     t2 = (uint16_t) ((((uint32_t) (t2 - pedal_calibration.t2min)) * MAX_PEDAL_MEAS) /
@@ -159,8 +128,7 @@ void pedalsPeriodic(void)
                      (pedal_calibration.b1max - pedal_calibration.b1min));
     b2 = (uint16_t) ((((uint32_t) (b2 - pedal_calibration.b2min)) * MAX_PEDAL_MEAS) /
                      (pedal_calibration.b2max - pedal_calibration.b2min));
-    // b3 = (uint16_t) ((((uint32_t) (b3 - pedal_calibration.b3min)) * MAX_PEDAL_MEAS) /
-    //                  (pedal_calibration.b3max - pedal_calibration.b3min));
+
     // Invert
     // t1 = MAX_PEDAL_MEAS - t1;
     // t2 = MAX_PEDAL_MEAS - t2;
@@ -170,7 +138,6 @@ void pedalsPeriodic(void)
     // t2 &= 0xFFFC;
     // b1 &= 0xFFFC;
     // b2 &= 0xFFFC;
-    //b3 &= 0xFFFC;
 
 
     // APPS implaus check: wiring fail or 10% APPS deviation T.4.2.4 (after scaling)

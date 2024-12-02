@@ -149,7 +149,7 @@ int main()
     initLCD();
 
     taskCreate(pollDashboardInputs, 100);
-    taskCreate(updatePage,  500); // for testing only
+    taskCreate(updatePage,  300); // for testing only
     taskCreateBackground(usartTxUpdate);
     taskCreate(updateFaultDisplay, 500);
     taskCreate(updateFaultPageIndicators, 500);

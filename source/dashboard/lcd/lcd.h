@@ -13,7 +13,7 @@
 #define FAULT_STRING "faults"
 #define TVSETTINGS_STRING "tvsettings"
 #define DRIVER_STRING "driver"
-#define DRIVER_CALIBRATION_STRING "calibration"
+#define DRIVER_CONFIG_STRING "config"
 #define SDCINFO_STRING "sdcinfo"
 #define LOGGING_STRING "logging"
 #define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U) // TODO remove?
@@ -125,7 +125,7 @@ typedef enum {
   PAGE_FAULTS,
   PAGE_SDCINFO,
   PAGE_DRIVER,
-  PAGE_DRIVER_CALIBRATION,
+  PAGE_DRIVER_CONFIG,
   PAGE_LOGGING,
   PAGE_DATA,
 
@@ -172,10 +172,10 @@ typedef struct {
 } race_page_t;
 
 typedef enum {
-  DRIVER_DEFAULT_SELECT,
-  DRIVER_TYLER_SELECT,
-  DRIVER_LUCA_SELECT,
-  DRIVER_LUKE_SELECT,
+  DRIVER_DEFAULT,
+  DRIVER_TYLER,
+  DRIVER_LUCA,
+  DRIVER_LUKE,
 } driver_select_state_t;
 
 typedef struct {

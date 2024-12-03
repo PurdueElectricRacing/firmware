@@ -43,7 +43,7 @@ parser.add_option("-t", "--target",
     help="firmware target to build. Defaults to `all`"
 )
 
-parser.add_option("--clean",
+parser.add_option("-c", "--clean",
     dest="clean",
     action="store_true", default=False,
     help="remove build artifacts"
@@ -61,7 +61,13 @@ parser.add_option("--no-test",
     help="don't run unit tests"
 )
 
-parser.add_option("-v", "--verbose", 
+parser.add_option("-b", "--bootloader",
+    dest="bootloader",
+    action="store_true", default=False,
+    help="build bootloader components"
+)
+
+parser.add_option("-v", "--verbose",
     dest="verbose",
     action="store_true", default=False,
     help="verbose build commnad output"
@@ -88,6 +94,7 @@ if options.target or not options.clean:
         "-B", str(BUILD_DIR),
         "-G", "Ninja",
         f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
+        f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
     ]
 
     NINJA_OPTIONS = [

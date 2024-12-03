@@ -189,7 +189,7 @@
                 "-d",
                 "${workspaceFolder}/source/a_box"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - Main Module",
@@ -208,7 +208,7 @@
                 "-d",
                 "${workspaceFolder}/source/main_module"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - Dashboard",
@@ -227,7 +227,7 @@
                 "-d",
                 "${workspaceFolder}/source/dashboard"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - Torque Vectoring",
@@ -246,7 +246,7 @@
                 "-d",
                 "${workspaceFolder}/source/torque_vector"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - A_Box",
@@ -265,7 +265,7 @@
                 "-d",
                 "${workspaceFolder}/source/a_box"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - PDU",
@@ -284,7 +284,7 @@
                 "-d",
                 "${workspaceFolder}/source/pdu"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - DAQ",
@@ -303,7 +303,7 @@
                 "-d",
                 "${workspaceFolder}/source/daq"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "main"
         },
         {   "name": "BL App - l4_testing",
@@ -341,7 +341,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
         {
@@ -361,7 +361,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
         {   "name": "BL Bootloader - Torque Vectoring",
@@ -380,7 +380,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
         {
@@ -400,7 +400,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
         {   "name": "BL Bootloader - PDU",
@@ -419,7 +419,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
         {   "name": "BL Bootloader - DAQ",
@@ -438,7 +438,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
         {
@@ -458,7 +458,7 @@
                 "-d",
                 "${workspaceFolder}/source/bootloader"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler"
         },
     ]

@@ -15,7 +15,6 @@ if(ret EQUAL "1")
 endif()
 
 # Check for bootloader generation
-option(BOOTLOADER_BUILD "Build the bootlaoder components" OFF)
 if (NOT BOOTLOADER_BUILD)
     message(STATUS "Not building applications for bootloaders.")
 else()

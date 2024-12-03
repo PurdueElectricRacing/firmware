@@ -19,7 +19,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -42,7 +42,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -65,7 +65,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -88,7 +88,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -112,7 +112,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -135,7 +135,7 @@
                 "${workspaceFolder}/source/daq"
             ],
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -158,7 +158,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -181,7 +181,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -204,7 +204,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -227,7 +227,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -250,7 +250,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -273,7 +273,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -296,7 +296,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -319,7 +319,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -342,7 +342,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -365,7 +365,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -388,7 +388,7 @@
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -411,7 +411,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -435,7 +435,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -458,7 +458,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -482,7 +482,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -505,7 +505,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -528,7 +528,7 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
@@ -552,10 +552,10 @@
             ],
             "preLaunchTask": "build_bl",
             "runToEntryPoint": "Reset_Handler",
-            "liveWatch":{
+            "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5
             }
-        },
+        }
     ]
 }

@@ -20,57 +20,64 @@
 #include "gs_usb.h"
 
 GPIOInitConfig_t gpio_config[] = {
+    // LEDs
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_SPI2_SCK_PB13,
-    GPIO_INIT_SPI2_MISO_PC2,
-    GPIO_INIT_SPI2_MOSI_PC3,
+
+    // W5500 ETH SPI1
+    GPIO_INIT_AF(ETH_SCK_PORT, ETH_SCK_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(ETH_MISO_PORT, ETH_MISO_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(ETH_MOSI_PORT, ETH_MOSI_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_OUTPUT(ETH_CS_PORT, ETH_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
-    // GPIO_INIT_OUTPUT(ETH_RST_PORT, ETH_RST_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(ETH_RST_PORT, ETH_RST_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // SDIO
     GPIO_INIT_SDIO_CLK,
     GPIO_INIT_SDIO_CMD,
     GPIO_INIT_SDIO_DT0,
     GPIO_INIT_SDIO_DT1,
     GPIO_INIT_SDIO_DT2,
     GPIO_INIT_SDIO_DT3,
+
     GPIO_INIT_INPUT(SD_CD_PORT, SD_CD_PIN, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(LOG_ENABLE_PORT, LOG_ENABLE_PIN, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_USART2TX_PA2,
-    GPIO_INIT_USART2RX_PA3,
     GPIO_INIT_INPUT(PWR_LOSS_PORT, PWR_LOSS_PIN, GPIO_INPUT_OPEN_DRAIN),
+
+    // LTE UART
+    GPIO_INIT_USART6TX_PC6,
+    GPIO_INIT_USART6RX_PC7,
+
 #ifdef DISCO_BOARD
     GPIO_INIT_CANRX_PD0,
     GPIO_INIT_CANTX_PD1,
 #else
-    GPIO_INIT_CANRX_PA11,
+    GPIO_INIT_CANRX_PA11, // VCAN
     GPIO_INIT_CANTX_PA12,
 #endif
 #ifdef EN_CAN2
-    GPIO_INIT_CAN2RX_PB5,
+    GPIO_INIT_CAN2RX_PB5, // MCAN
     GPIO_INIT_CAN2TX_PB6,
 #endif
 };
 
 /* SPI CONFIG FOR ETHERNET MODULE */
-dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t eth_spi_config = {
-    .data_rate = 42000000 / 2,
     .data_len  = 8,
     .nss_sw = false,
     .nss_gpio_port = ETH_CS_PORT,
     .nss_gpio_pin = ETH_CS_PIN,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI2
+    .periph = SPI1,
 };
 
-RTC_timestamp_t start_time = 
+RTC_timestamp_t start_time =
 {
     .date = {.month_bcd=RTC_MONTH_FEBRUARY,
              .weekday=RTC_WEEKDAY_TUESDAY,
@@ -88,6 +95,7 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+#if 1
 #define TargetCoreClockrateHz 168000000
 ClockRateConfig_t clock_config = {
     .system_source              =SYSTEM_CLOCK_SRC_PLL,
@@ -98,46 +106,37 @@ ClockRateConfig_t clock_config = {
     .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
 };
+#else
+#define TargetCoreClockrateHz 16000000
+ClockRateConfig_t clock_config = {
+    .system_source              =SYSTEM_CLOCK_SRC_HSI,
+    .vco_output_rate_target_hz  =16000000,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+};
+#endif
 
 volatile uint32_t tick_ms; // Systick 1ms counter
 
-/* UART CONFIG FOR DEBUG PRINTS */
-// dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
-// dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
-// usart_init_t uart_log_config = {
-//    .baud_rate   = 115200,
-//    .word_length = WORD_8,
-//    .stop_bits   = SB_ONE,
-//    .parity      = PT_NONE,
-//    .mode        = MODE_TX_RX,
-//    .hw_flow_ctl = HW_DISABLE,
-//    .ovsample    = OV_16,
-//    .obsample    = OB_DISABLE,
-//    .adv_feature = {
-//                    .wake_addr = false,
-//                    .tx_inv = false,
-//                    .rx_inv = false,
-//                    .dma_on_rx_err = false,
-//                   },
-//    .tx_dma_cfg = &usart_tx_dma_config,
-//    .rx_dma_cfg = &usart_rx_dma_config
-// };
-
-// For logging, requires message to have '\n'
-#ifdef DEBUG_LOG
-char log_buffer[100];
-void _log_str(char* data)
-{
-    size_t len = 0;
-    if (!data) return;
-    while (data[len]) len++;
-    if (len > 0)
-    {
-        // PHAL_usartTxDma(USART2, &uart_log_config, (uint16_t *)data, len);
-        // while (!PHAL_usartTxDmaComplete(&uart_log_config));
-    }
-}
-#endif
+dma_init_t usart_tx_dma_config = USART6_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_rx_dma_config = USART6_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t lte_usart_config = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART6,
+   .wake_addr = false,
+   .usart_active_num = USART6_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_tx_dma_config,
+   .rx_dma_cfg = &usart_rx_dma_config
+};
+DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
 
 static void configure_exti(void);
 static void cs_sel(void);
@@ -149,6 +148,7 @@ static void spi_wb_burst(uint8_t *pBuf, uint16_t len);
 bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 
 q_handle_t q_tx_can2_to_can1;
+q_handle_t q_rx_can_uds;
 
 volatile timestamped_frame_t rx_buffer[RX_BUFF_ITEM_COUNT];
 b_tail_t tails[RX_TAIL_COUNT];
@@ -173,6 +173,7 @@ int main()
     /* Data Struct init */
     // TODO: note: using send to back to q_tx_can2_to_can1 from the interrupt handler! (i.e. DO NOT SEND FROM NORMAL CONTEXT!)
     qConstruct(&q_tx_can2_to_can1, sizeof(CanMsgTypeDef_t));
+    qConstruct(&q_rx_can_uds, sizeof(timestamped_frame_t));
     bConstruct(&b_rx_can, sizeof(*rx_buffer), sizeof(rx_buffer));
     bConstruct(&b_rx_tcp, 1, sizeof(tcp_rx_buffer)); // Byte resolution for tcp receive
 
@@ -193,16 +194,14 @@ int main()
 
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
-    
+
     if (!PHAL_configureRTC(&start_time, false))
         HardFault_Handler();
 
-
-#ifdef DEBUG_LOG
-    // if(!PHAL_initUSART(USART2, &uart_log_config, APB1ClockRateHz))
-    //     HardFault_Handler();
-#endif
-
+    if(!PHAL_initUSART(&lte_usart_config, APB2ClockRateHz))
+    {
+        HardFault_Handler();
+    }
     log_yellow("PER PER PER\n");
 
     if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
@@ -224,7 +223,7 @@ int main()
     reg_wizchip_cs_cbfunc(cs_sel, cs_desel);
     reg_wizchip_spi_cbfunc(spi_rb, spi_wb);
     reg_wizchip_spiburst_cbfunc(spi_rb_burst, spi_wb_burst);
-    
+
     configure_exti();
 
     daq_init();
@@ -260,31 +259,48 @@ void SysTick_Handler(void)
 
 /* SPI Callbacks for Ethernet Driver */
 
-static void cs_sel(void)   {PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 0);}
-static void cs_desel(void) {PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);}
+/*
+ * W5500 uses a custom framed multi-byte SPI format that requires
+ * CS to be low for the entire duration of the multi-byte transaction.
+ * Hence the SW CS. Since the W5500 driver pulls CS manually using this
+ * callback before calling SPI_transfer, and the SPI peripheral needs to be
+ * enabled before CS, we enable it here and use a special function in the PHAL
+ * that doesn't pull CS/enable SPI
+ */
+static void cs_sel(void)
+{
+    eth_spi_config.periph->CR1 |= SPI_CR1_SPE;
+    PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 0);
+}
+
+static void cs_desel(void)
+{
+    eth_spi_config.periph->CR1 &= ~SPI_CR1_SPE;
+    PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);
+}
 
 static uint8_t spi_rb(void)
 {
     uint8_t b;
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, NULL, 0, sizeof(b), &b);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, NULL, 0, sizeof(b), &b);
     return b;
 }
 
 static void spi_wb(uint8_t b)
 {
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, &b, sizeof(b), 0, NULL);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, &b, sizeof(b), 0, NULL);
 }
 
 static void spi_rb_burst(uint8_t *pBuf, uint16_t len)
 {
     // SPI RX Burst, must block! (uses local pointer)
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, NULL, 0, len, pBuf);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, NULL, 0, len, pBuf);
 }
 
 static void spi_wb_burst(uint8_t *pBuf, uint16_t len)
 {
     // SPI TX Burst, must block! (uses local pointer)
-    PHAL_SPI_transfer_noDMA(&eth_spi_config, pBuf, len, 0, NULL);
+    PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, pBuf, len, 0, NULL);
 }
 
 static void can_rx_irq_handler(CAN_TypeDef * can_h)
@@ -350,12 +366,7 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
             // Bootloader check
             if (rx->msg_id == (ID_DAQ_BL_CMD | CAN_EFF_FLAG) && rx->bus_id == BUS_ID_CAN1)
             {
-                CanParsedData_t* msg_data_a = (CanParsedData_t *) &rx->data;
-                if (msg_data_a->daq_bl_cmd.cmd == BLCMD_RST)
-                {
-                    // TODO: stop logging first
-                    Bootloader_ResetForFirmwareDownload();
-                }
+                qSendToBack(&q_rx_can_uds, rx);
             }
 
             bCommitWrite(&b_rx_can, 1);

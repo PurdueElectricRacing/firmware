@@ -20,7 +20,8 @@
 #include "sdio.h"
 #include <string.h>
 #include "main.h"
-#define DISK_LOG(...) log_msg(__VA_ARGS__)
+//#define DISK_LOG(...) log_msg(__VA_ARGS__)
+//#define DISK_LOG(...)
 
 /* Definitions of physical drive number for each media */
 #define ATA		   0
@@ -110,7 +111,7 @@ static DRESULT _sdio_disk_read (
 	if ((SD_SDIO_Stat & STA_NOINIT)) {
 		return RES_NOTRDY;
 	}
-	
+
 	if ((DWORD)buff & 3) {
 		DRESULT res = RES_OK;
 		DWORD scratch[BLOCK_SIZE / 4];
@@ -144,7 +145,7 @@ static DRESULT _sdio_disk_read (
 			return RES_ERROR;
 		} else {
 			return RES_OK;
-		}			
+		}
 	} else {
 		return RES_ERROR;
 	}
@@ -248,7 +249,7 @@ DRESULT disk_ioctl (
 {
 
 	switch (cmd) {
-		case GET_SECTOR_SIZE :     // Get R/W sector size (WORD) 
+		case GET_SECTOR_SIZE :     // Get R/W sector size (WORD)
 			*(WORD *) buff = 512;
 		break;
 		case GET_BLOCK_SIZE :      // Get erase block size in unit of sector (DWORD)

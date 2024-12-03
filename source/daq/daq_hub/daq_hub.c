@@ -7,9 +7,9 @@
  *          - USB (maybe)
  * @version 0.1
  * @date 2024-02-08
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 /* System Includes */
@@ -71,6 +71,8 @@ static void eth_rx_tcp_periodic(void);
 static bool get_log_enable(void);
 static void conv_tcp_frame_to_can_msg(tcp_can_frame_t *t, CanMsgTypeDef_t *c);
 static void conv_tcp_frame_to_rtc(tcp_can_frame_t *t, RTC_timestamp_t *time);
+static void shutdown(void);
+static void uds_receive_periodic(void);
 
 // TODO: use can parse somehow to check for daq enable signal, etc
 
@@ -94,6 +96,7 @@ void daq_init(void)
     dh.sd_last_err_res = 0;
     dh.log_enable_sw = false;
     dh.log_enable_tcp = false;
+    dh.log_enable_uds = false;
     dh.my_watch = 0x420;
 
     // FTP
@@ -120,6 +123,7 @@ void daq_loop(void)
     while (PER == GREAT)
     {
         tic = tick_ms;
+        uds_receive_periodic();
         sd_update_connection_state();
         eth_update_connection_state();
 
@@ -174,7 +178,7 @@ void daq_loop(void)
                                 dh.log_enable_tcp = false;
                                 break;
                             case TCP_CMD_SYNC_TIME:
-                                // Extract time from message and configure RTC 
+                                // Extract time from message and configure RTC
                                 conv_tcp_frame_to_rtc(rx_msg_a, &time);
                                 PHAL_configureRTC(&time, true);
                                 break;
@@ -192,7 +196,7 @@ void daq_loop(void)
         tic = tick_ms - tic;
         dh.loop_time_max_ms = MAX(tic, dh.loop_time_max_ms);
         dh.loop_time_avg_ms = (tic + dh.loop_time_avg_ms) / 2;
-        if (tick_ms - last_hb_toggle_ms >= 500) 
+        if (tick_ms - last_hb_toggle_ms >= 500)
         {
             PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
             last_hb_toggle_ms = tick_ms;
@@ -243,19 +247,19 @@ bool daq_request_sd_mount(void)
         return true;
     }
 
-    if (!SD_Detect()) 
+    if (!SD_Detect())
     {
         sd_handle_error(SD_ERROR_DETEC, 0);
     }
     else
     {
         res = f_mount(&dh.fat_fs, "", 1);
-        if (res == FR_OK) 
+        if (res == FR_OK)
         {
             dh.sd_state = SD_MOUNTED;
             return true;
         }
-        else 
+        else
         {
             sd_handle_error(SD_ERROR_MOUNT, res);
             dh.sd_state = SD_FAIL; // force fail from idle
@@ -268,17 +272,20 @@ static void sd_update_connection_state(void)
 {
     FRESULT res;
     static uint32_t last_error_count;
-    static uint32_t last_sw_check;
+    static uint32_t last_sw_check = 0;
     bool new_sw;
 
     // Log enable debouncing
-    if (tick_ms - last_sw_check > 100) 
+    // TMP: switch doesnt work
+    #if 0
+    if (!last_sw_check || tick_ms - last_sw_check > 100)
     {
         new_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
         if (new_sw != dh.log_enable_sw) dh.log_enable_tcp = new_sw; // switch trumps tcp on change
         dh.log_enable_sw = new_sw;
         last_sw_check = tick_ms;
     }
+    #endif
 
     // Check if we should definitely disconnect
     if (dh.sd_state != SD_IDLE)
@@ -351,7 +358,7 @@ static void sd_update_connection_state(void)
     static uint32_t last_tick_ct;
     if (dh.sd_last_err != SD_ERROR_NONE)
     {
-        if (tick_ms - last_tick_ct >= 250) 
+        if (tick_ms - last_tick_ct >= 250)
         {
             last_tick_ct = tick_ms;
             if (err_blink_tick/2 < dh.sd_last_err)
@@ -392,7 +399,7 @@ static bool sd_new_log_file(void)
     if (PHAL_getTimeRTC(&time))
     {
         // Create file name from RTC
-        sprintf(f_name, "log-20%02d-%02d-%02d--%02d-%02d-%02d.log", 
+        sprintf(f_name, "log-20%02d-%02d-%02d--%02d-%02d-%02d.log",
                 time.date.year_bcd, time.date.month_bcd,
                 time.date.day_bcd,  time.time.hours_bcd,
                 time.time.minutes_bcd, time.time.seconds_bcd);
@@ -415,7 +422,7 @@ static void sd_write_periodic(void)
     if (dh.sd_state == SD_FILE_CREATED)
     {
         // Use the total item count, not contiguous for the threshold
-        if (bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT || 
+        if (bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT ||
             (tick_ms - dh.last_write_ms >= SD_MAX_WRITE_PERIOD_MS))
         {
             if (bGetTailForRead(&b_rx_can, RX_TAIL_SD, (void**) &buf, &consecutive_items) == 0)
@@ -445,47 +452,53 @@ static void sd_handle_error(sd_error_t err, FRESULT res)
 
 static void eth_update_connection_state(void)
 {
-    static uint32_t last_error_count;
-    static uint32_t last_link_check_time;
-    static uint32_t last_blink_time;
-    static uint32_t last_init_time;
-    static uint32_t init_try_counter;
+    static uint32_t last_link_check_time = 0;
+    static uint32_t last_blink_time = 0;
+    static uint32_t last_init_time = 0;
+    static uint32_t init_try_counter = 0;
 
-    if (dh.eth_error_ct - last_error_count > 0) 
+#if 0
+    static uint32_t last_error_count = 0;
+    if (dh.eth_error_ct - last_error_count > 0)
     {
         dh.eth_state = ETH_FAIL;
     }
     last_error_count = dh.eth_error_ct;
-
+#endif
     // TODO: on forceful dismount, reset the ports (maybe even ftp_init())
 
     switch(dh.eth_state)
     {
         case ETH_IDLE:
-            if ((dh.eth_enable_tcp_reception | dh.eth_enable_udp_broadcast) &&
-                (tick_ms - last_init_time) > 500) // Allow for module to power up
+            if ((dh.eth_enable_tcp_reception || dh.eth_enable_udp_broadcast))
             {
-                last_init_time = tick_ms;
-                init_try_counter++;
-                if (eth_init() == ETH_ERROR_NONE)
+                // Allow for module to power up
+                if (!last_init_time)
+                    last_init_time = tick_ms;
+                else if ((tick_ms - last_init_time) > 500)
                 {
-                    dh.eth_state = ETH_LINK_DOWN;
-                    if (dh.eth_enable_udp_broadcast)
+                    last_init_time = tick_ms;
+                    init_try_counter++;
+                    if (eth_init() == ETH_ERROR_NONE)
                     {
-                        // Chip initialized, setup UDP socket
-                        if (eth_init_udp_broadcast() != ETH_ERROR_NONE)
-                            dh.eth_state = ETH_FAIL;
+                        dh.eth_state = ETH_LINK_DOWN;
+                        if (dh.eth_enable_udp_broadcast)
+                        {
+                            // Chip initialized, setup UDP socket
+                            if (eth_init_udp_broadcast() != ETH_ERROR_NONE)
+                                dh.eth_state = ETH_FAIL;
+                        }
                     }
-                }
-                else
-                {
-                    dh.eth_state = ETH_FAIL;
-                    dh.eth_last_error_time = tick_ms;
+                    else
+                    {
+                        dh.eth_state = ETH_FAIL;
+                        dh.eth_last_error_time = tick_ms;
+                    }
                 }
             }
             break;
         case ETH_LINK_DOWN:
-            if (tick_ms - last_link_check_time > 100)
+            if (!last_link_check_time || tick_ms - last_link_check_time > 100)
             {
                 if (eth_get_link_up())
                 {
@@ -527,7 +540,7 @@ static void eth_update_connection_state(void)
     {
         if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED || dh.ftp_busy)
         {
-            if (tick_ms - last_blink_time > 250)
+            if (!last_blink_time || tick_ms - last_blink_time > 250)
             {
                 last_blink_time = tick_ms;
                 PHAL_toggleGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN);
@@ -560,7 +573,7 @@ static int8_t eth_init(void)
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
     timeout_ms = tick_ms;
     while (tick_ms - timeout_ms < ETH_PHY_RESET_PERIOD_MS);
-    
+
     // Check for sign of life
     if (getVERSIONR() != 0x04)
     {
@@ -612,7 +625,7 @@ static void eth_send_udp_periodic(void)
     static uint32_t last_send_ms;
 
     // Should be sending?
-    if (!dh.eth_enable_udp_broadcast || 
+    if (!dh.eth_enable_udp_broadcast ||
         dh.eth_state != ETH_LINK_UP) return;
 
     if (bGetItemCount(&b_rx_can, RX_TAIL_UDP) >= UDP_MAX_WRITE_COUNT ||
@@ -622,11 +635,11 @@ static void eth_send_udp_periodic(void)
         {
             if (consecutive_items > UDP_MAX_WRITE_COUNT) consecutive_items = UDP_MAX_WRITE_COUNT; // limit
             // Write time :D
-            ret = sendto(eth_config.udp_bc_sock, (uint8_t *)buf, 
-                         consecutive_items * sizeof(*buf), 
-                         eth_config.udp_bc_addr, 
+            ret = sendto(eth_config.udp_bc_sock, (uint8_t *)buf,
+                         consecutive_items * sizeof(*buf),
+                         eth_config.udp_bc_addr,
                          eth_config.udp_bc_port);
-            if (ret != consecutive_items * sizeof(*buf)) 
+            if (ret != consecutive_items * sizeof(*buf))
             {
                 eth_handle_error(ETH_ERROR_UDP_SEND);
             }
@@ -707,7 +720,7 @@ static void eth_rx_tcp_periodic(void)
             }
             break;
         case ETH_TCP_LISTEN:
-            if (eth_get_tcp_connected()) 
+            if (eth_get_tcp_connected())
             {
                 // Reset buffer state
                 b_rx_tcp._head = 0;
@@ -742,7 +755,7 @@ static void eth_rx_tcp_periodic(void)
                     }
                 }
             }
-            break; 
+            break;
         case ETH_TCP_FAIL:
             // fall-through
         default:
@@ -754,18 +767,96 @@ static void eth_rx_tcp_periodic(void)
 /**
  * @brief Returns if logging has been enabled.
  *        Sources for enabling are on-board switch
- *        and CAN message request from either 
+ *        and CAN message request from either
  *        dashboard or via wireless request.
  *        Logging will not be enabled unless
  *        the switch is flipped to on.
- * 
+ *
  * @return Enabled
  */
 static bool get_log_enable(void)
 {
     // TODO: combine with CAN message from dash
-    return dh.log_enable_sw || dh.log_enable_tcp;
+    // return dh.log_enable_sw || dh.log_enable_tcp;
+    // TMP: switch doesnt work
+    return dh.log_enable_uds;
 }
+
+#define DAQ_BL_CMD_RST        0x05
+
+#define DAQ_BL_CMD_NTP_DATE   0x10
+#define DAQ_BL_CMD_NTP_TIME   0x11
+#define DAQ_BL_CMD_NTP_GET    0x12
+
+#define DAQ_BL_CMD_LOG_ENABLE 0x20
+#define DAQ_BL_CMD_LOG_STATUS 0x21
+
+static RTC_timestamp_t start_time =
+{
+    .date = {.month_bcd=RTC_MONTH_FEBRUARY,
+             .weekday=RTC_WEEKDAY_TUESDAY,
+             .day_bcd=0x27,
+             .year_bcd=0x24},
+    .time = {.hours_bcd=0x18,
+             .minutes_bcd=0x27,
+             .seconds_bcd=0x00,
+             .time_format=RTC_FORMAT_24_HOUR},
+};
+
+static void uds_process_cmd_ntp_get(void)
+{
+    RTC_timestamp_t time;
+    if (PHAL_getTimeRTC(&time))
+        debug_printf("DAQ time: 20%02d-%02d-%02d %02d:%02d:%02d\n",
+            time.date.year_bcd, time.date.month_bcd,
+            time.date.day_bcd,  time.time.hours_bcd,
+            time.time.minutes_bcd, time.time.seconds_bcd);
+}
+
+static void daq_uds_handle_cmd(uint8_t cmd, uint32_t data)
+{
+    switch (cmd)
+    {
+        case DAQ_BL_CMD_RST:
+            shutdown(); // NVIC reset / bootloader if loaded
+            break;
+        case DAQ_BL_CMD_NTP_DATE: // send date first
+            start_time.date.day_bcd = data & 0xff;
+            start_time.date.weekday = (data >> 8) & 0xf;
+            start_time.date.month_bcd = (data >> 12) & 0xff;
+            start_time.date.year_bcd = (data >> 20) & 0xff;
+            break;
+        case DAQ_BL_CMD_NTP_TIME:
+            start_time.time.seconds_bcd = data & 0xff;
+            start_time.time.minutes_bcd = (data >> 8) & 0xff;
+            start_time.time.hours_bcd = (data >> 16) & 0xff;
+            PHAL_configureRTC(&start_time, true);
+            break;
+        case DAQ_BL_CMD_NTP_GET:
+            uds_process_cmd_ntp_get();
+            break;
+        case DAQ_BL_CMD_LOG_ENABLE:
+            dh.log_enable_uds = !!data;
+            break;
+        case DAQ_BL_CMD_LOG_STATUS:
+            if (get_log_enable())
+                debug_printf("Logging enabled\n");
+            else
+                debug_printf("Logging disabled\n");
+            break;
+    }
+}
+
+static void uds_receive_periodic(void)
+{
+    timestamped_frame_t rx_msg;
+    while (qReceive(&q_rx_can_uds, &rx_msg) == SUCCESS_G)
+    {
+        uint32_t data = rx_msg.data[4] << 24 | rx_msg.data[3] << 16 | rx_msg.data[2] << 8 | rx_msg.data[1];
+        daq_uds_handle_cmd(rx_msg.data[0], data);
+    }
+}
+
 
 /**
  * @brief Disables high power consumption devices
@@ -775,17 +866,18 @@ static bool get_log_enable(void)
 static void shutdown(void)
 {
     // First, turn off all power consuming devices to increase our write time to sd card
+    GPIOD->BSRR |= (1 << ((1 << 4) | HEARTBEAT_LED_PIN)) | (1 << ((1 << 4) | CONNECTION_LED_PIN)) | (1 << ((1 << 4) | ERROR_LED_PIN)); // all LEDs go bye bye
+    GPIOA->BSRR |= (1 << ((1 << 4) | SD_ACTIVITY_LED_PIN)) | (1 << ((1 << 4) | SD_ERROR_LED_PIN)) | (1 << ((1 << 4) | SD_DETECT_LED_PIN));
+
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
     PHAL_deinitCAN(CAN1);
     PHAL_deinitCAN(CAN2);
-    GPIOA->MODER &= (0x3 << (12 * 2)); // all LED pins go bye bye (except don't float CAN TX)
 
     f_close(&dh.log_fp);   // Close file
     f_mount(0, "", 1);     // Unmount drive
     SD_DeInit();           // Shutdown SDIO peripheral
 
     // Hooray, we made it, blink an LED to show the world
-    GPIOA->MODER |= (0x1) << (SD_DETECT_LED_PIN * 2); // back to output mode
     PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
     uint32_t start_tick = tick_ms;
     while (tick_ms - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart

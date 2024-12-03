@@ -24,7 +24,8 @@ THE SOFTWARE.
 
 */
 
-#pragma once
+#ifndef __GS_USB_H__
+#define __GS_USB_H__
 
 #define u32 uint32_t
 #define u8 uint8_t
@@ -166,7 +167,7 @@ enum gs_can_state {
 /* data types passed between host and device */
 struct gs_host_config {
 	u32 byte_order;
-} __packed;
+} __attribute__((__packed__));
 /* All data exchanged between host and device is exchanged in host byte order,
  * thanks to the struct gs_host_config byte_order member, which is sent first
  * to indicate the desired byte order.
@@ -179,12 +180,12 @@ struct gs_device_config {
 	u8 icount;
 	u32 sw_version;
 	u32 hw_version;
-} __packed;
+} __attribute__((__packed__));
 
 struct gs_device_mode {
 	u32 mode;
 	u32 flags;
-} __packed;
+} __attribute__((__packed__));
 
 struct gs_device_state {
 	u32 state;
@@ -198,7 +199,7 @@ struct gs_device_bittiming {
 	u32 phase_seg2;
 	u32 sjw;
 	u32 brp;
-} __packed;
+} __attribute__((__packed__));
 
 struct gs_device_bt_const {
 	u32 feature;
@@ -211,7 +212,7 @@ struct gs_device_bt_const {
 	u32 brp_min;
 	u32 brp_max;
 	u32 brp_inc;
-} __packed;
+} __attribute__((__packed__));
 
 struct gs_host_frame {
 	u32 echo_id;
@@ -226,10 +227,11 @@ struct gs_host_frame {
 
 	u32 timestamp_us;
 
-} __packed;
+} __attribute__((__packed__));
 
 struct gs_tx_context {
 	struct gs_can *dev;
 	unsigned int echo_id;
 };
 
+#endif // __GS_USB_H__

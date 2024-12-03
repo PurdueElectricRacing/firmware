@@ -82,6 +82,8 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
  */
 bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data);
 
+bool PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data);
+
 /**
  * @brief Check for current SPI transaction to complete
  * @param cfg Spi config
@@ -110,6 +112,8 @@ uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t write
  * @param skipDummy Return the 3rd byte read instead of the 2nd byte
  */
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
+
+void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
 
 // SPI Configuration macros
 #define SPI1_RXDMA_CONT_CONFIG(rx_addr_, priority_)                               \

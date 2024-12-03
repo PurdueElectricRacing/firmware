@@ -8,6 +8,16 @@
 
 #define FAULT_NODE_NAME NODE_A_BOX
 
+//TMU Mux Pin
+#define MUX_A_NON_ISO_Port  (GPIOC)
+#define MUX_A_NON_ISO_Pin   (9)
+#define MUX_B_NON_ISO_Port  (GPIOC)
+#define MUX_B_NON_ISO_Pin   (8)
+#define MUX_C_NON_ISO_Port  (GPIOC)
+#define MUX_C_NON_ISO_Pin   (7)
+#define MUX_D_NON_ISO_Port  (GPIOC)
+#define MUX_D_NON_ISO_Pin   (6)
+
 
 // Current Sense
 #define I_SENSE_CH1_GPIO_Port (GPIOA) 

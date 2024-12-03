@@ -192,9 +192,6 @@ BO_ 2148059716 fault_sync_a_box: 3 a_box
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ idx : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2550136772 daq_response_A_BOX: 8 a_box
- SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2483029688 orion_info: 7 OrionBMS
  SG_ pack_soc : 48|8@1+ (0.5,0) [0|0] "%" Vector__XXX
  SG_ pack_ccl : 32|16@1+ (1,0) [0|0] "A" Vector__XXX
@@ -540,9 +537,6 @@ BO_ 2483028082 daq_command_MAIN_MODULE: 8 DAQ
 BO_ 2483028338 daq_command_DASHBOARD: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2483028274 daq_command_A_BOX: 8 DAQ
- SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
-
 BO_ 2483030002 daq_command_PDU: 8 DAQ
  SG_ daq_command : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
@@ -766,8 +760,6 @@ CM_ SG_ 2416010308 current_channel_1 "";
 CM_ BO_ 2148059716 "Fault status message";
 CM_ SG_ 2148059716 latched "";
 CM_ SG_ 2148059716 idx "";
-CM_ BO_ 2550136772 "daq response from node A_BOX";
-CM_ SG_ 2550136772 daq_response "";
 CM_ BO_ 2483029688 "charge, State, Current/voltage limits";
 CM_ SG_ 2483029688 pack_soc "";
 CM_ SG_ 2483029688 pack_ccl "";
@@ -1048,8 +1040,6 @@ CM_ BO_ 2483028082 "daq command for node MAIN_MODULE";
 CM_ SG_ 2483028082 daq_command "";
 CM_ BO_ 2483028338 "daq command for node DASHBOARD";
 CM_ SG_ 2483028338 daq_command "";
-CM_ BO_ 2483028274 "daq command for node A_BOX";
-CM_ SG_ 2483028274 daq_command "";
 CM_ BO_ 2483030002 "daq command for node PDU";
 CM_ SG_ 2483030002 daq_command "";
 CM_ BO_ 2483029759 "Pack current + voltage";

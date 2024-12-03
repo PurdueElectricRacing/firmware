@@ -149,10 +149,6 @@ void canRxUpdate()
                 can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
                 break;
-            case ID_DAQ_COMMAND_A_BOX:
-                can_data.daq_command_A_BOX.daq_command = msg_data_a->daq_command_A_BOX.daq_command;
-                daq_command_A_BOX_CALLBACK(&msg_header);
-                break;
             default:
                 __asm__("nop");
         }
@@ -219,8 +215,6 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_SET_FAULT << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_DAQ_COMMAND_A_BOX << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)

@@ -6,18 +6,20 @@
 #include "common/phal_F4_F7/adc/adc.h"
 #include <stdint.h>
 #include <inttypes.h>
-
+#include "common/phal_F4_F7/spi/spi.h"
 
 #define TMU_FILTERED_DATA_CMD (0x5U)
 #define TMU_PRODID_ADDR (0x0U)
 
 
 #define TMU_ADDR_SIZE 0xFFFU
-#define TMU_VREF 3.3F
+#define TMU_VREF 1.8F
 
 //Changing this value will change how many thermistor slots are read.
 #define NUM_THERM 10
 
+#define TMU_VIN 5.0F
+#define R1 68000
 // top  and bottom resistors for power rail voltage divider
 #define R1_3V3 200000
 #define R2_3V3 100000
@@ -46,42 +48,35 @@
 #define COMP(val, min, max) ((val < min && val > max) ? 1 : 0)
 
 
-
-
 typedef struct {
-   // instantaneous values
-   int16_t tmu1_max;
-   int16_t tmu2_max;
-   int16_t tmu3_max;
-   int16_t tmu4_max;
-   int16_t tmu1_min;
-   int16_t tmu2_min;
-   int16_t tmu3_min;
-   int16_t tmu4_min;
-   int16_t tmu1_avg;
-   int16_t tmu2_avg;
-   int16_t tmu3_avg;
-   int16_t tmu4_avg;
-   //raw temps
-   int16_t tmu1[NUM_THERM];
-   int16_t tmu2[NUM_THERM];
-   int16_t tmu3[NUM_THERM];
-   int16_t tmu4[NUM_THERM];
-   // tmu power rail voltages
-   float tmu1_pow;
-   float tmu2_pow;
-   float tmu3_pow;
-   float tmu4_pow;
+   SPI_InitConfig_t *spi;
+   float tmu1_volts;
+   float tmu2_volts;
+   float tmu3_volts;
+   float tmu4_volts;
+   uint16_t tmu1_max;
+   uint16_t tmu2_max;
+   uint16_t tmu3_max;
+   uint16_t tmu4_max;
+   uint16_t tmu1_min;
+   uint16_t tmu2_min;
+   uint16_t tmu3_min;
+   uint16_t tmu4_min;
+   uint16_t tmu1_avg;
+   uint16_t tmu2_avg;
+   uint16_t tmu3_avg;
+   uint16_t tmu4_avg;
+   uint16_t tmu1[15];
+   uint16_t tmu2[15];
+   uint16_t tmu3[15];
+   uint16_t tmu4[15];
 } tmu_handle_t;
-extern bool tmu_daq_override;
-extern uint8_t tmu_daq_therm;
-
-uint8_t readTemps(tmu_handle_t *tmu);
-void initTMU(tmu_handle_t *tmu);
+void readTemps(tmu_handle_t *tmu);
+bool initTMU(tmu_handle_t *tmu);
 
 
-
-
+double native_log_computation(const double n);
+void resistance_to_temp(float resistance, uint16_t *temp);
 
 
 #endif

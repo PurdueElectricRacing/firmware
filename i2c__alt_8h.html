@@ -145,9 +145,9 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a7bb19967ddc056b4541b7e3006dd930a" id="r_a7bb19967ddc056b4541b7e3006dd930a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bb19967ddc056b4541b7e3006dd930a">PHAL_I2C_init</a> (I2C_TypeDef *instance, <a class="el" href="structi2c__handle__t.html">i2c_handle_t</a> *handle, uint32_t freq, const uint32_t fck)</td></tr>
 <tr class="separator:a7bb19967ddc056b4541b7e3006dd930a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a1a58cb35928a9b061cc86306c6cd7d" id="r_a1a1a58cb35928a9b061cc86306c6cd7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a1a58cb35928a9b061cc86306c6cd7d">PHAL_I2C_write_a</a> (I2C_TypeDef *instance, uint8_t addr, const uint8_t *data, uint8_t len, bool stop, bool force)</td></tr>
+<tr class="memitem:a1a1a58cb35928a9b061cc86306c6cd7d" id="r_a1a1a58cb35928a9b061cc86306c6cd7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a1a58cb35928a9b061cc86306c6cd7d">PHAL_I2C_write_a</a> (I2C_TypeDef *instance, uint8_t addr, const uint8_t *<a class="el" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>, uint8_t len, bool stop, bool force)</td></tr>
 <tr class="separator:a1a1a58cb35928a9b061cc86306c6cd7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a548be3b4321a561307abf6440e607b2b" id="r_a548be3b4321a561307abf6440e607b2b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a548be3b4321a561307abf6440e607b2b">PHAL_I2C_read_a</a> (I2C_TypeDef *instance, uint8_t addr, uint8_t *data, uint8_t len, bool stop, bool force)</td></tr>
+<tr class="memitem:a548be3b4321a561307abf6440e607b2b" id="r_a548be3b4321a561307abf6440e607b2b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a548be3b4321a561307abf6440e607b2b">PHAL_I2C_read_a</a> (I2C_TypeDef *instance, uint8_t addr, uint8_t *<a class="el" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>, uint8_t len, bool stop, bool force)</td></tr>
 <tr class="separator:a548be3b4321a561307abf6440e607b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb6671e817ac7f853e579902e92ca878" id="r_acb6671e817ac7f853e579902e92ca878"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb6671e817ac7f853e579902e92ca878">PHAL_I2C_stop</a> (I2C_TypeDef *instance)</td></tr>
 <tr class="separator:acb6671e817ac7f853e579902e92ca878"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,8 +178,9 @@ Functions</h2></td></tr>
 <div class="line">     .dir=0b0, .mem_inc=<span class="keyword">true</span>, .periph_inc=<span class="keyword">false</span>, .mem_to_mem=<span class="keyword">false</span>,             \</div>
 <div class="line">     .priority=(priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>=0b00, .periph_size=0b00,                  \</div>
 <div class="line">     .tx_isr_en=<span class="keyword">true</span>, .dma_chan_request=0b0011, .channel_idx=7,                 \</div>
-<div class="line">     .periph=DMA1, .channel=DMA1_Channel7, .request=DMA1_CSELR}</div>
+<div class="line">     .periph=DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a>=DMA1_Channel7, .request=DMA1_CSELR}</div>
 <div class="ttc" id="aeeprom__spi_8h_html_ab6cda81580b0760b92d051888cd9b2c9"><div class="ttname"><a href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a></div><div class="ttdeci">uint16_t mem_size[MAX_PAGES]</div><div class="ttdoc">Size of file in bytes (actual)</div><div class="ttdef"><b>Definition</b> eeprom_spi.h:4</div></div>
+<div class="ttc" id="ags__usb_8h_html_a994f6c98dd079996515c90406d3f3d0b"><div class="ttname"><a href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a></div><div class="ttdeci">u8 channel</div><div class="ttdef"><b>Definition</b> gs_usb.h:4</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,7 +207,7 @@ Functions</h2></td></tr>
 <div class="line">     .dir=0b1, .mem_inc=<span class="keyword">true</span>, .periph_inc=<span class="keyword">false</span>, .mem_to_mem=<span class="keyword">false</span>,             \</div>
 <div class="line">     .priority=(priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>=0b00, .periph_size=0b00,                  \</div>
 <div class="line">     .tx_isr_en=<span class="keyword">true</span>, .dma_chan_request=0b0011, .channel_idx=6,                 \</div>
-<div class="line">     .periph=DMA1, .channel=DMA1_Channel6, .request=DMA1_CSELR}</div>
+<div class="line">     .periph=DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a>=DMA1_Channel6, .request=DMA1_CSELR}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -233,7 +234,7 @@ Functions</h2></td></tr>
 <div class="line">     .dir=0b0, .mem_inc=<span class="keyword">true</span>, .periph_inc=<span class="keyword">false</span>, .mem_to_mem=<span class="keyword">false</span>,             \</div>
 <div class="line">     .priority=(priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>=0b00, .periph_size=0b00,                  \</div>
 <div class="line">     .tx_isr_en=<span class="keyword">true</span>, .dma_chan_request=0b0011, .channel_idx=3,                 \</div>
-<div class="line">     .periph=DMA1, .channel=DMA1_Channel3, .request=DMA1_CSELR}</div>
+<div class="line">     .periph=DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a>=DMA1_Channel3, .request=DMA1_CSELR}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -260,7 +261,7 @@ Functions</h2></td></tr>
 <div class="line">     .dir=0b1, .mem_inc=<span class="keyword">true</span>, .periph_inc=<span class="keyword">false</span>, .mem_to_mem=<span class="keyword">false</span>,             \</div>
 <div class="line">     .priority=(priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>=0b00, .periph_size=0b00,                  \</div>
 <div class="line">     .tx_isr_en=<span class="keyword">true</span>, .dma_chan_request=0b0011, .channel_idx=2,                 \</div>
-<div class="line">     .periph=DMA1, .channel=DMA1_Channel2, .request=DMA1_CSELR}</div>
+<div class="line">     .periph=DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a>=DMA1_Channel2, .request=DMA1_CSELR}</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -63,6 +63,6 @@ var searchData=
   ['hw_5ffail_60',['hw_fail',['../union____attribute____.html#aa0dd093ed0886f4ac0a1cae7a04fdb0f',1,'__attribute__::hw_fail'],['../structcan__data__t.html#ae24f507f4f488da44b13e16b16cafff4',1,'can_data_t::hw_fail']]],
   ['hw_5fflow_5fctl_61',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
   ['hw_5fflow_5fctl_5ft_62',['hw_flow_ctl_t',['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h']]],
-  ['hw_5fversion_63',['hw_version',['../structgs__device__config.html#aad313881a57fd02d7b4cf10e1221d897',1,'gs_device_config']]],
+  ['hw_5fversion_63',['hw_version',['../structgs__device__config.html#aad313881a57fd02d7b4cf10e1221d897',1,'gs_device_config::hw_version'],['../gs__usb_8h.html#a8a6d9e88357717882f930f528b467fff',1,'hw_version:&#160;gs_usb.h']]],
   ['hz_5fto_5fmhz_64',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
 ];

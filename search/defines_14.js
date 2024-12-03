@@ -45,8 +45,6 @@ var searchData=
   ['usart4_5frxdma_5fcont_5fconfig_42',['USART4_RXDMA_CONT_CONFIG',['../phal__F4__F7_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51',1,'usart.h']]],
   ['usart4_5ftxdma_5fcont_5fconfig_43',['USART4_TXDMA_CONT_CONFIG',['../phal__F4__F7_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a',1,'usart.h']]],
   ['usb_44',['USB',['../diskio_8c.html#a779bf099075a999d1074357fccbd466b',1,'diskio.c']]],
-  ['user_5fbtn_5fpin_45',['USER_BTN_PIN',['../daq_2main_8h.html#ac59ddd03013976ede90c009ac1862373',1,'main.h']]],
-  ['user_5fbtn_5fport_46',['USER_BTN_PORT',['../daq_2main_8h.html#a62193a3d47682e867ad0f08f9dc1fbe5',1,'main.h']]],
-  ['user_5fflash_5fbase_5faddress_47',['USER_FLASH_BASE_ADDRESS',['../phal__L4_2flash_2flash_8h.html#a2db2451518fbabc52854c6758306aa39',1,'flash.h']]],
-  ['user_5fflash_5fend_5faddress_48',['USER_FLASH_END_ADDRESS',['../phal__L4_2flash_2flash_8h.html#a4f0a8629e7ecc999503c0054da5538a3',1,'flash.h']]]
+  ['user_5fflash_5fbase_5faddress_45',['USER_FLASH_BASE_ADDRESS',['../phal__L4_2flash_2flash_8h.html#a2db2451518fbabc52854c6758306aa39',1,'flash.h']]],
+  ['user_5fflash_5fend_5faddress_46',['USER_FLASH_END_ADDRESS',['../phal__L4_2flash_2flash_8h.html#a4f0a8629e7ecc999503c0054da5538a3',1,'flash.h']]]
 ];

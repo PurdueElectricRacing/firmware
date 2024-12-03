@@ -58,7 +58,7 @@ var searchData=
   ['mod_5fcell_5ftemp_5fmax_55',['mod_cell_temp_max',['../union____attribute____.html#ac9dd615ebf5c7670120c96bc9eb53eac',1,'__attribute__']]],
   ['mod_5fcell_5ftemp_5fmin_56',['mod_cell_temp_min',['../union____attribute____.html#a02aaa009e8cab09344d18a4ab31fca17',1,'__attribute__']]],
   ['mod_5fvolts_5fraw_57',['mod_volts_raw',['../structcells__t.html#aca88cc8b34467a3dbf76ff3b1a8377b1',1,'cells_t']]],
-  ['mode_58',['mode',['../structgs__device__mode.html#a7f06538dab1204c5f2845156ac14def8',1,'gs_device_mode::mode'],['../structQUADSPI__Config__t.html#ae37a8dbe5c6cc8520504eb39935c1523',1,'QUADSPI_Config_t::mode'],['../structusart__init__t.html#a7f8095b155485522ce43beb08451f18e',1,'usart_init_t::mode']]],
+  ['mode_58',['mode',['../structgs__device__mode.html#a7f06538dab1204c5f2845156ac14def8',1,'gs_device_mode::mode'],['../structQUADSPI__Config__t.html#ae37a8dbe5c6cc8520504eb39935c1523',1,'QUADSPI_Config_t::mode'],['../structusart__init__t.html#a7f8095b155485522ce43beb08451f18e',1,'usart_init_t::mode'],['../gs__usb_8h.html#a34352281f46a65e9dcf479ca75855d81',1,'mode:&#160;gs_usb.h']]],
   ['month_5fbcd_59',['month_bcd',['../structRTC__date__t.html#a4d3da0f5136f2a8887aeda4faf9184db',1,'RTC_date_t']]],
   ['motor_5fl_60',['motor_l',['../structCar__t.html#a4ea5dd8f06a5385c1d4b9cebe68fb2ab',1,'Car_t']]],
   ['motor_5fr_61',['motor_r',['../structCar__t.html#ac1a799c8525fb5ad8a6919d1d796fcfe',1,'Car_t']]],

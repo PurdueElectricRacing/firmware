@@ -67,10 +67,10 @@ var searchData=
   ['brake_5flight_64',['brake_light',['../structCar__t.html#a86da6755afe2305d311ff62487014c38',1,'Car_t']]],
   ['brake_5fpot_65',['brake_pot',['../union____attribute____.html#a507924ed422060a913238fd9e8b23ddc',1,'__attribute__::brake_pot'],['../structcan__data__t.html#abde88a86c91bf181d19ad4ccf439bc2a',1,'can_data_t::brake_pot']]],
   ['brake_5fright_66',['brake_right',['../union____attribute____.html#ab5cd4341c160dbd9210743a203e3ecb2',1,'__attribute__::brake_right'],['../structcan__data__t.html#a1fde223ac61101dc78527c3d8237ee95',1,'can_data_t::brake_right']]],
-  ['brp_67',['brp',['../structgs__device__bittiming.html#a0285a60d5dcd445c27a7cd1063adc3b9',1,'gs_device_bittiming']]],
-  ['brp_5finc_68',['brp_inc',['../structgs__device__bt__const.html#a928558c5c62a6baa3273a2730182a6b3',1,'gs_device_bt_const']]],
-  ['brp_5fmax_69',['brp_max',['../structgs__device__bt__const.html#a106149fe7f61dba9da0d038ba27fd56e',1,'gs_device_bt_const']]],
-  ['brp_5fmin_70',['brp_min',['../structgs__device__bt__const.html#a227e1fbd330134c3689c3f4b9a5db5b4',1,'gs_device_bt_const']]],
+  ['brp_67',['brp',['../structgs__device__bittiming.html#a0285a60d5dcd445c27a7cd1063adc3b9',1,'gs_device_bittiming::brp'],['../gs__usb_8h.html#ad89514e790258bae333ed8db8b028be2',1,'brp:&#160;gs_usb.h']]],
+  ['brp_5finc_68',['brp_inc',['../structgs__device__bt__const.html#a928558c5c62a6baa3273a2730182a6b3',1,'gs_device_bt_const::brp_inc'],['../gs__usb_8h.html#ac03bf261e364e07320d307375f37e942',1,'brp_inc:&#160;gs_usb.h']]],
+  ['brp_5fmax_69',['brp_max',['../structgs__device__bt__const.html#a106149fe7f61dba9da0d038ba27fd56e',1,'gs_device_bt_const::brp_max'],['../gs__usb_8h.html#ab9e6b82aa73f7a6095f496672f14664a',1,'brp_max:&#160;gs_usb.h']]],
+  ['brp_5fmin_70',['brp_min',['../structgs__device__bt__const.html#a227e1fbd330134c3689c3f4b9a5db5b4',1,'gs_device_bt_const::brp_min'],['../gs__usb_8h.html#afe897fcc5735439bf69163dabab6c0ea',1,'brp_min:&#160;gs_usb.h']]],
   ['bse_5ffaulted_71',['bse_faulted',['../structpedals__t.html#aeb5dca7d77736c165e5d8199c16b1080',1,'pedals_t']]],
   ['bse_5fwiring_5ffail_5fdetected_72',['bse_wiring_fail_detected',['../structpedals__t.html#ac5d0b36fbb5fe11ca9b430070d775fac',1,'pedals_t']]],
   ['bse_5fwiring_5ffail_5fstart_5ftime_73',['bse_wiring_fail_start_time',['../structpedals__t.html#a931302d2138dba519f3498576bc1c617',1,'pedals_t']]],
@@ -86,6 +86,6 @@ var searchData=
   ['buzzer_83',['buzzer',['../structCar__t.html#a5017e7476f807f8dea56947ded48e7e6',1,'Car_t']]],
   ['buzzer_5fbrake_5ffault_84',['buzzer_brake_fault',['../car_8c.html#afae2cff077007127230990ab4699cb55',1,'buzzer_brake_fault:&#160;car.c'],['../car_8h.html#afae2cff077007127230990ab4699cb55',1,'buzzer_brake_fault:&#160;car.c']]],
   ['buzzer_5fstart_5fms_85',['buzzer_start_ms',['../structCar__t.html#aa6d794c338397000c2989894eddb32ba',1,'Car_t']]],
-  ['byte_5forder_86',['byte_order',['../structgs__host__config.html#ab157654668ee2ae7ef854d4a095cef78',1,'gs_host_config']]],
+  ['byte_5forder_86',['byte_order',['../structgs__host__config.html#ab157654668ee2ae7ef854d4a095cef78',1,'gs_host_config::byte_order'],['../gs__usb_8h.html#ae8f3f3ddfa175564fb7da57e62eb8148',1,'byte_order:&#160;gs_usb.h']]],
   ['bytes_87',['bytes',['../unioni__Long.html#a84734b8d9cf6d8695f1cd1c936f8b107',1,'i_Long::bytes'],['../unionu__Long.html#a9e4f0506858e117f16a1734aa2c93440',1,'u_Long::bytes'],['../unioni__Short.html#a459f02513d404cd9a53653fb0121fb5f',1,'i_Short::bytes']]]
 ];

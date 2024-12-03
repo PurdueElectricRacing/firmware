@@ -35,7 +35,7 @@ var searchData=
   ['i_5fsense_5fch2_5fgpio_5fport_32',['I_SENSE_CH2_GPIO_Port',['../a__box_2main_8h.html#aeb94a1352317657059c037dd46d71aac',1,'main.h']]],
   ['i_5fsense_5fch2_5fpin_33',['I_SENSE_CH2_Pin',['../a__box_2main_8h.html#a6e2d36248a175964f5dca9b81b1aabc5',1,'main.h']]],
   ['i_5fshort_34',['i_Short',['../unioni__Short.html',1,'']]],
-  ['icount_35',['icount',['../structgs__device__config.html#ab6ca1f549b5cd88743657da7667db43a',1,'gs_device_config']]],
+  ['icount_35',['icount',['../structgs__device__config.html#ab6ca1f549b5cd88743657da7667db43a',1,'gs_device_config::icount'],['../gs__usb_8h.html#a1dfab61812f33fd6a07113a6a659425d',1,'icount:&#160;gs_usb.h']]],
   ['id_36',['USED ID',['../md_source_2daq_2ftp_2README.html#autotoc_md6',1,'']]],
   ['id_37',['id',['../union____attribute____.html#a299b4b270defe89c5a9bf86991a3c96c',1,'__attribute__::id'],['../structcan__data__t.html#a8e853c21545548ba9af6016a4a27427e',1,'can_data_t::id'],['../structFATFS.html#a417095d7c20d56d417dc0998e0dd5a5c',1,'FATFS::id'],['../structFFOBJID.html#afc765e01ff97bfd9645c42b0ba30397f',1,'FFOBJID::id']]],
   ['id_20enable_20in_20ftpd_5finit_20function_38',['ID Enable in ftpd_init function',['../md_source_2daq_2ftp_2README.html#autotoc_md7',1,'']]],

@@ -247,8 +247,8 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="keywordtype">void</span> <a class="code hl_function" href="afe_8h.html#aaf3141e3d185f079705a59ff42727c22">afeTask</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keywordtype">void</span> <a class="code hl_function" href="afe_8h.html#a0128d3c5d3bf0ed7e2a85ee3933cba5d">afeWakeup</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="keywordtype">void</span> <a class="code hl_function" href="afe_8h.html#ac646737b7c70378f5dac2381dbd87031">broadcastPoll</a>(uint16_t command);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keywordtype">void</span> <a class="code hl_function" href="afe_8h.html#a93d0c5443f5253dbb36514b171fa9afb">broadcastWrite</a>(uint16_t command, uint16_t size, uint8_t* data);</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keywordtype">int</span> <a class="code hl_function" href="afe_8h.html#a54a14d9d325b2be554fd70f6a93fd959">broadcastRead</a>(uint16_t command, uint16_t size, uint8_t* data);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keywordtype">void</span> <a class="code hl_function" href="afe_8h.html#a93d0c5443f5253dbb36514b171fa9afb">broadcastWrite</a>(uint16_t command, uint16_t size, uint8_t* <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keywordtype">int</span> <a class="code hl_function" href="afe_8h.html#a54a14d9d325b2be554fd70f6a93fd959">broadcastRead</a>(uint16_t command, uint16_t size, uint8_t* <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>);</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">// PEC Table</span></div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">static</span> <span class="keyword">const</span> uint16_t crc15Table[256] = {0x0,0xc599, 0xceab, 0xb32, 0xd8cf, 0x1d56, 0x1664, 0xd3fd, 0xf407, 0x319e,</div>
@@ -312,6 +312,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="abms_2bms_8h_html"><div class="ttname"><a href="bms_2bms_8h.html">bms.h</a></div></div>
 <div class="ttc" id="abms_2can_2can__parse_8h_html"><div class="ttname"><a href="bms_2can_2can__parse_8h.html">can_parse.h</a></div><div class="ttdoc">Parsing of CAN messages using auto-generated structures with bit-fields.</div></div>
 <div class="ttc" id="abms_2node__defs_8h_html"><div class="ttname"><a href="bms_2node__defs_8h.html">node_defs.h</a></div></div>
+<div class="ttc" id="ags__usb_8h_html_a8893b57d88e7968dc17781c8655e17dc"><div class="ttname"><a href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a></div><div class="ttdeci">u8 data[8]</div><div class="ttdef"><b>Definition</b> gs_usb.h:8</div></div>
 <div class="ttc" id="aphal__L4_2spi_2spi_8h_html"><div class="ttname"><a href="phal__L4_2spi_2spi_8h.html">spi.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

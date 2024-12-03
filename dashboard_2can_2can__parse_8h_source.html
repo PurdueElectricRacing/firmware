@@ -435,7 +435,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        uint64_t is_charging: 1;</div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        uint64_t multi_input_2: 1;</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        uint64_t multi_input_3: 1;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        uint64_t reserved: 1;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#adc41c3fdbfd87a5528e67b9f6bbe7c7e">reserved</a>: 1;</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        uint64_t multi_output_2: 1;</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        uint64_t multi_output_3: 1;</div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        uint64_t multi_output_4: 1;</div>
@@ -459,9 +459,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        uint64_t min_cellv_low: 1;</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        uint64_t pack_overheat: 1;</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        uint64_t reserved0: 1;</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        uint64_t reserved1: 1;</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        uint64_t reserved2: 1;</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        uint64_t reserved3: 1;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#ab5cb6c1d6d6bbfd56bb0c61a4492f26a">reserved1</a>: 1;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#a9bfefc780cf83d02d411af78fd6a600a">reserved2</a>: 1;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#aa1b2e3fc52f419b76e3d2b7b864f30e8">reserved3</a>: 1;</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        uint64_t reserved4: 1;</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        uint64_t reserved5: 1;</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        uint64_t reserved6: 1;</div>
@@ -521,7 +521,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5b57c4c16a15d2f3e3b0a2721ec231b9">  407</a></span>    } gearbox;</div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>        uint64_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>: 8;</div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        uint64_t data: 32;</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>: 32;</div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno"><a class="line" href="union____attribute____.html#adce22fc678a3bba35b6889f51d951cc1">  411</a></span>    } dashboard_bl_cmd;</div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        uint64_t IMD: 1;</div>
@@ -577,7 +577,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>        uint64_t daq_command: 64;</div>
 <div class="line"><a id="l00464" name="l00464"></a><span class="lineno"><a class="line" href="union____attribute____.html#ae1204fd179763e04b9519d124e42fefc">  464</a></span>    } daq_command_DASHBOARD;</div>
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>    uint8_t raw_data[8];</div>
-<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>} <a class="code hl_variable" href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>} <a class="code hl_variable" href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span> </div>
 <div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span><span class="comment">// contains most up to date received</span></div>
@@ -608,7 +608,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>        uint8_t is_charging;</div>
 <div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>        uint8_t multi_input_2;</div>
 <div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>        uint8_t multi_input_3;</div>
-<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>        uint8_t reserved;</div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#adc41c3fdbfd87a5528e67b9f6bbe7c7e">reserved</a>;</div>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>        uint8_t multi_output_2;</div>
 <div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        uint8_t multi_output_3;</div>
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>        uint8_t multi_output_4;</div>
@@ -636,9 +636,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>        uint8_t min_cellv_low;</div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>        uint8_t pack_overheat;</div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        uint8_t reserved0;</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        uint8_t reserved1;</div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        uint8_t reserved2;</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        uint8_t reserved3;</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#ab5cb6c1d6d6bbfd56bb0c61a4492f26a">reserved1</a>;</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#a9bfefc780cf83d02d411af78fd6a600a">reserved2</a>;</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#aa1b2e3fc52f419b76e3d2b7b864f30e8">reserved3</a>;</div>
 <div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>        uint8_t reserved4;</div>
 <div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>        uint8_t reserved5;</div>
 <div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>        uint8_t reserved6;</div>
@@ -714,7 +714,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00600" name="l00600"></a><span class="lineno"><a class="line" href="structcan__data__t.html#ab822c9c5261b8bc9eb6efd4c3b585d03">  600</a></span>    } gearbox;</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        uint8_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>;</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        uint32_t data;</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        uint32_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>;</div>
 <div class="line"><a id="l00604" name="l00604"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a3fbddb91f4a311f116f1dcc5e6ae7ea5">  604</a></span>    } dashboard_bl_cmd;</div>
 <div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>        uint8_t IMD;</div>
@@ -826,7 +826,12 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40">CAR_STATE_CONSTANT_TORQUE</a></div><div class="ttdeci">@ CAR_STATE_CONSTANT_TORQUE</div><div class="ttdef"><b>Definition</b> can_parse.h:240</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_aee74acccf85e52e0c411a11afc0c2a2d"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#aee74acccf85e52e0c411a11afc0c2a2d">daq_command_DASHBOARD_CALLBACK</a></div><div class="ttdeci">void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t *msg_header_a)</div><div class="ttdef"><b>Definition</b> daq.c:44</div></div>
 <div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdef"><b>Definition</b> main.c:541</div></div>
-<div class="ttc" id="aeeprom__spi_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct eeprom __attribute__</div><div class="ttdef"><b>Definition</b> daq_hub.h:70</div></div>
+<div class="ttc" id="ags__usb_8h_html_a8893b57d88e7968dc17781c8655e17dc"><div class="ttname"><a href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a></div><div class="ttdeci">u8 data[8]</div><div class="ttdef"><b>Definition</b> gs_usb.h:8</div></div>
+<div class="ttc" id="ags__usb_8h_html_a9bfefc780cf83d02d411af78fd6a600a"><div class="ttname"><a href="gs__usb_8h.html#a9bfefc780cf83d02d411af78fd6a600a">reserved2</a></div><div class="ttdeci">u8 reserved2</div><div class="ttdef"><b>Definition</b> gs_usb.h:1</div></div>
+<div class="ttc" id="ags__usb_8h_html_aa1b2e3fc52f419b76e3d2b7b864f30e8"><div class="ttname"><a href="gs__usb_8h.html#aa1b2e3fc52f419b76e3d2b7b864f30e8">reserved3</a></div><div class="ttdeci">u8 reserved3</div><div class="ttdef"><b>Definition</b> gs_usb.h:2</div></div>
+<div class="ttc" id="ags__usb_8h_html_ab5cb6c1d6d6bbfd56bb0c61a4492f26a"><div class="ttname"><a href="gs__usb_8h.html#ab5cb6c1d6d6bbfd56bb0c61a4492f26a">reserved1</a></div><div class="ttdeci">u8 reserved1</div><div class="ttdef"><b>Definition</b> gs_usb.h:0</div></div>
+<div class="ttc" id="ags__usb_8h_html_adc41c3fdbfd87a5528e67b9f6bbe7c7e"><div class="ttname"><a href="gs__usb_8h.html#adc41c3fdbfd87a5528e67b9f6bbe7c7e">reserved</a></div><div class="ttdeci">u8 reserved</div><div class="ttdef"><b>Definition</b> gs_usb.h:6</div></div>
+<div class="ttc" id="ags__usb_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct gs_tx_context __attribute__</div><div class="ttdef"><b>Definition</b> daq_hub.h:70</div></div>
 <div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab84f8aed561146f738758e941a2a545b"><div class="ttname"><a href="l4__testing_2daq_2daq_8c.html#ab84f8aed561146f738758e941a2a545b">charge_enable</a></div><div class="ttdeci">uint8_t charge_enable</div><div class="ttdef"><b>Definition</b> main.c:102</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html">can.h</a></div></div>
 <div class="ttc" id="apsched_8h_html"><div class="ttname"><a href="psched_8h.html">psched.h</a></div></div>

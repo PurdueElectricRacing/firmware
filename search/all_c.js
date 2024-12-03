@@ -219,7 +219,7 @@ var searchData=
   ['mod_5fcell_5ftemp_5fmax_216',['mod_cell_temp_max',['../union____attribute____.html#ac9dd615ebf5c7670120c96bc9eb53eac',1,'__attribute__']]],
   ['mod_5fcell_5ftemp_5fmin_217',['mod_cell_temp_min',['../union____attribute____.html#a02aaa009e8cab09344d18a4ab31fca17',1,'__attribute__']]],
   ['mod_5fvolts_5fraw_218',['mod_volts_raw',['../structcells__t.html#aca88cc8b34467a3dbf76ff3b1a8377b1',1,'cells_t']]],
-  ['mode_219',['mode',['../structgs__device__mode.html#a7f06538dab1204c5f2845156ac14def8',1,'gs_device_mode::mode'],['../structQUADSPI__Config__t.html#ae37a8dbe5c6cc8520504eb39935c1523',1,'QUADSPI_Config_t::mode'],['../structusart__init__t.html#a7f8095b155485522ce43beb08451f18e',1,'usart_init_t::mode']]],
+  ['mode_219',['mode',['../structgs__device__mode.html#a7f06538dab1204c5f2845156ac14def8',1,'gs_device_mode::mode'],['../structQUADSPI__Config__t.html#ae37a8dbe5c6cc8520504eb39935c1523',1,'QUADSPI_Config_t::mode'],['../structusart__init__t.html#a7f8095b155485522ce43beb08451f18e',1,'usart_init_t::mode'],['../gs__usb_8h.html#a34352281f46a65e9dcf479ca75855d81',1,'mode:&#160;gs_usb.h']]],
   ['mode_5fcharge_220',['MODE_CHARGE',['../bms_2bms_8h.html#a7480a9aaeca102ba79c178d19d9b20f3a46b5a4bea370f12171c40170d2dbd696',1,'bms.h']]],
   ['mode_5fcmd_221',['MODE_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3a32e9616c9cd401dc5e364cba36206a4a',1,'ftpd.h']]],
   ['mode_5fdischarge_222',['MODE_DISCHARGE',['../bms_2bms_8h.html#a7480a9aaeca102ba79c178d19d9b20f3a7ac6e568d516acb2e16d616f5e153618',1,'bms.h']]],

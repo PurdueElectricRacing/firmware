@@ -12,7 +12,7 @@ var searchData=
   ['i_5fpump2_9',['i_pump2',['../union____attribute____.html#a628edda16583f1f1c130219add05c57e',1,'__attribute__']]],
   ['i_5fsdc_10',['i_sdc',['../union____attribute____.html#a1e343fc73c028c7a1b7054812ea2c44c',1,'__attribute__']]],
   ['i_5fsense_11',['i_sense',['../union____attribute____.html#a2964a296dece6f25718f74c6eb39c494',1,'__attribute__']]],
-  ['icount_12',['icount',['../structgs__device__config.html#ab6ca1f549b5cd88743657da7667db43a',1,'gs_device_config']]],
+  ['icount_12',['icount',['../structgs__device__config.html#ab6ca1f549b5cd88743657da7667db43a',1,'gs_device_config::icount'],['../gs__usb_8h.html#a1dfab61812f33fd6a07113a6a659425d',1,'icount:&#160;gs_usb.h']]],
   ['id_13',['id',['../union____attribute____.html#a299b4b270defe89c5a9bf86991a3c96c',1,'__attribute__::id'],['../structcan__data__t.html#a8e853c21545548ba9af6016a4a27427e',1,'can_data_t::id'],['../structFATFS.html#a417095d7c20d56d417dc0998e0dd5a5c',1,'FATFS::id'],['../structFFOBJID.html#afc765e01ff97bfd9645c42b0ba30397f',1,'FFOBJID::id']]],
   ['id_5fenable_14',['ID_Enable',['../structftpd.html#a135d2f44cb4293d11267caa19b6e27df',1,'ftpd']]],
   ['ide_15',['IDE',['../structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0',1,'CanMsgTypeDef_t']]],

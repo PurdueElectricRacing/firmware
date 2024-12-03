@@ -12,14 +12,10 @@ var searchData=
   ['blerror_5fflash_9',['BLERROR_FLASH',['../bootloader_8h.html#a6fe43176e8469ce6db5f7bae59a3497ba2c108765ca82da58b0ca8e6e3acb0645',1,'bootloader.h']]],
   ['blerror_5flocked_10',['BLERROR_LOCKED',['../bootloader_8h.html#a6fe43176e8469ce6db5f7bae59a3497ba3cac94ffcf78e0abcb49676fe0177e58',1,'bootloader.h']]],
   ['blerror_5flow_5faddr_11',['BLERROR_LOW_ADDR',['../bootloader_8h.html#a6fe43176e8469ce6db5f7bae59a3497ba985432596728fbc9accc689cb01c2e05',1,'bootloader.h']]],
-  ['blocking_12',['BLOCKING',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0a854a1cd6e3a98db9e290dddea29725e7',1,'usart.h']]],
-  ['blstat_5fboot_13',['BLSTAT_BOOT',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa2feb6d0987ac30c6b4a54a981b9a651f',1,'bootloader.h']]],
-  ['blstat_5fdone_14',['BLSTAT_DONE',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa597ca068730ace8dc7a04f57af89a060',1,'bootloader.h']]],
-  ['blstat_5finvaid_5fapp_15',['BLSTAT_INVAID_APP',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aae4d70f2d922521c75aa23745424fc8c1',1,'bootloader.h']]],
-  ['blstat_5finvalid_16',['BLSTAT_INVALID',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aada8e6f5ff37da6879b00165fe8a16b84',1,'bootloader.h']]],
-  ['blstat_5fjump_5fto_5fapp_17',['BLSTAT_JUMP_TO_APP',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aaf5134a2ae35fcbc29a13e9d7ba67a893',1,'bootloader.h']]],
-  ['blstat_5fmetdata_5frx_18',['BLSTAT_METDATA_RX',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa2792a29682493b2730a61af163d9ac78',1,'bootloader.h']]],
-  ['blstat_5fprogress_19',['BLSTAT_PROGRESS',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa84e29369f1dd43be8a3af26fe56b14fe',1,'bootloader.h']]],
-  ['blstat_5funknown_5fcmd_20',['BLSTAT_UNKNOWN_CMD',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa652e1419c1f73de97ba163c02eabfe85',1,'bootloader.h']]],
-  ['blstat_5fwait_21',['BLSTAT_WAIT',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa945a0587bc7ab93ed5a38cdad308804b',1,'bootloader.h']]]
+  ['blerror_5fsize_12',['BLERROR_SIZE',['../bootloader_8h.html#a6fe43176e8469ce6db5f7bae59a3497ba6ea67487fe8beb1b1a082cf506bf1238',1,'bootloader.h']]],
+  ['blocking_13',['BLOCKING',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0a854a1cd6e3a98db9e290dddea29725e7',1,'usart.h']]],
+  ['blstat_5finvalid_14',['BLSTAT_INVALID',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aada8e6f5ff37da6879b00165fe8a16b84',1,'bootloader.h']]],
+  ['blstat_5finvalid_5fcrc_15',['BLSTAT_INVALID_CRC',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aada244ac2ad55fdf1aeef3af92d06be17',1,'bootloader.h']]],
+  ['blstat_5funknown_5fcmd_16',['BLSTAT_UNKNOWN_CMD',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa652e1419c1f73de97ba163c02eabfe85',1,'bootloader.h']]],
+  ['blstat_5fvalid_17',['BLSTAT_VALID',['../bootloader_8h.html#a8210c98bb207c55dca67d77c409de48aa5bb2ffb14f34e39de12c4812e2ab0586',1,'bootloader.h']]]
 ];

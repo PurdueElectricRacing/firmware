@@ -10,5 +10,7 @@ var searchData=
   ['charge_2ec_7',['charge.c',['../charge_8c.html',1,'']]],
   ['charge_2eh_8',['charge.h',['../charge_8h.html',1,'']]],
   ['cooling_2ec_9',['cooling.c',['../main__module_2cooling_2cooling_8c.html',1,'(Global Namespace)'],['../pdu_2cooling_2cooling_8c.html',1,'(Global Namespace)']]],
-  ['cooling_2eh_10',['cooling.h',['../main__module_2cooling_2cooling_8h.html',1,'(Global Namespace)'],['../pdu_2cooling_2cooling_8h.html',1,'(Global Namespace)']]]
+  ['cooling_2eh_10',['cooling.h',['../main__module_2cooling_2cooling_8h.html',1,'(Global Namespace)'],['../pdu_2cooling_2cooling_8h.html',1,'(Global Namespace)']]],
+  ['crc_2ec_11',['crc.c',['../crc_8c.html',1,'']]],
+  ['crc_2eh_12',['crc.h',['../crc_8h.html',1,'']]]
 ];

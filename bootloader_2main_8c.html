@@ -95,44 +95,37 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;inttypes.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="bootloader_2node__defs_8h_source.html">node_defs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="bootloader_8h_source.html">bootloader.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6425fe407d29245e0fe0a98a9fd23f75" id="r_a6425fe407d29245e0fe0a98a9fd23f75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6425fe407d29245e0fe0a98a9fd23f75">CAN_TX_BLOCK_TIMEOUT</a>&#160;&#160;&#160;(30 * 16000)</td></tr>
-<tr class="separator:a6425fe407d29245e0fe0a98a9fd23f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;16000000</td></tr>
 <tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6068c55d36e07765ebad19d3e9d30f10" id="r_a6068c55d36e07765ebad19d3e9d30f10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6068c55d36e07765ebad19d3e9d30f10">BOOTLOADER_INITIAL_TIMEOUT</a>&#160;&#160;&#160;3000</td></tr>
+<tr class="separator:a6068c55d36e07765ebad19d3e9d30f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6425fe407d29245e0fe0a98a9fd23f75" id="r_a6425fe407d29245e0fe0a98a9fd23f75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6425fe407d29245e0fe0a98a9fd23f75">CAN_TX_BLOCK_TIMEOUT</a>&#160;&#160;&#160;(30 * 16000)</td></tr>
+<tr class="separator:a6425fe407d29245e0fe0a98a9fd23f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a678d0aa1dbbf42119a8358cc68140b51" id="r_a678d0aa1dbbf42119a8358cc68140b51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a678d0aa1dbbf42119a8358cc68140b51">Default_Handler</a> ()</td></tr>
-<tr class="separator:a678d0aa1dbbf42119a8358cc68140b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b5c5459e05cc3cc9c76e43e37d5c0d7" id="r_a5b5c5459e05cc3cc9c76e43e37d5c0d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b5c5459e05cc3cc9c76e43e37d5c0d7">jump_to_application</a> (void)</td></tr>
-<tr class="separator:a5b5c5459e05cc3cc9c76e43e37d5c0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fae60676461179ce6b23652dd2b5aaa" id="r_a0fae60676461179ce6b23652dd2b5aaa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fae60676461179ce6b23652dd2b5aaa">check_boot_health</a> (void)</td></tr>
-<tr class="separator:a0fae60676461179ce6b23652dd2b5aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4815a2b32e2a6f5a2902f820ef92501" id="r_ad4815a2b32e2a6f5a2902f820ef92501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4815a2b32e2a6f5a2902f820ef92501">canTxSendToBack</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *<a class="el" href="f4__testing_2main_8c.html#a184b5dd9844bf6e022deb71044ff7f64">msg</a>)</td></tr>
 <tr class="separator:ad4815a2b32e2a6f5a2902f820ef92501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5e09814056d617c521549e542639b7e" id="r_ab5e09814056d617c521549e542639b7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5e09814056d617c521549e542639b7e">SysTick_Handler</a> (void)</td></tr>
-<tr class="separator:ab5e09814056d617c521549e542639b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e09814056d617c521549e542639b7e" id="r_ab5e09814056d617c521549e542639b7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5e09814056d617c521549e542639b7e">SysTick_Handler</a> (void)</td></tr>
+<tr class="separator:ab5e09814056d617c521549e542639b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60563c6df24a123ae18e090bca85f555">gpio_config</a> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
-<tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc1120bbc54485ac4c735d8f9756743">APB2ClockRateHz</a></td></tr>
@@ -141,18 +134,28 @@ Variables</h2></td></tr>
 <tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
+<tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c95aa854f1338bfb6e9273572403bda" id="r_a2c95aa854f1338bfb6e9273572403bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a></td></tr>
 <tr class="separator:a2c95aa854f1338bfb6e9273572403bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f61f7099706a5b18a5161318a097bd9" id="r_a6f61f7099706a5b18a5161318a097bd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a></td></tr>
 <tr class="separator:a6f61f7099706a5b18a5161318a097bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eed2ad94f1cefd865761705989f5f71" id="r_a7eed2ad94f1cefd865761705989f5f71"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7eed2ad94f1cefd865761705989f5f71">__isr_vector_start</a></td></tr>
-<tr class="separator:a7eed2ad94f1cefd865761705989f5f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8076273005b4317c2282ae5785913458" id="r_a8076273005b4317c2282ae5785913458"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8076273005b4317c2282ae5785913458">_eboot_flash</a></td></tr>
-<tr class="separator:a8076273005b4317c2282ae5785913458"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71010d56f5257f4dfaff9ef224836050" id="r_a71010d56f5257f4dfaff9ef224836050"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71010d56f5257f4dfaff9ef224836050">_estack</a></td></tr>
-<tr class="separator:a71010d56f5257f4dfaff9ef224836050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a6068c55d36e07765ebad19d3e9d30f10" name="a6068c55d36e07765ebad19d3e9d30f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6068c55d36e07765ebad19d3e9d30f10">&#9670;&#160;</a></span>BOOTLOADER_INITIAL_TIMEOUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BOOTLOADER_INITIAL_TIMEOUT&#160;&#160;&#160;3000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6425fe407d29245e0fe0a98a9fd23f75" name="a6425fe407d29245e0fe0a98a9fd23f75"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6425fe407d29245e0fe0a98a9fd23f75">&#9670;&#160;</a></span>CAN_TX_BLOCK_TIMEOUT</h2>
 
@@ -216,48 +219,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a0fae60676461179ce6b23652dd2b5aaa" name="a0fae60676461179ce6b23652dd2b5aaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fae60676461179ce6b23652dd2b5aaa">&#9670;&#160;</a></span>check_boot_health()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool check_boot_health </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a678d0aa1dbbf42119a8358cc68140b51" name="a678d0aa1dbbf42119a8358cc68140b51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a678d0aa1dbbf42119a8358cc68140b51">&#9670;&#160;</a></span>Default_Handler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Default_Handler </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -266,23 +227,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void HardFault_Handler </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5b5c5459e05cc3cc9c76e43e37d5c0d7" name="a5b5c5459e05cc3cc9c76e43e37d5c0d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b5c5459e05cc3cc9c76e43e37d5c0d7">&#9670;&#160;</a></span>jump_to_application()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void jump_to_application </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -327,72 +271,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a7eed2ad94f1cefd865761705989f5f71" name="a7eed2ad94f1cefd865761705989f5f71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eed2ad94f1cefd865761705989f5f71">&#9670;&#160;</a></span>__isr_vector_start</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char __isr_vector_start</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8076273005b4317c2282ae5785913458" name="a8076273005b4317c2282ae5785913458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8076273005b4317c2282ae5785913458">&#9670;&#160;</a></span>_eboot_flash</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char _eboot_flash</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a71010d56f5257f4dfaff9ef224836050" name="a71010d56f5257f4dfaff9ef224836050"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71010d56f5257f4dfaff9ef224836050">&#9670;&#160;</a></span>_estack</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char _estack</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2c40deeaa6aeb002bafb0bc892484e0c" name="a2c40deeaa6aeb002bafb0bc892484e0c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c40deeaa6aeb002bafb0bc892484e0c">&#9670;&#160;</a></span>AHBClockRateHz</h2>
 
@@ -496,24 +374,7 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    CAN_RX_GPIO_CONFIG,</div>
 <div class="line">    CAN_TX_GPIO_CONFIG,</div>
-<div class="line"> </div>
-<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(STATUS_LED_GPIO_Port, STATUS_LED_Pin, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
 <div class="line">}</div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:101</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_LOW_SPEED</div><div class="ttdoc">Slew rate control, max 8Mhz.</div><div class="ttdef"><b>Definition</b> gpio.h:35</div></div>
 </div><!-- fragment -->
 </div>
 </div>

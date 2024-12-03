@@ -70,7 +70,7 @@ def generate_daq_can_msgs(daq_config, can_config):
                     can_node['tx'].append(rsp_msg)
 
                     # add to daq config
-                    periph = gen_embedded_can.DEFAULT_PERIPHERAL
+                    periph = gen_embedded_can.DEFAULT_PERIPHERAL_NODE
                     if 'can_periperal' in can_node: periph = can_node['can_peripheral']
                     daq_node_config['daq_rsp_msg_periph'] = periph
 

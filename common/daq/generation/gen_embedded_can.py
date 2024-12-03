@@ -32,7 +32,7 @@ gen_irq_extern_stop = "END AUTO EXTERN RX IRQ"
 gen_can_enums_start = "BEGIN AUTO CAN ENUMERATIONS"
 gen_can_enums_stop = "END AUTO CAN ENUMERATIONS"
 
-DEFAULT_PERIPHERAL = "CAN1"
+DEFAULT_PERIPHERAL_NODE = "CAN1"
 
 def find_rx_messages(rx_names):
     """
@@ -79,35 +79,79 @@ def gen_send_macro(lines, msg_config, peripheral):
     lines.append(f"    }} while(0)\n")
 
 def gen_filter_lines(lines, rx_msg_configs, peripheral):
+    # peripheral being passed in is node-wise
     """ generates hardware filters for a set of message definitions for a specific peripheral """
-    on_mask = False
-    filter_bank = 0
-    filter_bank_max = 27
+    tlp = peripheral
+    on_mask_periph = {"CAN1": False, "CAN2": False} # separated for safety (i don't know what this does)
+    filter_bank_periph = {"CAN1": 0, "CAN2": 14}
+    filter_bank_max_periph = {"CAN1": 14, "CAN2": 27}
 
-    if peripheral == "CAN1":
-        filter_bank = 0
-        filter_bank_max = 14
-    elif peripheral == "CAN2":
-        filter_bank = 14
-        filter_bank_max = 27
-    else:
-        print(f"Unknown CAN peripheral {peripheral}")
+    # these lines were default behavior, just moved into tuples above and symbols renamed
+    # if peripheral == "CAN1":
+    #     filter_bank = 0
+    #     filter_bank_max = 14
+    # elif peripheral == "CAN2":
+    #     filter_bank = 14
+    #     filter_bank_max = 27
+
+    can1_msgs = []
+    can2_msgs = []
+
+    # look for messages on each bus
 
     for msg in rx_msg_configs:
-        if(filter_bank > filter_bank_max):
+
+        if 'can_peripheral_override' in msg:
+            print(f"rx can override detected in {msg}")
+            # use overridden periph
+            peripheral = msg['can_peripheral_override']
+        else:
+            peripheral = tlp
+
+        if peripheral == "CAN1":    
+            can1_msgs.append(msg)
+        if peripheral == "CAN2":
+            can2_msgs.append(msg)
+
+    # split old loop into two to ensure correct filter writing in genned code
+    for msg in can1_msgs:
+        peripheral = "CAN1"
+        if(filter_bank_periph[peripheral] > filter_bank_max_periph[peripheral]):
             generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
             quit(1)
+
         # For extended id vs standard id
         shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
-                       f"(ID_{msg['msg_name'].upper()} << 21)"
-        if not on_mask:
-            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
-            on_mask = True
+                    f"(ID_{msg['msg_name'].upper()} << 21)"
+        if not on_mask_periph[peripheral]:
+            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank_periph[peripheral]});    // configure bank {filter_bank_periph[peripheral]}\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR1 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = True
         else:
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
-            on_mask = False
-            filter_bank += 1
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR2 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = False
+            filter_bank_periph[peripheral] += 1
+
+    for msg in can2_msgs:
+        peripheral = "CAN2"
+        if(filter_bank_periph[peripheral] > filter_bank_max_periph[peripheral]):
+            generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
+            quit(1)
+
+        # For extended id vs standard id
+        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
+                    f"(ID_{msg['msg_name'].upper()} << 21)"
+        if not on_mask_periph[peripheral]:
+            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank_periph[peripheral]});    // configure bank {filter_bank_periph[peripheral]}\n")
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR1 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = True
+        else:
+            lines.append(f"    CAN1->sFilterRegister[{filter_bank_periph[peripheral]}].FR2 = {shift_phrase};\n")
+            on_mask_periph[peripheral] = False
+            filter_bank_periph[peripheral] += 1  
+ 
+
+
 
 def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     """ generates switch case for receiving messages """
@@ -154,30 +198,30 @@ def configure_node(node_config, node_paths):
     print("Configuring Node " + node_config['node_name'])
 
     # Junction node?
-    is_junc = False
-    junc_config = None
-    if 'is_junction' in node_config and node_config['is_junction']:
-        is_junc = True
-        print(f"Treating {node_config['node_name']} as junction")
-        global can_config
-        for bus in can_config['busses']:
-            for node in bus['nodes']:
-                if node['node_name'] == node_config['node_name'] and node['can_peripheral'] != node_config['can_peripheral']:
-                    junc_config = node
-                    break
-            if junc_config: break
+    # is_junc = False
+    # junc_config = None
+    # if 'is_junction' in node_config and node_config['is_junction']:
+    #     is_junc = True
+    #     print(f"Treating {node_config['node_name']} as junction")
+    #     global can_config
+    #     for bus in can_config['busses']:
+    #         for node in bus['nodes']:
+    #             if node['node_name'] == node_config['node_name'] and node['can_peripheral'] != node_config['can_peripheral']:
+    #                 junc_config = node
+    #                 break
+    #         if junc_config: break
 
     # Combine message definitions
     raw_msg_defs = []
     raw_msg_defs += node_config['tx']
-    if is_junc: raw_msg_defs += junc_config['tx']
+    # if is_junc: raw_msg_defs += junc_config['tx']
     receiving_msg_defs = []
     node_specific_rx_msg_defs = find_rx_messages([rx_config["msg_name"] for rx_config in node_config['rx']])
     receiving_msg_defs += node_specific_rx_msg_defs
-    junc_rx_msg_defs = []
-    if is_junc:
-        junc_rx_msg_defs += find_rx_messages([rx_config['msg_name'] for rx_config in junc_config['rx']])
-        receiving_msg_defs += junc_rx_msg_defs
+    # junc_rx_msg_defs = []
+    # if is_junc:
+    #     junc_rx_msg_defs += find_rx_messages([rx_config['msg_name'] for rx_config in junc_config['rx']])
+    #     receiving_msg_defs += junc_rx_msg_defs
     for new_msg in receiving_msg_defs:
         if new_msg not in raw_msg_defs:
             raw_msg_defs.append(new_msg)
@@ -201,14 +245,19 @@ def configure_node(node_config, node_paths):
 
     # Send Macros, requires knowledge of CAN peripheral
     macro_lines = []
-    periph = DEFAULT_PERIPHERAL
+    periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
     for msg in node_config['tx']:
+        periph = DEFAULT_PERIPHERAL_NODE
+
+        if 'can_peripheral_override' in msg:
+                periph = msg['can_peripheral_override']
+                # print(f"found override in {msg}")
         gen_send_macro(macro_lines, msg, periph)
-    if is_junc:
-        periph = junc_config['can_peripheral']
-        for msg in junc_config['tx']:
-            gen_send_macro(macro_lines, msg, periph)
+    # if is_junc:
+    #     periph = junc_config['can_peripheral']
+    #     for msg in junc_config['tx']:
+    #         gen_send_macro(macro_lines, msg, periph)
     h_lines = generator.insert_lines(h_lines, gen_send_macro_start, gen_send_macro_stop, macro_lines)
 
     # Message update periods
@@ -263,7 +312,7 @@ def configure_node(node_config, node_paths):
 
     # Rx callbacks
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
-    if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
+    # if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
     extern_callback_lines = [f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n" for rx_config in rx_callbacks if ("arg_type" in rx_config and rx_config["arg_type"]=="header")]
     extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("fault" not in rx_config) and (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data"))]
     extern_callback_lines += "extern void handleCallbacks(uint16_t id, bool latched);\n"
@@ -274,7 +323,7 @@ def configure_node(node_config, node_paths):
 
 
     rx_irq_names = [rx_config['msg_name'] for rx_config in node_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
-    if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
+    # if is_junc: rx_irq_names += [rx_config['msg_name'] for rx_config in junc_config['rx'] if ("irq" in rx_config and rx_config["irq"])]
     extern_callback_lines = [f"extern void {msg_name}_IRQ(CanParsedData_t* msg_data_a);\n" for msg_name in rx_irq_names]
     h_lines = generator.insert_lines(h_lines, gen_irq_extern_start, gen_irq_extern_stop, extern_callback_lines)
 
@@ -291,27 +340,29 @@ def configure_node(node_config, node_paths):
 
     # Rx switch case
     case_lines = []
-    periph = DEFAULT_PERIPHERAL
+    periph = DEFAULT_PERIPHERAL_NODE
     if 'can_peripheral' in node_config: periph = node_config['can_peripheral']
+    
     ind = ""
-    if is_junc:
-        ind = "    "
-        # add if statement for distinguishing between peripherals
-        case_lines.append(f"        if (msg_header.Bus == {periph})\n")
-        case_lines.append(f"        {{\n")
+    # if is_junc:
+    #     ind = "    "
+    #     # add if statement for distinguishing between peripherals
+    #     case_lines.append(f"        if (msg_header.Bus == {periph})\n")
+    #     case_lines.append(f"        {{\n")
     gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
-    if is_junc:
-        periph = junc_config['can_peripheral']
-        case_lines.append("        }\n")
-        case_lines.append(f"        else if (msg_header.Bus == {periph})\n")
-        case_lines.append("        {\n")
-        gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
-        case_lines.append("        }\n")
+    # if is_junc:
+    #     periph = junc_config['can_peripheral']
+    #     case_lines.append("        }\n")
+    #     case_lines.append(f"        else if (msg_header.Bus == {periph})\n")
+    #     case_lines.append("        {\n")
+    #     gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
+    #     case_lines.append("        }\n")
     c_lines = generator.insert_lines(c_lines, gen_switch_case_start, gen_switch_case_stop, case_lines)
 
     # Stale checking
     stale_lines = []
     for msg in receiving_msg_defs:
+        if 'can_peripheral_override' in msg: periph = msg['can_peripheral_override']
         if msg['msg_period'] > 0:
             stale_lines.append(f"    CHECK_STALE(can_data.{msg['msg_name']}.stale,\n")
             stale_lines.append(f"                sched.os_ticks, can_data.{msg['msg_name']}.last_rx,\n")
@@ -321,10 +372,10 @@ def configure_node(node_config, node_paths):
     # Hardware filtering
     filter_lines = []
     if not ("accept_all_messages" in node_config and node_config["accept_all_messages"]):
-        periph = DEFAULT_PERIPHERAL
+        periph = DEFAULT_PERIPHERAL_NODE
         if "can_peripheral" in node_config: periph = node_config['can_peripheral']
         gen_filter_lines(filter_lines, node_specific_rx_msg_defs, periph)
-        if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
+        # if is_junc: gen_filter_lines(filter_lines, junc_rx_msg_defs, junc_config['can_peripheral'])
 
     c_lines = generator.insert_lines(c_lines, gen_filter_start, gen_filter_stop, filter_lines)
 

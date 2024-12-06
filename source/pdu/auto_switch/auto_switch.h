@@ -20,12 +20,14 @@
 #define ADC_MAX 4095
 
 // Voltage sense resistors
-#define LV_24V_R1  47000 // Ohms
-#define LV_24V_R2  3400  // Ohms
-#define LV_5V_R1   4300  // Ohms
-#define LV_5V_R2   3400  // Ohms
-#define LV_3V3_R1  4300  // Ohms
-#define LV_3V3_R2  10000 // Ohms
+#define LV_24V_R1   47000 // Ohms
+#define LV_24V_R2    3400
+#define LV_5V_R1     4300
+#define LV_5V_R2     3400
+#define LV_3V3_R1    4300
+#define LV_3V3_R2   10000
+#define AMK_24V_R1 124300
+#define AMK_24V_R2  10000
 
 // HP Current sense resistors
 #define HP_CS_R1 180 // Ohms
@@ -74,6 +76,7 @@ typedef struct {
     uint16_t in_24v;
     uint16_t out_5v;
     uint16_t out_3v3;
+    uint16_t amk_24v;
 } voltage_t;  // Voltage in mV
 
 typedef struct {

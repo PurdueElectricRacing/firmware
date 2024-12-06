@@ -27,6 +27,7 @@
 #define ID_OTHER_CURRENTS 0x1001051f
 #define ID_COOLANT_OUT 0x100008df
 #define ID_FLOWRATES 0x1000089f
+#define ID_PDU_TEMPS 0x1000091f
 #define ID_PDU_CAN_STATS 0x1001631f
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_DAQ_RESPONSE_PDU_VCAN 0x17ffffdf
@@ -45,12 +46,13 @@
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_V_RAILS 6
+#define DLC_V_RAILS 8
 #define DLC_RAIL_CURRENTS 4
 #define DLC_PUMP_AND_FAN_CURRENT 7
 #define DLC_OTHER_CURRENTS 8
 #define DLC_COOLANT_OUT 3
 #define DLC_FLOWRATES 2
+#define DLC_PDU_TEMPS 2
 #define DLC_PDU_CAN_STATS 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_DAQ_RESPONSE_PDU_VCAN 8
@@ -69,12 +71,13 @@
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_V_RAILS(in_24v_, out_5v_, out_3v3_) do {\
+#define SEND_V_RAILS(in_24v_, out_5v_, out_3v3_, amk_24v_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_V_RAILS, .DLC=DLC_V_RAILS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->v_rails.in_24v = in_24v_;\
         data_a->v_rails.out_5v = out_5v_;\
         data_a->v_rails.out_3v3 = out_3v3_;\
+        data_a->v_rails.amk_24v = amk_24v_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_RAIL_CURRENTS(i_24v_, i_5v_) do {\
@@ -118,6 +121,12 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->flowrates.battery_flowrate = battery_flowrate_;\
         data_a->flowrates.drivetrain_flowrate = drivetrain_flowrate_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_PDU_TEMPS(internal_therm_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PDU_TEMPS, .DLC=DLC_PDU_TEMPS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->pdu_temps.internal_therm = internal_therm_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_PDU_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
@@ -176,6 +185,7 @@ typedef union {
         uint64_t in_24v: 16;
         uint64_t out_5v: 16;
         uint64_t out_3v3: 16;
+        uint64_t amk_24v: 16;
     } v_rails;
     struct {
         uint64_t i_24v: 16;
@@ -205,6 +215,9 @@ typedef union {
         uint64_t battery_flowrate: 8;
         uint64_t drivetrain_flowrate: 8;
     } flowrates;
+    struct {
+        uint64_t internal_therm: 16;
+    } pdu_temps;
     struct {
         uint64_t can_tx_overflow: 8;
         uint64_t can_tx_fail: 8;

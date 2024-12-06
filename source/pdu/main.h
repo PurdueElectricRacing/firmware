@@ -123,8 +123,6 @@
 #define AUX_HP_IMON_ADC_CHNL        (13)
 
 // Shutdown Circuit (SDC) Switch (High Power)
-#define SDC_CTRL_GPIO_Port          (GPIOD)
-#define SDC_CTRL_Pin                (13)
 #define SDC_IMON_GPIO_Port          (GPIOA)
 #define SDC_IMON_Pin                (0)
 #define SDC_IMON_ADC_CHNL           (0)
@@ -188,8 +186,6 @@
 #define NCRIT_5V_NFLT_Pin           (5)
 
 // DAQ Switch (5V)
-#define DAQ_CTRL_GPIO_Port          (GPIOE)
-#define DAQ_CTRL_Pin                (4)
 #define DAQ_NFLT_GPIO_Port          (GPIOE)
 #define DAQ_NFLT_Pin                (3)
 

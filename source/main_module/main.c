@@ -16,6 +16,9 @@
 #include "common/queue/queue.h"
 #include "common/amk/amk.h"
 
+/* TODO: Move CAN2 stuff here since can parse base is dumb */
+#include "common/phal_F4_F7/can/can.h"
+
 /* Module Includes */
 #include "car.h"
 #include "can_parse.h"
@@ -232,6 +235,30 @@ float voltToForce(uint16_t load_read);
 uint16_t num_failed_msgs_r;
 uint16_t num_failed_msgs_l;
 
+extern q_handle_t q_tx_can2_s[CAN_TX_MAILBOX_CNT];
+extern uint32_t can2_mbx_last_send_time[CAN_TX_MAILBOX_CNT];
+
+void can2TxUpdate(void)
+{
+    CanMsgTypeDef_t tx_msg;
+    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i)
+    {
+        if(PHAL_txMailboxFree(CAN2, i))
+        {
+            if (qReceive(&q_tx_can2_s[i], &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+            {
+                PHAL_txCANMessage(&tx_msg, i);
+                can2_mbx_last_send_time[i] = sched.os_ticks;
+            }
+        }
+        else if (sched.os_ticks - can2_mbx_last_send_time[i] > CAN_TX_TIMEOUT_MS)
+        {
+            PHAL_txCANAbort(CAN2, i); // aborts tx and empties the mailbox
+            can_stats.tx_fail++;
+        }
+    }
+}
+
 int main(void){
     /* Data Struct Initialization */
     // qConstruct(&q_tx_usart_l, MC_MAX_TX_LENGTH);
@@ -266,6 +293,7 @@ int main(void){
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
     taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(can2TxUpdate);
     taskCreateBackground(canRxUpdate);
     // taskCreateBackground(usartTxUpdate);
     // taskCreateBackground(memBg);
@@ -287,6 +315,11 @@ void preflightChecks(void) {
     {
         /* TODO: Change this to init AMK CAN */
         case 0:
+            if(!PHAL_initCAN(CAN2, false, VCAN_BPS))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN2_RX0_IRQn);
             // huart_l.rx_dma_cfg->circular = true;
             // if(!PHAL_initUSART(&huart_l, APB2ClockRateHz))
             // {
@@ -491,6 +524,11 @@ void interpretLoadSensor(void) {
 void CAN1_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN1);
+}
+
+void CAN2_RX0_IRQHandler()
+{
+    canParseIRQHandler(CAN2);
 }
 
 void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

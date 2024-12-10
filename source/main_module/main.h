@@ -20,6 +20,18 @@
 
 #define FAULT_NODE_NAME NODE_MAIN_MODULE
 
+#define DIS_VOLT_DIAG_GPIO_Port     (GPIOC)
+#define DIS_VOLT_DIAG_GPIO_Pin      (4)
+
+#define SAFE_STAT_DIAG_GPIO_Port    (GPIOC)
+#define SAFE_STAT_DIAG_GPIO_Pin     (12)
+
+#define EX_OSC_GPIO_Port            (GPIOC)
+#define EX_OSC_GPIO_Pin             (14)
+
+#define ABOX_VOLT_DIAG_GPIO_Port    (GPIOE)
+#define ABOX_VOLT_DIAG_GPIO_Pin     (8)
+
 // Internal Status Indicators
 #define ERR_LED_GPIO_Port           (GPIOD)
 #define ERR_LED_Pin                 (4)
@@ -38,8 +50,8 @@
 #define BRK_BUZZER_STAT_GPIO_Port   (GPIOB)
 #define BRK_BUZZER_STAT_Pin         (15)
 
-#define TSAL_LVAL_STAT_GPIO_Port    (GPIOD)
-#define TSAL_LVAL_STAT_Pin          (10)
+#define READY_TO_DRIVE_STAT_GPIO_Port (GPIOD)
+#define READY_TO_DRIVE_STAT_GPIO_Pin  (10)
 
 // CAN
 #define VCAN_RX_GPIO_Port           (GPIOA)
@@ -47,10 +59,10 @@
 #define VCAN_TX_GPIO_Port           (GPIOA)
 #define VCAN_TX_Pin                 (12)
 
-#define EMCAN_RX_GPIO_Port         (GPIOB)
-#define EMCAN_RX_Pin               (12)
-#define EMCAN_TX_GPIO_Port         (GPIOB)
-#define EMCAN_TX_Pin               (13)
+#define AMK_RX_GPIO_Port            (GPIOB)
+#define AMK_RX_Pin                  (12)
+#define AMK_TX_GPIO_Port            (GPIOB)
+#define AMK_TX_Pin                  (13)
 
 // SPI Peripherals
 #define SPI1_SCK_GPIO_Port          (GPIOA)
@@ -96,20 +108,10 @@
 #define PRCHG_STAT_GPIO_Port        (GPIOE)
 #define PRCHG_STAT_Pin              (5)
 
-// Motor Controllers
-#define MC_L_INVERT                 (0)
-#define MC_L_UART                   (USART1)
-#define MC_L_UART_TX_GPIO_Port      (GPIOA)
-#define MC_L_UART_TX_GPIO_Pin       (9)
-#define MC_L_UART_RX_GPIO_Port      (GPIOA)
-#define MC_L_UART_RX_GPIO_Pin       (10)
-
-#define MC_R_INVERT                 (0)
-#define MC_R_UART                   (USART2)
-#define MC_R_UART_TX_GPIO_Port      (GPIOA)
-#define MC_R_UART_TX_GPIO_Pin       (2)
-#define MC_R_UART_RX_GPIO_Port      (GPIOA)
-#define MC_R_UART_RX_GPIO_Pin       (3)
+#define SAFE_STAT_G_GPIO_Port       (GPIOA)
+#define SAFE_STAT_G__GPIO_Pin       (2)
+#define SAFE_STAT_R_GPIO_Port       (GPIOA)
+#define SAFE_STAT_R_GPIO_Pin        (3)
 
 // Wheel Speed
 #define MOTOR_R_WS_PWM_TIM          (TIM1)
@@ -125,12 +127,12 @@
 #define MOTOR_L_WS_AF               (2)
 
 // Shock Pots
-#define SHOCK_POT_L_GPIO_Port       (GPIOC)
-#define SHOCK_POT_L_Pin             (3)
+#define SHOCK_POT_R_GPIO_Port       (GPIOC)
+#define SHOCK_POT_R_Pin             (3)
 #define SHOCK_POT_L_ADC_CHNL        (13)
 
-#define SHOCK_POT_R_GPIO_Port       (GPIOC)
-#define SHOCK_POT_R_Pin             (2)
+#define SHOCK_POT_L_GPIO_Port       (GPIOC)
+#define SHOCK_POT_L_Pin             (2)
 #define SHOCK_POT_R_ADC_CHNL        (12)
 
 // Load Sensors

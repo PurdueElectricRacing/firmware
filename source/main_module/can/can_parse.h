@@ -44,6 +44,8 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
+#define ID_AMK_SETPOINTS 0x182
+#define ID_AMK_TESTING 0x384
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
@@ -55,6 +57,10 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
+#define ID_AMK_ACTUAL_VALUES_1 0x282
+#define ID_AMK_ACTUAL_VALUES_2 0x284
+#define ID_AMK_TEMPERATURES_1 0x286
+#define ID_AMK_TEMPERATURES_2 0x288
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -79,8 +85,10 @@ typedef union {
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_SDC_STATUS 2
-#define DLC_REAR_MOTOR_TEMPS 4
+#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 8
+#define DLC_AMK_SETPOINTS 8
+#define DLC_AMK_TESTING 6
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
@@ -92,6 +100,10 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
+#define DLC_AMK_ACTUAL_VALUES_1 8
+#define DLC_AMK_ACTUAL_VALUES_2 8
+#define DLC_AMK_TEMPERATURES_1 6
+#define DLC_AMK_TEMPERATURES_2 6
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -211,13 +223,15 @@ typedef union {
         data_a->sdc_status.pchg_out = pchg_out_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_MOTOR_TEMPS(left_mot_temp_, right_mot_temp_, left_ctrl_temp_, right_ctrl_temp_) do {\
+#define SEND_REAR_MOTOR_TEMPS(left_mot_temp_, right_mot_temp_, left_inv_temp_, right_inv_temp_, left_igbt_temp_, right_igbt_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_MOTOR_TEMPS, .DLC=DLC_REAR_MOTOR_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->rear_motor_temps.left_mot_temp = left_mot_temp_;\
         data_a->rear_motor_temps.right_mot_temp = right_mot_temp_;\
-        data_a->rear_motor_temps.left_ctrl_temp = left_ctrl_temp_;\
-        data_a->rear_motor_temps.right_ctrl_temp = right_ctrl_temp_;\
+        data_a->rear_motor_temps.left_inv_temp = left_inv_temp_;\
+        data_a->rear_motor_temps.right_inv_temp = right_inv_temp_;\
+        data_a->rear_motor_temps.left_igbt_temp = left_igbt_temp_;\
+        data_a->rear_motor_temps.right_igbt_temp = right_igbt_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_REAR_WHEEL_SPEEDS(left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
@@ -227,6 +241,24 @@ typedef union {
         data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
         data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_SETPOINTS(AMK_Control_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_SETPOINTS, .DLC=DLC_AMK_SETPOINTS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Setpoints.AMK_Control = AMK_Control_;\
+        data_a->AMK_Setpoints.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->AMK_Setpoints.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->AMK_Setpoints.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_TESTING(AMK_InitStage_, AMK_Control_, AMK_Status_from_motor_, precharge_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_TESTING, .DLC=DLC_AMK_TESTING, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Testing.AMK_InitStage = AMK_InitStage_;\
+        data_a->AMK_Testing.AMK_Control = AMK_Control_;\
+        data_a->AMK_Testing.AMK_Status_from_motor = AMK_Status_from_motor_;\
+        data_a->AMK_Testing.precharge = precharge_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
@@ -254,6 +286,10 @@ typedef union {
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_THROTTLE_VCU 20
 #define UP_THROTTLE_VCU_EQUAL 20
+#define UP_AMK_ACTUAL_VALUES_1 5
+#define UP_AMK_ACTUAL_VALUES_2 5
+#define UP_AMK_TEMPERATURES_1 5
+#define UP_AMK_TEMPERATURES_2 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -398,8 +434,10 @@ typedef union {
     struct {
         uint64_t left_mot_temp: 8;
         uint64_t right_mot_temp: 8;
-        uint64_t left_ctrl_temp: 8;
-        uint64_t right_ctrl_temp: 8;
+        uint64_t left_inv_temp: 8;
+        uint64_t right_inv_temp: 8;
+        uint64_t left_igbt_temp: 8;
+        uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
         uint64_t left_speed_mc: 16;
@@ -407,6 +445,18 @@ typedef union {
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
+    struct {
+        uint64_t AMK_Control: 16;
+        uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
+    } AMK_Setpoints;
+    struct {
+        uint64_t AMK_InitStage: 8;
+        uint64_t AMK_Control: 16;
+        uint64_t AMK_Status_from_motor: 16;
+        uint64_t precharge: 8;
+    } AMK_Testing;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -456,6 +506,27 @@ typedef union {
         uint64_t equal_k_rl: 16;
         uint64_t equal_k_rr: 16;
     } throttle_vcu_equal;
+    struct {
+        uint64_t AMK_Status: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_MotorSerialNumber: 32;
+    } AMK_Actual_Values_1;
+    struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_DCBusVoltage: 16;
+        uint64_t AMK_SystemReset: 16;
+        uint64_t AMK_DiagnosticNumber: 16;
+    } AMK_Actual_Values_2;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } AMK_Temperatures_1;
+    struct {
+        uint64_t AMK_InternalTemp: 16;
+        uint64_t AMK_ExternalTemp: 16;
+        uint64_t AMK_TempSensorMotor: 16;
+    } AMK_Temperatures_2;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -550,6 +621,35 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } throttle_vcu_equal;
+    struct {
+        uint16_t AMK_Status;
+        int16_t AMK_ActualTorque;
+        uint32_t AMK_MotorSerialNumber;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Actual_Values_1;
+    struct {
+        int16_t AMK_ActualSpeed;
+        uint16_t AMK_DCBusVoltage;
+        uint16_t AMK_SystemReset;
+        uint16_t AMK_DiagnosticNumber;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Actual_Values_2;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Temperatures_1;
+    struct {
+        int16_t AMK_InternalTemp;
+        int16_t AMK_ExternalTemp;
+        int16_t AMK_TempSensorMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Temperatures_2;
     struct {
         uint16_t idx;
         uint8_t latched;

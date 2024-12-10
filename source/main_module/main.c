@@ -315,11 +315,11 @@ void preflightChecks(void) {
     {
         /* TODO: Change this to init AMK CAN */
         case 0:
-            if(!PHAL_initCAN(CAN2, false, VCAN_BPS))
+            if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
             {
                 HardFault_Handler();
             }
-            NVIC_EnableIRQ(CAN2_RX0_IRQn);
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
             // huart_l.rx_dma_cfg->circular = true;
             // if(!PHAL_initUSART(&huart_l, APB2ClockRateHz))
             // {
@@ -332,11 +332,11 @@ void preflightChecks(void) {
             // }
             break;
         case 1:
-            if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
+            if(!PHAL_initCAN(CAN2, false, VCAN_BPS))
             {
                 HardFault_Handler();
             }
-            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            NVIC_EnableIRQ(CAN2_RX0_IRQn);
             // spi_config.data_rate = APB2ClockRateHz / 16; // 5 MHz
             // if (!PHAL_SPI_init(&spi_config))
             //     HardFault_Handler();

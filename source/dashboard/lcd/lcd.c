@@ -21,7 +21,7 @@ extern q_handle_t q_tx_can;             // Global queue for CAN tx
 extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
 volatile cooling_t cooling;           // Data for the cooling page
 volatile tv_settings_t tv_settings;     // Data for the tvsettings page
-volatile driver_config_t driver_config; // Data for the driver page
+volatile driver_page_t driver_config; // Data for the driver page
 volatile fault_page_t fault_page;       // Data for the faults page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
@@ -119,8 +119,8 @@ void updatePage() {
             set_page(DRIVER_STRING);
             update_driver_page();
             break;
-        case PAGE_DRIVER_CONFIG:
-            prev_page = PAGE_DRIVER_CONFIG;
+        case PAGE_PROFILES:
+            prev_page = PAGE_PROFILES;
             set_page(DRIVER_CONFIG_STRING);
             break;
         case PAGE_SDCINFO:
@@ -165,6 +165,14 @@ void updatePage() {
     }
 }
 
+void move_up_profiles() {
+
+}
+
+void move_down_profiles() {
+
+}
+
 void moveUp() {
     switch (curr_page) {
         case PAGE_LOGGING:
@@ -181,6 +189,9 @@ void moveUp() {
             break;
         case PAGE_FAULTS:
             move_up_faults();
+            break;
+        case PAGE_PROFILES:
+            move_up_profiles();
             break;
     }
 }
@@ -201,6 +212,9 @@ void moveDown() {
             break;
         case PAGE_FAULTS:
             move_down_faults();
+            break;
+        case PAGE_PROFILES:
+            move_down_profiles();
             break;
     }
 }
@@ -425,7 +439,7 @@ void updateFaultPageIndicators() {
     }
 
     update_group++;
-    switch (update_group) {
+    switch (update_group) { // Split into two update groups, otherwise the fifth element does not get updated
         case 1:
             setFaultIndicator(fault_buf[0], FAULT_1_TXT);
             setFaultIndicator(fault_buf[1], FAULT_2_TXT);

@@ -1,8 +1,10 @@
 #include "pedals.h"
+#include "common/phal_F4_F7/flash/flash.h"
 #include "main.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "can_parse.h"
 #include "lcd.h"
+#include <stdint.h>
 
 pedals_t pedals = {0};
 uint16_t thtl_limit = 4096;
@@ -22,6 +24,13 @@ uint8_t b1_idx = 0;
 uint8_t b2_idx = 0;
 
 uint16_t filtered_pedals;
+
+driver_profile_t profiles[4] = {
+    {0, 10,10,0},
+    {1, 10,10,0},
+    {2, 10,10,0},
+    {3, 10,10,0}
+};
 
 extern q_handle_t q_tx_can;
 extern race_page_t race_page_data;
@@ -89,4 +98,39 @@ void pedalsPeriodic(void)
                             raw_adc_values.t2, raw_adc_values.b1,
                             raw_adc_values.b2, 0);
     SEND_FILT_THROTTLE_BRAKE(t1, b1);
+}
+
+#define PROFILES_START_SECTOR    11
+#define NUM_PROFILES             4
+#define PROFILE_WRITE_SUCCESS 0
+#define PROFILE_WRITE_FAIL -1
+int writeProfiles() {
+    if (FLASH_OK != PHAL_flashErasePage(PROFILES_START_SECTOR)) {
+        return PROFILE_WRITE_FAIL;
+    }
+
+    uint32_t write_address = ADDR_FLASH_SECTOR_11;
+
+    for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
+        uint32_t *data = (uint32_t *)&profiles[i];
+
+        if (FLASH_OK != PHAL_flashWriteU32(write_address, *data)) {
+            return PROFILE_WRITE_FAIL;
+        }
+
+        write_address += sizeof(driver_profile_t);
+    }
+
+    return PROFILE_WRITE_SUCCESS;
+}
+
+void readProfiles() {
+    uint32_t read_address = ADDR_FLASH_SECTOR_11;
+
+    for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
+        uint32_t *data = (uint32_t *)&profiles[i];
+        *data = *((uint32_t *)read_address);
+
+        read_address += sizeof(driver_profile_t);
+    }
 }

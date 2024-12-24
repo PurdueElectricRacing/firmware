@@ -19,6 +19,7 @@
 
 /* Module Includes */
 #include "can_parse.h"
+#include <stdint.h>
 
 #define MAX_PEDAL_MEAS (4095)
 
@@ -65,9 +66,14 @@ typedef struct {
     uint16_t b1min;
     uint16_t b2max;
     uint16_t b2min;
-    uint16_t b3max;
-    uint16_t b3min;
 } pedal_calibration_t;
+
+typedef struct {
+    uint8_t id;
+    uint8_t brake_travel_threshold;
+    uint8_t throttle_travel_threshold;
+    uint8_t reserved;
+} driver_profile_t;
 
 extern pedal_calibration_t pedal_calibration;
 

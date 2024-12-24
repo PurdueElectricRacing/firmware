@@ -414,7 +414,7 @@ void EXTI15_10_IRQHandler() {
     // EXTI14 triggered the interrupt (B1_FLT)
     // This is the TOP button on the dashboard
     if (EXTI->PR & EXTI_PR_PR14) {
-        if (sched.os_ticks - last_click_time < 200) {
+        if (sched.os_ticks - last_click_time < 100) {
             last_click_time = sched.os_ticks;
             EXTI->PR |= EXTI_PR_PR14;       // Clear the interrupt pending bit for EXTI14
         }
@@ -429,7 +429,7 @@ void EXTI15_10_IRQHandler() {
     // This is the MIDDLE button on the dashbaord
     if (EXTI->PR & EXTI_PR_PR13)
     {
-        if (sched.os_ticks - last_click_time < 200) {
+        if (sched.os_ticks - last_click_time < 100) {
             last_click_time = sched.os_ticks;
             EXTI->PR |= EXTI_PR_PR13;       // Clear the interrupt pending bit for EXTI13
         }
@@ -445,7 +445,7 @@ void EXTI15_10_IRQHandler() {
     // This is the BOTTOM button on the dashboard
     if (EXTI->PR & EXTI_PR_PR12)
     {
-        if (sched.os_ticks - last_click_time < 300) {
+        if (sched.os_ticks - last_click_time < 100) {
             last_click_time = sched.os_ticks;
             EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
         }

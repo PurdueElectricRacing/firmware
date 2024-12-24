@@ -18,7 +18,6 @@ target_include_directories(${TARGET_NAME} PRIVATE
 target_sources(${TARGET_NAME} PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/../dashboard/lcd/lcd.c
     ${CMAKE_CURRENT_LIST_DIR}/../dashboard/nextion/nextion.c
-
 )
 
 # Properties are set in order to make the common component

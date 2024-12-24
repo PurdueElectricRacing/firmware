@@ -2,6 +2,7 @@
 #define __LCD_H__
 
 #include "nextion.h"
+#include <stdint.h>
 
 //Page Strings / info
 #define RACE_STRING "race"
@@ -28,6 +29,18 @@
 #define DRIVER_TYLER_TXT "t2"
 #define DRIVER_LUCA_TXT "t3"
 #define DRIVER_LUKE_TXT "t4"
+#define DRIVER_DEFAULT_NAME "Default"
+#define DRIVER_TYLER_NAME "Tyler"
+#define DRIVER_LUCA_NAME "Luca"
+#define DRIVER_LUKE_NAME "Luke"
+
+// Profile Page
+#define PROFILE_CURRENT_TXT "cur_driver"
+#define PROFILE_BRAKE_FLT "brk_val"
+#define PROFILE_THROTTLE_FLT "thrt_val"
+#define PROFILE_SAVE_TXT "save"
+#define PROFILE_STATUS_TXT "status"
+
 
 //Error/Knob page values
 #define TIME_BAR "j0"
@@ -137,16 +150,6 @@ typedef enum {
 } page_t;
 
 typedef enum {
-  DT_FAN_HOVER,
-  DT_PUMP_HOVER,
-  FAN1_HOVER,
-  FAN2_HOVER,
-  PUMP_HOVER,
-  DT_FAN_SELECT,
-  FAN1_SELECT
-} cooling_hover_state_t;
-
-typedef enum {
   TV_INTENSITY_HOVER,
   TV_P_HOVER,
   TV_DEADBAND_HOVER,
@@ -158,8 +161,8 @@ typedef enum {
 } tv_hover_state_t;
 
 typedef struct {
-  bool tv_enable_selected;
   tv_hover_state_t curr_hover;
+  bool tv_enable_selected;
   uint8_t  tv_deadband_val;
 
   // intensity and p are 10x the float equivalent
@@ -195,6 +198,16 @@ typedef struct {
   fault_hover_state_t curr_hover;
 } fault_page_t;
 
+typedef enum {
+  DT_FAN_HOVER,
+  DT_PUMP_HOVER,
+  FAN1_HOVER,
+  FAN2_HOVER,
+  PUMP_HOVER,
+  DT_FAN_SELECT,
+  FAN1_SELECT
+} cooling_hover_state_t;
+
 typedef struct {
   bool d_fan_selected;
   bool d_pump_selected;
@@ -204,7 +217,23 @@ typedef struct {
   uint8_t d_fan_val;
   uint8_t b_fan_val;
   cooling_hover_state_t curr_hover;
-} cooling_t;
+} cooling_page_t;
+
+typedef enum {
+  BRAKE_HOVER,
+  THROTTLE_HOVER,
+  SAVE_HOVER,
+  BRAKE_SELECTED,
+  THROTTLE_SELECTED,
+} profile_hover_state_t;
+
+typedef struct {
+  profile_hover_state_t curr_hover;
+  bool saved;
+  uint8_t driver_id;
+  uint8_t brake_val;
+  uint8_t throttle_val;
+} profile_page_t;
 
 typedef struct {
   volatile int8_t encoder_position;

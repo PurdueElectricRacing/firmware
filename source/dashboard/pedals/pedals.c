@@ -25,7 +25,7 @@ uint8_t b2_idx = 0;
 
 uint16_t filtered_pedals;
 
-driver_profile_t profiles[4] = {
+driver_profile_t driver_profiles[4] = {
     {0, 10,10,0},
     {1, 10,10,0},
     {2, 10,10,0},
@@ -100,10 +100,6 @@ void pedalsPeriodic(void)
     SEND_FILT_THROTTLE_BRAKE(t1, b1);
 }
 
-#define PROFILES_START_SECTOR    11
-#define NUM_PROFILES             4
-#define PROFILE_WRITE_SUCCESS 0
-#define PROFILE_WRITE_FAIL -1
 int writeProfiles() {
     if (FLASH_OK != PHAL_flashErasePage(PROFILES_START_SECTOR)) {
         return PROFILE_WRITE_FAIL;
@@ -112,7 +108,7 @@ int writeProfiles() {
     uint32_t write_address = ADDR_FLASH_SECTOR_11;
 
     for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-        uint32_t *data = (uint32_t *)&profiles[i];
+        uint32_t *data = (uint32_t *)&driver_profiles[i];
 
         if (FLASH_OK != PHAL_flashWriteU32(write_address, *data)) {
             return PROFILE_WRITE_FAIL;
@@ -128,7 +124,7 @@ void readProfiles() {
     uint32_t read_address = ADDR_FLASH_SECTOR_11;
 
     for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-        uint32_t *data = (uint32_t *)&profiles[i];
+        uint32_t *data = (uint32_t *)&driver_profiles[i];
         *data = *((uint32_t *)read_address);
 
         read_address += sizeof(driver_profile_t);

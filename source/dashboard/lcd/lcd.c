@@ -19,13 +19,15 @@ char *errorText;                        // Pointer to data to display for the Er
 extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
 extern q_handle_t q_tx_can;             // Global queue for CAN tx
 extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
-volatile cooling_t cooling;           // Data for the cooling page
+volatile cooling_page_t cooling;        // Data for the cooling page
 volatile tv_settings_t tv_settings;     // Data for the tvsettings page
-volatile driver_page_t driver_config; // Data for the driver page
+volatile driver_page_t driver_page;     // Data for the driver page
 volatile fault_page_t fault_page;       // Data for the faults page
+volatile profile_page_t profile_page;   // Data for the profile page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
+extern driver_profile_t driver_profiles[4];
 
 
 // Driver Page Functions
@@ -33,6 +35,12 @@ void update_driver_page();
 void move_up_driver();
 void move_down_driver();
 void select_driver();
+
+// Profile Page Functions
+void update_profile_page();
+void move_up_profile();
+void move_down_profile();
+void select_profile();
 
 // Cooling Page Functions
 void update_cooling_page();
@@ -87,12 +95,14 @@ void initLCD() {
     curr_page = PAGE_RACE;
     prev_page = PAGE_PREFLIGHT;
     errorText = 0;
-    cooling = (cooling_t) {0, 0, 0, 0, 0, 0, 0, 0};
+    cooling = (cooling_page_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
     tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
     fault_page_t fault_config = {FAULT1}; // Default to first fault
     set_baud(115200);
     set_brightness(100);
+
+    // todo call readProfiles();
 }
 
 void updatePage() {
@@ -122,6 +132,7 @@ void updatePage() {
         case PAGE_PROFILES:
             prev_page = PAGE_PROFILES;
             set_page(DRIVER_CONFIG_STRING);
+            update_profile_page();
             break;
         case PAGE_SDCINFO:
             prev_page = PAGE_SDCINFO;
@@ -165,13 +176,6 @@ void updatePage() {
     }
 }
 
-void move_up_profiles() {
-
-}
-
-void move_down_profiles() {
-
-}
 
 void moveUp() {
     switch (curr_page) {
@@ -191,7 +195,7 @@ void moveUp() {
             move_up_faults();
             break;
         case PAGE_PROFILES:
-            move_up_profiles();
+            move_up_profile();
             break;
     }
 }
@@ -214,7 +218,7 @@ void moveDown() {
             move_down_faults();
             break;
         case PAGE_PROFILES:
-            move_down_profiles();
+            move_down_profile();
             break;
     }
 }
@@ -297,6 +301,9 @@ void selectItem() {
         case PAGE_FAULTS:
             select_fault();
             break;
+        case PAGE_PROFILES:
+            select_profile();
+            break;
     }
 }
 
@@ -315,8 +322,6 @@ void updateDataPages() {
             break;
     }
 }
-
-
 
 void sendTVParameters() {
     SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
@@ -495,13 +500,13 @@ void updateSDCDashboard() {
 // ! Helper function definitions
 
 void update_driver_page() {
-    driver_config.curr_hover = DRIVER_DEFAULT;
+    driver_page.curr_hover = DRIVER_DEFAULT;
     set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
 
-    if (driver_config.curr_select == DRIVER_DEFAULT)
+    if (driver_page.curr_select == DRIVER_DEFAULT)
     {
         set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
     }
@@ -510,7 +515,7 @@ void update_driver_page() {
         set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
     }
 
-    if (driver_config.curr_select == DRIVER_TYLER)
+    if (driver_page.curr_select == DRIVER_TYLER)
     {
         set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
     }
@@ -519,7 +524,7 @@ void update_driver_page() {
         set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
     }
 
-    if (driver_config.curr_select == DRIVER_LUCA)
+    if (driver_page.curr_select == DRIVER_LUCA)
     {
         set_value(DRIVER_LUCA_OP, NXT_VALUE, 1);
     }
@@ -528,7 +533,7 @@ void update_driver_page() {
         set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
     }
 
-    if (driver_config.curr_select == DRIVER_LUKE)
+    if (driver_page.curr_select == DRIVER_LUKE)
     {
         set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
     }
@@ -539,40 +544,34 @@ void update_driver_page() {
 }
 
 void move_up_driver() {
-    if (driver_config.curr_hover == DRIVER_DEFAULT)
+    if (driver_page.curr_hover == DRIVER_DEFAULT)
     {
-        // Wrap around to enable
-        driver_config.curr_hover = DRIVER_LUKE;
-        driver_config.curr_select = DRIVER_LUKE;
+        driver_page.curr_hover = DRIVER_LUKE;
         // Update the background
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     }
-    else if (driver_config.curr_hover == DRIVER_TYLER)
+    else if (driver_page.curr_hover == DRIVER_TYLER)
     {
-        driver_config.curr_hover = DRIVER_DEFAULT;
-        driver_config.curr_select = DRIVER_DEFAULT;
-
+        driver_page.curr_hover = DRIVER_DEFAULT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
-    else if (driver_config.curr_hover == DRIVER_LUCA)
+    else if (driver_page.curr_hover == DRIVER_LUCA)
     {
-        driver_config.curr_hover = DRIVER_TYLER;
-        driver_config.curr_select = DRIVER_TYLER;
+        driver_page.curr_hover = DRIVER_TYLER;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
-    else if (driver_config.curr_hover == DRIVER_LUKE)
+    else if (driver_page.curr_hover == DRIVER_LUKE)
     {
-        driver_config.curr_hover = DRIVER_LUCA;
-        driver_config.curr_select = DRIVER_LUCA;
+        driver_page.curr_hover = DRIVER_LUCA;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
@@ -581,38 +580,34 @@ void move_up_driver() {
 }
 
 void move_down_driver() {
-    if (driver_config.curr_hover == DRIVER_DEFAULT)
+    if (driver_page.curr_hover == DRIVER_DEFAULT)
     {
-        driver_config.curr_hover = DRIVER_TYLER;
-        driver_config.curr_select = DRIVER_TYLER;
+        driver_page.curr_hover = DRIVER_TYLER;
         // Update the background
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
-    else if (driver_config.curr_hover == DRIVER_TYLER)
+    else if (driver_page.curr_hover == DRIVER_TYLER)
     {
-        driver_config.curr_hover = DRIVER_LUCA;
-        driver_config.curr_select = DRIVER_LUCA;
+        driver_page.curr_hover = DRIVER_LUCA;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_BG);
     }
-    else if (driver_config.curr_hover == DRIVER_LUCA)
+    else if (driver_page.curr_hover == DRIVER_LUCA)
     {
-        driver_config.curr_hover = DRIVER_LUKE;
-        driver_config.curr_select = DRIVER_LUKE;
+        driver_page.curr_hover = DRIVER_LUKE;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUKE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     }
-    else if (driver_config.curr_hover == DRIVER_LUKE)
+    else if (driver_page.curr_hover == DRIVER_LUKE)
     {
-        driver_config.curr_hover = DRIVER_DEFAULT;
-        driver_config.curr_select = DRIVER_DEFAULT;
+        driver_page.curr_hover = DRIVER_DEFAULT;
         set_value(DRIVER_DEFAULT_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
         set_value(DRIVER_TYLER_TXT, NXT_BACKGROUND_COLOR, TV_BG);
         set_value(DRIVER_LUCA_TXT, NXT_BACKGROUND_COLOR, TV_BG);
@@ -621,33 +616,144 @@ void move_down_driver() {
 }
 
 void select_driver() {
-    switch(driver_config.curr_hover)
+    switch(driver_page.curr_hover)
     {
         case DRIVER_DEFAULT:
+            driver_page.curr_select = DRIVER_DEFAULT;
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 1);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             break;
         case DRIVER_TYLER:
+            driver_page.curr_select = DRIVER_TYLER;
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 1);
             set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             break;
         case DRIVER_LUCA:
+            driver_page.curr_select = DRIVER_LUCA;
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUCA_OP, NXT_VALUE, 1);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 0);
             break;
         case DRIVER_LUKE:
+            driver_page.curr_select = DRIVER_LUKE;
             set_value(DRIVER_DEFAULT_OP, NXT_VALUE, 0);
             set_value(DRIVER_TYLER_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUCA_OP, NXT_VALUE, 0);
             set_value(DRIVER_LUKE_OP, NXT_VALUE, 1);
             break;
     }
+}
+
+void update_profile_page() {
+    profile_page.curr_hover = BRAKE_HOVER;
+
+    // Set the initial background color
+    set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+    set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+    set_value(PROFILE_SAVE_TXT, NXT_BACKGROUND_COLOR, BLACK);
+
+    profile_page.driver_id = (uint8_t)driver_page.curr_select;
+}
+
+void move_up_profile() {
+    switch (profile_page.curr_hover) {
+        case BRAKE_HOVER:
+            profile_page.curr_hover = SAVE_HOVER;
+            set_value(PROFILE_SAVE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case BRAKE_SELECTED:
+            profile_page.saved = false;
+            // TODO handle brake increment
+            break;
+        case THROTTLE_HOVER:
+            profile_page.curr_hover = BRAKE_HOVER;
+            set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case THROTTLE_SELECTED:
+            profile_page.saved = false;
+            // TODO handle throttle increment
+            break;
+        case SAVE_HOVER:
+            profile_page.curr_hover = THROTTLE_HOVER;
+            set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(PROFILE_SAVE_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+    }
+    set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
+    set_text(PROFILE_STATUS_TXT, NXT_TEXT, profile_page.saved ? "SAVED" : "UNSAVED");
+}
+
+void move_down_profile() {
+    switch (profile_page.curr_hover) {
+        case BRAKE_HOVER:
+            profile_page.curr_hover = THROTTLE_HOVER;
+            set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case BRAKE_SELECTED:
+            profile_page.saved = false;
+            // TODO handle brake decrement
+            break;
+        case THROTTLE_HOVER:
+            profile_page.curr_hover = SAVE_HOVER;
+            set_value(PROFILE_SAVE_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
+            break;
+        case THROTTLE_SELECTED:
+            profile_page.saved = false;
+            // TODO handle throttle decrement
+            break;
+        case SAVE_HOVER:
+            profile_page.curr_hover = BRAKE_HOVER;
+            set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(PROFILE_SAVE_TXT, NXT_BACKGROUND_COLOR, BLACK);
+            break;
+    }
+    set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
+    set_text(PROFILE_STATUS_TXT, NXT_TEXT, profile_page.saved ? "SAVED" : "UNSAVED");
+}
+
+void select_profile() {
+    switch (profile_page.curr_hover) {
+        case BRAKE_HOVER:
+            profile_page.curr_hover = BRAKE_SELECTED;
+            set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+            break;
+        case BRAKE_SELECTED:
+            profile_page.curr_hover = BRAKE_HOVER;
+            set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            break;
+        case THROTTLE_HOVER:
+            profile_page.curr_hover = THROTTLE_SELECTED;
+            set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, ORANGE);
+            break;
+        case THROTTLE_SELECTED:
+            profile_page.curr_hover = THROTTLE_HOVER;
+            set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            break;
+        case SAVE_HOVER:
+            // Modify the driver profile
+            driver_profiles[profile_page.driver_id].brake_travel_threshold = profile_page.brake_val;
+            driver_profiles[profile_page.driver_id].throttle_travel_threshold = profile_page.throttle_val;
+
+            // todo write profiles
+            // if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
+            //     profile_page.saved = false;
+            //     set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, RED);
+            //     set_text(PROFILE_STATUS_TXT, NXT_TEXT,  "SAVE FAILED");
+            // }
+            profile_page.saved = true;
+            break;
+    }
+    set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
+    set_text(PROFILE_STATUS_TXT, NXT_TEXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
 void update_cooling_page() {

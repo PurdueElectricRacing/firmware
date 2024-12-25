@@ -21,18 +21,18 @@
 
 
 // Driver Configuration Page
-#define DRIVER_DEFAULT_OP "r0"
-#define DRIVER_TYLER_OP "r1"
-#define DRIVER_LUCA_OP "r2"
-#define DRIVER_LUKE_OP "r3"
-#define DRIVER_DEFAULT_TXT "t1"
-#define DRIVER_TYLER_TXT "t2"
-#define DRIVER_LUCA_TXT "t3"
-#define DRIVER_LUKE_TXT "t4"
-#define DRIVER_DEFAULT_NAME "Default"
-#define DRIVER_TYLER_NAME "Tyler"
-#define DRIVER_LUCA_NAME "Luca"
-#define DRIVER_LUKE_NAME "Luke"
+#define DRIVER1_OP "r0"
+#define DRIVER2_OP "r1"
+#define DRIVER3_OP "r2"
+#define DRIVER4_OP "r3"
+#define DRIVER1_TXT "t1"
+#define DRIVER2_TXT "t2"
+#define DRIVER3_TXT "t3"
+#define DRIVER4_TXT "t4"
+#define DRIVER1_NAME "Default"
+#define DRIVER2_NAME "Tyler"
+#define DRIVER3_NAME "Luca"
+#define DRIVER4_NAME "Luke"
 
 // Profile Page
 #define PROFILE_CURRENT_TXT "cur_driver"
@@ -175,10 +175,10 @@ typedef struct {
 } race_page_t;
 
 typedef enum {
-  DRIVER_DEFAULT,
-  DRIVER_TYLER,
-  DRIVER_LUCA,
-  DRIVER_LUKE,
+  DRIVER1,
+  DRIVER2,
+  DRIVER3,
+  DRIVER4,
 } driver_select_state_t;
 
 typedef struct {

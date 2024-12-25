@@ -632,6 +632,21 @@ void select_driver() {
 void update_profile_page() {
     profile_page.curr_hover = BRAKE_HOVER;
 
+    switch (driver_page.curr_select) {
+        case DRIVER1:
+            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER1_NAME);
+            break;
+        case DRIVER2:
+            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER2_NAME);
+            break;
+        case DRIVER3:
+            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER3_NAME);
+            break;
+        case DRIVER4:
+            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER4_NAME);
+            break;
+    }
+
     // Set the initial background color
     set_value(PROFILE_BRAKE_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
     set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
@@ -639,6 +654,7 @@ void update_profile_page() {
 
     readProfiles();
 
+    profile_page.driver_id = (uint8_t)driver_page.curr_select;
     profile_page.brake_val = driver_profiles[profile_page.driver_id].brake_travel_threshold;
     profile_page.throttle_val = driver_profiles[profile_page.driver_id].throttle_travel_threshold;
 

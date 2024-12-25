@@ -100,21 +100,22 @@ void pedalsPeriodic(void)
     SEND_FILT_THROTTLE_BRAKE(t1, b1);
 }
 
+static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_11;
+static volatile uint32_t* profile_current_address;
+
 int writeProfiles() {
+    profile_current_address = (volatile uint32_t*)PROFILE_FLASH_START;
+    
     if (FLASH_OK != PHAL_flashErasePage(PROFILES_START_SECTOR)) {
         return PROFILE_WRITE_FAIL;
     }
 
-    uint32_t write_address = ADDR_FLASH_SECTOR_11;
-
     for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-        uint32_t *data = (uint32_t *)&driver_profiles[i];
-
-        if (FLASH_OK != PHAL_flashWriteU32(write_address, *data)) {
+        if (FLASH_OK != PHAL_flashWriteU32((uint32_t)profile_current_address, 
+                                         *(uint32_t*)&driver_profiles[i])) {
             return PROFILE_WRITE_FAIL;
         }
-
-        write_address += sizeof(driver_profile_t);
+        profile_current_address++;
     }
 
     return PROFILE_WRITE_SUCCESS;

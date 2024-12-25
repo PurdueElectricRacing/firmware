@@ -102,7 +102,8 @@ void initLCD() {
     set_baud(115200);
     set_brightness(100);
 
-    // todo call readProfiles();
+    readProfiles();
+    profile_page.saved = true;
 }
 
 void updatePage() {
@@ -657,6 +658,14 @@ void update_profile_page() {
     set_value(PROFILE_THROTTLE_FLT, NXT_BACKGROUND_COLOR, TV_BG);
     set_value(PROFILE_SAVE_TXT, NXT_BACKGROUND_COLOR, BLACK);
 
+    readProfiles();
+
+    profile_page.brake_val = driver_profiles[profile_page.driver_id].brake_travel_threshold;
+    profile_page.throttle_val = driver_profiles[profile_page.driver_id].throttle_travel_threshold;
+
+    set_value(PROFILE_BRAKE_FLT, NXT_VALUE, profile_page.brake_val);
+    set_value(PROFILE_THROTTLE_FLT, NXT_VALUE, profile_page.throttle_val);
+
     profile_page.driver_id = (uint8_t)driver_page.curr_select;
 }
 
@@ -700,6 +709,15 @@ void move_down_profile() {
         case BRAKE_SELECTED:
             profile_page.saved = false;
             // TODO handle brake decrement
+            if (profile_page.brake_val == 0)
+            {
+                profile_page.brake_val = 20;
+            }
+            else
+            {
+                profile_page.brake_val -= 5;
+            }
+            set_value(PROFILE_BRAKE_FLT, NXT_VALUE, profile_page.brake_val);
             break;
         case THROTTLE_HOVER:
             profile_page.curr_hover = SAVE_HOVER;
@@ -709,6 +727,15 @@ void move_down_profile() {
         case THROTTLE_SELECTED:
             profile_page.saved = false;
             // TODO handle throttle decrement
+            if (profile_page.throttle_val == 0)
+            {
+                profile_page.throttle_val = 20;
+            }
+            else
+            {
+                profile_page.throttle_val -= 5;
+            }
+            set_value(PROFILE_THROTTLE_FLT, NXT_VALUE, profile_page.throttle_val);
             break;
         case SAVE_HOVER:
             profile_page.curr_hover = BRAKE_HOVER;
@@ -743,12 +770,11 @@ void select_profile() {
             driver_profiles[profile_page.driver_id].brake_travel_threshold = profile_page.brake_val;
             driver_profiles[profile_page.driver_id].throttle_travel_threshold = profile_page.throttle_val;
 
-            // todo write profiles
-            // if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
-            //     profile_page.saved = false;
-            //     set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, RED);
-            //     set_text(PROFILE_STATUS_TXT, NXT_TEXT,  "SAVE FAILED");
-            // }
+            if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
+                profile_page.saved = false;
+                set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, RED);
+                set_text(PROFILE_STATUS_TXT, NXT_TEXT,  "FAILED");
+            }
             profile_page.saved = true;
             break;
     }

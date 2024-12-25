@@ -674,6 +674,15 @@ void move_up_profile() {
         case BRAKE_SELECTED:
             profile_page.saved = false;
             // TODO handle brake increment
+            if (profile_page.brake_val >= 20)
+            {
+                profile_page.brake_val = 0;
+            }
+            else
+            {
+                profile_page.brake_val += 5;
+            }
+            set_value(PROFILE_BRAKE_FLT, NXT_VALUE, profile_page.brake_val);
             break;
         case THROTTLE_HOVER:
             profile_page.curr_hover = BRAKE_HOVER;
@@ -683,6 +692,15 @@ void move_up_profile() {
         case THROTTLE_SELECTED:
             profile_page.saved = false;
             // TODO handle throttle increment
+            if(profile_page.throttle_val >= 20)
+            {
+                profile_page.throttle_val = 0;
+            }
+            else
+            {
+                profile_page.throttle_val += 5;
+            }
+            set_value(PROFILE_THROTTLE_FLT, NXT_VALUE, profile_page.brake_val);
             break;
         case SAVE_HOVER:
             profile_page.curr_hover = THROTTLE_HOVER;
@@ -704,7 +722,7 @@ void move_down_profile() {
         case BRAKE_SELECTED:
             profile_page.saved = false;
             // TODO handle brake decrement
-            if (profile_page.brake_val == 0)
+            if (profile_page.brake_val <= 0)
             {
                 profile_page.brake_val = 20;
             }
@@ -722,7 +740,7 @@ void move_down_profile() {
         case THROTTLE_SELECTED:
             profile_page.saved = false;
             // TODO handle throttle decrement
-            if (profile_page.throttle_val == 0)
+            if (profile_page.throttle_val <= 0)
             {
                 profile_page.throttle_val = 20;
             }

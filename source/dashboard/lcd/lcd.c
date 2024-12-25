@@ -673,13 +673,9 @@ void move_up_profile() {
             break;
         case BRAKE_SELECTED:
             profile_page.saved = false;
-            // TODO handle brake increment
-            if (profile_page.brake_val >= 20)
-            {
+            if (profile_page.brake_val >= 20) {
                 profile_page.brake_val = 0;
-            }
-            else
-            {
+            } else {
                 profile_page.brake_val += 5;
             }
             set_value(PROFILE_BRAKE_FLT, NXT_VALUE, profile_page.brake_val);
@@ -691,16 +687,12 @@ void move_up_profile() {
             break;
         case THROTTLE_SELECTED:
             profile_page.saved = false;
-            // TODO handle throttle increment
-            if(profile_page.throttle_val >= 20)
-            {
-                profile_page.throttle_val = 0;
+            if (profile_page.throttle_val >= 20) {
+              profile_page.throttle_val = 0;
+            } else {
+              profile_page.throttle_val += 5;
             }
-            else
-            {
-                profile_page.throttle_val += 5;
-            }
-            set_value(PROFILE_THROTTLE_FLT, NXT_VALUE, profile_page.brake_val);
+            set_value(PROFILE_THROTTLE_FLT, NXT_VALUE, profile_page.throttle_val);
             break;
         case SAVE_HOVER:
             profile_page.curr_hover = THROTTLE_HOVER;
@@ -721,14 +713,10 @@ void move_down_profile() {
             break;
         case BRAKE_SELECTED:
             profile_page.saved = false;
-            // TODO handle brake decrement
-            if (profile_page.brake_val <= 0)
-            {
-                profile_page.brake_val = 20;
-            }
-            else
-            {
-                profile_page.brake_val -= 5;
+            if (profile_page.brake_val <= 0) {
+              profile_page.brake_val = 20;
+            } else {
+              profile_page.brake_val -= 5;
             }
             set_value(PROFILE_BRAKE_FLT, NXT_VALUE, profile_page.brake_val);
             break;
@@ -739,14 +727,10 @@ void move_down_profile() {
             break;
         case THROTTLE_SELECTED:
             profile_page.saved = false;
-            // TODO handle throttle decrement
-            if (profile_page.throttle_val <= 0)
-            {
-                profile_page.throttle_val = 20;
-            }
-            else
-            {
-                profile_page.throttle_val -= 5;
+            if (profile_page.throttle_val <= 0) {
+              profile_page.throttle_val = 20;
+            } else {
+              profile_page.throttle_val -= 5;
             }
             set_value(PROFILE_THROTTLE_FLT, NXT_VALUE, profile_page.throttle_val);
             break;
@@ -786,13 +770,14 @@ void select_profile() {
             if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
                 profile_page.saved = false;
                 set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, RED);
-                set_text(PROFILE_STATUS_TXT, NXT_TEXT,  "FAILED");
+                set_text(PROFILE_STATUS_TXT, NXT_TEXT, "FAILED");
+            } else {
+                profile_page.saved = true;
+                set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, GREEN);
+                set_text(PROFILE_STATUS_TXT, NXT_TEXT, "SAVED");
             }
-            profile_page.saved = true;
             break;
     }
-    set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
-    set_text(PROFILE_STATUS_TXT, NXT_TEXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
 void update_cooling_page() {

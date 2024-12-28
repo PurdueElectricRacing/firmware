@@ -100,12 +100,12 @@ void pedalsPeriodic(void)
     SEND_FILT_THROTTLE_BRAKE(t1, b1);
 }
 
-static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_11;
+static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_3;
 static volatile uint32_t* profile_current_address;
 
-int writeProfiles() {
+int writeProfiles() { // TODO switch to EEPROM
     profile_current_address = (volatile uint32_t*)PROFILE_FLASH_START;
-    
+
     if (FLASH_OK != PHAL_flashErasePage(PROFILES_START_SECTOR)) { // !! Fix the crash here
         return PROFILE_WRITE_FAIL;
     }

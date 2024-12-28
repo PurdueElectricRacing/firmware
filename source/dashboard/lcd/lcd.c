@@ -58,6 +58,7 @@ void select_tv();
 void update_faults_page();
 void move_up_faults();
 void move_down_faults();
+void select_fault();
 
 // Race Page Functions
 void update_race_page();
@@ -106,121 +107,97 @@ void initLCD() {
     profile_page.saved = true;
 }
 
+// page handlers array must match page_t enum order exactly
+page_handler_t page_handlers[] = {
+    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race},
+    [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
+    [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
+    [PAGE_FAULTS]    = {update_faults_page, move_up_faults, move_down_faults, select_fault},
+    [PAGE_SDCINFO]   = {NULL, NULL, NULL, NULL},  // SDCINFO is passive
+    [PAGE_DRIVER]    = {update_driver_page, move_up_driver, move_down_driver, select_driver},
+    [PAGE_PROFILES]  = {update_profile_page, move_up_profile, move_down_profile, select_profile},
+    [PAGE_LOGGING]   = {NULL, NULL, NULL, NULL},  // TODO: Implement logging handlers
+    [PAGE_DATA]      = {NULL, NULL, NULL, NULL}, // TODO Implement data handlers
+    [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL},
+    [PAGE_WARNING]   = {NULL, NULL, NULL, NULL}, // Error pages are passive and have special select logic
+    [PAGE_ERROR]     = {NULL, NULL, NULL, NULL},  
+    [PAGE_FATAL]     = {NULL, NULL, NULL, NULL}
+};
+
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
-    if ((curr_page != PAGE_ERROR) && (curr_page != PAGE_WARNING) && (curr_page != PAGE_FATAL))
-    {
+    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    
+    if (!is_error_page) {
         curr_page = lcd_data.encoder_position;
         fault_time_displayed = 0;
     }
 
-    // If we do not detect a page update (most notably detect if encoder did not move), do nothing
+    // If we do not detect a page update, do nothing
     if (curr_page == prev_page) {
         return;
     }
 
-    // Parse the page that was passed into the function
+    // Only update prev_page for non-error pages
+    if (!is_error_page) {
+        prev_page = curr_page;
+    }
+
+    // Set the page on display
     switch (curr_page) {
-        case PAGE_LOGGING:
-            prev_page = PAGE_LOGGING;
-            set_page(LOGGING_STRING);
-            break;
-        case PAGE_DRIVER:
-            prev_page = PAGE_DRIVER;
-            set_page(DRIVER_STRING);
-            update_driver_page();
-            break;
-        case PAGE_PROFILES:
-            prev_page = PAGE_PROFILES;
-            set_page(DRIVER_CONFIG_STRING);
-            update_profile_page();
-            break;
-        case PAGE_SDCINFO:
-            prev_page = PAGE_SDCINFO;
-            set_page(SDCINFO_STRING);
-            break;
-        case PAGE_TVSETTINGS:
-            prev_page = PAGE_TVSETTINGS;
-            set_page(TVSETTINGS_STRING);
-            update_tv_page();
-            break;
+        case PAGE_LOGGING: set_page(LOGGING_STRING); break;
+        case PAGE_DRIVER: set_page(DRIVER_STRING); break;
+        case PAGE_PROFILES: set_page(DRIVER_CONFIG_STRING); break;
+        case PAGE_SDCINFO: set_page(SDCINFO_STRING); break;
+        case PAGE_TVSETTINGS: set_page(TVSETTINGS_STRING); break;
         case PAGE_ERROR:
             set_page(ERR_STRING);
             set_text(ERR_TXT, NXT_TEXT, errorText);
-            break;
+            return;
         case PAGE_WARNING:
             set_page(WARN_STRING);
             set_text(ERR_TXT, NXT_TEXT, errorText);
-            break;
+            return;
         case PAGE_FATAL:
             set_page(FATAL_STRING);
             set_text(ERR_TXT, NXT_TEXT, errorText);
-            break;
-        case PAGE_RACE:
-            prev_page = PAGE_RACE;
-            set_page(RACE_STRING);
-            break;
-        case PAGE_DATA:
-            prev_page = PAGE_DATA;
-            set_page(DATA_STRING);
-            break;
-        case PAGE_COOLING:
-            prev_page = PAGE_COOLING;
-            set_page(COOLING_STRING);
-            update_cooling_page();
-            break;
-        case PAGE_FAULTS:
-            prev_page = PAGE_FAULTS;
-            set_page(FAULT_STRING);
-            update_faults_page();
-            break;
+            return;
+        case PAGE_RACE: set_page(RACE_STRING); break;
+        case PAGE_DATA: set_page(DATA_STRING); break;
+        case PAGE_COOLING: set_page(COOLING_STRING); break;
+        case PAGE_FAULTS: set_page(FAULT_STRING); break;
+    }
+
+    // Call update handler if available
+    if (page_handlers[curr_page].update != NULL) {
+        page_handlers[curr_page].update();
     }
 }
 
-
 void moveUp() {
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            //TODO
-            break;
-        case PAGE_DRIVER:
-            move_up_driver();
-            break;
-        case PAGE_TVSETTINGS:
-            move_up_tv();
-            break;
-        case PAGE_COOLING:
-            move_up_cooling();
-            break;
-        case PAGE_FAULTS:
-            move_up_faults();
-            break;
-        case PAGE_PROFILES:
-            move_up_profile();
-            break;
+    if (page_handlers[curr_page].move_up != NULL) {
+        page_handlers[curr_page].move_up();
     }
 }
 
 void moveDown() {
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            //TODO
-            break;
-        case PAGE_DRIVER:
-            move_down_driver();
-            break;
-        case PAGE_TVSETTINGS:
-            move_down_tv();
-            break;
-        case PAGE_COOLING:
-            move_down_cooling();
-            break;
-        case PAGE_FAULTS:
-            move_down_faults();
-            break;
-        case PAGE_PROFILES:
-            move_down_profile();
-            break;
+    if (page_handlers[curr_page].move_down != NULL) {
+        page_handlers[curr_page].move_down();
+    }
+}
+
+void selectItem() {
+    // Handle fault screen clearing
+    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_FATAL) || (curr_page == PAGE_WARNING)) {
+        fault_time_displayed = 0;   // Reset fault timer first
+        curr_page = prev_page;      // Return to previous page 
+        prev_page = PAGE_PREFLIGHT; // so select item doesnt't break
+        updatePage();               // Important: Update the page before returning
+        return;
+    }
+
+    if (page_handlers[curr_page].select != NULL) {
+        page_handlers[curr_page].select();
     }
 }
 
@@ -265,45 +242,6 @@ void select_fault() {
             for (int i = 4; i >= 0; i--) {
                 clear_fault(i);
             }
-            break;
-    }
-}
-
-void selectItem() {
-
-    // User has selected to clear the current fault screen
-    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_FATAL) || (curr_page == PAGE_WARNING))
-    {
-        // Go back to where we were before
-        curr_page = prev_page;
-        // so select item doesnt't break
-        prev_page = PAGE_PREFLIGHT;
-        fault_time_displayed = 0;
-        updatePage();
-        return;
-    }
-
-    switch (curr_page) {
-        case PAGE_LOGGING:
-            SEND_DASHBOARD_START_LOGGING(1);
-            break;
-        case PAGE_DRIVER:
-            select_driver();
-            break;
-        case PAGE_TVSETTINGS:
-            select_tv();
-            break;
-        case PAGE_COOLING:
-            select_cooling();
-            break;
-        case PAGE_RACE:
-            select_race();
-            break;
-        case PAGE_FAULTS:
-            select_fault();
-            break;
-        case PAGE_PROFILES:
-            select_profile();
             break;
     }
 }

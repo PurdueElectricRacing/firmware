@@ -239,6 +239,15 @@ typedef struct {
   volatile int8_t encoder_position;
 } lcd_t;
 
+typedef struct {
+  void (*update)(void);
+  void (*move_up)(void);
+  void (*move_down)(void);
+  void (*select)(void);
+} page_handler_t;
+
+extern page_handler_t page_handlers[];
+
 void initLCD();                                     // Initialize LCD data structures and configuration
 void updatePage();                                  // Change the current page of the LCD
 void moveUp();                                      // Upward UI input detected (up button or in some cases encoder)

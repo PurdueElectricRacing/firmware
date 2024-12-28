@@ -16,7 +16,7 @@
 
 #include "main.h"
 
-#include "can_parse.h"
+//#include "can_parse.h"
 
 volatile raw_adc_values_t raw_adc_values;
 
@@ -116,46 +116,46 @@ lcd_t lcd_data = {
 
 int main()
 {
-    qConstruct(&q_tx_usart, NXT_STR_SIZE);
+    // qConstruct(&q_tx_usart, NXT_STR_SIZE);
     
-    if (0 != PHAL_configureClockRates(&clock_config))
-    {
-        HardFault_Handler();
-    }
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if (!PHAL_initDMA(&adc_dma_config))
-    {
-        HardFault_Handler();
-    }
-    if (false == PHAL_initUSART(&lcd, APB2ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
+    // if (0 != PHAL_configureClockRates(&clock_config))
+    // {
+    //     HardFault_Handler();
+    // }
+    // if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
+    // {
+    //     HardFault_Handler();
+    // }
+    // if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    // {
+    //     HardFault_Handler();
+    // }
+    // if (!PHAL_initDMA(&adc_dma_config))
+    // {
+    //     HardFault_Handler();
+    // }
+    // if (false == PHAL_initUSART(&lcd, APB2ClockRateHz))
+    // {
+    //     HardFault_Handler();
+    // }
+    // PHAL_startTxfer(&adc_dma_config);
+    // PHAL_startADC(ADC1);
 
-    initFaultLibrary(2, &q_tx_can1_s[0], ID_FAULT_SYNC_DASHBOARD);
+    // initFaultLibrary(2, &q_tx_can1_s[0], ID_FAULT_SYNC_DASHBOARD);
 
-    config_inturrupts();
+    // config_inturrupts();
 
-    schedInit(APB1ClockRateHz);
-    initLCD();
+    // schedInit(APB1ClockRateHz);
+    // initLCD();
 
-    taskCreate(pollDashboardInputs, 100);
-    taskCreate(updatePage,  300); // for testing only
-    taskCreateBackground(usartTxUpdate);
-    taskCreate(updateFaultDisplay, 500);
-    taskCreate(updateFaultPageIndicators, 500);
-    taskCreate(emulate_fault, 5000);
+    // taskCreate(pollDashboardInputs, 100);
+    // taskCreate(updatePage,  300); // for testing only
+    // taskCreateBackground(usartTxUpdate);
+    // taskCreate(updateFaultDisplay, 500);
+    // taskCreate(updateFaultPageIndicators, 500);
+    // taskCreate(emulate_fault, 5000);
 
-    schedStart();
+    // schedStart();
 
     // Never reached
     return 0;

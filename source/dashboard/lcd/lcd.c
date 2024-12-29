@@ -66,12 +66,32 @@ void update_race_page_group1();
 void update_race_page_group2();
 void select_race();
 
+void select_error_page();
+
 // Utility Functions
 void updateSDCStatus(uint8_t status, char *element);
 void setFaultIndicator(uint16_t fault, char *element);
 // string helper prototypes
 void append_char(char *str, char ch, size_t max_len); // Append a character to a string
 char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
+
+
+// page handlers array must match page_t enum order exactly
+page_handler_t page_handlers[] = {
+    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race},
+    [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
+    [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
+    [PAGE_FAULTS]    = {update_faults_page, move_up_faults, move_down_faults, select_fault},
+    [PAGE_SDCINFO]   = {NULL, NULL, NULL, NULL},  // SDCINFO is passive
+    [PAGE_DRIVER]    = {update_driver_page, move_up_driver, move_down_driver, select_driver},
+    [PAGE_PROFILES]  = {update_profile_page, move_up_profile, move_down_profile, select_profile},
+    [PAGE_LOGGING]   = {NULL, NULL, NULL, NULL},  // TODO: Implement logging handlers
+    [PAGE_DATA]      = {NULL, NULL, NULL, NULL}, // TODO Implement data handlers
+    [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL}, // Preflight is passive
+    [PAGE_WARNING]   = {NULL, NULL, NULL, select_error_page}, // Error pages share a select handler
+    [PAGE_ERROR]     = {NULL, NULL, NULL, select_error_page},  
+    [PAGE_FATAL]     = {NULL, NULL, NULL, select_error_page}
+};
 
 
 // Call initially to ensure the LCD is initialized to the proper value -
@@ -106,23 +126,6 @@ void initLCD() {
     readProfiles();
     profile_page.saved = true;
 }
-
-// page handlers array must match page_t enum order exactly
-page_handler_t page_handlers[] = {
-    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race},
-    [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
-    [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
-    [PAGE_FAULTS]    = {update_faults_page, move_up_faults, move_down_faults, select_fault},
-    [PAGE_SDCINFO]   = {NULL, NULL, NULL, NULL},  // SDCINFO is passive
-    [PAGE_DRIVER]    = {update_driver_page, move_up_driver, move_down_driver, select_driver},
-    [PAGE_PROFILES]  = {update_profile_page, move_up_profile, move_down_profile, select_profile},
-    [PAGE_LOGGING]   = {NULL, NULL, NULL, NULL},  // TODO: Implement logging handlers
-    [PAGE_DATA]      = {NULL, NULL, NULL, NULL}, // TODO Implement data handlers
-    [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL},
-    [PAGE_WARNING]   = {NULL, NULL, NULL, NULL}, // Error pages are passive and have special select logic
-    [PAGE_ERROR]     = {NULL, NULL, NULL, NULL},  
-    [PAGE_FATAL]     = {NULL, NULL, NULL, NULL}
-};
 
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
@@ -187,15 +190,6 @@ void moveDown() {
 }
 
 void selectItem() {
-    // Handle fault screen clearing
-    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_FATAL) || (curr_page == PAGE_WARNING)) {
-        fault_time_displayed = 0;   // Reset fault timer first
-        curr_page = prev_page;      // Return to previous page 
-        prev_page = PAGE_PREFLIGHT; // so select item doesnt't break
-        updatePage();               // Important: Update the page before returning
-        return;
-    }
-
     if (page_handlers[curr_page].select != NULL) {
         page_handlers[curr_page].select();
     }
@@ -438,6 +432,14 @@ void updateSDCDashboard() {
 
 // ! Helper function definitions
 
+void select_error_page() {
+    fault_time_displayed = 0;   // Reset fault timer first
+    curr_page = prev_page;      // Return to previous page 
+    prev_page = PAGE_PREFLIGHT; // so select item doesnt't break
+    updatePage();               // Important: Update the page before returning
+    return;
+}
+
 void update_driver_page() {
     driver_page.curr_hover = DRIVER1;
     set_value(DRIVER1_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
@@ -529,7 +531,6 @@ void move_down_driver() {
             set_value(DRIVER1_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             set_value(DRIVER4_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             break;
-    
     }
 }
 
@@ -1019,36 +1020,28 @@ void move_up_tv() {
         case TV_INTENSITY_SELECTED:
             // Increase the intensity value
             tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
-
             // Update the page items
             set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
             break;
         case TV_INTENSITY_HOVER:
             // Wrap around to enable
             tv_settings.curr_hover = TV_ENABLE_HOVER;
-
             // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_P_SELECTED:
             // Increase the p value
             tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
-
             // Update the page items
             set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
             break;
         case TV_P_HOVER:
             // Scroll up to Intensity
             tv_settings.curr_hover = TV_INTENSITY_HOVER;
-
             // Update the background
             set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_DEADBAND_SELECTED:
             // Increase the deadband value
@@ -1061,18 +1054,13 @@ void move_up_tv() {
         case TV_DEADBAND_HOVER:
             // Scroll up to P
             tv_settings.curr_hover = TV_P_HOVER;
-
             // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_ENABLE_HOVER:
             // Scroll up to deadband
             tv_settings.curr_hover = TV_DEADBAND_HOVER;
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
@@ -1101,10 +1089,8 @@ void move_down_tv() {
             tv_settings.curr_hover = TV_P_HOVER;
 
             // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_P_SELECTED:
             // Decrease the P value
@@ -1125,10 +1111,8 @@ void move_down_tv() {
             tv_settings.curr_hover = TV_DEADBAND_HOVER;
 
             // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
+            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_DEADBAND_SELECTED:
             // Decrease the deadband value
@@ -1150,17 +1134,13 @@ void move_down_tv() {
             tv_settings.curr_hover = TV_ENABLE_HOVER;
 
             // Update the background
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
+            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_ENABLE_HOVER:
             // Scroll down to intensity
             tv_settings.curr_hover = TV_INTENSITY_HOVER;
             set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
     }
@@ -1172,9 +1152,6 @@ void select_tv() {
         case TV_INTENSITY_HOVER:
             tv_settings.curr_hover = TV_INTENSITY_SELECTED;
             set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, ORANGE);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             // todo Rot encoder state should let us scroll through value options
             // for now just use buttons for move up and move down
             break;
@@ -1183,38 +1160,23 @@ void select_tv() {
             // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault?
             tv_settings.curr_hover = TV_INTENSITY_HOVER;
             set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             // rot encoder state goes back to page move instead of value move
             break;
         case TV_P_HOVER:
             tv_settings.curr_hover = TV_P_SELECTED;
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, ORANGE);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_P_SELECTED:
             tv_settings.curr_hover = TV_P_HOVER;
             set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_DEADBAND_HOVER:
             tv_settings.curr_hover = TV_DEADBAND_SELECTED;
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, ORANGE);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_DEADBAND_SELECTED:
             tv_settings.curr_hover = TV_DEADBAND_HOVER;
-            set_value(TV_PROPORTION_FLT, NXT_BACKGROUND_COLOR, TV_BG);
-            set_value(TV_INTENSITY_FLT, NXT_BACKGROUND_COLOR, TV_BG);
             set_value(TV_DEAD_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
-            set_value(TV_ENABLE_OP, NXT_BACKGROUND_COLOR, TV_BG);
             break;
         case TV_ENABLE_HOVER:
             // Don't change the curr_hover
@@ -1280,37 +1242,31 @@ void move_up_faults() {
         case FAULT1:
             // Wrap around to the last item
             fault_page.curr_hover = CLEAR;
-
             set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT2:
             fault_page.curr_hover = FAULT1;
-
             set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT3:
             fault_page.curr_hover = FAULT2;
-
             set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT4:
             fault_page.curr_hover = FAULT3;
-
             set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT5:
             fault_page.curr_hover = FAULT4;
-
             set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case CLEAR:
             fault_page.curr_hover = FAULT5;
-
             set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
@@ -1321,37 +1277,31 @@ void move_down_faults() {
     switch (fault_page.curr_hover) {
         case FAULT1:
             fault_page.curr_hover = FAULT2;
-
             set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT2:
             fault_page.curr_hover = FAULT3;
-
             set_value(FAULT_2_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT3:
             fault_page.curr_hover = FAULT4;
-
             set_value(FAULT_3_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT4:
             fault_page.curr_hover = FAULT5;
-
             set_value(FAULT_4_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case FAULT5:
             fault_page.curr_hover = CLEAR;
-
             set_value(FAULT_5_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;
         case CLEAR:
             fault_page.curr_hover = FAULT1;
-
             set_value(CLEAR_FAULTS_TXT, NXT_BACKGROUND_COLOR, BLACK);
             set_value(FAULT_1_TXT, NXT_BACKGROUND_COLOR, TV_HOVER_BG);
             break;

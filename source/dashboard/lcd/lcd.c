@@ -155,15 +155,15 @@ void updatePage() {
         case PAGE_TVSETTINGS: set_page(TVSETTINGS_STRING); break;
         case PAGE_ERROR:
             set_page(ERR_STRING);
-            set_text(ERR_TXT, NXT_TEXT, errorText);
+            set_text(ERR_TXT, errorText);
             return;
         case PAGE_WARNING:
             set_page(WARN_STRING);
-            set_text(ERR_TXT, NXT_TEXT, errorText);
+            set_text(ERR_TXT, errorText);
             return;
         case PAGE_FATAL:
             set_page(FATAL_STRING);
-            set_text(ERR_TXT, NXT_TEXT, errorText);
+            set_text(ERR_TXT, errorText);
             return;
         case PAGE_RACE: set_page(RACE_STRING); break;
         case PAGE_DATA: set_page(DATA_STRING); break;
@@ -573,16 +573,16 @@ void update_profile_page() {
 
     switch (driver_page.curr_select) {
         case DRIVER1:
-            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER1_NAME);
+            set_text(PROFILE_CURRENT_TXT, DRIVER1_NAME);
             break;
         case DRIVER2:
-            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER2_NAME);
+            set_text(PROFILE_CURRENT_TXT, DRIVER2_NAME);
             break;
         case DRIVER3:
-            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER3_NAME);
+            set_text(PROFILE_CURRENT_TXT, DRIVER3_NAME);
             break;
         case DRIVER4:
-            set_text(PROFILE_CURRENT_TXT, NXT_TEXT, DRIVER4_NAME);
+            set_text(PROFILE_CURRENT_TXT, DRIVER4_NAME);
             break;
     }
 
@@ -640,7 +640,7 @@ void move_up_profile() {
             break;
     }
     set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
-    set_text(PROFILE_STATUS_TXT, NXT_TEXT, profile_page.saved ? "SAVED" : "UNSAVED");
+    set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
 void move_down_profile() {
@@ -680,7 +680,7 @@ void move_down_profile() {
             break;
     }
     set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
-    set_text(PROFILE_STATUS_TXT, NXT_TEXT, profile_page.saved ? "SAVED" : "UNSAVED");
+    set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
 void select_profile() {
@@ -709,11 +709,11 @@ void select_profile() {
             if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
                 profile_page.saved = false;
                 set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, RED);
-                set_text(PROFILE_STATUS_TXT, NXT_TEXT, "FAILED");
+                set_text(PROFILE_STATUS_TXT, "FAILED");
             } else {
                 profile_page.saved = true;
                 set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, GREEN);
-                set_text(PROFILE_STATUS_TXT, NXT_TEXT, "SAVED");
+                set_text(PROFILE_STATUS_TXT, "SAVED");
             }
             break;
     }
@@ -726,7 +726,7 @@ void update_cooling_page() {
     set_value(DT_FAN_TXT, NXT_BACKGROUND_COLOR, COOLING_HOVER_BG);         // Set t2 with cooling hover
     set_value(DT_FAN_BAR, NXT_VALUE, cooling.d_fan_val);                   // Set progress bar for j0
     //set_value(DT_FAN_VAL, NXT_FONT_COLOR, COOLING_BAR_BG);                         // Set color for t8 (background of bar?)
-    set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(cooling.d_fan_val, parsed_value));  // Set fan value for t8
+    set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));  // Set fan value for t8
     bzero(parsed_value, 3);                                                         // Clear our char buffer
 
     // Set drivetrain pump selector color
@@ -763,7 +763,7 @@ void update_cooling_page() {
 
     // Set battery fan bar, text, color
     set_value(B_FAN1_BAR, NXT_VALUE, cooling.b_fan_val);
-    set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(cooling.b_fan_val, parsed_value));
+    set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
     bzero(parsed_value, 3);
     set_value(B_FAN1_VAL, NXT_FONT_COLOR, WHITE);
 }
@@ -811,7 +811,7 @@ void move_up_cooling() {
             cooling.d_fan_val *= BAR_INTERVAL;
             cooling.d_fan_val = (cooling.d_fan_val == 100) ? 0 : cooling.d_fan_val + BAR_INTERVAL;
             set_value(DT_FAN_BAR, NXT_VALUE, cooling.d_fan_val);
-            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(cooling.d_fan_val, parsed_value));
+            set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));
             bzero(parsed_value, 3);
             //set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
             break;
@@ -820,7 +820,7 @@ void move_up_cooling() {
             cooling.b_fan_val *= BAR_INTERVAL;
             cooling.b_fan_val = (cooling.b_fan_val == 100) ? 0 : cooling.b_fan_val + BAR_INTERVAL;
             set_value(B_FAN1_BAR, NXT_VALUE, cooling.b_fan_val);
-            set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(cooling.b_fan_val, parsed_value));
+            set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
             bzero(parsed_value, 3);
             //set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
             break;
@@ -870,7 +870,7 @@ void move_down_cooling() {
             cooling.d_fan_val *= BAR_INTERVAL;
             cooling.d_fan_val = (cooling.d_fan_val == 0) ? 100 : cooling.d_fan_val - BAR_INTERVAL;
             set_value(DT_FAN_BAR, NXT_VALUE, cooling.d_fan_val);
-            set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(cooling.d_fan_val, parsed_value));
+            set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));
             bzero(parsed_value, 3);
             break;
         case FAN1_SELECT:
@@ -878,7 +878,7 @@ void move_down_cooling() {
             cooling.b_fan_val *= BAR_INTERVAL;
             cooling.b_fan_val = (cooling.b_fan_val == 0) ? 100 : cooling.b_fan_val - BAR_INTERVAL;
             set_value(B_FAN1_BAR, NXT_VALUE, cooling.b_fan_val);
-            set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(cooling.b_fan_val, parsed_value));
+            set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
             bzero(parsed_value, 3);
             break;
     }
@@ -966,7 +966,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
         cooling.d_fan_val = msg_data_a->coolant_out.dt_fan;
         set_value(DT_FAN_BAR, NXT_VALUE, cooling.d_fan_val);
         //set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
-        set_text(DT_FAN_VAL, NXT_TEXT, int_to_char(cooling.d_fan_val, parsed_value));
+        set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));
         bzero(parsed_value, 3);
     }
 
@@ -974,7 +974,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
         cooling.b_fan_val = msg_data_a->coolant_out.bat_fan;
         set_value(B_FAN1_BAR, NXT_VALUE, cooling.b_fan_val);
         set_value(B_FAN1_VAL, NXT_FONT_COLOR, cooling.b_fan_val);
-        set_text(B_FAN1_VAL, NXT_TEXT, int_to_char(cooling.b_fan_val, parsed_value));
+        set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
         bzero(parsed_value, 3);
     }
 
@@ -1009,7 +1009,7 @@ void update_tv_page() {
     // Set displayed data
     set_value(TV_INTENSITY_FLT, NXT_VALUE, tv_settings.tv_intensity_val);
     set_value(TV_PROPORTION_FLT, NXT_VALUE, tv_settings.tv_p_val);
-    set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+    set_text(TV_DEAD_TXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
     bzero(parsed_value, 3);
     set_value(TV_ENABLE_OP, NXT_VALUE, tv_settings.tv_enable_selected);
 }
@@ -1048,7 +1048,7 @@ void move_up_tv() {
             tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
 
             // Update the page items
-            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+            set_text(TV_DEAD_TXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
             bzero(parsed_value, 3);
             break;
         case TV_DEADBAND_HOVER:
@@ -1126,7 +1126,7 @@ void move_down_tv() {
             }
 
             // Update the page items
-            set_text(TV_DEAD_TXT, NXT_TEXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
+            set_text(TV_DEAD_TXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
             bzero(parsed_value, 3);
             break;
         case TV_DEADBAND_HOVER:
@@ -1194,46 +1194,46 @@ void select_tv() {
 void update_faults_page() {
     if (fault_buf[0] == 0xFFFF)
     {
-        set_text(FAULT_1_TXT, NXT_TEXT, FAULT_NONE_STRING);
+        set_text(FAULT_1_TXT, FAULT_NONE_STRING);
     }
     else
     {
-        set_text(FAULT_1_TXT, NXT_TEXT, faultArray[fault_buf[0]].screen_MSG);
+        set_text(FAULT_1_TXT, faultArray[fault_buf[0]].screen_MSG);
     }
     if (fault_buf[1] == 0xFFFF)
     {
-        set_text(FAULT_2_TXT, NXT_TEXT, FAULT_NONE_STRING);
+        set_text(FAULT_2_TXT, FAULT_NONE_STRING);
     }
     else
     {
-        set_text(FAULT_2_TXT, NXT_TEXT, faultArray[fault_buf[1]].screen_MSG);
+        set_text(FAULT_2_TXT, faultArray[fault_buf[1]].screen_MSG);
     }
 
     if (fault_buf[2] == 0xFFFF)
     {
-        set_text(FAULT_3_TXT, NXT_TEXT, FAULT_NONE_STRING);
+        set_text(FAULT_3_TXT, FAULT_NONE_STRING);
     }
     else
     {
-        set_text(FAULT_3_TXT, NXT_TEXT, faultArray[fault_buf[2]].screen_MSG);
+        set_text(FAULT_3_TXT, faultArray[fault_buf[2]].screen_MSG);
     }
 
     if (fault_buf[3] == 0xFFFF)
     {
-        set_text(FAULT_4_TXT, NXT_TEXT, FAULT_NONE_STRING);
+        set_text(FAULT_4_TXT, FAULT_NONE_STRING);
     }
     else
     {
-        set_text(FAULT_4_TXT, NXT_TEXT, faultArray[fault_buf[3]].screen_MSG);
+        set_text(FAULT_4_TXT, faultArray[fault_buf[3]].screen_MSG);
     }
 
     if (fault_buf[4] == 0xFFFF)
     {
-        set_text(FAULT_5_TXT, NXT_TEXT, FAULT_NONE_STRING);
+        set_text(FAULT_5_TXT, FAULT_NONE_STRING);
     }
     else
     {
-        set_text(FAULT_5_TXT, NXT_TEXT, faultArray[fault_buf[4]].screen_MSG);
+        set_text(FAULT_5_TXT, faultArray[fault_buf[4]].screen_MSG);
     }
 }
 
@@ -1319,15 +1319,13 @@ void update_race_page() {
 
     // update the speed
     if (can_data.rear_wheel_speeds.stale) {
-        set_text(SPEED, NXT_TEXT, "S");
+        set_text(SPEED, "S");
     }
     else {
         // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
-        char speed_buf[3] = "\0";
         // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
         uint16_t speed = ((float)can_data.gps_speed.gps_speed * 0.02237); // TODO macro this magic number
-        set_text(SPEED, NXT_TEXT, int_to_char(speed, speed_buf));
-        bzero(speed_buf, sizeof(speed_buf));
+        set_textf(SPEED, "%d", speed);
     }
 
     //cycle the update groups
@@ -1347,30 +1345,20 @@ void update_race_page() {
 }
 
 void update_race_page_group1() {
-    char temps_buf[5] = "\0"; // TODO adjust buf to proper size (adjust for digits needed)
-
     if (can_data.rear_motor_temps.stale) {
-        set_text(MOT_TEMP, NXT_TEXT, "S");
+        set_text(MOT_TEMP, "S");
     }
     else {
         uint8_t motor_temp = MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp);
-        int_to_char(motor_temp, temps_buf);
-        append_char(temps_buf, 'C', sizeof(temps_buf));
-
-        set_text(MOT_TEMP, NXT_TEXT, temps_buf);
-        bzero(temps_buf, sizeof(temps_buf));
+        set_textf(MOT_TEMP, "%dC", motor_temp);
     }
 
     if (can_data.max_cell_temp.stale) {
-        set_text(BATT_TEMP, NXT_TEXT, "S");
+        set_text(BATT_TEMP, "S");
     }
     else {
         uint16_t batt_temp = can_data.max_cell_temp.max_temp / 10;
-        int_to_char(batt_temp, temps_buf);
-        append_char(temps_buf, 'C', sizeof(temps_buf));
-
-        set_text(BATT_TEMP, NXT_TEXT, temps_buf);
-        bzero(temps_buf, sizeof(temps_buf));
+        set_textf(BATT_TEMP, "%dC", batt_temp);
     }
 
     // TODO update MC_TEMP
@@ -1378,57 +1366,49 @@ void update_race_page_group1() {
 
 void update_race_page_group2() {
     if (can_data.main_hb.stale) {
-        set_text(CAR_STAT, NXT_TEXT, "S");
+        set_text(CAR_STAT, "S");
         set_value(CAR_STAT, NXT_BACKGROUND_COLOR, BLACK);
     }
     else {
         switch(can_data.main_hb.car_state) {
             case CAR_STATE_PRECHARGING:
                 set_value(CAR_STAT, NXT_FONT_COLOR, ORANGE);
-                set_text(CAR_STAT, NXT_TEXT, "PRCHG");
+                set_text(CAR_STAT, "PRCHG");
                 break;
             case CAR_STATE_ENERGIZED:
                 set_value(CAR_STAT, NXT_FONT_COLOR, ORANGE);
-                set_text(CAR_STAT, NXT_TEXT, "ENER");
+                set_text(CAR_STAT, "ENER");
                 break;
             case CAR_STATE_IDLE:
                 set_value(CAR_STAT, NXT_FONT_COLOR, INFO_GRAY);
-                set_text(CAR_STAT, NXT_TEXT, "INIT");
+                set_text(CAR_STAT, "INIT");
                 break;
             case CAR_STATE_READY2DRIVE:
                 set_value(CAR_STAT, NXT_FONT_COLOR, RACE_GREEN);
-                set_text(CAR_STAT, NXT_TEXT, "ON");
+                set_text(CAR_STAT, "ON");
                 break;
             case CAR_STATE_ERROR:
                 set_value(CAR_STAT, NXT_FONT_COLOR, YELLOW);
-                set_text(CAR_STAT, NXT_TEXT, "ERR");
+                set_text(CAR_STAT, "ERR");
                 break;
             case CAR_STATE_FATAL:
                 set_value(CAR_STAT, NXT_FONT_COLOR, RED);
-                set_text(CAR_STAT, NXT_TEXT, "FATAL");
+                set_text(CAR_STAT, "FATAL");
                 break;
         }
     }
 
-
     // Update the voltage and current
-    char batt_buf[5] = "\0"; // 3 digits + 1 unit + \0
     if (can_data.orion_currents_volts.stale) {
-        set_text(BATT_VOLT, NXT_TEXT, "S");
-        set_text(BATT_CURR, NXT_TEXT, "S");
+        set_text(BATT_VOLT, "S");
+        set_text(BATT_CURR, "S");
     }
     else {
         uint16_t voltage = (can_data.orion_currents_volts.pack_voltage / 10);
-        int_to_char(voltage, batt_buf);
-        append_char(batt_buf, 'V', sizeof(batt_buf));
-        set_text(BATT_VOLT, NXT_TEXT, batt_buf);
-        bzero(batt_buf, sizeof(batt_buf));
+        set_textf(BATT_VOLT, "%dV", voltage);
 
         uint16_t current = (can_data.orion_currents_volts.pack_current / 10);
-        int_to_char(current, batt_buf);
-        append_char(batt_buf, 'V', sizeof(batt_buf));
-        set_text(BATT_CURR, NXT_TEXT, batt_buf);
-        bzero(batt_buf, sizeof(batt_buf));
+        set_textf(BATT_CURR, "%dA", current);  // Note: Changed 'V' to 'A' for current
     }
 }
 

@@ -1,10 +1,18 @@
-// original author: Matthew Flanagan
-// matthewdavidflanagan@outlook.com
-
-// converted by: Luke Oxley 
-// lcoxley@purdue.edu
+/**
+ * @file nextion.h
+ * @author Matthew Flanagan (matthewdavidflanagan@outlook.com) - Original implementation
+ * @author Luke Oxley (lcoxley@purdue.edu) - Conversion for current use
+ * @author Irving Wang - Extension for additional Nextion commands
+ * @brief Interface for controlling Nextion display modules through serial communication.
+ * @version 1.0
+ * @date 2024-12-28
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
 
 #include "nextion.h"
+#include <stdarg.h>
 
 extern q_handle_t q_tx_usart;
 
@@ -53,14 +61,31 @@ void set_value(char* obj_name, char* param, uint16_t val)
  * @brief Sets the text of a Nextion display object.
  *
  * @param obj_name The name of the Nextion object (e.g., "t0").
- * @param param The parameter to set (e.g., ".txt=").
  * @param text The text to set for the specified obect.
  */
-void set_text(char* obj_name, char* param, char* text)
+void set_text(char* obj_name, char* text)
 {
   char result[NXT_STR_SIZE];
-  snprintf(result, sizeof(result), "%s%s\"%s\"%s", obj_name, param, text, NXT_CMD_TERM);
+  snprintf(result, sizeof(result), "%s%s\"%s\"%s", obj_name, NXT_TEXT, text, NXT_CMD_TERM);
   qSendToBack(&q_tx_usart, (uint16_t *) result);
+}
+
+/**
+ * @brief Sets the text of a Nextion display object using printf-style formatting.
+ *
+ * @param obj_name The name of the Nextion object (e.g., "t0").
+ * @param format Printf-style format string.
+ * @param ... Variable arguments for format string.
+ */
+void set_textf(char* obj_name, const char* format, ...)
+{
+  char formatted[NXT_STR_SIZE];
+  va_list args;
+  va_start(args, format);
+  vsnprintf(formatted, sizeof(formatted), format, args);
+  va_end(args);
+  
+  set_text(obj_name, formatted);
 }
 
 /**

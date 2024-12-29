@@ -124,10 +124,10 @@ typedef enum
 
 
 // Aux Button inputs
-#define B_OK_GPIO_Port              (GPIOD) // todo rename to select
-#define B_OK_Pin                    (13)
+#define B_SELECT_GPIO_Port          (GPIOD)
+#define B_SELECT_Pin                (12)
 #define B_DOWN_GPIO_Port            (GPIOD)
-#define B_DOWN_Pin                  (12)
+#define B_DOWN_Pin                  (13)
 #define B_UP_GPIO_Port              (GPIOD)
 #define B_UP_Pin                    (14)
 

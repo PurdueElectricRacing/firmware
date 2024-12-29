@@ -1,7 +1,6 @@
 #include "lcd.h"
 
 #include "can_parse.h"
-#include "common/phal_F4_F7/spi/spi.h"
 #include "nextion.h"
 #include "pedals.h"
 #include "common/faults/faults.h"
@@ -73,7 +72,7 @@ void updateSDCStatus(uint8_t status, char *element);
 void setFaultIndicator(uint16_t fault, char *element);
 
 // page handlers array must match page_t enum order exactly
-page_handler_t page_handlers[] = {
+const page_handler_t page_handlers[] = {
     [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race},
     [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
     [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
@@ -212,27 +211,13 @@ void clear_fault(int index) {
 }
 
 void select_fault() {
-    switch (fault_page.curr_hover) {
-        case FAULT1:
-            clear_fault(0);
-            break;
-        case FAULT2:
-            clear_fault(1);
-            break;
-        case FAULT3:
-            clear_fault(2);
-            break;
-        case FAULT4:
-            clear_fault(3);
-            break;
-        case FAULT5:
-            clear_fault(4);
-            break;
-        case CLEAR:
-            for (int i = 4; i >= 0; i--) {
-                clear_fault(i);
-            }
-            break;
+    if (fault_page.curr_hover >= FAULT1 && fault_page.curr_hover <= FAULT5) { // Clear individual faults based on hover
+        int fault_index = fault_page.curr_hover - FAULT1;
+        clear_fault(fault_index);
+    } else if (fault_page.curr_hover == CLEAR) { // Clear all faults
+        for (int i = 4; i >= 0; i--) {
+            clear_fault(i);
+        }
     }
 }
 

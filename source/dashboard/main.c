@@ -63,7 +63,7 @@ GPIOInitConfig_t gpio_config[] = {
  GPIO_INIT_USART1RX_PA10,
 
  // Buttons/Switches
- GPIO_INIT_INPUT(B_OK_GPIO_Port, B_OK_Pin, GPIO_INPUT_OPEN_DRAIN),
+ GPIO_INIT_INPUT(B_SELECT_GPIO_Port, B_SELECT_Pin, GPIO_INPUT_OPEN_DRAIN),
  GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_OPEN_DRAIN),
  GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_OPEN_DRAIN),
  GPIO_INIT_INPUT(ENC_A_GPIO_Port, ENC_A_Pin, GPIO_INPUT_OPEN_DRAIN),
@@ -559,7 +559,7 @@ void pollDashboardInput()
 
     // Check for Encoder Input
     upButtonBuffer <<= 1;
-    if (PHAL_readGPIO(GPIOD, 14) == 0)
+    if (PHAL_readGPIO(B_UP_GPIO_Port, B_UP_Pin) == 0)
     {
         upButtonBuffer |= 1;
     }
@@ -570,7 +570,7 @@ void pollDashboardInput()
     }
 
     downButtonBuffer <<= 1;
-    if (PHAL_readGPIO(GPIOD, 13) == 0)
+    if (PHAL_readGPIO(B_DOWN_GPIO_Port, B_DOWN_Pin) == 0)
     {
         downButtonBuffer |= 1;
     }

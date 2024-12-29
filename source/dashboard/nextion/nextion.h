@@ -1,16 +1,3 @@
-/**
- * @file nextion.h
- * @brief Nextion display driver interface
- * 
- * Interface for controlling Nextion display modules through serial communication.
- * 
- * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
- * @author Luke Oxley (lcoxley@purdue.edu)
- * 
- * Original implementation by Matthew Flanagan
- * Converted for current use by Luke Oxley
- */
-
 #ifndef __NEXTION_H__
 #define __NEXTION_H__
 
@@ -42,7 +29,9 @@
 #define NXT_FONT_COLOR       ".pco="
 #define NXT_VALUE            ".val="
 #define NXT_TEXT             ".txt="
-#define NXT_PICTURE          ".pic="
+#define NXT_PAGE             "page "    // New
+#define NXT_BRIGHTNESS       "dims="    // New
+#define NXT_BAUD             "bauds="    // New
 
 void set_flag(char* obj_name, uint8_t enable);
 void set_float(char* obj_name, char* param, float num, uint8_t precision);

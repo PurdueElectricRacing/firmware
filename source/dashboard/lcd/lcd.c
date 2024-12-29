@@ -71,10 +71,6 @@ void select_error_page();
 // Utility Functions
 void updateSDCStatus(uint8_t status, char *element);
 void setFaultIndicator(uint16_t fault, char *element);
-// string helper prototypes
-void append_char(char *str, char ch, size_t max_len); // Append a character to a string
-char *int_to_char(int16_t val, char *val_to_send);  // Convert integer value to character for the nextion interface
-
 
 // page handlers array must match page_t enum order exactly
 page_handler_t page_handlers[] = {
@@ -639,7 +635,7 @@ void move_up_profile() {
             set_background(PROFILE_SAVE_TXT, BLACK);
             break;
     }
-    set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
+    set_font_color(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
     set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
@@ -679,7 +675,7 @@ void move_down_profile() {
             set_background(PROFILE_SAVE_TXT, BLACK);
             break;
     }
-    set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, profile_page.saved ? GREEN : RED);
+    set_font_color(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
     set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
@@ -708,11 +704,11 @@ void select_profile() {
 
             if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
                 profile_page.saved = false;
-                set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, RED);
+                set_font_color(PROFILE_STATUS_TXT, RED);
                 set_text(PROFILE_STATUS_TXT, "FAILED");
             } else {
                 profile_page.saved = true;
-                set_value(PROFILE_STATUS_TXT, NXT_FONT_COLOR, GREEN);
+                set_font_color(PROFILE_STATUS_TXT, GREEN);
                 set_text(PROFILE_STATUS_TXT, "SAVED");
             }
             break;
@@ -720,14 +716,11 @@ void select_profile() {
 }
 
 void update_cooling_page() {
-    // Parsed value represents:
-    char parsed_value[3] = "\0";
     cooling.curr_hover = DT_FAN_HOVER;                                     // Set hover
     set_background(DT_FAN_TXT, COOLING_HOVER_BG);         // Set t2 with cooling hover
     set_value(DT_FAN_BAR, cooling.d_fan_val);                   // Set progress bar for j0
     //set_value(DT_FAN_VAL, NXT_FONT_COLOR, COOLING_BAR_BG);                         // Set color for t8 (background of bar?)
-    set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));  // Set fan value for t8
-    bzero(parsed_value, 3);                                                         // Clear our char buffer
+    set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);  // Set fan value for t8
 
     // Set drivetrain pump selector color
     if (cooling.d_pump_selected) {
@@ -763,13 +756,11 @@ void update_cooling_page() {
 
     // Set battery fan bar, text, color
     set_value(B_FAN1_BAR, cooling.b_fan_val);
-    set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
-    bzero(parsed_value, 3);
+    set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
     set_font_color(B_FAN1_VAL, WHITE);
 }
 
 void move_up_cooling() {
-    char parsed_value[3] = "\0";
     switch (cooling.curr_hover) {
         case DT_FAN_HOVER:
             cooling.curr_hover = PUMP_HOVER;
@@ -811,8 +802,7 @@ void move_up_cooling() {
             cooling.d_fan_val *= BAR_INTERVAL;
             cooling.d_fan_val = (cooling.d_fan_val == 100) ? 0 : cooling.d_fan_val + BAR_INTERVAL;
             set_value(DT_FAN_BAR, cooling.d_fan_val);
-            set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));
-            bzero(parsed_value, 3);
+            set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);
             //set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
             break;
         case FAN1_SELECT:
@@ -820,8 +810,7 @@ void move_up_cooling() {
             cooling.b_fan_val *= BAR_INTERVAL;
             cooling.b_fan_val = (cooling.b_fan_val == 100) ? 0 : cooling.b_fan_val + BAR_INTERVAL;
             set_value(B_FAN1_BAR, cooling.b_fan_val);
-            set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
-            bzero(parsed_value, 3);
+            set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
             //set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
             break;
     }
@@ -870,16 +859,14 @@ void move_down_cooling() {
             cooling.d_fan_val *= BAR_INTERVAL;
             cooling.d_fan_val = (cooling.d_fan_val == 0) ? 100 : cooling.d_fan_val - BAR_INTERVAL;
             set_value(DT_FAN_BAR, cooling.d_fan_val);
-            set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));
-            bzero(parsed_value, 3);
+            set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);
             break;
         case FAN1_SELECT:
             cooling.b_fan_val /= BAR_INTERVAL;
             cooling.b_fan_val *= BAR_INTERVAL;
             cooling.b_fan_val = (cooling.b_fan_val == 0) ? 100 : cooling.b_fan_val - BAR_INTERVAL;
             set_value(B_FAN1_BAR, cooling.b_fan_val);
-            set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
-            bzero(parsed_value, 3);
+            set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
             break;
     }
 }
@@ -954,7 +941,6 @@ void select_cooling() {
 }
 
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
-    char parsed_value[3] = "\0";
     if (curr_page != PAGE_COOLING) {
         cooling.d_pump_selected = msg_data_a->coolant_out.dt_pump;
         cooling.b_fan2_selected = msg_data_a->coolant_out.bat_pump;
@@ -965,17 +951,14 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
     if (cooling.curr_hover != DT_FAN_SELECT) {
         cooling.d_fan_val = msg_data_a->coolant_out.dt_fan;
         set_value(DT_FAN_BAR, cooling.d_fan_val);
-        //set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
-        set_text(DT_FAN_VAL, int_to_char(cooling.d_fan_val, parsed_value));
-        bzero(parsed_value, 3);
+        set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);
     }
 
     if (cooling.curr_hover != FAN1_SELECT) {
         cooling.b_fan_val = msg_data_a->coolant_out.bat_fan;
         set_value(B_FAN1_BAR, cooling.b_fan_val);
-        set_value(B_FAN1_VAL, NXT_FONT_COLOR, cooling.b_fan_val);
-        set_text(B_FAN1_VAL, int_to_char(cooling.b_fan_val, parsed_value));
-        bzero(parsed_value, 3);
+        set_value(B_FAN1_VAL, cooling.b_fan_val);
+        set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
     }
 
     set_font_color(DT_PUMP_OP, COOLING_FG);
@@ -994,9 +977,6 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
 }
 
 void update_tv_page() {
-    // Parsed value represents:
-    char parsed_value[3] = "\0";
-
     // Establish hover position
     tv_settings.curr_hover = TV_INTENSITY_HOVER;
 
@@ -1009,13 +989,11 @@ void update_tv_page() {
     // Set displayed data
     set_value(TV_INTENSITY_FLT, tv_settings.tv_intensity_val);
     set_value(TV_PROPORTION_FLT, tv_settings.tv_p_val);
-    set_text(TV_DEAD_TXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-    bzero(parsed_value, 3);
+    set_textf(TV_DEAD_TXT, "%d", tv_settings.tv_deadband_val);
     set_value(TV_ENABLE_OP, tv_settings.tv_enable_selected);
 }
 
 void move_up_tv() {
-    char parsed_value[3] = "\0";
     switch(tv_settings.curr_hover) {
         case TV_INTENSITY_SELECTED:
             // Increase the intensity value
@@ -1048,8 +1026,7 @@ void move_up_tv() {
             tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
 
             // Update the page items
-            set_text(TV_DEAD_TXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-            bzero(parsed_value, 3);
+            set_textf(TV_DEAD_TXT, "%d", tv_settings.tv_deadband_val);
             break;
         case TV_DEADBAND_HOVER:
             // Scroll up to P
@@ -1068,7 +1045,6 @@ void move_up_tv() {
 }
 
 void move_down_tv() {
-    char parsed_value[3] = "\0";
     switch (tv_settings.curr_hover) {
         case TV_INTENSITY_SELECTED:
             // Decrease the intensity value
@@ -1126,8 +1102,7 @@ void move_down_tv() {
             }
 
             // Update the page items
-            set_text(TV_DEAD_TXT, int_to_char(tv_settings.tv_deadband_val, parsed_value));
-            bzero(parsed_value, 3);
+            set_textf(TV_DEAD_TXT, "%d", tv_settings.tv_deadband_val);
             break;
         case TV_DEADBAND_HOVER:
             // Scroll down to enable
@@ -1416,41 +1391,6 @@ void select_race() {
     // there is only one option for now
     tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
     set_value(RACE_TV_ON, tv_settings.tv_enable_selected);
-}
-
-void append_char(char *str, char ch, size_t max_len) {
-    size_t len = 0;
-    while (*str != '\0' && len < max_len - 1) {
-        str++;
-        len++;
-    }
-    if (len < max_len - 1) {
-        *str++ = ch;
-        *str = '\0';
-    };
-}
-
-char *int_to_char(int16_t val, char *val_to_send) {
-    char *orig_ptr = val_to_send;
-    if (val < 10) {
-        if (val < 0) {
-            *val_to_send++ = (char)('-');
-            val *= -1;
-        }
-        *val_to_send = (char)(val + 48);
-        return orig_ptr;
-    }
-    else if (val < 100) {
-        *val_to_send++ = val / 10 + 48;
-        *val_to_send = val % 10 + 48;
-        return orig_ptr;
-    }
-    else {
-        *val_to_send++ = val / 100 + 48;
-        *val_to_send++ = val % 100 / 10 + 48;
-        *val_to_send = val % 10 + 48;
-        return orig_ptr;
-    }
 }
 
 void setFaultIndicator(uint16_t fault, char *element) {

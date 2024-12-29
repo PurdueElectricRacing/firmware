@@ -1,17 +1,20 @@
 /**
- * @file nextion.h
- * @author Matthew Flanagan (matthewdavidflanagan@outlook.com) - Original implementation
- * @author Luke Oxley (lcoxley@purdue.edu) - Conversion for current use
- * @author Irving Wang - Expanded for additional Nextion commands
- * @brief Interface for controlling Nextion display modules through serial communication.
- * @version 1.0
- * @date 2024-12-28
- *
- * @copyright Copyright (c) 2024
- *
+ * @file nextion.c
+ * @brief Nextion display driver interface
+ * 
+ * Interface for controlling Nextion display modules through serial communication.
+ * 
+ * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Irving Wang
+ * 
+ * Original implementation by Matthew Flanagan
+ * Converted for current use by Luke Oxley
+ * Expanded by Irving Wang
  */
 
 #include "nextion.h"
+
 #include <stdarg.h>
 
 extern q_handle_t q_tx_usart;
@@ -24,8 +27,8 @@ extern q_handle_t q_tx_usart;
  */
 void set_flag(char* obj_name, uint8_t enable)
 {
-  if (enable) set_value(obj_name, NXT_VALUE, FLAG_ENABLED_PIC);
-  else set_value(obj_name, NXT_VALUE, FLAG_DISABLED_PIC);
+  if (enable) set_value(obj_name, FLAG_ENABLED_PIC);
+  else set_value(obj_name, FLAG_DISABLED_PIC);
 }
 
 /**
@@ -119,8 +122,8 @@ void set_textf(char* obj_name, const char* format, ...)
  * @param page_name The name of the page to set on the Nextion display.
  */
 void set_page(char* page_name) {
-  char result[NXT_STR_SIZE]; //.val=XXXXXFFF
-	snprintf(result, sizeof(result), "page %s%s", page_name, NXT_CMD_TERM);
+  char result[NXT_STR_SIZE];
+  snprintf(result, sizeof(result), "%s%s%s", NXT_PAGE, page_name, NXT_CMD_TERM);
   qSendToBack(&q_tx_usart, (uint16_t *) result);
 }
 
@@ -132,7 +135,7 @@ void set_page(char* page_name) {
 void set_brightness(uint8_t percentage) {
   if (percentage > 100) percentage = 100;
   char result[NXT_STR_SIZE];
-  snprintf(result, sizeof(result), "dims=%d%s", percentage, NXT_CMD_TERM);
+  snprintf(result, sizeof(result), "%s%d%s", NXT_BRIGHTNESS, percentage, NXT_CMD_TERM);
   qSendToBack(&q_tx_usart, (uint16_t *) result);
 }
 
@@ -143,7 +146,7 @@ void set_brightness(uint8_t percentage) {
  */
 void set_baud(uint32_t baud) {
   char result[NXT_STR_SIZE];
-  snprintf(result, sizeof(result), "bauds=%d%s", baud, NXT_CMD_TERM);
+  snprintf(result, sizeof(result), "%s%d%s", NXT_BAUD, baud, NXT_CMD_TERM);
   qSendToBack(&q_tx_usart, (uint16_t *) result);
 }
 

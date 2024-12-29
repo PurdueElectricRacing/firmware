@@ -161,114 +161,114 @@ int main()
     return 0;
 }
 
-extern uint16_t fault_buf[5];
-void emulate_fault() {
-    // fault_buf[0] = 1;
-    // fault_buf[1] = 2;
-    // fault_buf[2] = 3;
-    // fault_buf[3] = 4;
-    // fault_buf[4] = 5;
-    setFault(ID_TEST_FAULT_1_FAULT, 2);
-    setFault(ID_TEST_FAULT_2_FAULT, 2);
-    setFault(ID_TEST_FAULT_3_FAULT, 2);
-    setFault(ID_TEST_FAULT_4_FAULT, 124);
-}
+// extern uint16_t fault_buf[5];
+// void emulate_fault() {
+//     // fault_buf[0] = 1;
+//     // fault_buf[1] = 2;
+//     // fault_buf[2] = 3;
+//     // fault_buf[3] = 4;
+//     // fault_buf[4] = 5;
+//     setFault(ID_TEST_FAULT_1_FAULT, 2);
+//     setFault(ID_TEST_FAULT_2_FAULT, 2);
+//     setFault(ID_TEST_FAULT_3_FAULT, 2);
+//     setFault(ID_TEST_FAULT_4_FAULT, 124);
+// }
 
-void pollDashboardInputs() {
-    if (g_inputs.up) {
-        g_inputs.up = 0;
-        moveUp();
-    }
+// void pollDashboardInputs() {
+//     if (g_inputs.up) {
+//         g_inputs.up = 0;
+//         moveUp();
+//     }
 
-    if (g_inputs.down) {
-        g_inputs.down = 0;
-        moveDown();
-    }
+//     if (g_inputs.down) {
+//         g_inputs.down = 0;
+//         moveDown();
+//     }
 
-    if (g_inputs.select) {
-        g_inputs.select = 0;
-        selectItem();
-    }
+//     if (g_inputs.select) {
+//         g_inputs.select = 0;
+//         selectItem();
+//     }
 
-    // divide the pot value by 8 pages
-    g_inputs.page = raw_adc_values.pot_val / ((POT_MAX + 1) / 9);
-    lcd_data.encoder_position = g_inputs.page;
-}
+//     // divide the pot value by 8 pages
+//     g_inputs.page = raw_adc_values.pot_val / ((POT_MAX + 1) / 9);
+//     lcd_data.encoder_position = g_inputs.page;
+// }
 
 
-// LCD USART Communication
-uint8_t cmd[100] = {'\0'};
-void usartTxUpdate()
-{
-    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
-    {
-        PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
-    }
-}
+// // LCD USART Communication
+// uint8_t cmd[100] = {'\0'};
+// void usartTxUpdate()
+// {
+//     if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
+//     {
+//         PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
+//     }
+// }
 
-static volatile uint32_t last_click_time;
-void EXTI9_5_IRQHandler() {
-    if (EXTI->PR & (0x1<<7)) { // check triggered by PB7
-        if (sched.os_ticks - last_click_time > 20) { // simple debounce
-            last_click_time = sched.os_ticks;
-            g_inputs.up = 1;
-            PHAL_toggleGPIO(GPIOD, 12);
-        }
-        EXTI->PR = (0x1<<7); // clear the pending bit
-    }
+// static volatile uint32_t last_click_time;
+// void EXTI9_5_IRQHandler() {
+//     if (EXTI->PR & (0x1<<7)) { // check triggered by PB7
+//         if (sched.os_ticks - last_click_time > 20) { // simple debounce
+//             last_click_time = sched.os_ticks;
+//             g_inputs.up = 1;
+//             PHAL_toggleGPIO(GPIOD, 12);
+//         }
+//         EXTI->PR = (0x1<<7); // clear the pending bit
+//     }
 
-    if (EXTI->PR & (0x1<<5)) { // check triggered by PB5
-        if (sched.os_ticks - last_click_time > 20) { // simple debounce
-            last_click_time = sched.os_ticks;
-            g_inputs.down = 1;
-            PHAL_toggleGPIO(GPIOD, 13);
-        }
-        EXTI->PR = (0x1<<5); // clear the pending bit
-    }
-}
+//     if (EXTI->PR & (0x1<<5)) { // check triggered by PB5
+//         if (sched.os_ticks - last_click_time > 20) { // simple debounce
+//             last_click_time = sched.os_ticks;
+//             g_inputs.down = 1;
+//             PHAL_toggleGPIO(GPIOD, 13);
+//         }
+//         EXTI->PR = (0x1<<5); // clear the pending bit
+//     }
+// }
 
-void EXTI3_IRQHandler() {
-    if (EXTI->PR & (0x1<<3)) { // check triggered by PB3
-        if (sched.os_ticks - last_click_time > 20) { // simple debounce
-            last_click_time = sched.os_ticks;
-            g_inputs.select = 1;
-            PHAL_toggleGPIO(GPIOD, 14);
-        }
-        EXTI->PR = (0x1<<3); // clear the pending bit
-    }
-}
+// void EXTI3_IRQHandler() {
+//     if (EXTI->PR & (0x1<<3)) { // check triggered by PB3
+//         if (sched.os_ticks - last_click_time > 20) { // simple debounce
+//             last_click_time = sched.os_ticks;
+//             g_inputs.select = 1;
+//             PHAL_toggleGPIO(GPIOD, 14);
+//         }
+//         EXTI->PR = (0x1<<3); // clear the pending bit
+//     }
+// }
 
-void config_inturrupts() {
-    // Enable the SYSCFG clock for interrupts
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+// void config_inturrupts() {
+//     // Enable the SYSCFG clock for interrupts
+//     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-    /* Configure UP (GPIO B7) */
-    SYSCFG->EXTICR[1] &= ~(0b1111 << 12); // Clear bits 12-15 in EXTICR2 to reset EXTI7 source
-    SYSCFG->EXTICR[1] |= (0b0001 << 12);  // Set bits 12-15 to 0001 to select Port B for EXTI7
+//     /* Configure UP (GPIO B7) */
+//     SYSCFG->EXTICR[1] &= ~(0b1111 << 12); // Clear bits 12-15 in EXTICR2 to reset EXTI7 source
+//     SYSCFG->EXTICR[1] |= (0b0001 << 12);  // Set bits 12-15 to 0001 to select Port B for EXTI7
 
-    EXTI->IMR |= (0x1 << 7); // Enable interrupt on EXTI line 7 by setting bit 7 in IMR
-    EXTI->RTSR |= (0x1 << 7); // Enable falling edge trigger on line 7
-    EXTI->FTSR &= ~(0x1 << 7); // Clear falling edge trigger on line 7
+//     EXTI->IMR |= (0x1 << 7); // Enable interrupt on EXTI line 7 by setting bit 7 in IMR
+//     EXTI->RTSR |= (0x1 << 7); // Enable falling edge trigger on line 7
+//     EXTI->FTSR &= ~(0x1 << 7); // Clear falling edge trigger on line 7
 
-    /* Configure DOWN (GPIO B5) */
-    SYSCFG->EXTICR[1] &= ~(0b1111 << 4);
-    SYSCFG->EXTICR[1] |= (0b0001 << 4);
+//     /* Configure DOWN (GPIO B5) */
+//     SYSCFG->EXTICR[1] &= ~(0b1111 << 4);
+//     SYSCFG->EXTICR[1] |= (0b0001 << 4);
 
-    EXTI->IMR |= (0x1 << 5);
-    EXTI->RTSR |= (0x1 << 5);
-    EXTI->FTSR &= ~(0x1 << 5);
+//     EXTI->IMR |= (0x1 << 5);
+//     EXTI->RTSR |= (0x1 << 5);
+//     EXTI->FTSR &= ~(0x1 << 5);
 
-    /* Configure SELECT (GPIO B3) */
-    SYSCFG->EXTICR[0] &= ~(0b1111 << 12);
-    SYSCFG->EXTICR[0] |= (0b0001 << 12); 
+//     /* Configure SELECT (GPIO B3) */
+//     SYSCFG->EXTICR[0] &= ~(0b1111 << 12);
+//     SYSCFG->EXTICR[0] |= (0b0001 << 12); 
 
-    EXTI->IMR |= (0x1 << 3);
-    EXTI->RTSR |= (0x1 << 3);
-    EXTI->FTSR &= ~(0x1 << 3);
+//     EXTI->IMR |= (0x1 << 3);
+//     EXTI->RTSR |= (0x1 << 3);
+//     EXTI->FTSR &= ~(0x1 << 3);
 
-    NVIC_EnableIRQ(EXTI9_5_IRQn);
-    NVIC_EnableIRQ(EXTI3_IRQn);
-}
+//     NVIC_EnableIRQ(EXTI9_5_IRQn);
+//     NVIC_EnableIRQ(EXTI3_IRQn);
+// }
 
 
 void HardFault_Handler()

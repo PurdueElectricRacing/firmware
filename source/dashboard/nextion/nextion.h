@@ -46,7 +46,9 @@
 
 void set_flag(char* obj_name, uint8_t enable);
 void set_float(char* obj_name, char* param, float num, uint8_t precision);
-void set_value(char* obj_name, char* param, uint16_t val);
+void set_value(char* obj_name, uint16_t val);
+void set_background(char* obj_name, uint16_t val);
+void set_font_color(char* obj_name, uint16_t val);
 void set_text(char* obj_name, char* text);
 void set_textf(char* obj_name, const char* format, ...);
 void set_page(char* page_name);

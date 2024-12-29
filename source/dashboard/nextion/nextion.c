@@ -2,7 +2,7 @@
  * @file nextion.h
  * @author Matthew Flanagan (matthewdavidflanagan@outlook.com) - Original implementation
  * @author Luke Oxley (lcoxley@purdue.edu) - Conversion for current use
- * @author Irving Wang - Extension for additional Nextion commands
+ * @author Irving Wang - Expanded for additional Nextion commands
  * @brief Interface for controlling Nextion display modules through serial communication.
  * @version 1.0
  * @date 2024-12-28
@@ -44,16 +44,41 @@ void set_float(char* obj_name, char* param, float num, uint8_t precision)
 }
 
 /**
- * @brief Sets a value for a specified object and parameter on the Nextion display.
+ * @brief Sets a value to a specified object on the Nextion display.
  *
  * @param obj_name The name of the object on the Nextion display.
- * @param param The parameter of the object to be set.
- * @param val The value to set for the specified parameter.
+ * @param val The value to set for the specified object.
  */
-void set_value(char* obj_name, char* param, uint16_t val) 
+void set_value(char* obj_name, uint16_t val) 
 {
   char result[NXT_STR_SIZE];
-  snprintf(result, sizeof(result), "%s%s%d%s", obj_name, param, val, NXT_CMD_TERM);
+  snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_VALUE, val, NXT_CMD_TERM);
+  qSendToBack(&q_tx_usart, (uint16_t *) result);
+}
+
+/**
+ * @brief Sets the background color of a specified object on the Nextion display.
+ *
+ * @param obj_name The name of the object on the Nextion display.
+ * @param val The background color value to set for the specified object.
+ */
+void set_background(char* obj_name, uint16_t val) 
+{
+  char result[NXT_STR_SIZE];
+  snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_BACKGROUND_COLOR, val, NXT_CMD_TERM);
+  qSendToBack(&q_tx_usart, (uint16_t *) result);
+}
+
+/**
+ * @brief Sets the font color of a specified object on the Nextion display.
+ *
+ * @param obj_name The name of the object on the Nextion display.
+ * @param val The font color value to set for the specified object.
+ */
+void set_font_color(char* obj_name, uint16_t val) 
+{
+  char result[NXT_STR_SIZE];
+  snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_FONT_COLOR, val, NXT_CMD_TERM);
   qSendToBack(&q_tx_usart, (uint16_t *) result);
 }
 

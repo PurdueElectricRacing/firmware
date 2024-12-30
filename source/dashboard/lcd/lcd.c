@@ -73,7 +73,7 @@ void setFaultIndicator(uint16_t fault, char *element);
 
 // page handlers array must match page_t enum order exactly
 const page_handler_t page_handlers[] = {
-    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race},
+    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race}, // No move handlers
     [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
     [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
     [PAGE_FAULTS]    = {update_faults_page, move_up_faults, move_down_faults, select_fault},
@@ -81,29 +81,12 @@ const page_handler_t page_handlers[] = {
     [PAGE_DRIVER]    = {update_driver_page, move_up_driver, move_down_driver, select_driver},
     [PAGE_PROFILES]  = {update_profile_page, move_up_profile, move_down_profile, select_profile},
     [PAGE_LOGGING]   = {NULL, NULL, NULL, NULL},  // TODO: Implement logging handlers
-    [PAGE_DATA]      = {NULL, NULL, NULL, NULL}, // TODO Implement data handlers
+    [PAGE_APPS]      = {NULL, NULL, NULL, NULL}, // Apps is passive
     [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL}, // Preflight is passive
     [PAGE_WARNING]   = {NULL, NULL, NULL, select_error_page}, // Error pages share a select handler
     [PAGE_ERROR]     = {NULL, NULL, NULL, select_error_page},  
     [PAGE_FATAL]     = {NULL, NULL, NULL, select_error_page}
 };
-
-
-// Call initially to ensure the LCD is initialized to the proper value -
-// should be replaced with the struct prev page stuff eventually
-int zeroEncoder(volatile int8_t* start_pos) {
-    // ! uncomment this when encoder is implemented
-    // Collect initial raw reading from encoder
-    // uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
-    // uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
-    // uint8_t raw_res = (raw_enc_b | (raw_enc_a << 1));
-    // *start_pos = raw_res;
-    lcd_data.encoder_position = 0;
-
-    // Set page (leave preflight)
-    updatePage();
-    return 1;
-}
 
 // Initialize the LCD screen
 // Preflight will be shown on power on, then reset to RACE
@@ -120,6 +103,9 @@ void initLCD() {
 
     readProfiles();
     profile_page.saved = true;
+
+    // Set page (leave preflight)
+    updatePage();
 }
 
 void updatePage() {
@@ -143,27 +129,27 @@ void updatePage() {
 
     // Set the page on display
     switch (curr_page) {
-        case PAGE_LOGGING: set_page(LOGGING_STRING); break;
+        case PAGE_RACE: set_page(RACE_STRING); break;
+        case PAGE_COOLING: set_page(COOLING_STRING); break;
+        case PAGE_TVSETTINGS: set_page(TVSETTINGS_STRING); break;
+        case PAGE_FAULTS: set_page(FAULT_STRING); break;
+        case PAGE_SDCINFO: set_page(SDCINFO_STRING); break;
         case PAGE_DRIVER: set_page(DRIVER_STRING); break;
         case PAGE_PROFILES: set_page(DRIVER_CONFIG_STRING); break;
-        case PAGE_SDCINFO: set_page(SDCINFO_STRING); break;
-        case PAGE_TVSETTINGS: set_page(TVSETTINGS_STRING); break;
-        case PAGE_ERROR:
-            set_page(ERR_STRING);
-            set_text(ERR_TXT, errorText);
-            return;
+        case PAGE_LOGGING: set_page(LOGGING_STRING); break;
+        case PAGE_APPS: set_page(APPS_STRING); break;
         case PAGE_WARNING:
             set_page(WARN_STRING);
+            set_text(ERR_TXT, errorText);
+            return;
+        case PAGE_ERROR:
+            set_page(ERR_STRING);
             set_text(ERR_TXT, errorText);
             return;
         case PAGE_FATAL:
             set_page(FATAL_STRING);
             set_text(ERR_TXT, errorText);
             return;
-        case PAGE_RACE: set_page(RACE_STRING); break;
-        case PAGE_DATA: set_page(DATA_STRING); break;
-        case PAGE_COOLING: set_page(COOLING_STRING); break;
-        case PAGE_FAULTS: set_page(FAULT_STRING); break;
     }
 
     // Call update handler if available
@@ -221,19 +207,17 @@ void select_fault() {
     }
 }
 
-void update_data_page() {
+void update_apps_page() {
     set_value(POW_LIM_BAR, 0);
     set_value(THROT_BAR, (int) ((filtered_pedals / 4095.0) * 100));
+    // TODO fill out
 }
 
-void updateDataPages() {
-    switch (curr_page) {
-        case PAGE_RACE:
-            update_race_page();
-            break;
-        case PAGE_DATA:
-            update_data_page();
-            break;
+void updateTelemetryPages() {
+    if (curr_page == PAGE_RACE) {
+        update_race_page();
+    } else {
+        update_apps_page();
     }
 }
 

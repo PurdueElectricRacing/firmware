@@ -209,7 +209,7 @@ int main(void){
     taskCreate(heartBeatTask, 100);
     taskCreate(send_shockpots, 15);
     taskCreate(interpretLoadSensor, 15);
-    taskCreate(updateDataPages, 200);
+    taskCreate(updateTelemetryPages, 200);
     taskCreate(sendTVParameters, 4000);
     taskCreate(updateSDCDashboard, 500);
     taskCreateBackground(usartTxUpdate);
@@ -219,6 +219,19 @@ int main(void){
     schedStart();
 
     return 0;
+}
+
+// Call initially to ensure the LCD is initialized to the proper value -
+// should be replaced with the struct prev page stuff eventually
+int zeroEncoder(volatile int8_t* start_pos) {
+    // Collect initial raw reading from encoder
+    uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
+    uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
+    uint8_t raw_res = (raw_enc_b | (raw_enc_a << 1));
+    *start_pos = raw_res;
+    lcd_data.encoder_position = 0;
+
+    return 1;
 }
 
 void preflightChecks(void) {

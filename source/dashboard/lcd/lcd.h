@@ -7,7 +7,7 @@
 //Page Strings / info
 #define RACE_STRING "race"
 #define COOLING_STRING "cooling"
-#define DATA_STRING "data"
+#define APPS_STRING "apps"
 #define ERR_STRING "error"
 #define WARN_STRING "warning"
 #define FATAL_STRING "critical"
@@ -140,7 +140,7 @@ typedef enum {
   PAGE_DRIVER,
   PAGE_PROFILES,
   PAGE_LOGGING,
-  PAGE_DATA,
+  PAGE_APPS,
 
   // Pages that can be displayed but not selected with the encoder
   PAGE_PREFLIGHT,
@@ -246,16 +246,15 @@ typedef struct {
   void (*select)(void);
 } page_handler_t;
 
-void initLCD();                                     // Initialize LCD data structures and configuration
-void updatePage();                                  // Change the current page of the LCD
-void moveUp();                                      // Upward UI input detected (up button or in some cases encoder)
-void moveDown();                                    // Downward UI input detected (down button or in some cases encoder)
-void selectItem();                                  // Selection UI input detected
-void updateFaultDisplay();                          // Periodically poll recent faults and update the fault buffer and page as needed
-void updateDataPages();                             // Periodically poll recent telemetry and update the data page as needd
-int zeroEncoder(volatile int8_t* start_pos);        // Zero the encoder position for page selection
-void sendTVParameters();                            // Periodically send updates to the TV configuration to TV board
-void updateFaultPageIndicators();
-void updateSDCDashboard();
+void initLCD();                     // Initialize LCD data structures and configuration
+void updatePage();                  // Change the current page of the LCD
+void moveUp();                      // Upward UI input detected (up button or in some cases encoder)
+void moveDown();                    // Downward UI input detected (down button or in some cases encoder)
+void selectItem();                  // Selection UI input detected
+void updateFaultDisplay();          // Periodically poll recent faults and update the fault buffer and page as needed
+void updateTelemetryPages();        // Periodically poll recent telemetry and update the race/apps page as needd
+void sendTVParameters();            // Periodically send updates to the TV configuration to TV board
+void updateFaultPageIndicators();   // Update the fault page indicators
+void updateSDCDashboard();          // Update the SDC info page
 
 #endif // __LCD_H__

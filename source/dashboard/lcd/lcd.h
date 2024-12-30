@@ -3,6 +3,7 @@
 
 #include "nextion.h"
 #include <stdint.h>
+#include "menu_system.h"
 
 //Page Strings / info
 #define RACE_STRING "race"
@@ -256,5 +257,7 @@ void updateTelemetryPages();        // Periodically poll recent telemetry and up
 void sendTVParameters();            // Periodically send updates to the TV configuration to TV board
 void updateFaultPageIndicators();   // Update the fault page indicators
 void updateSDCDashboard();          // Update the SDC info page
+
+extern menu_page_t tv_page;
 
 #endif // __LCD_H__

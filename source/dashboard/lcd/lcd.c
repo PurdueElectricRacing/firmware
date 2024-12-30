@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
+#include "menu_system.h"
 
 volatile page_t curr_page;              // Current page displayed on the LCD
 volatile page_t prev_page;              // Previous page displayed on the LCD
@@ -28,6 +29,49 @@ extern lcd_t lcd_data;
 uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
 extern driver_profile_t driver_profiles[4];
 
+// TV Settings page menu elements
+menu_element_t tv_elements[] = {
+    {
+        .type = ELEMENT_FLOAT,
+        .element_id = TV_INTENSITY_FLT,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 100,
+        .increment = 5,
+        .on_change = sendTVParameters
+    },
+    {
+        .type = ELEMENT_FLOAT,
+        .element_id = TV_PROPORTION_FLT,
+        .current_value = 40,
+        .min_value = 0,
+        .max_value = 100,
+        .increment = 5,
+        .on_change = sendTVParameters
+    },
+    {
+        .type = ELEMENT_FLOAT,
+        .element_id = TV_DEAD_TXT,
+        .current_value = 12,
+        .min_value = 0,
+        .max_value = 30,
+        .increment = 1,
+        .on_change = sendTVParameters
+    },
+    {
+        .type = ELEMENT_TOGGLE,
+        .element_id = TV_ENABLE_OP,
+        .is_enabled = true,
+        .on_change = sendTVParameters
+    }
+};
+
+menu_page_t tv_page = {
+    .elements = tv_elements,
+    .num_elements = sizeof(tv_elements) / sizeof(tv_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
+};
 
 // Driver Page Functions
 void update_driver_page();
@@ -963,176 +1007,15 @@ void update_tv_page() {
 }
 
 void move_up_tv() {
-    switch(tv_settings.curr_hover) {
-        case TV_INTENSITY_SELECTED:
-            // Increase the intensity value
-            tv_settings.tv_intensity_val = (tv_settings.tv_intensity_val + 5) % 1000;
-            // Update the page items
-            set_value(TV_INTENSITY_FLT, tv_settings.tv_intensity_val);
-            break;
-        case TV_INTENSITY_HOVER:
-            // Wrap around to enable
-            tv_settings.curr_hover = TV_ENABLE_HOVER;
-            // Update the background
-            set_background(TV_ENABLE_OP, TV_HOVER_BG);
-            set_background(TV_INTENSITY_FLT, TV_BG);
-            break;
-        case TV_P_SELECTED:
-            // Increase the p value
-            tv_settings.tv_p_val = (tv_settings.tv_p_val + 5) % 1000;
-            // Update the page items
-            set_value(TV_PROPORTION_FLT, tv_settings.tv_p_val);
-            break;
-        case TV_P_HOVER:
-            // Scroll up to Intensity
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-            // Update the background
-            set_background(TV_INTENSITY_FLT, TV_HOVER_BG);
-            set_background(TV_PROPORTION_FLT, TV_BG);
-            break;
-        case TV_DEADBAND_SELECTED:
-            // Increase the deadband value
-            tv_settings.tv_deadband_val = (tv_settings.tv_deadband_val + 1) % 30;
-
-            // Update the page items
-            set_textf(TV_DEAD_TXT, "%d", tv_settings.tv_deadband_val);
-            break;
-        case TV_DEADBAND_HOVER:
-            // Scroll up to P
-            tv_settings.curr_hover = TV_P_HOVER;
-            // Update the background
-            set_background(TV_PROPORTION_FLT, TV_HOVER_BG);
-            set_background(TV_DEAD_TXT, TV_BG);
-            break;
-        case TV_ENABLE_HOVER:
-            // Scroll up to deadband
-            tv_settings.curr_hover = TV_DEADBAND_HOVER;
-            set_background(TV_DEAD_TXT, TV_HOVER_BG);
-            set_background(TV_ENABLE_OP, TV_BG);
-            break;
-    }
+    menu_move_up(&tv_page);
 }
 
 void move_down_tv() {
-    switch (tv_settings.curr_hover) {
-        case TV_INTENSITY_SELECTED:
-            // Decrease the intensity value
-            if (tv_settings.tv_intensity_val == 0)
-            {
-                tv_settings.tv_intensity_val = 100;
-            }
-            else
-            {
-                tv_settings.tv_intensity_val-= 5;
-            }
-
-            // Update the page item
-            set_value(TV_INTENSITY_FLT, tv_settings.tv_intensity_val);
-            break;
-        case TV_INTENSITY_HOVER:
-            // Scroll down to P
-            tv_settings.curr_hover = TV_P_HOVER;
-
-            // Update the background
-            set_background(TV_PROPORTION_FLT, TV_HOVER_BG);
-            set_background(TV_INTENSITY_FLT, TV_BG);
-            break;
-        case TV_P_SELECTED:
-            // Decrease the P value
-            if (tv_settings.tv_p_val == 0)
-            {
-                tv_settings.tv_p_val = 100;
-            }
-            else
-            {
-                tv_settings.tv_p_val-= 5;
-            }
-
-            // Update the page items
-            set_value(TV_PROPORTION_FLT, tv_settings.tv_p_val);
-            break;
-        case TV_P_HOVER:
-            // Scroll down to deadband
-            tv_settings.curr_hover = TV_DEADBAND_HOVER;
-
-            // Update the background
-            set_background(TV_DEAD_TXT, TV_HOVER_BG);
-            set_background(TV_PROPORTION_FLT, TV_BG);
-            break;
-        case TV_DEADBAND_SELECTED:
-            // Decrease the deadband value
-            if (tv_settings.tv_deadband_val == 0)
-            {
-                tv_settings.tv_deadband_val = 30;
-            }
-            else
-            {
-                tv_settings.tv_deadband_val--;
-            }
-
-            // Update the page items
-            set_textf(TV_DEAD_TXT, "%d", tv_settings.tv_deadband_val);
-            break;
-        case TV_DEADBAND_HOVER:
-            // Scroll down to enable
-            tv_settings.curr_hover = TV_ENABLE_HOVER;
-
-            // Update the background
-            set_background(TV_ENABLE_OP, TV_HOVER_BG);
-            set_background(TV_DEAD_TXT, TV_BG);
-            break;
-        case TV_ENABLE_HOVER:
-            // Scroll down to intensity
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-            set_background(TV_INTENSITY_FLT, TV_HOVER_BG);
-            set_background(TV_ENABLE_OP, TV_BG);
-            break;
-    }
+    menu_move_down(&tv_page);
 }
 
 void select_tv() {
-    // So if we hit select on an already selected item, unselect it (switch to hover)
-    switch (tv_settings.curr_hover) {
-        case TV_INTENSITY_HOVER:
-            tv_settings.curr_hover = TV_INTENSITY_SELECTED;
-            set_background(TV_INTENSITY_FLT, ORANGE);
-            // todo Rot encoder state should let us scroll through value options
-            // for now just use buttons for move up and move down
-            break;
-        case TV_INTENSITY_SELECTED:
-            // "submit" -> CAN payload will update automatically? decide
-            // Think about edge case when the user leaves the page? Can they without unselecting -> no. What if fault?
-            tv_settings.curr_hover = TV_INTENSITY_HOVER;
-            set_background(TV_INTENSITY_FLT, TV_HOVER_BG);
-            // rot encoder state goes back to page move instead of value move
-            break;
-        case TV_P_HOVER:
-            tv_settings.curr_hover = TV_P_SELECTED;
-            set_background(TV_PROPORTION_FLT, ORANGE);
-            break;
-        case TV_P_SELECTED:
-            tv_settings.curr_hover = TV_P_HOVER;
-            set_background(TV_PROPORTION_FLT, TV_HOVER_BG);
-            break;
-        case TV_DEADBAND_HOVER:
-            tv_settings.curr_hover = TV_DEADBAND_SELECTED;
-            set_background(TV_DEAD_TXT, ORANGE);
-            break;
-        case TV_DEADBAND_SELECTED:
-            tv_settings.curr_hover = TV_DEADBAND_HOVER;
-            set_background(TV_DEAD_TXT, TV_HOVER_BG);
-            break;
-        case TV_ENABLE_HOVER:
-            // Don't change the curr_hover
-            // Toggle the option
-            tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
-
-            // Set the option
-            set_value(TV_ENABLE_OP, tv_settings.tv_enable_selected);
-
-            // Update CAN as necessary
-            break;
-    }
+    menu_select(&tv_page);
 }
 
 void update_faults_page() {

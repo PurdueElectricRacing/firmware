@@ -39,6 +39,8 @@ typedef struct {
     uint8_t num_elements;       // Number of elements in array
     uint8_t current_index;      // Currently selected element index
     bool is_element_selected;   // Is an element currently selected?
+    bool saved;                 // Generic saved state flag
+    void* page_data;            // Pointer to page-specific data
 } menu_page_t;
 
 // Style functions

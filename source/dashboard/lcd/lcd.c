@@ -23,7 +23,6 @@ volatile cooling_page_t cooling;        // Data for the cooling page
 volatile tv_settings_t tv_settings;     // Data for the tvsettings page
 volatile driver_page_t driver_page;     // Data for the driver page
 volatile fault_page_t fault_page;       // Data for the faults page
-volatile profile_page_t profile_page;   // Data for the profile page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
@@ -71,6 +70,47 @@ menu_page_t tv_page = {
     .num_elements = sizeof(tv_elements) / sizeof(tv_elements[0]),
     .current_index = 0,
     .is_element_selected = false
+};
+
+// Profile page menu elements
+menu_element_t profile_elements[] = {
+    {
+        .type = ELEMENT_FLOAT,
+        .element_id = PROFILE_BRAKE_FLT,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 20,
+        .increment = 5,
+    },
+    {
+        .type = ELEMENT_FLOAT,
+        .element_id = PROFILE_THROTTLE_FLT,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 20,
+        .increment = 5,
+    },
+    {
+        .type = ELEMENT_TEXT,
+        .element_id = PROFILE_SAVE_TXT,
+    }
+};
+
+// Add this structure for profile-specific data
+typedef struct {
+    uint8_t driver_id;
+} profile_data_t;
+
+static profile_data_t profile_data = {0};
+
+// Update profile page definition
+menu_page_t profile_page = {
+    .elements = profile_elements,
+    .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false,
+    .saved = true,
+    .page_data = &profile_data
 };
 
 // Driver Page Functions
@@ -578,153 +618,77 @@ void select_driver() {
 }
 
 void update_profile_page() {
-    profile_page.curr_hover = BRAKE_HOVER;
-
+    // Update displayed driver name
     switch (driver_page.curr_select) {
-        case DRIVER1:
-            set_text(PROFILE_CURRENT_TXT, DRIVER1_NAME);
-            break;
-        case DRIVER2:
-            set_text(PROFILE_CURRENT_TXT, DRIVER2_NAME);
-            break;
-        case DRIVER3:
-            set_text(PROFILE_CURRENT_TXT, DRIVER3_NAME);
-            break;
-        case DRIVER4:
-            set_text(PROFILE_CURRENT_TXT, DRIVER4_NAME);
-            break;
+        case DRIVER1: set_text(PROFILE_CURRENT_TXT, DRIVER1_NAME); break;
+        case DRIVER2: set_text(PROFILE_CURRENT_TXT, DRIVER2_NAME); break;
+        case DRIVER3: set_text(PROFILE_CURRENT_TXT, DRIVER3_NAME); break;
+        case DRIVER4: set_text(PROFILE_CURRENT_TXT, DRIVER4_NAME); break;
     }
 
-    // Set the initial background color
-    set_background(PROFILE_BRAKE_FLT, TV_HOVER_BG);
-    set_background(PROFILE_THROTTLE_FLT, TV_BG);
-    set_background(PROFILE_SAVE_TXT, BLACK);
+    // Load profile values
+    profile_data_t* data = (profile_data_t*)profile_page.page_data;
+    data->driver_id = (uint8_t)driver_page.curr_select;
+    
+    profile_elements[0].current_value = driver_profiles[data->driver_id].brake_travel_threshold;
+    profile_elements[1].current_value = driver_profiles[data->driver_id].throttle_travel_threshold;
 
-    readProfiles();
-
-    profile_page.driver_id = (uint8_t)driver_page.curr_select;
-    profile_page.brake_val = driver_profiles[profile_page.driver_id].brake_travel_threshold;
-    profile_page.throttle_val = driver_profiles[profile_page.driver_id].throttle_travel_threshold;
-
-    set_value(PROFILE_BRAKE_FLT, profile_page.brake_val);
-    set_value(PROFILE_THROTTLE_FLT, profile_page.throttle_val);
-
-    profile_page.driver_id = (uint8_t)driver_page.curr_select;
+    // Update display and styling
+    set_value(PROFILE_BRAKE_FLT, profile_elements[0].current_value);
+    set_value(PROFILE_THROTTLE_FLT, profile_elements[1].current_value);
+    
+    style_hover(&profile_elements[0]);
+    style_normal(&profile_elements[1]);
+    style_normal(&profile_elements[2]);
 }
 
 void move_up_profile() {
-    switch (profile_page.curr_hover) {
-        case BRAKE_HOVER:
-            profile_page.curr_hover = SAVE_HOVER;
-            set_background(PROFILE_SAVE_TXT, TV_HOVER_BG);
-            set_background(PROFILE_BRAKE_FLT, TV_BG);
-            break;
-        case BRAKE_SELECTED:
-            profile_page.saved = false;
-            if (profile_page.brake_val >= 20) {
-                profile_page.brake_val = 0;
-            } else {
-                profile_page.brake_val += 5;
-            }
-            set_value(PROFILE_BRAKE_FLT, profile_page.brake_val);
-            break;
-        case THROTTLE_HOVER:
-            profile_page.curr_hover = BRAKE_HOVER;
-            set_background(PROFILE_BRAKE_FLT, TV_HOVER_BG);
-            set_background(PROFILE_THROTTLE_FLT, TV_BG);
-            break;
-        case THROTTLE_SELECTED:
-            profile_page.saved = false;
-            if (profile_page.throttle_val >= 20) {
-              profile_page.throttle_val = 0;
-            } else {
-              profile_page.throttle_val += 5;
-            }
-            set_value(PROFILE_THROTTLE_FLT, profile_page.throttle_val);
-            break;
-        case SAVE_HOVER:
-            profile_page.curr_hover = THROTTLE_HOVER;
-            set_background(PROFILE_THROTTLE_FLT, TV_HOVER_BG);
-            set_background(PROFILE_SAVE_TXT, BLACK);
-            break;
+    menu_move_up(&profile_page);
+    
+    // Update save status indicator
+    if (!profile_page.is_element_selected) {
+        set_font_color(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
+        set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
     }
-    set_font_color(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
-    set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
 void move_down_profile() {
-    switch (profile_page.curr_hover) {
-        case BRAKE_HOVER:
-            profile_page.curr_hover = THROTTLE_HOVER;
-            set_background(PROFILE_THROTTLE_FLT, TV_HOVER_BG);
-            set_background(PROFILE_BRAKE_FLT, TV_BG);
-            break;
-        case BRAKE_SELECTED:
-            profile_page.saved = false;
-            if (profile_page.brake_val <= 0) {
-              profile_page.brake_val = 20;
-            } else {
-              profile_page.brake_val -= 5;
-            }
-            set_value(PROFILE_BRAKE_FLT, profile_page.brake_val);
-            break;
-        case THROTTLE_HOVER:
-            profile_page.curr_hover = SAVE_HOVER;
-            set_background(PROFILE_SAVE_TXT, TV_HOVER_BG);
-            set_background(PROFILE_THROTTLE_FLT, TV_BG);
-            break;
-        case THROTTLE_SELECTED:
-            profile_page.saved = false;
-            if (profile_page.throttle_val <= 0) {
-              profile_page.throttle_val = 20;
-            } else {
-              profile_page.throttle_val -= 5;
-            }
-            set_value(PROFILE_THROTTLE_FLT, profile_page.throttle_val);
-            break;
-        case SAVE_HOVER:
-            profile_page.curr_hover = BRAKE_HOVER;
-            set_background(PROFILE_BRAKE_FLT, TV_HOVER_BG);
-            set_background(PROFILE_SAVE_TXT, BLACK);
-            break;
+    menu_move_down(&profile_page);
+    
+    // Update save status indicator
+    if (!profile_page.is_element_selected) {
+        set_font_color(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
+        set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
     }
-    set_font_color(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
-    set_text(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
 }
 
 void select_profile() {
-    switch (profile_page.curr_hover) {
-        case BRAKE_HOVER:
-            profile_page.curr_hover = BRAKE_SELECTED;
-            set_background(PROFILE_BRAKE_FLT, ORANGE);
-            break;
-        case BRAKE_SELECTED:
-            profile_page.curr_hover = BRAKE_HOVER;
-            set_background(PROFILE_BRAKE_FLT, TV_HOVER_BG);
-            break;
-        case THROTTLE_HOVER:
-            profile_page.curr_hover = THROTTLE_SELECTED;
-            set_background(PROFILE_THROTTLE_FLT, ORANGE);
-            break;
-        case THROTTLE_SELECTED:
-            profile_page.curr_hover = THROTTLE_HOVER;
-            set_background(PROFILE_THROTTLE_FLT, TV_HOVER_BG);
-            break;
-        case SAVE_HOVER:
-            // Modify the driver profile
-            driver_profiles[profile_page.driver_id].brake_travel_threshold = profile_page.brake_val;
-            driver_profiles[profile_page.driver_id].throttle_travel_threshold = profile_page.throttle_val;
+    if (profile_page.current_index == 2) { // Save button
+        profile_data_t* data = (profile_data_t*)profile_page.page_data;
+        // Save profile values
+        driver_profiles[data->driver_id].brake_travel_threshold = profile_elements[0].current_value;
+        driver_profiles[data->driver_id].throttle_travel_threshold = profile_elements[1].current_value;
 
-            if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
-                profile_page.saved = false;
-                set_font_color(PROFILE_STATUS_TXT, RED);
-                set_text(PROFILE_STATUS_TXT, "FAILED");
-            } else {
-                profile_page.saved = true;
-                set_font_color(PROFILE_STATUS_TXT, GREEN);
-                set_text(PROFILE_STATUS_TXT, "SAVED");
-            }
-            break;
+        if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
+            profile_page.saved = false;
+            set_font_color(PROFILE_STATUS_TXT, RED);
+            set_text(PROFILE_STATUS_TXT, "FAILED");
+        } else {
+            profile_page.saved = true;
+            set_font_color(PROFILE_STATUS_TXT, GREEN);
+            set_text(PROFILE_STATUS_TXT, "SAVED");
+        }
+        return;
+    }
+
+    // Handle other elements using menu system
+    menu_select(&profile_page);
+    
+    // Mark as unsaved when values change
+    if (profile_page.is_element_selected) {
+        profile_page.saved = false;
+        set_font_color(PROFILE_STATUS_TXT, RED);
+        set_text(PROFILE_STATUS_TXT, "UNSAVED");
     }
 }
 

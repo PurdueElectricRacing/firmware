@@ -6,11 +6,11 @@
 
 // Element types
 typedef enum {
-    ELEMENT_TEXT,
-    ELEMENT_FLOAT,
-    ELEMENT_BAR,
-    ELEMENT_TOGGLE,
-    ELEMENT_OPTION
+    ELEMENT_NUM,    // Numeric value and float types
+    ELEMENT_BAR,    // Shared with numeric value
+    ELEMENT_TEXT,   // Text type
+    ELEMENT_OPTION, // On/off toggle
+    ELEMENT_LIST
 } element_type_t;
 
 // Element states
@@ -24,14 +24,14 @@ typedef enum {
 typedef struct {
     element_type_t type;
     element_state_t state;
-    char* element_id;           // Nextion element ID
-    uint16_t current_value;     // Current value for numeric types
-    uint16_t min_value;         // Minimum value for numeric types
-    uint16_t max_value;         // Maximum value for numeric types
-    uint16_t increment;         // Increment for numeric types
-    bool is_enabled;            // For toggles
+    char* object_name;          // Nextion object name
+    uint8_t current_value;      // Current value for numeric types
+    uint8_t min_value;          // Minimum value for numeric types
+    uint8_t max_value;          // Maximum value for numeric types
+    uint8_t increment;          // Increment for numeric types
+    bool is_enabled;            // For toggles and options
     void (*on_change)(void);    // Callback when value changes
-} menu_element_t;
+} menu_element_t; // todo eventually make this const (to store in flash)
 
 // Page structure
 typedef struct {

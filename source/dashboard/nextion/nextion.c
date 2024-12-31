@@ -6,7 +6,7 @@
  * 
  * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @author Irving Wang
+ * @author Irving Wang (wang5952@purdue.edu)
  * 
  * Original implementation by Matthew Flanagan
  * Converted for current use by Luke Oxley

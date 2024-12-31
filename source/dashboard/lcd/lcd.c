@@ -31,8 +31,8 @@ extern driver_profile_t driver_profiles[4];
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
     {
-        .type = ELEMENT_FLOAT,
-        .element_id = TV_INTENSITY_FLT,
+        .type = ELEMENT_NUM,
+        .object_name = TV_INTENSITY_FLT,
         .current_value = 0,
         .min_value = 0,
         .max_value = 100,
@@ -40,8 +40,8 @@ menu_element_t tv_elements[] = {
         .on_change = sendTVParameters
     },
     {
-        .type = ELEMENT_FLOAT,
-        .element_id = TV_PROPORTION_FLT,
+        .type = ELEMENT_NUM,
+        .object_name = TV_PROPORTION_FLT,
         .current_value = 40,
         .min_value = 0,
         .max_value = 100,
@@ -49,8 +49,8 @@ menu_element_t tv_elements[] = {
         .on_change = sendTVParameters
     },
     {
-        .type = ELEMENT_FLOAT,
-        .element_id = TV_DEAD_TXT,
+        .type = ELEMENT_NUM,
+        .object_name = TV_DEAD_TXT,
         .current_value = 12,
         .min_value = 0,
         .max_value = 30,
@@ -58,8 +58,8 @@ menu_element_t tv_elements[] = {
         .on_change = sendTVParameters
     },
     {
-        .type = ELEMENT_TOGGLE,
-        .element_id = TV_ENABLE_OP,
+        .type = ELEMENT_OPTION,
+        .object_name = TV_ENABLE_OP,
         .is_enabled = true,
         .on_change = sendTVParameters
     }
@@ -75,16 +75,16 @@ menu_page_t tv_page = {
 // Profile page menu elements
 menu_element_t profile_elements[] = {
     {
-        .type = ELEMENT_FLOAT,
-        .element_id = PROFILE_BRAKE_FLT,
+        .type = ELEMENT_NUM,
+        .object_name = PROFILE_BRAKE_FLT,
         .current_value = 0,
         .min_value = 0,
         .max_value = 20,
         .increment = 5,
     },
     {
-        .type = ELEMENT_FLOAT,
-        .element_id = PROFILE_THROTTLE_FLT,
+        .type = ELEMENT_NUM,
+        .object_name = PROFILE_THROTTLE_FLT,
         .current_value = 0,
         .min_value = 0,
         .max_value = 20,
@@ -92,7 +92,7 @@ menu_element_t profile_elements[] = {
     },
     {
         .type = ELEMENT_TEXT,
-        .element_id = PROFILE_SAVE_TXT,
+        .object_name = PROFILE_SAVE_TXT,
     }
 };
 

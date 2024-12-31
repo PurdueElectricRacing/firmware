@@ -2,26 +2,37 @@
 #include "nextion.h"
 
 // Style configurations
-#define STYLE_NORMAL_BG    38066
-#define STYLE_NORMAL_FG    BLACK
-#define STYLE_HOVER_BG     52857
-#define STYLE_HOVER_FG     BLACK
-#define STYLE_SELECTED_BG  64512
-#define STYLE_SELECTED_FG  WHITE
+// todo macro these eventually
+#define MENU_GREY   38066
+// #define STYLE_NORMAL_FG    BLACK
+//#define STYLE_HOVER_BG     52857
+// #define STYLE_HOVER_FG     BLACK
+// #define STYLE_SELECTED_BG  64512
+// #define STYLE_SELECTED_FG  WHITE
 
 void style_normal(menu_element_t* element) {
-    set_background(element->element_id, STYLE_NORMAL_BG);
-    set_font_color(element->element_id, STYLE_NORMAL_FG);
+    set_background(element->object_name, MENU_GREY);
+    set_font_color(element->object_name, BLACK);
 }
 
 void style_hover(menu_element_t* element) {
-    set_background(element->element_id, STYLE_HOVER_BG);
-    set_font_color(element->element_id, STYLE_HOVER_FG);
+    set_background(element->object_name, WHITE);
+    set_font_color(element->object_name, BLACK);
+    // todo change to set border to indicate selected
 }
 
 void style_selected(menu_element_t* element) {
-    set_background(element->element_id, STYLE_SELECTED_BG);
-    set_font_color(element->element_id, STYLE_SELECTED_FG);
+    switch (element->type) {
+        case ELEMENT_NUM:
+            set_background(element->object_name, ORANGE);
+            set_font_color(element->object_name, WHITE);
+            break;
+        case ELEMENT_BAR: // todo
+            set_background(element->object_name, WHITE); 
+            break;
+        default:
+            break;
+    }
 }
 
 void menu_move_up(menu_page_t* page) {
@@ -75,29 +86,26 @@ void menu_select(menu_page_t* page) {
     } else {
         // Select element if it's a selectable type
         switch (current->type) {
-            case ELEMENT_TOGGLE:
+            case ELEMENT_OPTION:
                 current->is_enabled = !current->is_enabled;
-                set_value(current->element_id, current->is_enabled);
+                set_value(current->object_name, current->is_enabled);
                 if (current->on_change != NULL) {
                     current->on_change();
                 }
                 break;
-
-            case ELEMENT_FLOAT:
+            case ELEMENT_NUM:
             case ELEMENT_BAR:
                 page->is_element_selected = true;
                 style_selected(current);
                 break;
-
-            case ELEMENT_OPTION:
+            case ELEMENT_LIST:
                 // Toggle option state
                 current->is_enabled = !current->is_enabled;
-                set_value(current->element_id, current->is_enabled);
+                set_value(current->object_name, current->is_enabled);
                 if (current->on_change != NULL) {
                     current->on_change();
                 }
                 break;
-
             default:
                 break;
         }
@@ -112,12 +120,12 @@ void menu_increment_value(menu_element_t* element) {
     }
 
     switch (element->type) {
-        case ELEMENT_FLOAT:
-            set_value(element->element_id, element->current_value);
-            set_textf(element->element_id, "%d", element->current_value);
+        case ELEMENT_NUM:
+            set_value(element->object_name, element->current_value);
+            set_textf(element->object_name, "%d", element->current_value);
             break;
         case ELEMENT_BAR:
-            set_value(element->element_id, element->current_value);
+            set_value(element->object_name, element->current_value);
             break;
         default:
             break;
@@ -132,12 +140,12 @@ void menu_decrement_value(menu_element_t* element) {
     }
 
     switch (element->type) {
-        case ELEMENT_FLOAT:
-            set_value(element->element_id, element->current_value);
-            set_textf(element->element_id, "%d", element->current_value);
+        case ELEMENT_NUM:
+            set_value(element->object_name, element->current_value);
+            set_textf(element->object_name, "%d", element->current_value);
             break;
         case ELEMENT_BAR:
-            set_value(element->element_id, element->current_value);
+            set_value(element->object_name, element->current_value);
             break;
         default:
             break;

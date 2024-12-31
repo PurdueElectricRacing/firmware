@@ -74,24 +74,24 @@
 #define FAULT_NONE_STRING "NONE\0"
 
 //TV Settings Page Values
-#define TV_INTENSITY_FLT "x0"
-#define TV_PROPORTION_FLT "x1"
-#define TV_DEAD_TXT "t6"
-#define TV_ENABLE_OP "c0"
+#define TV_INTENSITY_FLT "int_flt"
+#define TV_PROPORTION_FLT "p_flt"
+#define TV_DEAD_TXT "dead_val"
+#define TV_ENABLE_OP "tv_op"
 
 //Setings page values
-#define DT_FAN_TXT "dt_txt"
-#define DT_FAN_BAR "dt_bar"
-#define DT_FAN_VAL "dt_val"
-#define DT_PUMP_TXT "t2"
-#define DT_PUMP_OP "dt_p"
-#define B_FAN1_TXT "batt_txt"
-#define B_FAN1_VAL "batt_val"
-#define B_FAN1_BAR "batt_bar"
-#define B_FAN2_TXT "t4"
-#define B_FAN2_OP "batt_p1"
-#define B_PUMP_TXT "t5"
-#define B_PUMP_OP "batt_p2"
+#define DT_FAN_TXT "dt_txt" // todo remove
+#define DT_FAN_VAL "DFan_val"
+#define DT_FAN_BAR "DFan_bar"
+#define DT_PUMP_TXT "t2" // todo remove
+#define DT_PUMP_OP "DPump_op"
+#define B_FAN1_TXT "batt_txt" // todo remove
+#define B_FAN1_VAL "BFan_val"
+#define B_FAN1_BAR "BFan_bar"
+#define B_FAN2_TXT "t4" // todo remove
+#define B_FAN2_OP "BPump_op" // ! is this a pump or a fan?
+#define B_PUMP_TXT "t5" // todo remove
+#define B_PUMP_OP "BPump2_op"
 #define BAR_INTERVAL 25
 
 //Colors
@@ -127,7 +127,7 @@
 #define MC_TEMP "mc_temp"
 #define CAR_STAT "status"
 #define SPEED "speed"
-#define RACE_TV_ON "tvon"
+#define RACE_TV_ON "tv_op"
 
 typedef enum {
 

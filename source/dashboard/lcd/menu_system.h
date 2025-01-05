@@ -10,7 +10,7 @@ typedef enum {
     ELEMENT_BAR,    // Shared with numeric value
     ELEMENT_TEXT,   // Text type
     ELEMENT_OPTION, // On/off toggle
-    ELEMENT_LIST
+    ELEMENT_LIST    // Item in a list
 } element_type_t;
 
 // Element states

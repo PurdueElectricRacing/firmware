@@ -96,6 +96,46 @@ menu_element_t profile_elements[] = {
     }
 };
 
+void sendCoolingParameters();
+
+menu_element_t cooling_elements[] = {
+    {
+        .type = ELEMENT_NUM,
+        .object_name = DT_FAN_VAL,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 100,
+        .increment = 25,
+    },
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = DT_PUMP_OP,
+        .is_enabled = false,
+        .on_change = sendCoolingParameters
+    },
+    {
+        .type = ELEMENT_NUM,
+        .object_name = B_FAN1_VAL,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 100,
+        .increment = 25,
+    },
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = B_FAN2_OP,
+        .is_enabled = false,
+        .on_change = sendCoolingParameters
+    }
+};
+
+menu_page_t cooling_page = {
+    .elements = cooling_elements,
+    .num_elements = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
+};
+
 // Add this structure for profile-specific data
 typedef struct {
     uint8_t driver_id;
@@ -306,7 +346,13 @@ void updateTelemetryPages() {
 }
 
 void sendTVParameters() {
+    // todo send the right values
     SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+}
+
+void sendCoolingParameters() {
+    // todo remove pump 2
+    SEND_COOLING_DRIVER_REQUEST(cooling_elements[1].is_enabled, cooling_elements[0].current_value, 0, cooling_elements[3].is_enabled, cooling_elements[2].current_value);
 }
 
 void updateFaultDisplay() {
@@ -738,183 +784,27 @@ void update_cooling_page() {
 }
 
 void move_up_cooling() {
-    switch (cooling.curr_hover) {
-        case DT_FAN_HOVER:
-            cooling.curr_hover = PUMP_HOVER;
-            set_background(DT_FAN_TXT, COOLING_BG);
-            set_font_color(DT_FAN_TXT, COOLING_FG);
-            set_background(B_PUMP_TXT, COOLING_HOVER_BG);
-            set_font_color(B_PUMP_TXT, COOLING_HOVER_FG);
-            break;
-        case DT_PUMP_HOVER:
-            cooling.curr_hover = DT_FAN_HOVER;
-            set_background(DT_PUMP_TXT, COOLING_BG);
-            set_font_color(DT_PUMP_TXT, COOLING_FG);
-            set_background(DT_FAN_TXT, COOLING_HOVER_BG);
-            set_font_color(DT_FAN_TXT, COOLING_HOVER_FG);
-            break;
-        case FAN1_HOVER:
-            cooling.curr_hover = DT_PUMP_HOVER;
-            set_background(B_FAN1_TXT, COOLING_BG);
-            set_font_color(B_FAN1_TXT, COOLING_FG);
-            set_background(DT_PUMP_TXT, COOLING_HOVER_BG);
-            set_font_color(DT_PUMP_TXT, COOLING_HOVER_FG);
-            break;
-        case FAN2_HOVER:
-            cooling.curr_hover = FAN1_HOVER;
-            set_background(B_FAN2_TXT, COOLING_BG);
-            set_font_color(B_FAN2_TXT, COOLING_FG);
-            set_background(B_FAN1_TXT, COOLING_HOVER_BG);
-            set_font_color(B_FAN1_TXT, COOLING_HOVER_FG);
-            break;
-        case PUMP_HOVER:
-            cooling.curr_hover = FAN2_HOVER;
-            set_background(B_PUMP_TXT, COOLING_BG);
-            set_font_color(B_PUMP_TXT, COOLING_FG);
-            set_background(B_FAN2_TXT, COOLING_HOVER_BG);
-            set_font_color(B_FAN2_TXT, COOLING_HOVER_FG);
-            break;
-        case DT_FAN_SELECT:
-            cooling.d_fan_val /= BAR_INTERVAL;
-            cooling.d_fan_val *= BAR_INTERVAL;
-            cooling.d_fan_val = (cooling.d_fan_val == 100) ? 0 : cooling.d_fan_val + BAR_INTERVAL;
-            set_value(DT_FAN_BAR, cooling.d_fan_val);
-            set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);
-            //set_value(DT_FAN_VAL, NXT_FONT_COLOR, BLACK);
-            break;
-        case FAN1_SELECT:
-            cooling.b_fan_val /= BAR_INTERVAL;
-            cooling.b_fan_val *= BAR_INTERVAL;
-            cooling.b_fan_val = (cooling.b_fan_val == 100) ? 0 : cooling.b_fan_val + BAR_INTERVAL;
-            set_value(B_FAN1_BAR, cooling.b_fan_val);
-            set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
-            //set_value(B_FAN1_VAL, NXT_FONT_COLOR, BLACK);
-            break;
+    menu_move_up(&cooling_page);
+
+    // Passively update the bar values
+    if (cooling_page.is_element_selected) {
+        set_value(DT_FAN_BAR, cooling_elements[0].current_value);
+        set_value(B_FAN1_BAR, cooling_elements[2].current_value);
     }
 }
 
 void move_down_cooling() {
-    char parsed_value[3] = "\0";
-    switch (cooling.curr_hover) {
-        case DT_FAN_HOVER:
-            cooling.curr_hover = DT_PUMP_HOVER;
-            set_background(DT_FAN_TXT, COOLING_BG);
-            set_font_color(DT_FAN_TXT, COOLING_FG);
-            set_background(DT_PUMP_TXT, COOLING_HOVER_BG);
-            set_font_color(DT_PUMP_TXT, COOLING_HOVER_FG);
-            break;
-        case DT_PUMP_HOVER:
-            cooling.curr_hover = FAN1_HOVER;
-            set_background(DT_PUMP_TXT, COOLING_BG);
-            set_font_color(DT_PUMP_TXT, COOLING_FG);
-            set_background(B_FAN1_TXT, COOLING_HOVER_BG);
-            set_font_color(B_FAN1_TXT, COOLING_HOVER_FG);
-            break;
-        case FAN1_HOVER:
-            cooling.curr_hover = FAN2_HOVER;
-            set_background(B_FAN1_TXT, COOLING_BG);
-            set_font_color(B_FAN1_TXT, COOLING_FG);
-            set_background(B_FAN2_TXT, COOLING_HOVER_BG);
-            set_font_color(B_FAN2_TXT, COOLING_HOVER_FG);
-            break;
-        case FAN2_HOVER:
-            cooling.curr_hover = PUMP_HOVER;
-            set_background(B_FAN2_TXT, COOLING_BG);
-            set_font_color(B_FAN2_TXT, COOLING_FG);
-            set_background(B_PUMP_TXT, COOLING_HOVER_BG);
-            set_font_color(B_PUMP_TXT, COOLING_HOVER_FG);
-            break;
-        case PUMP_HOVER:
-            cooling.curr_hover = DT_FAN_HOVER;
-            set_background(B_PUMP_TXT, COOLING_BG);
-            set_font_color(B_PUMP_TXT, COOLING_FG);
-            set_background(DT_FAN_TXT, COOLING_HOVER_BG);
-            set_font_color(DT_FAN_TXT, COOLING_HOVER_FG);
-            break;
-        case DT_FAN_SELECT:
-            cooling.d_fan_val /= BAR_INTERVAL;
-            cooling.d_fan_val *= BAR_INTERVAL;
-            cooling.d_fan_val = (cooling.d_fan_val == 0) ? 100 : cooling.d_fan_val - BAR_INTERVAL;
-            set_value(DT_FAN_BAR, cooling.d_fan_val);
-            set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);
-            break;
-        case FAN1_SELECT:
-            cooling.b_fan_val /= BAR_INTERVAL;
-            cooling.b_fan_val *= BAR_INTERVAL;
-            cooling.b_fan_val = (cooling.b_fan_val == 0) ? 100 : cooling.b_fan_val - BAR_INTERVAL;
-            set_value(B_FAN1_BAR, cooling.b_fan_val);
-            set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
-            break;
+    menu_move_down(&cooling_page);
+
+    // Passively update the bar values
+    if (cooling_page.is_element_selected) {
+        set_value(DT_FAN_BAR, cooling_elements[0].current_value);
+        set_value(B_FAN1_BAR, cooling_elements[2].current_value);
     }
 }
 
 void select_cooling() {
-    switch (cooling.curr_hover) {
-    case DT_FAN_HOVER:
-        // cooling.d_fan_selected = !cooling.d_fan_selected;
-        // set_value(DT_FAN_BAR, NXT_VALUE, cooling.d_fan_selected);
-        cooling.curr_hover = DT_FAN_SELECT;
-        set_value(DT_FAN_TXT, COOLING_BG);
-        set_background(DT_FAN_BAR, WHITE);
-        //set_value(DT_FAN_BAR, NXT_FONT_COLOR, BLACK);
-        return;
-    case DT_PUMP_HOVER:
-        cooling.d_pump_selected = !cooling.d_pump_selected;
-        if (cooling.d_pump_selected) {
-            set_font_color(DT_PUMP_OP, SETTINGS_UV_SELECT);
-            set_background(DT_PUMP_OP, COOLING_BG);
-        }
-        else {
-            set_background(DT_PUMP_OP, COOLING_HOVER_BG);
-        }
-        set_value(DT_PUMP_OP, cooling.d_pump_selected);
-        break;
-    case FAN1_HOVER:
-        // cooling.b_fan1_selected = !cooling.b_fan1_selected;
-        // set_value(B_FAN1_BAR, NXT_VALUE, cooling.b_fan1_selected);
-        cooling.curr_hover = FAN1_SELECT;
-        set_value(B_FAN1_TXT, COOLING_BG);
-        set_background(B_FAN1_BAR, WHITE);
-        //set_value(B_FAN1_BAR, NXT_FONT_COLOR, BLACK);
-        break;
-    case FAN2_HOVER:
-        cooling.b_fan2_selected = !cooling.b_fan2_selected;
-        if (cooling.b_fan2_selected) {
-            set_font_color(B_FAN2_OP, SETTINGS_UV_SELECT);
-            set_background(B_FAN2_OP, COOLING_BG);
-        }
-        else {
-            set_background(B_FAN2_OP, COOLING_HOVER_BG);
-        }
-        set_value(B_FAN2_OP, cooling.b_fan2_selected);
-        break;
-    case PUMP_HOVER:
-        cooling.b_pump_selected = !cooling.b_pump_selected;
-        if (cooling.b_pump_selected) {
-        set_font_color(B_PUMP_OP, SETTINGS_UV_SELECT);
-        set_background(B_PUMP_OP, COOLING_BG);
-        }
-        else {
-            set_background(B_PUMP_OP, COOLING_HOVER_BG);
-        }
-        set_value(B_PUMP_OP, cooling.b_pump_selected);
-        break;
-    case DT_FAN_SELECT:
-        cooling.curr_hover = DT_FAN_HOVER;
-        set_value(DT_FAN_TXT, COOLING_HOVER_BG);
-        set_background(DT_FAN_BAR, COOLING_BAR_BG);
-        set_font_color(DT_FAN_BAR, COOLING_BAR_FG);
-        //set_value(DT_FAN_VAL, NXT_FONT_COLOR, COOLING_BAR_BG);
-        break;
-    case FAN1_SELECT:
-        cooling.curr_hover = FAN1_HOVER;
-        set_value(B_FAN1_TXT, COOLING_HOVER_BG);
-        set_background(B_FAN1_BAR, COOLING_BAR_BG);
-        set_font_color(B_FAN1_BAR, COOLING_BAR_FG);
-        //set_value(B_FAN1_VAL, NXT_FONT_COLOR, COOLING_BAR_BG);
-        break;
-    }
-    SEND_COOLING_DRIVER_REQUEST(cooling.d_pump_selected, cooling.d_fan_val, cooling.b_fan2_selected, cooling.b_pump_selected, cooling.b_fan_val);
+    menu_select(&cooling_page);
 }
 
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {

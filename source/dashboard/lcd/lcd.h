@@ -91,7 +91,7 @@
 #define B_FAN2_TXT "t4" // todo remove
 #define B_FAN2_OP "BPump_op" // ! is this a pump or a fan?
 #define B_PUMP_TXT "t5" // todo remove
-#define B_PUMP_OP "BPump2_op"
+#define B_PUMP_OP "BPump2_op" // todo remove
 #define BAR_INTERVAL 25
 
 //Colors

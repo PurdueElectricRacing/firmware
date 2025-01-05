@@ -56,7 +56,7 @@
                 "${workspaceFolder}/source/dashboard"
             ],
             "preLaunchTask": "build",
-            "runToEntryPoint": "main"
+            //"runToEntryPoint": "main"
         },
         {   "name": "Torque Vectoring",
             "cwd": "${workspaceRoot}",

@@ -10,18 +10,18 @@
 // #define STYLE_SELECTED_BG  64512
 // #define STYLE_SELECTED_FG  WHITE
 
-void style_normal(menu_element_t* element) {
+void style_normal(menu_element_t *element) {
     set_background(element->object_name, MENU_GREY);
     set_font_color(element->object_name, BLACK);
 }
 
-void style_hover(menu_element_t* element) {
+void style_hover(menu_element_t *element) {
     set_background(element->object_name, WHITE);
     set_font_color(element->object_name, BLACK);
     // todo change to set border to indicate selected
 }
 
-void style_selected(menu_element_t* element) {
+void style_selected(menu_element_t *element) {
     switch (element->type) {
         case ELEMENT_NUM:
             set_background(element->object_name, ORANGE);
@@ -35,7 +35,7 @@ void style_selected(menu_element_t* element) {
     }
 }
 
-void menu_move_up(menu_page_t* page) {
+void menu_move_up(menu_page_t *page) {
     if (page->is_element_selected) {
         menu_increment_value(&page->elements[page->current_index]);
         return;
@@ -55,7 +55,7 @@ void menu_move_up(menu_page_t* page) {
     style_hover(&page->elements[page->current_index]);
 }
 
-void menu_move_down(menu_page_t* page) {
+void menu_move_down(menu_page_t *page) {
     if (page->is_element_selected) {
         menu_decrement_value(&page->elements[page->current_index]);
         return;
@@ -71,7 +71,7 @@ void menu_move_down(menu_page_t* page) {
     style_hover(&page->elements[page->current_index]);
 }
 
-void menu_select(menu_page_t* page) {
+void menu_select(menu_page_t *page) {
     menu_element_t* current = &page->elements[page->current_index];
 
     if (page->is_element_selected) {
@@ -112,7 +112,7 @@ void menu_select(menu_page_t* page) {
     }
 }
 
-void menu_increment_value(menu_element_t* element) {
+void menu_increment_value(menu_element_t *element) {
     if (element->current_value + element->increment <= element->max_value) {
         element->current_value += element->increment;
     } else {
@@ -132,7 +132,7 @@ void menu_increment_value(menu_element_t* element) {
     }
 }
 
-void menu_decrement_value(menu_element_t* element) {
+void menu_decrement_value(menu_element_t *element) {
     if (element->current_value >= element->increment + element->min_value) {
         element->current_value -= element->increment;
     } else {

@@ -1,4 +1,5 @@
 #include "menu_system.h"
+
 #include "nextion.h"
 
 // Style configurations
@@ -22,17 +23,8 @@ void style_hover(menu_element_t *element) {
 }
 
 void style_selected(menu_element_t *element) {
-    switch (element->type) {
-        case ELEMENT_NUM:
-            set_background(element->object_name, ORANGE);
-            set_font_color(element->object_name, WHITE);
-            break;
-        case ELEMENT_BAR: // todo
-            set_background(element->object_name, WHITE); 
-            break;
-        default:
-            break;
-    }
+    set_background(element->object_name, ORANGE);
+    set_font_color(element->object_name, WHITE);
 }
 
 void menu_move_up(menu_page_t *page) {
@@ -86,25 +78,19 @@ void menu_select(menu_page_t *page) {
     } else {
         // Select element if it's a selectable type
         switch (current->type) {
+            case ELEMENT_LIST: // Fall through
+                // todo detoggle everything else
             case ELEMENT_OPTION:
-                current->is_enabled = !current->is_enabled;
-                set_value(current->object_name, current->is_enabled);
+                current->current_value ^= 1;
+                set_value(current->object_name, current->current_value);
                 if (current->on_change != NULL) {
                     current->on_change();
                 }
                 break;
+            case ELEMENT_FLT: // Fall through
             case ELEMENT_NUM:
-            case ELEMENT_BAR:
                 page->is_element_selected = true;
                 style_selected(current);
-                break;
-            case ELEMENT_LIST:
-                // Toggle option state
-                current->is_enabled = !current->is_enabled;
-                set_value(current->object_name, current->is_enabled);
-                if (current->on_change != NULL) {
-                    current->on_change();
-                }
                 break;
             default:
                 break;
@@ -120,12 +106,10 @@ void menu_increment_value(menu_element_t *element) {
     }
 
     switch (element->type) {
+        case ELEMENT_FLT: // Fall through
         case ELEMENT_NUM:
             set_value(element->object_name, element->current_value);
             set_textf(element->object_name, "%d", element->current_value);
-            break;
-        case ELEMENT_BAR:
-            set_value(element->object_name, element->current_value);
             break;
         default:
             break;
@@ -140,14 +124,31 @@ void menu_decrement_value(menu_element_t *element) {
     }
 
     switch (element->type) {
+        case ELEMENT_FLT: // Fall through
         case ELEMENT_NUM:
             set_value(element->object_name, element->current_value);
             set_textf(element->object_name, "%d", element->current_value);
             break;
-        case ELEMENT_BAR:
-            set_value(element->object_name, element->current_value);
-            break;
         default:
             break;
+    }
+}
+
+void menu_refresh_page(menu_page_t *page) {
+    page->is_element_selected = false;
+    page->current_index = 0;
+    for (uint8_t i = 0; i < page->num_elements; i++) {
+        menu_element_t *curr_element = &page->elements[i];
+        switch (curr_element->type) {
+            case ELEMENT_NUM:
+                set_textf(curr_element->object_name, "%d", curr_element->current_value);
+                break;
+            case ELEMENT_FLT: // Fall through
+            case ELEMENT_OPTION:
+                set_value(curr_element->object_name, curr_element->current_value);
+                break;
+            default:
+                break;
+        }
     }
 }

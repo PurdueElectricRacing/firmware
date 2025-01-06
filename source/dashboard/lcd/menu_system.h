@@ -6,8 +6,9 @@
 
 // Element types
 typedef enum {
-    ELEMENT_NUM,    // Numeric value and float types
-    ELEMENT_BAR,    // Shared with numeric value
+    ELEMENT_NUM,    // Numeric value
+    ELEMENT_FLT,    // Float value
+    ELEMENT_BAR,    // Shared with numeric value // ! active bar type not supported for now
     ELEMENT_TEXT,   // Text type
     ELEMENT_OPTION, // On/off toggle
     ELEMENT_LIST    // Item in a list
@@ -25,11 +26,10 @@ typedef struct {
     element_type_t type;
     element_state_t state;
     char* object_name;          // Nextion object name
-    uint8_t current_value;      // Current value for numeric types
+    uint8_t current_value;      // Current value for numeric types or on/off state for toggles
     uint8_t min_value;          // Minimum value for numeric types
     uint8_t max_value;          // Maximum value for numeric types
     uint8_t increment;          // Increment for numeric types
-    bool is_enabled;            // For toggles and options
     void (*on_change)(void);    // Callback when value changes
 } menu_element_t; // todo eventually make this const (to store in flash)
 
@@ -56,5 +56,7 @@ void menu_select(menu_page_t* page);
 // Value modification functions
 void menu_increment_value(menu_element_t* element);
 void menu_decrement_value(menu_element_t* element);
+
+void menu_refresh_page(menu_page_t *page);
 
 #endif // MENU_SYSTEM_H

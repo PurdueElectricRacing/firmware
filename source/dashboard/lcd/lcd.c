@@ -31,7 +31,7 @@ extern driver_profile_t driver_profiles[4];
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_FLT,
         .object_name = TV_INTENSITY_FLT,
         .current_value = 0,
         .min_value = 0,
@@ -40,7 +40,7 @@ menu_element_t tv_elements[] = {
         .on_change = sendTVParameters
     },
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_FLT,
         .object_name = TV_PROPORTION_FLT,
         .current_value = 40,
         .min_value = 0,
@@ -60,7 +60,7 @@ menu_element_t tv_elements[] = {
     {
         .type = ELEMENT_OPTION,
         .object_name = TV_ENABLE_OP,
-        .is_enabled = true,
+        .current_value = 0,
         .on_change = sendTVParameters
     }
 };
@@ -110,7 +110,7 @@ menu_element_t cooling_elements[] = {
     {
         .type = ELEMENT_OPTION,
         .object_name = DT_PUMP_OP,
-        .is_enabled = false,
+        .current_value = 0,
         .on_change = sendCoolingParameters
     },
     {
@@ -124,7 +124,7 @@ menu_element_t cooling_elements[] = {
     {
         .type = ELEMENT_OPTION,
         .object_name = B_FAN2_OP,
-        .is_enabled = false,
+        .current_value = 0,
         .on_change = sendCoolingParameters
     }
 };
@@ -347,12 +347,12 @@ void updateTelemetryPages() {
 
 void sendTVParameters() {
     // todo send the right values
-    SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+    SEND_DASHBOARD_TV_PARAMETERS(tv_elements[3].current_value, tv_elements[2].current_value, tv_elements[0].current_value, tv_elements[1].current_value);
 }
 
 void sendCoolingParameters() {
     // todo remove pump 2
-    SEND_COOLING_DRIVER_REQUEST(cooling_elements[1].is_enabled, cooling_elements[0].current_value, 0, cooling_elements[3].is_enabled, cooling_elements[2].current_value);
+    SEND_COOLING_DRIVER_REQUEST(cooling_elements[1].current_value, cooling_elements[0].current_value, 0, cooling_elements[3].current_value, cooling_elements[2].current_value);
 }
 
 void updateFaultDisplay() {
@@ -739,48 +739,9 @@ void select_profile() {
 }
 
 void update_cooling_page() {
-    cooling.curr_hover = DT_FAN_HOVER;                                     // Set hover
-    set_background(DT_FAN_TXT, COOLING_HOVER_BG);         // Set t2 with cooling hover
-    set_value(DT_FAN_BAR, cooling.d_fan_val);                   // Set progress bar for j0
-    //set_value(DT_FAN_VAL, NXT_FONT_COLOR, COOLING_BAR_BG);                         // Set color for t8 (background of bar?)
-    set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);  // Set fan value for t8
-
-    // Set drivetrain pump selector color
-    if (cooling.d_pump_selected) {
-        set_font_color(DT_PUMP_OP, SETTINGS_UV_SELECT);
-    }
-    else {
-        set_background(DT_PUMP_OP, COOLING_HOVER_BG);
-    }
-
-    // Set drivetrain pump selector status
-    set_value(DT_PUMP_OP, cooling.d_pump_selected);
-
-    // Set Battery fan c3 (Pump 1?)
-    // todo: Why is this here?
-    if (cooling.b_fan2_selected) {
-        set_font_color(B_FAN2_OP, SETTINGS_UV_SELECT);
-    }
-    else {
-        set_background(B_FAN2_OP, COOLING_HOVER_BG);
-    }
-
-    // Set value for c3 battery pump 1
-    set_value(B_FAN2_OP, cooling.b_fan2_selected);
-    if (cooling.b_pump_selected) {
-        set_font_color(B_PUMP_OP, SETTINGS_UV_SELECT);
-    }
-    else {
-        set_background(B_PUMP_OP, COOLING_HOVER_BG);
-    }
-
-    // Set Battery Pump 2 value
-    set_value(B_PUMP_OP, cooling.b_pump_selected);
-
-    // Set battery fan bar, text, color
-    set_value(B_FAN1_BAR, cooling.b_fan_val);
-    set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
-    set_font_color(B_FAN1_VAL, WHITE);
+    menu_refresh_page(&cooling_page);
+    set_value(DT_FAN_BAR, cooling_elements[0].current_value);
+    set_value(B_FAN1_BAR, cooling_elements[2].current_value);
 }
 
 void move_up_cooling() {
@@ -844,20 +805,7 @@ void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
 }
 
 void update_tv_page() {
-    // Establish hover position
-    tv_settings.curr_hover = TV_INTENSITY_HOVER;
-
-    // Set background colors
-    set_background(TV_INTENSITY_FLT, TV_HOVER_BG);
-    set_background(TV_PROPORTION_FLT, TV_BG);
-    set_background(TV_DEAD_TXT, TV_BG);
-    set_background(TV_ENABLE_OP, TV_BG);
-
-    // Set displayed data
-    set_value(TV_INTENSITY_FLT, tv_settings.tv_intensity_val);
-    set_value(TV_PROPORTION_FLT, tv_settings.tv_p_val);
-    set_textf(TV_DEAD_TXT, "%d", tv_settings.tv_deadband_val);
-    set_value(TV_ENABLE_OP, tv_settings.tv_enable_selected);
+    menu_refresh_page(&tv_page);
 }
 
 void move_up_tv() {

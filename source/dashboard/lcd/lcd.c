@@ -19,7 +19,6 @@ char *errorText;                        // Pointer to data to display for the Er
 extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
 extern q_handle_t q_tx_can;             // Global queue for CAN tx
 extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
-volatile driver_page_t driver_page;     // Data for the driver page
 volatile fault_page_t fault_page;       // Data for the faults page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
@@ -131,7 +130,7 @@ menu_element_t cooling_elements[] = {
     },
     {
         .type = ELEMENT_NUM,
-        .object_name = B_FAN1_VAL,
+        .object_name = B_FAN_VAL,
         .current_value = 0,
         .min_value = 0,
         .max_value = 100,
@@ -139,7 +138,7 @@ menu_element_t cooling_elements[] = {
     },
     {
         .type = ELEMENT_OPTION,
-        .object_name = B_FAN2_OP,
+        .object_name = B_PUMP_OP,
         .current_value = 0,
         .on_change = sendCoolingParameters
     }
@@ -152,29 +151,35 @@ menu_page_t cooling_page = {
     .is_element_selected = false
 };
 
-// menu_element_t driver_elements[] = {
-//     {
-//         .type = ELEMENT_LIST,
-//         .object_name = DRIVER1_NAME,
-//         .current_value = 0
-//     },
-//     {
-//         .type = ELEMENT_LIST,
-//         .object_name = DRIVER2_NAME,
-//         .current_value = 0
-//     },
-//     {
-//         .type = ELEMENT_LIST,
-//         .object_name = DRIVER3_NAME,
-//         .current_value = 0
-//     },
-//     {
-//         .type = ELEMENT_LIST,
-//         .object_name = DRIVER4_NAME,
-//         .current_value = 0
-//     }
-// };
+menu_element_t driver_elements[] = {
+    {
+        .type = ELEMENT_LIST,
+        .object_name = DRIVER1_TXT,
+        .current_value = 1 // Default to driver 1
+    },
+    {
+        .type = ELEMENT_LIST,
+        .object_name = DRIVER2_TXT,
+        .current_value = 0
+    },
+    {
+        .type = ELEMENT_LIST,
+        .object_name = DRIVER3_TXT,
+        .current_value = 0
+    },
+    {
+        .type = ELEMENT_LIST,
+        .object_name = DRIVER4_TXT,
+        .current_value = 0
+    }
+};
 
+menu_page_t driver_page = {
+    .elements = driver_elements,
+    .num_elements = sizeof(driver_elements) / sizeof(driver_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
+};
 
 // Driver Page Functions
 void update_driver_page();
@@ -557,145 +562,38 @@ void select_error_page() {
 }
 
 void update_driver_page() {
-    driver_page.curr_hover = DRIVER1;
-    set_background(DRIVER1_TXT, TV_HOVER_BG);
-    set_background(DRIVER2_TXT, TV_BG);
-    set_background(DRIVER3_TXT, TV_BG);
-    set_background(DRIVER4_TXT, TV_BG);
-
-    if (driver_page.curr_select == DRIVER1)
-    {
-        set_value(DRIVER1_OP, 1);
-    }
-    else
-    {
-        set_value(DRIVER1_OP, 0);
-    }
-
-    if (driver_page.curr_select == DRIVER2)
-    {
-        set_value(DRIVER2_OP, 1);
-    }
-    else
-    {
-        set_value(DRIVER2_OP, 0);
-    }
-
-    if (driver_page.curr_select == DRIVER3)
-    {
-        set_value(DRIVER3_OP, 1);
-    }
-    else
-    {
-        set_value(DRIVER3_OP, 0);
-    }
-
-    if (driver_page.curr_select == DRIVER4)
-    {
-        set_value(DRIVER4_OP, 1);
-    }
-    else
-    {
-        set_value(DRIVER4_OP, 0);
-    }
+    menu_refresh_page(&driver_page);
 }
 
 void move_up_driver() {
-    switch (driver_page.curr_hover) {
-        case DRIVER1:
-            driver_page.curr_hover = DRIVER4;
-            set_background(DRIVER4_TXT, TV_HOVER_BG);
-            set_background(DRIVER1_TXT, TV_BG);
-            break;
-        case DRIVER2:
-            driver_page.curr_hover = DRIVER1;
-            set_background(DRIVER1_TXT, TV_HOVER_BG);
-            set_background(DRIVER2_TXT, TV_BG);
-            break;
-        case DRIVER3:
-            driver_page.curr_hover = DRIVER2;
-            set_background(DRIVER2_TXT, TV_HOVER_BG);
-            set_background(DRIVER3_TXT, TV_BG);
-            break;
-        case DRIVER4:
-            driver_page.curr_hover = DRIVER3;
-            set_background(DRIVER3_TXT, TV_HOVER_BG);
-            set_background(DRIVER4_TXT, TV_BG);
-            break;
-    }
+    menu_move_up(&driver_page);
 }
 
 void move_down_driver() {
-    switch (driver_page.curr_hover) {
-        case DRIVER1:
-            driver_page.curr_hover = DRIVER2;
-            set_background(DRIVER2_TXT, TV_HOVER_BG);
-            set_background(DRIVER1_TXT, TV_BG);
-            break;
-        case DRIVER2:
-            driver_page.curr_hover = DRIVER3;
-            set_background(DRIVER3_TXT, TV_HOVER_BG);
-            set_background(DRIVER2_TXT, TV_BG);
-            break;
-        case DRIVER3:
-            driver_page.curr_hover = DRIVER4;
-            set_background(DRIVER4_TXT, TV_HOVER_BG);
-            set_background(DRIVER3_TXT, TV_BG);
-            break;
-        case DRIVER4:
-            driver_page.curr_hover = DRIVER1;
-            set_background(DRIVER1_TXT, TV_HOVER_BG);
-            set_background(DRIVER4_TXT, TV_BG);
-            break;
-    }
+    menu_move_down(&driver_page);
 }
 
 void select_driver() {
-    switch(driver_page.curr_hover)
-    {
-        case DRIVER1:
-            driver_page.curr_select = DRIVER1;
-            set_value(DRIVER1_OP, 1);
-            set_value(DRIVER2_OP, 0);
-            set_value(DRIVER3_OP, 0);
-            set_value(DRIVER4_OP, 0);
-            break;
-        case DRIVER2:
-            driver_page.curr_select = DRIVER2;
-            set_value(DRIVER1_OP, 0);
-            set_value(DRIVER2_OP, 1);
-            set_value(DRIVER3_OP, 0);
-            set_value(DRIVER4_OP, 0);
-            break;
-        case DRIVER3:
-            driver_page.curr_select = DRIVER3;
-            set_value(DRIVER1_OP, 0);
-            set_value(DRIVER2_OP, 0);
-            set_value(DRIVER3_OP, 1);
-            set_value(DRIVER4_OP, 0);
-            break;
-        case DRIVER4:
-            driver_page.curr_select = DRIVER4;
-            set_value(DRIVER1_OP, 0);
-            set_value(DRIVER2_OP, 0);
-            set_value(DRIVER3_OP, 0);
-            set_value(DRIVER4_OP, 1);
-            break;
-    }
+    menu_select(&driver_page);
 }
 
-void update_profile_page() {
+void update_profile_page() { // todo this function is kinda jank
     // Update displayed driver name
-    switch (driver_page.curr_select) {
-        case DRIVER1: set_text(PROFILE_CURRENT_TXT, DRIVER1_NAME); break;
-        case DRIVER2: set_text(PROFILE_CURRENT_TXT, DRIVER2_NAME); break;
-        case DRIVER3: set_text(PROFILE_CURRENT_TXT, DRIVER3_NAME); break;
-        case DRIVER4: set_text(PROFILE_CURRENT_TXT, DRIVER4_NAME); break;
+    int driver_index = menu_list_get_selected(&driver_page);
+    if (driver_index < 0) {
+        return;
+    }
+    
+    switch (driver_index) { 
+        case 0: set_text(PROFILE_CURRENT_TXT, DRIVER1_NAME); break;
+        case 1: set_text(PROFILE_CURRENT_TXT, DRIVER2_NAME); break;
+        case 2: set_text(PROFILE_CURRENT_TXT, DRIVER3_NAME); break;
+        case 3: set_text(PROFILE_CURRENT_TXT, DRIVER4_NAME); break;
     }
 
     // Load profile values
     profile_data_t* data = (profile_data_t*)profile_page.page_data;
-    data->driver_id = (uint8_t)driver_page.curr_select;
+    data->driver_id = (uint8_t)driver_index;
     
     profile_elements[0].current_value = driver_profiles[data->driver_id].brake_travel_threshold;
     profile_elements[1].current_value = driver_profiles[data->driver_id].throttle_travel_threshold;
@@ -757,7 +655,7 @@ void select_profile() {
 void update_cooling_page() {
     menu_refresh_page(&cooling_page);
     set_value(DT_FAN_BAR, cooling_elements[0].current_value);
-    set_value(B_FAN1_BAR, cooling_elements[2].current_value);
+    set_value(B_FAN_BAR, cooling_elements[2].current_value);
 }
 
 void move_up_cooling() {
@@ -766,7 +664,7 @@ void move_up_cooling() {
     // Passively update the bar values
     if (cooling_page.is_element_selected) {
         set_value(DT_FAN_BAR, cooling_elements[0].current_value);
-        set_value(B_FAN1_BAR, cooling_elements[2].current_value);
+        set_value(B_FAN_BAR, cooling_elements[2].current_value);
     }
 }
 
@@ -776,7 +674,7 @@ void move_down_cooling() {
     // Passively update the bar values
     if (cooling_page.is_element_selected) {
         set_value(DT_FAN_BAR, cooling_elements[0].current_value);
-        set_value(B_FAN1_BAR, cooling_elements[2].current_value);
+        set_value(B_FAN_BAR, cooling_elements[2].current_value);
     }
 }
 

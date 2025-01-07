@@ -58,5 +58,6 @@ void menu_increment_value(menu_element_t* element);
 void menu_decrement_value(menu_element_t* element);
 
 void menu_refresh_page(menu_page_t *page);
+int menu_list_get_selected(menu_page_t *page);
 
 #endif // MENU_SYSTEM_H

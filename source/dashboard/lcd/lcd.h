@@ -22,10 +22,6 @@
 
 
 // Driver Configuration Page
-#define DRIVER1_OP "r0"
-#define DRIVER2_OP "r1"
-#define DRIVER3_OP "r2"
-#define DRIVER4_OP "r3"
 #define DRIVER1_TXT "t1"
 #define DRIVER2_TXT "t2"
 #define DRIVER3_TXT "t3"
@@ -80,18 +76,12 @@
 #define TV_ENABLE_OP "tv_op"
 
 //Setings page values
-#define DT_FAN_TXT "dt_txt" // todo remove
 #define DT_FAN_VAL "DFan_val"
 #define DT_FAN_BAR "DFan_bar"
-#define DT_PUMP_TXT "t2" // todo remove
 #define DT_PUMP_OP "DPump_op"
-#define B_FAN1_TXT "batt_txt" // todo remove
-#define B_FAN1_VAL "BFan_val"
-#define B_FAN1_BAR "BFan_bar"
-#define B_FAN2_TXT "t4" // todo remove
-#define B_FAN2_OP "BPump_op" // ! is this a pump or a fan?
-#define B_PUMP_TXT "t5" // todo remove
-#define B_PUMP_OP "BPump2_op" // todo remove
+#define B_FAN_VAL "BFan_val"
+#define B_FAN_BAR "BFan_bar"
+#define B_PUMP_OP "BPump_op" // ! is this a pump or a fan?
 #define BAR_INTERVAL 25
 
 //Colors
@@ -153,18 +143,6 @@ typedef enum {
 typedef struct {
   uint16_t brake_bias_adj;  // 0 to 10000 for the page
 } race_page_t;
-
-typedef enum {
-  DRIVER1,
-  DRIVER2,
-  DRIVER3,
-  DRIVER4,
-} driver_select_state_t;
-
-typedef struct {
-  driver_select_state_t curr_hover;
-  driver_select_state_t curr_select;
-} driver_page_t;
 
 typedef enum {
   FAULT1,

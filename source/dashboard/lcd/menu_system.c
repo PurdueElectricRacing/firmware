@@ -1,10 +1,11 @@
 #include "menu_system.h"
 
 #include "nextion.h"
+#include <stdint.h>
 
 // Style configurations
 // todo macro these eventually
-#define MENU_GREY   38066
+#define MENU_GREY  38066
 // #define STYLE_NORMAL_FG    BLACK
 //#define STYLE_HOVER_BG     52857
 // #define STYLE_HOVER_FG     BLACK
@@ -27,6 +28,18 @@ void style_selected(menu_element_t *element) {
     set_font_color(element->object_name, WHITE);
 }
 
+void apply_element_style(menu_element_t *element, bool is_hover) {
+    if (element->type == ELEMENT_LIST && element->current_value == 1) {
+        return; // Skip styling for special list case
+    }
+    
+    if (is_hover) {
+        style_hover(element);
+    } else {
+        style_normal(element);
+    }
+}
+
 void menu_move_up(menu_page_t *page) {
     if (page->is_element_selected) {
         menu_increment_value(&page->elements[page->current_index]);
@@ -34,7 +47,7 @@ void menu_move_up(menu_page_t *page) {
     }
 
     // Clear current element styling
-    style_normal(&page->elements[page->current_index]);
+    apply_element_style(&page->elements[page->current_index], false);
 
     // Move to previous element
     if (page->current_index == 0) {
@@ -44,7 +57,7 @@ void menu_move_up(menu_page_t *page) {
     }
 
     // Style new element
-    style_hover(&page->elements[page->current_index]);
+    apply_element_style(&page->elements[page->current_index], true);
 }
 
 void menu_move_down(menu_page_t *page) {
@@ -54,13 +67,13 @@ void menu_move_down(menu_page_t *page) {
     }
 
     // Clear current element styling
-    style_normal(&page->elements[page->current_index]);
+    apply_element_style(&page->elements[page->current_index], false);
 
     // Move to next element
     page->current_index = (page->current_index + 1) % page->num_elements;
 
     // Style new element
-    style_hover(&page->elements[page->current_index]);
+    apply_element_style(&page->elements[page->current_index], false);
 }
 
 void menu_select(menu_page_t *page) {
@@ -75,26 +88,39 @@ void menu_select(menu_page_t *page) {
         if (current->on_change != NULL) {
             current->on_change();
         }
-    } else {
-        // Select element if it's a selectable type
-        switch (current->type) {
-            case ELEMENT_LIST: // Fall through
-                // todo detoggle everything else
-            case ELEMENT_OPTION:
-                current->current_value ^= 1;
-                set_value(current->object_name, current->current_value);
-                if (current->on_change != NULL) {
-                    current->on_change();
+        return;
+    }
+
+    // Select element if it's a selectable type
+    switch (current->type) {
+        case ELEMENT_LIST:
+            // Clear other options
+            for (uint8_t i = 0; i < page->num_elements; i++) {
+                if (page->elements[i].type == ELEMENT_LIST) {
+                    page->elements[i].current_value = 0;
+                    style_normal(&page->elements[i]);
                 }
-                break;
-            case ELEMENT_FLT: // Fall through
-            case ELEMENT_NUM:
-                page->is_element_selected = true;
-                style_selected(current);
-                break;
-            default:
-                break;
-        }
+            }
+            current->current_value = 1;
+            if (current->on_change != NULL) {
+                current->on_change();
+            }
+            style_selected(current);
+            break;
+        case ELEMENT_OPTION:
+            current->current_value ^= 1;
+            set_value(current->object_name, current->current_value);
+            if (current->on_change != NULL) {
+                current->on_change();
+            }
+            break;
+        case ELEMENT_FLT: // Fall through
+        case ELEMENT_NUM:
+            page->is_element_selected = true;
+            style_selected(current);
+            break;
+        default:
+            break;
     }
 }
 
@@ -137,9 +163,15 @@ void menu_decrement_value(menu_element_t *element) {
 void menu_refresh_page(menu_page_t *page) {
     page->is_element_selected = false;
     page->current_index = 0;
+    int list_index = menu_list_get_selected(page);
     for (uint8_t i = 0; i < page->num_elements; i++) {
         menu_element_t *curr_element = &page->elements[i];
         switch (curr_element->type) {
+            case ELEMENT_LIST:
+                if (i == list_index) {  // nothing happens if -1
+                    style_selected(curr_element);
+                }
+                break;
             case ELEMENT_NUM:
                 set_textf(curr_element->object_name, "%d", curr_element->current_value);
                 break;

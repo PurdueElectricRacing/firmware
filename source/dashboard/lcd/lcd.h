@@ -150,27 +150,6 @@ typedef enum {
   PAGE_FATAL,
 } page_t;
 
-typedef enum {
-  TV_INTENSITY_HOVER,
-  TV_P_HOVER,
-  TV_DEADBAND_HOVER,
-  TV_ENABLE_HOVER,
-  TV_INTENSITY_SELECTED,
-  TV_P_SELECTED,
-  TV_DEADBAND_SELECTED,
-  TV_NONE_SELECTED,
-} tv_hover_state_t;
-
-typedef struct {
-  tv_hover_state_t curr_hover;
-  bool tv_enable_selected;
-  uint8_t  tv_deadband_val;
-
-  // intensity and p are 10x the float equivalent
-  uint16_t tv_intensity_val;
-  uint16_t tv_p_val;
-} tv_settings_t;
-
 typedef struct {
   uint16_t brake_bias_adj;  // 0 to 10000 for the page
 } race_page_t;
@@ -198,27 +177,6 @@ typedef enum {
 typedef struct {
   fault_hover_state_t curr_hover;
 } fault_page_t;
-
-typedef enum {
-  DT_FAN_HOVER,
-  DT_PUMP_HOVER,
-  FAN1_HOVER,
-  FAN2_HOVER,
-  PUMP_HOVER,
-  DT_FAN_SELECT,
-  FAN1_SELECT
-} cooling_hover_state_t;
-
-typedef struct {
-  bool d_fan_selected;
-  bool d_pump_selected;
-  bool b_fan1_selected;
-  bool b_fan2_selected;
-  bool b_pump_selected;
-  uint8_t d_fan_val;
-  uint8_t b_fan_val;
-  cooling_hover_state_t curr_hover;
-} cooling_page_t;
 
 typedef enum {
   BRAKE_HOVER,

@@ -19,8 +19,6 @@ char *errorText;                        // Pointer to data to display for the Er
 extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
 extern q_handle_t q_tx_can;             // Global queue for CAN tx
 extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
-volatile cooling_page_t cooling;        // Data for the cooling page
-volatile tv_settings_t tv_settings;     // Data for the tvsettings page
 volatile driver_page_t driver_page;     // Data for the driver page
 volatile fault_page_t fault_page;       // Data for the faults page
 race_page_t race_page_data;             // Data for the race page
@@ -96,6 +94,24 @@ menu_element_t profile_elements[] = {
     }
 };
 
+
+// Add this structure for profile-specific data
+typedef struct {
+    uint8_t driver_id;
+} profile_data_t;
+
+static profile_data_t profile_data = {0};
+
+// Update profile page definition
+menu_page_t profile_page = {
+    .elements = profile_elements,
+    .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false,
+    .saved = true,
+    .page_data = &profile_data
+};
+
 void sendCoolingParameters();
 
 menu_element_t cooling_elements[] = {
@@ -136,22 +152,29 @@ menu_page_t cooling_page = {
     .is_element_selected = false
 };
 
-// Add this structure for profile-specific data
-typedef struct {
-    uint8_t driver_id;
-} profile_data_t;
+// menu_element_t driver_elements[] = {
+//     {
+//         .type = ELEMENT_LIST,
+//         .object_name = DRIVER1_NAME,
+//         .current_value = 0
+//     },
+//     {
+//         .type = ELEMENT_LIST,
+//         .object_name = DRIVER2_NAME,
+//         .current_value = 0
+//     },
+//     {
+//         .type = ELEMENT_LIST,
+//         .object_name = DRIVER3_NAME,
+//         .current_value = 0
+//     },
+//     {
+//         .type = ELEMENT_LIST,
+//         .object_name = DRIVER4_NAME,
+//         .current_value = 0
+//     }
+// };
 
-static profile_data_t profile_data = {0};
-
-// Update profile page definition
-menu_page_t profile_page = {
-    .elements = profile_elements,
-    .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
-    .current_index = 0,
-    .is_element_selected = false,
-    .saved = true,
-    .page_data = &profile_data
-};
 
 // Driver Page Functions
 void update_driver_page();
@@ -218,9 +241,7 @@ void initLCD() {
     curr_page = PAGE_RACE;
     prev_page = PAGE_PREFLIGHT;
     errorText = 0;
-    cooling = (cooling_page_t) {0, 0, 0, 0, 0, 0, 0, 0};
     sendFirsthalf = true;
-    tv_settings = (tv_settings_t) {true, 0, 12, 100, 40 };
     fault_page_t fault_config = {FAULT1}; // Default to first fault
     set_baud(115200);
     set_brightness(100);
@@ -680,12 +701,7 @@ void update_profile_page() {
     profile_elements[1].current_value = driver_profiles[data->driver_id].throttle_travel_threshold;
 
     // Update display and styling
-    set_value(PROFILE_BRAKE_FLT, profile_elements[0].current_value);
-    set_value(PROFILE_THROTTLE_FLT, profile_elements[1].current_value);
-    
-    style_hover(&profile_elements[0]);
-    style_normal(&profile_elements[1]);
-    style_normal(&profile_elements[2]);
+    menu_refresh_page(&profile_page);
 }
 
 void move_up_profile() {
@@ -768,40 +784,14 @@ void select_cooling() {
     menu_select(&cooling_page);
 }
 
-void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (curr_page != PAGE_COOLING) {
-        cooling.d_pump_selected = msg_data_a->coolant_out.dt_pump;
-        cooling.b_fan2_selected = msg_data_a->coolant_out.bat_pump;
-        cooling.b_pump_selected = msg_data_a->coolant_out.bat_pump_aux;
-        return;
-    }
+void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) { // todo check if deprecated?
+    cooling_elements[0].current_value = msg_data_a->coolant_out.dt_fan;
+    cooling_elements[1].current_value = msg_data_a->coolant_out.dt_pump;
+    cooling_elements[2].current_value = msg_data_a->coolant_out.bat_fan;
+    cooling_elements[3].current_value = msg_data_a->coolant_out.bat_pump;
 
-    if (cooling.curr_hover != DT_FAN_SELECT) {
-        cooling.d_fan_val = msg_data_a->coolant_out.dt_fan;
-        set_value(DT_FAN_BAR, cooling.d_fan_val);
-        set_textf(DT_FAN_VAL, "%d", cooling.d_fan_val);
-    }
-
-    if (cooling.curr_hover != FAN1_SELECT) {
-        cooling.b_fan_val = msg_data_a->coolant_out.bat_fan;
-        set_value(B_FAN1_BAR, cooling.b_fan_val);
-        set_value(B_FAN1_VAL, cooling.b_fan_val);
-        set_textf(B_FAN1_VAL, "%d", cooling.b_fan_val);
-    }
-
-    set_font_color(DT_PUMP_OP, COOLING_FG);
-    set_font_color(B_FAN2_OP, COOLING_FG);
-    set_font_color(B_PUMP_OP, COOLING_FG);
-    set_background(DT_PUMP_OP, COOLING_BG);
-    set_background(B_FAN2_OP, COOLING_BG);
-    set_background(B_PUMP_OP, COOLING_BG);
-    cooling.d_pump_selected = msg_data_a->coolant_out.dt_pump;
-    cooling.b_fan2_selected = msg_data_a->coolant_out.bat_pump;
-    cooling.b_pump_selected = msg_data_a->coolant_out.bat_pump_aux;
-    set_value(DT_PUMP_OP, cooling.d_pump_selected);
-    set_value(B_FAN2_OP, cooling.b_fan2_selected);
-    set_value(B_PUMP_OP, cooling.b_pump_selected);
-
+    // needed?
+    // update_cooling_page() 
 }
 
 void update_tv_page() {
@@ -1043,8 +1033,9 @@ void update_race_page_group2() {
 
 void select_race() {
     // there is only one option for now
-    tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
-    set_value(RACE_TV_ON, tv_settings.tv_enable_selected);
+    // todo migrate to menu system
+    //tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
+    //set_value(RACE_TV_ON, tv_settings.tv_enable_selected);
 }
 
 void setFaultIndicator(uint16_t fault, char *element) {

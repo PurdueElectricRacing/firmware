@@ -152,3 +152,12 @@ void menu_refresh_page(menu_page_t *page) {
         }
     }
 }
+
+int menu_list_get_selected(menu_page_t *page) {
+    for (uint8_t i = 0; i < page->num_elements; i++) {
+        if (page->elements[i].current_value) {
+            return i;
+        }
+    }
+    return -1;
+}

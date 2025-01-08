@@ -531,21 +531,14 @@ void updateFaultPageIndicators() {
         return;
     }
 
-    update_group++;
-    switch (update_group) { // Split into two update groups, otherwise the fifth element does not get updated
-        case 1:
-            setFaultIndicator(fault_buf[0], FAULT_1_TXT);
-            setFaultIndicator(fault_buf[1], FAULT_2_TXT);
-            setFaultIndicator(fault_buf[2], FAULT_3_TXT);
-            break;
-        case 2:
-            setFaultIndicator(fault_buf[3], FAULT_4_TXT);
-            setFaultIndicator(fault_buf[4], FAULT_5_TXT);
-            update_group = 0U;
-            break;
-        default:
-            update_group = 0U;
-            break;
+    update_group ^= 1;
+    if (update_group) {  // Split into two update groups, otherwise the fifth element's color does not get updated
+        setFaultIndicator(fault_buf[0], FAULT_1_TXT);
+        setFaultIndicator(fault_buf[1], FAULT_2_TXT);
+        setFaultIndicator(fault_buf[2], FAULT_3_TXT);
+    } else {
+        setFaultIndicator(fault_buf[3], FAULT_4_TXT);
+        setFaultIndicator(fault_buf[4], FAULT_5_TXT);
     }
 }
 
@@ -555,33 +548,24 @@ void updateSDCDashboard() {
         return;
     }
 
-    // cycle through the update groups (5 elements each)
-    update_group++;
-    switch (update_group) {
-        case 1:
-            updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
-            updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-            updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
-            break;
-        case 2:
-            updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
-            break;
-        case 3:
-            updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
-            updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-            //todo set first trip from latest change in the sdc
-            update_group = 0U;
-            break;
-        default:
-            update_group = 0U;
-            break;
+    // cycle through the update groups (max 8 elements each)
+    update_group ^= 1;
+    if (update_group) {
+        updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+        updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+        updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+    } else {
+        updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+        updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+        //todo set first trip from latest change in the sdc
     }
 }
 
@@ -837,18 +821,11 @@ void update_race_page() {
     }
 
     //cycle the update groups
-    update_group++;
-    switch (update_group) {
-        case 1:
-            update_race_page_group1();
-            break;
-        case 2:
-            update_race_page_group2();
-            update_group = 0U;
-            break;
-        default:
-            update_group = 0U;
-            break;
+    update_group ^= 1; // toggle the group to update
+    if (update_group) {
+        update_race_page_group1();
+    } else {
+        update_race_page_group2();
     }
 
     menu_refresh_page(&race_page);
@@ -954,10 +931,14 @@ void select_logging() {
 void setFaultIndicator(uint16_t fault, char *element) {
     if (fault == 0xFFFF) {
         set_font_color(element, WHITE);
-    } else if (checkFault(fault)) {
-        set_font_color(element, RED);
+        return;
     }
-    set_font_color(element, RACE_GREEN);
+    
+    if (checkFault(fault)) {
+        set_font_color(element, RED);
+    } else {
+        set_font_color(element, RACE_GREEN);
+    }
 }
 
 void updateSDCStatus(uint8_t status, char *element) {

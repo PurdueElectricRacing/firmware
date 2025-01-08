@@ -4,33 +4,33 @@
 #include <stdint.h>
 
 // Style configurations
-// todo macro these eventually
-#define MENU_GREY  38066
-// #define STYLE_NORMAL_FG    BLACK
-//#define STYLE_HOVER_BG     52857
-// #define STYLE_HOVER_FG     BLACK
-// #define STYLE_SELECTED_BG  64512
-// #define STYLE_SELECTED_FG  WHITE
+#define STEEL 21196
+#define RUSH 56640
+#define STEAM 50680
+#define BOILERMAKER 52690
+#define FIELD 56776
 
 void style_normal(menu_element_t *element) {
-    set_background(element->object_name, MENU_GREY);
-    set_font_color(element->object_name, BLACK);
+    set_background(element->object_name, STEEL);
+    set_font_color(element->object_name, WHITE);
+    // set_border_width(element->object_name, 0);
 }
 
 void style_hover(menu_element_t *element) {
-    set_background(element->object_name, WHITE);
+    set_background(element->object_name, STEAM);
     set_font_color(element->object_name, BLACK);
-    // todo change to set border to indicate selected
+    // todo change to set border to indicate selected (requires intelligent series)
+    // set_border_width(element->object_name, 3);
 }
 
 void style_selected(menu_element_t *element) {
-    set_background(element->object_name, ORANGE);
+    set_background(element->object_name, RUSH);
     set_font_color(element->object_name, WHITE);
 }
 
 void apply_element_style(menu_element_t *element, bool is_hover) {
     if (element->type == ELEMENT_LIST && element->current_value == 1) {
-        return; // Skip styling for special list case
+        return; // Skip styling for special list element case
     }
     
     if (is_hover) {
@@ -73,7 +73,7 @@ void menu_move_down(menu_page_t *page) {
     page->current_index = (page->current_index + 1) % page->num_elements;
 
     // Style new element
-    apply_element_style(&page->elements[page->current_index], false);
+    apply_element_style(&page->elements[page->current_index], true);
 }
 
 void menu_select(menu_page_t *page) {

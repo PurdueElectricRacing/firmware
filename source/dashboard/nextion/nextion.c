@@ -86,6 +86,19 @@ void set_font_color(char* obj_name, uint16_t val)
 }
 
 /**
+ * @brief Sets the border width of a specified object on the Nextion display.
+ *
+ * @param obj_name The name of the object on the Nextion display.
+ * @param val The border width value to set for the specified object.
+ */
+void set_border_width(char* obj_name, uint16_t val) 
+{
+  char result[NXT_STR_SIZE];
+  snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_BORDERW, val, NXT_CMD_TERM);
+  qSendToBack(&q_tx_usart, (uint16_t *) result);
+}
+
+/**
  * @brief Sets the text of a Nextion display object.
  *
  * @param obj_name The name of the Nextion object (e.g., "t0").

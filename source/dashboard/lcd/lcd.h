@@ -81,21 +81,13 @@
 #define DT_PUMP_OP "DPump_op"
 #define B_FAN_VAL "BFan_val"
 #define B_FAN_BAR "BFan_bar"
-#define B_PUMP_OP "BPump_op" // ! is this a pump or a fan?
+#define B_PUMP_OP "BPump_op"
 #define BAR_INTERVAL 25
 
 //Colors
 #define TV_BG 38066
 #define TV_HOVER_BG 52857
-#define COOLING_HOVER_BG GREY
-#define COOLING_HOVER_FG BLACK
-#define COOLING_BAR_BG 48631
-#define COOLING_BAR_FG GOLD
-#define COOLING_BG BLACK
-#define COOLING_FG WHITE
 #define INFO_GRAY 48631
-#define SETTINGS_UV_SELECT WHITE
-#define ORANGE 64512
 
 //Race/Data pages
 #define POW_LIM_BAR "j0"
@@ -155,22 +147,6 @@ typedef enum {
 typedef struct {
   fault_hover_state_t curr_hover;
 } fault_page_t;
-
-typedef enum {
-  BRAKE_HOVER,
-  THROTTLE_HOVER,
-  SAVE_HOVER,
-  BRAKE_SELECTED,
-  THROTTLE_SELECTED,
-} profile_hover_state_t;
-
-typedef struct {
-  profile_hover_state_t curr_hover;
-  bool saved;
-  uint8_t driver_id;
-  uint8_t brake_val;
-  uint8_t throttle_val;
-} profile_page_t;
 
 typedef struct {
   volatile int8_t encoder_position;

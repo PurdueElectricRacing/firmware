@@ -14,7 +14,6 @@ volatile page_t curr_page;              // Current page displayed on the LCD
 volatile page_t prev_page;              // Previous page displayed on the LCD
 uint16_t cur_fault_buf_ndx;             // Current index in the fault buffer
 volatile uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // Buffer of displayed faults
-bool sendFirsthalf;                     // Flag for sending data to data page
 char *errorText;                        // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
 extern q_handle_t q_tx_can;             // Global queue for CAN tx
@@ -32,7 +31,7 @@ menu_element_t tv_elements[] = {
         .object_name = TV_INTENSITY_FLT,
         .current_value = 0,
         .min_value = 0,
-        .max_value = 100,
+        .max_value = 100, // decimal shifted left by 1
         .increment = 5,
         .on_change = sendTVParameters
     },
@@ -41,7 +40,7 @@ menu_element_t tv_elements[] = {
         .object_name = TV_PROPORTION_FLT,
         .current_value = 40,
         .min_value = 0,
-        .max_value = 100,
+        .max_value = 100, // decimal shifted left by 1
         .increment = 5,
         .on_change = sendTVParameters
     },
@@ -93,22 +92,12 @@ menu_element_t profile_elements[] = {
     }
 };
 
-
-// Add this structure for profile-specific data
-typedef struct {
-    uint8_t driver_id;
-} profile_data_t;
-
-static profile_data_t profile_data = {0};
-
-// Update profile page definition
 menu_page_t profile_page = {
     .elements = profile_elements,
     .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
     .current_index = 0,
     .is_element_selected = false,
     .saved = true,
-    .page_data = &profile_data
 };
 
 void sendCoolingParameters();
@@ -181,6 +170,22 @@ menu_page_t driver_page = {
     .is_element_selected = false
 };
 
+menu_element_t race_elements[] = {
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = RACE_TV_ON,
+        .current_value = 0,
+        .on_change = sendTVParameters
+    }
+};
+
+menu_page_t race_page = {
+    .elements = race_elements,
+    .num_elements = sizeof(race_elements) / sizeof(race_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
+};
+
 // Driver Page Functions
 void update_driver_page();
 void move_up_driver();
@@ -246,7 +251,6 @@ void initLCD() {
     curr_page = PAGE_RACE;
     prev_page = PAGE_PREFLIGHT;
     errorText = 0;
-    sendFirsthalf = true;
     fault_page_t fault_config = {FAULT1}; // Default to first fault
     set_baud(115200);
     set_brightness(100);
@@ -590,13 +594,9 @@ void update_profile_page() { // todo this function is kinda jank
         case 2: set_text(PROFILE_CURRENT_TXT, DRIVER3_NAME); break;
         case 3: set_text(PROFILE_CURRENT_TXT, DRIVER4_NAME); break;
     }
-
-    // Load profile values
-    profile_data_t* data = (profile_data_t*)profile_page.page_data;
-    data->driver_id = (uint8_t)driver_index;
     
-    profile_elements[0].current_value = driver_profiles[data->driver_id].brake_travel_threshold;
-    profile_elements[1].current_value = driver_profiles[data->driver_id].throttle_travel_threshold;
+    profile_elements[0].current_value = driver_profiles[driver_index].brake_travel_threshold;
+    profile_elements[1].current_value = driver_profiles[driver_index].throttle_travel_threshold;
 
     // Update display and styling
     menu_refresh_page(&profile_page);
@@ -624,10 +624,10 @@ void move_down_profile() {
 
 void select_profile() {
     if (profile_page.current_index == 2) { // Save button
-        profile_data_t* data = (profile_data_t*)profile_page.page_data;
+        int driver_index = menu_list_get_selected(&driver_page);
         // Save profile values
-        driver_profiles[data->driver_id].brake_travel_threshold = profile_elements[0].current_value;
-        driver_profiles[data->driver_id].throttle_travel_threshold = profile_elements[1].current_value;
+        driver_profiles[driver_index].brake_travel_threshold = profile_elements[0].current_value;
+        driver_profiles[driver_index].throttle_travel_threshold = profile_elements[1].current_value;
 
         if (PROFILE_WRITE_SUCCESS != writeProfiles()) {
             profile_page.saved = false;
@@ -930,10 +930,7 @@ void update_race_page_group2() {
 }
 
 void select_race() {
-    // there is only one option for now
-    // todo migrate to menu system
-    //tv_settings.tv_enable_selected = (tv_settings.tv_enable_selected == 0);
-    //set_value(RACE_TV_ON, tv_settings.tv_enable_selected);
+    menu_select(&race_page);
 }
 
 void setFaultIndicator(uint16_t fault, char *element) {

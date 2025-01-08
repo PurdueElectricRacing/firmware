@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "common/queue/queue.h"
 
-#define NXT_STR_SIZE        100 // Important: Used for usart queue size, issues arise if less than len of longest fault msg
+#define NXT_STR_SIZE        100 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
 #define SET_VALUE_EXTRA 	13
 #define SET_BCO_EXTRA 		13
 #define SET_TEXT_EXTRA 		10
@@ -13,14 +13,13 @@
 #define ASCII_OFFSET 		48
 #define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
 
+// Color Definitions in 565 format
 #define RED    63488
 #define YELLOW 65504
 #define GREEN  4065
 #define RACE_GREEN 1376
 #define WHITE 65535
 #define BLACK 0
-#define GOLD 50273
-#define GREY 57051
 #define ORANGE 64512
 
 #define FLAG_ENABLED_PIC  1
@@ -30,7 +29,7 @@
 #define NXT_FONT_COLOR       ".pco="
 #define NXT_VALUE            ".val="
 #define NXT_TEXT             ".txt="
-#define NXT_BORDERW          ".borderw=" // Cannot modify the border width of the TEXT object 
+#define NXT_BORDERW          ".borderw=" // Cannot modify the borderw of the TEXT object without intelligent series
 #define NXT_PAGE             "page "
 #define NXT_BRIGHTNESS       "dims="
 #define NXT_BAUD             "bauds="

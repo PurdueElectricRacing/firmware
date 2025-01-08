@@ -3,23 +3,26 @@
 #include "nextion.h"
 #include <stdint.h>
 
-// Style configurations
-#define STEEL 21196
-#define RUSH 56640
-#define STEAM 50680
-#define BOILERMAKER 52690
-#define FIELD 56776
+// Purdue color palette in 565 format
+#define RUSH 56640          // bright gold
+#define BOILERMAKER 52690   // pale gold
+#define FIELD 56776         // light gold
+#define STEEL 21196         // dark grey
+#define COOL_GRAY 27535     // medium grey
+#define STEAM 50680         // light grey
+
 
 void style_normal(menu_element_t *element) {
     set_background(element->object_name, STEEL);
     set_font_color(element->object_name, WHITE);
+    // change to set border to indicate selected? (requires intelligent series)
     // set_border_width(element->object_name, 0);
 }
 
 void style_hover(menu_element_t *element) {
     set_background(element->object_name, STEAM);
     set_font_color(element->object_name, BLACK);
-    // todo change to set border to indicate selected (requires intelligent series)
+    // change to set border to indicate selected? (requires intelligent series)
     // set_border_width(element->object_name, 3);
 }
 
@@ -93,6 +96,11 @@ void menu_select(menu_page_t *page) {
 
     // Select element if it's a selectable type
     switch (current->type) {
+        case ELEMENT_BUTTON:
+            if (current->on_change != NULL) {
+                current->on_change();
+            }
+            break;
         case ELEMENT_LIST:
             // Clear other options
             for (uint8_t i = 0; i < page->num_elements; i++) {

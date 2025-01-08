@@ -8,10 +8,10 @@
 typedef enum {
     ELEMENT_NUM,    // Numeric value
     ELEMENT_FLT,    // Float value
-    ELEMENT_BAR,    // Shared with numeric value // ! active bar type not supported for now
-    ELEMENT_TEXT,   // Text type
+    ELEMENT_BAR,    // Shared with numeric value (not supported but easy to implement)
+    ELEMENT_BUTTON, // Button type
     ELEMENT_OPTION, // On/off toggle
-    ELEMENT_LIST    // Item in a list // todo implement list type
+    ELEMENT_LIST    // Item in a list
 } element_type_t;
 
 // Element states
@@ -40,7 +40,6 @@ typedef struct {
     uint8_t current_index;      // Currently selected element index
     bool is_element_selected;   // Is an element currently selected?
     bool saved;                 // Generic saved state flag
-    void* page_data;            // Pointer to page-specific data
 } menu_page_t;
 
 // Style functions

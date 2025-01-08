@@ -210,7 +210,7 @@ int main(void){
     taskCreate(send_shockpots, 15);
     taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
-    taskCreate(sendTVParameters, 4000);
+    taskCreate(sendTVParameters, 10000);
     taskCreate(updateSDCDashboard, 500);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(canTxUpdate);

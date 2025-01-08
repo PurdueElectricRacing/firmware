@@ -2,8 +2,8 @@
 #define __LCD_H__
 
 #include "nextion.h"
-#include <stdint.h>
 #include "menu_system.h"
+#include <stdint.h>
 
 //Page Strings / info
 #define RACE_STRING "race"
@@ -66,7 +66,7 @@
 #define FAULT_3_TXT "fault3"
 #define FAULT_4_TXT "fault4"
 #define FAULT_5_TXT "fault5"
-#define CLEAR_FAULTS_TXT "clear"
+#define CLEAR_TXT "clear"
 #define FAULT_NONE_STRING "NONE\0"
 
 //TV Settings Page Values
@@ -101,6 +101,10 @@
 #define FLT_TO_DISPLAY_INT_2_DEC (100U)
 #define FLT_TO_PERCENTAGE (100U)
 
+// Logging Page
+#define LOG_OP "log_op"
+#define LOGGING_STATUS_TXT "log_stat"
+
 //Race specific Values
 #define BATT_TEMP "batt_temp"
 #define BATT_VOLT "volts"
@@ -112,7 +116,6 @@
 #define RACE_TV_ON "tv_op"
 
 typedef enum {
-
   // Pages selectable with the rot encoder
   // Should corresspond with the page count in main.h
   PAGE_RACE,
@@ -136,18 +139,6 @@ typedef struct {
   uint16_t brake_bias_adj;  // 0 to 10000 for the page
 } race_page_t;
 
-typedef enum {
-  FAULT1,
-  FAULT2,
-  FAULT3,
-  FAULT4,
-  FAULT5,
-  CLEAR
-} fault_hover_state_t;
-typedef struct {
-  fault_hover_state_t curr_hover;
-} fault_page_t;
-
 typedef struct {
   volatile int8_t encoder_position;
 } lcd_t;
@@ -167,9 +158,9 @@ void selectItem();                  // Selection UI input detected
 void updateFaultDisplay();          // Periodically poll recent faults and update the fault buffer and page as needed
 void updateTelemetryPages();        // Periodically poll recent telemetry and update the race/apps page as needd
 void sendTVParameters();            // Periodically send updates to the TV configuration to TV board
+void sendCoolingParameters();       // Periodically send updates to the cooling configuration to the cooling board
+void sendLoggingParameters();       // Periodically send updates to the logging configuration to the daq board
 void updateFaultPageIndicators();   // Update the fault page indicators
 void updateSDCDashboard();          // Update the SDC info page
-
-extern menu_page_t tv_page;
 
 #endif // __LCD_H__

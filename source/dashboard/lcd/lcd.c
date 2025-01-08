@@ -5,6 +5,7 @@
 #include "pedals.h"
 #include "common/faults/faults.h"
 #include "common_defs.h"
+#include <stddef.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
@@ -18,11 +19,128 @@ char *errorText;                        // Pointer to data to display for the Er
 extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
 extern q_handle_t q_tx_can;             // Global queue for CAN tx
 extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
-volatile fault_page_t fault_page;       // Data for the faults page
 race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
 extern driver_profile_t driver_profiles[4];
+
+
+// Driver Page Functions
+void update_driver_page();
+void move_up_driver();
+void move_down_driver();
+void select_driver();
+
+// Profile Page Functions
+void update_profile_page();
+void move_up_profile();
+void move_down_profile();
+void select_profile();
+
+// Cooling Page Functions
+void update_cooling_page();
+void move_up_cooling();
+void move_down_cooling();
+void select_cooling();
+
+// TV Page Functions
+void update_tv_page();
+void move_up_tv();
+void move_down_tv();
+void select_tv();
+
+// Faults Page Functions
+void update_faults_page();
+void move_up_faults();
+void move_down_faults();
+void select_fault();
+void fault_button_callback();
+
+// Race Page Functions
+void update_race_page();
+void update_race_page_group1();
+void update_race_page_group2();
+void select_race();
+
+void select_error_page();
+
+void update_logging_page();
+void select_logging();
+
+// Utility Functions
+void updateSDCStatus(uint8_t status, char *element);
+void setFaultIndicator(uint16_t fault, char *element);
+
+// Page handlers array stored in flash
+const page_handler_t page_handlers[] = { // Order must match page_t enum
+    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race}, // No move handlers
+    [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
+    [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
+    [PAGE_FAULTS]    = {update_faults_page, move_up_faults, move_down_faults, select_fault},
+    [PAGE_SDCINFO]   = {NULL, NULL, NULL, NULL},  // SDCINFO is passive
+    [PAGE_DRIVER]    = {update_driver_page, move_up_driver, move_down_driver, select_driver},
+    [PAGE_PROFILES]  = {update_profile_page, move_up_profile, move_down_profile, select_profile},
+    [PAGE_LOGGING]   = {update_logging_page, NULL, NULL, select_logging},
+    [PAGE_APPS]      = {NULL, NULL, NULL, NULL}, // Apps is passive
+    [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL}, // Preflight is passive
+    [PAGE_WARNING]   = {NULL, NULL, NULL, select_error_page}, // Error pages share a select handler
+    [PAGE_ERROR]     = {NULL, NULL, NULL, select_error_page},  
+    [PAGE_FATAL]     = {NULL, NULL, NULL, select_error_page}
+};
+
+menu_element_t race_elements[] = {
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = RACE_TV_ON,
+        .current_value = 0,
+        .on_change = sendTVParameters
+    }
+};
+
+menu_page_t race_page = {
+    .elements = race_elements,
+    .num_elements = sizeof(race_elements) / sizeof(race_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
+};
+
+menu_element_t cooling_elements[] = {
+    {
+        .type = ELEMENT_NUM,
+        .object_name = DT_FAN_VAL,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 100,
+        .increment = 25,
+    },
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = DT_PUMP_OP,
+        .current_value = 0,
+        .on_change = sendCoolingParameters
+    },
+    {
+        .type = ELEMENT_NUM,
+        .object_name = B_FAN_VAL,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 100,
+        .increment = 25,
+    },
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = B_PUMP_OP,
+        .current_value = 0,
+        .on_change = sendCoolingParameters
+    }
+};
+
+menu_page_t cooling_page = {
+    .elements = cooling_elements,
+    .num_elements = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
+};
 
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
@@ -68,74 +186,42 @@ menu_page_t tv_page = {
     .is_element_selected = false
 };
 
-// Profile page menu elements
-menu_element_t profile_elements[] = {
+menu_element_t faults_elements[] = {
     {
-        .type = ELEMENT_NUM,
-        .object_name = PROFILE_BRAKE_FLT,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 20,
-        .increment = 5,
+        .type = ELEMENT_BUTTON,
+        .object_name = "t1",
+        .on_change = fault_button_callback // clear fault
     },
     {
-        .type = ELEMENT_NUM,
-        .object_name = PROFILE_THROTTLE_FLT,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 20,
-        .increment = 5,
+        .type = ELEMENT_BUTTON,
+        .object_name = "t2",
+        .on_change = fault_button_callback // clear fault
     },
     {
-        .type = ELEMENT_TEXT,
-        .object_name = PROFILE_SAVE_TXT,
+        .type = ELEMENT_BUTTON,
+        .object_name = "t3",
+        .on_change = fault_button_callback // clear fault
+    },
+    {
+        .type = ELEMENT_BUTTON,
+        .object_name = "t4",
+        .on_change = fault_button_callback // clear fault
+    },
+    {
+        .type = ELEMENT_BUTTON,
+        .object_name = "t5",
+        .on_change = fault_button_callback // clear fault
+    },
+    {
+        .type = ELEMENT_BUTTON,
+        .object_name = CLEAR_TXT,
+        .on_change = fault_button_callback // clear all faults
     }
 };
 
-menu_page_t profile_page = {
-    .elements = profile_elements,
-    .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
-    .current_index = 0,
-    .is_element_selected = false,
-    .saved = true,
-};
-
-void sendCoolingParameters();
-
-menu_element_t cooling_elements[] = {
-    {
-        .type = ELEMENT_NUM,
-        .object_name = DT_FAN_VAL,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 100,
-        .increment = 25,
-    },
-    {
-        .type = ELEMENT_OPTION,
-        .object_name = DT_PUMP_OP,
-        .current_value = 0,
-        .on_change = sendCoolingParameters
-    },
-    {
-        .type = ELEMENT_NUM,
-        .object_name = B_FAN_VAL,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 100,
-        .increment = 25,
-    },
-    {
-        .type = ELEMENT_OPTION,
-        .object_name = B_PUMP_OP,
-        .current_value = 0,
-        .on_change = sendCoolingParameters
-    }
-};
-
-menu_page_t cooling_page = {
-    .elements = cooling_elements,
-    .num_elements = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
+menu_page_t faults_page = {
+    .elements = faults_elements,
+    .num_elements = sizeof(faults_elements) / sizeof(faults_elements[0]),
     .current_index = 0,
     .is_element_selected = false
 };
@@ -170,79 +256,53 @@ menu_page_t driver_page = {
     .is_element_selected = false
 };
 
-menu_element_t race_elements[] = {
+// Profile page menu elements
+menu_element_t profile_elements[] = {
     {
-        .type = ELEMENT_OPTION,
-        .object_name = RACE_TV_ON,
+        .type = ELEMENT_NUM,
+        .object_name = PROFILE_BRAKE_FLT,
         .current_value = 0,
-        .on_change = sendTVParameters
+        .min_value = 0,
+        .max_value = 20,
+        .increment = 5,
+    },
+    {
+        .type = ELEMENT_NUM,
+        .object_name = PROFILE_THROTTLE_FLT,
+        .current_value = 0,
+        .min_value = 0,
+        .max_value = 20,
+        .increment = 5,
+    },
+    {
+        .type = ELEMENT_BUTTON,
+        .object_name = PROFILE_SAVE_TXT,
+        .on_change = NULL // todo replace with save function
     }
 };
 
-menu_page_t race_page = {
-    .elements = race_elements,
-    .num_elements = sizeof(race_elements) / sizeof(race_elements[0]),
+menu_page_t profile_page = {
+    .elements = profile_elements,
+    .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
     .current_index = 0,
-    .is_element_selected = false
+    .is_element_selected = false,
+    .saved = true,
 };
 
-// Driver Page Functions
-void update_driver_page();
-void move_up_driver();
-void move_down_driver();
-void select_driver();
+menu_element_t logging_elements[] = {
+    {
+        .type = ELEMENT_OPTION,
+        .object_name = "log_op",
+        .current_value = 0,
+        .on_change = sendLoggingParameters
+    }
+};
 
-// Profile Page Functions
-void update_profile_page();
-void move_up_profile();
-void move_down_profile();
-void select_profile();
-
-// Cooling Page Functions
-void update_cooling_page();
-void move_up_cooling();
-void move_down_cooling();
-void select_cooling();
-
-// TV Page Functions
-void update_tv_page();
-void move_up_tv();
-void move_down_tv();
-void select_tv();
-
-// Faults Page Functions
-void update_faults_page();
-void move_up_faults();
-void move_down_faults();
-void select_fault();
-
-// Race Page Functions
-void update_race_page();
-void update_race_page_group1();
-void update_race_page_group2();
-void select_race();
-
-void select_error_page();
-
-// Utility Functions
-void updateSDCStatus(uint8_t status, char *element);
-void setFaultIndicator(uint16_t fault, char *element);
-
-// page handlers array must match page_t enum order exactly
-const page_handler_t page_handlers[] = {
-    [PAGE_RACE]      = {update_race_page, NULL, NULL, select_race}, // No move handlers
-    [PAGE_COOLING]   = {update_cooling_page, move_up_cooling, move_down_cooling, select_cooling},
-    [PAGE_TVSETTINGS]= {update_tv_page, move_up_tv, move_down_tv, select_tv},
-    [PAGE_FAULTS]    = {update_faults_page, move_up_faults, move_down_faults, select_fault},
-    [PAGE_SDCINFO]   = {NULL, NULL, NULL, NULL},  // SDCINFO is passive
-    [PAGE_DRIVER]    = {update_driver_page, move_up_driver, move_down_driver, select_driver},
-    [PAGE_PROFILES]  = {update_profile_page, move_up_profile, move_down_profile, select_profile},
-    [PAGE_LOGGING]   = {NULL, NULL, NULL, NULL},  // TODO: Implement logging handlers
-    [PAGE_APPS]      = {NULL, NULL, NULL, NULL}, // Apps is passive
-    [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL}, // Preflight is passive
-    [PAGE_WARNING]   = {NULL, NULL, NULL, select_error_page}, // Error pages share a select handler
-    [PAGE_ERROR]     = {NULL, NULL, NULL, select_error_page},  
-    [PAGE_FATAL]     = {NULL, NULL, NULL, select_error_page}
+menu_page_t logging_page = {
+    .elements = logging_elements,
+    .num_elements = sizeof(logging_elements) / sizeof(logging_elements[0]),
+    .current_index = 0,
+    .is_element_selected = false
 };
 
 // Initialize the LCD screen
@@ -251,7 +311,6 @@ void initLCD() {
     curr_page = PAGE_RACE;
     prev_page = PAGE_PREFLIGHT;
     errorText = 0;
-    fault_page_t fault_config = {FAULT1}; // Default to first fault
     set_baud(115200);
     set_brightness(100);
 
@@ -330,37 +389,6 @@ void selectItem() {
     }
 }
 
-void clear_fault(int index) {
-    if (index < 0 || index > 4) {
-        return;
-    }
-
-    if (fault_buf[index] == 0xFFFF) {
-        return;
-    }
-
-    if (checkFault(fault_buf[index])) {  // Check if fault is not latched
-        return;
-    }
-
-    // Shift the elements to the left
-    for (int i = index; i < 4; i++) {
-        fault_buf[i] = fault_buf[i + 1];
-    }
-    fault_buf[4] = 0xFFFF;
-}
-
-void select_fault() {
-    if (fault_page.curr_hover >= FAULT1 && fault_page.curr_hover <= FAULT5) { // Clear individual faults based on hover
-        int fault_index = fault_page.curr_hover - FAULT1;
-        clear_fault(fault_index);
-    } else if (fault_page.curr_hover == CLEAR) { // Clear all faults
-        for (int i = 4; i >= 0; i--) {
-            clear_fault(i);
-        }
-    }
-}
-
 void update_apps_page() {
     set_value(POW_LIM_BAR, 0);
     set_value(THROT_BAR, (int) ((filtered_pedals / 4095.0) * 100));
@@ -376,13 +404,15 @@ void updateTelemetryPages() {
 }
 
 void sendTVParameters() {
-    // todo send the right values
     SEND_DASHBOARD_TV_PARAMETERS(tv_elements[3].current_value, tv_elements[2].current_value, tv_elements[0].current_value, tv_elements[1].current_value);
 }
 
 void sendCoolingParameters() {
-    // todo remove pump 2
     SEND_COOLING_DRIVER_REQUEST(cooling_elements[1].current_value, cooling_elements[0].current_value, 0, cooling_elements[3].current_value, cooling_elements[2].current_value);
+}
+
+void sendLoggingParameters() {
+    SEND_DASHBOARD_START_LOGGING(logging_elements[0].current_value);
 }
 
 void updateFaultDisplay() {
@@ -706,122 +736,83 @@ void move_down_tv() {
 
 void select_tv() {
     menu_select(&tv_page);
+    race_elements[0].current_value = tv_elements[3].current_value; // Sync TV settings
 }
 
 void update_faults_page() {
-    if (fault_buf[0] == 0xFFFF)
-    {
+    if (fault_buf[0] == 0xFFFF) {
         set_text(FAULT_1_TXT, FAULT_NONE_STRING);
-    }
-    else
-    {
+    } else {
         set_text(FAULT_1_TXT, faultArray[fault_buf[0]].screen_MSG);
     }
-    if (fault_buf[1] == 0xFFFF)
-    {
+
+    if (fault_buf[1] == 0xFFFF) {
         set_text(FAULT_2_TXT, FAULT_NONE_STRING);
-    }
-    else
-    {
+    } else {
         set_text(FAULT_2_TXT, faultArray[fault_buf[1]].screen_MSG);
     }
 
-    if (fault_buf[2] == 0xFFFF)
-    {
+    if (fault_buf[2] == 0xFFFF) {
         set_text(FAULT_3_TXT, FAULT_NONE_STRING);
-    }
-    else
-    {
+    } else {
         set_text(FAULT_3_TXT, faultArray[fault_buf[2]].screen_MSG);
     }
 
-    if (fault_buf[3] == 0xFFFF)
-    {
+    if (fault_buf[3] == 0xFFFF) {
         set_text(FAULT_4_TXT, FAULT_NONE_STRING);
-    }
-    else
-    {
+    } else {
         set_text(FAULT_4_TXT, faultArray[fault_buf[3]].screen_MSG);
     }
 
-    if (fault_buf[4] == 0xFFFF)
-    {
+    if (fault_buf[4] == 0xFFFF) {
         set_text(FAULT_5_TXT, FAULT_NONE_STRING);
-    }
-    else
-    {
+    } else {
         set_text(FAULT_5_TXT, faultArray[fault_buf[4]].screen_MSG);
     }
+
+    menu_refresh_page(&faults_page);
 }
 
 void move_up_faults() {
-    switch (fault_page.curr_hover) {
-        case FAULT1:
-            // Wrap around to the last item
-            fault_page.curr_hover = CLEAR;
-            set_background(FAULT_1_TXT, BLACK);
-            set_background(CLEAR_FAULTS_TXT, TV_HOVER_BG);
-            break;
-        case FAULT2:
-            fault_page.curr_hover = FAULT1;
-            set_background(FAULT_2_TXT, BLACK);
-            set_background(FAULT_1_TXT, TV_HOVER_BG);
-            break;
-        case FAULT3:
-            fault_page.curr_hover = FAULT2;
-            set_background(FAULT_3_TXT, BLACK);
-            set_background(FAULT_2_TXT, TV_HOVER_BG);
-            break;
-        case FAULT4:
-            fault_page.curr_hover = FAULT3;
-            set_background(FAULT_4_TXT, BLACK);
-            set_background(FAULT_3_TXT, TV_HOVER_BG);
-            break;
-        case FAULT5:
-            fault_page.curr_hover = FAULT4;
-            set_background(FAULT_5_TXT, BLACK);
-            set_background(FAULT_4_TXT, TV_HOVER_BG);
-            break;
-        case CLEAR:
-            fault_page.curr_hover = FAULT5;
-            set_background(CLEAR_FAULTS_TXT, BLACK);
-            set_background(FAULT_5_TXT, TV_HOVER_BG);
-            break;
-    }
+    menu_move_up(&faults_page);
 }
 
 void move_down_faults() {
-    switch (fault_page.curr_hover) {
-        case FAULT1:
-            fault_page.curr_hover = FAULT2;
-            set_background(FAULT_1_TXT, BLACK);
-            set_background(FAULT_2_TXT, TV_HOVER_BG);
-            break;
-        case FAULT2:
-            fault_page.curr_hover = FAULT3;
-            set_background(FAULT_2_TXT, BLACK);
-            set_background(FAULT_3_TXT, TV_HOVER_BG);
-            break;
-        case FAULT3:
-            fault_page.curr_hover = FAULT4;
-            set_background(FAULT_3_TXT, BLACK);
-            set_background(FAULT_4_TXT, TV_HOVER_BG);
-            break;
-        case FAULT4:
-            fault_page.curr_hover = FAULT5;
-            set_background(FAULT_4_TXT, BLACK);
-            set_background(FAULT_5_TXT, TV_HOVER_BG);
-            break;
-        case FAULT5:
-            fault_page.curr_hover = CLEAR;
-            set_background(FAULT_5_TXT, BLACK);
-            set_background(CLEAR_FAULTS_TXT, TV_HOVER_BG);
-            break;
-        case CLEAR:
-            fault_page.curr_hover = FAULT1;
-            set_background(CLEAR_FAULTS_TXT, BLACK);
-            set_background(FAULT_1_TXT, TV_HOVER_BG);
-            break;
+    menu_move_down(&faults_page);
+}
+
+void select_fault() {
+    menu_select(&faults_page);
+}
+
+void clear_fault(int index) {
+    if (index < 0 || index > 4) {
+        return;
+    }
+
+    if (fault_buf[index] == 0xFFFF) {
+        return;
+    }
+
+    if (checkFault(fault_buf[index])) {  // Check if fault is not latched
+        return;
+    }
+
+    // Shift the elements to the left
+    for (int i = index; i < 4; i++) {
+        fault_buf[i] = fault_buf[i + 1];
+    }
+    fault_buf[4] = 0xFFFF;
+}
+
+void fault_button_callback() {
+    int hover_index = faults_page.current_index;
+    if (hover_index == 5) {
+        for (int i = 4; i >= 0; i--) {
+            clear_fault(i);
+        }
+    } else {
+        clear_fault(hover_index);
     }
 }
 
@@ -859,6 +850,8 @@ void update_race_page() {
             update_group = 0U;
             break;
     }
+
+    menu_refresh_page(&race_page);
 }
 
 void update_race_page_group1() {
@@ -931,6 +924,31 @@ void update_race_page_group2() {
 
 void select_race() {
     menu_select(&race_page);
+    tv_elements[3].current_value = race_elements[0].current_value; // Sync TV settings
+}
+
+void update_logging_page() {
+    menu_refresh_page(&logging_page);
+
+    if (logging_elements[0].current_value == 1) {
+        set_text(LOGGING_STATUS_TXT, "DAQ ON");
+        set_font_color(LOGGING_STATUS_TXT, GREEN);
+    } else {
+        set_text(LOGGING_STATUS_TXT, "DAQ OFF");
+        set_font_color(LOGGING_STATUS_TXT, RED);
+    }
+}
+
+void select_logging() {
+    menu_select(&logging_page);
+
+    if (logging_elements[0].current_value == 1) {
+        set_text(LOGGING_STATUS_TXT, "DAQ ON");
+        set_font_color(LOGGING_STATUS_TXT, GREEN);
+    } else {
+        set_text(LOGGING_STATUS_TXT, "DAQ OFF");
+        set_font_color(LOGGING_STATUS_TXT, RED);
+    }
 }
 
 void setFaultIndicator(uint16_t fault, char *element) {

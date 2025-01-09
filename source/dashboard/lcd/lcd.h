@@ -5,7 +5,7 @@
 #include "menu_system.h"
 #include <stdint.h>
 
-//Page Strings / info
+//Page Strings (must match Nextion page names)
 #define RACE_STRING "race"
 #define COOLING_STRING "cooling"
 #define APPS_STRING "apps"
@@ -18,8 +18,9 @@
 #define DRIVER_CONFIG_STRING "profile"
 #define SDCINFO_STRING "sdcinfo"
 #define LOGGING_STRING "logging"
-#define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U) // TODO remove?
 
+// Info
+#define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U) // TODO remove?
 
 // Driver Configuration Page
 #define DRIVER1_TXT "t1"
@@ -134,10 +135,6 @@ typedef enum {
   PAGE_ERROR,
   PAGE_FATAL,
 } page_t;
-
-typedef struct {
-  uint16_t brake_bias_adj;  // 0 to 10000 for the page
-} race_page_t;
 
 typedef struct {
   volatile int8_t encoder_position;

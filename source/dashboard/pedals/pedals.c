@@ -33,7 +33,6 @@ driver_profile_t driver_profiles[4] = {
 };
 
 extern q_handle_t q_tx_can;
-extern race_page_t race_page_data;
 
 void pedalsPeriodic(void)
 {
@@ -49,8 +48,6 @@ void pedalsPeriodic(void)
     {
         brake_bias = ((float)b1 / (b1 + b2));
     }
-    // Convert to 0 - 10000 for display 0.00 to 100.00
-    race_page_data.brake_bias_adj = brake_bias * FLT_TO_PERCENTAGE * FLT_TO_DISPLAY_INT_2_DEC;
 
     setFault(ID_APPS_WIRING_T1_FAULT, t1);
     setFault(ID_APPS_WIRING_T2_FAULT, t2);

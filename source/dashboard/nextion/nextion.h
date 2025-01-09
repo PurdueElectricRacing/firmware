@@ -5,13 +5,10 @@
 #include <stdio.h>
 #include "common/queue/queue.h"
 
+// Size Definitions
 #define NXT_STR_SIZE        100 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
-#define SET_VALUE_EXTRA 	13
-#define SET_BCO_EXTRA 		13
-#define SET_TEXT_EXTRA 		10
-#define SET_PAGE_EXTRA      8
-#define ASCII_OFFSET 		48
 #define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
+#define ASCII_OFFSET 		48
 
 // Color Definitions in 565 format
 #define RED    63488
@@ -22,9 +19,7 @@
 #define BLACK 0
 #define ORANGE 64512
 
-#define FLAG_ENABLED_PIC  1
-#define FLAG_DISABLED_PIC 1
-
+// Nextion Command Strings
 #define NXT_BACKGROUND_COLOR ".bco="
 #define NXT_FONT_COLOR       ".pco="
 #define NXT_VALUE            ".val="
@@ -34,7 +29,7 @@
 #define NXT_BRIGHTNESS       "dims="
 #define NXT_BAUD             "bauds="
 
-void set_flag(char* obj_name, uint8_t enable);
+// Function Prototypes
 void set_float(char* obj_name, char* param, float num, uint8_t precision);
 void set_value(char* obj_name, uint16_t val);
 void set_background(char* obj_name, uint16_t val);

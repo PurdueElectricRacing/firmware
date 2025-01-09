@@ -19,17 +19,6 @@
 
 extern q_handle_t q_tx_usart;
 
-/**
- * @brief Sets a flag on a Nextion display object.
- *
- * @param obj_name The name of the Nextion display object.
- * @param enable A boolean value indicating whether to enable (1) or disable (0) the flag.
- */
-void set_flag(char* obj_name, uint8_t enable)
-{
-  if (enable) set_value(obj_name, FLAG_ENABLED_PIC);
-  else set_value(obj_name, FLAG_DISABLED_PIC);
-}
 
 /**
  * @brief Sets a float value to a specified object parameter on the Nextion display.

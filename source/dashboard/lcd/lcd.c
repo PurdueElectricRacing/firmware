@@ -19,7 +19,6 @@ char *errorText;                        // Pointer to data to display for the Er
 extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
 extern q_handle_t q_tx_can;             // Global queue for CAN tx
 extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
-race_page_t race_page_data;             // Data for the race page
 extern lcd_t lcd_data;
 uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
 extern driver_profile_t driver_profiles[4];
@@ -526,20 +525,15 @@ void updateFaultDisplay() {
 }
 
 void updateFaultPageIndicators() {
-    static uint8_t update_group = 0U;
     if (curr_page != PAGE_FAULTS) {
         return;
     }
 
-    update_group ^= 1;
-    if (update_group) {  // Split into two update groups, otherwise the fifth element's color does not get updated
-        setFaultIndicator(fault_buf[0], FAULT_1_TXT);
-        setFaultIndicator(fault_buf[1], FAULT_2_TXT);
-        setFaultIndicator(fault_buf[2], FAULT_3_TXT);
-    } else {
-        setFaultIndicator(fault_buf[3], FAULT_4_TXT);
-        setFaultIndicator(fault_buf[4], FAULT_5_TXT);
-    }
+    setFaultIndicator(fault_buf[0], FAULT_1_TXT);
+    setFaultIndicator(fault_buf[1], FAULT_2_TXT);
+    setFaultIndicator(fault_buf[2], FAULT_3_TXT);
+    setFaultIndicator(fault_buf[3], FAULT_4_TXT);
+    setFaultIndicator(fault_buf[4], FAULT_5_TXT);
 }
 
 void updateSDCDashboard() {

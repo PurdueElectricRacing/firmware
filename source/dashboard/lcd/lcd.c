@@ -56,9 +56,8 @@ void select_fault();
 void fault_button_callback();
 
 // Race Page Functions
+void update_race_telemetry();
 void update_race_page();
-void update_race_page_group1();
-void update_race_page_group2();
 void select_race();
 
 void select_error_page();
@@ -396,7 +395,7 @@ void update_apps_page() {
 
 void updateTelemetryPages() {
     if (curr_page == PAGE_RACE) {
-        update_race_page();
+        update_race_telemetry();
     } else {
         update_apps_page();
     }
@@ -542,7 +541,7 @@ void updateSDCDashboard() {
         return;
     }
 
-    // cycle through the update groups (max 8 elements each)
+    // cycle through the update groups
     update_group ^= 1;
     if (update_group) {
         updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
@@ -795,7 +794,10 @@ void fault_button_callback() {
 }
 
 void update_race_page() {
-    static uint8_t update_group = 0U;
+    menu_refresh_page(&race_page);
+}
+
+void update_race_telemetry() {
     if (curr_page != PAGE_RACE) {
         return;
     }
@@ -806,51 +808,48 @@ void update_race_page() {
     // update the speed
     if (can_data.rear_wheel_speeds.stale) {
         set_text(SPEED, "S");
-    }
-    else {
+    } else {
         // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
         // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
         uint16_t speed = ((float)can_data.gps_speed.gps_speed * 0.02237); // TODO macro this magic number
         set_textf(SPEED, "%d", speed);
     }
 
-    //cycle the update groups
-    update_group ^= 1; // toggle the group to update
-    if (update_group) {
-        update_race_page_group1();
+    // Update the voltage and current
+    if (can_data.orion_currents_volts.stale) {
+        set_text(BATT_VOLT, "S");
+        set_text(BATT_CURR, "S");
     } else {
-        update_race_page_group2();
+        uint16_t voltage = (can_data.orion_currents_volts.pack_voltage / 10);
+        set_textf(BATT_VOLT, "%dV", voltage);
+
+        uint16_t current = (can_data.orion_currents_volts.pack_current / 10);
+        set_textf(BATT_CURR, "%dA", current);  // Note: Changed 'V' to 'A' for current
     }
 
-    menu_refresh_page(&race_page);
-}
-
-void update_race_page_group1() {
+    // Update the motor temperature
     if (can_data.rear_motor_temps.stale) {
         set_text(MOT_TEMP, "S");
-    }
-    else {
+    } else {
         uint8_t motor_temp = MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp);
         set_textf(MOT_TEMP, "%dC", motor_temp);
     }
 
+    // TODO update motor controller temp
+
+    // Update the battery temperature
     if (can_data.max_cell_temp.stale) {
         set_text(BATT_TEMP, "S");
-    }
-    else {
+    } else {
         uint16_t batt_temp = can_data.max_cell_temp.max_temp / 10;
         set_textf(BATT_TEMP, "%dC", batt_temp);
     }
 
-    // TODO update MC_TEMP
-}
-
-void update_race_page_group2() {
+    // Update the state of charge
     if (can_data.main_hb.stale) {
         set_text(CAR_STAT, "S");
         set_background(CAR_STAT, BLACK);
-    }
-    else {
+    } else {
         switch(can_data.main_hb.car_state) {
             case CAR_STATE_PRECHARGING:
                 set_font_color(CAR_STAT, ORANGE);
@@ -877,19 +876,6 @@ void update_race_page_group2() {
                 set_text(CAR_STAT, "FATAL");
                 break;
         }
-    }
-
-    // Update the voltage and current
-    if (can_data.orion_currents_volts.stale) {
-        set_text(BATT_VOLT, "S");
-        set_text(BATT_CURR, "S");
-    }
-    else {
-        uint16_t voltage = (can_data.orion_currents_volts.pack_voltage / 10);
-        set_textf(BATT_VOLT, "%dV", voltage);
-
-        uint16_t current = (can_data.orion_currents_volts.pack_current / 10);
-        set_textf(BATT_CURR, "%dA", current);  // Note: Changed 'V' to 'A' for current
     }
 }
 

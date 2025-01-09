@@ -104,7 +104,7 @@ menu_page_t race_page = {
 
 menu_element_t cooling_elements[] = {
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_VAL,
         .object_name = DT_FAN_VAL,
         .current_value = 0,
         .min_value = 0,
@@ -118,7 +118,7 @@ menu_element_t cooling_elements[] = {
         .on_change = sendCoolingParameters
     },
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_VAL,
         .object_name = B_FAN_VAL,
         .current_value = 0,
         .min_value = 0,
@@ -161,7 +161,7 @@ menu_element_t tv_elements[] = {
         .on_change = sendTVParameters
     },
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_VAL,
         .object_name = TV_DEAD_TXT,
         .current_value = 12,
         .min_value = 0,
@@ -187,32 +187,32 @@ menu_page_t tv_page = {
 menu_element_t faults_elements[] = {
     {
         .type = ELEMENT_BUTTON,
-        .object_name = "t1",
+        .object_name = FAULT1_BUTTON,
         .on_change = fault_button_callback // clear fault
     },
     {
         .type = ELEMENT_BUTTON,
-        .object_name = "t2",
+        .object_name = FAULT2_BUTTON,
         .on_change = fault_button_callback // clear fault
     },
     {
         .type = ELEMENT_BUTTON,
-        .object_name = "t3",
+        .object_name = FAULT3_BUTTON,
         .on_change = fault_button_callback // clear fault
     },
     {
         .type = ELEMENT_BUTTON,
-        .object_name = "t4",
+        .object_name = FAULT4_BUTTON,
         .on_change = fault_button_callback // clear fault
     },
     {
         .type = ELEMENT_BUTTON,
-        .object_name = "t5",
+        .object_name = FAULT5_BUTTON,
         .on_change = fault_button_callback // clear fault
     },
     {
         .type = ELEMENT_BUTTON,
-        .object_name = CLEAR_TXT,
+        .object_name = CLEAR_BUTTON,
         .on_change = fault_button_callback // clear all faults
     }
 };
@@ -227,22 +227,22 @@ menu_page_t faults_page = {
 menu_element_t driver_elements[] = {
     {
         .type = ELEMENT_LIST,
-        .object_name = DRIVER1_TXT,
+        .object_name = DRIVER1_LIST,
         .current_value = 1 // Default to driver 1
     },
     {
         .type = ELEMENT_LIST,
-        .object_name = DRIVER2_TXT,
+        .object_name = DRIVER2_LIST,
         .current_value = 0
     },
     {
         .type = ELEMENT_LIST,
-        .object_name = DRIVER3_TXT,
+        .object_name = DRIVER3_LIST,
         .current_value = 0
     },
     {
         .type = ELEMENT_LIST,
-        .object_name = DRIVER4_TXT,
+        .object_name = DRIVER4_LIST,
         .current_value = 0
     }
 };
@@ -257,7 +257,7 @@ menu_page_t driver_page = {
 // Profile page menu elements
 menu_element_t profile_elements[] = {
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_VAL,
         .object_name = PROFILE_BRAKE_FLT,
         .current_value = 0,
         .min_value = 0,
@@ -265,7 +265,7 @@ menu_element_t profile_elements[] = {
         .increment = 5,
     },
     {
-        .type = ELEMENT_NUM,
+        .type = ELEMENT_VAL,
         .object_name = PROFILE_THROTTLE_FLT,
         .current_value = 0,
         .min_value = 0,
@@ -274,7 +274,7 @@ menu_element_t profile_elements[] = {
     },
     {
         .type = ELEMENT_BUTTON,
-        .object_name = PROFILE_SAVE_TXT,
+        .object_name = PROFILE_SAVE_BUTTON,
         .on_change = NULL // todo replace with save function
     }
 };
@@ -290,7 +290,7 @@ menu_page_t profile_page = {
 menu_element_t logging_elements[] = {
     {
         .type = ELEMENT_OPTION,
-        .object_name = "log_op",
+        .object_name = LOG_OP,
         .current_value = 0,
         .on_change = sendLoggingParameters
     }
@@ -387,8 +387,8 @@ void selectItem() {
     }
 }
 
-void update_apps_page() {
-    set_value(POW_LIM_BAR, 0);
+void update_apps_telemetry() {
+    set_value(BRK_BAR, 0);
     set_value(THROT_BAR, (int) ((filtered_pedals / 4095.0) * 100));
     // TODO fill out
 }
@@ -397,7 +397,7 @@ void updateTelemetryPages() {
     if (curr_page == PAGE_RACE) {
         update_race_telemetry();
     } else {
-        update_apps_page();
+        update_apps_telemetry();
     }
 }
 
@@ -528,11 +528,11 @@ void updateFaultPageIndicators() {
         return;
     }
 
-    setFaultIndicator(fault_buf[0], FAULT_1_TXT);
-    setFaultIndicator(fault_buf[1], FAULT_2_TXT);
-    setFaultIndicator(fault_buf[2], FAULT_3_TXT);
-    setFaultIndicator(fault_buf[3], FAULT_4_TXT);
-    setFaultIndicator(fault_buf[4], FAULT_5_TXT);
+    setFaultIndicator(fault_buf[0], FAULT1_TXT);
+    setFaultIndicator(fault_buf[1], FAULT2_TXT);
+    setFaultIndicator(fault_buf[2], FAULT3_TXT);
+    setFaultIndicator(fault_buf[3], FAULT4_TXT);
+    setFaultIndicator(fault_buf[4], FAULT5_TXT);
 }
 
 void updateSDCDashboard() {
@@ -718,33 +718,33 @@ void select_tv() {
 
 void update_faults_page() {
     if (fault_buf[0] == 0xFFFF) {
-        set_text(FAULT_1_TXT, FAULT_NONE_STRING);
+        set_text(FAULT1_TXT, FAULT_NONE_STRING);
     } else {
-        set_text(FAULT_1_TXT, faultArray[fault_buf[0]].screen_MSG);
+        set_text(FAULT1_TXT, faultArray[fault_buf[0]].screen_MSG);
     }
 
     if (fault_buf[1] == 0xFFFF) {
-        set_text(FAULT_2_TXT, FAULT_NONE_STRING);
+        set_text(FAULT2_TXT, FAULT_NONE_STRING);
     } else {
-        set_text(FAULT_2_TXT, faultArray[fault_buf[1]].screen_MSG);
+        set_text(FAULT2_TXT, faultArray[fault_buf[1]].screen_MSG);
     }
 
     if (fault_buf[2] == 0xFFFF) {
-        set_text(FAULT_3_TXT, FAULT_NONE_STRING);
+        set_text(FAULT3_TXT, FAULT_NONE_STRING);
     } else {
-        set_text(FAULT_3_TXT, faultArray[fault_buf[2]].screen_MSG);
+        set_text(FAULT3_TXT, faultArray[fault_buf[2]].screen_MSG);
     }
 
     if (fault_buf[3] == 0xFFFF) {
-        set_text(FAULT_4_TXT, FAULT_NONE_STRING);
+        set_text(FAULT4_TXT, FAULT_NONE_STRING);
     } else {
-        set_text(FAULT_4_TXT, faultArray[fault_buf[3]].screen_MSG);
+        set_text(FAULT4_TXT, faultArray[fault_buf[3]].screen_MSG);
     }
 
     if (fault_buf[4] == 0xFFFF) {
-        set_text(FAULT_5_TXT, FAULT_NONE_STRING);
+        set_text(FAULT5_TXT, FAULT_NONE_STRING);
     } else {
-        set_text(FAULT_5_TXT, faultArray[fault_buf[4]].screen_MSG);
+        set_text(FAULT5_TXT, faultArray[fault_buf[4]].screen_MSG);
     }
 
     menu_refresh_page(&faults_page);

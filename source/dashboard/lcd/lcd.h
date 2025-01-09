@@ -5,7 +5,7 @@
 #include "menu_system.h"
 #include <stdint.h>
 
-//Page Strings (must match Nextion page names)
+// Page Strings (must match Nextion page names)
 #define RACE_STRING "race"
 #define COOLING_STRING "cooling"
 #define APPS_STRING "apps"
@@ -23,10 +23,10 @@
 #define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U) // TODO remove?
 
 // Driver Configuration Page
-#define DRIVER1_TXT "t1"
-#define DRIVER2_TXT "t2"
-#define DRIVER3_TXT "t3"
-#define DRIVER4_TXT "t4"
+#define DRIVER1_LIST "t1"
+#define DRIVER2_LIST "t2"
+#define DRIVER3_LIST "t3"
+#define DRIVER4_LIST "t4"
 #define DRIVER1_NAME "Default"
 #define DRIVER2_NAME "Tyler"
 #define DRIVER3_NAME "Luca"
@@ -36,15 +36,14 @@
 #define PROFILE_CURRENT_TXT "cur_driver"
 #define PROFILE_BRAKE_FLT "brk_val"
 #define PROFILE_THROTTLE_FLT "thrt_val"
-#define PROFILE_SAVE_TXT "save"
+#define PROFILE_SAVE_BUTTON "save"
 #define PROFILE_STATUS_TXT "status"
 
-
 //Error/Knob page values
-#define TIME_BAR "j0"
+#define TIME_BAR "j0" // todo
 #define ERR_TXT "t1"
 
-// SDC Info Page Values
+// SDC Info Page
 #define SDC_IMD_STAT_TXT "t2"
 #define SDC_BMS_STAT_TXT "t8"
 #define SDC_BSPD_STAT_TXT "t14"
@@ -60,23 +59,27 @@
 #define SDC_PCHG_STAT_TXT "t24"
 #define SDC_FIRST_TRIP_TXT "t28"
 
-
-//Fault Page Values
-#define FAULT_1_TXT "fault1"
-#define FAULT_2_TXT "fault2"
-#define FAULT_3_TXT "fault3"
-#define FAULT_4_TXT "fault4"
-#define FAULT_5_TXT "fault5"
-#define CLEAR_TXT "clear"
+// Fault Page
+#define FAULT1_BUTTON "t1"
+#define FAULT2_BUTTON "t2"
+#define FAULT3_BUTTON "t3"
+#define FAULT4_BUTTON "t4"
+#define FAULT5_BUTTON "t5"
+#define FAULT1_TXT "fault1"
+#define FAULT2_TXT "fault2"
+#define FAULT3_TXT "fault3"
+#define FAULT4_TXT "fault4"
+#define FAULT5_TXT "fault5"
+#define CLEAR_BUTTON "clear"
 #define FAULT_NONE_STRING "NONE\0"
 
-//TV Settings Page Values
+// TV Settings Page Values
 #define TV_INTENSITY_FLT "int_flt"
 #define TV_PROPORTION_FLT "p_flt"
 #define TV_DEAD_TXT "dead_val"
 #define TV_ENABLE_OP "tv_op"
 
-//Setings page values
+// Cooling Page
 #define DT_FAN_VAL "DFan_val"
 #define DT_FAN_BAR "DFan_bar"
 #define DT_PUMP_OP "DPump_op"
@@ -85,28 +88,9 @@
 #define B_PUMP_OP "BPump_op"
 #define BAR_INTERVAL 25
 
-//Colors
-#define TV_BG 38066
-#define TV_HOVER_BG 52857
-#define INFO_GRAY 48631
-
-//Race/Data pages
-#define POW_LIM_BAR "j0"
-#define BRAKE_BIAS_FLT "x0"
-#define TV_RL_FLT "x1"
-#define TV_RR_FLT "x2"
-
+// Race Page
 #define THROT_BAR "throt_bar"
 #define BRK_BAR "brk_bar"
-#define TV_ON "tv"
-#define FLT_TO_DISPLAY_INT_2_DEC (100U)
-#define FLT_TO_PERCENTAGE (100U)
-
-// Logging Page
-#define LOG_OP "log_op"
-#define LOGGING_STATUS_TXT "log_stat"
-
-//Race specific Values
 #define BATT_TEMP "batt_temp"
 #define BATT_VOLT "volts"
 #define BATT_CURR "amps"
@@ -115,6 +99,10 @@
 #define CAR_STAT "status"
 #define SPEED "speed"
 #define RACE_TV_ON "tv_op"
+
+// Logging Page
+#define LOG_OP "log_op"
+#define LOGGING_STATUS_TXT "log_stat"
 
 typedef enum {
   // Pages selectable with the rot encoder

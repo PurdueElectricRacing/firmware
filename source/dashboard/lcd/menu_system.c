@@ -123,7 +123,7 @@ void menu_select(menu_page_t *page) {
             }
             break;
         case ELEMENT_FLT: // Fall through
-        case ELEMENT_NUM:
+        case ELEMENT_VAL:
             page->is_element_selected = true;
             style_selected(current);
             break;
@@ -141,7 +141,7 @@ void menu_increment_value(menu_element_t *element) {
 
     switch (element->type) {
         case ELEMENT_FLT: // Fall through
-        case ELEMENT_NUM:
+        case ELEMENT_VAL:
             set_value(element->object_name, element->current_value);
             set_textf(element->object_name, "%d", element->current_value);
             break;
@@ -159,7 +159,7 @@ void menu_decrement_value(menu_element_t *element) {
 
     switch (element->type) {
         case ELEMENT_FLT: // Fall through
-        case ELEMENT_NUM:
+        case ELEMENT_VAL:
             set_value(element->object_name, element->current_value);
             set_textf(element->object_name, "%d", element->current_value);
             break;
@@ -180,7 +180,7 @@ void menu_refresh_page(menu_page_t *page) {
                     style_selected(curr_element);
                 }
                 break;
-            case ELEMENT_NUM:
+            case ELEMENT_VAL:
                 set_textf(curr_element->object_name, "%d", curr_element->current_value);
                 break;
             case ELEMENT_FLT: // Fall through

@@ -16,6 +16,7 @@
 #define GREEN  4065
 #define RACE_GREEN 1376
 #define WHITE 65535
+#define INFO_GRAY 48631
 #define BLACK 0
 #define ORANGE 64512
 

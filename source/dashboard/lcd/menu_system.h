@@ -6,9 +6,9 @@
 
 // Element types
 typedef enum {
-    ELEMENT_NUM,    // Numeric value
+    ELEMENT_VAL,    // Numeric value
     ELEMENT_FLT,    // Float value
-    ELEMENT_BAR,    // Shared with numeric value (not supported but easy to implement)
+    ELEMENT_BAR,    // (not supported but easy to implement)
     ELEMENT_BUTTON, // Button type
     ELEMENT_OPTION, // On/off toggle
     ELEMENT_LIST    // Item in a list

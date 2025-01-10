@@ -273,12 +273,12 @@ void preflightChecks(void) {
         case 4:
             enableInterrupts();
             break;
+        case 5:
+            initLCD();
+            break;
         case 6:
             // Zero Rotary Encoder
             zeroEncoder(&prev_rot_state);
-            break;
-        case 5:
-            initLCD();
             break;
         default:
             registerPreflightComplete(1);
@@ -301,17 +301,17 @@ void send_shockpots()
 void preflightAnimation(void) {
     // Controls external LEDs since they are more visible when dash is in car
     static uint32_t time_ext;
+    static uint32_t time;
 
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-    static uint32_t time;
-
+    
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
 
-    switch (time++ % 6)
+    switch (time++ % 6) // Creates a sweeping pattern
     {
         case 0:
         case 5:
@@ -327,7 +327,7 @@ void preflightAnimation(void) {
             break;
     }
 
-    switch (time_ext++ % 4)
+    switch (time_ext++ % 4) // Creates a 25/75 blinking pattern
     {
         case 0:
             PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);

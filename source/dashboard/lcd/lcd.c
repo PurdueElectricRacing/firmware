@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "menu_system.h"
+#include "main.h"
 
 volatile page_t curr_page;              // Current page displayed on the LCD
 volatile page_t prev_page;              // Previous page displayed on the LCD
@@ -388,9 +389,33 @@ void selectItem() {
 }
 
 void update_apps_telemetry() {
-    set_value(BRK_BAR, 0);
+    if (curr_page != PAGE_APPS) {
+        return;
+    }
+
+    set_value(BRK_BAR, 0); // todo brake bar
     set_value(THROT_BAR, (int) ((filtered_pedals / 4095.0) * 100));
-    // TODO fill out
+
+    set_textf(APPS_BRAKE1_VAL, "%d",raw_adc_values.b1);
+    set_textf(APPS_BRAKE2_VAL, "%d",raw_adc_values.b2);
+    set_textf(APPS_THROTTLE1_VAL, "%d",raw_adc_values.t1);
+    set_textf(APPS_THROTTLE2_VAL, "%d",raw_adc_values.t2);
+
+    uint16_t brake_diff = ABS(raw_adc_values.b1 - raw_adc_values.b2);
+    uint16_t brake_dev = (brake_diff * 1000) / 4095.0;
+    set_value(APPS_BRAKE_DEV_VAL, brake_dev);
+
+    uint16_t throttle_diff = ABS(raw_adc_values.t1 - raw_adc_values.t2);
+    uint16_t throttle_dev = (throttle_diff * 1000) / 4095.0;
+    set_value(APPS_THROTTLE_DEV_VAL, throttle_dev);
+
+    if (checkFault(ID_IMPLAUS_DETECTED_FAULT)) {
+        set_text(APPS_STATUS, "IMP Detected");
+        set_font_color(APPS_STATUS, RED);
+    } else {
+        set_text(APPS_STATUS, "CLEAR");
+        set_font_color(APPS_STATUS, GREEN);
+    }
 }
 
 void updateTelemetryPages() {
@@ -917,7 +942,7 @@ void setFaultIndicator(uint16_t fault, char *element) {
     if (checkFault(fault)) {
         set_font_color(element, RED);
     } else {
-        set_font_color(element, RACE_GREEN);
+        set_font_color(element, GREEN);
     }
 }
 

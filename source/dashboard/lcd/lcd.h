@@ -33,11 +33,11 @@
 #define DRIVER4_NAME "Luke"
 
 // Profile Page
-#define PROFILE_CURRENT_TXT "cur_driver"
-#define PROFILE_BRAKE_FLT "brk_val"
-#define PROFILE_THROTTLE_FLT "thrt_val"
+#define PROFILE_CURRENT_TXT "curr"
+#define PROFILE_BRAKE_FLT "brake"
+#define PROFILE_THROTTLE_FLT "throt"
 #define PROFILE_SAVE_BUTTON "save"
-#define PROFILE_STATUS_TXT "status"
+#define PROFILE_STATUS_TXT "stat"
 
 //Error/Knob page values
 #define TIME_BAR "j0" // todo
@@ -74,35 +74,46 @@
 #define FAULT_NONE_STRING "NONE\0"
 
 // TV Settings Page Values
-#define TV_INTENSITY_FLT "int_flt"
-#define TV_PROPORTION_FLT "p_flt"
-#define TV_DEAD_TXT "dead_val"
-#define TV_ENABLE_OP "tv_op"
+#define TV_INTENSITY_FLT "inten"
+#define TV_PROPORTION_FLT "pval"
+#define TV_DEAD_TXT "dead"
+#define TV_ENABLE_OP "tv"
 
 // Cooling Page
-#define DT_FAN_VAL "DFan_val"
-#define DT_FAN_BAR "DFan_bar"
-#define DT_PUMP_OP "DPump_op"
-#define B_FAN_VAL "BFan_val"
-#define B_FAN_BAR "BFan_bar"
-#define B_PUMP_OP "BPump_op"
+#define DT_FAN_VAL "DFan"
+#define DT_FAN_BAR "DBar"
+#define DT_PUMP_OP "DPump"
+#define B_FAN_VAL "BFan"
+#define B_FAN_BAR "BBar"
+#define B_PUMP_OP "BPump"
 #define BAR_INTERVAL 25
 
 // Race Page
-#define THROT_BAR "throt_bar"
-#define BRK_BAR "brk_bar"
-#define BATT_TEMP "batt_temp"
-#define BATT_VOLT "volts"
-#define BATT_CURR "amps"
-#define MOT_TEMP "motor_temp"
-#define MC_TEMP "mc_temp"
-#define CAR_STAT "status"
+#define THROT_BAR "throt"
+#define BRK_BAR "brake"
+#define BATT_TEMP "BTemp"
+#define BATT_VOLT "volt"
+#define BATT_CURR "amp"
+#define MOT_TEMP "MTemp"
+#define MC_TEMP "MCTemp"
+#define CAR_STAT "stat"
 #define SPEED "speed"
-#define RACE_TV_ON "tv_op"
+#define RACE_TV_ON "tv"
 
 // Logging Page
-#define LOG_OP "log_op"
-#define LOGGING_STATUS_TXT "log_stat"
+#define LOG_OP "log"
+#define LOGGING_STATUS_TXT "stat"
+
+// Apps Page
+#define APPS_BRAKE1_VAL "B1"
+#define APPS_BRAKE2_VAL "B2"
+#define APPS_THROTTLE1_VAL "T1"
+#define APPS_THROTTLE2_VAL "T2"
+#define APPS_BRAKE_DEV_VAL "BDev"
+#define APPS_THROTTLE_DEV_VAL "TDev"
+#define APPS_BRAKE_BAR "brake"
+#define APPS_THROTTLE_BAR "throt"
+#define APPS_STATUS "stat"
 
 typedef enum {
   // Pages selectable with the rot encoder

@@ -96,21 +96,6 @@
 #define PRCHG_STAT_GPIO_Port        (GPIOE)
 #define PRCHG_STAT_Pin              (5)
 
-// Motor Controllers
-#define MC_L_INVERT                 (0)
-#define MC_L_UART                   (USART1)
-#define MC_L_UART_TX_GPIO_Port      (GPIOA)
-#define MC_L_UART_TX_GPIO_Pin       (9)
-#define MC_L_UART_RX_GPIO_Port      (GPIOA)
-#define MC_L_UART_RX_GPIO_Pin       (10)
-
-#define MC_R_INVERT                 (0)
-#define MC_R_UART                   (USART2)
-#define MC_R_UART_TX_GPIO_Port      (GPIOA)
-#define MC_R_UART_TX_GPIO_Pin       (2)
-#define MC_R_UART_RX_GPIO_Port      (GPIOA)
-#define MC_R_UART_RX_GPIO_Pin       (3)
-
 // Wheel Speed
 #define MOTOR_R_WS_PWM_TIM          (TIM1)
 #define MOTOR_R_WS_PWM_CH           (1)
@@ -121,7 +106,7 @@
 #define MOTOR_L_WS_PWM_TIM          (TIM4)
 #define MOTOR_L_WS_PWM_CH           (1)
 #define MOTOR_L_WS_GPIO_Port        (GPIOB)
-#define MOTOR_L_WS_Pin              (6)
+#define MOTOR_L_WS_Pin              (7)
 #define MOTOR_L_WS_AF               (2)
 
 // Shock Pots

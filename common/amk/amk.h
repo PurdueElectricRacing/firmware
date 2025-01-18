@@ -41,10 +41,10 @@ typedef struct {
 } AMK_Control_t;
 
 typedef struct {
-    uint8_t stage;
-    uint8_t running_stage;
-    uint8_t init_stage;
-    uint8_t deinit_stage;
+    uint8_t state;
+    uint8_t running_state;
+    uint8_t init_state;
+    uint8_t deinit_state;
     uint8_t reset_state;
 } amk_motor_states_t;
 
@@ -75,6 +75,11 @@ typedef struct {
     uint16_t diagnostic_num;
 
     bool* pchg_complete;
+
+    int stale_fault_id;
+    int error_fault_id;
+
+    void (*sendSetpoints)();
 } amk_motor_t;
 
 typedef enum {
@@ -114,11 +119,11 @@ typedef enum {
 } amk_motor_reset_state_t;
 
 typedef enum {
-    AMK_STAGE_OFF     = 0,
-    AMK_STAGE_INIT    = 1,
-    AMK_STAGE_RUNNING = 2,
-    AMK_STAGE_DEINIT  = 3
-} amk_motor_stage_t;
+    AMK_STATE_OFF     = 0,
+    AMK_STATE_INIT    = 1,
+    AMK_STATE_RUNNING = 2,
+    AMK_STATE_DEINIT  = 3
+} amk_motor_state_t;
 
 #define DEFAULT_TORQUE_SETPOINT       (0)
 #define DEFAULT_POSITIVE_TORQUE_LIMIT (0)

@@ -47,11 +47,6 @@ bool carInit()
     daq_constant_tq = 0;
     const_tq_val = 0;
     hist_curr_idx = 0;
-    /* Motor Controller Initialization */
-    // mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
-    // mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
-
-    // motorInit(&car.motor_r, &car.pchg.pchg_complete);
     amkInit(&car.motor_l, &car.pchg.pchg_complete);
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
@@ -429,9 +424,6 @@ void carPeriodic()
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light | daq_brake);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
-    // mcSetPower(car.torque_r.torque_left,  &car.motor_l);
-    // mcSetPower(car.torque_r.torque_right, &car.motor_r);
-    // motorSetTorque(&car.motor_r, car.torque_r.torque_right);
     amkSetTorque(&car.motor_l, car.torque_r.torque_left);
  }
 
@@ -445,12 +437,8 @@ void parseMCDataPeriodic(void)
 {
     uint16_t shock_l, shock_r;
 
-    /* Update Motor Controller Data Structures */
-    // mcPeriodic(&car.motor_l);
-    // mcPeriodic(&car.motor_r);
 
     amkPeriodic(&car.motor_l);
-    // motorPeriodic(&car.motor_r);
 
     // setFault(ID_LEFT_MC_CONN_FAULT, car.pchg.pchg_complete &&
     //             car.motor_l.motor_state != MC_CONNECTED);

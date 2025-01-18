@@ -84,18 +84,11 @@ typedef struct {
 
 typedef enum {
     AMK_INIT_POWER_ON          = 0,
-    AMK_INIT_PRECHARGE         = 1,
-    AMK_INIT_DC_ON             = 2,
-    AMK_INIT_DC_ON_CHECK       = 3,
-    AMK_INIT_TORQUE_INIT       = 4,
-    AMK_INIT_ENABLE            = 5,
-    AMK_INIT_INVERTER_ON       = 6,
-    AMK_INIT_INVERTER_ON_CHECK = 7,
-    AMK_INIT_DONE              = 8
+    AMK_INIT_ENABLE            = 1,
 } amk_motor_init_state_t;
 
 typedef enum {
-    AMK_DEINIT_SETPOINTS_DEINIT    = 0,
+    AMK_DEINIT_ZERO_SETPOINTS      = 0,
     AMK_DEINIT_INVERTER_OFF        = 1,
     AMK_DEINIT_DISABLE             = 2,
     AMK_DEINIT_QUIT_INVERTER_CHECK = 3,

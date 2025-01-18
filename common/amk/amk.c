@@ -21,7 +21,7 @@ void amkInit(amk_motor_t* motor, bool* pchg_complete)
         /* States */
         .states.state = AMK_STATE_OFF,
         .states.init_state = AMK_INIT_POWER_ON,
-        .states.deinit_state = AMK_DEINIT_SETPOINTS_DEINIT,
+        .states.deinit_state = AMK_DEINIT_ZERO_SETPOINTS,
         .states.running_state = AMK_RUNNING_GOOD,
         .states.reset_state = AMK_RESET_INVERTER_OFF,
 
@@ -210,77 +210,26 @@ static void turnAmkOn(amk_motor_t* motor)
         /* 1. Turn on 24V DC to inverters */
         /* 1r. Check AMK_bSystemReady = 1*/
         if (motor->status.AMK_bSystemReady) {
-            motor->states.init_state = AMK_INIT_PRECHARGE;
+            motor->states.init_state = AMK_INIT_ENABLE;
         }
-
-        break;
-    case AMK_INIT_PRECHARGE:
-        /* 2. Charge DC caps; QUE should be set (is this just DcOn?) */
-        /* This step happens when HV turns on. I can check the precharge
-         * complete GPIO pin to see when this is finished. When finished
-         * I move onto the next state. */
-
-        /* if precharge complete pin is high */
-        /* NOTE: This is found for us in car.c. Can check the pin ourselves
-         * if we should not be touching this struct outside of car.c */
-        if (*motor->pchg_complete) {
-            motor->states.init_state = AMK_INIT_DC_ON;
-        }
-
-        break;
-    case AMK_INIT_DC_ON:
-        /* 3. Set AMK_bDcOn = 1 */
-        motor->control.AMK_bDcOn = true;
-
-        motor->states.init_state = AMK_INIT_DC_ON_CHECK;
-
-        break;
-    case AMK_INIT_DC_ON_CHECK:
-        /* 3r. AMK_bDcOn is mirrored in AMK_Status, so should be on there */
-        /* When will AMK_bQuitDcOn go on? Does it take some time after 
-         * DcOn is set?? */
-        /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
-            /* Does where do I check QUE??? */
-
-        if (motor->status.AMK_bQuitDcOn) {
-            motor->states.init_state = AMK_INIT_TORQUE_INIT;
-        }
-
-        break;
-    case AMK_INIT_TORQUE_INIT:
-        /* 4. Set AMK_TorqueLimitNegativ = 0 and AMK_TorqueLimitPositiv = 0 */
-        /* Should already be done, just doing again to confirm */
-        motor->torque_limit_positive = 0;
-        motor->torque_limit_negative = 0;
-
-        motor->states.init_state = AMK_INIT_ENABLE;
 
         break;
     case AMK_INIT_ENABLE:
+        motor->torque_setpoint = 0;
+        motor->torque_limit_positive = 0;
+        motor->torque_limit_negative = 0;
+
+        /* 3. Set AMK_bDcOn = 1 */
+        motor->control.AMK_bDcOn = true;
+
         /* 7. Set AMK_bEnable = 1 */
         motor->control.AMK_bEnable = true;
 
-        motor->states.init_state = AMK_INIT_INVERTER_ON;
-
-        break;
-    case AMK_INIT_INVERTER_ON:
         /* 8  Set AMK_bInverterOn = 1 */
         motor->control.AMK_bInverterOn = true;
 
-        motor->states.init_state = AMK_INIT_INVERTER_ON_CHECK;
-
-        break;
-    case AMK_INIT_INVERTER_ON_CHECK:
-        /* 8r. AMK_bInverterOn is mirrored in AMK_Status, so should be on there */
-        /* Same with AMK_bQuitDcOn, do we need seperate states for these quits?? */
-        /* 9. Check AMK_bQuitInverterOn = 1 */
-
-        /* This should be the last init state, so now we move onto the state for 
-         * running the motors */
-        if (motor->status.AMK_bQuitInverterOn) {
-            motor->states.init_state = AMK_INIT_DONE;
-            motor->states.state = AMK_STATE_RUNNING;
-        }
+        /* FIXME: Do I need to check anything first?? */
+        motor->states.state = AMK_STATE_RUNNING;
 
         break;
     }
@@ -305,7 +254,7 @@ static void turnAmkOff(amk_motor_t* motor)
      */
 
     switch(motor->states.deinit_state) {
-    case AMK_DEINIT_SETPOINTS_DEINIT:
+    case AMK_DEINIT_ZERO_SETPOINTS:
         /* 1. Set setpoint settings to 0 (AMK_TargetVelocity, AMK_TorqueLimitNegativ, AMK_TorqueLimitPositiv) */
         motor->torque_setpoint = 0;
         motor->torque_limit_positive = 0;

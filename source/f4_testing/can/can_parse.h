@@ -35,7 +35,6 @@ typedef union {
 #define ID_AMK_TEMPERATURES_1 0x286
 #define ID_AMK_TEMPERATURES_2 0x288
 #define ID_AMK_SETPOINTS 0x182
-#define ID_AMK_TESTING 0x384
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -45,15 +44,22 @@ typedef union {
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
 #define DLC_AMK_SETPOINTS 8
-#define DLC_AMK_TESTING 6
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_AMK_ACTUAL_VALUES_1(AMK_Status_, AMK_ActualTorque_, AMK_MotorSerialNumber_) do {\
+#define SEND_AMK_ACTUAL_VALUES_1(AMK_Status_bReserve_, AMK_Status_bSystemReady_, AMK_Status_bError_, AMK_Status_bWarn_, AMK_Status_bQuitDcOn_, AMK_Status_bDcOn_, AMK_Status_bQuitInverterOn_, AMK_Status_bInverterOn_, AMK_Status_bDerating_, AMK_ActualTorque_, AMK_MotorSerialNumber_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_ACTUAL_VALUES_1, .DLC=DLC_AMK_ACTUAL_VALUES_1, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->AMK_Actual_Values_1.AMK_Status = AMK_Status_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bReserve = AMK_Status_bReserve_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bSystemReady = AMK_Status_bSystemReady_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bError = AMK_Status_bError_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bWarn = AMK_Status_bWarn_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bQuitDcOn = AMK_Status_bQuitDcOn_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bDcOn = AMK_Status_bDcOn_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bQuitInverterOn = AMK_Status_bQuitInverterOn_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bInverterOn = AMK_Status_bInverterOn_;\
+        data_a->AMK_Actual_Values_1.AMK_Status_bDerating = AMK_Status_bDerating_;\
         data_a->AMK_Actual_Values_1.AMK_ActualTorque = AMK_ActualTorque_;\
         data_a->AMK_Actual_Values_1.AMK_MotorSerialNumber = AMK_MotorSerialNumber_;\
         canTxSendToBack(&msg);\
@@ -89,7 +95,6 @@ typedef union {
 #define STALE_THRESH 30 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_AMK_SETPOINTS 5
-#define UP_AMK_TESTING 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -102,7 +107,15 @@ typedef union {
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { 
     struct {
-        uint64_t AMK_Status: 16;
+        uint64_t AMK_Status_bReserve: 8;
+        uint64_t AMK_Status_bSystemReady: 1;
+        uint64_t AMK_Status_bError: 1;
+        uint64_t AMK_Status_bWarn: 1;
+        uint64_t AMK_Status_bQuitDcOn: 1;
+        uint64_t AMK_Status_bDcOn: 1;
+        uint64_t AMK_Status_bQuitInverterOn: 1;
+        uint64_t AMK_Status_bInverterOn: 1;
+        uint64_t AMK_Status_bDerating: 1;
         uint64_t AMK_ActualTorque: 16;
         uint64_t AMK_MotorSerialNumber: 32;
     } AMK_Actual_Values_1;
@@ -123,17 +136,16 @@ typedef union {
         uint64_t AMK_TempSensorMotor: 16;
     } AMK_Temperatures_2;
     struct {
-        uint64_t AMK_Control: 16;
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
         uint64_t AMK_TorqueSetpoint: 16;
         uint64_t AMK_PositiveTorqueLimit: 16;
         uint64_t AMK_NegativeTorqueLimit: 16;
     } AMK_Setpoints;
-    struct {
-        uint64_t AMK_InitStage: 8;
-        uint64_t AMK_Control: 16;
-        uint64_t AMK_Status_from_motor: 16;
-        uint64_t precharge: 8;
-    } AMK_Testing;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -143,21 +155,18 @@ typedef union {
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
-        uint16_t AMK_Control;
+        uint8_t AMK_Control_bReserve;
+        uint8_t AMK_Control_bInverterOn;
+        uint8_t AMK_Control_bDcOn;
+        uint8_t AMK_Control_bEnable;
+        uint8_t AMK_Control_bErrorReset;
+        uint8_t AMK_Control_bReserve2;
         int16_t AMK_TorqueSetpoint;
         int16_t AMK_PositiveTorqueLimit;
         int16_t AMK_NegativeTorqueLimit;
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Setpoints;
-    struct {
-        uint8_t AMK_InitStage;
-        uint16_t AMK_Control;
-        uint16_t AMK_Status_from_motor;
-        uint8_t precharge;
-        uint8_t stale;
-        uint32_t last_rx;
-    } AMK_Testing;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 

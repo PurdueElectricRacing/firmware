@@ -45,7 +45,6 @@ typedef union {
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_AMK_SETPOINTS 0x182
-#define ID_AMK_TESTING 0x384
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
@@ -88,7 +87,6 @@ typedef union {
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_AMK_SETPOINTS 8
-#define DLC_AMK_TESTING 6
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
@@ -243,22 +241,18 @@ typedef union {
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_AMK_SETPOINTS(AMK_Control_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+#define SEND_AMK_SETPOINTS(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_SETPOINTS, .DLC=DLC_AMK_SETPOINTS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->AMK_Setpoints.AMK_Control = AMK_Control_;\
+        data_a->AMK_Setpoints.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->AMK_Setpoints.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->AMK_Setpoints.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->AMK_Setpoints.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->AMK_Setpoints.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->AMK_Setpoints.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
         data_a->AMK_Setpoints.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
         data_a->AMK_Setpoints.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
         data_a->AMK_Setpoints.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_AMK_TESTING(AMK_InitStage_, AMK_Control_, AMK_Status_from_motor_, precharge_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_TESTING, .DLC=DLC_AMK_TESTING, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->AMK_Testing.AMK_InitStage = AMK_InitStage_;\
-        data_a->AMK_Testing.AMK_Control = AMK_Control_;\
-        data_a->AMK_Testing.AMK_Status_from_motor = AMK_Status_from_motor_;\
-        data_a->AMK_Testing.precharge = precharge_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
@@ -446,17 +440,16 @@ typedef union {
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
     struct {
-        uint64_t AMK_Control: 16;
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
         uint64_t AMK_TorqueSetpoint: 16;
         uint64_t AMK_PositiveTorqueLimit: 16;
         uint64_t AMK_NegativeTorqueLimit: 16;
     } AMK_Setpoints;
-    struct {
-        uint64_t AMK_InitStage: 8;
-        uint64_t AMK_Control: 16;
-        uint64_t AMK_Status_from_motor: 16;
-        uint64_t precharge: 8;
-    } AMK_Testing;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -507,7 +500,15 @@ typedef union {
         uint64_t equal_k_rr: 16;
     } throttle_vcu_equal;
     struct {
-        uint64_t AMK_Status: 16;
+        uint64_t AMK_Status_bReserve: 8;
+        uint64_t AMK_Status_bSystemReady: 1;
+        uint64_t AMK_Status_bError: 1;
+        uint64_t AMK_Status_bWarn: 1;
+        uint64_t AMK_Status_bQuitDcOn: 1;
+        uint64_t AMK_Status_bDcOn: 1;
+        uint64_t AMK_Status_bQuitInverterOn: 1;
+        uint64_t AMK_Status_bInverterOn: 1;
+        uint64_t AMK_Status_bDerating: 1;
         uint64_t AMK_ActualTorque: 16;
         uint64_t AMK_MotorSerialNumber: 32;
     } AMK_Actual_Values_1;
@@ -622,7 +623,15 @@ typedef struct {
         uint32_t last_rx;
     } throttle_vcu_equal;
     struct {
-        uint16_t AMK_Status;
+        uint8_t AMK_Status_bReserve;
+        uint8_t AMK_Status_bSystemReady;
+        uint8_t AMK_Status_bError;
+        uint8_t AMK_Status_bWarn;
+        uint8_t AMK_Status_bQuitDcOn;
+        uint8_t AMK_Status_bDcOn;
+        uint8_t AMK_Status_bQuitInverterOn;
+        uint8_t AMK_Status_bInverterOn;
+        uint8_t AMK_Status_bDerating;
         int16_t AMK_ActualTorque;
         uint32_t AMK_MotorSerialNumber;
         uint8_t stale;

@@ -92,7 +92,15 @@ void canRxUpdate(void)
                 can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
                 break;
             case ID_AMK_ACTUAL_VALUES_1:
-                can_data.AMK_Actual_Values_1.AMK_Status = msg_data_a->AMK_Actual_Values_1.AMK_Status;
+                can_data.AMK_Actual_Values_1.AMK_Status_bReserve = msg_data_a->AMK_Actual_Values_1.AMK_Status_bReserve;
+                can_data.AMK_Actual_Values_1.AMK_Status_bSystemReady = msg_data_a->AMK_Actual_Values_1.AMK_Status_bSystemReady;
+                can_data.AMK_Actual_Values_1.AMK_Status_bError = msg_data_a->AMK_Actual_Values_1.AMK_Status_bError;
+                can_data.AMK_Actual_Values_1.AMK_Status_bWarn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bWarn;
+                can_data.AMK_Actual_Values_1.AMK_Status_bQuitDcOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bQuitDcOn;
+                can_data.AMK_Actual_Values_1.AMK_Status_bDcOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bDcOn;
+                can_data.AMK_Actual_Values_1.AMK_Status_bQuitInverterOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bQuitInverterOn;
+                can_data.AMK_Actual_Values_1.AMK_Status_bInverterOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bInverterOn;
+                can_data.AMK_Actual_Values_1.AMK_Status_bDerating = msg_data_a->AMK_Actual_Values_1.AMK_Status_bDerating;
                 can_data.AMK_Actual_Values_1.AMK_ActualTorque = (int16_t) msg_data_a->AMK_Actual_Values_1.AMK_ActualTorque;
                 can_data.AMK_Actual_Values_1.AMK_MotorSerialNumber = msg_data_a->AMK_Actual_Values_1.AMK_MotorSerialNumber;
                 can_data.AMK_Actual_Values_1.stale = 0;

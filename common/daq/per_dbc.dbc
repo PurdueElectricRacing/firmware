@@ -125,13 +125,12 @@ BO_ 2147484034 AMK_Setpoints: 8 Main_Module
  SG_ AMK_NegativeTorqueLimit : 48|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
  SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
  SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
- SG_ AMK_Control : 0|16@1+ (1,0) [0|0] "" Vector__XXX
-
-BO_ 2147484548 AMK_Testing: 6 Main_Module
- SG_ precharge : 40|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ AMK_Status_from_motor : 24|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ AMK_Control : 8|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ AMK_InitStage : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bReserve2 : 12|4@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bErrorReset : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bEnable : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bDcOn : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bInverterOn : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Control_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -485,7 +484,15 @@ BO_ 2217793084 daq_bl_resp: 5 bootloader
 BO_ 2147484290 AMK_Actual_Values_1: 8 Inverter1
  SG_ AMK_MotorSerialNumber : 32|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ AMK_ActualTorque : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
- SG_ AMK_Status : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bDerating : 15|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bInverterOn : 14|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bQuitInverterOn : 13|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bDcOn : 12|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bQuitDcOn : 11|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bWarn : 10|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bError : 9|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bSystemReady : 8|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_Status_bReserve : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2147484292 AMK_Actual_Values_2: 8 Inverter1
  SG_ AMK_DiagnosticNumber : 48|16@1+ (1,0) [0|0] "" Vector__XXX
@@ -750,12 +757,12 @@ CM_ BO_ 2147484034 "Contains control word and setpoints";
 CM_ SG_ 2147484034 AMK_NegativeTorqueLimit "Negative Torque Limit";
 CM_ SG_ 2147484034 AMK_PositiveTorqueLimit "Positive Torque Limit";
 CM_ SG_ 2147484034 AMK_TorqueSetpoint "Torque setpoint";
-CM_ SG_ 2147484034 AMK_Control "Control word";
-CM_ BO_ 2147484548 "Contains control word and setpoints";
-CM_ SG_ 2147484548 precharge "Control word";
-CM_ SG_ 2147484548 AMK_Status_from_motor "Control word";
-CM_ SG_ 2147484548 AMK_Control "Control word";
-CM_ SG_ 2147484548 AMK_InitStage "init stage";
+CM_ SG_ 2147484034 AMK_Control_bReserve2 "Control word: RESERVED";
+CM_ SG_ 2147484034 AMK_Control_bErrorReset "Control word: remove error";
+CM_ SG_ 2147484034 AMK_Control_bEnable "Control word: driver enable";
+CM_ SG_ 2147484034 AMK_Control_bDcOn "Control word: HV activation";
+CM_ SG_ 2147484034 AMK_Control_bInverterOn "Control word: controller enable";
+CM_ SG_ 2147484034 AMK_Control_bReserve "Control word: RESERVED";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";
@@ -1043,7 +1050,15 @@ CM_ SG_ 2217793084 cmd "";
 CM_ BO_ 2147484290 "Contains the status word and actual values";
 CM_ SG_ 2147484290 AMK_MotorSerialNumber "Serial number of the motor";
 CM_ SG_ 2147484290 AMK_ActualTorque "Actual torque value";
-CM_ SG_ 2147484290 AMK_Status "Status word, bit field";
+CM_ SG_ 2147484290 AMK_Status_bDerating "Status word: torque limit activation";
+CM_ SG_ 2147484290 AMK_Status_bInverterOn "Status word: Controller enable level";
+CM_ SG_ 2147484290 AMK_Status_bQuitInverterOn "Status word: Controller enable ACK";
+CM_ SG_ 2147484290 AMK_Status_bDcOn "Status word: HV activation level";
+CM_ SG_ 2147484290 AMK_Status_bQuitDcOn "Status word: HV activation ACK";
+CM_ SG_ 2147484290 AMK_Status_bWarn "Status word: warning";
+CM_ SG_ 2147484290 AMK_Status_bError "Status word: error";
+CM_ SG_ 2147484290 AMK_Status_bSystemReady "Status word: system ready";
+CM_ SG_ 2147484290 AMK_Status_bReserve "Status word: RESERVED";
 CM_ BO_ 2147484292 "Contains actual values";
 CM_ SG_ 2147484292 AMK_DiagnosticNumber "Error number";
 CM_ SG_ 2147484292 AMK_SystemReset "System reset";

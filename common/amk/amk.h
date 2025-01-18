@@ -16,36 +16,28 @@
 
 /* Inverter -> CAN */
 /* In AMK_Actual_Values_1 */
-typedef union
-{
-    struct {
-        uint16_t AMK_bReserve        : 8;
-        uint16_t AMK_bSystemReady    : 1;
-        uint16_t AMK_bError          : 1;
-        uint16_t AMK_bWarn           : 1;
-        uint16_t AMK_bQuitDcOn       : 1;
-        uint16_t AMK_bDcOn           : 1; /* Same as QUE ?? */
-        uint16_t AMK_bQuitInverterOn : 1;
-        uint16_t AMK_bInverterOn     : 1;
-        uint16_t AMK_bDerating       : 1;
-    } fields;
-    uint16_t bits;
+typedef struct {
+    uint16_t AMK_bReserve        : 8;
+    uint16_t AMK_bSystemReady    : 1;
+    uint16_t AMK_bError          : 1;
+    uint16_t AMK_bWarn           : 1;
+    uint16_t AMK_bQuitDcOn       : 1;
+    uint16_t AMK_bDcOn           : 1; /* Same as QUE ?? */
+    uint16_t AMK_bQuitInverterOn : 1;
+    uint16_t AMK_bInverterOn     : 1;
+    uint16_t AMK_bDerating       : 1;
 } AMK_Status_t;
 
 /* CAN -> Inverter */
 /* In AMK_Setpoints */
 /* THIS NEEDS TO BE SENT EVERY 50ms */
-typedef union
-{
-    struct {
-        uint16_t AMK_bReserve1   : 8;
-        uint16_t AMK_bInverterOn : 1;
-        uint16_t AMK_bDcOn       : 1;
-        uint16_t AMK_bEnable     : 1;
-        uint16_t AMK_bErrorReset : 1;
-        uint16_t AMK_bReserve2   : 1;
-    } fields;
-    uint16_t bits;
+typedef struct {
+    uint16_t AMK_bReserve1   : 8;
+    uint16_t AMK_bInverterOn : 1;
+    uint16_t AMK_bDcOn       : 1;
+    uint16_t AMK_bEnable     : 1;
+    uint16_t AMK_bErrorReset : 1;
+    uint16_t AMK_bReserve2   : 1;
 } AMK_Control_t;
 
 typedef struct {
@@ -85,60 +77,65 @@ typedef struct {
     bool* pchg_complete;
 } amk_motor_t;
 
-void motorInit(amk_motor_t* motor, bool* pchg_complete);
-void motorPeriodic(amk_motor_t* motor);
-void motorSetTorque(amk_motor_t* motor, int16_t torque_setpoint);
-
 typedef enum {
-    MOTOR_INIT_POWER_ON = 0,
-    MOTOR_INIT_PRECHARGE,
-    MOTOR_INIT_DC_ON,
-    MOTOR_INIT_DC_ON_CHECK,
-    MOTOR_INIT_TORQUE_INIT,
-    MOTOR_INIT_ENABLE,
-    MOTOR_INIT_INVERTER_ON,
-    MOTOR_INIT_INVERTER_ON_CHECK,
-    MOTOR_INIT_DONE,
+    AMK_INIT_POWER_ON          = 0,
+    AMK_INIT_PRECHARGE         = 1,
+    AMK_INIT_DC_ON             = 2,
+    AMK_INIT_DC_ON_CHECK       = 3,
+    AMK_INIT_TORQUE_INIT       = 4,
+    AMK_INIT_ENABLE            = 5,
+    AMK_INIT_INVERTER_ON       = 6,
+    AMK_INIT_INVERTER_ON_CHECK = 7,
+    AMK_INIT_DONE              = 8
 } amk_motor_init_state_t;
 
 typedef enum {
-    MOTOR_DEINIT_SETPOINTS_DEINIT = 0,
-    MOTOR_DEINIT_INVERTER_OFF,
-    MOTOR_DEINIT_DISABLE,
-    MOTOR_DEINIT_QUIT_INVERTER_CHECK,
-    MOTOR_DEINIT_DC_OFF,
-    MOTOR_DEINIT_DC_OFF_CHECK,
-    MOTOR_DEINIT_PRECHARGE,
-    MOTOR_DEINIT_POWER_OFF,
-    MOTOR_DEINIT_DONE,
+    AMK_DEINIT_SETPOINTS_DEINIT    = 0,
+    AMK_DEINIT_INVERTER_OFF        = 1,
+    AMK_DEINIT_DISABLE             = 2,
+    AMK_DEINIT_QUIT_INVERTER_CHECK = 3,
+    AMK_DEINIT_DC_OFF              = 4,
+    AMK_DEINIT_DC_OFF_CHECK        = 5,
+    AMK_DEINIT_PRECHARGE           = 6,
+    AMK_DEINIT_POWER_OFF           = 7,
+    AMK_DEINIT_DONE                = 8
 } amk_motor_deinit_state_t;
 
 typedef enum {
-    MOTOR_RUNNING_GOOD = 0,
-    MOTOR_RUNNING_ERROR,
+    AMK_RUNNING_GOOD  = 0,
+    AMK_RUNNING_ERROR = 1
 } amk_motor_running_state_t;
 
 typedef enum {
-    MOTOR_RESET_INVERTER_OFF = 0,
-    MOTOR_RESET_ERROR_RESET_ON,
-    MOTOR_RESET_ERROR_RESET_OFF,
-    MOTOR_RESET_CHECK_SYSTEM_READY,
+    AMK_RESET_INVERTER_OFF       = 0,
+    AMK_RESET_ERROR_RESET_ON     = 1,
+    AMK_RESET_ERROR_RESET_OFF    = 2,
+    AMK_RESET_CHECK_SYSTEM_READY = 3
 } amk_motor_reset_state_t;
 
 typedef enum {
-    MOTOR_STAGE_OFF = 0,
-    MOTOR_STAGE_INIT,
-    MOTOR_STAGE_RUNNING,
-    MOTOR_STAGE_DEINIT
+    AMK_STAGE_OFF     = 0,
+    AMK_STAGE_INIT    = 1,
+    AMK_STAGE_RUNNING = 2,
+    AMK_STAGE_DEINIT  = 3
 } amk_motor_stage_t;
 
-#define DEFAULT_TORQUE_SETPOINT (0)
+#define DEFAULT_TORQUE_SETPOINT       (0)
 #define DEFAULT_POSITIVE_TORQUE_LIMIT (0)
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT (0)
 
-#define MAX_POSITIVE_TORQUE_SETPOINT (1000)
-#define MAX_NEGATIVE_TORQUE_SETPOINT (-1000)
-#define MAX_POSITIVE_TORQUE_LIMIT (1000)
-#define MAX_NEGATIVE_TORQUE_LIMIT (-1000)
+#define MAX_POSITIVE_TORQUE_SETPOINT  (1000)
+#define MAX_NEGATIVE_TORQUE_SETPOINT  (-1000)
+#define MAX_POSITIVE_TORQUE_LIMIT     (1000)
+#define MAX_NEGATIVE_TORQUE_LIMIT     (-1000)
+
+void amkInit(amk_motor_t* motor, bool* pchg_complete);
+void amkPeriodic(amk_motor_t* motor);
+void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint);
+static void turnAmkOn(amk_motor_t* motor);
+static void amkRunning(amk_motor_t* motor);
+static void turnAmkOff(amk_motor_t* motor);
+static void amkGetData(amk_motor_t* motor);
+static void amkReset(amk_motor_t* motor);
 
 #endif /* _AMK_H_ */

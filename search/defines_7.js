@@ -84,7 +84,7 @@ var searchData=
   ['gpth_5fsign_81',['GPTH_Sign',['../ff_8c.html#afff5a1b885cf62ef3382022e6f2bf5c2',1,'ff.c']]],
   ['gpth_5fsize_82',['GPTH_Size',['../ff_8c.html#a58237ab846855bf2b4a0ab750493e8a3',1,'ff.c']]],
   ['great_83',['GREAT',['../daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4',1,'main.h']]],
-  ['green_84',['GREEN',['../nextion_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'GREEN:&#160;nextion.h'],['../f4__testing_2main_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'GREEN:&#160;main.h']]],
+  ['green_84',['GREEN',['../nextion_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'nextion.h']]],
   ['gs_5fcan_5ffeature_5fhw_5ftimestamp_85',['GS_CAN_FEATURE_HW_TIMESTAMP',['../gs__usb_8h.html#abb538577d626d6fb188ce30104d80d36',1,'gs_usb.h']]],
   ['gs_5fcan_5ffeature_5fidentify_86',['GS_CAN_FEATURE_IDENTIFY',['../gs__usb_8h.html#a929f6df9ff3856769fa5cda76137b6e2',1,'gs_usb.h']]],
   ['gs_5fcan_5ffeature_5flisten_5fonly_87',['GS_CAN_FEATURE_LISTEN_ONLY',['../gs__usb_8h.html#af3eb4fa4545f2787f86e8be6edabb6a7',1,'gs_usb.h']]],

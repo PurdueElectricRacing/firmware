@@ -22,29 +22,38 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
     // Nonzero Bit Encoded Error Code Indicates Error
     uint8_t ret_code = 0;
 
-    // Configure clock rates based off an indicated system source in the config
-    switch(config->system_source)
+    /* Configure System Clock */
+    if (config->clock_source == CLOCK_SOURCE_HSE)
     {
-        // Configure System Clock from Phase Locked Loop
-        case SYSTEM_CLOCK_SRC_PLL:
-            ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << 5;
-            ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 4;
-            break;
-        // Configure System Clock from High Speed External Oscillator (not supported currently in F4 HAL)
-        case SYSTEM_CLOCK_SRC_HSE:
-            return 0xFF;
-        // Configure System Clock from the High Speed Internal Oscillator
-        case SYSTEM_CLOCK_SRC_HSI:
-            ret_code |= (!PHAL_configureHSISystemClock()) << 3;                                // Call HSI configure subroutine
-            config->system_clock_target_hz = 16000000;                                         // Set System Clock Target in Clock Config
-            break;
-        default:
-            return 0xFF;                                                                       // Invalid System Source
+        ret_code |= (!PHAL_configureHSESystemClock()) << RCC_ERROR_HSE_INIT;    
+    }
+    else
+    {
+        ret_code |= (!PHAL_configureHSISystemClock()) << RCC_ERROR_HSI_INIT;
+    }
+    
+    /* Configure PLL */
+    if (config->use_pll)
+    {
+        ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << RCC_ERROR_PLLVCO_INIT;
+        ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << RCC_ERROR_PLLSYS_INIT;
+    }
+    /* No PLL */
+    else
+    {
+        if (config->clock_source == CLOCK_SOURCE_HSE)
+        {
+            config->system_clock_target_hz = HSE_CLOCK_RATE_HZ;
+        }
+        else
+        { 
+            config->system_clock_target_hz = HSI_CLOCK_RATE_HZ;
+        }
     }
 
-    ret_code |= (!PHAL_configureAHBClock(config->ahb_clock_target_hz))     << 0;               // Configure AHB Clock
-    ret_code |= (!PHAL_configureAPB1Clock(config->apb1_clock_target_hz))   << 1;               // Configure APB1 Clock
-    ret_code |= (!PHAL_configureAPB2Clock(config->apb2_clock_target_hz))   << 2;               // Configure APB2 Clock
+    ret_code |= (!PHAL_configureAHBClock(config->ahb_clock_target_hz))     << RCC_ERROR_AHB_INIT;               // Configure AHB Clock
+    ret_code |= (!PHAL_configureAPB1Clock(config->apb1_clock_target_hz))   << RCC_ERROR_APB1_INIT;               // Configure APB1 Clock
+    ret_code |= (!PHAL_configureAPB2Clock(config->apb2_clock_target_hz))   << RCC_ERROR_APB2_INIT;               // Configure APB2 Clock
 
     return ret_code;
 }
@@ -68,10 +77,15 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
         // 16 MHz HSI
         case PLL_SRC_HSI16:
             RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSI;                                            // Select HSI source
-            RCC->CR |= RCC_CR_HSION;                                                           // Turn on HSI
             while(!(RCC->CR & RCC_CR_HSIRDY))                                                  // Wait for HSI to enable
                 ;
             pll_input_f_hz = HSI_CLOCK_RATE_HZ;                                                // Set local for PLL input clock rate
+            break;
+        case PLL_SRC_HSE:
+            RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSE;
+            while(!(RCC->CR & RCC_CR_HSERDY))
+                ;
+            pll_input_f_hz = HSE_CLOCK_RATE_HZ;
             break;
     }
 
@@ -211,8 +225,9 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz)
     FLASH->ACR = flash_acr_temp;
 
     __DSB();                                                                                   // Wait for explicit memory accesses to finish
+    RCC->CFGR &= ~RCC_CFGR_SW;
     RCC->CFGR |= RCC_CFGR_SW_PLL;                                                              // Set system clock switch register to PLL
-    while((RCC->CFGR & RCC_CFGR_SWS_PLL != RCC_CFGR_SWS_PLL))                                  // Wait for PLL to be the new system clock
+    while((RCC->CFGR & RCC_CFGR_SWS_PLL) != RCC_CFGR_SWS_PLL)                                  // Wait for PLL to be the new system clock
         ;
     __DSB();                                                                                   // Wait for explicit memory accesses to finish
 
@@ -243,6 +258,37 @@ bool PHAL_configureHSISystemClock()
 
     SystemCoreClockUpdate();                                        // Must be called each time the core clock HCLK changes
     return true;                                                    // Return true upon completion
+}
+
+bool PHAL_configureHSESystemClock()
+{
+    /* Turn on and wait for HSE to enable */
+    RCC->CR |= (RCC_CR_HSEON | RCC_CR_HSEBYP);
+    while (!(RCC->CR & RCC_CR_HSERDY))
+        ;
+ 
+    //Flash latency adjustment, see ST RM 0090 Pg. 80
+    uint32_t flash_acr_temp = FLASH->ACR;
+    flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
+    flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
+    FLASH->ACR = flash_acr_temp;
+
+    __DSB();                                                        // Wait for explicit memory accesses to finish
+    RCC->CFGR |= RCC_CFGR_SW_HSE;                                   // Set system clock switch register to HSE
+    while((RCC->CFGR & RCC_CFGR_SWS_HSE) != RCC_CFGR_SWS_HSE)       // Wait until the system clock switch register indicates that HSE is selected
+        ;
+    __DSB();                                                        // Wait for explicit memory accesses to finish
+
+    /* Turn off HSI */
+    __DSB();   
+    RCC->CR &= ~(RCC_CR_HSION);
+    while ((RCC->CR & RCC_CR_HSION))
+        ;
+    __DSB();  
+
+    SystemCoreClockUpdate();                                        // Must be called each time the core clock HCLK changes
+
+    return true;
 }
 
 bool PHAL_configureAHBClock(uint32_t ahb_clock_target_hz)

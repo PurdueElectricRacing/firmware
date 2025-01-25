@@ -40,23 +40,23 @@
 #define SPI_CS_ACEL_Pin (3)
 #define SPI_CS_GYRO_GPIO_Port (GPIOA)
 #define SPI_CS_GYRO_Pin (2)
-#define SPI_CS_MAG_GPIO_Port (GPIOB)
-#define SPI_CS_MAG_Pin (0)
+// #define SPI_CS_MAG_GPIO_Port (GPIOB)
+// #define SPI_CS_MAG_Pin (0)
 
 // USART GPS
-#define GPS_RX_GPIO_Port (GPIOC)
-#define GPS_RX_Pin (5)
-#define GPS_TX_GPIO_Port (GPIOC)
-#define GPS_TX_Pin (4)
+// #define GPS_RX_GPIO_Port (GPIOC)
+// #define GPS_RX_Pin (5)
+// #define GPS_TX_GPIO_Port (GPIOC)
+// #define GPS_TX_Pin (4)
 
-#define GPS_RESET_GPIO_Port (GPIOC)
-#define GPS_RESET_Pin       (9)
+// #define GPS_RESET_GPIO_Port (GPIOC)
+// #define GPS_RESET_Pin       (9)
 
 // EEPROM
-#define NAV_EEPROM_CS_GPIO_PORT (GPIOB)
-#define NAV_EEPROM_CS_PIN (12)
-#define NAV_WP_GPIO_PORT (GPIOB)
-#define NAV_WP_PIN (13)
+// #define NAV_EEPROM_CS_GPIO_PORT (GPIOB)
+// #define NAV_EEPROM_CS_PIN (12)
+// #define NAV_WP_GPIO_PORT (GPIOB)
+// #define NAV_WP_PIN (13)
 
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 

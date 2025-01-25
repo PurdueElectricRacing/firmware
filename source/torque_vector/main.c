@@ -56,22 +56,22 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_OUTPUT(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_OUTPUT(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, GPIO_OUTPUT_HIGH_SPEED),
+    //GPIO_INIT_OUTPUT(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, GPIO_OUTPUT_HIGH_SPEED),
 
     // GPS USART
-    GPIO_INIT_UART4RX_PA1,
-    GPIO_INIT_UART4TX_PA0,
+    // GPIO_INIT_UART4RX_PA1,
+    // GPIO_INIT_UART4TX_PA0,
 
     // GPS Auxillary pins
-    GPIO_INIT_OUTPUT(GPS_RESET_GPIO_Port, GPS_RESET_Pin, GPIO_OUTPUT_LOW_SPEED),
+    //GPIO_INIT_OUTPUT(GPS_RESET_GPIO_Port, GPS_RESET_Pin, GPIO_OUTPUT_LOW_SPEED),
 
     // EEPROM
-    GPIO_INIT_OUTPUT(NAV_EEPROM_CS_GPIO_PORT, NAV_EEPROM_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_OUTPUT(NAV_WP_GPIO_PORT, NAV_WP_PIN, GPIO_OUTPUT_HIGH_SPEED),
+    //GPIO_INIT_OUTPUT(NAV_EEPROM_CS_GPIO_PORT, NAV_EEPROM_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
+    //GPIO_INIT_OUTPUT(NAV_WP_GPIO_PORT, NAV_WP_PIN, GPIO_OUTPUT_HIGH_SPEED),
 
     // CAN
-    GPIO_INIT_CANRX_PA11,
-    GPIO_INIT_CANTX_PA12
+    // GPIO_INIT_CANRX_PA11,
+    // GPIO_INIT_CANTX_PA12
     };
 
 // GPS USART Configuration
@@ -201,15 +201,15 @@ int main(void)
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 74, 1000);
 
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    // taskCreateBackground(canTxUpdate);
+    // taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
-    taskCreate(heartBeatTask, 100);
+    //taskCreate(heartBeatTask, 100);
 
-    taskCreate(parseIMU, 20);
-    taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 15);
+    // taskCreate(parseIMU, 20);
+    // taskCreate(pollIMU, 20);
+    // taskCreate(VCU_MAIN, 15);
 
     /* No Way Home */
     schedStart();
@@ -224,26 +224,26 @@ void preflightChecks(void)
     switch (state++)
     {
     case 0:
-        if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
-        {
-            HardFault_Handler();
-        }
-        NVIC_EnableIRQ(CAN1_RX0_IRQn);
+        // if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
+        // {
+        //     HardFault_Handler();
+        // }
+        // NVIC_EnableIRQ(CAN1_RX0_IRQn);
         break;
     case 2:
         /* USART initialization */
-        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
+        // if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
+        // {
+        //     HardFault_Handler();
+        // }
     break;
     case 3:
         // GPS Initialization
-        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        // PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
+        // PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
     break;
     case 5:
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_TORQUE_VECTOR);
+        //initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
     case 1:
         /* SPI initialization */
@@ -255,7 +255,7 @@ void preflightChecks(void)
 
         PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
         PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-        PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
+        //PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
     break;
     case 4:
         if (!BMI088_init(&bmi_config))
@@ -271,26 +271,26 @@ void preflightChecks(void)
             HardFault_Handler();
         break;
     case 700:
-        /* Pack torque vectoring data into rtM_tv */
-        rtM_tv->dwork = &rtDW_tv;
+        // /* Pack torque vectoring data into rtM_tv */
+        // rtM_tv->dwork = &rtDW_tv;
 
-        /* Initialize Torque Vectoring */
-        tv_initialize(rtM_tv);
+        // /* Initialize Torque Vectoring */
+        // tv_initialize(rtM_tv);
 
-        /* Initialize TV IO */
-        tv_IO_initialize(&rtU_tv);
+        // /* Initialize TV IO */
+        // tv_IO_initialize(&rtU_tv);
 
-        /* Pack Engine map data into rtM_em */
-        rtM_em->dwork = &rtDW_em;
+        // /* Pack Engine map data into rtM_em */
+        // rtM_em->dwork = &rtDW_em;
 
-        /* Initialize Engine Map */
-        em_initialize(rtM_em);
+        // /* Initialize Engine Map */
+        // em_initialize(rtM_em);
     default:
         if (state > 750)
         {
             if (!imu_init(&imu_h))
                 HardFault_Handler();
-            initCANParse();
+            // initCANParse();
             registerPreflightComplete(1);
             state = 750; // prevent wrap around
         }
@@ -332,10 +332,10 @@ void heartBeatLED(void)
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
 
-    static uint8_t trig;
-    if (trig) SEND_TV_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
-                   can_stats.rx_of, can_stats.rx_overrun);
-    trig = !trig;
+    // static uint8_t trig;
+    // if (trig) SEND_TV_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
+    //                can_stats.rx_of, can_stats.rx_overrun);
+    // trig = !trig;
 }
 
 void pollIMU(void)

@@ -219,13 +219,10 @@ static void turnAmkOn(amk_motor_t* motor)
         motor->torque_limit_positive = 0;
         motor->torque_limit_negative = 0;
 
-        /* 3. Set AMK_bDcOn = 1 */
         motor->control.AMK_bDcOn = true;
 
-        /* 7. Set AMK_bEnable = 1 */
         motor->control.AMK_bEnable = true;
 
-        /* 8  Set AMK_bInverterOn = 1 */
         motor->control.AMK_bInverterOn = true;
 
         /* FIXME: Do I need to check anything first?? */
@@ -303,10 +300,6 @@ static void turnAmkOff(amk_motor_t* motor)
          * DcOn is set?? */
         /* 3r. (QUE & AMK_bDcOn) -> Check AMK_bQuitDcOn = 1 */
             /* Does where do I check QUE??? */
-
-        if (!(motor->status.AMK_bQuitDcOn)) {
-            motor->states.init_state = AMK_INIT_TORQUE_INIT;
-        }
 
         motor->states.deinit_state = AMK_DEINIT_PRECHARGE;
 

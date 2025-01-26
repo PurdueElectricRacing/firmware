@@ -3,8 +3,6 @@
 
 Cooling_t cooling;
 
-extern q_handle_t q_tx_can;
-
 bool coolingInit()
 {
     cooling = (Cooling_t) {0};

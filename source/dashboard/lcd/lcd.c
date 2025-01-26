@@ -14,7 +14,6 @@ volatile uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // 
 bool sendFirsthalf;                   // Flag for sending data to data page
 char *errorText;                      // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern uint16_t filtered_pedals;      // Global from pedals module for throttle display
-extern q_handle_t q_tx_can;           // Global queue for CAN tx
 extern q_handle_t q_fault_history;    // Global queue from fault library for fault history
 volatile settings_t settings;         // Data for the settings page
 volatile tv_settings_t tv_settings;   // Data for the tvsettings page

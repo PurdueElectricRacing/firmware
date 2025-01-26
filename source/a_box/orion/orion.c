@@ -7,8 +7,6 @@
 #include "daq.h"
 
 
-extern q_handle_t q_tx_can;
-
 uint8_t charge_request_user = false; // Enable charge algo
 uint16_t user_charge_current_request = 0;
 uint16_t user_charge_voltage_request = 0;

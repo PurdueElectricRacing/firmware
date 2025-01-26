@@ -21,19 +21,34 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 
-typedef struct {
-    uint32_t tx_of;      // queue overflow
-    uint32_t tx_fail;    // timed out
-    uint32_t rx_of;      // queue overflow
-    uint32_t rx_overrun; // fifo overrun
-} can_stats_t;
-
 #define CAN_TX_MAILBOX_CNT 3
 #define CAN_TX_TIMEOUT_MS 15
+// Change as you modify number of CAN peripherals in use
+#define NUM_CAN_PERIPHERALS 2
+
+#define CAN_MAILBOX_0          0
+#define CAN_MAILBOX_1          1
+#define CAN_MAILBOX_2          2
+
+// Array helpers
+#define CAN1_IDX               0
+#define CAN2_IDX               1
+
+extern q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
+extern q_handle_t q_rx_can;
+
+typedef struct {
+  uint32_t tx_of;      // queue overflow
+  uint32_t tx_fail;    // timed out
+  uint32_t rx_overrun; // fifo overrun
+} can_peripheral_stats_t;
+
+typedef struct {
+    uint32_t rx_of;      // queue overflow
+    can_peripheral_stats_t can_peripheral_stats[NUM_CAN_PERIPHERALS];
+} can_stats_t;
 
 extern can_stats_t can_stats;
-extern q_handle_t q_tx_can1_s[CAN_TX_MAILBOX_CNT ];
-extern q_handle_t q_rx_can;
 
 void initCANParseBase();
 void canTxUpdate(void);

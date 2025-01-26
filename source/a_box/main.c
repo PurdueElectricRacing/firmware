@@ -177,7 +177,7 @@ int main (void)
     bms_daq_override = false;
     bms_daq_stat = false;
 
-    if (daqInit(&q_tx_can1_s[2]))
+    if (daqInit(&q_tx_can[CAN1_IDX][2]))
         HardFault_Handler();
 
    /* Module init */
@@ -221,7 +221,7 @@ void preflightChecks(void)
             initTMU(&tmu);
             break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_A_BOX);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][0], ID_FAULT_SYNC_A_BOX);
             break;
         case 700:
             charger_speed_def = PHAL_readGPIO(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin);
@@ -296,8 +296,9 @@ void heartBeatLED()
    PHAL_toggleGPIO(HEARTBEAT_LED_GPIO_Port, HEARTBEAT_LED_Pin);
 
     static uint8_t trig;
-    if (trig) SEND_A_BOX_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
-                  can_stats.rx_of, can_stats.rx_overrun);
+    if (trig) SEND_A_BOX_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of,
+                                   can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail,
+                                   can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
     trig = !trig;
 }
 

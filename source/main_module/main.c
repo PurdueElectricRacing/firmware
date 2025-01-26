@@ -287,7 +287,7 @@ void preflightChecks(void) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
-            if(!PHAL_initCAN(CAN2, false, VCAN_BPS))
+            if(!PHAL_initCAN(CAN2, false, MCAN_BPS))
             {
                 HardFault_Handler();
             }
@@ -327,9 +327,9 @@ void preflightChecks(void) {
            break;
        case 5:
            initCANParse();
-           if(daqInit(&q_tx_can1_s[2]))
+           if(daqInit(&q_tx_can[CAN1_IDX][2]))
                HardFault_Handler();
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_MAIN_MODULE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][0], ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);
@@ -378,8 +378,9 @@ void heartBeatLED(void)
     }
     else
     {
-        SEND_MAIN_MODULE_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
-                                   can_stats.rx_of, can_stats.rx_overrun);
+        SEND_MAIN_MODULE_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of,
+                                   can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail,
+                                   can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
     }
     trig = !trig;
 }
@@ -479,6 +480,11 @@ void interpretLoadSensor(void) {
 void CAN1_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN1);
+}
+
+void CAN2_RX0_IRQHandler()
+{
+    canParseIRQHandler(CAN2);
 }
 
 void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

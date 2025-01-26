@@ -47,10 +47,10 @@
 #define VCAN_TX_GPIO_Port           (GPIOA)
 #define VCAN_TX_Pin                 (12)
 
-#define EMCAN_RX_GPIO_Port         (GPIOB)
-#define EMCAN_RX_Pin               (12)
-#define EMCAN_TX_GPIO_Port         (GPIOB)
-#define EMCAN_TX_Pin               (13)
+#define MCAN_RX_GPIO_Port         (GPIOB)
+#define MCAN_RX_Pin               (12)
+#define MCAN_TX_GPIO_Port      (GPIOB)
+#define MCAN_TX_Pin            (13)
 
 // SPI Peripherals
 #define SPI1_SCK_GPIO_Port          (GPIOA)

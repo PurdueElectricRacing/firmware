@@ -3,7 +3,6 @@
 #include "wheel_speeds.h"
 
 Car_t car;
-extern q_handle_t q_tx_can;
 extern q_handle_t q_tx_usart_l, q_tx_usart_r;
 extern usart_rx_buf_t huart_l_rx_buf, huart_r_rx_buf;
 extern uint16_t num_failed_msgs_l, num_failed_msgs_r;
@@ -47,9 +46,6 @@ bool carInit()
     daq_constant_tq = 0;
     const_tq_val = 0;
     hist_curr_idx = 0;
-    /* Motor Controller Initialization */
-    mcInit(&car.motor_l, MC_L_INVERT, &q_tx_usart_l, &huart_l_rx_buf, &car.pchg.pchg_complete);
-    mcInit(&car.motor_r, MC_R_INVERT, &q_tx_usart_r, &huart_r_rx_buf, &car.pchg.pchg_complete);
 
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
@@ -61,7 +57,8 @@ bool carInit()
 
 void carHeartbeat()
 {
-    SEND_MAIN_HB(car.state, car.pchg.pchg_complete);
+    // SEND_MAIN_HB(car.state, car.pchg.pchg_complete);
+    SEND_MAIN_HB_AMK(car.state, car.pchg.pchg_complete);
     SEND_REAR_MC_STATUS(car.motor_l.motor_state,
         car.motor_l.link_state, car.motor_l.last_link_error,
         car.motor_r.motor_state, car.motor_r.link_state,

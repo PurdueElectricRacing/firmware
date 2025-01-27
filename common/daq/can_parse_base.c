@@ -38,21 +38,21 @@ void canTxSendToBack(CanMsgTypeDef_t *msg)
         {
             case 0:
             case 1:
-                mailbox = CAN_MAILBOX_0;
+                mailbox = CAN_MAILBOX_HIGH_PRIO;
                 break;
             case 2:
             case 3:
-                mailbox = CAN_MAILBOX_1;
+                mailbox = CAN_MAILBOX_MED_PRIO;
                 break;
             default:
-                mailbox = CAN_MAILBOX_2;
+                mailbox = CAN_MAILBOX_LOW_PRIO;
                 break;
         }
         qh = &q_tx_can[peripheral_idx][mailbox];
     }
     else
     {
-        qh = &q_tx_can[peripheral_idx][CAN_MAILBOX_0]; // IDE = 0 doesn't have an HLP
+        qh = &q_tx_can[peripheral_idx][CAN_MAILBOX_HIGH_PRIO]; // IDE = 0 doesn't have an HLP
     }
     if (qSendToBack(qh, msg) != SUCCESS_G)
     {

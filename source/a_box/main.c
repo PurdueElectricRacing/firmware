@@ -177,7 +177,7 @@ int main (void)
     bms_daq_override = false;
     bms_daq_stat = false;
 
-    if (daqInit(&q_tx_can[CAN1_IDX][2]))
+    if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
         HardFault_Handler();
 
    /* Module init */
@@ -221,7 +221,7 @@ void preflightChecks(void)
             initTMU(&tmu);
             break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][0], ID_FAULT_SYNC_A_BOX);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_A_BOX);
             break;
         case 700:
             charger_speed_def = PHAL_readGPIO(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin);

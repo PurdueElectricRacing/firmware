@@ -191,7 +191,7 @@ int main (void){
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][0], ID_FAULT_SYNC_DASHBOARD);
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_DASHBOARD);
 
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
@@ -256,7 +256,7 @@ void preflightChecks(void) {
         case 3:
             /* Module Initialization */
             initCANParse();
-            if (daqInit(&q_tx_can[CAN1_IDX][2]))
+            if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
         case 4:

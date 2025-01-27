@@ -26,9 +26,9 @@
 // Change as you modify number of CAN peripherals in use
 #define NUM_CAN_PERIPHERALS 2
 
-#define CAN_MAILBOX_0          0
-#define CAN_MAILBOX_1          1
-#define CAN_MAILBOX_2          2
+#define CAN_MAILBOX_HIGH_PRIO 0
+#define CAN_MAILBOX_MED_PRIO  1
+#define CAN_MAILBOX_LOW_PRIO  2
 
 // Array helpers
 #define CAN1_IDX               0

@@ -2,7 +2,7 @@
     "$schema":"./can_schema.json",
     "busses":[
         {
-            "bus_name":"Main",
+            "bus_name":"VCAN",
             "nodes":[
                 {
                     "node_name":"Main_Module",
@@ -1185,7 +1185,7 @@
             ]
         },
         {
-          "bus_name": "AMK",
+          "bus_name": "MCAN",
           "nodes": [
             {
               "node_name":"Main_Module",

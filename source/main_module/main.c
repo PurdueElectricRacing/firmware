@@ -327,9 +327,9 @@ void preflightChecks(void) {
            break;
        case 5:
            initCANParse();
-           if(daqInit(&q_tx_can[CAN1_IDX][2]))
+           if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                HardFault_Handler();
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][0], ID_FAULT_SYNC_MAIN_MODULE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);

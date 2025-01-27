@@ -50,7 +50,7 @@ BO_ 2415921409 gearbox: 2 Main_Module
  SG_ r_temp : 8|8@1- (1,0) [0|0] "" Vector__XXX
  SG_ l_temp : 0|8@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 1984 LWS_Config: 2 Main_Module
+BO_ 2147485632 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
@@ -383,7 +383,7 @@ BO_ 2148059845 fault_sync_dashboard: 3 Dashboard
 BO_ 2550136773 daq_response_DASHBOARD: 8 Dashboard
  SG_ daq_response : 0|64@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 688 LWS_Standard: 5 Steering
+BO_ 2147484336 LWS_Standard: 5 Steering
  SG_ Reserved_2 : 32|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 27|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Trim : 26|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -656,10 +656,10 @@ CM_ SG_ 2415921281 battery_in_temp "In flow temperature of battery coolant loop"
 CM_ BO_ 2415921409 "Gearbox temps";
 CM_ SG_ 2415921409 r_temp "";
 CM_ SG_ 2415921409 l_temp "";
-CM_ BO_ 1984 "Steering sensor configuration";
-CM_ SG_ 1984 Reserved_2 "";
-CM_ SG_ 1984 Reserved_1 "";
-CM_ SG_ 1984 CCW "";
+CM_ BO_ 2147485632 "Steering sensor configuration";
+CM_ SG_ 2147485632 Reserved_2 "";
+CM_ SG_ 2147485632 Reserved_1 "";
+CM_ SG_ 2147485632 CCW "";
 CM_ BO_ 2415983105 "Load Sensor readings from left and right";
 CM_ SG_ 2415983105 right_load_sensor "";
 CM_ SG_ 2415983105 left_load_sensor "";
@@ -937,14 +937,14 @@ CM_ SG_ 2148059845 latched "";
 CM_ SG_ 2148059845 idx "";
 CM_ BO_ 2550136773 "daq response from node DASHBOARD";
 CM_ SG_ 2550136773 daq_response "";
-CM_ BO_ 688 "Standard steering angle and speed";
-CM_ SG_ 688 Reserved_2 "";
-CM_ SG_ 688 Reserved_1 "";
-CM_ SG_ 688 Trim "";
-CM_ SG_ 688 Cal "";
-CM_ SG_ 688 Ok "";
-CM_ SG_ 688 LWS_SPEED "";
-CM_ SG_ 688 LWS_ANGLE "";
+CM_ BO_ 2147484336 "Standard steering angle and speed";
+CM_ SG_ 2147484336 Reserved_2 "";
+CM_ SG_ 2147484336 Reserved_1 "";
+CM_ SG_ 2147484336 Trim "";
+CM_ SG_ 2147484336 Cal "";
+CM_ SG_ 2147484336 Ok "";
+CM_ SG_ 2147484336 LWS_SPEED "";
+CM_ SG_ 2147484336 LWS_ANGLE "";
 CM_ BO_ 2415985759 "PDU voltage rail readings";
 CM_ SG_ 2415985759 out_3v3 "";
 CM_ SG_ 2415985759 out_5v "";

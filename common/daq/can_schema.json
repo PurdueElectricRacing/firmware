@@ -89,6 +89,10 @@
                 "msg_id_override":{
                     "type":"string",
                     "description":"sets the message to a specific id, ignoring the node's ssa\nTo use hex do \"0x########\""
+                },
+                "is_standard_id": {
+                    "type": "boolean",
+                    "description": "Enables generation of standard-id specific code for both transmission and reception of message. All messages will default to extended-id without this parameter provided"
                 }
             }
         },

@@ -65,9 +65,10 @@ def find_rx_messages(rx_names):
 def gen_send_macro(lines, msg_config, peripheral):
     """ generates a send macro to add a message to the tx queue """
     cap = msg_config['msg_name'].upper()
+    std_id_override = 'is_standard_id' in msg_config and msg_config['is_standard_id'] == True
     sig_args = ", ".join([sig['sig_name']+'_' for sig in msg_config['signals']])
     lines.append(f"#define SEND_{cap}({sig_args}) do {{\\\n")
-    lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .ExtId=ID_{cap}, .DLC=DLC_{cap}, .IDE=1}};\\\n")
+    lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .{'Std' if std_id_override else 'Ext'}Id=ID_{cap}, .DLC=DLC_{cap}, .IDE={0 if std_id_override else 1}}};\\\n")
     lines.append(f"        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
     for sig in msg_config['signals']:
         # if float, cannot simply cast to uint32, have to use union
@@ -98,7 +99,7 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
             generator.log_error(f"Max filter bank reached for node containing msg {msg['msg_name']}")
             quit(1)
         # For extended id vs standard id
-        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_normal' not in msg or msg['is_normal'] == False) else \
+        shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_standard_id' not in msg or msg['is_standard_id'] == False) else \
                        f"(ID_{msg['msg_name'].upper()} << 21)"
         if not on_mask:
             lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")

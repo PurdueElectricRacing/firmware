@@ -137,7 +137,7 @@ typedef union {
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_LWS_CONFIG(CCW_, Reserved_1_, Reserved_2_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=1};\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=0};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\

@@ -81,7 +81,7 @@ void canTxUpdate(void)
         }
 # ifdef CAN2
         // Handle CAN2
-        else if(PHAL_txMailboxFree(CAN2, i))
+        if(PHAL_txMailboxFree(CAN2, i))
         {
             if (qReceive(&q_tx_can[CAN2_IDX][i], &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
             {

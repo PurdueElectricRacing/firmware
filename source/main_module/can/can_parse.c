@@ -32,105 +32,116 @@ void canRxUpdate(void)
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         last_can_rx_time_ms = sched.os_ticks;
         /* BEGIN AUTO CASES */
-        switch(msg_header.ExtId)
+        if (msg_header.Bus == CAN2)
         {
-            case ID_RAW_THROTTLE_BRAKE:
-                can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
-                can_data.raw_throttle_brake.throttle_right = msg_data_a->raw_throttle_brake.throttle_right;
-                can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
-                can_data.raw_throttle_brake.brake_right = msg_data_a->raw_throttle_brake.brake_right;
-                can_data.raw_throttle_brake.brake_pot = msg_data_a->raw_throttle_brake.brake_pot;
-                can_data.raw_throttle_brake.stale = 0;
-                can_data.raw_throttle_brake.last_rx = sched.os_ticks;
-                break;
-            case ID_FILT_THROTTLE_BRAKE:
-                can_data.filt_throttle_brake.throttle = msg_data_a->filt_throttle_brake.throttle;
-                can_data.filt_throttle_brake.brake = msg_data_a->filt_throttle_brake.brake;
-                can_data.filt_throttle_brake.stale = 0;
-                can_data.filt_throttle_brake.last_rx = sched.os_ticks;
-                break;
-            case ID_START_BUTTON:
-                can_data.start_button.start = msg_data_a->start_button.start;
-                break;
-            case ID_MAX_CELL_TEMP:
-                can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
-                can_data.max_cell_temp.stale = 0;
-                can_data.max_cell_temp.last_rx = sched.os_ticks;
-                break;
-            case ID_LWS_STANDARD:
-                can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
-                can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
-                can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
-                can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
-                can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
-                can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
-                can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
-                can_data.LWS_Standard.stale = 0;
-                can_data.LWS_Standard.last_rx = sched.os_ticks;
-                break;
-            case ID_MAIN_MODULE_BL_CMD:
-                can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
-                can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
-                main_module_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_ORION_CURRENTS_VOLTS:
-                can_data.orion_currents_volts.pack_current = (int16_t) msg_data_a->orion_currents_volts.pack_current;
-                can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
-                can_data.orion_currents_volts.stale = 0;
-                can_data.orion_currents_volts.last_rx = sched.os_ticks;
-                break;
-            case ID_THROTTLE_VCU:
-                can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
-                can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
-                can_data.throttle_vcu.stale = 0;
-                can_data.throttle_vcu.last_rx = sched.os_ticks;
-                break;
-            case ID_THROTTLE_VCU_EQUAL:
-                can_data.throttle_vcu_equal.equal_k_rl = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rl;
-                can_data.throttle_vcu_equal.equal_k_rr = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rr;
-                can_data.throttle_vcu_equal.stale = 0;
-                can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
-                break;
-            case ID_FAULT_SYNC_PDU:
-                can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
-                can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
+            switch(msg_header.ExtId)
+            {
+                default:
+                    __asm__("nop");
+            }
+        }
+        else if (msg_header.Bus == CAN1)
+        {
+            switch(msg_header.ExtId)
+            {
+                case ID_RAW_THROTTLE_BRAKE:
+                    can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
+                    can_data.raw_throttle_brake.throttle_right = msg_data_a->raw_throttle_brake.throttle_right;
+                    can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
+                    can_data.raw_throttle_brake.brake_right = msg_data_a->raw_throttle_brake.brake_right;
+                    can_data.raw_throttle_brake.brake_pot = msg_data_a->raw_throttle_brake.brake_pot;
+                    can_data.raw_throttle_brake.stale = 0;
+                    can_data.raw_throttle_brake.last_rx = sched.os_ticks;
+                    break;
+                case ID_FILT_THROTTLE_BRAKE:
+                    can_data.filt_throttle_brake.throttle = msg_data_a->filt_throttle_brake.throttle;
+                    can_data.filt_throttle_brake.brake = msg_data_a->filt_throttle_brake.brake;
+                    can_data.filt_throttle_brake.stale = 0;
+                    can_data.filt_throttle_brake.last_rx = sched.os_ticks;
+                    break;
+                case ID_START_BUTTON:
+                    can_data.start_button.start = msg_data_a->start_button.start;
+                    break;
+                case ID_MAX_CELL_TEMP:
+                    can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
+                    can_data.max_cell_temp.stale = 0;
+                    can_data.max_cell_temp.last_rx = sched.os_ticks;
+                    break;
+                case ID_LWS_STANDARD:
+                    can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+                    can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                    can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
+                    can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
+                    can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
+                    can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+                    can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+                    can_data.LWS_Standard.stale = 0;
+                    can_data.LWS_Standard.last_rx = sched.os_ticks;
+                    break;
+                case ID_MAIN_MODULE_BL_CMD:
+                    can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
+                    can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
+                    main_module_bl_cmd_CALLBACK(msg_data_a);
+                    break;
+                case ID_ORION_CURRENTS_VOLTS:
+                    can_data.orion_currents_volts.pack_current = (int16_t) msg_data_a->orion_currents_volts.pack_current;
+                    can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
+                    can_data.orion_currents_volts.stale = 0;
+                    can_data.orion_currents_volts.last_rx = sched.os_ticks;
+                    break;
+                case ID_THROTTLE_VCU:
+                    can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
+                    can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
+                    can_data.throttle_vcu.stale = 0;
+                    can_data.throttle_vcu.last_rx = sched.os_ticks;
+                    break;
+                case ID_THROTTLE_VCU_EQUAL:
+                    can_data.throttle_vcu_equal.equal_k_rl = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rl;
+                    can_data.throttle_vcu_equal.equal_k_rr = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rr;
+                    can_data.throttle_vcu_equal.stale = 0;
+                    can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
+                    break;
+                case ID_FAULT_SYNC_PDU:
+                    can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
+                    can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_FAULT_SYNC_DASHBOARD:
-                can_data.fault_sync_dashboard.idx = msg_data_a->fault_sync_dashboard.idx;
-                can_data.fault_sync_dashboard.latched = msg_data_a->fault_sync_dashboard.latched;
+                    break;
+                case ID_FAULT_SYNC_DASHBOARD:
+                    can_data.fault_sync_dashboard.idx = msg_data_a->fault_sync_dashboard.idx;
+                    can_data.fault_sync_dashboard.latched = msg_data_a->fault_sync_dashboard.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_FAULT_SYNC_A_BOX:
-                can_data.fault_sync_a_box.idx = msg_data_a->fault_sync_a_box.idx;
-                can_data.fault_sync_a_box.latched = msg_data_a->fault_sync_a_box.latched;
+                    break;
+                case ID_FAULT_SYNC_A_BOX:
+                    can_data.fault_sync_a_box.idx = msg_data_a->fault_sync_a_box.idx;
+                    can_data.fault_sync_a_box.latched = msg_data_a->fault_sync_a_box.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_FAULT_SYNC_TORQUE_VECTOR:
-                can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
-                can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
+                    break;
+                case ID_FAULT_SYNC_TORQUE_VECTOR:
+                    can_data.fault_sync_torque_vector.idx = msg_data_a->fault_sync_torque_vector.idx;
+                    can_data.fault_sync_torque_vector.latched = msg_data_a->fault_sync_torque_vector.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_FAULT_SYNC_TEST_NODE:
-                can_data.fault_sync_test_node.idx = msg_data_a->fault_sync_test_node.idx;
-                can_data.fault_sync_test_node.latched = msg_data_a->fault_sync_test_node.latched;
+                    break;
+                case ID_FAULT_SYNC_TEST_NODE:
+                    can_data.fault_sync_test_node.idx = msg_data_a->fault_sync_test_node.idx;
+                    can_data.fault_sync_test_node.latched = msg_data_a->fault_sync_test_node.latched;
 				handleCallbacks(msg_data_a->fault_sync_main_module.idx, msg_data_a->fault_sync_main_module.latched);
-                break;
-            case ID_SET_FAULT:
-                can_data.set_fault.id = msg_data_a->set_fault.id;
-                can_data.set_fault.value = msg_data_a->set_fault.value;
+                    break;
+                case ID_SET_FAULT:
+                    can_data.set_fault.id = msg_data_a->set_fault.id;
+                    can_data.set_fault.value = msg_data_a->set_fault.value;
 				set_fault_daq(msg_data_a->set_fault.id, msg_data_a->set_fault.value);
-                break;
-            case ID_RETURN_FAULT_CONTROL:
-                can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
+                    break;
+                case ID_RETURN_FAULT_CONTROL:
+                    can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
-                break;
-            case ID_DAQ_COMMAND_MAIN_MODULE:
-                can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
-                daq_command_MAIN_MODULE_CALLBACK(&msg_header);
-                break;
-            default:
-                __asm__("nop");
+                    break;
+                case ID_DAQ_COMMAND_MAIN_MODULE:
+                    can_data.daq_command_MAIN_MODULE.daq_command = msg_data_a->daq_command_MAIN_MODULE.daq_command;
+                    daq_command_MAIN_MODULE_CALLBACK(&msg_header);
+                    break;
+                default:
+                    __asm__("nop");
+            }
         }
         /* END AUTO CASES */
     }

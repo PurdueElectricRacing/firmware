@@ -2,11 +2,12 @@
     "$schema":"./can_schema.json",
     "busses":[
         {
-            "bus_name":"Main",
+            "bus_name":"VCAN",
             "nodes":[
                 {
                     "node_name":"Main_Module",
                     "node_ssa":1,
+                    "can_peripheral": "CAN1",
                     "tx":[
                         {   "msg_name":"main_hb",
                             "msg_desc":"Heart beat message for main module",
@@ -53,7 +54,7 @@
                             ],
                             "msg_period": 0,
                             "msg_id_override": "0x7C0",
-                            "is_normal":true
+                            "is_standard_id":true
                         },
                         {
                             "msg_name": "load_sensor_readings",
@@ -94,10 +95,13 @@
                             "msg_name": "main_module_can_stats",
                             "msg_desc": "CAN diagnostics",
                             "signals": [
-                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
-                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
-                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
-                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                                {"sig_name":"can1_tx_queue_overflow", "type":"uint8_t", "sig_desc": "VCAN Tx queue overflow count"},
+                                {"sig_name":"can2_tx_queue_overflow", "type":"uint8_t", "sig_desc": "MCAN Tx queue overflow count"},
+                                {"sig_name":"can1_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count for VCAN (due to timeout in mailbox)"},
+                                {"sig_name":"can2_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count for MCAN (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_queue_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                                {"sig_name":"can1_rx_overrun", "type":"uint8_t", "sig_desc": "VCAN Rx FIFO overrun count"},
+                                {"sig_name":"can2_rx_overrun", "type":"uint8_t", "sig_desc": "MCAN Rx FIFO overrun count"}
                             ],
                             "msg_period": 1000,
                             "msg_hlp": 4,
@@ -333,10 +337,13 @@
                             "msg_name": "a_box_can_stats",
                             "msg_desc": "CAN diagnostics",
                             "signals": [
-                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
-                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
-                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
-                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                              {"sig_name":"can1_tx_queue_overflow", "type":"uint8_t", "sig_desc": "VCAN Tx queue overflow count"},
+                              {"sig_name":"can2_tx_queue_overflow", "type":"uint8_t", "sig_desc": "CCAN (Charger CAN) Tx queue overflow count"},
+                              {"sig_name":"can1_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count for VCAN (due to timeout in mailbox)"},
+                              {"sig_name":"can2_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count for CCAN (Charger CAN) (due to timeout in mailbox)"},
+                              {"sig_name":"can_rx_queue_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
+                              {"sig_name":"can1_rx_overrun", "type":"uint8_t", "sig_desc": "VCAN Rx FIFO overrun count"},
+                              {"sig_name":"can2_rx_overrun", "type":"uint8_t", "sig_desc": "CCAN (Charger CAN) Rx FIFO overrun count"}
                             ],
                             "msg_period": 1000,
                             "msg_hlp": 4,
@@ -595,10 +602,10 @@
                             "msg_name": "tv_can_stats",
                             "msg_desc": "CAN diagnostics",
                             "signals": [
-                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "CAN Tx queue overflow count"},
-                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"},
-                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "CAN Rx queue overflow count"},
-                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "CAN Rx FIFO overrun count"}
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "VCAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "VCAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "VCAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "VCAN Rx FIFO overrun count"}
                             ],
                             "msg_period": 1000,
                             "msg_hlp": 4,
@@ -777,7 +784,7 @@
                             ],
                             "msg_period": 15,
                             "msg_id_override": "0x2B0",
-                            "is_normal":true
+                            "is_standard_id":true
                         }
                     ],
                     "rx": []
@@ -1176,6 +1183,31 @@
                     ]
                 }
             ]
+        },
+        {
+          "bus_name": "MCAN",
+          "nodes": [
+            {
+              "node_name":"Main_Module",
+              "node_ssa":1,
+              "can_peripheral": "CAN2",
+              "tx":[
+                  {   "msg_name":"main_hb_amk",
+                      "msg_desc":"Heart beat message for main module",
+                      "signals":[
+                          {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8},
+                          {"sig_name":"precharge_state", "type":"uint8_t", "length": 1}
+                      ],
+                      "msg_period":500,
+                      "msg_hlp":3,
+                      "msg_pgn":100
+                  }
+                ],
+                "rx": [
+
+                ]
+            }
+          ]
         },
         {
             "bus_name": "Test",

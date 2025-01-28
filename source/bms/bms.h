@@ -94,7 +94,7 @@ typedef struct {
 
 typedef struct {
     // Error flags (blinking light codes):
-    // 
+    //
     // 1  -> AFE connection error
     // 2  -> Cell overvoltage
     // 3  -> Cell undervoltage
@@ -143,7 +143,6 @@ typedef struct {
 
 extern bms_t      bms;                      // Global BMS structure
 extern uint8_t    error_ff;                 // Error fast-forward across memset
-extern q_handle_t q_tx_can;                 // TX CAN queue
 extern q_handle_t q_rx_can;                 // RX CAN queue
 
 // Prototypes

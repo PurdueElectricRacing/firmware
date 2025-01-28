@@ -238,7 +238,7 @@ void preflightChecks(void) {
            break;
         case 1:
            initCANParse();
-           if(daqInit(&q_tx_can1_s[2]))
+           if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                HardFault_Handler();
            break;
         case 2:
@@ -256,7 +256,7 @@ void preflightChecks(void) {
             flowRateInit();
             break;
         case 5:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_PDU);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_PDU);
             break;
         default:
             if (led_anim_complete)
@@ -337,8 +337,9 @@ void heatBeatLED()
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
     static uint8_t trig;
-    if (trig) SEND_PDU_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
-                  can_stats.rx_of, can_stats.rx_overrun);
+    if (trig) SEND_PDU_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+                                 can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                                 can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
     trig = !trig;
 }
 

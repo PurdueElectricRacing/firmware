@@ -62,7 +62,7 @@
 #define DLC_MOD_CELL_TEMP_MIN 8
 #define DLC_RAW_CELL_TEMP_A_B 5
 #define DLC_RAW_CELL_TEMP_C_D 5
-#define DLC_A_BOX_CAN_STATS 4
+#define DLC_A_BOX_CAN_STATS 7
 #define DLC_I_SENSE 4
 #define DLC_FAULT_SYNC_A_BOX 3
 #define DLC_DAQ_RESPONSE_A_BOX 8
@@ -165,13 +165,16 @@
         data_a->raw_cell_temp_c_d.temp_D = temp_D_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_A_BOX_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
+#define SEND_A_BOX_CAN_STATS(can1_tx_queue_overflow_, can2_tx_queue_overflow_, can1_tx_fail_, can2_tx_fail_, can_rx_queue_overflow_, can1_rx_overrun_, can2_rx_overrun_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_A_BOX_CAN_STATS, .DLC=DLC_A_BOX_CAN_STATS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->a_box_can_stats.can_tx_overflow = can_tx_overflow_;\
-        data_a->a_box_can_stats.can_tx_fail = can_tx_fail_;\
-        data_a->a_box_can_stats.can_rx_overflow = can_rx_overflow_;\
-        data_a->a_box_can_stats.can_rx_overrun = can_rx_overrun_;\
+        data_a->a_box_can_stats.can1_tx_queue_overflow = can1_tx_queue_overflow_;\
+        data_a->a_box_can_stats.can2_tx_queue_overflow = can2_tx_queue_overflow_;\
+        data_a->a_box_can_stats.can1_tx_fail = can1_tx_fail_;\
+        data_a->a_box_can_stats.can2_tx_fail = can2_tx_fail_;\
+        data_a->a_box_can_stats.can_rx_queue_overflow = can_rx_queue_overflow_;\
+        data_a->a_box_can_stats.can1_rx_overrun = can1_rx_overrun_;\
+        data_a->a_box_can_stats.can2_rx_overrun = can2_rx_overrun_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_I_SENSE(current_channel_1_, current_channel_2_) do {\
@@ -267,10 +270,13 @@ typedef union {
         uint64_t temp_D: 16;
     } raw_cell_temp_c_d;
     struct {
-        uint64_t can_tx_overflow: 8;
-        uint64_t can_tx_fail: 8;
-        uint64_t can_rx_overflow: 8;
-        uint64_t can_rx_overrun: 8;
+        uint64_t can1_tx_queue_overflow: 8;
+        uint64_t can2_tx_queue_overflow: 8;
+        uint64_t can1_tx_fail: 8;
+        uint64_t can2_tx_fail: 8;
+        uint64_t can_rx_queue_overflow: 8;
+        uint64_t can1_rx_overrun: 8;
+        uint64_t can2_rx_overrun: 8;
     } a_box_can_stats;
     struct {
         uint64_t current_channel_1: 16;

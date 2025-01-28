@@ -25,7 +25,6 @@ union i_Long iLong;
 union i_Short iShort;
 union u_Long uLong;
 
-extern q_handle_t q_tx_can;
 double checkVelN;
 double checkVelN2;
 signed long prev_iTOW;

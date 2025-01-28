@@ -1,23 +1,26 @@
 #include "common/daq/can_parse_base.h"
 /**
  * q_tx_can_0 -> hlp [0,1] -> mailbox 1
- * q_tx_can_1 -> hlp [2,3] -> mailbox 2 
+ * q_tx_can_1 -> hlp [2,3] -> mailbox 2
  * q_tx_can_2 -> hlp [4,5] -> mailbox 3
 */
 
 can_stats_t can_stats;
 
-// TODO: support CAN2
-q_handle_t q_tx_can1_s[CAN_TX_MAILBOX_CNT];
+q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
+uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
+
 q_handle_t q_rx_can;
-uint32_t mbx_last_send_time[CAN_TX_MAILBOX_CNT];
 
 void initCANParseBase()
 {
-    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i)
+    for (uint8_t can_periph = 0; can_periph < NUM_CAN_PERIPHERALS; can_periph++)
     {
-        qConstruct(&q_tx_can1_s[i], sizeof(CanMsgTypeDef_t));
-        mbx_last_send_time[i] = 0;
+      for (uint8_t mbx = 0; mbx < CAN_TX_MAILBOX_CNT; mbx++)
+      {
+        qConstruct(&q_tx_can[can_periph][mbx], sizeof(CanMsgTypeDef_t));
+        can_mbx_last_send_time[can_periph][mbx] = 0;
+      }
     }
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     can_stats = (can_stats_t){0};
@@ -26,6 +29,8 @@ void initCANParseBase()
 void canTxSendToBack(CanMsgTypeDef_t *msg)
 {
     q_handle_t *qh;
+    uint8_t mailbox;
+    uint8_t peripheral_idx = (msg->Bus == CAN1) ? CAN1_IDX : CAN2_IDX;
     if (msg->IDE == 1)
     {
         // extended id, check hlp
@@ -33,56 +38,73 @@ void canTxSendToBack(CanMsgTypeDef_t *msg)
         {
             case 0:
             case 1:
-                qh = &q_tx_can1_s[0];
+                mailbox = CAN_MAILBOX_HIGH_PRIO;
                 break;
             case 2:
             case 3:
-                qh = &q_tx_can1_s[1];
+                mailbox = CAN_MAILBOX_MED_PRIO;
                 break;
             default:
-                qh = &q_tx_can1_s[2];
+                mailbox = CAN_MAILBOX_LOW_PRIO;
                 break;
         }
+        qh = &q_tx_can[peripheral_idx][mailbox];
     }
     else
     {
-        qh = &q_tx_can1_s[0]; // IDE = 0 doesn't have an HLP
+        qh = &q_tx_can[peripheral_idx][CAN_MAILBOX_HIGH_PRIO]; // IDE = 0 doesn't have an HLP
     }
     if (qSendToBack(qh, msg) != SUCCESS_G)
     {
-        can_stats.tx_of++;
+        can_stats.can_peripheral_stats[peripheral_idx].tx_of++;
     }
 }
 
 void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
-    // TODO: we only check if CAN1 mailbox is free -> create separate queue for
-    // CAN2 is you are using it!!!!
     for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i)
     {
+        // Handle CAN1
         if(PHAL_txMailboxFree(CAN1, i))
         {
-            if (qReceive(&q_tx_can1_s[i], &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+            if (qReceive(&q_tx_can[CAN1_IDX][i], &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
             {
                 PHAL_txCANMessage(&tx_msg, i);
-                mbx_last_send_time[i] = sched.os_ticks;
+                can_mbx_last_send_time[CAN1_IDX][i] = sched.os_ticks;
             }
         }
-        else if (sched.os_ticks - mbx_last_send_time[i] > CAN_TX_TIMEOUT_MS)
+        else if (sched.os_ticks - can_mbx_last_send_time[CAN1_IDX][i] > CAN_TX_TIMEOUT_MS)
         {
             PHAL_txCANAbort(CAN1, i); // aborts tx and empties the mailbox
-            can_stats.tx_fail++;
+            can_stats.can_peripheral_stats[CAN1_IDX].tx_fail++;
         }
+# ifdef CAN2
+        // Handle CAN2
+        if(PHAL_txMailboxFree(CAN2, i))
+        {
+            if (qReceive(&q_tx_can[CAN2_IDX][i], &tx_msg) == SUCCESS_G)    // Check queue for items and take if there is one
+            {
+                PHAL_txCANMessage(&tx_msg, i);
+                can_mbx_last_send_time[CAN2_IDX][i] = sched.os_ticks;
+            }
+        }
+        else if (sched.os_ticks - can_mbx_last_send_time[CAN2_IDX][i] > CAN_TX_TIMEOUT_MS)
+        {
+            PHAL_txCANAbort(CAN2, i); // aborts tx and empties the mailbox
+            can_stats.can_peripheral_stats[CAN2_IDX].tx_fail++;
+        }
+#endif
     }
 }
 
 void canParseIRQHandler(CAN_TypeDef *can_h)
 {
+    can_peripheral_stats_t *rx_stats = (can_h == CAN1) ? (&can_stats.can_peripheral_stats[CAN1_IDX]) : (&can_stats.can_peripheral_stats[CAN2_IDX]);
     if (can_h->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
     {
         can_h->RF0R |= CAN_RF0R_FOVR0;
-        can_stats.rx_overrun++;
+        rx_stats->rx_overrun++;
     }
 
     if (can_h->RF0R & CAN_RF0R_FULL0) // FIFO Full

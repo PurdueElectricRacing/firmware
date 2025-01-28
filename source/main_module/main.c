@@ -65,12 +65,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(BMS_STAT_GPIO_Port, BMS_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin, GPIO_INPUT_OPEN_DRAIN),
 
-    // Motor Controllers
-    GPIO_INIT_USART2TX_PA2,
-    GPIO_INIT_USART2RX_PA3,
-    GPIO_INIT_USART1TX_PA9,
-    GPIO_INIT_USART1RX_PA10,
-
     // Wheel Speed
     GPIO_INIT_AF(MOTOR_R_WS_GPIO_Port, MOTOR_R_WS_Pin, MOTOR_R_WS_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(MOTOR_L_WS_GPIO_Port, MOTOR_L_WS_Pin, MOTOR_L_WS_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
@@ -286,16 +280,6 @@ void preflightChecks(void) {
     switch (state++)
     {
         case 0:
-            huart_l.rx_dma_cfg->circular = true;
-            if(!PHAL_initUSART(&huart_l, APB2ClockRateHz))
-            {
-                HardFault_Handler();
-            }
-            huart_r.rx_dma_cfg->circular = true;
-            if(!PHAL_initUSART(&huart_r, APB1ClockRateHz))
-            {
-                HardFault_Handler();
-            }
             break;
         case 1:
             if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
@@ -303,6 +287,11 @@ void preflightChecks(void) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            if(!PHAL_initCAN(CAN2, false, MCAN_BPS))
+            {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN2_RX0_IRQn);
             // spi_config.data_rate = APB2ClockRateHz / 16; // 5 MHz
             // if (!PHAL_SPI_init(&spi_config))
             //     HardFault_Handler();
@@ -338,9 +327,9 @@ void preflightChecks(void) {
            break;
        case 5:
            initCANParse();
-           if(daqInit(&q_tx_can1_s[2]))
+           if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                HardFault_Handler();
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_MAIN_MODULE);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
             registerPreflightComplete(1);
@@ -389,8 +378,9 @@ void heartBeatLED(void)
     }
     else
     {
-        SEND_MAIN_MODULE_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
-                                   can_stats.rx_of, can_stats.rx_overrun);
+        SEND_MAIN_MODULE_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of,
+                                   can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail,
+                                   can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
     }
     trig = !trig;
 }
@@ -490,6 +480,11 @@ void interpretLoadSensor(void) {
 void CAN1_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN1);
+}
+
+void CAN2_RX0_IRQHandler()
+{
+    canParseIRQHandler(CAN2);
 }
 
 void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

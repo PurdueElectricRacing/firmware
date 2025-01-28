@@ -30,6 +30,7 @@ typedef union {
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
+#define ID_MAIN_HB_AMK 0xc001901
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
 #define ID_GEARBOX 0x10000901
@@ -67,6 +68,7 @@ typedef union {
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
+#define DLC_MAIN_HB_AMK 2
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
@@ -74,7 +76,7 @@ typedef union {
 #define DLC_LOAD_SENSOR_READINGS 8
 #define DLC_SHOCK_REAR 4
 #define DLC_MCU_STATUS 4
-#define DLC_MAIN_MODULE_CAN_STATS 4
+#define DLC_MAIN_MODULE_CAN_STATS 7
 #define DLC_NUM_MC_SKIPS 4
 #define DLC_REAR_MC_STATUS 6
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
@@ -104,6 +106,13 @@ typedef union {
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
+#define SEND_MAIN_HB_AMK(car_state_, precharge_state_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_MAIN_HB_AMK, .DLC=DLC_MAIN_HB_AMK, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->main_hb_amk.car_state = car_state_;\
+        data_a->main_hb_amk.precharge_state = precharge_state_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 #define SEND_MAIN_HB(car_state_, precharge_state_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_HB, .DLC=DLC_MAIN_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -128,7 +137,7 @@ typedef union {
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_LWS_CONFIG(CCW_, Reserved_1_, Reserved_2_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=1};\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_LWS_CONFIG, .DLC=DLC_LWS_CONFIG, .IDE=0};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
@@ -158,13 +167,16 @@ typedef union {
         data_a->mcu_status.sched_error = sched_error_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MAIN_MODULE_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
+#define SEND_MAIN_MODULE_CAN_STATS(can1_tx_queue_overflow_, can2_tx_queue_overflow_, can1_tx_fail_, can2_tx_fail_, can_rx_queue_overflow_, can1_rx_overrun_, can2_rx_overrun_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_MODULE_CAN_STATS, .DLC=DLC_MAIN_MODULE_CAN_STATS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->main_module_can_stats.can_tx_overflow = can_tx_overflow_;\
-        data_a->main_module_can_stats.can_tx_fail = can_tx_fail_;\
-        data_a->main_module_can_stats.can_rx_overflow = can_rx_overflow_;\
-        data_a->main_module_can_stats.can_rx_overrun = can_rx_overrun_;\
+        data_a->main_module_can_stats.can1_tx_queue_overflow = can1_tx_queue_overflow_;\
+        data_a->main_module_can_stats.can2_tx_queue_overflow = can2_tx_queue_overflow_;\
+        data_a->main_module_can_stats.can1_tx_fail = can1_tx_fail_;\
+        data_a->main_module_can_stats.can2_tx_fail = can2_tx_fail_;\
+        data_a->main_module_can_stats.can_rx_queue_overflow = can_rx_queue_overflow_;\
+        data_a->main_module_can_stats.can1_rx_overrun = can1_rx_overrun_;\
+        data_a->main_module_can_stats.can2_rx_overrun = can2_rx_overrun_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_NUM_MC_SKIPS(noise_r_, noise_l_) do {\
@@ -327,6 +339,10 @@ typedef union {
     struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
+    } main_hb_amk;
+    struct {
+        uint64_t car_state: 8;
+        uint64_t precharge_state: 1;
     } main_hb;
     struct {
         uint64_t battery_in_temp: 8;
@@ -358,10 +374,13 @@ typedef union {
         uint64_t sched_error: 8;
     } mcu_status;
     struct {
-        uint64_t can_tx_overflow: 8;
-        uint64_t can_tx_fail: 8;
-        uint64_t can_rx_overflow: 8;
-        uint64_t can_rx_overrun: 8;
+        uint64_t can1_tx_queue_overflow: 8;
+        uint64_t can2_tx_queue_overflow: 8;
+        uint64_t can1_tx_fail: 8;
+        uint64_t can2_tx_fail: 8;
+        uint64_t can_rx_queue_overflow: 8;
+        uint64_t can1_rx_overrun: 8;
+        uint64_t can2_rx_overrun: 8;
     } main_module_can_stats;
     struct {
         uint64_t noise_r: 16;

@@ -30,7 +30,6 @@ uint16_t b3_offset = 0;
 uint32_t b3_start_cal_time = 0;
 uint8_t  b3_cal_complete = 0;
 
-extern q_handle_t q_tx_can;
 extern race_page_t race_page_data;
 
 void pedalsPeriodic(void)

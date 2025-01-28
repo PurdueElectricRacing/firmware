@@ -4,18 +4,16 @@
  * @brief  Integration of the bmi and bsxlite filter software provided by Bosch
  * @version 0.1
  * @date 2022-10-05
- * 
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #include "imu.h"
 
-extern q_handle_t q_tx_can;
-
 /**
  * @brief Initializes the bsxlite library
- * 
+ *
  * @param imu_h IMU Handle containing initialized bmi088
  * @return True on success
  */
@@ -29,7 +27,7 @@ bool imu_init(IMU_Handle_t* imu_h)
     if (imu_h->last_result != BSXLITE_OK)
         return false;
 
-    return true; 
+    return true;
 }
 
 

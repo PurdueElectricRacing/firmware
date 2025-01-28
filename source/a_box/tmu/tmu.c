@@ -6,7 +6,6 @@
 #include "common/faults/faults.h"
 
 
-extern q_handle_t q_tx_can;
 uint8_t num_bad1, num_bad2, num_bad3, num_bad4;
 bool overtemp = false;
 bool tmu_daq_override = false;

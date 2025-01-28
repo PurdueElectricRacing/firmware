@@ -15,8 +15,6 @@
 
 volatile cooling_request_t cooling_request;
 
-extern q_handle_t q_tx_can;
-
 void coolingInit() {
     cooling_request.fan1_status = 0;
     cooling_request.fan2_status = 0;

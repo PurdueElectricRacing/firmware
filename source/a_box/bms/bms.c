@@ -13,7 +13,6 @@
 
 uint16_t cell_volts[NUM_CELLS] = {0};
 uint16_t cell_volts_conv[NUM_CELLS] = {0};
-extern q_handle_t q_tx_can;
 
 bool charge_mode_enable = false; // Enable charge algo
 uint16_t charge_voltage_limit = 0;

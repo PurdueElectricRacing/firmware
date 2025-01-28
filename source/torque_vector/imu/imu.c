@@ -12,7 +12,6 @@
 #include "imu.h"
 #include "sfs_pp.h"
 
-extern q_handle_t q_tx_can;
 /**
  * @brief Initializes the bsxlite library
  *

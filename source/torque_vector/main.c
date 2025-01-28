@@ -243,7 +243,7 @@ void preflightChecks(void)
         PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
     break;
     case 5:
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_TORQUE_VECTOR);
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
     case 1:
         /* SPI initialization */
@@ -333,8 +333,9 @@ void heartBeatLED(void)
 
 
     static uint8_t trig;
-    if (trig) SEND_TV_CAN_STATS(can_stats.tx_of, can_stats.tx_fail,
-                   can_stats.rx_of, can_stats.rx_overrun);
+    if (trig) SEND_TV_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+                                can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                                can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
     trig = !trig;
 }
 
@@ -415,7 +416,7 @@ void VCU_MAIN(void)
     setFault(ID_MM_DISABLED_FAULT,!rtY_em.MM_STATE);
     setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
     setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
-    
+
     setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
     setFault(ID_MM_ENABLED_FAULT,rtY_em.MM_STATE);
     setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);

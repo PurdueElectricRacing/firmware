@@ -213,7 +213,8 @@
                                 {"sig_name": "AMK_NegativeTorqueLimit", "sig_desc": "Negative Torque Limit", "type":"int16_t", "unit":"Nm", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x182"
+                            "msg_id_override": "0x182",
+                            "is_normal":true
                         }
                     ],
                     "rx":[
@@ -229,7 +230,9 @@
                         {"msg_name": "AMK_Actual_Values_1"},
                         {"msg_name": "AMK_Actual_Values_2"},
                         {"msg_name": "AMK_Temperatures_1"},
-                        {"msg_name": "AMK_Temperatures_2"}
+                        {"msg_name": "AMK_Temperatures_2"},
+                        {"msg_name": "AMK_Error_1"},
+                        {"msg_name": "AMK_Error_2"}
                     ]
                 },
                 {
@@ -1041,7 +1044,8 @@
                                 {"sig_name": "AMK_MotorSerialNumber", "sig_desc": "Serial number of the motor", "type":"uint32_t"}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x282"
+                            "msg_id_override": "0x282",
+                            "is_normal":true
                         },
                         {
                             "msg_name": "AMK_Actual_Values_2",
@@ -1049,11 +1053,11 @@
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
                                 {"sig_name": "AMK_DCBusVoltage", "sig_desc": "Voltage of the DC bus", "type":"uint16_t", "unit": "V"},
-                                {"sig_name": "AMK_SystemReset", "sig_desc": "System reset", "type":"uint16_t"},
-                                {"sig_name": "AMK_DiagnosticNumber", "sig_desc": "Error number", "type":"uint16_t"}
+                                {"sig_name": "AMK_SystemReset", "sig_desc": "System reset", "type":"uint16_t"}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x284"
+                            "msg_id_override": "0x284",
+                            "is_normal":true
                         },
                         {
                             "msg_name": "AMK_Temperatures_1",
@@ -1064,7 +1068,8 @@
                                 {"sig_name": "AMK_IGBTTemp", "sig_desc": "IGBT temperature", "type":"int16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x286"
+                            "msg_id_override": "0x286",
+                            "is_normal":true
                         },
                         {
                             "msg_name": "AMK_Temperatures_2",
@@ -1075,7 +1080,30 @@
                                 {"sig_name": "AMK_TempSensorMotor", "sig_desc": "???", "type":"int16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x288"
+                            "msg_id_override": "0x288",
+                            "is_normal":true
+                        },
+                        {
+                            "msg_name": "AMK_Error_1",
+                            "msg_desc": "All error information",
+                            "signals": [
+                                {"sig_name": "AMK_DiagnosticNumber", "sig_desc": "Error number", "type":"uint16_t"},
+                                {"sig_name": "AMK_ErrorInfo1", "sig_desc": "Error info", "type":"uint32_t"}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x290",
+                            "is_normal":true
+                        },
+                        {
+                            "msg_name": "AMK_Error_2",
+                            "msg_desc": "All error information",
+                            "signals": [
+                                {"sig_name": "AMK_ErrorInfo2", "sig_desc": "Error info", "type":"uint32_t"},
+                                {"sig_name": "AMK_ErrorInfo3", "sig_desc": "Error info", "type":"uint32_t"}
+                            ],
+                            "msg_period": 5,
+                            "msg_id_override": "0x292",
+                            "is_normal":true
                         }
                     ],
                     "rx": [

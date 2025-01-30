@@ -41,7 +41,7 @@ typedef struct {
 } AMK_Control_t;
 
 typedef struct {
-    uint8_t state;
+    uint8_t main_state;
     uint8_t running_state;
     uint8_t init_state;
     uint8_t deinit_state;
@@ -73,6 +73,9 @@ typedef struct {
     uint16_t system_reset;
 
     uint16_t diagnostic_num;
+    uint32_t error_info_1;
+    uint32_t error_info_2;
+    uint32_t error_info_3;
 
     bool* pchg_complete;
 
@@ -83,20 +86,13 @@ typedef struct {
 } amk_motor_t;
 
 typedef enum {
-    AMK_INIT_POWER_ON          = 0,
-    AMK_INIT_ENABLE            = 1,
+    AMK_INIT_POWER_ON = 0,
+    AMK_INIT_ENABLE   = 1,
 } amk_motor_init_state_t;
 
 typedef enum {
-    AMK_DEINIT_ZERO_SETPOINTS      = 0,
-    AMK_DEINIT_INVERTER_OFF        = 1,
-    AMK_DEINIT_DISABLE             = 2,
-    AMK_DEINIT_QUIT_INVERTER_CHECK = 3,
-    AMK_DEINIT_DC_OFF              = 4,
-    AMK_DEINIT_DC_OFF_CHECK        = 5,
-    AMK_DEINIT_PRECHARGE           = 6,
-    AMK_DEINIT_POWER_OFF           = 7,
-    AMK_DEINIT_DONE                = 8
+    AMK_DEINIT_DISABLE   = 0,
+    AMK_DEINIT_POWER_OFF = 1
 } amk_motor_deinit_state_t;
 
 typedef enum {
@@ -112,10 +108,10 @@ typedef enum {
 } amk_motor_reset_state_t;
 
 typedef enum {
-    AMK_STATE_OFF     = 0,
-    AMK_STATE_INIT    = 1,
-    AMK_STATE_RUNNING = 2,
-    AMK_STATE_DEINIT  = 3
+    AMK_STATE_OFF      = 0,
+    AMK_STATE_INIT     = 1,
+    AMK_STATE_DEINIT   = 2,
+    AMK_STATE_RUNNING  = 3
 } amk_motor_state_t;
 
 #define DEFAULT_TORQUE_SETPOINT       (0)
@@ -123,13 +119,14 @@ typedef enum {
 #define DEFAULT_NEGATIVE_TORQUE_LIMIT (0)
 
 #define MAX_POSITIVE_TORQUE_SETPOINT  (1000)
-#define MAX_NEGATIVE_TORQUE_SETPOINT  (-1000)
+#define MAX_NEGATIVE_TORQUE_SETPOINT  (0)
 #define MAX_POSITIVE_TORQUE_LIMIT     (1000)
 #define MAX_NEGATIVE_TORQUE_LIMIT     (-1000)
 
-void amkInit(amk_motor_t* motor, bool* pchg_complete);
+void amkInit(amk_motor_t* motor, bool* pchg_complete, void (*sendSetpoints)());
 void amkPeriodic(amk_motor_t* motor);
 void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint);
+static void resetAmk(amk_motor_t* motor);
 static void turnAmkOn(amk_motor_t* motor);
 static void amkRunning(amk_motor_t* motor);
 static void turnAmkOff(amk_motor_t* motor);

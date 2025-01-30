@@ -60,6 +60,8 @@ typedef union {
 #define ID_AMK_ACTUAL_VALUES_2 0x284
 #define ID_AMK_TEMPERATURES_1 0x286
 #define ID_AMK_TEMPERATURES_2 0x288
+#define ID_AMK_ERROR_1 0x290
+#define ID_AMK_ERROR_2 0x292
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -99,9 +101,11 @@ typedef union {
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_AMK_ACTUAL_VALUES_1 8
-#define DLC_AMK_ACTUAL_VALUES_2 8
+#define DLC_AMK_ACTUAL_VALUES_2 6
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
+#define DLC_AMK_ERROR_1 6
+#define DLC_AMK_ERROR_2 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -284,6 +288,8 @@ typedef union {
 #define UP_AMK_ACTUAL_VALUES_2 5
 #define UP_AMK_TEMPERATURES_1 5
 #define UP_AMK_TEMPERATURES_2 5
+#define UP_AMK_ERROR_1 5
+#define UP_AMK_ERROR_2 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -516,7 +522,6 @@ typedef union {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_DCBusVoltage: 16;
         uint64_t AMK_SystemReset: 16;
-        uint64_t AMK_DiagnosticNumber: 16;
     } AMK_Actual_Values_2;
     struct {
         uint64_t AMK_MotorTemp: 16;
@@ -528,6 +533,14 @@ typedef union {
         uint64_t AMK_ExternalTemp: 16;
         uint64_t AMK_TempSensorMotor: 16;
     } AMK_Temperatures_2;
+    struct {
+        uint64_t AMK_DiagnosticNumber: 16;
+        uint64_t AMK_ErrorInfo1: 32;
+    } AMK_Error_1;
+    struct {
+        uint64_t AMK_ErrorInfo2: 32;
+        uint64_t AMK_ErrorInfo3: 32;
+    } AMK_Error_2;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -641,7 +654,6 @@ typedef struct {
         int16_t AMK_ActualSpeed;
         uint16_t AMK_DCBusVoltage;
         uint16_t AMK_SystemReset;
-        uint16_t AMK_DiagnosticNumber;
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Actual_Values_2;
@@ -659,6 +671,18 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Temperatures_2;
+    struct {
+        uint16_t AMK_DiagnosticNumber;
+        uint32_t AMK_ErrorInfo1;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Error_1;
+    struct {
+        uint32_t AMK_ErrorInfo2;
+        uint32_t AMK_ErrorInfo3;
+        uint8_t stale;
+        uint32_t last_rx;
+    } AMK_Error_2;
     struct {
         uint16_t idx;
         uint8_t latched;

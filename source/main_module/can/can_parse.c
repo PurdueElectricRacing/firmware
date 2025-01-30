@@ -110,7 +110,6 @@ void canRxUpdate(void)
                 can_data.AMK_Actual_Values_2.AMK_ActualSpeed = (int16_t) msg_data_a->AMK_Actual_Values_2.AMK_ActualSpeed;
                 can_data.AMK_Actual_Values_2.AMK_DCBusVoltage = msg_data_a->AMK_Actual_Values_2.AMK_DCBusVoltage;
                 can_data.AMK_Actual_Values_2.AMK_SystemReset = msg_data_a->AMK_Actual_Values_2.AMK_SystemReset;
-                can_data.AMK_Actual_Values_2.AMK_DiagnosticNumber = msg_data_a->AMK_Actual_Values_2.AMK_DiagnosticNumber;
                 can_data.AMK_Actual_Values_2.stale = 0;
                 can_data.AMK_Actual_Values_2.last_rx = sched.os_ticks;
                 break;
@@ -127,6 +126,18 @@ void canRxUpdate(void)
                 can_data.AMK_Temperatures_2.AMK_TempSensorMotor = (int16_t) msg_data_a->AMK_Temperatures_2.AMK_TempSensorMotor;
                 can_data.AMK_Temperatures_2.stale = 0;
                 can_data.AMK_Temperatures_2.last_rx = sched.os_ticks;
+                break;
+            case ID_AMK_ERROR_1:
+                can_data.AMK_Error_1.AMK_DiagnosticNumber = msg_data_a->AMK_Error_1.AMK_DiagnosticNumber;
+                can_data.AMK_Error_1.AMK_ErrorInfo1 = msg_data_a->AMK_Error_1.AMK_ErrorInfo1;
+                can_data.AMK_Error_1.stale = 0;
+                can_data.AMK_Error_1.last_rx = sched.os_ticks;
+                break;
+            case ID_AMK_ERROR_2:
+                can_data.AMK_Error_2.AMK_ErrorInfo2 = msg_data_a->AMK_Error_2.AMK_ErrorInfo2;
+                can_data.AMK_Error_2.AMK_ErrorInfo3 = msg_data_a->AMK_Error_2.AMK_ErrorInfo3;
+                can_data.AMK_Error_2.stale = 0;
+                can_data.AMK_Error_2.last_rx = sched.os_ticks;
                 break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
@@ -206,6 +217,12 @@ void canRxUpdate(void)
     CHECK_STALE(can_data.AMK_Temperatures_2.stale,
                 sched.os_ticks, can_data.AMK_Temperatures_2.last_rx,
                 UP_AMK_TEMPERATURES_2);
+    CHECK_STALE(can_data.AMK_Error_1.stale,
+                sched.os_ticks, can_data.AMK_Error_1.last_rx,
+                UP_AMK_ERROR_1);
+    CHECK_STALE(can_data.AMK_Error_2.stale,
+                sched.os_ticks, can_data.AMK_Error_2.last_rx,
+                UP_AMK_ERROR_2);
     /* END AUTO STALE CHECKS */
 }
 
@@ -237,24 +254,27 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_VCU_EQUAL << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_AMK_ACTUAL_VALUES_1 << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_AMK_ACTUAL_VALUES_1 << 21);
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_AMK_ACTUAL_VALUES_2 << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_AMK_TEMPERATURES_1 << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_AMK_ACTUAL_VALUES_2 << 21);
+    CAN1->sFilterRegister[5].FR2 = (ID_AMK_TEMPERATURES_1 << 21);
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_AMK_TEMPERATURES_2 << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_AMK_TEMPERATURES_2 << 21);
+    CAN1->sFilterRegister[6].FR2 = (ID_AMK_ERROR_1 << 21);
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_AMK_ERROR_2 << 21);
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[9].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
     CAN1->FA1R |= (1 << 10);    // configure bank 10
-    CAN1->sFilterRegister[10].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[10].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[10].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->FA1R |= (1 << 11);    // configure bank 11
+    CAN1->sFilterRegister[11].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

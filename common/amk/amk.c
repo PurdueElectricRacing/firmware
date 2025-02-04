@@ -61,7 +61,9 @@ void amkPeriodic(amk_motor_t* motor)
         break;
     }
 
-    motor->sendSetpoints();
+    SEND_AMK_SETPOINTS(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bErrorReset, motor->torque_setpoint, motor->torque_limit_positive, motor->torque_limit_negative);
+
+    // motor->sendSetpoints();
 }
 
 /* Sets the torque setpoint from -1000% to 1000% of nominal torque.

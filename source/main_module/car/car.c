@@ -491,7 +491,7 @@ void parseMCDataPeriodic(void)
                                 (uint8_t) car.motor_r.inverter_temp,
                                 (uint8_t) car.motor_l.igbt_temp,
                                 (uint8_t) car.motor_r.igbt_temp);
-        // SEND_NUM_MC_SKIPS(num_failed_msgs_r, num_failed_msgs_l);
+        SEND_NUM_MC_SKIPS(num_failed_msgs_r, num_failed_msgs_l);
         last_tmp_t = sched.os_ticks;
     }
 }

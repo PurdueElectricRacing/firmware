@@ -1,5 +1,6 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
+#include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/spi/spi.h"
@@ -41,6 +42,7 @@
 
 #include "tv.h"
 #include "tv_pp.h"
+#include <string.h>
 
 uint8_t collect_test[100] = {0};
 
@@ -98,6 +100,24 @@ usart_init_t huart_gps =
     .rx_errors = 0,
     .tx_dma_cfg = &usart_gps_tx_dma_config,
     .rx_dma_cfg = &usart_gps_rx_dma_config
+};
+
+
+dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t usb = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART1,
+   .wake_addr   = false,
+   .usart_active_num = USART1_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_usb_tx_dma_config,
+   .rx_dma_cfg = &usart_usb_rx_dma_config
 };
 
 /*
@@ -234,7 +254,7 @@ int main(void)
     //taskCreate(testUsart, 500);
     //taskCreate(heartBeatTask, 100);
 
-    // taskCreate(parseIMU, 20);
+    taskCreate(parseIMU, 20);
     // taskCreate(pollIMU, 20);
     // taskCreate(VCU_MAIN, 15);
 
@@ -256,8 +276,8 @@ void preflightChecks(void)
         //     HardFault_Handler();
         // }
         // NVIC_EnableIRQ(CAN1_RX0_IRQn);
-        PHAL_writeGPIO(SPI1_CSB_ACCEL_PORT, SPI1_CSB_ACCEL_PIN, 0);
-        PHAL_writeGPIO(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, 0);
+        // PHAL_writeGPIO(SPI1_CSB_ACCEL_PORT, SPI1_CSB_ACCEL_PIN, 0);
+        // PHAL_writeGPIO(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, 0);
         break;
     case 2:
         /* USART initialization */
@@ -265,6 +285,10 @@ void preflightChecks(void)
         // {
         //     HardFault_Handler();
         // }
+        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
         break;
     case 3:
         // GPS Initialization
@@ -273,8 +297,8 @@ void preflightChecks(void)
     break;
     case 5:
         //initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_TORQUE_VECTOR);
-        // PHAL_writeGPIO(SPI1_CSB_ACCEL_PORT, SPI1_CSB_ACCEL_PIN, 1);
-        // PHAL_writeGPIO(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, 1);
+        PHAL_writeGPIO(SPI1_CSB_ACCEL_PORT, SPI1_CSB_ACCEL_PIN, 1);
+        PHAL_writeGPIO(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, 1);
         break;
     case 10:
         /* SPI initialization */
@@ -479,5 +503,5 @@ void HardFault_Handler()
 void testUsart()
 {
     char* txmsg = "Hello World!\n";
-    PHAL_usartTxDma(&huart_gps, (uint16_t *)txmsg, 13);
+    PHAL_usartTxDma(&usb, (uint16_t *)txmsg, 13);
 }

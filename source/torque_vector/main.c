@@ -461,15 +461,13 @@ void VCU_MAIN(void)
     em_timing = sched.os_ticks - em_timing;
 
     /* Set TV faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
-    setFault(ID_MM_DISABLED_FAULT,!rtY_em.MM_STATE);
-    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
+    setFault(ID_PT_ENABLED_FAULT,0);
+    setFault(ID_VT_ENABLED_FAULT,0);
+    setFault(ID_VS_ENABLED_FAULT,0);
+    setFault(ID_ET_ENABLED_FAULT,0);
 
-    setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
-    setFault(ID_MM_ENABLED_FAULT,rtY_em.MM_STATE);
-    setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);
-    setFault(ID_YES_GPS_FIX_FAULT,rtU_tv.F_raw[8]);
+    setFault(ID_NO_GPS_FIX_FAULT,0);
+    setFault(ID_YES_GPS_FIX_FAULT,0);
 
     /* Get motor commands */
     tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);

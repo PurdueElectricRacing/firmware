@@ -44,7 +44,7 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
-#define ID_AMK_SETPOINTS 0x182
+#define ID_AMK_SETPOINTS 0x188
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
@@ -104,7 +104,7 @@ typedef union {
 #define DLC_AMK_ACTUAL_VALUES_2 6
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
-#define DLC_AMK_ERROR_1 6
+#define DLC_AMK_ERROR_1 8
 #define DLC_AMK_ERROR_2 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -534,7 +534,7 @@ typedef union {
         uint64_t AMK_TempSensorMotor: 16;
     } AMK_Temperatures_2;
     struct {
-        uint64_t AMK_DiagnosticNumber: 16;
+        uint64_t AMK_DiagnosticNumber: 32;
         uint64_t AMK_ErrorInfo1: 32;
     } AMK_Error_1;
     struct {
@@ -667,12 +667,12 @@ typedef struct {
     struct {
         int16_t AMK_InternalTemp;
         int16_t AMK_ExternalTemp;
-        int16_t AMK_TempSensorMotor;
+        uint16_t AMK_TempSensorMotor;
         uint8_t stale;
         uint32_t last_rx;
     } AMK_Temperatures_2;
     struct {
-        uint16_t AMK_DiagnosticNumber;
+        uint32_t AMK_DiagnosticNumber;
         uint32_t AMK_ErrorInfo1;
         uint8_t stale;
         uint32_t last_rx;

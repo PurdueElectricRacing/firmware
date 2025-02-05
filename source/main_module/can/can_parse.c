@@ -123,7 +123,7 @@ void canRxUpdate(void)
             case ID_AMK_TEMPERATURES_2:
                 can_data.AMK_Temperatures_2.AMK_InternalTemp = (int16_t) msg_data_a->AMK_Temperatures_2.AMK_InternalTemp;
                 can_data.AMK_Temperatures_2.AMK_ExternalTemp = (int16_t) msg_data_a->AMK_Temperatures_2.AMK_ExternalTemp;
-                can_data.AMK_Temperatures_2.AMK_TempSensorMotor = (int16_t) msg_data_a->AMK_Temperatures_2.AMK_TempSensorMotor;
+                can_data.AMK_Temperatures_2.AMK_TempSensorMotor = msg_data_a->AMK_Temperatures_2.AMK_TempSensorMotor;
                 can_data.AMK_Temperatures_2.stale = 0;
                 can_data.AMK_Temperatures_2.last_rx = sched.os_ticks;
                 break;

@@ -121,7 +121,7 @@ BO_ 2214593409 rear_wheel_speeds: 8 Main_Module
  SG_ right_speed_mc : 16|16@1+ (1,0) [0|0] "RPM" Vector__XXX
  SG_ left_speed_mc : 0|16@1+ (1,0) [0|0] "RPM" Vector__XXX
 
-BO_ 386 AMK_Setpoints: 8 Main_Module
+BO_ 392 AMK_Setpoints: 8 Main_Module
  SG_ AMK_NegativeTorqueLimit : 48|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
  SG_ AMK_PositiveTorqueLimit : 32|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
  SG_ AMK_TorqueSetpoint : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
@@ -505,17 +505,21 @@ BO_ 646 AMK_Temperatures_1: 6 Inverter1
  SG_ AMK_MotorTemp : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
 
 BO_ 648 AMK_Temperatures_2: 6 Inverter1
- SG_ AMK_TempSensorMotor : 32|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_TempSensorMotor : 32|16@1+ (0.1,0) [0|0] "C" Vector__XXX
  SG_ AMK_ExternalTemp : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
  SG_ AMK_InternalTemp : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
 
-BO_ 656 AMK_Error_1: 6 Inverter1
- SG_ AMK_ErrorInfo1 : 16|32@1+ (1,0) [0|0] "" Vector__XXX
- SG_ AMK_DiagnosticNumber : 0|16@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 656 AMK_Error_1: 8 Inverter1
+ SG_ AMK_ErrorInfo1 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_DiagnosticNumber : 0|32@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 658 AMK_Error_2: 8 Inverter1
  SG_ AMK_ErrorInfo3 : 32|32@1+ (1,0) [0|0] "" Vector__XXX
  SG_ AMK_ErrorInfo2 : 0|32@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 660 AMK_Overload: 4 Inverter1
+ SG_ AMK_DisplayOverloadMotor : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ AMK_DisplayOverloadInverter : 0|16@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214598974 bitstream_data: 8 BITSTREAM
  SG_ d7 : 56|8@1+ (1,0) [0|0] "" Vector__XXX
@@ -760,16 +764,16 @@ CM_ SG_ 2214593409 right_speed_sensor "";
 CM_ SG_ 2214593409 left_speed_sensor "";
 CM_ SG_ 2214593409 right_speed_mc "";
 CM_ SG_ 2214593409 left_speed_mc "";
-CM_ BO_ 386 "Contains control word and setpoints";
-CM_ SG_ 386 AMK_NegativeTorqueLimit "Negative Torque Limit";
-CM_ SG_ 386 AMK_PositiveTorqueLimit "Positive Torque Limit";
-CM_ SG_ 386 AMK_TorqueSetpoint "Torque setpoint";
-CM_ SG_ 386 AMK_Control_bReserve2 "Control word: RESERVED";
-CM_ SG_ 386 AMK_Control_bErrorReset "Control word: remove error";
-CM_ SG_ 386 AMK_Control_bEnable "Control word: driver enable";
-CM_ SG_ 386 AMK_Control_bDcOn "Control word: HV activation";
-CM_ SG_ 386 AMK_Control_bInverterOn "Control word: controller enable";
-CM_ SG_ 386 AMK_Control_bReserve "Control word: RESERVED";
+CM_ BO_ 392 "Contains control word and setpoints";
+CM_ SG_ 392 AMK_NegativeTorqueLimit "Negative Torque Limit";
+CM_ SG_ 392 AMK_PositiveTorqueLimit "Positive Torque Limit";
+CM_ SG_ 392 AMK_TorqueSetpoint "Torque setpoint";
+CM_ SG_ 392 AMK_Control_bReserve2 "Control word: RESERVED";
+CM_ SG_ 392 AMK_Control_bErrorReset "Control word: remove error";
+CM_ SG_ 392 AMK_Control_bEnable "Control word: driver enable";
+CM_ SG_ 392 AMK_Control_bDcOn "Control word: HV activation";
+CM_ SG_ 392 AMK_Control_bInverterOn "Control word: controller enable";
+CM_ SG_ 392 AMK_Control_bReserve "Control word: RESERVED";
 CM_ BO_ 2148059649 "Fault status message";
 CM_ SG_ 2148059649 latched "";
 CM_ SG_ 2148059649 idx "";
@@ -1084,6 +1088,9 @@ CM_ SG_ 656 AMK_DiagnosticNumber "Error number";
 CM_ BO_ 658 "All error information";
 CM_ SG_ 658 AMK_ErrorInfo3 "Error info";
 CM_ SG_ 658 AMK_ErrorInfo2 "Error info";
+CM_ BO_ 660 "Display overload info";
+CM_ SG_ 660 AMK_DisplayOverloadMotor "";
+CM_ SG_ 660 AMK_DisplayOverloadInverter "";
 CM_ BO_ 2214598974 "Bitstream download command";
 CM_ SG_ 2214598974 d7 "Bitstream data word 7";
 CM_ SG_ 2214598974 d6 "Bitstream data word 6";

@@ -34,15 +34,21 @@ typedef union {
 #define ID_AMK_ACTUAL_VALUES_2 0x284
 #define ID_AMK_TEMPERATURES_1 0x286
 #define ID_AMK_TEMPERATURES_2 0x288
-#define ID_AMK_SETPOINTS 0x182
+#define ID_AMK_ERROR_1 0x290
+#define ID_AMK_ERROR_2 0x292
+#define ID_AMK_OVERLOAD 0x294
+#define ID_AMK_SETPOINTS 0x188
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_AMK_ACTUAL_VALUES_1 8
-#define DLC_AMK_ACTUAL_VALUES_2 8
+#define DLC_AMK_ACTUAL_VALUES_2 6
 #define DLC_AMK_TEMPERATURES_1 6
 #define DLC_AMK_TEMPERATURES_2 6
+#define DLC_AMK_ERROR_1 8
+#define DLC_AMK_ERROR_2 8
+#define DLC_AMK_OVERLOAD 4
 #define DLC_AMK_SETPOINTS 8
 /* END AUTO DLC DEFS */
 
@@ -64,13 +70,12 @@ typedef union {
         data_a->AMK_Actual_Values_1.AMK_MotorSerialNumber = AMK_MotorSerialNumber_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_AMK_ACTUAL_VALUES_2(AMK_ActualSpeed_, AMK_DCBusVoltage_, AMK_SystemReset_, AMK_DiagnosticNumber_) do {\
+#define SEND_AMK_ACTUAL_VALUES_2(AMK_ActualSpeed_, AMK_DCBusVoltage_, AMK_SystemReset_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_ACTUAL_VALUES_2, .DLC=DLC_AMK_ACTUAL_VALUES_2, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->AMK_Actual_Values_2.AMK_ActualSpeed = AMK_ActualSpeed_;\
         data_a->AMK_Actual_Values_2.AMK_DCBusVoltage = AMK_DCBusVoltage_;\
         data_a->AMK_Actual_Values_2.AMK_SystemReset = AMK_SystemReset_;\
-        data_a->AMK_Actual_Values_2.AMK_DiagnosticNumber = AMK_DiagnosticNumber_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_AMK_TEMPERATURES_1(AMK_MotorTemp_, AMK_InverterTemp_, AMK_IGBTTemp_) do {\
@@ -87,6 +92,27 @@ typedef union {
         data_a->AMK_Temperatures_2.AMK_InternalTemp = AMK_InternalTemp_;\
         data_a->AMK_Temperatures_2.AMK_ExternalTemp = AMK_ExternalTemp_;\
         data_a->AMK_Temperatures_2.AMK_TempSensorMotor = AMK_TempSensorMotor_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_ERROR_1(AMK_DiagnosticNumber_, AMK_ErrorInfo1_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_ERROR_1, .DLC=DLC_AMK_ERROR_1, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Error_1.AMK_DiagnosticNumber = AMK_DiagnosticNumber_;\
+        data_a->AMK_Error_1.AMK_ErrorInfo1 = AMK_ErrorInfo1_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_ERROR_2(AMK_ErrorInfo2_, AMK_ErrorInfo3_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_ERROR_2, .DLC=DLC_AMK_ERROR_2, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Error_2.AMK_ErrorInfo2 = AMK_ErrorInfo2_;\
+        data_a->AMK_Error_2.AMK_ErrorInfo3 = AMK_ErrorInfo3_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_AMK_OVERLOAD(AMK_DisplayOverloadInverter_, AMK_DisplayOverloadMotor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_OVERLOAD, .DLC=DLC_AMK_OVERLOAD, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->AMK_Overload.AMK_DisplayOverloadInverter = AMK_DisplayOverloadInverter_;\
+        data_a->AMK_Overload.AMK_DisplayOverloadMotor = AMK_DisplayOverloadMotor_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -123,7 +149,6 @@ typedef union {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_DCBusVoltage: 16;
         uint64_t AMK_SystemReset: 16;
-        uint64_t AMK_DiagnosticNumber: 16;
     } AMK_Actual_Values_2;
     struct {
         uint64_t AMK_MotorTemp: 16;
@@ -135,6 +160,18 @@ typedef union {
         uint64_t AMK_ExternalTemp: 16;
         uint64_t AMK_TempSensorMotor: 16;
     } AMK_Temperatures_2;
+    struct {
+        uint64_t AMK_DiagnosticNumber: 32;
+        uint64_t AMK_ErrorInfo1: 32;
+    } AMK_Error_1;
+    struct {
+        uint64_t AMK_ErrorInfo2: 32;
+        uint64_t AMK_ErrorInfo3: 32;
+    } AMK_Error_2;
+    struct {
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } AMK_Overload;
     struct {
         uint64_t AMK_Control_bReserve: 8;
         uint64_t AMK_Control_bInverterOn: 1;

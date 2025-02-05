@@ -213,7 +213,7 @@
                                 {"sig_name": "AMK_NegativeTorqueLimit", "sig_desc": "Negative Torque Limit", "type":"int16_t", "unit":"Nm", "scale":0.1}
                             ],
                             "msg_period": 5,
-                            "msg_id_override": "0x182",
+                            "msg_id_override": "0x188",
                             "is_normal":true
                         }
                     ],
@@ -1077,7 +1077,7 @@
                             "signals": [
                                 {"sig_name": "AMK_InternalTemp", "sig_desc": "Internal temperature", "type":"int16_t", "unit":"C", "scale":0.1},
                                 {"sig_name": "AMK_ExternalTemp", "sig_desc": "External temperature", "type":"int16_t", "unit":"C", "scale":0.1},
-                                {"sig_name": "AMK_TempSensorMotor", "sig_desc": "???", "type":"int16_t", "unit":"C", "scale":0.1}
+                                {"sig_name": "AMK_TempSensorMotor", "sig_desc": "???", "type":"uint16_t", "unit":"C", "scale":0.1}
                             ],
                             "msg_period": 20,
                             "msg_id_override": "0x288",
@@ -1087,7 +1087,7 @@
                             "msg_name": "AMK_Error_1",
                             "msg_desc": "All error information",
                             "signals": [
-                                {"sig_name": "AMK_DiagnosticNumber", "sig_desc": "Error number", "type":"uint16_t"},
+                                {"sig_name": "AMK_DiagnosticNumber", "sig_desc": "Error number", "type":"uint32_t"},
                                 {"sig_name": "AMK_ErrorInfo1", "sig_desc": "Error info", "type":"uint32_t"}
                             ],
                             "msg_period": 5,

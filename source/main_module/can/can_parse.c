@@ -91,53 +91,53 @@ void canRxUpdate(void)
                 can_data.throttle_vcu_equal.stale = 0;
                 can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
                 break;
-            case ID_AMK_ACTUAL_VALUES_1:
-                can_data.AMK_Actual_Values_1.AMK_Status_bReserve = msg_data_a->AMK_Actual_Values_1.AMK_Status_bReserve;
-                can_data.AMK_Actual_Values_1.AMK_Status_bSystemReady = msg_data_a->AMK_Actual_Values_1.AMK_Status_bSystemReady;
-                can_data.AMK_Actual_Values_1.AMK_Status_bError = msg_data_a->AMK_Actual_Values_1.AMK_Status_bError;
-                can_data.AMK_Actual_Values_1.AMK_Status_bWarn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bWarn;
-                can_data.AMK_Actual_Values_1.AMK_Status_bQuitDcOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bQuitDcOn;
-                can_data.AMK_Actual_Values_1.AMK_Status_bDcOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bDcOn;
-                can_data.AMK_Actual_Values_1.AMK_Status_bQuitInverterOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bQuitInverterOn;
-                can_data.AMK_Actual_Values_1.AMK_Status_bInverterOn = msg_data_a->AMK_Actual_Values_1.AMK_Status_bInverterOn;
-                can_data.AMK_Actual_Values_1.AMK_Status_bDerating = msg_data_a->AMK_Actual_Values_1.AMK_Status_bDerating;
-                can_data.AMK_Actual_Values_1.AMK_ActualTorque = (int16_t) msg_data_a->AMK_Actual_Values_1.AMK_ActualTorque;
-                can_data.AMK_Actual_Values_1.AMK_MotorSerialNumber = msg_data_a->AMK_Actual_Values_1.AMK_MotorSerialNumber;
-                can_data.AMK_Actual_Values_1.stale = 0;
-                can_data.AMK_Actual_Values_1.last_rx = sched.os_ticks;
+            case ID_INVA_ACTUAL_VALUES_1:
+                can_data.INVA_Actual_Values_1.AMK_Status_bReserve = msg_data_a->INVA_Actual_Values_1.AMK_Status_bReserve;
+                can_data.INVA_Actual_Values_1.AMK_Status_bSystemReady = msg_data_a->INVA_Actual_Values_1.AMK_Status_bSystemReady;
+                can_data.INVA_Actual_Values_1.AMK_Status_bError = msg_data_a->INVA_Actual_Values_1.AMK_Status_bError;
+                can_data.INVA_Actual_Values_1.AMK_Status_bWarn = msg_data_a->INVA_Actual_Values_1.AMK_Status_bWarn;
+                can_data.INVA_Actual_Values_1.AMK_Status_bQuitDcOn = msg_data_a->INVA_Actual_Values_1.AMK_Status_bQuitDcOn;
+                can_data.INVA_Actual_Values_1.AMK_Status_bDcOn = msg_data_a->INVA_Actual_Values_1.AMK_Status_bDcOn;
+                can_data.INVA_Actual_Values_1.AMK_Status_bQuitInverterOn = msg_data_a->INVA_Actual_Values_1.AMK_Status_bQuitInverterOn;
+                can_data.INVA_Actual_Values_1.AMK_Status_bInverterOn = msg_data_a->INVA_Actual_Values_1.AMK_Status_bInverterOn;
+                can_data.INVA_Actual_Values_1.AMK_Status_bDerating = msg_data_a->INVA_Actual_Values_1.AMK_Status_bDerating;
+                can_data.INVA_Actual_Values_1.AMK_ActualTorque = (int16_t) msg_data_a->INVA_Actual_Values_1.AMK_ActualTorque;
+                can_data.INVA_Actual_Values_1.AMK_MotorSerialNumber = msg_data_a->INVA_Actual_Values_1.AMK_MotorSerialNumber;
+                can_data.INVA_Actual_Values_1.stale = 0;
+                can_data.INVA_Actual_Values_1.last_rx = sched.os_ticks;
                 break;
-            case ID_AMK_ACTUAL_VALUES_2:
-                can_data.AMK_Actual_Values_2.AMK_ActualSpeed = (int16_t) msg_data_a->AMK_Actual_Values_2.AMK_ActualSpeed;
-                can_data.AMK_Actual_Values_2.AMK_DCBusVoltage = msg_data_a->AMK_Actual_Values_2.AMK_DCBusVoltage;
-                can_data.AMK_Actual_Values_2.AMK_SystemReset = msg_data_a->AMK_Actual_Values_2.AMK_SystemReset;
-                can_data.AMK_Actual_Values_2.stale = 0;
-                can_data.AMK_Actual_Values_2.last_rx = sched.os_ticks;
+            case ID_INVA_ACTUAL_VALUES_2:
+                can_data.INVA_Actual_Values_2.AMK_ActualSpeed = (int16_t) msg_data_a->INVA_Actual_Values_2.AMK_ActualSpeed;
+                can_data.INVA_Actual_Values_2.AMK_DCBusVoltage = msg_data_a->INVA_Actual_Values_2.AMK_DCBusVoltage;
+                can_data.INVA_Actual_Values_2.AMK_SystemReset = msg_data_a->INVA_Actual_Values_2.AMK_SystemReset;
+                can_data.INVA_Actual_Values_2.stale = 0;
+                can_data.INVA_Actual_Values_2.last_rx = sched.os_ticks;
                 break;
-            case ID_AMK_TEMPERATURES_1:
-                can_data.AMK_Temperatures_1.AMK_MotorTemp = (int16_t) msg_data_a->AMK_Temperatures_1.AMK_MotorTemp;
-                can_data.AMK_Temperatures_1.AMK_InverterTemp = (int16_t) msg_data_a->AMK_Temperatures_1.AMK_InverterTemp;
-                can_data.AMK_Temperatures_1.AMK_IGBTTemp = (int16_t) msg_data_a->AMK_Temperatures_1.AMK_IGBTTemp;
-                can_data.AMK_Temperatures_1.stale = 0;
-                can_data.AMK_Temperatures_1.last_rx = sched.os_ticks;
+            case ID_INVA_TEMPERATURES_1:
+                can_data.INVA_Temperatures_1.AMK_MotorTemp = (int16_t) msg_data_a->INVA_Temperatures_1.AMK_MotorTemp;
+                can_data.INVA_Temperatures_1.AMK_InverterTemp = (int16_t) msg_data_a->INVA_Temperatures_1.AMK_InverterTemp;
+                can_data.INVA_Temperatures_1.AMK_IGBTTemp = (int16_t) msg_data_a->INVA_Temperatures_1.AMK_IGBTTemp;
+                can_data.INVA_Temperatures_1.stale = 0;
+                can_data.INVA_Temperatures_1.last_rx = sched.os_ticks;
                 break;
-            case ID_AMK_TEMPERATURES_2:
-                can_data.AMK_Temperatures_2.AMK_InternalTemp = (int16_t) msg_data_a->AMK_Temperatures_2.AMK_InternalTemp;
-                can_data.AMK_Temperatures_2.AMK_ExternalTemp = (int16_t) msg_data_a->AMK_Temperatures_2.AMK_ExternalTemp;
-                can_data.AMK_Temperatures_2.AMK_TempSensorMotor = msg_data_a->AMK_Temperatures_2.AMK_TempSensorMotor;
-                can_data.AMK_Temperatures_2.stale = 0;
-                can_data.AMK_Temperatures_2.last_rx = sched.os_ticks;
+            case ID_INVA_TEMPERATURES_2:
+                can_data.INVA_Temperatures_2.AMK_InternalTemp = (int16_t) msg_data_a->INVA_Temperatures_2.AMK_InternalTemp;
+                can_data.INVA_Temperatures_2.AMK_ExternalTemp = (int16_t) msg_data_a->INVA_Temperatures_2.AMK_ExternalTemp;
+                can_data.INVA_Temperatures_2.AMK_TempSensorMotor = msg_data_a->INVA_Temperatures_2.AMK_TempSensorMotor;
+                can_data.INVA_Temperatures_2.stale = 0;
+                can_data.INVA_Temperatures_2.last_rx = sched.os_ticks;
                 break;
-            case ID_AMK_ERROR_1:
-                can_data.AMK_Error_1.AMK_DiagnosticNumber = msg_data_a->AMK_Error_1.AMK_DiagnosticNumber;
-                can_data.AMK_Error_1.AMK_ErrorInfo1 = msg_data_a->AMK_Error_1.AMK_ErrorInfo1;
-                can_data.AMK_Error_1.stale = 0;
-                can_data.AMK_Error_1.last_rx = sched.os_ticks;
+            case ID_INVA_ERROR_1:
+                can_data.INVA_Error_1.AMK_DiagnosticNumber = msg_data_a->INVA_Error_1.AMK_DiagnosticNumber;
+                can_data.INVA_Error_1.AMK_ErrorInfo1 = msg_data_a->INVA_Error_1.AMK_ErrorInfo1;
+                can_data.INVA_Error_1.stale = 0;
+                can_data.INVA_Error_1.last_rx = sched.os_ticks;
                 break;
-            case ID_AMK_ERROR_2:
-                can_data.AMK_Error_2.AMK_ErrorInfo2 = msg_data_a->AMK_Error_2.AMK_ErrorInfo2;
-                can_data.AMK_Error_2.AMK_ErrorInfo3 = msg_data_a->AMK_Error_2.AMK_ErrorInfo3;
-                can_data.AMK_Error_2.stale = 0;
-                can_data.AMK_Error_2.last_rx = sched.os_ticks;
+            case ID_INVA_ERROR_2:
+                can_data.INVA_Error_2.AMK_ErrorInfo2 = msg_data_a->INVA_Error_2.AMK_ErrorInfo2;
+                can_data.INVA_Error_2.AMK_ErrorInfo3 = msg_data_a->INVA_Error_2.AMK_ErrorInfo3;
+                can_data.INVA_Error_2.stale = 0;
+                can_data.INVA_Error_2.last_rx = sched.os_ticks;
                 break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
@@ -205,24 +205,24 @@ void canRxUpdate(void)
     CHECK_STALE(can_data.throttle_vcu_equal.stale,
                 sched.os_ticks, can_data.throttle_vcu_equal.last_rx,
                 UP_THROTTLE_VCU_EQUAL);
-    CHECK_STALE(can_data.AMK_Actual_Values_1.stale,
-                sched.os_ticks, can_data.AMK_Actual_Values_1.last_rx,
-                UP_AMK_ACTUAL_VALUES_1);
-    CHECK_STALE(can_data.AMK_Actual_Values_2.stale,
-                sched.os_ticks, can_data.AMK_Actual_Values_2.last_rx,
-                UP_AMK_ACTUAL_VALUES_2);
-    CHECK_STALE(can_data.AMK_Temperatures_1.stale,
-                sched.os_ticks, can_data.AMK_Temperatures_1.last_rx,
-                UP_AMK_TEMPERATURES_1);
-    CHECK_STALE(can_data.AMK_Temperatures_2.stale,
-                sched.os_ticks, can_data.AMK_Temperatures_2.last_rx,
-                UP_AMK_TEMPERATURES_2);
-    CHECK_STALE(can_data.AMK_Error_1.stale,
-                sched.os_ticks, can_data.AMK_Error_1.last_rx,
-                UP_AMK_ERROR_1);
-    CHECK_STALE(can_data.AMK_Error_2.stale,
-                sched.os_ticks, can_data.AMK_Error_2.last_rx,
-                UP_AMK_ERROR_2);
+    CHECK_STALE(can_data.INVA_Actual_Values_1.stale,
+                sched.os_ticks, can_data.INVA_Actual_Values_1.last_rx,
+                UP_INVA_ACTUAL_VALUES_1);
+    CHECK_STALE(can_data.INVA_Actual_Values_2.stale,
+                sched.os_ticks, can_data.INVA_Actual_Values_2.last_rx,
+                UP_INVA_ACTUAL_VALUES_2);
+    CHECK_STALE(can_data.INVA_Temperatures_1.stale,
+                sched.os_ticks, can_data.INVA_Temperatures_1.last_rx,
+                UP_INVA_TEMPERATURES_1);
+    CHECK_STALE(can_data.INVA_Temperatures_2.stale,
+                sched.os_ticks, can_data.INVA_Temperatures_2.last_rx,
+                UP_INVA_TEMPERATURES_2);
+    CHECK_STALE(can_data.INVA_Error_1.stale,
+                sched.os_ticks, can_data.INVA_Error_1.last_rx,
+                UP_INVA_ERROR_1);
+    CHECK_STALE(can_data.INVA_Error_2.stale,
+                sched.os_ticks, can_data.INVA_Error_2.last_rx,
+                UP_INVA_ERROR_2);
     /* END AUTO STALE CHECKS */
 }
 
@@ -254,15 +254,15 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_VCU_EQUAL << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_AMK_ACTUAL_VALUES_1 << 21);
+    CAN1->sFilterRegister[4].FR2 = (ID_INVA_ACTUAL_VALUES_1 << 21);
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_AMK_ACTUAL_VALUES_2 << 21);
-    CAN1->sFilterRegister[5].FR2 = (ID_AMK_TEMPERATURES_1 << 21);
+    CAN1->sFilterRegister[5].FR1 = (ID_INVA_ACTUAL_VALUES_2 << 21);
+    CAN1->sFilterRegister[5].FR2 = (ID_INVA_TEMPERATURES_1 << 21);
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_AMK_TEMPERATURES_2 << 21);
-    CAN1->sFilterRegister[6].FR2 = (ID_AMK_ERROR_1 << 21);
+    CAN1->sFilterRegister[6].FR1 = (ID_INVA_TEMPERATURES_2 << 21);
+    CAN1->sFilterRegister[6].FR2 = (ID_INVA_ERROR_1 << 21);
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_AMK_ERROR_2 << 21);
+    CAN1->sFilterRegister[7].FR1 = (ID_INVA_ERROR_2 << 21);
     CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
     CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;

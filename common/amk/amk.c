@@ -61,7 +61,7 @@ void amkPeriodic(amk_motor_t* motor)
         break;
     }
 
-    SEND_AMK_SETPOINTS(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bErrorReset, motor->torque_setpoint, motor->torque_limit_positive, motor->torque_limit_negative);
+    SEND_INVA_SETPOINTS(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bErrorReset, motor->torque_setpoint, motor->torque_limit_positive, motor->torque_limit_negative);
 
     // motor->sendSetpoints();
 }
@@ -88,48 +88,48 @@ void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
 
 static void amkGetData(amk_motor_t* motor)
 {
-    if (!can_data.AMK_Actual_Values_1.stale) {
-        motor->status.AMK_bSystemReady = can_data.AMK_Actual_Values_1.AMK_Status_bSystemReady;
-        motor->status.AMK_bError = can_data.AMK_Actual_Values_1.AMK_Status_bError;
-        motor->status.AMK_bWarn = can_data.AMK_Actual_Values_1.AMK_Status_bWarn;
-        motor->status.AMK_bQuitDcOn = can_data.AMK_Actual_Values_1.AMK_Status_bQuitDcOn;
-        motor->status.AMK_bDcOn = can_data.AMK_Actual_Values_1.AMK_Status_bDcOn;
-        motor->status.AMK_bQuitInverterOn = can_data.AMK_Actual_Values_1.AMK_Status_bQuitInverterOn;
-        motor->status.AMK_bInverterOn = can_data.AMK_Actual_Values_1.AMK_Status_bInverterOn;
-        motor->status.AMK_bDerating = can_data.AMK_Actual_Values_1.AMK_Status_bDerating;
+    if (!can_data.INVA_Actual_Values_1.stale) {
+        motor->status.AMK_bSystemReady = can_data.INVA_Actual_Values_1.AMK_Status_bSystemReady;
+        motor->status.AMK_bError = can_data.INVA_Actual_Values_1.AMK_Status_bError;
+        motor->status.AMK_bWarn = can_data.INVA_Actual_Values_1.AMK_Status_bWarn;
+        motor->status.AMK_bQuitDcOn = can_data.INVA_Actual_Values_1.AMK_Status_bQuitDcOn;
+        motor->status.AMK_bDcOn = can_data.INVA_Actual_Values_1.AMK_Status_bDcOn;
+        motor->status.AMK_bQuitInverterOn = can_data.INVA_Actual_Values_1.AMK_Status_bQuitInverterOn;
+        motor->status.AMK_bInverterOn = can_data.INVA_Actual_Values_1.AMK_Status_bInverterOn;
+        motor->status.AMK_bDerating = can_data.INVA_Actual_Values_1.AMK_Status_bDerating;
 
-        motor->actual_torque = can_data.AMK_Actual_Values_1.AMK_ActualTorque;
-        motor->serial_num = can_data.AMK_Actual_Values_1.AMK_MotorSerialNumber;
+        motor->actual_torque = can_data.INVA_Actual_Values_1.AMK_ActualTorque;
+        motor->serial_num = can_data.INVA_Actual_Values_1.AMK_MotorSerialNumber;
     } else {
         setFault(motor->stale_fault_id, true);
     }
 
-    if (!can_data.AMK_Actual_Values_2.stale) {
-        motor->actual_speed = can_data.AMK_Actual_Values_2.AMK_ActualSpeed;
-        motor->dc_bus_voltage = can_data.AMK_Actual_Values_2.AMK_DCBusVoltage;
-        motor->system_reset = can_data.AMK_Actual_Values_2.AMK_SystemReset;
+    if (!can_data.INVA_Actual_Values_2.stale) {
+        motor->actual_speed = can_data.INVA_Actual_Values_2.AMK_ActualSpeed;
+        motor->dc_bus_voltage = can_data.INVA_Actual_Values_2.AMK_DCBusVoltage;
+        motor->system_reset = can_data.INVA_Actual_Values_2.AMK_SystemReset;
     } else {
         setFault(motor->stale_fault_id, true);
     }
 
-    if (!can_data.AMK_Temperatures_1.stale) {
-        motor->motor_temp = can_data.AMK_Temperatures_1.AMK_MotorTemp;
-        motor->inverter_temp = can_data.AMK_Temperatures_1.AMK_InverterTemp;
-        motor->igbt_temp = can_data.AMK_Temperatures_1.AMK_IGBTTemp;
+    if (!can_data.INVA_Temperatures_1.stale) {
+        motor->motor_temp = can_data.INVA_Temperatures_1.AMK_MotorTemp;
+        motor->inverter_temp = can_data.INVA_Temperatures_1.AMK_InverterTemp;
+        motor->igbt_temp = can_data.INVA_Temperatures_1.AMK_IGBTTemp;
     } else {
         setFault(motor->stale_fault_id, true);
     }
 
-    if (!can_data.AMK_Error_1.stale) {
-        motor->diagnostic_num = can_data.AMK_Error_1.AMK_DiagnosticNumber;
-        motor->error_info_1 = can_data.AMK_Error_1.AMK_ErrorInfo1;
+    if (!can_data.INVA_Error_1.stale) {
+        motor->diagnostic_num = can_data.INVA_Error_1.AMK_DiagnosticNumber;
+        motor->error_info_1 = can_data.INVA_Error_1.AMK_ErrorInfo1;
     } else {
         setFault(motor->stale_fault_id, true);
     }
 
-    if (!can_data.AMK_Error_2.stale) {
-        motor->error_info_2 = can_data.AMK_Error_2.AMK_ErrorInfo2;
-        motor->error_info_3 = can_data.AMK_Error_2.AMK_ErrorInfo3;
+    if (!can_data.INVA_Error_2.stale) {
+        motor->error_info_2 = can_data.INVA_Error_2.AMK_ErrorInfo2;
+        motor->error_info_3 = can_data.INVA_Error_2.AMK_ErrorInfo3;
     } else {
         setFault(motor->stale_fault_id, true);
     }

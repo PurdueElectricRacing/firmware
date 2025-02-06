@@ -44,7 +44,8 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
-#define ID_AMK_SETPOINTS 0x188
+#define ID_INVA_SETPOINTS 0x188
+#define ID_INVB_SETPOINTS 0x189
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
@@ -56,12 +57,12 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
-#define ID_AMK_ACTUAL_VALUES_1 0x282
-#define ID_AMK_ACTUAL_VALUES_2 0x284
-#define ID_AMK_TEMPERATURES_1 0x286
-#define ID_AMK_TEMPERATURES_2 0x288
-#define ID_AMK_ERROR_1 0x290
-#define ID_AMK_ERROR_2 0x292
+#define ID_INVA_ACTUAL_VALUES_1 0x282
+#define ID_INVA_ACTUAL_VALUES_2 0x284
+#define ID_INVA_TEMPERATURES_1 0x286
+#define ID_INVA_TEMPERATURES_2 0x288
+#define ID_INVA_ERROR_1 0x290
+#define ID_INVA_ERROR_2 0x292
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -88,7 +89,8 @@ typedef union {
 #define DLC_SDC_STATUS 2
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 8
-#define DLC_AMK_SETPOINTS 8
+#define DLC_INVA_SETPOINTS 8
+#define DLC_INVB_SETPOINTS 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
 #define DLC_RAW_THROTTLE_BRAKE 8
@@ -100,12 +102,12 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
-#define DLC_AMK_ACTUAL_VALUES_1 8
-#define DLC_AMK_ACTUAL_VALUES_2 6
-#define DLC_AMK_TEMPERATURES_1 6
-#define DLC_AMK_TEMPERATURES_2 6
-#define DLC_AMK_ERROR_1 8
-#define DLC_AMK_ERROR_2 8
+#define DLC_INVA_ACTUAL_VALUES_1 8
+#define DLC_INVA_ACTUAL_VALUES_2 6
+#define DLC_INVA_TEMPERATURES_1 6
+#define DLC_INVA_TEMPERATURES_2 6
+#define DLC_INVA_ERROR_1 8
+#define DLC_INVA_ERROR_2 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -245,18 +247,32 @@ typedef union {
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_AMK_SETPOINTS(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_AMK_SETPOINTS, .DLC=DLC_AMK_SETPOINTS, .IDE=1};\
+#define SEND_INVA_SETPOINTS(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_INVA_SETPOINTS, .DLC=DLC_INVA_SETPOINTS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->AMK_Setpoints.AMK_Control_bReserve = AMK_Control_bReserve_;\
-        data_a->AMK_Setpoints.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
-        data_a->AMK_Setpoints.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
-        data_a->AMK_Setpoints.AMK_Control_bEnable = AMK_Control_bEnable_;\
-        data_a->AMK_Setpoints.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
-        data_a->AMK_Setpoints.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
-        data_a->AMK_Setpoints.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
-        data_a->AMK_Setpoints.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
-        data_a->AMK_Setpoints.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
+        data_a->INVA_Setpoints.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->INVA_Setpoints.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->INVA_Setpoints.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->INVA_Setpoints.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->INVA_Setpoints.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->INVA_Setpoints.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
+        data_a->INVA_Setpoints.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->INVA_Setpoints.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->INVA_Setpoints.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVB_SETPOINTS(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_INVB_SETPOINTS, .DLC=DLC_INVB_SETPOINTS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVB_Setpoints.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->INVB_Setpoints.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->INVB_Setpoints.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->INVB_Setpoints.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->INVB_Setpoints.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->INVB_Setpoints.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
+        data_a->INVB_Setpoints.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->INVB_Setpoints.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->INVB_Setpoints.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
@@ -284,12 +300,12 @@ typedef union {
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_THROTTLE_VCU 20
 #define UP_THROTTLE_VCU_EQUAL 20
-#define UP_AMK_ACTUAL_VALUES_1 5
-#define UP_AMK_ACTUAL_VALUES_2 5
-#define UP_AMK_TEMPERATURES_1 20
-#define UP_AMK_TEMPERATURES_2 20
-#define UP_AMK_ERROR_1 5
-#define UP_AMK_ERROR_2 5
+#define UP_INVA_ACTUAL_VALUES_1 5
+#define UP_INVA_ACTUAL_VALUES_2 5
+#define UP_INVA_TEMPERATURES_1 20
+#define UP_INVA_TEMPERATURES_2 20
+#define UP_INVA_ERROR_1 5
+#define UP_INVA_ERROR_2 5
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -455,7 +471,18 @@ typedef union {
         uint64_t AMK_TorqueSetpoint: 16;
         uint64_t AMK_PositiveTorqueLimit: 16;
         uint64_t AMK_NegativeTorqueLimit: 16;
-    } AMK_Setpoints;
+    } INVA_Setpoints;
+    struct {
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
+        uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
+    } INVB_Setpoints;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -517,30 +544,30 @@ typedef union {
         uint64_t AMK_Status_bDerating: 1;
         uint64_t AMK_ActualTorque: 16;
         uint64_t AMK_MotorSerialNumber: 32;
-    } AMK_Actual_Values_1;
+    } INVA_Actual_Values_1;
     struct {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_DCBusVoltage: 16;
         uint64_t AMK_SystemReset: 16;
-    } AMK_Actual_Values_2;
+    } INVA_Actual_Values_2;
     struct {
         uint64_t AMK_MotorTemp: 16;
         uint64_t AMK_InverterTemp: 16;
         uint64_t AMK_IGBTTemp: 16;
-    } AMK_Temperatures_1;
+    } INVA_Temperatures_1;
     struct {
         uint64_t AMK_InternalTemp: 16;
         uint64_t AMK_ExternalTemp: 16;
         uint64_t AMK_TempSensorMotor: 16;
-    } AMK_Temperatures_2;
+    } INVA_Temperatures_2;
     struct {
         uint64_t AMK_DiagnosticNumber: 32;
         uint64_t AMK_ErrorInfo1: 32;
-    } AMK_Error_1;
+    } INVA_Error_1;
     struct {
         uint64_t AMK_ErrorInfo2: 32;
         uint64_t AMK_ErrorInfo3: 32;
-    } AMK_Error_2;
+    } INVA_Error_2;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -649,40 +676,40 @@ typedef struct {
         uint32_t AMK_MotorSerialNumber;
         uint8_t stale;
         uint32_t last_rx;
-    } AMK_Actual_Values_1;
+    } INVA_Actual_Values_1;
     struct {
         int16_t AMK_ActualSpeed;
         uint16_t AMK_DCBusVoltage;
         uint16_t AMK_SystemReset;
         uint8_t stale;
         uint32_t last_rx;
-    } AMK_Actual_Values_2;
+    } INVA_Actual_Values_2;
     struct {
         int16_t AMK_MotorTemp;
         int16_t AMK_InverterTemp;
         int16_t AMK_IGBTTemp;
         uint8_t stale;
         uint32_t last_rx;
-    } AMK_Temperatures_1;
+    } INVA_Temperatures_1;
     struct {
         int16_t AMK_InternalTemp;
         int16_t AMK_ExternalTemp;
         uint16_t AMK_TempSensorMotor;
         uint8_t stale;
         uint32_t last_rx;
-    } AMK_Temperatures_2;
+    } INVA_Temperatures_2;
     struct {
         uint32_t AMK_DiagnosticNumber;
         uint32_t AMK_ErrorInfo1;
         uint8_t stale;
         uint32_t last_rx;
-    } AMK_Error_1;
+    } INVA_Error_1;
     struct {
         uint32_t AMK_ErrorInfo2;
         uint32_t AMK_ErrorInfo3;
         uint8_t stale;
         uint32_t last_rx;
-    } AMK_Error_2;
+    } INVA_Error_2;
     struct {
         uint16_t idx;
         uint8_t latched;

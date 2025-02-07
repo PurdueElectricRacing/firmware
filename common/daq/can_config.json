@@ -212,7 +212,10 @@
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "throttle_vcu"},
-                        {"msg_name": "throttle_vcu_equal"}
+                        {"msg_name": "throttle_vcu_equal"},
+                        {"msg_name": "torque_per_modes"},
+                        {"msg_name": "unequal_mode_torque"},
+                        {"msg_name": "drive_modes"}
                     ]
                 },
                 {
@@ -524,49 +527,18 @@
                             "msg_hlp":3,
                             "msg_pgn":142
                         },
-                        {   "msg_name":"bmm_mag",
-                            "msg_desc":"magnetic from bmm",
-                            "signals":[
-                                {"sig_name":"bmm_mag_x","type":"int16_t","unit": "uT"},
-                                {"sig_name":"bmm_mag_y","type":"int16_t","unit": "uT"},
-                                {"sig_name":"bmm_mag_z","type":"int16_t","unit": "uT"}
+                        {
+                            "msg_name": "tv_can_stats",
+                            "msg_desc": "CAN diagnostics",
+                            "signals": [
+                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "VCAN Tx queue overflow count"},
+                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "VCAN Tx fail count (due to timeout in mailbox)"},
+                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "VCAN Rx queue overflow count"},
+                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "VCAN Rx FIFO overrun count"}
                             ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":143
-                        },
-                        {   "msg_name":"sfs_vel",
-                            "msg_desc":"velocity from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_vel_x","type":"int16_t","unit": "m/s","scale": 0.01},
-                                {"sig_name":"sfs_vel_y","type":"int16_t","unit": "m/s","scale": 0.01},
-                                {"sig_name":"sfs_vel_z","type":"int16_t","unit": "m/s","scale": 0.01}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1445
-                        },
-                        {   "msg_name":"sfs_acc",
-                            "msg_desc":"acceleration from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_acc_x","type":"int16_t","unit": "m/s^2","scale": 0.01},
-                                {"sig_name":"sfs_acc_y","type":"int16_t","unit": "m/s^2","scale": 0.01},
-                                {"sig_name":"sfs_acc_z","type":"int16_t","unit": "m/s^2","scale": 0.01}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1446
-                        },
-                        {   "msg_name":"sfs_ang_vel",
-                            "msg_desc":"orientation vel from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_ang_vel_x","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_vel_y","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_vel_z","type":"int16_t","scale": 0.0001}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1448
+                            "msg_period": 1000,
+                            "msg_hlp": 4,
+                            "msg_pgn": 1420
                         },
                         {
                             "msg_name": "throttle_vcu",
@@ -581,7 +553,7 @@
                         },
                         {
                             "msg_name": "throttle_vcu_equal",
-                            "msg_desc": "throttle vcu_equal",
+                            "msg_desc": "throttle vcu equal",
                             "signals":[
                                 {"sig_name": "equal_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
                                 {"sig_name": "equal_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
@@ -591,27 +563,49 @@
                             "msg_pgn": 160
                         },
                         {
-                            "msg_name": "maxR",
-                            "msg_desc": "Maximum Allowed Throttle",
-                            "signals":[
-                                {"sig_name": "vcu_max_r", "type": "int16_t", "unit": "none", "scale": 1}
+                            "msg_name": "torque_per_modes",
+                            "msg_desc": "Torque for each equal torque mode",
+                            "signals": [
+                                {"sig_name": "TO_ET", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "TO_PT", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "TO_VS", "type": "int16_t", "unit": "Nm", "scale": 0.01}
+                            ],
+                            "msg_period": 20,
+                            "msg_hlp": 1,
+                            "msg_pgn": 153
+                        },
+                        {
+                            "msg_name": "unequal_mode_torque",
+                            "msg_desc": "Torque for varying torque mode",
+                            "signals": [
+                                {"sig_name": "torque_rl", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "torque_rr", "type": "int16_t", "unit": "Nm", "scale": 0.01}
+                            ],
+                            "msg_period": 20,
+                            "msg_hlp": 1,
+                            "msg_pgn": 154
+                        },
+                        {
+                            "msg_name": "vcu_soc_estimate",
+                            "msg_desc": "VCU_SOC_estimate",
+                            "signals": [
+                                {"sig_name": "SOC_estimate", "type": "int16_t", "unit": "none", "scale": 0.00003},
+                                {"sig_name": "V_oc_estimate", "type": "int16_t", "unit": "V", "scale": 0.015}
+                            ],
+                            "msg_period": 20,
+                            "msg_hlp": 2,
+                            "msg_pgn": 155
+                        },
+                        {
+                            "msg_name": "drive_modes",
+                            "msg_desc": "Drive Modes",
+                            "signals": [
+                                {"sig_name": "VCU_mode", "type": "int8_t", "scale": 1},
+                                {"sig_name": "VT_mode", "type": "int8_t", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 3,
-                            "msg_pgn": 152
-                        },
-                        {
-                            "msg_name": "tv_can_stats",
-                            "msg_desc": "CAN diagnostics",
-                            "signals": [
-                                {"sig_name":"can_tx_overflow", "type":"uint8_t", "sig_desc": "VCAN Tx queue overflow count"},
-                                {"sig_name":"can_tx_fail", "type":"uint8_t", "sig_desc": "VCAN Tx fail count (due to timeout in mailbox)"},
-                                {"sig_name":"can_rx_overflow", "type":"uint8_t", "sig_desc": "VCAN Rx queue overflow count"},
-                                {"sig_name":"can_rx_overrun", "type":"uint8_t", "sig_desc": "VCAN Rx FIFO overrun count"}
-                            ],
-                            "msg_period": 1000,
-                            "msg_hlp": 4,
-                            "msg_pgn": 1420
+                            "msg_pgn": 156
                         }
                     ],
                     "rx":[
@@ -763,8 +757,8 @@
                         {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "sdc_status"},
-                        {"msg_name": "throttle_vcu"},
-                        {"msg_name": "gps_speed"}
+                        {"msg_name": "gps_speed"},
+                        {"msg_name": "throttle_vcu"}
                     ]
                 },
                 {

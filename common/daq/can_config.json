@@ -178,10 +178,12 @@
                             "msg_name": "rear_motor_temps",
                             "msg_desc": "Temperature of motor controllers and motors",
                             "signals": [
-                                {"sig_name": "left_mot_temp", "type":"uint8_t", "length": 8, "unit": "C"},
-                                {"sig_name": "right_mot_temp", "type":"uint8_t", "length": 8, "unit": "C"},
-                                {"sig_name": "left_ctrl_temp", "type":"uint8_t", "length":8, "unit": "C"},
-                                {"sig_name": "right_ctrl_temp", "type":"uint8_t", "length":8, "unit": "C"}
+                                {"sig_name": "left_mot_temp", "type":"uint8_t", "length": 8, "unit": "C", "scale":0.1},
+                                {"sig_name": "right_mot_temp", "type":"uint8_t", "length": 8, "unit": "C", "scale":0.1},
+                                {"sig_name": "left_inv_temp", "type":"uint8_t", "length":8, "unit": "C", "scale":0.1},
+                                {"sig_name": "right_inv_temp", "type":"uint8_t", "length":8, "unit": "C", "scale":0.1},
+                                {"sig_name": "left_igbt_temp", "type":"uint8_t", "length":8, "unit": "C", "scale":0.1},
+                                {"sig_name": "right_igbt_temp", "type":"uint8_t", "length":8, "unit": "C", "scale":0.1}
                             ],
                             "msg_period": 1000,
                             "msg_hlp": 4,

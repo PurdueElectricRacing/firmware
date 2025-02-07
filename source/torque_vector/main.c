@@ -70,8 +70,8 @@ GPIOInitConfig_t gpio_config[] = {
 
     // GPS SPI
     // GPIO_INIT_AF(SPI2_CLK_GPS_PORT, SPI2_CLK_GPS_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
-    // GPIO_INIT_UART4RX_PA1,
-    // GPIO_INIT_UART4TX_PA0,
+    GPIO_INIT_UART4RX_PA1,
+    GPIO_INIT_UART4TX_PA0,
 
     // GPS Auxillary pins
     GPIO_INIT_OUTPUT(RESET_GPS_PORT, RESET_GPS_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -82,8 +82,8 @@ GPIOInitConfig_t gpio_config[] = {
     };
 
 // GPS USART Configuration
-dma_init_t usart_gps_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_gps_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_gps_tx_dma_config = USART4_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_gps_rx_dma_config = USART4_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_gps =
 {
     .baud_rate = 115200,
@@ -93,9 +93,9 @@ usart_init_t huart_gps =
     .parity = PT_NONE,
     .obsample = OB_DISABLE,
     .ovsample = OV_16,
-    .periph      = USART1,
+    .periph   = UART4,
     .wake_addr = false,
-    .usart_active_num = USART1_ACTIVE_IDX,
+    .usart_active_num = USART4_ACTIVE_IDX,
     .tx_errors = 0,
     .rx_errors = 0,
     .tx_dma_cfg = &usart_gps_tx_dma_config,
@@ -103,22 +103,22 @@ usart_init_t huart_gps =
 };
 
 
-dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t usb = {
-   .baud_rate   = 115200,
-   .word_length = WORD_8,
-   .stop_bits   = SB_ONE,
-   .parity      = PT_NONE,
-   .hw_flow_ctl = HW_DISABLE,
-   .ovsample    = OV_16,
-   .obsample    = OB_DISABLE,
-   .periph      = USART1,
-   .wake_addr   = false,
-   .usart_active_num = USART1_ACTIVE_IDX,
-   .tx_dma_cfg = &usart_usb_tx_dma_config,
-   .rx_dma_cfg = &usart_usb_rx_dma_config
-};
+// dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+// dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+// usart_init_t usb = {
+//    .baud_rate   = 115200,
+//    .word_length = WORD_8,
+//    .stop_bits   = SB_ONE,
+//    .parity      = PT_NONE,
+//    .hw_flow_ctl = HW_DISABLE,
+//    .ovsample    = OV_16,
+//    .obsample    = OB_DISABLE,
+//    .periph      = USART1,
+//    .wake_addr   = false,
+//    .usart_active_num = USART1_ACTIVE_IDX,
+//    .tx_dma_cfg = &usart_usb_tx_dma_config,
+//    .rx_dma_cfg = &usart_usb_rx_dma_config
+// };
 
 /*
 Datasheet Page 12
@@ -281,19 +281,19 @@ void preflightChecks(void)
         break;
     case 2:
         /* USART initialization */
-        // if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
-        // {
-        //     HardFault_Handler();
-        // }
-        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
         {
             HardFault_Handler();
         }
+        // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        // {
+        //     HardFault_Handler();
+        // }
         break;
     case 3:
         // GPS Initialization
         PHAL_writeGPIO(RESET_GPS_PORT, RESET_GPS_PIN, 1);
-       // PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
     break;
     case 5:
         //initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_TORQUE_VECTOR);
@@ -410,10 +410,10 @@ void parseIMU(void)
     }
 }
 
-// void usart_recieve_complete_callback(usart_init_t *handle)
-// {
-//    parseVelocity(&GPSHandle);
-// }
+void usart_recieve_complete_callback(usart_init_t *handle)
+{
+   parseVelocity(&GPSHandle);
+}
 
 /* CAN Message Handling */
 void CAN1_RX0_IRQHandler()
@@ -498,8 +498,8 @@ void HardFault_Handler()
     }
 }
 
-void testUsart()
-{
-    char* txmsg = "Hello World!\n";
-    PHAL_usartTxDma(&usb, (uint16_t *)txmsg, 13);
-}
+// void testUsart()
+// {
+//     char* txmsg = "Hello World!\n";
+//     PHAL_usartTxDma(&usb, (uint16_t *)txmsg, 13);
+// }

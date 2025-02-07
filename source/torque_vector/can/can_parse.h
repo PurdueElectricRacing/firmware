@@ -27,14 +27,13 @@
 #define ID_GPS_COORDINATES 0xc002377
 #define ID_IMU_GYRO 0xc0002f7
 #define ID_IMU_ACCEL 0xc0023b7
-#define ID_BMM_MAG 0xc0023f7
-#define ID_SFS_VEL 0xc016977
-#define ID_SFS_ACC 0xc0169b7
-#define ID_SFS_ANG_VEL 0xc016a37
+#define ID_TV_CAN_STATS 0x10016337
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
-#define ID_MAXR 0xc002637
-#define ID_TV_CAN_STATS 0x10016337
+#define ID_TORQUE_PER_MODES 0x4002677
+#define ID_UNEQUAL_MODE_TORQUE 0x40026b7
+#define ID_VCU_SOC_ESTIMATE 0x80026f7
+#define ID_DRIVE_MODES 0xc002737
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
@@ -62,14 +61,13 @@
 #define DLC_GPS_COORDINATES 8
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
-#define DLC_BMM_MAG 6
-#define DLC_SFS_VEL 6
-#define DLC_SFS_ACC 6
-#define DLC_SFS_ANG_VEL 6
+#define DLC_TV_CAN_STATS 4
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
-#define DLC_MAXR 2
-#define DLC_TV_CAN_STATS 4
+#define DLC_TORQUE_PER_MODES 6
+#define DLC_UNEQUAL_MODE_TORQUE 4
+#define DLC_VCU_SOC_ESTIMATE 4
+#define DLC_DRIVE_MODES 2
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_TORQUEVECTOR_BL_CMD 5
 #define DLC_FILT_THROTTLE_BRAKE 3
@@ -78,7 +76,7 @@
 #define DLC_DASHBOARD_TV_PARAMETERS 7
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
-#define DLC_REAR_MOTOR_TEMPS 4
+#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -135,36 +133,13 @@
         data_a->imu_accel.imu_accel_z = imu_accel_z_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_BMM_MAG(bmm_mag_x_, bmm_mag_y_, bmm_mag_z_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_BMM_MAG, .DLC=DLC_BMM_MAG, .IDE=1};\
+#define SEND_TV_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TV_CAN_STATS, .DLC=DLC_TV_CAN_STATS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->bmm_mag.bmm_mag_x = bmm_mag_x_;\
-        data_a->bmm_mag.bmm_mag_y = bmm_mag_y_;\
-        data_a->bmm_mag.bmm_mag_z = bmm_mag_z_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_SFS_VEL(sfs_vel_x_, sfs_vel_y_, sfs_vel_z_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_VEL, .DLC=DLC_SFS_VEL, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sfs_vel.sfs_vel_x = sfs_vel_x_;\
-        data_a->sfs_vel.sfs_vel_y = sfs_vel_y_;\
-        data_a->sfs_vel.sfs_vel_z = sfs_vel_z_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_SFS_ACC(sfs_acc_x_, sfs_acc_y_, sfs_acc_z_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ACC, .DLC=DLC_SFS_ACC, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sfs_acc.sfs_acc_x = sfs_acc_x_;\
-        data_a->sfs_acc.sfs_acc_y = sfs_acc_y_;\
-        data_a->sfs_acc.sfs_acc_z = sfs_acc_z_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_SFS_ANG_VEL(sfs_ang_vel_x_, sfs_ang_vel_y_, sfs_ang_vel_z_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SFS_ANG_VEL, .DLC=DLC_SFS_ANG_VEL, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sfs_ang_vel.sfs_ang_vel_x = sfs_ang_vel_x_;\
-        data_a->sfs_ang_vel.sfs_ang_vel_y = sfs_ang_vel_y_;\
-        data_a->sfs_ang_vel.sfs_ang_vel_z = sfs_ang_vel_z_;\
+        data_a->tv_can_stats.can_tx_overflow = can_tx_overflow_;\
+        data_a->tv_can_stats.can_tx_fail = can_tx_fail_;\
+        data_a->tv_can_stats.can_rx_overflow = can_rx_overflow_;\
+        data_a->tv_can_stats.can_rx_overrun = can_rx_overrun_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_) do {\
@@ -181,19 +156,33 @@
         data_a->throttle_vcu_equal.equal_k_rr = equal_k_rr_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MAXR(vcu_max_r_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAXR, .DLC=DLC_MAXR, .IDE=1};\
+#define SEND_TORQUE_PER_MODES(TO_ET_, TO_PT_, TO_VS_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUE_PER_MODES, .DLC=DLC_TORQUE_PER_MODES, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->maxR.vcu_max_r = vcu_max_r_;\
+        data_a->torque_per_modes.TO_ET = TO_ET_;\
+        data_a->torque_per_modes.TO_PT = TO_PT_;\
+        data_a->torque_per_modes.TO_VS = TO_VS_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TV_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TV_CAN_STATS, .DLC=DLC_TV_CAN_STATS, .IDE=1};\
+#define SEND_UNEQUAL_MODE_TORQUE(torque_rl_, torque_rr_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UNEQUAL_MODE_TORQUE, .DLC=DLC_UNEQUAL_MODE_TORQUE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->tv_can_stats.can_tx_overflow = can_tx_overflow_;\
-        data_a->tv_can_stats.can_tx_fail = can_tx_fail_;\
-        data_a->tv_can_stats.can_rx_overflow = can_rx_overflow_;\
-        data_a->tv_can_stats.can_rx_overrun = can_rx_overrun_;\
+        data_a->unequal_mode_torque.torque_rl = torque_rl_;\
+        data_a->unequal_mode_torque.torque_rr = torque_rr_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_VCU_SOC_ESTIMATE(SOC_estimate_, V_oc_estimate_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VCU_SOC_ESTIMATE, .DLC=DLC_VCU_SOC_ESTIMATE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->vcu_soc_estimate.SOC_estimate = SOC_estimate_;\
+        data_a->vcu_soc_estimate.V_oc_estimate = V_oc_estimate_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_DRIVE_MODES(VCU_mode_, VT_mode_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVE_MODES, .DLC=DLC_DRIVE_MODES, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->drive_modes.VCU_mode = VCU_mode_;\
+        data_a->drive_modes.VT_mode = VT_mode_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_TORQUE_VECTOR(idx_, latched_) do {\
@@ -269,25 +258,11 @@ typedef union {
         uint64_t imu_accel_z: 16;
     } imu_accel;
     struct {
-        uint64_t bmm_mag_x: 16;
-        uint64_t bmm_mag_y: 16;
-        uint64_t bmm_mag_z: 16;
-    } bmm_mag;
-    struct {
-        uint64_t sfs_vel_x: 16;
-        uint64_t sfs_vel_y: 16;
-        uint64_t sfs_vel_z: 16;
-    } sfs_vel;
-    struct {
-        uint64_t sfs_acc_x: 16;
-        uint64_t sfs_acc_y: 16;
-        uint64_t sfs_acc_z: 16;
-    } sfs_acc;
-    struct {
-        uint64_t sfs_ang_vel_x: 16;
-        uint64_t sfs_ang_vel_y: 16;
-        uint64_t sfs_ang_vel_z: 16;
-    } sfs_ang_vel;
+        uint64_t can_tx_overflow: 8;
+        uint64_t can_tx_fail: 8;
+        uint64_t can_rx_overflow: 8;
+        uint64_t can_rx_overrun: 8;
+    } tv_can_stats;
     struct {
         uint64_t vcu_k_rl: 16;
         uint64_t vcu_k_rr: 16;
@@ -297,14 +272,22 @@ typedef union {
         uint64_t equal_k_rr: 16;
     } throttle_vcu_equal;
     struct {
-        uint64_t vcu_max_r: 16;
-    } maxR;
+        uint64_t TO_ET: 16;
+        uint64_t TO_PT: 16;
+        uint64_t TO_VS: 16;
+    } torque_per_modes;
     struct {
-        uint64_t can_tx_overflow: 8;
-        uint64_t can_tx_fail: 8;
-        uint64_t can_rx_overflow: 8;
-        uint64_t can_rx_overrun: 8;
-    } tv_can_stats;
+        uint64_t torque_rl: 16;
+        uint64_t torque_rr: 16;
+    } unequal_mode_torque;
+    struct {
+        uint64_t SOC_estimate: 16;
+        uint64_t V_oc_estimate: 16;
+    } vcu_soc_estimate;
+    struct {
+        uint64_t VCU_mode: 8;
+        uint64_t VT_mode: 8;
+    } drive_modes;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -349,8 +332,10 @@ typedef union {
     struct {
         uint64_t left_mot_temp: 8;
         uint64_t right_mot_temp: 8;
-        uint64_t left_ctrl_temp: 8;
-        uint64_t right_ctrl_temp: 8;
+        uint64_t left_inv_temp: 8;
+        uint64_t right_inv_temp: 8;
+        uint64_t left_igbt_temp: 8;
+        uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
         uint64_t max_temp: 16;
@@ -442,8 +427,10 @@ typedef struct {
     struct {
         uint8_t left_mot_temp;
         uint8_t right_mot_temp;
-        uint8_t left_ctrl_temp;
-        uint8_t right_ctrl_temp;
+        uint8_t left_inv_temp;
+        uint8_t right_inv_temp;
+        uint8_t left_igbt_temp;
+        uint8_t right_igbt_temp;
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_temps;

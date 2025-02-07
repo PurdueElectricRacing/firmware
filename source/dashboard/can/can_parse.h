@@ -55,8 +55,8 @@ typedef union {
 #define ID_GEARBOX 0x10000901
 #define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_SDC_STATUS 0xc000381
-#define ID_THROTTLE_VCU 0x40025b7
 #define ID_GPS_SPEED 0xc001137
+#define ID_THROTTLE_VCU 0x40025b7
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -87,7 +87,7 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_ORION_ERRORS 4
 #define DLC_MAX_CELL_TEMP 2
-#define DLC_REAR_MOTOR_TEMPS 4
+#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_PRECHARGE_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_COOLANT_TEMPS 4
@@ -95,8 +95,8 @@ typedef union {
 #define DLC_GEARBOX 2
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_SDC_STATUS 2
-#define DLC_THROTTLE_VCU 4
 #define DLC_GPS_SPEED 4
+#define DLC_THROTTLE_VCU 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -219,8 +219,8 @@ typedef union {
 #define UP_COOLANT_OUT 1000
 #define UP_GEARBOX 3000
 #define UP_SDC_STATUS 300
-#define UP_THROTTLE_VCU 20
 #define UP_GPS_SPEED 40
+#define UP_THROTTLE_VCU 20
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -375,8 +375,10 @@ typedef union {
     struct {
         uint64_t left_mot_temp: 8;
         uint64_t right_mot_temp: 8;
-        uint64_t left_ctrl_temp: 8;
-        uint64_t right_ctrl_temp: 8;
+        uint64_t left_inv_temp: 8;
+        uint64_t right_inv_temp: 8;
+        uint64_t left_igbt_temp: 8;
+        uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
         uint64_t IMD: 8;
@@ -425,13 +427,13 @@ typedef union {
         uint64_t pchg_out: 1;
     } sdc_status;
     struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_vcu;
-    struct {
         uint64_t gps_speed: 16;
         uint64_t gps_heading: 16;
     } gps_speed;
+    struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -556,8 +558,10 @@ typedef struct {
     struct {
         uint8_t left_mot_temp;
         uint8_t right_mot_temp;
-        uint8_t left_ctrl_temp;
-        uint8_t right_ctrl_temp;
+        uint8_t left_inv_temp;
+        uint8_t right_inv_temp;
+        uint8_t left_igbt_temp;
+        uint8_t right_igbt_temp;
         uint8_t stale;
         uint32_t last_rx;
     } rear_motor_temps;
@@ -620,17 +624,17 @@ typedef struct {
         uint32_t last_rx;
     } sdc_status;
     struct {
-        int16_t vcu_k_rl;
-        int16_t vcu_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu;
-    struct {
         int16_t gps_speed;
         int16_t gps_heading;
         uint8_t stale;
         uint32_t last_rx;
     } gps_speed;
+    struct {
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
     struct {
         uint16_t idx;
         uint8_t latched;

@@ -110,17 +110,19 @@ BO_ 2348811137 sdc_status: 2 Main_Module
  SG_ BMS : 1|1@1+ (1,0) [0|0] "" Vector__XXX
  SG_ IMD : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
-BO_ 2415919873 rear_motor_temps: 4 Main_Module
- SG_ right_ctrl_temp : 24|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ left_ctrl_temp : 16|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ right_mot_temp : 8|8@1+ (1,0) [0|0] "C" Vector__XXX
- SG_ left_mot_temp : 0|8@1+ (1,0) [0|0] "C" Vector__XXX
+BO_ 2415919873 rear_motor_temps: 6 Main_Module
+ SG_ right_igbt_temp : 40|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_igbt_temp : 32|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ right_inv_temp : 24|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_inv_temp : 16|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ right_mot_temp : 8|8@1+ (0.1,0) [0|0] "C" Vector__XXX
+ SG_ left_mot_temp : 0|8@1+ (0.1,0) [0|0] "C" Vector__XXX
 
 BO_ 2214593409 rear_wheel_speeds: 8 Main_Module
  SG_ right_speed_sensor : 48|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
  SG_ left_speed_sensor : 32|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
- SG_ right_speed_mc : 16|16@1+ (1,0) [0|0] "RPM" Vector__XXX
- SG_ left_speed_mc : 0|16@1+ (1,0) [0|0] "RPM" Vector__XXX
+ SG_ right_speed_mc : 16|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
+ SG_ left_speed_mc : 0|16@1+ (0.01,0) [0|0] "rad/s" Vector__XXX
 
 BO_ 2148059649 fault_sync_main_module: 3 Main_Module
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -286,25 +288,11 @@ BO_ 2348819383 imu_accel: 6 torque_vector
  SG_ imu_accel_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
  SG_ imu_accel_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
 
-BO_ 2348819447 bmm_mag: 6 torque_vector
- SG_ bmm_mag_z : 32|16@1- (1,0) [0|0] "uT" Vector__XXX
- SG_ bmm_mag_y : 16|16@1- (1,0) [0|0] "uT" Vector__XXX
- SG_ bmm_mag_x : 0|16@1- (1,0) [0|0] "uT" Vector__XXX
-
-BO_ 2348902775 sfs_vel: 6 torque_vector
- SG_ sfs_vel_z : 32|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
- SG_ sfs_vel_y : 16|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
- SG_ sfs_vel_x : 0|16@1- (0.01,0) [0|0] "m/s" Vector__XXX
-
-BO_ 2348902839 sfs_acc: 6 torque_vector
- SG_ sfs_acc_z : 32|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
- SG_ sfs_acc_y : 16|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
- SG_ sfs_acc_x : 0|16@1- (0.01,0) [0|0] "m/s^2" Vector__XXX
-
-BO_ 2348902967 sfs_ang_vel: 6 torque_vector
- SG_ sfs_ang_vel_z : 32|16@1- (0.0001,0) [0|0] "" Vector__XXX
- SG_ sfs_ang_vel_y : 16|16@1- (0.0001,0) [0|0] "" Vector__XXX
- SG_ sfs_ang_vel_x : 0|16@1- (0.0001,0) [0|0] "" Vector__XXX
+BO_ 2416010039 tv_can_stats: 4 torque_vector
+ SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214602167 throttle_vcu: 4 torque_vector
  SG_ vcu_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
@@ -314,14 +302,22 @@ BO_ 2214602807 throttle_vcu_equal: 4 torque_vector
  SG_ equal_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ equal_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
 
-BO_ 2348820023 maxR: 2 torque_vector
- SG_ vcu_max_r : 0|16@1- (1,0) [0|0] "none" Vector__XXX
+BO_ 2214602359 torque_per_modes: 6 torque_vector
+ SG_ TO_VS : 32|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ TO_PT : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ TO_ET : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
 
-BO_ 2416010039 tv_can_stats: 4 torque_vector
- SG_ can_rx_overrun : 24|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ can_rx_overflow : 16|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ can_tx_fail : 8|8@1+ (1,0) [0|0] "" Vector__XXX
- SG_ can_tx_overflow : 0|8@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214602423 unequal_mode_torque: 4 torque_vector
+ SG_ torque_rr : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ torque_rl : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+
+BO_ 2281711351 vcu_soc_estimate: 4 torque_vector
+ SG_ V_oc_estimate : 16|16@1- (0.015,0) [0|0] "V" Vector__XXX
+ SG_ SOC_estimate : 0|16@1- (3e-05,0) [0|0] "none" Vector__XXX
+
+BO_ 2348820279 drive_modes: 2 torque_vector
+ SG_ VT_mode : 8|8@1- (1,0) [0|0] "" Vector__XXX
+ SG_ VCU_mode : 0|8@1- (1,0) [0|0] "" Vector__XXX
 
 BO_ 2148059831 fault_sync_torque_vector: 3 torque_vector
  SG_ latched : 16|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -713,8 +709,10 @@ CM_ SG_ 2348811137 BSPD "";
 CM_ SG_ 2348811137 BMS "";
 CM_ SG_ 2348811137 IMD "";
 CM_ BO_ 2415919873 "Temperature of motor controllers and motors";
-CM_ SG_ 2415919873 right_ctrl_temp "";
-CM_ SG_ 2415919873 left_ctrl_temp "";
+CM_ SG_ 2415919873 right_igbt_temp "";
+CM_ SG_ 2415919873 left_igbt_temp "";
+CM_ SG_ 2415919873 right_inv_temp "";
+CM_ SG_ 2415919873 left_inv_temp "";
 CM_ SG_ 2415919873 right_mot_temp "";
 CM_ SG_ 2415919873 left_mot_temp "";
 CM_ BO_ 2214593409 "Rear Wheel speeds from motor controllers";
@@ -861,35 +859,30 @@ CM_ BO_ 2348819383 "acceleration from imu";
 CM_ SG_ 2348819383 imu_accel_z "";
 CM_ SG_ 2348819383 imu_accel_y "";
 CM_ SG_ 2348819383 imu_accel_x "";
-CM_ BO_ 2348819447 "magnetic from bmm";
-CM_ SG_ 2348819447 bmm_mag_z "";
-CM_ SG_ 2348819447 bmm_mag_y "";
-CM_ SG_ 2348819447 bmm_mag_x "";
-CM_ BO_ 2348902775 "velocity from sfs";
-CM_ SG_ 2348902775 sfs_vel_z "";
-CM_ SG_ 2348902775 sfs_vel_y "";
-CM_ SG_ 2348902775 sfs_vel_x "";
-CM_ BO_ 2348902839 "acceleration from sfs";
-CM_ SG_ 2348902839 sfs_acc_z "";
-CM_ SG_ 2348902839 sfs_acc_y "";
-CM_ SG_ 2348902839 sfs_acc_x "";
-CM_ BO_ 2348902967 "orientation vel from sfs";
-CM_ SG_ 2348902967 sfs_ang_vel_z "";
-CM_ SG_ 2348902967 sfs_ang_vel_y "";
-CM_ SG_ 2348902967 sfs_ang_vel_x "";
-CM_ BO_ 2214602167 "throttle vcu";
-CM_ SG_ 2214602167 vcu_k_rr "";
-CM_ SG_ 2214602167 vcu_k_rl "";
-CM_ BO_ 2214602807 "throttle vcu_equal";
-CM_ SG_ 2214602807 equal_k_rr "";
-CM_ SG_ 2214602807 equal_k_rl "";
-CM_ BO_ 2348820023 "Maximum Allowed Throttle";
-CM_ SG_ 2348820023 vcu_max_r "";
 CM_ BO_ 2416010039 "CAN diagnostics";
 CM_ SG_ 2416010039 can_rx_overrun "VCAN Rx FIFO overrun count";
 CM_ SG_ 2416010039 can_rx_overflow "VCAN Rx queue overflow count";
 CM_ SG_ 2416010039 can_tx_fail "VCAN Tx fail count (due to timeout in mailbox)";
 CM_ SG_ 2416010039 can_tx_overflow "VCAN Tx queue overflow count";
+CM_ BO_ 2214602167 "throttle vcu";
+CM_ SG_ 2214602167 vcu_k_rr "";
+CM_ SG_ 2214602167 vcu_k_rl "";
+CM_ BO_ 2214602807 "throttle vcu equal";
+CM_ SG_ 2214602807 equal_k_rr "";
+CM_ SG_ 2214602807 equal_k_rl "";
+CM_ BO_ 2214602359 "Torque for each equal torque mode";
+CM_ SG_ 2214602359 TO_VS "";
+CM_ SG_ 2214602359 TO_PT "";
+CM_ SG_ 2214602359 TO_ET "";
+CM_ BO_ 2214602423 "Torque for varying torque mode";
+CM_ SG_ 2214602423 torque_rr "";
+CM_ SG_ 2214602423 torque_rl "";
+CM_ BO_ 2281711351 "VCU_SOC_estimate";
+CM_ SG_ 2281711351 V_oc_estimate "";
+CM_ SG_ 2281711351 SOC_estimate "";
+CM_ BO_ 2348820279 "Drive Modes";
+CM_ SG_ 2348820279 VT_mode "";
+CM_ SG_ 2348820279 VCU_mode "";
 CM_ BO_ 2148059831 "Fault status message";
 CM_ SG_ 2148059831 latched "";
 CM_ SG_ 2148059831 idx "";

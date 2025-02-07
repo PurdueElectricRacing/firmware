@@ -101,6 +101,25 @@ void canRxUpdate(void)
                     can_data.throttle_vcu_equal.stale = 0;
                     can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
                     break;
+                case ID_TORQUE_PER_MODES:
+                    can_data.torque_per_modes.TO_ET = (int16_t) msg_data_a->torque_per_modes.TO_ET;
+                    can_data.torque_per_modes.TO_PT = (int16_t) msg_data_a->torque_per_modes.TO_PT;
+                    can_data.torque_per_modes.TO_VS = (int16_t) msg_data_a->torque_per_modes.TO_VS;
+                    can_data.torque_per_modes.stale = 0;
+                    can_data.torque_per_modes.last_rx = sched.os_ticks;
+                    break;
+                case ID_UNEQUAL_MODE_TORQUE:
+                    can_data.unequal_mode_torque.torque_rl = (int16_t) msg_data_a->unequal_mode_torque.torque_rl;
+                    can_data.unequal_mode_torque.torque_rr = (int16_t) msg_data_a->unequal_mode_torque.torque_rr;
+                    can_data.unequal_mode_torque.stale = 0;
+                    can_data.unequal_mode_torque.last_rx = sched.os_ticks;
+                    break;
+                case ID_DRIVE_MODES:
+                    can_data.drive_modes.VCU_mode = (int8_t) msg_data_a->drive_modes.VCU_mode;
+                    can_data.drive_modes.VT_mode = (int8_t) msg_data_a->drive_modes.VT_mode;
+                    can_data.drive_modes.stale = 0;
+                    can_data.drive_modes.last_rx = sched.os_ticks;
+                    break;
                 case ID_FAULT_SYNC_PDU:
                     can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                     can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -168,6 +187,15 @@ void canRxUpdate(void)
     CHECK_STALE(can_data.throttle_vcu_equal.stale,
                 sched.os_ticks, can_data.throttle_vcu_equal.last_rx,
                 UP_THROTTLE_VCU_EQUAL);
+    CHECK_STALE(can_data.torque_per_modes.stale,
+                sched.os_ticks, can_data.torque_per_modes.last_rx,
+                UP_TORQUE_PER_MODES);
+    CHECK_STALE(can_data.unequal_mode_torque.stale,
+                sched.os_ticks, can_data.unequal_mode_torque.last_rx,
+                UP_UNEQUAL_MODE_TORQUE);
+    CHECK_STALE(can_data.drive_modes.stale,
+                sched.os_ticks, can_data.drive_modes.last_rx,
+                UP_DRIVE_MODES);
     /* END AUTO STALE CHECKS */
 }
 
@@ -199,18 +227,22 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_VCU_EQUAL << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_TORQUE_PER_MODES << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_UNEQUAL_MODE_TORQUE << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DRIVE_MODES << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->FA1R |= (1 << 9);    // configure bank 9
+    CAN1->sFilterRegister[9].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

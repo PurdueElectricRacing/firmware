@@ -187,17 +187,17 @@ void canRxUpdate()
                 can_data.sdc_status.stale = 0;
                 can_data.sdc_status.last_rx = sched.os_ticks;
                 break;
-            case ID_THROTTLE_VCU:
-                can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
-                can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
-                can_data.throttle_vcu.stale = 0;
-                can_data.throttle_vcu.last_rx = sched.os_ticks;
-                break;
             case ID_GPS_SPEED:
                 can_data.gps_speed.gps_speed = (int16_t) msg_data_a->gps_speed.gps_speed;
                 can_data.gps_speed.gps_heading = (int16_t) msg_data_a->gps_speed.gps_heading;
                 can_data.gps_speed.stale = 0;
                 can_data.gps_speed.last_rx = sched.os_ticks;
+                break;
+            case ID_THROTTLE_VCU:
+                can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
+                can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
+                can_data.throttle_vcu.stale = 0;
+                can_data.throttle_vcu.last_rx = sched.os_ticks;
                 break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
@@ -283,12 +283,12 @@ void canRxUpdate()
     CHECK_STALE(can_data.sdc_status.stale,
                 sched.os_ticks, can_data.sdc_status.last_rx,
                 UP_SDC_STATUS);
-    CHECK_STALE(can_data.throttle_vcu.stale,
-                sched.os_ticks, can_data.throttle_vcu.last_rx,
-                UP_THROTTLE_VCU);
     CHECK_STALE(can_data.gps_speed.stale,
                 sched.os_ticks, can_data.gps_speed.last_rx,
                 UP_GPS_SPEED);
+    CHECK_STALE(can_data.throttle_vcu.stale,
+                sched.os_ticks, can_data.throttle_vcu.last_rx,
+                UP_THROTTLE_VCU);
     /* END AUTO STALE CHECKS */
 }
 
@@ -328,8 +328,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[6].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
     CAN1->sFilterRegister[6].FR2 = (ID_SDC_STATUS << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_THROTTLE_VCU << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_GPS_SPEED << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_GPS_SPEED << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
     CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;

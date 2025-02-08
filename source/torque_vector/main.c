@@ -21,6 +21,8 @@
 
 #include <string.h>
 
+#include "vcu_init.c"
+
 uint8_t collect_test[100] = {0};
 
 GPIOInitConfig_t gpio_config[] = {

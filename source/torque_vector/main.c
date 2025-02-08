@@ -19,9 +19,6 @@
 #include "imu.h"
 #include "gps.h"
 
-#include "em.h"
-#include "em_pp.h"
-
 #include "tv.h"
 #include "tv_pp.h"
 
@@ -30,9 +27,6 @@
 #include "bmi088.h"
 #include "imu.h"
 #include "gps.h"
-
-#include "em.h"
-#include "em_pp.h"
 
 #include "tv.h"
 #include "tv_pp.h"
@@ -204,15 +198,6 @@ static RT_MODEL_tv *const rtMPtr_tv = &rtM_tvv; /* Real-time model */
 static DW_tv rtDW_tv;                        /* Observable states */
 static RT_MODEL_tv *const rtM_tv = rtMPtr_tv;
 static int16_t tv_timing;
-
-/* Engine Map Definitions */
-static ExtU_em rtU_em; /* External inputs */
-static ExtY_em rtY_em; /* External outputs */
-static RT_MODEL_em rtM_emv;
-static RT_MODEL_em *const rtMPtr_em = &rtM_emv; /* Real-time model */
-static DW_em rtDW_em;                        /* Observable states */
-static RT_MODEL_em *const rtM_em = rtMPtr_em;
-static int16_t em_timing;
 
 /* Moving Median Definition */
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
@@ -427,14 +412,6 @@ void VCU_MAIN(void)
     tv_timing = sched.os_ticks;
     tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
     tv_timing = sched.os_ticks - tv_timing;
-
-    /* Populate engine map inputs */
-    em_pp(&rtU_em, &rtY_tv);
-
-    /* Step engine map */
-    em_timing = sched.os_ticks;
-    em_step(rtMPtr_em, &rtU_em, &rtY_em);
-    em_timing = sched.os_ticks - em_timing;
 
     /* Set TV faults */
     setFault(ID_PT_ENABLED_FAULT,0);

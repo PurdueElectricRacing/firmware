@@ -1,9 +1,9 @@
 #include "vcu_pp.h"
 
 void init_pVCU(pVCU_struct *pVCU);
-void init_pVCU(fVCU_struct *fVCU);
-void init_pVCU(xVCU_struct *xVCU);
-void init_pVCU(yVCU_struct *yVCU);
+void init_fVCU(fVCU_struct *fVCU);
+void init_xVCU(xVCU_struct *xVCU);
+void init_yVCU(yVCU_struct *yVCU);
 
 void init_pVCU(pVCU_struct *pVCU) {
     // pVCU init

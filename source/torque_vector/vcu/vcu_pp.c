@@ -3,7 +3,7 @@
 #include "vcu_pp.h"
 #include "gps.h"
  
-void vcu_pp(xVCU_struct *xVCU, GPS_Handle_t *GPS)
+void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
 {
     /*Raw X Data*/
     xVCU->TH_RAW = (can_data.filt_throttle_brake.throttle/4095.0); /* Incoming is a scalar in the range [0 4095] */
@@ -37,4 +37,16 @@ void vcu_pp(xVCU_struct *xVCU, GPS_Handle_t *GPS)
     /*Raw F Data*/
     
 
+    fVCU->TB_SFLAG = (can_data.filt_throttle_brake.stale == 0);
+    fVCU->SS_SFLAG = (can_data.LWS_Standard.stale == 0);
+    fVCU->WT_SFLAG = (can_data.rear_wheel_speeds.stale == 0);
+    fVCU->IV_SFLAG = (can_data.orion_currents_volts.stale == 0);
+    fVCU->BT_SFLAG = (can_data.max_cell_temp.stale == 0);
+    fVCU->MT_SFLAG = true;
+    fVCU->CO_SFLAG = true;
+    fVCU->MO_SFLAG = true;
+    fVCU->SS_FFLAG = true;
+    fVCU->AV_FFLAG = true;
+    fVCU->GS_FFLAG = true;
+    fVCU->VCU_PFLAG = true;
 }

@@ -19,12 +19,6 @@
 #include "imu.h"
 #include "gps.h"
 
-#include "bsxlite_interface.h"
-
-#include "bmi088.h"
-#include "imu.h"
-#include "gps.h"
-
 #include <string.h>
 
 uint8_t collect_test[100] = {0};
@@ -284,20 +278,8 @@ void preflightChecks(void)
             HardFault_Handler();
         break;
     case 700:
-        // /* Pack torque vectoring data into rtM_tv */
-        // rtM_tv->dwork = &rtDW_tv;
+        /* Initialize VCU structs */
 
-        // /* Initialize Torque Vectoring */
-        // tv_initialize(rtM_tv);
-
-        // /* Initialize TV IO */
-        // tv_IO_initialize(&rtU_tv);
-
-        // /* Pack Engine map data into rtM_em */
-        // rtM_em->dwork = &rtDW_em;
-
-        // /* Initialize Engine Map */
-        // em_initialize(rtM_em);
     default:
         if (state > 750)
         {
@@ -385,29 +367,22 @@ void CAN1_RX0_IRQHandler()
 
 void VCU_MAIN(void)
 {
-    /* Initialize Throttles */
-    int16_t tvs_k_rl = 0;
-    int16_t tvs_k_rr = 0;
-    int16_t equal_k_rl = 0;
-    int16_t equal_k_rr = 0;
+    /* Fill in X & F */
+
+
+    /* Step VCU */
+
 
     /* Set TV faults */
     setFault(ID_PT_ENABLED_FAULT,0);
     setFault(ID_VT_ENABLED_FAULT,0);
     setFault(ID_VS_ENABLED_FAULT,0);
     setFault(ID_ET_ENABLED_FAULT,0);
-
     setFault(ID_NO_GPS_FIX_FAULT,0);
     setFault(ID_YES_GPS_FIX_FAULT,0);
 
-    /* Get motor commands */
-    tvs_k_rl = (int16_t)(0*4095);
-    tvs_k_rr = (int16_t)(0*4095);
-    equal_k_rl = (int16_t)(0*4095);
-    equal_k_rr = (int16_t)(0*4095);
-
     /* Send messages */
-    SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr);
+    SEND_THROTTLE_VCU((int16_t)(0*4095),(int16_t)(0*4095));
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

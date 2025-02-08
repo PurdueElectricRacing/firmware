@@ -19,9 +19,6 @@
 #include "imu.h"
 #include "gps.h"
 
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
 #include "em.h"
 #include "em_pp.h"
 
@@ -33,9 +30,6 @@
 #include "bmi088.h"
 #include "imu.h"
 #include "gps.h"
-
-#include "ac_ext.h"
-#include "ac_compute_R.h"
 
 #include "em.h"
 #include "em_pp.h"
@@ -221,9 +215,6 @@ static RT_MODEL_em *const rtM_em = rtMPtr_em;
 static int16_t em_timing;
 
 /* Moving Median Definition */
-static vec_accumulator vec_mm; /* Vector of Accumulation */
-static int16_t ac_counter = 0; /* Number of data points collected */
-static bool TV_Calibrated = false; /* Flag Indicating if TV is calibrated */
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 int main(void)
@@ -428,21 +419,6 @@ void VCU_MAIN(void)
     int16_t tvs_k_rr = 0;
     int16_t equal_k_rl = 0;
     int16_t equal_k_rr = 0;
-
-    /* If precharging -> Accumulate acceleration vector */
-    if (/*(can_data.main_hb.car_state == 1) & */(ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
-        /* Accumulate acceleration vector */
-        vec_mm.ax[ac_counter] = GPSHandle.acceleration.x;
-        vec_mm.ay[ac_counter] = GPSHandle.acceleration.y;
-        vec_mm.az[ac_counter] = GPSHandle.acceleration.z;
-        ++ac_counter;
-
-        /* If length of acceleration vector == ##, compute R */
-        if (ac_counter == NUM_ELEM_ACC_CALIBRATION) {
-            ac_compute_R(vec_mm.ax, vec_mm.ay, vec_mm.az, rtU_tv.R);
-            TV_Calibrated = true;
-        }
-    }
 
     /* Populate torque vectoring inputs */
     tv_pp(&rtU_tv, &GPSHandle);

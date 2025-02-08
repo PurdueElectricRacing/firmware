@@ -1,11 +1,11 @@
 #include "can_parse.h"
 #include "common_defs.h"
-#include "vcu.h"
+#include "vcu_pp.h"
 #include "gps.h"
-
+ 
 void vcu_pp(xVCU_struct *xVCU, GPS_Handle_t *GPS)
 {
-    /*Raw Data*/
+    /*Raw X Data*/
     xVCU->TH_RAW = (can_data.filt_throttle_brake.throttle/4095.0); /* Incoming is a scalar in the range [0 4095] */
     xVCU->ST_RAW = (can_data.LWS_Standard.LWS_ANGLE*0.1); /* Incoming is 10*degree of CCSA  */
     xVCU->VB_RAW = (can_data.orion_currents_volts.pack_voltage*0.1); /* Incoming is 10*V of terminal*/
@@ -32,6 +32,9 @@ void vcu_pp(xVCU_struct *xVCU, GPS_Handle_t *GPS)
     xVCU->DB_RAW = (can_data.dashboard_tv_parameters.tv_deadband_val); /*Incoming is int16 value*/
     xVCU->PI_RAW = (can_data.dashboard_tv_parameters.tv_intensity_val); /*Incoming is int16 value*/
     xVCU->PP_RAW = (can_data.dashboard_tv_parameters.tv_p_val); /*Incoming is int16 value*/
+
+
+    /*Raw F Data*/
     
 
 }

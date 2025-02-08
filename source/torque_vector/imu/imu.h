@@ -18,7 +18,6 @@
 #include "can_parse.h"
 #include <stdbool.h>
 #include <float.h>
-#include "SFS.h"
 
 typedef struct
 {

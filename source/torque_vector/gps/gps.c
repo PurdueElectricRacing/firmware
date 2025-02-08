@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "gps.h"
-//#include "sfs_pp.h"
-//#include "SFS.h"
 
 /*
     Instructions on configuring GPS:

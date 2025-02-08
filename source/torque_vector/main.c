@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "vcu_init.c"
+#include "vcu_pp.h"
 
 
 uint8_t collect_test[100] = {0};
@@ -290,10 +291,10 @@ void preflightChecks(void)
         break;
     case 700:
         /* Initialize VCU structs */
-        init_pVCU(pVCU);
-        init_fVCU(fVCU);
-        init_xVCU(xVCU);
-        init_yVCU(yVCU);
+        init_pVCU(&pVCU);
+        init_fVCU(&fVCU);
+        init_xVCU(&xVCU);
+        init_yVCU(&yVCU);
 
     default:
         if (state > 750)

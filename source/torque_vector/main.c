@@ -23,7 +23,15 @@
 
 #include "vcu_init.c"
 
+
 uint8_t collect_test[100] = {0};
+
+// VCU structs
+pVCU_struct pVCU;
+fVCU_struct fVCU;
+xVCU_struct xVCU;
+yVCU_struct yVCU;
+
 
 GPIOInitConfig_t gpio_config[] = {
 
@@ -281,6 +289,10 @@ void preflightChecks(void)
         break;
     case 700:
         /* Initialize VCU structs */
+        init_pVCU(pVCU);
+        init_fVCU(fVCU);
+        init_xVCU(xVCU);
+        init_yVCU(yVCU);
 
     default:
         if (state > 750)

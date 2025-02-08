@@ -17,6 +17,7 @@
 
 #include "bmi088.h"
 #include "imu.h"
+#include "vcu_pp.c"
 #include "gps.h"
 
 #include <string.h>
@@ -382,10 +383,9 @@ void CAN1_RX0_IRQHandler()
 void VCU_MAIN(void)
 {
     /* Fill in X & F */
-
+    vcu_pp(&xVCU, &fVCU, &GPSHandle);
 
     /* Step VCU */
-
 
     /* Set TV faults */
     setFault(ID_PT_ENABLED_FAULT,0);
@@ -397,6 +397,10 @@ void VCU_MAIN(void)
 
     /* Send messages */
     SEND_THROTTLE_VCU((int16_t)(0*4095),(int16_t)(0*4095));
+    SEND_TORQUE_PER_MODES(yVCU.TO_ET[0], yVCU.TO_PT[0], yVCU.TO_ET[0]);
+    SEND_UNEQUAL_MODE_TORQUE(yVCU.TO_VT[0], yVCU.TO_VT[1]);
+    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Voc);
+    SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

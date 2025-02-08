@@ -19,17 +19,12 @@
 #include "imu.h"
 #include "gps.h"
 
-#include "tv.h"
-#include "tv_pp.h"
-
 #include "bsxlite_interface.h"
 
 #include "bmi088.h"
 #include "imu.h"
 #include "gps.h"
 
-#include "tv.h"
-#include "tv_pp.h"
 #include <string.h>
 
 uint8_t collect_test[100] = {0};
@@ -189,15 +184,6 @@ void parseIMU(void);
 void pollIMU(void);
 void VCU_MAIN(void);
 void testUsart(void);
-
-/* Torque Vectoring Definitions */
-static ExtU_tv rtU_tv; /* External inputs */
-static ExtY_tv rtY_tv; /* External outputs */
-static RT_MODEL_tv rtM_tvv;
-static RT_MODEL_tv *const rtMPtr_tv = &rtM_tvv; /* Real-time model */
-static DW_tv rtDW_tv;                        /* Observable states */
-static RT_MODEL_tv *const rtM_tv = rtMPtr_tv;
-static int16_t tv_timing;
 
 /* Moving Median Definition */
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
@@ -405,14 +391,6 @@ void VCU_MAIN(void)
     int16_t equal_k_rl = 0;
     int16_t equal_k_rr = 0;
 
-    /* Populate torque vectoring inputs */
-    tv_pp(&rtU_tv, &GPSHandle);
-
-    /* Step torque vectoring */
-    tv_timing = sched.os_ticks;
-    tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
-    tv_timing = sched.os_ticks - tv_timing;
-
     /* Set TV faults */
     setFault(ID_PT_ENABLED_FAULT,0);
     setFault(ID_VT_ENABLED_FAULT,0);
@@ -423,10 +401,10 @@ void VCU_MAIN(void)
     setFault(ID_YES_GPS_FIX_FAULT,0);
 
     /* Get motor commands */
-    tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);
-    tvs_k_rr = (int16_t)(rtY_em.kTVS[1]*4095);
-    equal_k_rl = (int16_t)(rtY_em.kEQUAL[0]*4095);
-    equal_k_rr = (int16_t)(rtY_em.kEQUAL[1]*4095);
+    tvs_k_rl = (int16_t)(0*4095);
+    tvs_k_rr = (int16_t)(0*4095);
+    equal_k_rl = (int16_t)(0*4095);
+    equal_k_rr = (int16_t)(0*4095);
 
     /* Send messages */
     SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr);

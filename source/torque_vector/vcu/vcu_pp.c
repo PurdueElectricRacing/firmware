@@ -35,8 +35,7 @@ void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
 
 
     /*Raw F Data*/
-    
-
+    fVCU->CS_SFLAG = true; /*DUMMY*/
     fVCU->TB_SFLAG = (can_data.filt_throttle_brake.stale == 0);
     fVCU->SS_SFLAG = (can_data.LWS_Standard.stale == 0);
     fVCU->WT_SFLAG = (can_data.rear_wheel_speeds.stale == 0);

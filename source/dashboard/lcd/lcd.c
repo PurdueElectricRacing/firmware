@@ -1101,7 +1101,7 @@ char *int_to_char(int16_t val, char *val_to_send) {
 
 void sendTVParameters()
 {
-    SEND_DASHBOARD_TV_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
+    SEND_DASHBOARD_VCU_PARAMETERS(tv_settings.tv_enable_selected, tv_settings.tv_deadband_val, tv_settings.tv_intensity_val, tv_settings.tv_p_val);
 }
 
 void updateFaultPageIndicators()

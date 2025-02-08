@@ -33,8 +33,10 @@ typedef union {
 #define ID_MAIN_HB_AMK 0xc001901
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
+#define ID_INV_OVERLOAD 0xc000b01
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
+#define ID_ACTUAL_TORQUE_SPEED 0x4000441
 #define ID_LOAD_SENSOR_READINGS 0x1000fa01
 #define ID_SHOCK_REAR 0x1000ff01
 #define ID_MCU_STATUS 0x10001981
@@ -74,8 +76,10 @@ typedef union {
 #define DLC_MAIN_HB_AMK 2
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
+#define DLC_INV_OVERLOAD 8
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
+#define DLC_ACTUAL_TORQUE_SPEED 8
 #define DLC_LOAD_SENSOR_READINGS 8
 #define DLC_SHOCK_REAR 4
 #define DLC_MCU_STATUS 4
@@ -135,6 +139,15 @@ typedef union {
         data_a->coolant_temps.drivetrain_out_temp = drivetrain_out_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_INV_OVERLOAD(AMK_DisplayOverloadInverterA_, AMK_DisplayOverloadMotorA_, AMK_DisplayOverloadInverterB_, AMK_DisplayOverloadMotorB_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_INV_OVERLOAD, .DLC=DLC_INV_OVERLOAD, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INV_Overload.AMK_DisplayOverloadInverterA = AMK_DisplayOverloadInverterA_;\
+        data_a->INV_Overload.AMK_DisplayOverloadMotorA = AMK_DisplayOverloadMotorA_;\
+        data_a->INV_Overload.AMK_DisplayOverloadInverterB = AMK_DisplayOverloadInverterB_;\
+        data_a->INV_Overload.AMK_DisplayOverloadMotorB = AMK_DisplayOverloadMotorB_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 #define SEND_GEARBOX(l_temp_, r_temp_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GEARBOX, .DLC=DLC_GEARBOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -148,6 +161,15 @@ typedef union {
         data_a->LWS_Config.CCW = CCW_;\
         data_a->LWS_Config.Reserved_1 = Reserved_1_;\
         data_a->LWS_Config.Reserved_2 = Reserved_2_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_ACTUAL_TORQUE_SPEED(torque_left_, torque_right_, speed_left_, speed_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_ACTUAL_TORQUE_SPEED, .DLC=DLC_ACTUAL_TORQUE_SPEED, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->actual_torque_speed.torque_left = torque_left_;\
+        data_a->actual_torque_speed.torque_right = torque_right_;\
+        data_a->actual_torque_speed.speed_left = speed_left_;\
+        data_a->actual_torque_speed.speed_right = speed_right_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_LOAD_SENSOR_READINGS(left_load_sensor_, right_load_sensor_) do {\
@@ -362,6 +384,12 @@ typedef union {
         uint64_t drivetrain_out_temp: 8;
     } coolant_temps;
     struct {
+        uint64_t AMK_DisplayOverloadInverterA: 16;
+        uint64_t AMK_DisplayOverloadMotorA: 16;
+        uint64_t AMK_DisplayOverloadInverterB: 16;
+        uint64_t AMK_DisplayOverloadMotorB: 16;
+    } INV_Overload;
+    struct {
         uint64_t l_temp: 8;
         uint64_t r_temp: 8;
     } gearbox;
@@ -370,6 +398,12 @@ typedef union {
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
     } LWS_Config;
+    struct {
+        uint64_t torque_left: 16;
+        uint64_t torque_right: 16;
+        uint64_t speed_left: 16;
+        uint64_t speed_right: 16;
+    } actual_torque_speed;
     struct {
         uint64_t left_load_sensor: 32;
         uint64_t right_load_sensor: 32;

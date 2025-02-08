@@ -46,6 +46,12 @@ BO_ 2415921281 coolant_temps: 4 Main_Module
  SG_ battery_out_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
  SG_ battery_in_temp : 0|8@1- (1,0) [0|0] "C" Vector__XXX
 
+BO_ 2348813057 INV_Overload: 8 Main_Module
+ SG_ AMK_DisplayOverloadMotorB : 48|16@1+ (0.01,0) [0|0] "%" Vector__XXX
+ SG_ AMK_DisplayOverloadInverterB : 32|16@1+ (0.01,0) [0|0] "%" Vector__XXX
+ SG_ AMK_DisplayOverloadMotorA : 16|16@1+ (0.01,0) [0|0] "%" Vector__XXX
+ SG_ AMK_DisplayOverloadInverterA : 0|16@1+ (0.01,0) [0|0] "%" Vector__XXX
+
 BO_ 2415921409 gearbox: 2 Main_Module
  SG_ r_temp : 8|8@1- (1,0) [0|0] "" Vector__XXX
  SG_ l_temp : 0|8@1- (1,0) [0|0] "" Vector__XXX
@@ -54,6 +60,12 @@ BO_ 2147485632 LWS_Config: 2 Main_Module
  SG_ Reserved_2 : 8|8@1+ (1,0) [0|0] "" Vector__XXX
  SG_ Reserved_1 : 3|5@1+ (1,0) [0|0] "" Vector__XXX
  SG_ CCW : 0|3@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2214593601 actual_torque_speed: 8 Main_Module
+ SG_ speed_right : 48|16@1- (1,0) [0|0] "rad/s" Vector__XXX
+ SG_ speed_left : 32|16@1- (1,0) [0|0] "rad/s" Vector__XXX
+ SG_ torque_right : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ torque_left : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
 
 BO_ 2415983105 load_sensor_readings: 8 Main_Module
  SG_ right_load_sensor : 32|32@1- (1,0) [0|0] "N" Vector__XXX
@@ -357,11 +369,11 @@ BO_ 2415925573 dashboard_volts_temp: 6 Dashboard
  SG_ volts_5v : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214596037 dashboard_tv_parameters: 7 Dashboard
+BO_ 2214596037 dashboard_vcu_parameters: 7 Dashboard
  SG_ tv_p_val : 33|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ tv_intensity_val : 17|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ tv_deadband_val : 1|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ tv_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vcu_mode : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214596101 dashboard_start_logging: 1 Dashboard
  SG_ logging_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -649,6 +661,11 @@ CM_ SG_ 2415921281 drivetrain_out_temp "Out flow temperature of drivetrain coola
 CM_ SG_ 2415921281 drivetrain_in_temp "In flow temperature of drivetrain coolant loop";
 CM_ SG_ 2415921281 battery_out_temp "Out flow temperature of battery coolant loop";
 CM_ SG_ 2415921281 battery_in_temp "In flow temperature of battery coolant loop";
+CM_ BO_ 2348813057 "Display overload info";
+CM_ SG_ 2348813057 AMK_DisplayOverloadMotorB "";
+CM_ SG_ 2348813057 AMK_DisplayOverloadInverterB "";
+CM_ SG_ 2348813057 AMK_DisplayOverloadMotorA "";
+CM_ SG_ 2348813057 AMK_DisplayOverloadInverterA "";
 CM_ BO_ 2415921409 "Gearbox temps";
 CM_ SG_ 2415921409 r_temp "";
 CM_ SG_ 2415921409 l_temp "";
@@ -656,6 +673,11 @@ CM_ BO_ 2147485632 "Steering sensor configuration";
 CM_ SG_ 2147485632 Reserved_2 "";
 CM_ SG_ 2147485632 Reserved_1 "";
 CM_ SG_ 2147485632 CCW "";
+CM_ BO_ 2214593601 "Actual Torque and Speed from AMK";
+CM_ SG_ 2214593601 speed_right "";
+CM_ SG_ 2214593601 speed_left "";
+CM_ SG_ 2214593601 torque_right "";
+CM_ SG_ 2214593601 torque_left "";
 CM_ BO_ 2415983105 "Load Sensor readings from left and right";
 CM_ SG_ 2415983105 right_load_sensor "";
 CM_ SG_ 2415983105 left_load_sensor "";
@@ -913,11 +935,11 @@ CM_ BO_ 2415925573 "periodic dashboard MCU temp";
 CM_ SG_ 2415925573 volts_3v3 "";
 CM_ SG_ 2415925573 volts_5v "";
 CM_ SG_ 2415925573 mcu_temp "";
-CM_ BO_ 2214596037 "periodic dashboard tv parameters";
+CM_ BO_ 2214596037 "periodic dashboard vcu parameters";
 CM_ SG_ 2214596037 tv_p_val "";
 CM_ SG_ 2214596037 tv_intensity_val "";
 CM_ SG_ 2214596037 tv_deadband_val "";
-CM_ SG_ 2214596037 tv_enabled "";
+CM_ SG_ 2214596037 vcu_mode "";
 CM_ BO_ 2214596101 "start logging";
 CM_ SG_ 2214596101 logging_enabled "";
 CM_ BO_ 2416009989 "CAN diagnostics";

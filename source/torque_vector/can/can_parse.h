@@ -39,11 +39,13 @@
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_LWS_STANDARD 0x2b0
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
+#define ID_DASHBOARD_VCU_PARAMETERS 0x4000dc5
 #define ID_MAIN_HB 0xc001901
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_ACTUAL_TORQUE_SPEED 0x4000441
+#define ID_INV_OVERLOAD 0xc000b01
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -73,11 +75,13 @@
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_LWS_STANDARD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_DASHBOARD_TV_PARAMETERS 7
+#define DLC_DASHBOARD_VCU_PARAMETERS 7
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_MAX_CELL_TEMP 2
+#define DLC_ACTUAL_TORQUE_SPEED 8
+#define DLC_INV_OVERLOAD 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -200,11 +204,13 @@
 #define UP_FILT_THROTTLE_BRAKE 15
 #define UP_LWS_STANDARD 15
 #define UP_ORION_CURRENTS_VOLTS 32
-#define UP_DASHBOARD_TV_PARAMETERS 500
+#define UP_DASHBOARD_VCU_PARAMETERS 500
 #define UP_MAIN_HB 500
 #define UP_REAR_WHEEL_SPEEDS 15
 #define UP_REAR_MOTOR_TEMPS 1000
 #define UP_MAX_CELL_TEMP 500
+#define UP_ACTUAL_TORQUE_SPEED 15
+#define UP_INV_OVERLOAD 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) \
@@ -314,11 +320,11 @@ typedef union {
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t tv_enabled: 1;
+        uint64_t vcu_mode: 1;
         uint64_t tv_deadband_val: 16;
         uint64_t tv_intensity_val: 16;
         uint64_t tv_p_val: 16;
-    } dashboard_tv_parameters;
+    } dashboard_vcu_parameters;
     struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
@@ -340,6 +346,18 @@ typedef union {
     struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
+    struct {
+        uint64_t torque_left: 16;
+        uint64_t torque_right: 16;
+        uint64_t speed_left: 16;
+        uint64_t speed_right: 16;
+    } actual_torque_speed;
+    struct {
+        uint64_t AMK_DisplayOverloadInverterA: 16;
+        uint64_t AMK_DisplayOverloadMotorA: 16;
+        uint64_t AMK_DisplayOverloadInverterB: 16;
+        uint64_t AMK_DisplayOverloadMotorB: 16;
+    } INV_Overload;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -403,13 +421,13 @@ typedef struct {
         uint32_t last_rx;
     } orion_currents_volts;
     struct {
-        uint8_t tv_enabled;
+        uint8_t vcu_mode;
         uint16_t tv_deadband_val;
         uint16_t tv_intensity_val;
         uint16_t tv_p_val;
         uint8_t stale;
         uint32_t last_rx;
-    } dashboard_tv_parameters;
+    } dashboard_vcu_parameters;
     struct {
         car_state_t car_state;
         uint8_t precharge_state;
@@ -439,6 +457,22 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } max_cell_temp;
+    struct {
+        int16_t torque_left;
+        int16_t torque_right;
+        int16_t speed_left;
+        int16_t speed_right;
+        uint8_t stale;
+        uint32_t last_rx;
+    } actual_torque_speed;
+    struct {
+        uint16_t AMK_DisplayOverloadInverterA;
+        uint16_t AMK_DisplayOverloadMotorA;
+        uint16_t AMK_DisplayOverloadInverterB;
+        uint16_t AMK_DisplayOverloadMotorB;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INV_Overload;
     struct {
         uint16_t idx;
         uint8_t latched;

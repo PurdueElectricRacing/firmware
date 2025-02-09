@@ -17,23 +17,12 @@
 
 #include "bmi088.h"
 #include "imu.h"
-#include "vcu_pp.c"
 #include "gps.h"
+#include "vcu.h"
 
 #include <string.h>
 
-#include "vcu_init.c"
-#include "vcu_pp.h"
-
-
 uint8_t collect_test[100] = {0};
-
-// VCU structs
-pVCU_struct pVCU;
-fVCU_struct fVCU;
-xVCU_struct xVCU;
-yVCU_struct yVCU;
-
 
 GPIOInitConfig_t gpio_config[] = {
 
@@ -193,6 +182,12 @@ void testUsart(void);
 
 /* Moving Median Definition */
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
+
+// VCU structs
+static pVCU_struct pVCU;
+static fVCU_struct fVCU;
+static xVCU_struct xVCU;
+static yVCU_struct yVCU;
 
 int main(void)
 {
@@ -387,20 +382,19 @@ void VCU_MAIN(void)
     vcu_pp(&xVCU, &fVCU, &GPSHandle);
 
     /* Step VCU */
+    vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
     /* Set TV faults */
-    setFault(ID_PT_ENABLED_FAULT,0);
-    setFault(ID_VT_ENABLED_FAULT,0);
-    setFault(ID_VS_ENABLED_FAULT,0);
-    setFault(ID_ET_ENABLED_FAULT,0);
-    setFault(ID_NO_GPS_FIX_FAULT,0);
-    setFault(ID_YES_GPS_FIX_FAULT,0);
+    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
+    setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
+    setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
+    setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
+    setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
+    setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
 
     /* Send messages */
-    SEND_THROTTLE_VCU((int16_t)(0*4095),(int16_t)(0*4095));
-    SEND_TORQUE_PER_MODES(yVCU.TO_ET[0], yVCU.TO_PT[0], yVCU.TO_ET[0]);
-    SEND_UNEQUAL_MODE_TORQUE(yVCU.TO_VT[0], yVCU.TO_VT[1]);
-    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Voc);
+    SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
+    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
     SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
 }
 

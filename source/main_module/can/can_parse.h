@@ -58,8 +58,7 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
-#define ID_TORQUE_PER_MODES 0x4002677
-#define ID_UNEQUAL_MODE_TORQUE 0x40026b7
+#define ID_VCU_TORQUES_SPEEDS 0x40026b7
 #define ID_DRIVE_MODES 0xc002737
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -101,8 +100,7 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
-#define DLC_TORQUE_PER_MODES 6
-#define DLC_UNEQUAL_MODE_TORQUE 4
+#define DLC_VCU_TORQUES_SPEEDS 8
 #define DLC_DRIVE_MODES 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -296,8 +294,7 @@ typedef union {
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_THROTTLE_VCU 20
 #define UP_THROTTLE_VCU_EQUAL 20
-#define UP_TORQUE_PER_MODES 20
-#define UP_UNEQUAL_MODE_TORQUE 20
+#define UP_VCU_TORQUES_SPEEDS 20
 #define UP_DRIVE_MODES 20
 /* END AUTO UP DEFS */
 
@@ -523,14 +520,11 @@ typedef union {
         uint64_t equal_k_rr: 16;
     } throttle_vcu_equal;
     struct {
-        uint64_t TO_ET: 16;
-        uint64_t TO_PT: 16;
-        uint64_t TO_VS: 16;
-    } torque_per_modes;
-    struct {
-        uint64_t torque_rl: 16;
-        uint64_t torque_rr: 16;
-    } unequal_mode_torque;
+        uint64_t TO_VT_left: 16;
+        uint64_t TO_VT_right: 16;
+        uint64_t TO_PT_equal: 16;
+        uint64_t WS_VS_equal: 16;
+    } VCU_torques_speeds;
     struct {
         uint64_t VCU_mode: 8;
         uint64_t VT_mode: 8;
@@ -630,18 +624,13 @@ typedef struct {
         uint32_t last_rx;
     } throttle_vcu_equal;
     struct {
-        int16_t TO_ET;
-        int16_t TO_PT;
-        int16_t TO_VS;
+        int16_t TO_VT_left;
+        int16_t TO_VT_right;
+        int16_t TO_PT_equal;
+        int16_t WS_VS_equal;
         uint8_t stale;
         uint32_t last_rx;
-    } torque_per_modes;
-    struct {
-        int16_t torque_rl;
-        int16_t torque_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } unequal_mode_torque;
+    } VCU_torques_speeds;
     struct {
         int8_t VCU_mode;
         int8_t VT_mode;

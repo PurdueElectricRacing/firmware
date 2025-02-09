@@ -314,17 +314,14 @@ BO_ 2214602807 throttle_vcu_equal: 4 torque_vector
  SG_ equal_k_rr : 16|16@1- (1,0) [0|0] "none" Vector__XXX
  SG_ equal_k_rl : 0|16@1- (1,0) [0|0] "none" Vector__XXX
 
-BO_ 2214602359 torque_per_modes: 6 torque_vector
- SG_ TO_VS : 32|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
- SG_ TO_PT : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
- SG_ TO_ET : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
-
-BO_ 2214602423 unequal_mode_torque: 4 torque_vector
- SG_ torque_rr : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
- SG_ torque_rl : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+BO_ 2214602423 VCU_torques_speeds: 8 torque_vector
+ SG_ WS_VS_equal : 48|16@1- (1,0) [0|0] "rad/s" Vector__XXX
+ SG_ TO_PT_equal : 32|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ TO_VT_right : 16|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
+ SG_ TO_VT_left : 0|16@1- (0.01,0) [0|0] "Nm" Vector__XXX
 
 BO_ 2281711351 vcu_soc_estimate: 4 torque_vector
- SG_ V_oc_estimate : 16|16@1- (0.015,0) [0|0] "V" Vector__XXX
+ SG_ Voc_estimate : 16|16@1- (0.015,0) [0|0] "V" Vector__XXX
  SG_ SOC_estimate : 0|16@1- (3e-05,0) [0|0] "none" Vector__XXX
 
 BO_ 2348820279 drive_modes: 2 torque_vector
@@ -892,15 +889,13 @@ CM_ SG_ 2214602167 vcu_k_rl "";
 CM_ BO_ 2214602807 "throttle vcu equal";
 CM_ SG_ 2214602807 equal_k_rr "";
 CM_ SG_ 2214602807 equal_k_rl "";
-CM_ BO_ 2214602359 "Torque for each equal torque mode";
-CM_ SG_ 2214602359 TO_VS "";
-CM_ SG_ 2214602359 TO_PT "";
-CM_ SG_ 2214602359 TO_ET "";
-CM_ BO_ 2214602423 "Torque for varying torque mode";
-CM_ SG_ 2214602423 torque_rr "";
-CM_ SG_ 2214602423 torque_rl "";
-CM_ BO_ 2281711351 "VCU_SOC_estimate";
-CM_ SG_ 2281711351 V_oc_estimate "";
+CM_ BO_ 2214602423 "All torque setpoints and speed setpoints";
+CM_ SG_ 2214602423 WS_VS_equal "";
+CM_ SG_ 2214602423 TO_PT_equal "";
+CM_ SG_ 2214602423 TO_VT_right "";
+CM_ SG_ 2214602423 TO_VT_left "";
+CM_ BO_ 2281711351 "Estimated Voc and SOC for HV battery";
+CM_ SG_ 2281711351 Voc_estimate "";
 CM_ SG_ 2281711351 SOC_estimate "";
 CM_ BO_ 2348820279 "Drive Modes";
 CM_ SG_ 2348820279 VT_mode "";

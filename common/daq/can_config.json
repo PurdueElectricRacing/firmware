@@ -239,8 +239,7 @@
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "throttle_vcu"},
                         {"msg_name": "throttle_vcu_equal"},
-                        {"msg_name": "torque_per_modes"},
-                        {"msg_name": "unequal_mode_torque"},
+                        {"msg_name": "VCU_torques_speeds"},
                         {"msg_name": "drive_modes"}
                     ]
                 },
@@ -589,23 +588,13 @@
                             "msg_pgn": 160
                         },
                         {
-                            "msg_name": "torque_per_modes",
-                            "msg_desc": "Torque for each equal torque mode",
+                            "msg_name": "VCU_torques_speeds",
+                            "msg_desc": "All torque setpoints and speed setpoints",
                             "signals": [
-                                {"sig_name": "TO_ET", "type": "int16_t", "unit": "Nm", "scale": 0.01},
-                                {"sig_name": "TO_PT", "type": "int16_t", "unit": "Nm", "scale": 0.01},
-                                {"sig_name": "TO_VS", "type": "int16_t", "unit": "Nm", "scale": 0.01}
-                            ],
-                            "msg_period": 20,
-                            "msg_hlp": 1,
-                            "msg_pgn": 153
-                        },
-                        {
-                            "msg_name": "unequal_mode_torque",
-                            "msg_desc": "Torque for varying torque mode",
-                            "signals": [
-                                {"sig_name": "torque_rl", "type": "int16_t", "unit": "Nm", "scale": 0.01},
-                                {"sig_name": "torque_rr", "type": "int16_t", "unit": "Nm", "scale": 0.01}
+                                {"sig_name": "TO_VT_left", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "TO_VT_right", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "TO_PT_equal", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "WS_VS_equal", "type": "int16_t", "unit": "rad/s", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 1,
@@ -613,10 +602,10 @@
                         },
                         {
                             "msg_name": "vcu_soc_estimate",
-                            "msg_desc": "VCU_SOC_estimate",
+                            "msg_desc": "Estimated Voc and SOC for HV battery",
                             "signals": [
                                 {"sig_name": "SOC_estimate", "type": "int16_t", "unit": "none", "scale": 0.00003},
-                                {"sig_name": "V_oc_estimate", "type": "int16_t", "unit": "V", "scale": 0.015}
+                                {"sig_name": "Voc_estimate", "type": "int16_t", "unit": "V", "scale": 0.015}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 2,
@@ -636,16 +625,16 @@
                     ],
                     "rx":[
                         {"msg_name": "torquevector_bl_cmd", "callback": true},
+                        {"msg_name": "main_hb"},
                         {"msg_name": "filt_throttle_brake"},
                         {"msg_name": "LWS_Standard"},
-                        {"msg_name": "orion_currents_volts"},
-                        {"msg_name": "dashboard_vcu_parameters"},
-                        {"msg_name": "main_hb"},
                         {"msg_name": "rear_wheel_speeds"},
+                        {"msg_name": "orion_currents_volts"},
                         {"msg_name": "rear_motor_temps"},
                         {"msg_name": "max_cell_temp"},
                         {"msg_name": "actual_torque_speed"},
-                        {"msg_name": "INV_Overload"}
+                        {"msg_name": "INV_Overload"},
+                        {"msg_name": "dashboard_vcu_parameters"}
                     ]
                 },
                 {

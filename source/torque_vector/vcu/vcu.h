@@ -1,3 +1,5 @@
+#include "gps.h"
+
 typedef struct {
   float r;
   float ht[2];
@@ -125,25 +127,25 @@ typedef struct {
 } fVCU_struct;
 
 typedef struct {
-  double TH_RAW;
-  double ST_RAW;
-  double VB_RAW;
-  double WT_RAW[2];
-  double WM_RAW[2];
-  double GS_RAW;
-  double AV_RAW[3];
-  double IB_RAW;
-  double MT_RAW;
-  double CT_RAW;
-  double IT_RAW;
-  double MC_RAW;
-  double IC_RAW;
-  double BT_RAW;
-  double AG_RAW[3];
-  double TO_RAW[2];
-  double DB_RAW;
-  double PI_RAW;
-  double PP_RAW;
+  float TH_RAW;
+  float ST_RAW;
+  float VB_RAW;
+  float WT_RAW[2];
+  float WM_RAW[2];
+  float GS_RAW;
+  float AV_RAW[3];
+  float IB_RAW;
+  float MT_RAW;
+  float CT_RAW;
+  float IT_RAW;
+  float MC_RAW;
+  float IC_RAW;
+  float BT_RAW;
+  float AG_RAW[3];
+  float TO_RAW[2];
+  float DB_RAW;
+  float PI_RAW;
+  float PP_RAW;
 } xVCU_struct;
 
 typedef struct {
@@ -173,6 +175,7 @@ typedef struct {
   float PI_CF;
   float PP_CF;
   float Batt_SOC;
+  float Batt_Voc;
   float zero_current_counter;
   float TO_ET[2];
   float TO_AB_MX;
@@ -186,5 +189,13 @@ typedef struct {
   float TC_highs;
   float TC_lows;
   float sl;
-  float Voc;
 } yVCU_struct;
+
+void init_pVCU(pVCU_struct* pVCU);
+void init_fVCU(fVCU_struct* fVCU);
+void init_xVCU(xVCU_struct* xVCU);
+void init_yVCU(yVCU_struct* yVCU);
+
+void vcu_pp(xVCU_struct* xVCU, fVCU_struct* fVCU, GPS_Handle_t* GPS);
+
+void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x, yVCU_struct *y);

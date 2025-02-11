@@ -33,6 +33,10 @@ typedef union {
 #define ID_MAIN_HB_AMK 0xc001901
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
+#define ID_INVA_CRIT 0x282
+#define ID_INVA_TEMPS 0x284
+#define ID_INVB_CRIT 0x292
+#define ID_INVB_TEMPS 0x294
 #define ID_INV_OVERLOAD 0xc000b01
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
@@ -75,6 +79,10 @@ typedef union {
 #define DLC_MAIN_HB_AMK 2
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
+#define DLC_INVA_CRIT 8
+#define DLC_INVA_TEMPS 6
+#define DLC_INVB_CRIT 8
+#define DLC_INVB_TEMPS 6
 #define DLC_INV_OVERLOAD 8
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
@@ -135,6 +143,40 @@ typedef union {
         data_a->coolant_temps.battery_out_temp = battery_out_temp_;\
         data_a->coolant_temps.drivetrain_in_temp = drivetrain_in_temp_;\
         data_a->coolant_temps.drivetrain_out_temp = drivetrain_out_temp_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVA_CRIT(AMK_ActualSpeed_, AMK_ActualTorque_, AMK_DisplayOverloadInverter_, AMK_DisplayOverloadMotor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVA_CRIT, .DLC=DLC_INVA_CRIT, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVA_CRIT.AMK_ActualSpeed = AMK_ActualSpeed_;\
+        data_a->INVA_CRIT.AMK_ActualTorque = AMK_ActualTorque_;\
+        data_a->INVA_CRIT.AMK_DisplayOverloadInverter = AMK_DisplayOverloadInverter_;\
+        data_a->INVA_CRIT.AMK_DisplayOverloadMotor = AMK_DisplayOverloadMotor_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVA_TEMPS(AMK_MotorTemp_, AMK_InverterTemp_, AMK_IGBTTemp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVA_TEMPS, .DLC=DLC_INVA_TEMPS, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVA_TEMPS.AMK_MotorTemp = AMK_MotorTemp_;\
+        data_a->INVA_TEMPS.AMK_InverterTemp = AMK_InverterTemp_;\
+        data_a->INVA_TEMPS.AMK_IGBTTemp = AMK_IGBTTemp_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVB_CRIT(AMK_ActualSpeed_, AMK_ActualTorque_, AMK_DisplayOverloadInverter_, AMK_DisplayOverloadMotor_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVB_CRIT, .DLC=DLC_INVB_CRIT, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVB_CRIT.AMK_ActualSpeed = AMK_ActualSpeed_;\
+        data_a->INVB_CRIT.AMK_ActualTorque = AMK_ActualTorque_;\
+        data_a->INVB_CRIT.AMK_DisplayOverloadInverter = AMK_DisplayOverloadInverter_;\
+        data_a->INVB_CRIT.AMK_DisplayOverloadMotor = AMK_DisplayOverloadMotor_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVB_TEMPS(AMK_MotorTemp_, AMK_InverterTemp_, AMK_IGBTTemp_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVB_TEMPS, .DLC=DLC_INVB_TEMPS, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVB_TEMPS.AMK_MotorTemp = AMK_MotorTemp_;\
+        data_a->INVB_TEMPS.AMK_InverterTemp = AMK_InverterTemp_;\
+        data_a->INVB_TEMPS.AMK_IGBTTemp = AMK_IGBTTemp_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_INV_OVERLOAD(AMK_DisplayOverloadInverterA_, AMK_DisplayOverloadMotorA_, AMK_DisplayOverloadInverterB_, AMK_DisplayOverloadMotorB_) do {\
@@ -380,6 +422,28 @@ typedef union {
         uint64_t drivetrain_in_temp: 8;
         uint64_t drivetrain_out_temp: 8;
     } coolant_temps;
+    struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVA_CRIT;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVA_TEMPS;
+    struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVB_CRIT;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVB_TEMPS;
     struct {
         uint64_t AMK_DisplayOverloadInverterA: 16;
         uint64_t AMK_DisplayOverloadMotorA: 16;

@@ -46,6 +46,28 @@ BO_ 2415921281 coolant_temps: 4 Main_Module
  SG_ battery_out_temp : 8|8@1- (1,0) [0|0] "C" Vector__XXX
  SG_ battery_in_temp : 0|8@1- (1,0) [0|0] "C" Vector__XXX
 
+BO_ 2147484290 INVA_CRIT: 8 Main_Module
+ SG_ AMK_DisplayOverloadMotor : 48|16@1+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ AMK_DisplayOverloadInverter : 32|16@1+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ AMK_ActualTorque : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_ActualSpeed : 0|16@1- (1,0) [0|0] "rpm" Vector__XXX
+
+BO_ 2147484292 INVA_TEMPS: 6 Main_Module
+ SG_ AMK_IGBTTemp : 32|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_InverterTemp : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_MotorTemp : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
+
+BO_ 2147484306 INVB_CRIT: 8 Main_Module
+ SG_ AMK_DisplayOverloadMotor : 48|16@1+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ AMK_DisplayOverloadInverter : 32|16@1+ (0.1,0) [0|0] "%" Vector__XXX
+ SG_ AMK_ActualTorque : 16|16@1- (0.1,0) [0|0] "Nm" Vector__XXX
+ SG_ AMK_ActualSpeed : 0|16@1- (1,0) [0|0] "rpm" Vector__XXX
+
+BO_ 2147484308 INVB_TEMPS: 6 Main_Module
+ SG_ AMK_IGBTTemp : 32|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_InverterTemp : 16|16@1- (0.1,0) [0|0] "C" Vector__XXX
+ SG_ AMK_MotorTemp : 0|16@1- (0.1,0) [0|0] "C" Vector__XXX
+
 BO_ 2348813057 INV_Overload: 8 Main_Module
  SG_ AMK_DisplayOverloadMotorB : 48|16@1+ (0.01,0) [0|0] "%" Vector__XXX
  SG_ AMK_DisplayOverloadInverterB : 32|16@1+ (0.01,0) [0|0] "%" Vector__XXX
@@ -658,6 +680,24 @@ CM_ SG_ 2415921281 drivetrain_out_temp "Out flow temperature of drivetrain coola
 CM_ SG_ 2415921281 drivetrain_in_temp "In flow temperature of drivetrain coolant loop";
 CM_ SG_ 2415921281 battery_out_temp "Out flow temperature of battery coolant loop";
 CM_ SG_ 2415921281 battery_in_temp "In flow temperature of battery coolant loop";
+CM_ BO_ 2147484290 "Contains the status word and actual values";
+CM_ SG_ 2147484290 AMK_DisplayOverloadMotor "";
+CM_ SG_ 2147484290 AMK_DisplayOverloadInverter "";
+CM_ SG_ 2147484290 AMK_ActualTorque "Actual torque value";
+CM_ SG_ 2147484290 AMK_ActualSpeed "Actual speed value";
+CM_ BO_ 2147484292 "Contains temperatures";
+CM_ SG_ 2147484292 AMK_IGBTTemp "IGBT temperature";
+CM_ SG_ 2147484292 AMK_InverterTemp "Inverter cold plate temperature";
+CM_ SG_ 2147484292 AMK_MotorTemp "Motor temperature";
+CM_ BO_ 2147484306 "Contains the status word and actual values";
+CM_ SG_ 2147484306 AMK_DisplayOverloadMotor "";
+CM_ SG_ 2147484306 AMK_DisplayOverloadInverter "";
+CM_ SG_ 2147484306 AMK_ActualTorque "Actual torque value";
+CM_ SG_ 2147484306 AMK_ActualSpeed "Actual speed value";
+CM_ BO_ 2147484308 "Contains temperatures";
+CM_ SG_ 2147484308 AMK_IGBTTemp "IGBT temperature";
+CM_ SG_ 2147484308 AMK_InverterTemp "Inverter cold plate temperature";
+CM_ SG_ 2147484308 AMK_MotorTemp "Motor temperature";
 CM_ BO_ 2348813057 "Display overload info";
 CM_ SG_ 2348813057 AMK_DisplayOverloadMotorB "";
 CM_ SG_ 2348813057 AMK_DisplayOverloadInverterB "";

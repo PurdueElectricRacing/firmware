@@ -229,6 +229,11 @@ Note: schematic refers to coolant hardware as 1 and 2
 
 #define INTERNAL_THERM_ADC_CHNL     (17)
 
+/* AMK VSENSE */
+#define AMK_25V_V_SENSE_GPIO_PORT (GPIOB)
+#define AMK_25V_V_SENSE_PIN (1)
+#define AMK_25V_V_SENSE_ADC_CHNL (9)
+
 /* ADC */
 #define ADC_REF_mV (3300UL) // mV
 typedef struct

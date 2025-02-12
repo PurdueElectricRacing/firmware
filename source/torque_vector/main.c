@@ -286,10 +286,10 @@ void preflightChecks(void)
         break;
     case 700:
         /* Initialize VCU structs */
-        init_pVCU(&pVCU);
-        init_fVCU(&fVCU);
-        init_xVCU(&xVCU);
-        init_yVCU(&yVCU);
+        pVCU = init_pVCU();
+        fVCU = init_fVCU();
+        xVCU = init_xVCU();
+        yVCU = init_yVCU();
 
     default:
         if (state > 750)

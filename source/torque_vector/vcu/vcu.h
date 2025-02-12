@@ -191,10 +191,10 @@ typedef struct {
   float sl;
 } yVCU_struct;
 
-void init_pVCU(pVCU_struct* pVCU);
-void init_fVCU(fVCU_struct* fVCU);
-void init_xVCU(xVCU_struct* xVCU);
-void init_yVCU(yVCU_struct* yVCU);
+fVCU_struct init_fVCU(void);
+xVCU_struct init_xVCU(void);
+yVCU_struct init_yVCU(void);
+pVCU_struct init_pVCU(void);
 
 void vcu_pp(xVCU_struct* xVCU, fVCU_struct* fVCU, GPS_Handle_t* GPS);
 

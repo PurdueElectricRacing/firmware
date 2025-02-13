@@ -81,22 +81,22 @@ usart_init_t huart_gps =
 };
 
 
-// dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-// dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-// usart_init_t usb = {
-//    .baud_rate   = 115200,
-//    .word_length = WORD_8,
-//    .stop_bits   = SB_ONE,
-//    .parity      = PT_NONE,
-//    .hw_flow_ctl = HW_DISABLE,
-//    .ovsample    = OV_16,
-//    .obsample    = OB_DISABLE,
-//    .periph      = USART1,
-//    .wake_addr   = false,
-//    .usart_active_num = USART1_ACTIVE_IDX,
-//    .tx_dma_cfg = &usart_usb_tx_dma_config,
-//    .rx_dma_cfg = &usart_usb_rx_dma_config
-// };
+dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t usb = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART1,
+   .wake_addr   = false,
+   .usart_active_num = USART1_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_usb_tx_dma_config,
+   .rx_dma_cfg = &usart_usb_rx_dma_config
+};
 
 /*
 Datasheet Page 12
@@ -184,10 +184,10 @@ void testUsart(void);
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 // VCU structs
-static pVCU_struct pVCU;
-static fVCU_struct fVCU;
-static xVCU_struct xVCU;
-static yVCU_struct yVCU;
+// static pVCU_struct pVCU;
+// static fVCU_struct fVCU;
+// static xVCU_struct xVCU;
+// static yVCU_struct yVCU;
 
 int main(void)
 {
@@ -213,9 +213,9 @@ int main(void)
     // taskCreateBackground(canTxUpdate);
     // taskCreateBackground(canRxUpdate);
 
-    taskCreate(heartBeatLED, 500);
-    //taskCreate(testUsart, 500);
-    //taskCreate(heartBeatTask, 100);
+    // taskCreate(heartBeatLED, 500);
+    // taskCreate(testUsart, 500);
+    taskCreate(heartBeatTask, 100);
 
     taskCreate(parseIMU, 20);
     // taskCreate(pollIMU, 20);
@@ -248,10 +248,10 @@ void preflightChecks(void)
         {
             HardFault_Handler();
         }
-        // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
-        // {
-        //     HardFault_Handler();
-        // }
+        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
         break;
     case 3:
         // GPS Initialization
@@ -286,10 +286,10 @@ void preflightChecks(void)
         break;
     case 700:
         /* Initialize VCU structs */
-        pVCU = init_pVCU();
-        fVCU = init_fVCU();
-        xVCU = init_xVCU();
-        yVCU = init_yVCU();
+        // pVCU = init_pVCU();
+        // fVCU = init_fVCU();
+        // xVCU = init_xVCU();
+        // yVCU = init_yVCU();
 
     default:
         if (state > 750)
@@ -376,27 +376,27 @@ void CAN1_RX0_IRQHandler()
     canParseIRQHandler(CAN1);
 }
 
-void VCU_MAIN(void)
-{
-    /* Fill in X & F */
-    vcu_pp(&xVCU, &fVCU, &GPSHandle);
-
-    /* Step VCU */
-    vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
-
-    /* Set TV faults */
-    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
-    setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
-    setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
-    setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
-    setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
-    setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
-
-    /* Send messages */
-    SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
-    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
-    SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
-}
+// void VCU_MAIN(void)
+// {
+//     /* Fill in X & F */
+//     vcu_pp(&xVCU, &fVCU, &GPSHandle);
+//
+//     /* Step VCU */
+//     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
+//
+//     /* Set TV faults */
+//     setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
+//     setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
+//     setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
+//     setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
+//     setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
+//     setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
+//
+//     /* Send messages */
+//     SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
+//     SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
+//     SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
+// }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
@@ -412,9 +412,10 @@ void HardFault_Handler()
         __asm__("nop");
     }
 }
-
-// void testUsart()
-// {
-//     char* txmsg = "Hello World!\n";
-//     PHAL_usartTxDma(&usb, (uint16_t *)txmsg, 13);
-// }
+uint16_t buffer[sizeof(vector_3d_t) * 2];
+void testUsart()
+{
+    memcpy(buffer, &accel_in, sizeof(vector_3d_t));
+    memcpy(buffer + sizeof(vector_3d_t), &gyro_in, sizeof(vector_3d_t));
+    PHAL_usartTxDma(&usb, buffer, sizeof(buffer));
+}

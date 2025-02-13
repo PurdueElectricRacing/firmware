@@ -90,10 +90,10 @@ extern void uds_handle_sub_command_callback(uint8_t cmd, uint64_t data);
 #define UDS_CMD_SYS_RST       0x05
 #define UDS_CMD_SYS_TEST      0x06
 
-#define UDS_CMD_VAR_READ  0x10
-#define UDS_CMD_VAR_WRITE 0x11
-#define UDS_CMD_PIN_READ  0x12
+#define UDS_CMD_VAR_READ      0x10
+#define UDS_CMD_VAR_WRITE     0x11
+#define UDS_CMD_PIN_READ      0x12
 
-#define UDS_CMD_SYS_MAX   0x1f
+#define UDS_CMD_SYS_MAX       0x1f
 
 #endif // __COMMON_UDS_H__

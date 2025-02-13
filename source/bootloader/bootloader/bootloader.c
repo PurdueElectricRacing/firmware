@@ -117,15 +117,15 @@ void udsFrameSend(uint64_t data)
 {
     SEND_UDS_RESPONSE_A_BOX(data);
 }
-#elif (APP_ID == APP_DASHBOARD)
-void udsFrameSend(uint64_t data)
-{
-    SEND_UDS_RESPONSE_DASHBOARD(data);
-}
 #elif (APP_ID == APP_DAQ)
 void udsFrameSend(uint64_t data)
 {
     SEND_UDS_RESPONSE_DAQ(data);
+}
+#elif (APP_ID == APP_DASHBOARD)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_DASHBOARD(data);
 }
 #elif (APP_ID == APP_MAIN_MODULE)
 void udsFrameSend(uint64_t data)
@@ -156,8 +156,8 @@ void callback_name(uint64_t payload) {\
 } \
 
 NODE_BL_CMD_CALLBACK(uds_command_a_box_CALLBACK, APP_A_BOX)
-NODE_BL_CMD_CALLBACK(uds_command_dashboard_CALLBACK, APP_DASHBOARD)
 NODE_BL_CMD_CALLBACK(uds_command_daq_CALLBACK, APP_DAQ)
+NODE_BL_CMD_CALLBACK(uds_command_dashboard_CALLBACK, APP_DASHBOARD)
 NODE_BL_CMD_CALLBACK(uds_command_main_module_CALLBACK, APP_MAIN_MODULE)
 NODE_BL_CMD_CALLBACK(uds_command_pdu_CALLBACK, APP_PDU)
 NODE_BL_CMD_CALLBACK(uds_command_torque_vector_CALLBACK, APP_TORQUEVECTOR)

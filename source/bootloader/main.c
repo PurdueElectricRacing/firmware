@@ -12,24 +12,16 @@
  *
  */
 
-#if defined(STM32L496xx) || defined(STM32L432xx)
-#include "common/phal_L4/can/can.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/rcc/rcc.h"
-#endif
 #if defined(STM32F407xx) || defined(STM32F732xx)
 #include "common/phal_F4_F7/can/can.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #endif
 
-/* Module Includes */
 #include "can_parse.h"
 #include "node_defs.h"
 #include "bootloader.h"
 
-
-/* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     CAN_RX_GPIO_CONFIG,
     CAN_TX_GPIO_CONFIG,
@@ -38,11 +30,10 @@ GPIOInitConfig_t gpio_config[] = {
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSE,
+    .clock_source               =CLOCK_SOURCE_HSI,
     .use_pll                    =false,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
@@ -52,14 +43,14 @@ ClockRateConfig_t clock_config = {
 
 void HardFault_Handler();
 void canTxSendToBack(CanMsgTypeDef_t *msg);
-static void send_pending_can(void);
+static void canTxUpdate(void);
 static void BL_CANPoll(void);
 
 q_handle_t q_tx_can;
 q_handle_t q_rx_can;
 
-#define BOOTLOADER_INITIAL_TIMEOUT 3000   // wait 3s at start
-#define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
+#define BOOTLOADER_INITIAL_TIMEOUT 1000   // wait 1s at start
+#define CAN_TX_BLOCK_TIMEOUT (60 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
 static volatile uint32_t bootloader_ms;   // systick
 
 int main(void)
@@ -68,9 +59,6 @@ int main(void)
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
 
-#ifdef HSI_TRIM_BL_NODE
-    PHAL_trimHSI(HSI_TRIM_BL_NODE);
-#endif
     if (0 != PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
 
@@ -92,7 +80,7 @@ int main(void)
 
     BL_sendStatusMessage(BLSTAT_BOOT, BL_METADATA_PING_MAGIC);
 
-    // else enter backdoor period (CAN loop) for 3s
+    // Else enter backdoor period (CAN loop) for 3s
     uint32_t start_ms = bootloader_ms;
     while (bootloader_ms - start_ms < BOOTLOADER_INITIAL_TIMEOUT || BL_flashStarted())
     {
@@ -110,14 +98,14 @@ int main(void)
 
 static void BL_CANPoll(void)
 {
-    send_pending_can();
+    canTxUpdate();
     while (!qIsEmpty(&q_rx_can))
         canRxUpdate();
-    send_pending_can();
+    canTxUpdate();
 }
 
 // Sends all pending messages in the tx queue, doesn't require systick to be active
-static void send_pending_can(void)
+static void canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
     while (qReceive(&q_tx_can, &tx_msg) == SUCCESS_G)
@@ -159,12 +147,12 @@ void CAN1_RX0_IRQHandler()
 
         rx.DLC = (CAN_RDT0R_DLC & CAN1->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
-        rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
-        rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
+        rx.Data[0] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >>  0) & 0xFF;
+        rx.Data[1] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >>  8) & 0xFF;
         rx.Data[2] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
         rx.Data[3] = (uint8_t) (CAN1->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-        rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
-        rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
+        rx.Data[4] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >>  0) & 0xFF;
+        rx.Data[5] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 8 ) & 0xFF;
         rx.Data[6] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
         rx.Data[7] = (uint8_t) (CAN1->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 

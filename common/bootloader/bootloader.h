@@ -30,16 +30,16 @@
 #error "Please define a MCU arch"
 #endif
 
+#if defined(STM32F407xx)
 /* F4:
  * 0x08000000 ]  16K [Bootloader code]
- * 0x08004000 ]  16K [Metadata region/boot manager]
- * 0x08008000 ] 256K [Bank A: Application]
- * 0x08040000 ] 256K [Bank B: Buffer]
- * 0x08080000 ] 256K [Bank C: Backup firmware]
+ * 0x08004000 ]  16K [Metadata A]
+ * 0x08008000 ]  16K [Metadata B]
+ * 0x08040000 ] 256K [Bank A: Application]
+ * 0x08080000 ] 256K [Bank B: Buffer]
+ * 0x080c0000 ] 256K [Bank C: Backup firmware]
  */
-
-#define MAX_FIRMWARE_SIZE        0x40000
-
+#define MAX_FIRMWARE_SIZE        0x40000 // 256K
 #define BL_ADDRESS_BOOTLOADER 0x08000000 // 0: Bootloader (16K, sector 0)
 #define BL_ADDRESS_METADATA   0x08004000 // 1: Metadata (16K, sector 1)
 #define BL_ADDRESS_META_C     0x08008000 // 1: Metadata (16K, sector 2)
@@ -47,8 +47,27 @@
 #define BL_ADDRESS_BANK_B     0x08080000 // 3: Bank B: Temporary buffer (256K, sector 8..9)
 #define BL_ADDRESS_BANK_C     0x080c0000 // 4: Bank C: Backup firmware (256K, sector 10..11)
 
-#define BL_METADATA_MAGIC  0xFEE1DEAD
+#elif defined(STM32F732xx)
+/* F7:
+ * 0x08000000 ]  16K [Bootloader code]
+ * 0x08004000 ]  16K [Metadata A]
+ * 0x08008000 ]  16K [Metadata B]
+ * 0x08020000 ] 128K [Bank A: Application]
+ * 0x08040000 ] 128K [Bank B: Buffer]
+ * 0x08060000 ] 128K [C: Backup firmware]
+ */
+#define MAX_FIRMWARE_SIZE        0x20000 // 128K
+#define BL_ADDRESS_BOOTLOADER 0x08000000 // 0: Bootloader (16K, sector 0)
+#define BL_ADDRESS_METADATA   0x08004000 // 1: Metadata (16K, sector 1)
+#define BL_ADDRESS_META_C     0x08008000 // 1: Metadata (16K, sector 2)
+#define BL_ADDRESS_BANK_A     0x08020000 // 2: Bank A: Application (128K, sector 5)
+#define BL_ADDRESS_BANK_B     0x08040000 // 3: Bank B: Temporary buffer (128K, sector 6)
+#define BL_ADDRESS_BANK_C     0x08060000 // 4: Bank C: Backup firmware (128K, sector 10..11)
 
+#else
+#endif
+
+#define BL_METADATA_MAGIC  0xFEE1DEAD
 // NOR Flash so bits flip from 0b1111 -> 0b0000
 #define BL_FIRMWARE_VERIFIED     (0x00000000)
 #define BL_FIRMWARE_NOT_VERIFIED (0xffffffff)
@@ -62,6 +81,7 @@ typedef struct {
     uint32_t flags; // unused, potentially checksum of meta itself
     uint32_t verified; // bitflip to 1 if verified during application
 } __attribute__((__packed__, aligned(sizeof(uint32_t)))) bl_metadata_t;
+
 #define BL_METADATA_WC ((sizeof(bl_metadata_t)) / (sizeof(uint32_t)))
 #define BL_METADATA_VERIFIED_ADDR ((BL_ADDRESS_METADATA) + (((BL_METADATA_WC) - 1) * sizeof(uint32_t))) // last member
 static_assert(sizeof(bl_metadata_t) == sizeof(uint32_t) * BL_METADATA_WC);
@@ -75,8 +95,7 @@ bool BL_setMetadata(uint32_t addr, uint32_t words, uint32_t crc);
 bool BL_memcpyFlashBuffer(uint32_t addr_dst, uint32_t addr_src, uint32_t words, uint32_t crc);
 void BL_sendStatusMessage(uint8_t cmd, uint32_t data);
 
-// TODO update these
-typedef enum
+typedef enum __attribute__ ((__packed__))
 {
     BLSTAT_VALID        = 0,
     BLSTAT_INVALID      = 1,
@@ -84,15 +103,13 @@ typedef enum
     BLSTAT_UNKNOWN_CMD  = 3,
     BLSTAT_BOOT         = 4,
 } BLStatus_t;
+static_assert(sizeof(BLStatus_t) == sizeof(uint8_t));
 
-typedef enum
+typedef enum __attribute__ ((__packed__))
 {
-    BLERROR_CRC_FAIL = 0,
-    BLERROR_LOCKED = 1,
-    BLERROR_LOW_ADDR = 2,
-    BLERROR_ADDR_BOUND = 3,
-    BLERROR_FLASH = 4,
-    BLERROR_SIZE = 5,
+    BLERROR_FLASH       = 4,
+    BLERROR_SIZE        = 5,
 } BLError_t;
+static_assert(sizeof(BLError_t) == sizeof(uint8_t));
 
 #endif // __BOOTLOADER_COMMON_H__

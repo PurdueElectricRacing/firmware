@@ -5,6 +5,7 @@ from optparse import OptionParser
 import pathlib
 import subprocess
 
+
 # Logging helper functions
 class bcolors:
     HEADER = '\033[95m'
@@ -36,7 +37,7 @@ OUT_DIR = CWD/"output"
 # Setup cli arguments
 parser = OptionParser()
 
-parser.add_option("-t", "--target", 
+parser.add_option("-t", "--target",
     dest="target",
     type="string",
     action="store",
@@ -55,7 +56,7 @@ parser.add_option("--release",
     help="build for release (optimized)"
 )
 
-parser.add_option("--no-test", 
+parser.add_option("--no-test",
     dest="no_test",
     action="store_true", default=False,
     help="don't run unit tests"
@@ -67,6 +68,12 @@ parser.add_option("-b", "--bootloader",
     help="build bootloader components"
 )
 
+parser.add_option("--backup",
+    dest="backup",
+    action="store_true", default=False,
+    help="build backup firmware"
+)
+
 parser.add_option("-v", "--verbose",
     dest="verbose",
     action="store_true", default=False,
@@ -74,7 +81,8 @@ parser.add_option("-v", "--verbose",
 )
 
 (options, args) = parser.parse_args()
-
+if (options.backup):
+    options.bootloader = True
 
 BUILD_TYPE = "Release" if options.release else "Debug"
 TARGET = options.target if options.target else "all"
@@ -95,13 +103,14 @@ if options.target or not options.clean:
         "-G", "Ninja",
         f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
         f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
+        f"-DBACKUP_BUILD={'ON' if options.backup else 'OFF'}",
     ]
 
     NINJA_OPTIONS = [
         "-C", str(BUILD_DIR),
         TARGET,
     ]
-    NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
+    NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS
 
     try:
         subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)

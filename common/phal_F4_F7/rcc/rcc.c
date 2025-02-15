@@ -262,17 +262,16 @@ bool PHAL_configureHSISystemClock()
 
 bool PHAL_configureHSESystemClock()
 {
-    // Turn on and wait for HSE to enable
-    RCC->CR |= RCC_CR_HSEON;
+    /* Turn on and wait for HSE to enable */
+    RCC->CR |= (RCC_CR_HSEON | RCC_CR_HSEBYP);
     while (!(RCC->CR & RCC_CR_HSERDY))
         ;
-
+ 
     //Flash latency adjustment, see ST RM 0090 Pg. 80
     uint32_t flash_acr_temp = FLASH->ACR;
     flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
     flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
     FLASH->ACR = flash_acr_temp;
-
 
     __DSB();                                                        // Wait for explicit memory accesses to finish
     RCC->CFGR |= RCC_CFGR_SW_HSE;                                   // Set system clock switch register to HSE
@@ -280,7 +279,15 @@ bool PHAL_configureHSESystemClock()
         ;
     __DSB();                                                        // Wait for explicit memory accesses to finish
 
+    /* Turn off HSI */
+    __DSB();   
+    RCC->CR &= ~(RCC_CR_HSION);
+    while ((RCC->CR & RCC_CR_HSION))
+        ;
+    __DSB();  
+
     SystemCoreClockUpdate();                                        // Must be called each time the core clock HCLK changes
+
     return true;
 }
 

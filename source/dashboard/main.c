@@ -177,16 +177,6 @@ int main(void){
     {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
-        HardFault_Handler();
-    }
-    if (false == PHAL_initDMA(&adc_dma_config))
-    {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
 
     initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_DASHBOARD);
 
@@ -243,19 +233,31 @@ void preflightChecks(void) {
             }
             break;
         case 2:
+            if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+            {
+                HardFault_Handler();
+            }
+            if (false == PHAL_initDMA(&adc_dma_config))
+            {
+                HardFault_Handler();
+            }
+            PHAL_startTxfer(&adc_dma_config);
+            PHAL_startADC(ADC1);
+            break;
+        case 3:
             /* Module Initialization */
             initCANParse();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
-        case 3:
+        case 4:
             // Zero Rotary Encoder
             zeroEncoder();
             break;
-        case 4:
+        case 5:
             enableInterrupts();
             break;
-        case 5:
+        case 6:
             initLCD();
             break;
         default:

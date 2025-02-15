@@ -94,6 +94,8 @@ void pedalsPeriodic(void)
     SEND_FILT_THROTTLE_BRAKE(t1, b1);
 }
 
+
+// ! the code below will work only if watchdog is disabled
 // static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_3;
 // static volatile uint32_t* profile_current_address;
 

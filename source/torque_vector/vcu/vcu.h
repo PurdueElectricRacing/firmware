@@ -15,9 +15,10 @@ typedef struct {
   float WT_SFLAG_True;
   float IV_SFLAG_True;
   float BT_SFLAG_True;
-  float MT_SFLAG_True;
-  float CO_SFLAG_True;
-  float MO_SFLAG_True;
+  float IAC_SFLAG_True;
+  float IAT_SFLAG_True;
+  float IBC_SFLAG_True;
+  float IBT_SFLAG_True;
   float SS_FFLAG_True;
   float AV_FFLAG_True;
   float GS_FFLAG_True;
@@ -108,6 +109,8 @@ typedef struct {
   float TC_throttle_mult;
   float TC_highs_to_engage;
   float TC_lows_to_disengage;
+  float REF_shaft_speed;
+  float REF_slip_ratio;
 } pVCU_struct;
 
 typedef struct {
@@ -117,9 +120,10 @@ typedef struct {
   float WT_SFLAG;
   float IV_SFLAG;
   float BT_SFLAG;
-  float MT_SFLAG;
-  float CO_SFLAG;
-  float MO_SFLAG;
+  float IAC_SFLAG;
+  float IAT_SFLAG;
+  float IBC_SFLAG;
+  float IBT_SFLAG;
   float SS_FFLAG;
   float AV_FFLAG;
   float GS_FFLAG;
@@ -174,9 +178,9 @@ typedef struct {
   float DB_CF;
   float PI_CF;
   float PP_CF;
+  float zero_current_counter;
   float Batt_SOC;
   float Batt_Voc;
-  float zero_current_counter;
   float TO_ET[2];
   float TO_AB_MX;
   float TO_DR_MX;

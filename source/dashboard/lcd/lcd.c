@@ -107,14 +107,14 @@ menu_page_t race_page = {
 };
 
 typedef enum {
-    COOLING_DT_FAN_VAL_INDEX = 0,
-    COOLING_DT_PUMP_OP_INDEX,
-    COOLING_B_FAN_VAL_INDEX,
-    COOLING_B_PUMP_OP_INDEX,
+    COOLING_DT_FAN_INDEX = 0,
+    COOLING_DT_PUMP_INDEX,
+    COOLING_B_FAN_INDEX,
+    COOLING_B_PUMP_INDEX,
 } cooling_elements_t;
 
 menu_element_t cooling_elements[] = {
-    {
+    [COOLING_DT_FAN_INDEX] = {
         .type = ELEMENT_VAL,
         .object_name = DT_FAN_VAL,
         .current_value = 0,
@@ -123,13 +123,13 @@ menu_element_t cooling_elements[] = {
         .increment = 25,
         .on_change = sendCoolingParameters
     },
-    {
+    [COOLING_DT_PUMP_INDEX] = {
         .type = ELEMENT_OPTION,
         .object_name = DT_PUMP_OP,
         .current_value = 0,
         .on_change = sendCoolingParameters
     },
-    {
+    [COOLING_B_FAN_INDEX] = {
         .type = ELEMENT_VAL,
         .object_name = B_FAN_VAL,
         .current_value = 0,
@@ -138,7 +138,7 @@ menu_element_t cooling_elements[] = {
         .increment = 25,
         .on_change = sendCoolingParameters
     },
-    {
+    [COOLING_B_PUMP_INDEX] = {
         .type = ELEMENT_OPTION,
         .object_name = B_PUMP_OP,
         .current_value = 0,
@@ -333,7 +333,7 @@ void initLCD() {
     curr_page = PAGE_RACE;
     prev_page = PAGE_PREFLIGHT;
     errorText = 0;
-    NXT_setBaud(115200);
+    NXT_setBaud(LCD_BAUD_RATE);
     NXT_setBrightness(100);
 
     readPedalProfiles();
@@ -508,11 +508,11 @@ void sendTVParameters() {
  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
  */
 void sendCoolingParameters() {
-  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_DT_PUMP_OP_INDEX].current_value,
-                            cooling_elements[COOLING_DT_FAN_VAL_INDEX].current_value,
+  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
+                            cooling_elements[COOLING_DT_FAN_INDEX].current_value,
                             0, // TODO: remove (deprecated)
-                            cooling_elements[COOLING_B_PUMP_OP_INDEX].current_value,
-                            cooling_elements[COOLING_B_FAN_VAL_INDEX].current_value);
+                            cooling_elements[COOLING_B_PUMP_INDEX].current_value,
+                            cooling_elements[COOLING_B_FAN_INDEX].current_value);
 }
 
 /**
@@ -792,8 +792,8 @@ void pedalProfilesSaveButton_CALLBACK() {
 
 void coolingPageUpdate() {
     MS_refreshPage(&cooling_page);
-    NXT_setValue(DT_FAN_BAR, cooling_elements[0].current_value);
-    NXT_setValue(B_FAN_BAR, cooling_elements[2].current_value);
+    NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+    NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
 }
 
 void coolingMoveUp() {
@@ -801,8 +801,8 @@ void coolingMoveUp() {
 
     // Passively update the bar values
     if (cooling_page.is_element_selected) {
-        NXT_setValue(DT_FAN_BAR, cooling_elements[0].current_value);
-        NXT_setValue(B_FAN_BAR, cooling_elements[2].current_value);
+        NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+        NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
     }
 }
 
@@ -811,8 +811,8 @@ void coolingMoveDown() {
 
     // Passively update the bar values
     if (cooling_page.is_element_selected) {
-        NXT_setValue(DT_FAN_BAR, cooling_elements[0].current_value);
-        NXT_setValue(B_FAN_BAR, cooling_elements[2].current_value);
+        NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+        NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
     }
 }
 
@@ -826,10 +826,10 @@ void coolingSelect() {
  * @param msg_data_a Pointer to the parsed CAN message data
  */
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
-    cooling_elements[0].current_value = msg_data_a->coolant_out.dt_fan;
-    cooling_elements[1].current_value = msg_data_a->coolant_out.dt_pump;
-    cooling_elements[2].current_value = msg_data_a->coolant_out.bat_fan;
-    cooling_elements[3].current_value = msg_data_a->coolant_out.bat_pump;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
+    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
+    cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
 
     if (curr_page != PAGE_COOLING) {
         return;
@@ -853,7 +853,7 @@ void tvMoveDown() {
 
 void tvSelect() {
     MS_select(&tv_page);
-    race_elements[0].current_value = tv_elements[3].current_value; // Sync TV settings
+    race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
 }
 
 /**
@@ -1052,13 +1052,13 @@ void raceTelemetryUpdate() {
 
 void raceSelect() {
     MS_select(&race_page);
-    tv_elements[3].current_value = race_elements[0].current_value; // Sync TV settings
+    tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 void loggingPageUpdate() {
     MS_refreshPage(&logging_page);
 
-    if (logging_elements[0].current_value == 1) {
+    if (logging_elements[LOGGING_OP_INDEX].current_value == 1) {
         NXT_setText(LOGGING_STATUS_TXT, "DAQ ON");
         NXT_setFontColor(LOGGING_STATUS_TXT, GREEN);
     } else {
@@ -1070,7 +1070,7 @@ void loggingPageUpdate() {
 void loggingSelect() {
     MS_select(&logging_page);
 
-    if (logging_elements[0].current_value == 1) {
+    if (logging_elements[LOGGING_OP_INDEX].current_value == 1) {
         NXT_setText(LOGGING_STATUS_TXT, "DAQ ON");
         NXT_setFontColor(LOGGING_STATUS_TXT, GREEN);
     } else {

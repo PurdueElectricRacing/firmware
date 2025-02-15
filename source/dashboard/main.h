@@ -28,6 +28,10 @@
 #define POT_DIST_DROOP_L 55
 #define POT_DIST_DROOP_R 57
 
+// LCD Constants
+#define LCD_NUM_PAGES (9) // Number encoder selectable pages
+#define LCD_BAUD_RATE (115200)
+
 typedef struct __attribute__((packed))
 {
     // Do not modify this struct unless
@@ -159,7 +163,6 @@ typedef struct {
 #define LCD_UART_TX_Pin             (9)
 #define LCD_UART_RX_GPIO_Port       (GPIOA)
 #define LCD_UART_RX_Pin             (10)
-#define LCD_NUM_PAGES               (9) // Number encoder selectable pages
 
 // LV Status
 #define LV_5V_V_SENSE_GPIO_Port     (GPIOC)

@@ -41,7 +41,7 @@ typedef struct {
     uint8_t min_value;          // Minimum value for numeric types
     uint8_t max_value;          // Maximum value for numeric types
     uint8_t increment;          // Increment for numeric types
-} menu_element_t; // todo eventually make this const (to store in flash)
+} menu_element_t;
 
 // Page structure
 typedef struct {

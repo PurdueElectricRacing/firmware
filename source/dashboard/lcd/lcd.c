@@ -106,6 +106,13 @@ menu_page_t race_page = {
     .is_element_selected = false
 };
 
+typedef enum {
+    COOLING_DT_FAN_VAL_INDEX = 0,
+    COOLING_DT_PUMP_OP_INDEX,
+    COOLING_B_FAN_VAL_INDEX,
+    COOLING_B_PUMP_OP_INDEX,
+} cooling_elements_t;
+
 menu_element_t cooling_elements[] = {
     {
         .type = ELEMENT_VAL,
@@ -146,9 +153,16 @@ menu_page_t cooling_page = {
     .is_element_selected = false
 };
 
+typedef enum {
+    TV_INTENSITY_INDEX = 0,
+    TV_PROPORTION_INDEX,
+    TV_DEAD_INDEX,
+    TV_ENABLE_INDEX
+} tv_elements_t;
+
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
-    {
+    [TV_INTENSITY_INDEX] = {
         .type = ELEMENT_FLT,
         .object_name = TV_INTENSITY_FLT,
         .current_value = 0,
@@ -157,7 +171,7 @@ menu_element_t tv_elements[] = {
         .increment = 5,
         .on_change = NULL // TV Params Sent Periodically
     },
-    {
+    [TV_PROPORTION_INDEX] = {
         .type = ELEMENT_FLT,
         .object_name = TV_PROPORTION_FLT,
         .current_value = 40,
@@ -166,7 +180,7 @@ menu_element_t tv_elements[] = {
         .increment = 5,
         .on_change = NULL // TV Params Sent Periodically
     },
-    {
+    [TV_DEAD_INDEX] = {
         .type = ELEMENT_VAL,
         .object_name = TV_DEAD_TXT,
         .current_value = 12,
@@ -175,7 +189,7 @@ menu_element_t tv_elements[] = {
         .increment = 1,
         .on_change = NULL // TV Params Sent Periodically
     },
-    {
+    [TV_ENABLE_INDEX] = {
         .type = ELEMENT_OPTION,
         .object_name = TV_ENABLE_OP,
         .current_value = 0,
@@ -293,8 +307,12 @@ menu_page_t pedal_profile_page = {
     .saved = true,
 };
 
+typedef enum {
+    LOGGING_OP_INDEX = 0
+} logging_elements_t;
+
 menu_element_t logging_elements[] = {
-    {
+    [LOGGING_OP_INDEX] = {
         .type = ELEMENT_OPTION,
         .object_name = LOG_OP,
         .current_value = 0,
@@ -478,29 +496,30 @@ void updateTelemetryPages() {
 
 /**
  * @brief Sends TV parameters to TV using current values from tv_elements array
- * 
- * The parameter order is manually synced between the Nextion objects and CAN config.
  */
 void sendTVParameters() {
-    SEND_DASHBOARD_TV_PARAMETERS(tv_elements[3].current_value, tv_elements[2].current_value, tv_elements[0].current_value, tv_elements[1].current_value);
+    SEND_DASHBOARD_TV_PARAMETERS(tv_elements[TV_ENABLE_INDEX].current_value,
+                                tv_elements[TV_DEAD_INDEX].current_value,
+                                tv_elements[TV_INTENSITY_INDEX].current_value,
+                                tv_elements[TV_PROPORTION_INDEX].current_value);
 }
 
 /**
  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
- * 
- * The parameter order is manually synced between the Nextion objects and CAN config.
  */
 void sendCoolingParameters() {
-    SEND_COOLING_DRIVER_REQUEST(cooling_elements[1].current_value, cooling_elements[0].current_value, 0, cooling_elements[3].current_value, cooling_elements[2].current_value);
+  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_DT_PUMP_OP_INDEX].current_value,
+                            cooling_elements[COOLING_DT_FAN_VAL_INDEX].current_value,
+                            0, // TODO: remove (deprecated)
+                            cooling_elements[COOLING_B_PUMP_OP_INDEX].current_value,
+                            cooling_elements[COOLING_B_FAN_VAL_INDEX].current_value);
 }
 
 /**
  * @brief Sends Logging parameters to DAQ using current values from logging_elements array.
- * 
- * The parameter order is manually synced between the Nextion objects and CAN config.
  */
 void sendLoggingParameters() {
-    SEND_DASHBOARD_START_LOGGING(logging_elements[0].current_value);
+    SEND_DASHBOARD_START_LOGGING(logging_elements[LOGGING_OP_INDEX].current_value);
 }
 
 /**

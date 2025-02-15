@@ -40,10 +40,11 @@
 #define ID_LWS_STANDARD 0x2b0
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_MAX_CELL_TEMP 0xc04e604
-#define ID_ACTUAL_TORQUE_SPEED 0x4000441
-#define ID_INV_OVERLOAD 0xc000b01
+#define ID_INVA_CRIT 0x282
+#define ID_INVB_CRIT 0x292
+#define ID_INVA_TEMPS 0x284
+#define ID_INVB_TEMPS 0x294
 #define ID_DASHBOARD_VCU_PARAMETERS 0x4000dc5
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
@@ -75,10 +76,11 @@
 #define DLC_LWS_STANDARD 5
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_MAX_CELL_TEMP 2
-#define DLC_ACTUAL_TORQUE_SPEED 8
-#define DLC_INV_OVERLOAD 8
+#define DLC_INVA_CRIT 8
+#define DLC_INVB_CRIT 8
+#define DLC_INVA_TEMPS 6
+#define DLC_INVB_TEMPS 6
 #define DLC_DASHBOARD_VCU_PARAMETERS 7
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -198,10 +200,11 @@
 #define UP_LWS_STANDARD 15
 #define UP_REAR_WHEEL_SPEEDS 15
 #define UP_ORION_CURRENTS_VOLTS 32
-#define UP_REAR_MOTOR_TEMPS 1000
 #define UP_MAX_CELL_TEMP 500
-#define UP_ACTUAL_TORQUE_SPEED 15
-#define UP_INV_OVERLOAD 15
+#define UP_INVA_CRIT 15
+#define UP_INVB_CRIT 15
+#define UP_INVA_TEMPS 500
+#define UP_INVB_TEMPS 500
 #define UP_DASHBOARD_VCU_PARAMETERS 500
 /* END AUTO UP DEFS */
 
@@ -319,28 +322,30 @@ typedef union {
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t left_mot_temp: 8;
-        uint64_t right_mot_temp: 8;
-        uint64_t left_inv_temp: 8;
-        uint64_t right_inv_temp: 8;
-        uint64_t left_igbt_temp: 8;
-        uint64_t right_igbt_temp: 8;
-    } rear_motor_temps;
-    struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
     struct {
-        uint64_t torque_left: 16;
-        uint64_t torque_right: 16;
-        uint64_t speed_left: 16;
-        uint64_t speed_right: 16;
-    } actual_torque_speed;
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVA_CRIT;
     struct {
-        uint64_t AMK_DisplayOverloadInverterA: 16;
-        uint64_t AMK_DisplayOverloadMotorA: 16;
-        uint64_t AMK_DisplayOverloadInverterB: 16;
-        uint64_t AMK_DisplayOverloadMotorB: 16;
-    } INV_Overload;
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVB_CRIT;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVA_TEMPS;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVB_TEMPS;
     struct {
         uint64_t vcu_mode: 1;
         uint64_t tv_deadband_val: 16;
@@ -424,36 +429,40 @@ typedef struct {
         uint32_t last_rx;
     } orion_currents_volts;
     struct {
-        uint8_t left_mot_temp;
-        uint8_t right_mot_temp;
-        uint8_t left_inv_temp;
-        uint8_t right_inv_temp;
-        uint8_t left_igbt_temp;
-        uint8_t right_igbt_temp;
-        uint8_t stale;
-        uint32_t last_rx;
-    } rear_motor_temps;
-    struct {
         int16_t max_temp;
         uint8_t stale;
         uint32_t last_rx;
     } max_cell_temp;
     struct {
-        int16_t torque_left;
-        int16_t torque_right;
-        int16_t speed_left;
-        int16_t speed_right;
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
         uint8_t stale;
         uint32_t last_rx;
-    } actual_torque_speed;
+    } INVA_CRIT;
     struct {
-        uint16_t AMK_DisplayOverloadInverterA;
-        uint16_t AMK_DisplayOverloadMotorA;
-        uint16_t AMK_DisplayOverloadInverterB;
-        uint16_t AMK_DisplayOverloadMotorB;
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
         uint8_t stale;
         uint32_t last_rx;
-    } INV_Overload;
+    } INVB_CRIT;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_TEMPS;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_TEMPS;
     struct {
         uint8_t vcu_mode;
         uint16_t tv_deadband_val;

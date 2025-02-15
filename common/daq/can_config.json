@@ -35,7 +35,7 @@
                         },
                         {
                             "msg_name": "INVA_CRIT",
-                            "msg_desc": "Contains the status word and actual values",
+                            "msg_desc": "Contains the status word and actual values, Rear Left Tire",
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
                                 {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
@@ -48,7 +48,7 @@
                         },
                         {
                             "msg_name": "INVA_TEMPS",
-                            "msg_desc": "Contains temperatures",
+                            "msg_desc": "Contains temperatures, Rear Left Tire",
                             "signals": [
                                 {"sig_name": "AMK_MotorTemp", "sig_desc": "Motor temperature", "type":"int16_t", "unit":"C", "scale":0.1},
                                 {"sig_name": "AMK_InverterTemp", "sig_desc": "Inverter cold plate temperature", "type":"int16_t", "unit":"C", "scale":0.1},
@@ -60,7 +60,7 @@
                         },
                         {
                             "msg_name": "INVB_CRIT",
-                            "msg_desc": "Contains the status word and actual values",
+                            "msg_desc": "Contains the status word and actual values, Rear Right Tire",
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
                                 {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
@@ -73,7 +73,7 @@
                         },
                         {
                             "msg_name": "INVB_TEMPS",
-                            "msg_desc": "Contains temperatures",
+                            "msg_desc": "Contains temperatures, Rear Right Tire",
                             "signals": [
                                 {"sig_name": "AMK_MotorTemp", "sig_desc": "Motor temperature", "type":"int16_t", "unit":"C", "scale":0.1},
                                 {"sig_name": "AMK_InverterTemp", "sig_desc": "Inverter cold plate temperature", "type":"int16_t", "unit":"C", "scale":0.1},
@@ -680,10 +680,11 @@
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "rear_wheel_speeds"},
                         {"msg_name": "orion_currents_volts"},
-                        {"msg_name": "rear_motor_temps"},
                         {"msg_name": "max_cell_temp"},
-                        {"msg_name": "actual_torque_speed"},
-                        {"msg_name": "INV_Overload"},
+                        {"msg_name": "INVA_CRIT"},
+                        {"msg_name": "INVB_CRIT"},
+                        {"msg_name": "INVA_TEMPS"},
+                        {"msg_name": "INVB_TEMPS"},
                         {"msg_name": "dashboard_vcu_parameters"}
                     ]
                 },

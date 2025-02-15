@@ -22,20 +22,31 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
     // Nonzero Bit Encoded Error Code Indicates Error
     uint8_t ret_code = 0;
 
-    if (config->use_hse) {
-        ret_code |= (!PHAL_configureHSESystemClock()) << 6;
-        
-    } else {
-        ret_code |= (!PHAL_configureHSISystemClock()) << 3;                                // Call HSI configure subroutine
+    /* Configure System Clock */
+    if (config->use_hse)
+    {
+        ret_code |= (!PHAL_configureHSESystemClock()) << 6;    
+    }
+    else
+    {
+        ret_code |= (!PHAL_configureHSISystemClock()) << 3;
     }
     
-    if (config->use_pll) {
+    /* Configure PLL */
+    if (config->use_pll)
+    {
         ret_code |= (!PHAL_configurePLLVCO(config->pll_src, config->vco_output_rate_target_hz)) << 5;
         ret_code |= (!PHAL_configurePLLSystemClock(config->system_clock_target_hz)) << 4;
-    } else {
-        if (config->use_hse) {
+    }
+    /* No PLL */
+    else
+    {
+        if (config->use_hse)
+        {
             config->system_clock_target_hz = HSE_CLOCK_RATE_HZ;
-        } else {
+        }
+        else
+        { 
             config->system_clock_target_hz = HSI_CLOCK_RATE_HZ;
         }
     }

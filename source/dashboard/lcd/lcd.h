@@ -3,12 +3,11 @@
 
 #include "nextion.h"
 #include "menu_system.h"
-#include <stdint.h>
 
 // Page Strings (must match Nextion page names)
 #define RACE_STRING "race"
 #define COOLING_STRING "cooling"
-#define APPS_STRING "apps"
+#define APPS_STRING "calibration"
 #define ERR_STRING "error"
 #define WARN_STRING "warning"
 #define FATAL_STRING "critical"
@@ -20,7 +19,7 @@
 #define LOGGING_STRING "logging"
 
 // Info
-#define GEAR_RATIO ((49.0F * 111.0F / 27.0F / 26.0F) + 1U) // TODO remove?
+#define MPS_TO_MPH 2.2369362921f
 
 // Driver Configuration Page
 #define DRIVER1_LIST "t1"
@@ -105,15 +104,17 @@
 #define LOGGING_STATUS_TXT "stat"
 
 // Apps Page
-#define APPS_BRAKE1_VAL "B1"
-#define APPS_BRAKE2_VAL "B2"
-#define APPS_THROTTLE1_VAL "T1"
-#define APPS_THROTTLE2_VAL "T2"
-#define APPS_BRAKE_DEV_VAL "BDev"
-#define APPS_THROTTLE_DEV_VAL "TDev"
-#define APPS_BRAKE_BAR "brake"
-#define APPS_THROTTLE_BAR "throt"
-#define APPS_STATUS "stat"
+#define CALIBRATION_BRAKE1_VAL "B1"
+#define CALIBRATION_BRAKE2_VAL "B2"
+#define CALIBRATION_THROTTLE1_VAL "T1"
+#define CALIBRATION_THROTTLE2_VAL "T2"
+#define CALIBRATION_BRAKE_DEV_VAL "BDev"
+#define CALIBRATION_THROTTLE_DEV_VAL "TDev"
+#define CALIBRATION_BRAKE_BAR "brake"
+#define CALIBRATION_THROTTLE_BAR "throt"
+#define CALIBRATION_STATUS "stat"
+
+#define PAGE_COUNT 12
 
 typedef enum {
   // Pages selectable with the rot encoder
@@ -126,7 +127,7 @@ typedef enum {
   PAGE_DRIVER,
   PAGE_PROFILES,
   PAGE_LOGGING,
-  PAGE_APPS,
+  PAGE_CALIBRATION,
 
   // Pages that can be displayed but not selected with the encoder
   PAGE_PREFLIGHT,

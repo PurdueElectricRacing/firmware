@@ -31,11 +31,11 @@ void driverMoveDown();
 void driverSelect();
 
 // Profile Page Functions
-void profilePageUpdate();
-void profileMoveUp();
-void profileMoveDown();
-void profileSelect();
-void profileSaveButton_CALLBACK();
+void pedalProfilesPageUpdate();
+void pedalProfilesMoveUp();
+void pedalProfilesMoveDown();
+void pedalProfilesSelect();
+void pedalProfilesSaveButton_CALLBACK();
 
 // Cooling Page Functions
 void coolingPageUpdate();
@@ -81,9 +81,9 @@ const page_handler_t page_handlers[] = { // Order must match page_t enum
     [PAGE_FAULTS]    = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect},
     [PAGE_SDCINFO]   = {NULL, NULL, NULL, NULL},  // SDCINFO is passive
     [PAGE_DRIVER]    = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect},
-    [PAGE_PROFILES]  = {profilePageUpdate, profileMoveUp, profileMoveDown, profileSelect},
+    [PAGE_PROFILES]  = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect},
     [PAGE_LOGGING]   = {loggingPageUpdate, NULL, NULL, loggingSelect},
-    [PAGE_APPS]      = {NULL, NULL, NULL, NULL}, // Apps is passive
+    [PAGE_CALIBRATION]      = {NULL, NULL, NULL, NULL}, // Apps is passive
     [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL}, // Preflight is passive
     [PAGE_WARNING]   = {NULL, NULL, NULL, errorPageSelect}, // Error pages share a select handler
     [PAGE_ERROR]     = {NULL, NULL, NULL, errorPageSelect},  
@@ -261,7 +261,7 @@ menu_page_t driver_page = {
 };
 
 // Profile page menu elements
-menu_element_t profile_elements[] = {
+menu_element_t pedal_profile_elements[] = {
     {
         .type = ELEMENT_FLT,
         .object_name = PROFILE_BRAKE_FLT,
@@ -281,13 +281,13 @@ menu_element_t profile_elements[] = {
     {
         .type = ELEMENT_BUTTON,
         .object_name = PROFILE_SAVE_BUTTON,
-        .on_change = profileSaveButton_CALLBACK
+        .on_change = pedalProfilesSaveButton_CALLBACK
     }
 };
 
-menu_page_t profile_page = {
-    .elements = profile_elements,
-    .num_elements = sizeof(profile_elements) / sizeof(profile_elements[0]),
+menu_page_t pedal_profile_page = {
+    .elements = pedal_profile_elements,
+    .num_elements = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
     .current_index = 0,
     .is_element_selected = false,
     .saved = true,
@@ -319,7 +319,7 @@ void initLCD() {
     NXT_setBrightness(100);
 
     readPedalProfiles();
-    profile_page.saved = true;
+    pedal_profile_page.saved = true;
 
     // Set page (leave preflight)
     updatePage();
@@ -377,7 +377,7 @@ void updatePage() {
         case PAGE_LOGGING:
             NXT_setPage(LOGGING_STRING);
             break;
-        case PAGE_APPS:
+        case PAGE_CALIBRATION:
             NXT_setPage(APPS_STRING);
             break;
         case PAGE_WARNING:
@@ -394,7 +394,12 @@ void updatePage() {
             return;
     }
 
-    // Call update handler if available
+    // Bounds Check
+    if (curr_page > PAGE_COUNT) {
+        return;
+    }
+
+    // Call update handler if available 
     if (page_handlers[curr_page].update != NULL) {
         page_handlers[curr_page].update();
     }
@@ -419,46 +424,46 @@ void selectItem() {
 }
 
 /**
- * @brief Updates the LCD display with current pedal telemetry data when on APPS page
+ * @brief Updates the LCD display with current pedal telemetry data when on CALIBRATION page
  *
  * Updates brake and throttle bars, raw ADC values, deviation percentages, and status
  * indicators for brake and throttle pedals. Also displays fault statuses if detected.
  *
- * @note Only executes when current page is PAGE_APPS
+ * @note Only executes when current page is PAGE_CALIBRATION
  */
-void updateAppsTelemetry() {
-    if (curr_page != PAGE_APPS) {
+void calibrationTelemetryUpdate() {
+    if (curr_page != PAGE_CALIBRATION) {
         return;
     }
 
-    NXT_setValue(BRK_BAR, 0); // todo brake bar
-    NXT_setValue(THROT_BAR, (int) ((filtered_pedals / 4095.0) * 100));
+    NXT_setValue(CALIBRATION_BRAKE_BAR, 0); // todo brake bar
+    NXT_setValue(CALIBRATION_THROTTLE_BAR, (int) ((filtered_pedals / 4095.0) * 100));
 
-    NXT_setTextFormatted(APPS_BRAKE1_VAL, "%d",raw_adc_values.b1);
-    NXT_setTextFormatted(APPS_BRAKE2_VAL, "%d",raw_adc_values.b2);
-    NXT_setTextFormatted(APPS_THROTTLE1_VAL, "%d",raw_adc_values.t1);
-    NXT_setTextFormatted(APPS_THROTTLE2_VAL, "%d",raw_adc_values.t2);
+    NXT_setTextFormatted(CALIBRATION_BRAKE1_VAL, "%d",raw_adc_values.b1);
+    NXT_setTextFormatted(CALIBRATION_BRAKE2_VAL, "%d",raw_adc_values.b2);
+    NXT_setTextFormatted(CALIBRATION_THROTTLE1_VAL, "%d",raw_adc_values.t1);
+    NXT_setTextFormatted(CALIBRATION_THROTTLE2_VAL, "%d",raw_adc_values.t2);
 
     uint16_t brake_diff = ABS(raw_adc_values.b1 - raw_adc_values.b2);
     uint16_t brake_dev = (brake_diff * 1000) / 4095.0;
-    NXT_setValue(APPS_BRAKE_DEV_VAL, brake_dev);
+    NXT_setValue(CALIBRATION_BRAKE_DEV_VAL, brake_dev);
 
     uint16_t throttle_diff = ABS(raw_adc_values.t1 - raw_adc_values.t2);
     uint16_t throttle_dev = (throttle_diff * 1000) / 4095.0;
-    NXT_setValue(APPS_THROTTLE_DEV_VAL, throttle_dev);
+    NXT_setValue(CALIBRATION_THROTTLE_DEV_VAL, throttle_dev);
 
     if (checkFault(ID_IMPLAUS_DETECTED_FAULT)) {
-        NXT_setText(APPS_STATUS, "IMP Detected");
-        NXT_setFontColor(APPS_STATUS, RED);
+        NXT_setText(CALIBRATION_STATUS, "IMP Detected");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
     } else if (checkFault(ID_APPS_WIRING_T1_FAULT)) {
-        NXT_setText(APPS_STATUS, "T1 Wiring");
-        NXT_setFontColor(APPS_STATUS, RED);
+        NXT_setText(CALIBRATION_STATUS, "T1 Wiring");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
     } else if (checkFault(ID_APPS_WIRING_T2_FAULT)) {
-        NXT_setText(APPS_STATUS, "T2 Wiring");
-        NXT_setFontColor(APPS_STATUS, RED);
+        NXT_setText(CALIBRATION_STATUS, "T2 Wiring");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
     } else {
-        NXT_setText(APPS_STATUS, "CLEAR");
-        NXT_setFontColor(APPS_STATUS, GREEN);
+        NXT_setText(CALIBRATION_STATUS, "CLEAR");
+        NXT_setFontColor(CALIBRATION_STATUS, GREEN);
     }
 }
 
@@ -466,7 +471,7 @@ void updateTelemetryPages() {
     if (curr_page == PAGE_RACE) {
         raceTelemetryUpdate();
     } else {
-        updateAppsTelemetry();
+        calibrationTelemetryUpdate();
     }
 }
 
@@ -684,7 +689,7 @@ void driverSelect() {
     MS_select(&driver_page);
 }
 
-void profilePageUpdate() {
+void pedalProfilesPageUpdate() {
     // Update displayed driver name
     int driver_index = MS_listGetSelected(&driver_page);
     if (driver_index < 0) {
@@ -706,40 +711,40 @@ void profilePageUpdate() {
             break;
     }
     
-    profile_elements[0].current_value = driver_pedal_profiles[driver_index].brake_travel_threshold;
-    profile_elements[1].current_value = driver_pedal_profiles[driver_index].throttle_travel_threshold;
+    pedal_profile_elements[0].current_value = driver_pedal_profiles[driver_index].brake_travel_threshold;
+    pedal_profile_elements[1].current_value = driver_pedal_profiles[driver_index].throttle_travel_threshold;
 
     // Update display and styling
-    MS_refreshPage(&profile_page);
+    MS_refreshPage(&pedal_profile_page);
 }
 
-void profileMoveUp() {
-    MS_moveUp(&profile_page);
+void pedalProfilesMoveUp() {
+    MS_moveUp(&pedal_profile_page);
     
     // Update save status indicator on any value change
-    if (!profile_page.is_element_selected) {
-        NXT_setFontColor(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
-        NXT_setText(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
+    if (!pedal_profile_page.is_element_selected) {
+        NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
+        NXT_setText(PROFILE_STATUS_TXT, pedal_profile_page.saved ? "SAVED" : "UNSAVED");
     }
 }
 
-void profileMoveDown() {
-    MS_moveDown(&profile_page);
+void pedalProfilesMoveDown() {
+    MS_moveDown(&pedal_profile_page);
     
     // Update save status indicator on any value change
-    if (!profile_page.is_element_selected) {
-        NXT_setFontColor(PROFILE_STATUS_TXT, profile_page.saved ? GREEN : RED);
-        NXT_setText(PROFILE_STATUS_TXT, profile_page.saved ? "SAVED" : "UNSAVED");
+    if (!pedal_profile_page.is_element_selected) {
+        NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
+        NXT_setText(PROFILE_STATUS_TXT, pedal_profile_page.saved ? "SAVED" : "UNSAVED");
     }
 }
 
-void profileSelect() {
+void pedalProfilesSelect() {
     // Handle other elements using menu system
-    MS_select(&profile_page);
+    MS_select(&pedal_profile_page);
     
     // Mark as unsaved when values change
-    if (profile_page.is_element_selected) {
-        profile_page.saved = false;
+    if (pedal_profile_page.is_element_selected) {
+        pedal_profile_page.saved = false;
         NXT_setFontColor(PROFILE_STATUS_TXT, RED);
         NXT_setText(PROFILE_STATUS_TXT, "UNSAVED");
     }
@@ -749,18 +754,18 @@ void profileSelect() {
  * @brief Saves the current pedal profile settings to permanent memory
  *        for the selected driver and updates the UI with the save status.
  */
-void profileSaveButton_CALLBACK() {
+void pedalProfilesSaveButton_CALLBACK() {
     int driver_index = MS_listGetSelected(&driver_page);
     // Save profile values
-    driver_pedal_profiles[driver_index].brake_travel_threshold = profile_elements[0].current_value;
-    driver_pedal_profiles[driver_index].throttle_travel_threshold = profile_elements[1].current_value;
+    driver_pedal_profiles[driver_index].brake_travel_threshold = pedal_profile_elements[0].current_value;
+    driver_pedal_profiles[driver_index].throttle_travel_threshold = pedal_profile_elements[1].current_value;
 
     if (PROFILE_WRITE_SUCCESS != writePedalProfiles()) {
-        profile_page.saved = false;
+        pedal_profile_page.saved = false;
         NXT_setFontColor(PROFILE_STATUS_TXT, RED);
         NXT_setText(PROFILE_STATUS_TXT, "FAILED");
     } else {
-        profile_page.saved = true;
+        pedal_profile_page.saved = true;
         NXT_setFontColor(PROFILE_STATUS_TXT, GREEN);
         NXT_setText(PROFILE_STATUS_TXT, "SAVED");
     }
@@ -954,9 +959,7 @@ void raceTelemetryUpdate() {
     if (can_data.rear_wheel_speeds.stale) {
         NXT_setText(SPEED, "S");
     } else {
-        // Vehicle Speed [m/s] = Wheel Speed [RPM] * 16 [in] * PI * 0.0254 / 60
-        // set_text(SPEED, NXT_TEXT, int_to_char((uint16_t)((float)MAX(can_data.rear_wheel_speeds.left_speed_sensor, can_data.rear_wheel_speeds.right_speed_sensor) * 0.01 * 0.4474), parsed_value));
-        uint16_t speed = ((float)can_data.gps_speed.gps_speed * 0.02237); // TODO macro this magic number
+        uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
 
@@ -1010,7 +1013,7 @@ void raceTelemetryUpdate() {
                 break;
             case CAR_STATE_READY2DRIVE:
                 NXT_setFontColor(CAR_STAT, GREEN);
-                NXT_setText(CAR_STAT, "READY");
+                NXT_setText(CAR_STAT, "R2D");
                 break;
             case CAR_STATE_ERROR:
                 NXT_setFontColor(CAR_STAT, YELLOW);
@@ -1019,6 +1022,10 @@ void raceTelemetryUpdate() {
             case CAR_STATE_FATAL:
                 NXT_setFontColor(CAR_STAT, RED);
                 NXT_setText(CAR_STAT, "FATAL");
+                break;
+            case CAR_STATE_CONSTANT_TORQUE:
+                NXT_setFontColor(CAR_STAT, GREEN);
+                NXT_setText(CAR_STAT, "CONST TRQ");
                 break;
         }
     }

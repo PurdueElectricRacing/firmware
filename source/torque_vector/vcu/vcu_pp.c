@@ -42,6 +42,10 @@ void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
     // fVCU->MT_SFLAG = (can_data.rear_motor_temps.stale);
     // fVCU->CO_SFLAG = (can_data.INV_Overload.stale);
     // fVCU->MO_SFLAG = (can_data.actual_torque_speed.stale);
+    fVCU->IAC_SFLAG = (can_data.INVA_CRIT.stale);
+    fVCU->IAT_SFLAG = (can_data.INVA_TEMPS.stale);
+    fVCU->IBC_SFLAG = (can_data.INVB_CRIT.stale);
+    fVCU->IBT_SFLAG = (can_data.INVB_TEMPS.stale);
     fVCU->SS_FFLAG = (can_data.LWS_Standard.Ok);
     fVCU->AV_FFLAG = (GPS->gyro_OK);
     fVCU->GS_FFLAG = (GPS->fix_type);

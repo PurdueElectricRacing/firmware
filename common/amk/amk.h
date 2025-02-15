@@ -70,9 +70,8 @@ typedef enum
 {
     AMK_STATE_OFF      = 0,
     AMK_STATE_INIT     = 1,
-    AMK_STATE_DEINIT   = 2,
-    AMK_STATE_RUNNING  = 3
-} amk_motor_state_t;
+    AMK_STATE_RUNNING  = 2
+} AMK_motor_state_t;
 
 /* -------------------------------------------------------
     AMK Main Struct
@@ -80,7 +79,7 @@ typedef enum
 typedef struct
 {
     uint8_t id;                     /* PER chosen ID */
-    amk_motor_state_t state;        /* AMK State */
+    AMK_motor_state_t state;        /* AMK State */
     AMK_Status_t status;            /* Inverter Status */
     AMK_Control_t control;          /* Inverter Control Word */
 

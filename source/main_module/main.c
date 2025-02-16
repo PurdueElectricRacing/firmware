@@ -219,6 +219,7 @@ void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 void interpretLoadSensor(void);
 float voltToForce(uint16_t load_read);
+void can2Relaycan1();
 
 q_handle_t q_tx_usart_l;
 q_handle_t q_tx_usart_r;
@@ -485,7 +486,63 @@ void CAN1_RX0_IRQHandler()
 
 void CAN2_RX0_IRQHandler()
 {
-    canParseIRQHandler(CAN2);
+    can2Relaycan1(CAN2);
+}
+
+/* Override canParseIRQHandler base method to add CAN2 passthrough */
+void can2Relaycan1(CAN_TypeDef *can_h)
+{
+    can_peripheral_stats_t *rx_stats = (can_h == CAN1) ? (&can_stats.can_peripheral_stats[CAN1_IDX]) : (&can_stats.can_peripheral_stats[CAN2_IDX]);
+    if (can_h->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
+    {
+        can_h->RF0R |= CAN_RF0R_FOVR0;
+        rx_stats->rx_overrun++;
+    }
+
+    if (can_h->RF0R & CAN_RF0R_FULL0) // FIFO Full
+        can_h->RF0R |= CAN_RF0R_FULL0;
+
+    if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
+    {
+        CanMsgTypeDef_t rx;
+        rx.Bus = can_h;
+
+        // Get either StdId or ExtId
+        rx.IDE = CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR;
+        if (rx.IDE)
+        {
+          rx.ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos;
+        }
+        else
+        {
+          rx.StdId = (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_STID_Pos;
+          rx.ExtId = rx.StdId; // for can_parse (assumes all are ExtId)
+        }
+
+        rx.DLC = (CAN_RDT0R_DLC & can_h->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
+
+        rx.Data[0] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 0)  & 0xFF;
+        rx.Data[1] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 8)  & 0xFF;
+        rx.Data[2] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
+        rx.Data[3] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
+        rx.Data[4] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 0)  & 0xFF;
+        rx.Data[5] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
+        rx.Data[6] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
+        rx.Data[7] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+
+        can_h->RF0R |= (CAN_RF0R_RFOM0);
+        can_h->RF0R |= (CAN_RF0R_RFOM0);
+
+        if (qSendToBack(&q_rx_can, &rx) != SUCCESS_G)
+        {
+            can_stats.rx_of++;
+        }
+
+        /* Pass through CAN2 messages onto CAN1 */
+        rx.Bus = CAN1; // Override
+        canTxSendToBack(&rx);
+        
+    }
 }
 
 void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

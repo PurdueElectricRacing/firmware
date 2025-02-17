@@ -42,18 +42,14 @@ static void cs_desel(void)
 // DAQ W5500 uses a custom framed multi-byte SPI format + software CS that makes this necessary
 static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t addr, const uint8_t *tx_data, uint32_t txlen, uint32_t rxlen, uint8_t *rx_data)
 {
-    // crit_enter() and crit_exit() by W55000 callback
-    // takes lock before entering this function, so no fail and no lock
+    // crit_enter() and crit_exit() in the W5500 callback
+    // takes lock before entering this function, so this fn does not lock nor fail
 
     rx_data += txlen;
 
-    // DO NOT Enable SPI
+    // DO NOT Enable SPI here
     // The CS must come after enabling SPI, and since W5500 driver selects CS, we manually add SPE to the CS sel hook
     //spi->periph->CR1 |= SPI_CR1_SPE;
-
-    // Select peripheral
-    if (spi->nss_sw)
-        PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
 
     // Add messages to TX FIFO
     // Write the first data item to be transmitted into the SPI_DR register (this clears the TXE flag).
@@ -77,7 +73,7 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t
      * As a consequence it is mandatory to wait first until TXE is set and then
      * until BSY is cleared after writing the last data.
      */
-	while (((spi->periph->SR) & SPI_SR_BSY));
+    while (((spi->periph->SR) & SPI_SR_BSY));
 
     // Clear overrun
     uint8_t trash = spi->periph->DR;
@@ -98,18 +94,6 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t
     // Do NOT wait until done, there is nothing to wait for (RX already received) and it will hang
     //Wait till transaction is finished, disable spi, and clear the queue
     //while ((spi->periph->SR & SPI_SR_BSY));
-
-    // DO NOT disable SPI here
-    //spi->periph->CR1 &= ~SPI_CR1_SPE;
-    #ifdef STM32F732xx
-        while ((spi->periph->SR & SPI_SR_FRLVL))
-        {
-            trash = spi->periph->DR;
-        }
-    #endif
-    // Stop message by disabling CS
-    if (spi->nss_sw)
-        PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 1);
 }
 
 static uint8_t spi_rb(uint32_t addr)

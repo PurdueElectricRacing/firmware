@@ -56,6 +56,8 @@ daq_hub_t dh;
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
 static void can_relay_can2_periodic(void);
+uint8_t gFTPBUF[_FTP_BUF_SIZE];
+static void ftp_server_run(void);
 
 static int8_t eth_init(void);
 static int8_t eth_get_link_up(void);
@@ -67,9 +69,9 @@ static void eth_send_tcp_periodic(void);
 static void eth_receive_tcp_periodic(void);
 static void eth_update_tcp_connection_state(void);
 static void eth_check_fail(void);
-
-uint8_t gFTPBUF[_FTP_BUF_SIZE];
-static void ftp_server_run(void);
+static void _eth_handle_error(eth_error_t err, int32_t reason);
+#define eth_handle_error_reason(err, reason) _eth_handle_error(err, reason)
+#define eth_handle_error(err) eth_handle_error_reason(err, 0)
 
 static void conv_tcp_frame_to_can_msg(timestamped_frame_t *t, CanMsgTypeDef_t *c);
 static void conv_can_msg_to_tcp_frame(CanMsgTypeDef_t *c, timestamped_frame_t *t);
@@ -178,9 +180,6 @@ static void _eth_handle_error(eth_error_t err, int32_t reason)
     debug_printf("eth err: %d res: %d\n", err, reason);
 }
 
-#define eth_handle_error_reason(err, reason) _eth_handle_error(err, reason)
-#define eth_handle_error(err) eth_handle_error_reason(err, 0)
-
 static void eth_check_fail(void)
 {
     if (dh.eth_state == ETH_FAIL)
@@ -279,7 +278,7 @@ static int8_t eth_init(void)
     osDelay(ETH_PHY_RESET_PERIOD_MS); // datasheet says 50 ms
 
     // Check for sign of life
-    if (getVERSIONR() != 0x04)
+    if (getVERSIONR() != ETH_PHY_VERSION_ID)
     {
         eth_handle_error(ETH_ERROR_VERS);
         return ETH_ERROR_VERS;
@@ -427,23 +426,23 @@ static bool eth_get_tcp_connected(void)
     return dh.eth_state == ETH_LINK_UP && dh.eth_enable_tcp_reception && dh.eth_tcp_state == ETH_TCP_ESTABLISHED;
 }
 
-static void conv_tcp_frame_to_can_msg(timestamped_frame_t *t, CanMsgTypeDef_t *c)
+static void conv_tcp_frame_to_can_msg(timestamped_frame_t *tcp_frame, CanMsgTypeDef_t *can_msg)
 {
-    c->Bus = t->bus_id == BUS_ID_CAN1 ? CAN1 : CAN2;
+    can_msg->Bus = tcp_frame->bus_id == BUS_ID_CAN1 ? CAN1 : CAN2;
 
-    if (t->msg_id & CAN_EFF_FLAG)
+    if (tcp_frame->msg_id & CAN_EFF_FLAG)
     {
-        c->IDE = 1;
-        c->ExtId = t->msg_id & CAN_EFF_MASK;
+        can_msg->IDE = 1;
+        can_msg->ExtId = tcp_frame->msg_id & CAN_EFF_MASK;
     }
     else
     {
-        c->IDE = 0;
-        c->StdId = t->msg_id & CAN_SFF_MASK;
+        can_msg->IDE = 0;
+        can_msg->StdId = tcp_frame->msg_id & CAN_SFF_MASK;
     }
 
-    c->DLC = t->dlc;
-    for (uint8_t i = 0; i < 8; ++i) c->Data[i] = t->data[i];
+    can_msg->DLC = tcp_frame->dlc;
+    for (uint8_t i = 0; i < 8; ++i) can_msg->Data[i] = tcp_frame->data[i];
 }
 
 static void _eth_tcp_send_frame(timestamped_frame_t *frame)
@@ -529,17 +528,17 @@ void uds_receive_periodic(void)
 }
 
 // Pull out of TCP queue and add it to CAN TX queue
-static void eth_tcp_relay_can_frame(timestamped_frame_t *t)
+static void eth_tcp_relay_can_frame(timestamped_frame_t *frame)
 {
     CanMsgTypeDef_t msg;
-    conv_tcp_frame_to_can_msg(t, &msg);
+    conv_tcp_frame_to_can_msg(frame, &msg);
     canTxSendToBack(&msg);
 }
 
 // Pull out of TCP queue and add it to UDS queue
-static void eth_tcp_relay_uds_frame(timestamped_frame_t *t)
+static void eth_tcp_relay_uds_frame(timestamped_frame_t *frame)
 {
-    if (xQueueSendToBack(q_can1_rx, t, (TickType_t)10) != pdPASS)
+    if (xQueueSendToBack(q_can1_rx, frame, (TickType_t)10) != pdPASS)
     {
         daq_catch_error();
     }
@@ -587,12 +586,15 @@ static void eth_receive_tcp_periodic(void)
     }
 }
 
+// bank->BSRR |= 1 << ((!value << 4) | pin);
+#define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
 void daq_shutdown_hook(void)
 {
     // First, turn off all power consuming devices to increase our write time to sd card
-    // To whoever is doing future DAQ rev: also change the GPIO ports
-    GPIOD->BSRR |= (1 << ((1 << 4) | HEARTBEAT_LED_PIN)) | (1 << ((1 << 4) | CONNECTION_LED_PIN)) | (1 << ((1 << 4) | ERROR_LED_PIN)); // all LEDs go bye bye
-    GPIOA->BSRR |= (1 << ((1 << 4) | SD_ACTIVITY_LED_PIN)) | (1 << ((1 << 4) | SD_ERROR_LED_PIN)) | (1 << ((1 << 4) | SD_DETECT_LED_PIN));
+    // To whoever is doing future DAQ rev: also change the GPIO ports here
+    // all LEDs go bye bye
+    GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
+    GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
 
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
     PHAL_deinitCAN(CAN1);

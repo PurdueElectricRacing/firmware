@@ -22,14 +22,16 @@
 #include "ff.h"
 #include "sdio.h"
 
-// W5500 has 8 sockets internally
-#define DAQ_SOCKET_UDP_BROADCAST 0
-#define DAQ_SOCKET_TCP           1
-#define DAQ_SOCKET_FTP_CTRL0     2  // FTP uses 3 sockets
-#define DAQ_SOCKET_FTP_DATA      3
-#define DAQ_SOCKET_FTP_CTRL1     4
+// W5500
+#define ETH_PHY_VERSION_ID      0x04
+#define ETH_PHY_RESET_PERIOD_MS   10
 
-#define ETH_PHY_RESET_PERIOD_MS 10
+// W5500 has 8 sockets internally
+#define DAQ_SOCKET_UDP_BROADCAST   0
+#define DAQ_SOCKET_TCP             1
+#define DAQ_SOCKET_FTP_CTRL0       2  // FTP uses 3 sockets
+#define DAQ_SOCKET_FTP_DATA        3
+#define DAQ_SOCKET_FTP_CTRL1       4
 
 typedef uint32_t canid_t;
 typedef uint8_t busid_t;
@@ -84,29 +86,29 @@ typedef enum
 
 typedef enum
 {
-    TCP_CMD_HANDSHAKE = 0,
-    TCP_CMD_CAN_FRAME = 1, // authentic CAN frame, i.e. daq can't TX CAN to itself
-    TCP_CMD_UDS_FRAME = 2,
+    TCP_CMD_HANDSHAKE    = 0,
+    TCP_CMD_CAN_FRAME    = 1,
+    TCP_CMD_UDS_FRAME    = 2,
 } tcp_cmd_t;
 
 typedef enum __attribute__ ((__packed__))
 {
-    DAQ_FRAME_CAN_RX  = 0, //!< RX to DAQ over CAN
-    DAQ_FRAME_TCP2CAN = 1, //!< RX to DAQ over TCP, relay to other nodes on CAN
-    DAQ_FRAME_TCP2DAQ = 2, //!< RX to DAQ over TCP, message intended for DAQ
-    DAQ_FRAME_TCP_TX  = 3, //!< TX from DAQ over TCP
-    DAQ_FRAME_UDP_TX  = 4, //!< TX from DAQ over UDP
+    DAQ_FRAME_CAN_RX    = 0, //!< RX to DAQ over CAN
+    DAQ_FRAME_TCP2CAN   = 1, //!< RX to DAQ over TCP, relay to other nodes on CAN
+    DAQ_FRAME_TCP2DAQ   = 2, //!< RX to DAQ over TCP, message intended for DAQ
+    DAQ_FRAME_TCP_TX    = 3, //!< TX from DAQ over TCP
+    DAQ_FRAME_UDP_TX    = 4, //!< TX from DAQ over UDP
 } daq_frame_type_t;
 static_assert(sizeof(daq_frame_type_t) == sizeof(uint8_t));
 
 typedef struct __attribute__((packed))
 {
-    uint8_t  frame_type;   //!< daq_frame_type_t
-    uint32_t tick_ms;      //!< ms timestamp of reception
-    canid_t  msg_id;       //!< message id
-    busid_t  bus_id;       //!< bus the message was rx'd on
-    uint8_t  dlc;          //!< data length code
-    uint8_t  data[8];      //!< message data
+    uint8_t  frame_type;    //!< daq_frame_type_t
+    uint32_t tick_ms;       //!< ms timestamp of reception
+    canid_t  msg_id;        //!< message id
+    busid_t  bus_id;        //!< bus the message was rx'd on
+    uint8_t  dlc;           //!< data length code
+    uint8_t  data[8];       //!< message data
 } timestamped_frame_t;
 
 typedef struct
@@ -141,11 +143,11 @@ typedef struct
 
 extern daq_hub_t dh;
 
-void daq_catch_error(void);
 void daq_hub_init(void);
 void daq_create_threads(void);
 void uds_receive_periodic(void);
 void shutdown(void);
 void daq_shutdown_hook(void);
+void daq_catch_error(void);
 
-#endif
+#endif // _DAQ_HUB_H_

@@ -30,6 +30,7 @@
 #endif  // HSE_CLOCK_RATE_HZ
 
 #define HSI_CLOCK_RATE_HZ (16000000)
+#define MCO_OUT_PIN (8)
 
 
 // RCC Constants
@@ -61,6 +62,24 @@ typedef enum {
     PLL_SRC_HSI16,
 } PLLSrc_t;
 
+typedef enum
+{
+    MCO1_SRC_HSI = 0,
+    MCO1_SRC_LSE = 1,
+    MCO1_SRC_HSE = 2,
+    MCO1_SRC_PLL = 3,
+
+} MCO1Source_t;
+
+typedef enum
+{
+    MCO_DIV_NONE = 0,
+    MCO_DIV_2    = 4,
+    MCO_DIV_3    = 5,
+    MCO_DIV_4    = 6,
+    MCO_DIV_5    = 7
+
+} MCODivisor_t;
 
 typedef enum {
     SYSTEM_CLOCK_SRC_PLL,
@@ -156,5 +175,24 @@ bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz);
  * 15 = decrease speed by ~0.2%
  */
 void PHAL_trimHSI(uint8_t trim_val);
+
+/**
+ * @brief Enable the Clock Out Pin 1
+ *  It is highly recommended to change this
+ *  only after reset before enabling the
+ *  external oscillators and the PLL.
+ * 
+ *  This function should be called after GPIO initialization using 
+ *   GPIO_INIT_MCO1_PA8
+ *
+ * @param bank GPIO bank
+ * @param pin GPIO bank
+ * @param source Clock source to send to the pin
+ * @param division Division of clock source sent to the pin
+ * @return true Successfully enabled the clock out
+ * @return false
+ */
+
+bool PHAL_enableMCO1(GPIO_TypeDef* bank, uint8_t pin, MCO1Source_t source, MCODivisor_t division);
 
 #endif // _PHAL_PLL_H_

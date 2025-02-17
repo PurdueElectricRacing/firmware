@@ -382,3 +382,28 @@ void PHAL_trimHSI(uint8_t trim_val)
     reg |= trim_val << RCC_CR_HSITRIM_Pos;
     RCC->CR = reg;
 }
+
+bool PHAL_enableMCO1(GPIO_TypeDef* bank, uint8_t pin, MCO1Source_t source, MCODivisor_t division)
+{
+    if ((bank == GPIOA) && (pin == MCO_OUT_PIN))
+    {
+        /* Clear Previous MCO1 Source */
+        RCC->CFGR &= ~(RCC_CFGR_MCO1_Msk);
+
+        /* Select MCO1 Source*/
+        RCC->CFGR |= (source << RCC_CFGR_MCO1_Pos);
+
+        /* Clear Previous Prescaler */
+        RCC->CFGR &= ~(RCC_CFGR_MCO1PRE_Msk);
+
+        /* Select MCO1 Prescaler */
+        RCC->CFGR |= (division << RCC_CFGR_MCO1PRE_Pos);
+    }
+    else
+    {
+        return false;
+    }
+
+    return true;
+
+} /* PHAL_enableMCO1() */

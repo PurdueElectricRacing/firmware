@@ -36,15 +36,15 @@
 
 typedef struct
 {
-    uint16_t AMK_bReserve        : 8; /* Reserved */
-    uint16_t AMK_bSystemReady    : 1; /* System Ready */
-    uint16_t AMK_bError          : 1; /* Error */
-    uint16_t AMK_bWarn           : 1; /* Warning */
-    uint16_t AMK_bQuitDcOn       : 1; /* HV activiation acknowledgement */
-    uint16_t AMK_bDcOn           : 1; /* HV activation level */
-    uint16_t AMK_bQuitInverterOn : 1; /* Controller enable acknowledgement */
-    uint16_t AMK_bInverterOn     : 1; /* Controller enable level */
-    uint16_t AMK_bDerating       : 1; /* Derating (torque limitation active) */
+    uint8_t AMK_bReserve        : 8; /* Reserved */
+    uint8_t AMK_bSystemReady    : 1; /* System Ready */
+    uint8_t AMK_bError          : 1; /* Error */
+    uint8_t AMK_bWarn           : 1; /* Warning */
+    uint8_t AMK_bQuitDcOn       : 1; /* HV activiation acknowledgement */
+    uint8_t AMK_bDcOn           : 1; /* HV activation level */
+    uint8_t AMK_bQuitInverterOn : 1; /* Controller enable acknowledgement */
+    uint8_t AMK_bInverterOn     : 1; /* Controller enable level */
+    uint8_t AMK_bDerating       : 1; /* Derating (torque limitation active) */
 } AMK_Status_t;
 
 /* -------------------------------------------------------
@@ -55,12 +55,12 @@ typedef struct
 -------------------------------------------------------- */
 typedef struct
 {
-    uint16_t AMK_bReserve1   : 8; /* Reserved */
-    uint16_t AMK_bInverterOn : 1; /* Controller Enable */
-    uint16_t AMK_bDcOn       : 1; /* HV activiation */
-    uint16_t AMK_bEnable     : 1; /* Driver Enable */
-    uint16_t AMK_bErrorReset : 1; /* Remove Error */
-    uint16_t AMK_bReserve2   : 1; /* Reserved */
+    uint8_t AMK_bReserve1   : 8; /* Reserved */
+    uint8_t AMK_bInverterOn : 1; /* Controller Enable */
+    uint8_t AMK_bDcOn       : 1; /* HV activiation */
+    uint8_t AMK_bEnable     : 1; /* Driver Enable */
+    uint8_t AMK_bErrorReset : 1; /* Remove Error */
+    uint8_t AMK_bReserve2   : 1; /* Reserved */
 } AMK_Control_t;
 
 /* -------------------------------------------------------

@@ -8,7 +8,7 @@ void rtosWrapper(void *thread)
     while(1)
     {
         wrapper->taskFunction();
-        osDelay(wrapper->delay);
+        osDelay(wrapper->period);
     }
 
     osThreadTerminate(NULL);

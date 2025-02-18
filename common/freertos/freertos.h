@@ -95,7 +95,7 @@ static void eth_send_udp_periodic(void)
 
 typedef struct {
     void (*taskFunction)();
-    uint32_t delay;
+    uint32_t period;
     osThreadAttr_t attrs;
     osThreadId_t handle;
 } ThreadWrapper;
@@ -105,19 +105,19 @@ void rtosWrapper(void *);
 // Cursed macro
 #define threadWrapperName(NAME) (threadWrapper_##NAME)
 // TASK: task function name
-// DELAY: delay in ticks (should be ms)
+// PERIOD: period of task in ticks (should be ms)
 // PRIORITY: one of osPriorityNormal, osPriorityHigh, etc
 // STACK: stack size
-#define __defineThread(TASK, DELAY, PRIORITY, STACK)\
-    ThreadWrapper threadWrapperName(TASK) = { \
-        .taskFunction = &(TASK),     \
-        .delay = (DELAY),            \
-        .attrs = {                   \
-            .priority = (PRIORITY),  \
-            .stack_size = (STACK),   \
-            .name = "\""#TASK"\"",   \
-        }                            \
-    };                               \
+#define __defineThread(TASK, PERIOD, PRIORITY, STACK)\
+    ThreadWrapper threadWrapperName(TASK) = {        \
+        .taskFunction = &(TASK),                     \
+        .period = (PERIOD),                          \
+        .attrs = {                                   \
+            .priority = (PRIORITY),                  \
+            .stack_size = (STACK),                   \
+            .name = "\""#TASK"\"",                   \
+        }                                            \
+    };                                               \
 
 #define defineThread(T, D, P) __defineThread(T, D, P, 1024) // TODO calculate stack size
 #define defineThreadStack(T, D, P, S) __defineThread(T, D, P, S)

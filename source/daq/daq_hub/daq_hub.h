@@ -22,10 +22,6 @@
 #include "ff.h"
 #include "sdio.h"
 
-// W5500
-#define ETH_PHY_VERSION_ID      0x04
-#define ETH_PHY_RESET_PERIOD_MS   10
-
 // W5500 has 8 sockets internally
 #define DAQ_SOCKET_UDP_BROADCAST   0
 #define DAQ_SOCKET_TCP             1
@@ -41,8 +37,7 @@ typedef enum
     SD_STATE_IDLE         = 0,
     SD_STATE_MOUNTED      = 1,
     SD_STATE_FILE_CREATED = 2,
-    SD_FAIL               = 3,
-    SD_SHUTDOWN           = 4,
+    SD_STATE_FAIL         = 3,
 } sd_state_t;
 
 typedef enum
@@ -59,9 +54,10 @@ typedef enum
 typedef enum
 {
     ETH_IDLE             = 0,
-    ETH_LINK_DOWN        = 1,
-    ETH_LINK_UP          = 2,
-    ETH_FAIL             = 3,
+    ETH_LINK_STARTING    = 1,
+    ETH_LINK_DOWN        = 2,
+    ETH_LINK_UP          = 3,
+    ETH_FAIL             = 4,
 } eth_state_t;
 
 typedef enum
@@ -135,7 +131,7 @@ typedef struct
     bool ftp_busy;
     uint32_t log_start_ms;
     uint32_t last_write_ms;
-    uint32_t last_file_tick;
+    uint32_t last_file_ms;
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
     bool log_enable_uds;

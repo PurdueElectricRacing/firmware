@@ -22,10 +22,6 @@
 #include "ff.h"
 #include "sdio.h"
 
-// W5500
-#define ETH_PHY_VERSION_ID      0x04
-#define ETH_PHY_RESET_PERIOD_MS   10
-
 // W5500 has 8 sockets internally
 #define DAQ_SOCKET_UDP_BROADCAST   0
 #define DAQ_SOCKET_TCP             1
@@ -38,11 +34,9 @@ typedef uint8_t busid_t;
 
 typedef enum
 {
-    SD_STATE_IDLE         = 0,
-    SD_STATE_MOUNTED      = 1,
-    SD_STATE_FILE_CREATED = 2,
-    SD_FAIL               = 3,
-    SD_SHUTDOWN           = 4,
+    SD_STATE_IDLE        = 0,
+    SD_STATE_MOUNTED     = 1,
+    SD_STATE_ACTIVE      = 2,
 } sd_state_t;
 
 typedef enum
@@ -58,10 +52,11 @@ typedef enum
 
 typedef enum
 {
-    ETH_IDLE             = 0,
-    ETH_LINK_DOWN        = 1,
-    ETH_LINK_UP          = 2,
-    ETH_FAIL             = 3,
+    ETH_LINK_IDLE        = 0,
+    ETH_LINK_STARTING    = 1,
+    ETH_LINK_DOWN        = 2,
+    ETH_LINK_UP          = 3,
+    ETH_LINK_FAIL        = 4,
 } eth_state_t;
 
 typedef enum
@@ -93,11 +88,11 @@ typedef enum
 
 typedef enum __attribute__ ((__packed__))
 {
-    DAQ_FRAME_CAN_RX    = 0, //!< RX to DAQ over CAN
-    DAQ_FRAME_TCP2CAN   = 1, //!< RX to DAQ over TCP, relay to other nodes on CAN
-    DAQ_FRAME_TCP2DAQ   = 2, //!< RX to DAQ over TCP, message intended for DAQ
-    DAQ_FRAME_TCP_TX    = 3, //!< TX from DAQ over TCP
-    DAQ_FRAME_UDP_TX    = 4, //!< TX from DAQ over UDP
+    DAQ_FRAME_CAN_RX     = 0, //!< RX to DAQ over CAN
+    DAQ_FRAME_TCP2CAN    = 1, //!< RX to DAQ over TCP, relay to other nodes on CAN
+    DAQ_FRAME_TCP2DAQ    = 2, //!< RX to DAQ over TCP, message intended for DAQ
+    DAQ_FRAME_TCP_TX     = 3, //!< TX from DAQ over TCP
+    DAQ_FRAME_UDP_TX     = 4, //!< TX from DAQ over UDP
 } daq_frame_type_t;
 static_assert(sizeof(daq_frame_type_t) == sizeof(uint8_t));
 
@@ -116,8 +111,6 @@ typedef struct
     // Ethernet
     eth_state_t eth_state;
     eth_tcp_state_t eth_tcp_state;
-    bool eth_enable_udp_broadcast; // TODO: determine if I want this var
-    bool eth_enable_tcp_reception;
     uint32_t eth_error_ct;
     eth_error_t eth_last_err;
     int32_t eth_last_err_res;
@@ -135,7 +128,7 @@ typedef struct
     bool ftp_busy;
     uint32_t log_start_ms;
     uint32_t last_write_ms;
-    uint32_t last_file_tick;
+    uint32_t last_file_ms;
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
     bool log_enable_uds;
@@ -146,7 +139,6 @@ extern daq_hub_t dh;
 void daq_hub_init(void);
 void daq_create_threads(void);
 void uds_receive_periodic(void);
-void shutdown(void);
 void daq_shutdown_hook(void);
 void daq_catch_error(void);
 

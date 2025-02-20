@@ -6,27 +6,16 @@
 #include "ff.h"
 #include "main.h"
 
-extern ThreadWrapper threadWrapperName(sd_create_file_periodic);
-extern ThreadWrapper threadWrapperName(sd_write_periodic);
-extern ThreadWrapper threadWrapperName(ftp_server_run);
+static FRESULT sd_create_new_file(void);
+static inline void sd_file_sync(void);
+static void _sd_write_periodic(bool bypass);
+static void sd_handle_error(sd_error_t err, FRESULT res);
+static void sd_reset_error(void);
+#define sd_write_periodic() _sd_write_periodic(false)
 
-/**
- * @brief Returns if logging has been enabled.
- *        Sources for enabling are on-board switch
- *        and CAN message request from either
- *        dashboard or via wireless request.
- *        Logging will not be enabled unless
- *        the switch is flipped to on.
- *
- * @return Enabled
- */
-bool get_log_enable(void)
+bool daq_request_sd_mount(void)
 {
-    // TODO: combine with CAN message from dash
-    // return dh.log_enable_sw || dh.log_enable_tcp;
-    // TODO: switch doesnt work fix resistor value just return true for now
-    //return dh.log_enable_uds;
-    return dh.log_enable_sw;
+    return dh.sd_state == SD_STATE_MOUNTED || dh.sd_state == SD_STATE_ACTIVE;
 }
 
 static void sd_handle_error(sd_error_t err, FRESULT res)
@@ -39,24 +28,28 @@ static void sd_handle_error(sd_error_t err, FRESULT res)
     debug_printf("sd err: %d res: %d\n", err, res);
 }
 
-bool daq_request_sd_mount(void)
+static void sd_reset_error(void)
 {
-    return dh.sd_state == SD_STATE_MOUNTED || dh.sd_state == SD_STATE_FILE_CREATED;
+    // Do not retry immediately
+    if (!(getTick() - dh.sd_last_error_time > SD_ERROR_RETRY_MS)) return;
+
+    dh.sd_last_error_time = getTick();
+    if (dh.sd_last_err != SD_ERROR_NONE)
+    {
+        dh.sd_state = SD_STATE_IDLE; // Retry
+        dh.sd_last_err = SD_ERROR_NONE;
+        dh.sd_last_err_res = 0;
+        PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+    }
 }
 
-static FRESULT sd_open_new_file(void)
+static FRESULT sd_create_new_file(void)
 {
-    FRESULT ret;
+    FRESULT res;
     RTC_timestamp_t time;
     static uint32_t log_num;
 
-    // Record creation time
-    // TODO track handle periods
-    dh.log_start_ms = getTick();
-    dh.last_write_ms = getTick();
-
     char f_name[30];
-
     if (PHAL_getTimeRTC(&time))
     {
         // Create file name from RTC
@@ -69,135 +62,38 @@ static FRESULT sd_open_new_file(void)
     {
         sprintf(f_name, "log-%04d.log", log_num);
     }
-    ret = f_open(&dh.log_fp, f_name, FA_OPEN_APPEND | FA_READ | FA_WRITE);
-    if (ret == FR_OK) {
-        debug_printf("delta: %d: created file %02d: %s\n", getTick() - dh.last_file_tick, log_num, f_name);
+
+    res = f_open(&dh.log_fp, f_name, FA_OPEN_APPEND | FA_READ | FA_WRITE);
+    if (res == FR_OK) {
+        debug_printf("delta: %d: created file %02d: %s\n", getTick() - dh.last_file_ms, log_num, f_name);
         log_num++;
-        dh.last_file_tick = getTick();
-    }
-
-    return ret;
-}
-
-void sd_create_file_periodic(void)
-{
-    FRESULT res;
-
-    if (dh.sd_state == SD_FAIL || dh.sd_state == SD_SHUTDOWN) return; // try again
-
-    if (dh.sd_state == SD_STATE_IDLE || dh.sd_state == SD_STATE_MOUNTED)
-    {
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-    }
-    else if (dh.sd_state == SD_STATE_FILE_CREATED)
-    {
-        mDelay(SD_NEW_FILE_PERIOD_MS); // create new file at regular intervals, but not for the first file
-        if ((res = f_close(&dh.log_fp)) != FR_OK) sd_handle_error(SD_ERROR_FCLOSE, res);
-    }
-
-    res = sd_open_new_file();
-    if (res == FR_OK)
-    {
-        dh.last_file_tick = getTick();
-        dh.sd_state = SD_STATE_FILE_CREATED;
-        dh.sd_last_err = SD_ERROR_NONE; // back to okay
-        PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+        dh.last_file_ms = getTick();
     }
     else
     {
         sd_handle_error(SD_ERROR_FOPEN, res);
     }
 
-    xTaskNotify(getTaskHandle(sd_write_periodic), 0, eNoAction);
-    // TODO close file on log disable
-}
-
-void sd_update_connection_state(void)
-{
-    FRESULT res;
-
-#if 0
-    // debounce
-    // TODO determine hierarchy with TCP enable switch
-    dh.log_enable_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
-    if (!dh.log_enable_sw)
-    {
-        PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-    }
-    else
-    {
-        PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-    }
-#endif
-
-    switch (dh.sd_state)
-    {
-        case SD_STATE_IDLE:
-            if (SD_Detect() == SD_PRESENT)
-            {
-                res = f_mount(&dh.fat_fs, "", 1);
-                if (res == FR_OK)
-                {
-                    bActivateTail(&b_rx_can, RX_TAIL_SD);
-                    dh.sd_state = SD_STATE_MOUNTED;
-                    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-                    debug_printf("SD UP!\n");
-                    xTaskNotify(getTaskHandle(sd_create_file_periodic), 0, eNoAction);
-                    //xTaskNotify(getTaskHandle(ftp_server_run), (1<<0), eSetBits);  // set 0th bit HIGH
-                }
-                else
-                {
-                    sd_handle_error(SD_ERROR_MOUNT, res);
-                    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-                }
-            }
-            else
-            {
-                PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-            }
-        break;
-        case SD_STATE_MOUNTED:
-        case SD_STATE_FILE_CREATED:
-            break;
-        case SD_FAIL:
-            // Intentional fall-through
-        case SD_SHUTDOWN:
-        default:
-            f_close(&dh.log_fp);   // Close file
-            f_mount(0, "", 1);     // Unmount drive
-            SD_DeInit();           // Shutdown SDIO peripheral
-            dh.sd_state = SD_STATE_IDLE;
-            bDeactivateTail(&b_rx_can, RX_TAIL_SD);
-            PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-        break;
-    }
+    return res;
 }
 
 static inline void sd_file_sync(void)
 {
     FRESULT res = f_sync(&dh.log_fp);
-    if (res != FR_OK)
-    {
-        sd_handle_error(SD_ERROR_SYNC, res);
-    }
+    if (res != FR_OK) sd_handle_error(SD_ERROR_SYNC, res);
 }
 
-void sd_write_periodic(void)
+static void _sd_write_periodic(bool bypass)
 {
     timestamped_frame_t *buf;
     uint32_t consecutive_items;
     UINT bytes_written;
     FRESULT res;
 
-    if (dh.sd_state != SD_STATE_FILE_CREATED)
-    {
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-    }
-
-    if (dh.sd_state == SD_STATE_FILE_CREATED)
+    if (dh.sd_state == SD_STATE_ACTIVE)
     {
         // Use the total item count, not contiguous for the threshold
-        if (bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT)
+        if (bypass || bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT)
         {
             if ((bGetTailForRead(&b_rx_can, RX_TAIL_SD, (void**) &buf, &consecutive_items) == 0))
             {
@@ -211,6 +107,7 @@ void sd_write_periodic(void)
                 }
                 else
                 {
+                    dh.last_write_ms = getTick();
                     bCommitRead(&b_rx_can, RX_TAIL_SD, bytes_written / sizeof(*buf));
                     sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
                 }
@@ -222,4 +119,86 @@ void sd_write_periodic(void)
             }
         }
     }
+}
+
+void sd_shutdown(void)
+{
+    switch (dh.sd_state)
+    {
+        case SD_STATE_ACTIVE:
+            _sd_write_periodic(true); // Finish write (bypass count limit)
+            sd_file_sync();           // Flush cache
+            f_close(&dh.log_fp);      // Close file
+        case SD_STATE_MOUNTED:
+            f_mount(0, "", 1);        // Unmount drive
+            bDeactivateTail(&b_rx_can, RX_TAIL_SD);
+        case SD_STATE_IDLE:
+            SD_DeInit();              // Shutdown SDIO peripheral
+        default:
+            dh.sd_state = SD_STATE_IDLE;
+            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+            PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
+            PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+            break;
+    }
+}
+
+void sd_update_periodic(void)
+{
+    FRESULT res;
+
+    dh.log_enable_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
+    if (!dh.log_enable_sw)
+    {
+        PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
+        sd_shutdown();
+        return;
+    }
+    else
+    {
+        PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+    }
+
+    switch (dh.sd_state)
+    {
+        case SD_STATE_IDLE:
+            if (SD_Detect() == SD_PRESENT)
+            {
+                res = f_mount(&dh.fat_fs, "", 1);
+                if (res == FR_OK)
+                {
+                    bActivateTail(&b_rx_can, RX_TAIL_SD);
+                    dh.sd_state = SD_STATE_MOUNTED;
+                    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+                    debug_printf("SD UP!\n");
+                }
+                else
+                {
+                    sd_handle_error(SD_ERROR_MOUNT, res);
+                    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
+                }
+            }
+            else
+            {
+                sd_handle_error(SD_ERROR_MOUNT, res);
+                PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
+            }
+            break;
+        case SD_STATE_MOUNTED:
+            res = sd_create_new_file();
+            if (res == FR_OK)
+            {
+                dh.sd_state = SD_STATE_ACTIVE;
+                dh.log_start_ms = getTick();
+            }
+            break;
+        case SD_STATE_ACTIVE:
+            if (getTick() - dh.last_write_ms > SD_WRITE_PERIOD_MS)
+                sd_write_periodic();
+            if (getTick() - dh.last_file_ms  > SD_NEW_FILE_PERIOD_MS)
+                sd_create_new_file();
+            break;
+    }
+
+    sd_reset_error();
 }

@@ -108,7 +108,7 @@ usart_init_t lte_usart_config = {
    .ovsample    = OV_16,
    .obsample    = OB_DISABLE,
    .periph      = USART6,
-   .wake_addr = false,
+   .wake_addr   = false,
    .usart_active_num = USART6_ACTIVE_IDX,
    .tx_dma_cfg = &usart_tx_dma_config,
    .rx_dma_cfg = &usart_rx_dma_config
@@ -127,11 +127,12 @@ b_handle_t b_rx_can = {
 timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
 defineStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
 defineStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT); // CAN messages RX'd to DAQ
-SemaphoreHandle_t spi1_lock;
+defineStaticSemaphore(spi1_lock);
 
 static void configure_interrupts(void);
 bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 void HardFault_Handler();
+void shutdown(void);
 
 int main()
 {
@@ -148,9 +149,6 @@ int main()
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
     if (!PHAL_SPI_init(&eth_spi_config))
         HardFault_Handler();
-
-    SysTick_Config(SystemCoreClock / 1000);
-    NVIC_EnableIRQ(SysTick_IRQn);
 
     if (!PHAL_configureRTC(&start_time, false))
         HardFault_Handler();
@@ -174,7 +172,7 @@ int main()
     daq_hub_init();
     configure_interrupts();
 
-    spi1_lock = xSemaphoreCreateMutex();
+    spi1_lock = createStaticSemaphore(spi1_lock);
     q_tcp_tx = createStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
     q_can1_rx = createStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT);
     daq_create_threads();
@@ -380,6 +378,22 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame)
 	}
 
 	return true;
+}
+
+/**
+ * @brief Disables high power consumption devices
+ *        If file open, flushes it to the sd card
+ *        Then unmounts sd card
+ */
+void shutdown(void)
+{
+    daq_shutdown_hook();
+    uint32_t start_tick = getTick();
+    while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart
+    {
+        //if (getTick() % 250 == 0) PHAL_toggleGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN);
+    }
+    NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
 }
 
 // Interrupt handler for power loss detection

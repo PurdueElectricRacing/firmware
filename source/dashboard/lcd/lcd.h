@@ -161,6 +161,5 @@ void sendTVParameters();            // Periodically send updates to the TV confi
 void sendCoolingParameters();       // Periodically send updates to the cooling configuration to the cooling board
 void sendLoggingParameters();       // Periodically send updates to the logging configuration to the daq board
 void updateFaultPageIndicators();   // Update the fault page indicators
-void updateSDCDashboard();          // Update the SDC info page
 
 #endif // __LCD_H__

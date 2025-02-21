@@ -20,7 +20,7 @@
 #define LOGGING_STRING       "logging"
 
 // Info
-#define MPS_TO_MPH 2.2369362921f
+#define MPS_TO_MPH (2.237F)
 
 // Driver Configuration Page
 #define DRIVER1_LIST "t1"
@@ -120,7 +120,7 @@
 #define CALIBRATION_BRAKE1_THRESHOLD "B1T"
 #define CALIBRATION_BRAKE2_THRESHOLD "B2T"
 
-#define PAGE_COUNT 12
+#define PAGE_COUNT (12)
 
 typedef enum {
   // Pages selectable with the rot encoder

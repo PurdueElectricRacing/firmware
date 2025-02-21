@@ -12,17 +12,19 @@
 #include "menu_system.h"
 #include "main.h"
 
-volatile page_t curr_page;              // Current page displayed on the LCD
-volatile page_t prev_page;              // Previous page displayed on the LCD
-uint16_t cur_fault_buf_ndx;             // Current index in the fault buffer
-volatile uint16_t fault_buf[5] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};   // Buffer of displayed faults
-char *errorText;                        // Pointer to data to display for the Error, Warning, and Critical Fault codes
-extern uint16_t filtered_pedals;        // Global from pedals module for throttle display
-extern q_handle_t q_fault_history;      // Global queue from fault library for fault history
-uint8_t fault_time_displayed;           // Amount of units of time that the fault has been shown to the driver
+volatile page_t curr_page;                   // Current page displayed on the LCD
+volatile page_t prev_page;                   // Previous page displayed on the LCD
+uint16_t cur_fault_buf_ndx;                  // Current index in the fault buffer
+uint8_t fault_time_displayed;                // Amount of units of time that the fault has been shown to the driver
+volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
+    0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
+};   
+char *errorText;                             // Pointer to data to display for the Error, Warning, and Critical Fault codes
+extern uint16_t filtered_pedals;             // Global from pedals module for throttle display 
+extern q_handle_t q_fault_history;           // Global queue from fault library for fault history
+extern dashboard_input_state_t input_state;  // Global dashboard input states 
+extern brake_status_t brake_status;          // Global brake status struct
 extern driver_pedal_profile_t driver_pedal_profiles[4];
-extern dashboard_input_state_t input_state; // Global dashboard input states 
-extern brake_status_t brake_status;         // Global brake status struct
 
 
 // Driver Page Functions
@@ -82,19 +84,19 @@ void setFaultIndicator(uint16_t fault, char *element);
 
 // Page handlers array stored in flash
 const page_handler_t page_handlers[] = { // Order must match page_t enum
-    [PAGE_RACE]        = {racePageUpdate, NULL, NULL, raceSelect, raceTelemetryUpdate}, // No move handlers, telemetry is passive
+    [PAGE_RACE]        = {racePageUpdate, NULL, NULL, raceSelect, raceTelemetryUpdate},         // No move handlers, telemetry is passive
     [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
     [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
     [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, NULL},
-    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate},  // SDCINFO is passive
+    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate},                          // SDCINFO is passive
     [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
     [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
-    [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate}, // Calibration is passive
-    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL}, // Preflight is passive
-    [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL},  
-    [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL}
+    [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate},                  // Calibration is passive
+    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL},                                        // Preflight is passive 
+    [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler
+    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler 
+    [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL}                              // Error pages share a select handler
 };
 
 
@@ -567,9 +569,9 @@ void calibrationTelemetryUpdate() {
  */
 void sendTVParameters() {
     SEND_DASHBOARD_TV_PARAMETERS(tv_elements[TV_ENABLE_INDEX].current_value,
-                                tv_elements[TV_DEAD_INDEX].current_value,
-                                tv_elements[TV_INTENSITY_INDEX].current_value,
-                                tv_elements[TV_PROPORTION_INDEX].current_value);
+                                 tv_elements[TV_DEAD_INDEX].current_value,
+                                 tv_elements[TV_INTENSITY_INDEX].current_value,
+                                 tv_elements[TV_PROPORTION_INDEX].current_value);
 }
 
 /**
@@ -577,10 +579,10 @@ void sendTVParameters() {
  */
 void sendCoolingParameters() {
   SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
-                            cooling_elements[COOLING_DT_FAN_INDEX].current_value,
-                            0, // TODO: remove (deprecated)
-                            cooling_elements[COOLING_B_PUMP_INDEX].current_value,
-                            cooling_elements[COOLING_B_FAN_INDEX].current_value);
+                              cooling_elements[COOLING_DT_FAN_INDEX].current_value,
+                              0, // TODO: remove (deprecated)
+                              cooling_elements[COOLING_B_PUMP_INDEX].current_value,
+                              cooling_elements[COOLING_B_FAN_INDEX].current_value);
 }
 
 /**
@@ -597,23 +599,18 @@ void sendLoggingParameters() {
  * screen according to fault priorities and display timing requirements.
  */
 void updateFaultDisplay() {
-    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)))
-    {
-        if (++fault_time_displayed > 8)
-        {
+    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL))) {
+        if (++fault_time_displayed > 8) {
             curr_page = prev_page;
             prev_page = PAGE_PREFLIGHT;
             updatePage();
         }
-    }
-    else
-    {
+    } else {
         fault_time_displayed = 0;
     }
 
     // No new fault to display
-    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF))
-    {
+    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF)) {
         return;
     }
 
@@ -623,46 +620,37 @@ void updateFaultDisplay() {
     bool faultWasInserted = false;
 
     // Process up to 5 faults each time for now
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         faultAlreadyInBuffer = false;
         uint16_t next_to_check = 0xFFFF;
         faultWasInserted = false;
 
-        if (qReceive(&q_fault_history, &next_to_check))
-        {
+        if (qReceive(&q_fault_history, &next_to_check)) {
             // Iterate through fault buffer for existance of fault already
-            for (int j = 0; j < 5; j++)
-            {
+            for (int j = 0; j < 5; j++) {
                 // This should be based off of the queue item not anything else
-                if (fault_buf[j] == next_to_check)
-                {
+                if (fault_buf[j] == next_to_check) {
                     faultAlreadyInBuffer = true;
                     break;
                 }
             }
 
             // New fault to add to the display, if room
-            if (false == faultAlreadyInBuffer)
-            {
+            if (false == faultAlreadyInBuffer) {
                 // try all the slots for inserting the fault
-                for (uint8_t k = 0; k < 5; k++)
-                {
-                    // If fault is currently not in our fault buffer, replace it if the current fault is cleared,
+                for (uint8_t k = 0; k < 5; k++) {
+                    // If fault is currently not in our fault buffer, replace it if the
+                    // current fault is cleared,
                     //  or if the new fault has higher priority
-                    if (fault_buf[cur_fault_buf_ndx] != 0xFFFF)
-                    {
-                        if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false ) ||
-                        (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority))
-                        {
+                    if (fault_buf[cur_fault_buf_ndx] != 0xFFFF) {
+                        if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false) ||
+                            (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority)) {
                             fault_buf[cur_fault_buf_ndx] = next_to_check;
                             faultWasInserted = true;
                             pageUpdateRequired = true;
                             break;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         // Empty slot just insert
                         fault_buf[cur_fault_buf_ndx] = next_to_check;
                         faultWasInserted = true;
@@ -673,32 +661,25 @@ void updateFaultDisplay() {
                 }
 
                 // Put back in the queue if it wasn't processed
-                if (false == faultWasInserted)
-                {
+                if (false == faultWasInserted) {
                     qSendToBack(&q_fault_history, &next_to_check);
                 }
-
             }
-        }
-        else
-        {
+        } else {
             // Break out if issue or the queue is empty
             break;
         }
-
     }
 
     // Set the alert page to show based on most_recent_latched
-    if ((most_recent_latched != 0xFFFF))
-    {
+    if ((most_recent_latched != 0xFFFF)) {
         curr_page = faultArray[most_recent_latched].priority + 9;
         errorText = faultArray[most_recent_latched].screen_MSG;
         pageUpdateRequired = true;
     }
 
     // Update page if required
-    if (pageUpdateRequired)
-    {
+    if (pageUpdateRequired) {
         updatePage();
     }
 

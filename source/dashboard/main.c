@@ -207,7 +207,6 @@ int main(void){
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
     taskCreate(sendTVParameters, 2000);
-    taskCreate(updateSDCDashboard, 500);
     taskCreate(sendVoltageData, 5000);
     taskCreateBackground(usartTxUpdate);
     taskCreateBackground(canTxUpdate);

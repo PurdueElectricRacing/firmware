@@ -73,6 +73,9 @@ void calibrationTelemetryUpdate();
 void loggingPageUpdate();
 void loggingSelect();
 
+// SDC Page
+void sdcTelemetryUpdate();
+
 // Utility Functions
 void updateSDCStatus(uint8_t status, char *element);
 void setFaultIndicator(uint16_t fault, char *element);
@@ -83,7 +86,7 @@ const page_handler_t page_handlers[] = { // Order must match page_t enum
     [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
     [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
     [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, NULL},
-    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, NULL},  // SDCINFO is passive
+    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate},  // SDCINFO is passive
     [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
     [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
@@ -700,7 +703,7 @@ void updateFaultPageIndicators() {
  * 
  * Only executes if the current page is SDC info page.
  */
-void updateSDCDashboard() {
+void sdcTelemetryUpdate() {
     static uint8_t update_group = 0U;
     if (curr_page != PAGE_SDCINFO) {
         return;

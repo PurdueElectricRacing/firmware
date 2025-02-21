@@ -23,12 +23,12 @@
 
 #define MAX_PEDAL_MEAS (4095)
 
-#define APPS_IMPLAUS_MAX_DIFF (3000) //(410)  // T.4.2.4  (10% of 0x0FFF)
-#define APPS_IMPLAUS_TIME_MS  (100)  // T.4.2.5
-#define APPS_IMPLAUS_MIN      (50)   // Lowering for now, if below min, throttle = 0 anyway //(205)  // T.4.2.10 ( 5% of 0x0FFF)
-#define APPS_IMPLAUS_MAX      (3891) // T.4.2.10 (95% of 0x0FFF)
-#define BSE_IMPLAUS_MIN (50) // lowering for now //(205)  // ( 5% of 0x0FFF)
-#define BSE_IMPLAUS_MAX (3891) // (95% of 0x0FFF)
+#define APPS_IMPLAUS_MAX_DIFF  (3000) //(410)  // T.4.2.4  (10% of 0x0FFF)
+#define APPS_IMPLAUS_TIME_MS   (100)  // T.4.2.5
+#define APPS_IMPLAUS_MIN       (50)   // Lowering for now, if below min, throttle = 0 anyway //(205)  // T.4.2.10 ( 5% of 0x0FFF)
+#define APPS_IMPLAUS_MAX       (3891) // T.4.2.10 (95% of 0x0FFF)
+#define BSE_IMPLAUS_MIN        (50)   // lowering for now //(205)  // ( 5% of 0x0FFF)
+#define BSE_IMPLAUS_MAX        (3891) // (95% of 0x0FFF)
 
 #define APPS_BRAKE_THRESHOLD               (307)  // EV.5.7.1 (7.5% of 0x0FFF)
 #define APPS_THROTTLE_FAULT_THRESHOLD      (1024) // EV.5.7.1 (25% of 0x0FFF)
@@ -36,16 +36,16 @@
 
 #define BRAKE_PRESSURE_THRESHOLD (425)
 #define FLT_TO_DISPLAY_INT_2_DEC (100U)
-#define FLT_TO_PERCENTAGE (100U)
+#define FLT_TO_PERCENTAGE        (100U)
 
-#define VREF 3.3F
-#define RESISTOR_T1 3300
-#define RESISTOR_T2 1000
+#define VREF                     (3.3F)
+#define RESISTOR_T1              (3300)
+#define RESISTOR_T2              (1000)
 
-#define PROFILES_START_SECTOR    3
-#define NUM_PROFILES             4
-#define PROFILE_WRITE_SUCCESS 0
-#define PROFILE_WRITE_FAIL -1
+#define PROFILES_START_SECTOR    (3)
+#define NUM_PROFILES             (4)
+#define PROFILE_WRITE_SUCCESS    (0)
+#define PROFILE_WRITE_FAIL       (-1)
 
 typedef struct
 {

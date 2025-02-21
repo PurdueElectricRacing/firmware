@@ -14,12 +14,12 @@
 #include <stdint.h>
 
 // Purdue color palette in 565 format
-#define RUSH         56640   // bright gold
-#define BOILERMAKER  52690   // pale gold
-#define FIELD        56776   // light gold
-#define STEEL        21196   // dark grey
-#define COOL_GRAY    27535   // medium grey
-#define STEAM        50680   // light grey
+#define RUSH         (56640)   // bright gold
+#define BOILERMAKER  (52690)   // pale gold
+#define FIELD        (56776)   // light gold
+#define STEEL        (21196)   // dark grey
+#define COOL_GRAY    (27535)   // medium grey
+#define STEAM        (50680)   // light grey
 
 /**
  * @brief Applies normal (default) styling to a menu element

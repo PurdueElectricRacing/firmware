@@ -91,6 +91,7 @@ ADCInitConfig_t adc_config = {
     .dma_mode        = ADC_DMA_CIRCULAR,
     .adc_number      = 1,
 };
+
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel=THTL_1_ADC_CHNL, .rank=1, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=THTL_2_ADC_CHNL, .rank=2, .sampling_time=ADC_CHN_SMP_CYCLES_480},
@@ -107,36 +108,37 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=BRK1_THR_ADC_CHNL, .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=BRK2_THR_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
+
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
 
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lcd = {
-    .baud_rate   = LCD_BAUD_RATE,
-    .word_length = WORD_8,
-    .stop_bits   = SB_ONE,
-    .parity      = PT_NONE,
-    .hw_flow_ctl = HW_DISABLE,
-    .ovsample    = OV_16,
-    .obsample    = OB_DISABLE,
-    .periph      = USART1,
-    .wake_addr   = false,
-    .usart_active_num = USART1_ACTIVE_IDX,
-    .tx_dma_cfg = &usart_tx_dma_config,
-    .rx_dma_cfg = &usart_rx_dma_config
+    .baud_rate          = LCD_BAUD_RATE,
+    .word_length        = WORD_8,
+    .stop_bits          = SB_ONE, 
+    .parity             = PT_NONE,
+    .hw_flow_ctl        = HW_DISABLE,
+    .ovsample           = OV_16,
+    .obsample           = OB_DISABLE,
+    .periph             = USART1,
+    .wake_addr          = false,
+    .usart_active_num   = USART1_ACTIVE_IDX,
+    .tx_dma_cfg         = &usart_tx_dma_config,
+    .rx_dma_cfg         = &usart_rx_dma_config
 };
 
 // Clock Configuration
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSE,
-    .use_pll                    =false,
-    .vco_output_rate_target_hz  =160000000,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .clock_source               = CLOCK_SOURCE_HSE,
+    .use_pll                    = false,
+    .vco_output_rate_target_hz  = 160000000,
+    .system_clock_target_hz     = TargetCoreClockrateHz,
+    .ahb_clock_target_hz        = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -156,7 +158,6 @@ void preflightChecks(void);
 void preflightAnimation(void);
 void heartBeatLED();
 void usartTxUpdate();
-extern void HardFault_Handler();
 void enableInterrupts();
 void encoder_ISR();
 void handleDashboardInputs();
@@ -167,6 +168,7 @@ float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
 void pollBrakeStatus();
+extern void HardFault_Handler();
 
 // Communication queues
 q_handle_t q_tx_usart;

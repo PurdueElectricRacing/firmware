@@ -156,10 +156,9 @@ void moveUp();                      // Upward UI input detected (up button or in
 void moveDown();                    // Downward UI input detected (down button or in some cases encoder)
 void selectItem();                  // Selection UI input detected
 void updateFaultDisplay();          // Periodically poll recent faults and update the fault buffer and page as needed
-void updateTelemetryPages();        // Periodically poll recent telemetry and update the race/apps page as needd
+void updateTelemetryPages();        // Periodically poll recent telemetry and update the page as needd
 void sendTVParameters();            // Periodically send updates to the TV configuration to TV board
 void sendCoolingParameters();       // Periodically send updates to the cooling configuration to the cooling board
 void sendLoggingParameters();       // Periodically send updates to the logging configuration to the daq board
-void updateFaultPageIndicators();   // Update the fault page indicators
 
 #endif // __LCD_H__

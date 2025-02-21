@@ -199,7 +199,6 @@ int main(void){
     configureAnim(preflightAnimation, preflightChecks, 60, 2500);
 
     taskCreate(updateFaultDisplay, 500);
-    taskCreate(updateFaultPageIndicators, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(pedalsPeriodic, 15);
     taskCreate(handleDashboardInputs, 50);

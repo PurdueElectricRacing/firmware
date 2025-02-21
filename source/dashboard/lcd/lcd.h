@@ -106,7 +106,7 @@
 #define LOG_OP             "log"
 #define LOGGING_STATUS_TXT "stat"
 
-// Apps Page
+// Calibration Page
 #define CALIBRATION_BRAKE1_VAL       "B1"
 #define CALIBRATION_BRAKE2_VAL       "B2"
 #define CALIBRATION_THROTTLE1_VAL    "T1"

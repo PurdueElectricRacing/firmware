@@ -419,10 +419,13 @@ static volatile uint32_t last_input_time;
 void EXTI9_5_IRQHandler(void) {
     // EXTI9 (ENCODER B) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR9) {
-        encoderISR();
-        input_state.update_page = 1;    // Set flag to update page
-        EXTI->PR |= EXTI_PR_PR9;        // Clear the interrupt pending bit for EXTI9
+        if (!(sched.os_ticks - last_input_time < 50) && !input_state.update_page) {
+            encoderISR();
+            input_state.update_page = 1;
+        }
 
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR9;        // Clear the interrupt pending bit for EXTI9
     }
 }
 
@@ -430,53 +433,46 @@ void EXTI15_10_IRQHandler() {
     // EXTI10 (ENCODER A) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR10)
     {
-        encoderISR();
-        input_state.update_page = 1;    // Set flag to update page
+        if (!(sched.os_ticks - last_input_time < 50) && !input_state.update_page) {
+            encoderISR();
+            input_state.update_page = 1;
+        }
+
+        last_input_time = sched.os_ticks;
         EXTI->PR |= EXTI_PR_PR10;       // Clear the interrupt pending bit for EXTI10
     }
 
     // EXTI14 (UP Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14)
     {
-        if (sched.os_ticks - last_input_time < 100) {
-            last_input_time = sched.os_ticks;
-            EXTI->PR |= EXTI_PR_PR14;       // Clear the interrupt pending bit for EXTI14
-        }
-        else {
-            last_input_time = sched.os_ticks;
+        if (!(sched.os_ticks - last_input_time < 100)) {
             input_state.up_button = 1;      // Set flag for up button
-            EXTI->PR |= EXTI_PR_PR14;       // Clear the interrupt pending bit for EXTI14
         }
+
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR14;       // Clear the interrupt pending bit for EXTI14
     }
 
     // EXTI13 (DOWN button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR13)
     {
-        if (sched.os_ticks - last_input_time < 100) {
-            last_input_time = sched.os_ticks;
-            EXTI->PR |= EXTI_PR_PR13;       // Clear the interrupt pending bit for EXTI13
-        }
-        else
-        {
-            last_input_time = sched.os_ticks;
+        if (!(sched.os_ticks - last_input_time < 100)) {
             input_state.down_button = 1;    // Set flag for down button
-            EXTI->PR |= EXTI_PR_PR13;       // Clear the interrupt pending bit for EXTI13
         }
+
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR13;       // Clear the interrupt pending bit for EXTI13
     }
 
     // EXTI12 (SELECT button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR12)
     {
-        if (sched.os_ticks - last_input_time < 100) {
-            last_input_time = sched.os_ticks;
-            EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
-        }
-        else
-        {
-            last_input_time = sched.os_ticks;
+        if (!(sched.os_ticks - last_input_time < 100)) {
             input_state.select_button = 1;  // Set flag for select button
-            EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
         }
+
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
     }
 
     // EXTI11 (START button) triggered the interrupt
@@ -538,7 +534,7 @@ void encoderISR() {
             input_state.encoder_position += LCD_NUM_PAGES;
         }
     }
-
+    
     input_state.prev_encoder_position = current_state;
 }
 

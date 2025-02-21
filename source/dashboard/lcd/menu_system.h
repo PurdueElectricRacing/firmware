@@ -16,19 +16,19 @@
 
 // Element types
 typedef enum {
-    ELEMENT_VAL = 0,    // Numeric value
-    ELEMENT_FLT,    // Float value
-    ELEMENT_BAR,    // (not supported but easy to implement)
-    ELEMENT_BUTTON, // Button type
-    ELEMENT_OPTION, // On/off toggle
-    ELEMENT_LIST    // Item in a list
+    ELEMENT_VAL    = 0,    // Numeric value
+    ELEMENT_FLT    = 1,    // Float value
+    ELEMENT_BAR    = 2,    // (not supported but easy to implement)
+    ELEMENT_BUTTON = 3,    // Button type
+    ELEMENT_OPTION = 4,    // On/off toggle
+    ELEMENT_LIST   = 5     // Item in a list
 } element_type_t;
 
 // Element states
 typedef enum {
-    STATE_NORMAL = 0,
-    STATE_HOVER,
-    STATE_SELECTED
+    STATE_NORMAL   = 0,
+    STATE_HOVER    = 1,
+    STATE_SELECTED = 2
 } element_state_t;
 
 // Element structure

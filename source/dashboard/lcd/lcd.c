@@ -100,225 +100,225 @@ const page_handler_t page_handlers[] = { // Order must match page_t enum
 
 menu_element_t race_elements[] = {
     {
-        .type = ELEMENT_OPTION,
-        .object_name = RACE_TV_ON,
+        .type          = ELEMENT_OPTION,
+        .object_name   = RACE_TV_ON,
         .current_value = 0,
-        .on_change = sendTVParameters
+        .on_change     = sendTVParameters
     }
 };
 
 menu_page_t race_page = {
-    .elements = race_elements,
-    .num_elements = sizeof(race_elements) / sizeof(race_elements[0]),
-    .current_index = 0,
+    .elements            = race_elements,
+    .num_elements        = sizeof(race_elements) / sizeof(race_elements[0]), 
+    .current_index       = 0,
     .is_element_selected = false
 };
 
 typedef enum {
-    COOLING_DT_FAN_INDEX = 0,
-    COOLING_DT_PUMP_INDEX,
-    COOLING_B_FAN_INDEX,
-    COOLING_B_PUMP_INDEX,
+    COOLING_DT_FAN_INDEX  = 0,
+    COOLING_DT_PUMP_INDEX = 1, 
+    COOLING_B_FAN_INDEX   = 2,
+    COOLING_B_PUMP_INDEX  = 3,
 } cooling_elements_t;
 
 menu_element_t cooling_elements[] = {
     [COOLING_DT_FAN_INDEX] = {
-        .type = ELEMENT_VAL,
-        .object_name = DT_FAN_VAL,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 100,
-        .increment = 25,
-        .on_change = sendCoolingParameters
+        .type           = ELEMENT_VAL,
+        .object_name    = DT_FAN_VAL,
+        .current_value  = 0,
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 25,
+        .on_change      = sendCoolingParameters
     },
     [COOLING_DT_PUMP_INDEX] = {
-        .type = ELEMENT_OPTION,
-        .object_name = DT_PUMP_OP,
-        .current_value = 0,
-        .on_change = sendCoolingParameters
+        .type           = ELEMENT_OPTION,
+        .object_name    = DT_PUMP_OP,
+        .current_value  = 0,
+        .on_change      = sendCoolingParameters
     },
     [COOLING_B_FAN_INDEX] = {
-        .type = ELEMENT_VAL,
-        .object_name = B_FAN_VAL,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 100,
-        .increment = 25,
-        .on_change = sendCoolingParameters
+        .type           = ELEMENT_VAL,
+        .object_name    = B_FAN_VAL, 
+        .current_value  = 0,
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 25,
+        .on_change      = sendCoolingParameters
     },
-    [COOLING_B_PUMP_INDEX] = {
-        .type = ELEMENT_OPTION,
-        .object_name = B_PUMP_OP,
-        .current_value = 0,
-        .on_change = sendCoolingParameters
+    [COOLING_B_PUMP_INDEX]= {
+        .type           = ELEMENT_OPTION,
+        .object_name    = B_PUMP_OP,
+        .current_value  = 0,
+        .on_change      = sendCoolingParameters
     }
 };
 
 menu_page_t cooling_page = {
-    .elements = cooling_elements,
-    .num_elements = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
-    .current_index = 0,
+    .elements            = cooling_elements,
+    .num_elements        = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false
 };
 
 typedef enum {
-    TV_INTENSITY_INDEX = 0,
-    TV_PROPORTION_INDEX,
-    TV_DEAD_INDEX,
-    TV_ENABLE_INDEX
+    TV_INTENSITY_INDEX  = 0,
+    TV_PROPORTION_INDEX = 1, 
+    TV_DEAD_INDEX       = 2,
+    TV_ENABLE_INDEX     = 3
 } tv_elements_t;
 
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
     [TV_INTENSITY_INDEX] = {
-        .type = ELEMENT_FLT,
-        .object_name = TV_INTENSITY_FLT,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 100, // decimal shifted left by 1
-        .increment = 5,
-        .on_change = NULL // TV Params Sent Periodically
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_INTENSITY_FLT,
+        .current_value  = 0,
+        .min_value      = 0,
+        .max_value      = 100, // decimal shifted left by 1
+        .increment      = 5,
+        .on_change      = NULL // TV Params Sent Periodically
     },
     [TV_PROPORTION_INDEX] = {
-        .type = ELEMENT_FLT,
-        .object_name = TV_PROPORTION_FLT,
-        .current_value = 40,
-        .min_value = 0,
-        .max_value = 100, // decimal shifted left by 1
-        .increment = 5,
-        .on_change = NULL // TV Params Sent Periodically
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_PROPORTION_FLT,
+        .current_value  = 40,
+        .min_value      = 0,
+        .max_value      = 100, // decimal shifted left by 1
+        .increment      = 5,
+        .on_change      = NULL // TV Params Sent Periodically
     },
     [TV_DEAD_INDEX] = {
-        .type = ELEMENT_VAL,
-        .object_name = TV_DEAD_TXT,
-        .current_value = 12,
-        .min_value = 0,
-        .max_value = 30,
-        .increment = 1,
-        .on_change = NULL // TV Params Sent Periodically
+        .type           = ELEMENT_VAL,
+        .object_name    = TV_DEAD_TXT,
+        .current_value  = 12,
+        .min_value      = 0,
+        .max_value      = 30,
+        .increment      = 1,
+        .on_change      = NULL // TV Params Sent Periodically
     },
     [TV_ENABLE_INDEX] = {
-        .type = ELEMENT_OPTION,
-        .object_name = TV_ENABLE_OP,
-        .current_value = 0,
-        .on_change = NULL // TV Params Sent Periodically
+        .type           = ELEMENT_OPTION,
+        .object_name    = TV_ENABLE_OP,
+        .current_value  = 0,
+        .on_change      = NULL // TV Params Sent Periodically
     }
 };
 
 menu_page_t tv_page = {
-    .elements = tv_elements,
-    .num_elements = sizeof(tv_elements) / sizeof(tv_elements[0]),
-    .current_index = 0,
+    .elements            = tv_elements,
+    .num_elements        = sizeof(tv_elements) / sizeof(tv_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false
 };
 
 menu_element_t faults_elements[] = {
-    {
-        .type = ELEMENT_BUTTON,
-        .object_name = FAULT1_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+    [0] =  {
+        .type         = ELEMENT_BUTTON,
+        .object_name  = FAULT1_BUTTON,
+        .on_change    = faultsClearButton_CALLBACK // clear fault
     },
-    {
-        .type = ELEMENT_BUTTON,
-        .object_name = FAULT2_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+    [1] =  {
+        .type         = ELEMENT_BUTTON,
+        .object_name  = FAULT2_BUTTON, 
+        .on_change    = faultsClearButton_CALLBACK // clear fault
     },
-    {
-        .type = ELEMENT_BUTTON,
-        .object_name = FAULT3_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+    [2] =  {
+        .type         = ELEMENT_BUTTON,
+        .object_name  = FAULT3_BUTTON,
+        .on_change    = faultsClearButton_CALLBACK // clear fault
     },
-    {
-        .type = ELEMENT_BUTTON,
-        .object_name = FAULT4_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+    [3] =  {
+        .type         = ELEMENT_BUTTON,
+        .object_name  = FAULT4_BUTTON,
+        .on_change    = faultsClearButton_CALLBACK // clear fault
     },
-    {
-        .type = ELEMENT_BUTTON,
-        .object_name = FAULT5_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+    [4] =  {
+        .type         = ELEMENT_BUTTON,
+        .object_name  = FAULT5_BUTTON,
+        .on_change    = faultsClearButton_CALLBACK // clear fault
     },
-    {
-        .type = ELEMENT_BUTTON,
-        .object_name = CLEAR_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear all faults
+    [5] =  {
+        .type         = ELEMENT_BUTTON,
+        .object_name  = CLEAR_BUTTON,
+        .on_change    = faultsClearButton_CALLBACK // clear all faults
     }
 };
 
 menu_page_t faults_page = {
-    .elements = faults_elements,
-    .num_elements = sizeof(faults_elements) / sizeof(faults_elements[0]),
-    .current_index = 0,
+    .elements            = faults_elements,
+    .num_elements        = sizeof(faults_elements) / sizeof(faults_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false
 };
 
 menu_element_t driver_elements[] = {
-    {
-        .type = ELEMENT_LIST,
-        .object_name = DRIVER1_LIST,
-        .current_value = 1 // Default to driver 1
+    [0] = {
+        .type          = ELEMENT_LIST,
+        .object_name   = DRIVER1_LIST,
+        .current_value = 1  // Default to driver 1
     },
-    {
-        .type = ELEMENT_LIST,
-        .object_name = DRIVER2_LIST,
+    [1] = {
+        .type          = ELEMENT_LIST,
+        .object_name   = DRIVER2_LIST,
         .current_value = 0
     },
-    {
-        .type = ELEMENT_LIST,
-        .object_name = DRIVER3_LIST,
+    [2] = {
+        .type          = ELEMENT_LIST,
+        .object_name   = DRIVER3_LIST,
         .current_value = 0
     },
-    {
-        .type = ELEMENT_LIST,
-        .object_name = DRIVER4_LIST,
+    [3] = {
+        .type          = ELEMENT_LIST,
+        .object_name   = DRIVER4_LIST,
         .current_value = 0
     }
 };
 
 menu_page_t driver_page = {
-    .elements = driver_elements,
-    .num_elements = sizeof(driver_elements) / sizeof(driver_elements[0]),
-    .current_index = 0,
+    .elements            = driver_elements,
+    .num_elements        = sizeof(driver_elements) / sizeof(driver_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false
 };
 
 typedef enum {
-    PROFILE_BRAKE_INDEX = 0,
-    PROFILE_THROTTLE_INDEX,
-    PROFILE_SAVE_INDEX
+    PROFILE_BRAKE_INDEX    = 0,
+    PROFILE_THROTTLE_INDEX = 1,
+    PROFILE_SAVE_INDEX     = 2
 } pedal_profile_elements_t;
 
 // Profile page menu elements
 menu_element_t pedal_profile_elements[] = {
     [PROFILE_BRAKE_INDEX] = {
-        .type = ELEMENT_FLT,
-        .object_name = PROFILE_BRAKE_FLT,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 20,
-        .increment = 5,
+        .type           = ELEMENT_FLT,
+        .object_name    = PROFILE_BRAKE_FLT,
+        .current_value  = 0,
+        .min_value      = 0,
+        .max_value      = 20,
+        .increment      = 5,
     },
     [PROFILE_THROTTLE_INDEX] = {
-        .type = ELEMENT_FLT,
-        .object_name = PROFILE_THROTTLE_FLT,
-        .current_value = 0,
-        .min_value = 0,
-        .max_value = 20,
-        .increment = 5,
+        .type           = ELEMENT_FLT,
+        .object_name    = PROFILE_THROTTLE_FLT,
+        .current_value  = 0,
+        .min_value      = 0,
+        .max_value      = 20,
+        .increment      = 5,
     },
     [PROFILE_SAVE_INDEX] = {
-        .type = ELEMENT_BUTTON,
-        .object_name = PROFILE_SAVE_BUTTON,
-        .on_change = pedalProfilesSaveButton_CALLBACK
+        .type           = ELEMENT_BUTTON,
+        .object_name    = PROFILE_SAVE_BUTTON,
+        .on_change      = pedalProfilesSaveButton_CALLBACK
     }
 };
 
 menu_page_t pedal_profile_page = {
-    .elements = pedal_profile_elements,
-    .num_elements = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
-    .current_index = 0,
+    .elements            = pedal_profile_elements,
+    .num_elements        = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false,
-    .saved = true,
+    .saved               = true,
 };
 
 typedef enum {
@@ -327,17 +327,17 @@ typedef enum {
 
 menu_element_t logging_elements[] = {
     [LOGGING_OP_INDEX] = {
-        .type = ELEMENT_OPTION,
-        .object_name = LOG_OP,
+        .type          = ELEMENT_OPTION,
+        .object_name   = LOG_OP,
         .current_value = 0,
-        .on_change = sendLoggingParameters
+        .on_change     = sendLoggingParameters
     }
 };
 
 menu_page_t logging_page = {
-    .elements = logging_elements,
-    .num_elements = sizeof(logging_elements) / sizeof(logging_elements[0]),
-    .current_index = 0,
+    .elements            = logging_elements,
+    .num_elements        = sizeof(logging_elements) / sizeof(logging_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false
 };
 
@@ -433,7 +433,7 @@ void updatePage() {
     }
 
     // Bounds Check
-    if (curr_page > PAGE_COUNT) {
+    if (curr_page > PAGE_COUNT && curr_page < 0) {
         return;
     }
 
@@ -444,18 +444,33 @@ void updatePage() {
 }
 
 void moveUp() {
+    // Bounds Check
+    if (curr_page > PAGE_COUNT && curr_page < 0) {
+        return;
+    }
+
     if (page_handlers[curr_page].move_up != NULL) {
         page_handlers[curr_page].move_up();
     }
 }
 
 void moveDown() {
+    // Bounds Check
+    if (curr_page > PAGE_COUNT && curr_page < 0) {
+        return;
+    }
+
     if (page_handlers[curr_page].move_down != NULL) {
         page_handlers[curr_page].move_down();
     }
 }
 
 void selectItem() {
+    // Bounds Check
+    if (curr_page > PAGE_COUNT && curr_page < 0) {
+        return;
+    }
+
     if (page_handlers[curr_page].select != NULL) {
         page_handlers[curr_page].select();
     }

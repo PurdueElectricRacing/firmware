@@ -61,22 +61,21 @@ void updateFaultMessages();
 void faultsClearButton_CALLBACK();
 
 // Race Page Functions
-void raceTelemetryUpdate();
 void racePageUpdate();
 void raceSelect();
 
 // Warning/Error/Fatal Page Functions
 void errorPageSelect();
 
-// Calibration Page Functions
-void calibrationTelemetryUpdate();
-
 // DAQ Logging Page Functions
 void loggingPageUpdate();
 void loggingSelect();
 
-// SDC Page
+// Telemetry Functions
+void raceTelemetryUpdate();
 void sdcTelemetryUpdate();
+void faultTelemetryUpdate();
+void calibrationTelemetryUpdate();
 
 // Utility Functions
 void updateSDCStatus(uint8_t status, char *element);
@@ -87,7 +86,7 @@ const page_handler_t page_handlers[] = { // Order must match page_t enum
     [PAGE_RACE]        = {racePageUpdate, NULL, NULL, raceSelect, raceTelemetryUpdate},         // No move handlers, telemetry is passive
     [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
     [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
-    [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, NULL},
+    [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
     [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate},                          // SDCINFO is passive
     [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
@@ -615,59 +614,57 @@ void updateFaultDisplay() {
     }
 
     // Track if we alrady have this fault in the display buffer
-    bool faultAlreadyInBuffer = false;
     bool pageUpdateRequired = false;
-    bool faultWasInserted = false;
 
     // Process up to 5 faults each time for now
     for (int i = 0; i < 5; i++) {
-        faultAlreadyInBuffer = false;
         uint16_t next_to_check = 0xFFFF;
-        faultWasInserted = false;
 
-        if (qReceive(&q_fault_history, &next_to_check)) {
-            // Iterate through fault buffer for existance of fault already
-            for (int j = 0; j < 5; j++) {
-                // This should be based off of the queue item not anything else
-                if (fault_buf[j] == next_to_check) {
-                    faultAlreadyInBuffer = true;
+        if (!qReceive(&q_fault_history, &next_to_check)) { // Break out if issue or the queue is empty
+            break;
+        }
+
+        // Iterate through fault buffer for existance of fault already
+        bool faultAlreadyInBuffer = false;
+        for (int j = 0; j < 5; j++) {
+            // This should be based off of the queue item not anything else
+            if (fault_buf[j] == next_to_check) {
+                faultAlreadyInBuffer = true;
+                break;
+            }
+        }
+
+        if (faultAlreadyInBuffer) {
+            continue;
+        }
+
+        // Try all the slots for inserting the fault
+        bool faultWasInserted = false;
+        for (uint8_t k = 0; k < 5; k++) {
+            // If fault is currently not in our fault buffer, replace it if the
+            // current fault is cleared,
+            //  or if the new fault has higher priority
+            if (fault_buf[cur_fault_buf_ndx] != 0xFFFF) {
+                if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false) ||
+                    (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority)) {
+                    fault_buf[cur_fault_buf_ndx] = next_to_check;
+                    faultWasInserted = true;
+                    pageUpdateRequired = true;
                     break;
                 }
+            } else {
+                // Empty slot just insert
+                fault_buf[cur_fault_buf_ndx] = next_to_check;
+                faultWasInserted = true;
+                pageUpdateRequired = true;
+                break;
             }
+            cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
+        }
 
-            // New fault to add to the display, if room
-            if (false == faultAlreadyInBuffer) {
-                // try all the slots for inserting the fault
-                for (uint8_t k = 0; k < 5; k++) {
-                    // If fault is currently not in our fault buffer, replace it if the
-                    // current fault is cleared,
-                    //  or if the new fault has higher priority
-                    if (fault_buf[cur_fault_buf_ndx] != 0xFFFF) {
-                        if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false) ||
-                            (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority)) {
-                            fault_buf[cur_fault_buf_ndx] = next_to_check;
-                            faultWasInserted = true;
-                            pageUpdateRequired = true;
-                            break;
-                        }
-                    } else {
-                        // Empty slot just insert
-                        fault_buf[cur_fault_buf_ndx] = next_to_check;
-                        faultWasInserted = true;
-                        pageUpdateRequired = true;
-                        break;
-                    }
-                    cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
-                }
-
-                // Put back in the queue if it wasn't processed
-                if (false == faultWasInserted) {
-                    qSendToBack(&q_fault_history, &next_to_check);
-                }
-            }
-        } else {
-            // Break out if issue or the queue is empty
-            break;
+        // Put back in the queue if it wasn't processed
+        if (!faultWasInserted) {
+            qSendToBack(&q_fault_history, &next_to_check);
         }
     }
 
@@ -687,7 +684,10 @@ void updateFaultDisplay() {
     most_recent_latched = 0xFFFF;
 }
 
-void updateFaultPageIndicators() {
+/**
+ * @brief Updates the color of fault text indicators on the faults page
+ */
+void faultTelemetryUpdate() {
     if (curr_page != PAGE_FAULTS) {
         return;
     }

@@ -215,11 +215,11 @@ void MS_refreshPage(menu_page_t *page) {
     page->is_element_selected = false;
     page->current_index = 0;
 
-    for (int8_t i = 0; i < page->num_elements; i++) {
+    for (uint8_t i = 0; i < page->num_elements; i++) {
         menu_element_t *curr_element = &page->elements[i];
         switch (curr_element->type) {
             case ELEMENT_LIST:
-                if (curr_element->current_value) {  // nothing happens if -1
+                if (curr_element->current_value) {
                     MS_setStyleSelected(curr_element);
                 }
                 break;
@@ -248,5 +248,6 @@ int8_t MS_listGetSelected(menu_page_t *page) {
             return i;
         }
     }
+    
     return -1;
 }

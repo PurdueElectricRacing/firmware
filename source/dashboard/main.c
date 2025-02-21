@@ -157,13 +157,13 @@ brake_status_t brake_status = {0};
 void preflightChecks(void);
 void preflightAnimation(void);
 void heartBeatLED();
-void usartTxUpdate();
+void lcdTxUpdate();
 void enableInterrupts();
-void encoder_ISR();
+void encoderISR();
 void handleDashboardInputs();
 void sendBrakeStatus();
 void interpretLoadSensor(void);
-void send_shockpots();
+void sendShockpots();
 float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
@@ -203,13 +203,13 @@ int main(void){
     taskCreate(pedalsPeriodic, 15);
     taskCreate(handleDashboardInputs, 50);
     taskCreate(heartBeatTask, 100);
-    taskCreate(send_shockpots, 15);
+    taskCreate(sendShockpots, 15);
     taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
     taskCreate(sendTVParameters, 2000);
     taskCreate(sendVoltageData, 5000);
-    taskCreateBackground(usartTxUpdate);
+    taskCreateBackground(lcdTxUpdate);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
@@ -281,7 +281,7 @@ void preflightChecks(void) {
  * Converts raw ADC values from left and right shock potentiometers into parsed displacement values
  * and sends them through CAN bus. Values are scaled linearly and adjusted for droop.
  */
-void send_shockpots()
+void sendShockpots()
 {
     uint16_t shock_l = raw_adc_values.shock_left;
     uint16_t shock_r = raw_adc_values.shock_right;
@@ -375,26 +375,34 @@ void heartBeatLED()
 {
     static uint8_t imd_prev_latched;
     static uint8_t bms_prev_latched;
+    
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
-    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
-         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+
+    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH) {
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    } else {
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+    }
+
     if (!can_data.main_hb.stale && can_data.main_hb.precharge_state) {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-    }
-    else {
+    } else {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
     }
+
     if (!can_data.precharge_hb.stale) {
-        if (can_data.precharge_hb.IMD)
+        if (can_data.precharge_hb.IMD) {
             imd_prev_latched = 1;
-        if (can_data.precharge_hb.BMS)
+        }
+            
+        if (can_data.precharge_hb.BMS) {
             bms_prev_latched = 1;
-    }
-    else {
+        }
+    } else {
         PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
         PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
     }
+
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !imd_prev_latched);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !bms_prev_latched);
 
@@ -411,7 +419,7 @@ static volatile uint32_t last_input_time;
 void EXTI9_5_IRQHandler(void) {
     // EXTI9 (ENCODER B) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR9) {
-        encoder_ISR();
+        encoderISR();
         input_state.update_page = 1;    // Set flag to update page
         EXTI->PR |= EXTI_PR_PR9;        // Clear the interrupt pending bit for EXTI9
 
@@ -422,7 +430,7 @@ void EXTI15_10_IRQHandler() {
     // EXTI10 (ENCODER A) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR10)
     {
-        encoder_ISR();
+        encoderISR();
         input_state.update_page = 1;    // Set flag to update page
         EXTI->PR |= EXTI_PR_PR10;       // Clear the interrupt pending bit for EXTI10
     }
@@ -505,7 +513,7 @@ void zeroEncoder() {
  * 
  * @note Called on encoder pin state changes
  */
-void encoder_ISR() {
+void encoderISR() {
     // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
     static const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
         { 0, -1,  1,  0},
@@ -609,7 +617,7 @@ void enableInterrupts()
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
 uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
-void usartTxUpdate()
+void lcdTxUpdate()
 {
     if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
     {

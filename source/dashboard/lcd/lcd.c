@@ -477,6 +477,20 @@ void selectItem() {
 }
 
 /**
+ * @brief Updates current telemetry page by calling its handler if available
+ */
+ void updateTelemetryPages() {
+    // Bounds Check
+    if (curr_page > PAGE_COUNT && curr_page < 0) {
+        return;
+    }
+    
+    if (page_handlers[curr_page].telemetry != NULL) {
+        page_handlers[curr_page].telemetry();
+    }
+}
+
+/**
  * @brief Updates the LCD display with current pedal telemetry data when on CALIBRATION page
  *
  * Updates brake and throttle bars, raw ADC values, deviation percentages, and status
@@ -545,15 +559,6 @@ void calibrationTelemetryUpdate() {
             break;
     }
     
-}
-
-/**
- * @brief Updates current telemetry page by calling its handler if available
- */
-void updateTelemetryPages() {
-    if (page_handlers[curr_page].telemetry != NULL) {
-        page_handlers[curr_page].telemetry();
-    }
 }
 
 

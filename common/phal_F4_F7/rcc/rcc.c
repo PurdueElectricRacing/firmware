@@ -22,6 +22,8 @@ uint8_t PHAL_configureClockRates(ClockRateConfig_t* config)
     // Nonzero Bit Encoded Error Code Indicates Error
     uint8_t ret_code = 0;
 
+    PHAL_enableMCO1(GPIOA, 8, MCO1_SRC_HSI, MCO_DIV_NONE);
+
     // Configure clock rates based off an indicated system source in the config
     switch(config->system_source)
     {

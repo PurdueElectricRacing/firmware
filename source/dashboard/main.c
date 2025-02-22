@@ -20,6 +20,9 @@
 #include "nextion.h"
 
 GPIOInitConfig_t gpio_config[] = {
+    // EXOSC Testing
+    GPIO_INIT_MCO1_PA8,
+
     // Status Indicators
     GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(HEART_LED_GPIO_Port, HEART_LED_Pin, GPIO_OUTPUT_LOW_SPEED),

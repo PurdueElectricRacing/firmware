@@ -110,6 +110,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a29b119d6f21bf411f02442d651ac4ff9" id="r_a29b119d6f21bf411f02442d651ac4ff9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29b119d6f21bf411f02442d651ac4ff9">PHAL_configureHSISystemClock</a> ()</td></tr>
 <tr class="memdesc:a29b119d6f21bf411f02442d651ac4ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure HSI CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED.  <br /></td></tr>
 <tr class="separator:a29b119d6f21bf411f02442d651ac4ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2cfc3641ee4abbb3480dc5f401a7235" id="r_ac2cfc3641ee4abbb3480dc5f401a7235"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2cfc3641ee4abbb3480dc5f401a7235">PHAL_configureHSESystemClock</a> ()</td></tr>
+<tr class="memdesc:ac2cfc3641ee4abbb3480dc5f401a7235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure HSE CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED.  <br /></td></tr>
+<tr class="separator:ac2cfc3641ee4abbb3480dc5f401a7235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1509d2e2c10b134bcc26f1465881db33" id="r_a1509d2e2c10b134bcc26f1465881db33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1509d2e2c10b134bcc26f1465881db33">PHAL_configureAHBClock</a> (uint32_t ahb_clock_target_hz)</td></tr>
 <tr class="memdesc:a1509d2e2c10b134bcc26f1465881db33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure AHB Clock rate by modifying the AHB prescaler value.  <br /></td></tr>
 <tr class="separator:a1509d2e2c10b134bcc26f1465881db33"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -260,6 +263,28 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Binary encoded representation of which clocks were unsuccessfuly configured. return value of 0 means all clocks were sucessfully configured. </dd></dl>
+
+</div>
+</div>
+<a id="ac2cfc3641ee4abbb3480dc5f401a7235" name="ac2cfc3641ee4abbb3480dc5f401a7235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2cfc3641ee4abbb3480dc5f401a7235">&#9670;&#160;</a></span>PHAL_configureHSESystemClock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_configureHSESystemClock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure HSE CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED. </p>
+<dl class="section return"><dt>Returns</dt><dd>true Successfully configured HSE clock as system clock </dd>
+<dd>
+false </dd></dl>
 
 </div>
 </div>

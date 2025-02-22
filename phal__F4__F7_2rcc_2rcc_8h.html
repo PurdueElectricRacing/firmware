@@ -111,10 +111,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a6f4ca605cce4be908b761c7a5bb90692" id="r_a6f4ca605cce4be908b761c7a5bb90692"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f4ca605cce4be908b761c7a5bb90692">HSE_CLOCK_RATE_HZ</a>&#160;&#160;&#160;(16000000)</td></tr>
+<tr class="separator:a6f4ca605cce4be908b761c7a5bb90692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a806f47f30aefdcc387743342ac78fe31" id="r_a806f47f30aefdcc387743342ac78fe31"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a806f47f30aefdcc387743342ac78fe31">HSE_CLOCK_RATE_HZ_INVALID</a>&#160;&#160;&#160;(1) /* High Speed External oscilator value */</td></tr>
 <tr class="separator:a806f47f30aefdcc387743342ac78fe31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f4ca605cce4be908b761c7a5bb90692" id="r_a6f4ca605cce4be908b761c7a5bb90692"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f4ca605cce4be908b761c7a5bb90692">HSE_CLOCK_RATE_HZ</a>&#160;&#160;&#160;<a class="el" href="phal__L4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31">HSE_CLOCK_RATE_HZ_INVALID</a> /* Define this in order to configure clocks to use the HSE clock */</td></tr>
-<tr class="separator:a6f4ca605cce4be908b761c7a5bb90692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a931e4bece2bc8e45e95492702b1a79db" id="r_a931e4bece2bc8e45e95492702b1a79db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a931e4bece2bc8e45e95492702b1a79db">HSI_CLOCK_RATE_HZ</a>&#160;&#160;&#160;(16000000)</td></tr>
 <tr class="separator:a931e4bece2bc8e45e95492702b1a79db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e83112285247a22f8b4caa6740395b4" id="r_a2e83112285247a22f8b4caa6740395b4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e83112285247a22f8b4caa6740395b4">MCO_OUT_PIN</a>&#160;&#160;&#160;(8)</td></tr>
@@ -123,6 +123,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:adeb732f119f49950327326f5e4d20522" id="r_adeb732f119f49950327326f5e4d20522"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adeb732f119f49950327326f5e4d20522">PLLSrc_t</a> { <a class="el" href="#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a>
+, <a class="el" href="#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>
  }</td></tr>
 <tr class="separator:adeb732f119f49950327326f5e4d20522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a378741c9da736e56ad4972e7bf27fd0a" id="r_a378741c9da736e56ad4972e7bf27fd0a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a378741c9da736e56ad4972e7bf27fd0a">MCO1Source_t</a> { <a class="el" href="#a378741c9da736e56ad4972e7bf27fd0aa694e3e4b34c7b22d64cda7c787ce5511">MCO1_SRC_HSI</a> = 0
@@ -141,11 +142,22 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a60ed31989981f6f69b4f5363337cfd8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9995a373c275b437777b74c78d64894" id="r_ae9995a373c275b437777b74c78d64894"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9995a373c275b437777b74c78d64894">SystemClockSrc_t</a> { <a class="el" href="#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a>
-, <a class="el" href="#ae9995a373c275b437777b74c78d64894a4e0a761960a863e2836fbda119714a79">SYSTEM_CLOCK_SRC_HSI</a>
-, <a class="el" href="#ae9995a373c275b437777b74c78d64894a97f533ee2fdf949bb55979aa36e458aa">SYSTEM_CLOCK_SRC_HSE</a>
+<tr class="memitem:a02e55ce66a310468cd5996a5769a1e77" id="r_a02e55ce66a310468cd5996a5769a1e77"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02e55ce66a310468cd5996a5769a1e77">ClockSrc_t</a> { <a class="el" href="#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a> = 0
+, <a class="el" href="#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a> = 1
  }</td></tr>
-<tr class="separator:ae9995a373c275b437777b74c78d64894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a02e55ce66a310468cd5996a5769a1e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6f8f367c97e6af2cbbd58fed3d29e49" id="r_ab6f8f367c97e6af2cbbd58fed3d29e49"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49">RCCErrors_t</a> { <br />
+&#160;&#160;<a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49a9c3e48eac05c959c793f9d9a86d82227">RCC_ERROR_AHB_INIT</a> = 0
+, <a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49ab3fefc812ac8cf0435db57882c01fa13">RCC_ERROR_APB1_INIT</a> = 1
+, <a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49a535d43529a7ee91bc04cbe499eec565a">RCC_ERROR_APB2_INIT</a> = 2
+, <a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49a8ecafd8427b2e0ccd9ac81f6d03bf57e">RCC_ERROR_HSI_INIT</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49ae1561336b193fd1af4c08f5475244a20">RCC_ERROR_PLLSYS_INIT</a> = 4
+, <a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49a8110d7e9cdd461241fd2f3255736cb7e">RCC_ERROR_PLLVCO_INIT</a> = 5
+, <a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49a4c8f52a1fc27b2921fdf63639ccae65c">RCC_ERROR_HSE_INIT</a> = 6
+<br />
+ }</td></tr>
+<tr class="separator:ab6f8f367c97e6af2cbbd58fed3d29e49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -161,6 +173,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a29b119d6f21bf411f02442d651ac4ff9" id="r_a29b119d6f21bf411f02442d651ac4ff9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29b119d6f21bf411f02442d651ac4ff9">PHAL_configureHSISystemClock</a> ()</td></tr>
 <tr class="memdesc:a29b119d6f21bf411f02442d651ac4ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure HSI CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED.  <br /></td></tr>
 <tr class="separator:a29b119d6f21bf411f02442d651ac4ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2cfc3641ee4abbb3480dc5f401a7235" id="r_ac2cfc3641ee4abbb3480dc5f401a7235"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2cfc3641ee4abbb3480dc5f401a7235">PHAL_configureHSESystemClock</a> ()</td></tr>
+<tr class="memdesc:ac2cfc3641ee4abbb3480dc5f401a7235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure HSE CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED.  <br /></td></tr>
+<tr class="separator:ac2cfc3641ee4abbb3480dc5f401a7235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1509d2e2c10b134bcc26f1465881db33" id="r_a1509d2e2c10b134bcc26f1465881db33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1509d2e2c10b134bcc26f1465881db33">PHAL_configureAHBClock</a> (uint32_t ahb_clock_target_hz)</td></tr>
 <tr class="memdesc:a1509d2e2c10b134bcc26f1465881db33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure AHB Clock rate by modifying the AHB prescaler value.  <br /></td></tr>
 <tr class="separator:a1509d2e2c10b134bcc26f1465881db33"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,7 +206,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define HSE_CLOCK_RATE_HZ&#160;&#160;&#160;<a class="el" href="phal__L4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31">HSE_CLOCK_RATE_HZ_INVALID</a> /* Define this in order to configure clocks to use the HSE clock */</td>
+          <td class="memname">#define HSE_CLOCK_RATE_HZ&#160;&#160;&#160;(16000000)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -241,6 +256,24 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a02e55ce66a310468cd5996a5769a1e77" name="a02e55ce66a310468cd5996a5769a1e77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02e55ce66a310468cd5996a5769a1e77">&#9670;&#160;</a></span>ClockSrc_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a02e55ce66a310468cd5996a5769a1e77">ClockSrc_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a" name="a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"></a>CLOCK_SOURCE_HSI&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23" name="a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"></a>CLOCK_SOURCE_HSE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a378741c9da736e56ad4972e7bf27fd0a" name="a378741c9da736e56ad4972e7bf27fd0a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a378741c9da736e56ad4972e7bf27fd0a">&#9670;&#160;</a></span>MCO1Source_t</h2>
 
@@ -295,25 +328,30 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a" name="adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a"></a>PLL_SRC_HSI16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078" name="adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"></a>PLL_SRC_HSE&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
 </div>
-<a id="ae9995a373c275b437777b74c78d64894" name="ae9995a373c275b437777b74c78d64894"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9995a373c275b437777b74c78d64894">&#9670;&#160;</a></span>SystemClockSrc_t</h2>
+<a id="ab6f8f367c97e6af2cbbd58fed3d29e49" name="ab6f8f367c97e6af2cbbd58fed3d29e49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6f8f367c97e6af2cbbd58fed3d29e49">&#9670;&#160;</a></span>RCCErrors_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894">SystemClockSrc_t</a></td>
+          <td class="memname">enum <a class="el" href="#ab6f8f367c97e6af2cbbd58fed3d29e49">RCCErrors_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d" name="ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d"></a>SYSTEM_CLOCK_SRC_PLL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae9995a373c275b437777b74c78d64894a4e0a761960a863e2836fbda119714a79" name="ae9995a373c275b437777b74c78d64894a4e0a761960a863e2836fbda119714a79"></a>SYSTEM_CLOCK_SRC_HSI&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae9995a373c275b437777b74c78d64894a97f533ee2fdf949bb55979aa36e458aa" name="ae9995a373c275b437777b74c78d64894a97f533ee2fdf949bb55979aa36e458aa"></a>SYSTEM_CLOCK_SRC_HSE&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49a9c3e48eac05c959c793f9d9a86d82227" name="ab6f8f367c97e6af2cbbd58fed3d29e49a9c3e48eac05c959c793f9d9a86d82227"></a>RCC_ERROR_AHB_INIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49ab3fefc812ac8cf0435db57882c01fa13" name="ab6f8f367c97e6af2cbbd58fed3d29e49ab3fefc812ac8cf0435db57882c01fa13"></a>RCC_ERROR_APB1_INIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49a535d43529a7ee91bc04cbe499eec565a" name="ab6f8f367c97e6af2cbbd58fed3d29e49a535d43529a7ee91bc04cbe499eec565a"></a>RCC_ERROR_APB2_INIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49a8ecafd8427b2e0ccd9ac81f6d03bf57e" name="ab6f8f367c97e6af2cbbd58fed3d29e49a8ecafd8427b2e0ccd9ac81f6d03bf57e"></a>RCC_ERROR_HSI_INIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49ae1561336b193fd1af4c08f5475244a20" name="ab6f8f367c97e6af2cbbd58fed3d29e49ae1561336b193fd1af4c08f5475244a20"></a>RCC_ERROR_PLLSYS_INIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49a8110d7e9cdd461241fd2f3255736cb7e" name="ab6f8f367c97e6af2cbbd58fed3d29e49a8110d7e9cdd461241fd2f3255736cb7e"></a>RCC_ERROR_PLLVCO_INIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab6f8f367c97e6af2cbbd58fed3d29e49a4c8f52a1fc27b2921fdf63639ccae65c" name="ab6f8f367c97e6af2cbbd58fed3d29e49a4c8f52a1fc27b2921fdf63639ccae65c"></a>RCC_ERROR_HSE_INIT&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -441,6 +479,28 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Binary encoded representation of which clocks were unsuccessfuly configured. return value of 0 means all clocks were sucessfully configured. </dd></dl>
+
+</div>
+</div>
+<a id="ac2cfc3641ee4abbb3480dc5f401a7235" name="ac2cfc3641ee4abbb3480dc5f401a7235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2cfc3641ee4abbb3480dc5f401a7235">&#9670;&#160;</a></span>PHAL_configureHSESystemClock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_configureHSESystemClock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure HSE CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED. </p>
+<dl class="section return"><dt>Returns</dt><dd>true Successfully configured HSE clock as system clock </dd>
+<dd>
+false </dd></dl>
 
 </div>
 </div>

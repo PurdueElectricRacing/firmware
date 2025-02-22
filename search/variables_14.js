@@ -28,9 +28,10 @@ var searchData=
   ['usart_5fr_5ftx_5fdma_5fconfig_25',['usart_r_tx_dma_config',['../main__module_2main_8c.html#adcd8c184d9eb9dc8a6b39a9a64b347a8',1,'main.c']]],
   ['usart_5frx_5fdma_5fconfig_26',['usart_rx_dma_config',['../daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../dashboard_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../freertos__demo_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;freertos_demo.c'],['../l4__testing_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c']]],
   ['usart_5ftx_5fdma_5fconfig_27',['usart_tx_dma_config',['../daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../dashboard_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../freertos__demo_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;freertos_demo.c'],['../l4__testing_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c']]],
-  ['user_5fcharge_5fcurrent_5frequest_28',['user_charge_current_request',['../orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c'],['../orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c']]],
-  ['user_5fcharge_5fvoltage_5frequest_29',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]],
-  ['username_30',['username',['../structftpd.html#ad6c308a74c7a259d500955227366ec2c',1,'ftpd']]],
-  ['userpassword_31',['userpassword',['../structftpd.html#a073fbafa193dd0acbd067c220bb8c99c',1,'ftpd']]],
-  ['uv_32',['uv',['../structbms__t.html#a8ac7eb3a23e4d1d9b236d8b07cb13d35',1,'bms_t::uv'],['../unionCanParsedData__t.html#aab1aab295881eb805b5d911b25878481',1,'CanParsedData_t::uv']]]
+  ['use_5fpll_28',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]],
+  ['user_5fcharge_5fcurrent_5frequest_29',['user_charge_current_request',['../orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c'],['../orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c']]],
+  ['user_5fcharge_5fvoltage_5frequest_30',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]],
+  ['username_31',['username',['../structftpd.html#ad6c308a74c7a259d500955227366ec2c',1,'ftpd']]],
+  ['userpassword_32',['userpassword',['../structftpd.html#a073fbafa193dd0acbd067c220bb8c99c',1,'ftpd']]],
+  ['uv_33',['uv',['../structbms__t.html#a8ac7eb3a23e4d1d9b236d8b07cb13d35',1,'bms_t::uv'],['../unionCanParsedData__t.html#aab1aab295881eb805b5d911b25878481',1,'CanParsedData_t::uv']]]
 ];

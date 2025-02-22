@@ -156,6 +156,7 @@ vector_3d_t accel_in, gyro_in, mag_in;
 
 static struct serial_tx txmsg = {.test = 5};
 static struct serial_rx rxmsg;
+static uint16_t rxbuffer[(sizeof(rxmsg) + 1) / 2];
 
 BMI088_Handle_t bmi_config = {
     .accel_csb_gpio_port = SPI1_CSB_ACCEL_PORT,
@@ -261,7 +262,7 @@ void preflightChecks(void)
         // GPS Initialization
         PHAL_writeGPIO(RESET_GPS_PORT, RESET_GPS_PIN, 1);
         // PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
-        PHAL_usartRxDma(&usb, (uint16_t *) &rxmsg, sizeof(rxmsg), 1);
+        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
     break;
     case 5:
         initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
@@ -381,7 +382,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
 {
     if (handle == &usb)
     {
-        
+        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg)); 
     }
     else 
     {

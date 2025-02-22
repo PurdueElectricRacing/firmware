@@ -2,7 +2,7 @@ import serial
 import struct
 import serial.tools.list_ports
 
-# ✅ Change this to match your C struct!
+# Change this to match your C struct
 STRUCT_FORMAT = "fffffff"  # 6 floats: accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z
 HEADER1 = b"\xaa\x55"  # Normal byte order
 HEADER2 = b"\x55\xaa"  # Swapped byte order

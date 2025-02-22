@@ -141,6 +141,22 @@ struct __attribute__((packed)) serial_tx {
     float test;
 };
 
+// If you modify this struct, update the Python script accordingly
+// The Python script must match this exact structure for correct data parsing.
+// 
+// Python struct format specifiers:
+//   - 'f' -> float (4 bytes)
+//   - 'i' -> int (4 bytes)
+//   - 'h' -> short (2 bytes)
+//   - 'b' -> byte (1 byte)
+//   - 'H' -> unsigned short (2 bytes)
+//   - 'I' -> unsigned int (4 bytes)
+//
+// Example Python format for this struct: "f" (1 float)
+struct __attribute__((packed)) serial_rx {
+    float test;
+};
+
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

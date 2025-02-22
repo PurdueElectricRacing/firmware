@@ -153,7 +153,7 @@ SPI_InitConfig_t spi_config = {
 GPS_Handle_t GPSHandle = {};
 vector_3d_t accel_in, gyro_in, mag_in;
 
-static struct serial_tx txmsg;
+static struct serial_tx txmsg = {.test = 5};
 
 BMI088_Handle_t bmi_config = {
     .accel_csb_gpio_port = SPI1_CSB_ACCEL_PORT,
@@ -216,7 +216,7 @@ int main(void)
     // taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
-    taskCreate(testUsart, 50);
+    taskCreate(testUsart, 100);
     taskCreate(heartBeatTask, 100);
 
     taskCreate(parseIMU, 20);
@@ -364,7 +364,6 @@ void parseIMU(void)
     txmsg.gyro_x = gyro_in.x;
     txmsg.gyro_y = gyro_in.y;
     txmsg.gyro_z = gyro_in.z;
-
 
     /* Update Gyro OK flag */
     if (gyro_counter == 150){

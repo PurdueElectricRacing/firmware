@@ -37,7 +37,7 @@ static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
 void pedalsPeriodic(void) {
     // Get current values (don't want them changing mid-calculation)
     uint16_t t1_raw = raw_adc_values.t1;
-    uint16_t t2_raw = raw_adc_values.t2;
+    uint16_t t2_raw = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
     uint16_t b1_raw = raw_adc_values.b1;
     uint16_t b2_raw = raw_adc_values.b2;
 
@@ -52,7 +52,6 @@ void pedalsPeriodic(void) {
     uint16_t t2_clamped = CLAMP(t2_raw, pedal_calibration.t2_min, pedal_calibration.t2_max);
     uint16_t b1_clamped = CLAMP(b1_raw, pedal_calibration.b1_min, pedal_calibration.b1_max);
     uint16_t b2_clamped = CLAMP(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
-
 
     // These values given are in the 0-4095 range
     uint16_t t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);

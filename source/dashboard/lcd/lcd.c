@@ -20,7 +20,7 @@ volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 };   
 char *errorText;                             // Pointer to data to display for the Error, Warning, and Critical Fault codes
-extern uint16_t filtered_pedals;             // Global from pedals module for throttle display 
+extern pedal_values_t pedal_values;             // Global from pedals module for throttle display 
 extern q_handle_t q_fault_history;           // Global queue from fault library for fault history
 extern dashboard_input_state_t input_state;  // Global dashboard input states 
 extern brake_status_t brake_status;          // Global brake status struct
@@ -1028,8 +1028,8 @@ void raceTelemetryUpdate() {
         return;
     }
 
-    NXT_setValue(BRK_BAR, 0); // TODO BRK BAR
-    NXT_setValue(THROT_BAR, (int) ((filtered_pedals / 4095.0) * 100));
+    NXT_setValue(BRK_BAR, (int) ((pedal_values.brake / 4095.0) * 100)); // TODO BRK BAR
+    NXT_setValue(THROT_BAR, (int) ((pedal_values.throttle / 4095.0) * 100));
 
     // update the speed
     if (can_data.rear_wheel_speeds.stale) {
@@ -1074,7 +1074,7 @@ void raceTelemetryUpdate() {
         NXT_setText(CAR_STAT, "S");
         NXT_setFontColor(CAR_STAT, WHITE);
     } else {
-        switch(can_data.main_hb.car_state) {
+        switch (can_data.main_hb.car_state) {
             case CAR_STATE_PRECHARGING:
                 NXT_setFontColor(CAR_STAT, ORANGE);
                 NXT_setText(CAR_STAT, "PRECHARGE");
@@ -1102,6 +1102,10 @@ void raceTelemetryUpdate() {
             case CAR_STATE_CONSTANT_TORQUE:
                 NXT_setFontColor(CAR_STAT, GREEN);
                 NXT_setText(CAR_STAT, "CONST TRQ");
+                break;
+            default:
+                NXT_setFontColor(CAR_STAT, WHITE);
+                NXT_setText(CAR_STAT, "UNKNOWN");
                 break;
         }
     }

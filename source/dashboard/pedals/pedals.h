@@ -56,20 +56,23 @@ typedef struct
     bool     bse_wiring_fail_detected;
     uint32_t bse_wiring_fail_start_time;
     bool     apps_brake_faulted;        // throttle and brake pressed together
-} pedals_t;
-
-extern pedals_t pedals;
+} pedal_faults_t;
 
 typedef struct {
-    uint16_t t1max;
-    uint16_t t1min;
-    uint16_t t2max;
-    uint16_t t2min;
-    uint16_t b1max;
-    uint16_t b1min;
-    uint16_t b2max;
-    uint16_t b2min;
+    uint16_t t1_min;
+    uint16_t t1_max;
+    uint16_t t2_min;
+    uint16_t t2_max;
+    uint16_t b1_min;
+    uint16_t b1_max;
+    uint16_t b2_min;
+    uint16_t b2_max;
 } pedal_calibration_t;
+
+typedef struct {
+    uint16_t throttle;
+    uint16_t brake;
+} pedal_values_t;
 
 typedef struct {
     uint8_t id;
@@ -78,8 +81,9 @@ typedef struct {
     uint8_t reserved;
 } driver_pedal_profile_t;
 
+extern pedal_faults_t pedal_faults;
 extern pedal_calibration_t pedal_calibration;
-extern uint16_t filtered_pedals;
+extern pedal_values_t pedal_values;
 extern uint16_t thtl_limit;
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 

@@ -1,97 +1,92 @@
 #include "pedals.h"
-#include "common/phal_F4_F7/flash/flash.h"
+//#include "common/phal_F4_F7/flash/flash.h"
+#include "common/faults/faults.h"
+#include "common_defs.h"
 #include "main.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "can_parse.h"
 #include <stdint.h>
 
-pedals_t pedals = {0};
+pedal_faults_t pedal_faults = {0};
 uint16_t thtl_limit = 4096;
 
-pedal_calibration_t pedal_calibration = {.t1max=1640,.t1min=1000, // WARNING: DAQ VARIABLE
-                                         .t2max=2760,.t2min=2000, // IF EEPROM ENABLED,
-                                         .b1max=1490,.b1min=450, // VALUE WILL CHANGE
-                                         .b2max=1490,.b2min=450}; // 1400, 400
-
-uint16_t t1_buff[10] = {0};
-uint16_t t2_buff[10] = {0};
-uint16_t b1_buff[10] = {0};
-uint16_t b2_buff[10] = {0};
-uint8_t t1_idx = 0;
-uint8_t t2_idx = 0;
-uint8_t b1_idx = 0;
-uint8_t b2_idx = 0;
-
-uint16_t filtered_pedals;
-
-driver_pedal_profile_t driver_pedal_profiles[4] = {
-    {0, 10,10,0},
-    {1, 10,10,0},
-    {2, 10,10,0},
-    {3, 10,10,0}
+// TODO: tune these values
+pedal_calibration_t pedal_calibration = {  // These values are given as raw ADC values
+    .t1_min=1000, .t1_max=1640, // WARNING: DAQ VARIABLE
+    .t2_min=2000, .t2_max=2760, // IF EEPROM ENABLED,
+    .b1_min=450, .b1_max=1490,  // VALUE WILL CHANGE
+    .b2_min=450, .b2_max=1490,  // 1400, 400
 };
 
-void pedalsPeriodic(void)
-{
+pedal_values_t pedal_values = {
+    .throttle = 0,
+    .brake    = 0
+};
+
+driver_pedal_profile_t driver_pedal_profiles[4] = {
+    {0, 10, 10, 0},
+    {1, 10, 10, 0},
+    {2, 10, 10, 0},
+    {3, 10, 10, 0}
+};
+
+static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
+    return (uint16_t) (((uint32_t)(value - min) * MAX_PEDAL_MEAS) / (max - min));
+}
+
+void pedalsPeriodic(void) {
     // Get current values (don't want them changing mid-calculation)
-    uint16_t t1 = raw_adc_values.t1;
-    uint16_t t2 = raw_adc_values.t2;
-    uint16_t b1 = raw_adc_values.b1;
-    uint16_t b2 = raw_adc_values.b2;
+    uint16_t t1_raw = raw_adc_values.t1;
+    uint16_t t2_raw = raw_adc_values.t2;
+    uint16_t b1_raw = raw_adc_values.b1;
+    uint16_t b2_raw = raw_adc_values.b2;
 
-    // Brake bias
-    float brake_bias = 0;
-    if (b1 + b2)
-    {
-        brake_bias = ((float)b1 / (b1 + b2));
-    }
-
-    setFault(ID_APPS_WIRING_T1_FAULT, t1);
-    setFault(ID_APPS_WIRING_T2_FAULT, t2);
+    // TODO check faults
+    setFault(ID_APPS_WIRING_T1_FAULT, t1_raw);
+    setFault(ID_APPS_WIRING_T2_FAULT, t2_raw);
 
     setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
 
-    float t1_volts = (VREF / 0xFFFU) * t1;
-    float t2_volts = (VREF / 0XFFFU) * t2;
+    // Scale values based on min and max raw adc values
+    uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
+    uint16_t t2_clamped = CLAMP(t2_raw, pedal_calibration.t2_min, pedal_calibration.t2_max);
+    uint16_t b1_clamped = CLAMP(b1_raw, pedal_calibration.b1_min, pedal_calibration.b1_max);
+    uint16_t b2_clamped = CLAMP(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
-    t1 = (t1_volts * RESISTOR_T1) / (VREF - t1_volts);
-    t2 = (t2_volts * RESISTOR_T2) / (VREF - t2_volts);
 
-    // Scale values based on min and max
-    t1 = CLAMP(t1, pedal_calibration.t1min, pedal_calibration.t1max);
-    t2 = CLAMP(t2, pedal_calibration.t2min, pedal_calibration.t2max);
-    b1 = CLAMP(b1, pedal_calibration.b1min, pedal_calibration.b1max);
-    b2 = CLAMP(b2, pedal_calibration.b2min, pedal_calibration.b2max);
+    // These values given are in the 0-4095 range
+    uint16_t t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);
+    uint16_t t2_final = normalize(t2_clamped, pedal_calibration.t2_min, pedal_calibration.t2_max);
+    uint16_t b1_final = normalize(b1_clamped, pedal_calibration.b1_min, pedal_calibration.b1_max);
+    uint16_t b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
-    t1 = (uint16_t) ((((uint32_t) (t1 - pedal_calibration.t1min)) * MAX_PEDAL_MEAS) /
-                     (pedal_calibration.t1max - pedal_calibration.t1min));
-    t2 = (uint16_t) ((((uint32_t) (t2 - pedal_calibration.t2min)) * MAX_PEDAL_MEAS) /
-                     (pedal_calibration.t2max - pedal_calibration.t2min));
-    b1 = (uint16_t) ((((uint32_t) (b1 - pedal_calibration.b1min)) * MAX_PEDAL_MEAS) /
-                     (pedal_calibration.b1max - pedal_calibration.b1min));
-    b2 = (uint16_t) ((((uint32_t) (b2 - pedal_calibration.b2min)) * MAX_PEDAL_MEAS) /
-                     (pedal_calibration.b2max - pedal_calibration.b2min));
+    // uint16_t t1_final = (uint16_t) ((((uint32_t) (t1_clamped - pedal_calibration.t1_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.t1_max - pedal_calibration.t1_min));
+    // uint16_t t2_final = (uint16_t) ((((uint32_t) (t2_clamped - pedal_calibration.t2_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.t2_max - pedal_calibration.t2_min));
+    // uint16_t b1_final = (uint16_t) ((((uint32_t) (b1_clamped - pedal_calibration.b1_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.b1_max - pedal_calibration.b1_min));
+    // uint16_t b2_final = (uint16_t) ((((uint32_t) (b2_clamped - pedal_calibration.b2_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.b2_max - pedal_calibration.b2_min));
 
     // Both set at the same time
-    if ((b1 >= APPS_BRAKE_THRESHOLD &&
-        t1 >= APPS_THROTTLE_FAULT_THRESHOLD) || (checkFault(ID_APPS_BRAKE_FAULT) && t1 >= APPS_THROTTLE_CLEARFAULT_THRESHOLD))
-    {
+    if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) ||
+        (checkFault(ID_APPS_BRAKE_FAULT) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
         // set warning fault and treq could be 0
-        t2 = 0;
-        t1 = 0;
+        t2_final = 0;
+        t1_final = 0;
         setFault(ID_APPS_BRAKE_FAULT, true);
-    }
-    else if (t1 <= APPS_THROTTLE_CLEARFAULT_THRESHOLD)
-    {
+    } else if (t1_raw <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) {
         setFault(ID_APPS_BRAKE_FAULT, false);
     }
 
-    filtered_pedals = t1;
+    // Check for APPS sensor deviations (10%)
+    setFault(ID_IMPLAUS_DETECTED_FAULT, ABS(t1_final - t2_final));
 
-    SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1,
-                            raw_adc_values.t2, raw_adc_values.b1,
-                            raw_adc_values.b2, 0);
-    SEND_FILT_THROTTLE_BRAKE(t1, b1);
+    // update pedal values for external checking
+    pedal_values.throttle = t1_final;
+    pedal_values.brake = b1_final;
+
+    SEND_RAW_THROTTLE_BRAKE(t1_raw, t2_raw, b1_raw, b2_raw, 0);
+
+    // ! These will be scaled to a percentage by the can configuartion
+    SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
 }
 
 

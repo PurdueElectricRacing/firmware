@@ -7,7 +7,7 @@
 
 
 extern q_handle_t q_tx_can;
-uint8_t num_bad1, num_bad2, num_bad3, num_bad4;
+uint8_t num_bad1_1, num_bad1_2, num_bad1, num_bad2_1, num_bad2_2, num_bad2, num_bad3_1, num_bad3_2, num_bad3, num_bad4_1, num_bad4_2, num_bad4, num_bad5_1, num_bad5_2, num_bad5;
 bool overtemp = false;
 bool tmu_daq_override = false;
 uint8_t tmu_daq_therm = 0;
@@ -19,20 +19,44 @@ int16_t ADC_to_temp[3331] = {1044,1043,1042,1042,1041,1040,1039,1039,1038,1037,1
 static bool init_avg_fill;
 
 void initTMU(tmu_handle_t *tmu) {
+//    num_bad1_1 = 0;
+//    num_bad1_2 = 0;
    num_bad1 = 0;
+//    num_bad2_1 = 0;
+//    num_bad2_2 = 0;
    num_bad2 = 0;
-   num_bad3 = 0;
+//    num_bad3_1 = 0;
+//    num_bad3_2 = 0;
+   num_bad3 = 0; 
+//    num_bad4_1 = 0;
+//    num_bad4_2 = 0;
    num_bad4 = 0;
+//    num_bad5_1 = 0;
+//    num_bad5_2 = 0;
+   num_bad5 = 0;
    tmu_daq_override = false;
    tmu_daq_therm = 0;
-   tmu->tmu1_max = ERROR_LOW;
-   tmu->tmu2_max = ERROR_LOW;
-   tmu->tmu3_max = ERROR_LOW;
-   tmu->tmu4_max = ERROR_LOW;
-   tmu->tmu1_min = ERROR_HIGH;
-   tmu->tmu2_min = ERROR_HIGH;
-   tmu->tmu3_min = ERROR_HIGH;
-   tmu->tmu4_min = ERROR_HIGH;
+   tmu->tmu1_1_max = ERROR_LOW;
+   tmu->tmu1_2_max = ERROR_LOW;
+   tmu->tmu2_1_max = ERROR_LOW;
+   tmu->tmu2_2_max = ERROR_LOW;
+   tmu->tmu3_1_max = ERROR_LOW;
+   tmu->tmu3_2_max = ERROR_LOW;
+   tmu->tmu4_1_max = ERROR_LOW;
+   tmu->tmu4_2_max = ERROR_LOW;
+   tmu->tmu5_1_max = ERROR_LOW;
+   tmu->tmu5_2_max = ERROR_LOW;
+   tmu->tmu1_1_min = ERROR_HIGH;
+   tmu->tmu1_2_min = ERROR_HIGH;
+   tmu->tmu2_1_min = ERROR_HIGH;
+   tmu->tmu2_2_min = ERROR_HIGH;
+   tmu->tmu3_1_min = ERROR_HIGH;
+   tmu->tmu3_2_min = ERROR_HIGH;
+   tmu->tmu4_1_min = ERROR_HIGH;
+   tmu->tmu4_2_min = ERROR_HIGH;
+   tmu->tmu5_1_min = ERROR_HIGH;
+   tmu->tmu5_2_min = ERROR_HIGH;
+
    init_avg_fill = true;
    PHAL_writeGPIO(MUX_A_Port, MUX_A_Pin, 0);
    PHAL_writeGPIO(MUX_B_Port, MUX_B_Pin, 0);
@@ -45,65 +69,156 @@ uint8_t readTemps(tmu_handle_t *tmu) {
     uint8_t tempError = 0;
     static int curr_therm; // current thermistor counter variable
     /* Storing ADC readings */
-    uint16_t ADC_tmu_1 = adc_readings.tmu_1;
-    uint16_t ADC_tmu_2 = adc_readings.tmu_2;
-    uint16_t ADC_tmu_3 = adc_readings.tmu_3;
-    uint16_t ADC_tmu_4 = adc_readings.tmu_4;
+    uint16_t ADC_tmu_1_1 = adc_readings.tmu_1_1;
+    uint16_t ADC_tmu_1_2 = adc_readings.tmu_1_2;
+    uint16_t ADC_tmu_2_1 = adc_readings.tmu_2_1;
+    uint16_t ADC_tmu_2_2 = adc_readings.tmu_2_2;
+    uint16_t ADC_tmu_3_1 = adc_readings.tmu_3_1;
+    uint16_t ADC_tmu_3_2 = adc_readings.tmu_3_2;
+    uint16_t ADC_tmu_4_1 = adc_readings.tmu_4_1;
+    uint16_t ADC_tmu_4_2 = adc_readings.tmu_4_2;    
+    uint16_t ADC_tmu_5_1 = adc_readings.tmu_5_1; 
+    uint16_t ADC_tmu_5_2 = adc_readings.tmu_5_2;    
 
     if (curr_therm != 15) { // monitoring thermistors
         //Subtract old value at this index from average
         if (!init_avg_fill)
         {
-            tmu->tmu1_avg -= tmu->tmu1[curr_therm];
-            tmu->tmu2_avg -= tmu->tmu2[curr_therm];
-            tmu->tmu3_avg -= tmu->tmu3[curr_therm];
-            tmu->tmu4_avg -= tmu->tmu4[curr_therm];
+            tmu->tmu1_1_avg -= tmu->tmu1_1[curr_therm];
+            tmu->tmu1_2_avg -= tmu->tmu1_2[curr_therm];
+            tmu->tmu2_1_avg -= tmu->tmu2_1[curr_therm];
+            tmu->tmu2_2_avg -= tmu->tmu2_2[curr_therm];
+            tmu->tmu3_1_avg -= tmu->tmu3_1[curr_therm];
+            tmu->tmu3_2_avg -= tmu->tmu3_2[curr_therm];
+            tmu->tmu4_1_avg -= tmu->tmu4_1[curr_therm];
+            tmu->tmu4_2_avg -= tmu->tmu4_2[curr_therm];
+            tmu->tmu5_1_avg -= tmu->tmu5_1[curr_therm];
+            tmu->tmu5_2_avg -= tmu->tmu5_2[curr_therm];
         }
         else
         {
             init_avg_fill = false;
         }
-        tmu->tmu1[curr_therm] = ADC_tmu_1 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_1 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_1 - ADC_ERROR_LOW];
-        tmu->tmu2[curr_therm] = ADC_tmu_2 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_2 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_2 - ADC_ERROR_LOW];
-        tmu->tmu3[curr_therm] = ADC_tmu_3 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_3 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_3 - ADC_ERROR_LOW];
-        tmu->tmu4[curr_therm] = ADC_tmu_4 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_4 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_4 - ADC_ERROR_LOW];
-
-        if (ADC_tmu_1 > ADC_ERROR_HIGH || ADC_tmu_1 < ADC_ERROR_LOW) {
+        tmu->tmu1_1[curr_therm] = ADC_tmu_1_1 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_1_1 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_1_1 - ADC_ERROR_LOW];
+        tmu->tmu1_2[curr_therm] = ADC_tmu_1_2 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_1_2 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_1_2 - ADC_ERROR_LOW];
+        tmu->tmu2_1[curr_therm] = ADC_tmu_2_1 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_2_1 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_2_1 - ADC_ERROR_LOW];
+        tmu->tmu2_2[curr_therm] = ADC_tmu_2_2 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_2_2 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_2_2 - ADC_ERROR_LOW];
+        tmu->tmu3_1[curr_therm] = ADC_tmu_3_1 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_3_1 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_3_1 - ADC_ERROR_LOW];
+        tmu->tmu3_2[curr_therm] = ADC_tmu_3_2 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_3_2 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_3_2 - ADC_ERROR_LOW];
+        tmu->tmu4_1[curr_therm] = ADC_tmu_4_1 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_4_1 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_4_1 - ADC_ERROR_LOW];
+        tmu->tmu4_2[curr_therm] = ADC_tmu_4_2 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_4_2 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_4_2 - ADC_ERROR_LOW];
+        tmu->tmu5_1[curr_therm] = ADC_tmu_5_1 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_5_1 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_5_1 - ADC_ERROR_LOW];
+        tmu->tmu5_2[curr_therm] = ADC_tmu_5_2 > ADC_ERROR_HIGH ? ERROR_HIGH : ADC_tmu_5_2 < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[ADC_tmu_5_2 - ADC_ERROR_LOW];
+        if (ADC_tmu_1_1 > ADC_ERROR_HIGH || ADC_tmu_1_1 < ADC_ERROR_LOW) {
             num_bad1++;
         }
-        if (ADC_tmu_2 > ADC_ERROR_HIGH || ADC_tmu_2 < ADC_ERROR_LOW) {
+        if (ADC_tmu_1_2 > ADC_ERROR_HIGH || ADC_tmu_1_2 < ADC_ERROR_LOW) {
+            num_bad1++;
+        }
+        if (ADC_tmu_2_1 > ADC_ERROR_HIGH || ADC_tmu_2_1 < ADC_ERROR_LOW) {
             num_bad2++;
         }
-        if (ADC_tmu_3 > ADC_ERROR_HIGH || ADC_tmu_3 < ADC_ERROR_LOW) {
+        if (ADC_tmu_2_2 > ADC_ERROR_HIGH || ADC_tmu_2_2 < ADC_ERROR_LOW) {
+            num_bad2++;
+        }
+        if (ADC_tmu_3_1 > ADC_ERROR_HIGH || ADC_tmu_3_1 < ADC_ERROR_LOW) {
             num_bad3++;
         }
-        if (ADC_tmu_4 > ADC_ERROR_HIGH || ADC_tmu_4 < ADC_ERROR_LOW) {
+        if (ADC_tmu_3_2 > ADC_ERROR_HIGH || ADC_tmu_3_2 < ADC_ERROR_LOW) {
+            num_bad3++;
+        }
+        if (ADC_tmu_4_1 > ADC_ERROR_HIGH || ADC_tmu_4_1 < ADC_ERROR_LOW) {
             num_bad4++;
+        }
+        if (ADC_tmu_4_2 > ADC_ERROR_HIGH || ADC_tmu_4_2 < ADC_ERROR_LOW) {
+            num_bad4++;
+        }
+        if (ADC_tmu_5_1 > ADC_ERROR_HIGH || ADC_tmu_5_1 < ADC_ERROR_LOW) {
+            num_bad5++;
+        }
+        if (ADC_tmu_5_2 > ADC_ERROR_HIGH || ADC_tmu_5_2 < ADC_ERROR_LOW) {
+            num_bad5++;
         }
 
 
         // calculating max and min temps, and updating moving average
-        tmu->tmu1_max = MAX(tmu->tmu1_max, tmu->tmu1[curr_therm]);
-        tmu->tmu1_min = MIN(tmu->tmu1_min, tmu->tmu1[curr_therm]);
-        tmu->tmu1_avg += tmu->tmu1[curr_therm];
+        // MODULE 1
+        tmu->tmu1_1_max = MAX(tmu->tmu1_1_max, tmu->tmu1_1[curr_therm]);
+        tmu->tmu1_1_min = MIN(tmu->tmu1_1_min, tmu->tmu1_1[curr_therm]);
+        tmu->tmu1_1_avg += tmu->tmu1_1[curr_therm];
 
-        tmu->tmu2_max = MAX(tmu->tmu2_max, tmu->tmu2[curr_therm]);
-        tmu->tmu2_min = MIN(tmu->tmu2_min, tmu->tmu2[curr_therm]);
-        tmu->tmu2_avg += tmu->tmu2[curr_therm];
+        tmu->tmu1_2_max = MAX(tmu->tmu1_2_max, tmu->tmu1_2[curr_therm]);
+        tmu->tmu1_2_min = MIN(tmu->tmu1_2_min, tmu->tmu1_2[curr_therm]);
+        tmu->tmu1_2_avg += tmu->tmu1_2[curr_therm];
 
-        tmu->tmu3_max = MAX(tmu->tmu3_max, tmu->tmu3[curr_therm]);
-        tmu->tmu3_min = MIN(tmu->tmu3_min, tmu->tmu3[curr_therm]);
-        tmu->tmu3_avg += tmu->tmu3[curr_therm];
+        tmu->tmu1_max = MAX(tmu->tmu1_1_max, tmu->tmu1_2_max);
+        tmu->tmu1_min = MIN(tmu->tmu1_1_min, tmu->tmu1_2_max);
+        tmu->tmu1_avg += (tmu->tmu1_1[curr_therm] + tmu->tmu1_2[curr_therm]) / 2; // CHECK THIS
 
-        tmu->tmu4_max = MAX(tmu->tmu4_max, tmu->tmu4[curr_therm]);
-        tmu->tmu4_min = MIN(tmu->tmu4_min, tmu->tmu4[curr_therm]);
-        tmu->tmu4_avg += tmu->tmu4[curr_therm];
+        // MODULE 2
+        tmu->tmu2_1_max = MAX(tmu->tmu2_1_max, tmu->tmu2_1[curr_therm]);
+        tmu->tmu2_1_min = MIN(tmu->tmu2_1_min, tmu->tmu2_1[curr_therm]);
+        tmu->tmu2_1_avg += tmu->tmu2_1[curr_therm];
+
+        tmu->tmu2_2_max = MAX(tmu->tmu2_2_max, tmu->tmu2_2[curr_therm]);
+        tmu->tmu2_2_min = MIN(tmu->tmu2_2_min, tmu->tmu2_2[curr_therm]);
+        tmu->tmu2_2_avg += tmu->tmu2_2[curr_therm];
+
+        tmu->tmu2_max = MAX(tmu->tmu2_1_max, tmu->tmu2_2_max);
+        tmu->tmu2_min = MIN(tmu->tmu2_1_min, tmu->tmu2_2_max);
+        tmu->tmu2_avg += (tmu->tmu2_1[curr_therm] + tmu->tmu2_2[curr_therm]) / 2; // CHECK THIS
+
+        // MODULE 3
+        tmu->tmu3_1_max = MAX(tmu->tmu3_1_max, tmu->tmu3_1[curr_therm]);
+        tmu->tmu3_1_min = MIN(tmu->tmu3_1_min, tmu->tmu3_1[curr_therm]);
+        tmu->tmu3_1_avg += tmu->tmu3_1[curr_therm];
+
+        tmu->tmu3_2_max = MAX(tmu->tmu3_2_max, tmu->tmu3_2[curr_therm]);
+        tmu->tmu3_2_min = MIN(tmu->tmu3_2_min, tmu->tmu3_2[curr_therm]);
+        tmu->tmu3_2_avg += tmu->tmu3_2[curr_therm];
+
+        tmu->tmu3_max = MAX(tmu->tmu3_1_max, tmu->tmu3_2_max);
+        tmu->tmu3_min = MIN(tmu->tmu3_1_min, tmu->tmu3_2_max);
+        tmu->tmu3_avg += (tmu->tmu3_1[curr_therm] + tmu->tmu3_2[curr_therm]) / 2; // CHECK THIS
+
+        // MODULE 4
+        tmu->tmu4_1_max = MAX(tmu->tmu4_1_max, tmu->tmu4_1[curr_therm]);
+        tmu->tmu4_1_min = MIN(tmu->tmu4_1_min, tmu->tmu4_1[curr_therm]);
+        tmu->tmu4_1_avg += tmu->tmu4_1[curr_therm];
+
+        tmu->tmu4_2_max = MAX(tmu->tmu4_2_max, tmu->tmu4_2[curr_therm]);
+        tmu->tmu4_2_min = MIN(tmu->tmu4_2_min, tmu->tmu4_2[curr_therm]);
+        tmu->tmu4_2_avg += tmu->tmu4_2[curr_therm];
+
+        tmu->tmu4_max = MAX(tmu->tmu4_1_max, tmu->tmu4_2_max);
+        tmu->tmu4_min = MIN(tmu->tmu4_1_min, tmu->tmu4_2_max);
+        tmu->tmu4_avg += (tmu->tmu4_1[curr_therm] + tmu->tmu4_2[curr_therm]) / 2; // CHECK THIS
+
+        // MODULE 5
+        tmu->tmu5_1_max = MAX(tmu->tmu5_1_max, tmu->tmu5_1[curr_therm]);
+        tmu->tmu5_1_min = MIN(tmu->tmu5_1_min, tmu->tmu5_1[curr_therm]);
+        tmu->tmu5_1_avg += tmu->tmu5_1[curr_therm];
+
+        tmu->tmu5_2_max = MAX(tmu->tmu5_2_max, tmu->tmu5_2[curr_therm]);
+        tmu->tmu5_2_min = MIN(tmu->tmu5_2_min, tmu->tmu5_2[curr_therm]);
+        tmu->tmu5_2_avg += tmu->tmu5_2[curr_therm];
+
+        tmu->tmu5_max = MAX(tmu->tmu5_1_max, tmu->tmu5_2_max);
+        tmu->tmu5_min = MIN(tmu->tmu5_1_min, tmu->tmu5_2_max);
+        tmu->tmu5_avg += (tmu->tmu5_1[curr_therm] + tmu->tmu5_2[curr_therm]) / 2; // CHECK THIS
     } else { // monitoring power rail
         // calculating voltage from 3.3V rail (float)
-        tmu->tmu1_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_1 * (R1_3V3 + R2_3V3) / R2_3V3;
-        tmu->tmu2_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_2 * (R1_3V3 + R2_3V3) / R2_3V3;
-        tmu->tmu3_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_3 * (R1_3V3 + R2_3V3) / R2_3V3;
-        tmu->tmu4_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_4 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu1_1_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_1_1 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu1_2_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_1_2 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu2_1_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_2_1 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu2_2_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_2_2 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu3_1_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_3_1 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu3_2_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_3_2 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu4_1_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_4_1 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu4_2_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_4_2 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu5_1_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_5_1 * (R1_3V3 + R2_3V3) / R2_3V3;
+        tmu->tmu5_2_pow =  (TMU_VREF / TMU_ADDR_SIZE) * ADC_tmu_5_2 * (R1_3V3 + R2_3V3) / R2_3V3;
+
         // setting fault if power is lost
         // setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu1_pow);
         // setFault(ID_TMU_POWER_LOST_FAULT, tmu->tmu2_pow);
@@ -112,20 +227,29 @@ uint8_t readTemps(tmu_handle_t *tmu) {
     }
 
     // send temperatures over CAN (sent multiplied by 10, so 221 would be 22.1 deg C)
-    SEND_RAW_CELL_TEMP_A_B(curr_therm, tmu->tmu1[curr_therm], tmu->tmu2[curr_therm]);
-    SEND_RAW_CELL_TEMP_C_D(curr_therm, tmu->tmu3[curr_therm], tmu->tmu4[curr_therm]);
+    SEND_RAW_CELL_TEMP_MODULE1(curr_therm, tmu->tmu1_1[curr_therm], tmu->tmu1_2[curr_therm]);
+    SEND_RAW_CELL_TEMP_MODULE2(curr_therm, tmu->tmu2_1[curr_therm], tmu->tmu2_2[curr_therm]);
+    SEND_RAW_CELL_TEMP_MODULE3(curr_therm, tmu->tmu3_1[curr_therm], tmu->tmu3_2[curr_therm]);
+    SEND_RAW_CELL_TEMP_MODULE4(curr_therm, tmu->tmu4_1[curr_therm], tmu->tmu4_2[curr_therm]);
+    SEND_RAW_CELL_TEMP_MODULE5(curr_therm, tmu->tmu5_1[curr_therm], tmu->tmu5_2[curr_therm]);
+    // SEND_RAW_CELL_TEMP_C_D(curr_therm, tmu->tmu3[curr_therm], tmu->tmu4[curr_therm]);
+    // SEND_RAW_CELL_TEMP_MODULE1(curr_therm, tmu->tmu1_1[curr_therm], tmu->tmu1_2[curr_therm])
 
     if (curr_therm < NUM_THERM ) {
         curr_therm++;
     }
     else { // finished incrementing, sending max and min values, sending averages, setting faults
-        SEND_MOD_CELL_TEMP_AVG((tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / NUM_THERM), (tmu->tmu3_avg / NUM_THERM), (tmu->tmu4_avg / NUM_THERM));
-        SEND_MOD_CELL_TEMP_MAX(tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max, tmu->tmu4_max);
-        SEND_MOD_CELL_TEMP_MIN(tmu->tmu1_min, tmu->tmu2_min, tmu->tmu3_min, tmu->tmu4_min);
-        int16_t max_temp = MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max));
-        int16_t min_temp =  MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min));
+        SEND_MOD_CELL_TEMP_AVG_A_B_C((tmu->tmu1_avg / NUM_THERM), (tmu->tmu2_avg / NUM_THERM), (tmu->tmu3_avg / NUM_THERM));
+        SEND_MOD_CELL_TEMP_AVG_D_E((tmu->tmu4_avg / NUM_THERM), (tmu->tmu5_avg / NUM_THERM));
+        SEND_MOD_CELL_TEMP_MAX_A_B_C(tmu->tmu1_max, tmu->tmu2_max, tmu->tmu3_max);
+        SEND_MOD_CELL_TEMP_MAX_D_E(tmu->tmu4_max, tmu->tmu5_max);
+        SEND_MOD_CELL_TEMP_MIN_A_B_C(tmu->tmu1_min, tmu->tmu2_min, tmu->tmu3_min);
+        SEND_MOD_CELL_TEMP_MIN_D_E(tmu->tmu4_min, tmu->tmu5_min);
+        int16_t max_temp = MAX(MAX(MAX(tmu->tmu1_max, tmu->tmu2_max), MAX(tmu->tmu3_max, tmu->tmu4_max)), tmu->tmu5_max);
+        int16_t min_temp =  MIN(MIN(MIN(tmu->tmu1_min, tmu->tmu2_min), MIN(tmu->tmu3_min, tmu->tmu4_min)), tmu->tmu5_min);
         SEND_MAX_CELL_TEMP(max_temp);
-        SEND_NUM_THERM_BAD(num_bad1, num_bad2, num_bad3, num_bad4);
+        SEND_NUM_THERM_BAD_A_B_C(num_bad1, num_bad2, num_bad3);
+        SEND_NUM_THERM_BAD_D_E(num_bad4, num_bad5); 
         setFault(ID_PACK_TEMP_FAULT, max_temp);
         setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
         setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
@@ -136,18 +260,41 @@ uint8_t readTemps(tmu_handle_t *tmu) {
 
         // resetting
         curr_therm = 0;
-        tmu->tmu1_max = ERROR_LOW;
-        tmu->tmu2_max = ERROR_LOW;
-        tmu->tmu3_max = ERROR_LOW;
-        tmu->tmu4_max = ERROR_LOW;
-        tmu->tmu1_min = ERROR_HIGH;
-        tmu->tmu2_min = ERROR_HIGH;
-        tmu->tmu3_min = ERROR_HIGH;
-        tmu->tmu4_min = ERROR_HIGH;
+        tmu->tmu1_1_max = ERROR_LOW;
+        tmu->tmu1_2_max = ERROR_LOW;
+        tmu->tmu2_1_max = ERROR_LOW;
+        tmu->tmu2_2_max = ERROR_LOW;
+        tmu->tmu3_1_max = ERROR_LOW;
+        tmu->tmu3_2_max = ERROR_LOW;
+        tmu->tmu4_1_max = ERROR_LOW;
+        tmu->tmu4_2_max = ERROR_LOW;
+        tmu->tmu5_1_max = ERROR_LOW;
+        tmu->tmu5_2_max = ERROR_LOW;
+        tmu->tmu1_1_min = ERROR_HIGH;
+        tmu->tmu1_2_min = ERROR_HIGH;
+        tmu->tmu2_1_min = ERROR_HIGH;
+        tmu->tmu2_2_min = ERROR_HIGH;
+        tmu->tmu3_1_min = ERROR_HIGH;
+        tmu->tmu3_2_min = ERROR_HIGH;
+        tmu->tmu4_1_min = ERROR_HIGH;
+        tmu->tmu4_2_min = ERROR_HIGH;
+        tmu->tmu5_1_min = ERROR_HIGH;
+        tmu->tmu5_2_min = ERROR_HIGH;
+        // num_bad1_1 = 0;
+        // num_bad1_2 = 0;
+        // num_bad2_1 = 0;
+        // num_bad2_2 = 0;
+        // num_bad3_1 = 0;
+        // num_bad3_2 = 0; 
+        // num_bad4_1 = 0;
+        // num_bad4_2 = 0;
+        // num_bad5_1 = 0;
+        // num_bad5_2 = 0;
         num_bad1 = 0;
         num_bad2 = 0;
         num_bad3 = 0;
         num_bad4 = 0;
+        num_bad5 = 0;
     }
 
     // skipping to measure power rail

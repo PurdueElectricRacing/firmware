@@ -119,6 +119,44 @@
 #define SD_CMD_PORT (GPIOD)
 #define SD_CMD_PIN (2)
 
+// If you modify this struct, update the Python script accordingly
+// The Python script must match this exact structure for correct data parsing.
+// 
+// Python struct format specifiers:
+//   - 'f' -> float (4 bytes)
+//   - 'i' -> int (4 bytes)
+//   - 'h' -> short (2 bytes)
+//   - 'b' -> byte (1 byte)
+//   - 'H' -> unsigned short (2 bytes)
+//   - 'I' -> unsigned int (4 bytes)
+//
+// Example Python format for this struct: "fffffff" (7 floats)
+struct __attribute__((packed)) serial_tx {
+    float accel_x;
+    float accel_y;
+    float accel_z;
+    float gyro_x;
+    float gyro_y;
+    float gyro_z;
+    float test;
+};
+
+// If you modify this struct, update the Python script accordingly
+// The Python script must match this exact structure for correct data parsing.
+// 
+// Python struct format specifiers:
+//   - 'f' -> float (4 bytes)
+//   - 'i' -> int (4 bytes)
+//   - 'h' -> short (2 bytes)
+//   - 'b' -> byte (1 byte)
+//   - 'H' -> unsigned short (2 bytes)
+//   - 'I' -> unsigned int (4 bytes)
+//
+// Example Python format for this struct: "f" (1 float)
+struct __attribute__((packed)) serial_rx {
+    float test;
+};
+
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

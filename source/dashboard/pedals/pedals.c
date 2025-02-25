@@ -10,12 +10,13 @@
 pedal_faults_t pedal_faults = {0};
 uint16_t thtl_limit = 4096;
 
-// TODO: tune these values
-pedal_calibration_t pedal_calibration = {  // These values are given as raw ADC values
-    .t1_min=1000, .t1_max=1640, // WARNING: DAQ VARIABLE
-    .t2_min=2000, .t2_max=2760, // IF EEPROM ENABLED,
-    .b1_min=450, .b1_max=1490,  // VALUE WILL CHANGE
-    .b2_min=450, .b2_max=1490,  // 1400, 400
+// TODO: tune these values for the new pedals
+// ! WARNING: DAQ VARIABLE, IF EEPROM ENABLED, VALUE WILL CHANGE
+pedal_calibration_t pedal_calibration = {  // These values are given from 0-4095
+    .t1_min = 1000, .t1_max = 1640,
+    .t2_min = 2000, .t2_max = 2760,
+    .b1_min = 450, .b1_max = 1490,
+    .b2_min = 450, .b2_max = 1490,
 };
 
 pedal_values_t pedal_values = {
@@ -30,10 +31,23 @@ driver_pedal_profile_t driver_pedal_profiles[4] = {
     {3, 10, 10, 0}
 };
 
+/**
+ * @brief Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS
+ *
+ * @param value Raw value to normalize
+ * @param min Minimum value of the input range
+ * @param max Maximum value of the input range
+ */
 static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
+    // Use a 32-bit value to prevent overflow
     return (uint16_t) (((uint32_t)(value - min) * MAX_PEDAL_MEAS) / (max - min));
 }
 
+/**
+ * @brief Processes pedal sensor readings and sets faults as necessary
+ * 
+ * @note This function is called periodically by the scheduler
+ */
 void pedalsPeriodic(void) {
     // Get current values (don't want them changing mid-calculation)
     uint16_t t1_raw = raw_adc_values.t1;
@@ -41,10 +55,9 @@ void pedalsPeriodic(void) {
     uint16_t b1_raw = raw_adc_values.b1;
     uint16_t b2_raw = raw_adc_values.b2;
 
-    // TODO check faults
+    // Check for wiring faults
     setFault(ID_APPS_WIRING_T1_FAULT, t1_raw);
     setFault(ID_APPS_WIRING_T2_FAULT, t2_raw);
-
     setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
 
     // Scale values based on min and max raw adc values
@@ -59,32 +72,26 @@ void pedalsPeriodic(void) {
     uint16_t b1_final = normalize(b1_clamped, pedal_calibration.b1_min, pedal_calibration.b1_max);
     uint16_t b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
-    // uint16_t t1_final = (uint16_t) ((((uint32_t) (t1_clamped - pedal_calibration.t1_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.t1_max - pedal_calibration.t1_min));
-    // uint16_t t2_final = (uint16_t) ((((uint32_t) (t2_clamped - pedal_calibration.t2_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.t2_max - pedal_calibration.t2_min));
-    // uint16_t b1_final = (uint16_t) ((((uint32_t) (b1_clamped - pedal_calibration.b1_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.b1_max - pedal_calibration.b1_min));
-    // uint16_t b2_final = (uint16_t) ((((uint32_t) (b2_clamped - pedal_calibration.b2_min)) * MAX_PEDAL_MEAS) / (pedal_calibration.b2_max - pedal_calibration.b2_min));
-
-    // Both set at the same time
+    // If both pedals are pressed, set fault
     if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) ||
         (checkFault(ID_APPS_BRAKE_FAULT) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
         // set warning fault and treq could be 0
         t2_final = 0;
         t1_final = 0;
         setFault(ID_APPS_BRAKE_FAULT, true);
-    } else if (t1_raw <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) {
+    } else if (t1_raw <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
         setFault(ID_APPS_BRAKE_FAULT, false);
     }
 
     // Check for APPS sensor deviations (10%)
     setFault(ID_IMPLAUS_DETECTED_FAULT, ABS(t1_final - t2_final));
 
-    // update pedal values for external checking
+    // Update the pedal values for external use
     pedal_values.throttle = t1_final;
     pedal_values.brake = b1_final;
 
     SEND_RAW_THROTTLE_BRAKE(t1_raw, t2_raw, b1_raw, b2_raw, 0);
 
-    // ! These will be scaled to a percentage by the can configuartion
     SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
 }
 

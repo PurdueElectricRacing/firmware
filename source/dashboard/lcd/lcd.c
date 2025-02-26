@@ -20,7 +20,7 @@ volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 };   
 char *errorText;                             // Pointer to data to display for the Error, Warning, and Critical Fault codes
-extern pedal_values_t pedal_values;             // Global from pedals module for throttle display 
+extern pedal_values_t pedal_values;          // Global from pedals module for throttle display 
 extern q_handle_t q_fault_history;           // Global queue from fault library for fault history
 extern dashboard_input_state_t input_state;  // Global dashboard input states 
 extern brake_status_t brake_status;          // Global brake status struct

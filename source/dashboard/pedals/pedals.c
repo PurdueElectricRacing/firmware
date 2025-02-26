@@ -19,12 +19,14 @@ pedal_calibration_t pedal_calibration = {  // These values are given from 0-4095
     .b2_min = 450, .b2_max = 1490,
 };
 
+// Contains the current pedal values for external use
 pedal_values_t pedal_values = {
     .throttle = 0,
     .brake    = 0
 };
 
-driver_pedal_profile_t driver_pedal_profiles[4] = {
+// Allows for drivers to set their own pedal profiles
+driver_pedal_profile_t driver_pedal_profiles[4] = { // TODO link to pedal logic
     {0, 10, 10, 0},
     {1, 10, 10, 0},
     {2, 10, 10, 0},
@@ -32,7 +34,7 @@ driver_pedal_profile_t driver_pedal_profiles[4] = {
 };
 
 /**
- * @brief Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS
+ * @brief Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS (4095)
  *
  * @param value Raw value to normalize
  * @param min Minimum value of the input range
@@ -60,22 +62,22 @@ void pedalsPeriodic(void) {
     setFault(ID_APPS_WIRING_T2_FAULT, t2_raw);
     setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
 
-    // Scale values based on min and max raw adc values
+    // Hard clamp the raw values to the min and max values to account for physical limits
     uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
     uint16_t t2_clamped = CLAMP(t2_raw, pedal_calibration.t2_min, pedal_calibration.t2_max);
     uint16_t b1_clamped = CLAMP(b1_raw, pedal_calibration.b1_min, pedal_calibration.b1_max);
     uint16_t b2_clamped = CLAMP(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
-    // These values given are in the 0-4095 range
+    // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
     uint16_t t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);
     uint16_t t2_final = normalize(t2_clamped, pedal_calibration.t2_min, pedal_calibration.t2_max);
     uint16_t b1_final = normalize(b1_clamped, pedal_calibration.b1_min, pedal_calibration.b1_max);
     uint16_t b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
-    // If both pedals are pressed, set fault
+    // If both pedals are pressed, set a fault
     if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) ||
         (checkFault(ID_APPS_BRAKE_FAULT) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
-        // set warning fault and treq could be 0
+        // Set APPS to 0
         t2_final = 0;
         t1_final = 0;
         setFault(ID_APPS_BRAKE_FAULT, true);
@@ -90,8 +92,10 @@ void pedalsPeriodic(void) {
     pedal_values.throttle = t1_final;
     pedal_values.brake = b1_final;
 
+    // Log the raw pedal values
     SEND_RAW_THROTTLE_BRAKE(t1_raw, t2_raw, b1_raw, b2_raw, 0);
 
+    // Send the normalized pedal values to Main and TV
     SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
 }
 

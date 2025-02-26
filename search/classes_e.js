@@ -4,6 +4,5 @@ var searchData=
   ['sd_5fcardinfo_1',['SD_CardInfo',['../structSD__CardInfo.html',1,'']]],
   ['sd_5fcid_2',['SD_CID',['../structSD__CID.html',1,'']]],
   ['sd_5fcsd_3',['SD_CSD',['../structSD__CSD.html',1,'']]],
-  ['settings_5ft_4',['settings_t',['../structsettings__t.html',1,'']]],
-  ['spi_5finitconfig_5ft_5',['SPI_InitConfig_t',['../structSPI__InitConfig__t.html',1,'']]]
+  ['spi_5finitconfig_5ft_4',['SPI_InitConfig_t',['../structSPI__InitConfig__t.html',1,'']]]
 ];

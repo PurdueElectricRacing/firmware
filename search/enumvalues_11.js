@@ -12,13 +12,9 @@ var searchData=
   ['ti1f_5fed_9',['TI1F_ED',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214ada2d464ae9d16cb9b7c720e08f56ac85',1,'tim.h']]],
   ['ti1fp1_10',['TI1FP1',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214acec4089b8d631d7dc2792f581154f28a',1,'tim.h']]],
   ['ti2fp2_11',['TI2FP2',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214a9a2a49f035bdf66b0bb5c13441a36d5e',1,'tim.h']]],
-  ['tv_5fdeadband_5fhover_12',['TV_DEADBAND_HOVER',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1fa54ceb0f50c47e854748adc7d029c30f0',1,'lcd.h']]],
-  ['tv_5fdeadband_5fselected_13',['TV_DEADBAND_SELECTED',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1fab5cf1df62c826cc471e182977c5cf308',1,'lcd.h']]],
-  ['tv_5fenable_5fhover_14',['TV_ENABLE_HOVER',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1fa5d86d44c5ce0795256255c3f0a4e69c8',1,'lcd.h']]],
-  ['tv_5fintensity_5fhover_15',['TV_INTENSITY_HOVER',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1faeec9bb864d2c75430eeb11ca6797a767',1,'lcd.h']]],
-  ['tv_5fintensity_5fselected_16',['TV_INTENSITY_SELECTED',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1faf0293a7e8489963b357cddb3e4bd4427',1,'lcd.h']]],
-  ['tv_5fnone_5fselected_17',['TV_NONE_SELECTED',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1faecfd6ae1a7aaf260487435bb359638ce',1,'lcd.h']]],
-  ['tv_5fp_5fhover_18',['TV_P_HOVER',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1fa081861f96f29dce54bbc9e45c709f788',1,'lcd.h']]],
-  ['tv_5fp_5fselected_19',['TV_P_SELECTED',['../lcd_8h.html#a70f6b59e045d57728646a578cef3ee1fa2cdb551254fabd267e38df0fe465dc99',1,'lcd.h']]],
-  ['type_5fcmd_20',['TYPE_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3a31c7517410257c2000072034cb89fa0a',1,'ftpd.h']]]
+  ['tv_5fdead_5findex_12',['TV_DEAD_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fae067003ca6890b6d1fe35c91e3ff18c3',1,'lcd.c']]],
+  ['tv_5fenable_5findex_13',['TV_ENABLE_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37faebaa228bc75de3927f93d759331fcd0f',1,'lcd.c']]],
+  ['tv_5fintensity_5findex_14',['TV_INTENSITY_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa08f53a854ad7b6445274e6dcd6f573ec',1,'lcd.c']]],
+  ['tv_5fproportion_5findex_15',['TV_PROPORTION_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa9c32f454efe52f1f2c824fb2d187d703',1,'lcd.c']]],
+  ['type_5fcmd_16',['TYPE_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3a31c7517410257c2000072034cb89fa0a',1,'ftpd.h']]]
 ];

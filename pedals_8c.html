@@ -95,54 +95,35 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="pedals_8h_source.html">pedals.h</a>&quot;</code><br />
+<code>#include &quot;common/faults/faults.h&quot;</code><br />
+<code>#include &quot;common_defs.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad390f112c056607f9f37f0c1a2e5f3b6" id="r_ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a> (void)</td></tr>
+<tr class="memdesc:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes pedal sensor readings and sets faults as necessary.  <br /></td></tr>
 <tr class="separator:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eea9a39be719b2571393e14a3f6afe2" id="r_a1eea9a39be719b2571393e14a3f6afe2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1eea9a39be719b2571393e14a3f6afe2">writePedalProfiles</a> ()</td></tr>
+<tr class="separator:a1eea9a39be719b2571393e14a3f6afe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63f6f744fab6dd6d1990a2b6d9e7d605" id="r_a63f6f744fab6dd6d1990a2b6d9e7d605"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63f6f744fab6dd6d1990a2b6d9e7d605">readPedalProfiles</a> ()</td></tr>
+<tr class="separator:a63f6f744fab6dd6d1990a2b6d9e7d605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aef4ec0ade289e421c62416c2f9311e90" id="r_aef4ec0ade289e421c62416c2f9311e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedals__t.html">pedals_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef4ec0ade289e421c62416c2f9311e90">pedals</a> = {0}</td></tr>
-<tr class="separator:aef4ec0ade289e421c62416c2f9311e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a889452ccedc892a1fd3d3348f65dbf07" id="r_a889452ccedc892a1fd3d3348f65dbf07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a889452ccedc892a1fd3d3348f65dbf07">pedal_faults</a> = {0}</td></tr>
+<tr class="separator:a889452ccedc892a1fd3d3348f65dbf07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6306ee43db388ef3c268f39771601132" id="r_a6306ee43db388ef3c268f39771601132"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6306ee43db388ef3c268f39771601132">thtl_limit</a> = 4096</td></tr>
 <tr class="separator:a6306ee43db388ef3c268f39771601132"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c659da464966db7d2d9dea4f4c87edc" id="r_a9c659da464966db7d2d9dea4f4c87edc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__calibration__t.html">pedal_calibration_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c659da464966db7d2d9dea4f4c87edc">pedal_calibration</a></td></tr>
 <tr class="separator:a9c659da464966db7d2d9dea4f4c87edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a196c11f3fe82aa0caf79380e37698fda" id="r_a196c11f3fe82aa0caf79380e37698fda"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a196c11f3fe82aa0caf79380e37698fda">b3_buff</a> [8] = {0}</td></tr>
-<tr class="separator:a196c11f3fe82aa0caf79380e37698fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff1df47a89b227719366866a61b43c49" id="r_aff1df47a89b227719366866a61b43c49"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff1df47a89b227719366866a61b43c49">t1_buff</a> [10] = {0}</td></tr>
-<tr class="separator:aff1df47a89b227719366866a61b43c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1bce45d9ca7f188c3291bbac0801056" id="r_ab1bce45d9ca7f188c3291bbac0801056"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1bce45d9ca7f188c3291bbac0801056">t2_buff</a> [10] = {0}</td></tr>
-<tr class="separator:ab1bce45d9ca7f188c3291bbac0801056"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a512bda2d9e18a3b13399deab5cc85bfd" id="r_a512bda2d9e18a3b13399deab5cc85bfd"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a512bda2d9e18a3b13399deab5cc85bfd">b1_buff</a> [10] = {0}</td></tr>
-<tr class="separator:a512bda2d9e18a3b13399deab5cc85bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb4273617c9e4f1bbcd8887571d40ae" id="r_aabb4273617c9e4f1bbcd8887571d40ae"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb4273617c9e4f1bbcd8887571d40ae">b2_buff</a> [10] = {0}</td></tr>
-<tr class="separator:aabb4273617c9e4f1bbcd8887571d40ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a483dcdf52d3bbd8e51470e2f39c29833" id="r_a483dcdf52d3bbd8e51470e2f39c29833"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a483dcdf52d3bbd8e51470e2f39c29833">b3_idx</a> = 0</td></tr>
-<tr class="separator:a483dcdf52d3bbd8e51470e2f39c29833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac939603b9142eaf93ef35bff1aa22824" id="r_ac939603b9142eaf93ef35bff1aa22824"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac939603b9142eaf93ef35bff1aa22824">t1_idx</a> = 0</td></tr>
-<tr class="separator:ac939603b9142eaf93ef35bff1aa22824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade051f13197bf7cbcbcbf11d4ee4e3fe" id="r_ade051f13197bf7cbcbcbf11d4ee4e3fe"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade051f13197bf7cbcbcbf11d4ee4e3fe">t2_idx</a> = 0</td></tr>
-<tr class="separator:ade051f13197bf7cbcbcbf11d4ee4e3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e6709a97b76115cb1a268eecd924780" id="r_a8e6709a97b76115cb1a268eecd924780"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e6709a97b76115cb1a268eecd924780">b1_idx</a> = 0</td></tr>
-<tr class="separator:a8e6709a97b76115cb1a268eecd924780"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace06b44c749ee4075fff2751cc4e1a3e" id="r_ace06b44c749ee4075fff2751cc4e1a3e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace06b44c749ee4075fff2751cc4e1a3e">b2_idx</a> = 0</td></tr>
-<tr class="separator:ace06b44c749ee4075fff2751cc4e1a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e55719a4f50c185f92f651dffef326" id="r_af5e55719a4f50c185f92f651dffef326"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5e55719a4f50c185f92f651dffef326">filtered_pedals</a></td></tr>
-<tr class="separator:af5e55719a4f50c185f92f651dffef326"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bc2f580f29039561970b36877268fdb" id="r_a3bc2f580f29039561970b36877268fdb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bc2f580f29039561970b36877268fdb">b3_offset</a> = 0</td></tr>
-<tr class="separator:a3bc2f580f29039561970b36877268fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6b9460656b8978951cc66534fa8fad7" id="r_ae6b9460656b8978951cc66534fa8fad7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6b9460656b8978951cc66534fa8fad7">b3_start_cal_time</a> = 0</td></tr>
-<tr class="separator:ae6b9460656b8978951cc66534fa8fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a7b3a5c534c024887ac3b00c86fb258" id="r_a4a7b3a5c534c024887ac3b00c86fb258"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a7b3a5c534c024887ac3b00c86fb258">b3_cal_complete</a> = 0</td></tr>
-<tr class="separator:a4a7b3a5c534c024887ac3b00c86fb258"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad52119f848999e628c6145c2fbf37105" id="r_ad52119f848999e628c6145c2fbf37105"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrace__page__t.html">race_page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad52119f848999e628c6145c2fbf37105">race_page_data</a></td></tr>
-<tr class="separator:ad52119f848999e628c6145c2fbf37105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f66772314df6ee10ca7ccf555278cd" id="r_a04f66772314df6ee10ca7ccf555278cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__values__t.html">pedal_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04f66772314df6ee10ca7ccf555278cd">pedal_values</a></td></tr>
+<tr class="separator:a04f66772314df6ee10ca7ccf555278cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a093431542ad374f17697265503211ec3" id="r_a093431542ad374f17697265503211ec3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a093431542ad374f17697265503211ec3">driver_pedal_profiles</a> [4]</td></tr>
+<tr class="separator:a093431542ad374f17697265503211ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ad390f112c056607f9f37f0c1a2e5f3b6" name="ad390f112c056607f9f37f0c1a2e5f3b6"></a>
@@ -160,147 +141,64 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Processes pedal sensor readings and sets faults as necessary. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is called periodically by the scheduler </dd></dl>
+
+</div>
+</div>
+<a id="a63f6f744fab6dd6d1990a2b6d9e7d605" name="a63f6f744fab6dd6d1990a2b6d9e7d605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63f6f744fab6dd6d1990a2b6d9e7d605">&#9670;&#160;</a></span>readPedalProfiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readPedalProfiles </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1eea9a39be719b2571393e14a3f6afe2" name="a1eea9a39be719b2571393e14a3f6afe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eea9a39be719b2571393e14a3f6afe2">&#9670;&#160;</a></span>writePedalProfiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int writePedalProfiles </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a512bda2d9e18a3b13399deab5cc85bfd" name="a512bda2d9e18a3b13399deab5cc85bfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a512bda2d9e18a3b13399deab5cc85bfd">&#9670;&#160;</a></span>b1_buff</h2>
+<a id="a093431542ad374f17697265503211ec3" name="a093431542ad374f17697265503211ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a093431542ad374f17697265503211ec3">&#9670;&#160;</a></span>driver_pedal_profiles</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t b1_buff[10] = {0}</td>
+          <td class="memname"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a> driver_pedal_profiles[4]</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8e6709a97b76115cb1a268eecd924780" name="a8e6709a97b76115cb1a268eecd924780"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6709a97b76115cb1a268eecd924780">&#9670;&#160;</a></span>b1_idx</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t b1_idx = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aabb4273617c9e4f1bbcd8887571d40ae" name="aabb4273617c9e4f1bbcd8887571d40ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabb4273617c9e4f1bbcd8887571d40ae">&#9670;&#160;</a></span>b2_buff</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t b2_buff[10] = {0}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ace06b44c749ee4075fff2751cc4e1a3e" name="ace06b44c749ee4075fff2751cc4e1a3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace06b44c749ee4075fff2751cc4e1a3e">&#9670;&#160;</a></span>b2_idx</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t b2_idx = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a196c11f3fe82aa0caf79380e37698fda" name="a196c11f3fe82aa0caf79380e37698fda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a196c11f3fe82aa0caf79380e37698fda">&#9670;&#160;</a></span>b3_buff</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t b3_buff[8] = {0}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4a7b3a5c534c024887ac3b00c86fb258" name="a4a7b3a5c534c024887ac3b00c86fb258"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a7b3a5c534c024887ac3b00c86fb258">&#9670;&#160;</a></span>b3_cal_complete</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t b3_cal_complete = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a483dcdf52d3bbd8e51470e2f39c29833" name="a483dcdf52d3bbd8e51470e2f39c29833"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a483dcdf52d3bbd8e51470e2f39c29833">&#9670;&#160;</a></span>b3_idx</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t b3_idx = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3bc2f580f29039561970b36877268fdb" name="a3bc2f580f29039561970b36877268fdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bc2f580f29039561970b36877268fdb">&#9670;&#160;</a></span>b3_offset</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t b3_offset = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae6b9460656b8978951cc66534fa8fad7" name="ae6b9460656b8978951cc66534fa8fad7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6b9460656b8978951cc66534fa8fad7">&#9670;&#160;</a></span>b3_start_cal_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t b3_start_cal_time = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af5e55719a4f50c185f92f651dffef326" name="af5e55719a4f50c185f92f651dffef326"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e55719a4f50c185f92f651dffef326">&#9670;&#160;</a></span>filtered_pedals</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t filtered_pedals</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= { </div>
+<div class="line">    {0, 10, 10, 0},</div>
+<div class="line">    {1, 10, 10, 0},</div>
+<div class="line">    {2, 10, 10, 0},</div>
+<div class="line">    {3, 10, 10, 0}</div>
+<div class="line">}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a9c659da464966db7d2d9dea4f4c87edc" name="a9c659da464966db7d2d9dea4f4c87edc"></a>
@@ -314,104 +212,45 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {.t1max=1640,.t1min=1000, </div>
-<div class="line">                                         .t2max=2760,.t2min=2000, </div>
-<div class="line">                                         .b1max=1490,.b1min=450, </div>
-<div class="line">                                         .b2max=1490,.b2min=450, </div>
-<div class="line">                                         .b3max=124,.b3min=0}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {  </div>
+<div class="line">    .t1_min = 1000, .t1_max = 1640,</div>
+<div class="line">    .t2_min = 2000, .t2_max = 2760,</div>
+<div class="line">    .b1_min = 450, .b1_max = 1490,</div>
+<div class="line">    .b2_min = 450, .b2_max = 1490,</div>
+<div class="line">}</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="aef4ec0ade289e421c62416c2f9311e90" name="aef4ec0ade289e421c62416c2f9311e90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef4ec0ade289e421c62416c2f9311e90">&#9670;&#160;</a></span>pedals</h2>
+<a id="a889452ccedc892a1fd3d3348f65dbf07" name="a889452ccedc892a1fd3d3348f65dbf07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a889452ccedc892a1fd3d3348f65dbf07">&#9670;&#160;</a></span>pedal_faults</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structpedals__t.html">pedals_t</a> pedals = {0}</td>
+          <td class="memname"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a> pedal_faults = {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad52119f848999e628c6145c2fbf37105" name="ad52119f848999e628c6145c2fbf37105"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad52119f848999e628c6145c2fbf37105">&#9670;&#160;</a></span>race_page_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structrace__page__t.html">race_page_t</a> race_page_data</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aff1df47a89b227719366866a61b43c49" name="aff1df47a89b227719366866a61b43c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff1df47a89b227719366866a61b43c49">&#9670;&#160;</a></span>t1_buff</h2>
+<a id="a04f66772314df6ee10ca7ccf555278cd" name="a04f66772314df6ee10ca7ccf555278cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f66772314df6ee10ca7ccf555278cd">&#9670;&#160;</a></span>pedal_values</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t t1_buff[10] = {0}</td>
+          <td class="memname"><a class="el" href="structpedal__values__t.html">pedal_values_t</a> pedal_values</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac939603b9142eaf93ef35bff1aa22824" name="ac939603b9142eaf93ef35bff1aa22824"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac939603b9142eaf93ef35bff1aa22824">&#9670;&#160;</a></span>t1_idx</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t t1_idx = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab1bce45d9ca7f188c3291bbac0801056" name="ab1bce45d9ca7f188c3291bbac0801056"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1bce45d9ca7f188c3291bbac0801056">&#9670;&#160;</a></span>t2_buff</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t t2_buff[10] = {0}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ade051f13197bf7cbcbcbf11d4ee4e3fe" name="ade051f13197bf7cbcbcbf11d4ee4e3fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade051f13197bf7cbcbcbf11d4ee4e3fe">&#9670;&#160;</a></span>t2_idx</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t t2_idx = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .throttle = 0,</div>
+<div class="line">    .brake    = 0</div>
+<div class="line">}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a6306ee43db388ef3c268f39771601132" name="a6306ee43db388ef3c268f39771601132"></a>

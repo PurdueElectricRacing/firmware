@@ -50,12 +50,13 @@ var searchData=
   ['write_5fpending_47',['write_pending',['../structeeprom.html#af741d6e457776c48e7988aa8cbf120c9',1,'eeprom']]],
   ['writeblockpapartial_48',['WriteBlockPaPartial',['../structSD__CSD.html#a27824f576bf5d6a01dd7602aae8dad96',1,'SD_CSD']]],
   ['writepage_49',['writePage',['../eeprom__spi_8c.html#aa639fbdf7be238a64da85c18f16c5528',1,'writePage(uint16_t addr, uint8_t *page, uint8_t size):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#aa639fbdf7be238a64da85c18f16c5528',1,'writePage(uint16_t addr, uint8_t *page, uint8_t size):&#160;eeprom_spi.c']]],
-  ['wrprotectgrenable_50',['WrProtectGrEnable',['../structSD__CSD.html#a7cf93c94ebd2f9092b62e791f1565d30',1,'SD_CSD']]],
-  ['wrprotectgrsize_51',['WrProtectGrSize',['../structSD__CSD.html#a03486966abee0e50401e2a56d33bf1bb',1,'SD_CSD']]],
-  ['wrpwm_52',['WRPWM',['../afe_8h.html#aabeefbce7b4b3c1cf42be280416d5537',1,'afe.h']]],
-  ['wrsctrl_53',['WRSCTRL',['../afe_8h.html#af1ba8fd1c677bcb8ce2d1bd73ef01785',1,'afe.h']]],
-  ['wrspeedfact_54',['WrSpeedFact',['../structSD__CSD.html#a471bde59e37efab5eb960510d4d94aca',1,'SD_CSD']]],
-  ['ws_5fcounts_5fper_5frev_55',['WS_COUNTS_PER_REV',['../source_2main__module_2wheel__speeds_2wheel__speeds_8h.html#aaf5d844a49a5d63b4d01f3bd401bc7aa',1,'wheel_speeds.h']]],
-  ['ws_5ftim_5fpsc_56',['WS_TIM_PSC',['../source_2main__module_2wheel__speeds_2wheel__speeds_8h.html#acb5d90e4a538ac88bd721c4e4778535c',1,'wheel_speeds.h']]],
-  ['ws_5ftimeout_5fms_57',['WS_TIMEOUT_MS',['../source_2main__module_2wheel__speeds_2wheel__speeds_8h.html#a78a96d5d9673faa7bd53e3cc829efd6e',1,'wheel_speeds.h']]]
+  ['writepedalprofiles_50',['writePedalProfiles',['../pedals_8c.html#a1eea9a39be719b2571393e14a3f6afe2',1,'writePedalProfiles():&#160;pedals.c'],['../pedals_8h.html#ad4e777fe95feb16ed038b7d1e801b214',1,'writePedalProfiles(void):&#160;pedals.c']]],
+  ['wrprotectgrenable_51',['WrProtectGrEnable',['../structSD__CSD.html#a7cf93c94ebd2f9092b62e791f1565d30',1,'SD_CSD']]],
+  ['wrprotectgrsize_52',['WrProtectGrSize',['../structSD__CSD.html#a03486966abee0e50401e2a56d33bf1bb',1,'SD_CSD']]],
+  ['wrpwm_53',['WRPWM',['../afe_8h.html#aabeefbce7b4b3c1cf42be280416d5537',1,'afe.h']]],
+  ['wrsctrl_54',['WRSCTRL',['../afe_8h.html#af1ba8fd1c677bcb8ce2d1bd73ef01785',1,'afe.h']]],
+  ['wrspeedfact_55',['WrSpeedFact',['../structSD__CSD.html#a471bde59e37efab5eb960510d4d94aca',1,'SD_CSD']]],
+  ['ws_5fcounts_5fper_5frev_56',['WS_COUNTS_PER_REV',['../source_2main__module_2wheel__speeds_2wheel__speeds_8h.html#aaf5d844a49a5d63b4d01f3bd401bc7aa',1,'wheel_speeds.h']]],
+  ['ws_5ftim_5fpsc_57',['WS_TIM_PSC',['../source_2main__module_2wheel__speeds_2wheel__speeds_8h.html#acb5d90e4a538ac88bd721c4e4778535c',1,'wheel_speeds.h']]],
+  ['ws_5ftimeout_5fms_58',['WS_TIMEOUT_MS',['../source_2main__module_2wheel__speeds_2wheel__speeds_8h.html#a78a96d5d9673faa7bd53e3cc829efd6e',1,'wheel_speeds.h']]]
 ];

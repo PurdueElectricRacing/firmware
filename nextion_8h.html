@@ -94,6 +94,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">nextion.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Nextion display driver interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
@@ -104,18 +107,10 @@ $(function(){ initResizable(false); });
 Macros</h2></td></tr>
 <tr class="memitem:a40aeaabf6bddcb70ae8fe7d6afee0516" id="r_a40aeaabf6bddcb70ae8fe7d6afee0516"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40aeaabf6bddcb70ae8fe7d6afee0516">NXT_STR_SIZE</a>&#160;&#160;&#160;100</td></tr>
 <tr class="separator:a40aeaabf6bddcb70ae8fe7d6afee0516"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b75cff673385d78ec22c9e680add69" id="r_a87b75cff673385d78ec22c9e680add69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87b75cff673385d78ec22c9e680add69">SET_VALUE_EXTRA</a>&#160;&#160;&#160;13</td></tr>
-<tr class="separator:a87b75cff673385d78ec22c9e680add69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15eabec8341948449002ddd3f22dfd6b" id="r_a15eabec8341948449002ddd3f22dfd6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15eabec8341948449002ddd3f22dfd6b">SET_BCO_EXTRA</a>&#160;&#160;&#160;13</td></tr>
-<tr class="separator:a15eabec8341948449002ddd3f22dfd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ff7b02d4cbdf6c9d4f04594caae8dec" id="r_a6ff7b02d4cbdf6c9d4f04594caae8dec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ff7b02d4cbdf6c9d4f04594caae8dec">SET_TEXT_EXTRA</a>&#160;&#160;&#160;10</td></tr>
-<tr class="separator:a6ff7b02d4cbdf6c9d4f04594caae8dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b56fa0f3430d5785be754d75a67b0ab" id="r_a0b56fa0f3430d5785be754d75a67b0ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b56fa0f3430d5785be754d75a67b0ab">SET_PAGE_EXTRA</a>&#160;&#160;&#160;8</td></tr>
-<tr class="separator:a0b56fa0f3430d5785be754d75a67b0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c47801ea3ac450ff9b877b1e008e1a" id="r_ae3c47801ea3ac450ff9b877b1e008e1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3c47801ea3ac450ff9b877b1e008e1a">ASCII_OFFSET</a>&#160;&#160;&#160;48</td></tr>
-<tr class="separator:ae3c47801ea3ac450ff9b877b1e008e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9103be471f1a868467c6abd00059970b" id="r_a9103be471f1a868467c6abd00059970b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9103be471f1a868467c6abd00059970b">NXT_CMD_TERM</a>&#160;&#160;&#160;&quot;\xFF\xFF\xFF&quot;</td></tr>
 <tr class="separator:a9103be471f1a868467c6abd00059970b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c47801ea3ac450ff9b877b1e008e1a" id="r_ae3c47801ea3ac450ff9b877b1e008e1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3c47801ea3ac450ff9b877b1e008e1a">ASCII_OFFSET</a>&#160;&#160;&#160;48</td></tr>
+<tr class="separator:ae3c47801ea3ac450ff9b877b1e008e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d23feea868a983c8c2b661e1e16972f" id="r_a8d23feea868a983c8c2b661e1e16972f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d23feea868a983c8c2b661e1e16972f">RED</a>&#160;&#160;&#160;63488</td></tr>
 <tr class="separator:a8d23feea868a983c8c2b661e1e16972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf681265909adf3d3e8116c93c0ba179" id="r_abf681265909adf3d3e8116c93c0ba179"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf681265909adf3d3e8116c93c0ba179">YELLOW</a>&#160;&#160;&#160;65504</td></tr>
@@ -126,12 +121,12 @@ Macros</h2></td></tr>
 <tr class="separator:a597fc725523a8f4fe9369b86502d7446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87b537f5fa5c109d3c05c13d6b18f382" id="r_a87b537f5fa5c109d3c05c13d6b18f382"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87b537f5fa5c109d3c05c13d6b18f382">WHITE</a>&#160;&#160;&#160;65535</td></tr>
 <tr class="separator:a87b537f5fa5c109d3c05c13d6b18f382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89feeadaedd79cefd6d37d5e13f1fe1c" id="r_a89feeadaedd79cefd6d37d5e13f1fe1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89feeadaedd79cefd6d37d5e13f1fe1c">INFO_GRAY</a>&#160;&#160;&#160;48631</td></tr>
+<tr class="separator:a89feeadaedd79cefd6d37d5e13f1fe1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b3b25cba33b07c303f3060fe41887f6" id="r_a7b3b25cba33b07c303f3060fe41887f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b3b25cba33b07c303f3060fe41887f6">BLACK</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a7b3b25cba33b07c303f3060fe41887f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a932827aa890e2001f08d2216e35b4b58" id="r_a932827aa890e2001f08d2216e35b4b58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a932827aa890e2001f08d2216e35b4b58">FLAG_ENABLED_PIC</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a932827aa890e2001f08d2216e35b4b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a286540efc6031c680200b33179144f9b" id="r_a286540efc6031c680200b33179144f9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a286540efc6031c680200b33179144f9b">FLAG_DISABLED_PIC</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a286540efc6031c680200b33179144f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5b6e19bf06822021f35602c59658de3" id="r_ac5b6e19bf06822021f35602c59658de3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5b6e19bf06822021f35602c59658de3">ORANGE</a>&#160;&#160;&#160;64512</td></tr>
+<tr class="separator:ac5b6e19bf06822021f35602c59658de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6d10ba8c48f3d0e3a58572789935a76" id="r_ae6d10ba8c48f3d0e3a58572789935a76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6d10ba8c48f3d0e3a58572789935a76">NXT_BACKGROUND_COLOR</a>&#160;&#160;&#160;&quot;.bco=&quot;</td></tr>
 <tr class="separator:ae6d10ba8c48f3d0e3a58572789935a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8efd290ff41b537206712236e2d04b8c" id="r_a8efd290ff41b537206712236e2d04b8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8efd290ff41b537206712236e2d04b8c">NXT_FONT_COLOR</a>&#160;&#160;&#160;&quot;.pco=&quot;</td></tr>
@@ -140,23 +135,58 @@ Macros</h2></td></tr>
 <tr class="separator:a81860eb8c2792552a95c98cbf8c4e61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f2209d0e2a141f1c3af1ebdd81aaa16" id="r_a5f2209d0e2a141f1c3af1ebdd81aaa16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f2209d0e2a141f1c3af1ebdd81aaa16">NXT_TEXT</a>&#160;&#160;&#160;&quot;.txt=&quot;</td></tr>
 <tr class="separator:a5f2209d0e2a141f1c3af1ebdd81aaa16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae44f0a027ccdf1238fa4c950b15dc49f" id="r_ae44f0a027ccdf1238fa4c950b15dc49f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae44f0a027ccdf1238fa4c950b15dc49f">NXT_PICTURE</a>&#160;&#160;&#160;&quot;.pic=&quot;</td></tr>
-<tr class="separator:ae44f0a027ccdf1238fa4c950b15dc49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ace6fa3e7fca3ec048d6c160e9a182" id="r_a63ace6fa3e7fca3ec048d6c160e9a182"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63ace6fa3e7fca3ec048d6c160e9a182">NXT_BORDERW</a>&#160;&#160;&#160;&quot;.borderw=&quot;</td></tr>
+<tr class="separator:a63ace6fa3e7fca3ec048d6c160e9a182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64693af0725d6715a5fbf24cf522ebde" id="r_a64693af0725d6715a5fbf24cf522ebde"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64693af0725d6715a5fbf24cf522ebde">NXT_PAGE</a>&#160;&#160;&#160;&quot;page &quot;</td></tr>
+<tr class="separator:a64693af0725d6715a5fbf24cf522ebde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f805984c721410f8cb5bcd140d39b7" id="r_a38f805984c721410f8cb5bcd140d39b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38f805984c721410f8cb5bcd140d39b7">NXT_BRIGHTNESS</a>&#160;&#160;&#160;&quot;dims=&quot;</td></tr>
+<tr class="separator:a38f805984c721410f8cb5bcd140d39b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d668abac5196cd46df676c330890504" id="r_a5d668abac5196cd46df676c330890504"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d668abac5196cd46df676c330890504">NXT_BAUD</a>&#160;&#160;&#160;&quot;bauds=&quot;</td></tr>
+<tr class="separator:a5d668abac5196cd46df676c330890504"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7b971513210571c28ba990a15d4dea36" id="r_a7b971513210571c28ba990a15d4dea36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b971513210571c28ba990a15d4dea36">set_flag</a> (char *obj_name, uint8_t enable)</td></tr>
-<tr class="separator:a7b971513210571c28ba990a15d4dea36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee4cd900392039e895a374cb196e3019" id="r_aee4cd900392039e895a374cb196e3019"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee4cd900392039e895a374cb196e3019">set_float</a> (char *obj_name, char *param, float num, uint8_t precision)</td></tr>
-<tr class="separator:aee4cd900392039e895a374cb196e3019"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb8bcb61dd006c0d512f0d9f0e1db391" id="r_adb8bcb61dd006c0d512f0d9f0e1db391"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb8bcb61dd006c0d512f0d9f0e1db391">set_value</a> (char *obj_name, char *param, uint16_t val)</td></tr>
-<tr class="separator:adb8bcb61dd006c0d512f0d9f0e1db391"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a122cecb4d914da5ebd98467aceda8b97" id="r_a122cecb4d914da5ebd98467aceda8b97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a122cecb4d914da5ebd98467aceda8b97">set_text</a> (char *obj_name, char *param, char *text)</td></tr>
-<tr class="separator:a122cecb4d914da5ebd98467aceda8b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a485f78a203a081769e956f5beb7d9b0f" id="r_a485f78a203a081769e956f5beb7d9b0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a485f78a203a081769e956f5beb7d9b0f">set_page</a> (char *page_name)</td></tr>
-<tr class="separator:a485f78a203a081769e956f5beb7d9b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03b977180b40a84a35a22cec5211d146" id="r_a03b977180b40a84a35a22cec5211d146"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03b977180b40a84a35a22cec5211d146">NXT_setFloat</a> (char *obj_name, char *param, float num, uint8_t precision)</td></tr>
+<tr class="memdesc:a03b977180b40a84a35a22cec5211d146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a float value to a specified object parameter on the Nextion display.  <br /></td></tr>
+<tr class="separator:a03b977180b40a84a35a22cec5211d146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7e3e9fc4674d17281069e97b8a5384d" id="r_ac7e3e9fc4674d17281069e97b8a5384d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7e3e9fc4674d17281069e97b8a5384d">NXT_setValue</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:ac7e3e9fc4674d17281069e97b8a5384d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a value to a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:ac7e3e9fc4674d17281069e97b8a5384d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c3df8972af2eaea366cb65fad34d43" id="r_a19c3df8972af2eaea366cb65fad34d43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19c3df8972af2eaea366cb65fad34d43">NXT_setBackground</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:a19c3df8972af2eaea366cb65fad34d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the background color of a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:a19c3df8972af2eaea366cb65fad34d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af603b7d431ae4f94d55bf04b2034a8cc" id="r_af603b7d431ae4f94d55bf04b2034a8cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af603b7d431ae4f94d55bf04b2034a8cc">NXT_setFontColor</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:af603b7d431ae4f94d55bf04b2034a8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font color of a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:af603b7d431ae4f94d55bf04b2034a8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae995d182561a5fa3087569539bb551d2" id="r_ae995d182561a5fa3087569539bb551d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae995d182561a5fa3087569539bb551d2">NXT_setBorderWidth</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:ae995d182561a5fa3087569539bb551d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the border width of a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:ae995d182561a5fa3087569539bb551d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2a89fd8e292338a6e570a41a698ad3a" id="r_ab2a89fd8e292338a6e570a41a698ad3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2a89fd8e292338a6e570a41a698ad3a">NXT_setText</a> (char *obj_name, char *text)</td></tr>
+<tr class="memdesc:ab2a89fd8e292338a6e570a41a698ad3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text of a Nextion display object.  <br /></td></tr>
+<tr class="separator:ab2a89fd8e292338a6e570a41a698ad3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8af8629d8160abf996231ff267e43564" id="r_a8af8629d8160abf996231ff267e43564"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8af8629d8160abf996231ff267e43564">NXT_setTextFormatted</a> (char *obj_name, const char *format,...)</td></tr>
+<tr class="memdesc:a8af8629d8160abf996231ff267e43564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text of a Nextion display object using printf-style formatting.  <br /></td></tr>
+<tr class="separator:a8af8629d8160abf996231ff267e43564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5753abcb75fb40221a51bcdec98bbd4" id="r_ac5753abcb75fb40221a51bcdec98bbd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5753abcb75fb40221a51bcdec98bbd4">NXT_setPage</a> (char *page_name)</td></tr>
+<tr class="memdesc:ac5753abcb75fb40221a51bcdec98bbd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current page on the Nextion display.  <br /></td></tr>
+<tr class="separator:ac5753abcb75fb40221a51bcdec98bbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a521680a4e7c63d0cbdd8d8f85c09fd" id="r_a3a521680a4e7c63d0cbdd8d8f85c09fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a521680a4e7c63d0cbdd8d8f85c09fd">NXT_setBrightness</a> (uint8_t brightness)</td></tr>
+<tr class="memdesc:a3a521680a4e7c63d0cbdd8d8f85c09fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the brightness of the Nextion display.  <br /></td></tr>
+<tr class="separator:a3a521680a4e7c63d0cbdd8d8f85c09fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d537c10e1e85e6537850a02a315fd7" id="r_ae7d537c10e1e85e6537850a02a315fd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7d537c10e1e85e6537850a02a315fd7">NXT_setBaud</a> (uint32_t baud)</td></tr>
+<tr class="memdesc:ae7d537c10e1e85e6537850a02a315fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the baud rate for the Nextion display.  <br /></td></tr>
+<tr class="separator:ae7d537c10e1e85e6537850a02a315fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Nextion display driver interface. </p>
+<p>Interface for controlling Nextion display modules through serial communication.</p>
+<dl class="section author"><dt>Author</dt><dd>Matthew Flanagan (<a href="#" onclick="location.href='mai'+'lto:'+'mat'+'th'+'ewd'+'av'+'idf'+'la'+'nag'+'an'+'@ou'+'tl'+'ook'+'.c'+'om'; return false;">matth<span class="obfuscator">.nosp@m.</span>ewda<span class="obfuscator">.nosp@m.</span>vidfl<span class="obfuscator">.nosp@m.</span>anag<span class="obfuscator">.nosp@m.</span>an@ou<span class="obfuscator">.nosp@m.</span>tloo<span class="obfuscator">.nosp@m.</span>k.com</a>) </dd>
+<dd>
+Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'wan'+'g5'+'952'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">wang5<span class="obfuscator">.nosp@m.</span>952@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>)</dd></dl>
+<p>Original implementation by Matthew Flanagan Converted for current use by Luke Oxley Expanded by Irving Wang </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae3c47801ea3ac450ff9b877b1e008e1a" name="ae3c47801ea3ac450ff9b877b1e008e1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3c47801ea3ac450ff9b877b1e008e1a">&#9670;&#160;</a></span>ASCII_OFFSET</h2>
 
@@ -185,34 +215,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a286540efc6031c680200b33179144f9b" name="a286540efc6031c680200b33179144f9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a286540efc6031c680200b33179144f9b">&#9670;&#160;</a></span>FLAG_DISABLED_PIC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FLAG_DISABLED_PIC&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a932827aa890e2001f08d2216e35b4b58" name="a932827aa890e2001f08d2216e35b4b58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a932827aa890e2001f08d2216e35b4b58">&#9670;&#160;</a></span>FLAG_ENABLED_PIC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FLAG_ENABLED_PIC&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="acfbc006ea433ad708fdee3e82996e721" name="acfbc006ea433ad708fdee3e82996e721"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acfbc006ea433ad708fdee3e82996e721">&#9670;&#160;</a></span>GREEN</h2>
 
@@ -227,6 +229,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a89feeadaedd79cefd6d37d5e13f1fe1c" name="a89feeadaedd79cefd6d37d5e13f1fe1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89feeadaedd79cefd6d37d5e13f1fe1c">&#9670;&#160;</a></span>INFO_GRAY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INFO_GRAY&#160;&#160;&#160;48631</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae6d10ba8c48f3d0e3a58572789935a76" name="ae6d10ba8c48f3d0e3a58572789935a76"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6d10ba8c48f3d0e3a58572789935a76">&#9670;&#160;</a></span>NXT_BACKGROUND_COLOR</h2>
 
@@ -235,6 +251,48 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define NXT_BACKGROUND_COLOR&#160;&#160;&#160;&quot;.bco=&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d668abac5196cd46df676c330890504" name="a5d668abac5196cd46df676c330890504"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d668abac5196cd46df676c330890504">&#9670;&#160;</a></span>NXT_BAUD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NXT_BAUD&#160;&#160;&#160;&quot;bauds=&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a63ace6fa3e7fca3ec048d6c160e9a182" name="a63ace6fa3e7fca3ec048d6c160e9a182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63ace6fa3e7fca3ec048d6c160e9a182">&#9670;&#160;</a></span>NXT_BORDERW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NXT_BORDERW&#160;&#160;&#160;&quot;.borderw=&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38f805984c721410f8cb5bcd140d39b7" name="a38f805984c721410f8cb5bcd140d39b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38f805984c721410f8cb5bcd140d39b7">&#9670;&#160;</a></span>NXT_BRIGHTNESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NXT_BRIGHTNESS&#160;&#160;&#160;&quot;dims=&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -269,14 +327,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae44f0a027ccdf1238fa4c950b15dc49f" name="ae44f0a027ccdf1238fa4c950b15dc49f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae44f0a027ccdf1238fa4c950b15dc49f">&#9670;&#160;</a></span>NXT_PICTURE</h2>
+<a id="a64693af0725d6715a5fbf24cf522ebde" name="a64693af0725d6715a5fbf24cf522ebde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64693af0725d6715a5fbf24cf522ebde">&#9670;&#160;</a></span>NXT_PAGE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NXT_PICTURE&#160;&#160;&#160;&quot;.pic=&quot;</td>
+          <td class="memname">#define NXT_PAGE&#160;&#160;&#160;&quot;page &quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -325,6 +383,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac5b6e19bf06822021f35602c59658de3" name="ac5b6e19bf06822021f35602c59658de3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5b6e19bf06822021f35602c59658de3">&#9670;&#160;</a></span>ORANGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ORANGE&#160;&#160;&#160;64512</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a597fc725523a8f4fe9369b86502d7446" name="a597fc725523a8f4fe9369b86502d7446"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a597fc725523a8f4fe9369b86502d7446">&#9670;&#160;</a></span>RACE_GREEN</h2>
 
@@ -347,62 +419,6 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define RED&#160;&#160;&#160;63488</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a15eabec8341948449002ddd3f22dfd6b" name="a15eabec8341948449002ddd3f22dfd6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15eabec8341948449002ddd3f22dfd6b">&#9670;&#160;</a></span>SET_BCO_EXTRA</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SET_BCO_EXTRA&#160;&#160;&#160;13</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0b56fa0f3430d5785be754d75a67b0ab" name="a0b56fa0f3430d5785be754d75a67b0ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b56fa0f3430d5785be754d75a67b0ab">&#9670;&#160;</a></span>SET_PAGE_EXTRA</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SET_PAGE_EXTRA&#160;&#160;&#160;8</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6ff7b02d4cbdf6c9d4f04594caae8dec" name="a6ff7b02d4cbdf6c9d4f04594caae8dec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ff7b02d4cbdf6c9d4f04594caae8dec">&#9670;&#160;</a></span>SET_TEXT_EXTRA</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SET_TEXT_EXTRA&#160;&#160;&#160;10</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a87b75cff673385d78ec22c9e680add69" name="a87b75cff673385d78ec22c9e680add69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87b75cff673385d78ec22c9e680add69">&#9670;&#160;</a></span>SET_VALUE_EXTRA</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SET_VALUE_EXTRA&#160;&#160;&#160;13</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -438,35 +454,124 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7b971513210571c28ba990a15d4dea36" name="a7b971513210571c28ba990a15d4dea36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b971513210571c28ba990a15d4dea36">&#9670;&#160;</a></span>set_flag()</h2>
+<a id="a19c3df8972af2eaea366cb65fad34d43" name="a19c3df8972af2eaea366cb65fad34d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19c3df8972af2eaea366cb65fad34d43">&#9670;&#160;</a></span>NXT_setBackground()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_flag </td>
+          <td class="memname">void NXT_setBackground </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>enable</em></span>&#160;)</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the background color of a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The background color value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="aee4cd900392039e895a374cb196e3019" name="aee4cd900392039e895a374cb196e3019"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee4cd900392039e895a374cb196e3019">&#9670;&#160;</a></span>set_float()</h2>
+<a id="ae7d537c10e1e85e6537850a02a315fd7" name="ae7d537c10e1e85e6537850a02a315fd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d537c10e1e85e6537850a02a315fd7">&#9670;&#160;</a></span>NXT_setBaud()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_float </td>
+          <td class="memname">void NXT_setBaud </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>baud</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the baud rate for the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">baud</td><td>The desired baud rate to set for the Nextion display. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae995d182561a5fa3087569539bb551d2" name="ae995d182561a5fa3087569539bb551d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae995d182561a5fa3087569539bb551d2">&#9670;&#160;</a></span>NXT_setBorderWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setBorderWidth </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the border width of a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The border width value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3a521680a4e7c63d0cbdd8d8f85c09fd" name="a3a521680a4e7c63d0cbdd8d8f85c09fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a521680a4e7c63d0cbdd8d8f85c09fd">&#9670;&#160;</a></span>NXT_setBrightness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setBrightness </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>percentage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the brightness of the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">percentage</td><td>The desired brightness level as a percentage (0-100). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a03b977180b40a84a35a22cec5211d146" name="a03b977180b40a84a35a22cec5211d146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b977180b40a84a35a22cec5211d146">&#9670;&#160;</a></span>NXT_setFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setFloat </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
@@ -488,16 +593,57 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets a float value to a specified object parameter on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">param</td><td>The parameter of the object to set the float value to. </td></tr>
+    <tr><td class="paramname">num</td><td>The float value to set. </td></tr>
+    <tr><td class="paramname">precision</td><td>The number of decimal places to include in the formatted float value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a485f78a203a081769e956f5beb7d9b0f" name="a485f78a203a081769e956f5beb7d9b0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a485f78a203a081769e956f5beb7d9b0f">&#9670;&#160;</a></span>set_page()</h2>
+<a id="af603b7d431ae4f94d55bf04b2034a8cc" name="af603b7d431ae4f94d55bf04b2034a8cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af603b7d431ae4f94d55bf04b2034a8cc">&#9670;&#160;</a></span>NXT_setFontColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_page </td>
+          <td class="memname">void NXT_setFontColor </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the font color of a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The font color value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac5753abcb75fb40221a51bcdec98bbd4" name="ac5753abcb75fb40221a51bcdec98bbd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5753abcb75fb40221a51bcdec98bbd4">&#9670;&#160;</a></span>NXT_setPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setPage </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>page_name</em></span></td><td>)</td>
           <td></td>
@@ -505,23 +651,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the current page on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">page_name</td><td>The name of the page to set on the Nextion display. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a122cecb4d914da5ebd98467aceda8b97" name="a122cecb4d914da5ebd98467aceda8b97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a122cecb4d914da5ebd98467aceda8b97">&#9670;&#160;</a></span>set_text()</h2>
+<a id="ab2a89fd8e292338a6e570a41a698ad3a" name="ab2a89fd8e292338a6e570a41a698ad3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a89fd8e292338a6e570a41a698ad3a">&#9670;&#160;</a></span>NXT_setText()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_text </td>
+          <td class="memname">void NXT_setText </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>param</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -531,23 +680,63 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the text of a Nextion display object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the Nextion object (e.g., "t0"). </td></tr>
+    <tr><td class="paramname">text</td><td>The text to set for the specified obect. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="adb8bcb61dd006c0d512f0d9f0e1db391" name="adb8bcb61dd006c0d512f0d9f0e1db391"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb8bcb61dd006c0d512f0d9f0e1db391">&#9670;&#160;</a></span>set_value()</h2>
+<a id="a8af8629d8160abf996231ff267e43564" name="a8af8629d8160abf996231ff267e43564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8af8629d8160abf996231ff267e43564">&#9670;&#160;</a></span>NXT_setTextFormatted()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_value </td>
+          <td class="memname">void NXT_setTextFormatted </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>param</em></span>, </td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>format</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the text of a Nextion display object using printf-style formatting. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the Nextion object (e.g., "t0"). </td></tr>
+    <tr><td class="paramname">format</td><td>Printf-style format string. </td></tr>
+    <tr><td class="paramname">...</td><td>Variable arguments for format string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac7e3e9fc4674d17281069e97b8a5384d" name="ac7e3e9fc4674d17281069e97b8a5384d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e3e9fc4674d17281069e97b8a5384d">&#9670;&#160;</a></span>NXT_setValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setValue </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -556,6 +745,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets a value to a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

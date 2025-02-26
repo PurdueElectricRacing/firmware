@@ -94,56 +94,178 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">nextion.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Nextion display driver interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="nextion_8h_source.html">nextion.h</a>&quot;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7b971513210571c28ba990a15d4dea36" id="r_a7b971513210571c28ba990a15d4dea36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b971513210571c28ba990a15d4dea36">set_flag</a> (char *obj_name, uint8_t enable)</td></tr>
-<tr class="separator:a7b971513210571c28ba990a15d4dea36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee4cd900392039e895a374cb196e3019" id="r_aee4cd900392039e895a374cb196e3019"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee4cd900392039e895a374cb196e3019">set_float</a> (char *obj_name, char *param, float num, uint8_t precision)</td></tr>
-<tr class="separator:aee4cd900392039e895a374cb196e3019"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb8bcb61dd006c0d512f0d9f0e1db391" id="r_adb8bcb61dd006c0d512f0d9f0e1db391"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb8bcb61dd006c0d512f0d9f0e1db391">set_value</a> (char *obj_name, char *param, uint16_t val)</td></tr>
-<tr class="separator:adb8bcb61dd006c0d512f0d9f0e1db391"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a122cecb4d914da5ebd98467aceda8b97" id="r_a122cecb4d914da5ebd98467aceda8b97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a122cecb4d914da5ebd98467aceda8b97">set_text</a> (char *obj_name, char *param, char *text)</td></tr>
-<tr class="separator:a122cecb4d914da5ebd98467aceda8b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a485f78a203a081769e956f5beb7d9b0f" id="r_a485f78a203a081769e956f5beb7d9b0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a485f78a203a081769e956f5beb7d9b0f">set_page</a> (char *page_name)</td></tr>
-<tr class="separator:a485f78a203a081769e956f5beb7d9b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03b977180b40a84a35a22cec5211d146" id="r_a03b977180b40a84a35a22cec5211d146"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03b977180b40a84a35a22cec5211d146">NXT_setFloat</a> (char *obj_name, char *param, float num, uint8_t precision)</td></tr>
+<tr class="memdesc:a03b977180b40a84a35a22cec5211d146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a float value to a specified object parameter on the Nextion display.  <br /></td></tr>
+<tr class="separator:a03b977180b40a84a35a22cec5211d146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7e3e9fc4674d17281069e97b8a5384d" id="r_ac7e3e9fc4674d17281069e97b8a5384d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7e3e9fc4674d17281069e97b8a5384d">NXT_setValue</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:ac7e3e9fc4674d17281069e97b8a5384d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a value to a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:ac7e3e9fc4674d17281069e97b8a5384d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c3df8972af2eaea366cb65fad34d43" id="r_a19c3df8972af2eaea366cb65fad34d43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19c3df8972af2eaea366cb65fad34d43">NXT_setBackground</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:a19c3df8972af2eaea366cb65fad34d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the background color of a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:a19c3df8972af2eaea366cb65fad34d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af603b7d431ae4f94d55bf04b2034a8cc" id="r_af603b7d431ae4f94d55bf04b2034a8cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af603b7d431ae4f94d55bf04b2034a8cc">NXT_setFontColor</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:af603b7d431ae4f94d55bf04b2034a8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font color of a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:af603b7d431ae4f94d55bf04b2034a8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae995d182561a5fa3087569539bb551d2" id="r_ae995d182561a5fa3087569539bb551d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae995d182561a5fa3087569539bb551d2">NXT_setBorderWidth</a> (char *obj_name, uint16_t val)</td></tr>
+<tr class="memdesc:ae995d182561a5fa3087569539bb551d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the border width of a specified object on the Nextion display.  <br /></td></tr>
+<tr class="separator:ae995d182561a5fa3087569539bb551d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2a89fd8e292338a6e570a41a698ad3a" id="r_ab2a89fd8e292338a6e570a41a698ad3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2a89fd8e292338a6e570a41a698ad3a">NXT_setText</a> (char *obj_name, char *text)</td></tr>
+<tr class="memdesc:ab2a89fd8e292338a6e570a41a698ad3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text of a Nextion display object.  <br /></td></tr>
+<tr class="separator:ab2a89fd8e292338a6e570a41a698ad3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8af8629d8160abf996231ff267e43564" id="r_a8af8629d8160abf996231ff267e43564"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8af8629d8160abf996231ff267e43564">NXT_setTextFormatted</a> (char *obj_name, const char *format,...)</td></tr>
+<tr class="memdesc:a8af8629d8160abf996231ff267e43564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text of a Nextion display object using printf-style formatting.  <br /></td></tr>
+<tr class="separator:a8af8629d8160abf996231ff267e43564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5753abcb75fb40221a51bcdec98bbd4" id="r_ac5753abcb75fb40221a51bcdec98bbd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5753abcb75fb40221a51bcdec98bbd4">NXT_setPage</a> (char *page_name)</td></tr>
+<tr class="memdesc:ac5753abcb75fb40221a51bcdec98bbd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current page on the Nextion display.  <br /></td></tr>
+<tr class="separator:ac5753abcb75fb40221a51bcdec98bbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab8846ee36ca76ce5019adef4d04faf" id="r_acab8846ee36ca76ce5019adef4d04faf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acab8846ee36ca76ce5019adef4d04faf">NXT_setBrightness</a> (uint8_t percentage)</td></tr>
+<tr class="memdesc:acab8846ee36ca76ce5019adef4d04faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the brightness of the Nextion display.  <br /></td></tr>
+<tr class="separator:acab8846ee36ca76ce5019adef4d04faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d537c10e1e85e6537850a02a315fd7" id="r_ae7d537c10e1e85e6537850a02a315fd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7d537c10e1e85e6537850a02a315fd7">NXT_setBaud</a> (uint32_t baud)</td></tr>
+<tr class="memdesc:ae7d537c10e1e85e6537850a02a315fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the baud rate for the Nextion display.  <br /></td></tr>
+<tr class="separator:ae7d537c10e1e85e6537850a02a315fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a03fc7024d283b5f244a599e24049711b" id="r_a03fc7024d283b5f244a599e24049711b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03fc7024d283b5f244a599e24049711b">q_tx_usart</a></td></tr>
 <tr class="separator:a03fc7024d283b5f244a599e24049711b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a7b971513210571c28ba990a15d4dea36" name="a7b971513210571c28ba990a15d4dea36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b971513210571c28ba990a15d4dea36">&#9670;&#160;</a></span>set_flag()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Nextion display driver interface. </p>
+<p>Interface for controlling Nextion display modules through serial communication.</p>
+<dl class="section author"><dt>Author</dt><dd>Matthew Flanagan (<a href="#" onclick="location.href='mai'+'lto:'+'mat'+'th'+'ewd'+'av'+'idf'+'la'+'nag'+'an'+'@ou'+'tl'+'ook'+'.c'+'om'; return false;">matth<span class="obfuscator">.nosp@m.</span>ewda<span class="obfuscator">.nosp@m.</span>vidfl<span class="obfuscator">.nosp@m.</span>anag<span class="obfuscator">.nosp@m.</span>an@ou<span class="obfuscator">.nosp@m.</span>tloo<span class="obfuscator">.nosp@m.</span>k.com</a>) </dd>
+<dd>
+Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'wan'+'g5'+'952'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">wang5<span class="obfuscator">.nosp@m.</span>952@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>)</dd></dl>
+<p>Original implementation by Matthew Flanagan Converted for current use by Luke Oxley Expanded by Irving Wang </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a19c3df8972af2eaea366cb65fad34d43" name="a19c3df8972af2eaea366cb65fad34d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19c3df8972af2eaea366cb65fad34d43">&#9670;&#160;</a></span>NXT_setBackground()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_flag </td>
+          <td class="memname">void NXT_setBackground </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>enable</em></span>&#160;)</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the background color of a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The background color value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="aee4cd900392039e895a374cb196e3019" name="aee4cd900392039e895a374cb196e3019"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee4cd900392039e895a374cb196e3019">&#9670;&#160;</a></span>set_float()</h2>
+<a id="ae7d537c10e1e85e6537850a02a315fd7" name="ae7d537c10e1e85e6537850a02a315fd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d537c10e1e85e6537850a02a315fd7">&#9670;&#160;</a></span>NXT_setBaud()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_float </td>
+          <td class="memname">void NXT_setBaud </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>baud</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the baud rate for the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">baud</td><td>The desired baud rate to set for the Nextion display. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae995d182561a5fa3087569539bb551d2" name="ae995d182561a5fa3087569539bb551d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae995d182561a5fa3087569539bb551d2">&#9670;&#160;</a></span>NXT_setBorderWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setBorderWidth </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the border width of a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The border width value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acab8846ee36ca76ce5019adef4d04faf" name="acab8846ee36ca76ce5019adef4d04faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acab8846ee36ca76ce5019adef4d04faf">&#9670;&#160;</a></span>NXT_setBrightness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setBrightness </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>percentage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the brightness of the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">percentage</td><td>The desired brightness level as a percentage (0-100). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a03b977180b40a84a35a22cec5211d146" name="a03b977180b40a84a35a22cec5211d146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b977180b40a84a35a22cec5211d146">&#9670;&#160;</a></span>NXT_setFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setFloat </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
@@ -165,16 +287,57 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets a float value to a specified object parameter on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">param</td><td>The parameter of the object to set the float value to. </td></tr>
+    <tr><td class="paramname">num</td><td>The float value to set. </td></tr>
+    <tr><td class="paramname">precision</td><td>The number of decimal places to include in the formatted float value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a485f78a203a081769e956f5beb7d9b0f" name="a485f78a203a081769e956f5beb7d9b0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a485f78a203a081769e956f5beb7d9b0f">&#9670;&#160;</a></span>set_page()</h2>
+<a id="af603b7d431ae4f94d55bf04b2034a8cc" name="af603b7d431ae4f94d55bf04b2034a8cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af603b7d431ae4f94d55bf04b2034a8cc">&#9670;&#160;</a></span>NXT_setFontColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_page </td>
+          <td class="memname">void NXT_setFontColor </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the font color of a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The font color value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac5753abcb75fb40221a51bcdec98bbd4" name="ac5753abcb75fb40221a51bcdec98bbd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5753abcb75fb40221a51bcdec98bbd4">&#9670;&#160;</a></span>NXT_setPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setPage </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>page_name</em></span></td><td>)</td>
           <td></td>
@@ -182,23 +345,26 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the current page on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">page_name</td><td>The name of the page to set on the Nextion display. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a122cecb4d914da5ebd98467aceda8b97" name="a122cecb4d914da5ebd98467aceda8b97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a122cecb4d914da5ebd98467aceda8b97">&#9670;&#160;</a></span>set_text()</h2>
+<a id="ab2a89fd8e292338a6e570a41a698ad3a" name="ab2a89fd8e292338a6e570a41a698ad3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a89fd8e292338a6e570a41a698ad3a">&#9670;&#160;</a></span>NXT_setText()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_text </td>
+          <td class="memname">void NXT_setText </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>param</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -208,23 +374,63 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the text of a Nextion display object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the Nextion object (e.g., "t0"). </td></tr>
+    <tr><td class="paramname">text</td><td>The text to set for the specified obect. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="adb8bcb61dd006c0d512f0d9f0e1db391" name="adb8bcb61dd006c0d512f0d9f0e1db391"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb8bcb61dd006c0d512f0d9f0e1db391">&#9670;&#160;</a></span>set_value()</h2>
+<a id="a8af8629d8160abf996231ff267e43564" name="a8af8629d8160abf996231ff267e43564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8af8629d8160abf996231ff267e43564">&#9670;&#160;</a></span>NXT_setTextFormatted()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_value </td>
+          <td class="memname">void NXT_setTextFormatted </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>param</em></span>, </td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>format</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the text of a Nextion display object using printf-style formatting. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the Nextion object (e.g., "t0"). </td></tr>
+    <tr><td class="paramname">format</td><td>Printf-style format string. </td></tr>
+    <tr><td class="paramname">...</td><td>Variable arguments for format string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac7e3e9fc4674d17281069e97b8a5384d" name="ac7e3e9fc4674d17281069e97b8a5384d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e3e9fc4674d17281069e97b8a5384d">&#9670;&#160;</a></span>NXT_setValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NXT_setValue </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>obj_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -233,6 +439,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets a value to a specified object on the Nextion display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_name</td><td>The name of the object on the Nextion display. </td></tr>
+    <tr><td class="paramname">val</td><td>The value to set for the specified object. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

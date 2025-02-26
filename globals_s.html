@@ -354,6 +354,7 @@ $(function(){ initResizable(false); });
 <li>SDCardInfo&#160;:&#160;<a class="el" href="sdio_8c.html#ad9b4efaae93cd75532b18c0528a4ca3d">sdio.c</a></li>
 <li>SDCardState&#160;:&#160;<a class="el" href="sdio_8h.html#acdc2533a9bff7dc10def0945f5915398">sdio.h</a></li>
 <li>SDCINFO_STRING&#160;:&#160;<a class="el" href="lcd_8h.html#a18ee334c9179983466eb3a0879cf7798">lcd.h</a></li>
+<li>sdcTelemetryUpdate()&#160;:&#160;<a class="el" href="lcd_8c.html#ad0bf4fe40d01774afeb7efadaec0b57d">lcd.c</a></li>
 <li>SDIO_BusWide_1b&#160;:&#160;<a class="el" href="sdio_8h.html#a9c333b57937c5cc0a173a58519f9250a">sdio.h</a></li>
 <li>SDIO_BusWide_4b&#160;:&#160;<a class="el" href="sdio_8h.html#a79815d1d798b28a2d3750ad25466ff1b">sdio.h</a></li>
 <li>SDIO_BusWide_8b&#160;:&#160;<a class="el" href="sdio_8h.html#a4d864f5c4e1af298146afc1d680081e9">sdio.h</a></li>
@@ -402,9 +403,10 @@ $(function(){ initResizable(false); });
 <li>SEND_DAQ_RESPONSE_TEST_NODE&#160;:&#160;<a class="el" href="l4__testing_2can_2can__parse_8h.html#aac176a2f4daa525c425d999402bb6170">can_parse.h</a></li>
 <li>SEND_DASH_CAN_STATS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a05d72ca73528fa183112fecd5811daf0">can_parse.h</a></li>
 <li>SEND_DASHBOARD_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#ad30f7631350405abd2e85cdcf7a1b0ad">can_parse.h</a></li>
+<li>SEND_DASHBOARD_MCU_TEMP&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#acafb0583ec2194ffd134a015da8b42cb">can_parse.h</a></li>
 <li>SEND_DASHBOARD_START_LOGGING&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a2cd307555b3ee4be964536784215e174">can_parse.h</a></li>
 <li>SEND_DASHBOARD_TV_PARAMETERS&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a6687dba8437d7ba8edbbad997c13080e">can_parse.h</a></li>
-<li>SEND_DASHBOARD_VOLTS_TEMP&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#a64c0cc77bc1fcd5001e35d34562dad40">can_parse.h</a></li>
+<li>SEND_DASHBOARD_VOLTAGE&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#aa2039999f44907ded986de1734245c1b">can_parse.h</a></li>
 <li>SEND_ELCON_CHARGER_COMMAND&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a01fcd2a0f1dc9b54a98b368b171ab7e2">can_parse.h</a></li>
 <li>SEND_F4_TESTING_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#a5473b7119807fcb744132f578e771599">can_parse.h</a></li>
 <li>SEND_F7_TESTING_BL_RESP&#160;:&#160;<a class="el" href="bootloader_2can_2can__parse_8h.html#a18e402100d226e42d1d6bee6e301de6b">can_parse.h</a></li>
@@ -483,7 +485,7 @@ $(function(){ initResizable(false); });
 <li>SEND_SFS_VEL&#160;:&#160;<a class="el" href="torque__vector_2can_2can__parse_8h.html#a554b51881ca407a5828c95e7dbce894e">can_parse.h</a></li>
 <li>SEND_SHOCK_FRONT&#160;:&#160;<a class="el" href="dashboard_2can_2can__parse_8h.html#ae48a78d2da58208c3de2bdf69b2be978">can_parse.h</a></li>
 <li>SEND_SHOCK_REAR&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#a13483b5e370941fbe7551057b152992d">can_parse.h</a></li>
-<li>send_shockpots()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#aa6ba0d0ae9db5952778408ab7f015c79">main.c</a>, <a class="el" href="car_8c.html#aa6ba0d0ae9db5952778408ab7f015c79">car.c</a>, <a class="el" href="car_8h.html#aa6ba0d0ae9db5952778408ab7f015c79">car.h</a></li>
+<li>send_shockpots()&#160;:&#160;<a class="el" href="car_8c.html#aa6ba0d0ae9db5952778408ab7f015c79">car.c</a>, <a class="el" href="car_8h.html#aa6ba0d0ae9db5952778408ab7f015c79">car.h</a></li>
 <li>SEND_SOC_CELLS&#160;:&#160;<a class="el" href="bms_2node__defs_8h.html#ad6ef3ad56463beec6b4f1413fee9ada3">node_defs.h</a></li>
 <li>SEND_SOC_CELLS_1&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#aa725bef9870d26f0959b9c0fa3f02b6c">can_parse.h</a></li>
 <li>SEND_SOC_CELLS_2&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#a80ddb39426832d5c70014e13f0579255">can_parse.h</a></li>
@@ -524,38 +526,25 @@ $(function(){ initResizable(false); });
 <li>SEND_VOLTS_CELLS_8&#160;:&#160;<a class="el" href="bms_2can_2can__parse_8h.html#ae74961bbd55f98918e40089e53f406c8">can_parse.h</a></li>
 <li>SEND_WHEEL_SPEEDS&#160;:&#160;<a class="el" href="l4__testing_2can_2can__parse_8h.html#adc2740734ad150a3e9230981c5726f17">can_parse.h</a></li>
 <li>sendBrakeStatus()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#a655198e7e2640e278bd9fdb8b1f65aed">main.c</a></li>
+<li>sendCoolingParameters()&#160;:&#160;<a class="el" href="lcd_8c.html#a75562cebcb171ee3057a36ace3a6c9b7">lcd.c</a>, <a class="el" href="lcd_8h.html#a75562cebcb171ee3057a36ace3a6c9b7">lcd.h</a></li>
 <li>sendfile()&#160;:&#160;<a class="el" href="ftpd_8h.html#a6acae32ff5723f92bc1bbb321e032ab1">ftpd.h</a></li>
-<li>sendFirsthalf&#160;:&#160;<a class="el" href="lcd_8c.html#a749a0866931edfac71663cc2acf13692">lcd.c</a></li>
 <li>sendhbmsg()&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a9452132efd98daa4dc3b4c7bfbfbce17">main.c</a></li>
 <li>sendit()&#160;:&#160;<a class="el" href="ftpd_8h.html#a9b02ca2259933e343cfb68522e869364">ftpd.h</a></li>
+<li>sendLoggingParameters()&#160;:&#160;<a class="el" href="lcd_8c.html#aef98dd463d4a38ba6d4753854045a61f">lcd.c</a>, <a class="el" href="lcd_8h.html#aef98dd463d4a38ba6d4753854045a61f">lcd.h</a></li>
+<li>sendShockpots()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#a722ec883ad0423572f54d93c5deea806">main.c</a></li>
 <li>sendTVParameters()&#160;:&#160;<a class="el" href="lcd_8c.html#a249c0ceab96d27daebec9a6b8954f60a">lcd.c</a>, <a class="el" href="lcd_8h.html#a249c0ceab96d27daebec9a6b8954f60a">lcd.h</a></li>
-<li>SET_BCO_EXTRA&#160;:&#160;<a class="el" href="nextion_8h.html#a15eabec8341948449002ddd3f22dfd6b">nextion.h</a></li>
+<li>sendVoltageData()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#abc5350878159b88cb9790ff5892ced90">main.c</a></li>
 <li>set_fault_daq()&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8h.html#a665f7e8f072ba4bff25d21ae6fa8765d">can_parse.h</a></li>
-<li>set_flag()&#160;:&#160;<a class="el" href="nextion_8c.html#a7b971513210571c28ba990a15d4dea36">nextion.c</a>, <a class="el" href="nextion_8h.html#a7b971513210571c28ba990a15d4dea36">nextion.h</a></li>
-<li>set_float()&#160;:&#160;<a class="el" href="nextion_8c.html#aee4cd900392039e895a374cb196e3019">nextion.c</a>, <a class="el" href="nextion_8h.html#aee4cd900392039e895a374cb196e3019">nextion.h</a></li>
-<li>set_page()&#160;:&#160;<a class="el" href="nextion_8c.html#a485f78a203a081769e956f5beb7d9b0f">nextion.c</a>, <a class="el" href="nextion_8h.html#a485f78a203a081769e956f5beb7d9b0f">nextion.h</a></li>
-<li>SET_PAGE_EXTRA&#160;:&#160;<a class="el" href="nextion_8h.html#a0b56fa0f3430d5785be754d75a67b0ab">nextion.h</a></li>
-<li>set_text()&#160;:&#160;<a class="el" href="nextion_8c.html#a122cecb4d914da5ebd98467aceda8b97">nextion.c</a>, <a class="el" href="nextion_8h.html#a122cecb4d914da5ebd98467aceda8b97">nextion.h</a></li>
-<li>SET_TEXT_EXTRA&#160;:&#160;<a class="el" href="nextion_8h.html#a6ff7b02d4cbdf6c9d4f04594caae8dec">nextion.h</a></li>
-<li>set_value()&#160;:&#160;<a class="el" href="nextion_8c.html#adb8bcb61dd006c0d512f0d9f0e1db391">nextion.c</a>, <a class="el" href="nextion_8h.html#adb8bcb61dd006c0d512f0d9f0e1db391">nextion.h</a></li>
-<li>SET_VALUE_EXTRA&#160;:&#160;<a class="el" href="nextion_8h.html#a87b75cff673385d78ec22c9e680add69">nextion.h</a></li>
 <li>setBalance()&#160;:&#160;<a class="el" href="afe_8c.html#a045f083c1c804de38f1589d87bf34347">afe.c</a></li>
 <li>setBlue()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#affb9f223a1927e3c26fa58cd67209f64">main.c</a></li>
 <li>setFan1Speed()&#160;:&#160;<a class="el" href="fan__control_8c.html#ae5edf1747c65c321ec71071a4576d589">fan_control.c</a>, <a class="el" href="fan__control_8h.html#ae5edf1747c65c321ec71071a4576d589">fan_control.h</a></li>
 <li>setFan2Speed()&#160;:&#160;<a class="el" href="fan__control_8c.html#af20d109abcc21788b274f9ee36850180">fan_control.c</a>, <a class="el" href="fan__control_8h.html#af20d109abcc21788b274f9ee36850180">fan_control.h</a></li>
+<li>setFaultIndicator()&#160;:&#160;<a class="el" href="lcd_8c.html#a59f05315e37c4308ae73b75ac0312617">lcd.c</a></li>
 <li>setGreen()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#a3c926687aa360106c7463acc12728848">main.c</a></li>
 <li>setLimits()&#160;:&#160;<a class="el" href="charge_8c.html#ade857f847f4237729ea43fffcab8f49f">charge.c</a></li>
 <li>setPLim()&#160;:&#160;<a class="el" href="bms_2bms_8c.html#a3f6fceec5eb9d128c88a138cf1378597">bms.c</a>, <a class="el" href="bms_2bms_8h.html#a3f6fceec5eb9d128c88a138cf1378597">bms.h</a></li>
 <li>setRed()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#a6df3aecce67bfe87a415204641ec446e">main.c</a></li>
 <li>setSwitch()&#160;:&#160;<a class="el" href="auto__switch_8c.html#a8509532d58f56e7044ab6f36a2f17eb5">auto_switch.c</a>, <a class="el" href="auto__switch_8h.html#a8509532d58f56e7044ab6f36a2f17eb5">auto_switch.h</a></li>
-<li>settings&#160;:&#160;<a class="el" href="lcd_8c.html#a8a278035b72adc3aec6c750a9f8ab00f">lcd.c</a></li>
-<li>SETTINGS_BAR_BG&#160;:&#160;<a class="el" href="lcd_8h.html#a79b4d21da05e734cade8ed51c258a532">lcd.h</a></li>
-<li>SETTINGS_BAR_FG&#160;:&#160;<a class="el" href="lcd_8h.html#aa1c5808c5cfdb8925d08eff0a052f1ec">lcd.h</a></li>
-<li>SETTINGS_BG&#160;:&#160;<a class="el" href="lcd_8h.html#a6a4eb588f3f079f4927f654b10920c44">lcd.h</a></li>
-<li>SETTINGS_FG&#160;:&#160;<a class="el" href="lcd_8h.html#a70dcd270ec37a458f93df2cf063eb9c9">lcd.h</a></li>
-<li>SETTINGS_HOVER_BG&#160;:&#160;<a class="el" href="lcd_8h.html#a972e9138a06839c85b9d897ad6fc902b">lcd.h</a></li>
-<li>SETTINGS_STRING&#160;:&#160;<a class="el" href="lcd_8h.html#a8a892af6f22ca250b8304f25d221c08b">lcd.h</a></li>
-<li>SETTINGS_UV_SELECT&#160;:&#160;<a class="el" href="lcd_8h.html#a8b14a57c3b85de38514aa69f14af9a4e">lcd.h</a></li>
 <li>SETTLE&#160;:&#160;<a class="el" href="afe_8h.html#a11572cbe35854bf2b4b1bba03771e9f9ab378a3ff966c63fb6b501549320e3feb">afe.h</a></li>
 <li>SFS_COMMON_INCLUDES_&#160;:&#160;<a class="el" href="SFS_8h.html#aabfd6e5fb904f9bf646ef6a8bd1761e1">SFS.h</a></li>
 <li>SFS_initialize()&#160;:&#160;<a class="el" href="SFS_8c.html#ae245e3c550f612c8e75d3d9562de597f">SFS.c</a>, <a class="el" href="SFS_8h.html#ae245e3c550f612c8e75d3d9562de597f">SFS.h</a></li>
@@ -619,10 +608,15 @@ $(function(){ initResizable(false); });
 <li>START_BTN_Pin&#160;:&#160;<a class="el" href="dashboard_2main_8h.html#af610b0dfa7a975bdf2d15acc20e80ee3">main.h</a></li>
 <li>start_time&#160;:&#160;<a class="el" href="daq_2main_8c.html#acda76ed90e15645d7e0a404cb621aecf">main.c</a></li>
 <li>startCharge()&#160;:&#160;<a class="el" href="charge_8c.html#a05671070f9ffeb2f34d12cbdb70fe1b4">charge.c</a></li>
+<li>STATE_HOVER&#160;:&#160;<a class="el" href="menu__system_8h.html#a68ed64a710b08a6168e943eb64184ac1a64f5d9ccdb80c60e5e93ad7a87d7ae18">menu_system.h</a></li>
+<li>STATE_NORMAL&#160;:&#160;<a class="el" href="menu__system_8h.html#a68ed64a710b08a6168e943eb64184ac1ae583c55c9f9a3aa9888e4ed771d6a9b6">menu_system.h</a></li>
+<li>STATE_SELECTED&#160;:&#160;<a class="el" href="menu__system_8h.html#a68ed64a710b08a6168e943eb64184ac1afd733622cc37edb40dc28d4d5a64468d">menu_system.h</a></li>
 <li>STATS&#160;:&#160;<a class="el" href="afe_8h.html#ae1913e163d882b10ec2ebd98e4f23a24">afe.h</a></li>
 <li>STATUS_NOT_USED&#160;:&#160;<a class="el" href="ftpd_8h.html#a81cfbf39d052dbd312eb4f20d7358ad3a4d6ec9af6d3d9f924e0670dbff075846">ftpd.h</a></li>
 <li>STATUS_USED&#160;:&#160;<a class="el" href="ftpd_8h.html#a81cfbf39d052dbd312eb4f20d7358ad3ac933bc4e4fb6fc92bfd1ab9577c9dd1d">ftpd.h</a></li>
 <li>STCOMM&#160;:&#160;<a class="el" href="afe_8h.html#a4706c69457a3220867336e51acc2a859">afe.h</a></li>
+<li>STEAM&#160;:&#160;<a class="el" href="menu__system_8c.html#a2e6f25a07fed4aa119add4f8dbde4f2e">menu_system.c</a></li>
+<li>STEEL&#160;:&#160;<a class="el" href="menu__system_8c.html#a0c651c9e541c06ca19577be9e0e34e93">menu_system.c</a></li>
 <li>stop_bits_t&#160;:&#160;<a class="el" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553">usart.h</a></li>
 <li>stopCharge()&#160;:&#160;<a class="el" href="charge_8c.html#a2c98073a6617effb879351db71a1c087">charge.c</a></li>
 <li>StopCondition&#160;:&#160;<a class="el" href="sdio_8c.html#a0df0fa8dad7eb524a8a5d1ec0d357089">sdio.c</a></li>

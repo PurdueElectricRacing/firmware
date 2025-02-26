@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: lcd_t Struct Reference</title>
+<title>PER Firmware: driver_pedal_profile_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,27 +86,75 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structlcd__t-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">lcd_t Struct Reference</div></div>
+<a href="structdriver__pedal__profile__t-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">driver_pedal_profile_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="lcd_8h_source.html">lcd.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="pedals_8h_source.html">pedals.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a12e8796d925039af9b8a1d9459b005b0" id="r_a12e8796d925039af9b8a1d9459b005b0"><td class="memItemLeft" align="right" valign="top">volatile int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12e8796d925039af9b8a1d9459b005b0">encoder_position</a></td></tr>
-<tr class="separator:a12e8796d925039af9b8a1d9459b005b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c306e534351b23e43777ffe12364be2" id="r_a4c306e534351b23e43777ffe12364be2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c306e534351b23e43777ffe12364be2">id</a></td></tr>
+<tr class="separator:a4c306e534351b23e43777ffe12364be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec2ee3687aa0eb3f02b3a9223dce7491" id="r_aec2ee3687aa0eb3f02b3a9223dce7491"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec2ee3687aa0eb3f02b3a9223dce7491">brake_travel_threshold</a></td></tr>
+<tr class="separator:aec2ee3687aa0eb3f02b3a9223dce7491"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f454186ae44addadccb4b8b18a0c37" id="r_a96f454186ae44addadccb4b8b18a0c37"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96f454186ae44addadccb4b8b18a0c37">throttle_travel_threshold</a></td></tr>
+<tr class="separator:a96f454186ae44addadccb4b8b18a0c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98a76c2d777e3d0d1d061c18481e9b24" id="r_a98a76c2d777e3d0d1d061c18481e9b24"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98a76c2d777e3d0d1d061c18481e9b24">reserved</a></td></tr>
+<tr class="separator:a98a76c2d777e3d0d1d061c18481e9b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a12e8796d925039af9b8a1d9459b005b0" name="a12e8796d925039af9b8a1d9459b005b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12e8796d925039af9b8a1d9459b005b0">&#9670;&#160;</a></span>encoder_position</h2>
+<a id="aec2ee3687aa0eb3f02b3a9223dce7491" name="aec2ee3687aa0eb3f02b3a9223dce7491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec2ee3687aa0eb3f02b3a9223dce7491">&#9670;&#160;</a></span>brake_travel_threshold</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile int8_t lcd_t::encoder_position</td>
+          <td class="memname">uint8_t driver_pedal_profile_t::brake_travel_threshold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c306e534351b23e43777ffe12364be2" name="a4c306e534351b23e43777ffe12364be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c306e534351b23e43777ffe12364be2">&#9670;&#160;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t driver_pedal_profile_t::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98a76c2d777e3d0d1d061c18481e9b24" name="a98a76c2d777e3d0d1d061c18481e9b24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a76c2d777e3d0d1d061c18481e9b24">&#9670;&#160;</a></span>reserved</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t driver_pedal_profile_t::reserved</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96f454186ae44addadccb4b8b18a0c37" name="a96f454186ae44addadccb4b8b18a0c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f454186ae44addadccb4b8b18a0c37">&#9670;&#160;</a></span>throttle_travel_threshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t driver_pedal_profile_t::throttle_travel_threshold</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -114,7 +162,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>source/dashboard/lcd/<a class="el" href="lcd_8h_source.html">lcd.h</a></li>
+<li>source/dashboard/pedals/<a class="el" href="pedals_8h_source.html">pedals.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

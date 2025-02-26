@@ -103,70 +103,62 @@ $(function(){ initResizable(false); });
 <code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div>
 <p><a href="pedals_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedals__t.html">pedals_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedal__calibration__t.html">pedal_calibration_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedal__values__t.html">pedal_values_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:af991168f3f52d43942c079612918d9a2" id="r_af991168f3f52d43942c079612918d9a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af991168f3f52d43942c079612918d9a2">MAX_PEDAL_MEAS</a>&#160;&#160;&#160;(4095)</td></tr>
 <tr class="separator:af991168f3f52d43942c079612918d9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af219357b7941573ceabd1c537b4df6c9" id="r_af219357b7941573ceabd1c537b4df6c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af219357b7941573ceabd1c537b4df6c9">APPS_IMPLAUS_MAX_DIFF</a>&#160;&#160;&#160;(3000)</td></tr>
-<tr class="separator:af219357b7941573ceabd1c537b4df6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd5ea3471bfec2870f0b3112ea4cbb1" id="r_aebd5ea3471bfec2870f0b3112ea4cbb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebd5ea3471bfec2870f0b3112ea4cbb1">APPS_IMPLAUS_TIME_MS</a>&#160;&#160;&#160;(100)</td></tr>
-<tr class="separator:aebd5ea3471bfec2870f0b3112ea4cbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae84ee398f0213d15e4c71d40dfe6f440" id="r_ae84ee398f0213d15e4c71d40dfe6f440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae84ee398f0213d15e4c71d40dfe6f440">APPS_IMPLAUS_MIN</a>&#160;&#160;&#160;(50)</td></tr>
-<tr class="separator:ae84ee398f0213d15e4c71d40dfe6f440"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec6944897c1dbd303091d980b22d9837" id="r_aec6944897c1dbd303091d980b22d9837"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec6944897c1dbd303091d980b22d9837">APPS_IMPLAUS_MAX</a>&#160;&#160;&#160;(3891)</td></tr>
-<tr class="separator:aec6944897c1dbd303091d980b22d9837"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a737d753186a62d6d07f40a3f8d5803d3" id="r_a737d753186a62d6d07f40a3f8d5803d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a737d753186a62d6d07f40a3f8d5803d3">BSE_IMPLAUS_MIN</a>&#160;&#160;&#160;(50)</td></tr>
-<tr class="separator:a737d753186a62d6d07f40a3f8d5803d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cd4e67a2f143b1d3ae4049ee23cc1bc" id="r_a7cd4e67a2f143b1d3ae4049ee23cc1bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cd4e67a2f143b1d3ae4049ee23cc1bc">BSE_IMPLAUS_MAX</a>&#160;&#160;&#160;(3891)</td></tr>
-<tr class="separator:a7cd4e67a2f143b1d3ae4049ee23cc1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac24c1832ac749516869c7a736c4e67e8" id="r_ac24c1832ac749516869c7a736c4e67e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac24c1832ac749516869c7a736c4e67e8">APPS_BRAKE_THRESHOLD</a>&#160;&#160;&#160;(307)</td></tr>
 <tr class="separator:ac24c1832ac749516869c7a736c4e67e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab15374f40e9b29329c1bf9136f9bdf8f" id="r_ab15374f40e9b29329c1bf9136f9bdf8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab15374f40e9b29329c1bf9136f9bdf8f">APPS_THROTTLE_FAULT_THRESHOLD</a>&#160;&#160;&#160;(1024)</td></tr>
 <tr class="separator:ab15374f40e9b29329c1bf9136f9bdf8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a4ecf733429482aea0367148f006193" id="r_a6a4ecf733429482aea0367148f006193"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a4ecf733429482aea0367148f006193">APPS_THROTTLE_CLEARFAULT_THRESHOLD</a>&#160;&#160;&#160;(205)</td></tr>
 <tr class="separator:a6a4ecf733429482aea0367148f006193"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a631e2453346965809fa909983a36263d" id="r_a631e2453346965809fa909983a36263d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a631e2453346965809fa909983a36263d">BRAKE_PRESSURE_THRESHOLD</a>&#160;&#160;&#160;(425)</td></tr>
-<tr class="separator:a631e2453346965809fa909983a36263d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a133e7f74075f5ce6f8dded0b3df8db3d" id="r_a133e7f74075f5ce6f8dded0b3df8db3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a133e7f74075f5ce6f8dded0b3df8db3d">FLT_TO_DISPLAY_INT_2_DEC</a>&#160;&#160;&#160;(100U)</td></tr>
-<tr class="separator:a133e7f74075f5ce6f8dded0b3df8db3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56f204b8cba5f5bcd2a3e78e0054063f" id="r_a56f204b8cba5f5bcd2a3e78e0054063f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56f204b8cba5f5bcd2a3e78e0054063f">FLT_TO_PERCENTAGE</a>&#160;&#160;&#160;(100U)</td></tr>
-<tr class="separator:a56f204b8cba5f5bcd2a3e78e0054063f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c9e85d22a9ba37ea589b1747af46307" id="r_a2c9e85d22a9ba37ea589b1747af46307"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c9e85d22a9ba37ea589b1747af46307">VREF</a>&#160;&#160;&#160;3.3F</td></tr>
-<tr class="separator:a2c9e85d22a9ba37ea589b1747af46307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1bdaa71505bd92355ebfe5eb2e15d41" id="r_aa1bdaa71505bd92355ebfe5eb2e15d41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1bdaa71505bd92355ebfe5eb2e15d41">RESISTOR_T1</a>&#160;&#160;&#160;3300</td></tr>
-<tr class="separator:aa1bdaa71505bd92355ebfe5eb2e15d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70900bf14d9b9417a844dcb766902915" id="r_a70900bf14d9b9417a844dcb766902915"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70900bf14d9b9417a844dcb766902915">RESISTOR_T2</a>&#160;&#160;&#160;1000</td></tr>
-<tr class="separator:a70900bf14d9b9417a844dcb766902915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a82edc4429a672946bce0fc729b16cd" id="r_a0a82edc4429a672946bce0fc729b16cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a82edc4429a672946bce0fc729b16cd">MAX_RESISTANCE</a>&#160;&#160;&#160;2500</td></tr>
-<tr class="separator:a0a82edc4429a672946bce0fc729b16cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ce3e2af80a76d816ab7f8567ec4a65a" id="r_a4ce3e2af80a76d816ab7f8567ec4a65a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ce3e2af80a76d816ab7f8567ec4a65a">MAX_VALUE</a>&#160;&#160;&#160;4095</td></tr>
-<tr class="separator:a4ce3e2af80a76d816ab7f8567ec4a65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a9f61db27486aeaf10acc7da3362c91" id="r_a6a9f61db27486aeaf10acc7da3362c91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a9f61db27486aeaf10acc7da3362c91">PROFILES_START_SECTOR</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="separator:a6a9f61db27486aeaf10acc7da3362c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0931aa15c0fb3e1bf5c48fe47fe09511" id="r_a0931aa15c0fb3e1bf5c48fe47fe09511"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0931aa15c0fb3e1bf5c48fe47fe09511">NUM_PROFILES</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="separator:a0931aa15c0fb3e1bf5c48fe47fe09511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa199cfbfd5005f975a7eb6911a2a6d15" id="r_aa199cfbfd5005f975a7eb6911a2a6d15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa199cfbfd5005f975a7eb6911a2a6d15">PROFILE_WRITE_SUCCESS</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="separator:aa199cfbfd5005f975a7eb6911a2a6d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abcedf52ad1a39750a91b5ad4e1c8ff" id="r_a8abcedf52ad1a39750a91b5ad4e1c8ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8abcedf52ad1a39750a91b5ad4e1c8ff">PROFILE_WRITE_FAIL</a>&#160;&#160;&#160;(-1)</td></tr>
+<tr class="separator:a8abcedf52ad1a39750a91b5ad4e1c8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad390f112c056607f9f37f0c1a2e5f3b6" id="r_ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a> (void)</td></tr>
+<tr class="memdesc:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes pedal sensor readings and sets faults as necessary.  <br /></td></tr>
 <tr class="separator:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4e777fe95feb16ed038b7d1e801b214" id="r_ad4e777fe95feb16ed038b7d1e801b214"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4e777fe95feb16ed038b7d1e801b214">writePedalProfiles</a> (void)</td></tr>
+<tr class="separator:ad4e777fe95feb16ed038b7d1e801b214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76246fc9b6f51937bd43cb4a60a8a5b2" id="r_a76246fc9b6f51937bd43cb4a60a8a5b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76246fc9b6f51937bd43cb4a60a8a5b2">readPedalProfiles</a> (void)</td></tr>
+<tr class="separator:a76246fc9b6f51937bd43cb4a60a8a5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aef4ec0ade289e421c62416c2f9311e90" id="r_aef4ec0ade289e421c62416c2f9311e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedals__t.html">pedals_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef4ec0ade289e421c62416c2f9311e90">pedals</a></td></tr>
-<tr class="separator:aef4ec0ade289e421c62416c2f9311e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a889452ccedc892a1fd3d3348f65dbf07" id="r_a889452ccedc892a1fd3d3348f65dbf07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a889452ccedc892a1fd3d3348f65dbf07">pedal_faults</a></td></tr>
+<tr class="separator:a889452ccedc892a1fd3d3348f65dbf07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c659da464966db7d2d9dea4f4c87edc" id="r_a9c659da464966db7d2d9dea4f4c87edc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__calibration__t.html">pedal_calibration_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c659da464966db7d2d9dea4f4c87edc">pedal_calibration</a></td></tr>
 <tr class="separator:a9c659da464966db7d2d9dea4f4c87edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e55719a4f50c185f92f651dffef326" id="r_af5e55719a4f50c185f92f651dffef326"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5e55719a4f50c185f92f651dffef326">filtered_pedals</a></td></tr>
-<tr class="separator:af5e55719a4f50c185f92f651dffef326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f66772314df6ee10ca7ccf555278cd" id="r_a04f66772314df6ee10ca7ccf555278cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__values__t.html">pedal_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04f66772314df6ee10ca7ccf555278cd">pedal_values</a></td></tr>
+<tr class="separator:a04f66772314df6ee10ca7ccf555278cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6306ee43db388ef3c268f39771601132" id="r_a6306ee43db388ef3c268f39771601132"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6306ee43db388ef3c268f39771601132">thtl_limit</a></td></tr>
 <tr class="separator:a6306ee43db388ef3c268f39771601132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a093431542ad374f17697265503211ec3" id="r_a093431542ad374f17697265503211ec3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a093431542ad374f17697265503211ec3">driver_pedal_profiles</a> [4]</td></tr>
+<tr class="separator:a093431542ad374f17697265503211ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Read, check, and send pedal measurements. </p>
@@ -183,62 +175,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define APPS_BRAKE_THRESHOLD&#160;&#160;&#160;(307)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aec6944897c1dbd303091d980b22d9837" name="aec6944897c1dbd303091d980b22d9837"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec6944897c1dbd303091d980b22d9837">&#9670;&#160;</a></span>APPS_IMPLAUS_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_IMPLAUS_MAX&#160;&#160;&#160;(3891)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af219357b7941573ceabd1c537b4df6c9" name="af219357b7941573ceabd1c537b4df6c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af219357b7941573ceabd1c537b4df6c9">&#9670;&#160;</a></span>APPS_IMPLAUS_MAX_DIFF</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_IMPLAUS_MAX_DIFF&#160;&#160;&#160;(3000)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae84ee398f0213d15e4c71d40dfe6f440" name="ae84ee398f0213d15e4c71d40dfe6f440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae84ee398f0213d15e4c71d40dfe6f440">&#9670;&#160;</a></span>APPS_IMPLAUS_MIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_IMPLAUS_MIN&#160;&#160;&#160;(50)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aebd5ea3471bfec2870f0b3112ea4cbb1" name="aebd5ea3471bfec2870f0b3112ea4cbb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd5ea3471bfec2870f0b3112ea4cbb1">&#9670;&#160;</a></span>APPS_IMPLAUS_TIME_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_IMPLAUS_TIME_MS&#160;&#160;&#160;(100)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -273,76 +209,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a631e2453346965809fa909983a36263d" name="a631e2453346965809fa909983a36263d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a631e2453346965809fa909983a36263d">&#9670;&#160;</a></span>BRAKE_PRESSURE_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BRAKE_PRESSURE_THRESHOLD&#160;&#160;&#160;(425)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7cd4e67a2f143b1d3ae4049ee23cc1bc" name="a7cd4e67a2f143b1d3ae4049ee23cc1bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cd4e67a2f143b1d3ae4049ee23cc1bc">&#9670;&#160;</a></span>BSE_IMPLAUS_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BSE_IMPLAUS_MAX&#160;&#160;&#160;(3891)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a737d753186a62d6d07f40a3f8d5803d3" name="a737d753186a62d6d07f40a3f8d5803d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a737d753186a62d6d07f40a3f8d5803d3">&#9670;&#160;</a></span>BSE_IMPLAUS_MIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BSE_IMPLAUS_MIN&#160;&#160;&#160;(50)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a133e7f74075f5ce6f8dded0b3df8db3d" name="a133e7f74075f5ce6f8dded0b3df8db3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a133e7f74075f5ce6f8dded0b3df8db3d">&#9670;&#160;</a></span>FLT_TO_DISPLAY_INT_2_DEC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FLT_TO_DISPLAY_INT_2_DEC&#160;&#160;&#160;(100U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a56f204b8cba5f5bcd2a3e78e0054063f" name="a56f204b8cba5f5bcd2a3e78e0054063f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f204b8cba5f5bcd2a3e78e0054063f">&#9670;&#160;</a></span>FLT_TO_PERCENTAGE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FLT_TO_PERCENTAGE&#160;&#160;&#160;(100U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="af991168f3f52d43942c079612918d9a2" name="af991168f3f52d43942c079612918d9a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af991168f3f52d43942c079612918d9a2">&#9670;&#160;</a></span>MAX_PEDAL_MEAS</h2>
 
@@ -357,70 +223,56 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a0a82edc4429a672946bce0fc729b16cd" name="a0a82edc4429a672946bce0fc729b16cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a82edc4429a672946bce0fc729b16cd">&#9670;&#160;</a></span>MAX_RESISTANCE</h2>
+<a id="a0931aa15c0fb3e1bf5c48fe47fe09511" name="a0931aa15c0fb3e1bf5c48fe47fe09511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0931aa15c0fb3e1bf5c48fe47fe09511">&#9670;&#160;</a></span>NUM_PROFILES</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAX_RESISTANCE&#160;&#160;&#160;2500</td>
+          <td class="memname">#define NUM_PROFILES&#160;&#160;&#160;(4)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4ce3e2af80a76d816ab7f8567ec4a65a" name="a4ce3e2af80a76d816ab7f8567ec4a65a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ce3e2af80a76d816ab7f8567ec4a65a">&#9670;&#160;</a></span>MAX_VALUE</h2>
+<a id="a8abcedf52ad1a39750a91b5ad4e1c8ff" name="a8abcedf52ad1a39750a91b5ad4e1c8ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abcedf52ad1a39750a91b5ad4e1c8ff">&#9670;&#160;</a></span>PROFILE_WRITE_FAIL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAX_VALUE&#160;&#160;&#160;4095</td>
+          <td class="memname">#define PROFILE_WRITE_FAIL&#160;&#160;&#160;(-1)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa1bdaa71505bd92355ebfe5eb2e15d41" name="aa1bdaa71505bd92355ebfe5eb2e15d41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1bdaa71505bd92355ebfe5eb2e15d41">&#9670;&#160;</a></span>RESISTOR_T1</h2>
+<a id="aa199cfbfd5005f975a7eb6911a2a6d15" name="aa199cfbfd5005f975a7eb6911a2a6d15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa199cfbfd5005f975a7eb6911a2a6d15">&#9670;&#160;</a></span>PROFILE_WRITE_SUCCESS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RESISTOR_T1&#160;&#160;&#160;3300</td>
+          <td class="memname">#define PROFILE_WRITE_SUCCESS&#160;&#160;&#160;(0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a70900bf14d9b9417a844dcb766902915" name="a70900bf14d9b9417a844dcb766902915"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70900bf14d9b9417a844dcb766902915">&#9670;&#160;</a></span>RESISTOR_T2</h2>
+<a id="a6a9f61db27486aeaf10acc7da3362c91" name="a6a9f61db27486aeaf10acc7da3362c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a9f61db27486aeaf10acc7da3362c91">&#9670;&#160;</a></span>PROFILES_START_SECTOR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RESISTOR_T2&#160;&#160;&#160;1000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2c9e85d22a9ba37ea589b1747af46307" name="a2c9e85d22a9ba37ea589b1747af46307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c9e85d22a9ba37ea589b1747af46307">&#9670;&#160;</a></span>VREF</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define VREF&#160;&#160;&#160;3.3F</td>
+          <td class="memname">#define PROFILES_START_SECTOR&#160;&#160;&#160;(3)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -443,11 +295,48 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Processes pedal sensor readings and sets faults as necessary. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is called periodically by the scheduler </dd></dl>
+
+</div>
+</div>
+<a id="a76246fc9b6f51937bd43cb4a60a8a5b2" name="a76246fc9b6f51937bd43cb4a60a8a5b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76246fc9b6f51937bd43cb4a60a8a5b2">&#9670;&#160;</a></span>readPedalProfiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readPedalProfiles </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4e777fe95feb16ed038b7d1e801b214" name="ad4e777fe95feb16ed038b7d1e801b214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4e777fe95feb16ed038b7d1e801b214">&#9670;&#160;</a></span>writePedalProfiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int writePedalProfiles </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="af5e55719a4f50c185f92f651dffef326" name="af5e55719a4f50c185f92f651dffef326"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e55719a4f50c185f92f651dffef326">&#9670;&#160;</a></span>filtered_pedals</h2>
+<a id="a093431542ad374f17697265503211ec3" name="a093431542ad374f17697265503211ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a093431542ad374f17697265503211ec3">&#9670;&#160;</a></span>driver_pedal_profiles</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -456,7 +345,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t filtered_pedals</td>
+          <td class="memname"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a> driver_pedal_profiles[4]</td>
         </tr>
       </table>
   </td>
@@ -490,8 +379,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aef4ec0ade289e421c62416c2f9311e90" name="aef4ec0ade289e421c62416c2f9311e90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef4ec0ade289e421c62416c2f9311e90">&#9670;&#160;</a></span>pedals</h2>
+<a id="a889452ccedc892a1fd3d3348f65dbf07" name="a889452ccedc892a1fd3d3348f65dbf07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a889452ccedc892a1fd3d3348f65dbf07">&#9670;&#160;</a></span>pedal_faults</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -500,7 +389,29 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structpedals__t.html">pedals_t</a> pedals</td>
+          <td class="memname"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a> pedal_faults</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a04f66772314df6ee10ca7ccf555278cd" name="a04f66772314df6ee10ca7ccf555278cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f66772314df6ee10ca7ccf555278cd">&#9670;&#160;</a></span>pedal_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpedal__values__t.html">pedal_values_t</a> pedal_values</td>
         </tr>
       </table>
   </td>

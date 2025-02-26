@@ -123,10 +123,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae27c40f4d29be22da86fe0720492648a" id="r_ae27c40f4d29be22da86fe0720492648a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae27c40f4d29be22da86fe0720492648a">heartBeatLED</a> ()</td></tr>
+<tr class="memdesc:ae27c40f4d29be22da86fe0720492648a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates system LED indicators and CAN stats.  <br /></td></tr>
 <tr class="separator:ae27c40f4d29be22da86fe0720492648a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6d5656a78ce6f1885312bb466f171a8" id="r_ab6d5656a78ce6f1885312bb466f171a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6d5656a78ce6f1885312bb466f171a8">monitorStatus</a> ()</td></tr>
 <tr class="separator:ab6d5656a78ce6f1885312bb466f171a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d472b2ba18cc36e318bd4d8b8560a3a" id="r_a6d472b2ba18cc36e318bd4d8b8560a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d472b2ba18cc36e318bd4d8b8560a3a">preflightChecks</a> ()</td></tr>
+<tr class="memdesc:a6d472b2ba18cc36e318bd4d8b8560a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs sequential initialization and setup of system peripherals and modules.  <br /></td></tr>
 <tr class="separator:a6d472b2ba18cc36e318bd4d8b8560a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac30a8964bf994b5667a97641aba63ac1" id="r_ac30a8964bf994b5667a97641aba63ac1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac30a8964bf994b5667a97641aba63ac1">preflightAnimation</a> ()</td></tr>
 <tr class="separator:ac30a8964bf994b5667a97641aba63ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,6 +285,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Updates system LED indicators and CAN stats. </p>
+<p>Controls heartbeat, connection, precharge, IMD and BMS status LEDs. Handles periodic CAN statistics transmission. </p>
+
 </div>
 </div>
 <a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
@@ -367,6 +372,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Performs sequential initialization and setup of system peripherals and modules. </p>
+<dl class="section note"><dt>Note</dt><dd>Called repeatedly until preflight is registered as complete </dd></dl>
 
 </div>
 </div>

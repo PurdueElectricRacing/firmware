@@ -28,5 +28,9 @@ var searchData=
   ['dma2_5fchannel1_5firqhandler_25',['DMA2_Channel1_IRQHandler',['../phal__L4_2spi_2spi_8c.html#aed3077bf6425c643f7a7c4d4dee9a1f4',1,'spi.c']]],
   ['dma2_5fchannel2_5firqhandler_26',['DMA2_Channel2_IRQHandler',['../phal__L4_2spi_2spi_8c.html#ae937104ab11742301be2732187fa3a44',1,'spi.c']]],
   ['dma2_5fstream3_5firqhandler_27',['DMA2_Stream3_IRQHandler',['../phal__F4__F7_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95',1,'spi.c']]],
-  ['dma2_5fstream6_5firqhandler_28',['DMA2_Stream6_IRQHandler',['../sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3',1,'sdio.c']]]
+  ['dma2_5fstream6_5firqhandler_28',['DMA2_Stream6_IRQHandler',['../sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3',1,'sdio.c']]],
+  ['drivermovedown_29',['driverMoveDown',['../lcd_8c.html#a0e30913c77292c2c01022cf9db0081e9',1,'lcd.c']]],
+  ['drivermoveup_30',['driverMoveUp',['../lcd_8c.html#a83125ef5b4e08a2689a1416cb126b3d0',1,'lcd.c']]],
+  ['driverpageupdate_31',['driverPageUpdate',['../lcd_8c.html#a1675c3cc7bf4bf7804928c2f21d1472f',1,'lcd.c']]],
+  ['driverselect_32',['driverSelect',['../lcd_8c.html#a5ab5131d12105af77f4dac522437790e',1,'lcd.c']]]
 ];

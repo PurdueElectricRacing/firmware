@@ -63,13 +63,14 @@ extern uint32_t PLLClockRateHz;
 
 #define TargetCoreClockrateHz 168000000
 ClockRateConfig_t clock_config = {
-    .system_source              =SYSTEM_CLOCK_SRC_PLL,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  = 336000000,//288000000,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .clock_source               = CLOCK_SOURCE_HSE,
+    .use_pll                    = true,
+    .pll_src                    = PLL_SRC_HSE,
+    .vco_output_rate_target_hz  = 336000000, //288000000,
+    .system_clock_target_hz     = TargetCoreClockrateHz,
+    .ahb_clock_target_hz        = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       = (TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz       = (TargetCoreClockrateHz / 4),
 };
 
 /* SPI CONFIG FOR ETHERNET MODULE */

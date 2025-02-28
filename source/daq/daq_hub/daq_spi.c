@@ -124,7 +124,7 @@ static void crit_enter(void)
 {
     if (xSemaphoreTake(spi1_lock, portMAX_DELAY) != pdTRUE)
     {
-        daq_catch_error();
+        HardFault_Handler(); // should not reach
     }
 }
 

@@ -131,7 +131,6 @@ defineStaticSemaphore(spi1_lock);
 
 static void configure_interrupts(void);
 bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
-void HardFault_Handler();
 void shutdown(void);
 
 int main()
@@ -274,6 +273,10 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
 #endif
 
             bCommitWrite(&b_rx_can, 1);
+        }
+        else
+        {
+            dh.bcan_rx_overflow++;
         }
         can_h->RF0R |= (CAN_RF0R_RFOM0);
     }

@@ -21,80 +21,11 @@
 #include "can_flags.h"
 #include "ff.h"
 #include "sdio.h"
-
-// W5500 has 8 sockets internally
-#define DAQ_SOCKET_UDP_BROADCAST   0
-#define DAQ_SOCKET_TCP             1
-#define DAQ_SOCKET_FTP_CTRL0       2  // FTP uses 3 sockets
-#define DAQ_SOCKET_FTP_DATA        3
-#define DAQ_SOCKET_FTP_CTRL1       4
+#include "daq_eth.h"
+#include "daq_sd.h"
 
 typedef uint32_t canid_t;
 typedef uint8_t busid_t;
-
-typedef enum
-{
-    SD_STATE_IDLE        = 0,
-    SD_STATE_MOUNTED     = 1,
-    SD_STATE_ACTIVE      = 2,
-} sd_state_t;
-
-typedef enum
-{
-    SD_ERROR_NONE        = 0,
-    SD_ERROR_MOUNT       = 1,
-    SD_ERROR_FOPEN       = 2,
-    SD_ERROR_FCLOSE      = 3,
-    SD_ERROR_WRITE       = 4,
-    SD_ERROR_DETEC       = 5,
-    SD_ERROR_SYNC        = 6,
-} sd_error_t;
-
-typedef enum
-{
-    ETH_LINK_IDLE        = 0,
-    ETH_LINK_STARTING    = 1,
-    ETH_LINK_DOWN        = 2,
-    ETH_LINK_UP          = 3,
-    ETH_LINK_FAIL        = 4,
-} eth_state_t;
-
-typedef enum
-{
-    ETH_TCP_IDLE         = 0,
-    ETH_TCP_LISTEN       = 1,
-    ETH_TCP_ESTABLISHED  = 2,
-    ETH_TCP_FAIL         = 3,
-} eth_tcp_state_t;
-
-typedef enum
-{
-    ETH_ERROR_NONE       = 0,
-    ETH_ERROR_INIT       = 1,
-    ETH_ERROR_VERS       = 2,
-    ETH_ERROR_UDP_SOCK   = 3,
-    ETH_ERROR_UDP_SEND   = 4,
-    ETH_ERROR_TCP_SOCK   = 5,
-    ETH_ERROR_TCP_LISTEN = 6,
-    ETH_ERROR_TCP_SEND   = 7,
-} eth_error_t;
-
-typedef enum
-{
-    TCP_CMD_HANDSHAKE    = 0,
-    TCP_CMD_CAN_FRAME    = 1,
-    TCP_CMD_UDS_FRAME    = 2,
-} tcp_cmd_t;
-
-typedef enum __attribute__ ((__packed__))
-{
-    DAQ_FRAME_CAN_RX     = 0, //!< RX to DAQ over CAN
-    DAQ_FRAME_TCP2CAN    = 1, //!< RX to DAQ over TCP, relay to other nodes on CAN
-    DAQ_FRAME_TCP2DAQ    = 2, //!< RX to DAQ over TCP, message intended for DAQ
-    DAQ_FRAME_TCP_TX     = 3, //!< TX from DAQ over TCP
-    DAQ_FRAME_UDP_TX     = 4, //!< TX from DAQ over UDP
-} daq_frame_type_t;
-static_assert(sizeof(daq_frame_type_t) == sizeof(uint8_t));
 
 typedef struct __attribute__((packed))
 {
@@ -132,6 +63,11 @@ typedef struct
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
     bool log_enable_uds;
+
+    uint32_t bcan_rx_overflow;
+    uint32_t can1_rx_overflow;
+    uint32_t sd_rx_overflow;
+    uint32_t tcp_tx_overflow;
 } daq_hub_t;
 
 extern daq_hub_t dh;
@@ -140,6 +76,5 @@ void daq_hub_init(void);
 void daq_create_threads(void);
 void uds_receive_periodic(void);
 void daq_shutdown_hook(void);
-void daq_catch_error(void);
 
 #endif // _DAQ_HUB_H_

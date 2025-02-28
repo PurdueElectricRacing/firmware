@@ -89,4 +89,6 @@ extern QueueHandle_t q_can1_rx;
 extern timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
 extern SemaphoreHandle_t spi1_lock;
 
+void HardFault_Handler();
+
 #endif

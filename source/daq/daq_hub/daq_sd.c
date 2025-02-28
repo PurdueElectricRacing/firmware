@@ -90,33 +90,32 @@ static void _sd_write_periodic(bool bypass)
     UINT bytes_written;
     FRESULT res;
 
-    if (dh.sd_state == SD_STATE_ACTIVE)
+    if (dh.sd_state != SD_STATE_ACTIVE) return;
+
+    // Use the total item count, not contiguous for the threshold
+    if (bypass || bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT)
     {
-        // Use the total item count, not contiguous for the threshold
-        if (bypass || bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT)
+        if ((bGetTailForRead(&b_rx_can, RX_TAIL_SD, (void**) &buf, &consecutive_items) == 0))
         {
-            if ((bGetTailForRead(&b_rx_can, RX_TAIL_SD, (void**) &buf, &consecutive_items) == 0))
+            if (consecutive_items > SD_MAX_WRITE_COUNT) consecutive_items = SD_MAX_WRITE_COUNT; // limit
+            // Write time :D
+            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
+            res = f_write(&dh.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
+            if (res != FR_OK)
             {
-                if (consecutive_items > SD_MAX_WRITE_COUNT) consecutive_items = SD_MAX_WRITE_COUNT; // limit
-                // Write time :D
-                PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-                res = f_write(&dh.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
-                if (res != FR_OK)
-                {
-                    sd_handle_error(SD_ERROR_WRITE, res);
-                }
-                else
-                {
-                    dh.last_write_ms = getTick();
-                    bCommitRead(&b_rx_can, RX_TAIL_SD, bytes_written / sizeof(*buf));
-                    sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
-                }
-                PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+                sd_handle_error(SD_ERROR_WRITE, res);
             }
             else
             {
-                daq_catch_error();
+                dh.last_write_ms = getTick();
+                bCommitRead(&b_rx_can, RX_TAIL_SD, bytes_written / sizeof(*buf));
+                sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
             }
+            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+        }
+        else
+        {
+            dh.sd_rx_overflow++;
         }
     }
 }

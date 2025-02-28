@@ -28,12 +28,10 @@ void canTxSendToBack(CanMsgTypeDef_t *msg)
     uint32_t t = 0;
     /* Don't use multiple mailboxes to guarantee in-order transmission */
     while (!PHAL_txMailboxFree(CAN1, 0) && (t++ < CAN_TX_BLOCK_TIMEOUT));
-    if (t < CAN_TX_BLOCK_TIMEOUT) PHAL_txCANMessage(msg, 0);
+    if (t < CAN_TX_BLOCK_TIMEOUT)
+        PHAL_txCANMessage(msg, 0);
     else
-    {
         can_stats[BUS_ID_CAN1].tx_of++;
-        daq_catch_error();
-    }
 }
 
 void canTxUpdate(void)

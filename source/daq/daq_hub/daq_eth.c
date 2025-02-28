@@ -19,7 +19,6 @@
 
 #include "main.h"
 #include "daq_can.h"
-#include "daq_eth.h"
 #include "daq_hub.h"
 
 static int8_t eth_init(void);
@@ -32,10 +31,6 @@ static void eth_tcp_send_periodic(void);
 static void eth_reset_error(void);
 static void _eth_handle_error(eth_error_t err, int32_t reason);
 #define eth_handle_error(err, res) _eth_handle_error(err, res)
-
-// W5500
-#define ETH_PHY_VERSION_ID      0x04
-#define ETH_PHY_RESET_PERIOD_MS   10
 
 typedef struct
 {
@@ -288,40 +283,39 @@ static int8_t eth_init_tcp(void)
 
 static void eth_tcp_update(void)
 {
-    if (dh.eth_state == ETH_LINK_UP)
+    if (dh.eth_state != ETH_LINK_UP) return;
+
+    uint8_t stat;
+    switch (dh.eth_tcp_state)
     {
-        uint8_t stat;
-        switch (dh.eth_tcp_state)
-        {
-            case ETH_TCP_IDLE:
-                if (eth_init_tcp() == ETH_ERROR_NONE)
-                    dh.eth_tcp_state = ETH_TCP_LISTEN;
-                else
-                    dh.eth_tcp_state = ETH_TCP_FAIL;
-            break;
-            case ETH_TCP_LISTEN:
-                stat = getSn_SR(eth_config.tcp_sock);
-                if (stat == SOCK_ESTABLISHED)
-                {
-                    debug_printf("TCP UP!\n");
-                    dh.eth_tcp_state = ETH_TCP_ESTABLISHED; // Connected
-                }
-            break;
-            case ETH_TCP_ESTABLISHED:
-                stat = getSn_SR(eth_config.tcp_sock);
-                if (stat == SOCK_CLOSE_WAIT)
-                {
-                    close(eth_config.tcp_sock);
-                    dh.eth_tcp_state = ETH_TCP_IDLE;
-                }
-                else
-                {
-                    /* TCP UP routines */
-                    eth_tcp_receive_periodic(); // RX
-                    eth_tcp_send_periodic();    // TX
-                }
-            break;
-        }
+        case ETH_TCP_IDLE:
+            if (eth_init_tcp() == ETH_ERROR_NONE)
+                dh.eth_tcp_state = ETH_TCP_LISTEN;
+            else
+                dh.eth_tcp_state = ETH_TCP_FAIL;
+        break;
+        case ETH_TCP_LISTEN:
+            stat = getSn_SR(eth_config.tcp_sock);
+            if (stat == SOCK_ESTABLISHED)
+            {
+                debug_printf("TCP UP!\n");
+                dh.eth_tcp_state = ETH_TCP_ESTABLISHED; // Connected
+            }
+        break;
+        case ETH_TCP_ESTABLISHED:
+            stat = getSn_SR(eth_config.tcp_sock);
+            if (stat == SOCK_CLOSE_WAIT)
+            {
+                close(eth_config.tcp_sock);
+                dh.eth_tcp_state = ETH_TCP_IDLE;
+            }
+            else
+            {
+                /* TCP UP routines */
+                eth_tcp_receive_periodic(); // RX
+                eth_tcp_send_periodic();    // TX
+            }
+        break;
     }
 }
 
@@ -357,7 +351,7 @@ static void eth_tcp_relay_uds_frame(timestamped_frame_t *frame)
 {
     if (xQueueSendToBack(q_can1_rx, frame, (TickType_t)10) != pdPASS)
     {
-        daq_catch_error();
+        dh.can1_rx_overflow++;
     }
 }
 
@@ -401,7 +395,7 @@ static void eth_tcp_send_frame(timestamped_frame_t *frame)
     {
         if (xQueueSendToBack(q_tcp_tx, frame, (TickType_t)10) != pdPASS)
         {
-            daq_catch_error();
+            dh.tcp_tx_overflow++;
         }
     }
 }
@@ -409,7 +403,7 @@ static void eth_tcp_send_frame(timestamped_frame_t *frame)
 /* TODO buffer for TCP TX */
 static void _eth_tcp_send_frame_raw(timestamped_frame_t *frame)
 {
-    int32_t ret; // TODO error handle
+    int32_t ret;
     if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED)
     {
         frame->frame_type = DAQ_FRAME_TCP_TX;
@@ -417,7 +411,6 @@ static void _eth_tcp_send_frame_raw(timestamped_frame_t *frame)
         if (ret != sizeof(*frame))
         {
             eth_handle_error(ETH_ERROR_TCP_SEND, ret);
-            daq_catch_error();
         }
     }
 }

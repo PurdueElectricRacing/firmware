@@ -189,10 +189,10 @@ void testUsart(void);
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 // VCU structs
-// static pVCU_struct pVCU;
-// static fVCU_struct fVCU;
-// static xVCU_struct xVCU;
-// static yVCU_struct yVCU;
+static pVCU_struct pVCU;
+static fVCU_struct fVCU;
+static xVCU_struct xVCU;
+static yVCU_struct yVCU;
 
 int main(void)
 {
@@ -292,10 +292,10 @@ void preflightChecks(void)
         break;
     case 700:
         /* Initialize VCU structs */
-        // pVCU = init_pVCU();
-        // fVCU = init_fVCU();
-        // xVCU = init_xVCU();
-        // yVCU = init_yVCU();
+        pVCU = init_pVCU();
+        fVCU = init_fVCU();
+        xVCU = init_xVCU();
+        yVCU = init_yVCU();
         break;
     default:
         if (state > 750)
@@ -382,7 +382,59 @@ void usart_recieve_complete_callback(usart_init_t *handle)
 {
     if (handle == &usb)
     {
-        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg)); 
+        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
+
+        // Data
+
+        xVCU.TH_RAW = rxmsg.TH_RAW;
+        xVCU.ST_RAW = rxmsg.ST_RAW;
+        xVCU.VB_RAW = rxmsg.VB_RAW;
+
+        xVCU.WT_RAW[0] = rxmsg.WT_RAW1;
+        xVCU.WT_RAW[1] = rxmsg.WT_RAW2;
+
+        xVCU.WM_RAW[0] = rxmsg.WM_RAW1;
+        xVCU.WM_RAW[1] = rxmsg.WM_RAW2;
+
+        xVCU.GS_RAW = rxmsg.GS_RAW;
+
+        xVCU.AV_RAW[0] = rxmsg.AV_RAW1;
+        xVCU.AV_RAW[1] = rxmsg.AV_RAW2;
+        xVCU.AV_RAW[2] = rxmsg.AV_RAW3;
+
+        xVCU.IB_RAW = rxmsg.IB_RAW;
+        xVCU.MT_RAW = rxmsg.MT_RAW;
+        xVCU.CT_RAW = rxmsg.CT_RAW;
+        xVCU.IT_RAW = rxmsg.IT_RAW;
+        xVCU.MC_RAW = rxmsg.MC_RAW;
+        xVCU.IC_RAW = rxmsg.IC_RAW;
+        xVCU.BT_RAW = rxmsg.BT_RAW;
+
+        xVCU.AG_RAW[0] = rxmsg.AG_RAW1;
+        xVCU.AG_RAW[1] = rxmsg.AG_RAW2;
+        xVCU.AG_RAW[2] = rxmsg.AG_RAW3;
+
+        xVCU.TO_RAW[0] = rxmsg.TO_RAW1;
+        xVCU.TO_RAW[1] = rxmsg.TO_RAW2;
+
+        xVCU.DB_RAW = rxmsg.DB_RAW;
+        xVCU.PI_RAW = rxmsg.PI_RAW;
+        xVCU.PP_RAW = rxmsg.PP_RAW;
+
+        // Flags
+        fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
+        fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
+        fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
+        fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
+        fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
+        fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
+        fVCU.MT_SFLAG = rxmsg.MT_SFLAG;
+        fVCU.CO_SFLAG = rxmsg.CO_SFLAG;
+        fVCU.MO_SFLAG = rxmsg.MO_SFLAG;
+        fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
+        fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
+        fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
+        fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
     }
     else 
     {
@@ -397,27 +449,27 @@ void CAN1_RX0_IRQHandler()
     canParseIRQHandler(CAN1);
 }
 
-// void VCU_MAIN(void)
-// {
-//     /* Fill in X & F */
-//     vcu_pp(&xVCU, &fVCU, &GPSHandle);
-//
-//     /* Step VCU */
-//     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
-//
-//     /* Set TV faults */
-//     setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
-//     setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
-//     setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
-//     setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
-//     setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
-//     setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
-//
-//     /* Send messages */
-//     SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
-//     SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
-//     SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
-// }
+void VCU_MAIN(void)
+{
+    /* Fill in X & F */
+    vcu_pp(&xVCU, &fVCU, &GPSHandle);
+
+    /* Step VCU */
+    vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
+
+    /* Set TV faults */
+    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
+    setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
+    setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
+    setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
+    setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
+    setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
+
+    /* Send messages */
+    SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
+    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
+    SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
+}
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {

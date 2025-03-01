@@ -151,10 +151,47 @@ struct __attribute__((packed)) serial_tx {
 //   - 'b' -> byte (1 byte)
 //   - 'H' -> unsigned short (2 bytes)
 //   - 'I' -> unsigned int (4 bytes)
-//
-// Example Python format for this struct: "f" (1 float)
+
 struct __attribute__((packed)) serial_rx {
-    float test;
+    float TH_RAW;
+    float ST_RAW;
+    float VB_RAW;
+    float WT_RAW1;
+    float WT_RAW2;
+    float WM_RAW1;
+    float WM_RAW2;
+    float GS_RAW;
+    float AV_RAW1;
+    float AV_RAW2;
+    float AV_RAW3;
+    float IB_RAW;
+    float MT_RAW;
+    float CT_RAW;
+    float IT_RAW;
+    float MC_RAW;
+    float IC_RAW;
+    float BT_RAW;
+    float AG_RAW1;
+    float AG_RAW2;
+    float AG_RAW3;
+    float TO_RAW1;
+    float TO_RAW2;
+    float DB_RAW;
+    float PI_RAW;
+    float PP_RAW;
+    float CS_SFLAG;
+    float TB_SFLAG;
+    float SS_SFLAG;
+    float WT_SFLAG;
+    float IV_SFLAG;
+    float BT_SFLAG;
+    float MT_SFLAG;
+    float CO_SFLAG;
+    float MO_SFLAG;
+    float SS_FFLAG;
+    float AV_FFLAG;
+    float GS_FFLAG;
+    float VCU_PFLAG;
 };
 
 void canTxSendToBack(CanMsgTypeDef_t *msg);

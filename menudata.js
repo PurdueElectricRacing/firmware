@@ -24,6 +24,8 @@
 */
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
+{text:"Related Pages",url:"pages.html"},
+{text:"Topics",url:"topics.html"},
 {text:"Namespaces",url:"namespaces.html",children:[
 {text:"Namespace List",url:"namespaces.html"},
 {text:"Namespace Members",url:"namespacemembers.html",children:[
@@ -166,6 +168,7 @@ var menudata={children:[
 {text:"v",url:"globals_vars_v.html#index_v"},
 {text:"w",url:"globals_vars_w.html#index_w"}]},
 {text:"Typedefs",url:"globals_type.html",children:[
+{text:"_",url:"globals_type.html#index__5F"},
 {text:"b",url:"globals_type.html#index_b"},
 {text:"c",url:"globals_type.html#index_c"},
 {text:"d",url:"globals_type.html#index_d"},
@@ -190,6 +193,7 @@ var menudata={children:[
 {text:"i",url:"globals_enum.html#index_i"},
 {text:"l",url:"globals_enum.html#index_l"},
 {text:"m",url:"globals_enum.html#index_m"},
+{text:"n",url:"globals_enum.html#index_n"},
 {text:"o",url:"globals_enum.html#index_o"},
 {text:"p",url:"globals_enum.html#index_p"},
 {text:"q",url:"globals_enum.html#index_q"},

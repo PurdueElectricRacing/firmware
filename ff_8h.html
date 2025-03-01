@@ -239,7 +239,7 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aefdef7126128d99d0b3bd82c28e54d80" id="r_aefdef7126128d99d0b3bd82c28e54d80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a49d0171ecbd362cda5680a0d360db44c">FRESULT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefdef7126128d99d0b3bd82c28e54d80">f_open</a> (<a class="el" href="structFIL.html">FIL</a> *fp, const <a class="el" href="#a03bdb8ce5895c7e261aadc2529637546">TCHAR</a> *path, <a class="el" href="#a4ae1dab0fb4b072a66584546209e7d58">BYTE</a> <a class="el" href="gs__usb_8h.html#a34352281f46a65e9dcf479ca75855d81">mode</a>)</td></tr>
+<tr class="memitem:aefdef7126128d99d0b3bd82c28e54d80" id="r_aefdef7126128d99d0b3bd82c28e54d80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a49d0171ecbd362cda5680a0d360db44c">FRESULT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefdef7126128d99d0b3bd82c28e54d80">f_open</a> (<a class="el" href="structFIL.html">FIL</a> *fp, const <a class="el" href="#a03bdb8ce5895c7e261aadc2529637546">TCHAR</a> *path, <a class="el" href="#a4ae1dab0fb4b072a66584546209e7d58">BYTE</a> mode)</td></tr>
 <tr class="separator:aefdef7126128d99d0b3bd82c28e54d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53882db20ef4323dcfd1874d7733ffc3" id="r_a53882db20ef4323dcfd1874d7733ffc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a49d0171ecbd362cda5680a0d360db44c">FRESULT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53882db20ef4323dcfd1874d7733ffc3">f_close</a> (<a class="el" href="structFIL.html">FIL</a> *fp)</td></tr>
 <tr class="separator:a53882db20ef4323dcfd1874d7733ffc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,6 +315,14 @@ Functions</h2></td></tr>
 <tr class="separator:a72914966e82f8df3504a3659834f2abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb0bf9acde41b603662ab45811cbc806" id="r_acb0bf9acde41b603662ab45811cbc806"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad342ac907eb044443153a22f964bf0af">DWORD</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb0bf9acde41b603662ab45811cbc806">ff_wtoupper</a> (<a class="el" href="#ad342ac907eb044443153a22f964bf0af">DWORD</a> uni)</td></tr>
 <tr class="separator:acb0bf9acde41b603662ab45811cbc806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7faeff077ed7efc0698d773da8e8fce1" id="r_a7faeff077ed7efc0698d773da8e8fce1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7faeff077ed7efc0698d773da8e8fce1">ff_mutex_create</a> (int vol)</td></tr>
+<tr class="separator:a7faeff077ed7efc0698d773da8e8fce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a1421388e5848748058498adb93321" id="r_ab1a1421388e5848748058498adb93321"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1a1421388e5848748058498adb93321">ff_mutex_delete</a> (int vol)</td></tr>
+<tr class="separator:ab1a1421388e5848748058498adb93321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8222bc0121fd45327d7e55c1e0aaaf" id="r_aad8222bc0121fd45327d7e55c1e0aaaf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad8222bc0121fd45327d7e55c1e0aaaf">ff_mutex_take</a> (int vol)</td></tr>
+<tr class="separator:aad8222bc0121fd45327d7e55c1e0aaaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae09f4fbb6763549c2cd8663a99dae426" id="r_ae09f4fbb6763549c2cd8663a99dae426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae09f4fbb6763549c2cd8663a99dae426">ff_mutex_give</a> (int vol)</td></tr>
+<tr class="separator:ae09f4fbb6763549c2cd8663a99dae426"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae936e4c15227768f7da4e0951def89c8" name="ae936e4c15227768f7da4e0951def89c8"></a>
@@ -1751,6 +1759,74 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="#a36cb3b01d81ffd844bbbfb54003e06ec">UINT</a> *</td>          <td class="paramname"><span class="paramname"><em>bw</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7faeff077ed7efc0698d773da8e8fce1" name="a7faeff077ed7efc0698d773da8e8fce1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7faeff077ed7efc0698d773da8e8fce1">&#9670;&#160;</a></span>ff_mutex_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ff_mutex_create </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1a1421388e5848748058498adb93321" name="ab1a1421388e5848748058498adb93321"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1a1421388e5848748058498adb93321">&#9670;&#160;</a></span>ff_mutex_delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ff_mutex_delete </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae09f4fbb6763549c2cd8663a99dae426" name="ae09f4fbb6763549c2cd8663a99dae426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae09f4fbb6763549c2cd8663a99dae426">&#9670;&#160;</a></span>ff_mutex_give()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ff_mutex_give </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad8222bc0121fd45327d7e55c1e0aaaf" name="aad8222bc0121fd45327d7e55c1e0aaaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad8222bc0121fd45327d7e55c1e0aaaf">&#9670;&#160;</a></span>ff_mutex_take()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ff_mutex_take </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">

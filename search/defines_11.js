@@ -37,7 +37,7 @@ var searchData=
   ['rtmgeterrorstatus_34',['rtmGetErrorStatus',['../SFS_8h.html#a557d264325c9e243515f06d77552c662',1,'rtmGetErrorStatus:&#160;SFS.h'],['../tv_8h.html#a557d264325c9e243515f06d77552c662',1,'rtmGetErrorStatus:&#160;tv.h']]],
   ['rtmseterrorstatus_35',['rtmSetErrorStatus',['../SFS_8h.html#a068bf11f899627a85b3c169391608c78',1,'rtmSetErrorStatus:&#160;SFS.h'],['../tv_8h.html#a068bf11f899627a85b3c169391608c78',1,'rtmSetErrorStatus:&#160;tv.h']]],
   ['rush_36',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]],
-  ['rx_5fbuff_5fitem_5fcount_37',['RX_BUFF_ITEM_COUNT',['../daq__hub_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'daq_hub.h']]],
+  ['rx_5fbuff_5fitem_5fcount_37',['RX_BUFF_ITEM_COUNT',['../daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'main.h']]],
   ['rx_5fct_38',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
   ['rx_5ftail_5fct_39',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
 ];

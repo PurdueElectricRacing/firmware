@@ -89,7 +89,6 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -99,61 +98,48 @@ $(function(){ initResizable(false); });
 
 <p>Data acquisition from CAN to:  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
-<code>#include &quot;common/modules/Wiznet/W5500/Ethernet/wizchip_conf.h&quot;</code><br />
-<code>#include &quot;common/modules/Wiznet/W5500/Ethernet/socket.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="rtc_8h_source.html">common/phal_F4_F7/rtc/rtc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="buffer_8h_source.html">buffer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ftpd_8h_source.html">ftpd.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="sdio_8h_source.html">sdio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__can_8h_source.html">daq_can.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__eth_8h_source.html">daq_eth.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__sd_8h_source.html">daq_sd.h</a>&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeth__config__t.html">eth_config_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:abe36b0a8cd73b9e8fa380b344c504d81" id="r_abe36b0a8cd73b9e8fa380b344c504d81"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe36b0a8cd73b9e8fa380b344c504d81">DAQ_BL_CMD_RST</a>&#160;&#160;&#160;0x05</td></tr>
-<tr class="separator:abe36b0a8cd73b9e8fa380b344c504d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ea82512c04527e34406065baa47a07c" id="r_a9ea82512c04527e34406065baa47a07c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ea82512c04527e34406065baa47a07c">DAQ_BL_CMD_NTP_DATE</a>&#160;&#160;&#160;0x10</td></tr>
-<tr class="separator:a9ea82512c04527e34406065baa47a07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b3ddb0b3366dd770f6b8083bad93c09" id="r_a6b3ddb0b3366dd770f6b8083bad93c09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b3ddb0b3366dd770f6b8083bad93c09">DAQ_BL_CMD_NTP_TIME</a>&#160;&#160;&#160;0x11</td></tr>
-<tr class="separator:a6b3ddb0b3366dd770f6b8083bad93c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a602fc1bd2320de8abe771cbf13322348" id="r_a602fc1bd2320de8abe771cbf13322348"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a602fc1bd2320de8abe771cbf13322348">DAQ_BL_CMD_NTP_GET</a>&#160;&#160;&#160;0x12</td></tr>
-<tr class="separator:a602fc1bd2320de8abe771cbf13322348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d64eaf08e3f322f2a89029d9cb72445" id="r_a1d64eaf08e3f322f2a89029d9cb72445"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d64eaf08e3f322f2a89029d9cb72445">DAQ_BL_CMD_LOG_ENABLE</a>&#160;&#160;&#160;0x20</td></tr>
-<tr class="separator:a1d64eaf08e3f322f2a89029d9cb72445"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ef677b9dc9ef43401a79006585b72cd" id="r_a6ef677b9dc9ef43401a79006585b72cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ef677b9dc9ef43401a79006585b72cd">DAQ_BL_CMD_LOG_STATUS</a>&#160;&#160;&#160;0x21</td></tr>
-<tr class="separator:a6ef677b9dc9ef43401a79006585b72cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a800082af94e74e28477c51f973bf562e" id="r_a800082af94e74e28477c51f973bf562e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a800082af94e74e28477c51f973bf562e">GPIO_CLEAR_BIT</a>(PIN)</td></tr>
+<tr class="separator:a800082af94e74e28477c51f973bf562e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a040e325bba2e7443f50002e45cb8761e" id="r_a040e325bba2e7443f50002e45cb8761e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a040e325bba2e7443f50002e45cb8761e">daq_init</a> (void)</td></tr>
-<tr class="separator:a040e325bba2e7443f50002e45cb8761e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c72bdf3bb1801d6560619ace8cdb04a" id="r_a7c72bdf3bb1801d6560619ace8cdb04a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c72bdf3bb1801d6560619ace8cdb04a">daq_loop</a> (void)</td></tr>
-<tr class="separator:a7c72bdf3bb1801d6560619ace8cdb04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa98507a5803fa12ea49774a4f06e011c" id="r_aa98507a5803fa12ea49774a4f06e011c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa98507a5803fa12ea49774a4f06e011c">daq_request_sd_mount</a> (void)</td></tr>
-<tr class="separator:aa98507a5803fa12ea49774a4f06e011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2089b233bd8d6f7dbf78e075033696e3">EXTI15_10_IRQHandler</a> ()</td></tr>
-<tr class="separator:a2089b233bd8d6f7dbf78e075033696e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a859a5e76c4b05588591964220d9278dd" id="r_a859a5e76c4b05588591964220d9278dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a859a5e76c4b05588591964220d9278dd">defineThreadStack</a> (daq_heartbeat, 500, osPriorityNormal, 128)</td></tr>
+<tr class="separator:a859a5e76c4b05588591964220d9278dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2494977f7e4435f9150635f0ac78f202" id="r_a2494977f7e4435f9150635f0ac78f202"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2494977f7e4435f9150635f0ac78f202">defineThreadStack</a> (<a class="el" href="daq__sd_8c.html#af86d040bc80cdb19b1b7cb0a9785d0b0">sd_update_periodic</a>, 100, osPriorityNormal, 4096)</td></tr>
+<tr class="separator:a2494977f7e4435f9150635f0ac78f202"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad97a0303c1a2e0adfd1301ff0322ac15" id="r_ad97a0303c1a2e0adfd1301ff0322ac15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad97a0303c1a2e0adfd1301ff0322ac15">defineThreadStack</a> (<a class="el" href="daq__eth_8c.html#af92254f174f970df107d7b79251da089">eth_update_periodic</a>, 100, osPriorityNormal, 4096)</td></tr>
+<tr class="separator:ad97a0303c1a2e0adfd1301ff0322ac15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a04d7c86c8ccac1f5cc85bffd502edb" id="r_a1a04d7c86c8ccac1f5cc85bffd502edb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a04d7c86c8ccac1f5cc85bffd502edb">defineThreadStack</a> (can_send_periodic, 50, osPriorityNormal, 128)</td></tr>
+<tr class="separator:a1a04d7c86c8ccac1f5cc85bffd502edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9606e4421a2035fc667480082030e76e" id="r_a9606e4421a2035fc667480082030e76e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9606e4421a2035fc667480082030e76e">daq_hub_init</a> (void)</td></tr>
+<tr class="separator:a9606e4421a2035fc667480082030e76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d5e1e79bc7ab3a69223c50ded0e96d6" id="r_a5d5e1e79bc7ab3a69223c50ded0e96d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d5e1e79bc7ab3a69223c50ded0e96d6">daq_create_threads</a> (void)</td></tr>
+<tr class="separator:a5d5e1e79bc7ab3a69223c50ded0e96d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e44605de4549c063ce1909c4665620f" id="r_a1e44605de4549c063ce1909c4665620f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e44605de4549c063ce1909c4665620f">uds_frame_send</a> (uint64_t data)</td></tr>
+<tr class="separator:a1e44605de4549c063ce1909c4665620f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40dfd460b565c8d8e6940c535b6a8f05" id="r_a40dfd460b565c8d8e6940c535b6a8f05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40dfd460b565c8d8e6940c535b6a8f05">uds_receive_periodic</a> (void)</td></tr>
+<tr class="separator:a40dfd460b565c8d8e6940c535b6a8f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a533a227ce6ca5a0dd24c1ff8e786d124" id="r_a533a227ce6ca5a0dd24c1ff8e786d124"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a533a227ce6ca5a0dd24c1ff8e786d124">daq_shutdown_hook</a> (void)</td></tr>
+<tr class="separator:a533a227ce6ca5a0dd24c1ff8e786d124"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a2be0614ec10219e58ce4941566cf59bc" id="r_a2be0614ec10219e58ce4941566cf59bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structeth__config__t.html">eth_config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2be0614ec10219e58ce4941566cf59bc">eth_config</a></td></tr>
-<tr class="separator:a2be0614ec10219e58ce4941566cf59bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b2dc0da4988dace2c3c705ab3c3eebb" id="r_a2b2dc0da4988dace2c3c705ab3c3eebb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdaq__hub__t.html">daq_hub_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b2dc0da4988dace2c3c705ab3c3eebb">dh</a></td></tr>
 <tr class="separator:a2b2dc0da4988dace2c3c705ab3c3eebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bd2b9ba82ccb745e76f2a4f2f01792b" id="r_a7bd2b9ba82ccb745e76f2a4f2f01792b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bd2b9ba82ccb745e76f2a4f2f01792b">gFTPBUF</a> [<a class="el" href="ftpd_8h.html#a3b3a482fe0b8f6e4d50efdbb43a15654">_FTP_BUF_SIZE</a>]</td></tr>
-<tr class="separator:a7bd2b9ba82ccb745e76f2a4f2f01792b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Data acquisition from CAN to: </p>
-<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)<ul>
+<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>)<ul>
 <li>SD Card</li>
 <li>Ethernet</li>
 <li>USB (maybe) </li>
@@ -163,99 +149,33 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2024-02-08</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a1d64eaf08e3f322f2a89029d9cb72445" name="a1d64eaf08e3f322f2a89029d9cb72445"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d64eaf08e3f322f2a89029d9cb72445">&#9670;&#160;</a></span>DAQ_BL_CMD_LOG_ENABLE</h2>
+<a id="a800082af94e74e28477c51f973bf562e" name="a800082af94e74e28477c51f973bf562e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800082af94e74e28477c51f973bf562e">&#9670;&#160;</a></span>GPIO_CLEAR_BIT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DAQ_BL_CMD_LOG_ENABLE&#160;&#160;&#160;0x20</td>
+          <td class="memname">#define GPIO_CLEAR_BIT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>PIN</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6ef677b9dc9ef43401a79006585b72cd" name="a6ef677b9dc9ef43401a79006585b72cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ef677b9dc9ef43401a79006585b72cd">&#9670;&#160;</a></span>DAQ_BL_CMD_LOG_STATUS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DAQ_BL_CMD_LOG_STATUS&#160;&#160;&#160;0x21</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9ea82512c04527e34406065baa47a07c" name="a9ea82512c04527e34406065baa47a07c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ea82512c04527e34406065baa47a07c">&#9670;&#160;</a></span>DAQ_BL_CMD_NTP_DATE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DAQ_BL_CMD_NTP_DATE&#160;&#160;&#160;0x10</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a602fc1bd2320de8abe771cbf13322348" name="a602fc1bd2320de8abe771cbf13322348"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a602fc1bd2320de8abe771cbf13322348">&#9670;&#160;</a></span>DAQ_BL_CMD_NTP_GET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DAQ_BL_CMD_NTP_GET&#160;&#160;&#160;0x12</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6b3ddb0b3366dd770f6b8083bad93c09" name="a6b3ddb0b3366dd770f6b8083bad93c09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b3ddb0b3366dd770f6b8083bad93c09">&#9670;&#160;</a></span>DAQ_BL_CMD_NTP_TIME</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DAQ_BL_CMD_NTP_TIME&#160;&#160;&#160;0x11</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abe36b0a8cd73b9e8fa380b344c504d81" name="abe36b0a8cd73b9e8fa380b344c504d81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe36b0a8cd73b9e8fa380b344c504d81">&#9670;&#160;</a></span>DAQ_BL_CMD_RST</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DAQ_BL_CMD_RST&#160;&#160;&#160;0x05</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">((1 &lt;&lt; ((1 &lt;&lt; 4) | (PIN))))</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a040e325bba2e7443f50002e45cb8761e" name="a040e325bba2e7443f50002e45cb8761e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a040e325bba2e7443f50002e45cb8761e">&#9670;&#160;</a></span>daq_init()</h2>
+<a id="a5d5e1e79bc7ab3a69223c50ded0e96d6" name="a5d5e1e79bc7ab3a69223c50ded0e96d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d5e1e79bc7ab3a69223c50ded0e96d6">&#9670;&#160;</a></span>daq_create_threads()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void daq_init </td>
+          <td class="memname">void daq_create_threads </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -265,14 +185,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c72bdf3bb1801d6560619ace8cdb04a" name="a7c72bdf3bb1801d6560619ace8cdb04a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c72bdf3bb1801d6560619ace8cdb04a">&#9670;&#160;</a></span>daq_loop()</h2>
+<a id="a9606e4421a2035fc667480082030e76e" name="a9606e4421a2035fc667480082030e76e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9606e4421a2035fc667480082030e76e">&#9670;&#160;</a></span>daq_hub_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void daq_loop </td>
+          <td class="memname">void daq_hub_init </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -282,14 +202,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa98507a5803fa12ea49774a4f06e011c" name="aa98507a5803fa12ea49774a4f06e011c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa98507a5803fa12ea49774a4f06e011c">&#9670;&#160;</a></span>daq_request_sd_mount()</h2>
+<a id="a533a227ce6ca5a0dd24c1ff8e786d124" name="a533a227ce6ca5a0dd24c1ff8e786d124"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a533a227ce6ca5a0dd24c1ff8e786d124">&#9670;&#160;</a></span>daq_shutdown_hook()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool daq_request_sd_mount </td>
+          <td class="memname">void daq_shutdown_hook </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -299,20 +219,162 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2089b233bd8d6f7dbf78e075033696e3">&#9670;&#160;</a></span>EXTI15_10_IRQHandler()</h2>
+<a id="a1a04d7c86c8ccac1f5cc85bffd502edb" name="a1a04d7c86c8ccac1f5cc85bffd502edb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a04d7c86c8ccac1f5cc85bffd502edb">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void EXTI15_10_IRQHandler </td>
+          <td class="memname">defineThreadStack </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">can_send_periodic</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">50</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">128</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a859a5e76c4b05588591964220d9278dd" name="a859a5e76c4b05588591964220d9278dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a859a5e76c4b05588591964220d9278dd">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype">daq_heartbeat</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">500</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">128</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad97a0303c1a2e0adfd1301ff0322ac15" name="ad97a0303c1a2e0adfd1301ff0322ac15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad97a0303c1a2e0adfd1301ff0322ac15">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daq__eth_8c.html#af92254f174f970df107d7b79251da089">eth_update_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">100</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">4096</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2494977f7e4435f9150635f0ac78f202" name="a2494977f7e4435f9150635f0ac78f202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2494977f7e4435f9150635f0ac78f202">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daq__sd_8c.html#af86d040bc80cdb19b1b7cb0a9785d0b0">sd_update_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">100</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">4096</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e44605de4549c063ce1909c4665620f" name="a1e44605de4549c063ce1909c4665620f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e44605de4549c063ce1909c4665620f">&#9670;&#160;</a></span>uds_frame_send()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void uds_frame_send </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40dfd460b565c8d8e6940c535b6a8f05" name="a40dfd460b565c8d8e6940c535b6a8f05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40dfd460b565c8d8e6940c535b6a8f05">&#9670;&#160;</a></span>uds_receive_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void uds_receive_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pull UDS CAN frames out of UDS queue added during CAN1/CAN2 ISR and process them in non-interrupt context </p>
 
 </div>
 </div>
@@ -325,48 +387,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structdaq__hub__t.html">daq_hub_t</a> dh</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2be0614ec10219e58ce4941566cf59bc" name="a2be0614ec10219e58ce4941566cf59bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2be0614ec10219e58ce4941566cf59bc">&#9670;&#160;</a></span>eth_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structeth__config__t.html">eth_config_t</a> eth_config</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .net_info = {</div>
-<div class="line">        .mac    = {0x00, 0x08, 0xdc, 0xab, 0xcd, 0xef}, </div>
-<div class="line">        .ip     = {192, 168, 10, 41},                   </div>
-<div class="line">        .sn     = {255, 255, 255, 0},                   </div>
-<div class="line">        .gw     = {192, 168, 10, 1}                     </div>
-<div class="line">    },</div>
-<div class="line">    .udp_bc_addr = {192, 168, 10, 255},                 </div>
-<div class="line">    .udp_bc_port = 5005,</div>
-<div class="line">    .udp_bc_sock = 0,</div>
-<div class="line">    .tcp_port = 5005,</div>
-<div class="line">    .tcp_sock = 1,</div>
-<div class="line">    </div>
-<div class="line">}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a7bd2b9ba82ccb745e76f2a4f2f01792b" name="a7bd2b9ba82ccb745e76f2a4f2f01792b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bd2b9ba82ccb745e76f2a4f2f01792b">&#9670;&#160;</a></span>gFTPBUF</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t gFTPBUF[<a class="el" href="ftpd_8h.html#a3b3a482fe0b8f6e4d50efdbb43a15654">_FTP_BUF_SIZE</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">

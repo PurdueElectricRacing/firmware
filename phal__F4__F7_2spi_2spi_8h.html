@@ -132,8 +132,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a7593e1c8be8711c7bda6d7de43913816" id="r_a7593e1c8be8711c7bda6d7de43913816"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7593e1c8be8711c7bda6d7de43913816">PHAL_SPI_transfer_noDMA</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data)</td></tr>
 <tr class="memdesc:a7593e1c8be8711c7bda6d7de43913816"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI handle.  <br /></td></tr>
 <tr class="separator:a7593e1c8be8711c7bda6d7de43913816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e28eec938de45f231a62f7d86ae4d68" id="r_a8e28eec938de45f231a62f7d86ae4d68"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e28eec938de45f231a62f7d86ae4d68">PHAL_SPI_transfer_noDMA_DAQW5500Only</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data)</td></tr>
-<tr class="separator:a8e28eec938de45f231a62f7d86ae4d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35fd94eb02f487e09065ddc0ecb92e53" id="r_a35fd94eb02f487e09065ddc0ecb92e53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35fd94eb02f487e09065ddc0ecb92e53">PHAL_SPI_busy</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *cfg)</td></tr>
 <tr class="memdesc:a35fd94eb02f487e09065ddc0ecb92e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for current SPI transaction to complete.  <br /></td></tr>
 <tr class="separator:a35fd94eb02f487e09065ddc0ecb92e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -482,42 +480,6 @@ false Unable to start DMA transaction </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Successfully completed non-DMA SPI transaction </dd>
 <dd>
 false Unable to complete non-DMA SPI transaction </dd></dl>
-
-</div>
-</div>
-<a id="a8e28eec938de45f231a62f7d86ae4d68" name="a8e28eec938de45f231a62f7d86ae4d68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e28eec938de45f231a62f7d86ae4d68">&#9670;&#160;</a></span>PHAL_SPI_transfer_noDMA_DAQW5500Only()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PHAL_SPI_transfer_noDMA_DAQW5500Only </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>out_data</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>txlen</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>rxlen</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>in_data</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

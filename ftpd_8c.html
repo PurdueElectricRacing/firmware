@@ -101,10 +101,11 @@ $(function(){ initResizable(false); });
 <code>#include &lt;limits.h&gt;</code><br />
 <code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;socket.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="socket_8h_source.html">socket.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ftpd_8h_source.html">ftpd.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__sd_8h_source.html">daq_sd.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -114,8 +115,12 @@ Macros</h2></td></tr>
 <tr class="separator:ad0e0a2793505cfcde65c1852b83a76fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2493031eb9556fe17dec8dd69956957e" id="r_a2493031eb9556fe17dec8dd69956957e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2493031eb9556fe17dec8dd69956957e">ftp_ID</a>&#160;&#160;&#160;&quot;PER&quot;</td></tr>
 <tr class="separator:a2493031eb9556fe17dec8dd69956957e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93532d9aab98d30383bea2f86522d6c8" id="r_a93532d9aab98d30383bea2f86522d6c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93532d9aab98d30383bea2f86522d6c8">ftp_PW</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
+<tr class="memitem:a93532d9aab98d30383bea2f86522d6c8" id="r_a93532d9aab98d30383bea2f86522d6c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93532d9aab98d30383bea2f86522d6c8">ftp_PW</a>&#160;&#160;&#160;&quot;PER2025&quot;</td></tr>
 <tr class="separator:a93532d9aab98d30383bea2f86522d6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0ae17cd1e190bcfe79282920609e1ce" id="r_af0ae17cd1e190bcfe79282920609e1ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0ae17cd1e190bcfe79282920609e1ce">_FTP_DEBUG_</a></td></tr>
+<tr class="separator:af0ae17cd1e190bcfe79282920609e1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb9f0894fab1c8fbb0753c9c7c2a8d9" id="r_a3cb9f0894fab1c8fbb0753c9c7c2a8d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3cb9f0894fab1c8fbb0753c9c7c2a8d9">printf</a>&#160;&#160;&#160;debug_printf</td></tr>
+<tr class="separator:a3cb9f0894fab1c8fbb0753c9c7c2a8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -131,8 +136,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2f87dc4cb5ff294c389b4c97fb451484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdfbb545100ccb00fba98bc3a4bb6896" id="r_afdfbb545100ccb00fba98bc3a4bb6896"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdfbb545100ccb00fba98bc3a4bb6896">pport</a> (char *arg)</td></tr>
 <tr class="separator:afdfbb545100ccb00fba98bc3a4bb6896"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb39cb253b56961774b935b202b7c30" id="r_aabb39cb253b56961774b935b202b7c30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb39cb253b56961774b935b202b7c30">print_filedsc</a> (<a class="el" href="structFIL.html">FIL</a> *fil)</td></tr>
-<tr class="separator:aabb39cb253b56961774b935b202b7c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cce7899e3fa50206869638752d905a0" id="r_a9cce7899e3fa50206869638752d905a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cce7899e3fa50206869638752d905a0">print_filedsc</a> (<a class="el" href="structFIL.html">FIL</a> *f)</td></tr>
+<tr class="separator:a9cce7899e3fa50206869638752d905a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -176,6 +181,20 @@ Variables</h2></td></tr>
 <tr class="separator:ae99123fca196c958a1af650bb03bb6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="af0ae17cd1e190bcfe79282920609e1ce" name="af0ae17cd1e190bcfe79282920609e1ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0ae17cd1e190bcfe79282920609e1ce">&#9670;&#160;</a></span>_FTP_DEBUG_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _FTP_DEBUG_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad0e0a2793505cfcde65c1852b83a76fd" name="ad0e0a2793505cfcde65c1852b83a76fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0e0a2793505cfcde65c1852b83a76fd">&#9670;&#160;</a></span>connect_timeout_en</h2>
 
@@ -211,7 +230,21 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ftp_PW&#160;&#160;&#160;&quot;&quot;</td>
+          <td class="memname">#define ftp_PW&#160;&#160;&#160;&quot;PER2025&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3cb9f0894fab1c8fbb0753c9c7c2a8d9" name="a3cb9f0894fab1c8fbb0753c9c7c2a8d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb9f0894fab1c8fbb0753c9c7c2a8d9">&#9670;&#160;</a></span>printf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define printf&#160;&#160;&#160;debug_printf</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -331,8 +364,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aabb39cb253b56961774b935b202b7c30" name="aabb39cb253b56961774b935b202b7c30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabb39cb253b56961774b935b202b7c30">&#9670;&#160;</a></span>print_filedsc()</h2>
+<a id="a9cce7899e3fa50206869638752d905a0" name="a9cce7899e3fa50206869638752d905a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cce7899e3fa50206869638752d905a0">&#9670;&#160;</a></span>print_filedsc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +373,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void print_filedsc </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structFIL.html">FIL</a> *</td>          <td class="paramname"><span class="paramname"><em>fil</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structFIL.html">FIL</a> *</td>          <td class="paramname"><span class="paramname"><em>f</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

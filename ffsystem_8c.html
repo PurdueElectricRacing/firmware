@@ -88,11 +88,95 @@ $(function(){ initResizable(false); });
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">ffsystem.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ff_8h_source.html">ff.h</a>&quot;</code><br />
-</div></div><!-- contents -->
+<code>#include &quot;common/freertos/freertos.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7faeff077ed7efc0698d773da8e8fce1" id="r_a7faeff077ed7efc0698d773da8e8fce1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7faeff077ed7efc0698d773da8e8fce1">ff_mutex_create</a> (int vol)</td></tr>
+<tr class="separator:a7faeff077ed7efc0698d773da8e8fce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a1421388e5848748058498adb93321" id="r_ab1a1421388e5848748058498adb93321"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1a1421388e5848748058498adb93321">ff_mutex_delete</a> (int vol)</td></tr>
+<tr class="separator:ab1a1421388e5848748058498adb93321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8222bc0121fd45327d7e55c1e0aaaf" id="r_aad8222bc0121fd45327d7e55c1e0aaaf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad8222bc0121fd45327d7e55c1e0aaaf">ff_mutex_take</a> (int vol)</td></tr>
+<tr class="separator:aad8222bc0121fd45327d7e55c1e0aaaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae09f4fbb6763549c2cd8663a99dae426" id="r_ae09f4fbb6763549c2cd8663a99dae426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae09f4fbb6763549c2cd8663a99dae426">ff_mutex_give</a> (int vol)</td></tr>
+<tr class="separator:ae09f4fbb6763549c2cd8663a99dae426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a7faeff077ed7efc0698d773da8e8fce1" name="a7faeff077ed7efc0698d773da8e8fce1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7faeff077ed7efc0698d773da8e8fce1">&#9670;&#160;</a></span>ff_mutex_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ff_mutex_create </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1a1421388e5848748058498adb93321" name="ab1a1421388e5848748058498adb93321"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1a1421388e5848748058498adb93321">&#9670;&#160;</a></span>ff_mutex_delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ff_mutex_delete </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae09f4fbb6763549c2cd8663a99dae426" name="ae09f4fbb6763549c2cd8663a99dae426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae09f4fbb6763549c2cd8663a99dae426">&#9670;&#160;</a></span>ff_mutex_give()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ff_mutex_give </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad8222bc0121fd45327d7e55c1e0aaaf" name="aad8222bc0121fd45327d7e55c1e0aaaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad8222bc0121fd45327d7e55c1e0aaaf">&#9670;&#160;</a></span>ff_mutex_take()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ff_mutex_take </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>vol</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2

@@ -429,7 +429,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="union____attribute____.html#a5256dfa8b3fec892a07a3627351715e5">  311</a></span>    } fault_sync_torque_vector;</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        uint64_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>: 8;</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>: 32;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        uint64_t data: 32;</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8662cd625419d5c9e41ee087fbcf9aeb">  315</a></span>    } torquevector_bl_cmd;</div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        uint64_t throttle: 12;</div>
@@ -501,7 +501,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        uint64_t id: 16;</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno"><a class="line" href="union____attribute____.html#a707272131104769bf127d577c233c284">  384</a></span>    } <a class="code hl_function" href="a__box_2can_2can__parse_8h.html#a63a2b96fd46a3dd2a69273fab74de24a">return_fault_control</a>;</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    uint8_t raw_data[8];</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>} <a class="code hl_variable" href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>} <a class="code hl_variable" href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span><span class="comment">// contains most up to date received</span></div>
@@ -510,7 +510,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        uint8_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>;</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        uint32_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>;</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        uint32_t data;</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a49a09b1d2235b92ebee026335364cee4">  396</a></span>    } torquevector_bl_cmd;</div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>        uint16_t throttle;</div>
@@ -644,8 +644,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5">CAR_STATE_RESET</a></div><div class="ttdeci">@ CAR_STATE_RESET</div><div class="ttdef"><b>Definition</b> can_parse.h:247</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40">CAR_STATE_CONSTANT_TORQUE</a></div><div class="ttdeci">@ CAR_STATE_CONSTANT_TORQUE</div><div class="ttdef"><b>Definition</b> can_parse.h:249</div></div>
 <div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdoc">Called periodically to send commands to the Nextion LCD display via USART.</div><div class="ttdef"><b>Definition</b> main.c:615</div></div>
-<div class="ttc" id="ags__usb_8h_html_a8893b57d88e7968dc17781c8655e17dc"><div class="ttname"><a href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a></div><div class="ttdeci">u8 data[8]</div><div class="ttdef"><b>Definition</b> gs_usb.h:8</div></div>
-<div class="ttc" id="ags__usb_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct gs_tx_context __attribute__</div><div class="ttdef"><b>Definition</b> daq_hub.h:70</div></div>
+<div class="ttc" id="aeeprom__spi_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct eeprom __attribute__</div><div class="ttdef"><b>Definition</b> can.c:215</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html">can.h</a></div></div>
 <div class="ttc" id="apsched_8h_html"><div class="ttname"><a href="psched_8h.html">psched.h</a></div></div>
 <div class="ttc" id="aqueue_8h_html"><div class="ttname"><a href="queue_8h.html">queue.h</a></div></div>

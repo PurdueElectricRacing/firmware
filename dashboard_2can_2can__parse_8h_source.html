@@ -418,10 +418,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7aa55913353422f0c7e3186accfcad3c">  302</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a7aa55913353422f0c7e3186accfcad3c">logging_enabled</a>: 1;</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="union____attribute____.html#aa5498d1192fdb6de7357fce6cd22e609">  303</a></span>    } dashboard_start_logging;</div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="union____attribute____.html#a34a6a2e875377fc29f2155753706a5f0">  305</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a34a6a2e875377fc29f2155753706a5f0">can_tx_overflow</a>: 8;</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="union____attribute____.html#a30d90829c0a74b248f937998ec9eeee5">  306</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a30d90829c0a74b248f937998ec9eeee5">can_tx_fail</a>: 8;</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno"><a class="line" href="union____attribute____.html#add414b7cf64acccdf85337e6e57b8350">  307</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#add414b7cf64acccdf85337e6e57b8350">can_rx_overflow</a>: 8;</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7cff409c6fa31e1c0bd616d559853303">  308</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a7cff409c6fa31e1c0bd616d559853303">can_rx_overrun</a>: 8;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        uint64_t can_tx_overflow: 8;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        uint64_t can_tx_fail: 8;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        uint64_t can_rx_overflow: 8;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        uint64_t can_rx_overrun: 8;</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7c31d1ec37f4c9807a8a3cbd7c5dd20d">  309</a></span>    } dash_can_stats;</div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        uint64_t idx: 16;</div>
@@ -450,7 +450,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        uint64_t is_charging: 1;</div>
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        uint64_t multi_input_2: 1;</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        uint64_t multi_input_3: 1;</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#adc41c3fdbfd87a5528e67b9f6bbe7c7e">reserved</a>: 1;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        uint64_t reserved: 1;</div>
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        uint64_t multi_output_2: 1;</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        uint64_t multi_output_3: 1;</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        uint64_t multi_output_4: 1;</div>
@@ -474,9 +474,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        uint64_t min_cellv_low: 1;</div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        uint64_t pack_overheat: 1;</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        uint64_t reserved0: 1;</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#ab5cb6c1d6d6bbfd56bb0c61a4492f26a">reserved1</a>: 1;</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#a9bfefc780cf83d02d411af78fd6a600a">reserved2</a>: 1;</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#aa1b2e3fc52f419b76e3d2b7b864f30e8">reserved3</a>: 1;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        uint64_t reserved1: 1;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        uint64_t reserved2: 1;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        uint64_t reserved3: 1;</div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        uint64_t reserved4: 1;</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        uint64_t reserved5: 1;</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        uint64_t reserved6: 1;</div>
@@ -536,7 +536,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00420" name="l00420"></a><span class="lineno"><a class="line" href="union____attribute____.html#a194cae137be2d8f1c1601bc50e071311">  420</a></span>    } gearbox;</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>        uint64_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>: 8;</div>
-<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>: 32;</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        uint64_t data: 32;</div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="union____attribute____.html#a3d40502f9ba252ea62999f09e6293bba">  424</a></span>    } dashboard_bl_cmd;</div>
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>        uint64_t IMD: 1;</div>
@@ -592,7 +592,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>        uint64_t daq_command: 64;</div>
 <div class="line"><a id="l00477" name="l00477"></a><span class="lineno"><a class="line" href="union____attribute____.html#a7c52f121a326f947cc99437a15008db2">  477</a></span>    } daq_command_DASHBOARD;</div>
 <div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>    uint8_t raw_data[8];</div>
-<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>} <a class="code hl_variable" href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>} <a class="code hl_variable" href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
 <div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
 <div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span> </div>
 <div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span><span class="comment">// contains most up to date received</span></div>
@@ -623,7 +623,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        uint8_t is_charging;</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>        uint8_t multi_input_2;</div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        uint8_t multi_input_3;</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#adc41c3fdbfd87a5528e67b9f6bbe7c7e">reserved</a>;</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>        uint8_t reserved;</div>
 <div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>        uint8_t multi_output_2;</div>
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>        uint8_t multi_output_3;</div>
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>        uint8_t multi_output_4;</div>
@@ -651,9 +651,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        uint8_t min_cellv_low;</div>
 <div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>        uint8_t pack_overheat;</div>
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>        uint8_t reserved0;</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#ab5cb6c1d6d6bbfd56bb0c61a4492f26a">reserved1</a>;</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#a9bfefc780cf83d02d411af78fd6a600a">reserved2</a>;</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        uint8_t <a class="code hl_variable" href="gs__usb_8h.html#aa1b2e3fc52f419b76e3d2b7b864f30e8">reserved3</a>;</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        uint8_t reserved1;</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        uint8_t reserved2;</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        uint8_t reserved3;</div>
 <div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        uint8_t reserved4;</div>
 <div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        uint8_t reserved5;</div>
 <div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        uint8_t reserved6;</div>
@@ -729,7 +729,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00613" name="l00613"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a99efcabc7c94e4c971a69168cfed1869">  613</a></span>    } gearbox;</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        uint8_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>;</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>        uint32_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>;</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>        uint32_t data;</div>
 <div class="line"><a id="l00617" name="l00617"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a359243ede63be3ca6b25279ea8ee2421">  617</a></span>    } dashboard_bl_cmd;</div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>        uint8_t IMD;</div>
@@ -841,12 +841,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40">CAR_STATE_CONSTANT_TORQUE</a></div><div class="ttdeci">@ CAR_STATE_CONSTANT_TORQUE</div><div class="ttdef"><b>Definition</b> can_parse.h:249</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_aee74acccf85e52e0c411a11afc0c2a2d"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#aee74acccf85e52e0c411a11afc0c2a2d">daq_command_DASHBOARD_CALLBACK</a></div><div class="ttdeci">void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t *msg_header_a)</div><div class="ttdef"><b>Definition</b> daq.c:44</div></div>
 <div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdoc">Called periodically to send commands to the Nextion LCD display via USART.</div><div class="ttdef"><b>Definition</b> main.c:615</div></div>
-<div class="ttc" id="ags__usb_8h_html_a8893b57d88e7968dc17781c8655e17dc"><div class="ttname"><a href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a></div><div class="ttdeci">u8 data[8]</div><div class="ttdef"><b>Definition</b> gs_usb.h:8</div></div>
-<div class="ttc" id="ags__usb_8h_html_a9bfefc780cf83d02d411af78fd6a600a"><div class="ttname"><a href="gs__usb_8h.html#a9bfefc780cf83d02d411af78fd6a600a">reserved2</a></div><div class="ttdeci">u8 reserved2</div><div class="ttdef"><b>Definition</b> gs_usb.h:1</div></div>
-<div class="ttc" id="ags__usb_8h_html_aa1b2e3fc52f419b76e3d2b7b864f30e8"><div class="ttname"><a href="gs__usb_8h.html#aa1b2e3fc52f419b76e3d2b7b864f30e8">reserved3</a></div><div class="ttdeci">u8 reserved3</div><div class="ttdef"><b>Definition</b> gs_usb.h:2</div></div>
-<div class="ttc" id="ags__usb_8h_html_ab5cb6c1d6d6bbfd56bb0c61a4492f26a"><div class="ttname"><a href="gs__usb_8h.html#ab5cb6c1d6d6bbfd56bb0c61a4492f26a">reserved1</a></div><div class="ttdeci">u8 reserved1</div><div class="ttdef"><b>Definition</b> gs_usb.h:0</div></div>
-<div class="ttc" id="ags__usb_8h_html_adc41c3fdbfd87a5528e67b9f6bbe7c7e"><div class="ttname"><a href="gs__usb_8h.html#adc41c3fdbfd87a5528e67b9f6bbe7c7e">reserved</a></div><div class="ttdeci">u8 reserved</div><div class="ttdef"><b>Definition</b> gs_usb.h:6</div></div>
-<div class="ttc" id="ags__usb_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct gs_tx_context __attribute__</div><div class="ttdef"><b>Definition</b> daq_hub.h:70</div></div>
+<div class="ttc" id="aeeprom__spi_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct eeprom __attribute__</div><div class="ttdef"><b>Definition</b> can.c:215</div></div>
 <div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab84f8aed561146f738758e941a2a545b"><div class="ttname"><a href="l4__testing_2daq_2daq_8c.html#ab84f8aed561146f738758e941a2a545b">charge_enable</a></div><div class="ttdeci">uint8_t charge_enable</div><div class="ttdef"><b>Definition</b> main.c:102</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html">can.h</a></div></div>
 <div class="ttc" id="apsched_8h_html"><div class="ttname"><a href="psched_8h.html">psched.h</a></div></div>
@@ -912,10 +907,8 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aunion____attribute_____html_a256bc60edd7081b851af617fcd093f24"><div class="ttname"><a href="union____attribute____.html#a256bc60edd7081b851af617fcd093f24">__attribute__::volts_5v</a></div><div class="ttdeci">uint64_t volts_5v</div><div class="ttdef"><b>Definition</b> can_parse.h:291</div></div>
 <div class="ttc" id="aunion____attribute_____html_a2993fca23e7902a0434216dd471d0db4"><div class="ttname"><a href="union____attribute____.html#a2993fca23e7902a0434216dd471d0db4">__attribute__::batt_pump</a></div><div class="ttdeci">uint64_t batt_pump</div><div class="ttdef"><b>Definition</b> can_parse.h:275</div></div>
 <div class="ttc" id="aunion____attribute_____html_a2c8ad937d0f69ab1ad4d62c994d18f71"><div class="ttname"><a href="union____attribute____.html#a2c8ad937d0f69ab1ad4d62c994d18f71">__attribute__::TSMS</a></div><div class="ttdeci">uint64_t TSMS</div><div class="ttdef"><b>Definition</b> can_parse.h:437</div></div>
-<div class="ttc" id="aunion____attribute_____html_a30d90829c0a74b248f937998ec9eeee5"><div class="ttname"><a href="union____attribute____.html#a30d90829c0a74b248f937998ec9eeee5">__attribute__::can_tx_fail</a></div><div class="ttdeci">uint64_t can_tx_fail</div><div class="ttdef"><b>Definition</b> can_parse.h:306</div></div>
 <div class="ttc" id="aunion____attribute_____html_a328a9ba95fc91102247d7208d4c009b0"><div class="ttname"><a href="union____attribute____.html#a328a9ba95fc91102247d7208d4c009b0">__attribute__::vcu_k_rr</a></div><div class="ttdeci">uint64_t vcu_k_rr</div><div class="ttdef"><b>Definition</b> can_parse.h:442</div></div>
 <div class="ttc" id="aunion____attribute_____html_a332c1824bcdf28215dc554ac5f9ec0dd"><div class="ttname"><a href="union____attribute____.html#a332c1824bcdf28215dc554ac5f9ec0dd">__attribute__::batt_pump2</a></div><div class="ttdeci">uint64_t batt_pump2</div><div class="ttdef"><b>Definition</b> can_parse.h:276</div></div>
-<div class="ttc" id="aunion____attribute_____html_a34a6a2e875377fc29f2155753706a5f0"><div class="ttname"><a href="union____attribute____.html#a34a6a2e875377fc29f2155753706a5f0">__attribute__::can_tx_overflow</a></div><div class="ttdeci">uint64_t can_tx_overflow</div><div class="ttdef"><b>Definition</b> can_parse.h:305</div></div>
 <div class="ttc" id="aunion____attribute_____html_a380650cf1e662e2bd9ed626193352b66"><div class="ttname"><a href="union____attribute____.html#a380650cf1e662e2bd9ed626193352b66">__attribute__::left_speed_sensor</a></div><div class="ttdeci">uint64_t left_speed_sensor</div><div class="ttdef"><b>Definition</b> can_parse.h:401</div></div>
 <div class="ttc" id="aunion____attribute_____html_a43bbd1d1f1ced41c63cb8b1b8484db1b"><div class="ttname"><a href="union____attribute____.html#a43bbd1d1f1ced41c63cb8b1b8484db1b">__attribute__::c_estop</a></div><div class="ttdeci">uint64_t c_estop</div><div class="ttdef"><b>Definition</b> can_parse.h:431</div></div>
 <div class="ttc" id="aunion____attribute_____html_a45c0e9636b946f0c97723d20cbe5983e"><div class="ttname"><a href="union____attribute____.html#a45c0e9636b946f0c97723d20cbe5983e">__attribute__::r_estop</a></div><div class="ttdeci">uint64_t r_estop</div><div class="ttdef"><b>Definition</b> can_parse.h:433</div></div>
@@ -928,7 +921,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aunion____attribute_____html_a7a116624dd9d154e046a45d6c0ad36d2"><div class="ttname"><a href="union____attribute____.html#a7a116624dd9d154e046a45d6c0ad36d2">__attribute__::BOTS</a></div><div class="ttdeci">uint64_t BOTS</div><div class="ttdef"><b>Definition</b> can_parse.h:429</div></div>
 <div class="ttc" id="aunion____attribute_____html_a7aa55913353422f0c7e3186accfcad3c"><div class="ttname"><a href="union____attribute____.html#a7aa55913353422f0c7e3186accfcad3c">__attribute__::logging_enabled</a></div><div class="ttdeci">uint64_t logging_enabled</div><div class="ttdef"><b>Definition</b> can_parse.h:302</div></div>
 <div class="ttc" id="aunion____attribute_____html_a7af976996c142f0d293b10635144674f"><div class="ttname"><a href="union____attribute____.html#a7af976996c142f0d293b10635144674f">__attribute__::volts_12v</a></div><div class="ttdeci">uint64_t volts_12v</div><div class="ttdef"><b>Definition</b> can_parse.h:292</div></div>
-<div class="ttc" id="aunion____attribute_____html_a7cff409c6fa31e1c0bd616d559853303"><div class="ttname"><a href="union____attribute____.html#a7cff409c6fa31e1c0bd616d559853303">__attribute__::can_rx_overrun</a></div><div class="ttdeci">uint64_t can_rx_overrun</div><div class="ttdef"><b>Definition</b> can_parse.h:308</div></div>
 <div class="ttc" id="aunion____attribute_____html_a7f1abad46e76b87a860b99ad24c3913d"><div class="ttname"><a href="union____attribute____.html#a7f1abad46e76b87a860b99ad24c3913d">__attribute__::dt_fan</a></div><div class="ttdeci">uint64_t dt_fan</div><div class="ttdef"><b>Definition</b> can_parse.h:274</div></div>
 <div class="ttc" id="aunion____attribute_____html_a80c90245e6ce4b2c4370450d5cdedf32"><div class="ttname"><a href="union____attribute____.html#a80c90245e6ce4b2c4370450d5cdedf32">__attribute__::tv_p_val</a></div><div class="ttdeci">uint64_t tv_p_val</div><div class="ttdef"><b>Definition</b> can_parse.h:299</div></div>
 <div class="ttc" id="aunion____attribute_____html_a89bb39c22a46b08c9290e0553aecfeca"><div class="ttname"><a href="union____attribute____.html#a89bb39c22a46b08c9290e0553aecfeca">__attribute__::bat_fan</a></div><div class="ttdeci">uint64_t bat_fan</div><div class="ttdef"><b>Definition</b> can_parse.h:411</div></div>
@@ -955,7 +947,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aunion____attribute_____html_ad676e058b4248afe3192e160de8604f7"><div class="ttname"><a href="union____attribute____.html#ad676e058b4248afe3192e160de8604f7">__attribute__::drivetrain_in_temp</a></div><div class="ttdeci">uint64_t drivetrain_in_temp</div><div class="ttdef"><b>Definition</b> can_parse.h:407</div></div>
 <div class="ttc" id="aunion____attribute_____html_ad804b0651d2532b22fd58905d4d25e37"><div class="ttname"><a href="union____attribute____.html#ad804b0651d2532b22fd58905d4d25e37">__attribute__::pchg_out</a></div><div class="ttdeci">uint64_t pchg_out</div><div class="ttdef"><b>Definition</b> can_parse.h:438</div></div>
 <div class="ttc" id="aunion____attribute_____html_adc808c40125a03e97d9495124558bf3a"><div class="ttname"><a href="union____attribute____.html#adc808c40125a03e97d9495124558bf3a">__attribute__::left_shock</a></div><div class="ttdeci">uint64_t left_shock</div><div class="ttdef"><b>Definition</b> can_parse.h:265</div></div>
-<div class="ttc" id="aunion____attribute_____html_add414b7cf64acccdf85337e6e57b8350"><div class="ttname"><a href="union____attribute____.html#add414b7cf64acccdf85337e6e57b8350">__attribute__::can_rx_overflow</a></div><div class="ttdeci">uint64_t can_rx_overflow</div><div class="ttdef"><b>Definition</b> can_parse.h:307</div></div>
 <div class="ttc" id="aunion____attribute_____html_adfe226c99e2f2dcb8de928cd0f58b22f"><div class="ttname"><a href="union____attribute____.html#adfe226c99e2f2dcb8de928cd0f58b22f">__attribute__::left_load_sensor</a></div><div class="ttdeci">uint64_t left_load_sensor</div><div class="ttdef"><b>Definition</b> can_parse.h:269</div></div>
 <div class="ttc" id="aunion____attribute_____html_ae36ded3c17c8d840781834964718aff6"><div class="ttname"><a href="union____attribute____.html#ae36ded3c17c8d840781834964718aff6">__attribute__::left_speed_mc</a></div><div class="ttdeci">uint64_t left_speed_mc</div><div class="ttdef"><b>Definition</b> can_parse.h:399</div></div>
 <div class="ttc" id="aunion____attribute_____html_aedf542ad3bf236fa950a134a311de468"><div class="ttname"><a href="union____attribute____.html#aedf542ad3bf236fa950a134a311de468">__attribute__::bat_pump</a></div><div class="ttdeci">uint64_t bat_pump</div><div class="ttdef"><b>Definition</b> can_parse.h:413</div></div>

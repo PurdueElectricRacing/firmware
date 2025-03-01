@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['tcp_5fcmd_5ft_0',['tcp_cmd_t',['../daq__hub_8h.html#aa1955383b6915c2499a8abef44c34a73',1,'daq_hub.h']]],
-  ['tcp_5frx_5ftail_5ft_1',['tcp_rx_tail_t',['../daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62',1,'main.h']]],
-  ['timerccregister_5ft_2',['TimerCCRegister_t',['../tim_8h.html#aa731b2dd903df9f15152a38f60796474',1,'tim.h']]],
-  ['timerinputmode_5ft_3',['TimerInputMode_t',['../tim_8h.html#a3eac62f74e7d262d5371adeb6e3a729e',1,'tim.h']]],
-  ['timertriggerselection_5ft_4',['TimerTriggerSelection_t',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214',1,'tim.h']]],
-  ['torquesource_5ft_5',['torqueSource_t',['../car_8h.html#aed430a76e63683fb2c72fbaa1e5e9bc2',1,'car.h']]],
-  ['tv_5felements_5ft_6',['tv_elements_t',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37f',1,'lcd.c']]],
-  ['tx_5fmode_5ft_7',['tx_mode_t',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0',1,'usart.h']]]
+  ['sd_5ferror_0',['SD_Error',['../sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8c',1,'sdio.h']]],
+  ['sd_5ferror_5ft_1',['sd_error_t',['../daq__sd_8h.html#a2c11b271fd9ae607114102201c05c87d',1,'daq_sd.h']]],
+  ['sd_5fstate_5ft_2',['sd_state_t',['../daq__sd_8h.html#acb425a95edaf884fd443c15be109f574',1,'daq_sd.h']]],
+  ['sdcardstate_3',['SDCardState',['../sdio_8h.html#acdc2533a9bff7dc10def0945f5915398',1,'sdio.h']]],
+  ['sdtransferstate_4',['SDTransferState',['../sdio_8h.html#ace0484a459648257c3eae8ea60f64fbf',1,'sdio.h']]],
+  ['sockint_5fkind_5',['sockint_kind',['../group__DATA__TYPE.html#gaa9d536c54137cd7b425c4c1e3cbfd49c',1,'socket.h']]],
+  ['sockopt_5ftype_6',['sockopt_type',['../group__DATA__TYPE.html#ga2f86b7ad233f3b8d6ae0af3ee91e9944',1,'socket.h']]],
+  ['stop_5fbits_5ft_7',['stop_bits_t',['../phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h']]],
+  ['success_5ft_8',['success_t',['../queue_8h.html#aa84621068460234b71e1839c7a1bab25',1,'queue.h']]],
+  ['switches_5ft_9',['switches_t',['../auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908',1,'auto_switch.h']]],
+  ['systemclocksrc_5ft_10',['SystemClockSrc_t',['../phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894',1,'rcc.h']]]
 ];

@@ -187,14 +187,14 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a08d923c97dab9a216a1a4d6475e6a491" id="r_a08d923c97dab9a216a1a4d6475e6a491"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08d923c97dab9a216a1a4d6475e6a491">PHAL_initUSART</a> (USART_TypeDef *instance, <a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, const uint32_t fck)</td></tr>
 <tr class="separator:a08d923c97dab9a216a1a4d6475e6a491"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06d58a76f7dfefd60ea5701809acbd0a" id="r_a06d58a76f7dfefd60ea5701809acbd0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06d58a76f7dfefd60ea5701809acbd0a">PHAL_usartTxBl</a> (USART_TypeDef *instance, const uint16_t *<a class="el" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>, uint32_t len)</td></tr>
+<tr class="memitem:a06d58a76f7dfefd60ea5701809acbd0a" id="r_a06d58a76f7dfefd60ea5701809acbd0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06d58a76f7dfefd60ea5701809acbd0a">PHAL_usartTxBl</a> (USART_TypeDef *instance, const uint16_t *data, uint32_t len)</td></tr>
 <tr class="separator:a06d58a76f7dfefd60ea5701809acbd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f14cd1f69f1d90691113dda28432092" id="r_a2f14cd1f69f1d90691113dda28432092"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f14cd1f69f1d90691113dda28432092">PHAL_usartRxBl</a> (USART_TypeDef *instance, uint16_t *<a class="el" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>, uint32_t len)</td></tr>
+<tr class="memitem:a2f14cd1f69f1d90691113dda28432092" id="r_a2f14cd1f69f1d90691113dda28432092"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f14cd1f69f1d90691113dda28432092">PHAL_usartRxBl</a> (USART_TypeDef *instance, uint16_t *data, uint32_t len)</td></tr>
 <tr class="separator:a2f14cd1f69f1d90691113dda28432092"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd03a28918c93a5d666f9495423969b6" id="r_afd03a28918c93a5d666f9495423969b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd03a28918c93a5d666f9495423969b6">PHAL_usartTxDma</a> (USART_TypeDef *instance, <a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *<a class="el" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>, uint32_t len)</td></tr>
+<tr class="memitem:afd03a28918c93a5d666f9495423969b6" id="r_afd03a28918c93a5d666f9495423969b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd03a28918c93a5d666f9495423969b6">PHAL_usartTxDma</a> (USART_TypeDef *instance, <a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *data, uint32_t len)</td></tr>
 <tr class="memdesc:afd03a28918c93a5d666f9495423969b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete.  <br /></td></tr>
 <tr class="separator:afd03a28918c93a5d666f9495423969b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab90afdacb4fc73da1568b1fd6d46c125" id="r_ab90afdacb4fc73da1568b1fd6d46c125"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab90afdacb4fc73da1568b1fd6d46c125">PHAL_usartRxDma</a> (USART_TypeDef *instance, <a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *<a class="el" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>, uint32_t len)</td></tr>
+<tr class="memitem:ab90afdacb4fc73da1568b1fd6d46c125" id="r_ab90afdacb4fc73da1568b1fd6d46c125"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab90afdacb4fc73da1568b1fd6d46c125">PHAL_usartRxDma</a> (USART_TypeDef *instance, <a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *data, uint32_t len)</td></tr>
 <tr class="memdesc:ab90afdacb4fc73da1568b1fd6d46c125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts an rx using dma of a specific length Use PHAL_usartRxDmaComplete to check if the entire msg has been received.  <br /></td></tr>
 <tr class="separator:ab90afdacb4fc73da1568b1fd6d46c125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0db455f8242abdd4836a3af48cf3bbaa" id="r_a0db455f8242abdd4836a3af48cf3bbaa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0db455f8242abdd4836a3af48cf3bbaa">PHAL_usartTxDmaComplete</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
@@ -232,10 +232,9 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,        \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,               \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0100, .channel_idx = 7,              \</div>
-<div class="line">        .periph = DMA2, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA2_Channel7, .request = DMA2_CSELR               \</div>
+<div class="line">        .periph = DMA2, .channel = DMA2_Channel7, .request = DMA2_CSELR               \</div>
 <div class="line">    }</div>
 <div class="ttc" id="aeeprom__spi_8h_html_ab6cda81580b0760b92d051888cd9b2c9"><div class="ttname"><a href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a></div><div class="ttdeci">uint16_t mem_size[MAX_PAGES]</div><div class="ttdoc">Size of file in bytes (actual)</div><div class="ttdef"><b>Definition</b> eeprom_spi.h:4</div></div>
-<div class="ttc" id="ags__usb_8h_html_a994f6c98dd079996515c90406d3f3d0b"><div class="ttname"><a href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a></div><div class="ttdeci">u8 channel</div><div class="ttdef"><b>Definition</b> gs_usb.h:4</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -263,7 +262,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,        \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,               \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0100, .channel_idx = 6,              \</div>
-<div class="line">        .periph = DMA2, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA2_Channel6, .request = DMA2_CSELR               \</div>
+<div class="line">        .periph = DMA2, .channel = DMA2_Channel6, .request = DMA2_CSELR               \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -320,7 +319,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 5,             \</div>
-<div class="line">        .periph = DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA1_Channel5, .request = DMA1_CSELR              \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel5, .request = DMA1_CSELR              \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -349,7 +348,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 4,             \</div>
-<div class="line">        .periph = DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA1_Channel4, .request = DMA1_CSELR              \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel4, .request = DMA1_CSELR              \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -378,7 +377,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 6,             \</div>
-<div class="line">        .periph = DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA1_Channel6, .request = DMA1_CSELR              \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel6, .request = DMA1_CSELR              \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -407,7 +406,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 7,             \</div>
-<div class="line">        .periph = DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA1_Channel7, .request = DMA1_CSELR              \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel7, .request = DMA1_CSELR              \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -436,7 +435,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 3,             \</div>
-<div class="line">        .periph = DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA1_Channel3, .request = DMA1_CSELR              \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel3, .request = DMA1_CSELR              \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -465,7 +464,7 @@ Functions</h2></td></tr>
 <div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
 <div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
 <div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 2,             \</div>
-<div class="line">        .periph = DMA1, .<a class="code hl_variable" href="gs__usb_8h.html#a994f6c98dd079996515c90406d3f3d0b">channel</a> = DMA1_Channel2, .request = DMA1_CSELR              \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel2, .request = DMA1_CSELR              \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>

@@ -326,7 +326,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="union____attribute____.html#a59c03af83426df6e06bb3e05960b38fb">  220</a></span>    } daq_response_PDU;</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        uint64_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>: 8;</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        uint64_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>: 32;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        uint64_t data: 32;</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="union____attribute____.html#a70f52b4dc7afdc76c3c1c1930cf81081">  224</a></span>    } pdu_bl_cmd;</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        uint64_t dt_pump: 8;</div>
@@ -370,7 +370,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        uint64_t daq_command: 64;</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="union____attribute____.html#af4c2f582913227a45734ea63468da5fb">  265</a></span>    } daq_command_PDU;</div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    uint8_t raw_data[8];</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>} <a class="code hl_variable" href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>} <a class="code hl_variable" href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a>((packed)) <a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>;</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="comment">// contains most up to date received</span></div>
@@ -379,7 +379,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        uint8_t <a class="code hl_variable" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>;</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        uint32_t <a class="code hl_variable" href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a>;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        uint32_t data;</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="structcan__data__t.html#a2cc0ddbc35473f5ae5c14bf07da4922d">  277</a></span>    } pdu_bl_cmd;</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        uint8_t dt_pump;</div>
@@ -473,8 +473,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5">CAR_STATE_RESET</a></div><div class="ttdeci">@ CAR_STATE_RESET</div><div class="ttdef"><b>Definition</b> can_parse.h:247</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40">CAR_STATE_CONSTANT_TORQUE</a></div><div class="ttdeci">@ CAR_STATE_CONSTANT_TORQUE</div><div class="ttdef"><b>Definition</b> can_parse.h:249</div></div>
 <div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdoc">Called periodically to send commands to the Nextion LCD display via USART.</div><div class="ttdef"><b>Definition</b> main.c:615</div></div>
-<div class="ttc" id="ags__usb_8h_html_a8893b57d88e7968dc17781c8655e17dc"><div class="ttname"><a href="gs__usb_8h.html#a8893b57d88e7968dc17781c8655e17dc">data</a></div><div class="ttdeci">u8 data[8]</div><div class="ttdef"><b>Definition</b> gs_usb.h:8</div></div>
-<div class="ttc" id="ags__usb_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="gs__usb_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct gs_tx_context __attribute__</div><div class="ttdef"><b>Definition</b> daq_hub.h:70</div></div>
+<div class="ttc" id="aeeprom__spi_8h_html_afe4d52c56b160c835f546fb8c70f5a11"><div class="ttname"><a href="eeprom__spi_8h.html#afe4d52c56b160c835f546fb8c70f5a11">__attribute__</a></div><div class="ttdeci">struct eeprom __attribute__</div><div class="ttdef"><b>Definition</b> can.c:215</div></div>
 <div class="ttc" id="apdu_2can_2can__parse_8h_html_a5ef4694715e9caf500fdeb0d90417b28"><div class="ttname"><a href="pdu_2can_2can__parse_8h.html#a5ef4694715e9caf500fdeb0d90417b28">daq_command_PDU_CALLBACK</a></div><div class="ttdeci">void daq_command_PDU_CALLBACK(CanMsgTypeDef_t *msg_header_a)</div><div class="ttdef"><b>Definition</b> daq.c:46</div></div>
 <div class="ttc" id="apdu_2can_2can__parse_8h_html_a83596406fd7d81df43e282cb5426f401"><div class="ttname"><a href="pdu_2can_2can__parse_8h.html#a83596406fd7d81df43e282cb5426f401">cooling_driver_request_CALLBACK</a></div><div class="ttdeci">void cooling_driver_request_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdef"><b>Definition</b> cooling.c:44</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html">can.h</a></div></div>

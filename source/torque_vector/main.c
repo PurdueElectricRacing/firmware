@@ -428,9 +428,6 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
         fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
         fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
-        fVCU.MT_SFLAG = rxmsg.MT_SFLAG;
-        fVCU.CO_SFLAG = rxmsg.CO_SFLAG;
-        fVCU.MO_SFLAG = rxmsg.MO_SFLAG;
         fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
         fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
         fVCU.GS_FFLAG = rxmsg.GS_FFLAG;

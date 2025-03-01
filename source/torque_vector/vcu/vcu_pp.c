@@ -1,6 +1,7 @@
 #include "can_parse.h"
 #include "common_defs.h"
 #include "vcu.h"
+#include <math.h>
  
 void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
 {
@@ -10,8 +11,8 @@ void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
     xVCU->VB_RAW = (can_data.orion_currents_volts.pack_voltage*0.1); /* Incoming is 10*V of terminal*/
     xVCU->WT_RAW[1] = (can_data.rear_wheel_speeds.left_speed_sensor*0.01); /* Incoming is 100*rad/s of tire */
     xVCU->WT_RAW[2] = (can_data.rear_wheel_speeds.right_speed_sensor*0.01); /* Incoming is 100*rad/s of tire */
-    xVCU->WM_RAW[1] = (can_data.INVA_CRIT.AMK_ActualSpeed); /*Incoming is RPM of motor shaft */
-    xVCU->WM_RAW[2] = (can_data.INVB_CRIT.AMK_ActualSpeed); /*Incoming is RPM of motor shaft */
+    xVCU->WM_RAW[1] = (can_data.INVA_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
+    xVCU->WM_RAW[2] = (can_data.INVB_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
     xVCU->GS_RAW = (GPS->g_speed*0.001); /* Incoming data is 1000*m/s */
     xVCU->AV_RAW[1] = (GPS->gyroscope.x);  /* Incoming data is rad/s */
     xVCU->AV_RAW[2] = (GPS->gyroscope.y);  /* Incoming data is rad/s */
@@ -39,9 +40,6 @@ void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
     fVCU->WT_SFLAG = (can_data.rear_wheel_speeds.stale);
     fVCU->IV_SFLAG = (can_data.orion_currents_volts.stale);
     fVCU->BT_SFLAG = (can_data.max_cell_temp.stale);
-    // fVCU->MT_SFLAG = (can_data.rear_motor_temps.stale);
-    // fVCU->CO_SFLAG = (can_data.INV_Overload.stale);
-    // fVCU->MO_SFLAG = (can_data.actual_torque_speed.stale);
     fVCU->IAC_SFLAG = (can_data.INVA_CRIT.stale);
     fVCU->IAT_SFLAG = (can_data.INVA_TEMPS.stale);
     fVCU->IBC_SFLAG = (can_data.INVB_CRIT.stale);

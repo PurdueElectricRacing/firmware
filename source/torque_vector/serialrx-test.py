@@ -5,7 +5,7 @@ import time
 import random
 
 # Struct format: 6 floats (ffffff)
-STRUCT_FORMAT = "ffffffffffffffffffffffffffffffffffffff"
+STRUCT_FORMAT = "ffffffffffffffffffffffffffffffffffff"
 NUM_VALUES = len(STRUCT_FORMAT)  # Automatically gets the number of floats
 
 

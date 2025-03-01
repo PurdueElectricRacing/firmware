@@ -483,10 +483,10 @@ void HardFault_Handler()
     }
 }
 
-uint16_t buffer[1 + sizeof(txmsg)];
+uint16_t buffer[1 + (sizeof(txmsg) / 2)];
 void testUsart()
 {
     buffer[0] = 0xAA55;  // Sync word
     memcpy(buffer + 1, &txmsg, sizeof(txmsg));
-    PHAL_usartTxDma(&usb, buffer, sizeof(buffer));
+    PHAL_usartTxBl(&usb, buffer, sizeof(buffer));
 }

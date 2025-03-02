@@ -27,12 +27,13 @@ daq_hub_t dh;
 // Local protoptypes
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
+static void uds_receive_periodic(void);
 
 defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
-//defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
+defineThreadStack(uds_receive_periodic, 50, osPriorityNormal, 2048); // DAQ CAN RX
 
 void daq_hub_init(void)
 {
@@ -70,7 +71,7 @@ void daq_create_threads(void)
     createThread(sd_update_periodic); // SD WRITE
     createThread(eth_update_periodic); // SD WRITE
     createThread(can_send_periodic); // CAN1 TX
-    //createThread(uds_receive_periodic); // DAQ CAN RX
+    createThread(uds_receive_periodic); // DAQ CAN RX
 }
 
 static void daq_heartbeat(void)
@@ -91,33 +92,41 @@ static void can_send_periodic(void)
     canTxUpdate();
 }
 
-void uds_frame_send(uint64_t data)
+static void eth_tcp_send_frame(timestamped_frame_t *frame)
 {
-#if 0
-    timestamped_frame_t frame = {.frame_type = DAQ_FRAME_UDP_TX, .tick_ms = getTick(), .msg_id = ID_UDS_RESPONSE_DAQ, .bus_id = BUS_ID_CAN1, .dlc = 8 };
+    if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED) // only send UDS response back if TCP established
+    {
+        if (xQueueSendToBack(q_tcp_tx, frame, (TickType_t)10) != pdPASS)
+        {
+            dh.tcp_tx_overflow++;
+        }
+    }
+}
+
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_DAQ(data);
+
+    timestamped_frame_t frame = {.frame_type = DAQ_FRAME_TCP_TX, .tick_ms = getTick(), .msg_id = ID_UDS_RESPONSE_DAQ, .bus_id = BUS_ID_CAN1, .dlc = 8 };
     frame.msg_id |= CAN_EFF_FLAG;
     memcpy(frame.data, (uint8_t *)&data, sizeof(uint64_t));
-
-    SEND_UDS_RESPONSE_DAQ(data);
     eth_tcp_send_frame(&frame);
-    //eth_udp_send_frame(&frame); // dont send for now
-#endif
+
+    //eth_udp_send_frame(&frame); // dont send udp for now
 }
 
 /**
  * Pull UDS CAN frames out of UDS queue added during CAN1/CAN2 ISR
  * and process them in non-interrupt context
  */
-void uds_receive_periodic(void)
+static void uds_receive_periodic(void)
 {
-#if 0
     timestamped_frame_t rx_msg;
     while (xQueueReceive(q_can1_rx, &rx_msg, portMAX_DELAY) == pdPASS)
     {
         CanParsedData_t *msg_data_a = (CanParsedData_t *) &rx_msg.data;
         uds_command_daq_CALLBACK(msg_data_a->uds_command_daq.payload);
     }
-#endif
 }
 
 // bank->BSRR |= 1 << ((!value << 4) | pin);

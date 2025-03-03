@@ -68,6 +68,7 @@ typedef union {
 #define ID_INVB_TEMPS 0x285
 #define ID_INVB_ERR_1 0x289
 #define ID_INVB_ERR_2 0x291
+#define ID_PRECHARGE_HB 0xc001944
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -94,7 +95,7 @@ typedef union {
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_SDC_STATUS 2
 #define DLC_REAR_MOTOR_TEMPS 6
-#define DLC_REAR_WHEEL_SPEEDS 8
+#define DLC_REAR_WHEEL_SPEEDS 4
 #define DLC_INVA_SET 8
 #define DLC_INVB_SET 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -118,6 +119,7 @@ typedef union {
 #define DLC_INVB_TEMPS 6
 #define DLC_INVB_ERR_1 8
 #define DLC_INVB_ERR_2 8
+#define DLC_PRECHARGE_HB 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -258,11 +260,9 @@ typedef union {
         data_a->rear_motor_temps.right_igbt_temp = right_igbt_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_WHEEL_SPEEDS(left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
+#define SEND_REAR_WHEEL_SPEEDS(left_speed_sensor_, right_speed_sensor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_wheel_speeds.left_speed_mc = left_speed_mc_;\
-        data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
         data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         canTxSendToBack(&msg);\
@@ -332,6 +332,7 @@ typedef union {
 #define UP_INVB_SET 15
 #define UP_INVB_ERR_1 2000
 #define UP_INVB_ERR_2 2000
+#define UP_PRECHARGE_HB 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -489,8 +490,6 @@ typedef union {
         uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
-        uint64_t left_speed_mc: 16;
-        uint64_t right_speed_mc: 16;
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
@@ -627,6 +626,10 @@ typedef union {
         uint64_t AMK_ErrorInfo2: 32;
         uint64_t AMK_ErrorInfo3: 32;
     } INVB_ERR_2;
+    struct {
+        uint64_t IMD: 8;
+        uint64_t BMS: 8;
+    } precharge_hb;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -829,6 +832,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } INVB_ERR_2;
+    struct {
+        uint8_t IMD;
+        uint8_t BMS;
+        uint8_t stale;
+        uint32_t last_rx;
+    } precharge_hb;
     struct {
         uint16_t idx;
         uint8_t latched;

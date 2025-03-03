@@ -80,30 +80,30 @@ bool wheelSpeedsInit(void)
     MOTOR_L_WS_PWM_TIM->PSC = WS_TIM_PSC - 1;
     MOTOR_L_WS_PWM_TIM->ARR = 0xFFFF;
 
-    TIM4->DIER |= TIM_DIER_CC1IE | TIM_DIER_UIE;
+    TIM4->DIER |= TIM_DIER_CC2IE | TIM_DIER_UIE;
     NVIC_EnableIRQ(TIM4_IRQn);
 
     /* Set input capture mode */
-    MOTOR_L_WS_PWM_TIM->CCER &= ~TIM_CCER_CC1E; // Turn off the channel (necessary to write CC1S bits)
+    MOTOR_L_WS_PWM_TIM->CCER &= ~TIM_CCER_CC2E; // Turn off the channel (necessary to write CC1S bits)
 
     /* Setup capture compare 1 (period) */
-    MOTOR_L_WS_PWM_TIM->CCMR1 &= ~TIM_CCMR1_CC1S;
-    MOTOR_L_WS_PWM_TIM->CCMR1 |= TIM_CCMR1_CC1S_0; // Map IC1 to TI1
+    MOTOR_L_WS_PWM_TIM->CCMR1 &= ~TIM_CCMR1_CC2S;
+    MOTOR_L_WS_PWM_TIM->CCMR1 |= TIM_CCMR1_CC2S_0; // Map IC2 to TI2
 
     /* CCR1 (period) needs rising edge */
-    MOTOR_L_WS_PWM_TIM->CCER &= ~TIM_CCER_CC1P;
-    MOTOR_L_WS_PWM_TIM->CCER &= ~TIM_CCER_CC1NP;
+    MOTOR_L_WS_PWM_TIM->CCER &= ~TIM_CCER_CC2P;
+    MOTOR_L_WS_PWM_TIM->CCER &= ~TIM_CCER_CC2NP;
 
     /* Select trigger */
     MOTOR_L_WS_PWM_TIM->SMCR &= ~TIM_SMCR_TS;
-    MOTOR_L_WS_PWM_TIM->SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_0;
+    MOTOR_L_WS_PWM_TIM->SMCR |= TIM_SMCR_TS_2 | TIM_SMCR_TS_1;
 
     /* Select trigger */
     MOTOR_L_WS_PWM_TIM->SMCR &= ~TIM_SMCR_SMS;
     MOTOR_L_WS_PWM_TIM->SMCR |= TIM_SMCR_SMS_2;
 
     /* Enable channels */
-    MOTOR_L_WS_PWM_TIM->CCER |= TIM_CCER_CC1E; // Enable CCR1
+    MOTOR_L_WS_PWM_TIM->CCER |= TIM_CCER_CC2E; // Enable CCR1
 
     MOTOR_L_WS_PWM_TIM->CR1 |= TIM_CR1_CEN; // Enable timer
 
@@ -176,11 +176,11 @@ void TIM4_IRQHandler()
         left_ccr_msb_counter++;
         TIM4->SR = ~(TIM_SR_UIF);
     }
-    if (TIM4->SR & TIM_SR_CC1IF)
+    if (TIM4->SR & TIM_SR_CC2IF)
     {
-        left_ccr = (left_ccr_msb_counter << 16) | TIM4->CCR1;
+        left_ccr = (left_ccr_msb_counter << 16) | TIM4->CCR2;
         left_ccr_msb_counter = 0;
         left_update_time = sched.os_ticks;
-        TIM4->SR = ~(TIM_SR_CC1IF);
+        TIM4->SR = ~(TIM_SR_CC2IF);
     }
 }

@@ -92,7 +92,7 @@ typedef union {
 #define DLC_ORION_ERRORS 4
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_PRECHARGE_HB 2
-#define DLC_REAR_WHEEL_SPEEDS 8
+#define DLC_REAR_WHEEL_SPEEDS 4
 #define DLC_COOLANT_TEMPS 4
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
@@ -400,8 +400,6 @@ typedef union {
         uint64_t BMS: 8;
     } precharge_hb;
     struct {
-        uint64_t left_speed_mc: 16;
-        uint64_t right_speed_mc: 16;
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
@@ -595,8 +593,6 @@ typedef struct {
         uint32_t last_rx;
     } precharge_hb;
     struct {
-        uint16_t left_speed_mc;
-        uint16_t right_speed_mc;
         uint16_t left_speed_sensor;
         uint16_t right_speed_sensor;
         uint8_t stale;

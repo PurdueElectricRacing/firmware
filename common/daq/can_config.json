@@ -14,7 +14,7 @@
                             "signals":[
                                 {"sig_name":"car_state", "sig_desc":"Main car state","type":"uint8_t","length":8,
                                  "choices": ["idle", "precharging", "energized", "buzzing", "ready2drive", "error", "fatal", "reset", "recover", "constant_torque"]},
-                                {"sig_name":"precharge_state", "sig_desc": "Status of Precharge (conplete vs not)", "type":"uint8_t", "length": 1}
+                                {"sig_name":"precharge_state", "sig_desc": "Status of Precharge (complete vs not)", "type":"uint8_t", "length": 1}
                             ],
                             "msg_period":500,
                             "msg_hlp":3,

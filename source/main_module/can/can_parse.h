@@ -94,7 +94,7 @@ typedef union {
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_SDC_STATUS 2
 #define DLC_REAR_MOTOR_TEMPS 6
-#define DLC_REAR_WHEEL_SPEEDS 8
+#define DLC_REAR_WHEEL_SPEEDS 4
 #define DLC_INVA_SET 8
 #define DLC_INVB_SET 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
@@ -258,11 +258,9 @@ typedef union {
         data_a->rear_motor_temps.right_igbt_temp = right_igbt_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_WHEEL_SPEEDS(left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
+#define SEND_REAR_WHEEL_SPEEDS(left_speed_sensor_, right_speed_sensor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_wheel_speeds.left_speed_mc = left_speed_mc_;\
-        data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
         data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         canTxSendToBack(&msg);\
@@ -401,7 +399,7 @@ typedef enum {
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
@@ -489,8 +487,6 @@ typedef union {
         uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
-        uint64_t left_speed_mc: 16;
-        uint64_t right_speed_mc: 16;
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;

@@ -200,8 +200,6 @@
                             "msg_name": "rear_wheel_speeds",
                             "msg_desc": "Rear Wheel speeds from motor controllers",
                             "signals": [
-                                {"sig_name": "left_speed_mc", "type":"uint16_t", "unit": "RPM"},
-                                {"sig_name": "right_speed_mc", "type":"uint16_t", "unit": "RPM"},
                                 {"sig_name": "left_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01},
                                 {"sig_name": "right_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01}
                             ],
@@ -256,6 +254,21 @@
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "VCU_torques_speeds"},
                         {"msg_name": "drive_modes"}
+                        {"msg_name": "throttle_vcu"},
+                        {"msg_name": "throttle_vcu_equal"},
+                        {"msg_name": "INVA_CRIT"},
+                        {"msg_name": "INVA_INFO"},
+                        {"msg_name": "INVA_TEMPS"},
+                        {"msg_name": "INVA_SET"},
+                        {"msg_name": "INVA_ERR_1"},
+                        {"msg_name": "INVA_ERR_2"},
+                        {"msg_name": "INVB_CRIT"},
+                        {"msg_name": "INVB_INFO"},
+                        {"msg_name": "INVB_TEMPS"},
+                        {"msg_name": "INVB_SET"},
+                        {"msg_name": "INVB_ERR_1"},
+                        {"msg_name": "INVB_ERR_2"},
+                        {"msg_name": "precharge_hb"}
                     ]
                 },
                 {

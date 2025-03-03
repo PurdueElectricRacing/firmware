@@ -387,21 +387,21 @@
                                 {"sig_name":"charge_enable","sig_desc":"Permits intermittent charging of pack - AKA Regen (Not currently used)","type":"uint8_t","length":1},
                                 {"sig_name":"charger_safety","sig_desc": "Charger BMS SDC control input - allows current to flow into pack","type":"uint8_t","length":1},
                                 {"sig_name":"dtc_status","sig_desc": "General error status of OrionBMS","type":"uint8_t","length":1},
-                                {"sig_name":"multi_input","sig_desc":"Orion general purpose input status","type":"uint8_t","length":1},
-                                {"sig_name":"always_on","type":"uint8_t","length":1},
-                                {"sig_name":"is_ready","type":"uint8_t","length":1},
-                                {"sig_name":"is_charging","type":"uint8_t","length":1},
-                                {"sig_name":"multi_input_2","sig_desc":"Orion general purpose input status","type":"uint8_t","length":1},
-                                {"sig_name":"multi_input_3","sig_desc":"Orion general purpose input status","type":"uint8_t","length":1},
+                                {"sig_name":"multi_input","sig_desc":"Orion multi purpose input status - unused","type":"uint8_t","length":1},
+                                {"sig_name":"always_on", "sig_desc": "Orion's low power sleep input is configured", "type":"uint8_t","length":1},
+                                {"sig_name":"is_ready","sig_desc": "Orion is in \"READY\" (discharge) mode","type":"uint8_t","length":1},
+                                {"sig_name":"is_charging","sig_desc": "Orion is in \"CHARGE\" mode - controlled by charge power pin","type":"uint8_t","length":1},
+                                {"sig_name":"multi_input_2","sig_desc":"Orion multi purpose input status - unused","type":"uint8_t","length":1},
+                                {"sig_name":"multi_input_3","sig_desc":"Orion multi purpose input status - unused","type":"uint8_t","length":1},
                                 {"sig_name":"reserved","type":"uint8_t","length":1},
-                                {"sig_name":"multi_output_2","type":"uint8_t","length":1},
-                                {"sig_name":"multi_output_3","type":"uint8_t","length":1},
-                                {"sig_name":"multi_output_4","type":"uint8_t","length":1},
-                                {"sig_name":"multi_enable","type":"uint8_t","length":1},
-                                {"sig_name":"multi_output_1","type":"uint8_t","length":1},
-                                {"sig_name":"pack_dcl", "type":"uint16_t", "length":16, "unit": "A", "scale": 1},
-                                {"sig_name":"pack_ccl", "type":"uint16_t", "length":16, "unit": "A", "scale": 1},
-                                {"sig_name":"pack_soc", "type":"uint8_t", "length":8, "unit": "%", "scale": 0.5}
+                                {"sig_name":"multi_output_2","sig_desc":"Orion multi purpose output status - unused","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_3","sig_desc":"Orion multi purpose output status - unused","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_4","sig_desc":"Orion multi purpose output status - unused","type":"uint8_t","length":1},
+                                {"sig_name":"multi_enable","sig_desc":"Orion multi purpose output with watchdog functionality - unused","type":"uint8_t","length":1},
+                                {"sig_name":"multi_output_1","sig_desc":"Orion multi purpose output status - unused","type":"uint8_t","length":1},
+                                {"sig_name":"pack_dcl", "sig_desc": "Pack discharge current limit", "type":"uint16_t", "length":16, "unit": "A", "scale": 1},
+                                {"sig_name":"pack_ccl", "sig_desc": "Pack charge current limit", "type":"uint16_t", "length":16, "unit": "A", "scale": 1},
+                                {"sig_name":"pack_soc", "sig_desc": "Pack State of Charge", "type":"uint8_t", "length":8, "unit": "%", "scale": 0.5}
                             ],
                             "msg_period":32,
                             "msg_hlp":5,
@@ -419,16 +419,16 @@
                         },
                         {
                             "msg_name":"orion_errors",
-                            "msg_desc":"Pack DTC Flags",
+                            "msg_desc":"Pack DTC (Diagnostic Trouble Code) Flags",
                             "signals":[
-                                {"sig_name": "discharge_limit_enforce", "type":"uint8_t","length":1},
-                                {"sig_name": "charger_safety_relay", "type":"uint8_t","length":1},
-                                {"sig_name": "internal_hardware", "type":"uint8_t","length":1},
-                                {"sig_name": "heatsink_thermistor", "type":"uint8_t","length":1},
-                                {"sig_name": "software", "type":"uint8_t","length":1},
-                                {"sig_name": "max_cellv_high", "type":"uint8_t","length":1},
-                                {"sig_name": "min_cellv_low", "type":"uint8_t","length":1},
-                                {"sig_name": "pack_overheat", "type":"uint8_t","length":1},
+                                {"sig_name": "discharge_limit_enforce", "sig_desc": "Discharge current limit exceed", "type":"uint8_t","length":1},
+                                {"sig_name": "charger_safety_relay", "sig_desc": "Charge Current limit exceeded - set if violation occured with \"charger safety\" relay", "type":"uint8_t","length":1},
+                                {"sig_name": "internal_hardware", "sig_desc": "Orion has detected a hardware failure within itself", "type":"uint8_t","length":1},
+                                {"sig_name": "heatsink_thermistor", "sig_desc": "Orion can't detect it's internal temperature", "type":"uint8_t","length":1},
+                                {"sig_name": "software", "sig_desc": "Bug in internal software led to invalid operation", "type":"uint8_t","length":1},
+                                {"sig_name": "max_cellv_high", "sig_desc": "An individual cell has exceeded its maximum allowable voltage", "type":"uint8_t","length":1},
+                                {"sig_name": "min_cellv_low", "sig_desc": "An individual cell has gone under its minimum allowable voltage", "type":"uint8_t","length":1},
+                                {"sig_name": "pack_overheat", "sig_desc": "Pack temp has exceeded its max allowable value for >30s", "type":"uint8_t","length":1},
                                 {"sig_name": "reserved0", "type":"uint8_t","length":1},
                                 {"sig_name": "reserved1", "type":"uint8_t","length":1},
                                 {"sig_name": "reserved2", "type":"uint8_t","length":1},
@@ -437,22 +437,22 @@
                                 {"sig_name": "reserved5", "type":"uint8_t","length":1},
                                 {"sig_name": "reserved6", "type":"uint8_t","length":1},
                                 {"sig_name": "reserved7", "type":"uint8_t","length":1},
-                                {"sig_name": "internal_comms", "type":"uint8_t","length":1},
-                                {"sig_name": "cell_balancing_foff", "type":"uint8_t","length":1},
-                                {"sig_name": "weak_cell", "type":"uint8_t","length":1},
-                                {"sig_name": "low_cellv", "type":"uint8_t","length":1},
-                                {"sig_name": "open_wire", "type":"uint8_t","length":1},
-                                {"sig_name": "current_sensor", "type":"uint8_t","length":1},
-                                {"sig_name": "max_cellv_o5v", "type":"uint8_t","length":1},
-                                {"sig_name": "cell_asic", "type":"uint8_t","length":1},
-                                {"sig_name": "weak_pack", "type":"uint8_t","length":1},
-                                {"sig_name": "fan_monitor", "type":"uint8_t","length":1},
-                                {"sig_name": "thermistor", "type":"uint8_t","length":1},
-                                {"sig_name": "external_comms", "type":"uint8_t","length":1},
-                                {"sig_name": "redundant_psu", "type":"uint8_t","length":1},
-                                {"sig_name": "hv_isolation", "type":"uint8_t","length":1},
-                                {"sig_name": "input_psu", "type":"uint8_t","length":1},
-                                {"sig_name": "charge_limit_enforce", "type":"uint8_t","length":1}
+                                {"sig_name": "internal_comms", "sig_desc": "Orion cannot communicate with its isolated cell voltage measurement hardware", "type":"uint8_t","length":1},
+                                {"sig_name": "cell_balancing_foff", "sig_desc": "At least one cell balancing circuit is not working", "type":"uint8_t","length":1},
+                                {"sig_name": "weak_cell", "sig_desc": "Orion has either detected a weak cell within the pack, or a cell that is too far out of balance", "type":"uint8_t","length":1},
+                                {"sig_name": "low_cellv", "sig_desc": "One or more cells have an extremely low cell voltage (likely dead or wiring problem) (threshold configurable)", "type":"uint8_t","length":1},
+                                {"sig_name": "open_wire", "sig_desc": "Cell tap wire is either weakly connected or fully disconnected","type":"uint8_t","length":1},
+                                {"sig_name": "current_sensor", "sig_desc": "BMS has detected a problem with the current sensor (check fault subcodes)", "type":"uint8_t","length":1},
+                                {"sig_name": "max_cellv_o5v", "sig_desc": "A cell in the pack has been detected to have a cell voltage over 5V", "type":"uint8_t","length":1},
+                                {"sig_name": "cell_asic", "sig_desc": "Orion has detected a communication problem with its cell voltage measurement circuitry - check fault subcode", "type":"uint8_t","length":1},
+                                {"sig_name": "weak_pack", "sig_desc": "Pack state of health estimation falls below provided threshold", "type":"uint8_t","length":1},
+                                {"sig_name": "fan_monitor", "sig_desc": "Voltage on fan monitor (multi-input-3) goes outside provided threshold (if enabled)", "type":"uint8_t","length":1},
+                                {"sig_name": "thermistor", "sig_desc": "A thermistor reading has fallen out of it expected operating range", "type":"uint8_t","length":1},
+                                {"sig_name": "external_comms", "sig_desc": "Expected CAN messages (must be configured) have not been recieved", "type":"uint8_t","length":1},
+                                {"sig_name": "redundant_psu", "sig_desc": "The BMS has lost the \"always on\" power supply, meaning it is no longer redundant (must be configured)", "type":"uint8_t","length":1},
+                                {"sig_name": "hv_isolation", "sig_desc": "BMS has detected a breakdown in HV/LV isolation", "type":"uint8_t","length":1},
+                                {"sig_name": "input_psu", "sig_desc": "Orion is not recieving a stable power supply between 9v and 30v", "type":"uint8_t","length":1},
+                                {"sig_name": "charge_limit_enforce", "sig_desc": "The orion pack charge curent limit was exceeded - set if violation occured with \"charge enable\" relay", "type":"uint8_t","length":1}
                             ],
                             "msg_period":1000,
                             "msg_hlp":3,
@@ -574,10 +574,10 @@
                         },
                         {
                             "msg_name": "throttle_vcu",
-                            "msg_desc": "throttle vcu",
+                            "msg_desc": "Torque request from TV system",
                             "signals":[
-                                {"sig_name": "vcu_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "vcu_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
+                                {"sig_name": "vcu_k_rl", "sig_desc": "Rear left torque request", "type": "int16_t", "unit": "none", "scale": 1},
+                                {"sig_name": "vcu_k_rr", "sig_desc": "Rear right torque request", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 1,
@@ -585,10 +585,10 @@
                         },
                         {
                             "msg_name": "throttle_vcu_equal",
-                            "msg_desc": "throttle vcu_equal",
+                            "msg_desc": "Throttle map torque request (No TV), equal torque",
                             "signals":[
-                                {"sig_name": "equal_k_rl", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "equal_k_rr", "type": "int16_t", "unit": "none", "scale": 1}
+                                {"sig_name": "equal_k_rl", "sig_desc": "Throttle remapped torque request rear left", "type": "int16_t", "unit": "none", "scale": 1},
+                                {"sig_name": "equal_k_rr", "sig_desc": "Throttle remapped torque request rear right", "type": "int16_t", "unit": "none", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 1,
@@ -637,11 +637,11 @@
                         {   "msg_name":"raw_throttle_brake",
                             "msg_desc":"Throttle and brake values",
                             "signals":[
-                                {"sig_name":"throttle","type":"uint16_t","length":12, "unit":"%"},
-                                {"sig_name":"throttle_right","type":"uint16_t","length":12, "unit":"%"},
-                                {"sig_name":"brake", "type":"uint16_t", "length":12, "unit":"%"},
-                                {"sig_name":"brake_right", "type":"uint16_t", "length":12,"unit":"%"},
-                                {"sig_name":"brake_pot", "type":"uint16_t", "length":12, "unit":"%"}
+                                {"sig_name":"throttle", "sig_desc": "Raw sensor reading from left throttle sensor", "type":"uint16_t","length":12, "unit":"%"},
+                                {"sig_name":"throttle_right", "sig_desc": "Raw sensor reading from right throttle sensor", "type":"uint16_t","length":12, "unit":"%"},
+                                {"sig_name":"brake", "sig_desc": "Raw sensor reading from left (front) brake sensor", "type":"uint16_t", "length":12, "unit":"%"},
+                                {"sig_name":"brake_right", "sig_desc": "Raw sensor reading from right (rear) brake sensor", "type":"uint16_t", "length":12,"unit":"%"},
+                                {"sig_name":"brake_pot", "sig_desc": "Reading for potentiometer on brake pedal [OLD, no longer used]", "type":"uint16_t", "length":12, "unit":"%"}
                             ],
                             "msg_period":15,
                             "msg_hlp":4,
@@ -649,10 +649,10 @@
                         },
                         {
                             "msg_name": "shock_front",
-                            "msg_desc": "Load Sensor readings from left and right",
+                            "msg_desc": "Shockpot readings from front left and front right",
                             "signals": [
-                                {"sig_name": "left_shock", "type": "int16_t", "unit": "mm"},
-                                {"sig_name": "right_shock", "type": "int16_t", "unit": "mm"}
+                                {"sig_name": "left_shock", "sig_desc": "Travel distance of front left shockpot", "type": "int16_t", "unit": "mm"},
+                                {"sig_name": "right_shock", "sig_desc": "Travel distance of front right shockpot", "type": "int16_t", "unit": "mm"}
                             ],
                             "msg_period": 15,
                             "msg_hlp": 4,
@@ -660,7 +660,7 @@
                         },
                         {
                             "msg_name": "load_sensor_readings_dash",
-                            "msg_desc": "Load Sensor readings from left and right",
+                            "msg_desc": "Load Sensor normal force readings from front left and right",
                             "signals": [
                                 {"sig_name": "left_load_sensor", "type": "float", "unit": "N"},
                                 {"sig_name": "right_load_sensor", "type": "float", "unit": "N"}
@@ -687,8 +687,8 @@
                             "msg_name":"filt_throttle_brake",
                             "msg_desc":"Filtered throttle and brake values",
                             "signals": [
-                                {"sig_name":"throttle","type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
-                                {"sig_name":"brake", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
+                                {"sig_name":"throttle", "sig_desc": "Official throttle request from driver", "type":"uint16_t","length":12, "scale":0.02442, "unit":"%"},
+                                {"sig_name":"brake", "sig_desc": "Processed brake request from driver", "type":"uint16_t", "length":12, "scale":0.02442, "unit":"%"}
                             ],
                             "msg_period":15,
                             "msg_hlp":1,
@@ -715,7 +715,7 @@
                         },
                         {
                             "msg_name":"dashboard_voltage",
-                            "msg_desc":"periodic dashboard MCU temp",
+                            "msg_desc":"Voltage rail measurements on dashboard",
                             "signals":[
                                 {"sig_name": "volts_3v3", "type":"uint16_t", "scale": 0.01, "unit": "V"},
                                 {"sig_name": "volts_5v", "type":"uint16_t", "scale": 0.01, "unit": "V"},
@@ -728,7 +728,7 @@
                         },
                         {
                             "msg_name":"dashboard_tv_parameters",
-                            "msg_desc":"periodic dashboard tv parameters",
+                            "msg_desc":"Driver torque vectoring configuration request",
                             "signals":[
                                 {"sig_name": "tv_enabled", "type":"uint8_t", "length":1},
                                 {"sig_name": "tv_deadband_val", "type":"uint16_t"},
@@ -741,9 +741,9 @@
                         },
                         {
                             "msg_name":"dashboard_start_logging",
-                            "msg_desc":"start logging",
+                            "msg_desc":"Log enable request for DAQ SD card",
                             "signals":[
-                                {"sig_name": "logging_enabled", "type":"uint8_t", "length":1}
+                                {"sig_name": "logging_enabled", "sig_desc": "Request SD card logging to begin", "type":"uint8_t", "length":1}
                             ],
                             "msg_period":0,
                             "msg_hlp":1,
@@ -791,11 +791,11 @@
                             "msg_name": "LWS_Standard",
                             "msg_desc": "Standard steering angle and speed",
                             "signals": [
-                                {"sig_name": "LWS_ANGLE", "type":"int16_t", "unit":"deg", "scale":0.1},
-                                {"sig_name": "LWS_SPEED", "type":"uint8_t", "unit":"deg/s", "scale":4, "length": 8},
-                                {"sig_name": "Ok", "type": "uint8_t", "length": 1},
-                                {"sig_name": "Cal", "type": "uint8_t", "length": 1},
-                                {"sig_name": "Trim", "type": "uint8_t", "length": 1},
+                                {"sig_name": "LWS_ANGLE", "sig_desc": "Steering Angle", "type":"int16_t", "unit":"deg", "scale":0.1},
+                                {"sig_name": "LWS_SPEED", "sig_desc": "Angular speed of steering input", "type":"uint8_t", "unit":"deg/s", "scale":4, "length": 8},
+                                {"sig_name": "Ok", "sig_desc": "Sensor failure status","type": "uint8_t", "length": 1},
+                                {"sig_name": "Cal", "sig_desc": "Sensor calibration status", "type": "uint8_t", "length": 1},
+                                {"sig_name": "Trim", "sig_desc": "Sensor information validity flag (invalid if 0)", "type": "uint8_t", "length": 1},
                                 {"sig_name": "Reserved_1", "type":"uint8_t", "length": 5},
                                 {"sig_name": "Reserved_2", "type":"uint8_t", "length": 8}
                             ],
@@ -814,9 +814,9 @@
                             "msg_name":"v_rails",
                             "msg_desc":"PDU voltage rail readings",
                             "signals":[
-                                {"sig_name": "in_24v", "type":"uint16_t", "unit":"mV"},
-                                {"sig_name": "out_5v", "type":"uint16_t", "unit":"mV"},
-                                {"sig_name": "out_3v3", "type":"uint16_t", "unit":"mV"}
+                                {"sig_name": "in_24v", "sig_desc": "Unregulated 24V input", "type":"uint16_t", "unit":"mV"},
+                                {"sig_name": "out_5v", "sig_desc": "5v rail output voltage", "type":"uint16_t", "unit":"mV"},
+                                {"sig_name": "out_3v3", "sig_desc": "3v3 rail output voltage", "type":"uint16_t", "unit":"mV"}
                             ],
                             "msg_period":500,
                             "msg_hlp":4,
@@ -826,8 +826,8 @@
                             "msg_name":"rail_currents",
                             "msg_desc":"PDU rail currents",
                             "signals":[
-                                {"sig_name": "i_24v", "type":"uint16_t", "unit":"mA"},
-                                {"sig_name": "i_5v", "type":"uint16_t", "unit":"mA"}
+                                {"sig_name": "i_24v", "sig_desc": "Unregulated 24V rail current","type":"uint16_t", "unit":"mA"},
+                                {"sig_name": "i_5v", "sig_desc": "5v rail current", "type":"uint16_t", "unit":"mA"}
                             ],
                             "msg_period":500,
                             "msg_hlp":4,
@@ -864,11 +864,11 @@
                             "msg_name": "coolant_out",
                             "msg_desc": "outputs to coolant loops",
                             "signals": [
-                                {"sig_name": "bat_fan", "type":"uint8_t", "unit": "%"},
-                                {"sig_name":"dt_fan", "type":"uint8_t", "unit":"%"},
-                                {"sig_name": "bat_pump", "type":"uint8_t", "length": 1},
-                                {"sig_name": "bat_pump_aux", "type":"uint8_t", "length": 1},
-                                {"sig_name": "dt_pump", "type":"uint8_t", "length": 1}
+                                {"sig_name": "bat_fan", "sig_desc": "Battery fan speed request", "type":"uint8_t", "unit": "%"},
+                                {"sig_name": "dt_fan", "sig_desc": "Drivetrain fan speed request", "type":"uint8_t", "unit":"%"},
+                                {"sig_name": "bat_pump", "sig_desc": "Battery pump enabled", "type":"uint8_t", "length": 1},
+                                {"sig_name": "bat_pump_aux", "sig_desc": "Auxilliary output enable request", "type":"uint8_t", "length": 1},
+                                {"sig_name": "dt_pump", "sig_desc": "Drivetrain pump enabled", "type":"uint8_t", "length": 1}
                             ],
                             "msg_period": 1000,
                             "msg_hlp":4,

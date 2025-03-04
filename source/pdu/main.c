@@ -142,7 +142,7 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=EXTERNAL_THERM_ADC_CHNL, .rank=15, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=AMK_25V_V_SENSE_ADC_CHNL,.rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
             sizeof(adc_readings) / sizeof(adc_readings.lv_24_v_sense), 0b01);
@@ -356,10 +356,12 @@ void send_iv_readings() {
     setFault(ID_LV_GETTING_LOW_FAULT, auto_switches.voltage.in_24v);
     setFault(ID_LV_CRITICAL_LOW_FAULT, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data
-    SEND_V_RAILS(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3);
+    SEND_V_RAILS(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
     SEND_RAIL_CURRENTS(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
     SEND_PUMP_AND_FAN_CURRENT(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
     SEND_OTHER_CURRENTS(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
+
+    SEND_PDU_TEMPS(adc_readings.external_therm);
 }
 
 void HardFault_Handler()

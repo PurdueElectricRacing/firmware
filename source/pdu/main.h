@@ -225,8 +225,11 @@
 #define EXTERNAL_THERM_GPIO_Port    (GPIOA)
 #define EXTERNAL_THERM_Pin          (7)
 #define EXTERNAL_THERM_ADC_CHNL     (7)
+#define INTERNAL_THERM_ADC_CHNL     (16)
 
-#define INTERNAL_THERM_ADC_CHNL     (17)
+#define AMK_25V_V_SENSE_GPIO_PORT   (GPIOB)
+#define AMK_25V_V_SENSE_PIN         (1)
+#define AMK_25V_V_SENSE_ADC_CHNL    (9)
 
 // ADC Configuration
 #define ADC_REF_mV (3300UL) // mV
@@ -250,7 +253,7 @@ typedef struct
     uint16_t lv_5_i_sense;
     uint16_t lv_3v3_v_sense;
     uint16_t external_therm;
-    uint16_t internal_therm;
+    uint16_t amk_24v_v_sense;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

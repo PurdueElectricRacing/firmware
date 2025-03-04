@@ -50,6 +50,7 @@ void updateVoltage() {
     auto_switches.voltage.in_24v = calcVoltage(adc_readings.lv_24_v_sense, LV_24V_R1, LV_24V_R2);
     auto_switches.voltage.out_5v = calcVoltage(adc_readings.lv_5_v_sense, LV_5V_R1, LV_5V_R2);
     auto_switches.voltage.out_3v3 = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2);
+    auto_switches.voltage.amk_24v = calcVoltage(adc_readings.amk_24v_v_sense, AMK_24V_R1, AMK_24V_R2);
 }
 
 // Current helper functions

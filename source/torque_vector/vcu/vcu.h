@@ -201,5 +201,6 @@ yVCU_struct init_yVCU(void);
 pVCU_struct init_pVCU(void);
 
 void vcu_pp(xVCU_struct* xVCU, fVCU_struct* fVCU, GPS_Handle_t* GPS);
+void vcu_pp_tester(xVCU_struct *xVCU, fVCU_struct *fVCU);
 
 void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x, yVCU_struct *y);

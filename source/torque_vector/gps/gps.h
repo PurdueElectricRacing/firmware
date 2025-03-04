@@ -42,46 +42,47 @@ typedef struct
     signed long messages_received;
     uint8_t raw_message[100];
 
-    uint8_t g_speed_bytes[4];
     signed long g_speed;
     int16_t g_speed_rounded;
 
-    uint8_t longitude_bytes[4];
     signed long longitude;
     int32_t lon_rounded;
 
-    uint8_t latitude_bytes[4];
     signed long latitude;
     int32_t lat_rounded;
 
-    uint8_t height_bytes[4];
     signed long height;
     int16_t height_rounded;
 
-    uint8_t n_vel_bytes[4];
     signed long n_vel;
     int16_t n_vel_rounded;
 
-    uint8_t e_vel_bytes[4];
     signed long e_vel;
     int16_t e_vel_rounded;
 
-    uint8_t d_vel_bytes[4];
     signed long d_vel;
     int16_t d_vel_rounded;
 
-    uint8_t headVeh_bytes[4];
     signed long headVeh;
     int16_t headVeh_rounded;
 
-    uint8_t mag_dec_bytes[2];
     signed short mag_dec;
 
     uint8_t fix_type;
 
-    uint16_t iTOW_bytes[4];
     unsigned long iTOW;
     bool unique_iTOW;
+
+    uint16_t year; // Year (UTC)
+    uint8_t month; // Month, range 1..12 (UTC)
+    uint8_t day;  // Day of month, range 1..31 (UTC)
+    uint8_t hour; // Hour of day, range 0..23 (UTC)
+    uint8_t minute; // Minute of hour, range 0..59 (UTC)
+    uint8_t second; // Second of minute, range 0..60 (UTC)
+    bool is_valid_date;
+    bool is_valid_time;
+    bool is_fully_resolved;
+    bool is_valid_mag;
 
     uint8_t gyro_OK;
 
@@ -99,6 +100,12 @@ typedef struct
 #define GPS_FIX_3D  3
 #define GPS_FIX_GNSS_DEAD_RECKONING 4
 #define GPS_FIX_TIME_ONLY       5
+
+           
+#define GPS_VALID_DATE           0x01    // Valid UTC Date
+#define GPS_VALID_TIME           0x02    // Valid UTC Time
+#define GPS_VALID_FULLY_RESOLVED 0x04    // UTC fully resolved
+#define GPS_VALID_MAG           0x08     // Valid Magnetic Declination
 
 /**
  * @brief Function to Parse periodic GPS UBX message

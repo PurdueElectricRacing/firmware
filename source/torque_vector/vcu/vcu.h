@@ -1,5 +1,6 @@
 #include "gps.h"
 
+// VCU Structs
 typedef struct {
   float r;
   float ht[2];
@@ -195,12 +196,16 @@ typedef struct {
   float sl;
 } yVCU_struct;
 
+// VCU struct initialization functions
 fVCU_struct init_fVCU(void);
 xVCU_struct init_xVCU(void);
 yVCU_struct init_yVCU(void);
 pVCU_struct init_pVCU(void);
 
+// VCU pre-process
 void vcu_pp(xVCU_struct* xVCU, fVCU_struct* fVCU, GPS_Handle_t* GPS);
+// VCU dummy pre-process function, sets structs to constant values instead of reading from sensors
 void vcu_pp_tester(xVCU_struct *xVCU, fVCU_struct *fVCU);
 
+// MATLAB codegen
 void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x, yVCU_struct *y);

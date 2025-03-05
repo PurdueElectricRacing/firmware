@@ -1,5 +1,6 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
+#include "common/daq/can_parse_base.h"
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
@@ -20,6 +21,7 @@
 #include "gps.h"
 #include "vcu.h"
 
+#include <stdint.h>
 #include <string.h>
 
 uint8_t collect_test[100] = {0};
@@ -43,8 +45,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, GPIO_OUTPUT_HIGH_SPEED),
 
     // UART Logging
-    // GPIO_INIT_USART1TX_PA9,
-    // GPIO_INIT_USART1RX_PA10,
+    GPIO_INIT_USART1TX_PA9,
+    GPIO_INIT_USART1RX_PA10,
 
     // GPS SPI
     // GPIO_INIT_AF(SPI2_CLK_GPS_PORT, SPI2_CLK_GPS_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
@@ -81,22 +83,22 @@ usart_init_t huart_gps =
 };
 
 
-// dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-// dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-// usart_init_t usb = {
-//    .baud_rate   = 115200,
-//    .word_length = WORD_8,
-//    .stop_bits   = SB_ONE,
-//    .parity      = PT_NONE,
-//    .hw_flow_ctl = HW_DISABLE,
-//    .ovsample    = OV_16,
-//    .obsample    = OB_DISABLE,
-//    .periph      = USART1,
-//    .wake_addr   = false,
-//    .usart_active_num = USART1_ACTIVE_IDX,
-//    .tx_dma_cfg = &usart_usb_tx_dma_config,
-//    .rx_dma_cfg = &usart_usb_rx_dma_config
-// };
+dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t usb = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART1,
+   .wake_addr   = false,
+   .usart_active_num = USART1_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_usb_tx_dma_config,
+   .rx_dma_cfg = &usart_usb_rx_dma_config
+};
 
 /*
 Datasheet Page 12
@@ -152,6 +154,9 @@ SPI_InitConfig_t spi_config = {
 GPS_Handle_t GPSHandle = {};
 vector_3d_t accel_in, gyro_in, mag_in;
 
+static struct serial_tx txmsg = {.test = 5};
+static struct serial_rx rxmsg;
+static uint16_t rxbuffer[(sizeof(rxmsg) + 1) / 2];
 
 BMI088_Handle_t bmi_config = {
     .accel_csb_gpio_port = SPI1_CSB_ACCEL_PORT,
@@ -208,14 +213,14 @@ int main(void)
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 74, 1000);
+    configureAnim(preflightAnimation, preflightChecks, 100, 750);
     PHAL_writeGPIO(RESET_GPS_PORT, RESET_GPS_PIN, 1);
     // taskCreateBackground(canTxUpdate);
     // taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
-    //taskCreate(testUsart, 500);
-    //taskCreate(heartBeatTask, 100);
+    taskCreate(testUsart, 100);
+    taskCreate(heartBeatTask, 100);
 
     taskCreate(parseIMU, 20);
     // taskCreate(pollIMU, 20);
@@ -243,23 +248,24 @@ void preflightChecks(void)
         // PHAL_writeGPIO(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, 0);
         break;
     case 2:
-        /* USART initialization */
-        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
-        // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        // /* USART initialization */
+        // if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
         // {
         //     HardFault_Handler();
         // }
+        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
         break;
     case 3:
         // GPS Initialization
         PHAL_writeGPIO(RESET_GPS_PORT, RESET_GPS_PIN, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        // PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
     break;
     case 5:
-        //initFaultLibrary(FAULT_NODE_NAME, &q_tx_can1_s[0], ID_FAULT_SYNC_TORQUE_VECTOR);
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         PHAL_writeGPIO(SPI1_CSB_ACCEL_PORT, SPI1_CSB_ACCEL_PIN, 1);
         PHAL_writeGPIO(SPI1_CSB_GYRO_PORT, SPI1_CSB_GYRO_PIN, 1);
         break;
@@ -290,12 +296,12 @@ void preflightChecks(void)
         fVCU = init_fVCU();
         xVCU = init_xVCU();
         yVCU = init_yVCU();
-
+        break;
     default:
         if (state > 750)
         {
-            // if (!imu_init(&imu_h))
-            //     HardFault_Handler();
+            if (!imu_init(&imu_h))
+                HardFault_Handler();
             //initCANParse();
             registerPreflightComplete(1);
             state = 750; // prevent wrap around
@@ -356,6 +362,13 @@ void parseIMU(void)
     GPSHandle.acceleration = accel_in;
     GPSHandle.gyroscope = gyro_in;
 
+    txmsg.accel_x = accel_in.x;
+    txmsg.accel_y = accel_in.y;
+    txmsg.accel_z = accel_in.z;
+    txmsg.gyro_x = gyro_in.x;
+    txmsg.gyro_y = gyro_in.y;
+    txmsg.gyro_z = gyro_in.z;
+
     /* Update Gyro OK flag */
     if (gyro_counter == 150){
         GPSHandle.gyro_OK = BMI088_gyroOK(&bmi_config);
@@ -367,7 +380,64 @@ void parseIMU(void)
 
 void usart_recieve_complete_callback(usart_init_t *handle)
 {
-   parseVelocity(&GPSHandle);
+    if (handle == &usb)
+    {
+        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
+
+        // Data
+
+        xVCU.TH_RAW = rxmsg.TH_RAW;
+        xVCU.ST_RAW = rxmsg.ST_RAW;
+        xVCU.VB_RAW = rxmsg.VB_RAW;
+
+        xVCU.WT_RAW[0] = rxmsg.WT_RAW1;
+        xVCU.WT_RAW[1] = rxmsg.WT_RAW2;
+
+        xVCU.WM_RAW[0] = rxmsg.WM_RAW1;
+        xVCU.WM_RAW[1] = rxmsg.WM_RAW2;
+
+        xVCU.GS_RAW = rxmsg.GS_RAW;
+
+        xVCU.AV_RAW[0] = rxmsg.AV_RAW1;
+        xVCU.AV_RAW[1] = rxmsg.AV_RAW2;
+        xVCU.AV_RAW[2] = rxmsg.AV_RAW3;
+
+        xVCU.IB_RAW = rxmsg.IB_RAW;
+        xVCU.MT_RAW = rxmsg.MT_RAW;
+        xVCU.CT_RAW = rxmsg.CT_RAW;
+        xVCU.IT_RAW = rxmsg.IT_RAW;
+        xVCU.MC_RAW = rxmsg.MC_RAW;
+        xVCU.IC_RAW = rxmsg.IC_RAW;
+        xVCU.BT_RAW = rxmsg.BT_RAW;
+
+        xVCU.AG_RAW[0] = rxmsg.AG_RAW1;
+        xVCU.AG_RAW[1] = rxmsg.AG_RAW2;
+        xVCU.AG_RAW[2] = rxmsg.AG_RAW3;
+
+        xVCU.TO_RAW[0] = rxmsg.TO_RAW1;
+        xVCU.TO_RAW[1] = rxmsg.TO_RAW2;
+
+        xVCU.DB_RAW = rxmsg.DB_RAW;
+        xVCU.PI_RAW = rxmsg.PI_RAW;
+        xVCU.PP_RAW = rxmsg.PP_RAW;
+
+        // Flags
+        fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
+        fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
+        fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
+        fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
+        fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
+        fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
+        fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
+        fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
+        fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
+        fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
+    }
+    else 
+    {
+        parseVelocity(&GPSHandle);
+    }
+
 }
 
 /* CAN Message Handling */
@@ -413,8 +483,11 @@ void HardFault_Handler()
     }
 }
 
-// void testUsart()
-// {
-//     char* txmsg = "Hello World!\n";
-//     PHAL_usartTxDma(&usb, (uint16_t *)txmsg, 13);
-// }
+uint8_t buffer[2 + sizeof(txmsg)];
+void testUsart()
+{
+    buffer[0] = 0xAA;  // Sync word
+    buffer[1] = 0x55;
+    memcpy(buffer + 2, &txmsg, sizeof(txmsg));
+    PHAL_usartTxBl(&usb, buffer, sizeof(buffer));
+}

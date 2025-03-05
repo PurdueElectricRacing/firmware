@@ -61,7 +61,7 @@
 #define DLC_GPS_SPEED 4
 #define DLC_GPS_POSITION 2
 #define DLC_GPS_COORDINATES 8
-#define DLC_GPS_TIME 7
+#define DLC_GPS_TIME 8
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
 #define DLC_BMM_MAG 6
@@ -121,7 +121,7 @@
         data_a->gps_coordinates.longitude = longitude_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_GPS_TIME(year_, month_, day_, hour_, minute_, second_) do {\
+#define SEND_GPS_TIME(year_, month_, day_, hour_, minute_, second_, millisecond_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_GPS_TIME, .DLC=DLC_GPS_TIME, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->gps_time.year = year_;\
@@ -130,6 +130,7 @@
         data_a->gps_time.hour = hour_;\
         data_a->gps_time.minute = minute_;\
         data_a->gps_time.second = second_;\
+        data_a->gps_time.millisecond = millisecond_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_IMU_GYRO(imu_gyro_x_, imu_gyro_y_, imu_gyro_z_) do {\
@@ -272,12 +273,13 @@ typedef union {
         uint64_t longitude: 32;
     } gps_coordinates;
     struct {
-        uint64_t year: 16;
+        uint64_t year: 8;
         uint64_t month: 8;
         uint64_t day: 8;
         uint64_t hour: 8;
         uint64_t minute: 8;
         uint64_t second: 8;
+        uint64_t millisecond: 16;
     } gps_time;
     struct {
         uint64_t imu_gyro_x: 16;

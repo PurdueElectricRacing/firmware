@@ -73,12 +73,13 @@ typedef struct
     unsigned long iTOW;
     bool unique_iTOW;
 
-    uint16_t year; // Year (UTC)
+    uint8_t year; // Year (UTC) - (milenium truncated)
     uint8_t month; // Month, range 1..12 (UTC)
     uint8_t day;  // Day of month, range 1..31 (UTC)
     uint8_t hour; // Hour of day, range 0..23 (UTC)
     uint8_t minute; // Minute of hour, range 0..59 (UTC)
     uint8_t second; // Second of minute, range 0..60 (UTC)
+    int16_t millisecond; // Millisecond of second (calculated from nanoseconds)
     bool is_valid_date;
     bool is_valid_time;
     bool is_fully_resolved;

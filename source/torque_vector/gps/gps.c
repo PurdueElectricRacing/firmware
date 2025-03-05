@@ -147,13 +147,19 @@ bool parseVelocity(GPS_Handle_t *GPS)
             // Collect date and time (UTC)
             iShort.bytes[0] = GPS->raw_message[10];
             iShort.bytes[1] = GPS->raw_message[11];
-            GPS->year = iShort.iShort; // year in uint16_t
+            GPS->year = (uint8_t)(iShort.iShort - 2000); // chop off 2000 from the year and store as uint8_t
 
             GPS->month = GPS->raw_message[12];
             GPS->day = GPS->raw_message[13];
             GPS->hour = GPS->raw_message[14];
             GPS->minute = GPS->raw_message[15];
             GPS->second = GPS->raw_message[16];
+
+            iLong.bytes[0] = GPS->raw_message[18];
+            iLong.bytes[1] = GPS->raw_message[19];
+            iLong.bytes[2] = GPS->raw_message[20];
+            iLong.bytes[3] = GPS->raw_message[21];
+            GPS->millisecond = (int16_t)(iLong.iLong / 1000000); // convert nanoseconds to milliseconds
 
             GPS->is_valid_date = (GPS->raw_message[17] & GPS_VALID_DATE) ? true : false;
             GPS->is_valid_time = (GPS->raw_message[17] & GPS_VALID_TIME) ? true : false;
@@ -173,7 +179,7 @@ bool parseVelocity(GPS_Handle_t *GPS)
 
             // Only post onto CAN if GPS is fully resolved
             if (GPS->is_fully_resolved) {
-                SEND_GPS_TIME(GPS->year, GPS->month, GPS->day, GPS->hour, GPS->minute, GPS->second);
+                SEND_GPS_TIME(GPS->year, GPS->month, GPS->day, GPS->hour, GPS->minute, GPS->second, GPS->millisecond);
             }
 
             SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded);

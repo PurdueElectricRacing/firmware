@@ -152,8 +152,6 @@ typedef struct
  */
 bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck);
 
-#ifdef STM32F407xx
-
 /**
  * @brief           TX using no DMA (blocks until complete)
  * @param handle    The handle for the usart configuration
@@ -169,7 +167,6 @@ void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len);
  * @param len       Number of u8s expected to receive. Will block if not received.
  */
 void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len);
-#endif
 
 /**
  * @brief           Starts a tx using dma, use PHAL_usartTxDmaComplete

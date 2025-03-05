@@ -9,18 +9,18 @@
  * @copyright Copyright (c) 2022
  *
  */
+
+
 #ifndef _MAIN_H_
 #define _MAIN_H_
-
-
-//STM32F407VGT6
 
 #include "common/faults/fault_nodes.h"
 #include "common/phal_F4_F7/can/can.h"
 
+/* Faults */
 #define FAULT_NODE_NAME NODE_PDU
 
-// Status Indicators
+/* Status Indicators */
 #define ERR_LED_GPIO_Port           (GPIOC)
 #define ERR_LED_Pin                 (13)
 #define CONN_LED_GPIO_Port          (GPIOC)
@@ -29,13 +29,13 @@
 #define HEARTBEAT_GPIO_Port         (GPIOC)
 #define HEARTBEAT_Pin               (15)
 
-// CAN
+/* CAN */
 #define VCAN_RX_GPIO_Port           (GPIOD)
 #define VCAN_RX_Pin                 (0)
 #define VCAN_TX_GPIO_Port           (GPIOD)
 #define VCAN_TX_Pin                 (1)
 
-// EEPROM
+/* EEPROM */
 #define SPI2_SCK_GPIO_Port          (GPIOB)
 #define SPI2_SCK_Pin                (13)
 #define SPI2_MISO_GPIO_Port         (GPIOB)
@@ -44,11 +44,11 @@
 #define SPI2_MOSI_Pin               (15)
 
 #define EEPROM_nWP_GPIO_Port        (GPIOB)
-#define EEPROM_nWP_Pin              (12)
+#define EEPROM_nWP_Pin              (11)
 #define EEPROM_NSS_GPIO_Port        (GPIOB)
-#define EEPROM_NSS_Pin              (11)
+#define EEPROM_NSS_Pin              (12)
 
-// LED CTRL
+/* LED CTRL */
 #define SPI1_SCK_GPIO_Port          (GPIOB)
 #define SPI1_SCK_Pin                (3)
 #define SPI1_MOSI_GPIO_Port         (GPIOB)
@@ -59,12 +59,13 @@
 #define LED_CTRL_BLANK_GPIO_Port    (GPIOB)
 #define LED_CTRL_BLANK_Pin          (6)
 
-// NOTE: Schematic refers to coolant hardware as 1 and 2
-// MAPPING
-// 1 = Battery Cooling
-// 2 = Drivetrain Cooling
+/* -------------------------------------------------------
+Note: schematic refers to coolant hardware as 1 and 2
+    1: Battery Cooling
+    2: Drivetrain Cooling
+-------------------------------------------------------- */
 
-// Flow Rate
+/* Flow Rate */
 #define FLOW_RATE_1_TIM             (TIM3)
 #define FLOW_RATE_1_TIM_CH          (1)
 #define FLOW_RATE_1_GPIO_Port       (GPIOC)
@@ -77,7 +78,7 @@
 #define FLOW_RATE_2_Pin             (7)
 #define FLOW_RATE_2_AF              (3)
 
-// Fan Control
+/* Fan Control */
 #define FAN_1_PWM_TIM               (TIM1)
 #define FAN_1_PWM_TIM_CH            (1)
 #define FAN_1_PWM_GPIO_Port         (GPIOE)
@@ -102,7 +103,7 @@
 #define FAN_2_TACH_Pin              (8)
 #define FAN_2_TACH_AF               (3)
 
-// Pump Switches (High Power)
+/* Pump Switches (High Power) */
 #define PUMP_1_CTRL_GPIO_Port       (GPIOB)
 #define PUMP_1_CTRL_Pin             (10)
 #define PUMP_1_IMON_GPIO_Port       (GPIOA)
@@ -115,21 +116,19 @@
 #define PUMP_2_IMON_Pin             (5)
 #define PUMP_2_IMON_ADC_CHNL        (5)
 
-// Auxiliary Switch (High Power)
+/* Auxiliary Switch (High Power) */
 #define AUX_HP_CTRL_GPIO_Port       (GPIOD)
 #define AUX_HP_CTRL_Pin             (12)
 #define AUX_HP_IMON_GPIO_Port       (GPIOC)
 #define AUX_HP_IMON_Pin             (3)
 #define AUX_HP_IMON_ADC_CHNL        (13)
 
-// Shutdown Circuit (SDC) Switch (High Power)
-#define SDC_CTRL_GPIO_Port          (GPIOD)
-#define SDC_CTRL_Pin                (13)
+/* Shutdown Circuit (SDC) Switch (High Power) */
 #define SDC_IMON_GPIO_Port          (GPIOA)
 #define SDC_IMON_Pin                (0)
 #define SDC_IMON_ADC_CHNL           (0)
 
-// Fan Switches (Low Power)
+/* Fan Switches (Low Power) */
 #define FAN_1_CTRL_GPIO_Port        (GPIOD)
 #define FAN_1_CTRL_Pin              (9)
 #define FAN_1_NFLT_GPIO_Port        (GPIOD)
@@ -146,7 +145,7 @@
 #define FAN_2_CS_Pin                (3)
 #define FAN_2_CS_ADC_CHNL           (3)
 
-// Main Module Switch (Low Power)
+/* Main Module Switch (Low Power) */
 #define MAIN_CTRL_GPIO_Port         (GPIOD)
 #define MAIN_CTRL_Pin               (15)
 #define MAIN_NFLT_GPIO_Port         (GPIOD)
@@ -155,55 +154,49 @@
 #define MAIN_CS_Pin                 (2)
 #define MAIN_CS_ADC_CHNL            (12)
 
-// Dashboard Switch (Low Power)
-#define DASH_CTRL_GPIO_Port         (GPIOA)
-#define DASH_CTRL_Pin               (9)
+/* Dashboard Switch (Low Power) */
 #define DASH_NFLT_GPIO_Port         (GPIOA)
 #define DASH_NFLT_Pin               (8)
 #define DASH_CS_GPIO_Port           (GPIOC)
 #define DASH_CS_Pin                 (1)
 #define DASH_CS_ADC_CHNL            (11)
 
-// Accumulator (ABox) Switch (Low Power)
-#define ABOX_CTRL_GPIO_Port         (GPIOA)
-#define ABOX_CTRL_Pin               (11)
+/* Accumulator (Abox) Switch (Low Power) */
 #define ABOX_NFLT_GPIO_Port         (GPIOA)
 #define ABOX_NFLT_Pin               (10)
 #define ABOX_CS_GPIO_Port           (GPIOC)
 #define ABOX_CS_Pin                 (0)
 #define ABOX_CS_ADC_CHNL            (10)
 
-// Bullet (Antennae) Switch (Low Power)
+/* Accumulator (Abox) Switch (Low Power) */
 #define BLT_CTRL_GPIO_Port          (GPIOE)
 #define BLT_CTRL_Pin                (13)
 #define BLT_NFLT_GPIO_Port          (GPIOE)
 #define BLT_NFLT_Pin                (14)
 
-// 5V Critical Switch (5V)
+/* 5V Critical Switch (5V) */
 #define CRIT_5V_CTRL_GPIO_Port      (GPIOE)
 #define CRIT_5V_CTRL_Pin            (2)
 #define CRIT_5V_NFLT_GPIO_Port      (GPIOE)
 #define CRIT_5V_NFLT_Pin            (1)
 
-// 5V Non-Critical Switch (5V)
+/* 5V Non-Critical Switch (5V) */
 #define NCRIT_5V_CTRL_GPIO_Port     (GPIOE)
 #define NCRIT_5V_CTRL_Pin           (6)
 #define NCRIT_5V_NFLT_GPIO_Port     (GPIOE)
 #define NCRIT_5V_NFLT_Pin           (5)
 
-// DAQ Switch (5V)
-#define DAQ_CTRL_GPIO_Port          (GPIOE)
-#define DAQ_CTRL_Pin                (4)
+/* DAQ Switch (5V) */
 #define DAQ_NFLT_GPIO_Port          (GPIOE)
 #define DAQ_NFLT_Pin                (3)
 
-// 5V Fan Switch (5V)
+/* 5V Fan Switch (5V) */
 #define FAN_5V_CTRL_GPIO_Port       (GPIOE)
 #define FAN_5V_CTRL_Pin             (8)
 #define FAN_5V_NFLT_GPIO_Port       (GPIOE)
 #define FAN_5V_NFLT_Pin             (7)
 
-// LV Battery BMS
+/* LV Battery BMS */
 #define LV_BMS_STAT_GPIO_Port       (GPIOA)
 #define LV_BMS_STAT_Pin             (15)
 #define LV_BMS_TX_GPIO_Port         (GPIOC)
@@ -211,7 +204,7 @@
 #define LV_BMS_RX_GPIO_Port         (GPIOC)
 #define LV_BMS_RX_Pin               (11)
 
-// LV Status
+/* LV Status */
 #define LV_24V_V_SENSE_GPIO_Port    (GPIOB)
 #define LV_24V_V_SENSE_Pin          (0)
 #define LV_24V_V_SENSE_ADC_CHNL     (8)
@@ -236,7 +229,12 @@
 
 #define INTERNAL_THERM_ADC_CHNL     (17)
 
-// ADC Configuration
+/* AMK VSENSE */
+#define AMK_25V_V_SENSE_GPIO_PORT (GPIOB)
+#define AMK_25V_V_SENSE_PIN (1)
+#define AMK_25V_V_SENSE_ADC_CHNL (9)
+
+/* ADC */
 #define ADC_REF_mV (3300UL) // mV
 typedef struct
 {
@@ -259,8 +257,9 @@ typedef struct
     uint16_t lv_3v3_v_sense;
     uint16_t external_therm;
     uint16_t internal_therm;
-}__attribute__((packed)) ADCReadings_t;
+} __attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 
 void canTxSendToBack(CanMsgTypeDef_t *msg);
-#endif
+
+#endif /* _MAIN_H_ */

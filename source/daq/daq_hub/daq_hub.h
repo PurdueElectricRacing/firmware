@@ -74,7 +74,7 @@ extern daq_hub_t dh;
 
 void daq_hub_init(void);
 void daq_create_threads(void);
-void uds_receive_periodic(void);
 void daq_shutdown_hook(void);
+void udsFrameSend(uint64_t data);
 
 #endif // _DAQ_HUB_H_

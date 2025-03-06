@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -10,6 +9,39 @@
 #include "common/psched/psched.h"
 
 #include "main.h"
+#include "source/torque_vector/can/can_parse.h"
+
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+#include "uds.h"
+uint8_t collect_test[100] = {0};
 
 GPIOInitConfig_t gpio_config[] =
 {
@@ -231,7 +263,23 @@ void preflightChecks(void)
         /* GPS Initialization */
         PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
         PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+    break;
+    case 5:
+        udsInit();
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
+    case 1:
+        /* SPI initialization */
+        if (!PHAL_SPI_init(&spi_config))
+        {
+            HardFault_Handler();
+        }
+        spi_config.data_rate = APB2ClockRateHz / 16;
+
+        PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
+        PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
+        PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
+    break;
     case 4:
         /* USB USART */
         // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
@@ -496,14 +544,6 @@ void VCU_MAIN(void)
     SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int16_t)(yVCU.WM_VS[0]));
     SEND_VCU_SOC_ESTIMATE((int16_t)(100*yVCU.Batt_SOC), (int16_t)(10*yVCU.Batt_Voc));
     SEND_DRIVE_MODES((int8_t)(yVCU.VCU_mode), (int8_t)(yVCU.VT_mode));
-}
-
-void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
-    {
-        Bootloader_ResetForFirmwareDownload();
-    }    
 }
 
 void HardFault_Handler()

@@ -134,6 +134,10 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
                     lines.append(f"\t\t\t\tset_fault_daq(msg_data_a->set_fault.id, msg_data_a->set_fault.value);\n")
                 else:
                     lines.append(f"\t\t\t\treturn_fault_control(msg_data_a->return_fault_control.id);\n")
+            elif "uds" in msg['msg_name']:
+                # msg_data_a->uds_command_MAIN_MODULE.payload
+                n = f"msg_data_a->{msg['msg_name']}.payload"
+                lines.append(f"\t\t\t\t{msg['msg_name']}_CALLBACK({n});\n")
             else:
                 if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
                     lines.append(ind+f"                {msg['msg_name']}_CALLBACK(&msg_header);\n")
@@ -265,12 +269,22 @@ def configure_node(node_config, node_paths):
     # Rx callbacks
     rx_callbacks = [rx_config for rx_config in node_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
     if is_junc: rx_callbacks += [rx_config for rx_config in junc_config['rx'] if ("callback" in rx_config and rx_config["callback"])]
-    extern_callback_lines = [f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n" for rx_config in rx_callbacks if ("arg_type" in rx_config and rx_config["arg_type"]=="header")]
-    extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("fault" not in rx_config) and (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data"))]
+    extern_callback_lines = []
+    for rx_config in rx_callbacks:
+        if "uds" in rx_config['msg_name']:
+            extern_callback_lines += f"extern void {rx_config['msg_name']}_CALLBACK(uint64_t payload);\n"
+            continue
+        if ("arg_type" in rx_config and rx_config["arg_type"]=="header"):
+            extern_callback_lines = f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n"
+        if (("fault" not in rx_config) and ("uds" not in rx_config['msg_name']) and (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data")):
+            extern_callback_lines += f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n"
+    #extern_callback_lines = [f"extern void {rx_config['msg_name']}_CALLBACK(CanMsgTypeDef_t* msg_header_a);\n" for rx_config in rx_callbacks if ("arg_type" in rx_config and rx_config["arg_type"]=="header")]
+    #extern_callback_lines += [f"extern void {rx_config['msg_name']}_CALLBACK(CanParsedData_t* msg_data_a);\n" for rx_config in rx_callbacks if (("fault" not in rx_config) and ("uds" not in rx_config['msg_name']) and (("arg_type" not in rx_config) or rx_config["arg_type"]=="msg_data"))]
     extern_callback_lines += "extern void handleCallbacks(uint16_t id, bool latched);\n"
     extern_callback_lines += "extern void set_fault_daq(uint16_t id, bool value);\n"
     extern_callback_lines += "extern void return_fault_control(uint16_t id);\n"
     extern_callback_lines += "extern void send_fault(uint16_t id, bool latched);\n"
+    #extern_callback_lines += f"extern void {rx_config['msg_name']}_CALLBACK();\n"
     h_lines = generator.insert_lines(h_lines, gen_callback_start, gen_callback_stop, extern_callback_lines)
 
 

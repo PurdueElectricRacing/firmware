@@ -186,11 +186,6 @@ void canRxUpdate(void)
                     can_data.LWS_Standard.stale = 0;
                     can_data.LWS_Standard.last_rx = sched.os_ticks;
                     break;
-                case ID_MAIN_MODULE_BL_CMD:
-                    can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
-                    can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
-                    main_module_bl_cmd_CALLBACK(msg_data_a);
-                    break;
                 case ID_ORION_CURRENTS_VOLTS:
                     can_data.orion_currents_volts.pack_current = (int16_t) msg_data_a->orion_currents_volts.pack_current;
                     can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
@@ -245,9 +240,9 @@ void canRxUpdate(void)
                     can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
                     break;
-                case ID_DAQ_COMMAND_MAIN_MODULE_VCAN:
-                    can_data.daq_command_MAIN_MODULE_VCAN.daq_command = msg_data_a->daq_command_MAIN_MODULE_VCAN.daq_command;
-                    daq_command_MAIN_MODULE_VCAN_CALLBACK(&msg_header);
+                case ID_UDS_COMMAND_MAIN_MODULE:
+                    can_data.uds_command_main_module.payload = msg_data_a->uds_command_main_module.payload;
+				uds_command_main_module_CALLBACK(msg_data_a->uds_command_main_module.payload);
                     break;
                 default:
                     __asm__("nop");
@@ -357,24 +352,22 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
     CAN1->sFilterRegister[2].FR1 = (ID_LWS_STANDARD << 21);
-    CAN1->sFilterRegister[2].FR2 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_VCU_TORQUES_SPEEDS << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_VCU_TORQUES_SPEEDS << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_DRIVE_MODES << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_DRIVE_MODES << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE_VCAN << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_UDS_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

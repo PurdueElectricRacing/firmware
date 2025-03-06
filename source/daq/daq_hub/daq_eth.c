@@ -389,17 +389,6 @@ static void eth_tcp_receive_periodic(void)
     }
 }
 
-static void eth_tcp_send_frame(timestamped_frame_t *frame)
-{
-    if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED) // only send UDS response back if TCP established
-    {
-        if (xQueueSendToBack(q_tcp_tx, frame, (TickType_t)10) != pdPASS)
-        {
-            dh.tcp_tx_overflow++;
-        }
-    }
-}
-
 /* TODO buffer for TCP TX */
 static void _eth_tcp_send_frame_raw(timestamped_frame_t *frame)
 {

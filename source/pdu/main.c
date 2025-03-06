@@ -1,5 +1,4 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/dma/dma.h"
@@ -14,11 +13,11 @@
 #include "main.h"
 #include "auto_switch.h"
 #include "can_parse.h"
-#include "daq.h"
 #include "fan_control.h"
 #include "led.h"
 #include "cooling.h"
 #include "flow_rate.h"
+#include "uds.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -213,7 +212,6 @@ int main()
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
     taskCreate(heartBeatTask, 100);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(LED_periodic, 500);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -239,10 +237,9 @@ void preflightChecks(void) {
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
            break;
         case 1:
-           initCANParse();
-           if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
-               HardFault_Handler();
-           break;
+            initCANParse();
+            udsInit();
+            break;
         case 2:
             if(!PHAL_SPI_init(&spi_config))
             {
@@ -348,12 +345,6 @@ void heatBeatLED()
 void CAN1_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN1);
-}
-
-void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-   if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
-       Bootloader_ResetForFirmwareDownload();
 }
 
 void send_iv_readings() {

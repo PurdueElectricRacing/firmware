@@ -81,6 +81,15 @@ uint32_t PHAL_flashReadU32(uint32_t addr)
     return val;
 }
 
+void PHAL_flashReadU32_Buffered(uint32_t src_addr, uint32_t dst_addr, uint32_t count)
+{
+    for (uint32_t i = 0; i < count; i++)
+    {
+        uint32_t offset = i * sizeof(uint32_t);
+        *(__IO uint32_t *)(dst_addr + offset) = *(__IO uint32_t *)(src_addr + offset);
+    }
+}
+
 uint8_t PHAL_flashWriteU32(uint32_t Address, uint32_t value)
 {
     uint32_t timeout = 0;

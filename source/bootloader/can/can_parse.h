@@ -27,113 +27,54 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_MAIN_MODULE_BL_RESP 0x404e23c
-#define ID_DASHBOARD_BL_RESP 0x404e27c
-#define ID_TORQUEVECTOR_BL_RESP 0x404e2bc
-#define ID_A_BOX_BL_RESP 0x404e2fc
-#define ID_PDU_BL_RESP 0x404e33c
-#define ID_L4_TESTING_BL_RESP 0x430d57c
-#define ID_F4_TESTING_BL_RESP 0x430d5bc
-#define ID_F7_TESTING_BL_RESP 0x430d5fc
-#define ID_DAQ_BL_RESP 0x430d63c
+#define ID_UDS_RESPONSE_MAIN_MODULE 0x1800193c
+#define ID_UDS_RESPONSE_DASHBOARD 0x1800197c
+#define ID_UDS_RESPONSE_A_BOX 0x180019bc
+#define ID_UDS_RESPONSE_PDU 0x180019fc
 #define ID_BITSTREAM_DATA 0x400193e
-#define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_DASHBOARD_BL_CMD 0x409c47e
-#define ID_TORQUEVECTOR_BL_CMD 0x409c4be
-#define ID_A_BOX_BL_CMD 0x409c4fe
-#define ID_PDU_BL_CMD 0x409c53e
-#define ID_L4_TESTING_BL_CMD 0x409c57e
-#define ID_F4_TESTING_BL_CMD 0x409c5be
-#define ID_F7_TESTING_BL_CMD 0x409c5fe
-#define ID_DAQ_BL_CMD 0x409c63e
+#define ID_UDS_COMMAND_MAIN_MODULE 0x18003231
+#define ID_UDS_COMMAND_DASHBOARD 0x18003271
+#define ID_UDS_COMMAND_A_BOX 0x180032b1
+#define ID_UDS_COMMAND_PDU 0x180032f1
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_MAIN_MODULE_BL_RESP 5
-#define DLC_DASHBOARD_BL_RESP 5
-#define DLC_TORQUEVECTOR_BL_RESP 5
-#define DLC_A_BOX_BL_RESP 5
-#define DLC_PDU_BL_RESP 5
-#define DLC_L4_TESTING_BL_RESP 5
-#define DLC_F4_TESTING_BL_RESP 5
-#define DLC_F7_TESTING_BL_RESP 5
-#define DLC_DAQ_BL_RESP 5
+#define DLC_UDS_RESPONSE_MAIN_MODULE 8
+#define DLC_UDS_RESPONSE_DASHBOARD 8
+#define DLC_UDS_RESPONSE_A_BOX 8
+#define DLC_UDS_RESPONSE_PDU 8
 #define DLC_BITSTREAM_DATA 8
-#define DLC_MAIN_MODULE_BL_CMD 5
-#define DLC_DASHBOARD_BL_CMD 5
-#define DLC_TORQUEVECTOR_BL_CMD 5
-#define DLC_A_BOX_BL_CMD 5
-#define DLC_PDU_BL_CMD 5
-#define DLC_L4_TESTING_BL_CMD 5
-#define DLC_F4_TESTING_BL_CMD 5
-#define DLC_F7_TESTING_BL_CMD 5
-#define DLC_DAQ_BL_CMD 5
+#define DLC_UDS_COMMAND_MAIN_MODULE 8
+#define DLC_UDS_COMMAND_DASHBOARD 8
+#define DLC_UDS_COMMAND_A_BOX 8
+#define DLC_UDS_COMMAND_PDU 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_MAIN_MODULE_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_MODULE_BL_RESP, .DLC=DLC_MAIN_MODULE_BL_RESP, .IDE=1};\
+#define SEND_UDS_RESPONSE_MAIN_MODULE(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_MAIN_MODULE, .DLC=DLC_UDS_RESPONSE_MAIN_MODULE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->main_module_bl_resp.cmd = cmd_;\
-        data_a->main_module_bl_resp.data = data_;\
+        data_a->uds_response_main_module.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DASHBOARD_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DASHBOARD_BL_RESP, .DLC=DLC_DASHBOARD_BL_RESP, .IDE=1};\
+#define SEND_UDS_RESPONSE_DASHBOARD(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_DASHBOARD, .DLC=DLC_UDS_RESPONSE_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->dashboard_bl_resp.cmd = cmd_;\
-        data_a->dashboard_bl_resp.data = data_;\
+        data_a->uds_response_dashboard.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_TORQUEVECTOR_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TORQUEVECTOR_BL_RESP, .DLC=DLC_TORQUEVECTOR_BL_RESP, .IDE=1};\
+#define SEND_UDS_RESPONSE_A_BOX(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_A_BOX, .DLC=DLC_UDS_RESPONSE_A_BOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->torquevector_bl_resp.cmd = cmd_;\
-        data_a->torquevector_bl_resp.data = data_;\
+        data_a->uds_response_a_box.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_A_BOX_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_A_BOX_BL_RESP, .DLC=DLC_A_BOX_BL_RESP, .IDE=1};\
+#define SEND_UDS_RESPONSE_PDU(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_PDU, .DLC=DLC_UDS_RESPONSE_PDU, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->a_box_bl_resp.cmd = cmd_;\
-        data_a->a_box_bl_resp.data = data_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_PDU_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PDU_BL_RESP, .DLC=DLC_PDU_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->pdu_bl_resp.cmd = cmd_;\
-        data_a->pdu_bl_resp.data = data_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_L4_TESTING_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_L4_TESTING_BL_RESP, .DLC=DLC_L4_TESTING_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->l4_testing_bl_resp.cmd = cmd_;\
-        data_a->l4_testing_bl_resp.data = data_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_F4_TESTING_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_F4_TESTING_BL_RESP, .DLC=DLC_F4_TESTING_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->f4_testing_bl_resp.cmd = cmd_;\
-        data_a->f4_testing_bl_resp.data = data_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_F7_TESTING_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_F7_TESTING_BL_RESP, .DLC=DLC_F7_TESTING_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->f7_testing_bl_resp.cmd = cmd_;\
-        data_a->f7_testing_bl_resp.data = data_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_DAQ_BL_RESP(cmd_, data_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_BL_RESP, .DLC=DLC_DAQ_BL_RESP, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_bl_resp.cmd = cmd_;\
-        data_a->daq_bl_resp.data = data_;\
+        data_a->uds_response_pdu.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -153,41 +94,17 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { 
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } main_module_bl_resp;
+        uint64_t payload: 64;
+    } uds_response_main_module;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } dashboard_bl_resp;
+        uint64_t payload: 64;
+    } uds_response_dashboard;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } torquevector_bl_resp;
+        uint64_t payload: 64;
+    } uds_response_a_box;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } a_box_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } pdu_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } l4_testing_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } f4_testing_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } f7_testing_bl_resp;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } daq_bl_resp;
+        uint64_t payload: 64;
+    } uds_response_pdu;
     struct {
         uint64_t d0: 8;
         uint64_t d1: 8;
@@ -199,41 +116,17 @@ typedef union {
         uint64_t d7: 8;
     } bitstream_data;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } main_module_bl_cmd;
+        uint64_t payload: 64;
+    } uds_command_main_module;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } dashboard_bl_cmd;
+        uint64_t payload: 64;
+    } uds_command_dashboard;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } torquevector_bl_cmd;
+        uint64_t payload: 64;
+    } uds_command_a_box;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } a_box_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } pdu_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } l4_testing_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } f4_testing_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } f7_testing_bl_cmd;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } daq_bl_cmd;
+        uint64_t payload: 64;
+    } uds_command_pdu;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -253,41 +146,17 @@ typedef struct {
         uint8_t d7;
     } bitstream_data;
     struct {
-        uint8_t cmd;
-        uint32_t data;
-    } main_module_bl_cmd;
+        uint64_t payload;
+    } uds_command_main_module;
     struct {
-        uint8_t cmd;
-        uint32_t data;
-    } dashboard_bl_cmd;
+        uint64_t payload;
+    } uds_command_dashboard;
     struct {
-        uint8_t cmd;
-        uint32_t data;
-    } torquevector_bl_cmd;
+        uint64_t payload;
+    } uds_command_a_box;
     struct {
-        uint8_t cmd;
-        uint32_t data;
-    } a_box_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } pdu_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } l4_testing_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } f4_testing_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } f7_testing_bl_cmd;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } daq_bl_cmd;
+        uint64_t payload;
+    } uds_command_pdu;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -295,15 +164,10 @@ extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
 extern void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a);
-extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void f4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void f7_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
-extern void daq_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void uds_command_main_module_CALLBACK(uint64_t payload);
+extern void uds_command_dashboard_CALLBACK(uint64_t payload);
+extern void uds_command_a_box_CALLBACK(uint64_t payload);
+extern void uds_command_pdu_CALLBACK(uint64_t payload);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

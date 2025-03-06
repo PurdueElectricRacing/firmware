@@ -1,5 +1,4 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
 // #include "common/modules/wheel_speeds/wheel_speeds.h"
@@ -19,8 +18,8 @@
 #include "car.h"
 #include "can_parse.h"
 #include "cooling.h"
-#include "daq.h"
 #include "main.h"
+#include "uds.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Internal Status Indicators
@@ -259,7 +258,6 @@ int main(void){
     taskCreate(heartBeatTask, 100);
     taskCreate(send_shockpots, 15);
     taskCreate(parseMCDataPeriodic, MC_LOOP_DT);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     // taskCreate(memFg, MEM_FG_TIME);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -329,8 +327,7 @@ void preflightChecks(void) {
            break;
        case 5:
            initCANParse();
-           if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
-               HardFault_Handler();
+            udsInit();
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_MAIN_MODULE);
            break;
         default:
@@ -541,14 +538,8 @@ void can2Relaycan1(CAN_TypeDef *can_h)
         /* Pass through CAN2 messages onto CAN1 */
         rx.Bus = CAN1; // Override
         canTxSendToBack(&rx);
-        
-    }
-}
 
-void main_module_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-    if (can_data.main_module_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
+    }
 }
 
 void HardFault_Handler()

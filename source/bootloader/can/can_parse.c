@@ -44,50 +44,29 @@ void canRxUpdate()
                 can_data.bitstream_data.d7 = msg_data_a->bitstream_data.d7;
                 bitstream_data_CALLBACK(msg_data_a);
                 break;
-            case ID_MAIN_MODULE_BL_CMD:
-                can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
-                can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
-                main_module_bl_cmd_CALLBACK(msg_data_a);
+            case ID_UDS_COMMAND_MAIN_MODULE:
+                can_data.uds_command_main_module.payload = msg_data_a->uds_command_main_module.payload;
+				uds_command_main_module_CALLBACK(msg_data_a->uds_command_main_module.payload);
                 break;
-            case ID_DASHBOARD_BL_CMD:
-                can_data.dashboard_bl_cmd.cmd = msg_data_a->dashboard_bl_cmd.cmd;
-                can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
-                dashboard_bl_cmd_CALLBACK(msg_data_a);
+            case ID_UDS_COMMAND_DASHBOARD:
+                can_data.uds_command_dashboard.payload = msg_data_a->uds_command_dashboard.payload;
+				uds_command_dashboard_CALLBACK(msg_data_a->uds_command_dashboard.payload);
                 break;
-            case ID_TORQUEVECTOR_BL_CMD:
-                can_data.torquevector_bl_cmd.cmd = msg_data_a->torquevector_bl_cmd.cmd;
-                can_data.torquevector_bl_cmd.data = msg_data_a->torquevector_bl_cmd.data;
-                torquevector_bl_cmd_CALLBACK(msg_data_a);
+            case ID_UDS_COMMAND_A_BOX:
+                can_data.uds_command_a_box.payload = msg_data_a->uds_command_a_box.payload;
+				uds_command_a_box_CALLBACK(msg_data_a->uds_command_a_box.payload);
                 break;
-            case ID_A_BOX_BL_CMD:
-                can_data.a_box_bl_cmd.cmd = msg_data_a->a_box_bl_cmd.cmd;
-                can_data.a_box_bl_cmd.data = msg_data_a->a_box_bl_cmd.data;
-                a_box_bl_cmd_CALLBACK(msg_data_a);
+            case ID_UDS_COMMAND_PDU:
+                can_data.uds_command_pdu.payload = msg_data_a->uds_command_pdu.payload;
+				uds_command_pdu_CALLBACK(msg_data_a->uds_command_pdu.payload);
                 break;
-            case ID_PDU_BL_CMD:
-                can_data.pdu_bl_cmd.cmd = msg_data_a->pdu_bl_cmd.cmd;
-                can_data.pdu_bl_cmd.data = msg_data_a->pdu_bl_cmd.data;
-                pdu_bl_cmd_CALLBACK(msg_data_a);
+            case ID_UDS_COMMAND_TORQUE_VECTOR:
+                can_data.uds_command_torque_vector.payload = msg_data_a->uds_command_torque_vector.payload;
+				uds_command_torque_vector_CALLBACK(msg_data_a->uds_command_torque_vector.payload);
                 break;
-            case ID_L4_TESTING_BL_CMD:
-                can_data.l4_testing_bl_cmd.cmd = msg_data_a->l4_testing_bl_cmd.cmd;
-                can_data.l4_testing_bl_cmd.data = msg_data_a->l4_testing_bl_cmd.data;
-                l4_testing_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_F4_TESTING_BL_CMD:
-                can_data.f4_testing_bl_cmd.cmd = msg_data_a->f4_testing_bl_cmd.cmd;
-                can_data.f4_testing_bl_cmd.data = msg_data_a->f4_testing_bl_cmd.data;
-                f4_testing_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_F7_TESTING_BL_CMD:
-                can_data.f7_testing_bl_cmd.cmd = msg_data_a->f7_testing_bl_cmd.cmd;
-                can_data.f7_testing_bl_cmd.data = msg_data_a->f7_testing_bl_cmd.data;
-                f7_testing_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            case ID_DAQ_BL_CMD:
-                can_data.daq_bl_cmd.cmd = msg_data_a->daq_bl_cmd.cmd;
-                can_data.daq_bl_cmd.data = msg_data_a->daq_bl_cmd.data;
-                daq_bl_cmd_CALLBACK(msg_data_a);
+            case ID_UDS_COMMAND_DAQ:
+                can_data.uds_command_daq.payload = msg_data_a->uds_command_daq.payload;
+				uds_command_daq_CALLBACK(msg_data_a->uds_command_daq.payload);
                 break;
             default:
                 __asm__("nop");
@@ -126,19 +105,15 @@ bool initCANFilter()
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_BITSTREAM_DATA << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_MAIN_MODULE_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_UDS_COMMAND_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_TORQUEVECTOR_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[1].FR1 = (ID_UDS_COMMAND_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_UDS_COMMAND_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_A_BOX_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_PDU_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_UDS_COMMAND_PDU << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_L4_TESTING_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_F4_TESTING_BL_CMD << 3) | 4;
-    CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_F7_TESTING_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_DAQ_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_UDS_COMMAND_DAQ << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

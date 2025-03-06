@@ -35,10 +35,40 @@ void canRxUpdate(void)
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_DAQ_BL_CMD:
-                can_data.daq_bl_cmd.cmd = msg_data_a->daq_bl_cmd.cmd;
-                can_data.daq_bl_cmd.data = msg_data_a->daq_bl_cmd.data;
-                daq_bl_cmd_CALLBACK(msg_data_a);
+            case ID_DAQ_RESPONSE_MAIN_MODULE:
+                can_data.daq_response_MAIN_MODULE.payload = msg_data_a->daq_response_MAIN_MODULE.payload;
+                break;
+            case ID_DAQ_RESPONSE_DASHBOARD:
+                can_data.daq_response_DASHBOARD.payload = msg_data_a->daq_response_DASHBOARD.payload;
+                break;
+            case ID_DAQ_RESPONSE_A_BOX:
+                can_data.daq_response_A_BOX.payload = msg_data_a->daq_response_A_BOX.payload;
+                break;
+            case ID_DAQ_RESPONSE_PDU:
+                can_data.daq_response_PDU.payload = msg_data_a->daq_response_PDU.payload;
+                break;
+            case ID_DAQ_COMMAND_DAQ:
+                can_data.daq_command_DAQ.payload = msg_data_a->daq_command_DAQ.payload;
+                daq_command_DAQ_CALLBACK(&msg_header);
+                break;
+            case ID_UDS_RESPONSE_MAIN_MODULE:
+                can_data.uds_response_main_module.payload = msg_data_a->uds_response_main_module.payload;
+                break;
+            case ID_UDS_RESPONSE_DASHBOARD:
+                can_data.uds_response_dashboard.payload = msg_data_a->uds_response_dashboard.payload;
+                break;
+            case ID_UDS_RESPONSE_A_BOX:
+                can_data.uds_response_a_box.payload = msg_data_a->uds_response_a_box.payload;
+                break;
+            case ID_UDS_RESPONSE_PDU:
+                can_data.uds_response_pdu.payload = msg_data_a->uds_response_pdu.payload;
+                break;
+            case ID_UDS_RESPONSE_TORQUE_VECTOR:
+                can_data.uds_response_torque_vector.payload = msg_data_a->uds_response_torque_vector.payload;
+                break;
+            case ID_UDS_COMMAND_DAQ:
+                can_data.uds_command_daq.payload = msg_data_a->uds_command_daq.payload;
+				uds_command_daq_CALLBACK(msg_data_a->uds_command_daq.payload);
                 break;
             default:
                 __asm__("nop");
@@ -65,7 +95,22 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_DAQ_BL_CMD << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_DAQ_RESPONSE_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_DAQ_RESPONSE_DASHBOARD << 3) | 4;
+    CAN1->FA1R |= (1 << 1);    // configure bank 1
+    CAN1->sFilterRegister[1].FR1 = (ID_DAQ_RESPONSE_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_DAQ_RESPONSE_PDU << 3) | 4;
+    CAN1->FA1R |= (1 << 2);    // configure bank 2
+    CAN1->sFilterRegister[2].FR1 = (ID_DAQ_COMMAND_DAQ << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_UDS_RESPONSE_MAIN_MODULE << 3) | 4;
+    CAN1->FA1R |= (1 << 3);    // configure bank 3
+    CAN1->sFilterRegister[3].FR1 = (ID_UDS_RESPONSE_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_UDS_RESPONSE_A_BOX << 3) | 4;
+    CAN1->FA1R |= (1 << 4);    // configure bank 4
+    CAN1->sFilterRegister[4].FR1 = (ID_UDS_RESPONSE_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_UDS_RESPONSE_TORQUE_VECTOR << 3) | 4;
+    CAN1->FA1R |= (1 << 5);    // configure bank 5
+    CAN1->sFilterRegister[5].FR1 = (ID_UDS_COMMAND_DAQ << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

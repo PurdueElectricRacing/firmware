@@ -2,9 +2,10 @@
  * @file bootloader.c
  * @author Eileen Yoon (eyn@purdue.edu)
  * @brief CAN Bootloader:
- *        - Double bank flash buffer + CRC
- *        - Download/Upload firmware over buffered CAN TP
- *        - Load/store backup firmware
+ *  - A/B partition
+ *  - Load/store backup firmware
+ *  - Download/Upload firmware over UDS
+ *
  * @version 0.1
  * @date 2024-11-24
  *
@@ -12,66 +13,38 @@
  *
  */
 
-#include "bootloader.h"
 #if defined(STM32L496xx) || defined(STM32L432xx)
 #include "common/phal_L4/flash/flash.h"
-#include "common/phal_L4/gpio/gpio.h"
 #endif
 #if defined(STM32F407xx) || defined(STM32F732xx)
 #include "common/phal_F4_F7/flash/flash.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/crc/crc.h"
 #endif
 
-/* F4:
- * 0x08000000 ]  16K [bootloader code]
- * 0x08004000 ]  16K [metadata region/boot manager]
- * 0x08008000 ] 256K [application]
- * 0x08040000 ] 256K [temporary buffer]
- * 0x08080000 ] 256K [backup firmware]
- */
+#include "common/uds/uds.h"
+#include "bootloader.h"
 
-#define MAX_FIRMWARE_SIZE        0x40000
-
-#define BL_ADDRESS_BOOTLOADER 0x08000000 // 0: bootloader (sector 0, 16K)
-#define BL_ADDRESS_CRC        0x08004000 // 1: crc metadata (sector 1, 16K)
-#define BL_ADDRESS_APP        0x08008000 // 2: application (256K)
-//#define BL_ENABLE_DOUBLE_BANK
-#if defined(BL_ENABLE_DOUBLE_BANK)
-#define BL_ADDRESS_BUFFER     0x08040000 // 3: temporary buffer (256K)
-#else
-#define BL_ADDRESS_BUFFER     BL_ADDRESS_APP
-#endif
-#define BL_ADDRESS_BACKUP     0x08080000 // 4: last known good firmware (256K)
-
-#define BL_ADDRESS_CRC_CRC  ((BL_ADDRESS_CRC) + 0)
-#define BL_ADDRESS_CRC_ADDR ((BL_ADDRESS_CRC) + 4)
-#define BL_ADDRESS_CRC_SIZE ((BL_ADDRESS_CRC) + 8)
-
-static bool bl_unlock = false;
-static volatile uint32_t firmware_size_total = 0;
-
-// flash write buffering
-#define BUFFER_SIZE 128
-static uint32_t buffer[BUFFER_SIZE];
-static uint32_t buffer_index = 0;
 // #define EXECUTE_FROM_RAM __attribute__ ((section(".RamFunc")))
+extern char _estack; // start of stack
 
-extern char __isr_vector_start; /* VA of the vector table for the bootloader */
-extern char _eboot_flash;       /* End of the bootlaoder flash region, same as the application start address */
-extern char _estack;            /* The start location of the stack */
-
-static void BL_JumptoApplication(void)
+// These functions should NOT be called by application code (running in A) hence they're in here
+// To do so we would need to copy the current code to sram and etc
+static void BL_JumptoApplication(uint32_t start_addr)
 {
-    uint32_t app_reset_handler_address = *(uint32_t*) (((void *) &_eboot_flash + 4));
-    uint32_t msp = (uint32_t) *((uint32_t*) (((void *) &_eboot_flash)));
-    uint32_t estack = (uint32_t) ((uint32_t*) (((void *) &_estack)));
+    __IO uint32_t *vtor = (__IO uint32_t*)start_addr;
+    uint32_t app_address = *(vtor + 1);
+    uint32_t msp = *vtor;
+    uint32_t estack = (uint32_t)((void *) &_estack);
 
-    // Confirm app exists
-    if (app_reset_handler_address == 0xFFFFFFFF ||
-        app_reset_handler_address <= BL_ADDRESS_CRC || msp != estack)
+    // Sanity checks to confirm app exists
+    if (start_addr != BL_ADDRESS_BANK_A && start_addr != BL_ADDRESS_BANK_B && start_addr != BL_ADDRESS_BANK_C)
+        return;
+    if (app_address < BL_ADDRESS_BANK_A || app_address == 0xffffffff || msp != estack)
         return;
 
+    // Disable interrupts during critical regions
+    // Getting an interrupt after we set VTOR would be bad
+    __disable_irq();
     // Reset all of our used peripherals
     RCC->AHB1RSTR |= RCC_AHB1RSTR_CRCRST;
     RCC->AHB1RSTR &= ~(RCC_AHB1RSTR_CRCRST);
@@ -86,259 +59,105 @@ static void BL_JumptoApplication(void)
     SysTick->LOAD = 0;
     SysTick->VAL  = 0;
 
-    // Make sure the interrupts are disabled before we start attempting to jump to the app
-    // Getting an interrupt after we set VTOR would be bad.
     // Actually jump to application
-    __disable_irq();
-    __set_MSP(msp);
-    SCB->VTOR = (uint32_t) (uint32_t*) (((void *) &_eboot_flash));
+    SCB->VTOR = (uint32_t)vtor; // vtor
+    __set_MSP(msp); // *vtor
     __enable_irq();
-   ((void(*)(void)) app_reset_handler_address)(); // jump
+   ((void(*)(void)) app_address)(); // Jump!, *(vtor + 4)()
 }
 
-void BL_checkAndBoot(void)
+static bool BL_swapFirmwareBank(bl_metadata_t *meta)
+{
+    // F4 1MB doesn't support dual bank switch so we copy it over manually
+    // if B, copy from B to A and mark as A
+    // TODO actual hardware bank switch for F7
+    if (meta->addr == BL_ADDRESS_BANK_A)
+    {
+        // no need to copy
+        return true;
+    }
+    else if (meta->addr == BL_ADDRESS_BANK_B || meta->addr == BL_ADDRESS_BANK_C)
+    {
+        if (BL_memcpyFlashBuffer(BL_ADDRESS_BANK_A, meta->addr, meta->words, meta->crc) &&
+            BL_setMetadata(BL_ADDRESS_BANK_A, meta->words, meta->crc)) // TODO CRC of meta itself
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void BL_checkAndBoot(bool initial)
 {
     // Check 16K metadata region to decide what to boot
-    uint32_t crc_stored = PHAL_flashReadU32(BL_ADDRESS_CRC_CRC);
-    uint32_t addr = PHAL_flashReadU32(BL_ADDRESS_CRC_ADDR);
-    uint32_t size = PHAL_flashReadU32(BL_ADDRESS_CRC_SIZE);
-    if (crc_stored && size && (size < MAX_FIRMWARE_SIZE) && (addr >= FLASH_BASE) && (addr <= FLASH_END))
+    bl_metadata_t meta;
+    PHAL_flashReadU32_Buffered(BL_ADDRESS_METADATA, (uint32_t)&meta, BL_METADATA_WC);
+
+    // if initial (bootloader first check) && verified flag (only written after booting into app)
+    if ((!initial || (initial && (meta.verified == BL_FIRMWARE_VERIFIED))) && BL_metaSanityCheck(&meta))
     {
-        if (PHAL_CRC32_Calculate((uint32_t *)addr, size / 4) == crc_stored)
+        if (PHAL_CRC32_Calculate((uint32_t *)meta.addr, meta.words) == meta.crc)
         {
-            BL_JumptoApplication();
+            if (BL_swapFirmwareBank(&meta))
+            {
+                BL_JumptoApplication(BL_ADDRESS_BANK_A); // No double bank for F4, and we only compile for bank A
+            }
         }
     }
 }
 
-static int BL_processCommand_Start(uint32_t size)
-{
-    firmware_size_total = 0;
-
-    // TODO store CRC + size at the end of firmware
-    if (!size || size >= MAX_FIRMWARE_SIZE || size & 3)
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_SIZE);
-        return -1;
-    }
-
-    if (PHAL_flashErase((uint32_t *)BL_ADDRESS_BUFFER, size / 4) != FLASH_OK)
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
-        return -1;
-    }
-
-    buffer_index = 0;
-    firmware_size_total = size;
-    BL_sendStatusMessage(BLSTAT_VALID, firmware_size_total);
-    bl_unlock = true;
-    return 0;
-}
-
-static int BL_memcpy_buffer(uint32_t addr_dst, uint32_t addr_src, uint32_t size)
-{
-    if (PHAL_flashErase((uint32_t *)addr_dst, size / 4) != FLASH_OK)
-        return -1;
-
-    for (uint32_t i = 0; i < size / 4; i++)
-    {
-        uint32_t offset = i * sizeof(uint32_t);
-        if (PHAL_flashWriteU32(addr_dst + offset, *(__IO uint32_t*)(addr_src + offset)) != FLASH_OK)
-            return -1;
-    }
-
-    return 0;
-}
-
-static int BL_setCRCConfig(uint32_t crc, uint32_t addr, uint32_t size)
-{
-    int ret;
-
-    PHAL_flashErase((uint32_t *)BL_ADDRESS_CRC, 3);
-
-    if (PHAL_flashWriteU32(BL_ADDRESS_CRC_CRC, crc) != FLASH_OK)
-    {
-        ret = -1;
-        goto erase_crc;
-    }
-    if (PHAL_flashWriteU32(BL_ADDRESS_CRC_ADDR, addr) != FLASH_OK)
-    {
-        ret = -1;
-        goto erase_crc;
-    }
-    if (PHAL_flashWriteU32(BL_ADDRESS_CRC_SIZE, size) != FLASH_OK)
-    {
-        ret = -1;
-        goto erase_crc;
-    }
-
-    ret = 0;
-    goto exit;
-
-erase_crc:
-    // erases whole sector so size doesnt matter
-    PHAL_flashErase((uint32_t *)BL_ADDRESS_CRC, 3); // nothing we can do on failure
-exit:
-    bl_unlock = false;
-    return ret;
-}
-
-// TODO bandwidth is halved because we send u32s with a u16 index.
-// Integrate ISO-TP branch and properly buffer flash writes
 void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a)
 {
-    uint64_t data = *((uint64_t *) msg_data_a->raw_data);
-    // firmware max 0x40000, so max ID is 0xffff, u16 sufficient
-    uint32_t index = data & 0xffff;
-    uint32_t payload = (data >> 16) & 0xffffffff;
+    ;
+}
 
-#if 1
-    uint32_t buffer_addr = BL_ADDRESS_BUFFER + (uint32_t)index * sizeof(uint32_t) - (0 * sizeof(buffer[0]));
-    if (PHAL_flashWriteU32_Buffered(buffer_addr, &payload, 1) != FLASH_OK)
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
-    }
-#else // flash buffering (works but kinda unsafe)
-    buffer[buffer_index++] = payload;
-    if (buffer_index == BUFFER_SIZE || index == (firmware_size_total / 4 - 1))
-    {
-        uint32_t buffer_addr = BL_ADDRESS_BUFFER + (uint32_t)index * sizeof(uint32_t) - ((buffer_index - 1) * sizeof(buffer[0]));
-        if (PHAL_flashWriteU32_Buffered(buffer_addr, buffer, buffer_index) != FLASH_OK)
-        {
-            BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
-        }
-        buffer_index = 0;
-    }
+#if (APP_ID == APP_A_BOX)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_A_BOX(data);
+}
+#elif (APP_ID == APP_DASHBOARD)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_DASHBOARD(data);
+}
+#elif (APP_ID == APP_DAQ)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_DAQ(data);
+}
+#elif (APP_ID == APP_MAIN_MODULE)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_MAIN_MODULE(data);
+}
+#elif (APP_ID == APP_PDU)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_PDU(data);
+}
+#elif (APP_ID == APP_TORQUEVECTOR)
+void udsFrameSend(uint64_t data)
+{
+    SEND_UDS_RESPONSE_TORQUE_VECTOR(data);
+}
+#else
+#error "unknown node"
 #endif
 
-    //BL_sendStatusMessage(BLSTAT_INVALID, 6); // dont send ack msg, too slow
-    return;
-}
-
-static int BL_processCommand_CRC(uint32_t crc_app, uint32_t dst_addr)
-{
-    uint32_t size = firmware_size_total;
-    if (!size)
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_SIZE);
-        return -1;
-    }
-
-    uint32_t crc_flash;
-    crc_flash = PHAL_CRC32_Calculate((uint32_t *)BL_ADDRESS_BUFFER, size / 4);
-    if (crc_flash != crc_app)
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID_CRC, crc_flash);
-        return -1;
-    }
-
-#ifdef BL_ENABLE_DOUBLE_BANK
-    BL_memcpy_buffer(dst_addr, BL_ADDRESS_BUFFER, size);
-    crc_flash = PHAL_CRC32_Calculate((uint32_t *)dst_addr, size / 4);
-    if (crc_flash != crc_app)
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID_CRC, crc_flash);
-        return -1;
-    }
-#endif // BL_ENABLE_DOUBLE_BANK
-
-    if (BL_setCRCConfig(crc_app, dst_addr, size))
-    {
-        BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
-        return -1;
-    }
-
-    BL_sendStatusMessage(BLSTAT_VALID, crc_flash);
-    return 0;
-}
-
-static void BL_processCommand_Reset(uint32_t data)
-{
-    Bootloader_ResetForFirmwareDownload(); // back to start of flash
-}
-
-static void BL_processCommand_Jump(uint32_t data)
-{
-    bl_unlock = true;
-    if (data == 0xdeadbeef) // boot backup firmware
-    {
-        // TODO store backup firmware size somehow
-        BL_memcpy_buffer(BL_ADDRESS_APP, BL_ADDRESS_BACKUP, MAX_FIRMWARE_SIZE);
-    }
-    BL_JumptoApplication();
-}
-
-void BL_processCommand(BLCmd_t cmd, uint32_t data)
-{
-    switch (cmd)
-    {
-        case BLCMD_START:
-            BL_processCommand_Start(data);
-            break;
-        case BLCMD_CRC:
-            BL_processCommand_CRC(data, BL_ADDRESS_APP);
-            break;
-        case BLCMD_CRC_BACKUP:
-            BL_processCommand_CRC(data, BL_ADDRESS_BACKUP);
-            break;
-        case BLCMD_JUMP:
-            BL_processCommand_Jump(data);
-            break;
-        case BLCMD_RST:
-            BL_processCommand_Reset(data);
-            break;
-        default:
-        {
-            BL_sendStatusMessage(BLSTAT_UNKNOWN_CMD, cmd);
-            break;
-        }
-    }
-}
-
-bool BL_flashStarted(void)
-{
-    return bl_unlock;
-}
-
-/*
- * Component specific callbacks
- */
-#define NODE_CASE_BL_RESPONSE(app_id, resp_func) \
-case app_id:\
-            resp_func(cmd, data);\
-            break;\
-
-void BL_sendStatusMessage(uint8_t cmd, uint32_t data)
-{
-    switch(APP_ID)
-    {
-        NODE_CASE_BL_RESPONSE(APP_MAIN_MODULE,      SEND_MAIN_MODULE_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_DASHBOARD,        SEND_DASHBOARD_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_TORQUEVECTOR,     SEND_TORQUEVECTOR_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_A_BOX,            SEND_A_BOX_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_PDU,              SEND_PDU_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_L4_TESTING,       SEND_L4_TESTING_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_F4_TESTING,       SEND_F4_TESTING_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_F7_TESTING,       SEND_F7_TESTING_BL_RESP)
-        NODE_CASE_BL_RESPONSE(APP_DAQ,              SEND_DAQ_BL_RESP)
-        default:
-            asm("bkpt");
-    }
-}
-
 // Quickly setup the CAN callbacks based on Node ID
-#define NODE_BL_CMD_CALLBACK(callback_name, can_msg_name, node_id) \
-void callback_name(CanParsedData_t* msg_data_a) {\
-    if(APP_ID != node_id) return; \
-    BL_processCommand((BLCmd_t) msg_data_a->can_msg_name.cmd, msg_data_a->can_msg_name.data); \
+#define NODE_BL_CMD_CALLBACK(callback_name, node_id) \
+void callback_name(uint64_t payload) {\
+    uint8_t cmd = payload & 0xff;\
+    uint64_t data = (payload >> 8);\
+    if (APP_ID != node_id) return;\
+    uds_handle_command(cmd, data);\
 } \
 
-NODE_BL_CMD_CALLBACK(main_module_bl_cmd_CALLBACK,     main_module_bl_cmd,     APP_MAIN_MODULE)
-NODE_BL_CMD_CALLBACK(dashboard_bl_cmd_CALLBACK,       dashboard_bl_cmd,       APP_DASHBOARD)
-NODE_BL_CMD_CALLBACK(torquevector_bl_cmd_CALLBACK,    torquevector_bl_cmd,    APP_TORQUEVECTOR)
-NODE_BL_CMD_CALLBACK(a_box_bl_cmd_CALLBACK,           a_box_bl_cmd,           APP_A_BOX)
-NODE_BL_CMD_CALLBACK(pdu_bl_cmd_CALLBACK,             pdu_bl_cmd,             APP_PDU)
-NODE_BL_CMD_CALLBACK(l4_testing_bl_cmd_CALLBACK,      l4_testing_bl_cmd,      APP_L4_TESTING)
-NODE_BL_CMD_CALLBACK(f4_testing_bl_cmd_CALLBACK,      f4_testing_bl_cmd,      APP_F4_TESTING)
-NODE_BL_CMD_CALLBACK(f7_testing_bl_cmd_CALLBACK,      f7_testing_bl_cmd,      APP_F7_TESTING)
-NODE_BL_CMD_CALLBACK(daq_bl_cmd_CALLBACK,             daq_bl_cmd,             APP_DAQ)
+NODE_BL_CMD_CALLBACK(uds_command_a_box_CALLBACK, APP_A_BOX)
+NODE_BL_CMD_CALLBACK(uds_command_dashboard_CALLBACK, APP_DASHBOARD)
+NODE_BL_CMD_CALLBACK(uds_command_daq_CALLBACK, APP_DAQ)
+NODE_BL_CMD_CALLBACK(uds_command_main_module_CALLBACK, APP_MAIN_MODULE)
+NODE_BL_CMD_CALLBACK(uds_command_pdu_CALLBACK, APP_PDU)
+NODE_BL_CMD_CALLBACK(uds_command_torque_vector_CALLBACK, APP_TORQUEVECTOR)

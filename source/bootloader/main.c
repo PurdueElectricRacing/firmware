@@ -1,4 +1,16 @@
-#include "common/bootloader/bootloader_common.h"
+/**
+ * @file main.c
+ * @author Eileen Yoon (eyn@purdue.edu)
+ * @brief CAN Bootloader:
+ *  - A/B partition
+ *  - Load/store backup firmware
+ *  - Download/Upload firmware over UDS
+ * @version 0.1
+ * @date 2024-11-24
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
 
 #if defined(STM32L496xx) || defined(STM32L432xx)
 #include "common/phal_L4/can/can.h"
@@ -48,14 +60,13 @@ q_handle_t q_rx_can;
 
 #define BOOTLOADER_INITIAL_TIMEOUT 3000   // wait 3s at start
 #define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
-static volatile uint32_t bootloader_ms = 0; // systick
+static volatile uint32_t bootloader_ms;   // systick
 
 int main(void)
 {
     /* Data Struct init */
     qConstruct(&q_tx_can, sizeof(CanMsgTypeDef_t));
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    bootloader_ms = 0;
 
 #ifdef HSI_TRIM_BL_NODE
     PHAL_trimHSI(HSI_TRIM_BL_NODE);
@@ -76,18 +87,22 @@ int main(void)
     initCANParse(&q_rx_can);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
 
-    // BL_sendStatusMessage(BLSTAT_BOOT, 1); // TODO send initial message
+    // Boot immediately if verified firmware is found
+    BL_checkAndBoot(true);
 
-    // bootloader can loop
-    while (bootloader_ms < BOOTLOADER_INITIAL_TIMEOUT || BL_flashStarted())
+    BL_sendStatusMessage(BLSTAT_BOOT, BL_METADATA_PING_MAGIC);
+
+    // else enter backdoor period (CAN loop) for 3s
+    uint32_t start_ms = bootloader_ms;
+    while (bootloader_ms - start_ms < BOOTLOADER_INITIAL_TIMEOUT || BL_flashStarted())
     {
         BL_CANPoll();
     }
 
-    // dont init can or systick before this
-    BL_checkAndBoot();
+    // Now try booting unverified firmware
+    BL_checkAndBoot(false);
 
-    while (1) // infinite bootloader can loop
+    while (1) // Infinite bootloader CAN loop
     {
         BL_CANPoll();
     }

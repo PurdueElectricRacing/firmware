@@ -160,5 +160,6 @@ void updateTelemetryPages();        // Periodically poll recent telemetry and up
 void sendTVParameters();            // Periodically send updates to the TV configuration to TV board
 void sendCoolingParameters();       // Periodically send updates to the cooling configuration to the cooling board
 void sendLoggingParameters();       // Periodically send updates to the logging configuration to the daq board
+void coolant_out_CALLBACK();
 
 #endif // __LCD_H__

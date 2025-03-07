@@ -224,7 +224,7 @@ int main(void)
 
     taskCreate(parseIMU, 20);
     // taskCreate(pollIMU, 20);
-    // taskCreate(VCU_MAIN, 15);
+    taskCreate(VCU_MAIN, 15);
 
     /* No Way Home */
     schedStart();
@@ -428,6 +428,10 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
         fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
         fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
+        fVCU.IAC_SFLAG = rxmsg.IAC_SFLAG;
+        fVCU.IAT_SFLAG = rxmsg.IAT_SFLAG;
+        fVCU.IBC_SFLAG = rxmsg.IBC_SFLAG;
+        fVCU.IBT_SFLAG = rxmsg.IBT_SFLAG;
         fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
         fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
         fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
@@ -449,7 +453,7 @@ void CAN1_RX0_IRQHandler()
 void VCU_MAIN(void)
 {
     /* Fill in X & F */
-    vcu_pp(&xVCU, &fVCU, &GPSHandle);
+    // vcu_pp(&xVCU, &fVCU, &GPSHandle);
 
     /* Step VCU */
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);

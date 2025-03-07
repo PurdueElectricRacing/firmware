@@ -185,6 +185,10 @@ struct __attribute__((packed)) serial_rx {
     float WT_SFLAG;
     float IV_SFLAG;
     float BT_SFLAG;
+    float IAC_SFLAG;
+    float IAT_SFLAG;
+    float IBC_SFLAG;
+    float IBT_SFLAG;
     float SS_FFLAG;
     float AV_FFLAG;
     float GS_FFLAG;

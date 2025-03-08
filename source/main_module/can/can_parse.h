@@ -33,11 +33,6 @@ typedef union {
 #define ID_MAIN_HB_AMK 0xc001941
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
-#define ID_INVA_CRIT 0x282
-#define ID_INVA_TEMPS 0x284
-#define ID_INVB_CRIT 0x292
-#define ID_INVB_TEMPS 0x294
-#define ID_INV_OVERLOAD 0xc000b01
 #define ID_GEARBOX 0x10000901
 #define ID_LWS_CONFIG 0x7c0
 #define ID_ACTUAL_TORQUE_SPEED 0x4000441
@@ -55,15 +50,6 @@ typedef union {
 #define ID_INVB_SET 0x189
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
-#define ID_RAW_THROTTLE_BRAKE 0x10000285
-#define ID_FILT_THROTTLE_BRAKE 0x4000245
-#define ID_START_BUTTON 0x4000005
-#define ID_MAX_CELL_TEMP 0xc04e604
-#define ID_LWS_STANDARD 0x2b0
-#define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_THROTTLE_VCU 0x40025b7
-#define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_INVA_CRIT 0x282
 #define ID_INVA_INFO 0x286
 #define ID_INVA_TEMPS 0x284
@@ -74,6 +60,17 @@ typedef union {
 #define ID_INVB_TEMPS 0x285
 #define ID_INVB_ERR_1 0x289
 #define ID_INVB_ERR_2 0x291
+#define ID_RAW_THROTTLE_BRAKE 0x10000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
+#define ID_START_BUTTON 0x4000005
+#define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_LWS_STANDARD 0x2b0
+#define ID_MAIN_MODULE_BL_CMD 0x409c43e
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_THROTTLE_VCU 0x40025b7
+#define ID_THROTTLE_VCU_EQUAL 0x4002837
+#define ID_VCU_TORQUES_SPEEDS 0x40026b7
+#define ID_DRIVE_MODES 0xc002737
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -89,11 +86,6 @@ typedef union {
 #define DLC_MAIN_HB_AMK 2
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
-#define DLC_INVA_CRIT 8
-#define DLC_INVA_TEMPS 6
-#define DLC_INVB_CRIT 8
-#define DLC_INVB_TEMPS 6
-#define DLC_INV_OVERLOAD 8
 #define DLC_GEARBOX 2
 #define DLC_LWS_CONFIG 2
 #define DLC_ACTUAL_TORQUE_SPEED 8
@@ -111,15 +103,6 @@ typedef union {
 #define DLC_INVB_SET 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
-#define DLC_RAW_THROTTLE_BRAKE 8
-#define DLC_FILT_THROTTLE_BRAKE 3
-#define DLC_START_BUTTON 1
-#define DLC_MAX_CELL_TEMP 2
-#define DLC_LWS_STANDARD 5
-#define DLC_MAIN_MODULE_BL_CMD 5
-#define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_THROTTLE_VCU 4
-#define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_INVA_CRIT 8
 #define DLC_INVA_INFO 4
 #define DLC_INVA_TEMPS 6
@@ -130,6 +113,17 @@ typedef union {
 #define DLC_INVB_TEMPS 6
 #define DLC_INVB_ERR_1 8
 #define DLC_INVB_ERR_2 8
+#define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
+#define DLC_START_BUTTON 1
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_LWS_STANDARD 5
+#define DLC_MAIN_MODULE_BL_CMD 5
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU_EQUAL 4
+#define DLC_VCU_TORQUES_SPEEDS 8
+#define DLC_DRIVE_MODES 2
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -163,49 +157,6 @@ typedef union {
         data_a->coolant_temps.battery_out_temp = battery_out_temp_;\
         data_a->coolant_temps.drivetrain_in_temp = drivetrain_in_temp_;\
         data_a->coolant_temps.drivetrain_out_temp = drivetrain_out_temp_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVA_CRIT(AMK_ActualSpeed_, AMK_ActualTorque_, AMK_DisplayOverloadInverter_, AMK_DisplayOverloadMotor_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVA_CRIT, .DLC=DLC_INVA_CRIT, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVA_CRIT.AMK_ActualSpeed = AMK_ActualSpeed_;\
-        data_a->INVA_CRIT.AMK_ActualTorque = AMK_ActualTorque_;\
-        data_a->INVA_CRIT.AMK_DisplayOverloadInverter = AMK_DisplayOverloadInverter_;\
-        data_a->INVA_CRIT.AMK_DisplayOverloadMotor = AMK_DisplayOverloadMotor_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVA_TEMPS(AMK_MotorTemp_, AMK_InverterTemp_, AMK_IGBTTemp_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVA_TEMPS, .DLC=DLC_INVA_TEMPS, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVA_TEMPS.AMK_MotorTemp = AMK_MotorTemp_;\
-        data_a->INVA_TEMPS.AMK_InverterTemp = AMK_InverterTemp_;\
-        data_a->INVA_TEMPS.AMK_IGBTTemp = AMK_IGBTTemp_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVB_CRIT(AMK_ActualSpeed_, AMK_ActualTorque_, AMK_DisplayOverloadInverter_, AMK_DisplayOverloadMotor_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVB_CRIT, .DLC=DLC_INVB_CRIT, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVB_CRIT.AMK_ActualSpeed = AMK_ActualSpeed_;\
-        data_a->INVB_CRIT.AMK_ActualTorque = AMK_ActualTorque_;\
-        data_a->INVB_CRIT.AMK_DisplayOverloadInverter = AMK_DisplayOverloadInverter_;\
-        data_a->INVB_CRIT.AMK_DisplayOverloadMotor = AMK_DisplayOverloadMotor_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVB_TEMPS(AMK_MotorTemp_, AMK_InverterTemp_, AMK_IGBTTemp_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVB_TEMPS, .DLC=DLC_INVB_TEMPS, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVB_TEMPS.AMK_MotorTemp = AMK_MotorTemp_;\
-        data_a->INVB_TEMPS.AMK_InverterTemp = AMK_InverterTemp_;\
-        data_a->INVB_TEMPS.AMK_IGBTTemp = AMK_IGBTTemp_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INV_OVERLOAD(AMK_DisplayOverloadInverterA_, AMK_DisplayOverloadMotorA_, AMK_DisplayOverloadInverterB_, AMK_DisplayOverloadMotorB_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_INV_OVERLOAD, .DLC=DLC_INV_OVERLOAD, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INV_Overload.AMK_DisplayOverloadInverterA = AMK_DisplayOverloadInverterA_;\
-        data_a->INV_Overload.AMK_DisplayOverloadMotorA = AMK_DisplayOverloadMotorA_;\
-        data_a->INV_Overload.AMK_DisplayOverloadInverterB = AMK_DisplayOverloadInverterB_;\
-        data_a->INV_Overload.AMK_DisplayOverloadMotorB = AMK_DisplayOverloadMotorB_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_GEARBOX(l_temp_, r_temp_) do {\
@@ -377,13 +328,6 @@ typedef union {
 // Stale Checking
 #define STALE_THRESH 30 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_RAW_THROTTLE_BRAKE 15
-#define UP_FILT_THROTTLE_BRAKE 15
-#define UP_MAX_CELL_TEMP 500
-#define UP_LWS_STANDARD 15
-#define UP_ORION_CURRENTS_VOLTS 32
-#define UP_THROTTLE_VCU 20
-#define UP_THROTTLE_VCU_EQUAL 20
 #define UP_INVA_CRIT 15
 #define UP_INVA_INFO 500
 #define UP_INVA_TEMPS 500
@@ -396,6 +340,15 @@ typedef union {
 #define UP_INVB_SET 15
 #define UP_INVB_ERR_1 2000
 #define UP_INVB_ERR_2 2000
+#define UP_RAW_THROTTLE_BRAKE 15
+#define UP_FILT_THROTTLE_BRAKE 15
+#define UP_MAX_CELL_TEMP 500
+#define UP_LWS_STANDARD 15
+#define UP_ORION_CURRENTS_VOLTS 32
+#define UP_THROTTLE_VCU 20
+#define UP_THROTTLE_VCU_EQUAL 20
+#define UP_VCU_TORQUES_SPEEDS 20
+#define UP_DRIVE_MODES 20
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -480,34 +433,6 @@ typedef union {
         uint64_t drivetrain_in_temp: 8;
         uint64_t drivetrain_out_temp: 8;
     } coolant_temps;
-    struct {
-        uint64_t AMK_ActualSpeed: 16;
-        uint64_t AMK_ActualTorque: 16;
-        uint64_t AMK_DisplayOverloadInverter: 16;
-        uint64_t AMK_DisplayOverloadMotor: 16;
-    } INVA_CRIT;
-    struct {
-        uint64_t AMK_MotorTemp: 16;
-        uint64_t AMK_InverterTemp: 16;
-        uint64_t AMK_IGBTTemp: 16;
-    } INVA_TEMPS;
-    struct {
-        uint64_t AMK_ActualSpeed: 16;
-        uint64_t AMK_ActualTorque: 16;
-        uint64_t AMK_DisplayOverloadInverter: 16;
-        uint64_t AMK_DisplayOverloadMotor: 16;
-    } INVB_CRIT;
-    struct {
-        uint64_t AMK_MotorTemp: 16;
-        uint64_t AMK_InverterTemp: 16;
-        uint64_t AMK_IGBTTemp: 16;
-    } INVB_TEMPS;
-    struct {
-        uint64_t AMK_DisplayOverloadInverterA: 16;
-        uint64_t AMK_DisplayOverloadMotorA: 16;
-        uint64_t AMK_DisplayOverloadInverterB: 16;
-        uint64_t AMK_DisplayOverloadMotorB: 16;
-    } INV_Overload;
     struct {
         uint64_t l_temp: 8;
         uint64_t r_temp: 8;
@@ -622,48 +547,6 @@ typedef union {
         uint64_t daq_response: 64;
     } daq_response_MAIN_MODULE;
     struct {
-        uint64_t throttle: 12;
-        uint64_t throttle_right: 12;
-        uint64_t brake: 12;
-        uint64_t brake_right: 12;
-        uint64_t brake_pot: 12;
-    } raw_throttle_brake;
-    struct {
-        uint64_t throttle: 12;
-        uint64_t brake: 12;
-    } filt_throttle_brake;
-    struct {
-        uint64_t start: 1;
-    } start_button;
-    struct {
-        uint64_t max_temp: 16;
-    } max_cell_temp;
-    struct {
-        uint64_t LWS_ANGLE: 16;
-        uint64_t LWS_SPEED: 8;
-        uint64_t Ok: 1;
-        uint64_t Cal: 1;
-        uint64_t Trim: 1;
-        uint64_t Reserved_1: 5;
-        uint64_t Reserved_2: 8;
-    } LWS_Standard;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } main_module_bl_cmd;
-    struct {
-        uint64_t pack_current: 16;
-        uint64_t pack_voltage: 16;
-    } orion_currents_volts;
-    struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_vcu;
-    struct {
-        uint64_t equal_k_rl: 16;
-        uint64_t equal_k_rr: 16;
-    } throttle_vcu_equal;
-    struct {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_ActualTorque: 16;
         uint64_t AMK_DisplayOverloadInverter: 16;
@@ -726,6 +609,58 @@ typedef union {
         uint64_t AMK_ErrorInfo3: 32;
     } INVB_ERR_2;
     struct {
+        uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
+        uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
+    } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
+    struct {
+        uint64_t start: 1;
+    } start_button;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Ok: 1;
+        uint64_t Cal: 1;
+        uint64_t Trim: 1;
+        uint64_t Reserved_1: 5;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } main_module_bl_cmd;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
+    struct {
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu_equal;
+    struct {
+        uint64_t TO_VT_left: 16;
+        uint64_t TO_VT_right: 16;
+        uint64_t TO_PT_equal: 16;
+        uint64_t WS_VS_equal: 16;
+    } VCU_torques_speeds;
+    struct {
+        uint64_t VCU_mode: 8;
+        uint64_t VT_mode: 8;
+    } drive_modes;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -763,62 +698,6 @@ typedef union {
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
-    struct {
-        uint16_t throttle;
-        uint16_t throttle_right;
-        uint16_t brake;
-        uint16_t brake_right;
-        uint16_t brake_pot;
-        uint8_t stale;
-        uint32_t last_rx;
-    } raw_throttle_brake;
-    struct {
-        uint16_t throttle;
-        uint16_t brake;
-        uint8_t stale;
-        uint32_t last_rx;
-    } filt_throttle_brake;
-    struct {
-        uint8_t start;
-    } start_button;
-    struct {
-        int16_t max_temp;
-        uint8_t stale;
-        uint32_t last_rx;
-    } max_cell_temp;
-    struct {
-        int16_t LWS_ANGLE;
-        uint8_t LWS_SPEED;
-        uint8_t Ok;
-        uint8_t Cal;
-        uint8_t Trim;
-        uint8_t Reserved_1;
-        uint8_t Reserved_2;
-        uint8_t stale;
-        uint32_t last_rx;
-    } LWS_Standard;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } main_module_bl_cmd;
-    struct {
-        int16_t pack_current;
-        uint16_t pack_voltage;
-        uint8_t stale;
-        uint32_t last_rx;
-    } orion_currents_volts;
-    struct {
-        int16_t vcu_k_rl;
-        int16_t vcu_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu;
-    struct {
-        int16_t equal_k_rl;
-        int16_t equal_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu_equal;
     struct {
         int16_t AMK_ActualSpeed;
         int16_t AMK_ActualTorque;
@@ -927,6 +806,76 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } INVB_ERR_2;
+    struct {
+        uint16_t throttle;
+        uint16_t throttle_right;
+        uint16_t brake;
+        uint16_t brake_right;
+        uint16_t brake_pot;
+        uint8_t stale;
+        uint32_t last_rx;
+    } raw_throttle_brake;
+    struct {
+        uint16_t throttle;
+        uint16_t brake;
+        uint8_t stale;
+        uint32_t last_rx;
+    } filt_throttle_brake;
+    struct {
+        uint8_t start;
+    } start_button;
+    struct {
+        int16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } max_cell_temp;
+    struct {
+        int16_t LWS_ANGLE;
+        uint8_t LWS_SPEED;
+        uint8_t Ok;
+        uint8_t Cal;
+        uint8_t Trim;
+        uint8_t Reserved_1;
+        uint8_t Reserved_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } LWS_Standard;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } main_module_bl_cmd;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
+    struct {
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu_equal;
+    struct {
+        int16_t TO_VT_left;
+        int16_t TO_VT_right;
+        int16_t TO_PT_equal;
+        int16_t WS_VS_equal;
+        uint8_t stale;
+        uint32_t last_rx;
+    } VCU_torques_speeds;
+    struct {
+        int8_t VCU_mode;
+        int8_t VT_mode;
+        uint8_t stale;
+        uint32_t last_rx;
+    } drive_modes;
     struct {
         uint16_t idx;
         uint8_t latched;

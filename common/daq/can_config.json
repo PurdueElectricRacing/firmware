@@ -34,69 +34,6 @@
                             "msg_pgn":34
                         },
                         {
-                            "msg_name": "INVA_CRIT",
-                            "msg_desc": "Contains the status word and actual values, Rear Left Tire",
-                            "signals": [
-                                {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
-                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
-                                {"sig_name": "AMK_DisplayOverloadInverter", "type":"uint16_t", "unit": "%", "scale": 0.1},
-                                {"sig_name": "AMK_DisplayOverloadMotor", "type":"uint16_t", "unit": "%", "scale": 0.1}
-                            ],
-                            "msg_period": 15,
-                            "msg_id_override": "0x282",
-                            "is_standard_id":true
-                        },
-                        {
-                            "msg_name": "INVA_TEMPS",
-                            "msg_desc": "Contains temperatures, Rear Left Tire",
-                            "signals": [
-                                {"sig_name": "AMK_MotorTemp", "sig_desc": "Motor temperature", "type":"int16_t", "unit":"C", "scale":0.1},
-                                {"sig_name": "AMK_InverterTemp", "sig_desc": "Inverter cold plate temperature", "type":"int16_t", "unit":"C", "scale":0.1},
-                                {"sig_name": "AMK_IGBTTemp", "sig_desc": "IGBT temperature", "type":"int16_t", "unit":"C", "scale":0.1}
-                            ],
-                            "msg_period": 500,
-                            "msg_id_override": "0x284",
-                            "is_standard_id":true
-                        },
-                        {
-                            "msg_name": "INVB_CRIT",
-                            "msg_desc": "Contains the status word and actual values, Rear Right Tire",
-                            "signals": [
-                                {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
-                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
-                                {"sig_name": "AMK_DisplayOverloadInverter", "type":"uint16_t", "unit": "%", "scale": 0.1},
-                                {"sig_name": "AMK_DisplayOverloadMotor", "type":"uint16_t", "unit": "%", "scale": 0.1}
-                            ],
-                            "msg_period": 15,
-                            "msg_id_override": "0x292",
-                            "is_standard_id":true
-                        },
-                        {
-                            "msg_name": "INVB_TEMPS",
-                            "msg_desc": "Contains temperatures, Rear Right Tire",
-                            "signals": [
-                                {"sig_name": "AMK_MotorTemp", "sig_desc": "Motor temperature", "type":"int16_t", "unit":"C", "scale":0.1},
-                                {"sig_name": "AMK_InverterTemp", "sig_desc": "Inverter cold plate temperature", "type":"int16_t", "unit":"C", "scale":0.1},
-                                {"sig_name": "AMK_IGBTTemp", "sig_desc": "IGBT temperature", "type":"int16_t", "unit":"C", "scale":0.1}
-                            ],
-                            "msg_period": 500,
-                            "msg_id_override": "0x294",
-                            "is_standard_id":true
-                        },
-                        {
-                            "msg_name": "INV_Overload",
-                            "msg_desc": "Display overload info",
-                            "signals": [
-                                {"sig_name": "AMK_DisplayOverloadInverterA", "type":"uint16_t", "unit": "%", "scale": 0.01},
-                                {"sig_name": "AMK_DisplayOverloadMotorA", "type":"uint16_t", "unit": "%", "scale": 0.01},
-                                {"sig_name": "AMK_DisplayOverloadInverterB", "type":"uint16_t", "unit": "%", "scale": 0.01},
-                                {"sig_name": "AMK_DisplayOverloadMotorB", "type":"uint16_t", "unit": "%", "scale": 0.01}
-                            ],
-                            "msg_period": 15,
-                            "msg_hlp": 3,
-                            "msg_pgn":44
-                        },
-                        {
                             "msg_name": "gearbox",
                             "msg_desc": "Gearbox temps",
                             "signals": [

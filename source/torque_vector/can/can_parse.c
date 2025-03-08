@@ -77,10 +77,12 @@ void canRxUpdate()
                 can_data.orion_currents_volts.last_rx = sched.os_ticks;
                 break;
             case ID_DASHBOARD_TV_PARAMETERS:
-                can_data.dashboard_tv_parameters.tv_enabled = msg_data_a->dashboard_tv_parameters.tv_enabled;
-                can_data.dashboard_tv_parameters.tv_deadband_val = msg_data_a->dashboard_tv_parameters.tv_deadband_val;
-                can_data.dashboard_tv_parameters.tv_intensity_val = msg_data_a->dashboard_tv_parameters.tv_intensity_val;
-                can_data.dashboard_tv_parameters.tv_p_val = msg_data_a->dashboard_tv_parameters.tv_p_val;
+                can_data.dashboard_tv_parameters.vcu_fmode = msg_data_a->dashboard_tv_parameters.vcu_fmode;
+                can_data.dashboard_tv_parameters.vcu_cmode = msg_data_a->dashboard_tv_parameters.vcu_cmode;
+                can_data.dashboard_tv_parameters.vt_db_val = msg_data_a->dashboard_tv_parameters.vt_db_val;
+                can_data.dashboard_tv_parameters.tv_pp_val = msg_data_a->dashboard_tv_parameters.tv_pp_val;
+                can_data.dashboard_tv_parameters.tc_tr_val = msg_data_a->dashboard_tv_parameters.tc_tr_val;
+                can_data.dashboard_tv_parameters.vs_max_sr_val = msg_data_a->dashboard_tv_parameters.vs_max_sr_val;
                 can_data.dashboard_tv_parameters.stale = 0;
                 can_data.dashboard_tv_parameters.last_rx = sched.os_ticks;
                 break;

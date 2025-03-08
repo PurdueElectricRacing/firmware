@@ -780,10 +780,12 @@
                             "msg_name":"dashboard_tv_parameters",
                             "msg_desc":"Driver torque vectoring configuration request",
                             "signals":[
-                                {"sig_name": "tv_enabled", "type":"uint8_t", "length":1},
-                                {"sig_name": "tv_deadband_val", "type":"uint16_t"},
-                                {"sig_name": "tv_intensity_val", "type":"uint16_t"},
-                                {"sig_name": "tv_p_val", "type":"uint16_t"}
+                                {"sig_name": "vcu_fmode", "type":"uint8_t", "length":1},
+                                {"sig_name": "vcu_cmode", "type":"uint8_t", "length":1},
+                                {"sig_name": "vt_db_val", "type":"uint8_t", "unit": "deg"},
+                                {"sig_name": "tv_pp_val", "type":"uint8_t", "scale": 0.01},
+                                {"sig_name": "tc_tr_val", "type":"uint8_t", "scale": 0.01},
+                                {"sig_name": "vs_max_sr_val", "type":"uint8_t", "scale": 0.01}
                             ],
                             "msg_period":2000,
                             "msg_hlp":1,

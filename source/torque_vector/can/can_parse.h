@@ -75,7 +75,7 @@
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_LWS_STANDARD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_DASHBOARD_TV_PARAMETERS 7
+#define DLC_DASHBOARD_TV_PARAMETERS 5
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_REAR_MOTOR_TEMPS 6
@@ -331,10 +331,12 @@ typedef union {
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t tv_enabled: 1;
-        uint64_t tv_deadband_val: 16;
-        uint64_t tv_intensity_val: 16;
-        uint64_t tv_p_val: 16;
+        uint64_t vcu_fmode: 1;
+        uint64_t vcu_cmode: 1;
+        uint64_t vt_db_val: 8;
+        uint64_t tv_pp_val: 8;
+        uint64_t tc_tr_val: 8;
+        uint64_t vs_max_sr_val: 8;
     } dashboard_tv_parameters;
     struct {
         uint64_t car_state: 8;
@@ -420,10 +422,12 @@ typedef struct {
         uint32_t last_rx;
     } orion_currents_volts;
     struct {
-        uint8_t tv_enabled;
-        uint16_t tv_deadband_val;
-        uint16_t tv_intensity_val;
-        uint16_t tv_p_val;
+        uint8_t vcu_fmode;
+        uint8_t vcu_cmode;
+        uint8_t vt_db_val;
+        uint8_t tv_pp_val;
+        uint8_t tc_tr_val;
+        uint8_t vs_max_sr_val;
         uint8_t stale;
         uint32_t last_rx;
     } dashboard_tv_parameters;

@@ -24,8 +24,8 @@
 
 #include <stdbool.h>
 
-#define PHAL_CAN_TX_TIMEOUT   (5000U)
-#define PHAL_CAN_INIT_TIMEOUT (5000U)
+#define PHAL_CAN_TX_TIMEOUT   (50000000U)
+#define PHAL_CAN_INIT_TIMEOUT (50000000U)
 
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
 #define PHAL_CAN_16MHz_500k (0x033a0001) // sample point = 75%, SJW = 4

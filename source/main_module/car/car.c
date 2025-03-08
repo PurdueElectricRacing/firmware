@@ -353,10 +353,11 @@ void carPeriodic()
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light | daq_brake);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
+
+    /* At this point torque request will be clamped from 0 to 100.0 */
     amkSetTorque(&car.motor_l, car.torque_r.torque_left);
     amkSetTorque(&car.motor_r, car.torque_r.torque_right);
  }
-
 
 /**
  * @brief Parses motor controller and sensor

@@ -384,22 +384,6 @@ void send_shockpots()
 }
 
 /**
- * @brief Resets the steering angle sensor calibration
- *        Call once after assembly with wheel centered
- *        Device: Bosch F02U.V02.894-01
- */
-void calibrateSteeringAngle(uint8_t *success)
-{
-    // To zero the sensor after assembly:
-    // Reset calibration with CCW = 5h
-    // Start a new calibration with CCW = 3h
-    // The sensor can then be used immediately
-    //SEND_LWS_CONFIG(0x05, 0, 0); // reset cal
-    //SEND_LWS_CONFIG(0x03, 0, 0); // start new
-    *success = 1;
-}
-
-/**
  * @brief Checks if the precharge circuit is working
  *        correctly based on the V_MV and V_Bat ADC
  *        measurements and PRCHG Complete Signal

@@ -10,7 +10,6 @@
                     "node_name":"Main_Module",
                     "includes":"#include \"cooling.h\"\n#include\"main.h\"\n#include\"car.h\"",
                     "variables": [
-                        {"var_name":"cal_steer_angle", "access_phrase": "calibrateSteeringAngle", "has_read_func":true, "read_only":true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_main_status", "access_phrase": "sdc_mux.main_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_center_stop_status", "access_phrase": "sdc_mux.c_stop_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_inertia_sw_status", "access_phrase": "sdc_mux.inertia_stat", "read_only": true, "type":"uint8_t", "length": 1},

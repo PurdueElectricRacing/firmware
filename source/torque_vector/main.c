@@ -23,17 +23,33 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANTX_PA12
 };
 
-#define TargetCoreClockrateHz 96000000
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
+
+#define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
     .clock_source               =CLOCK_SOURCE_HSI,
-    .use_pll                    =true,
-    .pll_src                    =PLL_SRC_HSI16,
-    .vco_output_rate_target_hz  =192000000,
+    .use_pll                    =false,
+    .vco_output_rate_target_hz  =160000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
+
+// #define TargetCoreClockrateHz 96000000
+// ClockRateConfig_t clock_config = {
+//     .clock_source               =CLOCK_SOURCE_HSI,
+//     .use_pll                    =true,
+//     .pll_src                    =PLL_SRC_HSI16,
+//     .vco_output_rate_target_hz  =192000000,
+//     .system_clock_target_hz     =TargetCoreClockrateHz,
+//     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+//     .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
+//     .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+// };
 
 /* Locals for Clock Rates */
 extern uint32_t APB1ClockRateHz;
@@ -63,14 +79,6 @@ int main(void)
         HardFault_Handler();
     }
 
-    if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
-    {
-        HardFault_Handler();
-    }
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
-
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 74, 1000);
@@ -93,11 +101,14 @@ void preflightChecks(void)
     switch (state++)
     {
     case 300:
-        // if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
-        // {
-        //     HardFault_Handler();
-        // }
-        // NVIC_EnableIRQ(CAN1_RX0_IRQn);
+        if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
+        {
+            HardFault_Handler();
+        }
+        NVIC_EnableIRQ(CAN1_RX0_IRQn);
+        break;
+    case 400:
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
     default:
         if (state > 750)

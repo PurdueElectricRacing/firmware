@@ -126,10 +126,12 @@ void canRxUpdate()
                 can_data.INVB_TEMPS.last_rx = sched.os_ticks;
                 break;
             case ID_DASHBOARD_VCU_PARAMETERS:
-                can_data.dashboard_vcu_parameters.vcu_mode = msg_data_a->dashboard_vcu_parameters.vcu_mode;
-                can_data.dashboard_vcu_parameters.tv_deadband_val = msg_data_a->dashboard_vcu_parameters.tv_deadband_val;
-                can_data.dashboard_vcu_parameters.tv_intensity_val = msg_data_a->dashboard_vcu_parameters.tv_intensity_val;
-                can_data.dashboard_vcu_parameters.tv_p_val = msg_data_a->dashboard_vcu_parameters.tv_p_val;
+                can_data.dashboard_vcu_parameters.vcu_fmode = msg_data_a->dashboard_vcu_parameters.vcu_fmode;
+                can_data.dashboard_vcu_parameters.vcu_cmode = msg_data_a->dashboard_vcu_parameters.vcu_cmode;
+                can_data.dashboard_vcu_parameters.vt_db_val = msg_data_a->dashboard_vcu_parameters.vt_db_val;
+                can_data.dashboard_vcu_parameters.tv_pp_val = msg_data_a->dashboard_vcu_parameters.tv_pp_val;
+                can_data.dashboard_vcu_parameters.tc_tr_val = msg_data_a->dashboard_vcu_parameters.tc_tr_val;
+                can_data.dashboard_vcu_parameters.vs_max_sr_val = msg_data_a->dashboard_vcu_parameters.vs_max_sr_val;
                 can_data.dashboard_vcu_parameters.stale = 0;
                 can_data.dashboard_vcu_parameters.last_rx = sched.os_ticks;
                 break;

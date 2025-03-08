@@ -146,7 +146,7 @@ static xVCU_struct xVCU;
 static yVCU_struct yVCU;
 
 int main(void)
-{
+      {
     /* Data Struct Initialization */
 
     /* HAL Initialization */
@@ -332,7 +332,7 @@ void CAN1_RX0_IRQHandler()
 void VCU_MAIN(void)
 {
     /* Fill in X & F */
-    vcu_pp(&xVCU, &fVCU, &GPSHandle);
+    vcu_pp(&fVCU, &xVCU, &GPSHandle);
 
     /* Step VCU */
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);

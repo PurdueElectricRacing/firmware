@@ -3,8 +3,25 @@
 #include "vcu.h"
 #include <math.h>
  
-void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
+void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
 {
+    /*Raw F Data*/
+    fVCU->CS_SFLAG = (can_data.main_hb.stale);
+    fVCU->TB_SFLAG = (can_data.filt_throttle_brake.stale);
+    fVCU->SS_SFLAG = (can_data.LWS_Standard.stale);
+    fVCU->WT_SFLAG = (can_data.rear_wheel_speeds.stale);
+    fVCU->IV_SFLAG = (can_data.orion_currents_volts.stale);
+    fVCU->BT_SFLAG = (can_data.max_cell_temp.stale);
+    fVCU->IAC_SFLAG = (can_data.INVA_CRIT.stale);
+    fVCU->IAT_SFLAG = (can_data.INVA_TEMPS.stale);
+    fVCU->IBC_SFLAG = (can_data.INVB_CRIT.stale);
+    fVCU->IBT_SFLAG = (can_data.INVB_TEMPS.stale);
+    fVCU->SS_FFLAG = (can_data.LWS_Standard.Ok);
+    fVCU->AV_FFLAG = (GPS->gyro_OK);
+    fVCU->GS_FFLAG = (GPS->fix_type);
+    fVCU->VCU_PFLAG = (can_data.dashboard_vcu_parameters.vcu_fmode);
+    fVCU->VCU_CFLAG = (can_data.dashboard_vcu_parameters.vcu_cmode);
+
     /*Raw X Data*/
     xVCU->TH_RAW = (can_data.filt_throttle_brake.throttle/4095.0); /* Incoming is a scalar in the range [0 4095] */
     xVCU->ST_RAW = (can_data.LWS_Standard.LWS_ANGLE*0.1); /* Incoming is 10*degree of CCSA  */
@@ -29,23 +46,8 @@ void vcu_pp(xVCU_struct *xVCU, fVCU_struct *fVCU, GPS_Handle_t *GPS)
     xVCU->AG_RAW[2] = (GPS->acceleration.z); /* Incoming data is m/s^2 */
     xVCU->TO_RAW[0] = (can_data.INVA_CRIT.AMK_ActualTorque)*0.1; /* incoming data is 10*Nm */
     xVCU->TO_RAW[1] = (can_data.INVB_CRIT.AMK_ActualTorque)*0.1; /* incoming data is 10*Nm */
-    xVCU->DB_RAW = (can_data.dashboard_vcu_parameters.tv_deadband_val); /*Incoming is int16 value*/
-    xVCU->PI_RAW = (can_data.dashboard_vcu_parameters.tv_intensity_val); /*Incoming is int16 value*/
-    xVCU->PP_RAW = (can_data.dashboard_vcu_parameters.tv_p_val); /*Incoming is int16 value*/
-
-    /*Raw F Data*/
-    fVCU->CS_SFLAG = (can_data.main_hb.stale);
-    fVCU->TB_SFLAG = (can_data.filt_throttle_brake.stale);
-    fVCU->SS_SFLAG = (can_data.LWS_Standard.stale);
-    fVCU->WT_SFLAG = (can_data.rear_wheel_speeds.stale);
-    fVCU->IV_SFLAG = (can_data.orion_currents_volts.stale);
-    fVCU->BT_SFLAG = (can_data.max_cell_temp.stale);
-    fVCU->IAC_SFLAG = (can_data.INVA_CRIT.stale);
-    fVCU->IAT_SFLAG = (can_data.INVA_TEMPS.stale);
-    fVCU->IBC_SFLAG = (can_data.INVB_CRIT.stale);
-    fVCU->IBT_SFLAG = (can_data.INVB_TEMPS.stale);
-    fVCU->SS_FFLAG = (can_data.LWS_Standard.Ok);
-    fVCU->AV_FFLAG = (GPS->gyro_OK);
-    fVCU->GS_FFLAG = (GPS->fix_type);
-    fVCU->VCU_PFLAG = (can_data.dashboard_vcu_parameters.vcu_mode);
+    xVCU->VT_DB_RAW = (can_data.dashboard_vcu_parameters.vt_db_val); /*Incoming is int8 value*/
+    xVCU->TV_PP_RAW = (can_data.dashboard_vcu_parameters.tv_pp_val); /*Incoming is int8 value*/
+    xVCU->TC_TR_RAW = (can_data.dashboard_vcu_parameters.tc_tr_val); /*Incoming is int8 value*/
+    xVCU->VS_MAX_SR_RAW = (can_data.dashboard_vcu_parameters.vs_max_sr_val); /*Incoming is int8 value*/
 }

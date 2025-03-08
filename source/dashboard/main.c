@@ -615,10 +615,17 @@ void enableInterrupts()
 uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
 void lcdTxUpdate()
 {
-    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
+    if(PHAL_usartTxBusy(&lcd))
     {
-        PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
+        return;
     }
+    
+    if(SUCCESS_G != qReceive(&q_tx_usart, cmd))
+    {
+        return;
+    }
+
+    PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
 }
 
 void CAN1_RX0_IRQHandler()

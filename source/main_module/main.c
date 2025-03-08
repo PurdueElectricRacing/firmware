@@ -167,6 +167,7 @@ void interpretLoadSensor(void);
 float voltToForce(uint16_t load_read);
 void can2Relaycan1();
 void update_lights(void);
+void calibrate_lws(void);
 
 int main(void)
 {
@@ -223,6 +224,36 @@ void update_lights(void)
     else
     {
         //todo any other way to check this if we lose abox?
+    }
+}
+
+/**
+ * @brief Resets the steering angle sensor calibration
+ *        Call after assembly with wheel centered
+ *        Device: Bosch F02U.V02.894-01
+ */
+void calibrate_lws(void)
+{
+    // To zero the sensor after assembly:
+    // Reset calibration with CCW = 5h
+    // Start a new calibration with CCW = 3h
+    // The sensor can then be used immediately
+
+    // Call function at delay ~3 seconds
+    static uint8_t status = 0;
+    if (status == 0)
+    {
+        SEND_LWS_CONFIG(0x05, 0, 0); // reset cal    
+        status = 1;
+    }
+    else if (status == 1)
+    {
+        SEND_LWS_CONFIG(0x03, 0, 0); // start new
+        status = 2;
+    }
+    else
+    {
+        // done
     }
 }
 

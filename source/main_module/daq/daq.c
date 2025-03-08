@@ -21,7 +21,6 @@
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
-    {.is_read_only=1, .bit_length=1, .has_read_func=1, .read_func_a=(read_func_ptr_t)calibrateSteeringAngle, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.main_stat, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.c_stop_stat, .write_var_a=NULL, },
     {.is_read_only=1, .bit_length=1, .read_var_a=&sdc_mux.inertia_stat, .write_var_a=NULL, },

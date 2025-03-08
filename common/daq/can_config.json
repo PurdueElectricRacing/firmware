@@ -769,10 +769,10 @@
                             "signals":[
                                 {"sig_name": "vcu_fmode", "type":"uint8_t", "length":1},
                                 {"sig_name": "vcu_cmode", "type":"uint8_t", "length":1},
-                                {"sig_name": "vt_db_val", "type":"uint8_t"},
-                                {"sig_name": "tv_pp_val", "type":"uint8_t"},
-                                {"sig_name": "tc_tr_val", "type":"uint8_t"},
-                                {"sig_name": "vs_max_sr_val", "type":"uint8_t"}
+                                {"sig_name": "vt_db_val", "type":"uint8_t", "unit": "deg"},
+                                {"sig_name": "tv_pp_val", "type":"uint8_t", "scale": 0.01},
+                                {"sig_name": "tc_tr_val", "type":"uint8_t", "scale": 0.01},
+                                {"sig_name": "vs_max_sr_val", "type":"uint8_t", "scale": 0.01}
                             ],
                             "msg_period":2000,
                             "msg_hlp":1,

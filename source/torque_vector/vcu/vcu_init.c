@@ -1,12 +1,106 @@
 #include "vcu.h"
 
+fVCU_struct init_fVCU(void) {
+    fVCU_struct fVCU = {
+        .CS_SFLAG = 0,
+        .TB_SFLAG = 0,
+        .SS_SFLAG = 0,
+        .WT_SFLAG = 0,
+        .IV_SFLAG = 0,
+        .BT_SFLAG = 0,
+        .IAC_SFLAG = 0,
+        .IAT_SFLAG = 0,
+        .IBC_SFLAG = 0,
+        .IBT_SFLAG = 0,
+        .SS_FFLAG = 1,
+        .AV_FFLAG = 1,
+        .GS_FFLAG = 3,
+        .VCU_PFLAG = 1,
+        .VCU_CFLAG = 2
+    };
+    return fVCU;
+}
+
+xVCU_struct init_xVCU(void) {
+    xVCU_struct xVCU = {
+        .TH_RAW = 0,
+        .ST_RAW = 0,
+        .VB_RAW = 595,
+        .WT_RAW = {0, 0},
+        .WM_RAW = {0, 0},
+        .GS_RAW = 0,
+        .AV_RAW = {0, 0, 0},
+        .IB_RAW = 0,
+        .MT_RAW = 20,
+        .CT_RAW = 20,
+        .IT_RAW = 20,
+        .MC_RAW = 0,
+        .IC_RAW = 0,
+        .BT_RAW = 20,
+        .AG_RAW = {0, 0, 9.81},
+        .TO_RAW = {0, 0},
+        .VT_DB_RAW = 12,
+        .TV_PP_RAW = 0.4,
+        .TC_TR_RAW = 0.5,
+        .VS_MAX_SR_RAW = 0.5
+    };
+    return xVCU;
+}
+
+yVCU_struct init_yVCU(void) {
+    yVCU_struct yVCU = {
+        .PT_permit_buffer = {0, 0, 0, 0, 0},
+        .VS_permit_buffer = {0, 0, 0, 0, 0},
+        .VT_permit_buffer = {0, 0, 0, 0, 0},
+        .VCU_mode = 1,
+        .IB_CF_buffer = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        .TH_CF = 0,
+        .ST_CF = 0,
+        .VB_CF = 595,
+        .WT_CF = {0, 0},
+        .WM_CF = {0, 0},
+        .GS_CF = 0,
+        .AV_CF = {0, 0, 0},
+        .IB_CF = 0,
+        .MT_CF = 20,
+        .CT_CF = 20,
+        .IT_CF = 20,
+        .MC_CF = 0,
+        .IC_CF = 0,
+        .BT_CF = 20,
+        .AG_CF = {0, 0, 9.81},
+        .TO_CF = {0, 0},
+        .VT_DB_CF = 12,
+        .TV_PP_CF = 0.4,
+        .TC_TR_CF = 0.5,
+        .VS_MAX_SR_CF = 0.5,
+        .zero_current_counter = 0,
+        .Batt_SOC = 1,
+        .Batt_Voc = 595,
+        .WM_CS = {0, 0},
+        .TO_ET = {0, 0},
+        .TO_AB_MX = 21,
+        .TO_DR_MX = 21,
+        .TO_PT = {0, 0},
+        .VT_mode = 1,
+        .TO_VT = {0, 0},
+        .TV_AV_ref = 0,
+        .TV_delta_torque = 0,
+        .TC_highs = 0,
+        .TC_lows = 0,
+        .SR = 0,
+        .WM_VS = {0, 0},
+        .SR_VS = 0
+    };
+    return yVCU;
+}
+
 pVCU_struct init_pVCU(void) {
     pVCU_struct pVCU = {
         .r = 0.2,
         .ht = {0.649, 0.621},
         .gr = 11.34,
         .Ns = 145,
-        .ET_permit_N = 5,
         .PT_permit_N = 5,
         .VS_permit_N = 5,
         .VT_permit_N = 5,
@@ -25,6 +119,8 @@ pVCU_struct init_pVCU(void) {
         .GS_FFLAG_True = 3,
         .VCU_PFLAG_VS = 3,
         .VCU_PFLAG_VT = 4,
+        .VCU_CFLAG_CS = 1,
+        .VCU_CFLAG_CT = 2,
         .TH_lb = 0,
         .ST_lb = -170,
         .VB_lb = 150,
@@ -41,9 +137,10 @@ pVCU_struct init_pVCU(void) {
         .BT_lb = 15,
         .AG_lb = {-30, -30, -30},
         .TO_lb = {0, 0},
-        .DB_lb = 0,
-        .PI_lb = 0.5,
-        .PP_lb = 0.1,
+        .VT_DB_lb = 0,
+        .TV_PP_lb = 0.1,
+        .TC_TR_lb = 0,
+        .VS_MAX_SR_lb = 0,
         .TH_ub = 1,
         .ST_ub = 170,
         .VB_ub = 600,
@@ -60,13 +157,14 @@ pVCU_struct init_pVCU(void) {
         .BT_ub = 60,
         .AG_ub = {30, 30, 30},
         .TO_ub = {25, 25},
-        .DB_ub = 25,
-        .PI_ub = 10,
-        .PP_ub = 10,
+        .VT_DB_ub = 25,
+        .TV_PP_ub = 10,
+        .TC_TR_ub = 1,
+        .VS_MAX_SR_ub = 1,
         .CF_IB_filter_N = 10,
         .R = {-0.5770213, -0.0059585, -0.8167073, -0.0059585, 0.9999775, -0.0030858,
         0.8167073, 0.0030858, -0.5770438},
-        
+
         .Batt_Voc_brk = {4.1283804, 4.1198749, 4.1116867, 4.1038059, 4.0962225,
         4.088927, 4.0819097, 4.0751616, 4.0686736, 4.0624369, 4.0564429, 4.0506833,
         4.0451497, 4.0398342, 4.034729, 4.0298264, 4.025119, 4.0205995, 4.0162608,
@@ -140,7 +238,7 @@ pVCU_struct init_pVCU(void) {
         1.0627428, 1.008402, 0.9528442, 0.896045, 0.8379795, 0.7786223, 0.7179477,
         0.6559297, 0.5925415, 0.5277563, 0.4615467, 0.3938847, 0.3247422, 0.2540904,
         0.1819001, 0.1081417, 0.0327851, 0},
-        
+
         .Batt_As_Discharged_tbl = {0, 36, 72, 108, 144, 180, 216, 252, 288, 324, 360,
         396, 432, 468, 504, 540, 576, 612, 648, 684, 720, 756, 792, 828, 864, 900, 936,
         972, 1008, 1044, 1080, 1116, 1152, 1188, 1224, 1260, 1296, 1332, 1368, 1404,
@@ -184,12 +282,13 @@ pVCU_struct init_pVCU(void) {
         17424, 17460, 17496, 17532, 17568, 17604, 17640, 17676, 17712, 17748, 17784,
         17820, 17856, 17892, 17928, 17964, 18000, 18036, 18072, 18108, 18144,
         18159.3310436},
-        
+
         .zero_currents_to_update_SOC = 60,
         .Batt_cell_zero_SOC_voltage = 2,
         .Batt_cell_zero_SOC_capacity = 16770.6785205,
         .Batt_cell_full_SOC_voltage = 4,
         .Batt_cell_full_SOC_capacity = 797.8917678,
+        .MAX_SPEED_NOM = 2000,
         .MAX_TORQUE_NOM = 21,
         .PT_WM_brkpt = {0, 14.056343, 28.1126859, 42.1690289, 56.2253719, 70.2817148,
         84.3380578, 98.3944008, 112.4507438, 126.5070867, 140.5634297, 154.6197727,
@@ -219,7 +318,7 @@ pVCU_struct init_pVCU(void) {
         1939.7753297, 1953.8316727, 1967.8880157, 1981.9443586, 1996.0007016,
         2010.0570446, 2024.1133875, 2038.1697305, 2052.2260735, 2066.2824165,
         2080.3387594, 2094.3951024},
-        
+
         .PT_VB_brkpt = {298, 304.122449, 310.244898, 316.3673469, 322.4897959,
         328.6122449, 334.7346939, 340.8571429, 346.9795918, 353.1020408, 359.2244898,
         365.3469388, 371.4693878, 377.5918367, 383.7142857, 389.8367347, 395.9591837,
@@ -229,7 +328,7 @@ pVCU_struct init_pVCU(void) {
         512.2857143, 518.4081633, 524.5306122, 530.6530612, 536.7755102, 542.8979592,
         549.0204082, 555.1428571, 561.2653061, 567.3877551, 573.5102041, 579.6326531,
         585.755102, 591.877551, 598},
-        
+
         .PT_TO_table = {21.0179063, 21.0179063, 21.0179063, 21.0179063, 21.0179063,
         21.0179063, 21.0179063, 21.0179063, 21.0179063, 21.0179063, 21.0179063,
         21.0179063, 21.0179063, 21.0179063, 21.0179063, 21.0179063, 21.0179063,
@@ -1334,7 +1433,7 @@ pVCU_struct init_pVCU(void) {
         2.4723031, 3.1871946, 3.8262836, 4.4220933, 4.9872302, 5.5087505, 6.0207333,
         6.4983989, 6.9641435, 7.4167732, 7.8484752, 8.2732895, 8.6840696, 9.085833,
         9.4792717, 9.8783026, 10.2901501, 10.6940116},
-        
+
         .PT_WM_lb = 0,
         .PT_WM_ub = 2094.3951024,
         .PT_VB_lb = 298,
@@ -1356,17 +1455,17 @@ pVCU_struct init_pVCU(void) {
         .iT_derating_full_T = 55,
         .iT_derating_zero_T = 65,
         .dST_DB = 5,
-        .r_power_sat = 0.5,
+        .MAX_r = 0.5,
         .TV_GS_brkpt = {0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5,
         8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16,
         16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24,
         24.5, 25},
-        
+
         .TV_ST_brkpt = {-130, -125, -120, -115, -110, -105, -100, -95, -90, -85, -80,
         -75, -70, -65, -60, -55, -50, -45, -40, -35, -30, -25, -20, -15, -10, -5, 0, 5,
         10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100,
         105, 110, 115, 120, 125, 130},
-        
+
         .TV_AV_table = {-0, -0.1179367, -0.2358735, -0.3538102, -0.471747, -0.5896837,
         -0.7042386, -0.8180102, -0.9257212, -1.0324819, -1.1038904, -1.1521638,
         -1.0885016, -1.0215116, -0.9484785, -0.8849813, -0.8327677, -0.7875464,
@@ -1768,109 +1867,17 @@ pVCU_struct init_pVCU(void) {
         0.5250955, 0.514505, 0.5052323, 0.4964088, 0.4887097, 0.4813293, 0.4749209,
         0.4687341, 0.4633758, 0.4581622, 0.4536065, 0.4299191, 0.3869271, 0.3439352,
         0.3009433, 0.2579514, 0.2149595, 0.1719676, 0.1289757, 0.0859838, 0.0429919, 0},
-        
+
         .TV_ST_lb = -130,
         .TV_ST_ub = 130,
         .TV_GS_lb = 0,
         .TV_GS_ub = 25,
+        .TV_PI = 1,
         .TC_eps = 1,
-        .TC_sl_threshold = 0.2,
-        .TC_throttle_mult = 0.5,
+        .TC_SR_threshold = 0.2,
         .TC_highs_to_engage = 5,
         .TC_lows_to_disengage = 2,
-        .REF_shaft_speed = 0,
-        .REF_slip_ratio = 0
+        .WM_VS_LS = 10
     };
     return pVCU;
-}
-
-fVCU_struct init_fVCU(void) {
-    fVCU_struct fVCU = {
-        .CS_SFLAG = 0,
-        .TB_SFLAG = 0,
-        .SS_SFLAG = 0,
-        .WT_SFLAG = 0,
-        .IV_SFLAG = 0,
-        .BT_SFLAG = 0,
-        .IAC_SFLAG = 0,
-        .IAT_SFLAG = 0,
-        .IBC_SFLAG = 0,
-        .IBT_SFLAG = 0,
-        .SS_FFLAG = 1,
-        .AV_FFLAG = 1,
-        .GS_FFLAG = 3,
-        .VCU_PFLAG = 1
-    };
-    return fVCU;
-}
-
-xVCU_struct init_xVCU(void) {
-    xVCU_struct xVCU = {
-        .TH_RAW = 0,
-        .ST_RAW = 0,
-        .VB_RAW = 600,
-        .WT_RAW = {0, 0},
-        .WM_RAW = {0, 0},
-        .GS_RAW = 0,
-        .AV_RAW = {0, 0, 0},
-        .IB_RAW = 0,
-        .MT_RAW = 20,
-        .CT_RAW = 20,
-        .IT_RAW = 20,
-        .MC_RAW = 0,
-        .IC_RAW = 0,
-        .BT_RAW = 20,
-        .AG_RAW = {0, 0, 9.81},
-        .TO_RAW = {0, 0},
-        .DB_RAW = 12,
-        .PI_RAW = 1,
-        .PP_RAW = 1
-    };
-    return xVCU;
-}
-
-yVCU_struct init_yVCU(void) {
-    yVCU_struct yVCU = {
-        .ET_permit_buffer = {0, 0, 0, 0, 0},
-        .PT_permit_buffer = {0, 0, 0, 0, 0},
-        .VS_permit_buffer = {0, 0, 0, 0, 0},
-        .VT_permit_buffer = {0, 0, 0, 0, 0},
-        .VCU_mode = 1,
-        .IB_CF_buffer = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        .TH_CF = 0,
-        .ST_CF = 0,
-        .VB_CF = 600,
-        .WT_CF = {0, 0},
-        .WM_CF = {0, 0},
-        .GS_CF = 0,
-        .AV_CF = {0, 0, 0},
-        .IB_CF = 0,
-        .MT_CF = 20,
-        .CT_CF = 20,
-        .IT_CF = 20,
-        .MC_CF = 0,
-        .IC_CF = 0,
-        .BT_CF = 20,
-        .AG_CF = {0, 0, 9.81},
-        .TO_CF = {0, 0},
-        .DB_CF = 12,
-        .PI_CF = 1,
-        .PP_CF = 1,
-        .zero_current_counter = 0,
-        .Batt_SOC = 1,
-        .Batt_Voc = 600,
-        .TO_ET = {0, 0},
-        .TO_AB_MX = 21,
-        .TO_DR_MX = 21,
-        .TO_PT = {0, 0},
-        .WM_VS = {0, 0},
-        .VT_mode = 1,
-        .TO_VT = {0, 0},
-        .TV_AV_ref = 0,
-        .TV_delta_torque = 0,
-        .TC_highs = 0,
-        .TC_lows = 0,
-        .sl = 0
-    };
-    return yVCU;
 }

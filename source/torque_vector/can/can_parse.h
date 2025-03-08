@@ -81,7 +81,7 @@
 #define DLC_INVB_CRIT 8
 #define DLC_INVA_TEMPS 6
 #define DLC_INVB_TEMPS 6
-#define DLC_DASHBOARD_VCU_PARAMETERS 7
+#define DLC_DASHBOARD_VCU_PARAMETERS 5
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -347,10 +347,12 @@ typedef union {
         uint64_t AMK_IGBTTemp: 16;
     } INVB_TEMPS;
     struct {
-        uint64_t vcu_mode: 1;
-        uint64_t tv_deadband_val: 16;
-        uint64_t tv_intensity_val: 16;
-        uint64_t tv_p_val: 16;
+        uint64_t vcu_fmode: 1;
+        uint64_t vcu_cmode: 1;
+        uint64_t vt_db_val: 8;
+        uint64_t tv_pp_val: 8;
+        uint64_t tc_tr_val: 8;
+        uint64_t vs_max_sr_val: 8;
     } dashboard_vcu_parameters;
     struct {
         uint64_t idx: 16;
@@ -464,10 +466,12 @@ typedef struct {
         uint32_t last_rx;
     } INVB_TEMPS;
     struct {
-        uint8_t vcu_mode;
-        uint16_t tv_deadband_val;
-        uint16_t tv_intensity_val;
-        uint16_t tv_p_val;
+        uint8_t vcu_fmode;
+        uint8_t vcu_cmode;
+        uint8_t vt_db_val;
+        uint8_t tv_pp_val;
+        uint8_t tc_tr_val;
+        uint8_t vs_max_sr_val;
         uint8_t stale;
         uint32_t last_rx;
     } dashboard_vcu_parameters;

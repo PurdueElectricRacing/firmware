@@ -3,7 +3,7 @@
 #include "vcu.h"
 
 // Manually sets xVCU and fVCU structs to test values
-void vcu_pp_tester(xVCU_struct *xVCU, fVCU_struct *fVCU) {
+void vcu_pp_tester(fVCU_struct *fVCU, xVCU_struct *xVCU) {
     xVCU->TH_RAW = 0;
     xVCU->ST_RAW = 0;
     xVCU->VB_RAW = 0;
@@ -27,9 +27,10 @@ void vcu_pp_tester(xVCU_struct *xVCU, fVCU_struct *fVCU) {
     xVCU->AG_RAW[2] = 0;
     xVCU->TO_RAW[0] = 0;
     xVCU->TO_RAW[1] = 0;
-    xVCU->DB_RAW = 0;
-    xVCU->PI_RAW = 0;
-    xVCU->PP_RAW = 0;
+    xVCU->VT_DB_RAW = 0;
+    xVCU->TV_PP_RAW = 0;
+    xVCU->TC_TR_RAW = 0;
+    xVCU->VS_MAX_SR_RAW = 0;
     
     fVCU->CS_SFLAG = 0;
     fVCU->TB_SFLAG = 0;
@@ -45,4 +46,5 @@ void vcu_pp_tester(xVCU_struct *xVCU, fVCU_struct *fVCU) {
     fVCU->AV_FFLAG = 1;
     fVCU->GS_FFLAG = 3;
     fVCU->VCU_PFLAG = 1;
+    fVCU->VCU_CFLAG = 1;
 }

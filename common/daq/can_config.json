@@ -777,10 +777,12 @@
                             "msg_name":"dashboard_vcu_parameters",
                             "msg_desc":"periodic dashboard vcu parameters",
                             "signals":[
-                                {"sig_name": "vcu_mode", "type":"uint8_t", "length":1},
-                                {"sig_name": "tv_deadband_val", "type":"uint16_t"},
-                                {"sig_name": "tv_intensity_val", "type":"uint16_t"},
-                                {"sig_name": "tv_p_val", "type":"uint16_t"}
+                                {"sig_name": "vcu_fmode", "type":"uint8_t", "length":1},
+                                {"sig_name": "vcu_cmode", "type":"uint8_t", "length":1},
+                                {"sig_name": "vt_db_val", "type":"uint8_t"},
+                                {"sig_name": "tv_pp_val", "type":"uint8_t"},
+                                {"sig_name": "tc_tr_val", "type":"uint8_t"},
+                                {"sig_name": "vs_max_sr_val", "type":"uint8_t"}
                             ],
                             "msg_period":500,
                             "msg_hlp":1,

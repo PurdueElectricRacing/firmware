@@ -388,11 +388,13 @@ BO_ 2415925573 dashboard_volts_temp: 6 Dashboard
  SG_ volts_5v : 16|16@1+ (1,0) [0|0] "" Vector__XXX
  SG_ mcu_temp : 0|16@1- (1,0) [0|0] "" Vector__XXX
 
-BO_ 2214596037 dashboard_vcu_parameters: 7 Dashboard
- SG_ tv_p_val : 33|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ tv_intensity_val : 17|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ tv_deadband_val : 1|16@1+ (1,0) [0|0] "" Vector__XXX
- SG_ vcu_mode : 0|1@1+ (1,0) [0|0] "" Vector__XXX
+BO_ 2214596037 dashboard_vcu_parameters: 5 Dashboard
+ SG_ vs_max_sr_val : 26|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tc_tr_val : 18|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ tv_pp_val : 10|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vt_db_val : 2|8@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vcu_cmode : 1|1@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ vcu_fmode : 0|1@1+ (1,0) [0|0] "" Vector__XXX
 
 BO_ 2214596101 dashboard_start_logging: 1 Dashboard
  SG_ logging_enabled : 0|1@1+ (1,0) [0|0] "" Vector__XXX
@@ -971,10 +973,12 @@ CM_ SG_ 2415925573 volts_3v3 "";
 CM_ SG_ 2415925573 volts_5v "";
 CM_ SG_ 2415925573 mcu_temp "";
 CM_ BO_ 2214596037 "periodic dashboard vcu parameters";
-CM_ SG_ 2214596037 tv_p_val "";
-CM_ SG_ 2214596037 tv_intensity_val "";
-CM_ SG_ 2214596037 tv_deadband_val "";
-CM_ SG_ 2214596037 vcu_mode "";
+CM_ SG_ 2214596037 vs_max_sr_val "";
+CM_ SG_ 2214596037 tc_tr_val "";
+CM_ SG_ 2214596037 tv_pp_val "";
+CM_ SG_ 2214596037 vt_db_val "";
+CM_ SG_ 2214596037 vcu_cmode "";
+CM_ SG_ 2214596037 vcu_fmode "";
 CM_ BO_ 2214596101 "start logging";
 CM_ SG_ 2214596101 logging_enabled "";
 CM_ BO_ 2416009989 "CAN diagnostics";

@@ -12,8 +12,6 @@
 #include "main.h"
 #include "source/torque_vector/can/can_parse.h"
 
-uint8_t collect_test[100] = {0};
-
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
     GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -25,32 +23,11 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANTX_PA12
 };
 
-// GPS USART Configuration
-dma_init_t usart_gps_tx_dma_config = USART4_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_gps_rx_dma_config = USART4_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t huart_gps =
-{
-    .baud_rate = 115200,
-    .word_length = WORD_8,
-    .hw_flow_ctl = HW_DISABLE,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .obsample = OB_DISABLE,
-    .ovsample = OV_16,
-    .periph      = UART4,
-    .wake_addr = false,
-    .usart_active_num = USART4_ACTIVE_IDX,
-    .tx_errors = 0,
-    .rx_errors = 0,
-    .tx_dma_cfg = &usart_gps_tx_dma_config,
-    .rx_dma_cfg = &usart_gps_rx_dma_config
-};
-
 #define TargetCoreClockrateHz 96000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSE,
+    .clock_source               =CLOCK_SOURCE_HSI,
     .use_pll                    =true,
-    .pll_src                    =PLL_SRC_HSE,
+    .pll_src                    =PLL_SRC_HSI16,
     .vco_output_rate_target_hz  =192000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
@@ -75,7 +52,6 @@ int main(void)
     /* Data Struct Initialization */
 
     /* HAL Initialization */
-    PHAL_trimHSI(HSI_TRIM_TORQUE_VECTOR);
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -86,6 +62,14 @@ int main(void)
     {
         HardFault_Handler();
     }
+
+    if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
+    {
+        HardFault_Handler();
+    }
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+
+    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
@@ -108,12 +92,12 @@ void preflightChecks(void)
 
     switch (state++)
     {
-    case 0:
-        if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
-        {
-            HardFault_Handler();
-        }
-        NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    case 300:
+        // if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
+        // {
+        //     HardFault_Handler();
+        // }
+        // NVIC_EnableIRQ(CAN1_RX0_IRQn);
         break;
     default:
         if (state > 750)
@@ -158,13 +142,6 @@ void heartBeatLED(void)
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
          PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-
-
-    static uint8_t trig;
-    if (trig) SEND_TV_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                                can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                                can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
-    trig = !trig;
 }
 
 /* CAN Message Handling */

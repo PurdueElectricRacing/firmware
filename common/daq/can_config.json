@@ -885,6 +885,12 @@
                             "msg_desc": "PDU board temperatures",
                             "signals": [
                                 {
+                                    "sig_name": "internal_therm",
+                                    "sig_desc": "Temperature from internal thermistor",
+                                    "type": "uint16_t",
+                                    "unit": "C"
+                                },
+                                {
                                     "sig_name": "external_therm",
                                     "sig_desc": "Temperature from external thermistor",
                                     "type": "uint16_t",

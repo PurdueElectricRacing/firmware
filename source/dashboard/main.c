@@ -1,5 +1,4 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/usart/usart.h"
@@ -18,6 +17,7 @@
 #include "pedals.h"
 #include "lcd.h"
 #include "nextion.h"
+#include "uds.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -117,7 +117,7 @@ dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lcd = {
     .baud_rate          = LCD_BAUD_RATE,
     .word_length        = WORD_8,
-    .stop_bits          = SB_ONE, 
+    .stop_bits          = SB_ONE,
     .parity             = PT_NONE,
     .hw_flow_ctl        = HW_DISABLE,
     .ovsample           = OV_16,
@@ -258,6 +258,7 @@ void preflightChecks(void) {
             initCANParse();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
+            udsInit();
             break;
         case 4:
             // Zero Rotary Encoder
@@ -277,7 +278,7 @@ void preflightChecks(void) {
 
 /**
  * @brief Processes and sends shock potentiometer readings
- * 
+ *
  * Converts raw ADC values from left and right shock potentiometers into parsed displacement values
  * and sends them through CAN bus. Values are scaled linearly and adjusted for droop.
  */
@@ -301,7 +302,7 @@ void preflightAnimation(void) {
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-    
+
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
@@ -367,7 +368,7 @@ void interpretLoadSensor(void) {
 
 /**
  * @brief Updates system LED indicators and CAN stats
- * 
+ *
  * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
  * Handles periodic CAN statistics transmission.
  */
@@ -375,7 +376,7 @@ void heartBeatLED()
 {
     static uint8_t imd_prev_latched;
     static uint8_t bms_prev_latched;
-    
+
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
 
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH) {
@@ -394,7 +395,7 @@ void heartBeatLED()
         if (can_data.precharge_hb.IMD) {
             imd_prev_latched = 1;
         }
-            
+
         if (can_data.precharge_hb.BMS) {
             bms_prev_latched = 1;
         }
@@ -486,7 +487,7 @@ void EXTI15_10_IRQHandler() {
 
 /**
  * @brief Initialize encoder to zero position
- * 
+ *
  * Reads initial encoder state from GPIO pins and sets position to zero.
  *
  * @note Without this function, the encoder cannot track the first direction
@@ -502,11 +503,11 @@ void zeroEncoder() {
 
 /**
  * @brief ISR for rotary encoder state changes
- * 
+ *
  * Updates encoder position based on Gray code transitions:
  * - CW increments position with LCD page wrapping
  * - CCW decrements with wrapping
- * 
+ *
  * @note Called on encoder pin state changes
  */
 void encoderISR() {
@@ -534,7 +535,7 @@ void encoderISR() {
             input_state.encoder_position += LCD_NUM_PAGES;
         }
     }
-    
+
     input_state.prev_encoder_position = current_state;
 }
 
@@ -609,7 +610,7 @@ void enableInterrupts()
 
 /**
  * @brief Called periodically to send commands to the Nextion LCD display via USART
- * 
+ *
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
 uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
@@ -626,15 +627,9 @@ void CAN1_RX0_IRQHandler()
     canParseIRQHandler(CAN1);
 }
 
-void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-    if (can_data.dashboard_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
-}
-
 /**
  * @brief Reads ADC values and sends scaled voltage data for different voltage rails
- * 
+ *
  * Converts raw ADC values to actual voltages using voltage divider calculations
  * for 3.3V, 5V, 12V and 24V rails. Scales values by 100 before sending.
  * Resistor values must be manually updated if hardware changes.
@@ -642,7 +637,7 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 void sendVoltageData()
 {
     float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
-    
+
     float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;
     float vin_3v3 = adc_voltage * (LV_3V3_PULLUP + LV_3V3_PULLDOWN) / LV_3V3_PULLDOWN;
 
@@ -654,7 +649,7 @@ void sendVoltageData()
 
     adc_voltage = raw_adc_values.lv_24_v_sense * adc_to_voltage;
     float vin_24v = adc_voltage * (LV_24V_PULLUP + LV_24V_PULLDOWN) / LV_24V_PULLDOWN;
-    
+
     // Scale to 100x before sending
     SEND_DASHBOARD_VOLTAGE(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
 }

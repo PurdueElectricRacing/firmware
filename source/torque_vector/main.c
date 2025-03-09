@@ -1,5 +1,4 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/spi/spi.h"
@@ -41,6 +40,7 @@
 
 #include "tv.h"
 #include "tv_pp.h"
+#include "uds.h"
 
 uint8_t collect_test[100] = {0};
 
@@ -245,6 +245,7 @@ void preflightChecks(void)
     break;
     case 5:
         initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        udsInit();
         break;
     case 1:
         /* SPI initialization */
@@ -435,12 +436,6 @@ void VCU_MAIN(void)
 
     SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
     SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
-}
-
-void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
 }
 
 void HardFault_Handler()

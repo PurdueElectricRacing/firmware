@@ -1,7 +1,6 @@
 /* System Includes */
 #include "stm32f407xx.h"
 #include "can_parse.h"
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/phal_F4_F7/can/can.h"
@@ -15,6 +14,7 @@
 #include "daq.h"
 #include "orion.h"
 #include "tmu.h"
+#include "uds.h"
 
 #include "common/faults/faults.h"
 
@@ -180,7 +180,8 @@ int main (void)
 
     if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
         HardFault_Handler();
-
+   udsInit();
+   
    /* Module init */
    schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
 
@@ -333,12 +334,6 @@ void CAN1_RX0_IRQHandler()
 void CAN2_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN2);
-}
-
-void a_box_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-   if (can_data.a_box_bl_cmd.cmd == BLCMD_RST)
-       Bootloader_ResetForFirmwareDownload();
 }
 
 void PHAL_FaultHandler()

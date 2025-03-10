@@ -256,18 +256,6 @@
                         {"msg_name": "drive_modes"}
                         {"msg_name": "throttle_vcu"},
                         {"msg_name": "throttle_vcu_equal"},
-                        {"msg_name": "INVA_CRIT"},
-                        {"msg_name": "INVA_INFO"},
-                        {"msg_name": "INVA_TEMPS"},
-                        {"msg_name": "INVA_SET"},
-                        {"msg_name": "INVA_ERR_1"},
-                        {"msg_name": "INVA_ERR_2"},
-                        {"msg_name": "INVB_CRIT"},
-                        {"msg_name": "INVB_INFO"},
-                        {"msg_name": "INVB_TEMPS"},
-                        {"msg_name": "INVB_SET"},
-                        {"msg_name": "INVB_ERR_1"},
-                        {"msg_name": "INVB_ERR_2"},
                         {"msg_name": "precharge_hb"}
                     ]
                 },

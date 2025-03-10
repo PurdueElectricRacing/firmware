@@ -130,15 +130,47 @@
 //   - 'H' -> unsigned short (2 bytes)
 //   - 'I' -> unsigned int (4 bytes)
 //
-// Example Python format for this struct: "fffffff" (7 floats)
 struct __attribute__((packed)) serial_tx {
-    float accel_x;
-    float accel_y;
-    float accel_z;
-    float gyro_x;
-    float gyro_y;
-    float gyro_z;
-    float test;
+    float ET_permit_buffer[5];
+    float PT_permit_buffer[5];
+    float VS_permit_buffer[5];
+    float VT_permit_buffer[5];
+    float VCU_mode;
+    float IB_CF_buffer[10];
+    float TH_CF;
+    float ST_CF;
+    float VB_CF;
+    float WT_CF[2];
+    float WM_CF[2];
+    float GS_CF;
+    float AV_CF[3];
+    float IB_CF;
+    float MT_CF;
+    float CT_CF;
+    float IT_CF;
+    float MC_CF;
+    float IC_CF;
+    float BT_CF;
+    float AG_CF[3];
+    float TO_CF[2];
+    float DB_CF;
+    float PI_CF;
+    float PP_CF;
+    float zero_current_counter;
+    float Batt_SOC;
+    float Batt_Voc;
+    float TO_ET[2];
+    float TO_AB_MX;
+    float TO_DR_MX;
+    float TO_PT[2];
+    float WM_VS[2];
+    float VT_mode;
+    float TO_VT[2];
+    float TV_AV_ref;
+    float TV_delta_torque;
+    float TC_highs;
+    float TC_lows;
+    float sl;
 };
 
 // If you modify this struct, update the Python script accordingly
@@ -156,14 +188,10 @@ struct __attribute__((packed)) serial_rx {
     float TH_RAW;
     float ST_RAW;
     float VB_RAW;
-    float WT_RAW1;
-    float WT_RAW2;
-    float WM_RAW1;
-    float WM_RAW2;
+    float WT_RAW[2];
+    float WM_RAW[2];
     float GS_RAW;
-    float AV_RAW1;
-    float AV_RAW2;
-    float AV_RAW3;
+    float AV_RAW[3];
     float IB_RAW;
     float MT_RAW;
     float CT_RAW;
@@ -171,11 +199,8 @@ struct __attribute__((packed)) serial_rx {
     float MC_RAW;
     float IC_RAW;
     float BT_RAW;
-    float AG_RAW1;
-    float AG_RAW2;
-    float AG_RAW3;
-    float TO_RAW1;
-    float TO_RAW2;
+    float AG_RAW[3];
+    float TO_RAW[2];
     float DB_RAW;
     float PI_RAW;
     float PP_RAW;

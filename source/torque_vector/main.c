@@ -154,9 +154,10 @@ SPI_InitConfig_t spi_config = {
 GPS_Handle_t GPSHandle = {};
 vector_3d_t accel_in, gyro_in, mag_in;
 
-static struct serial_tx txmsg = {.test = 5};
+static struct serial_tx txmsg;
 static struct serial_rx rxmsg;
 static uint16_t rxbuffer[(sizeof(rxmsg) + 1) / 2];
+static uint8_t txbuffer[2 + sizeof(txmsg)] = {0xAA, 0x55};
 
 BMI088_Handle_t bmi_config = {
     .accel_csb_gpio_port = SPI1_CSB_ACCEL_PORT,
@@ -183,7 +184,7 @@ extern void HardFault_Handler(void);
 void parseIMU(void);
 void pollIMU(void);
 void VCU_MAIN(void);
-void testUsart(void);
+void txUsart(void);
 
 /* Moving Median Definition */
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
@@ -219,7 +220,7 @@ int main(void)
     // taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
-    taskCreate(testUsart, 100);
+    taskCreate(txUsart, 100);
     taskCreate(heartBeatTask, 100);
 
     taskCreate(parseIMU, 20);
@@ -362,13 +363,6 @@ void parseIMU(void)
     GPSHandle.acceleration = accel_in;
     GPSHandle.gyroscope = gyro_in;
 
-    txmsg.accel_x = accel_in.x;
-    txmsg.accel_y = accel_in.y;
-    txmsg.accel_z = accel_in.z;
-    txmsg.gyro_x = gyro_in.x;
-    txmsg.gyro_y = gyro_in.y;
-    txmsg.gyro_z = gyro_in.z;
-
     /* Update Gyro OK flag */
     if (gyro_counter == 150){
         GPSHandle.gyro_OK = BMI088_gyroOK(&bmi_config);
@@ -385,23 +379,16 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
 
         // Data
+        memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
+        memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));
+        memcpy(xVCU.AV_RAW, rxmsg.AV_RAW, sizeof(xVCU.AV_RAW));
+        memcpy(xVCU.AG_RAW, rxmsg.AG_RAW, sizeof(xVCU.AG_RAW));
+        memcpy(xVCU.TO_RAW, rxmsg.TO_RAW, sizeof(xVCU.TO_RAW));
 
         xVCU.TH_RAW = rxmsg.TH_RAW;
         xVCU.ST_RAW = rxmsg.ST_RAW;
         xVCU.VB_RAW = rxmsg.VB_RAW;
-
-        xVCU.WT_RAW[0] = rxmsg.WT_RAW1;
-        xVCU.WT_RAW[1] = rxmsg.WT_RAW2;
-
-        xVCU.WM_RAW[0] = rxmsg.WM_RAW1;
-        xVCU.WM_RAW[1] = rxmsg.WM_RAW2;
-
         xVCU.GS_RAW = rxmsg.GS_RAW;
-
-        xVCU.AV_RAW[0] = rxmsg.AV_RAW1;
-        xVCU.AV_RAW[1] = rxmsg.AV_RAW2;
-        xVCU.AV_RAW[2] = rxmsg.AV_RAW3;
-
         xVCU.IB_RAW = rxmsg.IB_RAW;
         xVCU.MT_RAW = rxmsg.MT_RAW;
         xVCU.CT_RAW = rxmsg.CT_RAW;
@@ -409,14 +396,6 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         xVCU.MC_RAW = rxmsg.MC_RAW;
         xVCU.IC_RAW = rxmsg.IC_RAW;
         xVCU.BT_RAW = rxmsg.BT_RAW;
-
-        xVCU.AG_RAW[0] = rxmsg.AG_RAW1;
-        xVCU.AG_RAW[1] = rxmsg.AG_RAW2;
-        xVCU.AG_RAW[2] = rxmsg.AG_RAW3;
-
-        xVCU.TO_RAW[0] = rxmsg.TO_RAW1;
-        xVCU.TO_RAW[1] = rxmsg.TO_RAW2;
-
         xVCU.DB_RAW = rxmsg.DB_RAW;
         xVCU.PI_RAW = rxmsg.PI_RAW;
         xVCU.PP_RAW = rxmsg.PP_RAW;
@@ -487,11 +466,50 @@ void HardFault_Handler()
     }
 }
 
-uint8_t buffer[2 + sizeof(txmsg)];
-void testUsart()
+void txUsart()
 {
-    buffer[0] = 0xAA;  // Sync word
-    buffer[1] = 0x55;
-    memcpy(buffer + 2, &txmsg, sizeof(txmsg));
-    PHAL_usartTxBl(&usb, buffer, sizeof(buffer));
+    memcpy(txmsg.ET_permit_buffer, yVCU.ET_permit_buffer, sizeof(txmsg.ET_permit_buffer));
+    memcpy(txmsg.PT_permit_buffer, yVCU.PT_permit_buffer, sizeof(txmsg.PT_permit_buffer));
+    memcpy(txmsg.VS_permit_buffer, yVCU.VS_permit_buffer, sizeof(txmsg.VS_permit_buffer));
+    memcpy(txmsg.VT_permit_buffer, yVCU.VT_permit_buffer, sizeof(txmsg.VT_permit_buffer));
+    memcpy(txmsg.IB_CF_buffer, yVCU.IB_CF_buffer, sizeof(txmsg.IB_CF_buffer));
+    memcpy(txmsg.WT_CF, yVCU.WT_CF, sizeof(txmsg.WT_CF));
+    memcpy(txmsg.WM_CF, yVCU.WM_CF, sizeof(txmsg.WM_CF));
+    memcpy(txmsg.AV_CF, yVCU.AV_CF, sizeof(txmsg.AV_CF));
+    memcpy(txmsg.AG_CF, yVCU.AG_CF, sizeof(txmsg.AG_CF));
+    memcpy(txmsg.TO_CF, yVCU.TO_CF, sizeof(txmsg.TO_CF));
+    memcpy(txmsg.TO_ET, yVCU.TO_ET, sizeof(txmsg.TO_ET));
+    memcpy(txmsg.TO_PT, yVCU.TO_PT, sizeof(txmsg.TO_PT));
+    memcpy(txmsg.WM_VS, yVCU.WM_VS, sizeof(txmsg.WM_VS));
+    memcpy(txmsg.TO_VT, yVCU.TO_VT, sizeof(txmsg.TO_VT));
+
+    txmsg.VCU_mode = yVCU.VCU_mode;
+    txmsg.TH_CF = yVCU.TH_CF;
+    txmsg.ST_CF = yVCU.ST_CF;
+    txmsg.VB_CF = yVCU.VB_CF;
+    txmsg.GS_CF = yVCU.GS_CF;
+    txmsg.IB_CF = yVCU.IB_CF;
+    txmsg.MT_CF = yVCU.MT_CF;
+    txmsg.CT_CF = yVCU.CT_CF;
+    txmsg.IT_CF = yVCU.IT_CF;
+    txmsg.MC_CF = yVCU.MC_CF;
+    txmsg.IC_CF = yVCU.IC_CF;
+    txmsg.BT_CF = yVCU.BT_CF;
+    txmsg.DB_CF = yVCU.DB_CF;
+    txmsg.PI_CF = yVCU.PI_CF;
+    txmsg.PP_CF = yVCU.PP_CF;
+    txmsg.zero_current_counter = yVCU.zero_current_counter;
+    txmsg.Batt_SOC = yVCU.Batt_SOC;
+    txmsg.Batt_Voc = yVCU.Batt_Voc;
+    txmsg.TO_AB_MX = yVCU.TO_AB_MX;
+    txmsg.TO_DR_MX = yVCU.TO_DR_MX;
+    txmsg.VT_mode = yVCU.VT_mode;
+    txmsg.TV_AV_ref = yVCU.TV_AV_ref;
+    txmsg.TV_delta_torque = yVCU.TV_delta_torque;
+    txmsg.TC_highs = yVCU.TC_highs;
+    txmsg.TC_lows = yVCU.TC_lows;
+    txmsg.sl = yVCU.sl;
+    
+    memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
+    PHAL_usartTxBl(&usb, txbuffer, sizeof(txbuffer));
 }

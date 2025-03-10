@@ -24,9 +24,13 @@ GPIOInitConfig_t gpio_config[] = {
    GPIO_INIT_ANALOG(I_SENSE_CH1_GPIO_Port, I_SENSE_CH1_Pin),
    GPIO_INIT_ANALOG(I_SENSE_CH2_GPIO_Port, I_SENSE_CH2_Pin),
 
-   // CAN
+   // VCAN
    GPIO_INIT_CANRX_PA11,
    GPIO_INIT_CANTX_PA12,
+   
+   // CCAN
+   GPIO_INIT_CAN2RX_PB12,
+   GPIO_INIT_CAN2TX_PB13,
 
    // Status and HV Monitoring
    GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -139,48 +143,36 @@ int main (void)
 
    /* HAL Initilization */
     PHAL_trimHSI(HSI_TRIM_A_BOX);
-   if (0 != PHAL_configureClockRates(&clock_config))
-       PHAL_FaultHandler();
+    if (0 != PHAL_configureClockRates(&clock_config))
+    {
+        PHAL_FaultHandler();
+    }
 
 
-   if (1 != PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
-       PHAL_FaultHandler();
+    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    {
+        PHAL_FaultHandler();
+    }
 
-   /* ADC and DMA Initialization */
-   if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-   {
-      HardFault_Handler();
-   }
-   if(!PHAL_initDMA(&adc_dma_config))
-   {
-      HardFault_Handler();
-   }
+    /* ADC and DMA Initialization */
+    if(false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
+    {
+        HardFault_Handler();
+    }
+    if(false == PHAL_initDMA(&adc_dma_config))
+    {
+        HardFault_Handler();
+    }
 
-   PHAL_startTxfer(&adc_dma_config);
-   PHAL_startADC(ADC1);
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
 
 //    set high during init
 //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
 
-
-
-
-//     for (uint16_t dimitri_is_not_better_than_me = 0; dimitri_is_not_better_than_me < 1000; dimitri_is_not_better_than_me++)
-//     {
-//         asm("nop");
-//     }
-
-//    if (1 != PHAL_initCAN(CAN2, fchrom alse))
-//        PHAL_FaultHandler();
-
-
    // spi2_config.data_rate = APB2ClockRateHz / 16;
    // if (!PHAL_SPI_init(&spi2_config))
    //     PHAL_FaultHandler();
-
-
-   NVIC_EnableIRQ(CAN1_RX0_IRQn);
-   NVIC_EnableIRQ(CAN2_RX0_IRQn);
 
     initCANParse();
     orionInit();
@@ -189,7 +181,9 @@ int main (void)
     bms_daq_stat = false;
 
     if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
+    {
         HardFault_Handler();
+    }
 
    /* Module init */
    schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
@@ -235,17 +229,23 @@ void preflightChecks(void)
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_A_BOX);
             break;
         case 700:
+            /* Initialize VCAN */
+            if (false == PHAL_initCAN(CAN1, false, CCAN_BPS))
+            {
+                PHAL_FaultHandler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            
+            /* Initialize CCAN as needed */
             charger_speed_def = PHAL_readGPIO(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin);
             uint8_t speed_2 = PHAL_readGPIO(BMS_CHARGER_SAFETY_Port, BMS_CHARGER_SAFETY_Pin);
             if (charger_speed_def)
             {
-                if (1 != PHAL_initCAN(CAN1, false, VCAN_BPS))
+                if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
+                {
                     PHAL_FaultHandler();
-            }
-            else
-            {
-                if (1 != PHAL_initCAN(CAN1, false, CCAN_BPS))
-                    PHAL_FaultHandler();
+                }
+                NVIC_EnableIRQ(CAN2_RX0_IRQn);
             }
             break;
        default:

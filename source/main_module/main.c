@@ -223,7 +223,7 @@ void update_lights(void)
     }
     else
     {
-        //todo any other way to check this if we lose abox?
+        //Later: any other way to check this if we lose abox?
     }
 }
 
@@ -300,8 +300,8 @@ void preflightChecks(void) {
             coolingInit();
             break;
        case 5:
-            // TODO should be based on IMD or BMS fault, for now assume normal
-            PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, 1);
+            /* Lights off first */
+            PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, 0);
             PHAL_writeGPIO(SAFE_STAT_R_GPIO_Port, SAFE_STAT_R_GPIO_Pin, 0);
             initCANParse();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))

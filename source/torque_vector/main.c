@@ -332,7 +332,10 @@ void CAN1_RX0_IRQHandler()
 void VCU_MAIN(void)
 {
     /* Fill in X & F */
-    vcu_pp(&fVCU, &xVCU, &GPSHandle);
+    // vcu_pp(&fVCU, &xVCU, &GPSHandle);
+
+    // manualy set change values to test against matlab code
+    vcu_pp_tester(&fVCU, &xVCU, &yVCU);
 
     /* Step VCU */
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);

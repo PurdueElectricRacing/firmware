@@ -26,11 +26,17 @@
 #define ID_NUM_THERM_BAD 0x100080c4
 #define ID_PACK_CHARGE_STATUS 0x14008084
 #define ID_MAX_CELL_TEMP 0xc04e604
-#define ID_MOD_CELL_TEMP_AVG 0x14013484
-#define ID_MOD_CELL_TEMP_MAX 0x14008104
-#define ID_MOD_CELL_TEMP_MIN 0x14008204
-#define ID_RAW_CELL_TEMP_A_B 0x14013184
-#define ID_RAW_CELL_TEMP_C_D 0x14008384
+#define ID_MOD_CELL_TEMP_AVG_A_B_C 0x14013484
+#define ID_MOD_CELL_TEMP_AVG_D_E 0x140134c4
+#define ID_MOD_CELL_TEMP_MAX_A_B_C 0x14008104
+#define ID_MOD_CELL_TEMP_MAX_D_E 0x14008144
+#define ID_MOD_CELL_TEMP_MIN_A_B_C 0x14008204
+#define ID_MOD_CELL_TEMP_MIN_D_E 0x14008244
+#define ID_RAW_CELL_TEMP_MODULE1 0x14013184
+#define ID_RAW_CELL_TEMP_MODULE2 0x14008384
+#define ID_RAW_CELL_TEMP_MODULE3 0x140083c4
+#define ID_RAW_CELL_TEMP_MODULE4 0x14008404
+#define ID_RAW_CELL_TEMP_MODULE5 0x14008444
 #define ID_A_BOX_CAN_STATS 0x10016304
 #define ID_I_SENSE 0x10016444
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -54,15 +60,21 @@
 /* BEGIN AUTO DLC DEFS */
 #define DLC_PRECHARGE_HB 2
 #define DLC_ELCON_CHARGER_COMMAND 5
-#define DLC_NUM_THERM_BAD 4
+#define DLC_NUM_THERM_BAD 5
 #define DLC_PACK_CHARGE_STATUS 7
 #define DLC_MAX_CELL_TEMP 2
-#define DLC_MOD_CELL_TEMP_AVG 8
-#define DLC_MOD_CELL_TEMP_MAX 8
-#define DLC_MOD_CELL_TEMP_MIN 8
-#define DLC_RAW_CELL_TEMP_A_B 5
-#define DLC_RAW_CELL_TEMP_C_D 5
-#define DLC_A_BOX_CAN_STATS 7
+#define DLC_MOD_CELL_TEMP_AVG_A_B_C 6
+#define DLC_MOD_CELL_TEMP_AVG_D_E 4
+#define DLC_MOD_CELL_TEMP_MAX_A_B_C 6
+#define DLC_MOD_CELL_TEMP_MAX_D_E 4
+#define DLC_MOD_CELL_TEMP_MIN_A_B_C 6
+#define DLC_MOD_CELL_TEMP_MIN_D_E 4
+#define DLC_RAW_CELL_TEMP_MODULE1 5
+#define DLC_RAW_CELL_TEMP_MODULE2 5
+#define DLC_RAW_CELL_TEMP_MODULE3 5
+#define DLC_RAW_CELL_TEMP_MODULE4 5
+#define DLC_RAW_CELL_TEMP_MODULE5 5
+#define DLC_A_BOX_CAN_STATS 4
 #define DLC_I_SENSE 4
 #define DLC_FAULT_SYNC_A_BOX 3
 #define DLC_DAQ_RESPONSE_A_BOX 8
@@ -98,13 +110,19 @@
         data_a->elcon_charger_command.charge_disable = charge_disable_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_NUM_THERM_BAD(A_, B_, C_, D_) do {\
+#define SEND_NUM_THERM_BAD(A_left_, A_right_, B_left_, B_right_, C_left_, C_right_, D_left_, D_right_, E_left_, E_right_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_NUM_THERM_BAD, .DLC=DLC_NUM_THERM_BAD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->num_therm_bad.A = A_;\
-        data_a->num_therm_bad.B = B_;\
-        data_a->num_therm_bad.C = C_;\
-        data_a->num_therm_bad.D = D_;\
+        data_a->num_therm_bad.A_left = A_left_;\
+        data_a->num_therm_bad.A_right = A_right_;\
+        data_a->num_therm_bad.B_left = B_left_;\
+        data_a->num_therm_bad.B_right = B_right_;\
+        data_a->num_therm_bad.C_left = C_left_;\
+        data_a->num_therm_bad.C_right = C_right_;\
+        data_a->num_therm_bad.D_left = D_left_;\
+        data_a->num_therm_bad.D_right = D_right_;\
+        data_a->num_therm_bad.E_left = E_left_;\
+        data_a->num_therm_bad.E_right = E_right_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_PACK_CHARGE_STATUS(power_, charge_enable_, voltage_, current_) do {\
@@ -122,47 +140,89 @@
         data_a->max_cell_temp.max_temp = max_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MOD_CELL_TEMP_AVG(temp_A_, temp_B_, temp_C_, temp_D_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_AVG, .DLC=DLC_MOD_CELL_TEMP_AVG, .IDE=1};\
+#define SEND_MOD_CELL_TEMP_AVG_A_B_C(temp_A_, temp_B_, temp_C_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_AVG_A_B_C, .DLC=DLC_MOD_CELL_TEMP_AVG_A_B_C, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->mod_cell_temp_avg.temp_A = temp_A_;\
-        data_a->mod_cell_temp_avg.temp_B = temp_B_;\
-        data_a->mod_cell_temp_avg.temp_C = temp_C_;\
-        data_a->mod_cell_temp_avg.temp_D = temp_D_;\
+        data_a->mod_cell_temp_avg_a_b_c.temp_A = temp_A_;\
+        data_a->mod_cell_temp_avg_a_b_c.temp_B = temp_B_;\
+        data_a->mod_cell_temp_avg_a_b_c.temp_C = temp_C_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MOD_CELL_TEMP_MAX(temp_A_, temp_B_, temp_C_, temp_D_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MAX, .DLC=DLC_MOD_CELL_TEMP_MAX, .IDE=1};\
+#define SEND_MOD_CELL_TEMP_AVG_D_E(temp_D_, temp_E_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_AVG_D_E, .DLC=DLC_MOD_CELL_TEMP_AVG_D_E, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->mod_cell_temp_max.temp_A = temp_A_;\
-        data_a->mod_cell_temp_max.temp_B = temp_B_;\
-        data_a->mod_cell_temp_max.temp_C = temp_C_;\
-        data_a->mod_cell_temp_max.temp_D = temp_D_;\
+        data_a->mod_cell_temp_avg_d_e.temp_D = temp_D_;\
+        data_a->mod_cell_temp_avg_d_e.temp_E = temp_E_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_MOD_CELL_TEMP_MIN(temp_A_, temp_B_, temp_C_, temp_D_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MIN, .DLC=DLC_MOD_CELL_TEMP_MIN, .IDE=1};\
+#define SEND_MOD_CELL_TEMP_MAX_A_B_C(temp_A_, temp_B_, temp_C_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MAX_A_B_C, .DLC=DLC_MOD_CELL_TEMP_MAX_A_B_C, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->mod_cell_temp_min.temp_A = temp_A_;\
-        data_a->mod_cell_temp_min.temp_B = temp_B_;\
-        data_a->mod_cell_temp_min.temp_C = temp_C_;\
-        data_a->mod_cell_temp_min.temp_D = temp_D_;\
+        data_a->mod_cell_temp_max_a_b_c.temp_A = temp_A_;\
+        data_a->mod_cell_temp_max_a_b_c.temp_B = temp_B_;\
+        data_a->mod_cell_temp_max_a_b_c.temp_C = temp_C_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_RAW_CELL_TEMP_A_B(index_, temp_A_, temp_B_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_A_B, .DLC=DLC_RAW_CELL_TEMP_A_B, .IDE=1};\
+#define SEND_MOD_CELL_TEMP_MAX_D_E(temp_D_, temp_E_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MAX_D_E, .DLC=DLC_MOD_CELL_TEMP_MAX_D_E, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->raw_cell_temp_a_b.index = index_;\
-        data_a->raw_cell_temp_a_b.temp_A = temp_A_;\
-        data_a->raw_cell_temp_a_b.temp_B = temp_B_;\
+        data_a->mod_cell_temp_max_d_e.temp_D = temp_D_;\
+        data_a->mod_cell_temp_max_d_e.temp_E = temp_E_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_RAW_CELL_TEMP_C_D(index_, temp_C_, temp_D_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_C_D, .DLC=DLC_RAW_CELL_TEMP_C_D, .IDE=1};\
+#define SEND_MOD_CELL_TEMP_MIN_A_B_C(temp_A_, temp_B_, temp_C_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MIN_A_B_C, .DLC=DLC_MOD_CELL_TEMP_MIN_A_B_C, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->raw_cell_temp_c_d.index = index_;\
-        data_a->raw_cell_temp_c_d.temp_C = temp_C_;\
-        data_a->raw_cell_temp_c_d.temp_D = temp_D_;\
+        data_a->mod_cell_temp_min_a_b_c.temp_A = temp_A_;\
+        data_a->mod_cell_temp_min_a_b_c.temp_B = temp_B_;\
+        data_a->mod_cell_temp_min_a_b_c.temp_C = temp_C_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_MOD_CELL_TEMP_MIN_D_E(temp_D_, temp_E_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MOD_CELL_TEMP_MIN_D_E, .DLC=DLC_MOD_CELL_TEMP_MIN_D_E, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->mod_cell_temp_min_d_e.temp_D = temp_D_;\
+        data_a->mod_cell_temp_min_d_e.temp_E = temp_E_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_RAW_CELL_TEMP_MODULE1(index_, temp_left_, temp_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_MODULE1, .DLC=DLC_RAW_CELL_TEMP_MODULE1, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->raw_cell_temp_module1.index = index_;\
+        data_a->raw_cell_temp_module1.temp_left = temp_left_;\
+        data_a->raw_cell_temp_module1.temp_right = temp_right_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_RAW_CELL_TEMP_MODULE2(index_, temp_left_, temp_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_MODULE2, .DLC=DLC_RAW_CELL_TEMP_MODULE2, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->raw_cell_temp_module2.index = index_;\
+        data_a->raw_cell_temp_module2.temp_left = temp_left_;\
+        data_a->raw_cell_temp_module2.temp_right = temp_right_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_RAW_CELL_TEMP_MODULE3(index_, temp_left_, temp_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_MODULE3, .DLC=DLC_RAW_CELL_TEMP_MODULE3, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->raw_cell_temp_module3.index = index_;\
+        data_a->raw_cell_temp_module3.temp_left = temp_left_;\
+        data_a->raw_cell_temp_module3.temp_right = temp_right_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_RAW_CELL_TEMP_MODULE4(index_, temp_left_, temp_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_MODULE4, .DLC=DLC_RAW_CELL_TEMP_MODULE4, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->raw_cell_temp_module4.index = index_;\
+        data_a->raw_cell_temp_module4.temp_left = temp_left_;\
+        data_a->raw_cell_temp_module4.temp_right = temp_right_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_RAW_CELL_TEMP_MODULE5(index_, temp_left_, temp_right_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_CELL_TEMP_MODULE5, .DLC=DLC_RAW_CELL_TEMP_MODULE5, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->raw_cell_temp_module5.index = index_;\
+        data_a->raw_cell_temp_module5.temp_left = temp_left_;\
+        data_a->raw_cell_temp_module5.temp_right = temp_right_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_A_BOX_CAN_STATS(can1_tx_queue_overflow_, can2_tx_queue_overflow_, can1_tx_fail_, can2_tx_fail_, can_rx_queue_overflow_, can1_rx_overrun_, can2_rx_overrun_) do {\
@@ -216,7 +276,7 @@
 
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
-typedef union { 
+typedef union {
     struct {
         uint64_t IMD: 8;
         uint64_t BMS: 8;
@@ -227,10 +287,16 @@ typedef union {
         uint64_t charge_disable: 1;
     } elcon_charger_command;
     struct {
-        uint64_t A: 8;
-        uint64_t B: 8;
-        uint64_t C: 8;
-        uint64_t D: 8;
+        uint64_t A_left: 4;
+        uint64_t A_right: 4;
+        uint64_t B_left: 4;
+        uint64_t B_right: 4;
+        uint64_t C_left: 4;
+        uint64_t C_right: 4;
+        uint64_t D_left: 4;
+        uint64_t D_right: 4;
+        uint64_t E_left: 4;
+        uint64_t E_right: 4;
     } num_therm_bad;
     struct {
         uint64_t power: 16;
@@ -245,30 +311,54 @@ typedef union {
         uint64_t temp_A: 16;
         uint64_t temp_B: 16;
         uint64_t temp_C: 16;
+    } mod_cell_temp_avg_a_b_c;
+    struct {
         uint64_t temp_D: 16;
-    } mod_cell_temp_avg;
+        uint64_t temp_E: 16;
+    } mod_cell_temp_avg_d_e;
     struct {
         uint64_t temp_A: 16;
         uint64_t temp_B: 16;
         uint64_t temp_C: 16;
+    } mod_cell_temp_max_a_b_c;
+    struct {
         uint64_t temp_D: 16;
-    } mod_cell_temp_max;
+        uint64_t temp_E: 16;
+    } mod_cell_temp_max_d_e;
     struct {
         uint64_t temp_A: 16;
         uint64_t temp_B: 16;
         uint64_t temp_C: 16;
+    } mod_cell_temp_min_a_b_c;
+    struct {
         uint64_t temp_D: 16;
-    } mod_cell_temp_min;
+        uint64_t temp_E: 16;
+    } mod_cell_temp_min_d_e;
     struct {
         uint64_t index: 8;
-        uint64_t temp_A: 16;
-        uint64_t temp_B: 16;
-    } raw_cell_temp_a_b;
+        uint64_t temp_left: 16;
+        uint64_t temp_right: 16;
+    } raw_cell_temp_module1;
     struct {
         uint64_t index: 8;
-        uint64_t temp_C: 16;
-        uint64_t temp_D: 16;
-    } raw_cell_temp_c_d;
+        uint64_t temp_left: 16;
+        uint64_t temp_right: 16;
+    } raw_cell_temp_module2;
+    struct {
+        uint64_t index: 8;
+        uint64_t temp_left: 16;
+        uint64_t temp_right: 16;
+    } raw_cell_temp_module3;
+    struct {
+        uint64_t index: 8;
+        uint64_t temp_left: 16;
+        uint64_t temp_right: 16;
+    } raw_cell_temp_module4;
+    struct {
+        uint64_t index: 8;
+        uint64_t temp_left: 16;
+        uint64_t temp_right: 16;
+    } raw_cell_temp_module5;
     struct {
         uint64_t can1_tx_queue_overflow: 8;
         uint64_t can2_tx_queue_overflow: 8;

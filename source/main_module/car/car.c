@@ -550,79 +550,20 @@ void updateSDCFaults()
 void monitorSDCPeriodic()
 {
     static uint8_t index = 0;
-    // static sdc_nodes_t sdc_nodes_raw;
-    // bool *nodes = (bool *) &sdc_nodes_raw;
+    static sdc_nodes_t sdc_nodes_raw;
+    bool *nodes = (bool *) &sdc_nodes_raw;
 
     uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
-    // uint8_t main_stat; //y0
-    // uint8_t c_stop_stat; //y1
-    // uint8_t inertia_stat; //y2
-    // uint8_t bots_stat; //y3
-    // uint8_t nc; //y4
-    // uint8_t bspd_stat; //y5
-    // uint8_t bms_stat; //y6
-    // uint8_t imd_stat; //y7
-    // uint8_t r_stop_stat; //y8
-    // uint8_t l_stop_stat; //y9
-    // uint8_t hvd_stat; //y10
-    // uint8_t r_hub_stat; //y11
-    // uint8_t tsms_stat; //y12
-    // uint8_t pchg_out_stat; //y13
-    // *(nodes+index++) = stat;
-    switch(index)
-    {
-        case 0:
-            sdc_mux.main_stat = stat;
-            break;
-        case 1:
-            sdc_mux.c_stop_stat = stat;
-            break;
-        case 2:
-            sdc_mux.inertia_stat = stat;
-            break;
-        case 3:
-            sdc_mux.bots_stat = stat;
-            break;
-        case 4:
-            break;
-        case 5:
-            sdc_mux.bspd_stat = stat;
-            break;
-        case 6:
-            sdc_mux.bms_stat = stat;
-            break;
-        case 7:
-            sdc_mux.imd_stat = stat;
-            break;
-        case 8:
-            sdc_mux.r_stop_stat = stat;
-            break;
-        case 9:
-            sdc_mux.l_stop_stat = stat;
-            break;
-        case 10:
-            sdc_mux.hvd_stat = stat;
-            break;
-        case 11:
-            sdc_mux.r_hub_stat = stat;
-            break;
-        case 12:
-            sdc_mux.tsms_stat = stat;
-            break;
-        case 13:
-            sdc_mux.pchg_out_stat = stat;
-            break;
-        default:
-            break;
-    }
+    *(nodes + index) = stat;
+  
     index++;
     if (index == SDC_MUX_HIGH_IDX)
     {
         index = 0;
-        // sdc_mux = sdc_nodes_raw;
-        SEND_SDC_STATUS(sdc_mux.imd_stat, sdc_mux.bms_stat, sdc_mux.bspd_stat, sdc_mux.bots_stat,
-                sdc_mux.inertia_stat, sdc_mux.c_stop_stat, sdc_mux.main_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
-                sdc_mux.hvd_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
+        sdc_mux = sdc_nodes_raw;
+        SEND_SDC_STATUS(sdc_mux.main_stat, sdc_mux.c_stop_stat, sdc_mux.inertia_stat, sdc_mux.bots_stat,
+                sdc_mux.bspd_stat, sdc_mux.bms_stat, sdc_mux.imd_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat,
+                sdc_mux.hvd_stat, sdc_mux.emeter_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));

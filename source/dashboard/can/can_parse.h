@@ -424,16 +424,17 @@ typedef union {
         uint64_t data: 32;
     } dashboard_bl_cmd;
     struct {
-        uint64_t IMD: 1;
-        uint64_t BMS: 1;
-        uint64_t BSPD: 1;
-        uint64_t BOTS: 1;
-        uint64_t inertia: 1;
-        uint64_t c_estop: 1;
         uint64_t main: 1;
+        uint64_t c_estop: 1;
+        uint64_t inertia: 1;
+        uint64_t BOTS: 1;
+        uint64_t BSPD: 1;
+        uint64_t BMS: 1;
+        uint64_t IMD: 1;
         uint64_t r_estop: 1;
         uint64_t l_estop: 1;
         uint64_t HVD: 1;
+        uint64_t emeter: 1;
         uint64_t hub: 1;
         uint64_t TSMS: 1;
         uint64_t pchg_out: 1;
@@ -613,16 +614,17 @@ typedef struct {
         uint32_t data;
     } dashboard_bl_cmd;
     struct {
-        uint8_t IMD;
-        uint8_t BMS;
-        uint8_t BSPD;
-        uint8_t BOTS;
-        uint8_t inertia;
-        uint8_t c_estop;
         uint8_t main;
+        uint8_t c_estop;
+        uint8_t inertia;
+        uint8_t BOTS;
+        uint8_t BSPD;
+        uint8_t BMS;
+        uint8_t IMD;
         uint8_t r_estop;
         uint8_t l_estop;
         uint8_t HVD;
+        uint8_t emeter;
         uint8_t hub;
         uint8_t TSMS;
         uint8_t pchg_out;

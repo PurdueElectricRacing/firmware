@@ -229,19 +229,20 @@ typedef union {
         data_a->rear_motor_currents_volts.right_voltage = right_voltage_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SDC_STATUS(IMD_, BMS_, BSPD_, BOTS_, inertia_, c_estop_, main_, r_estop_, l_estop_, HVD_, hub_, TSMS_, pchg_out_) do {\
+#define SEND_SDC_STATUS(main_, c_estop_, inertia_, BOTS_, BSPD_, BMS_, IMD_, r_estop_, l_estop_, HVD_, emeter_, hub_, TSMS_, pchg_out_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SDC_STATUS, .DLC=DLC_SDC_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sdc_status.IMD = IMD_;\
-        data_a->sdc_status.BMS = BMS_;\
-        data_a->sdc_status.BSPD = BSPD_;\
-        data_a->sdc_status.BOTS = BOTS_;\
-        data_a->sdc_status.inertia = inertia_;\
-        data_a->sdc_status.c_estop = c_estop_;\
         data_a->sdc_status.main = main_;\
+        data_a->sdc_status.c_estop = c_estop_;\
+        data_a->sdc_status.inertia = inertia_;\
+        data_a->sdc_status.BOTS = BOTS_;\
+        data_a->sdc_status.BSPD = BSPD_;\
+        data_a->sdc_status.BMS = BMS_;\
+        data_a->sdc_status.IMD = IMD_;\
         data_a->sdc_status.r_estop = r_estop_;\
         data_a->sdc_status.l_estop = l_estop_;\
         data_a->sdc_status.HVD = HVD_;\
+        data_a->sdc_status.emeter = emeter_;\
         data_a->sdc_status.hub = hub_;\
         data_a->sdc_status.TSMS = TSMS_;\
         data_a->sdc_status.pchg_out = pchg_out_;\
@@ -464,16 +465,17 @@ typedef union {
         uint64_t right_voltage: 16;
     } rear_motor_currents_volts;
     struct {
-        uint64_t IMD: 1;
-        uint64_t BMS: 1;
-        uint64_t BSPD: 1;
-        uint64_t BOTS: 1;
-        uint64_t inertia: 1;
-        uint64_t c_estop: 1;
         uint64_t main: 1;
+        uint64_t c_estop: 1;
+        uint64_t inertia: 1;
+        uint64_t BOTS: 1;
+        uint64_t BSPD: 1;
+        uint64_t BMS: 1;
+        uint64_t IMD: 1;
         uint64_t r_estop: 1;
         uint64_t l_estop: 1;
         uint64_t HVD: 1;
+        uint64_t emeter: 1;
         uint64_t hub: 1;
         uint64_t TSMS: 1;
         uint64_t pchg_out: 1;
@@ -607,6 +609,49 @@ typedef union {
         uint64_t Reserved_1: 5;
         uint64_t Reserved_2: 8;
     } LWS_Standard;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } main_module_bl_cmd;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
+    struct {
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu_equal;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
+        uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
+    } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
+    struct {
+        uint64_t start: 1;
+    } start_button;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Ok: 1;
+        uint64_t Cal: 1;
+        uint64_t Trim: 1;
+        uint64_t Reserved_1: 5;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
+
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -771,6 +816,63 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } INVB_ERR_2;
+    struct {
+        uint16_t throttle;
+        uint16_t throttle_right;
+        uint16_t brake;
+        uint16_t brake_right;
+        uint16_t brake_pot;
+        uint8_t stale;
+        uint32_t last_rx;
+    } raw_throttle_brake;
+
+    struct {
+        uint16_t throttle;
+        uint16_t brake;
+        uint8_t stale;
+        uint32_t last_rx;
+    } filt_throttle_brake;
+    struct {
+        uint8_t start;
+    } start_button;
+    struct {
+        int16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } max_cell_temp;
+    struct {
+        int16_t LWS_ANGLE;
+        uint8_t LWS_SPEED;
+        uint8_t Ok;
+        uint8_t Cal;
+        uint8_t Trim;
+        uint8_t Reserved_1;
+        uint8_t Reserved_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } LWS_Standard;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } main_module_bl_cmd;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
+    struct {
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu_equal;
     struct {
         uint16_t throttle;
         uint16_t throttle_right;

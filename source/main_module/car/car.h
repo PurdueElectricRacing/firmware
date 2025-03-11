@@ -136,10 +136,10 @@ typedef struct __attribute__((packed))
     uint8_t r_stop_stat; //y8
     uint8_t l_stop_stat; //y9
     uint8_t hvd_stat; //y10
-    uint8_t r_hub_stat; //y11
-    uint8_t tsms_stat; //y12
-    uint8_t pchg_out_stat; //y13
-
+    uint8_t emeter_stat; //y11
+    uint8_t r_hub_stat; //y12
+    uint8_t tsms_stat; //y13
+    uint8_t pchg_out_stat; //y14
 } sdc_nodes_t;
 
 extern sdc_nodes_t sdc_mux;

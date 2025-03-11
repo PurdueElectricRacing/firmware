@@ -161,20 +161,20 @@
                             "msg_name": "sdc_status",
                             "msg_desc": "Shutdown Circuit Status",
                             "signals": [
-                                {"sig_name": "IMD", "type":"uint8_t", "length":1},
-                                {"sig_name": "BMS", "type":"uint8_t", "length":1},
-                                {"sig_name": "BSPD", "type":"uint8_t", "length":1},
-                                {"sig_name": "BOTS", "type":"uint8_t", "length":1},
-                                {"sig_name": "inertia", "type":"uint8_t", "length":1},
-                                {"sig_name": "c_estop", "type":"uint8_t", "length":1},
                                 {"sig_name": "main", "type":"uint8_t", "length":1},
+                                {"sig_name": "c_estop", "type":"uint8_t", "length":1},
+                                {"sig_name": "inertia", "type":"uint8_t", "length":1},
+                                {"sig_name": "BOTS", "type":"uint8_t", "length":1},
+                                {"sig_name": "BSPD", "type":"uint8_t", "length":1},
+                                {"sig_name": "BMS", "type":"uint8_t", "length":1},
+                                {"sig_name": "IMD", "type":"uint8_t", "length":1},
                                 {"sig_name": "r_estop", "type":"uint8_t", "length":1},
                                 {"sig_name": "l_estop", "type":"uint8_t", "length":1},
                                 {"sig_name": "HVD", "type":"uint8_t", "length":1},
+                                {"sig_name": "emeter", "type":"uint8_t", "length":1},
                                 {"sig_name": "hub", "type":"uint8_t", "length":1},
                                 {"sig_name": "TSMS", "type":"uint8_t", "length":1},
                                 {"sig_name": "pchg_out", "type":"uint8_t", "length":1}
-
                             ],
                             "msg_period": 300,
                             "msg_hlp": 3,
@@ -199,8 +199,6 @@
                             "msg_name": "rear_wheel_speeds",
                             "msg_desc": "Rear Wheel speeds from motor controllers",
                             "signals": [
-                                {"sig_name": "left_speed_mc", "type":"uint16_t", "unit": "RPM"},
-                                {"sig_name": "right_speed_mc", "type":"uint16_t", "unit": "RPM"},
                                 {"sig_name": "left_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01},
                                 {"sig_name": "right_speed_sensor", "type":"uint16_t", "unit": "rad/s", "scale":0.01}
                             ],
@@ -255,18 +253,7 @@
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "throttle_vcu"},
                         {"msg_name": "throttle_vcu_equal"},
-                        {"msg_name": "INVA_CRIT"},
-                        {"msg_name": "INVA_INFO"},
-                        {"msg_name": "INVA_TEMPS"},
-                        {"msg_name": "INVA_SET"},
-                        {"msg_name": "INVA_ERR_1"},
-                        {"msg_name": "INVA_ERR_2"},
-                        {"msg_name": "INVB_CRIT"},
-                        {"msg_name": "INVB_INFO"},
-                        {"msg_name": "INVB_TEMPS"},
-                        {"msg_name": "INVB_SET"},
-                        {"msg_name": "INVB_ERR_1"},
-                        {"msg_name": "INVB_ERR_2"}
+                        {"msg_name": "precharge_hb"}
                     ]
                 },
                 {
@@ -1478,7 +1465,18 @@
                   }
                 ],
                 "rx": [
-
+                    {"msg_name": "INVA_CRIT"},
+                    {"msg_name": "INVA_INFO"},
+                    {"msg_name": "INVA_TEMPS"},
+                    {"msg_name": "INVA_SET"},
+                    {"msg_name": "INVA_ERR_1"},
+                    {"msg_name": "INVA_ERR_2"},
+                    {"msg_name": "INVB_CRIT"},
+                    {"msg_name": "INVB_INFO"},
+                    {"msg_name": "INVB_TEMPS"},
+                    {"msg_name": "INVB_SET"},
+                    {"msg_name": "INVB_ERR_1"},
+                    {"msg_name": "INVB_ERR_2"}
                 ]
             }
           ]

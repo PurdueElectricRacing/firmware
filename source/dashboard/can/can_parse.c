@@ -159,16 +159,17 @@ void canRxUpdate()
                 dashboard_bl_cmd_CALLBACK(msg_data_a);
                 break;
             case ID_SDC_STATUS:
-                can_data.sdc_status.IMD = msg_data_a->sdc_status.IMD;
-                can_data.sdc_status.BMS = msg_data_a->sdc_status.BMS;
-                can_data.sdc_status.BSPD = msg_data_a->sdc_status.BSPD;
-                can_data.sdc_status.BOTS = msg_data_a->sdc_status.BOTS;
-                can_data.sdc_status.inertia = msg_data_a->sdc_status.inertia;
-                can_data.sdc_status.c_estop = msg_data_a->sdc_status.c_estop;
                 can_data.sdc_status.main = msg_data_a->sdc_status.main;
+                can_data.sdc_status.c_estop = msg_data_a->sdc_status.c_estop;
+                can_data.sdc_status.inertia = msg_data_a->sdc_status.inertia;
+                can_data.sdc_status.BOTS = msg_data_a->sdc_status.BOTS;
+                can_data.sdc_status.BSPD = msg_data_a->sdc_status.BSPD;
+                can_data.sdc_status.BMS = msg_data_a->sdc_status.BMS;
+                can_data.sdc_status.IMD = msg_data_a->sdc_status.IMD;
                 can_data.sdc_status.r_estop = msg_data_a->sdc_status.r_estop;
                 can_data.sdc_status.l_estop = msg_data_a->sdc_status.l_estop;
                 can_data.sdc_status.HVD = msg_data_a->sdc_status.HVD;
+                can_data.sdc_status.emeter = msg_data_a->sdc_status.emeter;
                 can_data.sdc_status.hub = msg_data_a->sdc_status.hub;
                 can_data.sdc_status.TSMS = msg_data_a->sdc_status.TSMS;
                 can_data.sdc_status.pchg_out = msg_data_a->sdc_status.pchg_out;

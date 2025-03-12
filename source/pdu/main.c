@@ -362,9 +362,13 @@ void send_iv_readings() {
     SEND_OTHER_CURRENTS(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
 
     // DS8626 Rev 10 pg 139
-    // TEMP = {(VSENSE – V25) / Avg_Slope} + 25
-    uint16_t temp = ((adc_readings.internal_therm - 0.76) / 2.5) + 25;
-    SEND_PDU_TEMPS(adc_readings.internal_therm, temp);
+    // Reference voltage is 3.3
+    // 12 bit adc max is 4095
+    // Voltage at 25 degrees c is 0.76
+    // Average slope is 2.5mV per degree c
+    float vsense = (adc_readings.internal_therm / (float)4095) * 3.3;
+    float temp = ((vsense - 0.76) / 0.0025) + 25;
+    SEND_PDU_TEMPS(0, (uint16_t)temp);
 }
 
 void HardFault_Handler()

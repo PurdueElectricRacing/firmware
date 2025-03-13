@@ -889,15 +889,9 @@
                                     "sig_desc": "Temperature from internal thermistor",
                                     "type": "uint16_t",
                                     "unit": "C"
-                                },
-                                {
-                                    "sig_name": "external_therm",
-                                    "sig_desc": "Temperature from external thermistor",
-                                    "type": "uint16_t",
-                                    "unit": "C"
                                 }
                             ],
-                            "msg_period": 200,
+                            "msg_period": 500,
                             "msg_hlp": 4,
                             "msg_pgn": 36
                         },

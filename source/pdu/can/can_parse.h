@@ -52,7 +52,7 @@
 #define DLC_OTHER_CURRENTS 8
 #define DLC_COOLANT_OUT 3
 #define DLC_FLOWRATES 2
-#define DLC_PDU_TEMPS 4
+#define DLC_PDU_TEMPS 2
 #define DLC_PDU_CAN_STATS 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_DAQ_RESPONSE_PDU 8
@@ -123,11 +123,10 @@
         data_a->flowrates.drivetrain_flowrate = drivetrain_flowrate_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_PDU_TEMPS(internal_therm_, external_therm_) do {\
+#define SEND_PDU_TEMPS(internal_therm_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PDU_TEMPS, .DLC=DLC_PDU_TEMPS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->pdu_temps.internal_therm = internal_therm_;\
-        data_a->pdu_temps.external_therm = external_therm_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_PDU_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
@@ -218,7 +217,6 @@ typedef union {
     } flowrates;
     struct {
         uint64_t internal_therm: 16;
-        uint64_t external_therm: 16;
     } pdu_temps;
     struct {
         uint64_t can_tx_overflow: 8;

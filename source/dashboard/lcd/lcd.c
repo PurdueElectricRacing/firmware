@@ -996,7 +996,8 @@ void tvMoveDown() {
 
 void tvSelect() {
     MS_select(&tv_page);
-    race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
+    // TODO Race page TV settings
+    //race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
 }
 
 /**
@@ -1199,7 +1200,8 @@ void raceTelemetryUpdate() {
 
 void raceSelect() {
     MS_select(&race_page);
-    tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
+    // TODO Race page TV settings
+    //tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 void loggingPageUpdate() {

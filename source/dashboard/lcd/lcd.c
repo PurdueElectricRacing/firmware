@@ -1059,7 +1059,12 @@ void raceTelemetryUpdate() {
         NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
     }
 
-    // TODO update motor controller temp
+    if (can_data.rear_motor_temps.stale) {
+        NXT_setText(MC_TEMP, "S");
+    } else {
+        uint8_t motor_ctrl_temp = MAX(can_data.rear_motor_temps.left_inv_temp, can_data.rear_motor_temps.right_inv_temp);
+        NXT_setTextFormatted(MC_TEMP, "%dC", motor_ctrl_temp);
+    }
 
     // Update the battery temperature
     if (can_data.max_cell_temp.stale) {

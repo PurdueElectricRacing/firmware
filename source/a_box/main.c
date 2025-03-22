@@ -27,7 +27,7 @@ GPIOInitConfig_t gpio_config[] = {
    // VCAN
    GPIO_INIT_CANRX_PA11,
    GPIO_INIT_CANTX_PA12,
-   
+
    // CCAN
    GPIO_INIT_CAN2RX_PB12,
    GPIO_INIT_CAN2TX_PB13,
@@ -167,13 +167,6 @@ int main (void)
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
-//    set high during init
-//    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, 1);
-
-   // spi2_config.data_rate = APB2ClockRateHz / 16;
-   // if (!PHAL_SPI_init(&spi2_config))
-   //     PHAL_FaultHandler();
-
     initCANParse();
     orionInit();
 
@@ -228,25 +221,20 @@ void preflightChecks(void)
         case 1:
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_A_BOX);
             break;
-        case 700:
+        case 2:
             /* Initialize VCAN */
-            if (false == PHAL_initCAN(CAN1, false, CCAN_BPS))
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
             {
                 PHAL_FaultHandler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
-            
-            /* Initialize CCAN as needed */
-            charger_speed_def = PHAL_readGPIO(BMS_CHARGE_ENABLE_Port, BMS_CHARGE_ENABLE_Pin);
-            uint8_t speed_2 = PHAL_readGPIO(BMS_CHARGER_SAFETY_Port, BMS_CHARGER_SAFETY_Pin);
-            if (charger_speed_def)
+        case 3:
+            /* Initialize CCAN */
+            if (false == PHAL_initCAN(CAN2, false, CCAN_BPS))
             {
-                if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
-                {
-                    PHAL_FaultHandler();
-                }
-                NVIC_EnableIRQ(CAN2_RX0_IRQn);
+                PHAL_FaultHandler();
             }
+            NVIC_EnableIRQ(CAN2_RX0_IRQn);
             break;
        default:
            if (state > 750)

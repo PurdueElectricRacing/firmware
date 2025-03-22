@@ -7,6 +7,7 @@
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/faults/faults.h"
 #include "common/common_defs/common_defs.h"
+#include "m95p32.h"
 
 /* Module Includes */
 #include "main.h"
@@ -184,7 +185,8 @@ static int16_t gyro_counter = 0; /* Number of steps that gyro has not been check
 int main(void)
 {
     /* Data Struct Initialization */
-
+    M95_t m95;
+    M95_init(&m95);
     /* HAL Initialization */
     PHAL_trimHSI(HSI_TRIM_TORQUE_VECTOR);
     if (0 != PHAL_configureClockRates(&clock_config))

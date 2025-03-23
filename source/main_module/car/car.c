@@ -35,8 +35,8 @@ bool carInit()
     daq_constant_tq = 0;
     const_tq_val = 0;
     hist_curr_idx = 0;
-    amkInit(&car.motor_l, &car.pchg.pchg_complete, 1);
-    amkInit(&car.motor_r, &car.pchg.pchg_complete, 1);
+    amkInit(&car.motor_l, &car.pchg.pchg_complete, INVA_ID);
+    amkInit(&car.motor_r, &car.pchg.pchg_complete, INVB_ID);
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, 0);
@@ -48,6 +48,7 @@ bool carInit()
 void carHeartbeat()
 {
     SEND_MAIN_HB(car.state, car.pchg.pchg_complete);
+    SEND_MAIN_HB_AMK(car.state, car.pchg.pchg_complete);
 }
 
 /**

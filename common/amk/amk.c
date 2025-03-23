@@ -115,6 +115,9 @@ void amkPeriodic(amk_motor_t* motor)
                 setFault(motor->error_fault_id, true);
                 motor->state = AMK_STATE_OFF;
             }
+            // For testing
+            // motor->torque_set_ppt_nom = 10;
+            // motor->torque_lim_pos_ppt_nom = 20;
         }
         /* System is not ready to run */
         else

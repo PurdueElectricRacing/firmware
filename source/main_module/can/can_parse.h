@@ -31,6 +31,8 @@ typedef union {
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_MAIN_HB_AMK 0xc001941
+#define ID_INVA_SET 0x188
+#define ID_INVB_SET 0x189
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
 #define ID_GEARBOX 0x10000901
@@ -45,8 +47,6 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
-#define ID_INVA_SET 0x188
-#define ID_INVB_SET 0x189
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE_VCAN 0x17ffffc1
 #define ID_INVA_CRIT 0x282
@@ -81,6 +81,8 @@ typedef union {
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB_AMK 2
+#define DLC_INVA_SET 8
+#define DLC_INVB_SET 8
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
@@ -95,8 +97,6 @@ typedef union {
 #define DLC_SDC_STATUS 2
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 4
-#define DLC_INVA_SET 8
-#define DLC_INVB_SET 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE_VCAN 8
 #define DLC_INVA_CRIT 8
@@ -135,6 +135,34 @@ typedef union {
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->main_hb_amk.car_state = car_state_;\
         data_a->main_hb_amk.precharge_state = precharge_state_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVA_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .StdId=ID_INVA_SET, .DLC=DLC_INVA_SET, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVA_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->INVA_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->INVA_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->INVA_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->INVA_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->INVA_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
+        data_a->INVA_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->INVA_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->INVA_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVB_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .StdId=ID_INVB_SET, .DLC=DLC_INVB_SET, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVB_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->INVB_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->INVB_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->INVB_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->INVB_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->INVB_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
+        data_a->INVB_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->INVB_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->INVB_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_MAIN_HB(car_state_, precharge_state_) do {\
@@ -266,34 +294,6 @@ typedef union {
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_INVA_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVA_SET, .DLC=DLC_INVA_SET, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVA_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
-        data_a->INVA_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
-        data_a->INVA_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
-        data_a->INVA_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
-        data_a->INVA_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
-        data_a->INVA_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
-        data_a->INVA_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
-        data_a->INVA_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
-        data_a->INVA_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVB_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVB_SET, .DLC=DLC_INVB_SET, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVB_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
-        data_a->INVB_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
-        data_a->INVB_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
-        data_a->INVB_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
-        data_a->INVB_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
-        data_a->INVB_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
-        data_a->INVB_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
-        data_a->INVB_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
-        data_a->INVB_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
-        canTxSendToBack(&msg);\
-    } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_MAIN_MODULE, .DLC=DLC_FAULT_SYNC_MAIN_MODULE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -406,6 +406,28 @@ typedef union {
         uint64_t precharge_state: 1;
     } main_hb_amk;
     struct {
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
+        uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
+    } INVA_SET;
+    struct {
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
+        uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
+    } INVB_SET;
+    struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
     } main_hb;
@@ -492,28 +514,6 @@ typedef union {
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
-    struct {
-        uint64_t AMK_Control_bReserve: 8;
-        uint64_t AMK_Control_bInverterOn: 1;
-        uint64_t AMK_Control_bDcOn: 1;
-        uint64_t AMK_Control_bEnable: 1;
-        uint64_t AMK_Control_bErrorReset: 1;
-        uint64_t AMK_Control_bReserve2: 4;
-        uint64_t AMK_TorqueSetpoint: 16;
-        uint64_t AMK_PositiveTorqueLimit: 16;
-        uint64_t AMK_NegativeTorqueLimit: 16;
-    } INVA_SET;
-    struct {
-        uint64_t AMK_Control_bReserve: 8;
-        uint64_t AMK_Control_bInverterOn: 1;
-        uint64_t AMK_Control_bDcOn: 1;
-        uint64_t AMK_Control_bEnable: 1;
-        uint64_t AMK_Control_bErrorReset: 1;
-        uint64_t AMK_Control_bReserve2: 4;
-        uint64_t AMK_TorqueSetpoint: 16;
-        uint64_t AMK_PositiveTorqueLimit: 16;
-        uint64_t AMK_NegativeTorqueLimit: 16;
-    } INVB_SET;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

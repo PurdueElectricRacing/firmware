@@ -49,14 +49,18 @@
 #define GPS_TX_GPIO_Port (GPIOC)
 #define GPS_TX_Pin (4)
 
-#define GPS_RESET_GPIO_Port (GPIOC)
-#define GPS_RESET_Pin       (9)
+#define GPS_RESET_GPIO_Port (GPIOB)
+#define GPS_RESET_Pin       (1)
 
-// EEPROM
-#define NAV_EEPROM_CS_GPIO_PORT (GPIOB)
-#define NAV_EEPROM_CS_PIN (12)
-#define NAV_WP_GPIO_PORT (GPIOB)
-#define NAV_WP_PIN (13)
+// SPI EEPROM
+#define EEPROM_NSS_GPIO_PORT (GPIOA)
+#define EEPROM_NSS_PIN (15)
+#define EEPROM_SPI_SCK_GPIO_PORT (GPIOC) //SPI3
+#define EEPROM_SPI_SCK_PIN (10)
+#define EEPROM_SPI_MISO_GPIO_PORT (GPIOC) //SPI3
+#define EEPROM_SPI_MISO_PIN (11)
+#define EEPROM_SPI_MOSI_GPIO_PORT (GPIOC) //SPI3
+#define EEPROM_SPI_MOSI_PIN (12)
 
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 

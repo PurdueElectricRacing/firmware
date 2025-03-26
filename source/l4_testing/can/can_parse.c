@@ -87,9 +87,9 @@ void canRxUpdate(void)
                 can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
                 break;
-            case ID_DAQ_COMMAND_TEST_NODE:
-                can_data.daq_command_TEST_NODE.daq_command = msg_data_a->daq_command_TEST_NODE.daq_command;
-                daq_command_TEST_NODE_CALLBACK(&msg_header);
+            case ID_DAQ_COMMAND_TEST_NODE_TEST:
+                can_data.daq_command_TEST_NODE_TEST.daq_command = msg_data_a->daq_command_TEST_NODE_TEST.daq_command;
+                daq_command_TEST_NODE_TEST_CALLBACK(&msg_header);
                 break;
             default:
                 __asm__("nop");
@@ -138,7 +138,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[4].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_TEST_NODE_TEST << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

@@ -1,12 +1,12 @@
 /**
  * @file daq.c
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-01-18
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include "daq.h"
@@ -32,7 +32,7 @@ daq_variable_t tracked_vars[NUM_VARS] = {
 bool daqInit(q_handle_t* tx_a)
 {
     // BEGIN AUTO INIT
-    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_PDU, tracked_vars);
+    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_PDU_VCAN, tracked_vars);
     return ret;
     // END AUTO INIT
 }
@@ -43,8 +43,8 @@ void daqPeriodic()
 }
 
 // BEGIN AUTO CALLBACK DEF
-void daq_command_PDU_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-// END AUTO CALLBACK DEF
+void daq_command_PDU_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a)
 {
-    daq_command_callback(msg_header_a);
+	daq_command_callback(msg_header_a);
 }
+// END AUTO CALLBACK DEF

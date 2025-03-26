@@ -4,6 +4,7 @@
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
+#include "common/faults/faults.h"
 #include "common/phal_F4_F7/can/can.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
@@ -16,7 +17,6 @@
 #include "orion.h"
 #include "tmu.h"
 
-#include "common/faults/faults.h"
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -92,6 +92,8 @@ extern uint32_t PLLClockRateHz;
 
 extern uint8_t orion_error;
 
+extern uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
+
 bool bms_daq_override = false;
 bool bms_daq_stat = false;
 
@@ -106,7 +108,6 @@ void preflightChecks();
 void preflightAnimation();
 void updateTherm();
 void sendhbmsg();
-
 void readCurrents();
 
 /* ADC Configuration */
@@ -142,7 +143,6 @@ int main (void)
     /* Data Struct init */
 
    /* HAL Initilization */
-    PHAL_trimHSI(HSI_TRIM_A_BOX);
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         PHAL_FaultHandler();
@@ -192,7 +192,6 @@ int main (void)
    taskCreate(sendhbmsg, 500);
    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
    taskCreate(readCurrents, 50);
-
    taskCreateBackground(canTxUpdate);
    taskCreateBackground(canRxUpdate);
 
@@ -331,6 +330,41 @@ void CAN1_RX0_IRQHandler()
 void CAN2_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN2);
+}
+static bool chargerCANConnected;
+void canTxUpdate(void)
+{
+    // Only broadcast on CAN2 if Charger is present
+    chargerCANConnected = !can_data.elcon_charger_status.stale;
+    CanMsgTypeDef_t txMSG;
+    uint8_t canIDX = CAN1_IDX;
+    CAN_TypeDef* busPeripheral = (chargerCANConnected ? CAN2 : CAN1);
+    if (chargerCANConnected)
+    {
+      canIDX = CAN2_IDX;
+    }
+    // Set proper TX queue for DAQ protocol
+    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i)
+    {
+        // Handle CAN1
+        if(PHAL_txMailboxFree(busPeripheral, i))
+        {
+            if (qReceive(&q_tx_can[CAN1_IDX][i], &txMSG) == SUCCESS_G)    // Check queue for items and take if there is one
+            {
+                if (chargerCANConnected)
+                {
+                  txMSG.Bus = CAN2;
+                }
+                PHAL_txCANMessage(&txMSG, i);
+                can_mbx_last_send_time[canIDX][i] = sched.os_ticks;
+            }
+        }
+        else if (sched.os_ticks - can_mbx_last_send_time[canIDX][i] > CAN_TX_TIMEOUT_MS)
+        {
+            PHAL_txCANAbort(busPeripheral, i); // aborts tx and empties the mailbox
+            can_stats.can_peripheral_stats[canIDX].tx_fail++;
+        }
+  }
 }
 
 void a_box_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

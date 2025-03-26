@@ -112,6 +112,10 @@ void canRxUpdate()
                     can_data.orion_errors_charger.stale = 0;
                     can_data.orion_errors_charger.last_rx = sched.os_ticks;
                     break;
+                case ID_DAQ_COMMAND_A_BOX_CCAN:
+                    can_data.daq_command_A_BOX_CCAN.daq_command = msg_data_a->daq_command_A_BOX_CCAN.daq_command;
+                    daq_command_A_BOX_CCAN_CALLBACK(&msg_header);
+                    break;
                 default:
                     __asm__("nop");
             }
@@ -224,9 +228,9 @@ void canRxUpdate()
                     can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
                     break;
-                case ID_DAQ_COMMAND_A_BOX:
-                    can_data.daq_command_A_BOX.daq_command = msg_data_a->daq_command_A_BOX.daq_command;
-                    daq_command_A_BOX_CALLBACK(&msg_header);
+                case ID_DAQ_COMMAND_A_BOX_VCAN:
+                    can_data.daq_command_A_BOX_VCAN.daq_command = msg_data_a->daq_command_A_BOX_VCAN.daq_command;
+                    daq_command_A_BOX_VCAN_CALLBACK(&msg_header);
                     break;
                 default:
                     __asm__("nop");
@@ -292,6 +296,8 @@ bool initCANFilter()
     CAN1->FA1R |= (1 << 15);    // configure bank 15
     CAN1->sFilterRegister[15].FR1 = (ID_ORION_CURRENTS_VOLTS_CHARGER << 3) | 4;
     CAN1->sFilterRegister[15].FR2 = (ID_ORION_ERRORS_CHARGER << 3) | 4;
+    CAN1->FA1R |= (1 << 16);    // configure bank 16
+    CAN1->sFilterRegister[16].FR1 = (ID_DAQ_COMMAND_A_BOX_CCAN << 3) | 4;
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_ORION_INFO << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
@@ -309,7 +315,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[4].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DAQ_COMMAND_A_BOX_VCAN << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR &= ~CAN_FMR_FINIT;       // Enable Filters (exit filter init mode)

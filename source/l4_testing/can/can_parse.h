@@ -33,7 +33,7 @@
 #define ID_ADC_VALUES 0x1234
 #define ID_CAR_STATE 0xbeef420
 #define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
-#define ID_DAQ_RESPONSE_TEST_NODE 0x17ffffff
+#define ID_DAQ_RESPONSE_TEST_NODE_TEST 0x17ffffff
 #define ID_TEST_MSG5_2 0x1400017d
 #define ID_TEST_STALE 0x2222
 #define ID_CAR_STATE2 0xbeef421
@@ -45,7 +45,7 @@
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
-#define ID_DAQ_COMMAND_TEST_NODE 0x14000ff2
+#define ID_DAQ_COMMAND_TEST_NODE_TEST 0x14000ff2
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -61,7 +61,7 @@
 #define DLC_ADC_VALUES 5
 #define DLC_CAR_STATE 1
 #define DLC_FAULT_SYNC_TEST_NODE 3
-#define DLC_DAQ_RESPONSE_TEST_NODE 8
+#define DLC_DAQ_RESPONSE_TEST_NODE_TEST 8
 #define DLC_TEST_MSG5_2 8
 #define DLC_TEST_STALE 1
 #define DLC_CAR_STATE2 1
@@ -73,7 +73,7 @@
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
-#define DLC_DAQ_COMMAND_TEST_NODE 8
+#define DLC_DAQ_COMMAND_TEST_NODE_TEST 8
 /* END AUTO DLC DEFS */
 
 // Used to represent a float as 32 bits
@@ -160,10 +160,10 @@ typedef union {
         data_a->fault_sync_test_node.latched = latched_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_TEST_NODE(daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE, .DLC=DLC_DAQ_RESPONSE_TEST_NODE, .IDE=1};\
+#define SEND_DAQ_RESPONSE_TEST_NODE_TEST(daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_TEST_NODE_TEST, .DLC=DLC_DAQ_RESPONSE_TEST_NODE_TEST, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_TEST_NODE.daq_response = daq_response_;\
+        data_a->daq_response_TEST_NODE_TEST.daq_response = daq_response_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -241,7 +241,7 @@ typedef union {
     } fault_sync_test_node;
     struct {
         uint64_t daq_response: 64;
-    } daq_response_TEST_NODE;
+    } daq_response_TEST_NODE_TEST;
     struct {
         uint64_t test_sig5: 16;
         uint64_t test_sig5_2: 16;
@@ -286,7 +286,7 @@ typedef union {
     } return_fault_control;
     struct {
         uint64_t daq_command: 64;
-    } daq_command_TEST_NODE;
+    } daq_command_TEST_NODE_TEST;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -343,14 +343,14 @@ typedef struct {
     } return_fault_control;
     struct {
         uint64_t daq_command;
-    } daq_command_TEST_NODE;
+    } daq_command_TEST_NODE_TEST;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_TEST_NODE_TEST_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void l4_testing_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);

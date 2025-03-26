@@ -10,7 +10,6 @@
  */
 
 #include "daq.h"
-#include "common/daq/daq_base.h"
 #include "common/phal_F4_F7/can/can.h"
 
 // BEGIN AUTO VAR INCLUDES
@@ -48,7 +47,7 @@ daq_variable_t tracked_vars[NUM_VARS] = {
 bool daqInit(q_handle_t* tx_a)
 {
     // BEGIN AUTO INIT
-    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_A_BOX, tracked_vars);
+    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_A_BOX_VCAN, tracked_vars);
     return ret;
     // END AUTO INIT
 }
@@ -59,8 +58,12 @@ void daqPeriodic()
 }
 
 // BEGIN AUTO CALLBACK DEF
-void daq_command_A_BOX_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-// END AUTO CALLBACK DEF
+void daq_command_A_BOX_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a)
 {
-    daq_command_callback(msg_header_a);
+	daq_command_callback(msg_header_a);
 }
+void daq_command_A_BOX_CCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a)
+{
+	daq_command_callback(msg_header_a);
+}
+// END AUTO CALLBACK DEF

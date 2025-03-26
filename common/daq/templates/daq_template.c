@@ -1,12 +1,12 @@
 /**
  * @file daq.c
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-01-18
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include "daq.h"
@@ -37,7 +37,7 @@ void daqPeriodic()
 
 // BEGIN AUTO CALLBACK DEF
 void daq_command_DASHBOARD_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-// END AUTO CALLBACK DEF
 {
-    daq_command_callback(msg_header_a);
+  daq_command_callback(msg_header_a);
 }
+// END AUTO CALLBACK DEF

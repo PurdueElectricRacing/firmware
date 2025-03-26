@@ -39,6 +39,7 @@
 #define ID_CAN2_RAW_CELL_TEMP_MODULE5 0x14008444
 #define ID_CAN2_A_BOX_CAN_STATS 0x10016304
 #define ID_CAN2_I_SENSE 0x10016444
+#define ID_DAQ_RESPONSE_A_BOX_CCAN 0x17ffffc4
 #define ID_PRECHARGE_HB 0xc001944
 #define ID_ELCON_CHARGER_COMMAND 0x1806e5f4
 #define ID_NUM_THERM_BAD 0x100080c4
@@ -58,11 +59,12 @@
 #define ID_A_BOX_CAN_STATS 0x10016304
 #define ID_I_SENSE 0x10016444
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
-#define ID_DAQ_RESPONSE_A_BOX 0x17ffffc4
+#define ID_DAQ_RESPONSE_A_BOX_VCAN 0x17ffffc4
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
 #define ID_ORION_INFO_CHARGER 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS_CHARGER 0x140006f8
 #define ID_ORION_ERRORS_CHARGER 0xc000738
+#define ID_DAQ_COMMAND_A_BOX_CCAN 0x14000132
 #define ID_ORION_INFO 0x140006b8
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
@@ -74,7 +76,7 @@
 #define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
-#define ID_DAQ_COMMAND_A_BOX 0x14000132
+#define ID_DAQ_COMMAND_A_BOX_VCAN 0x14000132
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -97,6 +99,7 @@
 #define DLC_CAN2_RAW_CELL_TEMP_MODULE5 5
 #define DLC_CAN2_A_BOX_CAN_STATS 7
 #define DLC_CAN2_I_SENSE 4
+#define DLC_DAQ_RESPONSE_A_BOX_CCAN 8
 #define DLC_PRECHARGE_HB 2
 #define DLC_ELCON_CHARGER_COMMAND 5
 #define DLC_NUM_THERM_BAD 5
@@ -116,11 +119,12 @@
 #define DLC_A_BOX_CAN_STATS 7
 #define DLC_I_SENSE 4
 #define DLC_FAULT_SYNC_A_BOX 3
-#define DLC_DAQ_RESPONSE_A_BOX 8
+#define DLC_DAQ_RESPONSE_A_BOX_VCAN 8
 #define DLC_ELCON_CHARGER_STATUS 5
 #define DLC_ORION_INFO_CHARGER 7
 #define DLC_ORION_CURRENTS_VOLTS_CHARGER 4
 #define DLC_ORION_ERRORS_CHARGER 4
+#define DLC_DAQ_COMMAND_A_BOX_CCAN 8
 #define DLC_ORION_INFO 7
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_ORION_ERRORS 4
@@ -132,7 +136,7 @@
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
-#define DLC_DAQ_COMMAND_A_BOX 8
+#define DLC_DAQ_COMMAND_A_BOX_VCAN 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -284,6 +288,12 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->can2_i_sense.current_channel_1 = current_channel_1_;\
         data_a->can2_i_sense.current_channel_2 = current_channel_2_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_DAQ_RESPONSE_A_BOX_CCAN(daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_DAQ_RESPONSE_A_BOX_CCAN, .DLC=DLC_DAQ_RESPONSE_A_BOX_CCAN, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->daq_response_A_BOX_CCAN.daq_response = daq_response_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_PRECHARGE_HB(IMD_, BMS_) do {\
@@ -442,10 +452,10 @@
         data_a->fault_sync_a_box.latched = latched_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_A_BOX(daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_A_BOX, .DLC=DLC_DAQ_RESPONSE_A_BOX, .IDE=1};\
+#define SEND_DAQ_RESPONSE_A_BOX_VCAN(daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_A_BOX_VCAN, .DLC=DLC_DAQ_RESPONSE_A_BOX_VCAN, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_A_BOX.daq_response = daq_response_;\
+        data_a->daq_response_A_BOX_VCAN.daq_response = daq_response_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -567,6 +577,9 @@ typedef union {
         uint64_t current_channel_2: 16;
     } can2_i_sense;
     struct {
+        uint64_t daq_response: 64;
+    } daq_response_A_BOX_CCAN;
+    struct {
         uint64_t IMD: 8;
         uint64_t BMS: 8;
     } precharge_hb;
@@ -667,7 +680,7 @@ typedef union {
     } fault_sync_a_box;
     struct {
         uint64_t daq_response: 64;
-    } daq_response_A_BOX;
+    } daq_response_A_BOX_VCAN;
     struct {
         uint64_t charge_voltage: 16;
         uint64_t charge_current: 16;
@@ -736,6 +749,9 @@ typedef union {
         uint64_t input_psu: 1;
         uint64_t charge_limit_enforce: 1;
     } orion_errors_charger;
+    struct {
+        uint64_t daq_command: 64;
+    } daq_command_A_BOX_CCAN;
     struct {
         uint64_t discharge_enable: 1;
         uint64_t charge_enable: 1;
@@ -828,7 +844,7 @@ typedef union {
     } return_fault_control;
     struct {
         uint64_t daq_command: 64;
-    } daq_command_A_BOX;
+    } daq_command_A_BOX_VCAN;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -913,6 +929,9 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } orion_errors_charger;
+    struct {
+        uint64_t daq_command;
+    } daq_command_A_BOX_CCAN;
     struct {
         uint8_t discharge_enable;
         uint8_t charge_enable;
@@ -1011,14 +1030,15 @@ typedef struct {
     } return_fault_control;
     struct {
         uint64_t daq_command;
-    } daq_command_A_BOX;
+    } daq_command_A_BOX_VCAN;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_A_BOX_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_A_BOX_CCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_A_BOX_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);

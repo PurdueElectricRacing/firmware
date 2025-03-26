@@ -17,7 +17,6 @@ uint8_t tmu_daq_therm = 0;
 tmu_handle_t tmu;
 
 
-static bool init_avg_fill;
 
 void initTMU() {
   memset(&tmu, 0, sizeof(tmu));
@@ -35,7 +34,7 @@ void initTMU() {
     right_readings->min_temp = ERROR_HIGH;
     right_readings->max_temp = ERROR_LOW;
   }
-  init_avg_fill = true;
+
   PHAL_writeGPIO(MUX_A_Port, MUX_A_Pin, 0);
   PHAL_writeGPIO(MUX_B_Port, MUX_B_Pin, 0);
   PHAL_writeGPIO(MUX_C_Port, MUX_C_Pin, 0);
@@ -58,16 +57,6 @@ uint8_t readTemps()
     uint16_t left_raw_adc_reading = *(&adc_readings.tmu_1_1 + module);
     uint16_t right_raw_adc_reading = *(&adc_readings.tmu_1_1 + (module + 1));
 
-    //Subtract old value at this index from average
-    if (!init_avg_fill)
-    {
-      left_readings->avg_temp -= left_readings->temp_readings[curr_therm];
-      right_readings->avg_temp -= right_readings->temp_readings[curr_therm];
-    }
-    else
-    {
-        init_avg_fill = false;
-    }
 
     left_readings->temp_readings[curr_therm] = left_raw_adc_reading > ADC_ERROR_HIGH ? ERROR_HIGH : left_raw_adc_reading < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[left_raw_adc_reading - ADC_ERROR_LOW];
     right_readings->temp_readings[curr_therm] = right_raw_adc_reading > ADC_ERROR_HIGH ? ERROR_HIGH : right_raw_adc_reading < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[right_raw_adc_reading - ADC_ERROR_LOW];
@@ -106,7 +95,7 @@ uint8_t readTemps()
   SEND_RAW_CELL_TEMP_MODULE4(curr_therm, module_four->left_readings.temp_readings[curr_therm], module_four->left_readings.temp_readings[curr_therm]);
   SEND_RAW_CELL_TEMP_MODULE5(curr_therm, module_five->left_readings.temp_readings[curr_therm], module_five->left_readings.temp_readings[curr_therm]);
 
-  if (curr_therm < NUM_THERM ) {
+  if (curr_therm < (NUM_THERM - 1) ) {
       curr_therm++;
   }
   else
@@ -166,6 +155,9 @@ uint8_t readTemps()
 
         right_readings->min_temp = ERROR_HIGH;
         right_readings->max_temp = ERROR_LOW;
+
+        left_readings->avg_temp = 0;
+        right_readings->avg_temp = 0;
       }
   }
 

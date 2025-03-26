@@ -29,7 +29,7 @@
 #define ID_FLOWRATES 0x1000089f
 #define ID_PDU_CAN_STATS 0x1001631f
 #define ID_FAULT_SYNC_PDU 0x8cb1f
-#define ID_DAQ_RESPONSE_PDU 0x17ffffdf
+#define ID_DAQ_RESPONSE_PDU_VCAN 0x17ffffdf
 #define ID_PDU_BL_CMD 0x409c53e
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_MAIN_HB 0xc001901
@@ -40,7 +40,7 @@
 #define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
-#define ID_DAQ_COMMAND_PDU 0x140007f2
+#define ID_DAQ_COMMAND_PDU_VCAN 0x140007f2
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -53,7 +53,7 @@
 #define DLC_FLOWRATES 2
 #define DLC_PDU_CAN_STATS 4
 #define DLC_FAULT_SYNC_PDU 3
-#define DLC_DAQ_RESPONSE_PDU 8
+#define DLC_DAQ_RESPONSE_PDU_VCAN 8
 #define DLC_PDU_BL_CMD 5
 #define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_MAIN_HB 2
@@ -64,7 +64,7 @@
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
-#define DLC_DAQ_COMMAND_PDU 8
+#define DLC_DAQ_COMMAND_PDU_VCAN 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -136,10 +136,10 @@
         data_a->fault_sync_pdu.latched = latched_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_PDU(daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PDU, .DLC=DLC_DAQ_RESPONSE_PDU, .IDE=1};\
+#define SEND_DAQ_RESPONSE_PDU_VCAN(daq_response_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_PDU_VCAN, .DLC=DLC_DAQ_RESPONSE_PDU_VCAN, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_PDU.daq_response = daq_response_;\
+        data_a->daq_response_PDU_VCAN.daq_response = daq_response_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -217,7 +217,7 @@ typedef union {
     } fault_sync_pdu;
     struct {
         uint64_t daq_response: 64;
-    } daq_response_PDU;
+    } daq_response_PDU_VCAN;
     struct {
         uint64_t cmd: 8;
         uint64_t data: 32;
@@ -262,7 +262,7 @@ typedef union {
     } return_fault_control;
     struct {
         uint64_t daq_command: 64;
-    } daq_command_PDU;
+    } daq_command_PDU_VCAN;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -317,14 +317,14 @@ typedef struct {
     } return_fault_control;
     struct {
         uint64_t daq_command;
-    } daq_command_PDU;
+    } daq_command_PDU_VCAN;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_PDU_CALLBACK(CanMsgTypeDef_t* msg_header_a);
+extern void daq_command_PDU_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);

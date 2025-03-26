@@ -1705,7 +1705,8 @@
                   "msg_hlp":5,
                   "msg_pgn":528
               },
-              {"msg_name": "can2_raw_cell_temp_module5",
+              {
+                  "msg_name": "can2_raw_cell_temp_module5",
                   "msg_desc": "Raw cell temperature for each module of thermistor at index",
                   "signals":[
                       {"sig_name": "index",  "type": "uint8_t",  "length": 8},

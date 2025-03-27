@@ -10,7 +10,6 @@
 
 /* Module Includes */
 #include "main.h"
-#include "source/dashboard/main.h"
 #include "source/torque_vector/can/can_parse.h"
 
 #include "bsxlite_interface.h"

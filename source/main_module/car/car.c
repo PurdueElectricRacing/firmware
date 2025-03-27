@@ -438,8 +438,8 @@ void updateSDCFaults()
 {
     if(!can_data.orion_currents_volts.stale)
     {
-        hist_current[hist_curr_idx] = can_data.orion_currents_volts.pack_current;
-        hist_curr_idx++;
+        hist_current[hist_curr_idx++] = can_data.orion_currents_volts.pack_current;
+        hist_curr_idx %= NUM_HIST_BSPD;
     }
     uint8_t brake_fail = 0;
     // Loop through all SDC nodes (no need for precharge complete)

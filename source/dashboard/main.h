@@ -49,8 +49,8 @@ typedef struct __attribute__((packed))
     uint16_t lv_24_v_sense;
     uint16_t load_l;
     uint16_t load_r;
-    uint16_t brk1_thr;
-    uint16_t brk2_thr;
+    //uint16_t brk1_thr;
+    //uint16_t brk2_thr;
 } raw_adc_values_t;
 
 volatile extern raw_adc_values_t raw_adc_values;

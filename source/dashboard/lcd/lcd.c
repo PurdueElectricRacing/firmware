@@ -18,11 +18,11 @@ uint16_t cur_fault_buf_ndx;                  // Current index in the fault buffe
 uint8_t fault_time_displayed;                // Amount of units of time that the fault has been shown to the driver
 volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
-};   
+};
 char *errorText;                             // Pointer to data to display for the Error, Warning, and Critical Fault codes
-extern pedal_values_t pedal_values;          // Global from pedals module for throttle display 
+extern pedal_values_t pedal_values;          // Global from pedals module for throttle display
 extern q_handle_t q_fault_history;           // Global queue from fault library for fault history
-extern dashboard_input_state_t input_state;  // Global dashboard input states 
+extern dashboard_input_state_t input_state;  // Global dashboard input states
 extern brake_status_t brake_status;          // Global brake status struct
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
@@ -92,9 +92,9 @@ const page_handler_t page_handlers[] = { // Order must match page_t enum
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
     [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
     [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate},                  // Calibration is passive
-    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL},                                        // Preflight is passive 
+    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL},                                        // Preflight is passive
     [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler
-    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler 
+    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler
     [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL}                              // Error pages share a select handler
 };
 
@@ -110,14 +110,14 @@ menu_element_t race_elements[] = {
 
 menu_page_t race_page = {
     .elements            = race_elements,
-    .num_elements        = sizeof(race_elements) / sizeof(race_elements[0]), 
+    .num_elements        = sizeof(race_elements) / sizeof(race_elements[0]),
     .current_index       = 0,
     .is_element_selected = false
 };
 
 typedef enum {
     COOLING_DT_FAN_INDEX  = 0,
-    COOLING_DT_PUMP_INDEX = 1, 
+    COOLING_DT_PUMP_INDEX = 1,
     COOLING_B_FAN_INDEX   = 2,
     COOLING_B_PUMP_INDEX  = 3,
 } cooling_elements_t;
@@ -140,7 +140,7 @@ menu_element_t cooling_elements[] = {
     },
     [COOLING_B_FAN_INDEX] = {
         .type           = ELEMENT_VAL,
-        .object_name    = B_FAN_VAL, 
+        .object_name    = B_FAN_VAL,
         .current_value  = 0,
         .min_value      = 0,
         .max_value      = 100,
@@ -164,7 +164,7 @@ menu_page_t cooling_page = {
 
 typedef enum {
     TV_INTENSITY_INDEX  = 0,
-    TV_PROPORTION_INDEX = 1, 
+    TV_PROPORTION_INDEX = 1,
     TV_DEAD_INDEX       = 2,
     TV_ENABLE_INDEX     = 3
 } tv_elements_t;
@@ -221,7 +221,7 @@ menu_element_t faults_elements[] = {
     },
     [1] =  {
         .type         = ELEMENT_BUTTON,
-        .object_name  = FAULT2_BUTTON, 
+        .object_name  = FAULT2_BUTTON,
         .on_change    = faultsClearButton_CALLBACK // clear fault
     },
     [2] =  {
@@ -360,7 +360,7 @@ void initLCD() {
 
 /**
  * @brief Updates LCD display page based on encoder position
- * 
+ *
  * Key behaviors:
  * - Updates current page based on encoder for non-error pages
  * - Maintains display of error pages when active
@@ -368,7 +368,7 @@ void initLCD() {
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
     bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
-    
+
     if (!is_error_page) {
         curr_page = input_state.encoder_position;
         fault_time_displayed = 0;
@@ -438,7 +438,7 @@ void updatePage() {
         return;
     }
 
-    // Call update handler if available 
+    // Call update handler if available
     if (page_handlers[curr_page].update != NULL) {
         page_handlers[curr_page].update();
     }
@@ -485,7 +485,7 @@ void selectItem() {
     if (curr_page > PAGE_COUNT && curr_page < 0) {
         return;
     }
-    
+
     if (page_handlers[curr_page].telemetry != NULL) {
         page_handlers[curr_page].telemetry();
     }
@@ -500,6 +500,7 @@ void selectItem() {
  * @note Only executes when current page is PAGE_CALIBRATION
  */
 void calibrationTelemetryUpdate() {
+    #if 0
     static uint8_t update_group = 0;
 
     if (curr_page != PAGE_CALIBRATION) {
@@ -522,8 +523,10 @@ void calibrationTelemetryUpdate() {
     uint16_t throttle_dev = (throttle_diff * 1000) / 4095.0;
     NXT_setValue(CALIBRATION_THROTTLE_DEV_VAL, throttle_dev);
 
-    uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
-    uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
+    //uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
+    //uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
+    uint16_t brake1_thresh = 0;
+    uint16_t brake2_thresh = 0;
 
     // 2 updates left in the queue, updaate infrequent items at 1/3 the rate
     switch (update_group) {
@@ -559,7 +562,7 @@ void calibrationTelemetryUpdate() {
             update_group = 0;
             break;
     }
-    
+    #endif
 }
 
 
@@ -701,7 +704,7 @@ void faultTelemetryUpdate() {
 
 /**
  * @brief Updates the Shutdown Circuit (SDC) status display on the dashboard LCD
- * 
+ *
  * Only executes if the current page is SDC info page.
  */
 void sdcTelemetryUpdate() {
@@ -735,7 +738,7 @@ void sdcTelemetryUpdate() {
 
 void errorPageSelect() {
     fault_time_displayed = 0;   // Reset fault timer first
-    curr_page = prev_page;      // Return to previous page 
+    curr_page = prev_page;      // Return to previous page
     prev_page = PAGE_PREFLIGHT; // so select item doesnt't break
     updatePage();               // Important: Update the page before returning
     return;
@@ -763,7 +766,7 @@ void pedalProfilesPageUpdate() {
     if (driver_index < 0) {
         return;
     }
-    
+
     switch (driver_index) {
         case 0:
             NXT_setText(PROFILE_CURRENT_TXT, DRIVER1_NAME);
@@ -790,7 +793,7 @@ void pedalProfilesPageUpdate() {
 
 void pedalProfilesMoveUp() {
     MS_moveUp(&pedal_profile_page);
-    
+
     // Update save status indicator on any value change
     if (!pedal_profile_page.is_element_selected) {
         NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
@@ -800,7 +803,7 @@ void pedalProfilesMoveUp() {
 
 void pedalProfilesMoveDown() {
     MS_moveDown(&pedal_profile_page);
-    
+
     // Update save status indicator on any value change
     if (!pedal_profile_page.is_element_selected) {
         NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
@@ -811,7 +814,7 @@ void pedalProfilesMoveDown() {
 void pedalProfilesSelect() {
     // Handle other elements using menu system
     MS_select(&pedal_profile_page);
-    
+
     // Mark as unsaved when values change
     if (pedal_profile_page.is_element_selected) {
         pedal_profile_page.saved = false;
@@ -879,7 +882,7 @@ void coolingSelect() {
 
 /**
  * @brief Callback function for coolant_in message that updates the cooling page
- * 
+ *
  * @param msg_data_a Pointer to the parsed CAN message data
  */
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
@@ -971,7 +974,7 @@ void faultsSelect() {
 
 /**
  * @brief Clears a fault from the fault buffer by removing it and shifting remaining faults
- * 
+ *
  * @param index Position of the fault to clear (0-4)
  */
 void clearFault(int index) {
@@ -996,7 +999,7 @@ void clearFault(int index) {
 
 /**
  * @brief Callback function for fault button press that clears faults
- * 
+ *
  * If hover index is 5, clears all faults (indices 0-4)
  * If hover index is 0-4, clears only that specific fault
  * Updates fault messages after clearing
@@ -1142,7 +1145,7 @@ void loggingSelect() {
 
 /**
  * @brief Sets the color of a fault indicator element based on fault status
- * 
+ *
  * @param fault The fault code to check (0xFFFF indicates no fault)
  * @param element Pointer to the display element to be colored
  */
@@ -1151,7 +1154,7 @@ void setFaultIndicator(uint16_t fault, char *element) {
         NXT_setFontColor(element, WHITE);
         return;
     }
-    
+
     if (checkFault(fault)) {
         NXT_setFontColor(element, RED);
     } else {

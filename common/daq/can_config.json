@@ -220,7 +220,7 @@
                         {"msg_name": "drive_modes"}
                         {"msg_name": "throttle_vcu"},
                         {"msg_name": "throttle_vcu_equal"},
-                        {"msg_name": "precharge_hb"}
+                        {"msg_name": "orion_info"}
                     ]
                 },
                 {

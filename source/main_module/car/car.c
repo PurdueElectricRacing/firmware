@@ -207,11 +207,11 @@ void carPeriodic()
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
 
-            t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
-            t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;
-            t_req_pedal_r = t_req_pedal_r * 100.0f / 4095.0f;
-            t_req_equal_l = t_req_equal_l * 100.0f / 4095.0f;
-            t_req_equal_r = t_req_equal_r * 100.0f / 4095.0f;
+            t_req_pedal = (int16_t)(t_req_pedal * 100.0f / 4095.0f);
+            t_req_pedal_l = (int16_t)(t_req_pedal_l * 100.0f / 4095.0f);
+            t_req_pedal_r = (int16_t)(t_req_pedal_r * 100.0f / 4095.0f);
+            t_req_equal_l = (int16_t)(t_req_equal_l * 100.0f / 4095.0f);
+            t_req_equal_r = (int16_t)(t_req_equal_r * 100.0f / 4095.0f);
 
             torqueRequest_t temp_t_req;
             switch (car.torque_src)
@@ -286,8 +286,8 @@ void carPeriodic()
             }
 
             // Enforce range
-            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, 100.0f);
-            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, 100.0f);
+            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
 
             // Disable Regenerative Braking
             if (!car.regen_enabled)
@@ -321,8 +321,8 @@ void carPeriodic()
             if (throttle_pressed || (!throttle_pressed && t_req_pedal > 1024))
             {
                 brake_pressed = 0;
-                temp_t_req.torque_left = (const_tq_val * 1.0f);
-                temp_t_req.torque_right = (const_tq_val * 1.0f);
+                temp_t_req.torque_left = (const_tq_val * 10.0f);
+                temp_t_req.torque_right = (const_tq_val * 10.0f);
                 throttle_pressed = 1;
             }
             if ((can_data.filt_throttle_brake.brake > 50) || brake_pressed)
@@ -334,8 +334,8 @@ void carPeriodic()
             }
 
             // Enforce range
-            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  -100.0f, 100.0f);
-            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, -100.0f, 100.0f);
+            temp_t_req.torque_left =  CLAMP(temp_t_req.torque_left,  MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
 
             // Disable Regenerative Braking
             if (!car.regen_enabled)
@@ -355,7 +355,7 @@ void carPeriodic()
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light | daq_brake);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
-    /* At this point torque request will be clamped from 0 to 100.0 */
+    /* At this point torque request will be clamped from 0 to 1000 */
     amkSetTorque(&car.motor_l, car.torque_r.torque_left);
     amkSetTorque(&car.motor_r, car.torque_r.torque_right);
  }
@@ -443,14 +443,14 @@ void updateSDCFaults()
     }
     uint8_t brake_fail = 0;
     // Loop through all SDC nodes (no need for precharge complete)
-    for (uint8_t i = 0; i < (SDC_MUX_HIGH_IDX - 1); i++)
+    for (uint8_t i = 0; i <= SDC_TSMS; i++)
     {
         switch(i)
         {
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat)
                 {
-                    // setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -460,7 +460,7 @@ void updateSDCFaults()
             case (SDC_INERTIA):
                 if (!sdc_mux.inertia_stat && sdc_mux.bots_stat)
                 {
-                    // setFault(ID_INERTIA_FAIL_FAULT, 1);
+                    setFault(ID_INERTIA_FAIL_FAULT, 1);
                 }
                 else
                 {
@@ -493,7 +493,7 @@ void updateSDCFaults()
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat)
                 {
-                    // setFault(ID_LEFT_ESTOP_FAULT, 1);
+                    setFault(ID_LEFT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -503,7 +503,7 @@ void updateSDCFaults()
             case (SDC_R_STOP):
                 if (!sdc_mux.r_stop_stat && sdc_mux.main_stat)
                 {
-                    // setFault(ID_RIGHT_ESTOP_FAULT, 1);
+                    setFault(ID_RIGHT_ESTOP_FAULT, 1);
                 }
                 else
                 {
@@ -513,7 +513,7 @@ void updateSDCFaults()
             case (SDC_HVD):
                 if (!sdc_mux.hvd_stat && sdc_mux.l_stop_stat)
                 {
-                    // setFault(ID_HVD_DISC_FAULT, 1);
+                    setFault(ID_HVD_DISC_FAULT, 1);
                 }
                 else
                 {
@@ -523,7 +523,7 @@ void updateSDCFaults()
             case (SDC_HUB):
                 if (!sdc_mux.r_hub_stat && sdc_mux.hvd_stat)
                 {
-                    // setFault(ID_HUB_DISC_FAULT, 1);
+                    setFault(ID_HUB_DISC_FAULT, 1);
                 }
                 else
                 {
@@ -533,7 +533,7 @@ void updateSDCFaults()
             case (SDC_TSMS):
                 if (!sdc_mux.tsms_stat && sdc_mux.r_hub_stat)
                 {
-                    // setFault(ID_TSMS_DISC_FAULT, 1);
+                    setFault(ID_TSMS_DISC_FAULT, 1);
                 }
                 else
                 {
@@ -556,7 +556,7 @@ void monitorSDCPeriodic()
 
     uint8_t stat =  (uint8_t) PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
     *(nodes + index) = stat;
-  
+
     index++;
     if (index == SDC_MUX_HIGH_IDX)
     {
@@ -571,4 +571,20 @@ void monitorSDCPeriodic()
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, (index & 0x02));
     PHAL_writeGPIO(SDC_MUX_S2_GPIO_Port, SDC_MUX_S2_Pin, (index & 0x04));
     PHAL_writeGPIO(SDC_MUX_S3_GPIO_Port, SDC_MUX_S3_Pin, (index & 0x08));
+}
+
+void update_lights(void)
+{
+    // IMD or BMS faulted
+    bool unsafe_condition_detected = false;
+
+    // Software checks for IMD or BMS fault
+    unsafe_condition_detected |= checkFault(ID_HV_ISOLATION_FAULT);
+    unsafe_condition_detected |= can_data.orion_info.dtc_status;
+
+    // Hardware checks for IMD or BMS fault
+    unsafe_condition_detected |= !sdc_mux.imd_stat || !sdc_mux.bms_stat;
+
+    PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, !unsafe_condition_detected);
+    PHAL_writeGPIO(SAFE_STAT_R_GPIO_Port, SAFE_STAT_R_GPIO_Pin, unsafe_condition_detected);
 }

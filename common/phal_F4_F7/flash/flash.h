@@ -35,7 +35,7 @@ enum
 #define PHAL_FLASH_TIMEOUT 500000U
 
 /* Base address of the Flash sectors */
-#ifdef STM32F407xx
+#if defined(STM32F407xx)
 #define ADDR_FLASH_SECTOR_0     ((uint32_t)0x08000000) /* Base @ of Sector 0, 16 Kbyte */
 #define ADDR_FLASH_SECTOR_1     ((uint32_t)0x08004000) /* Base @ of Sector 1, 16 Kbyte */
 #define ADDR_FLASH_SECTOR_2     ((uint32_t)0x08008000) /* Base @ of Sector 2, 16 Kbyte */
@@ -51,8 +51,8 @@ enum
 
 #define USER_FLASH_END_ADDRESS  ((uint32_t)0x080FFFFF) /* Last usable flash address */
 #define MAX_FLASH_SECTOR (12-1)
-#endif
-#ifdef STM32F732xx
+
+#elif defined(STM32F732xx)
 #define ADDR_FLASH_SECTOR_0     ((uint32_t)0x08000000) /* Base @ of Sector 0, 16 Kbyte */
 #define ADDR_FLASH_SECTOR_1     ((uint32_t)0x08004000) /* Base @ of Sector 1, 16 Kbyte */
 #define ADDR_FLASH_SECTOR_2     ((uint32_t)0x08008000) /* Base @ of Sector 2, 16 Kbyte */
@@ -67,6 +67,7 @@ enum
 #endif
 
 uint32_t PHAL_flashReadU32(uint32_t addr);
+void PHAL_flashReadU32_Buffered(uint32_t src_addr, uint32_t dst_addr, uint32_t count);
 
 uint8_t PHAL_flashWriteU32(uint32_t address, uint32_t value);
 uint8_t PHAL_flashWriteU32_Buffered(uint32_t Address, uint32_t *data, uint32_t count);

@@ -11,5 +11,6 @@
     "node_parse_h_dir": "can/can_parse.h",
     "node_daq_c_dir": "daq/daq.c",
     "node_daq_h_dir": "daq/daq.h",
-    "dbc_output_path": "../per_dbc.dbc"
+    "dbc_output_path": "../per_dbc.dbc",
+    "can_output_path": "../can_dbc.json"
 }

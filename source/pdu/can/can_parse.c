@@ -9,6 +9,7 @@
  *
  */
 #include "can_parse.h"
+#include "cooling.h"
 
 // prototypes
 bool initCANFilter();
@@ -34,11 +35,6 @@ void canRxUpdate()
         /* BEGIN AUTO CASES */
         switch(msg_header.ExtId)
         {
-            case ID_PDU_BL_CMD:
-                can_data.pdu_bl_cmd.cmd = msg_data_a->pdu_bl_cmd.cmd;
-                can_data.pdu_bl_cmd.data = msg_data_a->pdu_bl_cmd.data;
-                pdu_bl_cmd_CALLBACK(msg_data_a);
-                break;
             case ID_COOLING_DRIVER_REQUEST:
                 can_data.cooling_driver_request.dt_pump = msg_data_a->cooling_driver_request.dt_pump;
                 can_data.cooling_driver_request.dt_fan = msg_data_a->cooling_driver_request.dt_fan;
@@ -88,8 +84,12 @@ void canRxUpdate()
 				return_fault_control(msg_data_a->return_fault_control.id);
                 break;
             case ID_DAQ_COMMAND_PDU:
-                can_data.daq_command_PDU.daq_command = msg_data_a->daq_command_PDU.daq_command;
+                can_data.daq_command_PDU.payload = msg_data_a->daq_command_PDU.payload;
                 daq_command_PDU_CALLBACK(&msg_header);
+                break;
+            case ID_UDS_COMMAND_PDU:
+                can_data.uds_command_pdu.payload = msg_data_a->uds_command_pdu.payload;
+				uds_command_pdu_CALLBACK(msg_data_a->uds_command_pdu.payload);
                 break;
             default:
                 __asm__("nop");
@@ -119,22 +119,22 @@ bool initCANFilter()
 
     /* BEGIN AUTO FILTER */
     CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_PDU_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_COOLING_DRIVER_REQUEST << 3) | 4;
+    CAN1->sFilterRegister[0].FR1 = (ID_COOLING_DRIVER_REQUEST << 3) | 4;
+    CAN1->sFilterRegister[0].FR2 = (ID_MAIN_HB << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
-    CAN1->sFilterRegister[1].FR1 = (ID_MAIN_HB << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[1].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_DAQ_COMMAND_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_DAQ_COMMAND_PDU << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_UDS_COMMAND_PDU << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

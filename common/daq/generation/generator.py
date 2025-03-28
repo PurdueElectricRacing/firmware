@@ -103,6 +103,7 @@ def check_repeat_defs(can_config):
         node_ssas = []
         node_names = []
         for node in bus['nodes']:
+            print(node['node_name'])
             if node['node_name'] in node_names:
                 log_error(f"Found identical node names within a bus: {node['node_name']}")
                 quit(1)
@@ -115,11 +116,17 @@ def check_repeat_defs(can_config):
                 node_ssas.append(node['node_ssa'])
             for msg in node['tx']:
                 if msg['msg_name'] in message_names:
+                    # bypass duplicates for BL since they wont be on the same node at the same time
+                    if ("uds" in msg["msg_name"]) and node["node_name"] == "bootloader":
+                        continue
                     log_error(f"Found multiple definitions for {msg['msg_name']}")
                     quit(1)
                 else:
                     message_names.append(msg['msg_name'])
                 if msg['id'] in message_ids:
+                    # bypass duplicates for BL since they wont be on the same node at the same time
+                    if ("uds" in msg["msg_name"]) and node["node_name"] == "bootloader":
+                        continue
                     log_error(f"Found identical message ids for {msg['msg_name']} with id {hex(msg['id'])}")
                     quit(1)
                 else:
@@ -234,7 +241,7 @@ def insert_lines(source: list, start, stop, new_lines):
 
     return source
 
-def find_node_paths(node_names, source_dir, c_dir, h_dir):
+def find_node_paths(node_names, source_dir, c_dir, h_dir, make_new=False):
     """
     searches through the head_dir for the c and h files
     with a "NODE_NAME" definition matching one in node_names
@@ -253,6 +260,9 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
 
         c_path = source_dir/ folder /c_dir
         h_path = source_dir/folder/h_dir
+        if (make_new):
+            node_paths[folder] = [h_path, c_path]
+            continue
 
         if path.exists(h_path):
             with open(h_path) as h_file:
@@ -317,7 +327,6 @@ def generate_all():
     fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
 
     firmware_source_dir = Path(os.path.abspath(relative_dir / gen_config['source_directory']))
-
     print(firmware_source_dir)
 
     can_config = load_json_config(can_config_path, can_schema_path)
@@ -328,6 +337,7 @@ def generate_all():
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)
+    gen_embedded_daq.generate_uds_can_msgs(daq_config, can_config)
 
     # perform error checking for CAN config
     generate_ids(can_config)
@@ -338,6 +348,7 @@ def generate_all():
     gen_embedded_can.gen_embedded_can(can_config, firmware_source_dir, gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
     gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
     gen_dbc.gen_dbc(can_config, relative_dir / gen_config['dbc_output_path'])
+    gen_embedded_daq.gen_can_dbc(can_config, relative_dir / gen_config['can_output_path'])
 
     output_bus_load(can_config)
 

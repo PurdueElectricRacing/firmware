@@ -1,5 +1,4 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/dma/dma.h"
@@ -19,6 +18,7 @@
 #include "led.h"
 #include "cooling.h"
 #include "flow_rate.h"
+#include "uds.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -242,6 +242,7 @@ void preflightChecks(void) {
            initCANParse();
            if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                HardFault_Handler();
+            udsInit();
            break;
         case 2:
             if(!PHAL_SPI_init(&spi_config))
@@ -348,12 +349,6 @@ void heatBeatLED()
 void CAN1_RX0_IRQHandler()
 {
     canParseIRQHandler(CAN1);
-}
-
-void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-   if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
-       Bootloader_ResetForFirmwareDownload();
 }
 
 void send_iv_readings() {

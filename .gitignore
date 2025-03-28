@@ -25,3 +25,5 @@ __pycache__/
 
 # DBC files, merging these is basically useless
 *.dbc
+source/*/uds/*
+common/daq/can_dbc.json

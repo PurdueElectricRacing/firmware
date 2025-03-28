@@ -475,10 +475,13 @@ void EXTI15_10_IRQHandler() {
         EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
     }
 
-    // EXTI11 (START button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR11)
     {
-        PHAL_toggleGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin); // Toggle LED for testing
+        if (!(sched.os_ticks - last_input_time < 100)) {
+            input_state.start_button = 1;  // Set flag for start button
+        }
+
+        last_input_time = sched.os_ticks;
         EXTI->PR |= EXTI_PR_PR11;       // Clear the interrupt pending bit for EXTI11
     }
 }

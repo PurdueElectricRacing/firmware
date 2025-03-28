@@ -68,7 +68,7 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
-#define ID_PRECHARGE_HB 0xc001944
+#define ID_ORION_INFO 0x140006b8
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -119,7 +119,7 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
-#define DLC_PRECHARGE_HB 2
+#define DLC_ORION_INFO 7
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -333,7 +333,7 @@ typedef union {
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_THROTTLE_VCU 20
 #define UP_THROTTLE_VCU_EQUAL 20
-#define UP_PRECHARGE_HB 500
+#define UP_ORION_INFO 32
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -629,9 +629,26 @@ typedef union {
         uint64_t equal_k_rr: 16;
     } throttle_vcu_equal;
     struct {
-        uint64_t IMD: 8;
-        uint64_t BMS: 8;
-    } precharge_hb;
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -835,11 +852,28 @@ typedef struct {
         uint32_t last_rx;
     } throttle_vcu_equal;
     struct {
-        uint8_t IMD;
-        uint8_t BMS;
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
         uint8_t stale;
         uint32_t last_rx;
-    } precharge_hb;
+    } orion_info;
     struct {
         uint16_t idx;
         uint8_t latched;

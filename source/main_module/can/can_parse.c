@@ -209,11 +209,28 @@ void canRxUpdate(void)
                     can_data.throttle_vcu_equal.stale = 0;
                     can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
                     break;
-                case ID_PRECHARGE_HB:
-                    can_data.precharge_hb.IMD = msg_data_a->precharge_hb.IMD;
-                    can_data.precharge_hb.BMS = msg_data_a->precharge_hb.BMS;
-                    can_data.precharge_hb.stale = 0;
-                    can_data.precharge_hb.last_rx = sched.os_ticks;
+                case ID_ORION_INFO:
+                    can_data.orion_info.discharge_enable = msg_data_a->orion_info.discharge_enable;
+                    can_data.orion_info.charge_enable = msg_data_a->orion_info.charge_enable;
+                    can_data.orion_info.charger_safety = msg_data_a->orion_info.charger_safety;
+                    can_data.orion_info.dtc_status = msg_data_a->orion_info.dtc_status;
+                    can_data.orion_info.multi_input = msg_data_a->orion_info.multi_input;
+                    can_data.orion_info.always_on = msg_data_a->orion_info.always_on;
+                    can_data.orion_info.is_ready = msg_data_a->orion_info.is_ready;
+                    can_data.orion_info.is_charging = msg_data_a->orion_info.is_charging;
+                    can_data.orion_info.multi_input_2 = msg_data_a->orion_info.multi_input_2;
+                    can_data.orion_info.multi_input_3 = msg_data_a->orion_info.multi_input_3;
+                    can_data.orion_info.reserved = msg_data_a->orion_info.reserved;
+                    can_data.orion_info.multi_output_2 = msg_data_a->orion_info.multi_output_2;
+                    can_data.orion_info.multi_output_3 = msg_data_a->orion_info.multi_output_3;
+                    can_data.orion_info.multi_output_4 = msg_data_a->orion_info.multi_output_4;
+                    can_data.orion_info.multi_enable = msg_data_a->orion_info.multi_enable;
+                    can_data.orion_info.multi_output_1 = msg_data_a->orion_info.multi_output_1;
+                    can_data.orion_info.pack_dcl = msg_data_a->orion_info.pack_dcl;
+                    can_data.orion_info.pack_ccl = msg_data_a->orion_info.pack_ccl;
+                    can_data.orion_info.pack_soc = msg_data_a->orion_info.pack_soc;
+                    can_data.orion_info.stale = 0;
+                    can_data.orion_info.last_rx = sched.os_ticks;
                     break;
                 case ID_FAULT_SYNC_PDU:
                     can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
@@ -318,9 +335,9 @@ void canRxUpdate(void)
     CHECK_STALE(can_data.throttle_vcu_equal.stale,
                 sched.os_ticks, can_data.throttle_vcu_equal.last_rx,
                 UP_THROTTLE_VCU_EQUAL);
-    CHECK_STALE(can_data.precharge_hb.stale,
-                sched.os_ticks, can_data.precharge_hb.last_rx,
-                UP_PRECHARGE_HB);
+    CHECK_STALE(can_data.orion_info.stale,
+                sched.os_ticks, can_data.orion_info.last_rx,
+                UP_ORION_INFO);
     /* END AUTO STALE CHECKS */
 }
 
@@ -370,7 +387,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_VCU_EQUAL << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_PRECHARGE_HB << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_ORION_INFO << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
     CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;

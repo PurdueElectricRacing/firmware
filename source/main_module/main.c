@@ -11,7 +11,7 @@
  */
 
 /* -------------------------------------------------------
-    System Includes 
+    System Includes
 -------------------------------------------------------- */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
@@ -26,7 +26,7 @@
 #include "common/amk/amk.h"
 
 /* -------------------------------------------------------
-    Module Includes 
+    Module Includes
 -------------------------------------------------------- */
 #include "car.h"
 #include "can_parse.h"
@@ -123,7 +123,7 @@ ClockRateConfig_t clock_config =
 };
 
 /* -------------------------------------------------------
-    ADC 
+    ADC
 -------------------------------------------------------- */
 ADCInitConfig_t adc_config =
 {
@@ -166,7 +166,6 @@ extern void HardFault_Handler();
 void interpretLoadSensor(void);
 float voltToForce(uint16_t load_read);
 void can2Relaycan1();
-void update_lights(void);
 void calibrate_lws(void);
 
 int main(void)
@@ -213,20 +212,6 @@ int main(void)
     return 0;
 }
 
-void update_lights(void)
-{
-    if (false == can_data.precharge_hb.stale)
-    {
-        uint8_t is_error = can_data.precharge_hb.BMS && can_data.precharge_hb.IMD;
-        PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, !is_error);
-        PHAL_writeGPIO(SAFE_STAT_R_GPIO_Port, SAFE_STAT_R_GPIO_Pin, is_error);
-    }
-    else
-    {
-        //Later: any other way to check this if we lose abox?
-    }
-}
-
 /**
  * @brief Resets the steering angle sensor calibration
  *        Call after assembly with wheel centered
@@ -243,7 +228,7 @@ void calibrate_lws(void)
     static uint8_t status = 0;
     if (status == 0)
     {
-        SEND_LWS_CONFIG(0x05, 0, 0); // reset cal    
+        SEND_LWS_CONFIG(0x05, 0, 0); // reset cal
         status = 1;
     }
     else if (status == 1)
@@ -271,7 +256,7 @@ void preflightChecks(void) {
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 1:
-            /* MCAN */    
+            /* MCAN */
             if (false == PHAL_initCAN(CAN2, false, MCAN_BPS))
             {
                 HardFault_Handler();
@@ -349,7 +334,7 @@ void heartBeatLED(void)
     {
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     }
-    else 
+    else
     {
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
     }
@@ -490,7 +475,7 @@ void can2Relaycan1(CAN_TypeDef *can_h)
         /* Pass through CAN2 messages onto CAN1 */
         rx.Bus = CAN1; // Override
         canTxSendToBack(&rx);
-        
+
     }
 }
 

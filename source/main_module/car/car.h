@@ -44,6 +44,10 @@
 #define POT_DIST_DROOP_L 57
 #define POT_DIST_DROOP_R 54
 
+// Throttle pedal constraints
+#define MAX_DRIVER_TORQUE_REQUEST 100.0f
+#define MIN_DRIVER_TORQUE_REQUEST 0.0f
+
 
 //Defines to guess a BSPD fault
 #define NUM_HIST_BSPD 16
@@ -110,18 +114,20 @@ void calibrateSteeringAngle(uint8_t* success);
 void monitorSDCPeriodic(void);
 void updateSDCFaults(void);
 void send_shockpots();
+void update_lights(void);
 
 // SDC Node defines
 #define SDC_MUX_HIGH_IDX 14
-#define SDC_MAIN 0
-#define SDC_C_STOP 1
-#define SDC_INERTIA 2
-#define SDC_BOTS 3
-#define SDC_R_STOP 8
-#define SDC_L_STOP 9
-#define SDC_HVD 10
-#define SDC_HUB 11
-#define SDC_TSMS 12
+#define SDC_MAIN         0
+#define SDC_C_STOP       1
+#define SDC_INERTIA      2
+#define SDC_BOTS         3
+#define SDC_R_STOP       4
+#define SDC_L_STOP       5
+#define SDC_HVD          6
+#define SDC_EMETER       7
+#define SDC_HUB          8
+#define SDC_TSMS         9
 
 typedef struct __attribute__((packed))
 {

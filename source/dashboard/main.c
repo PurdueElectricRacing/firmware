@@ -314,7 +314,7 @@ void preflightChecks(void) {
  */
 void sendShockpots()
 {
-    #if 0
+    #if 1
     uint16_t shock_l = raw_adc_values.shock_left;
     uint16_t shock_r = raw_adc_values.shock_right;
     int16_t shock_l_parsed;
@@ -391,7 +391,7 @@ float voltToForce(uint16_t load_read) {
 }
 
 void interpretLoadSensor(void) {
-    #if 0
+    #if 1
     float force_load_l = voltToForce(raw_adc_values.load_l);
     float force_load_r = voltToForce(raw_adc_values.load_r);
     //send a can message w/ minimal force info
@@ -676,7 +676,7 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
  */
 void sendVoltageData()
 {
-    #if 0
+    #if 1
     float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
 
     float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;

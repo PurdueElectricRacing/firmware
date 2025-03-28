@@ -21,6 +21,8 @@
 
 // Info
 #define MPS_TO_MPH (2.237F)
+#define RAD_TO_MPH (0.00595F)
+#define WHEEL_RADIUS (8) // inches
 
 // Driver Configuration Page
 #define DRIVER1_LIST "t1"
@@ -97,10 +99,11 @@
 #define BATT_VOLT    "volt"
 #define BATT_CURR    "amp"
 #define MOT_TEMP     "MTemp"
-#define MC_TEMP      "MCTemp"
+#define MC_TEMP      "IGBTemp" // IGBT Temp now
 #define CAR_STAT     "stat"
 #define SPEED        "speed"
 #define RACE_TV_ON   "tv"
+#define AMK_MOTOR_OVERLOAD  "amk"
 
 // Logging Page
 #define LOG_OP             "log"

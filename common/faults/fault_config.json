@@ -394,8 +394,8 @@
             "faults": [
                 {
                     "fault_name": "APPS_wiring_t1",
-                    "max": 4000,
-                    "min": 100,
+                    "max": 3700,
+                    "min": 500,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -403,8 +403,8 @@
                 },
                 {
                     "fault_name": "APPS_wiring_t2",
-                    "max": 4000,
-                    "min": 100,
+                    "max": 3700,
+                    "min": 300,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -430,8 +430,8 @@
                 },
                 {
                     "fault_name": "Implaus_detected",
-                    "max": 700,
-                    "min": 0,
+                    "max": 4095,
+                    "min": -4095,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 100,
@@ -442,9 +442,9 @@
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "APPS Brake Fault"
+                    "time_to_latch": 100,
+                    "time_to_unlatch": 100,
+                    "lcd_message": "Release Both Pedals"
                 }
             ]
         },

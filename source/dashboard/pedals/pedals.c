@@ -54,7 +54,7 @@ void pedalsPeriodic(void) {
     #if 1
     // Get current values (don't want them changing mid-calculation)
     uint16_t t1_raw = raw_adc_values.t1;
-    uint16_t t2_raw = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
+    uint16_t t2_raw = raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
     uint16_t b1_raw = raw_adc_values.b1;
     uint16_t b2_raw = raw_adc_values.b2;
 

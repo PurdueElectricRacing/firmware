@@ -168,6 +168,7 @@ float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
 void pollBrakeStatus();
+void checkADCSafety();
 extern void HardFault_Handler();
 
 // Communication queues
@@ -197,6 +198,7 @@ int main(void){
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 60, 2500);
+    taskCreate(checkADCSafety, 10);
     taskCreate(updateFaultDisplay, 500);
     taskCreate(heartBeatLED, 500);
     taskCreate(pedalsPeriodic, 15);
@@ -218,6 +220,7 @@ int main(void){
         ;
     }
     #if 0
+    860 - 1700
     initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_DASHBOARD);
 
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
@@ -306,6 +309,19 @@ void preflightChecks(void) {
     }
 }
 
+// check if ADC fails and goes high/oscillates
+void checkADCSafety()
+{
+    // max voltage going into adc
+    SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1, raw_adc_values.t2, raw_adc_values.b1, raw_adc_values.b2, 0);
+    if (raw_adc_values.t1 > 4000 || raw_adc_values.lv_3v3_sense > 3000 || raw_adc_values.lv_3v3_sense > 4000)
+    {
+        // DASH_ADC_THRTL_FAIL
+        setFault(ID_DASH_ADC_THRTL_FAULT, 1);
+        //if (!(raw_adc_values.lv_3v3_sense > 1.0 && raw_adc_values.lv_3v3_sense < 10.0) && !((raw_adc_values.lv_5v_sense > 1.0 && raw_adc_values.lv_5v_sense < 10.0)))
+    }
+}
+
 /**
  * @brief Processes and sends shock potentiometer readings
  *
@@ -325,6 +341,8 @@ void sendShockpots()
     SEND_SHOCK_FRONT(shock_l_parsed, shock_r_parsed);
     #endif
 }
+
+// jose was here
 
 void preflightAnimation(void) {
     // Controls external LEDs since they are more visible when dash is in car

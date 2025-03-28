@@ -51,6 +51,19 @@ static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
  * @note This function is called periodically by the scheduler
  */
 void pedalsPeriodic(void) {
+    uint16_t t1_raw = raw_adc_values.t1;
+    uint16_t throttle = 0;
+    // goes from 800 to 1700
+    #if 0
+    1700 - 800 = 900
+    // 800 - 1800: throttle valid range
+    #endif
+    if (throttle > 4000)
+    {
+        setFault(ID_DASH_ADC_THRTL_FAULT, 1);
+    }
+    throttle = CLAMP(t1_raw, 800, 1800);
+    #if 0
     #if 1
     // Get current values (don't want them changing mid-calculation)
     uint16_t t1_raw = raw_adc_values.t1;
@@ -98,6 +111,7 @@ void pedalsPeriodic(void) {
 
     // Send the normalized pedal values to Main and TV
     SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
+    #endif
     #endif
 }
 

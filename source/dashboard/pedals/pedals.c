@@ -93,7 +93,7 @@ void pedalsPeriodic(void) {
     pedal_values.brake = b1_final;
 
     // Log the raw pedal values
-    SEND_RAW_THROTTLE_BRAKE(t1_raw, t2_raw, b1_raw, b2_raw, 0);
+    SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1, raw_adc_values.t2, raw_adc_values.b1, raw_adc_values.b2, 0);
 
     // Send the normalized pedal values to Main and TV
     SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);

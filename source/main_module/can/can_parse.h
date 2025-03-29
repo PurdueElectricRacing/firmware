@@ -31,6 +31,8 @@ typedef union {
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 #define ID_MAIN_HB_AMK 0xc001941
+#define ID_INVA_SET 0x188
+#define ID_INVB_SET 0x189
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
 #define ID_GEARBOX 0x10000901
@@ -45,19 +47,8 @@ typedef union {
 #define ID_SDC_STATUS 0xc000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
-#define ID_INVA_SET 0x188
-#define ID_INVB_SET 0x189
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE 0x17ffffc1
-#define ID_RAW_THROTTLE_BRAKE 0x10000285
-#define ID_FILT_THROTTLE_BRAKE 0x4000245
-#define ID_START_BUTTON 0x4000005
-#define ID_MAX_CELL_TEMP 0xc04e604
-#define ID_LWS_STANDARD 0x2b0
-#define ID_MAIN_MODULE_BL_CMD 0x409c43e
-#define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_THROTTLE_VCU 0x40025b7
-#define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_INVA_CRIT 0x282
 #define ID_INVA_INFO 0x286
 #define ID_INVA_TEMPS 0x284
@@ -68,6 +59,16 @@ typedef union {
 #define ID_INVB_TEMPS 0x285
 #define ID_INVB_ERR_1 0x289
 #define ID_INVB_ERR_2 0x291
+#define ID_RAW_THROTTLE_BRAKE 0x10000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
+#define ID_START_BUTTON 0x4000005
+#define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_LWS_STANDARD 0x2b0
+#define ID_MAIN_MODULE_BL_CMD 0x409c43e
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_THROTTLE_VCU 0x40025b7
+#define ID_THROTTLE_VCU_EQUAL 0x4002837
+#define ID_ORION_INFO 0x140006b8
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -81,6 +82,8 @@ typedef union {
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
 #define DLC_MAIN_HB_AMK 2
+#define DLC_INVA_SET 8
+#define DLC_INVB_SET 8
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
@@ -94,20 +97,9 @@ typedef union {
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_SDC_STATUS 2
 #define DLC_REAR_MOTOR_TEMPS 6
-#define DLC_REAR_WHEEL_SPEEDS 8
-#define DLC_INVA_SET 8
-#define DLC_INVB_SET 8
+#define DLC_REAR_WHEEL_SPEEDS 4
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE 8
-#define DLC_RAW_THROTTLE_BRAKE 8
-#define DLC_FILT_THROTTLE_BRAKE 3
-#define DLC_START_BUTTON 1
-#define DLC_MAX_CELL_TEMP 2
-#define DLC_LWS_STANDARD 5
-#define DLC_MAIN_MODULE_BL_CMD 5
-#define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_THROTTLE_VCU 4
-#define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_INVA_CRIT 8
 #define DLC_INVA_INFO 4
 #define DLC_INVA_TEMPS 6
@@ -118,6 +110,16 @@ typedef union {
 #define DLC_INVB_TEMPS 6
 #define DLC_INVB_ERR_1 8
 #define DLC_INVB_ERR_2 8
+#define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
+#define DLC_START_BUTTON 1
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_LWS_STANDARD 5
+#define DLC_MAIN_MODULE_BL_CMD 5
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU_EQUAL 4
+#define DLC_ORION_INFO 7
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -135,6 +137,34 @@ typedef union {
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->main_hb_amk.car_state = car_state_;\
         data_a->main_hb_amk.precharge_state = precharge_state_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVA_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .StdId=ID_INVA_SET, .DLC=DLC_INVA_SET, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVA_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->INVA_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->INVA_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->INVA_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->INVA_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->INVA_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
+        data_a->INVA_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->INVA_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->INVA_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_INVB_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .StdId=ID_INVB_SET, .DLC=DLC_INVB_SET, .IDE=0};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->INVB_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
+        data_a->INVB_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
+        data_a->INVB_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
+        data_a->INVB_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
+        data_a->INVB_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
+        data_a->INVB_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
+        data_a->INVB_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
+        data_a->INVB_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
+        data_a->INVB_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_MAIN_HB(car_state_, precharge_state_) do {\
@@ -229,19 +259,20 @@ typedef union {
         data_a->rear_motor_currents_volts.right_voltage = right_voltage_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_SDC_STATUS(IMD_, BMS_, BSPD_, BOTS_, inertia_, c_estop_, main_, r_estop_, l_estop_, HVD_, hub_, TSMS_, pchg_out_) do {\
+#define SEND_SDC_STATUS(main_, c_estop_, inertia_, BOTS_, BSPD_, BMS_, IMD_, r_estop_, l_estop_, HVD_, emeter_, hub_, TSMS_, pchg_out_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_SDC_STATUS, .DLC=DLC_SDC_STATUS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->sdc_status.IMD = IMD_;\
-        data_a->sdc_status.BMS = BMS_;\
-        data_a->sdc_status.BSPD = BSPD_;\
-        data_a->sdc_status.BOTS = BOTS_;\
-        data_a->sdc_status.inertia = inertia_;\
-        data_a->sdc_status.c_estop = c_estop_;\
         data_a->sdc_status.main = main_;\
+        data_a->sdc_status.c_estop = c_estop_;\
+        data_a->sdc_status.inertia = inertia_;\
+        data_a->sdc_status.BOTS = BOTS_;\
+        data_a->sdc_status.BSPD = BSPD_;\
+        data_a->sdc_status.BMS = BMS_;\
+        data_a->sdc_status.IMD = IMD_;\
         data_a->sdc_status.r_estop = r_estop_;\
         data_a->sdc_status.l_estop = l_estop_;\
         data_a->sdc_status.HVD = HVD_;\
+        data_a->sdc_status.emeter = emeter_;\
         data_a->sdc_status.hub = hub_;\
         data_a->sdc_status.TSMS = TSMS_;\
         data_a->sdc_status.pchg_out = pchg_out_;\
@@ -258,41 +289,11 @@ typedef union {
         data_a->rear_motor_temps.right_igbt_temp = right_igbt_temp_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_REAR_WHEEL_SPEEDS(left_speed_mc_, right_speed_mc_, left_speed_sensor_, right_speed_sensor_) do {\
+#define SEND_REAR_WHEEL_SPEEDS(left_speed_sensor_, right_speed_sensor_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_REAR_WHEEL_SPEEDS, .DLC=DLC_REAR_WHEEL_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->rear_wheel_speeds.left_speed_mc = left_speed_mc_;\
-        data_a->rear_wheel_speeds.right_speed_mc = right_speed_mc_;\
         data_a->rear_wheel_speeds.left_speed_sensor = left_speed_sensor_;\
         data_a->rear_wheel_speeds.right_speed_sensor = right_speed_sensor_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVA_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVA_SET, .DLC=DLC_INVA_SET, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVA_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
-        data_a->INVA_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
-        data_a->INVA_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
-        data_a->INVA_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
-        data_a->INVA_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
-        data_a->INVA_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
-        data_a->INVA_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
-        data_a->INVA_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
-        data_a->INVA_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_INVB_SET(AMK_Control_bReserve_, AMK_Control_bInverterOn_, AMK_Control_bDcOn_, AMK_Control_bEnable_, AMK_Control_bErrorReset_, AMK_Control_bReserve2_, AMK_TorqueSetpoint_, AMK_PositiveTorqueLimit_, AMK_NegativeTorqueLimit_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .StdId=ID_INVB_SET, .DLC=DLC_INVB_SET, .IDE=0};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->INVB_SET.AMK_Control_bReserve = AMK_Control_bReserve_;\
-        data_a->INVB_SET.AMK_Control_bInverterOn = AMK_Control_bInverterOn_;\
-        data_a->INVB_SET.AMK_Control_bDcOn = AMK_Control_bDcOn_;\
-        data_a->INVB_SET.AMK_Control_bEnable = AMK_Control_bEnable_;\
-        data_a->INVB_SET.AMK_Control_bErrorReset = AMK_Control_bErrorReset_;\
-        data_a->INVB_SET.AMK_Control_bReserve2 = AMK_Control_bReserve2_;\
-        data_a->INVB_SET.AMK_TorqueSetpoint = AMK_TorqueSetpoint_;\
-        data_a->INVB_SET.AMK_PositiveTorqueLimit = AMK_PositiveTorqueLimit_;\
-        data_a->INVB_SET.AMK_NegativeTorqueLimit = AMK_NegativeTorqueLimit_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
@@ -313,13 +314,6 @@ typedef union {
 // Stale Checking
 #define STALE_THRESH 30 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
-#define UP_RAW_THROTTLE_BRAKE 15
-#define UP_FILT_THROTTLE_BRAKE 15
-#define UP_MAX_CELL_TEMP 500
-#define UP_LWS_STANDARD 15
-#define UP_ORION_CURRENTS_VOLTS 32
-#define UP_THROTTLE_VCU 20
-#define UP_THROTTLE_VCU_EQUAL 20
 #define UP_INVA_CRIT 15
 #define UP_INVA_INFO 500
 #define UP_INVA_TEMPS 500
@@ -332,6 +326,14 @@ typedef union {
 #define UP_INVB_SET 15
 #define UP_INVB_ERR_1 2000
 #define UP_INVB_ERR_2 2000
+#define UP_RAW_THROTTLE_BRAKE 15
+#define UP_FILT_THROTTLE_BRAKE 15
+#define UP_MAX_CELL_TEMP 500
+#define UP_LWS_STANDARD 15
+#define UP_ORION_CURRENTS_VOLTS 32
+#define UP_THROTTLE_VCU 20
+#define UP_THROTTLE_VCU_EQUAL 20
+#define UP_ORION_INFO 32
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -407,6 +409,28 @@ typedef union {
         uint64_t precharge_state: 1;
     } main_hb_amk;
     struct {
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
+        uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
+    } INVA_SET;
+    struct {
+        uint64_t AMK_Control_bReserve: 8;
+        uint64_t AMK_Control_bInverterOn: 1;
+        uint64_t AMK_Control_bDcOn: 1;
+        uint64_t AMK_Control_bEnable: 1;
+        uint64_t AMK_Control_bErrorReset: 1;
+        uint64_t AMK_Control_bReserve2: 4;
+        uint64_t AMK_TorqueSetpoint: 16;
+        uint64_t AMK_PositiveTorqueLimit: 16;
+        uint64_t AMK_NegativeTorqueLimit: 16;
+    } INVB_SET;
+    struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
     } main_hb;
@@ -466,16 +490,17 @@ typedef union {
         uint64_t right_voltage: 16;
     } rear_motor_currents_volts;
     struct {
-        uint64_t IMD: 1;
-        uint64_t BMS: 1;
-        uint64_t BSPD: 1;
-        uint64_t BOTS: 1;
-        uint64_t inertia: 1;
-        uint64_t c_estop: 1;
         uint64_t main: 1;
+        uint64_t c_estop: 1;
+        uint64_t inertia: 1;
+        uint64_t BOTS: 1;
+        uint64_t BSPD: 1;
+        uint64_t BMS: 1;
+        uint64_t IMD: 1;
         uint64_t r_estop: 1;
         uint64_t l_estop: 1;
         uint64_t HVD: 1;
+        uint64_t emeter: 1;
         uint64_t hub: 1;
         uint64_t TSMS: 1;
         uint64_t pchg_out: 1;
@@ -489,33 +514,9 @@ typedef union {
         uint64_t right_igbt_temp: 8;
     } rear_motor_temps;
     struct {
-        uint64_t left_speed_mc: 16;
-        uint64_t right_speed_mc: 16;
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
-    struct {
-        uint64_t AMK_Control_bReserve: 8;
-        uint64_t AMK_Control_bInverterOn: 1;
-        uint64_t AMK_Control_bDcOn: 1;
-        uint64_t AMK_Control_bEnable: 1;
-        uint64_t AMK_Control_bErrorReset: 1;
-        uint64_t AMK_Control_bReserve2: 4;
-        uint64_t AMK_TorqueSetpoint: 16;
-        uint64_t AMK_PositiveTorqueLimit: 16;
-        uint64_t AMK_NegativeTorqueLimit: 16;
-    } INVA_SET;
-    struct {
-        uint64_t AMK_Control_bReserve: 8;
-        uint64_t AMK_Control_bInverterOn: 1;
-        uint64_t AMK_Control_bDcOn: 1;
-        uint64_t AMK_Control_bEnable: 1;
-        uint64_t AMK_Control_bErrorReset: 1;
-        uint64_t AMK_Control_bReserve2: 4;
-        uint64_t AMK_TorqueSetpoint: 16;
-        uint64_t AMK_PositiveTorqueLimit: 16;
-        uint64_t AMK_NegativeTorqueLimit: 16;
-    } INVB_SET;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -523,48 +524,6 @@ typedef union {
     struct {
         uint64_t daq_response: 64;
     } daq_response_MAIN_MODULE;
-    struct {
-        uint64_t throttle: 12;
-        uint64_t throttle_right: 12;
-        uint64_t brake: 12;
-        uint64_t brake_right: 12;
-        uint64_t brake_pot: 12;
-    } raw_throttle_brake;
-    struct {
-        uint64_t throttle: 12;
-        uint64_t brake: 12;
-    } filt_throttle_brake;
-    struct {
-        uint64_t start: 1;
-    } start_button;
-    struct {
-        uint64_t max_temp: 16;
-    } max_cell_temp;
-    struct {
-        uint64_t LWS_ANGLE: 16;
-        uint64_t LWS_SPEED: 8;
-        uint64_t Ok: 1;
-        uint64_t Cal: 1;
-        uint64_t Trim: 1;
-        uint64_t Reserved_1: 5;
-        uint64_t Reserved_2: 8;
-    } LWS_Standard;
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } main_module_bl_cmd;
-    struct {
-        uint64_t pack_current: 16;
-        uint64_t pack_voltage: 16;
-    } orion_currents_volts;
-    struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_vcu;
-    struct {
-        uint64_t equal_k_rl: 16;
-        uint64_t equal_k_rr: 16;
-    } throttle_vcu_equal;
     struct {
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_ActualTorque: 16;
@@ -628,6 +587,69 @@ typedef union {
         uint64_t AMK_ErrorInfo3: 32;
     } INVB_ERR_2;
     struct {
+        uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
+        uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
+    } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
+    struct {
+        uint64_t start: 1;
+    } start_button;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Ok: 1;
+        uint64_t Cal: 1;
+        uint64_t Trim: 1;
+        uint64_t Reserved_1: 5;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } main_module_bl_cmd;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
+    struct {
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu_equal;
+    struct {
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -665,6 +687,114 @@ typedef union {
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
+    struct {
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_CRIT;
+    struct {
+        uint8_t AMK_Status_bReserve;
+        uint8_t AMK_Status_bSystemReady;
+        uint8_t AMK_Status_bError;
+        uint8_t AMK_Status_bWarn;
+        uint8_t AMK_Status_bQuitDcOn;
+        uint8_t AMK_Status_bDcOn;
+        uint8_t AMK_Status_bQuitInverterOn;
+        uint8_t AMK_Status_bInverterOn;
+        uint8_t AMK_Status_bDerating;
+        uint16_t AMK_DCBusVoltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_INFO;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_TEMPS;
+    struct {
+        uint8_t AMK_Control_bReserve;
+        uint8_t AMK_Control_bInverterOn;
+        uint8_t AMK_Control_bDcOn;
+        uint8_t AMK_Control_bEnable;
+        uint8_t AMK_Control_bErrorReset;
+        uint8_t AMK_Control_bReserve2;
+        int16_t AMK_TorqueSetpoint;
+        int16_t AMK_PositiveTorqueLimit;
+        int16_t AMK_NegativeTorqueLimit;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_SET;
+    struct {
+        uint32_t AMK_DiagnosticNumber;
+        uint32_t AMK_ErrorInfo1;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_ERR_1;
+    struct {
+        uint32_t AMK_ErrorInfo2;
+        uint32_t AMK_ErrorInfo3;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_ERR_2;
+    struct {
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_CRIT;
+    struct {
+        uint8_t AMK_Status_bReserve;
+        uint8_t AMK_Status_bSystemReady;
+        uint8_t AMK_Status_bError;
+        uint8_t AMK_Status_bWarn;
+        uint8_t AMK_Status_bQuitDcOn;
+        uint8_t AMK_Status_bDcOn;
+        uint8_t AMK_Status_bQuitInverterOn;
+        uint8_t AMK_Status_bInverterOn;
+        uint8_t AMK_Status_bDerating;
+        uint16_t AMK_DCBusVoltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_INFO;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_TEMPS;
+    struct {
+        uint8_t AMK_Control_bReserve;
+        uint8_t AMK_Control_bInverterOn;
+        uint8_t AMK_Control_bDcOn;
+        uint8_t AMK_Control_bEnable;
+        uint8_t AMK_Control_bErrorReset;
+        uint8_t AMK_Control_bReserve2;
+        int16_t AMK_TorqueSetpoint;
+        int16_t AMK_PositiveTorqueLimit;
+        int16_t AMK_NegativeTorqueLimit;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_SET;
+    struct {
+        uint32_t AMK_DiagnosticNumber;
+        uint32_t AMK_ErrorInfo1;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_ERR_1;
+    struct {
+        uint32_t AMK_ErrorInfo2;
+        uint32_t AMK_ErrorInfo3;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_ERR_2;
     struct {
         uint16_t throttle;
         uint16_t throttle_right;
@@ -722,113 +852,28 @@ typedef struct {
         uint32_t last_rx;
     } throttle_vcu_equal;
     struct {
-        int16_t AMK_ActualSpeed;
-        int16_t AMK_ActualTorque;
-        uint16_t AMK_DisplayOverloadInverter;
-        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
         uint8_t stale;
         uint32_t last_rx;
-    } INVA_CRIT;
-    struct {
-        uint8_t AMK_Status_bReserve;
-        uint8_t AMK_Status_bSystemReady;
-        uint8_t AMK_Status_bError;
-        uint8_t AMK_Status_bWarn;
-        uint8_t AMK_Status_bQuitDcOn;
-        uint8_t AMK_Status_bDcOn;
-        uint8_t AMK_Status_bQuitInverterOn;
-        uint8_t AMK_Status_bInverterOn;
-        uint8_t AMK_Status_bDerating;
-        uint16_t AMK_DCBusVoltage;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVA_INFO;
-    struct {
-        int16_t AMK_MotorTemp;
-        int16_t AMK_InverterTemp;
-        int16_t AMK_IGBTTemp;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVA_TEMPS;
-    struct {
-        uint8_t AMK_Control_bReserve;
-        uint8_t AMK_Control_bInverterOn;
-        uint8_t AMK_Control_bDcOn;
-        uint8_t AMK_Control_bEnable;
-        uint8_t AMK_Control_bErrorReset;
-        uint8_t AMK_Control_bReserve2;
-        int16_t AMK_TorqueSetpoint;
-        int16_t AMK_PositiveTorqueLimit;
-        int16_t AMK_NegativeTorqueLimit;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVA_SET;
-    struct {
-        uint32_t AMK_DiagnosticNumber;
-        uint32_t AMK_ErrorInfo1;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVA_ERR_1;
-    struct {
-        uint32_t AMK_ErrorInfo2;
-        uint32_t AMK_ErrorInfo3;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVA_ERR_2;
-    struct {
-        int16_t AMK_ActualSpeed;
-        int16_t AMK_ActualTorque;
-        uint16_t AMK_DisplayOverloadInverter;
-        uint16_t AMK_DisplayOverloadMotor;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVB_CRIT;
-    struct {
-        uint8_t AMK_Status_bReserve;
-        uint8_t AMK_Status_bSystemReady;
-        uint8_t AMK_Status_bError;
-        uint8_t AMK_Status_bWarn;
-        uint8_t AMK_Status_bQuitDcOn;
-        uint8_t AMK_Status_bDcOn;
-        uint8_t AMK_Status_bQuitInverterOn;
-        uint8_t AMK_Status_bInverterOn;
-        uint8_t AMK_Status_bDerating;
-        uint16_t AMK_DCBusVoltage;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVB_INFO;
-    struct {
-        int16_t AMK_MotorTemp;
-        int16_t AMK_InverterTemp;
-        int16_t AMK_IGBTTemp;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVB_TEMPS;
-    struct {
-        uint8_t AMK_Control_bReserve;
-        uint8_t AMK_Control_bInverterOn;
-        uint8_t AMK_Control_bDcOn;
-        uint8_t AMK_Control_bEnable;
-        uint8_t AMK_Control_bErrorReset;
-        uint8_t AMK_Control_bReserve2;
-        int16_t AMK_TorqueSetpoint;
-        int16_t AMK_PositiveTorqueLimit;
-        int16_t AMK_NegativeTorqueLimit;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVB_SET;
-    struct {
-        uint32_t AMK_DiagnosticNumber;
-        uint32_t AMK_ErrorInfo1;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVB_ERR_1;
-    struct {
-        uint32_t AMK_ErrorInfo2;
-        uint32_t AMK_ErrorInfo3;
-        uint8_t stale;
-        uint32_t last_rx;
-    } INVB_ERR_2;
+    } orion_info;
     struct {
         uint16_t idx;
         uint8_t latched;

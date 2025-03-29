@@ -36,71 +36,6 @@ void canRxUpdate(void)
         {
             switch(msg_header.ExtId)
             {
-                default:
-                    __asm__("nop");
-            }
-        }
-        else if (msg_header.Bus == CAN1)
-        {
-            switch(msg_header.ExtId)
-            {
-                case ID_RAW_THROTTLE_BRAKE:
-                    can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
-                    can_data.raw_throttle_brake.throttle_right = msg_data_a->raw_throttle_brake.throttle_right;
-                    can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
-                    can_data.raw_throttle_brake.brake_right = msg_data_a->raw_throttle_brake.brake_right;
-                    can_data.raw_throttle_brake.brake_pot = msg_data_a->raw_throttle_brake.brake_pot;
-                    can_data.raw_throttle_brake.stale = 0;
-                    can_data.raw_throttle_brake.last_rx = sched.os_ticks;
-                    break;
-                case ID_FILT_THROTTLE_BRAKE:
-                    can_data.filt_throttle_brake.throttle = msg_data_a->filt_throttle_brake.throttle;
-                    can_data.filt_throttle_brake.brake = msg_data_a->filt_throttle_brake.brake;
-                    can_data.filt_throttle_brake.stale = 0;
-                    can_data.filt_throttle_brake.last_rx = sched.os_ticks;
-                    break;
-                case ID_START_BUTTON:
-                    can_data.start_button.start = msg_data_a->start_button.start;
-                    break;
-                case ID_MAX_CELL_TEMP:
-                    can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
-                    can_data.max_cell_temp.stale = 0;
-                    can_data.max_cell_temp.last_rx = sched.os_ticks;
-                    break;
-                case ID_LWS_STANDARD:
-                    can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
-                    can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
-                    can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
-                    can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
-                    can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
-                    can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
-                    can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
-                    can_data.LWS_Standard.stale = 0;
-                    can_data.LWS_Standard.last_rx = sched.os_ticks;
-                    break;
-                case ID_MAIN_MODULE_BL_CMD:
-                    can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
-                    can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
-                    main_module_bl_cmd_CALLBACK(msg_data_a);
-                    break;
-                case ID_ORION_CURRENTS_VOLTS:
-                    can_data.orion_currents_volts.pack_current = (int16_t) msg_data_a->orion_currents_volts.pack_current;
-                    can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
-                    can_data.orion_currents_volts.stale = 0;
-                    can_data.orion_currents_volts.last_rx = sched.os_ticks;
-                    break;
-                case ID_THROTTLE_VCU:
-                    can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
-                    can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
-                    can_data.throttle_vcu.stale = 0;
-                    can_data.throttle_vcu.last_rx = sched.os_ticks;
-                    break;
-                case ID_THROTTLE_VCU_EQUAL:
-                    can_data.throttle_vcu_equal.equal_k_rl = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rl;
-                    can_data.throttle_vcu_equal.equal_k_rr = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rr;
-                    can_data.throttle_vcu_equal.stale = 0;
-                    can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
-                    break;
                 case ID_INVA_CRIT:
                     can_data.INVA_CRIT.AMK_ActualSpeed = (int16_t) msg_data_a->INVA_CRIT.AMK_ActualSpeed;
                     can_data.INVA_CRIT.AMK_ActualTorque = (int16_t) msg_data_a->INVA_CRIT.AMK_ActualTorque;
@@ -209,6 +144,94 @@ void canRxUpdate(void)
                     can_data.INVB_ERR_2.stale = 0;
                     can_data.INVB_ERR_2.last_rx = sched.os_ticks;
                     break;
+                default:
+                    __asm__("nop");
+            }
+        }
+        else if (msg_header.Bus == CAN1)
+        {
+            switch(msg_header.ExtId)
+            {
+                case ID_RAW_THROTTLE_BRAKE:
+                    can_data.raw_throttle_brake.throttle = msg_data_a->raw_throttle_brake.throttle;
+                    can_data.raw_throttle_brake.throttle_right = msg_data_a->raw_throttle_brake.throttle_right;
+                    can_data.raw_throttle_brake.brake = msg_data_a->raw_throttle_brake.brake;
+                    can_data.raw_throttle_brake.brake_right = msg_data_a->raw_throttle_brake.brake_right;
+                    can_data.raw_throttle_brake.brake_pot = msg_data_a->raw_throttle_brake.brake_pot;
+                    can_data.raw_throttle_brake.stale = 0;
+                    can_data.raw_throttle_brake.last_rx = sched.os_ticks;
+                    break;
+                case ID_FILT_THROTTLE_BRAKE:
+                    can_data.filt_throttle_brake.throttle = msg_data_a->filt_throttle_brake.throttle;
+                    can_data.filt_throttle_brake.brake = msg_data_a->filt_throttle_brake.brake;
+                    can_data.filt_throttle_brake.stale = 0;
+                    can_data.filt_throttle_brake.last_rx = sched.os_ticks;
+                    break;
+                case ID_START_BUTTON:
+                    can_data.start_button.start = msg_data_a->start_button.start;
+                    break;
+                case ID_MAX_CELL_TEMP:
+                    can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
+                    can_data.max_cell_temp.stale = 0;
+                    can_data.max_cell_temp.last_rx = sched.os_ticks;
+                    break;
+                case ID_LWS_STANDARD:
+                    can_data.LWS_Standard.LWS_ANGLE = (int16_t) msg_data_a->LWS_Standard.LWS_ANGLE;
+                    can_data.LWS_Standard.LWS_SPEED = msg_data_a->LWS_Standard.LWS_SPEED;
+                    can_data.LWS_Standard.Ok = msg_data_a->LWS_Standard.Ok;
+                    can_data.LWS_Standard.Cal = msg_data_a->LWS_Standard.Cal;
+                    can_data.LWS_Standard.Trim = msg_data_a->LWS_Standard.Trim;
+                    can_data.LWS_Standard.Reserved_1 = msg_data_a->LWS_Standard.Reserved_1;
+                    can_data.LWS_Standard.Reserved_2 = msg_data_a->LWS_Standard.Reserved_2;
+                    can_data.LWS_Standard.stale = 0;
+                    can_data.LWS_Standard.last_rx = sched.os_ticks;
+                    break;
+                case ID_MAIN_MODULE_BL_CMD:
+                    can_data.main_module_bl_cmd.cmd = msg_data_a->main_module_bl_cmd.cmd;
+                    can_data.main_module_bl_cmd.data = msg_data_a->main_module_bl_cmd.data;
+                    main_module_bl_cmd_CALLBACK(msg_data_a);
+                    break;
+                case ID_ORION_CURRENTS_VOLTS:
+                    can_data.orion_currents_volts.pack_current = (int16_t) msg_data_a->orion_currents_volts.pack_current;
+                    can_data.orion_currents_volts.pack_voltage = msg_data_a->orion_currents_volts.pack_voltage;
+                    can_data.orion_currents_volts.stale = 0;
+                    can_data.orion_currents_volts.last_rx = sched.os_ticks;
+                    break;
+                case ID_THROTTLE_VCU:
+                    can_data.throttle_vcu.vcu_k_rl = (int16_t) msg_data_a->throttle_vcu.vcu_k_rl;
+                    can_data.throttle_vcu.vcu_k_rr = (int16_t) msg_data_a->throttle_vcu.vcu_k_rr;
+                    can_data.throttle_vcu.stale = 0;
+                    can_data.throttle_vcu.last_rx = sched.os_ticks;
+                    break;
+                case ID_THROTTLE_VCU_EQUAL:
+                    can_data.throttle_vcu_equal.equal_k_rl = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rl;
+                    can_data.throttle_vcu_equal.equal_k_rr = (int16_t) msg_data_a->throttle_vcu_equal.equal_k_rr;
+                    can_data.throttle_vcu_equal.stale = 0;
+                    can_data.throttle_vcu_equal.last_rx = sched.os_ticks;
+                    break;
+                case ID_ORION_INFO:
+                    can_data.orion_info.discharge_enable = msg_data_a->orion_info.discharge_enable;
+                    can_data.orion_info.charge_enable = msg_data_a->orion_info.charge_enable;
+                    can_data.orion_info.charger_safety = msg_data_a->orion_info.charger_safety;
+                    can_data.orion_info.dtc_status = msg_data_a->orion_info.dtc_status;
+                    can_data.orion_info.multi_input = msg_data_a->orion_info.multi_input;
+                    can_data.orion_info.always_on = msg_data_a->orion_info.always_on;
+                    can_data.orion_info.is_ready = msg_data_a->orion_info.is_ready;
+                    can_data.orion_info.is_charging = msg_data_a->orion_info.is_charging;
+                    can_data.orion_info.multi_input_2 = msg_data_a->orion_info.multi_input_2;
+                    can_data.orion_info.multi_input_3 = msg_data_a->orion_info.multi_input_3;
+                    can_data.orion_info.reserved = msg_data_a->orion_info.reserved;
+                    can_data.orion_info.multi_output_2 = msg_data_a->orion_info.multi_output_2;
+                    can_data.orion_info.multi_output_3 = msg_data_a->orion_info.multi_output_3;
+                    can_data.orion_info.multi_output_4 = msg_data_a->orion_info.multi_output_4;
+                    can_data.orion_info.multi_enable = msg_data_a->orion_info.multi_enable;
+                    can_data.orion_info.multi_output_1 = msg_data_a->orion_info.multi_output_1;
+                    can_data.orion_info.pack_dcl = msg_data_a->orion_info.pack_dcl;
+                    can_data.orion_info.pack_ccl = msg_data_a->orion_info.pack_ccl;
+                    can_data.orion_info.pack_soc = msg_data_a->orion_info.pack_soc;
+                    can_data.orion_info.stale = 0;
+                    can_data.orion_info.last_rx = sched.os_ticks;
+                    break;
                 case ID_FAULT_SYNC_PDU:
                     can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                     can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -255,27 +278,6 @@ void canRxUpdate(void)
     }
 
     /* BEGIN AUTO STALE CHECKS */
-    CHECK_STALE(can_data.raw_throttle_brake.stale,
-                sched.os_ticks, can_data.raw_throttle_brake.last_rx,
-                UP_RAW_THROTTLE_BRAKE);
-    CHECK_STALE(can_data.filt_throttle_brake.stale,
-                sched.os_ticks, can_data.filt_throttle_brake.last_rx,
-                UP_FILT_THROTTLE_BRAKE);
-    CHECK_STALE(can_data.max_cell_temp.stale,
-                sched.os_ticks, can_data.max_cell_temp.last_rx,
-                UP_MAX_CELL_TEMP);
-    CHECK_STALE(can_data.LWS_Standard.stale,
-                sched.os_ticks, can_data.LWS_Standard.last_rx,
-                UP_LWS_STANDARD);
-    CHECK_STALE(can_data.orion_currents_volts.stale,
-                sched.os_ticks, can_data.orion_currents_volts.last_rx,
-                UP_ORION_CURRENTS_VOLTS);
-    CHECK_STALE(can_data.throttle_vcu.stale,
-                sched.os_ticks, can_data.throttle_vcu.last_rx,
-                UP_THROTTLE_VCU);
-    CHECK_STALE(can_data.throttle_vcu_equal.stale,
-                sched.os_ticks, can_data.throttle_vcu_equal.last_rx,
-                UP_THROTTLE_VCU_EQUAL);
     CHECK_STALE(can_data.INVA_CRIT.stale,
                 sched.os_ticks, can_data.INVA_CRIT.last_rx,
                 UP_INVA_CRIT);
@@ -312,6 +314,30 @@ void canRxUpdate(void)
     CHECK_STALE(can_data.INVB_ERR_2.stale,
                 sched.os_ticks, can_data.INVB_ERR_2.last_rx,
                 UP_INVB_ERR_2);
+    CHECK_STALE(can_data.raw_throttle_brake.stale,
+                sched.os_ticks, can_data.raw_throttle_brake.last_rx,
+                UP_RAW_THROTTLE_BRAKE);
+    CHECK_STALE(can_data.filt_throttle_brake.stale,
+                sched.os_ticks, can_data.filt_throttle_brake.last_rx,
+                UP_FILT_THROTTLE_BRAKE);
+    CHECK_STALE(can_data.max_cell_temp.stale,
+                sched.os_ticks, can_data.max_cell_temp.last_rx,
+                UP_MAX_CELL_TEMP);
+    CHECK_STALE(can_data.LWS_Standard.stale,
+                sched.os_ticks, can_data.LWS_Standard.last_rx,
+                UP_LWS_STANDARD);
+    CHECK_STALE(can_data.orion_currents_volts.stale,
+                sched.os_ticks, can_data.orion_currents_volts.last_rx,
+                UP_ORION_CURRENTS_VOLTS);
+    CHECK_STALE(can_data.throttle_vcu.stale,
+                sched.os_ticks, can_data.throttle_vcu.last_rx,
+                UP_THROTTLE_VCU);
+    CHECK_STALE(can_data.throttle_vcu_equal.stale,
+                sched.os_ticks, can_data.throttle_vcu_equal.last_rx,
+                UP_THROTTLE_VCU_EQUAL);
+    CHECK_STALE(can_data.orion_info.stale,
+                sched.os_ticks, can_data.orion_info.last_rx,
+                UP_ORION_INFO);
     /* END AUTO STALE CHECKS */
 }
 
@@ -329,6 +355,24 @@ bool initCANFilter()
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
+    CAN1->FA1R |= (1 << 14);    // configure bank 14
+    CAN1->sFilterRegister[14].FR1 = (ID_INVA_CRIT << 21);
+    CAN1->sFilterRegister[14].FR2 = (ID_INVA_INFO << 21);
+    CAN1->FA1R |= (1 << 15);    // configure bank 15
+    CAN1->sFilterRegister[15].FR1 = (ID_INVA_TEMPS << 21);
+    CAN1->sFilterRegister[15].FR2 = (ID_INVA_SET << 21);
+    CAN1->FA1R |= (1 << 16);    // configure bank 16
+    CAN1->sFilterRegister[16].FR1 = (ID_INVA_ERR_1 << 21);
+    CAN1->sFilterRegister[16].FR2 = (ID_INVA_ERR_2 << 21);
+    CAN1->FA1R |= (1 << 17);    // configure bank 17
+    CAN1->sFilterRegister[17].FR1 = (ID_INVB_CRIT << 21);
+    CAN1->sFilterRegister[17].FR2 = (ID_INVB_INFO << 21);
+    CAN1->FA1R |= (1 << 18);    // configure bank 18
+    CAN1->sFilterRegister[18].FR1 = (ID_INVB_TEMPS << 21);
+    CAN1->sFilterRegister[18].FR2 = (ID_INVB_SET << 21);
+    CAN1->FA1R |= (1 << 19);    // configure bank 19
+    CAN1->sFilterRegister[19].FR1 = (ID_INVB_ERR_1 << 21);
+    CAN1->sFilterRegister[19].FR2 = (ID_INVB_ERR_2 << 21);
     CAN1->FA1R |= (1 << 0);    // configure bank 0
     CAN1->sFilterRegister[0].FR1 = (ID_RAW_THROTTLE_BRAKE << 3) | 4;
     CAN1->sFilterRegister[0].FR2 = (ID_FILT_THROTTLE_BRAKE << 3) | 4;
@@ -343,36 +387,19 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_THROTTLE_VCU_EQUAL << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_INVA_CRIT << 21);
+    CAN1->sFilterRegister[4].FR2 = (ID_ORION_INFO << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_INVA_INFO << 21);
-    CAN1->sFilterRegister[5].FR2 = (ID_INVA_TEMPS << 21);
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_INVA_SET << 21);
-    CAN1->sFilterRegister[6].FR2 = (ID_INVA_ERR_1 << 21);
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_INVA_ERR_2 << 21);
-    CAN1->sFilterRegister[7].FR2 = (ID_INVB_CRIT << 21);
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_INVB_INFO << 21);
-    CAN1->sFilterRegister[8].FR2 = (ID_INVB_TEMPS << 21);
-    CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_INVB_SET << 21);
-    CAN1->sFilterRegister[9].FR2 = (ID_INVB_ERR_1 << 21);
-    CAN1->FA1R |= (1 << 10);    // configure bank 10
-    CAN1->sFilterRegister[10].FR1 = (ID_INVB_ERR_2 << 21);
-    CAN1->sFilterRegister[10].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
-    CAN1->FA1R |= (1 << 11);    // configure bank 11
-    CAN1->sFilterRegister[11].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[11].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->FA1R |= (1 << 12);    // configure bank 12
-    CAN1->sFilterRegister[12].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[12].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->FA1R |= (1 << 13);    // configure bank 13
-    CAN1->sFilterRegister[13].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[13].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->FA1R |= (1 << 14);    // configure bank 14
-    CAN1->sFilterRegister[14].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

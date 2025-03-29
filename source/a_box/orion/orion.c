@@ -60,7 +60,7 @@ bool orionErrors() {
 
     orion_error = bms_err;
 
-    return (orion_error || can_data.orion_info.stale);
+    return orion_error;// TODO:  || can_data.orion_info_charger.stale);
 }
 
 /*
@@ -78,15 +78,15 @@ void orionChargePeriodic() {
     uint16_t charge_voltage;           // Current pack voltage from charger
     float power;
 
-    orion_charger_status = can_data.orion_info_charger.is_charging  &&
-                           !can_data.orion_info.stale;
+    orion_charger_status = can_data.orion_info_charger.is_charging &&
+                            !can_data.orion_info_charger.stale;
 
     charge_request_user &= !can_data.elcon_charger_status.stale;
     if (charge_request_user && orion_charger_status && !orionErrors() && !errorLatched() && !fatalLatched()) {
             elcon_charge_enable = true;
 
              //user_charge_current_request = 10;
-            charge_current_req = MIN(can_data.orion_info.pack_ccl, user_charge_current_request);
+            charge_current_req = MIN(can_data.orion_info_charger.pack_ccl, user_charge_current_request);
 
              //user_charge_voltage_request = 314;
             charge_voltage_req = MIN(user_charge_voltage_request, MAX_VOLT); // Hard limit, don't overcharge

@@ -94,9 +94,11 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">gps.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="gps_8h_source.html">gps.h</a>&quot;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -223,7 +225,31 @@ false Parsing failed </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .raw_message = {0},</div>
+<div class="line">    .g_speed = 0,</div>
+<div class="line">    .g_speed_rounded = 0,</div>
+<div class="line">    .longitude = 0,</div>
+<div class="line">    .lon_rounded = 0,</div>
+<div class="line">    .latitude = 0,</div>
+<div class="line">    .lat_rounded = 0,</div>
+<div class="line">    .height = 0,</div>
+<div class="line">    .height_rounded = 0,</div>
+<div class="line">    .n_vel = 0,</div>
+<div class="line">    .n_vel_rounded = 0,</div>
+<div class="line">    .e_vel = 0,</div>
+<div class="line">    .e_vel_rounded = 0,</div>
+<div class="line">    .d_vel = 0,</div>
+<div class="line">    .d_vel_rounded = 0,</div>
+<div class="line">    .headVeh = 0,</div>
+<div class="line">    .headVeh_rounded = 0,</div>
+<div class="line">    .mag_dec = 0,</div>
+<div class="line">    .fix_type = -1,</div>
+<div class="line">    .iTOW = 0,</div>
+<div class="line">    .unique_iTOW = <span class="keyword">true</span>,</div>
+<div class="line">    .messages_received = -1</div>
+<div class="line">}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a776d0eb374fadf821cf7bd618596792a" name="a776d0eb374fadf821cf7bd618596792a"></a>

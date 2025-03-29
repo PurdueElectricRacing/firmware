@@ -13,5 +13,6 @@ var searchData=
   ['tag_5ftljx1rjfj1qvlkgios4ywb_10',['tag_tLjx1RjfJ1qVLkgioS4yWB',['../structtag__tLjx1RjfJ1qVLkgioS4yWB.html',1,'']]],
   ['tag_5fyr8ab8akrt9utdoscffiyb_11',['tag_yR8ab8akrT9uTdOSCFfIYB',['../structtag__yR8ab8akrT9uTdOSCFfIYB.html',1,'']]],
   ['tmu_5fhandle_5ft_12',['tmu_handle_t',['../structtmu__handle__t.html',1,'']]],
-  ['torquerequest_5ft_13',['torqueRequest_t',['../structtorqueRequest__t.html',1,'']]]
+  ['tmu_5finfo_5ft_13',['tmu_info_t',['../structtmu__info__t.html',1,'']]],
+  ['torquerequest_5ft_14',['torqueRequest_t',['../structtorqueRequest__t.html',1,'']]]
 ];

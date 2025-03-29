@@ -1,6 +1,8 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include "gps.h"
+#include "can_parse.h"
 //#include "sfs_pp.h"
 //#include "SFS.h"
 
@@ -31,43 +33,35 @@ signed long prev_iTOW;
 uint16_t counter;
 uint16_t diff;
 // Nav Message
-GPS_Handle_t gps_handle = {.raw_message = {0},
-                           .g_speed = 0,
-                           .g_speed_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .g_speed_rounded = 0,
-                           .longitude_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .longitude = 0,
-                           .lon_rounded = 0,
-                           .latitude_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .latitude = 0,
-                           .lat_rounded = 0,
-                           .height_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .height = 0,
-                           .height_rounded = 0,
-                           .n_vel_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .n_vel = 0,
-                           .n_vel_rounded = 0,
-                           .e_vel_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .e_vel = 0,
-                           .e_vel_rounded = 0,
-                           .d_vel_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .d_vel = 0,
-                           .d_vel_rounded = 0,
-                           .headVeh_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .headVeh = 0,
-                           .headVeh_rounded = 0,
-                           .mag_dec_bytes = {0xFF, 0xFF},
-                           .mag_dec = 0,
-                           .fix_type = -1,
-                           .iTOW_bytes = {0xFF, 0xFF, 0xFF, 0xFF},
-                           .iTOW = 0,
-                           .unique_iTOW = true,
-                           .messages_received = -1};
+GPS_Handle_t gps_handle = {
+    .raw_message = {0},
+    .g_speed = 0,
+    .g_speed_rounded = 0,
+    .longitude = 0,
+    .lon_rounded = 0,
+    .latitude = 0,
+    .lat_rounded = 0,
+    .height = 0,
+    .height_rounded = 0,
+    .n_vel = 0,
+    .n_vel_rounded = 0,
+    .e_vel = 0,
+    .e_vel_rounded = 0,
+    .d_vel = 0,
+    .d_vel_rounded = 0,
+    .headVeh = 0,
+    .headVeh_rounded = 0,
+    .mag_dec = 0,
+    .fix_type = -1,
+    .iTOW = 0,
+    .unique_iTOW = true,
+    .messages_received = -1
+};
 
 // Parse velocity from raw message
 bool parseVelocity(GPS_Handle_t *GPS)
 {
-    // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT
+    // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT 
     // Validate the message header, class, and id
     if (((GPS->raw_message)[0] == UBX_NAV_PVT_HEADER_B0) && (GPS->raw_message[1] == UBX_NAV_PVT_HEADER_B1) &&
         ((GPS->raw_message)[2] == UBX_NAV_PVT_CLASS) && ((GPS->raw_message)[3] == UBX_NAV_PVT_MSG_ID))
@@ -79,10 +73,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
         {
             correctFix = true;
             // Collect Ground Speed
-            GPS->g_speed_bytes[0] = GPS->raw_message[66];
-            GPS->g_speed_bytes[1] = GPS->raw_message[67];
-            GPS->g_speed_bytes[2] = GPS->raw_message[68];
-            GPS->g_speed_bytes[3] = GPS->raw_message[69];
             iLong.bytes[0] = GPS->raw_message[66];
             iLong.bytes[1] = GPS->raw_message[67];
             iLong.bytes[2] = GPS->raw_message[68];
@@ -91,10 +81,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->g_speed_rounded = (int16_t)(GPS->g_speed / 10);
 
             // Collect Longitude
-            GPS->longitude_bytes[0] = GPS->raw_message[30];
-            GPS->longitude_bytes[1] = GPS->raw_message[31];
-            GPS->longitude_bytes[2] = GPS->raw_message[32];
-            GPS->longitude_bytes[3] = GPS->raw_message[33];
             iLong.bytes[0] = GPS->raw_message[30];
             iLong.bytes[1] = GPS->raw_message[31];
             iLong.bytes[2] = GPS->raw_message[32];
@@ -103,10 +89,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->lon_rounded = (int32_t)(GPS->longitude);
 
             // Colect Latitude
-            GPS->latitude_bytes[0] = GPS->raw_message[34];
-            GPS->latitude_bytes[1] = GPS->raw_message[35];
-            GPS->latitude_bytes[2] = GPS->raw_message[36];
-            GPS->latitude_bytes[3] = GPS->raw_message[37];
             iLong.bytes[0] = GPS->raw_message[34];
             iLong.bytes[1] = GPS->raw_message[35];
             iLong.bytes[2] = GPS->raw_message[36];
@@ -115,10 +97,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->lat_rounded = (int32_t)(GPS->latitude);
 
             // Collect Height above mean sea level
-            GPS->height_bytes[0] = GPS->raw_message[42];
-            GPS->height_bytes[1] = GPS->raw_message[43];
-            GPS->height_bytes[2] = GPS->raw_message[44];
-            GPS->height_bytes[3] = GPS->raw_message[45];
             iLong.bytes[0] = GPS->raw_message[42];
             iLong.bytes[1] = GPS->raw_message[43];
             iLong.bytes[2] = GPS->raw_message[44];
@@ -127,10 +105,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->height_rounded = (int16_t)(GPS->height / 10);
 
             // Collect North Velocity
-            GPS->n_vel_bytes[0] = GPS->raw_message[54];
-            GPS->n_vel_bytes[1] = GPS->raw_message[55];
-            GPS->n_vel_bytes[2] = GPS->raw_message[56];
-            GPS->n_vel_bytes[3] = GPS->raw_message[57];
             iLong.bytes[0] = GPS->raw_message[54];
             iLong.bytes[1] = GPS->raw_message[55];
             iLong.bytes[2] = GPS->raw_message[56];
@@ -139,10 +113,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->n_vel_rounded = (int16_t)(GPS->n_vel / 10);
 
             // Collect East Velocity
-            GPS->e_vel_bytes[0] = GPS->raw_message[58];
-            GPS->e_vel_bytes[1] = GPS->raw_message[59];
-            GPS->e_vel_bytes[2] = GPS->raw_message[60];
-            GPS->e_vel_bytes[3] = GPS->raw_message[61];
             iLong.bytes[0] = GPS->raw_message[58];
             iLong.bytes[1] = GPS->raw_message[59];
             iLong.bytes[2] = GPS->raw_message[60];
@@ -151,10 +121,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->e_vel_rounded = (int16_t)(GPS->e_vel / 10);
 
             // Collect Down Velocity
-            GPS->d_vel_bytes[0] = GPS->raw_message[62];
-            GPS->d_vel_bytes[1] = GPS->raw_message[63];
-            GPS->d_vel_bytes[2] = GPS->raw_message[64];
-            GPS->d_vel_bytes[3] = GPS->raw_message[65];
             iLong.bytes[0] = GPS->raw_message[62];
             iLong.bytes[1] = GPS->raw_message[63];
             iLong.bytes[2] = GPS->raw_message[64];
@@ -163,10 +129,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->d_vel_rounded = (int16_t)(GPS->d_vel / 10);
 
             // Collect Vehicle Heading of Motion
-            GPS->headVeh_bytes[0] = GPS->raw_message[70];
-            GPS->headVeh_bytes[1] = GPS->raw_message[71];
-            GPS->headVeh_bytes[2] = GPS->raw_message[72];
-            GPS->headVeh_bytes[3] = GPS->raw_message[73];
             iLong.bytes[0] = GPS->raw_message[70];
             iLong.bytes[1] = GPS->raw_message[71];
             iLong.bytes[2] = GPS->raw_message[72];
@@ -175,15 +137,34 @@ bool parseVelocity(GPS_Handle_t *GPS)
             GPS->headVeh_rounded = (int16_t)(GPS->headVeh / 10000); /* deg * 10^1 */
 
             // Collect iTOW (Time of Week)
-            GPS->iTOW_bytes[0] = GPS->raw_message[6];
-            GPS->iTOW_bytes[1] = GPS->raw_message[7];
-            GPS->iTOW_bytes[2] = GPS->raw_message[8];
-            GPS->iTOW_bytes[3] = GPS->raw_message[9];
             uLong.bytes[0] = GPS->raw_message[6];
             uLong.bytes[1] = GPS->raw_message[7];
             uLong.bytes[2] = GPS->raw_message[8];
             uLong.bytes[3] = GPS->raw_message[9];
             GPS->iTOW = uLong.uLong; /* ms is the raw data */
+
+            
+            // Collect date and time (UTC)
+            iShort.bytes[0] = GPS->raw_message[10];
+            iShort.bytes[1] = GPS->raw_message[11];
+            GPS->year = (uint8_t)(iShort.iShort - 2000); // chop off 2000 from the year and store as uint8_t
+
+            GPS->month = GPS->raw_message[12];
+            GPS->day = GPS->raw_message[13];
+            GPS->hour = GPS->raw_message[14];
+            GPS->minute = GPS->raw_message[15];
+            GPS->second = GPS->raw_message[16];
+
+            iLong.bytes[0] = GPS->raw_message[18];
+            iLong.bytes[1] = GPS->raw_message[19];
+            iLong.bytes[2] = GPS->raw_message[20];
+            iLong.bytes[3] = GPS->raw_message[21];
+            GPS->millisecond = (int16_t)(iLong.iLong / 1000000); // convert nanoseconds to milliseconds
+
+            GPS->is_valid_date = (GPS->raw_message[17] & GPS_VALID_DATE) ? true : false;
+            GPS->is_valid_time = (GPS->raw_message[17] & GPS_VALID_TIME) ? true : false;
+            GPS->is_fully_resolved = (GPS->raw_message[17] & GPS_VALID_FULLY_RESOLVED) ? true : false;
+            GPS->is_valid_mag = (GPS->raw_message[17] & GPS_VALID_MAG) ? true : false;
 
             /* Determine if data is new */
             if (GPS->iTOW != prev_iTOW) {
@@ -196,6 +177,11 @@ bool parseVelocity(GPS_Handle_t *GPS)
                 ++counter;
             }
 
+            // Only post onto CAN if GPS is fully resolved
+            if (GPS->is_fully_resolved) {
+                SEND_GPS_TIME(GPS->year, GPS->month, GPS->day, GPS->hour, GPS->minute, GPS->second, GPS->millisecond);
+            }
+
             SEND_GPS_VELOCITY(GPS->n_vel_rounded, GPS->e_vel_rounded, GPS->d_vel_rounded);
             SEND_GPS_SPEED(GPS->g_speed_rounded, GPS->headVeh_rounded);
 
@@ -204,8 +190,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
         }
 
         // Collect Magnetic Declination
-        GPS->mag_dec_bytes[0] = GPS->raw_message[94];
-        GPS->mag_dec_bytes[1] = GPS->raw_message[95];
         iShort.bytes[0] = GPS->raw_message[94];
         iShort.bytes[1] = GPS->raw_message[95];
         GPS->mag_dec = iShort.iShort; /* deg * 10^2 is the raw data */

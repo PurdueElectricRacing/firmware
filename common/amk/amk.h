@@ -24,6 +24,9 @@
 #define MAX_POSITIVE_TORQUE_LIMIT     (1000)
 #define MAX_NEGATIVE_TORQUE_LIMIT     (-1000)
 
+#define DEFAULT_POSITIVE_TORQUE_LIMIT     (1000)
+#define DEFAULT_NEGATIVE_TORQUE_LIMIT     (-1)
+
 #include <stdbool.h>
 #include <stdint.h>
 

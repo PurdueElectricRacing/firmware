@@ -60,7 +60,7 @@ void canTxSendToBack(CanMsgTypeDef_t *msg)
     }
 }
 
-void canTxUpdate(void)
+void __attribute__((weak)) canTxUpdate(void)
 {
     CanMsgTypeDef_t tx_msg;
     for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i)

@@ -34,7 +34,7 @@ def generate_daq_can_msgs(daq_config, can_config):
 
         # find corresponding can config for the bus
         can_bus_config = {}
-        config_found = False 
+        config_found = False
         for can_bus in can_config['busses']:
             if can_bus['bus_name'] == daq_bus['bus_name']:
                 print(f"can config for bus {can_bus['bus_name']} found")
@@ -44,7 +44,7 @@ def generate_daq_can_msgs(daq_config, can_config):
         if not config_found:
             generator.log_error(f"CAN config for bus {daq_bus['bus_name']} not found")
             quit(1)
-        
+
         # create daq node
         daq_node = {"node_name":"DAQ",
                     "node_ssa":daq_bus['daq_ssa'],
@@ -59,11 +59,11 @@ def generate_daq_can_msgs(daq_config, can_config):
                     print(f"match for can node {daq_node['node_name']} found")
                     ssa = can_node['node_ssa']
                     # configure daq rx message
-                    can_node['rx'].append({"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}",
+                    can_node['rx'].append({"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                                            "callback":True, "irq":False, "arg_type":"header"})
-                    
+
                     # configure node tx message
-                    rsp_msg = {"msg_name":f"daq_response_{daq_node_config['node_name'].upper()}",
+                    rsp_msg = {"msg_name":f"daq_response_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                                     "msg_desc":f"daq response from node {daq_node_config['node_name'].upper()}",
                                     "signals":[{"sig_name":"daq_response","type":"uint64_t","length":64}],
                                     "msg_period":0, "msg_hlp":5, "msg_pgn":daq_bus['daq_rx_pgn']}
@@ -80,20 +80,20 @@ def generate_daq_can_msgs(daq_config, can_config):
                 quit(1)
 
             # configure daq node tx message defs
-            command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}",
-                           "msg_desc":f"daq command for node {daq_node_config['node_name'].upper()}",
+            command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
+                           "msg_desc":f"daq command for node {daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                            "signals":[{"sig_name":"daq_command","type":"uint64_t","length":64}],
                            "msg_period":0, "msg_hlp":5, "msg_pgn":ssa}
             daq_node['tx'].append(command_msg)
 
             # configure daq node rx messages
-            daq_node['rx'].append(f"daq_response_{daq_node['node_name']}")
+            daq_node['rx'].append(f"daq_response_{daq_node['node_name']}_{daq_bus['bus_name'].upper()}")
 
 
         can_bus_config['nodes'].append(daq_node)
 
 def configure_node(node_config, node_paths):
-    """ 
+    """
     Generates code for c and h files within a node
     @param  node_config     json config for the specific node
     @param  node_paths      paths to [h file, c file] for that node
@@ -159,7 +159,7 @@ def configure_node(node_config, node_paths):
 
     # define file mappings
     init_lines = []
-    init_lines.append(f"    uint8_t ret = daqInitBase(tx_a, NUM_VARS, {node_config['daq_rsp_msg_periph']}, ID_DAQ_RESPONSE_{node_config['node_name'].upper()}, tracked_vars);\n")
+    init_lines.append(f"    uint8_t ret = daqInitBase(tx_a, NUM_VARS, {node_config['daq_rsp_msg_periph']}, ID_DAQ_RESPONSE_{node_config['node_name'].upper()}_{node_config['bus_names'][0].upper()}, tracked_vars);\n")
     if 'files' in node_config:
         for file in node_config['files']:
             init_lines.append(f"    mapMem((uint8_t *) &{file['name']}, sizeof({file['name']}), \"{file['eeprom_lbl']}\", 1);\n")
@@ -204,7 +204,7 @@ def configure_node(node_config, node_paths):
                 line += f".write_var_a=&{var['access_phrase']}, "
         else:
             line += f".write_var_a=NULL, "
-            
+
         line += "},\n"
         var_defs.append(line)
 
@@ -229,7 +229,9 @@ def configure_node(node_config, node_paths):
     generator.insert_lines(c_lines, gen_auto_var_defs_start, gen_auto_var_defs_stop, var_defs)
 
     # callback def
-    callback_def = [f"void daq_command_{node_config['node_name'].upper()}_CALLBACK(CanMsgTypeDef_t* msg_header_a)\n"]
+    callback_def = []
+    for bus_name in node_config['bus_names']:
+      callback_def.append(f"void daq_command_{node_config['node_name'].upper()}_{bus_name.upper()}_CALLBACK(CanMsgTypeDef_t* msg_header_a)\n{{\n\tdaq_command_callback(msg_header_a);\n}}\n")
     generator.insert_lines(c_lines, gen_auto_callback_def_start, gen_auto_callback_def_stop, callback_def)
 
     # Write changes to source file
@@ -237,22 +239,35 @@ def configure_node(node_config, node_paths):
         c_file.writelines(c_lines)
 
 
-def configure_bus(bus, source_dir, c_dir, h_dir):
-    """ Generates daq code for nodes on a bus """
-
-    node_names = [node['node_name'] for node in bus['nodes']]
-    node_paths = generator.find_node_paths(node_names, source_dir, c_dir, h_dir)
-
-    matched_nodes = [node for node in bus['nodes'] if node['node_name'] in node_paths.keys()]
-
-    for node in matched_nodes:
-        configure_node(node, node_paths[node['node_name']])
-
-
 def gen_embedded_daq(daq_conf, source_dir, c_dir, h_dir):
     """ Generate daq code """
 
+    matched_nodes: list[dict] = []
+
+    all_node_paths = {}
+
     for bus in daq_conf['busses']:
-        configure_bus(bus, source_dir, c_dir, h_dir)
-    
+        node_names = [node['node_name'] for node in bus['nodes']]
+        node_paths = generator.find_node_paths(node_names, source_dir, c_dir, h_dir)
+
+        for path, posixPath in node_paths.items():
+            if path not in all_node_paths:
+                all_node_paths.update({path: posixPath})
+
+        # matched_nodes.extend([node for node in bus['nodes'] if node['node_name'] in node_paths.keys()] and not any(d['node_name'] == node['node_name'] for d in matched_nodes))
+        for node in bus['nodes']:
+            if node['node_name'] in node_paths.keys() and not any(d.get('node_name') == node['node_name'] for d in matched_nodes):
+                matched_nodes.append(node)
+                # Add the bus the node is on to the node name
+                node['bus_names'] = [bus['bus_name']]
+            else:
+                # The node already exists in the matched nodes list
+                for matched_node in matched_nodes:
+                    if matched_node['node_name'] == node['node_name']:
+                        matched_node['bus_names'].append(bus['bus_name'])
+                # TODO: logic that handles nodes that already exist (adding DAQ variables that are still needed, with an existing node) - non issue currently because we do not have different daq variables per different busses
+
+    for node in matched_nodes:
+        configure_node(node, all_node_paths[node['node_name']])
+
     generator.log_success("Embedded DAQ Code Generated")

@@ -50,7 +50,7 @@ daq_variable_t tracked_vars[NUM_VARS] = {
 bool daqInit(q_handle_t* tx_a)
 {
     // BEGIN AUTO INIT
-    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_MAIN_MODULE, tracked_vars);
+    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_MAIN_MODULE_VCAN, tracked_vars);
     return ret;
     // END AUTO INIT
 }
@@ -61,8 +61,8 @@ void daqPeriodic()
 }
 
 // BEGIN AUTO CALLBACK DEF
-void daq_command_MAIN_MODULE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-// END AUTO CALLBACK DEF
+void daq_command_MAIN_MODULE_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a)
 {
-    daq_command_callback(msg_header_a);
+	daq_command_callback(msg_header_a);
 }
+// END AUTO CALLBACK DEF

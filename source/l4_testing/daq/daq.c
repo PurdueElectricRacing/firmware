@@ -1,12 +1,12 @@
 /**
  * @file daq.c
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-01-18
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include "daq.h"
@@ -48,7 +48,7 @@ config_t config = {
 bool daqInit(q_handle_t* tx_a)
 {
     // BEGIN AUTO INIT
-    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_TEST_NODE, tracked_vars);
+    uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_TEST_NODE_TEST, tracked_vars);
     mapMem((uint8_t *) &config, sizeof(config), "conf", 1);
     return ret;
     // END AUTO INIT
@@ -60,8 +60,8 @@ void daqPeriodic()
 }
 
 // BEGIN AUTO CALLBACK DEF
-void daq_command_TEST_NODE_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-// END AUTO CALLBACK DEF
+void daq_command_TEST_NODE_TEST_CALLBACK(CanMsgTypeDef_t* msg_header_a)
 {
-    daq_command_callback(msg_header_a);
+	daq_command_callback(msg_header_a);
 }
+// END AUTO CALLBACK DEF

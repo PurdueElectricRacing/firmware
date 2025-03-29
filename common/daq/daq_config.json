@@ -51,10 +51,16 @@
                         {"var_name":"user_charge_voltage_request", "access_phrase":"user_charge_voltage_request", "read_only": false, "type":"uint16_t", "length": 16},
                         {"var_name":"tmu_daq_override", "access_phrase": "tmu_daq_override", "read_only": false, "type":"uint8_t", "length": 1},
                         {"var_name":"tmu_daq_therm", "access_phrase": "tmu_daq_therm", "read_only": false, "type": "uint8_t", "length":4},
-                        {"var_name":"tmu_1", "access_phrase": "adc_readings.tmu_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
-                        {"var_name":"tmu_2", "access_phrase": "adc_readings.tmu_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
-                        {"var_name":"tmu_3", "access_phrase": "adc_readings.tmu_3", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
-                        {"var_name":"tmu_4", "access_phrase": "adc_readings.tmu_4", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_1_1", "access_phrase": "adc_readings.tmu_1_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_1_2", "access_phrase": "adc_readings.tmu_1_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_2_1", "access_phrase": "adc_readings.tmu_2_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_2_2", "access_phrase": "adc_readings.tmu_2_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_3_1", "access_phrase": "adc_readings.tmu_3_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_3_2", "access_phrase": "adc_readings.tmu_3_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_4_1", "access_phrase": "adc_readings.tmu_4_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_4_2", "access_phrase": "adc_readings.tmu_4_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_5_1", "access_phrase": "adc_readings.tmu_5_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_5_2", "access_phrase": "adc_readings.tmu_5_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
                         {"var_name":"bms_daq_override", "access_phrase": "bms_daq_override", "read_only": false, "type":"uint8_t", "length": 1},
                         {"var_name":"bms_daq_stat", "access_phrase": "bms_daq_stat", "read_only": false, "type": "uint8_t", "length":1},
                         {"var_name":"can_esr", "access_phrase": "CAN1->ESR", "read_only": true, "type":"uint32_t", "length": 32}
@@ -73,6 +79,38 @@
                     "files":[]
                 }
             ]
+        },
+        {
+          "bus_name":"CCAN",
+          "daq_ssa":50,
+          "daq_rx_pgn":1048575,
+          "nodes":[
+                {
+                    "node_name":"a_box",
+                    "includes":"#include \"orion.h\"\n#include \"tmu.h\"\n#include \"main.h\"",
+                    "variables": [
+                        {"var_name":"charge_request_user", "access_phrase":"charge_request_user", "read_only": false, "type":"uint8_t", "length": 1},
+                        {"var_name":"user_charge_current_request", "access_phrase":"user_charge_current_request", "read_only": false, "type":"uint16_t", "length": 16},
+                        {"var_name":"user_charge_voltage_request", "access_phrase":"user_charge_voltage_request", "read_only": false, "type":"uint16_t", "length": 16},
+                        {"var_name":"tmu_daq_override", "access_phrase": "tmu_daq_override", "read_only": false, "type":"uint8_t", "length": 1},
+                        {"var_name":"tmu_daq_therm", "access_phrase": "tmu_daq_therm", "read_only": false, "type": "uint8_t", "length":4},
+                        {"var_name":"tmu_1_1", "access_phrase": "adc_readings.tmu_1_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_1_2", "access_phrase": "adc_readings.tmu_1_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_2_1", "access_phrase": "adc_readings.tmu_2_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_2_2", "access_phrase": "adc_readings.tmu_2_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_3_1", "access_phrase": "adc_readings.tmu_3_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_3_2", "access_phrase": "adc_readings.tmu_3_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_4_1", "access_phrase": "adc_readings.tmu_4_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_4_2", "access_phrase": "adc_readings.tmu_4_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_5_1", "access_phrase": "adc_readings.tmu_5_1", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"tmu_5_2", "access_phrase": "adc_readings.tmu_5_2", "read_only": true, "type": "uint16_t", "length": 12, "unit": "12-bit adc"},
+                        {"var_name":"bms_daq_override", "access_phrase": "bms_daq_override", "read_only": false, "type":"uint8_t", "length": 1},
+                        {"var_name":"bms_daq_stat", "access_phrase": "bms_daq_stat", "read_only": false, "type": "uint8_t", "length":1},
+                        {"var_name":"can_esr", "access_phrase": "CAN1->ESR", "read_only": true, "type":"uint32_t", "length": 32}
+                    ],
+                    "files":[]
+                }
+          ]
         },
         {
             "bus_name":"Test",

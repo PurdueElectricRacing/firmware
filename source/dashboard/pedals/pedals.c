@@ -47,13 +47,32 @@ static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
 
 /**
  * @brief Processes pedal sensor readings and sets faults as necessary
- * 
+ *
  * @note This function is called periodically by the scheduler
  */
 void pedalsPeriodic(void) {
+    uint16_t t1_raw = raw_adc_values.t1;
+    uint16_t b1_final = 0;
+    uint16_t t1_final = 0;
+    // goes from 800 to 1700
+    #if 0
+    1700 - 800 = 900
+    // 800 - 1800: throttle valid range
+    #endif
+    if (t1_final > 4000)
+    {
+        setFault(ID_DASH_ADC_THRTL_FAULT, 1);
+    }
+    t1_final = CLAMP(t1_raw, 800, 1800);
+    t1_final = normalize(t1_final, 800, 1800);
+    // TODO BRAKE
+    SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
+
+    #if 0
+    #if 1
     // Get current values (don't want them changing mid-calculation)
     uint16_t t1_raw = raw_adc_values.t1;
-    uint16_t t2_raw = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
+    uint16_t t2_raw = raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
     uint16_t b1_raw = raw_adc_values.b1;
     uint16_t b2_raw = raw_adc_values.b2;
 
@@ -97,6 +116,8 @@ void pedalsPeriodic(void) {
 
     // Send the normalized pedal values to Main and TV
     SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
+    #endif
+    #endif
 }
 
 
@@ -114,7 +135,7 @@ int writePedalProfiles() { // TODO switch to EEPROM
     // }
 
     // for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-    //     if (FLASH_OK != PHAL_flashWriteU32((uint32_t)profile_current_address, 
+    //     if (FLASH_OK != PHAL_flashWriteU32((uint32_t)profile_current_address,
     //                                      *(uint32_t*)&driver_pedal_profiles[i])) {
     //         return PROFILE_WRITE_FAIL;
     //     }

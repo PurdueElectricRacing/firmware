@@ -56,8 +56,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_USART2TX_PA2,
-    GPIO_INIT_USART2RX_PA3,
 
     // CAN
     GPIO_INIT_CANRX_PD0,
@@ -120,24 +118,6 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
-dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t usart_config = {
-   .baud_rate   = 115200,
-   .word_length = WORD_8,
-   .stop_bits   = SB_ONE,
-   .parity      = PT_NONE,
-   .hw_flow_ctl = HW_DISABLE,
-   .ovsample    = OV_16,
-   .obsample    = OB_DISABLE,
-   .periph      = USART2,
-   .wake_addr = false,
-   .usart_active_num = USART2_ACTIVE_IDX,
-   .tx_dma_cfg = &usart_tx_dma_config,
-   .rx_dma_cfg = &usart_rx_dma_config
-};
-DEBUG_PRINTF_USART_DEFINE(&usart_config) // use LTE uart lmao
-
 int main()
 {
     if(0 != PHAL_configureClockRates(&clock_config))
@@ -150,12 +130,6 @@ int main()
     }
     SysTick_Config(SystemCoreClock / 1000);
     NVIC_EnableIRQ(SysTick_IRQn);
-
-    if(!PHAL_initUSART(&usart_config, APB1ClockRateHz))
-    {
-        HardFault_Handler();
-    }
-    log_yellow("PER PER PER\n");
 
     if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
     {
@@ -176,7 +150,7 @@ int main()
 
     schedInit(APB1ClockRateHz);
     taskCreate(ledblink, 250);
-    taskCreate(throttle_read, 50);
+    taskCreate(throttle_send, 50);
     schedStart();
 
     return 0;
@@ -223,7 +197,7 @@ static void canTxSendToBack(CanMsgTypeDef_t *tx_msg)
         canTxSendToBack(&msg);\
     } while(0)
 
-void throttle_read()
+void throttle_send()
 {
     SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1, raw_adc_values.t2, raw_adc_values.b1, raw_adc_values.b2, 0);
 }

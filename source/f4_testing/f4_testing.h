@@ -6,6 +6,6 @@
 #define TEST_FREERTOS_DEMO 1
 
 // Change this define to set the test compiled
-#define F4_TESTING_CHOSEN TEST_FREERTOS_DEMO
+#define F4_TESTING_CHOSEN TEST_LED_BLINK
 
 #endif // __F4_TESTING__

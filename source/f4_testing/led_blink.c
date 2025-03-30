@@ -33,6 +33,7 @@
 
 void HardFault_Handler();
 void ledblink();
+void throttle_read();
 
 // Brake
 #define BRK_1_GPIO_Port             (GPIOA)
@@ -174,7 +175,8 @@ int main()
     PHAL_startADC(ADC1);
 
     schedInit(APB1ClockRateHz);
-    taskCreate(ledblink, 500);
+    taskCreate(ledblink, 250);
+    taskCreate(throttle_read, 50);
     schedStart();
 
     return 0;
@@ -203,9 +205,11 @@ typedef union {
 // Sends all pending messages in the tx queue, doesn't require systick to be active
 static void canTxSendToBack(CanMsgTypeDef_t *tx_msg)
 {
+    #if 0
     uint32_t t = 0;
     while (!PHAL_txMailboxFree(CAN1, 0) && (t++ < CAN_TX_BLOCK_TIMEOUT));
     if (t < CAN_TX_BLOCK_TIMEOUT) PHAL_txCANMessage(tx_msg, 0);
+    #endif
 }
 
 #define SEND_RAW_THROTTLE_BRAKE(throttle_, throttle_right_, brake_, brake_right_, brake_pot_) do {\

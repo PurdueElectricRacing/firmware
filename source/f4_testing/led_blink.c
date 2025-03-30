@@ -33,7 +33,7 @@
 
 void HardFault_Handler();
 void ledblink();
-void throttle_read();
+void throttle_send();
 
 // Brake
 #define BRK_1_GPIO_Port             (GPIOA)
@@ -172,19 +172,12 @@ typedef union {
         uint64_t brake_right: 12;
         uint64_t brake_pot: 12;
     } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
-
-#define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
-// Sends all pending messages in the tx queue, doesn't require systick to be active
-static void canTxSendToBack(CanMsgTypeDef_t *tx_msg)
-{
-    #if 0
-    uint32_t t = 0;
-    while (!PHAL_txMailboxFree(CAN1, 0) && (t++ < CAN_TX_BLOCK_TIMEOUT));
-    if (t < CAN_TX_BLOCK_TIMEOUT) PHAL_txCANMessage(tx_msg, 0);
-    #endif
-}
 
 #define SEND_RAW_THROTTLE_BRAKE(throttle_, throttle_right_, brake_, brake_right_, brake_pot_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_RAW_THROTTLE_BRAKE, .DLC=DLC_RAW_THROTTLE_BRAKE, .IDE=1};\
@@ -196,6 +189,25 @@ static void canTxSendToBack(CanMsgTypeDef_t *tx_msg)
         data_a->raw_throttle_brake.brake_pot = brake_pot_;\
         canTxSendToBack(&msg);\
     } while(0)
+
+#define SEND_FILT_THROTTLE_BRAKE(throttle_, brake_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FILT_THROTTLE_BRAKE, .DLC=DLC_FILT_THROTTLE_BRAKE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->filt_throttle_brake.throttle = throttle_;\
+        data_a->filt_throttle_brake.brake = brake_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+
+#define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
+// Sends all pending messages in the tx queue, doesn't require systick to be active
+static void canTxSendToBack(CanMsgTypeDef_t *tx_msg)
+{
+    #if 0
+    uint32_t t = 0;
+    while (!PHAL_txMailboxFree(CAN1, 0) && (t++ < CAN_TX_BLOCK_TIMEOUT));
+    if (t < CAN_TX_BLOCK_TIMEOUT) PHAL_txCANMessage(tx_msg, 0);
+    #endif
+}
 
 void throttle_send()
 {

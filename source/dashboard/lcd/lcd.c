@@ -500,7 +500,6 @@ void selectItem() {
  * @note Only executes when current page is PAGE_CALIBRATION
  */
 void calibrationTelemetryUpdate() {
-    #if 0
     static uint8_t update_group = 0;
 
     if (curr_page != PAGE_CALIBRATION) {
@@ -562,7 +561,6 @@ void calibrationTelemetryUpdate() {
             update_group = 0;
             break;
     }
-    #endif
 }
 
 

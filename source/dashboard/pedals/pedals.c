@@ -10,13 +10,23 @@
 pedal_faults_t pedal_faults = {0};
 uint16_t thtl_limit = 4096;
 
+// Globals to enable live watching
+uint16_t t1_raw;
+uint16_t t2_raw;
+uint16_t b1_raw;
+uint16_t b2_raw;
+uint16_t t1_final;
+uint16_t t2_final;
+uint16_t b1_final;
+uint16_t b2_final;
+
 // TODO: tune these values for the new pedals
 // ! WARNING: DAQ VARIABLE, IF EEPROM ENABLED, VALUE WILL CHANGE
 pedal_calibration_t pedal_calibration = {  // These values are given from 0-4095
-    .t1_min = 1000, .t1_max = 1640,
-    .t2_min = 2000, .t2_max = 2760,
-    .b1_min = 450, .b1_max = 1490,
-    .b2_min = 450, .b2_max = 1490,
+    .t1_min = 1200, .t1_max = 1690,
+    .t2_min = 900, .t2_max = 1350,
+    .b1_min = 475, .b1_max = 1490,
+    .b2_min = 500, .b2_max = 1490,
 };
 
 // Contains the current pedal values for external use
@@ -51,30 +61,11 @@ static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
  * @note This function is called periodically by the scheduler
  */
 void pedalsPeriodic(void) {
-    uint16_t t1_raw = raw_adc_values.t1;
-    uint16_t b1_final = 0;
-    uint16_t t1_final = 0;
-    // goes from 800 to 1700
-    #if 0
-    1700 - 800 = 900
-    // 800 - 1800: throttle valid range
-    #endif
-    if (t1_final > 4000)
-    {
-        setFault(ID_DASH_ADC_THRTL_FAULT, 1);
-    }
-    t1_final = CLAMP(t1_raw, 800, 1800);
-    t1_final = normalize(t1_final, 800, 1800);
-    // TODO BRAKE
-    SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
-
-    #if 0
-    #if 1
     // Get current values (don't want them changing mid-calculation)
-    uint16_t t1_raw = raw_adc_values.t1;
-    uint16_t t2_raw = raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
-    uint16_t b1_raw = raw_adc_values.b1;
-    uint16_t b2_raw = raw_adc_values.b2;
+    t1_raw = raw_adc_values.t1;
+    t2_raw = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
+    b1_raw = raw_adc_values.b1;
+    b2_raw = raw_adc_values.b2;
 
     // Check for wiring faults
     setFault(ID_APPS_WIRING_T1_FAULT, t1_raw);
@@ -88,10 +79,10 @@ void pedalsPeriodic(void) {
     uint16_t b2_clamped = CLAMP(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
     // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
-    uint16_t t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);
-    uint16_t t2_final = normalize(t2_clamped, pedal_calibration.t2_min, pedal_calibration.t2_max);
-    uint16_t b1_final = normalize(b1_clamped, pedal_calibration.b1_min, pedal_calibration.b1_max);
-    uint16_t b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
+    t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);
+    t2_final = normalize(t2_clamped, pedal_calibration.t2_min, pedal_calibration.t2_max);
+    b1_final = normalize(b1_clamped, pedal_calibration.b1_min, pedal_calibration.b1_max);
+    b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
     // If both pedals are pressed, set a fault
     if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) ||
@@ -105,7 +96,7 @@ void pedalsPeriodic(void) {
     }
 
     // Check for APPS sensor deviations (10%)
-    setFault(ID_IMPLAUS_DETECTED_FAULT, ABS(t1_final - t2_final));
+    setFault(ID_IMPLAUS_DETECTED_FAULT, ABS((int16_t)t1_final - (int16_t)t2_final));
 
     // Update the pedal values for external use
     pedal_values.throttle = t1_final;
@@ -116,8 +107,6 @@ void pedalsPeriodic(void) {
 
     // Send the normalized pedal values to Main and TV
     SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
-    #endif
-    #endif
 }
 
 

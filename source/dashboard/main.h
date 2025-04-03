@@ -41,16 +41,16 @@ typedef struct __attribute__((packed))
     uint16_t t2;
     uint16_t b1;
     uint16_t b2;
-    uint16_t shock_left;
-    uint16_t shock_right;
-    uint16_t lv_5v_sense;
-    uint16_t lv_3v3_sense;
-    uint16_t lv_12v_sense;
-    uint16_t lv_24_v_sense;
-    uint16_t load_l;
-    uint16_t load_r;
-    //uint16_t brk1_thr;
-    //uint16_t brk2_thr;
+    // uint16_t shock_left;
+    // uint16_t shock_right;
+    // uint16_t lv_5v_sense;
+    // uint16_t lv_3v3_sense;
+    // uint16_t lv_12v_sense;
+    // uint16_t lv_24_v_sense;
+    // uint16_t load_l;
+    // uint16_t load_r;
+    // uint16_t brk1_thr;
+    // uint16_t brk2_thr;
 } raw_adc_values_t;
 
 volatile extern raw_adc_values_t raw_adc_values;
@@ -154,6 +154,12 @@ typedef struct {
 #define BRK_2_GPIO_Port             (GPIOA)
 #define BRK_2_Pin                   (1)
 #define BRK_2_ADC_CHNL              (1)
+#define BRK_1_DIG_GPIO_Port         (GPIOC)
+#define BRK_1_DIG_GPIO_Pin          (12)
+#define BRK_2_DIG_GPIO_Port         (GPIOC)
+#define BRK_2_DIG_GPIO_Pin          (13)
+
+
 
 // Shock Pots
 #define SHOCK_POT_L_GPIO_Port       (GPIOC)

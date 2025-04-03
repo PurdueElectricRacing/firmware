@@ -394,8 +394,8 @@
             "faults": [
                 {
                     "fault_name": "APPS_wiring_t1",
-                    "max": 4000,
-                    "min": 100,
+                    "max": 3700,
+                    "min": 800,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -403,8 +403,8 @@
                 },
                 {
                     "fault_name": "APPS_wiring_t2",
-                    "max": 4000,
-                    "min": 100,
+                    "max": 3700,
+                    "min": 500,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 1000,
@@ -430,8 +430,8 @@
                 },
                 {
                     "fault_name": "Implaus_detected",
-                    "max": 700,
-                    "min": 0,
+                    "max": 4095,
+                    "min": -4095,
                     "priority": "error",
                     "time_to_latch": 10,
                     "time_to_unlatch": 100,
@@ -445,6 +445,15 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "APPS Brake Fault"
+                },
+                {
+                    "fault_name": "DASH_ADC_THRTL",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "error",
+                    "time_to_latch": 1,
+                    "time_to_unlatch": 42069,
+                    "lcd_message": "Throttle signal failed"
                 }
             ]
         },

@@ -238,11 +238,6 @@ void preflightChecks();
 void sendIVReadings();
 void sendFlowrates();
 
-/**
- * Procedure: main()
- * 
- * @brief entry point
- */
 int main()
 {
     /* Temporary trim to offset clock drift effects */
@@ -298,14 +293,8 @@ int main()
 
 } /* main() */
 
-
 /**
- * Procedure: CAN1_RX0_IRQHandler()
- * 
  * @brief Interrupt handler for CAN1 RX0.
- * 
- * This function handles the interrupt request for CAN1 RX0 by calling the 
- * `canParseIRQHandler` function, passing the CAN1 instance as a parameter.
  */
 void CAN1_RX0_IRQHandler()
 {
@@ -313,16 +302,8 @@ void CAN1_RX0_IRQHandler()
 
 } /* CAN1_RX0_IRQHandler() */
 
-
 /**
- * Procedure: pdu_bl_cmd_CALLBACK()
- * 
  * @brief Callback function for handling pdu bootloader commands.
- * 
- * This function processes received CAN messages related to the pdu bootloader commands.
- * If the received command is a reset command (`BLCMD_RST`), it triggers the bootloader reset 
- * for firmware download.
- * 
  * @param msg_data_a Pointer to the parsed CAN message data.
  */
 void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
@@ -334,15 +315,11 @@ void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 
 } /* pdu_bl_cmd_CALLBACK() */
 
-
 /**
- * Procedure: heartBeatLED()
- * 
- * @brief Handles the heartbeat LED and other status LEDs based on system state.
- * 
- * This function toggles the heartbeat LED, updates the connection LED based on 
- * the time since the last CAN message was received, and sends CAN statistics 
- * every other call.
+ * @brief Updates system LED indicators and CAN stats
+ *
+ * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
+ * Handles periodic CAN statistics transmission.
  */
 void heartBeatLED()
 {
@@ -364,16 +341,6 @@ void heartBeatLED()
 
 } /* heartBeatLED() */
 
-
-/**
- * Procedure: preflightAnimation()
- * 
- * @brief Executes the preflight animation sequence.
- * 
- * This function controls the LEDs to perform a preflight animation. It cycles through
- * the heartbeat, connection, and error LEDs in a specific pattern. Additionally, it 
- * increments and decrements the LED number to create a sweeping animation effect.
- */
 void preflightAnimation(void) {
     static uint32_t time;
     static int led_number;
@@ -420,11 +387,11 @@ void preflightAnimation(void) {
 
 } /* preflightAnimation() */
 
-
 /**
- * Procedure: preflightChecks()
- * 
- * @brief Performs preflight checks and initialization for various modules.
+ * @brief Performs sequential initialization and setup of system peripherals and
+ * modules.
+ *
+ * @note Called repeatedly until preflight is registered as complete
  */
 void preflightChecks(void) {
     static uint8_t state;
@@ -482,10 +449,7 @@ void preflightChecks(void) {
 
 } /* preflightChecks() */
 
-
 /**
- * Procedure: sendFlowrates()
- * 
  * @brief sends CAN message with flow rates on VCAN
  */
 void sendFlowrates()
@@ -494,11 +458,9 @@ void sendFlowrates()
 
 } /* sendFlowrates() */
 
-
 /**
- * Procedure: sendIVReadings()
- * 
- * @brief Sends voltage and current readings over CAN and sets appropriate faults.
+ * @brief Sends voltage and current readings over CAN for DAQ and sets
+ * appropriate faults.
  */
 void sendIVReadings() {
 
@@ -514,15 +476,6 @@ void sendIVReadings() {
 
 } /* sendIVReadings() */
 
-
-/**
- * Procedure: HardFault_Handler()
- * 
- * @brief Handler for HardFault exceptions.
- * 
- * This function is called when a HardFault exception occurs. It pauses the scheduler
- * and enters an infinite loop
- */
  void HardFault_Handler()
  {
      PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);

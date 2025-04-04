@@ -317,9 +317,6 @@ void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 
 /**
  * @brief Updates system LED indicators and CAN stats
- *
- * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
- * Handles periodic CAN statistics transmission.
  */
 void heartBeatLED()
 {

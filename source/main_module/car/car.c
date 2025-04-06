@@ -24,7 +24,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_TV;
+    car.torque_src = CAR_TORQUE_RAW;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
@@ -364,8 +364,11 @@ void carPeriodic()
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
     /* At this point torque request will be clamped from 0 to 100.0 */
-    amkSetTorque(&car.motor_l, car.torque_r.torque_left);
-    amkSetTorque(&car.motor_r, car.torque_r.torque_right);
+    float t_req_pedal = 0.0;
+    t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+    t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
+    amkSetTorque(&car.motor_l, t_req_pedal);
+    amkSetTorque(&car.motor_r, t_req_pedal);
  }
 
 /**

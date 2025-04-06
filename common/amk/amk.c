@@ -116,8 +116,8 @@ void amkPeriodic(amk_motor_t* motor)
                 motor->state = AMK_STATE_OFF;
             }
             // For testing
-            // motor->torque_set_ppt_nom = 10;
-            // motor->torque_lim_pos_ppt_nom = 20;
+            // motor->torque_set_ppt_nom = 50;
+            motor->torque_lim_pos_ppt_nom = 300;
         }
         /* System is not ready to run */
         else
@@ -206,26 +206,26 @@ static void amkOff(amk_motor_t* motor)
 void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
 {
     //todo change these too
-    if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT 
-        || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT) {
-        return;
-    }
+    // if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT 
+    //     || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT) {
+    //     return;
+    // }
 
     /* TODO what should torque limit positive be for first car? */
     /* for now making it 25% nominal */
-    motor->torque_lim_pos_ppt_nom = 250;
+    //motor->torque_lim_pos_ppt_nom = 250;
 
     /* NOTE: For some reason it cannot be 0, so do -0.1% (according to UIUC's team) */
     motor->torque_lim_neg_ppt_nom = -1;
 
     /* Scale torque request to be in the range of the torque limit */
     /* Example: 100.0 on the pedal will result in 250 if torque limit is 250 */
-    uint16_t setpoint = (uint16_t)(torque_setpoint * ((double)motor->torque_lim_pos_ppt_nom / 1000.0) + 0.5);
+    //uint16_t setpoint = (uint16_t)(torque_setpoint * ((double)motor->torque_lim_pos_ppt_nom / 1000.0) + 0.5);
 
     /* Scale to ppt nominal */
     torque_setpoint *= 10;
 
-    motor->torque_set_ppt_nom = setpoint;
+    motor->torque_set_ppt_nom = torque_setpoint;
 
 } /* amkSetTorque() */
 

@@ -48,7 +48,6 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_ORION_ERRORS 0xc000738
 #define ID_MAX_CELL_TEMP 0xc04e604
-#define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_PRECHARGE_HB 0xc001944
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_COOLANT_TEMPS 0x10000881
@@ -57,6 +56,8 @@ typedef union {
 #define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_SDC_STATUS 0xc000381
 #define ID_GPS_SPEED 0xc001137
+#define ID_INVA_TEMPS 0x284
+#define ID_INVB_TEMPS 0x285
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -88,7 +89,6 @@ typedef union {
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_ORION_ERRORS 4
 #define DLC_MAX_CELL_TEMP 2
-#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_PRECHARGE_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_COOLANT_TEMPS 4
@@ -97,6 +97,8 @@ typedef union {
 #define DLC_DASHBOARD_BL_CMD 5
 #define DLC_SDC_STATUS 2
 #define DLC_GPS_SPEED 4
+#define DLC_INVA_TEMPS 6
+#define DLC_INVB_TEMPS 6
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -221,7 +223,6 @@ typedef union {
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_ORION_ERRORS 1000
 #define UP_MAX_CELL_TEMP 500
-#define UP_REAR_MOTOR_TEMPS 1000
 #define UP_PRECHARGE_HB 500
 #define UP_REAR_WHEEL_SPEEDS 15
 #define UP_COOLANT_TEMPS 3000
@@ -229,6 +230,8 @@ typedef union {
 #define UP_GEARBOX 3000
 #define UP_SDC_STATUS 300
 #define UP_GPS_SPEED 40
+#define UP_INVA_TEMPS 500
+#define UP_INVB_TEMPS 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -387,14 +390,6 @@ typedef union {
         uint64_t max_temp: 16;
     } max_cell_temp;
     struct {
-        uint64_t left_mot_temp: 8;
-        uint64_t right_mot_temp: 8;
-        uint64_t left_inv_temp: 8;
-        uint64_t right_inv_temp: 8;
-        uint64_t left_igbt_temp: 8;
-        uint64_t right_igbt_temp: 8;
-    } rear_motor_temps;
-    struct {
         uint64_t IMD: 8;
         uint64_t BMS: 8;
     } precharge_hb;
@@ -444,6 +439,16 @@ typedef union {
         uint64_t gps_speed: 16;
         uint64_t gps_heading: 16;
     } gps_speed;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVA_TEMPS;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVB_TEMPS;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -566,16 +571,6 @@ typedef struct {
         uint32_t last_rx;
     } max_cell_temp;
     struct {
-        uint8_t left_mot_temp;
-        uint8_t right_mot_temp;
-        uint8_t left_inv_temp;
-        uint8_t right_inv_temp;
-        uint8_t left_igbt_temp;
-        uint8_t right_igbt_temp;
-        uint8_t stale;
-        uint32_t last_rx;
-    } rear_motor_temps;
-    struct {
         uint8_t IMD;
         uint8_t BMS;
         uint8_t stale;
@@ -639,6 +634,20 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } gps_speed;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_TEMPS;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_TEMPS;
     struct {
         uint16_t idx;
         uint8_t latched;

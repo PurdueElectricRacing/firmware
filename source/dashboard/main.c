@@ -438,12 +438,9 @@ static volatile uint32_t last_input_time;
 void EXTI9_5_IRQHandler(void) {
     // EXTI9 (ENCODER B) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR9) {
-        if (!(sched.os_ticks - last_input_time < 50) && !input_state.update_page) {
-            encoderISR();
-            input_state.update_page = 1;
-        }
+      encoderISR();
 
-        last_input_time = sched.os_ticks;
+
         EXTI->PR |= EXTI_PR_PR9;        // Clear the interrupt pending bit for EXTI9
     }
 }
@@ -452,19 +449,16 @@ void EXTI15_10_IRQHandler() {
     // EXTI10 (ENCODER A) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR10)
     {
-        if (!(sched.os_ticks - last_input_time < 50) && !input_state.update_page) {
-            encoderISR();
-            input_state.update_page = 1;
-        }
+        encoderISR();
 
-        last_input_time = sched.os_ticks;
+        // last_input_time = sched.os_ticks;
         EXTI->PR |= EXTI_PR_PR10;       // Clear the interrupt pending bit for EXTI10
     }
 
     // EXTI14 (UP Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.up_button = 1;      // Set flag for up button
         }
 
@@ -475,7 +469,7 @@ void EXTI15_10_IRQHandler() {
     // EXTI13 (DOWN button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR13)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.down_button = 1;    // Set flag for down button
         }
 
@@ -486,7 +480,7 @@ void EXTI15_10_IRQHandler() {
     // EXTI12 (SELECT button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR12)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.select_button = 1;  // Set flag for select button
         }
 
@@ -496,7 +490,7 @@ void EXTI15_10_IRQHandler() {
 
     if (EXTI->PR & EXTI_PR_PR11)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.start_button = 1;  // Set flag for start button
         }
 
@@ -532,6 +526,12 @@ void zeroEncoder() {
  * @note Called on encoder pin state changes
  */
 void encoderISR() {
+  // Just give up for a bit to debounce
+  if (sched.os_ticks - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS)
+  {
+    input_state.debounce_ticks = sched.os_ticks;
+    return;
+  }
     // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
     static const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
         { 0, -1,  1,  0},
@@ -545,7 +545,9 @@ void encoderISR() {
     uint8_t current_state = (raw_enc_a | (raw_enc_b << 1)); // enc_a and enc_b are flipped to reverse direction
 
     // Get direction from the state transition table
-    int8_t direction = encoder_transition_table[input_state.prev_encoder_position][current_state];
+    // int8_t direction = encoder_transition_table[input_state.prev_encoder_position][current_state];
+    int8_t direction = 1;
+    // if (current_state == 1 && )
 
     if (direction != 0) {
         input_state.encoder_position += direction;
@@ -558,6 +560,8 @@ void encoderISR() {
     }
 
     input_state.prev_encoder_position = current_state;
+    input_state.update_page = 1;
+    input_state.debounce_ticks = sched.os_ticks;
 }
 
 /**

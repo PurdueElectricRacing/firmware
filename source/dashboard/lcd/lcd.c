@@ -22,7 +22,7 @@ volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
 char *errorText;                             // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern pedal_values_t pedal_values;          // Global from pedals module for throttle display
 extern q_handle_t q_fault_history;           // Global queue from fault library for fault history
-extern dashboard_input_state_t input_state;  // Global dashboard input states
+extern volatile dashboard_input_state_t input_state;  // Global dashboard input states
 extern brake_status_t brake_status;          // Global brake status struct
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
@@ -580,11 +580,11 @@ void sendTVParameters() {
  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
  */
 void sendCoolingParameters() {
-  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
-                              cooling_elements[COOLING_DT_FAN_INDEX].current_value,
-                              0, // TODO: remove (deprecated)
-                              cooling_elements[COOLING_B_PUMP_INDEX].current_value,
-                              cooling_elements[COOLING_B_FAN_INDEX].current_value);
+  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_B_PUMP_INDEX].current_value,
+                              cooling_elements[COOLING_B_FAN_INDEX].current_value,
+                              cooling_elements[COOLING_DT_PUMP_INDEX].current_value, // TODO: remove (deprecated)
+                              0,
+                              cooling_elements[COOLING_DT_FAN_INDEX].current_value);
 }
 
 /**
@@ -886,13 +886,16 @@ void coolingSelect() {
  * @param msg_data_a Pointer to the parsed CAN message data
  */
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
-    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
-
     if (curr_page != PAGE_COOLING) {
-        return;
+    // if (cooling_elements[COOLING_DT_FAN_INDEX].state != STATE_SELECTED)
+      cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
+    // if (cooling_elements[COOLING_DT_PUMP_INDEX].state != STATE_SELECTED)
+      cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
+    // if (cooling_elements[COOLING_B_FAN_INDEX].state != STATE_SELECTED)
+      cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
+    // if (cooling_elements[COOLING_B_PUMP_INDEX].state != STATE_SELECTED)
+      cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
+  //
     }
 
     // not necessary to update the page, just the values
@@ -1055,14 +1058,24 @@ void raceTelemetryUpdate() {
     }
 
     // Update the motor temperature
-    if (can_data.rear_motor_temps.stale) {
+    if (can_data.INVA_TEMPS.stale && can_data.INVB_TEMPS.stale) {
         NXT_setText(MOT_TEMP, "S");
+        NXT_setText(MC_TEMP, "S");
+    }
+    else if (can_data.INVA_TEMPS.stale) {
+      NXT_setText(MOT_TEMP, "SA");
+      NXT_setText(MC_TEMP, "SA");
+    }
+    else if (can_data.INVB_TEMPS.stale) {
+      NXT_setText(MOT_TEMP, "SB");
+      NXT_setText(MC_TEMP, "SB");
     } else {
-        uint8_t motor_temp = MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp);
+        uint8_t motor_temp = MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
+        uint8_t controller_temp = MAX(can_data.INVA_TEMPS.AMK_IGBTTemp, can_data.INVB_TEMPS.AMK_IGBTTemp) / 10;
+
+        NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
         NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
     }
-
-    // TODO update motor controller temp
 
     // Update the battery temperature
     if (can_data.max_cell_temp.stale) {

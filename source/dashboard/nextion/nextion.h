@@ -1,13 +1,13 @@
 /**
  * @file nextion.h
  * @brief Nextion display driver interface
- * 
+ *
  * Interface for controlling Nextion display modules through serial communication.
- * 
+ *
  * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
  * @author Luke Oxley (lcoxley@purdue.edu)
  * @author Irving Wang (wang5952@purdue.edu)
- * 
+ *
  * Original implementation by Matthew Flanagan
  * Converted for current use by Luke Oxley
  * Expanded by Irving Wang
@@ -21,7 +21,7 @@
 #include "common/queue/queue.h"
 
 // Size Definitions
-#define NXT_STR_SIZE        100 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
+#define NXT_STR_SIZE        50 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
 #define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
 #define ASCII_OFFSET 		48
 

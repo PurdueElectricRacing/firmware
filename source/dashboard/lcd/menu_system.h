@@ -1,10 +1,10 @@
 /**
  * @file menu_system.h
  * @brief Implementation of menu system for LCD display interface
- * 
+ *
  * Provides functions for managing menu navigation, element styling,
  * and user interaction with the LCD display menu system.
- * 
+ *
  * @author Irving Wang (wang5952@purdue.edu)
  */
 

@@ -204,7 +204,6 @@ int main(void)
 
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 15);
 
     /* No Way Home */
     schedStart();
@@ -265,20 +264,7 @@ void preflightChecks(void)
             HardFault_Handler();
         break;
     case 700:
-        /* Pack torque vectoring data into rtM_tv */
-        rtM_tv->dwork = &rtDW_tv;
-
-        /* Initialize Torque Vectoring */
-        tv_initialize(rtM_tv);
-
-        /* Initialize TV IO */
-        tv_IO_initialize(&rtU_tv);
-
-        /* Pack Engine map data into rtM_em */
-        rtM_em->dwork = &rtDW_em;
-
-        /* Initialize Engine Map */
-        em_initialize(rtM_em);
+        break;
     default:
         if (state > 750)
         {

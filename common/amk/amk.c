@@ -115,9 +115,9 @@ void amkPeriodic(amk_motor_t* motor)
                 setFault(motor->error_fault_id, true);
                 motor->state = AMK_STATE_OFF;
             }
-            // For testing
-            // motor->torque_set_ppt_nom = 10;
-            // motor->torque_lim_pos_ppt_nom = 20;
+            // Set torque limit
+            motor->torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT;
+            motor->torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT;
         }
         /* System is not ready to run */
         else
@@ -211,14 +211,10 @@ void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
         return;
     }
 
-    /* Scale torque request to be in the range of the torque limit */
-    /* Example: 100.0 on the pedal will result in 250 if torque limit is 250 */
-    uint16_t setpoint = (uint16_t)(torque_setpoint * ((double)motor->torque_lim_pos_ppt_nom / 1000.0) + 0.5);
-
     /* Scale to ppt nominal */
     torque_setpoint *= 10;
 
-    motor->torque_set_ppt_nom = setpoint;
+    motor->torque_set_ppt_nom = torque_setpoint;
 
 } /* amkSetTorque() */
 

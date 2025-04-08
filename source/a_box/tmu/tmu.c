@@ -135,7 +135,7 @@ uint8_t readTemps()
                            module_five->left_readings.num_bad, module_five->left_readings.num_bad);
       setFault(ID_PACK_TEMP_FAULT, max_temp);
       setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
-      setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
+      // setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
 
       // resetting
       curr_therm = 0;
@@ -171,6 +171,5 @@ uint8_t readTemps()
     PHAL_writeGPIO(MUX_D_Port, MUX_D_Pin, (therm & 0x8));
 
     // checking if faults have latched
-    return checkFault(ID_PACK_TEMP_EXCEEDED_FAULT) |
-                checkFault(ID_MIN_PACK_TEMP_FAULT);
+    return checkFault(ID_PACK_TEMP_EXCEEDED_FAULT);
 }

@@ -64,10 +64,6 @@ GPIOInitConfig_t gpio_config[] = {
     // GPS Auxillary pins
     GPIO_INIT_OUTPUT(GPS_RESET_GPIO_Port, GPS_RESET_Pin, GPIO_OUTPUT_LOW_SPEED),
 
-    // EEPROM
-    GPIO_INIT_OUTPUT(NAV_EEPROM_CS_GPIO_PORT, NAV_EEPROM_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_OUTPUT(NAV_WP_GPIO_PORT, NAV_WP_PIN, GPIO_OUTPUT_HIGH_SPEED),
-
     // CAN
     GPIO_INIT_CANRX_PA11,
     GPIO_INIT_CANTX_PA12
@@ -185,7 +181,6 @@ int main(void)
     /* Data Struct Initialization */
 
     /* HAL Initialization */
-    PHAL_trimHSI(HSI_TRIM_TORQUE_VECTOR);
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();

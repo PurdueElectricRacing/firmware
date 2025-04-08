@@ -567,10 +567,12 @@ void calibrationTelemetryUpdate() {
  * @brief Sends TV parameters to TV using current values from tv_elements array
  */
 void sendTVParameters() {
-    SEND_DASHBOARD_TV_PARAMETERS(tv_elements[TV_ENABLE_INDEX].current_value,
+    SEND_DASHBOARD_VCU_PARAMETERS(tv_elements[TV_ENABLE_INDEX].current_value,
                                  tv_elements[TV_DEAD_INDEX].current_value,
                                  tv_elements[TV_INTENSITY_INDEX].current_value,
-                                 tv_elements[TV_PROPORTION_INDEX].current_value);
+                                 tv_elements[TV_PROPORTION_INDEX].current_value,
+                                0,
+                                0);
 }
 
 /**

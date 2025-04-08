@@ -719,31 +719,49 @@
             "node_name":"torque_vector",
             "faults": [
                 {
-                    "fault_name": "TV_Disabled",
+                    "fault_name": "ES_Enabled",
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "TV Disabled"
+                    "lcd_message": "Equal Speed"
                 },
                 {
-                    "fault_name": "MM_Disabled",
+                    "fault_name": "ET_Enabled",
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "MM Disabled"
+                    "lcd_message": "Equal Torque"
                 },
                 {
-                    "fault_name": "TV_Uncalibrated",
+                    "fault_name": "PT_Enabled",
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "TV Uncalibrated"
+                    "lcd_message": "Equal Torque with Safety"
+                },
+                {
+                    "fault_name": "VS_Enabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Variable Speed"
+                },
+                {
+                    "fault_name": "VT_Enabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Variable Torque"
                 },
                 {
                     "fault_name": "No_GPS_Fix",
@@ -753,33 +771,6 @@
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
                     "lcd_message": "No GPS Fix"
-                },
-                {
-                    "fault_name": "TV_Enabled",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "TV Enabled"
-                },
-                {
-                    "fault_name": "MM_Enabled",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "MM Enabled"
-                },
-                {
-                    "fault_name": "TV_Calibrated",
-                    "max": 1,
-                    "min": 0,
-                    "priority": "warning",
-                    "time_to_latch": 10,
-                    "time_to_unlatch": 10,
-                    "lcd_message": "TV Calibrated"
                 },
                 {
                     "fault_name": "Yes_GPS_Fix",

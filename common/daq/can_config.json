@@ -254,20 +254,8 @@
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
                         {"msg_name": "orion_currents_volts"},
-                        {"msg_name": "throttle_vcu"},
-                        {"msg_name": "throttle_vcu_equal"},
-                        {"msg_name": "INVA_CRIT"},
-                        {"msg_name": "INVA_INFO"},
-                        {"msg_name": "INVA_TEMPS"},
-                        {"msg_name": "INVA_SET"},
-                        {"msg_name": "INVA_ERR_1"},
-                        {"msg_name": "INVA_ERR_2"},
-                        {"msg_name": "INVB_CRIT"},
-                        {"msg_name": "INVB_INFO"},
-                        {"msg_name": "INVB_TEMPS"},
-                        {"msg_name": "INVB_SET"},
-                        {"msg_name": "INVB_ERR_1"},
-                        {"msg_name": "INVB_ERR_2"}
+                        {"msg_name": "VCU_torques_speeds"},
+                        {"msg_name": "drive_modes"}
                     ]
                 },
                 {
@@ -660,81 +648,40 @@
                             "msg_hlp":3,
                             "msg_pgn":142
                         },
-                        {   "msg_name":"bmm_mag",
-                            "msg_desc":"magnetic from bmm",
-                            "signals":[
-                                {"sig_name":"bmm_mag_x","type":"int16_t","unit": "uT"},
-                                {"sig_name":"bmm_mag_y","type":"int16_t","unit": "uT"},
-                                {"sig_name":"bmm_mag_z","type":"int16_t","unit": "uT"}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":143
-                        },
-                        {   "msg_name":"sfs_vel",
-                            "msg_desc":"velocity from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_vel_x","type":"int16_t","unit": "m/s","scale": 0.01},
-                                {"sig_name":"sfs_vel_y","type":"int16_t","unit": "m/s","scale": 0.01},
-                                {"sig_name":"sfs_vel_z","type":"int16_t","unit": "m/s","scale": 0.01}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1445
-                        },
-                        {   "msg_name":"sfs_acc",
-                            "msg_desc":"acceleration from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_acc_x","type":"int16_t","unit": "m/s^2","scale": 0.01},
-                                {"sig_name":"sfs_acc_y","type":"int16_t","unit": "m/s^2","scale": 0.01},
-                                {"sig_name":"sfs_acc_z","type":"int16_t","unit": "m/s^2","scale": 0.01}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1446
-                        },
-                        {   "msg_name":"sfs_ang_vel",
-                            "msg_desc":"orientation vel from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_ang_vel_x","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_vel_y","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_vel_z","type":"int16_t","scale": 0.0001}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1448
-                        },
                         {
-                            "msg_name": "throttle_vcu",
-                            "msg_desc": "Torque request from TV system",
-                            "signals":[
-                                {"sig_name": "vcu_k_rl", "sig_desc": "Rear left torque request", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "vcu_k_rr", "sig_desc": "Rear right torque request", "type": "int16_t", "unit": "none", "scale": 1}
+                            "msg_name": "VCU_torques_speeds",
+                            "msg_desc": "All torque setpoints and speed setpoints",
+                            "signals": [
+                                {"sig_name": "TO_VT_left", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "TO_VT_right", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "TO_PT_equal", "type": "int16_t", "unit": "Nm", "scale": 0.01},
+                                {"sig_name": "WS_VS_equal", "type": "int16_t", "unit": "rad/s", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 1,
-                            "msg_pgn": 150
+                            "msg_pgn": 154
                         },
                         {
-                            "msg_name": "throttle_vcu_equal",
-                            "msg_desc": "Throttle map torque request (No TV), equal torque",
-                            "signals":[
-                                {"sig_name": "equal_k_rl", "sig_desc": "Throttle remapped torque request rear left", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "equal_k_rr", "sig_desc": "Throttle remapped torque request rear right", "type": "int16_t", "unit": "none", "scale": 1}
+                            "msg_name": "vcu_soc_estimate",
+                            "msg_desc": "Estimated Voc and SOC for HV battery",
+                            "signals": [
+                                {"sig_name": "SOC_estimate", "type": "int16_t", "unit": "none", "scale": 0.01},
+                                {"sig_name": "Voc_estimate", "type": "int16_t", "unit": "V", "scale": 0.1}
                             ],
                             "msg_period": 20,
-                            "msg_hlp": 1,
-                            "msg_pgn": 160
+                            "msg_hlp": 2,
+                            "msg_pgn": 155
                         },
                         {
-                            "msg_name": "maxR",
-                            "msg_desc": "Maximum Allowed Throttle",
-                            "signals":[
-                                {"sig_name": "vcu_max_r", "type": "int16_t", "unit": "none", "scale": 1}
+                            "msg_name": "drive_modes",
+                            "msg_desc": "Drive Modes",
+                            "signals": [
+                                {"sig_name": "VCU_mode", "type": "int8_t", "scale": 1},
+                                {"sig_name": "VT_mode", "type": "int8_t", "scale": 1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 3,
-                            "msg_pgn": 152
+                            "msg_pgn": 156
                         },
                         {
                             "msg_name": "tv_can_stats",
@@ -755,11 +702,15 @@
                         {"msg_name": "filt_throttle_brake"},
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "orion_currents_volts"},
-                        {"msg_name": "dashboard_tv_parameters"},
                         {"msg_name": "main_hb"},
                         {"msg_name": "rear_wheel_speeds"},
                         {"msg_name": "rear_motor_temps"},
-                        {"msg_name": "max_cell_temp"}
+                        {"msg_name": "max_cell_temp"},
+                        {"msg_name": "INVA_CRIT"},
+                        {"msg_name": "INVB_CRIT"},
+                        {"msg_name": "INVA_TEMPS"},
+                        {"msg_name": "INVB_TEMPS"},
+                        {"msg_name": "dashboard_vcu_parameters"}
                     ]
                 },
                 {
@@ -859,15 +810,17 @@
                             "msg_pgn":102
                         },
                         {
-                            "msg_name":"dashboard_tv_parameters",
-                            "msg_desc":"Driver torque vectoring configuration request",
+                            "msg_name":"dashboard_vcu_parameters",
+                            "msg_desc":"periodic dashboard vcu parameters",
                             "signals":[
-                                {"sig_name": "tv_enabled", "type":"uint8_t", "length":1},
-                                {"sig_name": "tv_deadband_val", "type":"uint16_t"},
-                                {"sig_name": "tv_intensity_val", "type":"uint16_t"},
-                                {"sig_name": "tv_p_val", "type":"uint16_t"}
+                                {"sig_name": "vcu_fmode", "type":"uint8_t", "length":1},
+                                {"sig_name": "vcu_cmode", "type":"uint8_t", "length":1},
+                                {"sig_name": "vt_db_val", "type":"uint8_t"},
+                                {"sig_name": "tv_pp_val", "type":"uint8_t"},
+                                {"sig_name": "tc_tr_val", "type":"uint8_t"},
+                                {"sig_name": "vs_max_sr_val", "type":"uint8_t"}
                             ],
-                            "msg_period":2000,
+                            "msg_period":500,
                             "msg_hlp":1,
                             "msg_pgn":55
                         },
@@ -910,7 +863,6 @@
                         {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "sdc_status"},
-                        {"msg_name": "throttle_vcu"},
                         {"msg_name": "gps_speed"}
                     ]
                 },
@@ -1219,7 +1171,7 @@
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
-                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
+                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"%", "scale":0.1},
                                 {"sig_name": "AMK_DisplayOverloadInverter", "type":"uint16_t", "scale":0.1},
                                 {"sig_name": "AMK_DisplayOverloadMotor", "type":"uint16_t", "scale":0.1}
                             ],
@@ -1294,7 +1246,7 @@
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
-                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
+                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"%", "scale":0.1},
                                 {"sig_name": "AMK_DisplayOverloadInverter", "type":"uint16_t"},
                                 {"sig_name": "AMK_DisplayOverloadMotor", "type":"uint16_t"}
                             ],
@@ -1539,7 +1491,18 @@
                   }
                 ],
                 "rx": [
-
+                    {"msg_name": "INVA_CRIT"},
+                    {"msg_name": "INVA_INFO"},
+                    {"msg_name": "INVA_TEMPS"},
+                    {"msg_name": "INVA_SET"},
+                    {"msg_name": "INVA_ERR_1"},
+                    {"msg_name": "INVA_ERR_2"},
+                    {"msg_name": "INVB_CRIT"},
+                    {"msg_name": "INVB_INFO"},
+                    {"msg_name": "INVB_TEMPS"},
+                    {"msg_name": "INVB_SET"},
+                    {"msg_name": "INVB_ERR_1"},
+                    {"msg_name": "INVB_ERR_2"}
                 ]
             }
           ]

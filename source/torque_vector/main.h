@@ -17,7 +17,6 @@
 
 // STM32L471RET
 
-
 #define FAULT_NODE_NAME NODE_TORQUE_VECTOR
 // Status Indicators
 #define ERR_LED_GPIO_Port (GPIOB)
@@ -50,18 +49,124 @@
 #define GPS_TX_Pin (4)
 
 #define GPS_RESET_GPIO_Port (GPIOB)
-#define GPS_RESET_Pin       (1)
+#define GPS_RESET_Pin (1)
 
 // SPI EEPROM
 #define EEPROM_NSS_GPIO_PORT (GPIOA)
 #define EEPROM_NSS_PIN (15)
-#define EEPROM_SPI_SCK_GPIO_PORT (GPIOC) //SPI3
+#define EEPROM_SPI_SCK_GPIO_PORT (GPIOC) // SPI3
 #define EEPROM_SPI_SCK_PIN (10)
-#define EEPROM_SPI_MISO_GPIO_PORT (GPIOC) //SPI3
+#define EEPROM_SPI_MISO_GPIO_PORT (GPIOC) // SPI3
 #define EEPROM_SPI_MISO_PIN (11)
-#define EEPROM_SPI_MOSI_GPIO_PORT (GPIOC) //SPI3
+#define EEPROM_SPI_MOSI_GPIO_PORT (GPIOC) // SPI3
 #define EEPROM_SPI_MOSI_PIN (12)
 
-void canTxSendToBack(CanMsgTypeDef_t *msg);
+// If you modify this struct, update the Python script accordingly
+// The Python script must match this exact structure for correct data parsing.
+//
+// Python struct format specifiers:
+//   - 'f' -> float (4 bytes)
+//   - 'i' -> int (4 bytes)
+//   - 'h' -> short (2 bytes)
+//   - 'b' -> byte (1 byte)
+//   - 'H' -> unsigned short (2 bytes)
+//   - 'I' -> unsigned int (4 bytes)
+//
+struct __attribute__((packed)) serial_tx {
+    float PT_permit_buffer[5];
+    float VS_permit_buffer[5];
+    float VT_permit_buffer[5];
+    float VCU_mode;
+    float IB_CF_buffer[10];
+    float TH_CF;
+    float ST_CF;
+    float VB_CF;
+    float WT_CF[2];
+    float WM_CF[2];
+    float GS_CF;
+    float AV_CF[3];
+    float IB_CF;
+    float MT_CF;
+    float CT_CF;
+    float IT_CF;
+    float MC_CF;
+    float IC_CF;
+    float BT_CF;
+    float AG_CF[3];
+    float TO_CF[2];
+    float VT_DB_CF;
+    float TV_PP_CF;
+    float TC_TR_CF;
+    float VS_MAX_SR_CF;
+    float zero_current_counter;
+    float Batt_SOC;
+    float Batt_Voc;
+    float WM_CS[2];
+    float TO_ET[2];
+    float TO_AB_MX;
+    float TO_DR_MX;
+    float TO_PT[2];
+    float VT_mode;
+    float TO_VT[2];
+    float TV_AV_ref;
+    float TV_delta_torque;
+    float TC_highs;
+    float TC_lows;
+    float SR;
+    float WM_VS[2];
+    float SR_VS;
+};
+
+// If you modify this struct, update the Python script accordingly
+// The Python script must match this exact structure for correct data parsing.
+//
+// Python struct format specifiers:
+//   - 'f' -> float (4 bytes)
+//   - 'i' -> int (4 bytes)
+//   - 'h' -> short (2 bytes)
+//   - 'b' -> byte (1 byte)
+//   - 'H' -> unsigned short (2 bytes)
+//   - 'I' -> unsigned int (4 bytes)
+
+struct __attribute__((packed)) serial_rx {
+    float TH_RAW;
+    float ST_RAW;
+    float VB_RAW;
+    float WT_RAW[2];
+    float WM_RAW[2];
+    float GS_RAW;
+    float AV_RAW[3];
+    float IB_RAW;
+    float MT_RAW;
+    float CT_RAW;
+    float IT_RAW;
+    float MC_RAW;
+    float IC_RAW;
+    float BT_RAW;
+    float AG_RAW[3];
+    float TO_RAW[2];
+    float VT_DB_RAW;
+    float TV_PP_RAW;
+    float TC_TR_RAW;
+    float VS_MAX_SR_RAW;
+    float CS_SFLAG;
+    float TB_SFLAG;
+    float SS_SFLAG;
+    float WT_SFLAG;
+    float IV_SFLAG;
+    float BT_SFLAG;
+    float IAC_SFLAG;
+    float IAT_SFLAG;
+    float IBC_SFLAG;
+    float IBT_SFLAG;
+    float SS_FFLAG;
+    float AV_FFLAG;
+    float GS_FFLAG;
+    float VCU_PFLAG;
+    float VCU_CFLAG;
+};
+
+void canTxSendToBack(CanMsgTypeDef_t * msg);
+void txUsart(void);
 
 #endif

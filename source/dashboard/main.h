@@ -56,13 +56,14 @@ typedef struct __attribute__((packed))
 volatile extern raw_adc_values_t raw_adc_values;
 
 typedef struct {
-  volatile int8_t encoder_position;
-  volatile int8_t prev_encoder_position;
-  volatile uint8_t update_page;
-  volatile uint8_t up_button;
-  volatile uint8_t down_button;
-  volatile uint8_t select_button;
-  volatile uint8_t start_button;
+  int8_t encoder_position;
+  uint32_t debounce_ticks;
+  int8_t prev_encoder_position;
+  uint8_t update_page;
+  uint8_t up_button;
+  uint8_t down_button;
+  uint8_t select_button;
+  uint8_t start_button;
 } dashboard_input_state_t;
 
 typedef struct {
@@ -110,6 +111,7 @@ typedef struct {
 #define ENC_B_GPIO_Port             (GPIOD)
 #define ENC_B_Pin                   (9)
 #define ENC_NUM_STATES              (4)
+#define ENC_DEBOUNCE_PERIOD_MS      (100U)
 
 // CAN
 #define VCAN_RX_GPIO_Port           (GPIOD)

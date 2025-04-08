@@ -4,7 +4,7 @@
         {   "name": "Main Module",
             "cwd": "${workspaceRoot}",
             "executable": "./output/main_module/main_module.elf",
-            "request": "attach",
+            "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
             "device:": "STM32L432KC",
@@ -17,6 +17,8 @@
                 "-d",
                 "${workspaceFolder}/source/main_module"
             ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5

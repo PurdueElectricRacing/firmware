@@ -295,6 +295,11 @@ void preflightChecks(void) {
             }
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_MAIN_MODULE);
             break;
+        case 6:
+            for (uint8_t i = 0; i < SDC_MUX_HIGH_IDX; i++)
+            {
+              monitorSDCPeriodic();
+            }
         default:
             registerPreflightComplete(1);
             state = 255; /* prevent wrap around */

@@ -10,7 +10,7 @@
 
 
 // Current Sense
-#define I_SENSE_CH1_GPIO_Port (GPIOA) 
+#define I_SENSE_CH1_GPIO_Port (GPIOA)
 #define I_SENSE_CH1_Pin (0)
 #define I_SENSE_CH1_ADC_CHNL  (0)
 #define I_SENSE_CH2_GPIO_Port (GPIOA)
@@ -32,10 +32,13 @@
 // IMD Data
 #define IMD_HS_PWM_GPIO_Port (GPIOB)
 #define IMD_HS_PWM_Pin (3)
+#define IMD_HS_PWM_AF  (1) // TIM2_CH2
 #define IMD_LS_PWM_GPIO_Port (GPIOA)
 #define IMD_LS_PWM_Pin (15)
+#define IMD_LS_PWM_AF (1) // TIM2_CH1
 #define IMD_STATUS_GPIO_Port (GPIOB)
-#define IMD_STATUS_Pin (5)
+#define IMD_STATUS_Pin (4)
+#define IMD_STATUS_AF  (2) // TIM3_CH1
 
 
 // Status LEDs
@@ -89,7 +92,7 @@
 #define VSENSE_5V_Pin (8)
 #define VSENSE_5V_ADC_CHNL  (7) // not sure if channel has changed
 
-// ADC Channels - Ref (see additional functions): https://www.st.com/resource/en/datasheet/dm00037051.pdf#page=48 
+// ADC Channels - Ref (see additional functions): https://www.st.com/resource/en/datasheet/dm00037051.pdf#page=48
 // TMU
 #define TMU_1_1_ADC_CHANNEL (2) // ADC123
 #define TMU_1_2_ADC_CHANNEL (3) // ADC123
@@ -98,7 +101,7 @@
 #define TMU_3_1_ADC_CHANNEL (6) // ADC12
 #define TMU_3_2_ADC_CHANNEL (7) // ADC12
 
-#define TMU_4_1_ADC_CHANNEL (10) // ADC123 
+#define TMU_4_1_ADC_CHANNEL (10) // ADC123
 #define TMU_4_2_ADC_CHANNEL (11) // ADC123
 #define TMU_5_1_ADC_CHANNEL (12) // ADC123
 #define TMU_5_2_ADC_CHANNEL (13) // ADC123

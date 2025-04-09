@@ -10,7 +10,6 @@
  */
 
 #include "imu.h"
-#include "sfs_pp.h"
 
 /**
  * @brief Initializes the bsxlite library

@@ -72,7 +72,6 @@ void canTxSendToBack(CanMsgTypeDef_t *msg);
 //   - 'I' -> unsigned int (4 bytes)
 //
 struct __attribute__((packed)) serial_tx {
-    float ET_permit_buffer[5];
     float PT_permit_buffer[5];
     float VS_permit_buffer[5];
     float VT_permit_buffer[5];
@@ -111,7 +110,7 @@ struct __attribute__((packed)) serial_tx {
     float TV_delta_torque;
     float TC_highs;
     float TC_lows;
-    float sl;
+    float SR;
 };
 
 // If you modify this struct, update the Python script accordingly
@@ -142,9 +141,9 @@ struct __attribute__((packed)) serial_rx {
     float BT_RAW;
     float AG_RAW[3];
     float TO_RAW[2];
-    float DB_RAW;
-    float PI_RAW;
-    float PP_RAW;
+    float VT_DB_RAW;
+    float TC_TR_RAW;
+    float TV_PP_RAW;
     float CS_SFLAG;
     float TB_SFLAG;
     float SS_SFLAG;

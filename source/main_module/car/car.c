@@ -291,7 +291,7 @@ void carPeriodic()
                     {
                         setFault(ID_REMAP_UNRELIABLE_FAULT, 0);
                     }
-                    if (checkFault(ID_TV_ENABLED_FAULT))
+                    if (checkFault(ID_VT_ENABLED_FAULT))
                     {
                         temp_t_req.torque_left  = t_req_pedal_l;
                         temp_t_req.torque_right = t_req_pedal_r;
@@ -308,7 +308,7 @@ void carPeriodic()
                             temp_t_req.torque_right = t_req_equal_r;
                         }
                     }
-                    else if (!checkFault(ID_REMAP_UNRELIABLE_FAULT) || (checkFault(ID_MM_ENABLED_FAULT)))
+                    else if (!checkFault(ID_REMAP_UNRELIABLE_FAULT) || (checkFault(ID_VT_ENABLED_FAULT)))
                     {
                         temp_t_req.torque_left  = t_req_equal_l;
                         temp_t_req.torque_right = t_req_equal_r;

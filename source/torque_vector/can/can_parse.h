@@ -35,17 +35,24 @@
 #define ID_THROTTLE_VCU 0x40025b7
 #define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_MAXR 0xc002637
+#define ID_VCU_TORQUES_SPEEDS 0x40026b7
+#define ID_VCU_SOC_ESTIMATE 0x80026f7
+#define ID_DRIVE_MODES 0xc002737
 #define ID_TV_CAN_STATS 0x10016337
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
 #define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_LWS_STANDARD 0x2b0
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_DASHBOARD_TV_PARAMETERS 0x4000dc5
 #define ID_MAIN_HB 0xc001901
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_INVA_CRIT 0x282
+#define ID_INVB_CRIT 0x283
+#define ID_INVA_TEMPS 0x284
+#define ID_INVB_TEMPS 0x285
+#define ID_DASHBOARD_VCU_PARAMETERS 0x4000dc5
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
@@ -71,17 +78,24 @@
 #define DLC_THROTTLE_VCU 4
 #define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_MAXR 2
+#define DLC_VCU_TORQUES_SPEEDS 8
+#define DLC_VCU_SOC_ESTIMATE 4
+#define DLC_DRIVE_MODES 2
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_TORQUEVECTOR_BL_CMD 5
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_LWS_STANDARD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_DASHBOARD_TV_PARAMETERS 7
 #define DLC_MAIN_HB 2
 #define DLC_REAR_WHEEL_SPEEDS 8
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_MAX_CELL_TEMP 2
+#define DLC_INVA_CRIT 8
+#define DLC_INVB_CRIT 8
+#define DLC_INVA_TEMPS 6
+#define DLC_INVB_TEMPS 6
+#define DLC_DASHBOARD_VCU_PARAMETERS 5
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -201,6 +215,29 @@
         data_a->maxR.vcu_max_r = vcu_max_r_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_VCU_TORQUES_SPEEDS(TO_VT_left_, TO_VT_right_, TO_PT_equal_, WS_VS_equal_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VCU_TORQUES_SPEEDS, .DLC=DLC_VCU_TORQUES_SPEEDS, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->VCU_torques_speeds.TO_VT_left = TO_VT_left_;\
+        data_a->VCU_torques_speeds.TO_VT_right = TO_VT_right_;\
+        data_a->VCU_torques_speeds.TO_PT_equal = TO_PT_equal_;\
+        data_a->VCU_torques_speeds.WS_VS_equal = WS_VS_equal_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_VCU_SOC_ESTIMATE(SOC_estimate_, Voc_estimate_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VCU_SOC_ESTIMATE, .DLC=DLC_VCU_SOC_ESTIMATE, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->vcu_soc_estimate.SOC_estimate = SOC_estimate_;\
+        data_a->vcu_soc_estimate.Voc_estimate = Voc_estimate_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_DRIVE_MODES(VCU_mode_, VT_mode_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVE_MODES, .DLC=DLC_DRIVE_MODES, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->drive_modes.VCU_mode = VCU_mode_;\
+        data_a->drive_modes.VT_mode = VT_mode_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 #define SEND_TV_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_TV_CAN_STATS, .DLC=DLC_TV_CAN_STATS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -225,11 +262,15 @@
 #define UP_FILT_THROTTLE_BRAKE 15
 #define UP_LWS_STANDARD 15
 #define UP_ORION_CURRENTS_VOLTS 32
-#define UP_DASHBOARD_TV_PARAMETERS 2000
 #define UP_MAIN_HB 500
 #define UP_REAR_WHEEL_SPEEDS 15
 #define UP_REAR_MOTOR_TEMPS 1000
 #define UP_MAX_CELL_TEMP 500
+#define UP_INVA_CRIT 15
+#define UP_INVB_CRIT 15
+#define UP_INVA_TEMPS 500
+#define UP_INVB_TEMPS 500
+#define UP_DASHBOARD_VCU_PARAMETERS 500
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) \
@@ -323,6 +364,20 @@ typedef union {
         uint64_t vcu_max_r: 16;
     } maxR;
     struct {
+        uint64_t TO_VT_left: 16;
+        uint64_t TO_VT_right: 16;
+        uint64_t TO_PT_equal: 16;
+        uint64_t WS_VS_equal: 16;
+    } VCU_torques_speeds;
+    struct {
+        uint64_t SOC_estimate: 16;
+        uint64_t Voc_estimate: 16;
+    } vcu_soc_estimate;
+    struct {
+        uint64_t VCU_mode: 8;
+        uint64_t VT_mode: 8;
+    } drive_modes;
+    struct {
         uint64_t can_tx_overflow: 8;
         uint64_t can_tx_fail: 8;
         uint64_t can_rx_overflow: 8;
@@ -354,12 +409,6 @@ typedef union {
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t tv_enabled: 1;
-        uint64_t tv_deadband_val: 16;
-        uint64_t tv_intensity_val: 16;
-        uint64_t tv_p_val: 16;
-    } dashboard_tv_parameters;
-    struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
     } main_hb;
@@ -380,6 +429,36 @@ typedef union {
     struct {
         uint64_t max_temp: 16;
     } max_cell_temp;
+    struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVA_CRIT;
+    struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVB_CRIT;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVA_TEMPS;
+    struct {
+        uint64_t AMK_MotorTemp: 16;
+        uint64_t AMK_InverterTemp: 16;
+        uint64_t AMK_IGBTTemp: 16;
+    } INVB_TEMPS;
+    struct {
+        uint64_t vcu_fmode: 1;
+        uint64_t vcu_cmode: 1;
+        uint64_t vt_db_val: 8;
+        uint64_t tv_pp_val: 8;
+        uint64_t tc_tr_val: 8;
+        uint64_t vs_max_sr_val: 8;
+    } dashboard_vcu_parameters;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -443,14 +522,6 @@ typedef struct {
         uint32_t last_rx;
     } orion_currents_volts;
     struct {
-        uint8_t tv_enabled;
-        uint16_t tv_deadband_val;
-        uint16_t tv_intensity_val;
-        uint16_t tv_p_val;
-        uint8_t stale;
-        uint32_t last_rx;
-    } dashboard_tv_parameters;
-    struct {
         car_state_t car_state;
         uint8_t precharge_state;
         uint8_t stale;
@@ -479,6 +550,46 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } max_cell_temp;
+    struct {
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_CRIT;
+    struct {
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_CRIT;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_TEMPS;
+    struct {
+        int16_t AMK_MotorTemp;
+        int16_t AMK_InverterTemp;
+        int16_t AMK_IGBTTemp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_TEMPS;
+    struct {
+        uint8_t vcu_fmode;
+        uint8_t vcu_cmode;
+        uint8_t vt_db_val;
+        uint8_t tv_pp_val;
+        uint8_t tc_tr_val;
+        uint8_t vs_max_sr_val;
+        uint8_t stale;
+        uint32_t last_rx;
+    } dashboard_vcu_parameters;
     struct {
         uint16_t idx;
         uint8_t latched;

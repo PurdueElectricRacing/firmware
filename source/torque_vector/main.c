@@ -18,29 +18,13 @@
 #include "imu.h"
 #include "gps.h"
 
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
-#include "em.h"
-#include "em_pp.h"
-
-#include "tv.h"
-#include "tv_pp.h"
-
 #include "bsxlite_interface.h"
 
 #include "bmi088.h"
 #include "imu.h"
 #include "gps.h"
 
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
-#include "em.h"
-#include "em_pp.h"
-
-#include "tv.h"
-#include "tv_pp.h"
+#include "vcu.h"
 
 uint8_t collect_test[100] = {0};
 
@@ -180,29 +164,14 @@ void pollIMU(void);
 void VCU_MAIN(void);
 void txUsart(void);
 
-/* Torque Vectoring Definitions */
-static ExtU_tv rtU_tv; /* External inputs */
-static ExtY_tv rtY_tv; /* External outputs */
-static RT_MODEL_tv rtM_tvv;
-static RT_MODEL_tv *const rtMPtr_tv = &rtM_tvv; /* Real-time model */
-static DW_tv rtDW_tv;                        /* Observable states */
-static RT_MODEL_tv *const rtM_tv = rtMPtr_tv;
-static int16_t tv_timing;
-
-/* Engine Map Definitions */
-static ExtU_em rtU_em; /* External inputs */
-static ExtY_em rtY_em; /* External outputs */
-static RT_MODEL_em rtM_emv;
-static RT_MODEL_em *const rtMPtr_em = &rtM_emv; /* Real-time model */
-static DW_em rtDW_em;                        /* Observable states */
-static RT_MODEL_em *const rtM_em = rtMPtr_em;
-static int16_t em_timing;
-
-/* Moving Median Definition */
-static vec_accumulator vec_mm; /* Vector of Accumulation */
-static int16_t ac_counter = 0; /* Number of data points collected */
-static bool TV_Calibrated = false; /* Flag Indicating if TV is calibrated */
 static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
+
+// VCU structs
+static pVCU_struct pVCU;
+static fVCU_struct fVCU;
+static xVCU_struct xVCU;
+static yVCU_struct yVCU;
+
 
 int main(void)
 {
@@ -298,6 +267,11 @@ void preflightChecks(void)
             HardFault_Handler();
         break;
     case 700:
+        /* Initialize VCU structs */
+        pVCU = init_pVCU();
+        fVCU = init_fVCU();
+        xVCU = init_xVCU();
+        yVCU = init_yVCU();
         break;
     default:
         if (state > 750)
@@ -399,9 +373,9 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         xVCU.MC_RAW = rxmsg.MC_RAW;
         xVCU.IC_RAW = rxmsg.IC_RAW;
         xVCU.BT_RAW = rxmsg.BT_RAW;
-        xVCU.DB_RAW = rxmsg.DB_RAW;
-        xVCU.PI_RAW = rxmsg.PI_RAW;
-        xVCU.PP_RAW = rxmsg.PP_RAW;
+        xVCU.VT_DB_RAW = rxmsg.VT_DB_RAW;
+        xVCU.TC_TR_RAW = rxmsg.TC_TR_RAW;
+        xVCU.TV_PP_RAW = rxmsg.TV_PP_RAW;
 
         // Flags
         fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
@@ -427,7 +401,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
 
 void txUsart()
 {
-    memcpy(txmsg.ET_permit_buffer, yVCU.ET_permit_buffer, sizeof(txmsg.ET_permit_buffer));
+    // memcpy(txmsg.ET_permit_buffer, yVCU.ET_permit_buffer, sizeof(txmsg.ET_permit_buffer));
     memcpy(txmsg.PT_permit_buffer, yVCU.PT_permit_buffer, sizeof(txmsg.PT_permit_buffer));
     memcpy(txmsg.VS_permit_buffer, yVCU.VS_permit_buffer, sizeof(txmsg.VS_permit_buffer));
     memcpy(txmsg.VT_permit_buffer, yVCU.VT_permit_buffer, sizeof(txmsg.VT_permit_buffer));
@@ -454,9 +428,8 @@ void txUsart()
     txmsg.MC_CF = yVCU.MC_CF;
     txmsg.IC_CF = yVCU.IC_CF;
     txmsg.BT_CF = yVCU.BT_CF;
-    txmsg.DB_CF = yVCU.DB_CF;
-    txmsg.PI_CF = yVCU.PI_CF;
-    txmsg.PP_CF = yVCU.PP_CF;
+    txmsg.DB_CF = yVCU.VT_DB_CF;
+    txmsg.PP_CF = yVCU.TV_PP_CF;
     txmsg.zero_current_counter = yVCU.zero_current_counter;
     txmsg.Batt_SOC = yVCU.Batt_SOC;
     txmsg.Batt_Voc = yVCU.Batt_Voc;
@@ -467,7 +440,7 @@ void txUsart()
     txmsg.TV_delta_torque = yVCU.TV_delta_torque;
     txmsg.TC_highs = yVCU.TC_highs;
     txmsg.TC_lows = yVCU.TC_lows;
-    txmsg.sl = yVCU.sl;
+    txmsg.SR = yVCU.SR;
 
     memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
     PHAL_usartTxBl(&usb, txbuffer, sizeof(txbuffer));
@@ -481,66 +454,24 @@ void CAN1_RX0_IRQHandler()
 
 void VCU_MAIN(void)
 {
-    /* Initialize Throttles */
-    int16_t tvs_k_rl = 0;
-    int16_t tvs_k_rr = 0;
-    int16_t equal_k_rl = 0;
-    int16_t equal_k_rr = 0;
+    /* Fill in X & F */
+    vcu_pp(&fVCU, &xVCU, &GPSHandle);
 
-    /* If precharging -> Accumulate acceleration vector */
-    if (/*(can_data.main_hb.car_state == 1) & */(ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
-        /* Accumulate acceleration vector */
-        vec_mm.ax[ac_counter] = GPSHandle.acceleration.x;
-        vec_mm.ay[ac_counter] = GPSHandle.acceleration.y;
-        vec_mm.az[ac_counter] = GPSHandle.acceleration.z;
-        ++ac_counter;
-
-        /* If length of acceleration vector == ##, compute R */
-        if (ac_counter == NUM_ELEM_ACC_CALIBRATION) {
-            ac_compute_R(vec_mm.ax, vec_mm.ay, vec_mm.az, rtU_tv.R);
-            TV_Calibrated = true;
-        }
-    }
-
-    /* Populate torque vectoring inputs */
-    tv_pp(&rtU_tv, &GPSHandle);
-
-    /* Step torque vectoring */
-    tv_timing = sched.os_ticks;
-    tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
-    tv_timing = sched.os_ticks - tv_timing;
-
-    /* Populate engine map inputs */
-    em_pp(&rtU_em, &rtY_tv);
-
-    /* Step engine map */
-    em_timing = sched.os_ticks;
-    em_step(rtMPtr_em, &rtU_em, &rtY_em);
-    em_timing = sched.os_ticks - em_timing;
+    /* Step VCU */
+    vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
     /* Set TV faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
-    setFault(ID_MM_DISABLED_FAULT,!rtY_em.MM_STATE);
-    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
-
-    setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
-    setFault(ID_MM_ENABLED_FAULT,rtY_em.MM_STATE);
-    setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);
-    setFault(ID_YES_GPS_FIX_FAULT,rtU_tv.F_raw[8]);
-
-    /* Get motor commands */
-    tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);
-    tvs_k_rr = (int16_t)(rtY_em.kTVS[1]*4095);
-    equal_k_rl = (int16_t)(rtY_em.kEQUAL[0]*4095);
-    equal_k_rr = (int16_t)(rtY_em.kEQUAL[1]*4095);
+    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
+    setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
+    setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
+    setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
+    setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
+    setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
 
     /* Send messages */
-    SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr);
-    SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
-
-    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
-    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
+    SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
+    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
+    SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

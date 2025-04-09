@@ -76,14 +76,6 @@ void canRxUpdate()
                 can_data.orion_currents_volts.stale = 0;
                 can_data.orion_currents_volts.last_rx = sched.os_ticks;
                 break;
-            case ID_DASHBOARD_TV_PARAMETERS:
-                can_data.dashboard_tv_parameters.tv_enabled = msg_data_a->dashboard_tv_parameters.tv_enabled;
-                can_data.dashboard_tv_parameters.tv_deadband_val = msg_data_a->dashboard_tv_parameters.tv_deadband_val;
-                can_data.dashboard_tv_parameters.tv_intensity_val = msg_data_a->dashboard_tv_parameters.tv_intensity_val;
-                can_data.dashboard_tv_parameters.tv_p_val = msg_data_a->dashboard_tv_parameters.tv_p_val;
-                can_data.dashboard_tv_parameters.stale = 0;
-                can_data.dashboard_tv_parameters.last_rx = sched.os_ticks;
-                break;
             case ID_MAIN_HB:
                 can_data.main_hb.car_state = msg_data_a->main_hb.car_state;
                 can_data.main_hb.precharge_state = msg_data_a->main_hb.precharge_state;
@@ -112,6 +104,46 @@ void canRxUpdate()
                 can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
                 can_data.max_cell_temp.stale = 0;
                 can_data.max_cell_temp.last_rx = sched.os_ticks;
+                break;
+            case ID_INVA_CRIT:
+                can_data.INVA_CRIT.AMK_ActualSpeed = (int16_t) msg_data_a->INVA_CRIT.AMK_ActualSpeed;
+                can_data.INVA_CRIT.AMK_ActualTorque = (int16_t) msg_data_a->INVA_CRIT.AMK_ActualTorque;
+                can_data.INVA_CRIT.AMK_DisplayOverloadInverter = msg_data_a->INVA_CRIT.AMK_DisplayOverloadInverter;
+                can_data.INVA_CRIT.AMK_DisplayOverloadMotor = msg_data_a->INVA_CRIT.AMK_DisplayOverloadMotor;
+                can_data.INVA_CRIT.stale = 0;
+                can_data.INVA_CRIT.last_rx = sched.os_ticks;
+                break;
+            case ID_INVB_CRIT:
+                can_data.INVB_CRIT.AMK_ActualSpeed = (int16_t) msg_data_a->INVB_CRIT.AMK_ActualSpeed;
+                can_data.INVB_CRIT.AMK_ActualTorque = (int16_t) msg_data_a->INVB_CRIT.AMK_ActualTorque;
+                can_data.INVB_CRIT.AMK_DisplayOverloadInverter = msg_data_a->INVB_CRIT.AMK_DisplayOverloadInverter;
+                can_data.INVB_CRIT.AMK_DisplayOverloadMotor = msg_data_a->INVB_CRIT.AMK_DisplayOverloadMotor;
+                can_data.INVB_CRIT.stale = 0;
+                can_data.INVB_CRIT.last_rx = sched.os_ticks;
+                break;
+            case ID_INVA_TEMPS:
+                can_data.INVA_TEMPS.AMK_MotorTemp = (int16_t) msg_data_a->INVA_TEMPS.AMK_MotorTemp;
+                can_data.INVA_TEMPS.AMK_InverterTemp = (int16_t) msg_data_a->INVA_TEMPS.AMK_InverterTemp;
+                can_data.INVA_TEMPS.AMK_IGBTTemp = (int16_t) msg_data_a->INVA_TEMPS.AMK_IGBTTemp;
+                can_data.INVA_TEMPS.stale = 0;
+                can_data.INVA_TEMPS.last_rx = sched.os_ticks;
+                break;
+            case ID_INVB_TEMPS:
+                can_data.INVB_TEMPS.AMK_MotorTemp = (int16_t) msg_data_a->INVB_TEMPS.AMK_MotorTemp;
+                can_data.INVB_TEMPS.AMK_InverterTemp = (int16_t) msg_data_a->INVB_TEMPS.AMK_InverterTemp;
+                can_data.INVB_TEMPS.AMK_IGBTTemp = (int16_t) msg_data_a->INVB_TEMPS.AMK_IGBTTemp;
+                can_data.INVB_TEMPS.stale = 0;
+                can_data.INVB_TEMPS.last_rx = sched.os_ticks;
+                break;
+            case ID_DASHBOARD_VCU_PARAMETERS:
+                can_data.dashboard_vcu_parameters.vcu_fmode = msg_data_a->dashboard_vcu_parameters.vcu_fmode;
+                can_data.dashboard_vcu_parameters.vcu_cmode = msg_data_a->dashboard_vcu_parameters.vcu_cmode;
+                can_data.dashboard_vcu_parameters.vt_db_val = msg_data_a->dashboard_vcu_parameters.vt_db_val;
+                can_data.dashboard_vcu_parameters.tv_pp_val = msg_data_a->dashboard_vcu_parameters.tv_pp_val;
+                can_data.dashboard_vcu_parameters.tc_tr_val = msg_data_a->dashboard_vcu_parameters.tc_tr_val;
+                can_data.dashboard_vcu_parameters.vs_max_sr_val = msg_data_a->dashboard_vcu_parameters.vs_max_sr_val;
+                can_data.dashboard_vcu_parameters.stale = 0;
+                can_data.dashboard_vcu_parameters.last_rx = sched.os_ticks;
                 break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
@@ -163,9 +195,6 @@ void canRxUpdate()
     CHECK_STALE(can_data.orion_currents_volts.stale,
                 sched.os_ticks, can_data.orion_currents_volts.last_rx,
                 UP_ORION_CURRENTS_VOLTS);
-    CHECK_STALE(can_data.dashboard_tv_parameters.stale,
-                sched.os_ticks, can_data.dashboard_tv_parameters.last_rx,
-                UP_DASHBOARD_TV_PARAMETERS);
     CHECK_STALE(can_data.main_hb.stale,
                 sched.os_ticks, can_data.main_hb.last_rx,
                 UP_MAIN_HB);
@@ -178,6 +207,21 @@ void canRxUpdate()
     CHECK_STALE(can_data.max_cell_temp.stale,
                 sched.os_ticks, can_data.max_cell_temp.last_rx,
                 UP_MAX_CELL_TEMP);
+    CHECK_STALE(can_data.INVA_CRIT.stale,
+                sched.os_ticks, can_data.INVA_CRIT.last_rx,
+                UP_INVA_CRIT);
+    CHECK_STALE(can_data.INVB_CRIT.stale,
+                sched.os_ticks, can_data.INVB_CRIT.last_rx,
+                UP_INVB_CRIT);
+    CHECK_STALE(can_data.INVA_TEMPS.stale,
+                sched.os_ticks, can_data.INVA_TEMPS.last_rx,
+                UP_INVA_TEMPS);
+    CHECK_STALE(can_data.INVB_TEMPS.stale,
+                sched.os_ticks, can_data.INVB_TEMPS.last_rx,
+                UP_INVB_TEMPS);
+    CHECK_STALE(can_data.dashboard_vcu_parameters.stale,
+                sched.os_ticks, can_data.dashboard_vcu_parameters.last_rx,
+                UP_DASHBOARD_VCU_PARAMETERS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -202,23 +246,29 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR1 = (ID_LWS_STANDARD << 21);
     CAN1->sFilterRegister[1].FR2 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_DASHBOARD_TV_PARAMETERS << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_MAIN_HB << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_MAIN_HB << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_INVA_CRIT << 21);
+    CAN1->sFilterRegister[4].FR2 = (ID_INVB_CRIT << 21);
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_INVA_TEMPS << 21);
+    CAN1->sFilterRegister[5].FR2 = (ID_INVB_TEMPS << 21);
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_DASHBOARD_VCU_PARAMETERS << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->FA1R |= (1 << 8);    // configure bank 8
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->FA1R |= (1 << 9);    // configure bank 9
+    CAN1->sFilterRegister[9].FR1 = (ID_SET_FAULT << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     /* END AUTO FILTER */
     // Adding LWS standard to bank 8 since it needs to be ExtID
     CAN1->FA1R |= (1 << 8);    // configure bank 8

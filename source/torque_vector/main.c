@@ -7,7 +7,7 @@
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/faults/faults.h"
 #include "common/common_defs/common_defs.h"
-
+#include <stdint.h>
 /* Module Includes */
 #include "main.h"
 #include "source/torque_vector/can/can_parse.h"
@@ -61,6 +61,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_UART4RX_PA1,
     GPIO_INIT_UART4TX_PA0,
 
+    // UART LOGGING
+    GPIO_INIT_USART1TX_PA9,
+    GPIO_INIT_USART1RX_PA10,
+
     // GPS Auxillary pins
     GPIO_INIT_OUTPUT(GPS_RESET_GPIO_Port, GPS_RESET_Pin, GPIO_OUTPUT_LOW_SPEED),
 
@@ -90,6 +94,24 @@ usart_init_t huart_gps =
     .rx_dma_cfg = &usart_gps_rx_dma_config
 };
 
+dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t usb = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART1,
+   .wake_addr   = false,
+   .usart_active_num = USART1_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_usb_tx_dma_config,
+   .rx_dma_cfg = &usart_usb_rx_dma_config
+};
+
+
 #define TargetCoreClockrateHz 96000000
 ClockRateConfig_t clock_config = {
     .clock_source               =CLOCK_SOURCE_HSE,
@@ -107,6 +129,11 @@ extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
+
+static struct serial_tx txmsg;
+static struct serial_rx rxmsg;
+static uint16_t rxbuffer[(sizeof(rxmsg) + 1) / 2];
+static uint8_t txbuffer[2 + sizeof(txmsg)] = {0xAA, 0x55};
 
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -151,6 +178,7 @@ extern void HardFault_Handler(void);
 void parseIMU(void);
 void pollIMU(void);
 void VCU_MAIN(void);
+void txUsart(void);
 
 /* Torque Vectoring Definitions */
 static ExtU_tv rtU_tv; /* External inputs */
@@ -201,6 +229,7 @@ int main(void)
 
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
+    taskCreate(txUsart, 100);
 
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
@@ -230,11 +259,16 @@ void preflightChecks(void)
         {
             HardFault_Handler();
         }
+        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
     break;
     case 3:
         // GPS Initialization
         PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
         PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
     break;
     case 5:
         initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
@@ -343,7 +377,100 @@ void parseIMU(void)
 
 void usart_recieve_complete_callback(usart_init_t *handle)
 {
-   parseVelocity(&GPSHandle);
+    if (handle == &usb)
+    {
+        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
+
+        // Data
+        memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
+        memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));
+        memcpy(xVCU.AV_RAW, rxmsg.AV_RAW, sizeof(xVCU.AV_RAW));
+        memcpy(xVCU.AG_RAW, rxmsg.AG_RAW, sizeof(xVCU.AG_RAW));
+        memcpy(xVCU.TO_RAW, rxmsg.TO_RAW, sizeof(xVCU.TO_RAW));
+
+        xVCU.TH_RAW = rxmsg.TH_RAW;
+        xVCU.ST_RAW = rxmsg.ST_RAW;
+        xVCU.VB_RAW = rxmsg.VB_RAW;
+        xVCU.GS_RAW = rxmsg.GS_RAW;
+        xVCU.IB_RAW = rxmsg.IB_RAW;
+        xVCU.MT_RAW = rxmsg.MT_RAW;
+        xVCU.CT_RAW = rxmsg.CT_RAW;
+        xVCU.IT_RAW = rxmsg.IT_RAW;
+        xVCU.MC_RAW = rxmsg.MC_RAW;
+        xVCU.IC_RAW = rxmsg.IC_RAW;
+        xVCU.BT_RAW = rxmsg.BT_RAW;
+        xVCU.DB_RAW = rxmsg.DB_RAW;
+        xVCU.PI_RAW = rxmsg.PI_RAW;
+        xVCU.PP_RAW = rxmsg.PP_RAW;
+
+        // Flags
+        fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
+        fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
+        fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
+        fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
+        fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
+        fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
+        fVCU.IAC_SFLAG = rxmsg.IAC_SFLAG;
+        fVCU.IAT_SFLAG = rxmsg.IAT_SFLAG;
+        fVCU.IBC_SFLAG = rxmsg.IBC_SFLAG;
+        fVCU.IBT_SFLAG = rxmsg.IBT_SFLAG;
+        fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
+        fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
+        fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
+        fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
+    }
+    else 
+    {
+        parseVelocity(&GPSHandle);
+    }
+}
+
+void txUsart()
+{
+    memcpy(txmsg.ET_permit_buffer, yVCU.ET_permit_buffer, sizeof(txmsg.ET_permit_buffer));
+    memcpy(txmsg.PT_permit_buffer, yVCU.PT_permit_buffer, sizeof(txmsg.PT_permit_buffer));
+    memcpy(txmsg.VS_permit_buffer, yVCU.VS_permit_buffer, sizeof(txmsg.VS_permit_buffer));
+    memcpy(txmsg.VT_permit_buffer, yVCU.VT_permit_buffer, sizeof(txmsg.VT_permit_buffer));
+    memcpy(txmsg.IB_CF_buffer, yVCU.IB_CF_buffer, sizeof(txmsg.IB_CF_buffer));
+    memcpy(txmsg.WT_CF, yVCU.WT_CF, sizeof(txmsg.WT_CF));
+    memcpy(txmsg.WM_CF, yVCU.WM_CF, sizeof(txmsg.WM_CF));
+    memcpy(txmsg.AV_CF, yVCU.AV_CF, sizeof(txmsg.AV_CF));
+    memcpy(txmsg.AG_CF, yVCU.AG_CF, sizeof(txmsg.AG_CF));
+    memcpy(txmsg.TO_CF, yVCU.TO_CF, sizeof(txmsg.TO_CF));
+    memcpy(txmsg.TO_ET, yVCU.TO_ET, sizeof(txmsg.TO_ET));
+    memcpy(txmsg.TO_PT, yVCU.TO_PT, sizeof(txmsg.TO_PT));
+    memcpy(txmsg.WM_VS, yVCU.WM_VS, sizeof(txmsg.WM_VS));
+    memcpy(txmsg.TO_VT, yVCU.TO_VT, sizeof(txmsg.TO_VT));
+
+    txmsg.VCU_mode = yVCU.VCU_mode;
+    txmsg.TH_CF = yVCU.TH_CF;
+    txmsg.ST_CF = yVCU.ST_CF;
+    txmsg.VB_CF = yVCU.VB_CF;
+    txmsg.GS_CF = yVCU.GS_CF;
+    txmsg.IB_CF = yVCU.IB_CF;
+    txmsg.MT_CF = yVCU.MT_CF;
+    txmsg.CT_CF = yVCU.CT_CF;
+    txmsg.IT_CF = yVCU.IT_CF;
+    txmsg.MC_CF = yVCU.MC_CF;
+    txmsg.IC_CF = yVCU.IC_CF;
+    txmsg.BT_CF = yVCU.BT_CF;
+    txmsg.DB_CF = yVCU.DB_CF;
+    txmsg.PI_CF = yVCU.PI_CF;
+    txmsg.PP_CF = yVCU.PP_CF;
+    txmsg.zero_current_counter = yVCU.zero_current_counter;
+    txmsg.Batt_SOC = yVCU.Batt_SOC;
+    txmsg.Batt_Voc = yVCU.Batt_Voc;
+    txmsg.TO_AB_MX = yVCU.TO_AB_MX;
+    txmsg.TO_DR_MX = yVCU.TO_DR_MX;
+    txmsg.VT_mode = yVCU.VT_mode;
+    txmsg.TV_AV_ref = yVCU.TV_AV_ref;
+    txmsg.TV_delta_torque = yVCU.TV_delta_torque;
+    txmsg.TC_highs = yVCU.TC_highs;
+    txmsg.TC_lows = yVCU.TC_lows;
+    txmsg.sl = yVCU.sl;
+
+    memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
+    PHAL_usartTxBl(&usb, txbuffer, sizeof(txbuffer));
 }
 
 /* CAN Message Handling */

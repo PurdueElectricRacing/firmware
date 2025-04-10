@@ -201,8 +201,8 @@ int main(void)
 
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 30);
-    taskCreate(txUsart, 200);
+    taskCreate(VCU_MAIN, 3000);
+    //taskCreate(txUsart, 200);
 
     /* No Way Home */
     schedStart();
@@ -402,9 +402,10 @@ void usart_recieve_complete_callback(usart_init_t *handle)
     }
 }
 
-void txUsart()
-{
-    // memcpy(txmsg.ET_permit_buffer, yVCU.ET_permit_buffer, sizeof(txmsg.ET_permit_buffer));
+void txUsart() {
+
+    /* EDIT HERE TO SEND */
+    /* I would call txusart on your own when VCU_MAIN is done */
     memcpy(txmsg.PT_permit_buffer, yVCU.PT_permit_buffer, sizeof(txmsg.PT_permit_buffer));
     memcpy(txmsg.VS_permit_buffer, yVCU.VS_permit_buffer, sizeof(txmsg.VS_permit_buffer));
     memcpy(txmsg.VT_permit_buffer, yVCU.VT_permit_buffer, sizeof(txmsg.VT_permit_buffer));
@@ -446,6 +447,16 @@ void txUsart()
     txmsg.SR = yVCU.SR;
 
     memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
+
+    // Send in 20-byte chunks, starting from the 3rd byte in the buffer (since the first two are reserved for the sync code)
+    for (uint16_t i = 0; i < sizeof(txmsg); i += 20) {
+        uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
+
+        // Refresh the watchdog to avoid system reset
+        IWDG->KR = 0xAAAA;
+
+        PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
+    }
 }
 
 /* CAN Message Handling */
@@ -474,6 +485,9 @@ void VCU_MAIN(void)
     SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
     SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
     SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
+
+    // FOR USB
+    txUsart();
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

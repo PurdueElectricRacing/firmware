@@ -136,9 +136,9 @@ void imdDecodeInit(void)
     #endif
 
     TIM2->CR1   &= ~(TIM_CR1_CEN);                     // Disable counter during configuration
-    TIM2->PSC   = 16 - 1;                                // Do not scale the counter clock
-    TIM2->CNT   =  0;                                // Reset the counter value
-    TIM2->ARR   = 0xffff - 1;                       // Set auto reload to allow for maximum counter value
+    TIM2->PSC   = 0;                                // Do not scale the counter clock
+    TIM2->CNT   = 0;                                // Reset the counter value
+    TIM2->ARR   = 0xffffff - 1;                       // Set auto reload to allow for maximum counter value
 
     // Disable capture from the counter for channels 1 and 2
     TIM2->CCER &= ~(TIM_CCER_CC1E | TIM_CCER_CC2E);
@@ -152,10 +152,10 @@ void imdDecodeInit(void)
 
     // setup input capture filtering
     TIM2->CCMR1 &= ~TIM_CCMR1_IC1F_Msk; // clear bits
-    TIM2->CCMR1 |= (0b0011 << 4);
+    //TIM2->CCMR1 |= (0b0011 << 4);
     // select the edge of transition
-    //TIM2->CCER &= ~(TIM_CCER_CC2P | TIM_CCER_CC2NP); // 00 - active rising
-    TIM2->CCER = TIM_CCER_CC1E;
+    TIM2->CCER &= ~(TIM_CCER_CC2P | TIM_CCER_CC2NP); // 00 - active rising
+    //TIM2->CCER = TIM_CCER_CC1E;
     // set input Pre-Scaler
     TIM2->CCMR1 &= ~TIM_CCMR1_IC1PSC_Msk; // clear bits
 
@@ -173,7 +173,7 @@ void imdDecodeInit(void)
 
     // set input Pre-Scaler
     TIM2->CCMR1 &= ~TIM_CCMR1_IC2PSC_Msk; // clear bits
-    TIM2->CCMR1 |= (0b0011 << 12);
+    //TIM2->CCMR1 |= (0b0011 << 12);
 
     // select valid trigger input
     TIM2->SMCR &= ~TIM_SMCR_TS_Msk; // clear bits
@@ -188,12 +188,12 @@ void imdDecodeInit(void)
     // Enable capture from the counter for channel 1/2
     TIM2->CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E;
     // enable interrupt on channel 1/2
-    //TIM2->DIER |= TIM_DIER_CC1IE | TIM_DIER_CC2IE;
+    TIM2->DIER |= TIM_DIER_CC1IE | TIM_DIER_CC2IE;
 
     // enable counter
     TIM2->CR1 |= TIM_CR1_CEN;
-    //NVIC_SetPriority(TIM2_IRQn, 0); // highest priority
-    //NVIC_EnableIRQ(TIM2_IRQn);
+    NVIC_SetPriority(TIM2_IRQn, 0); // highest priority
+    NVIC_EnableIRQ(TIM2_IRQn);
 }
 
 void imdDecodePeriodic(void)
@@ -208,6 +208,22 @@ void imdDecodePeriodic(void)
 
 void TIM2_IRQHandler(void)
 {
+  /* Clear TIM2 Capture compare interrupt pending bit */
+  if ((TIM2->SR & TIM_DIER_CC1IE) && (TIM2->DIER & TIM_DIER_CC1IE))
+  {
+    TIM2->SR = (uint16_t)~TIM_DIER_CC1IE;
+    period = TIM2->CCR1;
+    // uint16_t value = TIM2->CCR1;
+  }
+  if ((TIM2->SR & TIM_DIER_CC2IE) && (TIM2->DIER & TIM_DIER_CC2IE))
+  {
+    TIM2->SR = ~TIM_DIER_CC1IE;
+    TIM2->SR = ~TIM_DIER_CC2IE;
+    period = TIM2->CCR1;
+    duty = TIM2->CCR2;
+  }
+  return;
+
  /* check for timer overflow */
  if ((TIM2->SR & TIM_SR_UIF) != 0)
  {

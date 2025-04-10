@@ -150,7 +150,6 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck)
     return true;
 }
 
-// TODO add F7
 void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len)
 {
     int i;
@@ -181,15 +180,17 @@ void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len)
 }
 
 void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len)
-{
+{    
     int i;
-
     handle->periph->CR1 |= USART_CR1_RE;
+
     #ifdef STM32F407xx
+
     for (i = 0; i < len; i++) {
         while (!(handle->periph->SR & USART_SR_RXNE));
         data[i] = handle->periph->DR & 0xff;
     }
+
     #endif
 
     #ifdef STM32F732xx

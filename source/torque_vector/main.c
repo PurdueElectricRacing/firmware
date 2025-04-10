@@ -191,17 +191,18 @@ int main(void)
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 74, 1000);
+    configureAnim(preflightAnimation, preflightChecks, 100, 750);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
-    taskCreate(txUsart, 100);
 
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
+    taskCreate(VCU_MAIN, 30);
+    taskCreate(txUsart, 200);
 
     /* No Way Home */
     schedStart();
@@ -222,26 +223,6 @@ void preflightChecks(void)
         }
         NVIC_EnableIRQ(CAN1_RX0_IRQn);
         break;
-    case 2:
-        /* USART initialization */
-        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
-        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
-    break;
-    case 3:
-        // GPS Initialization
-        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
-        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
-    break;
-    case 5:
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
-        break;
     case 1:
         /* SPI initialization */
         if (!PHAL_SPI_init(&spi_config))
@@ -252,8 +233,30 @@ void preflightChecks(void)
 
         PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
         PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-    break;
+        break;
+    case 2:
+        /* USART initialization */
+        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
+        break;
+    case 3:
+        // GPS Initialization
+        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        break;
     case 4:
+        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
+        break;
+    case 100:
+        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
+    case 6:
         if (!BMI088_init(&bmi_config))
         {
             HardFault_Handler();
@@ -443,7 +446,6 @@ void txUsart()
     txmsg.SR = yVCU.SR;
 
     memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
-    PHAL_usartTxBl(&usb, txbuffer, sizeof(txbuffer));
 }
 
 /* CAN Message Handling */

@@ -139,6 +139,12 @@ volatile extern ADCReadings_t adc_readings;
 extern bool bms_daq_override;
 extern bool bms_daq_stat;
 
+/* Locals for Clock Rates */
+extern uint32_t APB1ClockRateHz;
+extern uint32_t APB2ClockRateHz;
+extern uint32_t AHBClockRateHz;
+extern uint32_t PLLClockRateHz;
+
 void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

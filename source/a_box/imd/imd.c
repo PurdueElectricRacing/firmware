@@ -3,6 +3,8 @@
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 
+#include "main.h"
+
 // decode IMD status output PWM signal that changes both frequency and pwm
 
 void imdDecodeInit(void)
@@ -84,6 +86,7 @@ void imdDecodePeriodic(void)
     uint16_t duty = TIM2->CCR2;
     float frequency = (float)APB1ClockRateHz / (period + 1);
     float duty_cycle = ((duty + 1) * 100) / (period);
+    SEND_IMD_STATUS_RAW(period, duty);
 }
 
 #if 0

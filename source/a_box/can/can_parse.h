@@ -58,6 +58,7 @@
 #define ID_RAW_CELL_TEMP_MODULE5 0x14008444
 #define ID_A_BOX_CAN_STATS 0x10016304
 #define ID_I_SENSE 0x10016444
+#define ID_IMD_STATUS_RAW 0x10016484
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
 #define ID_DAQ_RESPONSE_A_BOX_VCAN 0x17ffffc4
 #define ID_ELCON_CHARGER_STATUS 0x18ff50e5
@@ -118,6 +119,7 @@
 #define DLC_RAW_CELL_TEMP_MODULE5 5
 #define DLC_A_BOX_CAN_STATS 7
 #define DLC_I_SENSE 4
+#define DLC_IMD_STATUS_RAW 4
 #define DLC_FAULT_SYNC_A_BOX 3
 #define DLC_DAQ_RESPONSE_A_BOX_VCAN 8
 #define DLC_ELCON_CHARGER_STATUS 5
@@ -445,6 +447,13 @@
         data_a->i_sense.current_channel_2 = current_channel_2_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_IMD_STATUS_RAW(period_, duty_cycle_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_IMD_STATUS_RAW, .DLC=DLC_IMD_STATUS_RAW, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->imd_status_raw.period = period_;\
+        data_a->imd_status_raw.duty_cycle = duty_cycle_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 #define SEND_FAULT_SYNC_A_BOX(idx_, latched_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_FAULT_SYNC_A_BOX, .DLC=DLC_FAULT_SYNC_A_BOX, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -674,6 +683,10 @@ typedef union {
         uint64_t current_channel_1: 16;
         uint64_t current_channel_2: 16;
     } i_sense;
+    struct {
+        uint64_t period: 16;
+        uint64_t duty_cycle: 16;
+    } imd_status_raw;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

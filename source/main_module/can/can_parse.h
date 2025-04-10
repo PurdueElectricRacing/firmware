@@ -68,6 +68,7 @@ typedef union {
 #define ID_INVB_TEMPS 0x285
 #define ID_INVB_ERR_1 0x289
 #define ID_INVB_ERR_2 0x291
+#define ID_IMD_STATUS_RAW 0x10016484
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -118,6 +119,7 @@ typedef union {
 #define DLC_INVB_TEMPS 6
 #define DLC_INVB_ERR_1 8
 #define DLC_INVB_ERR_2 8
+#define DLC_IMD_STATUS_RAW 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -332,6 +334,7 @@ typedef union {
 #define UP_INVB_SET 15
 #define UP_INVB_ERR_1 2000
 #define UP_INVB_ERR_2 2000
+#define UP_IMD_STATUS_RAW 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -628,6 +631,10 @@ typedef union {
         uint64_t AMK_ErrorInfo3: 32;
     } INVB_ERR_2;
     struct {
+        uint64_t period: 16;
+        uint64_t duty_cycle: 16;
+    } imd_status_raw;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -829,6 +836,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } INVB_ERR_2;
+    struct {
+        uint16_t period;
+        uint16_t duty_cycle;
+        uint8_t stale;
+        uint32_t last_rx;
+    } imd_status_raw;
     struct {
         uint16_t idx;
         uint8_t latched;

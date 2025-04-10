@@ -88,13 +88,6 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
-
-/* Locals for Clock Rates */
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
-extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
-
 extern uint8_t orion_error;
 
 extern uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];

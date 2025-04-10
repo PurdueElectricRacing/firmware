@@ -266,7 +266,8 @@
                         {"msg_name": "INVB_TEMPS"},
                         {"msg_name": "INVB_SET"},
                         {"msg_name": "INVB_ERR_1"},
-                        {"msg_name": "INVB_ERR_2"}
+                        {"msg_name": "INVB_ERR_2"},
+                        {"msg_name": "imd_status_raw"}
                     ]
                 },
                 {
@@ -481,6 +482,27 @@
                         "msg_period": 1000,
                         "msg_hlp": 4,
                         "msg_pgn": 1425
+                    },
+                    {
+                        "msg_name": "imd_status_raw",
+                        "msg_desc": "IMD PWM decode status",
+                        "signals": [
+                            {
+                                "sig_name": "period",
+                                "sig_desc": "Period of status signal",
+                                "type": "uint16_t",
+                                "length": 16
+                            },
+                            {
+                                "sig_name": "duty_cycle",
+                                "sig_desc": "Duty cycle of status signal",
+                                "type": "uint16_t",
+                                "length": 16
+                            }
+                        ],
+                        "msg_period": 1000,
+                        "msg_hlp": 4,
+                        "msg_pgn": 1426
                     }
                     ],
                     "rx": [

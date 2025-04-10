@@ -208,13 +208,6 @@ void imdDecodePeriodic(void)
 
 void TIM2_IRQHandler(void)
 {
-  /* Clear TIM2 Capture compare interrupt pending bit */
-  if ((TIM2->SR & TIM_DIER_CC1IE) && (TIM2->DIER & TIM_DIER_CC1IE))
-  {
-    TIM2->SR = (uint16_t)~TIM_DIER_CC1IE;
-    period = TIM2->CCR1;
-    // uint16_t value = TIM2->CCR1;
-  }
   if ((TIM2->SR & TIM_DIER_CC2IE) && (TIM2->DIER & TIM_DIER_CC2IE))
   {
     TIM2->SR = ~TIM_DIER_CC1IE;

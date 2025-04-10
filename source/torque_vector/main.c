@@ -446,8 +446,9 @@ void txUsart() {
     txmsg.TC_lows = yVCU.TC_lows;
     txmsg.SR = yVCU.SR;
 
-    memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
 
+    /* You shouldn't need to mess with any of this */
+    memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
     // Send in 20-byte chunks, starting from the 3rd byte in the buffer (since the first two are reserved for the sync code)
     for (uint16_t i = 0; i < sizeof(txmsg); i += 20) {
         uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;

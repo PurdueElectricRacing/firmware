@@ -164,6 +164,7 @@ void imdDecodeInit(void)
     // select channel 2 as the active input
     TIM2->CCMR1 &= ~TIM_CCMR1_CC2S_Msk; // clear bits
     TIM2->CCMR1 |= TIM_CCMR1_CC2S_1;    // 10 - maps channel 2 to TI1
+    TIM2->CCMR1 |= TIM_CCMR1_CC1S_0 | TIM_CCMR1_CC2S_1;
 
     // setup input capture filtering
     TIM2->CCMR1 &= ~TIM_CCMR1_IC2F_Msk; // clear bits

@@ -91,7 +91,7 @@ void pedalsPeriodic(void) {
         t2_final = 0;
         t1_final = 0;
         setFault(ID_APPS_BRAKE_FAULT, true);
-    } else if (t1_raw <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
+    } else if (t1_final <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
         setFault(ID_APPS_BRAKE_FAULT, false);
     }
 

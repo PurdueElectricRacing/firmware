@@ -207,15 +207,6 @@ void imdDecodePeriodic(void)
 
 void TIM2_IRQHandler(void)
 {
-  if ((TIM2->SR & TIM_DIER_CC2IE) && (TIM2->DIER & TIM_DIER_CC2IE))
-  {
-    TIM2->SR = ~TIM_DIER_CC1IE;
-    TIM2->SR = ~TIM_DIER_CC2IE;
-    period = TIM2->CCR1;
-    duty = TIM2->CCR2;
-  }
-  return;
-
  /* check for timer overflow */
  if ((TIM2->SR & TIM_SR_UIF) != 0)
  {

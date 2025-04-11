@@ -17,7 +17,7 @@ from intelhex import IntelHex
 from can_process import CANRxThread, CANTxThread
 from bootloader_commands import BootloaderCommand
 import os
-dbc_path = Path(__file__).parent.parent.joinpath(Path("daq/per_dbc.dbc"))
+dbc_path = Path(__file__).parent.parent.joinpath(Path("daq/per_dbc_VCAN.dbc"))
 # Setup CAN bus and DBC
 db = cantools.database.load_file(dbc_path)
 dev = usb.core.find(idVendor=0x1D50, idProduct=0x606F)
@@ -55,7 +55,7 @@ class Bootloader():
                      "RESET_REASON_APP_WATCHDOG",
                      "RESET_REASON_POR",
                      "RESET_REASON_BAD_FIRMWARE"]
-    
+
     FLASH_STATE = {
         "WAIT_FOR_BL_MODE": 0,
         "WAIT_FOR_META_RESP": 1,
@@ -95,7 +95,7 @@ class Bootloader():
         # Try to find HEX file associated with node
         node_path = self.firmware_path + f"/output/{self.selected_node}/BL_{self.selected_node}.hex"
         self.verifyHex(node_path)
-    
+
     def verifyHex(self, path):
         if (path != "" and os.path.exists(path)):
             self.hex_loc = path
@@ -105,7 +105,7 @@ class Bootloader():
             self.segments = self.ih.segments()
 
             for seg in self.segments:
-                self._logInfo(f"Segment: 0x{seg[0]:02X} : 0x{seg[1]:02X}") 
+                self._logInfo(f"Segment: 0x{seg[0]:02X} : 0x{seg[1]:02X}")
             if (self.segments[0][0] < 0x8002000):
                 self.ui.currFileLbl.setText("Please select file")
                 self._logInfo(f"Invalid start address, ensure the hex is of type BL_ and starts at 0x8002000 (L series) or 0x8004000 (F series)")
@@ -117,7 +117,7 @@ class Bootloader():
 
         else:
             self._logInfo(f"Unable to find hex at {path}")
-    
+
     def requestFlash(self):
         if (not self.bl): return
         if (not self.segments):
@@ -135,7 +135,7 @@ class Bootloader():
 
         self.rxThread.start()
         self.flashTxUpdate()
-    
+
     def handleNewBlMsg(self, msg: can.Message):
         if (not self.bl): return
         # Is message for selected node?
@@ -145,11 +145,11 @@ class Bootloader():
                 self._logInfo(f"{list(self.bl.RX_CMD.keys())[can_rx['cmd']]}: {self.reset_reasons[can_rx['data']]}")
             if (self.flash_active):
                 self.flashRxUpdate(can_rx['cmd'], can_rx['data'])
-    
+
     def restartFlashTimeout(self, seconds):
         self.flash_timeout_timer = threading.Timer(2, self.flashTimeout)
         self.flash_timeout_timer.start()
-    
+
     def flashRxUpdate(self, cmd, data):
         """ Only called if message is from current node, and flash is active """
         if (cmd == self.bl.RX_CMD['BLSTAT_INVALID']):
@@ -186,7 +186,7 @@ class Bootloader():
                     self._logInfo("ERROR: Firmware download failed!!")
                     self.flashReset(0)
                 self._logInfo("Total time: %.2f seconds" % (time.time() - self.flash_start_time))
-    
+
     def flashTxUpdate(self):
         while (self.flash_active):
             end_time = time.perf_counter_ns() + 1000000
@@ -201,7 +201,7 @@ class Bootloader():
                     self.flash_state = self.FLASH_STATE['WAIT_FOR_STATUS']
             while (time.perf_counter_ns() < end_time):
                 pass
-    
+
     def sendSegmentDoubleWord(self, addr):
         """ Only call if flash in progress """
         bin_arr = self.ih.tobinarray(start=addr, size=4)
@@ -217,7 +217,7 @@ class Bootloader():
 
         can_tx = self.bl.firmware_data_msg((data2 << 32) | data1)
         self.bus.send(can_tx)
-    
+
     def flashTimeout(self):
         if (self.flash_active):
             if (self.flash_state <= self.FLASH_STATE['WAIT_FOR_BL_MODE']):
@@ -231,7 +231,7 @@ class Bootloader():
 
     def flashReset(self, prog):
         self.flash_active = False
-        if (self.rxThread.isAlive()): 
+        if (self.rxThread.isAlive()):
             self.rxThread.alive = False
         self.flash_timeout_timer.cancel()
         self.flash_state = self.FLASH_STATE['WAIT_FOR_BL_MODE']
@@ -269,4 +269,3 @@ if __name__ == "__main__":
 
     bus.shutdown()
     usb.util.dispose_resources(bus.gs_usb.gs_usb)
-            

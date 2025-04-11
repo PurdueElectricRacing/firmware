@@ -3,6 +3,7 @@
     "busses":[
         {
             "bus_name":"VCAN",
+            "bus_speed": 500000,
             "nodes":[
                 {
                     "node_name":"Main_Module",
@@ -1519,6 +1520,7 @@
         },
         {
           "bus_name": "MCAN",
+          "bus_speed": 500000,
           "nodes": [
             {
               "node_name":"Main_Module",
@@ -1544,6 +1546,7 @@
         },
         {
           "bus_name": "CCAN",
+          "bus_speed": 250000,
           "nodes": [
             {
               "node_name": "a_box",
@@ -1881,6 +1884,7 @@
         },
         {
             "bus_name": "Test",
+            "bus_speed": 500000,
             "nodes": [
                 {
                     "node_name": "TEST_NODE",

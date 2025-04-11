@@ -19,7 +19,7 @@ def gen_dbc(can_config, dbc_path):
                 for sig in msg['signals']:
 
                     # signed signals cannot have bits less than the required size
-                    # unsigned can be whatever 
+                    # unsigned can be whatever
                     # floats mUsT be 32
 
                     msg_signals.append(db.Signal(name=sig['sig_name'],
@@ -48,18 +48,21 @@ def gen_dbc(can_config, dbc_path):
                                         senders=[node['node_name']],
                                         bus_name=bus['bus_name'])
 
-    can_db = db.Database()
-    can_db.nodes.clear()
-    can_db.nodes.extend(nodes)
-    can_db.messages.clear()
-    can_db.messages.extend(messages.values())
+        can_db = db.Database()
+        can_db.nodes.clear()
+        can_db.nodes.extend(nodes)
+        can_db.messages.clear()
+        can_db.messages.extend(messages.values())
 
-    can_db.refresh()
+        can_db.refresh()
+        dbc_name = f"../per_dbc_{bus['bus_name']}.dbc"
+        with open((dbc_path / dbc_name),'w',newline='\n') as fout:
+            fout.write(can_db.as_dbc_string())
 
-    with open(dbc_path,'w',newline='\n') as fout:
-        fout.write(can_db.as_dbc_string())
-    
-    generator.log_success("DBC Generated at " + str(dbc_path))
+        generator.log_success("DBCs Generated at " + str((dbc_path / dbc_name)))
+        # Reset messages and nodes
+        messages = {}
+        nodes = []
 
 
 if __name__ == "__main__":

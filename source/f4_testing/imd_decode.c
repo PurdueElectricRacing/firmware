@@ -90,6 +90,7 @@ volatile uint16_t duty = 0;
 volatile float frequency = 0;
 volatile float duty_cycle = 0;
 volatile uint64_t overflow_counts = 0;
+volatile float resistance = 0;
 
 int main()
 {
@@ -197,10 +198,32 @@ void imdDecodeInit(void)
 
 void imdDecodePeriodic(void)
 {
-    period = TIM2->CCR1;
-    duty = TIM2->CCR2;
-    frequency = (float)APB1ClockRateHz / (period + 1);
+    frequency = (float)(APB1ClockRateHz * 2) / (period + 1); // psc * 2
     duty_cycle = (float)((duty + 1) * 100) / (period);
+
+    // Condition “Normal” and “Undervoltage detected”
+    if (1) // frequency >= 1000 && frequency <= 2000
+    {
+        if (duty_cycle < 5)
+            resistance = 50000; // 50M
+        else if (duty_cycle > 95)
+            resistance = 1200; // 1200K
+        else
+            resistance = ((90 * 1200) / (duty_cycle - 5)) - 1200;
+    }
+
+    // Speed start measurement
+    if (1) // Condition “SST” (30 Hz)
+    {
+        if (duty_cycle > 5 && duty_cycle < 10)
+            ;// good
+        else if (duty_cycle > 90 && duty_cycle < 95)
+            ; //bad
+    }
+
+    if ()
+    // Condition “Device error” and “Kl.31 fault” (40 Hz; 50 Hz;)
+
     //SEND_IMD_STATUS_RAW(period, duty);
     //debug_printf("period: %d duty: %d\n", period, duty);
 }

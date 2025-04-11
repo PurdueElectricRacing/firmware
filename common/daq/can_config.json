@@ -649,50 +649,6 @@
                             "msg_hlp":3,
                             "msg_pgn":142
                         },
-                        {   "msg_name":"bmm_mag",
-                            "msg_desc":"magnetic from bmm",
-                            "signals":[
-                                {"sig_name":"bmm_mag_x","type":"int16_t","unit": "uT"},
-                                {"sig_name":"bmm_mag_y","type":"int16_t","unit": "uT"},
-                                {"sig_name":"bmm_mag_z","type":"int16_t","unit": "uT"}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":143
-                        },
-                        {   "msg_name":"sfs_vel",
-                            "msg_desc":"velocity from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_vel_x","type":"int16_t","unit": "m/s","scale": 0.01},
-                                {"sig_name":"sfs_vel_y","type":"int16_t","unit": "m/s","scale": 0.01},
-                                {"sig_name":"sfs_vel_z","type":"int16_t","unit": "m/s","scale": 0.01}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1445
-                        },
-                        {   "msg_name":"sfs_acc",
-                            "msg_desc":"acceleration from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_acc_x","type":"int16_t","unit": "m/s^2","scale": 0.01},
-                                {"sig_name":"sfs_acc_y","type":"int16_t","unit": "m/s^2","scale": 0.01},
-                                {"sig_name":"sfs_acc_z","type":"int16_t","unit": "m/s^2","scale": 0.01}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1446
-                        },
-                        {   "msg_name":"sfs_ang_vel",
-                            "msg_desc":"orientation vel from sfs",
-                            "signals":[
-                                {"sig_name":"sfs_ang_vel_x","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_vel_y","type":"int16_t","scale": 0.0001},
-                                {"sig_name":"sfs_ang_vel_z","type":"int16_t","scale": 0.0001}
-                            ],
-                            "msg_period":20,
-                            "msg_hlp":3,
-                            "msg_pgn":1448
-                        },
                         {
                             "msg_name": "throttle_vcu",
                             "msg_desc": "Torque request from TV system",
@@ -714,16 +670,6 @@
                             "msg_period": 20,
                             "msg_hlp": 1,
                             "msg_pgn": 160
-                        },
-                        {
-                            "msg_name": "maxR",
-                            "msg_desc": "Maximum Allowed Throttle",
-                            "signals":[
-                                {"sig_name": "vcu_max_r", "type": "int16_t", "unit": "none", "scale": 1}
-                            ],
-                            "msg_period": 20,
-                            "msg_hlp": 3,
-                            "msg_pgn": 152
                         },
                         {
                             "msg_name": "VCU_torques_speeds",

@@ -196,31 +196,74 @@ void imdDecodeInit(void)
     NVIC_EnableIRQ(TIM2_IRQn);
 }
 
+typedef enum {
+    IMD_NORMAL = 1, // “Normal” (10 Hz)
+    IMD_UNDERVOLTAGE = 2, // “Undervoltage detected” (20 Hz)
+    IMD_SST = 3, // “SST” (30 Hz)
+    IMD_DEVICE_ERROR = 4, // “Device error” (40 Hz)
+    IMD_FAULT = 5, // “Kl.31 fault” (50 Hz)
+} imd_condition_t;
+
+#define DC_TOLERANCE 3.00F
+
+static imd_condition_t imdGetCondition(float frequency, float duty)
+{
+    // +3% tolerance for comparing frequency
+    if (frequency >= 970.0 && frequency <= 1030.0)
+    {
+        return IMD_NORMAL;
+    }
+    if (frequency >= 1970.0 && frequency <= 2030.0)
+    {
+        return IMD_UNDERVOLTAGE;
+    }
+
+    // SST: 30Hz && (5<dc<10 || 90<dc<95)
+    if (frequency >= 2970.0 && frequency <= 3030.0 &&
+        ((duty > (5 - DC_TOLERANCE) && duty < (10 + DC_TOLERANCE)) || (duty > (90 - DC_TOLERANCE) && duty < (95 - DC_TOLERANCE))))
+    {
+        return IMD_SST;
+    }
+    
+    if (frequency >= 3950.0 && frequency <= 4050.0)
+    {
+        return IMD_DEVICE_ERROR;
+    }
+    if (frequency >= 4050.0)
+    {
+        return IMD_FAULT;
+    }
+}
+
 void imdDecodePeriodic(void)
 {
     frequency = (float)(APB1ClockRateHz * 2) / (period + 1); // psc * 2
     duty_cycle = (float)((duty + 1) * 100) / (period);
-
-    // Condition “Normal” and “Undervoltage detected”
-    if (1) // frequency >= 1000 && frequency <= 2000
+    imd_condition_t cond = imdGetCondition;
+    switch (cond)
     {
-        if (duty_cycle < 5)
-            resistance = 50000; // 50M
-        else if (duty_cycle > 95)
-            resistance = 1200; // 1200K
-        else
-            resistance = ((90 * 1200) / (duty_cycle - 5)) - 1200;
-    }
-
-    // Speed start measurement
-    if (1) // Condition “SST” (30 Hz)
-    {
+        case IMD_NORMAL:
+        case IMD_UNDERVOLTAGE:
+        {
+            if (duty_cycle < 5)
+                resistance = 50000; // 50M
+            else if (duty_cycle > 95)
+                resistance = 1200; // 1200K
+            else
+                resistance = ((90 * 1200) / (duty_cycle - 5)) - 1200;
+        }
+        break;
+        case IMD_SST:
         if (duty_cycle > 5 && duty_cycle < 10)
             ;// good
         else if (duty_cycle > 90 && duty_cycle < 95)
             ; //bad
+        break;
+        case IMD_DEVICE_ERROR:
+        break;
+        case IMD_FAULT:
+        break;
     }
-
     if ()
     // Condition “Device error” and “Kl.31 fault” (40 Hz; 50 Hz;)
 

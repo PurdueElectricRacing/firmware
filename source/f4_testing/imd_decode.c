@@ -202,44 +202,50 @@ typedef enum {
     IMD_SST = 3, // “SST” (30 Hz)
     IMD_DEVICE_ERROR = 4, // “Device error” (40 Hz)
     IMD_FAULT = 5, // “Kl.31 fault” (50 Hz)
+    IMD_INVALID = 6,
 } imd_condition_t;
 
+// +3% tolerance for comparing duty/frequency
 #define DC_TOLERANCE 3.00F
+#define FR_TOLERANCE 30.00F
 
 static imd_condition_t imdGetCondition(float frequency, float duty)
 {
-    // +3% tolerance for comparing frequency
-    if (frequency >= 970.0 && frequency <= 1030.0)
+    if (frequency >= (1000 - FR_TOLERANCE) && frequency <= ((1000 + FR_TOLERANCE)))
     {
         return IMD_NORMAL;
     }
-    if (frequency >= 1970.0 && frequency <= 2030.0)
+
+    if (frequency >= (2000 - FR_TOLERANCE) && frequency <= ((2000 + FR_TOLERANCE)))
     {
         return IMD_UNDERVOLTAGE;
     }
 
     // SST: 30Hz && (5<dc<10 || 90<dc<95)
-    if (frequency >= 2970.0 && frequency <= 3030.0 &&
-        ((duty > (5 - DC_TOLERANCE) && duty < (10 + DC_TOLERANCE)) || (duty > (90 - DC_TOLERANCE) && duty < (95 - DC_TOLERANCE))))
+    if ((frequency >= (3000 - FR_TOLERANCE) && frequency <= ((3000 + FR_TOLERANCE))) &&
+        ((duty >= (5 - DC_TOLERANCE) && duty <= (10 + DC_TOLERANCE)) || (duty >= (90 - DC_TOLERANCE) && duty <= (95 - DC_TOLERANCE))))
     {
         return IMD_SST;
     }
-    
-    if (frequency >= 3950.0 && frequency <= 4050.0)
+
+    if (frequency >= (4000 - FR_TOLERANCE) && frequency <= ((4000 + FR_TOLERANCE)))
     {
         return IMD_DEVICE_ERROR;
     }
-    if (frequency >= 4050.0)
+
+    if (frequency >= (5000 - FR_TOLERANCE) && frequency <= ((5000 + FR_TOLERANCE)))
     {
         return IMD_FAULT;
     }
+
+    return IMD_INVALID;
 }
 
 void imdDecodePeriodic(void)
 {
     frequency = (float)(APB1ClockRateHz * 2) / (period + 1); // psc * 2
     duty_cycle = (float)((duty + 1) * 100) / (period);
-    imd_condition_t cond = imdGetCondition;
+    imd_condition_t cond = imdGetCondition(frequency, duty_cycle);
     switch (cond)
     {
         case IMD_NORMAL:
@@ -262,6 +268,8 @@ void imdDecodePeriodic(void)
         case IMD_DEVICE_ERROR:
         break;
         case IMD_FAULT:
+        break;
+        case IMD_INVALID:
         break;
     }
     if ()

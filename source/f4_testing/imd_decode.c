@@ -235,6 +235,9 @@ void TIM2_IRQHandler(void)
   // pulse_width = count_at_falling + (1 + TIM5->ARR)*overflow_counts;
   duty = TIM2->CCR2;
  }
+
+ frequency = (float)(APB1ClockRateHz * 2) / (period + 1); // psc * 2
+ duty_cycle = (float)((duty + 1) * 100) / (period);
 }
 
 #if 0

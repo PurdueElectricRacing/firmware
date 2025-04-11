@@ -146,9 +146,9 @@ void imdDecodeInit(void)
     /** configure channel 1 for active rising input **/
     // select channel 1 as the active input
     TIM2->CCMR1 &= ~TIM_CCMR1_CC1S_Msk; // clear bits
-    TIM2->CCMR1 |= TIM_CCMR1_CC1S_0;    // 01 - maps ch1 to TI1
+    //TIM2->CCMR1 |= TIM_CCMR1_CC1S_0;    // 01 - maps ch1 to TI1
 	/*Set CH1 to input capture*/
-	TIM2->CCMR1 = TIM_CCMR1_CC1S;
+	TIM2->CCMR1 |= TIM_CCMR1_CC1S_1;
 
     // setup input capture filtering
     TIM2->CCMR1 &= ~TIM_CCMR1_IC1F_Msk; // clear bits
@@ -164,7 +164,6 @@ void imdDecodeInit(void)
     // select channel 2 as the active input
     TIM2->CCMR1 &= ~TIM_CCMR1_CC2S_Msk; // clear bits
     TIM2->CCMR1 |= TIM_CCMR1_CC2S_1;    // 10 - maps channel 2 to TI1
-    TIM2->CCMR1 |= TIM_CCMR1_CC1S_0 | TIM_CCMR1_CC2S_1;
 
     // setup input capture filtering
     TIM2->CCMR1 &= ~TIM_CCMR1_IC2F_Msk; // clear bits
@@ -174,7 +173,6 @@ void imdDecodeInit(void)
 
     // set input Pre-Scaler
     TIM2->CCMR1 &= ~TIM_CCMR1_IC2PSC_Msk; // clear bits
-    //TIM2->CCMR1 |= (0b0011 << 12);
 
     // select valid trigger input
     TIM2->SMCR &= ~TIM_SMCR_TS_Msk; // clear bits

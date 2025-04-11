@@ -125,8 +125,9 @@ void sd_shutdown(void)
     switch (dh.sd_state)
     {
         case SD_STATE_ACTIVE:
-            _sd_write_periodic(true); // Finish write (bypass count limit)
-            sd_file_sync();           // Flush cache
+            // Do not write as there is not enough time
+            // _sd_write_periodic(true); // Finish write (bypass count limit)
+            // sd_file_sync();           // Flush cache
             f_close(&dh.log_fp);      // Close file
         case SD_STATE_MOUNTED:
             f_mount(0, "", 1);        // Unmount drive

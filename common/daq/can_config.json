@@ -503,6 +503,27 @@
                         "msg_period": 1000,
                         "msg_hlp": 4,
                         "msg_pgn": 1426
+                    },
+                    {
+                        "msg_name": "imd_resistance",
+                        "msg_desc": "IMD resistance decode status",
+                        "signals": [
+                            {
+                                "sig_name": "Condition",
+                                "sig_desc": "Reported condition (normal, undervoltage, etc)",
+                                "type": "uint8_t",
+                                "length": 8
+                            },
+                            {
+                                "sig_name": "Resistance",
+                                "sig_desc": "Reported resistance (K Ohms)",
+                                "type": "float",
+                                "unit": "kOhm"
+                            }
+                        ],
+                        "msg_period": 1000,
+                        "msg_hlp": 4,
+                        "msg_pgn": 1427
                     }
                     ],
                     "rx": [

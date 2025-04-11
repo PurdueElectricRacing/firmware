@@ -30,7 +30,6 @@ typedef union {
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_MAIN_HB_AMK 0xc001941
 #define ID_MAIN_HB 0xc001901
 #define ID_COOLANT_TEMPS 0x10000881
 #define ID_GEARBOX 0x10000901
@@ -49,6 +48,7 @@ typedef union {
 #define ID_INVB_SET 0x189
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE_VCAN 0x17ffffc1
+#define ID_MAIN_HB_AMK 0xc001941
 #define ID_RAW_THROTTLE_BRAKE 0x10000285
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_START_BUTTON 0x4000005
@@ -69,6 +69,7 @@ typedef union {
 #define ID_INVB_ERR_1 0x289
 #define ID_INVB_ERR_2 0x291
 #define ID_IMD_STATUS_RAW 0x10016484
+#define ID_IMD_RESISTANCE 0x100164c4
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -81,7 +82,6 @@ typedef union {
 
 // Message DLC definitions
 /* BEGIN AUTO DLC DEFS */
-#define DLC_MAIN_HB_AMK 2
 #define DLC_MAIN_HB 2
 #define DLC_COOLANT_TEMPS 4
 #define DLC_GEARBOX 2
@@ -100,6 +100,7 @@ typedef union {
 #define DLC_INVB_SET 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE_VCAN 8
+#define DLC_MAIN_HB_AMK 2
 #define DLC_RAW_THROTTLE_BRAKE 8
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_START_BUTTON 1
@@ -120,6 +121,7 @@ typedef union {
 #define DLC_INVB_ERR_1 8
 #define DLC_INVB_ERR_2 8
 #define DLC_IMD_STATUS_RAW 4
+#define DLC_IMD_RESISTANCE 5
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -132,13 +134,6 @@ typedef union {
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
-#define SEND_MAIN_HB_AMK(car_state_, precharge_state_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_MAIN_HB_AMK, .DLC=DLC_MAIN_HB_AMK, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->main_hb_amk.car_state = car_state_;\
-        data_a->main_hb_amk.precharge_state = precharge_state_;\
-        canTxSendToBack(&msg);\
-    } while(0)
 #define SEND_MAIN_HB(car_state_, precharge_state_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_MAIN_HB, .DLC=DLC_MAIN_HB, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
@@ -310,6 +305,13 @@ typedef union {
         data_a->daq_response_MAIN_MODULE_VCAN.daq_response = daq_response_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_MAIN_HB_AMK(car_state_, precharge_state_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN2, .ExtId=ID_MAIN_HB_AMK, .DLC=DLC_MAIN_HB_AMK, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->main_hb_amk.car_state = car_state_;\
+        data_a->main_hb_amk.precharge_state = precharge_state_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -335,6 +337,7 @@ typedef union {
 #define UP_INVB_ERR_1 2000
 #define UP_INVB_ERR_2 2000
 #define UP_IMD_STATUS_RAW 1000
+#define UP_IMD_RESISTANCE 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -405,10 +408,6 @@ typedef enum {
 // Message Raw Structures
 /* BEGIN AUTO MESSAGE STRUCTURE */
 typedef union { 
-    struct {
-        uint64_t car_state: 8;
-        uint64_t precharge_state: 1;
-    } main_hb_amk;
     struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
@@ -527,6 +526,10 @@ typedef union {
         uint64_t daq_response: 64;
     } daq_response_MAIN_MODULE_VCAN;
     struct {
+        uint64_t car_state: 8;
+        uint64_t precharge_state: 1;
+    } main_hb_amk;
+    struct {
         uint64_t throttle: 12;
         uint64_t throttle_right: 12;
         uint64_t brake: 12;
@@ -634,6 +637,10 @@ typedef union {
         uint64_t period: 16;
         uint64_t duty_cycle: 16;
     } imd_status_raw;
+    struct {
+        uint64_t Condition: 8;
+        uint64_t Resistance: 32;
+    } imd_resistance;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -842,6 +849,12 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } imd_status_raw;
+    struct {
+        uint8_t Condition;
+        float Resistance;
+        uint8_t stale;
+        uint32_t last_rx;
+    } imd_resistance;
     struct {
         uint16_t idx;
         uint8_t latched;

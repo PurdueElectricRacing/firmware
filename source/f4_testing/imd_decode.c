@@ -197,12 +197,12 @@ void imdDecodeInit(void)
 }
 
 typedef enum {
-    IMD_NORMAL = 1, // “Normal” (10 Hz)
+    IMD_NORMAL       = 1, // “Normal” (10 Hz)
     IMD_UNDERVOLTAGE = 2, // “Undervoltage detected” (20 Hz)
-    IMD_SST = 3, // “SST” (30 Hz)
+    IMD_SST          = 3, // “SST” (30 Hz)
     IMD_DEVICE_ERROR = 4, // “Device error” (40 Hz)
-    IMD_FAULT = 5, // “Kl.31 fault” (50 Hz)
-    IMD_INVALID = 6,
+    IMD_FAULT        = 5, // “Kl.31 fault” (50 Hz)
+    IMD_INVALID      = 6,
 } imd_condition_t;
 
 // +3% tolerance for comparing duty/frequency
@@ -251,12 +251,14 @@ void imdDecodePeriodic(void)
         case IMD_NORMAL:
         case IMD_UNDERVOLTAGE:
         {
+            float resistance;
             if (duty_cycle < 5)
                 resistance = 50000; // 50M
             else if (duty_cycle > 95)
                 resistance = 1200; // 1200K
             else
                 resistance = ((90 * 1200) / (duty_cycle - 5)) - 1200;
+            
         }
         break;
         case IMD_SST:
@@ -272,11 +274,7 @@ void imdDecodePeriodic(void)
         case IMD_INVALID:
         break;
     }
-    if ()
-    // Condition “Device error” and “Kl.31 fault” (40 Hz; 50 Hz;)
-
-    //SEND_IMD_STATUS_RAW(period, duty);
-    //debug_printf("period: %d duty: %d\n", period, duty);
+    // SEND_IMD_STATUS_RAW(period, duty);
 }
 
 void TIM2_IRQHandler(void)
@@ -313,18 +311,6 @@ void TIM2_IRQHandler(void)
  frequency = (float)(APB1ClockRateHz * 2) / (period + 1); // psc * 2
  duty_cycle = (float)((duty + 1) * 100) / (period);
 }
-
-#if 0
-void TIM2_IRQHandler(void)
-{
-  /* Clear TIM2 Capture compare interrupt pending bit */
-  if ((TIM2->SR & TIM_DIER_CC1IE) && (TIM2->DIER & TIM_DIER_CC1IE))
-  {
-    TIM2->SR = (uint16_t)~TIM_DIER_CC1IE;
-    uint16_t value = TIM2->CCR1;
-  }
-}
-#endif
 
 void HardFault_Handler()
 {

@@ -66,8 +66,6 @@ typedef union {
 #define ID_LWS_STANDARD 0x2b0
 #define ID_MAIN_MODULE_BL_CMD 0x409c43e
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
-#define ID_THROTTLE_VCU 0x40025b7
-#define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_VCU_TORQUES_SPEEDS 0x40026b7
 #define ID_DRIVE_MODES 0xc002737
 #define ID_FAULT_SYNC_PDU 0x8cb1f
@@ -118,8 +116,6 @@ typedef union {
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_THROTTLE_VCU 4
-#define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_VCU_TORQUES_SPEEDS 8
 #define DLC_DRIVE_MODES 2
 #define DLC_FAULT_SYNC_PDU 3
@@ -334,8 +330,6 @@ typedef union {
 #define UP_MAX_CELL_TEMP 500
 #define UP_LWS_STANDARD 15
 #define UP_ORION_CURRENTS_VOLTS 32
-#define UP_THROTTLE_VCU 20
-#define UP_THROTTLE_VCU_EQUAL 20
 #define UP_VCU_TORQUES_SPEEDS 20
 #define UP_DRIVE_MODES 20
 /* END AUTO UP DEFS */
@@ -626,14 +620,6 @@ typedef union {
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_vcu;
-    struct {
-        uint64_t equal_k_rl: 16;
-        uint64_t equal_k_rr: 16;
-    } throttle_vcu_equal;
-    struct {
         uint64_t TO_VT_left: 16;
         uint64_t TO_VT_right: 16;
         uint64_t TO_PT_equal: 16;
@@ -833,18 +819,6 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } orion_currents_volts;
-    struct {
-        int16_t vcu_k_rl;
-        int16_t vcu_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu;
-    struct {
-        int16_t equal_k_rl;
-        int16_t equal_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu_equal;
     struct {
         int16_t TO_VT_left;
         int16_t TO_VT_right;

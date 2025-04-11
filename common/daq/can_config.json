@@ -253,8 +253,6 @@
                         {"msg_name": "LWS_Standard"},
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
                         {"msg_name": "orion_currents_volts"},
-                        {"msg_name": "throttle_vcu"},
-                        {"msg_name": "throttle_vcu_equal"},
                         {"msg_name": "VCU_torques_speeds"},
                         {"msg_name": "drive_modes"}
                     ]
@@ -650,28 +648,6 @@
                             "msg_pgn":142
                         },
                         {
-                            "msg_name": "throttle_vcu",
-                            "msg_desc": "Torque request from TV system",
-                            "signals":[
-                                {"sig_name": "vcu_k_rl", "sig_desc": "Rear left torque request", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "vcu_k_rr", "sig_desc": "Rear right torque request", "type": "int16_t", "unit": "none", "scale": 1}
-                            ],
-                            "msg_period": 20,
-                            "msg_hlp": 1,
-                            "msg_pgn": 150
-                        },
-                        {
-                            "msg_name": "throttle_vcu_equal",
-                            "msg_desc": "Throttle map torque request (No TV), equal torque",
-                            "signals":[
-                                {"sig_name": "equal_k_rl", "sig_desc": "Throttle remapped torque request rear left", "type": "int16_t", "unit": "none", "scale": 1},
-                                {"sig_name": "equal_k_rr", "sig_desc": "Throttle remapped torque request rear right", "type": "int16_t", "unit": "none", "scale": 1}
-                            ],
-                            "msg_period": 20,
-                            "msg_hlp": 1,
-                            "msg_pgn": 160
-                        },
-                        {
                             "msg_name": "VCU_torques_speeds",
                             "msg_desc": "All torque setpoints and speed setpoints",
                             "signals": [
@@ -886,7 +862,6 @@
                         {"msg_name": "gearbox"},
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "sdc_status"},
-                        {"msg_name": "throttle_vcu"},
                         {"msg_name": "gps_speed"}
                     ]
                 },

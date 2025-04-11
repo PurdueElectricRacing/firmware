@@ -253,14 +253,6 @@ void carPeriodic()
             float t_req_equal_r = 0;
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
-            if (!can_data.throttle_vcu.stale)
-                t_req_pedal_l = (float) CLAMP(can_data.throttle_vcu.vcu_k_rl, 0, 4095);
-            if (!can_data.throttle_vcu.stale)
-                t_req_pedal_r = (float) CLAMP(can_data.throttle_vcu.vcu_k_rr, 0, 4095);
-            if (!can_data.throttle_vcu_equal.stale)
-                t_req_equal_l = (float) CLAMP(can_data.throttle_vcu_equal.equal_k_rl, 0, 4095);
-            if (!can_data.throttle_vcu_equal.stale)
-                t_req_equal_r = (float) CLAMP(can_data.throttle_vcu_equal.equal_k_rr, 0, 4095);
 
             t_req_pedal = t_req_pedal * 100.0f / 4095.0f;
             t_req_pedal_l = t_req_pedal_l * 100.0f / 4095.0f;

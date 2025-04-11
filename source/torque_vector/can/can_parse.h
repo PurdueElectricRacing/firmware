@@ -28,8 +28,6 @@
 #define ID_GPS_TIME 0xc002577
 #define ID_IMU_GYRO 0xc0002f7
 #define ID_IMU_ACCEL 0xc0023b7
-#define ID_THROTTLE_VCU 0x40025b7
-#define ID_THROTTLE_VCU_EQUAL 0x4002837
 #define ID_VCU_TORQUES_SPEEDS 0x40026b7
 #define ID_VCU_SOC_ESTIMATE 0x80026f7
 #define ID_DRIVE_MODES 0xc002737
@@ -66,8 +64,6 @@
 #define DLC_GPS_TIME 8
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
-#define DLC_THROTTLE_VCU 4
-#define DLC_THROTTLE_VCU_EQUAL 4
 #define DLC_VCU_TORQUES_SPEEDS 8
 #define DLC_VCU_SOC_ESTIMATE 4
 #define DLC_DRIVE_MODES 2
@@ -151,20 +147,6 @@
         data_a->imu_accel.imu_accel_x = imu_accel_x_;\
         data_a->imu_accel.imu_accel_y = imu_accel_y_;\
         data_a->imu_accel.imu_accel_z = imu_accel_z_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_THROTTLE_VCU(vcu_k_rl_, vcu_k_rr_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU, .DLC=DLC_THROTTLE_VCU, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->throttle_vcu.vcu_k_rl = vcu_k_rl_;\
-        data_a->throttle_vcu.vcu_k_rr = vcu_k_rr_;\
-        canTxSendToBack(&msg);\
-    } while(0)
-#define SEND_THROTTLE_VCU_EQUAL(equal_k_rl_, equal_k_rr_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_THROTTLE_VCU_EQUAL, .DLC=DLC_THROTTLE_VCU_EQUAL, .IDE=1};\
-        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->throttle_vcu_equal.equal_k_rl = equal_k_rl_;\
-        data_a->throttle_vcu_equal.equal_k_rr = equal_k_rr_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_VCU_TORQUES_SPEEDS(TO_VT_left_, TO_VT_right_, TO_PT_equal_, WS_VS_equal_) do {\
@@ -284,14 +266,6 @@ typedef union {
         uint64_t imu_accel_y: 16;
         uint64_t imu_accel_z: 16;
     } imu_accel;
-    struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_vcu;
-    struct {
-        uint64_t equal_k_rl: 16;
-        uint64_t equal_k_rr: 16;
-    } throttle_vcu_equal;
     struct {
         uint64_t TO_VT_left: 16;
         uint64_t TO_VT_right: 16;

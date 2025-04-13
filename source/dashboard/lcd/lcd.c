@@ -602,7 +602,8 @@ void sendLoggingParameters() {
  */
 void updateFaultDisplay() {
     if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL))) {
-        if (++fault_time_displayed > 8) {
+        if (fault_time_displayed > 8) {
+            fault_time_displayed++;
             curr_page = prev_page;
             prev_page = PAGE_PREFLIGHT;
             updatePage();
@@ -1041,7 +1042,8 @@ void raceTelemetryUpdate() {
     if (can_data.rear_wheel_speeds.stale) {
         NXT_setText(SPEED, "S");
     } else {
-        uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
+        uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * WHEEL_RADIUS * RAD_TO_MPH; // Convert to mph
+        //uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
 

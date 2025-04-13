@@ -426,10 +426,14 @@ void heartBeatLED()
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !bms_prev_latched);
 
 
-   static uint8_t trig;
-   if (trig) SEND_DASH_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                                can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                                can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    static uint8_t trig;
+    if (trig) {
+        SEND_DASH_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+                            can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                            can_stats.rx_of,
+                            can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    }
+
     trig = !trig;
 }
 

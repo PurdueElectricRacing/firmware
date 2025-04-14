@@ -78,7 +78,7 @@ int main(void)
     // Boot immediately if verified firmware is found
     BL_checkAndBoot(true);
 
-    BL_sendStatusMessage(BLSTAT_BOOT, BL_METADATA_PING_MAGIC);
+    BL_sendStatusGood(0, BL_METADATA_PING_MAGIC);
 
     // Else enter backdoor period (CAN loop) for 3s
     uint32_t start_ms = bootloader_ms;

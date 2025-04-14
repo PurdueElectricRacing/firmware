@@ -93,7 +93,10 @@ void BL_markFirmwareVerified(void);
 bool BL_processCommand(uint8_t cmd, uint64_t data);
 bool BL_setMetadata(uint32_t addr, uint32_t words, uint32_t crc);
 bool BL_memcpyFlashBuffer(uint32_t addr_dst, uint32_t addr_src, uint32_t words, uint32_t crc);
-void BL_sendStatusMessage(uint8_t cmd, uint32_t data);
+void _BL_sendStatusMessage(uint8_t cmd, uint8_t err, uint32_t data);
+
+#define BL_sendStatusError(cmd, err, data) (_BL_sendStatusMessage(cmd, err, data))
+#define BL_sendStatusGood(cmd, data) (_BL_sendStatusMessage(cmd, BLERROR_NONE, data))
 
 typedef enum __attribute__ ((__packed__))
 {
@@ -107,6 +110,7 @@ static_assert(sizeof(BLStatus_t) == sizeof(uint8_t));
 
 typedef enum __attribute__ ((__packed__))
 {
+    BLERROR_NONE        = 0,
     BLERROR_FLASH       = 4,
     BLERROR_SIZE        = 5,
 } BLError_t;

@@ -236,16 +236,16 @@ static void BL_processCommand_Stat(uint64_t data)
 {
     bl_metadata_t meta;
     PHAL_flashReadU32_Buffered(BL_ADDRESS_METADATA, (uint32_t)&meta, BL_METADATA_WC);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.addr);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.words);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.crc);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.verified);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.addr);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.words);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.crc);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.verified);
 
     PHAL_flashReadU32_Buffered(BL_ADDRESS_META_C, (uint32_t)&meta, BL_METADATA_WC);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.addr);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.words);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.crc);
-    BL_sendStatusMessage(BLSTAT_VALID, meta.verified);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.addr);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.words);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.crc);
+    BL_sendStatusMessage(UDS_CMD_BL_STAT, meta.verified);
 }
 
 // Running from either bootloader (0) or app (A)
@@ -258,11 +258,11 @@ static bool BL_processCommand_LoadBackup(uint64_t data)
         BL_memcpyFlashBuffer(BL_ADDRESS_BANK_B, BL_ADDRESS_BANK_C, meta.words, meta.crc) &&
         BL_setMetadata(BL_ADDRESS_BANK_B, meta.words, meta.crc))
     {
-        BL_sendStatusMessage(BLSTAT_VALID, meta.crc);
+        BL_sendStatusMessage(UDS_CMD_BL_BACKUP, meta.crc);
         return true;
     }
 
-    BL_sendStatusMessage(BLSTAT_INVALID, BLERROR_FLASH);
+    BL_sendStatusMessage(UDS_CMD_BL_BACKUP, BLERROR_FLASH);
     return false;
 }
 

@@ -34,8 +34,6 @@ def _generate_uds_can_msgs(daq_config, can_config, _name, _hlp):
         # Special case, for UDS to DAQ, canable acts as DAQ
 
         # Find daq node
-        for node in can_bus['nodes']:
-            print(node['node_name'])
         daq_node = [node for node in can_bus['nodes'] if node['node_name'] == "daq"][0]
         canable_node = [node for node in can_bus['nodes'] if node['node_name'] == "canable"][0]
 
@@ -251,39 +249,8 @@ def configure_bus(bus, source_dir, c_dir, h_dir):
         configure_node(node)
 
 def gen_embedded_daq(daq_conf, source_dir, c_dir, h_dir):
-    """ Generate daq code """
-
-    matched_nodes: list[dict] = []
-
-    all_node_paths = {}
-
-    for bus in daq_conf['busses']:
-        node_names = [node['node_name'] for node in bus['nodes']]
-        node_paths = generator.find_node_paths(node_names, source_dir, c_dir, h_dir)
-
-        for path, posixPath in node_paths.items():
-            if path not in all_node_paths:
-                all_node_paths.update({path: posixPath})
-
-        # matched_nodes.extend([node for node in bus['nodes'] if node['node_name'] in node_paths.keys()] and not any(d['node_name'] == node['node_name'] for d in matched_nodes))
-        for node in bus['nodes']:
-            if node['node_name'] in node_paths.keys() and not any(d.get('node_name') == node['node_name'] for d in matched_nodes):
-                matched_nodes.append(node)
-                # Add the bus the node is on to the node name
-                node['bus_names'] = [bus['bus_name']]
-            else:
-                # The node already exists in the matched nodes list
-                for matched_node in matched_nodes:
-                    if matched_node['node_name'] == node['node_name']:
-                        matched_node['bus_names'].append(bus['bus_name'])
-                # TODO: logic that handles nodes that already exist (adding DAQ variables that are still needed, with an existing node) - non issue currently because we do not have different daq variables per different busses
-
-    for node in matched_nodes:
-        configure_node(node)
-        #configure_node(node, all_node_paths[node['node_name']])
-
     #generator.log_success("Embedded DAQ Code Generated")
-    #configure_bus(bus, source_dir, c_dir, h_dir)
+    configure_bus(daq_conf["busses"][0], source_dir, c_dir, h_dir)
     generator.log_success("Embedded DAQ Code Generated")
 
 def gen_can_dbc(can_config, path):

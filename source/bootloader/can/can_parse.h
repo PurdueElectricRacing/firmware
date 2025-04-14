@@ -31,11 +31,15 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 #define ID_UDS_RESPONSE_DASHBOARD 0x1800197c
 #define ID_UDS_RESPONSE_A_BOX 0x180019bc
 #define ID_UDS_RESPONSE_PDU 0x180019fc
+#define ID_UDS_RESPONSE_DAQ 0x18001a3c
+#define ID_UDS_RESPONSE_TORQUE_VECTOR 0x18001a7c
 #define ID_BITSTREAM_DATA 0x400193e
 #define ID_UDS_COMMAND_MAIN_MODULE 0x18003231
 #define ID_UDS_COMMAND_DASHBOARD 0x18003271
 #define ID_UDS_COMMAND_A_BOX 0x180032b1
 #define ID_UDS_COMMAND_PDU 0x180032f1
+#define ID_UDS_COMMAND_DAQ 0x18003332
+#define ID_UDS_COMMAND_TORQUE_VECTOR 0x18003371
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -44,11 +48,15 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
 #define DLC_UDS_RESPONSE_DASHBOARD 8
 #define DLC_UDS_RESPONSE_A_BOX 8
 #define DLC_UDS_RESPONSE_PDU 8
+#define DLC_UDS_RESPONSE_DAQ 8
+#define DLC_UDS_RESPONSE_TORQUE_VECTOR 8
 #define DLC_BITSTREAM_DATA 8
 #define DLC_UDS_COMMAND_MAIN_MODULE 8
 #define DLC_UDS_COMMAND_DASHBOARD 8
 #define DLC_UDS_COMMAND_A_BOX 8
 #define DLC_UDS_COMMAND_PDU 8
+#define DLC_UDS_COMMAND_DAQ 8
+#define DLC_UDS_COMMAND_TORQUE_VECTOR 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -75,6 +83,18 @@ extern void canTxSendToBack(CanMsgTypeDef_t *msg);
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_PDU, .DLC=DLC_UDS_RESPONSE_PDU, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->uds_response_pdu.payload = payload_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_UDS_RESPONSE_DAQ(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_DAQ, .DLC=DLC_UDS_RESPONSE_DAQ, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->uds_response_daq.payload = payload_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_UDS_RESPONSE_TORQUE_VECTOR(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_TORQUE_VECTOR, .DLC=DLC_UDS_RESPONSE_TORQUE_VECTOR, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->uds_response_torque_vector.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -106,6 +126,12 @@ typedef union {
         uint64_t payload: 64;
     } uds_response_pdu;
     struct {
+        uint64_t payload: 64;
+    } uds_response_daq;
+    struct {
+        uint64_t payload: 64;
+    } uds_response_torque_vector;
+    struct {
         uint64_t d0: 8;
         uint64_t d1: 8;
         uint64_t d2: 8;
@@ -127,6 +153,12 @@ typedef union {
     struct {
         uint64_t payload: 64;
     } uds_command_pdu;
+    struct {
+        uint64_t payload: 64;
+    } uds_command_daq;
+    struct {
+        uint64_t payload: 64;
+    } uds_command_torque_vector;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -157,6 +189,12 @@ typedef struct {
     struct {
         uint64_t payload;
     } uds_command_pdu;
+    struct {
+        uint64_t payload;
+    } uds_command_daq;
+    struct {
+        uint64_t payload;
+    } uds_command_torque_vector;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -168,6 +206,8 @@ extern void uds_command_main_module_CALLBACK(uint64_t payload);
 extern void uds_command_dashboard_CALLBACK(uint64_t payload);
 extern void uds_command_a_box_CALLBACK(uint64_t payload);
 extern void uds_command_pdu_CALLBACK(uint64_t payload);
+extern void uds_command_daq_CALLBACK(uint64_t payload);
+extern void uds_command_torque_vector_CALLBACK(uint64_t payload);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

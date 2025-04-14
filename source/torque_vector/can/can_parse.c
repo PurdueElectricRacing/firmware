@@ -142,6 +142,10 @@ void canRxUpdate()
                 can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
                 break;
+            case ID_UDS_COMMAND_TORQUE_VECTOR:
+                can_data.uds_command_torque_vector.payload = msg_data_a->uds_command_torque_vector.payload;
+				uds_command_torque_vector_CALLBACK(msg_data_a->uds_command_torque_vector.payload);
+                break;
             default:
                 __asm__("nop");
         }
@@ -213,6 +217,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[6].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
     CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
     /* END AUTO FILTER */
     // Adding LWS standard to bank 8 since it needs to be ExtID
     CAN1->FA1R |= (1 << 8);    // configure bank 8

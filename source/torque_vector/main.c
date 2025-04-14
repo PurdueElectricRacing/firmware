@@ -40,6 +40,7 @@
 
 #include "tv.h"
 #include "tv_pp.h"
+#include "uds.h"
 
 uint8_t collect_test[100] = {0};
 
@@ -243,6 +244,7 @@ void preflightChecks(void)
         PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
     break;
     case 5:
+        udsInit();
         initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
     case 1:

@@ -346,7 +346,7 @@ def generate_all():
     label_junction_nodes(can_config)
 
     gen_embedded_can.gen_embedded_can(can_config, firmware_source_dir, gen_config['node_parse_c_dir'], gen_config['node_parse_h_dir'])
-    #gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
+    gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
     # Generate DBCs for each CAN bus individually
     gen_dbc.gen_dbc(can_config, relative_dir)
 

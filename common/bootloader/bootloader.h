@@ -100,19 +100,12 @@ void _BL_sendStatusMessage(uint8_t cmd, uint8_t err, uint32_t data);
 
 typedef enum __attribute__ ((__packed__))
 {
-    BLSTAT_VALID        = 0,
-    BLSTAT_INVALID      = 1,
-    BLSTAT_INVALID_CRC  = 2,
-    BLSTAT_UNKNOWN_CMD  = 3,
-    BLSTAT_BOOT         = 4,
-} BLStatus_t;
-static_assert(sizeof(BLStatus_t) == sizeof(uint8_t));
-
-typedef enum __attribute__ ((__packed__))
-{
     BLERROR_NONE        = 0,
-    BLERROR_FLASH       = 4,
-    BLERROR_SIZE        = 5,
+    BLERROR_CRC         = 1,
+    BLERROR_FLASH       = 2,
+    BLERROR_SIZE        = 3,
+    BLERROR_META        = 4,
+    BLERROR_UNKNOWN     = 5,
 } BLError_t;
 static_assert(sizeof(BLError_t) == sizeof(uint8_t));
 

@@ -205,7 +205,7 @@ static bool BL_processCommand_CRC(uint64_t data)
     uint32_t crc_flash = PHAL_CRC32_Calculate((uint32_t *)BL_ADDRESS_BANK_B, words);
     if (crc_flash != crc_app)
     {
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLSTAT_INVALID_CRC, crc_flash);
+        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_CRC, crc_flash);
         return false;
     }
 

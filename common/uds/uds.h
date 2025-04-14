@@ -80,13 +80,6 @@ extern void uds_handle_sub_command_callback(uint8_t cmd, uint64_t data);
 /* 0x00 - 0x0f - Sys/Bootloader (RESERVED) */
 /* 0x10 - 0x1f - Daqapp var read/write (RESERVED) */
 
-#define UDS_CMD_BL_PING       0x00
-#define UDS_CMD_BL_START      0x01
-#define UDS_CMD_BL_CRC        0x02
-#define UDS_CMD_BL_DATA       0x03
-#define UDS_CMD_BL_STAT       0x08
-#define UDS_CMD_BL_BACKUP     0x09
-
 #define UDS_CMD_SYS_RST       0x05
 #define UDS_CMD_SYS_TEST      0x06
 

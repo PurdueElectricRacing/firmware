@@ -109,4 +109,22 @@ typedef enum __attribute__ ((__packed__))
 } BLError_t;
 static_assert(sizeof(BLError_t) == sizeof(uint8_t));
 
+typedef enum __attribute__ ((__packed__))
+{
+    BLCMD_PING          = 0,
+    BLCMD_START         = 1,
+    BLCMD_CRC           = 2,
+    BLCMD_DATA          = 3,
+    BLCMD_STAT          = 8,
+    BLCMD_BACKUP        = 9,
+} BLCmd_t;
+static_assert(sizeof(BLCmd_t) == sizeof(uint8_t));
+
+#define UDS_CMD_BL_PING       0x00
+#define UDS_CMD_BL_START      0x01
+#define UDS_CMD_BL_CRC        0x02
+#define UDS_CMD_BL_DATA       0x03
+#define UDS_CMD_BL_STAT       0x08
+#define UDS_CMD_BL_BACKUP     0x09
+
 #endif // __BOOTLOADER_COMMON_H__

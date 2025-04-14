@@ -76,19 +76,19 @@ static bool BL_processCommand_Start(uint64_t data)
     // TODO store CRC + size at the end of firmware
     if (!words || ((words << 2) >= MAX_FIRMWARE_SIZE))
     {
-        BL_sendStatusError(UDS_CMD_BL_START, BLERROR_SIZE, words);
+        BL_sendStatusError(BLCMD_START, BLERROR_SIZE, words);
         return false;
     }
 
     if (PHAL_flashErase((uint32_t *)BL_ADDRESS_BANK_B, words) != FLASH_OK)
     {
-        BL_sendStatusError(UDS_CMD_BL_START, BLERROR_FLASH, words);
+        BL_sendStatusError(BLCMD_START, BLERROR_FLASH, words);
         return false;
     }
 
     firmware_wc_total = words;
     bl_flash_inprogress = true;
-    BL_sendStatusGood(UDS_CMD_BL_START, firmware_wc_total);
+    BL_sendStatusGood(BLCMD_START, firmware_wc_total);
     return true;
 }
 
@@ -133,9 +133,9 @@ void BL_processCommand_Data(uint64_t data)
     uint32_t buffer_addr = BL_ADDRESS_BANK_B + index * sizeof(uint32_t);
     if (PHAL_flashWriteU32(buffer_addr, payload) != FLASH_OK)
     {
-        BL_sendStatusError(UDS_CMD_BL_DATA, BLERROR_FLASH, payload);
+        BL_sendStatusError(BLCMD_DATA, BLERROR_FLASH, payload);
     }
-    BL_sendStatusGood(UDS_CMD_BL_DATA, 6); // dont send ack msg, too slow
+    BL_sendStatusGood(BLCMD_DATA, 6); // dont send ack msg, too slow
 }
 #endif
 
@@ -153,12 +153,12 @@ static bool _BL_setMetadata(uint32_t addr, uint32_t words, uint32_t crc, uint32_
 
     if (PHAL_flashErase((uint32_t *)meta_addr, BL_METADATA_WC) != FLASH_OK)
     {
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_FLASH, BL_METADATA_WC);
+        BL_sendStatusError(BLCMD_CRC, BLERROR_FLASH, BL_METADATA_WC);
         return false;
     }
     if (PHAL_flashWriteU32_Buffered(meta_addr, (uint32_t *)&meta, BL_METADATA_WC) != FLASH_OK)
     {
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_FLASH, BL_METADATA_WC);
+        BL_sendStatusError(BLCMD_CRC, BLERROR_FLASH, BL_METADATA_WC);
         return false;
     }
 
@@ -198,14 +198,14 @@ static bool BL_processCommand_CRC(uint64_t data)
     uint32_t words = firmware_wc_total;
     if (!words)
     {
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_SIZE, words);
+        BL_sendStatusError(BLCMD_CRC, BLERROR_SIZE, words);
         return false;
     }
 
     uint32_t crc_flash = PHAL_CRC32_Calculate((uint32_t *)BL_ADDRESS_BANK_B, words);
     if (crc_flash != crc_app)
     {
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_CRC, crc_flash);
+        BL_sendStatusError(BLCMD_CRC, BLERROR_CRC, crc_flash);
         return false;
     }
 
@@ -214,21 +214,21 @@ static bool BL_processCommand_CRC(uint64_t data)
         if (BL_memcpyFlashBuffer(BL_ADDRESS_BANK_C, BL_ADDRESS_BANK_B, words, crc_flash) &&
             BL_setMetadataC(BL_ADDRESS_BANK_C, words, crc_flash)) // TODO CRC of meta itself
         {
-            BL_sendStatusGood(UDS_CMD_BL_CRC, crc_flash);
+            BL_sendStatusGood(BLCMD_CRC, crc_flash);
             bl_flash_inprogress = false;
             return true;
         }
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_FLASH, words);
+        BL_sendStatusError(BLCMD_CRC, BLERROR_FLASH, words);
         return false;
     }
 
     if (!BL_setMetadata(BL_ADDRESS_BANK_B, words, crc_app))
     {
-        BL_sendStatusError(UDS_CMD_BL_CRC, BLERROR_FLASH, words);
+        BL_sendStatusError(BLCMD_CRC, BLERROR_FLASH, words);
         return false;
     }
 
-    BL_sendStatusGood(UDS_CMD_BL_CRC, crc_flash);
+    BL_sendStatusGood(BLCMD_CRC, crc_flash);
     bl_flash_inprogress = false;
 
     return true;
@@ -236,23 +236,23 @@ static bool BL_processCommand_CRC(uint64_t data)
 
 static void BL_processCommand_Ping(uint64_t data)
 {
-    BL_sendStatusGood(UDS_CMD_BL_PING, BL_METADATA_MAGIC);
+    BL_sendStatusGood(BLCMD_PING, BL_METADATA_MAGIC);
 }
 
 static void BL_processCommand_Stat(uint64_t data)
 {
     bl_metadata_t meta;
     PHAL_flashReadU32_Buffered(BL_ADDRESS_METADATA, (uint32_t)&meta, BL_METADATA_WC);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.addr);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.words);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.crc);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.verified);
+    BL_sendStatusGood(BLCMD_STAT, meta.addr);
+    BL_sendStatusGood(BLCMD_STAT, meta.words);
+    BL_sendStatusGood(BLCMD_STAT, meta.crc);
+    BL_sendStatusGood(BLCMD_STAT, meta.verified);
 
     PHAL_flashReadU32_Buffered(BL_ADDRESS_META_C, (uint32_t)&meta, BL_METADATA_WC);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.addr);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.words);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.crc);
-    BL_sendStatusGood(UDS_CMD_BL_STAT, meta.verified);
+    BL_sendStatusGood(BLCMD_STAT, meta.addr);
+    BL_sendStatusGood(BLCMD_STAT, meta.words);
+    BL_sendStatusGood(BLCMD_STAT, meta.crc);
+    BL_sendStatusGood(BLCMD_STAT, meta.verified);
 }
 
 // Running from either bootloader (0) or app (A)
@@ -265,11 +265,11 @@ static bool BL_processCommand_LoadBackup(uint64_t data)
         BL_memcpyFlashBuffer(BL_ADDRESS_BANK_B, BL_ADDRESS_BANK_C, meta.words, meta.crc) &&
         BL_setMetadata(BL_ADDRESS_BANK_B, meta.words, meta.crc))
     {
-        BL_sendStatusGood(UDS_CMD_BL_BACKUP, meta.crc);
+        BL_sendStatusGood(BLCMD_BACKUP, meta.crc);
         return true;
     }
 
-    BL_sendStatusError(UDS_CMD_BL_BACKUP, BLERROR_FLASH, 0);
+    BL_sendStatusError(BLCMD_BACKUP, BLERROR_FLASH, 0);
     return false;
 }
 

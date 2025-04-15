@@ -59,6 +59,8 @@ typedef union {
 #define ID_GPS_SPEED 0xc001137
 #define ID_INVA_TEMPS 0x284
 #define ID_INVB_TEMPS 0x285
+#define ID_INVA_CRIT 0x282
+#define ID_INVB_CRIT 0x283
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -101,6 +103,8 @@ typedef union {
 #define DLC_GPS_SPEED 4
 #define DLC_INVA_TEMPS 6
 #define DLC_INVB_TEMPS 6
+#define DLC_INVA_CRIT 8
+#define DLC_INVB_CRIT 8
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -233,6 +237,8 @@ typedef union {
 #define UP_GPS_SPEED 40
 #define UP_INVA_TEMPS 500
 #define UP_INVB_TEMPS 500
+#define UP_INVA_CRIT 15
+#define UP_INVB_CRIT 15
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -453,6 +459,18 @@ typedef union {
         uint64_t AMK_IGBTTemp: 16;
     } INVB_TEMPS;
     struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVA_CRIT;
+    struct {
+        uint64_t AMK_ActualSpeed: 16;
+        uint64_t AMK_ActualTorque: 16;
+        uint64_t AMK_DisplayOverloadInverter: 16;
+        uint64_t AMK_DisplayOverloadMotor: 16;
+    } INVB_CRIT;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_pdu;
@@ -657,6 +675,22 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } INVB_TEMPS;
+    struct {
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVA_CRIT;
+    struct {
+        int16_t AMK_ActualSpeed;
+        int16_t AMK_ActualTorque;
+        uint16_t AMK_DisplayOverloadInverter;
+        uint16_t AMK_DisplayOverloadMotor;
+        uint8_t stale;
+        uint32_t last_rx;
+    } INVB_CRIT;
     struct {
         uint16_t idx;
         uint8_t latched;

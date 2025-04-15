@@ -492,6 +492,7 @@ void EXTI15_10_IRQHandler() {
         EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
     }
 
+    // EXTI11 (START button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR11)
     {
         if (!(sched.os_ticks - last_input_time < 200)) {

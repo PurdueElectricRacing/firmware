@@ -77,10 +77,8 @@ static void daq_heartbeat(void)
 {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
     SEND_DAQ_CAN_STATS(can_stats[BUS_ID_CAN1].tx_of, can_stats[BUS_ID_CAN1].tx_fail, can_stats[BUS_ID_CAN1].rx_of, can_stats[BUS_ID_CAN1].rx_overrun);
-    if (dh.bcan_rx_overflow || dh.can1_rx_overflow || dh.sd_rx_overflow || dh.tcp_tx_overflow)
-    {
-        SEND_DAQ_QUEUE_STATS(dh.bcan_rx_overflow, dh.can1_rx_overflow, dh.sd_rx_overflow, dh.tcp_tx_overflow); // TODO reset & only send once?
-    }
+
+    SEND_DAQ_QUEUE_STATS(dh.bcan_rx_overflow, dh.can1_rx_overflow, dh.sd_rx_overflow, dh.tcp_tx_overflow); // TODO reset & only send once?
 }
 
 static void can_send_periodic(void)

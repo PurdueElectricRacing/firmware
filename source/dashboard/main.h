@@ -20,10 +20,10 @@
 //STM32F407
 
 // Shockpot Calibration
-#define POT_VOLT_MAX_L    4.0f
-#define POT_VOLT_MIN_L    4090.0f
-#define POT_VOLT_MAX_R    4.0f
-#define POT_VOLT_MIN_R    4060.0f
+#define POT_VOLT_MAX_L    5.0f
+#define POT_VOLT_MIN_L    4091.0f
+#define POT_VOLT_MAX_R    128.0f
+#define POT_VOLT_MIN_R    4093.0f
 #define POT_MAX_DIST      75
 #define POT_DIST_DROOP_L  55
 #define POT_DIST_DROOP_R  57
@@ -41,8 +41,8 @@ typedef struct __attribute__((packed))
     uint16_t t2;
     uint16_t b1;
     uint16_t b2;
-    // uint16_t shock_left;
-    // uint16_t shock_right;
+    uint16_t shock_left;
+    uint16_t shock_right;
     // uint16_t lv_5v_sense;
     // uint16_t lv_3v3_sense;
     // uint16_t lv_12v_sense;

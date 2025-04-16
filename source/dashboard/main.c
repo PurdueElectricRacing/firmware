@@ -51,8 +51,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
 
     // Shock Pots
-    // GPIO_INIT_ANALOG(SHOCK_POT_L_GPIO_Port, SHOCK_POT_L_Pin),
-    // GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
+    GPIO_INIT_ANALOG(SHOCK_POT_L_GPIO_Port, SHOCK_POT_L_Pin),
+    GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
 
     // Normal Force
     // GPIO_INIT_ANALOG(LOAD_FL_GPIO_Port, LOAD_FL_Pin),
@@ -101,14 +101,14 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = THTL_2_ADC_CHNL,        .rank = 2,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_1_ADC_CHNL,         .rank = 3,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_2_ADC_CHNL,         .rank = 4,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = SHOCK_POT_L_ADC_CH,     .rank =  5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SHOCK_POT_L_ADC_CH,     .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SHOCK_POT_R_ADC_CH,     .rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LV_3V3_V_SENSE_ADC_CHNL,.rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LOAD_FL_ADC_CH,         .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LOAD_FR_ADC_CH,         .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = SHOCK_POT_R_ADC_CH,     .rank = 12,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = BRK1_THR_ADC_CHNL,      .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = BRK2_THR_ADC_CHNL,      .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };

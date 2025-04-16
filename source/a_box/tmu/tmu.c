@@ -126,7 +126,7 @@ uint8_t readTemps()
       SEND_MOD_CELL_TEMP_MIN_A_B_C(module_one->total_min_temp, module_two->total_min_temp, module_three->total_min_temp);
       SEND_MOD_CELL_TEMP_MIN_D_E(module_four->total_min_temp, module_five->total_min_temp);
       int16_t max_temp = MAX(MAX(MAX(module_one->total_max_temp, module_two->total_max_temp), MAX(module_three->total_max_temp, module_four->total_max_temp)), module_five->total_max_temp);
-      int16_t min_temp =  MIN(MIN(MIN(module_one->total_max_temp, module_two->total_max_temp), MAX(module_three->total_max_temp, module_four->total_max_temp)), module_five->total_max_temp);
+      int16_t min_temp =  MIN(MIN(MIN(module_one->total_min_temp, module_two->total_min_temp), MIN(module_three->total_min_temp, module_four->total_min_temp)), module_five->total_min_temp);
       SEND_MAX_CELL_TEMP(max_temp);
       SEND_NUM_THERM_BAD(module_one->left_readings.num_bad, module_one->left_readings.num_bad,
                            module_two->left_readings.num_bad, module_two->left_readings.num_bad,
@@ -135,7 +135,7 @@ uint8_t readTemps()
                            module_five->left_readings.num_bad, module_five->left_readings.num_bad);
       setFault(ID_PACK_TEMP_FAULT, max_temp);
       setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
-      setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
+      // setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
 
       // resetting
       curr_therm = 0;
@@ -171,6 +171,5 @@ uint8_t readTemps()
     PHAL_writeGPIO(MUX_D_Port, MUX_D_Pin, (therm & 0x8));
 
     // checking if faults have latched
-    return checkFault(ID_PACK_TEMP_EXCEEDED_FAULT) |
-                checkFault(ID_MIN_PACK_TEMP_FAULT);
+    return checkFault(ID_PACK_TEMP_EXCEEDED_FAULT);
 }

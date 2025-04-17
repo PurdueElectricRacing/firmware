@@ -116,6 +116,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a1e13f03e291a90dcd93ffccf1b8edf65" id="r_a1e13f03e291a90dcd93ffccf1b8edf65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e13f03e291a90dcd93ffccf1b8edf65">PHAL_initUSART</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, const uint32_t fck)</td></tr>
 <tr class="memdesc:a1e13f03e291a90dcd93ffccf1b8edf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a USART Peripheral with desired settings.  <br /></td></tr>
 <tr class="separator:a1e13f03e291a90dcd93ffccf1b8edf65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05486d1804d8e159f343e9cd514e2a64" id="r_a05486d1804d8e159f343e9cd514e2a64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05486d1804d8e159f343e9cd514e2a64">PHAL_usartTxBl</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint8_t *data, uint32_t len)</td></tr>
+<tr class="memdesc:a05486d1804d8e159f343e9cd514e2a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX using no DMA (blocks until complete)  <br /></td></tr>
+<tr class="separator:a05486d1804d8e159f343e9cd514e2a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c4f79487a9ee75886ae1a2ccdeef27" id="r_a55c4f79487a9ee75886ae1a2ccdeef27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55c4f79487a9ee75886ae1a2ccdeef27">PHAL_usartRxBl</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint8_t *data, uint32_t len)</td></tr>
+<tr class="memdesc:a55c4f79487a9ee75886ae1a2ccdeef27"><td class="mdescLeft">&#160;</td><td class="mdescRight">RX using no DMA (blocks until complete)  <br /></td></tr>
+<tr class="separator:a55c4f79487a9ee75886ae1a2ccdeef27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbaa51dfa3243c22b4015aaff9eba9da" id="r_abbaa51dfa3243c22b4015aaff9eba9da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbaa51dfa3243c22b4015aaff9eba9da">PHAL_usartTxDma</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, uint16_t *data, uint32_t len)</td></tr>
 <tr class="memdesc:abbaa51dfa3243c22b4015aaff9eba9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete.  <br /></td></tr>
 <tr class="separator:abbaa51dfa3243c22b4015aaff9eba9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,6 +231,42 @@ false Failed to initialize USART peripheral </dd></dl>
 
 </div>
 </div>
+<a id="a55c4f79487a9ee75886ae1a2ccdeef27" name="a55c4f79487a9ee75886ae1a2ccdeef27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c4f79487a9ee75886ae1a2ccdeef27">&#9670;&#160;</a></span>PHAL_usartRxBl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_usartRxBl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structusart__init__t.html">usart_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>handle</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RX using no DMA (blocks until complete) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle for the usart configuration </td></tr>
+    <tr><td class="paramname">data</td><td>The address of the data to receive </td></tr>
+    <tr><td class="paramname">len</td><td>Number of u8s expected to receive. Will block if not received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a48a7696afd720294a514208cd96d1791" name="a48a7696afd720294a514208cd96d1791"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48a7696afd720294a514208cd96d1791">&#9670;&#160;</a></span>PHAL_usartRxBusy()</h2>
 
@@ -289,6 +331,42 @@ false USART peripheal is not currently receiving a message </dd></dl>
     <tr><td class="paramname">data</td><td>The address to put the received data, ensure a cast to (uint16_t *), even if 8 bits </td></tr>
     <tr><td class="paramname">len</td><td>Number of units of data, depending on the configured word length </td></tr>
     <tr><td class="paramname">cont</td><td>Enable Continous RX using the idle line interrupt (only need to call this function once, and HAL will keep recieving messages of the same length) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a05486d1804d8e159f343e9cd514e2a64" name="a05486d1804d8e159f343e9cd514e2a64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05486d1804d8e159f343e9cd514e2a64">&#9670;&#160;</a></span>PHAL_usartTxBl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_usartTxBl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structusart__init__t.html">usart_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>handle</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TX using no DMA (blocks until complete) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle for the usart configuration </td></tr>
+    <tr><td class="paramname">data</td><td>The address of the data to send </td></tr>
+    <tr><td class="paramname">len</td><td>Number of u8s </td></tr>
   </table>
   </dd>
 </dl>

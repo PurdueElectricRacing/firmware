@@ -91,6 +91,5 @@ var searchData=
   ['gpth_5fsize_88',['GPTH_Size',['../ff_8c.html#a58237ab846855bf2b4a0ab750493e8a3',1,'ff.c']]],
   ['great_89',['GREAT',['../daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4',1,'main.h']]],
   ['green_90',['GREEN',['../nextion_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'nextion.h']]],
-  ['gyro_5fcalibration_91',['GYRO_CALIBRATION',['../sfs__pp_8h.html#a5f00f42fc2574820abde7c7dd797a036',1,'sfs_pp.h']]],
-  ['gyroscope_5fscaling_5fgyro_5flsb_5fto_5fradps_92',['GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS',['../a__box_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h']]]
+  ['gyroscope_5fscaling_5fgyro_5flsb_5fto_5fradps_91',['GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS',['../a__box_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h'],['../torque__vector_2bsxlite_2bsxlite__interface_8h.html#a2788a74f65f1641b09646ff0facbdcd0',1,'GYROSCOPE_SCALING_GYRO_LSB_TO_RADPS:&#160;bsxlite_interface.h']]]
 ];

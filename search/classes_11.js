@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['vec_5faccumulator_0',['vec_accumulator',['../structvec__accumulator.html',1,'']]],
-  ['vector_5f3d_5ft_1',['vector_3d_t',['../structvector__3d__t.html',1,'']]],
-  ['voltage_5ft_2',['voltage_t',['../structvoltage__t.html',1,'']]]
+  ['wheelspeed_5ft_0',['WheelSpeed_t',['../structWheelSpeed__t.html',1,'']]],
+  ['wheelspeeds_5ft_1',['WheelSpeeds_t',['../structWheelSpeeds__t.html',1,'']]],
+  ['wiz_5fnetinfo_5ft_2',['wiz_NetInfo_t',['../structwiz__NetInfo__t.html',1,'']]],
+  ['wiz_5fnettimeout_5ft_3',['wiz_NetTimeout_t',['../structwiz__NetTimeout__t.html',1,'']]],
+  ['wiz_5fphyconf_5ft_4',['wiz_PhyConf_t',['../structwiz__PhyConf__t.html',1,'']]]
 ];

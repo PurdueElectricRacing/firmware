@@ -95,10 +95,15 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Software for controlling Torque Vectoring PCB sensor acquisition.  
+<p>Torque Vectoring PCB.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;common/faults/fault_nodes.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
+<code>#include &quot;bsxlite_interface.h&quot;</code><br />
+<code>#include &quot;bmi088.h&quot;</code><br />
+<code>#include &quot;imu.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="gps_8h_source.html">gps.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="vcu_8h_source.html">vcu.h</a>&quot;</code><br />
 </div>
 <p><a href="torque__vector_2main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -156,26 +161,24 @@ Macros</h2></td></tr>
 <tr class="separator:a50e5e8556e3a271cab83dfa16f14ee09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0307e93d615d22766fd41e1a3c3cc796" id="r_a0307e93d615d22766fd41e1a3c3cc796"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a>&#160;&#160;&#160;(9)</td></tr>
 <tr class="separator:a0307e93d615d22766fd41e1a3c3cc796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74cf7d131f660a473bc6ad54bd568181" id="r_a74cf7d131f660a473bc6ad54bd568181"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74cf7d131f660a473bc6ad54bd568181">NAV_EEPROM_CS_GPIO_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:a74cf7d131f660a473bc6ad54bd568181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab852f251259010530cd10f0f77419829" id="r_ab852f251259010530cd10f0f77419829"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab852f251259010530cd10f0f77419829">NAV_EEPROM_CS_PIN</a>&#160;&#160;&#160;(12)</td></tr>
-<tr class="separator:ab852f251259010530cd10f0f77419829"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa33a6843dfd20ad077dc6d560abaf310" id="r_aa33a6843dfd20ad077dc6d560abaf310"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa33a6843dfd20ad077dc6d560abaf310">NAV_WP_GPIO_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:aa33a6843dfd20ad077dc6d560abaf310"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e91ca30ff165db8e051d6fd035b9f42" id="r_a4e91ca30ff165db8e051d6fd035b9f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e91ca30ff165db8e051d6fd035b9f42">NAV_WP_PIN</a>&#160;&#160;&#160;(13)</td></tr>
-<tr class="separator:a4e91ca30ff165db8e051d6fd035b9f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a91f21dcfd083abf23fd9802efb656d1b" id="r_a91f21dcfd083abf23fd9802efb656d1b"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91f21dcfd083abf23fd9802efb656d1b">__attribute__</a> ((packed)) serial_tx</td></tr>
+<tr class="separator:a91f21dcfd083abf23fd9802efb656d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4815a2b32e2a6f5a2902f820ef92501" id="r_ad4815a2b32e2a6f5a2902f820ef92501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4815a2b32e2a6f5a2902f820ef92501">canTxSendToBack</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="separator:ad4815a2b32e2a6f5a2902f820ef92501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Software for controlling Torque Vectoring PCB sensor acquisition. </p>
-<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+<div class="textblock"><p>Torque Vectoring PCB. </p>
+<dl class="section author"><dt>Author</dt><dd>Chris McGalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cmc'+'ga'+'lli'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">cmcga<span class="obfuscator">.nosp@m.</span>lli@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd>
+<dd>
+Demetrius Gulewicz (<a href="#" onclick="location.href='mai'+'lto:'+'dgu'+'le'+'wic'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">dgule<span class="obfuscator">.nosp@m.</span>wic@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd>
+<dd>
+Trevor </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2022-12-08</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-4-17</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a75d1cb8230e6eaf53142a5bca49003ef" name="a75d1cb8230e6eaf53142a5bca49003ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75d1cb8230e6eaf53142a5bca49003ef">&#9670;&#160;</a></span>CONN_LED_GPIO_Port</h2>
@@ -373,62 +376,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a74cf7d131f660a473bc6ad54bd568181" name="a74cf7d131f660a473bc6ad54bd568181"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74cf7d131f660a473bc6ad54bd568181">&#9670;&#160;</a></span>NAV_EEPROM_CS_GPIO_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NAV_EEPROM_CS_GPIO_PORT&#160;&#160;&#160;(GPIOB)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab852f251259010530cd10f0f77419829" name="ab852f251259010530cd10f0f77419829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab852f251259010530cd10f0f77419829">&#9670;&#160;</a></span>NAV_EEPROM_CS_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NAV_EEPROM_CS_PIN&#160;&#160;&#160;(12)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa33a6843dfd20ad077dc6d560abaf310" name="aa33a6843dfd20ad077dc6d560abaf310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa33a6843dfd20ad077dc6d560abaf310">&#9670;&#160;</a></span>NAV_WP_GPIO_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NAV_WP_GPIO_PORT&#160;&#160;&#160;(GPIOB)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4e91ca30ff165db8e051d6fd035b9f42" name="a4e91ca30ff165db8e051d6fd035b9f42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e91ca30ff165db8e051d6fd035b9f42">&#9670;&#160;</a></span>NAV_WP_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NAV_WP_PIN&#160;&#160;&#160;(13)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aacc6e26a0a2afa5bc42f86e3abe643b2" name="aacc6e26a0a2afa5bc42f86e3abe643b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aacc6e26a0a2afa5bc42f86e3abe643b2">&#9670;&#160;</a></span>SPI_CS_ACEL_GPIO_Port</h2>
 
@@ -598,6 +545,23 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a91f21dcfd083abf23fd9802efb656d1b" name="a91f21dcfd083abf23fd9802efb656d1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f21dcfd083abf23fd9802efb656d1b">&#9670;&#160;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct __attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(packed)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad4815a2b32e2a6f5a2902f820ef92501" name="ad4815a2b32e2a6f5a2902f820ef92501"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4815a2b32e2a6f5a2902f820ef92501">&#9670;&#160;</a></span>canTxSendToBack()</h2>
 

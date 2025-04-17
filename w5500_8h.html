@@ -1666,7 +1666,7 @@ The connect-request fails in the following three cases.<br  />
 <p>Socket n is initialized and opened according to the protocol selected in <a class="el" href="group__Socket__register__group.html#ga9d485719088a4f1a18e29a0f9be921a4" title="socket Mode register(R/W)">Sn_MR(P3:P0)</a>. The table below shows the value of <a class="el" href="group__Socket__register__group.html#ga958511984021889fe9d54d7a704d4957">Sn_SR</a> corresponding to Sn_MR.<br  />
  </p><table class="doxtable">
 <tr>
-<td><b>Sn_MR</b> (<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0]) </td><td><b>Sn_SR</b>   </td></tr>
+<td><b>Sn_MR</b> (P[3:0]) </td><td><b>Sn_SR</b>   </td></tr>
 <tr>
 <td>Sn_MR_CLOSE (000) </td><td></td></tr>
 <tr>
@@ -1853,7 +1853,7 @@ In this case, the destination hardware address is acquired from <a class="el" hr
 <p>Broadcast block in UDP Multicasting. </p>
 <p>0 : disable Broadcast Blocking<br  />
 1 : enable Broadcast Blocking<br  />
-This bit blocks to receive broadcasting packet during UDP mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 010.\m In addition, This bit does when MACRAW mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 100 </p>
+This bit blocks to receive broadcasting packet during UDP mode(P[3:0] = 010.\m In addition, This bit does when MACRAW mode(P[3:0] = 100 </p>
 
 </div>
 </div>
@@ -1921,7 +1921,7 @@ This bit blocks to receive broadcasting packet during UDP mode(<a class="el" hre
 <p>IGMP version used in UDP mulitcasting. </p>
 <p>0 : disable Multicast Blocking<br  />
 1 : enable Multicast Blocking<br  />
-This bit is applied only when MACRAW mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 100. It blocks to receive the packet with multicast MAC address. </p>
+This bit is applied only when MACRAW mode(P[3:0] = 100. It blocks to receive the packet with multicast MAC address. </p>
 
 </div>
 </div>
@@ -1940,7 +1940,7 @@ This bit is applied only when MACRAW mode(<a class="el" href="SFS_8h.html#af0964
 <p>MAC filter enable in <a class="el" href="#a8426a69a5d58f909bb1c7ce12afad0a5">Sn_MR_MACRAW</a> mode. </p>
 <p>0 : disable MAC Filtering<br  />
 1 : enable MAC Filtering<br  />
-This bit is applied only during MACRAW mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 100.<br  />
+This bit is applied only during MACRAW mode(P[3:0] = 100.<br  />
 When set as W5500 can only receive broadcasting packet or packet sent to itself. When this bit is W5500 can receive all packets on Ethernet. If user wants to implement Hybrid TCP/IP stack, it is recommended that this bit is set as for reducing host overhead to process the all received packets. </p>
 
 </div>
@@ -1960,7 +1960,7 @@ When set as W5500 can only receive broadcasting packet or packet sent to itself.
 <p>IPv6 packet Blocking in <a class="el" href="#a8426a69a5d58f909bb1c7ce12afad0a5">Sn_MR_MACRAW</a> mode. </p>
 <p>0 : disable IPv6 Blocking<br  />
 1 : enable IPv6 Blocking<br  />
-This bit is applied only during MACRAW mode (<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 100. It blocks to receiving the IPv6 packet. </p>
+This bit is applied only during MACRAW mode (P[3:0] = 100. It blocks to receiving the IPv6 packet. </p>
 
 </div>
 </div>
@@ -1979,7 +1979,7 @@ This bit is applied only during MACRAW mode (<a class="el" href="SFS_8h.html#af0
 <p>Multicast Blocking in <a class="el" href="#a8426a69a5d58f909bb1c7ce12afad0a5">Sn_MR_MACRAW</a> mode. </p>
 <p>0 : using IGMP version 2<br  />
 1 : using IGMP version 1<br  />
-This bit is applied only during UDP mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 010 and MULTI = It configures the version for IGMP messages (Join/Leave/Report). </p>
+This bit is applied only during UDP mode(P[3:0] = 010 and MULTI = It configures the version for IGMP messages (Join/Leave/Report). </p>
 
 </div>
 </div>
@@ -1998,7 +1998,7 @@ This bit is applied only during UDP mode(<a class="el" href="SFS_8h.html#af0964f
 <p>Support UDP Multicasting. </p>
 <p>0 : disable Multicasting<br  />
 1 : enable Multicasting<br  />
-This bit is applied only during UDP mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 010.<br  />
+This bit is applied only during UDP mode(P[3:0] = 010.<br  />
 To use multicasting, <a class="el" href="group__Socket__register__group.html#ga07db81e43763069a0a59acc54d4d347b">Sn_DIPR</a> &amp; <a class="el" href="group__Socket__register__group.html#ga912f0add3b86fe80c0f35d88dcaad972">Sn_DPORT</a> should be respectively configured with the multicast group IP address &amp; port number before Socket n is opened by OPEN command of <a class="el" href="group__Socket__register__group.html#gadb581db7f2124487bedbb7c61453540a">Sn_CR</a>. </p>
 
 </div>
@@ -2018,7 +2018,7 @@ To use multicasting, <a class="el" href="group__Socket__register__group.html#ga0
 <p>No Delayed Ack(TCP), Multicast flag. </p>
 <p>0 : Disable No Delayed ACK option<br  />
 1 : Enable No Delayed ACK option<br  />
-This bit is applied only during TCP mode (<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 001.<br  />
+This bit is applied only during TCP mode (P[3:0] = 001.<br  />
 When this bit is It sends the ACK packet without delay as soon as a Data packet is received from a peer.<br  />
 When this bit is It sends the ACK packet after waiting for the timeout time configured by <a class="el" href="group__Common__register__group.html#ga14fd22108c55f8cf86bf05e4418ba326">_RTR_</a>. </p>
 
@@ -2056,7 +2056,7 @@ When this bit is It sends the ACK packet after waiting for the timeout time conf
 <p>Unicast Block in UDP Multicasting. </p>
 <p>0 : disable Unicast Blocking<br  />
 1 : enable Unicast Blocking<br  />
-This bit blocks receiving the unicast packet during UDP mode(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 010 and MULTI = </p>
+This bit blocks receiving the unicast packet during UDP mode(P[3:0] = 010 and MULTI = </p>
 
 </div>
 </div>
@@ -2272,7 +2272,7 @@ Otherwise it will change to <a class="el" href="#a8e14b15b210852d2812514526de5c0
 
 <p>MAC raw mode socket. </p>
 <p>This indicates Socket 0 is opened in MACRAW mode (S0_MR(P[3:0]) = 100and is valid only in Socket 0.<br  />
-It changes to SOCK_MACRAW when S0_MR(<a class="el" href="SFS_8h.html#af0964f15afa6e665e130e8a671fe7507">P</a>[3:0] = 100and OPEN command is ordered.<br  />
+It changes to SOCK_MACRAW when S0_MR(P[3:0] = 100and OPEN command is ordered.<br  />
 Like UDP mode socket, MACRAW mode Socket 0 can transfer a MAC packet (Ethernet frame) without the connection-process. </p>
 
 </div>

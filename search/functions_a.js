@@ -9,7 +9,8 @@ var searchData=
   ['ledblink2_6',['ledblink2',['../freertos__demo_8c.html#a17d0cbc806779f2a696e8f073762c453',1,'freertos_demo.c']]],
   ['ledblink3_7',['ledblink3',['../freertos__demo_8c.html#a58a70423d0bcbad9aa70f912fbe68a08',1,'freertos_demo.c']]],
   ['ledblink4_8',['ledblink4',['../freertos__demo_8c.html#ae44b6ad332e1dc9207d71b8b3f213e99',1,'freertos_demo.c']]],
-  ['listen_9',['listen',['../group__WIZnet__socket__APIs.html#ga58ae959798d5d874ac5ea796da90db8c',1,'listen(uint8_t sn):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#ga58ae959798d5d874ac5ea796da90db8c',1,'listen(uint8_t sn):&#160;socket.c']]],
-  ['loggingpageupdate_10',['loggingPageUpdate',['../lcd_8c.html#aac825257435288687ed7b01e6ae3b73b',1,'lcd.c']]],
-  ['loggingselect_11',['loggingSelect',['../lcd_8c.html#a1ddaac6cdbb0a2e17abf0a3be400b322',1,'lcd.c']]]
+  ['list_5fserial_5fports_9',['list_serial_ports',['../namespacereceive-from-tv.html#ab57bf810221d788d910ee50e79685490',1,'receive-from-tv.list_serial_ports()'],['../namespacesend-and-rec.html#a4f4bab98d39b7904610f68befee6dd40',1,'send-and-rec.list_serial_ports()'],['../namespacesend-to-tv.html#a93c435d4b68c8ae81dbf93ac759f0931',1,'send-to-tv.list_serial_ports()']]],
+  ['listen_10',['listen',['../group__WIZnet__socket__APIs.html#ga58ae959798d5d874ac5ea796da90db8c',1,'listen(uint8_t sn):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#ga58ae959798d5d874ac5ea796da90db8c',1,'listen(uint8_t sn):&#160;socket.c']]],
+  ['loggingpageupdate_11',['loggingPageUpdate',['../lcd_8c.html#aac825257435288687ed7b01e6ae3b73b',1,'lcd.c']]],
+  ['loggingselect_12',['loggingSelect',['../lcd_8c.html#a1ddaac6cdbb0a2e17abf0a3be400b322',1,'lcd.c']]]
 ];

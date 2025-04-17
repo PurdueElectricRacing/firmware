@@ -93,9 +93,8 @@ struct __attribute__((packed)) serial_tx {
     float BT_CF;
     float AG_CF[3];
     float TO_CF[2];
-    float DB_CF;
-    float PI_CF;
-    float PP_CF;
+    float VT_DB_CF;
+    float TV_PP_CF;
     float zero_current_counter;
     float Batt_SOC;
     float Batt_Voc;
@@ -108,6 +107,8 @@ struct __attribute__((packed)) serial_tx {
     float TO_VT[2];
     float TV_AV_ref;
     float TV_delta_torque;
+    float TC_TR_CF;
+    float VS_MAX_SR_CF;
     float TC_highs;
     float TC_lows;
     float SR;
@@ -125,6 +126,7 @@ struct __attribute__((packed)) serial_tx {
 //   - 'I' -> unsigned int (4 bytes)
 
 struct __attribute__((packed)) serial_rx {
+    // xVCU
     float TH_RAW;
     float ST_RAW;
     float VB_RAW;
@@ -142,8 +144,10 @@ struct __attribute__((packed)) serial_rx {
     float AG_RAW[3];
     float TO_RAW[2];
     float VT_DB_RAW;
-    float TC_TR_RAW;
     float TV_PP_RAW;
+    float TC_TR_RAW;
+    float VS_MAX_SR_RAW;
+    // fVCU
     float CS_SFLAG;
     float TB_SFLAG;
     float SS_SFLAG;
@@ -158,6 +162,11 @@ struct __attribute__((packed)) serial_rx {
     float AV_FFLAG;
     float GS_FFLAG;
     float VCU_PFLAG;
+    float VCU_CFLAG;
+    // yVCU
+    float PT_permit_buffer[5]; // size is given py pVCU.PT_permit_N
+    float VS_permit_buffer[5]; // size is given py pVCU.VS_permit_N
+    float VT_permit_buffer[5]; // size is given py pVCU.VT_permit_N
 };
 
 #endif

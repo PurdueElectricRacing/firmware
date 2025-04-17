@@ -9,7 +9,7 @@ addr = dev.address
 del(dev)
 bus = can.Bus(bustype="gs_usb", channel=channel, bus=bus_num, address=addr, bitrate=500000)
 
-db = cantools.db.load_file('./common/daq/per_dbc.dbc')
+db = cantools.db.load_file('./common/daq/per_dbc_VCAN.dbc')
 
 test_var_response_msg = db.get_message_by_name('daq_response_TEST_NODE')
 test_var_command_msg = db.get_message_by_name('daq_command_TEST_NODE')
@@ -17,7 +17,7 @@ test_var_command_msg = db.get_message_by_name('daq_command_TEST_NODE')
 for i in range(4):
     bus.recv(0.03)
 
-message = can.Message(arbitration_id=test_var_command_msg.frame_id, 
+message = can.Message(arbitration_id=test_var_command_msg.frame_id,
                       data=[0x04], is_extended_id=True)
 
 bus.send(message)
@@ -28,12 +28,12 @@ while True:
         print(f"before: {rx}")
         break
 
-message = can.Message(arbitration_id=test_var_command_msg.frame_id, 
+message = can.Message(arbitration_id=test_var_command_msg.frame_id,
                       data=[0x05, 0xEF, 0x0D], is_extended_id=True)
 
 bus.send(message)
 
-message = can.Message(arbitration_id=test_var_command_msg.frame_id, 
+message = can.Message(arbitration_id=test_var_command_msg.frame_id,
                       data=[0x04], is_extended_id=True)
 
 bus.send(message)
@@ -45,7 +45,7 @@ while True:
         break
 
 quit()
-message = can.Message(arbitration_id=test_var_command_msg.frame_id, 
+message = can.Message(arbitration_id=test_var_command_msg.frame_id,
                       data=[0x04], is_extended_id=True)
 # bus.send_periodic(msg, 0.2)
 # bus.send_periodic(msg2, 0.1)

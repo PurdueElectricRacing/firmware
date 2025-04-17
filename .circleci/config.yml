@@ -15,7 +15,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - run: 
+      - run:
           name: "Update git submodules"
           command: "git submodule update --init --recursive"
       - run:
@@ -36,7 +36,7 @@ jobs:
             cp "./output"/*/BL_*.hex $ARTIFACT_NAME
             cp "./output"/*/*/BL_*.elf $ARTIFACT_NAME
             cp "./output"/*/*/BL_*.hex $ARTIFACT_NAME
-            cp ./common/daq/per_dbc.dbc $ARTIFACT_NAME
+            cp ./common/daq/per_dbc_VCAN.dbc $ARTIFACT_NAME
             mkdir artifacts
             tar -czf ./artifacts/${ARTIFACT_NAME}.tar.gz $ARTIFACT_NAME
 

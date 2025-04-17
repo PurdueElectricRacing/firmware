@@ -11,11 +11,15 @@
     "$defs":{
         "bus":{
             "type":"object",
-            "required":["bus_name", "nodes"],
+            "required":["bus_name", "bus_speed", "nodes"],
             "properties":{
                 "bus_name":{
                     "type":"string",
                     "description":"The name of the bus"
+                },
+                "bus_speed": {
+                    "type":"integer",
+                    "description":"Intended speed of the CAN bus"
                 },
                 "nodes":{
                     "type":"array",

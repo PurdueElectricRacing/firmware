@@ -438,14 +438,24 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
   y->TH_CF = fmaxf(fminf(x->TH_RAW, p->TH_ub), p->TH_lb);
   y->ST_CF = fmaxf(fminf(x->ST_RAW, p->ST_ub), p->ST_lb);
   y->VB_CF = fmaxf(fminf(x->VB_RAW, p->VB_ub), p->VB_lb);
-  y->WT_CF[0] = fmaxf(fminf(x->WT_RAW[0], p->WT_ub[0]), p->WT_lb[0]);
-  e_f = fmaxf(fminf(x->WM_RAW[0], p->WM_ub[0]), p->WM_lb[0]);
+  e_f = fmaxf(fminf(x->WT_RAW[0], p->WT_ub[0]), p->WT_lb[0]);
   y->TO_CF[0] = e_f;
-  y->WM_CF[0] = e_f;
-  y->WT_CF[1] = fmaxf(fminf(x->WT_RAW[1], p->WT_ub[1]), p->WT_lb[1]);
-  e_f = fmaxf(fminf(x->WM_RAW[1], p->WM_ub[1]), p->WM_lb[1]);
+  y->WT_CF[0] = e_f;
+  y->WM_CF[0] = fmaxf(fminf(x->WM_RAW[0], p->WM_ub[0]), p->WM_lb[0]);
+  e_f = fmaxf(fminf(x->WT_RAW[1], p->WT_ub[1]), p->WT_lb[1]);
   y->TO_CF[1] = e_f;
-  y->WM_CF[1] = e_f;
+  y->WT_CF[1] = e_f;
+  y->WM_CF[1] = fmaxf(fminf(x->WM_RAW[1], p->WM_ub[1]), p->WM_lb[1]);
+  if (p->W_CF_SELECTION == 0.0F) {
+    y->W_CF[0] = y->TO_CF[0];
+    y->W_CF[1] = y->TO_CF[1];
+  } else if (p->W_CF_SELECTION == 1.0F) {
+    y->W_CF[0] = y->WM_CF[0] / p->gr;
+    y->W_CF[1] = y->WM_CF[1] / p->gr;
+  } else {
+    y->W_CF[0] = 0.5F * (y->TO_CF[0] + y->WM_CF[0] / p->gr);
+    y->W_CF[1] = 0.5F * (y->TO_CF[1] + y->WM_CF[1] / p->gr);
+  }
   y->GS_CF = fmaxf(fminf(x->GS_RAW, p->GS_ub), p->GS_lb);
   f1 = x->AV_RAW[0];
   f2 = x->AV_RAW[1];
@@ -579,8 +589,8 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
     float c_x;
     float ex;
     float f7;
-    c_idx_0 = y->WT_CF[0] * p->gr;
-    c_idx_1 = y->WT_CF[1] * p->gr;
+    c_idx_0 = y->W_CF[0] * p->gr;
+    c_idx_1 = y->W_CF[1] * p->gr;
     if (c_idx_0 < c_idx_1) {
       f7 = c_idx_1;
     } else {
@@ -712,21 +722,37 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
     fv6[1] = 0.0F;
     fv7[1] = 0.0F;
     e_varargin_1[0] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(e_p, fv, y->MT_CF), 1.0F), 0.0F);
+                      interp1(e_p, fv,
+                              fmaxf(fminf(y->MT_CF, p->mT_derating_zero_T),
+                                    p->mT_derating_full_T));
     e_varargin_1[1] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(f_p, fv1, y->CT_CF), 1.0F), 0.0F);
+                      interp1(f_p, fv1,
+                              fmaxf(fminf(y->CT_CF, p->cT_derating_zero_T),
+                                    p->cT_derating_full_T));
     e_varargin_1[2] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(g_p, fv2, y->IT_CF), 1.0F), 0.0F);
+                      interp1(g_p, fv2,
+                              fmaxf(fminf(y->IT_CF, p->iT_derating_zero_T),
+                                    p->iT_derating_full_T));
     e_varargin_1[3] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(h_p, fv3, y->MC_CF), 1.0F), 0.0F);
+                      interp1(h_p, fv3,
+                              fmaxf(fminf(y->MC_CF, p->Cm_derating_zero_T),
+                                    p->Cm_derating_full_T));
     e_varargin_1[4] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(i_p, fv4, y->IC_CF), 1.0F), 0.0F);
+                      interp1(i_p, fv4,
+                              fmaxf(fminf(y->IC_CF, p->Ci_derating_zero_T),
+                                    p->Ci_derating_full_T));
     e_varargin_1[5] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(j_p, fv5, y->BT_CF), 1.0F), 0.0F);
+                      interp1(j_p, fv5,
+                              fmaxf(fminf(y->BT_CF, p->bT_derating_zero_T),
+                                    p->bT_derating_full_T));
     e_varargin_1[6] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(k_p, fv6, y->IB_CF), 1.0F), 0.0F);
+                      interp1(k_p, fv6,
+                              fmaxf(fminf(y->IB_CF, p->bI_derating_zero_T),
+                                    p->bI_derating_full_T));
     e_varargin_1[7] = p->MAX_TORQUE_NOM *
-                      fmaxf(fminf(interp1(l_p, fv7, y->VB_CF), 1.0F), 0.0F);
+                      interp1(l_p, fv7,
+                              fmaxf(fminf(y->VB_CF, p->Vb_derating_zero_T),
+                                    p->Vb_derating_full_T));
     ex = e_varargin_1[0];
     for (g_k = 0; g_k < 7; g_k++) {
       float f11;
@@ -744,7 +770,7 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
   if (y->VCU_mode == 3.0F) {
     float b_out;
     y->SR_VS = y->TH_CF * y->VS_MAX_SR_CF;
-    b_out = fmaxf(p->WM_VS_LS, y->GS_CF / p->r * (y->SR_VS + 1.0F));
+    b_out = fmaxf(p->WM_VS_LS, p->gr * (y->GS_CF / p->r * (y->SR_VS + 1.0F)));
     y->WM_VS[0] = b_out;
     y->WM_VS[1] = b_out;
   }
@@ -753,7 +779,7 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
     f8 = fabsf(y->ST_CF);
     if (f8 < y->VT_DB_CF - p->dST_DB) {
       y->VT_mode = 1.0F;
-      y->SR = 0.5F * (y->WT_CF[0] + y->WT_CF[1]) * p->r /
+      y->SR = 0.5F * (y->W_CF[0] + y->W_CF[1]) * p->r /
                   fmaxf(fminf(y->GS_CF, y->GS_CF), p->TC_eps) -
               1.0F;
       y->TC_highs = (y->TC_highs + 1.0F) * (float)(y->SR >= p->TC_SR_threshold);

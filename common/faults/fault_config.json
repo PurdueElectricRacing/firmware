@@ -719,13 +719,22 @@
             "node_name":"torque_vector",
             "faults": [
                 {
+                    "fault_name": "ES_Enabled",
+                    "max": 1,
+                    "min": 0,
+                    "priority": "warning",
+                    "time_to_latch": 10,
+                    "time_to_unlatch": 10,
+                    "lcd_message": "Equal Speed"
+                },
+                {
                     "fault_name": "ET_Enabled",
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "VCU Mode 1"
+                    "lcd_message": "Equal Torque"
                 },
                 {
                     "fault_name": "PT_Enabled",
@@ -734,7 +743,7 @@
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "VCU Mode 2"
+                    "lcd_message": "Equal Torque with Safety"
                 },
                 {
                     "fault_name": "VS_Enabled",
@@ -743,7 +752,7 @@
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "VCU Mode 3"
+                    "lcd_message": "Variable Speed"
                 },
                 {
                     "fault_name": "VT_Enabled",
@@ -752,7 +761,7 @@
                     "priority": "warning",
                     "time_to_latch": 10,
                     "time_to_unlatch": 10,
-                    "lcd_message": "VCU Mode 4"
+                    "lcd_message": "Variable Torque"
                 },
                 {
                     "fault_name": "No_GPS_Fix",

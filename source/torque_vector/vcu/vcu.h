@@ -53,6 +53,7 @@ typedef struct {
   float VB_CF;
   float WT_CF[2];
   float WM_CF[2];
+  float W_CF[0];
   float GS_CF;
   float AV_CF[3];
   float IB_CF;
@@ -154,6 +155,7 @@ typedef struct {
   float VS_MAX_SR_ub;
   float CF_IB_filter_N;
   float R[9];
+  float W_CF_SELECTION;
   float Batt_Voc_brk[506];
   float Batt_As_Discharged_tbl[506];
   float zero_currents_to_update_SOC;

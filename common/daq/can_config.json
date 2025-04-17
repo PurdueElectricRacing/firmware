@@ -664,8 +664,8 @@
                             "msg_name": "vcu_soc_estimate",
                             "msg_desc": "Estimated Voc and SOC for HV battery",
                             "signals": [
-                                {"sig_name": "SOC_estimate", "type": "int16_t", "unit": "none", "scale": 0.00003},
-                                {"sig_name": "Voc_estimate", "type": "int16_t", "unit": "V", "scale": 0.015}
+                                {"sig_name": "SOC_estimate", "type": "int16_t", "unit": "none", "scale": 0.01},
+                                {"sig_name": "Voc_estimate", "type": "int16_t", "unit": "V", "scale": 0.1}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 2,

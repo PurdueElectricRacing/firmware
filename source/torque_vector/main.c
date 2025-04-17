@@ -474,18 +474,19 @@ void VCU_MAIN(void)
     /* Step VCU */
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
-    /* Set TV faults */
-    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==0) || (yVCU.VCU_mode==1));
+    /* Set VCU faults */
+    setFault(ID_ES_ENABLED_FAULT,(yVCU.VCU_mode==0));
+    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==1));
     setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
     setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
     setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
     setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
     setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
 
-    /* Send messages */
-    SEND_VCU_TORQUES_SPEEDS(yVCU.TO_VT[0], yVCU.TO_VT[1], yVCU.TO_PT[0], yVCU.WM_VS[0]);
-    SEND_VCU_SOC_ESTIMATE(yVCU.Batt_SOC, yVCU.Batt_Voc);
-    SEND_DRIVE_MODES(yVCU.VCU_mode, yVCU.VT_mode);
+    /* Send VCU messages */
+    SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int16_t)(yVCU.WM_VS[0]));
+    SEND_VCU_SOC_ESTIMATE((int16_t)(100*yVCU.Batt_SOC), (int16_t)(10*yVCU.Batt_Voc));
+    SEND_DRIVE_MODES((int8_t)(yVCU.VCU_mode), (int8_t)(yVCU.VT_mode));
 
     // FOR USB
     txUsart();

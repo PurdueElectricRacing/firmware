@@ -1170,7 +1170,7 @@
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
-                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
+                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"%", "scale":0.1},
                                 {"sig_name": "AMK_DisplayOverloadInverter", "type":"uint16_t", "scale":0.1},
                                 {"sig_name": "AMK_DisplayOverloadMotor", "type":"uint16_t", "scale":0.1}
                             ],
@@ -1245,7 +1245,7 @@
                             "msg_desc": "Contains the status word and actual values",
                             "signals": [
                                 {"sig_name": "AMK_ActualSpeed", "sig_desc": "Actual speed value", "type":"int16_t", "unit": "rpm"},
-                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"Nm", "scale":0.1},
+                                {"sig_name": "AMK_ActualTorque", "sig_desc": "Actual torque value", "type":"int16_t", "unit":"%", "scale":0.1},
                                 {"sig_name": "AMK_DisplayOverloadInverter", "type":"uint16_t"},
                                 {"sig_name": "AMK_DisplayOverloadMotor", "type":"uint16_t"}
                             ],

@@ -218,7 +218,6 @@ bool BMI088_readAccel(BMI088_Handle_t *bmi, vector_3d_t *v)
 static inline void BMI088_selectGyro(BMI088_Handle_t *bmi)
 {
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
-    PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
     bmi->spi->nss_gpio_port = bmi->gyro_csb_gpio_port;
     bmi->spi->nss_gpio_pin = bmi->gyro_csb_pin;
 }
@@ -226,7 +225,6 @@ static inline void BMI088_selectGyro(BMI088_Handle_t *bmi)
 static inline void BMI088_selectAccel(BMI088_Handle_t *bmi)
 {
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-    PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
     bmi->spi->nss_gpio_port = bmi->accel_csb_gpio_port;
     bmi->spi->nss_gpio_pin = bmi->accel_csb_pin;
 }

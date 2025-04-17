@@ -1,80 +1,45 @@
-/* System Includes */
+#include <stdint.h>
+
 #include "common/bootloader/bootloader_common.h"
+#include "common/common_defs/common_defs.h"
+#include "common/faults/faults.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/spi/spi.h"
-#include "common/psched/psched.h"
 #include "common/phal_F4_F7/usart/usart.h"
-#include "common/faults/faults.h"
-#include "common/common_defs/common_defs.h"
+#include "common/psched/psched.h"
 
-/* Module Includes */
 #include "main.h"
-#include "source/torque_vector/can/can_parse.h"
 
-#include "bsxlite_interface.h"
-
-#include "bmi088.h"
-#include "imu.h"
-#include "gps.h"
-
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
-#include "em.h"
-#include "em_pp.h"
-
-#include "tv.h"
-#include "tv_pp.h"
-
-#include "bsxlite_interface.h"
-
-#include "bmi088.h"
-#include "imu.h"
-#include "gps.h"
-
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
-#include "em.h"
-#include "em_pp.h"
-
-#include "tv.h"
-#include "tv_pp.h"
-
-uint8_t collect_test[100] = {0};
-
-GPIOInitConfig_t gpio_config[] = {
-    // Status Indicators
+GPIOInitConfig_t gpio_config[] =
+{
+    /* Status Indicators */
     GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
 
-    // SPI
+    /* IMU */
     GPIO_INIT_AF(SPI_SCLK_GPIO_Port, SPI_SCLK_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(SPI_MOSI_GPIO_Port, SPI_MOSI_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
     GPIO_INIT_AF(SPI_MISO_GPIO_Port, SPI_MISO_Pin, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_OUTPUT(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, GPIO_OUTPUT_HIGH_SPEED),
     GPIO_INIT_OUTPUT(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_OUTPUT(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, GPIO_OUTPUT_HIGH_SPEED),
 
-    // GPS USART
+    /* GPS */
     GPIO_INIT_UART4RX_PA1,
     GPIO_INIT_UART4TX_PA0,
-
-    // GPS Auxillary pins
     GPIO_INIT_OUTPUT(GPS_RESET_GPIO_Port, GPS_RESET_Pin, GPIO_OUTPUT_LOW_SPEED),
 
-    // EEPROM
-    GPIO_INIT_OUTPUT(NAV_EEPROM_CS_GPIO_PORT, NAV_EEPROM_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_OUTPUT(NAV_WP_GPIO_PORT, NAV_WP_PIN, GPIO_OUTPUT_HIGH_SPEED),
+    /* USB Logging */
+    GPIO_INIT_USART1TX_PA9,
+    GPIO_INIT_USART1RX_PA10,
 
-    // CAN
+    /* VCAN */
     GPIO_INIT_CANRX_PA11,
     GPIO_INIT_CANTX_PA12
-    };
+};
 
-// GPS USART Configuration
+/* GPS USART */
 dma_init_t usart_gps_tx_dma_config = USART4_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_gps_rx_dma_config = USART4_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_gps =
@@ -95,6 +60,25 @@ usart_init_t huart_gps =
     .rx_dma_cfg = &usart_gps_rx_dma_config
 };
 
+/* USB USART */
+dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+usart_init_t usb = {
+   .baud_rate   = 115200,
+   .word_length = WORD_8,
+   .stop_bits   = SB_ONE,
+   .parity      = PT_NONE,
+   .hw_flow_ctl = HW_DISABLE,
+   .ovsample    = OV_16,
+   .obsample    = OB_DISABLE,
+   .periph      = USART1,
+   .wake_addr   = false,
+   .usart_active_num = USART1_ACTIVE_IDX,
+   .tx_dma_cfg = &usart_usb_tx_dma_config,
+   .rx_dma_cfg = &usart_usb_rx_dma_config
+};
+
+/* Clock Configuration */
 #define TargetCoreClockrateHz 96000000
 ClockRateConfig_t clock_config = {
     .clock_source               =CLOCK_SOURCE_HSE,
@@ -113,10 +97,11 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+/* IMU SPI */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
-
-SPI_InitConfig_t spi_config = {
+SPI_InitConfig_t spi_config =
+{
     .data_rate = TargetCoreClockrateHz / 64,
     .data_len = 8,
     .nss_sw = true,
@@ -124,14 +109,12 @@ SPI_InitConfig_t spi_config = {
     .nss_gpio_pin = SPI_CS_ACEL_Pin,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI1};
+    .periph = SPI1
+};
 
-// Test Nav Message
-GPS_Handle_t GPSHandle = {};
-vector_3d_t accel_in, gyro_in, mag_in;
-
-
-BMI088_Handle_t bmi_config = {
+/* IMU Configuration */
+BMI088_Handle_t bmi_config =
+{
     .accel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
     .accel_csb_pin = SPI_CS_ACEL_Pin,
     .accel_range = ACCEL_RANGE_3G,
@@ -141,11 +124,32 @@ BMI088_Handle_t bmi_config = {
     .gyro_csb_pin = SPI_CS_GYRO_Pin,
     .gyro_datarate = GYRO_DR_100Hz_32Hz,
     .gyro_range = GYRO_RANGE_250,
-    .spi = &spi_config};
+    .spi = &spi_config
+};
 
-IMU_Handle_t imu_h = {
+IMU_Handle_t imu_h =
+{
     .bmi = &bmi_config,
 };
+
+/* GPS Data */
+GPS_Handle_t GPSHandle = {};
+
+/* IMU Data */
+vector_3d_t accel_in, gyro_in, mag_in;
+static int16_t gyro_counter = 0;
+
+/* VCU Data */
+static pVCU_struct pVCU;
+static fVCU_struct fVCU;
+static xVCU_struct xVCU;
+static yVCU_struct yVCU;
+
+/* USB UART Data */
+static struct serial_tx txmsg;
+static struct serial_rx rxmsg;
+static uint16_t rxbuffer[(sizeof(rxmsg) + 1) / 2];
+static uint8_t txbuffer[2 + sizeof(txmsg)] = {0xAA, 0x55};
 
 /* Function Prototypes */
 void heartBeatLED(void);
@@ -156,61 +160,35 @@ extern void HardFault_Handler(void);
 void parseIMU(void);
 void pollIMU(void);
 void VCU_MAIN(void);
+void txUsart(void);
 
-/* Torque Vectoring Definitions */
-static ExtU_tv rtU_tv; /* External inputs */
-static ExtY_tv rtY_tv; /* External outputs */
-static RT_MODEL_tv rtM_tvv;
-static RT_MODEL_tv *const rtMPtr_tv = &rtM_tvv; /* Real-time model */
-static DW_tv rtDW_tv;                        /* Observable states */
-static RT_MODEL_tv *const rtM_tv = rtMPtr_tv;
-static int16_t tv_timing;
-
-/* Engine Map Definitions */
-static ExtU_em rtU_em; /* External inputs */
-static ExtY_em rtY_em; /* External outputs */
-static RT_MODEL_em rtM_emv;
-static RT_MODEL_em *const rtMPtr_em = &rtM_emv; /* Real-time model */
-static DW_em rtDW_em;                        /* Observable states */
-static RT_MODEL_em *const rtM_em = rtMPtr_em;
-static int16_t em_timing;
-
-/* Moving Median Definition */
-static vec_accumulator vec_mm; /* Vector of Accumulation */
-static int16_t ac_counter = 0; /* Number of data points collected */
-static bool TV_Calibrated = false; /* Flag Indicating if TV is calibrated */
-static int16_t gyro_counter = 0; /* Number of steps that gyro has not been checked */
 
 int main(void)
 {
-    /* Data Struct Initialization */
-
     /* HAL Initialization */
-    PHAL_trimHSI(HSI_TRIM_TORQUE_VECTOR);
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
     }
 
     /* GPIO initialization */
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
+    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
     {
         HardFault_Handler();
     }
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 74, 1000);
+    configureAnim(preflightAnimation, preflightChecks, 100, 750);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
-
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 15);
+    taskCreate(VCU_MAIN, 3000);
 
     /* No Way Home */
     schedStart();
@@ -225,75 +203,81 @@ void preflightChecks(void)
     switch (state++)
     {
     case 0:
-        if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
+        /* VCAN Initialization */
+        if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
         {
             HardFault_Handler();
         }
         NVIC_EnableIRQ(CAN1_RX0_IRQn);
         break;
-    case 2:
-        /* USART initialization */
-        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
-    break;
-    case 3:
-        // GPS Initialization
-        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
-    break;
-    case 5:
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
-        break;
     case 1:
         /* SPI initialization */
-        if (!PHAL_SPI_init(&spi_config))
+        if (false == PHAL_SPI_init(&spi_config))
         {
             HardFault_Handler();
         }
         spi_config.data_rate = APB2ClockRateHz / 16;
-
         PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
         PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-        PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
-    break;
+        break;
+    case 2:
+        /* USART Initialization */
+        if (false == PHAL_initUSART(&huart_gps, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
+        break;
+    case 3:
+        /* GPS Initialization */
+        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        break;
     case 4:
+        /* USB USART */
+        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
+        break;
+    case 6:
+        /* BMI Initialization */
         if (!BMI088_init(&bmi_config))
         {
             HardFault_Handler();
         }
         break;
+    case 100:
+        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
     case 250:
         BMI088_powerOnAccel(&bmi_config);
         break;
     case 500:
-        if (!BMI088_initAccel(&bmi_config))
+        /* Accelerometer Init */
+        if (false == BMI088_initAccel(&bmi_config))
+        {
             HardFault_Handler();
+        }
         break;
     case 700:
-        /* Pack torque vectoring data into rtM_tv */
-        rtM_tv->dwork = &rtDW_tv;
-
-        /* Initialize Torque Vectoring */
-        tv_initialize(rtM_tv);
-
-        /* Initialize TV IO */
-        tv_IO_initialize(&rtU_tv);
-
-        /* Pack Engine map data into rtM_em */
-        rtM_em->dwork = &rtDW_em;
-
-        /* Initialize Engine Map */
-        em_initialize(rtM_em);
+        /* Initialize VCU structs */
+        pVCU = init_pVCU();
+        fVCU = init_fVCU();
+        xVCU = init_xVCU();
+        yVCU = init_yVCU();
+        break;
     default:
         if (state > 750)
         {
+            /* IMU Initialization */
             if (!imu_init(&imu_h))
+            {
                 HardFault_Handler();
+            }
             initCANParse();
             registerPreflightComplete(1);
-            state = 750; // prevent wrap around
+            state = 750; /* prevent wrap around */
         }
         break;
     }
@@ -354,17 +338,120 @@ void parseIMU(void)
     GPSHandle.gyroscope = gyro_in;
 
     /* Update Gyro OK flag */
-    if (gyro_counter == 150){
+    if (gyro_counter == 150)
+    {
         GPSHandle.gyro_OK = BMI088_gyroOK(&bmi_config);
         gyro_counter = 0;
-    } else {
+    }
+    else 
+    {
         ++gyro_counter;
     }
 }
 
 void usart_recieve_complete_callback(usart_init_t *handle)
 {
-   parseVelocity(&GPSHandle);
+    if (handle == &usb)
+    {
+        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
+        memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
+        memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));
+        memcpy(xVCU.AV_RAW, rxmsg.AV_RAW, sizeof(xVCU.AV_RAW));
+        memcpy(xVCU.AG_RAW, rxmsg.AG_RAW, sizeof(xVCU.AG_RAW));
+        memcpy(xVCU.TO_RAW, rxmsg.TO_RAW, sizeof(xVCU.TO_RAW));
+
+        xVCU.TH_RAW = rxmsg.TH_RAW;
+        xVCU.ST_RAW = rxmsg.ST_RAW;
+        xVCU.VB_RAW = rxmsg.VB_RAW;
+        xVCU.GS_RAW = rxmsg.GS_RAW;
+        xVCU.IB_RAW = rxmsg.IB_RAW;
+        xVCU.MT_RAW = rxmsg.MT_RAW;
+        xVCU.CT_RAW = rxmsg.CT_RAW;
+        xVCU.IT_RAW = rxmsg.IT_RAW;
+        xVCU.MC_RAW = rxmsg.MC_RAW;
+        xVCU.IC_RAW = rxmsg.IC_RAW;
+        xVCU.BT_RAW = rxmsg.BT_RAW;
+        xVCU.VT_DB_RAW = rxmsg.VT_DB_RAW;
+        xVCU.TC_TR_RAW = rxmsg.TC_TR_RAW;
+        xVCU.TV_PP_RAW = rxmsg.TV_PP_RAW;
+        
+        fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
+        fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
+        fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
+        fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
+        fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
+        fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
+        fVCU.IAC_SFLAG = rxmsg.IAC_SFLAG;
+        fVCU.IAT_SFLAG = rxmsg.IAT_SFLAG;
+        fVCU.IBC_SFLAG = rxmsg.IBC_SFLAG;
+        fVCU.IBT_SFLAG = rxmsg.IBT_SFLAG;
+        fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
+        fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
+        fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
+        fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
+    }
+    else 
+    {
+        parseVelocity(&GPSHandle);
+    }
+}
+
+void txUsart()
+{
+    memcpy(txmsg.PT_permit_buffer, yVCU.PT_permit_buffer, sizeof(txmsg.PT_permit_buffer));
+    memcpy(txmsg.VS_permit_buffer, yVCU.VS_permit_buffer, sizeof(txmsg.VS_permit_buffer));
+    memcpy(txmsg.VT_permit_buffer, yVCU.VT_permit_buffer, sizeof(txmsg.VT_permit_buffer));
+    memcpy(txmsg.IB_CF_buffer, yVCU.IB_CF_buffer, sizeof(txmsg.IB_CF_buffer));
+    memcpy(txmsg.WT_CF, yVCU.WT_CF, sizeof(txmsg.WT_CF));
+    memcpy(txmsg.WM_CF, yVCU.WM_CF, sizeof(txmsg.WM_CF));
+    memcpy(txmsg.AV_CF, yVCU.AV_CF, sizeof(txmsg.AV_CF));
+    memcpy(txmsg.AG_CF, yVCU.AG_CF, sizeof(txmsg.AG_CF));
+    memcpy(txmsg.TO_CF, yVCU.TO_CF, sizeof(txmsg.TO_CF));
+    memcpy(txmsg.TO_ET, yVCU.TO_ET, sizeof(txmsg.TO_ET));
+    memcpy(txmsg.TO_PT, yVCU.TO_PT, sizeof(txmsg.TO_PT));
+    memcpy(txmsg.WM_VS, yVCU.WM_VS, sizeof(txmsg.WM_VS));
+    memcpy(txmsg.TO_VT, yVCU.TO_VT, sizeof(txmsg.TO_VT));
+
+    txmsg.VCU_mode = yVCU.VCU_mode;
+    txmsg.TH_CF = yVCU.TH_CF;
+    txmsg.ST_CF = yVCU.ST_CF;
+    txmsg.VB_CF = yVCU.VB_CF;
+    txmsg.GS_CF = yVCU.GS_CF;
+    txmsg.IB_CF = yVCU.IB_CF;
+    txmsg.MT_CF = yVCU.MT_CF;
+    txmsg.CT_CF = yVCU.CT_CF;
+    txmsg.IT_CF = yVCU.IT_CF;
+    txmsg.MC_CF = yVCU.MC_CF;
+    txmsg.IC_CF = yVCU.IC_CF;
+    txmsg.BT_CF = yVCU.BT_CF;
+    txmsg.DB_CF = yVCU.VT_DB_CF;
+    txmsg.PP_CF = yVCU.TV_PP_CF;
+    txmsg.zero_current_counter = yVCU.zero_current_counter;
+    txmsg.Batt_SOC = yVCU.Batt_SOC;
+    txmsg.Batt_Voc = yVCU.Batt_Voc;
+    txmsg.TO_AB_MX = yVCU.TO_AB_MX;
+    txmsg.TO_DR_MX = yVCU.TO_DR_MX;
+    txmsg.VT_mode = yVCU.VT_mode;
+    txmsg.TV_AV_ref = yVCU.TV_AV_ref;
+    txmsg.TV_delta_torque = yVCU.TV_delta_torque;
+    txmsg.TC_highs = yVCU.TC_highs;
+    txmsg.TC_lows = yVCU.TC_lows;
+    txmsg.SR = yVCU.SR;
+
+
+    /* You shouldn't need to mess with any of this */
+    memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
+    /* Send in 20-byte chunks, starting from the 3rd byte in the buffer
+        (since the first two are reserved for the sync code) */
+    for (uint16_t i = 0; i < sizeof(txmsg); i += 20)
+    {
+        uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
+
+        /* Refresh the watchdog to avoid system reset */
+        IWDG->KR = 0xAAAA;
+
+        PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
+    }
 }
 
 /* CAN Message Handling */
@@ -375,72 +462,34 @@ void CAN1_RX0_IRQHandler()
 
 void VCU_MAIN(void)
 {
-    /* Initialize Throttles */
-    int16_t tvs_k_rl = 0;
-    int16_t tvs_k_rr = 0;
-    int16_t equal_k_rl = 0;
-    int16_t equal_k_rr = 0;
+    /* Fill in X & F */
+    vcu_pp(&fVCU, &xVCU, &GPSHandle);
 
-    /* If precharging -> Accumulate acceleration vector */
-    if (/*(can_data.main_hb.car_state == 1) & */(ac_counter <= NUM_ELEM_ACC_CALIBRATION)) {
-        /* Accumulate acceleration vector */
-        vec_mm.ax[ac_counter] = GPSHandle.acceleration.x;
-        vec_mm.ay[ac_counter] = GPSHandle.acceleration.y;
-        vec_mm.az[ac_counter] = GPSHandle.acceleration.z;
-        ++ac_counter;
+    /* Step VCU */
+    vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
-        /* If length of acceleration vector == ##, compute R */
-        if (ac_counter == NUM_ELEM_ACC_CALIBRATION) {
-            ac_compute_R(vec_mm.ax, vec_mm.ay, vec_mm.az, rtU_tv.R);
-            TV_Calibrated = true;
-        }
-    }
+    /* Set VCU faults */
+    setFault(ID_ES_ENABLED_FAULT,(yVCU.VCU_mode==0));
+    setFault(ID_ET_ENABLED_FAULT,(yVCU.VCU_mode==1));
+    setFault(ID_PT_ENABLED_FAULT,(yVCU.VCU_mode==2));
+    setFault(ID_VT_ENABLED_FAULT,(yVCU.VCU_mode==3));
+    setFault(ID_VS_ENABLED_FAULT,(yVCU.VCU_mode==4));
+    setFault(ID_NO_GPS_FIX_FAULT,(fVCU.GS_FFLAG < 3));
+    setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
 
-    /* Populate torque vectoring inputs */
-    tv_pp(&rtU_tv, &GPSHandle);
-
-    /* Step torque vectoring */
-    tv_timing = sched.os_ticks;
-    tv_step(rtMPtr_tv, &rtU_tv, &rtY_tv);
-    tv_timing = sched.os_ticks - tv_timing;
-
-    /* Populate engine map inputs */
-    em_pp(&rtU_em, &rtY_tv);
-
-    /* Step engine map */
-    em_timing = sched.os_ticks;
-    em_step(rtMPtr_em, &rtU_em, &rtY_em);
-    em_timing = sched.os_ticks - em_timing;
-
-    /* Set TV faults */
-    setFault(ID_TV_DISABLED_FAULT,!rtY_tv.TVS_STATE);
-    setFault(ID_MM_DISABLED_FAULT,!rtY_em.MM_STATE);
-    setFault(ID_TV_UNCALIBRATED_FAULT,!TV_Calibrated);
-    setFault(ID_NO_GPS_FIX_FAULT,!rtU_tv.F_raw[8]);
-
-    setFault(ID_TV_ENABLED_FAULT,rtY_tv.TVS_STATE);
-    setFault(ID_MM_ENABLED_FAULT,rtY_em.MM_STATE);
-    setFault(ID_TV_CALIBRATED_FAULT,TV_Calibrated);
-    setFault(ID_YES_GPS_FIX_FAULT,rtU_tv.F_raw[8]);
-
-    /* Get motor commands */
-    tvs_k_rl = (int16_t)(rtY_em.kTVS[0]*4095);
-    tvs_k_rr = (int16_t)(rtY_em.kTVS[1]*4095);
-    equal_k_rl = (int16_t)(rtY_em.kEQUAL[0]*4095);
-    equal_k_rr = (int16_t)(rtY_em.kEQUAL[1]*4095);
-
-    /* Send messages */
-    SEND_THROTTLE_VCU(tvs_k_rl,tvs_k_rr);
-    SEND_MAXR((int16_t)(rtY_tv.max_K*4095));
-
-    SEND_SFS_ACC((int16_t)(rtY_tv.sig_filt[15] * 100),(int16_t)(rtY_tv.sig_filt[16] * 100), (int16_t)(rtY_tv.sig_filt[17] * 100));
-    SEND_SFS_ANG_VEL((int16_t)(rtY_tv.sig_filt[7] * 10000),(int16_t)(rtY_tv.sig_filt[8] * 10000), (int16_t)(rtY_tv.sig_filt[9] * 10000));
+    /* Send VCU messages */
+    SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int16_t)(yVCU.WM_VS[0]));
+    SEND_VCU_SOC_ESTIMATE((int16_t)(100*yVCU.Batt_SOC), (int16_t)(10*yVCU.Batt_Voc));
+    SEND_DRIVE_MODES((int8_t)(yVCU.VCU_mode), (int8_t)(yVCU.VT_mode));
+    
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
     if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
+    {
         Bootloader_ResetForFirmwareDownload();
+    }    
 }
 
 void HardFault_Handler()

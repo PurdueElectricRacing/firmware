@@ -102,7 +102,7 @@ Variables</h2></td></tr>
 <tr class="separator:a898237ac34cfdcbf35171f101cdb2335"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a686601c65d72728050ab841167afb3a1" id="r_a686601c65d72728050ab841167afb3a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a686601c65d72728050ab841167afb3a1">bus</a> = can.Bus(bustype=&quot;gs_usb&quot;, <a class="el" href="#ad68eb7a0f4c5edd0800f029c5991ed50">channel</a>=<a class="el" href="#ad68eb7a0f4c5edd0800f029c5991ed50">channel</a>, bus=<a class="el" href="#a27084a9c599cf24ee2171acef06da6f4">bus_num</a>, address=<a class="el" href="#a898237ac34cfdcbf35171f101cdb2335">addr</a>, bitrate=500000)</td></tr>
 <tr class="separator:a686601c65d72728050ab841167afb3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a961c0368ff115c2fcfbcfcc0f2301426" id="r_a961c0368ff115c2fcfbcfcc0f2301426"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a961c0368ff115c2fcfbcfcc0f2301426">db</a> = cantools.db.load_file('./common/daq/per_dbc.dbc')</td></tr>
+<tr class="memitem:a961c0368ff115c2fcfbcfcc0f2301426" id="r_a961c0368ff115c2fcfbcfcc0f2301426"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a961c0368ff115c2fcfbcfcc0f2301426">db</a> = cantools.db.load_file('./common/daq/per_dbc_VCAN.dbc')</td></tr>
 <tr class="separator:a961c0368ff115c2fcfbcfcc0f2301426"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c18b64ce686cd0addc3b235cf6db22b" id="r_a2c18b64ce686cd0addc3b235cf6db22b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c18b64ce686cd0addc3b235cf6db22b">test_var_response_msg</a> = db.get_message_by_name('daq_response_TEST_NODE')</td></tr>
 <tr class="separator:a2c18b64ce686cd0addc3b235cf6db22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,7 +177,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">daq_test.db = cantools.db.load_file('./common/daq/per_dbc.dbc')</td>
+          <td class="memname">daq_test.db = cantools.db.load_file('./common/daq/per_dbc_VCAN.dbc')</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -209,7 +209,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  can.Message(arbitration_id=test_var_command_msg.frame_id, </div>
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  can.Message(arbitration_id=test_var_command_msg.frame_id,</div>
 <div class="line"><span class="lineno">    2</span>                      data=[0x04], is_extended_id=<span class="keyword">True</span>)</div>
 </div><!-- fragment -->
 </div>

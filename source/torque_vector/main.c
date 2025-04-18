@@ -188,7 +188,7 @@ int main(void)
     taskCreate(heartBeatTask, 100);
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 3000);
+    taskCreate(VCU_MAIN, 20);
 
     /* No Way Home */
     schedStart();
@@ -253,7 +253,7 @@ void preflightChecks(void)
     case 250:
         BMI088_powerOnAccel(&bmi_config);
         break;
-    case 500:
+    case 251:
         /* Accelerometer Init */
         if (false == BMI088_initAccel(&bmi_config))
         {
@@ -267,6 +267,20 @@ void preflightChecks(void)
         xVCU = init_xVCU();
         yVCU = init_yVCU();
         break;
+    case 701:
+        {
+        uint8_t num_retries = 0;
+        /* IMU Initialization */
+        if (!imu_init(&imu_h))
+        {
+            if (++num_retries > 30)
+            {
+                HardFault_Handler();
+            }
+        }
+        
+        break;
+        }
     default:
         if (state > 750)
         {
@@ -353,42 +367,43 @@ void usart_recieve_complete_callback(usart_init_t *handle)
 {
     if (handle == &usb)
     {
-        memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
-        memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
-        memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));
-        memcpy(xVCU.AV_RAW, rxmsg.AV_RAW, sizeof(xVCU.AV_RAW));
-        memcpy(xVCU.AG_RAW, rxmsg.AG_RAW, sizeof(xVCU.AG_RAW));
-        memcpy(xVCU.TO_RAW, rxmsg.TO_RAW, sizeof(xVCU.TO_RAW));
+        asm("nop");
+        // memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
+        // memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
+        // memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));
+        // memcpy(xVCU.AV_RAW, rxmsg.AV_RAW, sizeof(xVCU.AV_RAW));
+        // memcpy(xVCU.AG_RAW, rxmsg.AG_RAW, sizeof(xVCU.AG_RAW));
+        // memcpy(xVCU.TO_RAW, rxmsg.TO_RAW, sizeof(xVCU.TO_RAW));
 
-        xVCU.TH_RAW = rxmsg.TH_RAW;
-        xVCU.ST_RAW = rxmsg.ST_RAW;
-        xVCU.VB_RAW = rxmsg.VB_RAW;
-        xVCU.GS_RAW = rxmsg.GS_RAW;
-        xVCU.IB_RAW = rxmsg.IB_RAW;
-        xVCU.MT_RAW = rxmsg.MT_RAW;
-        xVCU.CT_RAW = rxmsg.CT_RAW;
-        xVCU.IT_RAW = rxmsg.IT_RAW;
-        xVCU.MC_RAW = rxmsg.MC_RAW;
-        xVCU.IC_RAW = rxmsg.IC_RAW;
-        xVCU.BT_RAW = rxmsg.BT_RAW;
-        xVCU.VT_DB_RAW = rxmsg.VT_DB_RAW;
-        xVCU.TC_TR_RAW = rxmsg.TC_TR_RAW;
-        xVCU.TV_PP_RAW = rxmsg.TV_PP_RAW;
+        // xVCU.TH_RAW = rxmsg.TH_RAW;
+        // xVCU.ST_RAW = rxmsg.ST_RAW;
+        // xVCU.VB_RAW = rxmsg.VB_RAW;
+        // xVCU.GS_RAW = rxmsg.GS_RAW;
+        // xVCU.IB_RAW = rxmsg.IB_RAW;
+        // xVCU.MT_RAW = rxmsg.MT_RAW;
+        // xVCU.CT_RAW = rxmsg.CT_RAW;
+        // xVCU.IT_RAW = rxmsg.IT_RAW;
+        // xVCU.MC_RAW = rxmsg.MC_RAW;
+        // xVCU.IC_RAW = rxmsg.IC_RAW;
+        // xVCU.BT_RAW = rxmsg.BT_RAW;
+        // xVCU.VT_DB_RAW = rxmsg.VT_DB_RAW;
+        // xVCU.TC_TR_RAW = rxmsg.TC_TR_RAW;
+        // xVCU.TV_PP_RAW = rxmsg.TV_PP_RAW;
         
-        fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
-        fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
-        fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
-        fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
-        fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
-        fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
-        fVCU.IAC_SFLAG = rxmsg.IAC_SFLAG;
-        fVCU.IAT_SFLAG = rxmsg.IAT_SFLAG;
-        fVCU.IBC_SFLAG = rxmsg.IBC_SFLAG;
-        fVCU.IBT_SFLAG = rxmsg.IBT_SFLAG;
-        fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
-        fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
-        fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
-        fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
+        // fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
+        // fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
+        // fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
+        // fVCU.WT_SFLAG = rxmsg.WT_SFLAG;
+        // fVCU.IV_SFLAG = rxmsg.IV_SFLAG;
+        // fVCU.BT_SFLAG = rxmsg.BT_SFLAG;
+        // fVCU.IAC_SFLAG = rxmsg.IAC_SFLAG;
+        // fVCU.IAT_SFLAG = rxmsg.IAT_SFLAG;
+        // fVCU.IBC_SFLAG = rxmsg.IBC_SFLAG;
+        // fVCU.IBT_SFLAG = rxmsg.IBT_SFLAG;
+        // fVCU.SS_FFLAG = rxmsg.SS_FFLAG;
+        // fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
+        // fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
+        // fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
     }
     else 
     {
@@ -481,7 +496,6 @@ void VCU_MAIN(void)
     SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int16_t)(yVCU.WM_VS[0]));
     SEND_VCU_SOC_ESTIMATE((int16_t)(100*yVCU.Batt_SOC), (int16_t)(10*yVCU.Batt_Voc));
     SEND_DRIVE_MODES((int8_t)(yVCU.VCU_mode), (int8_t)(yVCU.VT_mode));
-    
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

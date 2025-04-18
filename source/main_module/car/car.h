@@ -45,9 +45,12 @@
 #define POT_DIST_DROOP_R 54
 
 // Throttle pedal constraints
-#define MAX_DRIVER_TORQUE_REQUEST 100.0f
+#define MAX_DRIVER_TORQUE_REQUEST 210.0f
 #define MIN_DRIVER_TORQUE_REQUEST 0.0f
 
+#define MAX_TV_TORQUE_REQUEST   2100U
+#define TV_TORQUE_REQUEST_SCALE 10.0f
+#define MIN_TV_TORQUE_REQUEST   0.0f
 
 //Defines to guess a BSPD fault
 #define NUM_HIST_BSPD 16

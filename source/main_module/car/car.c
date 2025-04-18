@@ -277,11 +277,11 @@ void carPeriodic()
                 case CAR_TORQUE_TV:
                     if ((wheel_speeds.left_rad_s_x100 == 0 || wheel_speeds.right_rad_s_x100 == 0) && can_data.orion_currents_volts.pack_current > 10)
                     {
-                        setFault(ID_REMAP_UNRELIABLE_FAULT, 1);
+                        setFault(ID_TV_STALE_FAULT, 1);
                     }
                     else
                     {
-                        setFault(ID_REMAP_UNRELIABLE_FAULT, 0);
+                        setFault(ID_TV_STALE_FAULT, 0);
                     }
                     if (checkFault(ID_VT_ENABLED_FAULT))
                     {
@@ -300,7 +300,7 @@ void carPeriodic()
                             temp_t_req.torque_right = t_req_equal_r;
                         }
                     }
-                    else if (!checkFault(ID_REMAP_UNRELIABLE_FAULT) || (checkFault(ID_VT_ENABLED_FAULT)))
+                    else if (!checkFault(ID_TV_STALE_FAULT) || (checkFault(ID_VT_ENABLED_FAULT)))
                     {
                         temp_t_req.torque_left  = t_req_equal_l;
                         temp_t_req.torque_right = t_req_equal_r;

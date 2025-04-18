@@ -1050,7 +1050,7 @@ void raceTelemetryUpdate() {
     if (can_data.rear_wheel_speeds.stale) {
         NXT_setText(SPEED, "S");
     } else {
-        uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * WHEEL_RADIUS * RAD_TO_MPH; // Convert to mph
+        uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
         //uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
         NXT_setTextFormatted(SPEED, "%d", speed);
     }

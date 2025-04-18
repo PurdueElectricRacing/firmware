@@ -21,7 +21,7 @@
 
 // Info
 #define MPS_TO_MPH (2.237F)
-#define RAD_TO_MPH (0.00595F)
+#define RPM_TO_MPH (0.00595F)
 #define WHEEL_RADIUS (8) // inches
 
 // Driver Configuration Page

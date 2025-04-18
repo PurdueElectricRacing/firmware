@@ -863,8 +863,6 @@
                         {"msg_name": "dashboard_bl_cmd" , "callback": true},
                         {"msg_name": "sdc_status"},
                         {"msg_name": "gps_speed"},
-                        {"msg_name": "throttle_vcu"},
-                        {"msg_name": "gps_speed"},
                         {"msg_name": "INVA_TEMPS"},
                         {"msg_name": "INVB_TEMPS"},
                         {"msg_name": "INVA_CRIT"},

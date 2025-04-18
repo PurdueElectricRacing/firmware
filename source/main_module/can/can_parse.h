@@ -68,6 +68,7 @@ typedef union {
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
 #define ID_VCU_TORQUES_SPEEDS 0x40026b7
 #define ID_DRIVE_MODES 0xc002737
+#define ID_ORION_INFO 0x140006b8
 #define ID_FAULT_SYNC_PDU 0x8cb1f
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -116,8 +117,9 @@ typedef union {
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_VCU_TORQUES_SPEEDS 7
-#define DLC_DRIVE_MODES 3
+#define DLC_VCU_TORQUES_SPEEDS 8
+#define DLC_DRIVE_MODES 2
+#define DLC_ORION_INFO 7
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -331,6 +333,7 @@ typedef union {
 #define UP_ORION_CURRENTS_VOLTS 32
 #define UP_VCU_TORQUES_SPEEDS 20
 #define UP_DRIVE_MODES 20
+#define UP_ORION_INFO 32
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -618,49 +621,6 @@ typedef union {
         uint64_t pack_voltage: 16;
     } orion_currents_volts;
     struct {
-        uint64_t vcu_k_rl: 16;
-        uint64_t vcu_k_rr: 16;
-    } throttle_vcu;
-    struct {
-        uint64_t equal_k_rl: 16;
-        uint64_t equal_k_rr: 16;
-    } throttle_vcu_equal;
-    struct {
-        uint64_t throttle: 12;
-        uint64_t throttle_right: 12;
-        uint64_t brake: 12;
-        uint64_t brake_right: 12;
-        uint64_t brake_pot: 12;
-    } raw_throttle_brake;
-    struct {
-        uint64_t throttle: 12;
-        uint64_t brake: 12;
-    } filt_throttle_brake;
-    struct {
-        uint64_t start: 1;
-    } start_button;
-    struct {
-        uint64_t max_temp: 16;
-    } max_cell_temp;
-    struct {
-        uint64_t LWS_ANGLE: 16;
-        uint64_t LWS_SPEED: 8;
-        uint64_t Ok: 1;
-        uint64_t Cal: 1;
-        uint64_t Trim: 1;
-        uint64_t Reserved_1: 5;
-        uint64_t Reserved_2: 8;
-    } LWS_Standard;
-
-    struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } main_module_bl_cmd;
-    struct {
-        uint64_t pack_current: 16;
-        uint64_t pack_voltage: 16;
-    } orion_currents_volts;
-    struct {
         uint64_t TO_VT_left: 16;
         uint64_t TO_VT_right: 16;
         uint64_t TO_PT_equal: 16;
@@ -670,6 +630,27 @@ typedef union {
         uint64_t VT_mode: 8;
         uint64_t WS_VS_equal: 16;
     } drive_modes;
+    struct {
+        uint64_t discharge_enable: 1;
+        uint64_t charge_enable: 1;
+        uint64_t charger_safety: 1;
+        uint64_t dtc_status: 1;
+        uint64_t multi_input: 1;
+        uint64_t always_on: 1;
+        uint64_t is_ready: 1;
+        uint64_t is_charging: 1;
+        uint64_t multi_input_2: 1;
+        uint64_t multi_input_3: 1;
+        uint64_t reserved: 1;
+        uint64_t multi_output_2: 1;
+        uint64_t multi_output_3: 1;
+        uint64_t multi_output_4: 1;
+        uint64_t multi_enable: 1;
+        uint64_t multi_output_1: 1;
+        uint64_t pack_dcl: 16;
+        uint64_t pack_ccl: 16;
+        uint64_t pack_soc: 8;
+    } orion_info;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
@@ -825,82 +806,6 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } raw_throttle_brake;
-
-    struct {
-        uint16_t throttle;
-        uint16_t brake;
-        uint8_t stale;
-        uint32_t last_rx;
-    } filt_throttle_brake;
-    struct {
-        uint8_t start;
-    } start_button;
-    struct {
-        int16_t max_temp;
-        uint8_t stale;
-        uint32_t last_rx;
-    } max_cell_temp;
-    struct {
-        int16_t LWS_ANGLE;
-        uint8_t LWS_SPEED;
-        uint8_t Ok;
-        uint8_t Cal;
-        uint8_t Trim;
-        uint8_t Reserved_1;
-        uint8_t Reserved_2;
-        uint8_t stale;
-        uint32_t last_rx;
-    } LWS_Standard;
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } main_module_bl_cmd;
-    struct {
-        int16_t pack_current;
-        uint16_t pack_voltage;
-        uint8_t stale;
-        uint32_t last_rx;
-    } orion_currents_volts;
-    struct {
-        int16_t vcu_k_rl;
-        int16_t vcu_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu;
-    struct {
-        int16_t equal_k_rl;
-        int16_t equal_k_rr;
-        uint8_t stale;
-        uint32_t last_rx;
-    } throttle_vcu_equal;
-    struct {
-        uint16_t throttle;
-        uint16_t throttle_right;
-        uint16_t brake;
-        uint16_t brake_right;
-        uint16_t brake_pot;
-        uint8_t discharge_enable;
-        uint8_t charge_enable;
-        uint8_t charger_safety;
-        uint8_t dtc_status;
-        uint8_t multi_input;
-        uint8_t always_on;
-        uint8_t is_ready;
-        uint8_t is_charging;
-        uint8_t multi_input_2;
-        uint8_t multi_input_3;
-        uint8_t reserved;
-        uint8_t multi_output_2;
-        uint8_t multi_output_3;
-        uint8_t multi_output_4;
-        uint8_t multi_enable;
-        uint8_t multi_output_1;
-        uint16_t pack_dcl;
-        uint16_t pack_ccl;
-        uint8_t pack_soc;
-        uint8_t stale;
-        uint32_t last_rx;
-    } raw_throttle_brake;
     struct {
         uint16_t throttle;
         uint16_t brake;
@@ -940,16 +845,39 @@ typedef struct {
         int16_t TO_VT_left;
         int16_t TO_VT_right;
         int16_t TO_PT_equal;
-        int8_t VCU_mode;
+        int16_t WS_VS_equal;
         uint8_t stale;
         uint32_t last_rx;
     } VCU_torques_speeds;
     struct {
+        int8_t VCU_mode;
         int8_t VT_mode;
-        int16_t WS_VS_equal;
         uint8_t stale;
         uint32_t last_rx;
     } drive_modes;
+    struct {
+        uint8_t discharge_enable;
+        uint8_t charge_enable;
+        uint8_t charger_safety;
+        uint8_t dtc_status;
+        uint8_t multi_input;
+        uint8_t always_on;
+        uint8_t is_ready;
+        uint8_t is_charging;
+        uint8_t multi_input_2;
+        uint8_t multi_input_3;
+        uint8_t reserved;
+        uint8_t multi_output_2;
+        uint8_t multi_output_3;
+        uint8_t multi_output_4;
+        uint8_t multi_enable;
+        uint8_t multi_output_1;
+        uint16_t pack_dcl;
+        uint16_t pack_ccl;
+        uint8_t pack_soc;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_info;
     struct {
         uint16_t idx;
         uint8_t latched;

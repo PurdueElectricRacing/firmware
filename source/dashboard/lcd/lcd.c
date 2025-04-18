@@ -15,7 +15,7 @@
 volatile page_t curr_page;                   // Current page displayed on the LCD
 volatile page_t prev_page;                   // Previous page displayed on the LCD
 uint16_t cur_fault_buf_ndx;                  // Current index in the fault buffer
-uint8_t fault_time_displayed;                // Amount of units of time that the fault has been shown to the driver
+volatile uint8_t fault_time_displayed;                // Amount of units of time that the fault has been shown to the driver
 volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 };
@@ -371,7 +371,9 @@ void updatePage() {
     // Only update the encoder if we are on a "selectable" page
     bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
 
+    // Only update prev_page for non-error pages
     if (!is_error_page) {
+        prev_page = curr_page;
         curr_page = input_state.encoder_position;
         fault_time_displayed = 0;
     }
@@ -379,11 +381,6 @@ void updatePage() {
     // If we do not detect a page update, do nothing
     if (curr_page == prev_page) {
         return;
-    }
-
-    // Only update prev_page for non-error pages
-    if (!is_error_page) {
-        prev_page = curr_page;
     }
 
     // Set the page on display
@@ -444,6 +441,8 @@ void updatePage() {
     if (page_handlers[curr_page].update != NULL) {
         page_handlers[curr_page].update();
     }
+
+    lcdTxUpdate();
 }
 
 void moveUp() {
@@ -601,15 +600,22 @@ void sendLoggingParameters() {
  * screen according to fault priorities and display timing requirements.
  */
 void updateFaultDisplay() {
-    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL))) {
-        if (fault_time_displayed > 8) {
-            fault_time_displayed++;
+    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)) {
+        fault_time_displayed++;
+        uint8_t fault_time_percentage = (uint8_t)(100 - (fault_time_displayed / 8.0) * 100);
+        NXT_setValue(TIME_BAR, fault_time_percentage);
+        lcdTxUpdate();
+        
+        if (fault_time_displayed > 8) { // reset after 8 cycles
+            fault_time_displayed = 0;
             curr_page = prev_page;
             prev_page = PAGE_PREFLIGHT;
             updatePage();
+            lcdTxUpdate();
+            return;
         }
     } else {
-        fault_time_displayed = 0;
+        fault_time_displayed = 0; // reset if not on error page
     }
 
     // No new fault to display

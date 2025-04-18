@@ -216,5 +216,6 @@ typedef struct {
 #define ADC_REF_VOLTAGE             (3.3F)
 
 void canTxSendToBack(CanMsgTypeDef_t *msg);
+void lcdTxUpdate();
 
 #endif

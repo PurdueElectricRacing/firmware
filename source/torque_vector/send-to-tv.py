@@ -4,7 +4,7 @@ import serial.tools.list_ports
 import time
 import random
 
-STRUCT_FORMAT = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+STRUCT_FORMAT = "f"
 NUM_VALUES = len(STRUCT_FORMAT)
 
 
@@ -50,7 +50,7 @@ def send_serial_struct(port, baudrate=115200):
             elif mode == "m":
                 try:
                     values = [
-                        float(input(f"Enter float {i+1}: ")) for i in range(NUM_VALUES)
+                        int(input(f"Enter num {i+1}: ")) for i in range(NUM_VALUES)
                     ]
                 except ValueError:
                     print("Invalid input Enter numbers only.")

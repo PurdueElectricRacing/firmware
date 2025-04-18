@@ -201,8 +201,8 @@ int main(void)
 
     taskCreate(parseIMU, 20);
     taskCreate(pollIMU, 20);
-    taskCreate(VCU_MAIN, 3000);
-    //taskCreate(txUsart, 200);
+    //taskCreate(VCU_MAIN, 100);
+//    taskCreate(txUsart, 200);
 
     /* No Way Home */
     schedStart();
@@ -358,7 +358,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
     {
         memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
 
-        // Data
+        // xVCU
         memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
         memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));
         memcpy(xVCU.AV_RAW, rxmsg.AV_RAW, sizeof(xVCU.AV_RAW));
@@ -368,7 +368,10 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         xVCU.TH_RAW = rxmsg.TH_RAW;
         xVCU.ST_RAW = rxmsg.ST_RAW;
         xVCU.VB_RAW = rxmsg.VB_RAW;
+    //  xVCU.WT_RAW
+    //  xVCU.WM_RAW
         xVCU.GS_RAW = rxmsg.GS_RAW;
+    //  xVCU.AV_RAW
         xVCU.IB_RAW = rxmsg.IB_RAW;
         xVCU.MT_RAW = rxmsg.MT_RAW;
         xVCU.CT_RAW = rxmsg.CT_RAW;
@@ -376,11 +379,14 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         xVCU.MC_RAW = rxmsg.MC_RAW;
         xVCU.IC_RAW = rxmsg.IC_RAW;
         xVCU.BT_RAW = rxmsg.BT_RAW;
+    //  xVCU.AG_RAW
+    //  xVCU.TO_RAW
         xVCU.VT_DB_RAW = rxmsg.VT_DB_RAW;
         xVCU.TC_TR_RAW = rxmsg.TC_TR_RAW;
         xVCU.TV_PP_RAW = rxmsg.TV_PP_RAW;
+        xVCU.VS_MAX_SR_RAW = rxmsg.VS_MAX_SR_RAW;
 
-        // Flags
+        // fVCU
         fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
         fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
         fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
@@ -395,6 +401,11 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         fVCU.AV_FFLAG = rxmsg.AV_FFLAG;
         fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
         fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
+        fVCU.VCU_CFLAG = rxmsg.VCU_CFLAG;
+
+        // on recieving data, run one step of VCU_MAIN, then transmit data
+        VCU_MAIN();
+        // txUsart();
     }
     else 
     {
@@ -432,8 +443,10 @@ void txUsart() {
     txmsg.MC_CF = yVCU.MC_CF;
     txmsg.IC_CF = yVCU.IC_CF;
     txmsg.BT_CF = yVCU.BT_CF;
-    txmsg.DB_CF = yVCU.VT_DB_CF;
-    txmsg.PP_CF = yVCU.TV_PP_CF;
+    txmsg.VT_DB_CF = yVCU.VT_DB_CF;
+    txmsg.TV_PP_CF = yVCU.TV_PP_CF;
+    txmsg.TC_TR_CF = yVCU.TC_TR_CF;
+    txmsg.VS_MAX_SR_CF = yVCU.VS_MAX_SR_CF;
     txmsg.zero_current_counter = yVCU.zero_current_counter;
     txmsg.Batt_SOC = yVCU.Batt_SOC;
     txmsg.Batt_Voc = yVCU.Batt_Voc;
@@ -450,14 +463,15 @@ void txUsart() {
     /* You shouldn't need to mess with any of this */
     memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
     // Send in 20-byte chunks, starting from the 3rd byte in the buffer (since the first two are reserved for the sync code)
-    for (uint16_t i = 0; i < sizeof(txmsg); i += 20) {
-        uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
+    // for (uint16_t i = 0; i < sizeof(txmsg); i += 20) {
+    //     uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
 
-        // Refresh the watchdog to avoid system reset
-        IWDG->KR = 0xAAAA;
+    //     // Refresh the watchdog to avoid system reset
+    //     IWDG->KR = 0xAAAA;
 
-        PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
-    }
+    //     PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
+    // }
+    PHAL_usartTxDma(&usb, (uint16_t *) txbuffer, 290);
 }
 
 /* CAN Message Handling */
@@ -490,6 +504,8 @@ void VCU_MAIN(void)
 
     // FOR USB
     txUsart();
+    asm("nop");
+
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

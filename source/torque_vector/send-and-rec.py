@@ -5,12 +5,12 @@ import time
 import random
 
 # EDIT THIS TO MATCH serial_rx in main.h on TV
-SEND_STRUCT_FORMAT = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+SEND_STRUCT_FORMAT = SEND_STRUCT_FORMAT = "f" #"fff2f2ff3ffffffff3f2ffffffffffffffffffff5f5f5f"
 
 # EDIT THIS TO MATCH serial_tx in main.h on TV
-RECEIVE_STRUCT_FORMAT = "<5f5f5ff10ff2ff2ff3ff10f3f2ff3f2f3f2ff2ff2ff2fffff"
+RECEIVE_STRUCT_FORMAT = "<5f5f5ff10ffff2f2ff3ffffffff3f2ffffff2fff2f2ff2ffffffff"
 
-NUM_VALUES = len(SEND_STRUCT_FORMAT)
+NUM_VALUES = 1 #len(SEND_STRUCT_FORMAT)
 HEADER1 = b"\xaa\x55"
 HEADER2 = b"\x55\xaa"
 BUFFER_SIZE = struct.calcsize(RECEIVE_STRUCT_FORMAT)
@@ -66,8 +66,7 @@ def send_serial_struct(port, baudrate=115200):
                 print("Invalid choice.")
                 continue
 
-            packet = HEADER1 + struct.pack(SEND_STRUCT_FORMAT, *values)
-            ser.write(packet)
+            ser.write(struct.pack(SEND_STRUCT_FORMAT, *values))
             print("Data sent")
 
             print("\nWaiting for response...")

@@ -12,7 +12,7 @@ SEND_STRUCT_FORMAT = "fff2f2ff3ffffffff3f2ffffffffffffffffffff5f5f5f"
 # EDIT THIS TO MATCH serial_tx in main.h on TV
 RECEIVE_STRUCT_FORMAT = "<5f5f5ff10ffff2f2ff3ffffffff3f2ffffff2fff2f2ff2ffffffff"
 
-NUM_VALUES = 42
+NUM_VALUES = 57
 HEADER1 = b"\xaa\x55"
 HEADER2 = b"\x55\xaa"
 BUFFER_SIZE = struct.calcsize(RECEIVE_STRUCT_FORMAT)
@@ -38,12 +38,15 @@ def list_serial_ports():
     return None
 
 def find_header(ser):
-    while True:
-        byte1 = ser.read(1)
-        if byte1 in (HEADER1[:1], HEADER2[:1]):
-            byte2 = ser.read(1)
-            if (byte1 + byte2) in (HEADER1, HEADER2):
-                return True
+    not_done = True
+    while not_done:
+        bytes = ser.read(1)
+        #print(f"BYTE: {bytes}")
+        # print(f"FIRST BYTE: {byte1}")
+        if bytes == b'\xAA':
+            bytes2 = ser.read(1)
+            if bytes2 == b'\x55':
+                not_done = False
 
 def send_serial_struct(port, baudrate=115200):
     with serial.Serial(port, baudrate, timeout=1) as ser:
@@ -52,35 +55,55 @@ def send_serial_struct(port, baudrate=115200):
         # load .mat file, convert data to an array
         matfile = loadmat(r"C:\Users\TAK\Documents\GitHub\SimscapeModel\T1_Pysical_Testbench\VCU COM Testing\random_testing_data_matrix.mat")
         data_np = matfile["randDataMat"]
-        data_list = data_np.astype(float).tolist()
+        data_list = data_np.astype(np.half).tolist()
         num_samples = len(data_list)
 
         for i in range(10):
             print(f"\n=== Sample {i+1} of {num_samples} ===")
             # format and send data
             sample = data_list[i]
-            packet = HEADER1 + struct.pack(SEND_STRUCT_FORMAT, *sample)
+            packet = struct.pack(SEND_STRUCT_FORMAT, *sample)
             print("Sending data...")
             ser.write(packet)
             print(f"Data sent (size: {len(sample)})")
             print(sample)
-
+            #time.sleep(1)
             # recieve data
-            print("Waiting for response...")
-            response = receive_response(ser)
+            #print("Waiting for response...")
+            response = receive_response(ser, port)
             print(f"Response recieved (size: {len(response)})")
             print(response)
 
             # write out response
+            #input()
 
-def receive_response(ser):
-    data = ser.read(BUFFER_SIZE)
+def receive_response(ser, port):
+    #ser.reset_input_buffer()
+    print(f"\nListening on {port}... Looking for sync header...\n")
 
-    if len(data) == BUFFER_SIZE:
-        parsed_data = struct.unpack(RECEIVE_STRUCT_FORMAT, data)
-        return parsed_data
-    else:
-        print(f"Error: Invalid data received. Length: {len(data)}")
+    while True:
+        # expecting 290 bytes
+        find_header(ser)
+        # find header find 2, still need 288
+
+        data = ser.read(BUFFER_SIZE)
+        # data lenght should be 288
+        print(f"length of data: {len(data)}")
+        print(f"BUFFER SIZE: {BUFFER_SIZE}")
+        if len(data) == BUFFER_SIZE:
+            parsed_data = struct.unpack(
+                RECEIVE_STRUCT_FORMAT, data
+            )
+            print(f"Received: {parsed_data}")
+
+
+    # data = ser.read(BUFFER_SIZE)
+
+    # if len(data) == BUFFER_SIZE:
+    #     parsed_data = struct.unpack(RECEIVE_STRUCT_FORMAT, data)
+    #     return parsed_data
+    # else:
+    #     print(f"Error: Invalid data received. Length: {len(data)}")
 
 
 def main():

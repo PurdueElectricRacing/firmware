@@ -639,7 +639,7 @@
                             "msg_name": "drive_modes",
                             "msg_desc": "Drive Modes",
                             "signals": [
-                                {"sig_name": "VCU_mode", "type": "int8_t", "scale": 1},
+                                {"sig_name": "VCU_mode", "type": "int8_t", "scale": 1, "choices": ["equal_speed", "equal_torque", "equal_torque_with_safety", "variable_speed", "variable_torque", "invalid"]},
                                 {"sig_name": "VT_mode", "type": "int8_t", "scale": 1}
                             ],
                             "msg_period": 20,

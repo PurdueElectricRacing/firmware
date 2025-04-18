@@ -399,6 +399,15 @@ typedef enum {
     REAR_RIGHT_LAST_LINK_ERROR_GEN_TIMEOUT,
 } rear_right_last_link_error_t;
 
+typedef enum {
+    VCU_MODE_EQUAL_SPEED,
+    VCU_MODE_EQUAL_TORQUE,
+    VCU_MODE_EQUAL_TORQUE_WITH_SAFETY,
+    VCU_MODE_VARIABLE_SPEED,
+    VCU_MODE_VARIABLE_TORQUE,
+    VCU_MODE_INVALID,
+} VCU_mode_t;
+
 /* END AUTO CAN ENUMERATIONS */
 
 // Message Raw Structures
@@ -850,7 +859,7 @@ typedef struct {
         uint32_t last_rx;
     } VCU_torques_speeds;
     struct {
-        int8_t VCU_mode;
+        VCU_mode_t VCU_mode;
         int8_t VT_mode;
         uint8_t stale;
         uint32_t last_rx;

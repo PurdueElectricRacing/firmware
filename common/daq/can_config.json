@@ -217,9 +217,7 @@
                         {"msg_name": "main_module_bl_cmd" , "callback": true},
                         {"msg_name": "orion_currents_volts"},
                         {"msg_name": "VCU_torques_speeds"},
-                        {"msg_name": "drive_modes"}
-                        {"msg_name": "throttle_vcu"},
-                        {"msg_name": "throttle_vcu_equal"},
+                        {"msg_name": "drive_modes"},
                         {"msg_name": "orion_info"}
                     ]
                 },

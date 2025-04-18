@@ -26,7 +26,7 @@
 #define POT_VOLT_MIN_R    4093.0f
 #define POT_MAX_DIST      75
 #define POT_DIST_DROOP_L  55
-#define POT_DIST_DROOP_R  57
+#define POT_DIST_DROOP_R  55
 
 // LCD Constants
 #define LCD_NUM_PAGES (9) // Number encoder selectable pages

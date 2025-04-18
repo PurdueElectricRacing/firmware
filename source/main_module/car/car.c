@@ -200,18 +200,57 @@ void carPeriodic()
         else
         {
             float t_req_pedal = 0;
-            float t_req_pedal_l = 0;
-            float t_req_pedal_r = 0;
-            float t_req_equal_l = 0;
-            float t_req_equal_r = 0;
+            float t_req_tv_l = 0;
+            float t_req_tv_r = 0;
+            float t_req_equal = 0;
+
+            float s_req_tv_l = 0;
+            float s_req_tv_r = 0;
+            float s_req_equal = 0;
+
+            bool any_tv_msg_stale = false;
+
+            VCU_mode_t requested_tv_mode = VCU_MODE_INVALID;
+
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
 
-            t_req_pedal = (int16_t)(t_req_pedal * 100.0f / 4095.0f);
-            t_req_pedal_l = (int16_t)(t_req_pedal_l * 100.0f / 4095.0f);
-            t_req_pedal_r = (int16_t)(t_req_pedal_r * 100.0f / 4095.0f);
-            t_req_equal_l = (int16_t)(t_req_equal_l * 100.0f / 4095.0f);
-            t_req_equal_r = (int16_t)(t_req_equal_r * 100.0f / 4095.0f);
+            if (!can_data.drive_modes.stale)
+            {
+              requested_tv_mode = can_data.drive_modes.VCU_mode;
+              any_tv_msg_stale = true;
+            }
+
+            if (!can_data.VCU_torques_speeds.stale)
+            {
+              t_req_tv_l = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
+              t_req_tv_r = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
+              t_req_equal = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
+            }
+            else
+            {
+              any_tv_msg_stale = true;
+              requested_tv_mode = VCU_MODE_INVALID;
+            }
+
+            if (car.torque_src == CAR_TORQUE_TV)
+            {
+              setFault(ID_TV_STALE_FAULT, any_tv_msg_stale);
+            }
+
+            // Final check to see if we can run TV
+            // Debounce TV stale (if TV goes in/out of being stale)
+            if (checkFault(ID_TV_STALE_FAULT))
+            {
+              requested_tv_mode = VCU_MODE_INVALID;
+            }
+
+            // Torque Requests
+            t_req_pedal = (int16_t)(t_req_pedal * MAX_DRIVER_TORQUE_REQUEST / 4095.0f);
+            // Torque is provided from 0-2100 (i.e. Nm * 100). We command Percent torque (0-210)
+            t_req_tv_l = (int16_t)(t_req_tv_l / TV_TORQUE_REQUEST_SCALE);
+            t_req_tv_r = (int16_t)(t_req_tv_r / TV_TORQUE_REQUEST_SCALE);
+            t_req_equal = (int16_t)(t_req_equal / TV_TORQUE_REQUEST_SCALE);
 
             torqueRequest_t temp_t_req;
             switch (car.torque_src)
@@ -221,50 +260,41 @@ void carPeriodic()
                     temp_t_req.torque_right = t_req_pedal;
                     break;
                 case CAR_TORQUE_TV:
-                    if ((wheel_speeds.left_rad_s_x100 == 0 || wheel_speeds.right_rad_s_x100 == 0) && can_data.orion_currents_volts.pack_current > 10)
+                    switch(requested_tv_mode)
                     {
-                        setFault(ID_TV_STALE_FAULT, 1);
-                    }
-                    else
-                    {
-                        setFault(ID_TV_STALE_FAULT, 0);
-                    }
-                    if (checkFault(ID_VT_ENABLED_FAULT))
-                    {
-                        temp_t_req.torque_left  = t_req_pedal_l;
-                        temp_t_req.torque_right = t_req_pedal_r;
-                        // EV.4.2.3 - Torque algorithm
-                        // Any algorithm or electronic control unit that can adjust the
-                        // requested wheel torque may only lower the total driver
-                        // requested torque and must not increase it
-                        if (temp_t_req.torque_left > t_req_equal_l)
-                        {
-                            temp_t_req.torque_left = t_req_equal_l;
-                        }
-                        if (temp_t_req.torque_right > t_req_equal_r)
-                        {
-                            temp_t_req.torque_right = t_req_equal_r;
-                        }
-                    }
-                    else if (!checkFault(ID_TV_STALE_FAULT) || (checkFault(ID_VT_ENABLED_FAULT)))
-                    {
-                        temp_t_req.torque_left  = t_req_equal_l;
-                        temp_t_req.torque_right = t_req_equal_r;
-                    }
-                    else
-                    {
+                      case VCU_MODE_EQUAL_SPEED:
+                      case VCU_MODE_VARIABLE_SPEED:
+                        // As of now we should never enter these cases. Never command a speed request with the current settings.
+                        s_req_equal = 0;
+                        temp_t_req.torque_left = s_req_equal;
+                        temp_t_req.torque_right = s_req_equal;
+                        break;
+                      case VCU_MODE_EQUAL_TORQUE:
+                        temp_t_req.torque_left = t_req_pedal;
+                        temp_t_req.torque_right = t_req_pedal;
+                        break;
+                      case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
+                        temp_t_req.torque_left = t_req_equal;
+                        temp_t_req.torque_right = t_req_equal;
+                        break;
+                      case VCU_MODE_VARIABLE_TORQUE:
+                        temp_t_req.torque_left = t_req_tv_l;
+                        temp_t_req.torque_right = t_req_tv_r;
+                        break;
+                      case VCU_MODE_INVALID:
                         temp_t_req.torque_left = t_req_pedal;
                         temp_t_req.torque_right = t_req_pedal;
                     }
-                    if (t_req_pedal == 0)
-                    {
-                        temp_t_req.torque_left = 0;
-                        temp_t_req.torque_right = 0;
-                    }
+                    // EV.4.2.3 - Torque algorithm
+                    // Any algorithm or electronic control unit that can adjust the
+                    // requested wheel torque may only lower the total driver
+                    // requested torque and must not increase it
+                    temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
+                    temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
                     break;
                 case CAR_TORQUE_THROT_MAP:
-                    temp_t_req.torque_left  = t_req_equal_l;
-                    temp_t_req.torque_right = t_req_equal_r;
+                    temp_t_req.torque_left  = t_req_equal;
+                    temp_t_req.torque_right = t_req_equal;
                     // EV.4.2.3 - Torque algorithm
                     // Any algorithm or electronic control unit that can adjust the
                     // requested wheel torque may only lower the total driver

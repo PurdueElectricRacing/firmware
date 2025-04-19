@@ -900,7 +900,8 @@
                             "signals":[
                                 {"sig_name": "in_24v", "sig_desc": "Unregulated 24V input", "type":"uint16_t", "unit":"mV"},
                                 {"sig_name": "out_5v", "sig_desc": "5v rail output voltage", "type":"uint16_t", "unit":"mV"},
-                                {"sig_name": "out_3v3", "sig_desc": "3v3 rail output voltage", "type":"uint16_t", "unit":"mV"}
+                                {"sig_name": "out_3v3", "sig_desc": "3v3 rail output voltage", "type":"uint16_t", "unit":"mV"},
+                                {"sig_name": "amk_24v", "type":"uint16_t", "unit":"mV"}
                             ],
                             "msg_period":500,
                             "msg_hlp":4,
@@ -968,6 +969,21 @@
                             "msg_period":200,
                             "msg_hlp":4,
                             "msg_pgn":34
+                        },
+                        {
+                            "msg_name": "pdu_temps",
+                            "msg_desc": "PDU board temperatures",
+                            "signals": [
+                                {
+                                    "sig_name": "internal_therm",
+                                    "sig_desc": "Temperature from internal thermistor",
+                                    "type": "uint16_t",
+                                    "unit": "C"
+                                }
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 4,
+                            "msg_pgn": 36
                         },
                         {
                             "msg_name": "pdu_can_stats",

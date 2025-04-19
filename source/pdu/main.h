@@ -123,8 +123,6 @@
 #define AUX_HP_IMON_ADC_CHNL        (13)
 
 // Shutdown Circuit (SDC) Switch (High Power)
-#define SDC_CTRL_GPIO_Port          (GPIOD)
-#define SDC_CTRL_Pin                (13)
 #define SDC_IMON_GPIO_Port          (GPIOA)
 #define SDC_IMON_Pin                (0)
 #define SDC_IMON_ADC_CHNL           (0)
@@ -156,8 +154,6 @@
 #define MAIN_CS_ADC_CHNL            (12)
 
 // Dashboard Switch (Low Power)
-#define DASH_CTRL_GPIO_Port         (GPIOA)
-#define DASH_CTRL_Pin               (9)
 #define DASH_NFLT_GPIO_Port         (GPIOA)
 #define DASH_NFLT_Pin               (8)
 #define DASH_CS_GPIO_Port           (GPIOC)
@@ -165,8 +161,6 @@
 #define DASH_CS_ADC_CHNL            (11)
 
 // Accumulator (ABox) Switch (Low Power)
-#define ABOX_CTRL_GPIO_Port         (GPIOA)
-#define ABOX_CTRL_Pin               (11)
 #define ABOX_NFLT_GPIO_Port         (GPIOA)
 #define ABOX_NFLT_Pin               (10)
 #define ABOX_CS_GPIO_Port           (GPIOC)
@@ -192,8 +186,6 @@
 #define NCRIT_5V_NFLT_Pin           (5)
 
 // DAQ Switch (5V)
-#define DAQ_CTRL_GPIO_Port          (GPIOE)
-#define DAQ_CTRL_Pin                (4)
 #define DAQ_NFLT_GPIO_Port          (GPIOE)
 #define DAQ_NFLT_Pin                (3)
 
@@ -233,8 +225,11 @@
 #define EXTERNAL_THERM_GPIO_Port    (GPIOA)
 #define EXTERNAL_THERM_Pin          (7)
 #define EXTERNAL_THERM_ADC_CHNL     (7)
+#define INTERNAL_THERM_ADC_CHNL     (16)
 
-#define INTERNAL_THERM_ADC_CHNL     (17)
+#define AMK_25V_V_SENSE_GPIO_PORT   (GPIOB)
+#define AMK_25V_V_SENSE_PIN         (1)
+#define AMK_25V_V_SENSE_ADC_CHNL    (9)
 
 // ADC Configuration
 #define ADC_REF_mV (3300UL) // mV
@@ -257,8 +252,8 @@ typedef struct
     uint16_t lv_5_v_sense;
     uint16_t lv_5_i_sense;
     uint16_t lv_3v3_v_sense;
-    uint16_t external_therm;
     uint16_t internal_therm;
+    uint16_t amk_24v_v_sense;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

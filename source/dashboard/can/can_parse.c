@@ -117,16 +117,6 @@ void canRxUpdate()
                 can_data.max_cell_temp.stale = 0;
                 can_data.max_cell_temp.last_rx = sched.os_ticks;
                 break;
-            case ID_REAR_MOTOR_TEMPS:
-                can_data.rear_motor_temps.left_mot_temp = msg_data_a->rear_motor_temps.left_mot_temp;
-                can_data.rear_motor_temps.right_mot_temp = msg_data_a->rear_motor_temps.right_mot_temp;
-                can_data.rear_motor_temps.left_inv_temp = msg_data_a->rear_motor_temps.left_inv_temp;
-                can_data.rear_motor_temps.right_inv_temp = msg_data_a->rear_motor_temps.right_inv_temp;
-                can_data.rear_motor_temps.left_igbt_temp = msg_data_a->rear_motor_temps.left_igbt_temp;
-                can_data.rear_motor_temps.right_igbt_temp = msg_data_a->rear_motor_temps.right_igbt_temp;
-                can_data.rear_motor_temps.stale = 0;
-                can_data.rear_motor_temps.last_rx = sched.os_ticks;
-                break;
             case ID_PRECHARGE_HB:
                 can_data.precharge_hb.IMD = msg_data_a->precharge_hb.IMD;
                 can_data.precharge_hb.BMS = msg_data_a->precharge_hb.BMS;
@@ -193,6 +183,36 @@ void canRxUpdate()
                 can_data.gps_speed.stale = 0;
                 can_data.gps_speed.last_rx = sched.os_ticks;
                 break;
+            case ID_INVA_TEMPS:
+                can_data.INVA_TEMPS.AMK_MotorTemp = (int16_t) msg_data_a->INVA_TEMPS.AMK_MotorTemp;
+                can_data.INVA_TEMPS.AMK_InverterTemp = (int16_t) msg_data_a->INVA_TEMPS.AMK_InverterTemp;
+                can_data.INVA_TEMPS.AMK_IGBTTemp = (int16_t) msg_data_a->INVA_TEMPS.AMK_IGBTTemp;
+                can_data.INVA_TEMPS.stale = 0;
+                can_data.INVA_TEMPS.last_rx = sched.os_ticks;
+                break;
+            case ID_INVB_TEMPS:
+                can_data.INVB_TEMPS.AMK_MotorTemp = (int16_t) msg_data_a->INVB_TEMPS.AMK_MotorTemp;
+                can_data.INVB_TEMPS.AMK_InverterTemp = (int16_t) msg_data_a->INVB_TEMPS.AMK_InverterTemp;
+                can_data.INVB_TEMPS.AMK_IGBTTemp = (int16_t) msg_data_a->INVB_TEMPS.AMK_IGBTTemp;
+                can_data.INVB_TEMPS.stale = 0;
+                can_data.INVB_TEMPS.last_rx = sched.os_ticks;
+                break;
+            case ID_INVA_CRIT:
+                can_data.INVA_CRIT.AMK_ActualSpeed = (int16_t) msg_data_a->INVA_CRIT.AMK_ActualSpeed;
+                can_data.INVA_CRIT.AMK_ActualTorque = (int16_t) msg_data_a->INVA_CRIT.AMK_ActualTorque;
+                can_data.INVA_CRIT.AMK_DisplayOverloadInverter = msg_data_a->INVA_CRIT.AMK_DisplayOverloadInverter;
+                can_data.INVA_CRIT.AMK_DisplayOverloadMotor = msg_data_a->INVA_CRIT.AMK_DisplayOverloadMotor;
+                can_data.INVA_CRIT.stale = 0;
+                can_data.INVA_CRIT.last_rx = sched.os_ticks;
+                break;
+            case ID_INVB_CRIT:
+                can_data.INVB_CRIT.AMK_ActualSpeed = (int16_t) msg_data_a->INVB_CRIT.AMK_ActualSpeed;
+                can_data.INVB_CRIT.AMK_ActualTorque = (int16_t) msg_data_a->INVB_CRIT.AMK_ActualTorque;
+                can_data.INVB_CRIT.AMK_DisplayOverloadInverter = msg_data_a->INVB_CRIT.AMK_DisplayOverloadInverter;
+                can_data.INVB_CRIT.AMK_DisplayOverloadMotor = msg_data_a->INVB_CRIT.AMK_DisplayOverloadMotor;
+                can_data.INVB_CRIT.stale = 0;
+                can_data.INVB_CRIT.last_rx = sched.os_ticks;
+                break;
             case ID_FAULT_SYNC_PDU:
                 can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                 can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -256,9 +276,6 @@ void canRxUpdate()
     CHECK_STALE(can_data.max_cell_temp.stale,
                 sched.os_ticks, can_data.max_cell_temp.last_rx,
                 UP_MAX_CELL_TEMP);
-    CHECK_STALE(can_data.rear_motor_temps.stale,
-                sched.os_ticks, can_data.rear_motor_temps.last_rx,
-                UP_REAR_MOTOR_TEMPS);
     CHECK_STALE(can_data.precharge_hb.stale,
                 sched.os_ticks, can_data.precharge_hb.last_rx,
                 UP_PRECHARGE_HB);
@@ -280,6 +297,18 @@ void canRxUpdate()
     CHECK_STALE(can_data.gps_speed.stale,
                 sched.os_ticks, can_data.gps_speed.last_rx,
                 UP_GPS_SPEED);
+    CHECK_STALE(can_data.INVA_TEMPS.stale,
+                sched.os_ticks, can_data.INVA_TEMPS.last_rx,
+                UP_INVA_TEMPS);
+    CHECK_STALE(can_data.INVB_TEMPS.stale,
+                sched.os_ticks, can_data.INVB_TEMPS.last_rx,
+                UP_INVB_TEMPS);
+    CHECK_STALE(can_data.INVA_CRIT.stale,
+                sched.os_ticks, can_data.INVA_CRIT.last_rx,
+                UP_INVA_CRIT);
+    CHECK_STALE(can_data.INVB_CRIT.stale,
+                sched.os_ticks, can_data.INVB_CRIT.last_rx,
+                UP_INVB_CRIT);
     /* END AUTO STALE CHECKS */
 }
 
@@ -307,31 +336,35 @@ bool initCANFilter()
     CAN1->sFilterRegister[2].FR1 = (ID_ORION_ERRORS << 3) | 4;
     CAN1->sFilterRegister[2].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_PRECHARGE_HB << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_PRECHARGE_HB << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_COOLANT_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_COOLANT_TEMPS << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_COOLANT_OUT << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_COOLANT_OUT << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_GEARBOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_GEARBOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_DASHBOARD_BL_CMD << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_SDC_STATUS << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_SDC_STATUS << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_GPS_SPEED << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_GPS_SPEED << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_INVA_TEMPS << 21);
+    CAN1->sFilterRegister[7].FR2 = (ID_INVB_TEMPS << 21);
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_INVA_CRIT << 21);
+    CAN1->sFilterRegister[8].FR2 = (ID_INVB_CRIT << 21);
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[9].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 10);    // configure bank 10
-    CAN1->sFilterRegister[10].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[10].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[10].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[10].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 11);    // configure bank 11
-    CAN1->sFilterRegister[11].FR1 = (ID_DAQ_COMMAND_DASHBOARD_VCAN << 3) | 4;
+    CAN1->sFilterRegister[11].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[11].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->FA1R |= (1 << 12);    // configure bank 12
+    CAN1->sFilterRegister[12].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[12].FR2 = (ID_DAQ_COMMAND_DASHBOARD_VCAN << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

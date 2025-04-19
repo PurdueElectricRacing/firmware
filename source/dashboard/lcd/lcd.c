@@ -373,7 +373,6 @@ void updatePage() {
 
     // Only update prev_page for non-error pages
     if (!is_error_page) {
-        prev_page = curr_page;
         curr_page = input_state.encoder_position;
         fault_time_displayed = 0;
     }
@@ -381,6 +380,10 @@ void updatePage() {
     // If we do not detect a page update, do nothing
     if (curr_page == prev_page) {
         return;
+    }
+
+    if (!is_error_page) { // Must come after redundant page check
+        prev_page = curr_page;
     }
 
     // Set the page on display

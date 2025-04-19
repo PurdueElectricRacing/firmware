@@ -7,41 +7,9 @@
 #include "common/phal_F4_F7/spi/spi.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
+#include "common/uds/uds.h"
 
 #include "main.h"
-#include "source/torque_vector/can/can_parse.h"
-
-#include "bsxlite_interface.h"
-
-#include "bmi088.h"
-#include "imu.h"
-#include "gps.h"
-
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
-#include "em.h"
-#include "em_pp.h"
-
-#include "tv.h"
-#include "tv_pp.h"
-
-#include "bsxlite_interface.h"
-
-#include "bmi088.h"
-#include "imu.h"
-#include "gps.h"
-
-#include "ac_ext.h"
-#include "ac_compute_R.h"
-
-#include "em.h"
-#include "em_pp.h"
-
-#include "tv.h"
-#include "tv_pp.h"
-#include "uds.h"
-uint8_t collect_test[100] = {0};
 
 GPIOInitConfig_t gpio_config[] =
 {
@@ -263,29 +231,18 @@ void preflightChecks(void)
         /* GPS Initialization */
         PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
         PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
-    break;
-    case 5:
-        udsInit();
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
-    case 1:
-        /* SPI initialization */
-        if (!PHAL_SPI_init(&spi_config))
-        {
-            HardFault_Handler();
-        }
-        spi_config.data_rate = APB2ClockRateHz / 16;
-
-        PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
-        PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-        PHAL_writeGPIO(SPI_CS_MAG_GPIO_Port, SPI_CS_MAG_Pin, 1);
-    break;
     case 4:
         /* USB USART */
         // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
         // {
         //     HardFault_Handler();
         // }
+        break;
+    case 5:
+        udsInit();
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
         break;
     case 6:
         /* BMI Initialization */

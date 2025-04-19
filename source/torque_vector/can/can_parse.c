@@ -260,7 +260,6 @@ bool initCANFilter()
     CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
     CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-<<<<<<< HEAD
     CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
@@ -268,10 +267,7 @@ bool initCANFilter()
     CAN1->sFilterRegister[8].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
     CAN1->sFilterRegister[9].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-=======
-    CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
->>>>>>> 07dc676a (tmp)
+    CAN1->sFilterRegister[9].FR2 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
     /* END AUTO FILTER */
     // Adding LWS standard to bank 8 since it needs to be ExtID
     CAN1->FA1R |= (1 << 8);    // configure bank 8

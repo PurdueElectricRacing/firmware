@@ -19,15 +19,15 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
     fVCU->SS_FFLAG = (can_data.LWS_Standard.Ok);
     fVCU->AV_FFLAG = (GPS->gyro_OK);
     fVCU->GS_FFLAG = (GPS->fix_type);
-    fVCU->VCU_PFLAG = (can_data.dashboard_vcu_parameters.vcu_fmode);
-    fVCU->VCU_CFLAG = (can_data.dashboard_vcu_parameters.vcu_cmode);
+    fVCU->VCU_PFLAG = (4);
+    fVCU->VCU_CFLAG = (2);
 
     /*Raw X Data*/
     xVCU->TH_RAW = (can_data.filt_throttle_brake.throttle/4095.0); /* Incoming is a scalar in the range [0 4095] */
     xVCU->ST_RAW = (can_data.LWS_Standard.LWS_ANGLE*0.1); /* Incoming is 10*degree of CCSA  */
     xVCU->VB_RAW = (can_data.orion_currents_volts.pack_voltage*0.1); /* Incoming is 10*V of terminal*/
-    xVCU->WT_RAW[0] = (can_data.rear_wheel_speeds.left_speed_sensor*0.01); /* Incoming is 100*rad/s of tire */
-    xVCU->WT_RAW[1] = (can_data.rear_wheel_speeds.right_speed_sensor*0.01); /* Incoming is 100*rad/s of tire */
+    xVCU->WT_RAW[0] = 0;
+    xVCU->WT_RAW[1] = 0;
     xVCU->WM_RAW[0] = (can_data.INVA_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
     xVCU->WM_RAW[1] = (can_data.INVB_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
     xVCU->GS_RAW = (GPS->g_speed*0.001); /* Incoming data is 1000*m/s */
@@ -46,8 +46,8 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
     xVCU->AG_RAW[2] = (GPS->acceleration.z); /* Incoming data is m/s^2 */
     xVCU->TO_RAW[0] = (can_data.INVA_CRIT.AMK_ActualTorque)*9.8/1000; /* incoming data is 10*%Mn (Mn=9.8Nm) */
     xVCU->TO_RAW[1] = (can_data.INVB_CRIT.AMK_ActualTorque)*9.8/1000; /* incoming data is 10*%Mn (Mn=9.8Nm) */
-    xVCU->VT_DB_RAW = (can_data.dashboard_vcu_parameters.vt_db_val); /*Incoming is int8 value*/
-    xVCU->TV_PP_RAW = (can_data.dashboard_vcu_parameters.tv_pp_val)*0.01; /*Incoming is 100*int8 value*/
-    xVCU->TC_TR_RAW = (can_data.dashboard_vcu_parameters.tc_tr_val)*0.01; /*Incoming is 100*int8 value*/
-    xVCU->VS_MAX_SR_RAW = (can_data.dashboard_vcu_parameters.vs_max_sr_val)*0.01; /*Incoming is 100*int8 value*/
+    xVCU->VT_DB_RAW = 12; /*Incoming is int8 value*/
+    xVCU->TV_PP_RAW = 5; /*Incoming is 100*int8 value*/
+    xVCU->TC_TR_RAW = 1; /*Incoming is 100*int8 value*/
+    xVCU->VS_MAX_SR_RAW = 1; /*Incoming is 100*int8 value*/
 }

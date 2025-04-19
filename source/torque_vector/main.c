@@ -31,8 +31,8 @@ GPIOInitConfig_t gpio_config[] =
     GPIO_INIT_OUTPUT(GPS_RESET_GPIO_Port, GPS_RESET_Pin, GPIO_OUTPUT_LOW_SPEED),
 
     /* USB Logging */
-    GPIO_INIT_USART1TX_PA9,
-    GPIO_INIT_USART1RX_PA10,
+    // GPIO_INIT_USART1TX_PA9,
+    // GPIO_INIT_USART1RX_PA10,
 
     /* VCAN */
     GPIO_INIT_CANRX_PA11,
@@ -234,10 +234,10 @@ void preflightChecks(void)
         break;
     case 4:
         /* USB USART */
-        if (!PHAL_initUSART(&usb, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
+        // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+        // {
+        //     HardFault_Handler();
+        // }
         break;
     case 6:
         /* BMI Initialization */
@@ -247,7 +247,7 @@ void preflightChecks(void)
         }
         break;
     case 100:
-        PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
+        //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
         initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
     case 250:
@@ -273,7 +273,7 @@ void preflightChecks(void)
         /* IMU Initialization */
         if (!imu_init(&imu_h))
         {
-            if (++num_retries > 30)
+            if (++num_retries > 100)
             {
                 HardFault_Handler();
             }

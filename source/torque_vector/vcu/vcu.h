@@ -53,7 +53,7 @@ typedef struct {
   float VB_CF;
   float WT_CF[2];
   float WM_CF[2];
-  float W_CF[0];
+  float W_CF[2];
   float GS_CF;
   float AV_CF[3];
   float IB_CF;

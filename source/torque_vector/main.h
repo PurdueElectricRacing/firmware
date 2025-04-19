@@ -83,6 +83,7 @@ struct __attribute__((packed)) serial_tx {
     float VB_CF;
     float WT_CF[2];
     float WM_CF[2];
+    float W_CF[2];
     float GS_CF;
     float AV_CF[3];
     float IB_CF;
@@ -96,23 +97,25 @@ struct __attribute__((packed)) serial_tx {
     float TO_CF[2];
     float VT_DB_CF;
     float TV_PP_CF;
+    float TC_TR_CF;
+    float VS_MAX_SR_CF;
     float zero_current_counter;
     float Batt_SOC;
     float Batt_Voc;
+    float WM_CS[2];
     float TO_ET[2];
     float TO_AB_MX;
     float TO_DR_MX;
     float TO_PT[2];
-    float WM_VS[2];
     float VT_mode;
     float TO_VT[2];
     float TV_AV_ref;
     float TV_delta_torque;
-    float TC_TR_CF;
-    float VS_MAX_SR_CF;
     float TC_highs;
     float TC_lows;
     float SR;
+    float WM_VS[2];
+    float SR_VS;
 };
 
 // If you modify this struct, update the Python script accordingly

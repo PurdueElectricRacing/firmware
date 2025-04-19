@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 # Wrapper for command line tools to build, clean, and debug firmware modules
 from optparse import OptionParser

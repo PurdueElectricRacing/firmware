@@ -127,13 +127,13 @@
             "node_name": "main_module",
             "faults": [
                 {
-                    "fault_name": "remap_unreliable",
+                    "fault_name": "tv_stale",
                     "max": 1,
                     "min": 0,
                     "priority": "warning",
                     "time_to_latch": 50,
                     "time_to_unlatch": 1000,
-                    "lcd_message": "Remap Disabled"
+                    "lcd_message": "Torque From Pedals"
                 },
                 {
                     "fault_name": "rtd_exit",

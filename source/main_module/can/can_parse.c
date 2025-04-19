@@ -211,6 +211,29 @@ void canRxUpdate(void)
                     can_data.drive_modes.stale = 0;
                     can_data.drive_modes.last_rx = sched.os_ticks;
                     break;
+                case ID_ORION_INFO:
+                    can_data.orion_info.discharge_enable = msg_data_a->orion_info.discharge_enable;
+                    can_data.orion_info.charge_enable = msg_data_a->orion_info.charge_enable;
+                    can_data.orion_info.charger_safety = msg_data_a->orion_info.charger_safety;
+                    can_data.orion_info.dtc_status = msg_data_a->orion_info.dtc_status;
+                    can_data.orion_info.multi_input = msg_data_a->orion_info.multi_input;
+                    can_data.orion_info.always_on = msg_data_a->orion_info.always_on;
+                    can_data.orion_info.is_ready = msg_data_a->orion_info.is_ready;
+                    can_data.orion_info.is_charging = msg_data_a->orion_info.is_charging;
+                    can_data.orion_info.multi_input_2 = msg_data_a->orion_info.multi_input_2;
+                    can_data.orion_info.multi_input_3 = msg_data_a->orion_info.multi_input_3;
+                    can_data.orion_info.reserved = msg_data_a->orion_info.reserved;
+                    can_data.orion_info.multi_output_2 = msg_data_a->orion_info.multi_output_2;
+                    can_data.orion_info.multi_output_3 = msg_data_a->orion_info.multi_output_3;
+                    can_data.orion_info.multi_output_4 = msg_data_a->orion_info.multi_output_4;
+                    can_data.orion_info.multi_enable = msg_data_a->orion_info.multi_enable;
+                    can_data.orion_info.multi_output_1 = msg_data_a->orion_info.multi_output_1;
+                    can_data.orion_info.pack_dcl = msg_data_a->orion_info.pack_dcl;
+                    can_data.orion_info.pack_ccl = msg_data_a->orion_info.pack_ccl;
+                    can_data.orion_info.pack_soc = msg_data_a->orion_info.pack_soc;
+                    can_data.orion_info.stale = 0;
+                    can_data.orion_info.last_rx = sched.os_ticks;
+                    break;
                 case ID_FAULT_SYNC_PDU:
                     can_data.fault_sync_pdu.idx = msg_data_a->fault_sync_pdu.idx;
                     can_data.fault_sync_pdu.latched = msg_data_a->fault_sync_pdu.latched;
@@ -314,6 +337,9 @@ void canRxUpdate(void)
     CHECK_STALE(can_data.drive_modes.stale,
                 sched.os_ticks, can_data.drive_modes.last_rx,
                 UP_DRIVE_MODES);
+    CHECK_STALE(can_data.orion_info.stale,
+                sched.os_ticks, can_data.orion_info.last_rx,
+                UP_ORION_INFO);
     /* END AUTO STALE CHECKS */
 }
 
@@ -363,18 +389,19 @@ bool initCANFilter()
     CAN1->sFilterRegister[3].FR2 = (ID_VCU_TORQUES_SPEEDS << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
     CAN1->sFilterRegister[4].FR1 = (ID_DRIVE_MODES << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_ORION_INFO << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_DAQ_COMMAND_MAIN_MODULE_VCAN << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_DAQ_COMMAND_MAIN_MODULE_VCAN << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

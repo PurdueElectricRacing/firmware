@@ -76,11 +76,13 @@
 #define FAULT_NONE_STRING "NONE\0"
 
 // TV Settings Page Values
-#define TV_INTENSITY_FLT   "inten"
-#define TV_PROPORTION_FLT  "pval"
-#define TV_DEAD_TXT        "dead"
-#define TV_ENABLE_OP       "tv"
-#define TV_CAN_STATUS      "can"
+#define TV_PERMIT_MODE_TXT  "permit"
+#define TV_CONTROL_MODE_TXT "control"
+#define TV_DEADBAND_TXT     "dead"
+#define TV_P_GAIN_FLT       "pgain"
+#define TV_TORQUE_DROP_FLT  "tdrop"
+#define TV_MAX_SLIP_FLT     "slip"
+#define TV_CAN_STATUS       "can"
 
 // Cooling Page
 #define DT_FAN_VAL         "DFan"

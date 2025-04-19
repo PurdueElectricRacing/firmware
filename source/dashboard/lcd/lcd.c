@@ -165,46 +165,80 @@ menu_page_t cooling_page = {
 };
 
 typedef enum {
-    TV_INTENSITY_INDEX  = 0,
-    TV_PROPORTION_INDEX = 1,
-    TV_DEAD_INDEX       = 2,
-    TV_ENABLE_INDEX     = 3
+    TV_VCU_PERMIT_INDEX  = 0,
+    TV_VCU_CONTROL_INDEX = 1, 
+    TV_DEADBAND_INDEX    = 2,
+    TV_P_GAIN_INDEX      = 3,
+    TV_TORQUE_DROP_INDEX = 4,
+    TV_MAX_SLIP_INDEX    = 5,
 } tv_elements_t;
+
+typedef enum {
+    TV_PERMIT_NONE = 0,
+    TV_PERMIT_VARIABLE= 1,
+} tv_permit_modes_t;
+
+typedef enum {
+    TV_SPEED_CONTROL_MODE = 0,
+    TV_TORQUE_CONTROL_MODE = 1
+} tv_control_modes_t;
+
 
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
-    [TV_INTENSITY_INDEX] = {
-        .type           = ELEMENT_FLT,
-        .object_name    = TV_INTENSITY_FLT,
-        .current_value  = 0,
-        .min_value      = 0,
-        .max_value      = 100, // decimal shifted left by 1
-        .increment      = 5,
-        .on_change      = NULL // TV Params Sent Periodically
-    },
-    [TV_PROPORTION_INDEX] = {
-        .type           = ELEMENT_FLT,
-        .object_name    = TV_PROPORTION_FLT,
-        .current_value  = 40,
-        .min_value      = 0,
-        .max_value      = 100, // decimal shifted left by 1
-        .increment      = 5,
-        .on_change      = NULL // TV Params Sent Periodically
-    },
-    [TV_DEAD_INDEX] = {
+    [TV_VCU_PERMIT_INDEX] = {  // Not using the OPTION type here to display the text instead of the value
         .type           = ELEMENT_VAL,
-        .object_name    = TV_DEAD_TXT,
-        .current_value  = 12,
-        .min_value      = 0,
-        .max_value      = 30,
+        .object_name    = TV_PERMIT_MODE_TXT,
+        .current_value  = TV_PERMIT_VARIABLE, // Default to variable
+        .min_value      = TV_PERMIT_NONE,
+        .max_value      = TV_PERMIT_VARIABLE,
         .increment      = 1,
-        .on_change      = NULL // TV Params Sent Periodically
+        .on_change      = sendTVParameters
     },
-    [TV_ENABLE_INDEX] = {
-        .type           = ELEMENT_OPTION,
-        .object_name    = TV_ENABLE_OP,
-        .current_value  = 0,
-        .on_change      = NULL // TV Params Sent Periodically
+    [TV_VCU_CONTROL_INDEX] = { // Not using the OPTION type here to display the text instead of the value
+        .type           = ELEMENT_VAL,
+        .object_name    = TV_CONTROL_MODE_TXT,
+        .current_value  = TV_TORQUE_CONTROL_MODE, // Default to torque control
+        .min_value      = TV_SPEED_CONTROL_MODE,
+        .max_value      = TV_TORQUE_CONTROL_MODE,
+        .increment      = 1,
+        .on_change      = sendTVParameters
+    },
+    [TV_DEADBAND_INDEX] = {
+        .type           = ELEMENT_VAL,
+        .object_name    = TV_DEADBAND_TXT,
+        .current_value  = 12, // Default to 12
+        .min_value      = 0,
+        .max_value      = 25,
+        .increment      = 1,
+        .on_change      = sendTVParameters
+    },
+    [TV_P_GAIN_INDEX] = {
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_P_GAIN_FLT,
+        .current_value  = 40, // Default to 0.4
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 5,
+        .on_change      = sendTVParameters
+    },
+    [TV_TORQUE_DROP_INDEX] = {
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_TORQUE_DROP_FLT,
+        .current_value  = 50, // Default to 0.5
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 2,
+        .on_change      = sendTVParameters
+    },
+    [TV_MAX_SLIP_INDEX] = {
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_MAX_SLIP_FLT,
+        .current_value  = 50, // Default to 0.5
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 2,
+        .on_change      = sendTVParameters
     }
 };
 
@@ -572,12 +606,13 @@ void calibrationTelemetryUpdate() {
  * @brief Sends TV parameters to TV using current values from tv_elements array
  */
 void sendTVParameters() {
-    SEND_DASHBOARD_VCU_PARAMETERS(tv_elements[TV_ENABLE_INDEX].current_value,
-                                 tv_elements[TV_DEAD_INDEX].current_value,
-                                 tv_elements[TV_INTENSITY_INDEX].current_value,
-                                 tv_elements[TV_PROPORTION_INDEX].current_value,
-                                0,
-                                0);
+    SEND_DASHBOARD_VCU_PARAMETERS(
+        tv_elements[TV_VCU_PERMIT_INDEX].current_value,
+        tv_elements[TV_VCU_CONTROL_INDEX].current_value,
+        tv_elements[TV_DEADBAND_INDEX].current_value,
+        tv_elements[TV_P_GAIN_INDEX].current_value,
+        tv_elements[TV_TORQUE_DROP_INDEX].current_value,
+        tv_elements[TV_MAX_SLIP_INDEX].current_value);
 }
 
 /**
@@ -920,15 +955,64 @@ void tvPageUpdate() {
 
 void tvMoveUp() {
     MS_moveUp(&tv_page);
+
+    switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
+        case TV_PERMIT_NONE:
+            NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
+            break;
+        case TV_PERMIT_VARIABLE:
+            NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
+            break;
+        default:
+            NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
+            break;
+    }
+
+    switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
+        case TV_SPEED_CONTROL_MODE:
+            NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
+            break;
+        case TV_TORQUE_CONTROL_MODE:
+            NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
+            break;
+        default:
+            NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
+            break;
+    }
 }
 
 void tvMoveDown() {
     MS_moveDown(&tv_page);
+
+    switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
+        case TV_PERMIT_NONE:
+            NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
+            break;
+        case TV_PERMIT_VARIABLE:
+            NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
+            break;
+        default:
+            NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
+            break;
+    }
+
+    switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
+        case TV_SPEED_CONTROL_MODE:
+            NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
+            break;
+        case TV_TORQUE_CONTROL_MODE:
+            NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
+            break;
+        default:
+            NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
+            break;
+    }
 }
 
 void tvSelect() {
     MS_select(&tv_page);
-    race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
+    // TODO Race page TV settings
+    //race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
 }
 
 /**
@@ -1165,7 +1249,8 @@ void raceDownCallback() {
 
 void raceSelect() {
     MS_select(&race_page);
-    tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
+    // TODO Race page TV settings
+    //tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 void loggingPageUpdate() {

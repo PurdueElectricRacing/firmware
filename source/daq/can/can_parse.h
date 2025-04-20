@@ -26,10 +26,14 @@
 #define ID_UDS_COMMAND_DASHBOARD 0x18003271
 #define ID_UDS_COMMAND_A_BOX 0x180032b1
 #define ID_UDS_COMMAND_PDU 0x180032f1
+#define ID_UDS_RESPONSE_DAQ 0x18001a3c
+#define ID_UDS_COMMAND_TORQUE_VECTOR 0x18003371
 #define ID_UDS_RESPONSE_MAIN_MODULE 0x1800193c
 #define ID_UDS_RESPONSE_DASHBOARD 0x1800197c
 #define ID_UDS_RESPONSE_A_BOX 0x180019bc
 #define ID_UDS_RESPONSE_PDU 0x180019fc
+#define ID_UDS_COMMAND_DAQ 0x18003332
+#define ID_UDS_RESPONSE_TORQUE_VECTOR 0x18001a7c
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -40,10 +44,14 @@
 #define DLC_UDS_COMMAND_DASHBOARD 8
 #define DLC_UDS_COMMAND_A_BOX 8
 #define DLC_UDS_COMMAND_PDU 8
+#define DLC_UDS_RESPONSE_DAQ 8
+#define DLC_UDS_COMMAND_TORQUE_VECTOR 8
 #define DLC_UDS_RESPONSE_MAIN_MODULE 8
 #define DLC_UDS_RESPONSE_DASHBOARD 8
 #define DLC_UDS_RESPONSE_A_BOX 8
 #define DLC_UDS_RESPONSE_PDU 8
+#define DLC_UDS_COMMAND_DAQ 8
+#define DLC_UDS_RESPONSE_TORQUE_VECTOR 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -90,6 +98,18 @@
         data_a->uds_command_pdu.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
+#define SEND_UDS_RESPONSE_DAQ(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_DAQ, .DLC=DLC_UDS_RESPONSE_DAQ, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->uds_response_daq.payload = payload_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_UDS_COMMAND_TORQUE_VECTOR(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_COMMAND_TORQUE_VECTOR, .DLC=DLC_UDS_COMMAND_TORQUE_VECTOR, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->uds_command_torque_vector.payload = payload_;\
+        canTxSendToBack(&msg);\
+    } while(0)
 /* END AUTO SEND MACROS */
 
 // Stale Checking
@@ -132,6 +152,12 @@ typedef union {
     } uds_command_pdu;
     struct {
         uint64_t payload: 64;
+    } uds_response_daq;
+    struct {
+        uint64_t payload: 64;
+    } uds_command_torque_vector;
+    struct {
+        uint64_t payload: 64;
     } uds_response_main_module;
     struct {
         uint64_t payload: 64;
@@ -142,6 +168,12 @@ typedef union {
     struct {
         uint64_t payload: 64;
     } uds_response_pdu;
+    struct {
+        uint64_t payload: 64;
+    } uds_command_daq;
+    struct {
+        uint64_t payload: 64;
+    } uds_response_torque_vector;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -162,6 +194,12 @@ typedef struct {
     struct {
         uint64_t payload;
     } uds_response_pdu;
+    struct {
+        uint64_t payload;
+    } uds_command_daq;
+    struct {
+        uint64_t payload;
+    } uds_response_torque_vector;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -169,6 +207,7 @@ extern can_data_t can_data;
 extern volatile uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void uds_command_daq_CALLBACK(uint64_t payload);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

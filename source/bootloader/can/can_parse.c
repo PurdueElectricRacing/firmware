@@ -60,6 +60,14 @@ void canRxUpdate()
                 can_data.uds_command_pdu.payload = msg_data_a->uds_command_pdu.payload;
 				uds_command_pdu_CALLBACK(msg_data_a->uds_command_pdu.payload);
                 break;
+            case ID_UDS_COMMAND_DAQ:
+                can_data.uds_command_daq.payload = msg_data_a->uds_command_daq.payload;
+				uds_command_daq_CALLBACK(msg_data_a->uds_command_daq.payload);
+                break;
+            case ID_UDS_COMMAND_TORQUE_VECTOR:
+                can_data.uds_command_torque_vector.payload = msg_data_a->uds_command_torque_vector.payload;
+				uds_command_torque_vector_CALLBACK(msg_data_a->uds_command_torque_vector.payload);
+                break;
             default:
                 __asm__("nop");
         }
@@ -103,6 +111,9 @@ bool initCANFilter()
     CAN1->sFilterRegister[1].FR2 = (ID_UDS_COMMAND_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
     CAN1->sFilterRegister[2].FR1 = (ID_UDS_COMMAND_PDU << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_UDS_COMMAND_DAQ << 3) | 4;
+    CAN1->FA1R |= (1 << 3);    // configure bank 3
+    CAN1->sFilterRegister[3].FR1 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

@@ -33,6 +33,7 @@
 #define ID_DRIVE_MODES 0xc002737
 #define ID_TV_CAN_STATS 0x10016337
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
+#define ID_UDS_RESPONSE_TORQUE_VECTOR 0x18001a7c
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_LWS_STANDARD 0x2b0
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
@@ -52,6 +53,7 @@
 #define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
+#define ID_UDS_COMMAND_TORQUE_VECTOR 0x18003371
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -68,6 +70,7 @@
 #define DLC_DRIVE_MODES 2
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
+#define DLC_UDS_RESPONSE_TORQUE_VECTOR 8
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_LWS_STANDARD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
@@ -87,6 +90,7 @@
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
+#define DLC_UDS_COMMAND_TORQUE_VECTOR 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -184,6 +188,12 @@
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->fault_sync_torque_vector.idx = idx_;\
         data_a->fault_sync_torque_vector.latched = latched_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_UDS_RESPONSE_TORQUE_VECTOR(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_TORQUE_VECTOR, .DLC=DLC_UDS_RESPONSE_TORQUE_VECTOR, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->uds_response_torque_vector.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -289,6 +299,9 @@ typedef union {
         uint64_t latched: 1;
     } fault_sync_torque_vector;
     struct {
+        uint64_t payload: 64;
+    } uds_response_torque_vector;
+    struct {
         uint64_t throttle: 12;
         uint64_t brake: 12;
     } filt_throttle_brake;
@@ -383,6 +396,9 @@ typedef union {
     struct {
         uint64_t id: 16;
     } return_fault_control;
+    struct {
+        uint64_t payload: 64;
+    } uds_command_torque_vector;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -510,12 +526,16 @@ typedef struct {
     struct {
         uint16_t id;
     } return_fault_control;
+    struct {
+        uint64_t payload;
+    } uds_command_torque_vector;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
+extern void uds_command_torque_vector_CALLBACK(uint64_t payload);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

@@ -4,7 +4,6 @@
 #include "can_parse.h"
 #include "common_defs.h"
 #include "common/faults/faults.h"
-#include "daq.h"
 
 
 uint8_t charge_request_user = false; // Enable charge algo

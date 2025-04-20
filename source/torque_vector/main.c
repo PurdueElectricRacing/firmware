@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 #include <stdint.h>
 
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
+||||||| parent of 76f97043 (compiles)
+/* System Includes */
+#include "common/bootloader/bootloader_common.h"
+=======
+/* System Includes */
+>>>>>>> 76f97043 (compiles)
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/spi/spi.h"
@@ -498,6 +505,7 @@ void VCU_MAIN(void)
     SEND_DRIVE_MODES((int8_t)(yVCU.VCU_mode), (int8_t)(yVCU.VT_mode));
 }
 
+<<<<<<< HEAD
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
     if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
@@ -506,6 +514,15 @@ void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
     }    
 }
 
+||||||| parent of 76f97043 (compiles)
+void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
+}
+
+=======
+>>>>>>> 76f97043 (compiles)
 void HardFault_Handler()
 {
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);

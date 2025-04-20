@@ -33,7 +33,6 @@
 #define ID_DRIVE_MODES 0xc002737
 #define ID_TV_CAN_STATS 0x10016337
 #define ID_FAULT_SYNC_TORQUE_VECTOR 0x8cab7
-#define ID_TORQUEVECTOR_BL_CMD 0x409c4be
 #define ID_FILT_THROTTLE_BRAKE 0x4000245
 #define ID_LWS_STANDARD 0x2b0
 #define ID_ORION_CURRENTS_VOLTS 0x140006f8
@@ -69,7 +68,6 @@
 #define DLC_DRIVE_MODES 2
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
-#define DLC_TORQUEVECTOR_BL_CMD 5
 #define DLC_FILT_THROTTLE_BRAKE 3
 #define DLC_LWS_STANDARD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
@@ -291,10 +289,6 @@ typedef union {
         uint64_t latched: 1;
     } fault_sync_torque_vector;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } torquevector_bl_cmd;
-    struct {
         uint64_t throttle: 12;
         uint64_t brake: 12;
     } filt_throttle_brake;
@@ -397,10 +391,6 @@ typedef union {
 // type for each variable matches that defined in JSON
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
-    struct {
-        uint8_t cmd;
-        uint32_t data;
-    } torquevector_bl_cmd;
     struct {
         uint16_t throttle;
         uint16_t brake;
@@ -526,7 +516,6 @@ typedef struct {
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

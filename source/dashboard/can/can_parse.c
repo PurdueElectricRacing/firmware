@@ -9,6 +9,7 @@
  *
  */
 #include "can_parse.h"
+#include "lcd.h"
 
 // prototypes
 bool initCANFilter();
@@ -165,11 +166,6 @@ void canRxUpdate()
                 can_data.gearbox.stale = 0;
                 can_data.gearbox.last_rx = sched.os_ticks;
                 break;
-            case ID_DASHBOARD_BL_CMD:
-                can_data.dashboard_bl_cmd.cmd = msg_data_a->dashboard_bl_cmd.cmd;
-                can_data.dashboard_bl_cmd.data = msg_data_a->dashboard_bl_cmd.data;
-                dashboard_bl_cmd_CALLBACK(msg_data_a);
-                break;
             case ID_SDC_STATUS:
                 can_data.sdc_status.IMD = msg_data_a->sdc_status.IMD;
                 can_data.sdc_status.BMS = msg_data_a->sdc_status.BMS;
@@ -227,9 +223,9 @@ void canRxUpdate()
                 can_data.return_fault_control.id = msg_data_a->return_fault_control.id;
 				return_fault_control(msg_data_a->return_fault_control.id);
                 break;
-            case ID_DAQ_COMMAND_DASHBOARD_VCAN:
-                can_data.daq_command_DASHBOARD_VCAN.daq_command = msg_data_a->daq_command_DASHBOARD_VCAN.daq_command;
-                daq_command_DASHBOARD_VCAN_CALLBACK(&msg_header);
+            case ID_UDS_COMMAND_DASHBOARD:
+                can_data.uds_command_dashboard.payload = msg_data_a->uds_command_dashboard.payload;
+				uds_command_dashboard_CALLBACK(msg_data_a->uds_command_dashboard.payload);
                 break;
             default:
                 __asm__("nop");
@@ -316,8 +312,8 @@ bool initCANFilter()
     CAN1->sFilterRegister[5].FR1 = (ID_COOLANT_OUT << 3) | 4;
     CAN1->sFilterRegister[5].FR2 = (ID_GEARBOX << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-    CAN1->sFilterRegister[6].FR1 = (ID_DASHBOARD_BL_CMD << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_SDC_STATUS << 3) | 4;
+    CAN1->sFilterRegister[6].FR1 = (ID_SDC_STATUS << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_THROTTLE_VCU << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
     CAN1->sFilterRegister[7].FR1 = (ID_GPS_SPEED << 3) | 4;
     CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
@@ -331,7 +327,14 @@ bool initCANFilter()
     CAN1->sFilterRegister[10].FR1 = (ID_SET_FAULT << 3) | 4;
     CAN1->sFilterRegister[10].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
     CAN1->FA1R |= (1 << 11);    // configure bank 11
+<<<<<<< HEAD
     CAN1->sFilterRegister[11].FR1 = (ID_DAQ_COMMAND_DASHBOARD_VCAN << 3) | 4;
+||||||| parent of 76f97043 (compiles)
+    CAN1->sFilterRegister[11].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[11].FR2 = (ID_DAQ_COMMAND_DASHBOARD_VCAN << 3) | 4;
+=======
+    CAN1->sFilterRegister[11].FR1 = (ID_UDS_COMMAND_DASHBOARD << 3) | 4;
+>>>>>>> 76f97043 (compiles)
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

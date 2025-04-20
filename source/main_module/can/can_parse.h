@@ -48,7 +48,30 @@ typedef union {
 #define ID_INVA_SET 0x188
 #define ID_INVB_SET 0x189
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
+<<<<<<< HEAD
 #define ID_DAQ_RESPONSE_MAIN_MODULE_VCAN 0x17ffffc1
+||||||| parent of 76f97043 (compiles)
+#define ID_DAQ_RESPONSE_MAIN_MODULE_VCAN 0x17ffffc1
+#define ID_RAW_THROTTLE_BRAKE 0x10000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
+#define ID_START_BUTTON 0x4000005
+#define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_LWS_STANDARD 0x2b0
+#define ID_MAIN_MODULE_BL_CMD 0x409c43e
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_THROTTLE_VCU 0x40025b7
+#define ID_THROTTLE_VCU_EQUAL 0x4002837
+=======
+#define ID_UDS_RESPONSE_MAIN_MODULE 0x1800193c
+#define ID_RAW_THROTTLE_BRAKE 0x10000285
+#define ID_FILT_THROTTLE_BRAKE 0x4000245
+#define ID_START_BUTTON 0x4000005
+#define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_LWS_STANDARD 0x2b0
+#define ID_ORION_CURRENTS_VOLTS 0x140006f8
+#define ID_THROTTLE_VCU 0x40025b7
+#define ID_THROTTLE_VCU_EQUAL 0x4002837
+>>>>>>> 76f97043 (compiles)
 #define ID_INVA_CRIT 0x282
 #define ID_INVA_INFO 0x286
 #define ID_INVA_TEMPS 0x284
@@ -75,7 +98,7 @@ typedef union {
 #define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
-#define ID_DAQ_COMMAND_MAIN_MODULE_VCAN 0x14000072
+#define ID_UDS_COMMAND_MAIN_MODULE 0x18003231
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -98,7 +121,30 @@ typedef union {
 #define DLC_INVA_SET 8
 #define DLC_INVB_SET 8
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
+<<<<<<< HEAD
 #define DLC_DAQ_RESPONSE_MAIN_MODULE_VCAN 8
+||||||| parent of 76f97043 (compiles)
+#define DLC_DAQ_RESPONSE_MAIN_MODULE_VCAN 8
+#define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
+#define DLC_START_BUTTON 1
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_LWS_STANDARD 5
+#define DLC_MAIN_MODULE_BL_CMD 5
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU_EQUAL 4
+=======
+#define DLC_UDS_RESPONSE_MAIN_MODULE 8
+#define DLC_RAW_THROTTLE_BRAKE 8
+#define DLC_FILT_THROTTLE_BRAKE 3
+#define DLC_START_BUTTON 1
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_LWS_STANDARD 5
+#define DLC_ORION_CURRENTS_VOLTS 4
+#define DLC_THROTTLE_VCU 4
+#define DLC_THROTTLE_VCU_EQUAL 4
+>>>>>>> 76f97043 (compiles)
 #define DLC_INVA_CRIT 8
 #define DLC_INVA_INFO 4
 #define DLC_INVA_TEMPS 6
@@ -125,7 +171,7 @@ typedef union {
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
-#define DLC_DAQ_COMMAND_MAIN_MODULE_VCAN 8
+#define DLC_UDS_COMMAND_MAIN_MODULE 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -302,10 +348,10 @@ typedef union {
         data_a->fault_sync_main_module.latched = latched_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_MAIN_MODULE_VCAN(daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_MAIN_MODULE_VCAN, .DLC=DLC_DAQ_RESPONSE_MAIN_MODULE_VCAN, .IDE=1};\
+#define SEND_UDS_RESPONSE_MAIN_MODULE(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_MAIN_MODULE, .DLC=DLC_UDS_RESPONSE_MAIN_MODULE, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_MAIN_MODULE_VCAN.daq_response = daq_response_;\
+        data_a->uds_response_main_module.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -521,9 +567,93 @@ typedef union {
         uint64_t latched: 1;
     } fault_sync_main_module;
     struct {
-        uint64_t daq_response: 64;
-    } daq_response_MAIN_MODULE_VCAN;
+        uint64_t payload: 64;
+    } uds_response_main_module;
     struct {
+<<<<<<< HEAD
+||||||| parent of 76f97043 (compiles)
+        uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
+        uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
+    } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
+    struct {
+        uint64_t start: 1;
+    } start_button;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Ok: 1;
+        uint64_t Cal: 1;
+        uint64_t Trim: 1;
+        uint64_t Reserved_1: 5;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
+    struct {
+        uint64_t cmd: 8;
+        uint64_t data: 32;
+    } main_module_bl_cmd;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
+    struct {
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu_equal;
+    struct {
+=======
+        uint64_t throttle: 12;
+        uint64_t throttle_right: 12;
+        uint64_t brake: 12;
+        uint64_t brake_right: 12;
+        uint64_t brake_pot: 12;
+    } raw_throttle_brake;
+    struct {
+        uint64_t throttle: 12;
+        uint64_t brake: 12;
+    } filt_throttle_brake;
+    struct {
+        uint64_t start: 1;
+    } start_button;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t LWS_ANGLE: 16;
+        uint64_t LWS_SPEED: 8;
+        uint64_t Ok: 1;
+        uint64_t Cal: 1;
+        uint64_t Trim: 1;
+        uint64_t Reserved_1: 5;
+        uint64_t Reserved_2: 8;
+    } LWS_Standard;
+    struct {
+        uint64_t pack_current: 16;
+        uint64_t pack_voltage: 16;
+    } orion_currents_volts;
+    struct {
+        uint64_t vcu_k_rl: 16;
+        uint64_t vcu_k_rr: 16;
+    } throttle_vcu;
+    struct {
+        uint64_t equal_k_rl: 16;
+        uint64_t equal_k_rr: 16;
+    } throttle_vcu_equal;
+    struct {
+>>>>>>> 76f97043 (compiles)
         uint64_t AMK_ActualSpeed: 16;
         uint64_t AMK_ActualTorque: 16;
         uint64_t AMK_DisplayOverloadInverter: 16;
@@ -657,8 +787,8 @@ typedef union {
         uint64_t id: 16;
     } return_fault_control;
     struct {
-        uint64_t daq_command: 64;
-    } daq_command_MAIN_MODULE_VCAN;
+        uint64_t payload: 64;
+    } uds_command_main_module;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -668,6 +798,118 @@ typedef union {
 /* BEGIN AUTO CAN DATA STRUCTURE */
 typedef struct {
     struct {
+<<<<<<< HEAD
+||||||| parent of 76f97043 (compiles)
+        uint16_t throttle;
+        uint16_t throttle_right;
+        uint16_t brake;
+        uint16_t brake_right;
+        uint16_t brake_pot;
+        uint8_t stale;
+        uint32_t last_rx;
+    } raw_throttle_brake;
+    struct {
+        uint16_t throttle;
+        uint16_t brake;
+        uint8_t stale;
+        uint32_t last_rx;
+    } filt_throttle_brake;
+    struct {
+        uint8_t start;
+    } start_button;
+    struct {
+        int16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } max_cell_temp;
+    struct {
+        int16_t LWS_ANGLE;
+        uint8_t LWS_SPEED;
+        uint8_t Ok;
+        uint8_t Cal;
+        uint8_t Trim;
+        uint8_t Reserved_1;
+        uint8_t Reserved_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } LWS_Standard;
+    struct {
+        uint8_t cmd;
+        uint32_t data;
+    } main_module_bl_cmd;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
+    struct {
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu_equal;
+    struct {
+=======
+        uint16_t throttle;
+        uint16_t throttle_right;
+        uint16_t brake;
+        uint16_t brake_right;
+        uint16_t brake_pot;
+        uint8_t stale;
+        uint32_t last_rx;
+    } raw_throttle_brake;
+    struct {
+        uint16_t throttle;
+        uint16_t brake;
+        uint8_t stale;
+        uint32_t last_rx;
+    } filt_throttle_brake;
+    struct {
+        uint8_t start;
+    } start_button;
+    struct {
+        int16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } max_cell_temp;
+    struct {
+        int16_t LWS_ANGLE;
+        uint8_t LWS_SPEED;
+        uint8_t Ok;
+        uint8_t Cal;
+        uint8_t Trim;
+        uint8_t Reserved_1;
+        uint8_t Reserved_2;
+        uint8_t stale;
+        uint32_t last_rx;
+    } LWS_Standard;
+    struct {
+        int16_t pack_current;
+        uint16_t pack_voltage;
+        uint8_t stale;
+        uint32_t last_rx;
+    } orion_currents_volts;
+    struct {
+        int16_t vcu_k_rl;
+        int16_t vcu_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu;
+    struct {
+        int16_t equal_k_rl;
+        int16_t equal_k_rr;
+        uint8_t stale;
+        uint32_t last_rx;
+    } throttle_vcu_equal;
+    struct {
+>>>>>>> 76f97043 (compiles)
         int16_t AMK_ActualSpeed;
         int16_t AMK_ActualTorque;
         uint16_t AMK_DisplayOverloadInverter;
@@ -861,8 +1103,8 @@ typedef struct {
         uint16_t id;
     } return_fault_control;
     struct {
-        uint64_t daq_command;
-    } daq_command_MAIN_MODULE_VCAN;
+        uint64_t payload;
+    } uds_command_main_module;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
@@ -870,8 +1112,7 @@ extern can_data_t can_data;
 extern volatile uint32_t last_can_rx_time_ms;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_MAIN_MODULE_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a);
-extern void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void uds_command_main_module_CALLBACK(uint64_t payload);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

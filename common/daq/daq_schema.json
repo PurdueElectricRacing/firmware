@@ -27,24 +27,20 @@
             "properties":{
                 "node_name":{"type":"string", "description":"The name of the node"},
                 "variables":{"type":"array", "items":{"$ref":"#/$defs/variable"}},
-                "includes":{"type":"string", "description":"Includes to access the variables"},
-                "files":{"type":"array", "items":{"$ref":"#/$defs/file"}}
+                "includes":{"type":"string", "description":"Includes to access the variables"}
             }
         },
         "variable":{
             "type":"object",
-            "required":["var_name", "access_phrase", "read_only", "type"],
+            "required":["var_name", "access_phrase", "read_only", "type", "length"],
             "properties":{
                 "var_name":{"type":"string", "description":"Name of the variable"},
                 "var_desc":{"type":"string"},
                 "access_phrase":{"type":"string", "description":"Phrase to access the variable's value"},
-                "has_read_func":{"type":"boolean", "description":"Set to true if the access phrase is a function ptr"},
-                "access_phrase_write":{"type":"string", "description":"Phrase to write to the variable's value, if not used, assumed to be access_phrase"},
-                "has_write_func":{"type":"boolean", "description":"Set to true if the access phrase write is a function ptr"},
                 "read_only":{"type":"boolean", "description":"Sets if the variable is read only"},
                 "type":{
                     "type":"string",
-                    "enum":["uint8_t", "uint16_t", "uint32_t", 
+                    "enum":["uint8_t", "uint16_t", "uint32_t",
                             "int8_t", "int16_t", "int32_t",
                             "float"],
                     "description":"can only change length of uints, float defaults to 32 bits"
@@ -61,31 +57,6 @@
                 "minimum":{"type":"number", "description": "minimum value of var, defaults to none"},
                 "unit":{"type":"string", "description":"unit of the var, defaults to none"},
                 "choices":{"type":"array", "description":"enumeration values", "items":{"type":"string"}}
-            }
-        },
-        "file":{
-            "type":"object",
-            "required":["name", "eeprom_lbl", "contents"],
-            "properties":{
-                "name":{"type":"string", "description":"name of the file, will be used as struct vartiable name"},
-                "eeprom_lbl":{"type":"string", "description":"4 char name in eeprom", "minLength":4, "maxLength":4},
-                "contents":{"type":"array", "items":{"$ref":"#/$defs/file_var"}}
-            }
-        },
-        "file_var":{
-            "type":"object",
-            "required":["var_name", "type", "default"],
-            "properties":{
-                "var_name":{"type":"string", "description":"Name of the variable"},
-                "var_desc":{"type":"string"},
-                "type":{
-                    "type":"string",
-                    "enum":["uint8_t", "uint16_t", "uint32_t", 
-                            "int8_t", "int16_t", "int32_t",
-                            "float"],
-                    "description":"float defaults to 32 bits"
-                },
-                "default":{"type":"number"}
             }
         }
     }

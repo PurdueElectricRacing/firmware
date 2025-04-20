@@ -243,67 +243,31 @@ bool initCANFilter()
     CAN1->sFilterRegister[0].FR2 = (ID_LWS_STANDARD << 21);
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_ORION_CURRENTS_VOLTS << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_DASHBOARD_TV_PARAMETERS << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_MAIN_HB << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_MAIN_HB << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_REAR_WHEEL_SPEEDS << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_INVA_CRIT << 21);
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-<<<<<<< HEAD
-    CAN1->sFilterRegister[4].FR1 = (ID_INVA_CRIT << 21);
-    CAN1->sFilterRegister[4].FR2 = (ID_INVB_CRIT << 21);
-||||||| parent of 76f97043 (compiles)
-    CAN1->sFilterRegister[4].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
-=======
-    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
->>>>>>> 76f97043 (compiles)
+    CAN1->sFilterRegister[4].FR1 = (ID_INVB_CRIT << 21);
+    CAN1->sFilterRegister[4].FR2 = (ID_INVA_TEMPS << 21);
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-<<<<<<< HEAD
-    CAN1->sFilterRegister[5].FR1 = (ID_INVA_TEMPS << 21);
-    CAN1->sFilterRegister[5].FR2 = (ID_INVB_TEMPS << 21);
-||||||| parent of 76f97043 (compiles)
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-=======
-    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[5].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
->>>>>>> 76f97043 (compiles)
+    CAN1->sFilterRegister[5].FR1 = (ID_INVB_TEMPS << 21);
+    CAN1->sFilterRegister[5].FR2 = (ID_DASHBOARD_VCU_PARAMETERS << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
-<<<<<<< HEAD
-    CAN1->sFilterRegister[6].FR1 = (ID_DASHBOARD_VCU_PARAMETERS << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
-||||||| parent of 76f97043 (compiles)
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-=======
-    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_SET_FAULT << 3) | 4;
->>>>>>> 76f97043 (compiles)
+    CAN1->sFilterRegister[6].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-<<<<<<< HEAD
-    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[9].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-||||||| parent of 76f97043 (compiles)
-    CAN1->sFilterRegister[7].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-=======
-    CAN1->sFilterRegister[7].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-<<<<<<< HEAD
->>>>>>> 76f97043 (compiles)
-||||||| parent of 07dc676a (tmp)
-=======
-    CAN1->sFilterRegister[7].FR2 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
->>>>>>> 07dc676a (tmp)
+    CAN1->sFilterRegister[9].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_UDS_COMMAND_TORQUE_VECTOR << 3) | 4;
     /* END AUTO FILTER */
     // Adding LWS standard to bank 8 since it needs to be ExtID
     CAN1->FA1R |= (1 << 8);    // configure bank 8

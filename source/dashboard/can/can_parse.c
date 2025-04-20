@@ -313,28 +313,19 @@ bool initCANFilter()
     CAN1->sFilterRegister[5].FR2 = (ID_GEARBOX << 3) | 4;
     CAN1->FA1R |= (1 << 6);    // configure bank 6
     CAN1->sFilterRegister[6].FR1 = (ID_SDC_STATUS << 3) | 4;
-    CAN1->sFilterRegister[6].FR2 = (ID_THROTTLE_VCU << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_GPS_SPEED << 3) | 4;
     CAN1->FA1R |= (1 << 7);    // configure bank 7
-    CAN1->sFilterRegister[7].FR1 = (ID_GPS_SPEED << 3) | 4;
-    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[7].FR1 = (ID_FAULT_SYNC_PDU << 3) | 4;
+    CAN1->sFilterRegister[7].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
     CAN1->FA1R |= (1 << 8);    // configure bank 8
-    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
-    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[8].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[8].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 9);    // configure bank 9
-    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[9].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[9].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[9].FR2 = (ID_SET_FAULT << 3) | 4;
     CAN1->FA1R |= (1 << 10);    // configure bank 10
-    CAN1->sFilterRegister[10].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[10].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->FA1R |= (1 << 11);    // configure bank 11
-<<<<<<< HEAD
-    CAN1->sFilterRegister[11].FR1 = (ID_DAQ_COMMAND_DASHBOARD_VCAN << 3) | 4;
-||||||| parent of 76f97043 (compiles)
-    CAN1->sFilterRegister[11].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
-    CAN1->sFilterRegister[11].FR2 = (ID_DAQ_COMMAND_DASHBOARD_VCAN << 3) | 4;
-=======
-    CAN1->sFilterRegister[11].FR1 = (ID_UDS_COMMAND_DASHBOARD << 3) | 4;
->>>>>>> 76f97043 (compiles)
+    CAN1->sFilterRegister[10].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[10].FR2 = (ID_UDS_COMMAND_DASHBOARD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

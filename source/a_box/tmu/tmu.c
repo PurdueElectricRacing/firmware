@@ -54,8 +54,8 @@ uint8_t readTemps()
     tmu_info_t *right_readings = &tmu.module_temps[module].right_readings;
 
     /* Storing ADC readings for current module's left and right plate */
-    uint16_t left_raw_adc_reading = *(&adc_readings.tmu_1_1 + module);
-    uint16_t right_raw_adc_reading = *(&adc_readings.tmu_1_1 + (module + 1));
+    uint16_t left_raw_adc_reading = *(&(adc_readings.tmu_1_1) + (2 * module));
+    uint16_t right_raw_adc_reading = *(&(adc_readings.tmu_1_1) + ((2 * module) + 1));
 
 
     left_readings->temp_readings[curr_therm] = left_raw_adc_reading > ADC_ERROR_HIGH ? ERROR_HIGH : left_raw_adc_reading < ADC_ERROR_LOW ? ERROR_LOW : ADC_to_temp[left_raw_adc_reading - ADC_ERROR_LOW];

@@ -48,7 +48,7 @@ PROVIDE(_eboot_flash = 0x08004000); /* Start of application */
 MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 256K
-  FLASH    (rx)    : ORIGIN = 0x8004000,   LENGTH = 496K
+  FLASH    (rx)    : ORIGIN = 0x8020000,   LENGTH = 496K
 }
 
 /* Sections */

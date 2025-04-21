@@ -48,8 +48,7 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
     xVCU->WT_RAW[1] = 0;
     xVCU->WM_RAW[0] = (can_data.INVA_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
     xVCU->WM_RAW[1] = (can_data.INVB_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
-    //xVCU->GS_RAW = (GPS->g_speed*0.001); /* Incoming data is 1000*m/s */
-    xVCU->GS_RAW = 10; /* Incoming data is 1000*m/s */
+    xVCU->GS_RAW = (GPS->g_speed*0.001); /* Incoming data is 1000*m/s */
     xVCU->AV_RAW[0] = (GPS->gyroscope.x);  /* Incoming data is rad/s */
     xVCU->AV_RAW[1] = (GPS->gyroscope.y);  /* Incoming data is rad/s */
     xVCU->AV_RAW[2] = (GPS->gyroscope.z);  /* Incoming data is rad/s */
@@ -65,10 +64,6 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
     xVCU->AG_RAW[2] = (GPS->acceleration.z); /* Incoming data is m/s^2 */
     xVCU->TO_RAW[0] = (can_data.INVA_CRIT.AMK_ActualTorque)*9.8/1000; /* incoming data is 10*%Mn (Mn=9.8Nm) */
     xVCU->TO_RAW[1] = (can_data.INVB_CRIT.AMK_ActualTorque)*9.8/1000; /* incoming data is 10*%Mn (Mn=9.8Nm) */
-    // xVCU->VT_DB_RAW = 12; /*Incoming is int8 value*/
-    // xVCU->TV_PP_RAW = 10; /*Incoming is 100*int8 value*/
-    // xVCU->TC_TR_RAW = 1; /*Incoming is 100*int8 value*/
-    // xVCU->VS_MAX_SR_RAW = 1; /*Incoming is 100*int8 value*/
     xVCU->VT_DB_RAW = (can_data.dashboard_vcu_parameters.vt_db_val); /*Incoming is int8 value*/
     xVCU->TV_PP_RAW = (can_data.dashboard_vcu_parameters.tv_pp_val)*0.01; /*Incoming is 100*int8 value*/
     xVCU->TC_TR_RAW = (can_data.dashboard_vcu_parameters.tc_tr_val)*0.01; /*Incoming is 100*int8 value*/

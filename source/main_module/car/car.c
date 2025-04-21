@@ -2,6 +2,8 @@
 #include "main.h"
 #include "wheel_speeds.h"
 
+#include <string.h>
+
 Car_t car;
 extern uint16_t num_failed_msgs_l, num_failed_msgs_r;
 extern WheelSpeeds_t wheel_speeds;
@@ -11,11 +13,20 @@ uint8_t daq_constant_tq;
 uint8_t const_tq_val;
 uint8_t buzzer_brake_fault;
 sdc_nodes_t sdc_mux;
+bool enableAMKs;
 
 // Historical record of Brake stat and Current Sense to tell if BSPD has failed
 int16_t hist_current[NUM_HIST_BSPD] = {0};
 uint8_t hist_curr_idx;
 uint8_t prchg_start;
+
+// Circular buffer for precharge complete
+bool pchg_complete_lowpass_buf[PCHG_COMPLETE_LOW_PASS_SIZE];
+uint8_t pchg_complete_lowpass_idx;
+
+// TV control vars
+bool any_tv_msg_stale;
+VCU_mode_t requested_tv_mode;
 
 bool validatePrecharge();
 
@@ -24,9 +35,11 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_RAW;
+    car.torque_src = CAR_TORQUE_TV;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
+    pchg_complete_lowpass_idx = 0;
+    memset(pchg_complete_lowpass_buf, 0, sizeof(pchg_complete_lowpass_buf));
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
@@ -35,8 +48,9 @@ bool carInit()
     daq_constant_tq = 0;
     const_tq_val = 0;
     hist_curr_idx = 0;
-    amkInit(&car.motor_l, &car.pchg.pchg_complete, INVA_ID);
-    amkInit(&car.motor_r, &car.pchg.pchg_complete, INVB_ID);
+    enableAMKs = false;
+    amkInit(&car.motor_l, &enableAMKs, INVA_ID);
+    amkInit(&car.motor_r, &enableAMKs, INVB_ID);
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, 0);
@@ -76,6 +90,27 @@ void carPeriodic()
     // Start button debounce (only want rising edge)
     car.start_btn_debounced = can_data.start_button.start;
     can_data.start_button.start = false;
+
+    /* Precharge Complete Lowpass */
+    pchg_complete_lowpass_buf[pchg_complete_lowpass_idx] = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
+    // Increment buffer idx
+    pchg_complete_lowpass_idx++;
+    pchg_complete_lowpass_idx %= PCHG_COMPLETE_LOW_PASS_SIZE;
+
+    // Update precharge complete status
+    uint8_t pchg_complete_num_high = 0;
+    for (uint8_t i = 0; i < PCHG_COMPLETE_LOW_PASS_SIZE; i++)
+    {
+      pchg_complete_num_high += (uint8_t)pchg_complete_lowpass_buf[i];
+    }
+
+    float pchg_complete_stat = (float) pchg_complete_num_high / (float) PCHG_COMPLETE_LOW_PASS_SIZE;
+
+    // precharge on average is complete
+    car.pchg.pchg_complete = (pchg_complete_stat > 0.5f);
+
+    /* AMK Control */
+    enableAMKs = (car.state == CAR_STATE_READY2DRIVE || car.state == CAR_STATE_CONSTANT_TORQUE);
 
     /**
      * Brake Light Control
@@ -132,19 +167,16 @@ void carPeriodic()
         // SDC critical error has occured, open sdc
         // Currently latches into this state
         car.sdc_close = false;
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
     }
     else if (car.state == CAR_STATE_ERROR)
     {
         // Error has occured, leave HV on but do not drive
         // Recover once error gone
         if (!errorLatched()) car.state = CAR_STATE_IDLE;
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         prchg_start = false;
     }
     else if (car.state == CAR_STATE_IDLE)
     {
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         prchg_start = false;
         if (sdc_mux.tsms_stat)
         {
@@ -153,16 +185,14 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_PRECHARGING)
     {
-        if (PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin))
+        if (car.pchg.pchg_complete)
         {
-            car.pchg.pchg_complete = 1;
             car.state = CAR_STATE_ENERGIZED;
         }
     }
     else if (car.state == CAR_STATE_ENERGIZED)
     {
         prchg_start = false;
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
 
         if (car.start_btn_debounced &&
            can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD)
@@ -173,7 +203,6 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_BUZZING)
     {
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         // EV.10.5 - Ready to drive sound
         // 1-3 seconds, unique from other sounds
         if (sched.os_ticks - car.buzzer_start_ms > BUZZER_DURATION_MS)
@@ -186,7 +215,6 @@ void carPeriodic()
     }
     else if (car.state == CAR_STATE_READY2DRIVE)
     {
-        car.pchg.pchg_complete = PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         if (!car.pchg.pchg_complete)
         {
             car.state = CAR_STATE_IDLE;
@@ -208,29 +236,24 @@ void carPeriodic()
             float s_req_tv_r = 0;
             float s_req_equal = 0;
 
-            bool any_tv_msg_stale = false;
+            any_tv_msg_stale = false;
 
-            VCU_mode_t requested_tv_mode = VCU_MODE_INVALID;
+            requested_tv_mode = VCU_MODE_INVALID;
 
             if (!can_data.filt_throttle_brake.stale)
                 t_req_pedal = (float) CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
 
-            if (!can_data.drive_modes.stale)
+            if (!can_data.drive_modes.stale && !can_data.VCU_torques_speeds.stale)
             {
               requested_tv_mode = can_data.drive_modes.VCU_mode;
-              any_tv_msg_stale = true;
-            }
-
-            if (!can_data.VCU_torques_speeds.stale)
-            {
               t_req_tv_l = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
               t_req_tv_r = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
               t_req_equal = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
             }
             else
             {
-              any_tv_msg_stale = true;
               requested_tv_mode = VCU_MODE_INVALID;
+              any_tv_msg_stale = true;
             }
 
             if (car.torque_src == CAR_TORQUE_TV)
@@ -333,7 +356,6 @@ void carPeriodic()
     {
         static bool throttle_pressed;
         static bool brake_pressed;
-        PHAL_readGPIO(PRCHG_STAT_GPIO_Port, PRCHG_STAT_Pin);
         // Check if requesting to exit ready2drive
         // if (car.start_btn_debounced)
         // {

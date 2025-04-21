@@ -209,7 +209,7 @@ int main(void){
     // taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
-    taskCreate(sendTVParameters, 2000);
+    taskCreate(sendTVParameters, 500);
     // taskCreate(sendVoltageData, 5000);
     taskCreateBackground(lcdTxUpdate);
     taskCreateBackground(canTxUpdate);

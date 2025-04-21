@@ -37,9 +37,9 @@ typedef struct {
     element_state_t state;
     char* object_name;          // Nextion object name
     void (*on_change)(void);    // Callback when value changes
-    uint8_t current_value;      // Current value for numeric types or on/off state for toggles
-    uint8_t min_value;          // Minimum value for numeric types
-    uint8_t max_value;          // Maximum value for numeric types
+    uint16_t current_value;     // Current value for numeric types or on/off state for toggles
+    uint16_t min_value;         // Minimum value for numeric types
+    uint16_t max_value;         // Maximum value for numeric types
     uint8_t increment;          // Increment for numeric types
 } menu_element_t;
 

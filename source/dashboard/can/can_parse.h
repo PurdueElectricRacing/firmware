@@ -80,7 +80,7 @@ typedef union {
 #define DLC_START_BUTTON 1
 #define DLC_DASHBOARD_MCU_TEMP 2
 #define DLC_DASHBOARD_VOLTAGE 8
-#define DLC_DASHBOARD_VCU_PARAMETERS 5
+#define DLC_DASHBOARD_VCU_PARAMETERS 6
 #define DLC_DASHBOARD_START_LOGGING 1
 #define DLC_DASH_CAN_STATS 4
 #define DLC_FAULT_SYNC_DASHBOARD 3
@@ -304,7 +304,7 @@ typedef union {
         uint64_t vcu_fmode: 1;
         uint64_t vcu_cmode: 1;
         uint64_t vt_db_val: 8;
-        uint64_t tv_pp_val: 8;
+        uint64_t tv_pp_val: 16;
         uint64_t tc_tr_val: 8;
         uint64_t vs_max_sr_val: 8;
     } dashboard_vcu_parameters;

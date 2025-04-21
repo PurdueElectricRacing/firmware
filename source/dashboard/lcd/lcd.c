@@ -51,6 +51,7 @@ void tvPageUpdate();
 void tvMoveUp();
 void tvMoveDown();
 void tvSelect();
+void tvSetEnumNames();
 
 // Faults Page Functions
 void faultsPageUpdate();
@@ -166,7 +167,7 @@ menu_page_t cooling_page = {
 
 typedef enum {
     TV_VCU_PERMIT_INDEX  = 0,
-    TV_VCU_CONTROL_INDEX = 1, 
+    TV_VCU_CONTROL_INDEX = 1,
     TV_DEADBAND_INDEX    = 2,
     TV_P_GAIN_INDEX      = 3,
     TV_TORQUE_DROP_INDEX = 4,
@@ -207,7 +208,7 @@ menu_element_t tv_elements[] = {
     [TV_DEADBAND_INDEX] = {
         .type           = ELEMENT_VAL,
         .object_name    = TV_DEADBAND_TXT,
-        .current_value  = 12, // Default to 12
+        .current_value  = TV_DEADBAND_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 25,
         .increment      = 1,
@@ -216,16 +217,16 @@ menu_element_t tv_elements[] = {
     [TV_P_GAIN_INDEX] = {
         .type           = ELEMENT_FLT,
         .object_name    = TV_P_GAIN_FLT,
-        .current_value  = 40, // Default to 0.4
+        .current_value  = TV_P_GAIN_DEFAULT_VALUE,
         .min_value      = 0,
-        .max_value      = 100,
-        .increment      = 5,
+        .max_value      = 500,
+        .increment      = 10,
         .on_change      = sendTVParameters
     },
     [TV_TORQUE_DROP_INDEX] = {
         .type           = ELEMENT_FLT,
         .object_name    = TV_TORQUE_DROP_FLT,
-        .current_value  = 50, // Default to 0.5
+        .current_value  = TV_SLIP_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 100,
         .increment      = 2,
@@ -234,7 +235,7 @@ menu_element_t tv_elements[] = {
     [TV_MAX_SLIP_INDEX] = {
         .type           = ELEMENT_FLT,
         .object_name    = TV_MAX_SLIP_FLT,
-        .current_value  = 50, // Default to 0.5
+        .current_value  = TV_TORQUE_DROP_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 100,
         .increment      = 2,
@@ -610,7 +611,7 @@ void sendTVParameters() {
         tv_elements[TV_VCU_PERMIT_INDEX].current_value,
         tv_elements[TV_VCU_CONTROL_INDEX].current_value,
         tv_elements[TV_DEADBAND_INDEX].current_value,
-        tv_elements[TV_P_GAIN_INDEX].current_value,
+        (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
         tv_elements[TV_TORQUE_DROP_INDEX].current_value,
         tv_elements[TV_MAX_SLIP_INDEX].current_value);
 }
@@ -645,7 +646,7 @@ void updateFaultDisplay() {
         uint8_t fault_time_percentage = (uint8_t)(100 - (fault_time_displayed / 8.0) * 100);
         NXT_setValue(TIME_BAR, fault_time_percentage);
         lcdTxUpdate();
-        
+
         if (fault_time_displayed > 8) { // reset after 8 cycles
             fault_time_displayed = 0;
             curr_page = prev_page;
@@ -934,79 +935,53 @@ void coolingSelect() {
  */
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
     if (curr_page != PAGE_COOLING) {
-    // if (cooling_elements[COOLING_DT_FAN_INDEX].state != STATE_SELECTED)
       cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
-    // if (cooling_elements[COOLING_DT_PUMP_INDEX].state != STATE_SELECTED)
       cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
-    // if (cooling_elements[COOLING_B_FAN_INDEX].state != STATE_SELECTED)
       cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
-    // if (cooling_elements[COOLING_B_PUMP_INDEX].state != STATE_SELECTED)
       cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
-  //
     }
+}
 
-    // not necessary to update the page, just the values
-    //coolingPageUpdate();
+void tvSetEnumNames()
+{
+  switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
+      case TV_PERMIT_NONE:
+          NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
+          break;
+      case TV_PERMIT_VARIABLE:
+          NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
+          break;
+      default:
+          NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
+          break;
+  }
+
+  switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
+      case TV_SPEED_CONTROL_MODE:
+          NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
+          break;
+      case TV_TORQUE_CONTROL_MODE:
+          NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
+          break;
+      default:
+          NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
+          break;
+  }
 }
 
 void tvPageUpdate() {
     MS_refreshPage(&tv_page);
+    tvSetEnumNames();
 }
 
 void tvMoveUp() {
     MS_moveUp(&tv_page);
-
-    switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
-        case TV_PERMIT_NONE:
-            NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
-            break;
-        case TV_PERMIT_VARIABLE:
-            NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
-            break;
-        default:
-            NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
-            break;
-    }
-
-    switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
-        case TV_SPEED_CONTROL_MODE:
-            NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
-            break;
-        case TV_TORQUE_CONTROL_MODE:
-            NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
-            break;
-        default:
-            NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
-            break;
-    }
+    tvSetEnumNames();
 }
 
 void tvMoveDown() {
     MS_moveDown(&tv_page);
-
-    switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
-        case TV_PERMIT_NONE:
-            NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
-            break;
-        case TV_PERMIT_VARIABLE:
-            NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
-            break;
-        default:
-            NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
-            break;
-    }
-
-    switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
-        case TV_SPEED_CONTROL_MODE:
-            NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
-            break;
-        case TV_TORQUE_CONTROL_MODE:
-            NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
-            break;
-        default:
-            NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
-            break;
-    }
+    tvSetEnumNames();
 }
 
 void tvSelect() {

@@ -1,6 +1,7 @@
-#include "vcu.h"
+
 #include <math.h>
 #include <string.h>
+#include "vcu.h"
 
 static float interp1(const float varargin_1[2], const float varargin_2[2],
                      float varargin_3);
@@ -8,6 +9,8 @@ static float interp1(const float varargin_1[2], const float varargin_2[2],
 static float interp2(const float varargin_1[53], const float varargin_2[51],
                      const float varargin_3[2703], float varargin_4,
                      float varargin_5);
+
+static float rt_roundf(float u);
 
 static float interp1(const float varargin_1[2], const float varargin_2[2],
                      float varargin_3)
@@ -140,6 +143,23 @@ static float interp2(const float varargin_1[53], const float varargin_2[51],
     Vq = 0.0F;
   }
   return Vq;
+}
+
+static float rt_roundf(float u)
+{
+  float y;
+  if (fabsf(u) < 8.388608E+6F) {
+    if (u >= 0.5F) {
+      y = floorf(u + 0.5F);
+    } else if (u > -0.5F) {
+      y = 0.0F;
+    } else {
+      y = ceilf(u - 0.5F);
+    }
+  } else {
+    y = u;
+  }
+  return y;
 }
 
 void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
@@ -411,26 +431,26 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
   y->VT_permit_buffer[3] = y->VT_permit_buffer[4];
   y->VT_permit_buffer[4] = c_minval;
   if (f->VCU_CFLAG == p->VCU_CFLAG_CS) {
-    if (roundf(((((y->VS_permit_buffer[0] + y->VS_permit_buffer[1]) +
-                  y->VS_permit_buffer[2]) +
-                 y->VS_permit_buffer[3]) +
-                y->VS_permit_buffer[4]) /
-               5.0F) != 0.0F) {
+    if (rt_roundf(((((y->VS_permit_buffer[0] + y->VS_permit_buffer[1]) +
+                     y->VS_permit_buffer[2]) +
+                    y->VS_permit_buffer[3]) +
+                   y->VS_permit_buffer[4]) /
+                  5.0F) != 0.0F) {
       y->VCU_mode = 3.0F;
     } else {
       y->VCU_mode = 0.0F;
     }
-  } else if (roundf(((((y->VT_permit_buffer[0] + y->VT_permit_buffer[1]) +
-                       y->VT_permit_buffer[2]) +
-                      y->VT_permit_buffer[3]) +
-                     y->VT_permit_buffer[4]) /
-                    5.0F) != 0.0F) {
+  } else if (rt_roundf(((((y->VT_permit_buffer[0] + y->VT_permit_buffer[1]) +
+                          y->VT_permit_buffer[2]) +
+                         y->VT_permit_buffer[3]) +
+                        y->VT_permit_buffer[4]) /
+                       5.0F) != 0.0F) {
     y->VCU_mode = 4.0F;
-  } else if (roundf(((((y->PT_permit_buffer[0] + y->PT_permit_buffer[1]) +
-                       y->PT_permit_buffer[2]) +
-                      y->PT_permit_buffer[3]) +
-                     y->PT_permit_buffer[4]) /
-                    5.0F) != 0.0F) {
+  } else if (rt_roundf(((((y->PT_permit_buffer[0] + y->PT_permit_buffer[1]) +
+                          y->PT_permit_buffer[2]) +
+                         y->PT_permit_buffer[3]) +
+                        y->PT_permit_buffer[4]) /
+                       5.0F) != 0.0F) {
     y->VCU_mode = 2.0F;
   } else {
     y->VCU_mode = 1.0F;
@@ -438,24 +458,16 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
   y->TH_CF = fmaxf(fminf(x->TH_RAW, p->TH_ub), p->TH_lb);
   y->ST_CF = fmaxf(fminf(x->ST_RAW, p->ST_ub), p->ST_lb);
   y->VB_CF = fmaxf(fminf(x->VB_RAW, p->VB_ub), p->VB_lb);
-  e_f = fmaxf(fminf(x->WT_RAW[0], p->WT_ub[0]), p->WT_lb[0]);
+  y->WT_CF[0] = fmaxf(fminf(x->WT_RAW[0], p->WT_ub[0]), p->WT_lb[0]);
+  e_f = fmaxf(fminf(x->WM_RAW[0], p->WM_ub[0]), p->WM_lb[0]);
   y->TO_CF[0] = e_f;
-  y->WT_CF[0] = e_f;
-  y->WM_CF[0] = fmaxf(fminf(x->WM_RAW[0], p->WM_ub[0]), p->WM_lb[0]);
-  e_f = fmaxf(fminf(x->WT_RAW[1], p->WT_ub[1]), p->WT_lb[1]);
+  y->WM_CF[0] = e_f;
+  y->W_CF[0] = e_f / p->gr;
+  y->WT_CF[1] = fmaxf(fminf(x->WT_RAW[1], p->WT_ub[1]), p->WT_lb[1]);
+  e_f = fmaxf(fminf(x->WM_RAW[1], p->WM_ub[1]), p->WM_lb[1]);
   y->TO_CF[1] = e_f;
-  y->WT_CF[1] = e_f;
-  y->WM_CF[1] = fmaxf(fminf(x->WM_RAW[1], p->WM_ub[1]), p->WM_lb[1]);
-  if (p->W_CF_SELECTION == 0.0F) {
-    y->W_CF[0] = y->TO_CF[0];
-    y->W_CF[1] = y->TO_CF[1];
-  } else if (p->W_CF_SELECTION == 1.0F) {
-    y->W_CF[0] = y->WM_CF[0] / p->gr;
-    y->W_CF[1] = y->WM_CF[1] / p->gr;
-  } else {
-    y->W_CF[0] = 0.5F * (y->TO_CF[0] + y->WM_CF[0] / p->gr);
-    y->W_CF[1] = 0.5F * (y->TO_CF[1] + y->WM_CF[1] / p->gr);
-  }
+  y->WM_CF[1] = e_f;
+  y->W_CF[1] = e_f / p->gr;
   y->GS_CF = fmaxf(fminf(x->GS_RAW, p->GS_ub), p->GS_lb);
   f1 = x->AV_RAW[0];
   f2 = x->AV_RAW[1];
@@ -582,13 +594,13 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
     float j_p[2];
     float k_p[2];
     float l_p[2];
-    float Xqk;
     float Yqk;
     float c_idx_0;
     float c_idx_1;
     float c_x;
     float ex;
     float f7;
+    float fcnOutput;
     c_idx_0 = y->W_CF[0] * p->gr;
     c_idx_1 = y->W_CF[1] * p->gr;
     if (c_idx_0 < c_idx_1) {
@@ -596,10 +608,11 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
     } else {
       f7 = c_idx_0;
     }
-    Xqk = fmaxf(fminf(f7, p->PT_WM_ub), p->PT_WM_lb);
+    fcnOutput = fmaxf(fminf(f7, p->PT_WM_ub), p->PT_WM_lb);
     Yqk = fmaxf(fminf(y->VB_CF, p->PT_VB_ub), p->PT_VB_lb);
-    if ((Xqk >= p->PT_WM_brkpt[0]) && (Xqk <= p->PT_WM_brkpt[149]) &&
-        (Yqk >= p->PT_VB_brkpt[0]) && (Yqk <= p->PT_VB_brkpt[49])) {
+    if ((fcnOutput >= p->PT_WM_brkpt[0]) &&
+        (fcnOutput <= p->PT_WM_brkpt[149]) && (Yqk >= p->PT_VB_brkpt[0]) &&
+        (Yqk <= p->PT_VB_brkpt[49])) {
       float f10;
       float qx1;
       float qx2;
@@ -615,7 +628,7 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
       while (b_high_i > b_low_ip1) {
         int b_mid_i;
         b_mid_i = ((b_low_i + b_high_i) + 1) >> 1;
-        if (Xqk >= p->PT_WM_brkpt[b_mid_i - 1]) {
+        if (fcnOutput >= p->PT_WM_brkpt[b_mid_i - 1]) {
           b_low_i = b_mid_i - 1;
           b_low_ip1 = b_mid_i + 1;
         } else {
@@ -635,7 +648,7 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
           c_high_i = c_mid_i;
         }
       }
-      if (Xqk == p->PT_WM_brkpt[b_low_i]) {
+      if (fcnOutput == p->PT_WM_brkpt[b_low_i]) {
         int qx1_tmp;
         qx1_tmp = c_low_i + 50 * b_low_i;
         qx1 = p->PT_TO_table[qx1_tmp - 1];
@@ -643,7 +656,7 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
       } else {
         float f9;
         f9 = p->PT_WM_brkpt[b_low_i + 1];
-        if (Xqk == f9) {
+        if (fcnOutput == f9) {
           int b_qx1_tmp;
           b_qx1_tmp = c_low_i + 50 * (b_low_i + 1);
           qx1 = p->PT_TO_table[b_qx1_tmp - 1];
@@ -656,7 +669,8 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
           float rx;
           int b_qx1_tmp_tmp;
           int qx1_tmp_tmp;
-          rx = (Xqk - p->PT_WM_brkpt[b_low_i]) / (f9 - p->PT_WM_brkpt[b_low_i]);
+          rx = (fcnOutput - p->PT_WM_brkpt[b_low_i]) /
+               (f9 - p->PT_WM_brkpt[b_low_i]);
           qx1_tmp_tmp = c_low_i + 50 * b_low_i;
           c_qx1_tmp = p->PT_TO_table[qx1_tmp_tmp - 1];
           b_qx1_tmp_tmp = c_low_i + 50 * (b_low_i + 1);
@@ -779,6 +793,10 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
     f8 = fabsf(y->ST_CF);
     if (f8 < y->VT_DB_CF - p->dST_DB) {
       y->VT_mode = 1.0F;
+    } else if (f8 > y->VT_DB_CF + p->dST_DB) {
+      y->VT_mode = 2.0F;
+    }
+    if (y->VT_mode == 1.0F) {
       y->SR = 0.5F * (y->W_CF[0] + y->W_CF[1]) * p->r /
                   fmaxf(fminf(y->GS_CF, y->GS_CF), p->TC_eps) -
               1.0F;
@@ -791,8 +809,7 @@ void vcu_step(const pVCU_struct *p, const fVCU_struct *f, const xVCU_struct *x,
         y->TO_VT[0] = y->TO_PT[0];
         y->TO_VT[1] = y->TO_PT[1];
       }
-    } else if (f8 > y->VT_DB_CF + p->dST_DB) {
-      y->VT_mode = 2.0F;
+    } else if (y->VT_mode == 2.0F) {
       y->TV_AV_ref = interp2(p->TV_ST_brkpt, p->TV_GS_brkpt, p->TV_AV_table,
                              fmaxf(fminf(y->ST_CF, p->TV_ST_ub), p->TV_ST_lb),
                              fmaxf(fminf(y->GS_CF, p->TV_GS_ub), p->TV_GS_lb));

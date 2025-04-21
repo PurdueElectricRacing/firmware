@@ -53,7 +53,7 @@ typedef struct {
   float VB_CF;
   float WT_CF[2];
   float WM_CF[2];
-  float W_CF[0];
+  float W_CF[2];
   float GS_CF;
   float AV_CF[3];
   float IB_CF;
@@ -204,6 +204,12 @@ typedef struct {
   float TC_lows_to_disengage;
   float WM_VS_LS;
 } pVCU_struct;
+
+
+#define CMODE_SPEED_CTRL (0)
+#define CMODE_TORQUE_CTRL (1)
+#define FMODE_VAR (1)
+#define FMODE_NONE (0)
 
 // VCU struct initialization functions
 fVCU_struct init_fVCU(void);

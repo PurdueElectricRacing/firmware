@@ -19,10 +19,26 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
     fVCU->SS_FFLAG = (can_data.LWS_Standard.Ok);
     fVCU->AV_FFLAG = (GPS->gyro_OK);
     fVCU->GS_FFLAG = (GPS->fix_type);
-    // fVCU->VCU_PFLAG = (4);
-    // fVCU->VCU_CFLAG = (2);
-    fVCU->VCU_PFLAG = (can_data.dashboard_vcu_parameters.vcu_fmode);
-    fVCU->VCU_CFLAG = (can_data.dashboard_vcu_parameters.vcu_cmode);
+
+    uint8_t f_mode = can_data.dashboard_vcu_parameters.vcu_fmode;
+    uint8_t c_mode = can_data.dashboard_vcu_parameters.vcu_cmode;
+
+    // Set PFLAG based on modes
+    if (c_mode == CMODE_SPEED_CTRL && f_mode == FMODE_VAR)
+    {
+        fVCU->VCU_PFLAG = 3;
+    }
+    else if (c_mode == CMODE_TORQUE_CTRL && f_mode == FMODE_VAR)
+    {
+        fVCU->VCU_PFLAG = 4;
+    }
+    else
+    {
+        fVCU->VCU_PFLAG = 2;
+    }
+
+    // Add one to dash param to get the mode
+    fVCU->VCU_CFLAG = can_data.dashboard_vcu_parameters.vcu_cmode + 1;
 
     /*Raw X Data*/
     xVCU->TH_RAW = (can_data.filt_throttle_brake.throttle/4095.0); /* Incoming is a scalar in the range [0 4095] */
@@ -53,7 +69,7 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *GPS)
     // xVCU->TV_PP_RAW = 10; /*Incoming is 100*int8 value*/
     // xVCU->TC_TR_RAW = 1; /*Incoming is 100*int8 value*/
     // xVCU->VS_MAX_SR_RAW = 1; /*Incoming is 100*int8 value*/
-    xVCU->VT_DB_RAW = (can_data.dashboard_vcu_parameters.vt_db_val)*0.01; /*Incoming is int8 value*/
+    xVCU->VT_DB_RAW = (can_data.dashboard_vcu_parameters.vt_db_val); /*Incoming is int8 value*/
     xVCU->TV_PP_RAW = (can_data.dashboard_vcu_parameters.tv_pp_val)*0.01; /*Incoming is 100*int8 value*/
     xVCU->TC_TR_RAW = (can_data.dashboard_vcu_parameters.tc_tr_val)*0.01; /*Incoming is 100*int8 value*/
     xVCU->VS_MAX_SR_RAW = (can_data.dashboard_vcu_parameters.vs_max_sr_val)*0.01; /*Incoming is 100*int8 value*/

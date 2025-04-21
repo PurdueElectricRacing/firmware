@@ -1456,7 +1456,7 @@ pVCU_struct init_pVCU(void) {
         .Cm_derating_zero_T = 1,
         .iT_derating_full_T = 55,
         .iT_derating_zero_T = 65,
-        .dST_DB = 5,
+        .dST_DB = 2.5,
         .MAX_r = 0.5,
         .TV_GS_brkpt = {0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5,
         8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16,

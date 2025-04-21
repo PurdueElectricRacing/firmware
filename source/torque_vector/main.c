@@ -411,8 +411,10 @@ void usart_recieve_complete_callback(usart_init_t *handle)
     }
 }
 
-void txUsart()
-{
+void txUsart() {
+
+    /* EDIT HERE TO SEND */
+    /* I would call txusart on your own when VCU_MAIN is done */
     memcpy(txmsg.PT_permit_buffer, yVCU.PT_permit_buffer, sizeof(txmsg.PT_permit_buffer));
     memcpy(txmsg.VS_permit_buffer, yVCU.VS_permit_buffer, sizeof(txmsg.VS_permit_buffer));
     memcpy(txmsg.VT_permit_buffer, yVCU.VT_permit_buffer, sizeof(txmsg.VT_permit_buffer));
@@ -439,8 +441,10 @@ void txUsart()
     txmsg.MC_CF = yVCU.MC_CF;
     txmsg.IC_CF = yVCU.IC_CF;
     txmsg.BT_CF = yVCU.BT_CF;
-    txmsg.DB_CF = yVCU.VT_DB_CF;
-    txmsg.PP_CF = yVCU.TV_PP_CF;
+    txmsg.VT_DB_CF = yVCU.VT_DB_CF;
+    txmsg.TV_PP_CF = yVCU.TV_PP_CF;
+    txmsg.TC_TR_CF = yVCU.TC_TR_CF;
+    txmsg.VS_MAX_SR_CF = yVCU.VS_MAX_SR_CF;
     txmsg.zero_current_counter = yVCU.zero_current_counter;
     txmsg.Batt_SOC = yVCU.Batt_SOC;
     txmsg.Batt_Voc = yVCU.Batt_Voc;
@@ -456,17 +460,16 @@ void txUsart()
 
     /* You shouldn't need to mess with any of this */
     memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
-    /* Send in 20-byte chunks, starting from the 3rd byte in the buffer
-        (since the first two are reserved for the sync code) */
-    for (uint16_t i = 0; i < sizeof(txmsg); i += 20)
-    {
-        uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
+    // Send in 20-byte chunks, starting from the 3rd byte in the buffer (since the first two are reserved for the sync code)
+    // for (uint16_t i = 0; i < sizeof(txmsg); i += 20) {
+    //     uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
 
-        /* Refresh the watchdog to avoid system reset */
-        IWDG->KR = 0xAAAA;
+    //     // Refresh the watchdog to avoid system reset
+    //     IWDG->KR = 0xAAAA;
 
-        PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
-    }
+    //     PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
+    // }
+    PHAL_usartTxDma(&usb, (uint16_t *) txbuffer, 290);
 }
 
 /* CAN Message Handling */

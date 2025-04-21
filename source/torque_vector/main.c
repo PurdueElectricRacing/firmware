@@ -177,6 +177,12 @@ int main(void)
         HardFault_Handler();
     }
 
+    // TV initialization (will break watchdog)
+    pVCU = init_pVCU();
+    fVCU = init_fVCU();
+    xVCU = init_xVCU();
+    yVCU = init_yVCU();
+
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 100, 750);
@@ -259,13 +265,6 @@ void preflightChecks(void)
         {
             HardFault_Handler();
         }
-        break;
-    case 700:
-        /* Initialize VCU structs */
-        pVCU = init_pVCU();
-        fVCU = init_fVCU();
-        xVCU = init_xVCU();
-        yVCU = init_yVCU();
         break;
     case 701:
         {

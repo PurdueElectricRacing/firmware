@@ -1,7 +1,7 @@
 var searchData=
 [
   ['w_0',['w',['../structquaternion__t.html#a56930226cd09f36d261097d7a0cce261',1,'quaternion_t']]],
-  ['w_5fcf_1',['W_CF',['../structyVCU__struct.html#ac573ff2e0f5fd9adf4f7df3ec8c38c8c',1,'yVCU_struct']]],
+  ['w_5fcf_1',['W_CF',['../structyVCU__struct.html#ad2d35adc1aec2ac77aca6746bdad6a80',1,'yVCU_struct']]],
   ['w_5fcf_5fselection_2',['W_CF_SELECTION',['../structpVCU__struct.html#a2f40793983ae6bd1457a8410f2844a54',1,'pVCU_struct']]],
   ['wake_5faddr_3',['wake_addr',['../structusart__init__t.html#a72b5f7df2bcce44b8d47c08e616df66f',1,'usart_init_t']]],
   ['wc_5fgpio_5fpin_4',['wc_gpio_pin',['../structeeprom.html#a99539ba427114235059a3007b2429db4',1,'eeprom']]],

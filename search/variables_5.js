@@ -31,6 +31,5 @@ var searchData=
   ['eth_5fstate_28',['eth_state',['../structdaq__hub__t.html#a1a22a44dbac8661421e26fe2518f4fa2',1,'daq_hub_t']]],
   ['eth_5ftcp_5fstate_29',['eth_tcp_state',['../structdaq__hub__t.html#afcbe04add3b9789cf82c09db3fa38c32',1,'daq_hub_t']]],
   ['external_5fcomms_30',['external_comms',['../union____attribute____.html#ac45682a49a3f17375575c0c45a331058',1,'__attribute__::external_comms'],['../structcan__data__t.html#a4a68c88cd26f000d172b6042fefa8fa1',1,'can_data_t::external_comms']]],
-  ['external_5ftherm_31',['external_therm',['../union____attribute____.html#a7b6c245c7571a477af1e186033a74a92',1,'__attribute__']]],
-  ['extid_32',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
+  ['extid_31',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
 ];

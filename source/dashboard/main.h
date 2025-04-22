@@ -20,13 +20,13 @@
 //STM32F407
 
 // Shockpot Calibration
-#define POT_VOLT_MAX_L    5.0f
-#define POT_VOLT_MIN_L    4091.0f
-#define POT_VOLT_MAX_R    128.0f
-#define POT_VOLT_MIN_R    4093.0f
+#define POT_VOLT_MAX_L    3.0f
+#define POT_VOLT_MIN_L    4082.0f
+#define POT_VOLT_MAX_R    3.0f
+#define POT_VOLT_MIN_R    4090.0f
 #define POT_MAX_DIST      75
-#define POT_DIST_DROOP_L  55
-#define POT_DIST_DROOP_R  55
+#define POT_DIST_DROOP_L  56
+#define POT_DIST_DROOP_R  56
 
 // LCD Constants
 #define LCD_NUM_PAGES (9) // Number encoder selectable pages

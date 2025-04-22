@@ -36,13 +36,13 @@
 #define POT_MAX_RES 3300
 #define POT_MIN_RES 300
 
-#define POT_VOLT_MAX_L 4.0f
-#define POT_VOLT_MIN_L 4077.0f
-#define POT_VOLT_MAX_R 4.0f
-#define POT_VOLT_MIN_R 4090.0f
+#define POT_VOLT_MAX_L 11.0f
+#define POT_VOLT_MIN_L 4060.0f
+#define POT_VOLT_MAX_R 11.0f
+#define POT_VOLT_MIN_R 4092.0f
 #define POT_MAX_DIST 75
-#define POT_DIST_DROOP_L 57
-#define POT_DIST_DROOP_R 54
+#define POT_DIST_DROOP_L 56
+#define POT_DIST_DROOP_R 55
 
 // Throttle pedal constraints
 #define MAX_DRIVER_TORQUE_REQUEST 210.0f

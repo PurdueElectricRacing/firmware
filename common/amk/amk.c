@@ -149,12 +149,18 @@ void amkPeriodic(amk_motor_t* motor)
             motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
             motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
         motor->control.AMK_bErrorReset = false;
+        SEND_INVA_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
+            motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
+            motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
     }
     else if (INVB_ID == motor->id)
     {
         SEND_INVB_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
             motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
             motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
+        SEND_INVB_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
+                motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
+                motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
         motor->control.AMK_bErrorReset = false;
     }
     else

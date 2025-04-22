@@ -167,14 +167,11 @@ typedef struct
     // Do not modify this struct unless
     // you modify the ADC DMA config
     // in main.c to match
-    uint16_t v_mc;
-    uint16_t v_bat;
     uint16_t shock_l;
     uint16_t shock_r;
     uint16_t therm_mux_d;
-    uint16_t load_l;
-    uint16_t load_r;
-    uint16_t therm_mcu;
+    // uint16_t load_l;
+    // uint16_t load_r;
 }__attribute__((packed)) ADCReadings_t;
 volatile extern ADCReadings_t adc_readings;
 

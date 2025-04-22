@@ -91,8 +91,8 @@ GPIOInitConfig_t gpio_config[] =
     GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
 
     /* Load Sensors */
-    GPIO_INIT_ANALOG(LOAD_L_GPIO_Port, LOAD_L_Pin),
-    GPIO_INIT_ANALOG(LOAD_R_GPIO_Port, LOAD_R_Pin),
+    // GPIO_INIT_ANALOG(LOAD_L_GPIO_Port, LOAD_L_Pin),
+    // GPIO_INIT_ANALOG(LOAD_R_GPIO_Port, LOAD_R_Pin),
 
     /* Thermistor Analog Multiplexer */
     GPIO_INIT_OUTPUT(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -112,9 +112,9 @@ extern uint32_t PLLClockRateHz;
 
 ClockRateConfig_t clock_config =
 {
-    .clock_source               =CLOCK_SOURCE_HSE,
+    .clock_source               =CLOCK_SOURCE_HSI,
     .use_pll                    =true,
-    .pll_src                    =PLL_SRC_HSE,
+    .pll_src                    =PLL_SRC_HSI16,
     .vco_output_rate_target_hz  =288000000,
     .system_clock_target_hz     =TargetCoreClockrateHz,
     .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
@@ -143,17 +143,14 @@ ADCInitConfig_t adc_config =
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] =
 {
-    {.channel=V_MC_SENSE_ADC_CHNL,     .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=V_BAT_SENSE_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=THERM_MUX_OUT_ADC_CHNL,  .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LOAD_L_ADC_CHNL,         .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LOAD_R_ADC_CHNL,         .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=THERM_MUX_OUT_ADC_CHNL,  .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    // {.channel=LOAD_L_ADC_CHNL,         .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    // {.channel=LOAD_R_ADC_CHNL,         .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
-            sizeof(adc_readings) / sizeof(adc_readings.v_mc), 0b01);
+            sizeof(adc_readings) / sizeof(adc_readings.shock_l), 0b01);
 
 /* -------------------------------------------------------
     Procedures
@@ -385,9 +382,9 @@ float voltToForce(uint16_t load_read)
 
 void interpretLoadSensor(void)
 {
-    float force_load_l = voltToForce(adc_readings.load_l);
-    float force_load_r = voltToForce(adc_readings.load_r);
-    SEND_LOAD_SENSOR_READINGS(force_load_l, force_load_r);
+    // float force_load_l = voltToForce(adc_readings.load_l);
+    // float force_load_r = voltToForce(adc_readings.load_r);
+    // SEND_LOAD_SENSOR_READINGS(force_load_l, force_load_r);
 }
 
 /* CAN Message Handling */

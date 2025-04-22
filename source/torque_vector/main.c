@@ -495,9 +495,10 @@ void VCU_MAIN(void)
     setFault(ID_YES_GPS_FIX_FAULT,(fVCU.GS_FFLAG == 3));
 
     /* Send VCU messages */
-    SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int16_t)(yVCU.WM_VS[0]));
+
+    SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));
     SEND_VCU_SOC_ESTIMATE((int16_t)(100*yVCU.Batt_SOC), (int16_t)(10*yVCU.Batt_Voc));
-    SEND_DRIVE_MODES((int8_t)(yVCU.VCU_mode), (int8_t)(yVCU.VT_mode));
+    SEND_DRIVE_MODES((int8_t)(yVCU.VT_mode), (int16_t)(yVCU.WM_VS[0]));
 }
 
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)

@@ -201,13 +201,13 @@ void canRxUpdate(void)
                     can_data.VCU_torques_speeds.TO_VT_left = (int16_t) msg_data_a->VCU_torques_speeds.TO_VT_left;
                     can_data.VCU_torques_speeds.TO_VT_right = (int16_t) msg_data_a->VCU_torques_speeds.TO_VT_right;
                     can_data.VCU_torques_speeds.TO_PT_equal = (int16_t) msg_data_a->VCU_torques_speeds.TO_PT_equal;
-                    can_data.VCU_torques_speeds.WS_VS_equal = (int16_t) msg_data_a->VCU_torques_speeds.WS_VS_equal;
+                    can_data.VCU_torques_speeds.VCU_mode = (int8_t) msg_data_a->VCU_torques_speeds.VCU_mode;
                     can_data.VCU_torques_speeds.stale = 0;
                     can_data.VCU_torques_speeds.last_rx = sched.os_ticks;
                     break;
                 case ID_DRIVE_MODES:
-                    can_data.drive_modes.VCU_mode = (int8_t) msg_data_a->drive_modes.VCU_mode;
                     can_data.drive_modes.VT_mode = (int8_t) msg_data_a->drive_modes.VT_mode;
+                    can_data.drive_modes.WS_VS_equal = (int16_t) msg_data_a->drive_modes.WS_VS_equal;
                     can_data.drive_modes.stale = 0;
                     can_data.drive_modes.last_rx = sched.os_ticks;
                     break;

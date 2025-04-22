@@ -57,7 +57,8 @@ void amkPeriodic(amk_motor_t* motor)
     case AMK_STATE_OFF:
         if (motor->status.AMK_bError)
         {
-            if (AMK_CAN_ERR_ID == motor->diagnostic_num)
+            if (AMK_CAN_ERR_ID == motor->diagnostic_num ||
+                AMK_DC_BUS_ID == motor->diagnostic_num)
             {
                 amkReset(motor);
             }

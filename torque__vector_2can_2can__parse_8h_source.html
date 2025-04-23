@@ -148,9 +148,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#adbff2f9ae08575dd28ac40e613e68e48">   64</a></span><span class="preprocessor">#define DLC_GPS_TIME 8</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#aa3619bb7c64f584a3e133950a8253ae5">   65</a></span><span class="preprocessor">#define DLC_IMU_GYRO 6</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#af9d19885d32a4c9390c5d01c46bd1295">   66</a></span><span class="preprocessor">#define DLC_IMU_ACCEL 6</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2c002391792ed5a4d79b17f6de5898ac">   67</a></span><span class="preprocessor">#define DLC_VCU_TORQUES_SPEEDS 8</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2c002391792ed5a4d79b17f6de5898ac">   67</a></span><span class="preprocessor">#define DLC_VCU_TORQUES_SPEEDS 7</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a6c401fa311f1bcfcfdd6391fbf917575">   68</a></span><span class="preprocessor">#define DLC_VCU_SOC_ESTIMATE 4</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2a451590aa4da5e63bcb7cfb04ba2efa">   69</a></span><span class="preprocessor">#define DLC_DRIVE_MODES 2</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a2a451590aa4da5e63bcb7cfb04ba2efa">   69</a></span><span class="preprocessor">#define DLC_DRIVE_MODES 3</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a94913fda8a8208a2c7b11811a3bc2c2d">   70</a></span><span class="preprocessor">#define DLC_TV_CAN_STATS 4</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#ac15c18bd936616d8ce9bf7b92fe2b77f">   71</a></span><span class="preprocessor">#define DLC_FAULT_SYNC_TORQUE_VECTOR 3</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a1f870c825c64a1daab1eb854a7a2ab0c">   72</a></span><span class="preprocessor">#define DLC_TORQUEVECTOR_BL_CMD 5</span></div>
@@ -248,13 +248,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">    } while(0)</span></div>
 </div>
 <div class="foldopen" id="foldopen00152" data-start="" data-end="">
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a5c85ffdb5ba98cb34e4bdc1c605f86ff">  152</a></span><span class="preprocessor">#define SEND_VCU_TORQUES_SPEEDS(TO_VT_left_, TO_VT_right_, TO_PT_equal_, WS_VS_equal_) do {\</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#abc1ed8c30628811a195a2966b79abf76">  152</a></span><span class="preprocessor">#define SEND_VCU_TORQUES_SPEEDS(TO_VT_left_, TO_VT_right_, TO_PT_equal_, VCU_mode_) do {\</span></div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VCU_TORQUES_SPEEDS, .DLC=DLC_VCU_TORQUES_SPEEDS, .IDE=1};\</span></div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="preprocessor">        data_a-&gt;VCU_torques_speeds.TO_VT_left = TO_VT_left_;\</span></div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">        data_a-&gt;VCU_torques_speeds.TO_VT_right = TO_VT_right_;\</span></div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">        data_a-&gt;VCU_torques_speeds.TO_PT_equal = TO_PT_equal_;\</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">        data_a-&gt;VCU_torques_speeds.WS_VS_equal = WS_VS_equal_;\</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">        data_a-&gt;VCU_torques_speeds.VCU_mode = VCU_mode_;\</span></div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">        canTxSendToBack(&amp;msg);\</span></div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="preprocessor">    } while(0)</span></div>
 </div>
@@ -268,11 +268,11 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor">    } while(0)</span></div>
 </div>
 <div class="foldopen" id="foldopen00168" data-start="" data-end="">
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#a0073c7955551581ae9b219aa6c480b3a">  168</a></span><span class="preprocessor">#define SEND_DRIVE_MODES(VCU_mode_, VT_mode_) do {\</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="torque__vector_2can_2can__parse_8h.html#adafa09ab3e8ca117eb3938a8b93a2f0c">  168</a></span><span class="preprocessor">#define SEND_DRIVE_MODES(VT_mode_, WS_VS_equal_) do {\</span></div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVE_MODES, .DLC=DLC_DRIVE_MODES, .IDE=1};\</span></div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">        CanParsedData_t* data_a = (CanParsedData_t *) &amp;msg.Data;\</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="preprocessor">        data_a-&gt;drive_modes.VCU_mode = VCU_mode_;\</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="preprocessor">        data_a-&gt;drive_modes.VT_mode = VT_mode_;\</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="preprocessor">        data_a-&gt;drive_modes.VT_mode = VT_mode_;\</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="preprocessor">        data_a-&gt;drive_modes.WS_VS_equal = WS_VS_equal_;\</span></div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor">        canTxSendToBack(&amp;msg);\</span></div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="preprocessor">    } while(0)</span></div>
 </div>
@@ -382,15 +382,15 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        uint64_t TO_VT_left: 16;</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        uint64_t TO_VT_right: 16;</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        uint64_t TO_PT_equal: 16;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        uint64_t WS_VS_equal: 16;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        uint64_t VCU_mode: 8;</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno"><a class="line" href="union____attribute____.html#a8a201cc0dd96992ad1909f64b7be2872">  274</a></span>    } VCU_torques_speeds;</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="union____attribute____.html#a976fc7881952880e233bf337c63bca49">  276</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#a976fc7881952880e233bf337c63bca49">SOC_estimate</a>: 16;</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="union____attribute____.html#afc295c7ffce47e2b5b9a25fd6bdfa0e2">  277</a></span>        uint64_t <a class="code hl_variable" href="union____attribute____.html#afc295c7ffce47e2b5b9a25fd6bdfa0e2">Voc_estimate</a>: 16;</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="union____attribute____.html#a04622b53618dac78c19ab2d6b7a7329a">  278</a></span>    } vcu_soc_estimate;</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        uint64_t VCU_mode: 8;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        uint64_t VT_mode: 8;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        uint64_t VT_mode: 8;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        uint64_t WS_VS_equal: 16;</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="union____attribute____.html#a19ef825139aa858e5a973313144e9c66">  282</a></span>    } drive_modes;</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="keyword">struct </span>{</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        uint64_t can_tx_overflow: 8;</div>
@@ -666,7 +666,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_a8c20a3b0d572b6071bc2104e9a336cb6"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#a8c20a3b0d572b6071bc2104e9a336cb6">handleCallbacks</a></div><div class="ttdeci">void handleCallbacks(uint16_t id, bool latched)</div></div>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_aa1c60094ea5db2cec8e57bb40a3a1f8f"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#aa1c60094ea5db2cec8e57bb40a3a1f8f">initCANParse</a></div><div class="ttdeci">void initCANParse(void)</div><div class="ttdoc">Setup queue and message filtering.</div><div class="ttdef"><b>Definition</b> can_parse.c:19</div></div>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_ad57d03501801eed3789b1ab135dd9419"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#ad57d03501801eed3789b1ab135dd9419">send_fault</a></div><div class="ttdeci">void send_fault(uint16_t id, bool latched)</div></div>
-<div class="ttc" id="abootloader_2can_2can__parse_8h_html_a8f68820222c3f559999ca8ea7d339ec6"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a8f68820222c3f559999ca8ea7d339ec6">torquevector_bl_cmd_CALLBACK</a></div><div class="ttdeci">void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdef"><b>Definition</b> main.c:503</div></div>
+<div class="ttc" id="abootloader_2can_2can__parse_8h_html_a8f68820222c3f559999ca8ea7d339ec6"><div class="ttname"><a href="bootloader_2can_2can__parse_8h.html#a8f68820222c3f559999ca8ea7d339ec6">torquevector_bl_cmd_CALLBACK</a></div><div class="ttdeci">void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)</div><div class="ttdef"><b>Definition</b> main.c:504</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bd"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bd">car_state_t</a></div><div class="ttdeci">car_state_t</div><div class="ttdef"><b>Definition</b> can_parse.h:238</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bda1221887b4bc3514efede6a65f5c076d0">CAR_STATE_ERROR</a></div><div class="ttdeci">@ CAR_STATE_ERROR</div><div class="ttdef"><b>Definition</b> can_parse.h:244</div></div>
 <div class="ttc" id="adashboard_2can_2can__parse_8h_html_a932556dc0435011d6235977e681a19bda5c88645da0c7acd889b18f103f75d539"><div class="ttname"><a href="dashboard_2can_2can__parse_8h.html#a932556dc0435011d6235977e681a19bda5c88645da0c7acd889b18f103f75d539">CAR_STATE_READY2DRIVE</a></div><div class="ttdeci">@ CAR_STATE_READY2DRIVE</div><div class="ttdef"><b>Definition</b> can_parse.h:243</div></div>

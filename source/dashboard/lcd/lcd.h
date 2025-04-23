@@ -84,10 +84,10 @@
 #define TV_MAX_SLIP_FLT     "slip"
 #define TV_CAN_STATUS       "can"
 
-#define TV_DEADBAND_DEFAULT_VALUE     12U
+#define TV_DEADBAND_DEFAULT_VALUE     10U
 #define TV_P_GAIN_DEFAULT_VALUE       500U
 #define TV_SLIP_DEFAULT_VALUE         50U
-#define TV_TORQUE_DROP_DEFAULT_VALUE  70U
+#define TV_TORQUE_DROP_DEFAULT_VALUE  100U
 
 // Cooling Page
 #define DT_FAN_VAL         "DFan"

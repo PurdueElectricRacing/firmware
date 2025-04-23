@@ -219,7 +219,7 @@ menu_element_t tv_elements[] = {
         .object_name    = TV_P_GAIN_FLT,
         .current_value  = TV_P_GAIN_DEFAULT_VALUE,
         .min_value      = 0,
-        .max_value      = 500,
+        .max_value      = 10000,
         .increment      = 10,
         .on_change      = sendTVParameters
     },

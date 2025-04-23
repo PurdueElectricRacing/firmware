@@ -35,7 +35,7 @@ bool carInit()
     /* Set initial states */
     car = (Car_t) {0}; // Everything to zero
     car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_RAW;
+    car.torque_src = CAR_TORQUE_TV;
     car.regen_enabled = false;
     car.sdc_close = true; // We want to initialize SDC as "good"
     pchg_complete_lowpass_idx = 0;
@@ -162,6 +162,10 @@ void carPeriodic()
     //                   - brake pedal pressed and held
     //                   - start button press
 
+    // car.state = CAR_STATE_READY2DRIVE;
+    // // simulate precharge
+    // car.pchg.pchg_complete = 1;
+
     if (car.state == CAR_STATE_FATAL)
     {
         // SDC critical error has occured, open sdc
@@ -245,7 +249,7 @@ void carPeriodic()
 
             if (!can_data.drive_modes.stale && !can_data.VCU_torques_speeds.stale)
             {
-              requested_tv_mode = can_data.drive_modes.VCU_mode;
+              requested_tv_mode = can_data.VCU_torques_speeds.VCU_mode;
               t_req_tv_l = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
               t_req_tv_r = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
               t_req_equal = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
@@ -256,7 +260,7 @@ void carPeriodic()
               any_tv_msg_stale = true;
             }
 
-            if (car.torque_src == CAR_TORQUE_TV)
+            if (car.torque_src == CAR_TORQUE_TV || car.torque_src == CAR_TORQUE_TV_TEST)
             {
               setFault(ID_TV_STALE_FAULT, any_tv_msg_stale);
             }
@@ -315,18 +319,41 @@ void carPeriodic()
                     temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
                     temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
                     break;
-                case CAR_TORQUE_THROT_MAP:
-                    temp_t_req.torque_left  = t_req_equal;
-                    temp_t_req.torque_right = t_req_equal;
+                case CAR_TORQUE_TV_TEST:
+                    switch(requested_tv_mode)
+                    {
+                      case VCU_MODE_EQUAL_SPEED:
+                      case VCU_MODE_VARIABLE_SPEED:
+                        // As of now we should never enter these cases. Never command a speed request with the current settings.
+                        s_req_equal = 0;
+                        temp_t_req.torque_left = s_req_equal;
+                        temp_t_req.torque_right = s_req_equal;
+                        break;
+                      case VCU_MODE_EQUAL_TORQUE:
+                        temp_t_req.torque_left = t_req_pedal;
+                        temp_t_req.torque_right = t_req_pedal;
+                        break;
+                      case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
+                        temp_t_req.torque_left = t_req_equal;
+                        temp_t_req.torque_right = t_req_equal;
+                        break;
+                      case VCU_MODE_VARIABLE_TORQUE:
+                        temp_t_req.torque_left = t_req_tv_l;
+                        temp_t_req.torque_right = t_req_tv_r;
+                        break;
+                      case VCU_MODE_INVALID:
+                        temp_t_req.torque_left = t_req_pedal;
+                        temp_t_req.torque_right = t_req_pedal;
+                    }
                     // EV.4.2.3 - Torque algorithm
                     // Any algorithm or electronic control unit that can adjust the
                     // requested wheel torque may only lower the total driver
                     // requested torque and must not increase it
-                    if (t_req_pedal == 0)
-                    {
-                        temp_t_req.torque_left = 0;
-                        temp_t_req.torque_right = 0;
-                    }
+                    temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
+                    temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
+                    SEND_SIMULATED_TV(temp_t_req.torque_left, temp_t_req.torque_right);
+                    temp_t_req.torque_left  = t_req_pedal;
+                    temp_t_req.torque_right = t_req_pedal;
                     break;
                 case CAR_TORQUE_DAQ:
                     break;

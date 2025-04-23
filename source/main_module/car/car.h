@@ -65,7 +65,7 @@ typedef enum
     CAR_TORQUE_NONE,
     CAR_TORQUE_RAW,
     CAR_TORQUE_TV,
-    CAR_TORQUE_THROT_MAP,
+    CAR_TORQUE_TV_TEST,
     CAR_TORQUE_DAQ
 } torqueSource_t;
 

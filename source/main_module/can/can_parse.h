@@ -116,8 +116,8 @@ typedef union {
 #define DLC_LWS_STANDARD 5
 #define DLC_MAIN_MODULE_BL_CMD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
-#define DLC_VCU_TORQUES_SPEEDS 8
-#define DLC_DRIVE_MODES 2
+#define DLC_VCU_TORQUES_SPEEDS 7
+#define DLC_DRIVE_MODES 3
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -623,11 +623,11 @@ typedef union {
         uint64_t TO_VT_left: 16;
         uint64_t TO_VT_right: 16;
         uint64_t TO_PT_equal: 16;
-        uint64_t WS_VS_equal: 16;
+        uint64_t VCU_mode: 8;
     } VCU_torques_speeds;
     struct {
-        uint64_t VCU_mode: 8;
         uint64_t VT_mode: 8;
+        uint64_t WS_VS_equal: 16;
     } drive_modes;
     struct {
         uint64_t idx: 16;
@@ -823,13 +823,13 @@ typedef struct {
         int16_t TO_VT_left;
         int16_t TO_VT_right;
         int16_t TO_PT_equal;
-        int16_t WS_VS_equal;
+        int8_t VCU_mode;
         uint8_t stale;
         uint32_t last_rx;
     } VCU_torques_speeds;
     struct {
-        int8_t VCU_mode;
         int8_t VT_mode;
+        int16_t WS_VS_equal;
         uint8_t stale;
         uint32_t last_rx;
     } drive_modes;

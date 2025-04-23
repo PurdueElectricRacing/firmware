@@ -64,9 +64,9 @@
 #define DLC_GPS_TIME 8
 #define DLC_IMU_GYRO 6
 #define DLC_IMU_ACCEL 6
-#define DLC_VCU_TORQUES_SPEEDS 8
+#define DLC_VCU_TORQUES_SPEEDS 7
 #define DLC_VCU_SOC_ESTIMATE 4
-#define DLC_DRIVE_MODES 2
+#define DLC_DRIVE_MODES 3
 #define DLC_TV_CAN_STATS 4
 #define DLC_FAULT_SYNC_TORQUE_VECTOR 3
 #define DLC_TORQUEVECTOR_BL_CMD 5
@@ -149,13 +149,13 @@
         data_a->imu_accel.imu_accel_z = imu_accel_z_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_VCU_TORQUES_SPEEDS(TO_VT_left_, TO_VT_right_, TO_PT_equal_, WS_VS_equal_) do {\
+#define SEND_VCU_TORQUES_SPEEDS(TO_VT_left_, TO_VT_right_, TO_PT_equal_, VCU_mode_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_VCU_TORQUES_SPEEDS, .DLC=DLC_VCU_TORQUES_SPEEDS, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->VCU_torques_speeds.TO_VT_left = TO_VT_left_;\
         data_a->VCU_torques_speeds.TO_VT_right = TO_VT_right_;\
         data_a->VCU_torques_speeds.TO_PT_equal = TO_PT_equal_;\
-        data_a->VCU_torques_speeds.WS_VS_equal = WS_VS_equal_;\
+        data_a->VCU_torques_speeds.VCU_mode = VCU_mode_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_VCU_SOC_ESTIMATE(SOC_estimate_, Voc_estimate_) do {\
@@ -165,11 +165,11 @@
         data_a->vcu_soc_estimate.Voc_estimate = Voc_estimate_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DRIVE_MODES(VCU_mode_, VT_mode_) do {\
+#define SEND_DRIVE_MODES(VT_mode_, WS_VS_equal_) do {\
         CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DRIVE_MODES, .DLC=DLC_DRIVE_MODES, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->drive_modes.VCU_mode = VCU_mode_;\
         data_a->drive_modes.VT_mode = VT_mode_;\
+        data_a->drive_modes.WS_VS_equal = WS_VS_equal_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_TV_CAN_STATS(can_tx_overflow_, can_tx_fail_, can_rx_overflow_, can_rx_overrun_) do {\
@@ -270,15 +270,15 @@ typedef union {
         uint64_t TO_VT_left: 16;
         uint64_t TO_VT_right: 16;
         uint64_t TO_PT_equal: 16;
-        uint64_t WS_VS_equal: 16;
+        uint64_t VCU_mode: 8;
     } VCU_torques_speeds;
     struct {
         uint64_t SOC_estimate: 16;
         uint64_t Voc_estimate: 16;
     } vcu_soc_estimate;
     struct {
-        uint64_t VCU_mode: 8;
         uint64_t VT_mode: 8;
+        uint64_t WS_VS_equal: 16;
     } drive_modes;
     struct {
         uint64_t can_tx_overflow: 8;

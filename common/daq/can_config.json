@@ -242,6 +242,17 @@
                             "msg_period": 15,
                             "msg_hlp": 1,
                             "msg_pgn": 14
+                        },
+                        {
+                            "msg_name": "simulated_tv",
+                            "msg_desc": "Rear Wheel speeds from motor controllers",
+                            "signals": [
+                                {"sig_name": "left_tv", "type":"uint16_t", "unit": "rad/s", "scale":1},
+                                {"sig_name": "right_tv", "type":"uint16_t", "unit": "rad/s", "scale":1}
+                            ],
+                            "msg_period": 15,
+                            "msg_hlp": 1,
+                            "msg_pgn": 1
                         }
                     ],
                     "rx":[
@@ -654,7 +665,7 @@
                                 {"sig_name": "TO_VT_left", "type": "int16_t", "unit": "Nm", "scale": 0.01},
                                 {"sig_name": "TO_VT_right", "type": "int16_t", "unit": "Nm", "scale": 0.01},
                                 {"sig_name": "TO_PT_equal", "type": "int16_t", "unit": "Nm", "scale": 0.01},
-                                {"sig_name": "VCU_mode", "type": "int8_t", "scale": 1}
+                                {"sig_name": "VCU_mode", "type": "int8_t", "scale": 1, "choices": ["equal_speed", "equal_torque", "equal_torque_with_safety", "variable_speed", "variable_torque", "invalid"]}
                             ],
                             "msg_period": 20,
                             "msg_hlp": 1,

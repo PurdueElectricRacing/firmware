@@ -185,7 +185,7 @@ int main(void)
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 100, 750);
+    configureAnim(preflightAnimation, preflightChecks, 74, 1000);
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -245,53 +245,39 @@ void preflightChecks(void)
         //     HardFault_Handler();
         // }
         break;
-    case 6:
+    case 5:
         //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
         initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
         break;
-    case 100:
+    case 6:
         /* BMI Initialization */
         if (!BMI088_init(&bmi_config))
         {
             HardFault_Handler();
         }
         break;
-    case 103:
+    case 9:
         BMI088_powerOnAccel(&bmi_config);
         break;
-    case 157:
+    case 63:
         /* Accelerometer Init */
         if (false == BMI088_initAccel(&bmi_config))
         {
             HardFault_Handler();
         }
         break;
-    case 159:
+    case 65:
     {
         vector_3d_t accel_test_in;
         BMI088_readAccel(&bmi_config, &accel_test_in);
         if (accel_test_in.x == 0 && accel_test_in.y == 0 && accel_test_in.z == 0)
         {
-            state = 102;
+            state = 8;
         }
         break;
     }
-    case 701:
-        {
-        uint8_t num_retries = 0;
-        /* IMU Initialization */
-        if (!imu_init(&imu_h))
-        {
-            if (++num_retries > 100)
-            {
-                HardFault_Handler();
-            }
-        }
-
-        break;
-        }
     default:
-        if (state > 750)
+        if (state > 66)
         {
             /* IMU Initialization */
             if (!imu_init(&imu_h))
@@ -300,7 +286,7 @@ void preflightChecks(void)
             }
             initCANParse();
             registerPreflightComplete(1);
-            state = 750; /* prevent wrap around */
+            state = 66; /* prevent wrap around */
         }
         break;
     }

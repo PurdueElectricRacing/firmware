@@ -246,26 +246,36 @@ void preflightChecks(void)
         // }
         break;
     case 6:
+        //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
+    case 100:
         /* BMI Initialization */
         if (!BMI088_init(&bmi_config))
         {
             HardFault_Handler();
         }
         break;
-    case 100:
-        //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
-        break;
-    case 250:
+    case 103:
         BMI088_powerOnAccel(&bmi_config);
         break;
-    case 251:
+    case 157:
         /* Accelerometer Init */
         if (false == BMI088_initAccel(&bmi_config))
         {
             HardFault_Handler();
         }
         break;
+    case 159:
+    {
+        vector_3d_t accel_test_in;
+        BMI088_readAccel(&bmi_config, &accel_test_in);
+        if (accel_test_in.x == 0 && accel_test_in.y == 0 && accel_test_in.z == 0)
+        {
+            state = 102;
+        }
+        break;
+    }
     case 701:
         {
         uint8_t num_retries = 0;
@@ -277,7 +287,7 @@ void preflightChecks(void)
                 HardFault_Handler();
             }
         }
-        
+
         break;
         }
     default:
@@ -356,7 +366,7 @@ void parseIMU(void)
         GPSHandle.gyro_OK = BMI088_gyroOK(&bmi_config);
         gyro_counter = 0;
     }
-    else 
+    else
     {
         ++gyro_counter;
     }
@@ -388,7 +398,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         // xVCU.VT_DB_RAW = rxmsg.VT_DB_RAW;
         // xVCU.TC_TR_RAW = rxmsg.TC_TR_RAW;
         // xVCU.TV_PP_RAW = rxmsg.TV_PP_RAW;
-        
+
         // fVCU.CS_SFLAG = rxmsg.CS_SFLAG;
         // fVCU.TB_SFLAG = rxmsg.TB_SFLAG;
         // fVCU.SS_SFLAG = rxmsg.SS_SFLAG;
@@ -404,7 +414,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
         // fVCU.GS_FFLAG = rxmsg.GS_FFLAG;
         // fVCU.VCU_PFLAG = rxmsg.VCU_PFLAG;
     }
-    else 
+    else
     {
         parseVelocity(&GPSHandle);
     }
@@ -506,7 +516,7 @@ void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
     if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
     {
         Bootloader_ResetForFirmwareDownload();
-    }    
+    }
 }
 
 void HardFault_Handler()

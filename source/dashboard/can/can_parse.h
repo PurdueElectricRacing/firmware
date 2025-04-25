@@ -41,7 +41,7 @@ typedef union {
 #define ID_DASHBOARD_START_LOGGING 0x4000e05
 #define ID_DASH_CAN_STATS 0x10016305
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
-#define ID_DAQ_RESPONSE_DASHBOARD_VCAN 0x17ffffc5
+#define ID_UDS_RESPONSE_DASHBOARD 0x1800197c
 #define ID_MAIN_HB 0xc001901
 #define ID_REAR_MOTOR_CURRENTS_VOLTS 0x100002c1
 #define ID_ORION_INFO 0x140006b8
@@ -54,7 +54,6 @@ typedef union {
 #define ID_COOLANT_TEMPS 0x10000881
 #define ID_COOLANT_OUT 0x100008df
 #define ID_GEARBOX 0x10000901
-#define ID_DASHBOARD_BL_CMD 0x409c47e
 #define ID_SDC_STATUS 0xc000381
 #define ID_GPS_SPEED 0xc001137
 #define ID_FAULT_SYNC_PDU 0x8cb1f
@@ -64,7 +63,7 @@ typedef union {
 #define ID_FAULT_SYNC_TEST_NODE 0x8cb7f
 #define ID_SET_FAULT 0x809c83e
 #define ID_RETURN_FAULT_CONTROL 0x809c87e
-#define ID_DAQ_COMMAND_DASHBOARD_VCAN 0x14000172
+#define ID_UDS_COMMAND_DASHBOARD 0x18003271
 /* END AUTO ID DEFS */
 
 // Message DLC definitions
@@ -81,7 +80,7 @@ typedef union {
 #define DLC_DASHBOARD_START_LOGGING 1
 #define DLC_DASH_CAN_STATS 4
 #define DLC_FAULT_SYNC_DASHBOARD 3
-#define DLC_DAQ_RESPONSE_DASHBOARD_VCAN 8
+#define DLC_UDS_RESPONSE_DASHBOARD 8
 #define DLC_MAIN_HB 2
 #define DLC_REAR_MOTOR_CURRENTS_VOLTS 6
 #define DLC_ORION_INFO 7
@@ -94,7 +93,6 @@ typedef union {
 #define DLC_COOLANT_TEMPS 4
 #define DLC_COOLANT_OUT 3
 #define DLC_GEARBOX 2
-#define DLC_DASHBOARD_BL_CMD 5
 #define DLC_SDC_STATUS 2
 #define DLC_GPS_SPEED 4
 #define DLC_FAULT_SYNC_PDU 3
@@ -104,7 +102,7 @@ typedef union {
 #define DLC_FAULT_SYNC_TEST_NODE 3
 #define DLC_SET_FAULT 3
 #define DLC_RETURN_FAULT_CONTROL 2
-#define DLC_DAQ_COMMAND_DASHBOARD_VCAN 8
+#define DLC_UDS_COMMAND_DASHBOARD 8
 /* END AUTO DLC DEFS */
 
 // Message sending macros
@@ -204,10 +202,10 @@ typedef union {
         data_a->fault_sync_dashboard.latched = latched_;\
         canTxSendToBack(&msg);\
     } while(0)
-#define SEND_DAQ_RESPONSE_DASHBOARD_VCAN(daq_response_) do {\
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_DAQ_RESPONSE_DASHBOARD_VCAN, .DLC=DLC_DAQ_RESPONSE_DASHBOARD_VCAN, .IDE=1};\
+#define SEND_UDS_RESPONSE_DASHBOARD(payload_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_UDS_RESPONSE_DASHBOARD, .DLC=DLC_UDS_RESPONSE_DASHBOARD, .IDE=1};\
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
-        data_a->daq_response_DASHBOARD_VCAN.daq_response = daq_response_;\
+        data_a->uds_response_dashboard.payload = payload_;\
         canTxSendToBack(&msg);\
     } while(0)
 /* END AUTO SEND MACROS */
@@ -313,8 +311,8 @@ typedef union {
         uint64_t latched: 1;
     } fault_sync_dashboard;
     struct {
-        uint64_t daq_response: 64;
-    } daq_response_DASHBOARD_VCAN;
+        uint64_t payload: 64;
+    } uds_response_dashboard;
     struct {
         uint64_t car_state: 8;
         uint64_t precharge_state: 1;
@@ -422,10 +420,6 @@ typedef union {
         uint64_t r_temp: 8;
     } gearbox;
     struct {
-        uint64_t cmd: 8;
-        uint64_t data: 32;
-    } dashboard_bl_cmd;
-    struct {
         uint64_t IMD: 1;
         uint64_t BMS: 1;
         uint64_t BSPD: 1;
@@ -472,8 +466,8 @@ typedef union {
         uint64_t id: 16;
     } return_fault_control;
     struct {
-        uint64_t daq_command: 64;
-    } daq_command_DASHBOARD_VCAN;
+        uint64_t payload: 64;
+    } uds_command_dashboard;
     uint8_t raw_data[8];
 } __attribute__((packed)) CanParsedData_t;
 /* END AUTO MESSAGE STRUCTURE */
@@ -613,10 +607,6 @@ typedef struct {
         uint32_t last_rx;
     } gearbox;
     struct {
-        uint8_t cmd;
-        uint32_t data;
-    } dashboard_bl_cmd;
-    struct {
         uint8_t IMD;
         uint8_t BMS;
         uint8_t BSPD;
@@ -667,17 +657,16 @@ typedef struct {
         uint16_t id;
     } return_fault_control;
     struct {
-        uint64_t daq_command;
-    } daq_command_DASHBOARD_VCAN;
+        uint64_t payload;
+    } uds_command_dashboard;
 } can_data_t;
 /* END AUTO CAN DATA STRUCTURE */
 
 extern can_data_t can_data;
 
 /* BEGIN AUTO EXTERN CALLBACK */
-extern void daq_command_DASHBOARD_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a);
 extern void coolant_out_CALLBACK(CanParsedData_t* msg_data_a);
-extern void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a);
+extern void uds_command_dashboard_CALLBACK(uint64_t payload);
 extern void handleCallbacks(uint16_t id, bool latched);
 extern void set_fault_daq(uint16_t id, bool value);
 extern void return_fault_control(uint16_t id);

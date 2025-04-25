@@ -1,5 +1,4 @@
 
-#if 0
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rtc/rtc.h"
 #include "common/uds/uds.h"
@@ -72,25 +71,5 @@ void uds_handle_sub_command_callback(uint8_t cmd, uint64_t data)
         case DAQ_BL_CMD_NTP_GET:
             uds_process_cmd_ntp_get();
             break;
-
-        case DAQ_BL_CMD_LOG_ENABLE:
-            dh.log_enable_uds = !!data;
-            break;
-        case DAQ_BL_CMD_LOG_STATUS:
-            if (get_log_enable())
-                debug_printf("Logging enabled\n");
-            else
-                debug_printf("Logging disabled\n");
-            break;
-
-        case DAQ_BL_CMD_LED_DISCO:
-            //PHAL_writeGPIO(GPIO1_PORT, GPIO1_PIN, (frame.data >> 0) & 1);
-            //PHAL_writeGPIO(GPIO2_PORT, GPIO2_PIN, (frame.data >> 1) & 1);
-            PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, (data >> 2) & 1);
-            PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, (data >> 3) & 1);
-            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, (data >> 4) & 1);
-            PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, (data >> 5) & 1);
-            break;
     }
 }
-#endif

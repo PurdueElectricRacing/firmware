@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
@@ -8,6 +7,7 @@
 #include "common/phal_F4_F7/spi/spi.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
+#include "common/uds/uds.h"
 
 #include "main.h"
 
@@ -244,6 +244,11 @@ void preflightChecks(void)
         // {
         //     HardFault_Handler();
         // }
+        break;
+    case 5:
+        udsInit();
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
         break;
     case 6:
         /* BMI Initialization */
@@ -499,14 +504,6 @@ void VCU_MAIN(void)
     SEND_VCU_TORQUES_SPEEDS((int16_t)(100*yVCU.TO_VT[0]), (int16_t)(100*yVCU.TO_VT[1]), (int16_t)(100*yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));
     SEND_VCU_SOC_ESTIMATE((int16_t)(100*yVCU.Batt_SOC), (int16_t)(10*yVCU.Batt_Voc));
     SEND_DRIVE_MODES((int8_t)(yVCU.VT_mode), (int16_t)(yVCU.WM_VS[0]));
-}
-
-void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
-    {
-        Bootloader_ResetForFirmwareDownload();
-    }    
 }
 
 void HardFault_Handler()

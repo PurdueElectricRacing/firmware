@@ -1,7 +1,6 @@
 
 #include "bms.h"
 #include "can_parse.h"
-#include "daq.h"
 #include "common_defs.h"
 
 #ifdef CUSTOM_BMS

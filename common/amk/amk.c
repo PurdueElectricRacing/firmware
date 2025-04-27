@@ -14,15 +14,15 @@
 
  /**
  * Procedure: amkInit()
- * 
+ *
  * @brief Initializes all module objects
- * 
+ *
  * Must be called before all other AMK module procedures
- * 
+ *
  * @param motor Pointer to the current motor
  * @param pchg_complete Pointer to the car's precharge status
  * @param id PER chosen ID
- * 
+ *
  */
 
 void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id)
@@ -32,8 +32,8 @@ void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id)
         .pchg_complete = pchg_complete,
         .id = id,
         .torque_set_ppt_nom = ZERO_DECI_NM,
-        .torque_lim_pos_ppt_nom = ZERO_DECI_NM,
-        .torque_lim_neg_ppt_nom = TORQUE_LIM_NEG_DECI_NM
+        .torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT,
+        .torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT
     };
 
 } /* amkInit() */
@@ -41,11 +41,11 @@ void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id)
 
  /**
  * Procedure: amkPeriodic()
- * 
+ *
  * @brief Run the AMK state machine
- * 
+ *
  * @param motor Pointer to the current motor
- * 
+ *
  */
 
 void amkPeriodic(amk_motor_t* motor)
@@ -57,7 +57,8 @@ void amkPeriodic(amk_motor_t* motor)
     case AMK_STATE_OFF:
         if (motor->status.AMK_bError)
         {
-            if (AMK_CAN_ERR_ID == motor->diagnostic_num)
+            if (AMK_CAN_ERR_ID == motor->diagnostic_num ||
+                AMK_DC_BUS_ID == motor->diagnostic_num)
             {
                 amkReset(motor);
             }
@@ -82,7 +83,7 @@ void amkPeriodic(amk_motor_t* motor)
             }
         }
         break;
-    
+
     case AMK_STATE_INIT:
         /* System is ready to run */
         if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete))
@@ -104,7 +105,7 @@ void amkPeriodic(amk_motor_t* motor)
             motor->state = AMK_STATE_OFF;
         }
         break;
-    
+
     case AMK_STATE_RUNNING:
         /* System is ready to run */
         if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete))
@@ -115,6 +116,9 @@ void amkPeriodic(amk_motor_t* motor)
                 setFault(motor->error_fault_id, true);
                 motor->state = AMK_STATE_OFF;
             }
+            // Set torque limit
+            motor->torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT;
+            motor->torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT;
         }
         /* System is not ready to run */
         else
@@ -131,11 +135,11 @@ void amkPeriodic(amk_motor_t* motor)
 
 /**
  * Procedure: amkSendSetpoints()
- * 
+ *
  * @brief Sends the setpoints message to the inverter
- * 
+ *
  * @param motor Pointer to the current motor
- * 
+ *
  */
 
  static void amkSendSetpoints(amk_motor_t* motor)
@@ -146,12 +150,18 @@ void amkPeriodic(amk_motor_t* motor)
             motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
             motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
         motor->control.AMK_bErrorReset = false;
+        SEND_INVA_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
+            motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
+            motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
     }
     else if (INVB_ID == motor->id)
     {
         SEND_INVB_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
             motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
             motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
+        SEND_INVB_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
+                motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
+                motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
         motor->control.AMK_bErrorReset = false;
     }
     else
@@ -164,14 +174,14 @@ void amkPeriodic(amk_motor_t* motor)
 
 /**
  * Procedure: amkOff()
- * 
+ *
  * @brief Moves the motor to the OFF state
- *      
+ *
  * This will forcibly move the state machine to the OFF
  *  state and prevent torque requests
- * 
+ *
  * @param motor Pointer to the current motor
- * 
+ *
  */
 
 static void amkOff(amk_motor_t* motor)
@@ -182,27 +192,28 @@ static void amkOff(amk_motor_t* motor)
     motor->torque_set_ppt_nom = ZERO_DECI_NM;
     motor->torque_lim_pos_ppt_nom = ZERO_DECI_NM;
     motor->torque_lim_neg_ppt_nom = TORQUE_LIM_NEG_DECI_NM;
-    motor->state = AMK_STATE_OFF;    
+    motor->state = AMK_STATE_OFF;
 
 } /* amkOff() */
 
 
 /**
  * Procedure: amkSetTorque()
- * 
+ *
  * @brief Updates the motor parameters
- *      
+ *
  * This will update the motor object with all newly received
  *  data from the CAN bus. Will send fault if any data is stale
- * 
+ *
  * @param motor Pointer to the current motor
  * @param torque_setpoint requested torque in percent of nominal
- * 
+ *
  */
 
 void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
 {
-    if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT 
+    //todo change these too
+    if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT
         || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT) {
         return;
     }
@@ -211,24 +222,20 @@ void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
     torque_setpoint *= 10;
 
     motor->torque_set_ppt_nom = torque_setpoint;
-    motor->torque_lim_pos_ppt_nom = 1000;
-
-    /* NOTE: For some reason it cannot be 0, so do -0.1% (according to UIUC's team) */
-    motor->torque_lim_neg_ppt_nom = -1;
 
 } /* amkSetTorque() */
 
 
  /**
  * Procedure: amkGetData()
- * 
+ *
  * @brief Updates the motor parameters
- *      
+ *
  * This will update the motor object with all newly received
  *  data from the CAN bus. Will send fault if any data is stale
- * 
+ *
  * @param motor Pointer to the current motor
- * 
+ *
  */
 
 static void amkGetData(amk_motor_t* motor)
@@ -311,14 +318,14 @@ static void amkGetData(amk_motor_t* motor)
 
  /**
  * Procedure: amkReset()
- * 
+ *
  * @brief Resets the AMK
- * 
+ *
  * This will set the motor parameters up such that upon
  *  the next setpoints TX, the inverter will reset itself
- * 
+ *
  * @param motor Pointer to the current motor
- * 
+ *
  */
 
 static void amkReset(amk_motor_t* motor)

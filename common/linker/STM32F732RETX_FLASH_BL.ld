@@ -48,7 +48,7 @@ PROVIDE(_eboot_flash = 0x08004000); /* End of the bootloader flash, this is wher
 MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 256K
-  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 512K
+  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 16K
 }
 
 /* Sections */

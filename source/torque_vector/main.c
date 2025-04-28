@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 #include <stdint.h>
 
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
+||||||| parent of 76f97043 (compiles)
+/* System Includes */
+#include "common/bootloader/bootloader_common.h"
+=======
+/* System Includes */
+>>>>>>> 76f97043 (compiles)
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/spi/spi.h"
@@ -11,9 +18,82 @@
 
 #include "main.h"
 
+<<<<<<< HEAD
 GPIOInitConfig_t gpio_config[] =
 {
     /* Status Indicators */
+||||||| parent of 07dc676a (tmp)
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+
+uint8_t collect_test[100] = {0};
+
+GPIOInitConfig_t gpio_config[] = {
+    // Status Indicators
+=======
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+
+#include "bsxlite_interface.h"
+
+#include "bmi088.h"
+#include "imu.h"
+#include "gps.h"
+
+#include "ac_ext.h"
+#include "ac_compute_R.h"
+
+#include "em.h"
+#include "em_pp.h"
+
+#include "tv.h"
+#include "tv_pp.h"
+#include "uds.h"
+
+uint8_t collect_test[100] = {0};
+
+GPIOInitConfig_t gpio_config[] = {
+    // Status Indicators
+>>>>>>> 07dc676a (tmp)
     GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -216,6 +296,41 @@ void preflightChecks(void)
         }
         NVIC_EnableIRQ(CAN1_RX0_IRQn);
         break;
+<<<<<<< HEAD
+||||||| parent of 07dc676a (tmp)
+    case 2:
+        /* USART initialization */
+        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
+    break;
+    case 3:
+        // GPS Initialization
+        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+    break;
+    case 5:
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
+=======
+    case 2:
+        /* USART initialization */
+        if (!PHAL_initUSART(&huart_gps, APB1ClockRateHz))
+        {
+            HardFault_Handler();
+        }
+    break;
+    case 3:
+        // GPS Initialization
+        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+    break;
+    case 5:
+        udsInit();
+        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+        break;
+>>>>>>> 07dc676a (tmp)
     case 1:
         /* SPI initialization */
         if (false == PHAL_SPI_init(&spi_config))
@@ -497,6 +612,7 @@ void VCU_MAIN(void)
     SEND_DRIVE_MODES((int8_t)(yVCU.VT_mode), (int16_t)(yVCU.WM_VS[0]));
 }
 
+<<<<<<< HEAD
 void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 {
     if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
@@ -505,6 +621,15 @@ void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
     }
 }
 
+||||||| parent of 76f97043 (compiles)
+void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
+{
+    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
+}
+
+=======
+>>>>>>> 76f97043 (compiles)
 void HardFault_Handler()
 {
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);

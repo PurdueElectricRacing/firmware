@@ -14,6 +14,7 @@
 #include "daq_can.h"
 #include "can_parse.h"
 #include "can_flags.h"
+#include "uds.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -167,8 +168,8 @@ int main()
         HardFault_Handler();
 
     initCANParse();
+    udsInit();
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
-    //uds_init();
     daq_hub_init();
     configure_interrupts();
 
@@ -248,8 +249,6 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
 
             // TODO: cannot guarantee that messages will be processed as fast as it logs, so currently keeping a separate queue for messages to be processed
 
-// Disable UDS for now
-#if 0
             // TODO create a UDS CAN ID mask
             if (rx->msg_id == (ID_UDS_RESPONSE_A_BOX         | CAN_EFF_FLAG) ||
                 rx->msg_id == (ID_UDS_RESPONSE_DASHBOARD     | CAN_EFF_FLAG) ||
@@ -258,20 +257,15 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
                 rx->msg_id == (ID_UDS_RESPONSE_TORQUE_VECTOR | CAN_EFF_FLAG))
             {
                 if ((dh.eth_tcp_state == ETH_TCP_ESTABLISHED) && (xQueueSendToBackFromISR(q_tcp_tx, rx, &xHigherPriorityTaskWoken) != pdPASS))
-                {
-                    daq_catch_error();
-                }
+                    dh.tcp_tx_overflow++;
             }
 
             // Check for CAN messages intended for DAQ, which is only really UDS
             if (rx->msg_id == (ID_UDS_COMMAND_DAQ | CAN_EFF_FLAG))
             {
                 if (xQueueSendToBackFromISR(q_can1_rx, rx, &xHigherPriorityTaskWoken) != pdPASS)
-                {
-                    daq_catch_error();
-                }
+                    dh.can1_rx_overflow++;
             }
-#endif
 
             bCommitWrite(&b_rx_can, 1);
         }

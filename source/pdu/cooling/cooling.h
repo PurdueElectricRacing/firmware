@@ -10,8 +10,13 @@
  */
 #ifndef _COOLING_H_
 #define _COOLING_H_
+
 #include "can_parse.h"
-#include "common/phal_F4_F7/can/can.h"
+
+#define GPS_SPEED_MOVING           5  // TODO determine
+#define MOTOR_COOLING_ENABLE_TEMP 60
+#define MOTOR_COOLING_MAX_TEMP   100
+#define BATT_COOLING_ENABLE_TEMP  25
 
 typedef struct {
     uint16_t fan1_speed; // value from 0-100
@@ -25,7 +30,7 @@ typedef struct {
 
 /**
  * @brief Initializes cooling_request struct values to 0
- * 
+ *
  * @param
  * @return
  */
@@ -33,7 +38,7 @@ void coolingInit();
 
 /**
  * @brief Periodic function that sets switches and fan speeds based off of values in the cooling_request struct
- * 
+ *
  * @param
  * @return
  */
@@ -41,7 +46,7 @@ void update_cooling_periodic();
 
 /**
  * @brief Callback function for cooling_driver_request message sent from dashboard, updates values in cooling_request struct based off signal values
- * 
+ *
  * @param *msg_data_a CAN msg data
  * @return
  */

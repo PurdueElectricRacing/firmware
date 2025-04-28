@@ -987,9 +987,12 @@
                         }
                     ],
                     "rx": [
-                        {"msg_name": "pdu_bl_cmd" , "callback": true},
-                        {"msg_name":"cooling_driver_request", "callback": true},
-                        {"msg_name":"main_hb"}
+                        {"msg_name": "pdu_bl_cmd", "callback": true},
+                        {"msg_name": "cooling_driver_request", "callback": true},
+                        {"msg_name": "main_hb"},
+                        {"msg_name": "gps_speed"},
+                        {"msg_name": "max_cell_temp"},
+                        {"msg_name": "rear_motor_temps"}
                     ]
                 },
                 {

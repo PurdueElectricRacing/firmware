@@ -170,6 +170,7 @@ typedef struct
     uint16_t shock_l;
     uint16_t shock_r;
     uint16_t therm_mux_d;
+    uint16_t internal_therm;
     // uint16_t load_l;
     // uint16_t load_r;
 }__attribute__((packed)) ADCReadings_t;

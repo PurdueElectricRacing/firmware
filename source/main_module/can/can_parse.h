@@ -50,6 +50,7 @@ typedef union {
 #define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_REAR_WHEEL_SPEEDS 0x4000381
 #define ID_SIMULATED_TV 0x4000041
+#define ID_PCB_TEMP 0x10000841
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_DAQ_RESPONSE_MAIN_MODULE_VCAN 0x17ffffc1
 #define ID_INVA_CRIT 0x282
@@ -104,6 +105,7 @@ typedef union {
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_REAR_WHEEL_SPEEDS 4
 #define DLC_SIMULATED_TV 4
+#define DLC_PCB_TEMP 1
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_DAQ_RESPONSE_MAIN_MODULE_VCAN 8
 #define DLC_INVA_CRIT 8
@@ -335,6 +337,12 @@ typedef union {
         CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
         data_a->simulated_tv.left_tv = left_tv_;\
         data_a->simulated_tv.right_tv = right_tv_;\
+        canTxSendToBack(&msg);\
+    } while(0)
+#define SEND_PCB_TEMP(internal_therm_) do {\
+        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=ID_PCB_TEMP, .DLC=DLC_PCB_TEMP, .IDE=1};\
+        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\
+        data_a->pcb_temp.internal_therm = internal_therm_;\
         canTxSendToBack(&msg);\
     } while(0)
 #define SEND_FAULT_SYNC_MAIN_MODULE(idx_, latched_) do {\
@@ -593,6 +601,9 @@ typedef union {
         uint64_t left_tv: 16;
         uint64_t right_tv: 16;
     } simulated_tv;
+    struct {
+        uint64_t internal_therm: 8;
+    } pcb_temp;
     struct {
         uint64_t idx: 16;
         uint64_t latched: 1;

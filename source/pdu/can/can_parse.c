@@ -53,6 +53,27 @@ void canRxUpdate()
                 can_data.main_hb.stale = 0;
                 can_data.main_hb.last_rx = sched.os_ticks;
                 break;
+            case ID_GPS_SPEED:
+                can_data.gps_speed.gps_speed = (int16_t) msg_data_a->gps_speed.gps_speed;
+                can_data.gps_speed.gps_heading = (int16_t) msg_data_a->gps_speed.gps_heading;
+                can_data.gps_speed.stale = 0;
+                can_data.gps_speed.last_rx = sched.os_ticks;
+                break;
+            case ID_MAX_CELL_TEMP:
+                can_data.max_cell_temp.max_temp = (int16_t) msg_data_a->max_cell_temp.max_temp;
+                can_data.max_cell_temp.stale = 0;
+                can_data.max_cell_temp.last_rx = sched.os_ticks;
+                break;
+            case ID_REAR_MOTOR_TEMPS:
+                can_data.rear_motor_temps.left_mot_temp = msg_data_a->rear_motor_temps.left_mot_temp;
+                can_data.rear_motor_temps.right_mot_temp = msg_data_a->rear_motor_temps.right_mot_temp;
+                can_data.rear_motor_temps.left_inv_temp = msg_data_a->rear_motor_temps.left_inv_temp;
+                can_data.rear_motor_temps.right_inv_temp = msg_data_a->rear_motor_temps.right_inv_temp;
+                can_data.rear_motor_temps.left_igbt_temp = msg_data_a->rear_motor_temps.left_igbt_temp;
+                can_data.rear_motor_temps.right_igbt_temp = msg_data_a->rear_motor_temps.right_igbt_temp;
+                can_data.rear_motor_temps.stale = 0;
+                can_data.rear_motor_temps.last_rx = sched.os_ticks;
+                break;
             case ID_FAULT_SYNC_MAIN_MODULE:
                 can_data.fault_sync_main_module.idx = msg_data_a->fault_sync_main_module.idx;
                 can_data.fault_sync_main_module.latched = msg_data_a->fault_sync_main_module.latched;
@@ -101,6 +122,15 @@ void canRxUpdate()
     CHECK_STALE(can_data.main_hb.stale,
                 sched.os_ticks, can_data.main_hb.last_rx,
                 UP_MAIN_HB);
+    CHECK_STALE(can_data.gps_speed.stale,
+                sched.os_ticks, can_data.gps_speed.last_rx,
+                UP_GPS_SPEED);
+    CHECK_STALE(can_data.max_cell_temp.stale,
+                sched.os_ticks, can_data.max_cell_temp.last_rx,
+                UP_MAX_CELL_TEMP);
+    CHECK_STALE(can_data.rear_motor_temps.stale,
+                sched.os_ticks, can_data.rear_motor_temps.last_rx,
+                UP_REAR_MOTOR_TEMPS);
     /* END AUTO STALE CHECKS */
 }
 
@@ -123,18 +153,22 @@ bool initCANFilter()
     CAN1->sFilterRegister[0].FR2 = (ID_COOLING_DRIVER_REQUEST << 3) | 4;
     CAN1->FA1R |= (1 << 1);    // configure bank 1
     CAN1->sFilterRegister[1].FR1 = (ID_MAIN_HB << 3) | 4;
-    CAN1->sFilterRegister[1].FR2 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[1].FR2 = (ID_GPS_SPEED << 3) | 4;
     CAN1->FA1R |= (1 << 2);    // configure bank 2
-    CAN1->sFilterRegister[2].FR1 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
-    CAN1->sFilterRegister[2].FR2 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[2].FR1 = (ID_MAX_CELL_TEMP << 3) | 4;
+    CAN1->sFilterRegister[2].FR2 = (ID_REAR_MOTOR_TEMPS << 3) | 4;
     CAN1->FA1R |= (1 << 3);    // configure bank 3
-    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
-    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[3].FR1 = (ID_FAULT_SYNC_MAIN_MODULE << 3) | 4;
+    CAN1->sFilterRegister[3].FR2 = (ID_FAULT_SYNC_DASHBOARD << 3) | 4;
     CAN1->FA1R |= (1 << 4);    // configure bank 4
-    CAN1->sFilterRegister[4].FR1 = (ID_SET_FAULT << 3) | 4;
-    CAN1->sFilterRegister[4].FR2 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[4].FR1 = (ID_FAULT_SYNC_A_BOX << 3) | 4;
+    CAN1->sFilterRegister[4].FR2 = (ID_FAULT_SYNC_TORQUE_VECTOR << 3) | 4;
     CAN1->FA1R |= (1 << 5);    // configure bank 5
-    CAN1->sFilterRegister[5].FR1 = (ID_DAQ_COMMAND_PDU_VCAN << 3) | 4;
+    CAN1->sFilterRegister[5].FR1 = (ID_FAULT_SYNC_TEST_NODE << 3) | 4;
+    CAN1->sFilterRegister[5].FR2 = (ID_SET_FAULT << 3) | 4;
+    CAN1->FA1R |= (1 << 6);    // configure bank 6
+    CAN1->sFilterRegister[6].FR1 = (ID_RETURN_FAULT_CONTROL << 3) | 4;
+    CAN1->sFilterRegister[6].FR2 = (ID_DAQ_COMMAND_PDU_VCAN << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)

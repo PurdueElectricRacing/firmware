@@ -47,10 +47,10 @@ void update_cooling_periodic() {
 static void calculate_cooling_periodic()
 {
     // GPS not stale implies GPS fix
-    bool car_moving = !can_data.gps_speed.stale && can_data.gps_speed.gps_speed <= GPS_SPEED_MOVING;
+    bool not_moving = !can_data.gps_speed.stale && can_data.gps_speed.gps_speed <= GPS_SPEED_MOVING;
 
     // PUMP1: Battery pumps
-    // Enable if above 25C
+    // Enable if above 30C
     // TODO handle stale
     if (!can_data.max_cell_temp.stale &&
         (can_data.max_cell_temp.max_temp >= BATT_COOLING_ENABLE_TEMP * 10))
@@ -64,11 +64,11 @@ static void calculate_cooling_periodic()
 
     // FAN1: Battery fans
     // Enable battery fans only when car stopped since there is little airflow
-    if (car_moving)
+    if (not_moving)
     {
         cr.fan1_status = true;
         if (!cr.fan1_speed) // Don't override dash request values
-        cr.fan1_speed = 100; // Default to 100% duty
+            cr.fan1_speed = 100; // Default to 100% duty
     }
     else
     {
@@ -96,11 +96,11 @@ static void calculate_cooling_periodic()
          can_data.rear_motor_temps.right_mot_temp >= MOTOR_COOLING_MAX_TEMP) ||
         ((can_data.rear_motor_temps.left_mot_temp >= MOTOR_COOLING_ENABLE_TEMP ||
          can_data.rear_motor_temps.right_mot_temp >= MOTOR_COOLING_ENABLE_TEMP) &&
-         car_moving)))
+         not_moving)))
     {
         cr.fan2_status = true;
         if (!cr.fan2_speed) // Don't override dash request values
-        cr.fan2_speed = 100;
+            cr.fan2_speed = 100;
     }
     else
     {

@@ -13,10 +13,10 @@
 
 #include "can_parse.h"
 
-#define GPS_SPEED_MOVING           5  // TODO determine
+#define GPS_SPEED_MOVING           2  // TODO determine
 #define MOTOR_COOLING_ENABLE_TEMP 60
 #define MOTOR_COOLING_MAX_TEMP   100
-#define BATT_COOLING_ENABLE_TEMP  25
+#define BATT_COOLING_ENABLE_TEMP  30
 
 typedef struct {
     uint16_t fan1_speed; // value from 0-100

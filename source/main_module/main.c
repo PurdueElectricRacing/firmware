@@ -146,6 +146,7 @@ ADCChannelConfig_t adc_channel_config[] =
     {.channel=SHOCK_POT_L_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=SHOCK_POT_R_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     {.channel=THERM_MUX_OUT_ADC_CHNL,  .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     // {.channel=LOAD_L_ADC_CHNL,         .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
     // {.channel=LOAD_R_ADC_CHNL,         .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
 };
@@ -164,6 +165,7 @@ void interpretLoadSensor(void);
 float voltToForce(uint16_t load_read);
 void can2Relaycan1();
 void calibrate_lws(void);
+void send_pcb_temp(void);
 
 int main(void)
 {
@@ -197,6 +199,7 @@ int main(void)
     taskCreate(send_shockpots, 15);
     taskCreate(update_lights, 500);
     taskCreate(parseMCDataPeriodic, 15);
+    taskCreate(send_pcb_temp, 500);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     /* Background Tasks */
@@ -207,6 +210,18 @@ int main(void)
     schedStart();
 
     return 0;
+}
+
+void send_pcb_temp(void)
+{
+    // DS8626 Rev 10 pg 139
+    // Reference voltage is 3.3
+    // 12 bit adc max is 4095
+    // Voltage at 25 degrees c is 0.76
+    // Average slope is 2.5mV per degree c
+    float vsense = (adc_readings.internal_therm / (float)4095) * 3.3;
+    float temp = ((vsense - 0.76) / 0.0025) + 25;
+    SEND_PCB_TEMP((uint8_t)temp);
 }
 
 /**

@@ -253,6 +253,21 @@
                             "msg_period": 15,
                             "msg_hlp": 1,
                             "msg_pgn": 1
+                        },
+                        {
+                            "msg_name": "pcb_temp",
+                            "msg_desc": "Main board temperature",
+                            "signals": [
+                                {
+                                    "sig_name": "internal_therm",
+                                    "sig_desc": "Temperature from internal thermistor",
+                                    "type": "uint8_t",
+                                    "unit": "C"
+                                }
+                            ],
+                            "msg_period": 500,
+                            "msg_hlp": 4,
+                            "msg_pgn": 33
                         }
                     ],
                     "rx":[

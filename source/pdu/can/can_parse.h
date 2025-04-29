@@ -52,7 +52,7 @@
 #define DLC_OTHER_CURRENTS 8
 #define DLC_COOLANT_OUT 3
 #define DLC_FLOWRATES 2
-#define DLC_PDU_TEMPS 2
+#define DLC_PDU_TEMPS 1
 #define DLC_PDU_CAN_STATS 4
 #define DLC_FAULT_SYNC_PDU 3
 #define DLC_DAQ_RESPONSE_PDU_VCAN 8
@@ -216,7 +216,7 @@ typedef union {
         uint64_t drivetrain_flowrate: 8;
     } flowrates;
     struct {
-        uint64_t internal_therm: 16;
+        uint64_t internal_therm: 8;
     } pdu_temps;
     struct {
         uint64_t can_tx_overflow: 8;

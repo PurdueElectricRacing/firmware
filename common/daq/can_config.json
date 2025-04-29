@@ -977,7 +977,7 @@
                                 {
                                     "sig_name": "internal_therm",
                                     "sig_desc": "Temperature from internal thermistor",
-                                    "type": "uint16_t",
+                                    "type": "uint8_t",
                                     "unit": "C"
                                 }
                             ],

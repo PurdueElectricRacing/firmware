@@ -170,7 +170,6 @@ float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
 void pollBrakeStatus();
-void checkADCSafety();
 extern void HardFault_Handler();
 
 // Communication queues
@@ -275,19 +274,6 @@ void preflightChecks(void) {
             registerPreflightComplete(1);
             state = 255; // prevent wrap around
     }
-}
-
-// check if ADC fails and goes high/oscillates
-void checkADCSafety()
-{
-    // max voltage going into adc
-    // SEND_RAW_THROTTLE_BRAKE(raw_adc_values.t1, raw_adc_values.t2, raw_adc_values.b1, raw_adc_values.b2, 0);
-    // if (raw_adc_values.t1 > 4000 || raw_adc_values.lv_3v3_sense > 3000 || raw_adc_values.lv_3v3_sense > 4000)
-    // {
-    //     // DASH_ADC_THRTL_FAIL
-    //     setFault(ID_DASH_ADC_THRTL_FAULT, 1);
-    //     //if (!(raw_adc_values.lv_3v3_sense > 1.0 && raw_adc_values.lv_3v3_sense < 10.0) && !((raw_adc_values.lv_5v_sense > 1.0 && raw_adc_values.lv_5v_sense < 10.0)))
-    // }
 }
 
 /**

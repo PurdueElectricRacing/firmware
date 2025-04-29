@@ -1109,7 +1109,7 @@ void raceTelemetryUpdate() {
     NXT_setValue(THROT_BAR, (int) ((pedal_values.throttle / 4095.0) * 100));
 
     // update the speed
-    if (can_data.gps_speed.gps_speed.stale) {
+    if (can_data.gps_speed.stale) {
         NXT_setText(SPEED, "S");
     } else {
         //uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph

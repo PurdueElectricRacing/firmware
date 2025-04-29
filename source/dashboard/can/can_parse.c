@@ -134,8 +134,6 @@ void canRxUpdate()
                 can_data.precharge_hb.last_rx = sched.os_ticks;
                 break;
             case ID_REAR_WHEEL_SPEEDS:
-                can_data.rear_wheel_speeds.left_speed_mc = msg_data_a->rear_wheel_speeds.left_speed_mc;
-                can_data.rear_wheel_speeds.right_speed_mc = msg_data_a->rear_wheel_speeds.right_speed_mc;
                 can_data.rear_wheel_speeds.left_speed_sensor = msg_data_a->rear_wheel_speeds.left_speed_sensor;
                 can_data.rear_wheel_speeds.right_speed_sensor = msg_data_a->rear_wheel_speeds.right_speed_sensor;
                 can_data.rear_wheel_speeds.stale = 0;

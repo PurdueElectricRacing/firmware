@@ -74,7 +74,7 @@
 #define DLC_LWS_STANDARD 5
 #define DLC_ORION_CURRENTS_VOLTS 4
 #define DLC_MAIN_HB 2
-#define DLC_REAR_WHEEL_SPEEDS 8
+#define DLC_REAR_WHEEL_SPEEDS 4
 #define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_MAX_CELL_TEMP 2
 #define DLC_INVA_CRIT 8
@@ -316,8 +316,6 @@ typedef union {
         uint64_t precharge_state: 1;
     } main_hb;
     struct {
-        uint64_t left_speed_mc: 16;
-        uint64_t right_speed_mc: 16;
         uint64_t left_speed_sensor: 16;
         uint64_t right_speed_sensor: 16;
     } rear_wheel_speeds;
@@ -431,8 +429,6 @@ typedef struct {
         uint32_t last_rx;
     } main_hb;
     struct {
-        uint16_t left_speed_mc;
-        uint16_t right_speed_mc;
         uint16_t left_speed_sensor;
         uint16_t right_speed_sensor;
         uint8_t stale;

@@ -456,9 +456,9 @@ void parseMCDataPeriodic(void)
     // uint16_t l_speed = (wheel_speeds.l->rad_s / (2*PI));
     // uint16_t r_speed = (wheel_speeds.l->rad_s / (2*PI));
     wheelSpeedsPeriodic();
-    SEND_REAR_WHEEL_SPEEDS(car.motor_l.rpm, car.motor_r.rpm,
-                                    wheel_speeds.left_rad_s_x100,
-                                    wheel_speeds.right_rad_s_x100);
+    // SEND_REAR_WHEEL_SPEEDS(car.motor_l.rpm, car.motor_r.rpm,
+    //                                 wheel_speeds.left_rad_s_x100,
+    //                                 wheel_speeds.right_rad_s_x100);
     static uint32_t last_curr_t;
     if (sched.os_ticks - last_curr_t >= 100)
     {

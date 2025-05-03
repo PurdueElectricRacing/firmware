@@ -116,6 +116,8 @@ usart_init_t lte_usart_config = {
 };
 DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
 
+extern daq_hub_t dh;
+
 // Static buffer allocations
 volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT];
 b_tail_t tails[RX_TAIL_COUNT];
@@ -127,6 +129,7 @@ b_handle_t b_rx_can = {
 
 timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
 defineStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
+// defineStaticQueue()
 defineStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT); // CAN messages RX'd to DAQ
 defineStaticSemaphore(spi1_lock);
 
@@ -163,8 +166,8 @@ int main()
                  CAN_IER_BOFIE | CAN_IER_EPVIE |
                  CAN_IER_EWGIE;
 
-    if (!PHAL_initCAN(CAN2, false, MCAN_BPS))
-        HardFault_Handler();
+    // if (!PHAL_initCAN(CAN2, false, MCAN_BPS))
+    //     HardFault_Handler();
 
     initCANParse();
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
@@ -272,7 +275,6 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
                 }
             }
 #endif
-
             bCommitWrite(&b_rx_can, 1);
         }
         else
@@ -290,11 +292,11 @@ void CAN1_RX0_IRQHandler()
     can_rx_irq_handler(CAN1);
 }
 
-void CAN2_RX0_IRQHandler()
-{
-    /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
-    can_rx_irq_handler(CAN2);
-}
+// void CAN2_RX0_IRQHandler()
+// {
+//     /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
+//     can_rx_irq_handler(CAN2);
+// }
 
 //volatile uint32_t last_err_stat = 0;
 volatile uint32_t error_irq_cnt = 0;

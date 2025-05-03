@@ -213,7 +213,7 @@ int8_t bGetTailForRead(b_handle_t *b, uint8_t t_idx, void** rx_loc, uint32_t *co
 int8_t bCommitRead(b_handle_t *b, uint8_t t_idx, uint32_t items_read)
 {
     b_tail_t *t = b->tails + t_idx;
-    if (!t->active) return -1; // Gotcha
+    if (!t->active) return -1; // Gotcha3
     // Verify number of items read
     uint32_t head = b->_head;
     uint32_t max_contig_items = 0;

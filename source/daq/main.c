@@ -138,7 +138,7 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 void shutdown(void);
 
 int main()
-{
+   {
     osKernelInitialize();
 
     bConstruct(&b_rx_can, sizeof(*can_rx_buffer), sizeof(can_rx_buffer));

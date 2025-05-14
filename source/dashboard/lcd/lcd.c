@@ -1211,17 +1211,21 @@ void raceTelemetryUpdate() {
 }
 
 void raceUpCallback() {
-    // turn on both pumps
+    // turn on both pumps and fans
     cooling_elements[COOLING_B_PUMP_INDEX].current_value = 1;
     cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value = 100;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 100;
 
     sendCoolingParameters();
 }
 
 void raceDownCallback() {
-    // turn off both pumps
+    // turn off both pumps and fans
     cooling_elements[COOLING_B_PUMP_INDEX].current_value = 0;
     cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value = 0;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 0;
 
     sendCoolingParameters();
 }

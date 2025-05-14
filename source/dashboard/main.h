@@ -43,10 +43,10 @@ typedef struct __attribute__((packed))
     uint16_t b2;
     uint16_t shock_left;
     uint16_t shock_right;
-    // uint16_t lv_5v_sense;
-    // uint16_t lv_3v3_sense;
-    // uint16_t lv_12v_sense;
-    // uint16_t lv_24_v_sense;
+    uint16_t lv_5v_sense;
+    uint16_t lv_3v3_sense;
+    uint16_t lv_12v_sense;
+    uint16_t lv_24_v_sense;
     // uint16_t load_l;
     // uint16_t load_r;
     // uint16_t brk1_thr;

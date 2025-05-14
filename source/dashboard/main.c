@@ -77,10 +77,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(BRK_2_DIG_GPIO_Port, BRK_2_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     // LV Status
-    // GPIO_INIT_ANALOG(LV_5V_V_SENSE_GPIO_Port, LV_5V_V_SENSE_Pin),
-    // GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
-    // GPIO_INIT_ANALOG(LV_12_V_SENSE_GPIO_Port, LV_12_V_SENSE_Pin),
-    // GPIO_INIT_ANALOG(LV_24_V_SENSE_GPIO_Port, LV_24_V_SENSE_Pin),
+    GPIO_INIT_ANALOG(LV_5V_V_SENSE_GPIO_Port, LV_5V_V_SENSE_Pin),
+    GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
+    GPIO_INIT_ANALOG(LV_12_V_SENSE_GPIO_Port, LV_12_V_SENSE_Pin),
+    GPIO_INIT_ANALOG(LV_24_V_SENSE_GPIO_Port, LV_24_V_SENSE_Pin),
     GPIO_INIT_INPUT(LV_24_V_FAULT_GPIO_Port, LV_24_V_FAULT_Pin, GPIO_INPUT_OPEN_DRAIN),
 };
 
@@ -103,10 +103,10 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRK_2_ADC_CHNL,         .rank = 4,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = SHOCK_POT_L_ADC_CH,     .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = SHOCK_POT_R_ADC_CH,     .rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = LV_3V3_V_SENSE_ADC_CHNL,.rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_3V3_V_SENSE_ADC_CHNL,.rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LOAD_FL_ADC_CH,         .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LOAD_FR_ADC_CH,         .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = BRK1_THR_ADC_CHNL,      .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
@@ -209,7 +209,7 @@ int main(void){
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
     taskCreate(sendTVParameters, 500);
-    // taskCreate(sendVoltageData, 5000);
+    taskCreate(sendVoltageData, 5000);
     taskCreateBackground(lcdTxUpdate);
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
@@ -659,7 +659,6 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
  */
 void sendVoltageData()
 {
-    #if 0
     float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
 
     float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;
@@ -676,7 +675,6 @@ void sendVoltageData()
 
     // Scale to 100x before sending
     SEND_DASHBOARD_VOLTAGE(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
-    #endif
 }
 
 void pollBrakeStatus() {

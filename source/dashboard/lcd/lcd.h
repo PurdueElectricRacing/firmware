@@ -21,6 +21,8 @@
 
 // Info
 #define MPS_TO_MPH (2.237F)
+#define RPM_TO_MPH (0.00595F)
+#define WHEEL_RADIUS (8) // inches
 
 // Driver Configuration Page
 #define DRIVER1_LIST "t1"
@@ -74,11 +76,18 @@
 #define FAULT_NONE_STRING "NONE\0"
 
 // TV Settings Page Values
-#define TV_INTENSITY_FLT   "inten"
-#define TV_PROPORTION_FLT  "pval"
-#define TV_DEAD_TXT        "dead"
-#define TV_ENABLE_OP       "tv"
-#define TV_CAN_STATUS      "can"
+#define TV_PERMIT_MODE_TXT  "permit"
+#define TV_CONTROL_MODE_TXT "control"
+#define TV_DEADBAND_TXT     "dead"
+#define TV_P_GAIN_FLT       "pgain"
+#define TV_TORQUE_DROP_FLT  "tdrop"
+#define TV_MAX_SLIP_FLT     "slip"
+#define TV_CAN_STATUS       "can"
+
+#define TV_DEADBAND_DEFAULT_VALUE     10U
+#define TV_P_GAIN_DEFAULT_VALUE       500U
+#define TV_SLIP_DEFAULT_VALUE         50U
+#define TV_TORQUE_DROP_DEFAULT_VALUE  100U
 
 // Cooling Page
 #define DT_FAN_VAL         "DFan"
@@ -97,10 +106,11 @@
 #define BATT_VOLT    "volt"
 #define BATT_CURR    "amp"
 #define MOT_TEMP     "MTemp"
-#define MC_TEMP      "MCTemp"
+#define MC_TEMP      "IGBTemp" // IGBT Temp now
 #define CAR_STAT     "stat"
 #define SPEED        "speed"
 #define RACE_TV_ON   "tv"
+#define AMK_MOTOR_OVERLOAD  "amk"
 
 // Logging Page
 #define LOG_OP             "log"

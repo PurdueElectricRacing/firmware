@@ -68,7 +68,7 @@ void daq_create_threads(void)
 {
     createThread(daq_heartbeat); // HB
     createThread(sd_update_periodic); // SD WRITE
-    createThread(eth_update_periodic); // SD WRITE
+    // createThread(eth_update_periodic); // SD WRITE
     createThread(can_send_periodic); // CAN1 TX
     //createThread(uds_receive_periodic); // DAQ CAN RX
 }

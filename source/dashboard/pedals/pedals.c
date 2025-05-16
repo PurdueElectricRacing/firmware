@@ -23,8 +23,8 @@ uint16_t b2_final;
 // TODO: tune these values for the new pedals
 // ! WARNING: DAQ VARIABLE, IF EEPROM ENABLED, VALUE WILL CHANGE
 pedal_calibration_t pedal_calibration = {  // These values are given from 0-4095
-    .t1_min = 1200, .t1_max = 1690,
-    .t2_min = 900, .t2_max = 1350,
+    .t1_min = 980, .t1_max = 1600,
+    .t2_min = 1550, .t2_max = 2050,
     .b1_min = 475, .b1_max = 1490,
     .b2_min = 500, .b2_max = 1490,
 };

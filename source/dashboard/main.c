@@ -30,8 +30,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_INPUT(BRK1_THR_GPIO_Port, BRK1_THR_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_INPUT(BRK2_THR_GPIO_Port, BRK2_THR_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     // CAN
     GPIO_INIT_CANRX_PD0,
@@ -57,8 +55,11 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
 
     // Normal Force
-    GPIO_INIT_ANALOG(LOAD_FL_GPIO_Port, LOAD_FL_Pin),
-    GPIO_INIT_ANALOG(LOAD_FR_GPIO_Port, LOAD_FR_Pin),
+    // GPIO_INIT_ANALOG(LOAD_FL_GPIO_Port, LOAD_FL_Pin),
+    // GPIO_INIT_ANALOG(LOAD_FR_GPIO_Port, LOAD_FR_Pin),
+
+    // GPIO_INIT_ANALOG(BRK1_THR_GPIO_Port, BRK1_THR_Pin),
+    // GPIO_INIT_ANALOG(BRK1_THR_GPIO_Port, BRK1_THR_Pin),
 
     // LCD
     GPIO_INIT_USART1TX_PA9,
@@ -72,6 +73,9 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(ENC_B_GPIO_Port, ENC_B_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(DAQ_SWITCH_GPIO_Port, DAQ_SWITCH_Pin, GPIO_INPUT_OPEN_DRAIN),
 
+    GPIO_INIT_INPUT(BRK_1_DIG_GPIO_Port, BRK_1_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(BRK_2_DIG_GPIO_Port, BRK_2_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
+
     // LV Status
     GPIO_INIT_ANALOG(LV_5V_V_SENSE_GPIO_Port, LV_5V_V_SENSE_Pin),
     GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
@@ -84,7 +88,7 @@ volatile raw_adc_values_t raw_adc_values;
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .clock_prescaler = ADC_CLK_PRESC_6,
+    .clock_prescaler = ADC_CLK_PRESC_2,
     .resolution      = ADC_RES_12_BIT,
     .data_align      = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode  = true,
@@ -99,14 +103,14 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRK_2_ADC_CHNL,         .rank = 4,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = SHOCK_POT_L_ADC_CH,     .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = SHOCK_POT_R_ADC_CH,     .rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 7,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_3V3_V_SENSE_ADC_CHNL,.rank = 8,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 9,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LOAD_FL_ADC_CH,         .rank = 11, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LOAD_FR_ADC_CH,         .rank = 12, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK1_THR_ADC_CHNL,      .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK2_THR_ADC_CHNL,      .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_3V3_V_SENSE_ADC_CHNL,.rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    // {.channel = LOAD_FL_ADC_CH,         .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    // {.channel = LOAD_FR_ADC_CH,         .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    // {.channel = BRK1_THR_ADC_CHNL,      .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    // {.channel = BRK2_THR_ADC_CHNL,      .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
@@ -117,7 +121,7 @@ dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lcd = {
     .baud_rate          = LCD_BAUD_RATE,
     .word_length        = WORD_8,
-    .stop_bits          = SB_ONE, 
+    .stop_bits          = SB_ONE,
     .parity             = PT_NONE,
     .hw_flow_ctl        = HW_DISABLE,
     .ovsample           = OV_16,
@@ -129,16 +133,14 @@ usart_init_t lcd = {
     .rx_dma_cfg         = &usart_rx_dma_config
 };
 
-// Clock Configuration
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               = CLOCK_SOURCE_HSE,
-    .use_pll                    = false,
-    .vco_output_rate_target_hz  = 160000000,
-    .system_clock_target_hz     = TargetCoreClockrateHz,
-    .ahb_clock_target_hz        = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       = (TargetCoreClockrateHz / (1)),
+    .clock_source               =CLOCK_SOURCE_HSI,
+    .use_pll                    =false,
+    .system_clock_target_hz     =TargetCoreClockrateHz,
+    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -178,7 +180,6 @@ int main(void){
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
     /* HAL Initilization */
-    PHAL_trimHSI(HSI_TRIM_DASHBOARD);
     if (0 != PHAL_configureClockRates(&clock_config))
     {
         HardFault_Handler();
@@ -204,10 +205,10 @@ int main(void){
     taskCreate(handleDashboardInputs, 50);
     taskCreate(heartBeatTask, 100);
     taskCreate(sendShockpots, 15);
-    taskCreate(interpretLoadSensor, 15);
+    // taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
-    taskCreate(sendTVParameters, 2000);
+    taskCreate(sendTVParameters, 500);
     taskCreate(sendVoltageData, 5000);
     taskCreateBackground(lcdTxUpdate);
     taskCreateBackground(canTxUpdate);
@@ -277,21 +278,24 @@ void preflightChecks(void) {
 
 /**
  * @brief Processes and sends shock potentiometer readings
- * 
+ *
  * Converts raw ADC values from left and right shock potentiometers into parsed displacement values
  * and sends them through CAN bus. Values are scaled linearly and adjusted for droop.
  */
+int16_t shock_l_parsed;
+int16_t shock_r_parsed;
 void sendShockpots()
 {
     uint16_t shock_l = raw_adc_values.shock_left;
     uint16_t shock_r = raw_adc_values.shock_right;
-    int16_t shock_l_parsed;
-    int16_t shock_r_parsed;
+
     // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
     shock_l_parsed =  -1 * ((POT_MAX_DIST - (int16_t)((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
     shock_r_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
     SEND_SHOCK_FRONT(shock_l_parsed, shock_r_parsed);
 }
+
+// jose was here
 
 void preflightAnimation(void) {
     // Controls external LEDs since they are more visible when dash is in car
@@ -301,7 +305,7 @@ void preflightAnimation(void) {
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-    
+
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
@@ -358,16 +362,18 @@ float voltToForce(uint16_t load_read) {
 }
 
 void interpretLoadSensor(void) {
+    #if 0
     float force_load_l = voltToForce(raw_adc_values.load_l);
     float force_load_r = voltToForce(raw_adc_values.load_r);
     //send a can message w/ minimal force info
     //every 15 milliseconds
     SEND_LOAD_SENSOR_READINGS_DASH(force_load_l, force_load_r);
+    #endif
 }
 
 /**
  * @brief Updates system LED indicators and CAN stats
- * 
+ *
  * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
  * Handles periodic CAN statistics transmission.
  */
@@ -375,7 +381,7 @@ void heartBeatLED()
 {
     static uint8_t imd_prev_latched;
     static uint8_t bms_prev_latched;
-    
+
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
 
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH) {
@@ -394,7 +400,7 @@ void heartBeatLED()
         if (can_data.precharge_hb.IMD) {
             imd_prev_latched = 1;
         }
-            
+
         if (can_data.precharge_hb.BMS) {
             bms_prev_latched = 1;
         }
@@ -407,10 +413,14 @@ void heartBeatLED()
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !bms_prev_latched);
 
 
-   static uint8_t trig;
-   if (trig) SEND_DASH_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                                can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                                can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    static uint8_t trig;
+    if (trig) {
+        SEND_DASH_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+                            can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                            can_stats.rx_of,
+                            can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    }
+
     trig = !trig;
 }
 
@@ -419,12 +429,9 @@ static volatile uint32_t last_input_time;
 void EXTI9_5_IRQHandler(void) {
     // EXTI9 (ENCODER B) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR9) {
-        if (!(sched.os_ticks - last_input_time < 50) && !input_state.update_page) {
-            encoderISR();
-            input_state.update_page = 1;
-        }
+      encoderISR();
 
-        last_input_time = sched.os_ticks;
+
         EXTI->PR |= EXTI_PR_PR9;        // Clear the interrupt pending bit for EXTI9
     }
 }
@@ -433,19 +440,16 @@ void EXTI15_10_IRQHandler() {
     // EXTI10 (ENCODER A) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR10)
     {
-        if (!(sched.os_ticks - last_input_time < 50) && !input_state.update_page) {
-            encoderISR();
-            input_state.update_page = 1;
-        }
+        encoderISR();
 
-        last_input_time = sched.os_ticks;
+        // last_input_time = sched.os_ticks;
         EXTI->PR |= EXTI_PR_PR10;       // Clear the interrupt pending bit for EXTI10
     }
 
     // EXTI14 (UP Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.up_button = 1;      // Set flag for up button
         }
 
@@ -456,7 +460,7 @@ void EXTI15_10_IRQHandler() {
     // EXTI13 (DOWN button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR13)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.down_button = 1;    // Set flag for down button
         }
 
@@ -467,7 +471,7 @@ void EXTI15_10_IRQHandler() {
     // EXTI12 (SELECT button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR12)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.select_button = 1;  // Set flag for select button
         }
 
@@ -475,9 +479,10 @@ void EXTI15_10_IRQHandler() {
         EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
     }
 
+    // EXTI11 (START button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR11)
     {
-        if (!(sched.os_ticks - last_input_time < 100)) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
             input_state.start_button = 1;  // Set flag for start button
         }
 
@@ -489,7 +494,7 @@ void EXTI15_10_IRQHandler() {
 
 /**
  * @brief Initialize encoder to zero position
- * 
+ *
  * Reads initial encoder state from GPIO pins and sets position to zero.
  *
  * @note Without this function, the encoder cannot track the first direction
@@ -505,14 +510,20 @@ void zeroEncoder() {
 
 /**
  * @brief ISR for rotary encoder state changes
- * 
+ *
  * Updates encoder position based on Gray code transitions:
  * - CW increments position with LCD page wrapping
  * - CCW decrements with wrapping
- * 
+ *
  * @note Called on encoder pin state changes
  */
 void encoderISR() {
+  // Just give up for a bit to debounce
+  if (sched.os_ticks - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS)
+  {
+    input_state.debounce_ticks = sched.os_ticks;
+    return;
+  }
     // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
     static const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
         { 0, -1,  1,  0},
@@ -526,7 +537,9 @@ void encoderISR() {
     uint8_t current_state = (raw_enc_a | (raw_enc_b << 1)); // enc_a and enc_b are flipped to reverse direction
 
     // Get direction from the state transition table
-    int8_t direction = encoder_transition_table[input_state.prev_encoder_position][current_state];
+    // int8_t direction = encoder_transition_table[input_state.prev_encoder_position][current_state];
+    int8_t direction = 1;
+    // if (current_state == 1 && )
 
     if (direction != 0) {
         input_state.encoder_position += direction;
@@ -537,8 +550,10 @@ void encoderISR() {
             input_state.encoder_position += LCD_NUM_PAGES;
         }
     }
-    
+
     input_state.prev_encoder_position = current_state;
+    input_state.update_page = 1;
+    input_state.debounce_ticks = sched.os_ticks;
 }
 
 /**
@@ -612,7 +627,7 @@ void enableInterrupts()
 
 /**
  * @brief Called periodically to send commands to the Nextion LCD display via USART
- * 
+ *
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
 uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
@@ -637,7 +652,7 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 
 /**
  * @brief Reads ADC values and sends scaled voltage data for different voltage rails
- * 
+ *
  * Converts raw ADC values to actual voltages using voltage divider calculations
  * for 3.3V, 5V, 12V and 24V rails. Scales values by 100 before sending.
  * Resistor values must be manually updated if hardware changes.
@@ -645,7 +660,7 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
 void sendVoltageData()
 {
     float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
-    
+
     float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;
     float vin_3v3 = adc_voltage * (LV_3V3_PULLUP + LV_3V3_PULLDOWN) / LV_3V3_PULLDOWN;
 
@@ -657,7 +672,7 @@ void sendVoltageData()
 
     adc_voltage = raw_adc_values.lv_24_v_sense * adc_to_voltage;
     float vin_24v = adc_voltage * (LV_24V_PULLUP + LV_24V_PULLDOWN) / LV_24V_PULLDOWN;
-    
+
     // Scale to 100x before sending
     SEND_DASHBOARD_VOLTAGE(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
 }

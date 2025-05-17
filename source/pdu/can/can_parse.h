@@ -34,6 +34,9 @@
 #define ID_PDU_BL_CMD 0x409c53e
 #define ID_COOLING_DRIVER_REQUEST 0xc0002c5
 #define ID_MAIN_HB 0xc001901
+#define ID_GPS_SPEED 0xc001137
+#define ID_MAX_CELL_TEMP 0xc04e604
+#define ID_REAR_MOTOR_TEMPS 0x10000301
 #define ID_FAULT_SYNC_MAIN_MODULE 0x8ca01
 #define ID_FAULT_SYNC_DASHBOARD 0x8cac5
 #define ID_FAULT_SYNC_A_BOX 0x8ca44
@@ -59,6 +62,9 @@
 #define DLC_PDU_BL_CMD 5
 #define DLC_COOLING_DRIVER_REQUEST 5
 #define DLC_MAIN_HB 2
+#define DLC_GPS_SPEED 4
+#define DLC_MAX_CELL_TEMP 2
+#define DLC_REAR_MOTOR_TEMPS 6
 #define DLC_FAULT_SYNC_MAIN_MODULE 3
 #define DLC_FAULT_SYNC_DASHBOARD 3
 #define DLC_FAULT_SYNC_A_BOX 3
@@ -157,6 +163,9 @@
 #define STALE_THRESH 5 / 2 // 5 / 2 would be 250% of period
 /* BEGIN AUTO UP DEFS (Update Period)*/
 #define UP_MAIN_HB 500
+#define UP_GPS_SPEED 40
+#define UP_MAX_CELL_TEMP 500
+#define UP_REAR_MOTOR_TEMPS 1000
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) if(!stale && \
@@ -247,6 +256,21 @@ typedef union {
         uint64_t precharge_state: 1;
     } main_hb;
     struct {
+        uint64_t gps_speed: 16;
+        uint64_t gps_heading: 16;
+    } gps_speed;
+    struct {
+        uint64_t max_temp: 16;
+    } max_cell_temp;
+    struct {
+        uint64_t left_mot_temp: 8;
+        uint64_t right_mot_temp: 8;
+        uint64_t left_inv_temp: 8;
+        uint64_t right_inv_temp: 8;
+        uint64_t left_igbt_temp: 8;
+        uint64_t right_igbt_temp: 8;
+    } rear_motor_temps;
+    struct {
         uint64_t idx: 16;
         uint64_t latched: 1;
     } fault_sync_main_module;
@@ -301,6 +325,27 @@ typedef struct {
         uint8_t stale;
         uint32_t last_rx;
     } main_hb;
+    struct {
+        int16_t gps_speed;
+        int16_t gps_heading;
+        uint8_t stale;
+        uint32_t last_rx;
+    } gps_speed;
+    struct {
+        int16_t max_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } max_cell_temp;
+    struct {
+        uint8_t left_mot_temp;
+        uint8_t right_mot_temp;
+        uint8_t left_inv_temp;
+        uint8_t right_inv_temp;
+        uint8_t left_igbt_temp;
+        uint8_t right_igbt_temp;
+        uint8_t stale;
+        uint32_t last_rx;
+    } rear_motor_temps;
     struct {
         uint16_t idx;
         uint8_t latched;

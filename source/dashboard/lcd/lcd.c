@@ -15,14 +15,14 @@
 volatile page_t curr_page;                   // Current page displayed on the LCD
 volatile page_t prev_page;                   // Previous page displayed on the LCD
 uint16_t cur_fault_buf_ndx;                  // Current index in the fault buffer
-uint8_t fault_time_displayed;                // Amount of units of time that the fault has been shown to the driver
+volatile uint8_t fault_time_displayed;                // Amount of units of time that the fault has been shown to the driver
 volatile uint16_t fault_buf[5] = {           // Buffer of displayed faults
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
-};   
+};
 char *errorText;                             // Pointer to data to display for the Error, Warning, and Critical Fault codes
-extern pedal_values_t pedal_values;          // Global from pedals module for throttle display 
+extern pedal_values_t pedal_values;          // Global from pedals module for throttle display
 extern q_handle_t q_fault_history;           // Global queue from fault library for fault history
-extern dashboard_input_state_t input_state;  // Global dashboard input states 
+extern volatile dashboard_input_state_t input_state;  // Global dashboard input states
 extern brake_status_t brake_status;          // Global brake status struct
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
@@ -51,6 +51,7 @@ void tvPageUpdate();
 void tvMoveUp();
 void tvMoveDown();
 void tvSelect();
+void tvSetEnumNames();
 
 // Faults Page Functions
 void faultsPageUpdate();
@@ -63,6 +64,8 @@ void faultsClearButton_CALLBACK();
 // Race Page Functions
 void racePageUpdate();
 void raceSelect();
+void raceUpCallback(); // ! temp function to turn on pumps
+void raceDownCallback(); // ! temp function to turn off pumps
 
 // Warning/Error/Fatal Page Functions
 void errorPageSelect();
@@ -83,7 +86,7 @@ void setFaultIndicator(uint16_t fault, char *element);
 
 // Page handlers array stored in flash
 const page_handler_t page_handlers[] = { // Order must match page_t enum
-    [PAGE_RACE]        = {racePageUpdate, NULL, NULL, raceSelect, raceTelemetryUpdate},         // No move handlers, telemetry is passive
+    [PAGE_RACE]        = {racePageUpdate, raceUpCallback, raceDownCallback, raceSelect, raceTelemetryUpdate},         // No move handlers, telemetry is passive
     [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
     [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
     [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
@@ -92,9 +95,9 @@ const page_handler_t page_handlers[] = { // Order must match page_t enum
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
     [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
     [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate},                  // Calibration is passive
-    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL},                                        // Preflight is passive 
+    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL},                                        // Preflight is passive
     [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler
-    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler 
+    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL},                             // Error pages share a select handler
     [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL}                              // Error pages share a select handler
 };
 
@@ -110,14 +113,14 @@ menu_element_t race_elements[] = {
 
 menu_page_t race_page = {
     .elements            = race_elements,
-    .num_elements        = sizeof(race_elements) / sizeof(race_elements[0]), 
+    .num_elements        = sizeof(race_elements) / sizeof(race_elements[0]),
     .current_index       = 0,
     .is_element_selected = false
 };
 
 typedef enum {
     COOLING_DT_FAN_INDEX  = 0,
-    COOLING_DT_PUMP_INDEX = 1, 
+    COOLING_DT_PUMP_INDEX = 1,
     COOLING_B_FAN_INDEX   = 2,
     COOLING_B_PUMP_INDEX  = 3,
 } cooling_elements_t;
@@ -140,7 +143,7 @@ menu_element_t cooling_elements[] = {
     },
     [COOLING_B_FAN_INDEX] = {
         .type           = ELEMENT_VAL,
-        .object_name    = B_FAN_VAL, 
+        .object_name    = B_FAN_VAL,
         .current_value  = 0,
         .min_value      = 0,
         .max_value      = 100,
@@ -163,46 +166,80 @@ menu_page_t cooling_page = {
 };
 
 typedef enum {
-    TV_INTENSITY_INDEX  = 0,
-    TV_PROPORTION_INDEX = 1, 
-    TV_DEAD_INDEX       = 2,
-    TV_ENABLE_INDEX     = 3
+    TV_VCU_PERMIT_INDEX  = 0,
+    TV_VCU_CONTROL_INDEX = 1,
+    TV_DEADBAND_INDEX    = 2,
+    TV_P_GAIN_INDEX      = 3,
+    TV_TORQUE_DROP_INDEX = 4,
+    TV_MAX_SLIP_INDEX    = 5,
 } tv_elements_t;
+
+typedef enum {
+    TV_PERMIT_NONE = 0,
+    TV_PERMIT_VARIABLE= 1,
+} tv_permit_modes_t;
+
+typedef enum {
+    TV_SPEED_CONTROL_MODE = 0,
+    TV_TORQUE_CONTROL_MODE = 1
+} tv_control_modes_t;
+
 
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
-    [TV_INTENSITY_INDEX] = {
-        .type           = ELEMENT_FLT,
-        .object_name    = TV_INTENSITY_FLT,
-        .current_value  = 0,
-        .min_value      = 0,
-        .max_value      = 100, // decimal shifted left by 1
-        .increment      = 5,
-        .on_change      = NULL // TV Params Sent Periodically
-    },
-    [TV_PROPORTION_INDEX] = {
-        .type           = ELEMENT_FLT,
-        .object_name    = TV_PROPORTION_FLT,
-        .current_value  = 40,
-        .min_value      = 0,
-        .max_value      = 100, // decimal shifted left by 1
-        .increment      = 5,
-        .on_change      = NULL // TV Params Sent Periodically
-    },
-    [TV_DEAD_INDEX] = {
+    [TV_VCU_PERMIT_INDEX] = {  // Not using the OPTION type here to display the text instead of the value
         .type           = ELEMENT_VAL,
-        .object_name    = TV_DEAD_TXT,
-        .current_value  = 12,
-        .min_value      = 0,
-        .max_value      = 30,
+        .object_name    = TV_PERMIT_MODE_TXT,
+        .current_value  = TV_PERMIT_VARIABLE, // Default to variable
+        .min_value      = TV_PERMIT_NONE,
+        .max_value      = TV_PERMIT_VARIABLE,
         .increment      = 1,
-        .on_change      = NULL // TV Params Sent Periodically
+        .on_change      = sendTVParameters
     },
-    [TV_ENABLE_INDEX] = {
-        .type           = ELEMENT_OPTION,
-        .object_name    = TV_ENABLE_OP,
-        .current_value  = 0,
-        .on_change      = NULL // TV Params Sent Periodically
+    [TV_VCU_CONTROL_INDEX] = { // Not using the OPTION type here to display the text instead of the value
+        .type           = ELEMENT_VAL,
+        .object_name    = TV_CONTROL_MODE_TXT,
+        .current_value  = TV_TORQUE_CONTROL_MODE, // Default to torque control
+        .min_value      = TV_SPEED_CONTROL_MODE,
+        .max_value      = TV_TORQUE_CONTROL_MODE,
+        .increment      = 1,
+        .on_change      = sendTVParameters
+    },
+    [TV_DEADBAND_INDEX] = {
+        .type           = ELEMENT_VAL,
+        .object_name    = TV_DEADBAND_TXT,
+        .current_value  = TV_DEADBAND_DEFAULT_VALUE,
+        .min_value      = 0,
+        .max_value      = 25,
+        .increment      = 1,
+        .on_change      = sendTVParameters
+    },
+    [TV_P_GAIN_INDEX] = {
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_P_GAIN_FLT,
+        .current_value  = TV_P_GAIN_DEFAULT_VALUE,
+        .min_value      = 0,
+        .max_value      = 10000,
+        .increment      = 10,
+        .on_change      = sendTVParameters
+    },
+    [TV_TORQUE_DROP_INDEX] = {
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_TORQUE_DROP_FLT,
+        .current_value  = TV_SLIP_DEFAULT_VALUE,
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 2,
+        .on_change      = sendTVParameters
+    },
+    [TV_MAX_SLIP_INDEX] = {
+        .type           = ELEMENT_FLT,
+        .object_name    = TV_MAX_SLIP_FLT,
+        .current_value  = TV_TORQUE_DROP_DEFAULT_VALUE,
+        .min_value      = 0,
+        .max_value      = 100,
+        .increment      = 2,
+        .on_change      = sendTVParameters
     }
 };
 
@@ -221,7 +258,7 @@ menu_element_t faults_elements[] = {
     },
     [1] =  {
         .type         = ELEMENT_BUTTON,
-        .object_name  = FAULT2_BUTTON, 
+        .object_name  = FAULT2_BUTTON,
         .on_change    = faultsClearButton_CALLBACK // clear fault
     },
     [2] =  {
@@ -360,7 +397,7 @@ void initLCD() {
 
 /**
  * @brief Updates LCD display page based on encoder position
- * 
+ *
  * Key behaviors:
  * - Updates current page based on encoder for non-error pages
  * - Maintains display of error pages when active
@@ -368,7 +405,8 @@ void initLCD() {
 void updatePage() {
     // Only update the encoder if we are on a "selectable" page
     bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
-    
+
+    // Only update prev_page for non-error pages
     if (!is_error_page) {
         curr_page = input_state.encoder_position;
         fault_time_displayed = 0;
@@ -379,8 +417,7 @@ void updatePage() {
         return;
     }
 
-    // Only update prev_page for non-error pages
-    if (!is_error_page) {
+    if (!is_error_page) { // Must come after redundant page check
         prev_page = curr_page;
     }
 
@@ -438,10 +475,12 @@ void updatePage() {
         return;
     }
 
-    // Call update handler if available 
+    // Call update handler if available
     if (page_handlers[curr_page].update != NULL) {
         page_handlers[curr_page].update();
     }
+
+    lcdTxUpdate();
 }
 
 void moveUp() {
@@ -485,7 +524,7 @@ void selectItem() {
     if (curr_page > PAGE_COUNT && curr_page < 0) {
         return;
     }
-    
+
     if (page_handlers[curr_page].telemetry != NULL) {
         page_handlers[curr_page].telemetry();
     }
@@ -522,8 +561,10 @@ void calibrationTelemetryUpdate() {
     uint16_t throttle_dev = (throttle_diff * 1000) / 4095.0;
     NXT_setValue(CALIBRATION_THROTTLE_DEV_VAL, throttle_dev);
 
-    uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
-    uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
+    //uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
+    //uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
+    uint16_t brake1_thresh = 0;
+    uint16_t brake2_thresh = 0;
 
     // 2 updates left in the queue, updaate infrequent items at 1/3 the rate
     switch (update_group) {
@@ -559,7 +600,6 @@ void calibrationTelemetryUpdate() {
             update_group = 0;
             break;
     }
-    
 }
 
 
@@ -567,23 +607,24 @@ void calibrationTelemetryUpdate() {
  * @brief Sends TV parameters to TV using current values from tv_elements array
  */
 void sendTVParameters() {
-    SEND_DASHBOARD_VCU_PARAMETERS(tv_elements[TV_ENABLE_INDEX].current_value,
-                                 tv_elements[TV_DEAD_INDEX].current_value,
-                                 tv_elements[TV_INTENSITY_INDEX].current_value,
-                                 tv_elements[TV_PROPORTION_INDEX].current_value,
-                                0,
-                                0);
+    SEND_DASHBOARD_VCU_PARAMETERS(
+        tv_elements[TV_VCU_PERMIT_INDEX].current_value,
+        tv_elements[TV_VCU_CONTROL_INDEX].current_value,
+        tv_elements[TV_DEADBAND_INDEX].current_value,
+        (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
+        tv_elements[TV_TORQUE_DROP_INDEX].current_value,
+        tv_elements[TV_MAX_SLIP_INDEX].current_value);
 }
 
 /**
  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
  */
 void sendCoolingParameters() {
-  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
-                              cooling_elements[COOLING_DT_FAN_INDEX].current_value,
-                              0, // TODO: remove (deprecated)
-                              cooling_elements[COOLING_B_PUMP_INDEX].current_value,
-                              cooling_elements[COOLING_B_FAN_INDEX].current_value);
+  SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_B_PUMP_INDEX].current_value,
+                              cooling_elements[COOLING_B_FAN_INDEX].current_value,
+                              cooling_elements[COOLING_DT_PUMP_INDEX].current_value, // TODO: remove (deprecated)
+                              0,
+                              cooling_elements[COOLING_DT_FAN_INDEX].current_value);
 }
 
 /**
@@ -600,14 +641,22 @@ void sendLoggingParameters() {
  * screen according to fault priorities and display timing requirements.
  */
 void updateFaultDisplay() {
-    if ((curr_page == PAGE_ERROR || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL))) {
-        if (++fault_time_displayed > 8) {
+    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)) {
+        fault_time_displayed++;
+        uint8_t fault_time_percentage = (uint8_t)(100 - (fault_time_displayed / 8.0) * 100);
+        NXT_setValue(TIME_BAR, fault_time_percentage);
+        lcdTxUpdate();
+
+        if (fault_time_displayed > 8) { // reset after 8 cycles
+            fault_time_displayed = 0;
             curr_page = prev_page;
             prev_page = PAGE_PREFLIGHT;
             updatePage();
+            lcdTxUpdate();
+            return;
         }
     } else {
-        fault_time_displayed = 0;
+        fault_time_displayed = 0; // reset if not on error page
     }
 
     // No new fault to display
@@ -703,7 +752,7 @@ void faultTelemetryUpdate() {
 
 /**
  * @brief Updates the Shutdown Circuit (SDC) status display on the dashboard LCD
- * 
+ *
  * Only executes if the current page is SDC info page.
  */
 void sdcTelemetryUpdate() {
@@ -737,7 +786,7 @@ void sdcTelemetryUpdate() {
 
 void errorPageSelect() {
     fault_time_displayed = 0;   // Reset fault timer first
-    curr_page = prev_page;      // Return to previous page 
+    curr_page = prev_page;      // Return to previous page
     prev_page = PAGE_PREFLIGHT; // so select item doesnt't break
     updatePage();               // Important: Update the page before returning
     return;
@@ -765,7 +814,7 @@ void pedalProfilesPageUpdate() {
     if (driver_index < 0) {
         return;
     }
-    
+
     switch (driver_index) {
         case 0:
             NXT_setText(PROFILE_CURRENT_TXT, DRIVER1_NAME);
@@ -792,7 +841,7 @@ void pedalProfilesPageUpdate() {
 
 void pedalProfilesMoveUp() {
     MS_moveUp(&pedal_profile_page);
-    
+
     // Update save status indicator on any value change
     if (!pedal_profile_page.is_element_selected) {
         NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
@@ -802,7 +851,7 @@ void pedalProfilesMoveUp() {
 
 void pedalProfilesMoveDown() {
     MS_moveDown(&pedal_profile_page);
-    
+
     // Update save status indicator on any value change
     if (!pedal_profile_page.is_element_selected) {
         NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
@@ -813,7 +862,7 @@ void pedalProfilesMoveDown() {
 void pedalProfilesSelect() {
     // Handle other elements using menu system
     MS_select(&pedal_profile_page);
-    
+
     // Mark as unsaved when values change
     if (pedal_profile_page.is_element_selected) {
         pedal_profile_page.saved = false;
@@ -881,38 +930,64 @@ void coolingSelect() {
 
 /**
  * @brief Callback function for coolant_in message that updates the cooling page
- * 
+ *
  * @param msg_data_a Pointer to the parsed CAN message data
  */
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
-    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
-
     if (curr_page != PAGE_COOLING) {
-        return;
+      cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
+      cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
+      cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
+      cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
     }
+}
 
-    // not necessary to update the page, just the values
-    //coolingPageUpdate();
+void tvSetEnumNames()
+{
+  switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
+      case TV_PERMIT_NONE:
+          NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
+          break;
+      case TV_PERMIT_VARIABLE:
+          NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
+          break;
+      default:
+          NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
+          break;
+  }
+
+  switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
+      case TV_SPEED_CONTROL_MODE:
+          NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
+          break;
+      case TV_TORQUE_CONTROL_MODE:
+          NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
+          break;
+      default:
+          NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
+          break;
+  }
 }
 
 void tvPageUpdate() {
     MS_refreshPage(&tv_page);
+    tvSetEnumNames();
 }
 
 void tvMoveUp() {
     MS_moveUp(&tv_page);
+    tvSetEnumNames();
 }
 
 void tvMoveDown() {
     MS_moveDown(&tv_page);
+    tvSetEnumNames();
 }
 
 void tvSelect() {
     MS_select(&tv_page);
-    race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
+    // TODO Race page TV settings
+    //race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
 }
 
 /**
@@ -973,7 +1048,7 @@ void faultsSelect() {
 
 /**
  * @brief Clears a fault from the fault buffer by removing it and shifting remaining faults
- * 
+ *
  * @param index Position of the fault to clear (0-4)
  */
 void clearFault(int index) {
@@ -998,7 +1073,7 @@ void clearFault(int index) {
 
 /**
  * @brief Callback function for fault button press that clears faults
- * 
+ *
  * If hover index is 5, clears all faults (indices 0-4)
  * If hover index is 0-4, clears only that specific fault
  * Updates fault messages after clearing
@@ -1034,9 +1109,10 @@ void raceTelemetryUpdate() {
     NXT_setValue(THROT_BAR, (int) ((pedal_values.throttle / 4095.0) * 100));
 
     // update the speed
-    if (can_data.rear_wheel_speeds.stale) {
+    if (can_data.gps_speed.stale) {
         NXT_setText(SPEED, "S");
     } else {
+        //uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
         uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
@@ -1054,14 +1130,35 @@ void raceTelemetryUpdate() {
     }
 
     // Update the motor temperature
-    if (can_data.rear_motor_temps.stale) {
+    if (can_data.INVA_TEMPS.stale && can_data.INVB_TEMPS.stale) {
         NXT_setText(MOT_TEMP, "S");
+        NXT_setText(MC_TEMP, "S");
+    } else if (can_data.INVA_TEMPS.stale) {
+        NXT_setText(MOT_TEMP, "SA");
+        NXT_setText(MC_TEMP, "SA");
+    } else if (can_data.INVB_TEMPS.stale) {
+        NXT_setText(MOT_TEMP, "SB");
+        NXT_setText(MC_TEMP, "SB");
     } else {
-        uint8_t motor_temp = MAX(can_data.rear_motor_temps.left_mot_temp, can_data.rear_motor_temps.right_mot_temp);
+        uint8_t motor_temp = MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
+        uint8_t controller_temp = MAX(can_data.INVA_TEMPS.AMK_IGBTTemp, can_data.INVB_TEMPS.AMK_IGBTTemp) / 10;
+
         NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
+        NXT_setTextFormatted(MC_TEMP, "%dC", controller_temp);
     }
 
-    // TODO update motor controller temp
+    if (can_data.INVA_CRIT.stale && can_data.INVA_CRIT.stale) {
+        NXT_setText(AMK_MOTOR_OVERLOAD, "S");
+    } else if (can_data.INVA_CRIT.stale) {
+        NXT_setText(AMK_MOTOR_OVERLOAD, "SA");
+    } else if (can_data.INVA_CRIT.stale) {
+        NXT_setText(AMK_MOTOR_OVERLOAD, "SB");
+    } else {
+        uint16_t motor_overload = MAX(can_data.INVA_CRIT.AMK_DisplayOverloadMotor, can_data.INVB_CRIT.AMK_DisplayOverloadMotor) *10;
+        //uint16_t motor_overload = 77;
+
+        NXT_setTextFormatted(AMK_MOTOR_OVERLOAD, "%d%", motor_overload);
+    }
 
     // Update the battery temperature
     if (can_data.max_cell_temp.stale) {
@@ -1113,9 +1210,30 @@ void raceTelemetryUpdate() {
     }
 }
 
+void raceUpCallback() {
+    // turn on both pumps and fans
+    cooling_elements[COOLING_B_PUMP_INDEX].current_value = 1;
+    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value = 100;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 100;
+
+    sendCoolingParameters();
+}
+
+void raceDownCallback() {
+    // turn off both pumps and fans
+    cooling_elements[COOLING_B_PUMP_INDEX].current_value = 0;
+    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value = 0;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 0;
+
+    sendCoolingParameters();
+}
+
 void raceSelect() {
     MS_select(&race_page);
-    tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
+    // TODO Race page TV settings
+    //tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 void loggingPageUpdate() {
@@ -1144,7 +1262,7 @@ void loggingSelect() {
 
 /**
  * @brief Sets the color of a fault indicator element based on fault status
- * 
+ *
  * @param fault The fault code to check (0xFFFF indicates no fault)
  * @param element Pointer to the display element to be colored
  */
@@ -1153,7 +1271,7 @@ void setFaultIndicator(uint16_t fault, char *element) {
         NXT_setFontColor(element, WHITE);
         return;
     }
-    
+
     if (checkFault(fault)) {
         NXT_setFontColor(element, RED);
     } else {

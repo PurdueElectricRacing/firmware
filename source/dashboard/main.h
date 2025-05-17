@@ -20,13 +20,13 @@
 //STM32F407
 
 // Shockpot Calibration
-#define POT_VOLT_MAX_L    4.0f
-#define POT_VOLT_MIN_L    4090.0f
-#define POT_VOLT_MAX_R    4.0f
-#define POT_VOLT_MIN_R    4060.0f
+#define POT_VOLT_MAX_L    3.0f
+#define POT_VOLT_MIN_L    4082.0f
+#define POT_VOLT_MAX_R    3.0f
+#define POT_VOLT_MIN_R    4090.0f
 #define POT_MAX_DIST      75
-#define POT_DIST_DROOP_L  55
-#define POT_DIST_DROOP_R  57
+#define POT_DIST_DROOP_L  56
+#define POT_DIST_DROOP_R  56
 
 // LCD Constants
 #define LCD_NUM_PAGES (9) // Number encoder selectable pages
@@ -47,22 +47,23 @@ typedef struct __attribute__((packed))
     uint16_t lv_3v3_sense;
     uint16_t lv_12v_sense;
     uint16_t lv_24_v_sense;
-    uint16_t load_l;
-    uint16_t load_r;
-    uint16_t brk1_thr;
-    uint16_t brk2_thr;
+    // uint16_t load_l;
+    // uint16_t load_r;
+    // uint16_t brk1_thr;
+    // uint16_t brk2_thr;
 } raw_adc_values_t;
 
 volatile extern raw_adc_values_t raw_adc_values;
 
 typedef struct {
-  volatile int8_t encoder_position;
-  volatile int8_t prev_encoder_position;
-  volatile uint8_t update_page;
-  volatile uint8_t up_button;
-  volatile uint8_t down_button;
-  volatile uint8_t select_button;
-  volatile uint8_t start_button;
+  int8_t encoder_position;
+  uint32_t debounce_ticks;
+  int8_t prev_encoder_position;
+  uint8_t update_page;
+  uint8_t up_button;
+  uint8_t down_button;
+  uint8_t select_button;
+  uint8_t start_button;
 } dashboard_input_state_t;
 
 typedef struct {
@@ -110,6 +111,7 @@ typedef struct {
 #define ENC_B_GPIO_Port             (GPIOD)
 #define ENC_B_Pin                   (9)
 #define ENC_NUM_STATES              (4)
+#define ENC_DEBOUNCE_PERIOD_MS      (100U)
 
 // CAN
 #define VCAN_RX_GPIO_Port           (GPIOD)
@@ -154,6 +156,12 @@ typedef struct {
 #define BRK_2_GPIO_Port             (GPIOA)
 #define BRK_2_Pin                   (1)
 #define BRK_2_ADC_CHNL              (1)
+#define BRK_1_DIG_GPIO_Port         (GPIOC)
+#define BRK_1_DIG_GPIO_Pin          (12)
+#define BRK_2_DIG_GPIO_Port         (GPIOC)
+#define BRK_2_DIG_GPIO_Pin          (13)
+
+
 
 // Shock Pots
 #define SHOCK_POT_L_GPIO_Port       (GPIOC)
@@ -208,5 +216,6 @@ typedef struct {
 #define ADC_REF_VOLTAGE             (3.3F)
 
 void canTxSendToBack(CanMsgTypeDef_t *msg);
+void lcdTxUpdate();
 
 #endif

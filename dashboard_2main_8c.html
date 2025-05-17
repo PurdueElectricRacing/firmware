@@ -145,7 +145,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a538b9ee9d40df9460e4ca280fd7d7a5a" id="r_a538b9ee9d40df9460e4ca280fd7d7a5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a538b9ee9d40df9460e4ca280fd7d7a5a">interpretLoadSensor</a> (void)</td></tr>
 <tr class="separator:a538b9ee9d40df9460e4ca280fd7d7a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a722ec883ad0423572f54d93c5deea806" id="r_a722ec883ad0423572f54d93c5deea806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a722ec883ad0423572f54d93c5deea806">sendShockpots</a> ()</td></tr>
-<tr class="memdesc:a722ec883ad0423572f54d93c5deea806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes and sends shock potentiometer readings.  <br /></td></tr>
 <tr class="separator:a722ec883ad0423572f54d93c5deea806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb734be46d90206d4a5216667c8e038b" id="r_aeb734be46d90206d4a5216667c8e038b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb734be46d90206d4a5216667c8e038b">voltToForce</a> (uint16_t load_read)</td></tr>
 <tr class="separator:aeb734be46d90206d4a5216667c8e038b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,6 +205,11 @@ Variables</h2></td></tr>
 <tr class="separator:a5ead516daf02784fd5f3ae90a8d285b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03fc7024d283b5f244a599e24049711b" id="r_a03fc7024d283b5f244a599e24049711b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03fc7024d283b5f244a599e24049711b">q_tx_usart</a></td></tr>
 <tr class="separator:a03fc7024d283b5f244a599e24049711b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af441d40cba9dd55843386dbdf0e1d40d" id="r_af441d40cba9dd55843386dbdf0e1d40d"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af441d40cba9dd55843386dbdf0e1d40d">shock_l_parsed</a></td></tr>
+<tr class="memdesc:af441d40cba9dd55843386dbdf0e1d40d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes and sends shock potentiometer readings.  <br /></td></tr>
+<tr class="separator:af441d40cba9dd55843386dbdf0e1d40d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962ded820f1cd7ebd9eb4df0625479b8" id="r_a962ded820f1cd7ebd9eb4df0625479b8"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a962ded820f1cd7ebd9eb4df0625479b8">shock_r_parsed</a></td></tr>
+<tr class="separator:a962ded820f1cd7ebd9eb4df0625479b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4971180e813d33303c758243debeb13e" id="r_a4971180e813d33303c758243debeb13e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4971180e813d33303c758243debeb13e">cmd</a> [<a class="el" href="nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516">NXT_STR_SIZE</a>] = {'\0'}</td></tr>
 <tr class="memdesc:a4971180e813d33303c758243debeb13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART.  <br /></td></tr>
 <tr class="separator:a4971180e813d33303c758243debeb13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -551,9 +555,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Processes and sends shock potentiometer readings. </p>
-<p>Converts raw ADC values from left and right shock potentiometers into parsed displacement values and sends them through CAN bus. Values are scaled linearly and adjusted for droop. </p>
-
 </div>
 </div>
 <a id="abc5350878159b88cb9790ff5892ced90" name="abc5350878159b88cb9790ff5892ced90"></a>
@@ -633,29 +634,25 @@ Variables</h2></td></tr>
 <div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a7962f0bffd765d6eba4af90bb972e87e">BRK_2_ADC_CHNL</a>,         .rank = 4,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#acb963c476e7622b97ae288f20ec0b2b8">SHOCK_POT_L_ADC_CH</a>,     .rank = 5,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a27f9a65bf5114ff1aaa15966b130a05e">SHOCK_POT_R_ADC_CH</a>,     .rank = 6,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a>, .rank = 7,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a>,.rank = 8,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a6e35c963f4bca3379f0b1ef3509f2863">LV_12_V_SENSE_ADC_CHNL</a>, .rank = 9,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a0e0c327c4d1fe69f8a87570b340a02a6">LV_24_V_SENSE_ADC_CHNL</a>, .rank = 10, .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#ab93f5cbfdd937472631479d82a172847">LOAD_FL_ADC_CH</a>,         .rank = 11, .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#accad293b054d8f148a1c4af9fe8975dd">LOAD_FR_ADC_CH</a>,         .rank = 12, .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a00c7411e406053d92d8335869d2661cc">BRK1_THR_ADC_CHNL</a>,      .rank = 13, .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a04ba8575841a93260913f2ac82078aa9">BRK2_THR_ADC_CHNL</a>,      .rank = 14, .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a>, .rank = 5,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a>,.rank = 6,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a6e35c963f4bca3379f0b1ef3509f2863">LV_12_V_SENSE_ADC_CHNL</a>, .rank = 7,  .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel = <a class="code hl_define" href="dashboard_2main_8h.html#a0e0c327c4d1fe69f8a87570b340a02a6">LV_24_V_SENSE_ADC_CHNL</a>, .rank = 8, .sampling_time = <a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    </div>
 <div class="line">}</div>
-<div class="ttc" id="adashboard_2main_8h_html_a00c7411e406053d92d8335869d2661cc"><div class="ttname"><a href="dashboard_2main_8h.html#a00c7411e406053d92d8335869d2661cc">BRK1_THR_ADC_CHNL</a></div><div class="ttdeci">#define BRK1_THR_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:99</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a04ba8575841a93260913f2ac82078aa9"><div class="ttname"><a href="dashboard_2main_8h.html#a04ba8575841a93260913f2ac82078aa9">BRK2_THR_ADC_CHNL</a></div><div class="ttdeci">#define BRK2_THR_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:102</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a0e0c327c4d1fe69f8a87570b340a02a6"><div class="ttname"><a href="dashboard_2main_8h.html#a0e0c327c4d1fe69f8a87570b340a02a6">LV_24_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:193</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a27f9a65bf5114ff1aaa15966b130a05e"><div class="ttname"><a href="dashboard_2main_8h.html#a27f9a65bf5114ff1aaa15966b130a05e">SHOCK_POT_R_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_R_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:164</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a4233bb0cb87f5097e74a37522171ad73"><div class="ttname"><a href="dashboard_2main_8h.html#a4233bb0cb87f5097e74a37522171ad73">THTL_2_ADC_CHNL</a></div><div class="ttdeci">#define THTL_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:139</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a5d8bda549f17e3f2c106d5bda0104868"><div class="ttname"><a href="dashboard_2main_8h.html#a5d8bda549f17e3f2c106d5bda0104868">THTL_1_ADC_CHNL</a></div><div class="ttdeci">#define THTL_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:136</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a6e35c963f4bca3379f0b1ef3509f2863"><div class="ttname"><a href="dashboard_2main_8h.html#a6e35c963f4bca3379f0b1ef3509f2863">LV_12_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_12_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:190</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a7962f0bffd765d6eba4af90bb972e87e"><div class="ttname"><a href="dashboard_2main_8h.html#a7962f0bffd765d6eba4af90bb972e87e">BRK_2_ADC_CHNL</a></div><div class="ttdeci">#define BRK_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:156</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a85adef97ea600b8438801efec6e9d8e1"><div class="ttname"><a href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_3V3_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:187</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_ab93f5cbfdd937472631479d82a172847"><div class="ttname"><a href="dashboard_2main_8h.html#ab93f5cbfdd937472631479d82a172847">LOAD_FL_ADC_CH</a></div><div class="ttdeci">#define LOAD_FL_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:169</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_ac6f487a150e7e658b1968bb7b27446b0"><div class="ttname"><a href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:184</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_acb963c476e7622b97ae288f20ec0b2b8"><div class="ttname"><a href="dashboard_2main_8h.html#acb963c476e7622b97ae288f20ec0b2b8">SHOCK_POT_L_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_L_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:161</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_accad293b054d8f148a1c4af9fe8975dd"><div class="ttname"><a href="dashboard_2main_8h.html#accad293b054d8f148a1c4af9fe8975dd">LOAD_FR_ADC_CH</a></div><div class="ttdeci">#define LOAD_FR_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:172</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_ad3d9001850277dfbc92614d175d3a005"><div class="ttname"><a href="dashboard_2main_8h.html#ad3d9001850277dfbc92614d175d3a005">BRK_1_ADC_CHNL</a></div><div class="ttdeci">#define BRK_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:153</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a0e0c327c4d1fe69f8a87570b340a02a6"><div class="ttname"><a href="dashboard_2main_8h.html#a0e0c327c4d1fe69f8a87570b340a02a6">LV_24_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_24_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:201</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a27f9a65bf5114ff1aaa15966b130a05e"><div class="ttname"><a href="dashboard_2main_8h.html#a27f9a65bf5114ff1aaa15966b130a05e">SHOCK_POT_R_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_R_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:172</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a4233bb0cb87f5097e74a37522171ad73"><div class="ttname"><a href="dashboard_2main_8h.html#a4233bb0cb87f5097e74a37522171ad73">THTL_2_ADC_CHNL</a></div><div class="ttdeci">#define THTL_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:141</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a5d8bda549f17e3f2c106d5bda0104868"><div class="ttname"><a href="dashboard_2main_8h.html#a5d8bda549f17e3f2c106d5bda0104868">THTL_1_ADC_CHNL</a></div><div class="ttdeci">#define THTL_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:138</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a6e35c963f4bca3379f0b1ef3509f2863"><div class="ttname"><a href="dashboard_2main_8h.html#a6e35c963f4bca3379f0b1ef3509f2863">LV_12_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_12_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:198</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a7962f0bffd765d6eba4af90bb972e87e"><div class="ttname"><a href="dashboard_2main_8h.html#a7962f0bffd765d6eba4af90bb972e87e">BRK_2_ADC_CHNL</a></div><div class="ttdeci">#define BRK_2_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:158</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a85adef97ea600b8438801efec6e9d8e1"><div class="ttname"><a href="dashboard_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_3V3_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:195</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_ac6f487a150e7e658b1968bb7b27446b0"><div class="ttname"><a href="dashboard_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define LV_5V_V_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:192</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_acb963c476e7622b97ae288f20ec0b2b8"><div class="ttname"><a href="dashboard_2main_8h.html#acb963c476e7622b97ae288f20ec0b2b8">SHOCK_POT_L_ADC_CH</a></div><div class="ttdeci">#define SHOCK_POT_L_ADC_CH</div><div class="ttdef"><b>Definition</b> main.h:169</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_ad3d9001850277dfbc92614d175d3a005"><div class="ttname"><a href="dashboard_2main_8h.html#ad3d9001850277dfbc92614d175d3a005">BRK_1_ADC_CHNL</a></div><div class="ttdeci">#define BRK_1_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:155</div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a></div><div class="ttdeci">@ ADC_CHN_SMP_CYCLES_480</div><div class="ttdef"><b>Definition</b> adc.h:66</div></div>
 </div><!-- fragment -->
 </div>
@@ -672,7 +669,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_prescaler = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da12ff1b8c44286ea229748eb74227ae02">ADC_CLK_PRESC_6</a>,</div>
+<div class="line">    .clock_prescaler = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da1f386cd1d8e41a5828afac83e1c56b70">ADC_CLK_PRESC_2</a>,</div>
 <div class="line">    .resolution      = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a38dd045d0d6e9cf4304cc0792e57c52bac534e3e33915d71fdcbd6439ea56902f">ADC_RES_12_BIT</a>,</div>
 <div class="line">    .data_align      = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a4bbc03ecdf3f9b89bb7067c5db0efb53aa3df857706dacf41e64568f9c75943fc">ADC_DATA_ALIGN_RIGHT</a>,</div>
 <div class="line">    .cont_conv_mode  = <span class="keyword">true</span>,</div>
@@ -682,7 +679,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="aphal__L4_2adc_2adc_8h_html_a2edfa2a3740bb7d5dedc7e0093b09999aa99d62396ac5df1e1c6fce81a8bc453e"><div class="ttname"><a href="phal__L4_2adc_2adc_8h.html#a2edfa2a3740bb7d5dedc7e0093b09999aa99d62396ac5df1e1c6fce81a8bc453e">ADC_DMA_CIRCULAR</a></div><div class="ttdeci">@ ADC_DMA_CIRCULAR</div><div class="ttdoc">ADC conitinuously converts.</div><div class="ttdef"><b>Definition</b> adc.h:43</div></div>
 <div class="ttc" id="aphal__L4_2adc_2adc_8h_html_a38dd045d0d6e9cf4304cc0792e57c52bac534e3e33915d71fdcbd6439ea56902f"><div class="ttname"><a href="phal__L4_2adc_2adc_8h.html#a38dd045d0d6e9cf4304cc0792e57c52bac534e3e33915d71fdcbd6439ea56902f">ADC_RES_12_BIT</a></div><div class="ttdeci">@ ADC_RES_12_BIT</div><div class="ttdef"><b>Definition</b> adc.h:19</div></div>
 <div class="ttc" id="aphal__L4_2adc_2adc_8h_html_a4bbc03ecdf3f9b89bb7067c5db0efb53aa3df857706dacf41e64568f9c75943fc"><div class="ttname"><a href="phal__L4_2adc_2adc_8h.html#a4bbc03ecdf3f9b89bb7067c5db0efb53aa3df857706dacf41e64568f9c75943fc">ADC_DATA_ALIGN_RIGHT</a></div><div class="ttdeci">@ ADC_DATA_ALIGN_RIGHT</div><div class="ttdef"><b>Definition</b> adc.h:48</div></div>
-<div class="ttc" id="aphal__L4_2adc_2adc_8h_html_a5bcab41e07d982e8ebcf218dcd09ae3da12ff1b8c44286ea229748eb74227ae02"><div class="ttname"><a href="phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da12ff1b8c44286ea229748eb74227ae02">ADC_CLK_PRESC_6</a></div><div class="ttdeci">@ ADC_CLK_PRESC_6</div><div class="ttdef"><b>Definition</b> adc.h:29</div></div>
+<div class="ttc" id="aphal__L4_2adc_2adc_8h_html_a5bcab41e07d982e8ebcf218dcd09ae3da1f386cd1d8e41a5828afac83e1c56b70"><div class="ttname"><a href="phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da1f386cd1d8e41a5828afac83e1c56b70">ADC_CLK_PRESC_2</a></div><div class="ttdeci">@ ADC_CLK_PRESC_2</div><div class="ttdef"><b>Definition</b> adc.h:27</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -792,16 +789,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source               = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
-<div class="line">    .use_pll                    = <span class="keyword">false</span>,</div>
-<div class="line">    .vco_output_rate_target_hz  = 160000000,</div>
-<div class="line">    .system_clock_target_hz     = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">    .ahb_clock_target_hz        = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">    .apb1_clock_target_hz       = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
-<div class="line">    .apb2_clock_target_hz       = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">    .clock_source               =<a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a>,</div>
+<div class="line">    .use_pll                    =<span class="keyword">false</span>,</div>
+<div class="line">    .system_clock_target_hz     =<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz        =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">    .apb2_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
 <div class="line">}</div>
 <div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:88</div></div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSI</div><div class="ttdef"><b>Definition</b> rcc.h:87</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -886,7 +882,7 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    .baud_rate          = <a class="code hl_define" href="dashboard_2main_8h.html#a2b9469e9598d74b12d332a4c3de59d83">LCD_BAUD_RATE</a>,</div>
 <div class="line">    .word_length        = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">    .stop_bits          = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>, </div>
+<div class="line">    .stop_bits          = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
 <div class="line">    .parity             = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
 <div class="line">    .hw_flow_ctl        = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
 <div class="line">    .ovsample           = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
@@ -953,6 +949,37 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">volatile <a class="el" href="dashboard_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a> raw_adc_values</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af441d40cba9dd55843386dbdf0e1d40d" name="af441d40cba9dd55843386dbdf0e1d40d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af441d40cba9dd55843386dbdf0e1d40d">&#9670;&#160;</a></span>shock_l_parsed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t shock_l_parsed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes and sends shock potentiometer readings. </p>
+<p>Converts raw ADC values from left and right shock potentiometers into parsed displacement values and sends them through CAN bus. Values are scaled linearly and adjusted for droop. </p>
+
+</div>
+</div>
+<a id="a962ded820f1cd7ebd9eb4df0625479b8" name="a962ded820f1cd7ebd9eb4df0625479b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962ded820f1cd7ebd9eb4df0625479b8">&#9670;&#160;</a></span>shock_r_parsed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t shock_r_parsed</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -102,7 +102,7 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa2b3835a45b353c5f9501201edcce157" id="r_gaa2b3835a45b353c5f9501201edcce157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa2b3835a45b353c5f9501201edcce157">getSn_MR</a>(sn)</td></tr>
 <tr class="memdesc:gaa2b3835a45b353c5f9501201edcce157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="group__Socket__register__group.html#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> register.  <br /></td></tr>
 <tr class="separator:gaa2b3835a45b353c5f9501201edcce157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga540fe9afb87bd91eb5fbe1147429878c" id="r_ga540fe9afb87bd91eb5fbe1147429878c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga540fe9afb87bd91eb5fbe1147429878c">setSn_CR</a>(sn,  cr)</td></tr>
+<tr class="memitem:ga540fe9afb87bd91eb5fbe1147429878c" id="r_ga540fe9afb87bd91eb5fbe1147429878c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga540fe9afb87bd91eb5fbe1147429878c">setSn_CR</a>(sn,  <a class="el" href="pdu_2cooling_2cooling_8c.html#ace2d3b0e243c256a01e02bbed913a7ed">cr</a>)</td></tr>
 <tr class="memdesc:ga540fe9afb87bd91eb5fbe1147429878c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set <a class="el" href="group__Socket__register__group.html#gadb581db7f2124487bedbb7c61453540a">Sn_CR</a> register.  <br /></td></tr>
 <tr class="separator:ga540fe9afb87bd91eb5fbe1147429878c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga47c6218a28424d2fb3a3c04f58d0bcfb" id="r_ga47c6218a28424d2fb3a3c04f58d0bcfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga47c6218a28424d2fb3a3c04f58d0bcfb">getSn_CR</a>(sn)</td></tr>
@@ -822,12 +822,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>cr</em></span>&#160;)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="pdu_2cooling_2cooling_8c.html#ace2d3b0e243c256a01e02bbed913a7ed">cr</a></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        <a class="code hl_function" href="group__Basic__IO__function.html#gabab850c3fe94043edcd8f13002f8ff6b">WIZCHIP_WRITE</a>(<a class="code hl_define" href="group__Socket__register__group.html#gadb581db7f2124487bedbb7c61453540a">Sn_CR</a>(sn), cr)</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code hl_function" href="group__Basic__IO__function.html#gabab850c3fe94043edcd8f13002f8ff6b">WIZCHIP_WRITE</a>(<a class="code hl_define" href="group__Socket__register__group.html#gadb581db7f2124487bedbb7c61453540a">Sn_CR</a>(sn), <a class="code hl_variable" href="pdu_2cooling_2cooling_8c.html#ace2d3b0e243c256a01e02bbed913a7ed">cr</a>)</div>
 <div class="ttc" id="agroup__Basic__IO__function_html_gabab850c3fe94043edcd8f13002f8ff6b"><div class="ttname"><a href="group__Basic__IO__function.html#gabab850c3fe94043edcd8f13002f8ff6b">WIZCHIP_WRITE</a></div><div class="ttdeci">void WIZCHIP_WRITE(uint32_t AddrSel, uint8_t wb)</div><div class="ttdoc">It writes 1 byte value to a register.</div><div class="ttdef"><b>Definition</b> w5500.c:96</div></div>
+<div class="ttc" id="apdu_2cooling_2cooling_8c_html_ace2d3b0e243c256a01e02bbed913a7ed"><div class="ttname"><a href="pdu_2cooling_2cooling_8c.html#ace2d3b0e243c256a01e02bbed913a7ed">cr</a></div><div class="ttdeci">volatile cooling_request_t cr</div><div class="ttdef"><b>Definition</b> cooling.c:16</div></div>
 </div><!-- fragment -->
 <p>Set <a class="el" href="group__Socket__register__group.html#gadb581db7f2124487bedbb7c61453540a">Sn_CR</a> register. </p>
 <dl class="params"><dt>Parameters</dt><dd>

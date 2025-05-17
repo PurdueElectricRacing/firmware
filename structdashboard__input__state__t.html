@@ -95,114 +95,130 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ae3de76b133182e0838d077808642c195" id="r_ae3de76b133182e0838d077808642c195"><td class="memItemLeft" align="right" valign="top">volatile int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3de76b133182e0838d077808642c195">encoder_position</a></td></tr>
-<tr class="separator:ae3de76b133182e0838d077808642c195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac339f954c0983218a0ee165f12ac62b5" id="r_ac339f954c0983218a0ee165f12ac62b5"><td class="memItemLeft" align="right" valign="top">volatile int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac339f954c0983218a0ee165f12ac62b5">prev_encoder_position</a></td></tr>
-<tr class="separator:ac339f954c0983218a0ee165f12ac62b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dd465503c537b68dac939a9a1a4929e" id="r_a7dd465503c537b68dac939a9a1a4929e"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dd465503c537b68dac939a9a1a4929e">update_page</a></td></tr>
-<tr class="separator:a7dd465503c537b68dac939a9a1a4929e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a133a925b97f4e374065115bc2dd2c766" id="r_a133a925b97f4e374065115bc2dd2c766"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a133a925b97f4e374065115bc2dd2c766">up_button</a></td></tr>
-<tr class="separator:a133a925b97f4e374065115bc2dd2c766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac4846a306826fb5d86a0f3a084b0d52" id="r_aac4846a306826fb5d86a0f3a084b0d52"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac4846a306826fb5d86a0f3a084b0d52">down_button</a></td></tr>
-<tr class="separator:aac4846a306826fb5d86a0f3a084b0d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e6e5d752f993b81d2769bd0ee1417d7" id="r_a3e6e5d752f993b81d2769bd0ee1417d7"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e6e5d752f993b81d2769bd0ee1417d7">select_button</a></td></tr>
-<tr class="separator:a3e6e5d752f993b81d2769bd0ee1417d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa37992207a09e42b829d24516d04aaec" id="r_aa37992207a09e42b829d24516d04aaec"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa37992207a09e42b829d24516d04aaec">start_button</a></td></tr>
-<tr class="separator:aa37992207a09e42b829d24516d04aaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a945b215b7be0bc898cca2dfc6af8b6fe" id="r_a945b215b7be0bc898cca2dfc6af8b6fe"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a945b215b7be0bc898cca2dfc6af8b6fe">encoder_position</a></td></tr>
+<tr class="separator:a945b215b7be0bc898cca2dfc6af8b6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9cc1ecdf0dd5f5358d29353e04fa816" id="r_ad9cc1ecdf0dd5f5358d29353e04fa816"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9cc1ecdf0dd5f5358d29353e04fa816">debounce_ticks</a></td></tr>
+<tr class="separator:ad9cc1ecdf0dd5f5358d29353e04fa816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596eb3b2270a2ddecab700694ca95ad1" id="r_a596eb3b2270a2ddecab700694ca95ad1"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a596eb3b2270a2ddecab700694ca95ad1">prev_encoder_position</a></td></tr>
+<tr class="separator:a596eb3b2270a2ddecab700694ca95ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a886da5f5d612b766a5190d1215bdd4" id="r_a9a886da5f5d612b766a5190d1215bdd4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a886da5f5d612b766a5190d1215bdd4">update_page</a></td></tr>
+<tr class="separator:a9a886da5f5d612b766a5190d1215bdd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23995816d7a9c741540d33aa6def2a2e" id="r_a23995816d7a9c741540d33aa6def2a2e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23995816d7a9c741540d33aa6def2a2e">up_button</a></td></tr>
+<tr class="separator:a23995816d7a9c741540d33aa6def2a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a59b93795b64f28d290737875d667e" id="r_a25a59b93795b64f28d290737875d667e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25a59b93795b64f28d290737875d667e">down_button</a></td></tr>
+<tr class="separator:a25a59b93795b64f28d290737875d667e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6720746e27ffb3883dc11691a6fe8962" id="r_a6720746e27ffb3883dc11691a6fe8962"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6720746e27ffb3883dc11691a6fe8962">select_button</a></td></tr>
+<tr class="separator:a6720746e27ffb3883dc11691a6fe8962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02772f4635806c2314adde65a5006ebd" id="r_a02772f4635806c2314adde65a5006ebd"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02772f4635806c2314adde65a5006ebd">start_button</a></td></tr>
+<tr class="separator:a02772f4635806c2314adde65a5006ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aac4846a306826fb5d86a0f3a084b0d52" name="aac4846a306826fb5d86a0f3a084b0d52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac4846a306826fb5d86a0f3a084b0d52">&#9670;&#160;</a></span>down_button</h2>
+<a id="ad9cc1ecdf0dd5f5358d29353e04fa816" name="ad9cc1ecdf0dd5f5358d29353e04fa816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9cc1ecdf0dd5f5358d29353e04fa816">&#9670;&#160;</a></span>debounce_ticks</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint8_t dashboard_input_state_t::down_button</td>
+          <td class="memname">uint32_t dashboard_input_state_t::debounce_ticks</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae3de76b133182e0838d077808642c195" name="ae3de76b133182e0838d077808642c195"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3de76b133182e0838d077808642c195">&#9670;&#160;</a></span>encoder_position</h2>
+<a id="a25a59b93795b64f28d290737875d667e" name="a25a59b93795b64f28d290737875d667e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25a59b93795b64f28d290737875d667e">&#9670;&#160;</a></span>down_button</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile int8_t dashboard_input_state_t::encoder_position</td>
+          <td class="memname">uint8_t dashboard_input_state_t::down_button</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ac339f954c0983218a0ee165f12ac62b5" name="ac339f954c0983218a0ee165f12ac62b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac339f954c0983218a0ee165f12ac62b5">&#9670;&#160;</a></span>prev_encoder_position</h2>
+<a id="a945b215b7be0bc898cca2dfc6af8b6fe" name="a945b215b7be0bc898cca2dfc6af8b6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a945b215b7be0bc898cca2dfc6af8b6fe">&#9670;&#160;</a></span>encoder_position</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile int8_t dashboard_input_state_t::prev_encoder_position</td>
+          <td class="memname">int8_t dashboard_input_state_t::encoder_position</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3e6e5d752f993b81d2769bd0ee1417d7" name="a3e6e5d752f993b81d2769bd0ee1417d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e6e5d752f993b81d2769bd0ee1417d7">&#9670;&#160;</a></span>select_button</h2>
+<a id="a596eb3b2270a2ddecab700694ca95ad1" name="a596eb3b2270a2ddecab700694ca95ad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596eb3b2270a2ddecab700694ca95ad1">&#9670;&#160;</a></span>prev_encoder_position</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint8_t dashboard_input_state_t::select_button</td>
+          <td class="memname">int8_t dashboard_input_state_t::prev_encoder_position</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa37992207a09e42b829d24516d04aaec" name="aa37992207a09e42b829d24516d04aaec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa37992207a09e42b829d24516d04aaec">&#9670;&#160;</a></span>start_button</h2>
+<a id="a6720746e27ffb3883dc11691a6fe8962" name="a6720746e27ffb3883dc11691a6fe8962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6720746e27ffb3883dc11691a6fe8962">&#9670;&#160;</a></span>select_button</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint8_t dashboard_input_state_t::start_button</td>
+          <td class="memname">uint8_t dashboard_input_state_t::select_button</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a133a925b97f4e374065115bc2dd2c766" name="a133a925b97f4e374065115bc2dd2c766"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a133a925b97f4e374065115bc2dd2c766">&#9670;&#160;</a></span>up_button</h2>
+<a id="a02772f4635806c2314adde65a5006ebd" name="a02772f4635806c2314adde65a5006ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02772f4635806c2314adde65a5006ebd">&#9670;&#160;</a></span>start_button</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint8_t dashboard_input_state_t::up_button</td>
+          <td class="memname">uint8_t dashboard_input_state_t::start_button</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7dd465503c537b68dac939a9a1a4929e" name="a7dd465503c537b68dac939a9a1a4929e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dd465503c537b68dac939a9a1a4929e">&#9670;&#160;</a></span>update_page</h2>
+<a id="a23995816d7a9c741540d33aa6def2a2e" name="a23995816d7a9c741540d33aa6def2a2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23995816d7a9c741540d33aa6def2a2e">&#9670;&#160;</a></span>up_button</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint8_t dashboard_input_state_t::update_page</td>
+          <td class="memname">uint8_t dashboard_input_state_t::up_button</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9a886da5f5d612b766a5190d1215bdd4" name="a9a886da5f5d612b766a5190d1215bdd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a886da5f5d612b766a5190d1215bdd4">&#9670;&#160;</a></span>update_page</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t dashboard_input_state_t::update_page</td>
         </tr>
       </table>
 </div><div class="memdoc">

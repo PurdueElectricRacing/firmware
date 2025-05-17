@@ -30,11 +30,12 @@ var searchData=
   ['reg_5fe_27',['REG_E',['../afe_8h.html#a2f37cc19ddaeb554781bfa6c1589c67b',1,'afe.h']]],
   ['reg_5ff_28',['REG_F',['../afe_8h.html#a786017dcfcbef2c471f3fcddb5477580',1,'afe.h']]],
   ['remain_5ftime_29',['remain_time',['../ftpd_8c.html#ad528fb04514d0507c8820e87b90f12d6',1,'ftpd.c']]],
-  ['rtc_5fasync_5fprescal_30',['RTC_ASYNC_PRESCAL',['../rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
-  ['rtc_5fconv_5fto_5fbcd_31',['RTC_CONV_TO_BCD',['../rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
-  ['rtc_5fsync_5fprescal_32',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
-  ['rush_33',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]],
-  ['rx_5fbuff_5fitem_5fcount_34',['RX_BUFF_ITEM_COUNT',['../daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'main.h']]],
-  ['rx_5fct_35',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
-  ['rx_5ftail_5fct_36',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
+  ['rpm_5fto_5fmph_30',['RPM_TO_MPH',['../lcd_8h.html#a97007bae4cca88faeb6c7eed93967751',1,'lcd.h']]],
+  ['rtc_5fasync_5fprescal_31',['RTC_ASYNC_PRESCAL',['../rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
+  ['rtc_5fconv_5fto_5fbcd_32',['RTC_CONV_TO_BCD',['../rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
+  ['rtc_5fsync_5fprescal_33',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
+  ['rush_34',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]],
+  ['rx_5fbuff_5fitem_5fcount_35',['RX_BUFF_ITEM_COUNT',['../daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'main.h']]],
+  ['rx_5fct_36',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
+  ['rx_5ftail_5fct_37',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
 ];

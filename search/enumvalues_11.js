@@ -11,9 +11,15 @@ var searchData=
   ['ti1f_5fed_8',['TI1F_ED',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214ada2d464ae9d16cb9b7c720e08f56ac85',1,'tim.h']]],
   ['ti1fp1_9',['TI1FP1',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214acec4089b8d631d7dc2792f581154f28a',1,'tim.h']]],
   ['ti2fp2_10',['TI2FP2',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214a9a2a49f035bdf66b0bb5c13441a36d5e',1,'tim.h']]],
-  ['tv_5fdead_5findex_11',['TV_DEAD_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fae067003ca6890b6d1fe35c91e3ff18c3',1,'lcd.c']]],
-  ['tv_5fenable_5findex_12',['TV_ENABLE_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37faebaa228bc75de3927f93d759331fcd0f',1,'lcd.c']]],
-  ['tv_5fintensity_5findex_13',['TV_INTENSITY_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa08f53a854ad7b6445274e6dcd6f573ec',1,'lcd.c']]],
-  ['tv_5fproportion_5findex_14',['TV_PROPORTION_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa9c32f454efe52f1f2c824fb2d187d703',1,'lcd.c']]],
-  ['type_5fcmd_15',['TYPE_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3a31c7517410257c2000072034cb89fa0a',1,'ftpd.h']]]
+  ['tv_5fdeadband_5findex_11',['TV_DEADBAND_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa8886da890ed7438a2b6de32d79ecdb03',1,'lcd.c']]],
+  ['tv_5fmax_5fslip_5findex_12',['TV_MAX_SLIP_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa148e57ccfd5aed95ddaf0f4983ae3263',1,'lcd.c']]],
+  ['tv_5fp_5fgain_5findex_13',['TV_P_GAIN_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa4cfd050ac0e537205ace73650a094f5c',1,'lcd.c']]],
+  ['tv_5fpermit_5fnone_14',['TV_PERMIT_NONE',['../lcd_8c.html#a6b9cc5930e83a3077a2aaa5574203058ad58f2888f8c1b440ff610b1c4983858e',1,'lcd.c']]],
+  ['tv_5fpermit_5fvariable_15',['TV_PERMIT_VARIABLE',['../lcd_8c.html#a6b9cc5930e83a3077a2aaa5574203058a16779e9249bf3ba3a69e7a35dfa61256',1,'lcd.c']]],
+  ['tv_5fspeed_5fcontrol_5fmode_16',['TV_SPEED_CONTROL_MODE',['../lcd_8c.html#aff916cfdbe2cd06af8af8c1daf0494d4a93ae0c17c0a10f90b5035527b1836a4a',1,'lcd.c']]],
+  ['tv_5ftorque_5fcontrol_5fmode_17',['TV_TORQUE_CONTROL_MODE',['../lcd_8c.html#aff916cfdbe2cd06af8af8c1daf0494d4a6f5a030153b6731468f23b6d46bea6db',1,'lcd.c']]],
+  ['tv_5ftorque_5fdrop_5findex_18',['TV_TORQUE_DROP_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa8f7043ef506441600e6e79d743d7032c',1,'lcd.c']]],
+  ['tv_5fvcu_5fcontrol_5findex_19',['TV_VCU_CONTROL_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa103966619aa2b6f12772327b2263f834',1,'lcd.c']]],
+  ['tv_5fvcu_5fpermit_5findex_20',['TV_VCU_PERMIT_INDEX',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37fa763fae00981617dfd0ca217ced4d99bb',1,'lcd.c']]],
+  ['type_5fcmd_21',['TYPE_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3a31c7517410257c2000072034cb89fa0a',1,'ftpd.h']]]
 ];

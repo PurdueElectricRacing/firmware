@@ -8,7 +8,7 @@ var searchData=
   ['elcon_5fcharger_5fcommand_5',['elcon_charger_command',['../union____attribute____.html#a19c8db304bd1d8b4e47c3b9a2e0bc222',1,'__attribute__']]],
   ['elcon_5fcharger_5fstatus_6',['elcon_charger_status',['../union____attribute____.html#aae96029b2d884844ed6d09f0b8cad642',1,'__attribute__::elcon_charger_status'],['../structcan__data__t.html#a6cde7ef5e599200ea4eb7b7685f976eb',1,'can_data_t::elcon_charger_status']]],
   ['elements_7',['elements',['../structmenu__page__t.html#a5288a00f343c38b8e62733a70a1ffb81',1,'menu_page_t']]],
-  ['encoder_5fposition_8',['encoder_position',['../structdashboard__input__state__t.html#ae3de76b133182e0838d077808642c195',1,'dashboard_input_state_t']]],
+  ['encoder_5fposition_8',['encoder_position',['../structdashboard__input__state__t.html#a945b215b7be0bc898cca2dfc6af8b6fe',1,'dashboard_input_state_t']]],
   ['erasegrmul_9',['EraseGrMul',['../structSD__CSD.html#a7aac5c37c5a01ad59f8e54c35985df00',1,'SD_CSD']]],
   ['erasegrsize_10',['EraseGrSize',['../structSD__CSD.html#ab96f260933654d16a42b4682dbe9b823',1,'SD_CSD']]],
   ['err_11',['err',['../structFIL.html#aea440945db26de9c4a88065c0c887fda',1,'FIL']]],

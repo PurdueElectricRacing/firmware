@@ -37,7 +37,7 @@ var searchData=
   ['lcd_5fuart_5frx_5fpin_34',['LCD_UART_RX_Pin',['../dashboard_2main_8h.html#a4b89e89e5dfb9c7282c193a4055cc785',1,'main.h']]],
   ['lcd_5fuart_5ftx_5fgpio_5fport_35',['LCD_UART_TX_GPIO_Port',['../dashboard_2main_8h.html#ac0fc3381ee0c7c546e510e61153554e7',1,'main.h']]],
   ['lcd_5fuart_5ftx_5fpin_36',['LCD_UART_TX_Pin',['../dashboard_2main_8h.html#a3995925f8004dd27335e658ebc2b0028',1,'main.h']]],
-  ['lcdtxupdate_37',['lcdTxUpdate',['../dashboard_2main_8c.html#add302dc431eea83803626acf46f76028',1,'main.c']]],
+  ['lcdtxupdate_37',['lcdTxUpdate',['../dashboard_2main_8c.html#add302dc431eea83803626acf46f76028',1,'lcdTxUpdate():&#160;main.c'],['../dashboard_2main_8h.html#add302dc431eea83803626acf46f76028',1,'lcdTxUpdate():&#160;main.c']]],
   ['ld2pd_38',['LD2PD',['../ff_8c.html#a6577ed2f95527745bf4d27c53488b9a7',1,'ff.c']]],
   ['ld2pt_39',['LD2PT',['../ff_8c.html#aadc4a9aefaf2588bdd7565549f5d91e7',1,'ff.c']]],
   ['ldir_5fattr_40',['LDIR_Attr',['../ff_8c.html#a28dcd75633b49e40b42a31f0cf5f5929',1,'ff.c']]],

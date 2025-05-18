@@ -368,7 +368,7 @@ void send_iv_readings() {
     // Average slope is 2.5mV per degree c
     float vsense = (adc_readings.internal_therm / (float)4095) * 3.3;
     float temp = ((vsense - 0.76) / 0.0025) + 25;
-    SEND_PDU_TEMPS((uint16_t)temp);
+    SEND_PDU_TEMPS((uint8_t)temp);
 }
 
 void HardFault_Handler()

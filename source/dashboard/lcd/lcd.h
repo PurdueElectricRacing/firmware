@@ -83,11 +83,11 @@
 #define TV_TORQUE_DROP_FLT  "tdrop"
 #define TV_MAX_SLIP_FLT     "slip"
 #define TV_CAN_STATUS       "can"
-
-#define TV_DEADBAND_DEFAULT_VALUE     10U
-#define TV_P_GAIN_DEFAULT_VALUE       500U
-#define TV_SLIP_DEFAULT_VALUE         50U
-#define TV_TORQUE_DROP_DEFAULT_VALUE  100U
+// Default to Tyler's settings
+#define TV_DEADBAND_DEFAULT_VALUE     5U   // 5
+#define TV_P_GAIN_DEFAULT_VALUE       250U // 2.50
+#define TV_TORQUE_DROP_DEFAULT_VALUE  100U // 1.00
+#define TV_SLIP_DEFAULT_VALUE         100U // 1.00
 
 // Cooling Page
 #define DT_FAN_VAL         "DFan"

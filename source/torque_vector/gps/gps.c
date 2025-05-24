@@ -3,8 +3,6 @@
 #include <stdbool.h>
 #include "gps.h"
 #include "can_parse.h"
-//#include "sfs_pp.h"
-//#include "SFS.h"
 
 /*
     Instructions on configuring GPS:
@@ -59,7 +57,7 @@ GPS_Handle_t gps_handle = {
 };
 
 // Parse velocity from raw message
-bool parseVelocity(GPS_Handle_t *GPS)
+bool GPS_Parse(GPS_Handle_t *GPS)
 {
     // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT 
     // Validate the message header, class, and id
@@ -168,12 +166,12 @@ bool parseVelocity(GPS_Handle_t *GPS)
 
             /* Determine if data is new */
             if (GPS->iTOW != prev_iTOW) {
-                GPS->unique_iTOW = true;
+                GPS->is_unique_iTOW = true;
                 diff = GPS->iTOW - prev_iTOW;
                 counter = 0;
                 prev_iTOW = GPS->iTOW;
             } else {
-                GPS->unique_iTOW = false;
+                GPS->is_unique_iTOW = false;
                 ++counter;
             }
 

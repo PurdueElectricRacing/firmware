@@ -15,7 +15,6 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>
-#include "bsxlite_interface.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/spi/spi.h"
 

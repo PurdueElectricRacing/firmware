@@ -402,7 +402,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
     }
     else
     {
-        parseVelocity(&GPSHandle);
+        GPS_Parse(&GPSHandle);
     }
 }
 

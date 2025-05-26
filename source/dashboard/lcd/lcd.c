@@ -211,7 +211,7 @@ menu_element_t tv_elements[] = {
         .current_value  = TV_DEADBAND_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 25,
-        .increment      = 1,
+        .increment      = 1, // 1 increment
         .on_change      = sendTVParameters
     },
     [TV_P_GAIN_INDEX] = {
@@ -220,25 +220,25 @@ menu_element_t tv_elements[] = {
         .current_value  = TV_P_GAIN_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 10000,
-        .increment      = 10,
+        .increment      = 10, // 0.1 increment
         .on_change      = sendTVParameters
     },
     [TV_TORQUE_DROP_INDEX] = {
         .type           = ELEMENT_FLT,
         .object_name    = TV_TORQUE_DROP_FLT,
-        .current_value  = TV_SLIP_DEFAULT_VALUE,
+        .current_value  = TV_TORQUE_DROP_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 100,
-        .increment      = 2,
+        .increment      = 2, // 0.02 increment
         .on_change      = sendTVParameters
     },
     [TV_MAX_SLIP_INDEX] = {
         .type           = ELEMENT_FLT,
         .object_name    = TV_MAX_SLIP_FLT,
-        .current_value  = TV_TORQUE_DROP_DEFAULT_VALUE,
+        .current_value  = TV_SLIP_DEFAULT_VALUE,
         .min_value      = 0,
         .max_value      = 100,
-        .increment      = 2,
+        .increment      = 2, // 0.02 increment
         .on_change      = sendTVParameters
     }
 };
@@ -721,7 +721,7 @@ void updateFaultDisplay() {
 
     // Set the alert page to show based on most_recent_latched
     if ((most_recent_latched != 0xFFFF)) {
-        curr_page = faultArray[most_recent_latched].priority + 9;
+        curr_page = faultArray[most_recent_latched].priority + PAGE_WARNING;
         errorText = faultArray[most_recent_latched].screen_MSG;
         pageUpdateRequired = true;
     }

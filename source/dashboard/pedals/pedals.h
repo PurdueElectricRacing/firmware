@@ -24,7 +24,7 @@
 #define MAX_PEDAL_MEAS (4095)
 
 #define APPS_BRAKE_THRESHOLD               (307)  // EV.5.7.1 (7.5% of 0x0FFF)
-#define APPS_THROTTLE_FAULT_THRESHOLD      (1024) // EV.5.7.1 (25% of 0x0FFF)
+#define APPS_THROTTLE_FAULT_THRESHOLD      (614) // EV.5.7.1 (25% of 0x0FFF) - making 15 percent in order to prevent premature BSPD trip
 #define APPS_THROTTLE_CLEARFAULT_THRESHOLD (205)  // EV.5.7.2 ( 5% of 0x0FFF)
 
 #define PROFILES_START_SECTOR    (3)

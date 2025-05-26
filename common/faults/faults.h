@@ -354,7 +354,7 @@
 #define MOTOR_L_HEAT_MIN -80
 #define MOTOR_R_OT_MIN -80
 #define MOTOR_L_OT_MIN -80
-#define APPS_WIRING_T1_MIN 500
+#define APPS_WIRING_T1_MIN 300
 #define APPS_WIRING_T2_MIN 300
 #define BSE_MIN 0
 #define BSPD_MIN 0

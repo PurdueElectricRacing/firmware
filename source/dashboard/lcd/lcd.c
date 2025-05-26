@@ -721,7 +721,7 @@ void updateFaultDisplay() {
 
     // Set the alert page to show based on most_recent_latched
     if ((most_recent_latched != 0xFFFF)) {
-        curr_page = faultArray[most_recent_latched].priority + 9;
+        curr_page = faultArray[most_recent_latched].priority + PAGE_WARNING;
         errorText = faultArray[most_recent_latched].screen_MSG;
         pageUpdateRequired = true;
     }

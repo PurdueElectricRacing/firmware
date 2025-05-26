@@ -7,8 +7,7 @@
  */
 
 #include <stdint.h>
-#include "can_parse.h"
-#include "common/common_defs/common_defs.h"
+#include <stdbool.h>
 
 #ifndef _GPS_H
 #define _GPS_H
@@ -139,7 +138,7 @@ typedef struct {
     uint32_t speedAccuracy; // Speed accuracy estimate in mm/s
 
     uint16_t positionDOP; // Position DOP (0.01)
-    uint8_t reserved[6];  // Reserved for future use
+    uint8_t reserved[6];
 
     int16_t headingVehicle; // Heading of vehicle in 1e-5 degrees
 
@@ -149,8 +148,9 @@ typedef struct {
 } NAV_PVT_t;
 
 #define GPS_RX_BUF_SIZE 100 // Size of GPS receive buffer
-uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE];  // Raw message as received from GPS
+
 typedef struct {
+    uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE];  // Raw message as received from GPS
     NAV_PVT_t decoded_message; // Decoded message
 
     bool isValidDate;

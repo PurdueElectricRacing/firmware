@@ -7,9 +7,6 @@ STRING(TOLOWER ${COMPONENT_NAME} COMPONENT_NAME)
 set(TARGET_NAME ${COMPONENT_NAME}.elf)
 add_executable(${TARGET_NAME})
 
-# Add in bsxlite
-target_link_libraries(${TARGET_NAME} ${CMAKE_CURRENT_LIST_DIR}/bsxlite/libalgobsx.a)
-
 # Propreties are set in order to make the common component
 set_target_properties(${TARGET_NAME} PROPERTIES
     COMPONENT_NAME ${COMPONENT_NAME}

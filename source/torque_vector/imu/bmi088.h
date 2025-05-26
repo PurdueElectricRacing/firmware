@@ -13,9 +13,7 @@
 #define _BMI_H_
 
 #include <stdint.h>
-#include <inttypes.h>
 #include <stdbool.h>
-#include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/phal_F4_F7/spi/spi.h"
 
 #define BMI088_GYRO_CHIP_ID        (0x0FU)
@@ -83,9 +81,6 @@ typedef enum {
     GYRO_DR_100Hz_32Hz   = 0x07,
 } BMI088_GyroDrBw_t;
 
-uint8_t spi_rx_buff[16];
-uint8_t spi_tx_buff[16];
-
 typedef struct {
     int16_t gyro_x; // Angular velocity around the X axis (pitch) in rad/s
     int16_t gyro_y; // Angular velocity around the Y axis (roll) in rad/s
@@ -94,25 +89,22 @@ typedef struct {
     int16_t accel_x; // Acceleration over x axis (m/s^2)
     int16_t accel_y; // Acceleration over y axis (m/s^2)
     int16_t accel_z; // Acceleration over z axis (m/s^2)
-} BMI088_Raw_t;
+} IMU_data_t;
 
 typedef struct
 {
     SPI_InitConfig_t *spi;
 
-    // GPIO Port and Pin for the accelerometer CSB
-    GPIO_TypeDef *accel_csb_gpio_port;
-    uint32_t accel_csb_pin;
-    
-    // GPIO Port and Pin for the gyro CSB
-    GPIO_TypeDef *gyro_csb_gpio_port;
-    uint32_t gyro_csb_pin;
+    uint8_t bmi_rx_buffer[16];
+    uint8_t bmi_tx_buffer[16];
+    IMU_data_t data;
 
     BMI088_AccelRange_t accel_range;
     BMI088_AccelBWP_t accel_bwp;
     BMI088_AccelODR_t accel_odr;
     BMI088_GyroRange_t gyro_range;
     BMI088_GyroDrBw_t gyro_datarate;
+
     bool gyro_dynamic_range;
     bool accel_ready;
 } BMI088_Handle_t;
@@ -176,7 +168,7 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t *bmi);
  * @return true Successful data Tx/Rx
  * @return false Unsuccessful data Tx/Rx
  */
-bool BMI088_readGyro(BMI088_Handle_t *bmi, BMI088_Raw_t *raw_data);
+bool BMI088_readGyro(BMI088_Handle_t *bmi);
 
 /**
  * @brief Blocking function to read the acceleration values form the device.
@@ -185,7 +177,7 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi, BMI088_Raw_t *raw_data);
  * @return true
  * @return false
  */
-bool BMI088_readAccel(BMI088_Handle_t *bmi, BMI088_Raw_t *raw_data);
+bool BMI088_readAccel(BMI088_Handle_t *bmi);
 
 
 uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi);

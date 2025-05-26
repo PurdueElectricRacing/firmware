@@ -8,6 +8,7 @@
 #include "common/phal_F4_F7/spi/spi.h"
 #include "common/phal_F4_F7/usart/usart.h"
 #include "common/psched/psched.h"
+#include "can/can_parse.h"
 
 #include "main.h"
 
@@ -112,14 +113,10 @@ SPI_InitConfig_t spi_config = {
 };
 
 /* IMU Configuration */
-BMI088_Handle_t bmi_config = {
-    .accel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
-    .accel_csb_pin       = SPI_CS_ACEL_Pin,
+BMI088_Handle_t bmi = {
     .accel_range         = ACCEL_RANGE_3G,
     .accel_odr           = ACCEL_ODR_50Hz,
     .accel_bwp           = ACCEL_OS_NORMAL,
-    .gyro_csb_gpio_port  = SPI_CS_GYRO_GPIO_Port,
-    .gyro_csb_pin        = SPI_CS_GYRO_Pin,
     .gyro_datarate       = GYRO_DR_100Hz_32Hz,
     .gyro_range          = GYRO_RANGE_250,
     .spi                 = &spi_config
@@ -260,9 +257,8 @@ void preflightChecks(void)
         break;
     case 65:
     {
-        vector_3d_t accel_test_in;
-        BMI088_readAccel(&bmi_config, &accel_test_in);
-        if (accel_test_in.x == 0 && accel_test_in.y == 0 && accel_test_in.z == 0)
+        BMI088_readAccel(&bmi);
+        if (bmi.data.accel_x == 0 && bmi.data.accel_y == 0 && bmi.data.accel_z == 0)
         {
             state = 8;
         }
@@ -271,11 +267,6 @@ void preflightChecks(void)
     default:
         if (state > 66)
         {
-            /* IMU Initialization */
-            if (!imu_init(&imu_h))
-            {
-                HardFault_Handler();
-            }
             initCANParse();
             registerPreflightComplete(1);
             state = 66; /* prevent wrap around */

@@ -33,8 +33,9 @@ bool BMI088_init(BMI088_Handle_t *bmi)
 
     // Perform self tests for sensor
     BMI088_gyroSelfTestStart(bmi);
-    while (!BMI088_gyroSelfTestComplete(bmi))
-        ;
+    while (!BMI088_gyroSelfTestComplete(bmi)) {
+        ASM_NOP();
+    }
 
     if (!BMI088_gyroSelfTestPass(bmi))
         return false;

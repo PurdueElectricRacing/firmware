@@ -42,53 +42,52 @@ GPIOInitConfig_t gpio_config[] =
 /* GPS USART */
 dma_init_t usart_gps_tx_dma_config = USART4_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_gps_rx_dma_config = USART4_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t huart_gps =
-{
-    .baud_rate = 115200,
-    .word_length = WORD_8,
-    .hw_flow_ctl = HW_DISABLE,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .obsample = OB_DISABLE,
-    .ovsample = OV_16,
-    .periph      = UART4,
-    .wake_addr = false,
+usart_init_t huart_gps = {
+    .baud_rate        = 115200,
+    .word_length      = WORD_8,
+    .hw_flow_ctl      = HW_DISABLE,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .obsample         = OB_DISABLE,
+    .ovsample         = OV_16,
+    .periph           = UART4,
+    .wake_addr        = false,
     .usart_active_num = USART4_ACTIVE_IDX,
-    .tx_errors = 0,
-    .rx_errors = 0,
-    .tx_dma_cfg = &usart_gps_tx_dma_config,
-    .rx_dma_cfg = &usart_gps_rx_dma_config
+    .tx_errors        = 0,
+    .rx_errors        = 0,
+    .tx_dma_cfg       = &usart_gps_tx_dma_config,
+    .rx_dma_cfg       = &usart_gps_rx_dma_config
 };
 
 /* USB USART */
 dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t huart_usb = {
-   .baud_rate   = 115200,
-   .word_length = WORD_8,
-   .stop_bits   = SB_ONE,
-   .parity      = PT_NONE,
-   .hw_flow_ctl = HW_DISABLE,
-   .ovsample    = OV_16,
-   .obsample    = OB_DISABLE,
-   .periph      = USART1,
-   .wake_addr   = false,
-   .usart_active_num = USART1_ACTIVE_IDX,
-   .tx_dma_cfg = &usart_usb_tx_dma_config,
-   .rx_dma_cfg = &usart_usb_rx_dma_config
+    .baud_rate        = 115200,
+    .word_length      = WORD_8,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .hw_flow_ctl      = HW_DISABLE,
+    .ovsample         = OV_16,
+    .obsample         = OB_DISABLE,
+    .periph           = USART1,
+    .wake_addr        = false,
+    .usart_active_num = USART1_ACTIVE_IDX,
+    .tx_dma_cfg       = &usart_usb_tx_dma_config,
+    .rx_dma_cfg       = &usart_usb_rx_dma_config
 };
 
 /* Clock Configuration */
 #define TargetCoreClockrateHz 96000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSE,
-    .use_pll                    =true,
-    .pll_src                    =PLL_SRC_HSE,
-    .vco_output_rate_target_hz  =192000000,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / 4),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / 4),
+    .clock_source              = CLOCK_SOURCE_HSE,
+    .use_pll                   = true,
+    .pll_src                   = PLL_SRC_HSE,
+    .vco_output_rate_target_hz = 192000000,
+    .system_clock_target_hz    = TargetCoreClockrateHz,
+    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz      = (TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz      = (TargetCoreClockrateHz / 4),
 };
 
 /* Locals for Clock Rates */
@@ -100,31 +99,30 @@ extern uint32_t PLLClockRateHz;
 /* IMU SPI */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
-SPI_InitConfig_t spi_config =
-{
-    .data_rate = TargetCoreClockrateHz / 64,
-    .data_len = 8,
-    .nss_sw = true,
+
+SPI_InitConfig_t spi_config = {
+    .data_rate     = TargetCoreClockrateHz / 64,
+    .data_len      = 8,
+    .nss_sw        = true,
     .nss_gpio_port = SPI_CS_ACEL_GPIO_Port,
-    .nss_gpio_pin = SPI_CS_ACEL_Pin,
-    .rx_dma_cfg = &spi_rx_dma_config,
-    .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI1
+    .nss_gpio_pin  = SPI_CS_ACEL_Pin,
+    .rx_dma_cfg    = &spi_rx_dma_config,
+    .tx_dma_cfg    = &spi_tx_dma_config,
+    .periph        = SPI1
 };
 
 /* IMU Configuration */
-BMI088_Handle_t bmi_config =
-{
+BMI088_Handle_t bmi_config = {
     .accel_csb_gpio_port = SPI_CS_ACEL_GPIO_Port,
-    .accel_csb_pin = SPI_CS_ACEL_Pin,
-    .accel_range = ACCEL_RANGE_3G,
-    .accel_odr = ACCEL_ODR_50Hz,
-    .accel_bwp = ACCEL_OS_NORMAL,
-    .gyro_csb_gpio_port = SPI_CS_GYRO_GPIO_Port,
-    .gyro_csb_pin = SPI_CS_GYRO_Pin,
-    .gyro_datarate = GYRO_DR_100Hz_32Hz,
-    .gyro_range = GYRO_RANGE_250,
-    .spi = &spi_config
+    .accel_csb_pin       = SPI_CS_ACEL_Pin,
+    .accel_range         = ACCEL_RANGE_3G,
+    .accel_odr           = ACCEL_ODR_50Hz,
+    .accel_bwp           = ACCEL_OS_NORMAL,
+    .gyro_csb_gpio_port  = SPI_CS_GYRO_GPIO_Port,
+    .gyro_csb_pin        = SPI_CS_GYRO_Pin,
+    .gyro_datarate       = GYRO_DR_100Hz_32Hz,
+    .gyro_range          = GYRO_RANGE_250,
+    .spi                 = &spi_config
 };
 
 /* GPS Data */
@@ -356,7 +354,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
 {
     if (handle == &huart_usb)
     {
-        asm("nop");
+        ASM_NOP();
         // memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
         // memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
         // memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));

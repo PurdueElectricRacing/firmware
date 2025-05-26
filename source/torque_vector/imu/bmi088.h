@@ -42,24 +42,24 @@
 
 typedef enum {
     ACCEL_ODR_12_5Hz = 0x05,
-    ACCEL_ODR_25Hz = 0x06,
-    ACCEL_ODR_50Hz = 0x07,
-    ACCEL_ODR_100Hz = 0x08,
-    ACCEL_ODR_200Hz = 0x09,
-    ACCEL_ODR_400Hz = 0x0A,
-    ACCEL_ODR_800Hz = 0x0B,
+    ACCEL_ODR_25Hz   = 0x06,
+    ACCEL_ODR_50Hz   = 0x07,
+    ACCEL_ODR_100Hz  = 0x08,
+    ACCEL_ODR_200Hz  = 0x09,
+    ACCEL_ODR_400Hz  = 0x0A,
+    ACCEL_ODR_800Hz  = 0x0B,
     ACCEL_ODR_1600Hz = 0x0C,
 } BMI088_AccelODR_t;
 
 typedef enum {
     ACCEL_OS_NORMAL = 0x0A,
-    ACCEL_OS_2 = 0x09,
-    ACCEL_OS_4 = 0x08,
+    ACCEL_OS_2      = 0x09,
+    ACCEL_OS_4      = 0x08,
 } BMI088_AccelBWP_t;
 
 typedef enum {
-    ACCEL_RANGE_3G = 0x00,
-    ACCEL_RANGE_6G = 0x01,
+    ACCEL_RANGE_3G  = 0x00,
+    ACCEL_RANGE_6G  = 0x01,
     ACCEL_RANGE_12G = 0x02,
     ACCEL_RANGE_24G = 0x03,
 } BMI088_AccelRange_t;
@@ -67,20 +67,20 @@ typedef enum {
 typedef enum {
     GYRO_RANGE_2000 = 0x00,
     GYRO_RANGE_1000 = 0x01,
-    GYRO_RANGE_500 = 0x02,
-    GYRO_RANGE_250 = 0x03,
-    GYRO_RANGE_125 = 0x04,
+    GYRO_RANGE_500  = 0x02,
+    GYRO_RANGE_250  = 0x03,
+    GYRO_RANGE_125  = 0x04,
 } BMI088_GyroRange_t;
 
 typedef enum {
     GYRO_DR_2000Hz_532Hz = 0x00,
     GYRO_DR_2000Hz_230Hz = 0x01,
     GYRO_DR_1000Hz_116Hz = 0x02,
-    GYRO_DR_400Hz_47Hz = 0x03,
-    GYRO_DR_200Hz_23Hz = 0x04,
-    GYRO_DR_100Hz_12Hz = 0x05,
-    GYRO_DR_200Hz_64Hz = 0x06,
-    GYRO_DR_100Hz_32Hz = 0x07,
+    GYRO_DR_400Hz_47Hz   = 0x03,
+    GYRO_DR_200Hz_23Hz   = 0x04,
+    GYRO_DR_100Hz_12Hz   = 0x05,
+    GYRO_DR_200Hz_64Hz   = 0x06,
+    GYRO_DR_100Hz_32Hz   = 0x07,
 } BMI088_GyroDrBw_t;
 
 uint8_t spi_rx_buff[16];
@@ -173,9 +173,6 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t *bmi);
 /**
  * @brief Blocking function to read the most recent Data Sample from the gyro
  *
- * @param v.x Angular velocity around the X axis (pitch) in rad/s
- * @param v.y Angular velocity around the Y axis (roll) in rad/s
- * @param v.z Angular velocity around the Z axis (yaw) in rad/s
  * @return true Successful data Tx/Rx
  * @return false Unsuccessful data Tx/Rx
  */
@@ -185,9 +182,6 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi, BMI088_Raw_t *raw_data);
  * @brief Blocking function to read the acceleration values form the device.
  *
  * @param bmi
- * @param v.x Acceleration over x axis (m/s^2)
- * @param v.y Acceleration over y axis (m/s^2)
- * @param v.z Acceleration over z axis (m/s^2)
  * @return true
  * @return false
  */

@@ -160,14 +160,13 @@ int main()
         HardFault_Handler();
     log_yellow("PER PER PER\n");
 
-    if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
-        HardFault_Handler();
-    CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
-                 CAN_IER_BOFIE | CAN_IER_EPVIE |
-                 CAN_IER_EWGIE;
+    PHAL_initCAN(CAN1, false, MCAN_BPS);
+    // CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
+    //              CAN_IER_BOFIE | CAN_IER_EPVIE |
+    //              CAN_IER_EWGIE;
 
-    // if (!PHAL_initCAN(CAN2, false, MCAN_BPS))
-    //     HardFault_Handler();
+    if (!PHAL_initCAN(CAN2, false, VCAN_BPS))
+        HardFault_Handler();
 
     initCANParse();
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
@@ -292,11 +291,11 @@ void CAN1_RX0_IRQHandler()
     can_rx_irq_handler(CAN1);
 }
 
-// void CAN2_RX0_IRQHandler()
-// {
-//     /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
-//     can_rx_irq_handler(CAN2);
-// }
+void CAN2_RX0_IRQHandler()
+{
+    /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
+    can_rx_irq_handler(CAN2);
+}
 
 //volatile uint32_t last_err_stat = 0;
 volatile uint32_t error_irq_cnt = 0;

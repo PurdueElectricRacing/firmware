@@ -148,8 +148,8 @@ typedef struct {
 
 } NAV_PVT_t;
 
-// TODO maybe move the raw buffer out of the struct
-uint8_t raw_message[100];  // Raw message as received from GPS
+#define GPS_RX_BUF_SIZE 100 // Size of GPS receive buffer
+uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE];  // Raw message as received from GPS
 typedef struct {
     NAV_PVT_t decoded_message; // Decoded message
 

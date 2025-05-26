@@ -70,8 +70,9 @@ bool BMI088_initAccel(BMI088_Handle_t *bmi)
 bool BMI088_gyroOK(BMI088_Handle_t *bmi)
 {
     BMI088_gyroSelfTestStart(bmi);
-    while (!BMI088_gyroSelfTestComplete(bmi))
-        ;
+    while (!BMI088_gyroSelfTestComplete(bmi)) {
+        ASM_NOP();
+    }
 
     if (!BMI088_gyroSelfTestPass(bmi))
         return false;
@@ -116,8 +117,9 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi, vector_3d_t *v)
     static uint8_t spi_tx_buff[16] = {0};
 
     BMI088_selectGyro(bmi);
-    while (PHAL_SPI_busy(bmi->spi))
-        ;
+    while (PHAL_SPI_busy(bmi->spi)) {
+        ASM_NOP();
+    }
 
     spi_tx_buff[0] = (1 << 7) | BMI088_GYRO_RATE_X_LSB_ADDR;
     PHAL_SPI_transfer_noDMA(bmi->spi, spi_tx_buff, 1, 7, spi_rx_buff);
@@ -191,8 +193,9 @@ bool BMI088_readAccel(BMI088_Handle_t *bmi, vector_3d_t *v)
     static uint8_t spi_tx_buff[16] = {0};
 
     BMI088_selectAccel(bmi);
-    while (PHAL_SPI_busy(bmi->spi))
-        ;
+    while (PHAL_SPI_busy(bmi->spi)) {
+        ASM_NOP();
+    }
 
     spi_tx_buff[0] = (1 << 7) | BMI088_ACC_RATE_X_LSB_ADDR;
     PHAL_SPI_transfer_noDMA(bmi->spi, spi_tx_buff, 1, 7, spi_rx_buff);

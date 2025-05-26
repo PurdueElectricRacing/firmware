@@ -1,2 +1,3 @@
 AlignConsecutiveMacros: true
 TabWidth: 4
+ColumnLimit: 0

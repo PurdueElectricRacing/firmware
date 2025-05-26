@@ -63,7 +63,7 @@ usart_init_t huart_gps =
 /* USB USART */
 dma_init_t usart_usb_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_usb_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t usb = {
+usart_init_t huart_usb = {
    .baud_rate   = 115200,
    .word_length = WORD_8,
    .stop_bits   = SB_ONE,
@@ -127,16 +127,10 @@ BMI088_Handle_t bmi_config =
     .spi = &spi_config
 };
 
-IMU_Handle_t imu_h =
-{
-    .bmi = &bmi_config,
-};
-
 /* GPS Data */
-GPS_Handle_t GPSHandle = {};
+GPS_Handle_t GPSHandle = {0};
 
 /* IMU Data */
-vector_3d_t accel_in, gyro_in, mag_in;
 static int16_t gyro_counter = 0;
 
 /* VCU Data */
@@ -236,7 +230,7 @@ void preflightChecks(void)
     case 3:
         /* GPS Initialization */
         PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)GPSHandle.raw_message, 100, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)gps_rx_buffer, GPS_RX_BUF_SIZE, 1);
         break;
     case 4:
         /* USB USART */
@@ -360,7 +354,7 @@ void parseIMU(void)
 
 void usart_recieve_complete_callback(usart_init_t *handle)
 {
-    if (handle == &usb)
+    if (handle == &huart_usb)
     {
         asm("nop");
         // memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
@@ -455,16 +449,7 @@ void txUsart() {
 
     /* You shouldn't need to mess with any of this */
     memcpy(txbuffer + 2, &txmsg, sizeof(txmsg));
-    // Send in 20-byte chunks, starting from the 3rd byte in the buffer (since the first two are reserved for the sync code)
-    // for (uint16_t i = 0; i < sizeof(txmsg); i += 20) {
-    //     uint16_t chunk_size = (i + 20 <= sizeof(txmsg)) ? 20 : sizeof(txmsg) - i;
-
-    //     // Refresh the watchdog to avoid system reset
-    //     IWDG->KR = 0xAAAA;
-
-    //     PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
-    // }
-    PHAL_usartTxDma(&usb, (uint16_t *) txbuffer, 290);
+    PHAL_usartTxDma(&huart_usb, (uint16_t *) txbuffer, 290);
 }
 
 /* CAN Message Handling */

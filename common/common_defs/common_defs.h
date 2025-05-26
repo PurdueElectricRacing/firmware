@@ -13,27 +13,40 @@
 #define COMMON_DEFS_H_
 
 /* Math Functions */
+// Get the minimum of two values
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
+
+// Get the maximum of two values
 #define MAX(x, y) ((x) < (y) ? (y) : (x))
+
+// Clamp a value between a minimum and maximum
 #define CLAMP(x, min, max)  MAX((min), MIN((x), (max)))
+
+// Get the absolute value of a number
 #define ABS(x) ((x) < 0 ? (-1 * (x)) : (x))
 
 // Base-2 logarithm that rounds down
 #define LOG2_DOWN(x) (31U - __builtin_clzl((x)))
+
 // Base-2 logarithm that rounds up
 #define LOG2_UP(x) (LOG2_DOWN((x) - 1) + 1)
 
+// Round down to the nearest multiple of n
 #define ROUNDDOWN(a, n)						    \
 ({								                \
 	uint32_t __a = (uint32_t) (a);		        \
 	(typeof(a)) (__a - __a % (n));				\
 })
+
 // Round up to the nearest multiple of n
 #define ROUNDUP(a, n)						                \
 ({								                            \
 	uint32_t __n = (uint32_t) (n);				            \
 	(typeof(a)) (ROUNDDOWN((uint32_t) (a) + __n - 1, __n));	\
 })
+
+// Add an assembly NOP instruction to prevent compiler optimizations
+#define ASM_NOP() __asm__ __volatile__("nop")
 
 /* Constants */
 #define PI (3.14159f)

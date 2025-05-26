@@ -12,77 +12,29 @@
 #ifndef _GPS_H
 #define _GPS_H
 
-union i_Long
-{
-    uint8_t bytes[4];
-    signed long iLong;
-};
+static inline int32_t bytes_to_int32(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3) {
+    uint32_t value = (uint32_t)b0 |
+                     ((uint32_t)b1 << 8) |
+                     ((uint32_t)b2 << 16) |
+                     ((uint32_t)b3 << 24);
+    return (int32_t)value; // Cast to signed int32_t
+}
 
-union u_Long
-{
-    uint8_t bytes[4];
-    unsigned long uLong;
-};
+static inline uint32_t bytes_to_uint32(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3) {
+    return (uint32_t)b0 |
+            ((uint32_t)b1 << 8) |
+            ((uint32_t)b2 << 16) |
+            ((uint32_t)b3 << 24);
+}
 
-union i_Short
-{
-    uint8_t bytes[2];
-    signed short iShort;
-};
+static inline uint16_t bytes_to_uint16(uint8_t b0, uint8_t b1) {
+    return (uint16_t)b0 | ((uint16_t)b1 << 8);
+}
 
-// typedef struct
-// {
-//     vector_3d_t acceleration;
-//     vector_3d_t gyroscope;
-//     signed long messages_received;
-//     uint8_t raw_message[100];
-
-//     signed long g_speed;
-//     int16_t g_speed_rounded;
-
-//     signed long longitude;
-//     int32_t lon_rounded;
-
-//     signed long latitude;
-//     int32_t lat_rounded;
-
-//     signed long height;
-//     int16_t height_rounded;
-
-//     signed long n_vel;
-//     int16_t n_vel_rounded;
-
-//     signed long e_vel;
-//     int16_t e_vel_rounded;
-
-//     signed long d_vel;
-//     int16_t d_vel_rounded;
-
-//     signed long headVeh;
-//     int16_t headVeh_rounded;
-
-//     signed short mag_dec;
-
-//     uint8_t fix_type;
-
-//     unsigned long iTOW;
-//     bool is_unique_iTOW;
-
-//     uint8_t year; // Year (UTC) - (milenium truncated)
-//     uint8_t month; // Month, range 1..12 (UTC)
-//     uint8_t day;  // Day of month, range 1..31 (UTC)
-//     uint8_t hour; // Hour of day, range 0..23 (UTC)
-//     uint8_t minute; // Minute of hour, range 0..59 (UTC)
-//     uint8_t second; // Second of minute, range 0..60 (UTC)
-//     int16_t millisecond; // Millisecond of second (calculated from nanoseconds)
-//     bool is_valid_date;
-//     bool is_valid_time;
-//     bool is_fully_resolved;
-//     bool is_valid_mag;
-
-//     uint8_t gyro_OK;
-
-// } GPS_Handle_t; // GPS handle
+static inline int16_t bytes_to_int16(uint8_t b0, uint8_t b1) {
+    uint16_t value = (uint16_t)b0 | ((uint16_t)b1 << 8);
+    return (int16_t)value; // Cast to signed int16_t
+}
 
 // Bitmask for NAV_PVT_t.valid flags
 typedef uint8_t gps_valid_flags_t;
@@ -140,7 +92,7 @@ typedef struct {
     uint16_t positionDOP; // Position DOP (0.01)
     uint8_t reserved[6];
 
-    int16_t headingVehicle; // Heading of vehicle in 1e-5 degrees
+    int32_t headingVehicle; // Heading of vehicle in 1e-5 degrees
 
     int16_t magDec;  // Magnetic declination in 1e-2 degrees
     uint16_t magAcc; // Magnetic declination accuracy in 1e-2 degrees
@@ -167,7 +119,6 @@ typedef struct {
 
 // Reworked function here
 //void GPS_Decode(GPS_Handle_t *GPS);
-
 
 
 /**

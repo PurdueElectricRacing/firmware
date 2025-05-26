@@ -75,7 +75,7 @@ typedef enum
 #define HV_V_MC_CAL      (1000)        // V_actual / V_measured * 1000
 #define HV_V_BAT_CAL     (1000)        // V_actual / V_measured * 1000
 
-#define PCHG_COMPLETE_LOW_PASS_SIZE   (15)
+#define PCHG_COMPLETE_LOW_PASS_SIZE   (20)
 typedef struct
 {
     bool pchg_complete;

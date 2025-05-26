@@ -80,7 +80,7 @@ void coolingPeriodic()
     setFault(ID_DT_R_TEMP_OT_FAULT, cooling.gb_therm_r_c);
 
     // Cooling Loop
-    setFault(ID_BAT_COOL_LOOP_HIGH_FAULT, MAX(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
+    // setFault(ID_BAT_COOL_LOOP_HIGH_FAULT, MAX(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
     setFault(ID_DT_COOL_LOOP_HIGH_FAULT, MAX(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
 
     // Disconnect Faults
@@ -89,7 +89,7 @@ void coolingPeriodic()
     setFault(ID_DT_R_THERM_DISC_FAULT, cooling.gb_therm_r_c);
 
     // Cooling Loop
-    setFault(ID_BATT_CL_DISC_FAULT, MIN(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
+    // setFault(ID_BATT_CL_DISC_FAULT, MIN(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
     setFault(ID_DT_CL_DISC_FAULT, MIN(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
 
 }

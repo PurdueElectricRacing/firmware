@@ -1,11 +1,12 @@
 #include "bmi088.h"
 #include "can_parse.h"
 #include "common_defs.h"
+#include "main.h"
 #include "vcu.h"
 #include <math.h>
 #include <stdint.h>
  
-void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *gps, BMI088_Handle_t *bmi, IMU_data_t *state_estimate)
+void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *gps, BMI088_Handle_t *bmi, State_Estimate_t *state_estimate)
 {
     /*Raw F Data*/
     fVCU->CS_SFLAG = (can_data.main_hb.stale);
@@ -51,9 +52,9 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *gps, BMI088_Hand
     xVCU->WM_RAW[0] = (can_data.INVA_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
     xVCU->WM_RAW[1] = (can_data.INVB_CRIT.AMK_ActualSpeed*M_PI/30); /*Incoming is RPM of motor shaft */
     xVCU->GS_RAW = (gps->data.groundSpeed*0.001); /* Incoming data is 1000*m/s */
-    xVCU->AV_RAW[0] = (state_estimate->gyro_x);  /* Incoming data is rad/s */
-    xVCU->AV_RAW[1] = (state_estimate->gyro_y);  /* Incoming data is rad/s */
-    xVCU->AV_RAW[2] = (state_estimate->gyro_z);  /* Incoming data is rad/s */
+    xVCU->AV_RAW[0] = (state_estimate->angular_velocity_x);  /* Incoming data is rad/s */
+    xVCU->AV_RAW[1] = (state_estimate->angular_velocity_y);  /* Incoming data is rad/s */
+    xVCU->AV_RAW[2] = (state_estimate->angular_velocity_z);  /* Incoming data is rad/s */
     xVCU->IB_RAW = (can_data.orion_currents_volts.pack_current*0.1); /* Incoming is 10*A out of battery */
     xVCU->MT_RAW = (MAX((can_data.INVA_TEMPS.AMK_MotorTemp),(can_data.INVB_TEMPS.AMK_MotorTemp))*0.1);/* incoming is 10*motor temp*/
     xVCU->CT_RAW = (MAX((can_data.INVA_TEMPS.AMK_IGBTTemp),(can_data.INVB_TEMPS.AMK_IGBTTemp))*0.1);/* incoming is 10*controller igbt temp*/

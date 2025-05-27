@@ -18,7 +18,6 @@
 #include "common/phal_F4_F7/can/can.h"
 
 #include "gps.h"
-#include "vcu.h"
 
 #define FAULT_NODE_NAME NODE_TORQUE_VECTOR
 
@@ -53,6 +52,21 @@
 #define GPS_TX_Pin (4)
 #define GPS_RESET_GPIO_Port (GPIOC)
 #define GPS_RESET_Pin       (9)
+
+// Post Filtered state estimate
+// TODO Kalman filter lmao
+// TODO log this to DAQ
+typedef struct {
+    float roll;  // Roll angle in radians
+    float pitch; // Pitch angle in radians
+    float yaw;   // Yaw angle in radians
+    float angular_velocity_x; // Angular velocity around the X axis in rad/s
+    float angular_velocity_y; // Angular velocity around the Y axis in rad/s
+    float angular_velocity_z; // Angular velocity around the Z axis in rad/s
+    float accel_x; // Acceleration over x axis in m/s^2
+    float accel_y; // Acceleration over y axis in m/s^2
+    float accel_z; // Acceleration over z axis in m/s^2
+} State_Estimate_t;
 
 // If you modify this struct, update the Python script accordingly
 // The Python script must match this exact structure for correct data parsing.

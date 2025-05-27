@@ -17,6 +17,7 @@
 #include "gps.h"
 #include "bmi088.h"
 #include <math.h>
+#include "vcu.h"
 
 GPIOInitConfig_t gpio_config[] =
 {
@@ -128,8 +129,7 @@ BMI088_Handle_t bmi_handle = {
     .gyro_datarate       = GYRO_DR_100Hz_32Hz
 };
 
-// Post Filtered state estimate
-IMU_data_t state_estimate = {0}; // TODO extend state estimate to more than just IMU data
+State_Estimate_t state_estimate = {0};
 
 /* GPS Data */
 GPS_Handle_t gps_handle = {0};
@@ -341,6 +341,19 @@ void parseIMU(void) {
     MadgwickAHRSupdateIMU(
         data.gyro_x, data.gyro_y, data.gyro_z,
         data.accel_x, data.accel_y, data.accel_z);
+
+    // Update orientation state estimate
+    quaternion_to_euler(q0, q1, q2, q3, &state_estimate.roll, &state_estimate.pitch, &state_estimate.yaw);
+
+    // Update angular velocity
+    state_estimate.angular_velocity_x = data.gyro_x; // Convert to rad/s
+    state_estimate.angular_velocity_y = data.gyro_y; // Convert to rad/s
+    state_estimate.angular_velocity_z = data.gyro_z; // Convert to rad/s
+
+    // Update acceleration
+    state_estimate.accel_x = data.accel_x * 0.001; // Convert to m/s^2
+    state_estimate.accel_y = data.accel_y * 0.001; // Convert to m/s^2
+    state_estimate.accel_z = data.accel_z * 0.001; // Convert to m/s^2
 
     // Update Gyro OK flag every once in a while
     if (gyro_counter == 150) {

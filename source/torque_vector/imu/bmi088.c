@@ -44,7 +44,7 @@ bool BMI088_init(BMI088_Handle_t *bmi)
     return true;
 }
 
-void BMI088_powerOnAccel(BMI088_Handle_t *bmi)
+void BMI088_wakeAccel(BMI088_Handle_t *bmi)
 {
     BMI088_selectAccel(bmi);
     PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_PWR_CONF_ADDR, 0);

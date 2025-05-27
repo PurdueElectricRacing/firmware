@@ -12,6 +12,10 @@
 
 #include "main.h"
 
+#include <string.h>
+#include "gps.h"
+#include "bmi088.h"
+
 GPIOInitConfig_t gpio_config[] =
 {
     /* Status Indicators */
@@ -113,7 +117,7 @@ SPI_InitConfig_t spi_config = {
 };
 
 /* IMU Configuration */
-BMI088_Handle_t bmi = {
+BMI088_Handle_t bmi_handle = {
     .accel_range         = ACCEL_RANGE_3G,
     .accel_odr           = ACCEL_ODR_50Hz,
     .accel_bwp           = ACCEL_OS_NORMAL,
@@ -123,10 +127,7 @@ BMI088_Handle_t bmi = {
 };
 
 /* GPS Data */
-GPS_Handle_t GPSHandle = {0};
-
-/* IMU Data */
-static int16_t gyro_counter = 0;
+GPS_Handle_t gps_handle = {0};
 
 /* VCU Data */
 static pVCU_struct pVCU;
@@ -147,7 +148,6 @@ void preflightChecks(void);
 extern void HardFault_Handler(void);
 
 void parseIMU(void);
-void pollIMU(void);
 void VCU_MAIN(void);
 void txUsart(void);
 
@@ -182,7 +182,6 @@ int main(void)
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseIMU, 20);
-    taskCreate(pollIMU, 20);
     taskCreate(VCU_MAIN, 20);
 
     /* No Way Home */
@@ -225,7 +224,7 @@ void preflightChecks(void)
     case 3:
         /* GPS Initialization */
         PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)gps_rx_buffer, GPS_RX_BUF_SIZE, 1);
+        PHAL_usartRxDma(&huart_gps, (uint16_t *)(gps_handle.gps_rx_buffer), GPS_RX_BUF_SIZE, 1);
         break;
     case 4:
         /* USB USART */
@@ -240,25 +239,25 @@ void preflightChecks(void)
         break;
     case 6:
         /* BMI Initialization */
-        if (!BMI088_init(&bmi_config))
+        if (!BMI088_init(&bmi_handle))
         {
             HardFault_Handler();
         }
         break;
     case 9:
-        BMI088_powerOnAccel(&bmi_config);
+        BMI088_wakeAccel(&bmi_handle);
         break;
     case 63:
         /* Accelerometer Init */
-        if (false == BMI088_initAccel(&bmi_config))
+        if (false == BMI088_initAccel(&bmi_handle))
         {
             HardFault_Handler();
         }
         break;
     case 65:
     {
-        BMI088_readAccel(&bmi);
-        if (bmi.data.accel_x == 0 && bmi.data.accel_y == 0 && bmi.data.accel_z == 0)
+        BMI088_readAccel(&bmi_handle);
+        if (bmi_handle.data.accel_x == 0 && bmi_handle.data.accel_y == 0 && bmi_handle.data.accel_z == 0)
         {
             state = 8;
         }
@@ -316,27 +315,17 @@ void heartBeatLED(void)
     trig = !trig;
 }
 
-void pollIMU(void)
-{
-    imu_periodic(&imu_h);
-}
+void parseIMU(void) {
+    static int16_t gyro_counter = 0;
 
-void parseIMU(void)
-{
-    GPSHandle.messages_received++;
-    BMI088_readGyro(&bmi_config, &gyro_in);
-    BMI088_readAccel(&bmi_config, &accel_in);
-    GPSHandle.acceleration = accel_in;
-    GPSHandle.gyroscope = gyro_in;
+    BMI088_readGyro(&bmi_handle);
+    BMI088_readAccel(&bmi_handle);
 
-    /* Update Gyro OK flag */
-    if (gyro_counter == 150)
-    {
-        GPSHandle.gyro_OK = BMI088_gyroOK(&bmi_config);
+    // Update Gyro OK flag every once in a while
+    if (gyro_counter == 150) {
+        bmi_handle.isGyroOK = BMI088_gyroOK(&bmi_handle);
         gyro_counter = 0;
-    }
-    else
-    {
+    } else {
         ++gyro_counter;
     }
 }
@@ -385,7 +374,7 @@ void usart_recieve_complete_callback(usart_init_t *handle)
     }
     else
     {
-        GPS_Parse(&GPSHandle);
+        GPS_Decode(&gps_handle);
     }
 }
 
@@ -450,7 +439,7 @@ void CAN1_RX0_IRQHandler()
 void VCU_MAIN(void)
 {
     /* Fill in X & F */
-    vcu_pp(&fVCU, &xVCU, &GPSHandle);
+    vcu_pp(&fVCU, &xVCU, &gps_handle, &bmi_handle);
 
     /* Step VCU */
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);

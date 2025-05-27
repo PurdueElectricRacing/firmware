@@ -92,9 +92,9 @@ typedef struct {
     uint32_t timeAccuracy; // time accuracy in nanoseconds
     int32_t nano;          // nanoseconds of second
 
-    gps_fix_type_t fixType;     // GPS_FIX_TYPE_*
-    gps_flags1_t flags1; // GPS_FIX_FLAG_*
-    gps_flags2_t flags2; // GPS_FLAGS2_*
+    gps_fix_type_t fixType; // GPS_FIX_TYPE_*
+    gps_flags1_t flags1;    // GPS_FIX_FLAG_*
+    gps_flags2_t flags2;    // GPS_FLAGS2_*
 
     uint8_t numSatellites;       // Number of satellites used in Nav Solution
     int32_t longitude;           // Longitude in 1e-7 degrees

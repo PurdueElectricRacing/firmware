@@ -122,7 +122,7 @@ typedef struct {
 
 typedef struct {
     uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE];  // Raw message as received from GPS
-    NAV_PVT_t decoded_message; // Decoded message
+    NAV_PVT_t data; // Decoded message
 
     bool isValidDate;
     bool isValidTime;

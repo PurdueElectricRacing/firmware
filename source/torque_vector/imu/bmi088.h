@@ -105,8 +105,8 @@ typedef struct
     BMI088_GyroRange_t gyro_range;
     BMI088_GyroDrBw_t gyro_datarate;
 
-    bool gyro_dynamic_range;
-    bool accel_ready;
+    bool enableDynamicRange;
+    bool isAccelReady;
     bool isGyroOK;
 } BMI088_Handle_t;
 

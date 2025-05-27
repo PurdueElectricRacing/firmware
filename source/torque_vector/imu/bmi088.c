@@ -22,7 +22,7 @@ static inline void BMI088_selectAccel(BMI088_Handle_t *bmi);
 
 bool BMI088_init(BMI088_Handle_t *bmi)
 {
-    bmi->accel_ready = false;
+    bmi->isAccelReady = false;
     /* Gyro initilization  */
     BMI088_selectGyro(bmi);
     if (PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_CHIP_ID_ADDR, true) != BMI088_GYRO_CHIP_ID)
@@ -65,7 +65,7 @@ bool BMI088_initAccel(BMI088_Handle_t *bmi)
 
     uint8_t read_back = PHAL_SPI_readByte(bmi->spi, BMI088_ACC_CHIP_ID_ADDR, false);
 
-    bmi->accel_ready = true;
+    bmi->isAccelReady = true;
     return true;
 }
 
@@ -183,8 +183,8 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi) {
     raw_z = (((int16_t)rx_buffer[6]) << 8) | rx_buffer[5];
 
     int16_t max_raw = MAX(MAX(raw_x, raw_y), raw_z);
-    bool range_up = bmi->gyro_dynamic_range && (ABS(max_raw) >= 32000); // int16_t range is -32,768 to +32,767
-    bool range_down = bmi->gyro_dynamic_range && (ABS(max_raw) <= 1000);
+    bool range_up = bmi->enableDynamicRange && (ABS(max_raw) >= 32000); // int16_t range is -32,768 to +32,767
+    bool range_down = bmi->enableDynamicRange && (ABS(max_raw) <= 1000);
 
     // Convert raw values into physical values based on range
     // Decimal is fixed in the first place

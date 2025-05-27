@@ -2,14 +2,12 @@
 #include <stdbool.h>
 #include "gps.h"
 
-GPS_Handle_t gps_handle = {0};
-
 bool GPS_Decode(GPS_Handle_t *gps) {
     if (!gps) { // Null pointer check
         return false;
     }
 
-    NAV_PVT_t *nav_pvt = &(gps->decoded_message);
+    NAV_PVT_t *nav_pvt = &(gps->data);
     uint8_t *rx_buffer = gps->gps_rx_buffer;
 
     // Check the header

@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "MadgwickAHRS.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
@@ -15,6 +16,7 @@
 #include <string.h>
 #include "gps.h"
 #include "bmi088.h"
+#include <math.h>
 
 GPIOInitConfig_t gpio_config[] =
 {
@@ -118,13 +120,16 @@ SPI_InitConfig_t spi_config = {
 
 /* IMU Configuration */
 BMI088_Handle_t bmi_handle = {
+    .spi                 = &spi_config,
     .accel_range         = ACCEL_RANGE_3G,
-    .accel_odr           = ACCEL_ODR_50Hz,
     .accel_bwp           = ACCEL_OS_NORMAL,
-    .gyro_datarate       = GYRO_DR_100Hz_32Hz,
+    .accel_odr           = ACCEL_ODR_50Hz,
     .gyro_range          = GYRO_RANGE_250,
-    .spi                 = &spi_config
+    .gyro_datarate       = GYRO_DR_100Hz_32Hz
 };
+
+// Post Filtered state estimate
+IMU_data_t state_estimate = {0}; // TODO extend state estimate to more than just IMU data
 
 /* GPS Data */
 GPS_Handle_t gps_handle = {0};
@@ -247,6 +252,7 @@ void preflightChecks(void)
     case 9:
         BMI088_wakeAccel(&bmi_handle);
         break;
+    // Delay for around 50ms to allow the accelerometer to wake up
     case 63:
         /* Accelerometer Init */
         if (false == BMI088_initAccel(&bmi_handle))
@@ -315,11 +321,26 @@ void heartBeatLED(void)
     trig = !trig;
 }
 
+// ! Move to BMI088.c ?
+
+static inline void quaternion_to_euler(float q0, float q1, float q2, float q3, float *roll, float *pitch, float *yaw) {
+    // Convert quaternion to Euler angles
+    *roll  = atan2f(2.0f * (q0 * q1 + q2 * q3), 1.0f - 2.0f * (q1 * q1 + q2 * q2));
+    *pitch = asinf(2.0f * (q0 * q2 - q3 * q1));
+    *yaw   = atan2f(2.0f * (q0 * q3 + q1 * q2), 1.0f - 2.0f * (q2 * q2 + q3 * q3));
+}
+
 void parseIMU(void) {
     static int16_t gyro_counter = 0;
 
     BMI088_readGyro(&bmi_handle);
     BMI088_readAccel(&bmi_handle);
+
+    IMU_data_t data = bmi_handle.data;
+
+    MadgwickAHRSupdateIMU(
+        data.gyro_x, data.gyro_y, data.gyro_z,
+        data.accel_x, data.accel_y, data.accel_z);
 
     // Update Gyro OK flag every once in a while
     if (gyro_counter == 150) {
@@ -439,7 +460,7 @@ void CAN1_RX0_IRQHandler()
 void VCU_MAIN(void)
 {
     /* Fill in X & F */
-    vcu_pp(&fVCU, &xVCU, &gps_handle, &bmi_handle);
+    vcu_pp(&fVCU, &xVCU, &gps_handle, &bmi_handle, &state_estimate);
 
     /* Step VCU */
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);

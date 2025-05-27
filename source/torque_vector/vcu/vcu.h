@@ -219,7 +219,7 @@ yVCU_struct init_yVCU(void);
 pVCU_struct init_pVCU(void);
 
 // VCU pre-process
-void vcu_pp(fVCU_struct* fVCU, xVCU_struct* xVCU, GPS_Handle_t* gps, BMI088_Handle_t* bmi);
+void vcu_pp(fVCU_struct* fVCU, xVCU_struct* xVCU, GPS_Handle_t* gps, BMI088_Handle_t* bmi, IMU_data_t* state_estimate);
 // VCU dummy pre-process function, sets structs to constant values instead of reading from sensors
 void vcu_pp_tester(fVCU_struct *fVCU, xVCU_struct *xVCU);
 

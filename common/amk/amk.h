@@ -15,6 +15,7 @@
 #define INVA_ID (1U)
 #define INVB_ID (2U)
 #define AMK_CAN_ERR_ID (3587U)
+#define AMK_DC_BUS_ID (1049U)
 
 #define ZERO_DECI_NM (0)
 #define TORQUE_LIM_NEG_DECI_NM (-1)
@@ -23,6 +24,9 @@
 #define MAX_NEGATIVE_TORQUE_SETPOINT  (0)
 #define MAX_POSITIVE_TORQUE_LIMIT     (1000)
 #define MAX_NEGATIVE_TORQUE_LIMIT     (-1000)
+
+#define DEFAULT_POSITIVE_TORQUE_LIMIT     (2140)
+#define DEFAULT_NEGATIVE_TORQUE_LIMIT     (-1)
 
 #include <stdbool.h>
 #include <stdint.h>

@@ -81,6 +81,7 @@ void eth_update_periodic(void)
                 dh.eth_state = ETH_LINK_FAIL;
             }
             break;
+        case ETH_LINK_DOWN: // intentional fall through
         case ETH_LINK_STARTING:
             if (eth_get_link_up())
             {
@@ -90,8 +91,7 @@ void eth_update_periodic(void)
                 dh.eth_state = ETH_LINK_UP;
             }
             break;
-        case ETH_LINK_UP:  // intentional fall through
-        case ETH_LINK_DOWN:
+        case ETH_LINK_UP:
             if (eth_get_link_up())
             {
                 dh.eth_state = ETH_LINK_UP;
@@ -127,7 +127,6 @@ static void eth_reset_error(void)
     // Do not retry immediately
     if (!(getTick() - dh.eth_last_error_time > ETH_ERROR_RETRY_MS)) return;
 
-    dh.eth_last_error_time = getTick();
     if (dh.eth_tcp_state == ETH_TCP_FAIL)
     {
         dh.eth_tcp_state = ETH_TCP_IDLE; // Retry TCP only
@@ -220,26 +219,29 @@ static void eth_udp_send_periodic(void)
     timestamped_frame_t *frame;
     uint32_t consecutive_items;
 
-    if (dh.eth_state == ETH_LINK_UP)
-    {
-        if (bGetTailForRead(&b_rx_can, RX_TAIL_UDP, (void**) &buf, &consecutive_items) == 0)
-        {
-            // Write time :D
-            ret = sendto(eth_config.udp_bc_sock, (uint8_t *)buf,
-                         consecutive_items * sizeof(*buf),
-                         eth_config.udp_bc_addr,
-                         eth_config.udp_bc_port);
+
+      if (dh.eth_state == ETH_LINK_UP)
+      {
+          if (bGetTailForRead(&b_rx_can, RX_TAIL_UDP, (void**) &buf, &consecutive_items) == 0)
+          {
+            if (consecutive_items > UDP_MAX_WRITE_COUNT) consecutive_items = UDP_MAX_WRITE_COUNT; // limit
+              // Write time :D
+              ret = sendto(eth_config.udp_bc_sock, (uint8_t *)buf,
+                          consecutive_items * sizeof(*buf),
+                          eth_config.udp_bc_addr,
+                          eth_config.udp_bc_port);
             if (ret < consecutive_items * sizeof(*buf))
             {
                 eth_handle_error(ETH_ERROR_UDP_SEND, ret);
+                bCommitRead(&b_rx_can, RX_TAIL_UDP, (ret / sizeof(*buf)));
             }
             else
             {
                 bCommitRead(&b_rx_can, RX_TAIL_UDP, consecutive_items);
             }
         }
+      }
     }
-}
 
 static void eth_udp_send_frame(timestamped_frame_t *frame)
 {

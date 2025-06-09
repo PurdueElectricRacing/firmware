@@ -55,14 +55,14 @@ static_assert(PER == GREAT); // Long live daq loop
 
 // Buffer size configurations
 // TODO estimate bus load and calculate values
-#define RX_BUFF_ITEM_COUNT      1024 // CAN Receive Buffer Configuration
+#define RX_BUFF_ITEM_COUNT      2048 // CAN Receive Buffer Configuration
 #define DAQ_CAN1_RX_COUNT       2048 // Large buffer needed for BL
 #define TCP_RX_ITEM_COUNT       100  // Large buffer needed for BL
 #define TCP_TX_ITEM_COUNT       32   //
 
 #define SD_WRITE_PERIOD_MS      (100)
 #define SD_NEW_FILE_PERIOD_MS   (1*60*1000) // 1 min
-#define SD_MAX_WRITE_COUNT      (32)
+#define SD_MAX_WRITE_COUNT      (500)
 #define SD_ERROR_RETRY_MS       (250)
 #define ETH_ERROR_RETRY_MS      (250)
 

@@ -116,6 +116,8 @@ usart_init_t lte_usart_config = {
 };
 DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
 
+extern daq_hub_t dh;
+
 // Static buffer allocations
 volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT];
 b_tail_t tails[RX_TAIL_COUNT];
@@ -127,6 +129,7 @@ b_handle_t b_rx_can = {
 
 timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
 defineStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
+// defineStaticQueue()
 defineStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT); // CAN messages RX'd to DAQ
 defineStaticSemaphore(spi1_lock);
 
@@ -135,7 +138,7 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
 void shutdown(void);
 
 int main()
-{
+   {
     osKernelInitialize();
 
     bConstruct(&b_rx_can, sizeof(*can_rx_buffer), sizeof(can_rx_buffer));
@@ -157,13 +160,12 @@ int main()
         HardFault_Handler();
     log_yellow("PER PER PER\n");
 
-    if (!PHAL_initCAN(CAN1, false, VCAN_BPS))
-        HardFault_Handler();
-    CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
-                 CAN_IER_BOFIE | CAN_IER_EPVIE |
-                 CAN_IER_EWGIE;
+    PHAL_initCAN(CAN1, false, MCAN_BPS);
+    // CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
+    //              CAN_IER_BOFIE | CAN_IER_EPVIE |
+    //              CAN_IER_EWGIE;
 
-    if (!PHAL_initCAN(CAN2, false, MCAN_BPS))
+    if (!PHAL_initCAN(CAN2, false, VCAN_BPS))
         HardFault_Handler();
 
     initCANParse();
@@ -272,7 +274,6 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
                 }
             }
 #endif
-
             bCommitWrite(&b_rx_can, 1);
         }
         else

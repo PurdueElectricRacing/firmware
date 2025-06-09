@@ -216,7 +216,7 @@ Macros</h2></td></tr>
 <tr class="separator:a538e7dbcd39289356fe5c764dff28043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac62f13737af2572a5a77eae72288394d" id="r_ac62f13737af2572a5a77eae72288394d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac62f13737af2572a5a77eae72288394d">DLC_MAIN_HB</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:ac62f13737af2572a5a77eae72288394d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6381e4f2bc9d36cdc8c1f959ca5c81f" id="r_ad6381e4f2bc9d36cdc8c1f959ca5c81f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6381e4f2bc9d36cdc8c1f959ca5c81f">DLC_REAR_WHEEL_SPEEDS</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memitem:ad6381e4f2bc9d36cdc8c1f959ca5c81f" id="r_ad6381e4f2bc9d36cdc8c1f959ca5c81f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6381e4f2bc9d36cdc8c1f959ca5c81f">DLC_REAR_WHEEL_SPEEDS</a>&#160;&#160;&#160;4</td></tr>
 <tr class="separator:ad6381e4f2bc9d36cdc8c1f959ca5c81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b889ad45590fe77ea517226472231c5" id="r_a1b889ad45590fe77ea517226472231c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b889ad45590fe77ea517226472231c5">DLC_REAR_MOTOR_TEMPS</a>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:a1b889ad45590fe77ea517226472231c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -301,6 +301,17 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a8f6ef6e91942d46ec7ede42bf5be7ca5" id="r_a8f6ef6e91942d46ec7ede42bf5be7ca5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5">VCU_mode_t</a> { <br />
+&#160;&#160;<a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5a73782bc840778668cffec74e8fb29647">VCU_MODE_EQUAL_SPEED</a>
+, <a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5aae319ae4367867e6275e4baf37d1a87b">VCU_MODE_EQUAL_TORQUE</a>
+, <a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5a7ba09690dca19acd7cad77d27e3d6d0c">VCU_MODE_EQUAL_TORQUE_WITH_SAFETY</a>
+, <a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5aa5e25d30e1a9b2834a9dcaa7aee91c61">VCU_MODE_VARIABLE_SPEED</a>
+, <br />
+&#160;&#160;<a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5a986fe03bbcbd78c6ab8cdbc26a307468">VCU_MODE_VARIABLE_TORQUE</a>
+, <a class="el" href="#a8f6ef6e91942d46ec7ede42bf5be7ca5addbacdd7c1515ae2719cd4b83ea12227">VCU_MODE_INVALID</a>
+<br />
+ }</td></tr>
+<tr class="separator:a8f6ef6e91942d46ec7ede42bf5be7ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a932556dc0435011d6235977e681a19bd" id="r_a932556dc0435011d6235977e681a19bd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a932556dc0435011d6235977e681a19bd">car_state_t</a> { <br />
 &#160;&#160;<a class="el" href="#a932556dc0435011d6235977e681a19bda787a75edc6f5f1a7a03746162fe6aa71">CAR_STATE_IDLE</a>
 , <a class="el" href="#a932556dc0435011d6235977e681a19bdaa22b2048439056b52fd303750eb0bd9d">CAR_STATE_PRECHARGING</a>
@@ -386,7 +397,7 @@ Variables</h2></td></tr>
 <div class="line">        (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) \</div>
 <div class="line">    stale = 1</div>
 <div class="ttc" id="aa__box_2can_2can__parse_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse.h:464</div></div>
-<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:74</div></div>
+<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:73</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -747,7 +758,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DLC_REAR_WHEEL_SPEEDS&#160;&#160;&#160;8</td>
+          <td class="memname">#define DLC_REAR_WHEEL_SPEEDS&#160;&#160;&#160;4</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1325,8 +1336,8 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;drive_modes.WS_VS_equal = WS_VS_equal_;\</div>
 <div class="line">        canTxSendToBack(&amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a2a451590aa4da5e63bcb7cfb04ba2efa"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a2a451590aa4da5e63bcb7cfb04ba2efa">DLC_DRIVE_MODES</a></div><div class="ttdeci">#define DLC_DRIVE_MODES</div><div class="ttdef"><b>Definition</b> can_parse.h:120</div></div>
-<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a454450068a1301d7e16a66a6fe09cea0"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a454450068a1301d7e16a66a6fe09cea0">ID_DRIVE_MODES</a></div><div class="ttdeci">#define ID_DRIVE_MODES</div><div class="ttdef"><b>Definition</b> can_parse.h:70</div></div>
+<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a2a451590aa4da5e63bcb7cfb04ba2efa"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a2a451590aa4da5e63bcb7cfb04ba2efa">DLC_DRIVE_MODES</a></div><div class="ttdeci">#define DLC_DRIVE_MODES</div><div class="ttdef"><b>Definition</b> can_parse.h:127</div></div>
+<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a454450068a1301d7e16a66a6fe09cea0"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a454450068a1301d7e16a66a6fe09cea0">ID_DRIVE_MODES</a></div><div class="ttdeci">#define ID_DRIVE_MODES</div><div class="ttdef"><b>Definition</b> can_parse.h:73</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:31</div></div>
 <div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
 </div><!-- fragment -->
@@ -1724,8 +1735,8 @@ Variables</h2></td></tr>
 <div class="line">        data_a-&gt;VCU_torques_speeds.VCU_mode = VCU_mode_;\</div>
 <div class="line">        canTxSendToBack(&amp;msg);\</div>
 <div class="line">    } <span class="keywordflow">while</span>(0)</div>
-<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a2c002391792ed5a4d79b17f6de5898ac"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a2c002391792ed5a4d79b17f6de5898ac">DLC_VCU_TORQUES_SPEEDS</a></div><div class="ttdeci">#define DLC_VCU_TORQUES_SPEEDS</div><div class="ttdef"><b>Definition</b> can_parse.h:119</div></div>
-<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a3ce26ace25ed7837bc8f46360f6daa42"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a3ce26ace25ed7837bc8f46360f6daa42">ID_VCU_TORQUES_SPEEDS</a></div><div class="ttdeci">#define ID_VCU_TORQUES_SPEEDS</div><div class="ttdef"><b>Definition</b> can_parse.h:69</div></div>
+<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a2c002391792ed5a4d79b17f6de5898ac"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a2c002391792ed5a4d79b17f6de5898ac">DLC_VCU_TORQUES_SPEEDS</a></div><div class="ttdeci">#define DLC_VCU_TORQUES_SPEEDS</div><div class="ttdef"><b>Definition</b> can_parse.h:126</div></div>
+<div class="ttc" id="amain__module_2can_2can__parse_8h_html_a3ce26ace25ed7837bc8f46360f6daa42"><div class="ttname"><a href="main__module_2can_2can__parse_8h.html#a3ce26ace25ed7837bc8f46360f6daa42">ID_VCU_TORQUES_SPEEDS</a></div><div class="ttdeci">#define ID_VCU_TORQUES_SPEEDS</div><div class="ttdef"><b>Definition</b> can_parse.h:72</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1934,6 +1945,28 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5" name="a932556dc0435011d6235977e681a19bdae81912829a37ed7a28c6b629edeb94a5"></a>CAR_STATE_RESET&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5" name="a932556dc0435011d6235977e681a19bdae39527c90500c556bbb6b573dd3e84c5"></a>CAR_STATE_RECOVER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40" name="a932556dc0435011d6235977e681a19bdae8348531995f2869d070ed476ccbed40"></a>CAR_STATE_CONSTANT_TORQUE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a8f6ef6e91942d46ec7ede42bf5be7ca5" name="a8f6ef6e91942d46ec7ede42bf5be7ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6ef6e91942d46ec7ede42bf5be7ca5">&#9670;&#160;</a></span>VCU_mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="main__module_2can_2can__parse_8h.html#a8f6ef6e91942d46ec7ede42bf5be7ca5">VCU_mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8f6ef6e91942d46ec7ede42bf5be7ca5a73782bc840778668cffec74e8fb29647" name="a8f6ef6e91942d46ec7ede42bf5be7ca5a73782bc840778668cffec74e8fb29647"></a>VCU_MODE_EQUAL_SPEED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8f6ef6e91942d46ec7ede42bf5be7ca5aae319ae4367867e6275e4baf37d1a87b" name="a8f6ef6e91942d46ec7ede42bf5be7ca5aae319ae4367867e6275e4baf37d1a87b"></a>VCU_MODE_EQUAL_TORQUE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8f6ef6e91942d46ec7ede42bf5be7ca5a7ba09690dca19acd7cad77d27e3d6d0c" name="a8f6ef6e91942d46ec7ede42bf5be7ca5a7ba09690dca19acd7cad77d27e3d6d0c"></a>VCU_MODE_EQUAL_TORQUE_WITH_SAFETY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8f6ef6e91942d46ec7ede42bf5be7ca5aa5e25d30e1a9b2834a9dcaa7aee91c61" name="a8f6ef6e91942d46ec7ede42bf5be7ca5aa5e25d30e1a9b2834a9dcaa7aee91c61"></a>VCU_MODE_VARIABLE_SPEED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8f6ef6e91942d46ec7ede42bf5be7ca5a986fe03bbcbd78c6ab8cdbc26a307468" name="a8f6ef6e91942d46ec7ede42bf5be7ca5a986fe03bbcbd78c6ab8cdbc26a307468"></a>VCU_MODE_VARIABLE_TORQUE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8f6ef6e91942d46ec7ede42bf5be7ca5addbacdd7c1515ae2719cd4b83ea12227" name="a8f6ef6e91942d46ec7ede42bf5be7ca5addbacdd7c1515ae2719cd4b83ea12227"></a>VCU_MODE_INVALID&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

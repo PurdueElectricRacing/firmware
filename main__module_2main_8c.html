@@ -103,10 +103,9 @@ $(function(){ initResizable(false); });
 <code>#include &quot;<a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html">common/phal_F4_F7/dma/dma.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html">common/phal_F4_F7/rcc/rcc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2usart_2usart_8h_source.html">common/phal_F4_F7/usart/usart.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="plettenberg_8h_source.html">common/plettenberg/plettenberg.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
+<code>#include &quot;common/amk/amk.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="car_8h_source.html">car.h</a>&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;cooling.h&quot;</code><br />
@@ -128,10 +127,6 @@ Functions</h2></td></tr>
 <tr class="separator:a60cfcf15038028a030b9adb3f61b0ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae27c40f4d29be22da86fe0720492648a" id="r_ae27c40f4d29be22da86fe0720492648a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae27c40f4d29be22da86fe0720492648a">heartBeatLED</a> ()</td></tr>
 <tr class="separator:ae27c40f4d29be22da86fe0720492648a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fba65ae9d1a38bbbc908d9319bd8a0c" id="r_a5fba65ae9d1a38bbbc908d9319bd8a0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fba65ae9d1a38bbbc908d9319bd8a0c">usartTxUpdate</a> (void)</td></tr>
-<tr class="separator:a5fba65ae9d1a38bbbc908d9319bd8a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aeae1523a65bfec30924d2dc6c2514c" id="r_a4aeae1523a65bfec30924d2dc6c2514c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aeae1523a65bfec30924d2dc6c2514c">usartIdleIRQ</a> (volatile <a class="el" href="structusart__init__t.html">usart_init_t</a> *huart, volatile <a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> *rx_buf)</td></tr>
-<tr class="separator:a4aeae1523a65bfec30924d2dc6c2514c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28b039059e148811cf98c79a5c0718d5" id="r_a28b039059e148811cf98c79a5c0718d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28b039059e148811cf98c79a5c0718d5">send_fault</a> (uint16_t, bool)</td></tr>
 <tr class="separator:a28b039059e148811cf98c79a5c0718d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
@@ -142,11 +137,13 @@ Functions</h2></td></tr>
 <tr class="separator:aeb734be46d90206d4a5216667c8e038b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a014080d6b4c8823131e28523c15b7dda" id="r_a014080d6b4c8823131e28523c15b7dda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a014080d6b4c8823131e28523c15b7dda">can2Relaycan1</a> ()</td></tr>
 <tr class="separator:a014080d6b4c8823131e28523c15b7dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d9a71c2c0e8ca114ca5f4cbb1688ecf" id="r_a4d9a71c2c0e8ca114ca5f4cbb1688ecf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d9a71c2c0e8ca114ca5f4cbb1688ecf">calibrate_lws</a> (void)</td></tr>
+<tr class="memdesc:a4d9a71c2c0e8ca114ca5f4cbb1688ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the steering angle sensor calibration Call after assembly with wheel centered Device: Bosch F02U.V02.894-01.  <br /></td></tr>
+<tr class="separator:a4d9a71c2c0e8ca114ca5f4cbb1688ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61341976b0cee71be1b6cf3bc17db4de" id="r_a61341976b0cee71be1b6cf3bc17db4de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61341976b0cee71be1b6cf3bc17db4de">usart_recieve_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
-<tr class="memdesc:a61341976b0cee71be1b6cf3bc17db4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt.  <br /></td></tr>
-<tr class="separator:a61341976b0cee71be1b6cf3bc17db4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26c88d96a73883e3e5845ee8e0f428f2" id="r_a26c88d96a73883e3e5845ee8e0f428f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26c88d96a73883e3e5845ee8e0f428f2">can2TxUpdate</a> (void)</td></tr>
+<tr class="separator:a26c88d96a73883e3e5845ee8e0f428f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b1e6757f968cf4456a655d61e249555">CAN2_RX0_IRQHandler</a> ()</td></tr>
@@ -160,34 +157,6 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60563c6df24a123ae18e090bca85f555">gpio_config</a> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab4fb6aae6b1dc74999af333ca0f2fb7" id="r_aab4fb6aae6b1dc74999af333ca0f2fb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab4fb6aae6b1dc74999af333ca0f2fb7">usart_l_tx_dma_config</a> = <a class="el" href="phal__L4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c">USART1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:aab4fb6aae6b1dc74999af333ca0f2fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a210c076fd19d66439d0bfbf5cd811346" id="r_a210c076fd19d66439d0bfbf5cd811346"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a210c076fd19d66439d0bfbf5cd811346">usart_l_rx_dma_config</a> = <a class="el" href="phal__L4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014">USART1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:a210c076fd19d66439d0bfbf5cd811346"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a00d8c4132c40027b77bf6e1e221360" id="r_a8a00d8c4132c40027b77bf6e1e221360"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a00d8c4132c40027b77bf6e1e221360">usart_l_rx_array</a> [<a class="el" href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a>] = {'\0'}</td></tr>
-<tr class="separator:a8a00d8c4132c40027b77bf6e1e221360"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e4d68d150b2682f012e636a3c92954c" id="r_a1e4d68d150b2682f012e636a3c92954c"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e4d68d150b2682f012e636a3c92954c">huart_l_rx_buf</a></td></tr>
-<tr class="separator:a1e4d68d150b2682f012e636a3c92954c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71bcb0888e2d1e63baa573fca7af5a28" id="r_a71bcb0888e2d1e63baa573fca7af5a28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71bcb0888e2d1e63baa573fca7af5a28">huart_l</a></td></tr>
-<tr class="separator:a71bcb0888e2d1e63baa573fca7af5a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcd8c184d9eb9dc8a6b39a9a64b347a8" id="r_adcd8c184d9eb9dc8a6b39a9a64b347a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcd8c184d9eb9dc8a6b39a9a64b347a8">usart_r_tx_dma_config</a> = <a class="el" href="phal__L4_2usart_2usart_8h.html#a1d57b467b30021cf52c6bc65f4d3da5e">USART2_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:adcd8c184d9eb9dc8a6b39a9a64b347a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c28af55bc7d516ae816abc5af3019ef" id="r_a1c28af55bc7d516ae816abc5af3019ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c28af55bc7d516ae816abc5af3019ef">usart_r_rx_dma_config</a> = <a class="el" href="phal__L4_2usart_2usart_8h.html#ac430fe8ba46535342f594095e8f9396f">USART2_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:a1c28af55bc7d516ae816abc5af3019ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d56d7cdca41365086732aece4a222f1" id="r_a4d56d7cdca41365086732aece4a222f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d56d7cdca41365086732aece4a222f1">huart_r</a></td></tr>
-<tr class="separator:a4d56d7cdca41365086732aece4a222f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40bc68eaac07f85ac505dbf456f5b2b9" id="r_a40bc68eaac07f85ac505dbf456f5b2b9"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40bc68eaac07f85ac505dbf456f5b2b9">usart_r_rx_array</a> [<a class="el" href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a>] = {'\0'}</td></tr>
-<tr class="separator:a40bc68eaac07f85ac505dbf456f5b2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1898549f8b12a50df02a7a7502a4d1ee" id="r_a1898549f8b12a50df02a7a7502a4d1ee"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1898549f8b12a50df02a7a7502a4d1ee">huart_r_rx_buf</a></td></tr>
-<tr class="separator:a1898549f8b12a50df02a7a7502a4d1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
-<tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27666df6fadbd9638916906797be5ebe" id="r_a27666df6fadbd9638916906797be5ebe"><td class="memItemLeft" align="right" valign="top">volatile ADCReadings_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a></td></tr>
-<tr class="separator:a27666df6fadbd9638916906797be5ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
-<tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
-<tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc1120bbc54485ac4c735d8f9756743">APB2ClockRateHz</a></td></tr>
@@ -198,18 +167,18 @@ Variables</h2></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
 <tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44bdc3fd341d9b2390e8a9939357c0ea" id="r_a44bdc3fd341d9b2390e8a9939357c0ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44bdc3fd341d9b2390e8a9939357c0ea">q_tx_usart_l</a></td></tr>
-<tr class="separator:a44bdc3fd341d9b2390e8a9939357c0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa1824816d1c2d3fc3357041d2676533" id="r_aaa1824816d1c2d3fc3357041d2676533"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa1824816d1c2d3fc3357041d2676533">q_tx_usart_r</a></td></tr>
-<tr class="separator:aaa1824816d1c2d3fc3357041d2676533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af25021426f10cc85f1e47b60b18088e1" id="r_af25021426f10cc85f1e47b60b18088e1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af25021426f10cc85f1e47b60b18088e1">num_failed_msgs_r</a></td></tr>
-<tr class="separator:af25021426f10cc85f1e47b60b18088e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d879c5830a564f22c4ce0ea7b6c497a" id="r_a9d879c5830a564f22c4ce0ea7b6c497a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d879c5830a564f22c4ce0ea7b6c497a">num_failed_msgs_l</a></td></tr>
-<tr class="separator:a9d879c5830a564f22c4ce0ea7b6c497a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e4ba27e00feaf56041d10c838a95801" id="r_a6e4ba27e00feaf56041d10c838a95801"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e4ba27e00feaf56041d10c838a95801">tmp_left</a> [<a class="el" href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a>] = {'\0'}</td></tr>
-<tr class="separator:a6e4ba27e00feaf56041d10c838a95801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f6a674bd3f89729bfa5cde9451d25f5" id="r_a2f6a674bd3f89729bfa5cde9451d25f5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f6a674bd3f89729bfa5cde9451d25f5">tmp_right</a> [<a class="el" href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a>] = {'\0'}</td></tr>
-<tr class="separator:a2f6a674bd3f89729bfa5cde9451d25f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
+<tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27666df6fadbd9638916906797be5ebe" id="r_a27666df6fadbd9638916906797be5ebe"><td class="memItemLeft" align="right" valign="top">volatile ADCReadings_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a></td></tr>
+<tr class="separator:a27666df6fadbd9638916906797be5ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
+<tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
+<tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a838479af74d9a2fd1f3ddb9a11f33418" id="r_a838479af74d9a2fd1f3ddb9a11f33418"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a838479af74d9a2fd1f3ddb9a11f33418">q_tx_can2_s</a> [<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td></tr>
+<tr class="separator:a838479af74d9a2fd1f3ddb9a11f33418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635e3b76f34b4af39b50ae0dd4894fb2" id="r_a635e3b76f34b4af39b50ae0dd4894fb2"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a635e3b76f34b4af39b50ae0dd4894fb2">can2_mbx_last_send_time</a> [<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td></tr>
+<tr class="separator:a635e3b76f34b4af39b50ae0dd4894fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a53f1d055ee0e79b0a01d53f86a97c1cf" name="a53f1d055ee0e79b0a01d53f86a97c1cf"></a>
@@ -241,6 +210,25 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a4d9a71c2c0e8ca114ca5f4cbb1688ecf" name="a4d9a71c2c0e8ca114ca5f4cbb1688ecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d9a71c2c0e8ca114ca5f4cbb1688ecf">&#9670;&#160;</a></span>calibrate_lws()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void calibrate_lws </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the steering angle sensor calibration Call after assembly with wheel centered Device: Bosch F02U.V02.894-01. </p>
+
+</div>
+</div>
 <a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
 
@@ -302,6 +290,23 @@ Variables</h2></td></tr>
           <td class="memname">void can2Relaycan1 </td>
           <td>(</td>
           <td class="paramtype">CAN_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>can_h</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26c88d96a73883e3e5845ee8e0f428f2" name="a26c88d96a73883e3e5845ee8e0f428f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c88d96a73883e3e5845ee8e0f428f2">&#9670;&#160;</a></span>can2TxUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void can2TxUpdate </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -457,70 +462,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a61341976b0cee71be1b6cf3bc17db4de" name="a61341976b0cee71be1b6cf3bc17db4de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61341976b0cee71be1b6cf3bc17db4de">&#9670;&#160;</a></span>usart_recieve_complete_callback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void usart_recieve_complete_callback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structusart__init__t.html">usart_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>handle</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt. </p>
-<p>NOTE: this is executed during an interrupt handler call, so keep code in this function light</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handle</td><td>Handle of USART peripheral that just recieved a message </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4aeae1523a65bfec30924d2dc6c2514c" name="a4aeae1523a65bfec30924d2dc6c2514c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aeae1523a65bfec30924d2dc6c2514c">&#9670;&#160;</a></span>usartIdleIRQ()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void usartIdleIRQ </td>
-          <td>(</td>
-          <td class="paramtype">volatile <a class="el" href="structusart__init__t.html">usart_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>huart</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">volatile <a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> *</td>          <td class="paramname"><span class="paramname"><em>rx_buf</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5fba65ae9d1a38bbbc908d9319bd8a0c" name="a5fba65ae9d1a38bbbc908d9319bd8a0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fba65ae9d1a38bbbc908d9319bd8a0c">&#9670;&#160;</a></span>usartTxUpdate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void usartTxUpdate </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aeb734be46d90206d4a5216667c8e038b" name="aeb734be46d90206d4a5216667c8e038b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb734be46d90206d4a5216667c8e038b">&#9670;&#160;</a></span>voltToForce()</h2>
 
@@ -550,24 +491,17 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a4e4e625924e22ab8fd6ac388c69e4737">V_MC_SENSE_ADC_CHNL</a>,     .rank=1,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#ac42fc18a86951ee2a6702008a0a081f5">V_BAT_SENSE_ADC_CHNL</a>,    .rank=2,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a0aa3fc2346f8faff3590da7f52bb31e4">SHOCK_POT_L_ADC_CHNL</a>,    .rank=3,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#adde18273eeace5e809dc11cda31b8052">SHOCK_POT_R_ADC_CHNL</a>,    .rank=4,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a612a7e64d9c22326b9819a5af5d118ac">THERM_MUX_D_ADC_CHNL</a>,    .rank=5,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a0f9ec5ab859374e821f84fc504d73f07">LOAD_L_ADC_CHNL</a>,         .rank=6,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a304eccab0bb5bd2e5cb6fc5f54454d77">LOAD_R_ADC_CHNL</a>,         .rank=7,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a>, .rank=8,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a0aa3fc2346f8faff3590da7f52bb31e4">SHOCK_POT_L_ADC_CHNL</a>,    .rank=1,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#adde18273eeace5e809dc11cda31b8052">SHOCK_POT_R_ADC_CHNL</a>,    .rank=2,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel=<a class="code hl_define" href="main__module_2main_8h.html#a8ef302d4ecad7ffc7c9f63a611c0f064">THERM_MUX_OUT_ADC_CHNL</a>,  .rank=3,  .sampling_time=<a class="code hl_enumvalue" href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    </div>
+<div class="line">    </div>
 <div class="line">}</div>
-<div class="ttc" id="amain__module_2main_8h_html_a0aa3fc2346f8faff3590da7f52bb31e4"><div class="ttname"><a href="main__module_2main_8h.html#a0aa3fc2346f8faff3590da7f52bb31e4">SHOCK_POT_L_ADC_CHNL</a></div><div class="ttdeci">#define SHOCK_POT_L_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:115</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_a0f9ec5ab859374e821f84fc504d73f07"><div class="ttname"><a href="main__module_2main_8h.html#a0f9ec5ab859374e821f84fc504d73f07">LOAD_L_ADC_CHNL</a></div><div class="ttdeci">#define LOAD_L_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:128</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_a1cbc6a9cd1dee627e19b856033260320"><div class="ttname"><a href="main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a></div><div class="ttdeci">#define INTERNAL_THERM_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:131</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_a304eccab0bb5bd2e5cb6fc5f54454d77"><div class="ttname"><a href="main__module_2main_8h.html#a304eccab0bb5bd2e5cb6fc5f54454d77">LOAD_R_ADC_CHNL</a></div><div class="ttdeci">#define LOAD_R_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:124</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_a4e4e625924e22ab8fd6ac388c69e4737"><div class="ttname"><a href="main__module_2main_8h.html#a4e4e625924e22ab8fd6ac388c69e4737">V_MC_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define V_MC_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:88</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_a612a7e64d9c22326b9819a5af5d118ac"><div class="ttname"><a href="main__module_2main_8h.html#a612a7e64d9c22326b9819a5af5d118ac">THERM_MUX_D_ADC_CHNL</a></div><div class="ttdeci">#define THERM_MUX_D_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:142</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_ac42fc18a86951ee2a6702008a0a081f5"><div class="ttname"><a href="main__module_2main_8h.html#ac42fc18a86951ee2a6702008a0a081f5">V_BAT_SENSE_ADC_CHNL</a></div><div class="ttdeci">#define V_BAT_SENSE_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:91</div></div>
-<div class="ttc" id="amain__module_2main_8h_html_adde18273eeace5e809dc11cda31b8052"><div class="ttname"><a href="main__module_2main_8h.html#adde18273eeace5e809dc11cda31b8052">SHOCK_POT_R_ADC_CHNL</a></div><div class="ttdeci">#define SHOCK_POT_R_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:119</div></div>
+<div class="ttc" id="amain__module_2main_8h_html_a0aa3fc2346f8faff3590da7f52bb31e4"><div class="ttname"><a href="main__module_2main_8h.html#a0aa3fc2346f8faff3590da7f52bb31e4">SHOCK_POT_L_ADC_CHNL</a></div><div class="ttdeci">#define SHOCK_POT_L_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:128</div></div>
+<div class="ttc" id="amain__module_2main_8h_html_a8ef302d4ecad7ffc7c9f63a611c0f064"><div class="ttname"><a href="main__module_2main_8h.html#a8ef302d4ecad7ffc7c9f63a611c0f064">THERM_MUX_OUT_ADC_CHNL</a></div><div class="ttdeci">#define THERM_MUX_OUT_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:155</div></div>
+<div class="ttc" id="amain__module_2main_8h_html_adde18273eeace5e809dc11cda31b8052"><div class="ttname"><a href="main__module_2main_8h.html#adde18273eeace5e809dc11cda31b8052">SHOCK_POT_R_ADC_CHNL</a></div><div class="ttdeci">#define SHOCK_POT_R_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:132</div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a></div><div class="ttdeci">@ ADC_CHN_SMP_CYCLES_480</div><div class="ttdef"><b>Definition</b> adc.h:66</div></div>
 </div><!-- fragment -->
 </div>
@@ -583,7 +517,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
 <div class="line">    .clock_prescaler = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da12ff1b8c44286ea229748eb74227ae02">ADC_CLK_PRESC_6</a>,</div>
 <div class="line">    .resolution      = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a38dd045d0d6e9cf4304cc0792e57c52bac534e3e33915d71fdcbd6439ea56902f">ADC_RES_12_BIT</a>,</div>
 <div class="line">    .data_align      = <a class="code hl_enumvalue" href="phal__L4_2adc_2adc_8h.html#a4bbc03ecdf3f9b89bb7067c5db0efb53aa3df857706dacf41e64568f9c75943fc">ADC_DATA_ALIGN_RIGHT</a>,</div>
@@ -610,7 +545,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= <a class="code hl_define" href="phal__L4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a>((uint32_t) &amp;<a class="code hl_variable" href="a__box_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>,</div>
-<div class="line">            <span class="keyword">sizeof</span>(<a class="code hl_variable" href="a__box_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="a__box_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>.v_mc), 0b01)</div>
+<div class="line">            <span class="keyword">sizeof</span>(<a class="code hl_variable" href="a__box_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="a__box_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>.shock_l), 0b01)</div>
 <div class="ttc" id="aa__box_2main_8c_html_a27666df6fadbd9638916906797be5ebe"><div class="ttname"><a href="a__box_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a></div><div class="ttdeci">volatile ADCReadings_t adc_readings</div><div class="ttdef"><b>Definition</b> main.c:123</div></div>
 <div class="ttc" id="aphal__L4_2adc_2adc_8h_html_a9bf789bb8843fa4ab14a8f71510b8868"><div class="ttname"><a href="phal__L4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a></div><div class="ttdeci">#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)</div><div class="ttdef"><b>Definition</b> adc.h:92</div></div>
 </div><!-- fragment -->
@@ -696,6 +631,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a635e3b76f34b4af39b50ae0dd4894fb2" name="a635e3b76f34b4af39b50ae0dd4894fb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a635e3b76f34b4af39b50ae0dd4894fb2">&#9670;&#160;</a></span>can2_mbx_last_send_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t can2_mbx_last_send_time[<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
 
@@ -707,10 +664,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source               =<a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">    .clock_source               =<a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a>,</div>
 <div class="line">    .use_pll                    =<span class="keyword">true</span>,</div>
-<div class="line">    .pll_src                    =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
+<div class="line">    .pll_src                    =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a>,</div>
 <div class="line">    .vco_output_rate_target_hz  =288000000,</div>
 <div class="line">    .system_clock_target_hz     =<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
 <div class="line">    .ahb_clock_target_hz        =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
@@ -718,8 +676,8 @@ Variables</h2></td></tr>
 <div class="line">    .apb2_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
 <div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:88</div></div>
-<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:30</div></div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSI</div><div class="ttdef"><b>Definition</b> rcc.h:87</div></div>
+<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a></div><div class="ttdeci">@ PLL_SRC_HSI16</div><div class="ttdef"><b>Definition</b> rcc.h:29</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -731,142 +689,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> gpio_config[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a71bcb0888e2d1e63baa573fca7af5a28" name="a71bcb0888e2d1e63baa573fca7af5a28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71bcb0888e2d1e63baa573fca7af5a28">&#9670;&#160;</a></span>huart_l</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structusart__init__t.html">usart_init_t</a> huart_l</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .baud_rate   = 115200,</div>
-<div class="line">   .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">   .stop_bits   = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">   .parity      = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">   .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">   .ovsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">   .obsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">   .periph      = USART1,</div>
-<div class="line">   .wake_addr = <span class="keyword">false</span>,</div>
-<div class="line">   .usart_active_num = USART1_ACTIVE_IDX,</div>
-<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="#aab4fb6aae6b1dc74999af333ca0f2fb7">usart_l_tx_dma_config</a>,</div>
-<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="#a210c076fd19d66439d0bfbf5cd811346">usart_l_rx_dma_config</a></div>
-<div class="line">}</div>
-<div class="ttc" id="amain__module_2main_8c_html_a210c076fd19d66439d0bfbf5cd811346"><div class="ttname"><a href="#a210c076fd19d66439d0bfbf5cd811346">usart_l_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_l_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:90</div></div>
-<div class="ttc" id="amain__module_2main_8c_html_aab4fb6aae6b1dc74999af333ca0f2fb7"><div class="ttname"><a href="#aab4fb6aae6b1dc74999af333ca0f2fb7">usart_l_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_l_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:89</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:36</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:58</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:72</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a></div><div class="ttdeci">@ PT_NONE</div><div class="ttdef"><b>Definition</b> usart.h:29</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdef"><b>Definition</b> usart.h:43</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdef"><b>Definition</b> usart.h:66</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a1e4d68d150b2682f012e636a3c92954c" name="a1e4d68d150b2682f012e636a3c92954c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e4d68d150b2682f012e636a3c92954c">&#9670;&#160;</a></span>huart_l_rx_buf</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile <a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> huart_l_rx_buf</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .last_msg_time = 0, .msg_size = <a class="code hl_define" href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a>,</div>
-<div class="line">    .last_msg_loc  = 0, .last_rx_time = 0,</div>
-<div class="line">    .rx_buf_size   = <a class="code hl_define" href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a>, .rx_buf = <a class="code hl_variable" href="#a8a00d8c4132c40027b77bf6e1e221360">usart_l_rx_array</a></div>
-<div class="line">}</div>
-<div class="ttc" id="amain__module_2main_8c_html_a8a00d8c4132c40027b77bf6e1e221360"><div class="ttname"><a href="#a8a00d8c4132c40027b77bf6e1e221360">usart_l_rx_array</a></div><div class="ttdeci">char usart_l_rx_array[MC_MAX_RX_LENGTH]</div><div class="ttdef"><b>Definition</b> main.c:91</div></div>
-<div class="ttc" id="aplettenberg_8h_html_a877a0c860e3e76d46be51a4e17a9bc30"><div class="ttname"><a href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a></div><div class="ttdeci">#define MC_MAX_RX_LENGTH</div><div class="ttdef"><b>Definition</b> plettenberg.h:12</div></div>
-<div class="ttc" id="aplettenberg_8h_html_ab5011068fd6b161cf5d44c5753eb310d"><div class="ttname"><a href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a></div><div class="ttdeci">#define MC_MAX_TX_LENGTH</div><div class="ttdef"><b>Definition</b> plettenberg.h:11</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a4d56d7cdca41365086732aece4a222f1" name="a4d56d7cdca41365086732aece4a222f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d56d7cdca41365086732aece4a222f1">&#9670;&#160;</a></span>huart_r</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structusart__init__t.html">usart_init_t</a> huart_r</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .baud_rate   = 115200,</div>
-<div class="line">   .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">   .stop_bits   = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">   .parity      = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">   .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">   .ovsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">   .obsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">   .periph      = USART2,</div>
-<div class="line">   .wake_addr = <span class="keyword">false</span>,</div>
-<div class="line">   .usart_active_num = USART2_ACTIVE_IDX,</div>
-<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="#adcd8c184d9eb9dc8a6b39a9a64b347a8">usart_r_tx_dma_config</a>,</div>
-<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="#a1c28af55bc7d516ae816abc5af3019ef">usart_r_rx_dma_config</a></div>
-<div class="line">}</div>
-<div class="ttc" id="amain__module_2main_8c_html_a1c28af55bc7d516ae816abc5af3019ef"><div class="ttname"><a href="#a1c28af55bc7d516ae816abc5af3019ef">usart_r_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_r_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:114</div></div>
-<div class="ttc" id="amain__module_2main_8c_html_adcd8c184d9eb9dc8a6b39a9a64b347a8"><div class="ttname"><a href="#adcd8c184d9eb9dc8a6b39a9a64b347a8">usart_r_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_r_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:113</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a1898549f8b12a50df02a7a7502a4d1ee" name="a1898549f8b12a50df02a7a7502a4d1ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1898549f8b12a50df02a7a7502a4d1ee">&#9670;&#160;</a></span>huart_r_rx_buf</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile <a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> huart_r_rx_buf</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .last_msg_time = 0, .msg_size = <a class="code hl_define" href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a>,</div>
-<div class="line">    .last_msg_loc  = 0, .last_rx_time = 0,</div>
-<div class="line">    .rx_buf_size   = <a class="code hl_define" href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a>, .rx_buf = <a class="code hl_variable" href="#a40bc68eaac07f85ac505dbf456f5b2b9">usart_r_rx_array</a></div>
-<div class="line">}</div>
-<div class="ttc" id="amain__module_2main_8c_html_a40bc68eaac07f85ac505dbf456f5b2b9"><div class="ttname"><a href="#a40bc68eaac07f85ac505dbf456f5b2b9">usart_r_rx_array</a></div><div class="ttdeci">char usart_r_rx_array[MC_MAX_RX_LENGTH]</div><div class="ttdef"><b>Definition</b> main.c:129</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a9d879c5830a564f22c4ce0ea7b6c497a" name="a9d879c5830a564f22c4ce0ea7b6c497a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d879c5830a564f22c4ce0ea7b6c497a">&#9670;&#160;</a></span>num_failed_msgs_l</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t num_failed_msgs_l</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af25021426f10cc85f1e47b60b18088e1" name="af25021426f10cc85f1e47b60b18088e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af25021426f10cc85f1e47b60b18088e1">&#9670;&#160;</a></span>num_failed_msgs_r</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t num_failed_msgs_r</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -895,142 +717,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a44bdc3fd341d9b2390e8a9939357c0ea" name="a44bdc3fd341d9b2390e8a9939357c0ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44bdc3fd341d9b2390e8a9939357c0ea">&#9670;&#160;</a></span>q_tx_usart_l</h2>
+<a id="a838479af74d9a2fd1f3ddb9a11f33418" name="a838479af74d9a2fd1f3ddb9a11f33418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a838479af74d9a2fd1f3ddb9a11f33418">&#9670;&#160;</a></span>q_tx_can2_s</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_usart_l</td>
+          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_can2_s[<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aaa1824816d1c2d3fc3357041d2676533" name="aaa1824816d1c2d3fc3357041d2676533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa1824816d1c2d3fc3357041d2676533">&#9670;&#160;</a></span>q_tx_usart_r</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_usart_r</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6e4ba27e00feaf56041d10c838a95801" name="a6e4ba27e00feaf56041d10c838a95801"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e4ba27e00feaf56041d10c838a95801">&#9670;&#160;</a></span>tmp_left</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t tmp_left[<a class="el" href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a>] = {'\0'}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2f6a674bd3f89729bfa5cde9451d25f5" name="a2f6a674bd3f89729bfa5cde9451d25f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f6a674bd3f89729bfa5cde9451d25f5">&#9670;&#160;</a></span>tmp_right</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t tmp_right[<a class="el" href="plettenberg_8h.html#ab5011068fd6b161cf5d44c5753eb310d">MC_MAX_TX_LENGTH</a>] = {'\0'}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8a00d8c4132c40027b77bf6e1e221360" name="a8a00d8c4132c40027b77bf6e1e221360"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a00d8c4132c40027b77bf6e1e221360">&#9670;&#160;</a></span>usart_l_rx_array</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char usart_l_rx_array[<a class="el" href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a>] = {'\0'}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a210c076fd19d66439d0bfbf5cd811346" name="a210c076fd19d66439d0bfbf5cd811346"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a210c076fd19d66439d0bfbf5cd811346">&#9670;&#160;</a></span>usart_l_rx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_l_rx_dma_config = <a class="el" href="phal__L4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014">USART1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aab4fb6aae6b1dc74999af333ca0f2fb7" name="aab4fb6aae6b1dc74999af333ca0f2fb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab4fb6aae6b1dc74999af333ca0f2fb7">&#9670;&#160;</a></span>usart_l_tx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_l_tx_dma_config = <a class="el" href="phal__L4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c">USART1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a40bc68eaac07f85ac505dbf456f5b2b9" name="a40bc68eaac07f85ac505dbf456f5b2b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40bc68eaac07f85ac505dbf456f5b2b9">&#9670;&#160;</a></span>usart_r_rx_array</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char usart_r_rx_array[<a class="el" href="plettenberg_8h.html#a877a0c860e3e76d46be51a4e17a9bc30">MC_MAX_RX_LENGTH</a>] = {'\0'}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1c28af55bc7d516ae816abc5af3019ef" name="a1c28af55bc7d516ae816abc5af3019ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c28af55bc7d516ae816abc5af3019ef">&#9670;&#160;</a></span>usart_r_rx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_r_rx_dma_config = <a class="el" href="phal__L4_2usart_2usart_8h.html#ac430fe8ba46535342f594095e8f9396f">USART2_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adcd8c184d9eb9dc8a6b39a9a64b347a8" name="adcd8c184d9eb9dc8a6b39a9a64b347a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcd8c184d9eb9dc8a6b39a9a64b347a8">&#9670;&#160;</a></span>usart_r_tx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_r_tx_dma_config = <a class="el" href="phal__L4_2usart_2usart_8h.html#a1d57b467b30021cf52c6bc65f4d3da5e">USART2_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

@@ -103,10 +103,10 @@ $(function(){ initResizable(false); });
 <div class="textblock"><code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="plettenberg_8h_source.html">common/plettenberg/plettenberg.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;cooling.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;common/amk/amk.h&quot;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 </div>
 <p><a href="car_8h_source.html">Go to the source code of this file.</a></p>
@@ -138,20 +138,34 @@ Macros</h2></td></tr>
 <tr class="separator:a4651dca99186e987c7814da6eb1de741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ba50e03d29e5cc77a79195a61007d9c" id="r_a6ba50e03d29e5cc77a79195a61007d9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ba50e03d29e5cc77a79195a61007d9c">POT_MIN_RES</a>&#160;&#160;&#160;300</td></tr>
 <tr class="separator:a6ba50e03d29e5cc77a79195a61007d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b12f9f8fee9a9ce35a4a893c369dd4b" id="r_a9b12f9f8fee9a9ce35a4a893c369dd4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b12f9f8fee9a9ce35a4a893c369dd4b">POT_VOLT_MAX_L</a>&#160;&#160;&#160;4.0f</td></tr>
+<tr class="memitem:a9b12f9f8fee9a9ce35a4a893c369dd4b" id="r_a9b12f9f8fee9a9ce35a4a893c369dd4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b12f9f8fee9a9ce35a4a893c369dd4b">POT_VOLT_MAX_L</a>&#160;&#160;&#160;11.0f</td></tr>
 <tr class="separator:a9b12f9f8fee9a9ce35a4a893c369dd4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acba75207e1479851be80cac95052d68c" id="r_acba75207e1479851be80cac95052d68c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acba75207e1479851be80cac95052d68c">POT_VOLT_MIN_L</a>&#160;&#160;&#160;4077.0f</td></tr>
+<tr class="memitem:acba75207e1479851be80cac95052d68c" id="r_acba75207e1479851be80cac95052d68c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acba75207e1479851be80cac95052d68c">POT_VOLT_MIN_L</a>&#160;&#160;&#160;4060.0f</td></tr>
 <tr class="separator:acba75207e1479851be80cac95052d68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa9f4e9e33fb0affed0c7888f1d0b68a" id="r_aaa9f4e9e33fb0affed0c7888f1d0b68a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa9f4e9e33fb0affed0c7888f1d0b68a">POT_VOLT_MAX_R</a>&#160;&#160;&#160;4.0f</td></tr>
+<tr class="memitem:aaa9f4e9e33fb0affed0c7888f1d0b68a" id="r_aaa9f4e9e33fb0affed0c7888f1d0b68a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa9f4e9e33fb0affed0c7888f1d0b68a">POT_VOLT_MAX_R</a>&#160;&#160;&#160;11.0f</td></tr>
 <tr class="separator:aaa9f4e9e33fb0affed0c7888f1d0b68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf4b49a7f0dbd98f69adc380cddbabd9" id="r_adf4b49a7f0dbd98f69adc380cddbabd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf4b49a7f0dbd98f69adc380cddbabd9">POT_VOLT_MIN_R</a>&#160;&#160;&#160;4090.0f</td></tr>
+<tr class="memitem:adf4b49a7f0dbd98f69adc380cddbabd9" id="r_adf4b49a7f0dbd98f69adc380cddbabd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf4b49a7f0dbd98f69adc380cddbabd9">POT_VOLT_MIN_R</a>&#160;&#160;&#160;4092.0f</td></tr>
 <tr class="separator:adf4b49a7f0dbd98f69adc380cddbabd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a636048fbc45d835a090f3024e8eb53d4" id="r_a636048fbc45d835a090f3024e8eb53d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a636048fbc45d835a090f3024e8eb53d4">POT_MAX_DIST</a>&#160;&#160;&#160;75</td></tr>
 <tr class="separator:a636048fbc45d835a090f3024e8eb53d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c9751f85bf92a72164a384fff1b33dc" id="r_a2c9751f85bf92a72164a384fff1b33dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c9751f85bf92a72164a384fff1b33dc">POT_DIST_DROOP_L</a>&#160;&#160;&#160;57</td></tr>
+<tr class="memitem:a2c9751f85bf92a72164a384fff1b33dc" id="r_a2c9751f85bf92a72164a384fff1b33dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c9751f85bf92a72164a384fff1b33dc">POT_DIST_DROOP_L</a>&#160;&#160;&#160;56</td></tr>
 <tr class="separator:a2c9751f85bf92a72164a384fff1b33dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77c022592c630d0d46f8af04edaebe70" id="r_a77c022592c630d0d46f8af04edaebe70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77c022592c630d0d46f8af04edaebe70">POT_DIST_DROOP_R</a>&#160;&#160;&#160;54</td></tr>
+<tr class="memitem:a77c022592c630d0d46f8af04edaebe70" id="r_a77c022592c630d0d46f8af04edaebe70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77c022592c630d0d46f8af04edaebe70">POT_DIST_DROOP_R</a>&#160;&#160;&#160;55</td></tr>
 <tr class="separator:a77c022592c630d0d46f8af04edaebe70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c75e6466c2de556dcfc4ba4ebfee12e" id="r_a8c75e6466c2de556dcfc4ba4ebfee12e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c75e6466c2de556dcfc4ba4ebfee12e">TECH_MAX_TORQUE_REQUEST</a>&#160;&#160;&#160;25.0f</td></tr>
+<tr class="separator:a8c75e6466c2de556dcfc4ba4ebfee12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c0029f56ebd75b004513810ed93200d" id="r_a9c0029f56ebd75b004513810ed93200d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c0029f56ebd75b004513810ed93200d">DYNAMIC_MAX_TORQUE_REQUEST</a>&#160;&#160;&#160;210.0f</td></tr>
+<tr class="separator:a9c0029f56ebd75b004513810ed93200d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1493245155b31981933e0e6d892ccf4" id="r_ab1493245155b31981933e0e6d892ccf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1493245155b31981933e0e6d892ccf4">MAX_DRIVER_TORQUE_REQUEST</a>&#160;&#160;&#160;<a class="el" href="#a9c0029f56ebd75b004513810ed93200d">DYNAMIC_MAX_TORQUE_REQUEST</a></td></tr>
+<tr class="separator:ab1493245155b31981933e0e6d892ccf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc0befaefe523a9b4f0bf2ea9997d03a" id="r_adc0befaefe523a9b4f0bf2ea9997d03a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc0befaefe523a9b4f0bf2ea9997d03a">MIN_DRIVER_TORQUE_REQUEST</a>&#160;&#160;&#160;0.0f</td></tr>
+<tr class="separator:adc0befaefe523a9b4f0bf2ea9997d03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36a0cc65962655ed4ccb0e24484faf8b" id="r_a36a0cc65962655ed4ccb0e24484faf8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36a0cc65962655ed4ccb0e24484faf8b">MAX_TV_TORQUE_REQUEST</a>&#160;&#160;&#160;2100U</td></tr>
+<tr class="separator:a36a0cc65962655ed4ccb0e24484faf8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7958cce0fbb9cdd1fd67e0a66732c32" id="r_ac7958cce0fbb9cdd1fd67e0a66732c32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7958cce0fbb9cdd1fd67e0a66732c32">TV_TORQUE_REQUEST_SCALE</a>&#160;&#160;&#160;10.0f</td></tr>
+<tr class="separator:ac7958cce0fbb9cdd1fd67e0a66732c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95560f51d95b80305488ced4a97f0981" id="r_a95560f51d95b80305488ced4a97f0981"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95560f51d95b80305488ced4a97f0981">MIN_TV_TORQUE_REQUEST</a>&#160;&#160;&#160;0.0f</td></tr>
+<tr class="separator:a95560f51d95b80305488ced4a97f0981"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d7bc83cc68e6be9578302705cda1a2f" id="r_a5d7bc83cc68e6be9578302705cda1a2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d7bc83cc68e6be9578302705cda1a2f">NUM_HIST_BSPD</a>&#160;&#160;&#160;16</td></tr>
 <tr class="separator:a5d7bc83cc68e6be9578302705cda1a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad23131c8dfdb8eb1f7e3df45e3b4bf19" id="r_ad23131c8dfdb8eb1f7e3df45e3b4bf19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad23131c8dfdb8eb1f7e3df45e3b4bf19">HV_LOW_PASS_SIZE</a>&#160;&#160;&#160;(5)</td></tr>
@@ -160,6 +174,8 @@ Macros</h2></td></tr>
 <tr class="separator:a3e8aea4400df51843f2611a24145e31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a558410ca52658dd8f6cead3601fc50f3" id="r_a558410ca52658dd8f6cead3601fc50f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a558410ca52658dd8f6cead3601fc50f3">HV_V_BAT_CAL</a>&#160;&#160;&#160;(1000)</td></tr>
 <tr class="separator:a558410ca52658dd8f6cead3601fc50f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8494861bbdebfd686e18fc6241419367" id="r_a8494861bbdebfd686e18fc6241419367"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8494861bbdebfd686e18fc6241419367">PCHG_COMPLETE_LOW_PASS_SIZE</a>&#160;&#160;&#160;(20)</td></tr>
+<tr class="separator:a8494861bbdebfd686e18fc6241419367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78d6e8ad097099025542e9421be07d4d" id="r_a78d6e8ad097099025542e9421be07d4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78d6e8ad097099025542e9421be07d4d">SDC_MUX_HIGH_IDX</a>&#160;&#160;&#160;14</td></tr>
 <tr class="separator:a78d6e8ad097099025542e9421be07d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99453d5d1f38140531d8ac95712ce6bf" id="r_a99453d5d1f38140531d8ac95712ce6bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99453d5d1f38140531d8ac95712ce6bf">SDC_MAIN</a>&#160;&#160;&#160;0</td></tr>
@@ -170,15 +186,17 @@ Macros</h2></td></tr>
 <tr class="separator:ae6846ef5fff9c075d7ff71beea765a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90950342b18934ecfd862d5352666f98" id="r_a90950342b18934ecfd862d5352666f98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90950342b18934ecfd862d5352666f98">SDC_BOTS</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:a90950342b18934ecfd862d5352666f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b4a806ca0cdf9ca0f2ac2ef287f3546" id="r_a5b4a806ca0cdf9ca0f2ac2ef287f3546"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b4a806ca0cdf9ca0f2ac2ef287f3546">SDC_R_STOP</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memitem:a5b4a806ca0cdf9ca0f2ac2ef287f3546" id="r_a5b4a806ca0cdf9ca0f2ac2ef287f3546"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b4a806ca0cdf9ca0f2ac2ef287f3546">SDC_R_STOP</a>&#160;&#160;&#160;4</td></tr>
 <tr class="separator:a5b4a806ca0cdf9ca0f2ac2ef287f3546"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5c49a6fd31219826af4c32795dbb596" id="r_aa5c49a6fd31219826af4c32795dbb596"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5c49a6fd31219826af4c32795dbb596">SDC_L_STOP</a>&#160;&#160;&#160;9</td></tr>
+<tr class="memitem:aa5c49a6fd31219826af4c32795dbb596" id="r_aa5c49a6fd31219826af4c32795dbb596"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5c49a6fd31219826af4c32795dbb596">SDC_L_STOP</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:aa5c49a6fd31219826af4c32795dbb596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1deb1c94c704f73dadd2a9ee4a97ce6c" id="r_a1deb1c94c704f73dadd2a9ee4a97ce6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1deb1c94c704f73dadd2a9ee4a97ce6c">SDC_HVD</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memitem:a1deb1c94c704f73dadd2a9ee4a97ce6c" id="r_a1deb1c94c704f73dadd2a9ee4a97ce6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1deb1c94c704f73dadd2a9ee4a97ce6c">SDC_HVD</a>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:a1deb1c94c704f73dadd2a9ee4a97ce6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e255fc49c5b628f3e9acfefa8d03010" id="r_a8e255fc49c5b628f3e9acfefa8d03010"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e255fc49c5b628f3e9acfefa8d03010">SDC_HUB</a>&#160;&#160;&#160;11</td></tr>
+<tr class="memitem:a834da9b98d85d3642bb6d01f773e68f1" id="r_a834da9b98d85d3642bb6d01f773e68f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a834da9b98d85d3642bb6d01f773e68f1">SDC_EMETER</a>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:a834da9b98d85d3642bb6d01f773e68f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e255fc49c5b628f3e9acfefa8d03010" id="r_a8e255fc49c5b628f3e9acfefa8d03010"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e255fc49c5b628f3e9acfefa8d03010">SDC_HUB</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:a8e255fc49c5b628f3e9acfefa8d03010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6f1a0a343ea7f83a89ea6ae0622ccec" id="r_aa6f1a0a343ea7f83a89ea6ae0622ccec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6f1a0a343ea7f83a89ea6ae0622ccec">SDC_TSMS</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memitem:aa6f1a0a343ea7f83a89ea6ae0622ccec" id="r_aa6f1a0a343ea7f83a89ea6ae0622ccec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6f1a0a343ea7f83a89ea6ae0622ccec">SDC_TSMS</a>&#160;&#160;&#160;9</td></tr>
 <tr class="separator:aa6f1a0a343ea7f83a89ea6ae0622ccec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -187,7 +205,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543">CAR_TORQUE_NONE</a>
 , <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a9d0cbbd5afb0869a3c451293201120fb">CAR_TORQUE_RAW</a>
 , <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a40716b7ed5da9c0df5169e3b1eaf7d30">CAR_TORQUE_TV</a>
-, <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a306afa5b81cf2b47f78b7294d8f40f37">CAR_TORQUE_THROT_MAP</a>
+, <a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a7683604ad0e6c404a0c30fe3516dfc15">CAR_TORQUE_TV_TEST</a>
 , <br />
 &#160;&#160;<a class="el" href="#aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8">CAR_TORQUE_DAQ</a>
 <br />
@@ -206,7 +224,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:a633e21d9684094efa19b292bc12975e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses motor controller and sensor info into can messages, updates motor controller connection status.  <br /></td></tr>
 <tr class="separator:a633e21d9684094efa19b292bc12975e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae55ccf9762670dec4bda7e2ca7206b0e" id="r_ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae55ccf9762670dec4bda7e2ca7206b0e">calibrateSteeringAngle</a> (uint8_t *success)</td></tr>
-<tr class="memdesc:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the steering angle sensor calibration Call once after assembly with wheel centered Device: Bosch F02U.V02.894-01.  <br /></td></tr>
 <tr class="separator:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cb026481a9ad022a436ecce147f5ff" id="r_a34cb026481a9ad022a436ecce147f5ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34cb026481a9ad022a436ecce147f5ff">monitorSDCPeriodic</a> (void)</td></tr>
 <tr class="memdesc:a34cb026481a9ad022a436ecce147f5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Status of SDC Mux and Send on CAN.  <br /></td></tr>
@@ -215,6 +232,8 @@ Functions</h2></td></tr>
 <tr class="separator:acf6cf97f542e1dcd6ec20608fd256c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6ba0d0ae9db5952778408ab7f015c79" id="r_aa6ba0d0ae9db5952778408ab7f015c79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ba0d0ae9db5952778408ab7f015c79">send_shockpots</a> ()</td></tr>
 <tr class="separator:aa6ba0d0ae9db5952778408ab7f015c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51166f04adbfdb05ef02e18f9bb209d6" id="r_a51166f04adbfdb05ef02e18f9bb209d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51166f04adbfdb05ef02e18f9bb209d6">update_lights</a> (void)</td></tr>
+<tr class="separator:a51166f04adbfdb05ef02e18f9bb209d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab898071398b359603a35c202e9c65f3b" id="r_ab898071398b359603a35c202e9c65f3b"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab898071398b359603a35c202e9c65f3b">__attribute__</a> ((packed))</td></tr>
 <tr class="separator:ab898071398b359603a35c202e9c65f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -300,6 +319,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9c0029f56ebd75b004513810ed93200d" name="a9c0029f56ebd75b004513810ed93200d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c0029f56ebd75b004513810ed93200d">&#9670;&#160;</a></span>DYNAMIC_MAX_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DYNAMIC_MAX_TORQUE_REQUEST&#160;&#160;&#160;210.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae98a7cb801e427cbd9c60b5a20f06a56" name="ae98a7cb801e427cbd9c60b5a20f06a56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae98a7cb801e427cbd9c60b5a20f06a56">&#9670;&#160;</a></span>ERROR_FALL_MS</h2>
 
@@ -356,6 +389,62 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab1493245155b31981933e0e6d892ccf4" name="ab1493245155b31981933e0e6d892ccf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1493245155b31981933e0e6d892ccf4">&#9670;&#160;</a></span>MAX_DRIVER_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_DRIVER_TORQUE_REQUEST&#160;&#160;&#160;<a class="el" href="#a9c0029f56ebd75b004513810ed93200d">DYNAMIC_MAX_TORQUE_REQUEST</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36a0cc65962655ed4ccb0e24484faf8b" name="a36a0cc65962655ed4ccb0e24484faf8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36a0cc65962655ed4ccb0e24484faf8b">&#9670;&#160;</a></span>MAX_TV_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_TV_TORQUE_REQUEST&#160;&#160;&#160;2100U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc0befaefe523a9b4f0bf2ea9997d03a" name="adc0befaefe523a9b4f0bf2ea9997d03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc0befaefe523a9b4f0bf2ea9997d03a">&#9670;&#160;</a></span>MIN_DRIVER_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIN_DRIVER_TORQUE_REQUEST&#160;&#160;&#160;0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95560f51d95b80305488ced4a97f0981" name="a95560f51d95b80305488ced4a97f0981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95560f51d95b80305488ced4a97f0981">&#9670;&#160;</a></span>MIN_TV_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIN_TV_TORQUE_REQUEST&#160;&#160;&#160;0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5d7bc83cc68e6be9578302705cda1a2f" name="a5d7bc83cc68e6be9578302705cda1a2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d7bc83cc68e6be9578302705cda1a2f">&#9670;&#160;</a></span>NUM_HIST_BSPD</h2>
 
@@ -370,6 +459,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8494861bbdebfd686e18fc6241419367" name="a8494861bbdebfd686e18fc6241419367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8494861bbdebfd686e18fc6241419367">&#9670;&#160;</a></span>PCHG_COMPLETE_LOW_PASS_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCHG_COMPLETE_LOW_PASS_SIZE&#160;&#160;&#160;(20)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2c9751f85bf92a72164a384fff1b33dc" name="a2c9751f85bf92a72164a384fff1b33dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c9751f85bf92a72164a384fff1b33dc">&#9670;&#160;</a></span>POT_DIST_DROOP_L</h2>
 
@@ -377,7 +480,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define POT_DIST_DROOP_L&#160;&#160;&#160;57</td>
+          <td class="memname">#define POT_DIST_DROOP_L&#160;&#160;&#160;56</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -391,7 +494,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define POT_DIST_DROOP_R&#160;&#160;&#160;54</td>
+          <td class="memname">#define POT_DIST_DROOP_R&#160;&#160;&#160;55</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -461,7 +564,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define POT_VOLT_MAX_L&#160;&#160;&#160;4.0f</td>
+          <td class="memname">#define POT_VOLT_MAX_L&#160;&#160;&#160;11.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -475,7 +578,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define POT_VOLT_MAX_R&#160;&#160;&#160;4.0f</td>
+          <td class="memname">#define POT_VOLT_MAX_R&#160;&#160;&#160;11.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -489,7 +592,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define POT_VOLT_MIN_L&#160;&#160;&#160;4077.0f</td>
+          <td class="memname">#define POT_VOLT_MIN_L&#160;&#160;&#160;4060.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -503,7 +606,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define POT_VOLT_MIN_R&#160;&#160;&#160;4090.0f</td>
+          <td class="memname">#define POT_VOLT_MIN_R&#160;&#160;&#160;4092.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -538,6 +641,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a834da9b98d85d3642bb6d01f773e68f1" name="a834da9b98d85d3642bb6d01f773e68f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834da9b98d85d3642bb6d01f773e68f1">&#9670;&#160;</a></span>SDC_EMETER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SDC_EMETER&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8e255fc49c5b628f3e9acfefa8d03010" name="a8e255fc49c5b628f3e9acfefa8d03010"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e255fc49c5b628f3e9acfefa8d03010">&#9670;&#160;</a></span>SDC_HUB</h2>
 
@@ -545,7 +662,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDC_HUB&#160;&#160;&#160;11</td>
+          <td class="memname">#define SDC_HUB&#160;&#160;&#160;8</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -559,7 +676,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDC_HVD&#160;&#160;&#160;10</td>
+          <td class="memname">#define SDC_HVD&#160;&#160;&#160;6</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -587,7 +704,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDC_L_STOP&#160;&#160;&#160;9</td>
+          <td class="memname">#define SDC_L_STOP&#160;&#160;&#160;5</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -629,7 +746,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDC_R_STOP&#160;&#160;&#160;8</td>
+          <td class="memname">#define SDC_R_STOP&#160;&#160;&#160;4</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -643,7 +760,35 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDC_TSMS&#160;&#160;&#160;12</td>
+          <td class="memname">#define SDC_TSMS&#160;&#160;&#160;9</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c75e6466c2de556dcfc4ba4ebfee12e" name="a8c75e6466c2de556dcfc4ba4ebfee12e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c75e6466c2de556dcfc4ba4ebfee12e">&#9670;&#160;</a></span>TECH_MAX_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TECH_MAX_TORQUE_REQUEST&#160;&#160;&#160;25.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7958cce0fbb9cdd1fd67e0a66732c32" name="ac7958cce0fbb9cdd1fd67e0a66732c32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7958cce0fbb9cdd1fd67e0a66732c32">&#9670;&#160;</a></span>TV_TORQUE_REQUEST_SCALE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TV_TORQUE_REQUEST_SCALE&#160;&#160;&#160;10.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -666,7 +811,7 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543" name="aed430a76e63683fb2c72fbaa1e5e9bc2a10ffe6a34466ac11d9e15bc20dcac543"></a>CAR_TORQUE_NONE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a9d0cbbd5afb0869a3c451293201120fb" name="aed430a76e63683fb2c72fbaa1e5e9bc2a9d0cbbd5afb0869a3c451293201120fb"></a>CAR_TORQUE_RAW&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a40716b7ed5da9c0df5169e3b1eaf7d30" name="aed430a76e63683fb2c72fbaa1e5e9bc2a40716b7ed5da9c0df5169e3b1eaf7d30"></a>CAR_TORQUE_TV&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a306afa5b81cf2b47f78b7294d8f40f37" name="aed430a76e63683fb2c72fbaa1e5e9bc2a306afa5b81cf2b47f78b7294d8f40f37"></a>CAR_TORQUE_THROT_MAP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a7683604ad0e6c404a0c30fe3516dfc15" name="aed430a76e63683fb2c72fbaa1e5e9bc2a7683604ad0e6c404a0c30fe3516dfc15"></a>CAR_TORQUE_TV_TEST&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8" name="aed430a76e63683fb2c72fbaa1e5e9bc2a9be8606b11fc1434e7dcab9a35817aa8"></a>CAR_TORQUE_DAQ&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -704,8 +849,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Resets the steering angle sensor calibration Call once after assembly with wheel centered Device: Bosch F02U.V02.894-01. </p>
 
 </div>
 </div>
@@ -809,6 +952,23 @@ Variables</h2></td></tr>
           <td class="memname">void send_shockpots </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51166f04adbfdb05ef02e18f9bb209d6" name="a51166f04adbfdb05ef02e18f9bb209d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51166f04adbfdb05ef02e18f9bb209d6">&#9670;&#160;</a></span>update_lights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_lights </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

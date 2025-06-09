@@ -88,12 +88,14 @@ $(function(){ initResizable(false); });
 
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
 <li>calcMisc()&#160;:&#160;<a class="el" href="bms_2bms_8c.html#a44e93d95d653e7ec8d7bc8d8839798b6">bms.c</a>, <a class="el" href="bms_2bms_8h.html#a44e93d95d653e7ec8d7bc8d8839798b6">bms.h</a></li>
-<li>calibrateSteeringAngle()&#160;:&#160;<a class="el" href="car_8c.html#ae55ccf9762670dec4bda7e2ca7206b0e">car.c</a>, <a class="el" href="car_8h.html#ae55ccf9762670dec4bda7e2ca7206b0e">car.h</a></li>
+<li>calibrate_lws()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a4d9a71c2c0e8ca114ca5f4cbb1688ecf">main.c</a></li>
+<li>calibrateSteeringAngle()&#160;:&#160;<a class="el" href="car_8h.html#ae55ccf9762670dec4bda7e2ca7206b0e">car.h</a></li>
 <li>calibrationTelemetryUpdate()&#160;:&#160;<a class="el" href="lcd_8c.html#a5c5ebef03a2eca2e53c0b9d925f7549d">lcd.c</a></li>
 <li>CAN1_RX0_IRQHandler()&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a990c3a82a9723ab422570b787af03f72">main.c</a></li>
 <li>CAN1_SCE_IRQHandler()&#160;:&#160;<a class="el" href="daq_2main_8c.html#a941c155b6e300fbfca3be282faca9539">main.c</a></li>
 <li>CAN2_RX0_IRQHandler()&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a8b1e6757f968cf4456a655d61e249555">main.c</a></li>
 <li>can2Relaycan1()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a014080d6b4c8823131e28523c15b7dda">main.c</a></li>
+<li>can2TxUpdate()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a26c88d96a73883e3e5845ee8e0f428f2">main.c</a></li>
 <li>can_parse_error_status()&#160;:&#160;<a class="el" href="daq_2main_8c.html#a057a247fae9ca4e717ebfa48c8943259">main.c</a></li>
 <li>canProcessRxIRQs()&#160;:&#160;<a class="el" href="a__box_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="a__box_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="bms_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="bms_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="bootloader_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="bootloader_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="dashboard_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="dashboard_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="l4__testing_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="l4__testing_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="main__module_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="main__module_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="pdu_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="pdu_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a>, <a class="el" href="torque__vector_2can_2can__parse_8c.html#a8ae5102346661206c2301520b3ce9f89">can_parse.c</a>, <a class="el" href="torque__vector_2can_2can__parse_8h.html#a8ae5102346661206c2301520b3ce9f89">can_parse.h</a></li>
 <li>canReceiveTest()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#aff843719cb46a8882e1eb54ae45ad73f">main.c</a></li>
@@ -106,8 +108,6 @@ $(function(){ initResizable(false); });
 <li>carPeriodic()&#160;:&#160;<a class="el" href="car_8c.html#a77588e43ee014e29965ae55f30672ce7">car.c</a>, <a class="el" href="car_8h.html#a77588e43ee014e29965ae55f30672ce7">car.h</a></li>
 <li>chargeUpdate()&#160;:&#160;<a class="el" href="charge_8c.html#a9302f880d782c0e0802d225203256d15">charge.c</a></li>
 <li>checkConn()&#160;:&#160;<a class="el" href="afe_8c.html#a2c7cafffbe8be0da66e645a9e8be3496">afe.c</a>, <a class="el" href="afe_8h.html#a2c7cafffbe8be0da66e645a9e8be3496">afe.h</a></li>
-<li>checkErrorFaults()&#160;:&#160;<a class="el" href="car_8c.html#a361ddc53e6a97822860f3eb1cbef2ce7">car.c</a></li>
-<li>checkFatalFaults()&#160;:&#160;<a class="el" href="car_8c.html#af5ecb111902f1a1198ac43b69afb79f0">car.c</a></li>
 <li>checkLVStatus()&#160;:&#160;<a class="el" href="bms_2bms_8c.html#a945a96a504110253acb4b3cb38d3d3de">bms.c</a>, <a class="el" href="bms_2bms_8h.html#a945a96a504110253acb4b3cb38d3d3de">bms.h</a></li>
 <li>checkSleep()&#160;:&#160;<a class="el" href="bms_2bms_8c.html#a757379103ca10139d37086693e812d87">bms.c</a>, <a class="el" href="bms_2bms_8h.html#a757379103ca10139d37086693e812d87">bms.h</a></li>
 <li>checkSwitchFaults()&#160;:&#160;<a class="el" href="auto__switch_8c.html#aea4edf80bd2f6bda11bfa85669197d6f">auto_switch.c</a>, <a class="el" href="auto__switch_8h.html#aea4edf80bd2f6bda11bfa85669197d6f">auto_switch.h</a></li>

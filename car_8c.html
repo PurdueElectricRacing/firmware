@@ -97,6 +97,7 @@ $(function(){ initResizable(false); });
 <div class="textblock"><code>#include &quot;<a class="el" href="car_8h_source.html">car.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;wheel_speeds.h&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -114,32 +115,18 @@ Functions</h2></td></tr>
 <tr class="separator:a633e21d9684094efa19b292bc12975e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6ba0d0ae9db5952778408ab7f015c79" id="r_aa6ba0d0ae9db5952778408ab7f015c79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ba0d0ae9db5952778408ab7f015c79">send_shockpots</a> ()</td></tr>
 <tr class="separator:aa6ba0d0ae9db5952778408ab7f015c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a361ddc53e6a97822860f3eb1cbef2ce7" id="r_a361ddc53e6a97822860f3eb1cbef2ce7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a361ddc53e6a97822860f3eb1cbef2ce7">checkErrorFaults</a> ()</td></tr>
-<tr class="separator:a361ddc53e6a97822860f3eb1cbef2ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5ecb111902f1a1198ac43b69afb79f0" id="r_af5ecb111902f1a1198ac43b69afb79f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5ecb111902f1a1198ac43b69afb79f0">checkFatalFaults</a> ()</td></tr>
-<tr class="memdesc:af5ecb111902f1a1198ac43b69afb79f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks faults that should open the SDC.  <br /></td></tr>
-<tr class="separator:af5ecb111902f1a1198ac43b69afb79f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae55ccf9762670dec4bda7e2ca7206b0e" id="r_ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae55ccf9762670dec4bda7e2ca7206b0e">calibrateSteeringAngle</a> (uint8_t *success)</td></tr>
-<tr class="memdesc:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the steering angle sensor calibration Call once after assembly with wheel centered Device: Bosch F02U.V02.894-01.  <br /></td></tr>
-<tr class="separator:ae55ccf9762670dec4bda7e2ca7206b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6103f47c5a46863af1282344a4bfad98" id="r_a6103f47c5a46863af1282344a4bfad98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6103f47c5a46863af1282344a4bfad98">updateSDCFaults</a> ()</td></tr>
 <tr class="separator:a6103f47c5a46863af1282344a4bfad98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a734067d55fba1fd73f37eea2d3886a3e" id="r_a734067d55fba1fd73f37eea2d3886a3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a734067d55fba1fd73f37eea2d3886a3e">monitorSDCPeriodic</a> ()</td></tr>
 <tr class="memdesc:a734067d55fba1fd73f37eea2d3886a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Status of SDC Mux and Send on CAN.  <br /></td></tr>
 <tr class="separator:a734067d55fba1fd73f37eea2d3886a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51166f04adbfdb05ef02e18f9bb209d6" id="r_a51166f04adbfdb05ef02e18f9bb209d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51166f04adbfdb05ef02e18f9bb209d6">update_lights</a> (void)</td></tr>
+<tr class="separator:a51166f04adbfdb05ef02e18f9bb209d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:aca4b89b43b3dae762dec5cfa5e2d5628" id="r_aca4b89b43b3dae762dec5cfa5e2d5628"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCar__t.html">Car_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca4b89b43b3dae762dec5cfa5e2d5628">car</a></td></tr>
 <tr class="separator:aca4b89b43b3dae762dec5cfa5e2d5628"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44bdc3fd341d9b2390e8a9939357c0ea" id="r_a44bdc3fd341d9b2390e8a9939357c0ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44bdc3fd341d9b2390e8a9939357c0ea">q_tx_usart_l</a></td></tr>
-<tr class="separator:a44bdc3fd341d9b2390e8a9939357c0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa1824816d1c2d3fc3357041d2676533" id="r_aaa1824816d1c2d3fc3357041d2676533"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa1824816d1c2d3fc3357041d2676533">q_tx_usart_r</a></td></tr>
-<tr class="separator:aaa1824816d1c2d3fc3357041d2676533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a779fef88c8e5bca1e93ba85e5d373e23" id="r_a779fef88c8e5bca1e93ba85e5d373e23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a779fef88c8e5bca1e93ba85e5d373e23">huart_l_rx_buf</a></td></tr>
-<tr class="separator:a779fef88c8e5bca1e93ba85e5d373e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1ad90cfd3865516793aa974cb5738b1" id="r_ad1ad90cfd3865516793aa974cb5738b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1ad90cfd3865516793aa974cb5738b1">huart_r_rx_buf</a></td></tr>
-<tr class="separator:ad1ad90cfd3865516793aa974cb5738b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d879c5830a564f22c4ce0ea7b6c497a" id="r_a9d879c5830a564f22c4ce0ea7b6c497a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d879c5830a564f22c4ce0ea7b6c497a">num_failed_msgs_l</a></td></tr>
 <tr class="separator:a9d879c5830a564f22c4ce0ea7b6c497a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af25021426f10cc85f1e47b60b18088e1" id="r_af25021426f10cc85f1e47b60b18088e1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af25021426f10cc85f1e47b60b18088e1">num_failed_msgs_r</a></td></tr>
@@ -158,43 +145,29 @@ Variables</h2></td></tr>
 <tr class="separator:afae2cff077007127230990ab4699cb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e8f2a7fa2955f10cec4235a67fa184c" id="r_a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="car_8h.html#a7c210c435f032c86ef5bd91fe1171ddf">sdc_nodes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8f2a7fa2955f10cec4235a67fa184c">sdc_mux</a></td></tr>
 <tr class="separator:a8e8f2a7fa2955f10cec4235a67fa184c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2d366ee32097d11f204efd74d731961" id="r_ab2d366ee32097d11f204efd74d731961"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2d366ee32097d11f204efd74d731961">enableAMKs</a></td></tr>
+<tr class="separator:ab2d366ee32097d11f204efd74d731961"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21278e2975218202de9d7a5c2a7b3f5f" id="r_a21278e2975218202de9d7a5c2a7b3f5f"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21278e2975218202de9d7a5c2a7b3f5f">hist_current</a> [<a class="el" href="car_8h.html#a5d7bc83cc68e6be9578302705cda1a2f">NUM_HIST_BSPD</a>] = {0}</td></tr>
 <tr class="separator:a21278e2975218202de9d7a5c2a7b3f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e332a68aedb2f96591e0ae901e849e3" id="r_a5e332a68aedb2f96591e0ae901e849e3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e332a68aedb2f96591e0ae901e849e3">hist_curr_idx</a></td></tr>
 <tr class="separator:a5e332a68aedb2f96591e0ae901e849e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27b4a6a5ccbdb5c21d41429aa192dc4f" id="r_a27b4a6a5ccbdb5c21d41429aa192dc4f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27b4a6a5ccbdb5c21d41429aa192dc4f">prchg_start</a></td></tr>
 <tr class="separator:a27b4a6a5ccbdb5c21d41429aa192dc4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d205cb80eeec1f3d6ba7d16099ab548" id="r_a4d205cb80eeec1f3d6ba7d16099ab548"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d205cb80eeec1f3d6ba7d16099ab548">pchg_complete_lowpass_buf</a> [<a class="el" href="car_8h.html#a8494861bbdebfd686e18fc6241419367">PCHG_COMPLETE_LOW_PASS_SIZE</a>]</td></tr>
+<tr class="separator:a4d205cb80eeec1f3d6ba7d16099ab548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b22ae6884de88dbe9f18334a86a3557" id="r_a1b22ae6884de88dbe9f18334a86a3557"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b22ae6884de88dbe9f18334a86a3557">pchg_complete_lowpass_idx</a></td></tr>
+<tr class="separator:a1b22ae6884de88dbe9f18334a86a3557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24bf14283e9178020ffe99ff5f85e662" id="r_a24bf14283e9178020ffe99ff5f85e662"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24bf14283e9178020ffe99ff5f85e662">any_tv_msg_stale</a></td></tr>
+<tr class="separator:a24bf14283e9178020ffe99ff5f85e662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ecd362fe40fa0013622c8a11cc3123" id="r_ad3ecd362fe40fa0013622c8a11cc3123"><td class="memItemLeft" align="right" valign="top"><a class="el" href="main__module_2can_2can__parse_8h.html#a8f6ef6e91942d46ec7ede42bf5be7ca5">VCU_mode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3ecd362fe40fa0013622c8a11cc3123">requested_tv_mode</a></td></tr>
+<tr class="separator:ad3ecd362fe40fa0013622c8a11cc3123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf31bd4dca7310ba032781bf74fee32c" id="r_adf31bd4dca7310ba032781bf74fee32c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf31bd4dca7310ba032781bf74fee32c">last_time</a> = 0</td></tr>
 <tr class="memdesc:adf31bd4dca7310ba032781bf74fee32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main task for the car containing a finite state machine to determine when the car should be driveable.  <br /></td></tr>
 <tr class="separator:adf31bd4dca7310ba032781bf74fee32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a901bfd7d1561197d61df17d5ac5cb01f" id="r_a901bfd7d1561197d61df17d5ac5cb01f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> = 0</td></tr>
 <tr class="separator:a901bfd7d1561197d61df17d5ac5cb01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98c5265545e62965db2bb0e6783ef86d" id="r_a98c5265545e62965db2bb0e6783ef86d"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98c5265545e62965db2bb0e6783ef86d">last_error_time</a> = 0</td></tr>
-<tr class="memdesc:a98c5265545e62965db2bb0e6783ef86d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks faults that should prevent the car from driving, but are okay to leave the sdc closed.  <br /></td></tr>
-<tr class="separator:a98c5265545e62965db2bb0e6783ef86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1693514e4d3c552a7d47e46211102fbc" id="r_a1693514e4d3c552a7d47e46211102fbc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1693514e4d3c552a7d47e46211102fbc">error_rose</a> = 0</td></tr>
-<tr class="separator:a1693514e4d3c552a7d47e46211102fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ae55ccf9762670dec4bda7e2ca7206b0e" name="ae55ccf9762670dec4bda7e2ca7206b0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae55ccf9762670dec4bda7e2ca7206b0e">&#9670;&#160;</a></span>calibrateSteeringAngle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void calibrateSteeringAngle </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>success</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Resets the steering angle sensor calibration Call once after assembly with wheel centered Device: Bosch F02U.V02.894-01. </p>
-
-</div>
-</div>
 <a id="af581f64835b0e60aec6685c66729da64" name="af581f64835b0e60aec6685c66729da64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af581f64835b0e60aec6685c66729da64">&#9670;&#160;</a></span>carHeartbeat()</h2>
 
@@ -244,45 +217,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Brake Light Control The on threshold is larger than the off threshold to behave similar to a Shmitt-trigger, preventing blinking during a transition</p>
-
-</div>
-</div>
-<a id="a361ddc53e6a97822860f3eb1cbef2ce7" name="a361ddc53e6a97822860f3eb1cbef2ce7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a361ddc53e6a97822860f3eb1cbef2ce7">&#9670;&#160;</a></span>checkErrorFaults()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool checkErrorFaults </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af5ecb111902f1a1198ac43b69afb79f0" name="af5ecb111902f1a1198ac43b69afb79f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5ecb111902f1a1198ac43b69afb79f0">&#9670;&#160;</a></span>checkFatalFaults()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool checkFatalFaults </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks faults that should open the SDC. </p>
-<dl class="section return"><dt>Returns</dt><dd>true Faults exist </dd>
-<dd>
-false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
@@ -341,6 +275,23 @@ false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
+<a id="a51166f04adbfdb05ef02e18f9bb209d6" name="a51166f04adbfdb05ef02e18f9bb209d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51166f04adbfdb05ef02e18f9bb209d6">&#9670;&#160;</a></span>update_lights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_lights </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6103f47c5a46863af1282344a4bfad98" name="a6103f47c5a46863af1282344a4bfad98"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6103f47c5a46863af1282344a4bfad98">&#9670;&#160;</a></span>updateSDCFaults()</h2>
 
@@ -379,6 +330,20 @@ false No faults have existed for set time </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a24bf14283e9178020ffe99ff5f85e662" name="a24bf14283e9178020ffe99ff5f85e662"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24bf14283e9178020ffe99ff5f85e662">&#9670;&#160;</a></span>any_tv_msg_stale</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool any_tv_msg_stale</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afae2cff077007127230990ab4699cb55" name="afae2cff077007127230990ab4699cb55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afae2cff077007127230990ab4699cb55">&#9670;&#160;</a></span>buzzer_brake_fault</h2>
 
@@ -477,14 +442,14 @@ false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
-<a id="a1693514e4d3c552a7d47e46211102fbc" name="a1693514e4d3c552a7d47e46211102fbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1693514e4d3c552a7d47e46211102fbc">&#9670;&#160;</a></span>error_rose</h2>
+<a id="ab2d366ee32097d11f204efd74d731961" name="ab2d366ee32097d11f204efd74d731961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2d366ee32097d11f204efd74d731961">&#9670;&#160;</a></span>enableAMKs</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool error_rose = 0</td>
+          <td class="memname">bool enableAMKs</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -516,61 +481,6 @@ false No faults have existed for set time </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a779fef88c8e5bca1e93ba85e5d373e23" name="a779fef88c8e5bca1e93ba85e5d373e23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a779fef88c8e5bca1e93ba85e5d373e23">&#9670;&#160;</a></span>huart_l_rx_buf</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> huart_l_rx_buf</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad1ad90cfd3865516793aa974cb5738b1" name="ad1ad90cfd3865516793aa974cb5738b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1ad90cfd3865516793aa974cb5738b1">&#9670;&#160;</a></span>huart_r_rx_buf</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structusart__rx__buf__t.html">usart_rx_buf_t</a> huart_r_rx_buf</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a98c5265545e62965db2bb0e6783ef86d" name="a98c5265545e62965db2bb0e6783ef86d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98c5265545e62965db2bb0e6783ef86d">&#9670;&#160;</a></span>last_error_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t last_error_time = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks faults that should prevent the car from driving, but are okay to leave the sdc closed. </p>
-<dl class="section return"><dt>Returns</dt><dd>true Faults exist </dd>
-<dd>
-false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
@@ -626,6 +536,34 @@ false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
+<a id="a4d205cb80eeec1f3d6ba7d16099ab548" name="a4d205cb80eeec1f3d6ba7d16099ab548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d205cb80eeec1f3d6ba7d16099ab548">&#9670;&#160;</a></span>pchg_complete_lowpass_buf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pchg_complete_lowpass_buf[<a class="el" href="car_8h.html#a8494861bbdebfd686e18fc6241419367">PCHG_COMPLETE_LOW_PASS_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b22ae6884de88dbe9f18334a86a3557" name="a1b22ae6884de88dbe9f18334a86a3557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b22ae6884de88dbe9f18334a86a3557">&#9670;&#160;</a></span>pchg_complete_lowpass_idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t pchg_complete_lowpass_idx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a27b4a6a5ccbdb5c21d41429aa192dc4f" name="a27b4a6a5ccbdb5c21d41429aa192dc4f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27b4a6a5ccbdb5c21d41429aa192dc4f">&#9670;&#160;</a></span>prchg_start</h2>
 
@@ -640,36 +578,14 @@ false No faults have existed for set time </dd></dl>
 
 </div>
 </div>
-<a id="a44bdc3fd341d9b2390e8a9939357c0ea" name="a44bdc3fd341d9b2390e8a9939357c0ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44bdc3fd341d9b2390e8a9939357c0ea">&#9670;&#160;</a></span>q_tx_usart_l</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_usart_l</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aaa1824816d1c2d3fc3357041d2676533" name="aaa1824816d1c2d3fc3357041d2676533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa1824816d1c2d3fc3357041d2676533">&#9670;&#160;</a></span>q_tx_usart_r</h2>
+<a id="ad3ecd362fe40fa0013622c8a11cc3123" name="ad3ecd362fe40fa0013622c8a11cc3123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ecd362fe40fa0013622c8a11cc3123">&#9670;&#160;</a></span>requested_tv_mode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_usart_r</td>
+          <td class="memname"><a class="el" href="main__module_2can_2can__parse_8h.html#a8f6ef6e91942d46ec7ede42bf5be7ca5">VCU_mode_t</a> requested_tv_mode</td>
         </tr>
       </table>
 </div><div class="memdoc">

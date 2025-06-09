@@ -141,6 +141,7 @@ $(function(){ initResizable(false); });
 <li>UP_TEST_STALE&#160;:&#160;<a class="el" href="l4__testing_2can_2can__parse_8h.html#a4ff1eca73cf5c26971cb71341234df7a">can_parse.h</a></li>
 <li>UP_VCU_TORQUES_SPEEDS&#160;:&#160;<a class="el" href="main__module_2can_2can__parse_8h.html#aa4faf03bfa804813c94609f66f924a93">can_parse.h</a></li>
 <li>update_cooling_periodic()&#160;:&#160;<a class="el" href="pdu_2cooling_2cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398">cooling.c</a>, <a class="el" href="pdu_2cooling_2cooling_8h.html#a3e02c27284622cd9e494e2af92cbe398">cooling.h</a></li>
+<li>update_lights()&#160;:&#160;<a class="el" href="car_8c.html#a51166f04adbfdb05ef02e18f9bb209d6">car.c</a>, <a class="el" href="car_8h.html#a51166f04adbfdb05ef02e18f9bb209d6">car.h</a></li>
 <li>updateFaultDisplay()&#160;:&#160;<a class="el" href="lcd_8c.html#a7b6beed0e6479ed4a5fd25aaabc45dff">lcd.c</a>, <a class="el" href="lcd_8h.html#a7b6beed0e6479ed4a5fd25aaabc45dff">lcd.h</a></li>
 <li>updateFaultMessages()&#160;:&#160;<a class="el" href="lcd_8c.html#ad4cde6073d48d2ca5850d3396744104a">lcd.c</a></li>
 <li>updatePage()&#160;:&#160;<a class="el" href="lcd_8c.html#aa13fa254ddd44573fd2a83874763cae8">lcd.c</a>, <a class="el" href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">lcd.h</a></li>
@@ -163,22 +164,14 @@ $(function(){ initResizable(false); });
 <li>USART_DMA_TX&#160;:&#160;<a class="el" href="phal__F4__F7_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241fa7e21f0ce8ee1e0f89a2c4ee6ba9deb27">usart.c</a></li>
 <li>usart_gps_rx_dma_config&#160;:&#160;<a class="el" href="torque__vector_2main_8c.html#a4fead6930e52d9b3ca8f2ad63fbc1e3a">main.c</a></li>
 <li>usart_gps_tx_dma_config&#160;:&#160;<a class="el" href="torque__vector_2main_8c.html#a02ac86e37bec1cf0c0978567134e26e8">main.c</a></li>
-<li>usart_l_rx_array&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a8a00d8c4132c40027b77bf6e1e221360">main.c</a></li>
-<li>usart_l_rx_dma_config&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a210c076fd19d66439d0bfbf5cd811346">main.c</a></li>
-<li>usart_l_tx_dma_config&#160;:&#160;<a class="el" href="main__module_2main_8c.html#aab4fb6aae6b1dc74999af333ca0f2fb7">main.c</a></li>
 <li>usart_mode_t&#160;:&#160;<a class="el" href="phal__L4_2usart_2usart_8h.html#a1209980dae4cfa2b7933ccb7c53746dc">usart.h</a></li>
-<li>usart_r_rx_array&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a40bc68eaac07f85ac505dbf456f5b2b9">main.c</a></li>
-<li>usart_r_rx_dma_config&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a1c28af55bc7d516ae816abc5af3019ef">main.c</a></li>
-<li>usart_r_tx_dma_config&#160;:&#160;<a class="el" href="main__module_2main_8c.html#adcd8c184d9eb9dc8a6b39a9a64b347a8">main.c</a></li>
-<li>usart_recieve_complete_callback()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a61341976b0cee71be1b6cf3bc17db4de">main.c</a>, <a class="el" href="phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819">usart.c</a>, <a class="el" href="phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de">usart.h</a></li>
+<li>usart_recieve_complete_callback()&#160;:&#160;<a class="el" href="torque__vector_2main_8c.html#a61341976b0cee71be1b6cf3bc17db4de">main.c</a>, <a class="el" href="phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819">usart.c</a>, <a class="el" href="phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de">usart.h</a></li>
 <li>usart_rx_dma_config&#160;:&#160;<a class="el" href="daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e">main.c</a>, <a class="el" href="freertos__demo_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e">freertos_demo.c</a>, <a class="el" href="l4__testing_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e">main.c</a></li>
 <li>usart_tx_dma_config&#160;:&#160;<a class="el" href="daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f">main.c</a>, <a class="el" href="freertos__demo_8c.html#a1f94964a4032ad7e8b644485a417b00f">freertos_demo.c</a>, <a class="el" href="l4__testing_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f">main.c</a></li>
 <li>usart_usb_rx_dma_config&#160;:&#160;<a class="el" href="torque__vector_2main_8c.html#aee1a23cfc9cb7821cbd140e307ed0c35">main.c</a></li>
 <li>usart_usb_tx_dma_config&#160;:&#160;<a class="el" href="torque__vector_2main_8c.html#a54d065cd27bad5077837d12810e87f94">main.c</a></li>
-<li>usartIdleIRQ()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a4aeae1523a65bfec30924d2dc6c2514c">main.c</a></li>
 <li>usartSend()&#160;:&#160;<a class="el" href="freertos__demo_8c.html#a7d88d0cf3f5da2ba2421762961ca86f4">freertos_demo.c</a></li>
 <li>usartTXTest()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#a77d20b90aa92fc8d1f4826b38809b401">main.c</a></li>
-<li>usartTxUpdate()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a5fba65ae9d1a38bbbc908d9319bd8a0c">main.c</a></li>
 <li>USB&#160;:&#160;<a class="el" href="diskio_8c.html#a779bf099075a999d1074357fccbd466b">diskio.c</a></li>
 <li>usb&#160;:&#160;<a class="el" href="torque__vector_2main_8c.html#a3f235b0fe34fce8a2a9fc2d8715e912c">main.c</a></li>
 <li>user_charge_current_request&#160;:&#160;<a class="el" href="orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48">orion.c</a>, <a class="el" href="orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48">orion.h</a></li>

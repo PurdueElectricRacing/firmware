@@ -62,7 +62,7 @@ var searchData=
   ['dev_59',['dev',['../namespacecan__test.html#ac9dfc95d91a867de26142a3dfeb9f2eb',1,'can_test.dev'],['../namespacedaq__test.html#a521411f51262dc73b3f94b0174c1bc2d',1,'daq_test.dev']]],
   ['devicesize_60',['DeviceSize',['../structSD__CSD.html#a5b1631f7a792245664c1deb0af3d7191',1,'SD_CSD']]],
   ['devicesizemul_61',['DeviceSizeMul',['../structSD__CSD.html#ac349ed1725e44755b3cedd7149d119c6',1,'SD_CSD']]],
-  ['dh_62',['dh',['../daq__hub_8c.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c'],['../daq__hub_8h.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c']]],
+  ['dh_62',['dh',['../daq__hub_8c.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c'],['../daq__hub_8h.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c'],['../daq_2main_8c.html#a2b2dc0da4988dace2c3c705ab3c3eebb',1,'dh:&#160;daq_hub.c']]],
   ['dhcp_63',['dhcp',['../structwiz__NetInfo__t.html#a763202a23c996695abad319fc6e60dcf',1,'wiz_NetInfo_t']]],
   ['die_5ftemp_64',['die_temp',['../structbms__t.html#abcdcaa83cf71ccb503cfa19cf94d5fb8',1,'bms_t']]],
   ['diff_65',['diff',['../gps_8c.html#af46173b99f6ab22dcdea5e3099b1ed19',1,'gps.c']]],

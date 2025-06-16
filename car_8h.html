@@ -154,9 +154,11 @@ Macros</h2></td></tr>
 <tr class="separator:a77c022592c630d0d46f8af04edaebe70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c75e6466c2de556dcfc4ba4ebfee12e" id="r_a8c75e6466c2de556dcfc4ba4ebfee12e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c75e6466c2de556dcfc4ba4ebfee12e">TECH_MAX_TORQUE_REQUEST</a>&#160;&#160;&#160;25.0f</td></tr>
 <tr class="separator:a8c75e6466c2de556dcfc4ba4ebfee12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c0029f56ebd75b004513810ed93200d" id="r_a9c0029f56ebd75b004513810ed93200d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c0029f56ebd75b004513810ed93200d">DYNAMIC_MAX_TORQUE_REQUEST</a>&#160;&#160;&#160;210.0f</td></tr>
-<tr class="separator:a9c0029f56ebd75b004513810ed93200d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1493245155b31981933e0e6d892ccf4" id="r_ab1493245155b31981933e0e6d892ccf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1493245155b31981933e0e6d892ccf4">MAX_DRIVER_TORQUE_REQUEST</a>&#160;&#160;&#160;<a class="el" href="#a9c0029f56ebd75b004513810ed93200d">DYNAMIC_MAX_TORQUE_REQUEST</a></td></tr>
+<tr class="memitem:a4c21636fbbcc23538d5e6ee879bc1c99" id="r_a4c21636fbbcc23538d5e6ee879bc1c99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c21636fbbcc23538d5e6ee879bc1c99">ACCEL_AUTO_SKID_MAX_TORQUE_REQUEST</a>&#160;&#160;&#160;210.0f</td></tr>
+<tr class="separator:a4c21636fbbcc23538d5e6ee879bc1c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb3a37db350851781187ef35eeb7f52a" id="r_abb3a37db350851781187ef35eeb7f52a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb3a37db350851781187ef35eeb7f52a">ENDURANCE_MAX_TORQUE_REQUEST</a>&#160;&#160;&#160;100.0f</td></tr>
+<tr class="separator:abb3a37db350851781187ef35eeb7f52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1493245155b31981933e0e6d892ccf4" id="r_ab1493245155b31981933e0e6d892ccf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1493245155b31981933e0e6d892ccf4">MAX_DRIVER_TORQUE_REQUEST</a>&#160;&#160;&#160;<a class="el" href="#abb3a37db350851781187ef35eeb7f52a">ENDURANCE_MAX_TORQUE_REQUEST</a></td></tr>
 <tr class="separator:ab1493245155b31981933e0e6d892ccf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc0befaefe523a9b4f0bf2ea9997d03a" id="r_adc0befaefe523a9b4f0bf2ea9997d03a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc0befaefe523a9b4f0bf2ea9997d03a">MIN_DRIVER_TORQUE_REQUEST</a>&#160;&#160;&#160;0.0f</td></tr>
 <tr class="separator:adc0befaefe523a9b4f0bf2ea9997d03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -263,6 +265,20 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2022-03-01</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a4c21636fbbcc23538d5e6ee879bc1c99" name="a4c21636fbbcc23538d5e6ee879bc1c99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c21636fbbcc23538d5e6ee879bc1c99">&#9670;&#160;</a></span>ACCEL_AUTO_SKID_MAX_TORQUE_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ACCEL_AUTO_SKID_MAX_TORQUE_REQUEST&#160;&#160;&#160;210.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a47184338f8488ba6971ee4ebd7b3a27e" name="a47184338f8488ba6971ee4ebd7b3a27e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a47184338f8488ba6971ee4ebd7b3a27e">&#9670;&#160;</a></span>BRAKE_LIGHT_OFF_THRESHOLD</h2>
 
@@ -319,14 +335,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a9c0029f56ebd75b004513810ed93200d" name="a9c0029f56ebd75b004513810ed93200d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c0029f56ebd75b004513810ed93200d">&#9670;&#160;</a></span>DYNAMIC_MAX_TORQUE_REQUEST</h2>
+<a id="abb3a37db350851781187ef35eeb7f52a" name="abb3a37db350851781187ef35eeb7f52a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb3a37db350851781187ef35eeb7f52a">&#9670;&#160;</a></span>ENDURANCE_MAX_TORQUE_REQUEST</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DYNAMIC_MAX_TORQUE_REQUEST&#160;&#160;&#160;210.0f</td>
+          <td class="memname">#define ENDURANCE_MAX_TORQUE_REQUEST&#160;&#160;&#160;100.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -396,7 +412,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAX_DRIVER_TORQUE_REQUEST&#160;&#160;&#160;<a class="el" href="#a9c0029f56ebd75b004513810ed93200d">DYNAMIC_MAX_TORQUE_REQUEST</a></td>
+          <td class="memname">#define MAX_DRIVER_TORQUE_REQUEST&#160;&#160;&#160;<a class="el" href="#abb3a37db350851781187ef35eeb7f52a">ENDURANCE_MAX_TORQUE_REQUEST</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -493,6 +493,5 @@ var searchData=
   ['dtc_5fstatus_490',['dtc_status',['../union____attribute____.html#a031e0608dc5aec0409c2a6f6ea743ba3',1,'__attribute__::dtc_status'],['../structcan__data__t.html#a31d2b7aa2a07af67d11b60efcdfc1312',1,'can_data_t::dtc_status']]],
   ['dummy_5fcycles_491',['dummy_cycles',['../structQUADSPI__Config__t.html#a137538eaf890acfdf36bb9409da90d0b',1,'QUADSPI_Config_t']]],
   ['duplex_492',['duplex',['../structwiz__PhyConf__t.html#a42f9d62936cfdf563c3d1c25a0c88cf2',1,'wiz_PhyConf_t']]],
-  ['dword_493',['DWORD',['../ff_8h.html#ad342ac907eb044443153a22f964bf0af',1,'ff.h']]],
-  ['dynamic_5fmax_5ftorque_5frequest_494',['DYNAMIC_MAX_TORQUE_REQUEST',['../car_8h.html#a9c0029f56ebd75b004513810ed93200d',1,'car.h']]]
+  ['dword_493',['DWORD',['../ff_8h.html#ad342ac907eb044443153a22f964bf0af',1,'ff.h']]]
 ];

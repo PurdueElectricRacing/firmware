@@ -312,6 +312,5 @@ var searchData=
   ['dt_5fpump_5fop_309',['DT_PUMP_OP',['../lcd_8h.html#a45d316cfd449318ab4905ec0ec2f54b6',1,'lcd.h']]],
   ['dt_5ftherm_5fa_310',['DT_THERM_A',['../main__module_2cooling_2cooling_8h.html#adb58e335741c335327373af3260679c1',1,'cooling.h']]],
   ['dt_5ftherm_5fb_311',['DT_THERM_B',['../main__module_2cooling_2cooling_8h.html#aa5febe3c220a470575e17b421fb998b4',1,'cooling.h']]],
-  ['dt_5ftherm_5fr1_312',['DT_THERM_R1',['../main__module_2cooling_2cooling_8h.html#ae64458ab2a0c5b90b7440ff391b9e6e2',1,'cooling.h']]],
-  ['dynamic_5fmax_5ftorque_5frequest_313',['DYNAMIC_MAX_TORQUE_REQUEST',['../car_8h.html#a9c0029f56ebd75b004513810ed93200d',1,'car.h']]]
+  ['dt_5ftherm_5fr1_312',['DT_THERM_R1',['../main__module_2cooling_2cooling_8h.html#ae64458ab2a0c5b90b7440ff391b9e6e2',1,'cooling.h']]]
 ];

@@ -1,6 +1,7 @@
 #ifndef __COMMON_FREERTOS_H__
 #define __COMMON_FREERTOS_H__
 
+// clang-format off
 #define myIDENT(x) x
 #define myXSTR(x) #x
 #define mySTR(x) myXSTR(x)
@@ -28,6 +29,7 @@
 #include _FREERTOS_PATH(include/semphr.h)
 #include _FREERTOS_PATH(include/task.h)
 #include _FREERTOS_PATH(include/timers.h)
+// clang-format on
 
 #include <stdint.h>
 

@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "Main_Module",
-          "node_ssa": 1,
           "can_peripheral": "CAN1",
           "tx": [
             {
@@ -697,7 +696,6 @@
       "nodes": [
         {
           "node_name": "Main_Module",
-          "node_ssa": 1,
           "can_peripheral": "CAN2",
           "tx": [
             {

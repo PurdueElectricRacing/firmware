@@ -26,7 +26,7 @@
         },
         "node":{
             "type":"object",
-            "required":["node_name", "node_ssa","tx", "rx"],
+            "required":["node_name", "tx", "rx"],
             "properties":{
                 "node_name":{
                     "type":"string",
@@ -35,12 +35,6 @@
                 "can_peripheral":{
                     "type":"string",
                     "enum": ["CAN1", "CAN2"]
-                },
-                "node_ssa":{
-                    "type":"integer",
-                    "description":"subsystem address, lower = higher priority, 0-63",
-                    "minimum": 0,
-                    "maximum": 63
                 },
                 "tx":{
                     "type":"array",

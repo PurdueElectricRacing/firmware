@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "Charger",
-          "node_ssa": 30,
           "tx": [
             {
               "msg_name": "elcon_charger_status",

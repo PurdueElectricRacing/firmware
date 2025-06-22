@@ -7,7 +7,6 @@
         {
           "node_name": "a_box",
           "can_peripheral": "CAN1",
-          "node_ssa": 4,
           "tx": [
             {
               "msg_name": "precharge_hb",
@@ -522,7 +521,6 @@
         {
           "node_name": "a_box",
           "can_peripheral": "CAN2",
-          "node_ssa": 4,
           "tx": [
             {
               "msg_name": "can2_precharge_hb",

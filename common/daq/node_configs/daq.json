@@ -7,7 +7,6 @@
         {
           "node_name": "daq",
           "can_peripheral": "CAN1",
-          "node_ssa": 49,
           "tx": [
             {
               "msg_name": "daq_can_stats",

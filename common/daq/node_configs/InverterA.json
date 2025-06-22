@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "InverterA",
-          "node_ssa": 63,
           "tx": [
             {
               "msg_name": "INVA_CRIT",

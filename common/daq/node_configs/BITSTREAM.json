@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "BITSTREAM",
-          "node_ssa": 62,
           "tx": [
             {
               "msg_name": "bitstream_data",

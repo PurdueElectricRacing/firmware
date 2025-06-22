@@ -47,17 +47,12 @@ def generate_daq_can_msgs(daq_config, can_config):
 
         # create daq node
         daq_node = {"node_name":"DAQ",
-                    "node_ssa":daq_bus['daq_ssa'],
                     "tx":[], "rx":[]}
 
         for daq_node_config in daq_bus['nodes']:
-
-            # get node's ssa
-            ssa = -1
             for can_node in can_bus['nodes']:
                 if can_node['node_name'] == daq_node_config['node_name']:
                     print(f"match for can node {daq_node['node_name']} found")
-                    ssa = can_node['node_ssa']
                     # configure daq rx message
                     can_node['rx'].append({"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                                            "callback":True, "irq":False, "arg_type":"header"})
@@ -75,9 +70,6 @@ def generate_daq_can_msgs(daq_config, can_config):
                     daq_node_config['daq_rsp_msg_periph'] = periph
 
                     break
-            if ssa == -1:
-                generator.log_error(f"CAN node name not found: {daq_node_config['node_name']}")
-                quit(1)
 
             # configure daq node tx message defs
             command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",

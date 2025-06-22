@@ -7,7 +7,6 @@
         {
           "node_name": "OrionBMS",
           "can_peripheral": "CAN2",
-          "node_ssa": 56,
           "tx": [
             {
               "msg_name": "orion_info",
@@ -360,7 +359,6 @@
         {
           "node_name": "OrionBMS",
           "can_peripheral": "CAN1",
-          "node_ssa": 56,
           "tx": [
             {
               "msg_name": "orion_info_charger",

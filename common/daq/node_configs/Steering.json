@@ -7,7 +7,6 @@
         {
           "node_name": "Steering",
           "can_peripheral": "CAN1",
-          "node_ssa": 42,
           "tx": [
             {
               "msg_name": "LWS_Standard",

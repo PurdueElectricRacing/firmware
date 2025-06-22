@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "TEST_NODE",
-          "node_ssa": 63,
           "tx": [
             {
               "msg_name": "orion_currents_volts2",

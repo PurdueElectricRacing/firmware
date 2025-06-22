@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "bootloader",
-          "node_ssa": 60,
           "can_peripheral": "CAN1",
           "tx": [
             {

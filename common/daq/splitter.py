@@ -105,10 +105,36 @@ def remove_bus_speed_fields(path: str):
     else:
         print(f"No change: {path}")
 
+# def main():
+#     json_files = glob(os.path.join(NODE_CONFIG_DIR, "*.json"))
+#     for path in json_files:
+#         remove_bus_speed_fields(path)
+
+#!/usr/bin/env python3
+
+def remove_node_ssa_fields(path: str):
+    with open(path, "r") as f:
+        data = json.load(f)
+
+    changed = False
+
+    for bus in data.get("busses", []):
+        for node in bus.get("nodes", []):
+            if "node_ssa" in node:
+                del node["node_ssa"]
+                changed = True
+
+    if changed:
+        with open(path, "w") as f:
+            json.dump(data, f, indent=2)
+        print(f"Removed 'node_ssa' in: {path}")
+    else:
+        print(f"No change: {path}")
+
 def main():
     json_files = glob(os.path.join(NODE_CONFIG_DIR, "*.json"))
     for path in json_files:
-        remove_bus_speed_fields(path)
+        remove_node_ssa_fields(path)
 
 if __name__ == "__main__":
     main()

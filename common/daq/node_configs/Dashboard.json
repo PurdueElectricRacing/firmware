@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "Dashboard",
-          "node_ssa": 5,
           "tx": [
             {
               "msg_name": "raw_throttle_brake",

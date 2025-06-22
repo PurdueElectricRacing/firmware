@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "PDU",
-          "node_ssa": 31,
           "tx": [
             {
               "msg_name": "v_rails",

@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "torque_vector",
-          "node_ssa": 55,
           "tx": [
             {
               "msg_name": "gps_velocity",

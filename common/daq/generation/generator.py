@@ -107,7 +107,6 @@ def check_repeat_defs(can_config):
     message_names = []
     for bus in can_config['busses']:
         message_ids = []
-        node_ssas = []
         node_names = []
         for node in bus['nodes']:
             if node['node_name'] in node_names:
@@ -115,11 +114,6 @@ def check_repeat_defs(can_config):
                 quit(1)
             else:
                 node_names.append(node['node_name'])
-            if node['node_ssa'] in node_ssas:
-                log_error(f"Found identical node ssas for {node['node_name']} of ssa: {node['node_ssa']}")
-                quit(1)
-            else:
-                node_ssas.append(node['node_ssa'])
             for msg in node['tx']:
                 if msg['msg_name'] in message_names:
                     log_error(f"Found multiple definitions for {msg['msg_name']}")

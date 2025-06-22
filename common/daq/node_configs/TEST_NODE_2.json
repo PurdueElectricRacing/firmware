@@ -6,7 +6,6 @@
       "nodes": [
         {
           "node_name": "TEST_NODE_2",
-          "node_ssa": 61,
           "tx": [
             {
               "msg_name": "test_msg_2",

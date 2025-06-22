@@ -181,7 +181,9 @@
           ],
           "rx": [
             {
-              "msg_name": "INVA_SET"
+              "msg_name": "INVA_SET",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

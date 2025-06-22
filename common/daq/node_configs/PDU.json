@@ -38,8 +38,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 1041
+              "msg_priority": 3
             },
             {
               "msg_name": "rail_currents",
@@ -59,8 +58,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 1042
+              "msg_priority": 3
             },
             {
               "msg_name": "pump_and_fan_current",
@@ -90,8 +88,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 1043
+              "msg_priority": 3
             },
             {
               "msg_name": "other_currents",
@@ -129,8 +126,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 1044
+              "msg_priority": 3
             },
             {
               "msg_name": "coolant_out",
@@ -168,8 +164,7 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 35
+              "msg_priority": 3
             },
             {
               "msg_name": "flowrates",
@@ -191,8 +186,7 @@
                 }
               ],
               "msg_period": 200,
-              "msg_hlp": 4,
-              "msg_pgn": 34
+              "msg_priority": 3
             },
             {
               "msg_name": "pdu_temps",
@@ -206,8 +200,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 36
+              "msg_priority": 3
             },
             {
               "msg_name": "pdu_can_stats",
@@ -235,30 +228,41 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1420
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
               "msg_name": "pdu_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "cooling_driver_request",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "main_hb"
+              "msg_name": "main_hb",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "gps_speed"
+              "msg_name": "gps_speed",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "max_cell_temp"
+              "msg_name": "max_cell_temp",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "rear_motor_temps"
+              "msg_name": "rear_motor_temps",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

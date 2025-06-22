@@ -33,8 +33,7 @@
                 }
               ],
               "msg_period": 40,
-              "msg_hlp": 3,
-              "msg_pgn": 10
+              "msg_priority": 3
             },
             {
               "msg_name": "gps_speed",
@@ -54,8 +53,7 @@
                 }
               ],
               "msg_period": 40,
-              "msg_hlp": 3,
-              "msg_pgn": 68
+              "msg_priority": 3
             },
             {
               "msg_name": "gps_position",
@@ -69,8 +67,7 @@
                 }
               ],
               "msg_period": 40,
-              "msg_hlp": 3,
-              "msg_pgn": 140
+              "msg_priority": 3
             },
             {
               "msg_name": "gps_coordinates",
@@ -88,8 +85,7 @@
                 }
               ],
               "msg_period": 40,
-              "msg_hlp": 3,
-              "msg_pgn": 141
+              "msg_priority": 3
             },
             {
               "msg_name": "gps_time",
@@ -132,8 +128,7 @@
                 }
               ],
               "msg_period": 40,
-              "msg_hlp": 3,
-              "msg_pgn": 149
+              "msg_priority": 3
             },
             {
               "msg_name": "imu_gyro",
@@ -159,8 +154,7 @@
                 }
               ],
               "msg_period": 20,
-              "msg_hlp": 3,
-              "msg_pgn": 11
+              "msg_priority": 3
             },
             {
               "msg_name": "imu_accel",
@@ -186,8 +180,7 @@
                 }
               ],
               "msg_period": 20,
-              "msg_hlp": 3,
-              "msg_pgn": 142
+              "msg_priority": 3
             },
             {
               "msg_name": "VCU_torques_speeds",
@@ -218,8 +211,7 @@
                 }
               ],
               "msg_period": 20,
-              "msg_hlp": 1,
-              "msg_pgn": 154
+              "msg_priority": 3
             },
             {
               "msg_name": "vcu_soc_estimate",
@@ -239,8 +231,7 @@
                 }
               ],
               "msg_period": 20,
-              "msg_hlp": 2,
-              "msg_pgn": 155
+              "msg_priority": 3
             },
             {
               "msg_name": "drive_modes",
@@ -259,8 +250,7 @@
                 }
               ],
               "msg_period": 20,
-              "msg_hlp": 3,
-              "msg_pgn": 156
+              "msg_priority": 3
             },
             {
               "msg_name": "tv_can_stats",
@@ -288,50 +278,75 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1420
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
               "msg_name": "torquevector_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "filt_throttle_brake"
+              "msg_name": "filt_throttle_brake",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "LWS_Standard"
+              "msg_name": "LWS_Standard",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_currents_volts"
+              "msg_name": "orion_currents_volts",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "main_hb"
+              "msg_name": "main_hb",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "rear_wheel_speeds"
+              "msg_name": "rear_wheel_speeds",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "rear_motor_temps"
+              "msg_name": "rear_motor_temps",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "max_cell_temp"
+              "msg_name": "max_cell_temp",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVA_CRIT"
+              "msg_name": "INVA_CRIT",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVB_CRIT"
+              "msg_name": "INVB_CRIT",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVA_TEMPS"
+              "msg_name": "INVA_TEMPS",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVB_TEMPS"
+              "msg_name": "INVB_TEMPS",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "dashboard_vcu_parameters"
+              "msg_name": "dashboard_vcu_parameters",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

@@ -26,8 +26,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 5000
+              "msg_priority": 3
             },
             {
               "msg_name": "dashboard_bl_resp",
@@ -45,8 +44,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 5001
+              "msg_priority": 3
             },
             {
               "msg_name": "torquevector_bl_resp",
@@ -64,8 +62,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 5002
+              "msg_priority": 3
             },
             {
               "msg_name": "a_box_bl_resp",
@@ -83,8 +80,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 5003
+              "msg_priority": 3
             },
             {
               "msg_name": "pdu_bl_resp",
@@ -102,8 +98,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 5004
+              "msg_priority": 3
             },
             {
               "msg_name": "l4_testing_bl_resp",
@@ -121,8 +116,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 50005
+              "msg_priority": 3
             },
             {
               "msg_name": "f4_testing_bl_resp",
@@ -140,8 +134,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 50006
+              "msg_priority": 3
             },
             {
               "msg_name": "f7_testing_bl_resp",
@@ -159,8 +152,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 50007
+              "msg_priority": 3
             },
             {
               "msg_name": "daq_bl_resp",
@@ -178,50 +170,69 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 50008
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
               "msg_name": "bitstream_data",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "main_module_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "dashboard_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "torquevector_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "a_box_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "pdu_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "l4_testing_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "f4_testing_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "f7_testing_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "daq_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

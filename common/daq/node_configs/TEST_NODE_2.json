@@ -20,8 +20,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 1
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg2_2",
@@ -34,8 +33,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 2
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg3_2",
@@ -48,8 +46,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 3
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg4_2",
@@ -62,8 +59,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 4
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg5_2",
@@ -84,8 +80,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 5
+              "msg_priority": 3
             },
             {
               "msg_name": "test_stale",
@@ -123,7 +118,9 @@
           "rx": [
             {
               "msg_name": "l4_testing_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

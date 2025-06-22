@@ -36,8 +36,7 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1620
+              "msg_priority": 3
             },
             {
               "msg_name": "daq_queue_stats",
@@ -65,14 +64,15 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1621
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
               "msg_name": "daq_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

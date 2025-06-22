@@ -179,7 +179,9 @@
           ],
           "rx": [
             {
-              "msg_name": "INVB_SET"
+              "msg_name": "INVB_SET",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

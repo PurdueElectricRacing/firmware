@@ -66,7 +66,7 @@ def generate_daq_can_msgs(daq_config, can_config):
                     rsp_msg = {"msg_name":f"daq_response_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                                     "msg_desc":f"daq response from node {daq_node_config['node_name'].upper()}",
                                     "signals":[{"sig_name":"daq_response","type":"uint64_t","length":64}],
-                                    "msg_period":0, "msg_hlp":5, "msg_pgn":daq_bus['daq_rx_pgn']}
+                                    "msg_period":0, "msg_priority":3 }
                     can_node['tx'].append(rsp_msg)
 
                     # add to daq config
@@ -83,7 +83,7 @@ def generate_daq_can_msgs(daq_config, can_config):
             command_msg = {"msg_name":f"daq_command_{daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                            "msg_desc":f"daq command for node {daq_node_config['node_name'].upper()}_{daq_bus['bus_name'].upper()}",
                            "signals":[{"sig_name":"daq_command","type":"uint64_t","length":64}],
-                           "msg_period":0, "msg_hlp":5, "msg_pgn":ssa}
+                           "msg_period":0, "msg_priority":3}
             daq_node['tx'].append(command_msg)
 
             # configure daq node rx messages

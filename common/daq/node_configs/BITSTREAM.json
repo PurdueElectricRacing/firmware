@@ -63,8 +63,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 100
+              "msg_priority": 3
             },
             {
               "msg_name": "bitstream_request",
@@ -84,8 +83,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 101
+              "msg_priority": 3
             },
             {
               "msg_name": "main_module_bl_cmd",
@@ -105,8 +103,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10000
+              "msg_priority": 3
             },
             {
               "msg_name": "dashboard_bl_cmd",
@@ -126,8 +123,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10001
+              "msg_priority": 3
             },
             {
               "msg_name": "torquevector_bl_cmd",
@@ -147,8 +143,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10002
+              "msg_priority": 3
             },
             {
               "msg_name": "a_box_bl_cmd",
@@ -168,8 +163,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10003
+              "msg_priority": 3
             },
             {
               "msg_name": "pdu_bl_cmd",
@@ -189,8 +183,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10004
+              "msg_priority": 3
             },
             {
               "msg_name": "l4_testing_bl_cmd",
@@ -210,8 +203,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10005
+              "msg_priority": 3
             },
             {
               "msg_name": "f4_testing_bl_cmd",
@@ -231,8 +223,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10006
+              "msg_priority": 3
             },
             {
               "msg_name": "f7_testing_bl_cmd",
@@ -252,8 +243,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10007
+              "msg_priority": 3
             },
             {
               "msg_name": "daq_bl_cmd",
@@ -273,8 +263,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 10008
+              "msg_priority": 3
             },
             {
               "msg_name": "set_fault",
@@ -294,8 +283,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 2,
-              "msg_pgn": 10016
+              "msg_priority": 3
             },
             {
               "msg_name": "return_fault_control",
@@ -309,13 +297,14 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 2,
-              "msg_pgn": 10017
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
-              "msg_name": "bitstream_flash_status"
+              "msg_name": "bitstream_flash_status",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

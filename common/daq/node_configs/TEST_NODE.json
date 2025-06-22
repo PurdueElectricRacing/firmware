@@ -28,8 +28,7 @@
                 }
               ],
               "msg_period": 32,
-              "msg_hlp": 5,
-              "msg_pgn": 27
+              "msg_priority": 3
             },
             {
               "msg_name": "pack_charge_status2",
@@ -66,8 +65,7 @@
                 }
               ],
               "msg_period": 50,
-              "msg_hlp": 2,
-              "msg_pgn": 514
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg",
@@ -79,8 +77,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 1
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg2",
@@ -93,8 +90,7 @@
                 }
               ],
               "msg_period": 50,
-              "msg_hlp": 5,
-              "msg_pgn": 2
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg3",
@@ -107,8 +103,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 3
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg4",
@@ -121,8 +116,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 4
+              "msg_priority": 3
             },
             {
               "msg_name": "test_msg5",
@@ -135,8 +129,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 5,
-              "msg_pgn": 5
+              "msg_priority": 3
             },
             {
               "msg_name": "wheel_speeds",
@@ -154,8 +147,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 3,
-              "msg_pgn": 7
+              "msg_priority": 3
             },
             {
               "msg_name": "adc_values",
@@ -202,17 +194,25 @@
           ],
           "rx": [
             {
-              "msg_name": "test_msg5_2"
+              "msg_name": "test_msg5_2",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "test_stale"
+              "msg_name": "test_stale",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "car_state2"
+              "msg_name": "car_state2",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "l4_testing_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

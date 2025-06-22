@@ -135,8 +135,7 @@
                 }
               ],
               "msg_period": 32,
-              "msg_hlp": 5,
-              "msg_pgn": 26
+              "msg_priority": 3
             },
             {
               "msg_name": "orion_currents_volts",
@@ -157,8 +156,7 @@
                 }
               ],
               "msg_period": 32,
-              "msg_hlp": 5,
-              "msg_pgn": 27
+              "msg_priority": 3
             },
             {
               "msg_name": "orion_errors",
@@ -350,8 +348,7 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 3,
-              "msg_pgn": 28
+              "msg_priority": 3
             }
           ],
           "rx": []
@@ -492,8 +489,7 @@
                 }
               ],
               "msg_period": 32,
-              "msg_hlp": 5,
-              "msg_pgn": 26
+              "msg_priority": 3
             },
             {
               "msg_name": "orion_currents_volts_charger",
@@ -514,8 +510,7 @@
                 }
               ],
               "msg_period": 32,
-              "msg_hlp": 5,
-              "msg_pgn": 27
+              "msg_priority": 3
             },
             {
               "msg_name": "orion_errors_charger",
@@ -707,8 +702,7 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 3,
-              "msg_pgn": 28
+              "msg_priority": 3
             }
           ],
           "rx": []

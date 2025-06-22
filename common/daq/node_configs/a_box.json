@@ -25,9 +25,8 @@
                   "type": "uint8_t"
                 }
               ],
-              "msg_hlp": 3,
               "msg_period": 500,
-              "msg_pgn": 101
+              "msg_priority": 3
             },
             {
               "msg_name": "elcon_charger_command",
@@ -125,8 +124,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 515
+              "msg_priority": 3
             },
             {
               "msg_name": "pack_charge_status",
@@ -163,8 +161,7 @@
                 }
               ],
               "msg_period": 50,
-              "msg_hlp": 5,
-              "msg_pgn": 514
+              "msg_priority": 3
             },
             {
               "msg_name": "max_cell_temp",
@@ -177,8 +174,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 3,
-              "msg_pgn": 5016
+              "msg_priority": 3
             },
             {
               "msg_name": "mod_cell_temp_avg_a_b_c",
@@ -201,8 +197,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 1234
+              "msg_priority": 3
             },
             {
               "msg_name": "mod_cell_temp_avg_d_e",
@@ -220,8 +215,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 1235
+              "msg_priority": 3
             },
             {
               "msg_name": "mod_cell_temp_max_a_b_c",
@@ -244,8 +238,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 516
+              "msg_priority": 3
             },
             {
               "msg_name": "mod_cell_temp_max_d_e",
@@ -263,8 +256,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 517
+              "msg_priority": 3
             },
             {
               "msg_name": "mod_cell_temp_min_a_b_c",
@@ -287,8 +279,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 520
+              "msg_priority": 3
             },
             {
               "msg_name": "mod_cell_temp_min_d_e",
@@ -306,8 +297,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 521
+              "msg_priority": 3
             },
             {
               "msg_name": "raw_cell_temp_module1",
@@ -332,8 +322,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 1222
+              "msg_priority": 3
             },
             {
               "msg_name": "raw_cell_temp_module2",
@@ -358,8 +347,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 526
+              "msg_priority": 3
             },
             {
               "msg_name": "raw_cell_temp_module3",
@@ -384,8 +372,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 527
+              "msg_priority": 3
             },
             {
               "msg_name": "raw_cell_temp_module4",
@@ -410,8 +397,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 528
+              "msg_priority": 3
             },
             {
               "msg_name": "raw_cell_temp_module5",
@@ -436,8 +422,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 529
+              "msg_priority": 3
             },
             {
               "msg_name": "a_box_can_stats",
@@ -480,8 +465,7 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1420
+              "msg_priority": 3
             },
             {
               "msg_name": "i_sense",
@@ -503,23 +487,30 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1425
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
-              "msg_name": "orion_info"
+              "msg_name": "orion_info",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_currents_volts"
+              "msg_name": "orion_currents_volts",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_errors"
+              "msg_name": "orion_errors",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "a_box_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ],
           "accept_all_messages": false
@@ -550,9 +541,8 @@
                   "type": "uint8_t"
                 }
               ],
-              "msg_hlp": 3,
               "msg_period": 500,
-              "msg_pgn": 101
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_elcon_charger_command",
@@ -650,8 +640,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 4,
-              "msg_pgn": 515
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_pack_charge_status",
@@ -688,8 +677,7 @@
                 }
               ],
               "msg_period": 50,
-              "msg_hlp": 5,
-              "msg_pgn": 514
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_max_cell_temp",
@@ -702,8 +690,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 3,
-              "msg_pgn": 5016
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_mod_cell_temp_avg_a_b_c",
@@ -726,8 +713,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 1234
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_mod_cell_temp_avg_d_e",
@@ -745,8 +731,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 1235
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_mod_cell_temp_max_a_b_c",
@@ -769,8 +754,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 516
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_mod_cell_temp_max_d_e",
@@ -788,8 +772,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 517
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_mod_cell_temp_min_a_b_c",
@@ -812,8 +795,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 520
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_mod_cell_temp_min_d_e",
@@ -831,8 +813,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 521
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_raw_cell_temp_module1",
@@ -857,8 +838,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 1222
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_raw_cell_temp_module2",
@@ -883,8 +863,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 526
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_raw_cell_temp_module3",
@@ -909,8 +888,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 527
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_raw_cell_temp_module4",
@@ -935,8 +913,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 528
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_raw_cell_temp_module5",
@@ -961,8 +938,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 5,
-              "msg_pgn": 529
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_a_box_can_stats",
@@ -1005,8 +981,7 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1420
+              "msg_priority": 3
             },
             {
               "msg_name": "can2_i_sense",
@@ -1028,22 +1003,29 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1425
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
-              "msg_name": "elcon_charger_status"
+              "msg_name": "elcon_charger_status",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_info_charger"
+              "msg_name": "orion_info_charger",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_currents_volts_charger"
+              "msg_name": "orion_currents_volts_charger",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_errors_charger"
+              "msg_name": "orion_errors_charger",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ],
           "accept_all_messages": false

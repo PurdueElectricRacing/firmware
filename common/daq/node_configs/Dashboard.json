@@ -50,8 +50,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 4,
-              "msg_pgn": 10
+              "msg_priority": 3
             },
             {
               "msg_name": "shock_front",
@@ -71,8 +70,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 4,
-              "msg_pgn": 1015
+              "msg_priority": 3
             },
             {
               "msg_name": "load_sensor_readings_dash",
@@ -90,8 +88,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 4,
-              "msg_pgn": 1010
+              "msg_priority": 3
             },
             {
               "msg_name": "cooling_driver_request",
@@ -123,8 +120,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 3,
-              "msg_pgn": 11
+              "msg_priority": 3
             },
             {
               "msg_name": "filt_throttle_brake",
@@ -148,8 +144,7 @@
                 }
               ],
               "msg_period": 15,
-              "msg_hlp": 1,
-              "msg_pgn": 9
+              "msg_priority": 3
             },
             {
               "msg_name": "start_button",
@@ -162,8 +157,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 0
+              "msg_priority": 3
             },
             {
               "msg_name": "dashboard_mcu_temp",
@@ -175,8 +169,7 @@
                 }
               ],
               "msg_period": 4000,
-              "msg_hlp": 4,
-              "msg_pgn": 101
+              "msg_priority": 3
             },
             {
               "msg_name": "dashboard_voltage",
@@ -208,8 +201,7 @@
                 }
               ],
               "msg_period": 5000,
-              "msg_hlp": 4,
-              "msg_pgn": 102
+              "msg_priority": 3
             },
             {
               "msg_name": "dashboard_vcu_parameters",
@@ -243,8 +235,7 @@
                 }
               ],
               "msg_period": 500,
-              "msg_hlp": 1,
-              "msg_pgn": 55
+              "msg_priority": 3
             },
             {
               "msg_name": "dashboard_start_logging",
@@ -258,8 +249,7 @@
                 }
               ],
               "msg_period": 0,
-              "msg_hlp": 1,
-              "msg_pgn": 56
+              "msg_priority": 3
             },
             {
               "msg_name": "dash_can_stats",
@@ -287,66 +277,101 @@
                 }
               ],
               "msg_period": 1000,
-              "msg_hlp": 4,
-              "msg_pgn": 1420
+              "msg_priority": 3
             }
           ],
           "rx": [
             {
-              "msg_name": "main_hb"
+              "msg_name": "main_hb",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "rear_motor_currents_volts"
+              "msg_name": "rear_motor_currents_volts",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_info"
+              "msg_name": "orion_info",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_currents_volts"
+              "msg_name": "orion_currents_volts",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "orion_errors"
+              "msg_name": "orion_errors",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "max_cell_temp"
+              "msg_name": "max_cell_temp",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "precharge_hb"
+              "msg_name": "precharge_hb",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "rear_wheel_speeds"
+              "msg_name": "rear_wheel_speeds",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "coolant_temps"
+              "msg_name": "coolant_temps",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "coolant_out",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "gearbox"
+              "msg_name": "gearbox",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
               "msg_name": "dashboard_bl_cmd",
-              "callback": true
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "sdc_status"
+              "msg_name": "sdc_status",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "gps_speed"
+              "msg_name": "gps_speed",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVA_TEMPS"
+              "msg_name": "INVA_TEMPS",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVB_TEMPS"
+              "msg_name": "INVB_TEMPS",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVA_CRIT"
+              "msg_name": "INVA_CRIT",
+              "msg_priority": 3,
+              "msg_period": 0
             },
             {
-              "msg_name": "INVB_CRIT"
+              "msg_name": "INVB_CRIT",
+              "msg_priority": 3,
+              "msg_period": 0
             }
           ]
         }

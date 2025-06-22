@@ -34,7 +34,7 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
     target_link_options(${TARGET_NAME} PRIVATE
         "-Wl,--whole-archive"
         "$<TARGET_FILE:SYSCALLS>"
-        "-Wl,--no-whole-archive"
+        "-Wl,--no-whole-archive,--no-warn-rwx-segment"
     )
 
     # Find all .c sources in project, recursive search starting at component root

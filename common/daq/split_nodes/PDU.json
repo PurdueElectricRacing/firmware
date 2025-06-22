@@ -1,0 +1,268 @@
+{
+  "$schema": "./can_schema.json",
+  "busses": [
+    {
+      "bus_name": "VCAN",
+      "bus_speed": 500000,
+      "nodes": [
+        {
+          "node_name": "PDU",
+          "node_ssa": 31,
+          "tx": [
+            {
+              "msg_name": "v_rails",
+              "msg_desc": "PDU voltage rail readings",
+              "signals": [
+                {
+                  "sig_name": "in_24v",
+                  "sig_desc": "Unregulated 24V input",
+                  "type": "uint16_t",
+                  "unit": "mV"
+                },
+                {
+                  "sig_name": "out_5v",
+                  "sig_desc": "5v rail output voltage",
+                  "type": "uint16_t",
+                  "unit": "mV"
+                },
+                {
+                  "sig_name": "out_3v3",
+                  "sig_desc": "3v3 rail output voltage",
+                  "type": "uint16_t",
+                  "unit": "mV"
+                },
+                {
+                  "sig_name": "amk_24v",
+                  "type": "uint16_t",
+                  "unit": "mV"
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 1041
+            },
+            {
+              "msg_name": "rail_currents",
+              "msg_desc": "PDU rail currents",
+              "signals": [
+                {
+                  "sig_name": "i_24v",
+                  "sig_desc": "Unregulated 24V rail current",
+                  "type": "uint16_t",
+                  "unit": "mA"
+                },
+                {
+                  "sig_name": "i_5v",
+                  "sig_desc": "5v rail current",
+                  "type": "uint16_t",
+                  "unit": "mA"
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 1042
+            },
+            {
+              "msg_name": "pump_and_fan_current",
+              "msg_desc": "PDU pump and fan currents",
+              "signals": [
+                {
+                  "sig_name": "i_pump1",
+                  "type": "uint16_t",
+                  "unit": "mA"
+                },
+                {
+                  "sig_name": "i_pump2",
+                  "type": "uint16_t",
+                  "unit": "mA"
+                },
+                {
+                  "sig_name": "i_fan1",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                },
+                {
+                  "sig_name": "i_fan2",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 1043
+            },
+            {
+              "msg_name": "other_currents",
+              "msg_desc": "Other PDU currents",
+              "signals": [
+                {
+                  "sig_name": "i_sdc",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                },
+                {
+                  "sig_name": "i_aux",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                },
+                {
+                  "sig_name": "i_dash",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                },
+                {
+                  "sig_name": "i_abox",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                },
+                {
+                  "sig_name": "i_main",
+                  "type": "uint16_t",
+                  "unit": "mA",
+                  "length": 12
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 1044
+            },
+            {
+              "msg_name": "coolant_out",
+              "msg_desc": "outputs to coolant loops",
+              "signals": [
+                {
+                  "sig_name": "bat_fan",
+                  "sig_desc": "Battery fan speed request",
+                  "type": "uint8_t",
+                  "unit": "%"
+                },
+                {
+                  "sig_name": "dt_fan",
+                  "sig_desc": "Drivetrain fan speed request",
+                  "type": "uint8_t",
+                  "unit": "%"
+                },
+                {
+                  "sig_name": "bat_pump",
+                  "sig_desc": "Battery pump enabled",
+                  "type": "uint8_t",
+                  "length": 1
+                },
+                {
+                  "sig_name": "bat_pump_aux",
+                  "sig_desc": "Auxilliary output enable request",
+                  "type": "uint8_t",
+                  "length": 1
+                },
+                {
+                  "sig_name": "dt_pump",
+                  "sig_desc": "Drivetrain pump enabled",
+                  "type": "uint8_t",
+                  "length": 1
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 35
+            },
+            {
+              "msg_name": "flowrates",
+              "msg_desc": "Flowrate cooling loops",
+              "signals": [
+                {
+                  "sig_name": "battery_flowrate",
+                  "sig_desc": "Flow rate for battery coolant loop",
+                  "type": "uint8_t",
+                  "scale": 0.1,
+                  "unit": "LPM"
+                },
+                {
+                  "sig_name": "drivetrain_flowrate",
+                  "sig_desc": "Flow rate for drivetrain coolant loop",
+                  "type": "uint8_t",
+                  "scale": 0.1,
+                  "unit": "LPM"
+                }
+              ],
+              "msg_period": 200,
+              "msg_hlp": 4,
+              "msg_pgn": 34
+            },
+            {
+              "msg_name": "pdu_temps",
+              "msg_desc": "PDU board temperatures",
+              "signals": [
+                {
+                  "sig_name": "internal_therm",
+                  "sig_desc": "Temperature from internal thermistor",
+                  "type": "uint16_t",
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 36
+            },
+            {
+              "msg_name": "pdu_can_stats",
+              "msg_desc": "CAN diagnostics",
+              "signals": [
+                {
+                  "sig_name": "can_tx_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Tx queue overflow count"
+                },
+                {
+                  "sig_name": "can_tx_fail",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"
+                },
+                {
+                  "sig_name": "can_rx_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Rx queue overflow count"
+                },
+                {
+                  "sig_name": "can_rx_overrun",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Rx FIFO overrun count"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1420
+            }
+          ],
+          "rx": [
+            {
+              "msg_name": "pdu_bl_cmd",
+              "callback": true
+            },
+            {
+              "msg_name": "cooling_driver_request",
+              "callback": true
+            },
+            {
+              "msg_name": "main_hb"
+            },
+            {
+              "msg_name": "gps_speed"
+            },
+            {
+              "msg_name": "max_cell_temp"
+            },
+            {
+              "msg_name": "rear_motor_temps"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "./can_schema.json",
+  "busses": [
+    {
+      "bus_name": "VCAN",
+      "bus_speed": 500000,
+      "nodes": [
+        {
+          "node_name": "daq",
+          "can_peripheral": "CAN1",
+          "node_ssa": 49,
+          "tx": [
+            {
+              "msg_name": "daq_can_stats",
+              "msg_desc": "CAN diagnostics",
+              "signals": [
+                {
+                  "sig_name": "can_tx_overflow",
+                  "type": "uint16_t",
+                  "sig_desc": "CAN Tx queue overflow count"
+                },
+                {
+                  "sig_name": "can_tx_fail",
+                  "type": "uint16_t",
+                  "sig_desc": "CAN Tx fail count (due to timeout in mailbox)"
+                },
+                {
+                  "sig_name": "can_rx_overflow",
+                  "type": "uint16_t",
+                  "sig_desc": "CAN Rx queue overflow count"
+                },
+                {
+                  "sig_name": "can_rx_overrun",
+                  "type": "uint16_t",
+                  "sig_desc": "CAN Rx FIFO overrun count"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1620
+            },
+            {
+              "msg_name": "daq_queue_stats",
+              "msg_desc": "Queue diagnostics",
+              "signals": [
+                {
+                  "sig_name": "bcan_rx_overflow",
+                  "type": "uint16_t",
+                  "sig_desc": "CAN RX buffer overflow"
+                },
+                {
+                  "sig_name": "can1_rx_overflow",
+                  "type": "uint16_t",
+                  "sig_desc": "CAN RX queue overflow"
+                },
+                {
+                  "sig_name": "sd_rx_overflow",
+                  "type": "uint16_t",
+                  "sig_desc": "SD RX queue overflow"
+                },
+                {
+                  "sig_name": "tcp_tx_overflow",
+                  "type": "uint16_t",
+                  "sig_desc": "TCP TX queue overflow"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1621
+            }
+          ],
+          "rx": [
+            {
+              "msg_name": "daq_bl_cmd",
+              "callback": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

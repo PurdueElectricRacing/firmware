@@ -1,0 +1,133 @@
+{
+  "$schema": "./can_schema.json",
+  "busses": [
+    {
+      "bus_name": "Test",
+      "bus_speed": 500000,
+      "nodes": [
+        {
+          "node_name": "TEST_NODE_2",
+          "node_ssa": 61,
+          "tx": [
+            {
+              "msg_name": "test_msg_2",
+              "msg_desc": "test_msg desc",
+              "signals": [
+                {
+                  "sig_name": "test_sig",
+                  "type": "uint16_t",
+                  "length": 16
+                }
+              ],
+              "msg_period": 15,
+              "msg_hlp": 5,
+              "msg_pgn": 1
+            },
+            {
+              "msg_name": "test_msg2_2",
+              "msg_desc": "test_msg2 desc",
+              "signals": [
+                {
+                  "sig_name": "test_sig2",
+                  "type": "uint16_t",
+                  "length": 16
+                }
+              ],
+              "msg_period": 15,
+              "msg_hlp": 5,
+              "msg_pgn": 2
+            },
+            {
+              "msg_name": "test_msg3_2",
+              "msg_desc": "test_msg2 desc",
+              "signals": [
+                {
+                  "sig_name": "test_sig3",
+                  "type": "uint16_t",
+                  "length": 16
+                }
+              ],
+              "msg_period": 15,
+              "msg_hlp": 5,
+              "msg_pgn": 3
+            },
+            {
+              "msg_name": "test_msg4_2",
+              "msg_desc": "test_msg4 desc",
+              "signals": [
+                {
+                  "sig_name": "test_sig4",
+                  "type": "uint16_t",
+                  "length": 16
+                }
+              ],
+              "msg_period": 15,
+              "msg_hlp": 5,
+              "msg_pgn": 4
+            },
+            {
+              "msg_name": "test_msg5_2",
+              "msg_desc": "test_msg5 desc",
+              "signals": [
+                {
+                  "sig_name": "test_sig5",
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "test_sig5_2",
+                  "type": "int16_t"
+                },
+                {
+                  "sig_name": "test_sig5_3",
+                  "type": "float"
+                }
+              ],
+              "msg_period": 15,
+              "msg_hlp": 5,
+              "msg_pgn": 5
+            },
+            {
+              "msg_name": "test_stale",
+              "msg_desc": "used to test stale",
+              "signals": [
+                {
+                  "sig_name": "data",
+                  "type": "uint8_t",
+                  "length": 8
+                }
+              ],
+              "msg_period": 1000,
+              "msg_id_override": "0x2222"
+            },
+            {
+              "msg_name": "car_state2",
+              "msg_desc": "state of the car",
+              "signals": [
+                {
+                  "sig_name": "car_state2",
+                  "type": "uint8_t",
+                  "length": 8,
+                  "choices": [
+                    "ready2go",
+                    "flipped",
+                    "flying",
+                    "lightspeed"
+                  ]
+                }
+              ],
+              "msg_period": 0,
+              "msg_id_override": "0xBEEF421"
+            }
+          ],
+          "rx": [
+            {
+              "msg_name": "l4_testing_bl_cmd",
+              "callback": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -304,23 +304,66 @@ def load_json_config(config_path, schema_path):
 
     return config
 
+import json
+import glob
+from copy import deepcopy
+
+def merge_can_configs(configs):
+    merged = {
+        "$schema": None,
+        "busses": []
+    }
+
+    bus_map = {}
+
+    for config in configs:
+        if merged["$schema"] is None:
+            merged["$schema"] = config.get("$schema")
+
+        for bus in config.get("busses", []):
+            bus_name = bus["bus_name"]
+            if bus_name not in bus_map:
+                new_bus = {
+                    "bus_name": bus_name,
+                    "bus_speed": bus.get("bus_speed"),
+                    "nodes": []
+                }
+                bus_map[bus_name] = new_bus
+                merged["busses"].append(new_bus)
+
+            for node in bus.get("nodes", []):
+                node_name = node["node_name"]
+                existing_node = next((n for n in bus_map[bus_name]["nodes"] if n["node_name"] == node_name), None)
+                if existing_node:
+                    existing_node.update(node)
+                else:
+                    bus_map[bus_name]["nodes"].append(deepcopy(node))
+
+    return merged
+
+def load_split_nodes(directory):
+    configs = []
+    for file_path in glob.glob(f"{directory}/*.json"):
+        with open(file_path) as f:
+            config = json.load(f)
+            configs.append(config)
+    return merge_can_configs(configs)
+
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
     relative_dir = Path(os.path.dirname(__file__))
 
     can_config_path = Path(os.path.abspath(relative_dir / gen_config['can_json_config_path']))
-    can_schema_path = Path(os.path.abspath(relative_dir / gen_config['can_json_schema_path']))
     daq_config_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_config_path']))
     daq_schema_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_schema_path']))
     fault_config_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_config_path']))
     fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
 
     firmware_source_dir = Path(os.path.abspath(relative_dir / gen_config['source_directory']))
-
     print(firmware_source_dir)
 
-    can_config = load_json_config(can_config_path, can_schema_path)
+    can_config = load_split_nodes(can_config_path)
     daq_config = load_json_config(daq_config_path, daq_schema_path)
     fault_config = load_json_config(fault_config_path, fault_schema_path)
 

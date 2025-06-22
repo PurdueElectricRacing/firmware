@@ -1,0 +1,1054 @@
+{
+  "$schema": "./can_schema.json",
+  "busses": [
+    {
+      "bus_name": "VCAN",
+      "bus_speed": 500000,
+      "nodes": [
+        {
+          "node_name": "a_box",
+          "can_peripheral": "CAN1",
+          "node_ssa": 4,
+          "tx": [
+            {
+              "msg_name": "precharge_hb",
+              "msg_desc": "heart beat for precharge",
+              "signals": [
+                {
+                  "sig_name": "IMD",
+                  "sig_desc": "Fault State of IMD",
+                  "type": "uint8_t"
+                },
+                {
+                  "sig_name": "BMS",
+                  "sig_desc": "Fault State of BMS",
+                  "type": "uint8_t"
+                }
+              ],
+              "msg_hlp": 3,
+              "msg_period": 500,
+              "msg_pgn": 101
+            },
+            {
+              "msg_name": "elcon_charger_command",
+              "msg_desc": "Charge voltage and current request to ELCON charger",
+              "signals": [
+                {
+                  "sig_name": "voltage_limit",
+                  "sig_desc": "Requested charge voltage",
+                  "unit": "V",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "current_limit",
+                  "sig_desc": "Requested charge current",
+                  "unit": "A",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "charge_disable",
+                  "sig_desc": "Disable charging",
+                  "type": "uint8_t",
+                  "length": 1
+                }
+              ],
+              "msg_id_override": "0x1806E5F4",
+              "msg_period": 1000
+            },
+            {
+              "msg_name": "num_therm_bad",
+              "msg_desc": "Number of wonky thermistors on pack",
+              "signals": [
+                {
+                  "sig_name": "A_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "A_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "B_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "B_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "C_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "C_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "D_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "D_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "E_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "E_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 515
+            },
+            {
+              "msg_name": "pack_charge_status",
+              "msg_desc": "Statistics about current charge cycle",
+              "signals": [
+                {
+                  "sig_name": "power",
+                  "sig_desc": "Instantaneous charge power",
+                  "unit": "W",
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "charge_enable",
+                  "sig_desc": "Charge mode enabled",
+                  "type": "uint8_t",
+                  "length": 1
+                },
+                {
+                  "sig_name": "voltage",
+                  "sig_desc": "Instantaneous charge voltage",
+                  "unit": "V",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "current",
+                  "sig_desc": "Instantaneous charge current",
+                  "unit": "A",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                }
+              ],
+              "msg_period": 50,
+              "msg_hlp": 5,
+              "msg_pgn": 514
+            },
+            {
+              "msg_name": "max_cell_temp",
+              "msg_desc": "maximum cell temperature for the whole pack",
+              "signals": [
+                {
+                  "sig_name": "max_temp",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 3,
+              "msg_pgn": 5016
+            },
+            {
+              "msg_name": "mod_cell_temp_avg_a_b_c",
+              "msg_desc": "Average cell temperature for each module",
+              "signals": [
+                {
+                  "sig_name": "temp_A",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_B",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_C",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 1234
+            },
+            {
+              "msg_name": "mod_cell_temp_avg_d_e",
+              "msg_desc": "Average cell temperature for each module",
+              "signals": [
+                {
+                  "sig_name": "temp_D",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_E",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 1235
+            },
+            {
+              "msg_name": "mod_cell_temp_max_a_b_c",
+              "msg_desc": "Max cell temperature for a, b, and c",
+              "signals": [
+                {
+                  "sig_name": "temp_A",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_B",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_C",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 516
+            },
+            {
+              "msg_name": "mod_cell_temp_max_d_e",
+              "msg_desc": "Max cell temperature for d and e",
+              "signals": [
+                {
+                  "sig_name": "temp_D",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_E",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 517
+            },
+            {
+              "msg_name": "mod_cell_temp_min_a_b_c",
+              "msg_desc": "Min cell temperature for each a, b, and c",
+              "signals": [
+                {
+                  "sig_name": "temp_A",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_B",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_C",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 520
+            },
+            {
+              "msg_name": "mod_cell_temp_min_d_e",
+              "msg_desc": "Min cell temperature for each d and e",
+              "signals": [
+                {
+                  "sig_name": "temp_D",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_E",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 521
+            },
+            {
+              "msg_name": "raw_cell_temp_module1",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 1222
+            },
+            {
+              "msg_name": "raw_cell_temp_module2",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 526
+            },
+            {
+              "msg_name": "raw_cell_temp_module3",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 527
+            },
+            {
+              "msg_name": "raw_cell_temp_module4",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 528
+            },
+            {
+              "msg_name": "raw_cell_temp_module5",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 529
+            },
+            {
+              "msg_name": "a_box_can_stats",
+              "msg_desc": "CAN diagnostics",
+              "signals": [
+                {
+                  "sig_name": "can1_tx_queue_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "VCAN Tx queue overflow count"
+                },
+                {
+                  "sig_name": "can2_tx_queue_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "CCAN (Charger CAN) Tx queue overflow count"
+                },
+                {
+                  "sig_name": "can1_tx_fail",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Tx fail count for VCAN (due to timeout in mailbox)"
+                },
+                {
+                  "sig_name": "can2_tx_fail",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Tx fail count for CCAN (Charger CAN) (due to timeout in mailbox)"
+                },
+                {
+                  "sig_name": "can_rx_queue_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Rx queue overflow count"
+                },
+                {
+                  "sig_name": "can1_rx_overrun",
+                  "type": "uint8_t",
+                  "sig_desc": "VCAN Rx FIFO overrun count"
+                },
+                {
+                  "sig_name": "can2_rx_overrun",
+                  "type": "uint8_t",
+                  "sig_desc": "CCAN (Charger CAN) Rx FIFO overrun count"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1420
+            },
+            {
+              "msg_name": "i_sense",
+              "msg_desc": "Current sense value for channel 1 and channel 2 of pack current sensor",
+              "signals": [
+                {
+                  "sig_name": "current_channel_1",
+                  "type": "int16_t",
+                  "sig_desc": "Channel 1 used for BSPD circuit, Higher fidelity, but maxes out at a low amperage",
+                  "scale": 0.01,
+                  "unit": "A"
+                },
+                {
+                  "sig_name": "current_channel_2",
+                  "type": "int16_t",
+                  "sig_desc": "Channel 2 used to measure higher pack currents, lower fidelity than channel 1",
+                  "scale": 0.01,
+                  "unit": "A"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1425
+            }
+          ],
+          "rx": [
+            {
+              "msg_name": "orion_info"
+            },
+            {
+              "msg_name": "orion_currents_volts"
+            },
+            {
+              "msg_name": "orion_errors"
+            },
+            {
+              "msg_name": "a_box_bl_cmd",
+              "callback": true
+            }
+          ],
+          "accept_all_messages": false
+        }
+      ]
+    },
+    {
+      "bus_name": "CCAN",
+      "bus_speed": 250000,
+      "nodes": [
+        {
+          "node_name": "a_box",
+          "can_peripheral": "CAN2",
+          "node_ssa": 4,
+          "tx": [
+            {
+              "msg_name": "can2_precharge_hb",
+              "msg_desc": "heart beat for precharge",
+              "signals": [
+                {
+                  "sig_name": "IMD",
+                  "sig_desc": "Fault State of IMD",
+                  "type": "uint8_t"
+                },
+                {
+                  "sig_name": "BMS",
+                  "sig_desc": "Fault State of BMS",
+                  "type": "uint8_t"
+                }
+              ],
+              "msg_hlp": 3,
+              "msg_period": 500,
+              "msg_pgn": 101
+            },
+            {
+              "msg_name": "can2_elcon_charger_command",
+              "msg_desc": "Charge voltage and current request to ELCON charger",
+              "signals": [
+                {
+                  "sig_name": "voltage_limit",
+                  "sig_desc": "Requested charge voltage",
+                  "unit": "V",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "current_limit",
+                  "sig_desc": "Requested charge current",
+                  "unit": "A",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "charge_disable",
+                  "sig_desc": "Disable charging",
+                  "type": "uint8_t",
+                  "length": 1
+                }
+              ],
+              "msg_id_override": "0x1806E5F4",
+              "msg_period": 1000
+            },
+            {
+              "msg_name": "can2_num_therm_bad",
+              "msg_desc": "Number of wonky thermistors on pack",
+              "signals": [
+                {
+                  "sig_name": "A_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "A_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "B_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "B_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "C_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "C_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "D_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "D_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "E_left",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                },
+                {
+                  "sig_name": "E_right",
+                  "sig_desc": "Number of thermistors > 1.5v",
+                  "type": "uint8_t",
+                  "length": 4
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 4,
+              "msg_pgn": 515
+            },
+            {
+              "msg_name": "can2_pack_charge_status",
+              "msg_desc": "Statistics about current charge cycle",
+              "signals": [
+                {
+                  "sig_name": "power",
+                  "sig_desc": "Instantaneous charge power",
+                  "unit": "W",
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "charge_enable",
+                  "sig_desc": "Charge mode enabled",
+                  "type": "uint8_t",
+                  "length": 1
+                },
+                {
+                  "sig_name": "voltage",
+                  "sig_desc": "Instantaneous charge voltage",
+                  "unit": "V",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                },
+                {
+                  "sig_name": "current",
+                  "sig_desc": "Instantaneous charge current",
+                  "unit": "A",
+                  "scale": 0.1,
+                  "type": "uint16_t",
+                  "length": 16
+                }
+              ],
+              "msg_period": 50,
+              "msg_hlp": 5,
+              "msg_pgn": 514
+            },
+            {
+              "msg_name": "can2_max_cell_temp",
+              "msg_desc": "maximum cell temperature for the whole pack",
+              "signals": [
+                {
+                  "sig_name": "max_temp",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 500,
+              "msg_hlp": 3,
+              "msg_pgn": 5016
+            },
+            {
+              "msg_name": "can2_mod_cell_temp_avg_a_b_c",
+              "msg_desc": "Average cell temperature for each module",
+              "signals": [
+                {
+                  "sig_name": "temp_A",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_B",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_C",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 1234
+            },
+            {
+              "msg_name": "can2_mod_cell_temp_avg_d_e",
+              "msg_desc": "Average cell temperature for each module",
+              "signals": [
+                {
+                  "sig_name": "temp_D",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_E",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 1235
+            },
+            {
+              "msg_name": "can2_mod_cell_temp_max_a_b_c",
+              "msg_desc": "Max cell temperature for a, b, and c",
+              "signals": [
+                {
+                  "sig_name": "temp_A",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_B",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_C",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 516
+            },
+            {
+              "msg_name": "can2_mod_cell_temp_max_d_e",
+              "msg_desc": "Max cell temperature for d and e",
+              "signals": [
+                {
+                  "sig_name": "temp_D",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_E",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 517
+            },
+            {
+              "msg_name": "can2_mod_cell_temp_min_a_b_c",
+              "msg_desc": "Min cell temperature for each a, b, and c",
+              "signals": [
+                {
+                  "sig_name": "temp_A",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_B",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_C",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 520
+            },
+            {
+              "msg_name": "can2_mod_cell_temp_min_d_e",
+              "msg_desc": "Min cell temperature for each d and e",
+              "signals": [
+                {
+                  "sig_name": "temp_D",
+                  "type": "int16_t",
+                  "scale": 0.1
+                },
+                {
+                  "sig_name": "temp_E",
+                  "type": "int16_t",
+                  "scale": 0.1
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 521
+            },
+            {
+              "msg_name": "can2_raw_cell_temp_module1",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 1222
+            },
+            {
+              "msg_name": "can2_raw_cell_temp_module2",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 526
+            },
+            {
+              "msg_name": "can2_raw_cell_temp_module3",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 527
+            },
+            {
+              "msg_name": "can2_raw_cell_temp_module4",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 528
+            },
+            {
+              "msg_name": "can2_raw_cell_temp_module5",
+              "msg_desc": "Raw cell temperature for each module of thermistor at index",
+              "signals": [
+                {
+                  "sig_name": "index",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "temp_left",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                },
+                {
+                  "sig_name": "temp_right",
+                  "type": "int16_t",
+                  "scale": 0.1,
+                  "unit": "C"
+                }
+              ],
+              "msg_period": 0,
+              "msg_hlp": 5,
+              "msg_pgn": 529
+            },
+            {
+              "msg_name": "can2_a_box_can_stats",
+              "msg_desc": "CAN diagnostics",
+              "signals": [
+                {
+                  "sig_name": "can1_tx_queue_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "VCAN Tx queue overflow count"
+                },
+                {
+                  "sig_name": "can2_tx_queue_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "CCAN (Charger CAN) Tx queue overflow count"
+                },
+                {
+                  "sig_name": "can1_tx_fail",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Tx fail count for VCAN (due to timeout in mailbox)"
+                },
+                {
+                  "sig_name": "can2_tx_fail",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Tx fail count for CCAN (Charger CAN) (due to timeout in mailbox)"
+                },
+                {
+                  "sig_name": "can_rx_queue_overflow",
+                  "type": "uint8_t",
+                  "sig_desc": "CAN Rx queue overflow count"
+                },
+                {
+                  "sig_name": "can1_rx_overrun",
+                  "type": "uint8_t",
+                  "sig_desc": "VCAN Rx FIFO overrun count"
+                },
+                {
+                  "sig_name": "can2_rx_overrun",
+                  "type": "uint8_t",
+                  "sig_desc": "CCAN (Charger CAN) Rx FIFO overrun count"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1420
+            },
+            {
+              "msg_name": "can2_i_sense",
+              "msg_desc": "Current sense value for channel 1 and channel 2 of pack current sensor",
+              "signals": [
+                {
+                  "sig_name": "current_channel_1",
+                  "type": "int16_t",
+                  "sig_desc": "Channel 1 used for BSPD circuit, Higher fidelity, but maxes out at a low amperage",
+                  "scale": 0.01,
+                  "unit": "A"
+                },
+                {
+                  "sig_name": "current_channel_2",
+                  "type": "int16_t",
+                  "sig_desc": "Channel 2 used to measure higher pack currents, lower fidelity than channel 1",
+                  "scale": 0.01,
+                  "unit": "A"
+                }
+              ],
+              "msg_period": 1000,
+              "msg_hlp": 4,
+              "msg_pgn": 1425
+            }
+          ],
+          "rx": [
+            {
+              "msg_name": "elcon_charger_status"
+            },
+            {
+              "msg_name": "orion_info_charger"
+            },
+            {
+              "msg_name": "orion_currents_volts_charger"
+            },
+            {
+              "msg_name": "orion_errors_charger"
+            }
+          ],
+          "accept_all_messages": false
+        }
+      ]
+    }
+  ]
+}

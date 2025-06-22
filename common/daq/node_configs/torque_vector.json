@@ -3,7 +3,6 @@
   "busses": [
     {
       "bus_name": "VCAN",
-      "bus_speed": 500000,
       "nodes": [
         {
           "node_name": "torque_vector",

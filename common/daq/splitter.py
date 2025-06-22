@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
+
 import os
 import json
 from collections import defaultdict
 from copy import deepcopy
+from glob import glob
+
+NODE_CONFIG_DIR = "node_configs"
 
 def split_by_node(input_json_path, output_dir):
     """
@@ -36,13 +41,8 @@ def split_by_node(input_json_path, output_dir):
         with open(file_path, "w") as out:
             json.dump(node_config, out, indent=2)
 
-#split_by_node("can_config.json", "split_nodes")
-
-import os
-import json
-from glob import glob
-
-NODE_CONFIG_DIR = "node_configs"
+# used to split giant can_config.json into folders
+#split_by_node("can_config.json", NODE_CONFIG_DIR)
 
 def process_message(msg: dict) -> dict:
     # Remove legacy fields
@@ -83,9 +83,32 @@ def process_node_config(path: str):
     else:
         print(f"No changes: {path}")
 
+# used to change hlp/ssn -> priority
+# def main():
+#     for json_file in glob(os.path.join(NODE_CONFIG_DIR, "*.json")):
+#         process_node_config(json_file)
+
+def remove_bus_speed_fields(path: str):
+    with open(path, "r") as f:
+        data = json.load(f)
+
+    changed = False
+    for bus in data.get("busses", []):
+        if "bus_speed" in bus:
+            del bus["bus_speed"]
+            changed = True
+
+    if changed:
+        with open(path, "w") as f:
+            json.dump(data, f, indent=2)
+        print(f"Removed 'bus_speed' in: {path}")
+    else:
+        print(f"No change: {path}")
+
 def main():
-    for json_file in glob(os.path.join(NODE_CONFIG_DIR, "*.json")):
-        process_node_config(json_file)
+    json_files = glob(os.path.join(NODE_CONFIG_DIR, "*.json"))
+    for path in json_files:
+        remove_bus_speed_fields(path)
 
 if __name__ == "__main__":
     main()

@@ -331,7 +331,6 @@ def merge_can_configs(configs):
             if bus_name not in bus_map:
                 new_bus = {
                     "bus_name": bus_name,
-                    "bus_speed": bus.get("bus_speed"),
                     "nodes": []
                 }
                 bus_map[bus_name] = new_bus

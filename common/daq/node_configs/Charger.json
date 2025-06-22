@@ -3,7 +3,6 @@
   "busses": [
     {
       "bus_name": "CCAN",
-      "bus_speed": 250000,
       "nodes": [
         {
           "node_name": "Charger",

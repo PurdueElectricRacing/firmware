@@ -3,7 +3,6 @@
   "busses": [
     {
       "bus_name": "Test",
-      "bus_speed": 500000,
       "nodes": [
         {
           "node_name": "TEST_NODE_2",

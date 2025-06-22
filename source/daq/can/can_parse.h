@@ -20,9 +20,9 @@
 
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
-#define ID_DAQ_CAN_STATS 0x10019531
-#define ID_DAQ_QUEUE_STATS 0x10019571
-#define ID_DAQ_BL_CMD 0x409c63e
+#define ID_DAQ_CAN_STATS 0x8200000
+#define ID_DAQ_QUEUE_STATS 0x8200200
+#define ID_DAQ_BL_CMD 0x8001400
 /* END AUTO ID DEFS */
 
 // Message DLC definitions

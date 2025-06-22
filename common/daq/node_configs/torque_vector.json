@@ -205,7 +205,15 @@
                 {
                   "sig_name": "VCU_mode",
                   "type": "int8_t",
-                  "scale": 1
+                  "scale": 1,
+                  "choices": [
+                    "equal_speed",
+                    "equal_torque",
+                    "equal_torque_with_safety",
+                    "variable_speed",
+                    "variable_torque",
+                    "invalid"
+                  ]
                 }
               ],
               "msg_period": 20,

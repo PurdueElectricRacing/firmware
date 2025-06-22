@@ -173,6 +173,20 @@
               "msg_period": 2000,
               "msg_id_override": "0x291",
               "is_standard_id": true
+            },
+            {
+              "msg_name": "INVB_PHASE_I",
+              "msg_desc": "All error information",
+              "signals": [
+                {
+                  "sig_name": "AMK_PhaseUCurrent",
+                  "sig_desc": "INVB Phase U Current",
+                  "type": "int32_t"
+                }
+              ],
+              "msg_period": 250,
+              "msg_id_override": "0x293",
+              "is_standard_id": true
             }
           ],
           "rx": [

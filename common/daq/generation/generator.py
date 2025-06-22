@@ -274,21 +274,6 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
     print(f"Node matches found: {list(node_paths.keys())}")
     return node_paths
 
-def output_bus_load(can_config):
-    """ calculates bus load based on message periods and sizes """
-    overhead_per_msg = 64 + 18 # frame + possible stuffing
-    baudrate = 500000
-    bit_time = 1.0 / baudrate
-    for bus in can_config['busses']:
-        total_load = 0
-        for node in bus['nodes']:
-            for msg in node['tx']:
-                if msg['msg_period'] != 0:
-                    load = (msg['dlc'] * 8 + overhead_per_msg) * bit_time / (msg['msg_period']/1000)
-                    total_load += load
-                    print(f"{msg['msg_name']}: {round(load*100,3)}%")
-        print(f"Total load for bus {bus['bus_name']}: {round(total_load*100,3)}% (calculated with only periodic messages)")
-
 def load_json_config(config_path, schema_path):
     """ loads config from json and validates with schema """
     config = json.load(open(config_path))
@@ -381,8 +366,6 @@ def generate_all():
     gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
     # Generate DBCs for each CAN bus individually
     gen_dbc.gen_dbc(can_config, relative_dir)
-
-    output_bus_load(can_config)
 
 
 if __name__ == "__main__":

@@ -83,10 +83,8 @@ def process_node_config(path: str):
     else:
         print(f"No changes: {path}")
 
-# used to change hlp/ssn -> priority
-# def main():
-#     for json_file in glob(os.path.join(NODE_CONFIG_DIR, "*.json")):
-#         process_node_config(json_file)
+# for json_file in glob(os.path.join(NODE_CONFIG_DIR, "*.json")):
+#     process_node_config(json_file)
 
 def remove_bus_speed_fields(path: str):
     with open(path, "r") as f:
@@ -105,10 +103,10 @@ def remove_bus_speed_fields(path: str):
     else:
         print(f"No change: {path}")
 
-# def main():
-#     json_files = glob(os.path.join(NODE_CONFIG_DIR, "*.json"))
-#     for path in json_files:
-#         remove_bus_speed_fields(path)
+if 0:
+    json_files = glob(os.path.join(NODE_CONFIG_DIR, "*.json"))
+    for path in json_files:
+        remove_bus_speed_fields(path)
 
 #!/usr/bin/env python3
 
@@ -131,10 +129,11 @@ def remove_node_ssa_fields(path: str):
     else:
         print(f"No change: {path}")
 
-def main():
+if 1:
     json_files = glob(os.path.join(NODE_CONFIG_DIR, "*.json"))
     for path in json_files:
         remove_node_ssa_fields(path)
 
 if __name__ == "__main__":
-    main()
+    #main()
+    pass

@@ -26,11 +26,6 @@ function(postbuild_target TARGET_NAME)
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND arm-none-eabi-objdump -xDSs ${TARGET_NAME} > ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}_info.txt
-        COMMENT "Generating Sections & Disassembly Info..."
-    )
-
-    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND arm-none-eabi-objcopy -S -O ihex ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.hex
         COMMENT "Generating HEX file"
     )

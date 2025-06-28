@@ -1,10 +1,3 @@
-## Repository Clone
-Clone this repository with the following command:
-```bash
-git clone -r https://github.com/PurdueElectricRacing/firmware.git
-```
-- Make sure you have git installed before running this command!
-
 ## Tool Overview
 The PER development environment requires the following tools to build, debug, and deploy firmware to the vehicle:
 - [Git](https://git-scm.com/downloads): Version control tool for managing source code and pushing to GitHub.
@@ -21,12 +14,10 @@ The PER development environment requires the following tools to build, debug, an
 > [!NOTE]
 > The rest of the setup guide will use a package manager — a tool to help you easily install the other tools. Although optional, it is highly recommended.
 
-
-## MacOS Setup
+## MacOS Tool Setup
 1. [Homebrew](https://brew.sh/): package manager.
 	- Add `/opt/homebrew/bin` to your environment path variable to make your tools accessible. Check this [link](https://stackoverflow.com/questions/35677031/adding-homebrew-to-path) for help with the process. Note that your install location may vary.
-
-Run the following commands in your terminal (you can do it all at once or one at a time).
+2. Run the following commands in your terminal to install the other tools (you can do it all at once by copy pasting).
 ```bash
 brew install git
 brew install --cask visual-studio-code
@@ -39,3 +30,43 @@ brew install python3
 ```
 > [!NOTE]
 > Git may come preinstalled with MacOS, you can double check by running `git --version`.
+
+## Windows Tool Setup
+1. [Chocolatey](https://chocolatey.org/install#install-step2): package manager.
+2. Run the following commands in your terminal to install the other tools (you can do it all at once by copy pasting).
+```bash
+choco install git
+choco install vscode
+choco install cmake
+choco install ninja
+choco install gcc-arm-embedded
+choco install openocd
+choco install python
+```
+> [!NOTE]
+> Make sure you run these in PowerShell as Administrator! 
+3. STLink drivers need to be manually installed from [here](https://www.st.com/en/development-tools/stsw-link009.html).
+
+## Linux Tool Setup
+1. You probably already know what you're doing, so here are the commands for `apt` (Ubuntu, Debian, Pop!, etc.):
+```bash
+sudo apt update
+sudo apt install git
+sudo apt install cmake
+sudo apt install ninja-build
+sudo apt install gcc-arm-none-eabi
+sudo apt install openocd
+sudo apt install stlink-tools
+sudo apt install python3 python3-pip
+```
+2. Visual Studio Code requires some special attention, install from [here](https://code.visualstudio.com/docs/setup/linux).
+
+## Repository Clone
+Clone this repository with the following command:
+```bash
+git clone -r https://github.com/PurdueElectricRacing/firmware.git
+```
+- Make sure you have git installed before running this command!
+
+
+## Visual Studio Code

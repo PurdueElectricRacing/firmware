@@ -61,12 +61,20 @@ sudo apt install python3 python3-pip
 ```
 2. Visual Studio Code requires some special attention, install from [here](https://code.visualstudio.com/docs/setup/linux).
 
-## Repository Clone
-Clone this repository with the following command:
+## Repository Setup (All OS)
+1. Clone this repository with the following command:
 ```bash
-git clone -r https://github.com/PurdueElectricRacing/firmware.git
+git clone --recurse-submodules https://github.com/PurdueElectricRacing/firmware.git
 ```
-- Make sure you have git installed before running this command!
+2. Install the required python packages using the following commands:
+```bash
+cd firmware
+pip3 install -r requirements.txt
+```
+3. Open Visual Studio Code using the following command:
+```bash
+code .
+```
+4. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
 
-
-## Visual Studio Code
+All done!

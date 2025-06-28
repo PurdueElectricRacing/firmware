@@ -1,5 +1,5 @@
 ## Tool Overview
-The PER developer environment requires the following tools:
+The PER development environment requires the following tools to build, debug, and deploy firmware to the vehicle:
 - [Git](https://git-scm.com/downloads): Tool for managing source code and uploading to GitHub.
 - [Visual Studio Code](https://code.visualstudio.com/): Text editor with extensions for helping build the firmware components. Notably, we use the following extensions:
 	- [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug): Provides debugging support for ARM Cortex-M microcontrollers, including live watch capability.
@@ -11,3 +11,8 @@ The PER developer environment requires the following tools:
 
 > [!NOTE]
 > The rest of the setup guide will use a package manager — a tool to help you easily install the other tools. Although optional, it is highly recommended.
+
+## MacOS Setup
+1. Package Manager: install [Homebrew](https://brew.sh/).
+	- Add `/opt/homebrew/bin` to your environment path variable to make your tools accessible. Check this [link](https://stackoverflow.com/questions/35677031/adding-homebrew-to-path) for help with the process. Note that your install location may vary.
+2. [Git](https://git-scm.com/downloads):  This should be preinstalled for you. To double-check this, type `git --version` into your terminal. Otherwise, install with `brew install git`.

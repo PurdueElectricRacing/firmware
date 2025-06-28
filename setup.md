@@ -33,7 +33,7 @@ brew install python3
 
 ## Windows Tool Setup
 1. [Chocolatey](https://chocolatey.org/install#install-step2): package manager.
-2. Run the following commands in your terminal to install the other tools (you can do it all at once by copy pasting).
+2. Run the following commands in your terminal to install the other tools (you can copy and paste them all at once).
 ```bash
 choco install git
 choco install vscode

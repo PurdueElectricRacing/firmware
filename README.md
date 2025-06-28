@@ -1,7 +1,7 @@
 # PER Component Firmware Projects
 
 [![CircleCI](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master.svg?style=svg)](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master)
-[![HitCount](http://hits.dwyl.com/PurdueElectricRacing/firmware.svg?style=flat-square)](http://hits.dwyl.com/PurdueElectricRacing/firmware) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/firmware?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/firmware?style=flat-square)
 
 A mega-repository full of all firmware projects, build tools, and dependencies to create firmware modules for the car.
 
@@ -17,53 +17,9 @@ A mega-repository full of all firmware projects, build tools, and dependencies t
 
 ## Getting Started
 
-Before you can compile software for PER car, here are some steps you need to take to configure your system. Detailed tool install and setup instructions can be found [here](setup.md).
-
-- Git
-- VSCode
-- ARM C Compiler
-- OpenOCD
-- CMake
-- Ninja
-- ST-Link
-
-<!--
-Deprecating this as it is no longer relevant, since we simply add everything to path now
-## Setup VSCode
-1. Create a `/.vscode/settings.json` file
-2. Configure two cortex-debug extension settings (make sure to install the recommended VSCode extensions first)
-   - "cortex-debug.openocdPath": "<path to openocd executable\>"
-   - "cortex-debug.gdbPath": "<path to arm-none-eabi-gdb executable\>"
-Deprecating this section as it does not currently work for debugging.
-If someone wants to figure out how to get the gdb server to connect through Docker/WSL & make file paths work nicely...
-this would be a easy way to get people setup as they only need Docker, STLink Drivers and openocd.
-
-### Notes for MacOS Install
-1. Adding a program to your path: `sudo vim /etc/paths`
-
-## Option B) Docker Install
-You can also use docker to install all of the packages inside a development container. This has a minor drawback of not being able to fully complete the VSCode IntelliSense database with your source files for auto completion and code navigation.
-
-1. This project has a Dockerfile which will setup your build environment and setup the tools necessary to develop firmware. Once you install [Docker](https://docs.docker.com/get-docker/) you should be able to access command line tools by running `docker --help` for a list of available commands.
-
-2. Build the image defined by the `Dockerfile` by running:
-```
-docker compose build develop
-```
->This command uses the `docker-compose.yaml` file to build the image with the tag of `stm32_develop:latest`.
-
-4. Run the compiled image in a container:
-```
-docker compose run develop
-```
-> This will place you into an interactive command line inside a container defined by the `stm32_develop:latest` image. This is a minimal Ubuntu 20.04 distro and moves you to the `/per` directory. This directory is linked to the same directory in host machine which is defined in the `docker-compose.yaml` file.
--->
+Before you can compile software for PER vehicle, here are some steps you need to take to configure your system. Detailed tool install and setup instructions can be found [here](setup.md).
 
 ## Building Firmware Components
-
-### CMake Extension
-
-VSCode has a recommended CMake extension. This extension is configured throught the bottom ribbon of VSCode where you can select the `GCC for arm-none-eabi` toolchain and specific build targets. The CMake tab has buttons for building specifc firmware components and libraries.
 
 ### Python build script
 

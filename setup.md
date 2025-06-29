@@ -29,13 +29,14 @@ brew install --cask gcc-arm-embedded
 ```bash
 choco install git cmake ninja python3 gcc-arm-embedded openocd 
 ```
+- Enter (`A`) on the first prompt to select 'Yes to All'
 
 > [!NOTE]
 > Make sure to run these in PowerShell as Administrator!
 
-4. STLink drivers need to be manually installed from [here](https://www.st.com/en/development-tools/stsw-link009.html).
+3. STLink drivers need to be manually installed from [here](https://www.st.com/en/development-tools/stsw-link009.html).
 
-5. Download VSCode from the website: https://code.visualstudio.com/download
+4. Download VSCode from the website: https://code.visualstudio.com/download
 
 
 ## Linux Tools Setup
@@ -85,5 +86,10 @@ pip3 install -r requirements.txt
 code .
 ```
 4. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
+
+```
+Ctrl + Shift + B on Windows/Linux
+Cmd + Shift + B on macOS
+```
 
 All done!

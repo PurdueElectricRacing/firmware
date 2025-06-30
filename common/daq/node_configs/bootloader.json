@@ -1,0 +1,240 @@
+{
+  "$schema": "./can_schema.json",
+  "busses": [
+    {
+      "bus_name": "VCAN",
+      "nodes": [
+        {
+          "node_name": "bootloader",
+          "can_peripheral": "CAN1",
+          "tx": [
+            {
+              "msg_name": "main_module_bl_resp",
+              "msg_desc": "Main Module Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "dashboard_bl_resp",
+              "msg_desc": "Dashboard Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "torquevector_bl_resp",
+              "msg_desc": "Torque Vector Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "a_box_bl_resp",
+              "msg_desc": "Accumulator Box PCB Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "pdu_bl_resp",
+              "msg_desc": "PDU Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "l4_testing_bl_resp",
+              "msg_desc": "L4 Test Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "f4_testing_bl_resp",
+              "msg_desc": "F4 Test Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "f7_testing_bl_resp",
+              "msg_desc": "F7 Test Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            },
+            {
+              "msg_name": "daq_bl_resp",
+              "msg_desc": "DAQ Bootloader response",
+              "signals": [
+                {
+                  "sig_name": "cmd",
+                  "type": "uint8_t",
+                  "length": 8
+                },
+                {
+                  "sig_name": "data",
+                  "type": "uint32_t",
+                  "length": 32
+                }
+              ],
+              "msg_period": 0,
+              "msg_priority": 3
+            }
+          ],
+          "rx": [
+            {
+              "msg_name": "bitstream_data",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "main_module_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "dashboard_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "torquevector_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "a_box_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "pdu_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "l4_testing_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "f4_testing_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "f7_testing_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            },
+            {
+              "msg_name": "daq_bl_cmd",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

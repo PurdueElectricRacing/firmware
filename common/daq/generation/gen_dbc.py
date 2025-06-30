@@ -27,17 +27,11 @@ def gen_dbc(can_config, dbc_path):
                                           length=sig['length'],
                                           byte_order="little_endian",
                                           is_signed=not ('uint' in sig['type']),
-                                          initial=None,
-                                          scale=1 if 'scale' not in sig else sig['scale'],
-                                          offset=0 if 'offset' not in sig else sig['offset'],
                                           minimum=None if 'minimum' not in sig else sig['minimum'],
                                           maximum=None if 'maximum' not in sig else sig['maximum'],
                                           unit="" if 'unit' not in sig else sig['unit'],
                                           comment="" if 'sig_desc' not in sig else sig['sig_desc'],
-                                          choices=None if 'choices' not in sig else {i:choice for i, choice in enumerate(sig['choices'])},
-                                          is_multiplexer=False,
-                                          is_float=('float' in sig['type']),
-                                          decimal=None))
+                                          is_multiplexer=False))
                     curr_sig_pos += sig['length']
                 messages[msg['msg_name']] = db.Message(frame_id=msg['id'],
                                         name=msg['msg_name'],

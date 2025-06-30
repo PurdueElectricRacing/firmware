@@ -56,28 +56,35 @@ def gen_bit_length(sig):
     sig['length'] = bit_length
     return bit_length
 
+def encode_extended_can_id(priority: int, node_index: int, message_index: int) -> int:
+    if not (1 <= priority <= 5):
+        raise ValueError("Priority must be 1-5")
+    if not (0 <= node_index < 32):
+        raise ValueError("Node index must be in range 0-31")
+    if not (0 <= message_index < 4096):
+        raise ValueError("Message index must be in range 0-4095")
+    prio_bits = (priority - 1) & 0b111  # 3 bits
+    can_id = (prio_bits << 26) | (node_index << 21) | (message_index << 9)
+    return can_id
+
 def generate_ids(can_config):
-    """ Combine hlp, pgn, and ssa for each message and add 'id' key"""
+    """
+    Encodes a priority (1-5) and message ID (0-255) into an 11-bit CAN ID.
+    """
+    node_index = 0
     for bus in can_config['busses']:
         for node in bus['nodes']:
-            ssa = node['node_ssa']
-            for msg in node['tx']:
+            for message_index,msg in enumerate(node['tx']):
                 id = 0
                 if 'msg_id_override' in msg:
                     id = int(msg['msg_id_override'], 0)
-                elif 'msg_hlp' in msg and 'msg_pgn' in msg:
-                    hlp = msg['msg_hlp']
-                    pgn = msg['msg_pgn']
-                    # hlp (3) + pgn (20) + ssa (6) bits
-                    id = ((((hlp & 0b111) << 20) | (pgn & 0xFFFFF)) << 6) | (ssa & 0b111111)
                 else:
-                    log_error(f"Message {msg['msg_name']} needs either msg_hlp and msg_pgn defined or msg_id_override")
-                    quit(1)
+                    id = encode_extended_can_id(msg['msg_priority'], node_index, message_index)
                 if id < 0 or id > 0x1FFFFFFF:
                     log_error(f"Message {msg['msg_name']}'s can id is too large: {hex(id)}, max is 0x1FFFFFFF")
                     quit(1)
-                # print(msg['msg_name'] + " id: "+ hex(id))
                 msg['id'] = id
+            node_index += 1
     return can_config
 
 def generate_dlcs(can_config):
@@ -100,7 +107,6 @@ def check_repeat_defs(can_config):
     message_names = []
     for bus in can_config['busses']:
         message_ids = []
-        node_ssas = []
         node_names = []
         for node in bus['nodes']:
             if node['node_name'] in node_names:
@@ -108,11 +114,6 @@ def check_repeat_defs(can_config):
                 quit(1)
             else:
                 node_names.append(node['node_name'])
-            if node['node_ssa'] in node_ssas:
-                log_error(f"Found identical node ssas for {node['node_name']} of ssa: {node['node_ssa']}")
-                quit(1)
-            else:
-                node_ssas.append(node['node_ssa'])
             for msg in node['tx']:
                 if msg['msg_name'] in message_names:
                     log_error(f"Found multiple definitions for {msg['msg_name']}")
@@ -125,7 +126,7 @@ def check_repeat_defs(can_config):
                 else:
                     message_ids.append(msg['id'])
 
-def generateFLmessages(can_config, fault_config):
+def generate_fault_can_messages(can_config, fault_config):
     """Generates messages in can config dictionaries for the fault library"""
     namearr = []
     for node in fault_config['modules']:
@@ -142,14 +143,13 @@ def generateFLmessages(can_config, fault_config):
         for node in bus['nodes']:
             if (str)(node['node_name']).lower() in namearr:
                 namearr.remove((str)(node['node_name']).lower())
-                node['tx'].append({'msg_name': 'fault_sync_' + (str)(node['node_name']).lower(), 'msg_desc': 'Fault status message', 'signals': [{'sig_name': 'idx', 'type': 'uint16_t', 'length': 16}, {'sig_name': 'latched', 'type': 'uint8_t', 'length': 1}], 'msg_period': 0, 'msg_hlp': 0, 'msg_pgn': (9000 + i)})
+                node['tx'].append({'msg_name': 'fault_sync_' + (str)(node['node_name']).lower(), 'msg_desc': 'Fault status message', 'signals': [{'sig_name': 'idx', 'type': 'uint16_t', 'length': 16}, {'sig_name': 'latched', 'type': 'uint8_t', 'length': 1}], 'msg_period': 0, 'msg_priority': 1})
                 for f_node in fault_config['modules']:
                     if (str)(f_node['can_name']).lower() != (str)(node['node_name']).lower():
                         node['rx'].append({'msg_name': 'fault_sync_' + (str)(f_node['can_name']).lower(), 'callback': True, 'fault': True})
                 node['rx'].append({"msg_name": "set_fault", "callback": True, 'fault': True, 'fault_set': True})
                 node['rx'].append({"msg_name": "return_fault_control", "callback": True, 'fault': True, 'fault_return': True})
                 i += 1
-
 
 def check_repeat_daq_variables(daq_config):
     """ Checks for repeated variable names or eeprom labels on a per node basis """
@@ -274,21 +274,6 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
     print(f"Node matches found: {list(node_paths.keys())}")
     return node_paths
 
-def output_bus_load(can_config):
-    """ calculates bus load based on message periods and sizes """
-    overhead_per_msg = 64 + 18 # frame + possible stuffing
-    baudrate = 500000
-    bit_time = 1.0 / baudrate
-    for bus in can_config['busses']:
-        total_load = 0
-        for node in bus['nodes']:
-            for msg in node['tx']:
-                if msg['msg_period'] != 0:
-                    load = (msg['dlc'] * 8 + overhead_per_msg) * bit_time / (msg['msg_period']/1000)
-                    total_load += load
-                    print(f"{msg['msg_name']}: {round(load*100,3)}%")
-        print(f"Total load for bus {bus['bus_name']}: {round(total_load*100,3)}% (calculated with only periodic messages)")
-
 def load_json_config(config_path, schema_path):
     """ loads config from json and validates with schema """
     config = json.load(open(config_path))
@@ -304,27 +289,69 @@ def load_json_config(config_path, schema_path):
 
     return config
 
+import json
+import glob
+from copy import deepcopy
+
+def merge_can_configs(configs):
+    merged = {
+        "$schema": None,
+        "busses": []
+    }
+
+    bus_map = {}
+
+    for config in configs:
+        if merged["$schema"] is None:
+            merged["$schema"] = config.get("$schema")
+
+        for bus in config.get("busses", []):
+            bus_name = bus["bus_name"]
+            if bus_name not in bus_map:
+                new_bus = {
+                    "bus_name": bus_name,
+                    "nodes": []
+                }
+                bus_map[bus_name] = new_bus
+                merged["busses"].append(new_bus)
+
+            for node in bus.get("nodes", []):
+                node_name = node["node_name"]
+                existing_node = next((n for n in bus_map[bus_name]["nodes"] if n["node_name"] == node_name), None)
+                if existing_node:
+                    existing_node.update(node)
+                else:
+                    bus_map[bus_name]["nodes"].append(deepcopy(node))
+
+    return merged
+
+def load_split_nodes(directory):
+    configs = []
+    for file_path in glob.glob(f"{directory}/*.json"):
+        with open(file_path) as f:
+            config = json.load(f)
+            configs.append(config)
+    return merge_can_configs(configs)
+
 def generate_all():
 
     gen_config = json.load(open(GENERATOR_CONFIG_JSON_PATH))
     relative_dir = Path(os.path.dirname(__file__))
 
     can_config_path = Path(os.path.abspath(relative_dir / gen_config['can_json_config_path']))
-    can_schema_path = Path(os.path.abspath(relative_dir / gen_config['can_json_schema_path']))
     daq_config_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_config_path']))
     daq_schema_path = Path(os.path.abspath(relative_dir / gen_config['daq_json_schema_path']))
     fault_config_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_config_path']))
     fault_schema_path = Path(os.path.abspath(relative_dir / gen_config['fault_json_schema_path']))
 
     firmware_source_dir = Path(os.path.abspath(relative_dir / gen_config['source_directory']))
-
     print(firmware_source_dir)
 
-    can_config = load_json_config(can_config_path, can_schema_path)
+    can_config = load_split_nodes(can_config_path)
     daq_config = load_json_config(daq_config_path, daq_schema_path)
     fault_config = load_json_config(fault_config_path, fault_schema_path)
 
-    generateFLmessages(can_config, fault_config)
+    generate_fault_can_messages(can_config, fault_config)
 
     check_repeat_daq_variables(daq_config)
     gen_embedded_daq.generate_daq_can_msgs(daq_config, can_config)
@@ -339,8 +366,6 @@ def generate_all():
     gen_embedded_daq.gen_embedded_daq(daq_config, firmware_source_dir, gen_config['node_daq_c_dir'], gen_config['node_daq_h_dir'])
     # Generate DBCs for each CAN bus individually
     gen_dbc.gen_dbc(can_config, relative_dir)
-
-    output_bus_load(can_config)
 
 
 if __name__ == "__main__":

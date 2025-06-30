@@ -93,6 +93,7 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
         filter_bank_max = 27
     else:
         print(f"Unknown CAN peripheral {peripheral}")
+        exit(1)
 
     for msg in rx_msg_configs:
         if(filter_bank > filter_bank_max):
@@ -152,14 +153,11 @@ def configure_node(node_config, node_paths):
     @param  node_paths      paths to [h file, c file] for that node
     """
 
-    print("Configuring Node " + node_config['node_name'])
-
     # Junction node?
     is_junc = False
     junc_config = None
     if 'is_junction' in node_config and node_config['is_junction']:
         is_junc = True
-        print(f"Treating {node_config['node_name']} as junction")
         global can_config
         for bus in can_config['busses']:
             for node in bus['nodes']:
@@ -346,7 +344,6 @@ def configure_bus(bus, source_dir, c_dir, h_dir):
     Generates c code for each node on bus
     @param bus  bus dictionary configuration
     """
-    print('Configuring Bus ' + bus['bus_name'])
 
     # extract node names from config, don't configure junction nodes yet
     node_names = [node['node_name'] for node in bus['nodes']]

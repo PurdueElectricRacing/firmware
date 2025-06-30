@@ -234,6 +234,28 @@ def insert_lines(source: list, start, stop, new_lines):
 
     return source
 
+def copy_starter_file(starter_path, dest_path):
+    """
+    Copies a starter file to the destination path
+
+    @param starter_path   path to the starter file
+    @param dest_path      path to output the starter file to
+    """
+
+    try:
+        with open(starter_path, 'r') as starter_file:
+            starter_content = starter_file.read()
+        
+        with open(dest_path, 'w') as dest_file:
+            dest_file.write(starter_content)
+
+        #log_success(f"Starter file copied from {starter_path} to {dest_path}")
+        return True
+    except Exception as e:
+        log_error(f"Failed to copy starter file: {e}")
+        quit(1) # exit on fatal error
+    
+
 def find_node_paths(node_names, source_dir, c_dir, h_dir):
     """
     searches through the head_dir for the c and h files
@@ -251,8 +273,11 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
     for folder in os.listdir(source_dir):
         #print("Searching for nodes in "+str(source_dir/ folder/c_dir) + " directory")
 
-        c_path = source_dir/ folder /c_dir
-        h_path = source_dir/folder/h_dir
+        c_path = source_dir / folder / c_dir
+        h_path = source_dir / folder / h_dir
+
+        starter_c_path = c_path.parent / "starter" / "can_parse_starter.c"
+        starter_h_path = h_path.parent / "starter" / "can_parse_starter.h"
 
         if path.exists(h_path):
             with open(h_path) as h_file:
@@ -262,11 +287,17 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
                         b = line.index("\"", a+1)
                         name = line[a+1:b]
                         if name in node_names:
+
+                            if path.exists(starter_c_path):
+                                copy_starter_file(starter_c_path, c_path)
+                            if path.exists(starter_h_path):
+                                copy_starter_file(starter_h_path, h_path)
+
                             # print("Match found for " + name)
                             if path.exists(c_path):
                                 node_paths[name] = [h_path, c_path]
                             else:
-                                log_warning("C file not found for " + name +" at "+c_path)
+                                log_warning("C file not found for " + name + " at " + c_path)
                         break
 
         else:

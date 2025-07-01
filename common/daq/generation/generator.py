@@ -270,6 +270,17 @@ def copy_starter_files(source_dir, c_dir, h_dir):
         if path.exists(starter_c_path) and not path.exists(c_path):
             copy_file(starter_c_path, c_path)
 
+def clear_gen_files(source_dir, c_dir, h_dir):
+    """
+    Delete existing can_parse.c and can_parse.h before regeneration
+    """
+    for folder in os.listdir(source_dir):
+        folder_path = source_dir / folder
+        if folder_path.is_dir():
+            for file_path in [folder_path / c_dir, folder_path / h_dir]:
+                if file_path.exists():
+                    file_path.unlink()
+
 def find_node_paths(node_names, source_dir, c_dir, h_dir):
     """
     searches through the head_dir for the c and h files

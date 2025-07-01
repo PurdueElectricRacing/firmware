@@ -371,6 +371,9 @@ def gen_embedded_can(config, source_dir, c_dir, h_dir):
     global can_config
     can_config = config
 
+    # delete the old files first
+    generator.clear_gen_files(source_dir, c_dir, h_dir)
+
     for bus in can_config['busses']:
         configure_bus(bus, source_dir, c_dir, h_dir)
 

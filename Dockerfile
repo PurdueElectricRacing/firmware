@@ -4,6 +4,7 @@ RUN apt update
 
 # Install dev dependencies
 RUN apt -y install --no-install-recommends gcc-arm-none-eabi
+RUN apt -y install --no-install-recommends libnewlib-arm-none-eabi
 RUN apt -y install --no-install-recommends ninja-build cmake
 RUN apt -y install --no-install-recommends git ssh
 

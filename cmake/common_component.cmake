@@ -27,9 +27,15 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
     # Add Common libraries
     foreach (_LIB_NAME IN ITEMS ${_COMMON_LIBS})
         target_link_libraries(${TARGET_NAME} ${_LIB_NAME})
-    endforeach(_LIB_NAME)
+    endforeach()
+    target_link_libraries(${TARGET_NAME} common_defs)
+    target_link_libraries(${TARGET_NAME} SYSCALLS)
 
-    target_link_libraries(${TARGET_NAME} common_defs) # everyone gets common defs
+    target_link_options(${TARGET_NAME} PRIVATE
+        "-Wl,--whole-archive"
+        "$<TARGET_FILE:SYSCALLS>"
+        "-Wl,--no-whole-archive"
+    )
 
     # Find all .c sources in project, recursive search starting at component root
     file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)
@@ -76,9 +82,15 @@ MACRO(COMMON_BOOTLOADER_COMPONENT TARGET_NAME)
     # Add Common libraries
     foreach (_LIB_NAME IN ITEMS ${_COMMON_LIBS})
         target_link_libraries(${TARGET_NAME} ${_LIB_NAME})
-    endforeach(_LIB_NAME)
+    endforeach()
+    target_link_libraries(${TARGET_NAME} common_defs)
+    target_link_libraries(${TARGET_NAME} SYSCALLS)
 
-    target_link_libraries(${TARGET_NAME} common_defs) # everyone gets common defs
+    target_link_options(${TARGET_NAME} PRIVATE
+        "-Wl,--whole-archive"
+        "$<TARGET_FILE:SYSCALLS>"
+        "-Wl,--no-whole-archive"
+    )
 
     # Find all .c sources in project, recursive search starting at component root
     file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)

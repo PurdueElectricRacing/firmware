@@ -1,66 +1,95 @@
-1. Package Manager - A tool to help you easily install the other tools.
+# PER Firmware Setup Instructions
 
-   - Windows users should install [MSYS2](https://www.msys2.org/): `winget install MSYS2.MSYS2`.
-   - MacOS users should install [Homebrew](https://brew.sh/).
+# 1. Tools
 
-2. Add your package manager's `bin/` directory to your environment path variable to make your tools accessible. Note that your install location may vary.
+The PER firmware development environment relies on several tools -- such as `cmake`, `ninja`, and `stlink` -- to build, debug, flash, and deploy code to the vehicle. To streamline setup, we (highly) recommend using a package manager compatible with your operating system. Package managers help manage dependencies and ensure tools are correctly installed and updated. Below are supported package manager setups for each OS (macOS, Windows, Linux):
 
-   - Windows: Add `C:\msys64\usr\bin`. Check this [link](https://stackoverflow.com/questions/5733220/how-do-i-add-the-mingw-bin-directory-to-my-system-path) for help with the process.
-   - MacOS: Add `/opt/homebrew/bin`. Check this [link](https://stackoverflow.com/questions/35677031/adding-homebrew-to-path) for help with the process.
 
-3. Install [Git](https://git-scm.com/downloads): Tool for managing source code and uploading to GitHub.
+## MacOS Tools Setup
+1. [Homebrew](https://brew.sh/): macOS package manager. Open a terminal (e.g., iTerm) and paste and run the installation command provided on the homebrew install page.
+	- After installing Homebrew, make sure to add /opt/homebrew/bin to your system’s PATH environment variable. The exact command should be printed at the end of the homebrew install.
+	- After installation, ensure brew is installed by running:
+	`brew --version`
 
-   - Windows: `pacman -S git`.
-   - MacOS: this should be preinstalled for you. To double-check this, type `git --version` into your terminal. Otherwise, install with `brew install git`.
-
-4. Clone this repository with the following command:
-
+2. Run the following commands in your terminal to install the other tools (you can copy and paste them all at once).
 ```bash
-git clone https://github.com/PurdueElectricRacing/firmware.git
+brew install git cmake ninja openocd stlink python3
+brew install --cask gcc-arm-embedded
 ```
 
-5. Install [Visual Studio Code](https://code.visualstudio.com/): Text editor with extensions for helping build the firmware components using CMake.
+3. Download VSCode from the website: https://code.visualstudio.com/docs/setup/mac
 
-   Important extensions:
-   - [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug): Provides debugging support for ARM Cortex-M microcontrollers, including live watch capability.
-   - [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd): Provides advanced C/C++ code completion and analysis. (Optional)
+## Windows Tools Setup
+1. [Chocolatey](https://chocolatey.org/install#install-step2): Windows package manager Paste and run the installation command provided on the Chocolatey install page.
+	- Open the Start Menu, scroll to W, and locate Windows PowerShell. Right-click on PowerShell and select "Run as Administrator".
+	- After installation, confirm choco is installed by running:
+	`choco --version`
+2. In your administrator powershell, paste the following commands (right click to paste in powershell terminal).
+
+```bash
+choco install git cmake ninja python3 gcc-arm-embedded openocd 
+```
+- Enter (`A`) on the first prompt to select 'Yes to All'
+
+> [!NOTE]
+> Make sure to run these in PowerShell as Administrator!
+
+3. STLink drivers need to be manually installed from [here](https://www.st.com/en/development-tools/stsw-link009.html).
+
+4. Download VSCode from the website: https://code.visualstudio.com/download
 
 
-6. Initialize the git submodules in this project with the following command to download the source for the various git submodules: `git submodule update --init --recursive`.
+## Linux Tools Setup
+1. You probably already know what you're doing, so here are the commands for `apt` (Ubuntu, Debian, Pop!, etc.):
+```bash
+sudo apt update && sudo apt upgrade
+sudo apt install git cmake python3 python3-pip ninja-build gcc-arm-none-eabi openocd stlink-tools
+```
+2. Visual Studio Code requires some special attention, install from [here](https://code.visualstudio.com/docs/setup/linux).
 
-   - This command needs to be run in the base folder of the cloned repository and may take a few minutes to complete.
 
-7. Install the required python packages with the following command: `pip install -r requirements.txt`.
+# 2. VSCode Setup (All OS)
 
-   - Newer MacOS systems come with python3, you can try using `pip3` instead of `pip`.
+VS Code is the recommended editor for firmware development.
 
-8. Install [arm-none-eabi-gcc](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads): Compiler specific to ARM based targets.
+Install the following VSCode extensions for debugging, inspection, and code editing:
 
-   - Windows: `pacman -S mingw-w64-x86_64-arm-none-eabi-gcc`.
-   - MacOS: `brew install --cask gcc-arm-embedded`.
-   <!-- [Windows](https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07win32/gcc-arm-none-eabi-10.3-2021.07-win32.exe)
-      - Note: You must manually add this to your path. To do so, open the start menu and select "edit the system environment variables". From here, copy the full file path of your arm-none-eabi-gcc executable into the PATH environment variable (C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.07\bin). Your filepath may not look exactly the same, but it should look similar to this. -->
+```
+Cortex-Debug
+Peripheral Viewer
+MemoryView
+C/C++
+RTOS Views
+Black Formatter
+Code Spell Check
+Python
+Python Debug
+Pylance
+```
 
-9. Install [OpenOCD v0.11.0-3](https://github.com/xpack-dev-tools/openocd-xpack/releases/tag/v0.11.0-3/): Open Source On-Chip Debugger used to help GDB debug your code on a STM32 processor.
 
-   - Windows: `pacman -S mingw-w64-x86_64-openocd`.
-   <!-- It is extremely important that you install this version of openocd or else you might run into issues with debugging
-   Installation Instructions [here](https://xpack.github.io/openocd/install/). Again, use v0.11.0-3 as linked above.-->
+# 3. Repository Setup (All OS)
 
-   - MacOS: `brew install openocd`.
-   <!--If you are on MacOS, you must install the latest version of OpenOcd (v12), or you will run into issues while debugging STM32F7 microcontrollers. To install, simply run -->
+Follow these steps to download the PER codebase and get started on development:
 
-10. Install [CMake](https://cmake.org/install/): Build system generator. This takes care of making all of the build files needed to compile the project.
+1. Clone the repository with submodules. Open your terminal, and clone this repository with the following command:
+```bash
+git clone --recurse-submodules https://github.com/PurdueElectricRacing/firmware.git
+```
+2. Install required Python packages:
+```bash
+cd firmware
+pip3 install -r requirements.txt
+```
+3. Launch Visual Studio Code:
+```bash
+code .
+```
+4. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
 
-    - Windows: `pacman -S mingw-w64-x86_64-cmake`.
-    - MacOS: `brew install cmake`.
-    <!-- On some MacOS versions, CMake will install as a GUI only, follow the `Tools > Install Command Line Tools` tip inside CMake to fix this. -->
+```
+Ctrl + Shift + B on Windows/Linux
+Cmd + Shift + B on macOS
+```
 
-11. Install [Ninja](https://ninja-build.org/): Small & fast build system used by CMake.
-
-    - Windows: `pacman -S mingw-w64-x86_64-ninja`.
-    - MacOS: `brew install ninja`.
-
-12. Install [STLink Drivers](https://www.st.com/en/development-tools/stsw-link009.html) Windows drivers for STM32 debugging probe.
-    - Windows: `pacman -S mingw-w64-x86_64-stlink`.
-    - MacOS, use `brew install stlink`.
+All done!

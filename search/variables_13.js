@@ -25,5 +25,5 @@ var searchData=
   ['user_5fcharge_5fvoltage_5frequest_22',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]],
   ['username_23',['username',['../structftpd.html#ad6c308a74c7a259d500955227366ec2c',1,'ftpd']]],
   ['userpassword_24',['userpassword',['../structftpd.html#a073fbafa193dd0acbd067c220bb8c99c',1,'ftpd']]],
-  ['uv_25',['uv',['../structbms__t.html#a8ac7eb3a23e4d1d9b236d8b07cb13d35',1,'bms_t::uv'],['../unionCanParsedData__t.html#aab1aab295881eb805b5d911b25878481',1,'CanParsedData_t::uv']]]
+  ['uv_25',['uv',['../structbms__t.html#a8ac7eb3a23e4d1d9b236d8b07cb13d35',1,'bms_t']]]
 ];

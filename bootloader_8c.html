@@ -131,7 +131,7 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:af3fcdf5238df9f83b21b88808bd7e397" id="r_af3fcdf5238df9f83b21b88808bd7e397"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3fcdf5238df9f83b21b88808bd7e397">BL_checkAndBoot</a> (void)</td></tr>
 <tr class="separator:af3fcdf5238df9f83b21b88808bd7e397"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bc2632777121708f3edba5775a1e9b0" id="r_a2bc2632777121708f3edba5775a1e9b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bc2632777121708f3edba5775a1e9b0">bitstream_data_CALLBACK</a> (<a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *msg_data_a)</td></tr>
+<tr class="memitem:a2bc2632777121708f3edba5775a1e9b0" id="r_a2bc2632777121708f3edba5775a1e9b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bc2632777121708f3edba5775a1e9b0">bitstream_data_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
 <tr class="separator:a2bc2632777121708f3edba5775a1e9b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89a30b74da99b74748c4231a884c8841" id="r_a89a30b74da99b74748c4231a884c8841"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89a30b74da99b74748c4231a884c8841">BL_processCommand</a> (BLCmd_t <a class="el" href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a>, uint32_t data)</td></tr>
 <tr class="separator:a89a30b74da99b74748c4231a884c8841"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -324,11 +324,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> callback_name(<a class="code hl_union" href="unionCanParsedData__t.html">CanParsedData_t</a>* msg_data_a) {\</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> callback_name(CanParsedData_t* msg_data_a) {\</div>
 <div class="line">    if(APP_ID != node_id) <span class="keywordflow">return</span>; \</div>
 <div class="line">    BL_processCommand((BLCmd_t) msg_data_a-&gt;can_msg_name.cmd, msg_data_a-&gt;can_msg_name.data); \</div>
 <div class="line">} \</div>
-<div class="ttc" id="aunionCanParsedData__t_html"><div class="ttname"><a href="unionCanParsedData__t.html">CanParsedData_t</a></div><div class="ttdef"><b>Definition</b> can_parse.h:546</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -367,7 +366,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void bitstream_data_CALLBACK </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="unionCanParsedData__t.html">CanParsedData_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td class="paramtype">CanParsedData_t *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

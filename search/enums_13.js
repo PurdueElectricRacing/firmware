@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vcu_5fmode_5ft_0',['VCU_mode_t',['../main__module_2can_2can__parse_8h.html#a8f6ef6e91942d46ec7ede42bf5be7ca5',1,'VCU_mode_t:&#160;can_parse.h'],['../torque__vector_2can_2can__parse_8h.html#a8f6ef6e91942d46ec7ede42bf5be7ca5',1,'VCU_mode_t:&#160;can_parse.h']]]
+  ['word_5flength_5ft_0',['word_length_t',['../phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'word_length_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'word_length_t:&#160;usart.h']]]
 ];

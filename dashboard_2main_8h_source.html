@@ -117,7 +117,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a69f84138f29870fc5a3bb4a768b0d592">   32</a></span><span class="preprocessor">#define LCD_NUM_PAGES (9) </span><span class="comment">// Number encoder selectable pages</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a2b9469e9598d74b12d332a4c3de59d83">   33</a></span><span class="preprocessor">#define LCD_BAUD_RATE (115200)</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_union" href="union____attribute____.html">__attribute__</a>((packed))</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct____attribute____.html">__attribute__</a>((packed))</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// Do not modify this struct unless</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">// you modify the ADC DMA config</span></div>
@@ -131,7 +131,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    uint16_t lv_5v_sense;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    uint16_t lv_3v3_sense;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    uint16_t lv_12v_sense;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    uint16_t <a class="code hl_variable" href="union____attribute____.html#a07e135f6044c6bba6e1c604246db085f">lv_24_v_sense</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    uint16_t <a class="code hl_variable" href="struct____attribute____.html#a07e135f6044c6bba6e1c604246db085f">lv_24_v_sense</a>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// uint16_t load_l;</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// uint16_t load_r;</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// uint16_t brk1_thr;</span></div>
@@ -315,6 +315,8 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="adashboard_2main_8h_html_af796e3555932af2c8dce8e497f1e4734"><div class="ttname"><a href="dashboard_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a></div><div class="ttdeci">raw_adc_values_t</div><div class="ttdef"><b>Definition</b> main.h:54</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html">can.h</a></div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:31</div></div>
+<div class="ttc" id="astruct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition</b> main.h:116</div></div>
+<div class="ttc" id="astruct____attribute_____html_a07e135f6044c6bba6e1c604246db085f"><div class="ttname"><a href="struct____attribute____.html#a07e135f6044c6bba6e1c604246db085f">__attribute__::lv_24_v_sense</a></div><div class="ttdeci">uint16_t lv_24_v_sense</div><div class="ttdef"><b>Definition</b> main.h:250</div></div>
 <div class="ttc" id="astructbrake__status__t_html"><div class="ttname"><a href="structbrake__status__t.html">brake_status_t</a></div><div class="ttdef"><b>Definition</b> main.h:69</div></div>
 <div class="ttc" id="astructbrake__status__t_html_a76244d1a8e6c02858d7cca680eaf0b18"><div class="ttname"><a href="structbrake__status__t.html#a76244d1a8e6c02858d7cca680eaf0b18">brake_status_t::brake_status</a></div><div class="ttdeci">uint8_t brake_status</div><div class="ttdef"><b>Definition</b> main.h:70</div></div>
 <div class="ttc" id="astructbrake__status__t_html_adb93be7a104a7a251d5645f5202ba75d"><div class="ttname"><a href="structbrake__status__t.html#adb93be7a104a7a251d5645f5202ba75d">brake_status_t::brake_fail</a></div><div class="ttdeci">uint8_t brake_fail</div><div class="ttdef"><b>Definition</b> main.h:71</div></div>
@@ -327,8 +329,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="astructdashboard__input__state__t_html_a945b215b7be0bc898cca2dfc6af8b6fe"><div class="ttname"><a href="structdashboard__input__state__t.html#a945b215b7be0bc898cca2dfc6af8b6fe">dashboard_input_state_t::encoder_position</a></div><div class="ttdeci">int8_t encoder_position</div><div class="ttdef"><b>Definition</b> main.h:59</div></div>
 <div class="ttc" id="astructdashboard__input__state__t_html_a9a886da5f5d612b766a5190d1215bdd4"><div class="ttname"><a href="structdashboard__input__state__t.html#a9a886da5f5d612b766a5190d1215bdd4">dashboard_input_state_t::update_page</a></div><div class="ttdeci">uint8_t update_page</div><div class="ttdef"><b>Definition</b> main.h:62</div></div>
 <div class="ttc" id="astructdashboard__input__state__t_html_ad9cc1ecdf0dd5f5358d29353e04fa816"><div class="ttname"><a href="structdashboard__input__state__t.html#ad9cc1ecdf0dd5f5358d29353e04fa816">dashboard_input_state_t::debounce_ticks</a></div><div class="ttdeci">uint32_t debounce_ticks</div><div class="ttdef"><b>Definition</b> main.h:60</div></div>
-<div class="ttc" id="aunion____attribute_____html"><div class="ttname"><a href="union____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition</b> can_parse.h:483</div></div>
-<div class="ttc" id="aunion____attribute_____html_a07e135f6044c6bba6e1c604246db085f"><div class="ttname"><a href="union____attribute____.html#a07e135f6044c6bba6e1c604246db085f">__attribute__::lv_24_v_sense</a></div><div class="ttdeci">uint16_t lv_24_v_sense</div><div class="ttdef"><b>Definition</b> main.h:250</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

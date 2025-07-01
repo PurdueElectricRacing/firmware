@@ -109,14 +109,14 @@ $(function(){ initResizable(false); });
 <div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="daq__hub_8h.html#ab898071398b359603a35c202e9c65f3b">   28</a></span><span class="keyword">typedef</span> uint8_t <a class="code hl_typedef" href="test__buffer_8c.html#a28ae7e392d9570d33681ec8094a827c2">busid_t</a>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_union" href="union____attribute____.html">__attribute__</a>((packed))</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct____attribute____.html">__attribute__</a>((packed))</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    uint8_t  frame_type;    </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    uint32_t tick_ms;       </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_typedef" href="test__buffer_8c.html#af1c86d266c4de5b8fb79e12ff38def1f">canid_t</a>  msg_id;        </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_typedef" href="test__buffer_8c.html#a28ae7e392d9570d33681ec8094a827c2">busid_t</a>  bus_id;        </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    uint8_t  dlc;           </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    uint8_t  <a class="code hl_variable" href="union____attribute____.html#a81ed27f4606846a789c4b5cc1d984d87">data</a>[8];       </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    uint8_t  data[8];       </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="daq__hub_8h.html#a701a0c393412d734f5261b6b191bd0bf">   38</a></span>} <a class="code hl_variable" href="test__buffer_8c.html#a701a0c393412d734f5261b6b191bd0bf">timestamped_frame_t</a>;</div>
 </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
@@ -181,6 +181,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="asdio_8h_html"><div class="ttname"><a href="sdio_8h.html">sdio.h</a></div></div>
 <div class="ttc" id="astructFATFS_html"><div class="ttname"><a href="structFATFS.html">FATFS</a></div><div class="ttdef"><b>Definition</b> ff.h:132</div></div>
 <div class="ttc" id="astructFIL_html"><div class="ttname"><a href="structFIL.html">FIL</a></div><div class="ttdef"><b>Definition</b> ff.h:203</div></div>
+<div class="ttc" id="astruct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition</b> main.h:116</div></div>
 <div class="ttc" id="astructdaq__hub__t_html"><div class="ttname"><a href="structdaq__hub__t.html">daq_hub_t</a></div><div class="ttdef"><b>Definition</b> daq_hub.h:41</div></div>
 <div class="ttc" id="astructdaq__hub__t_html_a0bdbb736578130766da0682866da2d41"><div class="ttname"><a href="structdaq__hub__t.html#a0bdbb736578130766da0682866da2d41">daq_hub_t::tcp_tx_overflow</a></div><div class="ttdeci">uint32_t tcp_tx_overflow</div><div class="ttdef"><b>Definition</b> daq_hub.h:70</div></div>
 <div class="ttc" id="astructdaq__hub__t_html_a1590704a02ec6919a901acaef84ed230"><div class="ttname"><a href="structdaq__hub__t.html#a1590704a02ec6919a901acaef84ed230">daq_hub_t::sd_rx_overflow</a></div><div class="ttdeci">uint32_t sd_rx_overflow</div><div class="ttdef"><b>Definition</b> daq_hub.h:69</div></div>
@@ -209,8 +210,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="atest__buffer_8c_html_a28ae7e392d9570d33681ec8094a827c2"><div class="ttname"><a href="test__buffer_8c.html#a28ae7e392d9570d33681ec8094a827c2">busid_t</a></div><div class="ttdeci">uint8_t busid_t</div><div class="ttdef"><b>Definition</b> test_buffer.c:7</div></div>
 <div class="ttc" id="atest__buffer_8c_html_a701a0c393412d734f5261b6b191bd0bf"><div class="ttname"><a href="test__buffer_8c.html#a701a0c393412d734f5261b6b191bd0bf">timestamped_frame_t</a></div><div class="ttdeci">timestamped_frame_t</div><div class="ttdef"><b>Definition</b> test_buffer.c:15</div></div>
 <div class="ttc" id="atest__buffer_8c_html_af1c86d266c4de5b8fb79e12ff38def1f"><div class="ttname"><a href="test__buffer_8c.html#af1c86d266c4de5b8fb79e12ff38def1f">canid_t</a></div><div class="ttdeci">uint32_t canid_t</div><div class="ttdef"><b>Definition</b> test_buffer.c:6</div></div>
-<div class="ttc" id="aunion____attribute_____html"><div class="ttname"><a href="union____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition</b> can_parse.h:483</div></div>
-<div class="ttc" id="aunion____attribute_____html_a81ed27f4606846a789c4b5cc1d984d87"><div class="ttname"><a href="union____attribute____.html#a81ed27f4606846a789c4b5cc1d984d87">__attribute__::data</a></div><div class="ttdeci">uint64_t data</div><div class="ttdef"><b>Definition</b> can_parse.h:816</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

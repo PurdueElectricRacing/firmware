@@ -41,6 +41,8 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
     file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)
     # Exclude if it is a test file
     list(FILTER glob_sources EXCLUDE REGEX "test_.*")
+    # Exclude starter files (templates used for code generation)
+    list(FILTER glob_sources EXCLUDE REGEX ".*starter.*")
     target_sources(${TARGET_NAME} PUBLIC ${glob_sources})
 
     # Find directories for '#include'
@@ -94,6 +96,8 @@ MACRO(COMMON_BOOTLOADER_COMPONENT TARGET_NAME)
 
     # Find all .c sources in project, recursive search starting at component root
     file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)
+    # Exclude starter files (templates used for code generation)
+    list(FILTER glob_sources EXCLUDE REGEX ".*starter.*")
     target_sources(${TARGET_NAME} PUBLIC ${glob_sources})
 
     # Find directories for '#include'

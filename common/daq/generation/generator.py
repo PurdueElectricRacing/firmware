@@ -234,6 +234,53 @@ def insert_lines(source: list, start, stop, new_lines):
 
     return source
 
+def copy_file(source_path, dest_path):
+    """
+    Copies a file to the destination path
+    @param source_path   path to the source file
+    @param dest_path     path to output the file to
+    """
+
+    try:
+        with open(source_path, 'r') as source:
+            content = source.read()
+        
+        with open(dest_path, 'w') as dest:
+            dest.write(content)
+        return True
+    except Exception as e:
+        log_error(f"Failed to copy file: {e}")
+        quit(1) # exit on fatal error
+    
+
+def copy_starter_files(source_dir, c_dir, h_dir):
+    """
+    Copy starter files to target locations
+    """
+    for folder in os.listdir(source_dir):
+        c_path = source_dir / folder / c_dir
+        h_path = source_dir / folder / h_dir
+        
+        starter_c_path = c_path.parent / "can_parse_starter.c"
+        starter_h_path = h_path.parent / "can_parse_starter.h"
+        
+        # Only copy starter files if target files don't exist
+        if path.exists(starter_h_path) and not path.exists(h_path):
+            copy_file(starter_h_path, h_path)
+        if path.exists(starter_c_path) and not path.exists(c_path):
+            copy_file(starter_c_path, c_path)
+
+def clear_gen_files(source_dir, c_dir, h_dir):
+    """
+    Delete existing can_parse.c and can_parse.h before regeneration
+    """
+    for folder in os.listdir(source_dir):
+        folder_path = source_dir / folder
+        if folder_path.is_dir():
+            for file_path in [folder_path / c_dir, folder_path / h_dir]:
+                if file_path.exists():
+                    file_path.unlink()
+
 def find_node_paths(node_names, source_dir, c_dir, h_dir):
     """
     searches through the head_dir for the c and h files
@@ -251,8 +298,8 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
     for folder in os.listdir(source_dir):
         #print("Searching for nodes in "+str(source_dir/ folder/c_dir) + " directory")
 
-        c_path = source_dir/ folder /c_dir
-        h_path = source_dir/folder/h_dir
+        c_path = source_dir / folder / c_dir
+        h_path = source_dir / folder / h_dir
 
         if path.exists(h_path):
             with open(h_path) as h_file:
@@ -266,7 +313,7 @@ def find_node_paths(node_names, source_dir, c_dir, h_dir):
                             if path.exists(c_path):
                                 node_paths[name] = [h_path, c_path]
                             else:
-                                log_warning("C file not found for " + name +" at "+c_path)
+                                log_warning("C file not found for " + name +" at " + c_path)
                         break
 
         else:

@@ -10,7 +10,6 @@
  */
 #include "can_parse.h"
 
-#if 0
 // prototypes
 bool initCANFilter();
 
@@ -33,16 +32,6 @@ void canRxUpdate(void)
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         last_can_rx_time_ms = sched.os_ticks;
         /* BEGIN AUTO CASES */
-        switch(msg_header.ExtId)
-        {
-            case ID_DAQ_BL_CMD:
-                can_data.daq_bl_cmd.cmd = msg_data_a->daq_bl_cmd.cmd;
-                can_data.daq_bl_cmd.data = msg_data_a->daq_bl_cmd.data;
-                daq_bl_cmd_CALLBACK(msg_data_a);
-                break;
-            default:
-                __asm__("nop");
-        }
         /* END AUTO CASES */
     }
 
@@ -64,8 +53,6 @@ bool initCANFilter()
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
 
     /* BEGIN AUTO FILTER */
-    CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_DAQ_BL_CMD << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
@@ -77,6 +64,7 @@ bool initCANFilter()
 
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }
+
 
 void canProcessRxIRQs(CanMsgTypeDef_t* rx)
 {
@@ -91,4 +79,3 @@ void canProcessRxIRQs(CanMsgTypeDef_t* rx)
             __asm__("nop");
     }
 }
-#endif

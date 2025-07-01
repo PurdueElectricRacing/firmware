@@ -348,6 +348,9 @@ def configure_bus(bus, source_dir, c_dir, h_dir):
     # extract node names from config, don't configure junction nodes yet
     node_names = [node['node_name'] for node in bus['nodes']]
 
+    # copy starter files
+    generator.copy_starter_files(source_dir, c_dir, h_dir)
+    
     # find file paths for each node
     node_paths = generator.find_node_paths(node_names, source_dir, c_dir, h_dir)
     matched_keys = node_paths.keys()
@@ -367,6 +370,9 @@ def gen_embedded_can(config, source_dir, c_dir, h_dir):
 
     global can_config
     can_config = config
+
+    # delete the old files first
+    generator.clear_gen_files(source_dir, c_dir, h_dir)
 
     for bus in can_config['busses']:
         configure_bus(bus, source_dir, c_dir, h_dir)

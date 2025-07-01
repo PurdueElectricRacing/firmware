@@ -4,9 +4,9 @@
  * @brief Parsing of CAN messages using auto-generated structures with bit-fields
  * @version 0.1
  * @date 2021-09-15
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 #include "can_parse.h"
 
@@ -14,39 +14,24 @@
 bool initCANFilter();
 
 can_data_t can_data;
-q_handle_t* q_rx_can_a;
+volatile uint32_t last_can_rx_time_ms = 0;
 
-void initCANParse(q_handle_t* rx_a)
+void initCANParse(void)
 {
-    q_rx_can_a = rx_a;
+    initCANParseBase();
     initCANFilter();
 }
 
-uint32_t curr_tick = 0;
-
 void canRxUpdate()
 {
-    curr_tick += 1;
-
     CanMsgTypeDef_t msg_header;
     CanParsedData_t* msg_data_a;
 
-    if(qReceive(q_rx_can_a, &msg_header) == SUCCESS_G)
+    if(qReceive(&q_rx_can, &msg_header) == SUCCESS_G)
     {
+        last_can_rx_time_ms = sched.os_ticks;
         msg_data_a = (CanParsedData_t *) &msg_header.Data;
         /* BEGIN AUTO CASES */
-        switch(msg_header.ExtId)
-        {
-            case ID_HEAT_REQ:
-                can_data.heat_req.toggle = msg_data_a->heat_req.toggle;
-                can_data.heat_req.time = msg_data_a->heat_req.time;
-                break;
-            case ID_PACK_CURR:
-                can_data.pack_curr.current = (int16_t) msg_data_a->pack_curr.current;
-                break;
-            default:
-                __asm__("nop");
-        }
         /* END AUTO CASES */
     }
 
@@ -57,46 +42,25 @@ void canRxUpdate()
 bool initCANFilter()
 {
     CAN1->MCR |= CAN_MCR_INRQ;                // Enter back into INIT state (required for changing scale)
-#ifdef CAN2
-    CAN2->MCR |= CAN_MCR_INRQ; 
-#endif /* CAN2 */             
     uint32_t timeout = 0;
-    while( !(CAN1->MSR & CAN_MSR_INAK)
-#ifdef CAN2
-           !(CAN2->MSR & CAN_MSR_INAK)
-#endif /* CAN2 */
-           && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
+    while(!(CAN1->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
+         ;
     if (timeout == PHAL_CAN_INIT_TIMEOUT)
          return false;
 
     CAN1->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
     CAN1->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
     CAN1->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
-#ifdef CAN2
-    CAN2->FMR  |= CAN_FMR_FINIT;              // Enter init mode for filter banks
-    CAN2->FM1R |= 0x07FFFFFF;                 // Set banks 0-27 to id mode
-    CAN2->FS1R |= 0x07FFFFFF;                 // Set banks 0-27 to 32-bit scale
-#endif /* CAN2 */
+
     /* BEGIN AUTO FILTER */
-    CAN1->FA1R |= (1 << 0);    // configure bank 0
-    CAN1->sFilterRegister[0].FR1 = (ID_HEAT_REQ << 3) | 4;
-    CAN1->sFilterRegister[0].FR2 = (ID_PACK_CURR << 3) | 4;
     /* END AUTO FILTER */
 
     CAN1->FMR  &= ~CAN_FMR_FINIT;             // Enable Filters (exit filter init mode)
 
     // Enter back into NORMAL mode
     CAN1->MCR &= ~CAN_MCR_INRQ;
-#ifdef CAN2
-    CAN2->MCR &= ~CAN_MCR_INRQ;
-#endif /* CAN2 */
-    while((CAN1->MSR & CAN_MSR_INAK)
-#ifdef CAN2 
-          (CAN2->MSR & CAN_MSR_INAK)
-#endif /* CAN2 */
-        && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
+    while((CAN1->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
+         ;
 
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }

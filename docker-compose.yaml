@@ -1,7 +1,7 @@
 services:
     develop:                        # Main PER docker-compose entry
         build: .                    # Specify path to Dockerfile 
-        image: adambusch/per_firmware:latest
+        image: irvingywang/firmware-build:latest
         container_name: develop     # To identify which container this is 
         volumes:
             - ./:/per               # Mount our source directory to /per

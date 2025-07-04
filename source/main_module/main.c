@@ -162,7 +162,7 @@ void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 void interpretLoadSensor(void);
 float voltToForce(uint16_t load_read);
-void can2Relaycan1();
+void can2Relaycan1(CAN_TypeDef *can_h);
 void calibrate_lws(void);
 
 int main(void)

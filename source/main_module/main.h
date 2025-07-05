@@ -14,7 +14,7 @@
 #define _MAIN_H_
 
 #include "common/faults/fault_nodes.h"
-#include "common/phal_F4_F7/can/can.h"
+#include "common/phal/can.h"
 
 #define FAULT_NODE_NAME NODE_MAIN_MODULE
 

@@ -12,15 +12,7 @@
 #ifndef _PHAL_CRC_H
 #define _PHAL_CRC_H
 
-#if defined(STM32F407xx)
-#include "stm32f4xx.h"
-#include "system_stm32f4xx.h"
-#elif defined(STM32F732xx)
-#include "stm32f7xx.h"
-#include "system_stm32f7xx.h"
-#else
-#error "Please define a MCU arch"
-#endif
+#include "common/phal_F4_F7/phal_F4_F7.h"
 
 void PHAL_CRC32_Reset(void);
 

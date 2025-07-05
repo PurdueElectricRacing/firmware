@@ -1,6 +1,6 @@
 
-#include "common/phal_F4_F7/rtc/rtc.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/rtc.h"
+#include "common/phal/gpio.h"
 #include "daq_sd.h"
 #include "daq_hub.h"
 #include "ff.h"

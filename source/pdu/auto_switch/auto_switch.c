@@ -9,7 +9,7 @@
  *
  */
 #include "auto_switch.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 #include "led.h"
 #include "can_parse.h"
 #include "common/faults/faults.h"

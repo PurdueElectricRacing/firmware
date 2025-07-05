@@ -11,19 +11,13 @@
 #ifndef _PHAL_SPI_H
 #define _PHAL_SPI_H
 
-#if defined(STM32F407xx)
-    #include "stm32f4xx.h"
-#elif defined(STM32F732xx)
-    #include "stm32f7xx.h"
-#endif
+#include "common/phal_F4_F7/phal_F4_F7.h"
+#include "common_defs.h"
+#include <stddef.h>
 
-#include <stdbool.h>
 #include "common/phal_F4_F7/dma/dma.h"
 #include "common/phal_F4_F7/rcc/rcc.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
-#include "common_defs.h"
-#include <stddef.h>
-#include <stdbool.h>
 
 /**
  * @brief Configuration entry for SPI initilization

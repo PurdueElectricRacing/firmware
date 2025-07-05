@@ -1,5 +1,5 @@
 #include "tmu.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 #include "main.h"
 #include "common/common_defs/common_defs.h"
 #include "can_parse.h"

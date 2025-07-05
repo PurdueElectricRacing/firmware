@@ -11,8 +11,8 @@
 #ifndef _LED_H
 #define _LED_H
 
-#include "common/phal_F4_F7/spi/spi.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/spi.h"
+#include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 #include <stdbool.h>
 #include <stdint.h>

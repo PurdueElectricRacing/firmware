@@ -1,7 +1,7 @@
 
 #if 0
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/rtc/rtc.h"
+#include "common/phal/gpio.h"
+#include "common/phal/rtc.h"
 #include "common/uds/uds.h"
 
 #include "main.h"

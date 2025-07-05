@@ -14,7 +14,7 @@
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"
 #if defined(STM32F407xx) || defined(STM32F732xx)
-#include "common/phal_F4_F7/can/can.h"
+#include "common/phal/can.h"
 #else
 #include "common/phal_L4/can/can.h"
 #endif

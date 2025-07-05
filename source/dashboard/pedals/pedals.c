@@ -1,9 +1,9 @@
 #include "pedals.h"
-//#include "common/phal_F4_F7/flash/flash.h"
+//#include "common/phal/flash.h"
 #include "common/faults/faults.h"
 #include "common_defs.h"
 #include "main.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 #include "can_parse.h"
 #include <stdint.h>
 

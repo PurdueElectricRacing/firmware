@@ -15,7 +15,7 @@
 #include "can_parse.h"
 #include "car.h"
 #include "common/common_defs/common_defs.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 #include <float.h>
 #include "main.h"

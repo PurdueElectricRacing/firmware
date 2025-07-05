@@ -6,9 +6,9 @@
 #include "common/phal_L4/rcc/rcc.h"
 #endif
 #if defined(STM32F407xx) || defined(STM32F732xx)
-#include "common/phal_F4_F7/can/can.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/rcc/rcc.h"
+#include "common/phal/can.h"
+#include "common/phal/gpio.h"
+#include "common/phal/rcc.h"
 #endif
 
 /* Module Includes */

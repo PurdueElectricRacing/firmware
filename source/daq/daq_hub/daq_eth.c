@@ -12,8 +12,8 @@
  */
 
 #include <string.h>
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/can/can.h"
+#include "common/phal/gpio.h"
+#include "common/phal/can.h"
 #include "w5500/wizchip_conf.h"
 #include "w5500/socket.h"
 

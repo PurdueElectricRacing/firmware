@@ -13,7 +13,7 @@
 
 #include "can_parse.h"
 #include "common/faults/faults.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 #include "cooling.h"
 #include "main.h"

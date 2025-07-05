@@ -10,7 +10,7 @@
 #include "ff.h"			/* Obtains integer types */
 #include "diskio.h"		/* Declarations of disk functions */
 
-#include "common/phal_F4_F7/rtc/rtc.h"
+#include "common/phal/rtc.h"
 
 /* Set in defines.h file if you want it */
 #ifndef TM_FATFS_CUSTOM_FATTIME

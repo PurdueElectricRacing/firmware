@@ -1,5 +1,5 @@
 #include "fan_control.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;

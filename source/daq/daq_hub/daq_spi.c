@@ -1,6 +1,6 @@
 
 #include "w5500/wizchip_conf.h"
-#include "common/phal_F4_F7/spi/spi.h"
+#include "common/phal/spi.h"
 
 #include "daq_spi.h"
 #include "main.h"

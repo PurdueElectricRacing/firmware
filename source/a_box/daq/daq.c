@@ -10,7 +10,7 @@
  */
 
 #include "daq.h"
-#include "common/phal_F4_F7/can/can.h"
+#include "common/phal/can.h"
 
 // BEGIN AUTO VAR INCLUDES
 #include "orion.h"

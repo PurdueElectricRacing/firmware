@@ -14,7 +14,6 @@
  
  // Includes
  #if defined(STM32F407xx)
- #include "stm32f4xx.h"
  #define TOTAL_NUM_UART 8
  
  // Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)
@@ -26,8 +25,8 @@
  #define USART6_ACTIVE_IDX 5
  #define USART7_ACTIVE_IDX 6
  #define USART8_ACTIVE_IDX 7
+
  #elif defined(STM32F732xx)
- #include "stm32f7xx.h"
  #define TOTAL_NUM_UART 8
  
  // Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)
@@ -44,8 +43,9 @@
  #define USART_BRR_DIV_Fraction_Pos USART_BRR_DIV_FRACTION_Pos
  #define USART_BRR_DIV_Mantissa_Pos USART_BRR_DIV_MANTISSA_Pos
  #endif
+
+ #include "common/phal_F4_F7/phal_F4_F7.h"
  #include "common/phal_F4_F7/dma/dma.h"
- #include <stdbool.h>
  
  typedef uint32_t ptr_int;
  

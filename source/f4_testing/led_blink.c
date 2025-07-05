@@ -15,9 +15,9 @@
 // Guard so cmake doesn't compile all tests
 #if (F4_TESTING_CHOSEN == TEST_LED_BLINK)
 
-#include "common/phal_F4_F7/rcc/rcc.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/usart/usart.h"
+#include "common/phal/rcc.h"
+#include "common/phal/gpio.h"
+#include "common/phal/usart.h"
 #include "common/psched/psched.h"
 #include "common/log/log.h"
 

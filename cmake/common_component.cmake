@@ -50,15 +50,15 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
     target_include_directories(${TARGET_NAME} PUBLIC ${include_dirs} ${_COMPONENT_DIR})
 
     # Linker options
-if(BOOTLOADER_BUILD)
-    target_link_options(${TARGET_NAME} PUBLIC
-        -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}_APP.ld
-    )
-else()
-    target_link_options(${TARGET_NAME} PUBLIC
-        -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}.ld
-    )
-endif()
+    if(BOOTLOADER_BUILD)
+        target_link_options(${TARGET_NAME} PUBLIC
+            -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}_APP.ld
+        )
+    else()
+        target_link_options(${TARGET_NAME} PUBLIC
+            -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}.ld
+        )
+    endif()
 
     # Run postbuild actions like including a bootloader in the final image
     postbuild_target(${TARGET_NAME})

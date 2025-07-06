@@ -100,6 +100,4 @@ add_subdirectory(source/daq)
 
 # Deprecated Components
 # add_subdirectory(source/driveline)
-# add_subdirectory(source/torque_vector_fpga)
 # add_subdirectory(source/template)
-# add_subdirectory(source/bms)

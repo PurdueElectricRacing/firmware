@@ -51,7 +51,7 @@ make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/common/S
 include(cmake/FindFreeRTOS.cmake)
 
 # Add Common modules
-add_subdirectory(common/phal_F4_F7) #L4, F4/F7 directories are never linked together
+add_subdirectory(common/phal_F4_F7)
 add_subdirectory(common/phal_L4)
 add_subdirectory(common/phal_G4)
 add_subdirectory(common/psched)

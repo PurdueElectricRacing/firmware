@@ -99,5 +99,4 @@ add_subdirectory(source/daq)
 
 
 # Deprecated Components
-# add_subdirectory(source/driveline)
 # add_subdirectory(source/template)

@@ -96,12 +96,12 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2can_2can_8h_source.html">common/phal_F4_F7/can/can.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html">common/phal_F4_F7/rcc/rcc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="rtc_8h_source.html">common/phal_F4_F7/rtc/rtc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html">common/phal_F4_F7/spi/spi.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4__F7_2usart_2usart_8h_source.html">common/phal_F4_F7/usart/usart.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/can.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;common/phal/rcc.h&quot;</code><br />
+<code>#include &quot;common/phal/rtc.h&quot;</code><br />
+<code>#include &quot;common/phal/spi.h&quot;</code><br />
+<code>#include &quot;common/phal/usart.h&quot;</code><br />
 <code>#include &quot;common/freertos/freertos.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="buffer_8h_source.html">buffer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq_2main_8h_source.html">main.h</a>&quot;</code><br />
@@ -535,7 +535,7 @@ Variables</h2></td></tr>
 <div class="line">    .apb2_clock_target_hz       = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
 <div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:88</div></div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:77</div></div>
 <div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:30</div></div>
 </div><!-- fragment -->
 </div>
@@ -725,9 +725,9 @@ Variables</h2></td></tr>
 <div class="line">             .seconds_bcd=0x00,</div>
 <div class="line">             .time_format=<a class="code hl_enumvalue" href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a>},</div>
 <div class="line">}</div>
-<div class="ttc" id="artc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:83</div></div>
-<div class="ttc" id="artc_8h_html_a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31"><div class="ttname"><a href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31">RTC_MONTH_FEBRUARY</a></div><div class="ttdeci">@ RTC_MONTH_FEBRUARY</div><div class="ttdef"><b>Definition</b> rtc.h:57</div></div>
-<div class="ttc" id="artc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f"><div class="ttname"><a href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f">RTC_WEEKDAY_TUESDAY</a></div><div class="ttdeci">@ RTC_WEEKDAY_TUESDAY</div><div class="ttdef"><b>Definition</b> rtc.h:73</div></div>
+<div class="ttc" id="artc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:72</div></div>
+<div class="ttc" id="artc_8h_html_a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31"><div class="ttname"><a href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31">RTC_MONTH_FEBRUARY</a></div><div class="ttdeci">@ RTC_MONTH_FEBRUARY</div><div class="ttdef"><b>Definition</b> rtc.h:46</div></div>
+<div class="ttc" id="artc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f"><div class="ttname"><a href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f">RTC_WEEKDAY_TUESDAY</a></div><div class="ttdeci">@ RTC_WEEKDAY_TUESDAY</div><div class="ttdef"><b>Definition</b> rtc.h:62</div></div>
 </div><!-- fragment -->
 </div>
 </div>

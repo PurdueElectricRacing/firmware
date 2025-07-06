@@ -98,9 +98,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;stm32f4xx.h&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4__F7_2dma_2dma_8h.html">common/phal_F4_F7/dma/dma.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4__F7_2rcc_2rcc_8h.html">common/phal_F4_F7/rcc/rcc.h</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4__F7_2gpio_2gpio_8h.html">common/phal_F4_F7/gpio/gpio.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;common/phal/dma.h&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;common/phal/rcc.h&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;common/phal/gpio.h&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;common_defs.h&quot;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
@@ -445,9 +445,6 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span><span class="preprocessor">#endif </span><span class="comment">/* _PHAL_SDIO_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="adashboard_2main_8c_html_a4971180e813d33303c758243debeb13e"><div class="ttname"><a href="dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e">cmd</a></div><div class="ttdeci">uint8_t cmd[NXT_STR_SIZE]</div><div class="ttdoc">Called periodically to send commands to the Nextion LCD display via USART.</div><div class="ttdef"><b>Definition</b> main.c:633</div></div>
-<div class="ttc" id="aphal__F4__F7_2dma_2dma_8h_html"><div class="ttname"><a href="phal__F4__F7_2dma_2dma_8h.html">dma.h</a></div></div>
-<div class="ttc" id="aphal__F4__F7_2gpio_2gpio_8h_html"><div class="ttname"><a href="phal__F4__F7_2gpio_2gpio_8h.html">gpio.h</a></div><div class="ttdoc">GPIO Driver for STM32L432 Devices.</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html">rcc.h</a></div><div class="ttdoc">RCC Configuration Driver for STM32F4 Devices.</div></div>
 <div class="ttc" id="asdio_8h_html_a1c49d266e4f9ba33b7a425361a30d227"><div class="ttname"><a href="sdio_8h.html#a1c49d266e4f9ba33b7a425361a30d227">SD_GetState</a></div><div class="ttdeci">SDCardState SD_GetState(void)</div><div class="ttdoc">Returns the current card&#39;s state.</div><div class="ttdef"><b>Definition</b> sdio.c:208</div></div>
 <div class="ttc" id="asdio_8h_html_a3c927d4d98ffb6f3cc2442b09c19926c"><div class="ttname"><a href="sdio_8h.html#a3c927d4d98ffb6f3cc2442b09c19926c">SD_Init</a></div><div class="ttdeci">SD_Error SD_Init(void)</div><div class="ttdoc">Initialize the SD Card for Data Transfer.</div><div class="ttdef"><b>Definition</b> sdio.c:113</div></div>
 <div class="ttc" id="asdio_8h_html_a42ab410b834d74d7f3ee757dc888b8cc"><div class="ttname"><a href="sdio_8h.html#a42ab410b834d74d7f3ee757dc888b8cc">SD_WaitReadOperation</a></div><div class="ttdeci">SD_Error SD_WaitReadOperation(void)</div><div class="ttdoc">This function waits until the SDIO DMA data transfer is finished. This function should be called afte...</div><div class="ttdef"><b>Definition</b> sdio.c:820</div></div>

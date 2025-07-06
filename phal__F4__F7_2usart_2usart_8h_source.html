@@ -98,38 +98,38 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> <span class="comment">// Includes</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor"> #if defined(STM32F407xx)</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor"> #include &quot;stm32f4xx.h&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor"> #define TOTAL_NUM_UART 8</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> <span class="comment">// Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor"> #define USART1_ACTIVE_IDX 0</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor"> #define USART2_ACTIVE_IDX 1</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor"> #define USART3_ACTIVE_IDX 2</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor"> #define USART4_ACTIVE_IDX 3</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor"> #define USART5_ACTIVE_IDX 4</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor"> #define USART6_ACTIVE_IDX 5</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor"> #define USART7_ACTIVE_IDX 6</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor"> #define USART8_ACTIVE_IDX 7</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor"> #define TOTAL_NUM_UART 8</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> <span class="comment">// Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor"> #define USART1_ACTIVE_IDX 0</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor"> #define USART2_ACTIVE_IDX 1</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor"> #define USART3_ACTIVE_IDX 2</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor"> #define USART4_ACTIVE_IDX 3</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor"> #define USART5_ACTIVE_IDX 4</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor"> #define USART6_ACTIVE_IDX 5</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor"> #define USART7_ACTIVE_IDX 6</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor"> #define USART8_ACTIVE_IDX 7</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor"> #elif defined(STM32F732xx)</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor"> #include &quot;stm32f7xx.h&quot;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor"> #define TOTAL_NUM_UART 8</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> <span class="comment">// Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor"> #define USART1_ACTIVE_IDX 0</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor"> #define USART2_ACTIVE_IDX 1</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor"> #define USART3_ACTIVE_IDX 2</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor"> #define USART4_ACTIVE_IDX 3</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor"> #define USART5_ACTIVE_IDX 4</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor"> #define USART6_ACTIVE_IDX 5</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor"> #define USART7_ACTIVE_IDX 6</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor"> #define USART8_ACTIVE_IDX 7</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> <span class="comment">// Defines that mean the same thing but are phrased differently in stm32f4xx and stm32f7xx</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor"> #define USART_BRR_DIV_Fraction_Pos USART_BRR_DIV_FRACTION_Pos</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor"> #define USART_BRR_DIV_Mantissa_Pos USART_BRR_DIV_MANTISSA_Pos</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor"> #endif</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor"> #include &quot;<a class="code" href="phal__F4__F7_2dma_2dma_8h.html">common/phal_F4_F7/dma/dma.h</a>&quot;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor"> #include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor"> #define TOTAL_NUM_UART 8</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> <span class="comment">// Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor"> #define USART1_ACTIVE_IDX 0</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor"> #define USART2_ACTIVE_IDX 1</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor"> #define USART3_ACTIVE_IDX 2</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor"> #define USART4_ACTIVE_IDX 3</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor"> #define USART5_ACTIVE_IDX 4</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor"> #define USART6_ACTIVE_IDX 5</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor"> #define USART7_ACTIVE_IDX 6</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor"> #define USART8_ACTIVE_IDX 7</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> <span class="comment">// Defines that mean the same thing but are phrased differently in stm32f4xx and stm32f7xx</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor"> #define USART_BRR_DIV_Fraction_Pos USART_BRR_DIV_FRACTION_Pos</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor"> #define USART_BRR_DIV_Mantissa_Pos USART_BRR_DIV_MANTISSA_Pos</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor"> #endif</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor"> #include &quot;<a class="code" href="phal__F4__F7_8h.html">common/phal_F4_F7/phal_F4_F7.h</a>&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor"> #include &quot;<a class="code" href="phal__F4__F7_2dma_2dma_8h.html">common/phal_F4_F7/dma/dma.h</a>&quot;</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> <span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="i2c__alt_8h.html#a44e0b82277af9738fcb79164886954c9">ptr_int</a>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
@@ -404,6 +404,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a61341976b0cee71be1b6cf3bc17db4de"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de">usart_recieve_complete_callback</a></div><div class="ttdeci">void usart_recieve_complete_callback(usart_init_t *handle)</div><div class="ttdoc">Callback function called immediately after reception of a USART RX message Uses USART IDLE line inter...</div><div class="ttdef"><b>Definition</b> main.c:361</div></div>
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a716a03068c8b5c1138c217cfd2c5e689"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a716a03068c8b5c1138c217cfd2c5e689">PHAL_usartRxDma</a></div><div class="ttdeci">bool PHAL_usartRxDma(usart_init_t *handle, uint16_t *data, uint32_t len, bool cont)</div><div class="ttdoc">Starts an rx using dma of a specific length.</div><div class="ttdef"><b>Definition</b> usart.c:278</div></div>
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_abbaa51dfa3243c22b4015aaff9eba9da"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#abbaa51dfa3243c22b4015aaff9eba9da">PHAL_usartTxDma</a></div><div class="ttdeci">bool PHAL_usartTxDma(usart_init_t *handle, uint16_t *data, uint32_t len)</div><div class="ttdoc">Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete.</div><div class="ttdef"><b>Definition</b> usart.c:206</div></div>
+<div class="ttc" id="aphal__F4__F7_8h_html"><div class="ttname"><a href="phal__F4__F7_8h.html">phal_F4_F7.h</a></div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493">word_length_t</a></div><div class="ttdeci">word_length_t</div><div class="ttdef"><b>Definition</b> usart.h:35</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:36</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274">WORD_9</a></div><div class="ttdeci">@ WORD_9</div><div class="ttdef"><b>Definition</b> usart.h:37</div></div>

@@ -16,6 +16,5 @@ var searchData=
   ['ht_13',['ht',['../structpVCU__struct.html#ad88b860274726778ea4447e8e0dcd8ac',1,'pVCU_struct']]],
   ['huart1_14',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
   ['huart_5fgps_15',['huart_gps',['../torque__vector_2main_8c.html#a0d49045de5c409dc29074762dc55a583',1,'main.c']]],
-  ['hv_5fpresent_16',['hv_present',['../structmotor__t.html#a886bd4f9cf1c48a76b8ad5a7469989e9',1,'motor_t']]],
-  ['hw_5fflow_5fctl_17',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['hw_5fflow_5fctl_16',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
 ];

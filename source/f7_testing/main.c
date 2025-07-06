@@ -1,5 +1,5 @@
-#include "common/phal_F4_F7/rcc/rcc.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/rcc.h"
+#include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 
 GPIOInitConfig_t gpio_config[] = {

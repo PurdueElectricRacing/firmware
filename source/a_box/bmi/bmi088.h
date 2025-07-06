@@ -16,8 +16,8 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include "bsxlite_interface.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/spi/spi.h"
+#include "common/phal/gpio.h"
+#include "common/phal/spi.h"
 
 #define BMI088_GYRO_CHIP_ID         (0x0FU)
 #define BMI088_ACC_CHIP_ID          (0x1EU)

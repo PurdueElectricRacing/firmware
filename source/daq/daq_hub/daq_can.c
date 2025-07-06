@@ -1,7 +1,7 @@
 
 #include <string.h>
 
-#include "common/phal_F4_F7/can/can.h"
+#include "common/phal/can.h"
 #include "common/freertos/freertos.h"
 #include "daq_can.h"
 #include "daq_hub.h"

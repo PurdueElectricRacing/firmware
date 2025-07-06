@@ -11,7 +11,7 @@
 
 #include "bmi088.h"
 #include "bsxlite_interface.h"
-#include "common/phal_F4_F7/spi/spi.h"
+#include "common/phal/spi.h"
 #include "common_defs.h"
 #include "main.h"
 #include "common/psched/psched.h"

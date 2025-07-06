@@ -13,10 +13,10 @@
 #ifndef _PHAL_GPIO_H_
 #define _PHAL_GPIO_H_
 
+#include "common/phal_F4_F7/phal_F4_F7.h"
+
 #if defined(STM32F407xx)
-#include "stm32f4xx.h"
 #elif defined(STM32F732xx)
-#include "stm32f7xx.h"
 //Alternate Function register redifinition
 #define GPIO_AFRL_AFSEL0_Msk GPIO_AFRL_AFRL0_Msk
 #define GPIO_AFRL_AFSEL1_Msk GPIO_AFRL_AFRL1_Msk
@@ -48,7 +48,6 @@
 #else
 #error "Please define a MCU arch"
 #endif
-#include <stdbool.h>
 
 /**
  * @brief Configuration type for GPIO Pin

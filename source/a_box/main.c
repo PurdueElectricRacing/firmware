@@ -5,11 +5,11 @@
 #include "common/common_defs/common_defs.h"
 #include "common/psched/psched.h"
 #include "common/faults/faults.h"
-#include "common/phal_F4_F7/can/can.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/rcc/rcc.h"
-#include "common/phal_F4_F7/adc/adc.h"
-#include "common/phal_F4_F7/dma/dma.h"
+#include "common/phal/can.h"
+#include "common/phal/gpio.h"
+#include "common/phal/rcc.h"
+#include "common/phal/adc.h"
+#include "common/phal/dma.h"
 
 /* Module Includes */
 #include "main.h"

@@ -18,9 +18,9 @@
 #include "common/phal_L4/gpio/gpio.h"
 #endif
 #if defined(STM32F407xx) || defined(STM32F732xx)
-#include "common/phal_F4_F7/flash/flash.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
-#include "common/phal_F4_F7/crc/crc.h"
+#include "common/phal/flash.h"
+#include "common/phal/gpio.h"
+#include "common/phal/crc.h"
 #endif
 
 /* F4:

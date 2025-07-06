@@ -15,7 +15,7 @@
 
 #include <string.h>
 
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal/gpio.h"
 #include "main.h"
 #include "daq_can.h"
 #include "daq_hub.h"

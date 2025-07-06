@@ -14,13 +14,13 @@
 
 #include "bootloader.h"
 
+#include "common/phal/crc.h"
 #include "common/phal/flash.h"
 #include "common/phal/gpio.h"
-#include "common/phal/crc.h"
 
 #if defined(STM32F407xx)
 
-/* F4 Flash Layout:
+/* F407 Flash Layout:
  *
  * 0x08000000 ]  16K [bootloader code]
  * 0x08004000 ]  16K [metadata region/boot manager]
@@ -29,7 +29,7 @@
  * 0x08080000 ] 256K [backup firmware]
  */
 
-#define MAX_FIRMWARE_SIZE        0x40000
+#define MAX_FIRMWARE_SIZE        0x40000  // 256 KB
 #define BL_ADDRESS_BOOTLOADER 0x08000000  // 0: bootloader (sector 0, 16K)
 #define BL_ADDRESS_CRC        0x08004000  // 1: crc metadata (sector 1, 16K)
 #define BL_ADDRESS_APP        0x08008000  // 2: application (256K)
@@ -38,17 +38,28 @@
 
 #elif defined(STM32F732xx)
 
-#error "Not supported"
-// TODO
+/*
+ * STM32F732 FLASH LAYOUT (512 KB):
+ *
+ * 0x08000000 ]  16 KB  [bootloader]
+ * 0x08004000 ]  16 KB  [metadata / CRC]
+ * 0x08008000 ]  64 KB  [reserved]
+ * 0x08010000 ] 128 KB  [application]
+ * 0x08030000 ] 128 KB  [temporary buffer]
+ * 0x08050000 ] 128 KB  [backup firmware]
+ */
+#define MAX_FIRMWARE_SIZE        0x20000  // 128 KB
 
-#elif defined(STM32L496xx) || defined(STM32L432xx)
-
-#error "Not supported"
-// TODO
+#define BL_ADDRESS_BOOTLOADER    0x08000000  // Sector 0
+#define BL_ADDRESS_CRC           0x08004000  // Sector 1
+#define BL_ADDRESS_RESERVED      0x08008000  // Sector 2–3 (unused / alignment)
+#define BL_ADDRESS_APP           0x08010000  // Sector 4 (128 KB)
+#define BL_ADDRESS_BUFFER        0x08030000  // Sector 5 (128 KB)
+#define BL_ADDRESS_BACKUP        0x08050000  // Sector 6 (128 KB)
 
 #elif defined(STM32G474xx)
 
-/* G4 Flash Layout (512 KB total, 2 KB pages)
+/* G474 Flash Layout (512 KB total, 2 KB pages)
  *
  * 0x08000000 ]  16 KB [bootloader code]       (pages 0–7)
  * 0x08004000 ]  16 KB [metadata region]       (pages 8–15)
@@ -56,13 +67,15 @@
  * 0x08030000 ] 160 KB [temporary buffer]      (pages 96–175)
  * 0x08058000 ] 160 KB [backup firmware]       (pages 176–255)
  */
-#define MAX_FIRMWARE_SIZE           0x28000
+#define MAX_FIRMWARE_SIZE           0x28000  // 160 KB
 #define BL_ADDRESS_BOOTLOADER    0x08000000  // 0: bootloader (16 KB → pages 0–7)
 #define BL_ADDRESS_CRC           0x08004000  // 1: crc metadata (16 KB → pages 8–15)
 #define BL_ADDRESS_APP           0x08008000  // 2: application (160 KB → pages 16–95)
 #define BL_ADDRESS_BUFFER        0x08030000  // 3: temporary buffer (160 KB → pages 96–175)
 #define BL_ADDRESS_BACKUP        0x08058000  // 4: last known good firmware (160 KB → pages 176–255)
 
+#else
+#error "Not supported"
 #endif
 
 #define BL_ADDRESS_CRC_CRC  ((BL_ADDRESS_CRC) + 0)

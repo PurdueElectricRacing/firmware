@@ -947,7 +947,6 @@ INPUT                  = source \
                          common/modules \
                          common/phal_L4 \
                          common/phal_F4_F7 \
-                         common/plettenberg \
                          common/queue \
                          common/psched
 

@@ -15,7 +15,7 @@
   #define PHAL_ARCH_L4
 #elif defined(STM32F407xx) || defined(STM32F732xx)
   #define PHAL_ARCH_F4_F7
-#elif defined(STM32G431xx) || defined(STM32G474xx)
+#elif defined(STM32G474xx)
   #define PHAL_ARCH_G4
 #else
   #error "Unable to infer PHAL_ARCH from STM32 device macro. Please define one manually if needed."

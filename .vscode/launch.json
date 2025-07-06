@@ -209,6 +209,30 @@
                 "samplesPerSecond":5
             }
         },
+        {
+            "name": "g4_testing",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/g4_testing/g4_testing.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device:": "STM32G474CET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/g4_testing"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 5
+            }
+        },
         {   "name": "A_Box",
             "cwd": "${workspaceRoot}",
             "executable": "./output/a_box/a_box.elf",

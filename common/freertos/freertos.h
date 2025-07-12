@@ -11,6 +11,8 @@
 #define _FREERTOS_DIR common/STM32CubeF4/Middlewares/Third_Party/FreeRTOS/Source/
 #elif defined(STM32F732xx)
 #define _FREERTOS_DIR common/STM32CubeF7/Middlewares/Third_Party/FreeRTOS/Source/
+#elif defined(STM32G474xx)
+#define _FREERTOS_DIR common/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/
 #else
 #error "Unsupported MCU arch"
 #endif
@@ -18,7 +20,9 @@
 #include _FREERTOS_PATH(include/FreeRTOS.h)
 #include _FREERTOS_PATH(CMSIS_RTOS_V2/cmsis_os2.h)
 
-#include _FREERTOS_PATH(include/atomic.h)
+#if !defined(STM32F732xx)
+    #include _FREERTOS_PATH(include/atomic.h)
+#endif
 #include _FREERTOS_PATH(include/list.h)
 #include _FREERTOS_PATH(include/queue.h)
 #include _FREERTOS_PATH(include/semphr.h)

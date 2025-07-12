@@ -47,9 +47,19 @@
 extern uint32_t SystemCoreClock;
 #endif
 
-#ifndef CMSIS_device_header
-#define CMSIS_device_header "stm32f4xx.h"
-#endif /* CMSIS_device_header */
+#ifdef CMSIS_device_header
+#undef CMSIS_device_header
+#endif
+
+#if defined(STM32F407xx)
+    #define CMSIS_device_header "stm32f4xx.h"
+#elif defined(STM32F732xx)
+    #define CMSIS_device_header "stm32f7xx.h"
+#elif defined(STM32G474xx)
+    #define CMSIS_device_header "stm32g4xx.h"
+#else
+    #error "MCU Arch not supported"
+#endif
 
 /*  CMSIS-RTOSv2 defines 56 levels of priorities. To be able to use them
  *  all and avoid application misbehavior,

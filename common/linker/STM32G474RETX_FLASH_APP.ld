@@ -1,51 +1,40 @@
-/*
-******************************************************************************
-**
-** @file        : STM32F732_BL.ld
-**
-** @brief       : Linker script for STM32F732 Bootloader
-**                - Bootloader: 0x08000000 → 0x08007FFF (32 KB)
-**                - Metadata/CRC: 0x08004000 → 0x0800FFFF (64 KB)
-**                - Application starts at 0x08010000
-**
-**                RAM: 256 KB @ 0x20000000
-**
-******************************************************************************
-*/
+/* Linker script for STM32G474 application region (160 KB)
+ * Based on bootloader layout:
+ *   0x08000000 - 0x08003FFF : bootloader
+ *   0x08004000 - 0x08007FFF : metadata / CRC
+ *   0x08008000 - 0x0802FFFF : application
+ */
 
-/* Entry Point */
 ENTRY(Reset_Handler)
 
-/* Stack and Heap */
-_estack = ORIGIN(RAM) + LENGTH(RAM);
-_Min_Heap_Size = 0x200;
-_Min_Stack_Size = 0x400;
-
-/* Define app start for jump logic */
-PROVIDE(_eboot_flash = 0x08010000);
-
-/* Memory regions */
+/* Define memory regions */
 MEMORY
 {
-  RAM    (xrw) : ORIGIN = 0x20000000, LENGTH = 256K
-  FLASH  (rx)  : ORIGIN = 0x08000000, LENGTH = 16K
+  FLASH (rx)  : ORIGIN = 0x08008000, LENGTH = 160K
+  RAM   (xrw) : ORIGIN = 0x20000000, LENGTH = 128K
 }
 
-/* Sections */
+/* Define stack and heap sizes */
+_Min_Heap_Size = 0x200;  /* 512 B heap */
+_Min_Stack_Size = 0x400; /* 1 KB stack */
+
+_estack = ORIGIN(RAM) + LENGTH(RAM); /* top of stack */
+
+/* Sections layout */
 SECTIONS
 {
   .isr_vector :
   {
     . = ALIGN(4);
-    KEEP(*(.isr_vector))
+    KEEP(*(.isr_vector)) /* Vector table */
     . = ALIGN(4);
   } >FLASH
 
   .text :
   {
     . = ALIGN(4);
-    *(.text)
-    *(.text*)
+    *(.text)           /* code */
+    *(.text*)          /* code */
     *(.glue_7)
     *(.glue_7t)
     *(.eh_frame)
@@ -66,8 +55,7 @@ SECTIONS
   } >FLASH
 
   .ARM.extab : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >FLASH
-  .ARM :
-  {
+  .ARM.exidx : {
     __exidx_start = .;
     *(.ARM.exidx*)
     __exidx_end = .;
@@ -75,6 +63,7 @@ SECTIONS
 
   .preinit_array :
   {
+    . = ALIGN(4);
     PROVIDE_HIDDEN(__preinit_array_start = .);
     KEEP(*(.preinit_array*))
     PROVIDE_HIDDEN(__preinit_array_end = .);
@@ -82,6 +71,7 @@ SECTIONS
 
   .init_array :
   {
+    . = ALIGN(4);
     PROVIDE_HIDDEN(__init_array_start = .);
     KEEP(*(SORT(.init_array.*)))
     KEEP(*(.init_array*))
@@ -90,6 +80,7 @@ SECTIONS
 
   .fini_array :
   {
+    . = ALIGN(4);
     PROVIDE_HIDDEN(__fini_array_start = .);
     KEEP(*(SORT(.fini_array.*)))
     KEEP(*(.fini_array*))
@@ -97,26 +88,26 @@ SECTIONS
   } >FLASH
 
   _sidata = LOADADDR(.data);
-  .data :
+
+  .data : AT (_sidata)
   {
+    . = ALIGN(4);
     _sdata = .;
     *(.data)
     *(.data*)
-    *(.RamFunc*)
     . = ALIGN(4);
     _edata = .;
-  } >RAM AT> FLASH
+  } >RAM
 
   .bss :
   {
+    . = ALIGN(4);
     _sbss = .;
-    __bss_start__ = _sbss;
     *(.bss)
     *(.bss*)
     *(COMMON)
     . = ALIGN(4);
     _ebss = .;
-    __bss_end__ = _ebss;
   } >RAM
 
   ._user_heap_stack :
@@ -129,12 +120,7 @@ SECTIONS
     . = ALIGN(8);
   } >RAM
 
-  /DISCARD/ :
-  {
-    libc.a ( * )
-    libm.a ( * )
-    libgcc.a ( * )
-  }
+  /DISCARD/ : { libc.a ( * ) libm.a ( * ) libgcc.a ( * ) }
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 }

@@ -1,9 +1,7 @@
-# CMAKE file for building STM32CubeF4 FreeRTOS module
 
-set(LIB_PATH "${CMAKE_SOURCE_DIR}/common/STM32CubeF4/Middlewares/Third_Party/FreeRTOS/Source")
-
-function(make_freertos_library LIB_NAME)
+function(make_freertos_library LIB_NAME DIRNAME LINK_NAME)
     add_library(${LIB_NAME} STATIC)
+    set(LIB_PATH "${CMAKE_SOURCE_DIR}/common/${DIRNAME}/Middlewares/Third_Party/FreeRTOS/Source")
 
     target_include_directories(${LIB_NAME}
         PUBLIC ${LIB_PATH}/include
@@ -16,9 +14,12 @@ function(make_freertos_library LIB_NAME)
     target_sources(${LIB_NAME}
         PUBLIC ${glob_sources}
     )
-    target_link_libraries(${LIB_NAME} CMSIS_F407)
+    target_link_libraries(${LIB_NAME} ${LINK_NAME})
 
 endfunction()
 
 # Create multiple libraries with different defines
-make_freertos_library(FREERTOS_LIB)
+
+make_freertos_library(FREERTOS_LIB_F407 STM32CubeF4 CMSIS_F407)
+make_freertos_library(FREERTOS_LIB_F732 STM32CubeF7 CMSIS_F732)
+make_freertos_library(FREERTOS_LIB_G474 STM32CubeG4 CMSIS_G474)

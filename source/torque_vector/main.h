@@ -14,52 +14,51 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+#include "bmi088.h"
+#include "bsxlite_interface.h"
 #include "common/faults/fault_nodes.h"
 #include "common/phal/can.h"
-
-#include "bsxlite_interface.h"
-#include "bmi088.h"
-#include "imu.h"
 #include "gps.h"
+#include "imu.h"
 #include "vcu.h"
 
 #define FAULT_NODE_NAME NODE_TORQUE_VECTOR
 
 /* Status Indicators */
-#define ERR_LED_GPIO_Port (GPIOB)
-#define ERR_LED_Pin (5)
-#define CONN_LED_GPIO_Port (GPIOB)
-#define CONN_LED_Pin (7)
-#define CONN_LED_MS_THRESH (500)
+#define ERR_LED_GPIO_Port   (GPIOB)
+#define ERR_LED_Pin         (5)
+#define CONN_LED_GPIO_Port  (GPIOB)
+#define CONN_LED_Pin        (7)
+#define CONN_LED_MS_THRESH  (500)
 #define HEARTBEAT_GPIO_Port (GPIOB)
-#define HEARTBEAT_Pin (6)
+#define HEARTBEAT_Pin       (6)
 
 /* IMU */
 #define SPI_SCLK_GPIO_Port (GPIOA)
-#define SPI_SCLK_Pin (5)
+#define SPI_SCLK_Pin       (5)
 #define SPI_MISO_GPIO_Port (GPIOA)
-#define SPI_MISO_Pin (6)
+#define SPI_MISO_Pin       (6)
 #define SPI_MOSI_GPIO_Port (GPIOA)
-#define SPI_MOSI_Pin (7)
+#define SPI_MOSI_Pin       (7)
 
 #define SPI_CS_ACEL_GPIO_Port (GPIOA)
-#define SPI_CS_ACEL_Pin (3)
+#define SPI_CS_ACEL_Pin       (3)
 #define SPI_CS_GYRO_GPIO_Port (GPIOA)
-#define SPI_CS_GYRO_Pin (2)
-#define SPI_CS_MAG_GPIO_Port (GPIOB)
-#define SPI_CS_MAG_Pin (0)
+#define SPI_CS_GYRO_Pin       (2)
+#define SPI_CS_MAG_GPIO_Port  (GPIOB)
+#define SPI_CS_MAG_Pin        (0)
 
 /* GPS */
-#define GPS_RX_GPIO_Port (GPIOC)
-#define GPS_RX_Pin (5)
-#define GPS_TX_GPIO_Port (GPIOC)
-#define GPS_TX_Pin (4)
+#define GPS_RX_GPIO_Port    (GPIOC)
+#define GPS_RX_Pin          (5)
+#define GPS_TX_GPIO_Port    (GPIOC)
+#define GPS_TX_Pin          (4)
 #define GPS_RESET_GPIO_Port (GPIOC)
 #define GPS_RESET_Pin       (9)
 
 // If you modify this struct, update the Python script accordingly
 // The Python script must match this exact structure for correct data parsing.
-// 
+//
 // Python struct format specifiers:
 //   - 'f' -> float (4 bytes)
 //   - 'i' -> int (4 bytes)
@@ -116,7 +115,7 @@ struct __attribute__((packed)) serial_tx {
 
 // If you modify this struct, update the Python script accordingly
 // The Python script must match this exact structure for correct data parsing.
-// 
+//
 // Python struct format specifiers:
 //   - 'f' -> float (4 bytes)
 //   - 'i' -> int (4 bytes)
@@ -169,6 +168,6 @@ struct __attribute__((packed)) serial_rx {
     float VT_permit_buffer[5]; // size is given py pVCU.VT_permit_N
 };
 
-void canTxSendToBack(CanMsgTypeDef_t *msg);
+void canTxSendToBack(CanMsgTypeDef_t* msg);
 
 #endif

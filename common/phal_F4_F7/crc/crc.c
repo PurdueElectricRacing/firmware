@@ -11,28 +11,25 @@
 
 #include "crc.h"
 
-void PHAL_CRC32_Reset(void)
-{
+void PHAL_CRC32_Reset(void) {
     // CRC initializaion
 #if defined(STM32L496xx) || defined(STM32L432xx) || defined(STM32F732xx)
-    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;  // Clock the CRC peripheral
-    CRC->INIT = 0xFFFFFFFF;             // Reset initial value
-    CRC->CR &= ~CRC_CR_POLYSIZE_Msk;    // Set 32 bit (00)
-    CRC->POL = 0x04C11DB7;              // CRC-32b (Ethernet Polynomial)
-    CRC->CR |= CRC_CR_RESET;            // Reset CRC
+    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN; // Clock the CRC peripheral
+    CRC->INIT = 0xFFFFFFFF; // Reset initial value
+    CRC->CR &= ~CRC_CR_POLYSIZE_Msk; // Set 32 bit (00)
+    CRC->POL = 0x04C11DB7; // CRC-32b (Ethernet Polynomial)
+    CRC->CR |= CRC_CR_RESET; // Reset CRC
 #else
-    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;  // F4 only supports CRC-32b
+    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN; // F4 only supports CRC-32b
     CRC->CR = CRC_CR_RESET;
 #endif
 }
 
-void PHAL_CRC32_Init(void)
-{
+void PHAL_CRC32_Init(void) {
     PHAL_CRC32_Reset();
 }
 
-uint32_t PHAL_CRC32_Calculate(uint32_t *data, uint32_t count)
-{
+uint32_t PHAL_CRC32_Calculate(uint32_t* data, uint32_t count) {
     PHAL_CRC32_Reset();
     __DSB();
 
@@ -43,14 +40,25 @@ uint32_t PHAL_CRC32_Calculate(uint32_t *data, uint32_t count)
 }
 
 static const uint32_t crc32b_LUT[16] = {
-    0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9,
-    0x130476DC, 0x17C56B6B, 0x1A864DB2, 0x1E475005,
-    0x2608EDB8, 0x22C9F00F, 0x2F8AD6D6, 0x2B4BCB61,
-    0x350C9B64, 0x31CD86D3, 0x3C8EA00A, 0x384FBDBD,
+    0x00000000,
+    0x04C11DB7,
+    0x09823B6E,
+    0x0D4326D9,
+    0x130476DC,
+    0x17C56B6B,
+    0x1A864DB2,
+    0x1E475005,
+    0x2608EDB8,
+    0x22C9F00F,
+    0x2F8AD6D6,
+    0x2B4BCB61,
+    0x350C9B64,
+    0x31CD86D3,
+    0x3C8EA00A,
+    0x384FBDBD,
 };
 
-static inline uint32_t update_crc(uint32_t crc, uint32_t data)
-{
+static inline uint32_t update_crc(uint32_t crc, uint32_t data) {
     crc = crc ^ data; // Apply all 32-bits
 
     // Process 32-bits, 4 at a time, or 8 rounds
@@ -66,8 +74,7 @@ static inline uint32_t update_crc(uint32_t crc, uint32_t data)
     return crc;
 }
 
-uint32_t PHAL_CRC32_CalculateSW(uint32_t *data, uint32_t count)
-{
+uint32_t PHAL_CRC32_CalculateSW(uint32_t* data, uint32_t count) {
     uint32_t crc = 0xFFFFFFFF;
     for (uint32_t i = 0; i < count; i++)
         crc = update_crc(crc, data[i]);

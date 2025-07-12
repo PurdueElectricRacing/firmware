@@ -13,33 +13,23 @@
 #define _PHAL_TIM_H
 
 #include <stdbool.h>
+
 #include "stm32l4xx.h"
 
 typedef enum {
-    ITR0    = 0b000,
-    ITR1    = 0b001,
-    ITR2    = 0b010,
-    ITR3    = 0b011,
+    ITR0 = 0b000,
+    ITR1 = 0b001,
+    ITR2 = 0b010,
+    ITR3 = 0b011,
     TI1F_ED = 0b100,
-    TI1FP1  = 0b101,
-    TI2FP2  = 0b110,
-    ETRF    = 0b111
+    TI1FP1 = 0b101,
+    TI2FP2 = 0b110,
+    ETRF = 0b111
 } TimerTriggerSelection_t;
 
-typedef enum {
-    CC1 = 1,
-    CC2 = 2,
-    CC3 = 3,
-    CC4 = 4
-} TimerCCRegister_t;
+typedef enum { CC1 = 1, CC2 = 2, CC3 = 3, CC4 = 4 } TimerCCRegister_t;
 
-typedef enum {
-    CC_OUTPUT   = 0b00,
-    CC_INTERNAL = 0b01,
-    CC_EXTERNAL = 0b10,
-    CC_TRC      = 0b11
-} TimerInputMode_t;
-
+typedef enum { CC_OUTPUT = 0b00, CC_INTERNAL = 0b01, CC_EXTERNAL = 0b10, CC_TRC = 0b11 } TimerInputMode_t;
 
 bool PHAL_enableTIMClk(TIM_TypeDef* timer);
 /**

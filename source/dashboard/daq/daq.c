@@ -10,6 +10,7 @@
  */
 
 #include "daq.h"
+
 #include "common/daq/daq_base.h"
 #include "common/phal_L4/can/can.h"
 
@@ -19,30 +20,39 @@
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
-    {.is_read_only=0, .bit_length=16, .read_var_a=&thtl_limit, .write_var_a=&thtl_limit, },
-    {.is_read_only=1, .bit_length=32, .read_var_a=&CAN1->ESR, .write_var_a=NULL, },
+    {
+        .is_read_only = 0,
+        .bit_length = 16,
+        .read_var_a = &thtl_limit,
+        .write_var_a = &thtl_limit,
+    },
+    {
+        .is_read_only = 1,
+        .bit_length = 32,
+        .read_var_a = &CAN1->ESR,
+        .write_var_a = NULL,
+    },
 };
+
 // END AUTO VAR DEFS
 
 // BEGIN AUTO FILE DEFAULTS
 // END AUTO FILE DEFAULTS
 
-bool daqInit(q_handle_t* tx_a)
-{
+bool daqInit(q_handle_t* tx_a) {
     // BEGIN AUTO INIT
     uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_DASHBOARD_VCAN, tracked_vars);
     return ret;
     // END AUTO INIT
 }
 
-void daqPeriodic()
-{
+void daqPeriodic() {
     daqPeriodicBase();
 }
 
 // BEGIN AUTO CALLBACK DEF
-void daq_command_DASHBOARD_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-{
-	daq_command_callback(msg_header_a);
+void daq_command_DASHBOARD_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a) {
+    daq_command_callback(msg_header_a);
 }
+
 // END AUTO CALLBACK DEF

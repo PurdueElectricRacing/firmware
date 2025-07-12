@@ -13,6 +13,7 @@
 #define _WHEEL_SPEEDS_H
 
 #include <stdbool.h>
+
 #include "stm32f407xx.h"
 
 // NOTE: if timer clock speed changes, use excel spreadsheet
@@ -21,11 +22,11 @@
 #define WS_TIM_PSC (36)
 // #define WS_TIM_PSC (16)
 #define WS_COUNTS_PER_REV (42)
-#define WS_TIMEOUT_MS (300)
+#define WS_TIMEOUT_MS     (300)
 
 typedef struct {
-  uint16_t left_rad_s_x100;     //!< Left wheel sped rad/s * 100
-  uint16_t right_rad_s_x100;    //!< Right wheel speed rad/s * 100
+    uint16_t left_rad_s_x100; //!< Left wheel sped rad/s * 100
+    uint16_t right_rad_s_x100; //!< Right wheel speed rad/s * 100
 } WheelSpeeds_t;
 
 extern WheelSpeeds_t wheel_speeds;

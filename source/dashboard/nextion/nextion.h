@@ -16,24 +16,25 @@
 #ifndef __NEXTION_H__
 #define __NEXTION_H__
 
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
+
 #include "common/queue/queue.h"
 
 // Size Definitions
-#define NXT_STR_SIZE        50 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
+#define NXT_STR_SIZE 50 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
 #define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
-#define ASCII_OFFSET 		48
+#define ASCII_OFFSET 48
 
 // Color Definitions in 565 format
-#define RED    63488
-#define YELLOW 65504
-#define GREEN  4065
+#define RED        63488
+#define YELLOW     65504
+#define GREEN      4065
 #define RACE_GREEN 1376
-#define WHITE 65535
-#define INFO_GRAY 48631
-#define BLACK 0
-#define ORANGE 64512
+#define WHITE      65535
+#define INFO_GRAY  48631
+#define BLACK      0
+#define ORANGE     64512
 
 // Nextion Command Strings
 #define NXT_BACKGROUND_COLOR ".bco="

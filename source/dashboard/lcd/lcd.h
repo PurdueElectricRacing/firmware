@@ -1,8 +1,8 @@
 #ifndef __LCD_H__
 #define __LCD_H__
 
-#include "nextion.h"
 #include "menu_system.h"
+#include "nextion.h"
 
 // Page Strings (must match Nextion page names)
 #define PREFLIGHT_STRING     "preflight"
@@ -20,8 +20,8 @@
 #define LOGGING_STRING       "logging"
 
 // Info
-#define MPS_TO_MPH (2.237F)
-#define RPM_TO_MPH (0.00595F)
+#define MPS_TO_MPH   (2.237F)
+#define RPM_TO_MPH   (0.00595F)
 #define WHEEL_RADIUS (8) // inches
 
 // Driver Configuration Page
@@ -42,24 +42,24 @@
 #define PROFILE_STATUS_TXT   "stat"
 
 //Error/Knob page values
-#define TIME_BAR "j0"  // todo
+#define TIME_BAR "j0" // todo
 #define ERR_TXT  "t1"
 
 // SDC Info Page
-#define SDC_IMD_STAT_TXT    "t2"
-#define SDC_BMS_STAT_TXT    "t8"
-#define SDC_BSPD_STAT_TXT   "t14"
-#define SDC_BOTS_STAT_TXT   "t20"
-#define SDC_INER_STAT_TXT   "t26"
-#define SDC_CSTP_STAT_TXT   "t4"
-#define SDC_MAIN_STAT_TXT   "t10"
-#define SDC_RSTP_STAT_TXT   "t16"
-#define SDC_LSTP_STAT_TXT   "t22"
-#define SDC_HVD_STAT_TXT    "t6"
-#define SDC_RHUB_STAT_TXT   "t12"
-#define SDC_TSMS_STAT_TXT   "t18"
-#define SDC_PCHG_STAT_TXT   "t24"
-#define SDC_FIRST_TRIP_TXT  "t28"
+#define SDC_IMD_STAT_TXT   "t2"
+#define SDC_BMS_STAT_TXT   "t8"
+#define SDC_BSPD_STAT_TXT  "t14"
+#define SDC_BOTS_STAT_TXT  "t20"
+#define SDC_INER_STAT_TXT  "t26"
+#define SDC_CSTP_STAT_TXT  "t4"
+#define SDC_MAIN_STAT_TXT  "t10"
+#define SDC_RSTP_STAT_TXT  "t16"
+#define SDC_LSTP_STAT_TXT  "t22"
+#define SDC_HVD_STAT_TXT   "t6"
+#define SDC_RHUB_STAT_TXT  "t12"
+#define SDC_TSMS_STAT_TXT  "t18"
+#define SDC_PCHG_STAT_TXT  "t24"
+#define SDC_FIRST_TRIP_TXT "t28"
 
 // Fault Page
 #define FAULT1_BUTTON     "t1"
@@ -84,10 +84,10 @@
 #define TV_MAX_SLIP_FLT     "slip"
 #define TV_CAN_STATUS       "can"
 // Default to Tyler's settings
-#define TV_DEADBAND_DEFAULT_VALUE     5U   // 5
-#define TV_P_GAIN_DEFAULT_VALUE       250U // 2.50
-#define TV_TORQUE_DROP_DEFAULT_VALUE  100U // 1.00
-#define TV_SLIP_DEFAULT_VALUE         100U // 1.00
+#define TV_DEADBAND_DEFAULT_VALUE    5U // 5
+#define TV_P_GAIN_DEFAULT_VALUE      250U // 2.50
+#define TV_TORQUE_DROP_DEFAULT_VALUE 100U // 1.00
+#define TV_SLIP_DEFAULT_VALUE        100U // 1.00
 
 // Cooling Page
 #define DT_FAN_VAL         "DFan"
@@ -100,17 +100,17 @@
 #define COOLING_CAN_STATUS "can"
 
 // Race Page
-#define THROT_BAR    "throt"
-#define BRK_BAR      "brake"
-#define BATT_TEMP    "BTemp"
-#define BATT_VOLT    "volt"
-#define BATT_CURR    "amp"
-#define MOT_TEMP     "MTemp"
-#define MC_TEMP      "IGBTemp" // IGBT Temp now
-#define CAR_STAT     "stat"
-#define SPEED        "speed"
-#define RACE_TV_ON   "tv"
-#define AMK_MOTOR_OVERLOAD  "amk"
+#define THROT_BAR          "throt"
+#define BRK_BAR            "brake"
+#define BATT_TEMP          "BTemp"
+#define BATT_VOLT          "volt"
+#define BATT_CURR          "amp"
+#define MOT_TEMP           "MTemp"
+#define MC_TEMP            "IGBTemp" // IGBT Temp now
+#define CAR_STAT           "stat"
+#define SPEED              "speed"
+#define RACE_TV_ON         "tv"
+#define AMK_MOTOR_OVERLOAD "amk"
 
 // Logging Page
 #define LOG_OP             "log"
@@ -133,42 +133,42 @@
 #define PAGE_COUNT (12)
 
 typedef enum {
-  // Pages selectable with the rot encoder
-  // Should corresspond with the page count in main.h
-  PAGE_RACE        = 0,
-  PAGE_COOLING     = 1,
-  PAGE_TVSETTINGS  = 2,
-  PAGE_FAULTS      = 3,
-  PAGE_SDCINFO     = 4,
-  PAGE_DRIVER      = 5,
-  PAGE_PROFILES    = 6,
-  PAGE_LOGGING     = 7,
-  PAGE_CALIBRATION = 8,
+    // Pages selectable with the rot encoder
+    // Should corresspond with the page count in main.h
+    PAGE_RACE = 0,
+    PAGE_COOLING = 1,
+    PAGE_TVSETTINGS = 2,
+    PAGE_FAULTS = 3,
+    PAGE_SDCINFO = 4,
+    PAGE_DRIVER = 5,
+    PAGE_PROFILES = 6,
+    PAGE_LOGGING = 7,
+    PAGE_CALIBRATION = 8,
 
-  // Pages that can be displayed but not selected with the encoder
-  PAGE_PREFLIGHT   = 9,
-  PAGE_WARNING     = 10,
-  PAGE_ERROR       = 11,
-  PAGE_FATAL       = 12,
+    // Pages that can be displayed but not selected with the encoder
+    PAGE_PREFLIGHT = 9,
+    PAGE_WARNING = 10,
+    PAGE_ERROR = 11,
+    PAGE_FATAL = 12,
 } page_t;
 
 typedef struct {
-  void (*update)(void);
-  void (*move_up)(void);
-  void (*move_down)(void);
-  void (*select)(void);
-  void (*telemetry)(void);
+    void (*update)(void);
+    void (*move_up)(void);
+    void (*move_down)(void);
+    void (*select)(void);
+    void (*telemetry)(void);
 } page_handler_t;
 
-void initLCD();                     // Initialize LCD data structures and configuration
-void updatePage();                  // Change the current page of the LCD
-void moveUp();                      // Upward UI input detected (up button or in some cases encoder)
-void moveDown();                    // Downward UI input detected (down button or in some cases encoder)
-void selectItem();                  // Selection UI input detected
-void updateFaultDisplay();          // Periodically poll recent faults and update the fault buffer and page as needed
-void updateTelemetryPages();        // Periodically poll recent telemetry and update the page as needd
-void sendTVParameters();            // Periodically send updates to the TV configuration to TV board
-void sendCoolingParameters();       // Periodically send updates to the cooling configuration to the cooling board
-void sendLoggingParameters();       // Periodically send updates to the logging configuration to the daq board
+void initLCD(); // Initialize LCD data structures and configuration
+void updatePage(); // Change the current page of the LCD
+void moveUp(); // Upward UI input detected (up button or in some cases encoder)
+void moveDown(); // Downward UI input detected (down button or in some cases encoder)
+void selectItem(); // Selection UI input detected
+void updateFaultDisplay(); // Periodically poll recent faults and update the fault buffer and page as needed
+void updateTelemetryPages(); // Periodically poll recent telemetry and update the page as needd
+void sendTVParameters(); // Periodically send updates to the TV configuration to TV board
+void sendCoolingParameters(); // Periodically send updates to the cooling configuration to the cooling board
+void sendLoggingParameters(); // Periodically send updates to the logging configuration to the daq board
 
 #endif // __LCD_H__

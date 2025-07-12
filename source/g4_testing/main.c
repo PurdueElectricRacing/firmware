@@ -1,12 +1,11 @@
 
+#include "main.h"
+
+#include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-
-#include "common/freertos/freertos.h"
-
-#include "main.h"
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_GREEN_PORT, LED_GREEN_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -21,20 +20,20 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 ADCInitConfig_t adc_config = {
-    .periph         = ADC1,
-    .prescaler      = ADC_CLK_PRESC_0,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .periph = ADC1,
+    .prescaler = ADC_CLK_PRESC_0,
+    .resolution = ADC_RES_12_BIT,
+    .data_align = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .oversample     = ADC_OVERSAMPLE_16,
+    .dma_mode = ADC_DMA_CIRCULAR,
+    .oversample = ADC_OVERSAMPLE_16,
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel = ADC_CHANNEL_1,  .rank = 1,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = ADC_CHANNEL_2,  .rank = 2,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = ADC_CHANNEL_3,  .rank = 3,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = ADC_CHANNEL_4,  .rank = 4,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = ADC_CHANNEL_1, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = ADC_CHANNEL_2, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = ADC_CHANNEL_3, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = ADC_CHANNEL_4, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 
 volatile raw_adc_values_t raw_adc_values = {0};
@@ -42,13 +41,13 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, ADC_
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSI,
-    .use_pll                    =false,
-    .vco_output_rate_target_hz  =160000000,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .clock_source = CLOCK_SOURCE_HSI,
+    .use_pll = false,
+    .vco_output_rate_target_hz = 160000000,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -68,27 +67,22 @@ defineThreadStack(ledblink2, 300, osPriorityNormal, 64);
 defineThreadStack(ledblink3, 500, osPriorityNormal, 64);
 defineThreadStack(ledblink4, 1000, osPriorityNormal, 64);
 
-int main()
-{
+int main() {
     osKernelInitialize();
 
-    if (PHAL_configureClockRates(&clock_config))
-    {
+    if (PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
 
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
-    {
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
 
-    if (!PHAL_initADC(&adc_config, adc_channel_config, ADC_NUM_CHANNELS))
-    {
+    if (!PHAL_initADC(&adc_config, adc_channel_config, ADC_NUM_CHANNELS)) {
         HardFault_Handler();
     }
 
-    if (!PHAL_initDMA(&adc_dma_config))
-    {
+    if (!PHAL_initDMA(&adc_dma_config)) {
         HardFault_Handler();
     }
 
@@ -111,30 +105,24 @@ int main()
     return 0;
 }
 
-static void ledblink1(void)
-{
+static void ledblink1(void) {
     PHAL_toggleGPIO(LED_GREEN_PORT, LED_GREEN_PIN);
 }
 
-static void ledblink2(void)
-{
+static void ledblink2(void) {
     PHAL_toggleGPIO(LED_RED_PORT, LED_RED_PIN);
 }
 
-static void ledblink3(void)
-{
+static void ledblink3(void) {
     PHAL_toggleGPIO(LED_BLUE_PORT, LED_BLUE_PIN);
 }
 
-static void ledblink4(void)
-{
+static void ledblink4(void) {
     PHAL_toggleGPIO(LED_ORANGE_PORT, LED_ORANGE_PIN);
 }
 
-void HardFault_Handler()
-{
-    while(1)
-    {
+void HardFault_Handler() {
+    while (1) {
         __asm__("nop");
     }
 }

@@ -13,8 +13,7 @@
 #define LED_ORANGE_PORT GPIOB
 #define LED_ORANGE_PIN  1
 
-typedef struct __attribute__((packed))
-{
+typedef struct __attribute__((packed)) {
     // Do not modify this struct
     // unless you modify the ADC DMA config in main.h to match
     uint16_t val1;

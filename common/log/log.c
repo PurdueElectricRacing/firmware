@@ -1,10 +1,10 @@
 
-#include "common/common_defs/common_defs.h"
 #include "log.h"
+
+#include "common/common_defs/common_defs.h"
 #include "vsprintf.h"
 
-int snprintf(char *buffer, size_t size, const char *fmt, ...)
-{
+int snprintf(char* buffer, size_t size, const char* fmt, ...) {
     va_list args;
     int i;
 
@@ -14,8 +14,7 @@ int snprintf(char *buffer, size_t size, const char *fmt, ...)
     return i;
 }
 
-int sprintf(char *buffer, const char *fmt, ...)
-{
+int sprintf(char* buffer, const char* fmt, ...) {
     va_list args;
     int i;
 

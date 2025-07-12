@@ -99,26 +99,17 @@ $(function(){ initResizable(false); });
 <p>CAN Bootloader:  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="bootloader_8h_source.html">bootloader.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/crc.h&quot;</code><br />
+<code>#include &quot;common/phal/flash.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aa80f61a287020b338aceab88afc67ca0" id="r_aa80f61a287020b338aceab88afc67ca0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa80f61a287020b338aceab88afc67ca0">MAX_FIRMWARE_SIZE</a>&#160;&#160;&#160;0x40000</td></tr>
-<tr class="separator:aa80f61a287020b338aceab88afc67ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae704f2c8aa0aa6ab2ffc1b25f4ead9fc" id="r_ae704f2c8aa0aa6ab2ffc1b25f4ead9fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae704f2c8aa0aa6ab2ffc1b25f4ead9fc">BL_ADDRESS_BOOTLOADER</a>&#160;&#160;&#160;0x08000000</td></tr>
-<tr class="separator:ae704f2c8aa0aa6ab2ffc1b25f4ead9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f3840cb7ad4e10ddf7aba8ec67ee674" id="r_a8f3840cb7ad4e10ddf7aba8ec67ee674"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>&#160;&#160;&#160;0x08004000</td></tr>
-<tr class="separator:a8f3840cb7ad4e10ddf7aba8ec67ee674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a22027a6eb7046305c88255f771dcfc" id="r_a3a22027a6eb7046305c88255f771dcfc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a22027a6eb7046305c88255f771dcfc">BL_ADDRESS_APP</a>&#160;&#160;&#160;0x08008000</td></tr>
-<tr class="separator:a3a22027a6eb7046305c88255f771dcfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ac1d6fa38b02de43855f87513fa3c3b" id="r_a4ac1d6fa38b02de43855f87513fa3c3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ac1d6fa38b02de43855f87513fa3c3b">BL_ADDRESS_BUFFER</a>&#160;&#160;&#160;<a class="el" href="#a3a22027a6eb7046305c88255f771dcfc">BL_ADDRESS_APP</a></td></tr>
-<tr class="separator:a4ac1d6fa38b02de43855f87513fa3c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adffa4ec39297487e7c599f0b380989d0" id="r_adffa4ec39297487e7c599f0b380989d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adffa4ec39297487e7c599f0b380989d0">BL_ADDRESS_BACKUP</a>&#160;&#160;&#160;0x08080000</td></tr>
-<tr class="separator:adffa4ec39297487e7c599f0b380989d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fec96cd5f5c7c4d4aa65e4ecd852601" id="r_a4fec96cd5f5c7c4d4aa65e4ecd852601"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fec96cd5f5c7c4d4aa65e4ecd852601">BL_ADDRESS_CRC_CRC</a>&#160;&#160;&#160;((<a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>) + 0)</td></tr>
+<tr class="memitem:a4fec96cd5f5c7c4d4aa65e4ecd852601" id="r_a4fec96cd5f5c7c4d4aa65e4ecd852601"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fec96cd5f5c7c4d4aa65e4ecd852601">BL_ADDRESS_CRC_CRC</a>&#160;&#160;&#160;((BL_ADDRESS_CRC) + 0)</td></tr>
 <tr class="separator:a4fec96cd5f5c7c4d4aa65e4ecd852601"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9adae0caf992e9179d9d8ba4ed569a7a" id="r_a9adae0caf992e9179d9d8ba4ed569a7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9adae0caf992e9179d9d8ba4ed569a7a">BL_ADDRESS_CRC_ADDR</a>&#160;&#160;&#160;((<a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>) + 4)</td></tr>
+<tr class="memitem:a9adae0caf992e9179d9d8ba4ed569a7a" id="r_a9adae0caf992e9179d9d8ba4ed569a7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9adae0caf992e9179d9d8ba4ed569a7a">BL_ADDRESS_CRC_ADDR</a>&#160;&#160;&#160;((BL_ADDRESS_CRC) + 4)</td></tr>
 <tr class="separator:a9adae0caf992e9179d9d8ba4ed569a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895baa15ff8731f872fa9b7cf328c3ab" id="r_a895baa15ff8731f872fa9b7cf328c3ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a895baa15ff8731f872fa9b7cf328c3ab">BL_ADDRESS_CRC_SIZE</a>&#160;&#160;&#160;((<a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>) + 8)</td></tr>
+<tr class="memitem:a895baa15ff8731f872fa9b7cf328c3ab" id="r_a895baa15ff8731f872fa9b7cf328c3ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a895baa15ff8731f872fa9b7cf328c3ab">BL_ADDRESS_CRC_SIZE</a>&#160;&#160;&#160;((BL_ADDRESS_CRC) + 8)</td></tr>
 <tr class="separator:a895baa15ff8731f872fa9b7cf328c3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b20d41d6252e9871430c242cb1a56e7" id="r_a6b20d41d6252e9871430c242cb1a56e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>&#160;&#160;&#160;128</td></tr>
 <tr class="separator:a6b20d41d6252e9871430c242cb1a56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,76 +152,6 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2024-11-24</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a3a22027a6eb7046305c88255f771dcfc" name="a3a22027a6eb7046305c88255f771dcfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a22027a6eb7046305c88255f771dcfc">&#9670;&#160;</a></span>BL_ADDRESS_APP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BL_ADDRESS_APP&#160;&#160;&#160;0x08008000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adffa4ec39297487e7c599f0b380989d0" name="adffa4ec39297487e7c599f0b380989d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adffa4ec39297487e7c599f0b380989d0">&#9670;&#160;</a></span>BL_ADDRESS_BACKUP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BL_ADDRESS_BACKUP&#160;&#160;&#160;0x08080000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae704f2c8aa0aa6ab2ffc1b25f4ead9fc" name="ae704f2c8aa0aa6ab2ffc1b25f4ead9fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae704f2c8aa0aa6ab2ffc1b25f4ead9fc">&#9670;&#160;</a></span>BL_ADDRESS_BOOTLOADER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BL_ADDRESS_BOOTLOADER&#160;&#160;&#160;0x08000000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4ac1d6fa38b02de43855f87513fa3c3b" name="a4ac1d6fa38b02de43855f87513fa3c3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ac1d6fa38b02de43855f87513fa3c3b">&#9670;&#160;</a></span>BL_ADDRESS_BUFFER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BL_ADDRESS_BUFFER&#160;&#160;&#160;<a class="el" href="#a3a22027a6eb7046305c88255f771dcfc">BL_ADDRESS_APP</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8f3840cb7ad4e10ddf7aba8ec67ee674" name="a8f3840cb7ad4e10ddf7aba8ec67ee674"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">&#9670;&#160;</a></span>BL_ADDRESS_CRC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BL_ADDRESS_CRC&#160;&#160;&#160;0x08004000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a9adae0caf992e9179d9d8ba4ed569a7a" name="a9adae0caf992e9179d9d8ba4ed569a7a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9adae0caf992e9179d9d8ba4ed569a7a">&#9670;&#160;</a></span>BL_ADDRESS_CRC_ADDR</h2>
 
@@ -238,7 +159,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BL_ADDRESS_CRC_ADDR&#160;&#160;&#160;((<a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>) + 4)</td>
+          <td class="memname">#define BL_ADDRESS_CRC_ADDR&#160;&#160;&#160;((BL_ADDRESS_CRC) + 4)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -252,7 +173,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BL_ADDRESS_CRC_CRC&#160;&#160;&#160;((<a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>) + 0)</td>
+          <td class="memname">#define BL_ADDRESS_CRC_CRC&#160;&#160;&#160;((BL_ADDRESS_CRC) + 0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -266,7 +187,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BL_ADDRESS_CRC_SIZE&#160;&#160;&#160;((<a class="el" href="#a8f3840cb7ad4e10ddf7aba8ec67ee674">BL_ADDRESS_CRC</a>) + 8)</td>
+          <td class="memname">#define BL_ADDRESS_CRC_SIZE&#160;&#160;&#160;((BL_ADDRESS_CRC) + 8)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -281,20 +202,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define BUFFER_SIZE&#160;&#160;&#160;128</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa80f61a287020b338aceab88afc67ca0" name="aa80f61a287020b338aceab88afc67ca0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa80f61a287020b338aceab88afc67ca0">&#9670;&#160;</a></span>MAX_FIRMWARE_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MAX_FIRMWARE_SIZE&#160;&#160;&#160;0x40000</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -223,7 +223,13 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
     return E_SUCCESS;
 }
 
-typedef enum { BG_IDLE = 0, BG_ZERO = 1, BG_FLUSH_META = 2, BG_LOAD = 3, BG_FLUSH = 4 } BG_State;
+typedef enum {
+    BG_IDLE = 0,
+    BG_ZERO = 1,
+    BG_FLUSH_META = 2,
+    BG_LOAD = 3,
+    BG_FLUSH = 4
+} BG_State;
 
 static uint8_t curr_page;
 static uint32_t addr;

@@ -676,7 +676,11 @@
 
 extern uint16_t most_recent_latched;
 
-typedef enum { FAULT_WARNING = 0, FAULT_ERROR = 1, FAULT_FATAL = 2 } fault_priority_t;
+typedef enum {
+    FAULT_WARNING = 0,
+    FAULT_ERROR = 1,
+    FAULT_FATAL = 2
+} fault_priority_t;
 
 //Contains info about fault state
 typedef struct {

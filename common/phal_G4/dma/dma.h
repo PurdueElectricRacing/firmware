@@ -14,7 +14,11 @@
 
 #include "common/phal_G4/phal_G4.h"
 
-typedef enum { DMA_SIZE_8BIT = 0, DMA_SIZE_16BIT = 1, DMA_SIZE_32BIT = 2 } dma_size_t;
+typedef enum {
+    DMA_SIZE_8BIT = 0,
+    DMA_SIZE_16BIT = 1,
+    DMA_SIZE_32BIT = 2
+} dma_size_t;
 
 // Mux requests (TODO support all)
 #define DMA_REQUEST_ADC1 5U

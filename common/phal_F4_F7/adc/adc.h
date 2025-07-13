@@ -25,9 +25,16 @@ typedef enum {
     ADC_CLK_PRESC_8 = 0b11,
 } ADCClkPrescaler_t;
 
-typedef enum { ADC_DMA_OFF = 0b00, ADC_DMA_ONE_SHOT = 0b01, ADC_DMA_CIRCULAR = 0b11 } ADCDMAMode_t;
+typedef enum {
+    ADC_DMA_OFF = 0b00,
+    ADC_DMA_ONE_SHOT = 0b01,
+    ADC_DMA_CIRCULAR = 0b11
+} ADCDMAMode_t;
 
-typedef enum { ADC_DATA_ALIGN_RIGHT = 0b0, ADC_DATA_ALIGN_LEFT = 0b1 } ADCDataAlign_t;
+typedef enum {
+    ADC_DATA_ALIGN_RIGHT = 0b0,
+    ADC_DATA_ALIGN_LEFT = 0b1
+} ADCDataAlign_t;
 
 typedef struct {
     ADCClkPrescaler_t clock_prescaler;

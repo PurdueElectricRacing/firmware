@@ -166,7 +166,10 @@ typedef enum {
     TV_PERMIT_VARIABLE = 1,
 } tv_permit_modes_t;
 
-typedef enum { TV_SPEED_CONTROL_MODE = 0, TV_TORQUE_CONTROL_MODE = 1 } tv_control_modes_t;
+typedef enum {
+    TV_SPEED_CONTROL_MODE = 0,
+    TV_TORQUE_CONTROL_MODE = 1
+} tv_control_modes_t;
 
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {[TV_VCU_PERMIT_INDEX] =
@@ -277,7 +280,11 @@ menu_page_t driver_page = {.elements = driver_elements,
                            .current_index = 0,
                            .is_element_selected = false};
 
-typedef enum { PROFILE_BRAKE_INDEX = 0, PROFILE_THROTTLE_INDEX = 1, PROFILE_SAVE_INDEX = 2 } pedal_profile_elements_t;
+typedef enum {
+    PROFILE_BRAKE_INDEX = 0,
+    PROFILE_THROTTLE_INDEX = 1,
+    PROFILE_SAVE_INDEX = 2
+} pedal_profile_elements_t;
 
 // Profile page menu elements
 menu_element_t pedal_profile_elements[] = {[PROFILE_BRAKE_INDEX] =
@@ -310,7 +317,9 @@ menu_page_t pedal_profile_page = {
     .saved = true,
 };
 
-typedef enum { LOGGING_OP_INDEX = 0 } logging_elements_t;
+typedef enum {
+    LOGGING_OP_INDEX = 0
+} logging_elements_t;
 
 menu_element_t logging_elements[] = {[LOGGING_OP_INDEX] = {.type = ELEMENT_OPTION,
                                                            .object_name = LOG_OP,

@@ -48,7 +48,10 @@
 #error "Please define a MCU arch"
 #endif
 
-typedef enum { PLL_SRC_HSI16, PLL_SRC_HSE } PLLSrc_t;
+typedef enum {
+    PLL_SRC_HSI16,
+    PLL_SRC_HSE
+} PLLSrc_t;
 
 typedef enum {
     MCO1_SRC_HSI = 0,

@@ -25,23 +25,60 @@
 typedef uint32_t ptr_int;
 
 // Enumerations
-typedef enum { PT_NONE, PT_EVEN, PT_ODD } parity_t;
+typedef enum {
+    PT_NONE,
+    PT_EVEN,
+    PT_ODD
+} parity_t;
 
-typedef enum { WORD_8 = 0, WORD_9 = 0x1000, WORD_7 = 0x10000000 } word_length_t;
+typedef enum {
+    WORD_8 = 0,
+    WORD_9 = 0x1000,
+    WORD_7 = 0x10000000
+} word_length_t;
 
-typedef enum { SB_ONE, SB_TWO, SB_HALF, SB_ONE_HALF } stop_bits_t;
+typedef enum {
+    SB_ONE,
+    SB_TWO,
+    SB_HALF,
+    SB_ONE_HALF
+} stop_bits_t;
 
-typedef enum { MODE_TX_RX = 0b11, MODE_TX = 0b10, MODE_RX = 0b01 } usart_mode_t;
+typedef enum {
+    MODE_TX_RX = 0b11,
+    MODE_TX = 0b10,
+    MODE_RX = 0b01
+} usart_mode_t;
 
-typedef enum { HW_DISABLE, CTS, RTS, CTS_RTS } hw_flow_ctl_t;
+typedef enum {
+    HW_DISABLE,
+    CTS,
+    RTS,
+    CTS_RTS
+} hw_flow_ctl_t;
 
-typedef enum { OV_16 = 0, OV_8 = 1 } ovsample_t;
+typedef enum {
+    OV_16 = 0,
+    OV_8 = 1
+} ovsample_t;
 
-typedef enum { OB_DISABLE, OB_ENABLE } obsample_t;
+typedef enum {
+    OB_DISABLE,
+    OB_ENABLE
+} obsample_t;
 
-typedef enum { AB_START, AB_FALLING, AB_0X7F, AB_0X55 } ab_mode_t;
+typedef enum {
+    AB_START,
+    AB_FALLING,
+    AB_0X7F,
+    AB_0X55
+} ab_mode_t;
 
-typedef enum { BLOCKING, INTERRUPT, DMA } tx_mode_t;
+typedef enum {
+    BLOCKING,
+    INTERRUPT,
+    DMA
+} tx_mode_t;
 
 typedef struct {
     bool auto_baud;

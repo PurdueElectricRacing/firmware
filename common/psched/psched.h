@@ -31,7 +31,10 @@
 #define E_IND_FG_MISS  4
 
 // Structs, Enums, Types
-enum { TASK, TASK_BG };
+enum {
+    TASK,
+    TASK_BG
+};
 
 typedef void (*func_ptr_t)(void);
 

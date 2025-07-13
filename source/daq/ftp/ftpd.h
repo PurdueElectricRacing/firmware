@@ -79,15 +79,32 @@ enum ftp_cmd {
     NO_CMD,
 };
 
-enum ftp_type { ASCII_TYPE, IMAGE_TYPE, LOGICAL_TYPE };
+enum ftp_type {
+    ASCII_TYPE,
+    IMAGE_TYPE,
+    LOGICAL_TYPE
+};
 
-enum ftp_state { FTPS_NOT_LOGIN, FTPS_LOGIN };
+enum ftp_state {
+    FTPS_NOT_LOGIN,
+    FTPS_LOGIN
+};
 
-enum datasock_state { DATASOCK_IDLE, DATASOCK_READY, DATASOCK_START };
+enum datasock_state {
+    DATASOCK_IDLE,
+    DATASOCK_READY,
+    DATASOCK_START
+};
 
-enum datasock_mode { PASSIVE_MODE, ACTIVE_MODE };
+enum datasock_mode {
+    PASSIVE_MODE,
+    ACTIVE_MODE
+};
 
-enum ftp_use_status { STATUS_USED, STATUS_NOT_USED };
+enum ftp_use_status {
+    STATUS_USED,
+    STATUS_NOT_USED
+};
 
 struct ftpd {
     uint8_t control; /* Control stream */

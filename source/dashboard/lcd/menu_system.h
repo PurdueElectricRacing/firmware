@@ -25,7 +25,11 @@ typedef enum {
 } element_type_t;
 
 // Element states
-typedef enum { STATE_NORMAL = 0, STATE_HOVER = 1, STATE_SELECTED = 2 } element_state_t;
+typedef enum {
+    STATE_NORMAL = 0,
+    STATE_HOVER = 1,
+    STATE_SELECTED = 2
+} element_state_t;
 
 // Element structure
 typedef struct {

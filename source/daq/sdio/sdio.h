@@ -101,7 +101,11 @@ typedef enum {
 /** 
  * @brief  SDIO Transfer state
  */
-typedef enum { SD_TRANSFER_OK = 0, SD_TRANSFER_BUSY = 1, SD_TRANSFER_ERROR } SDTransferState;
+typedef enum {
+    SD_TRANSFER_OK = 0,
+    SD_TRANSFER_BUSY = 1,
+    SD_TRANSFER_ERROR
+} SDTransferState;
 
 /** 
  * @brief  Card Specific Data: CSD Register

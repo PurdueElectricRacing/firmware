@@ -45,7 +45,10 @@ typedef enum {
 } ADCDMAMode_t;
 
 /** Data bit alignment within the conversion */
-typedef enum { ADC_DATA_ALIGN_RIGHT = 0b0, ADC_DATA_ALIGN_LEFT = 0b1 } ADCDataAlign_t;
+typedef enum {
+    ADC_DATA_ALIGN_RIGHT = 0b0,
+    ADC_DATA_ALIGN_LEFT = 0b1
+} ADCDataAlign_t;
 
 /** Top-level ADC configuration */
 typedef struct {

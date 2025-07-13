@@ -18,7 +18,10 @@
 #define PHAL_I2C_TX_TIMEOUT (0x000000FF) //(1000U)
 #define PHAL_I2C_RX_TIMEOUT (0x000000FF) //(1000U)
 
-typedef enum { PHAL_I2C_MODE_TX = 0, PHAL_I2C_MODE_RX = 1 } I2CDirection_t;
+typedef enum {
+    PHAL_I2C_MODE_TX = 0,
+    PHAL_I2C_MODE_RX = 1
+} I2CDirection_t;
 
 /**
  * @brief  Enables the I2C3 peripheral by enabling the 

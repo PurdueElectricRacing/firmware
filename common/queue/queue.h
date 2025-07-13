@@ -16,7 +16,10 @@
 
 // Enumerations
 // Comment out if declared elsewhere
-typedef enum { FAILURE_G, SUCCESS_G } success_t;
+typedef enum {
+    FAILURE_G,
+    SUCCESS_G
+} success_t;
 
 // Structs
 typedef struct {

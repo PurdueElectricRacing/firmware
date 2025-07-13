@@ -36,7 +36,11 @@
 #define LED_5V_FAN   (12)
 #define LED_BLT      (13)
 
-enum LED_state { LED_OFF = 0, LED_ON, LED_BLINK };
+enum LED_state {
+    LED_OFF = 0,
+    LED_ON,
+    LED_BLINK
+};
 
 /**
  * @brief Set, clear, or toggle a specified LED pin

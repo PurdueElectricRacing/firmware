@@ -63,7 +63,13 @@ typedef struct {
     float torque_right;
 } torqueRequest_t;
 
-typedef enum { CAR_TORQUE_NONE, CAR_TORQUE_RAW, CAR_TORQUE_TV, CAR_TORQUE_TV_TEST, CAR_TORQUE_DAQ } torqueSource_t;
+typedef enum {
+    CAR_TORQUE_NONE,
+    CAR_TORQUE_RAW,
+    CAR_TORQUE_TV,
+    CAR_TORQUE_TV_TEST,
+    CAR_TORQUE_DAQ
+} torqueSource_t;
 
 #define HV_LOW_PASS_SIZE (5)
 #define HV_V_MC_CAL      (1000) // V_actual / V_measured * 1000

@@ -52,7 +52,8 @@ sudo apt install git cmake python3 python3-pip ninja-build gcc-arm-none-eabi ope
 
 VS Code is the recommended editor for firmware development.
 
-Install the following VSCode extensions for debugging, inspection, and code editing:
+## Install Extensions
+Open the Extensions view (Ctrl+Shift+X or Cmd+Shift+X) and install the following VSCode extensions:
 
 ```
 Cortex-Debug
@@ -67,25 +68,57 @@ Python Debug
 Pylance
 ```
 
+## Turn on Autosave
+Go to `File -> Autosave` and click check to turn on autosave.
+
 
 # 3. Repository Setup (All OS)
 
 Follow these steps to download the PER codebase and get started on development:
 
-1. Clone the repository with submodules. Open your terminal, and clone this repository with the following command:
+
+## Open a new terminal
+1. Open a new terminal. Do *not* run as Administrator. Just use your regular user account. 
+
+For Windows, open PowerShell (not as Administrator).
+
+You should land in your home directory:
+```bash
+C:\Users\eileenyoon\
+```
+
+For MacOS:
+```bash
+/Users/eileenyoon
+```
+
+You can confirm with:
+```bash
+pwd
+```
+
+## Clone PER repo
+2. Once you're in your home directory, clone the PER firmware repository with the following command:
 ```bash
 git clone --recurse-submodules https://github.com/PurdueElectricRacing/firmware.git
 ```
-2. Install required Python packages:
+
+3. Enter the firmware repository:
 ```bash
 cd firmware
+```
+
+## Setup & Build
+4. Install the required Python packages:
+```bash
 pip3 install -r requirements.txt
 ```
-3. Launch Visual Studio Code:
+
+5. Launch Visual Studio Code:
 ```bash
 code .
 ```
-4. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
+6. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
 
 ```
 Ctrl + Shift + B on Windows/Linux

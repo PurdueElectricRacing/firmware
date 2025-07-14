@@ -4,17 +4,19 @@ import subprocess
 import shutil
 from pathlib import Path
 
-SUBMODULES = [
-    "external/STM32CubeF4",
-    "external/STM32CubeF7", 
-    "external/STM32CubeG4",
-    "external/STM32CubeL4"
+submodules = [
+    ("external/STM32CubeF4", "Drivers/CMSIS/Device/ST/STM32F4xx"),
+    ("external/STM32CubeF7", "Drivers/CMSIS/Device/ST/STM32F7xx"), 
+    ("external/STM32CubeG4", "Drivers/CMSIS/Device/ST/STM32G4xx"),
+    ("external/STM32CubeL4", "Drivers/CMSIS/Device/ST/STM32L4xx"),
 ]
 
 sparse_checkout_settings = """
 Drivers/CMSIS/
 !Drivers/CMSIS/docs/
 !Drivers/CMSIS/DSP/Examples/
+!Drivers/CMSIS/NN/
+!Drivers/CMSIS/Documentation/
 Middlewares/Third_Party/FreeRTOS/Source/
 !Middlewares/Third_Party/FreeRTOS/Source/Demo/
 Drivers/CMSIS/RTOS2/
@@ -30,39 +32,32 @@ def main():
         exit(1)
 
     # deinit existing submodules
-    for submodule in SUBMODULES:
-        if Path(submodule).exists():
-            run(f"git submodule deinit -f {submodule}", check=False)
-            shutil.rmtree(submodule, ignore_errors=True)
+    for (family_module, device_module) in submodules:
+        if Path(family_module).exists():
+            run(f"git submodule deinit -f {family_module}", check=False)
+            shutil.rmtree(family_module, ignore_errors=True)
 
     run("git submodule update --init --filter=blob:none")
     
     # setup each submodule with sparse checkout
-    for submodule in SUBMODULES:
-        print(f"Setting up {submodule}")
-        run(f"git -C {submodule} config core.sparseCheckout true")
+    for (family_module, device_module) in submodules:
+        print(f"Setting up {family_module}")
+        run(f"git -C {family_module} config core.sparseCheckout true")
 
-        result = subprocess.run(f"git -C {submodule} rev-parse --git-dir", shell=True, capture_output=True, text=True, check=True)
-        git_dir = Path(submodule) / result.stdout.strip()
+        result = subprocess.run(f"git -C {family_module} rev-parse --git-dir", shell=True, capture_output=True, text=True, check=True)
+        git_dir = Path(family_module) / result.stdout.strip()
         
         sparse_file = git_dir / "info" / "sparse-checkout"
         sparse_file.parent.mkdir(parents=True, exist_ok=True)
         sparse_file.write_text(sparse_checkout_settings)
         
-        run(f"git -C {submodule} read-tree -m -u HEAD")
+        run(f"git -C {family_module} read-tree -m -u HEAD")
 
-    # init cmsis-device submodules
-    nested_submodules = [
-        ("external/STM32CubeF4", "Drivers/CMSIS/Device/ST/STM32F4xx"),
-        ("external/STM32CubeF7", "Drivers/CMSIS/Device/ST/STM32F7xx"), 
-        ("external/STM32CubeG4", "Drivers/CMSIS/Device/ST/STM32G4xx"),
-        ("external/STM32CubeL4", "Drivers/CMSIS/Device/ST/STM32L4xx"),
-    ]
-    
-    for submodule_dir, nested_path in nested_submodules:
-        if Path(submodule_dir).exists():
-            print(f"Setting up cmsis-device submodule in {submodule_dir}")
-            run(f"git -C {submodule_dir} submodule update --init {nested_path}")
+    # checkout device modules
+    for (family_module, device_module) in submodules:
+        if Path(family_module).exists():
+            print(f"Setting up cmsis-device submodule in {family_module}")
+            run(f"git -C {family_module} submodule update --init {device_module}")
 
     print("All submodules initialized")
 

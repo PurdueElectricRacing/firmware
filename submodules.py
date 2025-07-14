@@ -11,16 +11,18 @@ submodules = [
     ("external/STM32CubeL4", "Drivers/CMSIS/Device/ST/STM32L4xx"),
 ]
 
+# Edit these settings to add or remove files from the sparse checkout
 sparse_checkout_settings = """
-Drivers/CMSIS/
-!Drivers/CMSIS/docs/
-!Drivers/CMSIS/DSP/Examples/
-!Drivers/CMSIS/NN/
-!Drivers/CMSIS/Documentation/
-Middlewares/Third_Party/FreeRTOS/Source/
-!Middlewares/Third_Party/FreeRTOS/Source/Demo/
+# CMSIS headers, register maps, RTOS2
+Drivers/CMSIS/Device/
 Drivers/CMSIS/RTOS2/
-Drivers/CMSIS/RTOS/
+Drivers/CMSIS/Core/Include/
+
+Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/
+Middlewares/Third_Party/FreeRTOS/Source/include/
+Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/
+Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/
+Middlewares/Third_Party/FreeRTOS/Source/*.c
 """
 
 def run(cmd, check=True):

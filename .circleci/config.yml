@@ -16,9 +16,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Update git submodules"
-          command: "git submodule update --init --recursive"
-      - run:
           name: "Generate & Build"
           command: |
             cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=Debug

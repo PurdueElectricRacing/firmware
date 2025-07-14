@@ -84,12 +84,12 @@ For Windows, open PowerShell (not as Administrator).
 
 You should land in your home directory:
 ```bash
-C:\Users\eileenyoon\
+C:\Users\{username}\
 ```
 
 For MacOS:
 ```bash
-/Users/eileenyoon
+/Users/{username}
 ```
 
 You can confirm with:
@@ -100,7 +100,7 @@ pwd
 ## Clone PER repo
 2. Once you're in your home directory, clone the PER firmware repository with the following command:
 ```bash
-git clone --recurse-submodules https://github.com/PurdueElectricRacing/firmware.git
+git clone https://github.com/PurdueElectricRacing/firmware.git
 ```
 
 3. Enter the firmware repository:

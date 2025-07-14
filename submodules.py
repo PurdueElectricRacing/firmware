@@ -5,15 +5,16 @@ import shutil
 from pathlib import Path
 
 SUBMODULES = [
-    "common/STM32CubeF4",
-    "common/STM32CubeF7", 
-    "common/STM32CubeG4",
-    "common/STM32CubeL4"
+    "external/STM32CubeF4",
+    "external/STM32CubeF7", 
+    "external/STM32CubeG4",
+    "external/STM32CubeL4"
 ]
 
 sparse_checkout_settings = """
 Drivers/CMSIS/
 !Drivers/CMSIS/docs/
+!Drivers/CMSIS/DSP/Examples/
 Middlewares/Third_Party/FreeRTOS/Source/
 !Middlewares/Third_Party/FreeRTOS/Source/Demo/
 Drivers/CMSIS/RTOS2/
@@ -24,11 +25,11 @@ def run(cmd, check=True):
     subprocess.run(cmd, shell=True, check=check)
 
 def main():
-    if not Path("common").exists():
+    if not Path("external").exists():
         print("Error: Run this script from the firmware root directory")
         exit(1)
 
-    # Deinitialize existing submodules
+    # deinit existing submodules
     for submodule in SUBMODULES:
         if Path(submodule).exists():
             run(f"git submodule deinit -f {submodule}", check=False)
@@ -49,11 +50,21 @@ def main():
         sparse_file.write_text(sparse_checkout_settings)
         
         run(f"git -C {submodule} read-tree -m -u HEAD")
+
+    # init cmsis-device submodules
+    nested_submodules = [
+        ("external/STM32CubeF4", "Drivers/CMSIS/Device/ST/STM32F4xx"),
+        ("external/STM32CubeF7", "Drivers/CMSIS/Device/ST/STM32F7xx"), 
+        ("external/STM32CubeG4", "Drivers/CMSIS/Device/ST/STM32G4xx"),
+        ("external/STM32CubeL4", "Drivers/CMSIS/Device/ST/STM32L4xx"),
+    ]
     
-    # G4 special case
-    run("git -C common/STM32CubeG4 submodule update --init Drivers/CMSIS/Device/ST/STM32G4xx")
-    
-    print("Done")
+    for submodule_dir, nested_path in nested_submodules:
+        if Path(submodule_dir).exists():
+            print(f"Setting up cmsis-device submodule in {submodule_dir}")
+            run(f"git -C {submodule_dir} submodule update --init {nested_path}")
+
+    print("All submodules initialized")
 
 if __name__ == "__main__":
     main()

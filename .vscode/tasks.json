@@ -15,7 +15,7 @@
             "type": "shell",
             "command": "python3 per_build.py --bootloader",
             "group": {
-                "kind": "build",
+                "kind": "build"
             }
         },
         {

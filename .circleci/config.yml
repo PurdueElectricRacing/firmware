@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run:
           name: "Update git submodules"
-          command: "python3 update_submodules.py"
+          command: "python3 submodules.py"
       - run:
           name: "Generate & Build"
           command: |

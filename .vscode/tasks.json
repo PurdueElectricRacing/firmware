@@ -22,7 +22,7 @@
             "label": "Submodule Update",
             "group": "none",
             "type": "shell",
-            "command": "python3 init_submodules.py",
+            "command": "python3 submodules.py",
         },
         {
             "label": "can_gen",

@@ -22,7 +22,7 @@
             "label": "Submodule Update",
             "group": "none",
             "type": "shell",
-            "command": "git submodule update --init --recursive"
+            "command": "python3 init_submodules.py",
         },
         {
             "label": "can_gen",

@@ -22,7 +22,7 @@ define_property(TARGET PROPERTY CMSIS_PATH
 # Paramaters
 # - LIB_NAME; Name of the library output
 # - STM32_FAMILY_NAME; STM Family used to locate correct CMSIS defines
-# - STM32_DEVICE_NAME; Extended device name, reference /common/STM32CubeL4/Drivers/CMSIS/Device/ST/STM32L4xx/Source/gcc for examples
+# - STM32_DEVICE_NAME; Extended device name, reference /external/STM32CubeL4/Drivers/CMSIS/Device/ST/STM32L4xx/Source/gcc for examples
 # - LIB_PATH; Path to CMSIS root folder.
 function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PATH)
     add_library(${LIB_NAME} STATIC)

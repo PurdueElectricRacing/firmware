@@ -1,7 +1,7 @@
 
 function(make_freertos_library LIB_NAME DIRNAME LINK_NAME)
     add_library(${LIB_NAME} STATIC)
-    set(LIB_PATH "${CMAKE_SOURCE_DIR}/common/${DIRNAME}/Middlewares/Third_Party/FreeRTOS/Source")
+    set(LIB_PATH "${CMAKE_SOURCE_DIR}/external/${DIRNAME}/Middlewares/Third_Party/FreeRTOS/Source")
 
     target_include_directories(${LIB_NAME}
         PUBLIC ${LIB_PATH}/include

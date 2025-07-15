@@ -19,6 +19,9 @@
 // Make this match the node name within the can_config.json
 #define NODE_NAME "PDU"
 
+/* BEGIN GIT HASH DEF */
+/* END GIT HASH DEF */
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 /* END AUTO ID DEFS */

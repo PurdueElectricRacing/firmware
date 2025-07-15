@@ -20,6 +20,9 @@
 
 #define NODE_NAME "TEST_NODE"
 
+/* BEGIN GIT HASH DEF */
+/* END GIT HASH DEF */
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 /* END AUTO ID DEFS */

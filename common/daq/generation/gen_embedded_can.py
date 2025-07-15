@@ -1,10 +1,13 @@
 """ gen_embedded_can.py: Generates embedded code for CAN message parsing using structures with bit fields """
 
 import  generator
+import subprocess
 
 #
 # GENERATION STRINGS
 #
+gen_git_hash_start = "BEGIN GIT HASH DEF"
+gen_git_hash_stop = "END GIT HASH DEF"
 gen_id_start = "BEGIN AUTO ID DEFS"
 gen_id_stop = "END AUTO ID DEFS"
 gen_dlc_start = "BEGIN AUTO DLC DEFS"
@@ -33,6 +36,17 @@ gen_can_enums_start = "BEGIN AUTO CAN ENUMERATIONS"
 gen_can_enums_stop = "END AUTO CAN ENUMERATIONS"
 
 DEFAULT_PERIPHERAL = "CAN1"
+
+def get_git_hash():
+    """
+    Returns the short git has of the current commit
+    """
+    try:
+        result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], 
+                              capture_output=True, text=True, check=True)
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "unknown"
 
 def find_rx_messages(rx_names):
     """
@@ -186,6 +200,11 @@ def configure_node(node_config, node_paths):
     #
     with open(node_paths[0], "r") as h_file:
         h_lines = h_file.readlines()
+
+    # Git hash definition
+    git_hash = get_git_hash()
+    git_hash_lines = [f"#define GIT_HASH \"{git_hash}\"\n"]
+    h_lines = generator.insert_lines(h_lines, gen_git_hash_start, gen_git_hash_stop, git_hash_lines)
 
     # with open(node_paths)
 

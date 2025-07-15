@@ -15,22 +15,22 @@
 #include "common/phal_F4_F7/phal_F4_F7.h"
 
 typedef struct {
-    uint32_t    periph_addr;
-    uint32_t    mem_addr;
-    uint16_t    tx_size;
-    uint8_t     mem_size;
+    uint32_t periph_addr;
+    uint32_t mem_addr;
+    uint16_t tx_size;
+    uint8_t mem_size;
 
-    bool        increment;
-    bool        circular;
-    uint8_t     dir;
-    bool        mem_inc;
-    bool        periph_inc;
-    bool        mem_to_mem;
-    uint8_t     priority;
-    uint8_t     periph_size;
-    bool        tx_isr_en;
-    uint8_t     dma_chan_request;
-    uint8_t     stream_idx;
+    bool increment;
+    bool circular;
+    uint8_t dir;
+    bool mem_inc;
+    bool periph_inc;
+    bool mem_to_mem;
+    uint8_t priority;
+    uint8_t periph_size;
+    bool tx_isr_en;
+    uint8_t dma_chan_request;
+    uint8_t stream_idx;
 
     DMA_TypeDef* periph;
     DMA_Stream_TypeDef* stream; // Example DMA1_Stream0 or DMA2_Stream7

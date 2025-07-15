@@ -21,7 +21,7 @@ bool PHAL_initDMA(dma_init_t* init) {
     } else if (init->mem_size > 2 || init->periph_size > 2) {
         return false;
     }
-    
+
     // Enable clock in RCC
     if (init->periph == DMA1) {
         RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
@@ -32,7 +32,7 @@ bool PHAL_initDMA(dma_init_t* init) {
     }
 
     // Channel configuration set
-    init->channel->CCR &= ~(DMA_CCR_EN_Msk); 
+    init->channel->CCR &= ~(DMA_CCR_EN_Msk);
     init->channel->CCR &= ~(0x3FFF);
 
     init->channel->CCR |= (init->mem_to_mem << 14) | (init->priority << 12) | (init->mem_size << 10);
@@ -42,12 +42,11 @@ bool PHAL_initDMA(dma_init_t* init) {
     // Channel memory configuration set
     PHAL_DMA_setTxferLength(init, init->tx_size);
 
-
     init->channel->CPAR = init->periph_addr;
     init->channel->CMAR = init->mem_addr;
 
     init->request->CSELR &= ~((0xf) << ((init->channel_idx - 1) * 4));
-    init->request->CSELR |= (init->dma_chan_request<< ((init->channel_idx - 1) * 4));
+    init->request->CSELR |= (init->dma_chan_request << ((init->channel_idx - 1) * 4));
 
     return true;
 }
@@ -68,13 +67,11 @@ void PHAL_reEnable(dma_init_t* init) {
     init->channel->CCR |= 1U;
 }
 
-void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address)
-{
+void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address) {
     init->channel->CMAR = address;
 }
 
-void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length)
-{
+void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length) {
     init->channel->CNDTR &= ~(DMA_CNDTR_NDT_Msk);
     init->channel->CNDTR |= length;
 }

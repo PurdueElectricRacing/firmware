@@ -13,9 +13,9 @@
 
 #include "can_parse.h"
 
-#define GPS_SPEED_MOVING           2  // TODO determine
+#define GPS_SPEED_MOVING          2 // TODO determine
 #define MOTOR_COOLING_ENABLE_TEMP 60
-#define MOTOR_COOLING_MAX_TEMP   100
+#define MOTOR_COOLING_MAX_TEMP    100
 #define BATT_COOLING_ENABLE_TEMP  30
 
 typedef struct {
@@ -50,5 +50,5 @@ void update_cooling_periodic();
  * @param *msg_data_a CAN msg data
  * @return
  */
-void cooling_driver_request_CALLBACK(CanParsedData_t *msg_data_a);
+void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a);
 #endif

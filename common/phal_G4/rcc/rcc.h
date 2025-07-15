@@ -18,21 +18,21 @@
 #define HSE_CLOCK_RATE_HZ_INVALID (1) /* High Speed External oscilator value */
 #ifndef HSE_CLOCK_RATE_HZ
 #define HSE_CLOCK_RATE_HZ HSE_CLOCK_RATE_HZ_INVALID /* Define this in order to configure clocks to use the HSE clock */
-#endif  // HSE_CLOCK_RATE_HZ
+#endif // HSE_CLOCK_RATE_HZ
 
 #define HSI_CLOCK_RATE_HZ (16000000)
-#define MCO_OUT_PIN (8)
+#define MCO_OUT_PIN       (8)
 
 // RCC Constants
 #if defined(STM32G474xx)
 
-#define RCC_MAX_VCO_RATE_HZ ((uint32_t) 128e6)
-#define RCC_MIN_VCO_RATE_HZ ((uint32_t) 96e6)
-#define RCC_MIN_PLL_INPUT_DIVISOR (2U)
-#define RCC_MAX_PLL_INPUT_DIVISOR (63U)
+#define RCC_MAX_VCO_RATE_HZ           ((uint32_t)128e6)
+#define RCC_MIN_VCO_RATE_HZ           ((uint32_t)96e6)
+#define RCC_MIN_PLL_INPUT_DIVISOR     (2U)
+#define RCC_MAX_PLL_INPUT_DIVISOR     (63U)
 #define RCC_MIN_PLL_OUTPUT_MULTIPLIER (50U)
 #define RCC_MAX_PLL_OUTPUT_MULTIPLIER (432U)
-#define RCC_MAX_SYSCLK_TARGET_HZ (168000000)
+#define RCC_MAX_SYSCLK_TARGET_HZ      (168000000)
 
 #else
 #error "Please define a MCU arch"
@@ -43,8 +43,7 @@ typedef enum {
     PLL_SRC_HSE
 } PLLSrc_t;
 
-typedef enum
-{
+typedef enum {
     MCO1_SRC_HSI = 0,
     MCO1_SRC_LSE = 1,
     MCO1_SRC_HSE = 2,
@@ -52,15 +51,15 @@ typedef enum
 
 } MCO1Source_t;
 
-typedef enum
-{
+typedef enum {
     MCO_DIV_NONE = 0,
-    MCO_DIV_2    = 4,
-    MCO_DIV_3    = 5,
-    MCO_DIV_4    = 6,
-    MCO_DIV_5    = 7
+    MCO_DIV_2 = 4,
+    MCO_DIV_3 = 5,
+    MCO_DIV_4 = 6,
+    MCO_DIV_5 = 7
 
 } MCODivisor_t;
+
 typedef enum {
     CLOCK_SOURCE_HSI = 0,
     CLOCK_SOURCE_HSE = 1,
@@ -77,19 +76,18 @@ typedef enum {
 } RCCErrors_t;
 
 typedef struct {
-    ClockSrc_t clock_source;            /* Use HSE or not */
-    bool use_pll;                       /* Use PLL or not */
-    uint32_t  system_clock_target_hz;   /* System Core Clock rate */
-    uint32_t  ahb_clock_target_hz;      /* AHB clock rate target */
-    uint32_t  apb1_clock_target_hz;     /* APB1 clock rate target */
-    uint32_t  apb2_clock_target_hz;     /* APB2 clock rate target */
+    ClockSrc_t clock_source; /* Use HSE or not */
+    bool use_pll; /* Use PLL or not */
+    uint32_t system_clock_target_hz; /* System Core Clock rate */
+    uint32_t ahb_clock_target_hz; /* AHB clock rate target */
+    uint32_t apb1_clock_target_hz; /* APB1 clock rate target */
+    uint32_t apb2_clock_target_hz; /* APB2 clock rate target */
 
     /* Only used for use_pll == true */
-    PLLSrc_t pll_src;                   /* Input source for PLL VCO */
+    PLLSrc_t pll_src; /* Input source for PLL VCO */
     uint32_t vco_output_rate_target_hz; /* VCO output target rate */
     uint32_t msi_output_rate_target_hz; /* Use if pll_src == MSI */
 } ClockRateConfig_t;
-
 
 /**
  * @brief Configure all AHB/APB/System clocks from the provided configuration.

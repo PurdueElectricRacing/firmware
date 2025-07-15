@@ -14,8 +14,7 @@
 
 #include "stm32l4xx.h"
 
-enum
-{
+enum {
     FLASH_OK = 0,
     FLASH_FAIL,
     FLASH_ADDR_NOT_CLEARED,
@@ -26,12 +25,12 @@ enum
 #define FLASH_KEY_1 0x45670123
 #define FLASH_KEY_2 0xCDEF89AB
 
-#define PHAL_FLASH_TIMEOUT 500000U
-#define FLASH_PAGE_SIZE (0x800) /* Page size in bytes */
-#define FLASH_BANK_PG_COUNT ((FLASH_BANK1_END - FLASH_BASE + 1)/FLASH_PAGE_SIZE) /* Number of pages in a flash bank */
+#define PHAL_FLASH_TIMEOUT      500000U
+#define FLASH_PAGE_SIZE         (0x800) /* Page size in bytes */
+#define FLASH_BANK_PG_COUNT     ((FLASH_BANK1_END - FLASH_BASE + 1) / FLASH_PAGE_SIZE) /* Number of pages in a flash bank */
 #define USER_FLASH_BASE_ADDRESS (FLASH_BASE) /* First flash memory address */
 #define USER_FLASH_END_ADDRESS  (FLASH_END) /* Last usable flash address */
-#define MAX_FLASH_SECTOR (((FLASH_END - FLASH_BASE + 1) / FLASH_PAGE_SIZE) - 1)
+#define MAX_FLASH_SECTOR        (((FLASH_END - FLASH_BASE + 1) / FLASH_PAGE_SIZE) - 1)
 
 /**
  * @brief Writes 64 bits to flash memory
@@ -55,6 +54,6 @@ uint8_t PHAL_flashErasePage(uint16_t page);
  * @param words 
  * @return uint8_t Operation result
  */
-uint8_t PHAL_flashErase(uint32_t *addr, uint32_t words);
+uint8_t PHAL_flashErase(uint32_t* addr, uint32_t words);
 
 #endif

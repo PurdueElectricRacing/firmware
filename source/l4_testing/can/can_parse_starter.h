@@ -11,9 +11,9 @@
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
 
-#include "common/queue/queue.h"
-#include "common/psched/psched.h"
 #include "common/phal_L4/can/can.h"
+#include "common/psched/psched.h"
+#include "common/queue/queue.h"
 #include "main.h"
 
 // Make this match the node name within the can_config.json
@@ -33,8 +33,9 @@ typedef union {
     float f;
     uint32_t u;
 } FloatConvert_t;
-#define FLOAT_TO_UINT32(float_) (((FloatConvert_t) float_).u)
-#define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t) ((uint32_t) uint32_)).f)
+
+#define FLOAT_TO_UINT32(float_)  (((FloatConvert_t)float_).u)
+#define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t)((uint32_t)uint32_)).f)
 
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
@@ -45,8 +46,9 @@ typedef union {
 /* BEGIN AUTO UP DEFS (Update Period) in milliseconds*/
 /* END AUTO UP DEFS */
 
-#define CHECK_STALE(stale, curr, last, period) if(!stale && \
-                    (curr - last) > period * STALE_THRESH) stale = 1
+#define CHECK_STALE(stale, curr, last, period) \
+    if (!stale && (curr - last) > period * STALE_THRESH) \
+    stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
 /* END AUTO CAN ENUMERATIONS */

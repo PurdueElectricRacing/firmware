@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # Wrapper for command line tools to build, clean, and debug firmware modules
 from optparse import OptionParser
@@ -36,7 +36,7 @@ OUT_DIR = CWD/"output"
 # Setup cli arguments
 parser = OptionParser()
 
-parser.add_option("-t", "--target", 
+parser.add_option("-t", "--target",
     dest="target",
     type="string",
     action="store",
@@ -55,7 +55,7 @@ parser.add_option("--release",
     help="build for release (optimized)"
 )
 
-parser.add_option("--no-test", 
+parser.add_option("--no-test",
     dest="no_test",
     action="store_true", default=False,
     help="don't run unit tests"
@@ -101,7 +101,7 @@ if options.target or not options.clean:
         "-C", str(BUILD_DIR),
         TARGET,
     ]
-    NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
+    NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS
 
     try:
         subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)

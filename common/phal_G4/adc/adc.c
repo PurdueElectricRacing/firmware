@@ -11,14 +11,17 @@
 // Oversample count must be 2,4,8,16,32,64,128,256
 // The shift is automatically set as log2(oversample_count)
 static bool PHAL_configureOversampling(ADCInitConfig_t* config) {
-    ADC_TypeDef *adc = config->periph;
+    ADC_TypeDef* adc = config->periph;
 
     uint16_t oversample_count = config->oversample;
-    if (oversample_count == ADC_OVERSAMPLE_NONE) return true;
-    if (oversample_count < 2 || oversample_count > 256) return false;
+    if (oversample_count == ADC_OVERSAMPLE_NONE)
+        return true;
+    if (oversample_count < 2 || oversample_count > 256)
+        return false;
 
     // Check power of two
-    if ((oversample_count & (oversample_count - 1)) != 0) return false;
+    if ((oversample_count & (oversample_count - 1)) != 0)
+        return false;
 
     // Map oversample_count to OVSR encoding:
     // OVSR = log2(oversample_count) - 1 (0 means no oversampling)
@@ -47,9 +50,8 @@ static bool PHAL_configureOversampling(ADCInitConfig_t* config) {
     return true;
 }
 
-static bool PHAL_configureADCChannels(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels)
-{
-    ADC_TypeDef *adc = config->periph;
+static bool PHAL_configureADCChannels(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels) {
+    ADC_TypeDef* adc = config->periph;
 
     // Clear all SQR ranks
     adc->SQR1 = 0;
@@ -64,7 +66,8 @@ static bool PHAL_configureADCChannels(ADCInitConfig_t* config, ADCChannelConfig_
     for (uint8_t i = 0; i < num_channels; i++) {
         uint8_t ch = channels[i].channel;
         uint8_t rank = channels[i].rank;
-        if (rank <= 0) return false;
+        if (rank <= 0)
+            return false;
         rank = rank - 1; // PHAL does 1-based start
 
         // Set rank for channel
@@ -87,62 +90,60 @@ static bool PHAL_configureADCChannels(ADCInitConfig_t* config, ADCChannelConfig_
         // Set sampling time for channel
         if (ch <= 9) {
             adc->SMPR1 &= ~(0b111 << (ch * 3));
-            adc->SMPR1 |=  (channels[i].sampling_time << (ch * 3));
+            adc->SMPR1 |= (channels[i].sampling_time << (ch * 3));
         } else {
             uint8_t ch2 = ch - 10;
             adc->SMPR2 &= ~(0b111 << (ch2 * 3));
-            adc->SMPR2 |=  (channels[i].sampling_time << (ch2 * 3));
+            adc->SMPR2 |= (channels[i].sampling_time << (ch2 * 3));
         }
     }
 
     return true;
 }
 
-bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels)
-{
-    if (num_channels >= 16) return false;
+bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels) {
+    if (num_channels >= 16)
+        return false;
 
-    ADC_TypeDef *adc = config->periph;
-    if (adc == ADC1 || adc == ADC2)
-    {
+    ADC_TypeDef* adc = config->periph;
+    if (adc == ADC1 || adc == ADC2) {
         // Enable clock to the selected peripheral
         RCC->AHB2ENR |= RCC_AHB2ENR_ADC12EN;
 
-        RCC->CCIPR &= ~RCC_CCIPR_ADC12SEL;  // Clear bits
+        RCC->CCIPR &= ~RCC_CCIPR_ADC12SEL; // Clear bits
         RCC->CCIPR |= RCC_CCIPR_ADC12SEL_0; // Select system clock (PCLK) as ADC clock
 
         ADC12_COMMON->CCR &= ~ADC_CCR_CKMODE;
         ADC12_COMMON->CCR |= (0x1UL << ADC_CCR_CKMODE_Pos);
         ADC12_COMMON->CCR &= ~ADC_CCR_PRESC_Msk;
         ADC12_COMMON->CCR |= (config->prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
-    }
-    else if (adc == ADC3 || adc == ADC4 || adc == ADC5)
-    {
+    } else if (adc == ADC3 || adc == ADC4 || adc == ADC5) {
         RCC->AHB2ENR |= RCC_AHB2ENR_ADC345EN;
 
         ADC345_COMMON->CCR &= ~ADC_CCR_CKMODE;
         ADC345_COMMON->CCR |= (0x1UL << ADC_CCR_CKMODE_Pos);
         ADC345_COMMON->CCR &= ~(ADC_CCR_PRESC_Msk);
         ADC345_COMMON->CCR |= (config->prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
-    }
-    else
-    {
+    } else {
         return false;
     }
 
     adc->CR &= ~ADC_CR_DEEPPWD;
     adc->CR |= ADC_CR_ADVREGEN;
-    for (volatile int i = 0; i < 1000; ++i); // Short delay
+    for (volatile int i = 0; i < 1000; ++i)
+        ; // Short delay
 
     // 1. Ensure ADC is disabled before calibration
     if (adc->CR & ADC_CR_ADEN) {
         adc->CR |= ADC_CR_ADDIS; // Disable ADC if it was enabled
-        while (adc->CR & ADC_CR_ADEN); // Wait until disabled
+        while (adc->CR & ADC_CR_ADEN)
+            ; // Wait until disabled
     }
 
     // Calibrate ADC
     adc->CR |= ADC_CR_ADCAL;
-    while (adc->CR & ADC_CR_ADCAL); // Wait for calibration to finish
+    while (adc->CR & ADC_CR_ADCAL)
+        ; // Wait for calibration to finish
 
     // Set conversion mode on regular channels
     adc->CFGR &= ~(ADC_CFGR_CONT | ADC_CFGR_DISCEN);
@@ -150,15 +151,17 @@ bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_
 
     // Set resolution
     adc->CFGR &= ~(ADC_CFGR_RES);
-    adc->CFGR |= (config->resolution << ADC_CFGR_RES_Pos) & ADC_CFGR_RES_Msk;  // 12-bit resolution
+    adc->CFGR |= (config->resolution << ADC_CFGR_RES_Pos) & ADC_CFGR_RES_Msk; // 12-bit resolution
 
     // Set data alignment
     adc->CFGR &= ~(ADC_CFGR_ALIGN);
     adc->CFGR |= (config->data_align << ADC_CFGR_ALIGN_Pos) & ADC_CFGR_ALIGN_Msk;
 
-    if (!PHAL_configureADCChannels(config, channels, num_channels)) return false;
+    if (!PHAL_configureADCChannels(config, channels, num_channels))
+        return false;
 
-    if (!PHAL_configureOversampling(config)) return false;
+    if (!PHAL_configureOversampling(config))
+        return false;
 
     adc->CFGR &= ~(ADC_CFGR_CONT | ADC_CFGR_DMAEN | ADC_CFGR_DMACFG);
     if (config->dma_mode == ADC_DMA_ONESHOT) {
@@ -168,37 +171,34 @@ bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_
     }
 
     // Enable ADC
-    adc->ISR |= ADC_ISR_ADRDY;  // Clear ready flag
-    adc->CR |= ADC_CR_ADEN;     // Enable ADC
-    while (!(adc->ISR & ADC_ISR_ADRDY)); // Wait until ready
+    adc->ISR |= ADC_ISR_ADRDY; // Clear ready flag
+    adc->CR |= ADC_CR_ADEN; // Enable ADC
+    while (!(adc->ISR & ADC_ISR_ADRDY))
+        ; // Wait until ready
 
     return true;
 }
 
-bool PHAL_startADC(ADCInitConfig_t* config)
-{
+bool PHAL_startADC(ADCInitConfig_t* config) {
     config->periph->CR |= ADC_CR_ADSTART;
     return true;
 }
 
-bool PHAL_stopADC(ADCInitConfig_t* config)
-{
-    ADC_TypeDef *adc = config->periph;
-    if (adc->CR & ADC_CR_ADSTART)
-    {
+bool PHAL_stopADC(ADCInitConfig_t* config) {
+    ADC_TypeDef* adc = config->periph;
+    if (adc->CR & ADC_CR_ADSTART) {
         adc->CR |= ADC_CR_ADSTP;
     }
     adc->CR &= ~ADC_CR_ADSTART;
     return true;
 }
 
-uint16_t PHAL_readADC(ADCInitConfig_t* config)
-{
-    ADC_TypeDef *adc = config->periph;
-    if (!config->cont_conv_mode)
-    {
+uint16_t PHAL_readADC(ADCInitConfig_t* config) {
+    ADC_TypeDef* adc = config->periph;
+    if (!config->cont_conv_mode) {
         adc->CR |= ADC_CR_ADSTART; // Start conversion if single-shot mode
     }
-    while (!(adc->ISR & ADC_ISR_EOC)); // Wait for end of conversion
+    while (!(adc->ISR & ADC_ISR_EOC))
+        ; // Wait for end of conversion
     return (uint16_t)adc->DR; // Read result
 }

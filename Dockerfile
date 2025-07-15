@@ -3,10 +3,8 @@ FROM ubuntu:25.04
 RUN apt update
 
 # Install dev dependencies
-RUN apt -y install --no-install-recommends gcc-arm-none-eabi
-RUN apt -y install --no-install-recommends libnewlib-arm-none-eabi
-RUN apt -y install --no-install-recommends ninja-build cmake
-RUN apt -y install --no-install-recommends git ssh
+RUN apt -y install --no-install-recommends gcc-arm-none-eabi \
+    libnewlib-arm-none-eabi ninja-build cmake git ssh clang-format
 
 # Setup python virtual environment
 # This is required because some packages (python-can) don't get installed properly when running as root

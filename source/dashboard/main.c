@@ -169,6 +169,7 @@ float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
 void pollBrakeStatus();
+void sendVersion();
 extern void HardFault_Handler();
 
 // Communication queues
@@ -202,6 +203,7 @@ int main(void) {
     taskCreate(handleDashboardInputs, 50);
     taskCreate(heartBeatTask, 100);
     taskCreate(sendShockpots, 15);
+    taskCreate(sendVersion, 1000);
     // taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
@@ -266,6 +268,12 @@ void preflightChecks(void) {
             registerPreflightComplete(1);
             state = 255; // prevent wrap around
     }
+}
+
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_DASH_VERSION(git_hash_num);
 }
 
 /**

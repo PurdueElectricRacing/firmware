@@ -37,10 +37,10 @@ OUT_DIR = CWD/"output"
 parser = OptionParser()
 
 parser.add_option("-t", "--target", 
-    dest="target",
+    dest="targets",
     type="string",
     action="store",
-    help="firmware target to build. Defaults to `all`"
+    help="comma seperated list of firmware targets to build. Defaults to `all`"
 )
 
 parser.add_option("-c", "--clean",
@@ -77,10 +77,14 @@ parser.add_option("-v", "--verbose",
 
 
 BUILD_TYPE = "Release" if options.release else "Debug"
-TARGET = options.target if options.target else "all"
 VERBOSE = "--verbose" if options.verbose else ""
 RUN_TESTS = not options.no_test # TODO: This
 
+# Auto-append .elf to each target unless already present
+if options.targets:
+    TARGETS = [t if t.endswith(".elf") else f"{t}.elf" for t in options.targets.split(",")]
+else:
+    TARGETS = ["all"]
 
 # Always clean if we specify
 if options.clean:
@@ -88,7 +92,7 @@ if options.clean:
     print("Build and output directories clean.")
 
 # Build the target if specified or we did not clean
-if options.target or not options.clean:
+if options.targets or not options.clean:
     CMAKE_OPTIONS = [
         "-S", str(SOURCE_DIR),
         "-B", str(BUILD_DIR),
@@ -99,8 +103,7 @@ if options.target or not options.clean:
 
     NINJA_OPTIONS = [
         "-C", str(BUILD_DIR),
-        TARGET,
-    ]
+    ] + TARGETS
     NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
 
     try:

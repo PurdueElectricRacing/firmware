@@ -1,0 +1,44 @@
+name: Build and Release Firmware
+
+on:
+  push:
+    branches:
+      - master
+
+# Add tags here for versions
+
+permissions:
+  contents: write  # Required to create GitHub release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install dependencies (CMake, Ninja, ARM GCC)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc-arm-none-eabi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install Python requirements
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Run per_build.py
+        run: python3 per_build.py --release --package
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Firmware Release ${{ github.sha }}
+          files: output/firmware*.tar.gz

@@ -87,6 +87,8 @@ parser.add_option("-p", "--package",
     help="package build output into tarball with CRCs, suffixed by Git hash"
 )
 
+(options, args) = parser.parse_args()
+
 def print_available_targets():
     modules = [
         "main_module",

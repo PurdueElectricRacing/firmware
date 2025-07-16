@@ -95,7 +95,7 @@ else:
     TARGETS = ["all"]
 
 # Always clean if we specify
-if options.clean:
+if options.clean or options.package:
     subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR)])
     print("Build and output directories clean.")
 

@@ -45,3 +45,4 @@ jobs:
           tag_name: release-${{ github.sha }}
           name: Firmware Release ${{ github.sha }}
           files: output/firmware*.tar.gz
+          prerelease: true

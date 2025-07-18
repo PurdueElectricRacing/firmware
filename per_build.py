@@ -4,6 +4,8 @@
 from optparse import OptionParser
 import pathlib
 import subprocess
+import tarfile
+import zlib
 
 # Logging helper functions
 class bcolors:
@@ -37,10 +39,10 @@ OUT_DIR = CWD/"output"
 parser = OptionParser()
 
 parser.add_option("-t", "--target", 
-    dest="target",
+    dest="targets",
     type="string",
     action="store",
-    help="firmware target to build. Defaults to `all`"
+    help="comma seperated list of firmware targets to build. Defaults to `all`"
 )
 
 parser.add_option("-c", "--clean",
@@ -73,22 +75,32 @@ parser.add_option("-v", "--verbose",
     help="verbose build commnad output"
 )
 
+parser.add_option("-p", "--package",
+    dest="package",
+    action="store_true", default=False,
+    help="package build output into tarball with CRCs, suffixed by Git hash"
+)
+
 (options, args) = parser.parse_args()
 
 
 BUILD_TYPE = "Release" if options.release else "Debug"
-TARGET = options.target if options.target else "all"
 VERBOSE = "--verbose" if options.verbose else ""
 RUN_TESTS = not options.no_test # TODO: This
 
+# Auto-append .elf to each target unless already present
+if options.targets:
+    TARGETS = [t if t.endswith(".elf") else f"{t}.elf" for t in options.targets.split(",")]
+else:
+    TARGETS = ["all"]
 
 # Always clean if we specify
-if options.clean:
+if options.clean or options.package:
     subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR)])
     print("Build and output directories clean.")
 
 # Build the target if specified or we did not clean
-if options.target or not options.clean:
+if options.targets or not options.clean:
     CMAKE_OPTIONS = [
         "-S", str(SOURCE_DIR),
         "-B", str(BUILD_DIR),
@@ -99,8 +111,7 @@ if options.target or not options.clean:
 
     NINJA_OPTIONS = [
         "-C", str(BUILD_DIR),
-        TARGET,
-    ]
+    ] + TARGETS
     NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS 
 
     try:
@@ -122,3 +133,48 @@ if options.target or not options.clean:
         log_error("Unable to generate targets.")
     else:
         log_success("Sucessfully built targets.")
+
+# --package logic
+def get_git_hash_or_tag():
+    try:
+        # Check if current commit has a tag
+        tag = subprocess.check_output(
+            ["git", "describe", "--tags", "--exact-match"],
+            stderr=subprocess.DEVNULL
+        ).strip().decode()
+        return tag
+    except subprocess.CalledProcessError:
+        # No tag on this commit, fallback to short hash
+        return subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"]
+        ).strip().decode()
+
+
+def add_crc_to_files():
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    for elf in OUT_DIR.glob("*/*.elf"):
+        with open(elf, "rb") as f:
+            data = f.read()
+            crc = format(zlib.crc32(data) & 0xFFFFFFFF, '08X')
+        crc_file = elf.with_suffix(".crc")
+        with open(crc_file, "w") as cf:
+            cf.write(crc + "\n")
+        log_success(f"CRC written for {elf.name}: {crc}")
+
+def create_tarball():
+    git_hash = get_git_hash_or_tag()
+    tarball_name = OUT_DIR / f"firmware_{git_hash}.tar.gz"
+
+    with tarfile.open(tarball_name, "w:gz") as tar:
+        for f in OUT_DIR.glob("*/*"):
+            if f.suffix in [".elf", ".crc"]:
+                tar.add(f, arcname=f.name)
+
+    log_success(f"Tarball created: {tarball_name}")
+    return tarball_name
+
+# Package output if requested
+if options.package:
+    log_success("Packaging firmware...")
+    add_crc_to_files()
+    create_tarball()

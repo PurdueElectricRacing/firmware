@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with: 
+          submodules: recursive
 
       - name: Install dependencies (CMake, Ninja, ARM GCC)
         run: |
@@ -40,5 +42,6 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: release-${{ github.sha }}
           name: Firmware Release ${{ github.sha }}
           files: output/firmware*.tar.gz

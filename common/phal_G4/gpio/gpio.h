@@ -162,7 +162,10 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len);
  * @return true GPIO Input true
  * @return false GPIO Input false
  */
-bool PHAL_readGPIO(GPIO_TypeDef *bank, uint8_t pin);
+static inline bool PHAL_readGPIO(GPIO_TypeDef *bank, uint8_t pin)
+{
+    return (bank->IDR >> pin) & 0b1;
+}
 
 /**
  * @brief Write a logic value to an output pin
@@ -171,8 +174,14 @@ bool PHAL_readGPIO(GPIO_TypeDef *bank, uint8_t pin);
  * @param pin GPIO pin number
  * @param value Logical value to write
  */
-void PHAL_writeGPIO(GPIO_TypeDef *bank, uint8_t pin, bool value);
-void PHAL_toggleGPIO(GPIO_TypeDef *bank, uint8_t pin);
+static inline void PHAL_writeGPIO(GPIO_TypeDef *bank, uint8_t pin, bool value)
+{
+    bank->BSRR |= 1 << ((!value << 4) | pin); // BSRR has "set" as bottom 16 bits and "reset" as top 16
+}
 
+static inline void PHAL_toggleGPIO(GPIO_TypeDef *bank, uint8_t pin)
+{
+    PHAL_writeGPIO(bank, pin, !PHAL_readGPIO(bank, pin));
+}
 
 #endif // __PHAL_G4_GPIO_H__

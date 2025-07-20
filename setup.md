@@ -53,20 +53,8 @@ sudo apt install git cmake python3 python3-pip ninja-build gcc-arm-none-eabi ope
 VS Code is the recommended editor for firmware development.
 
 ## Install Extensions
-Open the Extensions view (Ctrl+Shift+X or Cmd+Shift+X) and install the following VSCode extensions:
+Open the Extensions view (Ctrl+Shift+X or Cmd+Shift+X) and install the [PER extension pack](https://marketplace.visualstudio.com/items?itemName=irvingywang.per-pack) by searching the extension marketplace for "PER-Pack".
 
-```
-Cortex-Debug
-Peripheral Viewer
-MemoryView
-C/C++
-RTOS Views
-Black Formatter
-Code Spell Check
-Python
-Python Debug
-Pylance
-```
 
 ## Turn on Autosave
 Go to `File -> Autosave` and click check to turn on autosave.

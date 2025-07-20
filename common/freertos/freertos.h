@@ -8,11 +8,11 @@
 #define _FREERTOS_PATH(y) __FREERTOS_PATH(_FREERTOS_DIR, y)
 
 #if defined(STM32F407xx)
-#define _FREERTOS_DIR common/STM32CubeF4/Middlewares/Third_Party/FreeRTOS/Source/
+#define _FREERTOS_DIR external/STM32CubeF4/Middlewares/Third_Party/FreeRTOS/Source/
 #elif defined(STM32F732xx)
-#define _FREERTOS_DIR common/STM32CubeF7/Middlewares/Third_Party/FreeRTOS/Source/
+#define _FREERTOS_DIR external/STM32CubeF7/Middlewares/Third_Party/FreeRTOS/Source/
 #elif defined(STM32G474xx)
-#define _FREERTOS_DIR common/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/
+#define _FREERTOS_DIR external/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/
 #else
 #error "Unsupported MCU arch"
 #endif

@@ -15,14 +15,8 @@
             "type": "shell",
             "command": "python3 per_build.py --bootloader",
             "group": {
-                "kind": "build",
+                "kind": "build"
             }
-        },
-        {
-            "label": "Submodule Update",
-            "group": "none",
-            "type": "shell",
-            "command": "git submodule update --init --recursive"
         },
         {
             "label": "can_gen",

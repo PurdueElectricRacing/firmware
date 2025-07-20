@@ -54,7 +54,8 @@ VS Code is the recommended editor for firmware development.
 
 ## Install Extensions
 Open the Extensions view (Ctrl+Shift+X or Cmd+Shift+X) and install the [PER extension pack](https://marketplace.visualstudio.com/items?itemName=irvingywang.per-pack) by searching the extension marketplace for "PER-Pack".
-
+> [!WARNING]
+> PER-Pack is required! Dont skip this step.
 
 ## Turn on Autosave
 Go to `File -> Autosave` and click check to turn on autosave.

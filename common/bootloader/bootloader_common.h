@@ -23,13 +23,12 @@
 
 #define BOOTLOADER_SHARED_MEMORY_MAGIC (0xABCDBEEF)
 
-typedef enum
-{
-    BLCMD_START = 0x1,      /* Request to start firmware download */
-    BLCMD_CRC = 0x3,        /* Final CRC-32b check of firmware */
+typedef enum {
+    BLCMD_START = 0x1, /* Request to start firmware download */
+    BLCMD_CRC = 0x3, /* Final CRC-32b check of firmware */
     BLCMD_CRC_BACKUP = 0x2,
-    BLCMD_JUMP = 0x4,      /* Request to start firmware download */
-    BLCMD_RST = 0x5,        /* Request for reset */
+    BLCMD_JUMP = 0x4, /* Request to start firmware download */
+    BLCMD_RST = 0x5, /* Request for reset */
 } BLCmd_t;
 
 typedef enum {
@@ -42,16 +41,15 @@ typedef enum {
 } ResetReason_t;
 
 typedef struct {
-    uint32_t        magic_word;
-    uint32_t        reset_count;
-    ResetReason_t   reset_reason;
+    uint32_t magic_word;
+    uint32_t reset_count;
+    ResetReason_t reset_reason;
 } BootlaoderSharedMemory_t;
 
 extern BootlaoderSharedMemory_t bootloader_shared_memory;
 
-__attribute__((always_inline)) inline void Bootloader_ConfirmApplicationLaunch()
-{
-    bootloader_shared_memory.reset_reason   = RESET_REASON_BUTTON;
+__attribute__((always_inline)) inline void Bootloader_ConfirmApplicationLaunch() {
+    bootloader_shared_memory.reset_reason = RESET_REASON_BUTTON;
 }
 
 int Bootloader_ResetForFirmwareDownload();

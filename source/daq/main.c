@@ -1,19 +1,19 @@
+#include "main.h"
+
+#include "buffer.h"
+#include "can_flags.h"
+#include "can_parse.h"
 #include "common/common_defs/common_defs.h"
+#include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
-#include "common/freertos/freertos.h"
-
-#include "buffer.h"
-#include "main.h"
+#include "daq_can.h"
 #include "daq_hub.h"
 #include "daq_spi.h"
-#include "daq_can.h"
-#include "can_parse.h"
-#include "can_flags.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -63,21 +63,21 @@ extern uint32_t PLLClockRateHz;
 
 #define TargetCoreClockrateHz 168000000
 ClockRateConfig_t clock_config = {
-    .clock_source               = CLOCK_SOURCE_HSE,
-    .use_pll                    = true,
-    .pll_src                    = PLL_SRC_HSE,
-    .vco_output_rate_target_hz  = 336000000, //288000000,
-    .system_clock_target_hz     = TargetCoreClockrateHz,
-    .ahb_clock_target_hz        = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       = (TargetCoreClockrateHz / 4),
-    .apb2_clock_target_hz       = (TargetCoreClockrateHz / 4),
+    .clock_source = CLOCK_SOURCE_HSE,
+    .use_pll = true,
+    .pll_src = PLL_SRC_HSE,
+    .vco_output_rate_target_hz = 336000000, //288000000,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz = (TargetCoreClockrateHz / 4),
+    .apb2_clock_target_hz = (TargetCoreClockrateHz / 4),
 };
 
 /* SPI CONFIG FOR ETHERNET MODULE */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t eth_spi_config = {
-    .data_len  = 8,
+    .data_len = 8,
     .nss_sw = false,
     .nss_gpio_port = ETH_CS_PORT,
     .nss_gpio_pin = ETH_CS_PIN,
@@ -87,33 +87,32 @@ SPI_InitConfig_t eth_spi_config = {
 };
 
 RTC_timestamp_t start_time =
-{
-    .date = {.month_bcd=RTC_MONTH_FEBRUARY,
-             .weekday=RTC_WEEKDAY_TUESDAY,
-             .day_bcd=0x27,
-             .year_bcd=0x24},
-    .time = {.hours_bcd=0x18,
-             .minutes_bcd=0x27,
-             .seconds_bcd=0x00,
-             .time_format=RTC_FORMAT_24_HOUR},
+    {
+        .date = {.month_bcd = RTC_MONTH_FEBRUARY,
+                 .weekday = RTC_WEEKDAY_TUESDAY,
+                 .day_bcd = 0x27,
+                 .year_bcd = 0x24},
+        .time = {.hours_bcd = 0x18,
+                 .minutes_bcd = 0x27,
+                 .seconds_bcd = 0x00,
+                 .time_format = RTC_FORMAT_24_HOUR},
 };
 
 dma_init_t usart_tx_dma_config = USART6_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART6_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lte_usart_config = {
-   .baud_rate   = 115200,
-   .word_length = WORD_8,
-   .stop_bits   = SB_ONE,
-   .parity      = PT_NONE,
-   .hw_flow_ctl = HW_DISABLE,
-   .ovsample    = OV_16,
-   .obsample    = OB_DISABLE,
-   .periph      = USART6,
-   .wake_addr   = false,
-   .usart_active_num = USART6_ACTIVE_IDX,
-   .tx_dma_cfg = &usart_tx_dma_config,
-   .rx_dma_cfg = &usart_rx_dma_config
-};
+    .baud_rate = 115200,
+    .word_length = WORD_8,
+    .stop_bits = SB_ONE,
+    .parity = PT_NONE,
+    .hw_flow_ctl = HW_DISABLE,
+    .ovsample = OV_16,
+    .obsample = OB_DISABLE,
+    .periph = USART6,
+    .wake_addr = false,
+    .usart_active_num = USART6_ACTIVE_IDX,
+    .tx_dma_cfg = &usart_tx_dma_config,
+    .rx_dma_cfg = &usart_rx_dma_config};
 DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
 
 extern daq_hub_t dh;
@@ -122,9 +121,9 @@ extern daq_hub_t dh;
 volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT];
 b_tail_t tails[RX_TAIL_COUNT];
 b_handle_t b_rx_can = {
-    .buffer=(volatile uint8_t *)can_rx_buffer,
-    .tails=tails,
-    .num_tails=RX_TAIL_COUNT,
+    .buffer = (volatile uint8_t*)can_rx_buffer,
+    .tails = tails,
+    .num_tails = RX_TAIL_COUNT,
 };
 
 timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
@@ -134,11 +133,10 @@ defineStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT); // CAN mes
 defineStaticSemaphore(spi1_lock);
 
 static void configure_interrupts(void);
-bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame);
+bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame);
 void shutdown(void);
 
-int main()
-   {
+int main() {
     osKernelInitialize();
 
     bConstruct(&b_rx_can, sizeof(*can_rx_buffer), sizeof(can_rx_buffer));
@@ -146,7 +144,7 @@ int main()
     if (0 != PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
 
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
         HardFault_Handler();
 
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
@@ -184,8 +182,7 @@ int main()
     return 0;
 }
 
-static void configure_interrupts(void)
-{
+static void configure_interrupts(void) {
     // Configure exti interupt for power loss pin (PE15)
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
@@ -204,8 +201,7 @@ static void configure_interrupts(void)
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-static void can_rx_irq_handler(CAN_TypeDef * can_h)
-{
+static void can_rx_irq_handler(CAN_TypeDef* can_h) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
@@ -218,35 +214,31 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
 
     if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
-        timestamped_frame_t *rx;
+        timestamped_frame_t* rx;
         uint32_t cont;
-        if (bGetHeadForWrite(&b_rx_can, (void**) &rx, &cont) == 0)
-        {
+        if (bGetHeadForWrite(&b_rx_can, (void**)&rx, &cont) == 0) {
             rx->frame_type = DAQ_FRAME_CAN_RX; // msg generated by CAN interrupt
             rx->tick_ms = getTick();
 
             rx->bus_id = (can_h == CAN1) ? BUS_ID_CAN1 : BUS_ID_CAN2;
 
             // Get either StdId or ExtId
-            if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR)
-            {
+            if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
                 rx->msg_id = CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos);
-            }
-            else
-            {
+            } else {
                 rx->msg_id = (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
             }
 
             rx->dlc = (CAN_RDT0R_DLC & can_h->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
 
-            rx->data[0] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 0)  & 0xFF;
-            rx->data[1] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 8)  & 0xFF;
-            rx->data[2] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
-            rx->data[3] = (uint8_t) (can_h->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-            rx->data[4] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 0)  & 0xFF;
-            rx->data[5] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 8)  & 0xFF;
-            rx->data[6] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
-            rx->data[7] = (uint8_t) (can_h->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
+            rx->data[0] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
+            rx->data[1] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
+            rx->data[2] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
+            rx->data[3] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
+            rx->data[4] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
+            rx->data[5] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
+            rx->data[6] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
+            rx->data[7] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
             // TODO: cannot guarantee that messages will be processed as fast as it logs, so currently keeping a separate queue for messages to be processed
 
@@ -275,9 +267,7 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
             }
 #endif
             bCommitWrite(&b_rx_can, 1);
-        }
-        else
-        {
+        } else {
             dh.bcan_rx_overflow++;
         }
         can_h->RF0R |= (CAN_RF0R_RFOM0);
@@ -286,33 +276,29 @@ static void can_rx_irq_handler(CAN_TypeDef * can_h)
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-void CAN1_RX0_IRQHandler()
-{
+void CAN1_RX0_IRQHandler() {
     can_rx_irq_handler(CAN1);
 }
 
-void CAN2_RX0_IRQHandler()
-{
+void CAN2_RX0_IRQHandler() {
     /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
     can_rx_irq_handler(CAN2);
 }
 
 //volatile uint32_t last_err_stat = 0;
 volatile uint32_t error_irq_cnt = 0;
-void CAN1_SCE_IRQHandler()
-{
+
+void CAN1_SCE_IRQHandler() {
     // TODO track errors
     uint32_t err_stat;
     error_irq_cnt++;
-    if (CAN1->MSR & CAN_MSR_ERRI)
-    {
+    if (CAN1->MSR & CAN_MSR_ERRI) {
         err_stat = CAN1->ESR;
         CAN1->ESR &= ~(CAN_ESR_LEC_Msk);
 
-        timestamped_frame_t *rx;
+        timestamped_frame_t* rx;
         uint32_t cont;
-        if (bGetHeadForWrite(&b_rx_can, (void**) &rx, &cont) == 0)
-        {
+        if (bGetHeadForWrite(&b_rx_can, (void**)&rx, &cont) == 0) {
             rx->tick_ms = getTick();
             can_parse_error_status(err_stat, rx);
             bCommitWrite(&b_rx_can, 1);
@@ -321,68 +307,67 @@ void CAN1_SCE_IRQHandler()
     }
 }
 
-bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame)
-{
-	//frame->echo_id = 0xFFFFFFFF;
+bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame) {
+    //frame->echo_id = 0xFFFFFFFF;
     frame->bus_id = 0;
-	frame->msg_id  = CAN_ERR_FLAG | CAN_ERR_CRTL;
-	frame->dlc = CAN_ERR_DLC;
-	frame->data[0] = CAN_ERR_LOSTARB_UNSPEC;
-	frame->data[1] = CAN_ERR_CRTL_UNSPEC;
-	frame->data[2] = CAN_ERR_PROT_UNSPEC;
-	frame->data[3] = CAN_ERR_PROT_LOC_UNSPEC;
-	frame->data[4] = CAN_ERR_TRX_UNSPEC;
-	frame->data[5] = 0;
-	frame->data[6] = 0;
-	frame->data[7] = 0;
+    frame->msg_id = CAN_ERR_FLAG | CAN_ERR_CRTL;
+    frame->dlc = CAN_ERR_DLC;
+    frame->data[0] = CAN_ERR_LOSTARB_UNSPEC;
+    frame->data[1] = CAN_ERR_CRTL_UNSPEC;
+    frame->data[2] = CAN_ERR_PROT_UNSPEC;
+    frame->data[3] = CAN_ERR_PROT_LOC_UNSPEC;
+    frame->data[4] = CAN_ERR_TRX_UNSPEC;
+    frame->data[5] = 0;
+    frame->data[6] = 0;
+    frame->data[7] = 0;
 
-	if ((err & CAN_ESR_BOFF) != 0) {
-		frame->msg_id |= CAN_ERR_BUSOFF;
-	}
+    if ((err & CAN_ESR_BOFF) != 0) {
+        frame->msg_id |= CAN_ERR_BUSOFF;
+    }
 
-	/*
+    /*
 	uint8_t tx_error_cnt = (err>>16) & 0xFF;
 	uint8_t rx_error_cnt = (err>>24) & 0xFF;
 	*/
 
-	if (err & CAN_ESR_EPVF) {
-		frame->data[1] |= CAN_ERR_CRTL_RX_PASSIVE | CAN_ERR_CRTL_TX_PASSIVE;
-	} else if (err & CAN_ESR_EWGF) {
-		frame->data[1] |= CAN_ERR_CRTL_RX_WARNING | CAN_ERR_CRTL_TX_WARNING;
-	}
+    if (err & CAN_ESR_EPVF) {
+        frame->data[1] |= CAN_ERR_CRTL_RX_PASSIVE | CAN_ERR_CRTL_TX_PASSIVE;
+    } else if (err & CAN_ESR_EWGF) {
+        frame->data[1] |= CAN_ERR_CRTL_RX_WARNING | CAN_ERR_CRTL_TX_WARNING;
+    }
 
-	uint8_t lec = (err>>4) & 0x07;
-	if (lec!=0) { /* protocol error */
-		switch (lec) {
-			case 0x01: /* stuff error */
-				frame->msg_id |= CAN_ERR_PROT;
-				frame->data[2] |= CAN_ERR_PROT_STUFF;
-				break;
-			case 0x02: /* form error */
-				frame->msg_id |= CAN_ERR_PROT;
-				frame->data[2] |= CAN_ERR_PROT_FORM;
-				break;
-			case 0x03: /* ack error */
-				frame->msg_id |= CAN_ERR_ACK;
-				break;
-			case 0x04: /* bit recessive error */
-				frame->msg_id |= CAN_ERR_PROT;
-				frame->data[2] |= CAN_ERR_PROT_BIT1;
-				break;
-			case 0x05: /* bit dominant error */
-				frame->msg_id |= CAN_ERR_PROT;
-				frame->data[2] |= CAN_ERR_PROT_BIT0;
-				break;
-			case 0x06: /* CRC error */
-				frame->msg_id |= CAN_ERR_PROT;
-				frame->data[3] |= CAN_ERR_PROT_LOC_CRC_SEQ;
-				break;
-			default:
-				break;
-		}
-	}
+    uint8_t lec = (err >> 4) & 0x07;
+    if (lec != 0) { /* protocol error */
+        switch (lec) {
+            case 0x01: /* stuff error */
+                frame->msg_id |= CAN_ERR_PROT;
+                frame->data[2] |= CAN_ERR_PROT_STUFF;
+                break;
+            case 0x02: /* form error */
+                frame->msg_id |= CAN_ERR_PROT;
+                frame->data[2] |= CAN_ERR_PROT_FORM;
+                break;
+            case 0x03: /* ack error */
+                frame->msg_id |= CAN_ERR_ACK;
+                break;
+            case 0x04: /* bit recessive error */
+                frame->msg_id |= CAN_ERR_PROT;
+                frame->data[2] |= CAN_ERR_PROT_BIT1;
+                break;
+            case 0x05: /* bit dominant error */
+                frame->msg_id |= CAN_ERR_PROT;
+                frame->data[2] |= CAN_ERR_PROT_BIT0;
+                break;
+            case 0x06: /* CRC error */
+                frame->msg_id |= CAN_ERR_PROT;
+                frame->data[3] |= CAN_ERR_PROT_LOC_CRC_SEQ;
+                break;
+            default:
+                break;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 /**
@@ -390,8 +375,7 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t *frame)
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
-void shutdown(void)
-{
+void shutdown(void) {
     daq_shutdown_hook();
     uint32_t start_tick = getTick();
     while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart
@@ -403,20 +387,16 @@ void shutdown(void)
 
 // Interrupt handler for power loss detection
 // Note: this is set to lowest priority to allow preemption by other interrupts
-void EXTI15_10_IRQHandler()
-{
-    if (EXTI->PR & EXTI_PR_PR15)
-    {
+void EXTI15_10_IRQHandler() {
+    if (EXTI->PR & EXTI_PR_PR15) {
         EXTI->PR |= EXTI_PR_PR15; // Clear interrupt
         shutdown();
     }
 }
 
-void HardFault_Handler()
-{
+void HardFault_Handler() {
     PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-    while(1)
-    {
+    while (1) {
         __asm__("nop");
     }
 }

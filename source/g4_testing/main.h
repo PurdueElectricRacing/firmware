@@ -2,6 +2,8 @@
 #ifndef __G4_TESTING_MAIN_H__
 #define __G4_TESTING_MAIN_H__
 
+#include <stdint.h>
+
 #define LED_GREEN_PORT  GPIOB
 #define LED_GREEN_PIN   7
 #define LED_RED_PORT    GPIOB
@@ -11,8 +13,7 @@
 #define LED_ORANGE_PORT GPIOB
 #define LED_ORANGE_PIN  1
 
-typedef struct __attribute__((packed))
-{
+typedef struct __attribute__((packed)) {
     // Do not modify this struct
     // unless you modify the ADC DMA config in main.h to match
     uint16_t val1;

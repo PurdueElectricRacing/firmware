@@ -2,16 +2,16 @@
 #define _QUEUE_H_
 
 // Includes
-#include "stdint.h"
 #include "stdbool.h"
+#include "stdint.h"
 
 // Generic defines
 #ifdef MEM_SMALL
-#define MEM_SIZE        1024        // Size of overall static memory allocation (small size)
+#define MEM_SIZE 1024 // Size of overall static memory allocation (small size)
 #elif defined MEM_MED
-#define MEM_SIZE        1024        // Size of overall static memory allocation (mid size)
+#define MEM_SIZE 1024 // Size of overall static memory allocation (mid size)
 #else
-#define MEM_SIZE        1024        // Size of overall static memory allocation (large size)
+#define MEM_SIZE 1024 // Size of overall static memory allocation (large size)
 #endif
 
 // Enumerations
@@ -23,11 +23,11 @@ typedef enum {
 
 // Structs
 typedef struct {
-    volatile uint8_t  buffer[MEM_SIZE]; //!< Ring buffer for queue storage
-    volatile uint32_t head;             //!< Element number of first item
-    volatile uint32_t tail;             //!< Element number of last item
-    uint32_t size;                      //!< Size of each item 
-    uint32_t max_items;                 //!< Maximum number of items in queue based on size (can only ever hold max_items - 1)
+    volatile uint8_t buffer[MEM_SIZE]; //!< Ring buffer for queue storage
+    volatile uint32_t head; //!< Element number of first item
+    volatile uint32_t tail; //!< Element number of last item
+    uint32_t size; //!< Size of each item
+    uint32_t max_items; //!< Maximum number of items in queue based on size (can only ever hold max_items - 1)
 } q_handle_t;
 
 // Prototypes

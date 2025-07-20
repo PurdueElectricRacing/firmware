@@ -1,7 +1,9 @@
+#include "gps.h"
+
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <stdbool.h>
-#include "gps.h"
+
 #include "can_parse.h"
 //#include "sfs_pp.h"
 //#include "SFS.h"
@@ -55,22 +57,17 @@ GPS_Handle_t gps_handle = {
     .fix_type = -1,
     .iTOW = 0,
     .unique_iTOW = true,
-    .messages_received = -1
-};
+    .messages_received = -1};
 
 // Parse velocity from raw message
-bool parseVelocity(GPS_Handle_t *GPS)
-{
-    // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT 
+bool parseVelocity(GPS_Handle_t* GPS) {
+    // For future reference, we use the UBX protocol to communicate with GPS - Specifically UBX-NAV-PVT
     // Validate the message header, class, and id
-    if (((GPS->raw_message)[0] == UBX_NAV_PVT_HEADER_B0) && (GPS->raw_message[1] == UBX_NAV_PVT_HEADER_B1) &&
-        ((GPS->raw_message)[2] == UBX_NAV_PVT_CLASS) && ((GPS->raw_message)[3] == UBX_NAV_PVT_MSG_ID))
-    {
+    if (((GPS->raw_message)[0] == UBX_NAV_PVT_HEADER_B0) && (GPS->raw_message[1] == UBX_NAV_PVT_HEADER_B1) && ((GPS->raw_message)[2] == UBX_NAV_PVT_CLASS) && ((GPS->raw_message)[3] == UBX_NAV_PVT_MSG_ID)) {
         bool correctFix = false;
         // Collect fix type
         GPS->fix_type = GPS->raw_message[26];
-        if (GPS->fix_type > GPS_FIX_2D && GPS->fix_type < GPS_FIX_TIME_ONLY)
-        {
+        if (GPS->fix_type > GPS_FIX_2D && GPS->fix_type < GPS_FIX_TIME_ONLY) {
             correctFix = true;
             // Collect Ground Speed
             iLong.bytes[0] = GPS->raw_message[66];
@@ -143,7 +140,6 @@ bool parseVelocity(GPS_Handle_t *GPS)
             uLong.bytes[3] = GPS->raw_message[9];
             GPS->iTOW = uLong.uLong; /* ms is the raw data */
 
-            
             // Collect date and time (UTC)
             iShort.bytes[0] = GPS->raw_message[10];
             iShort.bytes[1] = GPS->raw_message[11];

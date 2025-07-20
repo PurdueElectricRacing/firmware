@@ -12,7 +12,7 @@
 
 #include "amk.h"
 
- /**
+/**
  * Procedure: amkInit()
  *
  * @brief Initializes all module objects
@@ -25,21 +25,18 @@
  *
  */
 
-void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id)
-{
-    *motor = (amk_motor_t){
+void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id) {
+    *motor = (amk_motor_t) {
         .state = AMK_STATE_OFF,
         .pchg_complete = pchg_complete,
         .id = id,
         .torque_set_ppt_nom = ZERO_DECI_NM,
         .torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT,
-        .torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT
-    };
+        .torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT};
 
 } /* amkInit() */
 
-
- /**
+/**
  * Procedure: amkPeriodic()
  *
  * @brief Run the AMK state machine
@@ -48,90 +45,71 @@ void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id)
  *
  */
 
-void amkPeriodic(amk_motor_t* motor)
-{
+void amkPeriodic(amk_motor_t* motor) {
     amkGetData(motor);
 
-    switch(motor->state)
-    {
-    case AMK_STATE_OFF:
-        if (motor->status.AMK_bError)
-        {
-            if (AMK_CAN_ERR_ID == motor->diagnostic_num ||
-                AMK_DC_BUS_ID == motor->diagnostic_num)
-            {
-                amkReset(motor);
-            }
-            else
-            {
-                setFault(motor->error_fault_id, true);
-            }
-        }
-        else
-        {
-            if (*(motor->pchg_complete))
-            {
-                /* Do not proceed to INIT unless we are system ready */
-                if ((motor->status.AMK_bSystemReady))
-                {
-                    motor->state = AMK_STATE_INIT;
+    switch (motor->state) {
+        case AMK_STATE_OFF:
+            if (motor->status.AMK_bError) {
+                if (AMK_CAN_ERR_ID == motor->diagnostic_num || AMK_DC_BUS_ID == motor->diagnostic_num) {
+                    amkReset(motor);
+                } else {
+                    setFault(motor->error_fault_id, true);
+                }
+            } else {
+                if (*(motor->pchg_complete)) {
+                    /* Do not proceed to INIT unless we are system ready */
+                    if ((motor->status.AMK_bSystemReady)) {
+                        motor->state = AMK_STATE_INIT;
+                    }
+                } else {
+                    // Wait for precharge and system ready
                 }
             }
-            else
-            {
-                // Wait for precharge and system ready
+            break;
+
+        case AMK_STATE_INIT:
+            /* System is ready to run */
+            if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete)) {
+                motor->torque_set_ppt_nom = 0;
+                motor->torque_lim_pos_ppt_nom = 0;
+                motor->torque_lim_neg_ppt_nom = 0;
+                motor->control.AMK_bDcOn = true;
+                motor->control.AMK_bInverterOn = true;
+                motor->control.AMK_bEnable = true;
+                motor->state = AMK_STATE_RUNNING;
             }
-        }
-        break;
-
-    case AMK_STATE_INIT:
-        /* System is ready to run */
-        if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete))
-        {
-            motor->torque_set_ppt_nom = 0;
-            motor->torque_lim_pos_ppt_nom = 0;
-            motor->torque_lim_neg_ppt_nom = 0;
-            motor->control.AMK_bDcOn = true;
-            motor->control.AMK_bInverterOn = true;
-            motor->control.AMK_bEnable = true;
-            motor->state = AMK_STATE_RUNNING;
-        }
-        /* System is not ready to run */
-        else
-        {
-            motor->control.AMK_bDcOn = false;
-            motor->control.AMK_bInverterOn = false;
-            motor->control.AMK_bEnable = false;
-            motor->state = AMK_STATE_OFF;
-        }
-        break;
-
-    case AMK_STATE_RUNNING:
-        /* System is ready to run */
-        if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete))
-        {
-            /* System error */
-            if (motor->status.AMK_bError)
-            {
-                setFault(motor->error_fault_id, true);
+            /* System is not ready to run */
+            else {
+                motor->control.AMK_bDcOn = false;
+                motor->control.AMK_bInverterOn = false;
+                motor->control.AMK_bEnable = false;
                 motor->state = AMK_STATE_OFF;
             }
-            // Set torque limit
-            motor->torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT;
-            motor->torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT;
-        }
-        /* System is not ready to run */
-        else
-        {
-            amkOff(motor);
-        }
-        break;
+            break;
+
+        case AMK_STATE_RUNNING:
+            /* System is ready to run */
+            if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete)) {
+                /* System error */
+                if (motor->status.AMK_bError) {
+                    setFault(motor->error_fault_id, true);
+                    motor->state = AMK_STATE_OFF;
+                }
+                // Set torque limit
+                motor->torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT;
+                motor->torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT;
+            }
+            /* System is not ready to run */
+            else {
+                amkOff(motor);
+            }
+            break;
     }
 
     amkSendSetpoints(motor);
 
 } /* amkPeriodic() */
-
 
 /**
  * Procedure: amkSendSetpoints()
@@ -142,35 +120,20 @@ void amkPeriodic(amk_motor_t* motor)
  *
  */
 
- static void amkSendSetpoints(amk_motor_t* motor)
- {
-    if (INVA_ID == motor->id)
-    {
-        SEND_INVA_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
-            motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
-            motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
+static void amkSendSetpoints(amk_motor_t* motor) {
+    if (INVA_ID == motor->id) {
+        SEND_INVA_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
         motor->control.AMK_bErrorReset = false;
-        SEND_INVA_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
-            motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
-            motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
-    }
-    else if (INVB_ID == motor->id)
-    {
-        SEND_INVB_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
-            motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
-            motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
-        SEND_INVB_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn,
-                motor->control.AMK_bEnable, motor->control.AMK_bErrorReset,
-                motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
+        SEND_INVA_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
+    } else if (INVB_ID == motor->id) {
+        SEND_INVB_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
+        SEND_INVB_LOG_SET(motor->control.AMK_bReserve1, motor->control.AMK_bInverterOn, motor->control.AMK_bDcOn, motor->control.AMK_bEnable, motor->control.AMK_bErrorReset, motor->control.AMK_bReserve2, motor->torque_set_ppt_nom, motor->torque_lim_pos_ppt_nom, motor->torque_lim_neg_ppt_nom);
         motor->control.AMK_bErrorReset = false;
-    }
-    else
-    {
+    } else {
         // Sus
     }
 
- } /* amkSendSetpoints() */
-
+} /* amkSendSetpoints() */
 
 /**
  * Procedure: amkOff()
@@ -184,8 +147,7 @@ void amkPeriodic(amk_motor_t* motor)
  *
  */
 
-static void amkOff(amk_motor_t* motor)
-{
+static void amkOff(amk_motor_t* motor) {
     motor->control.AMK_bDcOn = false;
     motor->control.AMK_bInverterOn = false;
     motor->control.AMK_bEnable = false;
@@ -195,7 +157,6 @@ static void amkOff(amk_motor_t* motor)
     motor->state = AMK_STATE_OFF;
 
 } /* amkOff() */
-
 
 /**
  * Procedure: amkSetTorque()
@@ -210,8 +171,7 @@ static void amkOff(amk_motor_t* motor)
  *
  */
 
-void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
-{
+void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint) {
     //todo change these too
     if (torque_setpoint > MAX_POSITIVE_TORQUE_SETPOINT
         || torque_setpoint < MAX_NEGATIVE_TORQUE_SETPOINT) {
@@ -225,8 +185,7 @@ void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
 
 } /* amkSetTorque() */
 
-
- /**
+/**
  * Procedure: amkGetData()
  *
  * @brief Updates the motor parameters
@@ -238,20 +197,11 @@ void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint)
  *
  */
 
-static void amkGetData(amk_motor_t* motor)
-{
-    if (INVA_ID == motor->id)
-    {
-        if (can_data.INVA_CRIT.stale  ||
-            can_data.INVA_TEMPS.stale ||
-            can_data.INVA_INFO.stale  ||
-            can_data.INVA_ERR_1.stale ||
-            can_data.INVA_ERR_2.stale)
-        {
+static void amkGetData(amk_motor_t* motor) {
+    if (INVA_ID == motor->id) {
+        if (can_data.INVA_CRIT.stale || can_data.INVA_TEMPS.stale || can_data.INVA_INFO.stale || can_data.INVA_ERR_1.stale || can_data.INVA_ERR_2.stale) {
             setFault(motor->stale_fault_id, true);
-        }
-        else
-        {
+        } else {
             motor->speed_act_RPM = can_data.INVA_CRIT.AMK_ActualSpeed;
             motor->torque_act_ppt_nom = can_data.INVA_CRIT.AMK_ActualTorque;
             motor->overload_inv = can_data.INVA_CRIT.AMK_DisplayOverloadInverter;
@@ -273,19 +223,10 @@ static void amkGetData(amk_motor_t* motor)
             motor->error_info_2 = can_data.INVA_ERR_2.AMK_ErrorInfo2;
             motor->error_info_3 = can_data.INVA_ERR_2.AMK_ErrorInfo3;
         }
-    }
-    else if (INVB_ID == motor->id)
-    {
-        if (can_data.INVB_CRIT.stale  ||
-            can_data.INVB_TEMPS.stale ||
-            can_data.INVB_INFO.stale  ||
-            can_data.INVB_ERR_1.stale ||
-            can_data.INVB_ERR_2.stale)
-        {
+    } else if (INVB_ID == motor->id) {
+        if (can_data.INVB_CRIT.stale || can_data.INVB_TEMPS.stale || can_data.INVB_INFO.stale || can_data.INVB_ERR_1.stale || can_data.INVB_ERR_2.stale) {
             setFault(motor->stale_fault_id, true);
-        }
-        else
-        {
+        } else {
             motor->speed_act_RPM = can_data.INVB_CRIT.AMK_ActualSpeed;
             motor->torque_act_ppt_nom = can_data.INVB_CRIT.AMK_ActualTorque;
             motor->overload_inv = can_data.INVB_CRIT.AMK_DisplayOverloadInverter;
@@ -307,16 +248,13 @@ static void amkGetData(amk_motor_t* motor)
             motor->error_info_2 = can_data.INVB_ERR_2.AMK_ErrorInfo2;
             motor->error_info_3 = can_data.INVB_ERR_2.AMK_ErrorInfo3;
         }
-    }
-    else
-    {
+    } else {
         // sus
     }
 
 } /* amkGetData() */
 
-
- /**
+/**
  * Procedure: amkReset()
  *
  * @brief Resets the AMK
@@ -328,8 +266,7 @@ static void amkGetData(amk_motor_t* motor)
  *
  */
 
-static void amkReset(amk_motor_t* motor)
-{
+static void amkReset(amk_motor_t* motor) {
     motor->control.AMK_bErrorReset = true;
     motor->control.AMK_bInverterOn = false;
     motor->torque_set_ppt_nom = ZERO_DECI_NM;

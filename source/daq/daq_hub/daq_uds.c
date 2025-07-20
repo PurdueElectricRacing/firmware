@@ -3,21 +3,20 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rtc.h"
 #include "common/uds/uds.h"
-
-#include "main.h"
 #include "daq_hub.h"
 #include "daq_sd.h"
+#include "main.h"
 
-#define DAQ_BL_CMD_NTP_DATE   0x30
-#define DAQ_BL_CMD_NTP_TIME   0x31
-#define DAQ_BL_CMD_NTP_GET    0x32
+#define DAQ_BL_CMD_NTP_DATE 0x30
+#define DAQ_BL_CMD_NTP_TIME 0x31
+#define DAQ_BL_CMD_NTP_GET  0x32
 
 #define DAQ_BL_CMD_HANDSHAKE  0x40
 #define DAQ_BL_CMD_LOG_ENABLE 0x41
 #define DAQ_BL_CMD_LOG_STATUS 0x42
 #define DAQ_BL_CMD_LED_DISCO  0x43
 
-#define DAQ_BL_CMD_LIST_DIR   0x50
+#define DAQ_BL_CMD_LIST_DIR 0x50
 
 static RTC_timestamp_t start_time =
 {

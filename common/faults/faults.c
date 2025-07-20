@@ -228,10 +228,8 @@ fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {
 };
 //END AUTO FAULT INFO ARRAY DEFS
 
-
 //Corresponds to fault_defs.h
 static uint8_t currentMCU;
-
 
 //Variables containing the number of latched faults
 static uint16_t fatalCount;
@@ -239,7 +237,7 @@ static uint16_t errorCount;
 static uint16_t warnCount;
 static uint16_t currCount;
 
-static q_handle_t *q_tx;
+static q_handle_t* q_tx;
 
 uint16_t most_recent_latched;
 q_handle_t q_fault_history;
@@ -253,7 +251,6 @@ static uint32_t can_ext;
 
 static bool fault_lib_disable;
 
-
 /**
  * @brief Checks wheither fault should be latched or unlatched, updates
  *
@@ -264,16 +261,14 @@ static bool fault_lib_disable;
  */
 bool setFault(int id, int valueToCompare) {
     //Fault Library disabled or the fault isn't owned by current MCU
-    if (fault_lib_disable || GET_OWNER(id) != currentMCU)
-    {
+    if (fault_lib_disable || GET_OWNER(id) != currentMCU) {
         return false;
     }
     uint16_t idx = GET_IDX(id);
-    fault_attributes_t *fault = &faultArray[idx];
+    fault_attributes_t* fault = &faultArray[idx];
 
     //The fault is being forced to be a certain value, stop running
-    if (fault->forceActive)
-    {
+    if (fault->forceActive) {
         return statusArray[idx].latched;
     }
     //Templatch = result of comparison of limits + current value
@@ -281,7 +276,6 @@ bool setFault(int id, int valueToCompare) {
     updateFault(idx);
     return faultArray[idx].tempLatch;
 }
-
 
 /**
  * @brief Heartbeat messages for the various MCUs. Sends fault information, and should be scheduled
@@ -293,16 +287,16 @@ void heartBeatTask() {
     if (ownedidx < 0 || fault_lib_disable) {
         return;
     }
-        fault_status_t *status = &statusArray[curridx++];
-        CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=3, .IDE=1};
-        fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
-        data_a->fault_sync.idx = status->f_ID;
-        data_a->fault_sync.latched = status->latched;
-        qSendToBack(q_tx, &msg);
+    fault_status_t* status = &statusArray[curridx++];
+    CanMsgTypeDef_t msg = {.Bus = CAN1, .ExtId = can_ext, .DLC = 3, .IDE = 1};
+    fault_can_format_t* data_a = (fault_can_format_t*)&msg.Data;
+    data_a->fault_sync.idx = status->f_ID;
+    data_a->fault_sync.latched = status->latched;
+    qSendToBack(q_tx, &msg);
     //Move to the next fault in the owned array
-     if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].status->f_ID) != currentMCU)) {
+    if ((curridx >= TOTAL_NUM_FAULTS) || (GET_OWNER(faultArray[curridx].status->f_ID) != currentMCU)) {
         curridx = ownedidx;
-     }
+    }
 }
 
 /**
@@ -313,9 +307,9 @@ void heartBeatTask() {
  * @return none
  */
 static void txFaultSpecific(int id) {
-    fault_status_t *status = &statusArray[GET_IDX(id)];
-    CanMsgTypeDef_t msg = {.Bus=CAN1, .ExtId=can_ext, .DLC=3, .IDE=1};
-    fault_can_format_t* data_a = (fault_can_format_t *) &msg.Data;
+    fault_status_t* status = &statusArray[GET_IDX(id)];
+    CanMsgTypeDef_t msg = {.Bus = CAN1, .ExtId = can_ext, .DLC = 3, .IDE = 1};
+    fault_can_format_t* data_a = (fault_can_format_t*)&msg.Data;
     data_a->fault_sync.idx = status->f_ID;
     data_a->fault_sync.latched = status->latched;
     qSendToBack(q_tx, &msg);
@@ -331,15 +325,15 @@ static void txFaultSpecific(int id) {
  * @return none
  */
 void handleCallbacks(uint16_t id, bool latched) {
-    fault_status_t recievedStatus = (fault_status_t){latched, id};
-    fault_status_t *currStatus = &statusArray[GET_IDX(recievedStatus.f_ID)];
-	if (recievedStatus.latched) {
+    fault_status_t recievedStatus = (fault_status_t) {latched, id};
+    fault_status_t* currStatus = &statusArray[GET_IDX(recievedStatus.f_ID)];
+    if (recievedStatus.latched) {
         //If current Message = 0, and recieved message = 1 (fault is latching)
         if (!currStatus->latched) {
             currStatus->latched = recievedStatus.latched;
             most_recent_latched = GET_IDX(id);
             qSendToBack(&q_fault_history, &most_recent_latched);
-            switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
+            switch (faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
                 case FAULT_WARNING:
                     warnCount++;
                     break;
@@ -356,7 +350,7 @@ void handleCallbacks(uint16_t id, bool latched) {
     else {
         if (currStatus->latched) {
             currStatus->latched = recievedStatus.latched;
-            switch(faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
+            switch (faultArray[GET_IDX(recievedStatus.f_ID)].priority) {
                 case FAULT_WARNING:
                     warnCount--;
                     break;
@@ -407,7 +401,7 @@ bool updateFault(uint16_t idx) {
     if (ownedidx < 0 || fault_lib_disable) {
         return false;
     }
-    fault_attributes_t *fault = &faultArray[idx];
+    fault_attributes_t* fault = &faultArray[idx];
     uint32_t curr_time = sched.os_ticks;
     //Fault is showing up as latched
     if (((fault->tempLatch) && !(fault->status->latched))) {
@@ -421,7 +415,7 @@ bool updateFault(uint16_t idx) {
             currCount++;
             most_recent_latched = idx;
             qSendToBack(&q_fault_history, &idx);
-            switch(fault->priority) {
+            switch (fault->priority) {
                 case FAULT_WARNING:
                     warnCount++;
                     break;
@@ -445,7 +439,7 @@ bool updateFault(uint16_t idx) {
             fault->start_ticks = curr_time;
             fault->bounces = 0;
             currCount--;
-            switch(fault->priority) {
+            switch (fault->priority) {
                 case FAULT_WARNING:
                     warnCount--;
                     break;
@@ -458,8 +452,7 @@ bool updateFault(uint16_t idx) {
             }
             txFaultSpecific(idx);
         }
-    }
-    else {
+    } else {
         // //Account for potential noise during the latching process
         // if (fault->time_since_latch > 0 && fault->bounces <= (uint16_t)(faultLatchTime[idx] * 0.4)&& fault->tempLatch == 1) {
         //     fault->time_since_latch = curr_time - fault->start_ticks;
@@ -510,12 +503,11 @@ bool updateFault(uint16_t idx) {
         //     }
         // }
         // else {
-            fault->time_since_latch = 0;
-            fault->start_ticks = curr_time;
+        fault->time_since_latch = 0;
+        fault->start_ticks = curr_time;
         // }
     }
 }
-
 
 /**
  * @brief Disables Fault Library
@@ -602,8 +594,6 @@ static void unForce(int id) {
     faultArray[GET_IDX(id)].forceActive = false;
 }
 
-
-
 /**
  * @brief Set a fault to a certain state, regardless of recieved data - disables updateFaults()
  *
@@ -619,7 +609,7 @@ static void forceFault(int id, bool state) {
         currCount++;
         most_recent_latched = idx;
         qSendToBack(&q_fault_history, &idx);
-        switch(faultArray[idx].priority) {
+        switch (faultArray[idx].priority) {
             case FAULT_WARNING:
                 warnCount++;
                 break;
@@ -633,8 +623,8 @@ static void forceFault(int id, bool state) {
     }
     //If it is forced to be unlatched and was latched before
     else if (!state & statusArray[idx].latched) {
-       currCount--;
-        switch(faultArray[idx].priority) {
+        currCount--;
+        switch (faultArray[idx].priority) {
             case FAULT_WARNING:
                 warnCount--;
                 break;
@@ -653,10 +643,8 @@ static void forceFault(int id, bool state) {
     faultArray[idx].bounces = 0;
     faultArray[idx].start_ticks = sched.os_ticks;
     statusArray[idx].latched = state;
-	txFaultSpecific(id);
-
+    txFaultSpecific(id);
 }
-
 
 /**
  * @brief Initialize the Fault library with starting values

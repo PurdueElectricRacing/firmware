@@ -12,18 +12,18 @@
 #ifndef _COOLING_H_
 #define _COOLING_H_
 
+#include <float.h>
+#include <math.h>
+#include <stdbool.h>
+
 #include "can_parse.h"
 #include "car.h"
 #include "common/common_defs/common_defs.h"
 #include "common/phal/gpio.h"
 #include "common/psched/psched.h"
-#include <float.h>
 #include "main.h"
-#include <math.h>
-#include <stdbool.h>
 
-
-#define THERM_MUX_END_IDX   (6)
+#define THERM_MUX_END_IDX (6)
 #define B_THERM_IDX       (5) // Problem thermistor index
 
 // Cooling Loops
@@ -31,11 +31,11 @@
 #define COOL_LOOP_START_IDX (2)
 
 // Temp (Celcius) = a * ln(resistance) + b
-#define MAX_THERM 4095  // 12-bit adc precision
+#define MAX_THERM 4095 // 12-bit adc precision
 
 // Thermistor specifications
-#define W_THERM_R1  2200 // Top resistor in voltage divider
-#define B_THERM_R1  2000 // There is an error in schematic so this is a software fix to correct for 200ohm difference in top resistor
+#define W_THERM_R1 2200 // Top resistor in voltage divider
+#define B_THERM_R1 2000 // There is an error in schematic so this is a software fix to correct for 200ohm difference in top resistor
 
 // Thermistor PN: GE-2102
 #define W_THERM_A (-25.16f)
@@ -43,19 +43,18 @@
 
 // Powertrain
 // Thermistor PN: GE-1337
-#define DT_THERM_A (-23.12f)
-#define DT_THERM_B (218.63f)
+#define DT_THERM_A  (-23.12f)
+#define DT_THERM_B  (218.63f)
 #define DT_THERM_R1 2200
-
 
 typedef struct
 {
-    int8_t    gb_therm_r_c;
-    int8_t    gb_therm_l_c;
-    int8_t    bat_therm_in_C; //therm 1 (These are drivetrain in altium)
-    int8_t    bat_therm_out_C; //therm 2
-    int8_t    dt_therm_out_C; //therm 1 (These are Battery in altium)
-    int8_t    dt_therm_in_C; //therm 2
+    int8_t gb_therm_r_c;
+    int8_t gb_therm_l_c;
+    int8_t bat_therm_in_C; //therm 1 (These are drivetrain in altium)
+    int8_t bat_therm_out_C; //therm 2
+    int8_t dt_therm_out_C; //therm 1 (These are Battery in altium)
+    int8_t dt_therm_in_C; //therm 2
     uint32_t dt_delta_t;
     uint32_t bat_delta_t;
 } Cooling_t;
@@ -73,7 +72,6 @@ bool coolingInit();
  * @brief Checks temperature of various cooling loops/Powertrain periodically
  */
 void coolingPeriodic();
-
 
 /**
  * @brief Converts Raw ADC values to Temperature

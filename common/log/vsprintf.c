@@ -93,9 +93,9 @@
  * 	2.5 printf(3S) man page.
  */
 
+#include <limits.h>
 #include <stdarg.h>
 #include <stddef.h>
-#include <limits.h>
 
 #define VA_START(ap, last)        va_start(ap, last)
 #define VA_SHIFT(ap, value, type) /* No-op for ANSI C. */
@@ -191,32 +191,31 @@
 #define ISDIGIT(ch) ('0' <= (unsigned char)ch && (unsigned char)ch <= '9')
 #endif /* !defined(ISDIGIT) */
 
-#define OUTCHAR(str, len, size, ch)                                                                \
-    do {                                                                                           \
-        if (len + 1 < size)                                                                        \
-            str[len] = ch;                                                                         \
-        (len)++;                                                                                   \
+#define OUTCHAR(str, len, size, ch) \
+    do { \
+        if (len + 1 < size) \
+            str[len] = ch; \
+        (len)++; \
     } while (/* CONSTCOND */ 0)
 
-static void fmtstr(char *, size_t *, size_t, const char *, int, int, int);
-static void fmtint(char *, size_t *, size_t, INTMAX_T, int, int, int, int);
-static void printsep(char *, size_t *, size_t);
+static void fmtstr(char*, size_t*, size_t, const char*, int, int, int);
+static void fmtint(char*, size_t*, size_t, INTMAX_T, int, int, int, int);
+static void printsep(char*, size_t*, size_t);
 static int getnumsep(int);
-static int convert(UINTMAX_T, char *, size_t, int, int);
+static int convert(UINTMAX_T, char*, size_t, int, int);
 
-int vsnprintf(char *str, size_t size, const char *format, va_list args)
-{
+int vsnprintf(char* str, size_t size, const char* format, va_list args) {
     INTMAX_T value;
     unsigned char cvalue;
-    const char *strvalue;
-    INTMAX_T *intmaxptr;
-    PTRDIFF_T *ptrdiffptr;
-    SSIZE_T *sizeptr;
-    LLONG *llongptr;
-    long int *longptr;
-    int *intptr;
-    short int *shortptr;
-    signed char *charptr;
+    const char* strvalue;
+    INTMAX_T* intmaxptr;
+    PTRDIFF_T* ptrdiffptr;
+    SSIZE_T* sizeptr;
+    LLONG* llongptr;
+    long int* longptr;
+    int* intptr;
+    short int* shortptr;
+    signed char* charptr;
     size_t len = 0;
     int overflow = 0;
     int base = 0;
@@ -446,7 +445,7 @@ int vsnprintf(char *str, size_t size, const char *format, va_list args)
                         OUTCHAR(str, len, size, cvalue);
                         break;
                     case 's':
-                        strvalue = va_arg(args, char *);
+                        strvalue = va_arg(args, char*);
                         fmtstr(str, &len, size, strvalue, width, precision, flags);
                         break;
                     case 'p':
@@ -456,7 +455,7 @@ int vsnprintf(char *str, size_t size, const char *format, va_list args)
                          * characters, in an implementation-defined
                          * manner." (C99: 7.19.6.1, 8)
                          */
-                        if ((strvalue = va_arg(args, void *)) == NULL)
+                        if ((strvalue = va_arg(args, void*)) == NULL)
                             /*
                              * We use the glibc format.  BSD prints
                              * "0x0", SysV "0".
@@ -470,26 +469,25 @@ int vsnprintf(char *str, size_t size, const char *format, va_list args)
                              */
                             flags |= PRINT_F_NUM;
                             flags |= PRINT_F_UNSIGNED;
-                            fmtint(str, &len, size, (UINTPTR_T)strvalue, 16, width, precision,
-                                   flags);
+                            fmtint(str, &len, size, (UINTPTR_T)strvalue, 16, width, precision, flags);
                         }
                         break;
                     case 'n':
                         switch (cflags) {
                             case PRINT_C_CHAR:
-                                charptr = va_arg(args, signed char *);
+                                charptr = va_arg(args, signed char*);
                                 *charptr = len;
                                 break;
                             case PRINT_C_SHORT:
-                                shortptr = va_arg(args, short int *);
+                                shortptr = va_arg(args, short int*);
                                 *shortptr = len;
                                 break;
                             case PRINT_C_LONG:
-                                longptr = va_arg(args, long int *);
+                                longptr = va_arg(args, long int*);
                                 *longptr = len;
                                 break;
                             case PRINT_C_LLONG:
-                                llongptr = va_arg(args, LLONG *);
+                                llongptr = va_arg(args, LLONG*);
                                 *llongptr = len;
                                 break;
                             case PRINT_C_SIZE:
@@ -500,19 +498,19 @@ int vsnprintf(char *str, size_t size, const char *format, va_list args)
                                  * signed integer type corresponding to
                                  * size_t argument." (7.19.6.1, 7)
                                  */
-                                sizeptr = va_arg(args, SSIZE_T *);
+                                sizeptr = va_arg(args, SSIZE_T*);
                                 *sizeptr = len;
                                 break;
                             case PRINT_C_INTMAX:
-                                intmaxptr = va_arg(args, INTMAX_T *);
+                                intmaxptr = va_arg(args, INTMAX_T*);
                                 *intmaxptr = len;
                                 break;
                             case PRINT_C_PTRDIFF:
-                                ptrdiffptr = va_arg(args, PTRDIFF_T *);
+                                ptrdiffptr = va_arg(args, PTRDIFF_T*);
                                 *ptrdiffptr = len;
                                 break;
                             default:
-                                intptr = va_arg(args, int *);
+                                intptr = va_arg(args, int*);
                                 *intptr = len;
                                 break;
                         }
@@ -541,9 +539,7 @@ out:
     return (int)len;
 }
 
-static void fmtstr(char *str, size_t *len, size_t size, const char *value, int width, int precision,
-                   int flags)
-{
+static void fmtstr(char* str, size_t* len, size_t size, const char* value, int width, int precision, int flags) {
     int padlen, strln; /* Amount to pad. */
     int noprecision = (precision == -1);
 
@@ -573,9 +569,7 @@ static void fmtstr(char *str, size_t *len, size_t size, const char *value, int w
     }
 }
 
-static void fmtint(char *str, size_t *len, size_t size, INTMAX_T value, int base, int width,
-                   int precision, int flags)
-{
+static void fmtint(char* str, size_t* len, size_t size, INTMAX_T value, int base, int width, int precision, int flags) {
     UINTMAX_T uvalue;
     char iconvert[MAX_CONVERT_LENGTH];
     char sign = 0;
@@ -624,11 +618,11 @@ static void fmtint(char *str, size_t *len, size_t size, INTMAX_T value, int base
         separators = getnumsep(pos);
 
     zpadlen = precision - pos - separators;
-    spadlen = width                         /* Minimum field width. */
-              - separators                  /* Number of separators. */
-              - MAX(precision, pos)         /* Number of integer digits. */
-              - ((sign != 0) ? 1 : 0)       /* Will we print a sign? */
-              - ((hexprefix != 0) ? 2 : 0); /* Will we print a prefix? */
+    spadlen = width /* Minimum field width. */
+        - separators /* Number of separators. */
+        - MAX(precision, pos) /* Number of integer digits. */
+        - ((sign != 0) ? 1 : 0) /* Will we print a sign? */
+        - ((hexprefix != 0) ? 2 : 0); /* Will we print a prefix? */
 
     if (zpadlen < 0)
         zpadlen = 0;
@@ -672,20 +666,17 @@ static void fmtint(char *str, size_t *len, size_t size, INTMAX_T value, int base
     }
 }
 
-static void printsep(char *str, size_t *len, size_t size)
-{
+static void printsep(char* str, size_t* len, size_t size) {
     OUTCHAR(str, *len, size, ',');
 }
 
-static int getnumsep(int digits)
-{
+static int getnumsep(int digits) {
     int separators = (digits - ((digits % 3 == 0) ? 1 : 0)) / 3;
     return separators;
 }
 
-static int convert(UINTMAX_T value, char *buf, size_t size, int base, int caps)
-{
-    const char *digits = caps ? "0123456789ABCDEF" : "0123456789abcdef";
+static int convert(UINTMAX_T value, char* buf, size_t size, int base, int caps) {
+    const char* digits = caps ? "0123456789ABCDEF" : "0123456789abcdef";
     size_t pos = 0;
 
     /* We return an unterminated buffer with the digits in reverse order. */
@@ -697,7 +688,6 @@ static int convert(UINTMAX_T value, char *buf, size_t size, int base, int caps)
     return (int)pos;
 }
 
-int vsprintf(char *buf, const char *fmt, va_list args)
-{
+int vsprintf(char* buf, const char* fmt, va_list args) {
     return vsnprintf(buf, INT_MAX, fmt, args);
 }

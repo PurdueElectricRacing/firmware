@@ -25,22 +25,22 @@
 
 /** Top-level DMA configuration */
 typedef struct {
-    uint32_t    periph_addr; //!< Address of the peripheral location (or other memory location in mem-to-mem) to transfer from/to
-    uint32_t    mem_addr;    //!< Address of the memory location to transfer from/to
-    uint16_t    tx_size;     //!< Number of transfers to complete in sizes set by mem / periph size
+    uint32_t periph_addr; //!< Address of the peripheral location (or other memory location in mem-to-mem) to transfer from/to
+    uint32_t mem_addr; //!< Address of the memory location to transfer from/to
+    uint16_t tx_size; //!< Number of transfers to complete in sizes set by mem / periph size
 
-    bool        increment;
-    bool        circular;    //!< Continuously transfer
-    uint8_t     dir;         //!< If set to 0, transfers from periph_addr to mem_addr. If 1, opposite direction.
-    bool        mem_inc;     //!< Increment mem_addr after each transfer
-    bool        periph_inc;  //!< Increment periph_addr after each transfer
-    bool        mem_to_mem;  //!< If both locations are memory locations
-    uint8_t     priority;    //!< Transfer priority
-    uint8_t     mem_size;    //!< Size to read from mem_addr    (00 = 8 bits, 01 = 16 bits, 10 = 32 bits)
-    uint8_t     periph_size; //!< Size to read form periph_addr (00 = 8 bits, 01 = 16 bits, 10 = 32 bits)
-    bool        tx_isr_en;   //!< Enable the TX ISR
-    uint8_t     dma_chan_request; //!< Table 44 of Family Reference  */
-    uint8_t     channel_idx; //!< DMA Channel (Table 44 of Family Reference)
+    bool increment;
+    bool circular; //!< Continuously transfer
+    uint8_t dir; //!< If set to 0, transfers from periph_addr to mem_addr. If 1, opposite direction.
+    bool mem_inc; //!< Increment mem_addr after each transfer
+    bool periph_inc; //!< Increment periph_addr after each transfer
+    bool mem_to_mem; //!< If both locations are memory locations
+    uint8_t priority; //!< Transfer priority
+    uint8_t mem_size; //!< Size to read from mem_addr    (00 = 8 bits, 01 = 16 bits, 10 = 32 bits)
+    uint8_t periph_size; //!< Size to read form periph_addr (00 = 8 bits, 01 = 16 bits, 10 = 32 bits)
+    bool tx_isr_en; //!< Enable the TX ISR
+    uint8_t dma_chan_request; //!< Table 44 of Family Reference  */
+    uint8_t channel_idx; //!< DMA Channel (Table 44 of Family Reference)
 
     DMA_TypeDef* periph;
     DMA_Channel_TypeDef* channel;

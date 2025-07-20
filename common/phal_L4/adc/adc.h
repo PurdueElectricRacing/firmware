@@ -9,11 +9,12 @@
 #ifndef _PHAL_ADC_H
 #define _PHAL_ADC_H
 
-#include "stm32l4xx.h"
 #include <stdbool.h>
 
+#include "stm32l4xx.h"
+
 #define PHAL_ADC_INIT_TIMEOUT 1000000
-#define PHAL_ADC_CR_BITS_RS 0x8000003F
+#define PHAL_ADC_CR_BITS_RS   0x8000003F
 
 typedef enum {
     ADC_RES_12_BIT = 0b00,
@@ -38,9 +39,9 @@ typedef enum {
 } ADCClkPrescaler_t;
 
 typedef enum {
-    ADC_DMA_OFF      = 0b00,    //!< ADC performs no conversion
-    ADC_DMA_ONE_SHOT = 0b01,    //!< ADC performs single conversion
-    ADC_DMA_CIRCULAR = 0b11     //!< ADC conitinuously converts
+    ADC_DMA_OFF = 0b00, //!< ADC performs no conversion
+    ADC_DMA_ONE_SHOT = 0b01, //!< ADC performs single conversion
+    ADC_DMA_CIRCULAR = 0b11 //!< ADC conitinuously converts
 } ADCDMAMode_t;
 
 /** Data bit alignment within the conversion */
@@ -52,15 +53,15 @@ typedef enum {
 /** Top-level ADC configuration */
 typedef struct {
     ADCClkPrescaler_t clock_prescaler; //!< required to have high enough prescaler to operate within ADC maximum freq
-    ADCResolution_t resolution;        //!< Bit resolution of readings
-    ADCDataAlign_t data_align;         //!< Data bit alignment within the conversion
+    ADCResolution_t resolution; //!< Bit resolution of readings
+    ADCDataAlign_t data_align; //!< Data bit alignment within the conversion
     //uint32_t ext_trig_conv;
     //uint32_t ext_trig_conv_edge;
-    bool cont_conv_mode;               //!< ADC restarts conversions once complete
+    bool cont_conv_mode; //!< ADC restarts conversions once complete
     //bool discont_conv_mode;
-    bool overrun;                      //!< Set true if data register can be overwritten before being read
+    bool overrun; //!< Set true if data register can be overwritten before being read
     //uint32_t nbr_of_disc_conv;
-    ADCDMAMode_t dma_mode;             //!< ADC DMA mode
+    ADCDMAMode_t dma_mode; //!< ADC DMA mode
 } ADCInitConfig_t;
 
 /** 
@@ -69,42 +70,31 @@ typedef struct {
  * measurement capacitor to fully charge.
 */
 typedef enum {
-    ADC_CHN_SMP_CYCLES_2_5   = 0b000,
-    ADC_CHN_SMP_CYCLES_6_5   = 0b001,
-    ADC_CHN_SMP_CYCLES_12_5  = 0b010,
-    ADC_CHN_SMP_CYCLES_24_5  = 0b011,
-    ADC_CHN_SMP_CYCLES_47_5  = 0b100,
-    ADC_CHN_SMP_CYCLES_92_5  = 0b101,
+    ADC_CHN_SMP_CYCLES_2_5 = 0b000,
+    ADC_CHN_SMP_CYCLES_6_5 = 0b001,
+    ADC_CHN_SMP_CYCLES_12_5 = 0b010,
+    ADC_CHN_SMP_CYCLES_24_5 = 0b011,
+    ADC_CHN_SMP_CYCLES_47_5 = 0b100,
+    ADC_CHN_SMP_CYCLES_92_5 = 0b101,
     ADC_CHN_SMP_CYCLES_247_5 = 0b110,
     ADC_CHN_SMP_CYCLES_640_5 = 0b111,
 } ADCChannelSampleCycles_t;
 
 /** ADC configuration for one channel */
 typedef struct {
-    uint32_t channel;                       //!< not the GPIO channel, use the ADC channel (ie. PA0 = channel 5)
-    uint32_t rank;                          //!< order at which the channels will be polled, starting at 1
+    uint32_t channel; //!< not the GPIO channel, use the ADC channel (ie. PA0 = channel 5)
+    uint32_t rank; //!< order at which the channels will be polled, starting at 1
     ADCChannelSampleCycles_t sampling_time; //!< Set higher for large impedances
     //uint32_t single_diff;
     //uint32_t offset_num;
     //uint32_t offset;
 } ADCChannelConfig_t;
 
-#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)        \
-    {.periph_addr=(uint32_t) &(ADC1->DR), .mem_addr=mem_addr_,      \
-     .tx_size=tx_size_, .increment=true, .circular=true,            \
-     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false, \
-     .priority=priority_, .mem_size=0b01, .periph_size=0b01,        \
-     .tx_isr_en=false, .dma_chan_request=0b0000, .channel_idx=3,    \
-     .periph=DMA2, .channel=DMA2_Channel3, .request=DMA2_CSELR}
+#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_) \
+    { .periph_addr = (uint32_t) & (ADC1->DR), .mem_addr = mem_addr_, .tx_size = tx_size_, .increment = true, .circular = true, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = priority_, .mem_size = 0b01, .periph_size = 0b01, .tx_isr_en = false, .dma_chan_request = 0b0000, .channel_idx = 3, .periph = DMA2, .channel = DMA2_Channel3, .request = DMA2_CSELR }
 
-#define ADC2_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)        \
-    {.periph_addr=(uint32_t) &(ADC2->DR), .mem_addr=mem_addr_,      \
-     .tx_size=tx_size_, .increment=true, .circular=true,            \
-     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false, \
-     .priority=priority_, .mem_size=0b01, .periph_size=0b01,        \
-     .tx_isr_en=false, .dma_chan_request=0b0000, .channel_idx=4,    \
-     .periph=DMA2, .channel=DMA2_Channel4, .request=DMA2_CSELR}
-
+#define ADC2_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_) \
+    { .periph_addr = (uint32_t) & (ADC2->DR), .mem_addr = mem_addr_, .tx_size = tx_size_, .increment = true, .circular = true, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = priority_, .mem_size = 0b01, .periph_size = 0b01, .tx_isr_en = false, .dma_chan_request = 0b0000, .channel_idx = 4, .periph = DMA2, .channel = DMA2_Channel4, .request = DMA2_CSELR }
 
 /**
  * @brief Initializes the ADC, requires GPIO config prior
@@ -136,6 +126,5 @@ bool PHAL_stopADC(ADC_TypeDef* adc);
  * @return contents of the data register
 **/
 uint16_t PHAL_readADC(ADC_TypeDef* adc);
-
 
 #endif

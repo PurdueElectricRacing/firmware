@@ -19,17 +19,16 @@
  * @return true  - success
  * @return false - fail
  */
-bool PHAL_enableTIMClk(TIM_TypeDef* timer)
-{
-    // Enable Timer Clock 
+bool PHAL_enableTIMClk(TIM_TypeDef* timer) {
+    // Enable Timer Clock
     if (timer == TIM1)
         RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
     else if (timer == TIM2)
         RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
-    #ifdef TIM5
+#ifdef TIM5
     else if (timer == TIM5)
         RCC->APB1ENR1 |= RCC_APB1ENR1_TIM5EN;
-    #endif
+#endif
     else if (timer == TIM6)
         RCC->APB1ENR1 |= RCC_APB1ENR1_TIM6EN;
     else if (timer == TIM7)
@@ -47,15 +46,15 @@ bool PHAL_enableTIMClk(TIM_TypeDef* timer)
 // TIM1, TIM2: channel (1,2), (3,4)
 // TIM15 (1,2)
 // TIM2 is the only 32 bit resolution, currently 32 is not supported
-bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelection_t trigger_select)
-{
-    if (!PHAL_enableTIMClk(timer)) return false;
+bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelection_t trigger_select) {
+    if (!PHAL_enableTIMClk(timer))
+        return false;
     // can set the input prescaler (capture / events ICPSC)
     // this is done if using interrupts and you want less of them
 
     // configure prescaler
     timer->PSC = prescaler - 1;
-    
+
     // Update interrupt only on overflow
     timer->CR1 |= TIM_CR1_URS;
 
@@ -72,34 +71,26 @@ bool PHAL_initPWMIn(TIM_TypeDef* timer, uint32_t prescaler, TimerTriggerSelectio
     // interrupt request through CC1IE in TIM_DIER
 }
 
-void PHAL_startTIM(TIM_TypeDef* timer)
-{
+void PHAL_startTIM(TIM_TypeDef* timer) {
     timer->CR1 |= TIM_CR1_CEN;
 }
 
 // initialize a capture compare channel
-bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputMode_t input_source, bool is_falling)
-{
+bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputMode_t input_source, bool is_falling) {
     // Input selection
-    if (chnl <= CC2)
-    {
-        timer->CCMR1 &= ~(TIM_CCMR1_CC1S << (chnl - 1)*TIM_CCMR1_CC2S_Pos);
-        timer->CCMR1 |= (input_source & TIM_CCMR1_CC1S) << (chnl - 1)*TIM_CCMR1_CC2S_Pos;
-    }
-    else if (chnl <= CC4)
-    {
-        timer->CCMR2 &= ~(TIM_CCMR2_CC3S << (chnl - 3)*TIM_CCMR2_CC4S_Pos);
-        timer->CCMR2 |= (input_source & TIM_CCMR2_CC3S) << (chnl - 3)*TIM_CCMR2_CC4S_Pos;
-    }
-    else 
-    {
+    if (chnl <= CC2) {
+        timer->CCMR1 &= ~(TIM_CCMR1_CC1S << (chnl - 1) * TIM_CCMR1_CC2S_Pos);
+        timer->CCMR1 |= (input_source & TIM_CCMR1_CC1S) << (chnl - 1) * TIM_CCMR1_CC2S_Pos;
+    } else if (chnl <= CC4) {
+        timer->CCMR2 &= ~(TIM_CCMR2_CC3S << (chnl - 3) * TIM_CCMR2_CC4S_Pos);
+        timer->CCMR2 |= (input_source & TIM_CCMR2_CC3S) << (chnl - 3) * TIM_CCMR2_CC4S_Pos;
+    } else {
         return false;
     }
 
     // polarity
     timer->CCER &= ~((TIM_CCER_CC1P | TIM_CCER_CC1NP) << (chnl - 1) * 4);
-    if (is_falling)
-    {
+    if (is_falling) {
         timer->CCER |= (TIM_CCER_CC2P << (chnl - 1) * 4);
     }
 
@@ -109,11 +100,11 @@ bool PHAL_initPWMChannel(TIM_TypeDef* timer, TimerCCRegister_t chnl, TimerInputM
     return true;
 }
 
-bool PHAL_initPWMOut(TIM_TypeDef* timer, uint16_t counter_period, uint16_t ccmr1, uint16_t prescaler)
-{
-    if (!PHAL_enableTIMClk(timer)) return false;
+bool PHAL_initPWMOut(TIM_TypeDef* timer, uint16_t counter_period, uint16_t ccmr1, uint16_t prescaler) {
+    if (!PHAL_enableTIMClk(timer))
+        return false;
 
-    // auto reload preload CR1 ARPE 
+    // auto reload preload CR1 ARPE
     timer->CR1 |= TIM_CR1_ARPE; // buffered
     // auto reload value ARR (period)
     timer->ARR = counter_period - 1;
@@ -146,17 +137,14 @@ bool PHAL_initPWMOut(TIM_TypeDef* timer, uint16_t counter_period, uint16_t ccmr1
     return true;
 }
 
-void  __attribute__((weak)) TIM1_UP_TIM16_IRQHandler()
-{
+void __attribute__((weak)) TIM1_UP_TIM16_IRQHandler() {
     // implement
 }
 
-void  __attribute__((weak)) TIM1_CC_IRQHandler()
-{
+void __attribute__((weak)) TIM1_CC_IRQHandler() {
     // implement
 }
 
-void  __attribute__((weak)) TIM2_IRQHandler()
-{
+void __attribute__((weak)) TIM2_IRQHandler() {
     // implement
 }

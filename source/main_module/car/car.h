@@ -11,14 +11,15 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 
+#include <stdbool.h>
+
 #include "can_parse.h"
+#include "common/amk/amk.h"
 #include "common/faults/faults.h"
 #include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 #include "cooling.h"
 #include "main.h"
-#include "common/amk/amk.h"
-#include <stdbool.h>
 
 #define BUZZER_DURATION_MS 2500 // EV.10.5: 1-3s
 
@@ -30,26 +31,25 @@
 
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 
-
 // Shock Pot Calibration
 #define POT_TOTAL_RES 3000
-#define POT_MAX_RES 3300
-#define POT_MIN_RES 300
+#define POT_MAX_RES   3300
+#define POT_MIN_RES   300
 
-#define POT_VOLT_MAX_L 11.0f
-#define POT_VOLT_MIN_L 4060.0f
-#define POT_VOLT_MAX_R 11.0f
-#define POT_VOLT_MIN_R 4092.0f
-#define POT_MAX_DIST 75
+#define POT_VOLT_MAX_L   11.0f
+#define POT_VOLT_MIN_L   4060.0f
+#define POT_VOLT_MAX_R   11.0f
+#define POT_VOLT_MIN_R   4092.0f
+#define POT_MAX_DIST     75
 #define POT_DIST_DROOP_L 56
 #define POT_DIST_DROOP_R 55
 
 // Throttle pedal constraints
-#define TECH_MAX_TORQUE_REQUEST               25.0f
-#define ACCEL_AUTO_SKID_MAX_TORQUE_REQUEST    210.0f
-#define ENDURANCE_MAX_TORQUE_REQUEST          100.0f
-#define MAX_DRIVER_TORQUE_REQUEST             ENDURANCE_MAX_TORQUE_REQUEST
-#define MIN_DRIVER_TORQUE_REQUEST             0.0f
+#define TECH_MAX_TORQUE_REQUEST            25.0f
+#define ACCEL_AUTO_SKID_MAX_TORQUE_REQUEST 210.0f
+#define ENDURANCE_MAX_TORQUE_REQUEST       100.0f
+#define MAX_DRIVER_TORQUE_REQUEST          ENDURANCE_MAX_TORQUE_REQUEST
+#define MIN_DRIVER_TORQUE_REQUEST          0.0f
 
 #define MAX_TV_TORQUE_REQUEST   2100U
 #define TV_TORQUE_REQUEST_SCALE 10.0f
@@ -57,14 +57,14 @@
 
 //Defines to guess a BSPD fault
 #define NUM_HIST_BSPD 16
+
 typedef struct
 {
-    float torque_left;    // [-100.0, 100.0]
+    float torque_left; // [-100.0, 100.0]
     float torque_right;
 } torqueRequest_t;
 
-typedef enum
-{
+typedef enum {
     CAR_TORQUE_NONE,
     CAR_TORQUE_RAW,
     CAR_TORQUE_TV,
@@ -73,20 +73,21 @@ typedef enum
 } torqueSource_t;
 
 #define HV_LOW_PASS_SIZE (5)
-#define HV_V_MC_CAL      (1000)        // V_actual / V_measured * 1000
-#define HV_V_BAT_CAL     (1000)        // V_actual / V_measured * 1000
+#define HV_V_MC_CAL      (1000) // V_actual / V_measured * 1000
+#define HV_V_BAT_CAL     (1000) // V_actual / V_measured * 1000
 
-#define PCHG_COMPLETE_LOW_PASS_SIZE   (20)
+#define PCHG_COMPLETE_LOW_PASS_SIZE (20)
+
 typedef struct
 {
     bool pchg_complete;
     bool pchg_error;
-    uint16_t  v_mc_filt;                     // volts x10
-    uint16_t  v_bat_filt;                    // volts x10
-    uint16_t  v_mc_buff[HV_LOW_PASS_SIZE];   // Units are 12-bit adc
-    uint8_t   v_mc_buff_idx;
-    uint16_t  v_bat_buff[HV_LOW_PASS_SIZE];  // Units are 12-bit adc
-    uint8_t   v_bat_buff_idx;
+    uint16_t v_mc_filt; // volts x10
+    uint16_t v_bat_filt; // volts x10
+    uint16_t v_mc_buff[HV_LOW_PASS_SIZE]; // Units are 12-bit adc
+    uint8_t v_mc_buff_idx;
+    uint16_t v_bat_buff[HV_LOW_PASS_SIZE]; // Units are 12-bit adc
+    uint8_t v_bat_buff_idx;
 } prechargeStat_t;
 
 typedef struct
@@ -106,6 +107,7 @@ typedef struct
     bool buzzer;
     uint32_t buzzer_start_ms;
 } Car_t;
+
 extern Car_t car;
 
 extern uint8_t daq_buzzer;
@@ -137,8 +139,7 @@ void update_lights(void);
 #define SDC_HUB          8
 #define SDC_TSMS         9
 
-typedef struct __attribute__((packed))
-{
+typedef struct __attribute__((packed)) {
     uint8_t main_stat; //y0
     uint8_t c_stop_stat; //y1
     uint8_t inertia_stat; //y2
@@ -157,6 +158,5 @@ typedef struct __attribute__((packed))
 } sdc_nodes_t;
 
 extern sdc_nodes_t sdc_mux;
-
 
 #endif

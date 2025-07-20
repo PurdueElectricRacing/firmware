@@ -26,7 +26,7 @@ typedef enum {
 } ADCClkPrescaler_t;
 
 typedef enum {
-    ADC_DMA_OFF      = 0b00,
+    ADC_DMA_OFF = 0b00,
     ADC_DMA_ONE_SHOT = 0b01,
     ADC_DMA_CIRCULAR = 0b11
 } ADCDMAMode_t;
@@ -46,31 +46,25 @@ typedef struct {
 } ADCInitConfig_t;
 
 typedef enum {
-    ADC_CHN_SMP_CYCLES_3    = 0b000,
-    ADC_CHN_SMP_CYCLES_15   = 0b001,
-    ADC_CHN_SMP_CYCLES_28   = 0b010,
-    ADC_CHN_SMP_CYCLES_56   = 0b011,
-    ADC_CHN_SMP_CYCLES_84   = 0b100,
-    ADC_CHN_SMP_CYCLES_112  = 0b101,
-    ADC_CHN_SMP_CYCLES_144  = 0b110,
-    ADC_CHN_SMP_CYCLES_480  = 0b111,
+    ADC_CHN_SMP_CYCLES_3 = 0b000,
+    ADC_CHN_SMP_CYCLES_15 = 0b001,
+    ADC_CHN_SMP_CYCLES_28 = 0b010,
+    ADC_CHN_SMP_CYCLES_56 = 0b011,
+    ADC_CHN_SMP_CYCLES_84 = 0b100,
+    ADC_CHN_SMP_CYCLES_112 = 0b101,
+    ADC_CHN_SMP_CYCLES_144 = 0b110,
+    ADC_CHN_SMP_CYCLES_480 = 0b111,
 } ADCChannelSampleCycles_t;
 
 typedef struct {
-    uint32_t channel;                           // not the GPIO channel, use the ADC channel
-    uint32_t rank;                              // order at which the channels will be polled, starting at 1
+    uint32_t channel; // not the GPIO channel, use the ADC channel
+    uint32_t rank; // order at which the channels will be polled, starting at 1
     ADCChannelSampleCycles_t sampling_time;
 } ADCChannelConfig_t;
 
 // TODO DMA CONFIGS FOR ADC
-#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)        \
-    {.periph_addr=(uint32_t) &(ADC1->DR), .mem_addr=mem_addr_,      \
-     .tx_size=tx_size_, .increment=true, .circular=true,            \
-     .dir=0b0, .mem_inc=true, .periph_inc=false, .mem_to_mem=false, \
-     .priority=priority_, .mem_size=0b01, .periph_size=0b01,        \
-     .tx_isr_en=false, .dma_chan_request=0b0000, .stream_idx=0,    \
-     .periph=DMA2, .stream=DMA2_Stream0}
-
+#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_) \
+    { .periph_addr = (uint32_t) & (ADC1->DR), .mem_addr = mem_addr_, .tx_size = tx_size_, .increment = true, .circular = true, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = priority_, .mem_size = 0b01, .periph_size = 0b01, .tx_isr_en = false, .dma_chan_request = 0b0000, .stream_idx = 0, .periph = DMA2, .stream = DMA2_Stream0 }
 
 /**
  * @brief Initializes the ADC, requires GPIO config prior
@@ -102,6 +96,5 @@ bool PHAL_stopADC(ADC_TypeDef* adc);
  * @return contents of the data register
 **/
 uint16_t PHAL_readADC(ADC_TypeDef* adc);
-
 
 #endif

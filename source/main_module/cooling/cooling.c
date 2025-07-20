@@ -1,10 +1,10 @@
 #include "cooling.h"
+
 #include "common_defs.h"
 
 Cooling_t cooling;
 
-bool coolingInit()
-{
+bool coolingInit() {
     cooling = (Cooling_t) {0};
 
     // Select Thermistor 0 on mux to begin checking thermistors
@@ -15,8 +15,7 @@ bool coolingInit()
     return true;
 }
 
-void coolingPeriodic()
-{
+void coolingPeriodic() {
     /* WATER TEMP CALCULATIONS */
     static uint8_t curr_therm;
     int8_t temp;
@@ -26,13 +25,10 @@ void coolingPeriodic()
     // 568 594
     // Since ADC readin/gs happen ~2ms, the next measurement should be ready
     // Send temps, passing in different thermistor constants for the different thermistors
-    if (curr_therm < COOL_LOOP_START_IDX)
-    {
+    if (curr_therm < COOL_LOOP_START_IDX) {
         // Get temp
         temp = rawThermtoCelcius(adc_readings.therm_mux_d, DT_THERM_A, DT_THERM_B, DT_THERM_R1);
-    }
-    else
-    {
+    } else {
         // Get temp
         if (curr_therm == B_THERM_IDX)
             temp = rawThermtoCelcius(adc_readings.therm_mux_d, W_THERM_A, W_THERM_B, B_THERM_R1);
@@ -40,11 +36,10 @@ void coolingPeriodic()
             temp = rawThermtoCelcius(adc_readings.therm_mux_d, W_THERM_A, W_THERM_B, W_THERM_R1);
     }
     // Because the select lines are in order, we can just update coolant struct by treating it as an array
-    *((int8_t *)(&cooling) + curr_therm) = temp;
+    *((int8_t*)(&cooling) + curr_therm) = temp;
 
     // Update current thermistor
     curr_therm = (curr_therm == THERM_MUX_END_IDX) ? 0 : (curr_therm + 1);
-
 
     // Set mux for next value
     PHAL_writeGPIO(THERM_MUX_S0_GPIO_Port, THERM_MUX_S0_Pin, (curr_therm & 0x01));
@@ -52,13 +47,11 @@ void coolingPeriodic()
     PHAL_writeGPIO(THERM_MUX_S2_GPIO_Port, THERM_MUX_S2_Pin, (curr_therm & 0x04));
 
     // Only send data once all new thermistors are updated to avoid clutter on CAN bus
-    if (curr_therm == 0)
-    {
+    if (curr_therm == 0) {
         SEND_COOLANT_TEMPS(cooling.bat_therm_in_C, cooling.bat_therm_out_C, cooling.dt_therm_in_C, cooling.dt_therm_out_C);
 
         SEND_GEARBOX(cooling.gb_therm_l_c, cooling.gb_therm_r_c);
     }
-
 
     //TODO: After mc parse library, update these with actual faults
     // Find max motor temperature (CELSIUS)
@@ -70,7 +63,6 @@ void coolingPeriodic()
 
     // setFault(ID_MOTOR_L_OT_FAULT, car.motor_l.motor_temp);
     // setFault(ID_MOTOR_R_OT_FAULT, car.motor_r.motor_temp);
-
 
     // Determine if dt/coolant temps are too high
     // DT
@@ -91,11 +83,9 @@ void coolingPeriodic()
     // Cooling Loop
     // setFault(ID_BATT_CL_DISC_FAULT, MIN(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
     setFault(ID_DT_CL_DISC_FAULT, MIN(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
-
 }
 
-float rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1)
-{
+float rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1) {
     float f;
     if (t == MAX_THERM)
         return -290;
@@ -108,14 +98,16 @@ float rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1)
 
 static double native_log_computation(const double n) {
     // Basic logarithm computation.
-    static const double euler = 2.7182818284590452354 ;
+    static const double euler = 2.7182818284590452354;
     unsigned a = 0, d;
     double b, c, e, f;
     if (n > 0) {
-        for (c = n < 1 ? 1 / n : n; (c /= euler) > 1; ++a);
+        for (c = n < 1 ? 1 / n : n; (c /= euler) > 1; ++a)
+            ;
         c = 1 / (c * euler - 1), c = c + c + 1, f = c * c, b = 0;
-        for (d = 1, c /= 2; e = b, b += 1 / (d * c), b - e/* > 0.0000001 */;)
+        for (d = 1, c /= 2; e = b, b += 1 / (d * c), b - e /* > 0.0000001 */;)
             d += 2, c *= f;
-    } else b = (n == 0) / 0.;
+    } else
+        b = (n == 0) / 0.;
     return n < 1 ? -(a + b) : a + b;
 }

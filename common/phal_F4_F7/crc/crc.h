@@ -16,8 +16,8 @@
 
 void PHAL_CRC32_Reset(void);
 
-uint32_t PHAL_CRC32_Calculate(uint32_t *data, uint32_t count);
+uint32_t PHAL_CRC32_Calculate(uint32_t* data, uint32_t count);
 
-uint32_t PHAL_CRC32_CalculateSW(uint32_t *data, uint32_t count);
+uint32_t PHAL_CRC32_CalculateSW(uint32_t* data, uint32_t count);
 
 #endif // _PHAL_CRC_H

@@ -9,39 +9,36 @@
 
 #include "common/phal_G4/gpio/gpio.h"
 
-bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
-{
+bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len) {
     uint8_t afr_i;
 
-    for (int i = 0; i < config_len; i++)
-    {
-        switch ((uint32_t) config[i].bank)
-        {
-            case (uint32_t) GPIOA:
+    for (int i = 0; i < config_len; i++) {
+        switch ((uint32_t)config[i].bank) {
+            case (uint32_t)GPIOA:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
                 break;
 
-            case (uint32_t) GPIOB:
+            case (uint32_t)GPIOB:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
                 break;
 
-            case (uint32_t) GPIOC:
+            case (uint32_t)GPIOC:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
                 break;
 
-            case (uint32_t) GPIOD:
+            case (uint32_t)GPIOD:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIODEN;
                 break;
 
-            case (uint32_t) GPIOE:
+            case (uint32_t)GPIOE:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOEEN;
                 break;
 
-            case (uint32_t) GPIOF:
+            case (uint32_t)GPIOF:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOFEN;
                 break;
 
-            case (uint32_t) GPIOG:
+            case (uint32_t)GPIOG:
                 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOGEN;
                 break;
 
@@ -54,8 +51,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
         config[i].bank->MODER &= ~(GPIO_MODER_MODE0_Msk << (GPIO_MODER_MODE1_Pos * config[i].pin));
         config[i].bank->MODER |= (config[i].type & GPIO_MODER_MODE0_Msk) << (GPIO_MODER_MODE1_Pos * config[i].pin);
 
-        switch(config[i].type)
-        {
+        switch (config[i].type) {
             case GPIO_TYPE_OUTPUT:
                 config[i].bank->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEED0_Msk << (GPIO_OSPEEDR_OSPEED1_Pos * config[i].pin));
                 config[i].bank->OSPEEDR |= (config[i].config.ospeed & GPIO_OSPEEDR_OSPEED0_Msk) << (GPIO_OSPEEDR_OSPEED1_Pos * config[i].pin);

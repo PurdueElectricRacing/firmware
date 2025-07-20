@@ -34,13 +34,11 @@ bool PHAL_initDMA(dma_init_t* init) {
 
     // Ensure the stream is disabled, must be in order to configure the DMA control registers
     init->stream->CR &= ~(DMA_SxCR_EN);
-    while(init->stream->CR &= DMA_SxCR_EN)
+    while (init->stream->CR &= DMA_SxCR_EN)
         ;
 
-
     // Clear any stream dedicated status flags that may have been set previously
-    switch(init->stream_idx)
-    {
+    switch (init->stream_idx) {
         case 0:
             init->periph->LIFCR |= 0x2D;
             break;
@@ -73,20 +71,19 @@ bool PHAL_initDMA(dma_init_t* init) {
     // Set memory address
     init->stream->M0AR = init->mem_addr;
 
-    init->stream->CR = 0;       //Reset preconfigured CR values
-
+    init->stream->CR = 0; //Reset preconfigured CR values
 
     // Set channel, priority, memory data size
     init->stream->CR |= (init->dma_chan_request << DMA_SxCR_CHSEL_Pos)
-            | (init->priority << DMA_SxCR_PL_Pos) | (init->mem_size << DMA_SxCR_MSIZE_Pos);
+        | (init->priority << DMA_SxCR_PL_Pos) | (init->mem_size << DMA_SxCR_MSIZE_Pos);
 
     // Set peripheral data size, memory increment, peripheral increment
     init->stream->CR |= (init->periph_size << DMA_SxCR_PSIZE_Pos)
-            | (init->mem_inc << DMA_SxCR_MINC_Pos) | (init->periph_inc << DMA_SxCR_PINC_Pos);
+        | (init->mem_inc << DMA_SxCR_MINC_Pos) | (init->periph_inc << DMA_SxCR_PINC_Pos);
 
     // Set circular mode, direction, transfer error interrupt enable, and transfer complete interrupt enable
     init->stream->CR |= (init->circular << DMA_SxCR_CIRC_Pos)
-            | (init->dir << DMA_SxCR_DIR_Pos) | (init->tx_isr_en << DMA_SxCR_TCIE_Pos) | (init->tx_isr_en << DMA_SxCR_TEIE_Pos) ;
+        | (init->dir << DMA_SxCR_DIR_Pos) | (init->tx_isr_en << DMA_SxCR_TCIE_Pos) | (init->tx_isr_en << DMA_SxCR_TEIE_Pos);
 
     // Set stream memory configuration
     PHAL_DMA_setTxferLength(init, init->tx_size);
@@ -106,8 +103,7 @@ void PHAL_stopTxfer(dma_init_t* init) {
 
 void PHAL_reEnable(dma_init_t* init) {
     // Clear any stream dedicated status flags that may have been set previously
-    switch(init->stream_idx)
-    {
+    switch (init->stream_idx) {
         case 0:
             init->periph->LIFCR |= 0x2D;
             break;
@@ -137,14 +133,11 @@ void PHAL_reEnable(dma_init_t* init) {
     init->stream->CR |= DMA_SxCR_EN;
 }
 
-void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address)
-{
+void PHAL_DMA_setMemAddress(dma_init_t* init, const uint32_t address) {
     init->stream->M0AR = address;
 }
 
-
-void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length)
-{
-    init->stream->NDTR &= ~(DMA_SxNDT);                            // Clear current tx length
-    init->stream->NDTR |= length;                                  // Set number of data to transfer
+void PHAL_DMA_setTxferLength(dma_init_t* init, const uint32_t length) {
+    init->stream->NDTR &= ~(DMA_SxNDT); // Clear current tx length
+    init->stream->NDTR |= length; // Set number of data to transfer
 }

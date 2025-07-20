@@ -11,22 +11,20 @@
 #ifndef _PROCESS_H
 #define _PROCESS_H
 
-#include "inttypes.h"
-#include "stdbool.h"
 #include "can_parse.h"
-#include "node_defs.h"
 #include "common/bootloader/bootloader_common.h"
+#include "inttypes.h"
+#include "node_defs.h"
+#include "stdbool.h"
 
-typedef enum
-{
-    BLSTAT_VALID        = 0,
-    BLSTAT_INVALID      = 1,
-    BLSTAT_INVALID_CRC  = 2,
-    BLSTAT_UNKNOWN_CMD  = 3,
+typedef enum {
+    BLSTAT_VALID = 0,
+    BLSTAT_INVALID = 1,
+    BLSTAT_INVALID_CRC = 2,
+    BLSTAT_UNKNOWN_CMD = 3,
 } BLStatus_t;
 
-typedef enum
-{
+typedef enum {
     BLERROR_CRC_FAIL = 0,
     BLERROR_LOCKED = 1,
     BLERROR_LOW_ADDR = 2,

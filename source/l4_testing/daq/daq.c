@@ -10,6 +10,7 @@
  */
 
 #include "daq.h"
+
 #include "common/daq/daq_base.h"
 #include "common/phal_L4/can/can.h"
 
@@ -45,8 +46,7 @@ config_t config = {
 };
 // END AUTO FILE DEFAULTS
 
-bool daqInit(q_handle_t* tx_a)
-{
+bool daqInit(q_handle_t* tx_a) {
     // BEGIN AUTO INIT
     uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_TEST_NODE_TEST, tracked_vars);
     mapMem((uint8_t *) &config, sizeof(config), "conf", 1);
@@ -54,8 +54,7 @@ bool daqInit(q_handle_t* tx_a)
     // END AUTO INIT
 }
 
-void daqPeriodic()
-{
+void daqPeriodic() {
     daqPeriodicBase();
 }
 

@@ -9,11 +9,11 @@
  *
  */
 #include "auto_switch.h"
-#include "common/phal/gpio.h"
-#include "led.h"
+
 #include "can_parse.h"
 #include "common/faults/faults.h"
-
+#include "common/phal/gpio.h"
+#include "led.h"
 
 // Initialize struct
 auto_switches_t auto_switches;
@@ -55,14 +55,14 @@ void updateVoltage() {
 
 // Current helper functions
 uint16_t calcCurrent_HP(uint16_t current) {
-    current = current * ADC_REF_mV / ADC_MAX;  // Convert to mV
+    current = current * ADC_REF_mV / ADC_MAX; // Convert to mV
     current = current * (HP_CS_R1 + HP_CS_R2) / HP_CS_R2;
     current = current * HP_CS_R3 / (HP_CS_R1 + HP_CS_R2);
     return current;
 }
 
 uint16_t calcCurrent_LP(uint16_t current) {
-    current = current * ADC_REF_mV / ADC_MAX;  // Convert to mA
+    current = current * ADC_REF_mV / ADC_MAX; // Convert to mA
     return current;
 }
 
@@ -70,13 +70,13 @@ uint16_t calcCurrent_LP(uint16_t current) {
 void calcCurrent_Total() {
     // 24V current
     uint16_t current = adc_readings.lv_24_i_sense;
-    current = current * ADC_REF_mV / ADC_MAX;  // Convert to mV
+    current = current * ADC_REF_mV / ADC_MAX; // Convert to mV
     current = current / HP_CS_R_SENSE / CS_GAIN;
     auto_switches.current[CS_24V] = current;
 
     // 5V current
     current = adc_readings.lv_5_i_sense;
-    current = current * ADC_REF_mV / ADC_MAX;  // Convert to mA
+    current = current * ADC_REF_mV / ADC_MAX; // Convert to mA
     auto_switches.current[CS_5V] = current;
 }
 
@@ -179,7 +179,7 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
             status = PHAL_readGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin);
             break;
         default:
-            status = 1;  // Non-controllable switches are always on
+            status = 1; // Non-controllable switches are always on
     }
 
     return status;
@@ -190,8 +190,7 @@ void autoSwitchPeriodic() {
     updateVoltage();
 }
 
-void checkSwitchFaults()
-{
+void checkSwitchFaults() {
     // Get status of all switches
     uint8_t dash = PHAL_readGPIO(DASH_NFLT_GPIO_Port, DASH_NFLT_Pin);
     uint8_t abox = PHAL_readGPIO(ABOX_NFLT_GPIO_Port, ABOX_NFLT_Pin);
@@ -214,40 +213,31 @@ void checkSwitchFaults()
     static uint8_t bullet_old = 1;
 
     // Set Blink error for faulted switch
-    if (!dash && dash_old)
-    {
+    if (!dash && dash_old) {
         LED_control(LED_DASH, LED_BLINK);
     }
-    if (!abox && abox_old)
-    {
+    if (!abox && abox_old) {
         LED_control(LED_ABOX, LED_BLINK);
     }
-    if (!main && main_old)
-    {
+    if (!main && main_old) {
         LED_control(LED_MAIN, LED_BLINK);
     }
-    if (!daq && daq_old)
-    {
+    if (!daq && daq_old) {
         LED_control(LED_DAQ, LED_BLINK);
     }
-    if (!vcrit && vcrit_old)
-    {
+    if (!vcrit && vcrit_old) {
         LED_control(LED_5V_CRIT, LED_BLINK);
     }
-    if (!vnc && vnc_old)
-    {
+    if (!vnc && vnc_old) {
         LED_control(LED_5V_NCRIT, LED_BLINK);
     }
-    if (!fan1 && fan1_old)
-    {
+    if (!fan1 && fan1_old) {
         LED_control(LED_FAN_1, LED_BLINK);
     }
-    if (!fan2 && fan2_old)
-    {
+    if (!fan2 && fan2_old) {
         LED_control(LED_FAN_2, LED_BLINK);
     }
-    if (!bullet && bullet_old)
-    {
+    if (!bullet && bullet_old) {
         LED_control(LED_BLT, LED_BLINK);
     }
 
@@ -263,8 +253,7 @@ void checkSwitchFaults()
 
     static uint8_t fault_num;
     // Set fault for dash/daq - this is too much for our 1ms window, so send each fault seperately
-    switch(fault_num)
-    {
+    switch (fault_num) {
         case 0:
             setFault(ID_DASH_RAIL_FAULT, !dash);
             break;
@@ -294,12 +283,4 @@ void checkSwitchFaults()
             fault_num = 0;
             break;
     }
-
-
-
-
-
-
-
-
 }

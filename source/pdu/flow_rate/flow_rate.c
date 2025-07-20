@@ -18,8 +18,7 @@ extern uint32_t APB2ClockRateHz;
     flow rate sensor hooked up to the sink
 */
 
-bool flowRateInit()
-{
+bool flowRateInit() {
     /* FLOW_RATE_1_TIM */
     // CH1
     RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
@@ -111,8 +110,7 @@ bool flowRateInit()
     return true;
 }
 
-uint32_t getFlowRate1()
-{
+uint32_t getFlowRate1() {
     if (FLOW_RATE_1_TIM->CCR1 == 0) {
         return 0;
     }
@@ -122,8 +120,7 @@ uint32_t getFlowRate1()
     return flow_rate;
 }
 
-uint32_t getFlowRate2()
-{
+uint32_t getFlowRate2() {
     if (FLOW_RATE_2_TIM->CCR2 == 0) {
         return 0;
     }

@@ -11,23 +11,23 @@
 #ifndef _AUTO_SWITCH_H_
 #define _AUTO_SWITCH_H_
 
-#include <stdint.h>
-#include <stdbool.h>
 #include <source/pdu/main.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 // Static variables
 #define SHUNT_R 10000000
 #define ADC_MAX 4095
 
 // Voltage sense resistors
-#define LV_24V_R1   47000 // Ohms
-#define LV_24V_R2    3400
-#define LV_5V_R1     4300
-#define LV_5V_R2     3400
-#define LV_3V3_R1    4300
-#define LV_3V3_R2   10000
+#define LV_24V_R1  47000 // Ohms
+#define LV_24V_R2  3400
+#define LV_5V_R1   4300
+#define LV_5V_R2   3400
+#define LV_3V3_R1  4300
+#define LV_3V3_R2  10000
 #define AMK_24V_R1 124300
-#define AMK_24V_R2  10000
+#define AMK_24V_R2 10000
 
 // HP Current sense resistors
 #define HP_CS_R1 180 // Ohms
@@ -36,8 +36,7 @@
 
 // Upstream Current sense
 #define HP_CS_R_SENSE 0.002 // Ohms
-#define CS_GAIN 100
-
+#define CS_GAIN       100
 
 // Enumeration
 typedef enum {
@@ -77,10 +76,10 @@ typedef struct {
     uint16_t out_5v;
     uint16_t out_3v3;
     uint16_t amk_24v;
-} voltage_t;  // Voltage in mV
+} voltage_t; // Voltage in mV
 
 typedef struct {
-    uint16_t current[CS_SWITCH_COUNT];  // Current in mA
+    uint16_t current[CS_SWITCH_COUNT]; // Current in mA
     voltage_t voltage;
 } auto_switches_t;
 

@@ -10,6 +10,7 @@
  */
 
 #include "daq.h"
+
 #include "common/phal/can.h"
 
 // BEGIN AUTO VAR INCLUDES
@@ -44,16 +45,14 @@ daq_variable_t tracked_vars[NUM_VARS] = {
 // BEGIN AUTO FILE DEFAULTS
 // END AUTO FILE DEFAULTS
 
-bool daqInit(q_handle_t* tx_a)
-{
+bool daqInit(q_handle_t* tx_a) {
     // BEGIN AUTO INIT
     uint8_t ret = daqInitBase(tx_a, NUM_VARS, CAN1, ID_DAQ_RESPONSE_A_BOX_VCAN, tracked_vars);
     return ret;
     // END AUTO INIT
 }
 
-void daqPeriodic()
-{
+void daqPeriodic() {
     daqPeriodicBase();
 }
 

@@ -13,9 +13,9 @@
 /************************************************************************************************************/
 /*                                      INCLUDES                                                            */
 /************************************************************************************************************/
-#include <stdint.h>
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string.h>
 
 /************************************************************************************************************/
@@ -33,10 +33,10 @@
  *
  * @{
  */
-#define BSXLITE_OK (0)                               /** @brief Normal operation was successful without any warning or additional information. */
+#define BSXLITE_OK                              (0) /** @brief Normal operation was successful without any warning or additional information. */
 #define BSXLITE_E_DOSTEPS_TSINTRADIFFOUTOFRANGE (-5) /** Difference of time stamps between subsequent doSteps calls is out of range. */
-#define BSXLITE_E_FATAL (-254)                       /** Fatal error. */
-#define BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE (2)    /** all outputs cannot be returned because no memory provided */
+#define BSXLITE_E_FATAL                         (-254) /** Fatal error. */
+#define BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE   (2) /** all outputs cannot be returned because no memory provided */
 
 /** useful constants for accelerometer/gyro signal scaling during integration*/
 /*! conversion factor accel lsb unit -> m/s^2 */
@@ -55,7 +55,7 @@ typedef struct
 {
     uint8_t version_major; /**< major version */
     uint8_t version_minor; /**< minor version */
-    uint8_t bugfix_major;  /**< bug-fix version */
+    uint8_t bugfix_major; /**< bug-fix version */
 } bsxlite_version;
 
 /*! @brief define the module instance */
@@ -94,11 +94,12 @@ typedef struct
 /*fusion output structure*/
 typedef struct
 {
-    quaternion_t rotation_vector;     /**< rotation quaternion output : quaternion_t */
-    euler_angles_t orientation;       /**< euler angles output (rad) :  euler_angles_t */
+    quaternion_t rotation_vector; /**< rotation quaternion output : quaternion_t */
+    euler_angles_t orientation; /**< euler angles output (rad) :  euler_angles_t */
     uint8_t accel_calibration_status; /**< accelerometer calibration accuracy status */
-    uint8_t gyro_calibration_status;  /**< gyroscope calibration accuracy status */
+    uint8_t gyro_calibration_status; /**< gyroscope calibration accuracy status */
 } bsxlite_out_t;
+
 /************************************************************************************************************/
 /*                                          MODULE INTERFACES                                               */
 /************************************************************************************************************/
@@ -108,13 +109,13 @@ typedef struct
  * @param[in,out]      version_p       Pointer to structure containing the version information
  *
  */
-void bsxlite_get_version(bsxlite_version *version_p);
+void bsxlite_get_version(bsxlite_version* version_p);
 
 /*! @brief Initializes all the internal parameters required for the library.
  *
  * @param[in,out]   instance        Instance of the library.
  */
-bsxlite_return_t bsxlite_init(bsxlite_instance_t *instance_p);
+bsxlite_return_t bsxlite_init(bsxlite_instance_t* instance_p);
 
 /*!@brief perform signal processing steps of the library for provided signal samples.
  *
@@ -134,12 +135,12 @@ bsxlite_return_t bsxlite_init(bsxlite_instance_t *instance_p);
  *  @retval BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE
  *  @retval BSXLITE_E_FATAL
  */
-bsxlite_return_t bsxlite_do_step(const bsxlite_instance_t *instance_p, const int32_t w_time_stamp, const vector_3d_t *accel_in_p, const vector_3d_t *gyro_in_p, bsxlite_out_t *output_data_p);
+bsxlite_return_t bsxlite_do_step(const bsxlite_instance_t* instance_p, const int32_t w_time_stamp, const vector_3d_t* accel_in_p, const vector_3d_t* gyro_in_p, bsxlite_out_t* output_data_p);
 
 /*! @brief Sets to default (resets) all the internal parameters to default values
  *
  * @param[in,out]   instance        Instance of the library
  */
-bsxlite_return_t bsxlite_set_to_default(const bsxlite_instance_t *instance_p);
+bsxlite_return_t bsxlite_set_to_default(const bsxlite_instance_t* instance_p);
 
 #endif /* __BSXLITE_INTERFACE_H__ */

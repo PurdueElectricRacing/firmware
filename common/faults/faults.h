@@ -12,8 +12,8 @@
 #define _FAULTS_H_
 
 #include <stdbool.h>
-#include <stdlib.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #include "common/queue/queue.h"
 
@@ -122,9 +122,8 @@
 //END AUTO ID DEFS
 
 //Macro defs for accessing aspects of id
-#define GET_IDX(id) (id & 0x0FFF)
+#define GET_IDX(id)   (id & 0x0FFF)
 #define GET_OWNER(id) ((id & 0xF000) >> 12)
-
 
 //WARNING: Doesn't affect driving state (Car can still safely drive)
 //CRITICAL: Car exits ready2drive, but LV + HV systems still active
@@ -683,8 +682,6 @@ typedef enum {
     FAULT_FATAL = 2
 } fault_priority_t;
 
-
-
 //Contains info about fault state
 typedef struct {
     bool latched;
@@ -700,7 +697,7 @@ typedef struct {
     uint16_t time_since_latch;
     int f_max;
     int f_min;
-    fault_status_t *status;
+    fault_status_t* status;
     uint32_t start_ticks;
     char* screen_MSG;
 } fault_attributes_t;
@@ -710,14 +707,12 @@ extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];
 //Union to package CAN messages
 typedef union {
     struct {
-        uint64_t idx: 16;
-        uint64_t latched: 1;
+        uint64_t idx : 16;
+        uint64_t latched : 1;
     } fault_sync;
+
     uint8_t raw_data[8];
 } __attribute__((packed)) fault_can_format_t;
-
-
-
 
 //Vars
 extern fault_status_t message[TOTAL_NUM_FAULTS];

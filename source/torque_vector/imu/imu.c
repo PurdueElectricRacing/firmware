@@ -17,8 +17,7 @@
  * @param imu_h IMU Handle containing initialized bmi088
  * @return True on success
  */
-bool imu_init(IMU_Handle_t *imu_h)
-{
+bool imu_init(IMU_Handle_t* imu_h) {
     if (!imu_h->bmi || !imu_h->bmi->accel_ready)
         return false;
 
@@ -31,8 +30,8 @@ bool imu_init(IMU_Handle_t *imu_h)
 }
 
 int32_t t_us = 0;
-void imu_periodic(IMU_Handle_t *imu_h)
-{
+
+void imu_periodic(IMU_Handle_t* imu_h) {
     vector_3d_t accel_in, gyro_in;
     int16_t h, p, r, y;
 

@@ -1,23 +1,23 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/psched/psched.h"
-#include "common/phal/usart.h"
-#include "common/phal/gpio.h"
-#include "common/phal/can.h"
-#include "common/phal/rcc.h"
-#include "common/phal/adc.h"
-#include "common/phal/spi.h"
-#include "common/phal/dma.h"
 #include "common/faults/faults.h"
+#include "common/phal/adc.h"
+#include "common/phal/can.h"
+#include "common/phal/dma.h"
+#include "common/phal/gpio.h"
+#include "common/phal/rcc.h"
+#include "common/phal/spi.h"
+#include "common/phal/usart.h"
+#include "common/psched/psched.h"
 
 /* Module Includes */
-#include "main.h"
 #include "can_parse.h"
 #include "daq.h"
-#include "pedals.h"
 #include "lcd.h"
+#include "main.h"
 #include "nextion.h"
+#include "pedals.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -89,23 +89,23 @@ volatile raw_adc_values_t raw_adc_values;
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_2,
-    .resolution      = ADC_RES_12_BIT,
-    .data_align      = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode  = true,
-    .dma_mode        = ADC_DMA_CIRCULAR,
-    .adc_number      = 1,
+    .resolution = ADC_RES_12_BIT,
+    .data_align = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode = ADC_DMA_CIRCULAR,
+    .adc_number = 1,
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel = THTL_1_ADC_CHNL,        .rank = 1,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = THTL_2_ADC_CHNL,        .rank = 2,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_1_ADC_CHNL,         .rank = 3,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_2_ADC_CHNL,         .rank = 4,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = SHOCK_POT_L_ADC_CH,     .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = SHOCK_POT_R_ADC_CH,     .rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_3V3_V_SENSE_ADC_CHNL,.rank = 6,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7,  .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = THTL_1_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SHOCK_POT_L_ADC_CH, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SHOCK_POT_R_ADC_CH, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_3V3_V_SENSE_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LOAD_FL_ADC_CH,         .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     // {.channel = LOAD_FR_ADC_CH,         .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
@@ -113,34 +113,33 @@ ADCChannelConfig_t adc_channel_config[] = {
     // {.channel = BRK2_THR_ADC_CHNL,      .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
 
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t lcd = {
-    .baud_rate          = LCD_BAUD_RATE,
-    .word_length        = WORD_8,
-    .stop_bits          = SB_ONE,
-    .parity             = PT_NONE,
-    .hw_flow_ctl        = HW_DISABLE,
-    .ovsample           = OV_16,
-    .obsample           = OB_DISABLE,
-    .periph             = USART1,
-    .wake_addr          = false,
-    .usart_active_num   = USART1_ACTIVE_IDX,
-    .tx_dma_cfg         = &usart_tx_dma_config,
-    .rx_dma_cfg         = &usart_rx_dma_config
-};
+    .baud_rate = LCD_BAUD_RATE,
+    .word_length = WORD_8,
+    .stop_bits = SB_ONE,
+    .parity = PT_NONE,
+    .hw_flow_ctl = HW_DISABLE,
+    .ovsample = OV_16,
+    .obsample = OB_DISABLE,
+    .periph = USART1,
+    .wake_addr = false,
+    .usart_active_num = USART1_ACTIVE_IDX,
+    .tx_dma_cfg = &usart_tx_dma_config,
+    .rx_dma_cfg = &usart_rx_dma_config};
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSI,
-    .use_pll                    =false,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .clock_source = CLOCK_SOURCE_HSI,
+    .use_pll = false,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -175,17 +174,15 @@ extern void HardFault_Handler();
 // Communication queues
 q_handle_t q_tx_usart;
 
-int main(void){
+int main(void) {
     /* Data Struct init */
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
 
     /* HAL Initilization */
-    if (0 != PHAL_configureClockRates(&clock_config))
-    {
+    if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
-    {
+    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
 
@@ -227,28 +224,23 @@ int main(void){
 void preflightChecks(void) {
     static uint8_t state;
 
-    switch (state++)
-    {
+    switch (state++) {
         case 0:
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
-            {
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 1:
-            if (false == PHAL_initUSART(&lcd, APB2ClockRateHz))
-            {
+            if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
                 HardFault_Handler();
             }
             break;
         case 2:
-            if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-            {
+            if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
                 HardFault_Handler();
             }
-            if (false == PHAL_initDMA(&adc_dma_config))
-            {
+            if (false == PHAL_initDMA(&adc_dma_config)) {
                 HardFault_Handler();
             }
             PHAL_startTxfer(&adc_dma_config);
@@ -284,13 +276,13 @@ void preflightChecks(void) {
  */
 int16_t shock_l_parsed;
 int16_t shock_r_parsed;
-void sendShockpots()
-{
+
+void sendShockpots() {
     uint16_t shock_l = raw_adc_values.shock_left;
     uint16_t shock_r = raw_adc_values.shock_right;
 
     // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
-    shock_l_parsed =  -1 * ((POT_MAX_DIST - (int16_t)((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
+    shock_l_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
     shock_r_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
     SEND_SHOCK_FRONT(shock_l_parsed, shock_r_parsed);
 }
@@ -336,7 +328,8 @@ void preflightAnimation(void) {
     }
 }
 
-#define SCALE_F = (1 + (3.4/6.6))
+#define SCALE_F = (1 + (3.4 / 6.6))
+
 float voltToForce(uint16_t load_read) {
     /*
     //Return in newtons
@@ -356,19 +349,19 @@ float voltToForce(uint16_t load_read) {
     */
     float g = 9.8;
     // float val = ((load_read / 4095.0 * 3.3) * 10.0)
-    float val = ((load_read / 4095.0 * 3.3) * (1.0 + (3.4/6.6)));
+    float val = ((load_read / 4095.0 * 3.3) * (1.0 + (3.4 / 6.6)));
     // return ( val / 6.6) * 100.0 * g;
     return val * 100.0 * g;
 }
 
 void interpretLoadSensor(void) {
-    #if 0
+#if 0
     float force_load_l = voltToForce(raw_adc_values.load_l);
     float force_load_r = voltToForce(raw_adc_values.load_r);
     //send a can message w/ minimal force info
     //every 15 milliseconds
     SEND_LOAD_SENSOR_READINGS_DASH(force_load_l, force_load_r);
-    #endif
+#endif
 }
 
 /**
@@ -377,8 +370,7 @@ void interpretLoadSensor(void) {
  * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
  * Handles periodic CAN statistics transmission.
  */
-void heartBeatLED()
-{
+void heartBeatLED() {
     static uint8_t imd_prev_latched;
     static uint8_t bms_prev_latched;
 
@@ -412,7 +404,6 @@ void heartBeatLED()
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !imd_prev_latched);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !bms_prev_latched);
 
-
     static uint8_t trig;
     if (trig) {
         SEND_DASH_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
@@ -429,68 +420,61 @@ static volatile uint32_t last_input_time;
 void EXTI9_5_IRQHandler(void) {
     // EXTI9 (ENCODER B) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR9) {
-      encoderISR();
+        encoderISR();
 
-
-        EXTI->PR |= EXTI_PR_PR9;        // Clear the interrupt pending bit for EXTI9
+        EXTI->PR |= EXTI_PR_PR9; // Clear the interrupt pending bit for EXTI9
     }
 }
 
 void EXTI15_10_IRQHandler() {
     // EXTI10 (ENCODER A) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR10)
-    {
+    if (EXTI->PR & EXTI_PR_PR10) {
         encoderISR();
 
         // last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR10;       // Clear the interrupt pending bit for EXTI10
+        EXTI->PR |= EXTI_PR_PR10; // Clear the interrupt pending bit for EXTI10
     }
 
     // EXTI14 (UP Button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR14)
-    {
+    if (EXTI->PR & EXTI_PR_PR14) {
         if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.up_button = 1;      // Set flag for up button
+            input_state.up_button = 1; // Set flag for up button
         }
 
         last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR14;       // Clear the interrupt pending bit for EXTI14
+        EXTI->PR |= EXTI_PR_PR14; // Clear the interrupt pending bit for EXTI14
     }
 
     // EXTI13 (DOWN button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR13)
-    {
+    if (EXTI->PR & EXTI_PR_PR13) {
         if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.down_button = 1;    // Set flag for down button
+            input_state.down_button = 1; // Set flag for down button
         }
 
         last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR13;       // Clear the interrupt pending bit for EXTI13
+        EXTI->PR |= EXTI_PR_PR13; // Clear the interrupt pending bit for EXTI13
     }
 
     // EXTI12 (SELECT button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR12)
-    {
+    if (EXTI->PR & EXTI_PR_PR12) {
         if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.select_button = 1;  // Set flag for select button
+            input_state.select_button = 1; // Set flag for select button
         }
 
         last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR12;       // Clear the interrupt pending bit for EXTI12
+        EXTI->PR |= EXTI_PR_PR12; // Clear the interrupt pending bit for EXTI12
     }
 
     // EXTI11 (START button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR11)
-    {
+    if (EXTI->PR & EXTI_PR_PR11) {
         if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.start_button = 1;  // Set flag for start button
+            input_state.start_button = 1; // Set flag for start button
         }
 
         last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR11;       // Clear the interrupt pending bit for EXTI11
+        EXTI->PR |= EXTI_PR_PR11; // Clear the interrupt pending bit for EXTI11
     }
 }
-
 
 /**
  * @brief Initialize encoder to zero position
@@ -518,19 +502,17 @@ void zeroEncoder() {
  * @note Called on encoder pin state changes
  */
 void encoderISR() {
-  // Just give up for a bit to debounce
-  if (sched.os_ticks - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS)
-  {
-    input_state.debounce_ticks = sched.os_ticks;
-    return;
-  }
+    // Just give up for a bit to debounce
+    if (sched.os_ticks - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS) {
+        input_state.debounce_ticks = sched.os_ticks;
+        return;
+    }
     // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
     static const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
-        { 0, -1,  1,  0},
-        { 1,  0,  0, -1},
-        {-1,  0,  0,  1},
-        { 0,  1, -1,  0}
-    };
+        {0, -1, 1, 0},
+        {1, 0, 0, -1},
+        {-1, 0, 0, 1},
+        {0, 1, -1, 0}};
 
     uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
     uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
@@ -561,8 +543,7 @@ void encoderISR() {
  *
  * Meant to be called periodically.
  */
-void handleDashboardInputs()
-{
+void handleDashboardInputs() {
     if (input_state.up_button) {
         input_state.up_button = 0;
         moveUp();
@@ -589,40 +570,39 @@ void handleDashboardInputs()
     }
 }
 
-void enableInterrupts()
-{
+void enableInterrupts() {
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
     // START_FLT is on PD11 (EXTI11)
-    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI11_PD;   // Map PD11 to EXTI11
+    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI11_PD; // Map PD11 to EXTI11
 
-    EXTI->IMR |= EXTI_IMR_MR11;                      // Unmask EXTI11
-    EXTI->RTSR &= ~EXTI_RTSR_TR11;                   // Disable the rising edge trigger for START_FLT
-    EXTI->FTSR |= EXTI_FTSR_TR11;                    // Enable the falling edge trigger for START_FLT
+    EXTI->IMR |= EXTI_IMR_MR11; // Unmask EXTI11
+    EXTI->RTSR &= ~EXTI_RTSR_TR11; // Disable the rising edge trigger for START_FLT
+    EXTI->FTSR |= EXTI_FTSR_TR11; // Enable the falling edge trigger for START_FLT
 
     // ENC_B_FLT is on PD9 (EXTI9)
     // ENC_A_FLT is on PD10 (EXTI10)
-    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI9_PD;    // Map PD9 to EXTI9
-    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI10_PD;   // Map PD10 to EXTI10
+    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI9_PD; // Map PD9 to EXTI9
+    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI10_PD; // Map PD10 to EXTI10
 
-    EXTI->IMR  |= (EXTI_IMR_MR9 | EXTI_IMR_MR10);     // Unmask EXTI9 and EXTI10
-    EXTI->RTSR |= (EXTI_RTSR_TR9 | EXTI_RTSR_TR10);   // Enable the rising edge trigger for both ENC_B_FLT and ENC_A_FLT
-    EXTI->FTSR |= (EXTI_FTSR_TR9 | EXTI_FTSR_TR10);   // Enable the falling edge trigger for both ENC_B_FLT and ENC_A_FLT
+    EXTI->IMR |= (EXTI_IMR_MR9 | EXTI_IMR_MR10); // Unmask EXTI9 and EXTI10
+    EXTI->RTSR |= (EXTI_RTSR_TR9 | EXTI_RTSR_TR10); // Enable the rising edge trigger for both ENC_B_FLT and ENC_A_FLT
+    EXTI->FTSR |= (EXTI_FTSR_TR9 | EXTI_FTSR_TR10); // Enable the falling edge trigger for both ENC_B_FLT and ENC_A_FLT
 
     // B3_FLT is on PD12 (EXTI 12)
     // B2_FLT is on PD13 (EXTI 13)
     // B1_FLT is on PD14 (EXTI 14)
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI12_PD;   // Map PD12 to EXTI 12
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PD;   // Map PD13 to EXTI 13
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI14_PD;   // Map PD14 to EXTI 14
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI12_PD; // Map PD12 to EXTI 12
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PD; // Map PD13 to EXTI 13
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI14_PD; // Map PD14 to EXTI 14
 
-    EXTI->IMR |= (EXTI_IMR_MR12 | EXTI_IMR_MR13 | EXTI_IMR_MR14);         // Unmask EXTI12, EXTI13, and EXTI 14
-    EXTI->RTSR &= ~(EXTI_RTSR_TR12 | EXTI_RTSR_TR13 | EXTI_RTSR_TR14);    // Disable the rising edge trigger for B3_FLT, B2_FLT, B1_FLT
-    EXTI->FTSR |= (EXTI_FTSR_TR12 | EXTI_FTSR_TR13 | EXTI_FTSR_TR14);     // Enable the falling edge trigger for B3_FLT, B2_FLT, B1_FLT
+    EXTI->IMR |= (EXTI_IMR_MR12 | EXTI_IMR_MR13 | EXTI_IMR_MR14); // Unmask EXTI12, EXTI13, and EXTI 14
+    EXTI->RTSR &= ~(EXTI_RTSR_TR12 | EXTI_RTSR_TR13 | EXTI_RTSR_TR14); // Disable the rising edge trigger for B3_FLT, B2_FLT, B1_FLT
+    EXTI->FTSR |= (EXTI_FTSR_TR12 | EXTI_FTSR_TR13 | EXTI_FTSR_TR14); // Enable the falling edge trigger for B3_FLT, B2_FLT, B1_FLT
 
-    NVIC_EnableIRQ(EXTI9_5_IRQn);                    // Enable EXTI9_5 IRQ for ENC_B_FLT
-    NVIC_EnableIRQ(EXTI15_10_IRQn);                  // Enable EXTI15_10 IRQ: START_FLT, ENC_A_FLT, B3_FLT, B2_FLT, B1_FLT
+    NVIC_EnableIRQ(EXTI9_5_IRQn); // Enable EXTI9_5 IRQ for ENC_B_FLT
+    NVIC_EnableIRQ(EXTI15_10_IRQn); // Enable EXTI15_10 IRQ: START_FLT, ENC_A_FLT, B3_FLT, B2_FLT, B1_FLT
 }
 
 /**
@@ -631,21 +611,18 @@ void enableInterrupts()
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
 uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
-void lcdTxUpdate()
-{
-    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd)))
-    {
-        PHAL_usartTxDma(&lcd, (uint16_t *) cmd, strlen(cmd));
+
+void lcdTxUpdate() {
+    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
+        PHAL_usartTxDma(&lcd, (uint16_t*)cmd, strlen(cmd));
     }
 }
 
-void CAN1_RX0_IRQHandler()
-{
+void CAN1_RX0_IRQHandler() {
     canParseIRQHandler(CAN1);
 }
 
-void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
+void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
     if (can_data.dashboard_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
@@ -657,8 +634,7 @@ void dashboard_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
  * for 3.3V, 5V, 12V and 24V rails. Scales values by 100 before sending.
  * Resistor values must be manually updated if hardware changes.
  */
-void sendVoltageData()
-{
+void sendVoltageData() {
     float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
 
     float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;
@@ -682,8 +658,8 @@ void pollBrakeStatus() {
     brake_status.brake_fail = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
 }
 
-void HardFault_Handler()
-{
-   schedPause();
-   while(1) IWDG->KR = 0xAAAA; // Reset watchdog
+void HardFault_Handler() {
+    schedPause();
+    while (1)
+        IWDG->KR = 0xAAAA; // Reset watchdog
 }

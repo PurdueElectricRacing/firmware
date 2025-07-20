@@ -3,16 +3,16 @@
 
 // EEPROM struct
 struct eeprom mem;
-uint8_t       mem_zero[MICRO_PG_SIZE];
+uint8_t mem_zero[MICRO_PG_SIZE];
 
 // Static prototypes
-static int  readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len);
-static int  writePage(uint16_t addr, uint8_t* page, uint8_t size);
-static int  readPage(uint16_t addr, uint8_t* page);
+static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len);
+static int writePage(uint16_t addr, uint8_t* page, uint8_t size);
+static int readPage(uint16_t addr, uint8_t* page);
 static void memClear(void);
-static int  memTest(void);
-static int  fnameSearch(char* name);
-static int  ee_memcheck(uint8_t* src, uint8_t* dest, size_t len);
+static int memTest(void);
+static int fnameSearch(char* name);
+static int ee_memcheck(uint8_t* src, uint8_t* dest, size_t len);
 static void ee_memset(uint8_t* dest, size_t len, uint8_t value);
 static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len);
 
@@ -20,7 +20,7 @@ static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len);
 //
 // @brief: Initializes chip metadata. Attemps to read
 //         and load all metadata from last run. If memory
-//         isn't initialized, force_init can be set to 
+//         isn't initialized, force_init can be set to
 //         set a default version of 1 and mark the chip
 //         as officially in use
 //
@@ -30,16 +30,16 @@ static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len);
 // @param: force_init: Force initialization if memory isn't
 //                     initialized. Only set if version is truly 1
 int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, uint16_t version, bool force_init) {
-    int      ret;
+    int ret;
     uint16_t i, size, end;
-    uint8_t  page[MICRO_PG_SIZE];
+    uint8_t page[MICRO_PG_SIZE];
 
     // Set WC pins
     mem.wc_gpio_port = wc_gpio_port;
     mem.wc_gpio_pin = wc_gpio_pin;
 
     // Read EEPROM metadata
-    ret = readMem(0, (uint8_t*) &mem.phys, sizeof(struct phys_mem));
+    ret = readMem(0, (uint8_t*)&mem.phys, sizeof(struct phys_mem));
     ee_memset(mem_zero, MICRO_PG_SIZE, 0);
 
     // Ensure there are no errors
@@ -73,7 +73,7 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, uint16_t version, 
     ee_memset(page, NAME_LEN, 0);
 
     for (i = 0; i < MAX_PAGES; i++) {
-        if (ee_memcheck(page, (char*) &mem.phys.filename[i], NAME_LEN) < 0) {
+        if (ee_memcheck(page, (char*)&mem.phys.filename[i], NAME_LEN) < 0) {
             ret = readMem(mem.phys.pg_bound[i], mem.pg_addr[i], mem.pg_size[i]);
 
             if (ret < 0) {
@@ -121,7 +121,7 @@ int checkVersion(uint16_t version) {
 // @param: fname: File name (NAME_LEN characters)
 // @param: bcmp: Backwards compatibility enabled. Disable for temp storage
 int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
-    int     i;
+    int i;
     uint8_t null_name[NAME_LEN];
 
     ee_memset(null_name, NAME_LEN, 0U);
@@ -168,11 +168,11 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
 //
 // @note: Application code must add to background queue with rate MEM_FG_TIME
 void memBg(void) {
-    int      ret;
-    uint8_t  page[MICRO_PG_SIZE];
+    int ret;
+    uint8_t page[MICRO_PG_SIZE];
     uint16_t len, end;
 
-    static uint8_t  search;
+    static uint8_t search;
     static uint32_t addr;
 
     // Check if we're waiting on foreground to execute a write
@@ -207,12 +207,12 @@ void memBg(void) {
             return;
         }
 
-        ret = ee_memcheck(page, (uint8_t*) (&mem.phys + addr), len);
+        ret = ee_memcheck(page, (uint8_t*)(&mem.phys + addr), len);
 
         if (ret < 0) {
             mem.write_pending = true;
             mem.dest_loc = addr;
-            mem.source_loc = (uint8_t*) (&mem.phys + addr);
+            mem.source_loc = (uint8_t*)(&mem.phys + addr);
             mem.update_len = len;
         }
 
@@ -281,8 +281,8 @@ void memFg(void) {
 //
 // @return: E_SUCCESS if read, error code if failed
 static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len) {
-    int      ret;
-    uint8_t  page[MICRO_PG_SIZE];
+    int ret;
+    uint8_t page[MICRO_PG_SIZE];
     uint16_t i, size, end;
 
     // Calculate ending address
@@ -298,7 +298,7 @@ static int readMem(uint16_t phys_addr, uint8_t* loc_addr, uint16_t len) {
 
         // Check if micro page would overflow during memcpy
         size = (i + 32 == end) ? MICRO_PG_SIZE - (len % MICRO_PG_SIZE) : MICRO_PG_SIZE;
-        ee_memcpy(page, (uint8_t*) (loc_addr + i), size);
+        ee_memcpy(page, (uint8_t*)(loc_addr + i), size);
     }
 
     return E_SUCCESS;
@@ -374,7 +374,7 @@ static void memClear() {
 // @note: DO NOT USE! WILL RESET STRUCTS AND CAUSE DEVICE
 //        NAKS FOLLOWED BY I2C STOPPAGE
 static int memTest() {
-    size_t  i;
+    size_t i;
     uint8_t one[MICRO_PG_SIZE];
     uint8_t page[MICRO_PG_SIZE];
 

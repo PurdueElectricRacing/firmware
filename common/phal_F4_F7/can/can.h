@@ -29,12 +29,12 @@
 
 typedef struct
 {
-  CAN_TypeDef* Bus; /*!< Specifies the bus. */
-  uint16_t StdId; /*!< Specifies the standard identifier. */
-  uint32_t ExtId; /*!< Specifies the extended identifier. */
-  uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */
-  uint32_t DLC; /*!< Specifies the length of the frame that will be transmitted. */
-  uint8_t Data[8]; /*!< Contains the data to be transmitted. */
+    CAN_TypeDef* Bus; /*!< Specifies the bus. */
+    uint16_t StdId; /*!< Specifies the standard identifier. */
+    uint32_t ExtId; /*!< Specifies the extended identifier. */
+    uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */
+    uint32_t DLC; /*!< Specifies the length of the frame that will be transmitted. */
+    uint8_t Data[8]; /*!< Contains the data to be transmitted. */
 } CanMsgTypeDef_t;
 
 /**

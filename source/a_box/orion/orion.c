@@ -1,25 +1,22 @@
 #include "orion.h"
 
 #include <stdbool.h>
-#include "can_parse.h"
-#include "common_defs.h"
-#include "common/faults/faults.h"
-#include "daq.h"
 
+#include "can_parse.h"
+#include "common/faults/faults.h"
+#include "common_defs.h"
+#include "daq.h"
 
 uint8_t charge_request_user = false; // Enable charge algo
 uint16_t user_charge_current_request = 0;
 uint16_t user_charge_voltage_request = 0;
-uint8_t  orion_error = 0;
+uint8_t orion_error = 0;
 
-
-void orionInit()
-{
+void orionInit() {
     user_charge_voltage_request = DEFAULT_CHARGE_VOLTAGE_REQUEST;
     user_charge_current_request = DEFAULT_CHARGE_CURRENT_REQUEST;
     charge_request_user = false;
 }
-
 
 bool orionErrors() {
     static uint8_t counter;
@@ -52,15 +49,14 @@ bool orionErrors() {
 
     // Require dtc to be held high 4x before signaling error
     counter = (can_data.orion_info.dtc_status | can_data.orion_info_charger.dtc_status) ? counter + 1 : 0;
-    if (counter == 4)
-    {
+    if (counter == 4) {
         counter--;
         bms_err = true;
     }
 
     orion_error = bms_err;
 
-    return orion_error;// TODO:  || can_data.orion_info_charger.stale);
+    return orion_error; // TODO:  || can_data.orion_info_charger.stale);
 }
 
 /*
@@ -71,33 +67,33 @@ bool orionErrors() {
 */
 void orionChargePeriodic() {
     bool orion_charger_status;
-    bool elcon_charge_enable  = false; // Allow power from elcon
-    uint16_t charge_voltage_req = 0;   // Voltage limit request to send to charger
-    uint16_t charge_current_req = 0;   // Current limit request to send to charger
-    uint16_t charge_current;           // Current charge current from charger
-    uint16_t charge_voltage;           // Current pack voltage from charger
+    bool elcon_charge_enable = false; // Allow power from elcon
+    uint16_t charge_voltage_req = 0; // Voltage limit request to send to charger
+    uint16_t charge_current_req = 0; // Current limit request to send to charger
+    uint16_t charge_current; // Current charge current from charger
+    uint16_t charge_voltage; // Current pack voltage from charger
     float power;
 
-    orion_charger_status = can_data.orion_info_charger.is_charging &&
-                            !can_data.orion_info_charger.stale;
+    orion_charger_status = can_data.orion_info_charger.is_charging && !can_data.orion_info_charger.stale;
 
     charge_request_user &= !can_data.elcon_charger_status.stale;
     if (charge_request_user && orion_charger_status && !orionErrors() && !errorLatched() && !fatalLatched()) {
-            elcon_charge_enable = true;
+        elcon_charge_enable = true;
 
-             //user_charge_current_request = 10;
-            charge_current_req = MIN(can_data.orion_info_charger.pack_ccl, user_charge_current_request);
+        //user_charge_current_request = 10;
+        charge_current_req = MIN(can_data.orion_info_charger.pack_ccl, user_charge_current_request);
 
-             //user_charge_voltage_request = 314;
-            charge_voltage_req = MIN(user_charge_voltage_request, MAX_VOLT); // Hard limit, don't overcharge
-            charge_voltage_req *=  10;
-            charge_current_req *= 10;
+        //user_charge_voltage_request = 314;
+        charge_voltage_req = MIN(user_charge_voltage_request, MAX_VOLT); // Hard limit, don't overcharge
+        charge_voltage_req *= 10;
+        charge_current_req *= 10;
 
-            // Swap endianess
-            charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
-            charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
+        // Swap endianess
+        charge_voltage_req = ((charge_voltage_req & 0x00FF) << 8) | (charge_voltage_req >> 8);
+        charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
     }
-    if (!elcon_charge_enable) asm("nop"); // for bkpt
+    if (!elcon_charge_enable)
+        asm("nop"); // for bkpt
 
     SEND_ELCON_CHARGER_COMMAND(charge_voltage_req, charge_current_req, !elcon_charge_enable);
 
@@ -108,5 +104,5 @@ void orionChargePeriodic() {
     charge_current = ((charge_current & 0x00FF) << 8) | (charge_current >> 8);
     charge_voltage = ((charge_voltage & 0x00FF) << 8) | (charge_voltage >> 8);
     power = (charge_current / 10.0f) * (charge_voltage / 10.0f);
-    SEND_PACK_CHARGE_STATUS((uint16_t) (power), elcon_charge_enable, charge_voltage, charge_current);
+    SEND_PACK_CHARGE_STATUS((uint16_t)(power), elcon_charge_enable, charge_voltage, charge_current);
 }

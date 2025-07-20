@@ -34,7 +34,8 @@ bool PHAL_initDMA(dma_init_t* dma) {
 
     // Ensure the stream is disabled, must be in order to configure the DMA control registers
     dma->channel->CCR &= ~(DMA_CCR_EN);
-    while (dma->channel->CCR & DMA_CCR_EN);
+    while (dma->channel->CCR & DMA_CCR_EN)
+        ;
 
     // Clear any stream dedicated status flags that may have been set previously
     dma->periph->IFCR = (DMA_ISR_GIF1 << (dma->channel_idx & 0x1FU));
@@ -48,22 +49,14 @@ bool PHAL_initDMA(dma_init_t* dma) {
     // Reset preconfigured CR values
     dma->channel->CCR = 0;
     // Set channel, priority, memory data size
-    dma->channel->CCR |= (dma->mem_size    << DMA_CCR_MSIZE_Pos)  & DMA_CCR_MSIZE_Msk |
-                         (dma->periph_size << DMA_CCR_PSIZE_Pos)  & DMA_CCR_PSIZE_Msk |
-                         (dma->priority    << DMA_CCR_PL_Pos)     & DMA_CCR_PL_Msk    |
-                         (dma->mem_inc     << DMA_CCR_MINC_Pos)   & DMA_CCR_MINC_Msk  |
-                         (dma->periph_inc  << DMA_CCR_PINC_Pos)   & DMA_CCR_PINC_Msk  |
-                         (dma->circular    << DMA_CCR_CIRC_Pos)   & DMA_CCR_CIRC_Msk  |
-                         (dma->dir         << DMA_CCR_DIR_Pos)    & DMA_CCR_DIR_Msk   |
-                         (dma->tx_isr_en   << DMA_CCR_TEIE_Pos)   & DMA_CCR_TEIE_Msk  |
-                         (dma->tx_isr_en   << DMA_CCR_TCIE_Pos)   & DMA_CCR_TCIE_Msk;
+    dma->channel->CCR |= (dma->mem_size << DMA_CCR_MSIZE_Pos) & DMA_CCR_MSIZE_Msk | (dma->periph_size << DMA_CCR_PSIZE_Pos) & DMA_CCR_PSIZE_Msk | (dma->priority << DMA_CCR_PL_Pos) & DMA_CCR_PL_Msk | (dma->mem_inc << DMA_CCR_MINC_Pos) & DMA_CCR_MINC_Msk | (dma->periph_inc << DMA_CCR_PINC_Pos) & DMA_CCR_PINC_Msk | (dma->circular << DMA_CCR_CIRC_Pos) & DMA_CCR_CIRC_Msk | (dma->dir << DMA_CCR_DIR_Pos) & DMA_CCR_DIR_Msk | (dma->tx_isr_en << DMA_CCR_TEIE_Pos) & DMA_CCR_TEIE_Msk | (dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk;
 
     /* DMA Mux */
     // For category 3 and category 4 devices:
     // DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8
     // DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8
     // DMAMUX Channel (usually equal to DMA channel number - 1)
-    DMAMUX_Channel_TypeDef *mux;
+    DMAMUX_Channel_TypeDef* mux;
     mux = (DMAMUX1_Channel0 + dma->channel_idx - 1);
 
     mux->CCR &= ~(1 << 8); // Disable channel
@@ -89,12 +82,10 @@ void PHAL_reEnable(dma_init_t* dma) {
     dma->channel->CCR |= DMA_CCR_EN;
 }
 
-void PHAL_DMA_setMemAddress(dma_init_t* dma, const uint32_t address)
-{
+void PHAL_DMA_setMemAddress(dma_init_t* dma, const uint32_t address) {
     dma->channel->CMAR = address;
 }
 
-void PHAL_DMA_setTxferLength(dma_init_t* dma, const uint32_t length)
-{
+void PHAL_DMA_setTxferLength(dma_init_t* dma, const uint32_t length) {
     dma->channel->CNDTR = length; // Set number of data to transfer
 }

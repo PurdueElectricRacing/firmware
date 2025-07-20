@@ -11,8 +11,8 @@
 #ifndef _DAQ_H_
 #define _DAQ_H_
 
-#include "common/daq/daq_base.h"
 #include "can_parse.h"
+#include "common/daq/daq_base.h"
 
 // Make this match the node name within the daq_config.json
 #define NODE_NAME "a_box"

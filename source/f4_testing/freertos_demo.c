@@ -15,11 +15,11 @@
 // Guard so cmake doesn't compile all tests
 #if (F4_TESTING_CHOSEN == TEST_FREERTOS_DEMO)
 
-#include "common/phal/rcc.h"
-#include "common/phal/gpio.h"
-#include "common/phal/usart.h"
 #include "common/freertos/freertos.h"
 #include "common/log/log.h"
+#include "common/phal/gpio.h"
+#include "common/phal/rcc.h"
+#include "common/phal/usart.h"
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED), // F407VGT disco LEDs
@@ -37,31 +37,30 @@ extern uint32_t PLLClockRateHz;
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSI,
-    .use_pll                    =false,
-    .vco_output_rate_target_hz  =160000000,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .clock_source = CLOCK_SOURCE_HSI,
+    .use_pll = false,
+    .vco_output_rate_target_hz = 160000000,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
 };
 
 dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t usart_config = {
-   .baud_rate   = 115200,
-   .word_length = WORD_8,
-   .stop_bits   = SB_ONE,
-   .parity      = PT_NONE,
-   .hw_flow_ctl = HW_DISABLE,
-   .ovsample    = OV_16,
-   .obsample    = OB_DISABLE,
-   .periph      = USART2,
-   .wake_addr = false,
-   .usart_active_num = USART2_ACTIVE_IDX,
-   .tx_dma_cfg = &usart_tx_dma_config,
-   .rx_dma_cfg = &usart_rx_dma_config
-};
+    .baud_rate = 115200,
+    .word_length = WORD_8,
+    .stop_bits = SB_ONE,
+    .parity = PT_NONE,
+    .hw_flow_ctl = HW_DISABLE,
+    .ovsample = OV_16,
+    .obsample = OB_DISABLE,
+    .periph = USART2,
+    .wake_addr = false,
+    .usart_active_num = USART2_ACTIVE_IDX,
+    .tx_dma_cfg = &usart_tx_dma_config,
+    .rx_dma_cfg = &usart_rx_dma_config};
 DEBUG_PRINTF_USART_DEFINE(&usart_config)
 
 void HardFault_Handler();
@@ -81,21 +80,17 @@ defineThreadStack(usartSend, 1000, osPriorityNormal, 1024);
 defineStaticQueue(myQueue, uint32_t, 0x45);
 defineStaticSemaphore(mySemaphore);
 
-int main()
-{
+int main() {
     osKernelInitialize();
 
     // Initialize hardware
-    if(0 != PHAL_configureClockRates(&clock_config))
-    {
+    if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
-    {
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-    if(!PHAL_initUSART(&usart_config, APB1ClockRateHz))
-    {
+    if (!PHAL_initUSART(&usart_config, APB1ClockRateHz)) {
         HardFault_Handler();
     }
     log_yellow("PER PER PER\n");
@@ -116,30 +111,24 @@ int main()
     return 0;
 }
 
-void ledblink1()
-{
+void ledblink1() {
     PHAL_toggleGPIO(GPIOD, 12);
 }
 
-void ledblink2()
-{
+void ledblink2() {
     PHAL_toggleGPIO(GPIOD, 13);
 }
 
-void ledblink3()
-{
+void ledblink3() {
     PHAL_toggleGPIO(GPIOD, 14);
 }
 
-void ledblink4()
-{
+void ledblink4() {
     PHAL_toggleGPIO(GPIOD, 15);
 }
 
-void usartSend()
-{
-    if (xSemaphoreTake(mySemaphore, ( TickType_t ) 10 ) == pdTRUE)
-    {
+void usartSend() {
+    if (xSemaphoreTake(mySemaphore, (TickType_t)10) == pdTRUE) {
         /* We were able to obtain the semaphore and can now access the
             shared resource. */
 
@@ -151,10 +140,8 @@ void usartSend()
     }
 }
 
-void HardFault_Handler()
-{
-    while(1)
-    {
+void HardFault_Handler() {
+    while (1) {
         __asm__("nop");
     }
 }

@@ -15,16 +15,15 @@ static void usart_isr_handle(USART_TypeDef* instance, uint8_t instance_idx);
 static void usart_unmask_irq(USART_TypeDef* instance);
 static void usart_mask_irq(USART_TypeDef* instance);
 
-bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck)
-{
-     // Locals
+bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_t fck) {
+    // Locals
     uint16_t div;
 
     // Disable peripheral until properly configured
     instance->CR1 &= ~USART_CR1_UE;
 
     // Enable peripheral clock in RCC
-    switch ((ptr_int) instance) {
+    switch ((ptr_int)instance) {
         case USART1_BASE:
             RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
             break;
@@ -55,7 +54,7 @@ bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_
     }
 
     // Set CR1 parameters
-    instance->CR1 =  0U;
+    instance->CR1 = 0U;
     instance->CR1 |= (handle->word_length & 2) << USART_CR1_M1_Pos;
     instance->CR1 |= (handle->word_length & 1) << USART_CR1_M0_Pos;
     instance->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
@@ -64,7 +63,7 @@ bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_
     instance->CR1 |= USART_CR1_RXNEIE | USART_CR1_TCIE | USART_CR1_IDLEIE;
 
     // Set CR2 parameters
-    instance->CR2 =  0U;
+    instance->CR2 = 0U;
     instance->CR2 |= handle->adv_feature.ab_mode << USART_CR2_ABRMODE_Pos;
     instance->CR2 |= handle->adv_feature.auto_baud << USART_CR2_ABREN_Pos;
     instance->CR2 |= handle->adv_feature.msb_first << USART_CR2_MSBFIRST_Pos;
@@ -75,7 +74,7 @@ bool PHAL_initUSART(USART_TypeDef* instance, usart_init_t* handle, const uint32_
     instance->CR2 |= handle->stop_bits << USART_CR2_STOP_Pos;
 
     // Set CR3 parameters
-    instance->CR3 =  0U;
+    instance->CR3 = 0U;
     instance->CR3 |= handle->adv_feature.dma_on_rx_err << USART_CR3_DDRE_Pos;
     instance->CR3 |= handle->adv_feature.overrun << USART_CR3_OVRDIS_Pos;
     instance->CR3 |= handle->obsample << USART_CR3_ONEBIT_Pos;
@@ -105,12 +104,14 @@ void PHAL_usartTxBl(USART_TypeDef* instance, const uint16_t* data, uint32_t len)
     instance->CR3 &= ~USART_CR3_DMAT;
 
     for (i = 0; i < len; i++) {
-        while (!(instance->ISR & USART_ISR_TXE));
+        while (!(instance->ISR & USART_ISR_TXE))
+            ;
 
         instance->TDR = data[i] & 0x01ff;
     }
 
-    while (!(instance->ISR & USART_ISR_TC));
+    while (!(instance->ISR & USART_ISR_TC))
+        ;
 }
 
 void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
@@ -119,7 +120,8 @@ void PHAL_usartRxBl(USART_TypeDef* instance, uint16_t* data, uint32_t len) {
     instance->CR3 &= ~USART_CR3_DMAR;
 
     for (i = 0; i < len; i++) {
-        while (!(instance->ISR & USART_ISR_RXNE));
+        while (!(instance->ISR & USART_ISR_RXNE))
+            ;
 
         data[i] = instance->RDR & 0x01ff;
     }
@@ -130,7 +132,7 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
 
     instance->CR3 |= USART_CR3_DMAT;
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
-    PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t) data);
+    PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t)data);
 
     instance->ICR = USART_ICR_TCCF;
     PHAL_startTxfer(handle->tx_dma_cfg);
@@ -138,11 +140,10 @@ bool PHAL_usartTxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     return true;
 }
 
-bool PHAL_usartTxDmaComplete(usart_init_t* handle)
-{
-    if (!(handle->_tx_busy)) return true;
-    if (handle->tx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1)))
-    {
+bool PHAL_usartTxDmaComplete(usart_init_t* handle) {
+    if (!(handle->_tx_busy))
+        return true;
+    if (handle->tx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1))) {
         handle->tx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->tx_dma_cfg->channel_idx - 1));
         handle->_tx_busy = 0;
         return true;
@@ -155,7 +156,7 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
 
     instance->CR3 |= USART_CR3_DMAR;
     PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
-    PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t) data);
+    PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t)data);
     //NVIC_EnableIRQ(irq);
     PHAL_reEnable(handle->rx_dma_cfg);
     //PHAL_startTxfer(handle->rx_dma_cfg);
@@ -163,10 +164,8 @@ bool PHAL_usartRxDma(USART_TypeDef* instance, usart_init_t* handle, uint16_t* da
     return true;
 }
 
-bool PHAL_usartRxDmaComplete(usart_init_t* handle)
-{
-    if (!handle->_rx_busy || handle->rx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1)))
-    {
+bool PHAL_usartRxDmaComplete(usart_init_t* handle) {
+    if (!handle->_rx_busy || handle->rx_dma_cfg->periph->ISR & (DMA_ISR_TCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1))) {
         handle->rx_dma_cfg->periph->IFCR = (DMA_IFCR_CTCIF1 << 4 * (handle->rx_dma_cfg->channel_idx - 1));
         handle->_rx_busy = 0;
         return true;
@@ -174,46 +173,36 @@ bool PHAL_usartRxDmaComplete(usart_init_t* handle)
     return false;
 }
 #ifndef SPI2
-    void DMA1_Channel5_IRQHandler()
-    {
-        if (DMA1->ISR & DMA_ISR_TEIF5)
-        {
-            DMA1->IFCR |= DMA_IFCR_CTEIF5;
-        }
-        if (DMA1->ISR & DMA_ISR_TCIF5)
-        {
-            DMA1->IFCR |= DMA_IFCR_CTCIF5;
-        }
-        if (DMA1->ISR & DMA_ISR_GIF5)
-        {
-            DMA1->IFCR |= DMA_IFCR_CGIF5;
-        }
+void DMA1_Channel5_IRQHandler() {
+    if (DMA1->ISR & DMA_ISR_TEIF5) {
+        DMA1->IFCR |= DMA_IFCR_CTEIF5;
     }
+    if (DMA1->ISR & DMA_ISR_TCIF5) {
+        DMA1->IFCR |= DMA_IFCR_CTCIF5;
+    }
+    if (DMA1->ISR & DMA_ISR_GIF5) {
+        DMA1->IFCR |= DMA_IFCR_CGIF5;
+    }
+}
 #endif
 #ifdef SPI2
-    void DMA2_Channel7_IRQHandler()
-    {
-        if (DMA2->ISR & DMA_ISR_TEIF5)
-        {
-            DMA2->IFCR |= DMA_IFCR_CTEIF5;
-        }
-        if (DMA2->ISR & DMA_ISR_TCIF5)
-        {
-            DMA2->IFCR |= DMA_IFCR_CTCIF5;
-        }
-        if (DMA2->ISR & DMA_ISR_GIF5)
-        {
-            DMA2->IFCR |= DMA_IFCR_CGIF5;
-        }
+void DMA2_Channel7_IRQHandler() {
+    if (DMA2->ISR & DMA_ISR_TEIF5) {
+        DMA2->IFCR |= DMA_IFCR_CTEIF5;
     }
+    if (DMA2->ISR & DMA_ISR_TCIF5) {
+        DMA2->IFCR |= DMA_IFCR_CTCIF5;
+    }
+    if (DMA2->ISR & DMA_ISR_GIF5) {
+        DMA2->IFCR |= DMA_IFCR_CGIF5;
+    }
+}
 #endif
-
 
 // Masking and unmasking ISRs. Useful for interrupt based functionality.
 // Likely don't need it since we use DMA, but could come in handy sometime
 static void usart_unmask_irq(USART_TypeDef* instance) {
-    switch ((ptr_int) instance)
-    {
+    switch ((ptr_int)instance) {
         case USART1_BASE:
             NVIC->ISER[1] |= 1U << (USART1_IRQn - 32);
             break;
@@ -229,8 +218,7 @@ static void usart_unmask_irq(USART_TypeDef* instance) {
 }
 
 static void usart_mask_irq(USART_TypeDef* instance) {
-    switch ((ptr_int) instance)
-    {
+    switch ((ptr_int)instance) {
         case USART1_BASE:
             NVIC->ISER[1] &= ~(1U << (USART1_IRQn - 32));
             break;

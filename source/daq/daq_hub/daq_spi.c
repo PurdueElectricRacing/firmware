@@ -1,9 +1,9 @@
 
-#include "w5500/wizchip_conf.h"
-#include "common/phal/spi.h"
-
 #include "daq_spi.h"
+
+#include "common/phal/spi.h"
 #include "main.h"
+#include "w5500/wizchip_conf.h"
 
 /* SPI Callbacks for Ethernet Driver */
 
@@ -13,11 +13,11 @@ static void cs_sel(void);
 static void cs_desel(void);
 static uint8_t spi_rb(uint32_t addr);
 static void spi_wb(uint32_t addr, uint8_t b);
-static void spi_rb_burst(uint32_t addr, uint8_t *pBuf, uint16_t len);
-static void spi_wb_burst(uint32_t addr, uint8_t *pBuf, uint16_t len);
+static void spi_rb_burst(uint32_t addr, uint8_t* pBuf, uint16_t len);
+static void spi_wb_burst(uint32_t addr, uint8_t* pBuf, uint16_t len);
 static void crit_enter(void);
 static void crit_exit(void);
-static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t addr, const uint8_t *tx_data, uint32_t txlen, uint32_t rxlen, uint8_t *rx_data);
+static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t* spi, uint32_t addr, const uint8_t* tx_data, uint32_t txlen, uint32_t rxlen, uint8_t* rx_data);
 
 /*
  * W5500 uses a custom framed multi-byte SPI format that requires
@@ -27,21 +27,18 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t
  * enabled before CS, we enable it here and use a special function in the PHAL
  * that doesn't pull CS/enable SPI
  */
-static void cs_sel(void)
-{
+static void cs_sel(void) {
     eth_spi_config.periph->CR1 |= SPI_CR1_SPE;
     PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 0);
 }
 
-static void cs_desel(void)
-{
+static void cs_desel(void) {
     eth_spi_config.periph->CR1 &= ~SPI_CR1_SPE;
     PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);
 }
 
 // DAQ W5500 uses a custom framed multi-byte SPI format + software CS that makes this necessary
-static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t addr, const uint8_t *tx_data, uint32_t txlen, uint32_t rxlen, uint8_t *rx_data)
-{
+static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t* spi, uint32_t addr, const uint8_t* tx_data, uint32_t txlen, uint32_t rxlen, uint8_t* rx_data) {
     // crit_enter() and crit_exit() in the W5500 callback
     // takes lock before entering this function, so this fn does not lock nor fail
 
@@ -56,15 +53,18 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t
     // The sequence begins when data are written into the SPI_DR register (Tx buffer).
     // 24-bit address selection (mandatory)
     spi->periph->DR = (addr & 0x00FF0000) >> 16;
-    while (!(spi->periph->SR & SPI_SR_TXE));
+    while (!(spi->periph->SR & SPI_SR_TXE))
+        ;
     spi->periph->DR = (addr & 0x0000FF00) >> 8;
-    while (!(spi->periph->SR & SPI_SR_TXE));
+    while (!(spi->periph->SR & SPI_SR_TXE))
+        ;
     spi->periph->DR = (addr & 0x000000FF) >> 0;
-    while (!(spi->periph->SR & SPI_SR_TXE));
-    for (uint32_t i = 0; i < txlen; i++)
-    {
+    while (!(spi->periph->SR & SPI_SR_TXE))
+        ;
+    for (uint32_t i = 0; i < txlen; i++) {
         spi->periph->DR = tx_data[i];
-        while (!(spi->periph->SR & SPI_SR_TXE));
+        while (!(spi->periph->SR & SPI_SR_TXE))
+            ;
     }
 
     /*
@@ -73,21 +73,23 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t
      * As a consequence it is mandatory to wait first until TXE is set and then
      * until BSY is cleared after writing the last data.
      */
-    while (((spi->periph->SR) & SPI_SR_BSY));
+    while (((spi->periph->SR) & SPI_SR_BSY))
+        ;
 
     // Clear overrun
     uint8_t trash = spi->periph->DR;
     trash = spi->periph->SR;
 
     // RX
-    for (uint32_t i = 0; i < rxlen; i++)
-    {
+    for (uint32_t i = 0; i < rxlen; i++) {
         // Wait till SPI is not in active transaction, send dummy
-        while (((spi->periph->SR) & SPI_SR_BSY));
+        while (((spi->periph->SR) & SPI_SR_BSY))
+            ;
         spi->periph->DR = 0;
 
         // Wait for RX FIFO to recieve a message, read it in
-        while (!(spi->periph->SR & SPI_SR_RXNE));
+        while (!(spi->periph->SR & SPI_SR_RXNE))
+            ;
         rx_data[i] = (uint8_t)(spi->periph->DR);
     }
 
@@ -96,45 +98,37 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t *spi, uint32_t
     //while ((spi->periph->SR & SPI_SR_BSY));
 }
 
-static uint8_t spi_rb(uint32_t addr)
-{
+static uint8_t spi_rb(uint32_t addr) {
     uint8_t b;
     PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, addr, NULL, 0, sizeof(b), &b);
     return b;
 }
 
-static void spi_wb(uint32_t addr, uint8_t b)
-{
+static void spi_wb(uint32_t addr, uint8_t b) {
     PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, addr, &b, sizeof(b), 0, NULL);
 }
 
-static void spi_rb_burst(uint32_t addr, uint8_t *pBuf, uint16_t len)
-{
+static void spi_rb_burst(uint32_t addr, uint8_t* pBuf, uint16_t len) {
     // SPI RX Burst, must block! (uses local pointer)
     PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, addr, NULL, 0, len, pBuf);
 }
 
-static void spi_wb_burst(uint32_t addr, uint8_t *pBuf, uint16_t len)
-{
+static void spi_wb_burst(uint32_t addr, uint8_t* pBuf, uint16_t len) {
     // SPI TX Burst, must block! (uses local pointer)
     PHAL_SPI_transfer_noDMA_DAQW5500Only(&eth_spi_config, addr, pBuf, len, 0, NULL);
 }
 
-static void crit_enter(void)
-{
-    if (xSemaphoreTake(spi1_lock, portMAX_DELAY) != pdTRUE)
-    {
+static void crit_enter(void) {
+    if (xSemaphoreTake(spi1_lock, portMAX_DELAY) != pdTRUE) {
         HardFault_Handler(); // should not reach
     }
 }
 
-static void crit_exit(void)
-{
+static void crit_exit(void) {
     xSemaphoreGive(spi1_lock);
 }
 
-void daq_spi_register_callbacks(void)
-{
+void daq_spi_register_callbacks(void) {
     PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);
     reg_wizchip_cs_cbfunc(cs_sel, cs_desel);
     reg_wizchip_spi_cbfunc(spi_rb, spi_wb);

@@ -1,24 +1,23 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
+#include "common/faults/faults.h"
 #include "common/phal/adc.h"
+#include "common/phal/can.h"
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/phal/can.h"
-#include "common/phal/can.h"
 #include "common/psched/psched.h"
-#include "common/faults/faults.h"
 
 /* Module Includes */
-#include "main.h"
 #include "auto_switch.h"
 #include "can_parse.h"
+#include "cooling.h"
 #include "daq.h"
 #include "fan_control.h"
-#include "led.h"
-#include "cooling.h"
 #include "flow_rate.h"
+#include "led.h"
+#include "main.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -104,59 +103,57 @@ GPIOInitConfig_t gpio_config[] = {
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
-    .resolution      = ADC_RES_12_BIT,
-    .data_align      = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode  = true,
-    .adc_number      = 1,
-    .dma_mode        = ADC_DMA_CIRCULAR
-};
-
+    .resolution = ADC_RES_12_BIT,
+    .data_align = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .adc_number = 1,
+    .dma_mode = ADC_DMA_CIRCULAR};
 
 /* SPI Configuration */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
 SPI_InitConfig_t spi_config = {
-    .data_len  = 8,
+    .data_len = 8,
     .nss_sw = false,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI1
-};
+    .periph = SPI1};
 
 /* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel=PUMP_1_IMON_ADC_CHNL,    .rank=1,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=PUMP_2_IMON_ADC_CHNL,    .rank=2,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=AUX_HP_IMON_ADC_CHNL,    .rank=3,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=SDC_IMON_ADC_CHNL,       .rank=4,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=FAN_1_CS_ADC_CHNL,       .rank=5,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=FAN_2_CS_ADC_CHNL,       .rank=6,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=MAIN_CS_ADC_CHNL,        .rank=7,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=DASH_CS_ADC_CHNL,        .rank=8,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=ABOX_CS_ADC_CHNL,        .rank=9,  .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LV_24V_V_SENSE_ADC_CHNL, .rank=10, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LV_24V_I_SENSE_ADC_CHNL, .rank=11, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LV_5V_V_SENSE_ADC_CHNL,  .rank=12, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LV_5V_I_SENSE_ADC_CHNL,  .rank=13, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=LV_3V3_V_SENSE_ADC_CHNL, .rank=14, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=INTERNAL_THERM_ADC_CHNL, .rank=15, .sampling_time=ADC_CHN_SMP_CYCLES_480},
-    {.channel=AMK_25V_V_SENSE_ADC_CHNL,.rank=16, .sampling_time=ADC_CHN_SMP_CYCLES_480},
+    {.channel = PUMP_1_IMON_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = PUMP_2_IMON_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = AUX_HP_IMON_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SDC_IMON_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = FAN_1_CS_ADC_CHNL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = FAN_2_CS_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = MAIN_CS_ADC_CHNL, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = DASH_CS_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = ABOX_CS_ADC_CHNL, .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_24V_V_SENSE_ADC_CHNL, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_24V_I_SENSE_ADC_CHNL, .rank = 11, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 12, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_5V_I_SENSE_ADC_CHNL, .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LV_3V3_V_SENSE_ADC_CHNL, .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = INTERNAL_THERM_ADC_CHNL, .rank = 15, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = AMK_25V_V_SENSE_ADC_CHNL, .rank = 16, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t) &adc_readings,
-            sizeof(adc_readings) / sizeof(adc_readings.lv_24_v_sense), 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&adc_readings,
+                                                 sizeof(adc_readings) / sizeof(adc_readings.lv_24_v_sense),
+                                                 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source               =CLOCK_SOURCE_HSE,
-    .use_pll                    =false,
-    .vco_output_rate_target_hz  =160000000,
-    .pll_src                    =PLL_SRC_HSE,
-    .system_clock_target_hz     =TargetCoreClockrateHz,
-    .ahb_clock_target_hz        =(TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz       =(TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz       =(TargetCoreClockrateHz / (1)),
+    .clock_source = CLOCK_SOURCE_HSE,
+    .use_pll = false,
+    .vco_output_rate_target_hz = 160000000,
+    .pll_src = PLL_SRC_HSE,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -174,26 +171,20 @@ void send_flowrates();
 // To correctly execute preflight algorithm
 uint8_t led_anim_complete;
 
-int main()
-{
+int main() {
     /* Data Struct init */
     PHAL_trimHSI(HSI_TRIM_PDU);
-    if(0 != PHAL_configureClockRates(&clock_config))
-    {
+    if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if(!PHAL_initGPIO(gpio_config, sizeof(gpio_config)/sizeof(GPIOInitConfig_t)))
-    {
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
 
-    if(!PHAL_initADC(ADC1, &adc_config, adc_channel_config,
-        sizeof(adc_channel_config)/sizeof(ADCChannelConfig_t)))
-    {
+    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
-    if(!PHAL_initDMA(&adc_dma_config))
-    {
+    if (!PHAL_initDMA(&adc_dma_config)) {
         HardFault_Handler();
     }
     PHAL_startTxfer(&adc_dma_config);
@@ -223,23 +214,20 @@ int main()
 void preflightChecks(void) {
     static uint8_t state;
 
-    switch (state++)
-    {
+    switch (state++) {
         case 0:
-            if(!PHAL_initCAN(CAN1, false, VCAN_BPS))
-            {
+            if (!PHAL_initCAN(CAN1, false, VCAN_BPS)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
-           break;
+            break;
         case 1:
-           initCANParse();
-           if(daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
-               HardFault_Handler();
-           break;
+            initCANParse();
+            if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
+                HardFault_Handler();
+            break;
         case 2:
-            if(!PHAL_SPI_init(&spi_config))
-            {
+            if (!PHAL_SPI_init(&spi_config)) {
                 HardFault_Handler();
             }
             PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
@@ -255,8 +243,7 @@ void preflightChecks(void) {
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_PDU);
             break;
         default:
-            if (led_anim_complete)
-            {
+            if (led_anim_complete) {
                 // Initialize default 'ON' rails
                 setSwitch(SW_SDC, 1);
                 setSwitch(SW_DAQ, 1);
@@ -282,8 +269,7 @@ void preflightAnimation(void) {
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
 
-    switch (time++ % 24)
-    {
+    switch (time++ % 24) {
         case 0:
         case 5:
             PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
@@ -298,56 +284,47 @@ void preflightAnimation(void) {
             break;
     }
 
-    if(led_number < MAX_NUM_LED && !led_decrement)
-    {
+    if (led_number < MAX_NUM_LED && !led_decrement) {
         led_number++;
         LED_control(led_number, LED_ON);
-    }
-    else if(led_number >= MAX_NUM_LED && !led_decrement)
-    {
+    } else if (led_number >= MAX_NUM_LED && !led_decrement) {
         led_decrement = true;
-    }
-    else
-    {
+    } else {
         led_number--;
         LED_control(led_number, LED_OFF);
-        if (led_number == 0)
-        {
+        if (led_number == 0) {
             led_anim_complete = 1;
         }
     }
-
-
 }
 
-void send_flowrates()
-{
+void send_flowrates() {
     SEND_FLOWRATES(getFlowRate1(), getFlowRate2());
 }
 
-void heatBeatLED()
-{
+void heatBeatLED() {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
-         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-    else PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+    else
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
     static uint8_t trig;
-    if (trig) SEND_PDU_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                                 can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                                 can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    if (trig)
+        SEND_PDU_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+                           can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                           can_stats.rx_of,
+                           can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
     trig = !trig;
 }
 
-void CAN1_RX0_IRQHandler()
-{
+void CAN1_RX0_IRQHandler() {
     canParseIRQHandler(CAN1);
 }
 
-void pdu_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a)
-{
-   if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
-       Bootloader_ResetForFirmwareDownload();
+void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
+    if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
+        Bootloader_ResetForFirmwareDownload();
 }
 
 void send_iv_readings() {
@@ -371,11 +348,9 @@ void send_iv_readings() {
     SEND_PDU_TEMPS((uint16_t)temp);
 }
 
-void HardFault_Handler()
-{
+void HardFault_Handler() {
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
-    while(1)
-    {
+    while (1) {
         __asm__("nop");
     }
 }

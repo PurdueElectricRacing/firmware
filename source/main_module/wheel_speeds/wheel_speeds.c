@@ -10,10 +10,10 @@
  */
 
 #include "wheel_speeds.h"
-#include "main.h"
-#include "common/psched/psched.h"
-#include "common/common_defs/common_defs.h"
 
+#include "common/common_defs/common_defs.h"
+#include "common/psched/psched.h"
+#include "main.h"
 
 // Local defines
 WheelSpeeds_t wheel_speeds;
@@ -30,12 +30,11 @@ static volatile uint32_t right_update_time = 0;
  *
  * @return      True on success, False on fail
  */
-bool wheelSpeedsInit(void)
-{
+bool wheelSpeedsInit(void) {
     /* Right Init (TIM 1) */
     RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
     MOTOR_R_WS_PWM_TIM->CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
-    MOTOR_R_WS_PWM_TIM->CR1 |= TIM_CR1_URS; 
+    MOTOR_R_WS_PWM_TIM->CR1 |= TIM_CR1_URS;
 
     MOTOR_R_WS_PWM_TIM->PSC = WS_TIM_PSC - 1;
     MOTOR_R_WS_PWM_TIM->ARR = 0xFFFF;
@@ -75,7 +74,6 @@ bool wheelSpeedsInit(void)
     RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
     MOTOR_L_WS_PWM_TIM->CR1 &= ~TIM_CR1_CEN; // Disable counter (turn off timer)
     MOTOR_L_WS_PWM_TIM->CR1 |= TIM_CR1_URS;
-
 
     MOTOR_L_WS_PWM_TIM->PSC = WS_TIM_PSC - 1;
     MOTOR_L_WS_PWM_TIM->ARR = 0xFFFF;
@@ -120,47 +118,37 @@ bool wheelSpeedsInit(void)
  * @brief Updates radians per second calculation
  *
  */
-void wheelSpeedsPeriodic()
-{
+void wheelSpeedsPeriodic() {
     uint32_t ccr_store;
     float speed_store;
 
     ccr_store = left_ccr;
 
-    if (ccr_store != 0 && (sched.os_ticks - left_update_time) < WS_TIMEOUT_MS)
-    {
+    if (ccr_store != 0 && (sched.os_ticks - left_update_time) < WS_TIMEOUT_MS) {
         wheel_speeds.left_rad_s_x100 = RAD_S_100_CONVERSION / ccr_store;
-    }
-    else
-    {
+    } else {
         wheel_speeds.left_rad_s_x100 = 0;
     }
 
     ccr_store = right_ccr;
-    if (ccr_store != 0 && (sched.os_ticks - right_update_time) < WS_TIMEOUT_MS)
-    {
+    if (ccr_store != 0 && (sched.os_ticks - right_update_time) < WS_TIMEOUT_MS) {
         wheel_speeds.right_rad_s_x100 = RAD_S_100_CONVERSION / ccr_store;
-    }
-    else
-    {
+    } else {
         wheel_speeds.right_rad_s_x100 = 0;
     }
 }
 
 volatile uint32_t right_ccr_msb_counter = 0;
-void TIM1_UP_TIM10_IRQHandler()
-{
-    if (TIM1->SR & TIM_SR_UIF)
-    {
+
+void TIM1_UP_TIM10_IRQHandler() {
+    if (TIM1->SR & TIM_SR_UIF) {
         right_ccr_msb_counter++;
         TIM1->SR = ~(TIM_SR_UIF);
     }
 }
 
-void TIM1_CC_IRQHandler()
-{
-    if (TIM1->SR & TIM_SR_CC1IF)
-    {
+void TIM1_CC_IRQHandler() {
+    if (TIM1->SR & TIM_SR_CC1IF) {
         right_ccr = (right_ccr_msb_counter << 16) | TIM1->CCR1;
         right_ccr_msb_counter = 0;
         right_update_time = sched.os_ticks;
@@ -169,15 +157,13 @@ void TIM1_CC_IRQHandler()
 }
 
 volatile uint32_t left_ccr_msb_counter = 0;
-void TIM4_IRQHandler()
-{
-    if (TIM4->SR & TIM_SR_UIF)
-    {
+
+void TIM4_IRQHandler() {
+    if (TIM4->SR & TIM_SR_UIF) {
         left_ccr_msb_counter++;
         TIM4->SR = ~(TIM_SR_UIF);
     }
-    if (TIM4->SR & TIM_SR_CC2IF)
-    {
+    if (TIM4->SR & TIM_SR_CC2IF) {
         left_ccr = (left_ccr_msb_counter << 16) | TIM4->CCR2;
         left_ccr_msb_counter = 0;
         left_update_time = sched.os_ticks;

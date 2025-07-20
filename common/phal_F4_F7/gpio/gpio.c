@@ -1,51 +1,45 @@
 #include "common/phal_F4_F7/gpio/gpio.h"
 
-
-
-bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
-{
-
+bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len) {
     uint8_t afr_i;
 
-    for (int i = 0; i < config_len; i++)
-    {
+    for (int i = 0; i < config_len; i++) {
         // Enable clock
         // Not sure if this should live in the GPIO init or a seperate RCC HAL lib
-        switch ((uint32_t) config[i].bank)
-        {
-            case (uint32_t) GPIOA:
+        switch ((uint32_t)config[i].bank) {
+            case (uint32_t)GPIOA:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
                 break;
 
-            case (uint32_t) GPIOB:
+            case (uint32_t)GPIOB:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
                 break;
 
-            case (uint32_t) GPIOC:
+            case (uint32_t)GPIOC:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
                 break;
 
-            case (uint32_t) GPIOD:
+            case (uint32_t)GPIOD:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
                 break;
 
-            case (uint32_t) GPIOE:
+            case (uint32_t)GPIOE:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
                 break;
 
-            case (uint32_t) GPIOF:
+            case (uint32_t)GPIOF:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOFEN;
                 break;
 
-            case (uint32_t) GPIOG:
+            case (uint32_t)GPIOG:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOGEN;
                 break;
 
-            case (uint32_t) GPIOH:
+            case (uint32_t)GPIOH:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOHEN;
                 break;
 
-            case (uint32_t) GPIOI:
+            case (uint32_t)GPIOI:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOIEN;
                 break;
 
@@ -58,8 +52,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)
         config[i].bank->MODER &= ~(GPIO_MODER_MODE0_Msk << (GPIO_MODER_MODE1_Pos * config[i].pin));
         config[i].bank->MODER |= (config[i].type & GPIO_MODER_MODE0_Msk) << (GPIO_MODER_MODE1_Pos * config[i].pin);
 
-        switch(config[i].type)
-        {
+        switch (config[i].type) {
             case GPIO_TYPE_OUTPUT:
                 config[i].bank->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEED0_Msk << (GPIO_OSPEEDR_OSPEED1_Pos * config[i].pin));
                 config[i].bank->OSPEEDR |= (config[i].config.ospeed & GPIO_OSPEEDR_OSPEED0_Msk) << (GPIO_OSPEEDR_OSPEED1_Pos * config[i].pin);

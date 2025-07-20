@@ -13,14 +13,15 @@
  *
  */
 
+#include "daq_hub.h"
+
 #include <string.h>
 
 #include "common/phal/gpio.h"
-#include "main.h"
 #include "daq_can.h"
-#include "daq_hub.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "main.h"
 
 daq_hub_t dh;
 
@@ -32,10 +33,10 @@ defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
+
 //defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
 
-void daq_hub_init(void)
-{
+void daq_hub_init(void) {
     // Ethernet
     dh.eth_state = ETH_LINK_IDLE;
     dh.eth_tcp_state = ETH_TCP_IDLE;
@@ -64,8 +65,7 @@ void daq_hub_init(void)
     dh.tcp_tx_overflow = 0;
 }
 
-void daq_create_threads(void)
-{
+void daq_create_threads(void) {
     createThread(daq_heartbeat); // HB
     createThread(sd_update_periodic); // SD WRITE
     // createThread(eth_update_periodic); // SD WRITE
@@ -73,23 +73,19 @@ void daq_create_threads(void)
     //createThread(uds_receive_periodic); // DAQ CAN RX
 }
 
-static void daq_heartbeat(void)
-{
+static void daq_heartbeat(void) {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
     SEND_DAQ_CAN_STATS(can_stats[BUS_ID_CAN1].tx_of, can_stats[BUS_ID_CAN1].tx_fail, can_stats[BUS_ID_CAN1].rx_of, can_stats[BUS_ID_CAN1].rx_overrun);
-    if (dh.bcan_rx_overflow || dh.can1_rx_overflow || dh.sd_rx_overflow || dh.tcp_tx_overflow)
-    {
+    if (dh.bcan_rx_overflow || dh.can1_rx_overflow || dh.sd_rx_overflow || dh.tcp_tx_overflow) {
         SEND_DAQ_QUEUE_STATS(dh.bcan_rx_overflow, dh.can1_rx_overflow, dh.sd_rx_overflow, dh.tcp_tx_overflow); // TODO reset & only send once?
     }
 }
 
-static void can_send_periodic(void)
-{
+static void can_send_periodic(void) {
     canTxUpdate();
 }
 
-void uds_frame_send(uint64_t data)
-{
+void uds_frame_send(uint64_t data) {
 #if 0
     timestamped_frame_t frame = {.frame_type = DAQ_FRAME_UDP_TX, .tick_ms = getTick(), .msg_id = ID_UDS_RESPONSE_DAQ, .bus_id = BUS_ID_CAN1, .dlc = 8 };
     frame.msg_id |= CAN_EFF_FLAG;
@@ -105,8 +101,7 @@ void uds_frame_send(uint64_t data)
  * Pull UDS CAN frames out of UDS queue added during CAN1/CAN2 ISR
  * and process them in non-interrupt context
  */
-void uds_receive_periodic(void)
-{
+void uds_receive_periodic(void) {
 #if 0
     timestamped_frame_t rx_msg;
     while (xQueueReceive(q_can1_rx, &rx_msg, portMAX_DELAY) == pdPASS)
@@ -119,8 +114,8 @@ void uds_receive_periodic(void)
 
 // bank->BSRR |= 1 << ((!value << 4) | pin);
 #define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
-void daq_shutdown_hook(void)
-{
+
+void daq_shutdown_hook(void) {
     // First, turn off all power consuming devices to increase our write time to sd card
     // To whoever is doing future DAQ rev: also change the GPIO ports here
     // all LEDs go bye bye

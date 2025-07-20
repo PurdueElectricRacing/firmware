@@ -11,10 +11,10 @@
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
 
-#include "common/queue/queue.h"
-#include "common/psched/psched.h"
-#include "common/phal/can.h"
 #include "common/daq/can_parse_base.h"
+#include "common/phal/can.h"
+#include "common/psched/psched.h"
+#include "common/queue/queue.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "torque_vector"
@@ -37,8 +37,7 @@
 /* END AUTO UP DEFS */
 
 #define CHECK_STALE(stale, curr, last, period) \
-    if (!stale &&                              \
-        (curr - last) > period * STALE_THRESH) \
+    if (!stale && (curr - last) > period * STALE_THRESH) \
     stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
@@ -80,7 +79,7 @@ void canRxUpdate();
  *
  * @param rx rx data from message just recieved
  */
-void canProcessRxIRQs(CanMsgTypeDef_t *rx);
+void canProcessRxIRQs(CanMsgTypeDef_t* rx);
 
 extern volatile uint32_t last_can_rx_time_ms;
 

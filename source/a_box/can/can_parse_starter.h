@@ -11,10 +11,10 @@
 #ifndef _CAN_PARSE_H_
 #define _CAN_PARSE_H_
 
-#include "common/queue/queue.h"
-#include "common/psched/psched.h"
-#include "common/phal/can.h"
 #include "common/daq/can_parse_base.h"
+#include "common/phal/can.h"
+#include "common/psched/psched.h"
+#include "common/queue/queue.h"
 
 // Make this match the node name within the can_config.json
 #define NODE_NAME "a_box"
@@ -36,8 +36,9 @@
 /* BEGIN AUTO UP DEFS (Update Period)*/
 /* END AUTO UP DEFS */
 
-#define CHECK_STALE(stale, curr, last, period) if(!stale && \
-                    (curr - last) > period * STALE_THRESH) stale = 1
+#define CHECK_STALE(stale, curr, last, period) \
+    if (!stale && (curr - last) > period * STALE_THRESH) \
+    stale = 1
 
 /* BEGIN AUTO CAN ENUMERATIONS */
 /* END AUTO CAN ENUMERATIONS */

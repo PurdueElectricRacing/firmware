@@ -12,28 +12,21 @@
 
 extern uint32_t APB2ClockRateHz;
 extern uint32_t APB1ClockRateHz;
-static volatile SPI_InitConfig_t *active_transfer = NULL;
+static volatile SPI_InitConfig_t* active_transfer = NULL;
 
 static uint16_t trash_can; //!< Used as an address for DMA to dump data into
-static uint16_t zero;      //!< Used as a constant zero during transmissions
-
+static uint16_t zero; //!< Used as a constant zero during transmissions
 
 static void handleTxComplete();
 
-bool PHAL_SPI_init(SPI_InitConfig_t *cfg)
-{
+bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {
     zero = 0;
     // Enable RCC Clock - Add new cases for each SPI Peripheral, to enable their clocks
-    if (cfg->periph == SPI1)
-    {
+    if (cfg->periph == SPI1) {
         RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
-    }
-    else if (cfg->periph == SPI2)
-    {
+    } else if (cfg->periph == SPI2) {
         RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;
-    }
-    else
-    {
+    } else {
         return false;
     }
 
@@ -42,24 +35,23 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg)
     cfg->periph->CR1 &= ~(SPI_CR1_CPOL);
     cfg->periph->CR2 &= ~(SPI_CR2_SSOE);
 
+#ifdef STM32F407xx
+    if (cfg->data_len != 8 && cfg->data_len != 16)
+        return false;
+    // Set data frame size for SPI transaction to 8/16 bits depending on user configuration
+    cfg->periph->CR1 &= ~(SPI_CR1_DFF);
+    cfg->periph->CR1 |= (cfg->data_len != 8) << SPI_CR1_DFF_Pos;
+#endif
 
-    #ifdef STM32F407xx
-        if (cfg->data_len != 8 && cfg->data_len != 16)
-            return false;
-        // Set data frame size for SPI transaction to 8/16 bits depending on user configuration
-        cfg->periph->CR1 &= ~(SPI_CR1_DFF);
-        cfg->periph->CR1 |= (cfg->data_len != 8) << SPI_CR1_DFF_Pos;
-    #endif
-
-    #ifdef STM32F732xx
-        // Disable Hardware Controlled NSS
-        cfg->periph->CR2 &= ~(SPI_CR2_NSSP);
-        // Data Size
-        cfg->periph->CR2 &= ~(SPI_CR2_DS_Msk);
-        cfg->periph->CR2 |= (CLAMP(cfg->data_len, 4, 16) - 1) << SPI_CR2_DS_Pos;
-        // RX Fifo full on 8 bits
-        cfg->periph->CR2 |= SPI_CR2_FRXTH;
-    #endif
+#ifdef STM32F732xx
+    // Disable Hardware Controlled NSS
+    cfg->periph->CR2 &= ~(SPI_CR2_NSSP);
+    // Data Size
+    cfg->periph->CR2 &= ~(SPI_CR2_DS_Msk);
+    cfg->periph->CR2 |= (CLAMP(cfg->data_len, 4, 16) - 1) << SPI_CR2_DS_Pos;
+    // RX Fifo full on 8 bits
+    cfg->periph->CR2 |= SPI_CR2_FRXTH;
+#endif
 
     // Data Rate
     // Divisor is a power of 2, find the closest power of 2 limited to log2(256)
@@ -74,14 +66,12 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg)
     cfg->periph->CR1 &= ~SPI_CR1_BR_Msk;
     cfg->periph->CR1 |= f_div << SPI_CR1_BR_Pos;
 
-
     // Setup DMA Streams if required
     if (cfg->rx_dma_cfg && !PHAL_initDMA(cfg->rx_dma_cfg))
         return false;
 
     if (cfg->tx_dma_cfg && !PHAL_initDMA(cfg->tx_dma_cfg))
         return false;
-
 
     // Ensure device CS is disabled
     PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
@@ -94,8 +84,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg)
     return true;
 }
 
-bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data)
-{
+bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uint32_t txlen, uint32_t rxlen, uint8_t* in_data) {
     in_data += txlen;
 
     if (PHAL_SPI_busy(spi))
@@ -110,8 +99,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uin
     if (spi->nss_sw)
         PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
     // Add messages to TX FIFO
-    for (uint32_t i = 0; i < txlen; i++)
-    {
+    for (uint32_t i = 0; i < txlen; i++) {
         while (!(spi->periph->SR & SPI_SR_TXE))
             ;
         // TODO: check byte size and set DR accordingly
@@ -134,8 +122,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uin
     trash = spi->periph->SR;
 
     // RX
-    for (uint32_t i = 0; i < rxlen; i++)
-    {
+    for (uint32_t i = 0; i < rxlen; i++) {
         // Wait till SPI is not in active transaction, send dummy
         while ((spi->periph->SR & SPI_SR_BSY))
             ;
@@ -149,12 +136,11 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uin
     while ((spi->periph->SR & SPI_SR_BSY))
         ;
     spi->periph->CR1 &= ~SPI_CR1_SPE;
-    #ifdef STM32F732xx
-        while ((spi->periph->SR & SPI_SR_FRLVL))
-        {
-            trash = spi->periph->DR;
-        }
-    #endif
+#ifdef STM32F732xx
+    while ((spi->periph->SR & SPI_SR_FRLVL)) {
+        trash = spi->periph->DR;
+    }
+#endif
     // Stop message by disabling CS
     if (spi->nss_sw)
         PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 1);
@@ -164,17 +150,15 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi, const uint8_t *out_data, uin
     return true;
 }
 
-bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uint32_t data_len, const uint8_t *in_data)
-{
+bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uint32_t data_len, const uint8_t* in_data) {
     /*
     Each DMA Stream is enabled if a data buffer is provided.
     RX Side interrupts disabled, since the same data lengths are sent to both TX and RX
     */
-   // Cannot use DMA without knowing essential configuration info
-   if (spi->tx_dma_cfg == 0)
-   {
-    return false;
-   }
+    // Cannot use DMA without knowing essential configuration info
+    if (spi->tx_dma_cfg == 0) {
+        return false;
+    }
 
     if (PHAL_SPI_busy(spi))
         return false;
@@ -189,31 +173,23 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
 
     // Configure DMA send msg
     spi->periph->CR2 |= SPI_CR2_TXDMAEN;
-    if (!out_data)
-    {
+    if (!out_data) {
         // No data to send, fill with dummy data
         spi->tx_dma_cfg->stream->CR &= ~DMA_SxCR_MINC;
         PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t)&zero);
-    }
-    else
-    {
+    } else {
         PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t)out_data);
     }
     PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
 
-
     //Configure DMA receive Msg
-    if (spi->rx_dma_cfg)
-    {
+    if (spi->rx_dma_cfg) {
         spi->periph->CR2 |= SPI_CR2_RXDMAEN;
-        if (!in_data)
-        {
+        if (!in_data) {
             // No data to receive, so configure DMA to disregard any received messages
             spi->rx_dma_cfg->stream->CR &= ~DMA_SxCR_MINC;
             PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)&trash_can);
-        }
-        else
-        {
+        } else {
             PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)in_data);
         }
         PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
@@ -223,8 +199,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
     }
 
     // Enable the DMA IRQ - copy + paste enabling selected SPI peripheral's TX DMA Stream ISR
-    if (spi->periph == SPI1)
-    {
+    if (spi->periph == SPI1) {
         NVIC_EnableIRQ(DMA2_Stream3_IRQn);
     }
 
@@ -237,25 +212,20 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi, const uint8_t *out_data, const uin
     return true;
 }
 
-bool PHAL_SPI_busy(SPI_InitConfig_t *cfg)
-{
+bool PHAL_SPI_busy(SPI_InitConfig_t* cfg) {
     // Latch in case active_transfer cleared during interrupt
-    volatile SPI_InitConfig_t *act = active_transfer;
+    volatile SPI_InitConfig_t* act = active_transfer;
     if (act && cfg->periph == act->periph)
         return act->_busy;
 
     return false;
 }
 
-void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi)
-{
-    if (spi->periph == SPI1)
-    {
+void PHAL_SPI_ForceReset(SPI_InitConfig_t* spi) {
+    if (spi->periph == SPI1) {
         RCC->APB2RSTR |= (RCC_APB2RSTR_SPI1RST);
         RCC->APB2RSTR &= ~(RCC_APB2RSTR_SPI1RST);
-    }
-    else if (spi->periph == SPI2)
-    {
+    } else if (spi->periph == SPI2) {
         RCC->APB1RSTR |= (RCC_APB1RSTR_SPI2RST);
         RCC->APB1RSTR &= ~(RCC_APB1RSTR_SPI2RST);
     }
@@ -265,8 +235,7 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi)
  * @brief Handle TCIF interrupt signaling end of TX transaction
  *
  */
-static void handleTxComplete()
-{
+static void handleTxComplete() {
     // Bitmask for each DMA interrupt flag
     uint32_t teif_flag;
     uint32_t tcif_flag;
@@ -275,12 +244,11 @@ static void handleTxComplete()
     uint32_t dmeif_flag;
 
     // Clear register for DMA Stream
-    volatile uint32_t *sr_reg;
-    volatile uint32_t *csr_reg;
+    volatile uint32_t* sr_reg;
+    volatile uint32_t* csr_reg;
 
     // Populate Flag Bitmasks, along with Flag and Clear registers for active DMA Stream
-    switch(active_transfer->tx_dma_cfg->stream_idx)
-    {
+    switch (active_transfer->tx_dma_cfg->stream_idx) {
         case 0:
             // Populate Flag Bitmasks
             teif_flag = DMA_LISR_TEIF0;
@@ -384,15 +352,13 @@ static void handleTxComplete()
 
     bool clear_act_transfer = false;
     // Transfer Error interrupt
-    if (*sr_reg & teif_flag)
-    {
+    if (*sr_reg & teif_flag) {
         *csr_reg |= teif_flag;
         if (active_transfer)
             active_transfer->_error = true;
     }
     // Transfer Complete interrupt flag
-    if (*sr_reg & tcif_flag)
-    {
+    if (*sr_reg & tcif_flag) {
         // RM0090 p.895, wait for TXE and BSY to be cleared to satisfy timing requirements
         while (!(active_transfer->periph->SR & (SPI_SR_TXE)) || (active_transfer->periph->SR & (SPI_SR_BSY)))
             ;
@@ -425,20 +391,17 @@ static void handleTxComplete()
         *csr_reg |= tcif_flag;
     }
     // Half transfer complete flag
-    if ((*sr_reg) & htif_flag)
-    {
+    if ((*sr_reg) & htif_flag) {
         *csr_reg |= htif_flag;
     }
     // FIFO Overrun Error flag
-    if (*sr_reg & feif_flag)
-    {
+    if (*sr_reg & feif_flag) {
         if (active_transfer)
             active_transfer->_fifo_overrun = true;
         *csr_reg |= feif_flag;
     }
     // Direct Mode Error flag
-    if (*sr_reg & dmeif_flag)
-    {
+    if (*sr_reg & dmeif_flag) {
         if (active_transfer)
             active_transfer->_direct_mode_error = true;
         *csr_reg |= dmeif_flag;
@@ -450,13 +413,11 @@ static void handleTxComplete()
 }
 
 //DMA TX ISR - copy + paste for selected SPI peripheral's DMA ISR
-void DMA2_Stream3_IRQHandler()
-{
+void DMA2_Stream3_IRQHandler() {
     handleTxComplete();
 }
 
-uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy)
-{
+uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy) {
     static uint8_t tx_cmd[4] = {(1 << 7), 0, 0};
     static uint8_t rx_dat[4] = {1, 1, 1, 1};
     tx_cmd[0] |= (address & 0x7F);
@@ -475,8 +436,7 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy
     return skipDummy ? rx_dat[1] : rx_dat[2];
 }
 
-uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t writeDat)
-{
+uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t* spi, uint8_t address, uint8_t writeDat) {
     uint8_t tx_cmd[3] = {0};
     uint8_t rx_dat[3] = {0};
     tx_cmd[0] |= (address & 0x7F);

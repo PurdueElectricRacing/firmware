@@ -14,27 +14,26 @@
 #ifndef _DAQ_HUB_H_
 #define _DAQ_HUB_H_
 
-#include <stdint.h>
 #include <assert.h>
+#include <stdint.h>
 
-#include "common/freertos/freertos.h"
 #include "can_flags.h"
-#include "ff.h"
-#include "sdio.h"
+#include "common/freertos/freertos.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "ff.h"
+#include "sdio.h"
 
 typedef uint32_t canid_t;
 typedef uint8_t busid_t;
 
-typedef struct __attribute__((packed))
-{
-    uint8_t  frame_type;    //!< daq_frame_type_t
-    uint32_t tick_ms;       //!< ms timestamp of reception
-    canid_t  msg_id;        //!< message id
-    busid_t  bus_id;        //!< bus the message was rx'd on
-    uint8_t  dlc;           //!< data length code
-    uint8_t  data[8];       //!< message data
+typedef struct __attribute__((packed)) {
+    uint8_t frame_type; //!< daq_frame_type_t
+    uint32_t tick_ms; //!< ms timestamp of reception
+    canid_t msg_id; //!< message id
+    busid_t bus_id; //!< bus the message was rx'd on
+    uint8_t dlc; //!< data length code
+    uint8_t data[8]; //!< message data
 } timestamped_frame_t;
 
 typedef struct

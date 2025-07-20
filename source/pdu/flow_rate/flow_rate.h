@@ -2,8 +2,9 @@
 #define _FLOW_RATE_H
 
 #include <stdbool.h>
-#include "stm32f407xx.h"
+
 #include "main.h"
+#include "stm32f407xx.h"
 
 bool flowRateInit();
 uint32_t getFlowRate1();

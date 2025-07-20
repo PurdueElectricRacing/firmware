@@ -2,7 +2,7 @@
 
 // Static prototypes
 static void I2C_IRQHandler(I2C_TypeDef* instance);
-static int  gen_start(I2C_TypeDef* instance, uint8_t addr, uint8_t len, bool read);
+static int gen_start(I2C_TypeDef* instance, uint8_t addr, uint8_t len, bool read);
 static void i2c_unmask_irq(I2C_TypeDef* instance);
 static void i2c_mask_irq(I2C_TypeDef* instance);
 
@@ -11,7 +11,7 @@ i2c_handle_t* core;
 int PHAL_I2C_init(I2C_TypeDef* instance, i2c_handle_t* handle, uint32_t freq, const uint32_t fck) {
     uint8_t clk_tim;
     uint8_t presc = 0;
-    
+
     // Enable I2C clock
     if (instance == I2C1) {
         RCC->APB1ENR1 |= RCC_APB1ENR1_I2C1EN;
@@ -80,7 +80,7 @@ int PHAL_I2C_init(I2C_TypeDef* instance, i2c_handle_t* handle, uint32_t freq, co
 
 int PHAL_I2C_write_a(I2C_TypeDef* instance, uint8_t addr, const uint8_t* data, uint8_t len, bool stop, bool force) {
     int ret;
-    
+
     // Check if already busy
     if (core->_tx_busy) {
         if (force) {
@@ -97,7 +97,7 @@ int PHAL_I2C_write_a(I2C_TypeDef* instance, uint8_t addr, const uint8_t* data, u
 
     // Configure DMA for TX
     PHAL_DMA_setTxferLength(core->tx_dma_cfg, len);
-    PHAL_DMA_setMemAddress(core->tx_dma_cfg, (uint32_t) data);
+    PHAL_DMA_setMemAddress(core->tx_dma_cfg, (uint32_t)data);
 
     // Attempt to generate start
     ret = gen_start(instance, addr, len, true);
@@ -133,7 +133,7 @@ int PHAL_I2C_read_a(I2C_TypeDef* instance, uint8_t addr, uint8_t* data, uint8_t 
 
     // Configure DMA for RX
     PHAL_DMA_setTxferLength(core->rx_dma_cfg, len);
-    PHAL_DMA_setMemAddress(core->rx_dma_cfg, (uint32_t) data);
+    PHAL_DMA_setMemAddress(core->rx_dma_cfg, (uint32_t)data);
 
     // Attempt to generate start
     ret = gen_start(instance, addr, len, false);
@@ -161,34 +161,26 @@ int PHAL_I2C_check_state(void) {
     return (core->_tx_busy || core->_rx_busy) ? -E_BUSY : 0;
 }
 
-void DMA1_Channel6_IRQHandler()
-{
-    if (DMA1->ISR & DMA_ISR_TEIF6)
-    {
+void DMA1_Channel6_IRQHandler() {
+    if (DMA1->ISR & DMA_ISR_TEIF6) {
         DMA1->IFCR |= DMA_IFCR_CTEIF6;
     }
-    if (DMA1->ISR & DMA_ISR_TCIF6) 
-    {
+    if (DMA1->ISR & DMA_ISR_TCIF6) {
         DMA1->IFCR |= DMA_IFCR_CTCIF6;
     }
-    if (DMA1->ISR & DMA_ISR_GIF6)
-    {
+    if (DMA1->ISR & DMA_ISR_GIF6) {
         DMA1->IFCR |= DMA_IFCR_CGIF6;
     }
 }
 
-void DMA1_Channel7_IRQHandler()
-{
-    if (DMA1->ISR & DMA_ISR_TEIF7)
-    {
+void DMA1_Channel7_IRQHandler() {
+    if (DMA1->ISR & DMA_ISR_TEIF7) {
         DMA1->IFCR |= DMA_IFCR_CTEIF7;
     }
-    if (DMA1->ISR & DMA_ISR_TCIF7) 
-    {
+    if (DMA1->ISR & DMA_ISR_TCIF7) {
         DMA1->IFCR |= DMA_IFCR_CTCIF7;
     }
-    if (DMA1->ISR & DMA_ISR_GIF7)
-    {
+    if (DMA1->ISR & DMA_ISR_GIF7) {
         DMA1->IFCR |= DMA_IFCR_CGIF7;
     }
 }
@@ -256,8 +248,7 @@ static int gen_start(I2C_TypeDef* instance, uint8_t addr, uint8_t len, bool read
 }
 
 static void i2c_unmask_irq(I2C_TypeDef* instance) {
-    switch ((ptr_int) instance)
-    {
+    switch ((ptr_int)instance) {
         case I2C1_BASE:
             NVIC->ISER[0] |= 1U << I2C1_EV_IRQn;
             NVIC->ISER[0] |= 1U << DMA1_Channel6_IRQn;
@@ -273,8 +264,7 @@ static void i2c_unmask_irq(I2C_TypeDef* instance) {
 }
 
 static void i2c_mask_irq(I2C_TypeDef* instance) {
-    switch ((ptr_int) instance)
-    {
+    switch ((ptr_int)instance) {
         case I2C1_BASE:
             NVIC->ISER[0] &= ~(1U << I2C1_EV_IRQn);
             NVIC->ISER[0] &= ~(1U << DMA1_Channel6_IRQn);

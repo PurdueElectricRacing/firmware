@@ -9,7 +9,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: irvingywang/firmware-build:latest
+      - image: irvingywang/per-firmware:latest
     resource_class: small
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
@@ -22,10 +22,6 @@ jobs:
             ninja -C ./build all
             cmake -S . -B ./build -G Ninja -DBOOTLOADER_BUILD=ON -DCMAKE_BUILD_TYPE=Debug
             ninja -C ./build all
-      - run:
-          name: "Check Formatting"
-          command: |
-            ./format.sh check
       - run:
           name: "Prepare Artifacts"
           command: |

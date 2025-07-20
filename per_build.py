@@ -87,7 +87,24 @@ parser.add_option("-p", "--package",
     help="package build output into tarball with CRCs, suffixed by Git hash"
 )
 
-(options, args) = parser.parse_args()
+def print_available_targets():
+    modules = [
+        "main_module",
+        "bootloader",
+        "l4_testing",
+        "f4_testing",
+        "f7_testing",
+        "g4_testing",
+        "a_box",
+        "torque_vector",
+        "dashboard",
+        "pdu",
+        "daq"
+    ]
+    modules_sorted = sorted(modules)
+    print("Available targets to build:")
+    for m in modules_sorted:
+        print(f'\t{m}')
 
 def print_available_targets():
     modules = [

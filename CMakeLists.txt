@@ -87,19 +87,31 @@ define_property(TARGET PROPERTY OUTPUT_DIR
 # Macro for defining the common build process across all firmware components
 include(cmake/common_component.cmake)
 
-# Add Components
-add_subdirectory(source/main_module)
-add_subdirectory(source/bootloader)
-add_subdirectory(source/l4_testing)
-add_subdirectory(source/f4_testing)
-add_subdirectory(source/f7_testing)
-add_subdirectory(source/g4_testing)
-add_subdirectory(source/a_box)
-add_subdirectory(source/torque_vector)
-add_subdirectory(source/dashboard)
-add_subdirectory(source/pdu)
-add_subdirectory(source/daq)
+# Make MODULES overridable from the command line
+set(MODULES "" CACHE STRING "Semicolon-separated list of source modules to build")
 
+if(MODULES STREQUAL "")
+    set(MODULES
+        a_box
+        bootloader
+        dashboard
+        daq
+        f4_testing
+        f7_testing
+        g4_testing
+        l4_testing
+        main_module
+        pdu
+        torque_vector
+    )
+endif()
+
+
+# Loop over and add subdirectories
+foreach(MODULE ${MODULES})
+    message(STATUS "Adding module: ${MODULE}")
+    add_subdirectory(source/${MODULE})
+endforeach()
 
 # Deprecated Components
 # add_subdirectory(source/template)

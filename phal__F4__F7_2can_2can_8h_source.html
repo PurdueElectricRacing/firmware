@@ -113,12 +113,12 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  CAN_TypeDef* Bus; </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  uint16_t StdId; </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  uint32_t ExtId; </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  uint32_t IDE; </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  uint32_t DLC; </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  uint8_t Data[8]; </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    CAN_TypeDef* Bus; </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    uint16_t StdId; </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    uint32_t ExtId; </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    uint32_t IDE; </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    uint32_t DLC; </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    uint8_t Data[8]; </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#abd53152f7b205f76bfbfc43077f85251">PHAL_initCAN</a>(CAN_TypeDef* bus, <span class="keywordtype">bool</span> test_mode, uint32_t bit_rate);</div>
@@ -130,11 +130,11 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2can_2can_8h.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a>(CAN_TypeDef* bus, uint8_t mbx);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#endif </span><span class="comment">// _PHAL_CAN_H</span></div>
-<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a22269e3f8f5f895a2a2b8e2865814369"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a></div><div class="ttdeci">void PHAL_txCANAbort(CAN_TypeDef *bus, uint8_t mbx)</div><div class="ttdef"><b>Definition</b> can.c:193</div></div>
-<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a27cc0a1cff5e2f9e0a55483b7acff539"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a27cc0a1cff5e2f9e0a55483b7acff539">PHAL_txCANMessage</a></div><div class="ttdeci">bool PHAL_txCANMessage(CanMsgTypeDef_t *msg, uint8_t mbx)</div><div class="ttdoc">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucess...</div><div class="ttdef"><b>Definition</b> can.c:134</div></div>
-<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a65d09c3c6b1c24a5fc09bbf7f71659bb"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a65d09c3c6b1c24a5fc09bbf7f71659bb">PHAL_txMailboxFree</a></div><div class="ttdeci">bool PHAL_txMailboxFree(CAN_TypeDef *bus, uint8_t mbx)</div><div class="ttdef"><b>Definition</b> can.c:178</div></div>
+<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a22269e3f8f5f895a2a2b8e2865814369"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a></div><div class="ttdeci">void PHAL_txCANAbort(CAN_TypeDef *bus, uint8_t mbx)</div><div class="ttdef"><b>Definition</b> can.c:173</div></div>
+<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a27cc0a1cff5e2f9e0a55483b7acff539"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a27cc0a1cff5e2f9e0a55483b7acff539">PHAL_txCANMessage</a></div><div class="ttdeci">bool PHAL_txCANMessage(CanMsgTypeDef_t *msg, uint8_t mbx)</div><div class="ttdoc">Find an empty TX mailbox and transmit a CAN message if one is found. Function will block until sucess...</div><div class="ttdef"><b>Definition</b> can.c:120</div></div>
+<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_a65d09c3c6b1c24a5fc09bbf7f71659bb"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#a65d09c3c6b1c24a5fc09bbf7f71659bb">PHAL_txMailboxFree</a></div><div class="ttdeci">bool PHAL_txMailboxFree(CAN_TypeDef *bus, uint8_t mbx)</div><div class="ttdef"><b>Definition</b> can.c:160</div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_abd53152f7b205f76bfbfc43077f85251"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#abd53152f7b205f76bfbfc43077f85251">PHAL_initCAN</a></div><div class="ttdeci">bool PHAL_initCAN(CAN_TypeDef *bus, bool test_mode, uint32_t bit_rate)</div><div class="ttdoc">Initilize CAN peripheral to bit_rate.</div><div class="ttdef"><b>Definition</b> can.c:15</div></div>
-<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_ad50ebe6b97656b5ccad44c2d71e280d9"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a></div><div class="ttdeci">bool PHAL_deinitCAN(CAN_TypeDef *bus)</div><div class="ttdoc">De-initialize the CAN peripheral.</div><div class="ttdef"><b>Definition</b> can.c:118</div></div>
+<div class="ttc" id="aphal__F4__F7_2can_2can_8h_html_ad50ebe6b97656b5ccad44c2d71e280d9"><div class="ttname"><a href="phal__F4__F7_2can_2can_8h.html#ad50ebe6b97656b5ccad44c2d71e280d9">PHAL_deinitCAN</a></div><div class="ttdeci">bool PHAL_deinitCAN(CAN_TypeDef *bus)</div><div class="ttdoc">De-initialize the CAN peripheral.</div><div class="ttdef"><b>Definition</b> can.c:106</div></div>
 <div class="ttc" id="aphal__F4__F7_8h_html"><div class="ttname"><a href="phal__F4__F7_8h.html">phal_F4_F7.h</a></div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:31</div></div>
 </div><!-- fragment --></div><!-- contents -->

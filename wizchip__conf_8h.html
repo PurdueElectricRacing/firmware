@@ -129,7 +129,7 @@ Macros</h2></td></tr>
 <tr class="memitem:aced62b5ad0da484e43bc7b5eeac377e8" id="r_aced62b5ad0da484e43bc7b5eeac377e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aced62b5ad0da484e43bc7b5eeac377e8">W5100</a>&#160;&#160;&#160;5100</td></tr>
 <tr class="memdesc:aced62b5ad0da484e43bc7b5eeac377e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select WIZCHIP.  <br /></td></tr>
 <tr class="separator:aced62b5ad0da484e43bc7b5eeac377e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1daa34078c08624e85bc6db67a56bd70" id="r_a1daa34078c08624e85bc6db67a56bd70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1daa34078c08624e85bc6db67a56bd70">W5100S</a>&#160;&#160;&#160;5100+5</td></tr>
+<tr class="memitem:a1daa34078c08624e85bc6db67a56bd70" id="r_a1daa34078c08624e85bc6db67a56bd70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1daa34078c08624e85bc6db67a56bd70">W5100S</a>&#160;&#160;&#160;5100 + 5</td></tr>
 <tr class="separator:a1daa34078c08624e85bc6db67a56bd70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87c29ecd67ca522541567408808be12f" id="r_a87c29ecd67ca522541567408808be12f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87c29ecd67ca522541567408808be12f">W5200</a>&#160;&#160;&#160;5200</td></tr>
 <tr class="separator:a87c29ecd67ca522541567408808be12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,10 +278,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1abb4dffed9037e84b54c972da0fd471e2">NETINFO_DHCP</a>
  }</td></tr>
 <tr class="separator:ga76e5aa4ff40d1cb562e46e3bf9b1e9d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7543c641a8f3ad6dce26f2387e7e8eac" id="r_ga7543c641a8f3ad6dce26f2387e7e8eac"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DATA__TYPE.html#ga7543c641a8f3ad6dce26f2387e7e8eac">netmode_type</a> { <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca32c5ae489d34cf2de9ff96ae278f028a">NM_FORCEARP</a> = (1&lt;&lt;1)
-, <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759">NM_WAKEONLAN</a> = (1&lt;&lt;5)
-, <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be">NM_PINGBLOCK</a> = (1&lt;&lt;4)
-, <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416">NM_PPPOE</a> = (1&lt;&lt;3)
+<tr class="memitem:ga7543c641a8f3ad6dce26f2387e7e8eac" id="r_ga7543c641a8f3ad6dce26f2387e7e8eac"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DATA__TYPE.html#ga7543c641a8f3ad6dce26f2387e7e8eac">netmode_type</a> { <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca32c5ae489d34cf2de9ff96ae278f028a">NM_FORCEARP</a> = (1 &lt;&lt; 1)
+, <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759">NM_WAKEONLAN</a> = (1 &lt;&lt; 5)
+, <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be">NM_PINGBLOCK</a> = (1 &lt;&lt; 4)
+, <a class="el" href="group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416">NM_PPPOE</a> = (1 &lt;&lt; 3)
  }</td></tr>
 <tr class="separator:ga7543c641a8f3ad6dce26f2387e7e8eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -821,7 +821,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define W5100S&#160;&#160;&#160;5100+5</td>
+          <td class="memname">#define W5100S&#160;&#160;&#160;5100 + 5</td>
         </tr>
       </table>
 </div><div class="memdoc">

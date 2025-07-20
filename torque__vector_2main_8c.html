@@ -95,7 +95,8 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="torque__vector_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
 <code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
@@ -104,7 +105,6 @@ $(function(){ initResizable(false); });
 <code>#include &quot;common/phal/spi.h&quot;</code><br />
 <code>#include &quot;common/phal/usart.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="torque__vector_2main_8h_source.html">main.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -514,28 +514,27 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    .accel_csb_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
-<div class="line">    .accel_csb_pin = <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
-<div class="line">    .accel_range = <a class="code hl_enumvalue" href="bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a>,</div>
-<div class="line">    .accel_odr = <a class="code hl_enumvalue" href="bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a>,</div>
-<div class="line">    .accel_bwp = <a class="code hl_enumvalue" href="bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a>,</div>
-<div class="line">    .gyro_csb_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>,</div>
-<div class="line">    .gyro_csb_pin = <a class="code hl_define" href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>,</div>
-<div class="line">    .gyro_datarate = <a class="code hl_enumvalue" href="bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a>,</div>
-<div class="line">    .gyro_range = <a class="code hl_enumvalue" href="bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a>,</div>
-<div class="line">    .spi = &amp;<a class="code hl_variable" href="l4__testing_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div>
-<div class="line">}</div>
-<div class="ttc" id="abmi088_8h_html_a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5"><div class="ttname"><a href="bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a></div><div class="ttdeci">@ GYRO_RANGE_250</div><div class="ttdef"><b>Definition</b> bmi088.h:76</div></div>
+<div class="line">    {</div>
+<div class="line">        .accel_csb_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
+<div class="line">        .accel_csb_pin = <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
+<div class="line">        .accel_range = <a class="code hl_enumvalue" href="bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a>,</div>
+<div class="line">        .accel_odr = <a class="code hl_enumvalue" href="bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a>,</div>
+<div class="line">        .accel_bwp = <a class="code hl_enumvalue" href="bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a>,</div>
+<div class="line">        .gyro_csb_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>,</div>
+<div class="line">        .gyro_csb_pin = <a class="code hl_define" href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>,</div>
+<div class="line">        .gyro_datarate = <a class="code hl_enumvalue" href="bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a>,</div>
+<div class="line">        .gyro_range = <a class="code hl_enumvalue" href="bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a>,</div>
+<div class="line">        .spi = &amp;<a class="code hl_variable" href="l4__testing_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">spi_config</a>}</div>
+<div class="ttc" id="abmi088_8h_html_a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5"><div class="ttname"><a href="bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a></div><div class="ttdeci">@ GYRO_RANGE_250</div><div class="ttdef"><b>Definition</b> bmi088.h:73</div></div>
 <div class="ttc" id="abmi088_8h_html_a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084"><div class="ttname"><a href="bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a></div><div class="ttdeci">@ ACCEL_ODR_50Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:48</div></div>
-<div class="ttc" id="abmi088_8h_html_a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6"><div class="ttname"><a href="bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a></div><div class="ttdeci">@ ACCEL_RANGE_3G</div><div class="ttdef"><b>Definition</b> bmi088.h:65</div></div>
-<div class="ttc" id="abmi088_8h_html_ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0"><div class="ttname"><a href="bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a></div><div class="ttdeci">@ GYRO_DR_100Hz_32Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:89</div></div>
-<div class="ttc" id="abmi088_8h_html_adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115"><div class="ttname"><a href="bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a></div><div class="ttdeci">@ ACCEL_OS_NORMAL</div><div class="ttdef"><b>Definition</b> bmi088.h:58</div></div>
-<div class="ttc" id="al4__testing_2main_8c_html_ada0a7177585eb88526a6239618b3bfdf"><div class="ttname"><a href="l4__testing_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div><div class="ttdeci">SPI_InitConfig_t spi_config</div><div class="ttdef"><b>Definition</b> main.c:92</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a086a2a66044e2f21882f62f7251759f5"><div class="ttname"><a href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a></div><div class="ttdeci">#define SPI_CS_ACEL_Pin</div><div class="ttdef"><b>Definition</b> main.h:46</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a8b195084506d284f754d772f6d709d7c"><div class="ttname"><a href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a></div><div class="ttdeci">#define SPI_CS_GYRO_Pin</div><div class="ttdef"><b>Definition</b> main.h:48</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a9de9e7d70d216f0eebd7c18e3dcc55e5"><div class="ttname"><a href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_GYRO_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:47</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_aacc6e26a0a2afa5bc42f86e3abe643b2"><div class="ttname"><a href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_ACEL_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
+<div class="ttc" id="abmi088_8h_html_a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6"><div class="ttname"><a href="bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a></div><div class="ttdeci">@ ACCEL_RANGE_3G</div><div class="ttdef"><b>Definition</b> bmi088.h:63</div></div>
+<div class="ttc" id="abmi088_8h_html_ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0"><div class="ttname"><a href="bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a></div><div class="ttdeci">@ GYRO_DR_100Hz_32Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:85</div></div>
+<div class="ttc" id="abmi088_8h_html_adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115"><div class="ttname"><a href="bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a></div><div class="ttdeci">@ ACCEL_OS_NORMAL</div><div class="ttdef"><b>Definition</b> bmi088.h:57</div></div>
+<div class="ttc" id="al4__testing_2main_8c_html_ada0a7177585eb88526a6239618b3bfdf"><div class="ttname"><a href="l4__testing_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div><div class="ttdeci">SPI_InitConfig_t spi_config</div><div class="ttdef"><b>Definition</b> main.c:89</div></div>
+<div class="ttc" id="atorque__vector_2main_8h_html_a086a2a66044e2f21882f62f7251759f5"><div class="ttname"><a href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a></div><div class="ttdeci">#define SPI_CS_ACEL_Pin</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
+<div class="ttc" id="atorque__vector_2main_8h_html_a8b195084506d284f754d772f6d709d7c"><div class="ttname"><a href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a></div><div class="ttdeci">#define SPI_CS_GYRO_Pin</div><div class="ttdef"><b>Definition</b> main.h:47</div></div>
+<div class="ttc" id="atorque__vector_2main_8h_html_a9de9e7d70d216f0eebd7c18e3dcc55e5"><div class="ttname"><a href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_GYRO_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:46</div></div>
+<div class="ttc" id="atorque__vector_2main_8h_html_aacc6e26a0a2afa5bc42f86e3abe643b2"><div class="ttname"><a href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_ACEL_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:44</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -551,18 +550,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source               =<a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
-<div class="line">    .use_pll                    =<span class="keyword">true</span>,</div>
-<div class="line">    .pll_src                    =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
-<div class="line">    .vco_output_rate_target_hz  =192000000,</div>
-<div class="line">    .system_clock_target_hz     =<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">    .ahb_clock_target_hz        =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">    .apb1_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
-<div class="line">    .apb2_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .clock_source = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
+<div class="line">    .use_pll = <span class="keyword">true</span>,</div>
+<div class="line">    .pll_src = <a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
+<div class="line">    .vco_output_rate_target_hz = 192000000,</div>
+<div class="line">    .system_clock_target_hz = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .apb2_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:77</div></div>
-<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:30</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:72</div></div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:75</div></div>
+<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:29</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -578,34 +577,33 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    </div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="main__module_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a>, <a class="code hl_define" href="main__module_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a>, <a class="code hl_define" href="a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="main__module_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">HEARTBEAT_GPIO_Port</a>, <a class="code hl_define" href="main__module_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">    {</div>
+<div class="line">        </div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="main__module_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a>, <a class="code hl_define" href="main__module_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a>, <a class="code hl_define" href="a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="main__module_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">HEARTBEAT_GPIO_Port</a>, <a class="code hl_define" href="main__module_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
 <div class="line"> </div>
-<div class="line">    </div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#aec842ba18536df50cc7c35d24fe9f89e">SPI_SCLK_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a>),</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#af86c484e6065ee32b61f1b141cb0014e">SPI_MOSI_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a>),</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#acefbb4f623273b9808c5dd75f0f0c7ee">SPI_MISO_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a>),</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>),</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>),</div>
+<div class="line">        </div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#aec842ba18536df50cc7c35d24fe9f89e">SPI_SCLK_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#af86c484e6065ee32b61f1b141cb0014e">SPI_MOSI_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#acefbb4f623273b9808c5dd75f0f0c7ee">SPI_MISO_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>),</div>
 <div class="line"> </div>
-<div class="line">    </div>
-<div class="line">    GPIO_INIT_UART4RX_PA1,</div>
-<div class="line">    GPIO_INIT_UART4TX_PA0,</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#a50e5e8556e3a271cab83dfa16f14ee09">GPS_RESET_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">        </div>
+<div class="line">        GPIO_INIT_UART4RX_PA1,</div>
+<div class="line">        GPIO_INIT_UART4TX_PA0,</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#a50e5e8556e3a271cab83dfa16f14ee09">GPS_RESET_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
 <div class="line"> </div>
-<div class="line">    </div>
-<div class="line">    </div>
-<div class="line">    </div>
+<div class="line">        </div>
+<div class="line">        </div>
+<div class="line">        </div>
 <div class="line"> </div>
-<div class="line">    </div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae8301c20265b3a15f5b0d8b66261f015">GPIO_INIT_CANRX_PA11</a>,</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ac2b3941642669f2fb3f49b9ec73ec979">GPIO_INIT_CANTX_PA12</a></div>
-<div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8h_html_a0111b42f1cdfd22b52e5aa836d743a60"><div class="ttname"><a href="a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a></div><div class="ttdeci">#define CONN_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
-<div class="ttc" id="aa__box_2main_8h_html_a75d1cb8230e6eaf53142a5bca49003ef"><div class="ttname"><a href="a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a></div><div class="ttdeci">#define CONN_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:44</div></div>
+<div class="line">        </div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae8301c20265b3a15f5b0d8b66261f015">GPIO_INIT_CANRX_PA11</a>,</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ac2b3941642669f2fb3f49b9ec73ec979">GPIO_INIT_CANTX_PA12</a>}</div>
+<div class="ttc" id="aa__box_2main_8h_html_a0111b42f1cdfd22b52e5aa836d743a60"><div class="ttname"><a href="a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a></div><div class="ttdeci">#define CONN_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:39</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a75d1cb8230e6eaf53142a5bca49003ef"><div class="ttname"><a href="a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a></div><div class="ttdeci">#define CONN_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:38</div></div>
 <div class="ttc" id="al4__testing_2main_8h_html_a3e93f9482a06a62b4a3a3b59c051e79c"><div class="ttname"><a href="l4__testing_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a></div><div class="ttdeci">#define SPI_SCLK_Pin</div><div class="ttdef"><b>Definition</b> main.h:48</div></div>
 <div class="ttc" id="al4__testing_2main_8h_html_a4312169e5b462272dc4be10d4ffa4e40"><div class="ttname"><a href="l4__testing_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a></div><div class="ttdeci">#define SPI_MOSI_Pin</div><div class="ttdef"><b>Definition</b> main.h:52</div></div>
 <div class="ttc" id="al4__testing_2main_8h_html_a96f125c65f6d8a90050ebb72cf459e95"><div class="ttname"><a href="l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a></div><div class="ttdeci">#define SPI_MISO_Pin</div><div class="ttdef"><b>Definition</b> main.h:50</div></div>
@@ -616,18 +614,18 @@ Variables</h2></td></tr>
 <div class="ttc" id="amain__module_2main_8h_html_ab1f60dbdca30f90ed4ab09fb63e83a50"><div class="ttname"><a href="main__module_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a></div><div class="ttdeci">#define HEARTBEAT_Pin</div><div class="ttdef"><b>Definition</b> main.h:37</div></div>
 <div class="ttc" id="amain__module_2main_8h_html_ac38565041738156d70795f7d45a458ef"><div class="ttname"><a href="main__module_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a></div><div class="ttdeci">#define ERR_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:32</div></div>
 <div class="ttc" id="amain__module_2main_8h_html_ad606c68e7c4fc77a58df05a77a2ac2d0"><div class="ttname"><a href="main__module_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a></div><div class="ttdeci">#define ERR_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:31</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_OUTPUT_OPEN_DRAIN</div><div class="ttdoc">Drive the output pin low, high-z otherwise.</div><div class="ttdef"><b>Definition</b> gpio.h:47</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a></div><div class="ttdeci">@ GPIO_OUTPUT_PUSH_PULL</div><div class="ttdoc">Drive the output pin high and low.</div><div class="ttdef"><b>Definition</b> gpio.h:46</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:101</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ac2b3941642669f2fb3f49b9ec73ec979"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ac2b3941642669f2fb3f49b9ec73ec979">GPIO_INIT_CANTX_PA12</a></div><div class="ttdeci">#define GPIO_INIT_CANTX_PA12</div><div class="ttdef"><b>Definition</b> gpio.h:147</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae395785147afb18096f8082644e49641"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a></div><div class="ttdeci">#define GPIO_INIT_AF(gpio_bank, pin_num, alt_func_num, ospeed_sel, otype_sel, input_pull_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for alternate function.</div><div class="ttdef"><b>Definition</b> gpio.h:133</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_INPUT_OPEN_DRAIN</div><div class="ttdoc">No internal pull up/down.</div><div class="ttdef"><b>Definition</b> gpio.h:55</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a></div><div class="ttdeci">@ GPIO_INPUT_PULL_DOWN</div><div class="ttdoc">Weak internal pull-down enabled.</div><div class="ttdef"><b>Definition</b> gpio.h:57</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae8301c20265b3a15f5b0d8b66261f015"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae8301c20265b3a15f5b0d8b66261f015">GPIO_INIT_CANRX_PA11</a></div><div class="ttdeci">#define GPIO_INIT_CANRX_PA11</div><div class="ttdef"><b>Definition</b> gpio.h:146</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_HIGH_SPEED</div><div class="ttdoc">Slew rate control, max 100Mhz.</div><div class="ttdef"><b>Definition</b> gpio.h:37</div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_LOW_SPEED</div><div class="ttdoc">Slew rate control, max 8Mhz.</div><div class="ttdef"><b>Definition</b> gpio.h:35</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a0307e93d615d22766fd41e1a3c3cc796"><div class="ttname"><a href="torque__vector_2main_8h.html#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a></div><div class="ttdeci">#define GPS_RESET_Pin</div><div class="ttdef"><b>Definition</b> main.h:58</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a50e5e8556e3a271cab83dfa16f14ee09"><div class="ttname"><a href="torque__vector_2main_8h.html#a50e5e8556e3a271cab83dfa16f14ee09">GPS_RESET_GPIO_Port</a></div><div class="ttdeci">#define GPS_RESET_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:57</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_OUTPUT_OPEN_DRAIN</div><div class="ttdoc">Drive the output pin low, high-z otherwise.</div><div class="ttdef"><b>Definition</b> gpio.h:45</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a></div><div class="ttdeci">@ GPIO_OUTPUT_PUSH_PULL</div><div class="ttdoc">Drive the output pin high and low.</div><div class="ttdef"><b>Definition</b> gpio.h:44</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:99</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ac2b3941642669f2fb3f49b9ec73ec979"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ac2b3941642669f2fb3f49b9ec73ec979">GPIO_INIT_CANTX_PA12</a></div><div class="ttdeci">#define GPIO_INIT_CANTX_PA12</div><div class="ttdef"><b>Definition</b> gpio.h:145</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae395785147afb18096f8082644e49641"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a></div><div class="ttdeci">#define GPIO_INIT_AF(gpio_bank, pin_num, alt_func_num, ospeed_sel, otype_sel, input_pull_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for alternate function.</div><div class="ttdef"><b>Definition</b> gpio.h:131</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_INPUT_OPEN_DRAIN</div><div class="ttdoc">No internal pull up/down.</div><div class="ttdef"><b>Definition</b> gpio.h:52</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a></div><div class="ttdeci">@ GPIO_INPUT_PULL_DOWN</div><div class="ttdoc">Weak internal pull-down enabled.</div><div class="ttdef"><b>Definition</b> gpio.h:54</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_ae8301c20265b3a15f5b0d8b66261f015"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#ae8301c20265b3a15f5b0d8b66261f015">GPIO_INIT_CANRX_PA11</a></div><div class="ttdeci">#define GPIO_INIT_CANRX_PA11</div><div class="ttdef"><b>Definition</b> gpio.h:144</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_HIGH_SPEED</div><div class="ttdoc">Slew rate control, max 100Mhz.</div><div class="ttdef"><b>Definition</b> gpio.h:36</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_LOW_SPEED</div><div class="ttdoc">Slew rate control, max 8Mhz.</div><div class="ttdef"><b>Definition</b> gpio.h:34</div></div>
+<div class="ttc" id="atorque__vector_2main_8h_html_a0307e93d615d22766fd41e1a3c3cc796"><div class="ttname"><a href="torque__vector_2main_8h.html#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a></div><div class="ttdeci">#define GPS_RESET_Pin</div><div class="ttdef"><b>Definition</b> main.h:57</div></div>
+<div class="ttc" id="atorque__vector_2main_8h_html_a50e5e8556e3a271cab83dfa16f14ee09"><div class="ttname"><a href="torque__vector_2main_8h.html#a50e5e8556e3a271cab83dfa16f14ee09">GPS_RESET_GPIO_Port</a></div><div class="ttdeci">#define GPS_RESET_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:56</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -671,30 +669,29 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    .baud_rate = 115200,</div>
-<div class="line">    .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">    .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">    .stop_bits = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">    .parity = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">    .obsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">    .ovsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">    .periph      = UART4,</div>
-<div class="line">    .wake_addr = <span class="keyword">false</span>,</div>
-<div class="line">    .usart_active_num = USART4_ACTIVE_IDX,</div>
-<div class="line">    .tx_errors = 0,</div>
-<div class="line">    .rx_errors = 0,</div>
-<div class="line">    .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a>,</div>
-<div class="line">    .rx_dma_cfg = &amp;<a class="code hl_variable" href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a></div>
-<div class="line">}</div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:36</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:58</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:72</div></div>
+<div class="line">    {</div>
+<div class="line">        .baud_rate = 115200,</div>
+<div class="line">        .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
+<div class="line">        .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
+<div class="line">        .stop_bits = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
+<div class="line">        .parity = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
+<div class="line">        .obsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
+<div class="line">        .ovsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
+<div class="line">        .periph = UART4,</div>
+<div class="line">        .wake_addr = <span class="keyword">false</span>,</div>
+<div class="line">        .usart_active_num = USART4_ACTIVE_IDX,</div>
+<div class="line">        .tx_errors = 0,</div>
+<div class="line">        .rx_errors = 0,</div>
+<div class="line">        .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a>,</div>
+<div class="line">        .rx_dma_cfg = &amp;<a class="code hl_variable" href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a>}</div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:35</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:54</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:66</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a></div><div class="ttdeci">@ PT_NONE</div><div class="ttdef"><b>Definition</b> usart.h:29</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdef"><b>Definition</b> usart.h:43</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdef"><b>Definition</b> usart.h:66</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a02ac86e37bec1cf0c0978567134e26e8"><div class="ttname"><a href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_gps_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:43</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a4fead6930e52d9b3ca8f2ad63fbc1e3a"><div class="ttname"><a href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_gps_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:44</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdef"><b>Definition</b> usart.h:41</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdef"><b>Definition</b> usart.h:61</div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_a02ac86e37bec1cf0c0978567134e26e8"><div class="ttname"><a href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_gps_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:42</div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_a4fead6930e52d9b3ca8f2ad63fbc1e3a"><div class="ttname"><a href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_gps_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:43</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -710,10 +707,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    .bmi = &amp;<a class="code hl_variable" href="#a823719761a6d336bbc785b787ae73459">bmi_config</a>,</div>
+<div class="line">    {</div>
+<div class="line">        .bmi = &amp;<a class="code hl_variable" href="#a823719761a6d336bbc785b787ae73459">bmi_config</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a823719761a6d336bbc785b787ae73459"><div class="ttname"><a href="#a823719761a6d336bbc785b787ae73459">bmi_config</a></div><div class="ttdeci">BMI088_Handle_t bmi_config</div><div class="ttdef"><b>Definition</b> main.c:116</div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_a823719761a6d336bbc785b787ae73459"><div class="ttname"><a href="#a823719761a6d336bbc785b787ae73459">bmi_config</a></div><div class="ttdeci">BMI088_Handle_t bmi_config</div><div class="ttdef"><b>Definition</b> main.c:112</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -765,16 +762,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    .data_rate = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
-<div class="line">    .data_len = 8,</div>
-<div class="line">    .nss_sw = <span class="keyword">true</span>,</div>
-<div class="line">    .nss_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
-<div class="line">    .nss_gpio_pin = <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
-<div class="line">    .rx_dma_cfg = &amp;<a class="code hl_variable" href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
-<div class="line">    .tx_dma_cfg = &amp;<a class="code hl_variable" href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
-<div class="line">    .periph = SPI1</div>
-<div class="line">}</div>
+<div class="line">    {</div>
+<div class="line">        .data_rate = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
+<div class="line">        .data_len = 8,</div>
+<div class="line">        .nss_sw = <span class="keyword">true</span>,</div>
+<div class="line">        .nss_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
+<div class="line">        .nss_gpio_pin = <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
+<div class="line">        .rx_dma_cfg = &amp;<a class="code hl_variable" href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
+<div class="line">        .tx_dma_cfg = &amp;<a class="code hl_variable" href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
+<div class="line">        .periph = SPI1}</div>
 <div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:77</div></div>
 <div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:78</div></div>
 </div><!-- fragment -->
@@ -876,21 +872,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .baud_rate   = 115200,</div>
-<div class="line">   .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">   .stop_bits   = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">   .parity      = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">   .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">   .ovsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">   .obsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">   .periph      = USART1,</div>
-<div class="line">   .wake_addr   = <span class="keyword">false</span>,</div>
-<div class="line">   .usart_active_num = USART1_ACTIVE_IDX,</div>
-<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a>,</div>
-<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a></div>
-<div class="line">}</div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a54d065cd27bad5077837d12810e87f94"><div class="ttname"><a href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_usb_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:64</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_aee1a23cfc9cb7821cbd140e307ed0c35"><div class="ttname"><a href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_usb_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:65</div></div>
+<div class="line">    .baud_rate = 115200,</div>
+<div class="line">    .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
+<div class="line">    .stop_bits = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
+<div class="line">    .parity = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
+<div class="line">    .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
+<div class="line">    .ovsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
+<div class="line">    .obsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
+<div class="line">    .periph = USART1,</div>
+<div class="line">    .wake_addr = <span class="keyword">false</span>,</div>
+<div class="line">    .usart_active_num = USART1_ACTIVE_IDX,</div>
+<div class="line">    .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a>,</div>
+<div class="line">    .rx_dma_cfg = &amp;<a class="code hl_variable" href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a>}</div>
+<div class="ttc" id="atorque__vector_2main_8c_html_a54d065cd27bad5077837d12810e87f94"><div class="ttname"><a href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_usb_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:62</div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_aee1a23cfc9cb7821cbd140e307ed0c35"><div class="ttname"><a href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_usb_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:63</div></div>
 </div><!-- fragment -->
 </div>
 </div>

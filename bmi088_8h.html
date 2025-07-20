@@ -96,9 +96,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">bmi088.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;inttypes.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;inttypes.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="bsxlite__interface_8h_source.html">bsxlite_interface.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/spi.h&quot;</code><br />
@@ -118,7 +118,7 @@ Macros</h2></td></tr>
 <tr class="separator:a48b3c7c7560500d80ef8821f6569ea95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45beb6d8c4778c6ed67949444effcd73" id="r_a45beb6d8c4778c6ed67949444effcd73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45beb6d8c4778c6ed67949444effcd73">BMI088_ACC_PWR_CTRL_NORMAL</a>&#160;&#160;&#160;(0x04U)</td></tr>
 <tr class="separator:a45beb6d8c4778c6ed67949444effcd73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae57ebf66712fb50d5f4c0670bd7270af" id="r_ae57ebf66712fb50d5f4c0670bd7270af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae57ebf66712fb50d5f4c0670bd7270af">BMI088_GYRO_CHIP_ID_ADDR</a>&#160;&#160;&#160;(0x00U)    /* Gyro Chip ID address */</td></tr>
+<tr class="memitem:ae57ebf66712fb50d5f4c0670bd7270af" id="r_ae57ebf66712fb50d5f4c0670bd7270af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae57ebf66712fb50d5f4c0670bd7270af">BMI088_GYRO_CHIP_ID_ADDR</a>&#160;&#160;&#160;(0x00U) /* Gyro Chip ID address */</td></tr>
 <tr class="separator:ae57ebf66712fb50d5f4c0670bd7270af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9d7b3278226426b5e353109454a0710" id="r_af9d7b3278226426b5e353109454a0710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9d7b3278226426b5e353109454a0710">BMI088_GYRO_RATE_X_LSB_ADDR</a>&#160;&#160;&#160;(0x02U) /* Gyro X rate LSB address */</td></tr>
 <tr class="separator:af9d7b3278226426b5e353109454a0710"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,15 +126,15 @@ Macros</h2></td></tr>
 <tr class="separator:aadf9228a78b0ee8bb40b8efd4b29060d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2fa639e266f01b5b97fa20ecf075c05" id="r_ab2fa639e266f01b5b97fa20ecf075c05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2fa639e266f01b5b97fa20ecf075c05">BMI088_GYRO_RATE_Z_LSB_ADDR</a>&#160;&#160;&#160;(0x04U) /* Gyro Z rate LSB address */</td></tr>
 <tr class="separator:ab2fa639e266f01b5b97fa20ecf075c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8555aaf44a8c2fcd1e00b73f2befa2dd" id="r_a8555aaf44a8c2fcd1e00b73f2befa2dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8555aaf44a8c2fcd1e00b73f2befa2dd">BMI088_GYRO_RANGE_ADDR</a>&#160;&#160;&#160;(0x0FU)      /* Gyro data range address */</td></tr>
+<tr class="memitem:a8555aaf44a8c2fcd1e00b73f2befa2dd" id="r_a8555aaf44a8c2fcd1e00b73f2befa2dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8555aaf44a8c2fcd1e00b73f2befa2dd">BMI088_GYRO_RANGE_ADDR</a>&#160;&#160;&#160;(0x0FU) /* Gyro data range address */</td></tr>
 <tr class="separator:a8555aaf44a8c2fcd1e00b73f2befa2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f641d4430087e73c343d412d622eab0" id="r_a8f641d4430087e73c343d412d622eab0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f641d4430087e73c343d412d622eab0">BMI088_GYRO_BANDWIDTH_ADDR</a>&#160;&#160;&#160;(0x10U)  /* Gyro data bandwidth address */</td></tr>
+<tr class="memitem:a8f641d4430087e73c343d412d622eab0" id="r_a8f641d4430087e73c343d412d622eab0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f641d4430087e73c343d412d622eab0">BMI088_GYRO_BANDWIDTH_ADDR</a>&#160;&#160;&#160;(0x10U) /* Gyro data bandwidth address */</td></tr>
 <tr class="separator:a8f641d4430087e73c343d412d622eab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7645c3c6882fe656c340618ca7c052c" id="r_ae7645c3c6882fe656c340618ca7c052c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7645c3c6882fe656c340618ca7c052c">BMI088_GYRO_SELFTEST_ADDR</a>&#160;&#160;&#160;(0x3CU)   /* Gyro self test address */</td></tr>
+<tr class="memitem:ae7645c3c6882fe656c340618ca7c052c" id="r_ae7645c3c6882fe656c340618ca7c052c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7645c3c6882fe656c340618ca7c052c">BMI088_GYRO_SELFTEST_ADDR</a>&#160;&#160;&#160;(0x3CU) /* Gyro self test address */</td></tr>
 <tr class="separator:ae7645c3c6882fe656c340618ca7c052c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c1ccf4ed549e9d8f12c032c5700fbf1" id="r_a9c1ccf4ed549e9d8f12c032c5700fbf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c1ccf4ed549e9d8f12c032c5700fbf1">BMI088_ACC_CHIP_ID_ADDR</a>&#160;&#160;&#160;(0x00U)    /* Accelerometer Chip ID address */</td></tr>
+<tr class="memitem:a9c1ccf4ed549e9d8f12c032c5700fbf1" id="r_a9c1ccf4ed549e9d8f12c032c5700fbf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c1ccf4ed549e9d8f12c032c5700fbf1">BMI088_ACC_CHIP_ID_ADDR</a>&#160;&#160;&#160;(0x00U) /* Accelerometer Chip ID address */</td></tr>
 <tr class="separator:a9c1ccf4ed549e9d8f12c032c5700fbf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a293c8193ed9863e32c79f629fdf8cb37" id="r_a293c8193ed9863e32c79f629fdf8cb37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a293c8193ed9863e32c79f629fdf8cb37">BMI088_ACC_STATUS_ADDR</a>&#160;&#160;&#160;(0x03U)     /* Accelerometer status address */</td></tr>
+<tr class="memitem:a293c8193ed9863e32c79f629fdf8cb37" id="r_a293c8193ed9863e32c79f629fdf8cb37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a293c8193ed9863e32c79f629fdf8cb37">BMI088_ACC_STATUS_ADDR</a>&#160;&#160;&#160;(0x03U) /* Accelerometer status address */</td></tr>
 <tr class="separator:a293c8193ed9863e32c79f629fdf8cb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad16d288789c7ec6510f9539b541d6759" id="r_ad16d288789c7ec6510f9539b541d6759"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad16d288789c7ec6510f9539b541d6759">BMI088_ACC_RATE_X_LSB_ADDR</a>&#160;&#160;&#160;(0x12U) /* Accelerometer X Rate LSB address */</td></tr>
 <tr class="separator:ad16d288789c7ec6510f9539b541d6759"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,13 +142,13 @@ Macros</h2></td></tr>
 <tr class="separator:a773a640f6ed1067c2134377e12dc3fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac067a5dd12cdacb39def27464a87fa68" id="r_ac067a5dd12cdacb39def27464a87fa68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac067a5dd12cdacb39def27464a87fa68">BMI088_ACC_RATE_Z_LSB_ADDR</a>&#160;&#160;&#160;(0x16U) /* Accelerometer Z Rate LSB address */</td></tr>
 <tr class="separator:ac067a5dd12cdacb39def27464a87fa68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71af2c80fd795af30499efc62707c884" id="r_a71af2c80fd795af30499efc62707c884"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71af2c80fd795af30499efc62707c884">BMI088_ACC_CONFIG_ADDR</a>&#160;&#160;&#160;(0x40U)     /* Accelerometer configuration address */</td></tr>
+<tr class="memitem:a71af2c80fd795af30499efc62707c884" id="r_a71af2c80fd795af30499efc62707c884"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71af2c80fd795af30499efc62707c884">BMI088_ACC_CONFIG_ADDR</a>&#160;&#160;&#160;(0x40U) /* Accelerometer configuration address */</td></tr>
 <tr class="separator:a71af2c80fd795af30499efc62707c884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24494d662c8df1bc4de4b19bef9e5eb8" id="r_a24494d662c8df1bc4de4b19bef9e5eb8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24494d662c8df1bc4de4b19bef9e5eb8">BMI088_ACC_RANGE_ADDR</a>&#160;&#160;&#160;(0x41U)      /* Accelerometer rate range address */</td></tr>
+<tr class="memitem:a24494d662c8df1bc4de4b19bef9e5eb8" id="r_a24494d662c8df1bc4de4b19bef9e5eb8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24494d662c8df1bc4de4b19bef9e5eb8">BMI088_ACC_RANGE_ADDR</a>&#160;&#160;&#160;(0x41U) /* Accelerometer rate range address */</td></tr>
 <tr class="separator:a24494d662c8df1bc4de4b19bef9e5eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f8dbd0f6361be2a6c573f31016acae6" id="r_a4f8dbd0f6361be2a6c573f31016acae6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f8dbd0f6361be2a6c573f31016acae6">BMI088_ACC_PWR_CONF_ADDR</a>&#160;&#160;&#160;(0x7CU)   /* Accelerometer power configuration address */</td></tr>
+<tr class="memitem:a4f8dbd0f6361be2a6c573f31016acae6" id="r_a4f8dbd0f6361be2a6c573f31016acae6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f8dbd0f6361be2a6c573f31016acae6">BMI088_ACC_PWR_CONF_ADDR</a>&#160;&#160;&#160;(0x7CU) /* Accelerometer power configuration address */</td></tr>
 <tr class="separator:a4f8dbd0f6361be2a6c573f31016acae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5fd02c1c54fb03cff5b2db1a47d620b" id="r_ae5fd02c1c54fb03cff5b2db1a47d620b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5fd02c1c54fb03cff5b2db1a47d620b">BMI088_ACC_PWR_CTRL_ADDR</a>&#160;&#160;&#160;(0x7DU)   /* Accelerometer power control address */</td></tr>
+<tr class="memitem:ae5fd02c1c54fb03cff5b2db1a47d620b" id="r_ae5fd02c1c54fb03cff5b2db1a47d620b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5fd02c1c54fb03cff5b2db1a47d620b">BMI088_ACC_PWR_CTRL_ADDR</a>&#160;&#160;&#160;(0x7DU) /* Accelerometer power control address */</td></tr>
 <tr class="separator:ae5fd02c1c54fb03cff5b2db1a47d620b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -253,7 +253,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_ACC_CHIP_ID_ADDR&#160;&#160;&#160;(0x00U)    /* Accelerometer Chip ID address */</td>
+          <td class="memname">#define BMI088_ACC_CHIP_ID_ADDR&#160;&#160;&#160;(0x00U) /* Accelerometer Chip ID address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -267,7 +267,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_ACC_CONFIG_ADDR&#160;&#160;&#160;(0x40U)     /* Accelerometer configuration address */</td>
+          <td class="memname">#define BMI088_ACC_CONFIG_ADDR&#160;&#160;&#160;(0x40U) /* Accelerometer configuration address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -281,7 +281,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_ACC_PWR_CONF_ADDR&#160;&#160;&#160;(0x7CU)   /* Accelerometer power configuration address */</td>
+          <td class="memname">#define BMI088_ACC_PWR_CONF_ADDR&#160;&#160;&#160;(0x7CU) /* Accelerometer power configuration address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -295,7 +295,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_ACC_PWR_CTRL_ADDR&#160;&#160;&#160;(0x7DU)   /* Accelerometer power control address */</td>
+          <td class="memname">#define BMI088_ACC_PWR_CTRL_ADDR&#160;&#160;&#160;(0x7DU) /* Accelerometer power control address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -323,7 +323,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_ACC_RANGE_ADDR&#160;&#160;&#160;(0x41U)      /* Accelerometer rate range address */</td>
+          <td class="memname">#define BMI088_ACC_RANGE_ADDR&#160;&#160;&#160;(0x41U) /* Accelerometer rate range address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -379,7 +379,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_ACC_STATUS_ADDR&#160;&#160;&#160;(0x03U)     /* Accelerometer status address */</td>
+          <td class="memname">#define BMI088_ACC_STATUS_ADDR&#160;&#160;&#160;(0x03U) /* Accelerometer status address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -393,7 +393,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_GYRO_BANDWIDTH_ADDR&#160;&#160;&#160;(0x10U)  /* Gyro data bandwidth address */</td>
+          <td class="memname">#define BMI088_GYRO_BANDWIDTH_ADDR&#160;&#160;&#160;(0x10U) /* Gyro data bandwidth address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -421,7 +421,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_GYRO_CHIP_ID_ADDR&#160;&#160;&#160;(0x00U)    /* Gyro Chip ID address */</td>
+          <td class="memname">#define BMI088_GYRO_CHIP_ID_ADDR&#160;&#160;&#160;(0x00U) /* Gyro Chip ID address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -435,7 +435,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_GYRO_RANGE_ADDR&#160;&#160;&#160;(0x0FU)      /* Gyro data range address */</td>
+          <td class="memname">#define BMI088_GYRO_RANGE_ADDR&#160;&#160;&#160;(0x0FU) /* Gyro data range address */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -491,7 +491,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BMI088_GYRO_SELFTEST_ADDR&#160;&#160;&#160;(0x3CU)   /* Gyro self test address */</td>
+          <td class="memname">#define BMI088_GYRO_SELFTEST_ADDR&#160;&#160;&#160;(0x3CU) /* Gyro self test address */</td>
         </tr>
       </table>
 </div><div class="memdoc">

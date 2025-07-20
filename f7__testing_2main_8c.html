@@ -95,8 +95,8 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -255,16 +255,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source               =<a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a>,</div>
-<div class="line">    .use_pll                    =<span class="keyword">false</span>,</div>
-<div class="line">    .vco_output_rate_target_hz  =160000000,</div>
-<div class="line">    .system_clock_target_hz     =<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">    .ahb_clock_target_hz        =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">    .apb1_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
-<div class="line">    .apb2_clock_target_hz       =(<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">    .clock_source = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a>,</div>
+<div class="line">    .use_pll = <span class="keyword">false</span>,</div>
+<div class="line">    .vco_output_rate_target_hz = 160000000,</div>
+<div class="line">    .system_clock_target_hz = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">    .apb2_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSI</div><div class="ttdef"><b>Definition</b> rcc.h:76</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:72</div></div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSI</div><div class="ttdef"><b>Definition</b> rcc.h:74</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -280,7 +280,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line"> </div>
+<div class="line">    </div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

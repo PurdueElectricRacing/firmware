@@ -109,7 +109,7 @@ Macros</h2></td></tr>
 <tr class="separator:ade105fb61c89561bc7716aee94dfbae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cc14e2c99ae7f8e5a8e371d03c8532c" id="r_a4cc14e2c99ae7f8e5a8e371d03c8532c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>&#160;&#160;&#160;(0x800) /* Page size in bytes */</td></tr>
 <tr class="separator:a4cc14e2c99ae7f8e5a8e371d03c8532c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cefaae3dd02683fe531bd1fb1018a8b" id="r_a9cefaae3dd02683fe531bd1fb1018a8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cefaae3dd02683fe531bd1fb1018a8b">FLASH_BANK_PG_COUNT</a>&#160;&#160;&#160;((FLASH_BANK1_END - FLASH_BASE + 1)/<a class="el" href="#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>) /* Number of pages in a flash bank */</td></tr>
+<tr class="memitem:a9cefaae3dd02683fe531bd1fb1018a8b" id="r_a9cefaae3dd02683fe531bd1fb1018a8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cefaae3dd02683fe531bd1fb1018a8b">FLASH_BANK_PG_COUNT</a>&#160;&#160;&#160;((FLASH_BANK1_END - FLASH_BASE + 1) / <a class="el" href="#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>) /* Number of pages in a flash bank */</td></tr>
 <tr class="separator:a9cefaae3dd02683fe531bd1fb1018a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2db2451518fbabc52854c6758306aa39" id="r_a2db2451518fbabc52854c6758306aa39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2db2451518fbabc52854c6758306aa39">USER_FLASH_BASE_ADDRESS</a>&#160;&#160;&#160;(FLASH_BASE) /* First flash memory address */</td></tr>
 <tr class="separator:a2db2451518fbabc52854c6758306aa39"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,7 +147,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FLASH_BANK_PG_COUNT&#160;&#160;&#160;((FLASH_BANK1_END - FLASH_BASE + 1)/<a class="el" href="#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>) /* Number of pages in a flash bank */</td>
+          <td class="memname">#define FLASH_BANK_PG_COUNT&#160;&#160;&#160;((FLASH_BANK1_END - FLASH_BASE + 1) / <a class="el" href="#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>) /* Number of pages in a flash bank */</td>
         </tr>
       </table>
 </div><div class="memdoc">

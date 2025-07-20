@@ -95,20 +95,21 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _FAN_CONTROL_H_</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;stm32f407xx.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;main.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="fan__control_8h.html#a51d3a2096977a34d2375fb2e2eb21f3a">    8</a></span><span class="preprocessor">#define PWM_FREQUENCY_HZ (25000) </span><span class="comment">// PWM frequency to be 25kHz</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="fan__control_8h.html#a444757d41caffbc1833a9c4f95b76098">    9</a></span><span class="preprocessor">#define FAN_PWM_TIM (FAN_1_PWM_TIM) </span><span class="comment">// Fan 1 and 2 user same timer</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keywordtype">bool</span> <a class="code hl_function" href="fan__control_8h.html#a53411fffcc6fec6fb84fe2f620dd0448">fanControlInit</a>();</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> <a class="code hl_function" href="fan__control_8h.html#ae5edf1747c65c321ec71071a4576d589">setFan1Speed</a>(uint8_t fan_speed);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">void</span> <a class="code hl_function" href="fan__control_8h.html#af20d109abcc21788b274f9ee36850180">setFan2Speed</a>(uint8_t fan_speed);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif </span><span class="comment">// _FAN_CONTROL_H_</span></div>
-<div class="ttc" id="afan__control_8h_html_a53411fffcc6fec6fb84fe2f620dd0448"><div class="ttname"><a href="fan__control_8h.html#a53411fffcc6fec6fb84fe2f620dd0448">fanControlInit</a></div><div class="ttdeci">bool fanControlInit()</div><div class="ttdef"><b>Definition</b> fan_control.c:7</div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;stm32f407xx.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="fan__control_8h.html#a51d3a2096977a34d2375fb2e2eb21f3a">    9</a></span><span class="preprocessor">#define PWM_FREQUENCY_HZ (25000) </span><span class="comment">// PWM frequency to be 25kHz</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="fan__control_8h.html#a444757d41caffbc1833a9c4f95b76098">   10</a></span><span class="preprocessor">#define FAN_PWM_TIM      (FAN_1_PWM_TIM) </span><span class="comment">// Fan 1 and 2 user same timer</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">bool</span> <a class="code hl_function" href="fan__control_8h.html#a53411fffcc6fec6fb84fe2f620dd0448">fanControlInit</a>();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">void</span> <a class="code hl_function" href="fan__control_8h.html#ae5edf1747c65c321ec71071a4576d589">setFan1Speed</a>(uint8_t fan_speed);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> <a class="code hl_function" href="fan__control_8h.html#af20d109abcc21788b274f9ee36850180">setFan2Speed</a>(uint8_t fan_speed);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#endif </span><span class="comment">// _FAN_CONTROL_H_</span></div>
+<div class="ttc" id="afan__control_8h_html_a53411fffcc6fec6fb84fe2f620dd0448"><div class="ttname"><a href="fan__control_8h.html#a53411fffcc6fec6fb84fe2f620dd0448">fanControlInit</a></div><div class="ttdeci">bool fanControlInit()</div><div class="ttdef"><b>Definition</b> fan_control.c:8</div></div>
 <div class="ttc" id="afan__control_8h_html_ae5edf1747c65c321ec71071a4576d589"><div class="ttname"><a href="fan__control_8h.html#ae5edf1747c65c321ec71071a4576d589">setFan1Speed</a></div><div class="ttdeci">void setFan1Speed(uint8_t fan_speed)</div><div class="ttdef"><b>Definition</b> fan_control.c:50</div></div>
-<div class="ttc" id="afan__control_8h_html_af20d109abcc21788b274f9ee36850180"><div class="ttname"><a href="fan__control_8h.html#af20d109abcc21788b274f9ee36850180">setFan2Speed</a></div><div class="ttdeci">void setFan2Speed(uint8_t fan_speed)</div><div class="ttdef"><b>Definition</b> fan_control.c:57</div></div>
+<div class="ttc" id="afan__control_8h_html_af20d109abcc21788b274f9ee36850180"><div class="ttname"><a href="fan__control_8h.html#af20d109abcc21788b274f9ee36850180">setFan2Speed</a></div><div class="ttdeci">void setFan2Speed(uint8_t fan_speed)</div><div class="ttdef"><b>Definition</b> fan_control.c:56</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

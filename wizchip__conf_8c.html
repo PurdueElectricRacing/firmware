@@ -689,32 +689,25 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    <a class="code hl_define" href="wizchip__conf_8h.html#a564c20a8415e89b641b600bf4542e94c">_WIZCHIP_IO_MODE_</a>,</div>
-<div class="line">    <a class="code hl_define" href="wizchip__conf_8h.html#a205bfecb2fd9a65b896384de0e957e4b">_WIZCHIP_ID_</a> ,</div>
 <div class="line">    {</div>
-<div class="line">        <a class="code hl_function" href="#a0670b3769d0093cff1d4539d0067c0f3">wizchip_cris_enter</a>,</div>
-<div class="line">        <a class="code hl_function" href="#a558a7118b574e41fd9edb3de0bbbd4f0">wizchip_cris_exit</a></div>
-<div class="line">    },</div>
-<div class="line">    {</div>
-<div class="line">        <a class="code hl_function" href="#a244d1c94f43c6c4a6c0e5b17357e1f5c">wizchip_cs_select</a>,</div>
-<div class="line">        <a class="code hl_function" href="#aeed928f8cddb547702ee3937fadcb727">wizchip_cs_deselect</a></div>
-<div class="line">    },</div>
-<div class="line">    {</div>
+<div class="line">        <a class="code hl_define" href="wizchip__conf_8h.html#a564c20a8415e89b641b600bf4542e94c">_WIZCHIP_IO_MODE_</a>,</div>
+<div class="line">        <a class="code hl_define" href="wizchip__conf_8h.html#a205bfecb2fd9a65b896384de0e957e4b">_WIZCHIP_ID_</a>,</div>
+<div class="line">        {<a class="code hl_function" href="#a0670b3769d0093cff1d4539d0067c0f3">wizchip_cris_enter</a>,</div>
+<div class="line">         <a class="code hl_function" href="#a558a7118b574e41fd9edb3de0bbbd4f0">wizchip_cris_exit</a>},</div>
+<div class="line">        {<a class="code hl_function" href="#a244d1c94f43c6c4a6c0e5b17357e1f5c">wizchip_cs_select</a>,</div>
+<div class="line">         <a class="code hl_function" href="#aeed928f8cddb547702ee3937fadcb727">wizchip_cs_deselect</a>},</div>
 <div class="line">        {</div>
-<div class="line">            </div>
-<div class="line">            </div>
-<div class="line">            </div>
-<div class="line">            <a class="code hl_function" href="#abd0ab76653f4bff13ec360cc4bc26c1d">wizchip_bus_readdata</a>,</div>
-<div class="line">            <a class="code hl_function" href="#a80268b180b4b03c9c53fadd97fe6744f">wizchip_bus_writedata</a></div>
-<div class="line">        },</div>
+<div class="line">            {</div>
+<div class="line">             </div>
+<div class="line">             </div>
+<div class="line">             <a class="code hl_function" href="#abd0ab76653f4bff13ec360cc4bc26c1d">wizchip_bus_readdata</a>,</div>
+<div class="line">             <a class="code hl_function" href="#a80268b180b4b03c9c53fadd97fe6744f">wizchip_bus_writedata</a>},</div>
 <div class="line"> </div>
-<div class="line">    }</div>
-<div class="line">}</div>
+<div class="line">        }}</div>
 <div class="ttc" id="awizchip__conf_8c_html_a0670b3769d0093cff1d4539d0067c0f3"><div class="ttname"><a href="#a0670b3769d0093cff1d4539d0067c0f3">wizchip_cris_enter</a></div><div class="ttdeci">void wizchip_cris_enter(void)</div><div class="ttdoc">Default function to enable interrupt.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:67</div></div>
 <div class="ttc" id="awizchip__conf_8c_html_a244d1c94f43c6c4a6c0e5b17357e1f5c"><div class="ttname"><a href="#a244d1c94f43c6c4a6c0e5b17357e1f5c">wizchip_cs_select</a></div><div class="ttdeci">void wizchip_cs_select(void)</div><div class="ttdoc">Default function to select chip.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:83</div></div>
 <div class="ttc" id="awizchip__conf_8c_html_a558a7118b574e41fd9edb3de0bbbd4f0"><div class="ttname"><a href="#a558a7118b574e41fd9edb3de0bbbd4f0">wizchip_cris_exit</a></div><div class="ttdeci">void wizchip_cris_exit(void)</div><div class="ttdoc">Default function to disable interrupt.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:75</div></div>
-<div class="ttc" id="awizchip__conf_8c_html_a80268b180b4b03c9c53fadd97fe6744f"><div class="ttname"><a href="#a80268b180b4b03c9c53fadd97fe6744f">wizchip_bus_writedata</a></div><div class="ttdeci">void wizchip_bus_writedata(uint32_t AddrSel, iodata_t wb)</div><div class="ttdoc">Default function to write in direct or indirect interface.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:109</div></div>
+<div class="ttc" id="awizchip__conf_8c_html_a80268b180b4b03c9c53fadd97fe6744f"><div class="ttname"><a href="#a80268b180b4b03c9c53fadd97fe6744f">wizchip_bus_writedata</a></div><div class="ttdeci">void wizchip_bus_writedata(uint32_t AddrSel, iodata_t wb)</div><div class="ttdoc">Default function to write in direct or indirect interface.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:111</div></div>
 <div class="ttc" id="awizchip__conf_8c_html_abd0ab76653f4bff13ec360cc4bc26c1d"><div class="ttname"><a href="#abd0ab76653f4bff13ec360cc4bc26c1d">wizchip_bus_readdata</a></div><div class="ttdeci">iodata_t wizchip_bus_readdata(uint32_t AddrSel)</div><div class="ttdoc">Default function to read in direct or indirect interface.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:100</div></div>
 <div class="ttc" id="awizchip__conf_8c_html_aeed928f8cddb547702ee3937fadcb727"><div class="ttname"><a href="#aeed928f8cddb547702ee3937fadcb727">wizchip_cs_deselect</a></div><div class="ttdeci">void wizchip_cs_deselect(void)</div><div class="ttdoc">Default function to deselect chip.</div><div class="ttdef"><b>Definition</b> wizchip_conf.c:91</div></div>
 <div class="ttc" id="awizchip__conf_8h_html_a205bfecb2fd9a65b896384de0e957e4b"><div class="ttname"><a href="wizchip__conf_8h.html#a205bfecb2fd9a65b896384de0e957e4b">_WIZCHIP_ID_</a></div><div class="ttdeci">#define _WIZCHIP_ID_</div><div class="ttdef"><b>Definition</b> wizchip_conf.h:136</div></div>

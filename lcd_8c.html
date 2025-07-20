@@ -96,17 +96,17 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="nextion_8h_source.html">nextion.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pedals_8h_source.html">pedals.h</a>&quot;</code><br />
-<code>#include &quot;common/faults/faults.h&quot;</code><br />
-<code>#include &quot;common_defs.h&quot;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="menu__system_8h_source.html">menu_system.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &quot;common/faults/faults.h&quot;</code><br />
+<code>#include &quot;common_defs.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="menu__system_8h_source.html">menu_system.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="nextion_8h_source.html">nextion.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pedals_8h_source.html">pedals.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -1379,7 +1379,30 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a4bf45c3cc27a51feefd1c7f9db0ffd70">COOLING_DT_FAN_INDEX</a>] = {</div>
+<div class="line">        .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09">ELEMENT_VAL</a>,</div>
+<div class="line">        .object_name = <a class="code hl_define" href="lcd_8h.html#aaa6eb343a443d22ce11f247753fd599d">DT_FAN_VAL</a>,</div>
+<div class="line">        .current_value = 0,</div>
+<div class="line">        .min_value = 0,</div>
+<div class="line">        .max_value = 100,</div>
+<div class="line">        .increment = 25,</div>
+<div class="line">        .on_change = <a class="code hl_function" href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a46471d8dfa39022fae5ab12ffa544cde">COOLING_DT_PUMP_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a45d316cfd449318ab4905ec0ec2f54b6">DT_PUMP_OP</a>, .current_value = 0, .on_change = <a class="code hl_function" href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a3d32d3b978ac17c536cecb238f66de5f">COOLING_B_FAN_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09">ELEMENT_VAL</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a591cd83f2dfbcdac841b06bbf665df11">B_FAN_VAL</a>, .current_value = 0, .min_value = 0, .max_value = 100, .increment = 25, .on_change = <a class="code hl_function" href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a82fee7331f21a3088c65ffda251873f8">COOLING_B_PUMP_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#aa74c1f585c2bfd84be5bc554b33de608">B_PUMP_OP</a>, .current_value = 0, .on_change = <a class="code hl_function" href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a>}}</div>
+<div class="ttc" id="alcd_8c_html_a75562cebcb171ee3057a36ace3a6c9b7"><div class="ttname"><a href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a></div><div class="ttdeci">void sendCoolingParameters()</div><div class="ttdoc">Sends Cooling parameters to PDU using current values from cooling_elements array.</div><div class="ttdef"><b>Definition</b> lcd.c:546</div></div>
+<div class="ttc" id="alcd_8c_html_af2beaca8ad1d9c821cc3c3861d5a0dd6a3d32d3b978ac17c536cecb238f66de5f"><div class="ttname"><a href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a3d32d3b978ac17c536cecb238f66de5f">COOLING_B_FAN_INDEX</a></div><div class="ttdeci">@ COOLING_B_FAN_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:123</div></div>
+<div class="ttc" id="alcd_8c_html_af2beaca8ad1d9c821cc3c3861d5a0dd6a46471d8dfa39022fae5ab12ffa544cde"><div class="ttname"><a href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a46471d8dfa39022fae5ab12ffa544cde">COOLING_DT_PUMP_INDEX</a></div><div class="ttdeci">@ COOLING_DT_PUMP_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:122</div></div>
+<div class="ttc" id="alcd_8c_html_af2beaca8ad1d9c821cc3c3861d5a0dd6a4bf45c3cc27a51feefd1c7f9db0ffd70"><div class="ttname"><a href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a4bf45c3cc27a51feefd1c7f9db0ffd70">COOLING_DT_FAN_INDEX</a></div><div class="ttdeci">@ COOLING_DT_FAN_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:121</div></div>
+<div class="ttc" id="alcd_8c_html_af2beaca8ad1d9c821cc3c3861d5a0dd6a82fee7331f21a3088c65ffda251873f8"><div class="ttname"><a href="#af2beaca8ad1d9c821cc3c3861d5a0dd6a82fee7331f21a3088c65ffda251873f8">COOLING_B_PUMP_INDEX</a></div><div class="ttdeci">@ COOLING_B_PUMP_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:124</div></div>
+<div class="ttc" id="alcd_8h_html_a45d316cfd449318ab4905ec0ec2f54b6"><div class="ttname"><a href="lcd_8h.html#a45d316cfd449318ab4905ec0ec2f54b6">DT_PUMP_OP</a></div><div class="ttdeci">#define DT_PUMP_OP</div><div class="ttdef"><b>Definition</b> lcd.h:95</div></div>
+<div class="ttc" id="alcd_8h_html_a591cd83f2dfbcdac841b06bbf665df11"><div class="ttname"><a href="lcd_8h.html#a591cd83f2dfbcdac841b06bbf665df11">B_FAN_VAL</a></div><div class="ttdeci">#define B_FAN_VAL</div><div class="ttdef"><b>Definition</b> lcd.h:96</div></div>
+<div class="ttc" id="alcd_8h_html_aa74c1f585c2bfd84be5bc554b33de608"><div class="ttname"><a href="lcd_8h.html#aa74c1f585c2bfd84be5bc554b33de608">B_PUMP_OP</a></div><div class="ttdeci">#define B_PUMP_OP</div><div class="ttdef"><b>Definition</b> lcd.h:98</div></div>
+<div class="ttc" id="alcd_8h_html_aaa6eb343a443d22ce11f247753fd599d"><div class="ttname"><a href="lcd_8h.html#aaa6eb343a443d22ce11f247753fd599d">DT_FAN_VAL</a></div><div class="ttdeci">#define DT_FAN_VAL</div><div class="ttdef"><b>Definition</b> lcd.h:93</div></div>
+<div class="ttc" id="amenu__system_8h_html_a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292"><div class="ttname"><a href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a></div><div class="ttdeci">@ ELEMENT_OPTION</div><div class="ttdef"><b>Definition</b> menu_system.h:23</div></div>
+<div class="ttc" id="amenu__system_8h_html_a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09"><div class="ttname"><a href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09">ELEMENT_VAL</a></div><div class="ttdeci">@ ELEMENT_VAL</div><div class="ttdef"><b>Definition</b> menu_system.h:19</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a7eee5a3317ceba6b123f3e670cd247dc" name="a7eee5a3317ceba6b123f3e670cd247dc"></a>
@@ -1394,12 +1417,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
-<div class="line">    .is_element_selected = <span class="keyword">false</span></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_acad0ae5e2f900dfdc3b06aa2f23d77da"><div class="ttname"><a href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a></div><div class="ttdeci">menu_element_t cooling_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:128</div></div>
+<div class="line">    .elements = <a class="code hl_variable" href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
+<div class="line">    .is_element_selected = <span class="keyword">false</span>}</div>
+<div class="ttc" id="alcd_8c_html_acad0ae5e2f900dfdc3b06aa2f23d77da"><div class="ttname"><a href="#acad0ae5e2f900dfdc3b06aa2f23d77da">cooling_elements</a></div><div class="ttdeci">menu_element_t cooling_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:127</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1444,26 +1466,13 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    [0] = {</div>
-<div class="line">        .type          = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>,</div>
-<div class="line">        .object_name   = <a class="code hl_define" href="lcd_8h.html#a50bd30313d4d5b6daad7610e3e851f9d">DRIVER1_LIST</a>,</div>
-<div class="line">        .current_value = 1  </div>
+<div class="line">        .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>,</div>
+<div class="line">        .object_name = <a class="code hl_define" href="lcd_8h.html#a50bd30313d4d5b6daad7610e3e851f9d">DRIVER1_LIST</a>,</div>
+<div class="line">        .current_value = 1 </div>
 <div class="line">    },</div>
-<div class="line">    [1] = {</div>
-<div class="line">        .type          = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>,</div>
-<div class="line">        .object_name   = <a class="code hl_define" href="lcd_8h.html#abab49fb542b3dba0aa710f7a4bf19ba6">DRIVER2_LIST</a>,</div>
-<div class="line">        .current_value = 0</div>
-<div class="line">    },</div>
-<div class="line">    [2] = {</div>
-<div class="line">        .type          = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>,</div>
-<div class="line">        .object_name   = <a class="code hl_define" href="lcd_8h.html#a7f945562f82265d517e8fed539dd121d">DRIVER3_LIST</a>,</div>
-<div class="line">        .current_value = 0</div>
-<div class="line">    },</div>
-<div class="line">    [3] = {</div>
-<div class="line">        .type          = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>,</div>
-<div class="line">        .object_name   = <a class="code hl_define" href="lcd_8h.html#a2e1644d7165bed2f7eb67982d80b7aa8">DRIVER4_LIST</a>,</div>
-<div class="line">        .current_value = 0</div>
-<div class="line">    }</div>
-<div class="line">}</div>
+<div class="line">    [1] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#abab49fb542b3dba0aa710f7a4bf19ba6">DRIVER2_LIST</a>, .current_value = 0},</div>
+<div class="line">    [2] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a7f945562f82265d517e8fed539dd121d">DRIVER3_LIST</a>, .current_value = 0},</div>
+<div class="line">    [3] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dac5ebb393dc07a4bbfe1ccc0c348848ad">ELEMENT_LIST</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a2e1644d7165bed2f7eb67982d80b7aa8">DRIVER4_LIST</a>, .current_value = 0}}</div>
 <div class="ttc" id="alcd_8h_html_a2e1644d7165bed2f7eb67982d80b7aa8"><div class="ttname"><a href="lcd_8h.html#a2e1644d7165bed2f7eb67982d80b7aa8">DRIVER4_LIST</a></div><div class="ttdeci">#define DRIVER4_LIST</div><div class="ttdef"><b>Definition</b> lcd.h:31</div></div>
 <div class="ttc" id="alcd_8h_html_a50bd30313d4d5b6daad7610e3e851f9d"><div class="ttname"><a href="lcd_8h.html#a50bd30313d4d5b6daad7610e3e851f9d">DRIVER1_LIST</a></div><div class="ttdeci">#define DRIVER1_LIST</div><div class="ttdef"><b>Definition</b> lcd.h:28</div></div>
 <div class="ttc" id="alcd_8h_html_a7f945562f82265d517e8fed539dd121d"><div class="ttname"><a href="lcd_8h.html#a7f945562f82265d517e8fed539dd121d">DRIVER3_LIST</a></div><div class="ttdeci">#define DRIVER3_LIST</div><div class="ttdef"><b>Definition</b> lcd.h:30</div></div>
@@ -1484,12 +1493,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
-<div class="line">    .is_element_selected = <span class="keyword">false</span></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_ad650951ab6b1d83851cee8ed04e9e3af"><div class="ttname"><a href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a></div><div class="ttdeci">menu_element_t driver_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:293</div></div>
+<div class="line">    .elements = <a class="code hl_variable" href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
+<div class="line">    .is_element_selected = <span class="keyword">false</span>}</div>
+<div class="ttc" id="alcd_8c_html_ad650951ab6b1d83851cee8ed04e9e3af"><div class="ttname"><a href="#ad650951ab6b1d83851cee8ed04e9e3af">driver_elements</a></div><div class="ttdeci">menu_element_t driver_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:240</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1540,9 +1548,12 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {           </div>
-<div class="line">    0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF</div>
-<div class="line">}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= { </div>
+<div class="line">    0xFFFF,</div>
+<div class="line">    0xFFFF,</div>
+<div class="line">    0xFFFF,</div>
+<div class="line">    0xFFFF,</div>
+<div class="line">    0xFFFF}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1586,12 +1597,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
-<div class="line">    .is_element_selected = <span class="keyword">false</span></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_a598e836117e5c44672d55d79bcfecbb4"><div class="ttname"><a href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a></div><div class="ttdeci">menu_element_t faults_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:253</div></div>
+<div class="line">    .elements = <a class="code hl_variable" href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
+<div class="line">    .is_element_selected = <span class="keyword">false</span>}</div>
+<div class="ttc" id="alcd_8c_html_a598e836117e5c44672d55d79bcfecbb4"><div class="ttname"><a href="#a598e836117e5c44672d55d79bcfecbb4">faults_elements</a></div><div class="ttdeci">menu_element_t faults_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:202</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1630,16 +1640,13 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    [<a class="code hl_enumvalue" href="#ad6daf49ce14bf0f2e8cd1413ace26a27a68458e112817e4f5eeb28bc0a15ca5d2">LOGGING_OP_INDEX</a>] = {</div>
-<div class="line">        .type          = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a>,</div>
-<div class="line">        .object_name   = <a class="code hl_define" href="lcd_8h.html#a7e300656865f2adc3303280b7cb33b1c">LOG_OP</a>,</div>
+<div class="line">        .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a>,</div>
+<div class="line">        .object_name = <a class="code hl_define" href="lcd_8h.html#a7e300656865f2adc3303280b7cb33b1c">LOG_OP</a>,</div>
 <div class="line">        .current_value = 0,</div>
-<div class="line">        .on_change     = <a class="code hl_function" href="#aef98dd463d4a38ba6d4753854045a61f">sendLoggingParameters</a></div>
-<div class="line">    }</div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_ad6daf49ce14bf0f2e8cd1413ace26a27a68458e112817e4f5eeb28bc0a15ca5d2"><div class="ttname"><a href="#ad6daf49ce14bf0f2e8cd1413ace26a27a68458e112817e4f5eeb28bc0a15ca5d2">LOGGING_OP_INDEX</a></div><div class="ttdeci">@ LOGGING_OP_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:363</div></div>
-<div class="ttc" id="alcd_8c_html_aef98dd463d4a38ba6d4753854045a61f"><div class="ttname"><a href="#aef98dd463d4a38ba6d4753854045a61f">sendLoggingParameters</a></div><div class="ttdeci">void sendLoggingParameters()</div><div class="ttdoc">Sends Logging parameters to DAQ using current values from logging_elements array.</div><div class="ttdef"><b>Definition</b> lcd.c:633</div></div>
+<div class="line">        .on_change = <a class="code hl_function" href="#aef98dd463d4a38ba6d4753854045a61f">sendLoggingParameters</a>}}</div>
+<div class="ttc" id="alcd_8c_html_ad6daf49ce14bf0f2e8cd1413ace26a27a68458e112817e4f5eeb28bc0a15ca5d2"><div class="ttname"><a href="#ad6daf49ce14bf0f2e8cd1413ace26a27a68458e112817e4f5eeb28bc0a15ca5d2">LOGGING_OP_INDEX</a></div><div class="ttdeci">@ LOGGING_OP_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:291</div></div>
+<div class="ttc" id="alcd_8c_html_aef98dd463d4a38ba6d4753854045a61f"><div class="ttname"><a href="#aef98dd463d4a38ba6d4753854045a61f">sendLoggingParameters</a></div><div class="ttdeci">void sendLoggingParameters()</div><div class="ttdoc">Sends Logging parameters to DAQ using current values from logging_elements array.</div><div class="ttdef"><b>Definition</b> lcd.c:557</div></div>
 <div class="ttc" id="alcd_8h_html_a7e300656865f2adc3303280b7cb33b1c"><div class="ttname"><a href="lcd_8h.html#a7e300656865f2adc3303280b7cb33b1c">LOG_OP</a></div><div class="ttdeci">#define LOG_OP</div><div class="ttdef"><b>Definition</b> lcd.h:116</div></div>
-<div class="ttc" id="amenu__system_8h_html_a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292"><div class="ttname"><a href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a></div><div class="ttdeci">@ ELEMENT_OPTION</div><div class="ttdef"><b>Definition</b> menu_system.h:23</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1655,12 +1662,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
-<div class="line">    .is_element_selected = <span class="keyword">false</span></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_a50869124b01d8852f1050ecfd7d505f4"><div class="ttname"><a href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a></div><div class="ttdeci">menu_element_t logging_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:366</div></div>
+<div class="line">    .elements = <a class="code hl_variable" href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
+<div class="line">    .is_element_selected = <span class="keyword">false</span>}</div>
+<div class="ttc" id="alcd_8c_html_a50869124b01d8852f1050ecfd7d505f4"><div class="ttname"><a href="#a50869124b01d8852f1050ecfd7d505f4">logging_elements</a></div><div class="ttdeci">menu_element_t logging_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:294</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1675,52 +1681,53 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= { </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88aadedc69ad2923a9f24a5cf427e6fb34f">PAGE_RACE</a>]        = {<a class="code hl_function" href="#a9e14a6eade0865e875824d1536b77e54">racePageUpdate</a>, <a class="code hl_function" href="#ad628765d718edd9cff2676b9cec4613f">raceUpCallback</a>, <a class="code hl_function" href="#a7f20e105ee6844d0ec1c0883b6ad9869">raceDownCallback</a>, <a class="code hl_function" href="#ad31722facf34a965a2f192995a71efec">raceSelect</a>, <a class="code hl_function" href="#a4769e2d3a2898d9d337aeab190d4e02b">raceTelemetryUpdate</a>},         </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88af806d86e4cc93e43e0769d6cd8c66268">PAGE_COOLING</a>]     = {<a class="code hl_function" href="#a78af38f7bc254413ca91fc1b2d50c7ce">coolingPageUpdate</a>, <a class="code hl_function" href="#a2c9d07d3703ba467f5ece8b8590d54b9">coolingMoveUp</a>, <a class="code hl_function" href="#a6efb0357076b37f57249be1baac74a10">coolingMoveDown</a>, <a class="code hl_function" href="#adeb005fd767ab2619a77e8bd43342809">coolingSelect</a>, NULL},</div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88aaefb4d63f32067fd48f029490146f5b3">PAGE_TVSETTINGS</a>]  = {<a class="code hl_function" href="#aae4c931f9209007019574f19d498859a">tvPageUpdate</a>, <a class="code hl_function" href="#a68985dfe48b7bdb36cb08008ec9ef7ea">tvMoveUp</a>, <a class="code hl_function" href="#ac9a43f6004dfe81f61f17248035f4772">tvMoveDown</a>, <a class="code hl_function" href="#af0cd9603adc431e8d82e4b0f306131a7">tvSelect</a>, NULL},</div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94">PAGE_FAULTS</a>]      = {<a class="code hl_function" href="#ad14d3527e04565bc0aff9704e6487714">faultsPageUpdate</a>, <a class="code hl_function" href="#a252eb5fbe664f5b7033d3916993c1558">faultsMoveUp</a>, <a class="code hl_function" href="#adcee8ee766d01865f91ad954a3299033">faultsMoveDown</a>, <a class="code hl_function" href="#a8aa413927173abf32287f959e14b5f05">faultsSelect</a>, <a class="code hl_function" href="#ad0ac02308e376cbf4f0a5f43fe292310">faultTelemetryUpdate</a>},</div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ab5a45289ebcbec613e96f667db27e2f8">PAGE_SDCINFO</a>]     = {NULL, NULL, NULL, NULL, <a class="code hl_function" href="#ad0bf4fe40d01774afeb7efadaec0b57d">sdcTelemetryUpdate</a>},                          </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a6496019570489c1dcbd7f678c4091e4f">PAGE_DRIVER</a>]      = {<a class="code hl_function" href="#a1675c3cc7bf4bf7804928c2f21d1472f">driverPageUpdate</a>, <a class="code hl_function" href="#a83125ef5b4e08a2689a1416cb126b3d0">driverMoveUp</a>, <a class="code hl_function" href="#a0e30913c77292c2c01022cf9db0081e9">driverMoveDown</a>, <a class="code hl_function" href="#a5ab5131d12105af77f4dac522437790e">driverSelect</a>, NULL},</div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6">PAGE_PROFILES</a>]    = {<a class="code hl_function" href="#a3c8991d775bd516f0cfd04535fb56128">pedalProfilesPageUpdate</a>, <a class="code hl_function" href="#aaabf89ecdccde1ed5aab9720f3d053bb">pedalProfilesMoveUp</a>, <a class="code hl_function" href="#a1084d631b39d082cd101924a8e6462e4">pedalProfilesMoveDown</a>, <a class="code hl_function" href="#a4f1d35ca05d2945f87e4027f9ae3cd2a">pedalProfilesSelect</a>, NULL},</div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad">PAGE_LOGGING</a>]     = {<a class="code hl_function" href="#aac825257435288687ed7b01e6ae3b73b">loggingPageUpdate</a>, NULL, NULL, <a class="code hl_function" href="#a1ddaac6cdbb0a2e17abf0a3be400b322">loggingSelect</a>, NULL},</div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16">PAGE_CALIBRATION</a>] = {NULL, NULL, NULL, NULL, <a class="code hl_function" href="#a5c5ebef03a2eca2e53c0b9d925f7549d">calibrationTelemetryUpdate</a>},                  </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a>]   = {NULL, NULL, NULL, NULL, NULL},                                        </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ae1dade627e48516d694f0278eeca2b04">PAGE_WARNING</a>]     = {NULL, NULL, NULL, <a class="code hl_function" href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a>, NULL},                             </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ac272aeb63a4bd5bea683b5860a877d21">PAGE_ERROR</a>]       = {NULL, NULL, NULL, <a class="code hl_function" href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a>, NULL},                             </div>
-<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f">PAGE_FATAL</a>]       = {NULL, NULL, NULL, <a class="code hl_function" href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a>, NULL}                              </div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88aadedc69ad2923a9f24a5cf427e6fb34f">PAGE_RACE</a>] = {<a class="code hl_function" href="#a9e14a6eade0865e875824d1536b77e54">racePageUpdate</a>, <a class="code hl_function" href="#ad628765d718edd9cff2676b9cec4613f">raceUpCallback</a>, <a class="code hl_function" href="#a7f20e105ee6844d0ec1c0883b6ad9869">raceDownCallback</a>, <a class="code hl_function" href="#ad31722facf34a965a2f192995a71efec">raceSelect</a>, <a class="code hl_function" href="#a4769e2d3a2898d9d337aeab190d4e02b">raceTelemetryUpdate</a>}, </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88af806d86e4cc93e43e0769d6cd8c66268">PAGE_COOLING</a>] = {<a class="code hl_function" href="#a78af38f7bc254413ca91fc1b2d50c7ce">coolingPageUpdate</a>, <a class="code hl_function" href="#a2c9d07d3703ba467f5ece8b8590d54b9">coolingMoveUp</a>, <a class="code hl_function" href="#a6efb0357076b37f57249be1baac74a10">coolingMoveDown</a>, <a class="code hl_function" href="#adeb005fd767ab2619a77e8bd43342809">coolingSelect</a>, NULL},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88aaefb4d63f32067fd48f029490146f5b3">PAGE_TVSETTINGS</a>] = {<a class="code hl_function" href="#aae4c931f9209007019574f19d498859a">tvPageUpdate</a>, <a class="code hl_function" href="#a68985dfe48b7bdb36cb08008ec9ef7ea">tvMoveUp</a>, <a class="code hl_function" href="#ac9a43f6004dfe81f61f17248035f4772">tvMoveDown</a>, <a class="code hl_function" href="#af0cd9603adc431e8d82e4b0f306131a7">tvSelect</a>, NULL},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94">PAGE_FAULTS</a>] = {<a class="code hl_function" href="#ad14d3527e04565bc0aff9704e6487714">faultsPageUpdate</a>, <a class="code hl_function" href="#a252eb5fbe664f5b7033d3916993c1558">faultsMoveUp</a>, <a class="code hl_function" href="#adcee8ee766d01865f91ad954a3299033">faultsMoveDown</a>, <a class="code hl_function" href="#a8aa413927173abf32287f959e14b5f05">faultsSelect</a>, <a class="code hl_function" href="#ad0ac02308e376cbf4f0a5f43fe292310">faultTelemetryUpdate</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ab5a45289ebcbec613e96f667db27e2f8">PAGE_SDCINFO</a>] = {NULL, NULL, NULL, NULL, <a class="code hl_function" href="#ad0bf4fe40d01774afeb7efadaec0b57d">sdcTelemetryUpdate</a>}, </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a6496019570489c1dcbd7f678c4091e4f">PAGE_DRIVER</a>] = {<a class="code hl_function" href="#a1675c3cc7bf4bf7804928c2f21d1472f">driverPageUpdate</a>, <a class="code hl_function" href="#a83125ef5b4e08a2689a1416cb126b3d0">driverMoveUp</a>, <a class="code hl_function" href="#a0e30913c77292c2c01022cf9db0081e9">driverMoveDown</a>, <a class="code hl_function" href="#a5ab5131d12105af77f4dac522437790e">driverSelect</a>, NULL},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6">PAGE_PROFILES</a>] = {<a class="code hl_function" href="#a3c8991d775bd516f0cfd04535fb56128">pedalProfilesPageUpdate</a>, <a class="code hl_function" href="#aaabf89ecdccde1ed5aab9720f3d053bb">pedalProfilesMoveUp</a>, <a class="code hl_function" href="#a1084d631b39d082cd101924a8e6462e4">pedalProfilesMoveDown</a>, <a class="code hl_function" href="#a4f1d35ca05d2945f87e4027f9ae3cd2a">pedalProfilesSelect</a>, NULL},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad">PAGE_LOGGING</a>] = {<a class="code hl_function" href="#aac825257435288687ed7b01e6ae3b73b">loggingPageUpdate</a>, NULL, NULL, <a class="code hl_function" href="#a1ddaac6cdbb0a2e17abf0a3be400b322">loggingSelect</a>, NULL},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16">PAGE_CALIBRATION</a>] = {NULL, NULL, NULL, NULL, <a class="code hl_function" href="#a5c5ebef03a2eca2e53c0b9d925f7549d">calibrationTelemetryUpdate</a>}, </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a>] = {NULL, NULL, NULL, NULL, NULL}, </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ae1dade627e48516d694f0278eeca2b04">PAGE_WARNING</a>] = {NULL, NULL, NULL, <a class="code hl_function" href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a>, NULL}, </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88ac272aeb63a4bd5bea683b5860a877d21">PAGE_ERROR</a>] = {NULL, NULL, NULL, <a class="code hl_function" href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a>, NULL}, </div>
+<div class="line">    [<a class="code hl_enumvalue" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f">PAGE_FATAL</a>] = {NULL, NULL, NULL, <a class="code hl_function" href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a>, NULL} </div>
 <div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_a0e30913c77292c2c01022cf9db0081e9"><div class="ttname"><a href="#a0e30913c77292c2c01022cf9db0081e9">driverMoveDown</a></div><div class="ttdeci">void driverMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:803</div></div>
-<div class="ttc" id="alcd_8c_html_a1084d631b39d082cd101924a8e6462e4"><div class="ttname"><a href="#a1084d631b39d082cd101924a8e6462e4">pedalProfilesMoveDown</a></div><div class="ttdeci">void pedalProfilesMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:852</div></div>
-<div class="ttc" id="alcd_8c_html_a1675c3cc7bf4bf7804928c2f21d1472f"><div class="ttname"><a href="#a1675c3cc7bf4bf7804928c2f21d1472f">driverPageUpdate</a></div><div class="ttdeci">void driverPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:795</div></div>
-<div class="ttc" id="alcd_8c_html_a1ddaac6cdbb0a2e17abf0a3be400b322"><div class="ttname"><a href="#a1ddaac6cdbb0a2e17abf0a3be400b322">loggingSelect</a></div><div class="ttdeci">void loggingSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:1251</div></div>
-<div class="ttc" id="alcd_8c_html_a252eb5fbe664f5b7033d3916993c1558"><div class="ttname"><a href="#a252eb5fbe664f5b7033d3916993c1558">faultsMoveUp</a></div><div class="ttdeci">void faultsMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:1037</div></div>
-<div class="ttc" id="alcd_8c_html_a2c9d07d3703ba467f5ece8b8590d54b9"><div class="ttname"><a href="#a2c9d07d3703ba467f5ece8b8590d54b9">coolingMoveUp</a></div><div class="ttdeci">void coolingMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:907</div></div>
-<div class="ttc" id="alcd_8c_html_a3c8991d775bd516f0cfd04535fb56128"><div class="ttname"><a href="#a3c8991d775bd516f0cfd04535fb56128">pedalProfilesPageUpdate</a></div><div class="ttdeci">void pedalProfilesPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:811</div></div>
-<div class="ttc" id="alcd_8c_html_a4769e2d3a2898d9d337aeab190d4e02b"><div class="ttname"><a href="#a4769e2d3a2898d9d337aeab190d4e02b">raceTelemetryUpdate</a></div><div class="ttdeci">void raceTelemetryUpdate()</div><div class="ttdoc">Updates telemetry data on the race dashboard LCD display.</div><div class="ttdef"><b>Definition</b> lcd.c:1103</div></div>
-<div class="ttc" id="alcd_8c_html_a4977670d65c7b5eb50dfd9402463d015"><div class="ttname"><a href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a></div><div class="ttdeci">void errorPageSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:787</div></div>
-<div class="ttc" id="alcd_8c_html_a4f1d35ca05d2945f87e4027f9ae3cd2a"><div class="ttname"><a href="#a4f1d35ca05d2945f87e4027f9ae3cd2a">pedalProfilesSelect</a></div><div class="ttdeci">void pedalProfilesSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:862</div></div>
-<div class="ttc" id="alcd_8c_html_a5ab5131d12105af77f4dac522437790e"><div class="ttname"><a href="#a5ab5131d12105af77f4dac522437790e">driverSelect</a></div><div class="ttdeci">void driverSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:807</div></div>
-<div class="ttc" id="alcd_8c_html_a5c5ebef03a2eca2e53c0b9d925f7549d"><div class="ttname"><a href="#a5c5ebef03a2eca2e53c0b9d925f7549d">calibrationTelemetryUpdate</a></div><div class="ttdeci">void calibrationTelemetryUpdate()</div><div class="ttdoc">Updates the LCD display with current pedal telemetry data when on CALIBRATION page.</div><div class="ttdef"><b>Definition</b> lcd.c:541</div></div>
-<div class="ttc" id="alcd_8c_html_a68985dfe48b7bdb36cb08008ec9ef7ea"><div class="ttname"><a href="#a68985dfe48b7bdb36cb08008ec9ef7ea">tvMoveUp</a></div><div class="ttdeci">void tvMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:977</div></div>
-<div class="ttc" id="alcd_8c_html_a6efb0357076b37f57249be1baac74a10"><div class="ttname"><a href="#a6efb0357076b37f57249be1baac74a10">coolingMoveDown</a></div><div class="ttdeci">void coolingMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:917</div></div>
-<div class="ttc" id="alcd_8c_html_a78af38f7bc254413ca91fc1b2d50c7ce"><div class="ttname"><a href="#a78af38f7bc254413ca91fc1b2d50c7ce">coolingPageUpdate</a></div><div class="ttdeci">void coolingPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:895</div></div>
-<div class="ttc" id="alcd_8c_html_a7f20e105ee6844d0ec1c0883b6ad9869"><div class="ttname"><a href="#a7f20e105ee6844d0ec1c0883b6ad9869">raceDownCallback</a></div><div class="ttdeci">void raceDownCallback()</div><div class="ttdef"><b>Definition</b> lcd.c:1223</div></div>
-<div class="ttc" id="alcd_8c_html_a83125ef5b4e08a2689a1416cb126b3d0"><div class="ttname"><a href="#a83125ef5b4e08a2689a1416cb126b3d0">driverMoveUp</a></div><div class="ttdeci">void driverMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:799</div></div>
-<div class="ttc" id="alcd_8c_html_a8aa413927173abf32287f959e14b5f05"><div class="ttname"><a href="#a8aa413927173abf32287f959e14b5f05">faultsSelect</a></div><div class="ttdeci">void faultsSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:1045</div></div>
-<div class="ttc" id="alcd_8c_html_a9e14a6eade0865e875824d1536b77e54"><div class="ttname"><a href="#a9e14a6eade0865e875824d1536b77e54">racePageUpdate</a></div><div class="ttdeci">void racePageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:1094</div></div>
-<div class="ttc" id="alcd_8c_html_aaabf89ecdccde1ed5aab9720f3d053bb"><div class="ttname"><a href="#aaabf89ecdccde1ed5aab9720f3d053bb">pedalProfilesMoveUp</a></div><div class="ttdeci">void pedalProfilesMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:842</div></div>
-<div class="ttc" id="alcd_8c_html_aac825257435288687ed7b01e6ae3b73b"><div class="ttname"><a href="#aac825257435288687ed7b01e6ae3b73b">loggingPageUpdate</a></div><div class="ttdeci">void loggingPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:1239</div></div>
-<div class="ttc" id="alcd_8c_html_aae4c931f9209007019574f19d498859a"><div class="ttname"><a href="#aae4c931f9209007019574f19d498859a">tvPageUpdate</a></div><div class="ttdeci">void tvPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:972</div></div>
-<div class="ttc" id="alcd_8c_html_ac9a43f6004dfe81f61f17248035f4772"><div class="ttname"><a href="#ac9a43f6004dfe81f61f17248035f4772">tvMoveDown</a></div><div class="ttdeci">void tvMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:982</div></div>
-<div class="ttc" id="alcd_8c_html_ad0ac02308e376cbf4f0a5f43fe292310"><div class="ttname"><a href="#ad0ac02308e376cbf4f0a5f43fe292310">faultTelemetryUpdate</a></div><div class="ttdeci">void faultTelemetryUpdate()</div><div class="ttdoc">Updates the color of fault text indicators on the faults page.</div><div class="ttdef"><b>Definition</b> lcd.c:741</div></div>
-<div class="ttc" id="alcd_8c_html_ad0bf4fe40d01774afeb7efadaec0b57d"><div class="ttname"><a href="#ad0bf4fe40d01774afeb7efadaec0b57d">sdcTelemetryUpdate</a></div><div class="ttdeci">void sdcTelemetryUpdate()</div><div class="ttdoc">Updates the Shutdown Circuit (SDC) status display on the dashboard LCD.</div><div class="ttdef"><b>Definition</b> lcd.c:758</div></div>
-<div class="ttc" id="alcd_8c_html_ad14d3527e04565bc0aff9704e6487714"><div class="ttname"><a href="#ad14d3527e04565bc0aff9704e6487714">faultsPageUpdate</a></div><div class="ttdeci">void faultsPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:1031</div></div>
-<div class="ttc" id="alcd_8c_html_ad31722facf34a965a2f192995a71efec"><div class="ttname"><a href="#ad31722facf34a965a2f192995a71efec">raceSelect</a></div><div class="ttdeci">void raceSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:1233</div></div>
-<div class="ttc" id="alcd_8c_html_ad628765d718edd9cff2676b9cec4613f"><div class="ttname"><a href="#ad628765d718edd9cff2676b9cec4613f">raceUpCallback</a></div><div class="ttdeci">void raceUpCallback()</div><div class="ttdef"><b>Definition</b> lcd.c:1213</div></div>
-<div class="ttc" id="alcd_8c_html_adcee8ee766d01865f91ad954a3299033"><div class="ttname"><a href="#adcee8ee766d01865f91ad954a3299033">faultsMoveDown</a></div><div class="ttdeci">void faultsMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:1041</div></div>
-<div class="ttc" id="alcd_8c_html_adeb005fd767ab2619a77e8bd43342809"><div class="ttname"><a href="#adeb005fd767ab2619a77e8bd43342809">coolingSelect</a></div><div class="ttdeci">void coolingSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:927</div></div>
-<div class="ttc" id="alcd_8c_html_af0cd9603adc431e8d82e4b0f306131a7"><div class="ttname"><a href="#af0cd9603adc431e8d82e4b0f306131a7">tvSelect</a></div><div class="ttdeci">void tvSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:987</div></div>
+<div class="ttc" id="alcd_8c_html_a0e30913c77292c2c01022cf9db0081e9"><div class="ttname"><a href="#a0e30913c77292c2c01022cf9db0081e9">driverMoveDown</a></div><div class="ttdeci">void driverMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:726</div></div>
+<div class="ttc" id="alcd_8c_html_a1084d631b39d082cd101924a8e6462e4"><div class="ttname"><a href="#a1084d631b39d082cd101924a8e6462e4">pedalProfilesMoveDown</a></div><div class="ttdeci">void pedalProfilesMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:775</div></div>
+<div class="ttc" id="alcd_8c_html_a1675c3cc7bf4bf7804928c2f21d1472f"><div class="ttname"><a href="#a1675c3cc7bf4bf7804928c2f21d1472f">driverPageUpdate</a></div><div class="ttdeci">void driverPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:718</div></div>
+<div class="ttc" id="alcd_8c_html_a1ddaac6cdbb0a2e17abf0a3be400b322"><div class="ttname"><a href="#a1ddaac6cdbb0a2e17abf0a3be400b322">loggingSelect</a></div><div class="ttdeci">void loggingSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:1173</div></div>
+<div class="ttc" id="alcd_8c_html_a252eb5fbe664f5b7033d3916993c1558"><div class="ttname"><a href="#a252eb5fbe664f5b7033d3916993c1558">faultsMoveUp</a></div><div class="ttdeci">void faultsMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:959</div></div>
+<div class="ttc" id="alcd_8c_html_a2c9d07d3703ba467f5ece8b8590d54b9"><div class="ttname"><a href="#a2c9d07d3703ba467f5ece8b8590d54b9">coolingMoveUp</a></div><div class="ttdeci">void coolingMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:830</div></div>
+<div class="ttc" id="alcd_8c_html_a3c8991d775bd516f0cfd04535fb56128"><div class="ttname"><a href="#a3c8991d775bd516f0cfd04535fb56128">pedalProfilesPageUpdate</a></div><div class="ttdeci">void pedalProfilesPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:734</div></div>
+<div class="ttc" id="alcd_8c_html_a4769e2d3a2898d9d337aeab190d4e02b"><div class="ttname"><a href="#a4769e2d3a2898d9d337aeab190d4e02b">raceTelemetryUpdate</a></div><div class="ttdeci">void raceTelemetryUpdate()</div><div class="ttdoc">Updates telemetry data on the race dashboard LCD display.</div><div class="ttdef"><b>Definition</b> lcd.c:1025</div></div>
+<div class="ttc" id="alcd_8c_html_a4977670d65c7b5eb50dfd9402463d015"><div class="ttname"><a href="#a4977670d65c7b5eb50dfd9402463d015">errorPageSelect</a></div><div class="ttdeci">void errorPageSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:710</div></div>
+<div class="ttc" id="alcd_8c_html_a4f1d35ca05d2945f87e4027f9ae3cd2a"><div class="ttname"><a href="#a4f1d35ca05d2945f87e4027f9ae3cd2a">pedalProfilesSelect</a></div><div class="ttdeci">void pedalProfilesSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:785</div></div>
+<div class="ttc" id="alcd_8c_html_a5ab5131d12105af77f4dac522437790e"><div class="ttname"><a href="#a5ab5131d12105af77f4dac522437790e">driverSelect</a></div><div class="ttdeci">void driverSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:730</div></div>
+<div class="ttc" id="alcd_8c_html_a5c5ebef03a2eca2e53c0b9d925f7549d"><div class="ttname"><a href="#a5c5ebef03a2eca2e53c0b9d925f7549d">calibrationTelemetryUpdate</a></div><div class="ttdeci">void calibrationTelemetryUpdate()</div><div class="ttdoc">Updates the LCD display with current pedal telemetry data when on CALIBRATION page.</div><div class="ttdef"><b>Definition</b> lcd.c:466</div></div>
+<div class="ttc" id="alcd_8c_html_a68985dfe48b7bdb36cb08008ec9ef7ea"><div class="ttname"><a href="#a68985dfe48b7bdb36cb08008ec9ef7ea">tvMoveUp</a></div><div class="ttdeci">void tvMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:899</div></div>
+<div class="ttc" id="alcd_8c_html_a6efb0357076b37f57249be1baac74a10"><div class="ttname"><a href="#a6efb0357076b37f57249be1baac74a10">coolingMoveDown</a></div><div class="ttdeci">void coolingMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:840</div></div>
+<div class="ttc" id="alcd_8c_html_a78af38f7bc254413ca91fc1b2d50c7ce"><div class="ttname"><a href="#a78af38f7bc254413ca91fc1b2d50c7ce">coolingPageUpdate</a></div><div class="ttdeci">void coolingPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:818</div></div>
+<div class="ttc" id="alcd_8c_html_a7f20e105ee6844d0ec1c0883b6ad9869"><div class="ttname"><a href="#a7f20e105ee6844d0ec1c0883b6ad9869">raceDownCallback</a></div><div class="ttdeci">void raceDownCallback()</div><div class="ttdef"><b>Definition</b> lcd.c:1145</div></div>
+<div class="ttc" id="alcd_8c_html_a83125ef5b4e08a2689a1416cb126b3d0"><div class="ttname"><a href="#a83125ef5b4e08a2689a1416cb126b3d0">driverMoveUp</a></div><div class="ttdeci">void driverMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:722</div></div>
+<div class="ttc" id="alcd_8c_html_a8aa413927173abf32287f959e14b5f05"><div class="ttname"><a href="#a8aa413927173abf32287f959e14b5f05">faultsSelect</a></div><div class="ttdeci">void faultsSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:967</div></div>
+<div class="ttc" id="alcd_8c_html_a9e14a6eade0865e875824d1536b77e54"><div class="ttname"><a href="#a9e14a6eade0865e875824d1536b77e54">racePageUpdate</a></div><div class="ttdeci">void racePageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:1016</div></div>
+<div class="ttc" id="alcd_8c_html_aaabf89ecdccde1ed5aab9720f3d053bb"><div class="ttname"><a href="#aaabf89ecdccde1ed5aab9720f3d053bb">pedalProfilesMoveUp</a></div><div class="ttdeci">void pedalProfilesMoveUp()</div><div class="ttdef"><b>Definition</b> lcd.c:765</div></div>
+<div class="ttc" id="alcd_8c_html_aac825257435288687ed7b01e6ae3b73b"><div class="ttname"><a href="#aac825257435288687ed7b01e6ae3b73b">loggingPageUpdate</a></div><div class="ttdeci">void loggingPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:1161</div></div>
+<div class="ttc" id="alcd_8c_html_aae4c931f9209007019574f19d498859a"><div class="ttname"><a href="#aae4c931f9209007019574f19d498859a">tvPageUpdate</a></div><div class="ttdeci">void tvPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:894</div></div>
+<div class="ttc" id="alcd_8c_html_ac9a43f6004dfe81f61f17248035f4772"><div class="ttname"><a href="#ac9a43f6004dfe81f61f17248035f4772">tvMoveDown</a></div><div class="ttdeci">void tvMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:904</div></div>
+<div class="ttc" id="alcd_8c_html_ad0ac02308e376cbf4f0a5f43fe292310"><div class="ttname"><a href="#ad0ac02308e376cbf4f0a5f43fe292310">faultTelemetryUpdate</a></div><div class="ttdeci">void faultTelemetryUpdate()</div><div class="ttdoc">Updates the color of fault text indicators on the faults page.</div><div class="ttdef"><b>Definition</b> lcd.c:664</div></div>
+<div class="ttc" id="alcd_8c_html_ad0bf4fe40d01774afeb7efadaec0b57d"><div class="ttname"><a href="#ad0bf4fe40d01774afeb7efadaec0b57d">sdcTelemetryUpdate</a></div><div class="ttdeci">void sdcTelemetryUpdate()</div><div class="ttdoc">Updates the Shutdown Circuit (SDC) status display on the dashboard LCD.</div><div class="ttdef"><b>Definition</b> lcd.c:681</div></div>
+<div class="ttc" id="alcd_8c_html_ad14d3527e04565bc0aff9704e6487714"><div class="ttname"><a href="#ad14d3527e04565bc0aff9704e6487714">faultsPageUpdate</a></div><div class="ttdeci">void faultsPageUpdate()</div><div class="ttdef"><b>Definition</b> lcd.c:953</div></div>
+<div class="ttc" id="alcd_8c_html_ad31722facf34a965a2f192995a71efec"><div class="ttname"><a href="#ad31722facf34a965a2f192995a71efec">raceSelect</a></div><div class="ttdeci">void raceSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:1155</div></div>
+<div class="ttc" id="alcd_8c_html_ad628765d718edd9cff2676b9cec4613f"><div class="ttname"><a href="#ad628765d718edd9cff2676b9cec4613f">raceUpCallback</a></div><div class="ttdeci">void raceUpCallback()</div><div class="ttdef"><b>Definition</b> lcd.c:1135</div></div>
+<div class="ttc" id="alcd_8c_html_adcee8ee766d01865f91ad954a3299033"><div class="ttname"><a href="#adcee8ee766d01865f91ad954a3299033">faultsMoveDown</a></div><div class="ttdeci">void faultsMoveDown()</div><div class="ttdef"><b>Definition</b> lcd.c:963</div></div>
+<div class="ttc" id="alcd_8c_html_adeb005fd767ab2619a77e8bd43342809"><div class="ttname"><a href="#adeb005fd767ab2619a77e8bd43342809">coolingSelect</a></div><div class="ttdeci">void coolingSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:850</div></div>
+<div class="ttc" id="alcd_8c_html_af0cd9603adc431e8d82e4b0f306131a7"><div class="ttname"><a href="#af0cd9603adc431e8d82e4b0f306131a7">tvSelect</a></div><div class="ttdeci">void tvSelect()</div><div class="ttdef"><b>Definition</b> lcd.c:909</div></div>
 <div class="ttc" id="alcd_8h_html_a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad"><div class="ttname"><a href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad">PAGE_LOGGING</a></div><div class="ttdeci">@ PAGE_LOGGING</div><div class="ttdef"><b>Definition</b> lcd.h:145</div></div>
 <div class="ttc" id="alcd_8h_html_a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f"><div class="ttname"><a href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f">PAGE_FATAL</a></div><div class="ttdeci">@ PAGE_FATAL</div><div class="ttdef"><b>Definition</b> lcd.h:152</div></div>
 <div class="ttc" id="alcd_8h_html_a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6"><div class="ttname"><a href="lcd_8h.html#a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6">PAGE_PROFILES</a></div><div class="ttdeci">@ PAGE_PROFILES</div><div class="ttdef"><b>Definition</b> lcd.h:144</div></div>
@@ -1750,31 +1757,26 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    [<a class="code hl_enumvalue" href="#a99f62d5553e32dd55e1f2d6465b3375daab275eb768c8ccda0008b4fcf6a33d4f">PROFILE_BRAKE_INDEX</a>] = {</div>
-<div class="line">        .type           = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>,</div>
-<div class="line">        .object_name    = <a class="code hl_define" href="lcd_8h.html#af07e1b7027372ade5570cf507d443ba9">PROFILE_BRAKE_FLT</a>,</div>
-<div class="line">        .current_value  = 0,</div>
-<div class="line">        .min_value      = 0,</div>
-<div class="line">        .max_value      = 20,</div>
-<div class="line">        .increment      = 5,</div>
+<div class="line">        .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>,</div>
+<div class="line">        .object_name = <a class="code hl_define" href="lcd_8h.html#af07e1b7027372ade5570cf507d443ba9">PROFILE_BRAKE_FLT</a>,</div>
+<div class="line">        .current_value = 0,</div>
+<div class="line">        .min_value = 0,</div>
+<div class="line">        .max_value = 20,</div>
+<div class="line">        .increment = 5,</div>
 <div class="line">    },</div>
 <div class="line">    [<a class="code hl_enumvalue" href="#a99f62d5553e32dd55e1f2d6465b3375dae668822d89f1016e6619945e5317df01">PROFILE_THROTTLE_INDEX</a>] = {</div>
-<div class="line">        .type           = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>,</div>
-<div class="line">        .object_name    = <a class="code hl_define" href="lcd_8h.html#a579a44fb3a2d5f88f5afa707e45e8cf1">PROFILE_THROTTLE_FLT</a>,</div>
-<div class="line">        .current_value  = 0,</div>
-<div class="line">        .min_value      = 0,</div>
-<div class="line">        .max_value      = 20,</div>
-<div class="line">        .increment      = 5,</div>
+<div class="line">        .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>,</div>
+<div class="line">        .object_name = <a class="code hl_define" href="lcd_8h.html#a579a44fb3a2d5f88f5afa707e45e8cf1">PROFILE_THROTTLE_FLT</a>,</div>
+<div class="line">        .current_value = 0,</div>
+<div class="line">        .min_value = 0,</div>
+<div class="line">        .max_value = 20,</div>
+<div class="line">        .increment = 5,</div>
 <div class="line">    },</div>
-<div class="line">    [<a class="code hl_enumvalue" href="#a99f62d5553e32dd55e1f2d6465b3375da06249afa2b000a8bd6a6c8e63fa9813e">PROFILE_SAVE_INDEX</a>] = {</div>
-<div class="line">        .type           = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dae84e92a478bf8b89e77064dad5a236b6">ELEMENT_BUTTON</a>,</div>
-<div class="line">        .object_name    = <a class="code hl_define" href="lcd_8h.html#a7fd5e8a2405c27375f31b69fcda07976">PROFILE_SAVE_BUTTON</a>,</div>
-<div class="line">        .on_change      = <a class="code hl_function" href="#acba78444839cc8d64fe6cfc4ac0da517">pedalProfilesSaveButton_CALLBACK</a></div>
-<div class="line">    }</div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_a99f62d5553e32dd55e1f2d6465b3375da06249afa2b000a8bd6a6c8e63fa9813e"><div class="ttname"><a href="#a99f62d5553e32dd55e1f2d6465b3375da06249afa2b000a8bd6a6c8e63fa9813e">PROFILE_SAVE_INDEX</a></div><div class="ttdeci">@ PROFILE_SAVE_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:326</div></div>
-<div class="ttc" id="alcd_8c_html_a99f62d5553e32dd55e1f2d6465b3375daab275eb768c8ccda0008b4fcf6a33d4f"><div class="ttname"><a href="#a99f62d5553e32dd55e1f2d6465b3375daab275eb768c8ccda0008b4fcf6a33d4f">PROFILE_BRAKE_INDEX</a></div><div class="ttdeci">@ PROFILE_BRAKE_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:324</div></div>
-<div class="ttc" id="alcd_8c_html_a99f62d5553e32dd55e1f2d6465b3375dae668822d89f1016e6619945e5317df01"><div class="ttname"><a href="#a99f62d5553e32dd55e1f2d6465b3375dae668822d89f1016e6619945e5317df01">PROFILE_THROTTLE_INDEX</a></div><div class="ttdeci">@ PROFILE_THROTTLE_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:325</div></div>
-<div class="ttc" id="alcd_8c_html_acba78444839cc8d64fe6cfc4ac0da517"><div class="ttname"><a href="#acba78444839cc8d64fe6cfc4ac0da517">pedalProfilesSaveButton_CALLBACK</a></div><div class="ttdeci">void pedalProfilesSaveButton_CALLBACK()</div><div class="ttdoc">Saves the current pedal profile settings to permanent memory for the selected driver and updates the ...</div><div class="ttdef"><b>Definition</b> lcd.c:878</div></div>
+<div class="line">    [<a class="code hl_enumvalue" href="#a99f62d5553e32dd55e1f2d6465b3375da06249afa2b000a8bd6a6c8e63fa9813e">PROFILE_SAVE_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dae84e92a478bf8b89e77064dad5a236b6">ELEMENT_BUTTON</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a7fd5e8a2405c27375f31b69fcda07976">PROFILE_SAVE_BUTTON</a>, .on_change = <a class="code hl_function" href="#acba78444839cc8d64fe6cfc4ac0da517">pedalProfilesSaveButton_CALLBACK</a>}}</div>
+<div class="ttc" id="alcd_8c_html_a99f62d5553e32dd55e1f2d6465b3375da06249afa2b000a8bd6a6c8e63fa9813e"><div class="ttname"><a href="#a99f62d5553e32dd55e1f2d6465b3375da06249afa2b000a8bd6a6c8e63fa9813e">PROFILE_SAVE_INDEX</a></div><div class="ttdeci">@ PROFILE_SAVE_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:259</div></div>
+<div class="ttc" id="alcd_8c_html_a99f62d5553e32dd55e1f2d6465b3375daab275eb768c8ccda0008b4fcf6a33d4f"><div class="ttname"><a href="#a99f62d5553e32dd55e1f2d6465b3375daab275eb768c8ccda0008b4fcf6a33d4f">PROFILE_BRAKE_INDEX</a></div><div class="ttdeci">@ PROFILE_BRAKE_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:257</div></div>
+<div class="ttc" id="alcd_8c_html_a99f62d5553e32dd55e1f2d6465b3375dae668822d89f1016e6619945e5317df01"><div class="ttname"><a href="#a99f62d5553e32dd55e1f2d6465b3375dae668822d89f1016e6619945e5317df01">PROFILE_THROTTLE_INDEX</a></div><div class="ttdeci">@ PROFILE_THROTTLE_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:258</div></div>
+<div class="ttc" id="alcd_8c_html_acba78444839cc8d64fe6cfc4ac0da517"><div class="ttname"><a href="#acba78444839cc8d64fe6cfc4ac0da517">pedalProfilesSaveButton_CALLBACK</a></div><div class="ttdeci">void pedalProfilesSaveButton_CALLBACK()</div><div class="ttdoc">Saves the current pedal profile settings to permanent memory for the selected driver and updates the ...</div><div class="ttdef"><b>Definition</b> lcd.c:801</div></div>
 <div class="ttc" id="alcd_8h_html_a579a44fb3a2d5f88f5afa707e45e8cf1"><div class="ttname"><a href="lcd_8h.html#a579a44fb3a2d5f88f5afa707e45e8cf1">PROFILE_THROTTLE_FLT</a></div><div class="ttdeci">#define PROFILE_THROTTLE_FLT</div><div class="ttdef"><b>Definition</b> lcd.h:40</div></div>
 <div class="ttc" id="alcd_8h_html_a7fd5e8a2405c27375f31b69fcda07976"><div class="ttname"><a href="lcd_8h.html#a7fd5e8a2405c27375f31b69fcda07976">PROFILE_SAVE_BUTTON</a></div><div class="ttdeci">#define PROFILE_SAVE_BUTTON</div><div class="ttdef"><b>Definition</b> lcd.h:41</div></div>
 <div class="ttc" id="alcd_8h_html_af07e1b7027372ade5570cf507d443ba9"><div class="ttname"><a href="lcd_8h.html#af07e1b7027372ade5570cf507d443ba9">PROFILE_BRAKE_FLT</a></div><div class="ttdeci">#define PROFILE_BRAKE_FLT</div><div class="ttdef"><b>Definition</b> lcd.h:39</div></div>
@@ -1795,13 +1797,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
+<div class="line">    .elements = <a class="code hl_variable" href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
 <div class="line">    .is_element_selected = <span class="keyword">false</span>,</div>
-<div class="line">    .saved               = <span class="keyword">true</span>,</div>
+<div class="line">    .saved = <span class="keyword">true</span>,</div>
 <div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_aafc624b84763ccc669fae459de4aeee2"><div class="ttname"><a href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a></div><div class="ttdeci">menu_element_t pedal_profile_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:330</div></div>
+<div class="ttc" id="alcd_8c_html_aafc624b84763ccc669fae459de4aeee2"><div class="ttname"><a href="#aafc624b84763ccc669fae459de4aeee2">pedal_profile_elements</a></div><div class="ttdeci">menu_element_t pedal_profile_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:263</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1875,14 +1877,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    {</div>
-<div class="line">        .type          = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a>,</div>
-<div class="line">        .object_name   = <a class="code hl_define" href="lcd_8h.html#a543f146e5787e37e3f59d6ddb65d2150">RACE_TV_ON</a>,</div>
-<div class="line">        .current_value = 0,</div>
-<div class="line">        .on_change     = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a></div>
-<div class="line">    }</div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_a249c0ceab96d27daebec9a6b8954f60a"><div class="ttname"><a href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a></div><div class="ttdeci">void sendTVParameters()</div><div class="ttdoc">Sends TV parameters to TV using current values from tv_elements array.</div><div class="ttdef"><b>Definition</b> lcd.c:609</div></div>
+<div class="line">    {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754da68d0d7a3e0ec2b75d3e42f54f0527292">ELEMENT_OPTION</a>,</div>
+<div class="line">     .object_name = <a class="code hl_define" href="lcd_8h.html#a543f146e5787e37e3f59d6ddb65d2150">RACE_TV_ON</a>,</div>
+<div class="line">     .current_value = 0,</div>
+<div class="line">     .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>}}</div>
+<div class="ttc" id="alcd_8c_html_a249c0ceab96d27daebec9a6b8954f60a"><div class="ttname"><a href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a></div><div class="ttdeci">void sendTVParameters()</div><div class="ttdoc">Sends TV parameters to TV using current values from tv_elements array.</div><div class="ttdef"><b>Definition</b> lcd.c:533</div></div>
 <div class="ttc" id="alcd_8h_html_a543f146e5787e37e3f59d6ddb65d2150"><div class="ttname"><a href="lcd_8h.html#a543f146e5787e37e3f59d6ddb65d2150">RACE_TV_ON</a></div><div class="ttdeci">#define RACE_TV_ON</div><div class="ttdef"><b>Definition</b> lcd.h:112</div></div>
 </div><!-- fragment -->
 </div>
@@ -1899,12 +1898,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
-<div class="line">    .is_element_selected = <span class="keyword">false</span></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_a1bb62c63847a1857beb23323d82a9b48"><div class="ttname"><a href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a></div><div class="ttdeci">menu_element_t race_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:105</div></div>
+<div class="line">    .elements = <a class="code hl_variable" href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
+<div class="line">    .is_element_selected = <span class="keyword">false</span>}</div>
+<div class="ttc" id="alcd_8c_html_a1bb62c63847a1857beb23323d82a9b48"><div class="ttname"><a href="#a1bb62c63847a1857beb23323d82a9b48">race_elements</a></div><div class="ttdeci">menu_element_t race_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:108</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1919,7 +1917,56 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#ae4ac051efe29625014bace5979f6f37fa763fae00981617dfd0ca217ced4d99bb">TV_VCU_PERMIT_INDEX</a>] = {</div>
+<div class="line">                             .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09">ELEMENT_VAL</a>,</div>
+<div class="line">                             .object_name = <a class="code hl_define" href="lcd_8h.html#a36dfa142e184724104b360343c71af0d">TV_PERMIT_MODE_TXT</a>,</div>
+<div class="line">                             .current_value = <a class="code hl_enumvalue" href="#a6b9cc5930e83a3077a2aaa5574203058a16779e9249bf3ba3a69e7a35dfa61256">TV_PERMIT_VARIABLE</a>, </div>
+<div class="line">                             .min_value = <a class="code hl_enumvalue" href="#a6b9cc5930e83a3077a2aaa5574203058ad58f2888f8c1b440ff610b1c4983858e">TV_PERMIT_NONE</a>,</div>
+<div class="line">                             .max_value = <a class="code hl_enumvalue" href="#a6b9cc5930e83a3077a2aaa5574203058a16779e9249bf3ba3a69e7a35dfa61256">TV_PERMIT_VARIABLE</a>,</div>
+<div class="line">                             .increment = 1,</div>
+<div class="line">                             .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#ae4ac051efe29625014bace5979f6f37fa103966619aa2b6f12772327b2263f834">TV_VCU_CONTROL_INDEX</a>] = {</div>
+<div class="line">                              .type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09">ELEMENT_VAL</a>,</div>
+<div class="line">                              .object_name = <a class="code hl_define" href="lcd_8h.html#a5cbe6968cd4e3007b8180fbf00ec3670">TV_CONTROL_MODE_TXT</a>,</div>
+<div class="line">                              .current_value = <a class="code hl_enumvalue" href="#aff916cfdbe2cd06af8af8c1daf0494d4a6f5a030153b6731468f23b6d46bea6db">TV_TORQUE_CONTROL_MODE</a>, </div>
+<div class="line">                              .min_value = <a class="code hl_enumvalue" href="#aff916cfdbe2cd06af8af8c1daf0494d4a93ae0c17c0a10f90b5035527b1836a4a">TV_SPEED_CONTROL_MODE</a>,</div>
+<div class="line">                              .max_value = <a class="code hl_enumvalue" href="#aff916cfdbe2cd06af8af8c1daf0494d4a6f5a030153b6731468f23b6d46bea6db">TV_TORQUE_CONTROL_MODE</a>,</div>
+<div class="line">                              .increment = 1,</div>
+<div class="line">                              .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#ae4ac051efe29625014bace5979f6f37fa8886da890ed7438a2b6de32d79ecdb03">TV_DEADBAND_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dad740f8f5e2156491b82740bd4e756a09">ELEMENT_VAL</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a4162abdcbd63f694ac57f6a87ba0d24b">TV_DEADBAND_TXT</a>, .current_value = <a class="code hl_define" href="lcd_8h.html#af1292dac293a0fa00944e52c88a099e6">TV_DEADBAND_DEFAULT_VALUE</a>, .min_value = 0, .max_value = 25,</div>
+<div class="line">                           .increment = 1, </div>
+<div class="line">                           .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#ae4ac051efe29625014bace5979f6f37fa4cfd050ac0e537205ace73650a094f5c">TV_P_GAIN_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a6cba91695ef66abeaa05db98658fb71f">TV_P_GAIN_FLT</a>, .current_value = <a class="code hl_define" href="lcd_8h.html#a66bb876c236160236c1bcb196f84057e">TV_P_GAIN_DEFAULT_VALUE</a>, .min_value = 0, .max_value = 10000,</div>
+<div class="line">                         .increment = 10, </div>
+<div class="line">                         .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#ae4ac051efe29625014bace5979f6f37fa8f7043ef506441600e6e79d743d7032c">TV_TORQUE_DROP_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a990c4919ee89dbc8600ce16058cea88f">TV_TORQUE_DROP_FLT</a>, .current_value = <a class="code hl_define" href="lcd_8h.html#aa802158e58613c8ef307ac8d88efa57e">TV_TORQUE_DROP_DEFAULT_VALUE</a>, .min_value = 0, .max_value = 100,</div>
+<div class="line">                              .increment = 2, </div>
+<div class="line">                              .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>},</div>
+<div class="line">    [<a class="code hl_enumvalue" href="#ae4ac051efe29625014bace5979f6f37fa148e57ccfd5aed95ddaf0f4983ae3263">TV_MAX_SLIP_INDEX</a>] = {.type = <a class="code hl_enumvalue" href="menu__system_8h.html#a878bfea14e0bf07c76b682b0541a754dab54bedd5f935d302dacbdc8d24e05a43">ELEMENT_FLT</a>, .object_name = <a class="code hl_define" href="lcd_8h.html#a3e6cb8a5e8e59e8e9d52c50d0490d3de">TV_MAX_SLIP_FLT</a>, .current_value = <a class="code hl_define" href="lcd_8h.html#ad90890ca4c9381105577a035a3b1d480">TV_SLIP_DEFAULT_VALUE</a>, .min_value = 0, .max_value = 100,</div>
+<div class="line">                           .increment = 2, </div>
+<div class="line">                           .on_change = <a class="code hl_function" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>}}</div>
+<div class="ttc" id="alcd_8c_html_a6b9cc5930e83a3077a2aaa5574203058a16779e9249bf3ba3a69e7a35dfa61256"><div class="ttname"><a href="#a6b9cc5930e83a3077a2aaa5574203058a16779e9249bf3ba3a69e7a35dfa61256">TV_PERMIT_VARIABLE</a></div><div class="ttdeci">@ TV_PERMIT_VARIABLE</div><div class="ttdef"><b>Definition</b> lcd.c:157</div></div>
+<div class="ttc" id="alcd_8c_html_a6b9cc5930e83a3077a2aaa5574203058ad58f2888f8c1b440ff610b1c4983858e"><div class="ttname"><a href="#a6b9cc5930e83a3077a2aaa5574203058ad58f2888f8c1b440ff610b1c4983858e">TV_PERMIT_NONE</a></div><div class="ttdeci">@ TV_PERMIT_NONE</div><div class="ttdef"><b>Definition</b> lcd.c:156</div></div>
+<div class="ttc" id="alcd_8c_html_ae4ac051efe29625014bace5979f6f37fa103966619aa2b6f12772327b2263f834"><div class="ttname"><a href="#ae4ac051efe29625014bace5979f6f37fa103966619aa2b6f12772327b2263f834">TV_VCU_CONTROL_INDEX</a></div><div class="ttdeci">@ TV_VCU_CONTROL_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:148</div></div>
+<div class="ttc" id="alcd_8c_html_ae4ac051efe29625014bace5979f6f37fa148e57ccfd5aed95ddaf0f4983ae3263"><div class="ttname"><a href="#ae4ac051efe29625014bace5979f6f37fa148e57ccfd5aed95ddaf0f4983ae3263">TV_MAX_SLIP_INDEX</a></div><div class="ttdeci">@ TV_MAX_SLIP_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:152</div></div>
+<div class="ttc" id="alcd_8c_html_ae4ac051efe29625014bace5979f6f37fa4cfd050ac0e537205ace73650a094f5c"><div class="ttname"><a href="#ae4ac051efe29625014bace5979f6f37fa4cfd050ac0e537205ace73650a094f5c">TV_P_GAIN_INDEX</a></div><div class="ttdeci">@ TV_P_GAIN_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:150</div></div>
+<div class="ttc" id="alcd_8c_html_ae4ac051efe29625014bace5979f6f37fa763fae00981617dfd0ca217ced4d99bb"><div class="ttname"><a href="#ae4ac051efe29625014bace5979f6f37fa763fae00981617dfd0ca217ced4d99bb">TV_VCU_PERMIT_INDEX</a></div><div class="ttdeci">@ TV_VCU_PERMIT_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:147</div></div>
+<div class="ttc" id="alcd_8c_html_ae4ac051efe29625014bace5979f6f37fa8886da890ed7438a2b6de32d79ecdb03"><div class="ttname"><a href="#ae4ac051efe29625014bace5979f6f37fa8886da890ed7438a2b6de32d79ecdb03">TV_DEADBAND_INDEX</a></div><div class="ttdeci">@ TV_DEADBAND_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:149</div></div>
+<div class="ttc" id="alcd_8c_html_ae4ac051efe29625014bace5979f6f37fa8f7043ef506441600e6e79d743d7032c"><div class="ttname"><a href="#ae4ac051efe29625014bace5979f6f37fa8f7043ef506441600e6e79d743d7032c">TV_TORQUE_DROP_INDEX</a></div><div class="ttdeci">@ TV_TORQUE_DROP_INDEX</div><div class="ttdef"><b>Definition</b> lcd.c:151</div></div>
+<div class="ttc" id="alcd_8c_html_aff916cfdbe2cd06af8af8c1daf0494d4a6f5a030153b6731468f23b6d46bea6db"><div class="ttname"><a href="#aff916cfdbe2cd06af8af8c1daf0494d4a6f5a030153b6731468f23b6d46bea6db">TV_TORQUE_CONTROL_MODE</a></div><div class="ttdeci">@ TV_TORQUE_CONTROL_MODE</div><div class="ttdef"><b>Definition</b> lcd.c:162</div></div>
+<div class="ttc" id="alcd_8c_html_aff916cfdbe2cd06af8af8c1daf0494d4a93ae0c17c0a10f90b5035527b1836a4a"><div class="ttname"><a href="#aff916cfdbe2cd06af8af8c1daf0494d4a93ae0c17c0a10f90b5035527b1836a4a">TV_SPEED_CONTROL_MODE</a></div><div class="ttdeci">@ TV_SPEED_CONTROL_MODE</div><div class="ttdef"><b>Definition</b> lcd.c:161</div></div>
+<div class="ttc" id="alcd_8h_html_a36dfa142e184724104b360343c71af0d"><div class="ttname"><a href="lcd_8h.html#a36dfa142e184724104b360343c71af0d">TV_PERMIT_MODE_TXT</a></div><div class="ttdeci">#define TV_PERMIT_MODE_TXT</div><div class="ttdef"><b>Definition</b> lcd.h:79</div></div>
+<div class="ttc" id="alcd_8h_html_a3e6cb8a5e8e59e8e9d52c50d0490d3de"><div class="ttname"><a href="lcd_8h.html#a3e6cb8a5e8e59e8e9d52c50d0490d3de">TV_MAX_SLIP_FLT</a></div><div class="ttdeci">#define TV_MAX_SLIP_FLT</div><div class="ttdef"><b>Definition</b> lcd.h:84</div></div>
+<div class="ttc" id="alcd_8h_html_a4162abdcbd63f694ac57f6a87ba0d24b"><div class="ttname"><a href="lcd_8h.html#a4162abdcbd63f694ac57f6a87ba0d24b">TV_DEADBAND_TXT</a></div><div class="ttdeci">#define TV_DEADBAND_TXT</div><div class="ttdef"><b>Definition</b> lcd.h:81</div></div>
+<div class="ttc" id="alcd_8h_html_a5cbe6968cd4e3007b8180fbf00ec3670"><div class="ttname"><a href="lcd_8h.html#a5cbe6968cd4e3007b8180fbf00ec3670">TV_CONTROL_MODE_TXT</a></div><div class="ttdeci">#define TV_CONTROL_MODE_TXT</div><div class="ttdef"><b>Definition</b> lcd.h:80</div></div>
+<div class="ttc" id="alcd_8h_html_a66bb876c236160236c1bcb196f84057e"><div class="ttname"><a href="lcd_8h.html#a66bb876c236160236c1bcb196f84057e">TV_P_GAIN_DEFAULT_VALUE</a></div><div class="ttdeci">#define TV_P_GAIN_DEFAULT_VALUE</div><div class="ttdef"><b>Definition</b> lcd.h:88</div></div>
+<div class="ttc" id="alcd_8h_html_a6cba91695ef66abeaa05db98658fb71f"><div class="ttname"><a href="lcd_8h.html#a6cba91695ef66abeaa05db98658fb71f">TV_P_GAIN_FLT</a></div><div class="ttdeci">#define TV_P_GAIN_FLT</div><div class="ttdef"><b>Definition</b> lcd.h:82</div></div>
+<div class="ttc" id="alcd_8h_html_a990c4919ee89dbc8600ce16058cea88f"><div class="ttname"><a href="lcd_8h.html#a990c4919ee89dbc8600ce16058cea88f">TV_TORQUE_DROP_FLT</a></div><div class="ttdeci">#define TV_TORQUE_DROP_FLT</div><div class="ttdef"><b>Definition</b> lcd.h:83</div></div>
+<div class="ttc" id="alcd_8h_html_aa802158e58613c8ef307ac8d88efa57e"><div class="ttname"><a href="lcd_8h.html#aa802158e58613c8ef307ac8d88efa57e">TV_TORQUE_DROP_DEFAULT_VALUE</a></div><div class="ttdeci">#define TV_TORQUE_DROP_DEFAULT_VALUE</div><div class="ttdef"><b>Definition</b> lcd.h:89</div></div>
+<div class="ttc" id="alcd_8h_html_ad90890ca4c9381105577a035a3b1d480"><div class="ttname"><a href="lcd_8h.html#ad90890ca4c9381105577a035a3b1d480">TV_SLIP_DEFAULT_VALUE</a></div><div class="ttdeci">#define TV_SLIP_DEFAULT_VALUE</div><div class="ttdef"><b>Definition</b> lcd.h:90</div></div>
+<div class="ttc" id="alcd_8h_html_af1292dac293a0fa00944e52c88a099e6"><div class="ttname"><a href="lcd_8h.html#af1292dac293a0fa00944e52c88a099e6">TV_DEADBAND_DEFAULT_VALUE</a></div><div class="ttdeci">#define TV_DEADBAND_DEFAULT_VALUE</div><div class="ttdef"><b>Definition</b> lcd.h:87</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aac3782b14d55f0376503127fd22ae5e2" name="aac3782b14d55f0376503127fd22ae5e2"></a>
@@ -1934,12 +1981,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .elements            = <a class="code hl_variable" href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a>,</div>
-<div class="line">    .num_elements        = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a>[0]),</div>
-<div class="line">    .current_index       = 0,</div>
-<div class="line">    .is_element_selected = <span class="keyword">false</span></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8c_html_aeeaf8edfc48e05c25b923350068b6570"><div class="ttname"><a href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a></div><div class="ttdeci">menu_element_t tv_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:189</div></div>
+<div class="line">    .elements = <a class="code hl_variable" href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a>,</div>
+<div class="line">    .num_elements = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a>[0]),</div>
+<div class="line">    .current_index = 0,</div>
+<div class="line">    .is_element_selected = <span class="keyword">false</span>}</div>
+<div class="ttc" id="alcd_8c_html_aeeaf8edfc48e05c25b923350068b6570"><div class="ttname"><a href="#aeeaf8edfc48e05c25b923350068b6570">tv_elements</a></div><div class="ttdeci">menu_element_t tv_elements[]</div><div class="ttdef"><b>Definition</b> lcd.c:166</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -95,21 +95,21 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="daq_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="buffer_8h_source.html">buffer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="can__flags_8h_source.html">can_flags.h</a>&quot;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
+<code>#include &quot;common/freertos/freertos.h&quot;</code><br />
 <code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;common/phal/rtc.h&quot;</code><br />
 <code>#include &quot;common/phal/spi.h&quot;</code><br />
 <code>#include &quot;common/phal/usart.h&quot;</code><br />
-<code>#include &quot;common/freertos/freertos.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="buffer_8h_source.html">buffer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="daq_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__can_8h_source.html">daq_can.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq__spi_8h_source.html">daq_spi.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="daq__can_8h_source.html">daq_can.h</a>&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="can__flags_8h_source.html">can_flags.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -489,11 +489,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .buffer=(<span class="keyword">volatile</span> uint8_t *)<a class="code hl_variable" href="#a669ae2dcb7af820726f2a2794e7f6a6b">can_rx_buffer</a>,</div>
-<div class="line">    .<a class="code hl_variable" href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a>=<a class="code hl_variable" href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a>,</div>
-<div class="line">    .num_tails=<a class="code hl_enumvalue" href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a>,</div>
+<div class="line">    .buffer = (<span class="keyword">volatile</span> uint8_t*)<a class="code hl_variable" href="#a669ae2dcb7af820726f2a2794e7f6a6b">can_rx_buffer</a>,</div>
+<div class="line">    .<a class="code hl_variable" href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a> = <a class="code hl_variable" href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a>,</div>
+<div class="line">    .num_tails = <a class="code hl_enumvalue" href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="adaq_2main_8c_html_a669ae2dcb7af820726f2a2794e7f6a6b"><div class="ttname"><a href="#a669ae2dcb7af820726f2a2794e7f6a6b">can_rx_buffer</a></div><div class="ttdeci">volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:122</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a669ae2dcb7af820726f2a2794e7f6a6b"><div class="ttname"><a href="#a669ae2dcb7af820726f2a2794e7f6a6b">can_rx_buffer</a></div><div class="ttdeci">volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:121</div></div>
 <div class="ttc" id="adaq_2main_8h_html_af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a"><div class="ttname"><a href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a></div><div class="ttdeci">@ RX_TAIL_COUNT</div><div class="ttdef"><b>Definition</b> main.h:77</div></div>
 <div class="ttc" id="atest__buffer_8c_html_a7714498089735783d3ac3693cc363b69"><div class="ttname"><a href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a></div><div class="ttdeci">b_tail_t tails[RX_TAIL_CT]</div><div class="ttdef"><b>Definition</b> test_buffer.c:20</div></div>
 </div><!-- fragment -->
@@ -525,18 +525,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source               = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
-<div class="line">    .use_pll                    = <span class="keyword">true</span>,</div>
-<div class="line">    .pll_src                    = <a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
-<div class="line">    .vco_output_rate_target_hz  = 336000000, </div>
-<div class="line">    .system_clock_target_hz     = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">    .ahb_clock_target_hz        = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">    .apb1_clock_target_hz       = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
-<div class="line">    .apb2_clock_target_hz       = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .clock_source = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
+<div class="line">    .use_pll = <span class="keyword">true</span>,</div>
+<div class="line">    .pll_src = <a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
+<div class="line">    .vco_output_rate_target_hz = 336000000, </div>
+<div class="line">    .system_clock_target_hz = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .apb2_clock_target_hz = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:77</div></div>
-<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:30</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:72</div></div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:75</div></div>
+<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:29</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -588,7 +588,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .data_len  = 8,</div>
+<div class="line">    .data_len = 8,</div>
 <div class="line">    .nss_sw = <span class="keyword">false</span>,</div>
 <div class="line">    .nss_gpio_port = <a class="code hl_define" href="daq_2main_8h.html#a2107ae7691edb9a15edccada3ee54a43">ETH_CS_PORT</a>,</div>
 <div class="line">    .nss_gpio_pin = <a class="code hl_define" href="daq_2main_8h.html#a8c72b0130a3a8067c2e9ce362cd305b9">ETH_CS_PIN</a>,</div>
@@ -629,27 +629,26 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">   .baud_rate   = 115200,</div>
-<div class="line">   .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">   .stop_bits   = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">   .parity      = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">   .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">   .ovsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">   .obsample    = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">   .periph      = USART6,</div>
-<div class="line">   .wake_addr   = <span class="keyword">false</span>,</div>
-<div class="line">   .usart_active_num = USART6_ACTIVE_IDX,</div>
-<div class="line">   .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a>,</div>
-<div class="line">   .rx_dma_cfg = &amp;<a class="code hl_variable" href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a></div>
-<div class="line">}</div>
+<div class="line">    .baud_rate = 115200,</div>
+<div class="line">    .word_length = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
+<div class="line">    .stop_bits = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
+<div class="line">    .parity = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
+<div class="line">    .hw_flow_ctl = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
+<div class="line">    .ovsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
+<div class="line">    .obsample = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
+<div class="line">    .periph = USART6,</div>
+<div class="line">    .wake_addr = <span class="keyword">false</span>,</div>
+<div class="line">    .usart_active_num = USART6_ACTIVE_IDX,</div>
+<div class="line">    .tx_dma_cfg = &amp;<a class="code hl_variable" href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a>,</div>
+<div class="line">    .rx_dma_cfg = &amp;<a class="code hl_variable" href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a>}</div>
 <div class="ttc" id="adaq_2main_8c_html_a1f94964a4032ad7e8b644485a417b00f"><div class="ttname"><a href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:101</div></div>
 <div class="ttc" id="adaq_2main_8c_html_ab5e5c5f93446e92415dfe222fd3d0e6e"><div class="ttname"><a href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:102</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:36</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:58</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:72</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:35</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:54</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:66</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a></div><div class="ttdeci">@ PT_NONE</div><div class="ttdef"><b>Definition</b> usart.h:29</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdef"><b>Definition</b> usart.h:43</div></div>
-<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdef"><b>Definition</b> usart.h:66</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdef"><b>Definition</b> usart.h:41</div></div>
+<div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdef"><b>Definition</b> usart.h:61</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -715,19 +714,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    .date = {.month_bcd=<a class="code hl_enumvalue" href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31">RTC_MONTH_FEBRUARY</a>,</div>
-<div class="line">             .weekday=<a class="code hl_enumvalue" href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f">RTC_WEEKDAY_TUESDAY</a>,</div>
-<div class="line">             .day_bcd=0x27,</div>
-<div class="line">             .year_bcd=0x24},</div>
-<div class="line">    .time = {.hours_bcd=0x18,</div>
-<div class="line">             .minutes_bcd=0x27,</div>
-<div class="line">             .seconds_bcd=0x00,</div>
-<div class="line">             .time_format=<a class="code hl_enumvalue" href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a>},</div>
+<div class="line">    {</div>
+<div class="line">        .date = {.month_bcd = <a class="code hl_enumvalue" href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31">RTC_MONTH_FEBRUARY</a>,</div>
+<div class="line">                 .weekday = <a class="code hl_enumvalue" href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f">RTC_WEEKDAY_TUESDAY</a>,</div>
+<div class="line">                 .day_bcd = 0x27,</div>
+<div class="line">                 .year_bcd = 0x24},</div>
+<div class="line">        .time = {.hours_bcd = 0x18,</div>
+<div class="line">                 .minutes_bcd = 0x27,</div>
+<div class="line">                 .seconds_bcd = 0x00,</div>
+<div class="line">                 .time_format = <a class="code hl_enumvalue" href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a>},</div>
 <div class="line">}</div>
-<div class="ttc" id="artc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:72</div></div>
-<div class="ttc" id="artc_8h_html_a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31"><div class="ttname"><a href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31">RTC_MONTH_FEBRUARY</a></div><div class="ttdeci">@ RTC_MONTH_FEBRUARY</div><div class="ttdef"><b>Definition</b> rtc.h:46</div></div>
-<div class="ttc" id="artc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f"><div class="ttname"><a href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f">RTC_WEEKDAY_TUESDAY</a></div><div class="ttdeci">@ RTC_WEEKDAY_TUESDAY</div><div class="ttdef"><b>Definition</b> rtc.h:62</div></div>
+<div class="ttc" id="artc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:69</div></div>
+<div class="ttc" id="artc_8h_html_a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31"><div class="ttname"><a href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199a6c6be4ba868c655b24b9042084a4ae31">RTC_MONTH_FEBRUARY</a></div><div class="ttdeci">@ RTC_MONTH_FEBRUARY</div><div class="ttdef"><b>Definition</b> rtc.h:44</div></div>
+<div class="ttc" id="artc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f"><div class="ttname"><a href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f">RTC_WEEKDAY_TUESDAY</a></div><div class="ttdeci">@ RTC_WEEKDAY_TUESDAY</div><div class="ttdef"><b>Definition</b> rtc.h:60</div></div>
 </div><!-- fragment -->
 </div>
 </div>

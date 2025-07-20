@@ -95,8 +95,8 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">can_parse_starter.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__L4_2can_2can_8h_source.html">common/phal_L4/can/can.h</a>&quot;</code><br />
 </div>
 <p><a href="bootloader_2can_2can__parse__starter_8h_source.html">Go to the source code of this file.</a></p>
@@ -158,10 +158,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                    <span class="keywordflow">if</span>(!stale &amp;&amp; \</div>
-<div class="line">                    (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="a__box_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) stale = 1</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!stale &amp;&amp; (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="a__box_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) \</div>
+<div class="line">    stale = 1</div>
 <div class="ttc" id="aa__box_2can_2can__parse__starter_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="a__box_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse_starter.h:35</div></div>
-<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:73</div></div>
+<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:72</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -96,9 +96,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">usart.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;stm32l4xx.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="phal__L4_2dma_2dma_8h_source.html">common/phal_L4/dma/dma.h</a>&quot;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;stm32l4xx.h&quot;</code><br />
 </div>
 <p><a href="phal__L4_2usart_2usart_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -226,13 +226,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                 \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (LPUART1-&gt;RDR), .mem_addr = (uint32_t)(rx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                          \</div>
-<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,        \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,               \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0100, .channel_idx = 7,              \</div>
-<div class="line">        .periph = DMA2, .channel = DMA2_Channel7, .request = DMA2_CSELR               \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0100, .channel_idx = 7, \</div>
+<div class="line">        .periph = DMA2, .channel = DMA2_Channel7, .request = DMA2_CSELR \</div>
 <div class="line">    }</div>
 <div class="ttc" id="aeeprom__spi_8h_html_ab6cda81580b0760b92d051888cd9b2c9"><div class="ttname"><a href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a></div><div class="ttdeci">uint16_t mem_size[MAX_PAGES]</div><div class="ttdoc">Size of file in bytes (actual)</div><div class="ttdef"><b>Definition</b> eeprom_spi.h:4</div></div>
 </div><!-- fragment -->
@@ -256,13 +256,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                 \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (LPUART1-&gt;TDR), .mem_addr = (uint32_t)(tx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                          \</div>
-<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,        \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,               \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0100, .channel_idx = 6,              \</div>
-<div class="line">        .periph = DMA2, .channel = DMA2_Channel6, .request = DMA2_CSELR               \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0100, .channel_idx = 6, \</div>
+<div class="line">        .periph = DMA2, .channel = DMA2_Channel6, .request = DMA2_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -313,13 +313,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (USART1-&gt;RDR), .mem_addr = (uint32_t)(rx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                         \</div>
-<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 5,             \</div>
-<div class="line">        .periph = DMA1, .channel = DMA1_Channel5, .request = DMA1_CSELR              \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 5, \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel5, .request = DMA1_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -342,13 +342,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (USART1-&gt;TDR), .mem_addr = (uint32_t)(tx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                         \</div>
-<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 4,             \</div>
-<div class="line">        .periph = DMA1, .channel = DMA1_Channel4, .request = DMA1_CSELR              \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 4, \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel4, .request = DMA1_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -371,13 +371,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (USART2-&gt;RDR), .mem_addr = (uint32_t)(rx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                         \</div>
-<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 6,             \</div>
-<div class="line">        .periph = DMA1, .channel = DMA1_Channel6, .request = DMA1_CSELR              \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 6, \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel6, .request = DMA1_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -400,13 +400,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (USART2-&gt;TDR), .mem_addr = (uint32_t)(tx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                         \</div>
-<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 7,             \</div>
-<div class="line">        .periph = DMA1, .channel = DMA1_Channel7, .request = DMA1_CSELR              \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 7, \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel7, .request = DMA1_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -429,13 +429,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (USART3-&gt;RDR), .mem_addr = (uint32_t)(rx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                         \</div>
-<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 3,             \</div>
-<div class="line">        .periph = DMA1, .channel = DMA1_Channel3, .request = DMA1_CSELR              \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b0, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 3, \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel3, .request = DMA1_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
@@ -458,13 +458,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    {                                                                                \</div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .periph_addr = (uint32_t) &amp; (USART3-&gt;TDR), .mem_addr = (uint32_t)(tx_addr_), \</div>
-<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>,                         \</div>
-<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>,       \</div>
-<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00,              \</div>
-<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 2,             \</div>
-<div class="line">        .periph = DMA1, .channel = DMA1_Channel2, .request = DMA1_CSELR              \</div>
+<div class="line">        .tx_size = 1, .increment = <span class="keyword">false</span>, .circular = <span class="keyword">false</span>, \</div>
+<div class="line">        .dir = 0b1, .mem_inc = <span class="keyword">true</span>, .periph_inc = <span class="keyword">false</span>, .mem_to_mem = <span class="keyword">false</span>, \</div>
+<div class="line">        .priority = (priority_), .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a> = 0b00, .periph_size = 0b00, \</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>, .dma_chan_request = 0b0010, .channel_idx = 2, \</div>
+<div class="line">        .periph = DMA1, .channel = DMA1_Channel2, .request = DMA1_CSELR \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>

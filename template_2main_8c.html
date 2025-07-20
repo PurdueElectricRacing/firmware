@@ -94,11 +94,11 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;stm32l432xx.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__L4_2rcc_2rcc_8h_source.html">common/phal_L4/rcc/rcc.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="phal__L4_2gpio_2gpio_8h_source.html">common/phal_L4/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="phal__L4_2rcc_2rcc_8h_source.html">common/phal_L4/rcc/rcc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
+<code>#include &quot;stm32l432xx.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="template_2main_8h_source.html">main.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -256,16 +256,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .system_source              =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a>,</div>
-<div class="line">    .system_clock_target_hz     =80000000,</div>
-<div class="line">    .pll_src                    =<a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a>,</div>
-<div class="line">    .vco_output_rate_target_hz  =160000000,</div>
-<div class="line">    .ahb_clock_target_hz        =80000000,</div>
-<div class="line">    .apb1_clock_target_hz       =80000000,</div>
-<div class="line">    .apb2_clock_target_hz       =80000000 / 16,</div>
+<div class="line">    .system_source = <a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a>,</div>
+<div class="line">    .system_clock_target_hz = 80000000,</div>
+<div class="line">    .pll_src = <a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a>,</div>
+<div class="line">    .vco_output_rate_target_hz = 160000000,</div>
+<div class="line">    .ahb_clock_target_hz = 80000000,</div>
+<div class="line">    .apb1_clock_target_hz = 80000000, </div>
+<div class="line">    .apb2_clock_target_hz = 80000000 / 16,</div>
 <div class="line">}</div>
-<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a></div><div class="ttdeci">@ PLL_SRC_HSI16</div><div class="ttdef"><b>Definition</b> rcc.h:29</div></div>
-<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a></div><div class="ttdeci">@ SYSTEM_CLOCK_SRC_PLL</div><div class="ttdef"><b>Definition</b> rcc.h:35</div></div>
+<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a2494f48d80ac9fbbf7caec4a450f6f8a">PLL_SRC_HSI16</a></div><div class="ttdeci">@ PLL_SRC_HSI16</div><div class="ttdef"><b>Definition</b> rcc.h:28</div></div>
+<div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#ae9995a373c275b437777b74c78d64894a3c7d6279319361b8bdbaeca7067b758d">SYSTEM_CLOCK_SRC_PLL</a></div><div class="ttdeci">@ SYSTEM_CLOCK_SRC_PLL</div><div class="ttdef"><b>Definition</b> rcc.h:33</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -281,8 +281,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line"> </div>
-<div class="line">}</div>
+<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#a274553bcc4193f1176d99f48de5059a1">LED_GREEN_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#aa0ae908d1e3952cd486ee20970cd4b6d">LED_GREEN_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>)}</div>
+<div class="ttc" id="al4__testing_2main_8h_html_a274553bcc4193f1176d99f48de5059a1"><div class="ttname"><a href="l4__testing_2main_8h.html#a274553bcc4193f1176d99f48de5059a1">LED_GREEN_GPIO_Port</a></div><div class="ttdeci">#define LED_GREEN_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:24</div></div>
+<div class="ttc" id="al4__testing_2main_8h_html_aa0ae908d1e3952cd486ee20970cd4b6d"><div class="ttname"><a href="l4__testing_2main_8h.html#aa0ae908d1e3952cd486ee20970cd4b6d">LED_GREEN_Pin</a></div><div class="ttdeci">#define LED_GREEN_Pin</div><div class="ttdef"><b>Definition</b> main.h:23</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:99</div></div>
+<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_LOW_SPEED</div><div class="ttdoc">Slew rate control, max 8Mhz.</div><div class="ttdef"><b>Definition</b> gpio.h:34</div></div>
 </div><!-- fragment -->
 </div>
 </div>

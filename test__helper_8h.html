@@ -93,8 +93,8 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">test_helper.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
 </div>
 <p><a href="test__helper_8h_source.html">Go to the source code of this file.</a></p>
@@ -140,14 +140,14 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
-<div class="line">    if(isatty(STDERR_FILENO)) {               \</div>
-<div class="line">        fprintf(stderr, _color);              \</div>
-<div class="line">    }                                         \</div>
-<div class="line">    fprintf(stderr, __VA_ARGS__);             \</div>
-<div class="line">    if(isatty(STDERR_FILENO)) {               \</div>
-<div class="line">        fprintf(stderr, <a class="code hl_define" href="#ad08470f48b05018010892c5639a6c3a1">_T_ANSI_RESET</a>);          \</div>
-<div class="line">    }                                         \</div>
-<div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>);</div>
+<div class="line">        if (isatty(STDERR_FILENO)) { \</div>
+<div class="line">            fprintf(stderr, _color); \</div>
+<div class="line">        } \</div>
+<div class="line">        fprintf(stderr, __VA_ARGS__); \</div>
+<div class="line">        if (isatty(STDERR_FILENO)) { \</div>
+<div class="line">            fprintf(stderr, <a class="code hl_define" href="#ad08470f48b05018010892c5639a6c3a1">_T_ANSI_RESET</a>); \</div>
+<div class="line">        } \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>);</div>
 <div class="ttc" id="atest__helper_8h_html_ad08470f48b05018010892c5639a6c3a1"><div class="ttname"><a href="#ad08470f48b05018010892c5639a6c3a1">_T_ANSI_RESET</a></div><div class="ttdeci">#define _T_ANSI_RESET</div><div class="ttdef"><b>Definition</b> test_helper.h:9</div></div>
 </div><!-- fragment -->
 </div>
@@ -212,15 +212,15 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {       \</div>
-<div class="line">    if(!(_condition)) {                     \</div>
-<div class="line">        fprintf(stderr, __VA_ARGS__);       \</div>
-<div class="line">        fputc(<span class="charliteral">&#39;\n&#39;</span>, stderr);                \</div>
-<div class="line">        if (__t_line_first_fail == 0) {     \</div>
-<div class="line">            __t_line_first_fail= __LINE__;  \</div>
-<div class="line">        }                                   \</div>
-<div class="line">    }                                       \</div>
-<div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>);</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
+<div class="line">        if (!(_condition)) { \</div>
+<div class="line">            fprintf(stderr, __VA_ARGS__); \</div>
+<div class="line">            fputc(<span class="charliteral">&#39;\n&#39;</span>, stderr); \</div>
+<div class="line">            if (__t_line_first_fail == 0) { \</div>
+<div class="line">                __t_line_first_fail = __LINE__; \</div>
+<div class="line">            } \</div>
+<div class="line">        } \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>);</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -243,7 +243,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#adf9c3005259cf9501933dae67e5d1e41">t_check</a>(strcmp((s1), (s2)) == 0)</div>
-<div class="ttc" id="atest__helper_8h_html_adf9c3005259cf9501933dae67e5d1e41"><div class="ttname"><a href="#adf9c3005259cf9501933dae67e5d1e41">t_check</a></div><div class="ttdeci">#define t_check(_condition,...)</div><div class="ttdef"><b>Definition</b> test_helper.h:23</div></div>
+<div class="ttc" id="atest__helper_8h_html_adf9c3005259cf9501933dae67e5d1e41"><div class="ttname"><a href="#adf9c3005259cf9501933dae67e5d1e41">t_check</a></div><div class="ttdeci">#define t_check(_condition,...)</div><div class="ttdef"><b>Definition</b> test_helper.h:24</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -279,18 +279,19 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                   \</div>
-<div class="line">    <span class="keywordtype">int</span> __t_line = _function();                 \</div>
-<div class="line">    if(__t_line == 0) {                         \</div>
-<div class="line">        __t_log_color_error(<a class="code hl_define" href="#a435663364399b3c573e3021519bcc287">_T_ANSI_GREEN</a>,      \</div>
-<div class="line">            <span class="stringliteral">&quot;Test passed: %s\n&quot;</span>, (#_function)); \</div>
-<div class="line">    }                                           \</div>
-<div class="line">    <span class="keywordflow">else</span> {                                      \</div>
-<div class="line">        __t_log_color_error(<a class="code hl_define" href="#a26f1e36f702804ce08caa8c59cd7b66d">_T_ANSI_RED</a>,        \</div>
-<div class="line">            <span class="stringliteral">&quot;Test failed: %s at line %d\n&quot;</span>,     \</div>
-<div class="line">            (#_function), __t_line);            \</div>
-<div class="line">    }                                           \</div>
-<div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>);</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
+<div class="line">        <span class="keywordtype">int</span> __t_line = _function(); \</div>
+<div class="line">        if (__t_line == 0) { \</div>
+<div class="line">            __t_log_color_error(<a class="code hl_define" href="#a435663364399b3c573e3021519bcc287">_T_ANSI_GREEN</a>, \</div>
+<div class="line">                                <span class="stringliteral">&quot;Test passed: %s\n&quot;</span>, \</div>
+<div class="line">                                (#_function)); \</div>
+<div class="line">        } <span class="keywordflow">else</span> { \</div>
+<div class="line">            __t_log_color_error(<a class="code hl_define" href="#a26f1e36f702804ce08caa8c59cd7b66d">_T_ANSI_RED</a>, \</div>
+<div class="line">                                <span class="stringliteral">&quot;Test failed: %s at line %d\n&quot;</span>, \</div>
+<div class="line">                                (#_function), \</div>
+<div class="line">                                __t_line); \</div>
+<div class="line">        } \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>);</div>
 <div class="ttc" id="atest__helper_8h_html_a26f1e36f702804ce08caa8c59cd7b66d"><div class="ttname"><a href="#a26f1e36f702804ce08caa8c59cd7b66d">_T_ANSI_RED</a></div><div class="ttdeci">#define _T_ANSI_RED</div><div class="ttdef"><b>Definition</b> test_helper.h:7</div></div>
 <div class="ttc" id="atest__helper_8h_html_a435663364399b3c573e3021519bcc287"><div class="ttname"><a href="#a435663364399b3c573e3021519bcc287">_T_ANSI_GREEN</a></div><div class="ttdeci">#define _T_ANSI_GREEN</div><div class="ttdef"><b>Definition</b> test_helper.h:8</div></div>
 </div><!-- fragment -->

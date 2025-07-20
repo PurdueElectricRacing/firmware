@@ -154,7 +154,7 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a204d09b7b9b168db64be939ca4cea826" id="r_a204d09b7b9b168db64be939ca4cea826"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a204d09b7b9b168db64be939ca4cea826">sock_pack_info</a> [<a class="el" href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a>] = {0,}</td></tr>
+<tr class="memitem:a204d09b7b9b168db64be939ca4cea826" id="r_a204d09b7b9b168db64be939ca4cea826"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a204d09b7b9b168db64be939ca4cea826">sock_pack_info</a> [<a class="el" href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a>]</td></tr>
 <tr class="separator:a204d09b7b9b168db64be939ca4cea826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -170,7 +170,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>MidnightCow </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd></dd></dl>
 <p>Copyright (c) 2013, WIZnet Co., LTD. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: </p><pre class="fragment">* Redistributions of source code must retain the above copyright 
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: </p><pre class="fragment">* Redistributions of source code must retain the above copyright
 </pre><p> notice, this list of conditions and the following disclaimer.</p><ul>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
 <li>Neither the name of the &lt;ORGANIZATION&gt; nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
@@ -191,9 +191,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">   <span class="keywordflow">do</span>{                     \</div>
-<div class="line">      if(len == 0) return <a class="code hl_define" href="socket_8h.html#a6c4165b7c48a4e986b94e6ac4d5a88fe">SOCKERR_DATALEN</a>;   \</div>
-<div class="line">   }while(0);              \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
+<div class="line">        if (len == 0) \</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a6c4165b7c48a4e986b94e6ac4d5a88fe">SOCKERR_DATALEN</a>; \</div>
+<div class="line">    } <span class="keywordflow">while</span> (0);</div>
 <div class="ttc" id="asocket_8h_html_a6c4165b7c48a4e986b94e6ac4d5a88fe"><div class="ttname"><a href="socket_8h.html#a6c4165b7c48a4e986b94e6ac4d5a88fe">SOCKERR_DATALEN</a></div><div class="ttdeci">#define SOCKERR_DATALEN</div><div class="ttdoc">Data length is zero or greater than buffer max size.</div><div class="ttdef"><b>Definition</b> socket.h:111</div></div>
 </div><!-- fragment -->
 </div>
@@ -212,12 +213,13 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">   <span class="keywordflow">do</span>{                     \</div>
-<div class="line">      if((<a class="code hl_define" href="group__Socket__register__access__function.html#ga14066bffe9453001e246b1d7b0d375c7">getSn_SR</a>(sn) != <a class="code hl_define" href="w5500_8h.html#aa3ecdc449468d915c67d4a0323a5d21d">SOCK_INIT</a>)) <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a4cd6d7ca2165fc20977a855ca8ef5efc">SOCKERR_SOCKINIT</a>; \</div>
-<div class="line">   }<span class="keywordflow">while</span>(0);              \</div>
-<div class="ttc" id="agroup__Socket__register__access__function_html_ga14066bffe9453001e246b1d7b0d375c7"><div class="ttname"><a href="group__Socket__register__access__function.html#ga14066bffe9453001e246b1d7b0d375c7">getSn_SR</a></div><div class="ttdeci">#define getSn_SR(sn)</div><div class="ttdoc">Get Sn_SR register.</div><div class="ttdef"><b>Definition</b> w5500.h:1727</div></div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
+<div class="line">        if ((<a class="code hl_define" href="group__Socket__register__access__function.html#ga14066bffe9453001e246b1d7b0d375c7">getSn_SR</a>(sn) != <a class="code hl_define" href="w5500_8h.html#aa3ecdc449468d915c67d4a0323a5d21d">SOCK_INIT</a>)) \</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a4cd6d7ca2165fc20977a855ca8ef5efc">SOCKERR_SOCKINIT</a>; \</div>
+<div class="line">    } <span class="keywordflow">while</span> (0);</div>
+<div class="ttc" id="agroup__Socket__register__access__function_html_ga14066bffe9453001e246b1d7b0d375c7"><div class="ttname"><a href="group__Socket__register__access__function.html#ga14066bffe9453001e246b1d7b0d375c7">getSn_SR</a></div><div class="ttdeci">#define getSn_SR(sn)</div><div class="ttdoc">Get Sn_SR register.</div><div class="ttdef"><b>Definition</b> w5500.h:1713</div></div>
 <div class="ttc" id="asocket_8h_html_a4cd6d7ca2165fc20977a855ca8ef5efc"><div class="ttname"><a href="socket_8h.html#a4cd6d7ca2165fc20977a855ca8ef5efc">SOCKERR_SOCKINIT</a></div><div class="ttdeci">#define SOCKERR_SOCKINIT</div><div class="ttdoc">Socket is not initialized or SIPR is Zero IP address when Sn_MR_TCP.</div><div class="ttdef"><b>Definition</b> socket.h:102</div></div>
-<div class="ttc" id="aw5500_8h_html_aa3ecdc449468d915c67d4a0323a5d21d"><div class="ttname"><a href="w5500_8h.html#aa3ecdc449468d915c67d4a0323a5d21d">SOCK_INIT</a></div><div class="ttdeci">#define SOCK_INIT</div><div class="ttdoc">Initiate state.</div><div class="ttdef"><b>Definition</b> w5500.h:1064</div></div>
+<div class="ttc" id="aw5500_8h_html_aa3ecdc449468d915c67d4a0323a5d21d"><div class="ttname"><a href="w5500_8h.html#aa3ecdc449468d915c67d4a0323a5d21d">SOCK_INIT</a></div><div class="ttdeci">#define SOCK_INIT</div><div class="ttdoc">Initiate state.</div><div class="ttdef"><b>Definition</b> w5500.h:1052</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,10 +237,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">   <span class="keywordflow">do</span>{                     \</div>
-<div class="line">      if((<a class="code hl_define" href="group__Socket__register__access__function.html#gaa2b3835a45b353c5f9501201edcce157">getSn_MR</a>(sn) &amp; 0x0F) != mode) <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a6971dab6af9ec3f511a08f7944e04c85">SOCKERR_SOCKMODE</a>;  \</div>
-<div class="line">   }<span class="keywordflow">while</span>(0);              \</div>
-<div class="ttc" id="agroup__Socket__register__access__function_html_gaa2b3835a45b353c5f9501201edcce157"><div class="ttname"><a href="group__Socket__register__access__function.html#gaa2b3835a45b353c5f9501201edcce157">getSn_MR</a></div><div class="ttdeci">#define getSn_MR(sn)</div><div class="ttdoc">Get Sn_MR register.</div><div class="ttdef"><b>Definition</b> w5500.h:1658</div></div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
+<div class="line">        if ((<a class="code hl_define" href="group__Socket__register__access__function.html#gaa2b3835a45b353c5f9501201edcce157">getSn_MR</a>(sn) &amp; 0x0F) != mode) \</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a6971dab6af9ec3f511a08f7944e04c85">SOCKERR_SOCKMODE</a>; \</div>
+<div class="line">    } <span class="keywordflow">while</span> (0);</div>
+<div class="ttc" id="agroup__Socket__register__access__function_html_gaa2b3835a45b353c5f9501201edcce157"><div class="ttname"><a href="group__Socket__register__access__function.html#gaa2b3835a45b353c5f9501201edcce157">getSn_MR</a></div><div class="ttdeci">#define getSn_MR(sn)</div><div class="ttdoc">Get Sn_MR register.</div><div class="ttdef"><b>Definition</b> w5500.h:1644</div></div>
 <div class="ttc" id="asocket_8h_html_a6971dab6af9ec3f511a08f7944e04c85"><div class="ttname"><a href="socket_8h.html#a6971dab6af9ec3f511a08f7944e04c85">SOCKERR_SOCKMODE</a></div><div class="ttdeci">#define SOCKERR_SOCKMODE</div><div class="ttdoc">Invalid socket mode for socket operation.</div><div class="ttdef"><b>Definition</b> socket.h:104</div></div>
 </div><!-- fragment -->
 </div>
@@ -257,9 +260,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">   <span class="keywordflow">do</span>{                    \</div>
-<div class="line">      if(sn &gt; <a class="code hl_define" href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a>) <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#af6ef7a97c9bef95e6a0520a0f41b2923">SOCKERR_SOCKNUM</a>;   \</div>
-<div class="line">   }<span class="keywordflow">while</span>(0);             \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> { \</div>
+<div class="line">        if (sn &gt; <a class="code hl_define" href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a>) \</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#af6ef7a97c9bef95e6a0520a0f41b2923">SOCKERR_SOCKNUM</a>; \</div>
+<div class="line">    } <span class="keywordflow">while</span> (0);</div>
 <div class="ttc" id="asocket_8h_html_af6ef7a97c9bef95e6a0520a0f41b2923"><div class="ttname"><a href="socket_8h.html#af6ef7a97c9bef95e6a0520a0f41b2923">SOCKERR_SOCKNUM</a></div><div class="ttdeci">#define SOCKERR_SOCKNUM</div><div class="ttdoc">Invalid socket number.</div><div class="ttdef"><b>Definition</b> socket.h:100</div></div>
 <div class="ttc" id="awizchip__conf_8h_html_a70a4c5d01d3afb9fab3b6070ac27c857"><div class="ttname"><a href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a></div><div class="ttdeci">#define _WIZCHIP_SOCK_NUM_</div><div class="ttdoc">The count of independant socket of WIZCHIP.</div><div class="ttdef"><b>Definition</b> wizchip_conf.h:220</div></div>
 </div><!-- fragment -->
@@ -287,11 +291,14 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t sock_pack_info[<a class="el" href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a>] = {0,}</td>
+          <td class="memname">uint8_t sock_pack_info[<a class="el" href="wizchip__conf_8h.html#a70a4c5d01d3afb9fab3b6070ac27c857">_WIZCHIP_SOCK_NUM_</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    0,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

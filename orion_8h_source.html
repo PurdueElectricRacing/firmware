@@ -94,9 +94,9 @@ $(function(){ initResizable(false); });
 <a href="orion_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef _ORION_H_</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _ORION_H_</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;can_parse.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;can_parse.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="orion_8h.html#aed8ea54a2630aaf2ae3f2bd5fa886959">    8</a></span><span class="preprocessor">#define MAX_TEMP (550)</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="orion_8h.html#ade0415fa3de6a77cec873e8209579f65">    9</a></span><span class="preprocessor">#define MAX_VOLT (598) </span><span class="comment">// Max Pack voltage per ESF is 598 volts.</span></div>
@@ -117,10 +117,10 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aorion_8c_html_a21ab338773c5cfe26ddf71a339388f56"><div class="ttname"><a href="orion_8c.html#a21ab338773c5cfe26ddf71a339388f56">charge_request_user</a></div><div class="ttdeci">uint8_t charge_request_user</div><div class="ttdef"><b>Definition</b> orion.c:10</div></div>
 <div class="ttc" id="aorion_8c_html_a336188e7564bd84e2186f88be3979685"><div class="ttname"><a href="orion_8c.html#a336188e7564bd84e2186f88be3979685">user_charge_voltage_request</a></div><div class="ttdeci">uint16_t user_charge_voltage_request</div><div class="ttdef"><b>Definition</b> orion.c:12</div></div>
 <div class="ttc" id="aorion_8c_html_acc9c2cec806fa0236b7f1895c41c4c48"><div class="ttname"><a href="orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48">user_charge_current_request</a></div><div class="ttdeci">uint16_t user_charge_current_request</div><div class="ttdef"><b>Definition</b> orion.c:11</div></div>
-<div class="ttc" id="aorion_8h_html_a5ac3f08054b7806df54559c574f18720"><div class="ttname"><a href="orion_8h.html#a5ac3f08054b7806df54559c574f18720">orionChargePeriodic</a></div><div class="ttdeci">void orionChargePeriodic()</div><div class="ttdef"><b>Definition</b> orion.c:72</div></div>
+<div class="ttc" id="aorion_8h_html_a5ac3f08054b7806df54559c574f18720"><div class="ttname"><a href="orion_8h.html#a5ac3f08054b7806df54559c574f18720">orionChargePeriodic</a></div><div class="ttdeci">void orionChargePeriodic()</div><div class="ttdef"><b>Definition</b> orion.c:68</div></div>
 <div class="ttc" id="aorion_8h_html_a7cf9cb798fef5a1405f5a9abfd132f73"><div class="ttname"><a href="orion_8h.html#a7cf9cb798fef5a1405f5a9abfd132f73">orionCheckTempsPeriodic</a></div><div class="ttdeci">void orionCheckTempsPeriodic()</div></div>
-<div class="ttc" id="aorion_8h_html_a859556d7093b4b367a5cee7a09d0e7b8"><div class="ttname"><a href="orion_8h.html#a859556d7093b4b367a5cee7a09d0e7b8">orionInit</a></div><div class="ttdeci">void orionInit()</div><div class="ttdef"><b>Definition</b> orion.c:16</div></div>
-<div class="ttc" id="aorion_8h_html_a8b39479c31ee4873d1a1da75e1b1d96f"><div class="ttname"><a href="orion_8h.html#a8b39479c31ee4873d1a1da75e1b1d96f">orionErrors</a></div><div class="ttdeci">bool orionErrors()</div><div class="ttdef"><b>Definition</b> orion.c:24</div></div>
+<div class="ttc" id="aorion_8h_html_a859556d7093b4b367a5cee7a09d0e7b8"><div class="ttname"><a href="orion_8h.html#a859556d7093b4b367a5cee7a09d0e7b8">orionInit</a></div><div class="ttdeci">void orionInit()</div><div class="ttdef"><b>Definition</b> orion.c:15</div></div>
+<div class="ttc" id="aorion_8h_html_a8b39479c31ee4873d1a1da75e1b1d96f"><div class="ttname"><a href="orion_8h.html#a8b39479c31ee4873d1a1da75e1b1d96f">orionErrors</a></div><div class="ttdeci">bool orionErrors()</div><div class="ttdef"><b>Definition</b> orion.c:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -96,66 +96,67 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">diskio.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &quot;<a class="el" href="ff_8h_source.html">ff.h</a>&quot;</code><br />
+</div>
 <p><a href="diskio_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1dd0d2b46dce637878416d489d2ddde2" id="r_a1dd0d2b46dce637878416d489d2ddde2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dd0d2b46dce637878416d489d2ddde2">_USE_WRITE</a>&#160;&#160;&#160;1	/* 1: Enable <a class="el" href="diskio_8c.html#a0fe56ee4831a44b09cfd96856e069634">disk_write</a> function */</td></tr>
+<tr class="memitem:a1dd0d2b46dce637878416d489d2ddde2" id="r_a1dd0d2b46dce637878416d489d2ddde2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dd0d2b46dce637878416d489d2ddde2">_USE_WRITE</a>&#160;&#160;&#160;1 /* 1: Enable <a class="el" href="diskio_8c.html#a0fe56ee4831a44b09cfd96856e069634">disk_write</a> function */</td></tr>
 <tr class="separator:a1dd0d2b46dce637878416d489d2ddde2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe6d1224687dede333375a2475c78ff6" id="r_afe6d1224687dede333375a2475c78ff6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe6d1224687dede333375a2475c78ff6">_USE_IOCTL</a>&#160;&#160;&#160;1	/* 1: Enable <a class="el" href="diskio_8c.html#ab00fa450a811dbdabe3c655c1a36fab4">disk_ioctl</a> fucntion */</td></tr>
+<tr class="memitem:afe6d1224687dede333375a2475c78ff6" id="r_afe6d1224687dede333375a2475c78ff6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe6d1224687dede333375a2475c78ff6">_USE_IOCTL</a>&#160;&#160;&#160;1 /* 1: Enable <a class="el" href="diskio_8c.html#ab00fa450a811dbdabe3c655c1a36fab4">disk_ioctl</a> fucntion */</td></tr>
 <tr class="separator:afe6d1224687dede333375a2475c78ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3123edb25c9f814c3822c41df7726cc0" id="r_a3123edb25c9f814c3822c41df7726cc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3123edb25c9f814c3822c41df7726cc0">FATFS_DEBUG_SEND_USART</a>(x)</td></tr>
 <tr class="separator:a3123edb25c9f814c3822c41df7726cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd6503c70d862b979a3f7080a59e9acd" id="r_abd6503c70d862b979a3f7080a59e9acd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd6503c70d862b979a3f7080a59e9acd">STA_NOINIT</a>&#160;&#160;&#160;0x01	/* Drive not initialized */</td></tr>
+<tr class="memitem:abd6503c70d862b979a3f7080a59e9acd" id="r_abd6503c70d862b979a3f7080a59e9acd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd6503c70d862b979a3f7080a59e9acd">STA_NOINIT</a>&#160;&#160;&#160;0x01 /* Drive not initialized */</td></tr>
 <tr class="separator:abd6503c70d862b979a3f7080a59e9acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec625080763d6cf487e550a6c9a2dd19" id="r_aec625080763d6cf487e550a6c9a2dd19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec625080763d6cf487e550a6c9a2dd19">STA_NODISK</a>&#160;&#160;&#160;0x02	/* No medium in the drive */</td></tr>
+<tr class="memitem:aec625080763d6cf487e550a6c9a2dd19" id="r_aec625080763d6cf487e550a6c9a2dd19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec625080763d6cf487e550a6c9a2dd19">STA_NODISK</a>&#160;&#160;&#160;0x02 /* No medium in the drive */</td></tr>
 <tr class="separator:aec625080763d6cf487e550a6c9a2dd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ec6dc5f6620a33fabe388d3a111ca8c" id="r_a9ec6dc5f6620a33fabe388d3a111ca8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ec6dc5f6620a33fabe388d3a111ca8c">STA_PROTECT</a>&#160;&#160;&#160;0x04	/* Write protected */</td></tr>
+<tr class="memitem:a9ec6dc5f6620a33fabe388d3a111ca8c" id="r_a9ec6dc5f6620a33fabe388d3a111ca8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ec6dc5f6620a33fabe388d3a111ca8c">STA_PROTECT</a>&#160;&#160;&#160;0x04 /* Write protected */</td></tr>
 <tr class="separator:a9ec6dc5f6620a33fabe388d3a111ca8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b3c492f9aec325f0655941b75256f3c" id="r_a1b3c492f9aec325f0655941b75256f3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b3c492f9aec325f0655941b75256f3c">CTRL_SYNC</a>&#160;&#160;&#160;0	/* Flush disk cache (for write functions) */</td></tr>
+<tr class="memitem:a1b3c492f9aec325f0655941b75256f3c" id="r_a1b3c492f9aec325f0655941b75256f3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b3c492f9aec325f0655941b75256f3c">CTRL_SYNC</a>&#160;&#160;&#160;0 /* Flush disk cache (for write functions) */</td></tr>
 <tr class="separator:a1b3c492f9aec325f0655941b75256f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a570216006f6a8fc4e1698b1bbb2d1dde" id="r_a570216006f6a8fc4e1698b1bbb2d1dde"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a570216006f6a8fc4e1698b1bbb2d1dde">GET_SECTOR_COUNT</a>&#160;&#160;&#160;1	/* Get media size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td></tr>
+<tr class="memitem:a570216006f6a8fc4e1698b1bbb2d1dde" id="r_a570216006f6a8fc4e1698b1bbb2d1dde"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a570216006f6a8fc4e1698b1bbb2d1dde">GET_SECTOR_COUNT</a>&#160;&#160;&#160;1 /* Get media size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td></tr>
 <tr class="separator:a570216006f6a8fc4e1698b1bbb2d1dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac73b5cf2135cbd459d109b96c9aa346a" id="r_ac73b5cf2135cbd459d109b96c9aa346a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac73b5cf2135cbd459d109b96c9aa346a">GET_SECTOR_SIZE</a>&#160;&#160;&#160;2	/* Get sector size (for multiple sector size (_MAX_SS &gt;= 1024)) */</td></tr>
+<tr class="memitem:ac73b5cf2135cbd459d109b96c9aa346a" id="r_ac73b5cf2135cbd459d109b96c9aa346a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac73b5cf2135cbd459d109b96c9aa346a">GET_SECTOR_SIZE</a>&#160;&#160;&#160;2 /* Get sector size (for multiple sector size (_MAX_SS &gt;= 1024)) */</td></tr>
 <tr class="separator:ac73b5cf2135cbd459d109b96c9aa346a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec3bb4dfe075d0ba2f3b07b300a95500" id="r_aec3bb4dfe075d0ba2f3b07b300a95500"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec3bb4dfe075d0ba2f3b07b300a95500">GET_BLOCK_SIZE</a>&#160;&#160;&#160;3	/* Get erase block size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td></tr>
+<tr class="memitem:aec3bb4dfe075d0ba2f3b07b300a95500" id="r_aec3bb4dfe075d0ba2f3b07b300a95500"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec3bb4dfe075d0ba2f3b07b300a95500">GET_BLOCK_SIZE</a>&#160;&#160;&#160;3 /* Get erase block size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td></tr>
 <tr class="separator:aec3bb4dfe075d0ba2f3b07b300a95500"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b1dc812217ea7ffa118b14a3c1ab151" id="r_a3b1dc812217ea7ffa118b14a3c1ab151"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b1dc812217ea7ffa118b14a3c1ab151">CTRL_ERASE_SECTOR</a>&#160;&#160;&#160;4	/* Force erased a block of sectors (for only _USE_ERASE) */</td></tr>
+<tr class="memitem:a3b1dc812217ea7ffa118b14a3c1ab151" id="r_a3b1dc812217ea7ffa118b14a3c1ab151"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b1dc812217ea7ffa118b14a3c1ab151">CTRL_ERASE_SECTOR</a>&#160;&#160;&#160;4 /* Force erased a block of sectors (for only _USE_ERASE) */</td></tr>
 <tr class="separator:a3b1dc812217ea7ffa118b14a3c1ab151"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a345531a07462afbd999f414708e3b65b" id="r_a345531a07462afbd999f414708e3b65b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a345531a07462afbd999f414708e3b65b">CTRL_POWER</a>&#160;&#160;&#160;5	/* Get/Set power status */</td></tr>
+<tr class="memitem:a345531a07462afbd999f414708e3b65b" id="r_a345531a07462afbd999f414708e3b65b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a345531a07462afbd999f414708e3b65b">CTRL_POWER</a>&#160;&#160;&#160;5 /* Get/Set power status */</td></tr>
 <tr class="separator:a345531a07462afbd999f414708e3b65b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af40e5cf3000553a978ff6e30dae70858" id="r_af40e5cf3000553a978ff6e30dae70858"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af40e5cf3000553a978ff6e30dae70858">CTRL_LOCK</a>&#160;&#160;&#160;6	/* Lock/Unlock media removal */</td></tr>
+<tr class="memitem:af40e5cf3000553a978ff6e30dae70858" id="r_af40e5cf3000553a978ff6e30dae70858"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af40e5cf3000553a978ff6e30dae70858">CTRL_LOCK</a>&#160;&#160;&#160;6 /* Lock/Unlock media removal */</td></tr>
 <tr class="separator:af40e5cf3000553a978ff6e30dae70858"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e40e16d2d7ce196858950f070b9ec03" id="r_a5e40e16d2d7ce196858950f070b9ec03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e40e16d2d7ce196858950f070b9ec03">CTRL_EJECT</a>&#160;&#160;&#160;7	/* Eject media */</td></tr>
+<tr class="memitem:a5e40e16d2d7ce196858950f070b9ec03" id="r_a5e40e16d2d7ce196858950f070b9ec03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e40e16d2d7ce196858950f070b9ec03">CTRL_EJECT</a>&#160;&#160;&#160;7 /* Eject media */</td></tr>
 <tr class="separator:a5e40e16d2d7ce196858950f070b9ec03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add07021167069f5914211a2f8830fabb" id="r_add07021167069f5914211a2f8830fabb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add07021167069f5914211a2f8830fabb">CTRL_FORMAT</a>&#160;&#160;&#160;8	/* Create physical format on the media */</td></tr>
+<tr class="memitem:add07021167069f5914211a2f8830fabb" id="r_add07021167069f5914211a2f8830fabb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add07021167069f5914211a2f8830fabb">CTRL_FORMAT</a>&#160;&#160;&#160;8 /* Create physical format on the media */</td></tr>
 <tr class="separator:add07021167069f5914211a2f8830fabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba3a81a9a47c7d1bf3ac7749bc72dcfd" id="r_aba3a81a9a47c7d1bf3ac7749bc72dcfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba3a81a9a47c7d1bf3ac7749bc72dcfd">MMC_GET_TYPE</a>&#160;&#160;&#160;10	/* Get card type */</td></tr>
+<tr class="memitem:aba3a81a9a47c7d1bf3ac7749bc72dcfd" id="r_aba3a81a9a47c7d1bf3ac7749bc72dcfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba3a81a9a47c7d1bf3ac7749bc72dcfd">MMC_GET_TYPE</a>&#160;&#160;&#160;10 /* Get card type */</td></tr>
 <tr class="separator:aba3a81a9a47c7d1bf3ac7749bc72dcfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3b858b81287929f7c7bea3b7aec3087" id="r_ae3b858b81287929f7c7bea3b7aec3087"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3b858b81287929f7c7bea3b7aec3087">MMC_GET_CSD</a>&#160;&#160;&#160;11	/* Get CSD */</td></tr>
+<tr class="memitem:ae3b858b81287929f7c7bea3b7aec3087" id="r_ae3b858b81287929f7c7bea3b7aec3087"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3b858b81287929f7c7bea3b7aec3087">MMC_GET_CSD</a>&#160;&#160;&#160;11 /* Get CSD */</td></tr>
 <tr class="separator:ae3b858b81287929f7c7bea3b7aec3087"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17ad303dd18b19a4c90ab30a8a1c14c4" id="r_a17ad303dd18b19a4c90ab30a8a1c14c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17ad303dd18b19a4c90ab30a8a1c14c4">MMC_GET_CID</a>&#160;&#160;&#160;12	/* Get CID */</td></tr>
+<tr class="memitem:a17ad303dd18b19a4c90ab30a8a1c14c4" id="r_a17ad303dd18b19a4c90ab30a8a1c14c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17ad303dd18b19a4c90ab30a8a1c14c4">MMC_GET_CID</a>&#160;&#160;&#160;12 /* Get CID */</td></tr>
 <tr class="separator:a17ad303dd18b19a4c90ab30a8a1c14c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff118ba6bd7a9fe7699cee049cff5d6c" id="r_aff118ba6bd7a9fe7699cee049cff5d6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff118ba6bd7a9fe7699cee049cff5d6c">MMC_GET_OCR</a>&#160;&#160;&#160;13	/* Get OCR */</td></tr>
+<tr class="memitem:aff118ba6bd7a9fe7699cee049cff5d6c" id="r_aff118ba6bd7a9fe7699cee049cff5d6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff118ba6bd7a9fe7699cee049cff5d6c">MMC_GET_OCR</a>&#160;&#160;&#160;13 /* Get OCR */</td></tr>
 <tr class="separator:aff118ba6bd7a9fe7699cee049cff5d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cc43c8449b872e16ea5ab42592f793e" id="r_a5cc43c8449b872e16ea5ab42592f793e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cc43c8449b872e16ea5ab42592f793e">MMC_GET_SDSTAT</a>&#160;&#160;&#160;14	/* Get SD status */</td></tr>
+<tr class="memitem:a5cc43c8449b872e16ea5ab42592f793e" id="r_a5cc43c8449b872e16ea5ab42592f793e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cc43c8449b872e16ea5ab42592f793e">MMC_GET_SDSTAT</a>&#160;&#160;&#160;14 /* Get SD status */</td></tr>
 <tr class="separator:a5cc43c8449b872e16ea5ab42592f793e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23f5fff3341e98825ea1f7367fd09f1a" id="r_a23f5fff3341e98825ea1f7367fd09f1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23f5fff3341e98825ea1f7367fd09f1a">ATA_GET_REV</a>&#160;&#160;&#160;20	/* Get F/W revision */</td></tr>
+<tr class="memitem:a23f5fff3341e98825ea1f7367fd09f1a" id="r_a23f5fff3341e98825ea1f7367fd09f1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23f5fff3341e98825ea1f7367fd09f1a">ATA_GET_REV</a>&#160;&#160;&#160;20 /* Get F/W revision */</td></tr>
 <tr class="separator:a23f5fff3341e98825ea1f7367fd09f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31f556ab98ab80c39058b38d9283865d" id="r_a31f556ab98ab80c39058b38d9283865d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31f556ab98ab80c39058b38d9283865d">ATA_GET_MODEL</a>&#160;&#160;&#160;21	/* Get model name */</td></tr>
+<tr class="memitem:a31f556ab98ab80c39058b38d9283865d" id="r_a31f556ab98ab80c39058b38d9283865d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31f556ab98ab80c39058b38d9283865d">ATA_GET_MODEL</a>&#160;&#160;&#160;21 /* Get model name */</td></tr>
 <tr class="separator:a31f556ab98ab80c39058b38d9283865d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469c4f989757ee1ee404134fea3c74ba" id="r_a469c4f989757ee1ee404134fea3c74ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a469c4f989757ee1ee404134fea3c74ba">ATA_GET_SN</a>&#160;&#160;&#160;22	/* Get serial number */</td></tr>
+<tr class="memitem:a469c4f989757ee1ee404134fea3c74ba" id="r_a469c4f989757ee1ee404134fea3c74ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a469c4f989757ee1ee404134fea3c74ba">ATA_GET_SN</a>&#160;&#160;&#160;22 /* Get serial number */</td></tr>
 <tr class="separator:a469c4f989757ee1ee404134fea3c74ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac52ec66c278308382fdf7b2c57f0ad8c" id="r_ac52ec66c278308382fdf7b2c57f0ad8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac52ec66c278308382fdf7b2c57f0ad8c">CT_MMC</a>&#160;&#160;&#160;0x01		/* MMC ver 3 */</td></tr>
+<tr class="memitem:ac52ec66c278308382fdf7b2c57f0ad8c" id="r_ac52ec66c278308382fdf7b2c57f0ad8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac52ec66c278308382fdf7b2c57f0ad8c">CT_MMC</a>&#160;&#160;&#160;0x01 /* MMC ver 3 */</td></tr>
 <tr class="separator:ac52ec66c278308382fdf7b2c57f0ad8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1c9fc863ec15d3320b3850dc571626e" id="r_ad1c9fc863ec15d3320b3850dc571626e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1c9fc863ec15d3320b3850dc571626e">CT_SD1</a>&#160;&#160;&#160;0x02		/* SD ver 1 */</td></tr>
+<tr class="memitem:ad1c9fc863ec15d3320b3850dc571626e" id="r_ad1c9fc863ec15d3320b3850dc571626e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1c9fc863ec15d3320b3850dc571626e">CT_SD1</a>&#160;&#160;&#160;0x02 /* SD ver 1 */</td></tr>
 <tr class="separator:ad1c9fc863ec15d3320b3850dc571626e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0db1b71113e73184a5ba511e7020a922" id="r_a0db1b71113e73184a5ba511e7020a922"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0db1b71113e73184a5ba511e7020a922">CT_SD2</a>&#160;&#160;&#160;0x04		/* SD ver 2 */</td></tr>
+<tr class="memitem:a0db1b71113e73184a5ba511e7020a922" id="r_a0db1b71113e73184a5ba511e7020a922"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0db1b71113e73184a5ba511e7020a922">CT_SD2</a>&#160;&#160;&#160;0x04 /* SD ver 2 */</td></tr>
 <tr class="separator:a0db1b71113e73184a5ba511e7020a922"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae76d94ac83c68d1f025cb0bcad77fa5d" id="r_ae76d94ac83c68d1f025cb0bcad77fa5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae76d94ac83c68d1f025cb0bcad77fa5d">CT_SDC</a>&#160;&#160;&#160;(<a class="el" href="#ad1c9fc863ec15d3320b3850dc571626e">CT_SD1</a>|<a class="el" href="#a0db1b71113e73184a5ba511e7020a922">CT_SD2</a>)	/* SD */</td></tr>
+<tr class="memitem:ae76d94ac83c68d1f025cb0bcad77fa5d" id="r_ae76d94ac83c68d1f025cb0bcad77fa5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae76d94ac83c68d1f025cb0bcad77fa5d">CT_SDC</a>&#160;&#160;&#160;(<a class="el" href="#ad1c9fc863ec15d3320b3850dc571626e">CT_SD1</a> | <a class="el" href="#a0db1b71113e73184a5ba511e7020a922">CT_SD2</a>) /* SD */</td></tr>
 <tr class="separator:ae76d94ac83c68d1f025cb0bcad77fa5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d48ce54c27f4f60666309e8627fab47" id="r_a7d48ce54c27f4f60666309e8627fab47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d48ce54c27f4f60666309e8627fab47">CT_BLOCK</a>&#160;&#160;&#160;0x08		/* Block addressing */</td></tr>
+<tr class="memitem:a7d48ce54c27f4f60666309e8627fab47" id="r_a7d48ce54c27f4f60666309e8627fab47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d48ce54c27f4f60666309e8627fab47">CT_BLOCK</a>&#160;&#160;&#160;0x08 /* Block addressing */</td></tr>
 <tr class="separator:a7d48ce54c27f4f60666309e8627fab47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -197,7 +198,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define _USE_IOCTL&#160;&#160;&#160;1	/* 1: Enable <a class="el" href="diskio_8c.html#ab00fa450a811dbdabe3c655c1a36fab4">disk_ioctl</a> fucntion */</td>
+          <td class="memname">#define _USE_IOCTL&#160;&#160;&#160;1 /* 1: Enable <a class="el" href="diskio_8c.html#ab00fa450a811dbdabe3c655c1a36fab4">disk_ioctl</a> fucntion */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -211,7 +212,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define _USE_WRITE&#160;&#160;&#160;1	/* 1: Enable <a class="el" href="diskio_8c.html#a0fe56ee4831a44b09cfd96856e069634">disk_write</a> function */</td>
+          <td class="memname">#define _USE_WRITE&#160;&#160;&#160;1 /* 1: Enable <a class="el" href="diskio_8c.html#a0fe56ee4831a44b09cfd96856e069634">disk_write</a> function */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -225,7 +226,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ATA_GET_MODEL&#160;&#160;&#160;21	/* Get model name */</td>
+          <td class="memname">#define ATA_GET_MODEL&#160;&#160;&#160;21 /* Get model name */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -239,7 +240,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ATA_GET_REV&#160;&#160;&#160;20	/* Get F/W revision */</td>
+          <td class="memname">#define ATA_GET_REV&#160;&#160;&#160;20 /* Get F/W revision */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -253,7 +254,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ATA_GET_SN&#160;&#160;&#160;22	/* Get serial number */</td>
+          <td class="memname">#define ATA_GET_SN&#160;&#160;&#160;22 /* Get serial number */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -267,7 +268,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CT_BLOCK&#160;&#160;&#160;0x08		/* Block addressing */</td>
+          <td class="memname">#define CT_BLOCK&#160;&#160;&#160;0x08 /* Block addressing */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -281,7 +282,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CT_MMC&#160;&#160;&#160;0x01		/* MMC ver 3 */</td>
+          <td class="memname">#define CT_MMC&#160;&#160;&#160;0x01 /* MMC ver 3 */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -295,7 +296,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CT_SD1&#160;&#160;&#160;0x02		/* SD ver 1 */</td>
+          <td class="memname">#define CT_SD1&#160;&#160;&#160;0x02 /* SD ver 1 */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -309,7 +310,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CT_SD2&#160;&#160;&#160;0x04		/* SD ver 2 */</td>
+          <td class="memname">#define CT_SD2&#160;&#160;&#160;0x04 /* SD ver 2 */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -323,7 +324,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CT_SDC&#160;&#160;&#160;(<a class="el" href="#ad1c9fc863ec15d3320b3850dc571626e">CT_SD1</a>|<a class="el" href="#a0db1b71113e73184a5ba511e7020a922">CT_SD2</a>)	/* SD */</td>
+          <td class="memname">#define CT_SDC&#160;&#160;&#160;(<a class="el" href="#ad1c9fc863ec15d3320b3850dc571626e">CT_SD1</a> | <a class="el" href="#a0db1b71113e73184a5ba511e7020a922">CT_SD2</a>) /* SD */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -337,7 +338,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CTRL_EJECT&#160;&#160;&#160;7	/* Eject media */</td>
+          <td class="memname">#define CTRL_EJECT&#160;&#160;&#160;7 /* Eject media */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -351,7 +352,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CTRL_ERASE_SECTOR&#160;&#160;&#160;4	/* Force erased a block of sectors (for only _USE_ERASE) */</td>
+          <td class="memname">#define CTRL_ERASE_SECTOR&#160;&#160;&#160;4 /* Force erased a block of sectors (for only _USE_ERASE) */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -365,7 +366,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CTRL_FORMAT&#160;&#160;&#160;8	/* Create physical format on the media */</td>
+          <td class="memname">#define CTRL_FORMAT&#160;&#160;&#160;8 /* Create physical format on the media */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -379,7 +380,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CTRL_LOCK&#160;&#160;&#160;6	/* Lock/Unlock media removal */</td>
+          <td class="memname">#define CTRL_LOCK&#160;&#160;&#160;6 /* Lock/Unlock media removal */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -393,7 +394,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CTRL_POWER&#160;&#160;&#160;5	/* Get/Set power status */</td>
+          <td class="memname">#define CTRL_POWER&#160;&#160;&#160;5 /* Get/Set power status */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -407,7 +408,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CTRL_SYNC&#160;&#160;&#160;0	/* Flush disk cache (for write functions) */</td>
+          <td class="memname">#define CTRL_SYNC&#160;&#160;&#160;0 /* Flush disk cache (for write functions) */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -438,7 +439,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GET_BLOCK_SIZE&#160;&#160;&#160;3	/* Get erase block size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td>
+          <td class="memname">#define GET_BLOCK_SIZE&#160;&#160;&#160;3 /* Get erase block size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -452,7 +453,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GET_SECTOR_COUNT&#160;&#160;&#160;1	/* Get media size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td>
+          <td class="memname">#define GET_SECTOR_COUNT&#160;&#160;&#160;1 /* Get media size (for only <a class="el" href="ff_8h.html#a983f0614033bd7cf587eb56d3054a91c">f_mkfs</a>()) */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -466,7 +467,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GET_SECTOR_SIZE&#160;&#160;&#160;2	/* Get sector size (for multiple sector size (_MAX_SS &gt;= 1024)) */</td>
+          <td class="memname">#define GET_SECTOR_SIZE&#160;&#160;&#160;2 /* Get sector size (for multiple sector size (_MAX_SS &gt;= 1024)) */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -480,7 +481,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MMC_GET_CID&#160;&#160;&#160;12	/* Get CID */</td>
+          <td class="memname">#define MMC_GET_CID&#160;&#160;&#160;12 /* Get CID */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -494,7 +495,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MMC_GET_CSD&#160;&#160;&#160;11	/* Get CSD */</td>
+          <td class="memname">#define MMC_GET_CSD&#160;&#160;&#160;11 /* Get CSD */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -508,7 +509,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MMC_GET_OCR&#160;&#160;&#160;13	/* Get OCR */</td>
+          <td class="memname">#define MMC_GET_OCR&#160;&#160;&#160;13 /* Get OCR */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -522,7 +523,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MMC_GET_SDSTAT&#160;&#160;&#160;14	/* Get SD status */</td>
+          <td class="memname">#define MMC_GET_SDSTAT&#160;&#160;&#160;14 /* Get SD status */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -536,7 +537,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MMC_GET_TYPE&#160;&#160;&#160;10	/* Get card type */</td>
+          <td class="memname">#define MMC_GET_TYPE&#160;&#160;&#160;10 /* Get card type */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -550,7 +551,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STA_NODISK&#160;&#160;&#160;0x02	/* No medium in the drive */</td>
+          <td class="memname">#define STA_NODISK&#160;&#160;&#160;0x02 /* No medium in the drive */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -564,7 +565,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STA_NOINIT&#160;&#160;&#160;0x01	/* Drive not initialized */</td>
+          <td class="memname">#define STA_NOINIT&#160;&#160;&#160;0x01 /* Drive not initialized */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -578,7 +579,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STA_PROTECT&#160;&#160;&#160;0x04	/* Write protected */</td>
+          <td class="memname">#define STA_PROTECT&#160;&#160;&#160;0x04 /* Write protected */</td>
         </tr>
       </table>
 </div><div class="memdoc">

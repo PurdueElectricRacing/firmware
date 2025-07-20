@@ -95,12 +95,12 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="pedals_8h_source.html">pedals.h</a>&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common_defs.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -268,8 +268,7 @@ Variables</h2></td></tr>
 <div class="line">    {0, 10, 10, 0},</div>
 <div class="line">    {1, 10, 10, 0},</div>
 <div class="line">    {2, 10, 10, 0},</div>
-<div class="line">    {3, 10, 10, 0}</div>
-<div class="line">}</div>
+<div class="line">    {3, 10, 10, 0}}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -284,11 +283,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {  </div>
-<div class="line">    .t1_min = 980, .t1_max = 1600,</div>
-<div class="line">    .t2_min = 1550, .t2_max = 2050,</div>
-<div class="line">    .b1_min = 475, .b1_max = 1490,</div>
-<div class="line">    .b2_min = 500, .b2_max = 1490,</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    </div>
+<div class="line">    .t1_min = 980,</div>
+<div class="line">    .t1_max = 1600,</div>
+<div class="line">    .t2_min = 1550,</div>
+<div class="line">    .t2_max = 2050,</div>
+<div class="line">    .b1_min = 475,</div>
+<div class="line">    .b1_max = 1490,</div>
+<div class="line">    .b2_min = 500,</div>
+<div class="line">    .b2_max = 1490,</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>
@@ -320,8 +324,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    .throttle = 0,</div>
-<div class="line">    .brake    = 0</div>
-<div class="line">}</div>
+<div class="line">    .brake = 0}</div>
 </div><!-- fragment -->
 </div>
 </div>

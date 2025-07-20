@@ -97,9 +97,9 @@ $(function(){ initResizable(false); });
 
 <p>interface definitons for bsxlite  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 </div>
 <p><a href="bsxlite__interface_8h_source.html">Go to the source code of this file.</a></p>
@@ -125,14 +125,14 @@ Classes</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:aa8fea3a76dcfb86a8571a4bbdb3f5140" id="r_aa8fea3a76dcfb86a8571a4bbdb3f5140"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8fea3a76dcfb86a8571a4bbdb3f5140">BSXLITE_DEBUG</a></td></tr>
 <tr class="separator:aa8fea3a76dcfb86a8571a4bbdb3f5140"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70d51f592961cf2c425e40b9610d3815" id="r_a70d51f592961cf2c425e40b9610d3815"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70d51f592961cf2c425e40b9610d3815">BSXLITE_OK</a>&#160;&#160;&#160;(0)                               /** @brief Normal operation was successful without any warning or additional information. */</td></tr>
+<tr class="memitem:a70d51f592961cf2c425e40b9610d3815" id="r_a70d51f592961cf2c425e40b9610d3815"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70d51f592961cf2c425e40b9610d3815">BSXLITE_OK</a>&#160;&#160;&#160;(0) /** @brief Normal operation was successful without any warning or additional information. */</td></tr>
 <tr class="memdesc:a70d51f592961cf2c425e40b9610d3815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the enumeration containing return value identifier.  <br /></td></tr>
 <tr class="separator:a70d51f592961cf2c425e40b9610d3815"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cd32227a4b92eeb5d718998e6b28fc7" id="r_a6cd32227a4b92eeb5d718998e6b28fc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cd32227a4b92eeb5d718998e6b28fc7">BSXLITE_E_DOSTEPS_TSINTRADIFFOUTOFRANGE</a>&#160;&#160;&#160;(-5) /** Difference of time stamps between subsequent doSteps calls is out of range. */</td></tr>
 <tr class="separator:a6cd32227a4b92eeb5d718998e6b28fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dd39d71709dbd376dee9ff702865351" id="r_a5dd39d71709dbd376dee9ff702865351"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dd39d71709dbd376dee9ff702865351">BSXLITE_E_FATAL</a>&#160;&#160;&#160;(-254)                       /** Fatal error. */</td></tr>
+<tr class="memitem:a5dd39d71709dbd376dee9ff702865351" id="r_a5dd39d71709dbd376dee9ff702865351"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dd39d71709dbd376dee9ff702865351">BSXLITE_E_FATAL</a>&#160;&#160;&#160;(-254) /** Fatal error. */</td></tr>
 <tr class="separator:a5dd39d71709dbd376dee9ff702865351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2044692621212a2a13a2a850e0407f1f" id="r_a2044692621212a2a13a2a850e0407f1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2044692621212a2a13a2a850e0407f1f">BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE</a>&#160;&#160;&#160;(2)    /** all outputs cannot be returned because no memory provided */</td></tr>
+<tr class="memitem:a2044692621212a2a13a2a850e0407f1f" id="r_a2044692621212a2a13a2a850e0407f1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2044692621212a2a13a2a850e0407f1f">BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE</a>&#160;&#160;&#160;(2) /** all outputs cannot be returned because no memory provided */</td></tr>
 <tr class="separator:a2044692621212a2a13a2a850e0407f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87698e0ffc7371118c5e41bbf3460862" id="r_a87698e0ffc7371118c5e41bbf3460862"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87698e0ffc7371118c5e41bbf3460862">ACC_SCALING_ACC_LSB_TO_MPS2</a>&#160;&#160;&#160;(0.0023942f)</td></tr>
 <tr class="separator:a87698e0ffc7371118c5e41bbf3460862"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,7 +213,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BSXLITE_E_FATAL&#160;&#160;&#160;(-254)                       /** Fatal error. */</td>
+          <td class="memname">#define BSXLITE_E_FATAL&#160;&#160;&#160;(-254) /** Fatal error. */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -227,7 +227,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE&#160;&#160;&#160;(2)    /** all outputs cannot be returned because no memory provided */</td>
+          <td class="memname">#define BSXLITE_I_DOSTEPS_NOOUTPUTSRETURNABLE&#160;&#160;&#160;(2) /** all outputs cannot be returned because no memory provided */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -241,7 +241,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BSXLITE_OK&#160;&#160;&#160;(0)                               /** @brief Normal operation was successful without any warning or additional information. */</td>
+          <td class="memname">#define BSXLITE_OK&#160;&#160;&#160;(0) /** @brief Normal operation was successful without any warning or additional information. */</td>
         </tr>
       </table>
 </div><div class="memdoc">

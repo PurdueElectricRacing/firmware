@@ -96,13 +96,13 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">sdio.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;stm32f4xx.h&quot;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &quot;common/phal/dma.h&quot;</code><br />
-<code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
-<code>#include &quot;common_defs.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &quot;common/phal/dma.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;common/phal/rcc.h&quot;</code><br />
+<code>#include &quot;common_defs.h&quot;</code><br />
+<code>#include &quot;stm32f4xx.h&quot;</code><br />
 </div>
 <p><a href="sdio_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -453,17 +453,17 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:ace0484a459648257c3eae8ea60f64fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDIO Transfer state.  <a href="#ace0484a459648257c3eae8ea60f64fbf">More...</a><br /></td></tr>
 <tr class="separator:ace0484a459648257c3eae8ea60f64fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdc2533a9bff7dc10def0945f5915398" id="r_acdc2533a9bff7dc10def0945f5915398"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdc2533a9bff7dc10def0945f5915398">SDCardState</a> { <br />
-&#160;&#160;<a class="el" href="#acdc2533a9bff7dc10def0945f5915398a7105d3ddde877b8d09471eb482fb5520">SD_CARD_READY</a> = ((uint32_t) 0x00000001)
-, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a18689e3260641d154376eba9a1e3da47">SD_CARD_IDENTIFICATION</a> = ((uint32_t) 0x00000002)
-, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a6e24b45fe387177e2383bac672525f1a">SD_CARD_STANDBY</a> = ((uint32_t) 0x00000003)
-, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a090f585cfc114861ad07114914a3ad1d">SD_CARD_TRANSFER</a> = ((uint32_t) 0x00000004)
+&#160;&#160;<a class="el" href="#acdc2533a9bff7dc10def0945f5915398a7105d3ddde877b8d09471eb482fb5520">SD_CARD_READY</a> = ((uint32_t)0x00000001)
+, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a18689e3260641d154376eba9a1e3da47">SD_CARD_IDENTIFICATION</a> = ((uint32_t)0x00000002)
+, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a6e24b45fe387177e2383bac672525f1a">SD_CARD_STANDBY</a> = ((uint32_t)0x00000003)
+, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a090f585cfc114861ad07114914a3ad1d">SD_CARD_TRANSFER</a> = ((uint32_t)0x00000004)
 , <br />
-&#160;&#160;<a class="el" href="#acdc2533a9bff7dc10def0945f5915398a23dec93b22009b39f7b7311f22a7c396">SD_CARD_SENDING</a> = ((uint32_t) 0x00000005)
-, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a467165b416761a4858546d616c8dac12">SD_CARD_RECEIVING</a> = ((uint32_t) 0x00000006)
-, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398aa72e3de9b7ac3217b05862ec2412c6cc">SD_CARD_PROGRAMMING</a> = ((uint32_t) 0x00000007)
-, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398ac5dd213f085b94ecd3735f15d6a257ec">SD_CARD_DISCONNECTED</a> = ((uint32_t) 0x00000008)
+&#160;&#160;<a class="el" href="#acdc2533a9bff7dc10def0945f5915398a23dec93b22009b39f7b7311f22a7c396">SD_CARD_SENDING</a> = ((uint32_t)0x00000005)
+, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398a467165b416761a4858546d616c8dac12">SD_CARD_RECEIVING</a> = ((uint32_t)0x00000006)
+, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398aa72e3de9b7ac3217b05862ec2412c6cc">SD_CARD_PROGRAMMING</a> = ((uint32_t)0x00000007)
+, <a class="el" href="#acdc2533a9bff7dc10def0945f5915398ac5dd213f085b94ecd3735f15d6a257ec">SD_CARD_DISCONNECTED</a> = ((uint32_t)0x00000008)
 , <br />
-&#160;&#160;<a class="el" href="#acdc2533a9bff7dc10def0945f5915398aed9c89d9fc0101e995ae957f132af14c">SD_CARD_ERROR</a> = ((uint32_t) 0x000000FF)
+&#160;&#160;<a class="el" href="#acdc2533a9bff7dc10def0945f5915398aed9c89d9fc0101e995ae957f132af14c">SD_CARD_ERROR</a> = ((uint32_t)0x000000FF)
 <br />
  }</td></tr>
 <tr class="memdesc:acdc2533a9bff7dc10def0945f5915398"><td class="mdescLeft">&#160;</td><td class="mdescRight">SD Card States.  <a href="#acdc2533a9bff7dc10def0945f5915398">More...</a><br /></td></tr>

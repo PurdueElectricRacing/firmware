@@ -67,7 +67,7 @@ int main() {
 }
 
 void ledblink1() {
-    PHAL_toggleGPIO(GPIOD, 12);
+    // TODO: add blink function here
 }
 
 // TODO: add more function definitions here

@@ -704,6 +704,11 @@
               "msg_name": "orion_info",
               "msg_priority": 3,
               "msg_period": 0
+            },
+            {
+                "msg_name": "dash_version",
+                "msg_priority": 3,
+                "msg_period": 1000
             }
           ]
         }

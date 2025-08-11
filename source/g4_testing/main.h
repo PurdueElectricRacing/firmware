@@ -4,6 +4,8 @@
 
 #include <stdint.h>
 
+// G4 devboard LEDs
+
 #define LED_GREEN_PORT  GPIOB
 #define LED_GREEN_PIN   7
 #define LED_RED_PORT    GPIOB

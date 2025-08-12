@@ -1,6 +1,6 @@
 /**
  * @file onboarding_26.c
- * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Danny Proano
  * @brief  Onboarding 26 starter file
  * @version 0.1
  * @date 2026-07-27
@@ -19,7 +19,7 @@
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
-    // TODO: Add GPIO LEDs here...
+    GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED),
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -40,11 +40,16 @@ ClockRateConfig_t clock_config = {
 
 void HardFault_Handler();
 void ledblink1();
-// TODO add more function definitions here
+void ledblink2();
+void ledblink3();
+void ledblink4();
+void ledblink5();
 
-defineThreadStack(ledblink1, 250, osPriorityNormal, 64);
-
-// TODO add thread definitions here
+defineThreadStack(ledblink1, 100, osPriorityNormal, 64);
+defineThreadStack(ledblink2, 100, osPriorityNormal, 64);
+defineThreadStack(ledblink3, 40, osPriorityNormal, 64);
+defineThreadStack(ledblink4, 20, osPriorityNormal, 64);
+defineThreadStack(ledblink5, 10, osPriorityNormal, 64);
 
 int main() {
     osKernelInitialize();
@@ -59,7 +64,10 @@ int main() {
 
     // Create threads
     createThread(ledblink1);
-    // TODO: Create threads here
+    createThread(ledblink2);
+    createThread(ledblink3);
+    createThread(ledblink4);
+    createThread(ledblink5);
 
     osKernelStart(); // Go!
 
@@ -67,10 +75,24 @@ int main() {
 }
 
 void ledblink1() {
-    // TODO: add blink function here
+    GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED);
 }
 
-// TODO: add more function definitions here
+void ledblink2() {
+    GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED);
+}
+
+void ledblink3() {
+    GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED);
+}
+
+void ledblink4() {
+    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED);
+}
+
+void ledblink5() {
+    GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED);
+}
 
 void HardFault_Handler() {
     while (1) {

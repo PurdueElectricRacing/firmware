@@ -16,10 +16,14 @@
 #include "common/freertos/freertos.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include <stdbool.h>
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED)
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -45,14 +49,40 @@ void ledblink3();
 void ledblink4();
 void ledblink5();
 
+volatile bool fast = false;
+
 defineThreadStack(ledblink1, 100, osPriorityNormal, 64);
 defineThreadStack(ledblink2, 100, osPriorityNormal, 64);
 defineThreadStack(ledblink3, 40, osPriorityNormal, 64);
 defineThreadStack(ledblink4, 20, osPriorityNormal, 64);
 defineThreadStack(ledblink5, 10, osPriorityNormal, 64);
 
+// Setup for interrupts
+void interrupt_setup() {
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+	SYSCFg->EXTICR[1] |= (0b0001 << 12);
+
+	EXTI->RTSR |= (1 << 7);
+	EXTI->FTSR &= ~(1 << 7);
+
+	EXTI->IMR |= (1 << 7);
+
+	NVIC_EnableIRQ(EXTI9_5_IRQn);
+}
+
+void EXTI9_5_IRQHandler() {
+    if (EXTI->PR & (1 << 7)) {
+        EXTI->PR |= (1 << 7);
+        
+        fast = !fast;
+    }
+}
+
 int main() {
     osKernelInitialize();
+
+    interrupt_setup();
 
     // Initialize hardware
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -75,23 +105,47 @@ int main() {
 }
 
 void ledblink1() {
-    GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED);
+    while (1) {
+        PHAL_toggleGPIO(GPIOB, 9);
+        
+        if (fast) {
+          osDelay(125);
+        } else {
+          osDelay(250);
+        }
+    }
 }
 
 void ledblink2() {
-    GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED);
+    while (1) {
+        PHAL_toggleGPIO(GPIOD, 12);
+        osDelay(250);
+    }
+
 }
 
 void ledblink3() {
-    GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED);
+    while (1) {
+        PHAL_toggleGPIO(GPIOD, 13);
+        osDelay(250);
+    }
+
 }
 
 void ledblink4() {
-    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED);
+    while (1) {
+        PHAL_toggleGPIO(GPIOD, 14);
+        osDelay(250);
+    }
+
 }
 
 void ledblink5() {
-    GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED);
+    while (1) {
+        PHAL_toggleGPIO(GPIOD, 15);
+        osDelay(250);
+    }
+
 }
 
 void HardFault_Handler() {

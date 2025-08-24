@@ -227,6 +227,19 @@
               ],
               "msg_period": 1000,
               "msg_priority": 3
+            },
+            {
+                "msg_name": "pdu_version",
+                "msg_desc": "PDU version",
+                "signals": [
+                    {
+                        "sig_name": "git_hash",
+                        "type": "uint64_t",
+                        "sig_desc": "int representation of git short hash"
+                    }
+                ],
+                "msg_priority": 5,
+                "msg_period": 5000
             }
           ],
           "rx": [

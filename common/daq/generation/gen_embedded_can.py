@@ -42,7 +42,7 @@ def get_git_hash():
     Returns the short git has of the current commit
     """
     try:
-        result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], 
+        result = subprocess.run(['git', 'rev-parse', '--short=7', 'HEAD'], 
                               capture_output=True, text=True, check=True)
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError):

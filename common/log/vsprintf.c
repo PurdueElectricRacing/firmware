@@ -1,693 +1,914 @@
-/*
- * Copyright (c) 1995 Patrick Powell.
- *
- * This code is based on code written by Patrick Powell <papowell@astart.com>.
- * It may be used for any purpose as long as this notice remains intact on all
- * source code distributions.
- */
+///////////////////////////////////////////////////////////////////////////////
+// \author (c) Marco Paland (info@paland.com)
+//             2014-2019, PALANDesign Hannover, Germany
+//
+// \license The MIT License (MIT)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+// \brief Tiny printf, sprintf and (v)snprintf implementation, optimized for speed on
+//        embedded systems with a very limited resources. These routines are thread
+//        safe and reentrant!
+//        Use this instead of the bloated standard/newlib printf cause these use
+//        malloc for printf (and may not be thread safe).
+//
+///////////////////////////////////////////////////////////////////////////////
 
-/*
- * Copyright (c) 2008 Holger Weiss.
- *
- * This version of the code is maintained by Holger Weiss <holger@jhweiss.de>.
- * My changes to the code may freely be used, modified and/or redistributed for
- * any purpose.  It would be nice if additions and fixes to this file (including
- * trivial code cleanups) would be sent back in order to let me include them in
- * the version available at <http://www.jhweiss.de/software/snprintf.html>.
- * However, this is not a requirement for using or redistributing (possibly
- * modified) versions of this file, nor is leaving this notice intact mandatory.
- */
+#include <stdbool.h>
+#include <stdint.h>
 
-/*
- * History
- *
- * 2009-03-05 Hector Martin "marcan" <marcan@marcansoft.com>
- *
- * 	Hacked up and removed a lot of stuff including floating-point support,
- * 	a bunch of ifs and defines, locales, and tests
- *
- * 2008-01-20 Holger Weiss <holger@jhweiss.de> for C99-snprintf 1.1:
- *
- * 	Fixed the detection of infinite floating point values on IRIX (and
- * 	possibly other systems) and applied another few minor cleanups.
- *
- * 2008-01-06 Holger Weiss <holger@jhweiss.de> for C99-snprintf 1.0:
- *
- * 	Added a lot of new features, fixed many bugs, and incorporated various
- * 	improvements done by Andrew Tridgell <tridge@samba.org>, Russ Allbery
- * 	<rra@stanford.edu>, Hrvoje Niksic <hniksic@xemacs.org>, Damien Miller
- * 	<djm@mindrot.org>, and others for the Samba, INN, Wget, and OpenSSH
- * 	projects.  The additions include: support the "e", "E", "g", "G", and
- * 	"F" conversion specifiers (and use conversion style "f" or "F" for the
- * 	still unsupported "a" and "A" specifiers); support the "hh", "ll", "j",
- * 	"t", and "z" length modifiers; support the "#" flag and the (non-C99)
- * 	"'" flag; use localeconv(3) (if available) to get both the current
- * 	locale's decimal point character and the separator between groups of
- * 	digits; fix the handling of various corner cases of field width and
- * 	precision specifications; fix various floating point conversion bugs;
- * 	handle infinite and NaN floating point values; don't attempt to write to
- * 	the output buffer (which may be NULL) if a size of zero was specified;
- * 	check for integer overflow of the field width, precision, and return
- * 	values and during the floating point conversion; use the OUTCHAR() macro
- * 	instead of a function for better performance; provide asprintf(3) and
- * 	vasprintf(3) functions; add new test cases.  The replacement functions
- * 	have been renamed to use an "rpl_" prefix, the function calls in the
- * 	main project (and in this file) must be redefined accordingly for each
- * 	replacement function which is needed (by using Autoconf or other means).
- * 	Various other minor improvements have been applied and the coding style
- * 	was cleaned up for consistency.
- *
- * 2007-07-23 Holger Weiss <holger@jhweiss.de> for Mutt 1.5.13:
- *
- * 	C99 compliant snprintf(3) and vsnprintf(3) functions return the number
- * 	of characters that would have been written to a sufficiently sized
- * 	buffer (excluding the '\0').  The original code simply returned the
- * 	length of the resulting output string, so that's been fixed.
- *
- * 1998-03-05 Michael Elkins <me@mutt.org> for Mutt 0.90.8:
- *
- * 	The original code assumed that both snprintf(3) and vsnprintf(3) were
- * 	missing.  Some systems only have snprintf(3) but not vsnprintf(3), so
- * 	the code is now broken down under HAVE_SNPRINTF and HAVE_VSNPRINTF.
- *
- * 1998-01-27 Thomas Roessler <roessler@does-not-exist.org> for Mutt 0.89i:
- *
- * 	The PGP code was using unsigned hexadecimal formats.  Unfortunately,
- * 	unsigned formats simply didn't work.
- *
- * 1997-10-22 Brandon Long <blong@fiction.net> for Mutt 0.87.1:
- *
- * 	Ok, added some minimal floating point support, which means this probably
- * 	requires libm on most operating systems.  Don't yet support the exponent
- * 	(e,E) and sigfig (g,G).  Also, fmtint() was pretty badly broken, it just
- * 	wasn't being exercised in ways which showed it, so that's been fixed.
- * 	Also, formatted the code to Mutt conventions, and removed dead code left
- * 	over from the original.  Also, there is now a builtin-test, run with:
- * 	gcc -DTEST_SNPRINTF -o snprintf snprintf.c -lm && ./snprintf
- *
- * 2996-09-15 Brandon Long <blong@fiction.net> for Mutt 0.43:
- *
- * 	This was ugly.  It is still ugly.  I opted out of floating point
- * 	numbers, but the formatter understands just about everything from the
- * 	normal C string format, at least as far as I can tell from the Solaris
- * 	2.5 printf(3S) man page.
- */
+#include "vsprintf.h"
 
-#include <limits.h>
-#include <stdarg.h>
-#include <stddef.h>
 
-#define VA_START(ap, last)        va_start(ap, last)
-#define VA_SHIFT(ap, value, type) /* No-op for ANSI C. */
+// define this globally (e.g. gcc -DPRINTF_INCLUDE_CONFIG_H ...) to include the
+// printf_config.h header file
+// default: undefined
+#ifdef PRINTF_INCLUDE_CONFIG_H
+#include "printf_config.h"
+#endif
 
-#define ULLONG    unsigned long long
-#define UINTMAX_T unsigned long
-#define LLONG     long
-#define INTMAX_T  long
 
-/* Support for uintptr_t. */
-#ifndef UINTPTR_T
-#if HAVE_UINTPTR_T || defined(uintptr_t)
-#define UINTPTR_T uintptr_t
-#else
-#define UINTPTR_T unsigned long int
-#endif /* HAVE_UINTPTR_T || defined(uintptr_t) */
-#endif /* !defined(UINTPTR_T) */
+// 'ntoa' conversion buffer size, this must be big enough to hold one converted
+// numeric number including padded zeros (dynamically created on stack)
+// default: 32 byte
+#ifndef PRINTF_NTOA_BUFFER_SIZE
+#define PRINTF_NTOA_BUFFER_SIZE    32U
+#endif
 
-/* Support for ptrdiff_t. */
-#ifndef PTRDIFF_T
-#if HAVE_PTRDIFF_T || defined(ptrdiff_t)
-#define PTRDIFF_T ptrdiff_t
-#else
-#define PTRDIFF_T long int
-#endif /* HAVE_PTRDIFF_T || defined(ptrdiff_t) */
-#endif /* !defined(PTRDIFF_T) */
+// 'ftoa' conversion buffer size, this must be big enough to hold one converted
+// float number including padded zeros (dynamically created on stack)
+// default: 32 byte
+#ifndef PRINTF_FTOA_BUFFER_SIZE
+#define PRINTF_FTOA_BUFFER_SIZE    32U
+#endif
 
-/*
- * We need an unsigned integer type corresponding to ptrdiff_t (cf. C99:
- * 7.19.6.1, 7).  However, we'll simply use PTRDIFF_T and convert it to an
- * unsigned type if necessary.  This should work just fine in practice.
- */
-#ifndef UPTRDIFF_T
-#define UPTRDIFF_T PTRDIFF_T
-#endif /* !defined(UPTRDIFF_T) */
+// support for the floating point type (%f)
+// default: activated
+#ifndef PRINTF_DISABLE_SUPPORT_FLOAT
+#define PRINTF_SUPPORT_FLOAT
+#endif
 
-/*
- * We need a signed integer type corresponding to size_t (cf. C99: 7.19.6.1, 7).
- * However, we'll simply use size_t and convert it to a signed type if
- * necessary.  This should work just fine in practice.
- */
-#ifndef SSIZE_T
-#define SSIZE_T size_t
-#endif /* !defined(SSIZE_T) */
+// support for exponential floating point notation (%e/%g)
+// default: activated
+#ifndef PRINTF_DISABLE_SUPPORT_EXPONENTIAL
+#define PRINTF_SUPPORT_EXPONENTIAL
+#endif
 
-/*
- * Buffer size to hold the octal string representation of UINT128_MAX without
- * nul-termination ("3777777777777777777777777777777777777777777").
- */
-#ifdef MAX_CONVERT_LENGTH
-#undef MAX_CONVERT_LENGTH
-#endif /* defined(MAX_CONVERT_LENGTH) */
-#define MAX_CONVERT_LENGTH 43
+// define the default floating point precision
+// default: 6 digits
+#ifndef PRINTF_DEFAULT_FLOAT_PRECISION
+#define PRINTF_DEFAULT_FLOAT_PRECISION  6U
+#endif
 
-/* Format read states. */
-#define PRINT_S_DEFAULT   0
-#define PRINT_S_FLAGS     1
-#define PRINT_S_WIDTH     2
-#define PRINT_S_DOT       3
-#define PRINT_S_PRECISION 4
-#define PRINT_S_MOD       5
-#define PRINT_S_CONV      6
+// define the largest float suitable to print with %f
+// default: 1e9
+#ifndef PRINTF_MAX_FLOAT
+#define PRINTF_MAX_FLOAT  1e9
+#endif
 
-/* Format flags. */
-#define PRINT_F_MINUS    (1 << 0)
-#define PRINT_F_PLUS     (1 << 1)
-#define PRINT_F_SPACE    (1 << 2)
-#define PRINT_F_NUM      (1 << 3)
-#define PRINT_F_ZERO     (1 << 4)
-#define PRINT_F_QUOTE    (1 << 5)
-#define PRINT_F_UP       (1 << 6)
-#define PRINT_F_UNSIGNED (1 << 7)
-#define PRINT_F_TYPE_G   (1 << 8)
-#define PRINT_F_TYPE_E   (1 << 9)
+// support for the long long types (%llu or %p)
+// default: activated
+#ifndef PRINTF_DISABLE_SUPPORT_LONG_LONG
+#define PRINTF_SUPPORT_LONG_LONG
+#endif
 
-/* Conversion flags. */
-#define PRINT_C_CHAR  1
-#define PRINT_C_SHORT 2
-#define PRINT_C_LONG  3
-#define PRINT_C_LLONG 4
-// #define PRINT_C_LDOUBLE         5
-#define PRINT_C_SIZE    6
-#define PRINT_C_PTRDIFF 7
-#define PRINT_C_INTMAX  8
+// support for the ptrdiff_t type (%t)
+// ptrdiff_t is normally defined in <stddef.h> as long or long long type
+// default: activated
+#ifndef PRINTF_DISABLE_SUPPORT_PTRDIFF_T
+#define PRINTF_SUPPORT_PTRDIFF_T
+#endif
 
-#ifndef MAX
-#define MAX(x, y) ((x >= y) ? x : y)
-#endif /* !defined(MAX) */
-#ifndef CHARTOINT
-#define CHARTOINT(ch) (ch - '0')
-#endif /* !defined(CHARTOINT) */
-#ifndef ISDIGIT
-#define ISDIGIT(ch) ('0' <= (unsigned char)ch && (unsigned char)ch <= '9')
-#endif /* !defined(ISDIGIT) */
+///////////////////////////////////////////////////////////////////////////////
 
-#define OUTCHAR(str, len, size, ch) \
-    do { \
-        if (len + 1 < size) \
-            str[len] = ch; \
-        (len)++; \
-    } while (/* CONSTCOND */ 0)
+// internal flag definitions
+#define FLAGS_ZEROPAD   (1U <<  0U)
+#define FLAGS_LEFT      (1U <<  1U)
+#define FLAGS_PLUS      (1U <<  2U)
+#define FLAGS_SPACE     (1U <<  3U)
+#define FLAGS_HASH      (1U <<  4U)
+#define FLAGS_UPPERCASE (1U <<  5U)
+#define FLAGS_CHAR      (1U <<  6U)
+#define FLAGS_SHORT     (1U <<  7U)
+#define FLAGS_LONG      (1U <<  8U)
+#define FLAGS_LONG_LONG (1U <<  9U)
+#define FLAGS_PRECISION (1U << 10U)
+#define FLAGS_ADAPT_EXP (1U << 11U)
 
-static void fmtstr(char*, size_t*, size_t, const char*, int, int, int);
-static void fmtint(char*, size_t*, size_t, INTMAX_T, int, int, int, int);
-static void printsep(char*, size_t*, size_t);
-static int getnumsep(int);
-static int convert(UINTMAX_T, char*, size_t, int, int);
 
-int vsnprintf(char* str, size_t size, const char* format, va_list args) {
-    INTMAX_T value;
-    unsigned char cvalue;
-    const char* strvalue;
-    INTMAX_T* intmaxptr;
-    PTRDIFF_T* ptrdiffptr;
-    SSIZE_T* sizeptr;
-    LLONG* llongptr;
-    long int* longptr;
-    int* intptr;
-    short int* shortptr;
-    signed char* charptr;
-    size_t len = 0;
-    int overflow = 0;
-    int base = 0;
-    int cflags = 0;
-    int flags = 0;
-    int width = 0;
-    int precision = -1;
-    int state = PRINT_S_DEFAULT;
-    char ch = *format++;
+// import float.h for DBL_MAX
+#if defined(PRINTF_SUPPORT_FLOAT)
+#include <float.h>
+#endif
 
-    /*
-     * C99 says: "If `n' is zero, nothing is written, and `s' may be a null
-     * pointer." (7.19.6.5, 2)  We're forgiving and allow a NULL pointer
-     * even if a size larger than zero was specified.  At least NetBSD's
-     * snprintf(3) does the same, as well as other versions of this file.
-     * (Though some of these versions will write to a non-NULL buffer even
-     * if a size of zero was specified, which violates the standard.)
-     */
-    if (str == NULL && size != 0)
-        size = 0;
 
-    while (ch != '\0')
-        switch (state) {
-            case PRINT_S_DEFAULT:
-                if (ch == '%')
-                    state = PRINT_S_FLAGS;
-                else
-                    OUTCHAR(str, len, size, ch);
-                ch = *format++;
-                break;
-            case PRINT_S_FLAGS:
-                switch (ch) {
-                    case '-':
-                        flags |= PRINT_F_MINUS;
-                        ch = *format++;
-                        break;
-                    case '+':
-                        flags |= PRINT_F_PLUS;
-                        ch = *format++;
-                        break;
-                    case ' ':
-                        flags |= PRINT_F_SPACE;
-                        ch = *format++;
-                        break;
-                    case '#':
-                        flags |= PRINT_F_NUM;
-                        ch = *format++;
-                        break;
-                    case '0':
-                        flags |= PRINT_F_ZERO;
-                        ch = *format++;
-                        break;
-                    case '\'': /* SUSv2 flag (not in C99). */
-                        flags |= PRINT_F_QUOTE;
-                        ch = *format++;
-                        break;
-                    default:
-                        state = PRINT_S_WIDTH;
-                        break;
-                }
-                break;
-            case PRINT_S_WIDTH:
-                if (ISDIGIT(ch)) {
-                    ch = CHARTOINT(ch);
-                    if (width > (INT_MAX - ch) / 10) {
-                        overflow = 1;
-                        goto out;
-                    }
-                    width = 10 * width + ch;
-                    ch = *format++;
-                } else if (ch == '*') {
-                    /*
-                     * C99 says: "A negative field width argument is
-                     * taken as a `-' flag followed by a positive
-                     * field width." (7.19.6.1, 5)
-                     */
-                    if ((width = va_arg(args, int)) < 0) {
-                        flags |= PRINT_F_MINUS;
-                        width = -width;
-                    }
-                    ch = *format++;
-                    state = PRINT_S_DOT;
-                } else
-                    state = PRINT_S_DOT;
-                break;
-            case PRINT_S_DOT:
-                if (ch == '.') {
-                    state = PRINT_S_PRECISION;
-                    ch = *format++;
-                } else
-                    state = PRINT_S_MOD;
-                break;
-            case PRINT_S_PRECISION:
-                if (precision == -1)
-                    precision = 0;
-                if (ISDIGIT(ch)) {
-                    ch = CHARTOINT(ch);
-                    if (precision > (INT_MAX - ch) / 10) {
-                        overflow = 1;
-                        goto out;
-                    }
-                    precision = 10 * precision + ch;
-                    ch = *format++;
-                } else if (ch == '*') {
-                    /*
-                     * C99 says: "A negative precision argument is
-                     * taken as if the precision were omitted."
-                     * (7.19.6.1, 5)
-                     */
-                    if ((precision = va_arg(args, int)) < 0)
-                        precision = -1;
-                    ch = *format++;
-                    state = PRINT_S_MOD;
-                } else
-                    state = PRINT_S_MOD;
-                break;
-            case PRINT_S_MOD:
-                switch (ch) {
-                    case 'h':
-                        ch = *format++;
-                        if (ch == 'h') { /* It's a char. */
-                            ch = *format++;
-                            cflags = PRINT_C_CHAR;
-                        } else
-                            cflags = PRINT_C_SHORT;
-                        break;
-                    case 'l':
-                        ch = *format++;
-                        if (ch == 'l') { /* It's a long long. */
-                            ch = *format++;
-                            cflags = PRINT_C_LLONG;
-                        } else
-                            cflags = PRINT_C_LONG;
-                        break;
-                    case 'j':
-                        cflags = PRINT_C_INTMAX;
-                        ch = *format++;
-                        break;
-                    case 't':
-                        cflags = PRINT_C_PTRDIFF;
-                        ch = *format++;
-                        break;
-                    case 'z':
-                        cflags = PRINT_C_SIZE;
-                        ch = *format++;
-                        break;
-                }
-                state = PRINT_S_CONV;
-                break;
-            case PRINT_S_CONV:
-                switch (ch) {
-                    case 'd':
-                        /* FALLTHROUGH */
-                    case 'i':
-                        switch (cflags) {
-                            case PRINT_C_CHAR:
-                                value = (signed char)va_arg(args, int);
-                                break;
-                            case PRINT_C_SHORT:
-                                value = (short int)va_arg(args, int);
-                                break;
-                            case PRINT_C_LONG:
-                                value = va_arg(args, long int);
-                                break;
-                            case PRINT_C_LLONG:
-                                value = va_arg(args, LLONG);
-                                break;
-                            case PRINT_C_SIZE:
-                                value = va_arg(args, SSIZE_T);
-                                break;
-                            case PRINT_C_INTMAX:
-                                value = va_arg(args, INTMAX_T);
-                                break;
-                            case PRINT_C_PTRDIFF:
-                                value = va_arg(args, PTRDIFF_T);
-                                break;
-                            default:
-                                value = va_arg(args, int);
-                                break;
-                        }
-                        fmtint(str, &len, size, value, 10, width, precision, flags);
-                        break;
-                    case 'X':
-                        flags |= PRINT_F_UP;
-                        /* FALLTHROUGH */
-                    case 'x':
-                        base = 16;
-                        /* FALLTHROUGH */
-                    case 'o':
-                        if (base == 0)
-                            base = 8;
-                        /* FALLTHROUGH */
-                    case 'u':
-                        if (base == 0)
-                            base = 10;
-                        flags |= PRINT_F_UNSIGNED;
-                        switch (cflags) {
-                            case PRINT_C_CHAR:
-                                value = (unsigned char)va_arg(args, unsigned int);
-                                break;
-                            case PRINT_C_SHORT:
-                                value = (unsigned short int)va_arg(args, unsigned int);
-                                break;
-                            case PRINT_C_LONG:
-                                value = va_arg(args, unsigned long int);
-                                break;
-                            case PRINT_C_LLONG:
-                                value = va_arg(args, ULLONG);
-                                break;
-                            case PRINT_C_SIZE:
-                                value = va_arg(args, size_t);
-                                break;
-                            case PRINT_C_INTMAX:
-                                value = va_arg(args, UINTMAX_T);
-                                break;
-                            case PRINT_C_PTRDIFF:
-                                value = va_arg(args, UPTRDIFF_T);
-                                break;
-                            default:
-                                value = va_arg(args, unsigned int);
-                                break;
-                        }
-                        fmtint(str, &len, size, value, base, width, precision, flags);
-                        break;
-                    case 'c':
-                        cvalue = va_arg(args, int);
-                        OUTCHAR(str, len, size, cvalue);
-                        break;
-                    case 's':
-                        strvalue = va_arg(args, char*);
-                        fmtstr(str, &len, size, strvalue, width, precision, flags);
-                        break;
-                    case 'p':
-                        /*
-                         * C99 says: "The value of the pointer is
-                         * converted to a sequence of printing
-                         * characters, in an implementation-defined
-                         * manner." (C99: 7.19.6.1, 8)
-                         */
-                        if ((strvalue = va_arg(args, void*)) == NULL)
-                            /*
-                             * We use the glibc format.  BSD prints
-                             * "0x0", SysV "0".
-                             */
-                            fmtstr(str, &len, size, "(nil)", width, -1, flags);
-                        else {
-                            /*
-                             * We use the BSD/glibc format.  SysV
-                             * omits the "0x" prefix (which we emit
-                             * using the PRINT_F_NUM flag).
-                             */
-                            flags |= PRINT_F_NUM;
-                            flags |= PRINT_F_UNSIGNED;
-                            fmtint(str, &len, size, (UINTPTR_T)strvalue, 16, width, precision, flags);
-                        }
-                        break;
-                    case 'n':
-                        switch (cflags) {
-                            case PRINT_C_CHAR:
-                                charptr = va_arg(args, signed char*);
-                                *charptr = len;
-                                break;
-                            case PRINT_C_SHORT:
-                                shortptr = va_arg(args, short int*);
-                                *shortptr = len;
-                                break;
-                            case PRINT_C_LONG:
-                                longptr = va_arg(args, long int*);
-                                *longptr = len;
-                                break;
-                            case PRINT_C_LLONG:
-                                llongptr = va_arg(args, LLONG*);
-                                *llongptr = len;
-                                break;
-                            case PRINT_C_SIZE:
-                                /*
-                                 * C99 says that with the "z" length
-                                 * modifier, "a following `n' conversion
-                                 * specifier applies to a pointer to a
-                                 * signed integer type corresponding to
-                                 * size_t argument." (7.19.6.1, 7)
-                                 */
-                                sizeptr = va_arg(args, SSIZE_T*);
-                                *sizeptr = len;
-                                break;
-                            case PRINT_C_INTMAX:
-                                intmaxptr = va_arg(args, INTMAX_T*);
-                                *intmaxptr = len;
-                                break;
-                            case PRINT_C_PTRDIFF:
-                                ptrdiffptr = va_arg(args, PTRDIFF_T*);
-                                *ptrdiffptr = len;
-                                break;
-                            default:
-                                intptr = va_arg(args, int*);
-                                *intptr = len;
-                                break;
-                        }
-                        break;
-                    case '%': /* Print a "%" character verbatim. */
-                        OUTCHAR(str, len, size, ch);
-                        break;
-                    default: /* Skip other characters. */
-                        break;
-                }
-                ch = *format++;
-                state = PRINT_S_DEFAULT;
-                base = cflags = flags = width = 0;
-                precision = -1;
-                break;
-        }
-out:
-    if (len < size)
-        str[len] = '\0';
-    else if (size > 0)
-        str[size - 1] = '\0';
+// output function type
+typedef void (*out_fct_type)(char character, void* buffer, size_t idx, size_t maxlen);
 
-    if (overflow || len >= INT_MAX) {
-        return -1;
-    }
-    return (int)len;
+
+// wrapper (used as buffer) for output function type
+typedef struct {
+  void  (*fct)(char character, void* arg);
+  void* arg;
+} out_fct_wrap_type;
+
+
+// internal buffer output
+static inline void _out_buffer(char character, void* buffer, size_t idx, size_t maxlen)
+{
+  if (idx < maxlen) {
+    ((char*)buffer)[idx] = character;
+  }
 }
 
-static void fmtstr(char* str, size_t* len, size_t size, const char* value, int width, int precision, int flags) {
-    int padlen, strln; /* Amount to pad. */
-    int noprecision = (precision == -1);
 
-    if (value == NULL) /* We're forgiving. */
-        value = "(null)";
-
-    /* If a precision was specified, don't read the string past it. */
-    for (strln = 0; value[strln] != '\0' && (noprecision || strln < precision); strln++)
-        continue;
-
-    if ((padlen = width - strln) < 0)
-        padlen = 0;
-    if (flags & PRINT_F_MINUS) /* Left justify. */
-        padlen = -padlen;
-
-    while (padlen > 0) { /* Leading spaces. */
-        OUTCHAR(str, *len, size, ' ');
-        padlen--;
-    }
-    while (*value != '\0' && (noprecision || precision-- > 0)) {
-        OUTCHAR(str, *len, size, *value);
-        value++;
-    }
-    while (padlen < 0) { /* Trailing spaces. */
-        OUTCHAR(str, *len, size, ' ');
-        padlen++;
-    }
+// internal null output
+static inline void _out_null(char character, void* buffer, size_t idx, size_t maxlen)
+{
+  (void)character; (void)buffer; (void)idx; (void)maxlen;
 }
 
-static void fmtint(char* str, size_t* len, size_t size, INTMAX_T value, int base, int width, int precision, int flags) {
-    UINTMAX_T uvalue;
-    char iconvert[MAX_CONVERT_LENGTH];
-    char sign = 0;
-    char hexprefix = 0;
-    int spadlen = 0; /* Amount to space pad. */
-    int zpadlen = 0; /* Amount to zero pad. */
-    int pos;
-    int separators = (flags & PRINT_F_QUOTE);
-    int noprecision = (precision == -1);
 
-    if (flags & PRINT_F_UNSIGNED)
-        uvalue = value;
-    else {
-        uvalue = (value >= 0) ? value : -value;
-        if (value < 0)
-            sign = '-';
-        else if (flags & PRINT_F_PLUS) /* Do a sign. */
-            sign = '+';
-        else if (flags & PRINT_F_SPACE)
-            sign = ' ';
-    }
-
-    pos = convert(uvalue, iconvert, sizeof(iconvert), base, flags & PRINT_F_UP);
-
-    if (flags & PRINT_F_NUM && uvalue != 0) {
-        /*
-         * C99 says: "The result is converted to an `alternative form'.
-         * For `o' conversion, it increases the precision, if and only
-         * if necessary, to force the first digit of the result to be a
-         * zero (if the value and precision are both 0, a single 0 is
-         * printed).  For `x' (or `X') conversion, a nonzero result has
-         * `0x' (or `0X') prefixed to it." (7.19.6.1, 6)
-         */
-        switch (base) {
-            case 8:
-                if (precision <= pos)
-                    precision = pos + 1;
-                break;
-            case 16:
-                hexprefix = (flags & PRINT_F_UP) ? 'X' : 'x';
-                break;
-        }
-    }
-
-    if (separators) /* Get the number of group separators we'll print. */
-        separators = getnumsep(pos);
-
-    zpadlen = precision - pos - separators;
-    spadlen = width /* Minimum field width. */
-        - separators /* Number of separators. */
-        - MAX(precision, pos) /* Number of integer digits. */
-        - ((sign != 0) ? 1 : 0) /* Will we print a sign? */
-        - ((hexprefix != 0) ? 2 : 0); /* Will we print a prefix? */
-
-    if (zpadlen < 0)
-        zpadlen = 0;
-    if (spadlen < 0)
-        spadlen = 0;
-
-    /*
-     * C99 says: "If the `0' and `-' flags both appear, the `0' flag is
-     * ignored.  For `d', `i', `o', `u', `x', and `X' conversions, if a
-     * precision is specified, the `0' flag is ignored." (7.19.6.1, 6)
-     */
-    if (flags & PRINT_F_MINUS) /* Left justify. */
-        spadlen = -spadlen;
-    else if (flags & PRINT_F_ZERO && noprecision) {
-        zpadlen += spadlen;
-        spadlen = 0;
-    }
-    while (spadlen > 0) { /* Leading spaces. */
-        OUTCHAR(str, *len, size, ' ');
-        spadlen--;
-    }
-    if (sign != 0) /* Sign. */
-        OUTCHAR(str, *len, size, sign);
-    if (hexprefix != 0) { /* A "0x" or "0X" prefix. */
-        OUTCHAR(str, *len, size, '0');
-        OUTCHAR(str, *len, size, hexprefix);
-    }
-    while (zpadlen > 0) { /* Leading zeros. */
-        OUTCHAR(str, *len, size, '0');
-        zpadlen--;
-    }
-    while (pos > 0) { /* The actual digits. */
-        pos--;
-        OUTCHAR(str, *len, size, iconvert[pos]);
-        if (separators > 0 && pos > 0 && pos % 3 == 0)
-            printsep(str, len, size);
-    }
-    while (spadlen < 0) { /* Trailing spaces. */
-        OUTCHAR(str, *len, size, ' ');
-        spadlen++;
-    }
+// internal _putchar wrapper
+static inline void _out_char(char character, void* buffer, size_t idx, size_t maxlen)
+{
+  (void)buffer; (void)idx; (void)maxlen;
+  if (character) {
+    _putchar(character);
+  }
 }
 
-static void printsep(char* str, size_t* len, size_t size) {
-    OUTCHAR(str, *len, size, ',');
+
+// internal output function wrapper
+static inline void _out_fct(char character, void* buffer, size_t idx, size_t maxlen)
+{
+  (void)idx; (void)maxlen;
+  if (character) {
+    // buffer is the output fct pointer
+    ((out_fct_wrap_type*)buffer)->fct(character, ((out_fct_wrap_type*)buffer)->arg);
+  }
 }
 
-static int getnumsep(int digits) {
-    int separators = (digits - ((digits % 3 == 0) ? 1 : 0)) / 3;
-    return separators;
+
+// internal secure strlen
+// \return The length of the string (excluding the terminating 0) limited by 'maxsize'
+static inline unsigned int _strnlen_s(const char* str, size_t maxsize)
+{
+  const char* s;
+  for (s = str; *s && maxsize--; ++s);
+  return (unsigned int)(s - str);
 }
 
-static int convert(UINTMAX_T value, char* buf, size_t size, int base, int caps) {
-    const char* digits = caps ? "0123456789ABCDEF" : "0123456789abcdef";
-    size_t pos = 0;
 
-    /* We return an unterminated buffer with the digits in reverse order. */
+// internal test if char is a digit (0-9)
+// \return true if char is a digit
+static inline bool _is_digit(char ch)
+{
+  return (ch >= '0') && (ch <= '9');
+}
+
+
+// internal ASCII string to unsigned int conversion
+static unsigned int _atoi(const char** str)
+{
+  unsigned int i = 0U;
+  while (_is_digit(**str)) {
+    i = i * 10U + (unsigned int)(*((*str)++) - '0');
+  }
+  return i;
+}
+
+
+// output the specified string in reverse, taking care of any zero-padding
+static size_t _out_rev(out_fct_type out, char* buffer, size_t idx, size_t maxlen, const char* buf, size_t len, unsigned int width, unsigned int flags)
+{
+  const size_t start_idx = idx;
+
+  // pad spaces up to given width
+  if (!(flags & FLAGS_LEFT) && !(flags & FLAGS_ZEROPAD)) {
+    for (size_t i = len; i < width; i++) {
+      out(' ', buffer, idx++, maxlen);
+    }
+  }
+
+  // reverse string
+  while (len) {
+    out(buf[--len], buffer, idx++, maxlen);
+  }
+
+  // append pad spaces up to given width
+  if (flags & FLAGS_LEFT) {
+    while (idx - start_idx < width) {
+      out(' ', buffer, idx++, maxlen);
+    }
+  }
+
+  return idx;
+}
+
+
+// internal itoa format
+static size_t _ntoa_format(out_fct_type out, char* buffer, size_t idx, size_t maxlen, char* buf, size_t len, bool negative, unsigned int base, unsigned int prec, unsigned int width, unsigned int flags)
+{
+  // pad leading zeros
+  if (!(flags & FLAGS_LEFT)) {
+    if (width && (flags & FLAGS_ZEROPAD) && (negative || (flags & (FLAGS_PLUS | FLAGS_SPACE)))) {
+      width--;
+    }
+    while ((len < prec) && (len < PRINTF_NTOA_BUFFER_SIZE)) {
+      buf[len++] = '0';
+    }
+    while ((flags & FLAGS_ZEROPAD) && (len < width) && (len < PRINTF_NTOA_BUFFER_SIZE)) {
+      buf[len++] = '0';
+    }
+  }
+
+  // handle hash
+  if (flags & FLAGS_HASH) {
+    if (!(flags & FLAGS_PRECISION) && len && ((len == prec) || (len == width))) {
+      len--;
+      if (len && (base == 16U)) {
+        len--;
+      }
+    }
+    if ((base == 16U) && !(flags & FLAGS_UPPERCASE) && (len < PRINTF_NTOA_BUFFER_SIZE)) {
+      buf[len++] = 'x';
+    }
+    else if ((base == 16U) && (flags & FLAGS_UPPERCASE) && (len < PRINTF_NTOA_BUFFER_SIZE)) {
+      buf[len++] = 'X';
+    }
+    else if ((base == 2U) && (len < PRINTF_NTOA_BUFFER_SIZE)) {
+      buf[len++] = 'b';
+    }
+    if (len < PRINTF_NTOA_BUFFER_SIZE) {
+      buf[len++] = '0';
+    }
+  }
+
+  if (len < PRINTF_NTOA_BUFFER_SIZE) {
+    if (negative) {
+      buf[len++] = '-';
+    }
+    else if (flags & FLAGS_PLUS) {
+      buf[len++] = '+';  // ignore the space if the '+' exists
+    }
+    else if (flags & FLAGS_SPACE) {
+      buf[len++] = ' ';
+    }
+  }
+
+  return _out_rev(out, buffer, idx, maxlen, buf, len, width, flags);
+}
+
+
+// internal itoa for 'long' type
+static size_t _ntoa_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long value, bool negative, unsigned long base, unsigned int prec, unsigned int width, unsigned int flags)
+{
+  char buf[PRINTF_NTOA_BUFFER_SIZE];
+  size_t len = 0U;
+
+  // no hash for 0 values
+  if (!value) {
+    flags &= ~FLAGS_HASH;
+  }
+
+  // write if precision != 0 and value is != 0
+  if (!(flags & FLAGS_PRECISION) || value) {
     do {
-        buf[pos++] = digits[value % base];
-        value /= base;
-    } while (value != 0 && pos < size);
+      const char digit = (char)(value % base);
+      buf[len++] = digit < 10 ? '0' + digit : (flags & FLAGS_UPPERCASE ? 'A' : 'a') + digit - 10;
+      value /= base;
+    } while (value && (len < PRINTF_NTOA_BUFFER_SIZE));
+  }
 
-    return (int)pos;
+  return _ntoa_format(out, buffer, idx, maxlen, buf, len, negative, (unsigned int)base, prec, width, flags);
 }
 
-int vsprintf(char* buf, const char* fmt, va_list args) {
-    return vsnprintf(buf, INT_MAX, fmt, args);
+
+// internal itoa for 'long long' type
+#if defined(PRINTF_SUPPORT_LONG_LONG)
+static size_t _ntoa_long_long(out_fct_type out, char* buffer, size_t idx, size_t maxlen, unsigned long long value, bool negative, unsigned long long base, unsigned int prec, unsigned int width, unsigned int flags)
+{
+  char buf[PRINTF_NTOA_BUFFER_SIZE];
+  size_t len = 0U;
+
+  // no hash for 0 values
+  if (!value) {
+    flags &= ~FLAGS_HASH;
+  }
+
+  // write if precision != 0 and value is != 0
+  if (!(flags & FLAGS_PRECISION) || value) {
+    do {
+      const char digit = (char)(value % base);
+      buf[len++] = digit < 10 ? '0' + digit : (flags & FLAGS_UPPERCASE ? 'A' : 'a') + digit - 10;
+      value /= base;
+    } while (value && (len < PRINTF_NTOA_BUFFER_SIZE));
+  }
+
+  return _ntoa_format(out, buffer, idx, maxlen, buf, len, negative, (unsigned int)base, prec, width, flags);
+}
+#endif  // PRINTF_SUPPORT_LONG_LONG
+
+
+#if defined(PRINTF_SUPPORT_FLOAT)
+
+#if defined(PRINTF_SUPPORT_EXPONENTIAL)
+// forward declaration so that _ftoa can switch to exp notation for values > PRINTF_MAX_FLOAT
+static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec, unsigned int width, unsigned int flags);
+#endif
+
+
+// internal ftoa for fixed decimal floating point
+static size_t _ftoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec, unsigned int width, unsigned int flags)
+{
+  char buf[PRINTF_FTOA_BUFFER_SIZE];
+  size_t len  = 0U;
+  double diff = 0.0;
+
+  // powers of 10
+  static const double pow10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
+
+  // test for special values
+  if (value != value)
+    return _out_rev(out, buffer, idx, maxlen, "nan", 3, width, flags);
+  if (value < -DBL_MAX)
+    return _out_rev(out, buffer, idx, maxlen, "fni-", 4, width, flags);
+  if (value > DBL_MAX)
+    return _out_rev(out, buffer, idx, maxlen, (flags & FLAGS_PLUS) ? "fni+" : "fni", (flags & FLAGS_PLUS) ? 4U : 3U, width, flags);
+
+  // test for very large values
+  // standard printf behavior is to print EVERY whole number digit -- which could be 100s of characters overflowing your buffers == bad
+  if ((value > PRINTF_MAX_FLOAT) || (value < -PRINTF_MAX_FLOAT)) {
+#if defined(PRINTF_SUPPORT_EXPONENTIAL)
+    return _etoa(out, buffer, idx, maxlen, value, prec, width, flags);
+#else
+    return 0U;
+#endif
+  }
+
+  // test for negative
+  bool negative = false;
+  if (value < 0) {
+    negative = true;
+    value = 0 - value;
+  }
+
+  // set default precision, if not set explicitly
+  if (!(flags & FLAGS_PRECISION)) {
+    prec = PRINTF_DEFAULT_FLOAT_PRECISION;
+  }
+  // limit precision to 9, cause a prec >= 10 can lead to overflow errors
+  while ((len < PRINTF_FTOA_BUFFER_SIZE) && (prec > 9U)) {
+    buf[len++] = '0';
+    prec--;
+  }
+
+  int whole = (int)value;
+  double tmp = (value - whole) * pow10[prec];
+  unsigned long frac = (unsigned long)tmp;
+  diff = tmp - frac;
+
+  if (diff > 0.5) {
+    ++frac;
+    // handle rollover, e.g. case 0.99 with prec 1 is 1.0
+    if (frac >= pow10[prec]) {
+      frac = 0;
+      ++whole;
+    }
+  }
+  else if (diff < 0.5) {
+  }
+  else if ((frac == 0U) || (frac & 1U)) {
+    // if halfway, round up if odd OR if last digit is 0
+    ++frac;
+  }
+
+  if (prec == 0U) {
+    diff = value - (double)whole;
+    if ((!(diff < 0.5) || (diff > 0.5)) && (whole & 1)) {
+      // exactly 0.5 and ODD, then round up
+      // 1.5 -> 2, but 2.5 -> 2
+      ++whole;
+    }
+  }
+  else {
+    unsigned int count = prec;
+    // now do fractional part, as an unsigned number
+    while (len < PRINTF_FTOA_BUFFER_SIZE) {
+      --count;
+      buf[len++] = (char)(48U + (frac % 10U));
+      if (!(frac /= 10U)) {
+        break;
+      }
+    }
+    // add extra 0s
+    while ((len < PRINTF_FTOA_BUFFER_SIZE) && (count-- > 0U)) {
+      buf[len++] = '0';
+    }
+    if (len < PRINTF_FTOA_BUFFER_SIZE) {
+      // add decimal
+      buf[len++] = '.';
+    }
+  }
+
+  // do whole part, number is reversed
+  while (len < PRINTF_FTOA_BUFFER_SIZE) {
+    buf[len++] = (char)(48 + (whole % 10));
+    if (!(whole /= 10)) {
+      break;
+    }
+  }
+
+  // pad leading zeros
+  if (!(flags & FLAGS_LEFT) && (flags & FLAGS_ZEROPAD)) {
+    if (width && (negative || (flags & (FLAGS_PLUS | FLAGS_SPACE)))) {
+      width--;
+    }
+    while ((len < width) && (len < PRINTF_FTOA_BUFFER_SIZE)) {
+      buf[len++] = '0';
+    }
+  }
+
+  if (len < PRINTF_FTOA_BUFFER_SIZE) {
+    if (negative) {
+      buf[len++] = '-';
+    }
+    else if (flags & FLAGS_PLUS) {
+      buf[len++] = '+';  // ignore the space if the '+' exists
+    }
+    else if (flags & FLAGS_SPACE) {
+      buf[len++] = ' ';
+    }
+  }
+
+  return _out_rev(out, buffer, idx, maxlen, buf, len, width, flags);
+}
+
+
+#if defined(PRINTF_SUPPORT_EXPONENTIAL)
+// internal ftoa variant for exponential floating-point type, contributed by Martijn Jasperse <m.jasperse@gmail.com>
+static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen, double value, unsigned int prec, unsigned int width, unsigned int flags)
+{
+  // check for NaN and special values
+  if ((value != value) || (value > DBL_MAX) || (value < -DBL_MAX)) {
+    return _ftoa(out, buffer, idx, maxlen, value, prec, width, flags);
+  }
+
+  // determine the sign
+  const bool negative = value < 0;
+  if (negative) {
+    value = -value;
+  }
+
+  // default precision
+  if (!(flags & FLAGS_PRECISION)) {
+    prec = PRINTF_DEFAULT_FLOAT_PRECISION;
+  }
+
+  // determine the decimal exponent
+  // based on the algorithm by David Gay (https://www.ampl.com/netlib/fp/dtoa.c)
+  union {
+    uint64_t U;
+    double   F;
+  } conv;
+
+  conv.F = value;
+  int exp2 = (int)((conv.U >> 52U) & 0x07FFU) - 1023;           // effectively log2
+  conv.U = (conv.U & ((1ULL << 52U) - 1U)) | (1023ULL << 52U);  // drop the exponent so conv.F is now in [1,2)
+  // now approximate log10 from the log2 integer part and an expansion of ln around 1.5
+  int expval = (int)(0.1760912590558 + exp2 * 0.301029995663981 + (conv.F - 1.5) * 0.289529654602168);
+  // now we want to compute 10^expval but we want to be sure it won't overflow
+  exp2 = (int)(expval * 3.321928094887362 + 0.5);
+  const double z  = expval * 2.302585092994046 - exp2 * 0.6931471805599453;
+  const double z2 = z * z;
+  conv.U = (uint64_t)(exp2 + 1023) << 52U;
+  // compute exp(z) using continued fractions, see https://en.wikipedia.org/wiki/Exponential_function#Continued_fractions_for_ex
+  conv.F *= 1 + 2 * z / (2 - z + (z2 / (6 + (z2 / (10 + z2 / 14)))));
+  // correct for rounding errors
+  if (value < conv.F) {
+    expval--;
+    conv.F /= 10;
+  }
+
+  // the exponent format is "%+03d" and largest value is "307", so set aside 4-5 characters
+  unsigned int minwidth = ((expval < 100) && (expval > -100)) ? 4U : 5U;
+
+  // in "%g" mode, "prec" is the number of *significant figures* not decimals
+  if (flags & FLAGS_ADAPT_EXP) {
+    // do we want to fall-back to "%f" mode?
+    if ((value >= 1e-4) && (value < 1e6)) {
+      if ((int)prec > expval) {
+        prec = (unsigned)((int)prec - expval - 1);
+      }
+      else {
+        prec = 0;
+      }
+      flags |= FLAGS_PRECISION;   // make sure _ftoa respects precision
+      // no characters in exponent
+      minwidth = 0U;
+      expval   = 0;
+    }
+    else {
+      // we use one sigfig for the whole part
+      if ((prec > 0) && (flags & FLAGS_PRECISION)) {
+        --prec;
+      }
+    }
+  }
+
+  // will everything fit?
+  unsigned int fwidth = width;
+  if (width > minwidth) {
+    // we didn't fall-back so subtract the characters required for the exponent
+    fwidth -= minwidth;
+  } else {
+    // not enough characters, so go back to default sizing
+    fwidth = 0U;
+  }
+  if ((flags & FLAGS_LEFT) && minwidth) {
+    // if we're padding on the right, DON'T pad the floating part
+    fwidth = 0U;
+  }
+
+  // rescale the float value
+  if (expval) {
+    value /= conv.F;
+  }
+
+  // output the floating part
+  const size_t start_idx = idx;
+  idx = _ftoa(out, buffer, idx, maxlen, negative ? -value : value, prec, fwidth, flags & ~FLAGS_ADAPT_EXP);
+
+  // output the exponent part
+  if (minwidth) {
+    // output the exponential symbol
+    out((flags & FLAGS_UPPERCASE) ? 'E' : 'e', buffer, idx++, maxlen);
+    // output the exponent value
+    idx = _ntoa_long(out, buffer, idx, maxlen, (expval < 0) ? -expval : expval, expval < 0, 10, 0, minwidth-1, FLAGS_ZEROPAD | FLAGS_PLUS);
+    // might need to right-pad spaces
+    if (flags & FLAGS_LEFT) {
+      while (idx - start_idx < width) out(' ', buffer, idx++, maxlen);
+    }
+  }
+  return idx;
+}
+#endif  // PRINTF_SUPPORT_EXPONENTIAL
+#endif  // PRINTF_SUPPORT_FLOAT
+
+
+// internal vsnprintf
+static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const char* format, va_list va)
+{
+  unsigned int flags, width, precision, n;
+  size_t idx = 0U;
+
+  if (!buffer) {
+    // use null output function
+    out = _out_null;
+  }
+
+  while (*format)
+  {
+    // format specifier?  %[flags][width][.precision][length]
+    if (*format != '%') {
+      // no
+      out(*format, buffer, idx++, maxlen);
+      format++;
+      continue;
+    }
+    else {
+      // yes, evaluate it
+      format++;
+    }
+
+    // evaluate flags
+    flags = 0U;
+    do {
+      switch (*format) {
+        case '0': flags |= FLAGS_ZEROPAD; format++; n = 1U; break;
+        case '-': flags |= FLAGS_LEFT;    format++; n = 1U; break;
+        case '+': flags |= FLAGS_PLUS;    format++; n = 1U; break;
+        case ' ': flags |= FLAGS_SPACE;   format++; n = 1U; break;
+        case '#': flags |= FLAGS_HASH;    format++; n = 1U; break;
+        default :                                   n = 0U; break;
+      }
+    } while (n);
+
+    // evaluate width field
+    width = 0U;
+    if (_is_digit(*format)) {
+      width = _atoi(&format);
+    }
+    else if (*format == '*') {
+      const int w = va_arg(va, int);
+      if (w < 0) {
+        flags |= FLAGS_LEFT;    // reverse padding
+        width = (unsigned int)-w;
+      }
+      else {
+        width = (unsigned int)w;
+      }
+      format++;
+    }
+
+    // evaluate precision field
+    precision = 0U;
+    if (*format == '.') {
+      flags |= FLAGS_PRECISION;
+      format++;
+      if (_is_digit(*format)) {
+        precision = _atoi(&format);
+      }
+      else if (*format == '*') {
+        const int prec = (int)va_arg(va, int);
+        precision = prec > 0 ? (unsigned int)prec : 0U;
+        format++;
+      }
+    }
+
+    // evaluate length field
+    switch (*format) {
+      case 'l' :
+        flags |= FLAGS_LONG;
+        format++;
+        if (*format == 'l') {
+          flags |= FLAGS_LONG_LONG;
+          format++;
+        }
+        break;
+      case 'h' :
+        flags |= FLAGS_SHORT;
+        format++;
+        if (*format == 'h') {
+          flags |= FLAGS_CHAR;
+          format++;
+        }
+        break;
+#if defined(PRINTF_SUPPORT_PTRDIFF_T)
+      case 't' :
+        flags |= (sizeof(ptrdiff_t) == sizeof(long) ? FLAGS_LONG : FLAGS_LONG_LONG);
+        format++;
+        break;
+#endif
+      case 'j' :
+        flags |= (sizeof(intmax_t) == sizeof(long) ? FLAGS_LONG : FLAGS_LONG_LONG);
+        format++;
+        break;
+      case 'z' :
+        flags |= (sizeof(size_t) == sizeof(long) ? FLAGS_LONG : FLAGS_LONG_LONG);
+        format++;
+        break;
+      default :
+        break;
+    }
+
+    // evaluate specifier
+    switch (*format) {
+      case 'd' :
+      case 'i' :
+      case 'u' :
+      case 'x' :
+      case 'X' :
+      case 'o' :
+      case 'b' : {
+        // set the base
+        unsigned int base;
+        if (*format == 'x' || *format == 'X') {
+          base = 16U;
+        }
+        else if (*format == 'o') {
+          base =  8U;
+        }
+        else if (*format == 'b') {
+          base =  2U;
+        }
+        else {
+          base = 10U;
+          flags &= ~FLAGS_HASH;   // no hash for dec format
+        }
+        // uppercase
+        if (*format == 'X') {
+          flags |= FLAGS_UPPERCASE;
+        }
+
+        // no plus or space flag for u, x, X, o, b
+        if ((*format != 'i') && (*format != 'd')) {
+          flags &= ~(FLAGS_PLUS | FLAGS_SPACE);
+        }
+
+        // ignore '0' flag when precision is given
+        if (flags & FLAGS_PRECISION) {
+          flags &= ~FLAGS_ZEROPAD;
+        }
+
+        // convert the integer
+        if ((*format == 'i') || (*format == 'd')) {
+          // signed
+          if (flags & FLAGS_LONG_LONG) {
+#if defined(PRINTF_SUPPORT_LONG_LONG)
+            const long long value = va_arg(va, long long);
+            idx = _ntoa_long_long(out, buffer, idx, maxlen, (unsigned long long)(value > 0 ? value : 0 - value), value < 0, base, precision, width, flags);
+#endif
+          }
+          else if (flags & FLAGS_LONG) {
+            const long value = va_arg(va, long);
+            idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)(value > 0 ? value : 0 - value), value < 0, base, precision, width, flags);
+          }
+          else {
+            const int value = (flags & FLAGS_CHAR) ? (char)va_arg(va, int) : (flags & FLAGS_SHORT) ? (short int)va_arg(va, int) : va_arg(va, int);
+            idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned int)(value > 0 ? value : 0 - value), value < 0, base, precision, width, flags);
+          }
+        }
+        else {
+          // unsigned
+          if (flags & FLAGS_LONG_LONG) {
+#if defined(PRINTF_SUPPORT_LONG_LONG)
+            idx = _ntoa_long_long(out, buffer, idx, maxlen, va_arg(va, unsigned long long), false, base, precision, width, flags);
+#endif
+          }
+          else if (flags & FLAGS_LONG) {
+            idx = _ntoa_long(out, buffer, idx, maxlen, va_arg(va, unsigned long), false, base, precision, width, flags);
+          }
+          else {
+            const unsigned int value = (flags & FLAGS_CHAR) ? (unsigned char)va_arg(va, unsigned int) : (flags & FLAGS_SHORT) ? (unsigned short int)va_arg(va, unsigned int) : va_arg(va, unsigned int);
+            idx = _ntoa_long(out, buffer, idx, maxlen, value, false, base, precision, width, flags);
+          }
+        }
+        format++;
+        break;
+      }
+#if defined(PRINTF_SUPPORT_FLOAT)
+      case 'f' :
+      case 'F' :
+        if (*format == 'F') flags |= FLAGS_UPPERCASE;
+        idx = _ftoa(out, buffer, idx, maxlen, va_arg(va, double), precision, width, flags);
+        format++;
+        break;
+#if defined(PRINTF_SUPPORT_EXPONENTIAL)
+      case 'e':
+      case 'E':
+      case 'g':
+      case 'G':
+        if ((*format == 'g')||(*format == 'G')) flags |= FLAGS_ADAPT_EXP;
+        if ((*format == 'E')||(*format == 'G')) flags |= FLAGS_UPPERCASE;
+        idx = _etoa(out, buffer, idx, maxlen, va_arg(va, double), precision, width, flags);
+        format++;
+        break;
+#endif  // PRINTF_SUPPORT_EXPONENTIAL
+#endif  // PRINTF_SUPPORT_FLOAT
+      case 'c' : {
+        unsigned int l = 1U;
+        // pre padding
+        if (!(flags & FLAGS_LEFT)) {
+          while (l++ < width) {
+            out(' ', buffer, idx++, maxlen);
+          }
+        }
+        // char output
+        out((char)va_arg(va, int), buffer, idx++, maxlen);
+        // post padding
+        if (flags & FLAGS_LEFT) {
+          while (l++ < width) {
+            out(' ', buffer, idx++, maxlen);
+          }
+        }
+        format++;
+        break;
+      }
+
+      case 's' : {
+        const char* p = va_arg(va, char*);
+        unsigned int l = _strnlen_s(p, precision ? precision : (size_t)-1);
+        // pre padding
+        if (flags & FLAGS_PRECISION) {
+          l = (l < precision ? l : precision);
+        }
+        if (!(flags & FLAGS_LEFT)) {
+          while (l++ < width) {
+            out(' ', buffer, idx++, maxlen);
+          }
+        }
+        // string output
+        while ((*p != 0) && (!(flags & FLAGS_PRECISION) || precision--)) {
+          out(*(p++), buffer, idx++, maxlen);
+        }
+        // post padding
+        if (flags & FLAGS_LEFT) {
+          while (l++ < width) {
+            out(' ', buffer, idx++, maxlen);
+          }
+        }
+        format++;
+        break;
+      }
+
+      case 'p' : {
+        width = sizeof(void*) * 2U;
+        flags |= FLAGS_ZEROPAD | FLAGS_UPPERCASE;
+#if defined(PRINTF_SUPPORT_LONG_LONG)
+        const bool is_ll = sizeof(uintptr_t) == sizeof(long long);
+        if (is_ll) {
+          idx = _ntoa_long_long(out, buffer, idx, maxlen, (uintptr_t)va_arg(va, void*), false, 16U, precision, width, flags);
+        }
+        else {
+#endif
+          idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)((uintptr_t)va_arg(va, void*)), false, 16U, precision, width, flags);
+#if defined(PRINTF_SUPPORT_LONG_LONG)
+        }
+#endif
+        format++;
+        break;
+      }
+
+      case '%' :
+        out('%', buffer, idx++, maxlen);
+        format++;
+        break;
+
+      default :
+        out(*format, buffer, idx++, maxlen);
+        format++;
+        break;
+    }
+  }
+
+  // termination
+  out((char)0, buffer, idx < maxlen ? idx : maxlen - 1U, maxlen);
+
+  // return written chars without terminating \0
+  return (int)idx;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+int printf_(const char* format, ...)
+{
+  va_list va;
+  va_start(va, format);
+  char buffer[1];
+  const int ret = _vsnprintf(_out_char, buffer, (size_t)-1, format, va);
+  va_end(va);
+  return ret;
+}
+
+
+int sprintf_(char* buffer, const char* format, ...)
+{
+  va_list va;
+  va_start(va, format);
+  const int ret = _vsnprintf(_out_buffer, buffer, (size_t)-1, format, va);
+  va_end(va);
+  return ret;
+}
+
+
+int snprintf_(char* buffer, size_t count, const char* format, ...)
+{
+  va_list va;
+  va_start(va, format);
+  const int ret = _vsnprintf(_out_buffer, buffer, count, format, va);
+  va_end(va);
+  return ret;
+}
+
+
+int vprintf_(const char* format, va_list va)
+{
+  char buffer[1];
+  return _vsnprintf(_out_char, buffer, (size_t)-1, format, va);
+}
+
+
+int vsnprintf_(char* buffer, size_t count, const char* format, va_list va)
+{
+  return _vsnprintf(_out_buffer, buffer, count, format, va);
+}
+
+
+int fctprintf(void (*out)(char character, void* arg), void* arg, const char* format, ...)
+{
+  va_list va;
+  va_start(va, format);
+  const out_fct_wrap_type out_fct_wrap = { out, arg };
+  const int ret = _vsnprintf(_out_fct, (char*)(uintptr_t)&out_fct_wrap, (size_t)-1, format, va);
+  va_end(va);
+  return ret;
 }

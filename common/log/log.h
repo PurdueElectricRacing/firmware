@@ -15,32 +15,34 @@
 #include "common/common_defs/common_defs.h"
 #include "common/log/vsprintf.h"
 
-int snprintf(char* buffer, size_t size, const char* fmt, ...);
-int sprintf(char* buffer, const char* fmt, ...);
-int debug_printf(const char* fmt, ...);
+int debug_printf(const char *fmt, ...);
 
 // cursed macro to workaround accessing different hals
 // call DEBUG_PRINTF_USART_DEFINE(&usart_config) ONCE in *main.c* after defining uart config struct
-#define DEBUG_PRINTF_USART_DEFINE(HANDLEPTR) \
-    static inline void _iodev_write(usart_init_t* handle, char* buffer, int size) { \
-        if (handle) { \
-            PHAL_usartTxBl(handle, (uint8_t*)buffer, size); \
-        } \
-    } \
-\
-    int debug_printf(const char* fmt, ...) { \
-        va_list args; \
-        char buffer[512]; \
-        int i; \
-\
-        va_start(args, fmt); \
-        i = vsnprintf(buffer, sizeof(buffer), fmt, args); \
-        va_end(args); \
-\
-        _iodev_write((HANDLEPTR), buffer, MIN(i, (int)(sizeof(buffer) - 1))); \
-\
-        return i; \
-    }
+#define DEBUG_PRINTF_USART_DEFINE(HANDLEPTR)                                  \
+static inline void _iodev_write(usart_init_t* handle, char *buffer, int size) \
+{                                                                             \
+    if (handle)                                                               \
+    {                                                                         \
+        PHAL_usartTxBl(handle, (uint8_t *)buffer, size);                      \
+    }                                                                         \
+}                                                                             \
+                                                                              \
+int debug_printf(const char *fmt, ...)                                        \
+{                                                                             \
+    va_list args;                                                             \
+    char buffer[512];                                                         \
+    int i;                                                                    \
+                                                                              \
+    va_start(args, fmt);                                                      \
+    i = vsnprintf(buffer, sizeof(buffer), fmt, args);                         \
+    va_end(args);                                                             \
+                                                                              \
+    _iodev_write((HANDLEPTR), buffer, MIN(i, (int)(sizeof(buffer) - 1)));     \
+                                                                              \
+    return i;                                                                 \
+}
+
 // can add SPI etc as necessary
 
 // plog: requires \n

@@ -109,56 +109,59 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// Make this match the node name within the can_config.json</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="bootloader_2can_2can__parse__starter_8h.html#a8cc8d559acdd2f74085b20977182d5b7">   26</a></span><span class="preprocessor">#define NODE_NAME &quot;bootloader&quot;</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// Message ID definitions</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/* BEGIN AUTO ID DEFS */</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/* END AUTO ID DEFS */</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">// Message DLC definitions</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">/* BEGIN AUTO DLC DEFS */</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/* END AUTO DLC DEFS */</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// Message sending macros</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/* BEGIN AUTO SEND MACROS */</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/* END AUTO SEND MACROS */</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// Stale Checking</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="bootloader_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">   41</a></span><span class="preprocessor">#define STALE_THRESH 5 / 2 </span><span class="comment">// 5 / 2 would be 250% of period</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/* BEGIN AUTO UP DEFS (Update Period)*/</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/* END AUTO UP DEFS */</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00045" data-start="" data-end="">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="bootloader_2can_2can__parse__starter_8h.html#a969cc60c23232b8b979b9822e5acd4f8">   45</a></span><span class="preprocessor">#define CHECK_STALE(stale, curr, last, period) \</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">    if (!stale &amp;&amp; (curr - last) &gt; period * STALE_THRESH) \</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">    stale = 1</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/* BEGIN GIT HASH DEF */</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/* END GIT HASH DEF */</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// Message ID definitions</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/* BEGIN AUTO ID DEFS */</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">/* END AUTO ID DEFS */</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// Message DLC definitions</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">/* BEGIN AUTO DLC DEFS */</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">/* END AUTO DLC DEFS */</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// Message sending macros</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">/* BEGIN AUTO SEND MACROS */</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">/* END AUTO SEND MACROS */</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// Stale Checking</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="bootloader_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">   44</a></span><span class="preprocessor">#define STALE_THRESH 5 / 2 </span><span class="comment">// 5 / 2 would be 250% of period</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">/* BEGIN AUTO UP DEFS (Update Period)*/</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">/* END AUTO UP DEFS */</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="foldopen" id="foldopen00048" data-start="" data-end="">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="bootloader_2can_2can__parse__starter_8h.html#a969cc60c23232b8b979b9822e5acd4f8">   48</a></span><span class="preprocessor">#define CHECK_STALE(stale, curr, last, period) \</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">    if (!stale &amp;&amp; (curr - last) &gt; period * STALE_THRESH) \</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">    stale = 1</span></div>
 </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">/* BEGIN AUTO CAN ENUMERATIONS */</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">/* END AUTO CAN ENUMERATIONS */</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">// Message Raw Structures</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">/* BEGIN AUTO MESSAGE STRUCTURE */</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// contains most up to date received</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// type for each variable matches that defined in JSON</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">/* BEGIN AUTO CAN DATA STRUCTURE */</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">/* END AUTO CAN DATA STRUCTURE */</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">extern</span> can_data_t <a class="code hl_variable" href="a__box_2can_2can__parse__starter_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">/* BEGIN AUTO EXTERN CALLBACK */</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">/* END AUTO EXTERN CALLBACK */</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">/* BEGIN AUTO CAN ENUMERATIONS */</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">/* END AUTO CAN ENUMERATIONS */</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">// Message Raw Structures</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">/* BEGIN AUTO MESSAGE STRUCTURE */</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">/* END AUTO MESSAGE STRUCTURE */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// contains most up to date received</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">// type for each variable matches that defined in JSON</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">/* BEGIN AUTO CAN DATA STRUCTURE */</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">/* END AUTO CAN DATA STRUCTURE */</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">extern</span> can_data_t <a class="code hl_variable" href="a__box_2can_2can__parse__starter_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">/* BEGIN AUTO EXTERN RX IRQ */</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">/* END AUTO EXTERN RX IRQ */</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2can_2can__parse__starter_8h.html#aa1c60094ea5db2cec8e57bb40a3a1f8f">initCANParse</a>(<a class="code hl_struct" href="structq__handle__t.html">q_handle_t</a>* <a class="code hl_variable" href="bootloader_2can_2can__parse__starter_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2can_2can__parse__starter_8h.html#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a>();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2can_2can__parse__starter_8h.html#a8ae5102346661206c2301520b3ce9f89">canProcessRxIRQs</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>* rx);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">/* BEGIN AUTO EXTERN CALLBACK */</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">/* END AUTO EXTERN CALLBACK */</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">/* BEGIN AUTO EXTERN RX IRQ */</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">/* END AUTO EXTERN RX IRQ */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2can_2can__parse__starter_8h.html#aa1c60094ea5db2cec8e57bb40a3a1f8f">initCANParse</a>(<a class="code hl_struct" href="structq__handle__t.html">q_handle_t</a>* <a class="code hl_variable" href="bootloader_2can_2can__parse__starter_8c.html#aaff8b712768c6fdcd153bcc291f4e320">q_rx_can_a</a>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2can_2can__parse__starter_8h.html#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a>();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2can_2can__parse__starter_8h.html#a8ae5102346661206c2301520b3ce9f89">canProcessRxIRQs</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>* rx);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa__box_2can_2can__parse__starter_8c_html_a8eaf23ac1da3fc4a879c3b1b11733ea2"><div class="ttname"><a href="a__box_2can_2can__parse__starter_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a></div><div class="ttdeci">can_data_t can_data</div><div class="ttdef"><b>Definition</b> can_parse_starter.c:16</div></div>
 <div class="ttc" id="aa__box_2can_2can__parse__starter_8h_html_a3f543c89f40becb3d4280c764807f9a7"><div class="ttname"><a href="a__box_2can_2can__parse__starter_8h.html#a3f543c89f40becb3d4280c764807f9a7">canRxUpdate</a></div><div class="ttdeci">void canRxUpdate()</div><div class="ttdoc">Pull message off of rx buffer, update can_data struct, check for stale messages.</div><div class="ttdef"><b>Definition</b> can_parse_starter.c:24</div></div>
 <div class="ttc" id="aa__box_2can_2can__parse__starter_8h_html_a8ae5102346661206c2301520b3ce9f89"><div class="ttname"><a href="a__box_2can_2can__parse__starter_8h.html#a8ae5102346661206c2301520b3ce9f89">canProcessRxIRQs</a></div><div class="ttdeci">void canProcessRxIRQs(CanMsgTypeDef_t *rx)</div><div class="ttdoc">Process any rx message callbacks from the CAN Rx IRQ.</div><div class="ttdef"><b>Definition</b> can_parse_starter.c:75</div></div>

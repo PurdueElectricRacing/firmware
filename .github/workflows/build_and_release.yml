@@ -36,13 +36,19 @@ jobs:
             pip install -r requirements.txt
           fi
 
+      - name: Get short hash
+        id: git_info
+        run: |
+          SHORT_HASH=$(git rev-parse --short HEAD)
+          echo "short_hash=$SHORT_HASH" >> $GITHUB_OUTPUT
+
       - name: Run per_build.py
         run: python3 per_build.py --release --package
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: release-${{ github.sha }}
-          name: Firmware Release ${{ github.sha }}
+          tag_name: release-${{ steps.git_info.outputs.short_hash }}
+          name: Firmware Release ${{ steps.git_info.outputs.short_hash }}
           files: output/firmware*.tar.gz
           prerelease: true

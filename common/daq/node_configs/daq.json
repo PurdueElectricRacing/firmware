@@ -63,6 +63,19 @@
               ],
               "msg_period": 1000,
               "msg_priority": 3
+            },
+            {
+                "msg_name": "daq_version",
+                "msg_desc": "DAQ version",
+                "signals": [
+                    {
+                        "sig_name": "git_hash",
+                        "type": "uint64_t",
+                        "sig_desc": "int representation of git short hash"
+                    }
+                ],
+                "msg_priority": 5,
+                "msg_period": 5000
             }
           ],
           "rx": [

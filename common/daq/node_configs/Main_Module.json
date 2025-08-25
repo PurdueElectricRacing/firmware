@@ -650,6 +650,19 @@
               ],
               "msg_period": 15,
               "msg_priority": 3
+            },
+            {
+                "msg_name": "main_version",
+                "msg_desc": "Main version",
+                "signals": [
+                    {
+                        "sig_name": "git_hash",
+                        "type": "uint64_t",
+                        "sig_desc": "int representation of git short hash"
+                    }
+                ],
+                "msg_priority": 5,
+                "msg_period": 5000
             }
           ],
           "rx": [

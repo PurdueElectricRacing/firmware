@@ -28,6 +28,9 @@ typedef union {
 #define FLOAT_TO_UINT32(float_)  (((FloatConvert_t)float_).u)
 #define UINT32_TO_FLOAT(uint32_) (((FloatConvert_t)((uint32_t)uint32_)).f)
 
+/* BEGIN GIT HASH DEF */
+/* END GIT HASH DEF */
+
 // Message ID definitions
 /* BEGIN AUTO ID DEFS */
 /* END AUTO ID DEFS */

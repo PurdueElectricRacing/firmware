@@ -1,11 +1,13 @@
 
-#include "main.h"
+#include "g4_testing.h"
+#if (G4_TESTING_CHOSEN == TEST_BLINKY)
 
 #include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "main.h"
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_GREEN_PORT, LED_GREEN_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -126,3 +128,5 @@ void HardFault_Handler() {
         __asm__("nop");
     }
 }
+
+#endif // G4_TESTING_CHOSEN == TEST_BLINKY

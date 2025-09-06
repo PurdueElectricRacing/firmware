@@ -1,4 +1,4 @@
-#include "common/phal_G4/usart/usart.h" // Assumed G4 USART header
+#include "common/phal_G4/usart/usart.h" 
 
 // These items should not be used/modified by anybody other than the HAL
 typedef enum {

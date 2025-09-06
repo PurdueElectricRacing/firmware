@@ -98,10 +98,26 @@ cd firmware
 ```
 
 ## Setup & Build
-4. Install the required Python packages:
-```bash
-pip3 install -r requirements.txt
-```
+4. Two options for installing:
+	- Use venv (a virtual environment for Python)
+		```bash	
+		python3 -m venv myenv
+		```
+		
+		Then activate it
+		```bash
+		source /myenv/bin/activate
+		```
+
+		Then install
+		```bash
+		pip3 install -r requirements.txt
+		```
+
+	- Overwrite your system files (unlikely, but can break system packages)
+		```bash
+		pip3 install -r requirements.txt
+		```
 
 5. Launch Visual Studio Code:
 ```bash

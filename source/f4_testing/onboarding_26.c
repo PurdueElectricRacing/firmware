@@ -18,7 +18,7 @@
 #include "common/phal/rcc.h"
 
 GPIOInitConfig_t gpio_config[] = {
-    GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED), 
+    GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED),  // Heartbeat LED
     GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED), // Green LED
     GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED), // Orange LED
     GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED), // Red LED
@@ -44,11 +44,11 @@ ClockRateConfig_t clock_config = {
 void HardFault_Handler();
 
 // TODO add more function definitions here
-void ledblink1();
-void hb_led_blink_task();
-void orange_led_blink_task();
-void red_led_blink_task();
-void blue_led_blink_task();
+void ledblink1(); // Green LED
+void hb_led_blink_task(); // Heartbeat LED
+void orange_led_blink_task(); // Orange LED
+void red_led_blink_task(); // Red LED
+void blue_led_blink_task(); // Blue LED
 
 // TODO add thread definitions here
 defineThreadStack(ledblink1, 100, osPriorityNormal, 64);
@@ -70,7 +70,7 @@ int main() {
 
     // Create threads
     createThread(ledblink1);
-    
+
     // TODO: Create threads here
     createThread(hb_led_blink_task);
     createThread(orange_led_blink_task);

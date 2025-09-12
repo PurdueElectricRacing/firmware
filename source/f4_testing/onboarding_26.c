@@ -41,6 +41,8 @@ ClockRateConfig_t clock_config = {
     .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
 };
 
+volatile int led_fast = 0;
+
 void HardFault_Handler();
 
 // TODO add more function definitions here
@@ -68,6 +70,21 @@ int main() {
         HardFault_Handler();
     }
 
+    // Configure PB7 Interrupt 
+    // Enable SYSCFG clock
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    // Map EXTI7 to Port B
+    SYSCFG->EXTICR[1] |= (0b0001 << 12);
+
+    // Enable EXTI7 interrupt
+    EXTI->IMR |= (1 << 7);
+
+    EXTI->RTSR |= (1 << 7);
+    EXTI->FTSR &= ~(1 << 7);
+
+    NVIC_EnableIRQ(EXTI9_5_IRQn);
+
     // Create threads
     createThread(ledblink1);
 
@@ -83,8 +100,16 @@ int main() {
 }
 
 void ledblink1() {
-    PHAL_toggleGPIO(GPIOD, 12);
+    while (1) {
+        PHAL_toggleGPIO(GPIOD, 12);
 
+        // adjust blink speed based on interrupt
+        if (led_fast) {
+            osDelay(100); // fast blink
+        } else {
+            osDelay(200); // normal blink
+        }
+    }
 }
 
 // TODO: add more function definitions here
@@ -105,6 +130,13 @@ void blue_led_blink_task() {
     PHAL_toggleGPIO(GPIOD, 15);
 }
 
+// Interrupt Handler
+void EXTI9_5_IRQHandler() {
+    if (EXTI->PR & (1 << 7)) { 
+        EXTI->PR |= (1 << 7); 
+        led_fast = !led_fast;
+    }
+}
 void HardFault_Handler() {
     while (1) {
         __asm__("nop");

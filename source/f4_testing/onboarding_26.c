@@ -1,6 +1,6 @@
 /**
  * @file onboarding_26.c
- * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Anson Lam (lam217@purdue.edu)
  * @brief  Onboarding 26 starter file
  * @version 0.1
  * @date 2026-07-27

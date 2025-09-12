@@ -18,8 +18,11 @@
 #include "common/phal/rcc.h"
 
 GPIOInitConfig_t gpio_config[] = {
-    GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED),
-    // TODO: Add GPIO LEDs here...
+    GPIO_INIT_OUTPUT(GPIOB, 9, GPIO_OUTPUT_LOW_SPEED), 
+    GPIO_INIT_OUTPUT(GPIOD, 12, GPIO_OUTPUT_LOW_SPEED), // Green LED
+    GPIO_INIT_OUTPUT(GPIOD, 13, GPIO_OUTPUT_LOW_SPEED), // Orange LED
+    GPIO_INIT_OUTPUT(GPIOD, 14, GPIO_OUTPUT_LOW_SPEED), // Red LED
+    GPIO_INIT_OUTPUT(GPIOD, 15, GPIO_OUTPUT_LOW_SPEED), // Blue LED
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -40,9 +43,18 @@ ClockRateConfig_t clock_config = {
 
 void HardFault_Handler();
 void ledblink1();
+void hb_led_blink_task();
+void orange_led_blink_task();
+void red_led_blink_task();
+void blue_led_blink_task();
+
 // TODO add more function definitions here
 
-defineThreadStack(ledblink1, 250, osPriorityNormal, 64);
+defineThreadStack(ledblink1, 100, osPriorityNormal, 64);
+defineThreadStack(hb_led_blink_task, 500, osPriorityNormal, 64);
+defineThreadStack(orange_led_blink_task, 250, osPriorityNormal, 64);
+defineThreadStack(red_led_blink_task, 500, osPriorityNormal, 64);
+defineThreadStack(blue_led_blink_task, 1000, osPriorityNormal, 64);
 
 // TODO add thread definitions here
 
@@ -67,10 +79,27 @@ int main() {
 }
 
 void ledblink1() {
-    // TODO: add blink function here
+    PHAL_toggleGPIO(GPIOD, 12);
+
 }
 
 // TODO: add more function definitions here
+
+void hb_led_blink_task() {
+    PHAL_toggleGPIO(GPIOB, 9); 
+}
+
+void orange_led_blink_task() {
+    PHAL_toggleGPIO(GPIOD, 13); 
+}
+
+void red_led_blink_task() {
+    PHAL_toggleGPIO(GPIOD, 14);
+}
+
+void blue_led_blink_task() {
+    PHAL_toggleGPIO(GPIOD, 15);
+}
 
 void HardFault_Handler() {
     while (1) {

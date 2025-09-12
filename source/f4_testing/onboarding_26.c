@@ -42,21 +42,20 @@ ClockRateConfig_t clock_config = {
 };
 
 void HardFault_Handler();
+
+// TODO add more function definitions here
 void ledblink1();
 void hb_led_blink_task();
 void orange_led_blink_task();
 void red_led_blink_task();
 void blue_led_blink_task();
 
-// TODO add more function definitions here
-
+// TODO add thread definitions here
 defineThreadStack(ledblink1, 100, osPriorityNormal, 64);
 defineThreadStack(hb_led_blink_task, 500, osPriorityNormal, 64);
 defineThreadStack(orange_led_blink_task, 250, osPriorityNormal, 64);
 defineThreadStack(red_led_blink_task, 500, osPriorityNormal, 64);
 defineThreadStack(blue_led_blink_task, 1000, osPriorityNormal, 64);
-
-// TODO add thread definitions here
 
 int main() {
     osKernelInitialize();
@@ -71,7 +70,12 @@ int main() {
 
     // Create threads
     createThread(ledblink1);
+    
     // TODO: Create threads here
+    createThread(hb_led_blink_task);
+    createThread(orange_led_blink_task);
+    createThread(red_led_blink_task);
+    createThread(blue_led_blink_task);
 
     osKernelStart(); // Go!
 

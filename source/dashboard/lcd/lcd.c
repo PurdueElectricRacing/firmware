@@ -90,157 +90,210 @@ void setFaultIndicator(uint16_t fault, char* element);
 // Page handlers array stored in flash
 const page_handler_t page_handlers[] = {
     // Order must match page_t enum
-    [PAGE_RACE] = {racePageUpdate, raceUpCallback, raceDownCallback, raceSelect, raceTelemetryUpdate}, // No move handlers, telemetry is passive
-    [PAGE_COOLING] = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
-    [PAGE_TVSETTINGS] = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
-    [PAGE_FAULTS] = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
-    [PAGE_SDCINFO] = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate}, // SDCINFO is passive
-    [PAGE_DRIVER] = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
-    [PAGE_PROFILES] = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
-    [PAGE_LOGGING] = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
+    [PAGE_RACE]        = {racePageUpdate, raceUpCallback, raceDownCallback, raceSelect, raceTelemetryUpdate}, // No move handlers, telemetry is passive
+    [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
+    [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
+    [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
+    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate}, // SDCINFO is passive
+    [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
+    [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
+    [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
     [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate}, // Calibration is passive
-    [PAGE_PREFLIGHT] = {NULL, NULL, NULL, NULL, NULL}, // Preflight is passive
-    [PAGE_WARNING] = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_ERROR] = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_FATAL] = {NULL, NULL, NULL, errorPageSelect, NULL} // Error pages share a select handler
+    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL}, // Preflight is passive
+    [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
+    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
+    [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL} // Error pages share a select handler
 };
 
 menu_element_t race_elements[] = {
-    {.type = ELEMENT_OPTION,
-     .object_name = RACE_TV_ON,
-     .current_value = 0,
-     .on_change = sendTVParameters}};
+    {
+        .type          = ELEMENT_OPTION,
+        .object_name   = RACE_TV_ON,
+        .current_value = 0,
+        .on_change     = sendTVParameters,
+    }};
 
 menu_page_t race_page = {
-    .elements = race_elements,
-    .num_elements = sizeof(race_elements) / sizeof(race_elements[0]),
-    .current_index = 0,
-    .is_element_selected = false};
+    .elements            = race_elements,
+    .num_elements        = sizeof(race_elements) / sizeof(race_elements[0]),
+    .current_index       = 0,
+    .is_element_selected = false,
+};
 
 typedef enum {
-    COOLING_DT_FAN_INDEX = 0,
+    COOLING_DT_FAN_INDEX  = 0,
     COOLING_DT_PUMP_INDEX = 1,
-    COOLING_B_FAN_INDEX = 2,
-    COOLING_B_PUMP_INDEX = 3,
+    COOLING_B_FAN_INDEX   = 2,
+    COOLING_B_PUMP_INDEX  = 3
 } cooling_elements_t;
 
 menu_element_t cooling_elements[] = {
     [COOLING_DT_FAN_INDEX] = {
-        .type = ELEMENT_VAL,
-        .object_name = DT_FAN_VAL,
+        .type          = ELEMENT_VAL,
+        .object_name   = DT_FAN_VAL,
         .current_value = 0,
-        .min_value = 0,
-        .max_value = 100,
-        .increment = 25,
-        .on_change = sendCoolingParameters},
-    [COOLING_DT_PUMP_INDEX] = {.type = ELEMENT_OPTION, .object_name = DT_PUMP_OP, .current_value = 0, .on_change = sendCoolingParameters},
-    [COOLING_B_FAN_INDEX] = {.type = ELEMENT_VAL, .object_name = B_FAN_VAL, .current_value = 0, .min_value = 0, .max_value = 100, .increment = 25, .on_change = sendCoolingParameters},
-    [COOLING_B_PUMP_INDEX] = {.type = ELEMENT_OPTION, .object_name = B_PUMP_OP, .current_value = 0, .on_change = sendCoolingParameters}};
+        .min_value     = 0,
+        .max_value     = 100,
+        .increment     = 25,
+        .on_change     = sendCoolingParameters,
+    },
+    [COOLING_DT_PUMP_INDEX] = {
+        .type          = ELEMENT_OPTION,
+        .object_name   = DT_PUMP_OP,
+        .current_value = 0,
+        .on_change     = sendCoolingParameters,
+    },
+    [COOLING_B_FAN_INDEX] = {
+        .type          = ELEMENT_VAL,
+        .object_name   = B_FAN_VAL,
+        .current_value = 0,
+        .min_value     = 0,
+        .max_value     = 100,
+        .increment     = 25,
+        .on_change     = sendCoolingParameters,
+    },
+    [COOLING_B_PUMP_INDEX] = {
+        .type          = ELEMENT_OPTION,
+        .object_name   = B_PUMP_OP,
+        .current_value = 0,
+        .on_change     = sendCoolingParameters,
+    },
+};
 
 menu_page_t cooling_page = {
-    .elements = cooling_elements,
-    .num_elements = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
-    .current_index = 0,
-    .is_element_selected = false};
+    .elements            = cooling_elements,
+    .num_elements        = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
+    .current_index       = 0,
+    .is_element_selected = false,
+};
 
 typedef enum {
-    TV_VCU_PERMIT_INDEX = 0,
+    TV_VCU_PERMIT_INDEX  = 0,
     TV_VCU_CONTROL_INDEX = 1,
-    TV_DEADBAND_INDEX = 2,
-    TV_P_GAIN_INDEX = 3,
+    TV_DEADBAND_INDEX    = 2,
+    TV_P_GAIN_INDEX      = 3,
     TV_TORQUE_DROP_INDEX = 4,
-    TV_MAX_SLIP_INDEX = 5,
+    TV_MAX_SLIP_INDEX    = 5,
 } tv_elements_t;
 
 typedef enum {
-    TV_PERMIT_NONE = 0,
+    TV_PERMIT_NONE     = 0,
     TV_PERMIT_VARIABLE = 1,
 } tv_permit_modes_t;
 
 typedef enum {
-    TV_SPEED_CONTROL_MODE = 0,
-    TV_TORQUE_CONTROL_MODE = 1
+    TV_SPEED_CONTROL_MODE  = 0,
+    TV_TORQUE_CONTROL_MODE = 1,
 } tv_control_modes_t;
 
 // TV Settings page menu elements
 menu_element_t tv_elements[] = {
-    [TV_VCU_PERMIT_INDEX] = {// Not using the OPTION type here to display the text instead of the value
-                             .type = ELEMENT_VAL,
-                             .object_name = TV_PERMIT_MODE_TXT,
-                             .current_value = TV_PERMIT_VARIABLE, // Default to variable
-                             .min_value = TV_PERMIT_NONE,
-                             .max_value = TV_PERMIT_VARIABLE,
-                             .increment = 1,
-                             .on_change = sendTVParameters},
-    [TV_VCU_CONTROL_INDEX] = {// Not using the OPTION type here to display the text instead of the value
-                              .type = ELEMENT_VAL,
-                              .object_name = TV_CONTROL_MODE_TXT,
-                              .current_value = TV_TORQUE_CONTROL_MODE, // Default to torque control
-                              .min_value = TV_SPEED_CONTROL_MODE,
-                              .max_value = TV_TORQUE_CONTROL_MODE,
-                              .increment = 1,
-                              .on_change = sendTVParameters},
-    [TV_DEADBAND_INDEX] = {.type = ELEMENT_VAL, .object_name = TV_DEADBAND_TXT, .current_value = TV_DEADBAND_DEFAULT_VALUE, .min_value = 0, .max_value = 25,
-                           .increment = 1, // 1 increment
-                           .on_change = sendTVParameters},
-    [TV_P_GAIN_INDEX] = {.type = ELEMENT_FLT, .object_name = TV_P_GAIN_FLT, .current_value = TV_P_GAIN_DEFAULT_VALUE, .min_value = 0, .max_value = 10000,
-                         .increment = 10, // 0.1 increment
-                         .on_change = sendTVParameters},
-    [TV_TORQUE_DROP_INDEX] = {.type = ELEMENT_FLT, .object_name = TV_TORQUE_DROP_FLT, .current_value = TV_TORQUE_DROP_DEFAULT_VALUE, .min_value = 0, .max_value = 100,
-                              .increment = 2, // 0.02 increment
-                              .on_change = sendTVParameters},
-    [TV_MAX_SLIP_INDEX] = {.type = ELEMENT_FLT, .object_name = TV_MAX_SLIP_FLT, .current_value = TV_SLIP_DEFAULT_VALUE, .min_value = 0, .max_value = 100,
-                           .increment = 2, // 0.02 increment
-                           .on_change = sendTVParameters}};
+    [TV_VCU_PERMIT_INDEX] = {
+        // Not using the OPTION type here to display the text instead of the value
+        .type          = ELEMENT_VAL,
+        .object_name   = TV_PERMIT_MODE_TXT,
+        .current_value = TV_PERMIT_VARIABLE, // Default to variable
+        .min_value     = TV_PERMIT_NONE,
+        .max_value     = TV_PERMIT_VARIABLE,
+        .increment     = 1,
+        .on_change     = sendTVParameters,
+    },
+    [TV_VCU_CONTROL_INDEX] = {
+        // Not using the OPTION type here to display the text instead of the value
+        .type          = ELEMENT_VAL,
+        .object_name   = TV_CONTROL_MODE_TXT,
+        .current_value = TV_TORQUE_CONTROL_MODE, // Default to torque control
+        .min_value     = TV_SPEED_CONTROL_MODE,
+        .max_value     = TV_TORQUE_CONTROL_MODE,
+        .increment     = 1,
+        .on_change     = sendTVParameters,
+    },
+    [TV_DEADBAND_INDEX] = {
+        .type          = ELEMENT_VAL,
+        .object_name   = TV_DEADBAND_TXT,
+        .current_value = TV_DEADBAND_DEFAULT_VALUE,
+        .min_value     = 0,
+        .max_value     = 25,
+        .increment     = 1, // 1 increment
+        .on_change     = sendTVParameters,
+    },
+    [TV_P_GAIN_INDEX] = {
+        .type          = ELEMENT_FLT,
+        .object_name   = TV_P_GAIN_FLT,
+        .current_value = TV_P_GAIN_DEFAULT_VALUE,
+        .min_value     = 0,
+        .max_value     = 10000,
+        .increment     = 10, // 0.1 increment
+        .on_change     = sendTVParameters,
+    },
+    [TV_TORQUE_DROP_INDEX] = {
+        .type          = ELEMENT_FLT,
+        .object_name   = TV_TORQUE_DROP_FLT,
+        .current_value = TV_TORQUE_DROP_DEFAULT_VALUE,
+        .min_value     = 0,
+        .max_value     = 100,
+        .increment     = 2, // 0.02 increment
+        .on_change     = sendTVParameters,
+    },
+    [TV_MAX_SLIP_INDEX] = {
+        .type          = ELEMENT_FLT,
+        .object_name   = TV_MAX_SLIP_FLT,
+        .current_value = TV_SLIP_DEFAULT_VALUE,
+        .min_value     = 0,
+        .max_value     = 100,
+        .increment     = 2, // 0.02 increment
+        .on_change     = sendTVParameters,
+    },
+};
 
 menu_page_t tv_page = {
-    .elements = tv_elements,
-    .num_elements = sizeof(tv_elements) / sizeof(tv_elements[0]),
-    .current_index = 0,
+    .elements            = tv_elements,
+    .num_elements        = sizeof(tv_elements) / sizeof(tv_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false};
 
 menu_element_t faults_elements[] = {
     [0] = {
-        .type = ELEMENT_BUTTON,
+        .type        = ELEMENT_BUTTON,
         .object_name = FAULT1_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+        .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [1] = {
-        .type = ELEMENT_BUTTON,
+        .type        = ELEMENT_BUTTON,
         .object_name = FAULT2_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+        .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [2] = {
-        .type = ELEMENT_BUTTON,
+        .type        = ELEMENT_BUTTON,
         .object_name = FAULT3_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+        .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [3] = {
-        .type = ELEMENT_BUTTON,
+        .type        = ELEMENT_BUTTON,
         .object_name = FAULT4_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+        .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [4] = {
-        .type = ELEMENT_BUTTON,
+        .type        = ELEMENT_BUTTON,
         .object_name = FAULT5_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear fault
+        .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [5] = {
-        .type = ELEMENT_BUTTON,
+        .type        = ELEMENT_BUTTON,
         .object_name = CLEAR_BUTTON,
-        .on_change = faultsClearButton_CALLBACK // clear all faults
+        .on_change   = faultsClearButton_CALLBACK // clear all faults
     }};
 
 menu_page_t faults_page = {
-    .elements = faults_elements,
-    .num_elements = sizeof(faults_elements) / sizeof(faults_elements[0]),
-    .current_index = 0,
+    .elements            = faults_elements,
+    .num_elements        = sizeof(faults_elements) / sizeof(faults_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false};
 
 menu_element_t driver_elements[] = {
     [0] = {
-        .type = ELEMENT_LIST,
-        .object_name = DRIVER1_LIST,
+        .type          = ELEMENT_LIST,
+        .object_name   = DRIVER1_LIST,
         .current_value = 1 // Default to driver 1
     },
     [1] = {.type = ELEMENT_LIST, .object_name = DRIVER2_LIST, .current_value = 0},
@@ -248,43 +301,43 @@ menu_element_t driver_elements[] = {
     [3] = {.type = ELEMENT_LIST, .object_name = DRIVER4_LIST, .current_value = 0}};
 
 menu_page_t driver_page = {
-    .elements = driver_elements,
-    .num_elements = sizeof(driver_elements) / sizeof(driver_elements[0]),
-    .current_index = 0,
+    .elements            = driver_elements,
+    .num_elements        = sizeof(driver_elements) / sizeof(driver_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false};
 
 typedef enum {
-    PROFILE_BRAKE_INDEX = 0,
+    PROFILE_BRAKE_INDEX    = 0,
     PROFILE_THROTTLE_INDEX = 1,
-    PROFILE_SAVE_INDEX = 2
+    PROFILE_SAVE_INDEX     = 2
 } pedal_profile_elements_t;
 
 // Profile page menu elements
 menu_element_t pedal_profile_elements[] = {
     [PROFILE_BRAKE_INDEX] = {
-        .type = ELEMENT_FLT,
-        .object_name = PROFILE_BRAKE_FLT,
+        .type          = ELEMENT_FLT,
+        .object_name   = PROFILE_BRAKE_FLT,
         .current_value = 0,
-        .min_value = 0,
-        .max_value = 20,
-        .increment = 5,
+        .min_value     = 0,
+        .max_value     = 20,
+        .increment     = 5,
     },
     [PROFILE_THROTTLE_INDEX] = {
-        .type = ELEMENT_FLT,
-        .object_name = PROFILE_THROTTLE_FLT,
+        .type          = ELEMENT_FLT,
+        .object_name   = PROFILE_THROTTLE_FLT,
         .current_value = 0,
-        .min_value = 0,
-        .max_value = 20,
-        .increment = 5,
+        .min_value     = 0,
+        .max_value     = 20,
+        .increment     = 5,
     },
     [PROFILE_SAVE_INDEX] = {.type = ELEMENT_BUTTON, .object_name = PROFILE_SAVE_BUTTON, .on_change = pedalProfilesSaveButton_CALLBACK}};
 
 menu_page_t pedal_profile_page = {
-    .elements = pedal_profile_elements,
-    .num_elements = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
-    .current_index = 0,
+    .elements            = pedal_profile_elements,
+    .num_elements        = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false,
-    .saved = true,
+    .saved               = true,
 };
 
 typedef enum {
@@ -293,15 +346,15 @@ typedef enum {
 
 menu_element_t logging_elements[] = {
     [LOGGING_OP_INDEX] = {
-        .type = ELEMENT_OPTION,
-        .object_name = LOG_OP,
+        .type          = ELEMENT_OPTION,
+        .object_name   = LOG_OP,
         .current_value = 0,
-        .on_change = sendLoggingParameters}};
+        .on_change     = sendLoggingParameters}};
 
 menu_page_t logging_page = {
-    .elements = logging_elements,
-    .num_elements = sizeof(logging_elements) / sizeof(logging_elements[0]),
-    .current_index = 0,
+    .elements            = logging_elements,
+    .num_elements        = sizeof(logging_elements) / sizeof(logging_elements[0]),
+    .current_index       = 0,
     .is_element_selected = false};
 
 // Initialize the LCD screen
@@ -333,7 +386,7 @@ void updatePage() {
 
     // Only update prev_page for non-error pages
     if (!is_error_page) {
-        curr_page = input_state.encoder_position;
+        curr_page            = input_state.encoder_position;
         fault_time_displayed = 0;
     }
 
@@ -470,8 +523,8 @@ void calibrationTelemetryUpdate() {
         return;
     }
 
-    //NXT_setValue(CALIBRATION_BRAKE_BAR, 0); // todo brake bar
-    //NXT_setValue(CALIBRATION_THROTTLE_BAR, (int) ((filtered_pedals / 4095.0) * 100));
+    // NXT_setValue(CALIBRATION_BRAKE_BAR, 0); // todo brake bar
+    // NXT_setValue(CALIBRATION_THROTTLE_BAR, (int) ((filtered_pedals / 4095.0) * 100));
 
     NXT_setTextFormatted(CALIBRATION_BRAKE1_VAL, "%d", raw_adc_values.b1);
     NXT_setTextFormatted(CALIBRATION_BRAKE2_VAL, "%d", raw_adc_values.b2);
@@ -479,15 +532,15 @@ void calibrationTelemetryUpdate() {
     NXT_setTextFormatted(CALIBRATION_THROTTLE2_VAL, "%d", raw_adc_values.t2);
 
     uint16_t brake_diff = ABS(raw_adc_values.b1 - raw_adc_values.b2);
-    uint16_t brake_dev = (brake_diff * 1000) / 4095.0;
+    uint16_t brake_dev  = (brake_diff * 1000) / 4095.0;
     NXT_setValue(CALIBRATION_BRAKE_DEV_VAL, brake_dev);
 
     uint16_t throttle_diff = ABS(raw_adc_values.t1 - raw_adc_values.t2);
-    uint16_t throttle_dev = (throttle_diff * 1000) / 4095.0;
+    uint16_t throttle_dev  = (throttle_diff * 1000) / 4095.0;
     NXT_setValue(CALIBRATION_THROTTLE_DEV_VAL, throttle_dev);
 
-    //uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
-    //uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
+    // uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
+    // uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
     uint16_t brake1_thresh = 0;
     uint16_t brake2_thresh = 0;
 
@@ -544,11 +597,12 @@ void sendTVParameters() {
  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
  */
 void sendCoolingParameters() {
-    SEND_COOLING_DRIVER_REQUEST(cooling_elements[COOLING_B_PUMP_INDEX].current_value,
-                                cooling_elements[COOLING_B_FAN_INDEX].current_value,
-                                cooling_elements[COOLING_DT_PUMP_INDEX].current_value, // TODO: remove (deprecated)
-                                0,
-                                cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+    SEND_COOLING_DRIVER_REQUEST(
+        cooling_elements[COOLING_B_PUMP_INDEX].current_value,
+        cooling_elements[COOLING_B_FAN_INDEX].current_value,
+        cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
+        0, // TODO: remove (deprecated)
+        cooling_elements[COOLING_DT_FAN_INDEX].current_value);
 }
 
 /**
@@ -573,6 +627,7 @@ void updateFaultDisplay() {
 
         if (fault_time_displayed > 8) { // reset after 8 cycles
             fault_time_displayed = 0;
+
             curr_page = prev_page;
             prev_page = PAGE_PREFLIGHT;
             updatePage();
@@ -622,15 +677,15 @@ void updateFaultDisplay() {
             if (fault_buf[cur_fault_buf_ndx] != 0xFFFF) {
                 if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false) || (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority)) {
                     fault_buf[cur_fault_buf_ndx] = next_to_check;
-                    faultWasInserted = true;
-                    pageUpdateRequired = true;
+                    faultWasInserted             = true;
+                    pageUpdateRequired           = true;
                     break;
                 }
             } else {
                 // Empty slot just insert
                 fault_buf[cur_fault_buf_ndx] = next_to_check;
-                faultWasInserted = true;
-                pageUpdateRequired = true;
+                faultWasInserted             = true;
+                pageUpdateRequired           = true;
                 break;
             }
             cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
@@ -644,8 +699,8 @@ void updateFaultDisplay() {
 
     // Set the alert page to show based on most_recent_latched
     if ((most_recent_latched != 0xFFFF)) {
-        curr_page = faultArray[most_recent_latched].priority + PAGE_WARNING;
-        errorText = faultArray[most_recent_latched].screen_MSG;
+        curr_page          = faultArray[most_recent_latched].priority + PAGE_WARNING;
+        errorText          = faultArray[most_recent_latched].screen_MSG;
         pageUpdateRequired = true;
     }
 
@@ -701,7 +756,7 @@ void sdcTelemetryUpdate() {
         updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
         updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
         updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-        //todo set first trip from latest change in the sdc
+        // todo set first trip from latest change in the sdc
     }
 }
 
@@ -709,8 +764,8 @@ void sdcTelemetryUpdate() {
 
 void errorPageSelect() {
     fault_time_displayed = 0; // Reset fault timer first
-    curr_page = prev_page; // Return to previous page
-    prev_page = PAGE_PREFLIGHT; // so select item doesnt't break
+    curr_page            = prev_page; // Return to previous page
+    prev_page            = PAGE_PREFLIGHT; // so select item doesnt't break
     updatePage(); // Important: Update the page before returning
     return;
 }
@@ -801,7 +856,7 @@ void pedalProfilesSelect() {
 void pedalProfilesSaveButton_CALLBACK() {
     int driver_index = MS_listGetSelected(&driver_page);
     // Save profile values
-    driver_pedal_profiles[driver_index].brake_travel_threshold = pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value;
+    driver_pedal_profiles[driver_index].brake_travel_threshold    = pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value;
     driver_pedal_profiles[driver_index].throttle_travel_threshold = pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value;
 
     if (PROFILE_WRITE_SUCCESS != writePedalProfiles()) {
@@ -858,9 +913,9 @@ void coolingSelect() {
  */
 void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
     if (curr_page != PAGE_COOLING) {
-        cooling_elements[COOLING_B_FAN_INDEX].current_value = msg_data_a->coolant_out.dt_fan;
-        cooling_elements[COOLING_B_PUMP_INDEX].current_value = msg_data_a->coolant_out.dt_pump;
-        cooling_elements[COOLING_DT_FAN_INDEX].current_value = msg_data_a->coolant_out.bat_fan;
+        cooling_elements[COOLING_B_FAN_INDEX].current_value   = msg_data_a->coolant_out.dt_fan;
+        cooling_elements[COOLING_B_PUMP_INDEX].current_value  = msg_data_a->coolant_out.dt_pump;
+        cooling_elements[COOLING_DT_FAN_INDEX].current_value  = msg_data_a->coolant_out.bat_fan;
         cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
     }
 }
@@ -909,7 +964,7 @@ void tvMoveDown() {
 void tvSelect() {
     MS_select(&tv_page);
     // TODO Race page TV settings
-    //race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
+    // race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
 }
 
 /**
@@ -1034,7 +1089,7 @@ void raceTelemetryUpdate() {
     if (can_data.gps_speed.stale) {
         NXT_setText(SPEED, "S");
     } else {
-        //uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
+        // uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
         uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
@@ -1062,7 +1117,7 @@ void raceTelemetryUpdate() {
         NXT_setText(MOT_TEMP, "SB");
         NXT_setText(MC_TEMP, "SB");
     } else {
-        uint8_t motor_temp = MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
+        uint8_t motor_temp      = MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
         uint8_t controller_temp = MAX(can_data.INVA_TEMPS.AMK_IGBTTemp, can_data.INVB_TEMPS.AMK_IGBTTemp) / 10;
 
         NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
@@ -1077,7 +1132,7 @@ void raceTelemetryUpdate() {
         NXT_setText(AMK_MOTOR_OVERLOAD, "SB");
     } else {
         uint16_t motor_overload = MAX(can_data.INVA_CRIT.AMK_DisplayOverloadMotor, can_data.INVB_CRIT.AMK_DisplayOverloadMotor) * 10;
-        //uint16_t motor_overload = 77;
+        // uint16_t motor_overload = 77;
 
         NXT_setTextFormatted(AMK_MOTOR_OVERLOAD, "%d%", motor_overload);
     }
@@ -1134,20 +1189,20 @@ void raceTelemetryUpdate() {
 
 void raceUpCallback() {
     // turn on both pumps and fans
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value = 1;
+    cooling_elements[COOLING_B_PUMP_INDEX].current_value  = 1;
     cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value = 100;
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 100;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value   = 100;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value  = 100;
 
     sendCoolingParameters();
 }
 
 void raceDownCallback() {
     // turn off both pumps and fans
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value = 0;
+    cooling_elements[COOLING_B_PUMP_INDEX].current_value  = 0;
     cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value = 0;
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 0;
+    cooling_elements[COOLING_B_FAN_INDEX].current_value   = 0;
+    cooling_elements[COOLING_DT_FAN_INDEX].current_value  = 0;
 
     sendCoolingParameters();
 }
@@ -1155,7 +1210,7 @@ void raceDownCallback() {
 void raceSelect() {
     MS_select(&race_page);
     // TODO Race page TV settings
-    //tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
+    // tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 void loggingPageUpdate() {

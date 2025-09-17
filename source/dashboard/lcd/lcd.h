@@ -135,21 +135,21 @@
 typedef enum {
     // Pages selectable with the rot encoder
     // Should corresspond with the page count in main.h
-    PAGE_RACE = 0,
-    PAGE_COOLING = 1,
-    PAGE_TVSETTINGS = 2,
-    PAGE_FAULTS = 3,
-    PAGE_SDCINFO = 4,
-    PAGE_DRIVER = 5,
-    PAGE_PROFILES = 6,
-    PAGE_LOGGING = 7,
+    PAGE_RACE        = 0,
+    PAGE_COOLING     = 1,
+    PAGE_TVSETTINGS  = 2,
+    PAGE_FAULTS      = 3,
+    PAGE_SDCINFO     = 4,
+    PAGE_DRIVER      = 5,
+    PAGE_PROFILES    = 6,
+    PAGE_LOGGING     = 7,
     PAGE_CALIBRATION = 8,
 
     // Pages that can be displayed but not selected with the encoder
     PAGE_PREFLIGHT = 9,
-    PAGE_WARNING = 10,
-    PAGE_ERROR = 11,
-    PAGE_FATAL = 12,
+    PAGE_WARNING   = 10,
+    PAGE_ERROR     = 11,
+    PAGE_FATAL     = 12,
 } page_t;
 
 typedef struct {

@@ -214,7 +214,7 @@ void MS_decrementValue(menu_element_t* element) {
  */
 void MS_refreshPage(menu_page_t* page) {
     page->is_element_selected = false;
-    page->current_index = 0;
+    page->current_index       = 0;
 
     for (uint8_t i = 0; i < page->num_elements; i++) {
         menu_element_t* curr_element = &page->elements[i];

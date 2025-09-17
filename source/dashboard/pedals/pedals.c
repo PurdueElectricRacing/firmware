@@ -9,6 +9,7 @@
 #include "main.h"
 
 pedal_faults_t pedal_faults = {0};
+
 uint16_t thtl_limit = 4096;
 
 // Globals to enable live watching
@@ -38,14 +39,17 @@ pedal_calibration_t pedal_calibration = {
 // Contains the current pedal values for external use
 pedal_values_t pedal_values = {
     .throttle = 0,
-    .brake = 0};
+    .brake    = 0,
+};
 
 // Allows for drivers to set their own pedal profiles
-driver_pedal_profile_t driver_pedal_profiles[4] = { // TODO link to pedal logic
+driver_pedal_profile_t driver_pedal_profiles[4] = {
+    // TODO link to pedal logic
     {0, 10, 10, 0},
     {1, 10, 10, 0},
     {2, 10, 10, 0},
-    {3, 10, 10, 0}};
+    {3, 10, 10, 0},
+};
 
 /**
  * @brief Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS (4095)
@@ -103,7 +107,7 @@ void pedalsPeriodic(void) {
 
     // Update the pedal values for external use
     pedal_values.throttle = t1_final;
-    pedal_values.brake = b1_final;
+    pedal_values.brake    = b1_final;
 
     // Log the raw pedal values
     SEND_RAW_THROTTLE_BRAKE(t1_raw, t2_raw, b1_raw, b2_raw, 0);

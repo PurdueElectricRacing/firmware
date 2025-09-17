@@ -553,30 +553,38 @@ void encoderISR() {
  * Meant to be called periodically.
  */
 void handleDashboardInputs() {
-    actionCounter = 0;
     if (input_state.up_button) {
         input_state.up_button = 0;
+        actionCounter = 0;
         moveUp();
     }
 
     if (input_state.down_button) {
         input_state.down_button = 0;
+        actionCounter = 0;
         moveDown();
     }
 
     if (input_state.select_button) {
         input_state.select_button = 0;
+        actionCounter = 0;
         selectItem();
     }
 
     if (input_state.update_page) {
         input_state.update_page = 0;
+        actionCounter = 0;
         updatePage();
     }
 
     if (input_state.start_button) {
         input_state.start_button = 0;
+        actionCounter = 0;
         SEND_START_BUTTON(1);
+    }
+
+    if (actionCounter == 0){
+        NXT_setBrightness(100);
     }
 }
 
@@ -683,6 +691,7 @@ void lcdSleep() {
     }
     else if (can_data.main_hb.car_state == CAR_STATE_IDLE ) {
         actionCounter = 0;
+        NXT_setBrightness(100);
     }
     actionCounter++;
 

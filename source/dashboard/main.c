@@ -151,6 +151,7 @@ extern uint32_t PLLClockRateHz;
 // LCD Variables
 extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
+volatile uint8_t actionCounter = 0; // counter to check if you need to make lcd sleep
 
 brake_status_t brake_status = {0};
 
@@ -552,6 +553,7 @@ void encoderISR() {
  * Meant to be called periodically.
  */
 void handleDashboardInputs() {
+    actionCounter = 0;
     if (input_state.up_button) {
         input_state.up_button = 0;
         moveUp();
@@ -670,4 +672,18 @@ void HardFault_Handler() {
     schedPause();
     while (1)
         IWDG->KR = 0xAAAA; // Reset watchdog
+}
+
+void lcdSleep() {
+    if (can_data.main_hb.stale) {
+        return;
+    }
+    if (actionCounter >= 60 && can_data.main_hb.car_state != CAR_STATE_IDLE) {
+        NXT_setBrightness(0);
+    }
+    else if (can_data.main_hb.car_state == CAR_STATE_IDLE || ) {
+        actionCounter = 0;
+    }
+    actionCounter++;
+
 }

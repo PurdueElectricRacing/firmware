@@ -29,12 +29,12 @@ extern uint32_t PLLClockRateHz;
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSE,
-    .use_pll = false,
+    .clock_source           = CLOCK_SOURCE_HSE,
+    .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
 void HardFault_Handler();

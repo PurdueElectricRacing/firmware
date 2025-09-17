@@ -21,7 +21,7 @@
 // Base-2 logarithm that rounds down
 #define LOG2_DOWN(x) (31U - __builtin_clzl((x)))
 // Base-2 logarithm that rounds up
-#define LOG2_UP(x) (LOG2_DOWN((x)-1) + 1)
+#define LOG2_UP(x) (LOG2_DOWN((x) - 1) + 1)
 
 #define ROUNDDOWN(a, n) \
     ({ \
@@ -57,14 +57,7 @@
 #define HSI_TRIM_A_BOX         16
 
 // Convert 8 byte char array to uint64_t in little-endian format
-#define EIGHT_CHAR_TO_U64_LE(x)\
-    ((uint64_t)(x[0])      |   \
-    (uint64_t)(x[1]) << 8  |   \
-    (uint64_t)(x[2]) << 16 |   \
-    (uint64_t)(x[3]) << 24 |   \
-    (uint64_t)(x[4]) << 32 |   \
-    (uint64_t)(x[5]) << 40 |   \
-    (uint64_t)(x[6]) << 48 |   \
-    (uint64_t)(x[7]) << 56)
+#define EIGHT_CHAR_TO_U64_LE(x) \
+    ((uint64_t)(x[0]) | (uint64_t)(x[1]) << 8 | (uint64_t)(x[2]) << 16 | (uint64_t)(x[3]) << 24 | (uint64_t)(x[4]) << 32 | (uint64_t)(x[5]) << 40 | (uint64_t)(x[6]) << 48 | (uint64_t)(x[7]) << 56)
 
 #endif /* COMMON_DEFS_H_ */

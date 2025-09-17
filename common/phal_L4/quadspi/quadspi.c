@@ -13,18 +13,18 @@ bool PHAL_qspiInit() {
     QUADSPI_Config_t default_config = {
         .mode = QUADSPI_INDIRECT_WRITE_MODE,
 
-        .instruction_lines = QUADSPI_QUAD_LINE,
+        .instruction_lines  = QUADSPI_QUAD_LINE,
         .single_instruction = true,
 
         .address_lines = QUADSPI_QUAD_LINE,
-        .address_size = QUADSPI_24_BIT,
+        .address_size  = QUADSPI_24_BIT,
 
         .alternate_lines = QUADSPI_SKIP_SECTION, // Do not use alternate bytes section
-        .alternate_size = QUADSPI_8_BIT,
+        .alternate_size  = QUADSPI_8_BIT,
 
         .data_lines = QUADSPI_QUAD_LINE,
 
-        .dummy_cycles = 2,
+        .dummy_cycles   = 2,
         .fifo_threshold = 1 // Begin DMA transfer when there is at least 1 available spot
     };
 
@@ -85,7 +85,7 @@ bool PHAL_qspiTrasnfer(uint8_t instruction, uint32_t address, uint8_t* data, uin
         if (QUADSPI->SR & QUADSPI_SR_FLEVEL)
             QUADSPI->CR |= QUADSPI_CR_ABORT;
 
-        length = length > 16 ? 16 : length; // Maximum size without DMA is 16 bytes at a time.
+        length       = length > 16 ? 16 : length; // Maximum size without DMA is 16 bytes at a time.
         QUADSPI->DLR = length;
         for (uint8_t i = 0; i < length; i++)
             QUADSPI->DR = data[i]; // Fill up fifo

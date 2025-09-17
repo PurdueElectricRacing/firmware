@@ -18,19 +18,19 @@
 #include "stdbool.h"
 
 typedef enum {
-    BLSTAT_VALID = 0,
-    BLSTAT_INVALID = 1,
+    BLSTAT_VALID       = 0,
+    BLSTAT_INVALID     = 1,
     BLSTAT_INVALID_CRC = 2,
     BLSTAT_UNKNOWN_CMD = 3,
 } BLStatus_t;
 
 typedef enum {
-    BLERROR_CRC_FAIL = 0,
-    BLERROR_LOCKED = 1,
-    BLERROR_LOW_ADDR = 2,
+    BLERROR_CRC_FAIL   = 0,
+    BLERROR_LOCKED     = 1,
+    BLERROR_LOW_ADDR   = 2,
     BLERROR_ADDR_BOUND = 3,
-    BLERROR_FLASH = 4,
-    BLERROR_SIZE = 5,
+    BLERROR_FLASH      = 4,
+    BLERROR_SIZE       = 5,
 } BLError_t;
 
 void BL_checkAndBoot(void);

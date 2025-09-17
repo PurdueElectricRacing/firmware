@@ -45,15 +45,15 @@ typedef struct
 eth_config_t eth_config = {
     .net_info = {
         .mac = {0x00, 0x08, 0xdc, 0xab, 0xcd, 0xef}, // Mac address
-        .ip = {192, 168, 10, 41}, // IP address of DAQ PCB
-        .sn = {255, 255, 255, 0}, // Subnet mask
-        .gw = {192, 168, 10, 1}, // Gateway address
+        .ip  = {192, 168, 10, 41}, // IP address of DAQ PCB
+        .sn  = {255, 255, 255, 0}, // Subnet mask
+        .gw  = {192, 168, 10, 1}, // Gateway address
     },
     .udp_bc_addr = {192, 168, 10, 255}, // Broadcast address
     .udp_bc_port = 5005,
     .udp_bc_sock = DAQ_SOCKET_UDP_BROADCAST,
-    .tcp_port = 5005,
-    .tcp_sock = DAQ_SOCKET_TCP,
+    .tcp_port    = 5005,
+    .tcp_sock    = DAQ_SOCKET_TCP,
 };
 
 void eth_update_periodic(void) {
@@ -104,8 +104,8 @@ void eth_update_periodic(void) {
 
 static void _eth_handle_error(eth_error_t err, int32_t reason) {
     ++dh.eth_error_ct;
-    dh.eth_last_err = err;
-    dh.eth_last_err_res = reason;
+    dh.eth_last_err        = err;
+    dh.eth_last_err_res    = reason;
     dh.eth_last_error_time = getTick();
     PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
     debug_printf("eth err: %d res: %d\n", err, reason);
@@ -117,13 +117,13 @@ static void eth_reset_error(void) {
         return;
 
     if (dh.eth_tcp_state == ETH_TCP_FAIL) {
-        dh.eth_tcp_state = ETH_TCP_IDLE; // Retry TCP only
-        dh.eth_last_err = ETH_ERROR_NONE;
+        dh.eth_tcp_state    = ETH_TCP_IDLE; // Retry TCP only
+        dh.eth_last_err     = ETH_ERROR_NONE;
         dh.eth_last_err_res = 0;
         PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
     } else if (dh.eth_last_err != ETH_ERROR_NONE || dh.eth_state == ETH_LINK_FAIL) {
-        dh.eth_state = ETH_LINK_IDLE; // Retry
-        dh.eth_last_err = ETH_ERROR_NONE;
+        dh.eth_state        = ETH_LINK_IDLE; // Retry
+        dh.eth_last_err     = ETH_ERROR_NONE;
         dh.eth_last_err_res = 0;
         PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
     }
@@ -283,10 +283,10 @@ static void conv_tcp_frame_to_can_msg(timestamped_frame_t* tcp_frame, CanMsgType
     can_msg->Bus = tcp_frame->bus_id == BUS_ID_CAN1 ? CAN1 : CAN2;
 
     if (tcp_frame->msg_id & CAN_EFF_FLAG) {
-        can_msg->IDE = 1;
+        can_msg->IDE   = 1;
         can_msg->ExtId = tcp_frame->msg_id & CAN_EFF_MASK;
     } else {
-        can_msg->IDE = 0;
+        can_msg->IDE   = 0;
         can_msg->StdId = tcp_frame->msg_id & CAN_SFF_MASK;
     }
 
@@ -352,7 +352,7 @@ static void _eth_tcp_send_frame_raw(timestamped_frame_t* frame) {
     int32_t ret;
     if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED) {
         frame->frame_type = DAQ_FRAME_TCP_TX;
-        ret = send(eth_config.tcp_sock, (uint8_t*)frame, sizeof(*frame));
+        ret               = send(eth_config.tcp_sock, (uint8_t*)frame, sizeof(*frame));
         if (ret != sizeof(*frame)) {
             eth_handle_error(ETH_ERROR_TCP_SEND, ret);
         }

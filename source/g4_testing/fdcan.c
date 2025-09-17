@@ -25,13 +25,13 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 ADCInitConfig_t adc_config = {
-    .periph = ADC1,
-    .prescaler = ADC_CLK_PRESC_0,
-    .resolution = ADC_RES_12_BIT,
-    .data_align = ADC_DATA_ALIGN_RIGHT,
+    .periph         = ADC1,
+    .prescaler      = ADC_CLK_PRESC_0,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode = true,
-    .dma_mode = ADC_DMA_CIRCULAR,
-    .oversample = ADC_OVERSAMPLE_16,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .oversample     = ADC_OVERSAMPLE_16,
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
@@ -42,17 +42,17 @@ ADCChannelConfig_t adc_channel_config[] = {
 };
 
 volatile raw_adc_values_t raw_adc_values = {0};
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, ADC_NUM_CHANNELS, 0b01);
+dma_init_t adc_dma_config                = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, ADC_NUM_CHANNELS, 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSI,
-    .use_pll = false,
+    .clock_source              = CLOCK_SOURCE_HSI,
+    .use_pll                   = false,
     .vco_output_rate_target_hz = 16000000,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .system_clock_target_hz    = TargetCoreClockrateHz,
+    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz      = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz      = (TargetCoreClockrateHz / (1)),
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -132,22 +132,22 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
 
 static void PHAL_FDCAN_testExtended(void) {
     CanMsgTypeDef_t msg;
-    msg.Bus = FDCAN2;
-    msg.IDE = 1;
-    msg.ExtId = 0x1ABCDE0 + 1;
+    msg.Bus            = FDCAN2;
+    msg.IDE            = 1;
+    msg.ExtId          = 0x1ABCDE0 + 1;
     uint8_t payload[8] = {'E', 'X', 'T', 'I', 'D', '_', 'T', 'X'};
-    msg.DLC = sizeof(payload);
+    msg.DLC            = sizeof(payload);
     memcpy(msg.Data, payload, sizeof(payload));
     PHAL_FDCAN_send(&msg);
 }
 
 static void PHAL_FDCAN_testStandard(void) {
     CanMsgTypeDef_t msg;
-    msg.Bus = FDCAN3;
-    msg.IDE = 0;
-    msg.StdId = 0x300 + 4;
+    msg.Bus            = FDCAN3;
+    msg.IDE            = 0;
+    msg.StdId          = 0x300 + 4;
     uint8_t payload[8] = {'S', 'T', 'D', 'I', 'D', '_', 'T', 'X'};
-    msg.DLC = sizeof(payload);
+    msg.DLC            = sizeof(payload);
     memcpy(msg.Data, payload, sizeof(payload));
     PHAL_FDCAN_send(&msg);
 }

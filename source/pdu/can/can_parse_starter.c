@@ -27,7 +27,7 @@ void canRxUpdate() {
 
     if (qReceive(&q_rx_can, &msg_header) == SUCCESS_G) {
         last_can_rx_time_ms = sched.os_ticks;
-        msg_data_a = (CanParsedData_t*)&msg_header.Data;
+        msg_data_a          = (CanParsedData_t*)&msg_header.Data;
         /* BEGIN AUTO CASES */
         /* END AUTO CASES */
     }

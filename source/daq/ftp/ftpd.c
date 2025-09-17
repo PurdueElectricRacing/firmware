@@ -106,21 +106,21 @@ un_l2cval remote_ip;
 uint16_t remote_port;
 un_l2cval local_ip;
 uint16_t local_port;
-uint8_t connect_state_control = 0;
+uint8_t connect_state_control  = 0;
 uint8_t connect_state_control1 = 0;
-uint8_t connect_state_data = 0;
-uint8_t connect_count = 0;
-uint32_t con_remain_cnt1 = 0;
-uint32_t con_remain_cnt2 = 0;
-uint8_t cur_sn = CTRL_SOCK;
+uint8_t connect_state_data     = 0;
+uint8_t connect_count          = 0;
+uint32_t con_remain_cnt1       = 0;
+uint32_t con_remain_cnt2       = 0;
+uint8_t cur_sn                 = CTRL_SOCK;
 struct ftpd ftp;
 
-int current_year = 2014;
+int current_year  = 2014;
 int current_month = 12;
-int current_day = 31;
-int current_hour = 10;
-int current_min = 10;
-int current_sec = 30;
+int current_day   = 31;
+int current_hour  = 10;
+int current_min   = 10;
+int current_sec   = 30;
 
 uint32_t tics[10] = {0};
 
@@ -149,9 +149,9 @@ int fsprintf(uint8_t s, const char* format, ...) {
 }
 
 void ftpd_init(uint8_t* src_ip) {
-    ftp.state = FTPS_NOT_LOGIN;
+    ftp.state       = FTPS_NOT_LOGIN;
     ftp.current_cmd = NO_CMD;
-    ftp.dsock_mode = ACTIVE_MODE;
+    ftp.dsock_mode  = ACTIVE_MODE;
 
     ftp.ID_Enable = STATUS_USED;
     ftp.PW_Enable = STATUS_USED;
@@ -169,7 +169,7 @@ void ftpd_init(uint8_t* src_ip) {
     local_ip.cVal[1] = src_ip[1];
     local_ip.cVal[2] = src_ip[2];
     local_ip.cVal[3] = src_ip[3];
-    local_port = 35000;
+    local_port       = 35000;
 
     strcpy(ftp.workingdir, "/");
 
@@ -179,7 +179,7 @@ void ftpd_init(uint8_t* src_ip) {
 
 uint8_t ftpd_run(uint8_t* dbuf) {
     uint16_t size = 0, i;
-    long ret = 0;
+    long ret      = 0;
     UINT blocklen, send_byte, recv_byte;
     uint32_t remain_filesize;
     int32_t remain_datasize;
@@ -254,7 +254,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
                 if (size > _FTP_BUF_SIZE)
                     size = _FTP_BUF_SIZE - 1;
 
-                ret = recv(CTRL_SOCK, dbuf, size);
+                ret       = recv(CTRL_SOCK, dbuf, size);
                 dbuf[ret] = '\0';
                 if (ret != size) {
                     if (ret == SOCK_BUSY)
@@ -312,7 +312,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
                 return ret;
             }
             connect_state_control = 0;
-            con_remain_cnt1 = 0;
+            con_remain_cnt1       = 0;
 
 #if defined(_FTP_DEBUG_)
             printf("%d:Listen ok\r\n", CTRL_SOCK);
@@ -517,7 +517,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
                                 send_byte = remain_filesize;
 
                             tics[0] = getTick();
-                            ftp.fr = f_read(&(ftp.fil), dbuf, send_byte, &blocklen);
+                            ftp.fr  = f_read(&(ftp.fil), dbuf, send_byte, &blocklen);
                             tics[1] = getTick();
                             if (ftp.fr != FR_OK)
                                 break;
@@ -811,13 +811,13 @@ char proc_ftpd(uint8_t sn, char* buf) {
 #if defined(_FTP_DEBUG_)
             printf("USER_CMD : %s", arg);
 #endif
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
             if (ftp.ID_Enable == STATUS_USED) {
                 if (strcmp(ftp.username, arg) != 0) {
                     slen = sprintf(sendbuf, "430 Invalid username\r\n");
-                    ret = send(sn, (uint8_t*)sendbuf, slen);
+                    ret  = send(sn, (uint8_t*)sendbuf, slen);
                     if (ret < 0) {
 #if defined(_FTP_DEBUG_)
                         printf("%d:send() error:%ld\r\n", sn, ret);
@@ -832,7 +832,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
             }
             //fsprintf(CTRL_SOCK, givepass);
             slen = sprintf(sendbuf, "331 Enter PASS command\r\n");
-            ret = send(sn, (uint8_t*)sendbuf, slen);
+            ret  = send(sn, (uint8_t*)sendbuf, slen);
             if (ret < 0) {
 #if defined(_FTP_DEBUG_)
                 printf("%d:send() error:%ld\r\n", sn, ret);
@@ -846,13 +846,13 @@ char proc_ftpd(uint8_t sn, char* buf) {
 #if defined(_FTP_DEBUG_)
             printf("PASS_CMD : %s", arg);
 #endif
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
             if (ftp.PW_Enable == STATUS_USED) {
                 if (strcmp(ftp.userpassword, arg) != 0) {
                     slen = sprintf(sendbuf, "430 Invalid password\r\n");
-                    ret = send(sn, (uint8_t*)sendbuf, slen);
+                    ret  = send(sn, (uint8_t*)sendbuf, slen);
                     if (ret < 0) {
 #if defined(_FTP_DEBUG_)
                         printf("%d:send() error:%ld\r\n", sn, ret);
@@ -867,7 +867,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
             break;
 
         case TYPE_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
             switch (arg[0]) {
@@ -913,7 +913,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
             break;
 
         case RETR_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
 #if defined(_FTP_DEBUG_)
@@ -930,7 +930,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
 
         case APPE_CMD:
         case STOR_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
 #if defined(_FTP_DEBUG_)
@@ -964,9 +964,9 @@ char proc_ftpd(uint8_t sn, char* buf) {
                 send(sn, (uint8_t*)sendbuf, slen);
             } else {
                 //fsprintf(CTRL_SOCK, portok);
-                ftp.dsock_mode = ACTIVE_MODE;
+                ftp.dsock_mode  = ACTIVE_MODE;
                 ftp.dsock_state = DATASOCK_READY;
-                slen = sprintf(sendbuf, "200 PORT command successful.\r\n");
+                slen            = sprintf(sendbuf, "200 PORT command successful.\r\n");
                 send(sn, (uint8_t*)sendbuf, slen);
             }
             break;
@@ -1016,16 +1016,16 @@ char proc_ftpd(uint8_t sn, char* buf) {
 #endif
                 disconnect(DATA_SOCK);
             }
-            ftp.dsock_mode = PASSIVE_MODE;
+            ftp.dsock_mode  = PASSIVE_MODE;
             ftp.dsock_state = DATASOCK_READY;
-            cur_sn = sn;
+            cur_sn          = sn;
 #if defined(_FTP_DEBUG_)
             printf("PASV port: %d\r\n", local_port);
 #endif
             break;
 
         case SIZE_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
             if (slen > 3) {
@@ -1052,7 +1052,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
             break;
 
         case CWD_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
             if (slen > 2) {
@@ -1094,7 +1094,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
 
         case MKD_CMD:
         case XMKD_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
 #if defined(F_FILESYSTEM)
@@ -1111,7 +1111,7 @@ char proc_ftpd(uint8_t sn, char* buf) {
             break;
 
         case DELE_CMD:
-            slen = strlen(arg);
+            slen          = strlen(arg);
             arg[slen - 1] = 0x00;
             arg[slen - 2] = 0x00;
 #if defined(F_FILESYSTEM)
@@ -1308,7 +1308,7 @@ static FRESULT scan_files(char* path, char* buf) {
             date_str_ptr += len;
             len = sprintf(date_str + date_str_ptr, "%d ", (fno.fdate & 0x1f));
             date_str_ptr += len;
-            len = sprintf(date_str + date_str_ptr, "%d", (((fno.fdate >> 9) & 0x7f) + 1980));
+            len          = sprintf(date_str + date_str_ptr, "%d", (((fno.fdate >> 9) & 0x7f) + 1980));
             date_str_ptr = 0;
             //printf("date str : %s \r\n", date_str);
 

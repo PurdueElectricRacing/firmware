@@ -38,31 +38,31 @@ defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
 
 void daq_hub_init(void) {
     // Ethernet
-    dh.eth_state = ETH_LINK_IDLE;
-    dh.eth_tcp_state = ETH_TCP_IDLE;
-    dh.eth_error_ct = 0;
+    dh.eth_state           = ETH_LINK_IDLE;
+    dh.eth_tcp_state       = ETH_TCP_IDLE;
+    dh.eth_error_ct        = 0;
     dh.eth_last_error_time = 0;
-    dh.eth_last_err = ETH_ERROR_NONE;
-    dh.eth_last_err_res = 0;
+    dh.eth_last_err        = ETH_ERROR_NONE;
+    dh.eth_last_err_res    = 0;
 
     // SD Card
-    dh.sd_state = SD_STATE_IDLE;
-    dh.sd_error_ct = 0;
+    dh.sd_state           = SD_STATE_IDLE;
+    dh.sd_error_ct        = 0;
     dh.sd_last_error_time = 0;
-    dh.sd_last_err = SD_ERROR_NONE;
-    dh.sd_last_err_res = 0;
+    dh.sd_last_err        = SD_ERROR_NONE;
+    dh.sd_last_err_res    = 0;
 
-    dh.last_file_ms = 0;
-    dh.last_write_ms = 0;
-    dh.log_enable_sw = false;
+    dh.last_file_ms   = 0;
+    dh.last_write_ms  = 0;
+    dh.log_enable_sw  = false;
     dh.log_enable_tcp = false;
     dh.log_enable_uds = false;
-    dh.ftp_busy = false;
+    dh.ftp_busy       = false;
 
     dh.bcan_rx_overflow = 0;
     dh.can1_rx_overflow = 0;
-    dh.sd_rx_overflow = 0;
-    dh.tcp_tx_overflow = 0;
+    dh.sd_rx_overflow   = 0;
+    dh.tcp_tx_overflow  = 0;
 }
 
 void daq_create_threads(void) {

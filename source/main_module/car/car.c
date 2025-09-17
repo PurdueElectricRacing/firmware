@@ -33,22 +33,22 @@ bool validatePrecharge();
 
 bool carInit() {
     /* Set initial states */
-    car = (Car_t) {0}; // Everything to zero
-    car.state = CAR_STATE_IDLE;
-    car.torque_src = CAR_TORQUE_TV;
-    car.regen_enabled = false;
-    car.sdc_close = true; // We want to initialize SDC as "good"
+    car                       = (Car_t) {0}; // Everything to zero
+    car.state                 = CAR_STATE_IDLE;
+    car.torque_src            = CAR_TORQUE_TV;
+    car.regen_enabled         = false;
+    car.sdc_close             = true; // We want to initialize SDC as "good"
     pchg_complete_lowpass_idx = 0;
     memset(pchg_complete_lowpass_buf, 0, sizeof(pchg_complete_lowpass_buf));
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light);
     PHAL_writeGPIO(BUZZER_GPIO_Port, BUZZER_Pin, car.buzzer);
 
-    daq_buzzer = 0;
+    daq_buzzer      = 0;
     daq_constant_tq = 0;
-    const_tq_val = 0;
-    hist_curr_idx = 0;
-    enableAMKs = false;
+    const_tq_val    = 0;
+    hist_curr_idx   = 0;
+    enableAMKs      = false;
     amkInit(&car.motor_l, &enableAMKs, INVA_ID);
     amkInit(&car.motor_r, &enableAMKs, INVB_ID);
 
@@ -69,16 +69,16 @@ void carHeartbeat() {
  *        to determine when the car should be driveable
  */
 uint32_t last_time = 0;
-uint8_t curr = 0;
+uint8_t curr       = 0;
 
 void carPeriodic() {
     /* Set Default Outputs */
     // Set Outputs that are purely combinational (do not depend on previous events)
     // Default values will typically reflect those in the IDLE state
-    car.torque_r.torque_left = 0.0f;
+    car.torque_r.torque_left  = 0.0f;
     car.torque_r.torque_right = 0.0f;
-    car.buzzer = false;
-    car.sdc_close = true;
+    car.buzzer                = false;
+    car.sdc_close             = true;
 
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
     if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CAR_STATE_FATAL)
@@ -87,7 +87,7 @@ void carPeriodic() {
     /* Process Inputs */
 
     // Start button debounce (only want rising edge)
-    car.start_btn_debounced = can_data.start_button.start;
+    car.start_btn_debounced     = can_data.start_button.start;
     can_data.start_button.start = false;
 
     /* Precharge Complete Lowpass */
@@ -179,7 +179,7 @@ void carPeriodic() {
         prchg_start = false;
 
         if (car.start_btn_debounced && can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD) {
-            car.state = CAR_STATE_BUZZING;
+            car.state           = CAR_STATE_BUZZING;
             car.buzzer_start_ms = sched.os_ticks;
         }
     } else if (car.state == CAR_STATE_BUZZING) {
@@ -201,12 +201,12 @@ void carPeriodic() {
             car.state = CAR_STATE_IDLE;
         } else {
             float t_req_pedal = 0;
-            float t_req_tv_l = 0;
-            float t_req_tv_r = 0;
+            float t_req_tv_l  = 0;
+            float t_req_tv_r  = 0;
             float t_req_equal = 0;
 
-            float s_req_tv_l = 0;
-            float s_req_tv_r = 0;
+            float s_req_tv_l  = 0;
+            float s_req_tv_r  = 0;
             float s_req_equal = 0;
 
             any_tv_msg_stale = false;
@@ -218,12 +218,12 @@ void carPeriodic() {
 
             if (!can_data.drive_modes.stale && !can_data.VCU_torques_speeds.stale) {
                 requested_tv_mode = can_data.VCU_torques_speeds.VCU_mode;
-                t_req_tv_l = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
-                t_req_tv_r = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
-                t_req_equal = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
+                t_req_tv_l        = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
+                t_req_tv_r        = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
+                t_req_equal       = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
             } else {
                 requested_tv_mode = VCU_MODE_INVALID;
-                any_tv_msg_stale = true;
+                any_tv_msg_stale  = true;
             }
 
             if (car.torque_src == CAR_TORQUE_TV || car.torque_src == CAR_TORQUE_TV_TEST) {
@@ -239,14 +239,14 @@ void carPeriodic() {
             // Torque Requests
             t_req_pedal = (int16_t)(t_req_pedal * MAX_DRIVER_TORQUE_REQUEST / 4095.0f);
             // Torque is provided from 0-2100 (i.e. Nm * 100). We command Percent torque (0-210)
-            t_req_tv_l = (int16_t)(t_req_tv_l / TV_TORQUE_REQUEST_SCALE);
-            t_req_tv_r = (int16_t)(t_req_tv_r / TV_TORQUE_REQUEST_SCALE);
+            t_req_tv_l  = (int16_t)(t_req_tv_l / TV_TORQUE_REQUEST_SCALE);
+            t_req_tv_r  = (int16_t)(t_req_tv_r / TV_TORQUE_REQUEST_SCALE);
             t_req_equal = (int16_t)(t_req_equal / TV_TORQUE_REQUEST_SCALE);
 
             torqueRequest_t temp_t_req;
             switch (car.torque_src) {
                 case CAR_TORQUE_RAW:
-                    temp_t_req.torque_left = t_req_pedal;
+                    temp_t_req.torque_left  = t_req_pedal;
                     temp_t_req.torque_right = t_req_pedal;
                     break;
                 case CAR_TORQUE_TV:
@@ -254,31 +254,31 @@ void carPeriodic() {
                         case VCU_MODE_EQUAL_SPEED:
                         case VCU_MODE_VARIABLE_SPEED:
                             // As of now we should never enter these cases. Never command a speed request with the current settings.
-                            s_req_equal = 0;
-                            temp_t_req.torque_left = s_req_equal;
+                            s_req_equal             = 0;
+                            temp_t_req.torque_left  = s_req_equal;
                             temp_t_req.torque_right = s_req_equal;
                             break;
                         case VCU_MODE_EQUAL_TORQUE:
-                            temp_t_req.torque_left = t_req_pedal;
+                            temp_t_req.torque_left  = t_req_pedal;
                             temp_t_req.torque_right = t_req_pedal;
                             break;
                         case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
-                            temp_t_req.torque_left = t_req_equal;
+                            temp_t_req.torque_left  = t_req_equal;
                             temp_t_req.torque_right = t_req_equal;
                             break;
                         case VCU_MODE_VARIABLE_TORQUE:
-                            temp_t_req.torque_left = t_req_tv_l;
+                            temp_t_req.torque_left  = t_req_tv_l;
                             temp_t_req.torque_right = t_req_tv_r;
                             break;
                         case VCU_MODE_INVALID:
-                            temp_t_req.torque_left = t_req_pedal;
+                            temp_t_req.torque_left  = t_req_pedal;
                             temp_t_req.torque_right = t_req_pedal;
                     }
                     // EV.4.2.3 - Torque algorithm
                     // Any algorithm or electronic control unit that can adjust the
                     // requested wheel torque may only lower the total driver
                     // requested torque and must not increase it
-                    temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
+                    temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
                     temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
                     break;
                 case CAR_TORQUE_TV_TEST:
@@ -286,34 +286,34 @@ void carPeriodic() {
                         case VCU_MODE_EQUAL_SPEED:
                         case VCU_MODE_VARIABLE_SPEED:
                             // As of now we should never enter these cases. Never command a speed request with the current settings.
-                            s_req_equal = 0;
-                            temp_t_req.torque_left = s_req_equal;
+                            s_req_equal             = 0;
+                            temp_t_req.torque_left  = s_req_equal;
                             temp_t_req.torque_right = s_req_equal;
                             break;
                         case VCU_MODE_EQUAL_TORQUE:
-                            temp_t_req.torque_left = t_req_pedal;
+                            temp_t_req.torque_left  = t_req_pedal;
                             temp_t_req.torque_right = t_req_pedal;
                             break;
                         case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
-                            temp_t_req.torque_left = t_req_equal;
+                            temp_t_req.torque_left  = t_req_equal;
                             temp_t_req.torque_right = t_req_equal;
                             break;
                         case VCU_MODE_VARIABLE_TORQUE:
-                            temp_t_req.torque_left = t_req_tv_l;
+                            temp_t_req.torque_left  = t_req_tv_l;
                             temp_t_req.torque_right = t_req_tv_r;
                             break;
                         case VCU_MODE_INVALID:
-                            temp_t_req.torque_left = t_req_pedal;
+                            temp_t_req.torque_left  = t_req_pedal;
                             temp_t_req.torque_right = t_req_pedal;
                     }
                     // EV.4.2.3 - Torque algorithm
                     // Any algorithm or electronic control unit that can adjust the
                     // requested wheel torque may only lower the total driver
                     // requested torque and must not increase it
-                    temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
+                    temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
                     temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
                     SEND_SIMULATED_TV(temp_t_req.torque_left, temp_t_req.torque_right);
-                    temp_t_req.torque_left = t_req_pedal;
+                    temp_t_req.torque_left  = t_req_pedal;
                     temp_t_req.torque_right = t_req_pedal;
                     break;
                 case CAR_TORQUE_DAQ:
@@ -321,13 +321,13 @@ void carPeriodic() {
                 case CAR_TORQUE_NONE:
                     break;
                 default:
-                    temp_t_req.torque_left = 0;
+                    temp_t_req.torque_left  = 0;
                     temp_t_req.torque_right = 0;
                     break;
             }
 
             // Enforce range
-            temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+            temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
             temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
 
             // Disable Regenerative Braking
@@ -358,20 +358,20 @@ void carPeriodic() {
         torqueRequest_t temp_t_req;
         // Register an INTENTIONAL press of throttle and hold this state untill commanded otherwise
         if (throttle_pressed || (!throttle_pressed && t_req_pedal > 1024)) {
-            brake_pressed = 0;
-            temp_t_req.torque_left = (const_tq_val * 10.0f);
+            brake_pressed           = 0;
+            temp_t_req.torque_left  = (const_tq_val * 10.0f);
             temp_t_req.torque_right = (const_tq_val * 10.0f);
-            throttle_pressed = 1;
+            throttle_pressed        = 1;
         }
         if ((can_data.filt_throttle_brake.brake > 50) || brake_pressed) {
-            throttle_pressed = 0;
-            brake_pressed = 1;
-            temp_t_req.torque_left = 0.0f;
+            throttle_pressed        = 0;
+            brake_pressed           = 1;
+            temp_t_req.torque_left  = 0.0f;
             temp_t_req.torque_right = 0.0f;
         }
 
         // Enforce range
-        temp_t_req.torque_left = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+        temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
         temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
 
         // Disable Regenerative Braking
@@ -387,7 +387,7 @@ void carPeriodic() {
     }
 
     /* Update System Outputs */
-    car.buzzer = car.state == CAR_STATE_BUZZING || daq_buzzer;
+    car.buzzer         = car.state == CAR_STATE_BUZZING || daq_buzzer;
     buzzer_brake_fault = PHAL_readGPIO(BRK_BUZZER_STAT_GPIO_Port, BRK_BUZZER_STAT_Pin);
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light | daq_brake);
@@ -451,7 +451,7 @@ bool validatePrecharge() {
     tmp_bat /= HV_LOW_PASS_SIZE;
 
     // V_outx10 = adc_raw * adc_v_ref / adc_max (Tiffomy outputs volts / 100)
-    car.pchg.v_mc_filt = (tmp_mc * ((ADC_REF_mV * HV_V_MC_CAL) / 1000UL)) / 0xFFFUL;
+    car.pchg.v_mc_filt  = (tmp_mc * ((ADC_REF_mV * HV_V_MC_CAL) / 1000UL)) / 0xFFFUL;
     car.pchg.v_bat_filt = (tmp_bat * ((ADC_REF_mV * HV_V_BAT_CAL) / 1000UL)) / 0xFFFUL;
 
     // Validate
@@ -558,12 +558,12 @@ void monitorSDCPeriodic() {
     static sdc_nodes_t sdc_nodes_raw;
     bool* nodes = (bool*)&sdc_nodes_raw;
 
-    uint8_t stat = (uint8_t)PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
+    uint8_t stat     = (uint8_t)PHAL_readGPIO(SDC_MUX_DATA_GPIO_Port, SDC_MUX_DATA_Pin);
     *(nodes + index) = stat;
 
     index++;
     if (index == SDC_MUX_HIGH_IDX) {
-        index = 0;
+        index   = 0;
         sdc_mux = sdc_nodes_raw;
         SEND_SDC_STATUS(sdc_mux.main_stat, sdc_mux.c_stop_stat, sdc_mux.inertia_stat, sdc_mux.bots_stat, sdc_mux.bspd_stat, sdc_mux.bms_stat, sdc_mux.imd_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat, sdc_mux.hvd_stat, sdc_mux.emeter_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }

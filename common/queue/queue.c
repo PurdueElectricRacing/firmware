@@ -7,7 +7,7 @@
  * @param size Size of each item in queue in bytes
  */
 void qConstruct(q_handle_t* q, uint8_t size) {
-    q->size = size; // Initialize size to sizeof(struct)
+    q->size      = size; // Initialize size to sizeof(struct)
     q->max_items = (MEM_SIZE / (float)size); // Calculate maximum number of items
     q->head = q->tail = 0;
 }

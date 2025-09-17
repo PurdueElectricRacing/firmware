@@ -9,19 +9,19 @@
 
 typedef enum {
     QUADSPI_INDIRECT_WRITE_MODE = 0x00,
-    QUADSPI_INDIRECT_READ_MODE = 0x01,
+    QUADSPI_INDIRECT_READ_MODE  = 0x01,
     QUADSPI_AUTOMATIC_POLL_MODE = 0x10,
 } QUADSPI_FunctionMode_t;
 
 typedef enum {
     QUADSPI_SKIP_SECTION = 0x00, /* Skip over this phase of transfer */
-    QUADSPI_SINGLE_LINE = 0x01, /* Use single QSPI line for transfer */
-    QUADSPI_DUAL_LINE = 0x10, /* Use two QSPI lines for transfer */
-    QUADSPI_QUAD_LINE = 0x11, /* Use four QSPI lines for transfer */
+    QUADSPI_SINGLE_LINE  = 0x01, /* Use single QSPI line for transfer */
+    QUADSPI_DUAL_LINE    = 0x10, /* Use two QSPI lines for transfer */
+    QUADSPI_QUAD_LINE    = 0x11, /* Use four QSPI lines for transfer */
 } QUADSPI_LineWidth_t;
 
 typedef enum {
-    QUADSPI_8_BIT = 0x00,
+    QUADSPI_8_BIT  = 0x00,
     QUADSPI_16_BIT = 0x01,
     QUADSPI_24_BIT = 0x10,
     QUADSPI_32_BIT = 0x11,

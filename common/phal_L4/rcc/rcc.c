@@ -89,9 +89,9 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     }
 
     /* Search for a possible PLL configuration */
-    uint8_t pll_input_divisor = 1;
+    uint8_t pll_input_divisor     = 1;
     uint8_t pll_output_multiplier = 8;
-    bool valid_rate = false;
+    bool valid_rate               = false;
     for (; pll_input_divisor <= 8; pll_input_divisor++) {
         // VCO input clock is only allowed between 4MHz and 16MHz
         uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;

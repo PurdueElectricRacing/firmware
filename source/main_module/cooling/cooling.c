@@ -99,7 +99,7 @@ float rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1) {
 static double native_log_computation(const double n) {
     // Basic logarithm computation.
     static const double euler = 2.7182818284590452354;
-    unsigned a = 0, d;
+    unsigned a                = 0, d;
     double b, c, e, f;
     if (n > 0) {
         for (c = n < 1 ? 1 / n : n; (c /= euler) > 1; ++a)

@@ -21,9 +21,9 @@
  * @brief Configuration type for GPIO Pin
  */
 typedef enum {
-    GPIO_TYPE_INPUT = 0b00, //!< Pin input mode
+    GPIO_TYPE_INPUT  = 0b00, //!< Pin input mode
     GPIO_TYPE_OUTPUT = 0b01, //!< Pin output mode
-    GPIO_TYPE_AF = 0b10, //!< Pin alternate function mode
+    GPIO_TYPE_AF     = 0b10, //!< Pin alternate function mode
     GPIO_TYPE_ANALOG = 0b11, //!< Pin alternate function mode
 } GPIOPinType_t;
 
@@ -31,9 +31,9 @@ typedef enum {
  * @brief Slew rate control for output pins
  */
 typedef enum {
-    GPIO_OUTPUT_LOW_SPEED = 0b00, //!< Slew rate control, max 8Mhz
-    GPIO_OUTPUT_MED_SPEED = 0b01, //!< Slew rate control, max 50Mhz
-    GPIO_OUTPUT_HIGH_SPEED = 0b10, //!< Slew rate control, max 100Mhz
+    GPIO_OUTPUT_LOW_SPEED   = 0b00, //!< Slew rate control, max 8Mhz
+    GPIO_OUTPUT_MED_SPEED   = 0b01, //!< Slew rate control, max 50Mhz
+    GPIO_OUTPUT_HIGH_SPEED  = 0b10, //!< Slew rate control, max 100Mhz
     GPIO_OUTPUT_ULTRA_SPEED = 0b11, //!< Slew rate control, max 180Mhz
 } GPIOOutputSpeed_t;
 
@@ -41,7 +41,7 @@ typedef enum {
  * @brief Output drive mode selection
  */
 typedef enum {
-    GPIO_OUTPUT_PUSH_PULL = 0b0, //!< Drive the output pin high and low
+    GPIO_OUTPUT_PUSH_PULL  = 0b0, //!< Drive the output pin high and low
     GPIO_OUTPUT_OPEN_DRAIN = 0b1, //!< Drive the output pin low, high-z otherwise
 } GPIOOutputPull_t;
 
@@ -50,8 +50,8 @@ typedef enum {
  */
 typedef enum {
     GPIO_INPUT_OPEN_DRAIN = 0b00, //!< No internal pull up/down
-    GPIO_INPUT_PULL_UP = 0b01, //!< Weak internal pull-up enabled
-    GPIO_INPUT_PULL_DOWN = 0b10, //!< Weak internal pull-down enabled
+    GPIO_INPUT_PULL_UP    = 0b01, //!< Weak internal pull-up enabled
+    GPIO_INPUT_PULL_DOWN  = 0b10, //!< Weak internal pull-down enabled
 } GPIOInputPull_t;
 
 /**
@@ -99,13 +99,13 @@ typedef struct
 #define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel) \
     { \
         .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_OUTPUT, .config = {.ospeed = ospeed_sel, \
-                                                                                .otype = GPIO_OUTPUT_PUSH_PULL } \
+                                                                                .otype  = GPIO_OUTPUT_PUSH_PULL } \
     }
 
 #define GPIO_INIT_OUTPUT_OPEN_DRAIN(gpio_bank, pin_num, ospeed_sel) \
     { \
         .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_OUTPUT, .config = {.ospeed = ospeed_sel, \
-                                                                                .otype = GPIO_OUTPUT_OPEN_DRAIN } \
+                                                                                .otype  = GPIO_OUTPUT_OPEN_DRAIN } \
     }
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for analog
@@ -115,8 +115,9 @@ typedef struct
  */
 #define GPIO_INIT_ANALOG(gpio_bank, pin_num) \
     { \
-        .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_ANALOG \
-    }
+        .bank = gpio_bank, \
+        .pin  = pin_num, \
+        .type = GPIO_TYPE_ANALOG}
 
 /**
  * @brief Create GPIO Init struct to intilize a GPIO pin for alternate function
@@ -132,8 +133,8 @@ typedef struct
     { \
         .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_AF, .config = {.af_num = alt_func_num, \
                                                                             .ospeed = ospeed_sel, \
-                                                                            .otype = otype_sel, \
-                                                                            .pull = input_pull_sel } \
+                                                                            .otype  = otype_sel, \
+                                                                            .pull   = input_pull_sel } \
     }
 
 /*

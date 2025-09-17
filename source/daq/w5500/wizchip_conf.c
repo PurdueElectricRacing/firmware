@@ -191,19 +191,19 @@ static dhcp_mode _DHCP_; // DHCP mode
 void reg_wizchip_cris_cbfunc(void (*cris_en)(void), void (*cris_ex)(void)) {
     if (!cris_en || !cris_ex) {
         WIZCHIP.CRIS._enter = wizchip_cris_enter;
-        WIZCHIP.CRIS._exit = wizchip_cris_exit;
+        WIZCHIP.CRIS._exit  = wizchip_cris_exit;
     } else {
         WIZCHIP.CRIS._enter = cris_en;
-        WIZCHIP.CRIS._exit = cris_ex;
+        WIZCHIP.CRIS._exit  = cris_ex;
     }
 }
 
 void reg_wizchip_cs_cbfunc(void (*cs_sel)(void), void (*cs_desel)(void)) {
     if (!cs_sel || !cs_desel) {
-        WIZCHIP.CS._select = wizchip_cs_select;
+        WIZCHIP.CS._select   = wizchip_cs_select;
         WIZCHIP.CS._deselect = wizchip_cs_deselect;
     } else {
-        WIZCHIP.CS._select = cs_sel;
+        WIZCHIP.CS._select   = cs_sel;
         WIZCHIP.CS._deselect = cs_desel;
     }
 }
@@ -227,10 +227,10 @@ void reg_wizchip_bus_cbfunc(iodata_t (*bus_rb)(uint32_t addr), void (*bus_wb)(ui
    }
    */
     if (!bus_rb || !bus_wb) {
-        WIZCHIP.IF.BUS._read_data = wizchip_bus_readdata;
+        WIZCHIP.IF.BUS._read_data  = wizchip_bus_readdata;
         WIZCHIP.IF.BUS._write_data = wizchip_bus_writedata;
     } else {
-        WIZCHIP.IF.BUS._read_data = bus_rb;
+        WIZCHIP.IF.BUS._read_data  = bus_rb;
         WIZCHIP.IF.BUS._write_data = bus_wb;
     }
 }
@@ -240,10 +240,10 @@ void reg_wizchip_spi_cbfunc(uint8_t (*spi_rb)(uint32_t AddrSel), void (*spi_wb)(
         ;
 
     if (!spi_rb || !spi_wb) {
-        WIZCHIP.IF.SPI._read_byte = wizchip_spi_readbyte;
+        WIZCHIP.IF.SPI._read_byte  = wizchip_spi_readbyte;
         WIZCHIP.IF.SPI._write_byte = wizchip_spi_writebyte;
     } else {
-        WIZCHIP.IF.SPI._read_byte = spi_rb;
+        WIZCHIP.IF.SPI._read_byte  = spi_rb;
         WIZCHIP.IF.SPI._write_byte = spi_wb;
     }
 }
@@ -254,10 +254,10 @@ void reg_wizchip_spiburst_cbfunc(void (*spi_rb)(uint32_t AddrSel, uint8_t* pBuf,
         ;
 
     if (!spi_rb || !spi_wb) {
-        WIZCHIP.IF.SPI._read_burst = wizchip_spi_readburst;
+        WIZCHIP.IF.SPI._read_burst  = wizchip_spi_readburst;
         WIZCHIP.IF.SPI._write_burst = wizchip_spi_writeburst;
     } else {
-        WIZCHIP.IF.SPI._read_burst = spi_rb;
+        WIZCHIP.IF.SPI._read_burst  = spi_rb;
         WIZCHIP.IF.SPI._write_burst = spi_wb;
     }
 }
@@ -480,7 +480,7 @@ int8_t wizchip_init(uint8_t* txsize, uint8_t* rxsize) {
 }
 
 void wizchip_clrinterrupt(intr_kind intr) {
-    uint8_t ir = (uint8_t)intr;
+    uint8_t ir  = (uint8_t)intr;
     uint8_t sir = (uint8_t)((uint16_t)intr >> 8);
 #if _WIZCHIP_ < W5500
     ir |= (1 << 4); // IK_WOL
@@ -512,19 +512,19 @@ void wizchip_clrinterrupt(intr_kind intr) {
 }
 
 intr_kind wizchip_getinterrupt(void) {
-    uint8_t ir = 0;
-    uint8_t sir = 0;
+    uint8_t ir   = 0;
+    uint8_t sir  = 0;
     uint16_t ret = 0;
 #if _WIZCHIP_ <= W5100S
-    ir = getIR();
+    ir  = getIR();
     sir = ir & 0x0F;
 //A20150601 : For integrating with W5300
 #elif _WIZCHIP_ == W5300
     ret = getIR();
-    ir = (uint8_t)(ret >> 8);
+    ir  = (uint8_t)(ret >> 8);
     sir = (uint8_t)ret;
 #else
-    ir = getIR();
+    ir  = getIR();
     sir = getSIR();
 #endif
 
@@ -542,7 +542,7 @@ intr_kind wizchip_getinterrupt(void) {
 }
 
 void wizchip_setinterruptmask(intr_kind intr) {
-    uint8_t imr = (uint8_t)intr;
+    uint8_t imr  = (uint8_t)intr;
     uint8_t simr = (uint8_t)((uint16_t)intr >> 8);
 #if _WIZCHIP_ < W5500
     imr &= ~(1 << 4); // IK_WOL
@@ -565,19 +565,19 @@ void wizchip_setinterruptmask(intr_kind intr) {
 }
 
 intr_kind wizchip_getinterruptmask(void) {
-    uint8_t imr = 0;
+    uint8_t imr  = 0;
     uint8_t simr = 0;
     uint16_t ret = 0;
 #if _WIZCHIP_ < W5200
-    imr = getIMR();
+    imr  = getIMR();
     simr = imr & 0x0F;
 //A20150601 : For integrating with W5300
 #elif _WIZCHIP_ == W5300
-    ret = getIMR();
-    imr = (uint8_t)(ret >> 8);
+    ret  = getIMR();
+    imr  = (uint8_t)(ret >> 8);
     simr = (uint8_t)ret;
 #else
-    imr = getIMR();
+    imr  = getIMR();
     simr = getSIMR();
 #endif
 
@@ -661,8 +661,8 @@ void wizphy_setphyconf(wiz_PhyConf* phyconf) {
 
 void wizphy_getphyconf(wiz_PhyConf* phyconf) {
     uint16_t tmp = 0;
-    tmp = wiz_mdio_read(PHYMDIO_BMCR);
-    phyconf->by = PHY_CONFBY_SW;
+    tmp          = wiz_mdio_read(PHYMDIO_BMCR);
+    phyconf->by  = PHY_CONFBY_SW;
     if (tmp & BMCR_AUTONEGO) {
         phyconf->mode = PHY_MODE_AUTONEGO;
     } else {
@@ -680,7 +680,7 @@ void wizphy_getphyconf(wiz_PhyConf* phyconf) {
 
 int8_t wizphy_setphypmode(uint8_t pmode) {
     uint16_t tmp = 0;
-    tmp = wiz_mdio_read(PHYMDIO_BMCR);
+    tmp          = wiz_mdio_read(PHYMDIO_BMCR);
     if (pmode == PHY_POWER_DOWN) {
         tmp |= BMCR_PWDN;
     } else {
@@ -736,7 +736,7 @@ void wizphy_setphyconf(wiz_PhyConf* phyconf) {
 
 void wizphy_getphyconf(wiz_PhyConf* phyconf) {
     uint8_t tmp = 0;
-    tmp = getPHYCFGR();
+    tmp         = getPHYCFGR();
     phyconf->by = (tmp & PHYCFGR_OPMD) ? PHY_CONFBY_SW : PHY_CONFBY_HW;
     switch (tmp & PHYCFGR_OPMDC_ALLA) {
         case PHYCFGR_OPMDC_ALLA:
@@ -770,14 +770,14 @@ void wizphy_getphyconf(wiz_PhyConf* phyconf) {
 }
 
 void wizphy_getphystat(wiz_PhyConf* phyconf) {
-    uint8_t tmp = getPHYCFGR();
+    uint8_t tmp     = getPHYCFGR();
     phyconf->duplex = (tmp & PHYCFGR_DPX_FULL) ? PHY_DUPLEX_FULL : PHY_DUPLEX_HALF;
-    phyconf->speed = (tmp & PHYCFGR_SPD_100) ? PHY_SPEED_100 : PHY_SPEED_10;
+    phyconf->speed  = (tmp & PHYCFGR_SPD_100) ? PHY_SPEED_100 : PHY_SPEED_10;
 }
 
 int8_t wizphy_setphypmode(uint8_t pmode) {
     uint8_t tmp = 0;
-    tmp = getPHYCFGR();
+    tmp         = getPHYCFGR();
     if ((tmp & PHYCFGR_OPMD) == 0)
         return -1;
     tmp &= ~PHYCFGR_OPMDC_ALLA;
@@ -808,7 +808,7 @@ void wizchip_setnetinfo(wiz_NetInfo* pnetinfo) {
     _DNS_[1] = pnetinfo->dns[1];
     _DNS_[2] = pnetinfo->dns[2];
     _DNS_[3] = pnetinfo->dns[3];
-    _DHCP_ = pnetinfo->dhcp;
+    _DHCP_   = pnetinfo->dhcp;
 }
 
 void wizchip_getnetinfo(wiz_NetInfo* pnetinfo) {
@@ -820,7 +820,7 @@ void wizchip_getnetinfo(wiz_NetInfo* pnetinfo) {
     pnetinfo->dns[1] = _DNS_[1];
     pnetinfo->dns[2] = _DNS_[2];
     pnetinfo->dns[3] = _DNS_[3];
-    pnetinfo->dhcp = _DHCP_;
+    pnetinfo->dhcp   = _DHCP_;
 }
 
 int8_t wizchip_setnetmode(netmode_type netmode) {
@@ -848,6 +848,6 @@ void wizchip_settimeout(wiz_NetTimeout* nettime) {
 }
 
 void wizchip_gettimeout(wiz_NetTimeout* nettime) {
-    nettime->retry_cnt = getRCR();
+    nettime->retry_cnt  = getRCR();
     nettime->time_100us = getRTR();
 }

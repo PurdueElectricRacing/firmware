@@ -430,7 +430,7 @@ typedef enum {
 #endif
     NM_WAKEONLAN = (1 << 5), ///< Wake On Lan
     NM_PINGBLOCK = (1 << 4), ///< Block ping-request
-    NM_PPPOE = (1 << 3), ///< PPPoE mode
+    NM_PPPOE     = (1 << 3), ///< PPPoE mode
 } netmode_type;
 
 /**

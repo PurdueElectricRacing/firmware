@@ -38,17 +38,17 @@ static int PHAL_FDCAN_makeNBTP(uint32_t ker_hz, uint32_t baud_bps, uint32_t* nbt
         case 250000u:
         case 500000u:
         case 1000000u:
-            tq = 16;
+            tq   = 16;
             seg1 = 13;
             seg2 = 2;
-            sjw = 2;
+            sjw  = 2;
             break;
 
         case 2000000u: // 8 TQ, SP≈62.5% (1 + 4)/8
-            tq = 8;
+            tq   = 8;
             seg1 = 4;
             seg2 = 3;
-            sjw = 2;
+            sjw  = 2;
             break;
 
         default:
@@ -216,7 +216,7 @@ void PHAL_FDCAN_send(CanMsgTypeDef_t* msg) {
     }
 
     uint32_t ram_base = PHAL_FDCAN_get_ram_base(fdcan);
-    uint32_t put = (fdcan->TXFQS & FDCAN_TXFQS_TFQPI_Msk) >> FDCAN_TXFQS_TFQPI_Pos;
+    uint32_t put      = (fdcan->TXFQS & FDCAN_TXFQS_TFQPI_Msk) >> FDCAN_TXFQS_TFQPI_Pos;
 
     volatile uint32_t* tx =
         (uint32_t*)((ram_base + SRAMCAN_TFQSA) + (put * SRAMCAN_TFQ_SIZE));
@@ -280,7 +280,7 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef* fdcan, CanMsgTypeDef_t* 
     // If FIFO0 is full AND overwrite mode is enabled, drop the oldest first
     if ((f0s & FDCAN_RXF0S_F0F_Msk) && (fdcan->RXGFC & FDCAN_RXGFC_F0OM)) {
         uint32_t gi_drop = (f0s & FDCAN_RXF0S_F0GI_Msk) >> FDCAN_RXF0S_F0GI_Pos;
-        fdcan->RXF0A = gi_drop; // discard oldest
+        fdcan->RXF0A     = gi_drop; // discard oldest
         // Re-check after dropping
         f0s = fdcan->RXF0S;
         if ((f0s & FDCAN_RXF0S_F0FL_Msk) == 0u)
@@ -299,20 +299,20 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef* fdcan, CanMsgTypeDef_t* 
     uint32_t w1 = rx[1]; // TS + DLC/BRS/FDF/FIDX/ANMF
 
     // Fill your CanMsgTypeDef_t
-    *m = (CanMsgTypeDef_t) {0};
+    *m     = (CanMsgTypeDef_t) {0};
     m->Bus = fdcan;
 
     if (w0 & (1u << 30)) { // XTD (IDE) = 1 → extended
-        m->IDE = 1;
+        m->IDE   = 1;
         m->ExtId = (w0 & 0x1FFFFFFFu);
     } else { // standard
-        m->IDE = 0;
+        m->IDE   = 0;
         m->StdId = (uint16_t)((w0 >> 18) & 0x7FFu);
         m->ExtId = m->StdId; // your parser expects ExtId too
     }
 
     // DLC code → bytes; cap to our 8-byte buffer
-    uint8_t dlc_code = (uint8_t)((w1 >> 16) & 0xF);
+    uint8_t dlc_code  = (uint8_t)((w1 >> 16) & 0xF);
     uint8_t len_bytes = dlc_to_len(dlc_code);
     if (len_bytes > sizeof m->Data)
         len_bytes = sizeof m->Data;

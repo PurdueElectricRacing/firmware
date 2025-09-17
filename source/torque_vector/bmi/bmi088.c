@@ -120,7 +120,7 @@ bool BMI088_readGyro(BMI088_Handle_t* bmi, vector_3d_t* v) {
     raw_z = (((int16_t)spi_rx_buff[6]) << 8) | spi_rx_buff[5];
 
     int16_t max_raw = MAX(MAX(raw_x, raw_y), raw_z);
-    bool range_up = bmi->gyro_dynamic_range && (ABS(max_raw) >= 32000); // int16_t range is -32,768 to +32,767
+    bool range_up   = bmi->gyro_dynamic_range && (ABS(max_raw) >= 32000); // int16_t range is -32,768 to +32,767
     bool range_down = bmi->gyro_dynamic_range && (ABS(max_raw) <= 1000);
 
     // Convert raw values into physical values based on range
@@ -201,13 +201,13 @@ bool BMI088_readAccel(BMI088_Handle_t* bmi, vector_3d_t* v) {
 static inline void BMI088_selectGyro(BMI088_Handle_t* bmi) {
     PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
     bmi->spi->nss_gpio_port = bmi->gyro_csb_gpio_port;
-    bmi->spi->nss_gpio_pin = bmi->gyro_csb_pin;
+    bmi->spi->nss_gpio_pin  = bmi->gyro_csb_pin;
 }
 
 static inline void BMI088_selectAccel(BMI088_Handle_t* bmi) {
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     bmi->spi->nss_gpio_port = bmi->accel_csb_gpio_port;
-    bmi->spi->nss_gpio_pin = bmi->accel_csb_pin;
+    bmi->spi->nss_gpio_pin  = bmi->accel_csb_pin;
 }
 
 uint8_t BMI088_checkGyroHealth(BMI088_Handle_t* bmi) {

@@ -43,15 +43,15 @@ int PHAL_I2C_stop(I2C_TypeDef* instance);
 int PHAL_I2C_check_state(void);
 
 #define I2C1_TXDMA_CONT_CONFIG(tx_addr_, priority_) \
-    { .periph_addr = (uint32_t) & (I2C1->TXDR), .mem_addr = (uint32_t)(tx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 6, .periph = DMA1, .channel = DMA1_Channel6, .request = DMA1_CSELR }
+    {.periph_addr = (uint32_t)&(I2C1->TXDR), .mem_addr = (uint32_t)(tx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 6, .periph = DMA1, .channel = DMA1_Channel6, .request = DMA1_CSELR}
 
 #define I2C1_RXDMA_CONT_CONFIG(rx_addr_, priority_) \
-    { .periph_addr = (uint32_t) & (I2C1->RXDR), .mem_addr = (uint32_t)(rx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 7, .periph = DMA1, .channel = DMA1_Channel7, .request = DMA1_CSELR }
+    {.periph_addr = (uint32_t)&(I2C1->RXDR), .mem_addr = (uint32_t)(rx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 7, .periph = DMA1, .channel = DMA1_Channel7, .request = DMA1_CSELR}
 
 #define I2C3_TXDMA_CONT_CONFIG(tx_addr_, priority_) \
-    { .periph_addr = (uint32_t) & (I2C3->TXDR), .mem_addr = (uint32_t)(tx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 2, .periph = DMA1, .channel = DMA1_Channel2, .request = DMA1_CSELR }
+    {.periph_addr = (uint32_t)&(I2C3->TXDR), .mem_addr = (uint32_t)(tx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 2, .periph = DMA1, .channel = DMA1_Channel2, .request = DMA1_CSELR}
 
 #define I2C3_RXDMA_CONT_CONFIG(rx_addr_, priority_) \
-    { .periph_addr = (uint32_t) & (I2C3->RXDR), .mem_addr = (uint32_t)(rx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 3, .periph = DMA1, .channel = DMA1_Channel3, .request = DMA1_CSELR }
+    {.periph_addr = (uint32_t)&(I2C3->RXDR), .mem_addr = (uint32_t)(rx_addr_), .tx_size = 1, .increment = false, .circular = false, .dir = 0b0, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, .tx_isr_en = true, .dma_chan_request = 0b0011, .channel_idx = 3, .periph = DMA1, .channel = DMA1_Channel3, .request = DMA1_CSELR}
 
 #endif

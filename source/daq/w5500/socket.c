@@ -59,8 +59,8 @@
 //#define SOCK_ANY_PORT_NUM  0xC000;
 #define SOCK_ANY_PORT_NUM 0xC000
 
-static uint16_t sock_any_port = SOCK_ANY_PORT_NUM;
-static uint16_t sock_io_mode = 0;
+static uint16_t sock_any_port   = SOCK_ANY_PORT_NUM;
+static uint16_t sock_io_mode    = 0;
 static uint16_t sock_is_sending = 0;
 
 static uint16_t sock_remained_size[_WIZCHIP_SOCK_NUM_] = {
@@ -246,7 +246,7 @@ int8_t close(uint8_t sn) {
     //
     sock_is_sending &= ~(1 << sn);
     sock_remained_size[sn] = 0;
-    sock_pack_info[sn] = 0;
+    sock_pack_info[sn]     = 0;
     while (getSn_SR(sn) != SOCK_CLOSED)
         ;
     return SOCK_OK;
@@ -326,7 +326,7 @@ int8_t disconnect(uint8_t sn) {
 }
 
 int32_t send(uint8_t sn, uint8_t* buf, uint16_t len) {
-    uint8_t tmp = 0;
+    uint8_t tmp       = 0;
     uint16_t freesize = 0;
 
     CHECK_SOCKNUM();
@@ -361,7 +361,7 @@ int32_t send(uint8_t sn, uint8_t* buf, uint16_t len) {
         len = freesize; // check size not to exceed MAX size.
     while (1) {
         freesize = getSn_TX_FSR(sn);
-        tmp = getSn_SR(sn);
+        tmp      = getSn_SR(sn);
         if ((tmp != SOCK_ESTABLISHED) && (tmp != SOCK_CLOSE_WAIT)) {
             close(sn);
             return SOCKERR_SOCKSTATUS;
@@ -391,7 +391,7 @@ int32_t send(uint8_t sn, uint8_t* buf, uint16_t len) {
 }
 
 int32_t recv(uint8_t sn, uint8_t* buf, uint16_t len) {
-    uint8_t tmp = 0;
+    uint8_t tmp       = 0;
     uint16_t recvsize = 0;
 //A20150601 : For integarating with W5300
 #if _WIZCHIP_ == 5300
@@ -415,7 +415,7 @@ int32_t recv(uint8_t sn, uint8_t* buf, uint16_t len) {
         //
         while (1) {
             recvsize = getSn_RX_RSR(sn);
-            tmp = getSn_SR(sn);
+            tmp      = getSn_SR(sn);
             if (tmp != SOCK_ESTABLISHED) {
                 if (tmp == SOCK_CLOSE_WAIT) {
                     if (recvsize != 0)
@@ -477,7 +477,7 @@ int32_t recv(uint8_t sn, uint8_t* buf, uint16_t len) {
         sock_pack_info[sn] = PACK_COMPLETED;
     if (getSn_MR(sn) & Sn_MR_ALIGN)
         sock_remained_size[sn] = 0;
-        //len = recvsize;
+    //len = recvsize;
 #else
     if (recvsize < len)
         len = recvsize;
@@ -493,7 +493,7 @@ int32_t recv(uint8_t sn, uint8_t* buf, uint16_t len) {
 }
 
 int32_t sendto(uint8_t sn, uint8_t* buf, uint16_t len, uint8_t* addr, uint16_t port) {
-    uint8_t tmp = 0;
+    uint8_t tmp       = 0;
     uint16_t freesize = 0;
     uint32_t taddr;
 
@@ -649,26 +649,26 @@ int32_t recvfrom(uint8_t sn, uint8_t* buf, uint16_t len, uint8_t* addr, uint16_t
                 setSn_CR(sn, Sn_CR_RECV);
                 while (getSn_CR(sn))
                     ;
-                    // read peer's IP address, port number & packet length
-                    //A20150601 : For W5300
+                // read peer's IP address, port number & packet length
+                //A20150601 : For W5300
 #if _WIZCHIP_ == 5300
                 if (mr1 & MR_FS) {
-                    addr[0] = head[1];
-                    addr[1] = head[0];
-                    addr[2] = head[3];
-                    addr[3] = head[2];
-                    *port = head[5];
-                    *port = (*port << 8) + head[4];
+                    addr[0]                = head[1];
+                    addr[1]                = head[0];
+                    addr[2]                = head[3];
+                    addr[3]                = head[2];
+                    *port                  = head[5];
+                    *port                  = (*port << 8) + head[4];
                     sock_remained_size[sn] = head[7];
                     sock_remained_size[sn] = (sock_remained_size[sn] << 8) + head[6];
                 } else {
 #endif
-                    addr[0] = head[0];
-                    addr[1] = head[1];
-                    addr[2] = head[2];
-                    addr[3] = head[3];
-                    *port = head[4];
-                    *port = (*port << 8) + head[5];
+                    addr[0]                = head[0];
+                    addr[1]                = head[1];
+                    addr[2]                = head[2];
+                    addr[3]                = head[3];
+                    *port                  = head[4];
+                    *port                  = (*port << 8) + head[5];
                     sock_remained_size[sn] = head[6];
                     sock_remained_size[sn] = (sock_remained_size[sn] << 8) + head[7];
 #if _WIZCHIP_ == 5300
@@ -729,15 +729,15 @@ int32_t recvfrom(uint8_t sn, uint8_t* buf, uint16_t len, uint8_t* addr, uint16_t
                 setSn_CR(sn, Sn_CR_RECV);
                 while (getSn_CR(sn))
                     ;
-                addr[0] = head[0];
-                addr[1] = head[1];
-                addr[2] = head[2];
-                addr[3] = head[3];
+                addr[0]                = head[0];
+                addr[1]                = head[1];
+                addr[2]                = head[2];
+                addr[3]                = head[3];
                 sock_remained_size[sn] = head[4];
                 //M20150401 : For Typing Error
                 //sock_remaiend_size[sn] = (sock_remained_size[sn] << 8) + head[5];
                 sock_remained_size[sn] = (sock_remained_size[sn] << 8) + head[5];
-                sock_pack_info[sn] = PACK_FIRST;
+                sock_pack_info[sn]     = PACK_FIRST;
             }
             //
             // Need to packet length check

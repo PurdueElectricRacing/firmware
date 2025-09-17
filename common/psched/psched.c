@@ -19,7 +19,7 @@ sched_t sched;
 // @param: task_time: Rate of task in ms
 int taskCreate(func_ptr_t func, uint16_t task_time) {
     if (sched.fg_count != MAX_TASKS) {
-        sched.task_time[sched.fg_count] = task_time;
+        sched.task_time[sched.fg_count]      = task_time;
         sched.task_pointer[sched.fg_count++] = func;
 
         return 0;
@@ -83,10 +83,10 @@ void taskDelete(uint8_t type, uint8_t task) {
 // @param: anim_min_time: Minimum animation duration in ms
 void configureAnim(func_ptr_t anim, func_ptr_t preflight, uint16_t anim_time, uint16_t anim_min_time) {
     sched.preflight_required = 1;
-    sched.anim_time = anim_time;
-    sched.anim_min_time = anim_min_time;
+    sched.anim_time          = anim_time;
+    sched.anim_min_time      = anim_min_time;
 
-    sched.anim = anim;
+    sched.anim      = anim;
     sched.preflight = preflight;
 }
 
@@ -145,7 +145,7 @@ void schedStart() {
     IWDG->KR = 0xCCCC;
     IWDG->KR = 0x5555;
     IWDG->PR |= 2;
-    IWDG->RLR = 20;
+    IWDG->RLR     = 20;
     sched.running = 1;
 
     while ((IWDG->SR & 0b111) != 0)
@@ -167,7 +167,7 @@ void schedStart() {
 void schedPause() {
     TIM7->CR1 &= ~TIM_CR1_CEN;
     NVIC->ISER[1] &= ~(1 << (TIM7_IRQn - 32));
-    sched.running = 0;
+    sched.running  = 0;
     sched.run_next = 1;
 }
 
@@ -186,7 +186,7 @@ void waitMicros(uint8_t time) {
 
     // ARR is 1k, so no cast issues
     uint16_t entry_time = TIM7->CNT;
-    int16_t exit_time = (int16_t)entry_time - time;
+    int16_t exit_time   = (int16_t)entry_time - time;
 
     if (exit_time < 0) {
         exit_time += 1000;
@@ -222,10 +222,10 @@ static void schedLoop() {
     while (sched.running == 1) {
         // Prep iteration
         sched.run_next = 0;
-        IWDG->KR = 0xAAAA;
+        IWDG->KR       = 0xAAAA;
 
         sched.fg_time.tick_entry = sched.os_ticks;
-        sched.fg_time.cnt_entry = TIM7->CNT;
+        sched.fg_time.cnt_entry  = TIM7->CNT;
 
         // Execute tasks
         if (sched.preflight_required && (!sched.anim_complete || !sched.preflight_complete)) {
@@ -239,16 +239,16 @@ static void schedLoop() {
             for (i = 0; i < sched.fg_count; i++) {
                 if ((sched.os_ticks - sched.ind_fg_time[i].tick_entry) > sched.task_time[i]) {
                     sched.ind_fg_time[i].tick_entry = sched.os_ticks;
-                    sched.ind_fg_time[i].cnt_entry = TIM7->CNT;
+                    sched.ind_fg_time[i].cnt_entry  = TIM7->CNT;
                     (*sched.task_pointer[i])();
                     sched.ind_fg_time[i].tick_exit = sched.os_ticks;
-                    sched.ind_fg_time[i].cnt_exit = TIM7->CNT;
+                    sched.ind_fg_time[i].cnt_exit  = TIM7->CNT;
                 }
             }
         }
 
         sched.fg_time.tick_exit = sched.os_ticks;
-        sched.fg_time.cnt_exit = TIM7->CNT;
+        sched.fg_time.cnt_exit  = TIM7->CNT;
 
         // Check if we missed timing requirements
         if (sched.run_next == 1) {
@@ -271,13 +271,13 @@ static void schedBg() {
     uint8_t i;
 
     sched.bg_time.tick_entry = sched.os_ticks;
-    sched.bg_time.cnt_entry = TIM7->CNT;
+    sched.bg_time.cnt_entry  = TIM7->CNT;
 
     while (1) {
         // Check if we should break
         if (sched.run_next == 1) {
             sched.bg_time.tick_exit = sched.os_ticks;
-            sched.bg_time.cnt_exit = TIM7->CNT;
+            sched.bg_time.cnt_exit  = TIM7->CNT;
 
             return;
         }
@@ -294,7 +294,7 @@ static void schedBg() {
 static void updateTime(cpu_time_t* time) {
     uint32_t delta;
 
-    delta = time->cnt_exit - time->cnt_entry;
+    delta         = time->cnt_exit - time->cnt_entry;
     time->cpu_use = (((float)delta) / ARR_SET) * 100;
 
     if (time->cpu_use > 100) {
@@ -315,7 +315,7 @@ static void calcTime(cpu_time_t* time, uint8_t count, int type) {
         error = (type != E_BG_MISS) ? time[i].tick_entry != time[i].tick_exit : time[i].tick_exit - time[i].tick_entry > 1;
 
         if (error) {
-            time[i].cpu_use = 100;
+            time[i].cpu_use    = 100;
             time[i].has_missed = 1;
             ++e_cnt;
         } else {

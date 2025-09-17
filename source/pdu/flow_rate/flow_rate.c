@@ -115,7 +115,7 @@ uint32_t getFlowRate1() {
         return 0;
     }
 
-    uint32_t freq = (1.0 / ((FLOW_RATE_1_TIM->CCR1) * ((FLOW_RATE_1_TIM->PSC + 1.0) / APB1ClockRateHz)));
+    uint32_t freq      = (1.0 / ((FLOW_RATE_1_TIM->CCR1) * ((FLOW_RATE_1_TIM->PSC + 1.0) / APB1ClockRateHz)));
     uint32_t flow_rate = freq / 7.5;
     return flow_rate;
 }
@@ -125,7 +125,7 @@ uint32_t getFlowRate2() {
         return 0;
     }
 
-    uint32_t freq = (1.0 / ((FLOW_RATE_2_TIM->CCR2) * ((FLOW_RATE_2_TIM->PSC + 1.0) / APB2ClockRateHz)));
+    uint32_t freq      = (1.0 / ((FLOW_RATE_2_TIM->CCR2) * ((FLOW_RATE_2_TIM->PSC + 1.0) / APB2ClockRateHz)));
     uint32_t flow_rate = freq / 7.5;
     return flow_rate;
 }

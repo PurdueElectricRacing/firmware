@@ -71,12 +71,12 @@ GPIOInitConfig_t gpio_config[] = {
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSE,
-    .use_pll = false,
+    .clock_source           = CLOCK_SOURCE_HSE,
+    .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -90,7 +90,7 @@ extern uint8_t orion_error;
 extern uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
 bool bms_daq_override = false;
-bool bms_daq_stat = false;
+bool bms_daq_stat     = false;
 
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
@@ -106,11 +106,11 @@ void readCurrents();
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
-    .resolution = ADC_RES_12_BIT,
-    .data_align = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .adc_number = 1,
-    .dma_mode = ADC_DMA_CIRCULAR};
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .adc_number      = 1,
+    .dma_mode        = ADC_DMA_CIRCULAR};
 
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
@@ -158,7 +158,7 @@ int main(void) {
     orionInit();
 
     bms_daq_override = false;
-    bms_daq_stat = false;
+    bms_daq_stat     = false;
 
     if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO])) {
         HardFault_Handler();
@@ -298,7 +298,7 @@ void canTxUpdate(void) {
     // Only broadcast on CAN2 if Charger is present
     chargerCANConnected = !can_data.elcon_charger_status.stale;
     CanMsgTypeDef_t txMSG;
-    uint8_t canIDX = CAN1_IDX;
+    uint8_t canIDX             = CAN1_IDX;
     CAN_TypeDef* busPeripheral = (chargerCANConnected ? CAN2 : CAN1);
     if (chargerCANConnected) {
         canIDX = CAN2_IDX;
@@ -339,8 +339,8 @@ void readCurrents() {
     uint16_t adc_isense_2 = adc_readings.isense_ch2;
     // Calculating currents from ADC using equation from: https://www.lem.com/sites/default/files/products_datasheets/dhab_s_124.pdf
     float V_offset = 2.5; // offset voltage (V)
-    float G1 = 26.7 / 1000; // channel 1 sensitivity (V/A)
-    float G2 = 4.0 / 1000; // channel 2 sensitivity (V/A)
+    float G1       = 26.7 / 1000; // channel 1 sensitivity (V/A)
+    float G2       = 4.0 / 1000; // channel 2 sensitivity (V/A)
     // calculating Vout and converting from 3.3 to 5 based on voltage divider
     float Vout_ch1 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_1 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;
     float Vout_ch2 = (ADC_VREF / ADC_ADDR_SIZE) * adc_isense_2 * (R1_ISENSE + R2_ISENSE) / R2_ISENSE;

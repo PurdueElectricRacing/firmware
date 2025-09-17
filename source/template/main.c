@@ -13,13 +13,13 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_OUTPUT_LOW_SPEED)};
 
 ClockRateConfig_t clock_config = {
-    .system_source = SYSTEM_CLOCK_SRC_PLL,
-    .system_clock_target_hz = 80000000,
-    .pll_src = PLL_SRC_HSI16,
+    .system_source             = SYSTEM_CLOCK_SRC_PLL,
+    .system_clock_target_hz    = 80000000,
+    .pll_src                   = PLL_SRC_HSI16,
     .vco_output_rate_target_hz = 160000000,
-    .ahb_clock_target_hz = 80000000,
-    .apb1_clock_target_hz = 80000000, // / 16,
-    .apb2_clock_target_hz = 80000000 / 16,
+    .ahb_clock_target_hz       = 80000000,
+    .apb1_clock_target_hz      = 80000000, // / 16,
+    .apb2_clock_target_hz      = 80000000 / 16,
 };
 
 /* Locals for Clock Rates */

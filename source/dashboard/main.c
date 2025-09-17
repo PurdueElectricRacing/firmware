@@ -686,12 +686,10 @@ void lcdSleep() {
     if (can_data.main_hb.stale) {
         return;
     }
-    if (actionCounter >= 60 && can_data.main_hb.car_state != CAR_STATE_IDLE) {
-        NXT_setBrightness(0);
-    }
-    else if (can_data.main_hb.car_state == CAR_STATE_IDLE ) {
-        actionCounter = 0;
-        NXT_setBrightness(100);
+    if (actionCounter >= 60 && can_data.main_hb.car_state == CAR_STATE_IDLE) {
+        if (NXT_getBrightness() != 0) {
+            NXT_setBrightness(0);
+        }
     }
     actionCounter++;
 

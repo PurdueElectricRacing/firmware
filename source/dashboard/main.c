@@ -584,7 +584,7 @@ void handleDashboardInputs() {
         SEND_START_BUTTON(1);
     }
 
-    if ((brightnessUp) && (NXT_getBrightness != 100)){
+    if (brightnessUp){
         NXT_setBrightness(100);
     }
 }
@@ -688,9 +688,7 @@ void lcdSleep() {
         return;
     }
     if ((sched.os_ticks - last_input_time >= SLEEP_DELAY_SECONDS*1000) && (can_data.main_hb.car_state == CAR_STATE_IDLE)) {
-        if (NXT_getBrightness() != 0) {
-            NXT_setBrightness(0);
-        }
+        NXT_setBrightness(0);
     }
 
 }

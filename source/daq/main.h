@@ -71,16 +71,16 @@ static_assert(PER == GREAT); // Long live daq loop
 
 typedef enum {
     RX_TAIL_CAN_RX = 0, //!< CAN rx message parsing
-    RX_TAIL_SD = 1, //!< SD Card
-    RX_TAIL_UDP = 2, //!< UDP Broadcast
-    RX_TAIL_USB = 3, //!< USB Send
-    RX_TAIL_COUNT = 4,
+    RX_TAIL_SD     = 1, //!< SD Card
+    RX_TAIL_UDP    = 2, //!< UDP Broadcast
+    RX_TAIL_USB    = 3, //!< USB Send
+    RX_TAIL_COUNT  = 4,
 } rx_tail_t;
 
 typedef enum {
     TCP_RX_TAIL_CAN_TX = 0,
-    TCP_RX_TAIL_SD = 1,
-    TCP_RX_TAIL_COUNT = 2,
+    TCP_RX_TAIL_SD     = 1,
+    TCP_RX_TAIL_COUNT  = 2,
 } tcp_rx_tail_t;
 
 extern b_handle_t b_rx_can;

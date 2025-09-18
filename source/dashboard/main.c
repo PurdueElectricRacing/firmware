@@ -89,11 +89,11 @@ volatile raw_adc_values_t raw_adc_values;
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_2,
-    .resolution = ADC_RES_12_BIT,
-    .data_align = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode = ADC_DMA_CIRCULAR,
-    .adc_number = 1,
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .dma_mode        = ADC_DMA_CIRCULAR,
+    .adc_number      = 1,
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
@@ -118,28 +118,30 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, size
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+
 usart_init_t lcd = {
-    .baud_rate = LCD_BAUD_RATE,
-    .word_length = WORD_8,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .hw_flow_ctl = HW_DISABLE,
-    .ovsample = OV_16,
-    .obsample = OB_DISABLE,
-    .periph = USART1,
-    .wake_addr = false,
+    .baud_rate        = LCD_BAUD_RATE,
+    .word_length      = WORD_8,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .hw_flow_ctl      = HW_DISABLE,
+    .ovsample         = OV_16,
+    .obsample         = OB_DISABLE,
+    .periph           = USART1,
+    .wake_addr        = false,
     .usart_active_num = USART1_ACTIVE_IDX,
-    .tx_dma_cfg = &usart_tx_dma_config,
-    .rx_dma_cfg = &usart_rx_dma_config};
+    .tx_dma_cfg       = &usart_tx_dma_config,
+    .rx_dma_cfg       = &usart_rx_dma_config,
+};
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSI,
-    .use_pll = false,
+    .clock_source           = CLOCK_SOURCE_HSI,
+    .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -204,7 +206,7 @@ int main(void) {
     taskCreate(heartBeatTask, 100);
     taskCreate(sendShockpots, 15);
     taskCreate(sendVersion, 5000);
-    // taskCreate(interpretLoadSensor, 15);
+    taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
     taskCreate(sendTVParameters, 500);
@@ -271,7 +273,7 @@ void preflightChecks(void) {
 }
 
 void sendVersion() {
-    char git_hash[8] = GIT_HASH;
+    char git_hash[8]      = GIT_HASH;
     uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
     SEND_DASH_VERSION(git_hash_num);
 }
@@ -493,11 +495,11 @@ void EXTI15_10_IRQHandler() {
  */
 void zeroEncoder() {
     // Collect initial raw reading from encoder
-    uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
-    uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
-    uint8_t raw_res = (raw_enc_b | (raw_enc_a << 1));
+    uint8_t raw_enc_a                 = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
+    uint8_t raw_enc_b                 = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
+    uint8_t raw_res                   = (raw_enc_b | (raw_enc_a << 1));
     input_state.prev_encoder_position = raw_res;
-    input_state.encoder_position = 0;
+    input_state.encoder_position      = 0;
 }
 
 /**
@@ -522,8 +524,8 @@ void encoderISR() {
         {-1, 0, 0, 1},
         {0, 1, -1, 0}};
 
-    uint8_t raw_enc_a = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
-    uint8_t raw_enc_b = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
+    uint8_t raw_enc_a     = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
+    uint8_t raw_enc_b     = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
     uint8_t current_state = (raw_enc_a | (raw_enc_b << 1)); // enc_a and enc_b are flipped to reverse direction
 
     // Get direction from the state transition table
@@ -542,8 +544,8 @@ void encoderISR() {
     }
 
     input_state.prev_encoder_position = current_state;
-    input_state.update_page = 1;
-    input_state.debounce_ticks = sched.os_ticks;
+    input_state.update_page           = 1;
+    input_state.debounce_ticks        = sched.os_ticks;
 }
 
 /**
@@ -646,15 +648,15 @@ void sendVoltageData() {
     float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
 
     float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;
-    float vin_3v3 = adc_voltage * (LV_3V3_PULLUP + LV_3V3_PULLDOWN) / LV_3V3_PULLDOWN;
+    float vin_3v3     = adc_voltage * (LV_3V3_PULLUP + LV_3V3_PULLDOWN) / LV_3V3_PULLDOWN;
 
-    adc_voltage = raw_adc_values.lv_5v_sense * adc_to_voltage;
+    adc_voltage  = raw_adc_values.lv_5v_sense * adc_to_voltage;
     float vin_5v = adc_voltage * (LV_5V_PULLUP + LV_5V_PULLDOWN) / LV_5V_PULLDOWN;
 
-    adc_voltage = raw_adc_values.lv_12v_sense * adc_to_voltage;
+    adc_voltage   = raw_adc_values.lv_12v_sense * adc_to_voltage;
     float vin_12v = adc_voltage * (LV_12V_PULLUP + LV_12V_PULLDOWN) / LV_12V_PULLDOWN;
 
-    adc_voltage = raw_adc_values.lv_24_v_sense * adc_to_voltage;
+    adc_voltage   = raw_adc_values.lv_24_v_sense * adc_to_voltage;
     float vin_24v = adc_voltage * (LV_24V_PULLUP + LV_24V_PULLDOWN) / LV_24V_PULLDOWN;
 
     // Scale to 100x before sending
@@ -663,7 +665,7 @@ void sendVoltageData() {
 
 void pollBrakeStatus() {
     brake_status.brake_status = PHAL_readGPIO(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin);
-    brake_status.brake_fail = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
+    brake_status.brake_fail   = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
 }
 
 void HardFault_Handler() {

@@ -19,9 +19,9 @@
 WheelSpeeds_t wheel_speeds;
 
 // Local variables
-static volatile uint32_t left_ccr = 0;
-static volatile uint32_t left_update_time = 0;
-static volatile uint32_t right_ccr = 0;
+static volatile uint32_t left_ccr          = 0;
+static volatile uint32_t left_update_time  = 0;
+static volatile uint32_t right_ccr         = 0;
 static volatile uint32_t right_update_time = 0;
 
 /**
@@ -149,10 +149,10 @@ void TIM1_UP_TIM10_IRQHandler() {
 
 void TIM1_CC_IRQHandler() {
     if (TIM1->SR & TIM_SR_CC1IF) {
-        right_ccr = (right_ccr_msb_counter << 16) | TIM1->CCR1;
+        right_ccr             = (right_ccr_msb_counter << 16) | TIM1->CCR1;
         right_ccr_msb_counter = 0;
-        right_update_time = sched.os_ticks;
-        TIM1->SR = ~(TIM_SR_CC1IF);
+        right_update_time     = sched.os_ticks;
+        TIM1->SR              = ~(TIM_SR_CC1IF);
     }
 }
 
@@ -164,9 +164,9 @@ void TIM4_IRQHandler() {
         TIM4->SR = ~(TIM_SR_UIF);
     }
     if (TIM4->SR & TIM_SR_CC2IF) {
-        left_ccr = (left_ccr_msb_counter << 16) | TIM4->CCR2;
+        left_ccr             = (left_ccr_msb_counter << 16) | TIM4->CCR2;
         left_ccr_msb_counter = 0;
-        left_update_time = sched.os_ticks;
-        TIM4->SR = ~(TIM_SR_CC2IF);
+        left_update_time     = sched.os_ticks;
+        TIM4->SR             = ~(TIM_SR_CC2IF);
     }
 }

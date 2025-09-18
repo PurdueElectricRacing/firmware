@@ -68,7 +68,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {
 
     PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
 
-    cfg->_busy = false;
+    cfg->_busy  = false;
     cfg->_error = false;
 }
 
@@ -78,7 +78,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uin
     if (PHAL_SPI_busy(spi))
         return false;
     active_transfer = spi;
-    spi->_busy = true;
+    spi->_busy      = true;
     // Enable SPI
     spi->periph->CR1 |= SPI_CR1_SPE;
     // Select peripheral
@@ -89,7 +89,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uin
         while (!(spi->periph->SR & SPI_SR_TXE))
             ;
         if (i + 1 < txlen) {
-            uint16_t data = out_data[i + 1] << 8 | (uint16_t)out_data[i];
+            uint16_t data   = out_data[i + 1] << 8 | (uint16_t)out_data[i];
             spi->periph->DR = data;
             i++;
         } else {
@@ -101,7 +101,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uin
         ;
     // Clear overrun
     uint8_t trash = spi->periph->DR;
-    trash = spi->periph->SR;
+    trash         = spi->periph->SR;
 
     // RX
     for (uint8_t i = 0; i < rxlen; i++) {
@@ -270,9 +270,9 @@ void DMA1_Channel2_IRQHandler() {
         SPI1->CR1 &= ~SPI_CR1_SPE;
         SPI1->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
-        active_transfer->_busy = false;
+        active_transfer->_busy  = false;
         active_transfer->_error = false;
-        active_transfer = NULL;
+        active_transfer         = NULL;
     }
     if (DMA1->ISR & DMA_ISR_GIF2) {
         DMA1->IFCR |= DMA_IFCR_CGIF2;
@@ -303,9 +303,9 @@ void DMA2_Channel1_IRQHandler() {
         SPI3->CR1 &= ~SPI_CR1_SPE;
         SPI3->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
-        active_transfer->_busy = false;
+        active_transfer->_busy  = false;
         active_transfer->_error = false;
-        active_transfer = NULL;
+        active_transfer         = NULL;
     }
     if (DMA2->ISR & DMA_ISR_GIF1) {
         DMA2->IFCR |= DMA_IFCR_CGIF1;
@@ -341,9 +341,9 @@ void DMA1_Channel4_IRQHandler() {
         SPI2->CR1 &= ~SPI_CR1_SPE;
         SPI2->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
-        active_transfer->_busy = false;
+        active_transfer->_busy  = false;
         active_transfer->_error = false;
-        active_transfer = NULL;
+        active_transfer         = NULL;
     }
     if (DMA1->ISR & DMA_ISR_GIF4) {
         DMA1->IFCR |= DMA_IFCR_CGIF4;

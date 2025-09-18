@@ -36,7 +36,7 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, uint16_t version, 
 
     // Set WC pins
     mem.wc_gpio_port = wc_gpio_port;
-    mem.wc_gpio_pin = wc_gpio_pin;
+    mem.wc_gpio_pin  = wc_gpio_pin;
 
     // Read EEPROM metadata
     ret = readMem(0, (uint8_t*)&mem.phys, sizeof(struct phys_mem));
@@ -51,8 +51,8 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, uint16_t version, 
     if (!mem.phys.init) {
         // It isn't, and we want it to be, so set to default values
         if (force_init) {
-            mem.phys.init = true;
-            mem.phys.version = 1;
+            mem.phys.init     = true;
+            mem.phys.version  = 1;
             mem.init_physical = true;
 
             return E_SUCCESS;
@@ -151,10 +151,10 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
     // Copy over new metadata
     ee_memcpy(fname, &mem.phys.filename[i * NAME_LEN], NAME_LEN);
     mem.phys.mem_size[i] = len;
-    mem.phys.bcmp[i] = bcmp;
+    mem.phys.bcmp[i]     = bcmp;
     mem.phys.pg_bound[i] = (i == 0) ? MACRO_PG_SIZE : ROUNDUP(mem.phys.pg_bound[i - 1] + mem.phys.mem_size[i - 1], MICRO_PG_SIZE);
-    mem.pg_addr[i] = addr;
-    mem.pg_size[i] = len;
+    mem.pg_addr[i]       = addr;
+    mem.pg_size[i]       = len;
 
     return E_SUCCESS;
 }
@@ -183,15 +183,15 @@ void memBg(void) {
     // Check if we want to zero out the EEPROM
     if (mem.zero_req) {
         mem.write_pending = true;
-        mem.source_loc = mem_zero;
-        mem.dest_loc = addr;
-        mem.update_len = MICRO_PG_SIZE;
+        mem.source_loc    = mem_zero;
+        mem.dest_loc      = addr;
+        mem.update_len    = MICRO_PG_SIZE;
         addr += MICRO_PG_SIZE;
 
         if (addr >= CHIP_SIZE) {
             mem.zero_req = false;
-            addr = 0;
-            search = 0;
+            addr         = 0;
+            search       = 0;
         }
 
         return;
@@ -211,9 +211,9 @@ void memBg(void) {
 
         if (ret < 0) {
             mem.write_pending = true;
-            mem.dest_loc = addr;
-            mem.source_loc = (uint8_t*)(&mem.phys + addr);
-            mem.update_len = len;
+            mem.dest_loc      = addr;
+            mem.source_loc    = (uint8_t*)(&mem.phys + addr);
+            mem.update_len    = len;
         }
 
         addr += MICRO_PG_SIZE;

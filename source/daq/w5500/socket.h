@@ -345,11 +345,11 @@ int32_t recvfrom(uint8_t sn, uint8_t* buf, uint16_t len, uint8_t* addr, uint16_t
  * @sa Sn_IR, Sn_IMR, setSn_IR(), getSn_IR(), setSn_IMR(), getSn_IMR()
  */
 typedef enum {
-    SIK_CONNECTED = (1 << 0), ///< connected
+    SIK_CONNECTED    = (1 << 0), ///< connected
     SIK_DISCONNECTED = (1 << 1), ///< disconnected
-    SIK_RECEIVED = (1 << 2), ///< data received
-    SIK_TIMEOUT = (1 << 3), ///< timeout occurred
-    SIK_SENT = (1 << 4), ///< send ok
+    SIK_RECEIVED     = (1 << 2), ///< data received
+    SIK_TIMEOUT      = (1 << 3), ///< timeout occurred
+    SIK_SENT         = (1 << 4), ///< send ok
     //M20150410 : Remove the comma of last member
     //SIK_ALL           = 0x1F,        ///< all interrupt
     SIK_ALL = 0x1F ///< all interrupt

@@ -143,7 +143,7 @@ uint8_t PHAL_flashErase(uint32_t* addr, uint32_t words) {
     if ((uint32_t)addr < FLASH_BASE || (uint32_t)end_addr_inclusive > (FLASH_END - 3))
         return FLASH_FAIL;
     uint8_t sector_start = flashGetSector((uint32_t)addr);
-    uint8_t sector_end = flashGetSector((uint32_t)end_addr_inclusive);
+    uint8_t sector_end   = flashGetSector((uint32_t)end_addr_inclusive);
     for (uint8_t i = sector_start; i <= sector_end; ++i) {
         ret = PHAL_flashErasePage(i);
         if (ret != FLASH_OK)

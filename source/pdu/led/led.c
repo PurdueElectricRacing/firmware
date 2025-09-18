@@ -15,7 +15,7 @@
 extern SPI_InitConfig_t spi_config;
 
 uint16_t LED_control_data = 0x0000;
-uint16_t LED_toggle = 0x0000;
+uint16_t LED_toggle       = 0x0000;
 
 bool LED_control(int led, enum LED_state state) {
     uint16_t LED_control_data_new = 0x0000;

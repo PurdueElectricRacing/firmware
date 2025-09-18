@@ -14,8 +14,8 @@
 typedef enum {
     ADC_RES_12_BIT = 0b00,
     ADC_RES_10_BIT = 0b01,
-    ADC_RES_8_BIT = 0b10,
-    ADC_RES_6_BIT = 0b11
+    ADC_RES_8_BIT  = 0b10,
+    ADC_RES_6_BIT  = 0b11
 } ADCResolution_t;
 
 typedef enum {
@@ -27,26 +27,26 @@ typedef enum {
 } ADCClkPrescaler_t;
 
 typedef enum {
-    ADC_DMA_OFF = 0b00,
-    ADC_DMA_ONESHOT = 0b01,
+    ADC_DMA_OFF      = 0b00,
+    ADC_DMA_ONESHOT  = 0b01,
     ADC_DMA_CIRCULAR = 0b11
 } ADCDMAMode_t;
 
 typedef enum {
     ADC_DATA_ALIGN_RIGHT = 0b0,
-    ADC_DATA_ALIGN_LEFT = 0b1
+    ADC_DATA_ALIGN_LEFT  = 0b1
 } ADCDataAlign_t;
 
 typedef enum {
     ADC_OVERSAMPLE_NONE = 0,
-    ADC_OVERSAMPLE_2 = 2,
-    ADC_OVERSAMPLE_4 = 4,
-    ADC_OVERSAMPLE_8 = 8,
-    ADC_OVERSAMPLE_16 = 16,
-    ADC_OVERSAMPLE_32 = 32,
-    ADC_OVERSAMPLE_64 = 64,
-    ADC_OVERSAMPLE_128 = 128,
-    ADC_OVERSAMPLE_256 = 256,
+    ADC_OVERSAMPLE_2    = 2,
+    ADC_OVERSAMPLE_4    = 4,
+    ADC_OVERSAMPLE_8    = 8,
+    ADC_OVERSAMPLE_16   = 16,
+    ADC_OVERSAMPLE_32   = 32,
+    ADC_OVERSAMPLE_64   = 64,
+    ADC_OVERSAMPLE_128  = 128,
+    ADC_OVERSAMPLE_256  = 256,
 } ADCOversampleCount_t;
 
 typedef struct {
@@ -60,11 +60,11 @@ typedef struct {
 } ADCInitConfig_t;
 
 typedef enum {
-    ADC_CHN_SMP_CYCLES_3 = 0b000,
-    ADC_CHN_SMP_CYCLES_15 = 0b001,
-    ADC_CHN_SMP_CYCLES_28 = 0b010,
-    ADC_CHN_SMP_CYCLES_56 = 0b011,
-    ADC_CHN_SMP_CYCLES_84 = 0b100,
+    ADC_CHN_SMP_CYCLES_3   = 0b000,
+    ADC_CHN_SMP_CYCLES_15  = 0b001,
+    ADC_CHN_SMP_CYCLES_28  = 0b010,
+    ADC_CHN_SMP_CYCLES_56  = 0b011,
+    ADC_CHN_SMP_CYCLES_84  = 0b100,
     ADC_CHN_SMP_CYCLES_112 = 0b101,
     ADC_CHN_SMP_CYCLES_144 = 0b110,
     ADC_CHN_SMP_CYCLES_480 = 0b111,

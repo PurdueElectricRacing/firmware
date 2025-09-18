@@ -93,7 +93,7 @@ int PHAL_I2C_write_a(I2C_TypeDef* instance, uint8_t addr, const uint8_t* data, u
 
     // Lock core and set stop
     core->_tx_busy = true;
-    core->stop = stop;
+    core->stop     = stop;
 
     // Configure DMA for TX
     PHAL_DMA_setTxferLength(core->tx_dma_cfg, len);
@@ -129,7 +129,7 @@ int PHAL_I2C_read_a(I2C_TypeDef* instance, uint8_t addr, uint8_t* data, uint8_t 
 
     // Lock core and set stop
     core->_rx_busy = true;
-    core->stop = stop;
+    core->stop     = stop;
 
     // Configure DMA for RX
     PHAL_DMA_setTxferLength(core->rx_dma_cfg, len);
@@ -197,7 +197,7 @@ static void I2C_IRQHandler(I2C_TypeDef* instance) {
     // Check if bus is busy but we don't think we should be busy
     if (instance->ISR & I2C_ISR_BUSY && (!core->_tx_busy && !core->_rx_busy)) {
         core->error[core->err_idx++] = E_BAD_BUSY;
-        core->err_idx = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
+        core->err_idx                = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
     }
 
     // Check if the bus is not busy and unlock
@@ -208,19 +208,19 @@ static void I2C_IRQHandler(I2C_TypeDef* instance) {
     // Check for arbitration loss
     if (instance->ISR & I2C_ISR_ARLO) {
         core->error[core->err_idx++] = E_ARLO;
-        core->err_idx = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
+        core->err_idx                = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
     }
 
     // Check for bad start/stop bits
     if (instance->ISR & I2C_ISR_BERR) {
         core->error[core->err_idx++] = E_BERR;
-        core->err_idx = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
+        core->err_idx                = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
     }
 
     // Check for slave device NAK
     if (instance->ISR & I2C_ISR_NACKF) {
         core->error[core->err_idx++] = E_NACK;
-        core->err_idx = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
+        core->err_idx                = (core->err_idx == MAX_ERR) ? 0 : core->err_idx;
     }
 
     // Send a stop if the last byte was just transmitted

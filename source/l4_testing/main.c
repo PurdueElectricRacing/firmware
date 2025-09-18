@@ -50,11 +50,11 @@ GPIOInitConfig_t gpio_config[] = {
 
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_6,
-    .resolution = ADC_RES_12_BIT,
-    .data_align = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .overrun = true,
-    .dma_mode = ADC_DMA_CIRCULAR};
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .overrun         = true,
+    .dma_mode        = ADC_DMA_CIRCULAR};
 
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = POT_ADC_Channel, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_2_5},
@@ -62,24 +62,24 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = POT3_ADC_Channel, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_2_5}};
 
 usart_init_t huart1 = {
-    .baud_rate = 9600,
+    .baud_rate   = 9600,
     .word_length = WORD_8,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .mode = MODE_TX_RX,
+    .stop_bits   = SB_ONE,
+    .parity      = PT_NONE,
+    .mode        = MODE_TX_RX,
     .hw_flow_ctl = HW_DISABLE,
-    .ovsample = OV_16,
-    .obsample = OB_DISABLE,
+    .ovsample    = OV_16,
+    .obsample    = OB_DISABLE,
     .adv_feature = {
-        .auto_baud = false,
-        .ab_mode = AB_START,
-        .tx_inv = false,
-        .rx_inv = false,
-        .data_inv = false,
-        .tx_rx_swp = false,
-        .overrun = false,
+        .auto_baud     = false,
+        .ab_mode       = AB_START,
+        .tx_inv        = false,
+        .rx_inv        = false,
+        .data_inv      = false,
+        .tx_rx_swp     = false,
+        .overrun       = false,
         .dma_on_rx_err = false,
-        .msb_first = false,
+        .msb_first     = false,
     },
 };
 
@@ -87,32 +87,32 @@ dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
 SPI_InitConfig_t spi_config = {
-    .data_len = 8,
-    .nss_sw = false,
+    .data_len      = 8,
+    .nss_sw        = false,
     .nss_gpio_port = SPI_CS_EEPROM_GPIO_Port,
-    .nss_gpio_pin = SPI_CS_EEPROM_Pin,
-    .rx_dma_cfg = &spi_rx_dma_config,
-    .tx_dma_cfg = &spi_tx_dma_config};
+    .nss_gpio_pin  = SPI_CS_EEPROM_Pin,
+    .rx_dma_cfg    = &spi_rx_dma_config,
+    .tx_dma_cfg    = &spi_tx_dma_config};
 
 static uint16_t adc_conversions[3];
 uint8_t charge_enable;
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)adc_conversions, 3, 0b01);
 
-WheelSpeed_t left_wheel = {.tim = TIM2, .invert = false};
+WheelSpeed_t left_wheel  = {.tim = TIM2, .invert = false};
 WheelSpeed_t right_wheel = {.tim = TIM2, .invert = false};
 // TODO: test invert
 WheelSpeeds_t wheel_speeds = {.l = &left_wheel, .r = &right_wheel};
 
 #define TargetCoreClockrateHz 80000000
 ClockRateConfig_t clock_config = {
-    .system_source = SYSTEM_CLOCK_SRC_PLL,
-    .pll_src = PLL_SRC_MSI,
+    .system_source             = SYSTEM_CLOCK_SRC_PLL,
+    .pll_src                   = PLL_SRC_MSI,
     .msi_output_rate_target_hz = 16000000,
     .vco_output_rate_target_hz = 160000000,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (4)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (4)),
+    .system_clock_target_hz    = TargetCoreClockrateHz,
+    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz      = (TargetCoreClockrateHz / (4)),
+    .apb2_clock_target_hz      = (TargetCoreClockrateHz / (4)),
 };
 
 /* Locals for Clock Rates */
@@ -148,9 +148,9 @@ q_handle_t q_rx_can;
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 
-uint8_t my_counter = 0;
+uint8_t my_counter   = 0;
 uint16_t my_counter2 = 85; // Warning: daq variables with eeprom capability may
-    // initialize to something else
+// initialize to something else
 uint8_t green_on = 0;
 
 uint64_t faults = 0;
@@ -350,8 +350,8 @@ void readBlue(uint8_t* on) {
     *on = PHAL_readGPIO(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
 }
 
-uint16_t counter = 1;
-uint16_t counter2 = 1;
+uint16_t counter     = 1;
+uint16_t counter2    = 1;
 uint16_t adc_reading = 0;
 
 void canSendTest() {

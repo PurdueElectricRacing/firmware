@@ -96,12 +96,12 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     div_fraction = (over8 * (div % 100));
     div_fraction = ((div_fraction > 50) ? ROUNDUP(div_fraction, 100) : ROUNDDOWN(div_fraction, 100)) / 100;
     if (div_fraction > 15 && handle->ovsample == OV_16) {
-        carry = div_fraction - 15;
+        carry        = div_fraction - 15;
         div_fraction = 15;
     }
     // The last DIV_Fraction bit is ignored in OV8 mode
     else if (div_fraction > 7 && handle->ovsample == OV_8) {
-        carry = div_fraction - 7;
+        carry        = div_fraction - 7;
         div_fraction = 7;
     }
     //Calculate DIV_Mantissa value, accounting for any carry values from the previous DIV_Fraction calculation
@@ -279,7 +279,7 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool co
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
     // Keep track of this information for later use in USART interrupt
-    active_uarts[handle->usart_active_num].cont_rx = cont;
+    active_uarts[handle->usart_active_num].cont_rx    = cont;
     active_uarts[handle->usart_active_num].rxfer_size = len;
     handle->periph->CR1 |= USART_CR1_RE;
 // Enable All Interrupts needed to complete Tx transaction
@@ -410,10 +410,10 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         // We also do not want this interrupt activating for every single bit recieved on the rx buffer
         active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
         // Clear any errors that may have been set in the previous Rx
-        active_uarts[idx].active_handle->rx_errors.framing_error = 0;
+        active_uarts[idx].active_handle->rx_errors.framing_error  = 0;
         active_uarts[idx].active_handle->rx_errors.noise_detected = 0;
-        active_uarts[idx].active_handle->rx_errors.overrun = 0;
-        active_uarts[idx].active_handle->rx_errors.parity_error = 0;
+        active_uarts[idx].active_handle->rx_errors.overrun        = 0;
+        active_uarts[idx].active_handle->rx_errors.parity_error   = 0;
     }
     // Clear to send flag
     if (sr & USART_SR_CTS) {
@@ -481,10 +481,10 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         // We also do not want this interrupt activating for every single bit recieved on the rx buffer
         active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
         // Clear any errors that may have been set in the previous Rx
-        active_uarts[idx].active_handle->rx_errors.framing_error = 0;
+        active_uarts[idx].active_handle->rx_errors.framing_error  = 0;
         active_uarts[idx].active_handle->rx_errors.noise_detected = 0;
-        active_uarts[idx].active_handle->rx_errors.overrun = 0;
-        active_uarts[idx].active_handle->rx_errors.parity_error = 0;
+        active_uarts[idx].active_handle->rx_errors.overrun        = 0;
+        active_uarts[idx].active_handle->rx_errors.parity_error   = 0;
     }
     // Clear to send flag
     if (sr & USART_ISR_CTS) {
@@ -564,80 +564,80 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type) {
         dma_num = active_uarts[idx].active_handle->tx_dma_cfg->stream_idx;
 
         // Select appropriate flag and clear registers for Stream
-        sr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HISR;
+        sr_reg  = (dma_num <= 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HISR;
         csr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->tx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->tx_dma_cfg->periph->HIFCR;
     } else // DMA RX is ongoing
     {
         dma_num = active_uarts[idx].active_handle->rx_dma_cfg->stream_idx;
 
         // Select appropriate flag and clear registers for Stream
-        sr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HISR;
+        sr_reg  = (dma_num <= 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LISR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HISR;
         csr_reg = (dma_num <= 3) ? &active_uarts[idx].active_handle->rx_dma_cfg->periph->LIFCR : &active_uarts[idx].active_handle->rx_dma_cfg->periph->HIFCR;
     }
     // Populate Flag Bitmasks, along with Flag and Clear registers for active DMA Stream
     switch (dma_num) {
         case 0:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF0;
-            tcif_flag = DMA_LISR_TCIF0;
-            htif_flag = DMA_LISR_HTIF0;
-            feif_flag = DMA_LISR_FEIF0;
+            teif_flag  = DMA_LISR_TEIF0;
+            tcif_flag  = DMA_LISR_TCIF0;
+            htif_flag  = DMA_LISR_HTIF0;
+            feif_flag  = DMA_LISR_FEIF0;
             dmeif_flag = DMA_LISR_DMEIF0;
             break;
         case 1:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF1;
-            tcif_flag = DMA_LISR_TCIF1;
-            htif_flag = DMA_LISR_HTIF1;
-            feif_flag = DMA_LISR_FEIF1;
+            teif_flag  = DMA_LISR_TEIF1;
+            tcif_flag  = DMA_LISR_TCIF1;
+            htif_flag  = DMA_LISR_HTIF1;
+            feif_flag  = DMA_LISR_FEIF1;
             dmeif_flag = DMA_LISR_DMEIF1;
             break;
         case 2:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF2;
-            tcif_flag = DMA_LISR_TCIF2;
-            htif_flag = DMA_LISR_HTIF2;
-            feif_flag = DMA_LISR_FEIF2;
+            teif_flag  = DMA_LISR_TEIF2;
+            tcif_flag  = DMA_LISR_TCIF2;
+            htif_flag  = DMA_LISR_HTIF2;
+            feif_flag  = DMA_LISR_FEIF2;
             dmeif_flag = DMA_LISR_DMEIF2;
             break;
         case 3:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF3;
-            tcif_flag = DMA_LISR_TCIF3;
-            htif_flag = DMA_LISR_HTIF3;
-            feif_flag = DMA_LISR_FEIF3;
+            teif_flag  = DMA_LISR_TEIF3;
+            tcif_flag  = DMA_LISR_TCIF3;
+            htif_flag  = DMA_LISR_HTIF3;
+            feif_flag  = DMA_LISR_FEIF3;
             dmeif_flag = DMA_LISR_DMEIF3;
             break;
         case 4:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF4;
-            tcif_flag = DMA_HISR_TCIF4;
-            htif_flag = DMA_HISR_HTIF4;
-            feif_flag = DMA_HISR_FEIF4;
+            teif_flag  = DMA_HISR_TEIF4;
+            tcif_flag  = DMA_HISR_TCIF4;
+            htif_flag  = DMA_HISR_HTIF4;
+            feif_flag  = DMA_HISR_FEIF4;
             dmeif_flag = DMA_HISR_DMEIF4;
             break;
         case 5:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF5;
-            tcif_flag = DMA_HISR_TCIF5;
-            htif_flag = DMA_HISR_HTIF5;
-            feif_flag = DMA_HISR_FEIF5;
+            teif_flag  = DMA_HISR_TEIF5;
+            tcif_flag  = DMA_HISR_TCIF5;
+            htif_flag  = DMA_HISR_HTIF5;
+            feif_flag  = DMA_HISR_FEIF5;
             dmeif_flag = DMA_HISR_DMEIF5;
             break;
         case 6:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF6;
-            tcif_flag = DMA_HISR_TCIF6;
-            htif_flag = DMA_HISR_HTIF6;
-            feif_flag = DMA_HISR_FEIF6;
+            teif_flag  = DMA_HISR_TEIF6;
+            tcif_flag  = DMA_HISR_TCIF6;
+            htif_flag  = DMA_HISR_HTIF6;
+            feif_flag  = DMA_HISR_FEIF6;
             dmeif_flag = DMA_HISR_DMEIF6;
             break;
         case 7:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF7;
-            tcif_flag = DMA_HISR_TCIF7;
-            htif_flag = DMA_HISR_HTIF7;
-            feif_flag = DMA_HISR_FEIF7;
+            teif_flag  = DMA_HISR_TEIF7;
+            tcif_flag  = DMA_HISR_TCIF7;
+            htif_flag  = DMA_HISR_HTIF7;
+            feif_flag  = DMA_HISR_FEIF7;
             dmeif_flag = DMA_HISR_DMEIF4;
             break;
         default:

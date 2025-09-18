@@ -216,15 +216,15 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
     int* intptr;
     short int* shortptr;
     signed char* charptr;
-    size_t len = 0;
-    int overflow = 0;
-    int base = 0;
-    int cflags = 0;
-    int flags = 0;
-    int width = 0;
+    size_t len    = 0;
+    int overflow  = 0;
+    int base      = 0;
+    int cflags    = 0;
+    int flags     = 0;
+    int width     = 0;
     int precision = -1;
-    int state = PRINT_S_DEFAULT;
-    char ch = *format++;
+    int state     = PRINT_S_DEFAULT;
+    char ch       = *format++;
 
     /*
      * C99 says: "If `n' is zero, nothing is written, and `s' may be a null
@@ -285,7 +285,7 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                         goto out;
                     }
                     width = 10 * width + ch;
-                    ch = *format++;
+                    ch    = *format++;
                 } else if (ch == '*') {
                     /*
                      * C99 says: "A negative field width argument is
@@ -296,7 +296,7 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                         flags |= PRINT_F_MINUS;
                         width = -width;
                     }
-                    ch = *format++;
+                    ch    = *format++;
                     state = PRINT_S_DOT;
                 } else
                     state = PRINT_S_DOT;
@@ -304,7 +304,7 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
             case PRINT_S_DOT:
                 if (ch == '.') {
                     state = PRINT_S_PRECISION;
-                    ch = *format++;
+                    ch    = *format++;
                 } else
                     state = PRINT_S_MOD;
                 break;
@@ -318,7 +318,7 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                         goto out;
                     }
                     precision = 10 * precision + ch;
-                    ch = *format++;
+                    ch        = *format++;
                 } else if (ch == '*') {
                     /*
                      * C99 says: "A negative precision argument is
@@ -327,7 +327,7 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                      */
                     if ((precision = va_arg(args, int)) < 0)
                         precision = -1;
-                    ch = *format++;
+                    ch    = *format++;
                     state = PRINT_S_MOD;
                 } else
                     state = PRINT_S_MOD;
@@ -337,7 +337,7 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                     case 'h':
                         ch = *format++;
                         if (ch == 'h') { /* It's a char. */
-                            ch = *format++;
+                            ch     = *format++;
                             cflags = PRINT_C_CHAR;
                         } else
                             cflags = PRINT_C_SHORT;
@@ -345,22 +345,22 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                     case 'l':
                         ch = *format++;
                         if (ch == 'l') { /* It's a long long. */
-                            ch = *format++;
+                            ch     = *format++;
                             cflags = PRINT_C_LLONG;
                         } else
                             cflags = PRINT_C_LONG;
                         break;
                     case 'j':
                         cflags = PRINT_C_INTMAX;
-                        ch = *format++;
+                        ch     = *format++;
                         break;
                     case 't':
                         cflags = PRINT_C_PTRDIFF;
-                        ch = *format++;
+                        ch     = *format++;
                         break;
                     case 'z':
                         cflags = PRINT_C_SIZE;
-                        ch = *format++;
+                        ch     = *format++;
                         break;
                 }
                 state = PRINT_S_CONV;
@@ -475,19 +475,19 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                     case 'n':
                         switch (cflags) {
                             case PRINT_C_CHAR:
-                                charptr = va_arg(args, signed char*);
+                                charptr  = va_arg(args, signed char*);
                                 *charptr = len;
                                 break;
                             case PRINT_C_SHORT:
-                                shortptr = va_arg(args, short int*);
+                                shortptr  = va_arg(args, short int*);
                                 *shortptr = len;
                                 break;
                             case PRINT_C_LONG:
-                                longptr = va_arg(args, long int*);
+                                longptr  = va_arg(args, long int*);
                                 *longptr = len;
                                 break;
                             case PRINT_C_LLONG:
-                                llongptr = va_arg(args, LLONG*);
+                                llongptr  = va_arg(args, LLONG*);
                                 *llongptr = len;
                                 break;
                             case PRINT_C_SIZE:
@@ -498,19 +498,19 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                                  * signed integer type corresponding to
                                  * size_t argument." (7.19.6.1, 7)
                                  */
-                                sizeptr = va_arg(args, SSIZE_T*);
+                                sizeptr  = va_arg(args, SSIZE_T*);
                                 *sizeptr = len;
                                 break;
                             case PRINT_C_INTMAX:
-                                intmaxptr = va_arg(args, INTMAX_T*);
+                                intmaxptr  = va_arg(args, INTMAX_T*);
                                 *intmaxptr = len;
                                 break;
                             case PRINT_C_PTRDIFF:
-                                ptrdiffptr = va_arg(args, PTRDIFF_T*);
+                                ptrdiffptr  = va_arg(args, PTRDIFF_T*);
                                 *ptrdiffptr = len;
                                 break;
                             default:
-                                intptr = va_arg(args, int*);
+                                intptr  = va_arg(args, int*);
                                 *intptr = len;
                                 break;
                         }
@@ -521,10 +521,10 @@ int vsnprintf(char* str, size_t size, const char* format, va_list args) {
                     default: /* Skip other characters. */
                         break;
                 }
-                ch = *format++;
+                ch    = *format++;
                 state = PRINT_S_DEFAULT;
                 base = cflags = flags = width = 0;
-                precision = -1;
+                precision                     = -1;
                 break;
         }
 out:
@@ -572,12 +572,12 @@ static void fmtstr(char* str, size_t* len, size_t size, const char* value, int w
 static void fmtint(char* str, size_t* len, size_t size, INTMAX_T value, int base, int width, int precision, int flags) {
     UINTMAX_T uvalue;
     char iconvert[MAX_CONVERT_LENGTH];
-    char sign = 0;
+    char sign      = 0;
     char hexprefix = 0;
-    int spadlen = 0; /* Amount to space pad. */
-    int zpadlen = 0; /* Amount to zero pad. */
+    int spadlen    = 0; /* Amount to space pad. */
+    int zpadlen    = 0; /* Amount to zero pad. */
     int pos;
-    int separators = (flags & PRINT_F_QUOTE);
+    int separators  = (flags & PRINT_F_QUOTE);
     int noprecision = (precision == -1);
 
     if (flags & PRINT_F_UNSIGNED)
@@ -677,7 +677,7 @@ static int getnumsep(int digits) {
 
 static int convert(UINTMAX_T value, char* buf, size_t size, int base, int caps) {
     const char* digits = caps ? "0123456789ABCDEF" : "0123456789abcdef";
-    size_t pos = 0;
+    size_t pos         = 0;
 
     /* We return an unterminated buffer with the digits in reverse order. */
     do {

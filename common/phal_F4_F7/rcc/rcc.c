@@ -79,9 +79,9 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     }
 
     /* Search for a possible PLL configuration */
-    uint8_t pll_input_divisor = RCC_MIN_PLL_INPUT_DIVISOR; // PLLM
+    uint8_t pll_input_divisor     = RCC_MIN_PLL_INPUT_DIVISOR; // PLLM
     uint8_t pll_output_multiplier = RCC_MIN_PLL_OUTPUT_MULTIPLIER; // PLLN
-    bool valid_rate = false;
+    bool valid_rate               = false;
     for (; pll_input_divisor <= RCC_MAX_PLL_INPUT_DIVISOR; pll_input_divisor++) // PLLM must be 2 to 63 (Pg. 227)
     {
         // VCO input frequency = PLL input clock frequency / PLLM with 2 <= PLLM <= 63

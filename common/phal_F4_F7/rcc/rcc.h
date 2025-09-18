@@ -63,10 +63,10 @@ typedef enum {
 
 typedef enum {
     MCO_DIV_NONE = 0,
-    MCO_DIV_2 = 4,
-    MCO_DIV_3 = 5,
-    MCO_DIV_4 = 6,
-    MCO_DIV_5 = 7
+    MCO_DIV_2    = 4,
+    MCO_DIV_3    = 5,
+    MCO_DIV_4    = 6,
+    MCO_DIV_5    = 7
 
 } MCODivisor_t;
 
@@ -76,13 +76,13 @@ typedef enum {
 } ClockSrc_t;
 
 typedef enum {
-    RCC_ERROR_AHB_INIT = 0,
-    RCC_ERROR_APB1_INIT = 1,
-    RCC_ERROR_APB2_INIT = 2,
-    RCC_ERROR_HSI_INIT = 3,
+    RCC_ERROR_AHB_INIT    = 0,
+    RCC_ERROR_APB1_INIT   = 1,
+    RCC_ERROR_APB2_INIT   = 2,
+    RCC_ERROR_HSI_INIT    = 3,
     RCC_ERROR_PLLSYS_INIT = 4,
     RCC_ERROR_PLLVCO_INIT = 5,
-    RCC_ERROR_HSE_INIT = 6,
+    RCC_ERROR_HSE_INIT    = 6,
 } RCCErrors_t;
 
 typedef struct {

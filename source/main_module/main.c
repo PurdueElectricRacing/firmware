@@ -111,14 +111,14 @@ extern uint32_t PLLClockRateHz;
 
 ClockRateConfig_t clock_config =
     {
-        .clock_source = CLOCK_SOURCE_HSI,
-        .use_pll = true,
-        .pll_src = PLL_SRC_HSI16,
+        .clock_source              = CLOCK_SOURCE_HSI,
+        .use_pll                   = true,
+        .pll_src                   = PLL_SRC_HSI16,
         .vco_output_rate_target_hz = 288000000,
-        .system_clock_target_hz = TargetCoreClockrateHz,
-        .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-        .apb1_clock_target_hz = (TargetCoreClockrateHz / 4),
-        .apb2_clock_target_hz = (TargetCoreClockrateHz / 4),
+        .system_clock_target_hz    = TargetCoreClockrateHz,
+        .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
+        .apb1_clock_target_hz      = (TargetCoreClockrateHz / 4),
+        .apb2_clock_target_hz      = (TargetCoreClockrateHz / 4),
 };
 
 /* -------------------------------------------------------
@@ -127,11 +127,11 @@ ClockRateConfig_t clock_config =
 ADCInitConfig_t adc_config =
     {
         .clock_prescaler = ADC_CLK_PRESC_6,
-        .resolution = ADC_RES_12_BIT,
-        .data_align = ADC_DATA_ALIGN_RIGHT,
-        .cont_conv_mode = true,
-        .dma_mode = ADC_DMA_CIRCULAR,
-        .adc_number = 1};
+        .resolution      = ADC_RES_12_BIT,
+        .data_align      = ADC_DATA_ALIGN_RIGHT,
+        .cont_conv_mode  = true,
+        .dma_mode        = ADC_DMA_CIRCULAR,
+        .adc_number      = 1};
 
 /* -------------------------------------------------------
    With 8 ADC channels, a clock prescaler of 16, and a

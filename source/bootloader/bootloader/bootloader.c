@@ -82,7 +82,7 @@
 #define BL_ADDRESS_CRC_ADDR ((BL_ADDRESS_CRC) + 4)
 #define BL_ADDRESS_CRC_SIZE ((BL_ADDRESS_CRC) + 8)
 
-static bool bl_unlock = false;
+static bool bl_unlock                        = false;
 static volatile uint32_t firmware_size_total = 0;
 
 // flash write buffering
@@ -97,8 +97,8 @@ extern char _estack; /* The start location of the stack */
 
 static void BL_JumptoApplication(void) {
     uint32_t app_reset_handler_address = *(uint32_t*)(((void*)&_eboot_flash + 4));
-    uint32_t msp = (uint32_t) * ((uint32_t*)(((void*)&_eboot_flash)));
-    uint32_t estack = (uint32_t)((uint32_t*)(((void*)&_estack)));
+    uint32_t msp                       = (uint32_t)*((uint32_t*)(((void*)&_eboot_flash)));
+    uint32_t estack                    = (uint32_t)((uint32_t*)(((void*)&_estack)));
 
     // Confirm app exists
     if (app_reset_handler_address == 0xFFFFFFFF || app_reset_handler_address <= BL_ADDRESS_CRC || msp != estack)
@@ -116,7 +116,7 @@ static void BL_JumptoApplication(void) {
 #endif
     SysTick->CTRL = 0;
     SysTick->LOAD = 0;
-    SysTick->VAL = 0;
+    SysTick->VAL  = 0;
 
     // Make sure the interrupts are disabled before we start attempting to jump to the app
     // Getting an interrupt after we set VTOR would be bad.
@@ -131,8 +131,8 @@ static void BL_JumptoApplication(void) {
 void BL_checkAndBoot(void) {
     // Check 16K metadata region to decide what to boot
     uint32_t crc_stored = PHAL_flashReadU32(BL_ADDRESS_CRC_CRC);
-    uint32_t addr = PHAL_flashReadU32(BL_ADDRESS_CRC_ADDR);
-    uint32_t size = PHAL_flashReadU32(BL_ADDRESS_CRC_SIZE);
+    uint32_t addr       = PHAL_flashReadU32(BL_ADDRESS_CRC_ADDR);
+    uint32_t size       = PHAL_flashReadU32(BL_ADDRESS_CRC_SIZE);
     if (crc_stored && size && (size < MAX_FIRMWARE_SIZE) && (addr >= FLASH_BASE) && (addr <= FLASH_END)) {
         if (PHAL_CRC32_Calculate((uint32_t*)addr, size / 4) == crc_stored) {
             BL_JumptoApplication();
@@ -154,7 +154,7 @@ static int BL_processCommand_Start(uint32_t size) {
         return -1;
     }
 
-    buffer_index = 0;
+    buffer_index        = 0;
     firmware_size_total = size;
     BL_sendStatusMessage(BLSTAT_VALID, firmware_size_total);
     bl_unlock = true;
@@ -208,7 +208,7 @@ exit:
 void bitstream_data_CALLBACK(CanParsedData_t* msg_data_a) {
     uint64_t data = *((uint64_t*)msg_data_a->raw_data);
     // firmware max 0x40000, so max ID is 0xffff, u16 sufficient
-    uint32_t index = data & 0xffff;
+    uint32_t index   = data & 0xffff;
     uint32_t payload = (data >> 16) & 0xffffffff;
 
 #if 1

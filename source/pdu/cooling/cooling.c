@@ -18,13 +18,13 @@ volatile cooling_request_t cr;
 static void calculate_cooling_periodic();
 
 void coolingInit() {
-    cr.fan1_speed = 0;
-    cr.fan2_speed = 0;
-    cr.fan1_status = false;
-    cr.fan2_status = false;
+    cr.fan1_speed   = 0;
+    cr.fan2_speed   = 0;
+    cr.fan1_status  = false;
+    cr.fan2_status  = false;
     cr.pump1_status = false;
     cr.pump2_status = false;
-    cr.aux_status = false;
+    cr.aux_status   = false;
 }
 
 void update_cooling_periodic() {
@@ -67,7 +67,7 @@ static void calculate_cooling_periodic() {
             cr.fan1_speed = 100; // Default to 100% duty
     } else {
         cr.fan1_status = false;
-        cr.fan1_speed = 0;
+        cr.fan1_speed  = 0;
     }
 
     // PUMP2: Motor pumps
@@ -86,7 +86,7 @@ static void calculate_cooling_periodic() {
             cr.fan2_speed = 100;
     } else {
         cr.fan2_status = false;
-        cr.fan2_speed = 0;
+        cr.fan2_speed  = 0;
     }
 }
 

@@ -35,7 +35,7 @@ static bool PHAL_configureOversampling(ADCInitConfig_t* config) {
 
     // Shift = log2(oversample_count) (to scale sum to average)
     uint8_t ovss = 0;
-    tmp = oversample_count;
+    tmp          = oversample_count;
     while (tmp > 1) {
         tmp >>= 1;
         ovss++;
@@ -64,7 +64,7 @@ static bool PHAL_configureADCChannels(ADCInitConfig_t* config, ADCChannelConfig_
 
     // Configure sequence and sample time ---
     for (uint8_t i = 0; i < num_channels; i++) {
-        uint8_t ch = channels[i].channel;
+        uint8_t ch   = channels[i].channel;
         uint8_t rank = channels[i].rank;
         if (rank <= 0)
             return false;

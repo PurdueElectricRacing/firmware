@@ -76,10 +76,10 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {
     // Ensure device CS is disabled
     PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
 
-    cfg->_busy = false;
-    cfg->_error = false;
+    cfg->_busy              = false;
+    cfg->_error             = false;
     cfg->_direct_mode_error = false;
-    cfg->_fifo_overrun = false;
+    cfg->_fifo_overrun      = false;
 
     return true;
 }
@@ -91,7 +91,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uin
         return false;
 
     active_transfer = spi;
-    spi->_busy = true;
+    spi->_busy      = true;
     // Enable SPI
     spi->periph->CR1 |= SPI_CR1_SPE;
 
@@ -119,7 +119,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uin
         ;
     // Clear overrun
     uint8_t trash = spi->periph->DR;
-    trash = spi->periph->SR;
+    trash         = spi->periph->SR;
 
     // RX
     for (uint32_t i = 0; i < rxlen; i++) {
@@ -251,98 +251,98 @@ static void handleTxComplete() {
     switch (active_transfer->tx_dma_cfg->stream_idx) {
         case 0:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF0;
-            tcif_flag = DMA_LISR_TCIF0;
-            htif_flag = DMA_LISR_HTIF0;
-            feif_flag = DMA_LISR_FEIF0;
+            teif_flag  = DMA_LISR_TEIF0;
+            tcif_flag  = DMA_LISR_TCIF0;
+            htif_flag  = DMA_LISR_HTIF0;
+            feif_flag  = DMA_LISR_FEIF0;
             dmeif_flag = DMA_LISR_DMEIF0;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->LISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
             break;
         case 1:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF1;
-            tcif_flag = DMA_LISR_TCIF1;
-            htif_flag = DMA_LISR_HTIF1;
-            feif_flag = DMA_LISR_FEIF1;
+            teif_flag  = DMA_LISR_TEIF1;
+            tcif_flag  = DMA_LISR_TCIF1;
+            htif_flag  = DMA_LISR_HTIF1;
+            feif_flag  = DMA_LISR_FEIF1;
             dmeif_flag = DMA_LISR_DMEIF1;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->LISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
             break;
         case 2:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF2;
-            tcif_flag = DMA_LISR_TCIF2;
-            htif_flag = DMA_LISR_HTIF2;
-            feif_flag = DMA_LISR_FEIF2;
+            teif_flag  = DMA_LISR_TEIF2;
+            tcif_flag  = DMA_LISR_TCIF2;
+            htif_flag  = DMA_LISR_HTIF2;
+            feif_flag  = DMA_LISR_FEIF2;
             dmeif_flag = DMA_LISR_DMEIF2;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->LISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
             break;
         case 3:
             // Populate Flag Bitmasks
-            teif_flag = DMA_LISR_TEIF3;
-            tcif_flag = DMA_LISR_TCIF3;
-            htif_flag = DMA_LISR_HTIF3;
-            feif_flag = DMA_LISR_FEIF3;
+            teif_flag  = DMA_LISR_TEIF3;
+            tcif_flag  = DMA_LISR_TCIF3;
+            htif_flag  = DMA_LISR_HTIF3;
+            feif_flag  = DMA_LISR_FEIF3;
             dmeif_flag = DMA_LISR_DMEIF3;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->LISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->LISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->LIFCR;
             break;
         case 4:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF4;
-            tcif_flag = DMA_HISR_TCIF4;
-            htif_flag = DMA_HISR_HTIF4;
-            feif_flag = DMA_HISR_FEIF4;
+            teif_flag  = DMA_HISR_TEIF4;
+            tcif_flag  = DMA_HISR_TCIF4;
+            htif_flag  = DMA_HISR_HTIF4;
+            feif_flag  = DMA_HISR_FEIF4;
             dmeif_flag = DMA_HISR_DMEIF4;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->HISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
             break;
         case 5:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF5;
-            tcif_flag = DMA_HISR_TCIF5;
-            htif_flag = DMA_HISR_HTIF5;
-            feif_flag = DMA_HISR_FEIF5;
+            teif_flag  = DMA_HISR_TEIF5;
+            tcif_flag  = DMA_HISR_TCIF5;
+            htif_flag  = DMA_HISR_HTIF5;
+            feif_flag  = DMA_HISR_FEIF5;
             dmeif_flag = DMA_HISR_DMEIF5;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->HISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
             break;
         case 6:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF6;
-            tcif_flag = DMA_HISR_TCIF6;
-            htif_flag = DMA_HISR_HTIF6;
-            feif_flag = DMA_HISR_FEIF6;
+            teif_flag  = DMA_HISR_TEIF6;
+            tcif_flag  = DMA_HISR_TCIF6;
+            htif_flag  = DMA_HISR_HTIF6;
+            feif_flag  = DMA_HISR_FEIF6;
             dmeif_flag = DMA_HISR_DMEIF6;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->HISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
             break;
         case 7:
             // Populate Flag Bitmasks
-            teif_flag = DMA_HISR_TEIF7;
-            tcif_flag = DMA_HISR_TCIF7;
-            htif_flag = DMA_HISR_HTIF7;
-            feif_flag = DMA_HISR_FEIF7;
+            teif_flag  = DMA_HISR_TEIF7;
+            tcif_flag  = DMA_HISR_TCIF7;
+            htif_flag  = DMA_HISR_HTIF7;
+            feif_flag  = DMA_HISR_FEIF7;
             dmeif_flag = DMA_HISR_DMEIF4;
 
             // Select appropriate flag and clear registers for Stream
-            sr_reg = &active_transfer->tx_dma_cfg->periph->HISR;
+            sr_reg  = &active_transfer->tx_dma_cfg->periph->HISR;
             csr_reg = &active_transfer->tx_dma_cfg->periph->HIFCR;
             break;
         default:
@@ -381,11 +381,11 @@ static void handleTxComplete() {
         active_transfer->periph->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
         // Clear possible errors, remove current transaction from active transfer
-        active_transfer->_busy = false;
-        active_transfer->_error = false;
+        active_transfer->_busy              = false;
+        active_transfer->_error             = false;
         active_transfer->_direct_mode_error = false;
-        active_transfer->_fifo_overrun = false;
-        clear_act_transfer = true;
+        active_transfer->_fifo_overrun      = false;
+        clear_act_transfer                  = true;
 
         //Clear interrupt flag
         *csr_reg |= tcif_flag;

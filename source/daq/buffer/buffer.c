@@ -13,16 +13,16 @@
 static void bUpdateMinTail(b_handle_t* b);
 
 void bConstruct(b_handle_t* b, uint32_t item_size, uint32_t buff_size) {
-    b->_item_size = item_size;
-    b->_max_items = (buff_size / (float)item_size);
-    b->_head = 0;
-    b->_min_tail = 0;
-    b->overflows = 0;
-    b->underflows = 0;
-    b->max_level = 0;
+    b->_item_size       = item_size;
+    b->_max_items       = (buff_size / (float)item_size);
+    b->_head            = 0;
+    b->_min_tail        = 0;
+    b->overflows        = 0;
+    b->underflows       = 0;
+    b->max_level        = 0;
     b->_min_tail_active = false;
     for (uint8_t i = 0; i < b->num_tails; ++i) {
-        b->tails[i]._tail = 0;
+        b->tails[i]._tail  = 0;
         b->tails[i].active = false;
     }
 }
@@ -80,8 +80,8 @@ int8_t bCommitWrite(b_handle_t* b, uint32_t items_written) {
         return -1;
     }
     uint32_t next_head = (head + items_written) % b->_max_items;
-    b->_head = next_head;
-    uint32_t level = bGetFillLevel(b);
+    b->_head           = next_head;
+    uint32_t level     = bGetFillLevel(b);
     if (level > b->max_level)
         b->max_level = level;
     return 0;
@@ -103,10 +103,10 @@ int8_t bSendToBack(b_handle_t* b, const void* data) {
 static void bUpdateMinTail(b_handle_t* b) {
     uint32_t max_to_read = 0;
     uint32_t curr_to_read;
-    uint32_t head = b->_head; // Capture head (volatile)
+    uint32_t head          = b->_head; // Capture head (volatile)
     uint32_t next_min_tail = head;
-    b_tail_t* t = b->tails;
-    bool tail_active = false;
+    b_tail_t* t            = b->tails;
+    bool tail_active       = false;
     // If no tails active, updates to head (empties buffer)
     // Finds the active tail that is furthest from the head
     for (uint8_t i = 0; i < b->num_tails; ++i) {
@@ -117,13 +117,13 @@ static void bUpdateMinTail(b_handle_t* b) {
             else
                 curr_to_read = b->_max_items - (t->_tail - head);
             if (curr_to_read > max_to_read) {
-                max_to_read = curr_to_read;
+                max_to_read   = curr_to_read;
                 next_min_tail = t->_tail;
             }
         }
         ++t;
     }
-    b->_min_tail = next_min_tail;
+    b->_min_tail        = next_min_tail;
     b->_min_tail_active = tail_active;
     // Set tail then if its active
     // When reading, read if active first, then the value
@@ -160,8 +160,8 @@ uint32_t bGetFillLevel(b_handle_t* b) {
 
 void bActivateTail(b_handle_t* b, uint8_t t_idx) {
     b_tail_t* t = b->tails + t_idx;
-    t->_tail = b->_head; // Initialize to be caught up
-    t->active = true;
+    t->_tail    = b->_head; // Initialize to be caught up
+    t->active   = true;
     bUpdateMinTail(b);
 }
 
@@ -212,7 +212,7 @@ int8_t bCommitRead(b_handle_t* b, uint8_t t_idx, uint32_t items_read) {
     if (!t->active)
         return -1; // Gotcha3
     // Verify number of items read
-    uint32_t head = b->_head;
+    uint32_t head             = b->_head;
     uint32_t max_contig_items = 0;
     if (t->_tail <= head)
         max_contig_items = head - t->_tail;

@@ -87,12 +87,12 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time) {
 
     // The TR, DR registers are write protected. The write access procedure is
     //  described in RTC register write protection on RM 0090 page 803
-    uint8_t yearTens = (initial_time->date.year_bcd >> 4) & 0x0F;
-    uint8_t yearUnits = initial_time->date.year_bcd & 0x0F;
-    uint8_t monthTens = (initial_time->date.month_bcd >> 4) & 0x0F;
+    uint8_t yearTens   = (initial_time->date.year_bcd >> 4) & 0x0F;
+    uint8_t yearUnits  = initial_time->date.year_bcd & 0x0F;
+    uint8_t monthTens  = (initial_time->date.month_bcd >> 4) & 0x0F;
     uint8_t monthUnits = initial_time->date.month_bcd & 0x0F;
-    uint8_t dayTens = (initial_time->date.day_bcd >> 4) & 0x0F;
-    uint8_t dayUnits = initial_time->date.day_bcd & 0x0F;
+    uint8_t dayTens    = (initial_time->date.day_bcd >> 4) & 0x0F;
+    uint8_t dayUnits   = initial_time->date.day_bcd & 0x0F;
 
     uint32_t DR = 0;
 
@@ -106,11 +106,11 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time) {
 
     RTC->DR = DR;
 
-    uint8_t hoursTens = (initial_time->time.hours_bcd >> 4) & 0x0F;
-    uint8_t hoursUnits = initial_time->time.hours_bcd & 0x0F;
-    uint8_t minutesTens = (initial_time->time.minutes_bcd >> 4) & 0x0F;
+    uint8_t hoursTens    = (initial_time->time.hours_bcd >> 4) & 0x0F;
+    uint8_t hoursUnits   = initial_time->time.hours_bcd & 0x0F;
+    uint8_t minutesTens  = (initial_time->time.minutes_bcd >> 4) & 0x0F;
     uint8_t minutesUnits = initial_time->time.minutes_bcd & 0x0F;
-    uint8_t secondsTens = (initial_time->time.seconds_bcd >> 4) & 0x0F;
+    uint8_t secondsTens  = (initial_time->time.seconds_bcd >> 4) & 0x0F;
     uint8_t secondsUnits = initial_time->time.seconds_bcd & 0x0F;
 
     uint32_t TR = 0;
@@ -131,7 +131,7 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time) {
     while (RTC->ISR & RTC_ISR_INITF)
         ;
 
-        // Relock registers
+    // Relock registers
 #if defined(STM32F407xx)
     PWR->CR &= ~(PWR_CR_DBP);
 #elif defined(STM32F732xx)
@@ -163,10 +163,10 @@ bool PHAL_getTimeRTC(RTC_timestamp_t* currentTimestamp) {
         uint8_t year = (RTC->DR & RTC_DR_YU_Msk) >> RTC_DR_YU_Pos;
         year += ((RTC->DR & RTC_DR_YT_Msk) >> RTC_DR_YT_Pos) * 10;
 
-        currentTimestamp->date.year_bcd = year;
-        currentTimestamp->date.month_bcd = month;
-        currentTimestamp->date.day_bcd = day;
-        currentTimestamp->time.hours_bcd = hours;
+        currentTimestamp->date.year_bcd    = year;
+        currentTimestamp->date.month_bcd   = month;
+        currentTimestamp->date.day_bcd     = day;
+        currentTimestamp->time.hours_bcd   = hours;
         currentTimestamp->time.minutes_bcd = minutes;
         currentTimestamp->time.seconds_bcd = seconds;
         currentTimestamp->time.time_format = RTC_FORMAT_24_HOUR;

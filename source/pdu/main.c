@@ -103,22 +103,22 @@ GPIOInitConfig_t gpio_config[] = {
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
-    .resolution = ADC_RES_12_BIT,
-    .data_align = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .adc_number = 1,
-    .dma_mode = ADC_DMA_CIRCULAR};
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .adc_number      = 1,
+    .dma_mode        = ADC_DMA_CIRCULAR};
 
 /* SPI Configuration */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
 SPI_InitConfig_t spi_config = {
-    .data_len = 8,
-    .nss_sw = false,
+    .data_len   = 8,
+    .nss_sw     = false,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI1};
+    .periph     = SPI1};
 
 /* With 11 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
@@ -146,14 +146,14 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&adc_readings,
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSE,
-    .use_pll = false,
+    .clock_source              = CLOCK_SOURCE_HSE,
+    .use_pll                   = false,
     .vco_output_rate_target_hz = 160000000,
-    .pll_src = PLL_SRC_HSE,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .pll_src                   = PLL_SRC_HSE,
+    .system_clock_target_hz    = TargetCoreClockrateHz,
+    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz      = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz      = (TargetCoreClockrateHz / (1)),
 };
 
 extern uint32_t APB1ClockRateHz;
@@ -344,7 +344,7 @@ void send_iv_readings() {
     // Voltage at 25 degrees c is 0.76
     // Average slope is 2.5mV per degree c
     float vsense = (adc_readings.internal_therm / (float)4095) * 3.3;
-    float temp = ((vsense - 0.76) / 0.0025) + 25;
+    float temp   = ((vsense - 0.76) / 0.0025) + 25;
     SEND_PDU_TEMPS((uint16_t)temp);
 }
 

@@ -20,8 +20,8 @@ bool daq_request_sd_mount(void) {
 
 static void sd_handle_error(sd_error_t err, FRESULT res) {
     ++dh.sd_error_ct;
-    dh.sd_last_err = err;
-    dh.sd_last_err_res = res;
+    dh.sd_last_err        = err;
+    dh.sd_last_err_res    = res;
     dh.sd_last_error_time = getTick();
     PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
     debug_printf("sd err: %d res: %d\n", err, res);
@@ -34,8 +34,8 @@ static void sd_reset_error(void) {
 
     dh.sd_last_error_time = getTick();
     if (dh.sd_last_err != SD_ERROR_NONE) {
-        dh.sd_state = SD_STATE_IDLE; // Retry
-        dh.sd_last_err = SD_ERROR_NONE;
+        dh.sd_state        = SD_STATE_IDLE; // Retry
+        dh.sd_last_err     = SD_ERROR_NONE;
         dh.sd_last_err_res = 0;
         PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
     }
@@ -156,7 +156,7 @@ void sd_update_periodic(void) {
         case SD_STATE_MOUNTED:
             res = sd_create_new_file();
             if (res == FR_OK) {
-                dh.sd_state = SD_STATE_ACTIVE;
+                dh.sd_state     = SD_STATE_ACTIVE;
                 dh.log_start_ms = getTick();
             }
             break;

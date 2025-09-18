@@ -20,8 +20,8 @@ timestamped_frame_t rx_buffer[RX_CT];
 b_tail_t tails[RX_TAIL_CT];
 
 b_handle_t b_rx_can = {
-    .buffer = (uint8_t*)rx_buffer,
-    .tails = tails,
+    .buffer    = (uint8_t*)rx_buffer,
+    .tails     = tails,
     .num_tails = RX_TAIL_CT,
 };
 
@@ -29,7 +29,7 @@ static int _check_write(void) {
     t_start();
     timestamped_frame_t* head;
     uint32_t start_head = b_rx_can._head;
-    uint32_t next_head = (b_rx_can._head + 1) % RX_CT;
+    uint32_t next_head  = (b_rx_can._head + 1) % RX_CT;
     uint32_t cont;
     t_check(bGetHeadForWrite(&b_rx_can, (void*)&head, &cont) == 0, "head");
     t_check(cont >= 1, "head cont");
@@ -92,7 +92,7 @@ static int _test_basic() {
 
     // center the tail
     b_rx_can._min_tail = 16;
-    tails[0]._tail = 16;
+    tails[0]._tail     = 16;
 
     // Tail is now greater than head
     t_check(bGetTailForRead(&b_rx_can, 0, (void*)&tail, &contig_items) == 0, "get tail");

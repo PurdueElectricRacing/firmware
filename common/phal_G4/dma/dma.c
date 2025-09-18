@@ -43,7 +43,7 @@ bool PHAL_initDMA(dma_init_t* dma) {
     // Set peripheral address (src)
     dma->channel->CPAR = dma->periph_addr;
     // Set memory address (dst)
-    dma->channel->CMAR = dma->mem_addr;
+    dma->channel->CMAR  = dma->mem_addr;
     dma->channel->CNDTR = dma->tx_size;
 
     // Reset preconfigured CR values

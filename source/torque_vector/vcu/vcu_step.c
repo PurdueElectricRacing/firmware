@@ -85,50 +85,50 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
     bool b_minval;
     bool c_minval;
     bool minval;
-    PT_sensors[0] = (x->TH_RAW >= p->TH_lb);
-    PT_sensors[1] = (x->VB_RAW >= p->VB_lb);
-    PT_sensors[6] = (x->IB_RAW >= p->IB_lb);
-    PT_sensors[7] = (x->MT_RAW >= p->MT_lb);
-    PT_sensors[8] = (x->CT_RAW >= p->CT_lb);
-    PT_sensors[9] = (x->IT_RAW >= p->IT_lb);
-    PT_sensors[10] = (x->MC_RAW >= p->MC_lb);
-    PT_sensors[11] = (x->IC_RAW >= p->IC_lb);
-    PT_sensors[12] = (x->BT_RAW >= p->BT_lb);
-    b_PT_sensors[0] = (x->TH_RAW <= p->TH_ub);
-    b_PT_sensors[1] = (x->VB_RAW <= p->VB_ub);
-    PT_sensors[2] = (x->WT_RAW[0] >= p->WT_lb[0]);
-    PT_sensors[4] = (x->WM_RAW[0] >= p->WM_lb[0]);
-    b_PT_sensors[2] = (x->WT_RAW[0] <= p->WT_ub[0]);
-    b_PT_sensors[4] = (x->WM_RAW[0] <= p->WM_ub[0]);
-    PT_sensors[3] = (x->WT_RAW[1] >= p->WT_lb[1]);
-    PT_sensors[5] = (x->WM_RAW[1] >= p->WM_lb[1]);
-    b_PT_sensors[3] = (x->WT_RAW[1] <= p->WT_ub[1]);
-    b_PT_sensors[5] = (x->WM_RAW[1] <= p->WM_ub[1]);
-    b_PT_sensors[6] = (x->IB_RAW <= p->IB_ub);
-    b_PT_sensors[7] = (x->MT_RAW <= p->MT_ub);
-    b_PT_sensors[8] = (x->CT_RAW <= p->CT_ub);
-    b_PT_sensors[9] = (x->IT_RAW <= p->IT_ub);
+    PT_sensors[0]    = (x->TH_RAW >= p->TH_lb);
+    PT_sensors[1]    = (x->VB_RAW >= p->VB_lb);
+    PT_sensors[6]    = (x->IB_RAW >= p->IB_lb);
+    PT_sensors[7]    = (x->MT_RAW >= p->MT_lb);
+    PT_sensors[8]    = (x->CT_RAW >= p->CT_lb);
+    PT_sensors[9]    = (x->IT_RAW >= p->IT_lb);
+    PT_sensors[10]   = (x->MC_RAW >= p->MC_lb);
+    PT_sensors[11]   = (x->IC_RAW >= p->IC_lb);
+    PT_sensors[12]   = (x->BT_RAW >= p->BT_lb);
+    b_PT_sensors[0]  = (x->TH_RAW <= p->TH_ub);
+    b_PT_sensors[1]  = (x->VB_RAW <= p->VB_ub);
+    PT_sensors[2]    = (x->WT_RAW[0] >= p->WT_lb[0]);
+    PT_sensors[4]    = (x->WM_RAW[0] >= p->WM_lb[0]);
+    b_PT_sensors[2]  = (x->WT_RAW[0] <= p->WT_ub[0]);
+    b_PT_sensors[4]  = (x->WM_RAW[0] <= p->WM_ub[0]);
+    PT_sensors[3]    = (x->WT_RAW[1] >= p->WT_lb[1]);
+    PT_sensors[5]    = (x->WM_RAW[1] >= p->WM_lb[1]);
+    b_PT_sensors[3]  = (x->WT_RAW[1] <= p->WT_ub[1]);
+    b_PT_sensors[5]  = (x->WM_RAW[1] <= p->WM_ub[1]);
+    b_PT_sensors[6]  = (x->IB_RAW <= p->IB_ub);
+    b_PT_sensors[7]  = (x->MT_RAW <= p->MT_ub);
+    b_PT_sensors[8]  = (x->CT_RAW <= p->CT_ub);
+    b_PT_sensors[9]  = (x->IT_RAW <= p->IT_ub);
     b_PT_sensors[10] = (x->MC_RAW <= p->MC_ub);
     b_PT_sensors[11] = (x->IC_RAW <= p->IC_ub);
     b_PT_sensors[12] = (x->BT_RAW <= p->BT_ub);
-    b_p[0] = p->CS_SFLAG_True;
-    b_p[1] = p->TB_SFLAG_True;
-    b_p[2] = p->WT_SFLAG_True;
-    b_p[3] = p->IV_SFLAG_True;
-    b_p[4] = p->BT_SFLAG_True;
-    b_p[5] = p->IAC_SFLAG_True;
-    b_p[6] = p->IAT_SFLAG_True;
-    b_p[7] = p->IBC_SFLAG_True;
-    b_p[8] = p->IBT_SFLAG_True;
-    b_f[0] = f->CS_SFLAG;
-    b_f[1] = f->TB_SFLAG;
-    b_f[2] = f->WT_SFLAG;
-    b_f[3] = f->IV_SFLAG;
-    b_f[4] = f->BT_SFLAG;
-    b_f[5] = f->IAC_SFLAG;
-    b_f[6] = f->IAT_SFLAG;
-    b_f[7] = f->IBC_SFLAG;
-    b_f[8] = f->IBT_SFLAG;
+    b_p[0]           = p->CS_SFLAG_True;
+    b_p[1]           = p->TB_SFLAG_True;
+    b_p[2]           = p->WT_SFLAG_True;
+    b_p[3]           = p->IV_SFLAG_True;
+    b_p[4]           = p->BT_SFLAG_True;
+    b_p[5]           = p->IAC_SFLAG_True;
+    b_p[6]           = p->IAT_SFLAG_True;
+    b_p[7]           = p->IBC_SFLAG_True;
+    b_p[8]           = p->IBT_SFLAG_True;
+    b_f[0]           = f->CS_SFLAG;
+    b_f[1]           = f->TB_SFLAG;
+    b_f[2]           = f->WT_SFLAG;
+    b_f[3]           = f->IV_SFLAG;
+    b_f[4]           = f->BT_SFLAG;
+    b_f[5]           = f->IAC_SFLAG;
+    b_f[6]           = f->IAT_SFLAG;
+    b_f[7]           = f->IBC_SFLAG;
+    b_f[8]           = f->IBT_SFLAG;
     for (i = 0; i < 13; i++) {
         varargin_1[i] = (PT_sensors[i] && b_PT_sensors[i]);
     }
@@ -144,62 +144,62 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
     y->PT_permit_buffer[2] = y->PT_permit_buffer[3];
     y->PT_permit_buffer[3] = y->PT_permit_buffer[4];
     y->PT_permit_buffer[4] = minval;
-    VS_sensors[0] = (x->TH_RAW >= p->TH_lb);
-    VS_sensors[1] = (x->VB_RAW >= p->VB_lb);
-    VS_sensors[16] = (x->VS_MAX_SR_RAW >= p->VS_MAX_SR_lb);
-    b_VS_sensors[0] = (x->TH_RAW <= p->TH_ub);
-    b_VS_sensors[1] = (x->VB_RAW <= p->VB_ub);
-    VS_sensors[2] = (x->WT_RAW[0] >= p->WT_lb[0]);
-    VS_sensors[4] = (x->WM_RAW[0] >= p->WM_lb[0]);
-    VS_sensors[14] = (x->TO_RAW[0] >= p->TO_lb[0]);
-    b_VS_sensors[2] = (x->WT_RAW[0] <= p->WT_ub[0]);
-    b_VS_sensors[4] = (x->WM_RAW[0] <= p->WM_ub[0]);
-    b_VS_sensors[14] = (x->TO_RAW[0] <= p->TO_ub[0]);
-    VS_sensors[3] = (x->WT_RAW[1] >= p->WT_lb[1]);
-    VS_sensors[5] = (x->WM_RAW[1] >= p->WM_lb[1]);
-    VS_sensors[15] = (x->TO_RAW[1] >= p->TO_lb[1]);
-    b_VS_sensors[3] = (x->WT_RAW[1] <= p->WT_ub[1]);
-    b_VS_sensors[5] = (x->WM_RAW[1] <= p->WM_ub[1]);
-    b_VS_sensors[15] = (x->TO_RAW[1] <= p->TO_ub[1]);
-    VS_sensors[6] = (x->GS_RAW >= p->GS_lb);
-    VS_sensors[7] = (x->IB_RAW >= p->IB_lb);
-    VS_sensors[8] = (x->MT_RAW >= p->MT_lb);
-    VS_sensors[9] = (x->CT_RAW >= p->CT_lb);
-    VS_sensors[10] = (x->IT_RAW >= p->IT_lb);
-    VS_sensors[11] = (x->MC_RAW >= p->MC_lb);
-    VS_sensors[12] = (x->IC_RAW >= p->IC_lb);
-    VS_sensors[13] = (x->BT_RAW >= p->BT_lb);
-    b_VS_sensors[6] = (x->GS_RAW <= p->GS_ub);
-    b_VS_sensors[7] = (x->IB_RAW <= p->IB_ub);
-    b_VS_sensors[8] = (x->MT_RAW <= p->MT_ub);
-    b_VS_sensors[9] = (x->CT_RAW <= p->CT_ub);
-    b_VS_sensors[10] = (x->IT_RAW <= p->IT_ub);
-    b_VS_sensors[11] = (x->MC_RAW <= p->MC_ub);
-    b_VS_sensors[12] = (x->IC_RAW <= p->IC_ub);
-    b_VS_sensors[13] = (x->BT_RAW <= p->BT_ub);
-    b_VS_sensors[16] = (x->VS_MAX_SR_RAW <= p->VS_MAX_SR_ub);
-    c_p[0] = p->CS_SFLAG_True;
-    c_p[1] = p->TB_SFLAG_True;
-    c_p[2] = p->WT_SFLAG_True;
-    c_p[3] = p->IV_SFLAG_True;
-    c_p[4] = p->BT_SFLAG_True;
-    c_p[5] = p->IAC_SFLAG_True;
-    c_p[6] = p->IAT_SFLAG_True;
-    c_p[7] = p->IBC_SFLAG_True;
-    c_p[8] = p->IBT_SFLAG_True;
-    c_p[9] = p->GS_FFLAG_True;
-    c_p[10] = p->VCU_PFLAG_VS;
-    c_f[0] = f->CS_SFLAG;
-    c_f[1] = f->TB_SFLAG;
-    c_f[2] = f->WT_SFLAG;
-    c_f[3] = f->IV_SFLAG;
-    c_f[4] = f->BT_SFLAG;
-    c_f[5] = f->IAC_SFLAG;
-    c_f[6] = f->IAT_SFLAG;
-    c_f[7] = f->IBC_SFLAG;
-    c_f[8] = f->IBT_SFLAG;
-    c_f[9] = f->GS_FFLAG;
-    c_f[10] = f->VCU_PFLAG;
+    VS_sensors[0]          = (x->TH_RAW >= p->TH_lb);
+    VS_sensors[1]          = (x->VB_RAW >= p->VB_lb);
+    VS_sensors[16]         = (x->VS_MAX_SR_RAW >= p->VS_MAX_SR_lb);
+    b_VS_sensors[0]        = (x->TH_RAW <= p->TH_ub);
+    b_VS_sensors[1]        = (x->VB_RAW <= p->VB_ub);
+    VS_sensors[2]          = (x->WT_RAW[0] >= p->WT_lb[0]);
+    VS_sensors[4]          = (x->WM_RAW[0] >= p->WM_lb[0]);
+    VS_sensors[14]         = (x->TO_RAW[0] >= p->TO_lb[0]);
+    b_VS_sensors[2]        = (x->WT_RAW[0] <= p->WT_ub[0]);
+    b_VS_sensors[4]        = (x->WM_RAW[0] <= p->WM_ub[0]);
+    b_VS_sensors[14]       = (x->TO_RAW[0] <= p->TO_ub[0]);
+    VS_sensors[3]          = (x->WT_RAW[1] >= p->WT_lb[1]);
+    VS_sensors[5]          = (x->WM_RAW[1] >= p->WM_lb[1]);
+    VS_sensors[15]         = (x->TO_RAW[1] >= p->TO_lb[1]);
+    b_VS_sensors[3]        = (x->WT_RAW[1] <= p->WT_ub[1]);
+    b_VS_sensors[5]        = (x->WM_RAW[1] <= p->WM_ub[1]);
+    b_VS_sensors[15]       = (x->TO_RAW[1] <= p->TO_ub[1]);
+    VS_sensors[6]          = (x->GS_RAW >= p->GS_lb);
+    VS_sensors[7]          = (x->IB_RAW >= p->IB_lb);
+    VS_sensors[8]          = (x->MT_RAW >= p->MT_lb);
+    VS_sensors[9]          = (x->CT_RAW >= p->CT_lb);
+    VS_sensors[10]         = (x->IT_RAW >= p->IT_lb);
+    VS_sensors[11]         = (x->MC_RAW >= p->MC_lb);
+    VS_sensors[12]         = (x->IC_RAW >= p->IC_lb);
+    VS_sensors[13]         = (x->BT_RAW >= p->BT_lb);
+    b_VS_sensors[6]        = (x->GS_RAW <= p->GS_ub);
+    b_VS_sensors[7]        = (x->IB_RAW <= p->IB_ub);
+    b_VS_sensors[8]        = (x->MT_RAW <= p->MT_ub);
+    b_VS_sensors[9]        = (x->CT_RAW <= p->CT_ub);
+    b_VS_sensors[10]       = (x->IT_RAW <= p->IT_ub);
+    b_VS_sensors[11]       = (x->MC_RAW <= p->MC_ub);
+    b_VS_sensors[12]       = (x->IC_RAW <= p->IC_ub);
+    b_VS_sensors[13]       = (x->BT_RAW <= p->BT_ub);
+    b_VS_sensors[16]       = (x->VS_MAX_SR_RAW <= p->VS_MAX_SR_ub);
+    c_p[0]                 = p->CS_SFLAG_True;
+    c_p[1]                 = p->TB_SFLAG_True;
+    c_p[2]                 = p->WT_SFLAG_True;
+    c_p[3]                 = p->IV_SFLAG_True;
+    c_p[4]                 = p->BT_SFLAG_True;
+    c_p[5]                 = p->IAC_SFLAG_True;
+    c_p[6]                 = p->IAT_SFLAG_True;
+    c_p[7]                 = p->IBC_SFLAG_True;
+    c_p[8]                 = p->IBT_SFLAG_True;
+    c_p[9]                 = p->GS_FFLAG_True;
+    c_p[10]                = p->VCU_PFLAG_VS;
+    c_f[0]                 = f->CS_SFLAG;
+    c_f[1]                 = f->TB_SFLAG;
+    c_f[2]                 = f->WT_SFLAG;
+    c_f[3]                 = f->IV_SFLAG;
+    c_f[4]                 = f->BT_SFLAG;
+    c_f[5]                 = f->IAC_SFLAG;
+    c_f[6]                 = f->IAT_SFLAG;
+    c_f[7]                 = f->IBC_SFLAG;
+    c_f[8]                 = f->IBT_SFLAG;
+    c_f[9]                 = f->GS_FFLAG;
+    c_f[10]                = f->VCU_PFLAG;
     for (i2 = 0; i2 < 17; i2++) {
         b_varargin_1[i2] = (VS_sensors[i2] && b_VS_sensors[i2]);
     }
@@ -215,80 +215,80 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
     y->VS_permit_buffer[2] = y->VS_permit_buffer[3];
     y->VS_permit_buffer[3] = y->VS_permit_buffer[4];
     y->VS_permit_buffer[4] = b_minval;
-    VT_sensors[0] = (x->TH_RAW >= p->TH_lb);
-    VT_sensors[1] = (x->ST_RAW >= p->ST_lb);
-    VT_sensors[2] = (x->VB_RAW >= p->VB_lb);
-    VT_sensors[3] = (x->WT_RAW[0] >= p->WT_lb[0]);
-    VT_sensors[5] = (x->WM_RAW[0] >= p->WM_lb[0]);
-    VT_sensors[4] = (x->WT_RAW[1] >= p->WT_lb[1]);
-    VT_sensors[6] = (x->WM_RAW[1] >= p->WM_lb[1]);
-    VT_sensors[7] = (x->GS_RAW >= p->GS_lb);
-    VT_sensors[8] = (x->AV_RAW[0] >= p->AV_lb[0]);
-    VT_sensors[9] = (x->AV_RAW[1] >= p->AV_lb[1]);
-    VT_sensors[10] = (x->AV_RAW[2] >= p->AV_lb[2]);
-    VT_sensors[11] = (x->IB_RAW >= p->IB_lb);
-    VT_sensors[12] = (x->MT_RAW >= p->MT_lb);
-    VT_sensors[13] = (x->CT_RAW >= p->CT_lb);
-    VT_sensors[14] = (x->IT_RAW >= p->IT_lb);
-    VT_sensors[15] = (x->MC_RAW >= p->MC_lb);
-    VT_sensors[16] = (x->IC_RAW >= p->IC_lb);
-    VT_sensors[17] = (x->BT_RAW >= p->BT_lb);
-    VT_sensors[20] = (x->VT_DB_RAW >= p->VT_DB_lb);
-    VT_sensors[21] = (x->TV_PP_RAW >= p->TV_PP_lb);
-    VT_sensors[22] = (x->TC_TR_RAW >= p->TC_TR_lb);
-    b_VT_sensors[0] = (x->TH_RAW <= p->TH_ub);
-    b_VT_sensors[1] = (x->ST_RAW <= p->ST_ub);
-    b_VT_sensors[2] = (x->VB_RAW <= p->VB_ub);
-    VT_sensors[18] = (x->TO_RAW[0] >= p->TO_lb[0]);
-    b_VT_sensors[3] = (x->WT_RAW[0] <= p->WT_ub[0]);
-    b_VT_sensors[5] = (x->WM_RAW[0] <= p->WM_ub[0]);
-    VT_sensors[19] = (x->TO_RAW[1] >= p->TO_lb[1]);
-    b_VT_sensors[4] = (x->WT_RAW[1] <= p->WT_ub[1]);
-    b_VT_sensors[6] = (x->WM_RAW[1] <= p->WM_ub[1]);
-    b_VT_sensors[7] = (x->GS_RAW <= p->GS_ub);
-    b_VT_sensors[8] = (x->AV_RAW[0] <= p->AV_ub[0]);
-    b_VT_sensors[9] = (x->AV_RAW[1] <= p->AV_ub[1]);
-    b_VT_sensors[10] = (x->AV_RAW[2] <= p->AV_ub[2]);
-    b_VT_sensors[11] = (x->IB_RAW <= p->IB_ub);
-    b_VT_sensors[12] = (x->MT_RAW <= p->MT_ub);
-    b_VT_sensors[13] = (x->CT_RAW <= p->CT_ub);
-    b_VT_sensors[14] = (x->IT_RAW <= p->IT_ub);
-    b_VT_sensors[15] = (x->MC_RAW <= p->MC_ub);
-    b_VT_sensors[16] = (x->IC_RAW <= p->IC_ub);
-    b_VT_sensors[17] = (x->BT_RAW <= p->BT_ub);
-    b_VT_sensors[18] = (x->TO_RAW[0] <= p->TO_ub[0]);
-    b_VT_sensors[19] = (x->TO_RAW[1] <= p->TO_ub[1]);
-    b_VT_sensors[20] = (x->VT_DB_RAW <= p->VT_DB_ub);
-    b_VT_sensors[21] = (x->TV_PP_RAW <= p->TV_PP_ub);
-    b_VT_sensors[22] = (x->TC_TR_RAW <= p->TC_TR_ub);
-    d_p[0] = p->CS_SFLAG_True;
-    d_p[1] = p->TB_SFLAG_True;
-    d_p[2] = p->SS_SFLAG_True;
-    d_p[3] = p->WT_SFLAG_True;
-    d_p[4] = p->IV_SFLAG_True;
-    d_p[5] = p->BT_SFLAG_True;
-    d_p[6] = p->IAC_SFLAG_True;
-    d_p[7] = p->IAT_SFLAG_True;
-    d_p[8] = p->IBC_SFLAG_True;
-    d_p[9] = p->IBT_SFLAG_True;
-    d_p[10] = p->SS_FFLAG_True;
-    d_p[11] = p->AV_FFLAG_True;
-    d_p[12] = p->GS_FFLAG_True;
-    d_p[13] = p->VCU_PFLAG_VT;
-    d_f[0] = f->CS_SFLAG;
-    d_f[1] = f->TB_SFLAG;
-    d_f[2] = f->SS_SFLAG;
-    d_f[3] = f->WT_SFLAG;
-    d_f[4] = f->IV_SFLAG;
-    d_f[5] = f->BT_SFLAG;
-    d_f[6] = f->IAC_SFLAG;
-    d_f[7] = f->IAT_SFLAG;
-    d_f[8] = f->IBC_SFLAG;
-    d_f[9] = f->IBT_SFLAG;
-    d_f[10] = f->SS_FFLAG;
-    d_f[11] = f->AV_FFLAG;
-    d_f[12] = f->GS_FFLAG;
-    d_f[13] = f->VCU_PFLAG;
+    VT_sensors[0]          = (x->TH_RAW >= p->TH_lb);
+    VT_sensors[1]          = (x->ST_RAW >= p->ST_lb);
+    VT_sensors[2]          = (x->VB_RAW >= p->VB_lb);
+    VT_sensors[3]          = (x->WT_RAW[0] >= p->WT_lb[0]);
+    VT_sensors[5]          = (x->WM_RAW[0] >= p->WM_lb[0]);
+    VT_sensors[4]          = (x->WT_RAW[1] >= p->WT_lb[1]);
+    VT_sensors[6]          = (x->WM_RAW[1] >= p->WM_lb[1]);
+    VT_sensors[7]          = (x->GS_RAW >= p->GS_lb);
+    VT_sensors[8]          = (x->AV_RAW[0] >= p->AV_lb[0]);
+    VT_sensors[9]          = (x->AV_RAW[1] >= p->AV_lb[1]);
+    VT_sensors[10]         = (x->AV_RAW[2] >= p->AV_lb[2]);
+    VT_sensors[11]         = (x->IB_RAW >= p->IB_lb);
+    VT_sensors[12]         = (x->MT_RAW >= p->MT_lb);
+    VT_sensors[13]         = (x->CT_RAW >= p->CT_lb);
+    VT_sensors[14]         = (x->IT_RAW >= p->IT_lb);
+    VT_sensors[15]         = (x->MC_RAW >= p->MC_lb);
+    VT_sensors[16]         = (x->IC_RAW >= p->IC_lb);
+    VT_sensors[17]         = (x->BT_RAW >= p->BT_lb);
+    VT_sensors[20]         = (x->VT_DB_RAW >= p->VT_DB_lb);
+    VT_sensors[21]         = (x->TV_PP_RAW >= p->TV_PP_lb);
+    VT_sensors[22]         = (x->TC_TR_RAW >= p->TC_TR_lb);
+    b_VT_sensors[0]        = (x->TH_RAW <= p->TH_ub);
+    b_VT_sensors[1]        = (x->ST_RAW <= p->ST_ub);
+    b_VT_sensors[2]        = (x->VB_RAW <= p->VB_ub);
+    VT_sensors[18]         = (x->TO_RAW[0] >= p->TO_lb[0]);
+    b_VT_sensors[3]        = (x->WT_RAW[0] <= p->WT_ub[0]);
+    b_VT_sensors[5]        = (x->WM_RAW[0] <= p->WM_ub[0]);
+    VT_sensors[19]         = (x->TO_RAW[1] >= p->TO_lb[1]);
+    b_VT_sensors[4]        = (x->WT_RAW[1] <= p->WT_ub[1]);
+    b_VT_sensors[6]        = (x->WM_RAW[1] <= p->WM_ub[1]);
+    b_VT_sensors[7]        = (x->GS_RAW <= p->GS_ub);
+    b_VT_sensors[8]        = (x->AV_RAW[0] <= p->AV_ub[0]);
+    b_VT_sensors[9]        = (x->AV_RAW[1] <= p->AV_ub[1]);
+    b_VT_sensors[10]       = (x->AV_RAW[2] <= p->AV_ub[2]);
+    b_VT_sensors[11]       = (x->IB_RAW <= p->IB_ub);
+    b_VT_sensors[12]       = (x->MT_RAW <= p->MT_ub);
+    b_VT_sensors[13]       = (x->CT_RAW <= p->CT_ub);
+    b_VT_sensors[14]       = (x->IT_RAW <= p->IT_ub);
+    b_VT_sensors[15]       = (x->MC_RAW <= p->MC_ub);
+    b_VT_sensors[16]       = (x->IC_RAW <= p->IC_ub);
+    b_VT_sensors[17]       = (x->BT_RAW <= p->BT_ub);
+    b_VT_sensors[18]       = (x->TO_RAW[0] <= p->TO_ub[0]);
+    b_VT_sensors[19]       = (x->TO_RAW[1] <= p->TO_ub[1]);
+    b_VT_sensors[20]       = (x->VT_DB_RAW <= p->VT_DB_ub);
+    b_VT_sensors[21]       = (x->TV_PP_RAW <= p->TV_PP_ub);
+    b_VT_sensors[22]       = (x->TC_TR_RAW <= p->TC_TR_ub);
+    d_p[0]                 = p->CS_SFLAG_True;
+    d_p[1]                 = p->TB_SFLAG_True;
+    d_p[2]                 = p->SS_SFLAG_True;
+    d_p[3]                 = p->WT_SFLAG_True;
+    d_p[4]                 = p->IV_SFLAG_True;
+    d_p[5]                 = p->BT_SFLAG_True;
+    d_p[6]                 = p->IAC_SFLAG_True;
+    d_p[7]                 = p->IAT_SFLAG_True;
+    d_p[8]                 = p->IBC_SFLAG_True;
+    d_p[9]                 = p->IBT_SFLAG_True;
+    d_p[10]                = p->SS_FFLAG_True;
+    d_p[11]                = p->AV_FFLAG_True;
+    d_p[12]                = p->GS_FFLAG_True;
+    d_p[13]                = p->VCU_PFLAG_VT;
+    d_f[0]                 = f->CS_SFLAG;
+    d_f[1]                 = f->TB_SFLAG;
+    d_f[2]                 = f->SS_SFLAG;
+    d_f[3]                 = f->WT_SFLAG;
+    d_f[4]                 = f->IV_SFLAG;
+    d_f[5]                 = f->BT_SFLAG;
+    d_f[6]                 = f->IAC_SFLAG;
+    d_f[7]                 = f->IAT_SFLAG;
+    d_f[8]                 = f->IBC_SFLAG;
+    d_f[9]                 = f->IBT_SFLAG;
+    d_f[10]                = f->SS_FFLAG;
+    d_f[11]                = f->AV_FFLAG;
+    d_f[12]                = f->GS_FFLAG;
+    d_f[13]                = f->VCU_PFLAG;
     for (i4 = 0; i4 < 23; i4++) {
         c_varargin_1[i4] = (VT_sensors[i4] && b_VT_sensors[i4]);
     }
@@ -317,23 +317,23 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
     } else {
         y->VCU_mode = 1.0F;
     }
-    y->TH_CF = fmaxf(fminf(x->TH_RAW, p->TH_ub), p->TH_lb);
-    y->ST_CF = fmaxf(fminf(x->ST_RAW, p->ST_ub), p->ST_lb);
-    y->VB_CF = fmaxf(fminf(x->VB_RAW, p->VB_ub), p->VB_lb);
+    y->TH_CF    = fmaxf(fminf(x->TH_RAW, p->TH_ub), p->TH_lb);
+    y->ST_CF    = fmaxf(fminf(x->ST_RAW, p->ST_ub), p->ST_lb);
+    y->VB_CF    = fmaxf(fminf(x->VB_RAW, p->VB_ub), p->VB_lb);
     y->WT_CF[0] = fmaxf(fminf(x->WT_RAW[0], p->WT_ub[0]), p->WT_lb[0]);
-    e_f = fmaxf(fminf(x->WM_RAW[0], p->WM_ub[0]), p->WM_lb[0]);
+    e_f         = fmaxf(fminf(x->WM_RAW[0], p->WM_ub[0]), p->WM_lb[0]);
     y->TO_CF[0] = e_f;
     y->WM_CF[0] = e_f;
-    y->W_CF[0] = e_f / p->gr;
+    y->W_CF[0]  = e_f / p->gr;
     y->WT_CF[1] = fmaxf(fminf(x->WT_RAW[1], p->WT_ub[1]), p->WT_lb[1]);
-    e_f = fmaxf(fminf(x->WM_RAW[1], p->WM_ub[1]), p->WM_lb[1]);
+    e_f         = fmaxf(fminf(x->WM_RAW[1], p->WM_ub[1]), p->WM_lb[1]);
     y->TO_CF[1] = e_f;
     y->WM_CF[1] = e_f;
-    y->W_CF[1] = e_f / p->gr;
-    y->GS_CF = fmaxf(fminf(x->GS_RAW, p->GS_ub), p->GS_lb);
-    f1 = x->AV_RAW[0];
-    f2 = x->AV_RAW[1];
-    f3 = x->AV_RAW[2];
+    y->W_CF[1]  = e_f / p->gr;
+    y->GS_CF    = fmaxf(fminf(x->GS_RAW, p->GS_ub), p->GS_lb);
+    f1          = x->AV_RAW[0];
+    f2          = x->AV_RAW[1];
+    f3          = x->AV_RAW[2];
     for (d_k = 0; d_k < 3; d_k++) {
         y->AV_CF[d_k] =
             fmaxf(fminf((p->R[d_k] * f1 + p->R[d_k + 3] * f2) + p->R[d_k + 6] * f3,
@@ -344,7 +344,7 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
         y->IB_CF_buffer[i6] = y->IB_CF_buffer[i6 + 1];
     }
     y->IB_CF_buffer[9] = fmaxf(fminf(x->IB_RAW, p->IB_ub), p->IB_lb);
-    b_x = y->IB_CF_buffer[0];
+    b_x                = y->IB_CF_buffer[0];
     for (e_k = 0; e_k < 9; e_k++) {
         b_x += y->IB_CF_buffer[e_k + 1];
     }
@@ -355,9 +355,9 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
     y->MC_CF = fmaxf(fminf(x->MC_RAW, p->MC_ub), p->MC_lb);
     y->IC_CF = fmaxf(fminf(x->IC_RAW, p->IC_ub), p->IC_lb);
     y->BT_CF = fmaxf(fminf(x->BT_RAW, p->BT_ub), p->BT_lb);
-    f4 = x->AG_RAW[0];
-    f5 = x->AG_RAW[1];
-    f6 = x->AG_RAW[2];
+    f4       = x->AG_RAW[0];
+    f5       = x->AG_RAW[1];
+    f6       = x->AG_RAW[2];
     for (f_k = 0; f_k < 3; f_k++) {
         y->AG_CF[f_k] =
             fmaxf(fminf((p->R[f_k] * f4 + p->R[f_k + 3] * f5) + p->R[f_k + 6] * f6,
@@ -377,19 +377,19 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
         float capacity_used;
         float xi;
         y->Batt_Voc = y->VB_CF;
-        xi = y->VB_CF / p->Ns;
+        xi          = y->VB_CF / p->Ns;
         memcpy(&d_varargin_1[0], &p->Batt_Voc_brk[0], 506U * sizeof(float));
         memcpy(&varargin_2[0], &p->Batt_As_Discharged_tbl[0], 506U * sizeof(float));
         if (p->Batt_Voc_brk[1] < p->Batt_Voc_brk[0]) {
             for (b_j1 = 0; b_j1 < 253; b_j1++) {
                 float b_xtmp;
                 float xtmp;
-                xtmp = d_varargin_1[b_j1];
-                d_varargin_1[b_j1] = d_varargin_1[505 - b_j1];
+                xtmp                     = d_varargin_1[b_j1];
+                d_varargin_1[b_j1]       = d_varargin_1[505 - b_j1];
                 d_varargin_1[505 - b_j1] = xtmp;
-                b_xtmp = varargin_2[b_j1];
-                varargin_2[b_j1] = varargin_2[505 - b_j1];
-                varargin_2[505 - b_j1] = b_xtmp;
+                b_xtmp                   = varargin_2[b_j1];
+                varargin_2[b_j1]         = varargin_2[505 - b_j1];
+                varargin_2[505 - b_j1]   = b_xtmp;
             }
         }
         capacity_used = 0.0F;
@@ -398,14 +398,14 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
             int high_i;
             int low_i;
             int low_ip1;
-            low_i = 1;
+            low_i   = 1;
             low_ip1 = 2;
-            high_i = 506;
+            high_i  = 506;
             while (high_i > low_ip1) {
                 int mid_i;
                 mid_i = (low_i + high_i) >> 1;
                 if (xi >= d_varargin_1[mid_i - 1]) {
-                    low_i = mid_i;
+                    low_i   = mid_i;
                     low_ip1 = mid_i + 1;
                 } else {
                     high_i = mid_i;
@@ -413,7 +413,7 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
             }
             float r_tmp;
             r_tmp = d_varargin_1[low_i - 1];
-            r = (xi - r_tmp) / (d_varargin_1[low_i] - r_tmp);
+            r     = (xi - r_tmp) / (d_varargin_1[low_i] - r_tmp);
             if (r == 0.0F) {
                 capacity_used = varargin_2[low_i - 1];
             } else if (r == 1.0F) {
@@ -429,13 +429,13 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
                 }
             }
         }
-        e_p[0] = p->Batt_cell_zero_SOC_capacity;
-        e_p[1] = p->Batt_cell_full_SOC_capacity;
-        fv[0] = 0.0F;
-        fv[1] = 1.0F;
+        e_p[0]      = p->Batt_cell_zero_SOC_capacity;
+        e_p[1]      = p->Batt_cell_full_SOC_capacity;
+        fv[0]       = 0.0F;
+        fv[1]       = 1.0F;
         y->Batt_SOC = fmaxf(fminf(interp1(e_p, fv, capacity_used), 1.0F), 0.0F);
     }
-    out = y->TH_CF * p->MAX_TORQUE_NOM;
+    out         = y->TH_CF * p->MAX_TORQUE_NOM;
     y->TO_ET[0] = out;
     y->WM_CS[0] = p->MAX_SPEED_NOM;
     y->TO_ET[1] = out;
@@ -450,23 +450,23 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
         float ex_tmp;
         float varargin_1_idx_1;
         float varargin_1_idx_2;
-        e_p[0] = p->iT_derating_full_T;
-        e_p[1] = p->iT_derating_zero_T;
-        f_p[0] = p->bT_derating_full_T;
-        f_p[1] = p->bT_derating_zero_T;
-        g_p[0] = p->Vb_derating_full_T;
-        g_p[1] = p->Vb_derating_zero_T;
-        fv[0] = 1.0F;
-        fv1[0] = 1.0F;
-        fv2[0] = 1.0F;
-        fv[1] = 0.0F;
-        fv1[1] = 0.0F;
-        fv2[1] = 0.0F;
+        e_p[0]           = p->iT_derating_full_T;
+        e_p[1]           = p->iT_derating_zero_T;
+        f_p[0]           = p->bT_derating_full_T;
+        f_p[1]           = p->bT_derating_zero_T;
+        g_p[0]           = p->Vb_derating_full_T;
+        g_p[1]           = p->Vb_derating_zero_T;
+        fv[0]            = 1.0F;
+        fv1[0]           = 1.0F;
+        fv2[0]           = 1.0F;
+        fv[1]            = 0.0F;
+        fv1[1]           = 0.0F;
+        fv2[1]           = 0.0F;
         varargin_1_idx_1 = p->MAX_TORQUE_NOM * interp1(f_p, fv1, fmaxf(fminf(y->BT_CF, p->bT_derating_zero_T), p->bT_derating_full_T));
         varargin_1_idx_2 = p->MAX_TORQUE_NOM * interp1(g_p, fv2, fmaxf(fminf(y->VB_CF, p->Vb_derating_zero_T), p->Vb_derating_full_T));
-        ex_tmp = p->MAX_TORQUE_NOM * interp1(e_p, fv, fmaxf(fminf(y->IT_CF, p->iT_derating_zero_T), p->iT_derating_full_T));
-        ex = ex_tmp;
-        a = fminf(y->TO_AB_MX * y->TH_CF, p->MAX_TORQUE_NOM);
+        ex_tmp           = p->MAX_TORQUE_NOM * interp1(e_p, fv, fmaxf(fminf(y->IT_CF, p->iT_derating_zero_T), p->iT_derating_full_T));
+        ex               = ex_tmp;
+        a                = fminf(y->TO_AB_MX * y->TH_CF, p->MAX_TORQUE_NOM);
         if (ex_tmp > varargin_1_idx_1) {
             ex = varargin_1_idx_1;
         }
@@ -479,8 +479,8 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
     }
     if (y->VCU_mode == 3.0F) {
         float b_out;
-        y->SR_VS = y->TH_CF * y->VS_MAX_SR_CF;
-        b_out = fmaxf(p->WM_VS_LS, p->gr * (y->GS_CF / p->r * (y->SR_VS + 1.0F)));
+        y->SR_VS    = y->TH_CF * y->VS_MAX_SR_CF;
+        b_out       = fmaxf(p->WM_VS_LS, p->gr * (y->GS_CF / p->r * (y->SR_VS + 1.0F)));
         y->WM_VS[0] = b_out;
         y->WM_VS[1] = b_out;
     }
@@ -493,9 +493,9 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
             y->VT_mode = 2.0F;
         }
         if (y->VT_mode == 1.0F) {
-            y->SR = 0.5F * (y->W_CF[0] + y->W_CF[1]) * p->r / fmaxf(fminf(y->GS_CF, y->GS_CF), p->TC_eps) - 1.0F;
+            y->SR       = 0.5F * (y->W_CF[0] + y->W_CF[1]) * p->r / fmaxf(fminf(y->GS_CF, y->GS_CF), p->TC_eps) - 1.0F;
             y->TC_highs = (y->TC_highs + 1.0F) * (float)(y->SR >= p->TC_SR_threshold);
-            y->TC_lows = (y->TC_lows + 1.0F) * (float)(y->SR < p->TC_SR_threshold);
+            y->TC_lows  = (y->TC_lows + 1.0F) * (float)(y->SR < p->TC_SR_threshold);
             if (y->TC_highs >= p->TC_highs_to_engage) {
                 y->TO_VT[0] = y->TO_PT[0] * y->TC_TR_CF;
                 y->TO_VT[1] = y->TO_PT[1] * y->TC_TR_CF;
@@ -518,27 +518,27 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
                 int c_high_i;
                 int c_low_i;
                 int c_low_ip1;
-                b_low_i = 0;
+                b_low_i   = 0;
                 b_low_ip1 = 2;
-                b_high_i = 53;
+                b_high_i  = 53;
                 while (b_high_i > b_low_ip1) {
                     int b_mid_i;
                     b_mid_i = ((b_low_i + b_high_i) + 1) >> 1;
                     if (Xqk >= p->TV_ST_brkpt[b_mid_i - 1]) {
-                        b_low_i = b_mid_i - 1;
+                        b_low_i   = b_mid_i - 1;
                         b_low_ip1 = b_mid_i + 1;
                     } else {
                         b_high_i = b_mid_i;
                     }
                 }
-                c_low_i = 1;
+                c_low_i   = 1;
                 c_low_ip1 = 2;
-                c_high_i = 51;
+                c_high_i  = 51;
                 while (c_high_i > c_low_ip1) {
                     int c_mid_i;
                     c_mid_i = (c_low_i + c_high_i) >> 1;
                     if (Yqk >= p->TV_GS_brkpt[c_mid_i - 1]) {
-                        c_low_i = c_mid_i;
+                        c_low_i   = c_mid_i;
                         c_low_ip1 = c_mid_i + 1;
                     } else {
                         c_high_i = c_mid_i;
@@ -547,16 +547,16 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
                 if (Xqk == p->TV_ST_brkpt[b_low_i]) {
                     int qx1_tmp;
                     qx1_tmp = c_low_i + 51 * b_low_i;
-                    qx1 = p->TV_AV_table[qx1_tmp - 1];
-                    qx2 = p->TV_AV_table[qx1_tmp];
+                    qx1     = p->TV_AV_table[qx1_tmp - 1];
+                    qx2     = p->TV_AV_table[qx1_tmp];
                 } else {
                     float f8;
                     f8 = p->TV_ST_brkpt[b_low_i + 1];
                     if (Xqk == f8) {
                         int b_qx1_tmp;
                         b_qx1_tmp = c_low_i + 51 * (b_low_i + 1);
-                        qx1 = p->TV_AV_table[b_qx1_tmp - 1];
-                        qx2 = p->TV_AV_table[b_qx1_tmp];
+                        qx1       = p->TV_AV_table[b_qx1_tmp - 1];
+                        qx2       = p->TV_AV_table[b_qx1_tmp];
                     } else {
                         float b_qx2_tmp;
                         float c_qx1_tmp;
@@ -565,17 +565,17 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
                         float rx;
                         int b_qx1_tmp_tmp;
                         int qx1_tmp_tmp;
-                        rx = (Xqk - p->TV_ST_brkpt[b_low_i]) / (f8 - p->TV_ST_brkpt[b_low_i]);
-                        qx1_tmp_tmp = c_low_i + 51 * b_low_i;
-                        c_qx1_tmp = p->TV_AV_table[qx1_tmp_tmp - 1];
+                        rx            = (Xqk - p->TV_ST_brkpt[b_low_i]) / (f8 - p->TV_ST_brkpt[b_low_i]);
+                        qx1_tmp_tmp   = c_low_i + 51 * b_low_i;
+                        c_qx1_tmp     = p->TV_AV_table[qx1_tmp_tmp - 1];
                         b_qx1_tmp_tmp = c_low_i + 51 * (b_low_i + 1);
-                        d_qx1_tmp = p->TV_AV_table[b_qx1_tmp_tmp - 1];
+                        d_qx1_tmp     = p->TV_AV_table[b_qx1_tmp_tmp - 1];
                         if (c_qx1_tmp == d_qx1_tmp) {
                             qx1 = c_qx1_tmp;
                         } else {
                             qx1 = (1.0F - rx) * c_qx1_tmp + rx * d_qx1_tmp;
                         }
-                        qx2_tmp = p->TV_AV_table[qx1_tmp_tmp];
+                        qx2_tmp   = p->TV_AV_table[qx1_tmp_tmp];
                         b_qx2_tmp = p->TV_AV_table[b_qx1_tmp_tmp];
                         if (qx2_tmp == b_qx2_tmp) {
                             qx2 = qx2_tmp;
@@ -591,7 +591,7 @@ void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, 
                     y->TV_AV_ref = qx2;
                 } else {
                     float ry;
-                    ry = (Yqk - f9) / (p->TV_GS_brkpt[c_low_i] - f9);
+                    ry           = (Yqk - f9) / (p->TV_GS_brkpt[c_low_i] - f9);
                     y->TV_AV_ref = (1.0F - ry) * qx1 + ry * qx2;
                 }
             } else {

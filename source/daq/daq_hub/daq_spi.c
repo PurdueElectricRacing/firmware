@@ -78,7 +78,7 @@ static void PHAL_SPI_transfer_noDMA_DAQW5500Only(SPI_InitConfig_t* spi, uint32_t
 
     // Clear overrun
     uint8_t trash = spi->periph->DR;
-    trash = spi->periph->SR;
+    trash         = spi->periph->SR;
 
     // RX
     for (uint32_t i = 0; i < rxlen; i++) {

@@ -71,8 +71,8 @@ typedef struct
     PER internal AMK states
 -------------------------------------------------------- */
 typedef enum {
-    AMK_STATE_OFF = 0,
-    AMK_STATE_INIT = 1,
+    AMK_STATE_OFF     = 0,
+    AMK_STATE_INIT    = 1,
     AMK_STATE_RUNNING = 2
 } AMK_motor_state_t;
 

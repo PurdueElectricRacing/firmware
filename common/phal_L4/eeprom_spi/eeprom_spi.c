@@ -57,7 +57,7 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t* 
 
     // Set WC pins
     mem.wc_gpio_port = wc_gpio_port;
-    mem.wc_gpio_pin = wc_gpio_pin;
+    mem.wc_gpio_pin  = wc_gpio_pin;
 
     mem.spi = spi;
 
@@ -75,7 +75,7 @@ int initMem(GPIO_TypeDef* wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t* 
         // It isn't, and we want it to be, so set to default values
         if (force_init) {
             mem.phys.init_key = INIT_KEY;
-            mem.phys.version = 1;
+            mem.phys.version  = 1;
             mem.init_physical = true;
             ee_memset(mem.phys.filename, sizeof(mem.phys.filename), 0);
             ee_memset((uint8_t*)mem.phys.pg_bound, sizeof(mem.phys.pg_bound), 0);
@@ -207,10 +207,10 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
     // Copy over new metadata
     ee_memcpy(fname, &mem.phys.filename[i * NAME_LEN], NAME_LEN);
     mem.phys.mem_size[i] = len;
-    mem.phys.bcmp[i] = bcmp;
+    mem.phys.bcmp[i]     = bcmp;
     mem.phys.pg_bound[i] = (i == 0) ? MACRO_PG_SIZE : ROUNDUP(mem.phys.pg_bound[i - 1] + mem.phys.mem_size[i - 1], MICRO_PG_SIZE);
-    mem.pg_addr[i] = addr;
-    mem.pg_size[i] = len;
+    mem.pg_addr[i]       = addr;
+    mem.pg_size[i]       = len;
     ee_request_flush_physical();
     requestFlush(fname); // Write to default values
 
@@ -218,11 +218,11 @@ int mapMem(uint8_t* addr, uint16_t len, uint8_t* fname, bool bcmp) {
 }
 
 typedef enum {
-    BG_IDLE = 0,
-    BG_ZERO = 1,
+    BG_IDLE       = 0,
+    BG_ZERO       = 1,
     BG_FLUSH_META = 2,
-    BG_LOAD = 3,
-    BG_FLUSH = 4
+    BG_LOAD       = 3,
+    BG_FLUSH      = 4
 } BG_State;
 
 static uint8_t curr_page;
@@ -259,7 +259,7 @@ void memBg(void) {
             bg_state = BG_LOAD;
         else
             return; // Nothing to do
-        addr = 0; // restart
+        addr      = 0; // restart
         curr_page = 0;
     }
 
@@ -268,29 +268,29 @@ void memBg(void) {
             break;
         case BG_ZERO:
             mem.write_pending = true;
-            mem.source_loc = mem_zero;
-            mem.dest_loc = addr;
-            mem.update_len = MICRO_PG_SIZE;
+            mem.source_loc    = mem_zero;
+            mem.dest_loc      = addr;
+            mem.update_len    = MICRO_PG_SIZE;
             addr += MICRO_PG_SIZE;
             if (addr >= CHIP_SIZE) {
                 mem.zero_req = false;
-                bg_state = BG_IDLE;
+                bg_state     = BG_IDLE;
             }
             break;
         case BG_LOAD:
             curr_page = ee_get_idx(mem.req_load);
-            addr = mem.phys.pg_bound[curr_page];
+            addr      = mem.phys.pg_bound[curr_page];
             // Loads do all pages at once (don't want half data in memory when using it)
             readMem(addr, mem.pg_addr[curr_page], mem.phys.mem_size[curr_page]);
             ee_clear_idx(mem.req_load, curr_page);
-            bg_state = BG_IDLE;
-            addr = 0;
+            bg_state  = BG_IDLE;
+            addr      = 0;
             curr_page = 0;
             break;
         case BG_FLUSH:
             if (curr_page == 0) {
                 curr_page = ee_get_idx(mem.req_flush);
-                addr = mem.phys.pg_bound[curr_page];
+                addr      = mem.phys.pg_bound[curr_page];
             }
             end = mem.phys.pg_bound[curr_page] + mem.pg_size[curr_page];
             len = (addr + MICRO_PG_SIZE > end) ? (mem.pg_size[curr_page] % MICRO_PG_SIZE) : MICRO_PG_SIZE;
@@ -304,18 +304,18 @@ void memBg(void) {
 
             if (ret < 0) {
                 mem.write_pending = true;
-                mem.dest_loc = addr;
-                mem.source_loc = (uint8_t*)(mem.pg_addr[curr_page] + addr - mem.phys.pg_bound[curr_page]);
-                mem.update_len = len;
+                mem.dest_loc      = addr;
+                mem.source_loc    = (uint8_t*)(mem.pg_addr[curr_page] + addr - mem.phys.pg_bound[curr_page]);
+                mem.update_len    = len;
             }
 
             addr += MICRO_PG_SIZE;
 
             if (addr >= end) {
                 ee_clear_idx(mem.req_flush, curr_page);
-                addr = 0;
+                addr      = 0;
                 curr_page = 0;
-                bg_state = BG_IDLE;
+                bg_state  = BG_IDLE;
             }
             break;
         case BG_FLUSH_META:
@@ -332,18 +332,18 @@ void memBg(void) {
 
             if (ret < 0) {
                 mem.write_pending = true;
-                mem.dest_loc = addr;
-                mem.source_loc = ((uint8_t*)&mem.phys) + addr;
-                mem.update_len = len;
+                mem.dest_loc      = addr;
+                mem.source_loc    = ((uint8_t*)&mem.phys) + addr;
+                mem.update_len    = len;
             }
 
             addr += MICRO_PG_SIZE;
 
             if (addr >= sizeof(struct phys_mem)) {
-                addr = 0;
-                curr_page = 0;
+                addr               = 0;
+                curr_page          = 0;
                 mem.flush_physical = 0;
-                bg_state = BG_IDLE;
+                bg_state           = BG_IDLE;
             }
             break;
         default:
@@ -429,9 +429,9 @@ int writePage(uint16_t addr, uint8_t* page, uint8_t size) {
         return -E_SPI;
 
     // Must send a E_WREN before each write command (NSS must go low and back high to latch)
-    tx_command[0] = E_WREN;
+    tx_command[0]   = E_WREN;
     mem.spi->nss_sw = true; // SPI library can deal with this
-    ret = !PHAL_SPI_transfer(mem.spi, tx_command, 1, NULL);
+    ret             = !PHAL_SPI_transfer(mem.spi, tx_command, 1, NULL);
     while (PHAL_SPI_busy(mem.spi))
         ;
 
@@ -504,7 +504,7 @@ void requestFlush(char* name) {
     // In the middle of flushing, restart process
     if (bg_state == BG_FLUSH && curr_page == i) {
         curr_page = 0;
-        addr = 0;
+        addr      = 0;
     }
 }
 
@@ -624,12 +624,12 @@ static void ee_memcpy(uint8_t* src, uint8_t* dest, size_t len) {
  * 
  */
 static uint8_t ee_get_idx(uint32_t* req) {
-    uint8_t idx = 0;
+    uint8_t idx          = 0;
     uint32_t search_vals = req[0];
 
     if (req[0] == 0) {
         search_vals = req[1];
-        idx = 32;
+        idx         = 32;
     }
     for (uint8_t i = 0; i < 32; ++i) {
         if (search_vals & 0b1) {
@@ -654,7 +654,7 @@ static void ee_clear_idx(uint32_t* req, uint8_t idx) {
 static void ee_request_flush_physical() {
     mem.flush_physical = true;
     if (bg_state == BG_FLUSH_META) {
-        addr = 0;
+        addr      = 0;
         curr_page = 0;
     }
 }

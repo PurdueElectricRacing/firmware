@@ -42,30 +42,30 @@ volatile uint32_t tick_ms; // Systick 1ms counter
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSI,
-    .use_pll = false,
+    .clock_source              = CLOCK_SOURCE_HSI,
+    .use_pll                   = false,
     .vco_output_rate_target_hz = 160000000,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .system_clock_target_hz    = TargetCoreClockrateHz,
+    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz      = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz      = (TargetCoreClockrateHz / (1)),
 };
 
 dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t usart_config = {
-    .baud_rate = 115200,
-    .word_length = WORD_8,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .hw_flow_ctl = HW_DISABLE,
-    .ovsample = OV_16,
-    .obsample = OB_DISABLE,
-    .periph = USART2,
-    .wake_addr = false,
-    .usart_active_num = USART2_ACTIVE_IDX,
-    .tx_dma_cfg = &usart_tx_dma_config,
-    .rx_dma_cfg = &usart_rx_dma_config};
+usart_init_t usart_config      = {
+         .baud_rate        = 115200,
+         .word_length      = WORD_8,
+         .stop_bits        = SB_ONE,
+         .parity           = PT_NONE,
+         .hw_flow_ctl      = HW_DISABLE,
+         .ovsample         = OV_16,
+         .obsample         = OB_DISABLE,
+         .periph           = USART2,
+         .wake_addr        = false,
+         .usart_active_num = USART2_ACTIVE_IDX,
+         .tx_dma_cfg       = &usart_tx_dma_config,
+         .rx_dma_cfg       = &usart_rx_dma_config};
 DEBUG_PRINTF_USART_DEFINE(&usart_config) // use LTE uart lmao
 
 int main() {

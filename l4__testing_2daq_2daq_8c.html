@@ -212,13 +212,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .blue_on = 0,</div>
-<div class="line">    .red_on = 0,</div>
-<div class="line">    .green_on = 0,</div>
-<div class="line">    .odometer = 0,</div>
+<div class="line">    .blue_on        = 0,</div>
+<div class="line">    .red_on         = 0,</div>
+<div class="line">    .green_on       = 0,</div>
+<div class="line">    .odometer       = 0,</div>
 <div class="line">    .charge_current = 0,</div>
 <div class="line">    .charge_voltage = 0,</div>
-<div class="line">    .trim = -12,</div>
+<div class="line">    .trim           = -12,</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>
@@ -278,23 +278,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    {.is_read_only=1, .bit_length=8, .read_var_a=&amp;<a class="code hl_variable" href="#ab05997d286451b50b3f332495d4e4450">my_counter</a>, .write_var_a=NULL, },</div>
-<div class="line">    {.is_read_only=0, .bit_length=12, .read_var_a=&amp;<a class="code hl_variable" href="#a40b9a70c3c134f75f0c77514ebf0b17b">my_counter2</a>, .write_var_a=&amp;<a class="code hl_variable" href="#a40b9a70c3c134f75f0c77514ebf0b17b">my_counter2</a>, },</div>
-<div class="line">    {.is_read_only=0, .bit_length=1, .read_var_a=&amp;<a class="code hl_variable" href="#ab84f8aed561146f738758e941a2a545b">charge_enable</a>, .write_var_a=&amp;<a class="code hl_variable" href="#ab84f8aed561146f738758e941a2a545b">charge_enable</a>, },</div>
-<div class="line">    {.is_read_only=0, .bit_length=8, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.blue_on), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.blue_on), },</div>
-<div class="line">    {.is_read_only=0, .bit_length=8, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.red_on), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.red_on), },</div>
-<div class="line">    {.is_read_only=0, .bit_length=8, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.green_on), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.green_on), },</div>
-<div class="line">    {.is_read_only=0, .bit_length=32, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.odometer), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.odometer), },</div>
-<div class="line">    {.is_read_only=0, .bit_length=32, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.charge_current), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.charge_current), },</div>
-<div class="line">    {.is_read_only=0, .bit_length=32, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.charge_voltage), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.charge_voltage), },</div>
-<div class="line">    {.is_read_only=0, .bit_length=16, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.trim), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.trim), },</div>
-<div class="line">}</div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_a25ce4b69d296fc9a3324b494542c2420"><div class="ttname"><a href="#a25ce4b69d296fc9a3324b494542c2420">config</a></div><div class="ttdeci">config_t config</div><div class="ttdef"><b>Definition</b> daq.c:38</div></div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_a40b9a70c3c134f75f0c77514ebf0b17b"><div class="ttname"><a href="#a40b9a70c3c134f75f0c77514ebf0b17b">my_counter2</a></div><div class="ttdeci">uint16_t my_counter2</div><div class="ttdef"><b>Definition</b> main.c:152</div></div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab05997d286451b50b3f332495d4e4450"><div class="ttname"><a href="#ab05997d286451b50b3f332495d4e4450">my_counter</a></div><div class="ttdeci">uint16_t my_counter</div><div class="ttdef"><b>Definition</b> main.c:151</div></div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab84f8aed561146f738758e941a2a545b"><div class="ttname"><a href="#ab84f8aed561146f738758e941a2a545b">charge_enable</a></div><div class="ttdeci">uint8_t charge_enable</div><div class="ttdef"><b>Definition</b> main.c:98</div></div>
-</div><!-- fragment -->
+
 </div>
 </div>
 </div><!-- contents -->

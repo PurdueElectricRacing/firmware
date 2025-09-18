@@ -153,6 +153,7 @@ extern uint32_t PLLClockRateHz;
 // LCD Variables
 extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
+#define SLEEP_DELAY_SECONDS 300 //timer before brightness to 0 if no input
 
 brake_status_t brake_status = {0};
 
@@ -554,29 +555,39 @@ void encoderISR() {
  * Meant to be called periodically.
  */
 void handleDashboardInputs() {
+    uint8_t brightnessUp = 0;
     if (input_state.up_button) {
         input_state.up_button = 0;
+        brightnessUp = 1;
         moveUp();
     }
 
     if (input_state.down_button) {
         input_state.down_button = 0;
+        brightnessUp = 1;
         moveDown();
     }
 
     if (input_state.select_button) {
         input_state.select_button = 0;
+        brightnessUp = 1;
         selectItem();
     }
 
     if (input_state.update_page) {
         input_state.update_page = 0;
+        brightnessUp = 1;
         updatePage();
     }
 
     if (input_state.start_button) {
         input_state.start_button = 0;
+        brightnessUp = 1;
         SEND_START_BUTTON(1);
+    }
+
+    if (brightnessUp){
+        NXT_setBrightness(100);
     }
 }
 
@@ -672,4 +683,14 @@ void HardFault_Handler() {
     schedPause();
     while (1)
         IWDG->KR = 0xAAAA; // Reset watchdog
+}
+
+void lcdSleep() {
+    if (can_data.main_hb.stale) {
+        return;
+    }
+    if ((sched.os_ticks - last_input_time >= SLEEP_DELAY_SECONDS*1000) && (can_data.main_hb.car_state == CAR_STATE_IDLE)) {
+        NXT_setBrightness(0);
+    }
+
 }

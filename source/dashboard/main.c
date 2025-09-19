@@ -172,6 +172,7 @@ void zeroEncoder();
 void pollBrakeStatus();
 void sendVersion();
 extern void HardFault_Handler();
+void lcdSleep();
 
 // Communication queues
 q_handle_t q_tx_usart;
@@ -205,6 +206,7 @@ int main(void) {
     taskCreate(heartBeatTask, 100);
     taskCreate(sendShockpots, 15);
     taskCreate(sendVersion, 5000);
+    taskCreate(lcdSleep,1000);
     // taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);

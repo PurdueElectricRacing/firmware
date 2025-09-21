@@ -37,7 +37,6 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     handle->periph->CR1 &= ~USART_CR1_UE;
 
     // Enable peripheral clock in RCC for G4.
-    // The specific RCC register and bit names must be verified in the STM32G4 RM.
     switch ((ptr_int)handle->periph) {
         case USART1_BASE:
             RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
@@ -75,6 +74,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     handle->periph->CR1 |= (handle->parity >> 2) << USART_CR1_PS_Pos;
     handle->periph->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
     handle->periph->CR1 |= USART_CR1_RXNEIE | USART_CR1_IDLEIE;
+    handle->periph->CR1 |= USART_CR1_TXEIE;
 
     // Set CR2 parameters
     handle->periph->CR2 = 0U;

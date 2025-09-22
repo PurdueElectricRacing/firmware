@@ -141,7 +141,7 @@ void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
  * @param len The length of the data in bytes.
  * @return true if the transfer was started, false otherwise.
  */
-bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
+bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
 

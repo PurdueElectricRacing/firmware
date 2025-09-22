@@ -33,8 +33,8 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 // DMA Buffers
-#define RX_BUFFER_SIZE 256
-#define TX_BUFFER_SIZE 256
+#define RX_BUFFER_SIZE 12
+#define TX_BUFFER_SIZE 12
 uint8_t rx_buffer[RX_BUFFER_SIZE];
 uint8_t tx_buffer[TX_BUFFER_SIZE];
 

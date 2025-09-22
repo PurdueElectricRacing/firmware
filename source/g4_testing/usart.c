@@ -100,7 +100,7 @@ static void usart_tx_task(void)
     while(PHAL_usartTxBusy(&usart_config));
     // Copy message to tx buffer and send
     memcpy(tx_buffer, ping_msg, msg_len);
-    PHAL_usartTxBl(&usart_config, tx_buffer, msg_len);
+    PHAL_usartTxDma(&usart_config, tx_buffer, msg_len);
 }
 
 void HardFault_Handler()

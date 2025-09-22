@@ -52,16 +52,17 @@ bool PHAL_initDMA(dma_init_t* dma) {
     dma->channel->CCR |= (dma->mem_size << DMA_CCR_MSIZE_Pos) & DMA_CCR_MSIZE_Msk | (dma->periph_size << DMA_CCR_PSIZE_Pos) & DMA_CCR_PSIZE_Msk | (dma->priority << DMA_CCR_PL_Pos) & DMA_CCR_PL_Msk | (dma->mem_inc << DMA_CCR_MINC_Pos) & DMA_CCR_MINC_Msk | (dma->periph_inc << DMA_CCR_PINC_Pos) & DMA_CCR_PINC_Msk | (dma->circular << DMA_CCR_CIRC_Pos) & DMA_CCR_CIRC_Msk | (dma->dir << DMA_CCR_DIR_Pos) & DMA_CCR_DIR_Msk | (dma->tx_isr_en << DMA_CCR_TEIE_Pos) & DMA_CCR_TEIE_Msk | (dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk;
 
     /* DMA Mux */
-    // For category 3 and category 4 devices:
-    // DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8
-    // DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8
-    // DMAMUX Channel (usually equal to DMA channel number - 1)
     DMAMUX_Channel_TypeDef* mux;
-    mux = (DMAMUX1_Channel0 + dma->channel_idx - 1);
+    // DMAMUX channels 0-7 -> DMA1 channels 1-8
+    // DMAMUX channels 8-15 -> DMA2 channels 1-8
+    if (dma->periph == DMA1) {
+        mux = (DMAMUX1_Channel0 + dma->channel_idx - 1);
+    } else { // DMA2
+        mux = (DMAMUX1_Channel0 + dma->channel_idx - 1 + 8);
+    }
 
-    mux->CCR &= ~(1 << 8); // Disable channel
-    mux->CCR = (DMAMUX1_Channel0->CCR & ~0x7F) | dma->mux_request;
-    mux->CCR |= (1 << 8); // Enable channel
+    // Just set the request ID. All other fields can be 0.
+    mux->CCR = dma->mux_request & DMAMUX_CxCR_DMAREQ_ID_Msk;
 
     return true;
 }

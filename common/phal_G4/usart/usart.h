@@ -139,7 +139,7 @@ void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len);
  * @param data The address of the data to send, ensure a cast to (uint16_t *), even if 8 bits
  * @param len Number of units of data, depending on the configured word length
  */
-bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len);
+bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len);
 
 /**
  * @brief Starts an rx using dma of a specific length
@@ -209,23 +209,25 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
         .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, \
         .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, \
         .tx_isr_en = true, .dma_chan_request = channum_req, .channel_idx = channelnum, \
-        .periph = DMA##dmanum, \
+        .mux_request = channum_req, .periph = DMA##dmanum, \
     }
 
 // Common DMA channel mappings for STM32G4
-#define USART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, 1)
-#define USART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, 1)
 
-#define USART2_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART2, 1, 7, 2)
-#define USART2_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART2, 1, 6, 2)
+// Correct DMAMUX request IDs for STM32G4 (see reference manual)
+#define USART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, 3)
+#define USART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, 2)
 
-#define USART3_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART3, 1, 2, 3)
-#define USART3_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART3, 1, 3, 3)
+#define USART2_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART2, 1, 7, 5)
+#define USART2_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART2, 1, 6, 4)
 
-#define UART4_TXDMA_CONT_CONFIG(a, p)  _DEF_USART_TXDMA_CONFIG(a, p, UART4, 2, 3, 1)
-#define UART4_RXDMA_CONT_CONFIG(a, p)  _DEF_USART_RXDMA_CONFIG(a, p, UART4, 2, 5, 1)
+#define USART3_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART3, 1, 2, 7)
+#define USART3_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART3, 1, 3, 6)
 
-#define LPUART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, 3)
-#define LPUART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, 3)
+#define UART4_TXDMA_CONT_CONFIG(a, p)  _DEF_USART_TXDMA_CONFIG(a, p, UART4, 2, 3, 9)
+#define UART4_RXDMA_CONT_CONFIG(a, p)  _DEF_USART_RXDMA_CONFIG(a, p, UART4, 2, 5, 8)
+
+#define LPUART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, 21)
+#define LPUART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, 20)
 
 #endif

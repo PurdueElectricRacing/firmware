@@ -209,28 +209,26 @@ def insert_lines(source: list, start, stop, new_lines):
     @return          source lines with the modification
     """
 
-    curr_idx = 0
-    start_idx = 0
-    stop_idx = 0
-    for line in source:
+    start_index = None
+    stop_index = None
+    for index, line in enumerate(source):
         if start in line:
-            start_idx = curr_idx
+            start_index = index
         elif stop in line:
-            stop_idx = curr_idx
+            stop_index = index
             break
-        curr_idx += 1
 
-    if stop_idx <= start_idx or stop_idx == 0 or start_idx ==0:
+    if stop_index <= start_index or stop_index == 0 or start_index ==0:
         log_error("Insert lines failed for start "+start+" and stop "+stop)
         log_error("Check to make sure the start and stop phrases are correct")
         quit(1)
 
     # remove existing lines
-    del source[start_idx+1:stop_idx]
+    del source[start_index+1:stop_index]
 
     # add new lines
-    for idx, nl in enumerate(new_lines):
-        source.insert(start_idx + 1 + idx, nl)
+    for index, new_line in enumerate(new_lines):
+        source.insert(start_index + 1 + index, new_line)
 
     return source
 

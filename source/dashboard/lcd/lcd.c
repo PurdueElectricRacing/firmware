@@ -77,6 +77,10 @@ void errorPageSelect();
 void loggingPageUpdate();
 void loggingSelect();
 
+//
+void send_mark_data(void);
+
+
 // Telemetry Functions
 void raceTelemetryUpdate();
 void sdcTelemetryUpdate();
@@ -318,6 +322,9 @@ void initLCD() {
 
     // Set page (leave preflight)
     updatePage();
+}
+    void send_mark_data(void) {
+    marker_bit ^= 1;  // flip 0 -> 1 -> 0 -> 1 continuously
 }
 
 /**

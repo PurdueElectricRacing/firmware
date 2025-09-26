@@ -289,6 +289,20 @@
                 ],
                 "msg_priority": 5,
                 "msg_period": 5000
+            },
+
+            { 
+                "msg_name": "Mark_Data",
+                "msg_desc": "Marking Timestamp Data ",
+                "signals": [
+                    {
+                        "sig_name": "data_timestamp",
+                        "type": "uint16_t",
+                        "sig_desc": "Time marking when event occurs"
+                    }
+                ],
+                "msg_priority": 5, 
+                "msg_period": 1000
             }
           ],
           "rx": [

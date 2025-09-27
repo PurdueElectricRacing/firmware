@@ -27,6 +27,14 @@
             }
         },
         {
+            "label": "clean",
+            "type": "shell",
+            "command": "python3 per_build.py --clean",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
             "label": "can_gen",
             "type": "shell",
             "command": "python3 ./common/daq/generation/generator.py",

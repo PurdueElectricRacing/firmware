@@ -12,9 +12,12 @@ function(make_freertos_library LIB_NAME DIRNAME LINK_NAME)
 
     file(GLOB glob_sources "${LIB_PATH}/*.c" "${LIB_PATH}/CMSIS_RTOS_V2/*.c" "${LIB_PATH}/portable/GCC/ARM_CM4F/*.c" "${LIB_PATH}/portable/MemMang/heap_4.c")
     target_sources(${LIB_NAME}
-        PUBLIC ${glob_sources}
+        PRIVATE ${glob_sources}
     )
     target_link_libraries(${LIB_NAME} ${LINK_NAME})
+
+    # Disable analyzer flags for external FreeRTOS libraries
+    target_compile_options(${LIB_NAME} PRIVATE -fno-analyzer)
 
 endfunction()
 

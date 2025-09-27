@@ -19,6 +19,14 @@
             }
         },
         {
+            "label": "build_fanalyzer",
+            "type": "shell",
+            "command": "python3 per_build.py --fanalyzer",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
             "label": "can_gen",
             "type": "shell",
             "command": "python3 ./common/daq/generation/generator.py",

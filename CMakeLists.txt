@@ -111,6 +111,14 @@ endif()
 foreach(MODULE ${MODULES})
     message(STATUS "Adding module: ${MODULE}")
     add_subdirectory(source/${MODULE})
+
+    if (USE_FANALYZER)
+    get_property(_t DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/source/${MODULE}
+                PROPERTY BUILDSYSTEM_TARGETS)
+    foreach(TGT IN LISTS _t)
+        target_compile_options(${TGT} PRIVATE -fanalyzer -g)
+    endforeach()
+    endif()
 endforeach()
 
 # Deprecated Components

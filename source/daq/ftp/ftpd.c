@@ -128,25 +128,25 @@ static int check_directory(char* path);
 static FRESULT scan_files(char* path, char* buf);
 static int get_filesize(char* path, char* filename);
 
-int fsprintf(uint8_t s, const char* format, ...) {
-    int i;
-    /*
-	char buf[LINELEN];
-	FILE f;
-	va_list ap;
+// int fsprintf(uint8_t s, const char* format, ...) {
+//     int i;
 
-	f.flags = __SWR | __SSTR;
-	f.buf = buf;
-	f.size = INT_MAX;
-	va_start(ap, format);
-	i = vfprintf(&f, format, ap);
-	va_end(ap);
-	buf[f.len] = 0;
+// 	// char buf[LINELEN];
+// 	// FILE f;
+// 	// va_list ap;
 
-	send(s, (uint8_t *)buf, strlen(buf));
-*/
-    return i;
-}
+// 	// f.flags = __SWR | __SSTR;
+// 	// f.buf = buf;
+// 	// f.size = INT_MAX;
+// 	// va_start(ap, format);
+// 	// i = vfprintf(&f, format, ap);
+// 	// va_end(ap);
+// 	// buf[f.len] = 0;
+
+// 	// send(s, (uint8_t *)buf, strlen(buf));
+
+//     return i;
+// }
 
 void ftpd_init(uint8_t* src_ip) {
     ftp.state       = FTPS_NOT_LOGIN;
@@ -1303,6 +1303,9 @@ static FRESULT scan_files(char* path, char* buf) {
                     break;
                 case 12:
                     len = sprintf(date_str, "DEC ");
+                    break;
+                default:
+                    len = sprintf(date_str, "??? ");
                     break;
             }
             date_str_ptr += len;

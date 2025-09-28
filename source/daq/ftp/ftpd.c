@@ -203,7 +203,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
                     close(CTRL_SOCK);
                     return ret;
                 }
-                dh.ftp_busy = true;
+                daq_hub.ftp_busy = true;
                 //fsprintf(CTRL_SOCK, banner, HOSTNAME, VERSION);
                 strcpy(ftp.workingdir, "/");
                 sprintf((char*)dbuf, "220 %s FTP version %s ready.\r\n", HOSTNAME, VERSION);
@@ -303,7 +303,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
 #if defined(_FTP_DEBUG_)
             printf("%d:Opened\r\n", CTRL_SOCK);
 #endif
-            dh.ftp_busy = false;
+            daq_hub.ftp_busy = false;
             //strcpy(ftp.workingdir, "/");
             if ((ret = listen(CTRL_SOCK)) != SOCK_OK) {
 #if defined(_FTP_DEBUG_)

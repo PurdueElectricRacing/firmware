@@ -15,11 +15,9 @@
 #define _MAIN_H_
 
 #include "bmi088.h"
-#include "bsxlite_interface.h"
 #include "common/faults/fault_nodes.h"
 #include "common/phal/can.h"
 #include "gps.h"
-#include "imu.h"
 #include "vcu.h"
 
 #define FAULT_NODE_NAME NODE_TORQUE_VECTOR

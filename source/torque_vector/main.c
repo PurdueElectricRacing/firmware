@@ -1,5 +1,11 @@
-#include <stdint.h>
+#include "main.h"
 
+#include <math.h>
+#include <stdint.h>
+#include <string.h>
+
+#include "bmi088.h"
+#include "can/can_parse.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
@@ -8,14 +14,7 @@
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
 #include "common/psched/psched.h"
-#include "can/can_parse.h"
-
-#include "main.h"
-
-#include <string.h>
 #include "gps.h"
-#include "bmi088.h"
-#include <math.h>
 #include "vcu.h"
 
 GPIOInitConfig_t gpio_config[] =
@@ -117,13 +116,12 @@ SPI_InitConfig_t spi_config =
 
 /* IMU Configuration */
 BMI088_Handle_t bmi_handle = {
-    .spi                 = &spi_config,
-    .accel_range         = ACCEL_RANGE_3G,
-    .accel_bwp           = ACCEL_OS_NORMAL,
-    .accel_odr           = ACCEL_ODR_50Hz,
-    .gyro_range          = GYRO_RANGE_250,
-    .gyro_datarate       = GYRO_DR_100Hz_32Hz
-};
+    .spi           = &spi_config,
+    .accel_range   = ACCEL_RANGE_3G,
+    .accel_bwp     = ACCEL_OS_NORMAL,
+    .accel_odr     = ACCEL_ODR_50Hz,
+    .gyro_range    = GYRO_RANGE_250,
+    .gyro_datarate = GYRO_DR_100Hz_32Hz};
 
 /* GPS Data */
 GPS_Handle_t gps_handle = {0};
@@ -189,88 +187,78 @@ int main(void) {
     return 0;
 }
 
-void preflightChecks(void)
-{
+void preflightChecks(void) {
     static uint16_t state;
 
-    switch (state++)
-    {
-    case 0:
-        /* VCAN Initialization */
-        if (false == PHAL_initCAN(CAN1, false, VCAN_BPS))
-        {
-            HardFault_Handler();
+    switch (state++) {
+        case 0:
+            /* VCAN Initialization */
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            break;
+        case 1:
+            /* SPI initialization */
+            if (false == PHAL_SPI_init(&spi_config)) {
+                HardFault_Handler();
+            }
+            spi_config.data_rate = APB2ClockRateHz / 16;
+            PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
+            PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
+            break;
+        case 2:
+            /* USART Initialization */
+            if (false == PHAL_initUSART(&huart_gps, APB1ClockRateHz)) {
+                HardFault_Handler();
+            }
+            break;
+        case 3:
+            /* GPS Initialization */
+            PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
+            PHAL_usartRxDma(&huart_gps, (uint16_t *)(gps_handle.gps_rx_buffer), GPS_RX_BUF_SIZE, 1);
+            break;
+        case 4:
+            /* USB USART */
+            // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
+            // {
+            //     HardFault_Handler();
+            // }
+            break;
+        case 5:
+            //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
+            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+            break;
+        case 6:
+            /* BMI Initialization */
+            if (!BMI088_init(&bmi_handle)) {
+                HardFault_Handler();
+            }
+            break;
+        case 9:
+            BMI088_wakeAccel(&bmi_handle);
+            break;
+        // Delay for around 50ms to allow the accelerometer to wake up
+        case 63:
+            /* Accelerometer Init */
+            if (false == BMI088_initAccel(&bmi_handle)) {
+                HardFault_Handler();
+            }
+            break;
+        case 65: {
+            BMI088_readAccel(&bmi_handle);
+            if (bmi_handle.data.accel_x == 0 && bmi_handle.data.accel_y == 0 && bmi_handle.data.accel_z == 0) {
+                state = 8;
+            }
+            break;
         }
-        NVIC_EnableIRQ(CAN1_RX0_IRQn);
-        break;
-    case 1:
-        /* SPI initialization */
-        if (false == PHAL_SPI_init(&spi_config))
-        {
-            HardFault_Handler();
-        }
-        spi_config.data_rate = APB2ClockRateHz / 16;
-        PHAL_writeGPIO(SPI_CS_ACEL_GPIO_Port, SPI_CS_ACEL_Pin, 1);
-        PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
-        break;
-    case 2:
-        /* USART Initialization */
-        if (false == PHAL_initUSART(&huart_gps, APB1ClockRateHz))
-        {
-            HardFault_Handler();
-        }
-        break;
-    case 3:
-        /* GPS Initialization */
-        PHAL_writeGPIO(GPS_RESET_GPIO_Port, GPS_RESET_Pin, 1);
-        PHAL_usartRxDma(&huart_gps, (uint16_t *)(gps_handle.gps_rx_buffer), GPS_RX_BUF_SIZE, 1);
-        break;
-    case 4:
-        /* USB USART */
-        // if (!PHAL_initUSART(&usb, APB1ClockRateHz))
-        // {
-        //     HardFault_Handler();
-        // }
-        break;
-    case 5:
-        //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
-        initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
-        break;
-    case 6:
-        /* BMI Initialization */
-        if (!BMI088_init(&bmi_handle))
-        {
-            HardFault_Handler();
-        }
-        break;
-    case 9:
-        BMI088_wakeAccel(&bmi_handle);
-        break;
-    // Delay for around 50ms to allow the accelerometer to wake up
-    case 63:
-        /* Accelerometer Init */
-        if (false == BMI088_initAccel(&bmi_handle))
-        {
-            HardFault_Handler();
-        }
-        break;
-    case 65:
-    {
-        BMI088_readAccel(&bmi_handle);
-        if (bmi_handle.data.accel_x == 0 && bmi_handle.data.accel_y == 0 && bmi_handle.data.accel_z == 0)
-        {
-            state = 8;
-        }
-        break;
-    }
-    default:
-        if (state > 66)
-        {
-            initCANParse();
-            registerPreflightComplete(1);
-            state = 66; /* prevent wrap around */
-        }
-        break;
+        default:
+            if (state > 66) {
+                initCANParse();
+                registerPreflightComplete(1);
+                state = 66; /* prevent wrap around */
+            }
+            break;
     }
 }
 
@@ -314,7 +302,6 @@ void heartBeatLED(void) {
     trig = !trig;
 }
 
-
 void parseIMU(void) {
     static int16_t gyro_counter = 0;
 
@@ -326,13 +313,13 @@ void parseIMU(void) {
     // Update Gyro OK flag every once in a while
     if (gyro_counter == 150) {
         bmi_handle.isGyroOK = BMI088_gyroOK(&bmi_handle);
-        gyro_counter = 0;
+        gyro_counter        = 0;
     } else {
         ++gyro_counter;
     }
 }
 
-void usart_recieve_complete_callback(usart_init_t* handle) {
+void usart_recieve_complete_callback(usart_init_t *handle) {
     if (handle == &usb) {
         asm("nop");
         // memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
@@ -432,7 +419,7 @@ void txUsart() {
 
     //     PHAL_usartTxBl(&usb, txbuffer + i, chunk_size);
     // }
-    PHAL_usartTxDma(&usb, (uint16_t*)txbuffer, 290);
+    PHAL_usartTxDma(&usb, (uint16_t *)txbuffer, 290);
 }
 
 /* CAN Message Handling */
@@ -463,7 +450,7 @@ void VCU_MAIN(void) {
     SEND_DRIVE_MODES((int8_t)(yVCU.VT_mode), (int16_t)(yVCU.WM_VS[0]));
 }
 
-void torquevector_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
+void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a) {
     if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST) {
         Bootloader_ResetForFirmwareDownload();
     }

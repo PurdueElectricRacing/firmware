@@ -11,18 +11,18 @@
  */
 
 #include "bmi088.h"
-#include "common/phal/spi.h"
-#include "common_defs.h"
-#include "main.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "common/phal/spi.h"
+#include "common_defs.h"
+#include "main.h"
 
 static inline void BMI088_selectGyro(BMI088_Handle_t *bmi);
 static inline void BMI088_selectAccel(BMI088_Handle_t *bmi);
 
-bool BMI088_init(BMI088_Handle_t *bmi)
-{
+bool BMI088_init(BMI088_Handle_t *bmi) {
     bmi->isAccelReady = false;
     /* Gyro initilization  */
     BMI088_selectGyro(bmi);
@@ -45,24 +45,21 @@ bool BMI088_init(BMI088_Handle_t *bmi)
     return true;
 }
 
-void BMI088_wakeAccel(BMI088_Handle_t *bmi)
-{
+void BMI088_wakeAccel(BMI088_Handle_t *bmi) {
     BMI088_selectAccel(bmi);
     PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_PWR_CONF_ADDR, 0);
     PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_PWR_CTRL_ADDR, BMI088_ACC_PWR_CTRL_NORMAL);
     return;
 }
 
-bool BMI088_initAccel(BMI088_Handle_t *bmi)
-{
+bool BMI088_initAccel(BMI088_Handle_t *bmi) {
     BMI088_selectAccel(bmi);
 
     /* Wait a long time before you call this function (50ms) */
     PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_PWR_CONF_ADDR, 0);
     PHAL_SPI_readByte(bmi->spi, BMI088_ACC_CHIP_ID_ADDR, false);
 
-    PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_RANGE_ADDR, bmi->accel_range) &&
-        PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_CONFIG_ADDR, (bmi->accel_bwp << 4) | bmi->accel_odr);
+    PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_RANGE_ADDR, bmi->accel_range) && PHAL_SPI_writeByte(bmi->spi, BMI088_ACC_CONFIG_ADDR, (bmi->accel_bwp << 4) | bmi->accel_odr);
 
     uint8_t read_back = PHAL_SPI_readByte(bmi->spi, BMI088_ACC_CHIP_ID_ADDR, false);
 
@@ -70,8 +67,7 @@ bool BMI088_initAccel(BMI088_Handle_t *bmi)
     return true;
 }
 
-bool BMI088_gyroOK(BMI088_Handle_t *bmi)
-{
+bool BMI088_gyroOK(BMI088_Handle_t *bmi) {
     BMI088_gyroSelfTestStart(bmi);
     while (!BMI088_gyroSelfTestComplete(bmi)) {
         __asm__("nop");
@@ -83,28 +79,24 @@ bool BMI088_gyroOK(BMI088_Handle_t *bmi)
     return true;
 }
 
-bool BMI088_gyroSelfTestStart(BMI088_Handle_t *bmi)
-{
+bool BMI088_gyroSelfTestStart(BMI088_Handle_t *bmi) {
     BMI088_selectGyro(bmi);
     PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, 0x01U);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     return true;
 }
 
-bool BMI088_gyroSelfTestComplete(BMI088_Handle_t *bmi)
-{
+bool BMI088_gyroSelfTestComplete(BMI088_Handle_t *bmi) {
     BMI088_selectGyro(bmi);
     uint8_t self_test_res = PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, true);
     PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
     return (self_test_res & 0b10) == 0b10;
 }
 
-bool BMI088_gyroSelfTestPass(BMI088_Handle_t *bmi)
-{
+bool BMI088_gyroSelfTestPass(BMI088_Handle_t *bmi) {
     BMI088_selectGyro(bmi);
     uint8_t test_result = PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, true);
-    if (test_result & 0b10)
-    {
+    if (test_result & 0b10) {
         // Self test completed
         PHAL_writeGPIO(SPI_CS_GYRO_GPIO_Port, SPI_CS_GYRO_Pin, 1);
         return (test_result & 0b10100) == 0b10000;
@@ -114,8 +106,7 @@ bool BMI088_gyroSelfTestPass(BMI088_Handle_t *bmi)
     return false;
 }
 
-uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi)
-{
+uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi) {
     uint8_t self_test_register_result = PHAL_SPI_readByte(bmi->spi, BMI088_GYRO_SELFTEST_ADDR, true);
     // self_test_register_result &= 0b00010000;
     return (self_test_register_result == 0b00010000);
@@ -127,42 +118,42 @@ uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi)
 static inline float BMI088_getGyroScale(BMI088_Handle_t *bmi, bool range_up, bool range_down) {
     float scale = 0.0;
     switch (bmi->gyro_range) {
-    case (GYRO_RANGE_2000):
-        scale = (16.384 / DEG_TO_RAD);
-        break;
-    case (GYRO_RANGE_1000):
-        scale = (32.768 / DEG_TO_RAD);
-        break;
-    case (GYRO_RANGE_500):
-        scale = (65.536 / DEG_TO_RAD);
-        if (range_down)
-        {
-            bmi->gyro_range = GYRO_RANGE_250;
-            PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
-        }
-        break;
-    case (GYRO_RANGE_250):
-        scale = (131.072 / DEG_TO_RAD);
+        case (GYRO_RANGE_2000):
+            scale = (16.384 / DEG_TO_RAD);
+            break;
+        case (GYRO_RANGE_1000):
+            scale = (32.768 / DEG_TO_RAD);
+            break;
+        case (GYRO_RANGE_500):
+            scale = (65.536 / DEG_TO_RAD);
+            if (range_down) {
+                bmi->gyro_range = GYRO_RANGE_250;
+                PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
+            }
+            break;
+        case (GYRO_RANGE_250):
+            scale = (131.072 / DEG_TO_RAD);
 
-        if (range_up) {
-            bmi->gyro_range = GYRO_RANGE_500;
-            PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
-        } else if (range_down) {
-            bmi->gyro_range = GYRO_RANGE_125;
-            PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
-        }
-        break;
-    case (GYRO_RANGE_125):
-        scale = (262.144 / DEG_TO_RAD);
+            if (range_up) {
+                bmi->gyro_range = GYRO_RANGE_500;
+                PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
+            } else if (range_down) {
+                bmi->gyro_range = GYRO_RANGE_125;
+                PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
+            }
+            break;
+        case (GYRO_RANGE_125):
+            scale = (262.144 / DEG_TO_RAD);
 
-        if (range_up) {
-            bmi->gyro_range = GYRO_RANGE_250;
-            PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
-        }
-        break;
-    default:
-        scale = 1.0; // prevent div by zero
+            if (range_up) {
+                bmi->gyro_range = GYRO_RANGE_250;
+                PHAL_SPI_writeByte(bmi->spi, BMI088_GYRO_RANGE_ADDR, bmi->gyro_range);
+            }
+            break;
+        default:
+            scale = 1.0; // prevent div by zero
     }
+    return scale;
 }
 
 bool BMI088_readGyro(BMI088_Handle_t *bmi) {
@@ -184,7 +175,7 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi) {
     raw_z = (((int16_t)rx_buffer[6]) << 8) | rx_buffer[5];
 
     int16_t max_raw = MAX(MAX(raw_x, raw_y), raw_z);
-    bool range_up = bmi->enableDynamicRange && (ABS(max_raw) >= 32000); // int16_t range is -32,768 to +32,767
+    bool range_up   = bmi->enableDynamicRange && (ABS(max_raw) >= 32000); // int16_t range is -32,768 to +32,767
     bool range_down = bmi->enableDynamicRange && (ABS(max_raw) <= 1000);
 
     // Convert raw values into physical values based on range
@@ -236,7 +227,7 @@ static inline void BMI088_selectGyro(BMI088_Handle_t *bmi) {
 
     // Set the CSB for the gyro
     bmi->spi->nss_gpio_port = SPI_CS_GYRO_GPIO_Port;
-    bmi->spi->nss_gpio_pin = SPI_CS_GYRO_Pin;
+    bmi->spi->nss_gpio_pin  = SPI_CS_GYRO_Pin;
 }
 
 static inline void BMI088_selectAccel(BMI088_Handle_t *bmi) {
@@ -245,5 +236,5 @@ static inline void BMI088_selectAccel(BMI088_Handle_t *bmi) {
 
     // Set the CSB for the accelerometer
     bmi->spi->nss_gpio_port = SPI_CS_ACEL_GPIO_Port;
-    bmi->spi->nss_gpio_pin = SPI_CS_ACEL_Pin;
+    bmi->spi->nss_gpio_pin  = SPI_CS_ACEL_Pin;
 }

@@ -166,6 +166,6 @@ struct __attribute__((packed)) serial_rx {
     float VT_permit_buffer[5]; // size is given py pVCU.VT_permit_N
 };
 
-void canTxSendToBack(CanMsgTypeDef_t* msg);
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

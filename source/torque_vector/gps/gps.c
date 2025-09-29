@@ -1,6 +1,7 @@
-#include <stdint.h>
-#include <stdbool.h>
 #include "gps.h"
+
+#include <stdbool.h>
+#include <stdint.h>
 
 bool GPS_Decode(GPS_Handle_t *gps) {
     if (!gps) { // Null pointer check
@@ -16,7 +17,7 @@ bool GPS_Decode(GPS_Handle_t *gps) {
     }
 
     // Decode NAV-PVT message
-    nav_pvt->iTOW   = bytes_to_uint32(rx_buffer[6], rx_buffer[7], rx_buffer[8], rx_buffer[9]);
+    nav_pvt->iTOW = bytes_to_uint32(rx_buffer[6], rx_buffer[7], rx_buffer[8], rx_buffer[9]);
 
     // TODO Check unique timestamp?
 
@@ -51,7 +52,7 @@ bool GPS_Decode(GPS_Handle_t *gps) {
     nav_pvt->speedAccuracy = bytes_to_uint32(rx_buffer[78], rx_buffer[79], rx_buffer[80], rx_buffer[81]);
 
     nav_pvt->positionDOP = bytes_to_uint16(rx_buffer[82], rx_buffer[83]);
-    
+
     nav_pvt->reserved[0] = rx_buffer[84];
     nav_pvt->reserved[1] = rx_buffer[85];
     nav_pvt->reserved[2] = rx_buffer[86];
@@ -60,8 +61,8 @@ bool GPS_Decode(GPS_Handle_t *gps) {
     nav_pvt->reserved[5] = rx_buffer[89];
 
     nav_pvt->headingVehicle = bytes_to_int32(rx_buffer[90], rx_buffer[91], rx_buffer[92], rx_buffer[93]);
-    nav_pvt->magneticDec         = bytes_to_int16(rx_buffer[94], rx_buffer[95]);
-    nav_pvt->magneticAcc         = bytes_to_uint16(rx_buffer[96], rx_buffer[97]);
+    nav_pvt->magneticDec    = bytes_to_int16(rx_buffer[94], rx_buffer[95]);
+    nav_pvt->magneticAcc    = bytes_to_uint16(rx_buffer[96], rx_buffer[97]);
 
     // TODO Process checksum
 
@@ -71,8 +72,7 @@ bool GPS_Decode(GPS_Handle_t *gps) {
     gps->isFullyResolved = (nav_pvt->valid & GPS_VALID_FULLY_RESOLVED);
     gps->isValidMag      = (nav_pvt->valid & GPS_VALID_MAG);
 
-    gps->hasGNSSFix = ((nav_pvt->fixType == GPS_FIX_TYPE_GNSS_2D) ||
-                       (nav_pvt->fixType == GPS_FIX_TYPE_GNSS_3D));
+    gps->hasGNSSFix = ((nav_pvt->fixType == GPS_FIX_TYPE_GNSS_2D) || (nav_pvt->fixType == GPS_FIX_TYPE_GNSS_3D));
 
     return true;
 }

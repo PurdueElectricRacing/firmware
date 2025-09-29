@@ -6,8 +6,8 @@
  * @date 2025-06-14
  */
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifndef _GPS_H
 #define _GPS_H
@@ -90,25 +90,25 @@ typedef struct {
     gps_valid_flags_t valid; // GPS_VALID_*
 
     uint32_t timeAccuracy; // time accuracy in nanoseconds
-    int32_t nano;          // nanoseconds of second
+    int32_t nano; // nanoseconds of second
 
     gps_fix_type_t fixType; // GPS_FIX_TYPE_*
-    gps_flags1_t flags1;    // GPS_FIX_FLAG_*
-    gps_flags2_t flags2;    // GPS_FLAGS2_*
+    gps_flags1_t flags1; // GPS_FIX_FLAG_*
+    gps_flags2_t flags2; // GPS_FLAGS2_*
 
-    uint8_t numSatellites;       // Number of satellites used in Nav Solution
-    int32_t longitude;           // Longitude in 1e-7 degrees
-    int32_t latitude;            // Latitude in 1e-7 degrees
-    int32_t height;              // Height above ellipsoid in mm
-    int32_t heightMSL;           // Height above mean sea level in mm
+    uint8_t numSatellites; // Number of satellites used in Nav Solution
+    int32_t longitude; // Longitude in 1e-7 degrees
+    int32_t latitude; // Latitude in 1e-7 degrees
+    int32_t height; // Height above ellipsoid in mm
+    int32_t heightMSL; // Height above mean sea level in mm
     uint32_t horizontalAccuracy; // Horizontal accuracy estimate in mm
-    uint32_t verticalAccuracy;   // Vertical accuracy estimate in mm
+    uint32_t verticalAccuracy; // Vertical accuracy estimate in mm
 
-    int32_t velNorth;       // NED North Velocity in mm/s
-    int32_t velEast;        // NED East Velocity in mm/s
-    int32_t velDown;        // NED DownVelocity in mm/s
-    int32_t groundSpeed;    // Ground Speed in mm/s
-    int32_t headingMotion;  // Heading of motion
+    int32_t velNorth; // NED North Velocity in mm/s
+    int32_t velEast; // NED East Velocity in mm/s
+    int32_t velDown; // NED DownVelocity in mm/s
+    int32_t groundSpeed; // Ground Speed in mm/s
+    int32_t headingMotion; // Heading of motion
     uint32_t speedAccuracy; // Speed accuracy estimate in mm/s
 
     uint16_t positionDOP; // Position Dilution of Precision (0.01 scale)
@@ -116,12 +116,12 @@ typedef struct {
 
     int32_t headingVehicle; // Heading of vehicle in 1e-5 degrees
 
-    int16_t magneticDec;  // Magnetic declination in 1e-2 degrees
+    int16_t magneticDec; // Magnetic declination in 1e-2 degrees
     uint16_t magneticAcc; // Magnetic declination accuracy in 1e-2 degrees
 } NAV_PVT_t;
 
 typedef struct {
-    uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE];  // Raw message as received from GPS
+    uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE]; // Raw message as received from GPS
     NAV_PVT_t data; // Decoded message
 
     bool isValidDate;
@@ -132,18 +132,12 @@ typedef struct {
 } GPS_Handle_t;
 
 static inline int32_t bytes_to_int32(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3) {
-    uint32_t value = (uint32_t)b0 |
-                     ((uint32_t)b1 << 8) |
-                     ((uint32_t)b2 << 16) |
-                     ((uint32_t)b3 << 24);
+    uint32_t value = (uint32_t)b0 | ((uint32_t)b1 << 8) | ((uint32_t)b2 << 16) | ((uint32_t)b3 << 24);
     return (int32_t)value; // Cast to signed int32_t
 }
 
 static inline uint32_t bytes_to_uint32(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3) {
-    return (uint32_t)b0 |
-            ((uint32_t)b1 << 8) |
-            ((uint32_t)b2 << 16) |
-            ((uint32_t)b3 << 24);
+    return (uint32_t)b0 | ((uint32_t)b1 << 8) | ((uint32_t)b2 << 16) | ((uint32_t)b3 << 24);
 }
 
 static inline uint16_t bytes_to_uint16(uint8_t b0, uint8_t b1) {
@@ -156,10 +150,7 @@ static inline int16_t bytes_to_int16(uint8_t b0, uint8_t b1) {
 }
 
 static inline bool is_valid_header(uint8_t sync0, uint8_t sync1, uint8_t class_id, uint8_t msg_id) {
-    return (sync0 == UBX_NAV_PVT_HEADER_B0) &&
-           (sync1 == UBX_NAV_PVT_HEADER_B1) &&
-           (class_id == UBX_NAV_PVT_CLASS) &&
-           (msg_id == UBX_NAV_PVT_MSG_ID);
+    return (sync0 == UBX_NAV_PVT_HEADER_B0) && (sync1 == UBX_NAV_PVT_HEADER_B1) && (class_id == UBX_NAV_PVT_CLASS) && (msg_id == UBX_NAV_PVT_MSG_ID);
 }
 
 /**

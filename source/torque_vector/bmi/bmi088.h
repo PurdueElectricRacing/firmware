@@ -12,8 +12,9 @@
 #ifndef _BMI_H_
 #define _BMI_H_
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
+
 #include "common/phal/gpio.h"
 #include "common/phal/spi.h"
 
@@ -181,9 +182,6 @@ bool BMI088_readGyro(BMI088_Handle_t *bmi);
  */
 bool BMI088_readAccel(BMI088_Handle_t *bmi);
 
-
 uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi);
-
-
 
 #endif

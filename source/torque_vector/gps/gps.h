@@ -90,25 +90,25 @@ typedef struct {
     gps_valid_flags_t valid; // GPS_VALID_*
 
     uint32_t timeAccuracy; // time accuracy in nanoseconds
-    int32_t nano; // nanoseconds of second
+    int32_t nano;          // nanoseconds of second
 
     gps_fix_type_t fixType; // GPS_FIX_TYPE_*
-    gps_flags1_t flags1; // GPS_FIX_FLAG_*
-    gps_flags2_t flags2; // GPS_FLAGS2_*
+    gps_flags1_t flags1;    // GPS_FIX_FLAG_*
+    gps_flags2_t flags2;    // GPS_FLAGS2_*
 
-    uint8_t numSatellites; // Number of satellites used in Nav Solution
-    int32_t longitude; // Longitude in 1e-7 degrees
-    int32_t latitude; // Latitude in 1e-7 degrees
-    int32_t height; // Height above ellipsoid in mm
-    int32_t heightMSL; // Height above mean sea level in mm
+    uint8_t numSatellites;       // Number of satellites used in Nav Solution
+    int32_t longitude;           // Longitude in 1e-7 degrees
+    int32_t latitude;            // Latitude in 1e-7 degrees
+    int32_t height;              // Height above ellipsoid in mm
+    int32_t heightMSL;           // Height above mean sea level in mm
     uint32_t horizontalAccuracy; // Horizontal accuracy estimate in mm
-    uint32_t verticalAccuracy; // Vertical accuracy estimate in mm
+    uint32_t verticalAccuracy;   // Vertical accuracy estimate in mm
 
-    int32_t velNorth; // NED North Velocity in mm/s
-    int32_t velEast; // NED East Velocity in mm/s
-    int32_t velDown; // NED DownVelocity in mm/s
-    int32_t groundSpeed; // Ground Speed in mm/s
-    int32_t headingMotion; // Heading of motion
+    int32_t velNorth;       // NED North Velocity in mm/s
+    int32_t velEast;        // NED East Velocity in mm/s
+    int32_t velDown;        // NED DownVelocity in mm/s
+    int32_t groundSpeed;    // Ground Speed in mm/s
+    int32_t headingMotion;  // Heading of motion
     uint32_t speedAccuracy; // Speed accuracy estimate in mm/s
 
     uint16_t positionDOP; // Position Dilution of Precision (0.01 scale)
@@ -116,14 +116,14 @@ typedef struct {
 
     int32_t headingVehicle; // Heading of vehicle in 1e-5 degrees
 
-    int16_t magneticDec; // Magnetic declination in 1e-2 degrees
+    int16_t magneticDec;  // Magnetic declination in 1e-2 degrees
     uint16_t magneticAcc; // Magnetic declination accuracy in 1e-2 degrees
 } NAV_PVT_t;
 
 typedef struct {
     uint8_t gps_rx_buffer[GPS_RX_BUF_SIZE]; // Raw message as received from GPS
-    NAV_PVT_t data; // Decoded message
 
+    NAV_PVT_t data; // Decoded message
     bool isValidDate;
     bool isValidTime;
     bool isFullyResolved;

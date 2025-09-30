@@ -14,4 +14,7 @@ function(make_stm32_hal_library LIB_NAME LIB_PATH)
     target_sources(${LIB_NAME} 
         PUBLIC ${glob_sources}
     )
+
+    # Disable analyzer flags for external STM32 HAL libraries
+    target_compile_options(${LIB_NAME} PRIVATE -fno-analyzer)
 endfunction()

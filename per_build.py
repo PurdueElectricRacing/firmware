@@ -78,13 +78,19 @@ parser.add_option("-b", "--bootloader",
 parser.add_option("-v", "--verbose",
     dest="verbose",
     action="store_true", default=False,
-    help="verbose build commnad output"
+    help="verbose build command output"
 )
 
 parser.add_option("-p", "--package",
     dest="package",
     action="store_true", default=False,
     help="package build output into tarball with CRCs, suffixed by Git hash"
+)
+
+parser.add_option("-a", "--fanalyzer",
+    dest="fanalyzer",
+    action="store_true", default=False,
+    help="build with static analysis"
 )
 
 def print_available_targets():
@@ -157,6 +163,7 @@ if options.target or not options.clean:
         f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
         f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
         f"-DMODULES={cmake_modules_str}",
+        f"-DUSE_FANALYZER={'ON' if options.fanalyzer else 'OFF'}"
     ]
 
     NINJA_OPTIONS = ["-C", str(BUILD_DIR)] + ninja_targets

@@ -61,4 +61,7 @@ function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PAT
         PRIVATE ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/system_${STM32_FAMILY_NAME_LOWER}.c
         PRIVATE ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/gcc/startup_${STM32_DEVICE_NAME_LOWER}.s
     )
+
+    # Disable analyzer flags for external CMSIS libraries
+    target_compile_options(${LIB_NAME} PRIVATE -fno-analyzer)
 endfunction()

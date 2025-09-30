@@ -50,21 +50,41 @@ make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external
 
 include(cmake/FindFreeRTOS.cmake)
 
-# Add Common modules
-add_subdirectory(common/phal_F4_F7)
-add_subdirectory(common/phal_L4)
-add_subdirectory(common/phal_G4)
-add_subdirectory(common/psched)
-add_subdirectory(common/freertos)
-add_subdirectory(common/bootloader)
-add_subdirectory(common/queue)
-add_subdirectory(common/common_defs)
-add_subdirectory(common/log)
-add_subdirectory(common/faults)
-add_subdirectory(common/daq)
-add_subdirectory(common/amk)
-add_subdirectory(common/modules/wheel_speeds)
-add_subdirectory(common/syscalls)
+# Function to apply analyzer flags to targets based on type
+function(apply_analyzer_to_directory DIR_PATH TARGET_TYPE_FILTER)
+    get_property(_targets DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${DIR_PATH}
+                PROPERTY BUILDSYSTEM_TARGETS)
+    foreach(TGT IN LISTS _targets)
+        get_target_property(TGT_TYPE ${TGT} TYPE)
+        if(TGT_TYPE MATCHES "${TARGET_TYPE_FILTER}")
+            target_compile_options(${TGT} PRIVATE -fanalyzer)
+        endif()
+    endforeach()
+endfunction()
+
+set(COMMON_MODULES
+    common/phal_F4_F7
+    common/phal_L4
+    common/phal_G4
+    common/psched
+    common/freertos
+    common/bootloader
+    common/queue
+    common/common_defs
+    common/log
+    common/faults
+    common/daq
+    common/amk
+    common/modules/wheel_speeds
+    common/syscalls
+)
+
+foreach(COMMON_MODULE IN LISTS COMMON_MODULES)
+    add_subdirectory(${COMMON_MODULE})
+    if(USE_FANALYZER)
+        apply_analyzer_to_directory(${COMMON_MODULE} "STATIC_LIBRARY|SHARED_LIBRARY|MODULE_LIBRARY")
+    endif()
+endforeach()
 
 # Properties that are set for each firmware component
 # Used to generate the .elf and other files for each project
@@ -107,10 +127,13 @@ if(MODULES STREQUAL "")
 endif()
 
 
-# Loop over and add subdirectories
+# Loop over and add source modules
 foreach(MODULE ${MODULES})
     message(STATUS "Adding module: ${MODULE}")
     add_subdirectory(source/${MODULE})
+    if(USE_FANALYZER)
+        apply_analyzer_to_directory(source/${MODULE} "EXECUTABLE")
+    endif()
 endforeach()
 
 # Deprecated Components

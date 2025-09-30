@@ -1,4 +1,4 @@
-#include "common/phal_G4/usart/usart.h"
+#include "common/phal_G4/usart/usart.h" 
 
 // These items should not be used/modified by anybody other than the HAL
 typedef enum {
@@ -170,8 +170,6 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         default:
             return false;
     }
-
-    PHAL_stopTxfer(handle->tx_dma_cfg);
 
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t)data);

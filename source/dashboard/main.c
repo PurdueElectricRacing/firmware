@@ -152,6 +152,9 @@ extern uint32_t PLLClockRateHz;
 
 // LCD Variables
 extern page_t curr_page;
+
+
+
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 brake_status_t brake_status = {0};
@@ -180,7 +183,9 @@ q_handle_t q_tx_usart;
 int main(void) {
     /* Data Struct init */
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
-
+    //data mark timestamp
+    while (1) {
+        send_mark_data();
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

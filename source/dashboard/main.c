@@ -166,6 +166,7 @@ void preflight_task();
 void critical_task();
 void can_worker_task();
 void main_task();
+void watchdog_task();
 
 void preflightSequence(void);
 void preflightAnimation(void);
@@ -190,6 +191,7 @@ defineThreadStack(preflight_task, 10, osPriorityHigh, 2048);
 defineThreadStack(critical_task, 15, osPriorityHigh, 1024);
 defineThreadStack(can_worker_task, 20, osPriorityNormal, 1024);
 defineThreadStack(main_task, 100, osPriorityLow, 2048);
+// defineThreadStack(watchdog_task, 200, osPriorityLow, 1024);
 
 void preflight_task() {
     if (preflight_complete == true) {
@@ -727,8 +729,12 @@ void pollBrakeStatus() {
     brake_status.brake_fail   = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
 }
 
+// todo reboot on hardfault
 void HardFault_Handler() {
-    schedPause();
-    while (1)
-        IWDG->KR = 0xAAAA; // Reset watchdog
+    __disable_irq();
+    SysTick->CTRL = 0;
+    ERROR_LED_GPIO_Port->BSRR = ERROR_LED_Pin;
+    while (1) {
+        __asm__("NOP"); // Halt forever
+    }
 }

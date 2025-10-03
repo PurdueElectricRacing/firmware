@@ -224,14 +224,14 @@ void main_task() {
     // 5hz tasks
     if (step_100ms % 2 == 0) {
         pollBrakeStatus();
-        sendVoltageData();
+        handleDashboardInputs();
         lcdTxUpdate();
     }
 
     // 1hz tasks
     if (step_100ms % 10 == 0) {
         heartBeatLED();
-        handleDashboardInputs();
+        sendVoltageData();
     }
 
     // 0.2hz tasks
@@ -682,7 +682,7 @@ void lcdTxUpdate() {
 
     uint8_t curr_cmd[NXT_STR_SIZE] = {'\0'};
 
-    if (SUCCESS_G == qReceive(&q_tx_usart, curr_cmd)) {
+    while (SUCCESS_G == qReceive(&q_tx_usart, curr_cmd)) {
         PHAL_usartTxDma(&lcd, (uint16_t*)curr_cmd, strlen((char*)curr_cmd));
     }
 }

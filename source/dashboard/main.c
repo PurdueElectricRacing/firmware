@@ -181,9 +181,7 @@ q_handle_t q_tx_usart;
 int main(void) {
     /* Data Struct init */
     qConstruct(&q_tx_usart, NXT_STR_SIZE);
-    //data mark timestamp
-    while (1) {
-        send_mark_data();
+  
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

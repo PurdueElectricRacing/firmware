@@ -77,8 +77,6 @@ void errorPageSelect();
 void loggingPageUpdate();
 void loggingSelect();
 
-//
-void send_mark_data(void);
 
 
 // Telemetry Functions
@@ -1140,23 +1138,24 @@ void raceTelemetryUpdate() {
 }
 
 void raceUpCallback() {
-    // turn on both pumps and fans
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value = 1;
-    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value = 100;
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 100;
-
+    // toggles fans
+    if (cooling_elements[COOLING_B_PUMP_INDEX].current_value) {
+        cooling_elements[COOLING_B_PUMP_INDEX].current_value = 0;
+        cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
+        cooling_elements[COOLING_B_FAN_INDEX].current_value = 0;
+        cooling_elements[COOLING_DT_FAN_INDEX].current_value = 0;
+    } else {
+        cooling_elements[COOLING_B_PUMP_INDEX].current_value = 1;
+        cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
+        cooling_elements[COOLING_B_FAN_INDEX].current_value = 100;
+        cooling_elements[COOLING_DT_FAN_INDEX].current_value = 100;
+    }
     sendCoolingParameters();
 }
 
 void raceDownCallback() {
-    // turn off both pumps and fans
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value = 0;
-    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value = 0;
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value = 0;
-
-    sendCoolingParameters();
+    //mark data CAN message button
+    SEND_MARK_DATA(sched.os_ticks);
 }
 
 void raceSelect() {

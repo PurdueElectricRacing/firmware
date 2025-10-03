@@ -1,6 +1,7 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
+#include "common/daq/can_parse_base.h"
 #include "common/faults/faults.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
@@ -155,18 +156,19 @@ extern uint32_t PLLClockRateHz;
 extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
+q_handle_t q_tx_usart = {0};
+
 brake_status_t brake_status = {0};
 bool preflight_complete = false;
 
 /* Function Prototypes */
-void preflightChecks(void);
-void preflightAnimation(void);
-
-// Tasks
 void preflight_task();
 void critical_task();
 void can_worker_task();
 void main_task();
+
+void preflightSequence(void);
+void preflightAnimation(void);
 
 void heartBeatLED();
 void lcdTxUpdate();
@@ -183,52 +185,62 @@ void pollBrakeStatus();
 void sendVersion();
 extern void HardFault_Handler();
 
-void can_worker_task() {
-    if (true) { // todo check queue not empty
-        canRxUpdate();
-        canTxUpdate();
-    }
-}
-
-void critical_task() {
-    pedalsPeriodic();
-}
-
-void main_task() {
-    static uint32_t counter; // todo swap out the timing mechanism
-    if (counter % 200 == 0) { // 5hz tasks
-        pollBrakeStatus();
-        handleDashboardInputs();
-        sendVoltageData();
-    }
-
-    if (counter % 1000 == 0) { // 1hz tasks
-        heartBeatLED();
-    }
-
-    if (counter % 5000 == 0) { // 0.2hz tasks
-        sendVersion();
-    }
-
-    counter = counter + 1;
-}
+// Define threads
+defineThreadStack(preflight_task, 10, osPriorityHigh, 2048);
+defineThreadStack(critical_task, 15, osPriorityHigh, 1024);
+defineThreadStack(can_worker_task, 20, osPriorityNormal, 1024);
+defineThreadStack(main_task, 100, osPriorityLow, 2048);
 
 void preflight_task() {
     if (preflight_complete == true) {
         osThreadExit(); // Self delete
         return;
     }
-    preflightChecks();
+    preflightSequence();
     preflightAnimation();
 }
 
-// Communication queues
-defineThreadStack(preflight_task, 1, osPriorityHigh, 2048);
-defineThreadStack(critical_task, 15, osPriorityHigh, 1024);
-defineThreadStack(can_worker_task, 20, osPriorityNormal, 1024);
-defineThreadStack(main_task, 1, osPriorityLow, 2048);
+void critical_task() {
+    pedalsPeriodic();
+}
 
-q_handle_t q_tx_usart = {0};
+void can_worker_task() {
+    // todo optimization via notification from IRQ?
+    while (qIsEmpty(&q_rx_can) == false) {
+        canRxUpdate();
+    }
+
+    // todo lmfao this is so bad but it works
+    while (qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO]) == false ||
+           qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_MED_PRIO]) == false ||
+           qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]) == false) {
+        canTxUpdate();
+    }
+}
+
+void main_task() {
+    static uint32_t step_100ms;
+
+    // 5hz tasks
+    if (step_100ms % 2 == 0) {
+        pollBrakeStatus();
+        sendVoltageData();
+        lcdTxUpdate();
+    }
+
+    // 1hz tasks
+    if (step_100ms % 10 == 0) {
+        heartBeatLED();
+        handleDashboardInputs();
+    }
+
+    // 0.2hz tasks
+    if (step_100ms % 50 == 0) {
+        sendVersion();
+    }
+
+    step_100ms = step_100ms + 1;
+}
 
 int main(void) {
     osKernelInitialize();
@@ -266,7 +278,7 @@ int main(void) {
  *
  * @note Called repeatedly until preflight is registered as complete
  */
-void preflightChecks(void) {
+void preflightSequence(void) {
     static uint8_t state = 0;
 
     switch (state++) {

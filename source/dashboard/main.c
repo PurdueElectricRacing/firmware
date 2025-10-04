@@ -341,19 +341,19 @@ void preflightAnimation(void) {
 
     switch (sweep_index++ % 3) { // Creates a sweeping pattern
         case 0:
-            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
             PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
-            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
             break;
         case 1:
-            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
             PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
             break;
         case 2:
+            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
             PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
-            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
+            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
             break;
     }
 

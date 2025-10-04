@@ -226,6 +226,7 @@ void main_task() {
     // 5hz tasks
     if (step_100ms % 2 == 0) {
         pollBrakeStatus();
+        updateTelemetryPages();
         handleDashboardInputs();
         lcdTxUpdate();
     }
@@ -234,11 +235,13 @@ void main_task() {
     if (step_100ms % 10 == 0) {
         heartBeatLED();
         sendVoltageData();
+        updateFaultDisplay();
     }
 
     // 0.2hz tasks
     if (step_100ms % 50 == 0) {
         sendVersion();
+        sendTVParameters();
     }
 
     step_100ms = step_100ms + 1;

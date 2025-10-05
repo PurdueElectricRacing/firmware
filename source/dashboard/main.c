@@ -159,7 +159,7 @@ volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 q_handle_t q_tx_usart = {0};
 
 brake_status_t brake_status = {0};
-bool preflight_complete = false;
+bool g_is_preflight_complete = false;
 
 /* Function Prototypes */
 void preflight_task();
@@ -194,12 +194,18 @@ defineThreadStack(main_task, 100, osPriorityLow, 2048);
 // defineThreadStack(watchdog_task, 200, osPriorityLow, 1024);
 
 void preflight_task() {
-    if (preflight_complete == true) {
+    static uint8_t counter = 0;
+
+    // run animation until preflight complete for at least 1 second
+    if (g_is_preflight_complete && (counter >= 100)) {
         osThreadExit(); // Self delete
         return;
     }
+
     preflightSequence();
     preflightAnimation();
+
+    counter++;
 }
 
 void critical_task() {
@@ -215,7 +221,7 @@ void can_worker_task() {
     // todo lmfao this is so bad but it works
     while (qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO]) == false ||
            qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_MED_PRIO]) == false ||
-           qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]) == false) {
+           qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]) == false ) {
         canTxUpdate();
     }
 }
@@ -244,7 +250,7 @@ void main_task() {
         sendTVParameters();
     }
 
-    step_100ms = step_100ms + 1;
+    step_100ms++;
 }
 
 int main(void) {
@@ -284,21 +290,23 @@ int main(void) {
  * @note Called repeatedly until preflight is registered as complete
  */
 void preflightSequence(void) {
-    static uint8_t state = 0;
+    static uint8_t step_10ms = 0;
 
-    switch (state++) {
-        case 0:
+    switch (step_10ms) {
+        case 0: {
             if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
-        case 1:
+        }
+        case 1: {
             if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
                 HardFault_Handler();
             }
             break;
-        case 2:
+        }
+        case 2: {
             if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
                 HardFault_Handler();
             }
@@ -308,30 +316,42 @@ void preflightSequence(void) {
             PHAL_startTxfer(&adc_dma_config);
             PHAL_startADC(ADC1);
             break;
-        case 3:
+        }
+        case 3: {
             /* Module Initialization */
             initCANParse();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
-        case 4:
+        }
+        case 4: {
             // Zero Rotary Encoder
             zeroEncoder();
             break;
-        case 5:
+        }
+        case 5: {
             enableInterrupts();
             break;
-        case 6:
+        }
+        case 6: {
             initLCD();
             break;
-        case 7:
+        }
+        case 7: {
             // create the other tasks here
             createThread(critical_task);
             createThread(can_worker_task);
             createThread(main_task);
-        default:
-            preflight_complete = true;
+            break;
+        }
+        default: {
+            g_is_preflight_complete = true;
+            step_10ms               = 255; // prevent wrap around
+            break;
+        }
     }
+
+    step_10ms++;
 }
 
 void preflightAnimation(void) {

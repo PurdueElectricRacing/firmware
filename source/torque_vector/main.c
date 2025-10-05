@@ -177,7 +177,6 @@ int main(void) {
     taskCreateBackground(canRxUpdate);
 
     taskCreate(heartBeatLED, 500);
-    taskCreate(heartBeatTask, 100);
     taskCreate(parseIMU, 20);
     taskCreate(VCU_MAIN, 20);
 
@@ -307,8 +306,6 @@ void parseIMU(void) {
 
     BMI088_readGyro(&bmi_handle);
     BMI088_readAccel(&bmi_handle);
-
-    IMU_data_t data = bmi_handle.data;
 
     // Update Gyro OK flag every once in a while
     if (gyro_counter == 150) {

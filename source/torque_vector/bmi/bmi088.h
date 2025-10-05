@@ -84,13 +84,13 @@ typedef enum {
 } BMI088_GyroDrBw_t;
 
 typedef struct {
-    int16_t gyro_x; // Angular velocity around the X axis (pitch) in rad/s
-    int16_t gyro_y; // Angular velocity around the Y axis (roll) in rad/s
-    int16_t gyro_z; // Angular velocity around the Z axis (yaw) in rad/s
+    float gyro_x; // Angular velocity around the X axis (pitch) in rad/s
+    float gyro_y; // Angular velocity around the Y axis (roll) in rad/s
+    float gyro_z; // Angular velocity around the Z axis (yaw) in rad/s
 
-    int16_t accel_x; // Acceleration over x axis (m/s^2)
-    int16_t accel_y; // Acceleration over y axis (m/s^2)
-    int16_t accel_z; // Acceleration over z axis (m/s^2)
+    float accel_x; // Acceleration over x axis (m/s^2)
+    float accel_y; // Acceleration over y axis (m/s^2)
+    float accel_z; // Acceleration over z axis (m/s^2)
 } IMU_data_t;
 
 typedef struct

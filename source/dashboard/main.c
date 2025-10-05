@@ -14,7 +14,6 @@
 
 /* Module Includes */
 #include "can_parse.h"
-#include "common/queue/queue.h"
 #include "daq.h"
 #include "lcd.h"
 #include "main.h"
@@ -156,8 +155,6 @@ extern uint32_t PLLClockRateHz;
 extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
-q_handle_t q_tx_usart = {0};
-
 brake_status_t brake_status = {0};
 bool g_is_preflight_complete = false;
 
@@ -192,6 +189,8 @@ defineThreadStack(critical_task, 15, osPriorityHigh, 1024);
 defineThreadStack(can_worker_task, 20, osPriorityNormal, 1024);
 defineThreadStack(main_task, 100, osPriorityLow, 2048);
 // defineThreadStack(watchdog_task, 200, osPriorityLow, 1024);
+
+defineStaticQueue(q_tx_usart, NXT_cmd_t, 20);
 
 void preflight_task() {
     static uint8_t counter = 0;
@@ -258,8 +257,6 @@ void main_task() {
 int main(void) {
     osKernelInitialize();
 
-    qConstruct(&q_tx_usart, NXT_STR_SIZE);
-
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
@@ -277,6 +274,9 @@ int main(void) {
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+
+    // create usart queue
+    q_tx_usart = createStaticQueue(q_tx_usart, NXT_cmd_t, 20);
 
     // Start preflight task
     createThread(preflight_task);
@@ -707,7 +707,7 @@ void lcdTxUpdate() {
 
     uint8_t curr_cmd[NXT_STR_SIZE] = {'\0'};
 
-    while (SUCCESS_G == qReceive(&q_tx_usart, curr_cmd)) {
+    while (xQueueReceive(q_tx_usart, (void*)curr_cmd, 0) == pdTRUE) {
         PHAL_usartTxDma(&lcd, (uint16_t*)curr_cmd, strlen((char*)curr_cmd));
     }
 }

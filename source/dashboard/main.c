@@ -196,15 +196,21 @@ defineThreadStack(main_task, 100, osPriorityLow, 2048);
 void preflight_task() {
     static uint8_t counter = 0;
 
-    // run animation until preflight complete for at least 1 second
-    if (g_is_preflight_complete && (counter >= 100)) {
+    // run animation until preflight complete for at least 1.5 seconds
+    if (g_is_preflight_complete && (counter >= 150)) {
+        PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+        PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
         osThreadExit(); // Self delete
         return;
     }
 
-    preflightSequence();
-    preflightAnimation();
+    if (counter % 10 == 0) { // Run every 100ms
+        preflightAnimation();
+    }
 
+    preflightSequence();
+    
     counter++;
 }
 
@@ -213,17 +219,13 @@ void critical_task() {
 }
 
 void can_worker_task() {
-    // todo optimization via notification from IRQ?
+    // Process all received CAN messages
     while (qIsEmpty(&q_rx_can) == false) {
         canRxUpdate();
     }
 
-    // todo lmfao this is so bad but it works
-    while (qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO]) == false ||
-           qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_MED_PRIO]) == false ||
-           qIsEmpty(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]) == false ) {
-        canTxUpdate();
-    }
+    // Drain all CAN transmit queues
+    canTxUpdate();
 }
 
 void main_task() {
@@ -292,10 +294,10 @@ int main(void) {
 void preflightSequence(void) {
     static uint8_t step_10ms = 0;
 
-    switch (step_10ms) {
+    switch (step_10ms++) {
         case 0: {
             if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
-                HardFault_Handler();
+                // HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
@@ -350,8 +352,6 @@ void preflightSequence(void) {
             break;
         }
     }
-
-    step_10ms++;
 }
 
 void preflightAnimation(void) {

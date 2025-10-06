@@ -60,9 +60,7 @@ bool PHAL_initDMA(dma_init_t* dma) {
     } else { // DMA2
         mux = (DMAMUX1_Channel0 + dma->channel_idx - 1 + 8);
     }
-    
     mux->CCR = dma->mux_request & DMAMUX_CxCR_DMAREQ_ID_Msk; // Set the request ID
-    mux->CCR |= DMAMUX_CxCR_SE; // Set the SE bit to enable the channel
 
     return true;
 }

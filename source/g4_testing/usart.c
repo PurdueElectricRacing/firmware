@@ -4,10 +4,10 @@
 #include <string.h>
 
 #include "common/freertos/freertos.h"
-#include "common/phal_G4/usart/usart.h"
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/phal_G4/rcc/rcc.h"
+#include "common/phal_G4/usart/usart.h"
 #include "main.h"
 
 // Prototypes
@@ -18,11 +18,11 @@ static void usart_tx_task(void);
 // Clock Configuration
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
-    .clock_source = CLOCK_SOURCE_HSI,
+    .clock_source           = CLOCK_SOURCE_HSI,
     .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz = (TargetCoreClockrateHz / (1)),
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 extern uint32_t APB1ClockRateHz;
 
@@ -43,30 +43,31 @@ dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 2);
 
 // USART Configuration
 usart_init_t usart_config = {
-    .periph = USART1,
-    .baud_rate = 115200,
-    .word_length = WORD_8,
-    .stop_bits = SB_ONE,
-    .parity = PT_NONE,
-    .ovsample = OV_16,
-    .obsample = OB_DISABLE,
+    .periph           = USART1,
+    .baud_rate        = 115200,
+    .word_length      = WORD_8,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .ovsample         = OV_16,
+    .obsample         = OB_DISABLE,
     .usart_active_num = USART1_ACTIVE_IDX,
-    .tx_dma_cfg = &usart_tx_dma_config,
-    .rx_dma_cfg = &usart_rx_dma_config
-};
+    .tx_dma_cfg       = &usart_tx_dma_config,
+    .rx_dma_cfg       = &usart_rx_dma_config};
 
 // FreeRTOS Task Definition
 defineThreadStack(usart_tx_task, 1000, osPriorityNormal, 256);
 
-int main()
-{
+int main() {
     osKernelInitialize();
 
-    if (PHAL_configureClockRates(&clock_config)) HardFault_Handler();
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) HardFault_Handler();
+    if (PHAL_configureClockRates(&clock_config))
+        HardFault_Handler();
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
+        HardFault_Handler();
 
     // Initialize USART, passing the peripheral clock frequency
-    if (!PHAL_initUSART(&usart_config, APB1ClockRateHz)) HardFault_Handler();
+    if (!PHAL_initUSART(&usart_config, APB1ClockRateHz))
+        HardFault_Handler();
 
     // Start a continuous DMA reception. The callback will handle incoming data.
     // PHAL_usartRxDma(&usart_config, rx_buffer, RX_BUFFER_SIZE, true);
@@ -88,26 +89,23 @@ void usart_recieve_complete_callback(usart_init_t* handle)
     (void)handle;
 }
 
-
 /**
  * @brief Periodically transmits a "PING" message over USART.
  */
-static void usart_tx_task(void)
-{
-    char* ping_msg = "PING!\r\n";
+static void usart_tx_task(void) {
+    char* ping_msg   = "PING!\r\n";
     uint32_t msg_len = strlen(ping_msg);
     // Wait until the USART peripheral is not busy transmitting
-    while(PHAL_usartTxBusy(&usart_config));
+    while (PHAL_usartTxBusy(&usart_config))
+        ;
     // Copy message to tx buffer and send
     memcpy(tx_buffer, ping_msg, msg_len);
     PHAL_usartTxBl(&usart_config, tx_buffer, msg_len);
 }
 
-void HardFault_Handler()
-{
+void HardFault_Handler() {
     // GPIO_write(GPIOC, 10, 1);
-    while (1)
-    {
+    while (1) {
         __asm__("nop");
     }
 }

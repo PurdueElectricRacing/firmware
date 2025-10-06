@@ -1,17 +1,17 @@
-#include "common/phal_G4/usart/usart.h" 
+#include "common/phal_G4/usart/usart.h"
 
 // These items should not be used/modified by anybody other than the HAL
 typedef enum {
     USART_DMA_TX, //!< USART is transmitting over DMA
-    USART_DMA_RX  //!< USART is receiving over DMA
+    USART_DMA_RX //!< USART is receiving over DMA
 } usart_dma_mode_t;
 
 typedef struct {
     usart_init_t* active_handle; //!< USART handle provided on initialization
-    uint8_t          cont_rx;       //!< Flag controlling RX rececption mode (once or continously)
-    uint8_t          _tx_busy;      //!< Waiting on a transmission to finish
-    volatile uint8_t _rx_busy;      //!< Waiting on a reception to finish
-    volatile uint32_t rxfer_size;   //!< Size of data to receive over DMA
+    uint8_t cont_rx; //!< Flag controlling RX rececption mode (once or continously)
+    uint8_t _tx_busy; //!< Waiting on a transmission to finish
+    volatile uint8_t _rx_busy; //!< Waiting on a reception to finish
+    volatile uint32_t rxfer_size; //!< Size of data to receive over DMA
 } usart_active_transfer_t;
 
 // A global array to hold the state of each active USART peripheral.
@@ -58,12 +58,12 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     }
 
     if (handle->ovsample == OV_16) {
-        div = (fck + (handle->baud_rate / 2U)) / handle->baud_rate;
+        div                 = (fck + (handle->baud_rate / 2U)) / handle->baud_rate;
         handle->periph->BRR = div;
     } else {
-        div = (2U * fck + (handle->baud_rate / 2U)) / handle->baud_rate;
-        uint32_t mantissa = div & 0xFFF0;
-        uint32_t fraction = (div & 0x000F) >> 1;
+        div                 = (2U * fck + (handle->baud_rate / 2U)) / handle->baud_rate;
+        uint32_t mantissa   = div & 0xFFF0;
+        uint32_t fraction   = (div & 0x000F) >> 1;
         handle->periph->BRR = mantissa | fraction;
     }
 
@@ -180,7 +180,7 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
 
     handle->periph->CR3 |= USART_CR3_DMAT;
     handle->periph->CR1 |= USART_CR1_TE;
-    
+
     PHAL_startTxfer(handle->tx_dma_cfg);
     return true;
 }
@@ -208,7 +208,7 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool co
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
 
-    active_uarts[handle->usart_active_num].cont_rx = cont;
+    active_uarts[handle->usart_active_num].cont_rx    = cont;
     active_uarts[handle->usart_active_num].rxfer_size = len;
     handle->periph->CR1 |= USART_CR1_RE;
 
@@ -253,7 +253,7 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool co
 bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
-        
+
     active_uarts[handle->usart_active_num].cont_rx = 0;
     handle->periph->CR1 &= ~USART_CR1_RE;
     handle->periph->CR3 &= ~USART_CR3_DMAR;
@@ -320,12 +320,12 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
         active_uarts[idx].active_handle->periph->RQR = USART_RQR_RXFRQ;
         active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
         // Clear any errors that may have been set in the previous Rx
-        active_uarts[idx].active_handle->rx_errors.framing_error = 0;
+        active_uarts[idx].active_handle->rx_errors.framing_error  = 0;
         active_uarts[idx].active_handle->rx_errors.noise_detected = 0;
-        active_uarts[idx].active_handle->rx_errors.overrun = 0;
-        active_uarts[idx].active_handle->rx_errors.parity_error = 0;
+        active_uarts[idx].active_handle->rx_errors.overrun        = 0;
+        active_uarts[idx].active_handle->rx_errors.parity_error   = 0;
     }
-    
+
     // Overrun Error Flag
     if (isr & USART_ISR_ORE) {
         active_uarts[idx].active_handle->rx_errors.overrun = 1;
@@ -383,7 +383,7 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
     if (dma_periph->ISR & tcif_mask) {
         // Clear the transfer complete flag
         dma_periph->IFCR |= tcif_mask;
-        
+
         if (dma_type == USART_DMA_TX) {
             PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
             active_uarts[idx]._tx_busy = 0;
@@ -394,14 +394,14 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
     if (dma_periph->ISR & teif_mask) {
         // Clear the transfer error flag
         dma_periph->IFCR |= teif_mask;
-        
+
         if (dma_type == USART_DMA_TX) {
             active_uarts[idx].active_handle->tx_errors.dma_transfer_error = 1;
         } else {
             active_uarts[idx].active_handle->rx_errors.dma_transfer_error = 1;
         }
     }
-    
+
     // Check for Half Transfer Complete interrupt (if enabled)
     if (dma_periph->ISR & htif_mask) {
         dma_periph->IFCR |= htif_mask;
@@ -420,21 +420,27 @@ void DMA1_Channel7_IRQHandler(void) {
     handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART1_ACTIVE_IDX); // Assumes USART1 TX
     handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART2_ACTIVE_IDX); // Assumes USART2 TX
 }
+
 void DMA1_Channel5_IRQHandler(void) {
     handleDMAxComplete(DMA1, 5, USART_DMA_RX, USART1_ACTIVE_IDX); // Assumes USART1 RX
 }
+
 void DMA1_Channel6_IRQHandler(void) {
     handleDMAxComplete(DMA1, 6, USART_DMA_RX, USART2_ACTIVE_IDX); // Assumes USART2 RX
 }
+
 void DMA1_Channel2_IRQHandler(void) {
     handleDMAxComplete(DMA1, 2, USART_DMA_TX, USART3_ACTIVE_IDX); // Assumes USART3 TX
 }
+
 void DMA1_Channel3_IRQHandler(void) {
     handleDMAxComplete(DMA1, 3, USART_DMA_RX, USART3_ACTIVE_IDX); // Assumes USART3 RX
 }
+
 void DMA2_Channel7_IRQHandler(void) {
     handleDMAxComplete(DMA2, 7, USART_DMA_TX, LPUART1_ACTIVE_IDX); // Assumes LPUART1 TX
 }
+
 void DMA2_Channel6_IRQHandler(void) {
     handleDMAxComplete(DMA2, 6, USART_DMA_RX, LPUART1_ACTIVE_IDX); // Assumes LPUART1 RX
 }
@@ -443,12 +449,15 @@ void DMA2_Channel6_IRQHandler(void) {
 void USART1_IRQHandler(void) {
     handleUsartIRQ(USART1, USART1_ACTIVE_IDX);
 }
+
 void USART2_IRQHandler(void) {
     handleUsartIRQ(USART2, USART2_ACTIVE_IDX);
 }
+
 void USART3_IRQHandler(void) {
     handleUsartIRQ(USART3, USART3_ACTIVE_IDX);
 }
+
 void LPUART1_IRQHandler(void) {
     handleUsartIRQ(LPUART1, LPUART1_ACTIVE_IDX);
 }

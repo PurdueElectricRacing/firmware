@@ -231,7 +231,7 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
         .channel_idx      = channelnum, \
         .mux_request      = channum_req, \
         .periph           = DMA##dmanum, \
-}
+    }
 
 // Common DMA channel mappings for STM32G4
 

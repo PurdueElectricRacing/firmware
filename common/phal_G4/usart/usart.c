@@ -150,25 +150,12 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         ;
 
     // Enable the correct DMA interrupt for the G4
-    // NOTE: Verify these mappings in the G4 Reference Manual
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_EnableIRQ(DMA1_Channel7_IRQn);
-            break;
-        case USART2_BASE:
-            NVIC_EnableIRQ(DMA1_Channel7_IRQn);
-            break;
-        case USART3_BASE:
-            NVIC_EnableIRQ(DMA1_Channel2_IRQn);
-            break;
-        case UART4_BASE:
-            NVIC_EnableIRQ(DMA2_Channel3_IRQn);
-            break;
-        case LPUART1_BASE:
-            NVIC_EnableIRQ(DMA2_Channel7_IRQn);
-            break;
-        default:
-            return false;
+    if (handle->tx_dma_cfg->periph == DMA1) {
+        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->tx_dma_cfg->channel_idx - 1));
+    } else if (handle->tx_dma_cfg->periph == DMA2) {
+        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->tx_dma_cfg->channel_idx - 1));
+    } else {
+        return false;
     }
 
     PHAL_stopTxfer(handle->tx_dma_cfg);
@@ -216,27 +203,30 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool co
     // NOTE: Verify these mappings in the G4 Reference Manual
     switch ((ptr_int)handle->periph) {
         case USART1_BASE:
-            NVIC_EnableIRQ(DMA1_Channel5_IRQn);
             NVIC_EnableIRQ(USART1_IRQn);
             break;
         case USART2_BASE:
-            NVIC_EnableIRQ(DMA1_Channel6_IRQn);
             NVIC_EnableIRQ(USART2_IRQn);
             break;
         case USART3_BASE:
-            NVIC_EnableIRQ(DMA1_Channel3_IRQn);
             NVIC_EnableIRQ(USART3_IRQn);
             break;
         case UART4_BASE:
-            NVIC_EnableIRQ(DMA2_Channel5_IRQn);
             NVIC_EnableIRQ(UART4_IRQn);
             break;
         case LPUART1_BASE:
-            NVIC_EnableIRQ(DMA2_Channel6_IRQn);
             NVIC_EnableIRQ(LPUART1_IRQn);
             break;
         default:
             return false;
+    }
+
+    if (handle->rx_dma_cfg->periph == DMA1) {
+        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+    } else if (handle->rx_dma_cfg->periph == DMA2) {
+        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+    } else {
+        return false;
     }
 
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t)data);
@@ -262,27 +252,30 @@ bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
     // NOTE: Verify these mappings in the G4 Reference Manual
     switch ((ptr_int)handle->periph) {
         case USART1_BASE:
-            NVIC_DisableIRQ(DMA1_Channel5_IRQn);
             NVIC_DisableIRQ(USART1_IRQn);
             break;
         case USART2_BASE:
-            NVIC_DisableIRQ(DMA1_Channel6_IRQn);
             NVIC_DisableIRQ(USART2_IRQn);
             break;
         case USART3_BASE:
-            NVIC_DisableIRQ(DMA1_Channel3_IRQn);
             NVIC_DisableIRQ(USART3_IRQn);
             break;
         case UART4_BASE:
-            NVIC_DisableIRQ(DMA2_Channel5_IRQn);
             NVIC_DisableIRQ(UART4_IRQn);
             break;
         case LPUART1_BASE:
-            NVIC_DisableIRQ(DMA2_Channel6_IRQn);
             NVIC_DisableIRQ(LPUART1_IRQn);
             break;
         default:
             return false;
+    }
+
+    if (handle->rx_dma_cfg->periph == DMA1) {
+        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+    } else if (handle->rx_dma_cfg->periph == DMA2) {
+        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+    } else {
+        return false;
     }
 
     active_uarts[handle->usart_active_num]._rx_busy = 0;

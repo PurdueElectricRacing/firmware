@@ -33,17 +33,10 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 // DMA Buffers
-<<<<<<< HEAD
 #define RX_BUFFER_SIZE 12
 #define TX_BUFFER_SIZE 12
 uint8_t rx_buffer[RX_BUFFER_SIZE];
 uint8_t tx_buffer[TX_BUFFER_SIZE];
-=======
-#define RX_BUFFER_SIZE 256
-#define TX_BUFFER_SIZE 256
-uint16_t rx_buffer[RX_BUFFER_SIZE];
-uint16_t tx_buffer[TX_BUFFER_SIZE];
->>>>>>> 42eced9 (testing)
 
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 2);
@@ -57,11 +50,7 @@ usart_init_t usart_config = {
     .parity = PT_NONE,
     .ovsample = OV_16,
     .obsample = OB_DISABLE,
-<<<<<<< HEAD
     .usart_active_num = USART1_ACTIVE_IDX,
-=======
-    .usart_active_num = LPUART1_ACTIVE_IDX,
->>>>>>> 42eced9 (testing)
     .tx_dma_cfg = &usart_tx_dma_config,
     .rx_dma_cfg = &usart_rx_dma_config
 };
@@ -80,11 +69,7 @@ int main()
     if (!PHAL_initUSART(&usart_config, APB1ClockRateHz)) HardFault_Handler();
 
     // Start a continuous DMA reception. The callback will handle incoming data.
-<<<<<<< HEAD
     // PHAL_usartRxDma(&usart_config, rx_buffer, RX_BUFFER_SIZE, true);
-=======
-    PHAL_usartRxDma(&usart_config, rx_buffer, RX_BUFFER_SIZE, true);
->>>>>>> 42eced9 (testing)
 
     createThread(usart_tx_task);
     osKernelStart();
@@ -100,11 +85,7 @@ int main()
  */
 void usart_recieve_complete_callback(usart_init_t* handle)
 {
-<<<<<<< HEAD
-    return;
-=======
     (void)handle;
->>>>>>> 42eced9 (testing)
 }
 
 
@@ -116,17 +97,10 @@ static void usart_tx_task(void)
     char* ping_msg = "PING!\r\n";
     uint32_t msg_len = strlen(ping_msg);
     // Wait until the USART peripheral is not busy transmitting
-<<<<<<< HEAD
     while(PHAL_usartTxBusy(&usart_config));
-=======
-    while(PHAL_usartTxBusy(&usart_config))
-    {
-        osDelay(5);
-    }
->>>>>>> 42eced9 (testing)
     // Copy message to tx buffer and send
     memcpy(tx_buffer, ping_msg, msg_len);
-    PHAL_usartTxDma(&usart_config, tx_buffer, msg_len);
+    PHAL_usartTxBl(&usart_config, tx_buffer, msg_len);
 }
 
 void HardFault_Handler()

@@ -209,7 +209,7 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
         .dir = 0b1, .mem_inc = true, .periph_inc = false, .mem_to_mem = false, \
         .priority = (priority_), .mem_size = 0b00, .periph_size = 0b00, \
         .tx_isr_en = true, .dma_chan_request = channum_req, .channel_idx = channelnum, \
-        .mux_request = channum_req, .periph = DMA##dmanum, .channel = DMA##dmanum##_Channel##channelnum \
+        .mux_request = channum_req, .periph = DMA##dmanum,
     }
 
 // Common DMA channel mappings for STM32G4
@@ -229,5 +229,6 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
 
 #define LPUART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, 21)
 #define LPUART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, 20)
+
 
 #endif

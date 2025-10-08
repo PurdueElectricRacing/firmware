@@ -156,7 +156,7 @@ void PHAL_PWMsetPercent(TIM_TypeDef* tim, uint8_t channel, uint8_t percent) {
             tim->CCR3 = ((tim->ARR + 1) * percent) / 100;
             break;
         case 4:
-            tim->CCR3 = ((tim->ARR + 1) * percent) / 100;
+            tim->CCR4 = ((tim->ARR + 1) * percent) / 100;
             break;
     }
 }

@@ -114,7 +114,6 @@ bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEna
             tim->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
             tim->CCMR1 |= TIM_CCMR1_OC2PE;
             tim->CCER |= TIM_CCER_CC2E;
-            break;
         case 1:
             tim->CCR1 = 0; // Start with it off
             tim->CCMR1 &= ~TIM_CCMR1_OC1M; // Set PWM mode 1 (active while CNT <= CCR1)

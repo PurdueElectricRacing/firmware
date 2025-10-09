@@ -38,7 +38,7 @@ bool PHAL_initDMA(dma_init_t* dma) {
         RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN | RCC_AHB1ENR_DMAMUX1EN;
         channel = (DMA_Channel_TypeDef*)((uint32_t)DMA2_Channel1 + (0x14 * (dma->channel_idx - 1)));
         mux     = (DMAMUX_Channel_TypeDef*)((uint32_t)(DMAMUX1_Channel0
-                                                   + (0x04 * (dma->channel_idx - 1)) + 8));
+                                                   + (0x04 * (dma->channel_idx - 1) + 7)));
     } else {
         return false;
     }
@@ -49,7 +49,8 @@ bool PHAL_initDMA(dma_init_t* dma) {
         ;
 
     // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = (DMA_ISR_GIF1 << (4U * (dma->channel_idx - 1)));
+    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
+        << (4U * (dma->channel_idx - 1));
 
     // Set peripheral address (src)
     channel->CPAR = dma->periph_addr;
@@ -74,6 +75,8 @@ bool PHAL_initDMA(dma_init_t* dma) {
     mux->CCR = 0;
     mux->CCR = dma->mux_request & DMAMUX_CxCR_DMAREQ_ID_Msk; // Set the request ID
 
+    dma->channel = channel;
+
     return true;
 }
 
@@ -89,7 +92,8 @@ void PHAL_stopTxfer(dma_init_t* dma) {
 
 void PHAL_reEnable(dma_init_t* dma) {
     // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = ((uint32_t)DMA_ISR_HTIF1 << (dma->channel_idx & 0x1FU));
+    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
+        << (4U * (dma->channel_idx - 1));
     dma->channel->CCR |= DMA_CCR_EN;
 }
 

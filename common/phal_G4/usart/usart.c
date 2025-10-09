@@ -146,7 +146,8 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         return false;
 
     // Ensure any RX data is not overwritten before continuing with transfer
-    while ((active_uarts[handle->usart_active_num].active_handle->periph->ISR & USART_ISR_RXNE_RXFNE))
+    while (
+        (active_uarts[handle->usart_active_num].active_handle->periph->ISR & USART_ISR_RXNE_RXFNE))
         ;
 
     // Enable the correct DMA interrupt for the G4
@@ -192,15 +193,14 @@ volatile bool PHAL_usartTxBusy(usart_init_t* handle) {
  * @return true if the transfer was started, false otherwise.
  */
 bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool cont) {
-    if (active_uarts[handle->usart_active_num].active_handle != handle)
+    if (active_uarts[handle->usart_active_num].active_handle != handle) {
         return false;
+    }
 
     active_uarts[handle->usart_active_num].cont_rx    = cont;
     active_uarts[handle->usart_active_num].rxfer_size = len;
     handle->periph->CR1 |= USART_CR1_RE;
 
-    // Enable the correct DMA and USART interrupts for the G4
-    // NOTE: Verify these mappings in the G4 Reference Manual
     switch ((ptr_int)handle->periph) {
         case USART1_BASE:
             NVIC_EnableIRQ(USART1_IRQn);
@@ -308,7 +308,8 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
     // USART RX Not Empty interrupt flag
     if (isr & USART_ISR_RXNE_RXFNE) {
         active_uarts[idx]._rx_busy = 1;
-        PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg, active_uarts[idx].rxfer_size);
+        PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg,
+                                active_uarts[idx].rxfer_size);
         PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
         active_uarts[idx].active_handle->periph->RQR = USART_RQR_RXFRQ;
         active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
@@ -361,16 +362,17 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
  * and handles the post-transfer cleanup.
  *
  * @param dma_periph The DMA controller instance (DMA1 or DMA2).
- * @param channel The channel number (0-7).
+ * @param channel The channel number (1-8).
  * @param dma_type The DMA transfer type (TX or RX).
  * @param idx The index of the USART in the active_uarts array.
  */
-static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx) {
+static void
+handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx) {
     // The bit masks for each channel's flags
-    uint32_t tcif_mask = DMA_ISR_TCIF1 << (4 * channel);
-    uint32_t teif_mask = DMA_ISR_TEIF1 << (4 * channel);
-    uint32_t htif_mask = DMA_ISR_HTIF1 << (4 * channel);
-    uint32_t gif_mask  = DMA_ISR_GIF1 << (4 * channel);
+    uint32_t tcif_mask = DMA_ISR_TCIF1 << (4 * (channel - 1));
+    uint32_t teif_mask = DMA_ISR_TEIF1 << (4 * (channel - 1));
+    uint32_t htif_mask = DMA_ISR_HTIF1 << (4 * (channel - 1));
+    uint32_t gif_mask  = DMA_ISR_GIF1 << (4 * (channel - 1));
 
     // Check for a Transfer Complete interrupt
     if (dma_periph->ISR & tcif_mask) {

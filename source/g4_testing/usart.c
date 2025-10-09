@@ -8,7 +8,6 @@
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/phal_G4/rcc/rcc.h"
 #include "common/phal_G4/usart/usart.h"
-#include "main.h"
 
 // Prototypes
 void usart_recieve_complete_callback(usart_init_t* handle);
@@ -42,17 +41,16 @@ dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 2);
 
 // USART Configuration
-usart_init_t usart_config = {
-    .periph           = USART1,
-    .baud_rate        = 115200,
-    .word_length      = WORD_8,
-    .stop_bits        = SB_ONE,
-    .parity           = PT_NONE,
-    .ovsample         = OV_16,
-    .obsample         = OB_DISABLE,
-    .usart_active_num = USART1_ACTIVE_IDX,
-    .tx_dma_cfg       = &usart_tx_dma_config,
-    .rx_dma_cfg       = &usart_rx_dma_config};
+usart_init_t usart_config = {.periph           = USART1,
+                             .baud_rate        = 115200,
+                             .word_length      = WORD_8,
+                             .stop_bits        = SB_ONE,
+                             .parity           = PT_NONE,
+                             .ovsample         = OV_16,
+                             .obsample         = OB_DISABLE,
+                             .usart_active_num = USART1_ACTIVE_IDX,
+                             .tx_dma_cfg       = &usart_tx_dma_config,
+                             .rx_dma_cfg       = &usart_rx_dma_config};
 
 // FreeRTOS Task Definition
 defineThreadStack(usart_tx_task, 1000, osPriorityNormal, 256);
@@ -84,8 +82,7 @@ int main() {
  *
  * @param handle Pointer to the usart_init_t struct for the active peripheral.
  */
-void usart_recieve_complete_callback(usart_init_t* handle)
-{
+void usart_recieve_complete_callback(usart_init_t* handle) {
     (void)handle;
 }
 
@@ -96,11 +93,9 @@ static void usart_tx_task(void) {
     char* ping_msg   = "PING!\r\n";
     uint32_t msg_len = strlen(ping_msg);
     // Wait until the USART peripheral is not busy transmitting
-    while (PHAL_usartTxBusy(&usart_config))
-        ;
     // Copy message to tx buffer and send
     memcpy(tx_buffer, ping_msg, msg_len);
-    PHAL_usartTxBl(&usart_config, tx_buffer, msg_len);
+    PHAL_usartTxDma(&usart_config, tx_buffer, msg_len);
 }
 
 void HardFault_Handler() {

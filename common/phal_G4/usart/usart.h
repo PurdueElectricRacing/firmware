@@ -57,8 +57,7 @@ typedef enum {
     OB_ENABLE //!< Enable one bit sampling
 } obsample_t;
 
-typedef struct
-{
+typedef struct {
     bool overrun; //!< USART unable to parse data in time
     bool noise_detected; //!< Oversampling detected a possible bit flip due to noise in usart frame
     bool framing_error; //!< Unable to understand USART frame
@@ -70,16 +69,14 @@ typedef struct
     bool dma_fifo_overrun; //!< DMA FIFO has been overrun
 } usart_rx_errors_t;
 
-typedef struct
-{
+typedef struct {
     bool dma_transfer_error; //!< DMA transfer error
     bool dma_direct_mode_error; //!< DMA error while attempting to operate in direct mode
     bool dma_fifo_overrun; //!< DMA FIFO has been overrun
 } usart_tx_errors_t;
 
 // Structures
-typedef struct
-{
+typedef struct {
     // Required parameters
     uint32_t baud_rate; //!< Baud rate for communication
     word_length_t word_length; //!< Word length for tx/rx (8 default)
@@ -149,7 +146,7 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len);
  * @param len Number of units of data, depending on the configured word length
  * @param cont Enable Continous RX using the idle line interrupt (only need to call this function once, and HAL will keep recieving messages of the same length)
  */
-bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool cont);
+bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool cont);
 
 /**
  * @brief Disables the Continous RX that was previously used
@@ -189,7 +186,8 @@ extern void usart_recieve_complete_callback(usart_init_t* handle);
 // Helper function to handle USART interrupts
 static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx);
 // Helper function to handle DMA interrupts
-static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx);
+static void
+handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx);
 
 // DMA Configuration Macros for STM32G4
 #define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, UXART, dmanum, channelnum, channum_req) \
@@ -235,7 +233,6 @@ static void handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t
 
 // Common DMA channel mappings for STM32G4
 
-// Correct DMAMUX request IDs for STM32G4 (see reference manual)
 #define USART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, 3)
 #define USART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, 2)
 

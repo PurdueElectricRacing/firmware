@@ -1,4 +1,5 @@
 #include "common/phal_G4/usart/usart.h"
+#include "common/phal_G4/gpio/gpio.h"
 
 // These items should not be used/modified by anybody other than the HAL
 typedef enum {
@@ -159,7 +160,7 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         return false;
     }
 
-    PHAL_stopTxfer(handle->tx_dma_cfg);
+    PHAL_reEnable(handle->tx_dma_cfg);
 
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t)data);
@@ -192,7 +193,7 @@ volatile bool PHAL_usartTxBusy(usart_init_t* handle) {
  * @param cont true for continuous reception, false for single reception.
  * @return true if the transfer was started, false otherwise.
  */
-bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool cont) {
+bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool cont) {
     if (active_uarts[handle->usart_active_num].active_handle != handle) {
         return false;
     }
@@ -311,6 +312,8 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
         PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg,
                                 active_uarts[idx].rxfer_size);
         PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
+        // Read RDR to clear RXNE flag if set
+        (void)active_uarts[idx].active_handle->periph->RDR;
         active_uarts[idx].active_handle->periph->RQR = USART_RQR_RXFRQ;
         active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
         // Clear any errors that may have been set in the previous Rx
@@ -345,6 +348,10 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
     if (isr & USART_ISR_IDLE) {
         PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
         if (active_uarts[idx].cont_rx) {
+            // Read RDR to clear RXNE before re-enabling RXNEIE
+            if (periph->ISR & USART_ISR_RXNE_RXFNE) {
+                (void)periph->RDR;
+            }
             active_uarts[idx].active_handle->periph->CR1 |= USART_CR1_RXNEIE;
         } else {
             active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RE;

@@ -180,7 +180,7 @@
                 "${workspaceFolder}/source/f4_testing"
             ],
             "preLaunchTask": "build",
-            "runToEntryPoint": "main",
+            // "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled":true,
                 "samplesPerSecond":5

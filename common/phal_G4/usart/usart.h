@@ -29,6 +29,7 @@ typedef enum {
 } parity_t;
 
 typedef enum {
+    WORD_7,
     WORD_8, //!< 8-Bit word length
     WORD_9, //!< 9-Bit word length
 } word_length_t;
@@ -181,7 +182,7 @@ bool PHAL_usartRxBusy(usart_init_t* handle);
  *
  * @param handle Handle of USART peripheral that just recieved a message
  */
-extern void usart_recieve_complete_callback(usart_init_t* handle);
+extern void usart_receive_complete_callback(usart_init_t* handle);
 
 // Helper function to handle USART interrupts
 static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx);
@@ -189,63 +190,65 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx);
 static void
 handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx);
 
-// DMA Configuration Macros for STM32G4
-#define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, UXART, dmanum, channelnum, channum_req) \
+#define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, USARTx, dma_num, channel_num, req_id) \
     { \
-        .periph_addr      = (uint32_t)&((UXART)->RDR), \
-        .mem_addr         = (uint32_t)(rx_addr_), \
-        .tx_size          = 1, \
-        .increment        = false, \
-        .circular         = false, \
-        .dir              = 0b0, \
-        .mem_inc          = true, \
-        .periph_inc       = false, \
-        .mem_to_mem       = false, \
-        .priority         = (priority_), \
-        .mem_size         = 0b00, \
-        .periph_size      = 0b00, \
-        .tx_isr_en        = true, \
-        .dma_chan_request = channum_req, \
-        .channel_idx      = channelnum, \
-        .periph           = DMA##dmanum, \
+        .periph_addr = (uint32_t)&((USARTx)->RDR), \
+        .mem_addr    = (uint32_t)(rx_addr_), \
+        .tx_size     = 1, \
+        .circular    = false, \
+        .mem_inc     = true, \
+        .periph_inc  = false, \
+        .mem_to_mem  = false, \
+        .priority    = (priority_), \
+        .mem_size    = DMA_SIZE_8BIT, \
+        .periph_size = DMA_SIZE_8BIT, \
+        .tx_isr_en   = true, \
+        .mux_request = (req_id), \
+        .channel_idx = (channel_num), \
+        .periph      = DMA##dma_num, \
     }
 
-#define _DEF_USART_TXDMA_CONFIG(tx_addr_, priority_, UXART, dmanum, channelnum, channum_req) \
+#define _DEF_USART_TXDMA_CONFIG(tx_addr_, priority_, USARTx, dma_num, channel_num, req_id) \
     { \
-        .periph_addr      = (uint32_t)&((UXART)->TDR), \
-        .mem_addr         = (uint32_t)(tx_addr_), \
-        .tx_size          = 1, \
-        .increment        = false, \
-        .circular         = false, \
-        .dir              = 0b1, \
-        .mem_inc          = true, \
-        .periph_inc       = false, \
-        .mem_to_mem       = false, \
-        .priority         = (priority_), \
-        .mem_size         = 0b00, \
-        .periph_size      = 0b00, \
-        .tx_isr_en        = true, \
-        .dma_chan_request = channum_req, \
-        .channel_idx      = channelnum, \
-        .mux_request      = channum_req, \
-        .periph           = DMA##dmanum, \
+        .periph_addr = (uint32_t)&((USARTx)->TDR), \
+        .mem_addr    = (uint32_t)(tx_addr_), \
+        .tx_size     = 1, \
+        .circular    = false, \
+        .mem_inc     = true, \
+        .periph_inc  = false, \
+        .mem_to_mem  = false, \
+        .priority    = (priority_), \
+        .mem_size    = DMA_SIZE_8BIT, \
+        .periph_size = DMA_SIZE_8BIT, \
+        .tx_isr_en   = true, \
+        .mux_request = (req_id), \
+        .channel_idx = (channel_num), \
+        .periph      = DMA##dma_num, \
     }
 
-// Common DMA channel mappings for STM32G4
+#define USART1_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, DMA_REQUEST_USART1_RX)
+#define USART1_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, DMA_REQUEST_USART1_TX)
 
-#define USART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, 3)
-#define USART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, 2)
+#define USART2_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, USART2, 1, 3, DMA_REQUEST_USART2_RX)
+#define USART2_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, USART2, 1, 4, DMA_REQUEST_USART2_TX)
 
-#define USART2_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART2, 1, 7, 5)
-#define USART2_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART2, 1, 6, 4)
+#define USART3_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, USART3, 1, 1, DMA_REQUEST_USART3_RX)
+#define USART3_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, USART3, 1, 2, DMA_REQUEST_USART3_TX)
 
-#define USART3_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, USART3, 1, 2, 7)
-#define USART3_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, USART3, 1, 3, 6)
+#define UART4_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, UART4, 2, 5, DMA_REQUEST_UART4_RX)
+#define UART4_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, UART4, 2, 3, DMA_REQUEST_UART4_TX)
 
-#define UART4_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, UART4, 2, 3, 9)
-#define UART4_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, UART4, 2, 5, 8)
-
-#define LPUART1_TXDMA_CONT_CONFIG(a, p) _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, 21)
-#define LPUART1_RXDMA_CONT_CONFIG(a, p) _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, 20)
+#define LPUART1_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, DMA_REQUEST_LPUART1_RX)
+#define LPUART1_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, DMA_REQUEST_LPUART1_TX)
 
 #endif

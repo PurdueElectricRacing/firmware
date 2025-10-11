@@ -1,4 +1,5 @@
 #include "common/phal_G4/usart/usart.h"
+
 #include "common/phal_G4/gpio/gpio.h"
 
 // These items should not be used/modified by anybody other than the HAL
@@ -71,11 +72,24 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     // Set CR1 parameters
     handle->periph->CR1 = 0U;
     handle->periph->CR1 |= (handle->parity != PT_NONE) << USART_CR1_PCE_Pos;
-    handle->periph->CR1 |= handle->word_length << USART_CR1_M_Pos;
+
+    switch (handle->word_length) {
+        case WORD_7:
+            handle->periph->CR1 |= USART_CR1_M1; // bit 28 = 1, bit 12 = 0
+            break;
+
+        case WORD_9:
+            handle->periph->CR1 |= USART_CR1_M0; // bit 12 = 1, bit 28 = 0
+            break;
+
+        default: // WL_8B
+            // both bits 0
+            break;
+    }
+
     handle->periph->CR1 |= (handle->parity >> 2) << USART_CR1_PS_Pos;
     handle->periph->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
     handle->periph->CR1 |= USART_CR1_RXNEIE | USART_CR1_IDLEIE;
-    handle->periph->CR1 |= USART_CR1_TXEIE;
 
     // Set CR2 parameters
     handle->periph->CR2 = 0U;
@@ -232,6 +246,10 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool con
 
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t)data);
     handle->periph->CR3 |= USART_CR3_DMAR;
+
+    PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
+    PHAL_startTxfer(handle->rx_dma_cfg);
+
     return true;
 }
 
@@ -272,9 +290,9 @@ bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
     }
 
     if (handle->rx_dma_cfg->periph == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+        NVIC_DisableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
     } else if (handle->rx_dma_cfg->periph == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+        NVIC_DisableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
     } else {
         return false;
     }
@@ -358,7 +376,7 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
         }
         active_uarts[idx]._rx_busy = 0;
         periph->ICR |= USART_ICR_IDLECF;
-        usart_recieve_complete_callback(active_uarts[idx].active_handle);
+        usart_receive_complete_callback(active_uarts[idx].active_handle);
     }
 }
 
@@ -413,38 +431,41 @@ handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, u
     dma_periph->IFCR |= gif_mask;
 }
 
-__WEAK void usart_recieve_complete_callback(usart_init_t* handle) {
+__WEAK void usart_receive_complete_callback(usart_init_t* handle) {
     return;
 }
 
 /* DMA Interrupt Handlers */
 void DMA1_Channel7_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART1_ACTIVE_IDX); // Assumes USART1 TX
-    handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART2_ACTIVE_IDX); // Assumes USART2 TX
+    handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART1_ACTIVE_IDX);
 }
 
 void DMA1_Channel5_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 5, USART_DMA_RX, USART1_ACTIVE_IDX); // Assumes USART1 RX
+    handleDMAxComplete(DMA1, 5, USART_DMA_RX, USART1_ACTIVE_IDX);
 }
 
-void DMA1_Channel6_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 6, USART_DMA_RX, USART2_ACTIVE_IDX); // Assumes USART2 RX
-}
-
-void DMA1_Channel2_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 2, USART_DMA_TX, USART3_ACTIVE_IDX); // Assumes USART3 TX
+void DMA1_Channel4_IRQHandler(void) {
+    handleDMAxComplete(DMA1, 4, USART_DMA_TX, USART2_ACTIVE_IDX);
 }
 
 void DMA1_Channel3_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 3, USART_DMA_RX, USART3_ACTIVE_IDX); // Assumes USART3 RX
+    handleDMAxComplete(DMA1, 3, USART_DMA_RX, USART2_ACTIVE_IDX);
+}
+
+void DMA1_Channel2_IRQHandler(void) {
+    handleDMAxComplete(DMA1, 2, USART_DMA_TX, USART3_ACTIVE_IDX);
+}
+
+void DMA1_Channel1_IRQHandler(void) {
+    handleDMAxComplete(DMA1, 1, USART_DMA_RX, USART3_ACTIVE_IDX);
 }
 
 void DMA2_Channel7_IRQHandler(void) {
-    handleDMAxComplete(DMA2, 7, USART_DMA_TX, LPUART1_ACTIVE_IDX); // Assumes LPUART1 TX
+    handleDMAxComplete(DMA2, 7, USART_DMA_TX, LPUART1_ACTIVE_IDX);
 }
 
 void DMA2_Channel6_IRQHandler(void) {
-    handleDMAxComplete(DMA2, 6, USART_DMA_RX, LPUART1_ACTIVE_IDX); // Assumes LPUART1 RX
+    handleDMAxComplete(DMA2, 6, USART_DMA_RX, LPUART1_ACTIVE_IDX);
 }
 
 /* USART Interrupt Handlers */

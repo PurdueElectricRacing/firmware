@@ -85,7 +85,8 @@ void PHAL_stopTxfer(dma_init_t* dma) {
 
 void PHAL_reEnable(dma_init_t* dma) {
     // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = ((uint32_t)DMA_ISR_HTIF1 << (dma->channel_idx & 0x1FU));
+    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
+        << (4 * (dma->channel_idx - 1));
     dma->channel->CCR |= DMA_CCR_EN;
 }
 

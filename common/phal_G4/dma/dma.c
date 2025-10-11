@@ -38,7 +38,8 @@ bool PHAL_initDMA(dma_init_t* dma) {
         ;
 
     // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = (DMA_ISR_GIF1 << (dma->channel_idx & 0x1FU));
+    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
+        << (4 * (dma->channel_idx - 1));
 
     // Set peripheral address (src)
     dma->channel->CPAR = dma->periph_addr;
@@ -57,7 +58,8 @@ bool PHAL_initDMA(dma_init_t* dma) {
         | (dma->circular << DMA_CCR_CIRC_Pos) & DMA_CCR_CIRC_Msk
         | (dma->dir << DMA_CCR_DIR_Pos) & DMA_CCR_DIR_Msk
         | (dma->tx_isr_en << DMA_CCR_TEIE_Pos) & DMA_CCR_TEIE_Msk
-        | (dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk;
+        | (dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk
+        | (dma->mem_to_mem << DMA_CCR_MEM2MEM_Pos) & DMA_CCR_MEM2MEM_Msk;
 
     /* DMA Mux */
     // For category 3 and category 4 devices:
@@ -65,11 +67,8 @@ bool PHAL_initDMA(dma_init_t* dma) {
     // DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8
     // DMAMUX Channel (usually equal to DMA channel number - 1)
     DMAMUX_Channel_TypeDef* mux;
-    mux = (DMAMUX1_Channel0 + dma->channel_idx - 1);
-
-    mux->CCR &= ~(1 << 8); // Disable channel
-    mux->CCR = (DMAMUX1_Channel0->CCR & ~0x7F) | dma->mux_request;
-    mux->CCR |= (1 << 8); // Enable channel
+    mux      = (DMAMUX1_Channel0 + dma->channel_idx - 1);
+    mux->CCR = (mux->CCR & ~0x7F) | dma->mux_request;
 
     return true;
 }

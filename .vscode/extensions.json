@@ -1,10 +1,5 @@
 {
 	"recommendations": [
-        "ms-vscode.cpptools",
-        "ms-vscode.cmake-tools",
-        "marus25.cortex-debug",
-        "zixuanwang.linkerscript",
-        "eamodio.gitlens",
-        "dan-c-underwood.arm"
+        "irvingywang.per-pack"
     ]
 }

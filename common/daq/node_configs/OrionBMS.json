@@ -50,13 +50,13 @@
                 },
                 {
                   "sig_name": "is_ready",
-                  "sig_desc": "Orion is in \"READY\" (discharge) mode",
+                  "sig_desc": "Orion is in 'READY' (discharge) mode",
                   "type": "uint8_t",
                   "length": 1
                 },
                 {
                   "sig_name": "is_charging",
-                  "sig_desc": "Orion is in \"CHARGE\" mode - controlled by charge power pin",
+                  "sig_desc": "Orion is in 'CHARGE' mode - controlled by charge power pin",
                   "type": "uint8_t",
                   "length": 1
                 },
@@ -168,7 +168,7 @@
                 },
                 {
                   "sig_name": "charger_safety_relay",
-                  "sig_desc": "Charge Current limit exceeded - set if violation occured with \"charger safety\" relay",
+                  "sig_desc": "Charge Current limit exceeded - set if violation occured with 'charger safety' relay",
                   "type": "uint8_t",
                   "length": 1
                 },
@@ -322,7 +322,7 @@
                 },
                 {
                   "sig_name": "redundant_psu",
-                  "sig_desc": "The BMS has lost the \"always on\" power supply, meaning it is no longer redundant (must be configured)",
+                  "sig_desc": "The BMS has lost the 'always on' power supply, meaning it is no longer redundant (must be configured)",
                   "type": "uint8_t",
                   "length": 1
                 },
@@ -340,7 +340,7 @@
                 },
                 {
                   "sig_name": "charge_limit_enforce",
-                  "sig_desc": "The orion pack charge curent limit was exceeded - set if violation occured with \"charge enable\" relay",
+                  "sig_desc": "The orion pack charge curent limit was exceeded - set if violation occured with 'charge enable' relay",
                   "type": "uint8_t",
                   "length": 1
                 }
@@ -402,13 +402,13 @@
                 },
                 {
                   "sig_name": "is_ready",
-                  "sig_desc": "Orion is in \"READY\" (discharge) mode",
+                  "sig_desc": "Orion is in 'READY' (discharge) mode",
                   "type": "uint8_t",
                   "length": 1
                 },
                 {
                   "sig_name": "is_charging",
-                  "sig_desc": "Orion is in \"CHARGE\" mode - controlled by charge power pin",
+                  "sig_desc": "Orion is in 'CHARGE' mode - controlled by charge power pin",
                   "type": "uint8_t",
                   "length": 1
                 },
@@ -520,7 +520,7 @@
                 },
                 {
                   "sig_name": "charger_safety_relay",
-                  "sig_desc": "Charge Current limit exceeded - set if violation occured with \"charger safety\" relay",
+                  "sig_desc": "Charge Current limit exceeded - set if violation occured with 'charger safety' relay",
                   "type": "uint8_t",
                   "length": 1
                 },
@@ -674,7 +674,7 @@
                 },
                 {
                   "sig_name": "redundant_psu",
-                  "sig_desc": "The BMS has lost the \"always on\" power supply, meaning it is no longer redundant (must be configured)",
+                  "sig_desc": "The BMS has lost the 'always on' power supply, meaning it is no longer redundant (must be configured)",
                   "type": "uint8_t",
                   "length": 1
                 },
@@ -692,7 +692,7 @@
                 },
                 {
                   "sig_name": "charge_limit_enforce",
-                  "sig_desc": "The orion pack charge curent limit was exceeded - set if violation occured with \"charge enable\" relay",
+                  "sig_desc": "The orion pack charge curent limit was exceeded - set if violation occured with 'charge enable' relay",
                   "type": "uint8_t",
                   "length": 1
                 }

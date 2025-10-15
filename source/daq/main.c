@@ -14,6 +14,7 @@
 #include "daq_can.h"
 #include "daq_hub.h"
 #include "daq_spi.h"
+#include "math.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -88,15 +89,18 @@ SPI_InitConfig_t eth_spi_config = {
 
 RTC_timestamp_t start_time =
     {
-        .date = {.month_bcd = RTC_MONTH_FEBRUARY,
-                 .weekday   = RTC_WEEKDAY_TUESDAY,
-                 .day_bcd   = 0x27,
-                 .year_bcd  = 0x24},
-        .time = {.hours_bcd   = 0x18,
-                 .minutes_bcd = 0x27,
+        .date = {.month_bcd = RTC_MONTH_SEPTEMBER,
+                 .weekday   = RTC_WEEKDAY_MONDAY,
+                 .day_bcd   = 0x22,
+                 .year_bcd  = 0x25},
+        .time = {.hours_bcd   = 0x06,
+                 .minutes_bcd = 0x07,
                  .seconds_bcd = 0x00,
                  .time_format = RTC_FORMAT_24_HOUR},
 };
+
+RTC_timestamp_t gps_rtc_time;
+void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time);
 
 dma_init_t usart_tx_dma_config = USART6_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART6_RXDMA_CONT_CONFIG(NULL, 2);

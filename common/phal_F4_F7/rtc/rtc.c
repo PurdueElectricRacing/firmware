@@ -70,8 +70,7 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time) {
     //  INITF is set to 1. It takes from 1 to 2 RTCCLK clock cycles (due to clock synchronization)
 
     // TODO: make propper timeout
-    while (false == (RTC->ISR & RTC_ISR_INITF))
-        ;
+    while (false == (RTC->ISR & RTC_ISR_INITF));
 
     // To generate a 1 Hz clock for the calendar counter, program first the synchronous prescaler
     //  factor in RTC_PRER register, and then program the asynchronous prescaler factor

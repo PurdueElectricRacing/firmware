@@ -18,10 +18,13 @@
 #include <string.h>
 
 #include "common/phal/gpio.h"
+#include "common/phal/rtc.h"
 #include "daq_can.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "daq_rtc_config.h"
 #include "main.h"
+#include "math.h"
 
 daq_hub_t daq_hub;
 
@@ -33,10 +36,14 @@ defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
+defineThreadStack(rtc_check_periodic, 50, osPriorityNormal, 128); // RTC Re-initialize based on GPS time -- what priority, thread size??, and frequency bc rlly it only has to run once right
 
 //defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
 
 void daq_hub_init(void) {
+    // RTC Config 
+    dh.rtc_config_state    = RTC_CONFIG_STATE_IDLE;
+
     // Ethernet
     daq_hub.eth_state           = ETH_LINK_IDLE;
     daq_hub.eth_tcp_state       = ETH_TCP_IDLE;
@@ -71,6 +78,7 @@ void daq_create_threads(void) {
     // createThread(eth_update_periodic); // SD WRITE
     createThread(can_send_periodic); // CAN1 TX
     //createThread(uds_receive_periodic); // DAQ CAN RX
+    createThread(rtc_check_periodic);  // RTC Re-initialize based on GPS time
 }
 
 static void daq_heartbeat(void) {
@@ -127,6 +135,7 @@ void daq_shutdown_hook(void) {
     PHAL_deinitCAN(CAN2);
 
     sd_shutdown();
+    rtc_config_shutdown();
     // Hooray, we made it, blink an LED to show the world
     PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
 }

@@ -84,6 +84,49 @@
               "callback": true,
               "msg_priority": 3,
               "msg_period": 0
+            },
+            {
+              "msg_name": "gps_time",
+              "msg_desc": "gps time in UTC",
+              "signals": [
+                {
+                  "sig_name": "year",
+                  "type": "uint8_t",
+                  "unit": "yr"
+                },
+                {
+                  "sig_name": "month",
+                  "type": "uint8_t",
+                  "unit": "mo"
+                },
+                {
+                  "sig_name": "day",
+                  "type": "uint8_t",
+                  "unit": "d"
+                },
+                {
+                  "sig_name": "hour",
+                  "type": "uint8_t",
+                  "unit": "h"
+                },
+                {
+                  "sig_name": "minute",
+                  "type": "uint8_t",
+                  "unit": "m"
+                },
+                {
+                  "sig_name": "second",
+                  "type": "uint8_t",
+                  "unit": "s"
+                },
+                {
+                  "sig_name": "millisecond",
+                  "type": "uint16_t",
+                  "unit": "ms"
+                }
+              ],
+              "msg_period": 40,
+              "msg_priority": 3
             }
           ]
         }

@@ -49,6 +49,8 @@ make_cmsis_library(CMSIS_F732 STM32F7xx STM32F732xx ${CMAKE_SOURCE_DIR}/external
 make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external/STM32CubeG4/Drivers/CMSIS)
 
 include(cmake/FindFreeRTOS.cmake)
+include(cmake/FindDSP.cmake)
+make_cmsis_dsp_library(DSP_F407 STM32CubeF4 CMSIS_F407)
 
 # Function to apply analyzer flags to targets based on type
 function(apply_analyzer_to_directory DIR_PATH TARGET_TYPE_FILTER)

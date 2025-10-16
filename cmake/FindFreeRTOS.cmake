@@ -20,9 +20,3 @@ function(make_freertos_library LIB_NAME DIRNAME LINK_NAME)
     target_compile_options(${LIB_NAME} PRIVATE -fno-analyzer)
 
 endfunction()
-
-# Create multiple libraries with different defines
-
-make_freertos_library(FREERTOS_LIB_F407 STM32CubeF4 CMSIS_F407)
-make_freertos_library(FREERTOS_LIB_F732 STM32CubeF7 CMSIS_F732)
-make_freertos_library(FREERTOS_LIB_G474 STM32CubeG4 CMSIS_G474)

@@ -25,8 +25,10 @@ bool PHAL_initDMA(dma_init_t* dma) {
 
     // Enable clock in RCC
     if (dma->periph == DMA1) {
+        dma->channel = (DMA_Channel_TypeDef *)((uint32_t)DMA1_Channel1 + 0x14U * (dma->channel_idx - 1U));
         RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN | RCC_AHB1ENR_DMAMUX1EN;
     } else if (dma->periph == DMA2) {
+        dma->channel = (DMA_Channel_TypeDef *)((uint32_t)DMA2_Channel1 + 0x14U * (dma->channel_idx - 1U));
         RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN | RCC_AHB1ENR_DMAMUX1EN;
     } else {
         return false;

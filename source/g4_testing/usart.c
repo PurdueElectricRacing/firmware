@@ -94,6 +94,7 @@ static void usart_tx_task(void) {
     uint32_t msg_len = strlen(ping_msg);
     // Wait until the USART peripheral is not busy transmitting
     // Copy message to tx buffer and send
+    while(PHAL_usartTxBusy(&usart_config));
     memcpy(tx_buffer, ping_msg, msg_len);
     PHAL_usartTxDma(&usart_config, tx_buffer, msg_len);
 }

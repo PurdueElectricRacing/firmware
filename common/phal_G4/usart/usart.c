@@ -1,5 +1,6 @@
 #include "common/phal_G4/usart/usart.h"
 
+#include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/gpio/gpio.h"
 
 // These items should not be used/modified by anybody other than the HAL
@@ -174,10 +175,12 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         return false;
     }
 
-    PHAL_reEnable(handle->tx_dma_cfg);
+    PHAL_stopTxfer(handle->tx_dma_cfg);
 
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t)data);
+
+    PHAL_reEnable(handle->tx_dma_cfg);
 
     active_uarts[handle->usart_active_num]._tx_busy = 1;
 

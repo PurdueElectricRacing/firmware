@@ -200,6 +200,7 @@ handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, u
         .periph_inc  = false, \
         .mem_to_mem  = false, \
         .priority    = (priority_), \
+        .dir         = 0, \
         .mem_size    = DMA_SIZE_8BIT, \
         .periph_size = DMA_SIZE_8BIT, \
         .tx_isr_en   = true, \
@@ -218,6 +219,7 @@ handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, u
         .periph_inc  = false, \
         .mem_to_mem  = false, \
         .priority    = (priority_), \
+        .dir         = 1, \
         .mem_size    = DMA_SIZE_8BIT, \
         .periph_size = DMA_SIZE_8BIT, \
         .tx_isr_en   = true, \

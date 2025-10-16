@@ -1,5 +1,8 @@
 #include "g4_testing.h"
+#include "stm32g474xx.h"
 #if (G4_TESTING_CHOSEN == TEST_USART)
+
+#include <string.h>
 
 #include "common/freertos/freertos.h"
 #include "common/phal_G4/dma/dma.h"
@@ -23,8 +26,8 @@ extern uint32_t APB1ClockRateHz;
 
 // GPIO Configuration for LPUART1
 GPIOInitConfig_t gpio_config[] = {
-    GPIO_INIT_USART1TX_PA9,
-    GPIO_INIT_USART1RX_PA10,
+    GPIO_INIT_USART2RX_PA3,
+    GPIO_INIT_USART2TX_PA2,
 };
 
 // DMA Buffers
@@ -33,18 +36,18 @@ GPIOInitConfig_t gpio_config[] = {
 uint8_t rx_buffer[RX_BUFFER_SIZE];
 uint8_t tx_buffer[TX_BUFFER_SIZE];
 
-dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 2);
 
 // USART Configuration
-usart_init_t usart_config = {.periph           = USART1,
+usart_init_t usart_config = {.periph           = USART2,
                              .baud_rate        = 115200,
                              .word_length      = WORD_8,
                              .stop_bits        = SB_ONE,
                              .parity           = PT_NONE,
                              .ovsample         = OV_16,
                              .obsample         = OB_DISABLE,
-                             .usart_active_num = USART1_ACTIVE_IDX,
+                             .usart_active_num = USART2_ACTIVE_IDX,
                              .tx_dma_cfg       = &usart_tx_dma_config,
                              .rx_dma_cfg       = &usart_rx_dma_config};
 
@@ -77,10 +80,10 @@ int main() {
  */
 void usart_receive_complete_callback(usart_init_t* handle) {
     // Mirror received data back using TX DMA
-    // RX buffer and length are known here
-    // For this example, echo the entire RX buffer
     while(PHAL_usartTxBusy(handle));
     PHAL_usartTxDma(handle, rx_buffer, RX_BUFFER_SIZE);
+    // Clear RX buffer after echo
+    memset(rx_buffer, 0, RX_BUFFER_SIZE);
 }
 
 void HardFault_Handler() {

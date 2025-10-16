@@ -1,8 +1,6 @@
 #include "g4_testing.h"
 #if (G4_TESTING_CHOSEN == TEST_USART)
 
-#include <string.h>
-
 #include "common/freertos/freertos.h"
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/gpio/gpio.h"
@@ -10,9 +8,7 @@
 #include "common/phal_G4/usart/usart.h"
 
 // Prototypes
-void usart_recieve_complete_callback(usart_init_t* handle);
 void HardFault_Handler();
-static void usart_tx_task(void);
 
 // Clock Configuration
 #define TargetCoreClockrateHz 16000000
@@ -52,8 +48,6 @@ usart_init_t usart_config = {.periph           = USART1,
                              .tx_dma_cfg       = &usart_tx_dma_config,
                              .rx_dma_cfg       = &usart_rx_dma_config};
 
-// FreeRTOS Task Definition
-defineThreadStack(usart_tx_task, 1000, osPriorityNormal, 256);
 
 int main() {
     osKernelInitialize();
@@ -68,9 +62,8 @@ int main() {
         HardFault_Handler();
 
     // Start a continuous DMA reception. The callback will handle incoming data.
-    // PHAL_usartRxDma(&usart_config, rx_buffer, RX_BUFFER_SIZE, true);
+    PHAL_usartRxDma(&usart_config, rx_buffer, RX_BUFFER_SIZE, true);
 
-    createThread(usart_tx_task);
     osKernelStart();
 
     return 0;
@@ -78,25 +71,16 @@ int main() {
 
 /**
  * @brief This callback is triggered by the HAL when an idle line is detected,
- * signifying the end of a DMA reception. It echoes the received data back.
+ * signifying the end of a DMA reception. It mirrors the received data back using TX DMA.
  *
  * @param handle Pointer to the usart_init_t struct for the active peripheral.
  */
-void usart_recieve_complete_callback(usart_init_t* handle) {
-    (void)handle;
-}
-
-/**
- * @brief Periodically transmits a "PING" message over USART.
- */
-static void usart_tx_task(void) {
-    char* ping_msg   = "PING!\r\n";
-    uint32_t msg_len = strlen(ping_msg);
-    // Wait until the USART peripheral is not busy transmitting
-    // Copy message to tx buffer and send
-    while(PHAL_usartTxBusy(&usart_config));
-    memcpy(tx_buffer, ping_msg, msg_len);
-    PHAL_usartTxDma(&usart_config, tx_buffer, msg_len);
+void usart_receive_complete_callback(usart_init_t* handle) {
+    // Mirror received data back using TX DMA
+    // RX buffer and length are known here
+    // For this example, echo the entire RX buffer
+    while(PHAL_usartTxBusy(handle));
+    PHAL_usartTxDma(handle, rx_buffer, RX_BUFFER_SIZE);
 }
 
 void HardFault_Handler() {

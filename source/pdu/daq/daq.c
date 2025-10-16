@@ -20,11 +20,32 @@
 
 // BEGIN AUTO VAR DEFS
 daq_variable_t tracked_vars[NUM_VARS] = {
-    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.lv_24_v_sense, .write_var_a=NULL, },
-    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.lv_5_v_sense, .write_var_a=NULL, },
-    {.is_read_only=1, .bit_length=12, .read_var_a=&adc_readings.lv_3v3_v_sense, .write_var_a=NULL, },
-    {.is_read_only=1, .bit_length=32, .read_var_a=&CAN1->ESR, .write_var_a=NULL, },
+    {
+        .is_read_only = 1,
+        .bit_length   = 12,
+        .read_var_a   = &adc_readings.lv_24_v_sense,
+        .write_var_a  = NULL,
+    },
+    {
+        .is_read_only = 1,
+        .bit_length   = 12,
+        .read_var_a   = &adc_readings.lv_5_v_sense,
+        .write_var_a  = NULL,
+    },
+    {
+        .is_read_only = 1,
+        .bit_length   = 12,
+        .read_var_a   = &adc_readings.lv_3v3_v_sense,
+        .write_var_a  = NULL,
+    },
+    {
+        .is_read_only = 1,
+        .bit_length   = 32,
+        .read_var_a   = &CAN1->ESR,
+        .write_var_a  = NULL,
+    },
 };
+
 // END AUTO VAR DEFS
 
 // BEGIN AUTO FILE DEFAULTS
@@ -42,8 +63,8 @@ void daqPeriodic() {
 }
 
 // BEGIN AUTO CALLBACK DEF
-void daq_command_PDU_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a)
-{
-	daq_command_callback(msg_header_a);
+void daq_command_PDU_VCAN_CALLBACK(CanMsgTypeDef_t* msg_header_a) {
+    daq_command_callback(msg_header_a);
 }
+
 // END AUTO CALLBACK DEF

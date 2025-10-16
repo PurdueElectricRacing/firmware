@@ -52,13 +52,15 @@ extern uint32_t SystemCoreClock;
 #endif
 
 #if defined(STM32F407xx)
-    #define CMSIS_device_header "stm32f4xx.h"
+#define CMSIS_device_header "stm32f4xx.h"
 #elif defined(STM32F732xx)
-    #define CMSIS_device_header "stm32f7xx.h"
+#define CMSIS_device_header "stm32f7xx.h"
 #elif defined(STM32G474xx)
-    #define CMSIS_device_header "stm32g4xx.h"
+#define CMSIS_device_header "stm32g4xx.h"
+#elif defined(STM32L496xx)
+#define CMSIS_device_header "stm32l4xx.h"
 #else
-    #error "MCU Arch not supported"
+#error "MCU Arch not supported"
 #endif
 
 /*  CMSIS-RTOSv2 defines 56 levels of priorities. To be able to use them
@@ -68,56 +70,56 @@ extern uint32_t SystemCoreClock;
  *
  */
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION 0
-#define configMAX_PRIORITIES (56)
-#define configRECORD_STACK_HIGH_ADDRESS 1
+#define configMAX_PRIORITIES                    (56)
+#define configRECORD_STACK_HIGH_ADDRESS         1
 
-#define configUSE_PREEMPTION 1
-#define configUSE_TIME_SLICING 1
-#define configUSE_IDLE_HOOK 1
-#define configUSE_TICK_HOOK 0
-#define configSUPPORT_STATIC_ALLOCATION 1
+#define configUSE_PREEMPTION             1
+#define configUSE_TIME_SLICING           1
+#define configUSE_IDLE_HOOK              1
+#define configUSE_TICK_HOOK              0
+#define configSUPPORT_STATIC_ALLOCATION  1
 #define configSUPPORT_DYNAMIC_ALLOCATION 1
-#define configCPU_CLOCK_HZ (SystemCoreClock)
-#define configTICK_RATE_HZ ((TickType_t) 1000)
-#define configMINIMAL_STACK_SIZE ((uint16_t) 128)
-#define configTOTAL_HEAP_SIZE ((size_t) (15 * 1024))
-#define configMAX_TASK_NAME_LEN (16)
-#define configUSE_TRACE_FACILITY 1
-#define configUSE_16_BIT_TICKS 0
-#define configIDLE_SHOULD_YIELD 1
-#define configUSE_MUTEXES 1
-#define configQUEUE_REGISTRY_SIZE 8
-#define configCHECK_FOR_STACK_OVERFLOW 0
-#define configUSE_RECURSIVE_MUTEXES 1
-#define configUSE_MALLOC_FAILED_HOOK 0
-#define configUSE_APPLICATION_TASK_TAG 0
-#define configUSE_COUNTING_SEMAPHORES 1
-#define configGENERATE_RUN_TIME_STATS 0
+#define configCPU_CLOCK_HZ               (SystemCoreClock)
+#define configTICK_RATE_HZ               ((TickType_t)1000)
+#define configMINIMAL_STACK_SIZE         ((uint16_t)128)
+#define configTOTAL_HEAP_SIZE            ((size_t)(15 * 1024))
+#define configMAX_TASK_NAME_LEN          (16)
+#define configUSE_TRACE_FACILITY         1
+#define configUSE_16_BIT_TICKS           0
+#define configIDLE_SHOULD_YIELD          1
+#define configUSE_MUTEXES                1
+#define configQUEUE_REGISTRY_SIZE        8
+#define configCHECK_FOR_STACK_OVERFLOW   0
+#define configUSE_RECURSIVE_MUTEXES      1
+#define configUSE_MALLOC_FAILED_HOOK     0
+#define configUSE_APPLICATION_TASK_TAG   0
+#define configUSE_COUNTING_SEMAPHORES    1
+#define configGENERATE_RUN_TIME_STATS    0
 
 /* Co-routine definitions. */
-#define configUSE_CO_ROUTINES 0
+#define configUSE_CO_ROUTINES           0
 #define configMAX_CO_ROUTINE_PRIORITIES (2)
 
 /* Software timer definitions. */
-#define configUSE_TIMERS 1
-#define configTIMER_TASK_PRIORITY (2)
-#define configTIMER_QUEUE_LENGTH 10
+#define configUSE_TIMERS             1
+#define configTIMER_TASK_PRIORITY    (2)
+#define configTIMER_QUEUE_LENGTH     10
 #define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE * 2)
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
-#define INCLUDE_vTaskPrioritySet 1
-#define INCLUDE_uxTaskPriorityGet 1
-#define INCLUDE_vTaskDelete 1
-#define INCLUDE_vTaskCleanUpResources 0
-#define INCLUDE_vTaskSuspend 1
-#define INCLUDE_vTaskDelayUntil 1
-#define INCLUDE_vTaskDelay 1
-#define INCLUDE_xTaskGetSchedulerState 1
-#define INCLUDE_xTaskGetCurrentTaskHandle 1
+#define INCLUDE_vTaskPrioritySet            1
+#define INCLUDE_uxTaskPriorityGet           1
+#define INCLUDE_vTaskDelete                 1
+#define INCLUDE_vTaskCleanUpResources       0
+#define INCLUDE_vTaskSuspend                1
+#define INCLUDE_vTaskDelayUntil             1
+#define INCLUDE_vTaskDelay                  1
+#define INCLUDE_xTaskGetSchedulerState      1
+#define INCLUDE_xTaskGetCurrentTaskHandle   1
 #define INCLUDE_uxTaskGetStackHighWaterMark 1
-#define INCLUDE_eTaskGetState 1
-#define INCLUDE_xTimerPendFunctionCall 1
+#define INCLUDE_eTaskGetState               1
+#define INCLUDE_xTimerPendFunctionCall      1
 
 #define INCLUDE_xSemaphoreGetMutexHolder 1
 
@@ -148,7 +150,7 @@ used
 
 */
 
-#define USE_FreeRTOS_HEAP_4 1
+#define USE_FreeRTOS_HEAP_4       1
 #define configFRTOS_MEMORY_SCHEME 4
 
 /* Cortex-M specific definitions. */
@@ -181,17 +183,16 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 /* Normal assert() semantics without relying on the provision of an assert.h
 header file. */
-#define configASSERT(x)           \
-    if ((x) == 0)                 \
-    {                             \
+#define configASSERT(x) \
+    if ((x) == 0) { \
         taskDISABLE_INTERRUPTS(); \
-        for (;;)                  \
-            ;                     \
+        for (;;) \
+            ; \
     }
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
    standard names. */
-#define vPortSVCHandler SVC_Handler
+#define vPortSVCHandler    SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 
 /* IMPORTANT: FreeRTOS is using the SysTick as internal time base, thus make

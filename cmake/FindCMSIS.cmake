@@ -62,6 +62,16 @@ function(make_cmsis_library LIB_NAME STM32_FAMILY_NAME STM32_DEVICE_NAME LIB_PAT
         PRIVATE ${LIB_PATH}/Device/ST/${STM32_FAMILY_NAME}/Source/Templates/gcc/startup_${STM32_DEVICE_NAME_LOWER}.s
     )
 
-    # Disable analyzer flags for external CMSIS libraries
-    target_compile_options(${LIB_NAME} PRIVATE -fno-analyzer)
+    if(${STM32_FAMILY_NAME} MATCHES "F7")
+        set(_ARCH_FLAGS -mthumb -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard)
+    elseif(${STM32_FAMILY_NAME} MATCHES "F4" OR
+           ${STM32_FAMILY_NAME} MATCHES "G4" OR
+           ${STM32_FAMILY_NAME} MATCHES "L4")
+        set(_ARCH_FLAGS -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard)
+    else()
+        message(FATAL_ERROR "Unknown STM32 family: ${STM32_FAMILY_NAME}")
+    endif()
+
+    target_compile_options(${LIB_NAME} PRIVATE ${_ARCH_FLAGS} -fno-analyzer)
+    target_link_options(${LIB_NAME}    PRIVATE ${_ARCH_FLAGS})
 endfunction()

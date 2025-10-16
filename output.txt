@@ -1,0 +1,171 @@
+/Users/ronak/coding/PER/Projects/firmware/source
+can config for bus VCAN found
+match for can node DAQ found
+match for can node DAQ found
+match for can node DAQ found
+match for can node DAQ found
+can config for bus CCAN found
+match for can node DAQ found
+can config for bus Test found
+match for can node DAQ found
+Junction node found: OrionBMS
+Junction node found: a_box
+Junction node found: Main_Module
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/can/can_parse.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/can/can_parse.h[0m
+Node matches found: ['Main_Module', 'torque_vector', 'bootloader', 'a_box', 'PDU', 'Dashboard', 'daq']
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/can/can_parse.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/can/can_parse.h[0m
+Node matches found: ['TEST_NODE']
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/can/can_parse.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/can/can_parse.h[0m
+Node matches found: ['a_box']
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/can/can_parse.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/can/can_parse.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/can/can_parse.h[0m
+Node matches found: ['Main_Module']
+[92mEmbedded CAN Code Generated[0m
+[93mWARNING: Header not found for torque_vector at /Users/ronak/coding/PER/Projects/firmware/source/torque_vector/daq/daq.h[0m
+[93mWARNING: Header not found for bootloader at /Users/ronak/coding/PER/Projects/firmware/source/bootloader/daq/daq.h[0m
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/daq/daq.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/daq/daq.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/daq/daq.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/daq/daq.h[0m
+[93mWARNING: Header not found for daq at /Users/ronak/coding/PER/Projects/firmware/source/daq/daq/daq.h[0m
+Node matches found: ['Main_Module', 'a_box', 'PDU', 'Dashboard']
+[93mWARNING: Header not found for torque_vector at /Users/ronak/coding/PER/Projects/firmware/source/torque_vector/daq/daq.h[0m
+[93mWARNING: Header not found for bootloader at /Users/ronak/coding/PER/Projects/firmware/source/bootloader/daq/daq.h[0m
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/daq/daq.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/daq/daq.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/daq/daq.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/daq/daq.h[0m
+[93mWARNING: Header not found for daq at /Users/ronak/coding/PER/Projects/firmware/source/daq/daq/daq.h[0m
+Node matches found: ['a_box']
+[93mWARNING: Header not found for torque_vector at /Users/ronak/coding/PER/Projects/firmware/source/torque_vector/daq/daq.h[0m
+[93mWARNING: Header not found for bootloader at /Users/ronak/coding/PER/Projects/firmware/source/bootloader/daq/daq.h[0m
+[93mWARNING: Header not found for template at /Users/ronak/coding/PER/Projects/firmware/source/template/daq/daq.h[0m
+[93mWARNING: Header not found for f4_testing at /Users/ronak/coding/PER/Projects/firmware/source/f4_testing/daq/daq.h[0m
+[93mWARNING: Header not found for g4_testing at /Users/ronak/coding/PER/Projects/firmware/source/g4_testing/daq/daq.h[0m
+[93mWARNING: Header not found for f7_testing at /Users/ronak/coding/PER/Projects/firmware/source/f7_testing/daq/daq.h[0m
+[93mWARNING: Header not found for daq at /Users/ronak/coding/PER/Projects/firmware/source/daq/daq/daq.h[0m
+Node matches found: ['TEST_NODE']
+Configuring DAQ for Node Main_Module
+Configuring DAQ for Node Dashboard
+Configuring DAQ for Node a_box
+Configuring DAQ for Node PDU
+Configuring DAQ for Node TEST_NODE
+[92mEmbedded DAQ Code Generated[0m
+[92mDBCs Generated at /Users/ronak/coding/PER/Projects/firmware/common/daq/generation/../per_dbc_VCAN.dbc[0m
+[92mDBCs Generated at /Users/ronak/coding/PER/Projects/firmware/common/daq/generation/../per_dbc_Test.dbc[0m
+[92mDBCs Generated at /Users/ronak/coding/PER/Projects/firmware/common/daq/generation/../per_dbc_CCAN.dbc[0m
+[92mDBCs Generated at /Users/ronak/coding/PER/Projects/firmware/common/daq/generation/../per_dbc_MCAN.dbc[0m
+[1m[4mDefined Paths:[0m
+/Users/ronak/coding/PER/Projects/firmware/common/faults/fault_config.json
+/Users/ronak/coding/PER/Projects/firmware/common/faults/fault_schema.json
+/Users/ronak/coding/PER/Projects/firmware/common/faults/faults.c
+/Users/ronak/coding/PER/Projects/firmware/common/faults/faults.h
+/Users/ronak/coding/PER/Projects/firmware/common/faults/fault_nodes.h
+[1m[4mChecking validity of fault configuration:[0m
+Total number of nodes: 6
+Total number of faults: 88
+[92mFault configuration is valid![0m
+[1m[4mGenerating fault code:[0m
+Generating Total Values
+Generating IDs
+Generating Priorities
+Generating Max Values
+Generating Min Values
+Generating Latch Times
+Generating Unlatch Times
+Generating Messages
+Populating Arrays
+Generating nodes
+[92mFault Code Successfully Generated![0m
+-- Not building applications for bootloaders.
+-- [PHAL_F407] STM32 family=F4 ARCH=-mthumb;-mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- [PHAL_F732] STM32 family=F7 ARCH=-mthumb;-mcpu=cortex-m7;-mfpu=fpv5-d16;-mfloat-abi=hard
+-- [PHAL_L432] STM32 family=L4 ARCH=-mthumb;-mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- [PHAL_L471] STM32 family=L4 ARCH=-mthumb;-mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- [PHAL_L496] STM32 family=L4 ARCH=-mthumb;-mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- [PHAL_G474] STM32 family=G4 ARCH=-mthumb;-mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: a_box
+-- [a_box.elf] STM32 family = F4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: bootloader
+-- Adding module: dashboard
+-- [dashboard.elf] STM32 family = F4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: daq
+-- [daq.elf] STM32 family = F4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: f4_testing
+-- [f4_testing.elf] STM32 family = F4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: f7_testing
+-- [f7_testing.elf] STM32 family = F7, applying -mcpu=cortex-m7;-mfpu=fpv5-d16;-mfloat-abi=hard
+-- Adding module: g4_testing
+-- [g4_testing.elf] STM32 family = G4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: l4_testing
+-- [l4_testing.elf] STM32 family = L4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: main_module
+-- [main_module.elf] STM32 family = F4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: pdu
+-- [pdu.elf] STM32 family = F4, applying -mcpu=cortex-m4;-mfpu=fpv4-sp-d16;-mfloat-abi=hard
+-- Adding module: torque_vector
+-- [torque_vector.elf] STM32 family = F7, applying -mcpu=cortex-m7;-mfpu=fpv5-d16;-mfloat-abi=hard
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/ronak/coding/PER/Projects/firmware/build
+ninja: Entering directory `/Users/ronak/coding/PER/Projects/firmware/build'
+[1/146] Building C object common/freertos/CMakeFiles/FREERTOS_F407.dir/freertos.c.obj
+FAILED: [code=1] common/freertos/CMakeFiles/FREERTOS_F407.dir/freertos.c.obj 
+/opt/homebrew/bin/arm-none-eabi-gcc @common/freertos/CMakeFiles/FREERTOS_F407.dir/freertos.c.obj.rsp -MD -MT common/freertos/CMakeFiles/FREERTOS_F407.dir/freertos.c.obj -MF common/freertos/CMakeFiles/FREERTOS_F407.dir/freertos.c.obj.d -o common/freertos/CMakeFiles/FREERTOS_F407.dir/freertos.c.obj -c /Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.c
+In file included from /Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.c:2:
+/Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.h:18:2: error: #error "Unsupported MCU arch"
+   18 | #error "Unsupported MCU arch"
+      |  ^~~~~
+/Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.h:21:43: fatal error: _FREERTOS_DIRinclude/FreeRTOS.h: No such file or directory
+   21 | #include _FREERTOS_PATH(include/FreeRTOS.h)
+      |                                           ^
+compilation terminated.
+[2/146] Building C object common/freertos/CMakeFiles/FREERTOS_G474.dir/freertos.c.obj
+FAILED: [code=1] common/freertos/CMakeFiles/FREERTOS_G474.dir/freertos.c.obj 
+/opt/homebrew/bin/arm-none-eabi-gcc @common/freertos/CMakeFiles/FREERTOS_G474.dir/freertos.c.obj.rsp -MD -MT common/freertos/CMakeFiles/FREERTOS_G474.dir/freertos.c.obj -MF common/freertos/CMakeFiles/FREERTOS_G474.dir/freertos.c.obj.d -o common/freertos/CMakeFiles/FREERTOS_G474.dir/freertos.c.obj -c /Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.c
+In file included from /Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.c:2:
+/Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.h:18:2: error: #error "Unsupported MCU arch"
+   18 | #error "Unsupported MCU arch"
+      |  ^~~~~
+/Users/ronak/coding/PER/Projects/firmware/common/freertos/freertos.h:21:43: fatal error: _FREERTOS_DIRinclude/FreeRTOS.h: No such file or directory
+   21 | #include _FREERTOS_PATH(include/FreeRTOS.h)
+      |                                           ^
+compilation terminated.
+[3/146] Linking C static library common/queue/libQUEUE.a
+[4/146] Building C object common/bootloader/CMakeFiles/BOOTLOADER_COMMON_L432.dir/bootlaoder_common.c.obj
+FAILED: [code=1] common/bootloader/CMakeFiles/BOOTLOADER_COMMON_L432.dir/bootlaoder_common.c.obj 
+/opt/homebrew/bin/arm-none-eabi-gcc @common/bootloader/CMakeFiles/BOOTLOADER_COMMON_L432.dir/bootlaoder_common.c.obj.rsp -MD -MT common/bootloader/CMakeFiles/BOOTLOADER_COMMON_L432.dir/bootlaoder_common.c.obj -MF common/bootloader/CMakeFiles/BOOTLOADER_COMMON_L432.dir/bootlaoder_common.c.obj.d -o common/bootloader/CMakeFiles/BOOTLOADER_COMMON_L432.dir/bootlaoder_common.c.obj -c /Users/ronak/coding/PER/Projects/firmware/common/bootloader/bootlaoder_common.c
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//ccz3VmYL.s: Assembler messages:
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//ccz3VmYL.s:43: Error: selected processor does not support `dsb 0xF' in Thumb mode
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//ccz3VmYL.s:70: Error: selected processor does not support `dsb 0xF' in Thumb mode
+[5/146] Building C object common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F732.dir/bootlaoder_common.c.obj
+FAILED: [code=1] common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F732.dir/bootlaoder_common.c.obj 
+/opt/homebrew/bin/arm-none-eabi-gcc @common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F732.dir/bootlaoder_common.c.obj.rsp -MD -MT common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F732.dir/bootlaoder_common.c.obj -MF common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F732.dir/bootlaoder_common.c.obj.d -o common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F732.dir/bootlaoder_common.c.obj -c /Users/ronak/coding/PER/Projects/firmware/common/bootloader/bootlaoder_common.c
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//ccHzQDdi.s: Assembler messages:
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//ccHzQDdi.s:43: Error: selected processor does not support `dsb 0xF' in Thumb mode
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//ccHzQDdi.s:70: Error: selected processor does not support `dsb 0xF' in Thumb mode
+[6/146] Building C object common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F407.dir/bootlaoder_common.c.obj
+FAILED: [code=1] common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F407.dir/bootlaoder_common.c.obj 
+/opt/homebrew/bin/arm-none-eabi-gcc @common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F407.dir/bootlaoder_common.c.obj.rsp -MD -MT common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F407.dir/bootlaoder_common.c.obj -MF common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F407.dir/bootlaoder_common.c.obj.d -o common/bootloader/CMakeFiles/BOOTLOADER_COMMON_F407.dir/bootlaoder_common.c.obj -c /Users/ronak/coding/PER/Projects/firmware/common/bootloader/bootlaoder_common.c
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//cctyTnn5.s: Assembler messages:
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//cctyTnn5.s:43: Error: selected processor does not support `dsb 0xF' in Thumb mode
+/var/folders/q3/wjp297k53g58s1kb6_ygz04c0000gn/T//cctyTnn5.s:70: Error: selected processor does not support `dsb 0xF' in Thumb mode
+[7/146] Building C object common/faults/CMakeFiles/FAULTS.dir/faults.c.obj
+[8/146] Building C object common/daq/CMakeFiles/DAQ.dir/daq_base.c.obj
+[9/146] Building C object common/faults/CMakeFiles/FAULTS_F407.dir/faults.c.obj
+[10/146] Building C object common/faults/CMakeFiles/FAULTS_F732.dir/faults.c.obj
+ninja: build stopped: subcommand failed.
+[92mSucessfully generated build files.[0m
+Running Build command ninja -C /Users/ronak/coding/PER/Projects/firmware/build all
+[91mERROR: Unable to generate targets.[0m

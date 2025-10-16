@@ -14,6 +14,14 @@ MACRO(MAKE_BOOTLOADER_COMMON_LIBRARY lib_name lib_link)
 
     target_link_libraries(${TARGET_NAME} ${lib_link})
     target_link_libraries(${TARGET_NAME} common_defs)
+
+    if(${lib_name} MATCHES "F7")
+        set(_ARCH_FLAGS -mthumb -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard)
+    elseif(${lib_name} MATCHES "F4" OR ${lib_name} MATCHES "L4" OR ${lib_name} MATCHES "G4")
+        set(_ARCH_FLAGS -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard)
+    endif()
+    target_compile_options(${TARGET_NAME} PRIVATE ${_ARCH_FLAGS})
+    target_link_options(${TARGET_NAME} PRIVATE ${_ARCH_FLAGS})
 ENDMACRO(MAKE_BOOTLOADER_COMMON_LIBRARY)
 
 MAKE_BOOTLOADER_COMMON_LIBRARY(BOOTLOADER_COMMON_L432 CMSIS_L432)

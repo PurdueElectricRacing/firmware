@@ -98,10 +98,31 @@ cd firmware
 ```
 
 ## Setup & Build
-4. Install the required Python packages:
+4. Install the required Python packages.
+
+You can install the dependencies in one of two ways:
+
+**Option A** — Use a virtual environment to isolate dependencies
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip3 install -r requirements.txt
+```
+Before running any build commands, make sure to activate the virtual environment each time by running:
+```bash
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+**Option B (Simpler)** — Install directly to your system Python
 ```bash
 pip3 install -r requirements.txt
 ```
+> [!NOTE]:
+> If you encounter an “externally managed environment” error when using Option B, run:
+> ```bash
+> pip3 install -r requirements.txt --break-system-packages
+> ```
+
 
 5. Launch Visual Studio Code:
 ```bash

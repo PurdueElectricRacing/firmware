@@ -88,6 +88,8 @@ int main(void) {
     {
         BL_CANPoll();
     }
+    /* task creation */
+    taskCreate(sendVersion, 5000);
 }
 
 static void BL_CANPoll(void) {
@@ -149,7 +151,11 @@ void CAN1_RX0_IRQHandler() {
         qSendToBack(&q_rx_can, &rx); // Add to queue (qSendToBack is interrupt safe)
     }
 }
-
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_DASH_VERSION(git_hash_num);
+}
 void SysTick_Handler(void) {
     bootloader_ms++;
 }

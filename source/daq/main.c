@@ -115,7 +115,7 @@ usart_init_t lte_usart_config  = {
      .rx_dma_cfg       = &usart_rx_dma_config};
 DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
 
-extern daq_hub_t dh;
+extern daq_hub_t daq_hub;
 
 // Static buffer allocations
 volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT];
@@ -268,7 +268,7 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
 #endif
             bCommitWrite(&b_rx_can, 1);
         } else {
-            dh.bcan_rx_overflow++;
+            daq_hub.bcan_rx_overflow++;
         }
         can_h->RF0R |= (CAN_RF0R_RFOM0);
     }

@@ -14,7 +14,7 @@ static uint32_t mbx_last_send_time[CAN_BUS_COUNT][CAN_TX_MAILBOX_CNT];
 #define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
 
 static void initCANParseBase() {
-    memset(can_stats, 0, sizeof(can_stats) * sizeof(*can_stats));
+    memset(can_stats, 0, sizeof(can_stats_t) * CAN_BUS_COUNT);
 }
 
 void initCANParse() {

@@ -63,16 +63,16 @@ void eth_update_periodic(void) {
         eth_startup = 1;
     }
 
-    switch (dh.eth_state) {
+    switch (daq_hub.eth_state) {
         case ETH_LINK_IDLE:
             if (eth_init() == ETH_ERROR_NONE) {
                 // Chip initialized, setup UDP socket
                 if (eth_udp_init() == ETH_ERROR_NONE)
-                    dh.eth_state = ETH_LINK_STARTING;
+                    daq_hub.eth_state = ETH_LINK_STARTING;
                 else
-                    dh.eth_state = ETH_LINK_FAIL;
+                    daq_hub.eth_state = ETH_LINK_FAIL;
             } else {
-                dh.eth_state = ETH_LINK_FAIL;
+                daq_hub.eth_state = ETH_LINK_FAIL;
             }
             break;
         case ETH_LINK_DOWN: // intentional fall through
@@ -81,18 +81,18 @@ void eth_update_periodic(void) {
                 PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
                 debug_printf("UDP UP!\n");
                 bActivateTail(&b_rx_can, RX_TAIL_UDP);
-                dh.eth_state = ETH_LINK_UP;
+                daq_hub.eth_state = ETH_LINK_UP;
             }
             break;
         case ETH_LINK_UP:
             if (eth_get_link_up()) {
-                dh.eth_state = ETH_LINK_UP;
+                daq_hub.eth_state = ETH_LINK_UP;
                 PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
                 /* Eth link UP routines */
                 eth_udp_send_periodic();
                 eth_tcp_update();
             } else {
-                dh.eth_state = ETH_LINK_DOWN;
+                daq_hub.eth_state = ETH_LINK_DOWN;
                 PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
                 bDeactivateTail(&b_rx_can, RX_TAIL_UDP);
             }
@@ -103,33 +103,33 @@ void eth_update_periodic(void) {
 }
 
 static void _eth_handle_error(eth_error_t err, int32_t reason) {
-    ++dh.eth_error_ct;
-    dh.eth_last_err        = err;
-    dh.eth_last_err_res    = reason;
-    dh.eth_last_error_time = getTick();
+    ++daq_hub.eth_error_ct;
+    daq_hub.eth_last_err        = err;
+    daq_hub.eth_last_err_res    = reason;
+    daq_hub.eth_last_error_time = getTick();
     PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
     debug_printf("eth err: %d res: %d\n", err, reason);
 }
 
 static void eth_reset_error(void) {
     // Do not retry immediately
-    if (!(getTick() - dh.eth_last_error_time > ETH_ERROR_RETRY_MS))
+    if (!(getTick() - daq_hub.eth_last_error_time > ETH_ERROR_RETRY_MS))
         return;
 
-    if (dh.eth_tcp_state == ETH_TCP_FAIL) {
-        dh.eth_tcp_state    = ETH_TCP_IDLE; // Retry TCP only
-        dh.eth_last_err     = ETH_ERROR_NONE;
-        dh.eth_last_err_res = 0;
+    if (daq_hub.eth_tcp_state == ETH_TCP_FAIL) {
+        daq_hub.eth_tcp_state    = ETH_TCP_IDLE; // Retry TCP only
+        daq_hub.eth_last_err     = ETH_ERROR_NONE;
+        daq_hub.eth_last_err_res = 0;
         PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-    } else if (dh.eth_last_err != ETH_ERROR_NONE || dh.eth_state == ETH_LINK_FAIL) {
-        dh.eth_state        = ETH_LINK_IDLE; // Retry
-        dh.eth_last_err     = ETH_ERROR_NONE;
-        dh.eth_last_err_res = 0;
+    } else if (daq_hub.eth_last_err != ETH_ERROR_NONE || daq_hub.eth_state == ETH_LINK_FAIL) {
+        daq_hub.eth_state        = ETH_LINK_IDLE; // Retry
+        daq_hub.eth_last_err     = ETH_ERROR_NONE;
+        daq_hub.eth_last_err_res = 0;
         PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
     }
 
-    if (dh.eth_state == ETH_LINK_UP) {
-        if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED || dh.ftp_busy)
+    if (daq_hub.eth_state == ETH_LINK_UP) {
+        if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED || daq_hub.ftp_busy)
             PHAL_toggleGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN); // Blink on TCP
         else
             PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
@@ -195,7 +195,7 @@ static void eth_udp_send_periodic(void) {
     timestamped_frame_t* frame;
     uint32_t consecutive_items;
 
-    if (dh.eth_state == ETH_LINK_UP) {
+    if (daq_hub.eth_state == ETH_LINK_UP) {
         if (bGetTailForRead(&b_rx_can, RX_TAIL_UDP, (void**)&buf, &consecutive_items) == 0) {
             if (consecutive_items > UDP_MAX_WRITE_COUNT)
                 consecutive_items = UDP_MAX_WRITE_COUNT; // limit
@@ -247,29 +247,29 @@ static int8_t eth_init_tcp(void) {
 }
 
 static void eth_tcp_update(void) {
-    if (dh.eth_state != ETH_LINK_UP)
+    if (daq_hub.eth_state != ETH_LINK_UP)
         return;
 
     uint8_t stat;
-    switch (dh.eth_tcp_state) {
+    switch (daq_hub.eth_tcp_state) {
         case ETH_TCP_IDLE:
             if (eth_init_tcp() == ETH_ERROR_NONE)
-                dh.eth_tcp_state = ETH_TCP_LISTEN;
+                daq_hub.eth_tcp_state = ETH_TCP_LISTEN;
             else
-                dh.eth_tcp_state = ETH_TCP_FAIL;
+                daq_hub.eth_tcp_state = ETH_TCP_FAIL;
             break;
         case ETH_TCP_LISTEN:
             stat = getSn_SR(eth_config.tcp_sock);
             if (stat == SOCK_ESTABLISHED) {
                 debug_printf("TCP UP!\n");
-                dh.eth_tcp_state = ETH_TCP_ESTABLISHED; // Connected
+                daq_hub.eth_tcp_state = ETH_TCP_ESTABLISHED; // Connected
             }
             break;
         case ETH_TCP_ESTABLISHED:
             stat = getSn_SR(eth_config.tcp_sock);
             if (stat == SOCK_CLOSE_WAIT) {
                 close(eth_config.tcp_sock);
-                dh.eth_tcp_state = ETH_TCP_IDLE;
+                daq_hub.eth_tcp_state = ETH_TCP_IDLE;
             } else {
                 /* TCP UP routines */
                 eth_tcp_receive_periodic(); // RX
@@ -305,12 +305,12 @@ static void eth_tcp_relay_can_frame(timestamped_frame_t* frame) {
 // Pull out of TCP queue and add it to UDS queue
 static void eth_tcp_relay_uds_frame(timestamped_frame_t* frame) {
     if (xQueueSendToBack(q_can1_rx, frame, (TickType_t)10) != pdPASS) {
-        dh.can1_rx_overflow++;
+        daq_hub.can1_rx_overflow++;
     }
 }
 
 static void eth_tcp_receive_periodic(void) {
-    if (dh.eth_tcp_state != ETH_TCP_ESTABLISHED)
+    if (daq_hub.eth_tcp_state != ETH_TCP_ESTABLISHED)
         return;
 
     timestamped_frame_t* frame;
@@ -332,17 +332,17 @@ static void eth_tcp_receive_periodic(void) {
             }
         }
     } else if (ret == SOCKERR_SOCKSTATUS) {
-        dh.eth_tcp_state = ETH_TCP_IDLE; // Go back to the start of state machine
+        daq_hub.eth_tcp_state = ETH_TCP_IDLE; // Go back to the start of state machine
         // recv() API already calls close() on socket for us (part of FIN/ACK)
         // So no need to close here
     }
 }
 
 static void eth_tcp_send_frame(timestamped_frame_t* frame) {
-    if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED) // only send UDS response back if TCP established
+    if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED) // only send UDS response back if TCP established
     {
         if (xQueueSendToBack(q_tcp_tx, frame, (TickType_t)10) != pdPASS) {
-            dh.tcp_tx_overflow++;
+            daq_hub.tcp_tx_overflow++;
         }
     }
 }
@@ -350,7 +350,7 @@ static void eth_tcp_send_frame(timestamped_frame_t* frame) {
 /* TODO buffer for TCP TX */
 static void _eth_tcp_send_frame_raw(timestamped_frame_t* frame) {
     int32_t ret;
-    if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED) {
+    if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED) {
         frame->frame_type = DAQ_FRAME_TCP_TX;
         ret               = send(eth_config.tcp_sock, (uint8_t*)frame, sizeof(*frame));
         if (ret != sizeof(*frame)) {
@@ -360,7 +360,7 @@ static void _eth_tcp_send_frame_raw(timestamped_frame_t* frame) {
 }
 
 static void eth_tcp_send_periodic(void) {
-    if (dh.eth_tcp_state == ETH_TCP_ESTABLISHED) {
+    if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED) {
         timestamped_frame_t frame;
         while (xQueueReceive(q_tcp_tx, &frame, (TickType_t)10) == pdPASS) {
             _eth_tcp_send_frame_raw(&frame);

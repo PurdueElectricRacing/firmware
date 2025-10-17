@@ -236,6 +236,10 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t* spi) {
  *
  */
 static void handleTxComplete() {
+    if (active_transfer == NULL) {
+        return;
+    }
+
     // Bitmask for each DMA interrupt flag
     uint32_t teif_flag;
     uint32_t tcif_flag;
@@ -354,8 +358,7 @@ static void handleTxComplete() {
     // Transfer Error interrupt
     if (*sr_reg & teif_flag) {
         *csr_reg |= teif_flag;
-        if (active_transfer)
-            active_transfer->_error = true;
+        active_transfer->_error = true;
     }
     // Transfer Complete interrupt flag
     if (*sr_reg & tcif_flag) {
@@ -396,14 +399,12 @@ static void handleTxComplete() {
     }
     // FIFO Overrun Error flag
     if (*sr_reg & feif_flag) {
-        if (active_transfer)
-            active_transfer->_fifo_overrun = true;
+        active_transfer->_fifo_overrun = true;
         *csr_reg |= feif_flag;
     }
     // Direct Mode Error flag
     if (*sr_reg & dmeif_flag) {
-        if (active_transfer)
-            active_transfer->_direct_mode_error = true;
+        active_transfer->_direct_mode_error = true;
         *csr_reg |= dmeif_flag;
     }
 

@@ -69,7 +69,7 @@ typedef struct
     uint32_t tcp_tx_overflow;
 } daq_hub_t;
 
-extern daq_hub_t dh;
+extern daq_hub_t daq_hub;
 
 void daq_hub_init(void);
 void daq_create_threads(void);

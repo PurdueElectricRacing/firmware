@@ -62,12 +62,12 @@ static void parse_gps_time(const timestamped_frame_t* frame, CanParsedData_t* ou
     if (frame->msg_id != ID_GPS_TIME) return; // Check correct message
 
     const CanParsedData_t* msg_data = (const CanParsedData_t*)(frame->data);
-    out->year   = msg_data->gps_time.year;
-    out->month  = msg_data->gps_time.month;
-    out->day    = msg_data->gps_time.day;
-    out->hour   = msg_data->gps_time.hour;
-    out->minute = msg_data->gps_time.minute;
-    out->second = msg_data->gps_time.second;
+    out->gps_time.year   = msg_data->gps_time.year;
+    out->gps_time.month  = msg_data->gps_time.month;
+    out->gps_time.day    = msg_data->gps_time.day;
+    out->gps_time.hour   = msg_data->gps_time.hour;
+    out->gps_time.minute = msg_data->gps_time.minute;
+    out->gps_time.second = msg_data->gps_time.second;
 }
 
 static uint8_t get_weekday (uint8_t d, uint8_t m, uint16_t Y) {

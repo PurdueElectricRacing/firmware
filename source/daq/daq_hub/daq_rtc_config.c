@@ -1,0 +1,91 @@
+#include "daq_rtc_config.h"
+
+#include "common/phal/gpio.h"
+#include "common/phal/rtc.h"
+#include "daq_hub.h"
+#include "can_parse.h"
+#include "main.h"
+#include "math.h"
+
+static void parse_gps_time(const timestamped_frame_t* frame, CanParsedData_t* out);
+static uint8_t get_weekday(uint8_t d, uint8_t m, uint16_t Y);
+static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, CanParsedData_t msg_data_a);
+
+void rtc_check_periodic (void) {
+    timestamped_frame_t* buf;
+    RTC_timestamp_t gps_rtc_time;
+    CanParsedData_t msg_data_a;
+    uint32_t consecutive_items;
+    
+    switch(dh.rtc_config_state) {
+        case RTC_CONFIG_STATE_IDLE:
+            bActivateTail(&b_rx_can, RX_TAIL_CAN_RX);
+            dh.rtc_config_state = RTC_CONFIG_STATE_PENDING;
+        case RTC_CONFIG_STATE_PENDING:
+            if (!bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) break;
+            if (bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items)) {
+                dh.can1_rx_overflow++;
+                break;
+            }
+            if (!(buf->msg_id == ID_GPS_TIME)) {
+                bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
+                break;
+            }
+            parse_gps_time(buf, &msg_data_a);
+            GPS_time_to_BCD_RTC(&gps_rtc_time, msg_data_a);
+            if (!PHAL_configureRTC(&gps_rtc_time, true)) {
+                    // Successful reintialization 
+                    dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
+            }
+            break;
+        case RTC_CONFIG_STATE_COMPLETE:
+            osThreadExit();
+            break;        
+    }
+}
+
+static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, CanParsedData_t msg_data_a)
+{
+    gps_rtc_time->date.year_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.year);
+    gps_rtc_time->date.month_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.month);
+    gps_rtc_time->date.day_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.day);
+
+    gps_rtc_time->time.hours_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.hour);
+    gps_rtc_time->time.minutes_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.minute);
+    gps_rtc_time->time.seconds_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.second);
+
+    gps_rtc_time->date.weekday = RTC_CONV_TO_BCD(get_weekday(msg_data_a.gps_time.day, msg_data_a.gps_time.month, msg_data_a.gps_time.year));
+    gps_rtc_time->time.time_format = RTC_FORMAT_24_HOUR;
+}
+
+static void parse_gps_time(const timestamped_frame_t* frame, CanParsedData_t* out) {
+    if (frame->msg_id != ID_GPS_TIME) return; // Check correct message
+
+    CanParsedData_t msg_data = *(CanParsedData_t * )(frame->data);
+    out->gps_time.year   = msg_data.gps_time.year;
+    out->gps_time.month  = msg_data.gps_time.month;
+    out->gps_time.day    = msg_data.gps_time.day;
+    out->gps_time.hour   = msg_data.gps_time.hour;
+    out->gps_time.minute = msg_data.gps_time.minute;
+    out->gps_time.second = msg_data.gps_time.second;
+}
+
+static uint8_t get_weekday (uint8_t d, uint8_t m, uint16_t Y) {
+    /* Calculation for the weekday which in theory works */
+    uint16_t F;
+    uint8_t weekday;
+
+    if (m < 3)
+    {
+      m += 12;
+      Y -= 1;
+    }
+
+    F = d + floor(13.00 * (m + 1.00) / 5.00) + Y + floor(Y / 4.00) - floor(Y / 100.00) + floor(Y / 400.00);
+    weekday = ((F + 5) % 7) + 1;
+    return weekday;
+}
+
+void rtc_config_shutdown (void) {
+    bDeactivateTail(&b_rx_can, RX_TAIL_CAN_RX);
+}

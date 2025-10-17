@@ -23,7 +23,7 @@ void rtc_check_periodic (void) {
     if (dh.rtc_config_state == RTC_CONFIG_STATE_PENDING) {
         if (bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) {
             if ((bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items) == 0)) {
-                if (buf->msg_id == 2285897728) {
+                if (buf->msg_id == ID_GPS_TIME) {
                     // idk man i just used the ID number next to gps_time in per_dbc_CCAN.dbc
                     parse_gps_time(buf, &gps_time);
                     GPS_time_to_BCD_RTC(&gps_rtc_time, gps_time);

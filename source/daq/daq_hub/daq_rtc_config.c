@@ -3,6 +3,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rtc.h"
 #include "daq_hub.h"
+#include "can_parse.h"
 #include "main.h"
 #include "math.h"
 

@@ -7,7 +7,7 @@
 #include "main.h"
 #include "math.h"
 
-static void parse_gps_time(const timestamped_frame_t* frame, gps_time_t* out);
+static void parse_gps_time(const timestamped_frame_t* frame, CanParsedData_t* out);
 static uint8_t get_weekday(uint8_t d, uint8_t m, uint16_t Y);
 static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, gps_time_t gps_time);
 

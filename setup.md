@@ -117,7 +117,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```bash
 pip3 install -r requirements.txt
 ```
-> [!NOTE]:
+> [!NOTE]
 > If you encounter an “externally managed environment” error when using Option B, run:
 > ```bash
 > pip3 install -r requirements.txt --break-system-packages

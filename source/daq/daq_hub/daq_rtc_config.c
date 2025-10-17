@@ -21,28 +21,25 @@ void rtc_check_periodic (void) {
         case RTC_CONFIG_STATE_IDLE:
             bActivateTail(&b_rx_can, RX_TAIL_CAN_RX);
             dh.rtc_config_state = RTC_CONFIG_STATE_PENDING;
-            // Letting the statement fall through is probably fine here?
         case RTC_CONFIG_STATE_PENDING:
-            if (bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) {
-                if ((bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items) == 0)) {
-                    if (buf->msg_id == ID_GPS_TIME) {
-                        parse_gps_time(buf, &gps_time);
-                        GPS_time_to_BCD_RTC(&gps_rtc_time, gps_time);
-                        if (!PHAL_configureRTC(&gps_rtc_time, true)) {
-                            // Successful reintialization 
-                            dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
-                        }
-                    }
-                    else {
-                        bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
-                    }
-                } else {
-                    dh.can1_rx_overflow++; // currently also incremented by the tcp eth tail people which seems incorrect??
-                }
+            if (!bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) break;
+            if (bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items)) {
+                dh.can1_rx_overflow++;
+                break;
+            }
+            if (!(buf->msg_id == ID_GPS_TIME)) {
+                bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
+                break;
+            }
+            parse_gps_time(buf, &gps_time);
+            GPS_time_to_BCD_RTC(&gps_rtc_time, gps_time);
+            if (!PHAL_configureRTC(&gps_rtc_time, true)) {
+                    // Successful reintialization 
+                    dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
             }
             break;
         case RTC_CONFIG_STATE_COMPLETE:
-            osThreadTerminate(osThreadGetId());
+            osThreadExit();
             break;        
     }
 }

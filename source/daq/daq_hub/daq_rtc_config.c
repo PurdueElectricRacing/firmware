@@ -41,7 +41,7 @@ void rtc_check_periodic (void) {
             }
             break;
         case RTC_CONFIG_STATE_COMPLETE:
-            osThreadTerminate(osThreadGetId())
+            osThreadTerminate(osThreadGetId());
             break;        
     }
 }

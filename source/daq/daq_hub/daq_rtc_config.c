@@ -15,30 +15,34 @@ void rtc_check_periodic (void) {
     RTC_timestamp_t gps_rtc_time;
     gps_time_t gps_time;
     uint32_t consecutive_items;
-
-    if (dh.rtc_config_state == RTC_CONFIG_STATE_IDLE) {
-        bActivateTail(&b_rx_can, RX_TAIL_CAN_RX);
-        dh.rtc_config_state = RTC_CONFIG_STATE_PENDING;
-    }
-    if (dh.rtc_config_state == RTC_CONFIG_STATE_PENDING) {
-        if (bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) {
-            if ((bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items) == 0)) {
-                if (buf->msg_id == ID_GPS_TIME) {
-                    // idk man i just used the ID number next to gps_time in per_dbc_CCAN.dbc
-                    parse_gps_time(buf, &gps_time);
-                    GPS_time_to_BCD_RTC(&gps_rtc_time, gps_time);
-                    if (!PHAL_configureRTC(&gps_rtc_time, true)) {
-                        // Successful reintialization 
-                        dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
+    
+    switch(dh.rtc_config_state) {
+        case RTC_CONFIG_STATE_IDLE:
+            bActivateTail(&b_rx_can, RX_TAIL_CAN_RX);
+            dh.rtc_config_state = RTC_CONFIG_STATE_PENDING;
+            // Letting the statement fall through is probably fine here?
+        case RTC_CONFIG_STATE_PENDING:
+            if (bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) {
+                if ((bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items) == 0)) {
+                    if (buf->msg_id == ID_GPS_TIME) {
+                        parse_gps_time(buf, &gps_time);
+                        GPS_time_to_BCD_RTC(&gps_rtc_time, gps_time);
+                        if (!PHAL_configureRTC(&gps_rtc_time, true)) {
+                            // Successful reintialization 
+                            dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
+                        }
                     }
+                    else {
+                        bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
+                    }
+                } else {
+                    dh.can1_rx_overflow++; // currently also incremented by the tcp eth tail people which seems incorrect??
                 }
-                else {
-                    bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
-                }
-            } else {
-                dh.can1_rx_overflow++; // lowkey might cause problems i think i need to create another tail just for the purpose of rtc configuration this might be used by something else
             }
-        }
+            break;
+        case RTC_CONFIG_STATE_COMPLETE:
+            osThreadTerminate(osThreadGetId())
+            break;        
     }
 }
 

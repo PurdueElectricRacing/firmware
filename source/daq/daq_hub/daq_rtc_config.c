@@ -31,7 +31,7 @@ void rtc_check_periodic (void) {
                 bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
                 break;
             }
-            parse_gps_time(buf, &parsed_data);
+            parse_gps_time(buf, &msg_data_a);
             GPS_time_to_BCD_RTC(&gps_rtc_time, msg_data_a.gps_time);
             if (!PHAL_configureRTC(&gps_rtc_time, true)) {
                     // Successful reintialization 

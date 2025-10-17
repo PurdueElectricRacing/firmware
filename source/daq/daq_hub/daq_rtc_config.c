@@ -54,7 +54,7 @@ static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, CanParsedData_t m
     gps_rtc_time->time.minutes_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.minute);
     gps_rtc_time->time.seconds_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.second);
 
-    gps_rtc_time->date.weekday = RTC_CONV_TO_BCD(get_weekday(gps_time.day, gps_time.month, gps_time.year));
+    gps_rtc_time->date.weekday = RTC_CONV_TO_BCD(get_weekday(msg_data_a.gps_time.day, msg_data_a.gps_time.month, msg_data_a.gps_time.year));
     gps_rtc_time->time.time_format = RTC_FORMAT_24_HOUR;
 }
 

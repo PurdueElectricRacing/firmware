@@ -36,7 +36,7 @@ defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
-defineThreadStack(rtc_check_periodic, 50, osPriorityNormal, 128); // RTC Re-initialize based on GPS time -- what priority, thread size??, and frequency bc rlly it only has to run once right
+defineThreadStack(rtc_check_periodic, 100, osPriorityLow, 128); // RTC Re-initialize based on GPS time
 
 //defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
 

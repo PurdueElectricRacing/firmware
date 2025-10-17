@@ -62,7 +62,7 @@ static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, gps_time_t gps_ti
 }
 
 static void parse_gps_time(const timestamped_frame_t* frame, gps_time_t* out) {
-    if (frame->msg_id != 2285897728) return; // Check correct message
+    if (frame->msg_id != ID_GPS_TIME) return; // Check correct message
 
     out->year        = frame->data[0];
     out->month       = frame->data[1];

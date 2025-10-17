@@ -9,7 +9,7 @@
 
 static void parse_gps_time(const timestamped_frame_t* frame, CanParsedData_t* out);
 static uint8_t get_weekday(uint8_t d, uint8_t m, uint16_t Y);
-static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, gps_time_t gps_time);
+static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, CanParsedData_t msg_data_a);
 
 void rtc_check_periodic (void) {
     timestamped_frame_t* buf;
@@ -32,7 +32,7 @@ void rtc_check_periodic (void) {
                 break;
             }
             parse_gps_time(buf, &msg_data_a);
-            GPS_time_to_BCD_RTC(&gps_rtc_time, msg_data_a.gps_time);
+            GPS_time_to_BCD_RTC(&gps_rtc_time, msg_data_a);
             if (!PHAL_configureRTC(&gps_rtc_time, true)) {
                     // Successful reintialization 
                     dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
@@ -44,15 +44,15 @@ void rtc_check_periodic (void) {
     }
 }
 
-static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, gps_time_t gps_time)
+static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, CanParsedData_t msg_data_a)
 {
-    gps_rtc_time->date.year_bcd = RTC_CONV_TO_BCD(gps_time.year);
-    gps_rtc_time->date.month_bcd = RTC_CONV_TO_BCD(gps_time.month);
-    gps_rtc_time->date.day_bcd = RTC_CONV_TO_BCD(gps_time.day);
+    gps_rtc_time->date.year_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.year);
+    gps_rtc_time->date.month_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.month);
+    gps_rtc_time->date.day_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.day);
 
-    gps_rtc_time->time.hours_bcd = RTC_CONV_TO_BCD(gps_time.hour);
-    gps_rtc_time->time.minutes_bcd = RTC_CONV_TO_BCD(gps_time.minute);
-    gps_rtc_time->time.seconds_bcd = RTC_CONV_TO_BCD(gps_time.second);
+    gps_rtc_time->time.hours_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.hour);
+    gps_rtc_time->time.minutes_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.minute);
+    gps_rtc_time->time.seconds_bcd = RTC_CONV_TO_BCD(msg_data_a.gps_time.second);
 
     gps_rtc_time->date.weekday = RTC_CONV_TO_BCD(get_weekday(gps_time.day, gps_time.month, gps_time.year));
     gps_rtc_time->time.time_format = RTC_FORMAT_24_HOUR;
@@ -61,7 +61,7 @@ static void GPS_time_to_BCD_RTC(RTC_timestamp_t *gps_rtc_time, gps_time_t gps_ti
 static void parse_gps_time(const timestamped_frame_t* frame, CanParsedData_t* out) {
     if (frame->msg_id != ID_GPS_TIME) return; // Check correct message
 
-    const CanParsedData_t* msg_data = (const CanParsedData_t*)(frame->data);
+    CanParsedData_t msg_data = *(CanParsedData_t * )(frame->data);
     out->gps_time.year   = msg_data->gps_time.year;
     out->gps_time.month  = msg_data->gps_time.month;
     out->gps_time.day    = msg_data->gps_time.day;

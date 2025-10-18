@@ -6,7 +6,7 @@ AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: false
 AlignEscapedNewlines: DontAlign
 AlignOperands: false
-AlignTrailingComments: false
+AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
@@ -62,8 +62,9 @@ IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: Inner
-PointerAlignment: Left
-ReferenceAlignment: Left              # New in v13. int &name  ==>  int& name
+PointerAlignment: Right
+# ReferenceAlignment: Left              # New in v13. int &name  ==>  int& name
+ReferenceAlignment: Right 
 ReflowComments: false
 SeparateDefinitionBlocks: Always      # New in v14.
 SortIncludes: true

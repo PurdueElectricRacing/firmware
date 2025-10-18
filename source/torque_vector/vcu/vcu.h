@@ -1,3 +1,7 @@
+#ifndef VCU_H
+#define VCU_H
+
+#include "bmi088.h"
 #include "gps.h"
 
 // VCU Structs
@@ -217,9 +221,11 @@ yVCU_struct init_yVCU(void);
 pVCU_struct init_pVCU(void);
 
 // VCU pre-process
-void vcu_pp(fVCU_struct* fVCU, xVCU_struct* xVCU, GPS_Handle_t* GPS);
+void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *gps, BMI088_Handle_t *bmi);
 // VCU dummy pre-process function, sets structs to constant values instead of reading from sensors
 void vcu_pp_tester(fVCU_struct* fVCU, xVCU_struct* xVCU);
 
 // MATLAB codegen
 void vcu_step(const pVCU_struct* p, const fVCU_struct* f, const xVCU_struct* x, yVCU_struct* y);
+
+#endif

@@ -18,13 +18,17 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "common/freertos/freertos.h"
 
-#include "common/queue/queue.h"
+// actual definition is in main.c
+extern QueueHandle_t q_tx_usart;
 
 // Size Definitions
 #define NXT_STR_SIZE 50 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
 #define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
 #define ASCII_OFFSET 48
+
+typedef char NXT_cmd_t[NXT_STR_SIZE];
 
 // Color Definitions in 565 format
 #define RED        63488

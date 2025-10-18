@@ -1,7 +1,9 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
+#include "common/daq/can_parse_base.h"
 #include "common/faults/faults.h"
+#include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -9,7 +11,6 @@
 #include "common/phal/rcc.h"
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
-#include "common/psched/psched.h"
 
 /* Module Includes */
 #include "can_parse.h"
@@ -155,10 +156,18 @@ extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 brake_status_t brake_status = {0};
+bool g_is_preflight_complete = false;
 
 /* Function Prototypes */
-void preflightChecks(void);
+void preflight_task();
+void critical_task();
+void can_worker_task();
+void main_task();
+void watchdog_task();
+
+void preflightSequence(void);
 void preflightAnimation(void);
+
 void heartBeatLED();
 void lcdTxUpdate();
 void enableInterrupts();
@@ -174,12 +183,79 @@ void pollBrakeStatus();
 void sendVersion();
 extern void HardFault_Handler();
 
-// Communication queues
-q_handle_t q_tx_usart;
+// Define threads
+defineThreadStack(preflight_task, 10, osPriorityHigh, 2048);
+defineThreadStack(critical_task, 15, osPriorityHigh, 1024);
+defineThreadStack(can_worker_task, 20, osPriorityNormal, 1024);
+defineThreadStack(main_task, 100, osPriorityLow, 2048);
+// defineThreadStack(watchdog_task, 200, osPriorityLow, 1024);
+
+defineStaticQueue(q_tx_usart, NXT_cmd_t, 20);
+
+void preflight_task() {
+    static uint8_t counter = 0;
+
+    // run animation until preflight complete for at least 1.5 seconds
+    if (g_is_preflight_complete && (counter >= 150)) {
+        PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+        PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
+        osThreadExit(); // Self delete
+        return;
+    }
+
+    if (counter % 10 == 0) { // Run every 100ms
+        preflightAnimation();
+    }
+
+    preflightSequence();
+    
+    counter++;
+}
+
+void critical_task() {
+    pedalsPeriodic();
+}
+
+void can_worker_task() {
+    // Process all received CAN messages
+    while (qIsEmpty(&q_rx_can) == false) {
+        canRxUpdate();
+    }
+
+    // Drain all CAN transmit queues
+    canTxUpdate();
+}
+
+void main_task() {
+    static uint32_t step_100ms;
+
+    // 5hz tasks
+    if (step_100ms % 2 == 0) {
+        pollBrakeStatus();
+        updateTelemetryPages();
+        handleDashboardInputs();
+        lcdTxUpdate();
+    }
+
+    // 1hz tasks
+    if (step_100ms % 10 == 0) {
+        heartBeatLED();
+        sendVoltageData();
+        updateFaultDisplay();
+    }
+
+    // 0.2hz tasks
+    if (step_100ms % 50 == 0) {
+        sendVersion();
+        sendTVParameters();
+    }
+
+    step_100ms++;
+}
 
 int main(void) {
-    /* Data Struct init */
-    qConstruct(&q_tx_usart, NXT_STR_SIZE);
+    osKernelInitialize();
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -191,31 +267,21 @@ int main(void) {
 
     initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_DASHBOARD);
 
-    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
+    // show signs of life
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
+    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
+    PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
+    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
-    /* Task Creation */
-    schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 60, 2500);
+    // create usart queue
+    q_tx_usart = createStaticQueue(q_tx_usart, NXT_cmd_t, 20);
 
-    taskCreate(updateFaultDisplay, 500);
-    taskCreate(heartBeatLED, 500);
-    taskCreate(pedalsPeriodic, 15);
-    taskCreate(handleDashboardInputs, 50);
-    taskCreate(heartBeatTask, 100);
-    taskCreate(sendShockpots, 15);
-    taskCreate(sendVersion, 5000);
-    taskCreate(interpretLoadSensor, 15);
-    taskCreate(updateTelemetryPages, 200);
-    taskCreate(pollBrakeStatus, 1000);
-    taskCreate(sendTVParameters, 500);
-    taskCreate(sendVoltageData, 5000);
-    taskCreateBackground(lcdTxUpdate);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    // Start preflight task
+    createThread(preflight_task);
 
-    schedStart();
+    osKernelStart(); // GO!
 
     return 0;
 }
@@ -225,22 +291,24 @@ int main(void) {
  *
  * @note Called repeatedly until preflight is registered as complete
  */
-void preflightChecks(void) {
-    static uint8_t state;
+void preflightSequence(void) {
+    static uint8_t step_10ms = 0;
 
-    switch (state++) {
-        case 0:
+    switch (step_10ms++) {
+        case 0: {
             if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
-                HardFault_Handler();
+                // HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
-        case 1:
+        }
+        case 1: {
             if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
                 HardFault_Handler();
             }
             break;
-        case 2:
+        }
+        case 2: {
             if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
                 HardFault_Handler();
             }
@@ -250,25 +318,76 @@ void preflightChecks(void) {
             PHAL_startTxfer(&adc_dma_config);
             PHAL_startADC(ADC1);
             break;
-        case 3:
+        }
+        case 3: {
             /* Module Initialization */
             initCANParse();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
-        case 4:
+        }
+        case 4: {
             // Zero Rotary Encoder
             zeroEncoder();
             break;
-        case 5:
+        }
+        case 5: {
             enableInterrupts();
             break;
-        case 6:
+        }
+        case 6: {
             initLCD();
             break;
-        default:
-            registerPreflightComplete(1);
-            state = 255; // prevent wrap around
+        }
+        case 7: {
+            // create the other tasks here
+            createThread(critical_task);
+            createThread(can_worker_task);
+            createThread(main_task);
+            break;
+        }
+        default: {
+            g_is_preflight_complete = true;
+            step_10ms               = 255; // prevent wrap around
+            break;
+        }
+    }
+}
+
+void preflightAnimation(void) {
+    // Controls external LEDs since they are more visible when dash is in car
+    static uint32_t external_index;
+    static uint32_t sweep_index;
+
+    switch (sweep_index++ % 3) { // Creates a sweeping pattern
+        case 0:
+            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
+            break;
+        case 2:
+            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
+            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
+            break;
+    }
+
+    switch (external_index++ % 2) { // Creates a 50/50 blinking pattern
+        case 0:
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
+            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
+            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
+            break;
     }
 }
 
@@ -298,45 +417,6 @@ void sendShockpots() {
 }
 
 // jose was here
-
-void preflightAnimation(void) {
-    // Controls external LEDs since they are more visible when dash is in car
-    static uint32_t time_ext;
-    static uint32_t time;
-
-    PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
-    PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
-    PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
-
-    PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
-    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
-    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-
-    switch (time++ % 6) // Creates a sweeping pattern
-    {
-        case 0:
-        case 5:
-            PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
-            break;
-        case 1:
-        case 4:
-            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-            break;
-        case 2:
-        case 3:
-            PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
-            break;
-    }
-
-    switch (time_ext++ % 4) // Creates a 25/75 blinking pattern
-    {
-        case 0:
-            PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 0);
-            PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 0);
-            PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
-            break;
-    }
-}
 
 #define SCALE_F = (1 + (3.4 / 6.6))
 
@@ -620,11 +700,15 @@ void enableInterrupts() {
  *
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
-uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
-
 void lcdTxUpdate() {
-    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
-        PHAL_usartTxDma(&lcd, (uint16_t*)cmd, strlen(cmd));
+    if (true == PHAL_usartTxBusy(&lcd)) {
+        return;
+    }
+
+    uint8_t curr_cmd[NXT_STR_SIZE] = {'\0'};
+
+    while (xQueueReceive(q_tx_usart, (void*)curr_cmd, 0) == pdTRUE) {
+        PHAL_usartTxDma(&lcd, (uint16_t*)curr_cmd, strlen((char*)curr_cmd));
     }
 }
 
@@ -668,8 +752,12 @@ void pollBrakeStatus() {
     brake_status.brake_fail   = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
 }
 
+// todo reboot on hardfault
 void HardFault_Handler() {
-    schedPause();
-    while (1)
-        IWDG->KR = 0xAAAA; // Reset watchdog
+    __disable_irq();
+    SysTick->CTRL = 0;
+    ERROR_LED_GPIO_Port->BSRR = ERROR_LED_Pin;
+    while (1) {
+        __asm__("NOP"); // Halt forever
+    }
 }

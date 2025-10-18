@@ -17,7 +17,7 @@
 
 #include <stdarg.h>
 
-extern q_handle_t q_tx_usart;
+extern QueueHandle_t q_tx_usart;
 
 /**
  * @brief Sets a float value to a specified object parameter on the Nextion display.
@@ -30,7 +30,7 @@ extern q_handle_t q_tx_usart;
 void NXT_setFloat(char* obj_name, char* param, float num, uint8_t precision) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s\"%.*f\"%s", obj_name, param, precision, num, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -42,7 +42,7 @@ void NXT_setFloat(char* obj_name, char* param, float num, uint8_t precision) {
 void NXT_setValue(char* obj_name, uint16_t val) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_VALUE, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -54,7 +54,7 @@ void NXT_setValue(char* obj_name, uint16_t val) {
 void NXT_setBackground(char* obj_name, uint16_t val) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_BACKGROUND_COLOR, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -66,7 +66,7 @@ void NXT_setBackground(char* obj_name, uint16_t val) {
 void NXT_setFontColor(char* obj_name, uint16_t val) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_FONT_COLOR, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -78,7 +78,7 @@ void NXT_setFontColor(char* obj_name, uint16_t val) {
 void NXT_setBorderWidth(char* obj_name, uint16_t val) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_BORDERW, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -90,7 +90,7 @@ void NXT_setBorderWidth(char* obj_name, uint16_t val) {
 void NXT_setText(char* obj_name, char* text) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s\"%s\"%s", obj_name, NXT_TEXT, text, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -118,7 +118,7 @@ void NXT_setTextFormatted(char* obj_name, const char* format, ...) {
 void NXT_setPage(char* page_name) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%s%s", NXT_PAGE, page_name, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -131,7 +131,7 @@ void NXT_setBrightness(uint8_t percentage) {
         percentage = 100;
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%d%s", NXT_BRIGHTNESS, percentage, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }
 
 /**
@@ -142,5 +142,5 @@ void NXT_setBrightness(uint8_t percentage) {
 void NXT_setBaud(uint32_t baud) {
     char result[NXT_STR_SIZE];
     snprintf(result, sizeof(result), "%s%d%s", NXT_BAUD, baud, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    xQueueSendToBack(q_tx_usart, result, 0);
 }

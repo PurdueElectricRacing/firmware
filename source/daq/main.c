@@ -151,8 +151,8 @@ int main() {
     if (!PHAL_SPI_init(&eth_spi_config))
         HardFault_Handler();
 
-    if (!PHAL_configureRTC(&start_time, false))
-        HardFault_Handler();
+    // if (!PHAL_configureRTC(&start_time, false))
+    //     HardFault_Handler();
 
     if (!PHAL_initUSART(&lte_usart_config, APB2ClockRateHz))
         HardFault_Handler();

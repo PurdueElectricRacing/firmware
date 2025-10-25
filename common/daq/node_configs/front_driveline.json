@@ -5,7 +5,7 @@
         "bus_name": "VCAN",
         "nodes": [
           {
-            "node_name": "Front Driveline",
+            "node_name": "front_driveline",
             "can_peripheral": "CAN1",
             "tx": [
               {
@@ -149,11 +149,11 @@
               }
             ],
             "rx":
-             
-                {
-                  "comment": "we dont know what we receive from vcan"
-                },
-                {
+             [
+              {
+                "comment": "we dont know what we receive from vcan"
+              },
+              {
                 "msg_name": "raw_throttle_brake",
                 "msg_priority": 3,
                 "msg_period": 0
@@ -213,7 +213,7 @@
         "bus_name": "TCAN",
         "nodes": [
           {
-            "node_name": "tire_temps",
+            "node_name": "front_driveline",
             "can_peripheral": "CAN2",
             "tx": [
               {

@@ -7,7 +7,7 @@
 #include "can_parse.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/queue/queue.h"
-#include "source/dashboard/can/can_parse.h"
+#include "source/front_driveline/can/can_parse.h"
 #include "main.h"
 
 GPIOInitConfig_t gpio_config[] = {

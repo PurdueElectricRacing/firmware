@@ -1,6 +1,6 @@
 {
-    "$schema": "./can_schema.json",
-    "busses": [
+  "$schema": "./can_schema.json",
+  "busses": [
       {
         "bus_name": "VCAN",
         "nodes": [
@@ -41,7 +41,7 @@
                 "msg_priority": 3
               },
               {
-                "msg_name": "shock_front",
+                "msg_name": "shock_front_driveline",
                 "msg_desc": "Shockpot readings from front left and front right",
                 "signals": [
                   {
@@ -61,7 +61,7 @@
                 "msg_priority": 3
               },
               {
-                "msg_name": "load_sensor_readings",
+                "msg_name": "load_sensor_readings_driveline",
                 "msg_desc": "Load Sensor readings from left and right",
                 "signals": [
                   {
@@ -79,11 +79,9 @@
                 ],
                 "msg_period": 15,
                 "msg_priority": 3
-              },
-            
-         
+              },         
               {
-                "msg_name": "INVA_LOG_SET",
+                "msg_name": "INVA_LOG_SET_d",
                 "msg_desc": "Contains control word and setpoints",
                 "signals": [
                   {
@@ -149,63 +147,7 @@
               }
             ],
             "rx":
-             [
-              {
-                "comment": "we dont know what we receive from vcan"
-              },
-              {
-                "msg_name": "raw_throttle_brake",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "filt_throttle_brake",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "start_button",
-                "callback": false,
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "max_cell_temp",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "LWS_Standard",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "main_module_bl_cmd",
-                "callback": true,
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "orion_currents_volts",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "VCU_torques_speeds",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "drive_modes",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "orion_info",
-                "msg_priority": 3,
-                "msg_period": 0
-              }
-            ]
+             []
           }
         ]
       },
@@ -215,220 +157,9 @@
           {
             "node_name": "front_driveline",
             "can_peripheral": "CAN2",
-            "tx": [
-              {
-                "msg_name": "tire_temps",
-                "msg_desc": "Tire temp sensors",
-                "signals": [
-                  {
-                    "sig_name": "car_state",
-                    "sig_desc": "Main car state",
-                    "type": "uint8_t",
-                    "length": 8
-                  },
-                  {
-                    "sig_name": "precharge_state",
-                    "type": "uint8_t",
-                    "length": 1
-                  }
-                ],
-                "msg_period": 500,
-                "msg_priority": 3
-              },
-              {
-                "msg_name": "INVA_SET",
-                "msg_desc": "Contains control word and setpoints",
-                "signals": [
-                  {
-                    "sig_name": "AMK_Control_bReserve",
-                    "sig_desc": "Control word: RESERVED",
-                    "type": "uint8_t",
-                    "length": 8
-                  },
-                  {
-                    "sig_name": "AMK_Control_bInverterOn",
-                    "sig_desc": "Control word: controller enable",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bDcOn",
-                    "sig_desc": "Control word: HV activation",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bEnable",
-                    "sig_desc": "Control word: driver enable",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bErrorReset",
-                    "sig_desc": "Control word: remove error",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bReserve2",
-                    "sig_desc": "Control word: RESERVED",
-                    "type": "uint8_t",
-                    "length": 4
-                  },
-                  {
-                    "sig_name": "AMK_TorqueSetpoint",
-                    "sig_desc": "Torque setpoint",
-                    "type": "int16_t",
-                    "unit": "Nm",
-                    "scale": 0.1
-                  },
-                  {
-                    "sig_name": "AMK_PositiveTorqueLimit",
-                    "sig_desc": "Positive Torque Limit",
-                    "type": "int16_t",
-                    "unit": "Nm",
-                    "scale": 0.1
-                  },
-                  {
-                    "sig_name": "AMK_NegativeTorqueLimit",
-                    "sig_desc": "Negative Torque Limit",
-                    "type": "int16_t",
-                    "unit": "Nm",
-                    "scale": 0.1
-                  }
-                ],
-                "msg_period": 15,
-                "msg_id_override": "0x188",
-                "is_standard_id": true
-              },
-              {
-                "msg_name": "INVB_SET",
-                "msg_desc": "Contains control word and setpoints",
-                "signals": [
-                  {
-                    "sig_name": "AMK_Control_bReserve",
-                    "sig_desc": "Control word: RESERVED",
-                    "type": "uint8_t",
-                    "length": 8
-                  },
-                  {
-                    "sig_name": "AMK_Control_bInverterOn",
-                    "sig_desc": "Control word: controller enable",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bDcOn",
-                    "sig_desc": "Control word: HV activation",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bEnable",
-                    "sig_desc": "Control word: driver enable",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bErrorReset",
-                    "sig_desc": "Control word: remove error",
-                    "type": "uint8_t",
-                    "length": 1
-                  },
-                  {
-                    "sig_name": "AMK_Control_bReserve2",
-                    "sig_desc": "Control word: RESERVED",
-                    "type": "uint8_t",
-                    "length": 4
-                  },
-                  {
-                    "sig_name": "AMK_TorqueSetpoint",
-                    "sig_desc": "Torque setpoint",
-                    "type": "int16_t",
-                    "unit": "Nm",
-                    "scale": 0.1
-                  },
-                  {
-                    "sig_name": "AMK_PositiveTorqueLimit",
-                    "sig_desc": "Positive Torque Limit",
-                    "type": "int16_t",
-                    "unit": "Nm",
-                    "scale": 0.1
-                  },
-                  {
-                    "sig_name": "AMK_NegativeTorqueLimit",
-                    "sig_desc": "Negative Torque Limit",
-                    "type": "int16_t",
-                    "unit": "Nm",
-                    "scale": 0.1
-                  }
-                ],
-                "msg_period": 15,
-                "msg_id_override": "0x189",
-                "is_standard_id": true
-              }
-            ],
+            "tx": [],
             "rx": [
-              {
-                "msg_name": "INVA_CRIT",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVA_INFO",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVA_TEMPS",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVA_SET",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVA_ERR_1",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVA_ERR_2",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVB_CRIT",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVB_INFO",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVB_TEMPS",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVB_SET",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVB_ERR_1",
-                "msg_priority": 3,
-                "msg_period": 0
-              },
-              {
-                "msg_name": "INVB_ERR_2",
-                "msg_priority": 3,
-                "msg_period": 0
-              }
+        
             ]
           }
         ]

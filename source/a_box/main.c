@@ -226,7 +226,7 @@ void preflightChecks(void) {
 void sendVersion() {
     char git_hash[8] = GIT_HASH;
     uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
-    SEND_DASH_VERSION(git_hash_num);
+    SEND_ABOX_VERSION(git_hash_num);
 }
 void sendhbmsg() {
     bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);

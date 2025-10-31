@@ -277,7 +277,7 @@ void preflightChecks(void) {
 void sendVersion() {
     char git_hash[8] = GIT_HASH;
     uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
-    SEND_DASH_VERSION(git_hash_num);
+    SEND_torque_vector_VERSION(git_hash_num);
 }
 void preflightAnimation(void) {
     static uint32_t time;

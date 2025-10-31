@@ -123,6 +123,7 @@ if(MODULES STREQUAL "")
         main_module
         pdu
         torque_vector
+        adbms
     )
 endif()
 

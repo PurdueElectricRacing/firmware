@@ -9,36 +9,23 @@
             "can_peripheral": "CAN1",
             "tx": [
               {
-                "msg_name": "front_driveline_stats",
-                "msg_desc": "Front driveline sensors",
+                "msg_name":"mag_front",
+                "msg_desc":"magnetometer reading from front bmm350 and front mmc",
                 "signals": [
-                  {
-                    "sig_name": "car_state",
-                    "sig_desc": "Main car state",
-                    "type": "uint8_t",
-                    "length": 8,
-                    "choices": [
-                      "idle",
-                      "precharging",
-                      "energized",
-                      "buzzing",
-                      "ready2drive",
-                      "error",
-                      "fatal",
-                      "reset",
-                      "recover",
-                      "constant_torque"
-                    ]
-                  },
-                  {
-                    "sig_name": "precharge_state",
-                    "sig_desc": "Status of Precharge (complete vs not)",
-                    "type": "uint8_t",
-                    "length": 1
-                  }
-                ],
-                "msg_period": 500,
-                "msg_priority": 3
+                {
+                  "sig_name":"mag_bmm350_front",
+                  "sig_desc": "Magnetic field in microteslas from bmm350",
+                  "type":"int32_t",
+                  "unit":"uT"
+                },
+                {
+                  "sig_name":"mag_mmc_front",
+                  "sig_desc": "Magnetic field in microteslas from mmc",
+                  "type":"int32_t",
+                  "unit":"uT"
+                }
+                ]
+
               },
               {
                 "msg_name": "shock_front_driveline",

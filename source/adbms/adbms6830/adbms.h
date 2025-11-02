@@ -49,6 +49,9 @@ typedef struct {
     uint8_t tx_buffer[TX_DATA_LEN];
     uint8_t rx_buffer[RX_DATA_LEN];
 
+    uint8_t rega_cfg[6];
+    uint8_t regb_cfg[6];
+
     uint32_t last_connection_time_ms;
     bool enable_balance;
 
@@ -56,16 +59,18 @@ typedef struct {
     adbms_pwm_duty_t cell_pwms[NUM_CELLS];
 
     uint32_t last_fault_time[27];
+
+    bool any_skipped;
 } adbms_t;
 
 typedef struct {
-    uint8_t CMD[2]; // CMD0 and CMD1
-    uint16_t PEC15;
+    uint8_t CMD[4]; // CMD0 and CMD1
+    // uint16_t PEC15;
 } adbms_cmd_pkt_t;
 
 typedef struct {
-    uint8_t DATA[TX_DATA_LEN];
-    uint16_t DPEC10;
+    uint8_t DATA[8];
+    // uint16_t DPEC10;
 } adbms_tx_data_t;
 
 typedef struct {
@@ -81,5 +86,9 @@ bool adbms_send_data(adbms_t *bms, const uint8_t data[TX_DATA_LEN]);
 bool adbms_connect(adbms_t *bms);
 bool adbms_read_cell_voltages(adbms_t *bms);
 bool adbms_passive_balance(adbms_t *bms);
+bool adbms_cfg_rega(adbms_t *bms);
+bool adbms_cfg_regb(adbms_t *bms);
+bool adbms_receive_response(adbms_t *bms);
+void adbms_set_cs(adbms_t *bms, bool status);
 
 #endif

@@ -1,5 +1,6 @@
 /* System Includes */
 #include <math.h>
+#include <stdint.h>
 
 #include "common/phal/gpio.h"
 #include "common/phal/spi.h"
@@ -8,6 +9,8 @@
 /* Module Includes */
 #include "main.h"
 #include "adbms6830/adbms.h"
+#include <string.h>
+#include "adbms6830/commands.h"
 
 dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
@@ -57,8 +60,7 @@ void adbms_g_periodic() {
 	adbms_periodic(&g_adbms);
 }
 
-
-defineThreadStack(adbms_g_periodic, 100, osPriorityNormal, 2048);
+defineThreadStack(adbms_g_periodic, 200, osPriorityNormal, 2048);
 
 int main(void) {
     osKernelInitialize();
@@ -74,6 +76,7 @@ int main(void) {
         HardFault_Handler();
     }
     g_adbms.spi = &bms_spi_config;
+    g_adbms.enable_balance = true;
 
     // // todo enable user button interrupt
     // RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;

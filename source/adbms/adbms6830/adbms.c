@@ -2,8 +2,10 @@
 #include <assert.h>
 #include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/spi/spi.h"
+#include "external/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
 #include "faults.h"
 #include <stdint.h>
+#include <string.h>
 
 #include "common/phal/spi.h"
 #include "common/phal/gpio.h"
@@ -21,18 +23,20 @@ void adbms_periodic(adbms_t *bms) {
         case ADBMS_IDLE: {
             // idle tasks
 
-            if ((xTaskGetTickCount() - bms->last_connection_time_ms) < ADBMS_CONNECT_RETRY_PERIOD_MS) {
-                bms->next_state = ADBMS_DISCHARGING;
+            if ((xTaskGetTickCount() - bms->last_connection_time_ms) > ADBMS_CONNECT_RETRY_PERIOD_MS) {
+                bms->next_state = ADBMS_CONNECTING;
+                bms->last_connection_time_ms = xTaskGetTickCount();
             }
 
             break;
         }
         case ADBMS_CONNECTING: {
-            // if (adbms_connect(bms)) { // try connection
-            //     bms->next_state = ADBMS_DISCHARGING;
-            // } else {
-            //     bms->next_state = ADBMS_IDLE;
-            // }
+            if (adbms_connect(bms)) { // try connection
+                bms->next_state = ADBMS_DISCHARGING;
+            } else {
+                bms->next_state = ADBMS_IDLE;
+            }
+            break;
         }
         case ADBMS_DISCHARGING: {
             adbms_read_cell_voltages(bms);
@@ -52,12 +56,40 @@ void adbms_periodic(adbms_t *bms) {
         }
     }
 }
-
 void adbms_set_cs(adbms_t *bms, bool status) {
     GPIO_TypeDef *cs_port = bms->spi->nss_gpio_port;
     uint32_t cs_pin = bms->spi->nss_gpio_pin;
     PHAL_writeGPIO(cs_port, cs_pin, status);
 }
+
+bool adbms_connect(adbms_t *bms) {
+    adbms_cfg_rega(bms);
+    osDelay(1);
+    adbms_cfg_regb(bms);
+
+    osDelay(2);
+
+    adbms_set_cs(bms, 0);
+    if (false == adbms_send_command(bms, RDCFGA)) {
+        adbms_set_cs(bms, 1);
+    	bms->last_fault_time[13] = xTaskGetTickCount();
+        return false;
+    }
+    if (false == adbms_receive_response(bms)) {
+        adbms_set_cs(bms, 1);
+    	bms->last_fault_time[14] = xTaskGetTickCount();
+        return false;
+    }
+    adbms_set_cs(bms, 1);
+    if (0 != memcmp(bms->rx_buffer, bms->rega_cfg, 6)) {
+    	bms->last_fault_time[15] = xTaskGetTickCount();
+    	return false;
+    };
+
+    bms->last_connection_time_ms = xTaskGetTickCount();
+    return true;
+}
+
 
 void adbms_wake(adbms_t *bms) {
     GPIO_TypeDef *cs_port = bms->spi->nss_gpio_port;
@@ -70,15 +102,17 @@ void adbms_wake(adbms_t *bms) {
 }
 
 
-
 bool adbms_send_command(adbms_t *bms, const uint8_t cmd[2]) {
     adbms_cmd_pkt_t outgoing = {0};
     outgoing.CMD[0] = cmd[0];
     outgoing.CMD[1] = cmd[1];
-    outgoing.PEC15 = adbms_get_pec15(2, outgoing.CMD);
+
+    uint16_t pec = adbms_get_pec15(2, outgoing.CMD);
+    outgoing.CMD[2] = (pec >> 8) & 0xFF;
+    outgoing.CMD[3] = pec & 0xFF;
 
     // spi transfer
-    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (uint8_t *)&outgoing, sizeof(adbms_cmd_pkt_t), TX_CMD_LEN, bms->rx_buffer)) {
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (uint8_t *)&outgoing, sizeof(adbms_cmd_pkt_t), 0, NULL)) {
     	bms->last_fault_time[0] = xTaskGetTickCount();
         return false;
     }
@@ -90,10 +124,13 @@ bool adbms_send_data(adbms_t *bms, const uint8_t data[TX_DATA_LEN]) {
     adbms_tx_data_t outgoing = {0};
     outgoing.DATA[0] = data[0];
     outgoing.DATA[1] = data[1];
-    outgoing.DATA[2] = data[3];
+    outgoing.DATA[2] = data[2];
+    outgoing.DATA[3] = data[3];
     outgoing.DATA[4] = data[4];
     outgoing.DATA[5] = data[5];
-    outgoing.DPEC10 = adbms_get_pec10(false, TX_DATA_LEN, outgoing.DATA);
+    uint16_t pec = adbms_get_pec10(false, TX_DATA_LEN, outgoing.DATA);
+    outgoing.DATA[6] = (pec >> 8) & 0xFF;
+    outgoing.DATA[7] = pec & 0xFF;
 
     // spi transfer
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, (uint8_t *)&outgoing, sizeof(adbms_tx_data_t), 0, NULL)) {
@@ -104,7 +141,7 @@ bool adbms_send_data(adbms_t *bms, const uint8_t data[TX_DATA_LEN]) {
     return true;
 }
 
-bool adbms_receive_response(adbms_t *bms, size_t response_len) {
+bool adbms_receive_response(adbms_t *bms) {
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, RX_DATA_LEN, bms->rx_buffer)) {
     	bms->last_fault_time[2] = xTaskGetTickCount();
         return false;
@@ -117,8 +154,8 @@ bool adbms_cfg_rega(adbms_t *bms) {
     uint8_t rega_cfg[6] = {0};
     uint8_t refon = 0b1; // 1 = reference remains powered up until watchdog timeout. TODO determine
     uint8_t cth = 0b110; // C-ADC vs. S-ADC comparison voltage threshold (0b110 = 25.05 mV)
-	rega_cfg[0] = (refon << 7) | (cth & 7);
-    rega_cfg[0] = cth;
+	rega_cfg[0] = (refon << 7) | (cth & 0x07);
+    // rega_cfg[0] = cth;
 
     // all flags 0
     uint8_t flag_d = 0b00000000;
@@ -133,7 +170,18 @@ bool adbms_cfg_rega(adbms_t *bms) {
 
     rega_cfg[5] = 0;
 
+    memcpy(bms->rega_cfg, rega_cfg, 6);
+
     adbms_wake(bms);
+
+    // TEST:
+    // rega_cfg[0] = 0x0F;
+    // rega_cfg[1] = 0x0F;
+    // rega_cfg[2] = 0x0F;
+    // rega_cfg[3] = 0x0F;
+    // rega_cfg[4] = 0x0F;
+    // rega_cfg[5] = 0x0F;
+    // memcpy(bms->rega_cfg, rega_cfg, 6);
 
     adbms_set_cs(bms, 0);
     if (false == adbms_send_command(bms, WRCFGA)) {
@@ -141,6 +189,7 @@ bool adbms_cfg_rega(adbms_t *bms) {
     	bms->last_fault_time[2] = xTaskGetTickCount();
         return false;
     }
+
     if (false == adbms_send_data(bms, rega_cfg)) {
 	    adbms_set_cs(bms, 1);
     	bms->last_fault_time[3] = xTaskGetTickCount();
@@ -179,13 +228,16 @@ bool adbms_cfg_regb(adbms_t *bms) {
     regb_cfg[2] |= (undervoltage_threshold >> 4) & 0xFF;
     // all else default
     regb_cfg[3] = 0;
+    // regb_cfg[4] = 0b00000100;
     regb_cfg[4] = 0;
-    regb_cfg[5] = 0;
+    regb_cfg[5] = 0b00000100;
+
+    memcpy(bms->regb_cfg, regb_cfg, 6);
 
     adbms_wake(bms);
 
     adbms_set_cs(bms, 0);
-    if (false == adbms_send_command(bms, WRCFGA)) {
+    if (false == adbms_send_command(bms, WRCFGB)) {
 	    adbms_set_cs(bms, 1);
     	bms->last_fault_time[4] = xTaskGetTickCount();
         return false;
@@ -208,14 +260,20 @@ float raw_to_cell_v(int16_t raw) {
 	return (raw + 10000) * 0.000150f;
 }
 
+void adBms6830_Adcv(uint8_t *cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t owcs)
+{
+    cmd[0] = 0x02 + rd;
+    cmd[1] = (cont << 7) + (dcp << 4) + (rstf << 2) + (owcs & 0x03) + 0x60;
+}
+
 bool adbms_read_cell_voltages(adbms_t *bms) {
-    adbms_wake(bms);
+	adbms_connect(bms);
 
+	osDelay(5);
 
-    // adBms6830_Adcv(ADCV_RD_ON, ADCV_CONT_CONTINUOUS, DCP_OFF, RSTF_OFF, OW_OFF_ALL_CH);
-    uint8_t cmd[2];
-    cmd[0] = 0x02 + (0x01);
-    cmd[1] = ((0x01) << 7) + ((0x00) << 4) + ((0x00) << 2) + ((0x00) & 0x03) + 0x60;
+    uint8_t cmd[2] = { 0 };
+    adBms6830_Adcv(cmd, 0, 0, 0, 0, 0);
+
     adbms_set_cs(bms, 0);
     if (false == adbms_send_command(bms, cmd)) {
 	    adbms_set_cs(bms, 1);
@@ -223,20 +281,25 @@ bool adbms_read_cell_voltages(adbms_t *bms) {
         return false;
     }
     adbms_set_cs(bms, 1);
-    osDelay(1);
+
+    // dont delay 7 or else isoSPI sleeps
+    osDelay(20);
+    adbms_wake(bms);
 
     const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
-    for (int group = 0; group < CELL_GROUPS; group++) {
+    bms->any_skipped = false;
+
+    for (int group = 0; group < 6; group++) {
 	    adbms_set_cs(bms, 0);
         if (false == adbms_send_command(bms, cmd_list[group])) {
 		    adbms_set_cs(bms, 1);
-    	bms->last_fault_time[7] = xTaskGetTickCount();
+	    	bms->last_fault_time[7] = xTaskGetTickCount();
             return false;
         }
-        if (false == adbms_receive_response(bms, TX_DATA_LEN)) {
+        if (false == adbms_receive_response(bms)) {
 		    adbms_set_cs(bms, 1);
-    	bms->last_fault_time[8] = xTaskGetTickCount();
+	    	bms->last_fault_time[8] = xTaskGetTickCount();
             return false;
         }
 	    adbms_set_cs(bms, 1);
@@ -247,40 +310,50 @@ bool adbms_read_cell_voltages(adbms_t *bms) {
 			int16_t raw = extract_i16(bms->rx_buffer, j);
       		size_t idx = cell_idx_base + j;
 			float cell_v = raw_to_cell_v(raw);
-			bms->cell_voltages[idx] = (float)raw;
+			// bms->cell_voltages[idx] = (float)raw;
+			if (cell_v >= 0) {
+				bms->cell_voltages[idx] = cell_v;
+			} else {
+				bms->any_skipped = true;
+			}
        	}
     }
+
+    return true;
 }
 
 #define BALANCING_MIN_VOLTAGE 3.2f // V
 #define BALANCING_MIN_DELTA 0.03f // V
 
 bool adbms_passive_balance(adbms_t *bms) {
-    float lowest_voltage = bms->cell_voltages[0];
+	osDelay(1);
+    // float lowest_voltage = bms->cell_voltages[0];
 
-    // find lowest voltage
-    for (int i = 0; i < NUM_CELLS; i++) {
-        float curr_voltage = bms->cell_voltages[i];
+    // // find lowest voltage
+    // for (int i = 0; i < NUM_CELLS; i++) {
+    //     float curr_voltage = bms->cell_voltages[i];
 
-        if (curr_voltage < lowest_voltage) {
-            lowest_voltage = curr_voltage;
-        }
-    }
+    //     if (curr_voltage < lowest_voltage) {
+    //         lowest_voltage = curr_voltage;
+    //     }
+    // }
 
-    if (lowest_voltage < BALANCING_MIN_VOLTAGE) {
-        return false;
-    }
+    // if (lowest_voltage < BALANCING_MIN_VOLTAGE) {
+    //     return false;
+    // }
 
-    const float balance_threshold = lowest_voltage + BALANCING_MIN_DELTA;
-    for (int i = 0; i < NUM_CELLS; i++) {
-        float curr_voltage = bms->cell_voltages[i];
+    // const float balance_threshold = lowest_voltage + BALANCING_MIN_DELTA;
+    // for (int i = 0; i < NUM_CELLS; i++) {
+    //     float curr_voltage = bms->cell_voltages[i];
 
-        if (curr_voltage > balance_threshold) {
-            bms->cell_pwms[i] = PWM_66_0_PCT; // 66% duty cycle
-        } else {
-            bms->cell_pwms[i] = PWM_0_0_PCT; // turn it off
-        }
-    }
+    //     if (curr_voltage > balance_threshold) {
+    //         bms->cell_pwms[i] = PWM_66_0_PCT; // 66% duty cycle
+    //     } else {
+    //         bms->cell_pwms[i] = PWM_0_0_PCT; // turn it off
+    //     }
+    // }
+
+    bms->cell_pwms[2] = PWM_66_0_PCT;
 
     // TODO transmit the commands
     uint8_t pwma_data[6] = { 0 };
@@ -298,7 +371,9 @@ bool adbms_passive_balance(adbms_t *bms) {
         if (i < cells_per_reg) {
             pwma_data[byte_idx] |= raw;
         } else {
-            pwmb_data[byte_idx] |= raw;
+        	// TODO: fix byte idx
+            // ignore for now, it's okay
+	        // pwmb_data[byte_idx] |= raw;
         }
     }
 
@@ -329,4 +404,7 @@ bool adbms_passive_balance(adbms_t *bms) {
         return false;
     }
     adbms_set_cs(bms, 1);
+
+
+    return true;
 }

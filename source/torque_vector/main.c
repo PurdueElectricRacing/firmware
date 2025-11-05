@@ -180,9 +180,7 @@ int main(void) {
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-     // task created with send version:
     taskCreate(sendVersion, 5000);
-    /////////////////////////////////
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseIMU, 20);
@@ -273,12 +271,13 @@ void preflightChecks(void) {
             break;
     }
 }
-//change made for send version
+
 void sendVersion() {
     char git_hash[8] = GIT_HASH;
     uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
     SEND_TV_VERSION(git_hash_num);
 }
+
 void preflightAnimation(void) {
     static uint32_t time;
 

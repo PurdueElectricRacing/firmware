@@ -4,6 +4,7 @@
 
 #include "common/daq/can_parse_base.h"
 #include "common/phal/can.h"
+#include "common/phal_F4_F7/adc/adc.h"
 #include "common/phal_F4_F7/gpio/gpio.h"
 #include "common/queue/queue.h"
 #include "source/front_driveline/can/can_parse.h"
@@ -21,8 +22,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_CANTX_PD1,
 
     //Magnometer
-
-    //Strain Gauge
+    GPIO_INIT_ANALOG(MAG_FRONT_Pin, MAG_FRONT_Pin)
 
     //IR Temperature
 
@@ -30,6 +30,15 @@ GPIOInitConfig_t gpio_config[] = {
 
 };
 
+ADCChannelConfig_t adc_channel_config[] = {
+
+    {.channel = SHOCK_POT_L_ADC_CH, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SHOCK_POT_R_ADC_CH, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LOAD_FL_ADC_CH, .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LOAD_FR_ADC_CH, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+   
+
+};
 // Communication queues
 q_handle_t q_tx_usart;
 
@@ -38,6 +47,7 @@ int main(void) {
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
+    void sendShockpots();
 
     schedStart();
 
@@ -54,7 +64,6 @@ void can_worker_task() {
     canTxUpdate();
 }
 
-//TODO: make shock pot calcs cleaner spread values into variables 
 /**
  * @brief Processes and sends shock potentiometer readings
  *
@@ -86,7 +95,7 @@ void sendShockpots() {
     shock_l_displacement = (int16_t) (-shock_l_adjusted);
 
 
-    //right calculation vaiables
+    //right calculation variables
     float shock_r_range = (float) POT_VOLT_MIN_R - POT_VOLT_MAX_R;
     float shock_r_percent = shock_r / shock_r_range;
     float shock_r_scaled = shock_r_percent * POT_MAX_DIST;

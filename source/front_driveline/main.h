@@ -36,4 +36,24 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define SHOCK_POT_R_Pin       (1)
 #define SHOCK_POT_R_ADC_CH    (1)
 
+// Normal Force
+#define LOAD_FL_GPIO_Port (GPIOB)
+#define LOAD_FL_Pin       (0)
+#define LOAD_FL_ADC_CH    (8)
+#define LOAD_FR_GPIO_Port (GPIOB)
+#define LOAD_FR_Pin       (1)
+#define LOAD_FR_ADC_CH    (9)
+
+// Magnometer
+// #define MAG_FRONT_Port (GPIOB)
+// #define MAG_FRONT_Pin (7)
+
+// IR Temp INFKL-800
+#define BREAK_TEMP_L_GPIO_Port (GPIOA)
+#define BREAK_TEMP_L_Pin       (2)
+#define BREAK_TEMP_L_ADC_CH    (2)
+#define BREAK_TEMP_R_GPIO_Port (GPIOA)
+#define BREAK_TEMP_R_Pin       (3)
+#define BREAK_TEMP_R_ADC_CH    (3)
+
 void canTxSendToBack(CanMsgTypeDef_t* msg);

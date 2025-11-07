@@ -88,7 +88,6 @@ int main(void) {
     {
         BL_CANPoll();
     }
-    
 }
 
 static void BL_CANPoll(void) {
@@ -154,7 +153,6 @@ void CAN1_RX0_IRQHandler() {
 void SysTick_Handler(void) {
     bootloader_ms++;
 }
-
 void HardFault_Handler() {
     NVIC_SystemReset();
     while (1)

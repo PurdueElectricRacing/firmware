@@ -6,12 +6,13 @@
  //credit to Eileen for writing most of this in pdu/fan_control.c
 
 #include "common/phal_F4_F7/pwm/pwm.h"
+// #include "stm32f407xx.h"
 
 extern uint32_t APB1ClockRateHz;
 extern uint32_t APB2ClockRateHz;
 
+//TIM6 and TIM7 do not support PWM!
 bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEnable) {
-    //timer clock enable based on tim given
     //cast to uint32 so switch statement can understand it as discrete values - its a uint32 in the background anyway
     switch ((uint32_t)tim) { 
         /* --- APB2 Timers --- */
@@ -52,14 +53,6 @@ bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEna
             RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;
             break;
 
-        case (uint32_t)TIM6:
-            RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
-            break;
-
-        case (uint32_t)TIM7:
-            RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
-            break;
-
         case (uint32_t)TIM12:
             RCC->APB1ENR |= RCC_APB1ENR_TIM12EN;
             break;
@@ -72,6 +65,8 @@ bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEna
             RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
             break;
 
+        case (uint32_t)TIM6:
+        case (uint32_t)TIM7:
         default:
             //invalid or unsupported timer
             return false;
@@ -89,7 +84,12 @@ bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEna
 
     tim->ARR = 100 - 1; // Using this for ease of calculations
 
-    tim->PSC = (APB2ClockRateHz / (frequency_hz * (tim->ARR + 1))) - 1;
+    
+    if(tim == TIM1 || tim == TIM8 || tim == TIM9 || tim == TIM10 || tim == TIM11){
+        tim->PSC = (APB2ClockRateHz / (frequency_hz * (tim->ARR + 1))) - 1;
+    }else if(tim == TIM2 || tim == TIM5 || tim == TIM3 || tim == TIM4 || tim == TIM12 || tim == TIM13 || tim == TIM14){
+        tim->PSC = (APB1ClockRateHz / (frequency_hz * (tim->ARR + 1))) - 1;
+    }
 
     switch (channelsToEnable) {
         //cascades so channelsToEnable 4 means enable 1, 2, 3, 4
@@ -135,6 +135,7 @@ bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEna
     return true;
 }
 
+//no, channels are not zero-based
 void PHAL_PWMsetPercent(TIM_TypeDef* tim, uint8_t channel, uint8_t percent) {
     if (percent > 100)
         percent = 100;

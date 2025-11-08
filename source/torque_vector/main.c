@@ -180,7 +180,7 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(parseIMU, 20);
     taskCreate(VCU_MAIN, 20);
-    taskCreate(reportData, 500);
+    taskCreate(reportData, 100);
 
     /* No Way Home */
     schedStart();

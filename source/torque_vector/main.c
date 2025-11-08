@@ -145,6 +145,7 @@ static uint8_t txbuffer[2 + sizeof(txmsg)] = {0xAA, 0x55};
 void heartBeatLED(void);
 void preflightAnimation(void);
 void preflightChecks(void);
+void reportData(void);
 extern void HardFault_Handler(void);
 
 void parseIMU(void);
@@ -179,11 +180,40 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(parseIMU, 20);
     taskCreate(VCU_MAIN, 20);
+    taskCreate(reportData, 500);
 
     /* No Way Home */
     schedStart();
 
     return 0;
+}
+
+void reportData() {
+    uint16_t scaled_accel_x = (uint16_t)(bmi_handle.data.accel_x * 100);
+    uint16_t scaled_accel_y = (uint16_t)(bmi_handle.data.accel_y * 100);
+    uint16_t scaled_accel_z = (uint16_t)(bmi_handle.data.accel_z * 100);
+    SEND_IMU_ACCEL(scaled_accel_x, scaled_accel_y, scaled_accel_z);
+
+    uint16_t scaled_gyro_x = (uint16_t)(bmi_handle.data.gyro_x * 100);
+    uint16_t scaled_gyro_y = (uint16_t)(bmi_handle.data.gyro_y * 100);
+    uint16_t scaled_gyro_z = (uint16_t)(bmi_handle.data.gyro_z * 100);
+    SEND_IMU_GYRO(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
+
+    SEND_GPS_COORDINATES(gps_handle.data.latitude, gps_handle.data.longitude);
+
+    uint16_t scaled_speed = (uint16_t)(gps_handle.data.groundSpeed * 100);
+    uint16_t scaled_heading = (uint16_t)(gps_handle.data.headingMotion * 100);
+    SEND_GPS_SPEED(scaled_speed, scaled_heading);
+
+    uint8_t abbreviated_year = (uint8_t)(gps_handle.data.year % 100);
+    uint8_t millis = (uint8_t)(gps_handle.data.nano / 1000);
+    SEND_GPS_TIME(abbreviated_year,
+                  gps_handle.data.month,
+                  gps_handle.data.day,
+                  gps_handle.data.hour,
+                  gps_handle.data.minute,
+                  gps_handle.data.second,
+                  millis);
 }
 
 void preflightChecks(void) {

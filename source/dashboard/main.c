@@ -466,7 +466,7 @@ void heartBeatLED() {
 
     PHAL_toggleGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin);
 
-    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH) {
+    if ((xTaskGetTickCount() - last_can_rx_time_ms) >= CONN_LED_MS_THRESH) {
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     } else {
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
@@ -517,6 +517,7 @@ void EXTI9_5_IRQHandler(void) {
 }
 
 void EXTI15_10_IRQHandler() {
+    uint32_t current_time = xTaskGetTickCountFromISR();
     // EXTI10 (ENCODER A) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR10) {
         encoderISR();
@@ -527,41 +528,41 @@ void EXTI15_10_IRQHandler() {
 
     // EXTI14 (UP Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
+        if (!(current_time - last_input_time < 200)) {
             input_state.up_button = 1; // Set flag for up button
         }
 
-        last_input_time = sched.os_ticks;
+        last_input_time = current_time;
         EXTI->PR |= EXTI_PR_PR14; // Clear the interrupt pending bit for EXTI14
     }
 
     // EXTI13 (DOWN button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR13) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
+        if (!(current_time - last_input_time < 200)) {
             input_state.down_button = 1; // Set flag for down button
         }
 
-        last_input_time = sched.os_ticks;
+        last_input_time = current_time;
         EXTI->PR |= EXTI_PR_PR13; // Clear the interrupt pending bit for EXTI13
     }
 
     // EXTI12 (SELECT button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR12) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
+        if (!(current_time - last_input_time < 200)) {
             input_state.select_button = 1; // Set flag for select button
         }
 
-        last_input_time = sched.os_ticks;
+        last_input_time = current_time;
         EXTI->PR |= EXTI_PR_PR12; // Clear the interrupt pending bit for EXTI12
     }
 
     // EXTI11 (START button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR11) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
+        if (!(current_time - last_input_time < 200)) {
             input_state.start_button = 1; // Set flag for start button
         }
 
-        last_input_time = sched.os_ticks;
+        last_input_time = current_time;
         EXTI->PR |= EXTI_PR_PR11; // Clear the interrupt pending bit for EXTI11
     }
 }
@@ -592,9 +593,10 @@ void zeroEncoder() {
  * @note Called on encoder pin state changes
  */
 void encoderISR() {
+    uint32_t current_time = xTaskGetTickCountFromISR();
     // Just give up for a bit to debounce
-    if (sched.os_ticks - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS) {
-        input_state.debounce_ticks = sched.os_ticks;
+    if (current_time - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS) {
+        input_state.debounce_ticks = current_time;
         return;
     }
     // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
@@ -625,7 +627,7 @@ void encoderISR() {
 
     input_state.prev_encoder_position = current_state;
     input_state.update_page           = 1;
-    input_state.debounce_ticks        = sched.os_ticks;
+    input_state.debounce_ticks        = current_time;
 }
 
 /**

@@ -188,21 +188,33 @@ int main(void) {
     return 0;
 }
 
+// these int16s must be global for the can send macros to work
+int16_t scaled_accel_x;
+int16_t scaled_accel_y;
+int16_t scaled_accel_z;
+
+int16_t scaled_gyro_x;
+int16_t scaled_gyro_y;
+int16_t scaled_gyro_z;
+
+int16_t scaled_speed;
+int16_t scaled_heading;
+
 void reportData() {
-    int16_t scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * 100);
-    int16_t scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * 100);
-    int16_t scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * 100);
+    scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * 100);
+    scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * 100);
+    scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * 100);
     SEND_IMU_ACCEL(scaled_accel_x, scaled_accel_y, scaled_accel_z);
 
-    int16_t scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * 100);
-    int16_t scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * 100);
-    int16_t scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * 100);
+    scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * 100);
+    scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * 100);
+    scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * 100);
     SEND_IMU_GYRO(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
 
     SEND_GPS_COORDINATES(gps_handle.data.latitude, gps_handle.data.longitude);
 
-    int16_t scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * 100);
-    int16_t scaled_heading = (int16_t)(gps_handle.data.headingMotion * 100);
+    scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * 100);
+    scaled_heading = (int16_t)(gps_handle.data.headingMotion * 100);
     SEND_GPS_SPEED(scaled_speed, scaled_heading);
 
     uint8_t abbreviated_year = (uint8_t)(gps_handle.data.year % 100);

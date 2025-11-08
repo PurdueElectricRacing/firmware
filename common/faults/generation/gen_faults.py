@@ -176,34 +176,16 @@ def gen_fault_info_arrays(fault_config):
     """
     print("Populating Arrays")
     array = []
-    array.append("uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {")
-    i = 0
-    #Add each latch value to an array, splitting when the line gets too long
+    array.append("uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {\n")
+    #Add each latch value to an array, each on its own line
     for node in fault_config['modules']:
         for fault in node['faults']:
-            if i == 5:
-                array.append(f" {fault['fault_name'].upper()}_LATCH_TIME,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\t{fault['fault_name'].upper()}_LATCH_TIME,")
-                i = 0
-            else:
-                array.append(f" {fault['fault_name'].upper()}_LATCH_TIME,")
-                i += 1
-    array.append("};\nuint16_t faultULatchTime[TOTAL_NUM_FAULTS] = {")
-    i = 0
-    #Add each unlatch value to an array, splitting when the line gets too long
+            array.append(f"\t{fault['fault_name'].upper()}_LATCH_TIME,\n")
+    array.append("};\nuint16_t faultULatchTime[TOTAL_NUM_FAULTS] = {\n")
+    #Add each unlatch value to an array, each on its own line
     for node in fault_config['modules']:
         for fault in node['faults']:
-            if i == 5:
-                array.append(f" {fault['fault_name'].upper()}_UNLATCH_TIME,\n")
-                i += 1
-            elif i == 6:
-                array.append(f"\t\t\t{fault['fault_name'].upper()}_UNLATCH_TIME,")
-                i = 0
-            else:
-                array.append(f" {fault['fault_name'].upper()}_UNLATCH_TIME,")
-                i += 1
+            array.append(f"\t{fault['fault_name'].upper()}_UNLATCH_TIME,\n")
     array.append("};\n//Global arrays with all faults\nfault_status_t statusArray[TOTAL_NUM_FAULTS] = {\n")
     for node in fault_config['modules']:
         for fault in node['faults']:

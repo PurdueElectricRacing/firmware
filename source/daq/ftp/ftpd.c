@@ -128,25 +128,25 @@ static int check_directory(char* path);
 static FRESULT scan_files(char* path, char* buf);
 static int get_filesize(char* path, char* filename);
 
-int fsprintf(uint8_t s, const char* format, ...) {
-    int i;
-    /*
-	char buf[LINELEN];
-	FILE f;
-	va_list ap;
+// int fsprintf(uint8_t s, const char* format, ...) {
+//     int i;
 
-	f.flags = __SWR | __SSTR;
-	f.buf = buf;
-	f.size = INT_MAX;
-	va_start(ap, format);
-	i = vfprintf(&f, format, ap);
-	va_end(ap);
-	buf[f.len] = 0;
+// 	// char buf[LINELEN];
+// 	// FILE f;
+// 	// va_list ap;
 
-	send(s, (uint8_t *)buf, strlen(buf));
-*/
-    return i;
-}
+// 	// f.flags = __SWR | __SSTR;
+// 	// f.buf = buf;
+// 	// f.size = INT_MAX;
+// 	// va_start(ap, format);
+// 	// i = vfprintf(&f, format, ap);
+// 	// va_end(ap);
+// 	// buf[f.len] = 0;
+
+// 	// send(s, (uint8_t *)buf, strlen(buf));
+
+//     return i;
+// }
 
 void ftpd_init(uint8_t* src_ip) {
     ftp.state       = FTPS_NOT_LOGIN;
@@ -203,7 +203,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
                     close(CTRL_SOCK);
                     return ret;
                 }
-                dh.ftp_busy = true;
+                daq_hub.ftp_busy = true;
                 //fsprintf(CTRL_SOCK, banner, HOSTNAME, VERSION);
                 strcpy(ftp.workingdir, "/");
                 sprintf((char*)dbuf, "220 %s FTP version %s ready.\r\n", HOSTNAME, VERSION);
@@ -303,7 +303,7 @@ uint8_t ftpd_run(uint8_t* dbuf) {
 #if defined(_FTP_DEBUG_)
             printf("%d:Opened\r\n", CTRL_SOCK);
 #endif
-            dh.ftp_busy = false;
+            daq_hub.ftp_busy = false;
             //strcpy(ftp.workingdir, "/");
             if ((ret = listen(CTRL_SOCK)) != SOCK_OK) {
 #if defined(_FTP_DEBUG_)
@@ -1303,6 +1303,9 @@ static FRESULT scan_files(char* path, char* buf) {
                     break;
                 case 12:
                     len = sprintf(date_str, "DEC ");
+                    break;
+                default:
+                    len = sprintf(date_str, "??? ");
                     break;
             }
             date_str_ptr += len;

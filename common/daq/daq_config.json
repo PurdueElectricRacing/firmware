@@ -8,7 +8,7 @@
             "nodes":[
                 {
                     "node_name":"Main_Module",
-                    "includes":"#include \"cooling.h\"\n#include\"main.h\"\n#include\"car.h\"",
+                    "includes":"#include \"cooling.h\"\n#include \"main.h\"\n#include \"car.h\"",
                     "variables": [
                         {"var_name":"sdc_main_status", "access_phrase": "sdc_mux.main_stat", "read_only": true, "type":"uint8_t", "length": 1},
                         {"var_name":"sdc_center_stop_status", "access_phrase": "sdc_mux.c_stop_stat", "read_only": true, "type":"uint8_t", "length": 1},
@@ -118,7 +118,7 @@
             "nodes":[
                 {
                     "node_name":"TEST_NODE",
-                    "includes":"extern uint16_t my_counter;\nextern uint16_t my_counter2;extern uint8_t charge_enable;",
+                    "includes":"extern uint16_t my_counter;\nextern uint16_t my_counter2;\nextern uint8_t charge_enable;",
                     "variables":[
                         {"var_name":"test_var", "access_phrase": "my_counter", "read_only":true, "type":"uint8_t", "length":8},
                         {"var_name":"test_var2", "access_phrase": "my_counter2", "read_only":false, "type":"uint16_t", "length":12},

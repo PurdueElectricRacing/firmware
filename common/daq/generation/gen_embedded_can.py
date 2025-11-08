@@ -43,7 +43,7 @@ def get_git_hash():
     """
     try:
         result = subprocess.run(['git', 'rev-parse', '--short=7', 'HEAD'], 
-                              capture_output=True, text=True, check=True)
+						        capture_output=True, text=True, check=True)
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError):
         return "unknown"
@@ -82,16 +82,16 @@ def gen_send_macro(lines, msg_config, peripheral):
     std_id_override = 'is_standard_id' in msg_config and msg_config['is_standard_id'] == True
     sig_args = ", ".join([sig['sig_name']+'_' for sig in msg_config['signals']])
     lines.append(f"#define SEND_{cap}({sig_args}) do {{\\\n")
-    lines.append(f"        CanMsgTypeDef_t msg = {{.Bus={peripheral}, .{'Std' if std_id_override else 'Ext'}Id=ID_{cap}, .DLC=DLC_{cap}, .IDE={0 if std_id_override else 1}}};\\\n")
-    lines.append(f"        CanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
+    lines.append(f"\tCanMsgTypeDef_t msg = {{.Bus={peripheral}, .{'Std' if std_id_override else 'Ext'}Id=ID_{cap}, .DLC=DLC_{cap}, .IDE={0 if std_id_override else 1}}};\\\n")
+    lines.append(f"\tCanParsedData_t* data_a = (CanParsedData_t *) &msg.Data;\\\n")
     for sig in msg_config['signals']:
         # if float, cannot simply cast to uint32, have to use union
         convert_str = f"FLOAT_TO_UINT32({sig['sig_name']}_)" if 'float' in sig['type'] else f"{sig['sig_name']}_"
         # conversion not necessary for signed integers (source: testing)
-        lines.append(f"        data_a->{msg_config['msg_name']}.{sig['sig_name']} = {convert_str};\\\n")
-    #lines.append(f"        qSendToBack(&queue, &msg);\\\n")
-    lines.append(f"        canTxSendToBack(&msg);\\\n")
-    lines.append(f"    }} while(0)\n")
+        lines.append(f"\tdata_a->{msg_config['msg_name']}.{sig['sig_name']} = {convert_str};\\\n")
+    #lines.append(f"\tqSendToBack(&queue, &msg);\\\n")
+    lines.append(f"\tcanTxSendToBack(&msg);\\\n")
+    lines.append(f"\t}} while(0)\n")
 
 def gen_filter_lines(lines, rx_msg_configs, peripheral):
     """ generates hardware filters for a set of message definitions for a specific peripheral """
@@ -117,29 +117,29 @@ def gen_filter_lines(lines, rx_msg_configs, peripheral):
         shift_phrase = f"(ID_{msg['msg_name'].upper()} << 3) | 4" if ('is_standard_id' not in msg or msg['is_standard_id'] == False) else \
                        f"(ID_{msg['msg_name'].upper()} << 21)"
         if not on_mask:
-            lines.append(f"    CAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
+            lines.append(f"\tCAN1->FA1R |= (1 << {filter_bank});    // configure bank {filter_bank}\n")
+            lines.append(f"\tCAN1->sFilterRegister[{filter_bank}].FR1 = {shift_phrase};\n")
             on_mask = True
         else:
-            lines.append(f"    CAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
+            lines.append(f"\tCAN1->sFilterRegister[{filter_bank}].FR2 = {shift_phrase};\n")
             on_mask = False
             filter_bank += 1
 
 def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
     """ generates switch case for receiving messages """
-    lines.append(ind+"        switch(msg_header.ExtId)\n")
-    lines.append(ind+"        {\n")
+    lines.append(ind+"\tswitch(msg_header.ExtId)\n")
+    lines.append(ind+"\t{\n")
     for msg in rx_msg_configs:
-        lines.append(ind+f"            case ID_{msg['msg_name'].upper()}:\n")
+        lines.append(ind+f"\t\tcase ID_{msg['msg_name'].upper()}:\n")
         for sig in msg['signals']:
             var_str = f"msg_data_a->{msg['msg_name']}.{sig['sig_name']}"
             # converting from uint storage to either signed int or float
             convert_str = f"({sig['type']}) {var_str}" if ('int' in sig['type'] and 'u' not in sig['type']) else var_str
             convert_str = f"UINT32_TO_FLOAT({var_str})" if 'float' in sig['type'] else convert_str
-            lines.append(ind+f"                can_data.{msg['msg_name']}.{sig['sig_name']} = {convert_str};\n")
+            lines.append(ind+f"\t\t\tcan_data.{msg['msg_name']}.{sig['sig_name']} = {convert_str};\n")
         if msg['msg_period'] > 0:
-            lines.append(ind+f"                can_data.{msg['msg_name']}.stale = 0;\n")
-            lines.append(ind+f"                can_data.{msg['msg_name']}.last_rx = sched.os_ticks;\n")
+            lines.append(ind+f"\t\t\tcan_data.{msg['msg_name']}.stale = 0;\n")
+            lines.append(ind+f"\t\t\tcan_data.{msg['msg_name']}.last_rx = sched.os_ticks;\n")
         callback = [rx_config for rx_config in rx_callbacks if rx_config['msg_name'] == msg['msg_name']]
         if callback:
             if "fault" in callback[0]:
@@ -151,13 +151,13 @@ def gen_switch_case(lines, rx_msg_configs, rx_callbacks, ind=""):
                     lines.append(f"\t\t\t\treturn_fault_control(msg_data_a->return_fault_control.id);\n")
             else:
                 if "arg_type" in callback[0] and callback[0]['arg_type'] == "header":
-                    lines.append(ind+f"                {msg['msg_name']}_CALLBACK(&msg_header);\n")
+                    lines.append(ind+f"\t\t\t{msg['msg_name']}_CALLBACK(&msg_header);\n")
                 else:
-                    lines.append(ind+f"                {msg['msg_name']}_CALLBACK(msg_data_a);\n")
-        lines.append(ind+"                break;\n")
-    lines.append(ind+"            default:\n")
-    lines.append(ind+"                __asm__(\"nop\");\n")
-    lines.append(ind+"        }\n")
+                    lines.append(ind+f"\t\t\t{msg['msg_name']}_CALLBACK(msg_data_a);\n")
+        lines.append(ind+"\t\t\tbreak;\n")
+    lines.append(ind+"\t\tdefault:\n")
+    lines.append(ind+"\t\t\t__asm__(\"nop\");\n")
+    lines.append(ind+"\t}\n")
 
 
 def configure_node(node_config, node_paths):
@@ -240,11 +240,11 @@ def configure_node(node_config, node_paths):
     raw_struct_lines = []
     raw_struct_lines.append("typedef union { \n")
     for msg in raw_msg_defs:
-        raw_struct_lines.append("    struct {\n")
+        raw_struct_lines.append("\tstruct {\n")
         for sig in msg['signals']:
-            raw_struct_lines.append(f"        uint64_t {sig['sig_name']}: {sig['length']};\n")
-        raw_struct_lines.append(f"    }} {msg['msg_name']};\n")
-    raw_struct_lines.append("    uint8_t raw_data[8];\n")
+            raw_struct_lines.append(f"\t\tuint64_t {sig['sig_name']}: {sig['length']};\n")
+        raw_struct_lines.append(f"\t}} {msg['msg_name']};\n")
+    raw_struct_lines.append("\tuint8_t raw_data[8];\n")
     raw_struct_lines.append("} __attribute__((packed)) CanParsedData_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_raw_struct_start, gen_raw_struct_stop, raw_struct_lines)
 
@@ -252,18 +252,18 @@ def configure_node(node_config, node_paths):
     can_struct_lines = []
     can_struct_lines.append("typedef struct {\n")
     for msg in receiving_msg_defs:
-        can_struct_lines.append("    struct {\n")
+        can_struct_lines.append("\tstruct {\n")
         for sig in msg['signals']:
             dtype = sig['type']
             if 'choices' in sig: dtype = f"{sig['sig_name']}_t"
-            can_struct_lines.append(f"        {dtype} {sig['sig_name']};\n")
+            can_struct_lines.append(f"\t\t{dtype} {sig['sig_name']};\n")
 
         # stale checking variables
         if msg['msg_period'] > 0:
-            can_struct_lines.append(f"        uint8_t stale;\n")
-            can_struct_lines.append(f"        uint32_t last_rx;\n")
+            can_struct_lines.append(f"\t\tuint8_t stale;\n")
+            can_struct_lines.append(f"\t\tuint32_t last_rx;\n")
 
-        can_struct_lines.append(f"    }} {msg['msg_name']};\n")
+        can_struct_lines.append(f"\t}} {msg['msg_name']};\n")
     can_struct_lines.append("} can_data_t;\n")
     h_lines = generator.insert_lines(h_lines, gen_can_struct_start, gen_can_struct_stop, can_struct_lines)
 
@@ -274,7 +274,7 @@ def configure_node(node_config, node_paths):
             if 'choices' in sig:
                 can_enum_lines.append("typedef enum {\n")
                 for choice in sig['choices']:
-                    can_enum_lines.append(f"    {sig['sig_name'].upper()}_{choice.upper()},\n")
+                    can_enum_lines.append(f"\t{sig['sig_name'].upper()}_{choice.upper()},\n")
                 can_enum_lines.append(f"}} {sig['sig_name']}_t;\n")
                 can_enum_lines.append(f"\n")
     h_lines = generator.insert_lines(h_lines, gen_can_enums_start, gen_can_enums_stop, can_enum_lines)
@@ -315,25 +315,25 @@ def configure_node(node_config, node_paths):
     if is_junc:
         ind = "    "
         # add if statement for distinguishing between peripherals
-        case_lines.append(f"        if (msg_header.Bus == {periph})\n")
-        case_lines.append(f"        {{\n")
+        case_lines.append(f"\tif (msg_header.Bus == {periph})\n")
+        case_lines.append(f"\t{{\n")
     gen_switch_case(case_lines, node_specific_rx_msg_defs, rx_callbacks, ind=ind)
     if is_junc:
         periph = junc_config['can_peripheral']
-        case_lines.append("        }\n")
-        case_lines.append(f"        else if (msg_header.Bus == {periph})\n")
-        case_lines.append("        {\n")
+        case_lines.append("\t}\n")
+        case_lines.append(f"\telse if (msg_header.Bus == {periph})\n")
+        case_lines.append("\t{\n")
         gen_switch_case(case_lines, junc_rx_msg_defs, rx_callbacks, ind=ind)
-        case_lines.append("        }\n")
+        case_lines.append("\t}\n")
     c_lines = generator.insert_lines(c_lines, gen_switch_case_start, gen_switch_case_stop, case_lines)
 
     # Stale checking
     stale_lines = []
     for msg in receiving_msg_defs:
         if msg['msg_period'] > 0:
-            stale_lines.append(f"    CHECK_STALE(can_data.{msg['msg_name']}.stale,\n")
-            stale_lines.append(f"                sched.os_ticks, can_data.{msg['msg_name']}.last_rx,\n")
-            stale_lines.append(f"                UP_{msg['msg_name'].upper()});\n")
+            stale_lines.append(f"\tCHECK_STALE(can_data.{msg['msg_name']}.stale,\n")
+            stale_lines.append(f"\t\t\t\tsched.os_ticks, can_data.{msg['msg_name']}.last_rx,\n")
+            stale_lines.append(f"\t\t\t\tUP_{msg['msg_name'].upper()});\n")
     c_lines = generator.insert_lines(c_lines, gen_stale_case_start, gen_stale_case_stop, stale_lines)
 
     # Hardware filtering
@@ -349,9 +349,9 @@ def configure_node(node_config, node_paths):
     # Rx IRQ callbacks
     rx_irq_lines = []
     for rx_irq in rx_irq_names:
-        rx_irq_lines.append(f"            case ID_{rx_irq.upper()}:\n")
-        rx_irq_lines.append(f"                {rx_irq}_IRQ(msg_data_a);\n")
-        rx_irq_lines.append(f"                break;\n")
+        rx_irq_lines.append(f"\t\tcase ID_{rx_irq.upper()}:\n")
+        rx_irq_lines.append(f"\t\t\t{rx_irq}_IRQ(msg_data_a);\n")
+        rx_irq_lines.append(f"\t\t\tbreak;\n")
     c_lines = generator.insert_lines(c_lines, gen_rx_irq_start, gen_rx_irq_stop, rx_irq_lines)
 
     # Write changes to source file
@@ -369,7 +369,7 @@ def configure_bus(bus, source_dir, c_dir, h_dir):
 
     # copy starter files
     generator.copy_starter_files(source_dir, c_dir, h_dir)
-    
+	
     # find file paths for each node
     node_paths = generator.find_node_paths(node_names, source_dir, c_dir, h_dir)
     matched_keys = node_paths.keys()

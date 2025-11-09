@@ -89,221 +89,46 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">gps.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="gps_8h_source.html">gps.h</a>&quot;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a70025bb633c3e4050d532d56c2ddacff" id="r_a70025bb633c3e4050d532d56c2ddacff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70025bb633c3e4050d532d56c2ddacff">parseVelocity</a> (<a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *GPS)</td></tr>
-<tr class="memdesc:a70025bb633c3e4050d532d56c2ddacff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Parse periodic GPS UBX message.  <br /></td></tr>
-<tr class="separator:a70025bb633c3e4050d532d56c2ddacff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a776d0eb374fadf821cf7bd618596792a" id="r_a776d0eb374fadf821cf7bd618596792a"><td class="memItemLeft" align="right" valign="top">union <a class="el" href="unioni__Long.html">i_Long</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a776d0eb374fadf821cf7bd618596792a">iLong</a></td></tr>
-<tr class="separator:a776d0eb374fadf821cf7bd618596792a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03bfa1f7841fc74b52feaf817c455afa" id="r_a03bfa1f7841fc74b52feaf817c455afa"><td class="memItemLeft" align="right" valign="top">union <a class="el" href="unioni__Short.html">i_Short</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03bfa1f7841fc74b52feaf817c455afa">iShort</a></td></tr>
-<tr class="separator:a03bfa1f7841fc74b52feaf817c455afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecdd3fa913a6ea226716f1409b067239" id="r_aecdd3fa913a6ea226716f1409b067239"><td class="memItemLeft" align="right" valign="top">union <a class="el" href="unionu__Long.html">u_Long</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecdd3fa913a6ea226716f1409b067239">uLong</a></td></tr>
-<tr class="separator:aecdd3fa913a6ea226716f1409b067239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d0a32eb28333adfa239f9dabc545c00" id="r_a9d0a32eb28333adfa239f9dabc545c00"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d0a32eb28333adfa239f9dabc545c00">checkVelN</a></td></tr>
-<tr class="separator:a9d0a32eb28333adfa239f9dabc545c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dff7c7c513fcdd17ac37d73dac3fee6" id="r_a5dff7c7c513fcdd17ac37d73dac3fee6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dff7c7c513fcdd17ac37d73dac3fee6">checkVelN2</a></td></tr>
-<tr class="separator:a5dff7c7c513fcdd17ac37d73dac3fee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74b82578960aa6f4491fe8a0383b76f8" id="r_a74b82578960aa6f4491fe8a0383b76f8"><td class="memItemLeft" align="right" valign="top">signed long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74b82578960aa6f4491fe8a0383b76f8">prev_iTOW</a></td></tr>
-<tr class="separator:a74b82578960aa6f4491fe8a0383b76f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb824be75611cc83b9b6e8d18b66bfc1" id="r_aeb824be75611cc83b9b6e8d18b66bfc1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb824be75611cc83b9b6e8d18b66bfc1">counter</a></td></tr>
-<tr class="separator:aeb824be75611cc83b9b6e8d18b66bfc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af46173b99f6ab22dcdea5e3099b1ed19" id="r_af46173b99f6ab22dcdea5e3099b1ed19"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af46173b99f6ab22dcdea5e3099b1ed19">diff</a></td></tr>
-<tr class="separator:af46173b99f6ab22dcdea5e3099b1ed19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6abf2f20db0202c505795cd1558b56e" id="r_ac6abf2f20db0202c505795cd1558b56e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6abf2f20db0202c505795cd1558b56e">gps_handle</a></td></tr>
-<tr class="separator:ac6abf2f20db0202c505795cd1558b56e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa2ccfc6bae9091b677a8a1ad4b69a3" id="r_a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8aa2ccfc6bae9091b677a8a1ad4b69a3">GPS_Decode</a> (<a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *gps)</td></tr>
+<tr class="memdesc:a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to decode periodic GPS UBX message.  <br /></td></tr>
+<tr class="separator:a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a70025bb633c3e4050d532d56c2ddacff" name="a70025bb633c3e4050d532d56c2ddacff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70025bb633c3e4050d532d56c2ddacff">&#9670;&#160;</a></span>parseVelocity()</h2>
+<a id="a8aa2ccfc6bae9091b677a8a1ad4b69a3" name="a8aa2ccfc6bae9091b677a8a1ad4b69a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aa2ccfc6bae9091b677a8a1ad4b69a3">&#9670;&#160;</a></span>GPS_Decode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool parseVelocity </td>
+          <td class="memname">bool GPS_Decode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>GPS</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>gps</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function to Parse periodic GPS UBX message. </p>
+<p>Function to decode periodic GPS UBX message. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">GPS</td><td>Handle for GPS configuration </td></tr>
-    <tr><td class="paramname">rtU</td><td>Handle for SFS </td></tr>
+    <tr><td class="paramname">GPS</td><td>Handle for GPS configuration and data </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true Parsing successful </dd>
 <dd>
 false Parsing failed </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a9d0a32eb28333adfa239f9dabc545c00" name="a9d0a32eb28333adfa239f9dabc545c00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d0a32eb28333adfa239f9dabc545c00">&#9670;&#160;</a></span>checkVelN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double checkVelN</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5dff7c7c513fcdd17ac37d73dac3fee6" name="a5dff7c7c513fcdd17ac37d73dac3fee6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dff7c7c513fcdd17ac37d73dac3fee6">&#9670;&#160;</a></span>checkVelN2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double checkVelN2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aeb824be75611cc83b9b6e8d18b66bfc1" name="aeb824be75611cc83b9b6e8d18b66bfc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb824be75611cc83b9b6e8d18b66bfc1">&#9670;&#160;</a></span>counter</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t counter</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af46173b99f6ab22dcdea5e3099b1ed19" name="af46173b99f6ab22dcdea5e3099b1ed19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af46173b99f6ab22dcdea5e3099b1ed19">&#9670;&#160;</a></span>diff</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t diff</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac6abf2f20db0202c505795cd1558b56e" name="ac6abf2f20db0202c505795cd1558b56e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6abf2f20db0202c505795cd1558b56e">&#9670;&#160;</a></span>gps_handle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> gps_handle</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .raw_message       = {0},</div>
-<div class="line">    .g_speed           = 0,</div>
-<div class="line">    .g_speed_rounded   = 0,</div>
-<div class="line">    .longitude         = 0,</div>
-<div class="line">    .lon_rounded       = 0,</div>
-<div class="line">    .latitude          = 0,</div>
-<div class="line">    .lat_rounded       = 0,</div>
-<div class="line">    .height            = 0,</div>
-<div class="line">    .height_rounded    = 0,</div>
-<div class="line">    .n_vel             = 0,</div>
-<div class="line">    .n_vel_rounded     = 0,</div>
-<div class="line">    .e_vel             = 0,</div>
-<div class="line">    .e_vel_rounded     = 0,</div>
-<div class="line">    .d_vel             = 0,</div>
-<div class="line">    .d_vel_rounded     = 0,</div>
-<div class="line">    .headVeh           = 0,</div>
-<div class="line">    .headVeh_rounded   = 0,</div>
-<div class="line">    .mag_dec           = 0,</div>
-<div class="line">    .fix_type          = -1,</div>
-<div class="line">    .iTOW              = 0,</div>
-<div class="line">    .unique_iTOW       = <span class="keyword">true</span>,</div>
-<div class="line">    .messages_received = -1}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a776d0eb374fadf821cf7bd618596792a" name="a776d0eb374fadf821cf7bd618596792a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a776d0eb374fadf821cf7bd618596792a">&#9670;&#160;</a></span>iLong</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">union <a class="el" href="unioni__Long.html">i_Long</a> iLong</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a03bfa1f7841fc74b52feaf817c455afa" name="a03bfa1f7841fc74b52feaf817c455afa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03bfa1f7841fc74b52feaf817c455afa">&#9670;&#160;</a></span>iShort</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">union <a class="el" href="unioni__Short.html">i_Short</a> iShort</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a74b82578960aa6f4491fe8a0383b76f8" name="a74b82578960aa6f4491fe8a0383b76f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74b82578960aa6f4491fe8a0383b76f8">&#9670;&#160;</a></span>prev_iTOW</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">signed long prev_iTOW</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aecdd3fa913a6ea226716f1409b067239" name="aecdd3fa913a6ea226716f1409b067239"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecdd3fa913a6ea226716f1409b067239">&#9670;&#160;</a></span>uLong</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">union <a class="el" href="unionu__Long.html">u_Long</a> uLong</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

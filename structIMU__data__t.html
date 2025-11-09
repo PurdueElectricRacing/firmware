@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: IMU_Handle_t Struct Reference</title>
+<title>PER Firmware: IMU_data_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,91 +86,107 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structIMU__Handle__t-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">IMU_Handle_t Struct Reference</div></div>
+<a href="structIMU__data__t-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">IMU_data_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="imu_8h_source.html">imu.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="bmi088_8h_source.html">bmi088.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ad56bb31a2d74eab3d7b9c570928f6519" id="r_ad56bb31a2d74eab3d7b9c570928f6519"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad56bb31a2d74eab3d7b9c570928f6519">bmi</a></td></tr>
-<tr class="separator:ad56bb31a2d74eab3d7b9c570928f6519"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a842e2abd5dd0b4be54599d89f0873ae0" id="r_a842e2abd5dd0b4be54599d89f0873ae0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="bsxlite__interface_8h.html#a8ae0edd1510f5fd0314055818da0aec9">bsxlite_instance_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a842e2abd5dd0b4be54599d89f0873ae0">inst</a></td></tr>
-<tr class="separator:a842e2abd5dd0b4be54599d89f0873ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af689d33e3eb6ee1830a7bf6e3a81894f" id="r_af689d33e3eb6ee1830a7bf6e3a81894f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbsxlite__out__t.html">bsxlite_out_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af689d33e3eb6ee1830a7bf6e3a81894f">output</a></td></tr>
-<tr class="separator:af689d33e3eb6ee1830a7bf6e3a81894f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a466e61f1dba210bb73c4c0f0485111df" id="r_a466e61f1dba210bb73c4c0f0485111df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbsxlite__version.html">bsxlite_version</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a466e61f1dba210bb73c4c0f0485111df">version</a></td></tr>
-<tr class="separator:a466e61f1dba210bb73c4c0f0485111df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace24d9967ab307d8db711d3dbfd29a33" id="r_ace24d9967ab307d8db711d3dbfd29a33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="bsxlite__interface_8h.html#a02a6e7fc6675068f98e40246507688b7">bsxlite_return_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace24d9967ab307d8db711d3dbfd29a33">last_result</a></td></tr>
-<tr class="separator:ace24d9967ab307d8db711d3dbfd29a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83953a2ea1ea0ec1d683a12e716b482" id="r_aa83953a2ea1ea0ec1d683a12e716b482"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa83953a2ea1ea0ec1d683a12e716b482">gyro_x</a></td></tr>
+<tr class="separator:aa83953a2ea1ea0ec1d683a12e716b482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8958e82e47331123345e19bb0e09436d" id="r_a8958e82e47331123345e19bb0e09436d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8958e82e47331123345e19bb0e09436d">gyro_y</a></td></tr>
+<tr class="separator:a8958e82e47331123345e19bb0e09436d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1639873b6eef7cdb9458ef49e70eec1e" id="r_a1639873b6eef7cdb9458ef49e70eec1e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1639873b6eef7cdb9458ef49e70eec1e">gyro_z</a></td></tr>
+<tr class="separator:a1639873b6eef7cdb9458ef49e70eec1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae721cbd30288be995aacb7c1e7c315ea" id="r_ae721cbd30288be995aacb7c1e7c315ea"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae721cbd30288be995aacb7c1e7c315ea">accel_x</a></td></tr>
+<tr class="separator:ae721cbd30288be995aacb7c1e7c315ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d72d11f82a7e2ebb0e3cea18763bc9" id="r_a82d72d11f82a7e2ebb0e3cea18763bc9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82d72d11f82a7e2ebb0e3cea18763bc9">accel_y</a></td></tr>
+<tr class="separator:a82d72d11f82a7e2ebb0e3cea18763bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2825c4856040edf7c84b3037fe154edd" id="r_a2825c4856040edf7c84b3037fe154edd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2825c4856040edf7c84b3037fe154edd">accel_z</a></td></tr>
+<tr class="separator:a2825c4856040edf7c84b3037fe154edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad56bb31a2d74eab3d7b9c570928f6519" name="ad56bb31a2d74eab3d7b9c570928f6519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad56bb31a2d74eab3d7b9c570928f6519">&#9670;&#160;</a></span>bmi</h2>
+<a id="ae721cbd30288be995aacb7c1e7c315ea" name="ae721cbd30288be995aacb7c1e7c315ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae721cbd30288be995aacb7c1e7c315ea">&#9670;&#160;</a></span>accel_x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a>* IMU_Handle_t::bmi</td>
+          <td class="memname">float IMU_data_t::accel_x</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a842e2abd5dd0b4be54599d89f0873ae0" name="a842e2abd5dd0b4be54599d89f0873ae0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a842e2abd5dd0b4be54599d89f0873ae0">&#9670;&#160;</a></span>inst</h2>
+<a id="a82d72d11f82a7e2ebb0e3cea18763bc9" name="a82d72d11f82a7e2ebb0e3cea18763bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d72d11f82a7e2ebb0e3cea18763bc9">&#9670;&#160;</a></span>accel_y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="bsxlite__interface_8h.html#a8ae0edd1510f5fd0314055818da0aec9">bsxlite_instance_t</a> IMU_Handle_t::inst</td>
+          <td class="memname">float IMU_data_t::accel_y</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ace24d9967ab307d8db711d3dbfd29a33" name="ace24d9967ab307d8db711d3dbfd29a33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace24d9967ab307d8db711d3dbfd29a33">&#9670;&#160;</a></span>last_result</h2>
+<a id="a2825c4856040edf7c84b3037fe154edd" name="a2825c4856040edf7c84b3037fe154edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2825c4856040edf7c84b3037fe154edd">&#9670;&#160;</a></span>accel_z</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="bsxlite__interface_8h.html#a02a6e7fc6675068f98e40246507688b7">bsxlite_return_t</a> IMU_Handle_t::last_result</td>
+          <td class="memname">float IMU_data_t::accel_z</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af689d33e3eb6ee1830a7bf6e3a81894f" name="af689d33e3eb6ee1830a7bf6e3a81894f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af689d33e3eb6ee1830a7bf6e3a81894f">&#9670;&#160;</a></span>output</h2>
+<a id="aa83953a2ea1ea0ec1d683a12e716b482" name="aa83953a2ea1ea0ec1d683a12e716b482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa83953a2ea1ea0ec1d683a12e716b482">&#9670;&#160;</a></span>gyro_x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structbsxlite__out__t.html">bsxlite_out_t</a> IMU_Handle_t::output</td>
+          <td class="memname">float IMU_data_t::gyro_x</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a466e61f1dba210bb73c4c0f0485111df" name="a466e61f1dba210bb73c4c0f0485111df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a466e61f1dba210bb73c4c0f0485111df">&#9670;&#160;</a></span>version</h2>
+<a id="a8958e82e47331123345e19bb0e09436d" name="a8958e82e47331123345e19bb0e09436d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8958e82e47331123345e19bb0e09436d">&#9670;&#160;</a></span>gyro_y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structbsxlite__version.html">bsxlite_version</a> IMU_Handle_t::version</td>
+          <td class="memname">float IMU_data_t::gyro_y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1639873b6eef7cdb9458ef49e70eec1e" name="a1639873b6eef7cdb9458ef49e70eec1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1639873b6eef7cdb9458ef49e70eec1e">&#9670;&#160;</a></span>gyro_z</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float IMU_data_t::gyro_z</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -178,7 +194,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>source/torque_vector/imu/<a class="el" href="imu_8h_source.html">imu.h</a></li>
+<li>source/torque_vector/bmi/<a class="el" href="bmi088_8h_source.html">bmi088.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

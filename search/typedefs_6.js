@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lba_5ft_0',['LBA_t',['../ff_8h.html#a1f3c30a83148a28340f009d4e583f087',1,'ff.h']]]
+  ['iodata_5ft_0',['iodata_t',['../wizchip__conf_8h.html#a873b0fe21f7e83d9e91736fa8b9d1f19',1,'wizchip_conf.h']]]
 ];

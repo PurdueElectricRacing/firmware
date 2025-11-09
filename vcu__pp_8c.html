@@ -93,19 +93,22 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">vcu_pp.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="bmi088_8h_source.html">bmi088.h</a>&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;common_defs.h&quot;</code><br />
+<code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="vcu_8h_source.html">vcu.h</a>&quot;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abd2d98094be91ff922496345af416fe7" id="r_abd2d98094be91ff922496345af416fe7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd2d98094be91ff922496345af416fe7">vcu_pp</a> (<a class="el" href="structfVCU__struct.html">fVCU_struct</a> *fVCU, <a class="el" href="structxVCU__struct.html">xVCU_struct</a> *xVCU, <a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *GPS)</td></tr>
-<tr class="separator:abd2d98094be91ff922496345af416fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a138be78c2e960eef14a74715f191331e" id="r_a138be78c2e960eef14a74715f191331e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a138be78c2e960eef14a74715f191331e">vcu_pp</a> (<a class="el" href="structfVCU__struct.html">fVCU_struct</a> *fVCU, <a class="el" href="structxVCU__struct.html">xVCU_struct</a> *xVCU, <a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *gps, <a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="separator:a138be78c2e960eef14a74715f191331e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="abd2d98094be91ff922496345af416fe7" name="abd2d98094be91ff922496345af416fe7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd2d98094be91ff922496345af416fe7">&#9670;&#160;</a></span>vcu_pp()</h2>
+<a id="a138be78c2e960eef14a74715f191331e" name="a138be78c2e960eef14a74715f191331e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a138be78c2e960eef14a74715f191331e">&#9670;&#160;</a></span>vcu_pp()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,7 +126,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>GPS</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>gps</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

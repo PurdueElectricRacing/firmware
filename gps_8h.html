@@ -91,30 +91,27 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">gps.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="bsxlite__interface_8h_source.html">bsxlite_interface.h</a>&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div>
 <p><a href="gps_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unioni__Long.html">i_Long</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionu__Long.html">u_Long</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unioni__Short.html">i_Short</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNAV__PVT__t.html">NAV_PVT_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a17da7b4cfb42616b1b0442bdf40dba7b" id="r_a17da7b4cfb42616b1b0442bdf40dba7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17da7b4cfb42616b1b0442bdf40dba7b">GPS_RX_BUF_SIZE</a>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:a17da7b4cfb42616b1b0442bdf40dba7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a1f71ae452a5df2140feaafef5c3497" id="r_a7a1f71ae452a5df2140feaafef5c3497"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a1f71ae452a5df2140feaafef5c3497">UBX_NAV_PVT_HEADER_B0</a>&#160;&#160;&#160;0xB5</td></tr>
 <tr class="separator:a7a1f71ae452a5df2140feaafef5c3497"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5201dc04a39942c6c60cafdba560dc1f" id="r_a5201dc04a39942c6c60cafdba560dc1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5201dc04a39942c6c60cafdba560dc1f">UBX_NAV_PVT_HEADER_B1</a>&#160;&#160;&#160;0x62</td></tr>
@@ -123,116 +120,413 @@ Macros</h2></td></tr>
 <tr class="separator:a139bd2db435e4d669c825e22938f9a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a068c9cc75335efc47a1422f792e85e58" id="r_a068c9cc75335efc47a1422f792e85e58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a068c9cc75335efc47a1422f792e85e58">UBX_NAV_PVT_MSG_ID</a>&#160;&#160;&#160;0x07</td></tr>
 <tr class="separator:a068c9cc75335efc47a1422f792e85e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f437a5cef3517e2c56fdd4c8c09ff5" id="r_a84f437a5cef3517e2c56fdd4c8c09ff5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84f437a5cef3517e2c56fdd4c8c09ff5">GPS_FIX_NONE</a>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a84f437a5cef3517e2c56fdd4c8c09ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a897a6fa611b6cab44ffc6473b9dc08d0" id="r_a897a6fa611b6cab44ffc6473b9dc08d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a897a6fa611b6cab44ffc6473b9dc08d0">GPS_FIX_DEAD_RECKONING</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a897a6fa611b6cab44ffc6473b9dc08d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9017c3f1cc7ed2f396f90be17706c98" id="r_ab9017c3f1cc7ed2f396f90be17706c98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9017c3f1cc7ed2f396f90be17706c98">GPS_FIX_2D</a>&#160;&#160;&#160;2</td></tr>
-<tr class="separator:ab9017c3f1cc7ed2f396f90be17706c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5e980c8325a29dd79a45ed26af404be" id="r_ac5e980c8325a29dd79a45ed26af404be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5e980c8325a29dd79a45ed26af404be">GPS_FIX_3D</a>&#160;&#160;&#160;3</td></tr>
-<tr class="separator:ac5e980c8325a29dd79a45ed26af404be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314e93a99a2e0c58f94ea879366e38b5" id="r_a314e93a99a2e0c58f94ea879366e38b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a314e93a99a2e0c58f94ea879366e38b5">GPS_FIX_GNSS_DEAD_RECKONING</a>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:a314e93a99a2e0c58f94ea879366e38b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a059237ce8923ecbcdf8dece75a91f006" id="r_a059237ce8923ecbcdf8dece75a91f006"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a059237ce8923ecbcdf8dece75a91f006">GPS_FIX_TIME_ONLY</a>&#160;&#160;&#160;5</td></tr>
-<tr class="separator:a059237ce8923ecbcdf8dece75a91f006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e983fabd38acdc633332f4267c66f40" id="r_a1e983fabd38acdc633332f4267c66f40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e983fabd38acdc633332f4267c66f40">GPS_VALID_DATE</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a1e983fabd38acdc633332f4267c66f40" id="r_a1e983fabd38acdc633332f4267c66f40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e983fabd38acdc633332f4267c66f40">GPS_VALID_DATE</a>&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x01)</td></tr>
 <tr class="separator:a1e983fabd38acdc633332f4267c66f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea3c9c60df98f239ecc9028e71e35fa0" id="r_aea3c9c60df98f239ecc9028e71e35fa0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea3c9c60df98f239ecc9028e71e35fa0">GPS_VALID_TIME</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:aea3c9c60df98f239ecc9028e71e35fa0" id="r_aea3c9c60df98f239ecc9028e71e35fa0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea3c9c60df98f239ecc9028e71e35fa0">GPS_VALID_TIME</a>&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x02)</td></tr>
 <tr class="separator:aea3c9c60df98f239ecc9028e71e35fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9755322826330d42c74891296f30272" id="r_ae9755322826330d42c74891296f30272"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9755322826330d42c74891296f30272">GPS_VALID_FULLY_RESOLVED</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memitem:ae9755322826330d42c74891296f30272" id="r_ae9755322826330d42c74891296f30272"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9755322826330d42c74891296f30272">GPS_VALID_FULLY_RESOLVED</a>&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x04)</td></tr>
 <tr class="separator:ae9755322826330d42c74891296f30272"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14f09146511351ba5d9eac26225c4941" id="r_a14f09146511351ba5d9eac26225c4941"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14f09146511351ba5d9eac26225c4941">GPS_VALID_MAG</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memitem:a14f09146511351ba5d9eac26225c4941" id="r_a14f09146511351ba5d9eac26225c4941"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14f09146511351ba5d9eac26225c4941">GPS_VALID_MAG</a>&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x08)</td></tr>
 <tr class="separator:a14f09146511351ba5d9eac26225c4941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79bda058dcc0d082787dbe4a5ab96fc7" id="r_a79bda058dcc0d082787dbe4a5ab96fc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79bda058dcc0d082787dbe4a5ab96fc7">GPS_FIX_TYPE_NONE</a>&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x00)</td></tr>
+<tr class="separator:a79bda058dcc0d082787dbe4a5ab96fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57674962106917db785129eb9bd56e92" id="r_a57674962106917db785129eb9bd56e92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57674962106917db785129eb9bd56e92">GPS_FIX_TYPE_DEAD_RECKONING</a>&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x01)</td></tr>
+<tr class="separator:a57674962106917db785129eb9bd56e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691471a421c68598b31ccf7b031ea474" id="r_a691471a421c68598b31ccf7b031ea474"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a691471a421c68598b31ccf7b031ea474">GPS_FIX_TYPE_GNSS_2D</a>&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x02)</td></tr>
+<tr class="separator:a691471a421c68598b31ccf7b031ea474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8069cc6186e20b337595b43daff7008e" id="r_a8069cc6186e20b337595b43daff7008e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8069cc6186e20b337595b43daff7008e">GPS_FIX_TYPE_GNSS_3D</a>&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x03)</td></tr>
+<tr class="separator:a8069cc6186e20b337595b43daff7008e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404a378cab6bcb67930b94bf6fb98c26" id="r_a404a378cab6bcb67930b94bf6fb98c26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a404a378cab6bcb67930b94bf6fb98c26">GPS_FIX_TYPE_GNSS_DEAD_RECKONING</a>&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x04)</td></tr>
+<tr class="separator:a404a378cab6bcb67930b94bf6fb98c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee50712a872343218de439f462e8e13f" id="r_aee50712a872343218de439f462e8e13f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee50712a872343218de439f462e8e13f">GPS_FIX_TYPE_TIME_ONLY</a>&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x05)</td></tr>
+<tr class="separator:aee50712a872343218de439f462e8e13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92b7d92c2a425753a4870dc8b41960b8" id="r_a92b7d92c2a425753a4870dc8b41960b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92b7d92c2a425753a4870dc8b41960b8">GPS_FLAG1_GNSS_FIX_OK</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x01)</td></tr>
+<tr class="separator:a92b7d92c2a425753a4870dc8b41960b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9371346edd4a91d1b5bff64604a6d5c" id="r_ae9371346edd4a91d1b5bff64604a6d5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9371346edd4a91d1b5bff64604a6d5c">GPS_FLAG1_DIFF_SOLN</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x02)</td></tr>
+<tr class="separator:ae9371346edd4a91d1b5bff64604a6d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a68a80908254090d1258bde0e6f10e" id="r_aa8a68a80908254090d1258bde0e6f10e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8a68a80908254090d1258bde0e6f10e">GPS_FLAG1_PSM_MASK</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x1C)</td></tr>
+<tr class="separator:aa8a68a80908254090d1258bde0e6f10e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a969e6de790b6fed5101b9daad0e1f509" id="r_a969e6de790b6fed5101b9daad0e1f509"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a969e6de790b6fed5101b9daad0e1f509">GPS_FLAG1_PSM_OFF</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x00)</td></tr>
+<tr class="separator:a969e6de790b6fed5101b9daad0e1f509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3b382ae39f5e7979c3e3379671b1eb6" id="r_ae3b382ae39f5e7979c3e3379671b1eb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3b382ae39f5e7979c3e3379671b1eb6">GPS_FLAG1_PSM_ENABLED</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x04)</td></tr>
+<tr class="separator:ae3b382ae39f5e7979c3e3379671b1eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b89801f245028f98b22e22a98aced5f" id="r_a4b89801f245028f98b22e22a98aced5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b89801f245028f98b22e22a98aced5f">GPS_FLAG1_PSM_ACQUIRED</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x08)</td></tr>
+<tr class="separator:a4b89801f245028f98b22e22a98aced5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61e7e848938eed67de67f2a6447f7e4f" id="r_a61e7e848938eed67de67f2a6447f7e4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61e7e848938eed67de67f2a6447f7e4f">GPS_FLAG1_PSM_TRACKING</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x0C)</td></tr>
+<tr class="separator:a61e7e848938eed67de67f2a6447f7e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8275072d55bfb21ad4fc0a98f867d09e" id="r_a8275072d55bfb21ad4fc0a98f867d09e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8275072d55bfb21ad4fc0a98f867d09e">GPS_FLAG1_PSM_POWER_OPTIMIZED</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x10)</td></tr>
+<tr class="separator:a8275072d55bfb21ad4fc0a98f867d09e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc00e6b57b4fb600aa4c605c67a6dbf" id="r_a8cc00e6b57b4fb600aa4c605c67a6dbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cc00e6b57b4fb600aa4c605c67a6dbf">GPS_FLAG1_PSM_INACTIVE</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x14)</td></tr>
+<tr class="separator:a8cc00e6b57b4fb600aa4c605c67a6dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653eda5ac5b8ef2f75adcbe57e894b3d" id="r_a653eda5ac5b8ef2f75adcbe57e894b3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a653eda5ac5b8ef2f75adcbe57e894b3d">GPS_FLAG1_HEADING_VALID</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x20)</td></tr>
+<tr class="separator:a653eda5ac5b8ef2f75adcbe57e894b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a082c6b5863cd5e2f9cc0631a8a0830" id="r_a4a082c6b5863cd5e2f9cc0631a8a0830"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a082c6b5863cd5e2f9cc0631a8a0830">GPS_FLAG1_CARRIER_PHASE_MASK</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0xC0)</td></tr>
+<tr class="separator:a4a082c6b5863cd5e2f9cc0631a8a0830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73a495dd7f075acd7cd7761d84d24df0" id="r_a73a495dd7f075acd7cd7761d84d24df0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73a495dd7f075acd7cd7761d84d24df0">GPS_FLAG1_CARRIER_PHASE_NONE</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x00)</td></tr>
+<tr class="separator:a73a495dd7f075acd7cd7761d84d24df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a021ac7447d22fd146e3b9be2b8dfb785" id="r_a021ac7447d22fd146e3b9be2b8dfb785"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a021ac7447d22fd146e3b9be2b8dfb785">GPS_FLAG1_CARRIER_PHASE_FLOAT</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x40)</td></tr>
+<tr class="separator:a021ac7447d22fd146e3b9be2b8dfb785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a118cf8ee8937d35c47fe797605a4ac6b" id="r_a118cf8ee8937d35c47fe797605a4ac6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a118cf8ee8937d35c47fe797605a4ac6b">GPS_FLAG1_CARRIER_PHASE_FIXED</a>&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x80)</td></tr>
+<tr class="separator:a118cf8ee8937d35c47fe797605a4ac6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ef2b61988785bf3d4dc7346c1126d95" id="r_a2ef2b61988785bf3d4dc7346c1126d95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ef2b61988785bf3d4dc7346c1126d95">GPS_FLAGS2_CONFIRMED_AVAILABLE</a>&#160;&#160;&#160;((<a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a>)0x20)</td></tr>
+<tr class="separator:a2ef2b61988785bf3d4dc7346c1126d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a542822e3348e62bd47109e4e3fcdc2db" id="r_a542822e3348e62bd47109e4e3fcdc2db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a542822e3348e62bd47109e4e3fcdc2db">GPS_FLAGS2_CONFIRMED_DATE</a>&#160;&#160;&#160;((<a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a>)0x40)</td></tr>
+<tr class="separator:a542822e3348e62bd47109e4e3fcdc2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a6dd8e7f737e58d42bf6dbb9e36669" id="r_a11a6dd8e7f737e58d42bf6dbb9e36669"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11a6dd8e7f737e58d42bf6dbb9e36669">GPS_FLAGS2_CONFIRMED_TIME</a>&#160;&#160;&#160;((<a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a>)0x80)</td></tr>
+<tr class="separator:a11a6dd8e7f737e58d42bf6dbb9e36669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aac998a72200da1f2c1fdc92ab4828b37" id="r_aac998a72200da1f2c1fdc92ab4828b37"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a></td></tr>
+<tr class="separator:aac998a72200da1f2c1fdc92ab4828b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ffa949b778e11a699444833237c98f" id="r_a40ffa949b778e11a699444833237c98f"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a></td></tr>
+<tr class="separator:a40ffa949b778e11a699444833237c98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3286180e12bb2e3691135eb38cdbfcf4" id="r_a3286180e12bb2e3691135eb38cdbfcf4"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a></td></tr>
+<tr class="separator:a3286180e12bb2e3691135eb38cdbfcf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c3a12b699e3dcd8224c4e4701a6a93" id="r_a87c3a12b699e3dcd8224c4e4701a6a93"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a></td></tr>
+<tr class="separator:a87c3a12b699e3dcd8224c4e4701a6a93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a70025bb633c3e4050d532d56c2ddacff" id="r_a70025bb633c3e4050d532d56c2ddacff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70025bb633c3e4050d532d56c2ddacff">parseVelocity</a> (<a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *GPS)</td></tr>
-<tr class="memdesc:a70025bb633c3e4050d532d56c2ddacff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Parse periodic GPS UBX message.  <br /></td></tr>
-<tr class="separator:a70025bb633c3e4050d532d56c2ddacff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa2ccfc6bae9091b677a8a1ad4b69a3" id="r_a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8aa2ccfc6bae9091b677a8a1ad4b69a3">GPS_Decode</a> (<a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *gps)</td></tr>
+<tr class="memdesc:a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to decode periodic GPS UBX message.  <br /></td></tr>
+<tr class="separator:a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Chris McGalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cmc'+'ga'+'lli'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">cmcga<span class="obfuscator">.nosp@m.</span>lli@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'wan'+'g5'+'952'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">wang5<span class="obfuscator">.nosp@m.</span>952@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2022-12-28 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-06-14 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ab9017c3f1cc7ed2f396f90be17706c98" name="ab9017c3f1cc7ed2f396f90be17706c98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9017c3f1cc7ed2f396f90be17706c98">&#9670;&#160;</a></span>GPS_FIX_2D</h2>
+<a id="a57674962106917db785129eb9bd56e92" name="a57674962106917db785129eb9bd56e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57674962106917db785129eb9bd56e92">&#9670;&#160;</a></span>GPS_FIX_TYPE_DEAD_RECKONING</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_FIX_2D&#160;&#160;&#160;2</td>
+          <td class="memname">#define GPS_FIX_TYPE_DEAD_RECKONING&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x01)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ac5e980c8325a29dd79a45ed26af404be" name="ac5e980c8325a29dd79a45ed26af404be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5e980c8325a29dd79a45ed26af404be">&#9670;&#160;</a></span>GPS_FIX_3D</h2>
+<a id="a691471a421c68598b31ccf7b031ea474" name="a691471a421c68598b31ccf7b031ea474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a691471a421c68598b31ccf7b031ea474">&#9670;&#160;</a></span>GPS_FIX_TYPE_GNSS_2D</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_FIX_3D&#160;&#160;&#160;3</td>
+          <td class="memname">#define GPS_FIX_TYPE_GNSS_2D&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x02)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a897a6fa611b6cab44ffc6473b9dc08d0" name="a897a6fa611b6cab44ffc6473b9dc08d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a897a6fa611b6cab44ffc6473b9dc08d0">&#9670;&#160;</a></span>GPS_FIX_DEAD_RECKONING</h2>
+<a id="a8069cc6186e20b337595b43daff7008e" name="a8069cc6186e20b337595b43daff7008e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8069cc6186e20b337595b43daff7008e">&#9670;&#160;</a></span>GPS_FIX_TYPE_GNSS_3D</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_FIX_DEAD_RECKONING&#160;&#160;&#160;1</td>
+          <td class="memname">#define GPS_FIX_TYPE_GNSS_3D&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x03)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a314e93a99a2e0c58f94ea879366e38b5" name="a314e93a99a2e0c58f94ea879366e38b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a314e93a99a2e0c58f94ea879366e38b5">&#9670;&#160;</a></span>GPS_FIX_GNSS_DEAD_RECKONING</h2>
+<a id="a404a378cab6bcb67930b94bf6fb98c26" name="a404a378cab6bcb67930b94bf6fb98c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a404a378cab6bcb67930b94bf6fb98c26">&#9670;&#160;</a></span>GPS_FIX_TYPE_GNSS_DEAD_RECKONING</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_FIX_GNSS_DEAD_RECKONING&#160;&#160;&#160;4</td>
+          <td class="memname">#define GPS_FIX_TYPE_GNSS_DEAD_RECKONING&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x04)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a84f437a5cef3517e2c56fdd4c8c09ff5" name="a84f437a5cef3517e2c56fdd4c8c09ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84f437a5cef3517e2c56fdd4c8c09ff5">&#9670;&#160;</a></span>GPS_FIX_NONE</h2>
+<a id="a79bda058dcc0d082787dbe4a5ab96fc7" name="a79bda058dcc0d082787dbe4a5ab96fc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79bda058dcc0d082787dbe4a5ab96fc7">&#9670;&#160;</a></span>GPS_FIX_TYPE_NONE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_FIX_NONE&#160;&#160;&#160;0</td>
+          <td class="memname">#define GPS_FIX_TYPE_NONE&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x00)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a059237ce8923ecbcdf8dece75a91f006" name="a059237ce8923ecbcdf8dece75a91f006"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a059237ce8923ecbcdf8dece75a91f006">&#9670;&#160;</a></span>GPS_FIX_TIME_ONLY</h2>
+<a id="aee50712a872343218de439f462e8e13f" name="aee50712a872343218de439f462e8e13f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee50712a872343218de439f462e8e13f">&#9670;&#160;</a></span>GPS_FIX_TYPE_TIME_ONLY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_FIX_TIME_ONLY&#160;&#160;&#160;5</td>
+          <td class="memname">#define GPS_FIX_TYPE_TIME_ONLY&#160;&#160;&#160;((<a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a>)0x05)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a118cf8ee8937d35c47fe797605a4ac6b" name="a118cf8ee8937d35c47fe797605a4ac6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a118cf8ee8937d35c47fe797605a4ac6b">&#9670;&#160;</a></span>GPS_FLAG1_CARRIER_PHASE_FIXED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_CARRIER_PHASE_FIXED&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x80)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a021ac7447d22fd146e3b9be2b8dfb785" name="a021ac7447d22fd146e3b9be2b8dfb785"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a021ac7447d22fd146e3b9be2b8dfb785">&#9670;&#160;</a></span>GPS_FLAG1_CARRIER_PHASE_FLOAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_CARRIER_PHASE_FLOAT&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x40)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a082c6b5863cd5e2f9cc0631a8a0830" name="a4a082c6b5863cd5e2f9cc0631a8a0830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a082c6b5863cd5e2f9cc0631a8a0830">&#9670;&#160;</a></span>GPS_FLAG1_CARRIER_PHASE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_CARRIER_PHASE_MASK&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0xC0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73a495dd7f075acd7cd7761d84d24df0" name="a73a495dd7f075acd7cd7761d84d24df0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73a495dd7f075acd7cd7761d84d24df0">&#9670;&#160;</a></span>GPS_FLAG1_CARRIER_PHASE_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_CARRIER_PHASE_NONE&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x00)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9371346edd4a91d1b5bff64604a6d5c" name="ae9371346edd4a91d1b5bff64604a6d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9371346edd4a91d1b5bff64604a6d5c">&#9670;&#160;</a></span>GPS_FLAG1_DIFF_SOLN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_DIFF_SOLN&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x02)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a92b7d92c2a425753a4870dc8b41960b8" name="a92b7d92c2a425753a4870dc8b41960b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92b7d92c2a425753a4870dc8b41960b8">&#9670;&#160;</a></span>GPS_FLAG1_GNSS_FIX_OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_GNSS_FIX_OK&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x01)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a653eda5ac5b8ef2f75adcbe57e894b3d" name="a653eda5ac5b8ef2f75adcbe57e894b3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a653eda5ac5b8ef2f75adcbe57e894b3d">&#9670;&#160;</a></span>GPS_FLAG1_HEADING_VALID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_HEADING_VALID&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x20)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b89801f245028f98b22e22a98aced5f" name="a4b89801f245028f98b22e22a98aced5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b89801f245028f98b22e22a98aced5f">&#9670;&#160;</a></span>GPS_FLAG1_PSM_ACQUIRED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_ACQUIRED&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x08)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3b382ae39f5e7979c3e3379671b1eb6" name="ae3b382ae39f5e7979c3e3379671b1eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3b382ae39f5e7979c3e3379671b1eb6">&#9670;&#160;</a></span>GPS_FLAG1_PSM_ENABLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_ENABLED&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x04)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cc00e6b57b4fb600aa4c605c67a6dbf" name="a8cc00e6b57b4fb600aa4c605c67a6dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc00e6b57b4fb600aa4c605c67a6dbf">&#9670;&#160;</a></span>GPS_FLAG1_PSM_INACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_INACTIVE&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x14)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8a68a80908254090d1258bde0e6f10e" name="aa8a68a80908254090d1258bde0e6f10e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a68a80908254090d1258bde0e6f10e">&#9670;&#160;</a></span>GPS_FLAG1_PSM_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_MASK&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x1C)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a969e6de790b6fed5101b9daad0e1f509" name="a969e6de790b6fed5101b9daad0e1f509"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a969e6de790b6fed5101b9daad0e1f509">&#9670;&#160;</a></span>GPS_FLAG1_PSM_OFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_OFF&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x00)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8275072d55bfb21ad4fc0a98f867d09e" name="a8275072d55bfb21ad4fc0a98f867d09e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8275072d55bfb21ad4fc0a98f867d09e">&#9670;&#160;</a></span>GPS_FLAG1_PSM_POWER_OPTIMIZED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_POWER_OPTIMIZED&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a61e7e848938eed67de67f2a6447f7e4f" name="a61e7e848938eed67de67f2a6447f7e4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e7e848938eed67de67f2a6447f7e4f">&#9670;&#160;</a></span>GPS_FLAG1_PSM_TRACKING</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAG1_PSM_TRACKING&#160;&#160;&#160;((<a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a>)0x0C)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ef2b61988785bf3d4dc7346c1126d95" name="a2ef2b61988785bf3d4dc7346c1126d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef2b61988785bf3d4dc7346c1126d95">&#9670;&#160;</a></span>GPS_FLAGS2_CONFIRMED_AVAILABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAGS2_CONFIRMED_AVAILABLE&#160;&#160;&#160;((<a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a>)0x20)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a542822e3348e62bd47109e4e3fcdc2db" name="a542822e3348e62bd47109e4e3fcdc2db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a542822e3348e62bd47109e4e3fcdc2db">&#9670;&#160;</a></span>GPS_FLAGS2_CONFIRMED_DATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAGS2_CONFIRMED_DATE&#160;&#160;&#160;((<a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a>)0x40)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11a6dd8e7f737e58d42bf6dbb9e36669" name="a11a6dd8e7f737e58d42bf6dbb9e36669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a6dd8e7f737e58d42bf6dbb9e36669">&#9670;&#160;</a></span>GPS_FLAGS2_CONFIRMED_TIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_FLAGS2_CONFIRMED_TIME&#160;&#160;&#160;((<a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a>)0x80)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a17da7b4cfb42616b1b0442bdf40dba7b" name="a17da7b4cfb42616b1b0442bdf40dba7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17da7b4cfb42616b1b0442bdf40dba7b">&#9670;&#160;</a></span>GPS_RX_BUF_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPS_RX_BUF_SIZE&#160;&#160;&#160;100</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -246,7 +540,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_VALID_DATE&#160;&#160;&#160;0x01</td>
+          <td class="memname">#define GPS_VALID_DATE&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x01)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -260,7 +554,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_VALID_FULLY_RESOLVED&#160;&#160;&#160;0x04</td>
+          <td class="memname">#define GPS_VALID_FULLY_RESOLVED&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x04)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -274,7 +568,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_VALID_MAG&#160;&#160;&#160;0x08</td>
+          <td class="memname">#define GPS_VALID_MAG&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x08)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -288,7 +582,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GPS_VALID_TIME&#160;&#160;&#160;0x02</td>
+          <td class="memname">#define GPS_VALID_TIME&#160;&#160;&#160;((<a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a>)0x02)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -351,27 +645,83 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a70025bb633c3e4050d532d56c2ddacff" name="a70025bb633c3e4050d532d56c2ddacff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70025bb633c3e4050d532d56c2ddacff">&#9670;&#160;</a></span>parseVelocity()</h2>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a40ffa949b778e11a699444833237c98f" name="a40ffa949b778e11a699444833237c98f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ffa949b778e11a699444833237c98f">&#9670;&#160;</a></span>gps_fix_type_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool parseVelocity </td>
+          <td class="memname">typedef uint8_t <a class="el" href="#a40ffa949b778e11a699444833237c98f">gps_fix_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3286180e12bb2e3691135eb38cdbfcf4" name="a3286180e12bb2e3691135eb38cdbfcf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3286180e12bb2e3691135eb38cdbfcf4">&#9670;&#160;</a></span>gps_flags1_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint8_t <a class="el" href="#a3286180e12bb2e3691135eb38cdbfcf4">gps_flags1_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87c3a12b699e3dcd8224c4e4701a6a93" name="a87c3a12b699e3dcd8224c4e4701a6a93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c3a12b699e3dcd8224c4e4701a6a93">&#9670;&#160;</a></span>gps_flags2_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint8_t <a class="el" href="#a87c3a12b699e3dcd8224c4e4701a6a93">gps_flags2_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac998a72200da1f2c1fdc92ab4828b37" name="aac998a72200da1f2c1fdc92ab4828b37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac998a72200da1f2c1fdc92ab4828b37">&#9670;&#160;</a></span>gps_valid_flags_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint8_t <a class="el" href="#aac998a72200da1f2c1fdc92ab4828b37">gps_valid_flags_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a8aa2ccfc6bae9091b677a8a1ad4b69a3" name="a8aa2ccfc6bae9091b677a8a1ad4b69a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aa2ccfc6bae9091b677a8a1ad4b69a3">&#9670;&#160;</a></span>GPS_Decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GPS_Decode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>GPS</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>gps</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function to Parse periodic GPS UBX message. </p>
+<p>Function to decode periodic GPS UBX message. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">GPS</td><td>Handle for GPS configuration </td></tr>
-    <tr><td class="paramname">rtU</td><td>Handle for SFS </td></tr>
+    <tr><td class="paramname">GPS</td><td>Handle for GPS configuration and data </td></tr>
   </table>
   </dd>
 </dl>

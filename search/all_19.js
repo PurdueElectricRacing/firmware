@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['y_0',['y',['../structvector__3d__t.html#a6aaaeebd50a9b77237998d0fd5fcc3ce',1,'vector_3d_t::y'],['../structquaternion__t.html#ae5d6a1e97fd569e135735fa885af225f',1,'quaternion_t::y']]],
-  ['yaw_1',['yaw',['../structeuler__angles__t.html#a11c885d1265e328d41f48916230bd17c',1,'euler_angles_t']]],
-  ['year_2',['year',['../structGPS__Handle__t.html#ac5e1d2a88fa5ee22601dd75e791bf1a1',1,'GPS_Handle_t']]],
-  ['year_5fbcd_3',['year_bcd',['../structRTC__date__t.html#aa4e963fd0afe128ba6b328d3d2330d17',1,'RTC_date_t']]],
-  ['yellow_4',['YELLOW',['../nextion_8h.html#abf681265909adf3d3e8116c93c0ba179',1,'nextion.h']]],
-  ['yvcu_5fstruct_5',['yVCU_struct',['../structyVCU__struct.html',1,'']]]
+  ['year_0',['year',['../structNAV__PVT__t.html#a2f475e7294173b7951de91a883007c54',1,'NAV_PVT_t']]],
+  ['year_5fbcd_1',['year_bcd',['../structRTC__date__t.html#aa4e963fd0afe128ba6b328d3d2330d17',1,'RTC_date_t']]],
+  ['yellow_2',['YELLOW',['../nextion_8h.html#abf681265909adf3d3e8116c93c0ba179',1,'nextion.h']]],
+  ['yvcu_5fstruct_3',['yVCU_struct',['../structyVCU__struct.html',1,'']]]
 ];

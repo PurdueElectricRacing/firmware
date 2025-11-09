@@ -94,9 +94,9 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="bmi088_8h_source.html">bmi088.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="bsxlite__interface_8h_source.html">bsxlite_interface.h</a>&quot;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;common/phal/spi.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;common_defs.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 </div><table class="memberdecls">
@@ -104,8 +104,8 @@ $(function(){ initResizable(false); });
 Functions</h2></td></tr>
 <tr class="memitem:aa109c1cdfa5f5d238b52e566ef8230bd" id="r_aa109c1cdfa5f5d238b52e566ef8230bd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa109c1cdfa5f5d238b52e566ef8230bd">BMI088_init</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="separator:aa109c1cdfa5f5d238b52e566ef8230bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac37c47b795abf6d811cca9a579261967" id="r_ac37c47b795abf6d811cca9a579261967"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac37c47b795abf6d811cca9a579261967">BMI088_powerOnAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
-<tr class="separator:ac37c47b795abf6d811cca9a579261967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42991ee485aafc650472bb5331d56f0c" id="r_a42991ee485aafc650472bb5331d56f0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42991ee485aafc650472bb5331d56f0c">BMI088_wakeAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="separator:a42991ee485aafc650472bb5331d56f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e0d7e3a9df0a98ef46e4a6b4e000184" id="r_a9e0d7e3a9df0a98ef46e4a6b4e000184"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e0d7e3a9df0a98ef46e4a6b4e000184">BMI088_initAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="memdesc:a9e0d7e3a9df0a98ef46e4a6b4e000184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the accelerometer, must be done 50ms or longer after POR.  <br /></td></tr>
 <tr class="separator:a9e0d7e3a9df0a98ef46e4a6b4e000184"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,14 +121,14 @@ Functions</h2></td></tr>
 <tr class="memitem:abd436184826a431cf00ef5eb069c5a22" id="r_abd436184826a431cf00ef5eb069c5a22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd436184826a431cf00ef5eb069c5a22">BMI088_gyroSelfTestPass</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="memdesc:abd436184826a431cf00ef5eb069c5a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the status of the most recent Gyro self test.  <br /></td></tr>
 <tr class="separator:abd436184826a431cf00ef5eb069c5a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35a7de3d71f92553c356a0dc84ce4794" id="r_a35a7de3d71f92553c356a0dc84ce4794"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35a7de3d71f92553c356a0dc84ce4794">BMI088_readGyro</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi, <a class="el" href="structvector__3d__t.html">vector_3d_t</a> *v)</td></tr>
-<tr class="memdesc:a35a7de3d71f92553c356a0dc84ce4794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read the most recent Data Sample from the gyro.  <br /></td></tr>
-<tr class="separator:a35a7de3d71f92553c356a0dc84ce4794"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb8110f098e7f6b71ab0927b45c53ef" id="r_aabb8110f098e7f6b71ab0927b45c53ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb8110f098e7f6b71ab0927b45c53ef">BMI088_readAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi, <a class="el" href="structvector__3d__t.html">vector_3d_t</a> *v)</td></tr>
-<tr class="memdesc:aabb8110f098e7f6b71ab0927b45c53ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read the acceleration values form the device.  <br /></td></tr>
-<tr class="separator:aabb8110f098e7f6b71ab0927b45c53ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7a40e5f374e0a6e8ebed8384ee23365" id="r_ab7a40e5f374e0a6e8ebed8384ee23365"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7a40e5f374e0a6e8ebed8384ee23365">BMI088_checkGyroHealth</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="separator:ab7a40e5f374e0a6e8ebed8384ee23365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dfbb27cde5d045d6291dba7fe0e709f" id="r_a1dfbb27cde5d045d6291dba7fe0e709f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dfbb27cde5d045d6291dba7fe0e709f">BMI088_readGyro</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="memdesc:a1dfbb27cde5d045d6291dba7fe0e709f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read the most recent Data Sample from the gyro.  <br /></td></tr>
+<tr class="separator:a1dfbb27cde5d045d6291dba7fe0e709f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a236059cb2cd1459e4d2c45949de64326" id="r_a236059cb2cd1459e4d2c45949de64326"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a236059cb2cd1459e4d2c45949de64326">BMI088_readAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="memdesc:a236059cb2cd1459e4d2c45949de64326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read the acceleration values form the device.  <br /></td></tr>
+<tr class="separator:a236059cb2cd1459e4d2c45949de64326"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab7a40e5f374e0a6e8ebed8384ee23365" name="ab7a40e5f374e0a6e8ebed8384ee23365"></a>
@@ -296,25 +296,8 @@ false not good </dd></dl>
 
 </div>
 </div>
-<a id="ac37c47b795abf6d811cca9a579261967" name="ac37c47b795abf6d811cca9a579261967"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac37c47b795abf6d811cca9a579261967">&#9670;&#160;</a></span>BMI088_powerOnAccel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void BMI088_powerOnAccel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aabb8110f098e7f6b71ab0927b45c53ef" name="aabb8110f098e7f6b71ab0927b45c53ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabb8110f098e7f6b71ab0927b45c53ef">&#9670;&#160;</a></span>BMI088_readAccel()</h2>
+<a id="a236059cb2cd1459e4d2c45949de64326" name="a236059cb2cd1459e4d2c45949de64326"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a236059cb2cd1459e4d2c45949de64326">&#9670;&#160;</a></span>BMI088_readAccel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,12 +305,8 @@ false not good </dd></dl>
         <tr>
           <td class="memname">bool BMI088_readAccel </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structvector__3d__t.html">vector_3d_t</a> *</td>          <td class="paramname"><span class="paramname"><em>v</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -336,9 +315,6 @@ false not good </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bmi</td><td></td></tr>
-    <tr><td class="paramname">v.x</td><td>Returned acceleration over x axis (m/s^2) </td></tr>
-    <tr><td class="paramname">v.y</td><td>Returned acceleration over y axis (m/s^2) </td></tr>
-    <tr><td class="paramname">v.z</td><td>Returned acceleration over z axis (m/s^2) </td></tr>
   </table>
   </dd>
 </dl>
@@ -348,8 +324,8 @@ false </dd></dl>
 
 </div>
 </div>
-<a id="a35a7de3d71f92553c356a0dc84ce4794" name="a35a7de3d71f92553c356a0dc84ce4794"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35a7de3d71f92553c356a0dc84ce4794">&#9670;&#160;</a></span>BMI088_readGyro()</h2>
+<a id="a1dfbb27cde5d045d6291dba7fe0e709f" name="a1dfbb27cde5d045d6291dba7fe0e709f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dfbb27cde5d045d6291dba7fe0e709f">&#9670;&#160;</a></span>BMI088_readGyro()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,28 +333,33 @@ false </dd></dl>
         <tr>
           <td class="memname">bool BMI088_readGyro </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structvector__3d__t.html">vector_3d_t</a> *</td>          <td class="paramname"><span class="paramname"><em>v</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Blocking function to read the most recent Data Sample from the gyro. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">v.x</td><td>Acceleration around the X axis (pitch acceleration) in rad/s </td></tr>
-    <tr><td class="paramname">v.y</td><td>Acceletation around the Y axis (roll acceleration) in rad/s </td></tr>
-    <tr><td class="paramname">v.z</td><td>Acceleration around the Z axis (yaw acceleration) in rad/s </td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd>true Successful data Tx/Rx </dd>
 <dd>
 false Unsuccessful data Tx/Rx </dd></dl>
+
+</div>
+</div>
+<a id="a42991ee485aafc650472bb5331d56f0c" name="a42991ee485aafc650472bb5331d56f0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42991ee485aafc650472bb5331d56f0c">&#9670;&#160;</a></span>BMI088_wakeAccel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BMI088_wakeAccel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

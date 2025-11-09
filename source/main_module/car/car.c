@@ -36,7 +36,7 @@ bool carInit() {
     car                       = (Car_t) {0}; // Everything to zero
     car.state                 = CAR_STATE_IDLE;
     car.torque_src            = CAR_TORQUE_TV;
-    car.regen_enabled         = false;
+    car.regen_enabled         = true;
     car.sdc_close             = true; // We want to initialize SDC as "good"
     pchg_complete_lowpass_idx = 0;
     memset(pchg_complete_lowpass_buf, 0, sizeof(pchg_complete_lowpass_buf));
@@ -313,6 +313,7 @@ void carPeriodic() {
                     temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
                     temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
                     SEND_SIMULATED_TV(temp_t_req.torque_left, temp_t_req.torque_right);
+
                     temp_t_req.torque_left  = t_req_pedal;
                     temp_t_req.torque_right = t_req_pedal;
                     break;
@@ -336,6 +337,23 @@ void carPeriodic() {
                     temp_t_req.torque_left = 0.0f;
                 if (temp_t_req.torque_right < 0)
                     temp_t_req.torque_right = 0.0f;
+            }
+
+            if (!can_data.filt_throttle_brake.stale) {
+                // t_req_pedal = (float)CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+
+                const float gear_reduction = 11.335;
+                const float tire_diameter = 0.4064; // meters
+                float wheel_rad_per_second = (wheel_speeds.left_rad_s_x100 / 100.0f) / gear_reduction;
+                float vehicle_speed_mps = wheel_rad_per_second * 3.1415f * tire_diameter; 
+
+                const float min_regen_speed = 2.2352f; // 5 mph
+                // if (vehicle_speed_mps > min_regen_speed) {
+                    if (can_data.filt_throttle_brake.brake > (0.25f * 4095.0f)) {
+                        temp_t_req.torque_left = -30.0f; 
+                        temp_t_req.torque_right = -30.0f;
+                    }
+                // }
             }
 
             car.torque_r = temp_t_req;

@@ -1,6 +1,6 @@
 /**
  * @file bmi.h
- * @author your name (you@domain.com)
+ * @author Irving Wang (wang5952@purdue.edu)
  * @brief
  * @version 0.1
  * @date 2022-01-29
@@ -12,11 +12,9 @@
 #ifndef _BMI_H_
 #define _BMI_H_
 
-#include <inttypes.h>
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "bsxlite_interface.h"
 #include "common/phal/gpio.h"
 #include "common/phal/spi.h"
 
@@ -85,20 +83,33 @@ typedef enum {
     GYRO_DR_100Hz_32Hz   = 0x07,
 } BMI088_GyroDrBw_t;
 
+typedef struct {
+    float gyro_x; // Angular velocity around the X axis (pitch) in rad/s
+    float gyro_y; // Angular velocity around the Y axis (roll) in rad/s
+    float gyro_z; // Angular velocity around the Z axis (yaw) in rad/s
+
+    float accel_x; // Acceleration over x axis (m/s^2)
+    float accel_y; // Acceleration over y axis (m/s^2)
+    float accel_z; // Acceleration over z axis (m/s^2)
+} IMU_data_t;
+
 typedef struct
 {
-    SPI_InitConfig_t* spi;
-    GPIO_TypeDef* accel_csb_gpio_port;
-    uint32_t accel_csb_pin;
+    SPI_InitConfig_t *spi;
+
+    uint8_t bmi_rx_buffer[16];
+    uint8_t bmi_tx_buffer[16];
+    IMU_data_t data;
+
     BMI088_AccelRange_t accel_range;
     BMI088_AccelBWP_t accel_bwp;
     BMI088_AccelODR_t accel_odr;
-    GPIO_TypeDef* gyro_csb_gpio_port;
-    uint32_t gyro_csb_pin;
     BMI088_GyroRange_t gyro_range;
     BMI088_GyroDrBw_t gyro_datarate;
-    bool gyro_dynamic_range;
-    bool accel_ready;
+
+    bool enableDynamicRange;
+    bool isAccelReady;
+    bool isGyroOK;
 } BMI088_Handle_t;
 
 /**
@@ -108,9 +119,9 @@ typedef struct
  * @return true
  * @return false
  */
-bool BMI088_init(BMI088_Handle_t* bmi);
+bool BMI088_init(BMI088_Handle_t *bmi);
 
-void BMI088_powerOnAccel(BMI088_Handle_t* bmi);
+void BMI088_wakeAccel(BMI088_Handle_t *bmi);
 
 /**
  * @brief Setup the accelerometer, must be done 50ms or longer after POR
@@ -119,7 +130,7 @@ void BMI088_powerOnAccel(BMI088_Handle_t* bmi);
  * @return true ACCEL responded sucessfully
  * @return false not good
  */
-bool BMI088_initAccel(BMI088_Handle_t* bmi);
+bool BMI088_initAccel(BMI088_Handle_t *bmi);
 
 /**
  * @brief Do self test of gyroscope
@@ -128,7 +139,7 @@ bool BMI088_initAccel(BMI088_Handle_t* bmi);
  * @return true gyro is OK
  * @return false not good
  */
-bool BMI088_gyroOK(BMI088_Handle_t* bmi);
+bool BMI088_gyroOK(BMI088_Handle_t *bmi);
 
 /**
  * @brief Start the gyro self test
@@ -136,7 +147,7 @@ bool BMI088_gyroOK(BMI088_Handle_t* bmi);
  * @return true
  * @return false
  */
-bool BMI088_gyroSelfTestStart(BMI088_Handle_t* bmi);
+bool BMI088_gyroSelfTestStart(BMI088_Handle_t *bmi);
 
 /**
  * @brief Check the status of the most recent Gyro self test
@@ -144,7 +155,7 @@ bool BMI088_gyroSelfTestStart(BMI088_Handle_t* bmi);
  * @return true Self test passed, gyro data is good
  * @return false Self test failed, gyro data bad or no test was conduced
  */
-bool BMI088_gyroSelfTestComplete(BMI088_Handle_t* bmi);
+bool BMI088_gyroSelfTestComplete(BMI088_Handle_t *bmi);
 
 /**
  * @brief Check the status of the most recent Gyro self test
@@ -152,31 +163,25 @@ bool BMI088_gyroSelfTestComplete(BMI088_Handle_t* bmi);
  * @return true Self test passed, gyro data is good
  * @return false Self test failed, gyro data bad or no test was conduced
  */
-bool BMI088_gyroSelfTestPass(BMI088_Handle_t* bmi);
+bool BMI088_gyroSelfTestPass(BMI088_Handle_t *bmi);
 
 /**
  * @brief Blocking function to read the most recent Data Sample from the gyro
  *
- * @param v.x Acceleration around the X axis (pitch acceleration) in rad/s
- * @param v.y Acceletation around the Y axis (roll acceleration) in rad/s
- * @param v.z Acceleration around the Z axis (yaw acceleration) in rad/s
  * @return true Successful data Tx/Rx
  * @return false Unsuccessful data Tx/Rx
  */
-bool BMI088_readGyro(BMI088_Handle_t* bmi, vector_3d_t* v);
+bool BMI088_readGyro(BMI088_Handle_t *bmi);
 
 /**
  * @brief Blocking function to read the acceleration values form the device.
  *
  * @param bmi
- * @param v.x Returned acceleration over x axis (m/s^2)
- * @param v.y Returned acceleration over y axis (m/s^2)
- * @param v.z Returned acceleration over z axis (m/s^2)
  * @return true
  * @return false
  */
-bool BMI088_readAccel(BMI088_Handle_t* bmi, vector_3d_t* v);
+bool BMI088_readAccel(BMI088_Handle_t *bmi);
 
-uint8_t BMI088_checkGyroHealth(BMI088_Handle_t* bmi);
+uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi);
 
 #endif

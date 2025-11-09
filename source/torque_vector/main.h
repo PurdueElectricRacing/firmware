@@ -15,11 +15,9 @@
 #define _MAIN_H_
 
 #include "bmi088.h"
-#include "bsxlite_interface.h"
 #include "common/faults/fault_nodes.h"
 #include "common/phal/can.h"
 #include "gps.h"
-#include "imu.h"
 #include "vcu.h"
 
 #define FAULT_NODE_NAME NODE_TORQUE_VECTOR
@@ -168,6 +166,6 @@ struct __attribute__((packed)) serial_rx {
     float VT_permit_buffer[5]; // size is given py pVCU.VT_permit_N
 };
 
-void canTxSendToBack(CanMsgTypeDef_t* msg);
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 
 #endif

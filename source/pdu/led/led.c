@@ -65,14 +65,14 @@ bool LED_control(int led, enum LED_state state) {
         ;
 
     for (int i = 0; i < 80; i++) {
-        asm("nop");
+        __asm__("nop");
     }
 
     // Latch LED control data into the ON/OFF Control Data Latch at rising edge of LAT
     PHAL_writeGPIO(LED_CTRL_LAT_GPIO_Port, LED_CTRL_LAT_Pin, 1);
 
     for (int i = 0; i < 80; i++) {
-        asm("nop");
+        __asm__("nop");
     }
 
     PHAL_writeGPIO(LED_CTRL_LAT_GPIO_Port, LED_CTRL_LAT_Pin, 0);

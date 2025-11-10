@@ -6,12 +6,14 @@ set(TARGET_CPU "cortex-m4")
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR ${TARGET_CPU})
 
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
 find_program(CMAKE_C_COMPILER   arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_ASM_COMPILER arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_CXX_COMPILER arm-none-eabi-g++)
 find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size)
 
-set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=gnu17")
+set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=c23")
 set(C_CXX_FLAGS  "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding")
 set(CXX_FLAGS    "-fno-exceptions -fno-rtti -fno-threadsafe-statics")
 

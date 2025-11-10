@@ -3,7 +3,6 @@
 #include "common_defs.h"
 #include "main.h"
 #include "vcu.h"
-#include <math.h>
 #include <stdint.h>
  
 void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *gps, BMI088_Handle_t *bmi)
@@ -44,8 +43,8 @@ void vcu_pp(fVCU_struct *fVCU, xVCU_struct *xVCU, GPS_Handle_t *gps, BMI088_Hand
     xVCU->VB_RAW        = (can_data.orion_currents_volts.pack_voltage * 0.1); /* Incoming is 10*V of terminal*/
     xVCU->WT_RAW[0]     = 0;
     xVCU->WT_RAW[1]     = 0;
-    xVCU->WM_RAW[0]     = (can_data.INVA_CRIT.AMK_ActualSpeed * M_PI / 30); /*Incoming is RPM of motor shaft */
-    xVCU->WM_RAW[1]     = (can_data.INVB_CRIT.AMK_ActualSpeed * M_PI / 30); /*Incoming is RPM of motor shaft */
+    xVCU->WM_RAW[0]     = (can_data.INVA_CRIT.AMK_ActualSpeed * PI / 30); /*Incoming is RPM of motor shaft */
+    xVCU->WM_RAW[1]     = (can_data.INVB_CRIT.AMK_ActualSpeed * PI / 30); /*Incoming is RPM of motor shaft */
     xVCU->GS_RAW        = (gps->data.groundSpeed * 0.001); /* Incoming data is 1000*m/s */
     xVCU->AV_RAW[0]     = (bmi->data.gyro_x); /* Incoming data is rad/s */
     xVCU->AV_RAW[1]     = (bmi->data.gyro_y); /* Incoming data is rad/s */

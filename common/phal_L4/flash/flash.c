@@ -26,7 +26,7 @@ static uint8_t flashUnlock() {
     uint32_t timeout = 0;
 
     while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
-        asm("nop");
+        __asm__("nop");
     if (timeout == PHAL_FLASH_TIMEOUT)
         return FLASH_TIMEOUT;
 
@@ -56,7 +56,7 @@ uint8_t PHAL_flashWriteU64(uint32_t Address, uint64_t Data) {
 
     // Wait until not busy
     while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
-        asm("nop");
+        __asm__("nop");
     if (timeout == PHAL_FLASH_TIMEOUT)
         return FLASH_TIMEOUT;
     timeout = 0;
@@ -73,11 +73,11 @@ uint8_t PHAL_flashWriteU64(uint32_t Address, uint64_t Data) {
 
     /* Program second word */
     *(__IO uint32_t*)(Address + 4U) = (uint32_t)(Data >> 32);
-    asm("nop");
-    asm("nop");
+    __asm__("nop");
+    __asm__("nop");
 
     while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
-        asm("nop");
+        __asm__("nop");
     if (timeout == PHAL_FLASH_TIMEOUT)
         return FLASH_TIMEOUT;
 
@@ -123,7 +123,7 @@ uint8_t PHAL_flashErasePage(uint16_t page) {
     FLASH->CR |= FLASH_CR_STRT;
 
     while ((FLASH->SR & FLASH_SR_BSY) && ++timeout < PHAL_FLASH_TIMEOUT)
-        asm("nop");
+        __asm__("nop");
     if (timeout == PHAL_FLASH_TIMEOUT)
         return FLASH_TIMEOUT;
 

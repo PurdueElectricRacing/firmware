@@ -325,7 +325,7 @@ void BL_sendStatusMessage(uint8_t cmd, uint32_t data) {
         NODE_CASE_BL_RESPONSE(APP_F7_TESTING, SEND_F7_TESTING_BL_RESP)
         NODE_CASE_BL_RESPONSE(APP_DAQ, SEND_DAQ_BL_RESP)
         default:
-            asm("bkpt");
+            __asm__("bkpt");
     }
 }
 

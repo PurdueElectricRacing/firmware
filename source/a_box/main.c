@@ -329,7 +329,7 @@ void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
 
 void PHAL_FaultHandler() {
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
-    asm("bkpt");
+    __asm__("bkpt");
     HardFault_Handler();
 }
 

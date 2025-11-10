@@ -93,7 +93,7 @@ void orionChargePeriodic() {
         charge_current_req = ((charge_current_req & 0x00FF) << 8) | (charge_current_req >> 8);
     }
     if (!elcon_charge_enable)
-        asm("nop"); // for bkpt
+        __asm__("nop"); // for bkpt
 
     SEND_ELCON_CHARGER_COMMAND(charge_voltage_req, charge_current_req, !elcon_charge_enable);
 

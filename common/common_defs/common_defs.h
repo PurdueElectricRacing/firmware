@@ -47,6 +47,7 @@
 #define DCAN_BPS 500000 // Steering angle, DAQ, (wheel temps)
 #define MCAN_BPS 500000 // Motor CAN Bus (Main, DAQ, Inverters)
 #define CCAN_BPS 250000 // Charger CAN bus (ELCON, A_Box, Orion)
+#define TCAN_BPS 1000 // Tire CAN Bus
 
 /* Per-Node HSI RCC Trim Constants */
 #define HSI_TRIM_TORQUE_VECTOR 15

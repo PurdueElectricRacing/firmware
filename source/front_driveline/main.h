@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include "common/phal/can.h"
+#include "common/phal/gpio.h"
 
 //Shockpot Calibration
 #define POT_VOLT_MAX_L   5.0f
@@ -21,12 +22,6 @@
 #define POT_DIST_DROOP_L 56
 #define POT_DIST_DROOP_R 56
 
-typedef struct __attribute__((packed)) {
-    uint16_t shock_left;
-    uint16_t shock_right;
-} raw_adc_values_t;
-
-volatile extern raw_adc_values_t raw_adc_values;
 
 // Shock Pots
 #define SHOCK_POT_L_GPIO_Port (GPIOA)
@@ -36,7 +31,7 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define SHOCK_POT_R_Pin       (1)
 #define SHOCK_POT_R_ADC_CH    (1)
 
-// Normal Force
+// Normal Force  DY510 Vs- 24V
 #define LOAD_FL_GPIO_Port (GPIOB)
 #define LOAD_FL_Pin       (0)
 #define LOAD_FL_ADC_CH    (8)
@@ -56,4 +51,20 @@ volatile extern raw_adc_values_t raw_adc_values;
 #define BREAK_TEMP_R_Pin       (3)
 #define BREAK_TEMP_R_ADC_CH    (3)
 
+
 void canTxSendToBack(CanMsgTypeDef_t* msg);
+
+typedef struct __attribute__((packed)) {
+    // Do not modify this struct unless
+    // you modify the ADC DMA config
+    // in main.h to match
+    uint16_t load_left;
+    uint16_t load_right;
+    uint16_t shock_left;
+    uint16_t shock_right;
+    uint16_t break_temp_left;
+    uint16_t break_temp_right;
+
+} raw_adc_values_t;
+
+volatile extern raw_adc_values_t raw_adc_values;

@@ -69,6 +69,8 @@ ADCChannelConfig_t adc_channel_config[] = {
 
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.load_left), 0b01);
 
+
+
 /* Clock Configuration */
 #define TargetCoreClockrateHz 144000000
 extern uint32_t APB1ClockRateHz;
@@ -113,11 +115,6 @@ void can_worker_task() {
     canTxUpdate();
 }
 
-
-// convert voltage to kg
-void sendLoadCells() {
-}
-
 // convert voltage to celsius?
 int16_t brake_temp_l;
 int16_t brake_temp_r;
@@ -133,6 +130,22 @@ void sendBrakeTemps() {
 
 }
 
+float load_l_kg;
+float load_r_kg;
+// convert voltage to kg - yash
+void sendLoadCells() {
+    //Loading Data from struct
+    uint16_t load_l = raw_adc_values.load_left;
+    uint16_t load_r = raw_adc_values.load_right;
+
+    //Calculation is (ADC_reading)/5V * calibrated weight
+    load_l_kg = (load_l / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION; 
+    load_r_kg = (load_r / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION; 
+
+    SEND_LOAD_SENSOR_READINGS_DRIVELINE(load_l_kg,load_r_kg);
+}
+
+
 /**
  * @brief Processes and sends shock potentiometer readings
  *
@@ -141,7 +154,6 @@ void sendBrakeTemps() {
  */
 int16_t shock_l_displacement;
 int16_t shock_r_displacement;
-
 
 void sendShockpots() {
     uint16_t shock_l = raw_adc_values.shock_left;

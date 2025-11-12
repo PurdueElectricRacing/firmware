@@ -38,7 +38,8 @@
 #define LOAD_FR_GPIO_Port (GPIOB)
 #define LOAD_FR_Pin       (1)
 #define LOAD_FR_ADC_CH    (9)
-
+#define LOAD_VOLT_MAX     5.0f
+#define LOAD_CELL_CALIBRATION 200.0f
 // Magnometer
 // #define MAG_FRONT_Port (GPIOB)
 // #define MAG_FRONT_Pin (7)

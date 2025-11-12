@@ -24,7 +24,9 @@
                   "type":"int32_t",
                   "unit":"uT"
                 }
-                ]
+                ],
+                "msg_period": 15,
+                "msg_priority": 3
               },
               {
                 "msg_name": "shock_front_driveline",
@@ -82,7 +84,9 @@
                     "type":"int16_t",
                     "unit":"degC"
                 }
-                ]
+                ],
+                "msg_period": 15,
+                "msg_priority": 3
               }
              
             ],
@@ -111,37 +115,8 @@
                     "sig_name": "tt_ch_3", "type": "uint16_t", "unit": "0.1degC" 
                   },
                   { "sig_name": "tt_ch_4", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_5", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_6", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_7", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_8", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_9", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_10", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_11", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_12", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_13", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_14", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_15", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_16", "type": "uint16_t", "unit": "0.1degC" 
                   }
+                  
                 ],
                 "msg_period": 10,
                 "msg_priority": 3
@@ -159,36 +134,6 @@
                     "sig_name": "tt_ch_3", "type": "uint16_t", "unit": "0.1degC" 
                   },
                   { "sig_name": "tt_ch_4", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_5", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_6", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_7", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_8", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_9", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_10", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_11", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_12", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_13", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_14", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { 
-                    "sig_name": "tt_ch_15", "type": "uint16_t", "unit": "0.1degC" 
-                  },
-                  { "sig_name": "tt_ch_16", "type": "uint16_t", "unit": "0.1degC" 
                   }
                 ],
                 "msg_period": 10,

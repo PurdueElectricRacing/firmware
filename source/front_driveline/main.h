@@ -44,12 +44,12 @@
 // #define MAG_FRONT_Pin (7)
 
 // IR Temp INFKL-800
-#define BREAK_TEMP_L_GPIO_Port (GPIOA)
-#define BREAK_TEMP_L_Pin       (2)
-#define BREAK_TEMP_L_ADC_CH    (2)
-#define BREAK_TEMP_R_GPIO_Port (GPIOA)
-#define BREAK_TEMP_R_Pin       (3)
-#define BREAK_TEMP_R_ADC_CH    (3)
+#define BRAKE_TEMP_FL_GPIO_Port (GPIOA)
+#define BRAKE_TEMP_FL_Pin       (2)
+#define BRAKE_TEMP_FL_ADC_CH    (2)
+#define BRAKE_TEMP_FR_GPIO_Port (GPIOA)
+#define BRAKE_TEMP_FR_Pin       (3)
+#define BRAKE_TEMP_FR_ADC_CH    (3)
 
 
 void canTxSendToBack(CanMsgTypeDef_t* msg);
@@ -62,8 +62,8 @@ typedef struct __attribute__((packed)) {
     uint16_t load_right;
     uint16_t shock_left;
     uint16_t shock_right;
-    uint16_t break_temp_left;
-    uint16_t break_temp_right;
+    uint16_t brake_temp_left;
+    uint16_t brake_temp_right;
 
 } raw_adc_values_t;
 

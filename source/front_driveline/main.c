@@ -13,7 +13,7 @@
 #include "common_defs.h"
 #include "external/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
 #include "source/front_driveline/can/can_parse.h"
-
+#include "/can/can_parse.h"
 /* Module Includes */
 #include <stdint.h>
 
@@ -34,8 +34,8 @@ GPIOInitConfig_t gpio_config[] = {
     //Magnometer i2c
 
     //IR Temperature
-    GPIO_INIT_ANALOG(BREAK_TEMP_L_GPIO_Port, BREAK_TEMP_L_Pin),
-    GPIO_INIT_ANALOG(BREAK_TEMP_R_GPIO_Port, BREAK_TEMP_R_Pin),
+    GPIO_INIT_ANALOG(BRAKE_TEMP_FL_GPIO_Port, BRAKE_TEMP_FL_Pin),
+    GPIO_INIT_ANALOG(BRAKE_TEMP_FR_GPIO_Port, BRAKE_TEMP_FR_Pin),
 
     //Load Cells
     GPIO_INIT_ANALOG(LOAD_FL_GPIO_Port, LOAD_FL_Pin),
@@ -62,8 +62,8 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = SHOCK_POT_R_ADC_CH, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LOAD_FL_ADC_CH, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LOAD_FR_ADC_CH, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BREAK_TEMP_L_ADC_CH, .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BREAK_TEMP_R_ADC_CH, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE_TEMP_FL_ADC_CH, .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE_TEMP_FR_ADC_CH, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 
 };
 
@@ -96,7 +96,7 @@ int main(void) {
     taskCreateBackground(canRxUpdate);
     void sendShockpots();
     void sendLoadCells();
-    void sendBreakTemps();
+    void sendBrakeTemps();
 
     schedStart();
 
@@ -113,6 +113,26 @@ void can_worker_task() {
     canTxUpdate();
 }
 
+
+// convert voltage to kg
+void sendLoadCells() {
+}
+
+// convert voltage to celsius?
+int16_t brake_temp_l;
+int16_t brake_temp_r;
+
+void sendBrakeTemps() {
+
+    //get raw voltage from brake temp sensors
+    double brake_temp_v_l = raw_adc_values.brake_temp_left;
+    double brake_temp_v_r = raw_adc_values.brake_temp_right;
+    brake_temp_l = (int16_t) (brake_temp_v_l - 0.5)/0.005;
+    brake_temp_r = (int16_t) (brake_temp_v_r - 0.5)/0.005;
+    SEND_BRAKE_TEMPS_FRONT(brake_temp_l, brake_temp_r);
+
+}
+
 /**
  * @brief Processes and sends shock potentiometer readings
  *
@@ -122,13 +142,6 @@ void can_worker_task() {
 int16_t shock_l_displacement;
 int16_t shock_r_displacement;
 
-// convert voltage to kg
-void sendLoadCells() {
-}
-
-// convert voltage to celsius?
-void sendBreakTemps() {
-}
 
 void sendShockpots() {
     uint16_t shock_l = raw_adc_values.shock_left;

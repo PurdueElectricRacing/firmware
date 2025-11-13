@@ -12,6 +12,10 @@ gen_id_start = "BEGIN AUTO ID DEFS"
 gen_id_stop = "END AUTO ID DEFS"
 gen_dlc_start = "BEGIN AUTO DLC DEFS"
 gen_dlc_stop = "END AUTO DLC DEFS"
+gen_period_start = "BEGIN AUTO PERIOD DEFS"
+gen_period_stop = "END AUTO PERIOD DEFS"
+gen_scale_start = "BEGIN AUTO SCALE DEFS"
+gen_scale_stop = "END AUTO SCALE DEFS"
 gen_send_macro_start = "BEGIN AUTO SEND MACROS"
 gen_send_macro_stop = "END AUTO SEND MACROS"
 gen_up_start = "BEGIN AUTO UP DEFS"
@@ -216,6 +220,29 @@ def configure_node(node_config, node_paths):
         dlc_lines.append(f"#define DLC_{msg['msg_name'].upper()} {msg['dlc']}\n")
     h_lines = generator.insert_lines(h_lines, gen_id_start, gen_id_stop, id_lines)
     h_lines = generator.insert_lines(h_lines, gen_dlc_start, gen_dlc_stop, dlc_lines)
+
+    # Message Periods
+    period_lines = []
+    for msg in raw_msg_defs:
+        if msg['msg_period'] > 0: # skip undefined signal periods
+            period_lines.append(f"#define PERIOD_MILLISECONDS_{msg['msg_name'].upper()} {msg['msg_period']}\n")
+    h_lines = generator.insert_lines(h_lines, gen_period_start, gen_period_stop, period_lines)
+
+    # Signal Scales
+    scale_lines = []
+    for msg in raw_msg_defs:
+        for sig in msg['signals']:
+            scale = sig.get('scale', 1.0)
+            if scale == 1.0: # Only generate for non-default scales
+                continue
+            
+            # float32 only has about 7 sigfigs of precision, use .6g
+            scale_str = f"{float(scale):.6g}f"
+            unscale_str = f"{float(1.0/scale):.6g}f"
+            
+            scale_lines.append(f"#define SCALE_FACTOR_{msg['msg_name'].upper()}_{sig['sig_name'].upper()} {scale_str}\n")
+            scale_lines.append(f"#define UNSCALE_FACTOR_{msg['msg_name'].upper()}_{sig['sig_name'].upper()} {unscale_str}\n")
+    h_lines = generator.insert_lines(h_lines, gen_scale_start, gen_scale_stop, scale_lines)
 
     # Send Macros, requires knowledge of CAN peripheral
     macro_lines = []

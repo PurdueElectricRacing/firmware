@@ -29,6 +29,14 @@
 /* BEGIN AUTO DLC DEFS */
 /* END AUTO DLC DEFS */
 
+// Message period definitions
+/* BEGIN AUTO PERIOD DEFS */
+/* END AUTO PERIOD DEFS */
+
+// Signal scale definitions
+/* BEGIN AUTO SCALE DEFS */
+/* END AUTO SCALE DEFS */
+
 // Message sending macros
 /* BEGIN AUTO SEND MACROS */
 /* END AUTO SEND MACROS */

@@ -31,6 +31,14 @@
 /* BEGIN AUTO DLC DEFS */
 /* END AUTO DLC DEFS */
 
+// Message period definitions
+/* BEGIN AUTO PERIOD DEFS */
+/* END AUTO PERIOD DEFS */
+
+// Signal scale definitions
+/* BEGIN AUTO SCALE DEFS */
+/* END AUTO SCALE DEFS */
+
 // Used to represent a float as 32 bits
 typedef union {
     float f;

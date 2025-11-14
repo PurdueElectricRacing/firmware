@@ -174,7 +174,7 @@ int main(void) {
     taskCreate(monitorStatus, 50);
     taskCreate(orionChargePeriodic, 50);
     taskCreate(heartBeatTask, 100);
-    taskCreate(sendVersion, 5000);
+    taskCreate(sendVersion, PERIOD_MILLISECONDS_DASH_VERSION);
 
     taskCreate(sendhbmsg, 500);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);

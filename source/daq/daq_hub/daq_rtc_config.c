@@ -17,26 +17,30 @@ void rtc_check_periodic (void) {
     CanParsedData_t msg_data_a;
     uint32_t consecutive_items;
     
-    switch(dh.rtc_config_state) {
+    switch(daq_hub.rtc_config_state) {
         case RTC_CONFIG_STATE_IDLE:
             bActivateTail(&b_rx_can, RX_TAIL_CAN_RX);
-            dh.rtc_config_state = RTC_CONFIG_STATE_PENDING;
+            daq_hub.rtc_config_state = RTC_CONFIG_STATE_PENDING;
         case RTC_CONFIG_STATE_PENDING:
             if (!bGetItemCount(&b_rx_can, RX_TAIL_CAN_RX)) break;
             if (bGetTailForRead(&b_rx_can, RX_TAIL_CAN_RX, (void**)&buf, &consecutive_items)) {
-                dh.can1_rx_overflow++;
+                daq_hub.can1_rx_overflow++;
                 break;
             }
-            if (!(buf->msg_id == ID_GPS_TIME)) {
-                bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
-                break;
+            for (int i = 0; i < consecutive_items; i++) {
+                if (buf[i].msg_id == ID_GPS_TIME) {
+                    parse_gps_time(&buf[i], &msg_data_a);
+                    GPS_time_to_BCD_RTC(&gps_rtc_time, msg_data_a);
+                    if (PHAL_configureRTC(&gps_rtc_time, true)) {
+                        // Successful reintialization 
+                        daq_hub.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
+                    } else {
+                        HardFault_Handler();
+                    }
+                    break;
+                }
             }
-            parse_gps_time(buf, &msg_data_a);
-            GPS_time_to_BCD_RTC(&gps_rtc_time, msg_data_a);
-            if (!PHAL_configureRTC(&gps_rtc_time, true)) {
-                    // Successful reintialization 
-                    dh.rtc_config_state = RTC_CONFIG_STATE_COMPLETE;
-            }
+            bCommitRead(&b_rx_can, RX_TAIL_CAN_RX, consecutive_items);
             break;
         case RTC_CONFIG_STATE_COMPLETE:
             osThreadExit();

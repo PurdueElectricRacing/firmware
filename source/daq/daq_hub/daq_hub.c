@@ -42,7 +42,7 @@ defineThreadStack(rtc_check_periodic, 100, osPriorityLow, 128); // RTC Re-initia
 
 void daq_hub_init(void) {
     // RTC Config 
-    dh.rtc_config_state    = RTC_CONFIG_STATE_IDLE;
+    daq_hub.rtc_config_state    = RTC_CONFIG_STATE_IDLE;
 
     // Ethernet
     daq_hub.eth_state           = ETH_LINK_IDLE;

@@ -176,7 +176,7 @@ int main(void) {
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-
+    taskCreate(sendVersion, 5000);
     taskCreate(heartBeatLED, 500);
     taskCreate(parseIMU, 20);
     taskCreate(VCU_MAIN, 20);
@@ -301,6 +301,12 @@ void preflightChecks(void) {
             }
             break;
     }
+}
+
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_TV_VERSION(git_hash_num);
 }
 
 void preflightAnimation(void) {

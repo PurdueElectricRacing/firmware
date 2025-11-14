@@ -137,6 +137,7 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame);
 void shutdown(void);
 
 int main() {
+	
     osKernelInitialize();
 
     bConstruct(&b_rx_can, sizeof(*can_rx_buffer), sizeof(can_rx_buffer));
@@ -179,6 +180,7 @@ int main() {
 
     osKernelStart();
 
+	taskCreate(sendVersion, PERIOD_MILLISECONDS_DAQ_VERSION);
     return 0;
 }
 
@@ -368,6 +370,11 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame) {
     }
 
     return true;
+}
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_DAQ_VERSION(git_hash_num);
 }
 
 /**

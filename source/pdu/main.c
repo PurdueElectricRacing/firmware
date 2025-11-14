@@ -208,6 +208,7 @@ int main() {
     taskCreate(checkSwitchFaults, 100);
     taskCreate(send_flowrates, 200);
     schedStart();
+    taskCreate(sendVersion, 5000);
     return 0;
 }
 
@@ -258,6 +259,12 @@ void preflightChecks(void) {
             state = 255; // prevent wrap around
             break;
     }
+}
+
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_PDU_VERSION(git_hash_num);
 }
 
 void preflightAnimation(void) {

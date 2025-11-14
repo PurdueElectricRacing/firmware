@@ -174,6 +174,8 @@ int main(void) {
     taskCreate(monitorStatus, 50);
     taskCreate(orionChargePeriodic, 50);
     taskCreate(heartBeatTask, 100);
+    taskCreate(sendVersion, PERIOD_MILLISECONDS_ABOX_VERSION);
+
     taskCreate(sendhbmsg, 500);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(readCurrents, 50);
@@ -218,6 +220,12 @@ void preflightChecks(void) {
             }
             break;
     }
+}
+
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_ABOX_VERSION(git_hash_num);
 }
 
 void sendhbmsg() {

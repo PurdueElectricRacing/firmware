@@ -424,7 +424,6 @@ void send_shockpots() {
     uint16_t shock_r = adc_readings.shock_r;
 
     // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
-    // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
     float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
     float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
     

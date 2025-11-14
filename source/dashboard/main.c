@@ -203,7 +203,7 @@ int main(void) {
     taskCreate(handleDashboardInputs, 50);
     taskCreate(heartBeatTask, 100);
     taskCreate(sendShockpots, 15);
-    taskCreate(sendVersion, 5000);
+    taskCreate(sendVersion, PERIOD_MILLISECONDS_DASH_VERSION);
     // taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);

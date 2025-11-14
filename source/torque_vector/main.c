@@ -180,7 +180,7 @@ int main(void) {
 
     taskCreateBackground(canTxUpdate);
     taskCreateBackground(canRxUpdate);
-    taskCreate(sendVersion, 5000);
+    taskCreate(sendVersion, PERIOD_MILLISECONDS_TV_VERSION);
     taskCreate(heartBeatLED, 500);
     taskCreate(heartBeatTask, 100);
     taskCreate(parseIMU, 20);

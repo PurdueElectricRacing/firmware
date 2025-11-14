@@ -194,8 +194,7 @@ int main(void) {
     taskCreate(update_lights, 500);
     taskCreate(parseMCDataPeriodic, 15);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
-    taskCreate(sendVersion, 5000);
-
+    taskCreate(sendVersion, PERIOD_MILLISECONDS_MAIN_VERSION);
 
     /* Background Tasks */
     taskCreateBackground(canTxUpdate);

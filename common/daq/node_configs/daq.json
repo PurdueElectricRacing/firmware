@@ -84,6 +84,12 @@
               "callback": true,
               "msg_priority": 3,
               "msg_period": 0
+            },
+            {
+              "msg_name": "gps_time",
+              "callback": true,
+              "msg_priority": 3,
+              "msg_period": 40
             }
           ]
         }

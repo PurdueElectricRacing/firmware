@@ -21,6 +21,7 @@
 #include "common/freertos/freertos.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "daq_rtc_config.h"
 #include "ff.h"
 #include "sdio.h"
 
@@ -38,6 +39,9 @@ typedef struct __attribute__((packed)) {
 
 typedef struct
 {
+    // RTC Config 
+    rtc_config_state_t rtc_config_state;
+
     // Ethernet
     eth_state_t eth_state;
     eth_tcp_state_t eth_tcp_state;
@@ -50,6 +54,7 @@ typedef struct
     sd_state_t sd_state;
     FATFS fat_fs;
     uint32_t sd_error_ct;
+
     sd_error_t sd_last_err;
     FRESULT sd_last_err_res;
     uint32_t sd_last_error_time;
@@ -75,5 +80,6 @@ void daq_hub_init(void);
 void daq_create_threads(void);
 void uds_receive_periodic(void);
 void daq_shutdown_hook(void);
+void rtc_check_periodic(void);
 
 #endif // _DAQ_HUB_H_

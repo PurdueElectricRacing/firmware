@@ -410,15 +410,27 @@ void parseMCDataPeriodic(void) {
     SEND_REAR_WHEEL_SPEEDS(wheel_speeds.left_rad_s_x100, wheel_speeds.right_rad_s_x100);
 }
 
+/**
+ * @brief Processes and sends shock potentiometer readings
+ *
+ * Converts raw ADC values from left and right shock potentiometers into parsed displacement values
+ * and sends them through CAN bus. Values are scaled linearly and adjusted for droop.
+ */
+int16_t shock_l_scaled;
+int16_t shock_r_scaled;
+
 void send_shockpots() {
     uint16_t shock_l = adc_readings.shock_l;
     uint16_t shock_r = adc_readings.shock_r;
-    int16_t shock_l_parsed;
-    int16_t shock_r_parsed;
+
     // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
-    shock_l_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
-    shock_r_parsed = -1 * ((POT_MAX_DIST - (int16_t)((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
-    SEND_SHOCK_REAR(shock_l_parsed, shock_r_parsed);
+    // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
+    float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
+    float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
+    
+    shock_l_scaled = (int16_t)(shock_l_parsed * SCALE_INV_SHOCK_REAR_LEFT_SHOCK);
+    shock_r_scaled = (int16_t)(shock_r_parsed * SCALE_INV_SHOCK_REAR_RIGHT_SHOCK);
+    SEND_SHOCK_REAR(shock_l_scaled, shock_r_scaled);
 }
 
 /**

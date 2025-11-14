@@ -237,11 +237,17 @@ def configure_node(node_config, node_paths):
                 continue
             
             # float32 only has about 7 sigfigs of precision, use .6g
-            scale_str = f"{float(scale):.6g}f"
-            unscale_str = f"{float(1.0/scale):.6g}f"
+            scale_val = float(scale)
+            unscale_val = float(1.0/scale)
             
-            scale_lines.append(f"#define SCALE_FACTOR_{msg['msg_name'].upper()}_{sig['sig_name'].upper()} ({scale_str})\n")
-            scale_lines.append(f"#define UNSCALE_FACTOR_{msg['msg_name'].upper()}_{sig['sig_name'].upper()} ({unscale_str})\n")
+            # enforce at least one 1 decimal point
+            scale_fmt = f"{scale_val:.6g}"
+            scale_str = f"{scale_fmt}f" if '.' in scale_fmt or 'e' in scale_fmt else f"{scale_val:.1f}f"
+            unscale_fmt = f"{unscale_val:.6g}"
+            unscale_str = f"{unscale_fmt}f" if '.' in unscale_fmt or 'e' in unscale_fmt else f"{unscale_val:.1f}f"
+            
+            scale_lines.append(f"#define SCALE_{msg['msg_name'].upper()}_{sig['sig_name'].upper()} ({scale_str})\n")
+            scale_lines.append(f"#define SCALE_INV_{msg['msg_name'].upper()}_{sig['sig_name'].upper()} ({unscale_str})\n")
     h_lines = generator.insert_lines(h_lines, gen_scale_start, gen_scale_stop, scale_lines)
 
     # Send Macros, requires knowledge of CAN peripheral

@@ -208,7 +208,7 @@ int main() {
     taskCreate(checkSwitchFaults, 100);
     taskCreate(send_flowrates, 200);
     schedStart();
-    taskCreate(sendVersion, 5000);
+    taskCreate(sendVersion, PERIOD_MILLISECONDS_PDU_VERSION);
     return 0;
 }
 

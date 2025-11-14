@@ -144,12 +144,14 @@
                   "sig_name": "left_shock",
                   "sig_desc": "Left Shockpot Travel",
                   "type": "int16_t",
+                  "scale": 0.1,
                   "unit": "mm"
                 },
                 {
                   "sig_name": "right_shock",
                   "sig_desc": "Right Shockpot Travel",
                   "type": "int16_t",
+                  "scale": 0.1,
                   "unit": "mm"
                 }
               ],

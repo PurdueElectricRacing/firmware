@@ -225,7 +225,7 @@ def configure_node(node_config, node_paths):
     period_lines = []
     for msg in raw_msg_defs:
         if msg['msg_period'] > 0: # skip undefined signal periods
-            period_lines.append(f"#define PERIOD_MILLISECONDS_{msg['msg_name'].upper()} ({msg['msg_period']})\n")
+            period_lines.append(f"#define PERIOD_{msg['msg_name'].upper()}_MS ({msg['msg_period']})\n")
     h_lines = generator.insert_lines(h_lines, gen_period_start, gen_period_stop, period_lines)
 
     # Signal Scales

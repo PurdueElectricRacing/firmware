@@ -180,7 +180,7 @@ int main() {
 
     osKernelStart();
 
-	taskCreate(sendVersion, 5000);
+	taskCreate(sendVersion, PERIOD_MILLISECONDS_DAQ_VERSION);
     return 0;
 }
 

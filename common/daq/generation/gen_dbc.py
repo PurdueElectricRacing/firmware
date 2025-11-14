@@ -31,6 +31,7 @@ def gen_dbc(can_config, dbc_path):
                                           maximum=None if 'maximum' not in sig else sig['maximum'],
                                           unit="" if 'unit' not in sig else sig['unit'],
                                           comment="" if 'sig_desc' not in sig else sig['sig_desc'],
+                                          scale=1.0 if 'scale' not in sig else sig['scale'],
                                           is_multiplexer=False))
                     curr_sig_pos += sig['length']
                 messages[msg['msg_name']] = db.Message(frame_id=msg['id'],

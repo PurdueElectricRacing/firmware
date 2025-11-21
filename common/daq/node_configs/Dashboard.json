@@ -58,12 +58,14 @@
                   "sig_name": "left_shock",
                   "sig_desc": "Travel distance of front left shockpot",
                   "type": "int16_t",
+                  "scale": 0.1,
                   "unit": "mm"
                 },
                 {
                   "sig_name": "right_shock",
                   "sig_desc": "Travel distance of front right shockpot",
                   "type": "int16_t",
+                  "scale": 0.1,
                   "unit": "mm"
                 }
               ],

@@ -249,7 +249,7 @@
                 "-d",
                 "${workspaceFolder}/source/a_box"
             ],
-            "preLaunchTask": "build_bl",
+            "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled":true,

@@ -33,6 +33,8 @@ defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
+defineThreadStack(sendVersionTask, PERIOD_MILLISECONDS_DAQ_VERSION, osPriorityLow, 128);
+
 
 //defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
 
@@ -70,6 +72,7 @@ void daq_create_threads(void) {
     createThread(sd_update_periodic); // SD WRITE
     // createThread(eth_update_periodic); // SD WRITE
     createThread(can_send_periodic); // CAN1 TX
+    createThread(sendVersionTask);
     //createThread(uds_receive_periodic); // DAQ CAN RX
 }
 
@@ -80,7 +83,21 @@ static void daq_heartbeat(void) {
         SEND_DAQ_QUEUE_STATS(dh.bcan_rx_overflow, dh.can1_rx_overflow, dh.sd_rx_overflow, dh.tcp_tx_overflow); // TODO reset & only send once?
     }
 }
+// added
+void sendVersion() {
+    char git_hash[8] = GIT_HASH;
+    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
+    SEND_DAQ_VERSION(git_hash_num);
+}
 
+void sendVersionTask(void *pvParameters)
+{
+    (void) pvParameters;
+
+    sendVersion();
+    vTaskDelay(pdMS_TO_TICKS(PERIOD_MILLISECONDS_DAQ_VERSION));
+}
+//
 static void can_send_periodic(void) {
     canTxUpdate();
 }

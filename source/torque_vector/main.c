@@ -360,7 +360,7 @@ void parseIMU(void) {
 
 void usart_recieve_complete_callback(usart_init_t *handle) {
     if (handle == &usb) {
-        asm("nop");
+        __asm__("nop");
         // memcpy(&rxmsg, rxbuffer, sizeof(rxmsg));
         // memcpy(xVCU.WT_RAW, rxmsg.WT_RAW, sizeof(xVCU.WT_RAW));
         // memcpy(xVCU.WM_RAW, rxmsg.WM_RAW, sizeof(xVCU.WM_RAW));

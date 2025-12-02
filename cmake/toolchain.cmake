@@ -8,20 +8,12 @@ set(CMAKE_SYSTEM_PROCESSOR ${TARGET_CPU})
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-set(TOOLCHAIN_DIR "/usr/gcc-arm-none-eabi-10-2020-q4-major/bin/")
-if (EXISTS ${TOOLCHAIN_DIR})
-
-else()
-    set(TOOLCHAIN_DIR "")
-endif()
-
 find_program(CMAKE_C_COMPILER   arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_ASM_COMPILER arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_CXX_COMPILER arm-none-eabi-g++)
 find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size)
 
-
-set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16")
+set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=c23")
 set(C_CXX_FLAGS  "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding")
 set(CXX_FLAGS    "-fno-exceptions -fno-rtti -fno-threadsafe-statics")
 

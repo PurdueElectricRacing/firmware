@@ -372,7 +372,7 @@ def merge_can_configs(configs):
 
 def load_split_nodes(directory):
     configs = []
-    for file_path in glob.glob(f"{directory}/*.json"):
+    for file_path in sorted(glob.glob(f"{directory}/*.json")):
         with open(file_path) as f:
             config = json.load(f)
             configs.append(config)

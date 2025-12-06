@@ -238,25 +238,15 @@ bool PHAL_configureHSESystemClock() {
     while (!(RCC->CR & RCC_CR_HSERDY))
         ;
 
-    // Flash latency adjustment, see ST RM 0090 Pg. 80
+    //Flash latency adjustment, see ST RM 0090 Pg. 80
     uint32_t flash_acr_temp = FLASH->ACR;
     flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
     flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
     FLASH->ACR = flash_acr_temp;
 
     __DSB(); // Wait for explicit memory accesses to finish
-    /*
-        From F4 Reference Manual 7.3.3 (RCC_CFGR)
-        SWS = System clock switch status (hardware configured)
-        SW = System clock switch (user/sw configured)
-
-        SW[1:0] = 01: HSE selected as system clock
-    */ 
-    RCC->CFGR |= (0b01 & RCC_CFGR_SW_Msk); // ! the order matters (idk why)
-    RCC->CFGR &= ~(0b10 & RCC_CFGR_SW_Msk);
-
-    // Wait until the system clock switch status register indicates that HSE is selected
-    while ((RCC->CFGR & RCC_CFGR_SWS_HSE) != RCC_CFGR_SWS_HSE) 
+    RCC->CFGR |= RCC_CFGR_SW_HSE; // Set system clock switch register to HSE
+    while ((RCC->CFGR & RCC_CFGR_SWS_HSE) != RCC_CFGR_SWS_HSE) // Wait until the system clock switch register indicates that HSE is selected
         ;
     __DSB(); // Wait for explicit memory accesses to finish
 

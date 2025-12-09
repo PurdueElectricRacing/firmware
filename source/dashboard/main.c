@@ -100,8 +100,6 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = SHOCK_POT_L_ADC_CH, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = SHOCK_POT_R_ADC_CH, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LV_3V3_V_SENSE_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
@@ -165,7 +163,6 @@ void encoderISR();
 void handleDashboardInputs();
 void sendBrakeStatus();
 void interpretLoadSensor(void);
-void sendShockpots();
 float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
@@ -200,8 +197,7 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(pedalsPeriodic, 15);
     taskCreate(handleDashboardInputs, 50);
-    taskCreate(fault_library_periodic, 100);
-    taskCreate(sendShockpots, SHOCK_FRONT_PERIOD_MS);
+    taskCreate(heartBeatTask, 100);
     taskCreate(sendVersion, 5000);
     taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
@@ -269,28 +265,6 @@ void preflightChecks(void) {
 
 void sendVersion() {
     CAN_SEND_dash_version(GIT_HASH);
-}
-
-/**
- * @brief Processes and sends shock potentiometer readings
- *
- * Converts raw ADC values from left and right shock potentiometers into parsed displacement values
- * and sends them through CAN bus. Values are scaled linearly and adjusted for droop.
- */
-int16_t shock_l_scaled;
-int16_t shock_r_scaled;
-
-void sendShockpots() {
-    uint16_t shock_l = raw_adc_values.shock_left;
-    uint16_t shock_r = raw_adc_values.shock_right;
-
-    // Will scale linearly from 0 - 3744. so 75 - (percent of 3744 * 75)
-    float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
-    float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
-    
-    shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_SHOCK_FRONT_LEFT_SHOCK);
-    shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_SHOCK_FRONT_RIGHT_SHOCK);
-    CAN_SEND_shock_front(shock_l_scaled, shock_r_scaled);
 }
 
 // jose was here

@@ -49,17 +49,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(BRK_1_GPIO_Port, BRK_1_Pin),
     GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
 
-    // Shock Pots
-    GPIO_INIT_ANALOG(SHOCK_POT_L_GPIO_Port, SHOCK_POT_L_Pin),
-    GPIO_INIT_ANALOG(SHOCK_POT_R_GPIO_Port, SHOCK_POT_R_Pin),
-
-    // Normal Force
-    // GPIO_INIT_ANALOG(LOAD_FL_GPIO_Port, LOAD_FL_Pin),
-    // GPIO_INIT_ANALOG(LOAD_FR_GPIO_Port, LOAD_FR_Pin),
-
-    // GPIO_INIT_ANALOG(BRK1_THR_GPIO_Port, BRK1_THR_Pin),
-    // GPIO_INIT_ANALOG(BRK1_THR_GPIO_Port, BRK1_THR_Pin),
-
     // LCD
     GPIO_INIT_USART1TX_PA9,
     GPIO_INIT_USART1RX_PA10,
@@ -104,10 +93,6 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = LV_3V3_V_SENSE_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = LOAD_FL_ADC_CH,         .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = LOAD_FR_ADC_CH,         .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = BRK1_THR_ADC_CHNL,      .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    // {.channel = BRK2_THR_ADC_CHNL,      .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
@@ -162,8 +147,6 @@ void enableInterrupts();
 void encoderISR();
 void handleDashboardInputs();
 void sendBrakeStatus();
-void interpretLoadSensor(void);
-float voltToForce(uint16_t load_read);
 void sendVoltageData();
 void zeroEncoder();
 void pollBrakeStatus();
@@ -199,7 +182,6 @@ int main(void) {
     taskCreate(handleDashboardInputs, 50);
     taskCreate(heartBeatTask, 100);
     taskCreate(sendVersion, 5000);
-    taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
     taskCreate(sendTVParameters, 500);
@@ -306,42 +288,6 @@ void preflightAnimation(void) {
             PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
             break;
     }
-}
-
-#define SCALE_F = (1 + (3.4 / 6.6))
-
-float voltToForce(uint16_t load_read) {
-    /*
-    //Return in newtons
-    float v_out_load_l = adc_readings.load_l / 4095 * 3.3;
-    float v_out_load_r = adc_readings.load_r / 4095 * 3.3;
-    //voltage -> weight
-    //V_out = (V_in * R_2) / (R_1 + R_2)
-    //Solve for V_in
-    //R_1 = 3.4K
-    //R_2 = 6.6K
-    float v_in_load_l = (v_out_load_l * 10) / 6.6;
-    float v_in_load_r = (v_out_load_r * 10) / 6.6;
-    //voltage * 100 = mass
-    //weight (in newtons) = mass * g
-    float force_load_l = v_in_load_l * 100 * g;
-    float force_load_r = v_in_load_r * 100 * g;
-    */
-    float g = 9.8;
-    // float val = ((load_read / 4095.0 * 3.3) * 10.0)
-    float val = ((load_read / 4095.0 * 3.3) * (1.0 + (3.4 / 6.6)));
-    // return ( val / 6.6) * 100.0 * g;
-    return val * 100.0 * g;
-}
-
-void interpretLoadSensor(void) {
-#if 0
-    float force_load_l = voltToForce(raw_adc_values.load_l);
-    float force_load_r = voltToForce(raw_adc_values.load_r);
-    //send a can message w/ minimal force info
-    //every 15 milliseconds
-    CAN_SEND_load_sensor_readings_dash(force_load_l, force_load_r);
-#endif
 }
 
 /**

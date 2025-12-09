@@ -1,0 +1,6 @@
+CompileFlags:
+  CompilationDatabase: build
+
+Index:
+  Background: Build
+  StandardLibrary: No

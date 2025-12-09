@@ -16,15 +16,6 @@
 
 //STM32F407
 
-// Shockpot Calibration
-#define POT_VOLT_MAX_L   3.0f
-#define POT_VOLT_MIN_L   4082.0f
-#define POT_VOLT_MAX_R   3.0f
-#define POT_VOLT_MIN_R   4090.0f
-#define POT_MAX_DIST     75
-#define POT_DIST_DROOP_L 56
-#define POT_DIST_DROOP_R 56
-
 // LCD Constants
 #define LCD_NUM_PAGES (9) // Number encoder selectable pages
 #define LCD_BAUD_RATE (115200)
@@ -37,14 +28,10 @@ typedef struct __attribute__((packed)) {
     uint16_t t2;
     uint16_t b1;
     uint16_t b2;
-    uint16_t shock_left;
-    uint16_t shock_right;
     uint16_t lv_5v_sense;
     uint16_t lv_3v3_sense;
     uint16_t lv_12v_sense;
     uint16_t lv_24_v_sense;
-    // uint16_t load_l;
-    // uint16_t load_r;
     // uint16_t brk1_thr;
     // uint16_t brk2_thr;
 } raw_adc_values_t;
@@ -68,23 +55,23 @@ typedef struct {
 } brake_status_t;
 
 // Status LED Indicators
-#define CONN_LED_GPIO_Port  (GPIOE)
-#define CONN_LED_Pin        (8)
+#define CONN_LED_GPIO_Port  (GPIOB)
+#define CONN_LED_Pin        (7)
 #define CONN_LED_MS_THRESH  (500)
-#define HEART_LED_GPIO_Port (GPIOE)
+#define HEART_LED_GPIO_Port (GPIOB)
 #define HEART_LED_Pin       (9)
-#define ERROR_LED_GPIO_Port (GPIOE)
-#define ERROR_LED_Pin       (7)
-#define PRCHG_LED_GPIO_Port (GPIOE)
-#define PRCHG_LED_Pin       (1)
-#define IMD_LED_GPIO_Port   (GPIOE)
-#define IMD_LED_Pin         (2)
-#define BMS_LED_GPIO_Port   (GPIOE)
-#define BMS_LED_Pin         (3)
+#define ERROR_LED_GPIO_Port (GPIOD)
+#define ERROR_LED_Pin       (2)
+#define PRCHG_LED_GPIO_Port (GPIOC)
+#define PRCHG_LED_Pin       (4)
+#define IMD_LED_GPIO_Port   (GPIOA)
+#define IMD_LED_Pin         (7)
+#define BMS_LED_GPIO_Port   (GPIOA)
+#define BMS_LED_Pin         (6)
 
 // Status Inputs
-#define START_BTN_GPIO_Port (GPIOD)
-#define START_BTN_Pin       (11)
+#define START_BTN_GPIO_Port (GPIOB)
+#define START_BTN_Pin       (14)
 
 #define BRK_STAT_TAP_GPIO_Port (GPIOA)
 #define BRK_STAT_TAP_Pin       (7)
@@ -101,19 +88,11 @@ typedef struct {
 #define DAQ_SWITCH_GPIO_Port (GPIOD)
 #define DAQ_SWITCH_Pin       (8)
 
-// Rotary Encoder
-#define ENC_A_GPIO_Port        (GPIOD)
-#define ENC_A_Pin              (10)
-#define ENC_B_GPIO_Port        (GPIOD)
-#define ENC_B_Pin              (9)
-#define ENC_NUM_STATES         (4)
-#define ENC_DEBOUNCE_PERIOD_MS (100U)
-
 // CAN
-#define VCAN_RX_GPIO_Port (GPIOD)
-#define VCAN_RX_Pin       (0)
-#define VCAN_TX_GPIO_Port (GPIOD)
-#define VCAN_TX_Pin       (1)
+#define VCAN_RX_GPIO_Port (GPIOB)
+#define VCAN_RX_Pin       (5)
+#define VCAN_TX_GPIO_Port (GPIOB)
+#define VCAN_TX_Pin       (6)
 
 // SPI Peripherals
 #define SPI2_SCK_GPIO_Port  (GPIOB)
@@ -137,12 +116,16 @@ typedef struct {
 #define THTL_2_ADC_CHNL  (3)
 
 // Aux Button inputs
-#define B_SELECT_GPIO_Port (GPIOD)
-#define B_SELECT_Pin       (12)
-#define B_DOWN_GPIO_Port   (GPIOD)
-#define B_DOWN_Pin         (13)
-#define B_UP_GPIO_Port     (GPIOD)
-#define B_UP_Pin           (14)
+#define B_UP_GPIO_Port     (GPIOC)
+#define B_UP_Pin           (6)
+#define B_DOWN_GPIO_Port   (GPIOC)
+#define B_DOWN_Pin         (7)
+#define B_RIGHT_GPIO_Port  (GPIOC)
+#define B_RIGHT_Pin        (8)
+#define B_LEFT_GPIO_Port   (GPIOC)
+#define B_LEFT_Pin         (9)
+#define B_SELECT_GPIO_Port (GPIOB)
+#define B_SELECT_Pin       (15)
 
 // Brake
 #define BRK_1_GPIO_Port     (GPIOA)
@@ -155,22 +138,6 @@ typedef struct {
 #define BRK_1_DIG_GPIO_Pin  (12)
 #define BRK_2_DIG_GPIO_Port (GPIOC)
 #define BRK_2_DIG_GPIO_Pin  (13)
-
-// Shock Pots
-#define SHOCK_POT_L_GPIO_Port (GPIOC)
-#define SHOCK_POT_L_Pin       (0)
-#define SHOCK_POT_L_ADC_CH    (10)
-#define SHOCK_POT_R_GPIO_Port (GPIOC)
-#define SHOCK_POT_R_Pin       (1)
-#define SHOCK_POT_R_ADC_CH    (11)
-
-// Normal Force
-#define LOAD_FL_GPIO_Port (GPIOB)
-#define LOAD_FL_Pin       (0)
-#define LOAD_FL_ADC_CH    (8)
-#define LOAD_FR_GPIO_Port (GPIOB)
-#define LOAD_FR_Pin       (1)
-#define LOAD_FR_ADC_CH    (9)
 
 // LCD
 #define LCD_UART              (USART1)

@@ -57,8 +57,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(B_SELECT_GPIO_Port, B_SELECT_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(ENC_A_GPIO_Port, ENC_A_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_INPUT(ENC_B_GPIO_Port, ENC_B_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(DAQ_SWITCH_GPIO_Port, DAQ_SWITCH_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     GPIO_INIT_INPUT(BRK_1_DIG_GPIO_Port, BRK_1_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
@@ -148,7 +146,6 @@ void encoderISR();
 void handleDashboardInputs();
 void sendBrakeStatus();
 void sendVoltageData();
-void zeroEncoder();
 void pollBrakeStatus();
 void sendVersion();
 extern void HardFault_Handler();
@@ -231,7 +228,6 @@ void preflightChecks(void) {
             break;
         case 4:
             // Zero Rotary Encoder
-            zeroEncoder();
             break;
         case 5:
             enableInterrupts();
@@ -342,24 +338,7 @@ void heartBeatLED() {
 }
 
 static volatile uint32_t last_input_time;
-
-void EXTI9_5_IRQHandler(void) {
-    // EXTI9 (ENCODER B) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR9) {
-        encoderISR();
-
-        EXTI->PR |= EXTI_PR_PR9; // Clear the interrupt pending bit for EXTI9
-    }
-}
-
 void EXTI15_10_IRQHandler() {
-    // EXTI10 (ENCODER A) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR10) {
-        encoderISR();
-
-        // last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR10; // Clear the interrupt pending bit for EXTI10
-    }
 
     // EXTI14 (UP Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14) {
@@ -400,68 +379,6 @@ void EXTI15_10_IRQHandler() {
         last_input_time = sched.os_ticks;
         EXTI->PR |= EXTI_PR_PR11; // Clear the interrupt pending bit for EXTI11
     }
-}
-
-/**
- * @brief Initialize encoder to zero position
- *
- * Reads initial encoder state from GPIO pins and sets position to zero.
- *
- * @note Without this function, the encoder cannot track the first direction
- */
-void zeroEncoder() {
-    // Collect initial raw reading from encoder
-    uint8_t raw_enc_a                 = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
-    uint8_t raw_enc_b                 = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
-    uint8_t raw_res                   = (raw_enc_b | (raw_enc_a << 1));
-    input_state.prev_encoder_position = raw_res;
-    input_state.encoder_position      = 0;
-}
-
-/**
- * @brief ISR for rotary encoder state changes
- *
- * Updates encoder position based on Gray code transitions:
- * - CW increments position with LCD page wrapping
- * - CCW decrements with wrapping
- *
- * @note Called on encoder pin state changes
- */
-void encoderISR() {
-    // Just give up for a bit to debounce
-    if (sched.os_ticks - input_state.debounce_ticks < ENC_DEBOUNCE_PERIOD_MS) {
-        input_state.debounce_ticks = sched.os_ticks;
-        return;
-    }
-    // [prev_state][current_state] = direction (1 = CW, -1 = CCW, 0 = no movement)
-    static const int8_t encoder_transition_table[ENC_NUM_STATES][ENC_NUM_STATES] = {
-        {0, -1, 1, 0},
-        {1, 0, 0, -1},
-        {-1, 0, 0, 1},
-        {0, 1, -1, 0}};
-
-    uint8_t raw_enc_a     = PHAL_readGPIO(ENC_A_GPIO_Port, ENC_A_Pin);
-    uint8_t raw_enc_b     = PHAL_readGPIO(ENC_B_GPIO_Port, ENC_B_Pin);
-    uint8_t current_state = (raw_enc_a | (raw_enc_b << 1)); // enc_a and enc_b are flipped to reverse direction
-
-    // Get direction from the state transition table
-    // int8_t direction = encoder_transition_table[input_state.prev_encoder_position][current_state];
-    int8_t direction = 1;
-    // if (current_state == 1 && )
-
-    if (direction != 0) {
-        input_state.encoder_position += direction;
-
-        if (input_state.encoder_position >= LCD_NUM_PAGES) {
-            input_state.encoder_position -= LCD_NUM_PAGES;
-        } else if (input_state.encoder_position < 0) { // Wrap around
-            input_state.encoder_position += LCD_NUM_PAGES;
-        }
-    }
-
-    input_state.prev_encoder_position = current_state;
-    input_state.update_page           = 1;
-    input_state.debounce_ticks        = sched.os_ticks;
 }
 
 /**
@@ -511,10 +428,6 @@ void enableInterrupts() {
     // ENC_A_FLT is on PD10 (EXTI10)
     SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI9_PD; // Map PD9 to EXTI9
     SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI10_PD; // Map PD10 to EXTI10
-
-    EXTI->IMR |= (EXTI_IMR_MR9 | EXTI_IMR_MR10); // Unmask EXTI9 and EXTI10
-    EXTI->RTSR |= (EXTI_RTSR_TR9 | EXTI_RTSR_TR10); // Enable the rising edge trigger for both ENC_B_FLT and ENC_A_FLT
-    EXTI->FTSR |= (EXTI_FTSR_TR9 | EXTI_FTSR_TR10); // Enable the falling edge trigger for both ENC_B_FLT and ENC_A_FLT
 
     // B3_FLT is on PD12 (EXTI 12)
     // B2_FLT is on PD13 (EXTI 13)

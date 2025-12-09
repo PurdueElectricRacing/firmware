@@ -7,7 +7,6 @@
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/phal/spi.h"
 #include "common/phal/usart.h"
 #include "common/psched/psched.h"
 
@@ -33,13 +32,6 @@ GPIOInitConfig_t gpio_config[] = {
     // CAN
     GPIO_INIT_CANRX_PD0,
     GPIO_INIT_CANTX_PD1,
-
-    // SPI Peripherals
-    GPIO_INIT_SPI2_SCK_PB13,
-    GPIO_INIT_SPI2_MISO_PB14,
-    GPIO_INIT_SPI2_MOSI_PB15,
-    GPIO_INIT_OUTPUT(EEPROM_nWP_GPIO_Port, EEPROM_nWP_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(EEPROM_NSS_GPIO_Port, EEPROM_NSS_Pin, GPIO_OUTPUT_LOW_SPEED),
 
     // Throttle
     GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),

@@ -94,19 +94,6 @@ typedef struct {
 #define VCAN_TX_GPIO_Port (GPIOB)
 #define VCAN_TX_Pin       (6)
 
-// SPI Peripherals
-#define SPI2_SCK_GPIO_Port  (GPIOB)
-#define SPI2_SCK_Pin        (13)
-#define SPI2_MISO_GPIO_Port (GPIOB)
-#define SPI2_MISO_Pin       (14)
-#define SPI2_MOSI_GPIO_Port (GPIOB)
-#define SPI2_MOSI_Pin       (15)
-
-#define EEPROM_nWP_GPIO_Port (GPIOB)
-#define EEPROM_nWP_Pin       (11)
-#define EEPROM_NSS_GPIO_Port (GPIOB)
-#define EEPROM_NSS_Pin       (12)
-
 // Throttle
 #define THTL_1_GPIO_Port (GPIOA)
 #define THTL_1_Pin       (2)

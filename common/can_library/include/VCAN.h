@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <stdbool.h>
 
 #define VCAN_BAUD_RATE (500000)
 
@@ -16,10 +15,3 @@ typedef struct {
 
 #define IMU_ACCEL_MSG_ID (0x03D)
 // others...
-
-typedef struct {
-    uint8_t bus;
-    bool is_extended_id;
-    uint32_t unmasked_id;
-    uint64_t data_BE;
-} can_msg_t;

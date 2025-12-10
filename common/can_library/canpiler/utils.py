@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 SCHEMA_DIR = BASE_DIR / 'schema'
 CONFIG_DIR = BASE_DIR / 'configs'
 NODE_CONFIG_DIR = CONFIG_DIR / 'nodes'
